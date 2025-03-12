@@ -1,4 +1,4 @@
-import type { ImageMetadata } from 'astro';
+import type { Component } from 'vue';
 
 export interface FooterLink {
     key: string;
@@ -16,8 +16,8 @@ export interface SocialLink {
     name: string;
     url: string;
     icon: {
-        type: 'svg' | 'image' | 'component' | 'astro-image';
-        content: string | ImageMetadata;
+        type: 'svg' | 'image' | 'component';
+        content: string;
     };
 }
 
@@ -34,5 +34,29 @@ export interface FooterConfig {
 }
 
 export interface FooterProps {
-    config: FooterConfig;
+    config: {
+        homeLink: string;
+        siteName: string;
+        slogan: string;
+        socialLinks: Array<{
+            name: string;
+            url: string;
+            icon: {
+                type: 'svg' | 'image' | 'component';
+                content: string | Component;
+            };
+        }>;
+        navGroups: Array<{
+            titleKey: string;
+            links: Array<{
+                href: string;
+                text: string;
+                external?: boolean;
+            }>;
+        }>;
+        inspirationalSlogan: string;
+        company: string;
+        copyright: string;
+        icp?: string;
+    };
 } 
