@@ -1,0 +1,44 @@
+{
+    "name": "@coffic/shared-ui",
+    "version": "0.1.0",
+    "private": false,
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "scripts": {
+        "dev": "astro dev",
+        "build": "astro build",
+        "build:types": "tsc --project tsconfig.json --emitDeclarationOnly --outDir dist",
+        "build:demo": "astro build --outDir dist-demo",
+        "prepare": "npm run build && npm run build:types",
+        "prepublishOnly": "npm run build && npm run build:types"
+    },
+    "peerDependencies": {
+        "astro": "^5.0.0",
+        "vue": "^3.0.0"
+    },
+    "devDependencies": {
+        "@astrojs/tailwind": "^5.1.5",
+        "@astrojs/vue": "^5.0.7",
+        "@remixicon/vue": "^4.6.0",
+        "@types/node": "^20.0.0",
+        "astro": "^5.4.1",
+        "daisyui": "^5.0.3",
+        "tailwindcss": "^3.4.17",
+        "typescript": "^5.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}

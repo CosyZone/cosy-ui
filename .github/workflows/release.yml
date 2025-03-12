@@ -1,0 +1,135 @@
+---
+name: 🎉 Release
+
+on:
+  push:
+    branches: [main]
+    tags:
+      - '*'
+
+permissions:
+  contents: write
+
+env:
+  tag: ${{ github.event.head_commit.id }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install pnpm
+        run: npm i -g pnpm
+      - name: Install Dependencies
+        run: pnpm i
+      - name: Build Package
+        run: |
+          npm run build
+          npm run build:types
+      - name: Build Demo
+        run: |
+          npm run build:demo
+          cd dist-demo && zip -r ../demo-site.zip .
+      - name: Upload Dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 1
+      - name: Upload Demo
+        uses: actions/upload-artifact@v4
+        with:
+          name: demo-site
+          path: demo-site.zip
+          retention-days: 1
+
+  tag:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate Tag
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          npm version patch -m "📦 Release: v%s"
+          git push origin main --tags
+      - name: Read Version
+        run: |
+          version=$(node -p "require('./package.json').version")
+          echo $version
+          echo "${version}" >> version.txt
+      - name: Upload Version
+        uses: actions/upload-artifact@v4
+        with:
+          name: version
+          path: version.txt
+          retention-days: 1
+
+  rebase_dev:
+    needs:
+      - tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Configure Git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+      - name: Rebase dev on main
+        run: |
+          git fetch origin dev:refs/remotes/origin/dev
+          git checkout -b dev origin/dev
+          git rebase origin/main
+      - name: Push the rebased dev branch
+        run: git push origin dev:dev --force
+
+  release:
+    needs: [tag]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download Version
+        uses: actions/download-artifact@v4
+        with:
+          name: version
+          path: temp
+      - name: Download Demo
+        uses: actions/download-artifact@v4
+        with:
+          name: demo-site
+          path: .
+      - name: Create Release
+        run: |
+          version=$(cat temp/version.txt)
+          echo "tag=v$version" >> $GITHUB_ENV
+      - uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.tag }}
+          files: demo-site.zip
+          generate_release_notes: true
+
+  clear:
+    needs: [release]
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Clean Artifacts
+        uses: geekyeggo/delete-artifact@v4
+        with:
+          token: ${{ github.token }}
+          name: |
+            dist
+            version
+            demo-site
