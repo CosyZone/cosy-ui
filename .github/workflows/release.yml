@@ -30,22 +30,11 @@ jobs:
       - name: Build Package
         run: |
           npm run build
-          npm run build:types
-      - name: Build Demo
-        run: |
-          npm run build:demo
-          cd dist-demo && zip -r ../demo-site.zip .
       - name: Upload Dist
         uses: actions/upload-artifact@v4
         with:
           name: dist
           path: dist
-          retention-days: 1
-      - name: Upload Demo
-        uses: actions/upload-artifact@v4
-        with:
-          name: demo-site
-          path: demo-site.zip
           retention-days: 1
 
   tag:
@@ -83,11 +72,6 @@ jobs:
         with:
           name: version
           path: temp
-      - name: Download Demo
-        uses: actions/download-artifact@v4
-        with:
-          name: demo-site
-          path: .
       - name: Create Release
         run: |
           version=$(cat temp/version.txt)
@@ -95,7 +79,7 @@ jobs:
       - uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ env.tag }}
-          files: demo-site.zip
+          files: dist
           generate_release_notes: true
 
   clear:
@@ -111,4 +95,3 @@ jobs:
           name: |
             dist
             version
-            demo-site
