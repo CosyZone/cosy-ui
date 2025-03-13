@@ -50,18 +50,19 @@ npm install -D daisyui
 
 ```javascript
 export default {
-  plugins: [require("daisyui")],
-}
+  plugins: [require('daisyui')],
+};
 ```
 
 ## 内置组件
 
 - Footer
-- 更多组件可通过IDE的智能提示看到
+- 更多组件可通过 IDE 的智能提示看到
 
 ## 注意事项
 
 1. 本组件库使用 TailwindCSS 和 DaisyUI 的样式类，这意味着：
+
    - 组件的样式会受到您项目中 Tailwind 配置的影响
    - 如果您修改了 Tailwind 的默认主题或 DaisyUI 的主题，可能会影响组件的外观
 
