@@ -4,3 +4,4 @@ export { default as Banner } from './src/components/Banner.astro';
 export { default as Link } from './src/components/Link.astro';
 export { default as SocialIcon } from './src/components/SocialIcon.astro';
 export { default as Component } from './src/components/Component.astro';
+export { default as ThemeItem } from './src/components/ThemeItem.astro';

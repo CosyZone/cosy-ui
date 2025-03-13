@@ -1,0 +1,14 @@
+---
+interface Props {
+  theme: string;
+  label: string;
+}
+
+const { theme, label } = Astro.props;
+---
+
+<button
+  class="btn btn-sm w-full text-left justify-start"
+  data-set-theme={theme}>
+  {label}
+</button> 
