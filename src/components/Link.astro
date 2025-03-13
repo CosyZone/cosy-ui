@@ -10,8 +10,7 @@ const { href, external = false, class: className = '' } = Astro.props;
 
 <a
 	href={href}
-	class={`link link-hover ${className}`}
-	{...external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
->
+	class={`link link-hover ${className} no-underline hover:no-underline`}
+	{...external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}>
 	<slot />
 </a>

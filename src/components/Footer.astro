@@ -1,8 +1,8 @@
 ---
 import { processSocialLink } from '../utils/social';
-import Link from './common/Link.astro';
-import Banner from './common/Banner.astro';
-import SocialIcon from './icons/SocialIcon.astro';
+import Link from './Link.astro';
+import Banner from './Banner.astro';
+import SocialIcon from './SocialIcon.astro';
 
 const {
 	siteName,
@@ -13,7 +13,11 @@ const {
 	inspirationalSlogan,
 	icp,
 	logo,
-	navGroups = [],
+	products = [],
+	aboutLink,
+	contactLink,
+	termsLink,
+	privacyLink,
 	socialLinks = [],
 } = Astro.props;
 
@@ -24,17 +28,16 @@ const processedSocialLinks = socialLinks.map((link) => processSocialLink(link));
 ---
 
 <footer class="bg-green-200/50 dark:bg-base-300/50 z-50 backdrop-blur-md">
-	<h1 class="bg-red-400 text-xl">Hello</h1>
 	<div class="footer sm:footer-horizontal p-10 text-base-content">
 		<aside class="flex flex-col items-center sm:items-start gap-2 place-self-center">
 			<Link href={homeLink}>
-				<div class="flex items-center gap-2">
+				<div class="flex items-center gap-2 rounded-2xl">
 					{
 						logo && (
 							<img
 								src={logo.src}
 								alt={logo.alt}
-								class="h-8 w-8 fill-current"
+								class="h-6 w-6 fill-current rounded-2xl"
 								width="32"
 								height="32"
 							/>
@@ -43,9 +46,9 @@ const processedSocialLinks = socialLinks.map((link) => processSocialLink(link));
 					<span class="text-xl font-bold">{siteName}</span>
 				</div>
 			</Link>
-			<p class="text-sm opacity-70">{slogan}</p>
+			<p class="text-sm opacity-70 self-center">{slogan}</p>
 
-			<div class="flex gap-4 mt-4 sm:mt-0 bg-red-400">
+			<div class="flex gap-4 mt-4 sm:mt-0">
 				{
 					processedSocialLinks.map((link) => (
 						<a
@@ -54,7 +57,7 @@ const processedSocialLinks = socialLinks.map((link) => processSocialLink(link));
 							rel="noopener noreferrer"
 							class="btn btn-ghost btn-sm p-1 hover:text-primary"
 							title={link.name}>
-							<SocialIcon platform={link.platform} class="h-4 w-4 bg-red-400" />
+							<SocialIcon platform={link.platform} />
 							<span class="sr-only">{link.name}</span>
 						</a>
 					))
@@ -63,24 +66,48 @@ const processedSocialLinks = socialLinks.map((link) => processSocialLink(link));
 		</aside>
 
 		{
-			navGroups.map((group) => (
-				<nav class="place-self-center text-center flex flex-col items-center">
-					<h6 class="footer-title">{group.titleKey}</h6>
-					{group.links.map((link) => (
-						<Link href={link.href} external={link.external}>
-							{link.text}
-						</Link>
-					))}
+			products.length > 0 && (
+				<nav class="place-self-center text-center flex flex-col items-center min-h-[200px]">
+					<h6 class="footer-title">产品</h6>
+					<div class="flex flex-col gap-2">
+						{products.map((product) => (
+							<Link href={product.href} external={product.external}>
+								{product.name}
+							</Link>
+						))}
+					</div>
 				</nav>
-			))
+			)
+		}
+
+		{
+			(aboutLink || contactLink) && (
+				<nav class="place-self-center text-center flex flex-col items-center min-h-[200px]">
+					<h6 class="footer-title">关于</h6>
+					<div class="flex flex-col gap-2">
+						{aboutLink && <Link href={aboutLink}>关于我们</Link>}
+						{contactLink && <Link href={contactLink}>联系我们</Link>}
+					</div>
+				</nav>
+			)
+		}
+
+		{
+			(termsLink || privacyLink) && (
+				<nav class="place-self-center text-center flex flex-col items-center min-h-[200px]">
+					<h6 class="footer-title">法律</h6>
+					<div class="flex flex-col gap-2">
+						{termsLink && <Link href={termsLink}>服务条款</Link>}
+						{privacyLink && <Link href={privacyLink}>隐私政策</Link>}
+					</div>
+				</nav>
+			)
 		}
 	</div>
 
 	<Banner>
 		{inspirationalSlogan}
 	</Banner>
-
-	<div class="divider mt-8"></div>
 
 	<div class="flex flex-col sm:flex-col justify-center items-center p-4 text-sm opacity-70">
 		<div class="flex items-center gap-2">

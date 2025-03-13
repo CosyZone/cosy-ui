@@ -54,6 +54,12 @@ export default {
 };
 ```
 
+### 4. CSS
+
+```css
+@source '../node_modules/@coffic/shared-ui';
+```
+
 ## 内置组件
 
 - Footer
