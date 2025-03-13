@@ -1,161 +1,76 @@
-# @coffic/shared-ui
+# Coffic Shared UI
 
-🎨 Coffic 组织的共享 UI 组件库，基于 Vue 3 和 TailwindCSS 构建，提供了一系列可复用的组件。
+这是一个 Astro 组件库，为同一个组织下的多个项目提供统一的 UI 风格。
 
-## ✨ 特性
-
-- 🎯 基于 Vue 3 构建
-- 🎨 完整的 TypeScript 支持
-- 🌗 内置暗色模式支持
-- 📦 支持 ESM 和 CommonJS 模块格式
-- 🔌 易于集成
-- 🎨 使用 TailwindCSS 进行样式管理
-
-## 📦 安装
+## 安装
 
 ```bash
-# npm
 npm install @coffic/shared-ui
-
-# pnpm
-pnpm add @coffic/shared-ui
-
-# yarn
-yarn add @coffic/shared-ui
 ```
 
-## 🚀 快速开始
+## 必要依赖
 
-1. 导入样式和组件：
+本组件库依赖以下包，请确保您的项目中已正确安装和配置：
 
-```vue
-<script setup lang="ts">
-  import { Footer } from '@coffic/shared-ui';
-  import '@coffic/shared-ui/style.css';
-  import { RiGithubFill } from '@remixicon/vue';
+### 1. Astro
 
-  const footerConfig = {
-    homeLink: '/',
-    siteName: 'Your Site',
-    slogan: 'Your Slogan',
-    socialLinks: [
-      {
-        name: 'GitHub',
-        url: 'https://github.com/your-org',
-        icon: {
-          type: 'component',
-          content: RiGithubFill,
-        },
-      },
-    ],
-    navGroups: [
-      {
-        titleKey: 'Products',
-        links: [
-          {
-            href: '/products',
-            text: 'All Products',
-            external: false,
-          },
-        ],
-      },
-    ],
-    inspirationalSlogan: 'Building the future together',
-    company: 'Your Company',
-    copyright: 'All rights reserved',
-  };
-</script>
-
-<template>
-  <Footer :config="footerConfig" />
-</template>
-```
-
-## 🎨 主题定制
-
-组件库使用 TailwindCSS 进行样式管理，支持通过 CSS 变量进行主题定制：
-
-```css
-:root {
-  --shared-ui-primary-color: #4a90e2;
-  --shared-ui-secondary-color: #f5f5f5;
-  --shared-ui-background-color: #ffffff;
-  --shared-ui-text-color: #333333;
-}
-
-/* 暗色主题 */
-[data-theme='dark'] {
-  --shared-ui-background-color: #1a1a1a;
-  --shared-ui-text-color: #ffffff;
-  --shared-ui-primary-color: #60a5fa;
-  --shared-ui-secondary-color: #374151;
-}
-```
-
-## 📝 组件文档
-
-### Footer
-
-页脚组件，支持自定义导航链接和社交媒体图标。
-
-#### Props
-
-```typescript
-interface FooterProps {
-  config: {
-    homeLink: string; // 首页链接
-    siteName: string; // 站点名称
-    slogan: string; // 站点标语
-    socialLinks: Array<{
-      // 社交媒体链接
-      name: string;
-      url: string;
-      icon: {
-        type: 'svg' | 'image' | 'component';
-        content: string | Component;
-      };
-    }>;
-    navGroups: Array<{
-      // 导航组
-      titleKey: string;
-      links: Array<{
-        href: string;
-        text: string;
-        external?: boolean;
-      }>;
-    }>;
-    inspirationalSlogan: string; // 鼓励性标语
-    company: string; // 公司名称
-    copyright: string; // 版权信息
-    icp?: string; // ICP 备案号（可选）
-  };
-}
-```
-
-## 🛠️ 开发
+确保您的项目是一个 Astro 项目。如果不是，可以按照以下步骤创建：
 
 ```bash
-# 安装依赖
-pnpm install
-
-# 开发模式
-pnpm dev
-
-# 构建
-pnpm build
-
-# 运行测试
-pnpm test
+npm create astro@latest
 ```
 
-## 🤝 贡献指南
+### 2. TailwindCSS
 
-1. Fork 本仓库
-2. 创建你的特性分支 (`git checkout -b feature/amazing-feature`)
-3. 提交你的改动 (`git commit -m 'Add some amazing feature'`)
-4. 推送到分支 (`git push origin feature/amazing-feature`)
-5. 开启一个 Pull Request
+如果您的项目还没有配置 TailwindCSS，请按照以下步骤安装：
 
-## 📄 许可证
+```bash
+npm install -D tailwindcss @astrojs/tailwind
+```
 
-[MIT License](LICENSE)
+然后在您的 `astro.config.mjs` 中添加：
+
+```javascript
+import tailwind from '@astrojs/tailwind';
+
+export default defineConfig({
+  integrations: [tailwind()],
+});
+```
+
+### 3. DaisyUI
+
+安装 DaisyUI：
+
+```bash
+npm install -D daisyui
+```
+
+在您的 `tailwind.config.js` 中添加 DaisyUI：
+
+```javascript
+export default {
+  plugins: [require("daisyui")],
+}
+```
+
+## 内置组件
+
+- Footer
+- 更多组件可通过IDE的智能提示看到
+
+## 注意事项
+
+1. 本组件库使用 TailwindCSS 和 DaisyUI 的样式类，这意味着：
+   - 组件的样式会受到您项目中 Tailwind 配置的影响
+   - 如果您修改了 Tailwind 的默认主题或 DaisyUI 的主题，可能会影响组件的外观
+
+2. 建议在您的项目中保持默认的 Tailwind 和 DaisyUI 配置，以确保组件显示正常
+
+## 贡献
+
+欢迎提交 Issue 和 Pull Request！
+
+## 许可证
+
+MIT

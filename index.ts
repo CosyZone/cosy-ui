@@ -1,7 +1,5 @@
 // @ts-expect-error
-export { Footer } from './src/components/Footer.astro';
+export { default as Footer } from './src/components/Footer.astro';
 
 // @ts-expect-error
-export { Component } from './src/components/Component.astro';
-
-export type { FooterProps } from './src/main';
+export { default as Component } from './src/components/Component.astro';
