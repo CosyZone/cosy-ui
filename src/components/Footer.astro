@@ -5,89 +5,97 @@ import Banner from './common/Banner.astro';
 import SocialIcon from './icons/SocialIcon.astro';
 
 const {
-    siteName,
-    homeLink,
-    slogan,
-    company,
-    copyright,
-    inspirationalSlogan,
-    icp,
-    logo,
-    navGroups = [],
-    socialLinks = []
+	siteName,
+	homeLink,
+	slogan,
+	company,
+	copyright,
+	inspirationalSlogan,
+	icp,
+	logo,
+	navGroups = [],
+	socialLinks = [],
 } = Astro.props;
 
 const currentYear = new Date().getFullYear();
 
 // 处理社交链接
-const processedSocialLinks = socialLinks.map(link => processSocialLink(link));
+const processedSocialLinks = socialLinks.map((link) => processSocialLink(link));
 ---
 
 <footer class="bg-base-200/50 dark:bg-base-300/50 z-50 backdrop-blur-md">
-    <div class="footer sm:footer-horizontal p-10 text-base-content">
-        <aside class="flex flex-col items-center sm:items-start gap-2 place-self-center">
-            <Link href={homeLink}>
-                <div class="flex items-center gap-2">
-                    {logo && (
-                        <img
-                            src={logo.src}
-                            alt={logo.alt}
-                            class="h-8 w-8 fill-current"
-                            width="32"
-                            height="32"
-                        />
-                    )}
-                    <span class="text-xl font-bold">{siteName}</span>
-                </div>
-            </Link>
-            <p class="text-sm opacity-70">{slogan}</p>
+	<div class="footer sm:footer-horizontal p-10 text-base-content">
+		<aside class="flex flex-col items-center sm:items-start gap-2 place-self-center">
+			<Link href={homeLink}>
+				<div class="flex items-center gap-2">
+					{
+						logo && (
+							<img
+								src={logo.src}
+								alt={logo.alt}
+								class="h-8 w-8 fill-current"
+								width="32"
+								height="32"
+							/>
+						)
+					}
+					<span class="text-xl font-bold">{siteName}</span>
+				</div>
+			</Link>
+			<p class="text-sm opacity-70">{slogan}</p>
 
-            <div class="flex gap-4 mt-4 sm:mt-0">
-                {processedSocialLinks.map((link) => (
-                    <a
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="btn btn-ghost btn-sm p-1 hover:text-primary"
-                        title={link.name}
-                    >
-                        <SocialIcon platform={link.platform} />
-                        <span class="sr-only">{link.name}</span>
-                    </a>
-                ))}
-            </div>
-        </aside>
+			<div class="flex gap-4 mt-4 sm:mt-0">
+				{
+					processedSocialLinks.map((link) => (
+						<a
+							href={link.url}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="btn btn-ghost btn-sm p-1 hover:text-primary"
+							title={link.name}
+						>
+							<SocialIcon platform={link.platform} />
+							<span class="sr-only">{link.name}</span>
+						</a>
+					))
+				}
+			</div>
+		</aside>
 
-        {navGroups.map((group) => (
-            <nav class="place-self-center text-center flex flex-col items-center">
-                <h6 class="footer-title">{group.titleKey}</h6>
-                {group.links.map((link) => (
-                    <Link href={link.href} external={link.external}>
-                        {link.text}
-                    </Link>
-                ))}
-            </nav>
-        ))}
-    </div>
+		{
+			navGroups.map((group) => (
+				<nav class="place-self-center text-center flex flex-col items-center">
+					<h6 class="footer-title">{group.titleKey}</h6>
+					{group.links.map((link) => (
+						<Link href={link.href} external={link.external}>
+							{link.text}
+						</Link>
+					))}
+				</nav>
+			))
+		}
+	</div>
 
-    <Banner>
-        {inspirationalSlogan}
-    </Banner>
+	<Banner>
+		{inspirationalSlogan}
+	</Banner>
 
-    <div class="divider mt-8"></div>
+	<div class="divider mt-8"></div>
 
-    <div class="flex flex-col sm:flex-col justify-center items-center p-4 text-sm opacity-70">
-        <div class="flex items-center gap-2">
-            <p>
-                © {currentYear}
-                {company} - {copyright}
-            </p>
-        </div>
+	<div class="flex flex-col sm:flex-col justify-center items-center p-4 text-sm opacity-70">
+		<div class="flex items-center gap-2">
+			<p>
+				© {currentYear}
+				{company} - {copyright}
+			</p>
+		</div>
 
-        {icp && (
-            <div class="text-center py-4">
-                <p>{icp}</p>
-            </div>
-        )}
-    </div>
-</footer> 
+		{
+			icp && (
+				<div class="text-center py-4">
+					<p>{icp}</p>
+				</div>
+			)
+		}
+	</div>
+</footer>
