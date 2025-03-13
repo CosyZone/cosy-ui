@@ -14,31 +14,7 @@ env:
   tag: ${{ github.event.head_commit.id }}
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '23'
-      - name: Install pnpm
-        run: npm i -g pnpm
-      - name: Install Dependencies
-        run: pnpm i
-      - name: Build Package
-        run: |
-          npm run build
-      - name: Upload Dist
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist
-          retention-days: 1
-
   tag:
-    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -79,7 +55,6 @@ jobs:
       - uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ env.tag }}
-          files: dist
           generate_release_notes: true
 
   clear:

@@ -20,13 +20,6 @@ jobs:
         with:
           node-version: '18'
           registry-url: 'https://registry.npmjs.org'
-      - name: Install pnpm
-        run: npm install -g pnpm
-      - name: Install Dependencies
-        run: pnpm install
-      - name: Build Package
-        run: |
-          npm run build
       - name: Publish Package
         run: |
           npm config set //registry.npmjs.org/:_authToken ${NODE_AUTH_TOKEN}
