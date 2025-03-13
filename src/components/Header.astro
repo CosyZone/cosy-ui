@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import { RiGithubFill, RiSearch2Line, RiMenuLine, RiSunCloudyLine } from '@remixicon/vue';
+import { RiSearch2Line, RiMenuLine, RiSunCloudyLine } from '@remixicon/vue';
 import ThemeItem from './ThemeItem.astro';
 import Link from './Link.astro';
 
@@ -85,21 +85,7 @@ function generateLanguageUrl(langCode: string): string {
 
 		<!-- 桌面端导航 -->
 		<div class="hidden lg:flex flex-row gap-4 items-center ml-4" transition:animate="fade">
-			{
-				navItems.map((item) => (
-					<Link
-						class:list={[
-							'btn btn-sm',
-							{
-								'btn-ghost': !item.match(currentPath),
-								'btn-primary': item.match(currentPath),
-							},
-						]}
-						href={item.href}>
-						{item.label}
-					</Link>
-				))
-			}
+			{navItems.map((item) => <Link href={item.href}>{item.label}</Link>)}
 		</div>
 	</div>
 
@@ -114,15 +100,7 @@ function generateLanguageUrl(langCode: string): string {
 				{
 					languages.map((lang) => (
 						<li>
-							<Link
-								href={generateLanguageUrl(lang.code)}
-								class:list={[
-									{
-										'bg-primary text-white': currentLocale === lang.code,
-									},
-								]}>
-								{lang.name}
-							</Link>
+							<Link href={generateLanguageUrl(lang.code)}>{lang.name}</Link>
 						</li>
 					))
 				}
@@ -284,7 +262,7 @@ function generateLanguageUrl(langCode: string): string {
 <script>
 	function initializeThemeSwitch() {
 		const themeItems = document.querySelectorAll('[data-set-theme]');
-		const updateActiveTheme = (currentTheme: string) => {
+		const updateActiveTheme = (currentTheme) => {
 			themeItems.forEach((item) => {
 				const themeId = item.getAttribute('data-set-theme');
 				const isActive = themeId === currentTheme;
@@ -300,8 +278,8 @@ function generateLanguageUrl(langCode: string): string {
 			item.addEventListener('click', handleThemeClick);
 		});
 
-		function handleThemeClick(event: Event) {
-			const item = event.currentTarget as HTMLElement;
+		function handleThemeClick(event) {
+			const item = event.currentTarget;
 			const theme = item.getAttribute('data-set-theme');
 			document.documentElement.setAttribute('data-theme', theme ?? 'default');
 			localStorage.setItem('theme', theme ?? 'default');

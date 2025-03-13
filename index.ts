@@ -1,4 +1,5 @@
 export { default as Header } from './src/components/Header.astro';
+export { default as Hero } from './src/components/Hero.astro';
 export { default as Footer } from './src/components/Footer.astro';
 export { default as Banner } from './src/components/Banner.astro';
 export { default as Link } from './src/components/Link.astro';

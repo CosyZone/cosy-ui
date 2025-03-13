@@ -1,16 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Logo from '../assets/logo.png';
-import { Footer, Header } from '~';
+import { Footer, Header, Hero } from '~';
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="Welcome to Cosy UI">
 	<Header logo={Logo} />
 
 	<main class="min-h-screen pt-24">
-		<h1 class="text-6xl w-full text-center">
-			Welcome to <span class="text-gradient font-bold">Coffic</span>
-		</h1>
+		<Hero
+			links={[
+				{ text: 'Home', href: '/' },
+				{ text: 'About', href: '/about' },
+			]}
+			title="Welcome to Cosy UI"
+			description="This is a demo of the Cosy UI library."
+		/>
 	</main>
 
 	<Footer
