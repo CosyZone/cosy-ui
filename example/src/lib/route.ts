@@ -14,6 +14,7 @@ export const routes = {
     // 组件
     components: {
         blog: { path: '/components/blog', title: 'Blog 博客', group: '组件' },
+        modal: { path: '/components/modal', title: 'Modal 模态框', group: '组件' },
         alert: { path: '/components/alert', title: 'Alert 提示', group: '组件' },
         button: { path: '/components/button', title: 'Button 按钮', group: '组件' },
         input: { path: '/components/input', title: 'Input 输入框', group: '组件' },
