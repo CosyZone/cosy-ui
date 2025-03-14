@@ -1,6 +1,7 @@
 ---
 import '../global.css';
 import { getGroupedRoutes, createUrl } from '../lib/route';
+import { getBaseUrl } from '../lib/utils';
 
 interface Props {
 	title: string;
@@ -8,6 +9,15 @@ interface Props {
 
 const { title } = Astro.props;
 const groupedRoutes = getGroupedRoutes();
+
+// 获取当前页面路径并规范化
+const currentPath = new URL(Astro.request.url).pathname;
+const baseUrl = getBaseUrl();
+// 确保路径以 / 开头，并移除末尾的 /
+const normalizedCurrentPath = currentPath
+  .replace(baseUrl, '')
+  .replace(/\/$/, '')
+  || '/';
 ---
 
 <!doctype html>
@@ -60,16 +70,50 @@ const groupedRoutes = getGroupedRoutes();
 						{Object.entries(groupedRoutes).map(([group, routes]) => (
 							<>
 								<li class="menu-title">{group}</li>
-								{routes.map(route => (
-									<li>
-										<a href={createUrl(route.path)}>{route.title}</a>
-									</li>
-								))}
+								{routes.map(route => {
+									const isActive = normalizedCurrentPath === route.path;
+									return (
+										<li>
+											<a 
+												href={createUrl(route.path)} 
+												class:list={["menu-item", { active: isActive }]}
+												aria-current={isActive ? "page" : undefined}
+											>
+												{route.title}
+											</a>
+										</li>
+									);
+								})}
 							</>
 						))}
 					</ul>
 				</aside>
 			</div>
 		</div>
+
+		<script>
+			// 移动端菜单处理
+			document.addEventListener('astro:page-load', () => {
+				const drawer = document.querySelector('input.drawer-toggle');
+				const menuItems = document.querySelectorAll('.drawer-side .menu-item');
+				
+				// 点击菜单项后关闭抽屉
+				menuItems.forEach(item => {
+					item.addEventListener('click', () => {
+						if (window.innerWidth < 1024 && drawer instanceof HTMLInputElement) { // lg breakpoint
+							drawer.checked = false;
+						}
+					});
+				});
+			});
+		</script>
 	</body>
 </html>
+
+<style>
+@reference '../global.css';
+	/* 确保高亮样式正确应用 */
+	.menu-item.active {
+		@apply bg-primary text-primary-content;
+	}
+</style>

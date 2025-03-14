@@ -13,10 +13,13 @@ export const routes = {
 
     // 组件
     components: {
+        alert: { path: '/components/alert', title: 'Alert 提示', group: '组件' },
         button: { path: '/components/button', title: 'Button 按钮', group: '组件' },
         input: { path: '/components/input', title: 'Input 输入框', group: '组件' },
         select: { path: '/components/select', title: 'Select 选择器', group: '组件' },
         table: { path: '/components/table', title: 'Table 表格', group: '组件' },
+        code: { path: '/components/code', title: 'Code 代码', group: '组件' },
+        article: { path: '/components/article', title: 'Article 文章', group: '组件' },
     },
 } as const;
 
