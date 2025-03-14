@@ -1,4 +1,3 @@
-
 export { default as Banner } from './src/components/Banner.astro';
 export { default as Footer } from './src/components/Footer.astro';
 export { default as Header } from './src/components/Header.astro';

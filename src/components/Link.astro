@@ -1,19 +1,81 @@
 ---
-interface Props {
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'a'> {
 	href: string;
 	external?: boolean;
 	class?: string;
+	'class:list'?: any;
+	variant?: 'default' | 'primary' | 'secondary' | 'text' | 'cta';
+	animation?: 'none' | 'hover-lift' | 'hover-glow' | 'hover-scale';
+	size?: 'sm' | 'md' | 'lg';
 }
 
-const { href, external = false, class: className = '' } = Astro.props;
+const {
+	href,
+	external = false,
+	variant = 'default',
+	animation = 'none',
+	size = 'md',
+	class: className = '',
+	'class:list': classList,
+	...rest
+} = Astro.props;
+
+// 基础样式
+const baseStyles = "link no-underline hover:no-underline transition-all duration-200 ease-in-out";
+
+// 尺寸变体
+const sizeStyles = {
+	sm: "px-4 py-2 text-sm",
+	md: "px-6 py-3 text-base",
+	lg: "px-8 py-4 text-lg"
+};
+
+// 主题变体
+const variantStyles = {
+	default: "link-hover text-current hover:text-primary",
+	primary: "rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:bg-blue-800",
+	secondary: "rounded-lg bg-gray-100 text-gray-800 font-medium hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 active:bg-gray-300",
+	text: "text-current hover:text-primary underline hover:no-underline",
+	cta: "rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:from-blue-800 active:to-indigo-800"
+};
+
+// 动画效果
+const animationStyles = {
+	none: "",
+	"hover-lift": "hover:-translate-y-0.5 hover:shadow-lg",
+	"hover-glow": "hover:shadow-[0_0_15px_rgba(59,130,246,0.5)]",
+	"hover-scale": "hover:scale-105"
+};
+
+// 合并所有样式
+const finalClassName = [
+	baseStyles,
+	sizeStyles[size],
+	variantStyles[variant],
+	animationStyles[animation],
+	className
+].join(' ');
 ---
 
 <a
 	href={href}
-	class={`link link-hover ${className} no-underline hover:no-underline 
-	transition-all duration-200 ease-in-out
-	hover:scale-[1.02] hover:text-primary
-	active:scale-[0.98]`}
-	{...external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}>
+	class:list={[finalClassName, classList]}
+	{...external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
+	{...rest}
+>
 	<slot />
 </a>
+
+<style>
+	/* 添加渐变动画 */
+	.bg-gradient-to-r {
+		background-size: 200% auto;
+		transition: background-position 0.3s ease-in-out;
+	}
+	
+	.bg-gradient-to-r:hover {
+		background-position: right center;
+	}
+</style>
