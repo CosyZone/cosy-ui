@@ -6,7 +6,7 @@ interface Props extends HTMLAttributes<'a'> {
 	external?: boolean;
 	class?: string;
 	'class:list'?: any;
-	variant?: 'default' | 'primary' | 'secondary' | 'text' | 'cta';
+	variant?: 'default' | 'primary' | 'secondary' | 'text' | 'cta' | 'ghost';
 	animation?: 'none' | 'hover-lift' | 'hover-glow' | 'hover-scale';
 	size?: 'sm' | 'md' | 'lg';
 }
@@ -38,7 +38,8 @@ const variantStyles = {
 	primary: "rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:bg-blue-800",
 	secondary: "rounded-lg bg-gray-100 text-gray-800 font-medium hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 active:bg-gray-300",
 	text: "text-current hover:text-primary underline hover:no-underline",
-	cta: "rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:from-blue-800 active:to-indigo-800"
+	cta: "rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:from-blue-800 active:to-indigo-800",
+	ghost: "text-current hover:text-primary bg-transparent hover:bg-base-200/50 rounded-lg"
 };
 
 // 动画效果

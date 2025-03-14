@@ -1,7 +1,43 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Logo from '../assets/logo.png';
-import { Footer, Header, Hero } from '~';
+import { Footer, Header, Hero, TeamMembers } from '~';
+import { Card } from '../../../index';
+
+// 示例头像图片（使用在线占位图）
+const teamMembers = [
+	{
+		name: "张三",
+		role: "首席技术官",
+		avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix",
+		bio: "拥有10年全栈开发经验，热衷于探索新技术，在开源社区非常活跃。",
+		socialLinks: [
+			{ platform: 'github' as const, url: "https://github.com" },
+			{ platform: 'twitter' as const, url: "https://twitter.com" },
+			{ platform: 'linkedin' as const, url: "https://linkedin.com" }
+		]
+	},
+	{
+		name: "李四",
+		role: "产品设计师",
+		avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Aneka",
+		bio: "专注于用户体验设计，曾参与多个知名产品的设计工作。",
+		socialLinks: [
+			{ platform: 'website' as const, url: "https://example.com" },
+			{ platform: 'twitter' as const, url: "https://twitter.com" }
+		]
+	},
+	{
+		name: "王五",
+		role: "前端工程师",
+		avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mimi",
+		bio: "React 专家，热爱开源，维护着几个流行的 npm 包。",
+		socialLinks: [
+			{ platform: 'github' as const, url: "https://github.com" },
+			{ platform: 'email' as const, url: "mailto:example@example.com" }
+		]
+	}
+];
 ---
 
 <Layout title="Welcome to Cosy UI">
@@ -16,6 +52,47 @@ import { Footer, Header, Hero } from '~';
 			title="Welcome to Cosy UI"
 			description="This is a demo of the Cosy UI library."
 		/>
+
+		<section class="container mx-auto px-4 py-16">
+			<h2 class="text-3xl font-bold text-center mb-12">我们的团队</h2>
+			<TeamMembers 
+				members={teamMembers}
+				columns={3}
+			/>
+		</section>
+
+		<section class="container mx-auto p-4 space-y-8">
+			<h2 class="text-2xl font-bold mb-6">卡片组件示例</h2>
+			
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				<!-- 基础卡片 -->
+				<Card
+					title="基础卡片"
+					subtitle="这是一个简单的卡片示例"
+				>
+					<p class="mt-4">这里可以放置任何内容，支持完整的 Astro 组件。</p>
+				</Card>
+
+				<!-- 带图片的卡片 -->
+				<Card
+					title="带图片的卡片"
+					subtitle="展示图片、标题和描述"
+					imageUrl="https://images.unsplash.com/photo-1682686581580-d99b0230064e"
+				>
+					<p class="mt-4">图片会在悬浮时有放大效果，提供良好的交互体验。</p>
+				</Card>
+
+				<!-- 可点击的卡片 -->
+				<Card
+					title="可点击的卡片"
+					subtitle="整个卡片都是可点击的"
+					imageUrl="https://images.unsplash.com/photo-1682686581030-7fa4ea2b96c3"
+					href="#"
+				>
+					<p class="mt-4">点击此卡片会触发跳转，适合作为导航元素。</p>
+				</Card>
+			</div>
+		</section>
 	</main>
 
 	<Footer
