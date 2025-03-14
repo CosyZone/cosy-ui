@@ -40,95 +40,55 @@ const teamMembers = [
 ];
 ---
 
-<Layout title="Welcome to Cosy UI">
-	<Header logo={Logo} />
+<Layout title="Cosy UI - 美观实用的 Astro 组件库">
+	<div class="prose max-w-none">
+		<h1>Cosy UI</h1>
+		<p class="lead">一个基于 Astro 和 DaisyUI 的美观实用的组件库，为同一个组织下的多个项目提供统一的 UI 风格。</p>
 
-	<main class="min-h-screen pt-24">
-		<Hero
-			links={[
-				{ text: 'Home', href: '/' },
-				{ text: 'About', href: '/about' },
-			]}
-			title="Welcome to Cosy UI"
-			description="This is a demo of the Cosy UI library."
-		/>
+		<h2>特性</h2>
+		<ul>
+			<li>🚀 基于 Astro 构建，性能优异</li>
+			<li>🎨 使用 TailwindCSS 和 DaisyUI，样式美观且易于定制</li>
+			<li>📦 组件丰富，满足常见需求</li>
+			<li>📱 响应式设计，完美适配各种设备</li>
+			<li>🔧 TypeScript 支持，开发体验优秀</li>
+		</ul>
 
-		<section class="container mx-auto px-4 py-16">
-			<h2 class="text-3xl font-bold text-center mb-12">我们的团队</h2>
-			<TeamMembers 
-				members={teamMembers}
-				columns={3}
-			/>
-		</section>
+		<h2>快速开始</h2>
+		<p>通过 npm 安装：</p>
+		<pre><code class="language-bash">npm install @coffic/cosy-ui</code></pre>
 
-		<section class="container mx-auto p-4 space-y-8">
-			<h2 class="text-2xl font-bold mb-6">卡片组件示例</h2>
-			
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-				<!-- 基础卡片 -->
-				<Card
-					title="基础卡片"
-					subtitle="这是一个简单的卡片示例"
-				>
-					<p class="mt-4">这里可以放置任何内容，支持完整的 Astro 组件。</p>
-				</Card>
+		<p>或者使用 pnpm：</p>
+		<pre><code class="language-bash">pnpm add @coffic/cosy-ui</code></pre>
 
-				<!-- 带图片的卡片 -->
-				<Card
-					title="带图片的卡片"
-					subtitle="展示图片、标题和描述"
-					imageUrl="https://images.unsplash.com/photo-1682686581580-d99b0230064e"
-				>
-					<p class="mt-4">图片会在悬浮时有放大效果，提供良好的交互体验。</p>
-				</Card>
+		<h2>使用示例</h2>
+		<p>在你的 Astro 组件中使用：</p>
+		<pre><code class="language-astro">{`---
+// 你的 .astro 文件
+---
 
-				<!-- 可点击的卡片 -->
-				<Card
-					title="可点击的卡片"
-					subtitle="整个卡片都是可点击的"
-					imageUrl="https://images.unsplash.com/photo-1682686581030-7fa4ea2b96c3"
-					href="#"
-				>
-					<p class="mt-4">点击此卡片会触发跳转，适合作为导航元素。</p>
-				</Card>
-			</div>
-		</section>
-	</main>
+<button class="btn btn-primary">点击我</button>`}</code></pre>
 
-	<Footer
-		logo={Logo}
-		siteName="Coffic"
-		homeLink="/"
-		icp="粤ICP备20240321号-1"
-		slogan="用爱创造软件"
-		company="Coffic Organization"
-		copyright="Coffic"
-		inspirationalSlogan="永远保持好奇心"
-		socialLinks={[
-			'https://github.com/cofficlab',
-			'https://twitter.com/cofficlab',
-			'https://linkedin.com/in/cofficlab',
-		]}
-		aboutLink="https://coffic.zone.id"
-		contactLink="https://github.com/CofficLab/FeedbackHub"
-		termsLink="https://coffic.zone.id/en/meta/terms"
-		privacyLink="https://coffic.zone.id/en/meta/privacy"
-		products={[
-			{
-				name: 'Coffic',
-				href: 'https://coffic.zone.id',
-				external: true,
-			},
-			{
-				name: 'Cisum',
-				href: 'https://coffic.zone.id/cisum',
-				external: true,
-			},
-			{
-				name: 'Cosy',
-				href: 'https://coffic.zone.id/cosy',
-				external: true,
-			},
-		]}
-	/>
+		<h2>组件列表</h2>
+		<div class="not-prose grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+			<a href="/components/button" class="card bg-base-200 hover:bg-base-300 transition-colors">
+				<div class="card-body">
+					<h3 class="card-title">Button 按钮</h3>
+					<p>常用的操作按钮</p>
+				</div>
+			</a>
+			<a href="/components/input" class="card bg-base-200 hover:bg-base-300 transition-colors">
+				<div class="card-body">
+					<h3 class="card-title">Input 输入框</h3>
+					<p>文本输入框</p>
+				</div>
+			</a>
+			<a href="/components/select" class="card bg-base-200 hover:bg-base-300 transition-colors">
+				<div class="card-body">
+					<h3 class="card-title">Select 选择器</h3>
+					<p>下拉选择器</p>
+				</div>
+			</a>
+		</div>
+	</div>
 </Layout>

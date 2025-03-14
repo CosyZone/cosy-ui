@@ -1,0 +1,99 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Button 按钮 - Cosy UI">
+  <div class="prose max-w-none">
+    <h1>Button 按钮</h1>
+    <p>按钮用于开始一个即时操作。</p>
+
+    <h2>基础用法</h2>
+    <div class="not-prose">
+      <div class="flex flex-wrap gap-4">
+        <button class="btn">默认按钮</button>
+        <button class="btn btn-primary">主要按钮</button>
+        <button class="btn btn-secondary">次要按钮</button>
+        <button class="btn btn-accent">强调按钮</button>
+      </div>
+    </div>
+
+    <h2 class="mt-8">按钮尺寸</h2>
+    <div class="not-prose">
+      <div class="flex flex-wrap items-center gap-4">
+        <button class="btn btn-sm">小型按钮</button>
+        <button class="btn">默认尺寸</button>
+        <button class="btn btn-lg">大型按钮</button>
+      </div>
+    </div>
+
+    <h2 class="mt-8">禁用状态</h2>
+    <div class="not-prose">
+      <div class="flex flex-wrap gap-4">
+        <button class="btn" disabled>禁用按钮</button>
+        <button class="btn btn-primary" disabled>禁用主要按钮</button>
+      </div>
+    </div>
+
+    <h2 class="mt-8">使用方法</h2>
+    <pre class="language-astro"><code>{`---
+// 在你的 .astro 文件中
+---
+
+<button class="btn btn-primary">点击我</button>
+<button class="btn btn-secondary">次要按钮</button>
+<button class="btn btn-accent">强调按钮</button>`}</code></pre>
+
+    <h2 class="mt-8">API</h2>
+    <h3>按钮类型</h3>
+    <div class="overflow-x-auto">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>类名</th>
+            <th>说明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>btn</code></td>
+            <td>基础按钮样式</td>
+          </tr>
+          <tr>
+            <td><code>btn-primary</code></td>
+            <td>主要按钮</td>
+          </tr>
+          <tr>
+            <td><code>btn-secondary</code></td>
+            <td>次要按钮</td>
+          </tr>
+          <tr>
+            <td><code>btn-accent</code></td>
+            <td>强调按钮</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="mt-4">尺寸</h3>
+    <div class="overflow-x-auto">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>类名</th>
+            <th>说明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>btn-lg</code></td>
+            <td>大型按钮</td>
+          </tr>
+          <tr>
+            <td><code>btn-sm</code></td>
+            <td>小型按钮</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</Layout> 
