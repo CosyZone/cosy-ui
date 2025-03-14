@@ -3,6 +3,9 @@ import { processSocialLink } from '../utils/social';
 import Link from './Link.astro';
 import Banner from './Banner.astro';
 import SocialIcon from './SocialIcon.astro';
+import type { FooterProps } from '../types/footer';
+
+interface Props extends FooterProps {}
 
 const {
 	siteName,
@@ -19,7 +22,7 @@ const {
 	termsLink,
 	privacyLink,
 	socialLinks = [],
-} = Astro.props;
+}: Props = Astro.props;
 
 const currentYear = new Date().getFullYear();
 
