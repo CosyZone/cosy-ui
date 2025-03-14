@@ -23,7 +23,9 @@
   "scripts": {
     "format": "prettier -w .",
     "lint": "eslint . --ext .ts,.js,.astro src",
-    "dev": "cd example && astro dev --host 0.0.0.0"
+    "dev": "astro dev --host 0.0.0.0 --root example",
+    "build": "astro build --root example",
+    "preview": "astro preview --root example"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.14",
@@ -32,7 +34,7 @@
     "@types/mocha": "^10.0.10",
     "@types/node": "^22.13.10",
     "@typescript-eslint/parser": "^8.26.1",
-    "astro": "^5.5.1",
+    "astro": "^5.5.2",
     "chai": "^4.5.0",
     "daisyui": "^5.0.3",
     "eslint": "^8.57.1",
@@ -40,18 +42,18 @@
     "mocha": "^10.8.2",
     "prettier": "^3.5.3",
     "prettier-plugin-astro": "^0.14.1",
+    "sharp": "^0.33.2",
     "tailwindcss": "^4.0.14",
     "typescript": "^5.8.2"
   },
   "peerDependencies": {
-    "@remixicon/vue": "^4.6.0",
-    "@astrojs/vue": "^5.0.7",
     "astro": "^5.0.0",
-    "daisyui": "^5.0.3",
-    "tailwindcss": "^4.0.13"
+    "daisyui": "^5.0.3"
   },
   "dependencies": {
     "@astrojs/vue": "^5.0.7",
+    "@remixicon/vue": "^4.6.0",
+    "prismjs": "^1.29.0",
     "vue": "^3.5.13"
   }
 }

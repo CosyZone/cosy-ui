@@ -1,52 +1,91 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Logo from '../assets/logo.png';
-import { Footer, Header } from '~';
+
+// 示例头像图片（使用在线占位图）
+const teamMembers = [
+	{
+		name: "张三",
+		role: "首席技术官",
+		avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix",
+		bio: "拥有10年全栈开发经验，热衷于探索新技术，在开源社区非常活跃。",
+		socialLinks: [
+			{ platform: 'github' as const, url: "https://github.com" },
+			{ platform: 'twitter' as const, url: "https://twitter.com" },
+			{ platform: 'linkedin' as const, url: "https://linkedin.com" }
+		]
+	},
+	{
+		name: "李四",
+		role: "产品设计师",
+		avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Aneka",
+		bio: "专注于用户体验设计，曾参与多个知名产品的设计工作。",
+		socialLinks: [
+			{ platform: 'website' as const, url: "https://example.com" },
+			{ platform: 'twitter' as const, url: "https://twitter.com" }
+		]
+	},
+	{
+		name: "王五",
+		role: "前端工程师",
+		avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mimi",
+		bio: "React 专家，热爱开源，维护着几个流行的 npm 包。",
+		socialLinks: [
+			{ platform: 'github' as const, url: "https://github.com" },
+			{ platform: 'email' as const, url: "mailto:example@example.com" }
+		]
+	}
+];
 ---
 
-<Layout title="Welcome to Astro.">
-	<Header logo={Logo} />
+<Layout title="Cosy UI - 美观实用的 Astro 组件库">
+	<div class="prose max-w-none">
+		<h1>Cosy UI</h1>
+		<p class="lead">一个基于 Astro 和 DaisyUI 的美观实用的组件库，为同一个组织下的多个项目提供统一的 UI 风格。</p>
 
-	<main class="min-h-screen pt-24">
-		<h1 class="text-6xl w-full text-center">
-			Welcome to <span class="text-gradient font-bold">Coffic</span>
-		</h1>
-	</main>
+		<h2>特性</h2>
+		<ul>
+			<li>🚀 基于 Astro 构建，性能优异</li>
+			<li>🎨 使用 TailwindCSS 和 DaisyUI，样式美观且易于定制</li>
+			<li>📦 组件丰富，满足常见需求</li>
+			<li>📱 响应式设计，完美适配各种设备</li>
+			<li>🔧 TypeScript 支持，开发体验优秀</li>
+		</ul>
 
-	<Footer
-		logo={Logo}
-		siteName="Coffic"
-		homeLink="/"
-		icp="粤ICP备20240321号-1"
-		slogan="用爱创造软件"
-		company="Coffic Organization"
-		copyright="Coffic"
-		inspirationalSlogan="永远保持好奇心"
-		socialLinks={[
-			'https://github.com/cofficlab',
-			'https://twitter.com/cofficlab',
-			'https://linkedin.com/in/cofficlab',
-		]}
-		aboutLink="https://coffic.zone.id"
-		contactLink="https://github.com/CofficLab/FeedbackHub"
-		termsLink="https://coffic.zone.id/en/meta/terms"
-		privacyLink="https://coffic.zone.id/en/meta/privacy"
-		products={[
-			{
-				name: 'Coffic',
-				href: 'https://coffic.zone.id',
-				external: true,
-			},
-			{
-				name: 'Cisum',
-				href: 'https://coffic.zone.id/cisum',
-				external: true,
-			},
-			{
-				name: 'Cosy',
-				href: 'https://coffic.zone.id/cosy',
-				external: true,
-			},
-		]}
-	/>
+		<h2>快速开始</h2>
+		<p>通过 npm 安装：</p>
+		<pre><code class="language-bash">npm install @coffic/cosy-ui</code></pre>
+
+		<p>或者使用 pnpm：</p>
+		<pre><code class="language-bash">pnpm add @coffic/cosy-ui</code></pre>
+
+		<h2>使用示例</h2>
+		<p>在你的 Astro 组件中使用：</p>
+		<pre><code class="language-astro">{`---
+// 你的 .astro 文件
+---
+
+<button class="btn btn-primary">点击我</button>`}</code></pre>
+
+		<h2>组件列表</h2>
+		<div class="not-prose grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+			<a href="/components/button" class="card bg-base-200 hover:bg-base-300 transition-colors">
+				<div class="card-body">
+					<h3 class="card-title">Button 按钮</h3>
+					<p>常用的操作按钮</p>
+				</div>
+			</a>
+			<a href="/components/input" class="card bg-base-200 hover:bg-base-300 transition-colors">
+				<div class="card-body">
+					<h3 class="card-title">Input 输入框</h3>
+					<p>文本输入框</p>
+				</div>
+			</a>
+			<a href="/components/select" class="card bg-base-200 hover:bg-base-300 transition-colors">
+				<div class="card-body">
+					<h3 class="card-title">Select 选择器</h3>
+					<p>下拉选择器</p>
+				</div>
+			</a>
+		</div>
+	</div>
 </Layout>

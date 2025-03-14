@@ -27,7 +27,7 @@ const currentYear = new Date().getFullYear();
 const processedSocialLinks = socialLinks.map((link) => processSocialLink(link));
 ---
 
-<footer class="bg-green-200/50 dark:bg-base-300/50 z-50 backdrop-blur-md">
+<footer class="bg-base-200/50 dark:bg-base-300/50 z-50 backdrop-blur-md">
 	<div class="footer sm:footer-horizontal p-10 text-base-content">
 		<aside class="flex flex-col items-center sm:items-start gap-2 place-self-center">
 			<Link href={homeLink}>
@@ -51,15 +51,14 @@ const processedSocialLinks = socialLinks.map((link) => processSocialLink(link));
 			<div class="flex gap-4 mt-4 sm:mt-0">
 				{
 					processedSocialLinks.map((link) => (
-						<a
+						<Link
 							href={link.url}
-							target="_blank"
-							rel="noopener noreferrer"
+							external={true}
 							class="btn btn-ghost btn-sm p-1 hover:text-primary"
-							title={link.name}>
+						>
 							<SocialIcon platform={link.platform} />
 							<span class="sr-only">{link.name}</span>
-						</a>
+						</Link>
 					))
 				}
 			</div>

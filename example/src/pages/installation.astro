@@ -1,0 +1,111 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { createUrl } from '../lib/route';
+---
+
+<Layout title="安装 - Cosy UI">
+  <div class="prose max-w-none">
+    <h1>安装</h1>
+    <p>按照以下步骤将 Cosy UI 添加到你的 Astro 项目中。</p>
+
+    <h2>前置条件</h2>
+    <ul>
+      <li>Node.js 18.14.1 或更高版本</li>
+      <li>Astro 5.0.0 或更高版本</li>
+      <li>使用包管理器：npm、pnpm（推荐）或 yarn</li>
+    </ul>
+
+    <h2>安装步骤</h2>
+    
+    <h3>1. 安装依赖</h3>
+    <p>使用你喜欢的包管理器安装 Cosy UI：</p>
+
+    <div class="tabs">
+      <button class="tab tab-lifted tab-active">pnpm</button>
+      <button class="tab tab-lifted">npm</button>
+      <button class="tab tab-lifted">yarn</button>
+    </div>
+    <div class="not-prose my-4">
+      <pre class="language-bash rounded-none rounded-b-lg"><code># 使用 pnpm（推荐）
+pnpm add @coffic/cosy-ui
+# 同时安装必要的依赖
+pnpm add daisyui@5.0.3</code></pre>
+    </div>
+
+    <h3>2. 配置 Astro</h3>
+    <p>在你的 <code>astro.config.ts</code> 文件中添加以下配置：</p>
+
+    <pre class="language-typescript"><code>{`import { defineConfig } from 'astro/config';
+import tailwindcss from '@tailwindcss/vite';
+
+export default defineConfig({
+  integrations: [],
+  vite: {
+    plugins: [tailwindcss()],
+  },
+});`}</code></pre>
+
+    <h3>3. 配置 Tailwind CSS</h3>
+    <p>创建或修改 <code>tailwind.config.ts</code> 文件：</p>
+
+    <pre class="language-typescript"><code>{`import type { Config } from 'tailwindcss';
+import daisyui from 'daisyui';
+
+export default {
+  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  theme: {
+    extend: {},
+  },
+  plugins: [daisyui],
+  daisyui: {
+    themes: ["light", "dark"],
+  },
+} satisfies Config;`}</code></pre>
+
+    <h3>4. 导入样式</h3>
+    <p>在你的主布局文件或全局样式文件中导入 Tailwind CSS：</p>
+
+    <pre class="language-css"><code>{`/* src/styles/global.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;`}</code></pre>
+
+    <h2>验证安装</h2>
+    <p>创建一个简单的组件来测试安装是否成功：</p>
+
+    <pre class="language-astro"><code>{`---
+// src/pages/index.astro
+---
+
+<button class="btn btn-primary">点击我</button>`}</code></pre>
+
+    <div class="not-prose">
+      <button class="btn btn-primary">如果你看到这个按钮样式正常，说明安装成功！</button>
+    </div>
+
+    <h2>下一步</h2>
+    <p>现在你已经成功安装了 Cosy UI，可以：</p>
+    <ul>
+      <li>查看<a href={createUrl('/components/button')}>组件文档</a>了解如何使用各个组件</li>
+      <li>探索 DaisyUI 的<a href="https://daisyui.com/docs/themes/" target="_blank" rel="noopener">主题配置</a></li>
+      <li>了解更多 <a href="https://tailwindcss.com/docs" target="_blank" rel="noopener">Tailwind CSS</a> 的使用方法</li>
+    </ul>
+
+    <h2>常见问题</h2>
+    <h3>组件样式不生效？</h3>
+    <p>确保：</p>
+    <ul>
+      <li>已正确配置 Tailwind CSS</li>
+      <li>已在项目中导入了全局样式文件</li>
+      <li>content 配置包含了所有需要处理的文件</li>
+    </ul>
+
+    <h3>需要帮助？</h3>
+    <p>如果你在安装过程中遇到任何问题：</p>
+    <ul>
+      <li>查看 <a href="https://github.com/CofficLab/cosy-ui/issues" target="_blank" rel="noopener">GitHub Issues</a></li>
+      <li>提交新的 Issue 获取帮助</li>
+      <li>加入我们的社区讨论</li>
+    </ul>
+  </div>
+</Layout> 

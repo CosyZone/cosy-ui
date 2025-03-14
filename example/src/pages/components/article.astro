@@ -1,0 +1,167 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ArticleComponent from '../../../../src/components/Article.astro';
+import { CodeBlock } from '~/index';
+
+// 示例代码
+const exampleCode = `---
+import { Article } from '@coffic/cosy-ui';
+
+const post = {
+  title: "使用 Astro 构建现代网站",
+  subtitle: "探索 Astro 的优势和最佳实践",
+  author: "张三",
+  date: new Date("2024-03-20"),
+  cover: {
+    src: "/images/astro-cover.jpg",
+    alt: "Astro Logo"
+  },
+  tags: ["Astro", "Web开发", "教程"]
+};
+---
+
+<ArticleComponent {...post}>
+  <h2>什么是 Astro？</h2>
+  <p>Astro 是一个现代的静态站点生成器...</p>
+  
+  <h2>为什么选择 Astro？</h2>
+  <p>Astro 提供了许多独特的优势...</p>
+</ArticleComponent>`;
+
+const greetingCode = `<pre><code class="language-javascript">function greeting(name) {
+  return \`Hello, \${name}!\`;
+}</code></pre>`;
+---
+
+<Layout title="Article 文章 - Cosy UI">
+  <div class="prose max-w-none mb-8">
+    <h1>Article 文章</h1>
+    <p>用于展示文章内容的组件，支持标题、副标题、作者信息、发布日期、封面图片和标签等元素。</p>
+  </div>
+
+  <div class="mb-12">
+    <ArticleComponent
+      title="示例文章标题"
+      subtitle="这是一个副标题，用于补充说明文章主题"
+      author="示例作者"
+      date={new Date()}
+      cover={{
+        src: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97",
+        alt: "编程示例图片"
+      }}
+      tags={["示例", "文章", "Cosy UI"]}
+    >
+      <h2>引言</h2>
+      <p>这是一个示例文章，展示了 Article 组件的各种功能和样式。文章组件支持完整的 Markdown 样式，包括但不限于：</p>
+      
+      <ul>
+        <li>标题层级</li>
+        <li>段落文本</li>
+        <li>列表（有序和无序）</li>
+        <li>代码块</li>
+        <li>引用</li>
+        <li>表格</li>
+      </ul>
+
+      <h2>代码示例</h2>
+      <p>你可以在文章中嵌入代码块：</p>
+
+      <div set:html={greetingCode} />
+
+      <h2>引用示例</h2>
+      <blockquote>
+        <p>这是一个引用示例。引用可以用来突出显示重要的文本内容或者引用他人的话语。</p>
+      </blockquote>
+
+      <h2>表格示例</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>特性</th>
+            <th>描述</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>响应式设计</td>
+            <td>自动适应不同屏幕尺寸</td>
+          </tr>
+          <tr>
+            <td>主题支持</td>
+            <td>支持亮色和暗色主题</td>
+          </tr>
+        </tbody>
+      </table>
+    </ArticleComponent>
+  </div>
+
+  <div class="prose max-w-none">
+    <h2>使用方法</h2>
+    <p>下面是一个基本的使用示例：</p>
+  </div>
+
+  <div class="my-8">
+    <CodeBlock
+      code={exampleCode}
+      lang="astro"
+      title="基础用法"
+    />
+  </div>
+
+  <div class="prose max-w-none">
+    <h2>组件 API</h2>
+    
+    <h3>Props</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>属性</th>
+          <th>类型</th>
+          <th>默认值</th>
+          <th>描述</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>title</td>
+          <td>string</td>
+          <td>-</td>
+          <td>文章标题</td>
+        </tr>
+        <tr>
+          <td>subtitle</td>
+          <td>string?</td>
+          <td>undefined</td>
+          <td>文章副标题</td>
+        </tr>
+        <tr>
+          <td>author</td>
+          <td>string?</td>
+          <td>undefined</td>
+          <td>作者名称</td>
+        </tr>
+        <tr>
+          <td>date</td>
+          <td>Date?</td>
+          <td>undefined</td>
+          <td>发布日期</td>
+        </tr>
+        <tr>
+          <td>cover</td>
+          <td>{'{ src: string; alt?: string; }?'}</td>
+          <td>undefined</td>
+          <td>封面图片</td>
+        </tr>
+        <tr>
+          <td>tags</td>
+          <td>string[]</td>
+          <td>[]</td>
+          <td>文章标签</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Slots</h3>
+    <p>默认插槽用于放置文章的主要内容。支持 HTML 和 Markdown 格式的内容。</p>
+  </div>
+</Layout> 

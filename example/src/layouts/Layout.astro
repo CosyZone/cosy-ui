@@ -1,22 +1,119 @@
 ---
-export interface Props {
+import '../global.css';
+import { getGroupedRoutes, createUrl } from '../lib/route';
+import { getBaseUrl } from '../lib/utils';
+
+interface Props {
 	title: string;
 }
 
 const { title } = Astro.props;
-import '../global.css';
+const groupedRoutes = getGroupedRoutes();
+
+// 获取当前页面路径并规范化
+const currentPath = new URL(Astro.request.url).pathname;
+const baseUrl = getBaseUrl();
+// 确保路径以 / 开头，并移除末尾的 /
+const normalizedCurrentPath = currentPath
+  .replace(baseUrl, '')
+  .replace(/\/$/, '')
+  || '/';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN" data-theme="light">
 	<head>
 		<meta charset="UTF-8" />
+		<meta name="description" content="Cosy UI - A beautiful Astro component library" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href={createUrl('/favicon.svg')} />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body class="h-full w-full">
-		<slot />
+	<body>
+		<div class="drawer lg:drawer-open">
+			<input id="my-drawer" type="checkbox" class="drawer-toggle" />
+			
+			<!-- 页面内容 -->
+			<div class="drawer-content flex flex-col min-h-screen">
+				<!-- 顶部导航栏（移动端） -->
+				<div class="w-full navbar bg-base-300 lg:hidden">
+					<div class="flex-none">
+						<label for="my-drawer" class="btn btn-square btn-ghost drawer-button">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+							</svg>
+						</label>
+					</div>
+					<div class="flex-1">
+						<a href={createUrl('/')} class="btn btn-ghost text-xl">Cosy UI</a>
+					</div>
+				</div>
+
+				<!-- 主要内容区域 -->
+				<main class="flex-1 p-4 lg:p-8">
+					<slot />
+				</main>
+			</div>
+
+			<!-- 侧边栏 -->
+			<div class="drawer-side">
+				<label for="my-drawer" class="drawer-overlay"></label>
+				<aside class="w-80 min-h-screen bg-base-200">
+					<!-- 品牌标题 -->
+					<div class="p-4 text-xl font-bold bg-base-300 hidden lg:flex items-center gap-2">
+						<a href={createUrl('/')} class="text-primary">Cosy UI</a>
+					</div>
+
+					<!-- 导航菜单 -->
+					<ul class="menu p-4 text-base-content">
+						{Object.entries(groupedRoutes).map(([group, routes]) => (
+							<>
+								<li class="menu-title">{group}</li>
+								{routes.map(route => {
+									const isActive = normalizedCurrentPath === route.path;
+									return (
+										<li>
+											<a 
+												href={createUrl(route.path)} 
+												class:list={["menu-item", { active: isActive }]}
+												aria-current={isActive ? "page" : undefined}
+											>
+												{route.title}
+											</a>
+										</li>
+									);
+								})}
+							</>
+						))}
+					</ul>
+				</aside>
+			</div>
+		</div>
+
+		<script>
+			// 移动端菜单处理
+			document.addEventListener('astro:page-load', () => {
+				const drawer = document.querySelector('input.drawer-toggle');
+				const menuItems = document.querySelectorAll('.drawer-side .menu-item');
+				
+				// 点击菜单项后关闭抽屉
+				menuItems.forEach(item => {
+					item.addEventListener('click', () => {
+						if (window.innerWidth < 1024 && drawer instanceof HTMLInputElement) { // lg breakpoint
+							drawer.checked = false;
+						}
+					});
+				});
+			});
+		</script>
 	</body>
 </html>
+
+<style>
+@reference '../global.css';
+	/* 确保高亮样式正确应用 */
+	.menu-item.active {
+		@apply bg-primary text-primary-content;
+	}
+</style>

@@ -1,0 +1,68 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Alert as AlertComponent } from '~/index';
+---
+
+<Layout title="Alert 组件示例">
+  <main class="container mx-auto p-4 space-y-4">
+    <h1 class="text-2xl font-bold mb-6">Alert 组件示例</h1>
+
+    <div class="space-y-4">
+      <!-- 基础用法 -->
+      <section>
+        <h2 class="text-xl font-bold mb-4">基础用法</h2>
+        <AlertComponent>
+          这是一个默认的信息提示
+        </AlertComponent>
+      </section>
+
+      <!-- 不同类型 -->
+      <section>
+        <h2 class="text-xl font-bold mb-4">不同类型</h2>
+        <div class="space-y-2">
+          <AlertComponent type="info">
+            这是一条信息提示
+          </AlertComponent>
+          <AlertComponent type="success">
+            这是一条成功提示
+          </AlertComponent>
+          <AlertComponent  type="warning">
+            这是一条警告提示
+          </AlertComponent>
+          <AlertComponent type="error">
+            这是一条错误提示
+          </AlertComponent>
+        </div>
+      </section>
+
+      <!-- 带标题 -->
+      <section>
+        <h2 class="text-xl font-bold mb-4">带标题的提示</h2>
+        <div class="space-y-2">
+          <AlertComponent type="info" title="信息提示">
+            这是一条带标题的信息提示
+          </AlertComponent>
+          <AlertComponent type="success" title="成功提示">
+            这是一条带标题的成功提示
+          </AlertComponent>
+        </div>
+      </section>
+
+      <!-- 可关闭 -->
+      <section>
+        <h2 class="text-xl font-bold mb-4">可关闭的提示</h2>
+        <AlertComponent type="warning" title="警告提示" closeable>
+          这是一条可以关闭的警告提示
+        </AlertComponent>
+      </section>
+
+      <!-- 自定义样式 -->
+      <section>
+        <h2 class="text-xl font-bold mb-4">自定义样式</h2>
+        <AlertComponent type="info" class="shadow-lg">
+          这是一个带阴影的提示框
+        </AlertComponent>
+      </section>
+    </div>
+  </main>
+</Layout> 
