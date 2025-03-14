@@ -18,6 +18,7 @@ export const routes = {
         blog: { path: '/components/blog', title: 'Blog 博客', group: '组件' },
         button: { path: '/components/button', title: 'Button 按钮', group: '组件' },
         code: { path: '/components/code', title: 'Code 代码', group: '组件' },
+        footer: { path: '/components/footer', title: 'Footer 页脚', group: '组件' },
         image: { path: '/components/image', title: 'Image 图片', group: '组件' },
         modal: { path: '/components/modal', title: 'Modal 模态框', group: '组件' },
         select: { path: '/components/select', title: 'Select 选择器', group: '组件' },

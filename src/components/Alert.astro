@@ -40,7 +40,7 @@ const icons = {
 
 <div class={`alert ${alertClass} ${className}`} role="alert">
   <div class="flex items-center gap-2">
-    <Fragment set:html={icons[type]} />
+    <div set:html={icons[type]} />
     <div class="flex-1">
       {title && <h3 class="font-bold">{title}</h3>}
       <div><slot /></div>

@@ -2,6 +2,7 @@
 import '../global.css';
 import { getGroupedRoutes, createUrl } from '../lib/route';
 import { getBaseUrl } from '../lib/utils';
+import { Footer } from '~/index';
 
 interface Props {
 	title: string;
@@ -51,9 +52,43 @@ const normalizedCurrentPath = currentPath
 				</div>
 
 				<!-- 主要内容区域 -->
-				<main class="flex-1 p-4 lg:p-8">
+				<main class="flex-1 p-4 lg:p-8 mb-96">
 					<slot />
 				</main>
+
+				<Footer 
+					siteName="Cosy UI"
+					homeLink={createUrl('/')}
+					slogan="优雅的 Astro 组件库"
+					company="CofficLab"
+					copyright="保留所有权利"
+					inspirationalSlogan="让设计更简单"
+					logo={{
+						src: createUrl('/favicon.svg'),
+						alt: "Cosy UI Logo"
+					}}
+					products={[
+						{
+							name: "组件",
+							href: createUrl('/components'),
+							external: false
+						},
+						{
+							name: "GitHub",
+							href: "https://github.com/cosyui",
+							external: true
+						}
+					]}
+					aboutLink={createUrl('/about')}
+					contactLink={createUrl('/contact')}
+					socialLinks={[
+						{
+							name: "GitHub",
+							url: "https://github.com/cosyui",
+							platform: "github"
+						}
+					]}
+				/>
 			</div>
 
 			<!-- 侧边栏 -->

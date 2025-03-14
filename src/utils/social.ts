@@ -4,6 +4,13 @@ interface PlatformConfig {
 	domains: string[];
 }
 
+// 社交链接类型
+export interface SocialLink {
+	name: string;
+	url: string;
+	platform: string;
+}
+
 // 处理后的社交链接类型
 export interface ProcessedSocialLink {
 	url: string;
@@ -69,21 +76,21 @@ function detectPlatform(url: string): [string, PlatformConfig] | null {
 }
 
 // 处理社交链接
-export function processSocialLink(url: string): ProcessedSocialLink {
-	const platformInfo = detectPlatform(url);
+export function processSocialLink(link: SocialLink): ProcessedSocialLink {
+	const platformInfo = detectPlatform(link.url);
 
 	if (!platformInfo) {
 		// 如果无法识别平台，返回默认值
 		return {
-			url,
-			name: new URL(url).hostname,
+			url: link.url,
+			name: link.name,
 			platform: 'default',
 		};
 	}
 
 	const [platform, config] = platformInfo;
 	return {
-		url,
+		url: link.url,
 		name: config.name,
 		platform,
 	};
