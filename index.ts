@@ -9,6 +9,7 @@ export { default as CodeBlock } from './src/components/CodeBlock.astro';
 export { default as Footer } from './src/components/Footer.astro';
 export { default as Header } from './src/components/Header.astro';
 export { default as Hero } from './src/components/Hero.astro';
+export { default as Image } from './src/components/Image.astro';
 export { default as Link } from './src/components/Link.astro';
 export { default as Modal } from './src/components/Modal.astro';
 export { default as SocialIcon } from './src/components/SocialIcon.astro';
