@@ -1,6 +1,7 @@
 // 这里用于导出所有组件，注意按照字母排序
 export { default as Alert } from './src/components/Alert.astro';
 export { default as Article } from './src/components/Article.astro';
+export { default as Blog } from './src/components/Blog.astro';
 export { default as Banner } from './src/components/Banner.astro';
 export { default as Button } from './src/components/Button.astro';
 export { default as Card } from './src/components/Card.astro';
