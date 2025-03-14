@@ -9,12 +9,6 @@ export interface Product {
     external?: boolean;
 }
 
-export interface SocialLink {
-    name: string;
-    url: string;
-    platform: string;
-}
-
 export interface FooterProps {
     siteName: string;
     homeLink: string;
@@ -29,5 +23,14 @@ export interface FooterProps {
     contactLink?: string;
     termsLink?: string;
     privacyLink?: string;
-    socialLinks?: SocialLink[];
+    socialLinks?: string[];
+    teamLink?: string;
+    careersLink?: string;
+    newsLink?: string;
+    historyLink?: string;
+    partnersLink?: string;
+    blogLink?: string;
+    faqLink?: string;
+    mediaLink?: string;
+    techStackLink?: string;
 } 

@@ -15,10 +15,7 @@ const groupedRoutes = getGroupedRoutes();
 const currentPath = new URL(Astro.request.url).pathname;
 const baseUrl = getBaseUrl();
 // 确保路径以 / 开头，并移除末尾的 /
-const normalizedCurrentPath = currentPath
-  .replace(baseUrl, '')
-  .replace(/\/$/, '')
-  || '/';
+const normalizedCurrentPath = currentPath.replace(baseUrl, '').replace(/\/$/, '') || '/';
 ---
 
 <!doctype html>
@@ -34,15 +31,23 @@ const normalizedCurrentPath = currentPath
 	<body>
 		<div class="drawer lg:drawer-open">
 			<input id="my-drawer" type="checkbox" class="drawer-toggle" />
-			
+
 			<!-- 页面内容 -->
 			<div class="drawer-content flex flex-col min-h-screen">
 				<!-- 顶部导航栏（移动端） -->
 				<div class="w-full navbar bg-base-300 lg:hidden">
 					<div class="flex-none">
 						<label for="my-drawer" class="btn btn-square btn-ghost drawer-button">
-							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								class="inline-block w-5 h-5 stroke-current">
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M4 6h16M4 12h16M4 18h16"></path>
 							</svg>
 						</label>
 					</div>
@@ -56,7 +61,7 @@ const normalizedCurrentPath = currentPath
 					<slot />
 				</main>
 
-				<Footer 
+				<Footer
 					siteName="Cosy UI"
 					homeLink={createUrl('/')}
 					slogan="优雅的 Astro 组件库"
@@ -65,29 +70,37 @@ const normalizedCurrentPath = currentPath
 					inspirationalSlogan="让设计更简单"
 					logo={{
 						src: createUrl('/favicon.svg'),
-						alt: "Cosy UI Logo"
+						alt: 'Cosy UI Logo',
 					}}
 					products={[
 						{
-							name: "组件",
+							name: '组件',
 							href: createUrl('/components'),
-							external: false
+							external: false,
 						},
 						{
-							name: "GitHub",
-							href: "https://github.com/cosyui",
-							external: true
-						}
-					]}
-					aboutLink={createUrl('/about')}
-					contactLink={createUrl('/contact')}
-					socialLinks={[
+							name: 'GitHub',
+							href: 'https://github.com/cosyui',
+							external: true,
+						},
 						{
-							name: "GitHub",
-							url: "https://github.com/cosyui",
-							platform: "github"
-						}
+							name: 'Cisum',
+							href: 'https://coffic.zone.id/cisum',
+							external: true,
+						},
+						{
+							name: 'Netto',
+							href: 'https://coffic.zone.id/gitok',
+							external: true,
+						},
 					]}
+					historyLink={'https://coffic.zone.id/en/meta/our-story'}
+					termsLink={'https://coffic.zone.id/en/meta/terms'}
+					privacyLink={'https://coffic.zone.id/en/meta/privacy'}
+					techStackLink={'https://coffic.zone.id/en/meta/tech-stack'}
+					aboutLink={'https://github.com/cofficlab'}
+					contactLink={'https://github.com/cofficlab/FeedbackHub'}
+					socialLinks={['https://github.com/cofficlab', 'https://github.com/cofficlab/cosy-ui']}
 				/>
 			</div>
 
@@ -102,25 +115,26 @@ const normalizedCurrentPath = currentPath
 
 					<!-- 导航菜单 -->
 					<ul class="menu p-4 text-base-content">
-						{Object.entries(groupedRoutes).map(([group, routes]) => (
-							<>
-								<li class="menu-title">{group}</li>
-								{routes.map(route => {
-									const isActive = normalizedCurrentPath === route.path;
-									return (
-										<li>
-											<a 
-												href={createUrl(route.path)} 
-												class:list={["menu-item", { active: isActive }]}
-												aria-current={isActive ? "page" : undefined}
-											>
-												{route.title}
-											</a>
-										</li>
-									);
-								})}
-							</>
-						))}
+						{
+							Object.entries(groupedRoutes).map(([group, routes]) => (
+								<>
+									<li class="menu-title">{group}</li>
+									{routes.map((route) => {
+										const isActive = normalizedCurrentPath === route.path;
+										return (
+											<li>
+												<a
+													href={createUrl(route.path)}
+													class:list={['menu-item', { active: isActive }]}
+													aria-current={isActive ? 'page' : undefined}>
+													{route.title}
+												</a>
+											</li>
+										);
+									})}
+								</>
+							))
+						}
 					</ul>
 				</aside>
 			</div>
@@ -131,11 +145,12 @@ const normalizedCurrentPath = currentPath
 			document.addEventListener('astro:page-load', () => {
 				const drawer = document.querySelector('input.drawer-toggle');
 				const menuItems = document.querySelectorAll('.drawer-side .menu-item');
-				
+
 				// 点击菜单项后关闭抽屉
-				menuItems.forEach(item => {
+				menuItems.forEach((item) => {
 					item.addEventListener('click', () => {
-						if (window.innerWidth < 1024 && drawer instanceof HTMLInputElement) { // lg breakpoint
+						if (window.innerWidth < 1024 && drawer instanceof HTMLInputElement) {
+							// lg breakpoint
 							drawer.checked = false;
 						}
 					});
@@ -146,7 +161,7 @@ const normalizedCurrentPath = currentPath
 </html>
 
 <style>
-@reference '../global.css';
+	@reference '../global.css';
 	/* 确保高亮样式正确应用 */
 	.menu-item.active {
 		@apply bg-primary text-primary-content;

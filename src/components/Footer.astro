@@ -22,12 +22,21 @@ const {
 	termsLink,
 	privacyLink,
 	socialLinks = [],
+	teamLink,
+	careersLink,
+	newsLink,
+	historyLink,
+	partnersLink,
+	blogLink,
+	faqLink,
+	mediaLink,
+	techStackLink,
 }: Props = Astro.props;
 
 const currentYear = new Date().getFullYear();
 
 // 处理社交链接
-const processedSocialLinks = socialLinks.map((link) => processSocialLink(link));
+const processedSocialLinks = socialLinks.map((url) => processSocialLink(url));
 ---
 
 <footer class="bg-base-200/50 dark:bg-base-300/50 z-50 backdrop-blur-md">
@@ -69,11 +78,11 @@ const processedSocialLinks = socialLinks.map((link) => processSocialLink(link));
 
 		{
 			products.length > 0 && (
-				<nav class="place-self-center text-center flex flex-col items-center min-h-[200px]">
+				<nav class="place-self-start text-center flex flex-col items-center min-h-[200px]">
 					<h6 class="footer-title">产品</h6>
-					<div class="flex flex-col gap-2">
+					<div class="flex flex-col">
 						{products.map((product) => (
-							<Link href={product.href} external={product.external}>
+							<Link href={product.href} external={product.external} size="sm">
 								{product.name}
 							</Link>
 						))}
@@ -83,12 +92,21 @@ const processedSocialLinks = socialLinks.map((link) => processSocialLink(link));
 		}
 
 		{
-			(aboutLink || contactLink) && (
-				<nav class="place-self-center text-center flex flex-col items-center min-h-[200px]">
+			(aboutLink || contactLink || teamLink || careersLink || newsLink || historyLink || partnersLink || blogLink || faqLink || mediaLink || techStackLink) && (
+				<nav class="place-self-start text-center flex flex-col items-center min-h-[200px]">
 					<h6 class="footer-title">关于</h6>
-					<div class="flex flex-col gap-2">
-						{aboutLink && <Link href={aboutLink}>关于我们</Link>}
-						{contactLink && <Link href={contactLink}>联系我们</Link>}
+					<div class="flex flex-col">
+						{aboutLink && <Link href={aboutLink} size="sm">关于我们</Link>}
+						{teamLink && <Link href={teamLink} size="sm">团队介绍</Link>}
+						{careersLink && <Link href={careersLink} size="sm">加入我们</Link>}
+						{newsLink && <Link href={newsLink} size="sm">新闻动态</Link>}
+						{historyLink && <Link href={historyLink} size="sm">发展历程</Link>}
+						{partnersLink && <Link href={partnersLink} size="sm">合作伙伴</Link>}
+						{blogLink && <Link href={blogLink} size="sm">技术博客</Link>}
+						{techStackLink && <Link href={techStackLink} size="sm">技术栈</Link>}
+						{faqLink && <Link href={faqLink} size="sm">常见问题</Link>}
+						{mediaLink && <Link href={mediaLink} size="sm">媒体报道</Link>}
+						{contactLink && <Link href={contactLink} size="sm">联系我们</Link>}
 					</div>
 				</nav>
 			)
@@ -96,11 +114,11 @@ const processedSocialLinks = socialLinks.map((link) => processSocialLink(link));
 
 		{
 			(termsLink || privacyLink) && (
-				<nav class="place-self-center text-center flex flex-col items-center min-h-[200px]">
+				<nav class="place-self-start text-center flex flex-col items-center min-h-[200px]">
 					<h6 class="footer-title">法律</h6>
-					<div class="flex flex-col gap-2">
-						{termsLink && <Link href={termsLink}>服务条款</Link>}
-						{privacyLink && <Link href={privacyLink}>隐私政策</Link>}
+					<div class="flex flex-col">
+						{termsLink && <Link href={termsLink} size="sm">服务条款</Link>}
+						{privacyLink && <Link href={privacyLink} size="sm">隐私政策</Link>}
 					</div>
 				</nav>
 			)
