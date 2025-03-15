@@ -1,60 +1,95 @@
 ---
 import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
 import Link from './Link.astro';
 import SocialIcon from './SocialIcon.astro';
 
 interface SocialLink {
-  platform: 'github' | 'twitter' | 'linkedin' | 'website' | 'email';
-  url: string;
+	platform: 'github' | 'twitter' | 'linkedin' | 'website' | 'email';
+	url: string;
 }
 
 export interface Props {
-  name: string;
-  role: string;
-  avatar: ImageMetadata | string;
-  bio: string;
-  socialLinks?: SocialLink[];
-  class?: string;
+	name: string;
+	role: string;
+	avatar: ImageMetadata | string;
+	bio: string;
+	socialLinks?: SocialLink[];
+	class?: string;
 }
 
 const { name, role, avatar, bio, socialLinks, class: className = '' } = Astro.props;
 ---
 
-<div class:list={["card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300", className]}>
-  <figure class="px-6 pt-6">
-    {typeof avatar === 'string' ? (
-      <img
-        src={avatar}
-        alt={`${name}'s avatar`}
-        class="rounded-xl w-48 h-48 object-cover"
-      />
-    ) : (
-      <img
-        src={avatar.src}
-        alt={`${name}'s avatar`}
-        class="rounded-xl w-48 h-48 object-cover"
-      />
-    )}
-  </figure>
-  <div class="card-body items-center text-center">
-    <h2 class="card-title text-2xl font-bold">{name}</h2>
-    <p class="text-primary font-medium">{role}</p>
-    <p class="text-base-content/80">{bio}</p>
-    
-    {socialLinks && socialLinks.length > 0 && (
-      <div class="flex gap-4 mt-4">
-        {socialLinks.map(link => (
-          <Link
-            href={link.url}
-            external
-            variant="ghost"
-            class="p-2 hover:text-primary"
-            aria-label={`Visit ${name}'s ${link.platform} profile`}
-          >
-            <SocialIcon platform={link.platform} class="w-5 h-5" />
-          </Link>
-        ))}
-      </div>
-    )}
-  </div>
-</div> 
+<div
+	class:list={[
+		'card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300',
+		className,
+	]}>
+	<figure class="px-6 pt-6 relative">
+		<div class="w-48 h-48 bg-base-200 rounded-xl animate-pulse absolute top-6 left-1/2 transform -translate-x-1/2"></div>
+		{
+			typeof avatar === 'string' ? (
+				<Image 
+					src={avatar} 
+					alt={`${name}'s avatar`} 
+					width={192} 
+					height={192} 
+					class="rounded-xl w-48 h-48 object-cover relative z-10 opacity-0 transition-opacity duration-300" 
+					loading="lazy"
+					onload="this.classList.remove('opacity-0')"
+				/>
+			) : (
+				<Image 
+					src={avatar} 
+					alt={`${name}'s avatar`} 
+					width={192} 
+					height={192} 
+					class="rounded-xl w-48 h-48 object-cover relative z-10 opacity-0 transition-opacity duration-300" 
+					loading="lazy"
+					onload="this.classList.remove('opacity-0')"
+				/>
+			)
+		}
+	</figure>
+	<div class="card-body items-center text-center">
+		<h2 class="card-title text-2xl font-bold">{name}</h2>
+		<p class="text-primary font-medium">{role}</p>
+		<p class="text-base-content/80">{bio}</p>
+
+		{
+			socialLinks && socialLinks.length > 0 && (
+				<div class="flex gap-4 mt-4">
+					{socialLinks.map((link) => (
+						<Link
+							href={link.url}
+							external
+							variant="ghost"
+							class="p-2 hover:text-primary"
+							aria-label={`Visit ${name}'s ${link.platform} profile`}>
+							<SocialIcon platform={link.platform} class="w-5 h-5" />
+						</Link>
+					))}
+				</div>
+			)
+		}
+	</div>
+</div>
+
+<script>
+	// 确保图片加载完成后显示
+	document.addEventListener('astro:page-load', () => {
+		const images = document.querySelectorAll('img.opacity-0');
+		images.forEach(img => {
+			// 使用标准JavaScript检查图片是否已加载完成
+			if (img instanceof HTMLImageElement && img.complete) {
+				img.classList.remove('opacity-0');
+			} else {
+				img.addEventListener('load', () => {
+					img.classList.remove('opacity-0');
+				});
+			}
+		});
+	});
+</script>
+
