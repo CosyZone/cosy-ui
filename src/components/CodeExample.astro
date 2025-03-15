@@ -1,0 +1,279 @@
+---
+/**
+ * @component CodeExample
+ * 
+ * @description
+ * 用于展示组件示例及其源代码的组件。
+ * 采用标签形式，默认显示预览，用户可以点击标签切换到源代码视图。
+ * 
+ * @usage
+ * ```astro
+ * <CodeExample 
+ *   title="示例标题" 
+ *   description="示例描述"
+ *   code={`<Alert type="info">这是一个示例</Alert>`}
+ * >
+ *   <Alert type="info">这是一个示例</Alert>
+ * </CodeExample>
+ * ```
+ * 
+ * @props
+ * @prop {string} [title] - 示例标题
+ * @prop {string} [description] - 示例描述
+ * @prop {string} code - 要展示的源代码
+ * 
+ * @slots
+ * @slot default - 组件的实际渲染内容
+ */
+
+// 导入图标
+import { ClipboardIcon, CheckIcon } from '../icons';
+
+interface Props {
+  title?: string;
+  description?: string;
+  code: string;
+}
+
+const { title, description, code } = Astro.props;
+---
+
+<div class="code-example">
+  {title && <h3 class="code-example-title">{title}</h3>}
+  {description && <p class="code-example-description">{description}</p>}
+  
+  <div class="code-example-tabs">
+    <button class="code-example-tab active" data-tab="preview">预览</button>
+    <button class="code-example-tab" data-tab="code">代码</button>
+  </div>
+  
+  <div class="code-example-content">
+    <div class="code-example-panel active" data-panel="preview">
+      <div class="code-example-preview">
+        <slot />
+      </div>
+    </div>
+    
+    <div class="code-example-panel" data-panel="code">
+      <div class="code-example-code">
+        <div class="code-example-header">
+          <button class="copy-button" aria-label="复制代码">
+            <span class="copy-icon"><ClipboardIcon /></span>
+            <span class="check-icon"><CheckIcon /></span>
+            <span class="copy-text">复制代码</span>
+          </button>
+        </div>
+        <pre><code class="language-astro">{code}</code></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .code-example {
+    margin-bottom: 2rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+  
+  .code-example-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 0;
+    padding: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .code-example-description {
+    padding: 0 1rem;
+    color: #64748b;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .code-example-tabs {
+    display: flex;
+    border-bottom: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+  }
+  
+  .code-example-tab {
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    font-weight: 500;
+    color: #64748b;
+    transition: all 0.2s ease;
+  }
+  
+  .code-example-tab:hover {
+    color: #0f172a;
+  }
+  
+  .code-example-tab.active {
+    color: #3b82f6;
+    border-bottom-color: #3b82f6;
+  }
+  
+  .code-example-content {
+    position: relative;
+  }
+  
+  .code-example-panel {
+    display: none;
+  }
+  
+  .code-example-panel.active {
+    display: block;
+  }
+  
+  .code-example-preview {
+    padding: 1.5rem;
+    background-color: #fff;
+  }
+  
+  .code-example-code {
+    position: relative;
+    background-color: #1e293b;
+    color: #e2e8f0;
+    overflow: auto;
+  }
+  
+  .code-example-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: #334155;
+  }
+  
+  .copy-button {
+    background: transparent;
+    border: none;
+    color: #e2e8f0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s;
+    font-size: 0.875rem;
+  }
+  
+  .copy-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .copy-icon, .check-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+  }
+  
+  .check-icon {
+    display: none;
+    color: #4ade80;
+  }
+  
+  .copy-button.copied .copy-icon {
+    display: none;
+  }
+  
+  .copy-button.copied .check-icon {
+    display: flex;
+  }
+  
+  .copy-button.copied .copy-text {
+    color: #4ade80;
+  }
+  
+  pre {
+    margin: 0;
+    padding: 1rem;
+    overflow-x: auto;
+  }
+  
+  code {
+    font-family: monospace;
+    white-space: pre;
+  }
+</style>
+
+<script>
+  function initializeCodeExample() {
+    // 标签切换功能
+    const tabs = document.querySelectorAll('.code-example-tab');
+    
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // 获取当前标签组
+        const tabGroup = tab.closest('.code-example-tabs');
+        if (!tabGroup) return;
+        
+        const codeExample = tab.closest('.code-example');
+        if (!codeExample) return;
+        
+        const contentContainer = codeExample.querySelector('.code-example-content');
+        if (!contentContainer) return;
+        
+        // 获取目标面板
+        const targetTab = tab.getAttribute('data-tab');
+        if (!targetTab) return;
+        
+        // 更新标签状态
+        tabGroup.querySelectorAll('.code-example-tab').forEach(t => {
+          t.classList.remove('active');
+        });
+        tab.classList.add('active');
+        
+        // 更新面板状态
+        contentContainer.querySelectorAll('.code-example-panel').forEach(panel => {
+          panel.classList.remove('active');
+        });
+        
+        const targetPanel = contentContainer.querySelector(`[data-panel="${targetTab}"]`);
+        if (targetPanel) {
+          targetPanel.classList.add('active');
+        }
+      });
+    });
+    
+    // 复制代码功能
+    const copyButtons = document.querySelectorAll('.copy-button');
+    
+    copyButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const codeBlock = button.closest('.code-example-code');
+        if (!codeBlock) return;
+        
+        const codeElement = codeBlock.querySelector('code');
+        if (!codeElement) return;
+        
+        const code = codeElement.textContent || '';
+        
+        // 复制到剪贴板
+        navigator.clipboard.writeText(code).then(() => {
+          // 显示复制成功状态
+          button.classList.add('copied');
+          
+          // 3秒后恢复原状
+          setTimeout(() => {
+            button.classList.remove('copied');
+          }, 3000);
+        });
+      });
+    });
+  }
+  
+  // 初始化
+  initializeCodeExample();
+  
+  // Astro 页面切换时重新初始化
+  document.addEventListener('astro:page-load', initializeCodeExample);
+</script> 
