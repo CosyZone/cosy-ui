@@ -74,6 +74,12 @@ interface Props {
    * @default "none"
    */
   transition?: 'none' | 'fade' | 'slide' | 'zoom';
+
+  /**
+   * 加载指示器类型
+   * @default "pulse"
+   */
+  loadingIndicator?: 'pulse' | 'spinner' | 'progress' | 'skeleton';
 }
 
 const {
@@ -92,6 +98,7 @@ const {
   shadow = 'none',
   hover = 'none',
   transition = 'none',
+  loadingIndicator = 'skeleton',
 } = Astro.props;
 
 // 处理类名
@@ -124,6 +131,8 @@ const imageStyles = {
 
 // 判断是否为本地图片
 const isLocalImage = typeof src !== 'string' && 'src' in src;
+// 判断是否为远程图片
+const isRemoteImage = typeof src === 'string' && (src.startsWith('http') || src.startsWith('//'));
 ---
 
 <div class={classes}>
@@ -147,12 +156,34 @@ const isLocalImage = typeof src !== 'string' && 'src' in src;
         loading={loading}
         class={`w-full h-full opacity-0 transition-opacity duration-300 ${rounded !== 'none' ? `rounded-${rounded}` : ''}`}
         style={imageStyles}
+        data-remote={isRemoteImage ? 'true' : 'false'}
       />
     )}
 
     {/* 加载占位图 */}
     {showPlaceholder && (
-      <div class={`absolute inset-0 bg-base-200 animate-pulse ${rounded !== 'none' ? `rounded-${rounded}` : ''}`} />
+      <div class={`absolute inset-0 bg-base-200 ${loadingIndicator === 'pulse' ? 'animate-pulse' : ''} ${rounded !== 'none' ? `rounded-${rounded}` : ''}`}>
+        {/* 远程图片加载指示器 */}
+        {isRemoteImage && loadingIndicator === 'spinner' && (
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="loading loading-spinner loading-md text-primary"></div>
+          </div>
+        )}
+        
+        {isRemoteImage && loadingIndicator === 'progress' && (
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-3/4 h-2 bg-base-300 rounded-full overflow-hidden">
+              <div class="loading-progress-bar h-full bg-primary rounded-full"></div>
+            </div>
+          </div>
+        )}
+        
+        {isRemoteImage && loadingIndicator === 'skeleton' && (
+          <div class="absolute inset-0">
+            <div class="h-full w-full bg-gradient-to-r from-base-200 via-base-100 to-base-200 bg-loading-skeleton"></div>
+          </div>
+        )}
+      </div>
     )}
 
     {/* 错误占位图 */}
@@ -173,7 +204,7 @@ const isLocalImage = typeof src !== 'string' && 'src' in src;
     if (!(img instanceof HTMLImageElement)) return;
     
     // 移除加载占位图
-    const placeholder = img.parentElement?.querySelector('.animate-pulse');
+    const placeholder = img.parentElement?.querySelector('.bg-base-200');
     if (placeholder) {
       placeholder.classList.add('opacity-0');
       setTimeout(() => {
@@ -193,7 +224,7 @@ const isLocalImage = typeof src !== 'string' && 'src' in src;
     if (!(img instanceof HTMLImageElement)) return;
     
     // 移除加载占位图
-    const placeholder = img.parentElement?.querySelector('.animate-pulse');
+    const placeholder = img.parentElement?.querySelector('.bg-base-200');
     if (placeholder) {
       placeholder.classList.add('opacity-0');
       setTimeout(() => {
@@ -208,9 +239,69 @@ const isLocalImage = typeof src !== 'string' && 'src' in src;
     }
   }
 
+  /**
+   * 模拟远程图片加载进度
+   * @param {HTMLImageElement} img - 图片元素
+   */
+  function simulateLoadingProgress(img) {
+    if (!(img instanceof HTMLImageElement) || img.getAttribute('data-remote') !== 'true') return;
+    
+    const progressBar = img.parentElement?.querySelector('.loading-progress-bar');
+    if (!progressBar) return;
+    
+    let progress = 0;
+    const interval = setInterval(() => {
+      // 随机增加进度，模拟网络波动
+      progress += Math.random() * 15;
+      
+      if (progress >= 100 || img.complete) {
+        clearInterval(interval);
+        progress = 100;
+      }
+      
+      progressBar.style.width = `${Math.min(progress, 100)}%`;
+    }, 200);
+    
+    // 图片加载完成时清除定时器
+    img.addEventListener('load', () => {
+      clearInterval(interval);
+      progressBar.style.width = '100%';
+    });
+    
+    img.addEventListener('error', () => {
+      clearInterval(interval);
+    });
+  }
+
+  /**
+   * 添加骨架屏动画
+   */
+  function addSkeletonAnimation() {
+    const style = document.createElement('style');
+    style.textContent = `
+      .bg-loading-skeleton {
+        background-size: 400% 100%;
+        animation: skeleton-loading 1.5s ease-in-out infinite;
+      }
+      
+      @keyframes skeleton-loading {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
   // 初始化图片加载处理
   function initializeImageHandlers() {
-    const images = document.querySelectorAll('img[loading="lazy"]');
+    // 添加骨架屏动画样式
+    addSkeletonAnimation();
+    
+    const images = document.querySelectorAll('img');
     images.forEach(img => {
       if (img instanceof HTMLImageElement) {
         // 如果图片已经加载完成
@@ -220,6 +311,11 @@ const isLocalImage = typeof src !== 'string' && 'src' in src;
           // 添加加载事件监听
           img.addEventListener('load', () => handleImageLoad(img));
           img.addEventListener('error', () => handleImageError(img));
+          
+          // 对远程图片模拟加载进度
+          if (img.getAttribute('data-remote') === 'true') {
+            simulateLoadingProgress(img);
+          }
         }
       }
     });
@@ -256,5 +352,10 @@ const isLocalImage = typeof src !== 'string' && 'src' in src;
 
   .hover\:blur-sm:hover {
     filter: blur(4px);
+  }
+  
+  /* 加载占位图淡出效果 */
+  .bg-base-200 {
+    transition: opacity 0.3s ease;
   }
 </style> 
