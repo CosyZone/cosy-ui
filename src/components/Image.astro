@@ -1,6 +1,7 @@
 ---
 import { Image as AstroImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import { AlertTriangle } from '../icons';
 
 interface Props {
   /**
@@ -134,7 +135,7 @@ const isLocalImage = typeof src !== 'string' && 'src' in src;
         width={width}
         height={height}
         loading={loading}
-        class="w-full h-full opacity-0 transition-opacity duration-300"
+        class={`w-full h-full opacity-0 transition-opacity duration-300 ${rounded !== 'none' ? `rounded-${rounded}` : ''}`}
         style={imageStyles}
       />
     ) : (
@@ -144,30 +145,33 @@ const isLocalImage = typeof src !== 'string' && 'src' in src;
         width={width}
         height={height}
         loading={loading}
-        class="w-full h-full opacity-0 transition-opacity duration-300"
+        class={`w-full h-full opacity-0 transition-opacity duration-300 ${rounded !== 'none' ? `rounded-${rounded}` : ''}`}
         style={imageStyles}
       />
     )}
 
     {/* 加载占位图 */}
     {showPlaceholder && (
-      <div class="absolute inset-0 bg-base-200 animate-pulse" />
+      <div class={`absolute inset-0 bg-base-200 animate-pulse ${rounded !== 'none' ? `rounded-${rounded}` : ''}`} />
     )}
 
     {/* 错误占位图 */}
     {showError && (
-      <div class="absolute inset-0 bg-error/10 flex items-center justify-center hidden">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-error" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-        </svg>
+      <div class={`absolute inset-0 bg-error/10 flex items-center justify-center hidden ${rounded !== 'none' ? `rounded-${rounded}` : ''}`}>
+        <AlertTriangle size="32px" color="currentColor" class="text-error" />
       </div>
     )}
   </div>
 </div>
 
-<script>
-  // 处理图片加载状态
+<script is:inline lang="ts">
+  /**
+   * 处理图片加载状态
+   * @param {Element} img - 图片元素
+   */
   function handleImageLoad(img) {
+    if (!(img instanceof HTMLImageElement)) return;
+    
     // 移除加载占位图
     const placeholder = img.parentElement?.querySelector('.animate-pulse');
     if (placeholder) {
@@ -181,8 +185,13 @@ const isLocalImage = typeof src !== 'string' && 'src' in src;
     img.classList.add('opacity-100');
   }
 
-  // 处理图片加载错误
+  /**
+   * 处理图片加载错误
+   * @param {Element} img - 图片元素
+   */
   function handleImageError(img) {
+    if (!(img instanceof HTMLImageElement)) return;
+    
     // 移除加载占位图
     const placeholder = img.parentElement?.querySelector('.animate-pulse');
     if (placeholder) {

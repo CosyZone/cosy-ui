@@ -16,3 +16,6 @@ export { default as SocialIcon } from './src/components/SocialIcon.astro';
 export { default as ThemeItem } from './src/components/ThemeItem.astro';
 export { default as TeamMember } from './src/components/TeamMember.astro';
 export { default as TeamMembers } from './src/components/TeamMembers.astro';
+
+// 导出图标组件
+export * from './src/icons';
