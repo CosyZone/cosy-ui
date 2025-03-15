@@ -1,4 +1,52 @@
 ---
+/**
+ * @component Button
+ * 
+ * @description
+ * Button 组件用于触发一个即时操作，如表单提交、打开对话框等。
+ * 支持多种样式变体、尺寸和状态，可以满足不同场景的需求。
+ * 
+ * @design
+ * 设计理念：
+ * 1. 直观易用 - 通过视觉差异清晰传达按钮的重要性和功能
+ * 2. 响应式交互 - 提供丰富的状态反馈，增强用户体验
+ * 3. 可定制性 - 支持多种配置选项，适应不同场景需求
+ * 4. 无障碍性 - 确保所有用户都能获得良好体验
+ * 
+ * 视觉特点：
+ * - 悬停效果：轻微上浮和阴影增强
+ * - 点击效果：轻微下沉
+ * - 加载状态：显示加载动画
+ * - 多种颜色变体：适应不同场景和语义
+ * - 多种尺寸：适应不同布局需求
+ * 
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Button>默认按钮</Button>
+ * <Button variant="primary">主要按钮</Button>
+ * ```
+ * 
+ * 不同尺寸：
+ * ```astro
+ * <Button size="sm">小型按钮</Button>
+ * <Button size="lg">大型按钮</Button>
+ * ```
+ * 
+ * 状态变化：
+ * ```astro
+ * <Button disabled>禁用按钮</Button>
+ * <Button loading>加载中</Button>
+ * ```
+ * 
+ * 带图标：
+ * ```astro
+ * <Button>
+ *   <span slot="icon-left">👈</span>
+ *   左侧图标
+ * </Button>
+ * ```
+ */
 interface Props {
   variant?: 'primary' | 'secondary' | 'accent' | 'info' | 'success' | 'warning' | 'error' | 'ghost' | 'link' | 'outline' | 'neutral';
   size?: 'lg' | 'md' | 'sm' | 'xs';
@@ -13,8 +61,8 @@ interface Props {
 }
 
 const {
-  variant,
-  size,
+  variant = 'primary',
+  size = 'md',
   shape,
   wide = false,
   block = false,
@@ -24,26 +72,265 @@ const {
   class: className,
   onClick,
 } = Astro.props;
-
-const classes = [
-  'btn',
-  variant && `btn-${variant}`,
-  size && `btn-${size}`,
-  shape && `btn-${shape}`,
-  wide && 'btn-wide',
-  block && 'btn-block',
-  loading && 'loading',
-  className,
-].filter(Boolean).join(' ');
 ---
 
 <button
   type={type}
-  class={classes}
+  class:list={[
+    'button',
+    `button-${variant}`,
+    `button-${size}`,
+    shape && `button-${shape}`,
+    wide && 'button-wide',
+    block && 'button-block',
+    loading && 'button-loading',
+    className
+  ]}
   disabled={disabled}
   onclick={onClick}
+  data-variant={variant}
 >
-  <slot name="icon-left" />
-  <slot />
-  <slot name="icon-right" />
-</button> 
+  {loading && <span class="loading-spinner"></span>}
+  <span class="button-content">
+    <slot name="icon-left" />
+    <slot />
+    <slot name="icon-right" />
+  </span>
+</button>
+
+<style>
+  /* 基础按钮样式 */
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .button:active {
+    transform: translateY(1px);
+    box-shadow: none;
+  }
+
+  .button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  /* 尺寸变体 */
+  .button-xs {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+  }
+
+  .button-sm {
+    font-size: 0.875rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+  }
+
+  .button-md {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+  }
+
+  .button-lg {
+    font-size: 1.125rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+  }
+
+  /* 形状变体 */
+  .button-circle {
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .button-square {
+    aspect-ratio: 1/1;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 宽度变体 */
+  .button-wide {
+    min-width: 12rem;
+  }
+
+  .button-block {
+    display: flex;
+    width: 100%;
+  }
+
+  /* 加载状态 */
+  .button-loading {
+    position: relative;
+    color: transparent !important;
+  }
+
+  .loading-spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 1.25em;
+    height: 1.25em;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    border-right-color: transparent;
+    animation: spin 0.75s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  /* 颜色变体 */
+  .button-primary {
+    background-color: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
+  }
+  .button-primary:hover {
+    background-color: #2563eb;
+    border-color: #2563eb;
+  }
+
+  .button-secondary {
+    background-color: #6b7280;
+    color: white;
+    border-color: #6b7280;
+  }
+  .button-secondary:hover {
+    background-color: #4b5563;
+    border-color: #4b5563;
+  }
+
+  .button-accent {
+    background-color: #8b5cf6;
+    color: white;
+    border-color: #8b5cf6;
+  }
+  .button-accent:hover {
+    background-color: #7c3aed;
+    border-color: #7c3aed;
+  }
+
+  .button-info {
+    background-color: #06b6d4;
+    color: white;
+    border-color: #06b6d4;
+  }
+  .button-info:hover {
+    background-color: #0891b2;
+    border-color: #0891b2;
+  }
+
+  .button-success {
+    background-color: #10b981;
+    color: white;
+    border-color: #10b981;
+  }
+  .button-success:hover {
+    background-color: #059669;
+    border-color: #059669;
+  }
+
+  .button-warning {
+    background-color: #f59e0b;
+    color: white;
+    border-color: #f59e0b;
+  }
+  .button-warning:hover {
+    background-color: #d97706;
+    border-color: #d97706;
+  }
+
+  .button-error {
+    background-color: #ef4444;
+    color: white;
+    border-color: #ef4444;
+  }
+  .button-error:hover {
+    background-color: #dc2626;
+    border-color: #dc2626;
+  }
+
+  .button-ghost {
+    background-color: transparent;
+    color: currentColor;
+  }
+  .button-ghost:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .button-link {
+    background-color: transparent;
+    color: #3b82f6;
+    text-decoration: underline;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+  }
+  .button-link:hover {
+    color: #2563eb;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .button-outline {
+    background-color: transparent;
+    color: #3b82f6;
+    border-color: currentColor;
+  }
+  .button-outline:hover {
+    background-color: rgba(59, 130, 246, 0.1);
+  }
+
+  .button-neutral {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    border-color: #e5e7eb;
+  }
+  .button-neutral:hover {
+    background-color: #e5e7eb;
+    border-color: #d1d5db;
+  }
+
+  /* 根据变体调整 outline 按钮颜色 */
+  .button-outline[data-variant="secondary"] { color: #6b7280; }
+  .button-outline[data-variant="accent"] { color: #8b5cf6; }
+  .button-outline[data-variant="info"] { color: #06b6d4; }
+  .button-outline[data-variant="success"] { color: #10b981; }
+  .button-outline[data-variant="warning"] { color: #f59e0b; }
+  .button-outline[data-variant="error"] { color: #ef4444; }
+  .button-outline[data-variant="neutral"] { color: #6b7280; }
+</style> 

@@ -1,8 +1,19 @@
 {
-  "extends": "astro/tsconfigs/strict",
-  "include": [
-    "./example/.astro/types.d.ts",
-    "index.ts",
-    "src"
-  ]
+    "extends": "astro/tsconfigs/strict",
+    "include": [
+        "./example/.astro/types.d.ts",
+        "index.ts",
+        "src"
+    ],
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "~/*": [
+                "./*"
+            ],
+            "~": [
+                "./"
+            ]
+        }
+    }
 }

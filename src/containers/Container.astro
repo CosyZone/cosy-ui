@@ -57,48 +57,86 @@ const {
   ...rest
 } = Astro.props;
 
-// 容器尺寸
-const sizeClasses = {
-  xs: 'max-w-screen-xs',
-  sm: 'max-w-screen-sm',
-  md: 'max-w-screen-md',
-  lg: 'max-w-screen-lg',
-  xl: 'max-w-screen-xl',
-  full: 'max-w-full'
-};
-
-// 内边距
-const paddingClasses = {
-  none: 'px-0',
-  sm: 'px-4',
-  md: 'px-6',
-  lg: 'px-8',
-  xl: 'px-12'
-};
-
-// 构建最终类名
-const containerClasses = [
-  'w-full',
-  sizeClasses[size],
-  paddingClasses[padding],
-  centered ? 'mx-auto' : '',
-  className
-].filter(Boolean).join(' ');
+// 构建CSS类名
+const containerClass = `container container-${size} padding-${padding}${centered ? ' centered' : ''}${className ? ' ' + className : ''}`;
 ---
 
-<div class:list={[containerClasses, classList]} {...rest}>
+<div class:list={[containerClass, classList]} {...rest}>
   <slot />
 </div>
 
 <style>
+  /* 基础容器样式 */
+  .container {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* 居中显示 */
+  .centered {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* 容器尺寸 */
+  .container-xs {
+    max-width: 480px;
+  }
+  
+  .container-sm {
+    max-width: 640px;
+  }
+  
+  .container-md {
+    max-width: 768px;
+  }
+  
+  .container-lg {
+    max-width: 1024px;
+  }
+  
+  .container-xl {
+    max-width: 1280px;
+  }
+  
+  .container-full {
+    max-width: 100%;
+  }
+  
+  /* 内边距 */
+  .padding-none {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  .padding-sm {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .padding-md {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  .padding-lg {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  
+  .padding-xl {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+  
   /* 响应式调整 */
   @media (max-width: 640px) {
-    .px-6 {
+    .padding-md {
       padding-left: 1rem;
       padding-right: 1rem;
     }
     
-    .px-8, .px-12 {
+    .padding-lg, .padding-xl {
       padding-left: 1.5rem;
       padding-right: 1.5rem;
     }

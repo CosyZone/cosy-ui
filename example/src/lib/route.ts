@@ -18,7 +18,6 @@ export const routes = {
         blog: { path: '/components/blog', title: 'Blog', group: '组件' },
         button: { path: '/components/button', title: 'Button', group: '组件' },
         code: { path: '/components/code', title: 'Code', group: '组件' },
-        footer: { path: '/components/footer', title: 'Footer', group: '组件' },
         heading: { path: '/components/heading', title: 'Heading', group: '组件' },
         image: { path: '/components/image', title: 'Image', group: '组件' },
         modal: { path: '/components/modal', title: 'Modal', group: '组件' },
@@ -26,6 +25,18 @@ export const routes = {
         table: { path: '/components/table', title: 'Table', group: '组件' },
         teamMember: { path: '/components/team-member', title: 'TeamMember', group: '组件' },
         text: { path: '/components/text', title: 'Text', group: '组件' },
+    },
+
+    // 布局
+    layouts: {
+        footer: { path: '/layouts/footer', title: 'Footer', group: '布局' },
+        layout: { path: '/layouts/layout', title: 'Layout', group: '布局' },
+    },
+
+    // 容器
+    containers: {
+        container: { path: '/containers/container', title: 'Container', group: '容器' },
+        section: { path: '/containers/section', title: 'Section', group: '容器' },
     },
 } as const;
 
@@ -45,6 +56,16 @@ export const getAllRoutes = (): Route[] => {
         flatRoutes.push(route as Route);
     });
 
+    // 添加布局页面
+    Object.values(routes.layouts).forEach(route => {
+        flatRoutes.push(route as Route);
+    });
+
+    // 添加容器页面
+    Object.values(routes.containers).forEach(route => {
+        flatRoutes.push(route as Route);
+    });
+
     return flatRoutes;
 };
 
@@ -53,6 +74,8 @@ export const getGroupedRoutes = () => {
     const groups: Record<string, Route[]> = {
         '开始': [],
         '组件': [],
+        '布局': [],
+        '容器': [],
     };
 
     getAllRoutes().forEach(route => {
