@@ -1,0 +1,272 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { TeamMember as TeamMemberComponent, TeamMembers as TeamMembersComponent } from '~/index';
+
+// 定义与组件相同的类型
+interface SocialLink {
+  platform: 'github' | 'twitter' | 'linkedin' | 'website' | 'email';
+  url: string;
+}
+
+interface TeamMemberData {
+  name: string;
+  role: string;
+  avatar: string; // 在示例中我们只使用字符串URL
+  bio: string;
+  socialLinks?: SocialLink[];
+}
+
+// 示例头像图片 URL
+const avatarUrls = [
+  'https://i.pravatar.cc/300?img=1',
+  'https://i.pravatar.cc/300?img=2',
+  'https://i.pravatar.cc/300?img=3',
+  'https://i.pravatar.cc/300?img=4',
+  'https://i.pravatar.cc/300?img=5',
+  'https://i.pravatar.cc/300?img=6'
+];
+
+// 示例团队成员数据
+const teamMembers: TeamMemberData[] = [
+  {
+    name: '张三',
+    role: '前端开发工程师',
+    avatar: avatarUrls[0],
+    bio: '专注于 React 和 TypeScript 开发，热爱开源社区，喜欢分享技术经验。',
+    socialLinks: [
+      { platform: 'github', url: 'https://github.com' },
+      { platform: 'twitter', url: 'https://twitter.com' },
+      { platform: 'linkedin', url: 'https://linkedin.com' }
+    ]
+  },
+  {
+    name: '李四',
+    role: '产品经理',
+    avatar: avatarUrls[1],
+    bio: '拥有5年产品设计经验，专注于用户体验和产品策略，曾主导多个成功的产品上线。',
+    socialLinks: [
+      { platform: 'linkedin', url: 'https://linkedin.com' },
+      { platform: 'website', url: 'https://example.com' }
+    ]
+  },
+  {
+    name: '王五',
+    role: 'UI/UX 设计师',
+    avatar: avatarUrls[2],
+    bio: '热爱设计与艺术，擅长用户界面和交互设计，追求简约而不简单的设计理念。',
+    socialLinks: [
+      { platform: 'github', url: 'https://github.com' },
+      { platform: 'website', url: 'https://example.com' }
+    ]
+  },
+  {
+    name: '赵六',
+    role: '后端开发工程师',
+    avatar: avatarUrls[3],
+    bio: '专注于 Node.js 和数据库优化，热爱解决复杂问题，追求高性能和可扩展性。',
+    socialLinks: [
+      { platform: 'github', url: 'https://github.com' },
+      { platform: 'email', url: 'mailto:example@example.com' }
+    ]
+  },
+  {
+    name: '钱七',
+    role: '技术总监',
+    avatar: avatarUrls[4],
+    bio: '10年技术管理经验，擅长团队建设和技术架构设计，推动产品技术创新。',
+    socialLinks: [
+      { platform: 'linkedin', url: 'https://linkedin.com' },
+      { platform: 'twitter', url: 'https://twitter.com' }
+    ]
+  },
+  {
+    name: '孙八',
+    role: '运维工程师',
+    avatar: avatarUrls[5],
+    bio: '专注于云原生技术和自动化部署，确保系统稳定运行和高可用性。',
+    socialLinks: [
+      { platform: 'github', url: 'https://github.com' }
+    ]
+  }
+];
+---
+
+<Layout title="团队成员组件示例">
+  <main class="container mx-auto p-4 space-y-12">
+    <h1 class="text-2xl font-bold mb-6">团队成员组件示例</h1>
+
+    <!-- 单个团队成员展示 -->
+    <section>
+      <h2 class="text-xl font-bold mb-4">单个团队成员 (TeamMember)</h2>
+      <div class="max-w-sm mx-auto">
+        <TeamMemberComponent
+          name={teamMembers[0].name}
+          role={teamMembers[0].role}
+          avatar={teamMembers[0].avatar}
+          bio={teamMembers[0].bio}
+          socialLinks={teamMembers[0].socialLinks}
+        />
+      </div>
+      
+      <div class="mt-8">
+        <h3 class="text-lg font-semibold mb-2">用法示例</h3>
+        <pre class="bg-base-200 p-4 rounded-lg overflow-x-auto"><code>{`<TeamMember
+  name="张三"
+  role="前端开发工程师"
+  avatar="https://i.pravatar.cc/300?img=1"
+  bio="专注于 React 和 TypeScript 开发，热爱开源社区，喜欢分享技术经验。"
+  socialLinks={[
+    { platform: 'github', url: 'https://github.com' },
+    { platform: 'twitter', url: 'https://twitter.com' },
+    { platform: 'linkedin', url: 'https://linkedin.com' }
+  ]}
+/>`}</code></pre>
+      </div>
+    </section>
+
+    <!-- 团队成员列表 -->
+    <section>
+      <h2 class="text-xl font-bold mb-4">团队成员列表 (TeamMembers)</h2>
+      
+      <div class="mb-8">
+        <h3 class="text-lg font-semibold mb-2">2列布局</h3>
+        <TeamMembersComponent
+          members={teamMembers.slice(0, 4)}
+          columns={2}
+        />
+      </div>
+      
+      <div class="mb-8">
+        <h3 class="text-lg font-semibold mb-2">3列布局（默认）</h3>
+        <TeamMembersComponent
+          members={teamMembers}
+          columns={3}
+        />
+      </div>
+      
+      <div class="mb-8">
+        <h3 class="text-lg font-semibold mb-2">4列布局</h3>
+        <TeamMembersComponent
+          members={teamMembers}
+          columns={4}
+        />
+      </div>
+      
+      <div class="mt-8">
+        <h3 class="text-lg font-semibold mb-2">用法示例</h3>
+        <pre class="bg-base-200 p-4 rounded-lg overflow-x-auto"><code>{`<TeamMembers
+  members={[
+    {
+      name: "张三",
+      role: "前端开发工程师",
+      avatar: "https://i.pravatar.cc/300?img=1",
+      bio: "专注于 React 和 TypeScript 开发，热爱开源社区，喜欢分享技术经验。",
+      socialLinks: [
+        { platform: 'github', url: 'https://github.com' },
+        { platform: 'twitter', url: 'https://twitter.com' }
+      ]
+    },
+    // 更多团队成员...
+  ]}
+  columns={3} // 可选，默认为3
+/>
+`}</code></pre>
+      </div>
+    </section>
+    
+    <!-- 属性说明 -->
+    <section>
+      <h2 class="text-xl font-bold mb-4">属性说明</h2>
+      
+      <div class="mb-8">
+        <h3 class="text-lg font-semibold mb-2">TeamMember 属性</h3>
+        <div class="overflow-x-auto">
+          <table class="table table-zebra w-full">
+            <thead>
+              <tr>
+                <th>属性名</th>
+                <th>类型</th>
+                <th>默认值</th>
+                <th>说明</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>name</td>
+                <td>string</td>
+                <td>-</td>
+                <td>团队成员姓名</td>
+              </tr>
+              <tr>
+                <td>role</td>
+                <td>string</td>
+                <td>-</td>
+                <td>团队成员职位</td>
+              </tr>
+              <tr>
+                <td>avatar</td>
+                <td>ImageMetadata | string</td>
+                <td>-</td>
+                <td>头像图片（可以是URL字符串或Astro图片对象）</td>
+              </tr>
+              <tr>
+                <td>bio</td>
+                <td>string</td>
+                <td>-</td>
+                <td>个人简介</td>
+              </tr>
+              <tr>
+                <td>socialLinks</td>
+                <td>SocialLink[]</td>
+                <td>[]</td>
+                <td>社交媒体链接数组</td>
+              </tr>
+              <tr>
+                <td>class</td>
+                <td>string</td>
+                <td>''</td>
+                <td>自定义CSS类名</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div>
+        <h3 class="text-lg font-semibold mb-2">TeamMembers 属性</h3>
+        <div class="overflow-x-auto">
+          <table class="table table-zebra w-full">
+            <thead>
+              <tr>
+                <th>属性名</th>
+                <th>类型</th>
+                <th>默认值</th>
+                <th>说明</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>members</td>
+                <td>TeamMemberData[]</td>
+                <td>-</td>
+                <td>团队成员数据数组</td>
+              </tr>
+              <tr>
+                <td>columns</td>
+                <td>2 | 3 | 4</td>
+                <td>3</td>
+                <td>显示的列数</td>
+              </tr>
+              <tr>
+                <td>class</td>
+                <td>string</td>
+                <td>''</td>
+                <td>自定义CSS类名</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout> 

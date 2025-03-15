@@ -23,6 +23,7 @@ export const routes = {
         modal: { path: '/components/modal', title: 'Modal 模态框', group: '组件' },
         select: { path: '/components/select', title: 'Select 选择器', group: '组件' },
         table: { path: '/components/table', title: 'Table 表格', group: '组件' },
+        teamMember: { path: '/components/team-member', title: 'TeamMember 团队成员', group: '组件' },
     },
 } as const;
 
