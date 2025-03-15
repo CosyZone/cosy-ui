@@ -13,17 +13,17 @@ export const routes = {
 
     // 组件
     components: {
-        alert: { path: '/components/alert', title: 'Alert 提示', group: '组件' },
-        article: { path: '/components/article', title: 'Article 文章', group: '组件' },
-        blog: { path: '/components/blog', title: 'Blog 博客', group: '组件' },
-        button: { path: '/components/button', title: 'Button 按钮', group: '组件' },
-        code: { path: '/components/code', title: 'Code 代码', group: '组件' },
-        footer: { path: '/components/footer', title: 'Footer 页脚', group: '组件' },
-        image: { path: '/components/image', title: 'Image 图片', group: '组件' },
-        modal: { path: '/components/modal', title: 'Modal 模态框', group: '组件' },
-        select: { path: '/components/select', title: 'Select 选择器', group: '组件' },
-        table: { path: '/components/table', title: 'Table 表格', group: '组件' },
-        teamMember: { path: '/components/team-member', title: 'TeamMember 团队成员', group: '组件' },
+        alert: { path: '/components/alert', title: 'Alert', group: '组件' },
+        article: { path: '/components/article', title: 'Article', group: '组件' },
+        blog: { path: '/components/blog', title: 'Blog', group: '组件' },
+        button: { path: '/components/button', title: 'Button', group: '组件' },
+        code: { path: '/components/code', title: 'Code', group: '组件' },
+        footer: { path: '/components/footer', title: 'Footer', group: '组件' },
+        image: { path: '/components/image', title: 'Image', group: '组件' },
+        modal: { path: '/components/modal', title: 'Modal', group: '组件' },
+        select: { path: '/components/select', title: 'Select', group: '组件' },
+        table: { path: '/components/table', title: 'Table', group: '组件' },
+        teamMember: { path: '/components/team-member', title: 'TeamMember', group: '组件' },
     },
 } as const;
 
