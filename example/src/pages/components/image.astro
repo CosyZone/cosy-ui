@@ -157,6 +157,58 @@ import exampleImage from '../../assets/logo.png';
         </div>
       </section>
 
+      {/* 远程图片加载指示器 */}
+      <section>
+        <h2 class="text-2xl font-semibold mb-4">远程图片加载指示器</h2>
+        <p class="mb-4">远程图片加载时的视觉提示，帮助用户了解图片正在加载中。</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="space-y-4">
+            <h3 class="text-lg font-medium">脉冲动画 (Pulse)</h3>
+            <ImageComponent
+              src="https://picsum.photos/400/300?random=2"
+              alt="脉冲加载动画"
+              width={300}
+              height={200}
+              loadingIndicator="pulse"
+              rounded="md"
+            />
+          </div>
+          <div class="space-y-4">
+            <h3 class="text-lg font-medium">旋转加载 (Spinner)</h3>
+            <ImageComponent
+              src="https://picsum.photos/400/300?random=3"
+              alt="旋转加载动画"
+              width={300}
+              height={200}
+              loadingIndicator="spinner"
+              rounded="md"
+            />
+          </div>
+          <div class="space-y-4">
+            <h3 class="text-lg font-medium">进度条 (Progress)</h3>
+            <ImageComponent
+              src="https://picsum.photos/400/300?random=4"
+              alt="进度条加载"
+              width={300}
+              height={200}
+              loadingIndicator="progress"
+              rounded="md"
+            />
+          </div>
+          <div class="space-y-4">
+            <h3 class="text-lg font-medium">骨架屏 (Skeleton)</h3>
+            <ImageComponent
+              src="https://picsum.photos/400/300?random=5"
+              alt="骨架屏加载"
+              width={300}
+              height={200}
+              loadingIndicator="skeleton"
+              rounded="md"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* 加载状态 */}
       <section>
         <h2 class="text-2xl font-semibold mb-4">加载状态</h2>
@@ -180,6 +232,38 @@ import exampleImage from '../../assets/logo.png';
               width={400}
               height={300}
               showError={true}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* 大图片加载示例 */}
+      <section>
+        <h2 class="text-2xl font-semibold mb-4">大图片加载示例</h2>
+        <p class="mb-4">以下是一些大尺寸图片的加载示例，可以更明显地观察到加载指示器的效果。</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-4">
+            <h3 class="text-lg font-medium">高清大图 (进度条)</h3>
+            <ImageComponent
+              src="https://picsum.photos/1200/800?random=6"
+              alt="高清大图"
+              width={600}
+              height={400}
+              loadingIndicator="progress"
+              rounded="lg"
+              shadow="md"
+            />
+          </div>
+          <div class="space-y-4">
+            <h3 class="text-lg font-medium">高清大图 (骨架屏)</h3>
+            <ImageComponent
+              src="https://picsum.photos/1200/800?random=7"
+              alt="高清大图"
+              width={600}
+              height={400}
+              loadingIndicator="skeleton"
+              rounded="lg"
+              shadow="md"
             />
           </div>
         </div>
