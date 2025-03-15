@@ -63,6 +63,11 @@ export interface Props {
    * 页面类名
    */
   class?: string;
+  
+  /**
+   * 类名列表
+   */
+  'class:list'?: any;
 }
 
 const {
@@ -73,14 +78,13 @@ const {
   viewport = true,
   customStyles = "",
   head,
-  class: className = "",
+  class: className,
+  'class:list': classList,
 } = Astro.props;
 
 // 处理类名
-let bodyClasses = "";
-if (className) {
-  bodyClasses = className;
-}
+let bodyClasses = className || "";
+
 ---
 
 <!DOCTYPE html>
@@ -102,7 +106,7 @@ if (className) {
     
     <slot name="head" />
   </head>
-  <body class={bodyClasses}>
+  <body class:list={[bodyClasses, classList]}>
     <slot />
   </body>
 </html>

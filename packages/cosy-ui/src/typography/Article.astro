@@ -94,8 +94,21 @@
  * - 支持系统的暗黑模式设置
  */
 
-interface Props {
+export interface Props {
+	/**
+	 * 文章的类名
+	 */
 	class?: string;
+	
+	/**
+	 * 类名列表
+	 */
+	'class:list'?: any;
+	
+	/**
+	 * 内联样式
+	 */
+	style?: string;
 }
 
 const { class: className = '' } = Astro.props;

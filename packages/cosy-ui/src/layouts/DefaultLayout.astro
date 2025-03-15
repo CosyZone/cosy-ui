@@ -120,7 +120,7 @@ const year = new Date().getFullYear();
           
           <nav class="main-nav">
             <ul class="nav-list">
-              {navLinks.map(link => (
+              {navLinks.map((link: { href: string; label: string }) => (
                 <li class="nav-item">
                   <Link href={link.href} variant="text">{link.label}</Link>
                 </li>
@@ -146,7 +146,7 @@ const year = new Date().getFullYear();
           
           <nav class="footer-nav">
             <ul class="nav-list">
-              {navLinks.map(link => (
+              {navLinks.map((link: { href: string; label: string }) => (
                 <li class="nav-item">
                   <Link href={link.href} variant="text" size="sm">{link.label}</Link>
                 </li>

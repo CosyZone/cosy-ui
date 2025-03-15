@@ -55,6 +55,19 @@
  * 
  * 组件支持多种页脚相关的配置参数，可以通过以 `footer` 为前缀的属性来自定义页脚的内容和链接。
  * 所有这些参数都是可选的，组件会为常用参数提供默认值。
+ * 
+ * 调试模式示例：
+ * ```astro
+ * <DocumentationLayout 
+ *   title="文档标题" 
+ *   description="文档描述"
+ *   sidebarItems={sidebarItems}
+ *   debug={true}
+ * >
+ *   <h1>文档内容</h1>
+ *   <p>这是文档的主要内容</p>
+ * </DocumentationLayout>
+ * ```
  */
 
 import BaseLayout from './BaseLayout.astro';
@@ -133,6 +146,12 @@ export interface Props {
    * 类名列表
    */
   'class:list'?: any;
+
+  /**
+   * 调试模式，显示各个部分的边框
+   * @default false
+   */
+  debug?: boolean;
 
   /**
    * 页脚相关配置
@@ -262,6 +281,7 @@ const {
   head,
   class: className,
   'class:list': classList,
+  debug = false,
   footerSlogan,
   footerCompany,
   footerCopyright,
@@ -295,11 +315,11 @@ const currentPath = Astro.url.pathname;
   description={description} 
   keywords={keywords}
   head={head}
-  class="documentation-layout"
+  class:list={["documentation-layout", { debug }, className, classList]}
   {...rest}
 >
   {showHeader && (
-    <header class="site-header">
+    <header class="site-header" style={debug ? "outline: 2px solid red; background-color: rgba(255, 0, 0, 0.05);" : ""}>
       <div class="container">
         <div class="header-content">
           <div class="logo">
@@ -318,17 +338,23 @@ const currentPath = Astro.url.pathname;
     </header>
   )}
   
+  {debug && (
+    <div class="debug-indicator" style="position: fixed; top: 10px; right: 10px; background-color: red; color: white; padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; z-index: 9999; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
+      调试模式已启用
+    </div>
+  )}
+  
   <div class="documentation-container">
-    <aside class="sidebar">
+    <aside class="sidebar" style={debug ? "outline: 2px solid green; background-color: rgba(0, 255, 0, 0.05);" : ""}>
       <nav class="sidebar-nav">
         {sidebarItems.map((section: SidebarSection) => (
-          <div class="sidebar-section">
+          <div class="sidebar-section" style={debug ? "outline: 1px solid cyan; background-color: rgba(0, 255, 255, 0.05);" : ""}>
             <h3 class="sidebar-title">{section.title}</h3>
             <ul class="sidebar-items">
               {section.items.map((item: SidebarItem) => {
                 const isActive = currentPath === item.href;
                 return (
-                  <li class="sidebar-item">
+                  <li class="sidebar-item" style={debug ? "outline: 1px dotted red;" : ""}>
                     <a 
                       href={item.href} 
                       class:list={["sidebar-link", { active: isActive }]}
@@ -361,14 +387,22 @@ const currentPath = Astro.url.pathname;
       </nav>
     </aside>
     
-    <Main class="content" verticalPadding="2rem" size="xl">
+    <Main 
+      class="content" 
+      verticalPadding="2rem" 
+      size="xl" 
+      style={debug ? "outline: 2px solid blue; background-color: rgba(0, 0, 255, 0.05);" : ""}
+    >
       <div class="content-container">
-        <Article class="doc-article">
+        <Article 
+          class="doc-article" 
+          style={debug ? "outline: 2px solid yellow; background-color: rgba(255, 255, 0, 0.05);" : ""}
+        >
           <slot />
         </Article>
         
         {showTableOfContents && (
-          <div class="toc-container">
+          <div class="toc-container" style={debug ? "outline: 2px solid magenta; background-color: rgba(255, 0, 255, 0.05);" : ""}>
             <div class="toc-sticky">
               <slot name="toc">
                 <TableOfContents />

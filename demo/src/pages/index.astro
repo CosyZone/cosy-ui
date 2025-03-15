@@ -5,12 +5,13 @@ import Layout from '../layouts/DemoLayout.astro';
 <Layout title="Cosy UI - 美观实用的 Astro 组件库">
 	<div>
 		<h1>Cosy UI</h1>
-		<p class="lead">一个基于 Astro 和 DaisyUI 的美观实用的组件库，为同一个组织下的多个项目提供统一的 UI 风格。</p>
+		<p class="lead">
+			一个用于 Astro 项目的美观实用的组件库，为同一个组织下的多个项目提供统一的 UI 风格。
+		</p>
 
 		<h2>特性</h2>
 		<ul>
 			<li>🚀 基于 Astro 构建，性能优异</li>
-			<li>🎨 使用 TailwindCSS 和 DaisyUI，样式美观且易于定制</li>
 			<li>📦 组件丰富，满足常见需求</li>
 			<li>📱 响应式设计，完美适配各种设备</li>
 			<li>🔧 TypeScript 支持，开发体验优秀</li>
@@ -26,11 +27,9 @@ import Layout from '../layouts/DemoLayout.astro';
 		<h2>使用示例</h2>
 		<p>在你的 Astro 组件中使用：</p>
 		<pre><code class="language-astro">{`---
-// 你的 .astro 文件
+import { Button } from '@coffic/cosy-ui';
 ---
 
-<button class="btn btn-primary">点击我</button>`}</code></pre>
-
-	
+<Button>默认按钮</Button>`}</code></pre>
 	</div>
 </Layout>

@@ -36,31 +36,30 @@ import Container from '../containers/Container.astro';
 
 export interface Props {
   /**
-   * 容器尺寸
+   * 容器大小
    * @default "md"
    */
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | "full";
   
   /**
-   * 内边距大小
-   * @default "md"
+   * 水平内边距
+   * @default "1rem"
    */
-  padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+  horizontalPadding?: string;
   
   /**
-   * 垂直内边距（上下）
-   * @default "2rem"
+   * 垂直内边距
+   * @default "1rem"
    */
   verticalPadding?: string;
   
   /**
-   * 是否居中显示
-   * @default true
+   * 最大宽度
    */
-  centered?: boolean;
+  maxWidth?: string;
   
   /**
-   * 容器的类名
+   * 类名
    */
   class?: string;
   
@@ -70,14 +69,9 @@ export interface Props {
   'class:list'?: any;
   
   /**
-   * 容器的ID
+   * 内联样式
    */
-  id?: string;
-  
-  /**
-   * 背景颜色
-   */
-  backgroundColor?: string;
+  style?: string;
 }
 
 const {
