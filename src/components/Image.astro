@@ -1,7 +1,13 @@
 ---
-import { Image as AstroImage } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
 import { AlertTriangle } from '../icons';
+
+// 自定义图片元数据接口
+interface ImageMetadata {
+  src: string;
+  width: number;
+  height: number;
+  format: string;
+}
 
 interface Props {
   /**
@@ -133,32 +139,22 @@ const imageStyles = {
 const isLocalImage = typeof src !== 'string' && 'src' in src;
 // 判断是否为远程图片
 const isRemoteImage = typeof src === 'string' && (src.startsWith('http') || src.startsWith('//'));
+// 获取图片源
+const imgSrc = typeof src === 'string' ? src : src.src;
 ---
 
 <div class={classes}>
   <div class="relative w-full h-full">
-    {isLocalImage ? (
-      <AstroImage
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        loading={loading}
-        class={`w-full h-full opacity-0 transition-opacity duration-300 ${rounded !== 'none' ? `rounded-${rounded}` : ''}`}
-        style={imageStyles}
-      />
-    ) : (
-      <img
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        loading={loading}
-        class={`w-full h-full opacity-0 transition-opacity duration-300 ${rounded !== 'none' ? `rounded-${rounded}` : ''}`}
-        style={imageStyles}
-        data-remote={isRemoteImage ? 'true' : 'false'}
-      />
-    )}
+    <img
+      src={imgSrc}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={loading}
+      class={`w-full h-full opacity-0 transition-opacity duration-300 ${rounded !== 'none' ? `rounded-${rounded}` : ''}`}
+      style={imageStyles}
+      data-remote={isRemoteImage ? 'true' : 'false'}
+    />
 
     {/* 加载占位图 */}
     {showPlaceholder && (

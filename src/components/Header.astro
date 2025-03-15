@@ -1,9 +1,17 @@
 ---
-import { Image } from 'astro:assets';
 import { RiSearch2Line, RiMenuLine, RiSunCloudyLine } from '@remixicon/vue';
 import ThemeItem from './ThemeItem.astro';
 import Link from './Link.astro';
 import Button from './Button.astro';
+import Image from './Image.astro';
+
+// 自定义图片元数据接口
+interface ImageMetadata {
+	src: string;
+	width: number;
+	height: number;
+	format: string;
+}
 
 interface Props {
 	logo: ImageMetadata;
@@ -74,7 +82,7 @@ function generateLanguageUrl(langCode: string): string {
 	border border-white/5 dark:border-black/5"
 >
 	<div class="flex flex-row justify-start items-center">
-		<Link href="/" transition:persist>
+		<Link href="/">
 			<div class="h-8 w-8 flex flex-col items-center justify-center">
 				<Image src={logo} alt="logo" class="fill-current" />
 			</div>
@@ -86,7 +94,7 @@ function generateLanguageUrl(langCode: string): string {
 		</Button>
 
 		<!-- 桌面端导航 -->
-		<div class="hidden lg:flex flex-row gap-4 items-center ml-4" transition:animate="fade">
+		<div class="hidden lg:flex flex-row gap-4 items-center ml-4">
 			{navItems.map((item) => <Link href={item.href}>{item.label}</Link>)}
 		</div>
 	</div>
@@ -114,7 +122,7 @@ function generateLanguageUrl(langCode: string): string {
 				<RiSunCloudyLine class="w-5 h-5" slot="icon-left" />
 			</Button>
 			<ul
-				tabindex={0}
+				tabindex="0"
 				class="dropdown-content menu bg-neutral-900 dark:bg-neutral-800 rounded-box z-[1] w-56 p-2 shadow-lg"
 			>
 				{themes.map((theme) => <ThemeItem theme={theme.id} label={theme.name} />)}

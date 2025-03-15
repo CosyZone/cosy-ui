@@ -1,18 +1,25 @@
 ---
-import type { ImageMetadata } from 'astro';
-import Link from './Link.astro';
-import SocialIcon from './SocialIcon.astro';
-import Image from './Image.astro';
+import Link from '@/components/Link.astro';
+import SocialIcon from '@/components/SocialIcon.astro';
+import Image from '@/components/Image.astro';
 
 interface SocialLink {
 	platform: 'github' | 'twitter' | 'linkedin' | 'website' | 'email';
 	url: string;
 }
 
+// 自定义图片元数据接口，替代 astro 的 ImageMetadata
+interface CustomImageMetadata {
+	src: string;
+	width: number;
+	height: number;
+	format: string;
+}
+
 export interface Props {
 	name: string;
 	role: string;
-	avatar: ImageMetadata | string;
+	avatar: CustomImageMetadata | string;
 	bio: string;
 	socialLinks?: SocialLink[];
 	class?: string;

@@ -20,9 +20,7 @@
  * ```
  */
 
-import type { HTMLAttributes } from 'astro/types';
-
-interface Props extends HTMLAttributes<'div'> {
+interface Props {
   /**
    * 元素间距
    * @default "md"
@@ -56,6 +54,8 @@ interface Props extends HTMLAttributes<'div'> {
    * 类名列表
    */
   'class:list'?: any;
+  
+  [key: string]: any;
 }
 
 const {

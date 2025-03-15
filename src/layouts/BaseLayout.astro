@@ -94,11 +94,11 @@ if (className) {
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     
-    {/* 自定义样式 */}
+    <!-- 自定义样式 -->
     {customStyles && <style set:html={customStyles}></style>}
     
-    {/* 自定义头部内容 */}
-    {head && <Fragment set:html={head} />}
+    <!-- 自定义头部内容 -->
+    {head && <div set:html={head} />}
     
     <slot name="head" />
   </head>

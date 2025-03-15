@@ -1,6 +1,13 @@
 ---
-import type { ImageMetadata } from 'astro';
 import TeamMember from './TeamMember.astro';
+
+// 自定义图片元数据接口
+interface ImageMetadata {
+  src: string;
+  width: number;
+  height: number;
+  format: string;
+}
 
 interface SocialLink {
   platform: 'github' | 'twitter' | 'linkedin' | 'website' | 'email';
