@@ -1,0 +1,134 @@
+---
+/**
+ * Main组件
+ * 
+ * 页面的主要内容区域，使用Container组件提供响应式布局。
+ * 适合作为页面的主体部分，自动处理不同屏幕尺寸下的布局。
+ * 
+ * @example
+ * ```astro
+ * ---
+ * import { Main } from '@coffic/cosy-ui';
+ * ---
+ * 
+ * <Main>
+ *   <h1>页面标题</h1>
+ *   <p>页面内容</p>
+ * </Main>
+ * ```
+ * 
+ * 自定义容器尺寸：
+ * ```astro
+ * <Main size="lg">
+ *   <p>这是一个较宽的主内容区域</p>
+ * </Main>
+ * ```
+ * 
+ * 添加垂直内边距：
+ * ```astro
+ * <Main verticalPadding="2rem">
+ *   <p>这个主内容区域有更大的上下内边距</p>
+ * </Main>
+ * ```
+ */
+
+import Container from '../containers/Container.astro';
+
+export interface Props {
+  /**
+   * 容器尺寸
+   * @default "md"
+   */
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  
+  /**
+   * 内边距大小
+   * @default "md"
+   */
+  padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+  
+  /**
+   * 垂直内边距（上下）
+   * @default "2rem"
+   */
+  verticalPadding?: string;
+  
+  /**
+   * 是否居中显示
+   * @default true
+   */
+  centered?: boolean;
+  
+  /**
+   * 容器的类名
+   */
+  class?: string;
+  
+  /**
+   * 类名列表
+   */
+  'class:list'?: any;
+  
+  /**
+   * 容器的ID
+   */
+  id?: string;
+  
+  /**
+   * 背景颜色
+   */
+  backgroundColor?: string;
+}
+
+const {
+  size = 'md',
+  padding = 'md',
+  verticalPadding = "2rem",
+  centered = true,
+  class: className,
+  'class:list': classList,
+  id,
+  backgroundColor,
+  ...rest
+} = Astro.props;
+---
+
+<main
+  id={id}
+  class:list={[
+    "main-content",
+    className,
+    classList
+  ]}
+  style={backgroundColor ? `background-color: ${backgroundColor};` : ""}
+  {...rest}
+>
+  <Container
+    size={size}
+    padding={padding}
+    centered={centered}
+    class="main-container"
+  >
+    <slot />
+  </Container>
+</main>
+
+<style define:vars={{ verticalPadding }}>
+  .main-content {
+    flex: 1;
+    padding-top: var(--verticalPadding);
+    padding-bottom: var(--verticalPadding);
+  }
+  
+  .main-container {
+    height: 100%;
+  }
+  
+  /* 响应式调整 */
+  @media (max-width: 640px) {
+    .main-content {
+      padding-top: calc(var(--verticalPadding) * 0.75);
+      padding-bottom: calc(var(--verticalPadding) * 0.75);
+    }
+  }
+</style> 

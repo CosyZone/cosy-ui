@@ -29,6 +29,21 @@ const sidebarItems = Object.entries(groupedRoutes).map(([title, routes]) => {
 	showTableOfContents={showTOC}
 	showHeader={true}
 	showFooter={true}
+	footerSlogan="优雅、高效的Astro组件库"
+	footerInspirationalSlogan="构建美好的用户界面"
+	footerSocialLinks={[
+		"https://github.com/CofficLab/cosy-ui"
+	]}
+	footerProducts={[
+		{ name: "组件", href: createUrl("/components") },
+		{ name: "布局", href: createUrl("/layouts") },
+		{ name: "图标", href: createUrl("/icons") }
+	]}
+	footerAboutLink="https://coffic.zone.id/en/meta/about"
+	footerContactLink="https://coffic.zone.id/en/meta/contact"
+	footerBlogLink="https://coffic.zone.id/en/blogs"
+	footerTermsLink="https://coffic.zone.id/en/meta/terms"
+	footerPrivacyLink="https://coffic.zone.id/en/meta/privacy"
 >
 	<slot />
 	

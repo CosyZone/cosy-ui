@@ -1,4 +1,125 @@
 ---
+/**
+ * @component Footer
+ * 
+ * @description
+ * Footer 组件用于创建网站的页脚部分，提供版权信息、导航链接和社交媒体链接等内容。
+ * 该组件支持高度自定义，可以根据需要显示或隐藏不同的部分。
+ * 
+ * @design
+ * 设计理念：
+ * 1. 清晰的信息层次 - 通过视觉层次和分组展示不同类别的页脚信息
+ * 2. 响应式布局 - 在不同屏幕尺寸下保持良好的可用性和美观性
+ * 3. 可定制性 - 支持多种配置选项，适应不同网站的需求
+ * 4. 品牌一致性 - 与网站整体设计风格保持一致
+ * 
+ * 视觉特点：
+ * - 分区布局：清晰区分不同类别的信息
+ * - 简洁设计：使用适当的间距和字体大小确保可读性
+ * - 品牌展示：突出显示网站名称和标语
+ * - 社交媒体整合：提供社交媒体链接的展示
+ * 
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Footer 
+ *   siteName="我的网站"
+ *   homeLink="/"
+ *   slogan="简单而强大"
+ *   company="我的公司"
+ *   copyright="保留所有权利"
+ *   inspirationalSlogan="构建美好的数字体验"
+ * />
+ * ```
+ * 
+ * 添加社交媒体链接：
+ * ```astro
+ * <Footer 
+ *   siteName="我的网站"
+ *   homeLink="/"
+ *   slogan="简单而强大"
+ *   company="我的公司"
+ *   copyright="保留所有权利"
+ *   inspirationalSlogan="构建美好的数字体验"
+ *   socialLinks={[
+ *     "https://github.com/myusername",
+ *     "https://twitter.com/myusername"
+ *   ]}
+ * />
+ * ```
+ * 
+ * 添加产品链接：
+ * ```astro
+ * <Footer 
+ *   siteName="我的网站"
+ *   homeLink="/"
+ *   slogan="简单而强大"
+ *   company="我的公司"
+ *   copyright="保留所有权利"
+ *   inspirationalSlogan="构建美好的数字体验"
+ *   products={[
+ *     { name: "产品A", href: "/products/a" },
+ *     { name: "产品B", href: "/products/b" }
+ *   ]}
+ * />
+ * ```
+ * 
+ * 完整示例：
+ * ```astro
+ * <Footer 
+ *   siteName="我的网站"
+ *   homeLink="/"
+ *   slogan="简单而强大"
+ *   company="我的公司"
+ *   copyright="保留所有权利"
+ *   inspirationalSlogan="构建美好的数字体验"
+ *   logo={{ src: "/logo.png", alt: "网站Logo" }}
+ *   products={[
+ *     { name: "产品A", href: "/products/a" },
+ *     { name: "产品B", href: "/products/b" }
+ *   ]}
+ *   socialLinks={[
+ *     "https://github.com/myusername",
+ *     "https://twitter.com/myusername"
+ *   ]}
+ *   aboutLink="/about"
+ *   contactLink="/contact"
+ *   termsLink="/terms"
+ *   privacyLink="/privacy"
+ * />
+ * ```
+ * 
+ * @props
+ * @prop {string} siteName - 网站名称
+ * @prop {string} homeLink - 首页链接
+ * @prop {string} slogan - 网站标语
+ * @prop {string} company - 公司名称
+ * @prop {string} copyright - 版权信息
+ * @prop {string} inspirationalSlogan - 鼓舞人心的标语，显示在横幅中
+ * @prop {string} [icp] - ICP备案号（中国网站需要）
+ * @prop {Object} [logo] - 网站Logo对象，包含src和alt属性
+ * @prop {Array<Object>} [products=[]] - 产品链接数组，每个对象包含name、href和可选的external属性
+ * @prop {string} [aboutLink] - "关于我们"页面链接
+ * @prop {string} [contactLink] - "联系我们"页面链接
+ * @prop {string} [termsLink] - "服务条款"页面链接
+ * @prop {string} [privacyLink] - "隐私政策"页面链接
+ * @prop {Array<string>} [socialLinks=[]] - 社交媒体链接数组
+ * @prop {string} [teamLink] - "团队介绍"页面链接
+ * @prop {string} [careersLink] - "加入我们"页面链接
+ * @prop {string} [newsLink] - "新闻动态"页面链接
+ * @prop {string} [historyLink] - "发展历程"页面链接
+ * @prop {string} [partnersLink] - "合作伙伴"页面链接
+ * @prop {string} [blogLink] - "技术博客"页面链接
+ * @prop {string} [faqLink] - "常见问题"页面链接
+ * @prop {string} [mediaLink] - "媒体报道"页面链接
+ * @prop {string} [techStackLink] - "技术栈"页面链接
+ * 
+ * @accessibility
+ * - 使用语义化HTML结构，确保屏幕阅读器可以正确解析
+ * - 所有链接都有明确的文本描述
+ * - 社交媒体图标包含屏幕阅读器专用的文本说明
+ */
+
 import { processSocialLink } from '../utils/social';
 import Link from '../components/Link.astro';
 import Banner from '../components/Banner.astro';
@@ -39,110 +160,298 @@ const currentYear = new Date().getFullYear();
 const processedSocialLinks = socialLinks.map((url) => processSocialLink(url));
 ---
 
-<footer class="bg-base-200/50 dark:bg-base-300/50 z-50 backdrop-blur-md">
-	<div class="footer sm:footer-horizontal p-10 text-base-content">
-		<aside class="flex flex-col items-center sm:items-start gap-2 place-self-center">
-			<Link href={homeLink}>
-				<div class="flex items-center gap-2 rounded-2xl">
-					{
-						logo && (
-							<img
-								src={logo.src}
-								alt={logo.alt}
-								class="h-6 w-6 fill-current rounded-2xl"
-								width="32"
-								height="32"
-							/>
-						)
-					}
-					<span class="text-xl font-bold">{siteName}</span>
-				</div>
-			</Link>
-			<p class="text-sm opacity-70 self-center">{slogan}</p>
+<footer class="footer">
+	<div class="footer-container">
+		<div class="footer-main">
+			<div class="footer-brand">
+				<a href={homeLink} class="footer-logo-link">
+					{logo && (
+						<img
+							src={logo.src}
+							alt={logo.alt}
+							class="footer-logo"
+							width="32"
+							height="32"
+						/>
+					)}
+					<span class="footer-site-name">{siteName}</span>
+				</a>
+				<p class="footer-slogan">{slogan}</p>
 
-			<div class="flex gap-4 mt-4 sm:mt-0">
-				{
-					processedSocialLinks.map((link) => (
-						<Link
-							href={link.url}
-							external={true}
-							class="btn btn-ghost btn-sm p-1 hover:text-primary"
-						>
+				<div class="footer-social">
+					{processedSocialLinks.map((link) => (
+						<a href={link.url} class="footer-social-link" target="_blank" rel="noopener noreferrer">
 							<SocialIcon platform={link.platform} />
 							<span class="sr-only">{link.name}</span>
-						</Link>
-					))
-				}
+						</a>
+					))}
+				</div>
 			</div>
-		</aside>
 
-		{
-			products.length > 0 && (
-				<nav class="place-self-start text-center flex flex-col items-center min-h-[200px]">
-					<h6 class="footer-title">产品</h6>
-					<div class="flex flex-col">
+			{products.length > 0 && (
+				<div class="footer-nav">
+					<h6 class="footer-nav-title">产品</h6>
+					<ul class="footer-nav-list">
 						{products.map((product) => (
-							<Link href={product.href} external={product.external} size="sm">
-								{product.name}
-							</Link>
+							<li class="footer-nav-item">
+								<Link href={product.href} external={product.external} size="sm">
+									{product.name}
+								</Link>
+							</li>
 						))}
-					</div>
-				</nav>
-			)
-		}
+					</ul>
+				</div>
+			)}
 
-		{
-			(aboutLink || contactLink || teamLink || careersLink || newsLink || historyLink || partnersLink || blogLink || faqLink || mediaLink || techStackLink) && (
-				<nav class="place-self-start text-center flex flex-col items-center min-h-[200px]">
-					<h6 class="footer-title">关于</h6>
-					<div class="flex flex-col">
-						{aboutLink && <Link href={aboutLink} size="sm">关于我们</Link>}
-						{teamLink && <Link href={teamLink} size="sm">团队介绍</Link>}
-						{careersLink && <Link href={careersLink} size="sm">加入我们</Link>}
-						{newsLink && <Link href={newsLink} size="sm">新闻动态</Link>}
-						{historyLink && <Link href={historyLink} size="sm">发展历程</Link>}
-						{partnersLink && <Link href={partnersLink} size="sm">合作伙伴</Link>}
-						{blogLink && <Link href={blogLink} size="sm">技术博客</Link>}
-						{techStackLink && <Link href={techStackLink} size="sm">技术栈</Link>}
-						{faqLink && <Link href={faqLink} size="sm">常见问题</Link>}
-						{mediaLink && <Link href={mediaLink} size="sm">媒体报道</Link>}
-						{contactLink && <Link href={contactLink} size="sm">联系我们</Link>}
-					</div>
-				</nav>
-			)
-		}
+			{(aboutLink || contactLink || teamLink || careersLink || newsLink || historyLink || partnersLink || blogLink || faqLink || mediaLink || techStackLink) && (
+				<div class="footer-nav">
+					<h6 class="footer-nav-title">关于</h6>
+					<ul class="footer-nav-list">
+						{aboutLink && <li class="footer-nav-item"><Link href={aboutLink} size="sm">关于我们</Link></li>}
+						{teamLink && <li class="footer-nav-item"><Link href={teamLink} size="sm">团队介绍</Link></li>}
+						{careersLink && <li class="footer-nav-item"><Link href={careersLink} size="sm">加入我们</Link></li>}
+						{newsLink && <li class="footer-nav-item"><Link href={newsLink} size="sm">新闻动态</Link></li>}
+						{historyLink && <li class="footer-nav-item"><Link href={historyLink} size="sm">发展历程</Link></li>}
+						{partnersLink && <li class="footer-nav-item"><Link href={partnersLink} size="sm">合作伙伴</Link></li>}
+						{blogLink && <li class="footer-nav-item"><Link href={blogLink} size="sm">技术博客</Link></li>}
+						{techStackLink && <li class="footer-nav-item"><Link href={techStackLink} size="sm">技术栈</Link></li>}
+						{faqLink && <li class="footer-nav-item"><Link href={faqLink} size="sm">常见问题</Link></li>}
+						{mediaLink && <li class="footer-nav-item"><Link href={mediaLink} size="sm">媒体报道</Link></li>}
+						{contactLink && <li class="footer-nav-item"><Link href={contactLink} size="sm">联系我们</Link></li>}
+					</ul>
+				</div>
+			)}
 
-		{
-			(termsLink || privacyLink) && (
-				<nav class="place-self-start text-center flex flex-col items-center min-h-[200px]">
-					<h6 class="footer-title">法律</h6>
-					<div class="flex flex-col">
-						{termsLink && <Link href={termsLink} size="sm">服务条款</Link>}
-						{privacyLink && <Link href={privacyLink} size="sm">隐私政策</Link>}
-					</div>
-				</nav>
-			)
-		}
+			{(termsLink || privacyLink) && (
+				<div class="footer-nav">
+					<h6 class="footer-nav-title">法律</h6>
+					<ul class="footer-nav-list">
+						{termsLink && <li class="footer-nav-item"><Link href={termsLink} size="sm">服务条款</Link></li>}
+						{privacyLink && <li class="footer-nav-item"><Link href={privacyLink} size="sm">隐私政策</Link></li>}
+					</ul>
+				</div>
+			)}
+		</div>
 	</div>
 
-	<Banner>
-		{inspirationalSlogan}
-	</Banner>
+	<div class="footer-banner">
+		<Banner>
+			{inspirationalSlogan}
+		</Banner>
+	</div>
 
-	<div class="flex flex-col sm:flex-col justify-center items-center p-4 text-sm opacity-70">
-		<div class="flex items-center gap-2">
-			<p>
-				© {currentYear}
-				{company} - {copyright}
-			</p>
+	<div class="footer-bottom">
+		<div class="footer-copyright">
+			<p>© {currentYear} {company} - {copyright}</p>
 		</div>
 
-		{
-			icp && (
-				<div class="text-center py-4">
-					<p>{icp}</p>
-				</div>
-			)
-		}
+		{icp && (
+			<div class="footer-icp">
+				<p>{icp}</p>
+			</div>
+		)}
 	</div>
 </footer>
+
+<style>
+	/* 颜色变量 */
+	:root {
+		--footer-bg-color: #f9fafb;
+		--footer-border-color: #eaeaea;
+		--footer-text-color: #4b5563;
+		--footer-brand-color: #111827;
+		--footer-slogan-color: #6b7280;
+		--footer-nav-title-color: #374151;
+		--footer-social-bg: #f3f4f6;
+		--footer-social-color: #4b5563;
+		--footer-social-hover-bg: #e5e7eb;
+		--footer-social-hover-color: #1f2937;
+		--footer-banner-bg: #f3f4f6;
+		--footer-bottom-bg: #f3f4f6;
+		--footer-bottom-border: #e5e7eb;
+		--footer-copyright-color: #6b7280;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--footer-bg-color: #1a1a1a;
+			--footer-border-color: #2a2a2a;
+			--footer-text-color: #a0a0a0;
+			--footer-brand-color: #e0e0e0;
+			--footer-slogan-color: #909090;
+			--footer-nav-title-color: #b0b0b0;
+			--footer-social-bg: #2a2a2a;
+			--footer-social-color: #a0a0a0;
+			--footer-social-hover-bg: #3a3a3a;
+			--footer-social-hover-color: #e0e0e0;
+			--footer-banner-bg: #222222;
+			--footer-bottom-bg: #222222;
+			--footer-bottom-border: #2a2a2a;
+			--footer-copyright-color: #909090;
+		}
+	}
+
+	/* 基础样式 */
+	.footer {
+		background-color: var(--footer-bg-color);
+		border-top: 1px solid var(--footer-border-color);
+		color: var(--footer-text-color);
+		width: 100%;
+		position: relative;
+		z-index: 10;
+	}
+
+	.footer-container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 3rem 1rem;
+	}
+
+	/* 主要内容区域 */
+	.footer-main {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 2rem;
+	}
+
+	/* 品牌区域 */
+	.footer-brand {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.footer-logo-link {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		text-decoration: none;
+		color: var(--footer-brand-color);
+		font-weight: 700;
+		margin-bottom: 0.5rem;
+	}
+
+	.footer-logo {
+		width: 2rem;
+		height: 2rem;
+		border-radius: 0.5rem;
+	}
+
+	.footer-site-name {
+		font-size: 1.25rem;
+	}
+
+	.footer-slogan {
+		color: var(--footer-slogan-color);
+		font-size: 0.875rem;
+		margin: 0.5rem 0 1.5rem;
+	}
+
+	/* 社交媒体链接 */
+	.footer-social {
+		display: flex;
+		gap: 1rem;
+		margin-top: 1rem;
+	}
+
+	.footer-social-link {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 2rem;
+		height: 2rem;
+		border-radius: 9999px;
+		background-color: var(--footer-social-bg);
+		color: var(--footer-social-color);
+		transition: all 0.2s ease;
+	}
+
+	.footer-social-link:hover {
+		background-color: var(--footer-social-hover-bg);
+		color: var(--footer-social-hover-color);
+		transform: translateY(-2px);
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border-width: 0;
+	}
+
+	/* 导航区域 */
+	.footer-nav {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.footer-nav-title {
+		font-size: 0.875rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		color: var(--footer-nav-title-color);
+		margin-bottom: 1rem;
+	}
+
+	.footer-nav-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.footer-nav-item {
+		font-size: 0.875rem;
+	}
+
+	/* 横幅区域 */
+	.footer-banner {
+		background-color: var(--footer-banner-bg);
+		padding: 1rem 0;
+	}
+
+	/* 底部区域 */
+	.footer-bottom {
+		padding: 1.5rem 1rem;
+		text-align: center;
+		font-size: 0.875rem;
+		color: var(--footer-copyright-color);
+		background-color: var(--footer-bottom-bg);
+		border-top: 1px solid var(--footer-bottom-border);
+	}
+
+	.footer-copyright {
+		margin-bottom: 0.5rem;
+	}
+
+	.footer-icp {
+		font-size: 0.75rem;
+	}
+
+	/* 响应式调整 */
+	@media (max-width: 768px) {
+		.footer-main {
+			grid-template-columns: 1fr;
+			text-align: center;
+		}
+
+		.footer-brand {
+			align-items: center;
+		}
+
+		.footer-nav {
+			align-items: center;
+		}
+
+		.footer-social {
+			justify-content: center;
+		}
+	}
+</style>

@@ -1,8 +1,39 @@
 ---
-const { class: className = 'w-5 h-5' } = Astro.props;
+/**
+ * 链接图标组件
+ */
+interface Props {
+  /**
+   * 图标的大小
+   * @default "24px"
+   */
+  size?: string;
+  /**
+   * 图标的颜色
+   * @default "currentColor"
+   */
+  color?: string;
+  /**
+   * 自定义类名
+   */
+  class?: string;
+}
+
+const { size = '24px', color = 'currentColor', class: className = '' } = Astro.props;
 ---
 
-<svg xmlns="http://www.w3.org/2000/svg" class={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<svg 
+  xmlns="http://www.w3.org/2000/svg" 
+  width={size} 
+  height={size} 
+  viewBox="0 0 24 24" 
+  fill="none" 
+  stroke={color} 
+  stroke-width="2" 
+  stroke-linecap="round" 
+  stroke-linejoin="round"
+  class={className}
+>
   <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
   <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
 </svg> 

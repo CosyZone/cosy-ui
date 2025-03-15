@@ -27,6 +27,7 @@ export { default as Text } from './typography/Text.astro';
 
 // 导出容器组件
 export { default as Container } from './containers/Container.astro';
+export { default as Main } from './containers/Main.astro';
 export { default as Section } from './containers/Section.astro';
 
 // 导出布局组件

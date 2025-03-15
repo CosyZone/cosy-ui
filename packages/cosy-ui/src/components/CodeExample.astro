@@ -5,6 +5,7 @@
  * @description
  * 用于展示组件示例及其源代码的组件。
  * 采用标签形式，默认显示预览，用户可以点击标签切换到源代码视图。
+ * 支持亮色和暗黑模式，会根据系统设置自动切换主题。
  * 
  * @usage
  * ```astro
@@ -70,11 +71,59 @@ const { title, description, code } = Astro.props;
 </div>
 
 <style>
+  /* 颜色变量 - 支持亮色和暗黑模式 */
+  :root {
+    /* 亮色模式变量 */
+    --code-example-border: #e2e8f0;
+    --code-example-bg: #ffffff;
+    --code-example-text: #333333;
+    --code-example-title-border: #e2e8f0;
+    --code-example-description-color: #64748b;
+    --code-example-tabs-bg: #f8fafc;
+    --code-example-tab-color: #64748b;
+    --code-example-tab-hover-color: #0f172a;
+    --code-example-tab-active-color: #3b82f6;
+    --code-example-tab-active-border: #3b82f6;
+    --code-example-preview-bg: #ffffff;
+    --code-example-code-bg: #1e293b;
+    --code-example-code-text: #e2e8f0;
+    --code-example-header-bg: #334155;
+    --code-example-copy-button-color: #e2e8f0;
+    --code-example-copy-button-hover-bg: rgba(255, 255, 255, 0.1);
+    --code-example-copy-success-color: #4ade80;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      /* 暗黑模式变量 */
+      --code-example-border: #2d3748;
+      --code-example-bg: #1a202c;
+      --code-example-text: #e2e8f0;
+      --code-example-title-border: #2d3748;
+      --code-example-description-color: #a0aec0;
+      --code-example-tabs-bg: #171e2e;
+      --code-example-tab-color: #a0aec0;
+      --code-example-tab-hover-color: #e2e8f0;
+      --code-example-tab-active-color: #60a5fa;
+      --code-example-tab-active-border: #60a5fa;
+      --code-example-preview-bg: #1a202c;
+      --code-example-code-bg: #0f172a;
+      --code-example-code-text: #e2e8f0;
+      --code-example-header-bg: #1e293b;
+      --code-example-copy-button-color: #e2e8f0;
+      --code-example-copy-button-hover-bg: rgba(255, 255, 255, 0.1);
+      --code-example-copy-success-color: #4ade80;
+    }
+  }
+  
   .code-example {
     margin-bottom: 2rem;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--code-example-border);
     border-radius: 0.5rem;
     overflow: hidden;
+    background-color: var(--code-example-bg);
+    color: var(--code-example-text);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   }
   
   .code-example-title {
@@ -82,20 +131,20 @@ const { title, description, code } = Astro.props;
     font-weight: bold;
     margin: 0;
     padding: 1rem;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid var(--code-example-title-border);
   }
   
   .code-example-description {
     padding: 0 1rem;
-    color: #64748b;
+    color: var(--code-example-description-color);
     margin-top: 0.5rem;
     margin-bottom: 1rem;
   }
   
   .code-example-tabs {
     display: flex;
-    border-bottom: 1px solid #e2e8f0;
-    background-color: #f8fafc;
+    border-bottom: 1px solid var(--code-example-title-border);
+    background-color: var(--code-example-tabs-bg);
   }
   
   .code-example-tab {
@@ -105,17 +154,17 @@ const { title, description, code } = Astro.props;
     border-bottom: 2px solid transparent;
     cursor: pointer;
     font-weight: 500;
-    color: #64748b;
+    color: var(--code-example-tab-color);
     transition: all 0.2s ease;
   }
   
   .code-example-tab:hover {
-    color: #0f172a;
+    color: var(--code-example-tab-hover-color);
   }
   
   .code-example-tab.active {
-    color: #3b82f6;
-    border-bottom-color: #3b82f6;
+    color: var(--code-example-tab-active-color);
+    border-bottom-color: var(--code-example-tab-active-border);
   }
   
   .code-example-content {
@@ -132,13 +181,13 @@ const { title, description, code } = Astro.props;
   
   .code-example-preview {
     padding: 1.5rem;
-    background-color: #fff;
+    background-color: var(--code-example-preview-bg);
   }
   
   .code-example-code {
     position: relative;
-    background-color: #1e293b;
-    color: #e2e8f0;
+    background-color: var(--code-example-code-bg);
+    color: var(--code-example-code-text);
     overflow: auto;
   }
   
@@ -147,13 +196,13 @@ const { title, description, code } = Astro.props;
     justify-content: flex-end;
     align-items: center;
     padding: 0.5rem 1rem;
-    background-color: #334155;
+    background-color: var(--code-example-header-bg);
   }
   
   .copy-button {
     background: transparent;
     border: none;
-    color: #e2e8f0;
+    color: var(--code-example-copy-button-color);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -165,7 +214,7 @@ const { title, description, code } = Astro.props;
   }
   
   .copy-button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--code-example-copy-button-hover-bg);
   }
   
   .copy-icon, .check-icon {
@@ -178,7 +227,7 @@ const { title, description, code } = Astro.props;
   
   .check-icon {
     display: none;
-    color: #4ade80;
+    color: var(--code-example-copy-success-color);
   }
   
   .copy-button.copied .copy-icon {
@@ -190,7 +239,7 @@ const { title, description, code } = Astro.props;
   }
   
   .copy-button.copied .copy-text {
-    color: #4ade80;
+    color: var(--code-example-copy-success-color);
   }
   
   pre {
@@ -200,8 +249,10 @@ const { title, description, code } = Astro.props;
   }
   
   code {
-    font-family: monospace;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     white-space: pre;
+    font-size: 0.9rem;
+    line-height: 1.5;
   }
 </style>
 

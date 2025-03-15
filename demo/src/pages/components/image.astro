@@ -1,5 +1,5 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from '../../layouts/DemoLayout.astro';
 import { Image as ImageComponent } from '@coffic/cosy-ui';
 
 // 导入示例图片
@@ -7,30 +7,30 @@ import exampleImage from '../../assets/logo.png';
 ---
 
 <Layout title="Image Component">
-  <div class="container mx-auto px-4 py-8">
-    <h1 class="text-4xl font-bold mb-8" id="image-component">Image 组件</h1>
+  <div class="container">
+    <h1 class="page-title" id="image-component">Image 组件</h1>
     
-    <div class="space-y-8">
+    <div class="sections">
       {/* 基础用法 */}
       <section>
-        <h2 class="text-2xl font-semibold mb-4" id="basic-usage">基础用法</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="space-y-4">
-            <h3 class="text-lg font-medium" id="local-image">本地图片</h3>
+        <h2 class="section-title" id="basic-usage">基础用法</h2>
+        <div class="grid-2">
+          <div class="example-box">
+            <h3 class="example-title" id="local-image">本地图片</h3>
             <ImageComponent
               src={exampleImage}
               alt="示例图片"
-              width={400}
-              height={300}
+              width={240}
+              height={180}
             />
           </div>
-          <div class="space-y-4">
-            <h3 class="text-lg font-medium" id="remote-image">远程图片</h3>
+          <div class="example-box">
+            <h3 class="example-title" id="remote-image">远程图片</h3>
             <ImageComponent
-              src="https://picsum.photos/400/300"
+              src="https://picsum.photos/240/180"
               alt="随机图片"
-              width={400}
-              height={300}
+              width={240}
+              height={180}
             />
           </div>
         </div>
@@ -38,35 +38,35 @@ import exampleImage from '../../assets/logo.png';
 
       {/* 圆角和阴影 */}
       <section>
-        <h2 class="text-2xl font-semibold mb-4" id="rounded-shadow">圆角和阴影</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="space-y-4">
-            <h3 class="text-lg font-medium" id="rounded">圆角</h3>
+        <h2 class="section-title" id="rounded-shadow">圆角和阴影</h2>
+        <div class="grid-3">
+          <div class="example-box">
+            <h3 class="example-title" id="rounded">圆角</h3>
             <ImageComponent
               src={exampleImage}
               alt="圆角图片"
-              width={300}
-              height={200}
+              width={180}
+              height={120}
               rounded="lg"
             />
           </div>
-          <div class="space-y-4">
-            <h3 class="text-lg font-medium" id="shadow">阴影</h3>
+          <div class="example-box">
+            <h3 class="example-title" id="shadow">阴影</h3>
             <ImageComponent
               src={exampleImage}
               alt="阴影图片"
-              width={300}
-              height={200}
+              width={180}
+              height={120}
               shadow="lg"
             />
           </div>
-          <div class="space-y-4">
-            <h3 class="text-lg font-medium" id="rounded-shadow-combined">圆角 + 阴影</h3>
+          <div class="example-box">
+            <h3 class="example-title" id="rounded-shadow-combined">圆角 + 阴影</h3>
             <ImageComponent
               src={exampleImage}
               alt="圆角和阴影图片"
-              width={300}
-              height={200}
+              width={180}
+              height={120}
               rounded="lg"
               shadow="lg"
             />
@@ -76,37 +76,37 @@ import exampleImage from '../../assets/logo.png';
 
       {/* 悬停效果 */}
       <section>
-        <h2 class="text-2xl font-semibold mb-4" id="hover-effects">悬停效果</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="space-y-4">
-            <h3 class="text-lg font-medium" id="hover-scale">缩放</h3>
+        <h2 class="section-title" id="hover-effects">悬停效果</h2>
+        <div class="grid-3">
+          <div class="example-box">
+            <h3 class="example-title" id="hover-scale">缩放</h3>
             <ImageComponent
               src={exampleImage}
               alt="缩放效果"
-              width={300}
-              height={200}
+              width={180}
+              height={120}
               hover="scale"
               transition="zoom"
             />
           </div>
-          <div class="space-y-4">
-            <h3 class="text-lg font-medium" id="hover-brightness">亮度</h3>
+          <div class="example-box">
+            <h3 class="example-title" id="hover-brightness">亮度</h3>
             <ImageComponent
               src={exampleImage}
               alt="亮度效果"
-              width={300}
-              height={200}
+              width={180}
+              height={120}
               hover="brightness"
               transition="fade"
             />
           </div>
-          <div class="space-y-4">
-            <h3 class="text-lg font-medium" id="hover-blur">模糊</h3>
+          <div class="example-box">
+            <h3 class="example-title" id="hover-blur">模糊</h3>
             <ImageComponent
               src={exampleImage}
               alt="模糊效果"
-              width={300}
-              height={200}
+              width={180}
+              height={120}
               hover="blur"
               transition="fade"
             />
@@ -116,40 +116,40 @@ import exampleImage from '../../assets/logo.png';
 
       {/* 填充方式 */}
       <section>
-        <h2 class="text-2xl font-semibold mb-4" id="object-fit">填充方式</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="space-y-4">
-            <h3 class="text-lg font-medium" id="object-fit-cover">Cover</h3>
-            <div class="h-48 bg-base-200 rounded-lg overflow-hidden">
+        <h2 class="section-title" id="object-fit">填充方式</h2>
+        <div class="grid-3">
+          <div class="example-box">
+            <h3 class="example-title" id="object-fit-cover">Cover</h3>
+            <div class="bg-container">
               <ImageComponent
                 src={exampleImage}
                 alt="Cover 填充"
-                width={300}
-                height={200}
+                width={180}
+                height={120}
                 objectFit="cover"
               />
             </div>
           </div>
-          <div class="space-y-4">
-            <h3 class="text-lg font-medium" id="object-fit-contain">Contain</h3>
-            <div class="h-48 bg-base-200 rounded-lg overflow-hidden">
+          <div class="example-box">
+            <h3 class="example-title" id="object-fit-contain">Contain</h3>
+            <div class="bg-container">
               <ImageComponent
                 src={exampleImage}
                 alt="Contain 填充"
-                width={300}
-                height={200}
+                width={180}
+                height={120}
                 objectFit="contain"
               />
             </div>
           </div>
-          <div class="space-y-4">
-            <h3 class="text-lg font-medium" id="object-fit-fill">Fill</h3>
-            <div class="h-48 bg-base-200 rounded-lg overflow-hidden">
+          <div class="example-box">
+            <h3 class="example-title" id="object-fit-fill">Fill</h3>
+            <div class="bg-container">
               <ImageComponent
                 src={exampleImage}
                 alt="Fill 填充"
-                width={300}
-                height={200}
+                width={180}
+                height={120}
                 objectFit="fill"
               />
             </div>
@@ -159,49 +159,49 @@ import exampleImage from '../../assets/logo.png';
 
       {/* 远程图片加载指示器 */}
       <section>
-        <h2 class="text-2xl font-semibold mb-4" id="loading-indicators">远程图片加载指示器</h2>
-        <p class="mb-4">远程图片加载时的视觉提示，帮助用户了解图片正在加载中。</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div class="space-y-4">
-            <h3 class="text-lg font-medium" id="indicator-pulse">脉冲动画 (Pulse)</h3>
+        <h2 class="section-title" id="loading-indicators">远程图片加载指示器</h2>
+        <p class="description">远程图片加载时的视觉提示，帮助用户了解图片正在加载中。</p>
+        <div class="grid-4">
+          <div class="example-box">
+            <h3 class="example-title" id="indicator-pulse">脉冲动画 (Pulse)</h3>
             <ImageComponent
-              src="https://picsum.photos/400/300?random=2"
+              src="https://picsum.photos/180/120?random=2"
               alt="脉冲加载动画"
-              width={300}
-              height={200}
+              width={180}
+              height={120}
               loadingIndicator="pulse"
               rounded="md"
             />
           </div>
-          <div class="space-y-4">
-            <h3 class="text-lg font-medium" id="indicator-spinner">旋转加载 (Spinner)</h3>
+          <div class="example-box">
+            <h3 class="example-title" id="indicator-spinner">旋转加载 (Spinner)</h3>
             <ImageComponent
-              src="https://picsum.photos/400/300?random=3"
+              src="https://picsum.photos/180/120?random=3"
               alt="旋转加载动画"
-              width={300}
-              height={200}
+              width={180}
+              height={120}
               loadingIndicator="spinner"
               rounded="md"
             />
           </div>
-          <div class="space-y-4">
-            <h3 class="text-lg font-medium" id="indicator-progress">进度条 (Progress)</h3>
+          <div class="example-box">
+            <h3 class="example-title" id="indicator-progress">进度条 (Progress)</h3>
             <ImageComponent
-              src="https://picsum.photos/400/300?random=4"
+              src="https://picsum.photos/180/120?random=4"
               alt="进度条加载"
-              width={300}
-              height={200}
+              width={180}
+              height={120}
               loadingIndicator="progress"
               rounded="md"
             />
           </div>
-          <div class="space-y-4">
-            <h3 class="text-lg font-medium" id="indicator-skeleton">骨架屏 (Skeleton)</h3>
+          <div class="example-box">
+            <h3 class="example-title" id="indicator-skeleton">骨架屏 (Skeleton)</h3>
             <ImageComponent
-              src="https://picsum.photos/400/300?random=5"
+              src="https://picsum.photos/180/120?random=5"
               alt="骨架屏加载"
-              width={300}
-              height={200}
+              width={180}
+              height={120}
               loadingIndicator="skeleton"
               rounded="md"
             />
@@ -211,26 +211,26 @@ import exampleImage from '../../assets/logo.png';
 
       {/* 加载状态 */}
       <section>
-        <h2 class="text-2xl font-semibold mb-4" id="loading-states">加载状态</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="space-y-4">
-            <h3 class="text-lg font-medium" id="loading">加载中</h3>
+        <h2 class="section-title" id="loading-states">加载状态</h2>
+        <div class="grid-2">
+          <div class="example-box">
+            <h3 class="example-title" id="loading">加载中</h3>
             <ImageComponent
-              src="https://picsum.photos/400/300?random=1"
+              src="https://picsum.photos/240/180?random=1"
               alt="加载中图片"
-              width={400}
-              height={300}
+              width={240}
+              height={180}
               showPlaceholder={true}
               loading="lazy"
             />
           </div>
-          <div class="space-y-4">
-            <h3 class="text-lg font-medium" id="loading-error">加载失败</h3>
+          <div class="example-box">
+            <h3 class="example-title" id="loading-error">加载失败</h3>
             <ImageComponent
               src="https://invalid-url.com/image.jpg"
               alt="加载失败图片"
-              width={400}
-              height={300}
+              width={240}
+              height={180}
               showError={true}
             />
           </div>
@@ -239,28 +239,28 @@ import exampleImage from '../../assets/logo.png';
 
       {/* 大图片加载示例 */}
       <section>
-        <h2 class="text-2xl font-semibold mb-4" id="large-images">大图片加载示例</h2>
-        <p class="mb-4">以下是一些大尺寸图片的加载示例，可以更明显地观察到加载指示器的效果。</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="space-y-4">
-            <h3 class="text-lg font-medium" id="large-image-progress">高清大图 (进度条)</h3>
+        <h2 class="section-title" id="large-images">大图片加载示例</h2>
+        <p class="description">以下是一些大尺寸图片的加载示例，可以更明显地观察到加载指示器的效果。</p>
+        <div class="grid-2">
+          <div class="example-box">
+            <h3 class="example-title" id="large-image-progress">高清大图 (进度条)</h3>
             <ImageComponent
-              src="https://picsum.photos/1200/800?random=6"
+              src="https://picsum.photos/600/400?random=6"
               alt="高清大图"
-              width={600}
-              height={400}
+              width={300}
+              height={200}
               loadingIndicator="progress"
               rounded="lg"
               shadow="md"
             />
           </div>
-          <div class="space-y-4">
-            <h3 class="text-lg font-medium" id="large-image-skeleton">高清大图 (骨架屏)</h3>
+          <div class="example-box">
+            <h3 class="example-title" id="large-image-skeleton">高清大图 (骨架屏)</h3>
             <ImageComponent
-              src="https://picsum.photos/1200/800?random=7"
+              src="https://picsum.photos/600/400?random=7"
               alt="高清大图"
-              width={600}
-              height={400}
+              width={300}
+              height={200}
               loadingIndicator="skeleton"
               rounded="lg"
               shadow="md"
@@ -270,4 +270,103 @@ import exampleImage from '../../assets/logo.png';
       </section>
     </div>
   </div>
-</Layout> 
+</Layout>
+
+<style>
+  /* 容器样式 */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  /* 标题样式 */
+  .page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .example-title {
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  /* 布局样式 */
+  .sections {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  section {
+    margin-bottom: 1rem;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* 响应式布局 */
+  @media (min-width: 640px) {
+    .grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .grid-4 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .grid-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* 示例容器 */
+  .example-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* 背景容器 */
+  .bg-container {
+    height: 120px;
+    background-color: #e5e7eb;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  /* 描述文本 */
+  .description {
+    margin-bottom: 1rem;
+  }
+</style> 

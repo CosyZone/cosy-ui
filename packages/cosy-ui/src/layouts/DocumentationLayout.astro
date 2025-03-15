@@ -30,12 +30,38 @@
  *   <p>这是文档的主要内容</p>
  * </DocumentationLayout>
  * ```
+ * 
+ * 自定义页脚示例：
+ * ```astro
+ * <DocumentationLayout 
+ *   title="文档标题" 
+ *   description="文档描述"
+ *   sidebarItems={sidebarItems}
+ *   footerSlogan="简单而强大的组件库"
+ *   footerInspirationalSlogan="让开发更加愉悦"
+ *   footerSocialLinks={[
+ *     "https://github.com/myorg/myrepo",
+ *     "https://twitter.com/myorg"
+ *   ]}
+ *   footerProducts={[
+ *     { name: "组件库", href: "/components" },
+ *     { name: "模板", href: "/templates" }
+ *   ]}
+ * >
+ *   <h1>文档内容</h1>
+ *   <p>这是文档的主要内容</p>
+ * </DocumentationLayout>
+ * ```
+ * 
+ * 组件支持多种页脚相关的配置参数，可以通过以 `footer` 为前缀的属性来自定义页脚的内容和链接。
+ * 所有这些参数都是可选的，组件会为常用参数提供默认值。
  */
 
 import BaseLayout from './BaseLayout.astro';
-import Link from '../components/Link.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import Article from '../typography/Article.astro';
+import Footer from './Footer.astro';
+import Main from '../containers/Main.astro';
 
 export interface SidebarItem {
   href: string;
@@ -107,6 +133,121 @@ export interface Props {
    * 类名列表
    */
   'class:list'?: any;
+
+  /**
+   * 页脚相关配置
+   */
+  // Footer 相关参数
+  /**
+   * 页脚标语
+   * @default "优雅、高效的组件库"
+   */
+  footerSlogan?: string;
+  
+  /**
+   * 公司名称
+   * @default 与siteName相同
+   */
+  footerCompany?: string;
+  
+  /**
+   * 版权信息
+   * @default "保留所有权利"
+   */
+  footerCopyright?: string;
+  
+  /**
+   * 页脚横幅标语
+   * @default "构建美好的数字体验"
+   */
+  footerInspirationalSlogan?: string;
+  
+  /**
+   * ICP备案号
+   */
+  footerIcp?: string;
+  
+  /**
+   * 网站Logo
+   */
+  footerLogo?: { src: string; alt: string };
+  
+  /**
+   * 产品链接列表
+   */
+  footerProducts?: Array<{ name: string; href: string; external?: boolean }>;
+  
+  /**
+   * 关于我们链接
+   * @default "/about"
+   */
+  footerAboutLink?: string;
+  
+  /**
+   * 联系我们链接
+   * @default "/contact"
+   */
+  footerContactLink?: string;
+  
+  /**
+   * 服务条款链接
+   */
+  footerTermsLink?: string;
+  
+  /**
+   * 隐私政策链接
+   */
+  footerPrivacyLink?: string;
+  
+  /**
+   * 社交媒体链接列表
+   */
+  footerSocialLinks?: string[];
+  
+  /**
+   * 团队介绍链接
+   */
+  footerTeamLink?: string;
+  
+  /**
+   * 加入我们链接
+   */
+  footerCareersLink?: string;
+  
+  /**
+   * 新闻动态链接
+   */
+  footerNewsLink?: string;
+  
+  /**
+   * 发展历程链接
+   */
+  footerHistoryLink?: string;
+  
+  /**
+   * 合作伙伴链接
+   */
+  footerPartnersLink?: string;
+  
+  /**
+   * 技术博客链接
+   */
+  footerBlogLink?: string;
+  
+  /**
+   * 常见问题链接
+   */
+  footerFaqLink?: string;
+  
+  /**
+   * 媒体报道链接
+   */
+  footerMediaLink?: string;
+  
+  /**
+   * 技术栈链接
+   */
+  footerTechStackLink?: string;
 }
 
 const {
@@ -121,6 +262,27 @@ const {
   head,
   class: className,
   'class:list': classList,
+  footerSlogan,
+  footerCompany,
+  footerCopyright,
+  footerInspirationalSlogan,
+  footerIcp,
+  footerLogo,
+  footerProducts,
+  footerAboutLink,
+  footerContactLink,
+  footerTermsLink,
+  footerPrivacyLink,
+  footerSocialLinks,
+  footerTeamLink,
+  footerCareersLink,
+  footerNewsLink,
+  footerHistoryLink,
+  footerPartnersLink,
+  footerBlogLink,
+  footerFaqLink,
+  footerMediaLink,
+  footerTechStackLink,
   ...rest
 } = Astro.props;
 
@@ -159,11 +321,11 @@ const currentPath = Astro.url.pathname;
   <div class="documentation-container">
     <aside class="sidebar">
       <nav class="sidebar-nav">
-        {sidebarItems.map(section => (
+        {sidebarItems.map((section: SidebarSection) => (
           <div class="sidebar-section">
             <h3 class="sidebar-title">{section.title}</h3>
             <ul class="sidebar-items">
-              {section.items.map(item => {
+              {section.items.map((item: SidebarItem) => {
                 const isActive = currentPath === item.href;
                 return (
                   <li class="sidebar-item">
@@ -175,7 +337,7 @@ const currentPath = Astro.url.pathname;
                     </a>
                     {item.items && (
                       <ul class="sidebar-subitems">
-                        {item.items.map(subitem => {
+                        {item.items.map((subitem: SidebarItem) => {
                           const isSubActive = currentPath === subitem.href;
                           return (
                             <li class="sidebar-subitem">
@@ -199,7 +361,7 @@ const currentPath = Astro.url.pathname;
       </nav>
     </aside>
     
-    <main class="content">
+    <Main class="content" verticalPadding="2rem" size="xl">
       <div class="content-container">
         <Article class="doc-article">
           <slot />
@@ -215,32 +377,85 @@ const currentPath = Astro.url.pathname;
           </div>
         )}
       </div>
-    </main>
+    </Main>
   </div>
   
   {showFooter && (
-    <footer class="site-footer">
-      <div class="container">
-        <div class="footer-content">
-          <p class="copyright">&copy; {year} {siteName}. 保留所有权利。</p>
-          
-          <div class="footer-links">
-            <Link href="/docs" variant="text" size="sm">文档</Link>
-            <Link href="/about" variant="text" size="sm">关于</Link>
-            <Link href="/contact" variant="text" size="sm">联系我们</Link>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <Footer 
+      siteName={siteName}
+      homeLink="/"
+      slogan={footerSlogan || "优雅、高效的组件库"}
+      company={footerCompany || siteName}
+      copyright={footerCopyright || "保留所有权利"}
+      inspirationalSlogan={footerInspirationalSlogan || "构建美好的数字体验"}
+      aboutLink={footerAboutLink || "/about"}
+      contactLink={footerContactLink || "/contact"}
+      icp={footerIcp}
+      logo={footerLogo}
+      products={footerProducts}
+      termsLink={footerTermsLink}
+      privacyLink={footerPrivacyLink}
+      socialLinks={footerSocialLinks}
+      teamLink={footerTeamLink}
+      careersLink={footerCareersLink}
+      newsLink={footerNewsLink}
+      historyLink={footerHistoryLink}
+      partnersLink={footerPartnersLink}
+      blogLink={footerBlogLink}
+      faqLink={footerFaqLink}
+      mediaLink={footerMediaLink}
+      techStackLink={footerTechStackLink}
+    />
   )}
 </BaseLayout>
 
 <style>
+  /* 颜色变量 */
+  :root {
+    --doc-bg-color: #ffffff;
+    --doc-text-color: #333333;
+    --doc-border-color: #eaeaea;
+    --doc-sidebar-bg: #f9fafb;
+    --doc-header-bg: #ffffff;
+    --doc-link-color: #4b5563;
+    --doc-link-hover-bg: rgba(0, 0, 0, 0.05);
+    --doc-link-active-bg: rgba(59, 130, 246, 0.1);
+    --doc-link-active-color: #2563eb;
+    --doc-search-bg: #f9fafb;
+    --doc-search-border: #eaeaea;
+    --doc-search-text: #666666;
+    --doc-search-shortcut-bg: #eaeaea;
+    --doc-sidebar-title: #6b7280;
+    --doc-sidebar-sublink: #6b7280;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --doc-bg-color: #121212;
+      --doc-text-color: #e0e0e0;
+      --doc-border-color: #2a2a2a;
+      --doc-sidebar-bg: #1a1a1a;
+      --doc-header-bg: #1a1a1a;
+      --doc-link-color: #a0a0a0;
+      --doc-link-hover-bg: rgba(255, 255, 255, 0.05);
+      --doc-link-active-bg: rgba(59, 130, 246, 0.15);
+      --doc-link-active-color: #60a5fa;
+      --doc-search-bg: #2a2a2a;
+      --doc-search-border: #3a3a3a;
+      --doc-search-text: #a0a0a0;
+      --doc-search-shortcut-bg: #3a3a3a;
+      --doc-sidebar-title: #a0a0a0;
+      --doc-sidebar-sublink: #909090;
+    }
+  }
+  
   /* 基础布局 */
   .documentation-layout {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: var(--doc-bg-color);
+    color: var(--doc-text-color);
   }
   
   .container {
@@ -252,8 +467,8 @@ const currentPath = Astro.url.pathname;
   
   /* 页眉样式 */
   .site-header {
-    border-bottom: 1px solid #eaeaea;
-    background-color: #fff;
+    border-bottom: 1px solid var(--doc-border-color);
+    background-color: var(--doc-header-bg);
     padding: 1rem 0;
     position: sticky;
     top: 0;
@@ -269,7 +484,7 @@ const currentPath = Astro.url.pathname;
   .site-name {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #333;
+    color: var(--doc-text-color);
   }
   
   .search-button {
@@ -277,16 +492,16 @@ const currentPath = Astro.url.pathname;
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    border: 1px solid #eaeaea;
+    border: 1px solid var(--doc-search-border);
     border-radius: 0.5rem;
-    background-color: #f9fafb;
-    color: #666;
+    background-color: var(--doc-search-bg);
+    color: var(--doc-search-text);
     font-size: 0.875rem;
   }
   
   .search-shortcut {
     padding: 0.125rem 0.375rem;
-    background-color: #eaeaea;
+    background-color: var(--doc-search-shortcut-bg);
     border-radius: 0.25rem;
     font-size: 0.75rem;
   }
@@ -300,8 +515,8 @@ const currentPath = Astro.url.pathname;
   /* 侧边栏 */
   .sidebar {
     width: 280px;
-    border-right: 1px solid #eaeaea;
-    background-color: #f9fafb;
+    border-right: 1px solid var(--doc-border-color);
+    background-color: var(--doc-sidebar-bg);
     padding: 1.5rem 0;
     overflow-y: auto;
     position: sticky;
@@ -321,7 +536,7 @@ const currentPath = Astro.url.pathname;
     font-size: 0.875rem;
     font-weight: 600;
     text-transform: uppercase;
-    color: #6b7280;
+    color: var(--doc-sidebar-title);
     margin-bottom: 0.75rem;
     padding: 0 0.5rem;
   }
@@ -340,18 +555,18 @@ const currentPath = Astro.url.pathname;
     display: block;
     padding: 0.5rem;
     border-radius: 0.375rem;
-    color: #4b5563;
+    color: var(--doc-link-color);
     text-decoration: none;
     font-size: 0.9375rem;
   }
   
   .sidebar-link:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--doc-link-hover-bg);
   }
   
   .sidebar-link.active {
-    background-color: rgba(59, 130, 246, 0.1);
-    color: #2563eb;
+    background-color: var(--doc-link-active-bg);
+    color: var(--doc-link-active-color);
     font-weight: 500;
   }
   
@@ -365,24 +580,23 @@ const currentPath = Astro.url.pathname;
     display: block;
     padding: 0.375rem 0.5rem;
     border-radius: 0.375rem;
-    color: #6b7280;
+    color: var(--doc-sidebar-sublink);
     text-decoration: none;
     font-size: 0.875rem;
   }
   
   .sidebar-sublink:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--doc-link-hover-bg);
   }
   
   .sidebar-sublink.active {
-    color: #2563eb;
+    color: var(--doc-link-active-color);
     font-weight: 500;
   }
   
   /* 内容区域 */
   .content {
     flex: 1;
-    padding: 2rem 0;
   }
   
   .content-container {
@@ -413,31 +627,7 @@ const currentPath = Astro.url.pathname;
     font-size: 0.875rem;
     font-weight: 600;
     margin-bottom: 1rem;
-    color: #6b7280;
-  }
-  
-  /* 页脚 */
-  .site-footer {
-    border-top: 1px solid #eaeaea;
-    background-color: #f9fafb;
-    padding: 2rem 0;
-    margin-top: auto;
-  }
-  
-  .footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .copyright {
-    color: #6b7280;
-    font-size: 0.875rem;
-  }
-  
-  .footer-links {
-    display: flex;
-    gap: 1.5rem;
+    color: var(--doc-sidebar-title);
   }
   
   /* 响应式调整 */
@@ -457,21 +647,11 @@ const currentPath = Astro.url.pathname;
       position: static;
       height: auto;
       border-right: none;
-      border-bottom: 1px solid #eaeaea;
+      border-bottom: 1px solid var(--doc-border-color);
     }
     
     .content-container {
       flex-direction: column;
-    }
-    
-    .footer-content {
-      flex-direction: column;
-      gap: 1rem;
-      text-align: center;
-    }
-    
-    .footer-links {
-      justify-content: center;
     }
   }
 </style> 
