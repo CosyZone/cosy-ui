@@ -1,0 +1,169 @@
+---
+/**
+ * Flex组件
+ * 
+ * 一个灵活的弹性布局组件，支持不同的方向、对齐和间距
+ * 
+ * @example
+ * ```astro
+ * <Flex>
+ *   <div>默认水平排列</div>
+ *   <div>居中对齐</div>
+ * </Flex>
+ * 
+ * <Flex direction="column" align="start" justify="between" gap="lg">
+ *   <div>垂直排列</div>
+ *   <div>左对齐</div>
+ *   <div>两端对齐</div>
+ *   <div>大间距</div>
+ * </Flex>
+ * ```
+ */
+
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'div'> {
+  /**
+   * 排列方向
+   * @default "row"
+   */
+  direction?: 'row' | 'row-reverse' | 'column' | 'column-reverse';
+  
+  /**
+   * 水平对齐方式
+   * @default "center"
+   */
+  justify?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
+  
+  /**
+   * 垂直对齐方式
+   * @default "center"
+   */
+  align?: 'start' | 'end' | 'center' | 'stretch' | 'baseline';
+  
+  /**
+   * 是否允许换行
+   * @default false
+   */
+  wrap?: boolean;
+  
+  /**
+   * 元素间距
+   * @default "md"
+   */
+  gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  
+  /**
+   * 自定义类名
+   */
+  class?: string;
+  
+  /**
+   * 类名列表
+   */
+  'class:list'?: any;
+}
+
+const {
+  direction = 'row',
+  justify = 'center',
+  align = 'center',
+  wrap = false,
+  gap = 'md',
+  class: className = '',
+  'class:list': classList,
+  ...rest
+} = Astro.props;
+
+// 方向映射
+const directionClasses = {
+  'row': 'flex-row',
+  'row-reverse': 'flex-row-reverse',
+  'column': 'flex-col',
+  'column-reverse': 'flex-col-reverse'
+};
+
+// 水平对齐映射
+const justifyClasses = {
+  'start': 'justify-start',
+  'end': 'justify-end',
+  'center': 'justify-center',
+  'between': 'justify-between',
+  'around': 'justify-around',
+  'evenly': 'justify-evenly'
+};
+
+// 垂直对齐映射
+const alignClasses = {
+  'start': 'items-start',
+  'end': 'items-end',
+  'center': 'items-center',
+  'stretch': 'items-stretch',
+  'baseline': 'items-baseline'
+};
+
+// 间距映射
+const gapClasses = {
+  'none': 'gap-0',
+  'xs': 'gap-2',
+  'sm': 'gap-4',
+  'md': 'gap-6',
+  'lg': 'gap-8',
+  'xl': 'gap-12'
+};
+
+// 构建最终类名
+const flexClasses = [
+  'flex',
+  directionClasses[direction],
+  justifyClasses[justify],
+  alignClasses[align],
+  wrap ? 'flex-wrap' : 'flex-nowrap',
+  gapClasses[gap],
+  className
+].join(' ');
+---
+
+<div class:list={[flexClasses, classList]} {...rest}>
+  <slot />
+</div>
+
+<style>
+  /* 基础样式 */
+  .flex {
+    display: flex;
+  }
+  
+  /* 方向 */
+  .flex-row { flex-direction: row; }
+  .flex-row-reverse { flex-direction: row-reverse; }
+  .flex-col { flex-direction: column; }
+  .flex-col-reverse { flex-direction: column-reverse; }
+  
+  /* 换行 */
+  .flex-wrap { flex-wrap: wrap; }
+  .flex-nowrap { flex-wrap: nowrap; }
+  
+  /* 水平对齐 */
+  .justify-start { justify-content: flex-start; }
+  .justify-end { justify-content: flex-end; }
+  .justify-center { justify-content: center; }
+  .justify-between { justify-content: space-between; }
+  .justify-around { justify-content: space-around; }
+  .justify-evenly { justify-content: space-evenly; }
+  
+  /* 垂直对齐 */
+  .items-start { align-items: flex-start; }
+  .items-end { align-items: flex-end; }
+  .items-center { align-items: center; }
+  .items-stretch { align-items: stretch; }
+  .items-baseline { align-items: baseline; }
+  
+  /* 间距 */
+  .gap-0 { gap: 0; }
+  .gap-2 { gap: 0.5rem; }
+  .gap-4 { gap: 1rem; }
+  .gap-6 { gap: 1.5rem; }
+  .gap-8 { gap: 2rem; }
+  .gap-12 { gap: 3rem; }
+</style> 

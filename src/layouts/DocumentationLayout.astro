@@ -1,0 +1,477 @@
+---
+/**
+ * DocumentationLayout组件
+ * 
+ * 适用于文档页面的布局，包含侧边栏导航和目录
+ * 
+ * @example
+ * ```astro
+ * ---
+ * import DocumentationLayout from '../layouts/DocumentationLayout.astro';
+ * 
+ * const sidebarItems = [
+ *   { title: "入门", items: [
+ *     { href: "/docs/getting-started", text: "快速开始" },
+ *     { href: "/docs/installation", text: "安装" }
+ *   ]},
+ *   { title: "组件", items: [
+ *     { href: "/docs/components/button", text: "Button 按钮" },
+ *     { href: "/docs/components/card", text: "Card 卡片" }
+ *   ]}
+ * ];
+ * ---
+ * 
+ * <DocumentationLayout 
+ *   title="文档标题" 
+ *   description="文档描述"
+ *   sidebarItems={sidebarItems}
+ * >
+ *   <h1>文档内容</h1>
+ *   <p>这是文档的主要内容</p>
+ * </DocumentationLayout>
+ * ```
+ */
+
+import BaseLayout from './BaseLayout.astro';
+import Link from '../components/Link.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+
+export interface SidebarItem {
+  href: string;
+  text: string;
+  items?: SidebarItem[];
+}
+
+export interface SidebarSection {
+  title: string;
+  items: SidebarItem[];
+}
+
+export interface Props {
+  /**
+   * 页面标题
+   */
+  title: string;
+  
+  /**
+   * 页面描述
+   */
+  description?: string;
+  
+  /**
+   * 页面关键词
+   */
+  keywords?: string;
+  
+  /**
+   * 网站名称
+   * @default "文档中心"
+   */
+  siteName?: string;
+  
+  /**
+   * 侧边栏项目
+   */
+  sidebarItems: SidebarSection[];
+  
+  /**
+   * 是否显示目录
+   * @default true
+   */
+  showTableOfContents?: boolean;
+  
+  /**
+   * 是否显示页眉
+   * @default true
+   */
+  showHeader?: boolean;
+  
+  /**
+   * 是否显示页脚
+   * @default true
+   */
+  showFooter?: boolean;
+  
+  /**
+   * 自定义头部内容
+   */
+  head?: astroHTML.JSX.Element;
+  
+  /**
+   * 页面类名
+   */
+  class?: string;
+  
+  /**
+   * 类名列表
+   */
+  'class:list'?: any;
+}
+
+const {
+  title,
+  description,
+  keywords,
+  siteName = "文档中心",
+  sidebarItems,
+  showTableOfContents = true,
+  showHeader = true,
+  showFooter = true,
+  head,
+  class: className,
+  'class:list': classList,
+  ...rest
+} = Astro.props;
+
+const year = new Date().getFullYear();
+const currentPath = Astro.url.pathname;
+---
+
+<BaseLayout 
+  title={title} 
+  description={description} 
+  keywords={keywords}
+  head={head}
+  class="documentation-layout"
+  {...rest}
+>
+  {showHeader && (
+    <header class="site-header">
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <a href="/" class="site-name">{siteName}</a>
+          </div>
+          
+          <div class="header-actions">
+            <a href="#" class="search-button">
+              <span class="search-icon">🔍</span>
+              <span class="search-text">搜索文档...</span>
+              <span class="search-shortcut">⌘K</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+  )}
+  
+  <div class="documentation-container">
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
+        {sidebarItems.map(section => (
+          <div class="sidebar-section">
+            <h3 class="sidebar-title">{section.title}</h3>
+            <ul class="sidebar-items">
+              {section.items.map(item => {
+                const isActive = currentPath === item.href;
+                return (
+                  <li class="sidebar-item">
+                    <a 
+                      href={item.href} 
+                      class:list={["sidebar-link", { active: isActive }]}
+                    >
+                      {item.text}
+                    </a>
+                    {item.items && (
+                      <ul class="sidebar-subitems">
+                        {item.items.map(subitem => {
+                          const isSubActive = currentPath === subitem.href;
+                          return (
+                            <li class="sidebar-subitem">
+                              <a 
+                                href={subitem.href} 
+                                class:list={["sidebar-sublink", { active: isSubActive }]}
+                              >
+                                {subitem.text}
+                              </a>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
+      </nav>
+    </aside>
+    
+    <main class="content">
+      <div class="content-container">
+        <article class="article">
+          <slot />
+        </article>
+        
+        {showTableOfContents && (
+          <div class="toc-container">
+            <div class="toc-sticky">
+              <h3 class="toc-title">目录</h3>
+              <slot name="toc">
+                <TableOfContents />
+              </slot>
+            </div>
+          </div>
+        )}
+      </div>
+    </main>
+  </div>
+  
+  {showFooter && (
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-content">
+          <p class="copyright">&copy; {year} {siteName}. 保留所有权利。</p>
+          
+          <div class="footer-links">
+            <Link href="/docs" variant="text" size="sm">文档</Link>
+            <Link href="/about" variant="text" size="sm">关于</Link>
+            <Link href="/contact" variant="text" size="sm">联系我们</Link>
+          </div>
+        </div>
+      </div>
+    </footer>
+  )}
+</BaseLayout>
+
+<style>
+  /* 基础布局 */
+  .documentation-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  /* 页眉样式 */
+  .site-header {
+    border-bottom: 1px solid #eaeaea;
+    background-color: #fff;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .site-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+  }
+  
+  .search-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #eaeaea;
+    border-radius: 0.5rem;
+    background-color: #f9fafb;
+    color: #666;
+    font-size: 0.875rem;
+  }
+  
+  .search-shortcut {
+    padding: 0.125rem 0.375rem;
+    background-color: #eaeaea;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+  }
+  
+  /* 文档容器 */
+  .documentation-container {
+    display: flex;
+    flex: 1;
+  }
+  
+  /* 侧边栏 */
+  .sidebar {
+    width: 280px;
+    border-right: 1px solid #eaeaea;
+    background-color: #f9fafb;
+    padding: 1.5rem 0;
+    overflow-y: auto;
+    position: sticky;
+    top: 65px;
+    height: calc(100vh - 65px);
+  }
+  
+  .sidebar-nav {
+    padding: 0 1rem;
+  }
+  
+  .sidebar-section {
+    margin-bottom: 1.5rem;
+  }
+  
+  .sidebar-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #6b7280;
+    margin-bottom: 0.75rem;
+    padding: 0 0.5rem;
+  }
+  
+  .sidebar-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar-item {
+    margin-bottom: 0.25rem;
+  }
+  
+  .sidebar-link {
+    display: block;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    color: #4b5563;
+    text-decoration: none;
+    font-size: 0.9375rem;
+  }
+  
+  .sidebar-link:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .sidebar-link.active {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #2563eb;
+    font-weight: 500;
+  }
+  
+  .sidebar-subitems {
+    list-style: none;
+    padding-left: 1rem;
+    margin: 0.25rem 0 0.5rem;
+  }
+  
+  .sidebar-sublink {
+    display: block;
+    padding: 0.375rem 0.5rem;
+    border-radius: 0.375rem;
+    color: #6b7280;
+    text-decoration: none;
+    font-size: 0.875rem;
+  }
+  
+  .sidebar-sublink:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .sidebar-sublink.active {
+    color: #2563eb;
+    font-weight: 500;
+  }
+  
+  /* 内容区域 */
+  .content {
+    flex: 1;
+    padding: 2rem 0;
+  }
+  
+  .content-container {
+    display: flex;
+    max-width: 1000px;
+    margin: 0 auto;
+    gap: 2rem;
+  }
+  
+  .article {
+    flex: 1;
+    min-width: 0;
+    padding: 0 1rem;
+  }
+  
+  /* 目录 */
+  .toc-container {
+    width: 240px;
+    display: none;
+  }
+  
+  .toc-sticky {
+    position: sticky;
+    top: 5rem;
+  }
+  
+  .toc-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #6b7280;
+  }
+  
+  /* 页脚 */
+  .site-footer {
+    border-top: 1px solid #eaeaea;
+    background-color: #f9fafb;
+    padding: 2rem 0;
+    margin-top: auto;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .copyright {
+    color: #6b7280;
+    font-size: 0.875rem;
+  }
+  
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  /* 响应式调整 */
+  @media (min-width: 1024px) {
+    .toc-container {
+      display: block;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .documentation-container {
+      flex-direction: column;
+    }
+    
+    .sidebar {
+      width: 100%;
+      position: static;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid #eaeaea;
+    }
+    
+    .content-container {
+      flex-direction: column;
+    }
+    
+    .footer-content {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+    
+    .footer-links {
+      justify-content: center;
+    }
+  }
+</style> 

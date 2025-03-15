@@ -1,0 +1,247 @@
+---
+/**
+ * DefaultLayout组件
+ * 
+ * 包含常用页面结构的默认布局，包括简单的页眉和页脚
+ * 
+ * @example
+ * ```astro
+ * ---
+ * import DefaultLayout from '../layouts/DefaultLayout.astro';
+ * ---
+ * 
+ * <DefaultLayout title="页面标题" description="页面描述">
+ *   <h1>页面内容</h1>
+ *   <p>这是页面的主要内容</p>
+ * </DefaultLayout>
+ * ```
+ */
+
+import BaseLayout from './BaseLayout.astro';
+import Link from '../components/Link.astro';
+
+export interface Props {
+  /**
+   * 页面标题
+   */
+  title: string;
+  
+  /**
+   * 页面描述
+   */
+  description?: string;
+  
+  /**
+   * 页面关键词
+   */
+  keywords?: string;
+  
+  /**
+   * 是否显示页眉
+   * @default true
+   */
+  showHeader?: boolean;
+  
+  /**
+   * 是否显示页脚
+   * @default true
+   */
+  showFooter?: boolean;
+  
+  /**
+   * 网站名称
+   * @default "网站名称"
+   */
+  siteName?: string;
+  
+  /**
+   * 导航链接
+   */
+  navLinks?: Array<{ href: string; label: string }>;
+  
+  /**
+   * 页面容器类名
+   */
+  containerClass?: string;
+  
+  /**
+   * 自定义头部内容
+   */
+  head?: astroHTML.JSX.Element;
+  
+  /**
+   * 页面类名
+   */
+  class?: string;
+  
+  /**
+   * 类名列表
+   */
+  'class:list'?: any;
+}
+
+const {
+  title,
+  description,
+  keywords,
+  showHeader = true,
+  showFooter = true,
+  siteName = "网站名称",
+  navLinks = [
+    { href: "/", label: "首页" },
+    { href: "/about", label: "关于" },
+    { href: "/contact", label: "联系我们" }
+  ],
+  containerClass = "container mx-auto px-4 py-8",
+  head,
+  class: className,
+  'class:list': classList,
+  ...rest
+} = Astro.props;
+
+const year = new Date().getFullYear();
+---
+
+<BaseLayout 
+  title={title} 
+  description={description} 
+  keywords={keywords}
+  head={head}
+  class={className}
+  {...rest}
+>
+  {showHeader && (
+    <header class="site-header">
+      <div class="container mx-auto px-4 py-4">
+        <div class="header-content">
+          <div class="logo">
+            <a href="/" class="site-name">{siteName}</a>
+          </div>
+          
+          <nav class="main-nav">
+            <ul class="nav-list">
+              {navLinks.map(link => (
+                <li class="nav-item">
+                  <Link href={link.href} variant="text">{link.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+  )}
+  
+  <main class={containerClass}>
+    <slot />
+  </main>
+  
+  {showFooter && (
+    <footer class="site-footer">
+      <div class="container mx-auto px-4 py-8">
+        <div class="footer-content">
+          <div class="footer-info">
+            <p class="copyright">&copy; {year} {siteName}. 保留所有权利。</p>
+          </div>
+          
+          <nav class="footer-nav">
+            <ul class="nav-list">
+              {navLinks.map(link => (
+                <li class="nav-item">
+                  <Link href={link.href} variant="text" size="sm">{link.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </footer>
+  )}
+  
+  <slot name="after-footer" />
+</BaseLayout>
+
+<style>
+  /* 容器样式 */
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* 内边距 */
+  .px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .py-4 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  
+  .py-8 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  /* 页眉样式 */
+  .site-header {
+    border-bottom: 1px solid #eaeaea;
+    background-color: #fff;
+  }
+  
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .site-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+  }
+  
+  .nav-list {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  /* 页脚样式 */
+  .site-footer {
+    border-top: 1px solid #eaeaea;
+    background-color: #f9fafb;
+    color: #666;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .copyright {
+    font-size: 0.875rem;
+  }
+  
+  .footer-nav .nav-list {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  /* 响应式调整 */
+  @media (max-width: 640px) {
+    .header-content,
+    .footer-content {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .nav-list {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+</style> 

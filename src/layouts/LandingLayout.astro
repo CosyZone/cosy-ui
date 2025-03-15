@@ -1,0 +1,704 @@
+---
+/**
+ * LandingLayout组件
+ * 
+ * 适用于落地页的布局，包含页眉、页脚和多个区块
+ * 
+ * @example
+ * ```astro
+ * ---
+ * import LandingLayout from '../layouts/LandingLayout.astro';
+ * ---
+ * 
+ * <LandingLayout 
+ *   title="产品名称 - 简短的产品描述" 
+ *   description="详细的产品描述，包含关键词"
+ * >
+ *   <div slot="hero">
+ *     <h1>产品标题</h1>
+ *     <p>产品简介</p>
+ *     <button>立即开始</button>
+ *   </div>
+ *   
+ *   <section>
+ *     <h2>产品特点</h2>
+ *     <p>详细介绍产品特点...</p>
+ *   </section>
+ * </LandingLayout>
+ * ```
+ */
+
+import BaseLayout from './BaseLayout.astro';
+import Link from '../components/Link.astro';
+import Button from '../components/Button.astro';
+
+export interface NavItem {
+  href: string;
+  label: string;
+  isButton?: boolean;
+}
+
+export interface FooterLink {
+  href: string;
+  label: string;
+}
+
+export interface FooterSection {
+  title: string;
+  links: FooterLink[];
+}
+
+export interface SocialLink {
+  href: string;
+  icon: string;
+  label: string;
+}
+
+export interface Props {
+  /**
+   * 页面标题
+   */
+  title: string;
+  
+  /**
+   * 页面描述
+   */
+  description?: string;
+  
+  /**
+   * 页面关键词
+   */
+  keywords?: string;
+  
+  /**
+   * 品牌名称
+   * @default "品牌名称"
+   */
+  brandName?: string;
+  
+  /**
+   * 品牌Logo URL
+   */
+  logoUrl?: string;
+  
+  /**
+   * 导航链接
+   */
+  navItems?: NavItem[];
+  
+  /**
+   * 页脚链接分组
+   */
+  footerSections?: FooterSection[];
+  
+  /**
+   * 社交媒体链接
+   */
+  socialLinks?: SocialLink[];
+  
+  /**
+   * 版权信息
+   */
+  copyright?: string;
+  
+  /**
+   * 自定义头部内容
+   */
+  head?: astroHTML.JSX.Element;
+  
+  /**
+   * 页面类名
+   */
+  class?: string;
+  
+  /**
+   * 类名列表
+   */
+  'class:list'?: any;
+}
+
+const {
+  title,
+  description,
+  keywords,
+  brandName = "品牌名称",
+  logoUrl,
+  navItems = [
+    { href: "/", label: "首页" },
+    { href: "/features", label: "特性" },
+    { href: "/pricing", label: "价格" },
+    { href: "/about", label: "关于我们" },
+    { href: "/contact", label: "联系我们" },
+    { href: "/signup", label: "注册", isButton: true }
+  ],
+  footerSections = [
+    {
+      title: "产品",
+      links: [
+        { href: "/features", label: "特性" },
+        { href: "/pricing", label: "价格" },
+        { href: "/docs", label: "文档" },
+        { href: "/releases", label: "更新日志" }
+      ]
+    },
+    {
+      title: "公司",
+      links: [
+        { href: "/about", label: "关于我们" },
+        { href: "/team", label: "团队" },
+        { href: "/careers", label: "招聘" },
+        { href: "/contact", label: "联系我们" }
+      ]
+    },
+    {
+      title: "资源",
+      links: [
+        { href: "/blog", label: "博客" },
+        { href: "/community", label: "社区" },
+        { href: "/support", label: "支持" }
+      ]
+    },
+    {
+      title: "法律",
+      links: [
+        { href: "/privacy", label: "隐私政策" },
+        { href: "/terms", label: "服务条款" }
+      ]
+    }
+  ],
+  socialLinks = [
+    { href: "https://twitter.com", icon: "twitter", label: "Twitter" },
+    { href: "https://github.com", icon: "github", label: "GitHub" },
+    { href: "https://linkedin.com", icon: "linkedin", label: "LinkedIn" }
+  ],
+  copyright = `© ${new Date().getFullYear()} ${brandName}. 保留所有权利。`,
+  head,
+  class: className,
+  'class:list': classList,
+  ...rest
+} = Astro.props;
+
+// 社交媒体图标映射
+const socialIconMap: Record<string, string> = {
+  twitter: "🐦",
+  github: "🐙",
+  linkedin: "🔗",
+  facebook: "👤",
+  instagram: "📷",
+  youtube: "📺",
+  discord: "💬",
+  slack: "🔶",
+  wechat: "💬",
+  weibo: "微"
+};
+---
+
+<BaseLayout 
+  title={title} 
+  description={description}
+  keywords={keywords}
+  head={head}
+  class="landing-layout"
+  {...rest}
+>
+  <!-- 页眉 -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-content">
+        <div class="brand">
+          <a href="/" class="brand-link">
+            {logoUrl ? (
+              <img src={logoUrl} alt={brandName} class="brand-logo" />
+            ) : (
+              <span class="brand-name">{brandName}</span>
+            )}
+          </a>
+        </div>
+        
+        <nav class="main-nav">
+          <ul class="nav-list">
+            {navItems.map(item => (
+              <li class="nav-item">
+                {item.isButton ? (
+                  <a href={item.href} class="btn btn-primary btn-sm">{item.label}</a>
+                ) : (
+                  <a href={item.href} class="nav-link">{item.label}</a>
+                )}
+              </li>
+            ))}
+          </ul>
+        </nav>
+        
+        <button class="mobile-menu-button" aria-label="菜单" id="mobile-menu-toggle">
+          <span class="menu-icon">☰</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+  <!-- 移动端导航菜单 -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-container">
+      <div class="mobile-menu-header">
+        <div class="brand">
+          {logoUrl ? (
+            <img src={logoUrl} alt={brandName} class="brand-logo" />
+          ) : (
+            <span class="brand-name">{brandName}</span>
+          )}
+        </div>
+        <button class="close-menu-button" aria-label="关闭菜单" id="close-mobile-menu">
+          <span class="close-icon">✕</span>
+        </button>
+      </div>
+      
+      <nav class="mobile-nav">
+        <ul class="mobile-nav-list">
+          {navItems.map(item => (
+            <li class="mobile-nav-item">
+              <a href={item.href} class="mobile-nav-link">
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </div>
+  
+  <!-- 英雄区块 -->
+  <section class="hero-section">
+    <div class="container">
+      <slot name="hero" />
+    </div>
+  </section>
+  
+  <!-- 主要内容 -->
+  <main class="main-content">
+    <slot />
+  </main>
+  
+  <!-- 页脚 -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="brand">
+            {logoUrl ? (
+              <img src={logoUrl} alt={brandName} class="brand-logo" />
+            ) : (
+              <span class="brand-name">{brandName}</span>
+            )}
+          </div>
+          <p class="brand-tagline">
+            <slot name="footer-tagline">简短的品牌标语或描述</slot>
+          </p>
+          
+          <div class="social-links">
+            {socialLinks.map(link => (
+              <a href={link.href} class="social-link" aria-label={link.label} target="_blank" rel="noopener noreferrer">
+                <span class="social-icon">{socialIconMap[link.icon] || "🔗"}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+        
+        <div class="footer-links">
+          {footerSections.map(section => (
+            <div class="footer-section">
+              <h3 class="footer-title">{section.title}</h3>
+              <ul class="footer-list">
+                {section.links.map(link => (
+                  <li class="footer-item">
+                    <a href={link.href} class="footer-link">{link.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p class="copyright">{copyright}</p>
+        <slot name="footer-extra" />
+      </div>
+    </div>
+  </footer>
+</BaseLayout>
+
+<script>
+  // 移动端菜单功能
+  document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const closeMobileMenu = document.getElementById('close-mobile-menu');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    
+    if (mobileMenuToggle && mobileMenu) {
+      mobileMenuToggle.addEventListener('click', () => {
+        mobileMenu.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    }
+    
+    if (closeMobileMenu && mobileMenu) {
+      closeMobileMenu.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    }
+    
+    // 点击导航链接后关闭菜单
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (mobileMenu) {
+          mobileMenu.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+    
+    // 页眉滚动效果
+    const header = document.querySelector('.site-header');
+    let lastScrollTop = 0;
+    
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (header) {
+        if (scrollTop > 100) {
+          header.classList.add('scrolled');
+          
+          if (scrollTop > lastScrollTop) {
+            header.classList.add('hidden');
+          } else {
+            header.classList.remove('hidden');
+          }
+        } else {
+          header.classList.remove('scrolled');
+          header.classList.remove('hidden');
+        }
+      }
+      
+      lastScrollTop = scrollTop;
+    });
+  });
+</script>
+
+<style>
+  /* 基础布局 */
+  .landing-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  
+  /* 页眉样式 */
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+  }
+  
+  .site-header.scrolled {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .site-header.hidden {
+    transform: translateY(-100%);
+  }
+  
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+  }
+  
+  .brand-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #111827;
+  }
+  
+  .brand-logo {
+    height: 40px;
+    width: auto;
+  }
+  
+  .brand-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  
+  .main-nav {
+    display: flex;
+  }
+  
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .nav-link {
+    color: #4b5563;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  
+  .nav-link:hover {
+    color: #111827;
+  }
+  
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  
+  .btn-primary {
+    background-color: #2563eb;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #1d4ed8;
+  }
+  
+  .btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .mobile-menu-button {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+  
+  /* 移动端菜单 */
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 200;
+    display: flex;
+    justify-content: flex-end;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+  
+  .mobile-menu.active {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .mobile-menu-container {
+    width: 300px;
+    background-color: #fff;
+    height: 100%;
+    padding: 1.5rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .mobile-menu.active .mobile-menu-container {
+    transform: translateX(0);
+  }
+  
+  .mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .close-menu-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+  
+  .mobile-nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .mobile-nav-link {
+    display: block;
+    padding: 0.75rem 0;
+    font-size: 1.125rem;
+    color: #111827;
+    text-decoration: none;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  /* 英雄区块 */
+  .hero-section {
+    padding: 120px 0 80px;
+    background-color: #f9fafb;
+  }
+  
+  /* 主要内容 */
+  .main-content {
+    flex: 1;
+  }
+  
+  /* 页脚 */
+  .site-footer {
+    background-color: #1f2937;
+    color: #e5e7eb;
+    padding: 4rem 0 2rem;
+  }
+  
+  .footer-content {
+    display: grid;
+    grid-template-columns: 2fr repeat(auto-fit, minmax(160px, 1fr));
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  
+  .brand-tagline {
+    margin: 1rem 0 1.5rem;
+    color: #9ca3af;
+    max-width: 300px;
+  }
+  
+  .social-links {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    background-color: #374151;
+    color: #e5e7eb;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+  
+  .social-link:hover {
+    background-color: #4b5563;
+  }
+  
+  .social-icon {
+    font-size: 1.25rem;
+  }
+  
+  .footer-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    color: #fff;
+  }
+  
+  .footer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .footer-link {
+    color: #9ca3af;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  .footer-link:hover {
+    color: #e5e7eb;
+  }
+  
+  .footer-bottom {
+    padding-top: 2rem;
+    border-top: 1px solid #374151;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .copyright {
+    color: #9ca3af;
+    font-size: 0.875rem;
+  }
+  
+  /* 响应式调整 */
+  @media (max-width: 1024px) {
+    .footer-content {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .main-nav {
+      display: none;
+    }
+    
+    .mobile-menu-button {
+      display: block;
+    }
+    
+    .header-content {
+      height: 70px;
+    }
+    
+    .hero-section {
+      padding: 100px 0 60px;
+    }
+    
+    .footer-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style> 
