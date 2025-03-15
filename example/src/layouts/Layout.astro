@@ -1,5 +1,4 @@
 ---
-import '../global.css';
 import { getGroupedRoutes, createUrl } from '../lib/route';
 import { getBaseUrl } from '../lib/utils';
 import { Footer, TableOfContents } from '~/index';
@@ -172,11 +171,3 @@ const normalizedCurrentPath = currentPath.replace(baseUrl, '').replace(/\/$/, ''
 		</script>
 	</body>
 </html>
-
-<style>
-	@reference '../global.css';
-	/* 确保高亮样式正确应用 */
-	.menu-item.active {
-		@apply bg-primary text-primary-content;
-	}
-</style>
