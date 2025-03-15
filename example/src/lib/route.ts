@@ -19,11 +19,13 @@ export const routes = {
         button: { path: '/components/button', title: 'Button', group: '组件' },
         code: { path: '/components/code', title: 'Code', group: '组件' },
         footer: { path: '/components/footer', title: 'Footer', group: '组件' },
+        heading: { path: '/components/heading', title: 'Heading', group: '组件' },
         image: { path: '/components/image', title: 'Image', group: '组件' },
         modal: { path: '/components/modal', title: 'Modal', group: '组件' },
         select: { path: '/components/select', title: 'Select', group: '组件' },
         table: { path: '/components/table', title: 'Table', group: '组件' },
         teamMember: { path: '/components/team-member', title: 'TeamMember', group: '组件' },
+        text: { path: '/components/text', title: 'Text', group: '组件' },
     },
 } as const;
 

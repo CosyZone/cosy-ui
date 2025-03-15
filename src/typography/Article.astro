@@ -1,0 +1,260 @@
+---
+/**
+ * @component Article
+ * 
+ * @description
+ * Article 组件用于展示格式化的文章内容，提供了一套完整的排版样式，使文章内容更易于阅读和理解。
+ * 该组件适用于博客文章、文档页面、新闻内容等需要良好排版的场景。
+ * 
+ * @design
+ * 设计理念：
+ * 1. 可读性优先 - 使用合理的行高、字体大小和间距，提高长文本的阅读体验
+ * 2. 层次分明 - 通过不同级别标题的样式区分，建立清晰的内容层次结构
+ * 3. 响应式设计 - 在不同设备上保持良好的阅读体验
+ * 4. 暗黑模式支持 - 自动适应系统的暗黑模式设置
+ * 
+ * 视觉特点：
+ * - 合理的文本行高和段落间距
+ * - 标题使用较粗的字重和较小的行高
+ * - 列表项有适当的缩进和间距
+ * - 引用块使用左侧边框和斜体样式
+ * - 代码块和行内代码有不同的背景色
+ * - 表格有清晰的边框和背景色区分
+ * 
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Article>
+ *   <h1>文章标题</h1>
+ *   <p>这是一段文章内容...</p>
+ * </Article>
+ * ```
+ * 
+ * 添加自定义类名：
+ * ```astro
+ * <Article class="my-custom-article">
+ *   <h2>带自定义类的文章</h2>
+ *   <p>这是一段文章内容...</p>
+ * </Article>
+ * ```
+ * 
+ * 完整示例：
+ * ```astro
+ * <Article>
+ *   <h1>文章标题</h1>
+ *   <p>这是一段介绍性文字，可以包含<a href="#">链接</a>和<code>行内代码</code>。</p>
+ *   
+ *   <h2>二级标题</h2>
+ *   <p>这是二级标题下的段落内容。</p>
+ *   
+ *   <blockquote>
+ *     这是一段引用内容，可以用来强调重要信息或引用他人的话。
+ *   </blockquote>
+ *   
+ *   <h3>三级标题</h3>
+ *   <ul>
+ *     <li>无序列表项一</li>
+ *     <li>无序列表项二</li>
+ *   </ul>
+ *   
+ *   <h4>四级标题</h4>
+ *   <ol>
+ *     <li>有序列表项一</li>
+ *     <li>有序列表项二</li>
+ *   </ol>
+ *   
+ *   <pre><code>// 这是一个代码块
+ * function example() {
+ *   return "示例代码";
+ * }</code></pre>
+ * </Article>
+ * ```
+ * 
+ * @props
+ * @prop {string} [class] - 自定义 CSS 类名，会与组件内置的类名合并
+ * 
+ * @slots
+ * @slot default - 文章内容，可以包含任何 HTML 元素
+ * 
+ * @cssFeatures
+ * 组件支持的 HTML 元素样式：
+ * - 标题 (h1-h6)：不同级别的标题有不同的大小和间距
+ * - 段落 (p)：适当的行高和段落间距
+ * - 列表 (ul, ol, li)：合理的缩进和项目间距
+ * - 链接 (a)：带下划线的彩色文本
+ * - 引用块 (blockquote)：带左侧边框的斜体文本
+ * - 代码 (code, pre)：带背景色的等宽字体
+ * - 图片 (img)：自适应宽度
+ * - 水平线 (hr)：简洁的分隔线
+ * - 表格 (table, th, td)：清晰的表格样式
+ * 
+ * @accessibility
+ * - 使用语义化的 article 元素作为容器
+ * - 保持足够的颜色对比度，确保在不同模式下的可读性
+ * - 支持系统的暗黑模式设置
+ */
+
+interface Props {
+    class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<article class:list={['article', className]}>
+    <slot />
+</article>
+
+<style>
+    .article {
+        max-width: none;
+        color: #334155; /* slate-700 equivalent */
+        line-height: 1.75;
+    }
+
+    .article :global(h1),
+    .article :global(h2),
+    .article :global(h3),
+    .article :global(h4),
+    .article :global(h5),
+    .article :global(h6) {
+        font-weight: 600;
+        line-height: 1.25;
+        margin-top: 2em;
+        margin-bottom: 1em;
+    }
+
+    .article :global(h1) {
+        font-size: 2.25em;
+    }
+
+    .article :global(h2) {
+        font-size: 1.875em;
+    }
+
+    .article :global(h3) {
+        font-size: 1.5em;
+    }
+
+    .article :global(h4) {
+        font-size: 1.25em;
+    }
+
+    .article :global(p),
+    .article :global(ul),
+    .article :global(ol) {
+        margin-top: 1.25em;
+        margin-bottom: 1.25em;
+    }
+
+    .article :global(ul),
+    .article :global(ol) {
+        padding-left: 1.625em;
+    }
+
+    .article :global(li) {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+
+    .article :global(a) {
+        color: #2563eb; /* blue-600 equivalent */
+        text-decoration: underline;
+    }
+
+    .article :global(blockquote) {
+        font-style: italic;
+        color: #64748b; /* slate-500 equivalent */
+        border-left: 4px solid #e2e8f0; /* slate-200 equivalent */
+        padding-left: 1em;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .article :global(code) {
+        font-family: monospace;
+        background-color: #f1f5f9; /* slate-100 equivalent */
+        padding: 0.2em 0.4em;
+        border-radius: 0.25em;
+    }
+
+    .article :global(pre) {
+        background-color: #1e293b; /* slate-800 equivalent */
+        color: #f8fafc; /* slate-50 equivalent */
+        padding: 1.25em;
+        border-radius: 0.375em;
+        overflow-x: auto;
+    }
+
+    .article :global(pre code) {
+        background-color: transparent;
+        padding: 0;
+        color: inherit;
+    }
+
+    .article :global(img) {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .article :global(hr) {
+        border: 0;
+        border-top: 1px solid #e2e8f0; /* slate-200 equivalent */
+        margin: 2em 0;
+    }
+
+    .article :global(table) {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1.25em;
+        margin-bottom: 1.25em;
+    }
+
+    .article :global(th),
+    .article :global(td) {
+        padding: 0.75em;
+        border: 1px solid #e2e8f0; /* slate-200 equivalent */
+    }
+
+    .article :global(th) {
+        background-color: #f8fafc; /* slate-50 equivalent */
+        font-weight: 600;
+    }
+
+    /* 暗黑模式 */
+    @media (prefers-color-scheme: dark) {
+        .article {
+            color: #f1f5f9; /* slate-100 equivalent */
+        }
+
+        .article :global(blockquote) {
+            color: #94a3b8; /* slate-400 equivalent */
+            border-left-color: #334155; /* slate-700 equivalent */
+        }
+
+        .article :global(code) {
+            background-color: #1e293b; /* slate-800 equivalent */
+        }
+
+        .article :global(pre) {
+            background-color: #0f172a; /* slate-900 equivalent */
+        }
+
+        .article :global(hr) {
+            border-top-color: #334155; /* slate-700 equivalent */
+        }
+
+        .article :global(th),
+        .article :global(td) {
+            border-color: #334155; /* slate-700 equivalent */
+        }
+
+        .article :global(th) {
+            background-color: #1e293b; /* slate-800 equivalent */
+        }
+
+        .article :global(a) {
+            color: #3b82f6; /* blue-500 equivalent */
+        }
+    }
+</style>

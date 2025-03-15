@@ -32,44 +32,6 @@ pnpm add @coffic/cosy-ui
 pnpm add daisyui@5.0.3</code></pre>
     </div>
 
-    <h3>2. 配置 Astro</h3>
-    <p>在你的 <code>astro.config.ts</code> 文件中添加以下配置：</p>
-
-    <pre class="language-typescript"><code>{`import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
-
-export default defineConfig({
-  integrations: [],
-  vite: {
-    plugins: [tailwindcss()],
-  },
-});`}</code></pre>
-
-    <h3>3. 配置 Tailwind CSS</h3>
-    <p>创建或修改 <code>tailwind.config.ts</code> 文件：</p>
-
-    <pre class="language-typescript"><code>{`import type { Config } from 'tailwindcss';
-import daisyui from 'daisyui';
-
-export default {
-  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
-  theme: {
-    extend: {},
-  },
-  plugins: [daisyui],
-  daisyui: {
-    themes: ["light", "dark"],
-  },
-} satisfies Config;`}</code></pre>
-
-    <h3>4. 导入样式</h3>
-    <p>在你的主布局文件或全局样式文件中导入 Tailwind CSS：</p>
-
-    <pre class="language-css"><code>{`/* src/styles/global.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;`}</code></pre>
-
     <h2>验证安装</h2>
     <p>创建一个简单的组件来测试安装是否成功：</p>
 

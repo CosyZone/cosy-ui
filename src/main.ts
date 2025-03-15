@@ -1,6 +1,5 @@
 // 这里用于导出所有组件，注意按照字母排序
 export { default as Alert } from './components/Alert.astro';
-export { default as Article } from './components/Article.astro';
 export { default as Banner } from './components/Banner.astro';
 export { default as Blog } from './components/Blog.astro';
 export { default as Button } from './components/Button.astro';
@@ -23,6 +22,11 @@ export { default as TableOfContents } from './components/TableOfContents.astro';
 export { default as TeamMember } from './components/TeamMember.astro';
 export { default as TeamMembers } from './components/TeamMembers.astro';
 export { default as ThemeItem } from './components/ThemeItem.astro';
+
+// 导出排版组件
+export { default as Article } from './typography/Article.astro';
+export { default as Heading } from './typography/Heading.astro';
+export { default as Text } from './typography/Text.astro';
 
 // 导出布局组件
 export { default as BaseLayout } from './layouts/BaseLayout.astro';
