@@ -101,8 +101,8 @@ const backgroundClasses = {
 
 // 构建最终类名
 const sectionClasses = [
-  paddingClasses[padding],
-  backgroundClasses[background],
+  paddingClasses[padding as keyof typeof paddingClasses],
+  backgroundClasses[background as keyof typeof backgroundClasses],
   className
 ].join(' ');
 

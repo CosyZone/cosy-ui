@@ -1,4 +1,48 @@
 ---
+/**
+ * @component TableOfContents
+ * 
+ * @description
+ * TableOfContents 组件是一个目录导航组件，用于显示页面内容的标题结构。
+ * 它会自动检测页面中的标题元素，生成目录列表，并在用户滚动页面时高亮当前可见的标题。
+ * 
+ * @design
+ * 设计理念：
+ * 1. 导航辅助 - 帮助用户快速了解页面结构和导航到特定内容
+ * 2. 上下文感知 - 自动高亮当前阅读位置，提供阅读进度反馈
+ * 3. 视觉层次 - 通过缩进和样式区分不同级别的标题
+ * 4. 响应式设计 - 在小屏幕设备上自动隐藏，优化空间利用
+ * 
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <TableOfContents />
+ * ```
+ * 
+ * 自定义标题和选择器：
+ * ```astro
+ * <TableOfContents 
+ *   title="章节导航" 
+ *   selector="h2, h3, h4" 
+ *   maxDepth={4} 
+ * />
+ * ```
+ * 
+ * 非固定位置：
+ * ```astro
+ * <TableOfContents fixed={false} />
+ * ```
+ * 
+ * 指定内容容器：
+ * ```astro
+ * <TableOfContents containerSelector=".article-content" />
+ * ```
+ */
+
+// 导入样式
+import '../styles/index.css';
+import '../styles/components/table-of-contents.css';
+
 interface Props {
   /**
    * 是否固定在右侧
@@ -303,160 +347,7 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
   // 添加resize事件监听，在窗口大小变化时重新计算高亮
   window.addEventListener('resize', throttle(highlightActiveHeading, 100));
   
-  // 添加一个样式，用于临时高亮当前标题
-  const style = document.createElement('style');
-  style.textContent = `
-    .current-heading {
-      background-color: rgba(37, 99, 235, 0.1);
-      position: relative;
-    }
-    .current-heading::before {
-      content: "→";
-      position: absolute;
-      left: -1.5rem;
-      color: #2563eb;
-      font-weight: bold;
-    }
-  `;
-  document.head.appendChild(style);
-  
   // 立即触发一次高亮计算
   setTimeout(highlightActiveHeading, 500);
 </script>
 
-<style>
-  .toc {
-    width: 240px;
-    padding: 1rem;
-  }
-  
-  .toc-fixed {
-    position: sticky;
-    top: 2rem;
-    max-height: calc(100vh - 4rem);
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--toc-scrollbar-color, rgba(0, 0, 0, 0.2)) transparent;
-  }
-  
-  .toc-container {
-    border-left: 2px solid var(--toc-border-color, #ddd);
-    padding-left: 1rem;
-  }
-  
-  .toc-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: var(--toc-title-color, #333);
-  }
-  
-  .toc-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .toc-item {
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-  }
-  
-  .toc-level-2 {
-    margin-left: 0;
-    margin-top: 0.75rem;
-    font-weight: 500;
-    color: var(--toc-h2-color, #444);
-    border-bottom: 1px solid var(--toc-h2-border-color, rgba(0, 0, 0, 0.05));
-    padding-bottom: 0.25rem;
-  }
-  
-  .toc-level-2:first-child {
-    margin-top: 0;
-  }
-  
-  .toc-level-3 {
-    margin-left: 1.5rem;
-    font-size: 0.85rem;
-    position: relative;
-    color: var(--toc-h3-color, #666);
-  }
-  
-  .toc-level-4 {
-    margin-left: 3rem;
-    font-size: 0.8rem;
-  }
-  
-  .toc-prefix {
-    color: var(--toc-prefix-color, #aaa);
-    font-family: monospace;
-  }
-  
-  .toc-link {
-    color: inherit;
-    text-decoration: none;
-    transition: color 0.2s, background-color 0.2s, padding-left 0.2s;
-    display: block;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-  }
-  
-  .toc-link:hover {
-    color: var(--toc-link-hover-color, #333);
-    background-color: var(--toc-link-hover-bg, rgba(0, 0, 0, 0.05));
-  }
-  
-  .toc-active {
-    color: #2563eb !important; /* 使用固定颜色，不依赖CSS变量 */
-    font-weight: 600;
-    background-color: rgba(37, 99, 235, 0.1);
-    position: relative;
-    border-radius: 4px;
-    padding-left: 0.75rem !important;
-    transform: translateX(-0.25rem);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  }
-  
-  /* 添加左侧指示器 */
-  .toc-active::before {
-    content: "";
-    position: absolute;
-    left: -1.25rem;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 0.25rem;
-    height: 1.25rem;
-    background-color: #2563eb; /* 使用固定颜色，不依赖CSS变量 */
-    border-radius: 0.125rem;
-  }
-  
-  /* 添加右侧指示器 */
-  .toc-active::after {
-    content: "→";
-    position: absolute;
-    right: 0.5rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #2563eb;
-    font-weight: bold;
-  }
-  
-  .toc-parent-active {
-    color: #4b5563 !important;
-    font-weight: 500;
-    background-color: rgba(75, 85, 99, 0.05);
-    border-radius: 4px;
-  }
-  
-  .toc-placeholder, .toc-empty {
-    color: var(--toc-placeholder-color, #999);
-    font-style: italic;
-  }
-  
-  /* 响应式设计 */
-  @media (max-width: 1023px) {
-    .toc-fixed {
-      display: none;
-    }
-  }
-</style> 

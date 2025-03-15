@@ -1,4 +1,50 @@
 ---
+/**
+ * @component Image
+ * 
+ * @description
+ * Image 组件是一个增强的图片组件，提供了丰富的功能，包括懒加载、加载状态指示、错误处理、
+ * 以及各种视觉效果。它旨在提供更好的用户体验和性能优化。
+ * 
+ * @design
+ * 设计理念：
+ * 1. 用户体验优先 - 提供加载状态反馈，减少用户等待焦虑
+ * 2. 性能优化 - 支持懒加载，减少初始加载时间
+ * 3. 错误处理 - 优雅地处理图片加载失败的情况
+ * 4. 视觉一致性 - 提供统一的圆角、阴影和过渡效果
+ * 5. 灵活配置 - 支持多种自定义选项，适应不同场景
+ * 
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Image src="/images/photo.jpg" alt="一张照片" />
+ * ```
+ * 
+ * 带样式效果：
+ * ```astro
+ * <Image 
+ *   src="/images/photo.jpg" 
+ *   alt="一张照片" 
+ *   rounded="lg" 
+ *   shadow="md" 
+ *   hover="scale" 
+ * />
+ * ```
+ * 
+ * 自定义加载指示器：
+ * ```astro
+ * <Image 
+ *   src="https://example.com/large-image.jpg" 
+ *   alt="远程大图" 
+ *   loadingIndicator="progress" 
+ * />
+ * ```
+ */
+
+// 导入样式
+import '../styles/index.css';
+import '../styles/components/image.css';
+
 import { AlertTriangle } from '../icons';
 
 // 自定义图片元数据接口
@@ -349,210 +395,3 @@ const errorClasses = [
   // 初始加载时也初始化
   initializeImageHandlers();
 </script>
-
-<style>
-  /* 容器样式 */
-  .image-container {
-    position: relative;
-  }
-
-  .image-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-
-  /* 图片样式 */
-  .image {
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .image.loaded {
-    opacity: 1;
-  }
-
-  /* 占位图样式 */
-  .placeholder {
-    position: absolute;
-    inset: 0;
-    background-color: #e5e7eb; /* 对应 bg-base-200 */
-    transition: opacity 0.3s ease;
-  }
-
-  .placeholder.fade-out {
-    opacity: 0;
-  }
-
-  /* 错误占位图样式 */
-  .error-placeholder {
-    position: absolute;
-    inset: 0;
-    background-color: rgba(239, 68, 68, 0.1); /* 对应 bg-error/10 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    display: none;
-  }
-
-  .error-icon {
-    color: #ef4444; /* 对应 text-error */
-  }
-
-  /* 加载指示器样式 */
-  .loading-indicator {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* 脉冲动画 */
-  .animate-pulse {
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.5;
-    }
-  }
-
-  /* 旋转加载指示器 */
-  .spinner-icon {
-    width: 24px;
-    height: 24px;
-    border: 3px solid rgba(0, 0, 0, 0.1);
-    border-radius: 50%;
-    border-top-color: #3b82f6; /* 对应 text-primary */
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  /* 进度条 */
-  .progress-bar-container {
-    width: 75%;
-    height: 8px;
-    background-color: #d1d5db; /* 对应 bg-base-300 */
-    border-radius: 9999px;
-    overflow: hidden;
-  }
-
-  .progress-bar {
-    height: 100%;
-    background-color: #3b82f6; /* 对应 bg-primary */
-    border-radius: 9999px;
-    width: 0%;
-  }
-
-  /* 骨架屏 */
-  .skeleton-animation {
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(90deg, #e5e7eb 0%, #f3f4f6 50%, #e5e7eb 100%);
-    background-size: 400% 100%;
-    animation: skeleton-loading 1.5s ease-in-out infinite;
-  }
-
-  @keyframes skeleton-loading {
-    0% {
-      background-position: 200% 0;
-    }
-    100% {
-      background-position: -200% 0;
-    }
-  }
-
-  /* 圆角样式 */
-  .rounded-sm {
-    border-radius: 0.125rem;
-  }
-
-  .rounded-md {
-    border-radius: 0.375rem;
-  }
-
-  .rounded-lg {
-    border-radius: 0.5rem;
-  }
-
-  .rounded-xl {
-    border-radius: 0.75rem;
-  }
-
-  .rounded-2xl {
-    border-radius: 1rem;
-  }
-
-  .rounded-3xl {
-    border-radius: 1.5rem;
-  }
-
-  .rounded-full {
-    border-radius: 9999px;
-  }
-
-  /* 阴影样式 */
-  .shadow-sm {
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  }
-
-  .shadow-md {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  }
-
-  .shadow-lg {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  }
-
-  .shadow-xl {
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  }
-
-  .shadow-2xl {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  }
-
-  /* 悬停效果 */
-  .hover-scale:hover {
-    transform: scale(1.05);
-  }
-
-  .hover-brightness:hover {
-    filter: brightness(1.1);
-  }
-
-  .hover-blur:hover {
-    filter: blur(4px);
-  }
-
-  /* 过渡动画 */
-  .transition-opacity {
-    transition-property: opacity;
-    transition-duration: 0.3s;
-  }
-
-  .transition-transform {
-    transition-property: transform;
-    transition-duration: 0.3s;
-  }
-
-  .transition-all {
-    transition-property: all;
-    transition-duration: 0.3s;
-  }
-</style> 

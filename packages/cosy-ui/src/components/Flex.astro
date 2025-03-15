@@ -1,16 +1,37 @@
 ---
 /**
- * Flex组件
+ * @component Flex
  * 
- * 一个灵活的弹性布局组件，支持不同的方向、对齐和间距
+ * @description
+ * Flex 组件是一个灵活的弹性布局组件，用于创建各种排列和对齐方式的布局。
+ * 它封装了 CSS Flexbox 的常用功能，提供简单易用的接口来控制子元素的排列方式。
  * 
- * @example
+ * @design
+ * 设计理念：
+ * 1. 简单易用 - 通过简洁的 API 控制复杂的 Flexbox 布局
+ * 2. 灵活可配置 - 支持所有常见的 Flexbox 属性
+ * 3. 语义化属性 - 使用直观的属性名称，降低学习成本
+ * 4. 响应式友好 - 可以与响应式工具类结合使用
+ * 
+ * @usage
+ * 基本用法：
  * ```astro
  * <Flex>
  *   <div>默认水平排列</div>
  *   <div>居中对齐</div>
  * </Flex>
+ * ```
  * 
+ * 垂直排列：
+ * ```astro
+ * <Flex direction="column">
+ *   <div>第一项</div>
+ *   <div>第二项</div>
+ * </Flex>
+ * ```
+ * 
+ * 自定义对齐和间距：
+ * ```astro
  * <Flex direction="column" align="start" justify="between" gap="lg">
  *   <div>垂直排列</div>
  *   <div>左对齐</div>
@@ -18,28 +39,46 @@
  *   <div>大间距</div>
  * </Flex>
  * ```
+ * 
+ * @props
+ * @prop {string} [direction="row"] - 排列方向，可选值：row, row-reverse, column, column-reverse
+ * @prop {string} [justify="center"] - 水平对齐方式，可选值：start, end, center, between, around, evenly
+ * @prop {string} [align="center"] - 垂直对齐方式，可选值：start, end, center, stretch, baseline
+ * @prop {boolean} [wrap=false] - 是否允许换行
+ * @prop {string} [gap="md"] - 元素间距，可选值：none, xs, sm, md, lg, xl
+ * @prop {string} [class] - 自定义类名
+ * @prop {any} [class:list] - 类名列表
  */
 
+// 导入样式
+import '../styles/index.css';
+import '../styles/components/flex.css';
+
 import type { HTMLAttributes } from 'astro/types';
+
+type Direction = 'row' | 'row-reverse' | 'column' | 'column-reverse';
+type Justify = 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
+type Align = 'start' | 'end' | 'center' | 'stretch' | 'baseline';
+type Gap = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 interface Props extends HTMLAttributes<'div'> {
   /**
    * 排列方向
    * @default "row"
    */
-  direction?: 'row' | 'row-reverse' | 'column' | 'column-reverse';
+  direction?: Direction;
   
   /**
    * 水平对齐方式
    * @default "center"
    */
-  justify?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
+  justify?: Justify;
   
   /**
    * 垂直对齐方式
    * @default "center"
    */
-  align?: 'start' | 'end' | 'center' | 'stretch' | 'baseline';
+  align?: Align;
   
   /**
    * 是否允许换行
@@ -51,7 +90,7 @@ interface Props extends HTMLAttributes<'div'> {
    * 元素间距
    * @default "md"
    */
-  gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  gap?: Gap;
   
   /**
    * 自定义类名
@@ -76,7 +115,7 @@ const {
 } = Astro.props;
 
 // 方向映射
-const directionClasses = {
+const directionClasses: Record<Direction, string> = {
   'row': 'flex-row',
   'row-reverse': 'flex-row-reverse',
   'column': 'flex-col',
@@ -84,7 +123,7 @@ const directionClasses = {
 };
 
 // 水平对齐映射
-const justifyClasses = {
+const justifyClasses: Record<Justify, string> = {
   'start': 'justify-start',
   'end': 'justify-end',
   'center': 'justify-center',
@@ -94,7 +133,7 @@ const justifyClasses = {
 };
 
 // 垂直对齐映射
-const alignClasses = {
+const alignClasses: Record<Align, string> = {
   'start': 'items-start',
   'end': 'items-end',
   'center': 'items-center',
@@ -103,7 +142,7 @@ const alignClasses = {
 };
 
 // 间距映射
-const gapClasses = {
+const gapClasses: Record<Gap, string> = {
   'none': 'gap-0',
   'xs': 'gap-2',
   'sm': 'gap-4',
@@ -115,11 +154,11 @@ const gapClasses = {
 // 构建最终类名
 const flexClasses = [
   'flex',
-  directionClasses[direction],
-  justifyClasses[justify],
-  alignClasses[align],
+  directionClasses[direction as Direction],
+  justifyClasses[justify as Justify],
+  alignClasses[align as Align],
   wrap ? 'flex-wrap' : 'flex-nowrap',
-  gapClasses[gap],
+  gapClasses[gap as Gap],
   className
 ].join(' ');
 ---
@@ -127,43 +166,3 @@ const flexClasses = [
 <div class:list={[flexClasses, classList]} {...rest}>
   <slot />
 </div>
-
-<style>
-  /* 基础样式 */
-  .flex {
-    display: flex;
-  }
-  
-  /* 方向 */
-  .flex-row { flex-direction: row; }
-  .flex-row-reverse { flex-direction: row-reverse; }
-  .flex-col { flex-direction: column; }
-  .flex-col-reverse { flex-direction: column-reverse; }
-  
-  /* 换行 */
-  .flex-wrap { flex-wrap: wrap; }
-  .flex-nowrap { flex-wrap: nowrap; }
-  
-  /* 水平对齐 */
-  .justify-start { justify-content: flex-start; }
-  .justify-end { justify-content: flex-end; }
-  .justify-center { justify-content: center; }
-  .justify-between { justify-content: space-between; }
-  .justify-around { justify-content: space-around; }
-  .justify-evenly { justify-content: space-evenly; }
-  
-  /* 垂直对齐 */
-  .items-start { align-items: flex-start; }
-  .items-end { align-items: flex-end; }
-  .items-center { align-items: center; }
-  .items-stretch { align-items: stretch; }
-  .items-baseline { align-items: baseline; }
-  
-  /* 间距 */
-  .gap-0 { gap: 0; }
-  .gap-2 { gap: 0.5rem; }
-  .gap-4 { gap: 1rem; }
-  .gap-6 { gap: 1.5rem; }
-  .gap-8 { gap: 2rem; }
-  .gap-12 { gap: 3rem; }
-</style> 

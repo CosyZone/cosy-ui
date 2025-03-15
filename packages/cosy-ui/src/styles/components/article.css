@@ -1,0 +1,167 @@
+/**
+ * Article 组件样式
+ * 
+ * 这个文件定义了 Article 组件的所有样式
+ * 使用我们定义的 CSS 变量，确保样式一致性
+ */
+
+/* 文章基础样式 */
+.article {
+	color: var(--color-text-primary);
+	line-height: var(--leading-relaxed);
+	margin: 0 auto;
+	font-family: var(--font-family-base);
+}
+
+/* 文章宽度预设 */
+.article-width-narrow {
+	max-width: 65ch; /* 约等于650px，适合阅读长文本 */
+}
+
+.article-width-medium {
+	max-width: 80ch; /* 约等于800px，平衡阅读体验和内容展示 */
+}
+
+.article-width-wide {
+	max-width: 100ch; /* 约等于1000px，适合包含更多内容的文章 */
+}
+
+.article-width-full {
+	max-width: none; /* 全宽，由父容器控制 */
+}
+
+/* 标题样式 */
+.article h1 {
+	font-size: var(--font-size-heading-1);
+	font-weight: var(--font-weight-heading);
+	line-height: var(--line-height-heading);
+	margin-bottom: var(--spacing-6);
+	color: var(--color-text-primary);
+}
+
+.article h2,
+.article h3,
+.article h4,
+.article h5,
+.article h6 {
+	font-weight: var(--font-weight-heading);
+	line-height: var(--line-height-heading);
+	margin-top: var(--spacing-8);
+	margin-bottom: var(--spacing-4);
+	color: var(--color-text-primary);
+}
+
+.article h2 {
+	font-size: var(--font-size-heading-2);
+}
+
+.article h3 {
+	font-size: var(--font-size-heading-3);
+}
+
+.article h4 {
+	font-size: var(--font-size-heading-4);
+}
+
+/* 段落和列表 */
+.article p,
+.article ul,
+.article ol {
+	margin-top: var(--spacing-5);
+	margin-bottom: var(--spacing-5);
+}
+
+.article ul,
+.article ol {
+	padding-left: var(--spacing-6);
+}
+
+.article li {
+	margin-top: var(--spacing-2);
+	margin-bottom: var(--spacing-2);
+}
+
+/* 链接 */
+.article a {
+	color: var(--color-primary);
+	text-decoration: underline;
+}
+
+.article a:hover {
+	color: var(--color-primary-hover);
+}
+
+/* 引用块 */
+.article blockquote {
+	font-style: italic;
+	color: var(--color-text-secondary);
+	border-left: 4px solid var(--color-border-default);
+	padding-left: var(--spacing-4);
+	margin-left: 0;
+	margin-right: 0;
+	margin-top: var(--spacing-6);
+	margin-bottom: var(--spacing-6);
+}
+
+/* 代码 */
+.article code {
+	font-family: var(--font-family-code);
+	background-color: var(--color-code-bg);
+	padding: var(--spacing-0-5) var(--spacing-1);
+	border-radius: var(--spacing-1);
+	font-size: 0.9em;
+}
+
+.article pre {
+	background-color: var(--color-pre-bg);
+	color: var(--color-pre-text);
+	padding: var(--spacing-5);
+	border-radius: var(--spacing-1-5);
+	overflow-x: auto;
+	margin-top: var(--spacing-5);
+	margin-bottom: var(--spacing-5);
+}
+
+.article pre code {
+	background-color: transparent;
+	padding: 0;
+	color: inherit;
+	font-size: var(--text-sm);
+	line-height: var(--leading-normal);
+}
+
+/* 图片 */
+.article img {
+	max-width: 100%;
+	height: auto;
+	border-radius: var(--spacing-1);
+	margin-top: var(--spacing-5);
+	margin-bottom: var(--spacing-5);
+}
+
+/* 水平线 */
+.article hr {
+	border: 0;
+	border-top: 1px solid var(--color-border-default);
+	margin: var(--spacing-8) 0;
+}
+
+/* 表格 */
+.article table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: var(--spacing-5);
+	margin-bottom: var(--spacing-5);
+}
+
+.article th,
+.article td {
+	padding: var(--spacing-3);
+	border: 1px solid var(--color-border-default);
+}
+
+.article th {
+	background-color: var(--color-th-bg);
+	font-weight: var(--font-semibold);
+	text-align: left;
+}

@@ -1,0 +1,160 @@
+/**
+ * TableOfContents 组件样式
+ * 
+ * 这个文件定义了 TableOfContents 组件的所有样式
+ * 使用我们定义的 CSS 变量，确保样式一致性
+ */
+
+/* 基础样式 */
+.toc {
+	width: 240px;
+	padding: var(--spacing-4);
+}
+
+.toc-fixed {
+	position: sticky;
+	top: var(--spacing-8);
+	max-height: calc(100vh - var(--spacing-16));
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: var(--color-scrollbar, rgba(0, 0, 0, 0.2)) transparent;
+}
+
+.toc-container {
+	border-left: 2px solid var(--color-border, var(--color-gray-200));
+	padding-left: var(--spacing-4);
+}
+
+.toc-title {
+	font-size: var(--text-xl);
+	font-weight: 600;
+	margin-bottom: var(--spacing-4);
+	color: var(--color-text-title, var(--color-gray-800));
+}
+
+.toc-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.toc-item {
+	margin-bottom: var(--spacing-2);
+	font-size: var(--text-sm);
+}
+
+.toc-level-2 {
+	margin-left: 0;
+	margin-top: var(--spacing-3);
+	font-weight: 500;
+	color: var(--color-text-h2, var(--color-gray-700));
+	border-bottom: 1px solid var(--color-border-light, var(--color-gray-100));
+	padding-bottom: var(--spacing-1);
+}
+
+.toc-level-2:first-child {
+	margin-top: 0;
+}
+
+.toc-level-3 {
+	margin-left: var(--spacing-6);
+	font-size: calc(var(--text-sm) * 0.95);
+	position: relative;
+	color: var(--color-text-h3, var(--color-gray-600));
+}
+
+.toc-level-4 {
+	margin-left: var(--spacing-12);
+	font-size: calc(var(--text-sm) * 0.9);
+}
+
+.toc-prefix {
+	color: var(--color-text-muted, var(--color-gray-400));
+	font-family: monospace;
+}
+
+.toc-link {
+	color: inherit;
+	text-decoration: none;
+	transition:
+		color 0.2s,
+		background-color 0.2s,
+		padding-left 0.2s;
+	display: block;
+	padding: var(--spacing-1) var(--spacing-2);
+	border-radius: var(--radius-sm);
+}
+
+.toc-link:hover {
+	color: var(--color-text-hover, var(--color-gray-900));
+	background-color: var(--color-bg-hover, var(--color-gray-100));
+}
+
+.toc-active {
+	color: var(--color-primary) !important;
+	font-weight: 600;
+	background-color: var(--color-primary-light, rgba(37, 99, 235, 0.1));
+	position: relative;
+	border-radius: var(--radius-sm);
+	padding-left: var(--spacing-3) !important;
+	transform: translateX(calc(var(--spacing-1) * -1));
+	box-shadow: var(--shadow-sm);
+}
+
+/* 添加左侧指示器 */
+.toc-active::before {
+	content: '';
+	position: absolute;
+	left: calc(var(--spacing-5) * -1);
+	top: 50%;
+	transform: translateY(-50%);
+	width: var(--spacing-1);
+	height: var(--spacing-5);
+	background-color: var(--color-primary);
+	border-radius: var(--radius-xs);
+}
+
+/* 添加右侧指示器 */
+.toc-active::after {
+	content: '→';
+	position: absolute;
+	right: var(--spacing-2);
+	top: 50%;
+	transform: translateY(-50%);
+	color: var(--color-primary);
+	font-weight: bold;
+}
+
+.toc-parent-active {
+	color: var(--color-gray-700) !important;
+	font-weight: 500;
+	background-color: var(--color-gray-50, rgba(75, 85, 99, 0.05));
+	border-radius: var(--radius-sm);
+}
+
+.toc-placeholder,
+.toc-empty {
+	color: var(--color-text-muted, var(--color-gray-400));
+	font-style: italic;
+}
+
+/* 当前标题高亮样式 */
+.current-heading {
+	background-color: var(--color-primary-light, rgba(37, 99, 235, 0.1));
+	position: relative;
+}
+
+.current-heading::before {
+	content: '→';
+	position: absolute;
+	left: calc(var(--spacing-6) * -1);
+	color: var(--color-primary);
+	font-weight: bold;
+}
+
+/* 响应式设计 */
+@media (max-width: 1023px) {
+	.toc-fixed {
+		display: none;
+	}
+}

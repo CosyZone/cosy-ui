@@ -1,22 +1,53 @@
 ---
 /**
- * Container组件
+ * @component Container
  * 
- * 一个基础的容器组件，用于限制内容宽度并居中显示
+ * @description
+ * Container 组件是一个基础的布局容器，用于限制内容宽度并居中显示。
+ * 它提供了多种尺寸和内边距选项，适用于各种布局需求。
  * 
- * @example
+ * @design
+ * 设计理念：
+ * 1. 内容约束 - 限制内容宽度，提高可读性和视觉美感
+ * 2. 响应式设计 - 在不同屏幕尺寸下自动调整内边距
+ * 3. 灵活配置 - 支持多种尺寸和内边距选项
+ * 4. 简单易用 - 提供直观的API，易于集成到各种页面布局中
+ * 
+ * @usage
+ * 基本用法：
  * ```astro
  * <Container>
  *   <p>内容将被限制在一个合理的宽度内并居中显示</p>
  * </Container>
+ * ```
  * 
+ * 自定义尺寸和内边距：
+ * ```astro
  * <Container size="sm" padding="lg">
  *   <p>小尺寸容器，大内边距</p>
+ * </Container>
+ * ```
+ * 
+ * 全宽容器：
+ * ```astro
+ * <Container size="full" padding="none">
+ *   <p>全宽容器，无内边距</p>
+ * </Container>
+ * ```
+ * 
+ * 不居中的容器：
+ * ```astro
+ * <Container centered={false}>
+ *   <p>不居中的容器，靠左对齐</p>
  * </Container>
  * ```
  */
 
 import type { HTMLAttributes } from 'astro/types';
+
+// 导入样式
+import '../styles/index.css';
+import '../styles/components/container.css';
 
 interface Props extends HTMLAttributes<'div'> {
   /**
@@ -58,87 +89,16 @@ const {
 } = Astro.props;
 
 // 构建CSS类名
-const containerClass = `container container-${size} padding-${padding}${centered ? ' centered' : ''}${className ? ' ' + className : ''}`;
+const containerClasses = [
+  'container',
+  `container-${size}`,
+  `container-padding-${padding}`,
+  centered ? 'container-centered' : '',
+  className
+];
 ---
 
-<div class:list={[containerClass, classList]} {...rest}>
+<div class:list={[containerClasses, classList]} {...rest}>
   <slot />
 </div>
 
-<style>
-  /* 基础容器样式 */
-  .container {
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  /* 居中显示 */
-  .centered {
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  /* 容器尺寸 */
-  .container-xs {
-    max-width: 480px;
-  }
-  
-  .container-sm {
-    max-width: 640px;
-  }
-  
-  .container-md {
-    max-width: 768px;
-  }
-  
-  .container-lg {
-    max-width: 1024px;
-  }
-  
-  .container-xl {
-    max-width: 1280px;
-  }
-  
-  .container-full {
-    max-width: 100%;
-  }
-  
-  /* 内边距 */
-  .padding-none {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  
-  .padding-sm {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  
-  .padding-md {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-  
-  .padding-lg {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-  
-  .padding-xl {
-    padding-left: 3rem;
-    padding-right: 3rem;
-  }
-  
-  /* 响应式调整 */
-  @media (max-width: 640px) {
-    .padding-md {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-    
-    .padding-lg, .padding-xl {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-  }
-</style> 

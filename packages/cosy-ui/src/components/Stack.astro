@@ -1,31 +1,72 @@
 ---
 /**
- * Stack组件
+ * @component Stack
  * 
- * 一个垂直堆叠布局组件，用于垂直排列元素并控制它们之间的间距
+ * @description
+ * Stack 组件是一个垂直堆叠布局组件，用于垂直排列元素并控制它们之间的间距。
+ * 它提供了灵活的间距控制、对齐方式和分隔线选项，使垂直布局更加简单。
  * 
- * @example
+ * @design
+ * 设计理念：
+ * 1. 简化布局 - 提供简单直观的方式创建垂直堆叠布局
+ * 2. 一致性 - 通过预设的间距选项确保布局一致性
+ * 3. 灵活性 - 支持多种对齐方式和分隔线选项
+ * 4. 可组合性 - 可以与其他布局组件组合使用
+ * 
+ * @usage
+ * 基本用法：
  * ```astro
  * <Stack>
  *   <div>第一个元素</div>
  *   <div>第二个元素</div>
  *   <div>第三个元素</div>
  * </Stack>
+ * ```
  * 
- * <Stack gap="lg" dividers={true}>
- *   <div>带分隔线的堆叠</div>
+ * 自定义间距：
+ * ```astro
+ * <Stack gap="lg">
  *   <div>大间距</div>
- *   <div>自动垂直排列</div>
+ *   <div>垂直排列</div>
+ * </Stack>
+ * ```
+ * 
+ * 带分隔线：
+ * ```astro
+ * <Stack dividers={true} dividerColor="primary">
+ *   <div>带分隔线的堆叠</div>
+ *   <div>使用主题色</div>
+ * </Stack>
+ * ```
+ * 
+ * 自定义对齐：
+ * ```astro
+ * <Stack align="center">
+ *   <div>居中对齐</div>
+ *   <div>的元素</div>
  * </Stack>
  * ```
  */
+
+// 导入样式
+import '../styles/index.css';
+import '../styles/components/stack.css';
+
+// 定义间距类型
+type GapSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+// 定义对齐方式类型
+type AlignType = 'start' | 'center' | 'end' | 'stretch';
+
+// 定义分隔线颜色类型
+type DividerColor = 'gray' | 'light' | 'dark' | 'primary';
 
 interface Props {
   /**
    * 元素间距
    * @default "md"
    */
-  gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  gap?: GapSize;
   
   /**
    * 是否显示分隔线
@@ -37,13 +78,13 @@ interface Props {
    * 分隔线颜色
    * @default "gray"
    */
-  dividerColor?: 'gray' | 'light' | 'dark' | 'primary';
+  dividerColor?: DividerColor;
   
   /**
    * 对齐方式
    * @default "stretch"
    */
-  align?: 'start' | 'center' | 'end' | 'stretch';
+  align?: AlignType;
   
   /**
    * 自定义类名
@@ -69,37 +110,37 @@ const {
 } = Astro.props;
 
 // 间距映射
-const gapClasses = {
-  'none': 'space-y-0',
-  'xs': 'space-y-2',
-  'sm': 'space-y-4',
-  'md': 'space-y-6',
-  'lg': 'space-y-8',
-  'xl': 'space-y-12'
+const gapClasses: Record<GapSize, string> = {
+  'none': 'stack-gap-none',
+  'xs': 'stack-gap-xs',
+  'sm': 'stack-gap-sm',
+  'md': 'stack-gap-md',
+  'lg': 'stack-gap-lg',
+  'xl': 'stack-gap-xl'
 };
 
 // 对齐方式映射
-const alignClasses = {
-  'start': 'items-start',
-  'center': 'items-center',
-  'end': 'items-end',
-  'stretch': 'items-stretch'
+const alignClasses: Record<AlignType, string> = {
+  'start': 'stack-align-start',
+  'center': 'stack-align-center',
+  'end': 'stack-align-end',
+  'stretch': 'stack-align-stretch'
 };
 
 // 分隔线颜色映射
-const dividerColorClasses = {
-  'gray': 'divide-gray-200',
-  'light': 'divide-gray-100',
-  'dark': 'divide-gray-300',
-  'primary': 'divide-blue-200'
+const dividerColorClasses: Record<DividerColor, string> = {
+  'gray': 'stack-divider-gray',
+  'light': 'stack-divider-light',
+  'dark': 'stack-divider-dark',
+  'primary': 'stack-divider-primary'
 };
 
 // 构建最终类名
 const stackClasses = [
-  'flex flex-col',
-  alignClasses[align],
-  gapClasses[gap],
-  dividers ? `divide-y ${dividerColorClasses[dividerColor]}` : '',
+  'stack',
+  alignClasses[align as AlignType],
+  gapClasses[gap as GapSize],
+  dividers ? `stack-divider ${dividerColorClasses[dividerColor as DividerColor]}` : '',
   className
 ].filter(Boolean).join(' ');
 ---
@@ -107,35 +148,3 @@ const stackClasses = [
 <div class:list={[stackClasses, classList]} {...rest}>
   <slot />
 </div>
-
-<style>
-  /* 基础样式 */
-  .flex { display: flex; }
-  .flex-col { flex-direction: column; }
-  
-  /* 对齐方式 */
-  .items-start { align-items: flex-start; }
-  .items-center { align-items: center; }
-  .items-end { align-items: flex-end; }
-  .items-stretch { align-items: stretch; }
-  
-  /* 间距 */
-  .space-y-0 > :not([hidden]) ~ :not([hidden]) { margin-top: 0; }
-  .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.5rem; }
-  .space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 1rem; }
-  .space-y-6 > :not([hidden]) ~ :not([hidden]) { margin-top: 1.5rem; }
-  .space-y-8 > :not([hidden]) ~ :not([hidden]) { margin-top: 2rem; }
-  .space-y-12 > :not([hidden]) ~ :not([hidden]) { margin-top: 3rem; }
-  
-  /* 分隔线 */
-  .divide-y > :not([hidden]) ~ :not([hidden]) { 
-    border-top-width: 1px;
-    border-top-style: solid;
-  }
-  
-  /* 分隔线颜色 */
-  .divide-gray-100 { border-color: #f3f4f6; }
-  .divide-gray-200 { border-color: #e5e7eb; }
-  .divide-gray-300 { border-color: #d1d5db; }
-  .divide-blue-200 { border-color: #bfdbfe; }
-</style> 

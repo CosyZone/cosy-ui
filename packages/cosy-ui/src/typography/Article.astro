@@ -37,6 +37,14 @@
  *   <p>这是一段文章内容...</p>
  * </Article>
  * ```
+ * 
+ * 设置文章宽度：
+ * ```astro
+ * <Article width="narrow">
+ *   <h2>窄宽度文章</h2>
+ *   <p>这是一段文章内容...</p>
+ * </Article>
+ * ```
  *
  * 完整示例：
  * ```astro
@@ -72,6 +80,7 @@
  *
  * @props
  * @prop {string} [class] - 自定义 CSS 类名，会与组件内置的类名合并
+ * @prop {string} [width="medium"] - 文章宽度，可选值为 "narrow"(窄), "medium"(中等), "wide"(宽), "full"(全宽)
  *
  * @slots
  * @slot default - 文章内容，可以包含任何 HTML 元素
@@ -94,6 +103,10 @@
  * - 支持系统的暗黑模式设置
  */
 
+// 导入样式
+import '../styles/index.css';
+import '../styles/components/article.css';
+
 export interface Props {
 	/**
 	 * 文章的类名
@@ -109,170 +122,24 @@ export interface Props {
 	 * 内联样式
 	 */
 	style?: string;
+	
+	/**
+	 * 文章宽度
+	 * @default "medium"
+	 */
+	width?: "narrow" | "medium" | "wide" | "full";
 }
 
-const { class: className = '' } = Astro.props;
+const { 
+	class: className = '',
+	width = "medium",
+	style = ""
+} = Astro.props;
+
+// 根据宽度选项设置类名
+const widthClass = `article-width-${width}`;
 ---
 
-<article class:list={['article', className]}>
+<article class:list={['article', widthClass, className]} style={style}>
 	<slot />
 </article>
-
-<style>
-	.article {
-		max-width: none;
-		color: #334155; /* slate-700 equivalent */
-		line-height: 1.75;
-	}
-
-	.article :global(h1) {
-		font-weight: 600;
-		line-height: 1.25;
-		margin-bottom: 1em;
-	}
-
-	.article :global(h2),
-	.article :global(h3),
-	.article :global(h4),
-	.article :global(h5),
-	.article :global(h6) {
-		font-weight: 600;
-		line-height: 1.25;
-		margin-top: 2em;
-		margin-bottom: 1em;
-	}
-
-	.article :global(h1) {
-		font-size: 2.25em;
-	}
-
-	.article :global(h2) {
-		font-size: 1.875em;
-	}
-
-	.article :global(h3) {
-		font-size: 1.5em;
-	}
-
-	.article :global(h4) {
-		font-size: 1.25em;
-	}
-
-	.article :global(p),
-	.article :global(ul),
-	.article :global(ol) {
-		margin-top: 1.25em;
-		margin-bottom: 1.25em;
-	}
-
-	.article :global(ul),
-	.article :global(ol) {
-		padding-left: 1.625em;
-	}
-
-	.article :global(li) {
-		margin-top: 0.5em;
-		margin-bottom: 0.5em;
-	}
-
-	.article :global(a) {
-		color: #2563eb; /* blue-600 equivalent */
-		text-decoration: underline;
-	}
-
-	.article :global(blockquote) {
-		font-style: italic;
-		color: #64748b; /* slate-500 equivalent */
-		border-left: 4px solid #e2e8f0; /* slate-200 equivalent */
-		padding-left: 1em;
-		margin-left: 0;
-		margin-right: 0;
-	}
-
-	.article :global(code) {
-		font-family: monospace;
-		background-color: #f1f5f9; /* slate-100 equivalent */
-		padding: 0.2em 0.4em;
-		border-radius: 0.25em;
-	}
-
-	.article :global(pre) {
-		background-color: #1e293b; /* slate-800 equivalent */
-		color: #f8fafc; /* slate-50 equivalent */
-		padding: 1.25em;
-		border-radius: 0.375em;
-		overflow-x: auto;
-	}
-
-	.article :global(pre code) {
-		background-color: transparent;
-		padding: 0;
-		color: inherit;
-	}
-
-	.article :global(img) {
-		max-width: 100%;
-		height: auto;
-	}
-
-	.article :global(hr) {
-		border: 0;
-		border-top: 1px solid #e2e8f0; /* slate-200 equivalent */
-		margin: 2em 0;
-	}
-
-	.article :global(table) {
-		width: 100%;
-		border-collapse: collapse;
-		margin-top: 1.25em;
-		margin-bottom: 1.25em;
-	}
-
-	.article :global(th),
-	.article :global(td) {
-		padding: 0.75em;
-		border: 1px solid #e2e8f0; /* slate-200 equivalent */
-	}
-
-	.article :global(th) {
-		background-color: #f8fafc; /* slate-50 equivalent */
-		font-weight: 600;
-	}
-
-	/* 暗黑模式 */
-	@media (prefers-color-scheme: dark) {
-		.article {
-			color: #f1f5f9; /* slate-100 equivalent */
-		}
-
-		.article :global(blockquote) {
-			color: #94a3b8; /* slate-400 equivalent */
-			border-left-color: #334155; /* slate-700 equivalent */
-		}
-
-		.article :global(code) {
-			background-color: #1e293b; /* slate-800 equivalent */
-		}
-
-		.article :global(pre) {
-			background-color: #0f172a; /* slate-900 equivalent */
-		}
-
-		.article :global(hr) {
-			border-top-color: #334155; /* slate-700 equivalent */
-		}
-
-		.article :global(th),
-		.article :global(td) {
-			border-color: #334155; /* slate-700 equivalent */
-		}
-
-		.article :global(th) {
-			background-color: #1e293b; /* slate-800 equivalent */
-		}
-
-		.article :global(a) {
-			color: #3b82f6; /* blue-500 equivalent */
-		}
-	}
-</style>

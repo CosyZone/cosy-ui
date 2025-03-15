@@ -1,0 +1,153 @@
+/**
+ * Link 组件样式
+ * 
+ * 这个文件定义了 Link 组件的所有样式
+ * 使用我们定义的 CSS 变量，确保样式一致性
+ */
+
+/* 基础样式 */
+.link {
+	text-decoration: none;
+	transition: all 0.2s ease-in-out;
+}
+
+.link:hover {
+	text-decoration: none;
+}
+
+/* 尺寸变体 */
+.link-sm {
+	padding-left: var(--spacing-4);
+	padding-right: var(--spacing-4);
+	padding-top: var(--spacing-2);
+	padding-bottom: var(--spacing-2);
+	font-size: var(--text-sm);
+}
+
+.link-md {
+	padding-left: var(--spacing-6);
+	padding-right: var(--spacing-6);
+	padding-top: var(--spacing-3);
+	padding-bottom: var(--spacing-3);
+	font-size: var(--text-base);
+}
+
+.link-lg {
+	padding-left: var(--spacing-8);
+	padding-right: var(--spacing-8);
+	padding-top: var(--spacing-4);
+	padding-bottom: var(--spacing-4);
+	font-size: var(--text-lg);
+}
+
+/* 主题变体 */
+.link-default {
+	color: currentColor;
+}
+
+.link-default:hover {
+	color: var(--color-primary);
+}
+
+.link-primary {
+	border-radius: var(--radius-lg);
+	background-color: var(--color-blue-600);
+	color: var(--color-white);
+	font-weight: 500;
+}
+
+.link-primary:hover {
+	background-color: var(--color-blue-700);
+}
+
+.link-primary:focus {
+	outline: none;
+	box-shadow:
+		0 0 0 2px var(--color-blue-500),
+		0 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+.link-primary:active {
+	background-color: var(--color-blue-800);
+}
+
+.link-secondary {
+	border-radius: var(--radius-lg);
+	background-color: var(--color-gray-100);
+	color: var(--color-gray-800);
+	font-weight: 500;
+}
+
+.link-secondary:hover {
+	background-color: var(--color-gray-200);
+}
+
+.link-secondary:focus {
+	outline: none;
+	box-shadow:
+		0 0 0 2px var(--color-gray-400),
+		0 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+.link-secondary:active {
+	background-color: var(--color-gray-300);
+}
+
+.link-text {
+	color: currentColor;
+	text-decoration: underline;
+}
+
+.link-text:hover {
+	color: var(--color-primary);
+	text-decoration: none;
+}
+
+.link-cta {
+	border-radius: var(--radius-lg);
+	background-image: linear-gradient(to right, var(--color-blue-600), var(--color-indigo-600));
+	background-size: 200% auto;
+	color: var(--color-white);
+	font-weight: 500;
+	transition: background-position 0.3s ease-in-out;
+}
+
+.link-cta:hover {
+	background-position: right center;
+}
+
+.link-cta:focus {
+	outline: none;
+	box-shadow:
+		0 0 0 2px var(--color-blue-500),
+		0 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+.link-cta:active {
+	background-image: linear-gradient(to right, var(--color-blue-800), var(--color-indigo-800));
+}
+
+.link-ghost {
+	color: currentColor;
+	background-color: transparent;
+	border-radius: var(--radius-lg);
+}
+
+.link-ghost:hover {
+	color: var(--color-primary);
+	background-color: rgba(var(--color-base-200-rgb), 0.5);
+}
+
+/* 动画效果 */
+.link-hover-lift:hover {
+	transform: translateY(-2px);
+	box-shadow: var(--shadow-lg);
+}
+
+.link-hover-glow:hover {
+	box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+}
+
+.link-hover-scale:hover {
+	transform: scale(1.05);
+}

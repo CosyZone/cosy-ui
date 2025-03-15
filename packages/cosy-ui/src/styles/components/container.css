@@ -1,0 +1,83 @@
+/**
+ * Container 组件样式
+ * 
+ * 这个文件定义了 Container 组件的所有样式
+ * 使用我们定义的 CSS 变量，确保样式一致性
+ */
+
+/* 基础容器样式 */
+.container {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+/* 居中显示 */
+.container-centered {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* 容器尺寸 */
+.container-xs {
+	max-width: var(--container-xs, 480px);
+}
+
+.container-sm {
+	max-width: var(--container-sm, 640px);
+}
+
+.container-md {
+	max-width: var(--container-md, 768px);
+}
+
+.container-lg {
+	max-width: var(--container-lg, 1024px);
+}
+
+.container-xl {
+	max-width: var(--container-xl, 1280px);
+}
+
+.container-full {
+	max-width: 100%;
+}
+
+/* 内边距 */
+.container-padding-none {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.container-padding-sm {
+	padding-left: var(--spacing-4, 1rem);
+	padding-right: var(--spacing-4, 1rem);
+}
+
+.container-padding-md {
+	padding-left: var(--spacing-6, 1.5rem);
+	padding-right: var(--spacing-6, 1.5rem);
+}
+
+.container-padding-lg {
+	padding-left: var(--spacing-8, 2rem);
+	padding-right: var(--spacing-8, 2rem);
+}
+
+.container-padding-xl {
+	padding-left: var(--spacing-12, 3rem);
+	padding-right: var(--spacing-12, 3rem);
+}
+
+/* 响应式调整 */
+@media (max-width: 640px) {
+	.container-padding-md {
+		padding-left: var(--spacing-4, 1rem);
+		padding-right: var(--spacing-4, 1rem);
+	}
+
+	.container-padding-lg,
+	.container-padding-xl {
+		padding-left: var(--spacing-6, 1.5rem);
+		padding-right: var(--spacing-6, 1.5rem);
+	}
+}

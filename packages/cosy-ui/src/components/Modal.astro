@@ -1,4 +1,53 @@
 ---
+/**
+ * @component Modal
+ * 
+ * @description
+ * Modal 组件是一个模态对话框，用于在不离开当前页面的情况下显示内容、通知或请求用户输入。
+ * 它会覆盖在页面内容上方，并提供一个聚焦的交互环境。
+ * 
+ * @design
+ * 设计理念：
+ * 1. 聚焦交互 - 通过遮罩层和动画效果引导用户注意力
+ * 2. 灵活布局 - 支持标题、内容和操作按钮的灵活组合
+ * 3. 可访问性 - 支持键盘导航和屏幕阅读器
+ * 4. 响应式设计 - 在不同屏幕尺寸下保持良好的用户体验
+ * 
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Modal id="my-modal" title="提示">
+ *   <p>这是一个模态对话框的内容。</p>
+ *   <button slot="actions" data-modal-target="my-modal">关闭</button>
+ * </Modal>
+ * 
+ * <!-- 触发按钮 -->
+ * <button data-modal-target="my-modal">打开模态框</button>
+ * ```
+ * 
+ * 自定义操作按钮：
+ * ```astro
+ * <Modal id="confirm-modal" title="确认操作">
+ *   <p>您确定要执行此操作吗？</p>
+ *   <div slot="actions">
+ *     <button class="btn btn-primary">确认</button>
+ *     <button class="btn" data-modal-target="confirm-modal">取消</button>
+ *   </div>
+ * </Modal>
+ * ```
+ * 
+ * 不带标题的模态框：
+ * ```astro
+ * <Modal id="image-modal">
+ *   <img src="/images/large-image.jpg" alt="大图预览" />
+ * </Modal>
+ * ```
+ */
+
+// 导入样式
+import '../styles/index.css';
+import '../styles/components/modal.css';
+
 interface Props {
     /**
      * Modal 的唯一标识符
@@ -28,14 +77,14 @@ const {
 ---
 
 <dialog id={id} class="modal">
-    <div class:list={["modal-box relative", className]}>
+    <div class:list={["modal-box", className]}>
         {showCloseButton && (
             <form method="dialog">
-                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                <button class="modal-close-button">✕</button>
             </form>
         )}
         
-        {title && <h3 class="font-bold text-lg mb-4">{title}</h3>}
+        {title && <h3 class="modal-title">{title}</h3>}
         
         <div class="modal-content">
             <slot />

@@ -1,4 +1,41 @@
 ---
+/**
+ * @component SocialIcon
+ * 
+ * @description
+ * SocialIcon 组件用于显示社交媒体平台的图标，支持多种常见的社交媒体平台。
+ * 它提供了一致的样式和交互效果，同时支持自定义大小和颜色。
+ * 
+ * @design
+ * 设计理念：
+ * 1. 简洁明了 - 使用清晰易识别的图标表示社交媒体平台
+ * 2. 一致性 - 保持统一的样式和交互效果
+ * 3. 可定制性 - 支持自定义大小、颜色和样式
+ * 4. 可访问性 - 提供适当的 aria 标签，确保屏幕阅读器可以识别
+ * 
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <SocialIcon platform="github" />
+ * <SocialIcon platform="twitter" />
+ * <SocialIcon platform="linkedin" />
+ * ```
+ * 
+ * 自定义大小和颜色：
+ * ```astro
+ * <SocialIcon platform="github" size="32px" color="#333" />
+ * ```
+ * 
+ * 使用自定义类名：
+ * ```astro
+ * <SocialIcon platform="twitter" class="my-custom-class" />
+ * ```
+ */
+
+// 导入样式
+import '../styles/index.css';
+import '../styles/components/social-icon.css';
+
 import GithubIcon from '../icons/GithubIcon.astro';
 import TwitterIcon from '../icons/TwitterIcon.astro';
 import LinkedinIcon from '../icons/LinkedinIcon.astro';
@@ -54,24 +91,11 @@ const getIconComponent = (platform: string) => {
 };
 
 const IconComponent = getIconComponent(platform);
+
+// 构建社交图标的类名
+const socialIconClass = `social-icon social-icon-${platform.toLowerCase()} ${className}`;
 ---
 
-<div class={`social-icon ${className}`} aria-label={`${platformName} 图标`}>
+<div class={socialIconClass} aria-label={`${platformName} 图标`}>
 	<IconComponent size={size} color={color} />
 </div>
-
-<style>
-	/* 社交图标的基础样式 */
-	.social-icon {
-		display: inline-block;
-		vertical-align: middle;
-	}
-
-	/* 暗黑模式适配 */
-	@media (prefers-color-scheme: dark) {
-		.social-icon {
-			/* 在暗黑模式下略微增加亮度以提高可见性 */
-			filter: brightness(1.2);
-		}
-	}
-</style>

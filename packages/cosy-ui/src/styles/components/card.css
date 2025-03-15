@@ -1,0 +1,155 @@
+/**
+ * Card 组件样式
+ * 
+ * 这个文件定义了 Card 组件的所有样式
+ * 使用我们定义的 CSS 变量，确保样式一致性
+ */
+
+/* 基础卡片容器样式 */
+.group {
+	perspective: 1000px;
+}
+
+.perspective-1000 {
+	perspective: 1000px;
+}
+
+/* 卡片基础样式 */
+.card {
+	position: relative;
+	width: 100%;
+	background-color: var(--color-card-bg-light);
+	backdrop-filter: blur(8px);
+	transform: translateZ(0);
+	transition: all 0.3s ease-out;
+	border: 1px solid var(--color-card-border);
+}
+
+/* 暗色模式 */
+@media (prefers-color-scheme: dark) {
+	.card {
+		background-color: var(--color-card-bg-dark);
+	}
+}
+
+/* 卡片悬停效果 */
+.card:hover {
+	box-shadow: var(--shadow-2xl);
+	transform: scale(1.02);
+}
+
+/* 卡片点击效果 */
+.card:active {
+	transform: scale(0.98);
+}
+
+/* 卡片内容区域 */
+.card-body {
+	padding: var(--spacing-6);
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-4);
+}
+
+/* 链接卡片内容区域悬停效果 */
+a.card-body {
+	transition: transform 0.3s ease;
+}
+
+a.card-body:hover {
+	transform: translateY(-2px);
+}
+
+/* 卡片标题 */
+.card-title {
+	font-size: var(--text-xl);
+	font-weight: var(--font-bold);
+	letter-spacing: -0.025em;
+	color: var(--color-text-primary);
+	margin: 0;
+}
+
+/* 卡片副标题/描述文本 */
+.card-body p {
+	color: var(--color-text-secondary);
+	margin: 0;
+}
+
+/* 卡片图片容器 */
+.card figure {
+	position: relative;
+	overflow: hidden;
+	border-top-left-radius: var(--spacing-4);
+	border-top-right-radius: var(--spacing-4);
+	margin: calc(var(--spacing-6) * -1) calc(var(--spacing-6) * -1) var(--spacing-4);
+}
+
+/* 卡片图片 */
+.card figure img {
+	width: 100%;
+	height: 12rem; /* 48 * 0.25rem = 12rem */
+	object-fit: cover;
+	transform: translateZ(0);
+	transition: transform 0.3s ease;
+}
+
+/* 卡片图片悬停效果 */
+.card:hover figure img {
+	transform: scale(1.05);
+}
+
+/* 卡片光效 */
+.card::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background: radial-gradient(circle at 50% 0%, var(--color-card-glow), transparent 70%);
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.card:hover::before {
+	opacity: 1;
+}
+
+/* 卡片淡入动画 */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.animate-fadeIn {
+	animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 尊重用户的动画偏好设置 */
+@media (prefers-reduced-motion: reduce) {
+	.animate-fadeIn {
+		animation: none;
+	}
+
+	.card,
+	.card-body,
+	.card figure img {
+		transition: none;
+	}
+
+	.card:hover {
+		transform: none;
+	}
+
+	.card:active {
+		transform: none;
+	}
+
+	a.card-body:hover {
+		transform: none;
+	}
+}

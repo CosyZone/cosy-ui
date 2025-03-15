@@ -39,6 +39,10 @@
  * - 使用适当的字体大小和行高，确保文本可读性
  * - 动画遵循 prefers-reduced-motion 媒体查询，尊重用户的动画偏好设置
  */
+
+// 导入样式
+import '../styles/index.css';
+import '../styles/components/banner.css';
 ---
 
 <div class="banner-container">
@@ -52,109 +56,3 @@
 		</div>
 	</div>
 </div>
-
-<style>
-	/* 基础容器样式 */
-	.banner-container {
-		width: 100%;
-		max-width: 80rem; /* 1280px */
-		padding: 0 1rem;
-		margin: 0 auto;
-		position: relative;
-		z-index: 50;
-	}
-
-	/* 横幅主体样式 */
-	.banner {
-		margin-top: 0;
-		padding: 1rem;
-		border-radius: 1rem;
-		background-color: rgba(229, 231, 235, 0.5); /* 浅灰色半透明背景 */
-		backdrop-filter: blur(8px);
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-		transition: all 0.3s ease;
-		animation: fadeIn 0.5s ease-out;
-	}
-
-	/* 悬停效果 */
-	.banner:hover {
-		transform: scale(1.02);
-		background-color: rgba(229, 231, 235, 0.7);
-		box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-	}
-
-	/* 内容布局 */
-	.banner-content {
-		text-align: center;
-		padding: 0.5rem;
-	}
-
-	/* 文本容器 */
-	.banner-text {
-		width: 100%;
-		max-width: 65ch;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		margin: 0 auto;
-	}
-
-	/* 文本样式 */
-	.banner-message {
-		font-size: 1.25rem;
-		font-weight: 700;
-		color: #1f2937;
-		margin: 0;
-		animation: slideUp 0.5s ease-out;
-	}
-
-	/* 动画定义 */
-	@keyframes fadeIn {
-		from {
-			opacity: 0;
-		}
-		to {
-			opacity: 1;
-		}
-	}
-
-	@keyframes slideUp {
-		from {
-			opacity: 0;
-			transform: translateY(1rem);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
-
-	/* 响应式调整 */
-	@media (min-width: 640px) {
-		.banner-container {
-			padding: 0 2rem;
-		}
-		
-		.banner-message {
-			font-size: 1.5rem;
-		}
-	}
-
-	@media (min-width: 768px) {
-		.banner-message {
-			font-size: 1.875rem;
-		}
-	}
-
-	/* 尊重用户的动画偏好设置 */
-	@media (prefers-reduced-motion: reduce) {
-		.banner,
-		.banner-message {
-			animation: none;
-		}
-		
-		.banner:hover {
-			transform: none;
-		}
-	}
-</style>
