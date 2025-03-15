@@ -1,0 +1,289 @@
+---
+interface Props {
+  /**
+   * 是否固定在右侧
+   * @default true
+   */
+  fixed?: boolean;
+  /**
+   * 自定义类名
+   */
+  class?: string;
+  /**
+   * 标题选择器
+   * @default "h2, h3"
+   */
+  selector?: string;
+  /**
+   * 最大深度
+   * @default 3
+   */
+  maxDepth?: number;
+  /**
+   * 标题文本
+   * @default "目录"
+   */
+  title?: string;
+}
+
+const {
+  fixed = true,
+  class: className = '',
+  selector = 'h2, h3',
+  maxDepth = 3,
+  title = '目录',
+} = Astro.props;
+---
+
+<div class={`toc ${fixed ? 'toc-fixed' : ''} ${className}`}>
+  <div class="toc-container">
+    <h2 class="toc-title">{title}</h2>
+    <ul class="toc-list" id="toc-list">
+      <!-- 目录项将通过 JavaScript 动态生成 -->
+      <li class="toc-placeholder">加载中...</li>
+    </ul>
+  </div>
+</div>
+
+<script define:vars={{ selector, maxDepth }}>
+  // 在页面加载完成后生成目录
+  function generateTOC() {
+    const container = document.querySelector('main');
+    if (!container) return;
+    
+    const headings = container.querySelectorAll(selector);
+    const tocList = document.getElementById('toc-list');
+    
+    if (!tocList || headings.length === 0) return;
+    
+    // 清空占位符
+    tocList.innerHTML = '';
+    
+    // 为每个标题创建目录项
+    headings.forEach((heading) => {
+      if (!heading.id) {
+        // 如果标题没有 ID，则生成一个
+        heading.id = heading.textContent
+          .toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/[^\w-]/g, '');
+      }
+      
+      const level = parseInt(heading.tagName.substring(1));
+      if (level > maxDepth) return;
+      
+      const listItem = document.createElement('li');
+      listItem.className = `toc-item toc-level-${level}`;
+      
+      const link = document.createElement('a');
+      link.href = `#${heading.id}`;
+      link.textContent = heading.textContent;
+      link.className = 'toc-link';
+      
+      // 添加前缀标记，增强视觉层次
+      if (level === 3) {
+        const prefix = document.createElement('span');
+        prefix.className = 'toc-prefix';
+        prefix.innerHTML = '└─ ';
+        link.prepend(prefix);
+      }
+      
+      listItem.appendChild(link);
+      tocList.appendChild(listItem);
+      
+      // 添加点击事件，平滑滚动到目标位置
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
+          
+          // 更新 URL，但不跳转
+          history.pushState(null, null, `#${targetId}`);
+        }
+      });
+    });
+    
+    // 如果没有找到标题，显示提示信息
+    if (tocList.children.length === 0) {
+      const listItem = document.createElement('li');
+      listItem.textContent = '没有找到标题';
+      listItem.className = 'toc-empty';
+      tocList.appendChild(listItem);
+    }
+    
+    // 添加活动标题高亮
+    highlightActiveHeading();
+    window.addEventListener('scroll', highlightActiveHeading);
+  }
+  
+  // 高亮当前可见的标题
+  function highlightActiveHeading() {
+    const headings = document.querySelectorAll(selector);
+    if (headings.length === 0) return;
+    
+    let activeHeadingId = null;
+    const scrollPosition = window.scrollY + 100; // 添加一些偏移
+    
+    // 找到当前可见的标题
+    for (let i = 0; i < headings.length; i++) {
+      const heading = headings[i];
+      const nextHeading = headings[i + 1];
+      
+      const headingTop = heading.offsetTop;
+      const nextHeadingTop = nextHeading ? nextHeading.offsetTop : Number.MAX_SAFE_INTEGER;
+      
+      if (scrollPosition >= headingTop && scrollPosition < nextHeadingTop) {
+        activeHeadingId = heading.id;
+        break;
+      }
+    }
+    
+    // 如果没有找到活动标题，使用第一个标题
+    if (!activeHeadingId && headings.length > 0) {
+      activeHeadingId = headings[0].id;
+    }
+    
+    // 更新活动链接样式
+    const tocLinks = document.querySelectorAll('.toc-link');
+    tocLinks.forEach(link => {
+      const href = link.getAttribute('href').substring(1);
+      if (href === activeHeadingId) {
+        link.classList.add('toc-active');
+        
+        // 如果是 h3，也高亮相关的 h2
+        const h3Item = link.closest('.toc-level-3');
+        if (h3Item) {
+          // 找到前面最近的 h2
+          let prevItem = h3Item.previousElementSibling;
+          while (prevItem) {
+            if (prevItem.classList.contains('toc-level-2')) {
+              const h2Link = prevItem.querySelector('.toc-link');
+              if (h2Link) h2Link.classList.add('toc-parent-active');
+              break;
+            }
+            prevItem = prevItem.previousElementSibling;
+          }
+        }
+      } else {
+        link.classList.remove('toc-active');
+        // 如果不是当前活动的 h3 的父级 h2，则移除高亮
+        if (!activeHeadingId || !link.classList.contains('toc-parent-active')) {
+          link.classList.remove('toc-parent-active');
+        }
+      }
+    });
+  }
+  
+  // 页面加载时初始化
+  document.addEventListener('astro:page-load', generateTOC);
+  // 初始加载时也初始化
+  generateTOC();
+</script>
+
+<style>
+  .toc {
+    width: 240px;
+    padding: 1rem;
+  }
+  
+  .toc-fixed {
+    position: sticky;
+    top: 2rem;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+  }
+  
+  .toc-container {
+    border-left: 2px solid var(--toc-border-color, #ddd);
+    padding-left: 1rem;
+  }
+  
+  .toc-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--toc-title-color, #333);
+  }
+  
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .toc-item {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .toc-level-2 {
+    margin-left: 0;
+    margin-top: 0.75rem;
+    font-weight: 500;
+    color: var(--toc-h2-color, #444);
+    border-bottom: 1px solid var(--toc-h2-border-color, rgba(0, 0, 0, 0.05));
+    padding-bottom: 0.25rem;
+  }
+  
+  .toc-level-2:first-child {
+    margin-top: 0;
+  }
+  
+  .toc-level-3 {
+    margin-left: 1.5rem;
+    font-size: 0.85rem;
+    position: relative;
+    color: var(--toc-h3-color, #666);
+  }
+  
+  .toc-level-4 {
+    margin-left: 3rem;
+    font-size: 0.8rem;
+  }
+  
+  .toc-prefix {
+    color: var(--toc-prefix-color, #aaa);
+    font-family: monospace;
+  }
+  
+  .toc-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s, background-color 0.2s, padding-left 0.2s;
+    display: block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+  }
+  
+  .toc-link:hover {
+    color: var(--toc-link-hover-color, #333);
+    background-color: var(--toc-link-hover-bg, rgba(0, 0, 0, 0.05));
+  }
+  
+  .toc-active {
+    color: var(--toc-active-color, #3b82f6) !important;
+    font-weight: 500;
+    background-color: var(--toc-active-bg, rgba(59, 130, 246, 0.1));
+  }
+  
+  .toc-parent-active {
+    color: var(--toc-parent-active-color, #4b5563) !important;
+  }
+  
+  .toc-placeholder, .toc-empty {
+    color: var(--toc-placeholder-color, #999);
+    font-style: italic;
+  }
+  
+  /* 响应式设计 */
+  @media (max-width: 1023px) {
+    .toc-fixed {
+      display: none;
+    }
+  }
+</style> 

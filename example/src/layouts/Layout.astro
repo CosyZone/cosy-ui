@@ -2,13 +2,14 @@
 import '../global.css';
 import { getGroupedRoutes, createUrl } from '../lib/route';
 import { getBaseUrl } from '../lib/utils';
-import { Footer } from '~/index';
+import { Footer, TableOfContents } from '~/index';
 
 interface Props {
 	title: string;
+	showTOC?: boolean;
 }
 
-const { title } = Astro.props;
+const { title, showTOC = true } = Astro.props;
 const groupedRoutes = getGroupedRoutes();
 
 // 获取当前页面路径并规范化
@@ -58,7 +59,19 @@ const normalizedCurrentPath = currentPath.replace(baseUrl, '').replace(/\/$/, ''
 
 				<!-- 主要内容区域 -->
 				<main class="flex-1 p-4 lg:p-8 mb-96">
-					<slot />
+					<div class="flex flex-col lg:flex-row">
+						<!-- 主内容 -->
+						<div class="w-full lg:w-3/4 lg:pr-8">
+							<slot />
+						</div>
+						
+						<!-- 右侧目录 -->
+						{showTOC && (
+							<div class="w-full lg:w-1/4 mt-8 lg:mt-0 hidden lg:block">
+								<TableOfContents />
+							</div>
+						)}
+					</div>
 				</main>
 
 				<Footer
@@ -107,7 +120,7 @@ const normalizedCurrentPath = currentPath.replace(baseUrl, '').replace(/\/$/, ''
 			<!-- 侧边栏 -->
 			<div class="drawer-side">
 				<label for="my-drawer" class="drawer-overlay"></label>
-				<aside class="w-80 min-h-screen bg-base-200">
+				<aside class="w-52 min-h-screen bg-base-200">
 					<!-- 品牌标题 -->
 					<div class="p-4 text-xl font-bold bg-base-300 hidden lg:flex items-center gap-2">
 						<a href={createUrl('/')} class="text-primary">Cosy UI</a>

@@ -13,6 +13,7 @@ export { default as Image } from './src/components/Image.astro';
 export { default as Link } from './src/components/Link.astro';
 export { default as Modal } from './src/components/Modal.astro';
 export { default as SocialIcon } from './src/components/SocialIcon.astro';
+export { default as TableOfContents } from './src/components/TableOfContents.astro';
 export { default as ThemeItem } from './src/components/ThemeItem.astro';
 export { default as TeamMember } from './src/components/TeamMember.astro';
 export { default as TeamMembers } from './src/components/TeamMembers.astro';
