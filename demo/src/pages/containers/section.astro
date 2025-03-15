@@ -1,0 +1,243 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Section as SectionComponent, CodeExample } from '@coffic/cosy-ui';
+---
+
+<Layout title="Section 组件示例">
+  <main class="container mx-auto p-4 space-y-4">
+    <h1 class="text-2xl font-bold mb-6">Section 组件示例</h1>
+
+    <div class="space-y-8">
+      <!-- 基础用法 -->
+      <CodeExample 
+        title="基础用法" 
+        description="最简单的区块用法，默认使用中等内边距和透明背景"
+        code={`<Section>
+  <h2>默认区块</h2>
+  <p>内容将被包裹在一个合适的区块中</p>
+</Section>`}
+      >
+        <SectionComponent>
+          <h2 class="text-xl font-bold">默认区块</h2>
+          <p>内容将被包裹在一个合适的区块中</p>
+        </SectionComponent>
+      </CodeExample>
+
+      <!-- 不同内边距 -->
+      <CodeExample 
+        title="不同内边距" 
+        description="Section组件支持不同大小的内边距：none, sm, md, lg, xl"
+        code={`<Section padding="none">
+  <p>无内边距</p>
+</Section>
+
+<Section padding="sm">
+  <p>小内边距</p>
+</Section>
+
+<Section padding="md">
+  <p>中等内边距（默认）</p>
+</Section>
+
+<Section padding="lg">
+  <p>大内边距</p>
+</Section>
+
+<Section padding="xl">
+  <p>超大内边距</p>
+</Section>`}
+      >
+        <div class="space-y-4 border border-dashed border-gray-300">
+          <SectionComponent padding="none" class="border-b border-dashed border-gray-300">
+            <p class="font-medium">无内边距</p>
+          </SectionComponent>
+          
+          <SectionComponent padding="sm" class="border-b border-dashed border-gray-300">
+            <p class="font-medium">小内边距</p>
+          </SectionComponent>
+          
+          <SectionComponent padding="md" class="border-b border-dashed border-gray-300">
+            <p class="font-medium">中等内边距（默认）</p>
+          </SectionComponent>
+          
+          <SectionComponent padding="lg" class="border-b border-dashed border-gray-300">
+            <p class="font-medium">大内边距</p>
+          </SectionComponent>
+          
+          <SectionComponent padding="xl">
+            <p class="font-medium">超大内边距</p>
+          </SectionComponent>
+        </div>
+      </CodeExample>
+
+      <!-- 不同背景 -->
+      <CodeExample 
+        title="不同背景" 
+        description="Section组件支持不同的背景颜色：transparent, white, gray, primary, secondary, dark"
+        code={`<Section background="transparent">
+  <p>透明背景（默认）</p>
+</Section>
+
+<Section background="white">
+  <p>白色背景</p>
+</Section>
+
+<Section background="gray">
+  <p>灰色背景</p>
+</Section>
+
+<Section background="primary">
+  <p>主色背景</p>
+</Section>
+
+<Section background="secondary">
+  <p>次要背景</p>
+</Section>
+
+<Section background="dark">
+  <p>深色背景</p>
+</Section>`}
+      >
+        <div class="space-y-4">
+          <SectionComponent background="transparent" class="border border-dashed border-gray-300">
+            <p class="font-medium">透明背景（默认）</p>
+          </SectionComponent>
+          
+          <SectionComponent background="white" class="border border-dashed border-gray-300">
+            <p class="font-medium">白色背景</p>
+          </SectionComponent>
+          
+          <SectionComponent background="gray">
+            <p class="font-medium">灰色背景</p>
+          </SectionComponent>
+          
+          <SectionComponent background="primary">
+            <p class="font-medium">主色背景</p>
+          </SectionComponent>
+          
+          <SectionComponent background="secondary">
+            <p class="font-medium">次要背景</p>
+          </SectionComponent>
+          
+          <SectionComponent background="dark">
+            <p class="font-medium">深色背景</p>
+          </SectionComponent>
+        </div>
+      </CodeExample>
+
+      <!-- 内容居中 -->
+      <CodeExample 
+        title="内容居中" 
+        description="使用centered属性可以使内容居中显示"
+        code={`<Section centered={true}>
+  <h2>居中内容</h2>
+  <p>这段文字将会居中显示</p>
+</Section>`}
+      >
+        <SectionComponent centered={true} background="gray">
+          <h2 class="text-xl font-bold">居中内容</h2>
+          <p>这段文字将会居中显示</p>
+        </SectionComponent>
+      </CodeExample>
+
+      <!-- 不使用容器 -->
+      <CodeExample 
+        title="不使用容器" 
+        description="设置container为false可以让内容不受容器限制，占满整个宽度"
+        code={`<Section container={false}>
+  <div class="bg-gray-100 p-4">
+    <p>这个内容将占满整个宽度，不受容器限制</p>
+  </div>
+</Section>`}
+      >
+        <SectionComponent container={false}>
+          <div class="bg-gray-100 p-4">
+            <p>这个内容将占满整个宽度，不受容器限制</p>
+          </div>
+        </SectionComponent>
+      </CodeExample>
+
+      <!-- 不同容器尺寸 -->
+      <CodeExample 
+        title="不同容器尺寸" 
+        description="可以通过containerSize属性设置不同的容器尺寸：xs, sm, md, lg, xl, full"
+        code={`<Section containerSize="xs">
+  <p>超小容器</p>
+</Section>
+
+<Section containerSize="sm">
+  <p>小容器</p>
+</Section>
+
+<Section containerSize="md">
+  <p>中等容器（默认）</p>
+</Section>
+
+<Section containerSize="lg">
+  <p>大容器</p>
+</Section>
+
+<Section containerSize="xl">
+  <p>超大容器</p>
+</Section>
+
+<Section containerSize="full">
+  <p>全宽容器</p>
+</Section>`}
+      >
+        <div class="space-y-4">
+          <SectionComponent containerSize="xs" background="gray">
+            <p class="font-medium">超小容器</p>
+          </SectionComponent>
+          
+          <SectionComponent containerSize="sm" background="gray">
+            <p class="font-medium">小容器</p>
+          </SectionComponent>
+          
+          <SectionComponent containerSize="md" background="gray">
+            <p class="font-medium">中等容器（默认）</p>
+          </SectionComponent>
+          
+          <SectionComponent containerSize="lg" background="gray">
+            <p class="font-medium">大容器</p>
+          </SectionComponent>
+          
+          <SectionComponent containerSize="xl" background="gray">
+            <p class="font-medium">超大容器</p>
+          </SectionComponent>
+          
+          <SectionComponent containerSize="full" background="gray">
+            <p class="font-medium">全宽容器</p>
+          </SectionComponent>
+        </div>
+      </CodeExample>
+
+      <!-- 组合使用 -->
+      <CodeExample 
+        title="组合使用" 
+        description="组合使用各种属性来创建不同风格的区块"
+        code={`<Section padding="lg" background="primary" centered={true}>
+  <h2>特色区块</h2>
+  <p>大内边距，主色背景，内容居中</p>
+</Section>
+
+<Section padding="xl" background="dark" centered={true}>
+  <h2>深色区块</h2>
+  <p>超大内边距，深色背景，内容居中</p>
+</Section>`}
+      >
+        <div class="space-y-4">
+          <SectionComponent padding="lg" background="primary" centered={true}>
+            <h2 class="text-xl font-bold">特色区块</h2>
+            <p>大内边距，主色背景，内容居中</p>
+          </SectionComponent>
+          
+          <SectionComponent padding="xl" background="dark" centered={true}>
+            <h2 class="text-xl font-bold">深色区块</h2>
+            <p>超大内边距，深色背景，内容居中</p>
+          </SectionComponent>
+        </div>
+      </CodeExample>
+    </div>
+  </main>
+</Layout> 

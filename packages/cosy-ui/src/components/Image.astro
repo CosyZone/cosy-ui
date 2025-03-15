@@ -1,0 +1,357 @@
+---
+import { AlertTriangle } from '../icons';
+
+// 自定义图片元数据接口
+interface ImageMetadata {
+  src: string;
+  width: number;
+  height: number;
+  format: string;
+}
+
+interface Props {
+  /**
+   * 图片源，可以是本地图片或远程URL
+   */
+  src: ImageMetadata | string;
+  /**
+   * 图片的替代文本
+   */
+  alt: string;
+  /**
+   * 图片的宽度
+   */
+  width?: number;
+  /**
+   * 图片的高度
+   */
+  height?: number;
+  /**
+   * 图片的加载方式
+   * @default "lazy"
+   */
+  loading?: 'lazy' | 'eager';
+  /**
+   * 图片的填充方式
+   * @default "cover"
+   */
+  objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+  /**
+   * 图片的位置
+   * @default "center"
+   */
+  objectPosition?: string;
+  /**
+   * 是否显示加载中的占位图
+   * @default true
+   */
+  showPlaceholder?: boolean;
+  /**
+   * 是否显示加载失败的错误图
+   * @default true
+   */
+  showError?: boolean;
+  /**
+   * 自定义类名
+   */
+  class?: string;
+  /**
+   * 是否启用图片懒加载
+   * @default true
+   */
+  lazy?: boolean;
+  /**
+   * 图片的圆角大小
+   * @default "none"
+   */
+  rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';
+  /**
+   * 图片的阴影效果
+   * @default "none"
+   */
+  shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  /**
+   * 图片的悬停效果
+   * @default "none"
+   */
+  hover?: 'none' | 'scale' | 'brightness' | 'blur';
+  /**
+   * 图片的过渡动画
+   * @default "none"
+   */
+  transition?: 'none' | 'fade' | 'slide' | 'zoom';
+
+  /**
+   * 加载指示器类型
+   * @default "pulse"
+   */
+  loadingIndicator?: 'pulse' | 'spinner' | 'progress' | 'skeleton';
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  loading = 'lazy',
+  objectFit = 'cover',
+  objectPosition = 'center',
+  showPlaceholder = true,
+  showError = true,
+  class: className = '',
+  lazy = true,
+  rounded = 'none',
+  shadow = 'none',
+  hover = 'none',
+  transition = 'none',
+  loadingIndicator = 'skeleton',
+} = Astro.props;
+
+// 处理类名
+const classes = [
+  'relative',
+  // 圆角
+  rounded !== 'none' && `rounded-${rounded}`,
+  // 阴影
+  shadow !== 'none' && `shadow-${shadow}`,
+  // 悬停效果
+  hover !== 'none' && {
+    'scale': 'hover:scale-105',
+    'brightness': 'hover:brightness-110',
+    'blur': 'hover:blur-sm',
+  }[hover as keyof typeof hover extends 'none' ? never : 'scale' | 'brightness' | 'blur'],
+  // 过渡动画
+  transition !== 'none' && {
+    'fade': 'transition-opacity duration-300',
+    'slide': 'transition-transform duration-300',
+    'zoom': 'transition-all duration-300',
+  }[transition as keyof typeof transition extends 'none' ? never : 'fade' | 'slide' | 'zoom'],
+  className,
+].filter(Boolean).join(' ');
+
+// 处理图片样式
+const imageStyles = {
+  objectFit,
+  objectPosition,
+};
+
+// 判断是否为本地图片
+const isLocalImage = typeof src !== 'string' && 'src' in src;
+// 判断是否为远程图片
+const isRemoteImage = typeof src === 'string' && (src.startsWith('http') || src.startsWith('//'));
+// 获取图片源
+const imgSrc = typeof src === 'string' ? src : src.src;
+---
+
+<div class={classes}>
+  <div class="relative w-full h-full">
+    <img
+      src={imgSrc}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={loading}
+      class={`w-full h-full opacity-0 transition-opacity duration-300 ${rounded !== 'none' ? `rounded-${rounded}` : ''}`}
+      style={imageStyles}
+      data-remote={isRemoteImage ? 'true' : 'false'}
+    />
+
+    {/* 加载占位图 */}
+    {showPlaceholder && (
+      <div class={`absolute inset-0 bg-base-200 ${loadingIndicator === 'pulse' ? 'animate-pulse' : ''} ${rounded !== 'none' ? `rounded-${rounded}` : ''}`}>
+        {/* 远程图片加载指示器 */}
+        {isRemoteImage && loadingIndicator === 'spinner' && (
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="loading loading-spinner loading-md text-primary"></div>
+          </div>
+        )}
+        
+        {isRemoteImage && loadingIndicator === 'progress' && (
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-3/4 h-2 bg-base-300 rounded-full overflow-hidden">
+              <div class="loading-progress-bar h-full bg-primary rounded-full"></div>
+            </div>
+          </div>
+        )}
+        
+        {isRemoteImage && loadingIndicator === 'skeleton' && (
+          <div class="absolute inset-0">
+            <div class="h-full w-full bg-gradient-to-r from-base-200 via-base-100 to-base-200 bg-loading-skeleton"></div>
+          </div>
+        )}
+      </div>
+    )}
+
+    {/* 错误占位图 */}
+    {showError && (
+      <div class={`absolute inset-0 bg-error/10 flex items-center justify-center hidden ${rounded !== 'none' ? `rounded-${rounded}` : ''}`}>
+        <AlertTriangle size="32px" color="currentColor" class="text-error" />
+      </div>
+    )}
+  </div>
+</div>
+
+<script is:inline lang="ts">
+  /**
+   * 处理图片加载状态
+   * @param {Element} img - 图片元素
+   */
+  function handleImageLoad(img) {
+    if (!(img instanceof HTMLImageElement)) return;
+    
+    // 移除加载占位图
+    const placeholder = img.parentElement?.querySelector('.bg-base-200');
+    if (placeholder) {
+      placeholder.classList.add('opacity-0');
+      setTimeout(() => {
+        placeholder.remove();
+      }, 300);
+    }
+
+    // 添加加载完成动画
+    img.classList.add('opacity-100');
+  }
+
+  /**
+   * 处理图片加载错误
+   * @param {Element} img - 图片元素
+   */
+  function handleImageError(img) {
+    if (!(img instanceof HTMLImageElement)) return;
+    
+    // 移除加载占位图
+    const placeholder = img.parentElement?.querySelector('.bg-base-200');
+    if (placeholder) {
+      placeholder.classList.add('opacity-0');
+      setTimeout(() => {
+        placeholder.remove();
+      }, 300);
+    }
+
+    // 显示错误占位图
+    const errorPlaceholder = img.parentElement?.querySelector('.bg-error\\/10');
+    if (errorPlaceholder) {
+      errorPlaceholder.classList.remove('hidden');
+    }
+  }
+
+  /**
+   * 模拟远程图片加载进度
+   * @param {HTMLImageElement} img - 图片元素
+   */
+  function simulateLoadingProgress(img) {
+    if (!(img instanceof HTMLImageElement) || img.getAttribute('data-remote') !== 'true') return;
+    
+    const progressBar = img.parentElement?.querySelector('.loading-progress-bar');
+    if (!progressBar) return;
+    
+    let progress = 0;
+    const interval = setInterval(() => {
+      // 随机增加进度，模拟网络波动
+      progress += Math.random() * 15;
+      
+      if (progress >= 100 || img.complete) {
+        clearInterval(interval);
+        progress = 100;
+      }
+      
+      progressBar.style.width = `${Math.min(progress, 100)}%`;
+    }, 200);
+    
+    // 图片加载完成时清除定时器
+    img.addEventListener('load', () => {
+      clearInterval(interval);
+      progressBar.style.width = '100%';
+    });
+    
+    img.addEventListener('error', () => {
+      clearInterval(interval);
+    });
+  }
+
+  /**
+   * 添加骨架屏动画
+   */
+  function addSkeletonAnimation() {
+    const style = document.createElement('style');
+    style.textContent = `
+      .bg-loading-skeleton {
+        background-size: 400% 100%;
+        animation: skeleton-loading 1.5s ease-in-out infinite;
+      }
+      
+      @keyframes skeleton-loading {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // 初始化图片加载处理
+  function initializeImageHandlers() {
+    // 添加骨架屏动画样式
+    addSkeletonAnimation();
+    
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+      if (img instanceof HTMLImageElement) {
+        // 如果图片已经加载完成
+        if (img.complete) {
+          handleImageLoad(img);
+        } else {
+          // 添加加载事件监听
+          img.addEventListener('load', () => handleImageLoad(img));
+          img.addEventListener('error', () => handleImageError(img));
+          
+          // 对远程图片模拟加载进度
+          if (img.getAttribute('data-remote') === 'true') {
+            simulateLoadingProgress(img);
+          }
+        }
+      }
+    });
+  }
+
+  // 页面加载时初始化
+  document.addEventListener('astro:page-load', initializeImageHandlers);
+  // 初始加载时也初始化
+  initializeImageHandlers();
+</script>
+
+<style>
+  /* 过渡动画 */
+  .transition-opacity {
+    transition-property: opacity;
+  }
+
+  .transition-transform {
+    transition-property: transform;
+  }
+
+  .transition-all {
+    transition-property: all;
+  }
+
+  /* 悬停效果 */
+  .hover\:scale-105:hover {
+    transform: scale(1.05);
+  }
+
+  .hover\:brightness-110:hover {
+    filter: brightness(1.1);
+  }
+
+  .hover\:blur-sm:hover {
+    filter: blur(4px);
+  }
+  
+  /* 加载占位图淡出效果 */
+  .bg-base-200 {
+    transition: opacity 0.3s ease;
+  }
+</style> 

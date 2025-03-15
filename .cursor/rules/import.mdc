@@ -10,8 +10,8 @@ alwaysApply: true
 
 它分成两部分：
 
-- src：组件库的源码文件夹
-- example：在开发阶段用来测试这些组件的样本项目
+- packages/cosy-ui：组件库的源码文件夹
+- demo：在开发阶段用来测试这些组件的样本项目
 
 ## 和用户交流时
 
@@ -24,7 +24,7 @@ alwaysApply: true
 
 ## 图标
 
-- 统一放入 icons 来管理，像 [AlertTriangle.astro](mdc:src/icons/AlertTriangle.astro) 那样
+- 统一放入 icons 来管理，像 [AlertTriangle.astro](mdc:packages/cosy-ui/src/icons/AlertTriangle.astro) 那样
 
 ## Code Style
 
@@ -41,9 +41,9 @@ alwaysApply: true
     - layouts 目录存放页面布局组件
     - 根据情况，可自行创建其他文件夹
 - 不要忘记为组件增加使用的例子，比如：
-    - 普通组件放在 example/src/pages/components 目录
-    - 布局组件放在 example/src/pages/layouts 目录
-- 在例子中这样导入组件：import { Alert as AlertComponent } from '~/index';
+    - 普通组件放在 .../pages/components 目录
+    - 布局组件放在 .../pages/layouts 目录
+- 在例子中这样导入组件：import { Alert as AlertComponent } from '@coffic/cosy-ui';
 - 不要忘了在 main.ts 导出组件
 - 不要忘记了像其他组件那样在顶部写清楚文档
 

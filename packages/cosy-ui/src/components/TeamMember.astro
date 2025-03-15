@@ -1,0 +1,71 @@
+---
+import Link from './Link.astro';
+import SocialIcon from './SocialIcon.astro';
+import Image from './Image.astro';
+
+interface SocialLink {
+	platform: 'github' | 'twitter' | 'linkedin' | 'website' | 'email';
+	url: string;
+}
+
+// 自定义图片元数据接口，替代 astro 的 ImageMetadata
+interface CustomImageMetadata {
+	src: string;
+	width: number;
+	height: number;
+	format: string;
+}
+
+export interface Props {
+	name: string;
+	role: string;
+	avatar: CustomImageMetadata | string;
+	bio: string;
+	socialLinks?: SocialLink[];
+	class?: string;
+}
+
+const { name, role, avatar, bio, socialLinks, class: className = '' } = Astro.props;
+---
+
+<div
+	class:list={[
+		'card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300',
+		className,
+	]}>
+	<figure class="px-6 pt-6">
+		<Image 
+			src={avatar}
+			alt={`${name}'s avatar`}
+			width={192}
+			height={192}
+			rounded="xl"
+			transition="fade"
+			hover="brightness"
+			class="w-48 h-48"
+		/>
+	</figure>
+	<div class="card-body items-center text-center">
+		<h2 class="card-title text-2xl font-bold">{name}</h2>
+		<p class="text-primary font-medium">{role}</p>
+		<p class="text-base-content/80">{bio}</p>
+
+		{
+			socialLinks && socialLinks.length > 0 && (
+				<div class="flex gap-4 mt-4">
+					{socialLinks.map((link: SocialLink) => (
+						<Link
+							href={link.url}
+							external
+							variant="ghost"
+							class="p-2 hover:text-primary"
+							aria-label={`Visit ${name}'s ${link.platform} profile`}>
+							<SocialIcon platform={link.platform} class="w-5 h-5" />
+						</Link>
+					))}
+				</div>
+			)
+		}
+	</div>
+</div>
+

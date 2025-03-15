@@ -1,0 +1,169 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Button as ButtonComponent, CodeExample } from '@coffic/cosy-ui';
+---
+
+<Layout title="Button 按钮 - Cosy UI">
+  <main class="container mx-auto p-4 space-y-4">
+    <h1 class="text-2xl font-bold mb-6">Button 按钮</h1>
+    <p class="mb-8">按钮用于开始一个即时操作，如表单提交、打开对话框等。</p>
+
+    <div class="space-y-8">
+      <!-- 基础用法 -->
+      <CodeExample 
+        title="基础用法" 
+        description="最基本的按钮用法"
+        code={`<Button>默认按钮</Button>
+<Button variant="primary">主要按钮</Button>
+<Button variant="secondary">次要按钮</Button>
+<Button variant="accent">强调按钮</Button>`}
+      >
+        <div class="flex flex-wrap gap-4">
+          <ButtonComponent>默认按钮</ButtonComponent>
+          <ButtonComponent variant="primary">主要按钮</ButtonComponent>
+          <ButtonComponent variant="secondary">次要按钮</ButtonComponent>
+          <ButtonComponent variant="accent">强调按钮</ButtonComponent>
+        </div>
+      </CodeExample>
+
+      <!-- 按钮变体 -->
+      <CodeExample 
+        title="按钮变体" 
+        description="Button 组件支持多种变体，适用于不同场景"
+        code={`<Button variant="info">信息按钮</Button>
+<Button variant="success">成功按钮</Button>
+<Button variant="warning">警告按钮</Button>
+<Button variant="error">错误按钮</Button>
+<Button variant="ghost">幽灵按钮</Button>
+<Button variant="link">链接按钮</Button>
+<Button variant="outline">轮廓按钮</Button>
+<Button variant="neutral">中性按钮</Button>`}
+      >
+        <div class="flex flex-wrap gap-4">
+          <ButtonComponent variant="info">信息按钮</ButtonComponent>
+          <ButtonComponent variant="success">成功按钮</ButtonComponent>
+          <ButtonComponent variant="warning">警告按钮</ButtonComponent>
+          <ButtonComponent variant="error">错误按钮</ButtonComponent>
+          <ButtonComponent variant="ghost">幽灵按钮</ButtonComponent>
+          <ButtonComponent variant="link">链接按钮</ButtonComponent>
+          <ButtonComponent variant="outline">轮廓按钮</ButtonComponent>
+          <ButtonComponent variant="neutral">中性按钮</ButtonComponent>
+        </div>
+      </CodeExample>
+
+      <!-- 按钮尺寸 -->
+      <CodeExample 
+        title="按钮尺寸" 
+        description="Button 组件提供四种尺寸：xs、sm、md 和 lg"
+        code={`<Button size="xs">超小按钮</Button>
+<Button size="sm">小型按钮</Button>
+<Button size="md">中型按钮</Button>
+<Button size="lg">大型按钮</Button>`}
+      >
+        <div class="flex flex-wrap items-center gap-4">
+          <ButtonComponent size="xs">超小按钮</ButtonComponent>
+          <ButtonComponent size="sm">小型按钮</ButtonComponent>
+          <ButtonComponent size="md">中型按钮</ButtonComponent>
+          <ButtonComponent size="lg">大型按钮</ButtonComponent>
+        </div>
+      </CodeExample>
+
+      <!-- 按钮形状 -->
+      <CodeExample 
+        title="按钮形状" 
+        description="Button 组件支持圆形和方形两种特殊形状"
+        code={`<Button>默认形状</Button>
+<Button shape="circle">A</Button>
+<Button shape="square">B</Button>`}
+      >
+        <div class="flex flex-wrap items-center gap-4">
+          <ButtonComponent>默认形状</ButtonComponent>
+          <ButtonComponent shape="circle">
+            <span>A</span>
+          </ButtonComponent>
+          <ButtonComponent shape="square">
+            <span>B</span>
+          </ButtonComponent>
+        </div>
+      </CodeExample>
+
+      <!-- 宽度变体 -->
+      <CodeExample 
+        title="宽度变体" 
+        description="Button 组件支持宽按钮和块级按钮两种宽度变体"
+        code={`<Button>默认宽度</Button>
+<Button wide>宽按钮</Button>
+<Button block>块级按钮</Button>`}
+      >
+        <div class="flex flex-col gap-4">
+          <ButtonComponent>默认宽度</ButtonComponent>
+          <ButtonComponent wide>宽按钮</ButtonComponent>
+          <ButtonComponent block>块级按钮</ButtonComponent>
+        </div>
+      </CodeExample>
+
+      <!-- 加载状态 -->
+      <CodeExample 
+        title="加载状态" 
+        description="设置 loading 属性可以显示加载状态"
+        code={`<Button loading>加载中</Button>
+<Button variant="primary" loading>加载中</Button>`}
+      >
+        <div class="flex flex-wrap gap-4">
+          <ButtonComponent loading>加载中</ButtonComponent>
+          <ButtonComponent variant="primary" loading>加载中</ButtonComponent>
+        </div>
+      </CodeExample>
+
+      <!-- 禁用状态 -->
+      <CodeExample 
+        title="禁用状态" 
+        description="设置 disabled 属性可以禁用按钮"
+        code={`<Button disabled>禁用按钮</Button>
+<Button variant="primary" disabled>禁用主要按钮</Button>`}
+      >
+        <div class="flex flex-wrap gap-4">
+          <ButtonComponent disabled>禁用按钮</ButtonComponent>
+          <ButtonComponent variant="primary" disabled>禁用主要按钮</ButtonComponent>
+        </div>
+      </CodeExample>
+
+      <!-- 带图标的按钮 -->
+      <CodeExample 
+        title="带图标的按钮" 
+        description="使用 icon-left 和 icon-right 插槽可以在按钮中添加图标"
+        code={`<Button>
+  <span slot="icon-left">👈</span>
+  左侧图标
+</Button>
+
+<Button>
+  右侧图标
+  <span slot="icon-right">👉</span>
+</Button>
+
+<Button>
+  <span slot="icon-left">👈</span>
+  两侧图标
+  <span slot="icon-right">👉</span>
+</Button>`}
+      >
+        <div class="flex flex-wrap gap-4">
+          <ButtonComponent>
+            <span slot="icon-left">👈</span>
+            左侧图标
+          </ButtonComponent>
+          <ButtonComponent>
+            右侧图标
+            <span slot="icon-right">👉</span>
+          </ButtonComponent>
+          <ButtonComponent>
+            <span slot="icon-left">👈</span>
+            两侧图标
+            <span slot="icon-right">👉</span>
+          </ButtonComponent>
+        </div>
+      </CodeExample>
+    </div>
+  </main>
+</Layout> 
