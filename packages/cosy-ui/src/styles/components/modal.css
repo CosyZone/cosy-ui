@@ -8,45 +8,36 @@
 /* 基础样式 */
 .modal {
 	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
+	inset: 0;
+	z-index: 50;
 	display: flex;
-	justify-content: center;
 	align-items: center;
-	z-index: var(--z-index-modal);
-	padding: var(--spacing-4);
-	opacity: 0;
-	visibility: hidden;
-	transition:
-		opacity 0.2s,
-		visibility 0.2s;
+	justify-content: center;
+	padding: 1rem;
 }
 
-.modal[open] {
-	opacity: 1;
-	visibility: visible;
-}
-
-/* 模态框容器 */
 .modal-box {
 	position: relative;
-	background-color: var(--color-base-100);
-	border-radius: var(--radius-lg);
-	box-shadow: var(--shadow-xl);
 	width: 100%;
 	max-width: 32rem;
-	max-height: calc(100vh - var(--spacing-16));
-	overflow-y: auto;
-	padding: var(--spacing-6);
-	color: var(--color-base-content);
-	transform: scale(0.95);
-	transition: transform 0.2s;
+	border-radius: 1rem;
+	background-color: var(--base-100);
+	padding: 1.5rem;
+	box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
-.modal[open] .modal-box {
-	transform: scale(1);
+.modal-action {
+	margin-top: 1.5rem;
+	display: flex;
+	justify-content: flex-end;
+	gap: 0.5rem;
+}
+
+.modal-backdrop {
+	position: fixed;
+	inset: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	backdrop-filter: blur(4px);
 }
 
 /* 标题样式 */
@@ -60,14 +51,6 @@
 /* 内容区域 */
 .modal-content {
 	margin-bottom: var(--spacing-4);
-}
-
-/* 操作区域 */
-.modal-action {
-	display: flex;
-	justify-content: flex-end;
-	gap: var(--spacing-2);
-	margin-top: var(--spacing-6);
 }
 
 /* 关闭按钮 */
@@ -93,27 +76,6 @@
 	background-color: var(--color-base-200);
 }
 
-/* 背景遮罩 */
-.modal-backdrop {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: rgba(0, 0, 0, 0.4);
-	z-index: -1;
-}
-
-.modal-backdrop button {
-	width: 100%;
-	height: 100%;
-	appearance: none;
-	border: none;
-	background: transparent;
-	cursor: pointer;
-	color: transparent;
-}
-
 /* 响应式调整 */
 @media (max-width: 640px) {
 	.modal-box {
@@ -123,18 +85,31 @@
 	}
 }
 
-/* 动画效果 */
-@keyframes modal-pop {
-	0% {
+/* 动画 */
+@keyframes modal-slide-up {
+	from {
 		opacity: 0;
-		transform: scale(0.9);
+		transform: translateY(1rem);
 	}
-	100% {
+	to {
 		opacity: 1;
-		transform: scale(1);
+		transform: translateY(0);
+	}
+}
+
+@keyframes modal-fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
 	}
 }
 
 .modal[open] .modal-box {
-	animation: modal-pop 0.2s ease-out;
+	animation: modal-slide-up 0.3s ease-out forwards;
+}
+
+.modal[open] .modal-backdrop {
+	animation: modal-fade-in 0.2s ease-out forwards;
 }

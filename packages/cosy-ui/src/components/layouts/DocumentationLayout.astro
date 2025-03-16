@@ -1,0 +1,469 @@
+---
+/**
+ * DocumentationLayout组件
+ * 
+ * 适用于文档页面的布局，包含侧边栏导航和目录
+ * 
+ * @example
+ * ```astro
+ * ---
+ * import DocumentationLayout from '../layouts/DocumentationLayout.astro';
+ * 
+ * const sidebarItems = [
+ *   { title: "入门", items: [
+ *     { href: "/docs/getting-started", text: "快速开始" },
+ *     { href: "/docs/installation", text: "安装" }
+ *   ]},
+ *   { title: "组件", items: [
+ *     { href: "/docs/components/button", text: "Button 按钮" },
+ *     { href: "/docs/components/card", text: "Card 卡片" }
+ *   ]}
+ * ];
+ * ---
+ * 
+ * <DocumentationLayout 
+ *   title="文档标题" 
+ *   description="文档描述"
+ *   sidebarItems={sidebarItems}
+ * >
+ *   <h1>文档内容</h1>
+ *   <p>这是文档的主要内容</p>
+ * </DocumentationLayout>
+ * ```
+ * 
+ * 自定义页脚示例：
+ * ```astro
+ * <DocumentationLayout 
+ *   title="文档标题" 
+ *   description="文档描述"
+ *   sidebarItems={sidebarItems}
+ *   footerSlogan="简单而强大的组件库"
+ *   footerInspirationalSlogan="让开发更加愉悦"
+ *   footerSocialLinks={[
+ *     "https://github.com/myorg/myrepo",
+ *     "https://twitter.com/myorg"
+ *   ]}
+ *   footerProducts={[
+ *     { name: "组件库", href: "/components" },
+ *     { name: "模板", href: "/templates" }
+ *   ]}
+ * >
+ *   <h1>文档内容</h1>
+ *   <p>这是文档的主要内容</p>
+ * </DocumentationLayout>
+ * ```
+ * 
+ * 组件支持多种页脚相关的配置参数，可以通过以 `footer` 为前缀的属性来自定义页脚的内容和链接。
+ * 所有这些参数都是可选的，组件会为常用参数提供默认值。
+ * 
+ * 调试模式示例：
+ * ```astro
+ * <DocumentationLayout 
+ *   title="文档标题" 
+ *   description="文档描述"
+ *   sidebarItems={sidebarItems}
+ *   debug={true}
+ * >
+ *   <h1>文档内容</h1>
+ *   <p>这是文档的主要内容</p>
+ * </DocumentationLayout>
+ * ```
+ */
+
+import BaseLayout from './BaseLayout.astro';
+import TableOfContents from '../navigation/TableOfContents.astro';
+import Article from '../typography/Article.astro';
+import Footer from './Footer.astro';
+import Main from '../containers/Main.astro';
+import Header from './Header.astro';
+
+// 导入样式
+import '../../styles/layouts/documentation-layout.css';
+
+export interface SidebarItem {
+  href: string;
+  text: string;
+  items?: SidebarItem[];
+}
+
+export interface SidebarSection {
+  title: string;
+  items: SidebarItem[];
+}
+
+export interface Props {
+  /**
+   * 页面标题
+   */
+  title: string;
+  
+  /**
+   * 页面描述
+   */
+  description?: string;
+  
+  /**
+   * 页面关键词
+   */
+  keywords?: string;
+  
+  /**
+   * 网站名称
+   * @default "文档中心"
+   */
+  siteName?: string;
+  
+  /**
+   * Logo图片
+   * @default { src: "/logo.svg", width: 32, height: 32, format: "svg" }
+   */
+  logo?: {
+    src: string;
+    width: number;
+    height: number;
+    format: string;
+  };
+  
+  /**
+   * 侧边栏项目
+   */
+  sidebarItems: SidebarSection[];
+  
+  /**
+   * 是否显示目录
+   * @default true
+   */
+  showTableOfContents?: boolean;
+  
+  /**
+   * 是否显示页眉
+   * @default true
+   */
+  showHeader?: boolean;
+  
+  /**
+   * 是否显示页脚
+   * @default true
+   */
+  showFooter?: boolean;
+  
+  /**
+   * 自定义头部内容
+   */
+  head?: astroHTML.JSX.Element;
+  
+  /**
+   * 页面类名
+   */
+  class?: string;
+  
+  /**
+   * 类名列表
+   */
+  'class:list'?: any;
+
+  /**
+   * 调试模式，显示各个部分的边框
+   * @default false
+   */
+  debug?: boolean;
+
+  /**
+   * 导航项目
+   */
+  navItems?: Array<{
+    href: string;
+    label: string;
+    match: (path: string) => boolean;
+  }>;
+
+  /**
+   * 语言列表
+   */
+  languages?: Array<{ code: string; name: string }>;
+
+  /**
+   * 当前语言
+   */
+  currentLocale?: string;
+
+  /**
+   * 页脚相关配置
+   */
+  // Footer 相关参数
+  /**
+   * 页脚标语
+   * @default "优雅、高效的组件库"
+   */
+  footerSlogan?: string;
+  
+  /**
+   * 公司名称
+   * @default 与siteName相同
+   */
+  footerCompany?: string;
+  
+  /**
+   * 版权信息
+   * @default "保留所有权利"
+   */
+  footerCopyright?: string;
+  
+  /**
+   * 页脚横幅标语
+   * @default "构建美好的数字体验"
+   */
+  footerInspirationalSlogan?: string;
+  
+  /**
+   * ICP备案号
+   */
+  footerIcp?: string;
+  
+  /**
+   * 网站Logo
+   */
+  footerLogo?: { src: string; alt: string };
+  
+  /**
+   * 产品链接列表
+   */
+  footerProducts?: Array<{ name: string; href: string; external?: boolean }>;
+  
+  /**
+   * 关于我们链接
+   * @default "/about"
+   */
+  footerAboutLink?: string;
+  
+  /**
+   * 联系我们链接
+   * @default "/contact"
+   */
+  footerContactLink?: string;
+  
+  /**
+   * 服务条款链接
+   */
+  footerTermsLink?: string;
+  
+  /**
+   * 隐私政策链接
+   */
+  footerPrivacyLink?: string;
+  
+  /**
+   * 社交媒体链接列表
+   */
+  footerSocialLinks?: string[];
+  
+  /**
+   * 团队介绍链接
+   */
+  footerTeamLink?: string;
+  
+  /**
+   * 加入我们链接
+   */
+  footerCareersLink?: string;
+  
+  /**
+   * 新闻动态链接
+   */
+  footerNewsLink?: string;
+  
+  /**
+   * 发展历程链接
+   */
+  footerHistoryLink?: string;
+  
+  /**
+   * 合作伙伴链接
+   */
+  footerPartnersLink?: string;
+  
+  /**
+   * 技术博客链接
+   */
+  footerBlogLink?: string;
+  
+  /**
+   * 常见问题链接
+   */
+  footerFaqLink?: string;
+  
+  /**
+   * 媒体报道链接
+   */
+  footerMediaLink?: string;
+  
+  /**
+   * 技术栈链接
+   */
+  footerTechStackLink?: string;
+}
+
+const {
+  title,
+  description,
+  keywords,
+  siteName = "文档中心",
+  logo = { src: "/logo.svg", width: 32, height: 32, format: "svg" },
+  sidebarItems,
+  showTableOfContents = true,
+  showHeader = true,
+  showFooter = true,
+  head,
+  class: className,
+  'class:list': classList,
+  debug = false,
+  navItems,
+  languages,
+  currentLocale,
+  footerSlogan,
+  footerCompany,
+  footerCopyright,
+  footerInspirationalSlogan,
+  footerIcp,
+  footerLogo,
+  footerProducts,
+  footerAboutLink,
+  footerContactLink,
+  footerTermsLink,
+  footerPrivacyLink,
+  footerSocialLinks,
+  footerTeamLink,
+  footerCareersLink,
+  footerNewsLink,
+  footerHistoryLink,
+  footerPartnersLink,
+  footerBlogLink,
+  footerFaqLink,
+  footerMediaLink,
+  footerTechStackLink,
+  ...rest
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+---
+
+<BaseLayout 
+  title={title} 
+  description={description} 
+  keywords={keywords}
+  head={head}
+  class:list={["documentation-layout", { debug }, className, classList]}
+  {...rest}
+>
+  {showHeader && (
+    <Header
+      logo={logo}
+      navItems={navItems}
+      languages={languages}
+      currentLocale={currentLocale}
+    />
+  )}
+  
+  {debug && (
+    <div class="debug-indicator">
+      调试模式已启用
+    </div>
+  )}
+  
+  <div class="documentation-container">
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
+        {sidebarItems.map((section: SidebarSection) => (
+          <div class="sidebar-section">
+            <h3 class="sidebar-title">{section.title}</h3>
+            <ul class="sidebar-items">
+              {section.items.map((item: SidebarItem) => {
+                const isActive = currentPath === item.href;
+                return (
+                  <li class="sidebar-item">
+                    <a 
+                      href={item.href} 
+                      class:list={["sidebar-link", { active: isActive }]}
+                    >
+                      {item.text}
+                    </a>
+                    {item.items && (
+                      <ul class="sidebar-subitems">
+                        {item.items.map((subitem: SidebarItem) => {
+                          const isSubActive = currentPath === subitem.href;
+                          return (
+                            <li class="sidebar-subitem">
+                              <a 
+                                href={subitem.href} 
+                                class:list={["sidebar-sublink", { active: isSubActive }]}
+                              >
+                                {subitem.text}
+                              </a>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
+      </nav>
+    </aside>
+    
+    <Main 
+      class="content" 
+      verticalPadding="2rem" 
+      size="xl"
+    >
+      <div class="content-container">
+        <Article 
+          class="doc-article" 
+          width="medium"
+        >
+          <slot />
+        </Article>
+        
+        {showTableOfContents && (
+          <div class="toc-container">
+            <div class="toc-sticky">
+              <slot name="toc">
+                <TableOfContents />
+              </slot>
+            </div>
+          </div>
+        )}
+      </div>
+    </Main>
+  </div>
+  
+  {showFooter && (
+    <Footer 
+      siteName={siteName}
+      homeLink="/"
+      slogan={footerSlogan || "优雅、高效的组件库"}
+      company={footerCompany || siteName}
+      copyright={footerCopyright || "保留所有权利"}
+      inspirationalSlogan={footerInspirationalSlogan || "构建美好的数字体验"}
+      aboutLink={footerAboutLink || "/about"}
+      contactLink={footerContactLink || "/contact"}
+      icp={footerIcp}
+      logo={footerLogo}
+      products={footerProducts}
+      termsLink={footerTermsLink}
+      privacyLink={footerPrivacyLink}
+      socialLinks={footerSocialLinks}
+      teamLink={footerTeamLink}
+      careersLink={footerCareersLink}
+      newsLink={footerNewsLink}
+      historyLink={footerHistoryLink}
+      partnersLink={footerPartnersLink}
+      blogLink={footerBlogLink}
+      faqLink={footerFaqLink}
+      mediaLink={footerMediaLink}
+      techStackLink={footerTechStackLink}
+    />
+  )}
+</BaseLayout> 

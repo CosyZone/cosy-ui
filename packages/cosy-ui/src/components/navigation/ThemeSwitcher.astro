@@ -1,0 +1,103 @@
+---
+import Button from '../base/Button.astro';
+import SunCloudyIcon from '../icons/SunCloudyIcon.astro';
+
+interface Props {
+  /**
+   * 自定义类名
+   */
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const themes = [
+  { id: 'default', name: 'Default' },
+  { id: 'light', name: 'Light' },
+  { id: 'dark', name: 'Dark' },
+  { id: 'pastel', name: 'Pastel' },
+  { id: 'lemonade', name: 'Lemonade' },
+  { id: 'cupcake', name: 'Cupcake' },
+  { id: 'nord', name: 'Nord' },
+  { id: 'business', name: 'Business' },
+  { id: 'luxury', name: 'Luxury' },
+];
+---
+
+<div class:list={["dropdown-end dropdown", className]}>
+  <Button variant="ghost" size="sm" class="p-1">
+    <SunCloudyIcon class="h-5 w-5" slot="icon-left" />
+  </Button>
+  <ul
+    tabindex="0"
+    class="dropdown-content menu w-56 rounded-box bg-neutral-900 p-2 shadow-lg dark:bg-neutral-800"
+  >
+    {themes.map((theme) => (
+      <li>
+        <button
+          class="theme-item"
+          data-theme={theme.id}
+          data-active={false}
+        >
+          {theme.name}
+        </button>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<script>
+  import { createThemeManager } from '../../utils/theme';
+
+  const themeManager = createThemeManager();
+
+  function updateActiveTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'default';
+    document.querySelectorAll('.theme-item').forEach((item) => {
+      const isActive = item.getAttribute('data-theme') === currentTheme;
+      item.setAttribute('data-active', String(isActive));
+      if (isActive) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+  }
+
+  // 初始化主题切换按钮
+  document.querySelectorAll('.theme-item').forEach((item) => {
+    item.addEventListener('click', () => {
+      const theme = item.getAttribute('data-theme');
+      if (theme) {
+        themeManager.setTheme(theme);
+        updateActiveTheme();
+      }
+    });
+  });
+
+  // 初始加载时初始化
+  document.addEventListener('DOMContentLoaded', () => {
+    themeManager.initialize();
+    updateActiveTheme();
+  });
+
+  // Astro view transitions 后重新初始化
+  document.addEventListener('astro:after-swap', () => {
+    themeManager.initialize();
+    updateActiveTheme();
+  });
+</script>
+
+<style>
+  .theme-item {
+    @apply w-full rounded-lg px-4 py-2 text-left text-sm transition-colors;
+  }
+
+  .theme-item:hover {
+    @apply bg-neutral-800 dark:bg-neutral-700;
+  }
+
+  .theme-item.active {
+    @apply bg-primary text-primary-content;
+  }
+</style> 

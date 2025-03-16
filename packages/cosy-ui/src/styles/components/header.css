@@ -1,0 +1,38 @@
+/* Header 组件样式 */
+
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 50;
+	margin-left: 1rem;
+	margin-right: 1rem;
+	margin-top: 0.25rem;
+	height: 3rem;
+	border-radius: 0.5rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	border: 1px solid rgba(255, 255, 255, 0.05);
+	background-image: linear-gradient(
+		to right,
+		rgba(23, 23, 23, 0.8),
+		rgba(38, 38, 38, 0.8),
+		rgba(23, 23, 23, 0.8)
+	);
+	color: rgb(229, 229, 229);
+	backdrop-filter: blur(8px);
+}
+
+@media (prefers-color-scheme: dark) {
+	.header {
+		border-color: rgba(0, 0, 0, 0.05);
+		background-image: linear-gradient(
+			to right,
+			rgba(38, 38, 38, 0.8),
+			rgba(64, 64, 64, 0.8),
+			rgba(38, 38, 38, 0.8)
+		);
+		color: rgb(212, 212, 212);
+	}
+}
