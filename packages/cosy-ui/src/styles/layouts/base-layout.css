@@ -1,0 +1,97 @@
+/**
+ * BaseLayout 组件样式
+ * 
+ * 这个文件定义了 BaseLayout 组件的全局样式
+ * 使用我们定义的 CSS 变量，确保样式一致性
+ */
+
+/* 基础重置样式 */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+/* 颜色变量 */
+:root {
+	--base-bg-color: #ffffff;
+	--base-text-color: #333333;
+	--base-link-color: #2563eb;
+	--base-border-color: #eaeaea;
+	--base-muted-color: #6b7280;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--base-bg-color: #121212;
+		--base-text-color: #e0e0e0;
+		--base-link-color: #60a5fa;
+		--base-border-color: #2a2a2a;
+		--base-muted-color: #a0a0a0;
+	}
+}
+
+html {
+	font-family:
+		system-ui,
+		-apple-system,
+		BlinkMacSystemFont,
+		'Segoe UI',
+		Roboto,
+		Oxygen,
+		Ubuntu,
+		Cantarell,
+		'Open Sans',
+		'Helvetica Neue',
+		sans-serif;
+	font-size: 16px;
+	line-height: 1.5;
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	min-height: 100vh;
+	text-rendering: optimizeSpeed;
+	color: var(--base-text-color);
+	background-color: var(--base-bg-color);
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+	display: block;
+	max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	overflow-wrap: break-word;
+}
+
+/* 移除列表样式 */
+ul,
+ol {
+	list-style: none;
+}
+
+/* 移除链接下划线 */
+a {
+	text-decoration: none;
+	color: var(--base-link-color);
+}

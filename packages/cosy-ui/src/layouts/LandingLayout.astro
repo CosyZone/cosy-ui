@@ -29,8 +29,9 @@
  */
 
 import BaseLayout from './BaseLayout.astro';
-import Link from '../components/Link.astro';
-import Button from '../components/Button.astro';
+
+// 导入样式
+import '../styles/layouts/landing-layout.css';
 
 export interface NavItem {
   href: string;
@@ -217,7 +218,7 @@ const socialIconMap: Record<string, string> = {
         
         <nav class="main-nav">
           <ul class="nav-list">
-            {navItems.map(item => (
+            {navItems.map((item: NavItem) => (
               <li class="nav-item">
                 {item.isButton ? (
                   <a href={item.href} class="btn btn-primary btn-sm">{item.label}</a>
@@ -254,7 +255,7 @@ const socialIconMap: Record<string, string> = {
       
       <nav class="mobile-nav">
         <ul class="mobile-nav-list">
-          {navItems.map(item => (
+          {navItems.map((item: NavItem) => (
             <li class="mobile-nav-item">
               <a href={item.href} class="mobile-nav-link">
                 {item.label}
@@ -295,7 +296,7 @@ const socialIconMap: Record<string, string> = {
           </p>
           
           <div class="social-links">
-            {socialLinks.map(link => (
+            {socialLinks.map((link: SocialLink) => (
               <a href={link.href} class="social-link" aria-label={link.label} target="_blank" rel="noopener noreferrer">
                 <span class="social-icon">{socialIconMap[link.icon] || "🔗"}</span>
               </a>
@@ -304,11 +305,11 @@ const socialIconMap: Record<string, string> = {
         </div>
         
         <div class="footer-links">
-          {footerSections.map(section => (
+          {footerSections.map((section: FooterSection) => (
             <div class="footer-section">
               <h3 class="footer-title">{section.title}</h3>
               <ul class="footer-list">
-                {section.links.map(link => (
+                {section.links.map((link: FooterLink) => (
                   <li class="footer-item">
                     <a href={link.href} class="footer-link">{link.label}</a>
                   </li>
@@ -384,321 +385,4 @@ const socialIconMap: Record<string, string> = {
       lastScrollTop = scrollTop;
     });
   });
-</script>
-
-<style>
-  /* 基础布局 */
-  .landing-layout {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  
-  .container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
-  
-  /* 页眉样式 */
-  .site-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    background-color: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(8px);
-    transition: all 0.3s ease;
-  }
-  
-  .site-header.scrolled {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  }
-  
-  .site-header.hidden {
-    transform: translateY(-100%);
-  }
-  
-  .header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 80px;
-  }
-  
-  .brand-link {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: #111827;
-  }
-  
-  .brand-logo {
-    height: 40px;
-    width: auto;
-  }
-  
-  .brand-name {
-    font-size: 1.5rem;
-    font-weight: 700;
-  }
-  
-  .main-nav {
-    display: flex;
-  }
-  
-  .nav-list {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .nav-link {
-    color: #4b5563;
-    font-weight: 500;
-    transition: color 0.2s ease;
-  }
-  
-  .nav-link:hover {
-    color: #111827;
-  }
-  
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.375rem;
-    font-weight: 500;
-    transition: all 0.2s ease;
-  }
-  
-  .btn-primary {
-    background-color: #2563eb;
-    color: white;
-  }
-  
-  .btn-primary:hover {
-    background-color: #1d4ed8;
-  }
-  
-  .btn-sm {
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-  }
-  
-  .mobile-menu-button {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 0.5rem;
-  }
-  
-  /* 移动端菜单 */
-  .mobile-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 200;
-    display: flex;
-    justify-content: flex-end;
-    visibility: hidden;
-    opacity: 0;
-    transition: all 0.3s ease;
-  }
-  
-  .mobile-menu.active {
-    visibility: visible;
-    opacity: 1;
-  }
-  
-  .mobile-menu-container {
-    width: 300px;
-    background-color: #fff;
-    height: 100%;
-    padding: 1.5rem;
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .mobile-menu.active .mobile-menu-container {
-    transform: translateX(0);
-  }
-  
-  .mobile-menu-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-  }
-  
-  .close-menu-button {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 0.5rem;
-  }
-  
-  .mobile-nav-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .mobile-nav-link {
-    display: block;
-    padding: 0.75rem 0;
-    font-size: 1.125rem;
-    color: #111827;
-    text-decoration: none;
-    border-bottom: 1px solid #e5e7eb;
-  }
-  
-  /* 英雄区块 */
-  .hero-section {
-    padding: 120px 0 80px;
-    background-color: #f9fafb;
-  }
-  
-  /* 主要内容 */
-  .main-content {
-    flex: 1;
-  }
-  
-  /* 页脚 */
-  .site-footer {
-    background-color: #1f2937;
-    color: #e5e7eb;
-    padding: 4rem 0 2rem;
-  }
-  
-  .footer-content {
-    display: grid;
-    grid-template-columns: 2fr repeat(auto-fit, minmax(160px, 1fr));
-    gap: 3rem;
-    margin-bottom: 3rem;
-  }
-  
-  .brand-tagline {
-    margin: 1rem 0 1.5rem;
-    color: #9ca3af;
-    max-width: 300px;
-  }
-  
-  .social-links {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .social-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 9999px;
-    background-color: #374151;
-    color: #e5e7eb;
-    text-decoration: none;
-    transition: background-color 0.2s ease;
-  }
-  
-  .social-link:hover {
-    background-color: #4b5563;
-  }
-  
-  .social-icon {
-    font-size: 1.25rem;
-  }
-  
-  .footer-title {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 1.25rem;
-    color: #fff;
-  }
-  
-  .footer-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-  
-  .footer-link {
-    color: #9ca3af;
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-  
-  .footer-link:hover {
-    color: #e5e7eb;
-  }
-  
-  .footer-bottom {
-    padding-top: 2rem;
-    border-top: 1px solid #374151;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  
-  .copyright {
-    color: #9ca3af;
-    font-size: 0.875rem;
-  }
-  
-  /* 响应式调整 */
-  @media (max-width: 1024px) {
-    .footer-content {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .main-nav {
-      display: none;
-    }
-    
-    .mobile-menu-button {
-      display: block;
-    }
-    
-    .header-content {
-      height: 70px;
-    }
-    
-    .hero-section {
-      padding: 100px 0 60px;
-    }
-    
-    .footer-content {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    
-    .footer-bottom {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  }
-</style> 
+</script> 

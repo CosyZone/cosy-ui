@@ -66,6 +66,11 @@ interface Props extends HTMLAttributes<'section'> {
    * 自定义ID
    */
   id?: string;
+  
+  /**
+   * 自定义内联样式
+   */
+  style?: string;
 }
 
 const {
@@ -77,6 +82,7 @@ const {
   class: className = '',
   'class:list': classList,
   id,
+  style,
   ...rest
 } = Astro.props;
 
@@ -110,7 +116,7 @@ const sectionClasses = [
 const contentClasses = centered ? 'text-center' : '';
 ---
 
-<section id={id} class:list={[sectionClasses, classList]} {...rest}>
+<section id={id} class:list={[sectionClasses, classList]} style={style} {...rest}>
   {container ? (
     <Container size={containerSize} class={contentClasses}>
       <slot />

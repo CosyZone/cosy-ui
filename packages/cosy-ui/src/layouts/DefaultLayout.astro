@@ -20,6 +20,14 @@
 import BaseLayout from './BaseLayout.astro';
 import Link from '../components/Link.astro';
 
+// 导入样式
+import '../styles/layouts/default-layout.css';
+
+export interface NavLink {
+  href: string;
+  label: string;
+}
+
 export interface Props {
   /**
    * 页面标题
@@ -57,7 +65,7 @@ export interface Props {
   /**
    * 导航链接
    */
-  navLinks?: Array<{ href: string; label: string }>;
+  navLinks?: NavLink[];
   
   /**
    * 页面容器类名
@@ -112,7 +120,7 @@ const year = new Date().getFullYear();
 >
   {showHeader && (
     <header class="site-header">
-      <div class="container mx-auto px-4 py-4">
+      <div class="container px-4 py-4">
         <div class="header-content">
           <div class="logo">
             <a href="/" class="site-name">{siteName}</a>
@@ -120,7 +128,7 @@ const year = new Date().getFullYear();
           
           <nav class="main-nav">
             <ul class="nav-list">
-              {navLinks.map((link: { href: string; label: string }) => (
+              {navLinks.map((link: NavLink) => (
                 <li class="nav-item">
                   <Link href={link.href} variant="text">{link.label}</Link>
                 </li>
@@ -138,7 +146,7 @@ const year = new Date().getFullYear();
   
   {showFooter && (
     <footer class="site-footer">
-      <div class="container mx-auto px-4 py-8">
+      <div class="container px-4 py-8">
         <div class="footer-content">
           <div class="footer-info">
             <p class="copyright">&copy; {year} {siteName}. 保留所有权利。</p>
@@ -146,7 +154,7 @@ const year = new Date().getFullYear();
           
           <nav class="footer-nav">
             <ul class="nav-list">
-              {navLinks.map((link: { href: string; label: string }) => (
+              {navLinks.map((link: NavLink) => (
                 <li class="nav-item">
                   <Link href={link.href} variant="text" size="sm">{link.label}</Link>
                 </li>
@@ -159,89 +167,4 @@ const year = new Date().getFullYear();
   )}
   
   <slot name="after-footer" />
-</BaseLayout>
-
-<style>
-  /* 容器样式 */
-  .container {
-    width: 100%;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  /* 内边距 */
-  .px-4 {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  
-  .py-4 {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-  }
-  
-  .py-8 {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
-  
-  /* 页眉样式 */
-  .site-header {
-    border-bottom: 1px solid #eaeaea;
-    background-color: #fff;
-  }
-  
-  .header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .site-name {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #333;
-  }
-  
-  .nav-list {
-    display: flex;
-    gap: 1.5rem;
-  }
-  
-  /* 页脚样式 */
-  .site-footer {
-    border-top: 1px solid #eaeaea;
-    background-color: #f9fafb;
-    color: #666;
-  }
-  
-  .footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .copyright {
-    font-size: 0.875rem;
-  }
-  
-  .footer-nav .nav-list {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  /* 响应式调整 */
-  @media (max-width: 640px) {
-    .header-content,
-    .footer-content {
-      flex-direction: column;
-      gap: 1rem;
-    }
-    
-    .nav-list {
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-  }
-</style> 
+</BaseLayout> 

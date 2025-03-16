@@ -1,13 +1,23 @@
 ---
 /**
- * BaseLayout组件
+ * @component BaseLayout
  * 
- * 最基础的HTML结构布局，提供完整的HTML骨架和元数据设置
+ * @description
+ * BaseLayout 组件是最基础的 HTML 结构布局，提供完整的 HTML 骨架和元数据设置。
+ * 它是所有页面布局的基础，处理了基本的 HTML 结构、元数据和全局样式。
  * 
- * @example
+ * @design
+ * 设计理念：
+ * 1. 基础结构 - 提供标准的 HTML5 文档结构
+ * 2. 元数据管理 - 集中管理页面的标题、描述和关键词等元数据
+ * 3. 全局样式 - 应用基础的重置样式和全局变量
+ * 4. 灵活扩展 - 支持自定义头部内容和样式
+ * 
+ * @usage
+ * 基本用法：
  * ```astro
  * ---
- * import BaseLayout from '../layouts/BaseLayout.astro';
+ * import { BaseLayout } from '@coffic/cosy-ui';
  * ---
  * 
  * <BaseLayout title="页面标题" description="页面描述">
@@ -17,7 +27,31 @@
  *   </main>
  * </BaseLayout>
  * ```
+ * 
+ * 添加自定义头部内容：
+ * ```astro
+ * <BaseLayout 
+ *   title="页面标题" 
+ *   head={`<link rel="canonical" href="https://example.com" />`}
+ * >
+ *   <p>页面内容</p>
+ * </BaseLayout>
+ * ```
+ * 
+ * 自定义样式：
+ * ```astro
+ * <BaseLayout 
+ *   title="页面标题" 
+ *   customStyles={`body { background-color: #f5f5f5; }`}
+ * >
+ *   <p>页面内容</p>
+ * </BaseLayout>
+ * ```
  */
+
+// 导入样式
+import '../styles/index.css';
+import '../styles/layouts/base-layout.css';
 
 export interface Props {
   /**
@@ -84,7 +118,6 @@ const {
 
 // 处理类名
 let bodyClasses = className || "";
-
 ---
 
 <!DOCTYPE html>
@@ -109,70 +142,4 @@ let bodyClasses = className || "";
   <body class:list={[bodyClasses, classList]}>
     <slot />
   </body>
-</html>
-
-<style is:global>
-  /* 基础重置样式 */
-  *, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* 颜色变量 */
-  :root {
-    --base-bg-color: #ffffff;
-    --base-text-color: #333333;
-    --base-link-color: #2563eb;
-    --base-border-color: #eaeaea;
-    --base-muted-color: #6b7280;
-  }
-  
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --base-bg-color: #121212;
-      --base-text-color: #e0e0e0;
-      --base-link-color: #60a5fa;
-      --base-border-color: #2a2a2a;
-      --base-muted-color: #a0a0a0;
-    }
-  }
-  
-  html {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    -webkit-text-size-adjust: 100%;
-  }
-  
-  body {
-    min-height: 100vh;
-    text-rendering: optimizeSpeed;
-    color: var(--base-text-color);
-    background-color: var(--base-bg-color);
-  }
-  
-  img, picture, video, canvas, svg {
-    display: block;
-    max-width: 100%;
-  }
-  
-  input, button, textarea, select {
-    font: inherit;
-  }
-  
-  p, h1, h2, h3, h4, h5, h6 {
-    overflow-wrap: break-word;
-  }
-  
-  /* 移除列表样式 */
-  ul, ol {
-    list-style: none;
-  }
-  
-  /* 移除链接下划线 */
-  a {
-    text-decoration: none;
-    color: var(--base-link-color);
-  }
-</style>
+</html> 
