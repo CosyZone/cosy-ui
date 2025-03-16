@@ -18,14 +18,6 @@ alwaysApply: true
 - 使用中文
 - 如果用户的要求不合理或不符合该技术的最佳实践，应指出
 
-## 样式系统
-
-- 使用原生 CSS
-- 样式相关的代码放在 src/styles
-- 样式系统有以下突出的特点：
-    - 完全像使用 TailwindCSS 一样
-    - 但又弥补了 TailwindCSS 的不足，像 DaisyUI 一样增加了 card、btn 等这样常用的 class
-
 ## 图标
 
 - 统一放入 icons 来管理，像 [AlertTriangle.astro](mdc:packages/cosy-ui/src/icons/AlertTriangle.astro) 那样
@@ -39,8 +31,6 @@ alwaysApply: true
 ## Astro 组件
 
 - 使用 Typescript
-- 使用样式库提供的class，而不是使用自定义的原生css，如：card、mx-4
-- 如果样式库缺少某个class，则按照样式库的说明文档 [README.md](mdc:packages/cosy-ui/src/styles/README.md) 增加 class
 - 不要忘记 frontmatter
 - 考虑到组件可能非常多，应该进行良好的分类，如：
     - components 目录存放普通组件
