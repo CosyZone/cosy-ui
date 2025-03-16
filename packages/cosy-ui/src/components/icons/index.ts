@@ -15,6 +15,7 @@ export { default as UserIcon } from './UserIcon.astro';
 export { default as CalendarIcon } from './CalendarIcon.astro';
 
 // 社交媒体图标
+export { default as SocialIcon } from './SocialIcon.astro';
 export { default as GithubIcon } from './GithubIcon.astro';
 export { default as TwitterIcon } from './TwitterIcon.astro';
 export { default as LinkedinIcon } from './LinkedinIcon.astro';

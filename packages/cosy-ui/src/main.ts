@@ -12,7 +12,6 @@ export { default as Hero } from './components/Hero.astro';
 export { default as Image } from './components/Image.astro';
 export { default as Link } from './components/Link.astro';
 export { default as Modal } from './components/Modal.astro';
-export { default as SocialIcon } from './components/SocialIcon.astro';
 export { default as Stack } from './components/Stack.astro';
 export { default as TableOfContents } from './components/TableOfContents.astro';
 export { default as TeamMember } from './components/TeamMember.astro';
