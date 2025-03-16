@@ -1,25 +1,9 @@
 export * from "./integration.js";
-
-// 基础组件
 export * from './components/base';
-
-// 导航组件
-export * from './components/navigation';
-
-// 展示组件
-export * from './components/display';
-
-// 数据展示组件
-export * from './components/data-display';
-
-// 布局组件
-export * from './components/layouts';
-
-// 排版组件
-export * from './components/typography';
-
-// 图标组件
-export * from './components/icons';
-
-// 容器组件
-export * from './components/containers';
+// export * from './components/navigation';
+// export * from './components/display';
+// export * from './components/data-display';
+// export * from './components/layouts';
+// export * from './components/typography';
+// export * from './components/icons';
+// export * from './components/containers';
