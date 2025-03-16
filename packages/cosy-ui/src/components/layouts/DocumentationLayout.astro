@@ -71,13 +71,14 @@
  */
 
 import BaseLayout from './BaseLayout.astro';
-import TableOfContents from '../components/TableOfContents.astro';
+import TableOfContents from '../TableOfContents.astro';
 import Article from '../typography/Article.astro';
 import Footer from './Footer.astro';
 import Main from '../containers/Main.astro';
+import Header from './Header.astro';
 
 // 导入样式
-import '../styles/layouts/documentation-layout.css';
+import '../../styles/layouts/documentation-layout.css';
 
 export interface SidebarItem {
   href: string;
@@ -111,6 +112,17 @@ export interface Props {
    * @default "文档中心"
    */
   siteName?: string;
+  
+  /**
+   * Logo图片
+   * @default { src: "/logo.svg", width: 32, height: 32, format: "svg" }
+   */
+  logo?: {
+    src: string;
+    width: number;
+    height: number;
+    format: string;
+  };
   
   /**
    * 侧边栏项目
@@ -155,6 +167,25 @@ export interface Props {
    * @default false
    */
   debug?: boolean;
+
+  /**
+   * 导航项目
+   */
+  navItems?: Array<{
+    href: string;
+    label: string;
+    match: (path: string) => boolean;
+  }>;
+
+  /**
+   * 语言列表
+   */
+  languages?: Array<{ code: string; name: string }>;
+
+  /**
+   * 当前语言
+   */
+  currentLocale?: string;
 
   /**
    * 页脚相关配置
@@ -277,6 +308,7 @@ const {
   description,
   keywords,
   siteName = "文档中心",
+  logo = { src: "/logo.svg", width: 32, height: 32, format: "svg" },
   sidebarItems,
   showTableOfContents = true,
   showHeader = true,
@@ -285,6 +317,9 @@ const {
   class: className,
   'class:list': classList,
   debug = false,
+  navItems,
+  languages,
+  currentLocale,
   footerSlogan,
   footerCompany,
   footerCopyright,
@@ -309,7 +344,6 @@ const {
   ...rest
 } = Astro.props;
 
-const year = new Date().getFullYear();
 const currentPath = Astro.url.pathname;
 ---
 
@@ -322,23 +356,12 @@ const currentPath = Astro.url.pathname;
   {...rest}
 >
   {showHeader && (
-    <header class="site-header">
-      <div class="container">
-        <div class="header-content">
-          <div class="logo">
-            <a href="/" class="site-name">{siteName}</a>
-          </div>
-          
-          <div class="header-actions">
-            <a href="#" class="search-button">
-              <span class="search-icon">🔍</span>
-              <span class="search-text">搜索文档...</span>
-              <span class="search-shortcut">⌘K</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </header>
+    <Header
+      logo={logo}
+      navItems={navItems}
+      languages={languages}
+      currentLocale={currentLocale}
+    />
   )}
   
   {debug && (

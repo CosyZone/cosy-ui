@@ -8,7 +8,6 @@ export { default as CodeBlock } from './components/CodeBlock.astro';
 export { default as CodeExample } from './components/CodeExample.astro';
 export { default as Flex } from './components/Flex.astro';
 export { default as Grid } from './components/Grid.astro';
-export { default as Header } from './components/Header.astro';
 export { default as Hero } from './components/Hero.astro';
 export { default as Image } from './components/Image.astro';
 export { default as Link } from './components/Link.astro';
@@ -21,22 +20,23 @@ export { default as TeamMembers } from './components/TeamMembers.astro';
 export { default as ThemeItem } from './components/ThemeItem.astro';
 
 // 导出排版组件
-export { default as Article } from './typography/Article.astro';
-export { default as Heading } from './typography/Heading.astro';
-export { default as Text } from './typography/Text.astro';
+export { default as Article } from './components/typography/Article.astro';
+export { default as Heading } from './components/typography/Heading.astro';
+export { default as Text } from './components/typography/Text.astro';
 
 // 导出容器组件
-export { default as Container } from './containers/Container.astro';
-export { default as Main } from './containers/Main.astro';
-export { default as Section } from './containers/Section.astro';
+export { default as Container } from './components/containers/Container.astro';
+export { default as Main } from './components/containers/Main.astro';
+export { default as Section } from './components/containers/Section.astro';
 
 // 导出布局组件
-export { default as BaseLayout } from './layouts/BaseLayout.astro';
-export { default as DefaultLayout } from './layouts/DefaultLayout.astro';
-export { default as DocumentationLayout } from './layouts/DocumentationLayout.astro';
-export { default as DashboardLayout } from './layouts/DashboardLayout.astro';
-export { default as Footer } from './layouts/Footer.astro';
-export { default as LandingLayout } from './layouts/LandingLayout.astro';
+export { default as BaseLayout } from './components/layouts/BaseLayout.astro';
+export { default as DefaultLayout } from './components/layouts/DefaultLayout.astro';
+export { default as DocumentationLayout } from './components/layouts/DocumentationLayout.astro';
+export { default as DashboardLayout } from './components/layouts/DashboardLayout.astro';
+export { default as Footer } from './components/layouts/Footer.astro';
+export { default as Header } from './components/layouts/Header.astro';
+export { default as LandingLayout } from './components/layouts/LandingLayout.astro';
 
-// 导出所有图标
-export * from './icons'; 
+// 导出所有图标组件
+export * from './components/icons'; 

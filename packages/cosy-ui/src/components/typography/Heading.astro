@@ -63,7 +63,7 @@
  * - LinkIcon (用于锚点链接)
  */
 
-import { LinkIcon } from '../icons';
+import LinkIcon from '../icons/LinkIcon.astro';
 
 interface Props {
   level?: 1 | 2 | 3 | 4 | 5 | 6;
@@ -93,7 +93,7 @@ const headingClass = {
   4: 'text-xl font-medium',
   5: 'text-lg font-medium',
   6: 'text-base font-medium',
-}[level];
+}[(level ?? 2) as 1|2|3|4|5|6];
 
 const colorClass = {
   default: 'text-gray-900 dark:text-gray-100',
@@ -101,13 +101,13 @@ const colorClass = {
   secondary: 'text-secondary-600 dark:text-secondary-400',
   accent: 'text-accent-600 dark:text-accent-400',
   muted: 'text-gray-600 dark:text-gray-400',
-}[color];
+}[(color ?? 'default') as 'default'|'primary'|'secondary'|'accent'|'muted'];
 
 const alignClass = {
   left: 'text-left',
   center: 'text-center',
   right: 'text-right',
-}[align];
+}[(align ?? 'left') as 'left'|'center'|'right'];
 
 const underlineClass = underline ? 'border-b pb-2 border-gray-200 dark:border-gray-700' : '';
 

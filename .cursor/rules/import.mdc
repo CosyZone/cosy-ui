@@ -39,12 +39,14 @@ alwaysApply: true
 ## Astro 组件
 
 - 使用 Typescript
+- 使用样式库提供的class，而不是使用自定义的原生css，如：card、mx-4
+- 如果样式库缺少某个class，则按照样式库的说明文档 [README.md](mdc:packages/cosy-ui/src/styles/README.md) 增加 class
 - 不要忘记 frontmatter
 - 考虑到组件可能非常多，应该进行良好的分类，如：
     - components 目录存放普通组件
     - layouts 目录存放页面布局组件
     - 根据情况，可自行创建其他文件夹
-- 不要忘记为组件增加使用的例子，比如：
+- 不要忘记在Demo中为组件增加使用的例子，比如：
     - 普通组件放在 .../pages/components 目录
     - 布局组件放在 .../pages/layouts 目录
 - 在例子中这样导入组件：import { Alert as AlertComponent } from '@coffic/cosy-ui';
@@ -62,3 +64,17 @@ Types 目录在 src/types
 ## 提醒用户
 
 如果这个规则被应用，则在输出中说明：🍋 我注意到了项目的基本信息
+
+
+
+
+
+
+
+
+
+
+
+
+
+
