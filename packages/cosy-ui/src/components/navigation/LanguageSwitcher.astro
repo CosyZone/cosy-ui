@@ -1,0 +1,81 @@
+---
+import Button from '../base/Button.astro';
+import Link from '../base/Link.astro';
+
+interface Language {
+  code: string;
+  name: string;
+}
+
+interface Props {
+  /**
+   * 自定义类名
+   */
+  class?: string;
+
+  /**
+   * 语言列表
+   * @default [{ code: 'zh-cn', name: '简体中文' }, { code: 'en', name: 'English' }]
+   */
+  languages?: Language[];
+
+  /**
+   * 当前语言
+   * @default 'zh-cn'
+   */
+  currentLocale?: string;
+}
+
+const {
+  class: className,
+  languages = [
+    { code: 'zh-cn', name: '简体中文' },
+    { code: 'en', name: 'English' },
+  ],
+  currentLocale = 'zh-cn',
+} = Astro.props;
+
+const currentLanguageName =
+  languages.find((lang: Language) => lang.code === currentLocale)?.name || '简体中文';
+
+// 为每个语言生成对应的URL
+function generateLanguageUrl(langCode: string): string {
+  const currentPath = Astro.url.pathname;
+  const pathParts = currentPath.split('/').filter(Boolean);
+  const firstPathPart = pathParts[0];
+  const supportedLanguages = languages.map((lang: Language) => lang.code);
+  const isFirstPartLang = supportedLanguages.includes(firstPathPart);
+
+  if (isFirstPartLang) {
+    pathParts[0] = langCode;
+    return '/' + pathParts.join('/');
+  } else {
+    return '/' + langCode + (currentPath === '/' ? '' : currentPath);
+  }
+}
+---
+
+<div class:list={["dropdown-end dropdown", className]}>
+  <Button variant="ghost" size="sm" class="p-1">
+    {currentLanguageName}
+  </Button>
+  <ul
+    tabindex={0}
+    class="dropdown-content menu w-40 rounded-box bg-slate-900 p-2 shadow-lg dark:bg-slate-800"
+  >
+    {
+      languages.map((lang: Language) => (
+        <li>
+          <Link 
+            href={generateLanguageUrl(lang.code)}
+            class:list={[
+              { active: lang.code === currentLocale }
+            ]}
+          >
+            {lang.name}
+          </Link>
+        </li>
+      ))
+    }
+  </ul>
+</div> 

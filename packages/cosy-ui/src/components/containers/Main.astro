@@ -1,0 +1,168 @@
+---
+/**
+ * @component Main
+ * 
+ * @description
+ * Main 组件是页面的主要内容区域，使用 Container 组件提供响应式布局。
+ * 它适合作为页面的主体部分，自动处理不同屏幕尺寸下的布局和内边距。
+ * 
+ * @design
+ * 设计理念：
+ * 1. 结构清晰 - 明确表示页面的主要内容区域，提高语义化
+ * 2. 响应式布局 - 在不同屏幕尺寸下自动调整内边距和宽度
+ * 3. 灵活配置 - 支持自定义容器尺寸、内边距和背景颜色
+ * 4. 与容器集成 - 无缝集成 Container 组件，保持布局一致性
+ * 
+ * @usage
+ * 基本用法：
+ * ```astro
+ * ---
+ * import { Main } from '@coffic/cosy-ui';
+ * ---
+ * 
+ * <Main>
+ *   <h1>页面标题</h1>
+ *   <p>页面内容</p>
+ * </Main>
+ * ```
+ * 
+ * 自定义容器尺寸：
+ * ```astro
+ * <Main size="lg">
+ *   <p>这是一个较宽的主内容区域</p>
+ * </Main>
+ * ```
+ * 
+ * 自定义内边距：
+ * ```astro
+ * <Main verticalPadding="lg" padding="xl">
+ *   <p>这个主内容区域有更大的内边距</p>
+ * </Main>
+ * ```
+ * 
+ * 自定义背景颜色：
+ * ```astro
+ * <Main backgroundColor="primary">
+ *   <p>这个主内容区域有主题色背景</p>
+ * </Main>
+ * ```
+ */
+
+import Container from '../containers/Container.astro';
+
+// 导入样式
+import '../../styles/index.css';
+import '../../styles/components/main.css';
+
+export interface Props {
+  /**
+   * 容器大小
+   * @default "md"
+   */
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | "full";
+  
+  /**
+   * 水平内边距（通过 Container 组件的 padding 属性设置）
+   * @default "md"
+   */
+  padding?: "none" | "sm" | "md" | "lg" | "xl";
+  
+  /**
+   * 垂直内边距
+   * @default "md"
+   */
+  verticalPadding?: "none" | "sm" | "md" | "lg" | "xl" | string;
+  
+  /**
+   * 是否居中显示内容
+   * @default true
+   */
+  centered?: boolean;
+  
+  /**
+   * 背景颜色
+   * @default undefined
+   */
+  backgroundColor?: "primary" | "secondary" | "tertiary" | "light" | "dark" | string;
+  
+  /**
+   * HTML id 属性
+   */
+  id?: string;
+  
+  /**
+   * 类名
+   */
+  class?: string;
+  
+  /**
+   * 类名列表
+   */
+  'class:list'?: any;
+}
+
+const {
+  size = 'md',
+  padding = 'md',
+  verticalPadding = "md",
+  centered = true,
+  backgroundColor,
+  id,
+  class: className,
+  'class:list': classList,
+  ...rest
+} = Astro.props;
+
+// 处理垂直内边距
+const verticalPaddingClass = 
+  verticalPadding === "none" || verticalPadding === "sm" || 
+  verticalPadding === "md" || verticalPadding === "lg" || 
+  verticalPadding === "xl" 
+    ? `main-padding-${verticalPadding}` 
+    : "main-padding-custom";
+
+// 处理背景颜色
+const bgColorClass = backgroundColor && 
+  (backgroundColor === "primary" || backgroundColor === "secondary" || 
+   backgroundColor === "tertiary" || backgroundColor === "light" || 
+   backgroundColor === "dark")
+    ? `main-bg-${backgroundColor}`
+    : "";
+
+// 构建自定义样式
+const customStyle = 
+  (verticalPadding && verticalPaddingClass === "main-padding-custom") 
+    ? `padding-top: ${verticalPadding}; padding-bottom: ${verticalPadding};` 
+    : "";
+
+const customBgColor = 
+  (backgroundColor && !bgColorClass) 
+    ? `background-color: ${backgroundColor};` 
+    : "";
+
+const inlineStyle = (customStyle || customBgColor) 
+  ? `${customStyle} ${customBgColor}`.trim() 
+  : undefined;
+---
+
+<main
+  id={id}
+  class:list={[
+    "main-content",
+    verticalPaddingClass,
+    bgColorClass,
+    className,
+    classList
+  ]}
+  style={inlineStyle}
+  {...rest}
+>
+  <Container
+    size={size}
+    padding={padding}
+    centered={centered}
+    class="main-container"
+  >
+    <slot />
+  </Container>
+</main> 

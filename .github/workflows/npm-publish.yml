@@ -22,6 +22,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Publish Package
         run: |
+          cd packages/cosy-ui
           npm config set //registry.npmjs.org/:_authToken ${NODE_AUTH_TOKEN}
           npm whoami
           npm publish --access public --no-git-checks

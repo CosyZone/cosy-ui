@@ -1,0 +1,38 @@
+---
+/**
+ * 关闭图标组件
+ */
+interface Props {
+  /**
+   * 图标的大小
+   * @default "16px"
+   */
+  size?: string;
+  /**
+   * 图标的颜色
+   * @default "currentColor"
+   */
+  color?: string;
+  /**
+   * 自定义类名
+   */
+  class?: string;
+}
+
+const { size = '16px', color = 'currentColor', class: className = '' } = Astro.props;
+---
+
+<svg 
+  xmlns="http://www.w3.org/2000/svg" 
+  width={size} 
+  height={size} 
+  viewBox="0 0 24 24" 
+  fill="none" 
+  stroke={color} 
+  stroke-width="2" 
+  stroke-linecap="round" 
+  stroke-linejoin="round"
+  class={className}
+>
+  <path d="M6 18L18 6M6 6l12 12" />
+</svg> 

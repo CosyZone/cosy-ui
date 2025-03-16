@@ -1,0 +1,211 @@
+---
+import Layout from '../../layouts/DemoLayout.astro';
+---
+
+<Layout title="Table 表格 - Cosy UI">
+  <div class="prose max-w-none">
+    <h1>Table 表格</h1>
+    <p>表格用于展示结构化的数据。</p>
+
+    <h2>基础用法</h2>
+    <div class="not-prose">
+      <div class="overflow-x-auto">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>姓名</th>
+              <th>职位</th>
+              <th>城市</th>
+              <th>状态</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>张三</td>
+              <td>工程师</td>
+              <td>北京</td>
+              <td><span class="badge badge-success">在职</span></td>
+            </tr>
+            <tr>
+              <td>李四</td>
+              <td>设计师</td>
+              <td>上海</td>
+              <td><span class="badge badge-warning">休假</span></td>
+            </tr>
+            <tr>
+              <td>王五</td>
+              <td>产品经理</td>
+              <td>广州</td>
+              <td><span class="badge badge-error">离职</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2 class="mt-8">带边框的表格</h2>
+    <div class="not-prose">
+      <div class="overflow-x-auto">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>产品</th>
+              <th>价格</th>
+              <th>库存</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>商品 A</td>
+              <td>¥100</td>
+              <td>50</td>
+              <td>
+                <button class="btn btn-sm">编辑</button>
+              </td>
+            </tr>
+            <tr>
+              <td>商品 B</td>
+              <td>¥200</td>
+              <td>30</td>
+              <td>
+                <button class="btn btn-sm">编辑</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2 class="mt-8">紧凑型表格</h2>
+    <div class="not-prose">
+      <div class="overflow-x-auto">
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>用户名</th>
+              <th>邮箱</th>
+              <th>注册时间</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>001</td>
+              <td>user1</td>
+              <td>user1@example.com</td>
+              <td>2024-03-14</td>
+            </tr>
+            <tr>
+              <td>002</td>
+              <td>user2</td>
+              <td>user2@example.com</td>
+              <td>2024-03-14</td>
+            </tr>
+            <tr>
+              <td>003</td>
+              <td>user3</td>
+              <td>user3@example.com</td>
+              <td>2024-03-14</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2 class="mt-8">斑马纹表格</h2>
+    <div class="not-prose">
+      <div class="overflow-x-auto">
+        <table class="table table-zebra">
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>项目</th>
+              <th>进度</th>
+              <th>状态</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>项目 A</td>
+              <td>90%</td>
+              <td><span class="badge badge-success">进行中</span></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>项目 B</td>
+              <td>50%</td>
+              <td><span class="badge badge-warning">延期</span></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>项目 C</td>
+              <td>100%</td>
+              <td><span class="badge">完成</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2 class="mt-8">使用方法</h2>
+    <pre class="language-astro"><code>{`---
+// 在你的 .astro 文件中
+---
+
+<div class="overflow-x-auto">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>标题 1</th>
+        <th>标题 2</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>内容 1</td>
+        <td>内容 2</td>
+      </tr>
+    </tbody>
+  </table>
+</div>`}</code></pre>
+
+    <h2 class="mt-8">API</h2>
+    <h3>表格类型</h3>
+    <div class="overflow-x-auto">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>类名</th>
+            <th>说明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>table</code></td>
+            <td>基础表格样式</td>
+          </tr>
+          <tr>
+            <td><code>table-zebra</code></td>
+            <td>斑马纹表格</td>
+          </tr>
+          <tr>
+            <td><code>table-bordered</code></td>
+            <td>带边框的表格</td>
+          </tr>
+          <tr>
+            <td><code>table-sm</code></td>
+            <td>紧凑型表格</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="mt-4">响应式处理</h3>
+    <p>为了确保表格在移动设备上也能正常显示，请始终将表格包裹在 <code>overflow-x-auto</code> 类中：</p>
+    <pre><code class="language-html">&lt;div class="overflow-x-auto"&gt;
+  &lt;table class="table"&gt;...&lt;/table&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+</Layout> 

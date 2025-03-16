@@ -1,0 +1,41 @@
+---
+interface Props {
+  /**
+   * 图标的大小
+   * @default "24px"
+   */
+  size?: string;
+  /**
+   * 图标的颜色
+   * @default "currentColor"
+   */
+  color?: string;
+  /**
+   * 自定义类名
+   */
+  class?: string;
+  /**
+   * 插槽名称
+   */
+  slot?: string;
+}
+
+const { size = '24px', color = 'currentColor', class: className = '', slot } = Astro.props;
+---
+
+<svg 
+  xmlns="http://www.w3.org/2000/svg" 
+  width={size} 
+  height={size} 
+  viewBox="0 0 24 24" 
+  fill="none" 
+  stroke={color} 
+  stroke-width="2" 
+  stroke-linecap="round" 
+  stroke-linejoin="round"
+  class={className}
+>
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+</svg> 

@@ -1,0 +1,353 @@
+---
+/**
+ * @component TableOfContents
+ * 
+ * @description
+ * TableOfContents 组件是一个目录导航组件，用于显示页面内容的标题结构。
+ * 它会自动检测页面中的标题元素，生成目录列表，并在用户滚动页面时高亮当前可见的标题。
+ * 
+ * @design
+ * 设计理念：
+ * 1. 导航辅助 - 帮助用户快速了解页面结构和导航到特定内容
+ * 2. 上下文感知 - 自动高亮当前阅读位置，提供阅读进度反馈
+ * 3. 视觉层次 - 通过缩进和样式区分不同级别的标题
+ * 4. 响应式设计 - 在小屏幕设备上自动隐藏，优化空间利用
+ * 
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <TableOfContents />
+ * ```
+ * 
+ * 自定义标题和选择器：
+ * ```astro
+ * <TableOfContents 
+ *   title="章节导航" 
+ *   selector="h2, h3, h4" 
+ *   maxDepth={4} 
+ * />
+ * ```
+ * 
+ * 非固定位置：
+ * ```astro
+ * <TableOfContents fixed={false} />
+ * ```
+ * 
+ * 指定内容容器：
+ * ```astro
+ * <TableOfContents containerSelector=".article-content" />
+ * ```
+ */
+
+// 导入样式
+import '../../styles/index.css';
+import '../../styles/components/table-of-contents.css';
+
+interface Props {
+  /**
+   * 是否固定在右侧
+   * @default true
+   */
+  fixed?: boolean;
+  /**
+   * 自定义类名
+   */
+  class?: string;
+  /**
+   * 标题选择器
+   * @default "h2, h3"
+   */
+  selector?: string;
+  /**
+   * 最大深度
+   * @default 3
+   */
+  maxDepth?: number;
+  /**
+   * 标题文本
+   * @default "目录"
+   */
+  title?: string;
+  /**
+   * 内容容器选择器，用于限制标题搜索范围
+   * @default "main"
+   */
+  containerSelector?: string;
+}
+
+const {
+  fixed = true,
+  class: className = '',
+  selector = 'h2, h3',
+  maxDepth = 3,
+  title = '目录',
+  containerSelector = 'main',
+} = Astro.props;
+
+// 生成唯一ID，确保多个TOC实例不会冲突
+const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
+---
+
+<div class={`toc ${fixed ? 'toc-fixed' : ''} ${className}`}>
+  <div class="toc-container">
+    <div class="toc-title">{title}</div>
+    <ul class="toc-list" id={tocId}>
+      <!-- 目录项将通过 JavaScript 动态生成 -->
+      <li class="toc-placeholder">加载中...</li>
+    </ul>
+  </div>
+</div>
+
+<script define:vars={{ selector, maxDepth, tocId, containerSelector }}>
+  // 在页面加载完成后生成目录
+  function generateTOC() {
+    // 使用指定的容器选择器查找内容容器
+    const container = document.querySelector(containerSelector);
+    if (!container) return;
+    
+    // 只查找容器内的标题，而不是整个页面
+    const headings = container.querySelectorAll(selector);
+    const tocList = document.getElementById(tocId);
+    
+    if (!tocList || headings.length === 0) return;
+    
+    // 清空占位符
+    tocList.innerHTML = '';
+    
+    // 用于存储已使用的 ID，确保唯一性
+    const usedIds = new Set();
+    
+    // 为每个标题创建目录项
+    headings.forEach((heading) => {
+      // 如果标题没有 ID 或 ID 为空，则生成一个
+      if (!heading.id || heading.id.trim() === '') {
+        // 从标题文本生成 ID
+        let newId = generateIdFromText(heading.textContent || '');
+        
+        // 确保 ID 唯一
+        let counter = 0;
+        let uniqueId = newId;
+        while (usedIds.has(uniqueId) || document.getElementById(uniqueId)) {
+          counter++;
+          uniqueId = `${newId}-${counter}`;
+        }
+        
+        // 设置标题的 ID
+        heading.id = uniqueId;
+      }
+      
+      // 记录已使用的 ID
+      usedIds.add(heading.id);
+      
+      const level = parseInt(heading.tagName.substring(1));
+      if (level > maxDepth) return;
+      
+      const listItem = document.createElement('li');
+      listItem.className = `toc-item toc-level-${level}`;
+      listItem.dataset.headingId = heading.id; // 添加数据属性，便于后续查找
+      
+      const link = document.createElement('a');
+      link.href = `#${heading.id}`;
+      link.textContent = heading.textContent;
+      link.className = 'toc-link';
+      
+      // 添加前缀标记，增强视觉层次
+      if (level === 3) {
+        const prefix = document.createElement('span');
+        prefix.className = 'toc-prefix';
+        prefix.innerHTML = '└─ ';
+        link.prepend(prefix);
+      }
+      
+      listItem.appendChild(link);
+      tocList.appendChild(listItem);
+      
+      // 添加点击事件，平滑滚动到目标位置
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+          // 滚动到目标位置，并添加一些偏移以避免被固定导航遮挡
+          const offset = 80; // 可根据实际情况调整
+          const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - offset;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+          
+          // 更新 URL，但不跳转
+          history.pushState(null, null, `#${targetId}`);
+          
+          // 添加高亮效果
+          setTimeout(() => {
+            highlightActiveHeading();
+          }, 500);
+        }
+      });
+    });
+    
+    // 如果没有找到标题，显示提示信息
+    if (tocList.children.length === 0) {
+      const listItem = document.createElement('li');
+      listItem.textContent = '没有找到标题';
+      listItem.className = 'toc-empty';
+      tocList.appendChild(listItem);
+    }
+    
+    // 添加活动标题高亮
+    highlightActiveHeading();
+    
+    // 使用节流函数优化滚动事件
+    window.addEventListener('scroll', throttle(highlightActiveHeading, 100));
+  }
+  
+  // 从文本生成有效的 ID
+  function generateIdFromText(text) {
+    return text
+      .trim()
+      .toLowerCase()
+      .replace(/[\s\n]+/g, '-') // 将空格和换行替换为连字符
+      .replace(/[^\w\u4e00-\u9fa5-]/g, '') // 只保留字母、数字、中文和连字符
+      .replace(/^-+|-+$/g, '') // 移除开头和结尾的连字符
+      .replace(/-{2,}/g, '-') // 将多个连字符替换为单个
+      || 'heading'; // 如果结果为空，则使用默认值
+  }
+  
+  // 节流函数，限制函数调用频率
+  function throttle(func, delay) {
+    let lastCall = 0;
+    return function(...args) {
+      const now = new Date().getTime();
+      if (now - lastCall < delay) {
+        return;
+      }
+      lastCall = now;
+      return func(...args);
+    };
+  }
+  
+  // 高亮当前可见的标题
+  function highlightActiveHeading() {
+    const container = document.querySelector(containerSelector);
+    if (!container) return;
+    
+    const headings = Array.from(container.querySelectorAll(selector));
+    if (headings.length === 0) return;
+    
+    // 获取视口高度和滚动位置
+    const viewportHeight = window.innerHeight;
+    const scrollTop = window.scrollY;
+    
+    // 计算视口中心位置
+    const viewportMiddle = scrollTop + viewportHeight / 3;
+    
+    let activeHeadingId = null;
+    let closestHeading = null;
+    let closestDistance = Infinity;
+    
+    // 找到最接近视口中心的标题
+    for (const heading of headings) {
+      const headingTop = heading.getBoundingClientRect().top + scrollTop;
+      const distance = Math.abs(headingTop - viewportMiddle);
+      
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestHeading = heading;
+      }
+    }
+    
+    // 如果找到了最接近的标题，使用它的ID
+    if (closestHeading) {
+      activeHeadingId = closestHeading.id;
+      
+      // 为当前活动标题添加一个临时的高亮效果
+      headings.forEach(h => h.classList.remove('current-heading'));
+      closestHeading.classList.add('current-heading');
+      
+      // 5秒后移除高亮效果
+      setTimeout(() => {
+        closestHeading.classList.remove('current-heading');
+      }, 5000);
+    } else if (headings.length > 0) {
+      // 如果没有找到，使用第一个标题
+      activeHeadingId = headings[0].id;
+    }
+    
+    // 更新活动链接样式
+    const tocLinks = document.querySelectorAll(`#${tocId} .toc-link`);
+    let hasActiveLink = false;
+    
+    tocLinks.forEach(link => {
+      const href = link.getAttribute('href').substring(1);
+      
+      // 清除所有高亮
+      link.classList.remove('toc-active', 'toc-parent-active');
+      
+      // 添加当前活动标题的高亮
+      if (href === activeHeadingId) {
+        link.classList.add('toc-active');
+        hasActiveLink = true;
+        
+        // 添加一个动画效果，使高亮更明显
+        link.animate([
+          { transform: 'translateX(-5px)' },
+          { transform: 'translateX(0)' }
+        ], {
+          duration: 300,
+          easing: 'ease-out'
+        });
+        
+        // 如果是 h3，也高亮相关的 h2
+        const h3Item = link.closest('.toc-level-3');
+        if (h3Item) {
+          // 找到前面最近的 h2
+          let prevItem = h3Item.previousElementSibling;
+          while (prevItem) {
+            if (prevItem.classList.contains('toc-level-2')) {
+              const h2Link = prevItem.querySelector('.toc-link');
+              if (h2Link) h2Link.classList.add('toc-parent-active');
+              break;
+            }
+            prevItem = prevItem.previousElementSibling;
+          }
+        }
+      }
+    });
+    
+    // 如果没有找到活动链接，尝试高亮第一个标题
+    if (!hasActiveLink && tocLinks.length > 0) {
+      tocLinks[0].classList.add('toc-active');
+    }
+    
+    // 确保活动链接在视图中可见
+    const activeLink = document.querySelector(`#${tocId} .toc-active`);
+    if (activeLink && tocList) {
+      const tocContainer = document.querySelector('.toc-fixed');
+      if (tocContainer) {
+        const linkTop = activeLink.offsetTop;
+        const containerScrollTop = tocContainer.scrollTop;
+        const containerHeight = tocContainer.clientHeight;
+        
+        // 如果链接不在可视区域内，滚动到可见位置
+        if (linkTop < containerScrollTop || linkTop > containerScrollTop + containerHeight) {
+          tocContainer.scrollTop = linkTop - containerHeight / 2;
+        }
+      }
+    }
+  }
+  
+  // 页面加载时初始化
+  document.addEventListener('astro:page-load', generateTOC);
+  // 初始加载时也初始化
+  generateTOC();
+  
+  // 添加resize事件监听，在窗口大小变化时重新计算高亮
+  window.addEventListener('resize', throttle(highlightActiveHeading, 100));
+  
+  // 立即触发一次高亮计算
+  setTimeout(highlightActiveHeading, 500);
+</script>
+

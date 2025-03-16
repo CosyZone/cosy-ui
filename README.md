@@ -2,37 +2,57 @@
 
 这是一个 Astro 组件库，为同一个组织下的多个项目提供统一的 UI 风格。
 
-## 安装
+## 快速开始
+
+安装
 
 ```bash
 npm install @coffic/cosy-ui
 ```
 
-在 Tailwind 的 CSS 文件中增加：
+在 Astro 组件中使用：
 
-```css
-@source '../node_modules/@coffic/shared-ui';
+```js
+---
+import { Button } from "@coffic/cosy-ui";
+---
+<Button>Hi</Button>
 ```
 
-## 必要依赖
+## 项目结构
 
-本组件库依赖以下包，请确保您的项目中已正确安装和配置：
+项目使用 pnpm 工作区（workspace）管理，包含以下部分：
 
-- Astro
-- TailwindCSS
-- DaisyUI
+- `packages/cosy-ui`：组件库的源码
+- `demo`：在开发阶段用来测试这些组件的样本项目
 
-## 内置组件
+## 开发
 
-- Footer
-- 更多组件可通过 IDE 的智能提示看到
+### 安装依赖
 
-## 注意事项
+```bash
+pnpm install
+```
 
-1. 本组件库使用 TailwindCSS 和 DaisyUI 的样式类，这意味着：
+### 开发
 
-   - 组件的样式会受到您项目中 Tailwind 配置的影响
-   - 如果您修改了 Tailwind 的默认主题或 DaisyUI 的主题，可能会影响组件的外观
+```bash
+pnpm run dev
+```
+
+### 构建
+
+构建Demo：
+
+```bash
+pnpm build
+```
+
+## 安装
+
+```bash
+npm install @coffic/cosy-ui
+```
 
 ## 贡献
 

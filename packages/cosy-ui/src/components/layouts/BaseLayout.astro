@@ -1,0 +1,145 @@
+---
+/**
+ * @component BaseLayout
+ * 
+ * @description
+ * BaseLayout 组件是最基础的 HTML 结构布局，提供完整的 HTML 骨架和元数据设置。
+ * 它是所有页面布局的基础，处理了基本的 HTML 结构、元数据和全局样式。
+ * 
+ * @design
+ * 设计理念：
+ * 1. 基础结构 - 提供标准的 HTML5 文档结构
+ * 2. 元数据管理 - 集中管理页面的标题、描述和关键词等元数据
+ * 3. 全局样式 - 应用基础的重置样式和全局变量
+ * 4. 灵活扩展 - 支持自定义头部内容和样式
+ * 
+ * @usage
+ * 基本用法：
+ * ```astro
+ * ---
+ * import { BaseLayout } from '@coffic/cosy-ui';
+ * ---
+ * 
+ * <BaseLayout title="页面标题" description="页面描述">
+ *   <main>
+ *     <h1>页面内容</h1>
+ *     <p>这是页面的主要内容</p>
+ *   </main>
+ * </BaseLayout>
+ * ```
+ * 
+ * 添加自定义头部内容：
+ * ```astro
+ * <BaseLayout 
+ *   title="页面标题" 
+ *   head={`<link rel="canonical" href="https://example.com" />`}
+ * >
+ *   <p>页面内容</p>
+ * </BaseLayout>
+ * ```
+ * 
+ * 自定义样式：
+ * ```astro
+ * <BaseLayout 
+ *   title="页面标题" 
+ *   customStyles={`body { background-color: #f5f5f5; }`}
+ * >
+ *   <p>页面内容</p>
+ * </BaseLayout>
+ * ```
+ */
+
+// 导入样式
+import '../../styles/index.css';
+import '../../styles/layouts/base-layout.css';
+
+export interface Props {
+  /**
+   * 页面标题
+   */
+  title: string;
+  
+  /**
+   * 页面描述
+   * @default ""
+   */
+  description?: string;
+  
+  /**
+   * 页面关键词
+   * @default ""
+   */
+  keywords?: string;
+  
+  /**
+   * 页面语言
+   * @default "zh-CN"
+   */
+  lang?: string;
+  
+  /**
+   * 是否包含视口元标签
+   * @default true
+   */
+  viewport?: boolean;
+  
+  /**
+   * 自定义CSS
+   */
+  customStyles?: string;
+  
+  /**
+   * 自定义头部内容
+   */
+  head?: astroHTML.JSX.Element;
+  
+  /**
+   * 页面类名
+   */
+  class?: string;
+  
+  /**
+   * 类名列表
+   */
+  'class:list'?: any;
+}
+
+const {
+  title,
+  description = "",
+  keywords = "",
+  lang = "zh-CN",
+  viewport = true,
+  customStyles = "",
+  head,
+  class: className,
+  'class:list': classList,
+} = Astro.props;
+
+// 处理类名
+let bodyClasses = className || "";
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    {viewport && <meta name="viewport" content="width=device-width, initial-scale=1.0" />}
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    {keywords && <meta name="keywords" content={keywords} />}
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- 自定义样式 -->
+    {customStyles && <style set:html={customStyles}></style>}
+    
+    <!-- 自定义头部内容 -->
+    {head && <div set:html={head} />}
+    
+    <slot name="head" />
+  </head>
+  <body class:list={[bodyClasses, classList]}>
+    <slot />
+  </body>
+</html> 
