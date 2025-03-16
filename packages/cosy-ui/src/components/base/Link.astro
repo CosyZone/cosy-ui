@@ -48,9 +48,7 @@
  * ```
  */
 
-// 导入样式
-import '../styles/index.css';
-import '../styles/components/link.css';
+import "../../styles/index.css";
 
 import type { HTMLAttributes } from 'astro/types';
 
@@ -122,11 +120,12 @@ const finalClassName = [
 ].join(' ');
 ---
 
-<a
-	href={href}
-	class:list={[finalClassName, classList]}
+
+	<a
+		href={href}
+		class:list={[finalClassName, classList]}
 	{...external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
 	{...rest}
 >
-	<slot />
-</a>
+		<slot />
+	</a>

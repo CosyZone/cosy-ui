@@ -6,53 +6,23 @@
  * Flex 组件是一个灵活的弹性布局组件，用于创建各种排列和对齐方式的布局。
  * 它封装了 CSS Flexbox 的常用功能，提供简单易用的接口来控制子元素的排列方式。
  * 
- * @design
- * 设计理念：
- * 1. 简单易用 - 通过简洁的 API 控制复杂的 Flexbox 布局
- * 2. 灵活可配置 - 支持所有常见的 Flexbox 属性
- * 3. 语义化属性 - 使用直观的属性名称，降低学习成本
- * 4. 响应式友好 - 可以与响应式工具类结合使用
+ * @note
+ * 此组件需要在 Root 组件内使用以确保样式正确加载。
  * 
  * @usage
- * 基本用法：
  * ```astro
- * <Flex>
- *   <div>默认水平排列</div>
- *   <div>居中对齐</div>
- * </Flex>
- * ```
+ * ---
+ * import { Root, Flex } from '@coffic/cosy-ui';
+ * ---
  * 
- * 垂直排列：
- * ```astro
- * <Flex direction="column">
- *   <div>第一项</div>
- *   <div>第二项</div>
- * </Flex>
+ * <Root>
+ *   <Flex>
+ *     <div>默认水平排列</div>
+ *     <div>居中对齐</div>
+ *   </Flex>
+ * </Root>
  * ```
- * 
- * 自定义对齐和间距：
- * ```astro
- * <Flex direction="column" align="start" justify="between" gap="lg">
- *   <div>垂直排列</div>
- *   <div>左对齐</div>
- *   <div>两端对齐</div>
- *   <div>大间距</div>
- * </Flex>
- * ```
- * 
- * @props
- * @prop {string} [direction="row"] - 排列方向，可选值：row, row-reverse, column, column-reverse
- * @prop {string} [justify="center"] - 水平对齐方式，可选值：start, end, center, between, around, evenly
- * @prop {string} [align="center"] - 垂直对齐方式，可选值：start, end, center, stretch, baseline
- * @prop {boolean} [wrap=false] - 是否允许换行
- * @prop {string} [gap="md"] - 元素间距，可选值：none, xs, sm, md, lg, xl
- * @prop {string} [class] - 自定义类名
- * @prop {any} [class:list] - 类名列表
  */
-
-// 导入样式
-import '../styles/index.css';
-import '../styles/components/flex.css';
 
 import type { HTMLAttributes } from 'astro/types';
 

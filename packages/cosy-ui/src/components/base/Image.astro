@@ -41,11 +41,8 @@
  * ```
  */
 
-// 导入样式
-import '../styles/index.css';
-import '../styles/components/image.css';
-
-import { AlertTriangle } from './icons';
+import "../../styles/index.css";
+import { AlertTriangle } from '../icons';
 
 // 自定义图片元数据接口
 interface ImageMetadata {
@@ -242,9 +239,10 @@ const errorClasses = [
 ].filter(Boolean).join(' ');
 ---
 
-<div class={containerClasses}>
-  <div class="image-wrapper">
-    <img
+
+
+    <div class="image-wrapper">
+      <img
       src={imgSrc}
       alt={alt}
       width={width}
@@ -288,7 +286,7 @@ const errorClasses = [
       </div>
     )}
   </div>
-</div>
+
 
 <script is:inline lang="ts">
   /**
