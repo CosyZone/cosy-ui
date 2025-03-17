@@ -135,10 +135,43 @@ const {
 	style = ""
 } = Astro.props;
 
-// 根据宽度选项设置类名
-const widthClass = `article-width-${width}`;
+// 根据宽度设置对应的 Tailwind 类名
+const widthClasses = {
+	narrow: 'max-w-2xl',
+	medium: 'max-w-4xl',
+	wide: 'max-w-6xl',
+	full: 'w-full'
+}[width];
+
+// 基础样式类
+const baseClasses = [
+	'prose', // 使用 Tailwind Typography 插件的基础类
+	'prose-slate',
+	'dark:prose-invert', // 暗黑模式支持
+	'mx-auto', // 水平居中
+	'px-4', // 左右内边距
+	'prose-headings:font-bold', // 标题加粗
+	'prose-h1:text-3xl',
+	'prose-h2:text-2xl',
+	'prose-h3:text-xl',
+	'prose-p:text-base',
+	'prose-a:text-primary hover:prose-a:text-primary-focus', // 链接样式
+	'prose-blockquote:border-l-4',
+	'prose-blockquote:border-neutral',
+	'prose-blockquote:pl-4',
+	'prose-blockquote:italic',
+	'prose-code:bg-base-200',
+	'prose-code:px-1',
+	'prose-code:rounded',
+	'prose-pre:bg-base-200',
+	'prose-pre:p-4',
+	'prose-img:rounded-lg',
+	'prose-hr:border-base-300',
+	widthClasses,
+	className
+];
 ---
 
-<article class:list={['article', widthClass, className]} style={style}>
+<article class:list={baseClasses} style={style}>
 	<slot />
 </article>
