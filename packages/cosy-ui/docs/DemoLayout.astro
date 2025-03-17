@@ -1,6 +1,7 @@
 ---
-import { getGroupedRoutes, createUrl } from '../lib/route';
+import { getGroupedRoutes, createUrl } from './lib/route';
 import { DocumentationLayout } from '@/index';
+import type { SidebarSection, SidebarItem } from '@/components/layouts/DocumentationLayout.astro';
 
 interface Props {
 	title: string;
@@ -8,18 +9,19 @@ interface Props {
 }
 
 const { title, showTOC = true } = Astro.props;
-const groupedRoutes = getGroupedRoutes();
+
+// 从 URL 获取当前语言
+const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
+const groupedRoutes = await getGroupedRoutes(currentLocale);
 
 // 将路由转换为侧边栏项目格式
-const sidebarItems = Object.entries(groupedRoutes).map(([title, routes]) => {
-	return {
-		title,
-		items: routes.map(route => ({
-			href: createUrl(route.path),
-			text: route.title
-		}))
-	};
-});
+const sidebarItems: SidebarSection[] = groupedRoutes.map(group => ({
+    title: group.group,
+    items: group.routes.map(route => ({
+        text: route.title,
+        href: route.path
+    }))
+}));
 ---
 
 <DocumentationLayout
@@ -38,7 +40,7 @@ const sidebarItems = Object.entries(groupedRoutes).map(([title, routes]) => {
 	footerProducts={[
 		{ name: "组件", href: createUrl("/components") },
 		{ name: "布局", href: createUrl("/layouts") },
-		{ name: "图标", href: createUrl("/icons") }
+		{ name: "图标", href: createUrl("/components/icons") }
 	]}
 	footerAboutLink="https://coffic.zone.id/en/meta/about"
 	footerContactLink="https://coffic.zone.id/en/meta/contact"

@@ -1,0 +1,72 @@
+---
+title: 'Alert 组件'
+description: '用于向用户显示重要的提示信息，支持多种类型的提示样式和交互效果'
+---
+
+import { Alert, CodeExample } from '@/index';
+
+## 基础提示
+
+最简单的提示信息展示
+
+<CodeExample
+  code={`<Alert type="info">这是一条信息提示</Alert>`}
+>
+  <Alert type="info">这是一条信息提示</Alert>
+</CodeExample>
+
+## 带标题的提示
+
+通过 title 属性添加标题，使提示信息更加醒目
+
+<CodeExample
+  code={`<Alert type="success" title="操作成功">您的操作已成功完成</Alert>`}
+>
+  <Alert type="success" title="操作成功">您的操作已成功完成</Alert>
+</CodeExample>
+
+## 可关闭的提示
+
+添加 closeable 属性使提示可以手动关闭
+
+<CodeExample
+  code={`<Alert type="warning" closeable={true}>请注意这个警告信息</Alert>`}
+>
+  <Alert type="warning" closeable={true}>请注意这个警告信息</Alert>
+</CodeExample>
+
+## 自动关闭的提示
+
+设置 autoClose 属性使提示在指定时间后自动关闭
+
+<CodeExample
+  code={`<Alert type="success" autoClose={5000}>5秒后自动关闭</Alert>`}
+>
+  <Alert type="success" autoClose={5000}>5秒后自动关闭</Alert>
+</CodeExample>
+
+## 完整示例
+
+展示 Alert 组件的所有特性组合使用
+
+<CodeExample
+  code={`<Alert 
+  type="error" 
+  title="提交失败" 
+  closeable={true} 
+  autoClose={10000}
+  class="my-custom-class"
+>
+  请检查表单并重新提交
+</Alert>`}
+>
+  <Alert 
+    type="error" 
+    title="提交失败" 
+    closeable={true} 
+    autoClose={10000}
+    class="my-custom-class"
+  >
+    请检查表单并重新提交
+  </Alert>
+</CodeExample>

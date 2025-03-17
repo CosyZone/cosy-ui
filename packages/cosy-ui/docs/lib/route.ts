@@ -1,4 +1,6 @@
 import { getBaseUrl } from './utils';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 
 export interface Route {
     path: string;
@@ -6,93 +8,112 @@ export interface Route {
     group?: string;
 }
 
-export const routes = {
-    // 基础页面
-    home: { path: '/', title: '介绍' },
-    installation: { path: '/installation', title: '安装' },
+export interface GroupedRoute {
+    group: string;
+    routes: Route[];
+}
 
-    // 组件
-    components: {
-        alert: { path: '/components/alert', title: 'Alert', group: '组件' },
-        article: { path: '/components/article', title: 'Article', group: '组件' },
-        blog: { path: '/components/blog', title: 'Blog', group: '组件' },
-        button: { path: '/components/button', title: 'Button', group: '组件' },
-        code: { path: '/components/code', title: 'Code', group: '组件' },
-        heading: { path: '/components/heading', title: 'Heading', group: '组件' },
-        icons: { path: '/components/icons', title: 'Icons', group: '组件' },
-        image: { path: '/components/image', title: 'Image', group: '组件' },
-        modal: { path: '/components/modal', title: 'Modal', group: '组件' },
-        select: { path: '/components/select', title: 'Select', group: '组件' },
-        socialIcon: { path: '/components/social-icon', title: 'SocialIcon', group: '组件' },
-        table: { path: '/components/table', title: 'Table', group: '组件' },
-        teamMember: { path: '/components/team-member', title: 'TeamMember', group: '组件' },
-        text: { path: '/components/text', title: 'Text', group: '组件' },
-    },
-
-    // 布局
-    layouts: {
-        footer: { path: '/layouts/footer', title: 'Footer', group: '布局' },
-        layout: { path: '/layouts/layout', title: 'Layout', group: '布局' },
-    },
-
-    // 容器
-    containers: {
-        container: { path: '/containers/container', title: 'Container', group: '容器' },
-        section: { path: '/containers/section', title: 'Section', group: '容器' },
-    },
-} as const;
-
-// 获取所有路由
-export const getAllRoutes = (): Route[] => {
-    const flatRoutes: Route[] = [];
-
-    // 添加基础页面
-    Object.entries(routes)
-        .filter(([key]) => key !== 'components')
-        .forEach(([_, route]) => {
-            flatRoutes.push(route as Route);
-        });
-
-    // 添加组件页面
-    Object.values(routes.components).forEach(route => {
-        flatRoutes.push(route as Route);
-    });
-
-    // 添加布局页面
-    Object.values(routes.layouts).forEach(route => {
-        flatRoutes.push(route as Route);
-    });
-
-    // 添加容器页面
-    Object.values(routes.containers).forEach(route => {
-        flatRoutes.push(route as Route);
-    });
-
-    return flatRoutes;
-};
-
-// 获取分组后的路由
-export const getGroupedRoutes = () => {
-    const groups: Record<string, Route[]> = {
-        '开始': [],
-        '组件': [],
-        '布局': [],
-        '容器': [],
-    };
-
-    getAllRoutes().forEach(route => {
-        if (route.group) {
-            groups[route.group].push(route);
-        } else {
-            groups['开始'].push(route);
-        }
-    });
-
-    return groups;
+// 分组映射表
+const GROUP_MAPPING: Record<string, string> = {
+    'guide': '指南',
+    'layouts': '布局',
+    'containers': '容器',
+    'components': '组件'
 };
 
 // 生成带基础路径的完整 URL
 export const createUrl = (path: string): string => {
     const baseUrl = getBaseUrl();
     return `${baseUrl}${path}`;
-}; 
+};
+
+// 从文件路径中提取标题
+function extractTitle(path: string): string {
+    // 移除文件扩展名和路径
+    const fileName = path.split('/').pop() || '';
+    const nameWithoutExt = fileName.replace(/\.(mdx?|astro)$/, '');
+
+    // 将 kebab-case 转换为 Title Case
+    const title = nameWithoutExt
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+
+    // 如果标题以组件名结尾，添加"组件示例"后缀
+    if (!title.includes('组件')) {
+        return `${title} 组件示例`;
+    }
+    return title;
+}
+
+// 获取分组路由
+export async function getGroupedRoutes(locale: string = 'zh-cn'): Promise<GroupedRoute[]> {
+    const articles = await getCollection('articles');
+    const groups: { [key: string]: Route[] } = {};
+
+    // 处理每个文档
+    for (const article of articles) {
+        // 获取相对路径（相对于 content 目录）
+        const relativePath = article.id;
+        const [docLocale, ...restPath] = relativePath.split('/');
+
+        // 只处理当前语言的文档
+        if (docLocale !== locale) continue;
+
+        const processedPath = restPath.join('/');
+
+        // 跳过所有 index 文件
+        if (processedPath.endsWith('/index.mdx') || processedPath === 'index.mdx') continue;
+
+        // 解析路径段
+        const pathSegments = processedPath.split('/');
+
+        // 确定分组和标题
+        let group: string;
+        let rawPath: string;
+
+        if (pathSegments.length === 1) {
+            // 顶级文件，如 installation.mdx
+            const name = pathSegments[0].replace('.mdx', '');
+            group = GROUP_MAPPING[name] || name;
+            rawPath = `/${locale}/${name}`;
+        } else {
+            // 子目录文件，如 components/alert.mdx
+            const [dirName, fileName] = pathSegments;
+            group = GROUP_MAPPING[dirName] || dirName;
+            rawPath = `/${locale}/${processedPath.replace('.mdx', '')}`;
+        }
+
+        // 使用 createUrl 生成带有正确 base 前缀的路径
+        const path = createUrl(rawPath);
+
+        // 使用文档中定义的标题
+        const title = article.data.title;
+
+        // 添加到分组
+        if (!groups[group]) {
+            groups[group] = [];
+        }
+        groups[group].push({ path, title });
+    }
+
+    // 转换为数组格式并排序
+    const result = Object.entries(groups)
+        .filter(([group]) => group !== 'index') // 过滤掉 index 分组
+        .map(([group, routes]) => ({
+            group,
+            routes: routes.sort((a, b) => a.title.localeCompare(b.title))
+        }));
+
+    // 打印结果
+    console.log(`Generated routes structure for locale ${locale}:`);
+    result.forEach(group => {
+        console.log(`\n${group.group}:`);
+        group.routes.forEach(route => {
+            console.log(`  - ${route.title}`);
+            console.log(`    path: ${route.path}`);
+        });
+    });
+
+    return result;
+} 

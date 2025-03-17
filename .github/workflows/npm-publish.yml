@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     if: |
       github.event.workflow_run.conclusion == 'success' &&
-      !contains(github.event.workflow_run.head_branch, 'dev')
+      github.event.workflow_run.head_branch == 'main'
     permissions:
       contents: read
       id-token: write
@@ -31,6 +31,7 @@ jobs:
           cd packages/cosy-ui
           npm config set //registry.npmjs.org/:_authToken ${NODE_AUTH_TOKEN}
           npm whoami
+          pnpm i
           pnpm build:ui
           npm publish --access public --no-git-checks
         env:

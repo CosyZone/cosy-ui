@@ -1,7 +1,7 @@
 ---
-# 🎉 Cosy UI 正式发布工作流
+# 🎉 Cosy UI 预发布工作流
 #
-# 这个工作流程用于自动化 Cosy UI 组件库的正式发布过程。
+# 这个工作流程用于自动化 Cosy UI 组件库的预发布过程。
 #
 # 工作流程说明：
 # 1. 开发流程 (dev 分支)：
@@ -13,14 +13,9 @@
 #    - 将 dev 分支合并到 pre 分支
 #    - 自动处理 changeset 并发布预发布版本（如：1.0.0-beta.1）
 #
-# 3. 正式发布 (main 分支)：
-#    - 预发布版本测试通过后
-#    - 将 pre 分支合并到 main 分支
-#    - 自动触发正式版本发布
-#
 # 发布条件：
 # - 只有当存在未处理的 changeset 时才会触发发布
-# - 发布为正式版本
+# - 发布为预发布版本（prerelease）
 #
 # 使用方法：
 # 1. 日常开发完成后：
@@ -38,19 +33,12 @@
 #    git push origin pre
 #    ```
 #
-# 3. 正式发布：
-#    ```bash
-#    git checkout main
-#    git merge pre
-#    git push origin main
-#    ```
-#
-name: 🎉 Release Cosy UI
+name: 🎉 Prerelease Cosy UI
 
 on:
   push:
     branches: 
-      - main    # 正式发布
+      - pre     # 预发布分支
     tags:
       - '*'
 
@@ -69,7 +57,7 @@ env:
   version: ${{ github.ref_name }}
 
 jobs:
-  release:
+  prerelease:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -128,7 +116,7 @@ jobs:
           pnpm changeset version
           git add .
           git commit -m "chore: update versions"
-          git push origin main
+          git push origin pre
         env:
           GITHUB_TOKEN: ${{ secrets.COMMIT_TOKEN }}
           
@@ -145,4 +133,4 @@ jobs:
         with:
           tag_name: v${{ env.VERSION }}
           generate_release_notes: true
-          prerelease: false
+          prerelease: true 
