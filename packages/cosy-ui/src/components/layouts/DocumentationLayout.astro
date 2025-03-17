@@ -189,6 +189,12 @@ export interface Props {
    * 当前语言
    */
   currentLocale?: string;
+  
+  /**
+   * 基础路径，用于处理网站部署在二级目录的情况
+   * @default ""
+   */
+  basePath?: string;
 
   /**
    * 页脚相关配置
@@ -329,6 +335,7 @@ const {
   navItems,
   languages,
   currentLocale,
+  basePath = "",
   footerHomeLink,
   footerSlogan,
   footerCompany,
@@ -373,6 +380,7 @@ const currentPath = Astro.url.pathname;
       languages={languages}
       currentLocale={currentLocale}
       sticky={true}
+      basePath={basePath}
     />
   )}
   

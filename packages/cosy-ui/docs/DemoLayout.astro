@@ -2,6 +2,7 @@
 import { getGroupedRoutes, createUrl } from './lib/route';
 import { DocumentationLayout } from '@/index';
 import type { SidebarSection } from '@/components/layouts/DocumentationLayout.astro';
+import { getBaseUrl } from './lib/utils';
 
 interface Props {
 	title: string;
@@ -10,11 +11,19 @@ interface Props {
 
 const { title, showTOC = true } = Astro.props;
 
-const homeLink = '/cosy-ui/'
+// 获取基础路径
+const basePath = getBaseUrl();
+const homeLink = `${basePath}/`
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
 const groupedRoutes = await getGroupedRoutes(currentLocale);
+
+// 定义支持的语言
+const languages = [
+	{ code: 'zh-cn', name: '中文' },
+	{ code: 'en', name: 'English' }
+];
 
 // 将路由转换为侧边栏项目格式
 const sidebarItems: SidebarSection[] = groupedRoutes.map(group => ({
@@ -54,6 +63,9 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map(group => ({
 	footerPrivacyLink="https://coffic.zone.id/en/meta/privacy"
 	footerHistoryLink="https://coffic.zone.id/en/meta/out-story"
 	footerTechStackLink="https://coffic.zone.id/en/meta/tech-stack"
+	currentLocale={currentLocale}
+	languages={languages}
+	basePath={basePath}
 >
 	<slot />
 	
