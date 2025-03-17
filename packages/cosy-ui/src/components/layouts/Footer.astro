@@ -221,7 +221,7 @@ const debugClasses = debug ? {
 				<nav class:list={["", debugClasses.nav]}>
 					<h6 class="footer-title">产品</h6>
 					{products.map((product) => (
-						<Link href={product.href} external={product.external} block>
+						<Link href={product.href} external={product.external} block animation='hover-lift'>
 							{product.name}
 						</Link>
 					))}
@@ -232,10 +232,10 @@ const debugClasses = debug ? {
 			{(aboutLink || contactLink || teamLink || careersLink) && (
 				<nav class:list={["", debugClasses.nav]}>
 					<h6 class="footer-title">关于我们</h6>
-					{aboutLink && <Link href={aboutLink} block>关于我们</Link>}
-					{teamLink && <Link href={teamLink} block>团队介绍</Link>}
-					{careersLink && <Link href={careersLink} block>加入我们</Link>}
-					{contactLink && <Link href={contactLink} block>联系我们</Link>}
+					{aboutLink && <Link href={aboutLink} block animation='hover-lift'>关于我们</Link>}
+					{teamLink && <Link href={teamLink} block animation='hover-lift'>团队介绍</Link>}
+					{careersLink && <Link href={careersLink} block animation='hover-lift'>加入我们</Link>}
+					{contactLink && <Link href={contactLink} block animation='hover-lift'>联系我们</Link>}
 				</nav>
 			)}
 
@@ -243,10 +243,10 @@ const debugClasses = debug ? {
 			{(newsLink || historyLink || partnersLink || blogLink || faqLink || mediaLink || techStackLink) && (
 				<nav class:list={["", debugClasses.nav]}>
 					<h6 class="footer-title">资源</h6>
-					{newsLink && <Link href={newsLink} block>新闻动态</Link>}
-					{blogLink && <Link href={blogLink} block>技术博客</Link>}
-					{faqLink && <Link href={faqLink} block>常见问题</Link>}
-					{techStackLink && <Link href={techStackLink} block>技术栈</Link>}
+					{newsLink && <Link href={newsLink} block animation='hover-lift'>新闻动态</Link>}
+					{blogLink && <Link href={blogLink} block animation='hover-lift'>技术博客</Link>}
+					{faqLink && <Link href={faqLink} block animation='hover-lift'>常见问题</Link>}
+					{techStackLink && <Link href={techStackLink} block animation='hover-lift'>技术栈</Link>}
 				</nav>
 			)}
 
@@ -254,8 +254,8 @@ const debugClasses = debug ? {
 			{(termsLink || privacyLink) && (
 				<nav class:list={["", debugClasses.nav]}>
 					<h6 class="footer-title">法律</h6>
-					{termsLink && <Link href={termsLink} block>服务条款</Link>}
-					{privacyLink && <Link href={privacyLink} block>隐私政策</Link>}
+					{termsLink && <Link href={termsLink} block animation='hover-lift'>服务条款</Link>}
+					{privacyLink && <Link href={privacyLink} block animation='hover-lift'>隐私政策</Link>}
 				</nav>
 			)}
 		</div>
