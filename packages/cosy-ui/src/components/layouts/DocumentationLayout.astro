@@ -79,6 +79,7 @@ import Article from '../typography/Article.astro';
 import Footer from './Footer.astro';
 import Main from '../containers/Main.astro';
 import Header from './Header.astro';
+import Sidebar from './Sidebar.astro';
 import DefaultLogo from '../../assets/logo.png';
 
 export interface SidebarItem {
@@ -312,7 +313,7 @@ const {
   head,
   class: className,
   'class:list': classList,
-  debug = false,
+  debug = true,
   navItems,
   languages,
   currentLocale,
@@ -368,56 +369,10 @@ const currentPath = Astro.url.pathname;
   )}
   
   <div class="flex-1 flex">
-    <aside class="w-64 border-r border-base-300 shrink-0">
-      <nav class="p-4 sticky top-16">
-        {sidebarItems.map((section: SidebarSection) => (
-          <div class="mb-6">
-            <h3 class="font-bold mb-2 text-base-content/70">{section.title}</h3>
-            <ul class="menu menu-sm">
-              {section.items.map((item: SidebarItem) => {
-                const isActive = currentPath === item.href;
-                return (
-                  <li>
-                    <a 
-                      href={item.href} 
-                      class:list={[
-                        "hover:bg-base-200",
-                        { "active": isActive }
-                      ]}
-                    >
-                      {item.text}
-                    </a>
-                    {item.items && (
-                      <ul class="menu menu-sm pl-4">
-                        {item.items.map((subitem: SidebarItem) => {
-                          const isSubActive = currentPath === subitem.href;
-                          return (
-                            <li>
-                              <a 
-                                href={subitem.href} 
-                                class:list={[
-                                  "hover:bg-base-200",
-                                  { "active": isSubActive }
-                                ]}
-                              >
-                                {subitem.text}
-                              </a>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        ))}
-      </nav>
-    </aside>
+    <Sidebar sidebarItems={sidebarItems} currentPath={currentPath} />
     
     <Main 
-      class="flex-1 py-8" 
+      class="flex-1 py-8 min-h-screen" 
     >
       <div class="container mx-auto px-4 flex gap-8">
         <Article >

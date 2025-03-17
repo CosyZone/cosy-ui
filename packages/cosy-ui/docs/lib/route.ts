@@ -15,7 +15,7 @@ export interface GroupedRoute {
 
 // 分组映射表
 const GROUP_MAPPING: Record<string, string> = {
-    'installation': '安装',
+    'guide': '指南',
     'layouts': '布局',
     'containers': '容器',
     'components': '组件'

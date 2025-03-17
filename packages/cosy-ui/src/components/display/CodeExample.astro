@@ -28,7 +28,8 @@
  */
 
 // 导入图标
-import { ClipboardIcon, CheckIcon } from '../../index';
+import { ClipboardIcon, CheckIcon } from '../../index'
+import "../../app.css"
 
 interface Props {
   title?: string;
@@ -39,138 +40,40 @@ interface Props {
 const { title, description, code } = Astro.props;
 ---
 
-<div class="code-example">
-  {title && <h3 class="code-example-title">{title}</h3>}
-  {description && <p class="code-example-description">{description}</p>}
+<div class="card bg-base-100 shadow-lg mb-8 rounded-none code-example">
+  {title && <h3 class="card-title p-4 border-b border-base-300">{title}</h3>}
+  {description && <p class="px-4 pt-4 text-base-content/70">{description}</p>}
   
-  <div class="code-example-tabs">
-    <button class="code-example-tab active" data-tab="preview">预览</button>
-    <button class="code-example-tab" data-tab="code">代码</button>
+  <div class="flex justify-between items-center px-4 bg-base-200 rounded-none">
+    <div role="tablist" class="tabs tabs-box">
+      <button role="tab" class="tab tab-active" data-tab="preview">预览</button>
+      <button role="tab" class="tab" data-tab="code">代码</button>
+    </div>
+    <div class="flex items-center gap-2">
+      <button class="btn btn-ghost btn-sm gap-2" aria-label="复制代码">
+        <span class="copy-icon"><ClipboardIcon /></span>
+        <span class="check-icon hidden text-success"><CheckIcon /></span>
+        <span class="copy-text">复制代码</span>
+      </button>
+    </div>
   </div>
   
-  <div class="code-example-content">
+  <div class="relative p-0">
     <div class="code-example-panel active" data-panel="preview">
-      <div class="code-example-preview">
+      <div class="p-6 bg-base-100">
         <slot />
       </div>
     </div>
     
     <div class="code-example-panel" data-panel="code">
-      <div class="code-example-code">
-        <div class="code-example-header">
-          <button class="copy-button" aria-label="复制代码">
-            <span class="copy-icon"><ClipboardIcon /></span>
-            <span class="check-icon"><CheckIcon /></span>
-            <span class="copy-text">复制代码</span>
-          </button>
-        </div>
-        <pre><code class="language-astro">{code}</code></pre>
+      <div class="bg-base-300 px-6 py-2">
+        <pre class="overflow-x-auto"><code class="language-astro">{code}</code></pre>
       </div>
     </div>
   </div>
 </div>
 
 <style>
-  /* 颜色变量 - 支持亮色和暗黑模式 */
-  :root {
-    /* 亮色模式变量 */
-    --code-example-border: #e2e8f0;
-    --code-example-bg: #ffffff;
-    --code-example-text: #333333;
-    --code-example-title-border: #e2e8f0;
-    --code-example-description-color: #64748b;
-    --code-example-tabs-bg: #f8fafc;
-    --code-example-tab-color: #64748b;
-    --code-example-tab-hover-color: #0f172a;
-    --code-example-tab-active-color: #3b82f6;
-    --code-example-tab-active-border: #3b82f6;
-    --code-example-preview-bg: #ffffff;
-    --code-example-code-bg: #1e293b;
-    --code-example-code-text: #e2e8f0;
-    --code-example-header-bg: #334155;
-    --code-example-copy-button-color: #e2e8f0;
-    --code-example-copy-button-hover-bg: rgba(255, 255, 255, 0.1);
-    --code-example-copy-success-color: #4ade80;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      /* 暗黑模式变量 */
-      --code-example-border: #2d3748;
-      --code-example-bg: #1a202c;
-      --code-example-text: #e2e8f0;
-      --code-example-title-border: #2d3748;
-      --code-example-description-color: #a0aec0;
-      --code-example-tabs-bg: #171e2e;
-      --code-example-tab-color: #a0aec0;
-      --code-example-tab-hover-color: #e2e8f0;
-      --code-example-tab-active-color: #60a5fa;
-      --code-example-tab-active-border: #60a5fa;
-      --code-example-preview-bg: #1a202c;
-      --code-example-code-bg: #0f172a;
-      --code-example-code-text: #e2e8f0;
-      --code-example-header-bg: #1e293b;
-      --code-example-copy-button-color: #e2e8f0;
-      --code-example-copy-button-hover-bg: rgba(255, 255, 255, 0.1);
-      --code-example-copy-success-color: #4ade80;
-    }
-  }
-  
-  .code-example {
-    margin-bottom: 2rem;
-    border: 1px solid var(--code-example-border);
-    border-radius: 0.5rem;
-    overflow: hidden;
-    background-color: var(--code-example-bg);
-    color: var(--code-example-text);
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  }
-  
-  .code-example-title {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin: 0;
-    padding: 1rem;
-    border-bottom: 1px solid var(--code-example-title-border);
-  }
-  
-  .code-example-description {
-    padding: 0 1rem;
-    color: var(--code-example-description-color);
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .code-example-tabs {
-    display: flex;
-    border-bottom: 1px solid var(--code-example-title-border);
-    background-color: var(--code-example-tabs-bg);
-  }
-  
-  .code-example-tab {
-    padding: 0.75rem 1.5rem;
-    background: transparent;
-    border: none;
-    border-bottom: 2px solid transparent;
-    cursor: pointer;
-    font-weight: 500;
-    color: var(--code-example-tab-color);
-    transition: all 0.2s ease;
-  }
-  
-  .code-example-tab:hover {
-    color: var(--code-example-tab-hover-color);
-  }
-  
-  .code-example-tab.active {
-    color: var(--code-example-tab-active-color);
-    border-bottom-color: var(--code-example-tab-active-border);
-  }
-  
-  .code-example-content {
-    position: relative;
-  }
-  
   .code-example-panel {
     display: none;
   }
@@ -178,99 +81,23 @@ const { title, description, code } = Astro.props;
   .code-example-panel.active {
     display: block;
   }
-  
-  .code-example-preview {
-    padding: 1.5rem;
-    background-color: var(--code-example-preview-bg);
-  }
-  
-  .code-example-code {
-    position: relative;
-    background-color: var(--code-example-code-bg);
-    color: var(--code-example-code-text);
-    overflow: auto;
-  }
-  
-  .code-example-header {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    background-color: var(--code-example-header-bg);
-  }
-  
-  .copy-button {
-    background: transparent;
-    border: none;
-    color: var(--code-example-copy-button-color);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.25rem;
-    transition: background-color 0.2s;
-    font-size: 0.875rem;
-  }
-  
-  .copy-button:hover {
-    background-color: var(--code-example-copy-button-hover-bg);
-  }
-  
-  .copy-icon, .check-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 1rem;
-    height: 1rem;
-  }
-  
-  .check-icon {
-    display: none;
-    color: var(--code-example-copy-success-color);
-  }
-  
-  .copy-button.copied .copy-icon {
-    display: none;
-  }
-  
-  .copy-button.copied .check-icon {
-    display: flex;
-  }
-  
-  .copy-button.copied .copy-text {
-    color: var(--code-example-copy-success-color);
-  }
-  
-  pre {
-    margin: 0;
-    padding: 1rem;
-    overflow-x: auto;
-  }
-  
-  code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    white-space: pre;
-    font-size: 0.9rem;
-    line-height: 1.5;
-  }
 </style>
 
 <script>
   function initializeCodeExample() {
     // 标签切换功能
-    const tabs = document.querySelectorAll('.code-example-tab');
+    const tabs = document.querySelectorAll('.tab');
     
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
         // 获取当前标签组
-        const tabGroup = tab.closest('.code-example-tabs');
+        const tabGroup = tab.closest('.tabs');
         if (!tabGroup) return;
         
-        const codeExample = tab.closest('.code-example');
+        const codeExample = tab.closest('.card');
         if (!codeExample) return;
         
-        const contentContainer = codeExample.querySelector('.code-example-content');
+        const contentContainer = codeExample.querySelector('.relative');
         if (!contentContainer) return;
         
         // 获取目标面板
@@ -278,10 +105,10 @@ const { title, description, code } = Astro.props;
         if (!targetTab) return;
         
         // 更新标签状态
-        tabGroup.querySelectorAll('.code-example-tab').forEach(t => {
-          t.classList.remove('active');
+        tabGroup.querySelectorAll('.tab').forEach(t => {
+          t.classList.remove('tab-active');
         });
-        tab.classList.add('active');
+        tab.classList.add('tab-active');
         
         // 更新面板状态
         contentContainer.querySelectorAll('.code-example-panel').forEach(panel => {
@@ -296,11 +123,11 @@ const { title, description, code } = Astro.props;
     });
     
     // 复制代码功能
-    const copyButtons = document.querySelectorAll('.copy-button');
+    const copyButtons = document.querySelectorAll('.btn-ghost');
     
     copyButtons.forEach(button => {
       button.addEventListener('click', () => {
-        const codeBlock = button.closest('.code-example-code');
+        const codeBlock = button.closest('.bg-base-300');
         if (!codeBlock) return;
         
         const codeElement = codeBlock.querySelector('code');
@@ -311,11 +138,17 @@ const { title, description, code } = Astro.props;
         // 复制到剪贴板
         navigator.clipboard.writeText(code).then(() => {
           // 显示复制成功状态
-          button.classList.add('copied');
+          button.classList.add('btn-success');
+          button.querySelector('.copy-icon')?.classList.add('hidden');
+          button.querySelector('.check-icon')?.classList.remove('hidden');
+          button.querySelector('.copy-text')?.classList.add('text-success');
           
           // 3秒后恢复原状
           setTimeout(() => {
-            button.classList.remove('copied');
+            button.classList.remove('btn-success');
+            button.querySelector('.copy-icon')?.classList.remove('hidden');
+            button.querySelector('.check-icon')?.classList.add('hidden');
+            button.querySelector('.copy-text')?.classList.remove('text-success');
           }, 3000);
         });
       });

@@ -90,7 +90,7 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
 <div class={`${fixed ? 'fixed top-20 right-4 w-64' : 'w-full max-w-xs'} ${className}`}>
   <div class="card bg-base-100 shadow-xl">
     <div class="card-body p-4">
-      <h2 class="card-title text-lg font-bold mb-2">{title}</h2>
+      <div class="card-title text-lg font-bold mb-2">{title}</div>
       <ul class="menu menu-sm" id={tocId}>
         <!-- 目录项将通过 JavaScript 动态生成 -->
         <li class="text-base-content/60">加载中...</li>
@@ -106,8 +106,13 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
     const container = document.querySelector(containerSelector);
     if (!container) return;
     
-    // 只查找容器内的标题，而不是整个页面
-    const headings = container.querySelectorAll(selector);
+    // 排除 CodeExample 组件中的标题
+    const headings = Array.from(container.querySelectorAll(selector)).filter(heading => {
+      // 检查标题是否在 CodeExample 组件内
+      const isInCodeExample = heading.closest('.code-example') !== null;
+      return !isInCodeExample;
+    });
+    
     const tocList = document.getElementById(tocId);
     
     if (!tocList || headings.length === 0) return;
