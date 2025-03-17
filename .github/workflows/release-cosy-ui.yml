@@ -124,15 +124,24 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.COMMIT_TOKEN }}
           
-      - name: Read Version
-        if: steps.check-changesets.outputs.hasChangesets == 'true'
+      - name: Read Version for Dev
+        if: github.ref == 'refs/heads/dev' && steps.check-changesets.outputs.hasChangesets == 'true'
+        run: |
+          cd packages/cosy-ui
+          version=$(node -p "require('./package.json').version")
+          echo "VERSION=${version}" >> $GITHUB_ENV
+
+      - name: Read Version for Main
+        if: github.ref == 'refs/heads/main'
         run: |
           cd packages/cosy-ui
           version=$(node -p "require('./package.json').version")
           echo "VERSION=${version}" >> $GITHUB_ENV
           
       - name: Create GitHub Release
-        if: steps.check-changesets.outputs.hasChangesets == 'true'
+        if: |
+          github.ref == 'refs/heads/dev' && steps.check-changesets.outputs.hasChangesets == 'true' ||
+          github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ env.VERSION }}
