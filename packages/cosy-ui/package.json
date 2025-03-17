@@ -29,7 +29,8 @@
 	],
 	"scripts": {
 		"dev": "astro dev",
-		"build": "vite build && tsx scripts/post-build.ts",
+		"build": "pnpm build:ui && pnpm build:docs",
+		"build:ui": "vite build && tsx scripts/post-build.ts",
 		"build:docs": "astro build"
 	},
 	"type": "module",

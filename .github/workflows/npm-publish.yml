@@ -3,14 +3,16 @@ name: 📦 Publish to npm
 on:
   workflow_run:
     workflows:
-      - '🎉 Release'
+      - '🎉 Release Cosy UI'
     types:
       - completed
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: |
+      github.event.workflow_run.conclusion == 'success' &&
+      !contains(github.event.workflow_run.head_branch, 'dev')
     permissions:
       contents: read
       id-token: write
@@ -25,6 +27,7 @@ jobs:
           cd packages/cosy-ui
           npm config set //registry.npmjs.org/:_authToken ${NODE_AUTH_TOKEN}
           npm whoami
+          pnpm build:ui
           npm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
