@@ -15,6 +15,11 @@ interface ImageMetadata {
 
 interface Props {
 	logo: ImageMetadata;
+	/**
+	 * Logo 链接地址
+	 * @default "/"
+	 */
+	logoHref?: string;
 	languages?: Array<{ code: string; name: string }>;
 	currentLocale?: string;
 	navItems?: Array<{
@@ -32,19 +37,47 @@ interface Props {
 	 * @default true
 	 */
 	sticky?: boolean;
+	/**
+	 * 基础路径，用于处理网站部署在二级目录的情况
+	 * @default ""
+	 */
+	basePath?: string;
 }
 
 const {
 	logo,
+	logoHref = "/",
 	navItems = [],
 	sticky = true,
+	languages = [
+		{ code: 'zh-cn', name: '中文' },
+		{ code: 'en', name: 'English' }
+	],
+	currentLocale = 'zh-cn',
+	basePath = ''
 } = Astro.props;
 
 type NavItem = { href: string; label: string; match: (path: string) => boolean };
+
+// 获取当前路径
+const currentPath = Astro.url.pathname;
+
+// 处理基础路径
+const basePathPattern = basePath ? new RegExp(`^${basePath}`) : null;
+const pathWithoutBase = basePathPattern ? currentPath.replace(basePathPattern, '') : currentPath;
+
+// 提取路径部分，排除语言代码
+const pathWithoutLocale = pathWithoutBase.replace(/^\/(zh-cn|en)/, '');
+
+// 生成语言切换链接
+function getLanguageUrl(langCode: string) {
+	// 如果有基础路径，需要加上
+	return `${basePath}/${langCode}${pathWithoutLocale}`;
+}
 ---
 
 <header class:list={[
-	"navbar bg-accent/80 backdrop-blur border-b border-base-200 z-50 w-full",
+	"navbar bg-accent/30 backdrop-blur border-base-200 z-50 w-full",
 	{ "fixed top-0": sticky }
 ]}>
 	<div class="navbar-start">
@@ -66,7 +99,7 @@ type NavItem = { href: string; label: string; match: (path: string) => boolean }
 			</ul>
 		</div>
 
-		<Link href="/" class="btn btn-ghost">
+		<Link href={logoHref} class="btn btn-ghost">
 			<Image src={logo} alt="logo" class="w-10 h-10" />
 		</Link>
 	</div>
@@ -85,14 +118,24 @@ type NavItem = { href: string; label: string; match: (path: string) => boolean }
 	</div>
 
 	<div class="navbar-end">
-		<Button 
-			variant="ghost" 
-			size="sm" 
-			class="btn-circle"
-			onClick="my_modal_1.showModal()"
-		>
-			<SearchIcon class="w-5 h-5" />
-		</Button>
+		<!-- 语言切换按钮 -->
+		<div class="dropdown dropdown-end">
+			<div tabindex="0" role="button" class="btn btn-ghost btn-sm">
+				<span class="mr-1">{currentLocale === 'zh-cn' ? '中文' : 'English'}</span>
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+				</svg>
+			</div>
+			<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32">
+				{languages.map((lang) => (
+					<li class={currentLocale === lang.code ? "disabled" : ""}>
+						<a href={getLanguageUrl(lang.code)} class={currentLocale === lang.code ? "active" : ""}>
+							{lang.name}
+						</a>
+					</li>
+				))}
+			</ul>
+		</div>
 	</div>
 </header>
 

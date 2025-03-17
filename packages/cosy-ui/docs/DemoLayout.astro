@@ -1,7 +1,8 @@
 ---
 import { getGroupedRoutes, createUrl } from './lib/route';
 import { DocumentationLayout } from '@/index';
-import type { SidebarSection, SidebarItem } from '@/components/layouts/DocumentationLayout.astro';
+import type { SidebarSection } from '@/components/layouts/DocumentationLayout.astro';
+import { getBaseUrl } from './lib/utils';
 
 interface Props {
 	title: string;
@@ -10,9 +11,19 @@ interface Props {
 
 const { title, showTOC = true } = Astro.props;
 
+// 获取基础路径
+const basePath = getBaseUrl();
+const homeLink = `${basePath}/`
+
 // 从 URL 获取当前语言
 const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
 const groupedRoutes = await getGroupedRoutes(currentLocale);
+
+// 定义支持的语言
+const languages = [
+	{ code: 'zh-cn', name: '中文' },
+	{ code: 'en', name: 'English' }
+];
 
 // 将路由转换为侧边栏项目格式
 const sidebarItems: SidebarSection[] = groupedRoutes.map(group => ({
@@ -27,26 +38,34 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map(group => ({
 <DocumentationLayout
 	debug={false}
 	title={title}
+	logoHref={homeLink}
+	footerHomeLink={homeLink}
 	siteName="Cosy UI"
 	sidebarItems={sidebarItems}
 	showTableOfContents={showTOC}
 	showHeader={true}
 	showFooter={true}
-	footerSlogan="优雅、高效的 Astro 组件库"
-	footerInspirationalSlogan="构建美好的用户界面"
+	footerSlogan={currentLocale === 'zh-cn' ? "优雅、高效的 Astro 组件库" : "A beautiful Astro component library"}
+	footerInspirationalSlogan={currentLocale === 'zh-cn' ? "构建美好的用户界面" : "Build a beautiful user interface"}
 	footerSocialLinks={[
 		"https://github.com/CofficLab/cosy-ui"
 	]}
 	footerProducts={[
-		{ name: "组件", href: createUrl("/components") },
-		{ name: "布局", href: createUrl("/layouts") },
-		{ name: "图标", href: createUrl("/components/icons") }
+		{ name: "Cisum", href: "https://coffic.zone.id/en/cisum" },
+		{ name: "JuiceEditor", href: "https://coffic.zone.id/en/juice-editor" },
+		{ name: "GitOK", href: "https://coffic.zone.id/en/gitok" },
+		{ name: "Cosy UI", href: "https://github.com/CofficLab/cosy-ui" }
 	]}
 	footerAboutLink="https://coffic.zone.id/en/meta/about"
 	footerContactLink="https://coffic.zone.id/en/meta/contact"
 	footerBlogLink="https://coffic.zone.id/en/blogs"
 	footerTermsLink="https://coffic.zone.id/en/meta/terms"
 	footerPrivacyLink="https://coffic.zone.id/en/meta/privacy"
+	footerHistoryLink="https://coffic.zone.id/en/meta/out-story"
+	footerTechStackLink="https://coffic.zone.id/en/meta/tech-stack"
+	currentLocale={currentLocale}
+	languages={languages}
+	basePath={basePath}
 >
 	<slot />
 	

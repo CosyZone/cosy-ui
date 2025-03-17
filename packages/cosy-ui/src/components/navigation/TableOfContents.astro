@@ -5,6 +5,7 @@
  * @description
  * TableOfContents 组件是一个目录导航组件，用于显示页面内容的标题结构。
  * 它会自动检测页面中的标题元素，生成目录列表，并在用户滚动页面时高亮当前可见的标题。
+ * 当页面只有一个标题或没有足够的标题结构时，组件会自动隐藏。
  * 
  * @design
  * 设计理念：
@@ -12,6 +13,8 @@
  * 2. 上下文感知 - 自动高亮当前阅读位置，提供阅读进度反馈
  * 3. 视觉层次 - 通过缩进和样式区分不同级别的标题
  * 4. 响应式设计 - 在小屏幕设备上自动隐藏，优化空间利用
+ * 5. 智能显示 - 当页面结构不需要目录时自动隐藏
+ * 6. 多语言支持 - 支持多种语言显示，自动检测当前语言环境
  * 
  * @usage
  * 基本用法：
@@ -37,10 +40,22 @@
  * ```astro
  * <TableOfContents containerSelector=".article-content" />
  * ```
+ * 
+ * 指定语言：
+ * ```astro
+ * <TableOfContents lang="zh-cn" />
+ * ```
+ * 
+ * 启用日志：
+ * ```astro
+ * <TableOfContents enableLogging={true} />
+ * ```
  */
 
 // 导入样式
 import '../../app.css';
+import { getCurrentLanguage, LanguageSource } from '../../utils/language';
+import { createTextGetter } from '../../utils/i18n';
 
 interface Props {
   /**
@@ -64,7 +79,7 @@ interface Props {
   maxDepth?: number;
   /**
    * 标题文本
-   * @default "目录"
+   * @default 根据语言自动选择
    */
   title?: string;
   /**
@@ -72,6 +87,21 @@ interface Props {
    * @default "main"
    */
   containerSelector?: string;
+  /**
+   * 显示目录所需的最少标题数量
+   * @default 2
+   */
+  minHeadings?: number;
+  /**
+   * 语言
+   * @default 自动检测
+   */
+  lang?: string;
+  /**
+   * 是否启用日志输出
+   * @default false
+   */
+  enableLogging?: boolean;
 }
 
 const {
@@ -79,27 +109,70 @@ const {
   class: className = '',
   selector = 'h2, h3',
   maxDepth = 3,
-  title = '目录',
   containerSelector = 'main',
+  minHeadings = 2,
+  lang: userLang,
+  title,
+  enableLogging = true,
 } = Astro.props;
+
+// 获取当前语言
+const langInfo = getCurrentLanguage(userLang);
+// 创建文本获取函数
+const t = createTextGetter(langInfo, 'tableOfContents');
+// 获取标题文本，如果用户提供了标题则使用用户提供的标题
+const titleText = title || t('title');
 
 // 生成唯一ID，确保多个TOC实例不会冲突
 const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
+
+// 获取语言来源的描述
+function getLanguageSourceDescription(source: LanguageSource): string {
+  switch (source) {
+    case LanguageSource.USER:
+      return '用户指定';
+    case LanguageSource.URL:
+      return 'URL参数';
+    case LanguageSource.BROWSER:
+      return '浏览器设置';
+    case LanguageSource.DEFAULT:
+      return '默认语言';
+    default:
+      return '未知来源';
+  }
+}
 ---
 
-<div class={`${fixed ? 'fixed top-20 right-4 w-64' : 'w-full max-w-xs'} ${className}`}>
+<div class={`toc-container ${fixed ? 'fixed top-20 right-4 w-64' : 'w-full max-w-xs'} ${className}`} id={`${tocId}-container`} style="display: none;">
   <div class="card bg-base-100 shadow-xl">
     <div class="card-body p-4">
-      <div class="card-title text-lg font-bold mb-2">{title}</div>
+      <div class="card-title text-lg font-bold mb-2">{titleText}</div>
       <ul class="menu menu-sm" id={tocId}>
         <!-- 目录项将通过 JavaScript 动态生成 -->
-        <li class="text-base-content/60">加载中...</li>
+        <li class="text-base-content/60">{t('loading')}</li>
       </ul>
     </div>
   </div>
 </div>
 
-<script define:vars={{ selector, maxDepth, tocId, containerSelector }}>
+<script define:vars={{ selector, maxDepth, tocId, containerSelector, minHeadings, langInfo, enableLogging }}>
+  // 输出语言信息到控制台
+  if (enableLogging) {
+    console.log(`[TableOfContents] 语言信息:`, {
+      语言代码: langInfo.code,
+      语言来源: langInfo.source,
+      来源描述: (() => {
+        switch (langInfo.source) {
+          case 'user': return '用户指定';
+          case 'url': return 'URL参数';
+          case 'browser': return '浏览器设置';
+          case 'default': return '默认语言';
+          default: return '未知来源';
+        }
+      })()
+    });
+  }
+
   // 在页面加载完成后生成目录
   function generateTOC() {
     // 使用指定的容器选择器查找内容容器
@@ -114,8 +187,18 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
     });
     
     const tocList = document.getElementById(tocId);
+    const tocContainer = document.getElementById(`${tocId}-container`);
     
-    if (!tocList || headings.length === 0) return;
+    if (!tocList || !tocContainer) return;
+    
+    // 如果标题数量少于最小要求，保持隐藏状态并退出
+    if (headings.length < minHeadings) {
+      tocContainer.style.display = 'none';
+      return;
+    }
+    
+    // 显示目录容器
+    tocContainer.style.display = 'block';
     
     // 清空占位符
     tocList.innerHTML = '';
@@ -192,12 +275,10 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
       });
     });
     
-    // 如果没有找到标题，显示提示信息
-    if (tocList.children.length === 0) {
-      const listItem = document.createElement('li');
-      listItem.textContent = '没有找到标题';
-      listItem.className = 'text-base-content/60';
-      tocList.appendChild(listItem);
+    // 如果没有找到标题或标题数量不足，隐藏目录
+    if (tocList.children.length < minHeadings) {
+      tocContainer.style.display = 'none';
+      return;
     }
     
     // 添加活动标题高亮
@@ -234,11 +315,14 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
   
   // 高亮当前可见的标题
   function highlightActiveHeading() {
+    const tocContainer = document.getElementById(`${tocId}-container`);
+    if (!tocContainer || tocContainer.style.display === 'none') return;
+    
     const container = document.querySelector(containerSelector);
     if (!container) return;
     
     const headings = Array.from(container.querySelectorAll(selector));
-    if (headings.length === 0) return;
+    if (headings.length < minHeadings) return;
     
     // 获取视口高度和滚动位置
     const viewportHeight = window.innerHeight;
@@ -304,15 +388,15 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
     // 确保活动链接在视图中可见
     const activeLink = document.querySelector(`#${tocId} a.text-primary`);
     if (activeLink && tocList) {
-      const tocContainer = document.querySelector('.fixed');
-      if (tocContainer) {
+      const tocScrollContainer = document.querySelector('.fixed');
+      if (tocScrollContainer) {
         const linkTop = activeLink.offsetTop;
-        const containerScrollTop = tocContainer.scrollTop;
-        const containerHeight = tocContainer.clientHeight;
+        const containerScrollTop = tocScrollContainer.scrollTop;
+        const containerHeight = tocScrollContainer.clientHeight;
         
         // 如果链接不在可视区域内，滚动到可见位置
         if (linkTop < containerScrollTop || linkTop > containerScrollTop + containerHeight) {
-          tocContainer.scrollTop = linkTop - containerHeight / 2;
+          tocScrollContainer.scrollTop = linkTop - containerHeight / 2;
         }
       }
     }
@@ -324,9 +408,13 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
   generateTOC();
   
   // 添加resize事件监听，在窗口大小变化时重新计算高亮
-  window.addEventListener('resize', throttle(highlightActiveHeading, 100));
+  window.addEventListener('resize', throttle(() => {
+    generateTOC(); // 重新生成TOC，以防窗口大小变化导致标题可见性变化
+    highlightActiveHeading();
+  }, 100));
   
   // 立即触发一次高亮计算
+  setTimeout(generateTOC, 100);
   setTimeout(highlightActiveHeading, 500);
 </script>
 

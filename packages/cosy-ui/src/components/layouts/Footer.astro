@@ -12,6 +12,7 @@
  * 2. 响应式布局 - 在不同屏幕尺寸下保持良好的可用性和美观性
  * 3. 可定制性 - 支持多种配置选项，适应不同网站的需求
  * 4. 品牌一致性 - 与网站整体设计风格保持一致
+ * 5. 多语言支持 - 支持多种语言显示，自动检测当前语言环境
  * 
  * 视觉特点：
  * - 分区布局：清晰区分不同类别的信息
@@ -89,6 +90,27 @@
  * />
  * ```
  * 
+ * 指定语言：
+ * ```astro
+ * <Footer 
+ *   siteName="My Website"
+ *   homeLink="/"
+ *   slogan="Simple and Powerful"
+ *   company="My Company"
+ *   copyright="All Rights Reserved"
+ *   lang="en"
+ * />
+ * ```
+ * 
+ * 启用日志：
+ * ```astro
+ * <Footer 
+ *   siteName="我的网站"
+ *   homeLink="/"
+ *   enableLogging={true}
+ * />
+ * ```
+ * 
  * @props
  * @prop {string} siteName - 网站名称
  * @prop {string} homeLink - 首页链接
@@ -114,6 +136,8 @@
  * @prop {string} [mediaLink] - "媒体报道"页面链接
  * @prop {string} [techStackLink] - "技术栈"页面链接
  * @prop {boolean} [debug=false] - 调试模式
+ * @prop {string} [lang] - 语言代码，默认自动检测
+ * @prop {boolean} [enableLogging=false] - 是否启用日志输出
  * 
  * @accessibility
  * - 使用语义化HTML结构，确保屏幕阅读器可以正确解析
@@ -125,11 +149,24 @@ import { processSocialLink } from '../../utils/social';
 import Link from '../base/Link.astro';
 import SocialIcon from '../icons/SocialIcon.astro';
 import type { FooterProps } from '../../types/footer';
+import { getCurrentLanguage, LanguageSource } from '../../utils/language';
+import { createTextGetter } from '../../utils/i18n';
 
 // 导入样式
 import '../../app.css';
 
-interface Props extends FooterProps {}
+interface Props extends FooterProps {
+	/**
+	 * 语言代码
+	 * @default 自动检测
+	 */
+	lang?: string;
+	/**
+	 * 是否启用日志输出
+	 * @default false
+	 */
+	enableLogging?: boolean;
+}
 
 const {
 	siteName,
@@ -156,7 +193,30 @@ const {
 	mediaLink,
 	techStackLink,
 	debug = false,
+	lang: userLang,
+	enableLogging = false,
 }: Props = Astro.props;
+
+// 获取当前语言
+const langInfo = getCurrentLanguage(userLang);
+// 创建文本获取函数
+const t = createTextGetter(langInfo, 'footer');
+
+// 获取语言来源的描述
+function getLanguageSourceDescription(source: LanguageSource): string {
+  switch (source) {
+    case LanguageSource.USER:
+      return '用户指定';
+    case LanguageSource.URL:
+      return 'URL参数';
+    case LanguageSource.BROWSER:
+      return '浏览器设置';
+    case LanguageSource.DEFAULT:
+      return '默认语言';
+    default:
+      return '未知来源';
+  }
+}
 
 const currentYear = new Date().getFullYear();
 
@@ -178,7 +238,7 @@ const debugClasses = debug ? {
 ---
 
 <footer class:list={["footer sm:footer-horizontal bg-base-200 text-base-content p-10", debugClasses.footer]}>
-	<div class:list={["flex container mx-auto sm:flex-col md:flex-row justify-between gap-8", debugClasses.section]}>
+	<div class:list={["flex flex-col gap-8 container mx-auto items-center w-full md:flex-row md:justify-between", debugClasses.section]}>
 		{/* 品牌区域 */}
 		<aside class:list={["max-w-xs", debugClasses.aside]}>
 			<a href={homeLink} class="flex items-center gap-2 mb-4">
@@ -215,13 +275,14 @@ const debugClasses = debug ? {
 			)}
 		</aside>
 
-		<div class:list={["grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 sm:justify-end", debugClasses.section]}>
+		{/* 导航区域 */}
+		<div class:list={["flex flex-col gap-8 mx-auto max-w-xl text-center items-center w-full md:flex-row md:justify-between md:items-start", debugClasses.section]}>
 			{/* 产品导航 */}
 			{products.length > 0 && (
-				<nav class:list={["", debugClasses.nav]}>
-					<h6 class="footer-title">产品</h6>
+				<nav class:list={["h-full", debugClasses.nav]}>
+					<h6 class="footer-title">{t('products')}</h6>
 					{products.map((product) => (
-						<Link href={product.href} external={product.external} block animation='hover-lift'>
+						<Link href={product.href} external={product.external} size='sm' block animation='hover-lift'>
 							{product.name}
 						</Link>
 					))}
@@ -230,32 +291,33 @@ const debugClasses = debug ? {
 
 			{/* 关于导航 */}
 			{(aboutLink || contactLink || teamLink || careersLink) && (
-				<nav class:list={["", debugClasses.nav]}>
-					<h6 class="footer-title">关于我们</h6>
-					{aboutLink && <Link href={aboutLink} block animation='hover-lift'>关于我们</Link>}
-					{teamLink && <Link href={teamLink} block animation='hover-lift'>团队介绍</Link>}
-					{careersLink && <Link href={careersLink} block animation='hover-lift'>加入我们</Link>}
-					{contactLink && <Link href={contactLink} block animation='hover-lift'>联系我们</Link>}
+				<nav class:list={["h-full", debugClasses.nav]}>
+					<h6 class="footer-title">{t('about')}</h6>
+					{aboutLink && <Link href={aboutLink} block animation='hover-lift' size='sm'>{t('aboutUs')}</Link>}
+					{teamLink && <Link href={teamLink} block animation='hover-lift' size='sm'>{t('team')}</Link>}
+					{careersLink && <Link href={careersLink} block animation='hover-lift' size='sm'>{t('careers')}</Link>}
+					{contactLink && <Link href={contactLink} block animation='hover-lift' size='sm'>{t('contactUs')}</Link>}
 				</nav>
 			)}
 
 			{/* 资源导航 */}
 			{(newsLink || historyLink || partnersLink || blogLink || faqLink || mediaLink || techStackLink) && (
 				<nav class:list={["", debugClasses.nav]}>
-					<h6 class="footer-title">资源</h6>
-					{newsLink && <Link href={newsLink} block animation='hover-lift'>新闻动态</Link>}
-					{blogLink && <Link href={blogLink} block animation='hover-lift'>技术博客</Link>}
-					{faqLink && <Link href={faqLink} block animation='hover-lift'>常见问题</Link>}
-					{techStackLink && <Link href={techStackLink} block animation='hover-lift'>技术栈</Link>}
+					<h6 class="footer-title">{t('resources')}</h6>
+					{newsLink && <Link href={newsLink} block animation='hover-lift' size='sm'>{t('news')}</Link>}
+					{blogLink && <Link href={blogLink} block animation='hover-lift' size='sm'>{t('blog')}</Link>}
+					{faqLink && <Link href={faqLink} block animation='hover-lift' size='sm'>{t('faq')}</Link>}
+					{historyLink && <Link href={historyLink} block animation='hover-lift' size='sm'>{t('history')}</Link>}
+					{techStackLink && <Link href={techStackLink} block animation='hover-lift' size='sm'>{t('techStack')}</Link>}
 				</nav>
 			)}
 
 			{/* 法律导航 */}
 			{(termsLink || privacyLink) && (
 				<nav class:list={["", debugClasses.nav]}>
-					<h6 class="footer-title">法律</h6>
-					{termsLink && <Link href={termsLink} block animation='hover-lift'>服务条款</Link>}
-					{privacyLink && <Link href={privacyLink} block animation='hover-lift'>隐私政策</Link>}
+					<h6 class="footer-title">{t('legal')}</h6>
+					{termsLink && <Link href={termsLink} block animation='hover-lift' size='sm'>{t('terms')}</Link>}
+					{privacyLink && <Link href={privacyLink} block animation='hover-lift' size='sm'>{t('privacy')}</Link>}
 				</nav>
 			)}
 		</div>
@@ -273,7 +335,7 @@ const debugClasses = debug ? {
 <div class:list={["footer footer-center p-4 bg-base-300 text-base-content", debugClasses.footer]}>
 	<aside class:list={["items-center grid-flow-col", debugClasses.aside]}>
 		<p class="text-sm opacity-70">
-			© {currentYear} {company} - {copyright}
+			© {currentYear} {company} - {copyright || t('allRightsReserved')}
 		</p>
 		{icp && (
 			<p class="text-sm opacity-70 ml-4">
@@ -282,3 +344,29 @@ const debugClasses = debug ? {
 		)}
 	</aside>
 </div>
+
+<script define:vars={{ langInfo, enableLogging }}>
+  // 输出语言信息到控制台
+  if (enableLogging) {
+    console.log(`[Footer] 语言信息:`, {
+      语言代码: langInfo.code,
+      语言来源: langInfo.source,
+      来源描述: (() => {
+        switch (langInfo.source) {
+          case 'user': return '用户指定';
+          case 'url': return 'URL参数';
+          case 'browser': return '浏览器设置';
+          case 'default': return '默认语言';
+          default: return '未知来源';
+        }
+      })()
+    });
+  }
+</script>
+
+<style scoped>
+	@reference '../../app.css';
+	nav {
+		@apply flex flex-col gap-3;
+	}
+</style>

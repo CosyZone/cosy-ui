@@ -1,0 +1,108 @@
+---
+title: 'Container Component'
+description: 'A basic layout container for limiting content width and centering display, supporting various sizes and padding options'
+folder: false
+order: 1
+---
+
+import { Container, CodeExample } from '@/index';
+
+## Basic Container
+
+The simplest way to use a container, content will be limited to a reasonable width and centered
+
+<CodeExample
+  code={`<Container>
+  <p>Content will be limited to a reasonable width and centered</p>
+</Container>`}
+>
+  <Container>
+    <p>Content will be limited to a reasonable width and centered</p>
+  </Container>
+</CodeExample>
+
+## Different Size Containers
+
+Set the container width size using the size property, supporting xs, sm, md, lg, xl, and full
+
+<CodeExample
+  code={`<Container size="sm">
+  <p>Small size container</p>
+</Container>`}
+>
+  <Container size="sm">
+    <p>Small size container</p>
+  </Container>
+</CodeExample>
+
+## Custom Padding
+
+Set the container's padding size using the padding property, supporting none, sm, md, lg, and xl
+
+<CodeExample
+  code={`<Container padding="lg">
+  <p>Container with large padding</p>
+</Container>`}
+>
+  <Container padding="lg">
+    <p>Container with large padding</p>
+  </Container>
+</CodeExample>
+
+## Non-centered Container
+
+Set the centered property to false to make the container content not centered
+
+<CodeExample
+  code={`<Container centered={false}>
+  <p>Non-centered container, left-aligned</p>
+</Container>`}
+>
+  <Container centered={false}>
+    <p>Non-centered container, left-aligned</p>
+  </Container>
+</CodeExample>
+
+## Full Width Container
+
+Use size="full" to create a container that takes up the entire available width
+
+<CodeExample
+  code={`<Container size="full" padding="none">
+  <p>Full width container, no padding</p>
+</Container>`}
+>
+  <Container size="full" padding="none">
+    <p>Full width container, no padding</p>
+  </Container>
+</CodeExample>
+
+## Combined Usage
+
+Demonstrates multiple properties of the Container component used together
+
+<CodeExample
+  code={`<Container 
+  size="lg" 
+  padding="xl" 
+  centered={true}
+  class="my-custom-class"
+>
+  <div class="bg-base-200 p-4 rounded-lg">
+    <h3 class="text-lg font-bold">Large Size Container</h3>
+    <p>Using extra large padding, centered content display, and custom class name</p>
+  </div>
+</Container>`}
+>
+  <Container 
+    size="lg" 
+    padding="xl" 
+    centered={true}
+    class="my-custom-class"
+  >
+    <div class="bg-base-200 p-4 rounded-lg">
+      <h3 class="text-lg font-bold">Large Size Container</h3>
+      <p>Using extra large padding, centered content display, and custom class name</p>
+    </div>
+  </Container>
+</CodeExample> 
