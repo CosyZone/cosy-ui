@@ -105,14 +105,22 @@ jobs:
           current_version=$(node -p "require('./package.json').version")
           IFS='.' read -r major minor patch <<< "$current_version"
           
+          # 版本升级规则说明:
+          # 1. 版本格式遵循 semver 规范: major.minor.patch[-prerelease]
+          # 2. 在预发布流程中，我们升级 patch 版本号（补丁版本号）
+          # 3. 无论当前是什么版本，都会添加 beta.1 作为预发布标识
+          # 4. 例如:
+          #    - 1.2.3    -> 1.2.4-beta.1
+          #    - 1.2.3-rc.1 -> 1.2.4-beta.1
+          
           # 如果版本包含预发布标识，则提取它
           if [[ "$patch" == *"-"* ]]; then
             IFS='-' read -r patch_num prerelease <<< "$patch"
-            new_minor=$((minor + 1))
-            new_version="${major}.${new_minor}.0-beta.1"
+            new_patch=$((patch_num + 1))
+            new_version="${major}.${minor}.${new_patch}-beta.1"
           else
-            new_minor=$((minor + 1))
-            new_version="${major}.${new_minor}.0-beta.1"
+            new_patch=$((patch + 1))
+            new_version="${major}.${minor}.${new_patch}-beta.1"
           fi
           
           # 更新 package.json 中的版本号
