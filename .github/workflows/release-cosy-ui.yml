@@ -133,6 +133,7 @@ jobs:
         
       - name: Commit Version Changes
         run: |
+          git pull origin main
           git add .
           git commit -m "chore: release version ${{ env.VERSION }}"
           git tag v${{ env.VERSION }}
