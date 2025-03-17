@@ -1,9 +1,9 @@
 name: Deploy Documentation Site
 on:
-  # 在 main 分支推送时触发
   push:
-    branches: [main]
-  # 允许手动触发部署
+    branches:
+      - dev
+      - main
   workflow_dispatch:
 
 # 设置 GITHUB_TOKEN 的权限
@@ -52,7 +52,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: demo/dist
+          path: packages/cosy-ui/dist-docs
 
   deploy:
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
