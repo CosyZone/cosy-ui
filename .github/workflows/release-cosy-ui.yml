@@ -48,6 +48,8 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write  # 添加创建 PR 的权限
+  issues: write        # 添加创建 issue 的权限
 
 env:
   tag: ${{ github.event.head_commit.id }}
