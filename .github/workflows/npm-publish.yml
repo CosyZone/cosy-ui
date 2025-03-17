@@ -31,6 +31,7 @@ jobs:
           cd packages/cosy-ui
           npm config set //registry.npmjs.org/:_authToken ${NODE_AUTH_TOKEN}
           npm whoami
+          pnpm i
           pnpm build:ui
           npm publish --access public --no-git-checks
         env:
