@@ -6,21 +6,19 @@ alwaysApply: true
 
 # 关于这个项目
 
-这是一个Astro组件库，为同一个组织下的多个项目提供统一的UI风格。
+这是一个工作空间，它分成以下部分：
 
-它分成两部分：
+- packages
+    - cosy-ui：一个astro组件库
+        - src：这里存放了组件库的源码
+        - docs：cosy-ui的对外文档网站，基于 Astro + Cosy-UI 构建
 
-- packages/cosy-ui：组件库的源码文件夹
-- demo：在开发阶段用来测试这些组件的样本项目
+将来还会增加更多项目到packages目录中。
 
 ## 和用户交流时
 
 - 使用中文
 - 如果用户的要求不合理或不符合该技术的最佳实践，应指出
-
-## 图标
-
-- 统一放入 icons 来管理，像 [AlertTriangle.astro](mdc:packages/cosy-ui/src/icons/AlertTriangle.astro) 那样
 
 ## Code Style
 
@@ -28,7 +26,7 @@ alwaysApply: true
 - 每个文件指处理单一的一件事
 - 单个文件不要过大，适当拆分代码到多个文件中
 
-## Astro 组件
+## cosy-ui 组件库
 
 - 使用 Typescript
 - 使用 TailwindCSS 处理样式，在顶部导入 [app.css](mdc:packages/cosy-ui/src/app.css)
@@ -37,16 +35,14 @@ alwaysApply: true
     - components 目录存放普通组件
     - layouts 目录存放页面布局组件
     - 根据情况，可自行创建其他文件夹
-- 不要忘记在Demo中为组件增加使用的例子，比如：
+- 不要忘记在 Docs 中为组件增加使用的例子，比如：
     - 普通组件放在 .../pages/components 目录
     - 布局组件放在 .../pages/layouts 目录
-- 在例子中这样导入组件：import { Alert as AlertComponent } from '@coffic/cosy-ui';
+- 在例子中这样导入组件：import { Alert as AlertComponent } from '@/index';
 - 不要忘了在 main.ts 导出组件
 - 不要忘记了像其他组件那样在顶部写清楚文档
-
-## Types
-
-Types 目录在 src/types
+- Types 目录在 src/types
+- 图标统一放入 icons 来管理，像 @AlertTriangle.astro 那样
 
 ## 包管理
 
