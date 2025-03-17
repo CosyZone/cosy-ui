@@ -178,7 +178,7 @@ const debugClasses = debug ? {
 ---
 
 <footer class:list={["footer sm:footer-horizontal bg-base-200 text-base-content p-10", debugClasses.footer]}>
-	<div class:list={["flex container mx-auto sm:flex-col md:flex-row justify-between gap-8", debugClasses.section]}>
+	<div class:list={["flex flex-col gap-8  container mx-auto items-center w-full md:flex-row md:justify-between", debugClasses.section]}>
 		{/* 品牌区域 */}
 		<aside class:list={["max-w-xs", debugClasses.aside]}>
 			<a href={homeLink} class="flex items-center gap-2 mb-4">
@@ -215,7 +215,7 @@ const debugClasses = debug ? {
 			)}
 		</aside>
 
-		<div class:list={["grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 sm:justify-end", debugClasses.section]}>
+		<div class:list={["flex flex-col gap-8 text-center items-center w-full md:flex-row md:justify-between", debugClasses.section]}>
 			{/* 产品导航 */}
 			{products.length > 0 && (
 				<nav class:list={["", debugClasses.nav]}>
