@@ -116,10 +116,14 @@ jobs:
           cd packages/cosy-ui
           current_version=$(node -p "require('./package.json').version")
           
-          # 如果版本包含预发布标识，则移除它
+          # 如果版本包含预发布标识，则移除它并升级补丁版本
           if [[ "$current_version" == *"-"* ]]; then
             IFS='-' read -r stable_version prerelease <<< "$current_version"
-            new_version="${stable_version}"
+            # 拆分版本号为主版本、次版本和补丁版本
+            IFS='.' read -r major minor patch <<< "$stable_version"
+            # 增加补丁版本号
+            patch=$((patch + 1))
+            new_version="${major}.${minor}.${patch}"
           else
             new_version="${current_version}"
           fi
