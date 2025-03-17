@@ -87,13 +87,15 @@ const {
 const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
 ---
 
-<div class={`toc ${fixed ? 'toc-fixed' : ''} ${className}`}>
-  <div class="toc-container">
-    <div class="toc-title">{title}</div>
-    <ul class="toc-list" id={tocId}>
-      <!-- 目录项将通过 JavaScript 动态生成 -->
-      <li class="toc-placeholder">加载中...</li>
-    </ul>
+<div class={`${fixed ? 'fixed top-20 right-4 w-64' : 'w-full max-w-xs'} ${className}`}>
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-body p-4">
+      <h2 class="card-title text-lg font-bold mb-2">{title}</h2>
+      <ul class="menu menu-sm" id={tocId}>
+        <!-- 目录项将通过 JavaScript 动态生成 -->
+        <li class="text-base-content/60">加载中...</li>
+      </ul>
+    </div>
   </div>
 </div>
 
@@ -142,20 +144,17 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
       if (level > maxDepth) return;
       
       const listItem = document.createElement('li');
-      listItem.className = `toc-item toc-level-${level}`;
-      listItem.dataset.headingId = heading.id; // 添加数据属性，便于后续查找
+      listItem.className = `toc-level-${level}`;
+      listItem.dataset.headingId = heading.id;
       
       const link = document.createElement('a');
       link.href = `#${heading.id}`;
       link.textContent = heading.textContent;
-      link.className = 'toc-link';
+      link.className = 'text-base-content/80 hover:text-primary transition-colors';
       
-      // 添加前缀标记，增强视觉层次
+      // 添加缩进
       if (level === 3) {
-        const prefix = document.createElement('span');
-        prefix.className = 'toc-prefix';
-        prefix.innerHTML = '└─ ';
-        link.prepend(prefix);
+        link.style.paddingLeft = '1.5rem';
       }
       
       listItem.appendChild(link);
@@ -192,7 +191,7 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
     if (tocList.children.length === 0) {
       const listItem = document.createElement('li');
       listItem.textContent = '没有找到标题';
-      listItem.className = 'toc-empty';
+      listItem.className = 'text-base-content/60';
       tocList.appendChild(listItem);
     }
     
@@ -261,33 +260,24 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
     // 如果找到了最接近的标题，使用它的ID
     if (closestHeading) {
       activeHeadingId = closestHeading.id;
-      
-      // 为当前活动标题添加一个临时的高亮效果
-      headings.forEach(h => h.classList.remove('current-heading'));
-      closestHeading.classList.add('current-heading');
-      
-      // 5秒后移除高亮效果
-      setTimeout(() => {
-        closestHeading.classList.remove('current-heading');
-      }, 5000);
     } else if (headings.length > 0) {
       // 如果没有找到，使用第一个标题
       activeHeadingId = headings[0].id;
     }
     
     // 更新活动链接样式
-    const tocLinks = document.querySelectorAll(`#${tocId} .toc-link`);
+    const tocLinks = document.querySelectorAll(`#${tocId} a`);
     let hasActiveLink = false;
     
     tocLinks.forEach(link => {
       const href = link.getAttribute('href').substring(1);
       
       // 清除所有高亮
-      link.classList.remove('toc-active', 'toc-parent-active');
+      link.classList.remove('text-primary', 'font-medium');
       
       // 添加当前活动标题的高亮
       if (href === activeHeadingId) {
-        link.classList.add('toc-active');
+        link.classList.add('text-primary', 'font-medium');
         hasActiveLink = true;
         
         // 添加一个动画效果，使高亮更明显
@@ -298,33 +288,18 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
           duration: 300,
           easing: 'ease-out'
         });
-        
-        // 如果是 h3，也高亮相关的 h2
-        const h3Item = link.closest('.toc-level-3');
-        if (h3Item) {
-          // 找到前面最近的 h2
-          let prevItem = h3Item.previousElementSibling;
-          while (prevItem) {
-            if (prevItem.classList.contains('toc-level-2')) {
-              const h2Link = prevItem.querySelector('.toc-link');
-              if (h2Link) h2Link.classList.add('toc-parent-active');
-              break;
-            }
-            prevItem = prevItem.previousElementSibling;
-          }
-        }
       }
     });
     
     // 如果没有找到活动链接，尝试高亮第一个标题
     if (!hasActiveLink && tocLinks.length > 0) {
-      tocLinks[0].classList.add('toc-active');
+      tocLinks[0].classList.add('text-primary', 'font-medium');
     }
     
     // 确保活动链接在视图中可见
-    const activeLink = document.querySelector(`#${tocId} .toc-active`);
+    const activeLink = document.querySelector(`#${tocId} a.text-primary`);
     if (activeLink && tocList) {
-      const tocContainer = document.querySelector('.toc-fixed');
+      const tocContainer = document.querySelector('.fixed');
       if (tocContainer) {
         const linkTop = activeLink.offsetTop;
         const containerScrollTop = tocContainer.scrollTop;

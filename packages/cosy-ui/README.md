@@ -42,12 +42,7 @@ import { Alert } from '@cofficlab/cosy-ui';
 
 ## 📚 文档
 
-访问我们的[文档网站](https://github.com/cofficlab/cosy-ui)获取更多信息：
-
-- 完整的组件列表
-- 详细的 API 文档
-- 使用示例
-- 最佳实践指南
+访问我们的[网站](https://github.com/cofficlab/cosy-ui)获取更多信息。
 
 ## 🤝 贡献
 
