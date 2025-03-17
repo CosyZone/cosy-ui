@@ -6,21 +6,22 @@
 # 工作流程说明：
 # 1. 开发流程 (dev 分支)：
 #    - 在 dev 分支进行日常开发
-#    - 当功能开发完善后，运行 `pnpm changeset` 添加变更说明
 #    - 提交并推送到 dev 分支
 #
 # 2. 预发布流程 (pre 分支)：
 #    - 将 dev 分支合并到 pre 分支
-#    - 自动处理 changeset 并发布预发布版本（如：1.0.0-beta.1）
+#    - 自动升级小版本号
+#    - 构建项目
+#    - 创建新标签
+#    - 发布预发布版本
 #
 # 发布条件：
-# - 只有当存在未处理的 changeset 时才会触发发布
+# - 推送到 pre 分支时自动触发
 # - 发布为预发布版本（prerelease）
 #
 # 使用方法：
 # 1. 日常开发完成后：
 #    ```bash
-#    pnpm changeset  # 添加变更说明
 #    git add .
 #    git commit -m "feat: your changes"
 #    git push origin dev
@@ -93,44 +94,54 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
         
-      - name: Build Packages
-        run: pnpm build
-        
       - name: Configure Git
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           
-      - name: Check for changesets
-        id: check-changesets
+      - name: Bump Minor Version
         run: |
-          if [ -n "$(find .changeset -name '*.md' -not -name 'README.md')" ]; then
-            echo "hasChangesets=true" >> $GITHUB_OUTPUT
+          cd packages/cosy-ui
+          current_version=$(node -p "require('./package.json').version")
+          IFS='.' read -r major minor patch <<< "$current_version"
+          
+          # 如果版本包含预发布标识，则提取它
+          if [[ "$patch" == *"-"* ]]; then
+            IFS='-' read -r patch_num prerelease <<< "$patch"
+            new_minor=$((minor + 1))
+            new_version="${major}.${new_minor}.0-beta.1"
           else
-            echo "hasChangesets=false" >> $GITHUB_OUTPUT
+            new_minor=$((minor + 1))
+            new_version="${major}.${new_minor}.0-beta.1"
           fi
           
-      - name: Version and Publish
-        if: steps.check-changesets.outputs.hasChangesets == 'true'
+          # 更新 package.json 中的版本号
+          npm version $new_version --no-git-tag-version
+          echo "VERSION=${new_version}" >> $GITHUB_ENV
+          
+      - name: Build Packages
+        run: pnpm build
+        
+      - name: Commit Version Changes
         run: |
-          pnpm changeset version
           git add .
-          git commit -m "chore: update versions"
+          git commit -m "chore: bump version to ${{ env.VERSION }}"
+          git tag v${{ env.VERSION }}
           git push origin pre
+          git push origin v${{ env.VERSION }}
         env:
           GITHUB_TOKEN: ${{ secrets.COMMIT_TOKEN }}
           
-      - name: Read Version
-        if: steps.check-changesets.outputs.hasChangesets == 'true'
-        run: |
-          cd packages/cosy-ui
-          version=$(node -p "require('./package.json').version")
-          echo "VERSION=${version}" >> $GITHUB_ENV
-          
       - name: Create GitHub Release
-        if: steps.check-changesets.outputs.hasChangesets == 'true'
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ env.VERSION }}
           generate_release_notes: true
-          prerelease: true 
+          prerelease: true
+          
+      - name: Publish to NPM
+        run: |
+          cd packages/cosy-ui
+          npm publish --tag beta
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} 

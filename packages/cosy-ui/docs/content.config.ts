@@ -9,6 +9,8 @@ export const collections = {
         }),
         schema: z.object({
             title: z.string(),
+            folder: z.boolean(),
+            order: z.number(),
             description: z.string().optional(),
         }),
     }),

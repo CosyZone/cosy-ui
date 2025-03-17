@@ -298,6 +298,11 @@ export interface Props {
    * 技术栈链接
    */
   footerTechStackLink?: string;
+
+  /**
+   * 首页链接
+   */
+  footerHomeLink?: string;
 }
 
 const {
@@ -317,6 +322,7 @@ const {
   navItems,
   languages,
   currentLocale,
+  footerHomeLink,
   footerSlogan,
   footerCompany,
   footerCopyright,
@@ -395,7 +401,7 @@ const currentPath = Astro.url.pathname;
   {showFooter && (
     <Footer 
       siteName={siteName}
-      homeLink="/"
+      homeLink={footerHomeLink || "/"}
       slogan={footerSlogan || "优雅、高效的组件库"}
       company={footerCompany || siteName}
       copyright={footerCopyright || "保留所有权利"}

@@ -1,7 +1,7 @@
 ---
 import { getGroupedRoutes, createUrl } from './lib/route';
 import { DocumentationLayout } from '@/index';
-import type { SidebarSection, SidebarItem } from '@/components/layouts/DocumentationLayout.astro';
+import type { SidebarSection } from '@/components/layouts/DocumentationLayout.astro';
 
 interface Props {
 	title: string;
@@ -27,6 +27,7 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map(group => ({
 <DocumentationLayout
 	debug={false}
 	title={title}
+	footerHomeLink="/cosy-ui/"
 	siteName="Cosy UI"
 	sidebarItems={sidebarItems}
 	showTableOfContents={showTOC}
@@ -38,15 +39,18 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map(group => ({
 		"https://github.com/CofficLab/cosy-ui"
 	]}
 	footerProducts={[
-		{ name: "组件", href: createUrl("/components") },
-		{ name: "布局", href: createUrl("/layouts") },
-		{ name: "图标", href: createUrl("/components/icons") }
+		{ name: "Cisum", href: "https://coffic.zone.id/en/cisum" },
+		{ name: "JuiceEditor", href: "https://coffic.zone.id/en/juice-editor" },
+		{ name: "GitOK", href: "https://coffic.zone.id/en/gitok" },
+		{ name: "Cosy UI", href: "https://github.com/CofficLab/cosy-ui" }
 	]}
 	footerAboutLink="https://coffic.zone.id/en/meta/about"
 	footerContactLink="https://coffic.zone.id/en/meta/contact"
 	footerBlogLink="https://coffic.zone.id/en/blogs"
 	footerTermsLink="https://coffic.zone.id/en/meta/terms"
 	footerPrivacyLink="https://coffic.zone.id/en/meta/privacy"
+	footerHistoryLink="https://coffic.zone.id/en/meta/out-story"
+	footerTechStackLink="https://coffic.zone.id/en/meta/tech-stack"
 >
 	<slot />
 	
