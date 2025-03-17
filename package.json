@@ -2,7 +2,7 @@
     "name": "cosy-ui-workspace",
     "private": true,
     "engines": {
-        "node": ">=20.18.1"
+        "node": ">=18"
     },
     "packageManager": "pnpm@9.15.9",
     "description": "Workspace for Cosy UI components",
@@ -14,7 +14,7 @@
         "preview:demo": "pnpm --filter demo preview",
         "package:dev": "pnpm --filter astro-cosy dev",
         "playground:dev": "pnpm --filter playground dev",
-        "dev": "pnpm --stream -r -parallel dev",
+        "dev": "pnpm run build:ui && pnpm --stream -r -parallel dev",
         "dev:demo": "pnpm --filter demo dev",
         "changeset": "changeset",
         "ci:version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile && pnpm dedupe",

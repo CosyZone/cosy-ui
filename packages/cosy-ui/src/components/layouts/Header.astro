@@ -37,23 +37,126 @@ const {
 type NavItem = { href: string; label: string; match: (path: string) => boolean };
 ---
 
-<header class="header bg-red-500">
-	<div>
-		<div class="flex items-center">
-			<Link href="/" class="flex h-8 w-8 items-center justify-center">
-				<Image src={logo} alt="logo" class="fill-current" />
-			</Link>
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 transition-all duration-300 hover:bg-white">
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="flex items-center justify-between h-16">
+			<div class="flex items-center">
+				<Link 
+					href="/" 
+					class="flex h-10 w-10 items-center justify-center transform transition-transform duration-300 hover:scale-110"
+				>
+					<Image src={logo} alt="logo" class="fill-current" />
+				</Link>
 
-			<!-- 桌面端导航 -->
-			<div class="ml-4 hidden items-center gap-4 lg:flex">
-				{navItems.map((item: NavItem) => <Link href={item.href}>{item.label}</Link>)}
+				<!-- 桌面端导航 -->
+				<nav class="ml-8 hidden lg:flex items-center space-x-6">
+					{navItems.map((item: NavItem) => (
+						<Link 
+							href={item.href}
+							class="text-gray-600 hover:text-primary-600 py-2 text-sm font-medium transition-colors duration-200 relative group"
+						>
+							{item.label}
+							<span class="absolute bottom-0 left-0 w-full h-0.5 bg-primary-500 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
+						</Link>
+					))}
+				</nav>
+			</div>
+
+			<div class="flex items-center gap-4">
+				<Button 
+					variant="ghost" 
+					size="sm" 
+					class="p-2 rounded-full hover:bg-gray-100 transition-colors duration-200"
+					onClick="my_modal_1.showModal()"
+				>
+					<SearchIcon class="h-5 w-5 text-gray-600 hover:text-primary-600 transition-colors duration-200" slot="icon-left" />
+				</Button>
+
+				<!-- 移动端菜单按钮 -->
+				<button
+					id="mobile-menu-button"
+					class="lg:hidden p-2 rounded-full hover:bg-gray-100 transition-colors duration-200"
+					aria-label="打开菜单"
+				>
+					<div class="w-5 h-5 flex flex-col justify-center space-y-1">
+						<span class="block h-0.5 w-5 bg-gray-600 transition-transform duration-300"></span>
+						<span class="block h-0.5 w-5 bg-gray-600 transition-opacity duration-300"></span>
+						<span class="block h-0.5 w-5 bg-gray-600 transition-transform duration-300"></span>
+					</div>
+				</button>
 			</div>
 		</div>
+	</div>
 
-		<div class="flex items-center gap-2">
-			<Button variant="ghost" size="sm" class="p-1" onClick="my_modal_1.showModal()">
-				<SearchIcon class="h-5 w-5" slot="icon-left" />
-			</Button>
+	<!-- 移动端菜单 -->
+	<div
+		id="mobile-menu"
+		class="hidden lg:hidden fixed inset-0 z-50 bg-white transform transition-transform duration-300 translate-x-full"
+	>
+		<div class="p-4">
+			<div class="flex justify-end">
+				<button
+					id="mobile-menu-close"
+					class="p-2 rounded-full hover:bg-gray-100 transition-colors duration-200"
+					aria-label="关闭菜单"
+				>
+					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+					</svg>
+				</button>
+			</div>
+			<nav class="mt-8">
+				{navItems.map((item: NavItem) => (
+					<Link 
+						href={item.href}
+						class="block py-3 text-lg font-medium text-gray-600 hover:text-primary-600 transition-colors duration-200"
+					>
+						{item.label}
+					</Link>
+				))}
+			</nav>
 		</div>
 	</div>
 </header>
+
+<script>
+	const header = document.querySelector('header');
+	const mobileMenuButton = document.getElementById('mobile-menu-button');
+	const mobileMenu = document.getElementById('mobile-menu');
+	const mobileMenuClose = document.getElementById('mobile-menu-close');
+	
+	// 滚动效果
+	let lastScroll = 0;
+	window.addEventListener('scroll', () => {
+		const currentScroll = window.pageYOffset;
+		if (currentScroll <= 0) {
+			header?.classList.remove('-translate-y-full');
+			header?.classList.remove('shadow-lg');
+		}
+		if (currentScroll > lastScroll && currentScroll > 80) {
+			header?.classList.add('-translate-y-full');
+		}
+		if (currentScroll < lastScroll) {
+			header?.classList.remove('-translate-y-full');
+			header?.classList.add('shadow-lg');
+		}
+		lastScroll = currentScroll;
+	});
+
+	// 移动端菜单交互
+	const toggleMenu = () => {
+		const isOpen = mobileMenu?.classList.contains('translate-x-0');
+		if (isOpen) {
+			mobileMenu?.classList.remove('translate-x-0');
+			mobileMenu?.classList.add('translate-x-full');
+			document.body.style.overflow = '';
+		} else {
+			mobileMenu?.classList.remove('translate-x-full');
+			mobileMenu?.classList.add('translate-x-0');
+			document.body.style.overflow = 'hidden';
+		}
+	};
+
+	mobileMenuButton?.addEventListener('click', toggleMenu);
+	mobileMenuClose?.addEventListener('click', toggleMenu);
+</script>
