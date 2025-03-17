@@ -279,7 +279,7 @@ const debugClasses = debug ? {
 		<div class:list={["flex flex-col gap-8 mx-auto max-w-xl text-center items-center w-full md:flex-row md:justify-between md:items-start", debugClasses.section]}>
 			{/* 产品导航 */}
 			{products.length > 0 && (
-				<nav class:list={["flex flex-col gap-3 h-full", debugClasses.nav]}>
+				<nav class:list={["flex flex-col gap-3 h-full self-start", debugClasses.nav]}>
 					<h6 class="footer-title">{t('products')}</h6>
 					{products.map((product) => (
 						<Link href={product.href} external={product.external} size='sm' block animation='hover-lift'>
@@ -291,7 +291,7 @@ const debugClasses = debug ? {
 
 			{/* 关于导航 */}
 			{(aboutLink || contactLink || teamLink || careersLink) && (
-				<nav class:list={["flex flex-col gap-3 h-full", debugClasses.nav]}>
+				<nav class:list={["flex flex-col gap-3 h-full self-start", debugClasses.nav]}>
 					<h6 class="footer-title">{t('about')}</h6>
 					{aboutLink && <Link href={aboutLink} block animation='hover-lift' size='sm'>{t('aboutUs')}</Link>}
 					{teamLink && <Link href={teamLink} block animation='hover-lift' size='sm'>{t('team')}</Link>}
@@ -302,7 +302,7 @@ const debugClasses = debug ? {
 
 			{/* 资源导航 */}
 			{(newsLink || historyLink || partnersLink || blogLink || faqLink || mediaLink || techStackLink) && (
-				<nav class:list={["flex flex-col gap-3", debugClasses.nav]}>
+				<nav class:list={["flex flex-col gap-3 h-full self-start", debugClasses.nav]}>
 					<h6 class="footer-title">{t('resources')}</h6>
 					{newsLink && <Link href={newsLink} block animation='hover-lift' size='sm'>{t('news')}</Link>}
 					{blogLink && <Link href={blogLink} block animation='hover-lift' size='sm'>{t('blog')}</Link>}
@@ -314,7 +314,7 @@ const debugClasses = debug ? {
 
 			{/* 法律导航 */}
 			{(termsLink || privacyLink) && (
-				<nav class:list={["flex flex-col gap-3", debugClasses.nav]}>
+				<nav class:list={["flex flex-col gap-3 h-full self-start", debugClasses.nav]}>
 					<h6 class="footer-title">{t('legal')}</h6>
 					{termsLink && <Link href={termsLink} block animation='hover-lift' size='sm'>{t('terms')}</Link>}
 					{privacyLink && <Link href={privacyLink} block animation='hover-lift' size='sm'>{t('privacy')}</Link>}
