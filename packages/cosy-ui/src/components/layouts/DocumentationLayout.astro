@@ -70,15 +70,16 @@
  * ```
  */
 
+// 导入样式
+import '../../app.css';
+
 import BaseLayout from './BaseLayout.astro';
 import TableOfContents from '../navigation/TableOfContents.astro';
 import Article from '../typography/Article.astro';
 import Footer from './Footer.astro';
 import Main from '../containers/Main.astro';
 import Header from './Header.astro';
-
-// 导入样式
-import '../../styles/layouts/documentation-layout.css';
+import DefaultLogo from '../../assets/logo.png';
 
 export interface SidebarItem {
   href: string;
@@ -115,14 +116,9 @@ export interface Props {
   
   /**
    * Logo图片
-   * @default { src: "/logo.svg", width: 32, height: 32, format: "svg" }
+   * @default "/logo.svg"
    */
-  logo?: {
-    src: string;
-    width: number;
-    height: number;
-    format: string;
-  };
+  logo?: ImageMetadata;
   
   /**
    * 侧边栏项目
@@ -308,7 +304,7 @@ const {
   description,
   keywords,
   siteName = "文档中心",
-  logo = { src: "/logo.svg", width: 32, height: 32, format: "svg" },
+  logo = DefaultLogo,
   sidebarItems,
   showTableOfContents = true,
   showHeader = true,
@@ -352,7 +348,7 @@ const currentPath = Astro.url.pathname;
   description={description} 
   keywords={keywords}
   head={head}
-  class:list={["documentation-layout", { debug }, className, classList]}
+  class:list={["min-h-screen flex flex-col", { "border border-base-300": debug }]}
   {...rest}
 >
   {showHeader && (
@@ -361,41 +357,48 @@ const currentPath = Astro.url.pathname;
       navItems={navItems}
       languages={languages}
       currentLocale={currentLocale}
+      sticky={true}
     />
   )}
   
   {debug && (
-    <div class="debug-indicator">
+    <div class="fixed top-2 right-2 badge badge-warning">
       调试模式已启用
     </div>
   )}
   
-  <div class="documentation-container">
-    <aside class="sidebar">
-      <nav class="sidebar-nav">
+  <div class="flex-1 flex">
+    <aside class="w-64 border-r border-base-300 shrink-0">
+      <nav class="p-4 sticky top-16">
         {sidebarItems.map((section: SidebarSection) => (
-          <div class="sidebar-section">
-            <h3 class="sidebar-title">{section.title}</h3>
-            <ul class="sidebar-items">
+          <div class="mb-6">
+            <h3 class="font-bold mb-2 text-base-content/70">{section.title}</h3>
+            <ul class="menu menu-sm">
               {section.items.map((item: SidebarItem) => {
                 const isActive = currentPath === item.href;
                 return (
-                  <li class="sidebar-item">
+                  <li>
                     <a 
                       href={item.href} 
-                      class:list={["sidebar-link", { active: isActive }]}
+                      class:list={[
+                        "hover:bg-base-200",
+                        { "active": isActive }
+                      ]}
                     >
                       {item.text}
                     </a>
                     {item.items && (
-                      <ul class="sidebar-subitems">
+                      <ul class="menu menu-sm pl-4">
                         {item.items.map((subitem: SidebarItem) => {
                           const isSubActive = currentPath === subitem.href;
                           return (
-                            <li class="sidebar-subitem">
+                            <li>
                               <a 
                                 href={subitem.href} 
-                                class:list={["sidebar-sublink", { active: isSubActive }]}
+                                class:list={[
+                                  "hover:bg-base-200",
+                                  { "active": isSubActive }
+                                ]}
                               >
                                 {subitem.text}
                               </a>
@@ -414,21 +417,16 @@ const currentPath = Astro.url.pathname;
     </aside>
     
     <Main 
-      class="content" 
-      verticalPadding="2rem" 
-      size="xl"
+      class="flex-1 py-8" 
     >
-      <div class="content-container">
-        <Article 
-          class="doc-article" 
-          width="medium"
-        >
+      <div class="container mx-auto px-4 flex gap-8">
+        <Article >
           <slot />
         </Article>
         
         {showTableOfContents && (
-          <div class="toc-container">
-            <div class="toc-sticky">
+          <div class="w-64 shrink-0">
+            <div class="sticky top-16">
               <slot name="toc">
                 <TableOfContents />
               </slot>

@@ -1,0 +1,349 @@
+---
+import Layout from '../../layouts/DemoLayout.astro';
+import { Article as ArticleComponent, CodeExample } from '@/index';
+
+// 定义代码块内容，避免在模板字符串中直接使用花括号
+const codeBlockExample = `// 这是一个代码块
+function example() {
+  return "示例代码";
+}`;
+---
+
+<Layout title="Article 组件示例">
+  <main class="container mx-auto p-4 space-y-4">
+    <h1 class="text-2xl font-bold mb-6">Article 组件示例</h1>
+
+    <div class="space-y-8">
+      <!-- 基础用法 -->
+      <CodeExample 
+        title="基础用法" 
+        description="最基本的文章排版容器，提供了良好的排版效果"
+        code={`<Article>
+  <h1>文章标题</h1>
+  <p>这是一段文章内容，展示了基本的排版效果。</p>
+</Article>`}
+      >
+        <ArticleComponent>
+          <h1>文章标题</h1>
+          <p>这是一段文章内容，展示了基本的排版效果。</p>
+        </ArticleComponent>
+      </CodeExample>
+
+      <!-- 标题层级 -->
+      <CodeExample 
+        title="标题层级" 
+        description="Article 组件支持六级标题，每级标题都有适当的大小和间距"
+        code={`<Article>
+  <h1>一级标题</h1>
+  <p>一级标题下的段落内容。</p>
+  
+  <h2>二级标题</h2>
+  <p>二级标题下的段落内容。</p>
+  
+  <h3>三级标题</h3>
+  <p>三级标题下的段落内容。</p>
+  
+  <h4>四级标题</h4>
+  <p>四级标题下的段落内容。</p>
+  
+  <h5>五级标题</h5>
+  <p>五级标题下的段落内容。</p>
+  
+  <h6>六级标题</h6>
+  <p>六级标题下的段落内容。</p>
+</Article>`}
+      >
+        <ArticleComponent>
+          <h1>一级标题</h1>
+          <p>一级标题下的段落内容。</p>
+          
+          <h2>二级标题</h2>
+          <p>二级标题下的段落内容。</p>
+          
+          <h3>三级标题</h3>
+          <p>三级标题下的段落内容。</p>
+          
+          <h4>四级标题</h4>
+          <p>四级标题下的段落内容。</p>
+          
+          <h5>五级标题</h5>
+          <p>五级标题下的段落内容。</p>
+          
+          <h6>六级标题</h6>
+          <p>六级标题下的段落内容。</p>
+        </ArticleComponent>
+      </CodeExample>
+
+      <!-- 列表样式 -->
+      <CodeExample 
+        title="列表样式" 
+        description="支持有序列表和无序列表，具有合适的缩进和间距"
+        code={`<Article>
+  <h3>无序列表</h3>
+  <ul>
+    <li>列表项一</li>
+    <li>列表项二</li>
+    <li>列表项三，可以很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长</li>
+    <li>
+      嵌套列表
+      <ul>
+        <li>嵌套项一</li>
+        <li>嵌套项二</li>
+      </ul>
+    </li>
+  </ul>
+  
+  <h3>有序列表</h3>
+  <ol>
+    <li>第一步</li>
+    <li>第二步</li>
+    <li>第三步</li>
+  </ol>
+</Article>`}
+      >
+        <ArticleComponent>
+          <h3>无序列表</h3>
+          <ul>
+            <li>列表项一</li>
+            <li>列表项二</li>
+            <li>列表项三，可以很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长</li>
+            <li>
+              嵌套列表
+              <ul>
+                <li>嵌套项一</li>
+                <li>嵌套项二</li>
+              </ul>
+            </li>
+          </ul>
+          
+          <h3>有序列表</h3>
+          <ol>
+            <li>第一步</li>
+            <li>第二步</li>
+            <li>第三步</li>
+          </ol>
+        </ArticleComponent>
+      </CodeExample>
+
+      <!-- 引用和代码 -->
+      <CodeExample 
+        title="引用和代码" 
+        description="支持引用块、行内代码和代码块"
+        code={`<Article>
+  <h3>引用块</h3>
+  <blockquote>
+    这是一段引用内容，可以用来强调重要信息或引用他人的话。
+    引用块使用左侧边框和斜体样式，使其在视觉上与普通文本区分开来。
+  </blockquote>
+  
+  <h3>行内代码</h3>
+  <p>可以在段落中使用 <code>行内代码</code> 来标记代码片段或命令。</p>
+  
+  <h3>代码块</h3>
+  <pre><code>${codeBlockExample}</code></pre>
+</Article>`}
+      >
+        <ArticleComponent>
+          <h3>引用块</h3>
+          <blockquote>
+            这是一段引用内容，可以用来强调重要信息或引用他人的话。
+            引用块使用左侧边框和斜体样式，使其在视觉上与普通文本区分开来。
+          </blockquote>
+          
+          <h3>行内代码</h3>
+          <p>可以在段落中使用 <code>行内代码</code> 来标记代码片段或命令。</p>
+          
+          <h3>代码块</h3>
+          <pre><code>{codeBlockExample}</code></pre>
+        </ArticleComponent>
+      </CodeExample>
+
+      <!-- 链接和图片 -->
+      <CodeExample 
+        title="链接和图片" 
+        description="支持链接和图片，图片会自动适应容器宽度"
+        code={`<Article>
+  <h3>链接</h3>
+  <p>这是一个<a href="#">链接示例</a>，链接使用下划线和彩色文本。</p>
+  
+  <h3>图片</h3>
+  <p>下面是一个图片示例：</p>
+  <img src="https://via.placeholder.com/800x400" alt="示例图片" />
+  <p>图片会自动适应容器宽度，不会溢出。</p>
+</Article>`}
+      >
+        <ArticleComponent>
+          <h3>链接</h3>
+          <p>这是一个<a href="#">链接示例</a>，链接使用下划线和彩色文本。</p>
+          
+          <h3>图片</h3>
+          <p>下面是一个图片示例：</p>
+          <img src="https://via.placeholder.com/800x400" alt="示例图片" />
+          <p>图片会自动适应容器宽度，不会溢出。</p>
+        </ArticleComponent>
+      </CodeExample>
+
+      <!-- 表格 -->
+      <CodeExample 
+        title="表格" 
+        description="支持表格，具有清晰的边框和背景色区分"
+        code={`<Article>
+  <h3>表格</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>名称</th>
+        <th>描述</th>
+        <th>价格</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>产品 A</td>
+        <td>这是产品 A 的描述</td>
+        <td>¥100</td>
+      </tr>
+      <tr>
+        <td>产品 B</td>
+        <td>这是产品 B 的描述，比较长一些</td>
+        <td>¥200</td>
+      </tr>
+      <tr>
+        <td>产品 C</td>
+        <td>这是产品 C 的描述</td>
+        <td>¥300</td>
+      </tr>
+    </tbody>
+  </table>
+</Article>`}
+      >
+        <ArticleComponent>
+          <h3>表格</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>名称</th>
+                <th>描述</th>
+                <th>价格</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>产品 A</td>
+                <td>这是产品 A 的描述</td>
+                <td>¥100</td>
+              </tr>
+              <tr>
+                <td>产品 B</td>
+                <td>这是产品 B 的描述，比较长一些</td>
+                <td>¥200</td>
+              </tr>
+              <tr>
+                <td>产品 C</td>
+                <td>这是产品 C 的描述</td>
+                <td>¥300</td>
+              </tr>
+            </tbody>
+          </table>
+        </ArticleComponent>
+      </CodeExample>
+
+      <!-- 水平线 -->
+      <CodeExample 
+        title="水平线" 
+        description="支持水平线，用于分隔内容"
+        code={`<Article>
+  <p>水平线上方的内容。</p>
+  <hr />
+  <p>水平线下方的内容。</p>
+</Article>`}
+      >
+        <ArticleComponent>
+          <p>水平线上方的内容。</p>
+          <hr />
+          <p>水平线下方的内容。</p>
+        </ArticleComponent>
+      </CodeExample>
+
+      <!-- 自定义类名 -->
+      <CodeExample 
+        title="自定义类名" 
+        description="可以通过 class 属性添加自定义样式"
+        code={`<Article class="border border-gray-200 rounded-lg p-4 shadow-sm">
+  <h3>带自定义样式的文章</h3>
+  <p>这个示例展示了如何通过 class 属性添加自定义样式。</p>
+</Article>`}
+      >
+        <ArticleComponent class="border border-gray-200 rounded-lg p-4 shadow-sm">
+          <h3>带自定义样式的文章</h3>
+          <p>这个示例展示了如何通过 class 属性添加自定义样式。</p>
+        </ArticleComponent>
+      </CodeExample>
+
+      <!-- 完整示例 -->
+      <CodeExample 
+        title="完整示例" 
+        description="一个包含多种元素的完整文章示例"
+        code={`<Article>
+  <h1>文章标题</h1>
+  <p>这是一段介绍性文字，可以包含<a href="#">链接</a>和<code>行内代码</code>。</p>
+  
+  <h2>二级标题</h2>
+  <p>这是二级标题下的段落内容。</p>
+  
+  <blockquote>
+    这是一段引用内容，可以用来强调重要信息或引用他人的话。
+  </blockquote>
+  
+  <h3>三级标题</h3>
+  <ul>
+    <li>无序列表项一</li>
+    <li>无序列表项二</li>
+  </ul>
+  
+  <h4>四级标题</h4>
+  <ol>
+    <li>有序列表项一</li>
+    <li>有序列表项二</li>
+  </ol>
+  
+  <pre><code>${codeBlockExample}</code></pre>
+
+  <hr />
+  
+  <p>这是文章的结尾部分。</p>
+</Article>`}
+      >
+        <ArticleComponent>
+          <h1>文章标题</h1>
+          <p>这是一段介绍性文字，可以包含<a href="#">链接</a>和<code>行内代码</code>。</p>
+          
+          <h2>二级标题</h2>
+          <p>这是二级标题下的段落内容。</p>
+          
+          <blockquote>
+            这是一段引用内容，可以用来强调重要信息或引用他人的话。
+          </blockquote>
+          
+          <h3>三级标题</h3>
+          <ul>
+            <li>无序列表项一</li>
+            <li>无序列表项二</li>
+          </ul>
+          
+          <h4>四级标题</h4>
+          <ol>
+            <li>有序列表项一</li>
+            <li>有序列表项二</li>
+          </ol>
+          
+          <pre><code>{codeBlockExample}</code></pre>
+
+          <hr />
+          
+          <p>这是文章的结尾部分。</p>
+        </ArticleComponent>
+      </CodeExample>
+    </div>
+  </main>
+</Layout> 

@@ -19,14 +19,14 @@ import { Button } from "@coffic/cosy-ui";
 <Button>Hi</Button>
 ```
 
-## 项目结构
+## 开发
+
+### 项目结构
 
 项目使用 pnpm 工作区（workspace）管理，包含以下部分：
 
 - `packages/cosy-ui`：组件库的源码
 - `demo`：在开发阶段用来测试这些组件的样本项目
-
-## 开发
 
 ### 安装依赖
 
@@ -34,7 +34,7 @@ import { Button } from "@coffic/cosy-ui";
 pnpm install
 ```
 
-### 开发
+### 启动
 
 ```bash
 pnpm run dev
@@ -46,12 +46,6 @@ pnpm run dev
 
 ```bash
 pnpm build
-```
-
-## 安装
-
-```bash
-npm install @coffic/cosy-ui
 ```
 
 ## 贡献

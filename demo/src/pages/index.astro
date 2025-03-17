@@ -1,35 +1,21 @@
 ---
-import Layout from '../layouts/DemoLayout.astro';
+import Welcome from '../components/Welcome.astro';
+import Layout from '../layouts/Layout.astro';
+import { Footer } from "@coffic/cosy-ui";
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout title="Cosy UI - 美观实用的 Astro 组件库">
-	<div>
-		<h1>Cosy UI</h1>
-		<p class="lead">
-			一个用于 Astro 项目的美观实用的组件库，为同一个组织下的多个项目提供统一的 UI 风格。
-		</p>
-
-		<h2>特性</h2>
-		<ul>
-			<li>🚀 基于 Astro 构建，性能优异</li>
-			<li>📦 组件丰富，满足常见需求</li>
-			<li>📱 响应式设计，完美适配各种设备</li>
-			<li>🔧 TypeScript 支持，开发体验优秀</li>
-		</ul>
-
-		<h2>快速开始</h2>
-		<p>通过 npm 安装：</p>
-		<pre><code class="language-bash">npm install @coffic/cosy-ui</code></pre>
-
-		<p>或者使用 pnpm：</p>
-		<pre><code class="language-bash">pnpm add @coffic/cosy-ui</code></pre>
-
-		<h2>使用示例</h2>
-		<p>在你的 Astro 组件中使用：</p>
-		<pre><code class="language-astro">{`---
-import { Button } from '@coffic/cosy-ui';
----
-
-<Button>默认按钮</Button>`}</code></pre>
-	</div>
+<Layout>
+	<Welcome />
+	<Footer 
+		socialLinks={["https://github.com/coffic", "https://github.com/coffic", "https://github.com/coffic"]}
+		siteName="Cosy UI"
+		homeLink="/"
+		slogan="一个简洁的UI库"
+		company="Cosy UI"
+		copyright="2025 Cosy UI"
+		inspirationalSlogan="灵感源于生活，设计源于用户"
+		/>
 </Layout>

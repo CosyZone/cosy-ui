@@ -1,0 +1,140 @@
+---
+# 🎉 Cosy UI 发布工作流
+#
+# 这个工作流程用于自动化 Cosy UI 组件库的发布过程。
+#
+# 工作流程说明：
+# 1. 开发流程 (dev 分支)：
+#    - 在 dev 分支进行日常开发
+#    - 当功能开发完善后，运行 `pnpm changeset` 添加变更说明
+#    - 提交并推送到 dev 分支
+#    - 自动触发预发布版本（如：1.0.0-beta.1）
+#
+# 2. 正式发布 (main 分支)：
+#    - 预发布版本测试通过后
+#    - 将 dev 分支合并到 main 分支
+#    - 自动触发正式版本发布
+#
+# 发布条件：
+# - 只有当存在未处理的 changeset 时才会触发发布
+# - dev 分支发布为预发布版本（prerelease）
+# - main 分支发布为正式版本
+#
+# 使用方法：
+# 1. 日常开发完成后：
+#    ```bash
+#    pnpm changeset  # 添加变更说明
+#    git add .
+#    git commit -m "feat: your changes"
+#    git push origin dev
+#    ```
+#
+# 2. 预发布版本测试通过后：
+#    ```bash
+#    git checkout main
+#    git merge dev
+#    git push origin main
+#    ```
+#
+name: 🎉 Release Cosy UI
+
+on:
+  push:
+    branches: 
+      - main    # 正式发布
+      - dev     # 开发分支（预发布）
+    tags:
+      - '*'
+
+# 添加工作流级别的权限
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  actions: write
+  statuses: write
+  checks: write
+  id-token: write
+
+env:
+  tag: ${{ github.event.head_commit.id }}
+  version: ${{ github.ref_name }}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+          
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9.15.9
+          
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+          
+      - name: Install Dependencies
+        run: pnpm install
+        
+      - name: Build Packages
+        run: pnpm build
+        
+      - name: Configure Git
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          
+      - name: Check for changesets
+        id: check-changesets
+        run: |
+          if [ -n "$(find .changeset -name '*.md' -not -name 'README.md')" ]; then
+            echo "hasChangesets=true" >> $GITHUB_OUTPUT
+          else
+            echo "hasChangesets=false" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Version and Publish
+        if: github.ref == 'refs/heads/dev' && steps.check-changesets.outputs.hasChangesets == 'true'
+        run: |
+          pnpm changeset version
+          git add .
+          git commit -m "chore: update versions"
+          git push origin dev
+        env:
+          GITHUB_TOKEN: ${{ secrets.COMMIT_TOKEN }}
+          
+      - name: Read Version
+        if: steps.check-changesets.outputs.hasChangesets == 'true'
+        run: |
+          cd packages/cosy-ui
+          version=$(node -p "require('./package.json').version")
+          echo "VERSION=${version}" >> $GITHUB_ENV
+          
+      - name: Create GitHub Release
+        if: steps.check-changesets.outputs.hasChangesets == 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ env.VERSION }}
+          generate_release_notes: true
+          prerelease: ${{ github.ref == 'refs/heads/dev' }}

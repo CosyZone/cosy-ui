@@ -3,6 +3,7 @@ import SearchIcon from '../icons/SearchIcon.astro';
 import Link from '../base/Link.astro';
 import Button from '../base/Button.astro';
 import Image from '../base/Image.astro';
+import '../../app.css';
 
 // 自定义图片元数据接口
 interface ImageMetadata {
@@ -26,33 +27,88 @@ interface Props {
 		url: string;
 		icon: any;
 	}>;
+	/**
+	 * 是否固定在顶部
+	 * @default true
+	 */
+	sticky?: boolean;
 }
 
 const {
 	logo,
 	navItems = [],
+	sticky = true,
 } = Astro.props;
 
 type NavItem = { href: string; label: string; match: (path: string) => boolean };
 ---
 
-<header class="header">
-	<div>
-		<div class="flex items-center">
-			<Link href="/" class="flex h-8 w-8 items-center justify-center">
-				<Image src={logo} alt="logo" class="fill-current" />
-			</Link>
-
-			<!-- 桌面端导航 -->
-			<div class="ml-4 hidden items-center gap-4 lg:flex">
-				{navItems.map((item: NavItem) => <Link href={item.href}>{item.label}</Link>)}
+<header class:list={[
+	"navbar bg-accent/80 backdrop-blur border-b border-base-200 z-50 w-full",
+	{ "fixed top-0": sticky }
+]}>
+	<div class="navbar-start">
+		<!-- 移动端菜单 -->
+		<div class="dropdown lg:hidden">
+			<div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+				</svg>
 			</div>
+			<ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+				{navItems.map((item: NavItem) => (
+					<li>
+						<Link href={item.href}>
+							{item.label}
+						</Link>
+					</li>
+				))}
+			</ul>
 		</div>
 
-		<div class="flex items-center gap-2">
-			<Button variant="ghost" size="sm" class="p-1" onClick="my_modal_1.showModal()">
-				<SearchIcon class="h-5 w-5" slot="icon-left" />
-			</Button>
-		</div>
+		<Link href="/" class="btn btn-ghost">
+			<Image src={logo} alt="logo" class="w-10 h-10" />
+		</Link>
+	</div>
+
+	<!-- 桌面端导航 -->
+	<div class="navbar-center hidden lg:flex">
+		<ul class="menu menu-horizontal px-1">
+			{navItems.map((item: NavItem) => (
+				<li>
+					<Link href={item.href}>
+						{item.label}
+					</Link>
+				</li>
+			))}
+		</ul>
+	</div>
+
+	<div class="navbar-end">
+		<Button 
+			variant="ghost" 
+			size="sm" 
+			class="btn-circle"
+			onClick="my_modal_1.showModal()"
+		>
+			<SearchIcon class="w-5 h-5" />
+		</Button>
 	</div>
 </header>
+
+{sticky && (
+	<div class="h-16"></div>
+)}
+
+<script define:vars={{ sticky }}>
+	if (sticky) {
+		const header = document.querySelector('header');
+		window.addEventListener('scroll', () => {
+			if (window.pageYOffset > 0) {
+				header?.classList.add('shadow-lg');
+			} else {
+				header?.classList.remove('shadow-lg');
+			}
+		});
+	}
+</script>
