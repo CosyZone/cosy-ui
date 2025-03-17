@@ -14,6 +14,7 @@
  * 3. 视觉层次 - 通过缩进和样式区分不同级别的标题
  * 4. 响应式设计 - 在小屏幕设备上自动隐藏，优化空间利用
  * 5. 智能显示 - 当页面结构不需要目录时自动隐藏
+ * 6. 多语言支持 - 支持多种语言显示，自动检测当前语言环境
  * 
  * @usage
  * 基本用法：
@@ -39,10 +40,22 @@
  * ```astro
  * <TableOfContents containerSelector=".article-content" />
  * ```
+ * 
+ * 指定语言：
+ * ```astro
+ * <TableOfContents lang="zh-cn" />
+ * ```
+ * 
+ * 启用日志：
+ * ```astro
+ * <TableOfContents enableLogging={true} />
+ * ```
  */
 
 // 导入样式
 import '../../app.css';
+import { getCurrentLanguage, LanguageSource } from '../../utils/language';
+import { createTextGetter } from '../../utils/i18n';
 
 interface Props {
   /**
@@ -66,7 +79,7 @@ interface Props {
   maxDepth?: number;
   /**
    * 标题文本
-   * @default "目录"
+   * @default 根据语言自动选择
    */
   title?: string;
   /**
@@ -79,6 +92,16 @@ interface Props {
    * @default 2
    */
   minHeadings?: number;
+  /**
+   * 语言
+   * @default 自动检测
+   */
+  lang?: string;
+  /**
+   * 是否启用日志输出
+   * @default false
+   */
+  enableLogging?: boolean;
 }
 
 const {
@@ -86,28 +109,70 @@ const {
   class: className = '',
   selector = 'h2, h3',
   maxDepth = 3,
-  title = '目录',
   containerSelector = 'main',
   minHeadings = 2,
+  lang: userLang,
+  title,
+  enableLogging = true,
 } = Astro.props;
+
+// 获取当前语言
+const langInfo = getCurrentLanguage(userLang);
+// 创建文本获取函数
+const t = createTextGetter(langInfo, 'tableOfContents');
+// 获取标题文本，如果用户提供了标题则使用用户提供的标题
+const titleText = title || t('title');
 
 // 生成唯一ID，确保多个TOC实例不会冲突
 const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
+
+// 获取语言来源的描述
+function getLanguageSourceDescription(source: LanguageSource): string {
+  switch (source) {
+    case LanguageSource.USER:
+      return '用户指定';
+    case LanguageSource.URL:
+      return 'URL参数';
+    case LanguageSource.BROWSER:
+      return '浏览器设置';
+    case LanguageSource.DEFAULT:
+      return '默认语言';
+    default:
+      return '未知来源';
+  }
+}
 ---
 
 <div class={`toc-container ${fixed ? 'fixed top-20 right-4 w-64' : 'w-full max-w-xs'} ${className}`} id={`${tocId}-container`} style="display: none;">
   <div class="card bg-base-100 shadow-xl">
     <div class="card-body p-4">
-      <div class="card-title text-lg font-bold mb-2">{title}</div>
+      <div class="card-title text-lg font-bold mb-2">{titleText}</div>
       <ul class="menu menu-sm" id={tocId}>
         <!-- 目录项将通过 JavaScript 动态生成 -->
-        <li class="text-base-content/60">加载中...</li>
+        <li class="text-base-content/60">{t('loading')}</li>
       </ul>
     </div>
   </div>
 </div>
 
-<script define:vars={{ selector, maxDepth, tocId, containerSelector, minHeadings }}>
+<script define:vars={{ selector, maxDepth, tocId, containerSelector, minHeadings, langInfo, enableLogging }}>
+  // 输出语言信息到控制台
+  if (enableLogging) {
+    console.log(`[TableOfContents] 语言信息:`, {
+      语言代码: langInfo.code,
+      语言来源: langInfo.source,
+      来源描述: (() => {
+        switch (langInfo.source) {
+          case 'user': return '用户指定';
+          case 'url': return 'URL参数';
+          case 'browser': return '浏览器设置';
+          case 'default': return '默认语言';
+          default: return '未知来源';
+        }
+      })()
+    });
+  }
+
   // 在页面加载完成后生成目录
   function generateTOC() {
     // 使用指定的容器选择器查找内容容器

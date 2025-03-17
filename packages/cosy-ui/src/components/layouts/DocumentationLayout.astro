@@ -81,6 +81,8 @@ import Main from '../containers/Main.astro';
 import Header from './Header.astro';
 import Sidebar from './Sidebar.astro';
 import DefaultLogo from '../../assets/logo.png';
+import { getText } from '@/utils/i18n';
+import { getValidLanguage } from '@/utils/language';
 
 export interface SidebarItem {
   href: string;
@@ -362,6 +364,9 @@ const {
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
+
+// 获取有效的语言代码
+const validLang = getValidLanguage(currentLocale);
 ---
 
 <BaseLayout 
@@ -405,7 +410,7 @@ const currentPath = Astro.url.pathname;
           <div class="w-64 shrink-0">
             <div class="sticky top-16">
               <slot name="toc">
-                <TableOfContents />
+                <TableOfContents lang={currentLocale} />
               </slot>
             </div>
           </div>
@@ -417,11 +422,12 @@ const currentPath = Astro.url.pathname;
   {showFooter && (
     <Footer 
       siteName={siteName}
+      lang={currentLocale}
       homeLink={footerHomeLink || "/"}
-      slogan={footerSlogan || "优雅、高效的组件库"}
+      slogan={footerSlogan || getText(validLang, 'footer', 'slogan') || getText(validLang, 'footer', 'defaultSlogan')}
       company={footerCompany || siteName}
-      copyright={footerCopyright || "保留所有权利"}
-      inspirationalSlogan={footerInspirationalSlogan || "构建美好的数字体验"}
+      copyright={footerCopyright || getText(validLang, 'footer', 'copyright')}
+      inspirationalSlogan={footerInspirationalSlogan || getText(validLang, 'footer', 'inspirationalSlogan')}
       aboutLink={footerAboutLink || "/about"}
       contactLink={footerContactLink || "/contact"}
       icp={footerIcp}
