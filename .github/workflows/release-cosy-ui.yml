@@ -99,13 +99,6 @@ jobs:
         
       - name: Build Packages
         run: pnpm build
-        
-      - name: Create Release PR
-        id: changesets
-        uses: changesets/action@v1
-        env:
-          # Needs the repo permissions
-          GITHUB_TOKEN: ${{ secrets.COMMIT_TOKEN }}
           
       - name: Read Version
         if: steps.changesets.outputs.hasChangesets == 'true'
