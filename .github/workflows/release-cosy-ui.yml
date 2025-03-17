@@ -46,10 +46,16 @@ on:
     tags:
       - '*'
 
+# 添加工作流级别的权限
 permissions:
   contents: write
   pull-requests: write  # 添加创建 PR 的权限
   issues: write        # 添加创建 issue 的权限
+  # 添加额外需要的权限
+  actions: write       # 允许管理 Actions
+  statuses: write     # 允许更新状态
+  checks: write       # 允许创建检查
+  id-token: write     # 允许管理身份令牌
 
 env:
   tag: ${{ github.event.head_commit.id }}
