@@ -1,0 +1,262 @@
+---
+title: 'Footer Component'
+description: 'Used to create the footer section of a website, providing copyright information, navigation links, and social media links'
+folder: false
+order: 1
+---
+
+import { Footer, Section, Container, CodeExample } from '@/index';
+
+## Basic Footer
+
+The simplest way to use a Footer, displaying the site name, slogan, and copyright information
+
+<CodeExample
+  code={`<Footer 
+  siteName="My Website"
+  homeLink="/"
+  slogan="Simple and Powerful"
+  company="My Company"
+  copyright="All Rights Reserved"
+/>`}
+>
+  <Footer 
+    siteName="My Website"
+    homeLink="/"
+    slogan="Simple and Powerful"
+    company="My Company"
+    copyright="All Rights Reserved"
+  />
+</CodeExample>
+
+## Footer with Logo
+
+Add a website Logo using the logo property
+
+<CodeExample
+  code={`<Footer 
+  siteName="My Website"
+  homeLink="/"
+  slogan="Simple and Powerful"
+  company="My Company"
+  copyright="All Rights Reserved"
+  logo={{ src: "https://via.placeholder.com/100", alt: "Website Logo" }}
+/>`}
+>
+  <Footer 
+    siteName="My Website"
+    homeLink="/"
+    slogan="Simple and Powerful"
+    company="My Company"
+    copyright="All Rights Reserved"
+    logo={{ src: "https://via.placeholder.com/100", alt: "Website Logo" }}
+  />
+</CodeExample>
+
+## Footer with Social Media Links
+
+Add social media links using the socialLinks property
+
+<CodeExample
+  code={`<Footer 
+  siteName="My Website"
+  homeLink="/"
+  slogan="Simple and Powerful"
+  company="My Company"
+  copyright="All Rights Reserved"
+  socialLinks={[
+    "https://github.com/myusername",
+    "https://twitter.com/myusername",
+    "https://linkedin.com/in/myusername"
+  ]}
+/>`}
+>
+  <Footer 
+    siteName="My Website"
+    homeLink="/"
+    slogan="Simple and Powerful"
+    company="My Company"
+    copyright="All Rights Reserved"
+    socialLinks={[
+      "https://github.com/myusername",
+      "https://twitter.com/myusername",
+      "https://linkedin.com/in/myusername"
+    ]}
+  />
+</CodeExample>
+
+## Footer with Product Links
+
+Add product links using the products property
+
+<CodeExample
+  code={`<Footer 
+  siteName="My Website"
+  homeLink="/"
+  slogan="Simple and Powerful"
+  company="My Company"
+  copyright="All Rights Reserved"
+  products={[
+    { name: "Product A", href: "/products/a" },
+    { name: "Product B", href: "/products/b" },
+    { name: "Product C", href: "/products/c", external: true }
+  ]}
+/>`}
+>
+  <Footer 
+    siteName="My Website"
+    homeLink="/"
+    slogan="Simple and Powerful"
+    company="My Company"
+    copyright="All Rights Reserved"
+    products={[
+      { name: "Product A", href: "/products/a" },
+      { name: "Product B", href: "/products/b" },
+      { name: "Product C", href: "/products/c", external: true }
+    ]}
+  />
+</CodeExample>
+
+## Footer with Navigation Links
+
+Add navigation links using various link properties
+
+<CodeExample
+  code={`<Footer 
+  siteName="My Website"
+  homeLink="/"
+  slogan="Simple and Powerful"
+  company="My Company"
+  copyright="All Rights Reserved"
+  aboutLink="/about"
+  contactLink="/contact"
+  termsLink="/terms"
+  privacyLink="/privacy"
+  blogLink="/blog"
+  faqLink="/faq"
+/>`}
+>
+  <Footer 
+    siteName="My Website"
+    homeLink="/"
+    slogan="Simple and Powerful"
+    company="My Company"
+    copyright="All Rights Reserved"
+    aboutLink="/about"
+    contactLink="/contact"
+    termsLink="/terms"
+    privacyLink="/privacy"
+    blogLink="/blog"
+    faqLink="/faq"
+  />
+</CodeExample>
+
+## Footer with Inspirational Slogan
+
+Add an inspirational slogan using the inspirationalSlogan property, displayed in a banner
+
+<CodeExample
+  code={`<Footer 
+  siteName="My Website"
+  homeLink="/"
+  slogan="Simple and Powerful"
+  company="My Company"
+  copyright="All Rights Reserved"
+  inspirationalSlogan="Building beautiful digital experiences"
+/>`}
+>
+  <Footer 
+    siteName="My Website"
+    homeLink="/"
+    slogan="Simple and Powerful"
+    company="My Company"
+    copyright="All Rights Reserved"
+    inspirationalSlogan="Building beautiful digital experiences"
+  />
+</CodeExample>
+
+## Footer with ICP Filing Number
+
+Add an ICP filing number using the icp property (required for Chinese websites)
+
+<CodeExample
+  code={`<Footer 
+  siteName="My Website"
+  homeLink="/"
+  slogan="Simple and Powerful"
+  company="My Company"
+  copyright="All Rights Reserved"
+  icp="京ICP备12345678号-1"
+/>`}
+>
+  <Footer 
+    siteName="My Website"
+    homeLink="/"
+    slogan="Simple and Powerful"
+    company="My Company"
+    copyright="All Rights Reserved"
+    icp="京ICP备12345678号-1"
+  />
+</CodeExample>
+
+## Complete Example
+
+Demonstrates multiple properties of the Footer component used together
+
+<CodeExample
+  code={`<Footer 
+  siteName="My Website"
+  homeLink="/"
+  slogan="Simple and Powerful"
+  company="My Company"
+  copyright="All Rights Reserved"
+  inspirationalSlogan="Building beautiful digital experiences"
+  logo={{ src: "https://via.placeholder.com/100", alt: "Website Logo" }}
+  products={[
+    { name: "Product A", href: "/products/a" },
+    { name: "Product B", href: "/products/b" }
+  ]}
+  socialLinks={[
+    "https://github.com/myusername",
+    "https://twitter.com/myusername"
+  ]}
+  aboutLink="/about"
+  contactLink="/contact"
+  termsLink="/terms"
+  privacyLink="/privacy"
+  teamLink="/team"
+  careersLink="/careers"
+  newsLink="/news"
+  blogLink="/blog"
+  faqLink="/faq"
+  icp="京ICP备12345678号-1"
+/>`}
+>
+  <Footer 
+    siteName="My Website"
+    homeLink="/"
+    slogan="Simple and Powerful"
+    company="My Company"
+    copyright="All Rights Reserved"
+    inspirationalSlogan="Building beautiful digital experiences"
+    logo={{ src: "https://via.placeholder.com/100", alt: "Website Logo" }}
+    products={[
+      { name: "Product A", href: "/products/a" },
+      { name: "Product B", href: "/products/b" }
+    ]}
+    socialLinks={[
+      "https://github.com/myusername",
+      "https://twitter.com/myusername"
+    ]}
+    aboutLink="/about"
+    contactLink="/contact"
+    termsLink="/terms"
+    privacyLink="/privacy"
+    teamLink="/team"
+    careersLink="/careers"
+    newsLink="/news"
+    blogLink="/blog"
+    faqLink="/faq"
+    icp="京ICP备12345678号-1"
+  />
+</CodeExample> 

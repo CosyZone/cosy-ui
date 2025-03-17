@@ -122,6 +122,12 @@ export interface Props {
   logo?: ImageMetadata;
   
   /**
+   * Logo链接地址
+   * @default "/"
+   */
+  logoHref?: string;
+  
+  /**
    * 侧边栏项目
    */
   sidebarItems: SidebarSection[];
@@ -311,6 +317,7 @@ const {
   keywords,
   siteName = "文档中心",
   logo = DefaultLogo,
+  logoHref = "/",
   sidebarItems,
   showTableOfContents = true,
   showHeader = true,
@@ -361,6 +368,7 @@ const currentPath = Astro.url.pathname;
   {showHeader && (
     <Header
       logo={logo}
+      logoHref={logoHref}
       navItems={navItems}
       languages={languages}
       currentLocale={currentLocale}

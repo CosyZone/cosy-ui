@@ -10,6 +10,8 @@ interface Props {
 
 const { title, showTOC = true } = Astro.props;
 
+const homeLink = '/cosy-ui/'
+
 // 从 URL 获取当前语言
 const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
 const groupedRoutes = await getGroupedRoutes(currentLocale);
@@ -27,7 +29,8 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map(group => ({
 <DocumentationLayout
 	debug={false}
 	title={title}
-	footerHomeLink="/cosy-ui/"
+	logoHref={homeLink}
+	footerHomeLink={homeLink}
 	siteName="Cosy UI"
 	sidebarItems={sidebarItems}
 	showTableOfContents={showTOC}

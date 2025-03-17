@@ -84,7 +84,7 @@ export async function getGroupedRoutes(locale: string = 'zh-cn'): Promise<Groupe
             const uncategorizedGroup = `/${locale}`;
             if (!groups[uncategorizedGroup]) {
                 groups[uncategorizedGroup] = {
-                    title: '指南',
+                    title: locale === 'zh-cn' ? '指南' : 'Guide',
                     order: 0,
                     routes: []
                 };
