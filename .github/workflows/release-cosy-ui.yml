@@ -1,0 +1,84 @@
+---
+name: 🎉 Release Cosy UI
+
+on:
+  push:
+    branches: 
+      - main
+      - pre
+    tags:
+      - '*'
+
+permissions:
+  contents: write
+
+env:
+  tag: ${{ github.event.head_commit.id }}
+  version: ${{ github.ref_name }}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+          
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9.15.9
+          
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+          
+      - name: Install Dependencies
+        run: pnpm install
+        
+      - name: Build Packages
+        run: pnpm build
+        
+      - name: Create Release PR or Publish
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: pnpm ci:version
+          commit: "chore: update versions"
+          title: "chore: update versions"
+          publish: pnpm ci:publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          
+      - name: Read Version
+        if: steps.changesets.outputs.hasChangesets == 'true'
+        run: |
+          cd packages/cosy-ui
+          version=$(node -p "require('./package.json').version")
+          echo "VERSION=${version}" >> $GITHUB_ENV
+          
+      - name: Create GitHub Release
+        if: steps.changesets.outputs.hasChangesets == 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ env.VERSION }}
+          generate_release_notes: true
+          prerelease: ${{ github.ref == 'refs/heads/pre' }}
