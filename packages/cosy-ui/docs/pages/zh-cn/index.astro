@@ -1,0 +1,13 @@
+---
+import Layout from '../../DemoLayout.astro';
+import { getCollection, getEntry } from 'astro:content';
+import { render } from 'astro:content';
+// 获取 docs 集合
+const docs = await getCollection('articles');
+const doc = docs.find(doc => doc.id === 'zh-cn');
+const { Content } = await render(doc);
+---
+
+<Layout title="Cosy UI 组件库">
+    <Content />
+</Layout>
