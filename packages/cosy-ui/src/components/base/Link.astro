@@ -33,6 +33,12 @@
  * <Link href="/preview" variant="ghost">预览</Link>
  * ```
  * 
+ * 块级显示：
+ * ```astro
+ * <Link href="/contact" block>独占一行的链接</Link>
+ * <p>这是一段文字，其中包含一个<Link href="/inline">内联链接</Link>。</p>
+ * ```
+ * 
  * 动画效果：
  * ```astro
  * <Link href="/contact" animation="hover-lift">联系我们</Link>
@@ -48,7 +54,7 @@
  * ```
  */
 
-import "../../styles/index.css";
+import "../../app.css";
 
 import type { HTMLAttributes } from 'astro/types';
 
@@ -64,6 +70,7 @@ type LinkAnimation = 'none' | 'hover-lift' | 'hover-glow' | 'hover-scale';
 interface Props extends HTMLAttributes<'a'> {
 	href: string;
 	external?: boolean;
+	block?: boolean;
 	class?: string;
 	'class:list'?: any;
 	variant?: LinkVariant;
@@ -74,6 +81,7 @@ interface Props extends HTMLAttributes<'a'> {
 const {
 	href,
 	external = false,
+	block = false,
 	variant = 'default',
 	animation = 'none',
 	size = 'md',
@@ -82,50 +90,42 @@ const {
 	...rest
 } = Astro.props;
 
-// 基础样式
-const baseStyles = "link";
-
-// 尺寸变体
-const sizeStyles: Record<LinkSize, string> = {
-	sm: "link-sm",
-	md: "link-md",
-	lg: "link-lg"
-};
-
-// 主题变体
-const variantStyles: Record<LinkVariant, string> = {
-	default: "link-default",
-	primary: "link-primary",
-	secondary: "link-secondary",
-	text: "link-text",
-	cta: "link-cta",
-	ghost: "link-ghost"
-};
-
-// 动画效果
-const animationStyles: Record<LinkAnimation, string> = {
-	none: "",
-	"hover-lift": "link-hover-lift",
-	"hover-glow": "link-hover-glow",
-	"hover-scale": "link-hover-scale"
-};
-
-// 合并所有样式
-const finalClassName = [
-	baseStyles,
-	sizeStyles[size as LinkSize],
-	variantStyles[variant as LinkVariant],
-	animationStyles[animation as LinkAnimation],
+// 构建类名
+const classes = [
+	// 基础链接样式
+	'items-center cursor-pointer no-underline transition-all duration-200',
+	
+	// 显示方式
+	block ? 'flex w-full' : 'inline-flex',
+	
+	// 变体样式
+	variant === 'primary' && 'text-primary hover:text-primary-focus',
+	variant === 'secondary' && 'text-secondary hover:text-secondary-focus',
+	variant === 'text' && 'text-neutral hover:text-neutral-focus',
+	variant === 'cta' && 'text-accent hover:text-accent-focus font-medium',
+	variant === 'ghost' && 'text-base-content hover:text-base-content/80',
+	variant === 'default' && 'text-base-content hover:text-base-content/90',
+	
+	// 尺寸样式
+	size === 'sm' && 'text-sm',
+	size === 'md' && 'text-base',
+	size === 'lg' && 'text-lg',
+	
+	// 动画效果
+	animation === 'hover-lift' && 'hover:-translate-y-0.5 transition-transform',
+	animation === 'hover-glow' && 'hover:brightness-125 transition-[filter]',
+	animation === 'hover-scale' && 'hover:scale-105 transition-transform',
+	
+	// 自定义类名
 	className
-].join(' ');
+];
 ---
 
-
-	<a
-		href={href}
-		class:list={[finalClassName, classList]}
+<a
+	href={href}
+	class:list={[classes, classList]}
 	{...external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
 	{...rest}
 >
-		<slot />
-	</a>
+	<slot />
+</a>

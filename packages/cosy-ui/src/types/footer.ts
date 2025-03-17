@@ -16,6 +16,7 @@ export interface FooterProps {
     company: string;
     copyright: string;
     inspirationalSlogan: string;
+    debug?: boolean;
     icp?: string;
     logo?: Logo;
     products?: Product[];

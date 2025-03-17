@@ -41,7 +41,7 @@
  * ```
  */
 
-import "../../styles/index.css";
+import "../../app.css";
 import { AlertTriangle } from '../icons';
 
 // 自定义图片元数据接口
@@ -126,7 +126,7 @@ interface Props {
 
   /**
    * 加载指示器类型
-   * @default "pulse"
+   * @default "skeleton"
    */
   loadingIndicator?: 'pulse' | 'spinner' | 'progress' | 'skeleton';
 }
@@ -150,68 +150,6 @@ const {
   loadingIndicator = 'skeleton',
 } = Astro.props;
 
-// 处理圆角样式
-const getRoundedClass = (rounded: string) => {
-  switch (rounded) {
-    case 'sm': return 'rounded-sm';
-    case 'md': return 'rounded-md';
-    case 'lg': return 'rounded-lg';
-    case 'xl': return 'rounded-xl';
-    case '2xl': return 'rounded-2xl';
-    case '3xl': return 'rounded-3xl';
-    case 'full': return 'rounded-full';
-    default: return '';
-  }
-};
-
-// 处理阴影样式
-const getShadowClass = (shadow: string) => {
-  switch (shadow) {
-    case 'sm': return 'shadow-sm';
-    case 'md': return 'shadow-md';
-    case 'lg': return 'shadow-lg';
-    case 'xl': return 'shadow-xl';
-    case '2xl': return 'shadow-2xl';
-    default: return '';
-  }
-};
-
-// 处理悬停效果
-const getHoverClass = (hover: string) => {
-  switch (hover) {
-    case 'scale': return 'hover-scale';
-    case 'brightness': return 'hover-brightness';
-    case 'blur': return 'hover-blur';
-    default: return '';
-  }
-};
-
-// 处理过渡动画
-const getTransitionClass = (transition: string) => {
-  switch (transition) {
-    case 'fade': return 'transition-opacity';
-    case 'slide': return 'transition-transform';
-    case 'zoom': return 'transition-all';
-    default: return '';
-  }
-};
-
-// 处理类名
-const containerClasses = [
-  'image-container',
-  getRoundedClass(rounded),
-  getShadowClass(shadow),
-  getHoverClass(hover),
-  getTransitionClass(transition),
-  className
-].filter(Boolean).join(' ');
-
-// 处理图片样式
-const imageStyles = {
-  objectFit,
-  objectPosition,
-};
-
 // 判断是否为本地图片
 const isLocalImage = typeof src !== 'string' && 'src' in src;
 // 判断是否为远程图片
@@ -219,146 +157,112 @@ const isRemoteImage = typeof src === 'string' && (src.startsWith('http') || src.
 // 获取图片源
 const imgSrc = typeof src === 'string' ? src : src.src;
 
-// 图片类名
+// 构建图片类名
 const imgClasses = [
-  'image',
-  getRoundedClass(rounded),
+  // DaisyUI 和 Tailwind 类
+  'object-center',
+  objectFit === 'cover' ? 'object-cover' : `object-${objectFit}`,
+  rounded !== 'none' ? `rounded-${rounded}` : '',
+  shadow !== 'none' ? `shadow-${shadow}` : '',
+  hover === 'scale' ? 'hover:scale-110' : '',
+  hover === 'brightness' ? 'hover:brightness-110' : '',
+  hover === 'blur' ? 'hover:blur-sm' : '',
+  transition !== 'none' ? 'transition-all duration-300' : '',
+  className
 ].filter(Boolean).join(' ');
 
-// 占位图类名
+// 构建占位图类名
 const placeholderClasses = [
-  'placeholder',
-  loadingIndicator === 'pulse' ? 'animate-pulse' : '',
-  getRoundedClass(rounded)
+  'absolute inset-0',
+  rounded !== 'none' ? `rounded-${rounded}` : '',
+  loadingIndicator === 'skeleton' ? 'animate-pulse bg-base-300' : '',
+  loadingIndicator === 'pulse' ? 'animate-pulse bg-base-300' : '',
 ].filter(Boolean).join(' ');
 
-// 错误占位图类名
+// 构建错误占位图类名
 const errorClasses = [
-  'error-placeholder',
-  getRoundedClass(rounded)
+  'absolute inset-0 flex items-center justify-center',
+  rounded !== 'none' ? `rounded-${rounded}` : '',
+  'bg-error bg-opacity-10',
 ].filter(Boolean).join(' ');
 ---
 
+<div class="relative w-full h-full">
+  <img
+    src={imgSrc}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={loading}
+    class={imgClasses}
+    style={{ objectPosition }}
+    data-remote={isRemoteImage ? 'true' : 'false'}
+  />
 
+  {/* 加载占位图 */}
+  {showPlaceholder && (
+    <div class={placeholderClasses} data-placeholder>
+      {/* 远程图片加载指示器 */}
+      {isRemoteImage && loadingIndicator === 'spinner' && (
+        <div class="loading loading-spinner loading-lg text-primary absolute inset-0 m-auto" />
+      )}
+      
+      {isRemoteImage && loadingIndicator === 'progress' && (
+        <div class="absolute bottom-0 left-0 right-0">
+          <progress class="progress progress-primary w-full" />
+        </div>
+      )}
+    </div>
+  )}
 
-    <div class="image-wrapper">
-      <img
-      src={imgSrc}
-      alt={alt}
-      width={width}
-      height={height}
-      loading={loading}
-      class={imgClasses}
-      style={imageStyles}
-      data-remote={isRemoteImage ? 'true' : 'false'}
-    />
+  {/* 错误占位图 */}
+  {showError && (
+    <div class={errorClasses} data-error hidden>
+      <AlertTriangle size="32px" class="text-error" />
+    </div>
+  )}
+</div>
 
-    {/* 加载占位图 */}
-    {showPlaceholder && (
-      <div class={placeholderClasses}>
-        {/* 远程图片加载指示器 */}
-        {isRemoteImage && loadingIndicator === 'spinner' && (
-          <div class="loading-indicator spinner">
-            <div class="spinner-icon"></div>
-          </div>
-        )}
-        
-        {isRemoteImage && loadingIndicator === 'progress' && (
-          <div class="loading-indicator progress">
-            <div class="progress-bar-container">
-              <div class="progress-bar"></div>
-            </div>
-          </div>
-        )}
-        
-        {isRemoteImage && loadingIndicator === 'skeleton' && (
-          <div class="loading-indicator skeleton">
-            <div class="skeleton-animation"></div>
-          </div>
-        )}
-      </div>
-    )}
-
-    {/* 错误占位图 */}
-    {showError && (
-      <div class={errorClasses}>
-        <AlertTriangle size="32px" color="currentColor" class="error-icon" />
-      </div>
-    )}
-  </div>
-
-
-<script is:inline lang="ts">
-  /**
-   * 处理图片加载状态
-   * @param {Element} img - 图片元素
-   */
+<script is:inline>
   function handleImageLoad(img) {
     if (!(img instanceof HTMLImageElement)) return;
-    
-    // 移除加载占位图
-    const placeholder = img.parentElement?.querySelector('.placeholder');
+    const placeholder = img.parentElement?.querySelector('[data-placeholder]');
     if (placeholder) {
-      placeholder.classList.add('fade-out');
-      setTimeout(() => {
-        placeholder.remove();
-      }, 300);
+      placeholder.classList.add('opacity-0');
+      setTimeout(() => placeholder.remove(), 300);
     }
-
-    // 添加加载完成动画
-    img.classList.add('loaded');
   }
 
-  /**
-   * 处理图片加载错误
-   * @param {Element} img - 图片元素
-   */
   function handleImageError(img) {
     if (!(img instanceof HTMLImageElement)) return;
-    
-    // 移除加载占位图
-    const placeholder = img.parentElement?.querySelector('.placeholder');
+    const placeholder = img.parentElement?.querySelector('[data-placeholder]');
     if (placeholder) {
-      placeholder.classList.add('fade-out');
-      setTimeout(() => {
-        placeholder.remove();
-      }, 300);
+      placeholder.remove();
     }
-
-    // 显示错误占位图
-    const errorPlaceholder = img.parentElement?.querySelector('.error-placeholder');
-    if (errorPlaceholder) {
-      errorPlaceholder.classList.remove('hidden');
+    const errorElement = img.parentElement?.querySelector('[data-error]');
+    if (errorElement) {
+      errorElement.classList.remove('hidden');
     }
   }
 
-  /**
-   * 模拟远程图片加载进度
-   * @param {HTMLImageElement} img - 图片元素
-   */
   function simulateLoadingProgress(img) {
     if (!(img instanceof HTMLImageElement) || img.getAttribute('data-remote') !== 'true') return;
-    
-    const progressBar = img.parentElement?.querySelector('.progress-bar');
+    const progressBar = img.parentElement?.querySelector('progress');
     if (!progressBar) return;
     
     let progress = 0;
     const interval = setInterval(() => {
-      // 随机增加进度，模拟网络波动
       progress += Math.random() * 15;
-      
       if (progress >= 100 || img.complete) {
         clearInterval(interval);
         progress = 100;
       }
-      
-      progressBar.style.width = `${Math.min(progress, 100)}%`;
+      progressBar.value = Math.min(progress, 100);
     }, 200);
     
-    // 图片加载完成时清除定时器
     img.addEventListener('load', () => {
       clearInterval(interval);
-      progressBar.style.width = '100%';
+      progressBar.value = 100;
     });
     
     img.addEventListener('error', () => {
@@ -366,20 +270,14 @@ const errorClasses = [
     });
   }
 
-  // 初始化图片加载处理
   function initializeImageHandlers() {
-    const images = document.querySelectorAll('.image');
-    images.forEach(img => {
+    document.querySelectorAll('img[data-remote]').forEach(img => {
       if (img instanceof HTMLImageElement) {
-        // 如果图片已经加载完成
         if (img.complete) {
           handleImageLoad(img);
         } else {
-          // 添加加载事件监听
           img.addEventListener('load', () => handleImageLoad(img));
           img.addEventListener('error', () => handleImageError(img));
-          
-          // 对远程图片模拟加载进度
           if (img.getAttribute('data-remote') === 'true') {
             simulateLoadingProgress(img);
           }
@@ -388,8 +286,6 @@ const errorClasses = [
     });
   }
 
-  // 页面加载时初始化
   document.addEventListener('astro:page-load', initializeImageHandlers);
-  // 初始加载时也初始化
   initializeImageHandlers();
 </script>

@@ -113,6 +113,7 @@
  * @prop {string} [faqLink] - "常见问题"页面链接
  * @prop {string} [mediaLink] - "媒体报道"页面链接
  * @prop {string} [techStackLink] - "技术栈"页面链接
+ * @prop {boolean} [debug=false] - 调试模式
  * 
  * @accessibility
  * - 使用语义化HTML结构，确保屏幕阅读器可以正确解析
@@ -122,12 +123,11 @@
 
 import { processSocialLink } from '../../utils/social';
 import Link from '../base/Link.astro';
-import Banner from '../display/Banner.astro';
 import SocialIcon from '../icons/SocialIcon.astro';
 import type { FooterProps } from '../../types/footer';
 
 // 导入样式
-import '../../styles/layouts/footer.css';
+import '../../app.css';
 
 interface Props extends FooterProps {}
 
@@ -155,103 +155,130 @@ const {
 	faqLink,
 	mediaLink,
 	techStackLink,
+	debug = false,
 }: Props = Astro.props;
 
 const currentYear = new Date().getFullYear();
 
 // 处理社交链接
 const processedSocialLinks = socialLinks.map((url) => processSocialLink(url));
+
+// 调试模式的样式类
+const debugClasses = debug ? {
+	footer: "border-2 border-blue-500",
+	section: "border-2 border-green-500",
+	nav: "border-2 border-yellow-500",
+	aside: "border-2 border-purple-500"
+} : {
+	footer: "",
+	section: "",
+	nav: "",
+	aside: ""
+};
 ---
 
-<footer class="footer">
-	<div class="footer-container">
-		<div class="footer-main">
-			<div class="footer-brand">
-				<a href={homeLink} class="footer-logo-link">
-					{logo && (
-						<img
-							src={logo.src}
-							alt={logo.alt}
-							class="footer-logo"
-							width="32"
-							height="32"
-						/>
-					)}
-					<span class="footer-site-name">{siteName}</span>
-				</a>
-				<p class="footer-slogan">{slogan}</p>
-
-				<div class="footer-social">
+<footer class:list={["footer sm:footer-horizontal bg-base-200 text-base-content p-10", debugClasses.footer]}>
+	<div class:list={["flex container mx-auto sm:flex-col md:flex-row justify-between gap-8", debugClasses.section]}>
+		{/* 品牌区域 */}
+		<aside class:list={["max-w-xs", debugClasses.aside]}>
+			<a href={homeLink} class="flex items-center gap-2 mb-4">
+				{logo && (
+					<img
+						src={logo.src}
+						alt={logo.alt}
+						class="mask mask-squircle w-12 h-12"
+						width="48"
+						height="48"
+					/>
+				)}
+				<div>
+					<h2 class="text-xl font-bold">{siteName}</h2>
+					<p class="text-base-content/70">{slogan}</p>
+				</div>
+			</a>
+			
+			{/* 社交媒体链接 */}
+			{processedSocialLinks.length > 0 && (
+				<div class="flex gap-2 mt-4">
 					{processedSocialLinks.map((link) => (
-						<a href={link.url} class="footer-social-link" target="_blank" rel="noopener noreferrer">
+						<a 
+							href={link.url} 
+							class="btn btn-circle btn-ghost btn-sm"
+							target="_blank" 
+							rel="noopener noreferrer"
+							aria-label={link.name}
+						>
 							<SocialIcon platform={link.platform} />
-							<span class="sr-only">{link.name}</span>
 						</a>
 					))}
 				</div>
-			</div>
+			)}
+		</aside>
 
+		<div class:list={["grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 sm:justify-end", debugClasses.section]}>
+			{/* 产品导航 */}
 			{products.length > 0 && (
-				<div class="footer-nav">
-					<h6 class="footer-nav-title">产品</h6>
-					<ul class="footer-nav-list">
-						{products.map((product) => (
-							<li class="footer-nav-item">
-								<Link href={product.href} external={product.external} size="sm">
-									{product.name}
-								</Link>
-							</li>
-						))}
-					</ul>
-				</div>
+				<nav class:list={["", debugClasses.nav]}>
+					<h6 class="footer-title">产品</h6>
+					{products.map((product) => (
+						<Link href={product.href} external={product.external} block>
+							{product.name}
+						</Link>
+					))}
+				</nav>
 			)}
 
-			{(aboutLink || contactLink || teamLink || careersLink || newsLink || historyLink || partnersLink || blogLink || faqLink || mediaLink || techStackLink) && (
-				<div class="footer-nav">
-					<h6 class="footer-nav-title">关于</h6>
-					<ul class="footer-nav-list">
-						{aboutLink && <li class="footer-nav-item"><Link href={aboutLink} size="sm">关于我们</Link></li>}
-						{teamLink && <li class="footer-nav-item"><Link href={teamLink} size="sm">团队介绍</Link></li>}
-						{careersLink && <li class="footer-nav-item"><Link href={careersLink} size="sm">加入我们</Link></li>}
-						{newsLink && <li class="footer-nav-item"><Link href={newsLink} size="sm">新闻动态</Link></li>}
-						{historyLink && <li class="footer-nav-item"><Link href={historyLink} size="sm">发展历程</Link></li>}
-						{partnersLink && <li class="footer-nav-item"><Link href={partnersLink} size="sm">合作伙伴</Link></li>}
-						{blogLink && <li class="footer-nav-item"><Link href={blogLink} size="sm">技术博客</Link></li>}
-						{techStackLink && <li class="footer-nav-item"><Link href={techStackLink} size="sm">技术栈</Link></li>}
-						{faqLink && <li class="footer-nav-item"><Link href={faqLink} size="sm">常见问题</Link></li>}
-						{mediaLink && <li class="footer-nav-item"><Link href={mediaLink} size="sm">媒体报道</Link></li>}
-						{contactLink && <li class="footer-nav-item"><Link href={contactLink} size="sm">联系我们</Link></li>}
-					</ul>
-				</div>
+			{/* 关于导航 */}
+			{(aboutLink || contactLink || teamLink || careersLink) && (
+				<nav class:list={["", debugClasses.nav]}>
+					<h6 class="footer-title">关于我们</h6>
+					{aboutLink && <Link href={aboutLink} block>关于我们</Link>}
+					{teamLink && <Link href={teamLink} block>团队介绍</Link>}
+					{careersLink && <Link href={careersLink} block>加入我们</Link>}
+					{contactLink && <Link href={contactLink} block>联系我们</Link>}
+				</nav>
 			)}
 
+			{/* 资源导航 */}
+			{(newsLink || historyLink || partnersLink || blogLink || faqLink || mediaLink || techStackLink) && (
+				<nav class:list={["", debugClasses.nav]}>
+					<h6 class="footer-title">资源</h6>
+					{newsLink && <Link href={newsLink} block>新闻动态</Link>}
+					{blogLink && <Link href={blogLink} block>技术博客</Link>}
+					{faqLink && <Link href={faqLink} block>常见问题</Link>}
+					{techStackLink && <Link href={techStackLink} block>技术栈</Link>}
+				</nav>
+			)}
+
+			{/* 法律导航 */}
 			{(termsLink || privacyLink) && (
-				<div class="footer-nav">
-					<h6 class="footer-nav-title">法律</h6>
-					<ul class="footer-nav-list">
-						{termsLink && <li class="footer-nav-item"><Link href={termsLink} size="sm">服务条款</Link></li>}
-						{privacyLink && <li class="footer-nav-item"><Link href={privacyLink} size="sm">隐私政策</Link></li>}
-					</ul>
-				</div>
+				<nav class:list={["", debugClasses.nav]}>
+					<h6 class="footer-title">法律</h6>
+					{termsLink && <Link href={termsLink} block>服务条款</Link>}
+					{privacyLink && <Link href={privacyLink} block>隐私政策</Link>}
+				</nav>
 			)}
 		</div>
-	</div>
-
-	<div class="footer-banner">
-		<Banner>
-			{inspirationalSlogan}
-		</Banner>
-	</div>
-
-	<div class="footer-bottom">
-		<div class="footer-copyright">
-			<p>© {currentYear} {company} - {copyright}</p>
-		</div>
-
-		{icp && (
-			<div class="footer-icp">
-				<p>{icp}</p>
-			</div>
-		)}
 	</div>
 </footer>
+
+{/* 横幅 */}
+{inspirationalSlogan && (
+	<aside class:list={["p-4 bg-primary text-primary-content w-full", debugClasses.aside]}>
+		<p class="text-center">{inspirationalSlogan}</p>
+	</aside>
+)}
+
+{/* 底部版权信息 */}
+<div class:list={["footer footer-center p-4 bg-base-300 text-base-content", debugClasses.footer]}>
+	<aside class:list={["items-center grid-flow-col", debugClasses.aside]}>
+		<p class="text-sm opacity-70">
+			© {currentYear} {company} - {copyright}
+		</p>
+		{icp && (
+			<p class="text-sm opacity-70 ml-4">
+				{icp}
+			</p>
+		)}
+	</aside>
+</div>
