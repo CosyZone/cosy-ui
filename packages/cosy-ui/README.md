@@ -1,87 +1,64 @@
-# `package-name`
+# Cosy UI
 
-This is an [Astro integration](https://docs.astro.build/en/guides/integrations-guide/) that TODO:description
+一个基于 Astro 构建的现代化组件库，集成了 daisyUI 和 Tailwind CSS，为您的项目提供美观且易用的 UI 组件。
 
-## Usage
+## ✨ 特性
 
-### Prerequisites
+- 🚀 基于 Astro 构建
+- 🎨 集成 daisyUI 和 Tailwind CSS
+- 📦 开箱即用的组件
+- 💪 完整的 TypeScript 支持
+- 📚 详尽的文档和示例
 
-TODO:
+## 📦 安装
 
-### Installation
-
-Install the integration **automatically** using the Astro CLI:
-
-```bash
-pnpm astro add package-name
-```
+使用 pnpm（推荐）：
 
 ```bash
-npx astro add package-name
+pnpm add @cofficlab/cosy-ui
 ```
+
+或使用 npm：
 
 ```bash
-yarn astro add package-name
+npm install @cofficlab/cosy-ui
 ```
 
-Or install it **manually**:
+## 🚀 快速开始
 
-1. Install the required dependencies
+1. 在你的 Astro 项目中安装 Cosy UI
 
-```bash
-pnpm add package-name
+2. 在你的组件中导入并使用：
+
+```astro
+---
+import { Alert } from '@cofficlab/cosy-ui';
+---
+
+<Alert type="info">
+  这是一个提示信息
+</Alert>
 ```
 
-```bash
-npm install package-name
-```
+## 📚 文档
 
-```bash
-yarn add package-name
-```
+访问我们的[文档网站](https://github.com/cofficlab/cosy-ui)获取更多信息：
 
-2. Add the integration to your astro config
+- 完整的组件列表
+- 详细的 API 文档
+- 使用示例
+- 最佳实践指南
 
-```diff
-+import integration from "package-name";
+## 🤝 贡献
 
-export default defineConfig({
-  integrations: [
-+    integration(),
-  ],
-});
-```
+我们欢迎任何形式的贡献！如果你发现了 bug 或有新的想法，请：
 
-### Configuration
+1. Fork 这个仓库
+2. 创建你的特性分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交你的改动 (`git commit -m 'Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 开启一个 Pull Request
 
-TODO:configuration
+## 📄 许可证
 
-## Contributing
-
-This package is structured as a monorepo:
-
-- `playground` contains code for testing the package
-- `package` contains the actual package
-
-Install dependencies using pnpm: 
-
-```bash
-pnpm i --frozen-lockfile
-```
-
-Start the playground and package watcher:
-
-```bash
-pnpm dev
-```
-
-You can now edit files in `package`. Please note that making changes to those files may require restarting the playground dev server.
-
-## Licensing
-
-[MIT Licensed](https://github.com/TODO:/blob/main/LICENSE). Made with ❤️ by [TODO:](https://github.com/TODO:).
-
-## Acknowledgements
-
-- Created using [astro-integration-template](https://github.com/florian-lefebvre/astro-integration-template).
-- TODO:
+本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
