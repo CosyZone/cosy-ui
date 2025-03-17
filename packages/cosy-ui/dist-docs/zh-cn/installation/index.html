@@ -1,0 +1,338 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>安装</title><meta name="generator" content="Astro v5.5.2"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><!-- 自定义样式 --><!-- 自定义头部内容 --><link rel="stylesheet" href="/cosy-ui/_astro/_slug_.Cp_C6WaP.css"></head> <body class="min-h-screen flex flex-col"> <header class="navbar bg-accent/80 backdrop-blur border-b border-base-200 z-50 w-full fixed top-0"> <div class="navbar-start"> <!-- 移动端菜单 --> <div class="dropdown lg:hidden"> <div tabindex="0" role="button" class="btn btn-ghost btn-circle"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path> </svg> </div> <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">  </ul> </div> <a href="/" class="items-center cursor-pointer no-underline transition-all duration-200 inline-flex text-base-content hover:text-base-content/90 text-base btn btn-ghost">  <div class="relative w-full h-full"> <img src="/cosy-ui/_astro/logo.Czcozb5g.png" alt="logo" loading="lazy" class="object-center object-cover w-10 h-10" style="object-position:center" data-remote="false">  <div class="absolute inset-0 animate-pulse bg-base-300" data-placeholder>    </div>  <div class="absolute inset-0 flex items-center justify-center bg-error bg-opacity-10" data-error hidden> <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-error"> <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path> </svg> </div> </div> <script>
+  function handleImageLoad(img) {
+    if (!(img instanceof HTMLImageElement)) return;
+    const placeholder = img.parentElement?.querySelector('[data-placeholder]');
+    if (placeholder) {
+      placeholder.classList.add('opacity-0');
+      setTimeout(() => placeholder.remove(), 300);
+    }
+  }
+
+  function handleImageError(img) {
+    if (!(img instanceof HTMLImageElement)) return;
+    const placeholder = img.parentElement?.querySelector('[data-placeholder]');
+    if (placeholder) {
+      placeholder.remove();
+    }
+    const errorElement = img.parentElement?.querySelector('[data-error]');
+    if (errorElement) {
+      errorElement.classList.remove('hidden');
+    }
+  }
+
+  function simulateLoadingProgress(img) {
+    if (!(img instanceof HTMLImageElement) || img.getAttribute('data-remote') !== 'true') return;
+    const progressBar = img.parentElement?.querySelector('progress');
+    if (!progressBar) return;
+    
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += Math.random() * 15;
+      if (progress >= 100 || img.complete) {
+        clearInterval(interval);
+        progress = 100;
+      }
+      progressBar.value = Math.min(progress, 100);
+    }, 200);
+    
+    img.addEventListener('load', () => {
+      clearInterval(interval);
+      progressBar.value = 100;
+    });
+    
+    img.addEventListener('error', () => {
+      clearInterval(interval);
+    });
+  }
+
+  function initializeImageHandlers() {
+    document.querySelectorAll('img[data-remote]').forEach(img => {
+      if (img instanceof HTMLImageElement) {
+        if (img.complete) {
+          handleImageLoad(img);
+        } else {
+          img.addEventListener('load', () => handleImageLoad(img));
+          img.addEventListener('error', () => handleImageError(img));
+          if (img.getAttribute('data-remote') === 'true') {
+            simulateLoadingProgress(img);
+          }
+        }
+      }
+    });
+  }
+
+  document.addEventListener('astro:page-load', initializeImageHandlers);
+  initializeImageHandlers();
+</script>  </a> </div> <!-- 桌面端导航 --> <div class="navbar-center hidden lg:flex"> <ul class="menu menu-horizontal px-1">  </ul> </div> <div class="navbar-end"> <button type="button" class="button button-ghost button-sm btn-circle" onclick="my_modal_1.showModal()" data-variant="ghost">  <span class="button-content">   <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"> <circle cx="11" cy="11" r="8"></circle> <line x1="21" y1="21" x2="16.65" y2="16.65"></line> </svg>   </span> </button> </div> </header> <div class="h-16"></div> <script>(function(){const sticky = true;
+
+	if (sticky) {
+		const header = document.querySelector('header');
+		window.addEventListener('scroll', () => {
+			if (window.pageYOffset > 0) {
+				header?.classList.add('shadow-lg');
+			} else {
+				header?.classList.remove('shadow-lg');
+			}
+		});
+	}
+})();</script><div class="flex-1 flex"> <aside class="w-64 border-r border-base-300 shrink-0"> <nav class="p-4 sticky top-16"> <div class="mb-6"> <h3 class="font-bold mb-2 text-base-content/70"></h3> <ul class="menu menu-sm"> <li> <a href="/cosy-ui/zh-cn/" class="hover:bg-base-200"> Cosy UI 组件库 </a>  </li> </ul> </div><div class="mb-6"> <h3 class="font-bold mb-2 text-base-content/70">安装</h3> <ul class="menu menu-sm"> <li> <a href="/cosy-ui/zh-cn/installation" class="hover:bg-base-200"> 安装 </a>  </li> </ul> </div><div class="mb-6"> <h3 class="font-bold mb-2 text-base-content/70">组件</h3> <ul class="menu menu-sm"> <li> <a href="/cosy-ui/zh-cn/components" class="hover:bg-base-200"> 组件 </a>  </li><li> <a href="/cosy-ui/zh-cn/components/alert" class="hover:bg-base-200"> Alert 组件示例 </a>  </li><li> <a href="/cosy-ui/zh-cn/components/article" class="hover:bg-base-200"> Article 组件示例 </a>  </li> </ul> </div><div class="mb-6"> <h3 class="font-bold mb-2 text-base-content/70">容器</h3> <ul class="menu menu-sm"> <li> <a href="/cosy-ui/zh-cn/containers" class="hover:bg-base-200"> 容器 </a>  </li><li> <a href="/cosy-ui/zh-cn/containers/container" class="hover:bg-base-200"> Container 组件示例 </a>  </li><li> <a href="/cosy-ui/zh-cn/containers/section" class="hover:bg-base-200"> Section 组件示例 </a>  </li> </ul> </div><div class="mb-6"> <h3 class="font-bold mb-2 text-base-content/70">布局</h3> <ul class="menu menu-sm"> <li> <a href="/cosy-ui/zh-cn/layouts" class="hover:bg-base-200"> 布局 </a>  </li><li> <a href="/cosy-ui/zh-cn/layouts/footer" class="hover:bg-base-200"> Footer 组件示例 </a>  </li> </ul> </div> </nav> </aside> <main class="main-content main-padding-md flex-1 py-8"> <div class="container container-md container-padding-md container-centered main-container">   <div class="container mx-auto px-4 flex gap-8"> <article class="prose prose-slate dark:prose-invert mx-auto px-4 prose-headings:font-bold prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-p:text-base prose-a:text-primary hover:prose-a:text-primary-focus prose-blockquote:border-l-4 prose-blockquote:border-neutral prose-blockquote:pl-4 prose-blockquote:italic prose-code:bg-base-200 prose-code:px-1 prose-code:rounded prose-pre:bg-base-200 prose-pre:p-4 prose-img:rounded-lg prose-hr:border-base-300 max-w-4xl" style>    <h1>Cosy UI 组件库</h1> <h1 id="安装">安装</h1>
+<p>通过 npm 安装：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> @coffic/cosy-ui</span></span></code></pre>
+<p>或者通过 pnpm 安装（推荐）：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">pnpm</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> @coffic/cosy-ui</span></span></code></pre>     </article> <div class="w-64 shrink-0"> <div class="sticky top-16">  <div class="toc toc-fixed "> <div class="toc-container"> <div class="toc-title">目录</div> <ul class="toc-list" id="toc-1t2hd6h"> <!-- 目录项将通过 JavaScript 动态生成 --> <li class="toc-placeholder">加载中...</li> </ul> </div> </div> <script>(function(){const selector = "h2, h3";
+const maxDepth = 3;
+const tocId = "toc-1t2hd6h";
+const containerSelector = "main";
+
+  // 在页面加载完成后生成目录
+  function generateTOC() {
+    // 使用指定的容器选择器查找内容容器
+    const container = document.querySelector(containerSelector);
+    if (!container) return;
+    
+    // 只查找容器内的标题，而不是整个页面
+    const headings = container.querySelectorAll(selector);
+    const tocList = document.getElementById(tocId);
+    
+    if (!tocList || headings.length === 0) return;
+    
+    // 清空占位符
+    tocList.innerHTML = '';
+    
+    // 用于存储已使用的 ID，确保唯一性
+    const usedIds = new Set();
+    
+    // 为每个标题创建目录项
+    headings.forEach((heading) => {
+      // 如果标题没有 ID 或 ID 为空，则生成一个
+      if (!heading.id || heading.id.trim() === '') {
+        // 从标题文本生成 ID
+        let newId = generateIdFromText(heading.textContent || '');
+        
+        // 确保 ID 唯一
+        let counter = 0;
+        let uniqueId = newId;
+        while (usedIds.has(uniqueId) || document.getElementById(uniqueId)) {
+          counter++;
+          uniqueId = `${newId}-${counter}`;
+        }
+        
+        // 设置标题的 ID
+        heading.id = uniqueId;
+      }
+      
+      // 记录已使用的 ID
+      usedIds.add(heading.id);
+      
+      const level = parseInt(heading.tagName.substring(1));
+      if (level > maxDepth) return;
+      
+      const listItem = document.createElement('li');
+      listItem.className = `toc-item toc-level-${level}`;
+      listItem.dataset.headingId = heading.id; // 添加数据属性，便于后续查找
+      
+      const link = document.createElement('a');
+      link.href = `#${heading.id}`;
+      link.textContent = heading.textContent;
+      link.className = 'toc-link';
+      
+      // 添加前缀标记，增强视觉层次
+      if (level === 3) {
+        const prefix = document.createElement('span');
+        prefix.className = 'toc-prefix';
+        prefix.innerHTML = '└─ ';
+        link.prepend(prefix);
+      }
+      
+      listItem.appendChild(link);
+      tocList.appendChild(listItem);
+      
+      // 添加点击事件，平滑滚动到目标位置
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+          // 滚动到目标位置，并添加一些偏移以避免被固定导航遮挡
+          const offset = 80; // 可根据实际情况调整
+          const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - offset;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+          
+          // 更新 URL，但不跳转
+          history.pushState(null, null, `#${targetId}`);
+          
+          // 添加高亮效果
+          setTimeout(() => {
+            highlightActiveHeading();
+          }, 500);
+        }
+      });
+    });
+    
+    // 如果没有找到标题，显示提示信息
+    if (tocList.children.length === 0) {
+      const listItem = document.createElement('li');
+      listItem.textContent = '没有找到标题';
+      listItem.className = 'toc-empty';
+      tocList.appendChild(listItem);
+    }
+    
+    // 添加活动标题高亮
+    highlightActiveHeading();
+    
+    // 使用节流函数优化滚动事件
+    window.addEventListener('scroll', throttle(highlightActiveHeading, 100));
+  }
+  
+  // 从文本生成有效的 ID
+  function generateIdFromText(text) {
+    return text
+      .trim()
+      .toLowerCase()
+      .replace(/[\s\n]+/g, '-') // 将空格和换行替换为连字符
+      .replace(/[^\w\u4e00-\u9fa5-]/g, '') // 只保留字母、数字、中文和连字符
+      .replace(/^-+|-+$/g, '') // 移除开头和结尾的连字符
+      .replace(/-{2,}/g, '-') // 将多个连字符替换为单个
+      || 'heading'; // 如果结果为空，则使用默认值
+  }
+  
+  // 节流函数，限制函数调用频率
+  function throttle(func, delay) {
+    let lastCall = 0;
+    return function(...args) {
+      const now = new Date().getTime();
+      if (now - lastCall < delay) {
+        return;
+      }
+      lastCall = now;
+      return func(...args);
+    };
+  }
+  
+  // 高亮当前可见的标题
+  function highlightActiveHeading() {
+    const container = document.querySelector(containerSelector);
+    if (!container) return;
+    
+    const headings = Array.from(container.querySelectorAll(selector));
+    if (headings.length === 0) return;
+    
+    // 获取视口高度和滚动位置
+    const viewportHeight = window.innerHeight;
+    const scrollTop = window.scrollY;
+    
+    // 计算视口中心位置
+    const viewportMiddle = scrollTop + viewportHeight / 3;
+    
+    let activeHeadingId = null;
+    let closestHeading = null;
+    let closestDistance = Infinity;
+    
+    // 找到最接近视口中心的标题
+    for (const heading of headings) {
+      const headingTop = heading.getBoundingClientRect().top + scrollTop;
+      const distance = Math.abs(headingTop - viewportMiddle);
+      
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestHeading = heading;
+      }
+    }
+    
+    // 如果找到了最接近的标题，使用它的ID
+    if (closestHeading) {
+      activeHeadingId = closestHeading.id;
+      
+      // 为当前活动标题添加一个临时的高亮效果
+      headings.forEach(h => h.classList.remove('current-heading'));
+      closestHeading.classList.add('current-heading');
+      
+      // 5秒后移除高亮效果
+      setTimeout(() => {
+        closestHeading.classList.remove('current-heading');
+      }, 5000);
+    } else if (headings.length > 0) {
+      // 如果没有找到，使用第一个标题
+      activeHeadingId = headings[0].id;
+    }
+    
+    // 更新活动链接样式
+    const tocLinks = document.querySelectorAll(`#${tocId} .toc-link`);
+    let hasActiveLink = false;
+    
+    tocLinks.forEach(link => {
+      const href = link.getAttribute('href').substring(1);
+      
+      // 清除所有高亮
+      link.classList.remove('toc-active', 'toc-parent-active');
+      
+      // 添加当前活动标题的高亮
+      if (href === activeHeadingId) {
+        link.classList.add('toc-active');
+        hasActiveLink = true;
+        
+        // 添加一个动画效果，使高亮更明显
+        link.animate([
+          { transform: 'translateX(-5px)' },
+          { transform: 'translateX(0)' }
+        ], {
+          duration: 300,
+          easing: 'ease-out'
+        });
+        
+        // 如果是 h3，也高亮相关的 h2
+        const h3Item = link.closest('.toc-level-3');
+        if (h3Item) {
+          // 找到前面最近的 h2
+          let prevItem = h3Item.previousElementSibling;
+          while (prevItem) {
+            if (prevItem.classList.contains('toc-level-2')) {
+              const h2Link = prevItem.querySelector('.toc-link');
+              if (h2Link) h2Link.classList.add('toc-parent-active');
+              break;
+            }
+            prevItem = prevItem.previousElementSibling;
+          }
+        }
+      }
+    });
+    
+    // 如果没有找到活动链接，尝试高亮第一个标题
+    if (!hasActiveLink && tocLinks.length > 0) {
+      tocLinks[0].classList.add('toc-active');
+    }
+    
+    // 确保活动链接在视图中可见
+    const activeLink = document.querySelector(`#${tocId} .toc-active`);
+    if (activeLink && tocList) {
+      const tocContainer = document.querySelector('.toc-fixed');
+      if (tocContainer) {
+        const linkTop = activeLink.offsetTop;
+        const containerScrollTop = tocContainer.scrollTop;
+        const containerHeight = tocContainer.clientHeight;
+        
+        // 如果链接不在可视区域内，滚动到可见位置
+        if (linkTop < containerScrollTop || linkTop > containerScrollTop + containerHeight) {
+          tocContainer.scrollTop = linkTop - containerHeight / 2;
+        }
+      }
+    }
+  }
+  
+  // 页面加载时初始化
+  document.addEventListener('astro:page-load', generateTOC);
+  // 初始加载时也初始化
+  generateTOC();
+  
+  // 添加resize事件监听，在窗口大小变化时重新计算高亮
+  window.addEventListener('resize', throttle(highlightActiveHeading, 100));
+  
+  // 立即触发一次高亮计算
+  setTimeout(highlightActiveHeading, 500);
+})();</script>  </div> </div> </div>   </div> </main> </div> <footer class="footer sm:footer-horizontal bg-base-200 text-base-content p-10"> <div class="flex container mx-auto sm:flex-col md:flex-row justify-between gap-8">  <aside class="max-w-xs"> <a href="/" class="flex items-center gap-2 mb-4">  <div> <h2 class="text-xl font-bold">Cosy UI</h2> <p class="text-base-content/70">优雅、高效的 Astro 组件库</p> </div> </a>  <div class="flex gap-2 mt-4"> <a href="https://github.com/CofficLab/cosy-ui" class="btn btn-circle btn-ghost btn-sm" target="_blank" rel="noopener noreferrer" aria-label="GitHub"> <div class="social-icon social-icon-github " aria-label="Github 图标"> <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="currentColor" class> <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"></path> </svg> </div> </a> </div> </aside> <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 sm:justify-end">  <nav> <h6 class="footer-title">产品</h6> <a href="/cosy-ui/components" class="items-center cursor-pointer no-underline transition-all duration-200 flex w-full text-base-content hover:text-base-content/90 text-base hover:-translate-y-0.5 transition-transform"> 组件 </a><a href="/cosy-ui/layouts" class="items-center cursor-pointer no-underline transition-all duration-200 flex w-full text-base-content hover:text-base-content/90 text-base hover:-translate-y-0.5 transition-transform"> 布局 </a><a href="/cosy-ui/components/icons" class="items-center cursor-pointer no-underline transition-all duration-200 flex w-full text-base-content hover:text-base-content/90 text-base hover:-translate-y-0.5 transition-transform"> 图标 </a> </nav>  <nav> <h6 class="footer-title">关于我们</h6> <a href="https://coffic.zone.id/en/meta/about" class="items-center cursor-pointer no-underline transition-all duration-200 flex w-full text-base-content hover:text-base-content/90 text-base hover:-translate-y-0.5 transition-transform"> 关于我们 </a>   <a href="https://coffic.zone.id/en/meta/contact" class="items-center cursor-pointer no-underline transition-all duration-200 flex w-full text-base-content hover:text-base-content/90 text-base hover:-translate-y-0.5 transition-transform"> 联系我们 </a> </nav>  <nav> <h6 class="footer-title">资源</h6>  <a href="https://coffic.zone.id/en/blogs" class="items-center cursor-pointer no-underline transition-all duration-200 flex w-full text-base-content hover:text-base-content/90 text-base hover:-translate-y-0.5 transition-transform"> 技术博客 </a>   </nav>  <nav> <h6 class="footer-title">法律</h6> <a href="https://coffic.zone.id/en/meta/terms" class="items-center cursor-pointer no-underline transition-all duration-200 flex w-full text-base-content hover:text-base-content/90 text-base hover:-translate-y-0.5 transition-transform"> 服务条款 </a> <a href="https://coffic.zone.id/en/meta/privacy" class="items-center cursor-pointer no-underline transition-all duration-200 flex w-full text-base-content hover:text-base-content/90 text-base hover:-translate-y-0.5 transition-transform"> 隐私政策 </a> </nav> </div> </div> </footer>  <aside class="p-4 bg-primary text-primary-content w-full"> <p class="text-center">构建美好的用户界面</p> </aside>  <div class="footer footer-center p-4 bg-base-300 text-base-content"> <aside class="items-center grid-flow-col"> <p class="text-sm opacity-70">
+© 2025 Cosy UI - 保留所有权利 </p>  </aside> </div> </body></html>

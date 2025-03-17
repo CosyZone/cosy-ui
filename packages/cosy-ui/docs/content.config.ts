@@ -7,5 +7,9 @@ export const collections = {
             pattern: '**/*.{md,mdx}',
             base: './docs/content',
         }),
+        schema: z.object({
+            title: z.string(),
+            description: z.string().optional(),
+        }),
     }),
 };
