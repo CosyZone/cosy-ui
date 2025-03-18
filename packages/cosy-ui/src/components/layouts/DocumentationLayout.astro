@@ -4,6 +4,38 @@
  * 
  * 适用于文档页面的布局，包含侧边栏导航和目录
  * 
+ * 布局效果：
+ * 
+ * 移动端：
+ * ```
+ * +------------------+
+ * |     Header      |
+ * +------------------+
+ * | Sidebar (1 line) |
+ * +------------------+
+ * |                  |
+ * |   Main Content   |
+ * |                  |
+ * |                  |
+ * +------------------+
+ * |     Footer      |
+ * +------------------+
+ * ```
+ * 
+ * 桌面端：
+ * ```
+ * +------------------+
+ * |      Header     |
+ * +--------+---------+
+ * |        |         |
+ * |Sidebar | Content |
+ * |        |         |
+ * |        |         |
+ * +--------+---------+
+ * |      Footer     |
+ * +------------------+
+ * ```
+ * 
  * @example
  * ```astro
  * ---
@@ -400,12 +432,14 @@ const validLang = getValidLanguage(currentLocale);
   
   <div class="cosy:flex cosy:lg:flex-row cosy:flex-col cosy:flex-1">
     <!-- 侧边栏容器 -->
-    <Sidebar 
-      sidebarItems={sidebarItems} 
-      currentPath={currentPath}
-      debug={false}
-      class="cosy:hidden cosy:lg:block cosy:border-r cosy:border-base-300 cosy:w-64 cosy:shrink-0"
-    />
+    <div class="cosy:top-16 cosy:z-10 cosy:sticky cosy:bg-base-100">
+      <Sidebar 
+        sidebarItems={sidebarItems} 
+        currentPath={currentPath}
+        debug={false}
+        class="cosy:lg:border-r cosy:border-b cosy:border-base-300 cosy:lg:border-b-0 cosy:lg:w-64 cosy:lg:shrink-0"
+      />
+    </div>
     
     <!-- 主内容区域 -->
     <div class="cosy:flex cosy:flex-col cosy:flex-1 cosy:items-center cosy:min-h-screen">
@@ -417,7 +451,7 @@ const validLang = getValidLanguage(currentLocale);
             </Article>
             
             {showTableOfContents && (
-                <TableOfContents lang={currentLocale} />
+              <TableOfContents lang={currentLocale} />
             )}
           </div>
         </div>

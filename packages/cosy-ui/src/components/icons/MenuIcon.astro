@@ -1,4 +1,7 @@
 ---
+/**
+ * 菜单图标组件
+ */
 interface Props {
   /**
    * 图标的大小
@@ -14,13 +17,9 @@ interface Props {
    * 自定义类名
    */
   class?: string;
-  /**
-   * 插槽名称
-   */
-  slot?: string;
 }
 
-const { size = '24px', color = 'currentColor', class: className = '', slot } = Astro.props;
+const { size = '24px', color = 'currentColor', class: className = '' } = Astro.props;
 ---
 
 <svg 
@@ -35,7 +34,5 @@ const { size = '24px', color = 'currentColor', class: className = '', slot } = A
   stroke-linejoin="round"
   class={className}
 >
-  <line x1="3" y1="12" x2="21" y2="12" />
-  <line x1="3" y1="6" x2="21" y2="6" />
-  <line x1="3" y1="18" x2="21" y2="18" />
+  <path d="M4 6h16M4 12h16M4 18h16" />
 </svg> 
