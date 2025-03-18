@@ -70,7 +70,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          registry-url: 'https://registry.npmjs.org'
           
       - name: Setup PNPM
         uses: pnpm/action-setup@v2
@@ -99,29 +98,24 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           
-      - name: Bump Minor Version
+      - name: Bump Patch Version
         run: |
           cd packages/cosy-ui
           current_version=$(node -p "require('./package.json').version")
           IFS='.' read -r major minor patch <<< "$current_version"
           
           # 版本升级规则说明:
-          # 1. 版本格式遵循 semver 规范: major.minor.patch[-prerelease]
-          # 2. 在预发布流程中，我们升级 patch 版本号（补丁版本号）
-          # 3. 无论当前是什么版本，都会添加 beta.1 作为预发布标识
-          # 4. 例如:
-          #    - 1.2.3    -> 1.2.4-beta.1
-          #    - 1.2.3-rc.1 -> 1.2.4-beta.1
+          # 1. 版本格式遵循 semver 规范: major.minor.patch
+          # 2. 在预发布流程中，我们只升级 patch 版本号（补丁版本号）
           
-          # 如果版本包含预发布标识，则提取它
+          # 如果版本包含预发布标识，则去除它
           if [[ "$patch" == *"-"* ]]; then
             IFS='-' read -r patch_num prerelease <<< "$patch"
-            new_patch=$((patch_num + 1))
-            new_version="${major}.${minor}.${new_patch}-beta.1"
-          else
-            new_patch=$((patch + 1))
-            new_version="${major}.${minor}.${new_patch}-beta.1"
+            patch=$patch_num
           fi
+          
+          new_patch=$((patch + 1))
+          new_version="${major}.${minor}.${new_patch}"
           
           # 更新 package.json 中的版本号
           npm version $new_version --no-git-tag-version
@@ -146,13 +140,6 @@ jobs:
           tag_name: v${{ env.VERSION }}
           generate_release_notes: true
           prerelease: true
-          
-      - name: Publish to NPM
-        run: |
-          cd packages/cosy-ui
-          npm publish --tag beta
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} 
           
       - name: Sync Version Changes to Dev Branch
         run: |

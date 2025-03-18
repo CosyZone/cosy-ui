@@ -111,18 +111,24 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           
-      - name: Finalize Version
+      - name: Bump Patch Version
         run: |
           cd packages/cosy-ui
           current_version=$(node -p "require('./package.json').version")
+          IFS='.' read -r major minor patch <<< "$current_version"
           
-          # 如果版本包含预发布标识，则移除它
-          if [[ "$current_version" == *"-"* ]]; then
-            IFS='-' read -r stable_version prerelease <<< "$current_version"
-            new_version="${stable_version}"
-          else
-            new_version="${current_version}"
+          # 版本升级规则说明:
+          # 1. 版本格式遵循 semver 规范: major.minor.patch
+          # 2. 在正式发布流程中，我们只升级 patch 版本号（补丁版本号）
+          
+          # 如果版本包含预发布标识，则去除它
+          if [[ "$patch" == *"-"* ]]; then
+            IFS='-' read -r patch_num prerelease <<< "$patch"
+            patch=$patch_num
           fi
+          
+          new_patch=$((patch + 1))
+          new_version="${major}.${minor}.${new_patch}"
           
           # 更新 package.json 中的版本号
           npm version $new_version --no-git-tag-version
