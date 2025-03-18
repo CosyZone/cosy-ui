@@ -16,7 +16,7 @@ import { Container, CodeExample } from '@/index';
   <p>内容将被限制在一个合理的宽度内并居中显示</p>
 </Container>`}
 >
-  <Container>
+  <Container border>
     <p>内容将被限制在一个合理的宽度内并居中显示</p>
   </Container>
 </CodeExample>
@@ -30,7 +30,7 @@ import { Container, CodeExample } from '@/index';
   <p>小尺寸容器</p>
 </Container>`}
 >
-  <Container size="sm">
+  <Container size="sm" border>
     <p>小尺寸容器</p>
   </Container>
 </CodeExample>
@@ -44,7 +44,7 @@ import { Container, CodeExample } from '@/index';
   <p>大内边距的容器</p>
 </Container>`}
 >
-  <Container padding="lg">
+  <Container padding="lg" border>
     <p>大内边距的容器</p>
   </Container>
 </CodeExample>
@@ -58,7 +58,7 @@ import { Container, CodeExample } from '@/index';
   <p>不居中的容器，靠左对齐</p>
 </Container>`}
 >
-  <Container centered={false}>
+  <Container centered={false} border>
     <p>不居中的容器，靠左对齐</p>
   </Container>
 </CodeExample>
@@ -72,7 +72,7 @@ import { Container, CodeExample } from '@/index';
   <p>全宽容器，无内边距</p>
 </Container>`}
 >
-  <Container size="full" padding="none">
+  <Container size="full" padding="none" border>
     <p>全宽容器，无内边距</p>
   </Container>
 </CodeExample>
@@ -99,6 +99,7 @@ import { Container, CodeExample } from '@/index';
     padding="xl" 
     centered={true}
     class="my-custom-class"
+    border
   >
     <div class="bg-base-200 p-4 rounded-lg">
       <h3 class="text-lg font-bold">大尺寸容器</h3>

@@ -22,6 +22,10 @@
  */
 
 import { isPathMatch } from '../../utils/path';
+import Modal from '../display/Modal.astro';
+import Button from '../base/Button.astro';
+import SidebarNav from './SidebarNav.astro';
+import MenuIcon from '../icons/MenuIcon.astro';
 import "../../app.css"
 
 export interface SidebarItem {
@@ -45,75 +49,71 @@ export interface Props {
    * 当前路径
    */
   currentPath: string;
+
+  /**
+   * 桌面端类名
+   */
+  class?: string;
+
+  /**
+   * 是否开启调试模式，显示边框
+   * @default false
+   */
+  debug?: boolean;
 }
 
-const { sidebarItems, currentPath } = Astro.props;
+const { 
+  sidebarItems, 
+  currentPath, 
+  class: className,
+  debug = false
+} = Astro.props;
+
+const debugClass = debug ? "cosy:border cosy:border-red-500" : "";
+
+// 获取当前活动的一级导航项
+const currentSection = sidebarItems.find(section => 
+  section.items.some(item => isPathMatch(currentPath, item.href))
+);
 ---
 
-<aside class="cosy:w-64 cosy:border-r cosy:border-base-300 cosy:shrink-0">
-  <nav class="cosy:p-4 cosy:sticky cosy:top-16">
-    {sidebarItems.map((section: SidebarSection) => (
-      <div class="cosy:mb-6">
-        <h3 class="cosy:font-bold cosy:mb-2 cosy:text-base-content/70">{section.title}</h3>
-        <ul class="cosy:menu cosy:bg-base-200 cosy:rounded-box cosy:w-56">
-          {section.items.map((item: SidebarItem) => {
-            const isActive = isPathMatch(currentPath, item.href);
-            return (
-              <li>
-                <a 
-                  href={item.href} 
-                  class:list={[
-                    "cosy:hover:bg-base-300",
-                    { "cosy:menu-active": isActive }
-                  ]}
-                >
-                  {item.text}
-                </a>
-                {item.items && (
-                  <ul>
-                    {item.items.map((subitem: SidebarItem) => {
-                      const isSubActive = isPathMatch(currentPath, subitem.href);
-                      return (
-                        <li>
-                          <a 
-                            href={subitem.href} 
-                            class:list={[
-                              "cosy:hover:bg-base-300",
-                              { "cosy:active": isSubActive }
-                            ]}
-                          >
-                            {subitem.text}
-                          </a>
-                          {subitem.items && (
-                            <ul>
-                              {subitem.items.map((subsubitem: SidebarItem) => {
-                                const isSubSubActive = isPathMatch(currentPath, subsubitem.href);
-                                return (
-                                  <li>
-                                    <a 
-                                      href={subsubitem.href} 
-                                      class:list={[
-                                        "cosy:hover:bg-base-300",
-                                        { "cosy:active": isSubSubActive }
-                                      ]}
-                                    >
-                                      {subsubitem.text}
-                                    </a>
-                                  </li>
-                                );
-                              })}
-                            </ul>
-                          )}
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    ))}
-  </nav>
-</aside> 
+{/* 移动端导航栏 */}
+<div class:list={[
+  "cosy:flex cosy:lg:hidden cosy:items-center cosy:justify-between cosy:px-4 cosy:py-2 cosy:border-b cosy:border-base-300 cosy:bg-base-100 cosy:relative cosy:z-10",
+  debugClass
+]}>
+  <div class="cosy:flex cosy:items-center cosy:gap-2">
+    <button
+      type="button"
+      class="cosy:p-2 cosy:btn cosy:btn-ghost cosy:btn-sm"
+      data-modal-target="mobile-sidebar"
+    >
+      <MenuIcon class="cosy:w-5 cosy:h-5" />
+    </button>
+    <span class="cosy:font-medium cosy:text-sm">
+      {currentSection?.title || "导航"}
+    </span>
+  </div>
+</div>
+
+{/* 移动端侧边栏弹出层 */}
+<Modal id="mobile-sidebar" class="cosy:mx-4 cosy:lg:w-80 cosy:w-[calc(100vw-2rem)] cosy:max-w-full">
+  <div class="cosy:h-[calc(100vh-8rem)] cosy:overflow-y-auto">
+    <SidebarNav
+      sidebarItems={sidebarItems}
+      currentPath={currentPath}
+      debug={debug}
+    />
+  </div>
+</Modal>
+
+{/* 桌面端侧边栏 */}
+<aside class:list={[className, debugClass, "cosy:hidden cosy:lg:block"]}>
+  <div class="cosy:top-16 cosy:sticky cosy:h-[calc(100vh-4rem)]">
+    <SidebarNav
+      sidebarItems={sidebarItems}
+      currentPath={currentPath}
+      debug={debug}
+    />
+  </div>
+</aside>

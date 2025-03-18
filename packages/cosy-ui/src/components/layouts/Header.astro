@@ -1,7 +1,5 @@
 ---
-import SearchIcon from '../icons/SearchIcon.astro';
 import Link from '../base/Link.astro';
-import Button from '../base/Button.astro';
 import Image from '../base/Image.astro';
 import '../../app.css';
 
@@ -42,6 +40,16 @@ interface Props {
 	 * @default ""
 	 */
 	basePath?: string;
+	/**
+	 * 是否显示侧边栏切换按钮
+	 * @default false
+	 */
+	showSidebarToggle?: boolean;
+	/**
+	 * 侧边栏是否默认展开
+	 * @default false
+	 */
+	defaultSidebarOpen?: boolean;
 }
 
 const {
@@ -54,7 +62,7 @@ const {
 		{ code: 'en', name: 'English' }
 	],
 	currentLocale = 'zh-cn',
-	basePath = ''
+	basePath = '',
 } = Astro.props;
 
 type NavItem = { href: string; label: string; match: (path: string) => boolean };
@@ -77,36 +85,18 @@ function getLanguageUrl(langCode: string) {
 ---
 
 <header class:list={[
-	"cosy:navbar cosy:bg-accent/30 cosy:backdrop-blur cosy:border-base-200 cosy:z-50 cosy:w-full",
+	"cosy:navbar cosy:bg-accent/70 cosy:backdrop-blur cosy:border-base-200 cosy:z-50 cosy:w-full",
 	{ "cosy:fixed cosy:top-0": sticky }
 ]}>
 	<div class="cosy:navbar-start">
-		<!-- 移动端菜单 -->
-		<div class="cosy:dropdown cosy:lg:hidden">
-			<div tabindex="0" role="button" class="cosy:btn cosy:btn-ghost cosy:btn-circle">
-				<svg xmlns="http://www.w3.org/2000/svg" class="cosy:h-5 cosy:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
-				</svg>
-			</div>
-			<ul tabindex="0" class="cosy:menu cosy:menu-sm cosy:dropdown-content cosy:mt-3 cosy:z-[1] cosy:p-2 cosy:shadow cosy:bg-base-100 cosy:rounded-box cosy:w-52">
-				{navItems.map((item: NavItem) => (
-					<li>
-						<Link href={item.href}>
-							{item.label}
-						</Link>
-					</li>
-				))}
-			</ul>
-		</div>
-
 		<Link href={logoHref} class="cosy:btn cosy:btn-ghost">
 			<Image src={logo} alt="logo" class="cosy:w-10 cosy:h-10" />
 		</Link>
 	</div>
 
-	<!-- 桌面端导航 -->
-	<div class="cosy:navbar-center cosy:hidden cosy:lg:flex">
-		<ul class="cosy:menu cosy:menu-horizontal cosy:px-1">
+	<!-- 导航 -->
+	<div class="cosy:hidden cosy:lg:flex cosy:navbar-center">
+		<ul class="cosy:px-1 cosy:menu cosy:menu-horizontal">
 			{navItems.map((item: NavItem) => (
 				<li>
 					<Link href={item.href}>
@@ -122,11 +112,11 @@ function getLanguageUrl(langCode: string) {
 		<div class="cosy:dropdown cosy:dropdown-end">
 			<div tabindex="0" role="button" class="cosy:btn cosy:btn-ghost cosy:btn-sm">
 				<span class="cosy:mr-1">{currentLocale === 'zh-cn' ? '中文' : 'English'}</span>
-				<svg xmlns="http://www.w3.org/2000/svg" class="cosy:h-4 cosy:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<svg xmlns="http://www.w3.org/2000/svg" class="cosy:w-4 cosy:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
 				</svg>
 			</div>
-			<ul tabindex="0" class="cosy:dropdown-content cosy:z-[1] cosy:menu cosy:p-2 cosy:shadow cosy:bg-base-100 cosy:rounded-box cosy:w-32">
+			<ul tabindex="0" class="cosy:z-[1] cosy:bg-base-100 cosy:shadow cosy:p-2 cosy:rounded-box cosy:w-32 cosy:dropdown-content cosy:menu">
 				{languages.map((lang) => (
 					<li class={currentLocale === lang.code ? "cosy:disabled" : ""}>
 						<a href={getLanguageUrl(lang.code)} class={currentLocale === lang.code ? "cosy:active" : ""}>

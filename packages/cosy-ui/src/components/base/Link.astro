@@ -76,6 +76,8 @@ interface Props extends HTMLAttributes<'a'> {
 	variant?: LinkVariant;
 	animation?: LinkAnimation;
 	size?: LinkSize;
+	debug?: boolean;
+	centerText?: boolean;
 }
 
 const {
@@ -87,6 +89,8 @@ const {
 	size = 'md',
 	class: className = '',
 	'class:list': classList,
+	debug = false,
+	centerText = false,
 	...rest
 } = Astro.props;
 
@@ -119,6 +123,16 @@ const classes = [
 	// 自定义类名
 	className
 ];
+
+// 文本居中样式
+if (centerText) {
+	classes.push('cosy:justify-center cosy:text-center');
+}
+
+// 调试样式
+if (debug) {
+	classes.push('cosy:border cosy:border-dashed cosy:border-red-500');
+}
 ---
 
 <a
