@@ -127,7 +127,8 @@ jobs:
             patch=$patch_num
           fi
           
-          new_patch=$((patch + 1))
+          # 升级 patch 版本号，因为prerelease-cosy-ui.yml中已经升级过一次patch版本号，所以这里需要加2
+          new_patch=$((patch + 2))
           new_version="${major}.${minor}.${new_patch}"
           
           # 更新 package.json 中的版本号
