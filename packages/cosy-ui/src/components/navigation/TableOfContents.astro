@@ -54,7 +54,7 @@
 
 // 导入样式
 import '../../app.css';
-import { getCurrentLanguage, LanguageSource } from '../../utils/language';
+import { getCurrentLanguage } from '../../utils/language';
 import { createTextGetter } from '../../utils/i18n';
 
 interface Props {
@@ -97,11 +97,6 @@ interface Props {
    * @default 自动检测
    */
   lang?: string;
-  /**
-   * 是否启用日志输出
-   * @default false
-   */
-  enableLogging?: boolean;
 }
 
 const {
@@ -113,7 +108,6 @@ const {
   minHeadings = 2,
   lang: userLang,
   title,
-  enableLogging = true,
 } = Astro.props;
 
 // 获取当前语言
@@ -125,54 +119,28 @@ const titleText = title || t('title');
 
 // 生成唯一ID，确保多个TOC实例不会冲突
 const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
-
-// 获取语言来源的描述
-function getLanguageSourceDescription(source: LanguageSource): string {
-  switch (source) {
-    case LanguageSource.USER:
-      return '用户指定';
-    case LanguageSource.URL:
-      return 'URL参数';
-    case LanguageSource.BROWSER:
-      return '浏览器设置';
-    case LanguageSource.DEFAULT:
-      return '默认语言';
-    default:
-      return '未知来源';
-  }
-}
 ---
 
-<div class={`toc-container ${fixed ? 'cosy:fixed cosy:top-20 cosy:right-4 cosy:w-64' : 'cosy:w-full cosy:max-w-xs'} ${className}`} id={`${tocId}-container`} style="display: none;">
-  <div class="cosy:card cosy:bg-base-100 cosy:shadow-xl">
-    <div class="cosy:card-body cosy:p-4">
-      <div class="cosy:card-title cosy:text-lg cosy:font-bold cosy:mb-2">{titleText}</div>
-      <ul class="cosy:menu cosy:menu-sm" id={tocId}>
-        <!-- 目录项将通过 JavaScript 动态生成 -->
-        <li class="cosy:text-base-content/60">{t('loading')}</li>
-      </ul>
+<aside class:list={[
+  'cosy:hidden cosy:xl:block cosy:w-64 cosy:shrink-0',
+  className
+]}>
+  <div class="cosy:top-16 cosy:sticky">
+    <div class={`toc-container ${fixed ? 'cosy:w-64' : 'cosy:w-full cosy:max-w-xs'}`} id={`${tocId}-container`} style="display: none;">
+      <div class="cosy:bg-base-100 cosy:shadow-xl cosy:card">
+        <div class="cosy:p-4 cosy:card-body">
+          <div class="cosy:mb-2 cosy:font-bold cosy:text-lg cosy:card-title">{titleText}</div>
+          <ul class="cosy:menu cosy:menu-sm" id={tocId}>
+            <!-- 目录项将通过 JavaScript 动态生成 -->
+            <li class="cosy:text-base-content/60">{t('loading')}</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</aside>
 
-<script define:vars={{ selector, maxDepth, tocId, containerSelector, minHeadings, langInfo, enableLogging }}>
-  // 输出语言信息到控制台
-  if (enableLogging) {
-    console.log(`[TableOfContents] 语言信息:`, {
-      语言代码: langInfo.code,
-      语言来源: langInfo.source,
-      来源描述: (() => {
-        switch (langInfo.source) {
-          case 'user': return '用户指定';
-          case 'url': return 'URL参数';
-          case 'browser': return '浏览器设置';
-          case 'default': return '默认语言';
-          default: return '未知来源';
-        }
-      })()
-    });
-  }
-
+<script define:vars={{ selector, maxDepth, tocId, containerSelector, minHeadings, langInfo }}>
   // 在页面加载完成后生成目录
   function generateTOC() {
     // 使用指定的容器选择器查找内容容器

@@ -46,6 +46,7 @@
 
 // 导入样式
 import '../../app.css';
+import Button from '../base/Button.astro';
 
 interface Props {
     /**
@@ -75,26 +76,32 @@ const {
 } = Astro.props;
 ---
 
-<dialog id={id} class="modal">
-    <div class:list={["modal-box", className]}>
+<dialog id={id} class="cosy:modal">
+    <div class:list={["cosy:modal-box", className]}>
         {showCloseButton && (
             <form method="dialog">
-                <button class="modal-close-button">✕</button>
+                <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    shape="circle" 
+                    formmethod="dialog"
+                    class="cosy:modal-close-button"
+                >✕</Button>
             </form>
         )}
         
-        {title && <h3 class="modal-title">{title}</h3>}
+        {title && <h3 class="cosy:modal-title">{title}</h3>}
         
-        <div class="modal-content">
+        <div class="cosy:modal-content">
             <slot />
         </div>
 
-        <div class="modal-action">
+        <div class="cosy:modal-action">
             <slot name="actions" />
         </div>
     </div>
 
-    <form method="dialog" class="modal-backdrop">
+    <form method="dialog" class="cosy:modal-backdrop">
         <button>关闭</button>
     </form>
 </dialog>

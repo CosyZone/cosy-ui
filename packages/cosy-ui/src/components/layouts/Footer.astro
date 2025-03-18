@@ -146,11 +146,11 @@
  */
 
 import { processSocialLink } from '../../utils/social';
-import Link from '../base/Link.astro';
 import SocialIcon from '../icons/SocialIcon.astro';
 import type { FooterProps } from '../../types/footer';
-import { getCurrentLanguage, LanguageSource } from '../../utils/language';
+import { getCurrentLanguage } from '../../utils/language';
 import { createTextGetter } from '../../utils/i18n';
+import NavSection from './NavSection.astro';
 
 // 导入样式
 import '../../app.css';
@@ -194,29 +194,12 @@ const {
 	techStackLink,
 	debug = false,
 	lang: userLang,
-	enableLogging = false,
 }: Props = Astro.props;
 
 // 获取当前语言
 const langInfo = getCurrentLanguage(userLang);
 // 创建文本获取函数
 const t = createTextGetter(langInfo, 'footer');
-
-// 获取语言来源的描述
-function getLanguageSourceDescription(source: LanguageSource): string {
-  switch (source) {
-    case LanguageSource.USER:
-      return '用户指定';
-    case LanguageSource.URL:
-      return 'URL参数';
-    case LanguageSource.BROWSER:
-      return '浏览器设置';
-    case LanguageSource.DEFAULT:
-      return '默认语言';
-    default:
-      return '未知来源';
-  }
-}
 
 const currentYear = new Date().getFullYear();
 
@@ -238,28 +221,28 @@ const debugClasses = debug ? {
 ---
 
 <footer class:list={["cosy:footer cosy:sm:footer-horizontal cosy:bg-base-200 cosy:text-base-content cosy:p-10", debugClasses.footer]}>
-	<div class:list={["cosy:flex cosy:flex-col cosy:gap-8 cosy:container cosy:mx-auto cosy:items-center cosy:w-full cosy:md:flex-row cosy:md:justify-between", debugClasses.section]}>
+	<div class:list={["cosy:flex cosy:flex-col cosy:md:h-56 cosy:gap-8 cosy:container cosy:mx-auto cosy:items-center cosy:w-full cosy:md:flex-row cosy:md:justify-between", debugClasses.section]}>
 		{/* 品牌区域 */}
-		<aside class:list={["cosy:max-w-xs", debugClasses.aside]}>
-			<a href={homeLink} class="cosy:flex cosy:items-center cosy:gap-2 cosy:mb-4">
+		<aside class:list={["cosy:max-w-xs cosy:text-center", debugClasses.aside]}>
+			<a href={homeLink} class="cosy:flex cosy:items-center cosy:gap-2 cosy:mb-4 cosy:no-underline">
 				{logo && (
 					<img
 						src={logo.src}
 						alt={logo.alt}
-						class="cosy:mask cosy:mask-squircle cosy:w-12 cosy:h-12"
+						class="cosy:w-12 cosy:h-12 cosy:mask cosy:mask-squircle"
 						width="48"
 						height="48"
 					/>
 				)}
 				<div>
-					<h2 class="cosy:text-xl cosy:font-bold">{siteName}</h2>
+					<h2 class="cosy:font-bold cosy:text-xl">{siteName}</h2>
 					<p class="cosy:text-base-content/70">{slogan}</p>
 				</div>
 			</a>
 			
 			{/* 社交媒体链接 */}
 			{processedSocialLinks.length > 0 && (
-				<div class="cosy:flex cosy:gap-2 cosy:mt-4">
+				<div class="cosy:flex cosy:justify-center cosy:gap-2 cosy:mt-4">
 					{processedSocialLinks.map((link) => (
 						<a 
 							href={link.url} 
@@ -276,49 +259,39 @@ const debugClasses = debug ? {
 		</aside>
 
 		{/* 导航区域 */}
-		<div class:list={["cosy:flex cosy:flex-col cosy:gap-8 cosy:mx-auto cosy:max-w-xl cosy:text-center cosy:items-center cosy:w-full cosy:md:flex-row cosy:md:justify-between cosy:md:items-start", debugClasses.section]}>
+		<div class:list={["cosy:flex cosy:h-full cosy:flex-col cosy:justify-center cosy:gap-8 cosy:mx-auto cosy:max-w-xl cosy:text-center cosy:items-center cosy:w-full cosy:md:flex-row cosy:md:justify-between cosy:md:items-start", debugClasses.section]}>
 			{/* 产品导航 */}
 			{products.length > 0 && (
-				<nav class:list={["cosy:flex cosy:flex-col cosy:gap-3 cosy:h-full cosy:self-start", debugClasses.nav]}>
-					<h6 class="cosy:footer-title">{t('products')}</h6>
-					{products.map((product) => (
-						<Link href={product.href} external={product.external} size='sm' block animation='hover-lift'>
-							{product.name}
-						</Link>
-					))}
-				</nav>
+				<NavSection title={t('products')} links={products} />
 			)}
 
 			{/* 关于导航 */}
 			{(aboutLink || contactLink || teamLink || careersLink) && (
-				<nav class:list={["cosy:flex cosy:flex-col cosy:gap-3 cosy:h-full cosy:self-start", debugClasses.nav]}>
-					<h6 class="cosy:footer-title">{t('about')}</h6>
-					{aboutLink && <Link href={aboutLink} block animation='hover-lift' size='sm'>{t('aboutUs')}</Link>}
-					{teamLink && <Link href={teamLink} block animation='hover-lift' size='sm'>{t('team')}</Link>}
-					{careersLink && <Link href={careersLink} block animation='hover-lift' size='sm'>{t('careers')}</Link>}
-					{contactLink && <Link href={contactLink} block animation='hover-lift' size='sm'>{t('contactUs')}</Link>}
-				</nav>
+				<NavSection title={t('about')} links={[
+					{ name: t('aboutUs'), href: aboutLink },
+					{ name: t('team'), href: teamLink },
+					{ name: t('careers'), href: careersLink },
+					{ name: t('contactUs'), href: contactLink }
+				].filter(link => link.href)} />
 			)}
 
 			{/* 资源导航 */}
 			{(newsLink || historyLink || partnersLink || blogLink || faqLink || mediaLink || techStackLink) && (
-				<nav class:list={["cosy:flex cosy:flex-col cosy:gap-3 cosy:h-full cosy:self-start", debugClasses.nav]}>
-					<h6 class="cosy:footer-title">{t('resources')}</h6>
-					{newsLink && <Link href={newsLink} block animation='hover-lift' size='sm'>{t('news')}</Link>}
-					{blogLink && <Link href={blogLink} block animation='hover-lift' size='sm'>{t('blog')}</Link>}
-					{faqLink && <Link href={faqLink} block animation='hover-lift' size='sm'>{t('faq')}</Link>}
-					{historyLink && <Link href={historyLink} block animation='hover-lift' size='sm'>{t('history')}</Link>}
-					{techStackLink && <Link href={techStackLink} block animation='hover-lift' size='sm'>{t('techStack')}</Link>}
-				</nav>
+				<NavSection title={t('resources')} links={[
+					{ name: t('news'), href: newsLink },
+					{ name: t('blog'), href: blogLink },
+					{ name: t('faq'), href: faqLink },
+					{ name: t('history'), href: historyLink },
+					{ name: t('techStack'), href: techStackLink }
+				].filter(link => link.href)} />
 			)}
 
 			{/* 法律导航 */}
 			{(termsLink || privacyLink) && (
-				<nav class:list={["cosy:flex cosy:flex-col cosy:gap-3 cosy:h-full cosy:self-start", debugClasses.nav]}>
-					<h6 class="cosy:footer-title">{t('legal')}</h6>
-					{termsLink && <Link href={termsLink} block animation='hover-lift' size='sm'>{t('terms')}</Link>}
-					{privacyLink && <Link href={privacyLink} block animation='hover-lift' size='sm'>{t('privacy')}</Link>}
-				</nav>
+				<NavSection title={t('legal')} links={[
+					{ name: t('terms'), href: termsLink },
+					{ name: t('privacy'), href: privacyLink }
+				].filter(link => link.href)} />
 			)}
 		</div>
 	</div>
@@ -334,32 +307,13 @@ const debugClasses = debug ? {
 {/* 底部版权信息 */}
 <div class:list={["cosy:footer cosy:footer-center cosy:p-4 cosy:bg-base-300 cosy:text-base-content", debugClasses.footer]}>
 	<aside class:list={["cosy:items-center cosy:grid-flow-col", debugClasses.aside]}>
-		<p class="cosy:text-sm cosy:opacity-70">
+		<p class="cosy:opacity-70 cosy:text-sm">
 			© {currentYear} {company} - {copyright || t('allRightsReserved')}
 		</p>
 		{icp && (
-			<p class="cosy:text-sm cosy:opacity-70 cosy:ml-4">
+			<p class="cosy:opacity-70 cosy:ml-4 cosy:text-sm">
 				{icp}
 			</p>
 		)}
 	</aside>
 </div>
-
-<script define:vars={{ langInfo, enableLogging }}>
-  // 输出语言信息到控制台
-  if (enableLogging) {
-    console.log(`[Footer] 语言信息:`, {
-      语言代码: langInfo.code,
-      语言来源: langInfo.source,
-      来源描述: (() => {
-        switch (langInfo.source) {
-          case 'user': return '用户指定';
-          case 'url': return 'URL参数';
-          case 'browser': return '浏览器设置';
-          case 'default': return '默认语言';
-          default: return '未知来源';
-        }
-      })()
-    });
-  }
-</script>

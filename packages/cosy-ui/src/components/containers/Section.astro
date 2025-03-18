@@ -11,15 +11,16 @@
  *   <p>内容将被包裹在一个合适的区块中</p>
  * </Section>
  * 
- * <Section padding="lg" background="gray" centered={true}>
+ * <Section padding="lg" background="gray" centered={true} border={true}>
  *   <h2>自定义区块</h2>
- *   <p>大内边距，灰色背景，内容居中</p>
+ *   <p>大内边距，灰色背景，内容居中，带边框</p>
  * </Section>
  * ```
  */
 
 import type { HTMLAttributes } from 'astro/types';
 import Container from './Container.astro';
+import "../../app.css"
 
 interface Props extends HTMLAttributes<'section'> {
   /**
@@ -51,6 +52,12 @@ interface Props extends HTMLAttributes<'section'> {
    * @default false
    */
   centered?: boolean;
+
+  /**
+   * 是否显示边框
+   * @default false
+   */
+  border?: boolean;
   
   /**
    * 自定义类名
@@ -79,6 +86,7 @@ const {
   container = true,
   containerSize = 'md',
   centered = false,
+  border = false,
   class: className = '',
   'class:list': classList,
   id,
@@ -88,32 +96,33 @@ const {
 
 // 内边距映射
 const paddingClasses = {
-  'none': 'py-0',
-  'sm': 'py-6',
-  'md': 'py-12',
-  'lg': 'py-16',
-  'xl': 'py-24'
+  'none': 'cosy:py-0',
+  'sm': 'cosy:py-6',
+  'md': 'cosy:py-12',
+  'lg': 'cosy:py-16',
+  'xl': 'cosy:py-24'
 };
 
 // 背景颜色映射
 const backgroundClasses = {
-  'transparent': 'bg-transparent',
-  'white': 'bg-white',
-  'gray': 'bg-gray-100',
-  'primary': 'bg-blue-50',
-  'secondary': 'bg-gray-50',
-  'dark': 'bg-gray-900 text-white'
+  'transparent': 'cosy:bg-transparent',
+  'white': 'cosy:bg-base-100',
+  'gray': 'cosy:bg-base-200',
+  'primary': 'cosy:bg-primary/10',
+  'secondary': 'cosy:bg-secondary/10',
+  'dark': 'cosy:bg-neutral cosy:text-neutral-content'
 };
 
 // 构建最终类名
 const sectionClasses = [
   paddingClasses[padding as keyof typeof paddingClasses],
   backgroundClasses[background as keyof typeof backgroundClasses],
+  border ? 'cosy:border cosy:rounded-lg' : '',
   className
 ].join(' ');
 
 // 内容类名
-const contentClasses = centered ? 'text-center' : '';
+const contentClasses = centered ? 'cosy:text-center' : '';
 ---
 
 <section id={id} class:list={[sectionClasses, classList]} style={style} {...rest}>
@@ -127,19 +136,3 @@ const contentClasses = centered ? 'text-center' : '';
     </div>
   )}
 </section>
-
-<style>
-  /* 背景颜色 */
-  .bg-transparent { background-color: transparent; }
-  .bg-white { background-color: #ffffff; }
-  .bg-gray-50 { background-color: #f9fafb; }
-  .bg-gray-100 { background-color: #f3f4f6; }
-  .bg-blue-50 { background-color: #eff6ff; }
-  .bg-gray-900 { background-color: #111827; }
-  
-  /* 文字颜色 */
-  .text-white { color: #ffffff; }
-  
-  /* 文本对齐 */
-  .text-center { text-align: center; }
-</style> 

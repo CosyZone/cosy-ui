@@ -1,0 +1,122 @@
+---
+/**
+ * SidebarNav组件
+ * 
+ * 用于渲染侧边栏的导航内容
+ */
+
+import { isPathMatch } from '../../utils/path';
+import "../../app.css"
+
+export interface SidebarItem {
+  href: string;
+  text: string;
+  items?: SidebarItem[];
+}
+
+export interface SidebarSection {
+  title: string;
+  items: SidebarItem[];
+}
+
+interface Props {
+  /**
+   * 侧边栏项目
+   */
+  sidebarItems: SidebarSection[];
+  
+  /**
+   * 当前路径
+   */
+  currentPath: string;
+
+  /**
+   * 是否开启调试模式，显示边框
+   * @default false
+   */
+  debug?: boolean;
+
+  /**
+   * 自定义类名
+   */
+  class?: string;
+}
+
+const { 
+  sidebarItems, 
+  currentPath, 
+  debug = false,
+  class: className
+} = Astro.props;
+
+const debugClass = debug ? "cosy:border cosy:border-red-500" : "";
+---
+
+<nav class:list={["cosy:p-4", debugClass, className]}>
+  {sidebarItems.map((section: SidebarSection) => (
+    <div class:list={["cosy:mb-6", debugClass]}>
+      <h3 class:list={["cosy:font-bold cosy:mb-2 cosy:text-base-content/70", debugClass]}>{section.title}</h3>
+      <ul class:list={["cosy:menu cosy:bg-base-200 cosy:rounded-box cosy:w-56", debugClass]}>
+        {section.items.map((item: SidebarItem) => {
+          const isActive = isPathMatch(currentPath, item.href);
+          return (
+            <li class:list={[debugClass]}>
+              <a 
+                href={item.href} 
+                class:list={[
+                  "cosy:hover:bg-base-300",
+                  { "cosy:menu-active": isActive },
+                  debugClass
+                ]}
+              >
+                {item.text}
+              </a>
+              {item.items && (
+                <ul class:list={[debugClass]}>
+                  {item.items.map((subitem: SidebarItem) => {
+                    const isSubActive = isPathMatch(currentPath, subitem.href);
+                    return (
+                      <li class:list={[debugClass]}>
+                        <a 
+                          href={subitem.href} 
+                          class:list={[
+                            "cosy:hover:bg-base-300",
+                            { "cosy:active": isSubActive },
+                            debugClass
+                          ]}
+                        >
+                          {subitem.text}
+                        </a>
+                        {subitem.items && (
+                          <ul class:list={[debugClass]}>
+                            {subitem.items.map((subsubitem: SidebarItem) => {
+                              const isSubSubActive = isPathMatch(currentPath, subsubitem.href);
+                              return (
+                                <li class:list={[debugClass]}>
+                                  <a 
+                                    href={subsubitem.href} 
+                                    class:list={[
+                                      "cosy:hover:bg-base-300",
+                                      { "cosy:active": isSubSubActive },
+                                      debugClass
+                                    ]}
+                                  >
+                                    {subsubitem.text}
+                                  </a>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  ))}
+</nav> 
