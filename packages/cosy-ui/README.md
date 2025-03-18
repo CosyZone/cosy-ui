@@ -1,34 +1,34 @@
 # Cosy UI
 
-一个基于 Astro 构建的现代化组件库，集成了 daisyUI 和 Tailwind CSS，为您的项目提供美观且易用的 UI 组件。
+A modern component library built with Astro, integrating daisyUI and Tailwind CSS to provide beautiful and easy-to-use UI components for your projects.
 
-## ✨ 特性
+## ✨ Features
 
-- 🚀 基于 Astro 构建
-- 🎨 集成 daisyUI 和 Tailwind CSS
-- 📦 开箱即用的组件
-- 💪 完整的 TypeScript 支持
-- 📚 详尽的文档和示例
+- 🚀 Built with Astro
+- 🎨 Integrates daisyUI and Tailwind CSS
+- 📦 Ready-to-use components
+- 💪 Complete TypeScript support
+- 📚 Comprehensive documentation and examples
 
-## 📦 安装
+## 📦 Installation
 
-使用 pnpm（推荐）：
+Using pnpm (recommended):
 
 ```bash
 pnpm add @cofficlab/cosy-ui
 ```
 
-或使用 npm：
+Or using npm:
 
 ```bash
 npm install @cofficlab/cosy-ui
 ```
 
-## 🚀 快速开始
+## 🚀 Quick Start
 
-1. 在你的 Astro 项目中安装 Cosy UI
+1. Install Cosy UI in your Astro project
 
-2. 在你的组件中导入并使用：
+2. Import and use components:
 
 ```astro
 ---
@@ -36,24 +36,24 @@ import { Alert } from '@cofficlab/cosy-ui';
 ---
 
 <Alert type="info">
-  这是一个提示信息
+  This is an information message
 </Alert>
 ```
 
-## 📚 文档
+## 📚 Documentation
 
-访问我们的[网站](https://github.com/cofficlab/cosy-ui)获取更多信息。
+Visit our [website](https://github.com/cofficlab/cosy-ui) for more information.
 
-## 🤝 贡献
+## 🤝 Contributing
 
-我们欢迎任何形式的贡献！如果你发现了 bug 或有新的想法，请：
+We welcome contributions of any kind! If you find a bug or have new ideas, please:
 
-1. Fork 这个仓库
-2. 创建你的特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交你的改动 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 开启一个 Pull Request
+1. Fork this repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 📄 许可证
+## 📄 License
 
-本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
