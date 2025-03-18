@@ -40,34 +40,34 @@ interface Props {
 const { title, description, code } = Astro.props;
 ---
 
-<div class="card bg-base-100 shadow-lg mb-8 rounded-none code-example">
-  {title && <h3 class="card-title p-4 border-b border-base-300">{title}</h3>}
-  {description && <p class="px-4 pt-4 text-base-content/70">{description}</p>}
+<div class="cosy:card cosy:bg-base-100 cosy:shadow-lg cosy:mb-8 cosy:rounded-none code-example">
+  {title && <h3 class="cosy:card-title cosy:p-4 cosy:border-b cosy:border-base-300">{title}</h3>}
+  {description && <p class="cosy:px-4 cosy:pt-4 cosy:text-base-content/70">{description}</p>}
   
-  <div class="flex justify-between items-center px-4 bg-base-200 rounded-none">
-    <div role="tablist" class="tabs tabs-box">
-      <button role="tab" class="tab tab-active" data-tab="preview">预览</button>
-      <button role="tab" class="tab" data-tab="code">代码</button>
+  <div class="cosy:flex cosy:justify-between cosy:items-center cosy:px-4 cosy:bg-base-200 cosy:rounded-none">
+    <div role="tablist" class="cosy:tabs cosy:tabs-box">
+      <button role="tab" class="cosy:tab cosy:tab-active" data-tab="preview">预览</button>
+      <button role="tab" class="cosy:tab" data-tab="code">代码</button>
     </div>
-    <div class="flex items-center gap-2">
-      <button class="btn btn-ghost btn-sm gap-2" aria-label="复制代码">
+    <div class="cosy:flex cosy:items-center cosy:gap-2">
+      <button class="cosy:btn cosy:btn-ghost cosy:btn-sm cosy:gap-2" aria-label="复制代码">
         <span class="copy-icon"><ClipboardIcon /></span>
-        <span class="check-icon hidden text-success"><CheckIcon /></span>
+        <span class="check-icon cosy:hidden cosy:text-success"><CheckIcon /></span>
         <span class="copy-text">复制代码</span>
       </button>
     </div>
   </div>
   
-  <div class="relative p-0">
+  <div class="cosy:relative cosy:p-0">
     <div class="code-example-panel active" data-panel="preview">
-      <div class="p-6 bg-base-100">
+      <div class="cosy:p-6 cosy:bg-base-100">
         <slot />
       </div>
     </div>
     
     <div class="code-example-panel" data-panel="code">
-      <div class="bg-base-300 px-6 py-2">
-        <pre class="overflow-x-auto"><code class="language-astro">{code}</code></pre>
+      <div class="cosy:bg-base-300 cosy:px-6 cosy:py-2">
+        <pre class="cosy:overflow-x-auto"><code class="language-astro">{code}</code></pre>
       </div>
     </div>
   </div>
@@ -86,18 +86,18 @@ const { title, description, code } = Astro.props;
 <script>
   function initializeCodeExample() {
     // 标签切换功能
-    const tabs = document.querySelectorAll('.tab');
+    const tabs = document.querySelectorAll('.cosy\\:tab');
     
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
         // 获取当前标签组
-        const tabGroup = tab.closest('.tabs');
+        const tabGroup = tab.closest('.cosy\\:tabs');
         if (!tabGroup) return;
         
-        const codeExample = tab.closest('.card');
+        const codeExample = tab.closest('.cosy\\:card');
         if (!codeExample) return;
         
-        const contentContainer = codeExample.querySelector('.relative');
+        const contentContainer = codeExample.querySelector('.cosy\\:relative');
         if (!contentContainer) return;
         
         // 获取目标面板
@@ -105,10 +105,10 @@ const { title, description, code } = Astro.props;
         if (!targetTab) return;
         
         // 更新标签状态
-        tabGroup.querySelectorAll('.tab').forEach(t => {
-          t.classList.remove('tab-active');
+        tabGroup.querySelectorAll('.cosy\\:tab').forEach(t => {
+          t.classList.remove('cosy:tab-active');
         });
-        tab.classList.add('tab-active');
+        tab.classList.add('cosy:tab-active');
         
         // 更新面板状态
         contentContainer.querySelectorAll('.code-example-panel').forEach(panel => {
@@ -123,11 +123,11 @@ const { title, description, code } = Astro.props;
     });
     
     // 复制代码功能
-    const copyButtons = document.querySelectorAll('.btn-ghost');
+    const copyButtons = document.querySelectorAll('.cosy\\:btn-ghost');
     
     copyButtons.forEach(button => {
       button.addEventListener('click', () => {
-        const codeBlock = button.closest('.bg-base-300');
+        const codeBlock = button.closest('.cosy\\:bg-base-300');
         if (!codeBlock) return;
         
         const codeElement = codeBlock.querySelector('code');
@@ -138,17 +138,17 @@ const { title, description, code } = Astro.props;
         // 复制到剪贴板
         navigator.clipboard.writeText(code).then(() => {
           // 显示复制成功状态
-          button.classList.add('btn-success');
-          button.querySelector('.copy-icon')?.classList.add('hidden');
-          button.querySelector('.check-icon')?.classList.remove('hidden');
-          button.querySelector('.copy-text')?.classList.add('text-success');
+          button.classList.add('cosy:btn-success');
+          button.querySelector('.copy-icon')?.classList.add('cosy:hidden');
+          button.querySelector('.check-icon')?.classList.remove('cosy:hidden');
+          button.querySelector('.copy-text')?.classList.add('cosy:text-success');
           
           // 3秒后恢复原状
           setTimeout(() => {
-            button.classList.remove('btn-success');
-            button.querySelector('.copy-icon')?.classList.remove('hidden');
-            button.querySelector('.check-icon')?.classList.add('hidden');
-            button.querySelector('.copy-text')?.classList.remove('text-success');
+            button.classList.remove('cosy:btn-success');
+            button.querySelector('.copy-icon')?.classList.remove('cosy:hidden');
+            button.querySelector('.check-icon')?.classList.add('cosy:hidden');
+            button.querySelector('.copy-text')?.classList.remove('cosy:text-success');
           }, 3000);
         });
       });

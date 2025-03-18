@@ -225,10 +225,10 @@ const processedSocialLinks = socialLinks.map((url) => processSocialLink(url));
 
 // 调试模式的样式类
 const debugClasses = debug ? {
-	footer: "border-2 border-blue-500",
-	section: "border-2 border-green-500",
-	nav: "border-2 border-yellow-500",
-	aside: "border-2 border-purple-500"
+	footer: "cosy:border-2 cosy:border-blue-500",
+	section: "cosy:border-2 cosy:border-green-500",
+	nav: "cosy:border-2 cosy:border-yellow-500",
+	aside: "cosy:border-2 cosy:border-purple-500"
 } : {
 	footer: "",
 	section: "",
@@ -237,33 +237,33 @@ const debugClasses = debug ? {
 };
 ---
 
-<footer class:list={["footer sm:footer-horizontal bg-base-200 text-base-content p-10", debugClasses.footer]}>
-	<div class:list={["flex flex-col gap-8 container mx-auto items-center w-full md:flex-row md:justify-between", debugClasses.section]}>
+<footer class:list={["cosy:footer cosy:sm:footer-horizontal cosy:bg-base-200 cosy:text-base-content cosy:p-10", debugClasses.footer]}>
+	<div class:list={["cosy:flex cosy:flex-col cosy:gap-8 cosy:container cosy:mx-auto cosy:items-center cosy:w-full cosy:md:flex-row cosy:md:justify-between", debugClasses.section]}>
 		{/* 品牌区域 */}
-		<aside class:list={["max-w-xs", debugClasses.aside]}>
-			<a href={homeLink} class="flex items-center gap-2 mb-4">
+		<aside class:list={["cosy:max-w-xs", debugClasses.aside]}>
+			<a href={homeLink} class="cosy:flex cosy:items-center cosy:gap-2 cosy:mb-4">
 				{logo && (
 					<img
 						src={logo.src}
 						alt={logo.alt}
-						class="mask mask-squircle w-12 h-12"
+						class="cosy:mask cosy:mask-squircle cosy:w-12 cosy:h-12"
 						width="48"
 						height="48"
 					/>
 				)}
 				<div>
-					<h2 class="text-xl font-bold">{siteName}</h2>
-					<p class="text-base-content/70">{slogan}</p>
+					<h2 class="cosy:text-xl cosy:font-bold">{siteName}</h2>
+					<p class="cosy:text-base-content/70">{slogan}</p>
 				</div>
 			</a>
 			
 			{/* 社交媒体链接 */}
 			{processedSocialLinks.length > 0 && (
-				<div class="flex gap-2 mt-4">
+				<div class="cosy:flex cosy:gap-2 cosy:mt-4">
 					{processedSocialLinks.map((link) => (
 						<a 
 							href={link.url} 
-							class="btn btn-circle btn-ghost btn-sm"
+							class="cosy:btn cosy:btn-circle cosy:btn-ghost cosy:btn-sm"
 							target="_blank" 
 							rel="noopener noreferrer"
 							aria-label={link.name}
@@ -276,11 +276,11 @@ const debugClasses = debug ? {
 		</aside>
 
 		{/* 导航区域 */}
-		<div class:list={["flex flex-col gap-8 mx-auto max-w-xl text-center items-center w-full md:flex-row md:justify-between md:items-start", debugClasses.section]}>
+		<div class:list={["cosy:flex cosy:flex-col cosy:gap-8 cosy:mx-auto cosy:max-w-xl cosy:text-center cosy:items-center cosy:w-full cosy:md:flex-row cosy:md:justify-between cosy:md:items-start", debugClasses.section]}>
 			{/* 产品导航 */}
 			{products.length > 0 && (
-				<nav class:list={["flex flex-col gap-3 h-full", debugClasses.nav]}>
-					<h6 class="footer-title">{t('products')}</h6>
+				<nav class:list={["cosy:flex cosy:flex-col cosy:gap-3 cosy:h-full cosy:self-start", debugClasses.nav]}>
+					<h6 class="cosy:footer-title">{t('products')}</h6>
 					{products.map((product) => (
 						<Link href={product.href} external={product.external} size='sm' block animation='hover-lift'>
 							{product.name}
@@ -291,8 +291,8 @@ const debugClasses = debug ? {
 
 			{/* 关于导航 */}
 			{(aboutLink || contactLink || teamLink || careersLink) && (
-				<nav class:list={["flex flex-col gap-3 h-full", debugClasses.nav]}>
-					<h6 class="footer-title">{t('about')}</h6>
+				<nav class:list={["cosy:flex cosy:flex-col cosy:gap-3 cosy:h-full cosy:self-start", debugClasses.nav]}>
+					<h6 class="cosy:footer-title">{t('about')}</h6>
 					{aboutLink && <Link href={aboutLink} block animation='hover-lift' size='sm'>{t('aboutUs')}</Link>}
 					{teamLink && <Link href={teamLink} block animation='hover-lift' size='sm'>{t('team')}</Link>}
 					{careersLink && <Link href={careersLink} block animation='hover-lift' size='sm'>{t('careers')}</Link>}
@@ -302,8 +302,8 @@ const debugClasses = debug ? {
 
 			{/* 资源导航 */}
 			{(newsLink || historyLink || partnersLink || blogLink || faqLink || mediaLink || techStackLink) && (
-				<nav class:list={["flex flex-col gap-3", debugClasses.nav]}>
-					<h6 class="footer-title">{t('resources')}</h6>
+				<nav class:list={["cosy:flex cosy:flex-col cosy:gap-3 cosy:h-full cosy:self-start", debugClasses.nav]}>
+					<h6 class="cosy:footer-title">{t('resources')}</h6>
 					{newsLink && <Link href={newsLink} block animation='hover-lift' size='sm'>{t('news')}</Link>}
 					{blogLink && <Link href={blogLink} block animation='hover-lift' size='sm'>{t('blog')}</Link>}
 					{faqLink && <Link href={faqLink} block animation='hover-lift' size='sm'>{t('faq')}</Link>}
@@ -314,8 +314,8 @@ const debugClasses = debug ? {
 
 			{/* 法律导航 */}
 			{(termsLink || privacyLink) && (
-				<nav class:list={["flex flex-col gap-3", debugClasses.nav]}>
-					<h6 class="footer-title">{t('legal')}</h6>
+				<nav class:list={["cosy:flex cosy:flex-col cosy:gap-3 cosy:h-full cosy:self-start", debugClasses.nav]}>
+					<h6 class="cosy:footer-title">{t('legal')}</h6>
 					{termsLink && <Link href={termsLink} block animation='hover-lift' size='sm'>{t('terms')}</Link>}
 					{privacyLink && <Link href={privacyLink} block animation='hover-lift' size='sm'>{t('privacy')}</Link>}
 				</nav>
@@ -326,19 +326,19 @@ const debugClasses = debug ? {
 
 {/* 横幅 */}
 {inspirationalSlogan && (
-	<aside class:list={["p-4 bg-primary text-primary-content w-full", debugClasses.aside]}>
-		<p class="text-center">{inspirationalSlogan}</p>
+	<aside class:list={["cosy:p-4 cosy:bg-primary cosy:text-primary-content cosy:w-full", debugClasses.aside]}>
+		<p class="cosy:text-center">{inspirationalSlogan}</p>
 	</aside>
 )}
 
 {/* 底部版权信息 */}
-<div class:list={["footer footer-center p-4 bg-base-300 text-base-content", debugClasses.footer]}>
-	<aside class:list={["items-center grid-flow-col", debugClasses.aside]}>
-		<p class="text-sm opacity-70">
+<div class:list={["cosy:footer cosy:footer-center cosy:p-4 cosy:bg-base-300 cosy:text-base-content", debugClasses.footer]}>
+	<aside class:list={["cosy:items-center cosy:grid-flow-col", debugClasses.aside]}>
+		<p class="cosy:text-sm cosy:opacity-70">
 			© {currentYear} {company} - {copyright || t('allRightsReserved')}
 		</p>
 		{icp && (
-			<p class="text-sm opacity-70 ml-4">
+			<p class="cosy:text-sm cosy:opacity-70 cosy:ml-4">
 				{icp}
 			</p>
 		)}
