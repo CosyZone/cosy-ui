@@ -93,28 +93,28 @@ const {
 // 构建类名
 const classes = [
 	// 基础链接样式
-	'items-center cursor-pointer no-underline transition-all duration-200',
+	'cosy:items-center cosy:cursor-pointer cosy:no-underline cosy:transition-all cosy:duration-200',
 	
 	// 显示方式
-	block ? 'flex w-full' : 'inline-flex',
+	block ? 'cosy:flex cosy:w-full' : 'cosy:inline-flex',
 	
 	// 变体样式
-	variant === 'primary' && 'text-primary hover:text-primary-focus',
-	variant === 'secondary' && 'text-secondary hover:text-secondary-focus',
-	variant === 'text' && 'text-neutral hover:text-neutral-focus',
-	variant === 'cta' && 'text-accent hover:text-accent-focus font-medium',
-	variant === 'ghost' && 'text-base-content hover:text-base-content/80',
-	variant === 'default' && 'text-base-content hover:text-base-content/90',
+	variant === 'primary' && 'cosy:text-primary cosy:hover:text-primary-focus',
+	variant === 'secondary' && 'cosy:text-secondary cosy:hover:text-secondary-focus',
+	variant === 'text' && 'cosy:text-neutral cosy:hover:text-neutral-focus',
+	variant === 'cta' && 'cosy:text-accent cosy:hover:text-accent-focus cosy:font-medium',
+	variant === 'ghost' && 'cosy:text-base-content cosy:hover:text-base-content/80',
+	variant === 'default' && 'cosy:text-base-content cosy:hover:text-base-content/90',
 	
 	// 尺寸样式
-	size === 'sm' && 'text-sm',
-	size === 'md' && 'text-base',
-	size === 'lg' && 'text-lg',
+	size === 'sm' && 'cosy:text-sm',
+	size === 'md' && 'cosy:text-base',
+	size === 'lg' && 'cosy:text-lg',
 	
 	// 动画效果
-	animation === 'hover-lift' && 'hover:-translate-y-0.5 transition-transform',
-	animation === 'hover-glow' && 'hover:brightness-125 transition-[filter]',
-	animation === 'hover-scale' && 'hover:scale-105 transition-transform',
+	animation === 'hover-lift' && 'cosy:hover:-translate-y-0.5 cosy:transition-transform',
+	animation === 'hover-glow' && 'cosy:hover:brightness-125 cosy:transition-[filter]',
+	animation === 'hover-scale' && 'cosy:hover:scale-105 cosy:transition-transform',
 	
 	// 自定义类名
 	className

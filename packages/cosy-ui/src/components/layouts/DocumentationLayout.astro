@@ -374,7 +374,7 @@ const validLang = getValidLanguage(currentLocale);
   description={description} 
   keywords={keywords}
   head={head}
-  class:list={["min-h-screen flex flex-col", { "border border-base-300": debug }]}
+  class:list={["cosy:min-h-screen cosy:flex cosy:flex-col", { "cosy:border cosy:border-base-300": debug }]}
   {...rest}
 >
   {showHeader && (
@@ -390,25 +390,25 @@ const validLang = getValidLanguage(currentLocale);
   )}
   
   {debug && (
-    <div class="fixed top-2 right-2 badge badge-warning">
+    <div class="cosy:fixed cosy:top-2 cosy:right-2 cosy:badge cosy:badge-warning">
       调试模式已启用
     </div>
   )}
   
-  <div class="flex-1 flex">
+  <div class="cosy:flex-1 cosy:flex">
     <Sidebar sidebarItems={sidebarItems} currentPath={currentPath} />
     
     <Main 
-      class="flex-1 py-8 min-h-screen" 
+      class="cosy:flex-1 cosy:py-8 cosy:min-h-screen" 
     >
-      <div class="container mx-auto px-4 flex gap-8">
+      <div class="cosy:container cosy:mx-auto cosy:px-4 cosy:flex cosy:gap-8">
         <Article >
           <slot />
         </Article>
         
         {showTableOfContents && (
-          <div class="w-64 shrink-0">
-            <div class="sticky top-16">
+          <div class="cosy:w-64 cosy:shrink-0">
+            <div class="cosy:sticky cosy:top-16">
               <slot name="toc">
                 <TableOfContents lang={currentLocale} />
               </slot>
