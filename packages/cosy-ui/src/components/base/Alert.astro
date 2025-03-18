@@ -100,10 +100,10 @@ const {
 
 // 根据类型设置样式
 const alertClass = {
-  info: 'alert-info',
-  success: 'alert-success',
-  warning: 'alert-warning',
-  error: 'alert-error',
+  info: 'cosy:alert-info',
+  success: 'cosy:alert-success',
+  warning: 'cosy:alert-warning',
+  error: 'cosy:alert-error',
 }[type as 'info' | 'success' | 'warning' | 'error'];
 
 // 根据类型设置图标组件
@@ -115,22 +115,22 @@ const IconComponent = {
 }[type as 'info' | 'success' | 'warning' | 'error'];
 ---
 
-<div class={`alert ${alertClass} ${className}`} role="alert" data-auto-close={autoClose}>
-  <div class="alert-content">
-    <div class="alert-icon">
+<div class={`cosy:alert ${alertClass} ${className}`} role="alert" data-auto-close={autoClose}>
+  <div class="cosy:alert-content">
+    <div class="cosy:alert-icon">
       <IconComponent />
     </div>
-    <div class="alert-body">
-      {title && <h3 class="alert-title">{title}</h3>}
-      <div class="alert-message"><slot /></div>
+    <div class="cosy:alert-body">
+      {title && <h3 class="cosy:alert-title">{title}</h3>}
+      <div class="cosy:alert-message"><slot /></div>
     </div>
     {closeable && (
-      <button class="alert-close-btn" aria-label="关闭提示">
+      <button class="cosy:alert-close-btn" aria-label="关闭提示">
         <CloseIcon />
       </button>
     )}
   </div>
-  {autoClose && <div class="alert-progress"></div>}
+  {autoClose && <div class="cosy:alert-progress"></div>}
 </div>
 
 <script define:vars={{ closeable, autoClose }}>
@@ -139,12 +139,12 @@ const IconComponent = {
    * 设置关闭按钮事件和自动关闭功能
    */
   function initializeAlerts() {
-    const alerts = document.querySelectorAll('.alert');
+    const alerts = document.querySelectorAll('.cosy\\:alert');
     
     alerts.forEach(alert => {
       // 设置关闭按钮
       if (closeable) {
-        const closeBtn = alert.querySelector('.alert-close-btn');
+        const closeBtn = alert.querySelector('.cosy\\:alert-close-btn');
         if (closeBtn) {
           closeBtn.addEventListener('click', () => closeAlert(alert));
         }
@@ -170,7 +170,7 @@ const IconComponent = {
    */
   function closeAlert(alert) {
     // 添加关闭动画类
-    alert.classList.add('closing');
+    alert.classList.add('cosy:closing');
     
     // 动画结束后移除元素
     setTimeout(() => {

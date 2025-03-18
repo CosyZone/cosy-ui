@@ -143,13 +143,13 @@ function getLanguageSourceDescription(source: LanguageSource): string {
 }
 ---
 
-<div class={`toc-container ${fixed ? 'fixed top-20 right-4 w-64' : 'w-full max-w-xs'} ${className}`} id={`${tocId}-container`} style="display: none;">
-  <div class="card bg-base-100 shadow-xl">
-    <div class="card-body p-4">
-      <div class="card-title text-lg font-bold mb-2">{titleText}</div>
-      <ul class="menu menu-sm" id={tocId}>
+<div class={`toc-container ${fixed ? 'cosy:fixed cosy:top-20 cosy:right-4 cosy:w-64' : 'cosy:w-full cosy:max-w-xs'} ${className}`} id={`${tocId}-container`} style="display: none;">
+  <div class="cosy:card cosy:bg-base-100 cosy:shadow-xl">
+    <div class="cosy:card-body cosy:p-4">
+      <div class="cosy:card-title cosy:text-lg cosy:font-bold cosy:mb-2">{titleText}</div>
+      <ul class="cosy:menu cosy:menu-sm" id={tocId}>
         <!-- 目录项将通过 JavaScript 动态生成 -->
-        <li class="text-base-content/60">{t('loading')}</li>
+        <li class="cosy:text-base-content/60">{t('loading')}</li>
       </ul>
     </div>
   </div>
@@ -238,7 +238,7 @@ function getLanguageSourceDescription(source: LanguageSource): string {
       const link = document.createElement('a');
       link.href = `#${heading.id}`;
       link.textContent = heading.textContent;
-      link.className = 'text-base-content/80 hover:text-primary transition-colors';
+      link.className = 'cosy:text-base-content/80 cosy:hover:text-primary cosy:transition-colors';
       
       // 添加缩进
       if (level === 3) {
@@ -362,11 +362,11 @@ function getLanguageSourceDescription(source: LanguageSource): string {
       const href = link.getAttribute('href').substring(1);
       
       // 清除所有高亮
-      link.classList.remove('text-primary', 'font-medium');
+      link.classList.remove('cosy:text-primary', 'cosy:font-medium');
       
       // 添加当前活动标题的高亮
       if (href === activeHeadingId) {
-        link.classList.add('text-primary', 'font-medium');
+        link.classList.add('cosy:text-primary', 'cosy:font-medium');
         hasActiveLink = true;
         
         // 添加一个动画效果，使高亮更明显
@@ -382,13 +382,13 @@ function getLanguageSourceDescription(source: LanguageSource): string {
     
     // 如果没有找到活动链接，尝试高亮第一个标题
     if (!hasActiveLink && tocLinks.length > 0) {
-      tocLinks[0].classList.add('text-primary', 'font-medium');
+      tocLinks[0].classList.add('cosy:text-primary', 'cosy:font-medium');
     }
     
     // 确保活动链接在视图中可见
-    const activeLink = document.querySelector(`#${tocId} a.text-primary`);
+    const activeLink = document.querySelector(`#${tocId} a.cosy:text-primary`);
     if (activeLink && tocList) {
-      const tocScrollContainer = document.querySelector('.fixed');
+      const tocScrollContainer = document.querySelector('.cosy:fixed');
       if (tocScrollContainer) {
         const linkTop = activeLink.offsetTop;
         const containerScrollTop = tocScrollContainer.scrollTop;

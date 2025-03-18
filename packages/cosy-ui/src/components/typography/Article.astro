@@ -137,19 +137,19 @@ const {
 
 // 根据宽度设置对应的 Tailwind 类名
 const widthClasses = {
-	narrow: 'max-w-2xl',
-	medium: 'max-w-4xl',
-	wide: 'max-w-6xl',
-	full: 'w-full'
+	narrow: 'cosy:max-w-2xl',
+	medium: 'cosy:max-w-4xl',
+	wide: 'cosy:max-w-6xl',
+	full: 'cosy:w-full'
 }[width];
 
 // 基础样式类
 const baseClasses = [
-	'prose', // 使用 Tailwind Typography 插件的基础类
-	'prose-slate',
-	'w-full',
-	'mx-auto',
-	'dark:prose-invert', // 暗黑模式支持,
+	'cosy:prose', // 使用 Tailwind Typography 插件的基础类
+	'cosy:prose-slate',
+	'cosy:w-full',
+	'cosy:mx-auto',
+	'cosy:dark:prose-invert', // 暗黑模式支持,
 	widthClasses,
 	className
 ];
