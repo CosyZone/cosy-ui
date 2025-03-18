@@ -41,6 +41,13 @@
  *   <p>不居中的容器，靠左对齐</p>
  * </Container>
  * ```
+ * 
+ * 带边框的容器：
+ * ```astro
+ * <Container border>
+ *   <p>带有边框的容器</p>
+ * </Container>
+ * ```
  */
 
 import type { HTMLAttributes } from 'astro/types';
@@ -66,6 +73,12 @@ interface Props extends HTMLAttributes<'div'> {
    * @default true
    */
   centered?: boolean;
+
+  /**
+   * 是否显示边框
+   * @default false
+   */
+  border?: boolean;
   
   /**
    * 自定义类名
@@ -82,17 +95,37 @@ const {
   size = 'md',
   padding = 'md',
   centered = true,
+  border = false,
   class: className = '',
   'class:list': classList,
   ...rest
 } = Astro.props;
 
+// 静态类名映射
+const sizeClasses = {
+  'xs': 'container-xs',
+  'sm': 'container-sm',
+  'md': 'container-md',
+  'lg': 'container-lg',
+  'xl': 'container-xl',
+  'full': 'container-full'
+} as const;
+
+const paddingClasses = {
+  'none': 'container-padding-none',
+  'sm': 'container-padding-sm',
+  'md': 'container-padding-md',
+  'lg': 'container-padding-lg',
+  'xl': 'container-padding-xl'
+} as const;
+
 // 构建CSS类名
 const containerClasses = [
   'container',
-  `container-${size}`,
-  `container-padding-${padding}`,
+  sizeClasses[size],
+  paddingClasses[padding],
   centered ? 'container-centered' : '',
+  border ? 'cosy:border cosy:rounded-lg' : '',
   className
 ];
 ---

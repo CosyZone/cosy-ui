@@ -157,33 +157,72 @@ const isRemoteImage = typeof src === 'string' && (src.startsWith('http') || src.
 // 获取图片源
 const imgSrc = typeof src === 'string' ? src : src.src;
 
+// 对象映射定义所有可能的类名
+const objectFitClasses = {
+  'contain': 'object-contain',
+  'cover': 'object-cover',
+  'fill': 'object-fill',
+  'none': 'object-none',
+  'scale-down': 'object-scale-down'
+};
+
+const roundedClasses = {
+  'none': '',
+  'sm': 'rounded-sm',
+  'md': 'rounded-md',
+  'lg': 'rounded-lg',
+  'xl': 'rounded-xl',
+  '2xl': 'rounded-2xl',
+  '3xl': 'rounded-3xl',
+  'full': 'rounded-full'
+};
+
+const shadowClasses = {
+  'none': '',
+  'sm': 'shadow-sm',
+  'md': 'shadow-md',
+  'lg': 'shadow-lg',
+  'xl': 'shadow-xl',
+  '2xl': 'shadow-2xl'
+};
+
+const hoverClasses = {
+  'none': '',
+  'scale': 'hover:scale-110',
+  'brightness': 'hover:brightness-110',
+  'blur': 'hover:blur-sm'
+};
+
+const transitionClasses = {
+  'none': '',
+  'fade': 'transition-opacity duration-300',
+  'slide': 'transition-transform duration-300',
+  'zoom': 'transition-all duration-300'
+};
+
 // 构建图片类名
 const imgClasses = [
-  // DaisyUI 和 Tailwind 类
   'object-center',
-  objectFit === 'cover' ? 'object-cover' : `object-${objectFit}`,
-  rounded !== 'none' ? `rounded-${rounded}` : '',
-  shadow !== 'none' ? `shadow-${shadow}` : '',
-  hover === 'scale' ? 'hover:scale-110' : '',
-  hover === 'brightness' ? 'hover:brightness-110' : '',
-  hover === 'blur' ? 'hover:blur-sm' : '',
-  transition !== 'none' ? 'transition-all duration-300' : '',
+  objectFitClasses[objectFit] || objectFitClasses['cover'],
+  roundedClasses[rounded],
+  shadowClasses[shadow],
+  hoverClasses[hover],
+  transitionClasses[transition],
   className
 ].filter(Boolean).join(' ');
 
 // 构建占位图类名
 const placeholderClasses = [
   'absolute inset-0',
-  rounded !== 'none' ? `rounded-${rounded}` : '',
-  loadingIndicator === 'skeleton' ? 'animate-pulse bg-base-300' : '',
-  loadingIndicator === 'pulse' ? 'animate-pulse bg-base-300' : '',
+  roundedClasses[rounded],
+  loadingIndicator === 'skeleton' || loadingIndicator === 'pulse' ? 'animate-pulse bg-base-300' : ''
 ].filter(Boolean).join(' ');
 
 // 构建错误占位图类名
 const errorClasses = [
   'absolute inset-0 flex items-center justify-center',
-  rounded !== 'none' ? `rounded-${rounded}` : '',
-  'bg-error bg-opacity-10',
+  roundedClasses[rounded],
+  'bg-error bg-opacity-10'
 ].filter(Boolean).join(' ');
 ---
 
@@ -204,12 +243,12 @@ const errorClasses = [
     <div class={placeholderClasses} data-placeholder>
       {/* 远程图片加载指示器 */}
       {isRemoteImage && loadingIndicator === 'spinner' && (
-        <div class="loading loading-spinner loading-lg text-primary absolute inset-0 m-auto" />
+        <div class="absolute inset-0 m-auto text-primary loading loading-spinner loading-lg" />
       )}
       
       {isRemoteImage && loadingIndicator === 'progress' && (
-        <div class="absolute bottom-0 left-0 right-0">
-          <progress class="progress progress-primary w-full" />
+        <div class="right-0 bottom-0 left-0 absolute">
+          <progress class="w-full progress progress-primary" />
         </div>
       )}
     </div>
