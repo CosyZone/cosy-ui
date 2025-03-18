@@ -45,12 +45,35 @@ export interface Props {
    * 当前路径
    */
   currentPath: string;
+
+  /**
+   * 桌面端类名
+   */
+  class?: string;
+
+  /**
+   * 移动端类名
+   */
+  mobileClass?: string;
+
+  /**
+   * 是否默认展开（移动端）
+   * @default false
+   */
+  defaultOpen?: boolean;
 }
 
-const { sidebarItems, currentPath } = Astro.props;
+const { 
+  sidebarItems, 
+  currentPath, 
+  class: className,
+  mobileClass,
+  defaultOpen = false
+} = Astro.props;
 ---
 
-<aside class="cosy:w-64 cosy:border-r cosy:border-base-300 cosy:shrink-0">
+<!-- 桌面端侧边栏 -->
+<div class:list={[className]}>
   <nav class="cosy:p-4 cosy:sticky cosy:top-16">
     {sidebarItems.map((section: SidebarSection) => (
       <div class="cosy:mb-6">
@@ -116,4 +139,93 @@ const { sidebarItems, currentPath } = Astro.props;
       </div>
     ))}
   </nav>
-</aside> 
+</div>
+
+<!-- 移动端侧边栏 -->
+{mobileClass && (
+  <>
+    <div 
+      id="sidebar-mobile"
+      class:list={[
+        mobileClass,
+        "cosy:bg-base-100",
+        { "cosy:hidden": !defaultOpen }
+      ]}
+    >
+      <nav class="cosy:p-4 cosy:sticky cosy:top-16">
+        {sidebarItems.map((section: SidebarSection) => (
+          <div class="cosy:mb-6">
+            <h3 class="cosy:font-bold cosy:mb-2 cosy:text-base-content/70">{section.title}</h3>
+            <ul class="cosy:menu cosy:bg-base-200 cosy:rounded-box cosy:w-56">
+              {section.items.map((item: SidebarItem) => {
+                const isActive = isPathMatch(currentPath, item.href);
+                return (
+                  <li>
+                    <a 
+                      href={item.href} 
+                      class:list={[
+                        "cosy:hover:bg-base-300",
+                        { "cosy:menu-active": isActive }
+                      ]}
+                    >
+                      {item.text}
+                    </a>
+                    {item.items && (
+                      <ul>
+                        {item.items.map((subitem: SidebarItem) => {
+                          const isSubActive = isPathMatch(currentPath, subitem.href);
+                          return (
+                            <li>
+                              <a 
+                                href={subitem.href} 
+                                class:list={[
+                                  "cosy:hover:bg-base-300",
+                                  { "cosy:active": isSubActive }
+                                ]}
+                              >
+                                {subitem.text}
+                              </a>
+                              {subitem.items && (
+                                <ul>
+                                  {subitem.items.map((subsubitem: SidebarItem) => {
+                                    const isSubSubActive = isPathMatch(currentPath, subsubitem.href);
+                                    return (
+                                      <li>
+                                        <a 
+                                          href={subsubitem.href} 
+                                          class:list={[
+                                            "cosy:hover:bg-base-300",
+                                            { "cosy:active": isSubSubActive }
+                                          ]}
+                                        >
+                                          {subsubitem.text}
+                                        </a>
+                                      </li>
+                                    );
+                                  })}
+                                </ul>
+                              )}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
+      </nav>
+    </div>
+    
+    <!-- 遮罩层 -->
+    <div
+      id="sidebar-overlay"
+      class:list={[
+        "cosy:fixed cosy:inset-0 cosy:bg-black/50 cosy:z-30 lg:cosy:hidden",
+        { "cosy:hidden": !defaultOpen }
+      ]}
+    />
+  </>
+)} 

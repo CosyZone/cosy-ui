@@ -317,6 +317,12 @@ export interface Props {
    * 首页链接
    */
   footerHomeLink?: string;
+
+  /**
+   * 是否默认展开侧边栏（移动端）
+   * @default false
+   */
+  defaultSidebarOpen?: boolean;
 }
 
 const {
@@ -360,6 +366,7 @@ const {
   footerFaqLink,
   footerMediaLink,
   footerTechStackLink,
+  defaultSidebarOpen = false,
   ...rest
 } = Astro.props;
 
@@ -386,6 +393,8 @@ const validLang = getValidLanguage(currentLocale);
       currentLocale={currentLocale}
       sticky={true}
       basePath={basePath}
+      showSidebarToggle={true}
+      defaultSidebarOpen={defaultSidebarOpen}
     />
   )}
   
@@ -395,28 +404,49 @@ const validLang = getValidLanguage(currentLocale);
     </div>
   )}
   
-  <div class="cosy:flex-1 cosy:flex">
-    <Sidebar sidebarItems={sidebarItems} currentPath={currentPath} />
-    
-    <Main 
-      class="cosy:flex-1 cosy:py-8 cosy:min-h-screen" 
-    >
-      <div class="cosy:container cosy:mx-auto cosy:px-4 cosy:flex cosy:gap-8">
-        <Article >
-          <slot />
-        </Article>
-        
-        {showTableOfContents && (
-          <div class="cosy:w-64 cosy:shrink-0">
-            <div class="cosy:sticky cosy:top-16">
-              <slot name="toc">
-                <TableOfContents lang={currentLocale} />
-              </slot>
-            </div>
-          </div>
-        )}
+  <div class="cosy:flex-1 cosy:flex cosy:flex-col cosy:lg:flex-row">
+    <!-- 桌面端侧边栏容器 -->
+    <aside class="cosy:hidden lg:cosy:block cosy:w-64 cosy:shrink-0 cosy:border-r cosy:border-base-300">
+      <div class="cosy:sticky cosy:top-16 cosy:h-[calc(100vh-4rem)]">
+        <Sidebar 
+          sidebarItems={sidebarItems} 
+          currentPath={currentPath}
+        />
       </div>
-    </Main>
+    </aside>
+
+    <!-- 移动端侧边栏 -->
+    <aside class="lg:cosy:hidden">
+      <Sidebar 
+        sidebarItems={sidebarItems} 
+        currentPath={currentPath}
+        mobileClass="cosy:fixed cosy:inset-0 cosy:z-40"
+        defaultOpen={defaultSidebarOpen}
+      />
+    </aside>
+    
+    <!-- 主内容区域 -->
+    <div class="cosy:flex-1 cosy:min-h-screen cosy:flex cosy:flex-col cosy:items-center">
+      <Main class="cosy:py-4 cosy:lg:py-8 cosy:w-full">
+        <div class="cosy:container cosy:mx-auto cosy:px-4 lg:cosy:px-8">
+          <div class="cosy:flex cosy:flex-col cosy:lg:flex-row cosy:gap-8 cosy:justify-center">
+            <Article class="cosy:flex-1 xl:cosy:w-[calc(100%-16rem)]">
+              <slot />
+            </Article>
+            
+            {showTableOfContents && (
+              <aside class="cosy:hidden cosy:xl:block cosy:w-64 cosy:shrink-0">
+                <div class="cosy:sticky cosy:top-16">
+                  <slot name="toc">
+                    <TableOfContents lang={currentLocale} />
+                  </slot>
+                </div>
+              </aside>
+            )}
+          </div>
+        </div>
+      </Main>
+    </div>
   </div>
   
   {showFooter && (
@@ -447,4 +477,20 @@ const validLang = getValidLanguage(currentLocale);
       techStackLink={footerTechStackLink}
     />
   )}
+
+  <script>
+    // Handle sidebar toggle
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebar = document.getElementById('sidebar-mobile');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+    function toggleSidebar() {
+      sidebar?.classList.toggle('cosy:hidden');
+      sidebarOverlay?.classList.toggle('cosy:hidden');
+      document.body.classList.toggle('cosy:overflow-hidden');
+    }
+
+    sidebarToggle?.addEventListener('click', toggleSidebar);
+    sidebarOverlay?.addEventListener('click', toggleSidebar);
+  </script>
 </BaseLayout> 

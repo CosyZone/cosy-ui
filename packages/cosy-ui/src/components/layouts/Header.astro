@@ -42,6 +42,16 @@ interface Props {
 	 * @default ""
 	 */
 	basePath?: string;
+	/**
+	 * 是否显示侧边栏切换按钮
+	 * @default false
+	 */
+	showSidebarToggle?: boolean;
+	/**
+	 * 侧边栏是否默认展开
+	 * @default false
+	 */
+	defaultSidebarOpen?: boolean;
 }
 
 const {
@@ -54,7 +64,9 @@ const {
 		{ code: 'en', name: 'English' }
 	],
 	currentLocale = 'zh-cn',
-	basePath = ''
+	basePath = '',
+	showSidebarToggle = false,
+	defaultSidebarOpen = false
 } = Astro.props;
 
 type NavItem = { href: string; label: string; match: (path: string) => boolean };
@@ -77,27 +89,22 @@ function getLanguageUrl(langCode: string) {
 ---
 
 <header class:list={[
-	"cosy:navbar cosy:bg-accent/30 cosy:backdrop-blur cosy:border-base-200 cosy:z-50 cosy:w-full",
+	"cosy:navbar cosy:bg-accent/70 cosy:backdrop-blur cosy:border-base-200 cosy:z-50 cosy:w-full",
 	{ "cosy:fixed cosy:top-0": sticky }
 ]}>
 	<div class="cosy:navbar-start">
-		<!-- 移动端菜单 -->
-		<div class="cosy:dropdown cosy:lg:hidden">
-			<div tabindex="0" role="button" class="cosy:btn cosy:btn-ghost cosy:btn-circle">
+		{showSidebarToggle && (
+			<button
+				id="sidebar-toggle"
+				class="cosy:btn cosy:btn-ghost cosy:btn-circle lg:cosy:hidden"
+				aria-label="Toggle Sidebar"
+				aria-expanded={defaultSidebarOpen}
+			>
 				<svg xmlns="http://www.w3.org/2000/svg" class="cosy:h-5 cosy:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
 				</svg>
-			</div>
-			<ul tabindex="0" class="cosy:menu cosy:menu-sm cosy:dropdown-content cosy:mt-3 cosy:z-[1] cosy:p-2 cosy:shadow cosy:bg-base-100 cosy:rounded-box cosy:w-52">
-				{navItems.map((item: NavItem) => (
-					<li>
-						<Link href={item.href}>
-							{item.label}
-						</Link>
-					</li>
-				))}
-			</ul>
-		</div>
+			</button>
+		)}
 
 		<Link href={logoHref} class="cosy:btn cosy:btn-ghost">
 			<Image src={logo} alt="logo" class="cosy:w-10 cosy:h-10" />
@@ -118,6 +125,24 @@ function getLanguageUrl(langCode: string) {
 	</div>
 
 	<div class="cosy:navbar-end">
+		<!-- 移动端菜单 -->
+		<div class="cosy:dropdown cosy:lg:hidden">
+			<div tabindex="0" role="button" class="cosy:btn cosy:btn-ghost cosy:btn-circle">
+				<svg xmlns="http://www.w3.org/2000/svg" class="cosy:h-5 cosy:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+				</svg>
+			</div>
+			<ul tabindex="0" class="cosy:menu cosy:menu-sm cosy:dropdown-content cosy:mt-3 cosy:z-[1] cosy:p-2 cosy:shadow cosy:bg-base-100 cosy:rounded-box cosy:w-52">
+				{navItems.map((item: NavItem) => (
+					<li>
+						<Link href={item.href}>
+							{item.label}
+						</Link>
+					</li>
+				))}
+			</ul>
+		</div>
+
 		<!-- 语言切换按钮 -->
 		<div class="cosy:dropdown cosy:dropdown-end">
 			<div tabindex="0" role="button" class="cosy:btn cosy:btn-ghost cosy:btn-sm">
