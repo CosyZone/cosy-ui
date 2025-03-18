@@ -398,50 +398,26 @@ const validLang = getValidLanguage(currentLocale);
     />
   )}
   
-  {debug && (
-    <div class="cosy:fixed cosy:top-2 cosy:right-2 cosy:badge cosy:badge-warning">
-      调试模式已启用
-    </div>
-  )}
-  
-  <div class="cosy:flex-1 cosy:flex cosy:flex-col cosy:lg:flex-row">
-    <!-- 桌面端侧边栏容器 -->
-    <aside class="cosy:hidden lg:cosy:block cosy:w-64 cosy:shrink-0 cosy:border-r cosy:border-base-300">
-      <div class="cosy:sticky cosy:top-16 cosy:h-[calc(100vh-4rem)]">
-        <Sidebar 
-          sidebarItems={sidebarItems} 
-          currentPath={currentPath}
-        />
-      </div>
-    </aside>
-
-    <!-- 移动端侧边栏 -->
-    <aside class="lg:cosy:hidden">
-      <Sidebar 
-        sidebarItems={sidebarItems} 
-        currentPath={currentPath}
-        mobileClass="cosy:fixed cosy:inset-0 cosy:z-40"
-        defaultOpen={defaultSidebarOpen}
-      />
-    </aside>
+  <div class="cosy:flex cosy:lg:flex-row cosy:flex-col cosy:flex-1">
+    <!-- 侧边栏容器 -->
+    <Sidebar 
+      sidebarItems={sidebarItems} 
+      currentPath={currentPath}
+      debug={false}
+      class="cosy:hidden cosy:lg:block cosy:border-r cosy:border-base-300 cosy:w-64 cosy:shrink-0"
+    />
     
     <!-- 主内容区域 -->
-    <div class="cosy:flex-1 cosy:min-h-screen cosy:flex cosy:flex-col cosy:items-center">
-      <Main class="cosy:py-4 cosy:lg:py-8 cosy:w-full">
-        <div class="cosy:container cosy:mx-auto cosy:px-4 lg:cosy:px-8">
-          <div class="cosy:flex cosy:flex-col cosy:lg:flex-row cosy:gap-8 cosy:justify-center">
+    <div class="cosy:flex cosy:flex-col cosy:flex-1 cosy:items-center cosy:min-h-screen">
+      <Main class="cosy:lg:py-8 cosy:py-4 cosy:w-full">
+        <div class="cosy:mx-auto cosy:px-4 lg:cosy:px-8 cosy:container">
+          <div class="cosy:flex cosy:lg:flex-row cosy:flex-col cosy:justify-center cosy:gap-8">
             <Article class="cosy:flex-1 xl:cosy:w-[calc(100%-16rem)]">
               <slot />
             </Article>
             
             {showTableOfContents && (
-              <aside class="cosy:hidden cosy:xl:block cosy:w-64 cosy:shrink-0">
-                <div class="cosy:sticky cosy:top-16">
-                  <slot name="toc">
-                    <TableOfContents lang={currentLocale} />
-                  </slot>
-                </div>
-              </aside>
+                <TableOfContents lang={currentLocale} />
             )}
           </div>
         </div>
