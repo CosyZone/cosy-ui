@@ -3,23 +3,24 @@ import Button from './components/Button.vue'
 
 // 组件列表
 const components = [
-  Button
+    Button,
 ]
 
 // 定义安装方法
 const install = (app: App): void => {
-  // 注册组件
-  components.forEach(component => {
-    if (component.name) {
-      app.component(component.name, component)
-    }
-  })
+    // 注册组件
+    components.forEach(component => {
+        if (component.name) {
+            app.component(component.name, component)
+        }
+    })
 }
 
-// 导出单个组件
-export { Button as CosyButton }
+export {
+    Button as CosyButton,
+}
 
 // 导出默认对象
 export default {
-  install
+    install
 }
