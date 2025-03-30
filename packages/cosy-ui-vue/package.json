@@ -1,0 +1,36 @@
+{
+  "name": "@coffic/cosy-ui-vue",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/cosy.umd.js",
+  "module": "dist/cosy.es.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/cosy.es.js",
+      "require": "./dist/cosy.umd.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.14",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/tsconfig": "^0.7.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.2.0",
+    "vite-plugin-dts": "^4.5.3",
+    "vue-tsc": "^2.2.4"
+  }
+}
