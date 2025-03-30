@@ -18,46 +18,6 @@ importers:
         specifier: ^2.28.1
         version: 2.28.1
 
-  docs:
-    dependencies:
-      '@astrojs/mdx':
-        specifier: ^4.2.2
-        version: 4.2.2(astro@5.5.2(@types/node@22.13.14)(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.35.0)(tsx@4.19.3)(typescript@5.8.2)(yaml@2.7.0))
-      '@coffic/cosy-ui':
-        specifier: workspace:*
-        version: link:../packages/cosy-ui
-      '@coffic/cosy-ui-vue':
-        specifier: 'workspace: *'
-        version: link:../packages/cosy-ui-vue
-      astro:
-        specifier: ^5.5.2
-        version: 5.5.2(@types/node@22.13.14)(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.35.0)(tsx@4.19.3)(typescript@5.8.2)(yaml@2.7.0)
-
-  docs-vue:
-    dependencies:
-      '@coffic/cosy-ui-vue':
-        specifier: 'workspace: *'
-        version: link:../packages/cosy-ui-vue
-      vue:
-        specifier: ^3.5.13
-        version: 3.5.13(typescript@5.7.3)
-    devDependencies:
-      '@vitejs/plugin-vue':
-        specifier: ^5.2.1
-        version: 5.2.3(vite@6.2.2(@types/node@22.13.14)(jiti@2.4.2)(lightningcss@1.29.2)(tsx@4.19.3)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
-      '@vue/tsconfig':
-        specifier: ^0.7.0
-        version: 0.7.0(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
-      typescript:
-        specifier: ~5.7.2
-        version: 5.7.3
-      vite:
-        specifier: ^6.2.0
-        version: 6.2.2(@types/node@22.13.14)(jiti@2.4.2)(lightningcss@1.29.2)(tsx@4.19.3)(yaml@2.7.0)
-      vue-tsc:
-        specifier: ^2.2.4
-        version: 2.2.8(typescript@5.7.3)
-
   packages/cosy-ui:
     dependencies:
       astro-integration-kit:
@@ -179,6 +139,46 @@ importers:
       vite-plugin-dts:
         specifier: ^4.5.3
         version: 4.5.3(@types/node@22.13.14)(rollup@4.35.0)(typescript@5.7.3)(vite@6.2.2(@types/node@22.13.14)(jiti@2.4.2)(lightningcss@1.29.2)(tsx@4.19.3)(yaml@2.7.0))
+      vue-tsc:
+        specifier: ^2.2.4
+        version: 2.2.8(typescript@5.7.3)
+
+  packages/docs:
+    dependencies:
+      '@astrojs/mdx':
+        specifier: ^4.2.2
+        version: 4.2.2(astro@5.5.2(@types/node@22.13.14)(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.35.0)(tsx@4.19.3)(typescript@5.8.2)(yaml@2.7.0))
+      '@coffic/cosy-ui':
+        specifier: workspace:*
+        version: link:../cosy-ui
+      '@coffic/cosy-ui-vue':
+        specifier: 'workspace: *'
+        version: link:../cosy-ui-vue
+      astro:
+        specifier: ^5.5.2
+        version: 5.5.2(@types/node@22.13.14)(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.35.0)(tsx@4.19.3)(typescript@5.8.2)(yaml@2.7.0)
+
+  packages/docs-vue:
+    dependencies:
+      '@coffic/cosy-ui-vue':
+        specifier: 'workspace: *'
+        version: link:../cosy-ui-vue
+      vue:
+        specifier: ^3.5.13
+        version: 3.5.13(typescript@5.7.3)
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^5.2.1
+        version: 5.2.3(vite@6.2.2(@types/node@22.13.14)(jiti@2.4.2)(lightningcss@1.29.2)(tsx@4.19.3)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
+      '@vue/tsconfig':
+        specifier: ^0.7.0
+        version: 0.7.0(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
+      typescript:
+        specifier: ~5.7.2
+        version: 5.7.3
+      vite:
+        specifier: ^6.2.0
+        version: 6.2.2(@types/node@22.13.14)(jiti@2.4.2)(lightningcss@1.29.2)(tsx@4.19.3)(yaml@2.7.0)
       vue-tsc:
         specifier: ^2.2.4
         version: 2.2.8(typescript@5.7.3)

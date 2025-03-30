@@ -1,5 +1,6 @@
 import type { App } from 'vue'
 import Button from './components/Button.vue'
+import './style.css'
 
 // 组件列表
 const components = [
