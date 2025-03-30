@@ -3,6 +3,7 @@ import { getGroupedRoutes, createUrl } from '../lib/route';
 import { DocumentationLayout } from '@coffic/cosy-ui';
 import { getBaseUrl } from '../lib/utils';
 import type { SidebarSection } from '@coffic/cosy-ui';
+import { CosyButton } from '@coffic/cosy-ui-vue';
 
 interface Props {
 	title: string;
@@ -67,8 +68,11 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 	footerTechStackLink="https://coffic.zone.id/en/meta/tech-stack"
 	currentLocale={currentLocale}
 	languages={languages}
-	basePath={basePath}>
+	basePath={basePath}
+>
 	<slot />
+
+	<CosyButton :size="btn-sm">Button</CosyButton>
 
 	<Fragment slot="head">
 		<meta charset="UTF-8" />

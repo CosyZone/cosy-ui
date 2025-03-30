@@ -18,71 +18,28 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { defineProps } from 'vue'
-type ButtonVariant = '' | 'btn-primary' | 'btn-secondary' | 'btn-accent' | 'btn-info' |
-    'btn-success' | 'btn-warning' | 'btn-error' | 'btn-ghost' | 'btn-link'
-type ButtonSize = '' | 'btn-xs' | 'btn-sm' | 'btn-md' | 'btn-lg'
 
-const props = defineProps({
+export interface ButtonProps {
     // 按钮变体
-    variant: {
-        type: String as () => ButtonVariant,
-        default: '' as ButtonVariant,
-        validator: (value: string): value is ButtonVariant => [
-            '',
-            'btn-primary',
-            'btn-secondary',
-            'btn-accent',
-            'btn-info',
-            'btn-success',
-            'btn-warning',
-            'btn-error',
-            'btn-ghost',
-            'btn-link'
-        ].includes(value)
-    },
+    variant?: '' | 'btn-primary' | 'btn-secondary' | 'btn-accent' | 'btn-info' |
+    'btn-success' | 'btn-warning' | 'btn-error' | 'btn-ghost' | 'btn-link'
     // 按钮大小
-    size: {
-        type: String as () => ButtonSize,
-        default: '' as ButtonSize,
-        validator: (value: string): value is ButtonSize => [
-            '',
-            'btn-xs',
-            'btn-sm',
-            'btn-md',
-            'btn-lg'
-        ].includes(value)
-    },
+    size?: '' | 'btn-xs' | 'btn-sm' | 'btn-md' | 'btn-lg'
     // 是否禁用
-    disabled: {
-        type: Boolean,
-        default: false
-    },
+    disabled?: boolean
     // 是否激活状态
-    active: {
-        type: Boolean,
-        default: false
-    },
+    active?: boolean
     // 是否块级按钮
-    block: {
-        type: Boolean,
-        default: false
-    },
+    block?: boolean
     // 是否圆形按钮
-    circle: {
-        type: Boolean,
-        default: false
-    },
+    circle?: boolean
     // 是否方形按钮
-    square: {
-        type: Boolean,
-        default: false
-    },
+    square?: boolean
     // 是否加载状态
-    loading: {
-        type: Boolean,
-        default: false
-    }
-})
+    loading?: boolean
+}
+
+const props = defineProps<ButtonProps>()
 
 const variantClass = computed(() => props.variant || '')
 const sizeClass = computed(() => props.size || '')

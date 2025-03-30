@@ -4,5 +4,5 @@ import { CosyButton } from '@coffic/cosy-ui-vue'
 
 <template>
     <h1>Cosy UI Vue Documents</h1>
-    <CosyButton>Button</CosyButton>
+    <CosyButton size="btn-sm" :active="true">Button</CosyButton>
 </template>
