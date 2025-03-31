@@ -15,13 +15,13 @@ A modern component library built with Astro, integrating daisyUI and Tailwind CS
 Using pnpm (recommended):
 
 ```bash
-pnpm add @cofficlab/cosy-ui
+pnpm add @coffic/cosy-ui
 ```
 
 Or using npm:
 
 ```bash
-npm install @cofficlab/cosy-ui
+npm install @coffic/cosy-ui
 ```
 
 ## 🚀 Quick Start
@@ -32,7 +32,7 @@ npm install @cofficlab/cosy-ui
 
 ```astro
 ---
-import { Alert } from '@cofficlab/cosy-ui';
+import { Alert } from '@coffic/cosy-ui';
 ---
 
 <Alert type="info">
