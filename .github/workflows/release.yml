@@ -1,7 +1,7 @@
 ---
-# 🎉 Cosy UI 正式发布工作流
+# 🎉 Cosy UI 发布工作流
 #
-# 这个工作流程用于自动化 Cosy UI 组件库的正式发布过程。
+# 这个工作流程用于自动化 Cosy UI 组件库的发布过程。
 #
 # 工作流程说明：
 # 1. 开发流程 (dev 分支)：
@@ -21,8 +21,8 @@
 #    - 发布正式版本
 #
 # 发布条件：
-# - 推送到 main 分支时自动触发
-# - 发布为正式版本
+# - 推送到 pre 分支时触发预发布
+# - 推送到 main 分支时触发正式发布
 #
 # 使用方法：
 # 1. 日常开发完成后：
@@ -51,7 +51,8 @@ name: 🎉 Release Cosy UI
 on:
   push:
     branches: 
-      - main    # 正式发布
+      - pre     # 预发布分支
+      - main    # 正式发布分支
     tags:
       - '*'
 
@@ -68,6 +69,7 @@ permissions:
 env:
   tag: ${{ github.event.head_commit.id }}
   version: ${{ github.ref_name }}
+  is_prerelease: ${{ github.ref == 'refs/heads/pre' }}
 
 jobs:
   release:
@@ -111,7 +113,7 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           
-      - name: Bump Patch Version
+      - name: Bump Version
         run: |
           cd packages/cosy-ui
           current_version=$(node -p "require('./package.json').version")
@@ -119,7 +121,8 @@ jobs:
           
           # 版本升级规则说明:
           # 1. 版本格式遵循 semver 规范: major.minor.patch
-          # 2. 在正式发布流程中，我们只升级 patch 版本号（补丁版本号）
+          # 2. pre 分支: patch + 1
+          # 3. main 分支: patch + 2 (因为 pre 分支已经 +1)
           
           # 如果版本包含预发布标识，则去除它
           if [[ "$patch" == *"-"* ]]; then
@@ -127,8 +130,13 @@ jobs:
             patch=$patch_num
           fi
           
-          # 升级 patch 版本号，因为prerelease-cosy-ui.yml中已经升级过一次patch版本号，所以这里需要加2
-          new_patch=$((patch + 2))
+          # 根据分支类型决定版本号增量
+          if [[ "${{ github.ref }}" == "refs/heads/pre" ]]; then
+            new_patch=$((patch + 1))
+          else
+            new_patch=$((patch + 2))
+          fi
+          
           new_version="${major}.${minor}.${new_patch}"
           
           # 更新 package.json 中的版本号
@@ -140,50 +148,40 @@ jobs:
         
       - name: Commit Version Changes
         run: |
-          git pull origin main
+          current_branch=${GITHUB_REF#refs/heads/}
+          git pull origin $current_branch
           git add .
-          git commit -m "chore: release version ${{ env.VERSION }}"
+          git commit -m "chore: ${{ env.is_prerelease == 'true' && 'prerelease' || 'release' }} version ${{ env.VERSION }}"
           git tag v${{ env.VERSION }}
-          git push origin main
+          git push origin $current_branch
           git push origin v${{ env.VERSION }}
         env:
           GITHUB_TOKEN: ${{ secrets.COMMIT_TOKEN }}
           
-      - name: Sync Version Changes to Pre and Dev Branches
+      - name: Sync Version Changes
         run: |
-          # 1. 同步到 pre 分支
-          # 切换到 pre 分支
-          git checkout pre
+          # 根据当前分支决定同步策略
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            # main 分支同步到 pre 和 dev
+            branches=("pre" "dev")
+          else
+            # pre 分支只同步到 dev
+            branches=("dev")
+          fi
           
-          # 拉取最新的 pre 分支代码
-          git pull origin pre
-          
-          # 直接更新版本号，而不是使用 cherry-pick
-          cd packages/cosy-ui
-          npm version ${{ env.VERSION }} --no-git-tag-version
-          cd ../..
-          
-          # 提交更改并推送到 pre 分支
-          git add .
-          git commit -m "chore: sync version ${{ env.VERSION }} from main branch"
-          git push origin pre
-          
-          # 2. 同步到 dev 分支
-          # 切换到 dev 分支
-          git checkout dev
-          
-          # 拉取最新的 dev 分支代码
-          git pull origin dev
-          
-          # 直接更新版本号，而不是使用 cherry-pick
-          cd packages/cosy-ui
-          npm version ${{ env.VERSION }} --no-git-tag-version
-          cd ../..
-          
-          # 提交更改并推送到 dev 分支
-          git add .
-          git commit -m "chore: sync version ${{ env.VERSION }} from main branch"
-          git push origin dev
+          # 遍历需要同步的分支
+          for branch in "${branches[@]}"; do
+            git checkout $branch
+            git pull origin $branch
+            
+            cd packages/cosy-ui
+            npm version ${{ env.VERSION }} --no-git-tag-version
+            cd ../..
+            
+            git add .
+            git commit -m "chore: sync version ${{ env.VERSION }} from $current_branch branch"
+            git push origin $branch
+          done
         env:
           GITHUB_TOKEN: ${{ secrets.COMMIT_TOKEN }}
           
@@ -192,4 +190,4 @@ jobs:
         with:
           tag_name: v${{ env.VERSION }}
           generate_release_notes: true
-          prerelease: false
+          prerelease: ${{ env.is_prerelease == 'true' }}
