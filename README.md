@@ -1,16 +1,22 @@
 # Cosy UI
 
-这是一个 Astro 组件库，为同一个组织下的多个项目提供统一的 UI 风格。
+[English](#english) | [中文](#chinese)
 
-## 快速开始
+<a id="english"></a>
 
-安装
+## English
+
+This is an Astro component library that provides a unified UI style for multiple projects under the same organization.
+
+### Quick Start
+
+Installation
 
 ```bash
 npm install @coffic/cosy-ui
 ```
 
-在 Astro 组件中使用：
+Usage in Astro components:
 
 ```js
 ---
@@ -19,39 +25,101 @@ import { Button } from "@coffic/cosy-ui";
 <Button>Hi</Button>
 ```
 
-## 开发
+### Development
 
-### 项目结构
+#### Project Structure
 
-项目使用 pnpm 工作区（workspace）管理，包含以下部分：
+The project is managed using pnpm workspaces and consists of the following parts:
 
-- `packages/cosy-ui`：组件库的源码
-- `demo`：在开发阶段用来测试这些组件的样本项目
+- `packages/cosy-ui`: Source code of the component library
+- `demo`: Sample project used to test these components during development
 
-### 安装依赖
+#### Install Dependencies
 
 ```bash
 pnpm install
 ```
 
-### 启动
+#### Start Development Server
 
 ```bash
 pnpm run dev
 ```
 
-### 构建
+#### Build
 
-构建Demo：
+Build the Demo:
 
 ```bash
 pnpm build
 ```
 
-## 贡献
+### Contributing
 
-欢迎提交 Issue 和 Pull Request！
+Issues and Pull Requests are welcome!
 
-## 许可证
+### License
+
+MIT
+
+---
+
+<a id="chinese"></a>
+
+## 中文
+
+这是一个 Astro 组件库，为同一个组织下的多个项目提供统一的 UI 风格。
+
+### 快速开始
+
+Installation
+
+```bash
+npm install @coffic/cosy-ui
+```
+
+Usage in an Astro component:
+
+```js
+---
+import { Button } from "@coffic/cosy-ui";
+---
+<Button>Hi</Button>
+```
+
+### 开发
+
+#### 项目结构
+
+The project is managed using pnpm workspaces, and includes the following parts:
+
+- `packages/cosy-ui`: Source code of the component library
+- `demo`: Sample project used to test these components during development
+
+#### 安装依赖
+
+```bash
+pnpm install
+```
+
+#### 启动
+
+```bash
+pnpm run dev
+```
+
+#### 构建
+
+Build the Demo:
+
+```bash
+pnpm build
+```
+
+### 贡献
+
+Issues and Pull Requests are welcome!
+
+### 许可证
 
 MIT

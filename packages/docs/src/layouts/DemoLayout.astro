@@ -1,0 +1,84 @@
+---
+import { getGroupedRoutes, createUrl } from '../lib/route';
+import { DocumentationLayout } from '@coffic/cosy-ui';
+import { getBaseUrl } from '../lib/utils';
+import type { SidebarSection } from '@coffic/cosy-ui';
+import { CosyButton } from '@coffic/cosy-ui-vue';
+
+interface Props {
+	title: string;
+	showTOC?: boolean;
+}
+
+const { title, showTOC = true } = Astro.props;
+
+// 获取基础路径
+const basePath = getBaseUrl();
+const homeLink = `${basePath}/`;
+
+// 从 URL 获取当前语言
+const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
+const groupedRoutes = await getGroupedRoutes(currentLocale);
+
+// 定义支持的语言
+const languages = [
+	{ code: 'zh-cn', name: '中文' },
+	{ code: 'en', name: 'English' },
+];
+
+// 将路由转换为侧边栏项目格式
+const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
+	title: group.group,
+	items: group.routes.map((route) => ({
+		text: route.title,
+		href: route.path,
+	})),
+}));
+---
+
+<DocumentationLayout
+	debug={false}
+	title={title}
+	logoHref={homeLink}
+	footerHomeLink={homeLink}
+	siteName="Cosy UI"
+	sidebarItems={sidebarItems}
+	showTableOfContents={showTOC}
+	showHeader={true}
+	showFooter={true}
+	footerSlogan={currentLocale === 'zh-cn'
+		? '优雅、高效的 Astro 组件库'
+		: 'A beautiful Astro component library'}
+	footerInspirationalSlogan={currentLocale === 'zh-cn'
+		? '构建美好的用户界面'
+		: 'Build a beautiful user interface'}
+	footerSocialLinks={['https://github.com/CofficLab/cosy-ui']}
+	footerProducts={[
+		{ name: 'Cisum', href: 'https://coffic.zone.id/en/cisum' },
+		{ name: 'JuiceEditor', href: 'https://coffic.zone.id/en/juice-editor' },
+		{ name: 'GitOK', href: 'https://coffic.zone.id/en/gitok' },
+		{ name: 'Cosy UI', href: 'https://github.com/CofficLab/cosy-ui' },
+	]}
+	footerAboutLink="https://coffic.zone.id/en/meta/about"
+	footerContactLink="https://coffic.zone.id/en/meta/contact"
+	footerBlogLink="https://coffic.zone.id/en/blogs"
+	footerTermsLink="https://coffic.zone.id/en/meta/terms"
+	footerPrivacyLink="https://coffic.zone.id/en/meta/privacy"
+	footerHistoryLink="https://coffic.zone.id/en/meta/out-story"
+	footerTechStackLink="https://coffic.zone.id/en/meta/tech-stack"
+	currentLocale={currentLocale}
+	languages={languages}
+	basePath={basePath}
+>
+	<slot />
+
+	<CosyButton :size="btn-sm">Button</CosyButton>
+
+	<Fragment slot="head">
+		<meta charset="UTF-8" />
+		<meta name="description" content="Cosy UI - A beautiful Astro component library" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href={createUrl('/favicon.svg')} />
+		<meta name="generator" content={Astro.generator} />
+	</Fragment>
+</DocumentationLayout>

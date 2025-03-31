@@ -68,3 +68,5 @@ export { default as Container } from './components/containers/Container.astro';
 export { default as Main } from './components/containers/Main.astro';
 export { default as Section } from './components/containers/Section.astro';
 
+// Types
+export type { SidebarSection } from './types/layout';
