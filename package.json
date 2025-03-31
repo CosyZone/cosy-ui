@@ -4,18 +4,17 @@
     "engines": {
         "node": ">=18"
     },
-    "packageManager": "pnpm@9.15.9",
     "description": "Workspace for Cosy UI components",
     "scripts": {
         "format": "prettier -w .",
         "build:ui": "pnpm --filter @coffic/cosy-ui build",
         "build:demo": "pnpm --filter demo build",
         "build:docs": "pnpm --filter @coffic/cosy-ui build:docs",
-        "build": "pnpm build:ui && pnpm build:demo && pnpm build:docs",
+        "build": "pnpm -r build",
         "preview:demo": "pnpm --filter demo preview",
         "package:dev": "pnpm --filter astro-cosy dev",
         "dev": "pnpm --stream -r -parallel dev",
-        "dev:demo": "pnpm --filter demo dev",
+        "dev:vue": "pnpm --filter @coffic/cosy-ui-vue dev",
         "changeset": "changeset",
         "ci:version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile && pnpm dedupe",
         "ci:publish": "pnpm exec changeset publish && git push --follow-tags",

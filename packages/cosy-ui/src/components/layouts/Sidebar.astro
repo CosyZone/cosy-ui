@@ -1,14 +1,14 @@
 ---
 /**
  * Sidebar组件
- * 
+ *
  * 用于文档页面的侧边栏导航
- * 
+ *
  * @example
  * ```astro
  * ---
  * import Sidebar from './Sidebar.astro';
- * 
+ *
  * const sidebarItems = [
  *   { title: "入门", items: [
  *     { href: "/docs/getting-started", text: "快速开始" },
@@ -16,104 +16,81 @@
  *   ]}
  * ];
  * ---
- * 
+ *
  * <Sidebar sidebarItems={sidebarItems} currentPath="/docs/getting-started" />
  * ```
  */
 
 import { isPathMatch } from '../../utils/path';
 import Modal from '../display/Modal.astro';
-import Button from '../base/Button.astro';
 import SidebarNav from './SidebarNav.astro';
 import MenuIcon from '../icons/MenuIcon.astro';
-import "../../app.css"
+import '../../app.css';
 
-export interface SidebarItem {
-  href: string;
-  text: string;
-  items?: SidebarItem[];
-}
-
-export interface SidebarSection {
-  title: string;
-  items: SidebarItem[];
-}
+import type { SidebarSection } from '../../types/layout';
 
 export interface Props {
-  /**
-   * 侧边栏项目
-   */
-  sidebarItems: SidebarSection[];
-  
-  /**
-   * 当前路径
-   */
-  currentPath: string;
+	/**
+	 * 侧边栏项目
+	 */
+	sidebarItems: SidebarSection[];
 
-  /**
-   * 桌面端类名
-   */
-  class?: string;
+	/**
+	 * 当前路径
+	 */
+	currentPath: string;
 
-  /**
-   * 是否开启调试模式，显示边框
-   * @default false
-   */
-  debug?: boolean;
+	/**
+	 * 桌面端类名
+	 */
+	class?: string;
+
+	/**
+	 * 是否开启调试模式，显示边框
+	 * @default false
+	 */
+	debug?: boolean;
 }
 
-const { 
-  sidebarItems, 
-  currentPath, 
-  class: className,
-  debug = false
-} = Astro.props;
+const { sidebarItems, currentPath, class: className, debug = false } = Astro.props;
 
-const debugClass = debug ? "cosy:border cosy:border-red-500" : "";
+const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 
 // 获取当前活动的一级导航项
-const currentSection = sidebarItems.find(section => 
-  section.items.some(item => isPathMatch(currentPath, item.href))
+const currentSection = sidebarItems.find((section) =>
+	section.items.some((item) => isPathMatch(currentPath, item.href))
 );
 ---
 
 {/* 移动端导航栏 */}
-<div class:list={[
-  "cosy:flex cosy:lg:hidden cosy:items-center cosy:justify-between cosy:px-4 cosy:py-2 cosy:border-b cosy:border-base-300 cosy:bg-base-100 cosy:relative cosy:z-10",
-  debugClass
-]}>
-  <div class="cosy:flex cosy:items-center cosy:gap-2">
-    <button
-      type="button"
-      class="cosy:p-2 cosy:btn cosy:btn-ghost cosy:btn-sm"
-      data-modal-target="mobile-sidebar"
-    >
-      <MenuIcon class="cosy:w-5 cosy:h-5" />
-    </button>
-    <span class="cosy:font-medium cosy:text-sm">
-      {currentSection?.title || "导航"}
-    </span>
-  </div>
+<div
+	class:list={[
+		'cosy:flex cosy:lg:hidden cosy:items-center cosy:justify-between cosy:px-4 cosy:py-2 cosy:border-b cosy:border-base-300 cosy:bg-base-100 cosy:relative cosy:z-10',
+		debugClass,
+	]}>
+	<div class="cosy:flex cosy:items-center cosy:gap-2">
+		<button
+			type="button"
+			class="cosy:p-2 cosy:btn cosy:btn-ghost cosy:btn-sm"
+			data-modal-target="mobile-sidebar">
+			<MenuIcon class="cosy:w-5 cosy:h-5" />
+		</button>
+		<span class="cosy:font-medium cosy:text-sm">
+			{currentSection?.title || '导航'}
+		</span>
+	</div>
 </div>
 
 {/* 移动端侧边栏弹出层 */}
 <Modal id="mobile-sidebar" class="cosy:mx-4 cosy:lg:w-80 cosy:w-[calc(100vw-2rem)] cosy:max-w-full">
-  <div class="cosy:h-[calc(100vh-8rem)] cosy:overflow-y-auto">
-    <SidebarNav
-      sidebarItems={sidebarItems}
-      currentPath={currentPath}
-      debug={debug}
-    />
-  </div>
+	<div class="cosy:h-[calc(100vh-8rem)] cosy:overflow-y-auto">
+		<SidebarNav sidebarItems={sidebarItems} currentPath={currentPath} debug={debug} />
+	</div>
 </Modal>
 
 {/* 桌面端侧边栏 */}
-<aside class:list={[className, debugClass, "cosy:hidden cosy:lg:block"]}>
-  <div class="cosy:top-16 cosy:sticky cosy:h-[calc(100vh-4rem)]">
-    <SidebarNav
-      sidebarItems={sidebarItems}
-      currentPath={currentPath}
-      debug={debug}
-    />
-  </div>
+<aside class:list={[className, debugClass, 'cosy:hidden cosy:lg:block']}>
+	<div class="cosy:top-16 cosy:sticky cosy:h-[calc(100vh-4rem)]">
+		<SidebarNav sidebarItems={sidebarItems} currentPath={currentPath} debug={debug} />
+	</div>
 </aside>
