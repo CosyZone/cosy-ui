@@ -149,13 +149,14 @@ jobs:
           # 拉取最新的 dev 分支代码
           git pull origin dev
           
-          # 将 pre 分支上的版本更新合并到 dev 分支
-          # 使用 cherry-pick 只合并版本更新的提交
-          git cherry-pick -n $(git log -1 --pretty=format:"%H" pre)
+          # 直接更新版本号，而不是使用 cherry-pick
+          cd packages/cosy-ui
+          npm version ${{ env.VERSION }} --no-git-tag-version
+          cd ../..
           
           # 提交更改并推送到 dev 分支
           git add .
           git commit -m "chore: sync version ${{ env.VERSION }} from pre branch"
           git push origin dev
         env:
-          GITHUB_TOKEN: ${{ secrets.COMMIT_TOKEN }} 
+          GITHUB_TOKEN: ${{ secrets.COMMIT_TOKEN }}
