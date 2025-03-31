@@ -32,7 +32,7 @@ jobs:
           npm config set //registry.npmjs.org/:_authToken ${NODE_AUTH_TOKEN}
           npm whoami
           pnpm i
-          pnpm build:ui
+          pnpm build
           npm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
