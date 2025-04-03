@@ -3,9 +3,9 @@
 [![English](https://img.shields.io/badge/English-Click-yellow)](README.md)
 [![简体中文](https://img.shields.io/badge/中文文档-点击查看-orange)](README-zh.md)
 
-This is an Astro component library that provides a unified UI style for multiple projects under the same organization.
+这是一个 Astro 组件库，为同一个组织下的多个项目提供统一的 UI 风格。
 
-### Quick Start
+### 快速开始
 
 Installation
 
@@ -13,7 +13,7 @@ Installation
 npm install @coffic/cosy-ui
 ```
 
-Usage in Astro components:
+Usage in an Astro component:
 
 ```js
 ---
@@ -22,36 +22,34 @@ import { Button } from "@coffic/cosy-ui";
 <Button>Hi</Button>
 ```
 
-### Development
+### 开发
 
-#### Install Dependencies
+#### 安装依赖
 
 ```bash
 pnpm install
 ```
 
-#### Start Development Server
+#### 启动
 
 ```bash
 pnpm dev
 ```
 
-#### Build
-
-Build:
+#### 构建
 
 ```bash
 pnpm build
 ```
 
-### Contributing
+### 贡献
 
 Issues and Pull Requests are welcome!
 
-### Links
+### 链接
 
 - [NPM](https://www.npmjs.com/package/@coffic/cosy-ui)
 
-### License
+### 许可证
 
 MIT
