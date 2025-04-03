@@ -58,6 +58,10 @@ pnpm build
 
 Issues and Pull Requests are welcome!
 
+### Links
+
+- [NPM](https://www.npmjs.com/package/@coffic/cosy-ui)
+
 ### License
 
 MIT
@@ -119,6 +123,10 @@ pnpm build
 ### 贡献
 
 Issues and Pull Requests are welcome!
+
+### 链接
+
+- [NPM](https://www.npmjs.com/package/@coffic/cosy-ui)
 
 ### 许可证
 
