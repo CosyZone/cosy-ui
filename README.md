@@ -5,7 +5,7 @@
 
 This is an Astro component library that provides a unified UI style for multiple projects under the same organization.
 
-### Quick Start
+## Quick Start
 
 Installation
 
@@ -22,21 +22,21 @@ import { Button } from "@coffic/cosy-ui";
 <Button>Hi</Button>
 ```
 
-### Development
+## Development
 
-#### Install Dependencies
+### Install Dependencies
 
 ```bash
 pnpm install
 ```
 
-#### Start Development Server
+### Start Development Server
 
 ```bash
 pnpm dev
 ```
 
-#### Build
+### Build
 
 Build:
 
@@ -44,14 +44,14 @@ Build:
 pnpm build
 ```
 
-### Contributing
+## Contributing
 
 Issues and Pull Requests are welcome!
 
-### Links
+## Links
 
 - [NPM](https://www.npmjs.com/package/@coffic/cosy-ui)
 
-### License
+## License
 
 MIT

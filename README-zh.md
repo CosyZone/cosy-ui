@@ -5,7 +5,7 @@
 
 这是一个 Astro 组件库，为同一个组织下的多个项目提供统一的 UI 风格。
 
-### 快速开始
+## 快速开始
 
 Installation
 
@@ -22,34 +22,34 @@ import { Button } from "@coffic/cosy-ui";
 <Button>Hi</Button>
 ```
 
-### 开发
+## 开发
 
-#### 安装依赖
+### 安装依赖
 
 ```bash
 pnpm install
 ```
 
-#### 启动
+### 启动
 
 ```bash
 pnpm dev
 ```
 
-#### 构建
+### 构建
 
 ```bash
 pnpm build
 ```
 
-### 贡献
+## 贡献
 
 Issues and Pull Requests are welcome!
 
-### 链接
+## 链接
 
 - [NPM](https://www.npmjs.com/package/@coffic/cosy-ui)
 
-### 许可证
+## 许可证
 
 MIT
