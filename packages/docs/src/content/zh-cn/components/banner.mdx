@@ -1,0 +1,76 @@
+---
+title: 'Banner'
+description: '用于在页面中展示醒目的横幅信息，通常用于展示重要的标语、公告或营销信息'
+folder: false
+order: 3
+---
+
+import { Banner, CodeExample } from '@coffic/cosy-ui';
+
+## 基础横幅
+
+最简单的横幅信息展示，默认使用主题色背景
+
+<CodeExample
+  code={`<Banner>欢迎使用我们的服务</Banner>`}
+>
+  <Banner>欢迎使用我们的服务</Banner>
+</CodeExample>
+
+## 不同背景色
+
+通过 bgColor 属性设置不同的背景颜色
+
+<CodeExample
+  code={`<Banner bgColor="secondary">探索更多功能</Banner>`}
+>
+  <Banner bgColor="secondary">探索更多功能</Banner>
+</CodeExample>
+
+<CodeExample
+  code={`<Banner bgColor="success">操作成功完成</Banner>`}
+>
+  <Banner bgColor="success">操作成功完成</Banner>
+</CodeExample>
+
+## 自定义样式
+
+通过 class 属性添加自定义样式类
+
+<CodeExample
+  code={`<Banner class="cosy:text-4xl cosy:py-10">构建美好的数字体验</Banner>`}
+>
+  <Banner class="cosy:text-4xl cosy:py-10">构建美好的数字体验</Banner>
+</CodeExample>
+
+## 关闭动画效果
+
+通过 animated 属性控制是否启用动画效果
+
+<CodeExample
+  code={`<Banner animated={false}>无动画效果的横幅</Banner>`}
+>
+  <Banner animated={false}>无动画效果的横幅</Banner>
+</CodeExample>
+
+## 在页面布局中使用
+
+Banner 组件可以灵活地融入各种页面布局中
+
+```astro
+<header>
+  <nav>...</nav>
+  <Banner>特别优惠：限时折扣中</Banner>
+</header>
+
+<main>
+  <section>
+    <Banner bgColor="accent">了解我们的最新产品</Banner>
+    <!-- 内容 -->
+  </section>
+</main>
+
+<footer>
+  <Banner bgColor="secondary">感谢您的访问</Banner>
+</footer>
+``` 

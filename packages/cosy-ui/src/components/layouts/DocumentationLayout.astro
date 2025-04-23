@@ -435,7 +435,7 @@ const validLang = getValidLanguage(currentLocale);
 	}
 
 	<div class="cosy:flex cosy:lg:flex-row cosy:flex-col cosy:flex-1">
-		<div class="cosy:flex cosy:flex-row cosy:flex-1 cosy:min-h-screen cosy:pb-96">
+		<div class="cosy:flex cosy:flex-row cosy:flex-1 cosy:min-h-screen cosy:pb-0">
 			<!-- 侧边栏容器 -->
 			<div class="cosy:top-16 cosy:z-10 cosy:sticky cosy:bg-base-100 cosy:h-screen">
 				<Sidebar
@@ -449,7 +449,8 @@ const validLang = getValidLanguage(currentLocale);
 			<!-- 主内容区域 -->
 			<Main class="cosy:lg:py-8 cosy:py-4 cosy:w-full">
 				<div class="cosy:mx-auto cosy:px-4 lg:cosy:px-8 cosy:container">
-					<div class="cosy:flex cosy:lg:flex-row cosy:flex-col cosy:justify-center cosy:gap-8">
+					<div
+						class="cosy:flex cosy:pb-96 cosy:lg:flex-row cosy:flex-col cosy:justify-center cosy:gap-8">
 						<Article class="cosy:flex-1 xl:cosy:w-[calc(100%-16rem)]">
 							<slot />
 						</Article>

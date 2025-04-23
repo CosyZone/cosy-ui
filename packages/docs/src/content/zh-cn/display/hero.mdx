@@ -1,0 +1,86 @@
+---
+title: 'Hero'
+description: '全屏展示区域，通常用于网站首页或重要页面顶部，包含标题、描述、图片和行动按钮'
+folder: false
+order: 1
+---
+
+import { Hero, CodeExample } from '@coffic/cosy-ui';
+
+## 基础用法
+
+最简单的Hero区域展示，包含标题、描述和行动按钮
+
+<CodeExample
+  code={`<Hero
+  title="欢迎使用我们的产品"
+  description="这是一个简短的描述，介绍产品的主要特点和价值。"
+  links={[
+    { text: "开始使用", href: "/getting-started" },
+    { text: "了解更多", href: "/about" }
+  ]}
+/>`}
+>
+  <Hero
+    title="欢迎使用我们的产品"
+    description="这是一个简短的描述，介绍产品的主要特点和价值。"
+    links={[
+      { text: "开始使用", href: "/getting-started" },
+      { text: "了解更多", href: "/about" }
+    ]}
+  />
+</CodeExample>
+
+## 带图片的用法
+
+通过添加图片，使Hero区域更加生动
+
+<CodeExample
+  code={`<Hero
+  title="产品展示"
+  description="查看我们的最新产品。"
+  image={{ src: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5", alt: "工作区域的笔记本电脑" }}
+  links={[
+    { text: "立即购买", href: "/buy" }
+  ]}
+/>`}
+>
+  <Hero
+    title="产品展示"
+    description="查看我们的最新产品。"
+    image={{ src: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5", alt: "工作区域的笔记本电脑" }}
+    links={[
+      { text: "立即购买", href: "/buy" }
+    ]}
+  />
+</CodeExample>
+
+## 带自定义内容的用法
+
+通过插槽添加自定义内容，实现更丰富的展示效果
+
+<CodeExample
+  code={`<Hero
+  title="交互式演示"
+  description="尝试我们的交互式演示。"
+  links={[
+    { text: "查看文档", href: "/docs" }
+  ]}
+>
+  <div slot="app" class="cosy:bg-base-200 cosy:p-4 cosy:rounded-lg cosy:w-full cosy:max-w-md cosy:mx-auto">
+    <p class="cosy:text-center">这里是自定义的应用演示内容</p>
+  </div>
+</Hero>`}
+>
+  <Hero
+    title="交互式演示"
+    description="尝试我们的交互式演示。"
+    links={[
+      { text: "查看文档", href: "/docs" }
+    ]}
+  >
+    <div slot="app" class="cosy:bg-base-200 cosy:p-4 cosy:rounded-lg cosy:w-full cosy:max-w-md cosy:mx-auto">
+      <p class="cosy:text-center">这里是自定义的应用演示内容</p>
+    </div>
+  </Hero>
+</CodeExample> 
