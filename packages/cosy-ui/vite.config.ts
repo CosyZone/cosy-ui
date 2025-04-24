@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
-import { exec } from 'child_process'
 import { createLogger } from 'vite'
 
 export default defineConfig({

@@ -1,0 +1,191 @@
+---
+title: 'Header'
+description: '用于创建网站的顶部导航栏，提供网站logo、导航链接和语言切换等功能'
+folder: false
+order: 0
+---
+
+import { Header, Section, Container, CodeExample } from '@/index';
+
+## 基础页头
+
+最简单的 Header 使用方式，展示网站Logo和导航栏
+
+<CodeExample
+  code={`<Header 
+  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+  logoHref="/"
+/>`}
+>
+  <Header 
+    logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    sticky={false}
+  />
+</CodeExample>
+
+## 带有导航菜单的页头
+
+通过 navItems 属性添加导航菜单
+
+<CodeExample
+  code={`<Header 
+  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+  logoHref="/"
+  navItems={[
+    { href: "/", label: "首页", match: (path) => path === "/" },
+    { href: "/products", label: "产品", match: (path) => path.startsWith("/products") },
+    { href: "/about", label: "关于我们", match: (path) => path.startsWith("/about") }
+  ]}
+/>`}
+>
+  <Header 
+    logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    sticky={false}
+    navItems={[
+      { href: "/", label: "首页", match: (path) => path === "/" },
+      { href: "/products", label: "产品", match: (path) => path.startsWith("/products") },
+      { href: "/about", label: "关于我们", match: (path) => path.startsWith("/about") }
+    ]}
+  />
+</CodeExample>
+
+## 带有语言切换的页头
+
+通过 languages 和 currentLocale 属性添加语言切换功能
+
+<CodeExample
+  code={`<Header 
+  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+  logoHref="/"
+  languages={[
+    { code: 'zh-cn', name: '中文' },
+    { code: 'en', name: 'English' }
+  ]}
+  currentLocale="zh-cn"
+/>`}
+>
+  <Header 
+    logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    sticky={false}
+    languages={[
+      { code: 'zh-cn', name: '中文' },
+      { code: 'en', name: 'English' }
+    ]}
+    currentLocale="zh-cn"
+  />
+</CodeExample>
+
+## 非固定页头
+
+通过设置 sticky 属性为 false 来创建非固定页头
+
+<CodeExample
+  code={`<Header 
+  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+  logoHref="/"
+  sticky={false}
+/>`}
+>
+  <Header 
+    logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    sticky={false}
+  />
+</CodeExample>
+
+## 带有基础路径的页头
+
+通过 basePath 属性设置基础路径，用于网站部署在二级目录的情况
+
+<CodeExample
+  code={`<Header 
+  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+  logoHref="/"
+  basePath="/docs"
+  languages={[
+    { code: 'zh-cn', name: '中文' },
+    { code: 'en', name: 'English' }
+  ]}
+  currentLocale="zh-cn"
+/>`}
+>
+  <Header 
+    logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    basePath="/docs"
+    sticky={false}
+    languages={[
+      { code: 'zh-cn', name: '中文' },
+      { code: 'en', name: 'English' }
+    ]}
+    currentLocale="zh-cn"
+  />
+</CodeExample>
+
+## 带有侧边栏切换的页头
+
+通过 showSidebarToggle 属性添加侧边栏切换按钮，适用于文档网站
+
+<CodeExample
+  code={`<Header 
+  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+  logoHref="/"
+  showSidebarToggle={true}
+  defaultSidebarOpen={false}
+/>`}
+>
+  <Header 
+    logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    sticky={false}
+    showSidebarToggle={true}
+    defaultSidebarOpen={false}
+  />
+</CodeExample>
+
+## 完整示例
+
+展示 Header 组件的多种属性组合使用
+
+<CodeExample
+  code={`<Header 
+  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+  logoHref="/"
+  navItems={[
+    { href: "/", label: "首页", match: (path) => path === "/" },
+    { href: "/products", label: "产品", match: (path) => path.startsWith("/products") },
+    { href: "/about", label: "关于我们", match: (path) => path.startsWith("/about") }
+  ]}
+  languages={[
+    { code: 'zh-cn', name: '中文' },
+    { code: 'en', name: 'English' }
+  ]}
+  currentLocale="zh-cn"
+  basePath="/docs"
+  sticky={true}
+  showSidebarToggle={true}
+  defaultSidebarOpen={false}
+/>`}
+>
+  <Header 
+    logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    navItems={[
+      { href: "/", label: "首页", match: (path) => path === "/" },
+      { href: "/products", label: "产品", match: (path) => path.startsWith("/products") },
+      { href: "/about", label: "关于我们", match: (path) => path.startsWith("/about") }
+    ]}
+    languages={[
+      { code: 'zh-cn', name: '中文' },
+      { code: 'en', name: 'English' }
+    ]}
+    currentLocale="zh-cn"
+    basePath="/docs"
+    sticky={false}
+    showSidebarToggle={true}
+    defaultSidebarOpen={false}
+  />
+</CodeExample> 
