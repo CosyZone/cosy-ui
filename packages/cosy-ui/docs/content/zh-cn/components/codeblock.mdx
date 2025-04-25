@@ -1,0 +1,172 @@
+---
+title: 'CodeBlock'
+description: '用于展示格式化代码片段的组件，支持语法高亮、行号显示和代码复制功能'
+folder: false
+order: 13
+---
+
+import { CodeBlock, CodeExample } from '@/index';
+
+## 基础用法
+
+最简单的代码展示方式，显示一段代码片段
+
+<CodeExample
+  code={`<CodeBlock code={\`console.log('Hello, world!');\`} lang="js" />`}
+>
+  <CodeBlock code={`console.log('Hello, world!');`} lang="js" />
+</CodeExample>
+
+## 带标题的代码块
+
+通过`title`属性添加代码块标题，通常用于显示文件名
+
+<CodeExample
+  code={`<CodeBlock 
+  code={\`function greet(name) {
+  return 'Hello, ' + name + '!';
+}\`}
+  lang="js"
+  title="greeting.js"
+/>`}
+>
+  <CodeBlock 
+    code={`function greet(name) {
+  return 'Hello, ' + name + '!';
+}`}
+    lang="js"
+    title="greeting.js"
+  />
+</CodeExample>
+
+## 带行号的代码块
+
+通过`showLineNumbers`属性控制是否显示行号（默认为true）
+
+<CodeExample
+  code={`<CodeBlock 
+  code={\`import React from 'react';
+
+function App() {
+  return (
+    <div>
+      <h1>React App</h1>
+      <p>Welcome to my application!</p>
+    </div>
+  );
+}
+
+export default App;\`}
+  lang="jsx"
+  showLineNumbers={true}
+  title="App.jsx"
+/>`}
+>
+  <CodeBlock 
+    code={`import React from 'react';
+
+function App() {
+  return (
+    <div>
+      <h1>React App</h1>
+      <p>Welcome to my application!</p>
+    </div>
+  );
+}
+
+export default App;`}
+    lang="jsx"
+    showLineNumbers={true}
+    title="App.jsx"
+  />
+</CodeExample>
+
+## 不同语言的语法高亮
+
+支持多种编程语言的语法高亮显示
+
+<CodeExample
+  code={`<CodeBlock 
+  code={\`// TypeScript 示例
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+function getUserInfo(user: User): string {
+  return \\\`用户 \\\${user.name} (ID: \\\${user.id})\\\`;
+}\`}
+  lang="typescript"
+  title="user.ts"
+/>`}
+>
+  <CodeBlock 
+    code={`// TypeScript 示例
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+function getUserInfo(user: User): string {
+  return \`用户 \${user.name} (ID: \${user.id})\`;
+}`}
+    lang="typescript"
+    title="user.ts"
+  />
+</CodeExample>
+
+## 不显示行号
+
+设置`showLineNumbers`为false来隐藏行号
+
+<CodeExample
+  code={`<CodeBlock 
+  code={\`<!-- HTML 示例 -->
+<div class="container">
+  <h1>Hello World</h1>
+  <p>这是一个段落。</p>
+</div>\`}
+  lang="html"
+  showLineNumbers={false}
+  title="example.html"
+/>`}
+>
+  <CodeBlock 
+    code={`<!-- HTML 示例 -->
+<div class="container">
+  <h1>Hello World</h1>
+  <p>这是一个段落。</p>
+</div>`}
+    lang="html"
+    showLineNumbers={false}
+    title="example.html"
+  />
+</CodeExample>
+
+## 纯文本展示
+
+使用`plaintext`语言类型展示纯文本内容
+
+<CodeExample
+  code={`<CodeBlock 
+  code={\`这是一段纯文本内容，
+不需要特殊的语法高亮。
+可以用于展示配置文件、日志或其他非代码文本。\`}
+  lang="plaintext"
+  title="readme.txt"
+/>`}
+>
+  <CodeBlock 
+    code={`这是一段纯文本内容，
+不需要特殊的语法高亮。
+可以用于展示配置文件、日志或其他非代码文本。`}
+    lang="plaintext"
+    title="readme.txt"
+  />
+</CodeExample>
+
+## 复制功能
+
+所有代码块都带有复制按钮，点击即可复制代码内容 
