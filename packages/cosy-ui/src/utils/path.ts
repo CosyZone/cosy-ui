@@ -5,11 +5,8 @@
  * @returns 是否匹配
  */
 export function isPathMatch(currentPath: string, targetPath: string): boolean {
-    const debug = true
-
-    if (debug) {
-        console.log("🍋 isPathMatch", currentPath, targetPath);
-    }
-
-    return currentPath === targetPath || currentPath.endsWith(targetPath) || ("/" + currentPath).endsWith(targetPath);
+    return currentPath === targetPath ||
+        currentPath.endsWith(targetPath) ||
+        currentPath + "/" === targetPath ||
+        ("/" + currentPath).endsWith(targetPath);
 } 

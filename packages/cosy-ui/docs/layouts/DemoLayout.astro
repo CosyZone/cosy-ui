@@ -3,6 +3,8 @@ import { getGroupedRoutes, createUrl } from '../lib/route';
 import { getBaseUrl } from '../lib/utils';
 import { type SidebarSection, DocumentationLayout } from '@/index';
 
+import { ClientRouter } from 'astro:transitions';
+
 interface Props {
 	title: string;
 	showTOC?: boolean;
@@ -77,4 +79,5 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 		<link rel="icon" type="image/svg+xml" href={createUrl('/favicon.svg')} />
 		<meta name="generator" content={Astro.generator} />
 	</Fragment>
+	<ClientRouter />
 </DocumentationLayout>
