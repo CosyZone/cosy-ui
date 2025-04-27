@@ -167,6 +167,12 @@ export interface Props {
 	sidebarItems: SidebarSection[];
 
 	/**
+	 * 是否显示侧边栏
+	 * @default true
+	 */
+	showSidebar?: boolean;
+
+	/**
 	 * 是否显示目录
 	 * @default true
 	 */
@@ -371,6 +377,7 @@ const {
 	logo = DefaultLogo,
 	logoHref = '/',
 	sidebarItems,
+	showSidebar = true,
 	showTableOfContents = true,
 	showHeader = true,
 	showFooter = true,
@@ -447,9 +454,10 @@ const sidebarTopClass = sidebarTopClasses[headerHeight];
 				currentLocale={currentLocale}
 				sticky={true}
 				basePath={basePath}
-				showSidebarToggle={true}
+				showSidebarToggle={showSidebar && true}
 				defaultSidebarOpen={defaultSidebarOpen}
 				height={headerHeight}
+				transition:persist
 			/>
 		)
 	}
@@ -457,14 +465,18 @@ const sidebarTopClass = sidebarTopClasses[headerHeight];
 	<div class="cosy:flex cosy:lg:flex-row cosy:flex-col cosy:flex-1">
 		<div class="cosy:flex cosy:flex-row cosy:flex-1 cosy:pb-0 cosy:min-h-screen">
 			<!-- 侧边栏容器 -->
-			<div class={`${sidebarTopClass} cosy:z-10 cosy:sticky cosy:bg-base-100 cosy:h-screen`}>
-				<Sidebar
-					sidebarItems={sidebarItems}
-					currentPath={currentPath}
-					debug={false}
-					class="cosy:lg:border-r cosy:border-b cosy:border-base-300 cosy:lg:border-b-0 cosy:lg:w-64 cosy:lg:shrink-0"
-				/>
-			</div>
+			{
+				showSidebar && (
+					<div class={`${sidebarTopClass} cosy:z-10 cosy:sticky cosy:bg-base-100 cosy:h-screen`}>
+						<Sidebar
+							sidebarItems={sidebarItems}
+							currentPath={currentPath}
+							debug={false}
+							class="cosy:lg:border-r cosy:border-b cosy:border-base-300 cosy:lg:border-b-0 cosy:lg:w-64 cosy:lg:shrink-0"
+						/>
+					</div>
+				)
+			}
 
 			<!-- 主内容区域 -->
 			<Main class="cosy:lg:py-8 cosy:py-4 cosy:w-full">
