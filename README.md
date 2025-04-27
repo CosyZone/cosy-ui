@@ -1,14 +1,11 @@
 # Cosy UI
 
-[English](#english) | [中文](#chinese)
-
-<a id="english"></a>
-
-## English
+[![English](https://img.shields.io/badge/English-Click-yellow)](README.md)
+[![简体中文](https://img.shields.io/badge/中文文档-点击查看-orange)](README-zh.md)
 
 This is an Astro component library that provides a unified UI style for multiple projects under the same organization.
 
-### Quick Start
+## Quick Start
 
 Installation
 
@@ -25,109 +22,36 @@ import { Button } from "@coffic/cosy-ui";
 <Button>Hi</Button>
 ```
 
-### Development
+## Development
 
-#### Project Structure
-
-The project is managed using pnpm workspaces and consists of the following parts:
-
-- `packages/cosy-ui`: Source code of the component library
-- `demo`: Sample project used to test these components during development
-
-#### Install Dependencies
+### Install Dependencies
 
 ```bash
 pnpm install
 ```
 
-#### Start Development Server
+### Start Development Server
 
 ```bash
-pnpm run dev
+pnpm dev
 ```
 
-#### Build
+### Build
 
-Build the Demo:
-
-```bash
-pnpm build
-```
-
-### Contributing
-
-Issues and Pull Requests are welcome!
-
-### Links
-
-- [NPM](https://www.npmjs.com/package/@coffic/cosy-ui)
-
-### License
-
-MIT
-
----
-
-<a id="chinese"></a>
-
-## 中文
-
-这是一个 Astro 组件库，为同一个组织下的多个项目提供统一的 UI 风格。
-
-### 快速开始
-
-Installation
-
-```bash
-npm install @coffic/cosy-ui
-```
-
-Usage in an Astro component:
-
-```js
----
-import { Button } from "@coffic/cosy-ui";
----
-<Button>Hi</Button>
-```
-
-### 开发
-
-#### 项目结构
-
-The project is managed using pnpm workspaces, and includes the following parts:
-
-- `packages/cosy-ui`: Source code of the component library
-- `demo`: Sample project used to test these components during development
-
-#### 安装依赖
-
-```bash
-pnpm install
-```
-
-#### 启动
-
-```bash
-pnpm run dev
-```
-
-#### 构建
-
-Build the Demo:
+Build:
 
 ```bash
 pnpm build
 ```
 
-### 贡献
+## Contributing
 
 Issues and Pull Requests are welcome!
 
-### 链接
+## Links
 
 - [NPM](https://www.npmjs.com/package/@coffic/cosy-ui)
 
-### 许可证
+## License
 
 MIT

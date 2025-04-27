@@ -1,0 +1,86 @@
+---
+title: 'Hero'
+description: "Full-screen display area typically used at the top of a website's homepage or important pages, featuring titles, descriptions, images, and call-to-action buttons"
+folder: false
+order: 1
+---
+
+import { Hero, CodeExample } from '@/index';
+
+## Basic Usage
+
+The simplest Hero area display, including title, description, and action buttons
+
+<CodeExample
+  code={`<Hero
+  title="Welcome to Our Product"
+  description="This is a brief description highlighting the main features and value of the product."
+  links={[
+    { text: "Get Started", href: "/getting-started" },
+    { text: "Learn More", href: "/about" }
+  ]}
+/>`}
+>
+  <Hero
+    title="Welcome to Our Product"
+    description="This is a brief description highlighting the main features and value of the product."
+    links={[
+      { text: "Get Started", href: "/getting-started" },
+      { text: "Learn More", href: "/about" }
+    ]}
+  />
+</CodeExample>
+
+## Usage with Image
+
+Make the Hero area more engaging by adding an image
+
+<CodeExample
+  code={`<Hero
+  title="Product Showcase"
+  description="Check out our latest products."
+  image={{ src: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5", alt: "Laptop in workspace" }}
+  links={[
+    { text: "Buy Now", href: "/buy" }
+  ]}
+/>`}
+>
+  <Hero
+    title="Product Showcase"
+    description="Check out our latest products."
+    image={{ src: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5", alt: "Laptop in workspace" }}
+    links={[
+      { text: "Buy Now", href: "/buy" }
+    ]}
+  />
+</CodeExample>
+
+## Usage with Custom Content
+
+Add custom content through slots for richer display effects
+
+<CodeExample
+  code={`<Hero
+  title="Interactive Demo"
+  description="Try our interactive demonstration."
+  links={[
+    { text: "View Documentation", href: "/docs" }
+  ]}
+>
+  <div slot="app" class="cosy:bg-base-200 cosy:p-4 cosy:rounded-lg cosy:w-full cosy:max-w-md cosy:mx-auto">
+    <p class="cosy:text-center">This is custom application demo content</p>
+  </div>
+</Hero>`}
+>
+  <Hero
+    title="Interactive Demo"
+    description="Try our interactive demonstration."
+    links={[
+      { text: "View Documentation", href: "/docs" }
+    ]}
+  >
+    <div slot="app" class="cosy:bg-base-200 cosy:p-4 cosy:rounded-lg cosy:w-full cosy:max-w-md cosy:mx-auto">
+      <p class="cosy:text-center">This is custom application demo content</p>
+    </div>
+  </Hero>
+</CodeExample> 

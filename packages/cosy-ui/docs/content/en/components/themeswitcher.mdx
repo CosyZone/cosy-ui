@@ -1,0 +1,72 @@
+---
+title: 'ThemeSwitcher'
+description: 'A theme switching component that allows users to toggle between multiple predefined themes'
+folder: false
+order: 16
+---
+
+import { ThemeSwitcher, CodeExample } from '@/index';
+
+# ThemeSwitcher
+
+The ThemeSwitcher component provides a theme switching dropdown menu that allows users to toggle between multiple predefined themes. The component remembers the user's theme selection and maintains it when the page is reloaded or when visiting other pages of the website.
+
+## Basic Usage
+
+By default, the component displays a theme switching icon that reveals available themes when clicked:
+
+<CodeExample
+  code={`<ThemeSwitcher />`}
+>
+  <ThemeSwitcher />
+</CodeExample>
+
+## Custom Positioning
+
+You can customize the position and style of the theme switcher using the `class` property:
+
+<CodeExample
+  code={`<ThemeSwitcher class="cosy:border cosy:border-gray-300 cosy:rounded-full cosy:p-1" />`}
+>
+  <ThemeSwitcher class="cosy:border cosy:border-gray-300 cosy:rounded-full cosy:p-1" />
+</CodeExample>
+
+## Properties
+
+| Property | Type | Default | Description |
+| ------ | ---- | ------ | ---- |
+| class | string | - | Custom class name |
+
+## Available Themes
+
+The ThemeSwitcher component provides the following theme options by default:
+
+1. **Default** - The default theme
+2. **Light** - A light-colored theme
+3. **Dark** - A dark-colored theme
+4. **Pastel** - A soft, pastel-colored theme
+5. **Lemonade** - A fresh lemonade theme
+6. **Cupcake** - A cupcake-inspired theme
+7. **Nord** - A Nordic style theme
+8. **Business** - A business-oriented theme
+9. **Luxury** - A luxury theme
+
+## How It Works
+
+The main workflow of the ThemeSwitcher component:
+
+1. After loading, the component checks if there's a saved theme preference in local storage
+2. If found, it applies that theme; otherwise, it applies the default theme
+3. It displays the theme switching icon and dropdown menu
+4. When a user selects a new theme:
+   - The `data-theme` attribute is set on the document root element
+   - The selection is saved to local storage
+   - The currently active theme is visually marked
+
+The component leverages Astro's view transitions support to ensure the selected theme persists after page navigation.
+
+## Best Practices
+
+- Use this component in your site's top navigation bar or settings panel
+- Ensure your website's styles accommodate all supported themes
+- Consider automatically setting the initial theme based on the user's system preference (light/dark mode) on their first visit 

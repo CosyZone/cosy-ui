@@ -1,0 +1,213 @@
+---
+title: 'Article'
+description: 'A component for displaying formatted article content with a complete set of typography styles'
+folder: false
+order: 20
+---
+
+import { Article, CodeExample } from '@/index';
+
+# Article
+
+The Article component is used to display formatted article content with a complete set of typography styles, making content more readable and understandable. This component is suitable for blog posts, documentation pages, news content, and other scenarios requiring good typography.
+
+## Basic Usage
+
+Wrap your content with the Article component:
+
+<CodeExample
+  code={`<Article>
+  <h1>Article Title</h1>
+  <p>This is article content that can include <a href="#">links</a> and <code>inline code</code>.</p>
+  
+  <h2>Second Level Heading</h2>
+  <p>This is a paragraph under the second level heading.</p>
+</Article>`}
+>
+  <Article>
+    <h1>Article Title</h1>
+    <p>This is article content that can include <a href="#">links</a> and <code>inline code</code>.</p>
+    
+    <h2>Second Level Heading</h2>
+    <p>This is a paragraph under the second level heading.</p>
+  </Article>
+</CodeExample>
+
+## Width Options
+
+The Article component provides four width options:
+
+<CodeExample
+  code={`<Article width="narrow">
+  <h2>Narrow Width Article</h2>
+  <p>This is a narrow width article with a maximum width of 2xl (672px).</p>
+</Article>`}
+>
+  <Article width="narrow">
+    <h2>Narrow Width Article</h2>
+    <p>This is a narrow width article with a maximum width of 2xl (672px).</p>
+  </Article>
+</CodeExample>
+
+<CodeExample
+  code={`<Article width="medium">
+  <h2>Medium Width Article (Default)</h2>
+  <p>This is a medium width article with a maximum width of 4xl (896px).</p>
+</Article>`}
+>
+  <Article width="medium">
+    <h2>Medium Width Article (Default)</h2>
+    <p>This is a medium width article with a maximum width of 4xl (896px).</p>
+  </Article>
+</CodeExample>
+
+<CodeExample
+  code={`<Article width="wide">
+  <h2>Wide Article</h2>
+  <p>This is a wide article with a maximum width of 6xl (1152px).</p>
+</Article>`}
+>
+  <Article width="wide">
+    <h2>Wide Article</h2>
+    <p>This is a wide article with a maximum width of 6xl (1152px).</p>
+  </Article>
+</CodeExample>
+
+<CodeExample
+  code={`<Article width="full">
+  <h2>Full Width Article</h2>
+  <p>This is a full width article with no maximum width limit.</p>
+</Article>`}
+>
+  <Article width="full">
+    <h2>Full Width Article</h2>
+    <p>This is a full width article with no maximum width limit.</p>
+  </Article>
+</CodeExample>
+
+## Supported Elements
+
+The Article component automatically applies styles to the following elements:
+
+- Headings (h1-h6)
+- Paragraphs (p)
+- Lists (ul, ol, li)
+- Links (a)
+- Blockquotes (blockquote)
+- Code (code, pre)
+- Images (img)
+- Horizontal rules (hr)
+- Tables (table, th, td)
+
+## Complete Example
+
+<CodeExample
+  code={`<Article>
+  <h1>Article Example</h1>
+  <p>This is introductory text that can include <a href="#">links</a> and <code>inline code</code>.</p>
+
+  <h2>Second Level Heading</h2>
+  <p>This is a paragraph under the second level heading. Below is a blockquote:</p>
+
+  <blockquote>
+    This is a quote that can be used to emphasize important information or quote others.
+  </blockquote>
+
+  <h3>Third Level Heading</h3>
+  <ul>
+    <li>Unordered list item one</li>
+    <li>Unordered list item two</li>
+  </ul>
+
+  <h4>Fourth Level Heading</h4>
+  <ol>
+    <li>Ordered list item one</li>
+    <li>Ordered list item two</li>
+  </ol>
+
+  <pre><code>{"// This is a code block\nfunction example() {\n  return \"Example code\";\n}"}</code></pre>
+
+  <hr />
+
+  <table>
+    <thead>
+      <tr>
+        <th>Header One</th>
+        <th>Header Two</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Cell 1</td>
+        <td>Cell 2</td>
+      </tr>
+      <tr>
+        <td>Cell 3</td>
+        <td>Cell 4</td>
+      </tr>
+    </tbody>
+  </table>
+</Article>`}
+>
+  <Article>
+    <h1>Article Example</h1>
+    <p>This is introductory text that can include <a href="#">links</a> and <code>inline code</code>.</p>
+
+    <h2>Second Level Heading</h2>
+    <p>This is a paragraph under the second level heading. Below is a blockquote:</p>
+
+    <blockquote>
+      This is a quote that can be used to emphasize important information or quote others.
+    </blockquote>
+
+    <h3>Third Level Heading</h3>
+    <ul>
+      <li>Unordered list item one</li>
+      <li>Unordered list item two</li>
+    </ul>
+
+    <h4>Fourth Level Heading</h4>
+    <ol>
+      <li>Ordered list item one</li>
+      <li>Ordered list item two</li>
+    </ol>
+
+    <pre><code>{"// This is a code block\nfunction example() {\n  return \"Example code\";\n}"}</code></pre>
+
+    <hr />
+
+    <table>
+      <thead>
+        <tr>
+          <th>Header One</th>
+          <th>Header Two</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cell 1</td>
+          <td>Cell 2</td>
+        </tr>
+        <tr>
+          <td>Cell 3</td>
+          <td>Cell 4</td>
+        </tr>
+      </tbody>
+    </table>
+  </Article>
+</CodeExample>
+
+## Properties
+
+| Property | Type | Default | Description |
+| ------ | ---- | ------ | ---- |
+| class | string | - | Custom class name |
+| width | string | "medium" | Article width, supports narrow, medium, wide, or full |
+| style | string | - | Inline style |
+
+## Best Practices
+
+- Use appropriate HTML semantic tags to maintain structured content
+- Choose narrower widths for long article content to improve readability
+- Use the Article component with other components (like TableOfContents) to provide better content navigation
+- In responsive layouts, consider using narrower widths on mobile devices 

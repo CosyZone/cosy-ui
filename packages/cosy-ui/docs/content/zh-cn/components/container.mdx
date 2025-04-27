@@ -1,0 +1,109 @@
+---
+title: 'Container'
+description: '用于限制内容宽度并居中显示的基础布局容器，支持多种尺寸和内边距选项'
+folder: false
+order: 3
+---
+
+import { Container, CodeExample } from '@/index';
+
+## 基础容器
+
+最简单的容器使用方式，内容将被限制在一个合理的宽度内并居中显示
+
+<CodeExample
+  code={`<Container>
+  <p>内容将被限制在一个合理的宽度内并居中显示</p>
+</Container>`}
+>
+  <Container border>
+    <p>内容将被限制在一个合理的宽度内并居中显示</p>
+  </Container>
+</CodeExample>
+
+## 不同尺寸的容器
+
+通过 size 属性设置容器的宽度尺寸，支持 xs、sm、md、lg、xl 和 full
+
+<CodeExample
+  code={`<Container size="sm">
+  <p>小尺寸容器</p>
+</Container>`}
+>
+  <Container size="sm" border>
+    <p>小尺寸容器</p>
+  </Container>
+</CodeExample>
+
+## 自定义内边距
+
+通过 padding 属性设置容器的内边距大小，支持 none、sm、md、lg 和 xl
+
+<CodeExample
+  code={`<Container padding="lg">
+  <p>大内边距的容器</p>
+</Container>`}
+>
+  <Container padding="lg" border>
+    <p>大内边距的容器</p>
+  </Container>
+</CodeExample>
+
+## 不居中的容器
+
+设置 centered 属性为 false 使容器内容不居中显示
+
+<CodeExample
+  code={`<Container centered={false}>
+  <p>不居中的容器，靠左对齐</p>
+</Container>`}
+>
+  <Container centered={false} border>
+    <p>不居中的容器，靠左对齐</p>
+  </Container>
+</CodeExample>
+
+## 全宽容器
+
+使用 size="full" 创建一个占满整个可用宽度的容器
+
+<CodeExample
+  code={`<Container size="full" padding="none">
+  <p>全宽容器，无内边距</p>
+</Container>`}
+>
+  <Container size="full" padding="none" border>
+    <p>全宽容器，无内边距</p>
+  </Container>
+</CodeExample>
+
+## 组合使用
+
+展示 Container 组件的多种属性组合使用
+
+<CodeExample
+  code={`<Container 
+  size="lg" 
+  padding="xl" 
+  centered={true}
+  class="my-custom-class"
+>
+  <div class="bg-base-200 p-4 rounded-lg">
+    <h3 class="text-lg font-bold">大尺寸容器</h3>
+    <p>使用超大内边距，内容居中显示，并添加自定义类名</p>
+  </div>
+</Container>`}
+>
+  <Container 
+    size="lg" 
+    padding="xl" 
+    centered={true}
+    class="my-custom-class"
+    border
+  >
+    <div class="bg-base-200 p-4 rounded-lg">
+      <h3 class="text-lg font-bold">大尺寸容器</h3>
+      <p>使用超大内边距，内容居中显示，并添加自定义类名</p>
+    </div>
+  </Container>
+</CodeExample>

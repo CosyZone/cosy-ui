@@ -1,0 +1,90 @@
+---
+title: 'TableOfContents'
+description: '目录导航组件，用于显示页面内容的标题结构，并在用户滚动页面时高亮当前可见标题'
+folder: false
+order: 15
+---
+
+import { TableOfContents, CodeExample } from '@/index';
+
+TableOfContents 组件是一个目录导航组件，用于显示页面内容的标题结构。它会自动检测页面中的标题元素，生成目录列表，并在用户滚动页面时高亮当前可见的标题。当页面只有一个标题或没有足够的标题结构时，组件会自动隐藏。
+
+## 基础用法
+
+默认情况下，组件会自动检测页面中的 h2 和 h3 标题，生成目录列表：
+
+<CodeExample
+  code={`<TableOfContents />`}
+>
+  <TableOfContents />
+</CodeExample>
+
+## 自定义标题和选择器
+
+您可以自定义目录的标题文本和要检测的标题选择器：
+
+<CodeExample
+  code={`<TableOfContents
+  title="章节导航"
+  selector="h2, h3, h4"
+  maxDepth={4}
+/>`}
+>
+  <TableOfContents
+    title="章节导航"
+    selector="h2, h3, h4"
+    maxDepth={4}
+  />
+</CodeExample>
+
+## 非固定位置
+
+默认情况下，目录会固定在右侧，您也可以设置为非固定位置：
+
+<CodeExample
+  code={`<TableOfContents fixed={false} />`}
+>
+  <TableOfContents fixed={false} />
+</CodeExample>
+
+## 自定义内容容器
+
+您可以指定一个特定的内容容器，组件将只在该容器内查找标题：
+
+<CodeExample
+  code={`<TableOfContents containerSelector=".article-content" />`}
+>
+  <TableOfContents containerSelector=".article-content" />
+</CodeExample>
+
+## 属性
+
+| 属性名 | 类型 | 默认值 | 说明 |
+| ------ | ---- | ------ | ---- |
+| fixed | boolean | true | 是否固定在右侧 |
+| class | string | - | 自定义类名 |
+| selector | string | 'h2, h3' | 标题选择器 |
+| maxDepth | number | 3 | 最大深度 |
+| title | string | 根据语言自动选择 | 标题文本 |
+| containerSelector | string | 'main' | 内容容器选择器，用于限制标题搜索范围 |
+| minHeadings | number | 2 | 显示目录所需的最少标题数量 |
+| lang | string | 自动检测 | 语言 |
+
+## 工作原理
+
+TableOfContents 组件的主要工作流程：
+
+1. 组件加载后，使用指定的选择器在内容容器中查找标题元素
+2. 如果找到的标题数量少于最小要求（默认为2），则自动隐藏目录
+3. 为每个标题创建目录项，并生成唯一的ID（如果标题没有ID）
+4. 当用户点击目录项时，页面平滑滚动到对应的标题位置
+5. 当用户滚动页面时，组件会计算并高亮当前可见的标题
+
+组件使用节流函数优化滚动事件处理，以提高性能。
+
+## 最佳实践
+
+- 在文档或长文章页面中使用此组件，帮助用户快速导航
+- 确保标题结构合理，使用适当的标题层级（h1, h2, h3等）
+- 对于小屏幕设备，组件会自动隐藏，无需额外处理
+- 如果页面内容经常动态变化，可以在内容更新后重新渲染此组件 
