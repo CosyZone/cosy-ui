@@ -231,6 +231,12 @@ export interface Props {
 	basePath?: string;
 
 	/**
+	 * Header 组件的高度
+	 * @default "md"
+	 */
+	headerHeight?: '3xs' | '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+	/**
 	 * 页脚相关配置
 	 */
 	// Footer 相关参数
@@ -376,6 +382,7 @@ const {
 	languages,
 	currentLocale,
 	basePath = '',
+	headerHeight = 'md',
 	footerHomeLink,
 	footerSlogan,
 	footerCompany,
@@ -406,6 +413,18 @@ const currentPath = Astro.url.pathname;
 
 // 获取有效的语言代码
 const validLang = getValidLanguage(currentLocale);
+
+// 根据header高度设置侧边栏top值
+const sidebarTopClasses = {
+	'3xs': 'cosy:top-4',
+	'2xs': 'cosy:top-6',
+	xs: 'cosy:top-8',
+	sm: 'cosy:top-10',
+	md: 'cosy:top-12',
+	lg: 'cosy:top-16',
+	xl: 'cosy:top-20',
+};
+const sidebarTopClass = sidebarTopClasses[headerHeight];
 ---
 
 <BaseLayout
@@ -430,14 +449,15 @@ const validLang = getValidLanguage(currentLocale);
 				basePath={basePath}
 				showSidebarToggle={true}
 				defaultSidebarOpen={defaultSidebarOpen}
+				height={headerHeight}
 			/>
 		)
 	}
 
 	<div class="cosy:flex cosy:lg:flex-row cosy:flex-col cosy:flex-1">
-		<div class="cosy:flex cosy:flex-row cosy:flex-1 cosy:min-h-screen cosy:pb-0">
+		<div class="cosy:flex cosy:flex-row cosy:flex-1 cosy:pb-0 cosy:min-h-screen">
 			<!-- 侧边栏容器 -->
-			<div class="cosy:top-16 cosy:z-10 cosy:sticky cosy:bg-base-100 cosy:h-screen">
+			<div class={`${sidebarTopClass} cosy:z-10 cosy:sticky cosy:bg-base-100 cosy:h-screen`}>
 				<Sidebar
 					sidebarItems={sidebarItems}
 					currentPath={currentPath}
@@ -450,7 +470,7 @@ const validLang = getValidLanguage(currentLocale);
 			<Main class="cosy:lg:py-8 cosy:py-4 cosy:w-full">
 				<div class="cosy:mx-auto cosy:px-4 lg:cosy:px-8 cosy:container">
 					<div
-						class="cosy:flex cosy:pb-96 cosy:lg:flex-row cosy:flex-col cosy:justify-center cosy:gap-8">
+						class="cosy:flex cosy:lg:flex-row cosy:flex-col cosy:justify-center cosy:gap-8 cosy:pb-96">
 						<Article class="cosy:flex-1 xl:cosy:w-[calc(100%-16rem)]">
 							<slot />
 						</Article>

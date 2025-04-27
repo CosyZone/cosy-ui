@@ -1,18 +1,18 @@
 ---
 /**
  * @component TeamMember
- * 
+ *
  * @description
  * TeamMember 组件用于展示单个团队成员的信息，包括姓名、职位、头像、简介和社交媒体链接。
  * 组件采用卡片式设计，支持悬停效果，并可以链接到成员的社交媒体账号。
- * 
+ *
  * @design
  * 设计理念：
  * 1. 个人展示 - 突出展示团队成员的个人信息和形象
  * 2. 社交连接 - 提供社交媒体链接，方便与团队成员建立联系
  * 3. 视觉一致性 - 使用卡片组件确保与整体设计风格一致
  * 4. 交互反馈 - 悬停时提供视觉反馈，增强用户体验
- * 
+ *
  * @usage
  * 基本用法：
  * ```astro
@@ -23,7 +23,7 @@
  *   bio="拥有5年前端开发经验，专注于React和Vue生态系统。"
  * />
  * ```
- * 
+ *
  * 包含社交媒体链接：
  * ```astro
  * <TeamMember
@@ -96,9 +96,13 @@ export interface Props {
 const { name, role, avatar, bio, socialLinks, class: className = '' } = Astro.props;
 ---
 
-<div class:list={['team-member-card', className]}>
-	<figure class="team-member-avatar-container">
-		<Image 
+<div
+	class:list={[
+		'cosy:card cosy:bg-base-100 cosy:shadow-md cosy:hover:shadow-lg cosy:transition-shadow cosy:duration-300',
+		className,
+	]}>
+	<figure class="cosy:flex cosy:justify-center cosy:p-4">
+		<Image
 			src={avatar}
 			alt={`${name}'s avatar`}
 			width={192}
@@ -106,25 +110,25 @@ const { name, role, avatar, bio, socialLinks, class: className = '' } = Astro.pr
 			rounded="xl"
 			transition="fade"
 			hover="brightness"
-			class="team-member-avatar"
+			class="cosy:object-cover cosy:aspect-square"
 		/>
 	</figure>
-	<div class="team-member-content">
-		<h2 class="team-member-name">{name}</h2>
-		<p class="team-member-role">{role}</p>
-		<p class="team-member-bio">{bio}</p>
+	<div class="cosy:px-6 cosy:py-4 cosy:card-body">
+		<h2 class="cosy:mb-1 cosy:font-semibold cosy:text-xl cosy:card-title">{name}</h2>
+		<p class="cosy:mb-3 cosy:text-sm cosy:text-base-content/70">{role}</p>
+		<p class="cosy:mb-4 cosy:text-base">{bio}</p>
 
 		{
 			socialLinks && socialLinks.length > 0 && (
-				<div class="team-member-social">
+				<div class="cosy:flex cosy:gap-3 cosy:mt-auto">
 					{socialLinks.map((link: SocialLink) => (
 						<Link
 							href={link.url}
 							external
 							variant="ghost"
-							class="team-member-social-link"
+							class="cosy:hover:bg-base-200 cosy:p-2 cosy:rounded-full"
 							aria-label={`Visit ${name}'s ${link.platform} profile`}>
-							<SocialIcon platform={link.platform} class="team-member-social-icon" />
+							<SocialIcon platform={link.platform} class="cosy:w-5 cosy:h-5" />
 						</Link>
 					))}
 				</div>
@@ -132,4 +136,3 @@ const { name, role, avatar, bio, socialLinks, class: className = '' } = Astro.pr
 		}
 	</div>
 </div>
-

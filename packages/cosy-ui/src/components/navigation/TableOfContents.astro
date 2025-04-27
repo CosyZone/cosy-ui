@@ -124,7 +124,7 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
 <aside class:list={['cosy:hidden cosy:xl:block cosy:w-64 cosy:shrink-0', className]}>
 	<div class="cosy:top-18 cosy:sticky">
 		<div
-			class={`toc-container ${fixed ? 'cosy:w-64' : 'cosy:w-full cosy:max-w-xs'}`}
+			class={`toc-container toc-scroll-container ${fixed ? 'cosy:w-64' : 'cosy:w-full cosy:max-w-xs'}`}
 			id={`${tocId}-container`}
 			style="display: none;">
 			<div class="cosy:bg-base-100 cosy:shadow-inner cosy:card">
@@ -254,7 +254,7 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
 		highlightActiveHeading();
 
 		// 使用节流函数优化滚动事件
-		window.addEventListener('scroll', throttle(highlightActiveHeading, 100));
+		window.addEventListener('scroll', throttle(highlightActiveHeading, 200));
 	}
 
 	// 从文本生成有效的 ID
@@ -269,19 +269,6 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
 				.replace(/-{2,}/g, '-') || // 将多个连字符替换为单个
 			'heading'
 		); // 如果结果为空，则使用默认值
-	}
-
-	// 节流函数，限制函数调用频率
-	function throttle(func, delay) {
-		let lastCall = 0;
-		return function (...args) {
-			const now = new Date().getTime();
-			if (now - lastCall < delay) {
-				return;
-			}
-			lastCall = now;
-			return func(...args);
-		};
 	}
 
 	// 高亮当前可见的标题
@@ -327,47 +314,71 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
 
 		// 更新活动链接样式
 		const tocLinks = document.querySelectorAll(`#${tocId} a`);
+		let activeLink = document.querySelector(`#${tocId} a.active-toc-link`);
+		let currentActiveId = activeLink ? activeLink.getAttribute('href').substring(1) : null;
+
+		// 如果当前活动标题没有变化，避免不必要的样式更新
+		if (currentActiveId === activeHeadingId) {
+			return;
+		}
+
 		let hasActiveLink = false;
 
 		tocLinks.forEach((link) => {
 			const href = link.getAttribute('href').substring(1);
 
 			// 清除所有高亮
-			link.classList.remove('cosy:text-primary', 'cosy:font-medium');
+			link.classList.remove('cosy:text-primary', 'cosy:font-medium', 'active-toc-link');
 
 			// 添加当前活动标题的高亮
 			if (href === activeHeadingId) {
-				link.classList.add('cosy:text-primary', 'cosy:font-medium');
+				link.classList.add('cosy:text-primary', 'cosy:font-medium', 'active-toc-link');
 				hasActiveLink = true;
 
-				// 添加一个动画效果，使高亮更明显
-				link.animate([{ transform: 'translateX(-5px)' }, { transform: 'translateX(0)' }], {
-					duration: 300,
-					easing: 'ease-out',
-				});
+				// 只在首次高亮时添加一个轻微的过渡效果，而不是每次滚动都动画
+				if (href !== currentActiveId) {
+					link.style.transition = 'color 0.3s ease';
+				}
 			}
 		});
 
 		// 如果没有找到活动链接，尝试高亮第一个标题
 		if (!hasActiveLink && tocLinks.length > 0) {
-			tocLinks[0].classList.add('cosy:text-primary', 'cosy:font-medium');
+			tocLinks[0].classList.add('cosy:text-primary', 'cosy:font-medium', 'active-toc-link');
 		}
 
 		// 确保活动链接在视图中可见
-		const activeLink = document.querySelector(`#${tocId} a.cosy:text-primary`);
-		if (activeLink && tocList) {
-			const tocScrollContainer = document.querySelector('.cosy:fixed');
+		const newActiveLink = document.querySelector(`#${tocId} a.active-toc-link`);
+		const tocList = document.getElementById(tocId);
+		if (newActiveLink && tocList) {
+			const tocScrollContainer = document.querySelector('.toc-scroll-container');
 			if (tocScrollContainer) {
-				const linkTop = activeLink.offsetTop;
+				const linkTop = newActiveLink.offsetTop;
 				const containerScrollTop = tocScrollContainer.scrollTop;
 				const containerHeight = tocScrollContainer.clientHeight;
 
-				// 如果链接不在可视区域内，滚动到可见位置
+				// 如果链接不在可视区域内，平滑滚动到可见位置
 				if (linkTop < containerScrollTop || linkTop > containerScrollTop + containerHeight) {
-					tocScrollContainer.scrollTop = linkTop - containerHeight / 2;
+					tocScrollContainer.scrollTo({
+						top: linkTop - containerHeight / 2,
+						behavior: 'smooth',
+					});
 				}
 			}
 		}
+	}
+
+	// 节流函数，限制函数调用频率
+	function throttle(func, delay) {
+		let lastCall = 0;
+		return function (...args) {
+			const now = new Date().getTime();
+			if (now - lastCall < delay) {
+				return;
+			}
+			lastCall = now;
+			return func(...args);
+		};
 	}
 
 	// 页面加载时初始化
@@ -381,7 +392,7 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
 		throttle(() => {
 			generateTOC(); // 重新生成TOC，以防窗口大小变化导致标题可见性变化
 			highlightActiveHeading();
-		}, 100)
+		}, 200)
 	);
 
 	// 立即触发一次高亮计算

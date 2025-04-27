@@ -1,0 +1,182 @@
+---
+title: 'Text'
+description: 'Create various text elements with consistent typography styles and flexible customization options'
+folder: false
+order: 4
+---
+
+import { Text, CodeExample } from '@/index';
+
+# Text
+
+The Text component is used to create various text elements with consistent typography styles and flexible customization options. This component is ideal for scenarios requiring unified text styling, such as paragraphs, hints, labels, and more.
+
+## Basic Usage
+
+The basic Text component renders as a `<p>` element by default:
+
+<CodeExample
+  code={`<Text>This is a regular text</Text>`}
+>
+  <Text>This is a regular text</Text>
+</CodeExample>
+
+## Different Sizes
+
+The Text component offers multiple size options:
+
+<CodeExample
+  code={`<Text size="xs">Extra small text (xs)</Text>
+<Text size="sm">Small text (sm)</Text>
+<Text size="md">Medium text (md) - default</Text>
+<Text size="lg">Large text (lg)</Text>
+<Text size="xl">Extra large text (xl)</Text>`}
+>
+  <Text size="xs">Extra small text (xs)</Text>
+  <Text size="sm">Small text (sm)</Text>
+  <Text size="md">Medium text (md) - default</Text>
+  <Text size="lg">Large text (lg)</Text>
+  <Text size="xl">Extra large text (xl)</Text>
+</CodeExample>
+
+## Text Colors
+
+You can set different text colors using the `color` property:
+
+<CodeExample
+  code={`<Text color="default">Default color text</Text>
+<Text color="primary">Primary color text</Text>
+<Text color="secondary">Secondary color text</Text>
+<Text color="accent">Accent color text</Text>
+<Text color="muted">Muted color text</Text>`}
+>
+  <Text color="default">Default color text</Text>
+  <Text color="primary">Primary color text</Text>
+  <Text color="secondary">Secondary color text</Text>
+  <Text color="accent">Accent color text</Text>
+  <Text color="muted">Muted color text</Text>
+</CodeExample>
+
+## Font Weight
+
+Adjust the thickness of the text:
+
+<CodeExample
+  code={`<Text weight="light">Light weight text</Text>
+<Text weight="normal">Normal weight text (default)</Text>
+<Text weight="medium">Medium weight text</Text>
+<Text weight="semibold">Semibold weight text</Text>
+<Text weight="bold">Bold weight text</Text>`}
+>
+  <Text weight="light">Light weight text</Text>
+  <Text weight="normal">Normal weight text (default)</Text>
+  <Text weight="medium">Medium weight text</Text>
+  <Text weight="semibold">Semibold weight text</Text>
+  <Text weight="bold">Bold weight text</Text>
+</CodeExample>
+
+## Text Alignment
+
+Control text alignment:
+
+<CodeExample
+  code={`<Text align="left">Left-aligned text (default)</Text>
+<Text align="center">Center-aligned text</Text>
+<Text align="right">Right-aligned text</Text>
+<Text align="justify">Justified text. This is a longer piece of text to demonstrate the effect of justified alignment. Justified alignment maintains alignment at both the left and right edges by adjusting word spacing.</Text>`}
+>
+  <Text align="left">Left-aligned text (default)</Text>
+  <Text align="center">Center-aligned text</Text>
+  <Text align="right">Right-aligned text</Text>
+  <Text align="justify">Justified text. This is a longer piece of text to demonstrate the effect of justified alignment. Justified alignment maintains alignment at both the left and right edges by adjusting word spacing.</Text>
+</CodeExample>
+
+## Text Styles
+
+Set italic and underline styles:
+
+<CodeExample
+  code={`<Text italic>Italic text</Text>
+<Text underline>Underlined text</Text>
+<Text italic underline>Italic and underlined text</Text>`}
+>
+  <Text italic>Italic text</Text>
+  <Text underline>Underlined text</Text>
+  <Text italic underline>Italic and underlined text</Text>
+</CodeExample>
+
+## Text Truncation
+
+For long text that might overflow its container, use the `truncate` property:
+
+<CodeExample
+  code={`<div style="width: 200px; border: 1px dashed #ccc; padding: 8px;">
+  <Text truncate>This is a very long text content that will exceed the container width and therefore will be truncated with an ellipsis...</Text>
+</div>`}
+>
+  <div style="width: 200px; border: 1px dashed #ccc; padding: 8px;">
+    <Text truncate>This is a very long text content that will exceed the container width and therefore will be truncated with an ellipsis...</Text>
+  </div>
+</CodeExample>
+
+## Custom Elements
+
+Use the `as` property to change the rendered HTML element:
+
+<CodeExample
+  code={`<Text as="span">This is a span element</Text>
+<Text as="div">This is a div element</Text>
+<Text as="label">This is a label element</Text>`}
+>
+  <Text as="span">This is a span element</Text>
+  <Text as="div">This is a div element</Text>
+  <Text as="label">This is a label element</Text>
+</CodeExample>
+
+## Combined Usage
+
+Combine multiple properties to create customized text styles:
+
+<CodeExample
+  code={`<Text 
+  size="lg" 
+  color="primary" 
+  weight="bold" 
+  align="center"
+  class="cosy:py-2 cosy:border cosy:border-primary-200 cosy:rounded-md"
+>
+  This is an important notice
+</Text>`}
+>
+  <Text 
+    size="lg" 
+    color="primary" 
+    weight="bold" 
+    align="center"
+    class="cosy:py-2 cosy:border cosy:border-primary-200 cosy:rounded-md"
+  >
+    This is an important notice
+  </Text>
+</CodeExample>
+
+## Properties
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| as | string | 'p' | HTML element to render |
+| size | string | 'md' | Text size: 'xs', 'sm', 'md', 'lg', 'xl' |
+| weight | string | 'normal' | Font weight: 'light', 'normal', 'medium', 'semibold', 'bold' |
+| color | string | 'default' | Text color: 'default', 'primary', 'secondary', 'accent', 'muted' |
+| align | string | 'left' | Text alignment: 'left', 'center', 'right', 'justify' |
+| italic | boolean | false | Whether to use italic style |
+| underline | boolean | false | Whether to add underline |
+| truncate | boolean | false | Whether to truncate text with ellipsis |
+| class | string | - | Custom class name |
+
+## Best Practices
+
+- Maintain consistent text styles across your application using the same size and color schemes
+- For headings, use the Heading component instead of setting large sizes on the Text component
+- When using the `truncate` property, ensure the parent container has a clear width restriction
+- Pay attention to the contrast between text color and background color for good readability
+- For important content or information that needs to be emphasized, appropriately use bold and accent colors 
