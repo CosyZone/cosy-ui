@@ -1,18 +1,18 @@
 ---
 /**
  * @component Hero
- * 
+ *
  * @description
  * Hero 组件是一个全屏的展示区域，通常用于网站的首页或重要页面的顶部。
  * 它提供了一个引人注目的视觉区域，可以包含标题、描述、图片和行动按钮。
- * 
+ *
  * @design
  * 设计理念：
  * 1. 视觉冲击力 - 全屏展示，吸引用户注意
  * 2. 内容聚焦 - 清晰地传达核心信息
  * 3. 引导行动 - 通过链接按钮引导用户进行下一步操作
  * 4. 灵活布局 - 支持图片、标题、描述和自定义内容
- * 
+ *
  * @usage
  * 基本用法：
  * ```astro
@@ -25,7 +25,7 @@
  *   ]}
  * />
  * ```
- * 
+ *
  * 带图片的用法：
  * ```astro
  * <Hero
@@ -37,7 +37,7 @@
  *   ]}
  * />
  * ```
- * 
+ *
  * 带自定义内容的用法：
  * ```astro
  * <Hero
@@ -52,7 +52,7 @@
  *   </div>
  * </Hero>
  * ```
- * 
+ *
  * @props
  * @prop {string} title - Hero 区域的主标题
  * @prop {string} description - 标题下方的描述文本
@@ -62,11 +62,11 @@
  * @prop {Array<Link>} links - 链接按钮数组
  * @prop {string} links[].text - 链接按钮的文本
  * @prop {string} links[].href - 链接按钮的目标地址
+ * @prop {string} [background="gradient"] - 背景样式，可选值："gradient", "plain"
+ * @prop {string} [align="center"] - 内容对齐方式，可选值："center", "left", "right"
  */
 
-// 导入样式
 import '../../app.css';
-
 import Link from '../base/Link.astro';
 
 interface Link {
@@ -82,38 +82,118 @@ interface Props {
 		alt: string;
 	};
 	links: Link[];
+	background?: 'gradient' | 'plain';
+	align?: 'center' | 'left' | 'right';
 }
 
-const { title, description, image, links = [] } = Astro.props;
+const {
+	title,
+	description,
+	image,
+	links = [],
+	background = 'gradient',
+	align = 'center',
+} = Astro.props;
+
+const containerClasses = [
+	'hero',
+	'cosy:min-h-screen',
+	'cosy:w-full',
+	background === 'gradient'
+		? 'cosy:bg-gradient-to-br cosy:from-primary/10 cosy:to-secondary/20'
+		: 'cosy:bg-base-100',
+	'cosy:py-16',
+	'cosy:px-4',
+	'cosy:sm:px-6',
+	'cosy:lg:px-8',
+].join(' ');
+
+const contentClasses = [
+	'hero-content',
+	'cosy:flex',
+	'cosy:flex-col',
+	align === 'center' ? 'cosy:text-center cosy:items-center' : '',
+	align === 'left' ? 'cosy:text-left cosy:items-start' : '',
+	align === 'right' ? 'cosy:text-right cosy:items-end' : '',
+	'cosy:max-w-7xl',
+	'cosy:mx-auto',
+	'cosy:gap-10',
+	'cosy:lg:flex-row',
+	'cosy:lg:gap-16',
+].join(' ');
+
+const titleClasses = [
+	'cosy:text-5xl',
+	'cosy:font-bold',
+	'cosy:mb-4',
+	'cosy:sm:text-6xl',
+	'cosy:lg:text-7xl',
+	'cosy:text-primary',
+].join(' ');
+
+const descriptionClasses = ['cosy:text-xl', 'cosy:opacity-80', 'cosy:max-w-3xl', 'cosy:mb-8'].join(
+	' '
+);
+
+const imageClasses = [
+	'cosy:max-w-sm',
+	'cosy:rounded-lg',
+	'cosy:shadow-2xl',
+	'cosy:lg:max-w-md',
+	'cosy:transition-all',
+	'cosy:duration-300',
+	'cosy:hover:scale-105',
+	'cosy:hover:shadow-primary/20',
+].join(' ');
+
+const linksContainerClasses = [
+	'cosy:flex',
+	'cosy:flex-wrap',
+	'cosy:gap-4',
+	align === 'center' ? 'cosy:justify-center' : '',
+	align === 'left' ? 'cosy:justify-start' : '',
+	align === 'right' ? 'cosy:justify-end' : '',
+	'cosy:mt-4',
+].join(' ');
+
+const appContainerClasses = ['cosy:w-full', 'cosy:max-w-3xl', 'cosy:mx-auto', 'cosy:my-8'].join(
+	' '
+);
 ---
 
-<div class="hero-container">
-	<div class="hero-content">
-		{image && <img src={image.src} alt={image.alt} class="hero-image" />}
+<div class={containerClasses}>
+	<div class={contentClasses}>
+		{
+			image && (
+				<div class="cosy:order-1 cosy:lg:order-2">
+					<img class={imageClasses} src={image.src} alt={image.alt} />
+				</div>
+			)
+		}
 
-		<h2 class="hero-title">{title}</h2>
-		<p class="hero-description">
-			{description}
-		</p>
+		<div class="cosy:order-2 cosy:lg:order-1 cosy:flex cosy:flex-col">
+			<h2 class={titleClasses}>{title}</h2>
+			<p class={descriptionClasses}>
+				{description}
+			</p>
 
-		<div class="hero-app">
-			<slot name="app" />
-		</div>
-
-		<div class="hero-links">
 			{
-				links.map((link: Link) => (
-					<Link
-						href={link.href}
-						external
-						variant="cta"
-						animation="hover-lift"
-						size="lg"
-					>
-						{link.text}
-					</Link>
-				))
+				Astro.slots.has('app') && (
+					<div class={appContainerClasses}>
+						<slot name="app" />
+					</div>
+				)
 			}
+
+			<div class={linksContainerClasses}>
+				{
+					links.map((link: Link) => (
+						<Link href={link.href} external variant="cta" animation="hover-lift" size="lg">
+							{link.text}
+						</Link>
+					))
+				}
+			</div>
 		</div>
 	</div>
 </div>

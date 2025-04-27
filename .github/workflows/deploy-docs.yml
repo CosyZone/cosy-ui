@@ -46,12 +46,12 @@ jobs:
         run: pnpm install
 
       - name: Build documentation site
-        run: pnpm build
+        run: pnpm build:docs
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: packages/docs/dist
+          path: packages/cosy-ui/dist-docs
 
   deploy:
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment

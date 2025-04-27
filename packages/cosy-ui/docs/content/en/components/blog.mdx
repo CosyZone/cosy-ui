@@ -1,0 +1,124 @@
+---
+title: Blog
+description: A component for displaying formatted blog post content with support for title, subtitle, author info, date, cover image, and tags
+type: component
+layout: '@docs/layouts/DocLayout.astro'
+folder: false
+order: 16
+---
+
+import { Blog, CodeExample } from '@/index';
+
+# Blog
+
+The Blog component is a container component for displaying blog articles, providing layout for elements such as title, subtitle, author information, date, cover image, and tags. The component uses responsive design to ensure a good display across different screen sizes.
+
+## Design Philosophy
+
+- **Content-First** - Highlight the core content and related metadata of the article
+- **Visual Hierarchy** - Establish clear visual hierarchy through font size, spacing, and color
+- **Responsive Layout** - Adapt to different screen sizes to optimize the reading experience
+- **Visual Consistency** - Maintain a consistent visual style with the overall design system
+
+## Basic Usage
+
+The simplest usage is to provide only the `title` property and place the article content inside the component:
+
+<CodeExample
+  code={`<Blog title="This is a blog post">
+  <p>Here is the blog post content...</p>
+</Blog>`}
+>
+  <Blog title="This is a blog post">
+    <p>Here is the blog post content...</p>
+  </Blog>
+</CodeExample>
+
+## Complete Usage
+
+By adding more properties, you can create a fully featured blog post:
+
+<CodeExample
+  code={`<Blog
+  title="Building Modern Websites with Astro"
+  subtitle="Exploring Astro's powerful features and usage techniques"
+  author="John Doe"
+  date={new Date('2023-12-15')}
+  cover={{
+    src: "https://docs.astro.build/assets/full-logo-light.png",
+    alt: "Astro framework cover image"
+  }}
+  tags={["Astro", "Frontend", "Tutorial"]}
+>
+  <p>Here is the detailed content of the blog post...</p>
+</Blog>`}
+>
+  <Blog
+    title="Building Modern Websites with Astro"
+    subtitle="Exploring Astro's powerful features and usage techniques"
+    author="John Doe"
+    date={new Date('2023-12-15')}
+    cover={{
+      src: "https://docs.astro.build/assets/full-logo-light.png",
+      alt: "Astro framework cover image"
+    }}
+    tags={["Astro", "Frontend", "Tutorial"]}
+  >
+    <p>Here is the detailed content of the blog post...</p>
+    <p>Astro is a modern static site generator that lets you build faster websites using your favorite UI component frameworks (React, Vue, Svelte, etc.).</p>
+  </Blog>
+</CodeExample>
+
+## Title and Tags Only
+
+Simplified version showing only title and tags:
+
+<CodeExample
+  code={`<Blog
+  title="Frontend Development Best Practices"
+  tags={["JavaScript", "CSS", "HTML", "Performance", "Accessibility"]}
+>
+  <p>This example shows a blog post layout with only title and tags. This layout is suitable for short technical notes or quick tip-type content.</p>
+</Blog>`}
+>
+  <Blog
+    title="Frontend Development Best Practices"
+    tags={["JavaScript", "CSS", "HTML", "Performance", "Accessibility"]}
+  >
+    <p>This example shows a blog post layout with only title and tags. This layout is suitable for short technical notes or quick tip-type content.</p>
+  </Blog>
+</CodeExample>
+
+## Properties
+
+| Property | Type | Default | Description |
+| ------ | ---- | ------ | ---- |
+| title | string | - | Article title (required) |
+| subtitle | string | - | Article subtitle |
+| author | string | - | Article author |
+| date | Date | - | Publication date |
+| cover | object | - | Cover image configuration |
+| cover.src | string | - | Cover image URL |
+| cover.alt | string | - | Cover image alt text (defaults to title) |
+| tags | string[] | [] | Array of article tags |
+
+## Style Structure
+
+Component internal structure and style description:
+
+1. **Article Container** - The `.article` class provides the basic container, using `container-type: inline-size` to implement container queries
+2. **Article Header** - The `.article-header` class contains all metadata and titles
+3. **Cover Image** - The `.cover-container` and `.cover-image` classes handle the display of the cover image
+4. **Title Area** - The `.header-content` class contains title, subtitle, metadata, and tags
+5. **Metadata** - The `.article-meta` class and `.meta-item` class are used for author and date information
+6. **Tags** - The `.article-tags` class and `.tag` class are used to display article tags
+7. **Content Area** - The `.article-content` class contains the main article content
+
+The component's internal styles use responsive design principles, with different displays on mobile and desktop, and support for dark mode adaptation.
+
+## Notes
+
+- All properties are optional except for `title` (required)
+- When providing the `cover` property, ensure the image URL is valid
+- Date formatting uses `Intl.DateTimeFormat`, defaulting to the browser's locale
+- Tag styles use rounded pill shapes, suitable for short text labels

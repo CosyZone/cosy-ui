@@ -1,0 +1,188 @@
+---
+title: TeamMember
+description: '展示团队成员信息的组件，包括个人信息和社交媒体链接'
+folder: false
+order: 15
+---
+
+import { TeamMember, TeamMembers, CodeExample } from '@/index';
+
+## 单个团队成员展示
+
+展示单个团队成员的信息卡片
+
+<CodeExample
+  code={`<TeamMember
+  name="张三"
+  role="前端开发工程师"
+  avatar="https://i.pravatar.cc/300?img=1"
+  bio="拥有5年前端开发经验，专注于React和Vue生态系统。热爱开源项目和新技术探索。"
+/>`}
+>
+  <TeamMember
+    name="张三"
+    role="前端开发工程师"
+    avatar="https://i.pravatar.cc/300?img=1"
+    bio="拥有5年前端开发经验，专注于React和Vue生态系统。热爱开源项目和新技术探索。"
+  />
+</CodeExample>
+
+## 带社交媒体链接
+
+添加社交媒体链接，方便与团队成员建立联系
+
+<CodeExample
+  code={`<TeamMember
+  name="李四"
+  role="UI设计师"
+  avatar="https://i.pravatar.cc/300?img=2"
+  bio="专注于用户体验和界面设计，热爱创造直观易用的产品。擅长设计系统和交互设计。"
+  socialLinks={[
+    { platform: 'github', url: 'https://github.com' },
+    { platform: 'twitter', url: 'https://twitter.com' },
+    { platform: 'linkedin', url: 'https://linkedin.com' }
+  ]}
+/>`}
+>
+  <TeamMember
+    name="李四"
+    role="UI设计师"
+    avatar="https://i.pravatar.cc/300?img=2"
+    bio="专注于用户体验和界面设计，热爱创造直观易用的产品。擅长设计系统和交互设计。"
+    socialLinks={[
+      { platform: 'github', url: 'https://github.com' },
+      { platform: 'twitter', url: 'https://twitter.com' },
+      { platform: 'linkedin', url: 'https://linkedin.com' }
+    ]}
+  />
+</CodeExample>
+
+## 团队成员列表
+
+使用`TeamMembers`组件以网格形式展示多个团队成员
+
+<CodeExample
+  code={`<TeamMembers
+  members={[
+    {
+      name: "王五",
+      role: "产品经理",
+      avatar: "https://i.pravatar.cc/300?img=3",
+      bio: "负责产品策略和用户需求分析，擅长市场研究和产品规划。",
+      socialLinks: [
+        { platform: 'linkedin', url: 'https://linkedin.com' },
+        { platform: 'email', url: 'mailto:example@example.com' }
+      ]
+    },
+    {
+      name: "赵六",
+      role: "后端工程师",
+      avatar: "https://i.pravatar.cc/300?img=4",
+      bio: "专注于系统架构和数据库设计，熟悉分布式系统和云服务。",
+      socialLinks: [
+        { platform: 'github', url: 'https://github.com' },
+        { platform: 'website', url: 'https://example.com' }
+      ]
+    },
+    {
+      name: "钱七",
+      role: "运营专员",
+      avatar: "https://i.pravatar.cc/300?img=5",
+      bio: "负责市场推广和用户增长，善于数据分析和策略制定。",
+      socialLinks: [
+        { platform: 'twitter', url: 'https://twitter.com' }
+      ]
+    }
+  ]}
+  columns={3}
+/>`}
+>
+  <TeamMembers
+    members={[
+      {
+        name: "王五",
+        role: "产品经理",
+        avatar: "https://i.pravatar.cc/300?img=3",
+        bio: "负责产品策略和用户需求分析，擅长市场研究和产品规划。",
+        socialLinks: [
+          { platform: 'linkedin', url: 'https://linkedin.com' },
+          { platform: 'email', url: 'mailto:example@example.com' }
+        ]
+      },
+      {
+        name: "赵六",
+        role: "后端工程师",
+        avatar: "https://i.pravatar.cc/300?img=4",
+        bio: "专注于系统架构和数据库设计，熟悉分布式系统和云服务。",
+        socialLinks: [
+          { platform: 'github', url: 'https://github.com' },
+          { platform: 'website', url: 'https://example.com' }
+        ]
+      },
+      {
+        name: "钱七",
+        role: "运营专员",
+        avatar: "https://i.pravatar.cc/300?img=5",
+        bio: "负责市场推广和用户增长，善于数据分析和策略制定。",
+        socialLinks: [
+          { platform: 'twitter', url: 'https://twitter.com' }
+        ]
+      }
+    ]}
+    columns={3}
+  />
+</CodeExample>
+
+## 自定义列数
+
+通过`columns`属性自定义团队成员列表的列数
+
+<CodeExample
+  code={`<TeamMembers
+  members={[
+    {
+      name: "孙八",
+      role: "市场总监",
+      avatar: "https://i.pravatar.cc/300?img=6",
+      bio: "负责品牌建设和市场策略，拥有丰富的市场营销经验。",
+      socialLinks: [
+        { platform: 'linkedin', url: 'https://linkedin.com' }
+      ]
+    },
+    {
+      name: "周九",
+      role: "测试工程师",
+      avatar: "https://i.pravatar.cc/300?img=7",
+      bio: "负责产品质量保障，精通自动化测试和性能测试。",
+      socialLinks: [
+        { platform: 'github', url: 'https://github.com' }
+      ]
+    }
+  ]}
+  columns={2}
+/>`}
+>
+  <TeamMembers
+    members={[
+      {
+        name: "孙八",
+        role: "市场总监",
+        avatar: "https://i.pravatar.cc/300?img=6",
+        bio: "负责品牌建设和市场策略，拥有丰富的市场营销经验。",
+        socialLinks: [
+          { platform: 'linkedin', url: 'https://linkedin.com' }
+        ]
+      },
+      {
+        name: "周九",
+        role: "测试工程师",
+        avatar: "https://i.pravatar.cc/300?img=7",
+        bio: "负责产品质量保障，精通自动化测试和性能测试。",
+        socialLinks: [
+          { platform: 'github', url: 'https://github.com' }
+        ]
+      }
+    ]}
+    columns={2}
+  />
+</CodeExample> 
