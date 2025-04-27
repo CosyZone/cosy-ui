@@ -21,6 +21,7 @@ export { default as CodeExample } from './components/display/CodeExample.astro';
 // Data Display
 export { default as TeamMembers } from './components/data-display/TeamMembers.astro';
 export { default as TeamMember } from './components/data-display/TeamMember.astro';
+export { default as ProductCard } from './components/data-display/ProductCard.astro';
 export { default as Blog } from './components/data-display/Blog.astro';
 
 // Layouts
