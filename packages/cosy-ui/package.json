@@ -33,7 +33,8 @@
     "scripts": {
         "dev": "astro dev --host 0.0.0.0 --port 5678",
         "preview:docs": "astro preview --host 0.0.0.0 --port 4330 --outDir dist-docs",
-        "build": "vite build && tsx scripts/post-build.ts",
+        "preview": "npm run preview:docs",
+        "build": "vite build && npm run build:docs && tsx scripts/post-build.ts",
         "build:docs": "astro build"
     },
     "type": "module",
