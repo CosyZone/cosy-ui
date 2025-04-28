@@ -5,7 +5,7 @@ folder: false
 order: 6
 ---
 
-import { Footer, Section, Container, CodeExample } from '@/index';
+import { Footer, Section, Container, CodeExample, getExampleImage } from '@/index';
 
 ## 基础页脚
 
@@ -40,7 +40,7 @@ import { Footer, Section, Container, CodeExample } from '@/index';
   slogan="简单而强大"
   company="我的公司"
   copyright="保留所有权利"
-  logo={{ src: "https://via.placeholder.com/100", alt: "网站Logo" }}
+  logo={{ src: getExampleImage({ width: 100, height: 100 }), alt: "网站Logo" }}
 />`}
 >
   <Footer 
@@ -49,7 +49,7 @@ import { Footer, Section, Container, CodeExample } from '@/index';
     slogan="简单而强大"
     company="我的公司"
     copyright="保留所有权利"
-    logo={{ src: "https://via.placeholder.com/100", alt: "网站Logo" }}
+    logo={{ src: getExampleImage({ width: 100, height: 100 }), alt: "网站Logo" }}
   />
 </CodeExample>
 
@@ -211,7 +211,7 @@ import { Footer, Section, Container, CodeExample } from '@/index';
   company="我的公司"
   copyright="保留所有权利"
   inspirationalSlogan="构建美好的数字体验"
-  logo={{ src: "https://via.placeholder.com/100", alt: "网站Logo" }}
+  logo={{ src: getExampleImage({ width: 100, height: 100 }), alt: "网站Logo" }}
   products={[
     { name: "产品A", href: "/products/a" },
     { name: "产品B", href: "/products/b" }
@@ -239,7 +239,7 @@ import { Footer, Section, Container, CodeExample } from '@/index';
     company="我的公司"
     copyright="保留所有权利"
     inspirationalSlogan="构建美好的数字体验"
-    logo={{ src: "https://via.placeholder.com/100", alt: "网站Logo" }}
+    logo={{ src: getExampleImage({ width: 100, height: 100 }), alt: "网站Logo" }}
     products={[
       { name: "产品A", href: "/products/a" },
       { name: "产品B", href: "/products/b" }
