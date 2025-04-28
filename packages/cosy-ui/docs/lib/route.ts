@@ -109,7 +109,7 @@ export async function getGroupedRoutes(locale: string = 'zh-cn'): Promise<Groupe
             }
 
             // 调试输出，帮助排查问题
-            console.log(`Same order for: ${a.title}(${a.order}) and ${b.title}(${b.order})`);
+            // console.log(`Same order for: ${a.title}(${a.order}) and ${b.title}(${b.order})`);
 
             // order 相同时，按路径中斜杠的数量排序
             const slashCountA = (a.path.match(/\//g) || []).length;
@@ -127,14 +127,14 @@ export async function getGroupedRoutes(locale: string = 'zh-cn'): Promise<Groupe
         .sort((a, b) => a.order - b.order);
 
     // 打印结果
-    console.log(`Generated routes structure for locale ${locale}:`);
-    result.forEach(group => {
-        console.log(`\n${group.group}:`);
-        group.routes.forEach(route => {
-            console.log(`  - ${route.title}`);
-            console.log(`    path: ${route.path}`);
-        });
-    });
+    // console.log(`Generated routes structure for locale ${locale}:`);
+    // result.forEach(group => {
+    //     console.log(`\n${group.group}:`);
+    //     group.routes.forEach(route => {
+    //         console.log(`  - ${route.title}`);
+    //         console.log(`    path: ${route.path}`);
+    //     });
+    // });
 
     return result;
 } 
