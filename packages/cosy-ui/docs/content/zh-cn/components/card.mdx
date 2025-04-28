@@ -5,7 +5,7 @@ folder: false
 order: 3
 ---
 
-import { Card, CodeExample } from '@/index';
+import { Card, CodeExample, getProductImage, getExampleImage } from '@/index';
 
 ## 基础卡片
 
@@ -35,7 +35,7 @@ import { Card, CodeExample } from '@/index';
   code={`<Card 
   title="产品名称" 
   subtitle="产品描述" 
-  imageUrl="https://via.placeholder.com/400x200"
+  imageUrl={getProductImage({ width: 400, height: 200 })}
 >
   其他产品信息
 </Card>`}
@@ -43,7 +43,7 @@ import { Card, CodeExample } from '@/index';
   <Card 
     title="产品名称" 
     subtitle="产品描述" 
-    imageUrl="https://via.placeholder.com/400x200"
+    imageUrl={getProductImage({ width: 400, height: 200 })}
   >
     其他产品信息
   </Card>
@@ -57,14 +57,14 @@ import { Card, CodeExample } from '@/index';
   code={`<Card 
   title="文章标题" 
   subtitle="文章摘要" 
-  imageUrl="https://via.placeholder.com/400x200" 
+  imageUrl={getExampleImage({ width: 400, height: 200, tag: 'article' })} 
   href="#"
 />`}
 >
   <Card 
     title="文章标题" 
     subtitle="文章摘要" 
-    imageUrl="https://via.placeholder.com/400x200" 
+    imageUrl={getExampleImage({ width: 400, height: 200, tag: 'article' })} 
     href="#"
   />
 </CodeExample>
@@ -100,17 +100,17 @@ Card 组件可以灵活地用于各种页面布局
   <Card 
     title="功能一" 
     subtitle="功能描述" 
-    imageUrl="/features/feature1.jpg"
+    imageUrl={getExampleImage({ width: 400, height: 200, tag: 'feature', randomSeed: 1 })}
   />
   <Card 
     title="功能二" 
     subtitle="功能描述" 
-    imageUrl="/features/feature2.jpg"
+    imageUrl={getExampleImage({ width: 400, height: 200, tag: 'feature', randomSeed: 2 })}
   />
   <Card 
     title="功能三" 
     subtitle="功能描述" 
-    imageUrl="/features/feature3.jpg"
+    imageUrl={getExampleImage({ width: 400, height: 200, tag: 'feature', randomSeed: 3 })}
   />
 </div>
 ```
@@ -126,13 +126,13 @@ Card 组件可以灵活地用于各种页面布局
     <Card 
       title="产品一" 
       subtitle="产品描述" 
-      imageUrl="/products/product1.jpg" 
+      imageUrl={getProductImage({ randomSeed: 'product1' })} 
       href="/products/product1"
     />
     <Card 
       title="产品二" 
       subtitle="产品描述" 
-      imageUrl="/products/product2.jpg" 
+      imageUrl={getProductImage({ randomSeed: 'product2' })} 
       href="/products/product2"
     />
   </div>

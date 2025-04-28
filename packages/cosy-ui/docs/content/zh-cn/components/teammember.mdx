@@ -5,7 +5,7 @@ folder: false
 order: 15
 ---
 
-import { TeamMember, TeamMembers, CodeExample } from '@/index';
+import { TeamMember, TeamMembers, CodeExample, getAvatarImage } from '@/index';
 
 ## 单个团队成员展示
 
@@ -15,14 +15,14 @@ import { TeamMember, TeamMembers, CodeExample } from '@/index';
   code={`<TeamMember
   name="张三"
   role="前端开发工程师"
-  avatar="https://i.pravatar.cc/300?img=1"
+  avatar={getAvatarImage({ width: 300, height: 300 })}
   bio="拥有5年前端开发经验，专注于React和Vue生态系统。热爱开源项目和新技术探索。"
 />`}
 >
   <TeamMember
     name="张三"
     role="前端开发工程师"
-    avatar="https://i.pravatar.cc/300?img=1"
+    avatar={getAvatarImage({ width: 300, height: 300 })}
     bio="拥有5年前端开发经验，专注于React和Vue生态系统。热爱开源项目和新技术探索。"
   />
 </CodeExample>
@@ -35,7 +35,7 @@ import { TeamMember, TeamMembers, CodeExample } from '@/index';
   code={`<TeamMember
   name="李四"
   role="UI设计师"
-  avatar="https://i.pravatar.cc/300?img=2"
+  avatar={getAvatarImage({ width: 300, height: 300 })}
   bio="专注于用户体验和界面设计，热爱创造直观易用的产品。擅长设计系统和交互设计。"
   socialLinks={[
     { platform: 'github', url: 'https://github.com' },
@@ -47,7 +47,7 @@ import { TeamMember, TeamMembers, CodeExample } from '@/index';
   <TeamMember
     name="李四"
     role="UI设计师"
-    avatar="https://i.pravatar.cc/300?img=2"
+    avatar={getAvatarImage({ width: 300, height: 300 })}
     bio="专注于用户体验和界面设计，热爱创造直观易用的产品。擅长设计系统和交互设计。"
     socialLinks={[
       { platform: 'github', url: 'https://github.com' },
@@ -67,7 +67,7 @@ import { TeamMember, TeamMembers, CodeExample } from '@/index';
     {
       name: "王五",
       role: "产品经理",
-      avatar: "https://i.pravatar.cc/300?img=3",
+      avatar: {getAvatarImage({ width: 300, height: 300 })},
       bio: "负责产品策略和用户需求分析，擅长市场研究和产品规划。",
       socialLinks: [
         { platform: 'linkedin', url: 'https://linkedin.com' },
@@ -77,7 +77,7 @@ import { TeamMember, TeamMembers, CodeExample } from '@/index';
     {
       name: "赵六",
       role: "后端工程师",
-      avatar: "https://i.pravatar.cc/300?img=4",
+      avatar: {getAvatarImage({ width: 300, height: 300 })},
       bio: "专注于系统架构和数据库设计，熟悉分布式系统和云服务。",
       socialLinks: [
         { platform: 'github', url: 'https://github.com' },
@@ -87,7 +87,7 @@ import { TeamMember, TeamMembers, CodeExample } from '@/index';
     {
       name: "钱七",
       role: "运营专员",
-      avatar: "https://i.pravatar.cc/300?img=5",
+      avatar: {getAvatarImage({ width: 300, height: 300 })},
       bio: "负责市场推广和用户增长，善于数据分析和策略制定。",
       socialLinks: [
         { platform: 'twitter', url: 'https://twitter.com' }
@@ -102,7 +102,7 @@ import { TeamMember, TeamMembers, CodeExample } from '@/index';
       {
         name: "王五",
         role: "产品经理",
-        avatar: "https://i.pravatar.cc/300?img=3",
+        avatar: getAvatarImage({ width: 300, height: 300 }),
         bio: "负责产品策略和用户需求分析，擅长市场研究和产品规划。",
         socialLinks: [
           { platform: 'linkedin', url: 'https://linkedin.com' },
@@ -112,7 +112,7 @@ import { TeamMember, TeamMembers, CodeExample } from '@/index';
       {
         name: "赵六",
         role: "后端工程师",
-        avatar: "https://i.pravatar.cc/300?img=4",
+        avatar: getAvatarImage({ width: 300, height: 300 }),
         bio: "专注于系统架构和数据库设计，熟悉分布式系统和云服务。",
         socialLinks: [
           { platform: 'github', url: 'https://github.com' },
@@ -122,7 +122,7 @@ import { TeamMember, TeamMembers, CodeExample } from '@/index';
       {
         name: "钱七",
         role: "运营专员",
-        avatar: "https://i.pravatar.cc/300?img=5",
+        avatar: getAvatarImage({ width: 300, height: 300 }),
         bio: "负责市场推广和用户增长，善于数据分析和策略制定。",
         socialLinks: [
           { platform: 'twitter', url: 'https://twitter.com' }
@@ -143,7 +143,7 @@ import { TeamMember, TeamMembers, CodeExample } from '@/index';
     {
       name: "孙八",
       role: "市场总监",
-      avatar: "https://i.pravatar.cc/300?img=6",
+      avatar: {getAvatarImage({ width: 300, height: 300 })},
       bio: "负责品牌建设和市场策略，拥有丰富的市场营销经验。",
       socialLinks: [
         { platform: 'linkedin', url: 'https://linkedin.com' }
@@ -152,7 +152,7 @@ import { TeamMember, TeamMembers, CodeExample } from '@/index';
     {
       name: "周九",
       role: "测试工程师",
-      avatar: "https://i.pravatar.cc/300?img=7",
+      avatar: {getAvatarImage({ width: 300, height: 300 })},
       bio: "负责产品质量保障，精通自动化测试和性能测试。",
       socialLinks: [
         { platform: 'github', url: 'https://github.com' }
@@ -167,7 +167,7 @@ import { TeamMember, TeamMembers, CodeExample } from '@/index';
       {
         name: "孙八",
         role: "市场总监",
-        avatar: "https://i.pravatar.cc/300?img=6",
+        avatar: getAvatarImage({ width: 300, height: 300 }),
         bio: "负责品牌建设和市场策略，拥有丰富的市场营销经验。",
         socialLinks: [
           { platform: 'linkedin', url: 'https://linkedin.com' }
@@ -176,7 +176,7 @@ import { TeamMember, TeamMembers, CodeExample } from '@/index';
       {
         name: "周九",
         role: "测试工程师",
-        avatar: "https://i.pravatar.cc/300?img=7",
+        avatar: getAvatarImage({ width: 300, height: 300 }),
         bio: "负责产品质量保障，精通自动化测试和性能测试。",
         socialLinks: [
           { platform: 'github', url: 'https://github.com' }

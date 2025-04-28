@@ -46,6 +46,24 @@
  *   description="产品简短描述文本"
  * />
  * ```
+ *
+ * 统一高度（在Grid或Flex布局中使用）：
+ * ```astro
+ * <div class="cosy:gap-4 cosy:grid cosy:grid-cols-3">
+ *   <ProductCard
+ *     equalHeight
+ *     name="产品1"
+ *     image="/images/products/product1.jpg"
+ *     description="产品描述文本"
+ *   />
+ *   <ProductCard
+ *     equalHeight
+ *     name="产品2"
+ *     image="/images/products/product2.jpg"
+ *     description="另一个产品的描述"
+ *   />
+ * </div>
+ * ```
  */
 
 import Link from '../base/Link.astro';
@@ -118,6 +136,16 @@ export interface Props {
 	 */
 	buttonLayout?: 'row' | 'column';
 	/**
+	 * 是否启用等高卡片
+	 * 当在grid或flex布局中使用时，设置为true可确保所有卡片高度一致
+	 */
+	equalHeight?: boolean;
+	/**
+	 * 描述文本的最大行数
+	 * 用于控制描述文本的显示行数，超出部分会被截断
+	 */
+	descriptionLines?: number;
+	/**
 	 * 自定义类名
 	 */
 	class?: string;
@@ -135,6 +163,8 @@ const {
 	secondaryButtonText = 'App Store',
 	githubButtonText = 'GitHub',
 	buttonLayout = 'row',
+	equalHeight = false,
+	descriptionLines,
 	class: className = '',
 } = Astro.props;
 
@@ -151,6 +181,9 @@ const sizeStyles = {
 		description: 'cosy:text-xs cosy:line-clamp-2',
 		buttons: 'cosy:text-xs cosy:btn-xs',
 		padding: 'cosy:px-3 cosy:py-2',
+		cardHeight: 'cosy:h-[280px]',
+		imageHeight: 'cosy:h-[100px]',
+		bodyHeight: 'cosy:h-[180px]',
 	},
 	sm: {
 		card: 'cosy:max-w-[250px]',
@@ -163,6 +196,9 @@ const sizeStyles = {
 		description: 'cosy:text-sm cosy:line-clamp-3',
 		buttons: 'cosy:text-sm cosy:btn-sm',
 		padding: 'cosy:px-4 cosy:py-3',
+		cardHeight: 'cosy:h-[360px]',
+		imageHeight: 'cosy:h-[133px]',
+		bodyHeight: 'cosy:h-[227px]',
 	},
 	md: {
 		card: 'cosy:max-w-[320px]',
@@ -175,6 +211,9 @@ const sizeStyles = {
 		description: 'cosy:text-base',
 		buttons: '',
 		padding: 'cosy:px-6 cosy:py-4',
+		cardHeight: 'cosy:h-[450px]',
+		imageHeight: 'cosy:h-[200px]',
+		bodyHeight: 'cosy:h-[250px]',
 	},
 	lg: {
 		card: 'cosy:max-w-[400px]',
@@ -187,6 +226,9 @@ const sizeStyles = {
 		description: 'cosy:text-lg',
 		buttons: 'cosy:text-base cosy:btn-lg',
 		padding: 'cosy:px-7 cosy:py-5',
+		cardHeight: 'cosy:h-[550px]',
+		imageHeight: 'cosy:h-[253px]',
+		bodyHeight: 'cosy:h-[297px]',
 	},
 	xl: {
 		card: 'cosy:max-w-[500px]',
@@ -199,10 +241,20 @@ const sizeStyles = {
 		description: 'cosy:text-xl',
 		buttons: 'cosy:text-lg cosy:btn-lg',
 		padding: 'cosy:px-8 cosy:py-6',
+		cardHeight: 'cosy:h-[650px]',
+		imageHeight: 'cosy:h-[320px]',
+		bodyHeight: 'cosy:h-[330px]',
 	},
 };
 
 const currentSize = sizeStyles[size];
+
+// 描述文本的行数限制
+const descriptionClass = descriptionLines
+	? `cosy:line-clamp-${descriptionLines}`
+	: currentSize.description.includes('line-clamp')
+		? currentSize.description
+		: `${currentSize.description} cosy:line-clamp-3`;
 
 // 计算按钮布局类名，根据按钮数量和布局方向调整
 const getButtonLayoutClass = () => {
@@ -240,9 +292,11 @@ const buttonsContainerClass =
 	class:list={[
 		'cosy:card cosy:bg-base-100 cosy:shadow-md cosy:hover:shadow-lg cosy:transition-shadow cosy:duration-300',
 		currentSize.card,
+		equalHeight && currentSize.cardHeight,
+		'cosy:flex cosy:flex-col',
 		className,
 	]}>
-	<figure class:list={[currentSize.figure]}>
+	<figure class:list={[currentSize.figure, equalHeight && currentSize.imageHeight]}>
 		<Image
 			src={image}
 			alt={`${name} product image`}
@@ -251,14 +305,20 @@ const buttonsContainerClass =
 			rounded="lg"
 			transition="fade"
 			hover="brightness"
-			class="cosy:object-cover cosy:w-full"
+			class="cosy:w-full cosy:h-full cosy:object-cover"
 			loading="lazy"
 			showError={true}
 		/>
 	</figure>
-	<div class:list={[currentSize.padding, 'cosy:card-body']}>
+	<div
+		class:list={[
+			currentSize.padding,
+			'cosy:card-body',
+			'cosy:flex cosy:flex-col',
+			equalHeight && currentSize.bodyHeight,
+		]}>
 		<h2 class:list={['cosy:mb-2 cosy:font-bold cosy:card-title', currentSize.title]}>{name}</h2>
-		<p class:list={['cosy:mb-4', currentSize.description]}>{description}</p>
+		<p class:list={['cosy:mb-4', descriptionClass]}>{description}</p>
 
 		<div class={buttonsContainerClass}>
 			{
@@ -308,7 +368,7 @@ const buttonsContainerClass =
 							currentSize.buttons,
 						]}
 						aria-label={`View ${name}'s GitHub repository`}>
-						<SocialIcon platform="github" class="cosy:w-4 cosy:h-4 cosy:mr-1.5 cosy:inline-block" />
+						<SocialIcon platform="github" size="18px" />
 						<span class="cosy:inline-block">{githubButtonText}</span>
 					</Link>
 				)
