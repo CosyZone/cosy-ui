@@ -5,7 +5,7 @@ folder: false
 order: 7
 ---
 
-import { Hero, CodeExample } from '@/index';
+import { Hero, CodeExample, getExampleImage } from '@/index';
 
 ## 基础用法
 
@@ -39,7 +39,7 @@ import { Hero, CodeExample } from '@/index';
   code={`<Hero
   title="产品展示"
   description="查看我们的最新产品。"
-  image={{ src: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5", alt: "工作区域的笔记本电脑" }}
+  image={{ src: getExampleImage({ width: 100, height: 100 }), alt: "工作区域的笔记本电脑" }}
   links={[
     { text: "立即购买", href: "/buy" }
   ]}
@@ -48,7 +48,7 @@ import { Hero, CodeExample } from '@/index';
   <Hero
     title="产品展示"
     description="查看我们的最新产品。"
-    image={{ src: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5", alt: "工作区域的笔记本电脑" }}
+    image={{ src: getExampleImage({ width: 500, height: 500 }), alt: "工作区域的笔记本电脑" }}
     links={[
       { text: "立即购买", href: "/buy" }
     ]}

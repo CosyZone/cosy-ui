@@ -5,16 +5,16 @@ folder: false
 order: 8
 ---
 
-import { Image, CodeExample } from '@/index';
+import { Image, CodeExample, getExampleImage } from '@/index';
 
 ## 基础用法
 
 最简单的图片展示方式
 
 <CodeExample
-  code={`<Image src="https://picsum.photos/400/300" alt="示例图片" />`}
+  code={`<Image src={getExampleImage({ width: 400, height: 300 })} alt="示例图片" />`}
 >
-  <Image src="https://picsum.photos/400/300" alt="示例图片" />
+  <Image src={getExampleImage({ width: 400, height: 300 })} alt="示例图片" />
 </CodeExample>
 
 ## 圆角和阴影效果
@@ -22,9 +22,9 @@ import { Image, CodeExample } from '@/index';
 通过`rounded`和`shadow`属性添加视觉效果
 
 <CodeExample
-  code={`<Image src="https://picsum.photos/400/300?random=1" alt="示例图片" rounded="lg" shadow="md" />`}
+  code={`<Image src={getExampleImage({ width: 400, height: 300, randomSeed: 1 })} alt="示例图片" rounded="lg" shadow="md" />`}
 >
-  <Image src="https://picsum.photos/400/300?random=1" alt="示例图片" rounded="lg" shadow="md" />
+  <Image src={getExampleImage({ width: 400, height: 300, randomSeed: 1 })} alt="示例图片" rounded="lg" shadow="md" />
 </CodeExample>
 
 ## 悬停交互效果
@@ -32,9 +32,9 @@ import { Image, CodeExample } from '@/index';
 通过`hover`属性添加悬停效果，支持缩放、亮度变化和模糊效果
 
 <CodeExample
-  code={`<Image src="https://picsum.photos/400/300?random=2" alt="示例图片" hover="scale" rounded="md" />`}
+  code={`<Image src={getExampleImage({ width: 400, height: 300, randomSeed: 2 })} alt="示例图片" hover="scale" rounded="md" />`}
 >
-  <Image src="https://picsum.photos/400/300?random=2" alt="示例图片" hover="scale" rounded="md" />
+  <Image src={getExampleImage({ width: 400, height: 300, randomSeed: 2 })} alt="示例图片" hover="scale" rounded="md" />
 </CodeExample>
 
 ## 加载指示器
@@ -42,15 +42,15 @@ import { Image, CodeExample } from '@/index';
 远程图片加载时显示不同类型的加载状态指示器
 
 <CodeExample
-  code={`<Image src="https://picsum.photos/800/600?random=3" alt="远程大图" loadingIndicator="spinner" />`}
+  code={`<Image src={getExampleImage({ width: 800, height: 600, randomSeed: 3 })} alt="远程大图" loadingIndicator="spinner" />`}
 >
-  <Image src="https://picsum.photos/800/600?random=3" alt="远程大图" loadingIndicator="spinner" />
+  <Image src={getExampleImage({ width: 800, height: 600, randomSeed: 3 })} alt="远程大图" loadingIndicator="spinner" />
 </CodeExample>
 
 <CodeExample
-  code={`<Image src="https://picsum.photos/800/600?random=4" alt="远程大图" loadingIndicator="progress" />`}
+  code={`<Image src={getExampleImage({ width: 800, height: 600, randomSeed: 4 })} alt="远程大图" loadingIndicator="progress" />`}
 >
-  <Image src="https://picsum.photos/800/600?random=4" alt="远程大图" loadingIndicator="progress" />
+  <Image src={getExampleImage({ width: 800, height: 600, randomSeed: 4 })} alt="远程大图" loadingIndicator="progress" />
 </CodeExample>
 
 ## 对象填充方式
@@ -58,9 +58,9 @@ import { Image, CodeExample } from '@/index';
 通过`objectFit`属性控制图片如何填充容器
 
 <CodeExample
-  code={`<Image src="https://picsum.photos/600/400?random=5" alt="示例图片" objectFit="contain" width={300} height={200} />`}
+  code={`<Image src={getExampleImage({ width: 600, height: 400, randomSeed: 5 })} alt="示例图片" objectFit="contain" width={300} height={200} />`}
 >
-  <Image src="https://picsum.photos/600/400?random=5" alt="示例图片" objectFit="contain" width={300} height={200} />
+  <Image src={getExampleImage({ width: 600, height: 400, randomSeed: 5 })} alt="示例图片" objectFit="contain" width={300} height={200} />
 </CodeExample>
 
 ## 过渡动画效果
@@ -68,7 +68,7 @@ import { Image, CodeExample } from '@/index';
 通过`transition`属性添加过渡动画效果
 
 <CodeExample
-  code={`<Image src="https://picsum.photos/400/300?random=6" alt="示例图片" transition="fade" hover="brightness" />`}
+  code={`<Image src={getExampleImage({ width: 400, height: 300, randomSeed: 6 })} alt="示例图片" transition="fade" hover="brightness" />`}
 >
-  <Image src="https://picsum.photos/400/300?random=6" alt="示例图片" transition="fade" hover="brightness" />
+  <Image src={getExampleImage({ width: 400, height: 300, randomSeed: 6 })} alt="示例图片" transition="fade" hover="brightness" />
 </CodeExample> 
