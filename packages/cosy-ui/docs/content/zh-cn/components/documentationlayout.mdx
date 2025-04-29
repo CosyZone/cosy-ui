@@ -47,6 +47,32 @@ import { DocumentationLayout, CodeExample } from '@/index';
   预览效果为不显示侧边栏的文档页面
 </CodeExample>
 
+## 全宽内容模式
+
+通过设置 `contentFullWidth={true}` 可以让内容区域占满整个宽度，适合创建全宽的展示区域或自定义布局
+
+<CodeExample
+  code={`<DocumentationLayout
+  title="全宽内容文档"
+  description="这是一个使用全宽内容区域的文档页面"
+  sidebarItems={sidebarItems}
+  contentFullWidth={true}
+>
+  <!-- 全宽Hero部分 -->
+  <div class="cosy:bg-primary cosy:text-white cosy:p-10 cosy:text-center">
+    <h1 class="cosy:text-3xl">全宽Hero部分</h1>
+    <p class="cosy:mt-4">没有容器限制，宽度可以100%占满</p>
+  </div>
+  
+  <!-- 自定义容器部分 -->
+  <div class="cosy:container cosy:mx-auto cosy:p-6">
+    <p>在全宽模式下，您可以自行控制内容的容器和间距</p>
+  </div>
+</DocumentationLayout>`}
+>
+  全宽模式下，内容区域会占满整个可用宽度，适合创建自定义布局
+</CodeExample>
+
 ## 完整配置示例
 
 DocumentationLayout 组件支持丰富的配置选项，以下是一个完整配置的示例
@@ -63,6 +89,7 @@ DocumentationLayout 组件支持丰富的配置选项，以下是一个完整配
   showTableOfContents={true}
   showHeader={true}
   showFooter={true}
+  contentFullWidth={false}
   debug={false}
   headerHeight="md"
   footerSlogan="构建美好的数字体验"
@@ -87,4 +114,5 @@ DocumentationLayout 组件支持丰富的配置选项，以下是一个完整配
 | showHeader | boolean | true | 是否显示页眉 |
 | showFooter | boolean | true | 是否显示页脚 |
 | headerHeight | string | "md" | 页眉高度，可选值：'3xs'/'2xs'/'xs'/'sm'/'md'/'lg'/'xl' |
+| contentFullWidth | boolean | false | 内容区域是否占满全宽，设为true时用户可自行控制内容布局 |
 | debug | boolean | false | 调试模式，显示各部分边框 | 

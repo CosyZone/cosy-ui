@@ -1,0 +1,118 @@
+---
+title: 'DocumentationLayout'
+description: 'Layout for documentation pages, with sidebar navigation and table of contents, supporting various configuration options'
+folder: false
+order: 5
+---
+
+import { DocumentationLayout, CodeExample } from '@/index';
+
+## Basic Usage
+
+The most basic documentation layout, including sidebar and content area
+
+<CodeExample
+  code={`<DocumentationLayout
+  title="Documentation Title"
+  description="Documentation description"
+  sidebarItems={[
+    { title: "Getting Started", items: [
+      { href: "/docs/getting-started", text: "Quick Start" },
+      { href: "/docs/installation", text: "Installation" }
+    ]}
+  ]}
+>
+  <h1>Documentation Content</h1>
+  <p>This is the main content of the documentation</p>
+</DocumentationLayout>`}
+>
+  See this document for preview
+</CodeExample>
+
+## No Sidebar Mode
+
+Control whether to display the sidebar through the showSidebar property. When set to false, the sidebar is not displayed
+
+<CodeExample
+  code={`<DocumentationLayout
+  title="Documentation Without Sidebar"
+  description="This is a documentation page without a sidebar"
+  sidebarItems={sidebarItems}
+  showSidebar={false}
+>
+  <h1>Documentation Content</h1>
+  <p>This is the main content of the documentation</p>
+</DocumentationLayout>`}
+>
+  Preview effect is a documentation page without a sidebar
+</CodeExample>
+
+## Full Width Content Mode
+
+By setting `contentFullWidth={true}`, you can make the content area occupy the full width, suitable for creating full-width display areas or custom layouts
+
+<CodeExample
+  code={`<DocumentationLayout
+  title="Full Width Content Documentation"
+  description="This is a documentation page using full-width content area"
+  sidebarItems={sidebarItems}
+  contentFullWidth={true}
+>
+  <!-- Full width Hero section -->
+  <div class="cosy:bg-primary cosy:text-white cosy:p-10 cosy:text-center">
+    <h1 class="cosy:text-3xl">Full Width Hero Section</h1>
+    <p class="cosy:mt-4">No container limitations, width can be 100% full</p>
+  </div>
+  
+  <!-- Custom container section -->
+  <div class="cosy:container cosy:mx-auto cosy:p-6">
+    <p>In full-width mode, you can control the content's container and spacing yourself</p>
+  </div>
+</DocumentationLayout>`}
+>
+  In full-width mode, the content area occupies the entire available width, suitable for creating custom layouts
+</CodeExample>
+
+## Complete Configuration Example
+
+The DocumentationLayout component supports a rich set of configuration options. Below is an example of a complete configuration
+
+<CodeExample
+  code={`<DocumentationLayout
+  title="Complete Configuration Documentation"
+  description="This is a fully configured documentation page"
+  siteName="My Documentation Site"
+  logo={myLogo}
+  logoHref="/docs"
+  sidebarItems={sidebarItems}
+  showSidebar={true}
+  showTableOfContents={true}
+  showHeader={true}
+  showFooter={true}
+  contentFullWidth={false}
+  debug={false}
+  headerHeight="md"
+  footerSlogan="Building better digital experiences"
+>
+  <h1>Documentation Content</h1>
+  <p>This is the main content of the documentation</p>
+</DocumentationLayout>`}
+>
+  See this document for preview
+</CodeExample>
+
+## Main Properties
+
+| Property | Type | Default | Description |
+| --- | --- | --- | --- |
+| title | string | - | Page title (required) |
+| description | string | - | Page description |
+| siteName | string | "Documentation Center" | Website name |
+| sidebarItems | SidebarSection[] | - | Sidebar items (required) |
+| showSidebar | boolean | true | Whether to display the sidebar |
+| showTableOfContents | boolean | true | Whether to display the table of contents |
+| showHeader | boolean | true | Whether to display the header |
+| showFooter | boolean | true | Whether to display the footer |
+| headerHeight | string | "md" | Header height, options: '3xs'/'2xs'/'xs'/'sm'/'md'/'lg'/'xl' |
+| contentFullWidth | boolean | false | Whether the content area takes up the full width, when set to true, users can control the content layout themselves |
+| debug | boolean | false | Debug mode, showing borders for each section | 

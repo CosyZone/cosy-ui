@@ -88,6 +88,36 @@
  * 组件支持多种页脚相关的配置参数，可以通过以 `footer` 为前缀的属性来自定义页脚的内容和链接。
  * 所有这些参数都是可选的，组件会为常用参数提供默认值。
  *
+ * 全宽内容区域示例：
+ * ```astro
+ * <DocumentationLayout
+ *   title="文档标题"
+ *   description="文档描述"
+ *   sidebarItems={sidebarItems}
+ *   contentFullWidth={true}
+ * >
+ *   <!-- 全宽Hero部分，无需容器限制 -->
+ *   <div class="cosy:bg-primary cosy:p-10 cosy:text-white cosy:text-center">
+ *     <h1 class="cosy:text-3xl">全宽Hero部分</h1>
+ *     <p class="cosy:mt-4">没有容器限制，宽度可以100%占满</p>
+ *   </div>
+ *
+ *   <!-- 自定义容器部分 -->
+ *   <div class="cosy:mx-auto cosy:p-6 cosy:container">
+ *     <p>在全宽模式下，您可以自行控制内容的容器和间距</p>
+ *     <p>这使得创建全宽背景的同时，保持内容在合适的宽度内</p>
+ *   </div>
+ *
+ *   <!-- 另一个全宽部分 -->
+ *   <div class="cosy:bg-accent cosy:mt-8 cosy:p-10">
+ *     <div class="cosy:mx-auto cosy:container">
+ *       <h2 class="cosy:text-2xl">灵活的布局</h2>
+ *       <p>您可以自由组合全宽区域和容器限制区域</p>
+ *     </div>
+ *   </div>
+ * </DocumentationLayout>
+ * ```
+ *
  * 调试模式示例：
  * ```astro
  * <DocumentationLayout
@@ -243,6 +273,31 @@ export interface Props {
 	headerHeight?: '3xs' | '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 	/**
+	 * 内容区域是否全宽
+	 *
+	 * 当设置为 true 时：
+	 * - 内容区域将占满整个可用宽度
+	 * - 不会应用默认的容器和内边距
+	 * - 用户需要自行控制内容的布局、容器和边距
+	 * - 适合创建全宽背景的hero区域、分栏布局等
+	 * - 目录导航会固定在页面右侧
+	 *
+	 * 当设置为 false 时（默认）：
+	 * - 内容区域会有固定的最大宽度和内边距
+	 * - 使用标准的文档布局
+	 *
+	 * @default false
+	 *
+	 * @example
+	 * ```astro
+	 * <DocumentationLayout contentFullWidth={true}>
+	 *   <!-- 内容将占满整个宽度 -->
+	 * </DocumentationLayout>
+	 * ```
+	 */
+	contentFullWidth?: boolean;
+
+	/**
 	 * 页脚相关配置
 	 */
 	// Footer 相关参数
@@ -390,6 +445,7 @@ const {
 	currentLocale,
 	basePath = '',
 	headerHeight = 'md',
+	contentFullWidth = false,
 	footerHomeLink,
 	footerSlogan,
 	footerCompany,
@@ -480,17 +536,35 @@ const sidebarTopClass = sidebarTopClasses[headerHeight];
 			}
 
 			<!-- 主内容区域 -->
-			<Main size="full">
-				<div class="cosy:mx-auto cosy:px-4 lg:cosy:px-8 cosy:container">
-					<div
-						class="cosy:flex cosy:lg:flex-row cosy:flex-col cosy:justify-center cosy:gap-8 cosy:pb-96">
-						<Article class="cosy:flex-1 xl:cosy:w-[calc(100%-16rem)]">
-							<slot />
-						</Article>
+			<Main size="full" padding="none">
+				{
+					!contentFullWidth ? (
+						<div class="cosy:mx-auto cosy:px-4 lg:cosy:px-8 cosy:container">
+							<div class="cosy:flex cosy:lg:flex-row cosy:flex-col cosy:justify-center cosy:gap-8 cosy:pb-96">
+								<Article class="cosy:flex-1 xl:cosy:w-[calc(100%-16rem)]">
+									<slot />
+								</Article>
 
-						{showTableOfContents && <TableOfContents lang={currentLocale} />}
-					</div>
-				</div>
+								{showTableOfContents && <TableOfContents lang={currentLocale} />}
+							</div>
+						</div>
+					) : (
+						<div class="cosy:flex cosy:flex-row cosy:w-full">
+							<div class="cosy:flex-1">
+								<Article class="cosy:flex-1 xl:cosy:w-[calc(100%-16rem)]">
+									<slot />
+								</Article>
+							</div>
+							{showTableOfContents && (
+								<div class="cosy:hidden cosy:md:block cosy:p-4 cosy:w-64 cosy:shrink-0">
+									<div class="cosy:top-24 cosy:sticky">
+										<TableOfContents lang={currentLocale} />
+									</div>
+								</div>
+							)}
+						</div>
+					)
+				}
 			</Main>
 		</div>
 	</div>
