@@ -70,12 +70,10 @@ export { default as Main } from './components/containers/Main.astro';
 export { default as Section } from './components/containers/Section.astro';
 
 // Utils
-export {
-    getExampleImage,
-    getProductImage,
-    getAvatarImage,
-    getLandscapeImage
-} from './utils/image';
+export * from './utils/image';
+export * from './utils/i18n';
+export * from './utils/path';
+export * from './utils/url';
 
 // Types
 export type { SidebarSection } from './types/layout';
