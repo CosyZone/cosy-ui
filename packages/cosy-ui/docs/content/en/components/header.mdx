@@ -1,186 +1,191 @@
 ---
 title: 'Header'
-description: 'A layout component for website navigation headers, providing logo, navigation menu, and language switching functionality'
+description: 'Used to create the header section of a website, providing website logo, navigation links, and language switching functionality'
 folder: false
-order: 6
+order: 0
 ---
 
-import { CodeExample } from '@/index';
+import { Header, Section, Container, CodeExample } from '@/index';
 
-# Header
+## Basic Header
 
-The Header component is a layout component for website navigation headers, providing logo, navigation menu, and language switching functionality. The component supports responsive design, ensuring good display across different screen sizes, and can optionally be fixed to the top of the page.
+The simplest way to use the Header component, displaying the website logo and navigation bar
 
-## Basic Usage
-
-The basic Header component includes a logo and language switching functionality:
-
-```astro
----
-import { Header } from 'cosy-ui';
-import logoImage from '../assets/logo.png';
----
-
-<Header
-  logo={logoImage}
+<CodeExample
+  code={`<Header 
+  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
   logoHref="/"
-/>
-```
+/>`}
+>
+  <Header 
+    logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    sticky={false}
+  />
+</CodeExample>
 
-## With Navigation Menu
+## Header with Navigation Menu
 
-Add navigation menu items using the `navItems` property:
+Add navigation menu through the navItems property
 
-```astro
----
-import { Header } from 'cosy-ui';
-import logoImage from '../assets/logo.png';
----
-
-<Header
-  logo={logoImage}
+<CodeExample
+  code={`<Header 
+  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
   logoHref="/"
   navItems={[
-    { 
-      href: "/docs", 
-      label: "Documentation", 
-      match: (path) => path.startsWith("/docs") 
-    },
-    { 
-      href: "/components", 
-      label: "Components", 
-      match: (path) => path.startsWith("/components") 
-    },
-    { 
-      href: "/blog", 
-      label: "Blog", 
-      match: (path) => path.startsWith("/blog") 
-    }
+    { href: "/", label: "Home", match: (path) => path === "/" },
+    { href: "/products", label: "Products", match: (path) => path.startsWith("/products") },
+    { href: "/about", label: "About Us", match: (path) => path.startsWith("/about") }
   ]}
-/>
-```
+/>`}
+>
+  <Header 
+    logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    sticky={false}
+    navItems={[
+      { href: "/", label: "Home", match: (path) => path === "/" },
+      { href: "/products", label: "Products", match: (path) => path.startsWith("/products") },
+      { href: "/about", label: "About Us", match: (path) => path.startsWith("/about") }
+    ]}
+  />
+</CodeExample>
 
-The `match` function is used to determine if the current page matches a navigation item, applying an active style if it does.
+## Header with Language Switching
 
-## Custom Height
+Add language switching functionality through the languages and currentLocale properties
 
-Use the `height` property to set the navigation bar height with seven preset sizes:
-
-```astro
----
-import { Header } from 'cosy-ui';
-import logoImage from '../assets/logo.png';
----
-
-<Header
-  logo={logoImage}
-  height="sm" // Available values: "3xs", "2xs", "xs", "sm", "md", "lg", "xl"
-/>
-```
-
-Height comparison:
-
-- `3xs`: Micro size (16px) - Perfect for minimalist interfaces or embedded components
-- `2xs`: Tiny size (24px) - Suitable for compact toolbars
-- `xs`: Extra small (32px) - Ideal for secondary navigation bars
-- `sm`: Small size (40px) - Good for lightweight utility websites
-- `md`: Medium size (48px, default) - Works well for most applications
-- `lg`: Large size (64px) - Suitable for content-focused websites
-- `xl`: Extra large size (80px) - Designed for brand-focused websites
-
-The height setting automatically adjusts the logo size and top spacing (when `sticky` is true).
-
-## Custom Language Options
-
-Customize the language dropdown menu options:
-
-```astro
----
-import { Header } from 'cosy-ui';
-import logoImage from '../assets/logo.png';
----
-
-<Header
-  logo={logoImage}
+<CodeExample
+  code={`<Header 
+  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+  logoHref="/"
   languages={[
-    { code: "zh-cn", name: "简体中文" },
-    { code: "en", name: "English" },
-    { code: "ja", name: "日本語" }
+    { code: 'zh-cn', name: '中文' },
+    { code: 'en', name: 'English' }
   ]}
   currentLocale="en"
-/>
-```
+/>`}
+>
+  <Header 
+    logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    sticky={false}
+    languages={[
+      { code: 'zh-cn', name: '中文' },
+      { code: 'en', name: 'English' }
+    ]}
+    currentLocale="en"
+  />
+</CodeExample>
 
-## Sticky Header
+## Non-Fixed Header
 
-Use the `sticky` property to fix the navigation bar to the top of the page:
+Create a non-fixed header by setting the sticky property to false
 
-```astro
----
-import { Header } from 'cosy-ui';
-import logoImage from '../assets/logo.png';
----
+<CodeExample
+  code={`<Header 
+  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+  logoHref="/"
+  sticky={false}
+/>`}
+>
+  <Header 
+    logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    sticky={false}
+  />
+</CodeExample>
 
-<Header
-  logo={logoImage}
+## Header with Base Path
+
+Set the base path through the basePath property for websites deployed in subdirectories
+
+<CodeExample
+  code={`<Header 
+  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+  logoHref="/"
+  basePath="/docs"
+  languages={[
+    { code: 'zh-cn', name: '中文' },
+    { code: 'en', name: 'English' }
+  ]}
+  currentLocale="en"
+/>`}
+>
+  <Header 
+    logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    basePath="/docs"
+    sticky={false}
+    languages={[
+      { code: 'zh-cn', name: '中文' },
+      { code: 'en', name: 'English' }
+    ]}
+    currentLocale="en"
+  />
+</CodeExample>
+
+## Header with Sidebar Toggle
+
+Add a sidebar toggle button through the showSidebarToggle property, suitable for documentation websites
+
+<CodeExample
+  code={`<Header 
+  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+  logoHref="/"
+  showSidebarToggle={true}
+  defaultSidebarOpen={false}
+/>`}
+>
+  <Header 
+    logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    sticky={false}
+    showSidebarToggle={true}
+    defaultSidebarOpen={false}
+  />
+</CodeExample>
+
+## Complete Example
+
+Demonstration of the Header component with multiple properties combined
+
+<CodeExample
+  code={`<Header 
+  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+  logoHref="/"
+  navItems={[
+    { href: "/", label: "Home", match: (path) => path === "/" },
+    { href: "/products", label: "Products", match: (path) => path.startsWith("/products") },
+    { href: "/about", label: "About Us", match: (path) => path.startsWith("/about") }
+  ]}
+  languages={[
+    { code: 'zh-cn', name: '中文' },
+    { code: 'en', name: 'English' }
+  ]}
+  currentLocale="en"
+  basePath="/docs"
   sticky={true}
-/>
-```
-
-## With Base Path
-
-For websites deployed in subdirectories, use the `basePath` property to handle paths:
-
-```astro
----
-import { Header } from 'cosy-ui';
-import logoImage from '../assets/logo.png';
----
-
-<Header
-  logo={logoImage}
-  basePath="/my-site"
-/>
-```
-
-## Properties
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| logo | ImageMetadata | - | Required, website logo image |
-| logoHref | string | "/" | Logo link address |
-| navItems | array | [] | Navigation items array, each with href, label, and match function |
-| languages | array | [中文, English] | Language options array, each with code and name |
-| currentLocale | string | "zh-cn" | Current language code |
-| sticky | boolean | true | Whether to fix the header to the top of the page |
-| basePath | string | "" | Website base path, for deployment in subdirectories |
-| height | string | "md" | Header height: "sm", "md", "lg", "xl" |
-| socialLinks | array | - | Social media links array |
-| showSidebarToggle | boolean | false | Whether to show the sidebar toggle button |
-| defaultSidebarOpen | boolean | false | Whether the sidebar is open by default |
-
-**NavItem Type:**
-```typescript
-interface NavItem {
-  href: string;       // Navigation link
-  label: string;      // Navigation label text
-  match: (path: string) => boolean;  // Function to determine if this is the active item
-}
-```
-
-**Language Type:**
-```typescript
-interface Language {
-  code: string;   // Language code
-  name: string;   // Language display name
-}
-```
-
-## Best Practices
-
-- For a good user experience, consider using a sticky header on mobile devices, paired with a hamburger menu
-- Limit the number of navigation items, typically 4-6 is ideal; for more items, consider using dropdown menus for grouping
-- For multilingual websites, set clear language switching buttons and ensure the current language is clearly indicated
-- Use the `match` function to provide precise current path matching logic, giving users clear position indicators
-- When using the `sticky` property, ensure appropriate content padding to prevent content from being obscured by the fixed header
-- Choose a height that fits your website style; generally, marketing websites can use larger heights, while tool-based websites typically choose smaller heights to conserve vertical space
+  showSidebarToggle={true}
+  defaultSidebarOpen={false}
+/>`}
+>
+  <Header 
+    logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    navItems={[
+      { href: "/", label: "Home", match: (path) => path === "/" },
+      { href: "/products", label: "Products", match: (path) => path.startsWith("/products") },
+      { href: "/about", label: "About Us", match: (path) => path.startsWith("/about") }
+    ]}
+    languages={[
+      { code: 'zh-cn', name: '中文' },
+      { code: 'en', name: 'English' }
+    ]}
+    currentLocale="en"
+    basePath="/docs"
+    sticky={false}
+    showSidebarToggle={true}
+    defaultSidebarOpen={false}
+  />
+</CodeExample> 
