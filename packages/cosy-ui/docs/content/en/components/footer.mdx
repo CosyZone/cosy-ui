@@ -1,11 +1,11 @@
 ---
-title: 'Footer Component'
+title: 'Footer'
 description: 'Used to create the footer section of a website, providing copyright information, navigation links, and social media links'
 folder: false
-order: 1
+order: 6
 ---
 
-import { Footer, Section, Container, CodeExample } from '@/index';
+import { Footer, Section, Container, CodeExample, getExampleImage } from '@/index';
 
 ## Basic Footer
 
@@ -40,7 +40,7 @@ Add a website Logo using the logo property
   slogan="Simple and Powerful"
   company="My Company"
   copyright="All Rights Reserved"
-  logo={{ src: "https://via.placeholder.com/100", alt: "Website Logo" }}
+  logo={{ src: getExampleImage({ width: 100, height: 100 }), alt: "Website Logo" }}
 />`}
 >
   <Footer 
@@ -49,7 +49,7 @@ Add a website Logo using the logo property
     slogan="Simple and Powerful"
     company="My Company"
     copyright="All Rights Reserved"
-    logo={{ src: "https://via.placeholder.com/100", alt: "Website Logo" }}
+    logo={{ src: getExampleImage({ width: 100, height: 100 }), alt: "Website Logo" }}
   />
 </CodeExample>
 
@@ -211,7 +211,7 @@ Demonstrates multiple properties of the Footer component used together
   company="My Company"
   copyright="All Rights Reserved"
   inspirationalSlogan="Building beautiful digital experiences"
-  logo={{ src: "https://via.placeholder.com/100", alt: "Website Logo" }}
+  logo={{ src: getExampleImage({ width: 100, height: 100 }), alt: "Website Logo" }}
   products={[
     { name: "Product A", href: "/products/a" },
     { name: "Product B", href: "/products/b" }
@@ -239,7 +239,7 @@ Demonstrates multiple properties of the Footer component used together
     company="My Company"
     copyright="All Rights Reserved"
     inspirationalSlogan="Building beautiful digital experiences"
-    logo={{ src: "https://via.placeholder.com/100", alt: "Website Logo" }}
+    logo={{ src: getExampleImage({ width: 100, height: 100 }), alt: "Website Logo" }}
     products={[
       { name: "Product A", href: "/products/a" },
       { name: "Product B", href: "/products/b" }

@@ -51,6 +51,8 @@ Issues and Pull Requests are welcome!
 ## Links
 
 - [NPM](https://www.npmjs.com/package/@coffic/cosy-ui)
+- [Coffic](https://coffic.cn)
+- [Maintainer](https://github.com/nookery)
 
 ## License
 
