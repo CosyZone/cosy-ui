@@ -104,6 +104,20 @@
  * />
  * ```
  *
+ * 自定义遮罩不透明度：
+ * ```astro
+ * <Hero
+ *   title="产品展示"
+ *   description="查看我们的最新产品。"
+ *   backgroundImage="/images/hero-bg.jpg"
+ *   backgroundOverlay="dark"
+ *   overlayOpacity={0.5}
+ *   links={[
+ *     { text: "立即购买", href: "/buy" }
+ *   ]}
+ * />
+ * ```
+ *
  * 带自定义内容的用法：
  * ```astro
  * <Hero
@@ -133,6 +147,7 @@
  * @prop {string} [imagePosition="right"] - 图片位置，可选值："right", "left", "top", "bottom"
  * @prop {string} [backgroundImage] - 背景图片的URL
  * @prop {string} [backgroundOverlay="none"] - 背景图片上的遮罩，可选值："none", "light", "dark", "primary", "gradient"
+ * @prop {number} [overlayOpacity=0.7] - 遮罩的不透明度，可选值：0-1之间的数字
  */
 
 import '../../app.css';
@@ -156,6 +171,7 @@ interface Props {
 	imagePosition?: 'right' | 'left' | 'top' | 'bottom';
 	backgroundImage?: string;
 	backgroundOverlay?: 'none' | 'light' | 'dark' | 'primary' | 'gradient';
+	overlayOpacity?: number;
 }
 
 const {
@@ -168,11 +184,15 @@ const {
 	imagePosition = 'right',
 	backgroundImage,
 	backgroundOverlay = 'none',
+	overlayOpacity = 0.7,
 } = Astro.props;
+
+// 确保不透明度在0-1之间
+const safeOpacity = Math.max(0, Math.min(1, overlayOpacity));
 
 // 确定容器类
 const containerClasses = [
-	'hero',
+	'cosy:hero',
 	'cosy:min-h-screen',
 	'cosy:w-full',
 	'cosy:relative',
@@ -181,10 +201,6 @@ const containerClasses = [
 		? 'cosy:bg-gradient-to-br cosy:from-primary/10 cosy:to-secondary/20'
 		: '',
 	!backgroundImage && background === 'plain' ? 'cosy:bg-base-100' : '',
-	'cosy:py-16',
-	'cosy:px-4',
-	'cosy:sm:px-6',
-	'cosy:lg:px-8',
 ].join(' ');
 
 // 确定内容布局类
@@ -202,20 +218,30 @@ const contentClasses = [
 	'cosy:lg:gap-16',
 	'cosy:z-10',
 	'cosy:relative',
+	'cosy:py-16',
+	'cosy:px-4',
+	'cosy:sm:px-6',
+	'cosy:lg:px-8',
 ].join(' ');
 
 // 确定背景遮罩类
-const overlayClasses = [
-	'cosy:absolute',
-	'cosy:inset-0',
-	'cosy:z-0',
-	backgroundOverlay === 'light' ? 'cosy:bg-base-100/70' : '',
-	backgroundOverlay === 'dark' ? 'cosy:bg-base-300/70' : '',
-	backgroundOverlay === 'primary' ? 'cosy:bg-primary/30' : '',
-	backgroundOverlay === 'gradient'
-		? 'cosy:bg-gradient-to-br cosy:from-primary/50 cosy:to-secondary/50'
-		: '',
-].join(' ');
+const overlayClasses = ['cosy:absolute', 'cosy:inset-0', 'cosy:z-0', 'cosy:m-0', 'cosy:p-0'].join(
+	' '
+);
+
+// 创建遮罩样式对象，包括不透明度
+const overlayStyle =
+	backgroundOverlay === 'light'
+		? { backgroundColor: `rgba(255, 255, 255, ${safeOpacity})` }
+		: backgroundOverlay === 'dark'
+			? { backgroundColor: `rgba(0, 0, 0, ${safeOpacity})` }
+			: backgroundOverlay === 'primary'
+				? { backgroundColor: `var(--color-primary-500, #4338ca)`, opacity: safeOpacity }
+				: backgroundOverlay === 'gradient'
+					? {
+							backgroundImage: `linear-gradient(135deg, var(--color-primary-500, #4338ca) ${safeOpacity * 100}%, var(--color-secondary-500, #0ea5e9) ${safeOpacity * 100}%)`,
+						}
+					: {};
 
 const titleClasses = [
 	'cosy:text-5xl',
@@ -284,7 +310,11 @@ const contentOrder = {
 	class={containerClasses}
 	style={backgroundImage ? `background-image: url(${backgroundImage})` : ''}
 	ignore-heading>
-	{backgroundImage && backgroundOverlay !== 'none' && <div class={overlayClasses} />}
+	{
+		backgroundImage && backgroundOverlay !== 'none' && (
+			<div class={overlayClasses} style={overlayStyle} />
+		)
+	}
 
 	<div class={contentClasses}>
 		{

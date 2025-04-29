@@ -328,6 +328,58 @@ Hero组件支持不同的背景样式，包括纯色和渐变色。
   />
 </CodeExample>
 
+### 自定义遮罩透明度
+
+你可以通过设置`overlayOpacity`属性来控制背景遮罩的透明度。
+
+<CodeExample
+  code={`<Hero
+  title="低透明度遮罩"
+  description="通过设置更低的透明度让背景图片更加清晰。"
+  backgroundImage={getLandscapeImage({ width: 800, height: 400, provider: "picsum" })}
+  backgroundOverlay="dark"
+  overlayOpacity={0.3}
+  links={[
+    { text: "了解更多", href: "/about" }
+  ]}
+/>`}
+>
+  <Hero
+    title="低透明度遮罩"
+    description="通过设置更低的透明度让背景图片更加清晰。"
+    backgroundImage={getLandscapeImage({ width: 800, height: 400, provider: "picsum" })}
+    backgroundOverlay="dark"
+    overlayOpacity={0.3}
+    links={[
+      { text: "了解更多", href: "/about" }
+    ]}
+  />
+</CodeExample>
+
+<CodeExample
+  code={`<Hero
+  title="高透明度遮罩"
+  description="通过设置更高的透明度让背景更加突出。"
+  backgroundImage={getLandscapeImage({ width: 800, height: 400, provider: "picsum" })}
+  backgroundOverlay="primary"
+  overlayOpacity={0.9}
+  links={[
+    { text: "了解更多", href: "/about" }
+  ]}
+/>`}
+>
+  <Hero
+    title="高透明度遮罩"
+    description="通过设置更高的透明度让背景更加突出。"
+    backgroundImage={getLandscapeImage({ width: 800, height: 400, provider: "picsum" })}
+    backgroundOverlay="primary"
+    overlayOpacity={0.9}
+    links={[
+      { text: "了解更多", href: "/about" }
+    ]}
+  />
+</CodeExample>
+
 ## 带自定义内容的用法
 
 通过插槽添加自定义内容，实现更丰富的展示效果
@@ -375,3 +427,4 @@ Hero组件支持不同的背景样式，包括纯色和渐变色。
 | imagePosition | 'right' \| 'left' \| 'top' \| 'bottom' | 'right' | 图片位置 |
 | backgroundImage | string | - | 背景图片的URL |
 | backgroundOverlay | 'none' \| 'light' \| 'dark' \| 'primary' \| 'gradient' | 'none' | 背景图片上的遮罩 |
+| overlayOpacity | number | 0.7 | 背景遮罩的透明度 |
