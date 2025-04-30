@@ -1,8 +1,7 @@
 ---
 import { getGroupedRoutes } from '@docs/lib/route';
 import { getBaseUrl, getNavItems } from '@docs/lib/utils';
-import { type SidebarSection, AppLayout } from '@/index';
-import DefaultLogo from '@/assets/logo.png';
+import { type SidebarSection, AppLayout } from '../../..//src/index';
 
 interface Props {
 	title: string;
@@ -37,7 +36,7 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 ---
 
 <AppLayout
-	debug={true}
+	debug={false}
 	metaConfig={{
 		title: title,
 		description: 'Cosy UI - A beautiful Astro component library',
@@ -71,7 +70,6 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 		techStackLink: 'https://coffic.cn/en/meta/tech-stack',
 	}}
 	headerConfig={{
-		logo: DefaultLogo,
 		logoHref: homeLink,
 		navItems: getNavItems(),
 		languages: languages,
@@ -80,7 +78,7 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 	}}
 	sidebarConfig={{
 		sidebarItems: sidebarItems,
-		debug: true,
+		debug: false,
 	}}
 	mainContentConfig={{
 		verticalPadding: '4xl',

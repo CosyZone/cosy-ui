@@ -1,7 +1,6 @@
 ---
 import { getBaseUrl, getNavItems } from '@docs/lib/utils';
-import { AppLayout, Hero } from '@/index';
-import DefaultLogo from '@/assets/logo.png';
+import { AppLayout, Hero } from '../../../src/index';
 
 // 获取基础路径
 const basePath = getBaseUrl();
@@ -18,7 +17,7 @@ const languages = [
 ---
 
 <AppLayout
-	debug={true}
+	debug={false}
 	metaConfig={{
 		title: '产品首页',
 		description: 'Cosy UI - A beautiful Astro component library',
@@ -59,7 +58,6 @@ const languages = [
 		techStackLink: 'https://coffic.cn/en/meta/tech-stack',
 	}}
 	headerConfig={{
-		logo: DefaultLogo,
 		logoHref: homeLink,
 		navItems: getNavItems(),
 		languages: languages,

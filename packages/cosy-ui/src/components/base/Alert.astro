@@ -38,7 +38,7 @@
 
 // 导入其他资源必须使用相对路径
 import '../../app.css';
-import { InfoIcon, SuccessIcon, WarningIcon, ErrorIcon, CloseIcon } from '../../index';
+import { InfoIcon, SuccessIcon, WarningIcon, ErrorIcon } from '../../index';
 
 interface Props {
 	type?: 'info' | 'success' | 'warning' | 'error';
@@ -66,10 +66,10 @@ const IconComponent = {
 ---
 
 <div class={`cosy:alert ${alertClass} ${className}`} role="alert">
-	<div class="cosy:alert-content cosy:flex cosy:flex-row cosy:gap-4 cosy:items-center">
+	<div class="cosy:flex cosy:flex-row cosy:items-center cosy:gap-4 cosy:alert-content">
 		<IconComponent />
 
-		<div class="cosy:flex cosy:items-center cosy:h-full cosy:flex-col">
+		<div class="cosy:flex cosy:flex-col cosy:items-center cosy:h-full">
 			{
 				title && (
 					<h3 class="cosy:font-bold" style="margin-top: 0 !important">

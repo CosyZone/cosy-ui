@@ -57,7 +57,8 @@
 import '../../app.css';
 import Link from '../base/Link.astro';
 import Image from '../base/Image.astro';
-import type { HeaderProps } from '@/types/header';
+import type { HeaderProps } from '../../index';
+import Logo from '../../assets/logo.png';
 
 interface Props extends HeaderProps {}
 
@@ -69,7 +70,7 @@ const {
 		{ code: 'zh-cn', name: '中文' },
 		{ code: 'en', name: 'English' },
 	],
-	logo,
+	logo = Logo,
 	logoHref = '/',
 	navItems = [],
 	sticky = true,
