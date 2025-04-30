@@ -36,6 +36,20 @@
  * +------------------+
  * ```
  *
+ * @param {Object} sidebarConfig - 侧边栏配置
+ * @param {boolean} [showHeader=true] - 是否显示头部
+ * @param {boolean} [showFooter=true] - 是否显示页脚
+ * @param {boolean} [showSidebar=true] - 是否显示侧边栏
+ * @param {string} [className] - 自定义类名
+ * @param {Array} [classList] - 自定义类名列表
+ * @param {boolean} [debug=true] - 是否启用调试模式
+ * @param {string} [currentLocale] - 当前语言环境
+ * @param {Object} mainContentConfig - 主内容区域配置
+ * @param {Object} footerConfig - 页脚配置
+ * @param {Object} headerConfig - 头部配置
+ * @param {Object} metaConfig - 元数据配置
+ * @param {Object} rest - 其他属性
+ *
  * @example
  * ```astro
  * ---
@@ -54,9 +68,13 @@
  * ---
  *
  * <AppLayout
- *   title="文档标题"
- *   description="文档描述"
- *   sidebarItems={sidebarItems}
+ *   metaConfig={{
+ *     title: "文档标题",
+ *     description: "文档描述"
+ *   }}
+ *   sidebarConfig={{
+ *     sidebarItems: sidebarItems
+ *   }}
  * >
  *   <h1>文档内容</h1>
  *   <p>这是文档的主要内容</p>
@@ -66,19 +84,25 @@
  * 自定义页脚示例：
  * ```astro
  * <AppLayout
- *   title="文档标题"
- *   description="文档描述"
- *   sidebarItems={sidebarItems}
- *   footerSlogan="简单而强大的组件库"
- *   footerInspirationalSlogan="让开发更加愉悦"
- *   footerSocialLinks={[
- *     "https://github.com/myorg/myrepo",
- *     "https://twitter.com/myorg"
- *   ]}
- *   footerProducts={[
- *     { name: "组件库", href: "/components" },
- *     { name: "模板", href: "/templates" }
- *   ]}
+ *   metaConfig={{
+ *     title: "文档标题",
+ *     description: "文档描述"
+ *   }}
+ *   sidebarConfig={{
+ *     sidebarItems: sidebarItems
+ *   }}
+ *   footerConfig={{
+ *     slogan: "简单而强大的组件库",
+ *     inspirationalSlogan: "让开发更加愉悦",
+ *     socialLinks: [
+ *       "https://github.com/myorg/myrepo",
+ *       "https://twitter.com/myorg"
+ *     ],
+ *     products: [
+ *       { name: "组件库", href: "/components" },
+ *       { name: "模板", href: "/templates" }
+ *     ]
+ *   }}
  * >
  *   <h1>文档内容</h1>
  *   <p>这是文档的主要内容</p>

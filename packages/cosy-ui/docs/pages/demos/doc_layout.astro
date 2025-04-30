@@ -1,5 +1,5 @@
 ---
-import { getGroupedRoutes, createUrl } from '@docs/lib/route';
+import { getGroupedRoutes } from '@docs/lib/route';
 import { getBaseUrl, getNavItems } from '@docs/lib/utils';
 import { type SidebarSection, AppLayout } from '@/index';
 import DefaultLogo from '@/assets/logo.png';
@@ -11,7 +11,7 @@ interface Props {
 	showSidebar?: boolean;
 }
 
-const { title, showTOC = true, showSidebar = true } = Astro.props;
+const { title, showTOC = true } = Astro.props;
 
 // 获取基础路径
 const basePath = getBaseUrl();
@@ -47,14 +47,6 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 		robots: 'index, follow',
 		basePath: basePath,
 	}}
-	sidebarConfig={{
-		sidebarItems: sidebarItems,
-		debug: true,
-		currentPath: basePath,
-	}}
-	showHeader={true}
-	showFooter={true}
-	showSidebar={showSidebar}
 	footerConfig={{
 		siteName: 'Cosy UI',
 		homeLink: homeLink,
@@ -79,11 +71,6 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 		historyLink: 'https://coffic.cn/en/meta/out-story',
 		techStackLink: 'https://coffic.cn/en/meta/tech-stack',
 	}}
-	mainContentConfig={{
-		verticalPadding: '4xl',
-		showTableOfContents: showTOC,
-		isArticle: true,
-	}}
 	headerConfig={{
 		logo: DefaultLogo,
 		logoHref: homeLink,
@@ -92,8 +79,19 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 		currentLocale: currentLocale,
 		basePath: basePath,
 	}}
+	sidebarConfig={{
+		sidebarItems: sidebarItems,
+		debug: true,
+		currentPath: basePath,
+	}}
+	mainContentConfig={{
+		verticalPadding: '4xl',
+		showTableOfContents: showTOC,
+		isArticle: true,
+	}}
+	showHeader={true}
 	currentLocale={currentLocale}>
-	<h1>文档布局-紧凑模式</h1>
+	<h1>文档布局</h1>
 
 	<h2>简介</h2>
 
@@ -102,22 +100,9 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 		UI提供的一种布局方式，用于展示文档内容。它可以帮助用户更好地组织和展示文档，提高阅读体验。
 	</p>
 
-	<h2>紧凑模式</h2>
-
-	<pre><code>{`<DocumentationLayout contentFullWidth={false}>
-    <!-- 内容不会占满整个宽度，有一定的边距 -->
-</DocumentationLayout>`}</code></pre>
-
 	<h3>小标题</h3>
 
 	<p>段落</p>
 
-	<Fragment slot="head">
-		<meta charset="UTF-8" />
-		<meta name="description" content="Cosy UI - A beautiful Astro component library" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href={createUrl('/favicon.svg')} />
-		<meta name="generator" content={Astro.generator} />
-	</Fragment>
 	<ClientRouter />
 </AppLayout>
