@@ -1,0 +1,90 @@
+---
+title: 'URL工具函数'
+description: '提供URL处理相关的工具函数，帮助判断URL的类型和特性'
+folder: false
+order: 2
+---
+
+import { CodeExample, isGitHubRepo, isGitLabRepo } from '@/index';
+
+Cosy UI 提供了一系列与 URL 相关的工具函数，帮助你轻松检测 URL 的类型和特性。
+
+## 导入工具函数
+
+```ts
+import { isGitHubRepo, isGitLabRepo } from '@/index';
+```
+
+## 基础用法
+
+判断 URL 是否为代码仓库链接：
+
+<CodeExample
+  code={`// 判断是否为 GitHub 仓库链接
+const isGitHub = isGitHubRepo('https://github.com/user/repo');
+console.log(isGitHub); // true
+
+// 判断是否为 GitLab 仓库链接
+const isGitLab = isGitLabRepo('https://gitlab.com/user/repo');
+console.log(isGitLab); // true`}
+>
+  <div class="cosy:space-y-4">
+    <div class="cosy:bg-base-200 cosy:p-4 cosy:rounded-lg">
+      <p><code>isGitHubRepo('https://github.com/user/repo')</code> 返回: <code>true</code></p>
+      <p><code>isGitHubRepo('https://example.com')</code> 返回: <code>false</code></p>
+    </div>
+    <div class="cosy:bg-base-200 cosy:p-4 cosy:rounded-lg">
+      <p><code>isGitLabRepo('https://gitlab.com/user/repo')</code> 返回: <code>true</code></p>
+      <p><code>isGitLabRepo('https://example.com')</code> 返回: <code>false</code></p>
+    </div>
+  </div>
+</CodeExample>
+
+## 实际应用场景
+
+这些函数可以在多种场景中使用：
+
+- 根据链接类型显示不同的图标
+- 为代码仓库链接添加特殊样式或行为
+- 在表单验证中识别特定类型的 URL
+
+<CodeExample
+  code={`// 根据链接类型显示不同的图标
+function getRepoIcon(url: string) {
+  if (isGitHubRepo(url)) {
+    return 'github-icon';
+  } else if (isGitLabRepo(url)) {
+    return 'gitlab-icon';
+  }
+  return 'default-icon';
+}`}
+>
+  <div class="cosy:p-4 cosy:bg-base-200 cosy:rounded-lg">
+    <p>链接类型判断示例：</p>
+    <ul class="cosy:list-disc cosy:list-inside cosy:mt-2">
+      <li><code>getRepoIcon('https://github.com/user/repo')</code> → <code>'github-icon'</code></li>
+      <li><code>getRepoIcon('https://gitlab.com/user/repo')</code> → <code>'gitlab-icon'</code></li>
+      <li><code>getRepoIcon('https://example.com')</code> → <code>'default-icon'</code></li>
+    </ul>
+  </div>
+</CodeExample>
+
+## API 参考
+
+### 函数参考
+
+```ts
+/**
+ * 判断提供的URL是否是GitHub仓库
+ * @param url 需要判断的URL
+ * @returns 是否是GitHub仓库
+ */
+function isGitHubRepo(url: string): boolean;
+
+/**
+ * 判断提供的URL是否是GitLab仓库
+ * @param url 需要判断的URL
+ * @returns 是否是GitLab仓库
+ */
+function isGitLabRepo(url: string): boolean;
+``` 

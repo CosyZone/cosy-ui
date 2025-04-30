@@ -49,6 +49,8 @@ Issues and Pull Requests are welcome!
 ## 链接
 
 - [NPM](https://www.npmjs.com/package/@coffic/cosy-ui)
+- [Coffic](https://coffic.cn)
+- [Maintainer](https://github.com/nookery)
 
 ## 许可证
 

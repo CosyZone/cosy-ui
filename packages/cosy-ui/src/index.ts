@@ -22,12 +22,13 @@ export { default as CodeExample } from './components/display/CodeExample.astro';
 export { default as TeamMembers } from './components/data-display/TeamMembers.astro';
 export { default as TeamMember } from './components/data-display/TeamMember.astro';
 export { default as ProductCard } from './components/data-display/ProductCard.astro';
+export { default as Products } from './components/data-display/Products.astro';
 export { default as Blog } from './components/data-display/Blog.astro';
 
 // Layouts
 export { default as Footer } from './components/layouts/Footer.astro';
 export { default as Header } from './components/layouts/Header.astro';
-export { default as DocumentationLayout } from './components/layouts/DocumentationLayout.astro';
+export { default as AppLayout } from './components/layouts/AppLayout.astro';
 export { default as DefaultLayout } from './components/layouts/DefaultLayout.astro';
 export { default as Stack } from './components/layouts/Stack.astro';
 export { default as Grid } from './components/layouts/Grid.astro';
@@ -70,13 +71,12 @@ export { default as Main } from './components/containers/Main.astro';
 export { default as Section } from './components/containers/Section.astro';
 
 // Utils
-export {
-    getExampleImage,
-    getProductImage,
-    getAvatarImage,
-    getLandscapeImage
-} from './utils/image';
+export * from './utils/image';
+export * from './utils/i18n';
+export * from './utils/path';
+export * from './utils/url';
+export * from './utils/language';
 
 // Types
-export type { SidebarSection } from './types/layout';
+export type { SidebarSection } from './types/sidebar';
 export type { ImageProvider, ImageOptions } from './utils/image';

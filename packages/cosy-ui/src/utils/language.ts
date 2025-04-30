@@ -5,7 +5,7 @@
  */
 
 // 支持的语言列表
-export const SUPPORTED_LANGUAGES = ['en', 'zh-cn'] as const;
+export const SUPPORTED_LANGUAGES = ['en', 'zh-cn', 'zh'] as const;
 export type SupportedLanguage = typeof SUPPORTED_LANGUAGES[number];
 
 // 语言来源枚举
@@ -49,21 +49,34 @@ export function getValidLanguage(lang?: string): SupportedLanguage {
 
 /**
  * 从URL中提取语言代码
+ * @param url 当前URL（可选）
  * @returns 从URL中提取的语言代码，如果无法提取则返回undefined
  */
-function getLanguageFromURL(): string | undefined {
-    if (typeof window === 'undefined') return undefined;
+function getLanguageFromURL(url?: string): string | undefined {
+    let currentUrl = url;
+
+    if (currentUrl === undefined) {
+        if (typeof window === 'undefined') return undefined;
+        currentUrl = window.location.href;
+    }
 
     // 尝试从路径中提取语言代码
     // 例如: /zh-cn/components/button
-    const pathMatch = window.location.pathname.match(/^\/([\w-]+)\//);
+    const pathMatch = currentUrl.match(/^\/([\w-]+)\//);
     if (pathMatch && isLanguageSupported(pathMatch[1])) {
         return pathMatch[1];
     }
 
+    // 如果网站运行在二级目录，则从路径中提取语言代码
+    // 例如: /docs/zh-cn/components/button
+    const pathMatch2 = currentUrl.match(/^\/([^\/]+)\/([\w-]+)\//);
+    if (pathMatch2 && isLanguageSupported(pathMatch2[2])) {
+        return pathMatch2[2];
+    }
+
     // 尝试从查询参数中提取语言代码
     // 例如: ?lang=zh-cn
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(currentUrl.split('?')[1]);
     const langParam = urlParams.get('lang');
     if (langParam && isLanguageSupported(langParam)) {
         return langParam;
@@ -101,11 +114,12 @@ function getLanguageFromBrowser(): string | undefined {
 
 /**
  * 自动检测当前语言
+ * @param url 当前URL（可选）
  * @returns 检测到的语言信息，包括语言代码和来源
  */
-export function detectLanguage(): LanguageInfo {
+function detectLanguage(url?: string): LanguageInfo {
     // 尝试从URL中获取语言
-    const urlLang = getLanguageFromURL();
+    const urlLang = getLanguageFromURL(url);
     if (urlLang) {
         return {
             code: urlLang as SupportedLanguage,
@@ -132,9 +146,10 @@ export function detectLanguage(): LanguageInfo {
 /**
  * 获取当前语言
  * @param userLang 用户指定的语言（可选）
+ * @param url 当前URL（可选）
  * @returns 当前应使用的语言信息，包括语言代码和来源
  */
-export function getCurrentLanguage(userLang?: string): LanguageInfo {
+export function getCurrentLanguage(userLang?: string, url?: string): LanguageInfo {
     // 如果用户指定了语言，优先使用用户指定的语言
     if (userLang) {
         if (isLanguageSupported(userLang)) {

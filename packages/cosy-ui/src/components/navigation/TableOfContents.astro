@@ -147,11 +147,12 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
 		const container = document.querySelector(containerSelector);
 		if (!container) return;
 
-		// 排除 CodeExample 组件中的标题
+		// 排除 IgnoreHeading 组件中的标题
 		const headings = Array.from(container.querySelectorAll(selector)).filter((heading) => {
-			// 检查标题是否在 CodeExample 组件内
-			const isInCodeExample = heading.closest('.code-example') !== null;
-			return !isInCodeExample;
+			// 检查标题本身或任何祖先元素是否有 ignore-heading 属性
+			const isInIgnoreHeading =
+				heading.hasAttribute('ignore-heading') || heading.closest('[ignore-heading]') !== null;
+			return !isInIgnoreHeading;
 		});
 
 		const tocList = document.getElementById(tocId);

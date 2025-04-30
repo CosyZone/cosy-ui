@@ -40,8 +40,7 @@ interface Props {
 const { title, description, code } = Astro.props;
 ---
 
-<div
-	class="cosy:bg-base-100 cosy:shadow-lg cosy:mb-8 cosy:rounded-none cosy:card cosy:code-example">
+<div class="cosy:bg-base-100 cosy:shadow-lg cosy:mb-8 cosy:rounded-none cosy:card" ignore-heading>
 	{title && <h3 class="cosy:p-4 cosy:border-b cosy:border-base-300 cosy:card-title">{title}</h3>}
 	{description && <p class="cosy:px-4 cosy:pt-4 cosy:text-base-content/70">{description}</p>}
 

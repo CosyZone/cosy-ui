@@ -1,0 +1,90 @@
+---
+title: 'URL Utility Functions'
+description: 'Provides URL-related utility functions to help determine URL types and characteristics'
+folder: false
+order: 2
+---
+
+import { CodeExample, isGitHubRepo, isGitLabRepo } from '@/index';
+
+Cosy UI provides a series of URL-related utility functions to help you easily detect URL types and characteristics.
+
+## Importing Utility Functions
+
+```ts
+import { isGitHubRepo, isGitLabRepo } from '@/index';
+```
+
+## Basic Usage
+
+Determine if a URL is a code repository link:
+
+<CodeExample
+  code={`// Check if URL is a GitHub repository
+const isGitHub = isGitHubRepo('https://github.com/user/repo');
+console.log(isGitHub); // true
+
+// Check if URL is a GitLab repository
+const isGitLab = isGitLabRepo('https://gitlab.com/user/repo');
+console.log(isGitLab); // true`}
+>
+  <div class="cosy:space-y-4">
+    <div class="cosy:bg-base-200 cosy:p-4 cosy:rounded-lg">
+      <p><code>isGitHubRepo('https://github.com/user/repo')</code> returns: <code>true</code></p>
+      <p><code>isGitHubRepo('https://example.com')</code> returns: <code>false</code></p>
+    </div>
+    <div class="cosy:bg-base-200 cosy:p-4 cosy:rounded-lg">
+      <p><code>isGitLabRepo('https://gitlab.com/user/repo')</code> returns: <code>true</code></p>
+      <p><code>isGitLabRepo('https://example.com')</code> returns: <code>false</code></p>
+    </div>
+  </div>
+</CodeExample>
+
+## Practical Use Cases
+
+These functions can be used in various scenarios:
+
+- Display different icons based on link type
+- Add special styles or behaviors for code repository links
+- Identify specific URL types in form validation
+
+<CodeExample
+  code={`// Display different icons based on link type
+function getRepoIcon(url: string) {
+  if (isGitHubRepo(url)) {
+    return 'github-icon';
+  } else if (isGitLabRepo(url)) {
+    return 'gitlab-icon';
+  }
+  return 'default-icon';
+}`}
+>
+  <div class="cosy:p-4 cosy:bg-base-200 cosy:rounded-lg">
+    <p>Link type detection example:</p>
+    <ul class="cosy:list-disc cosy:list-inside cosy:mt-2">
+      <li><code>getRepoIcon('https://github.com/user/repo')</code> → <code>'github-icon'</code></li>
+      <li><code>getRepoIcon('https://gitlab.com/user/repo')</code> → <code>'gitlab-icon'</code></li>
+      <li><code>getRepoIcon('https://example.com')</code> → <code>'default-icon'</code></li>
+    </ul>
+  </div>
+</CodeExample>
+
+## API Reference
+
+### Function Reference
+
+```ts
+/**
+ * Determines if the provided URL is a GitHub repository
+ * @param url URL to check
+ * @returns Whether the URL is a GitHub repository
+ */
+function isGitHubRepo(url: string): boolean;
+
+/**
+ * Determines if the provided URL is a GitLab repository
+ * @param url URL to check
+ * @returns Whether the URL is a GitLab repository
+ */
+function isGitLabRepo(url: string): boolean;
+```

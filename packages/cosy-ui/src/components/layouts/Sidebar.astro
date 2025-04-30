@@ -17,44 +17,60 @@
  * ];
  * ---
  *
- * <Sidebar sidebarItems={sidebarItems} currentPath="/docs/getting-started" />
+ * <Sidebar sidebarItems={sidebarItems} />
  * ```
  */
 
+import '../../app.css';
 import { isPathMatch } from '../../utils/path';
 import Modal from '../display/Modal.astro';
 import SidebarNav from './SidebarNav.astro';
 import MenuIcon from '../icons/MenuIcon.astro';
-import '../../app.css';
 
-import type { SidebarSection } from '../../types/layout';
+import type { SidebarProps } from '../../types/sidebar';
 
-export interface Props {
-	/**
-	 * 侧边栏项目
-	 */
-	sidebarItems: SidebarSection[];
+export interface Props extends SidebarProps{}
 
-	/**
-	 * 当前路径
-	 */
-	currentPath: string;
+const {
+	sidebarItems,
+	class: className,
+	debug = false,
+	marginTop = 'md',
+	marginBottom = 'md',
+} = Astro.props;
 
-	/**
-	 * 桌面端类名
-	 */
-	class?: string;
-
-	/**
-	 * 是否开启调试模式，显示边框
-	 * @default false
-	 */
-	debug?: boolean;
-}
-
-const { sidebarItems, currentPath, class: className, debug = false } = Astro.props;
+// 自动获取当前路径
+const currentPath = Astro.url.pathname;
 
 const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
+
+function getVerticalMarginTopClasses(marginTop: string) {
+	if (marginTop === 'none') return 'cosy:mt-0';
+	if (marginTop === 'xs') return 'cosy:mt-1';
+	if (marginTop === 'sm') return 'cosy:mt-2';
+	if (marginTop === 'md') return 'cosy:mt-4';
+	if (marginTop === 'lg') return 'cosy:mt-6';
+	if (marginTop === 'xl') return 'cosy:mt-8';
+	if (marginTop === '2xl') return 'cosy:mt-10';
+	if (marginTop === '3xl') return 'cosy:mt-12';
+	if (marginTop === '4xl') return 'cosy:mt-16';
+	if (marginTop === '5xl') return 'cosy:mt-20';
+	return '';
+}
+
+function getVerticalMarginBottomClasses(marginBottom: string) {
+	if (marginBottom === 'none') return 'cosy:mb-0';
+	if (marginBottom === 'xs') return 'cosy:mb-1';
+	if (marginBottom === 'sm') return 'cosy:mb-2';
+	if (marginBottom === 'md') return 'cosy:mb-4';
+	if (marginBottom === 'lg') return 'cosy:mb-6';
+	if (marginBottom === 'xl') return 'cosy:mb-8';
+	if (marginBottom === '2xl') return 'cosy:mb-10';
+	if (marginBottom === '3xl') return 'cosy:mb-12';
+	if (marginBottom === '4xl') return 'cosy:mb-16';
+	if (marginBottom === '5xl') return 'cosy:mb-20';
+	return '';
+}
 
 // 获取当前活动的一级导航项
 const currentSection = sidebarItems.find((section) =>
@@ -75,22 +91,30 @@ const currentSection = sidebarItems.find((section) =>
 			data-modal-target="mobile-sidebar">
 			<MenuIcon class="cosy:w-5 cosy:h-5" />
 		</button>
-		<span class="cosy:font-medium cosy:text-sm">
-			{currentSection?.title || '导航'}
-		</span>
+		<span class="cosy:font-medium cosy:text-sm">{currentSection?.title || '导航'}</span>
 	</div>
-</div>
+</div>;
 
 {/* 移动端侧边栏弹出层 */}
 <Modal id="mobile-sidebar" class="cosy:mx-4 cosy:lg:w-80 cosy:w-[calc(100vw-2rem)] cosy:max-w-full">
 	<div class="cosy:h-[calc(100vh-8rem)] cosy:overflow-y-auto">
 		<SidebarNav sidebarItems={sidebarItems} currentPath={currentPath} debug={debug} />
 	</div>
-</Modal>
+</Modal>;
 
 {/* 桌面端侧边栏 */}
-<aside class:list={[className, debugClass, 'cosy:hidden cosy:lg:block']}>
+<aside
+	data-sidebar
+	data-margin-top={marginTop}
+	data-margin-bottom={marginBottom}
+	class:list={[
+		className,
+		debugClass,
+		'cosy:hidden cosy:lg:block',
+		getVerticalMarginTopClasses(marginTop),
+		getVerticalMarginBottomClasses(marginBottom),
+	]}>
 	<div class="cosy:top-16 cosy:sticky cosy:pb-48 cosy:h-[calc(100vh-0rem)] cosy:overflow-y-auto">
 		<SidebarNav sidebarItems={sidebarItems} currentPath={currentPath} debug={debug} />
 	</div>
-</aside>
+</aside>; ---
