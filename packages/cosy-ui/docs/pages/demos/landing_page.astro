@@ -1,9 +1,7 @@
 ---
-import { createUrl } from '@docs/lib/route';
 import { getBaseUrl, getNavItems } from '@docs/lib/utils';
 import { AppLayout, Hero } from '@/index';
 import DefaultLogo from '@/assets/logo.png';
-import { ClientRouter } from 'astro:transitions';
 
 // 获取基础路径
 const basePath = getBaseUrl();
@@ -69,7 +67,6 @@ const languages = [
 		currentLocale: currentLocale,
 		basePath: basePath,
 	}}
-	currentLocale={currentLocale}
 	mainContentConfig={{
 		verticalPadding: 'none',
 		size: 'full',
@@ -83,13 +80,4 @@ const languages = [
 		description="安心做事，真诚为您"
 		links={[]}
 	/>
-
-	<Fragment slot="head">
-		<meta charset="UTF-8" />
-		<meta name="description" content="Cosy UI - A beautiful Astro component library" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href={createUrl('/favicon.svg')} />
-		<meta name="generator" content={Astro.generator} />
-	</Fragment>
-	<ClientRouter />
 </AppLayout>

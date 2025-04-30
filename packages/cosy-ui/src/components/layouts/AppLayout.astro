@@ -43,7 +43,6 @@
  * @param {string} [className] - 自定义类名
  * @param {Array} [classList] - 自定义类名列表
  * @param {boolean} [debug=true] - 是否启用调试模式
- * @param {string} [currentLocale] - 当前语言环境
  * @param {Object} mainContentConfig - 主内容区域配置
  * @param {Object} footerConfig - 页脚配置
  * @param {Object} headerConfig - 头部配置
@@ -115,10 +114,16 @@
  * 全宽内容区域示例：
  * ```astro
  * <AppLayout
- *   title="文档标题"
- *   description="文档描述"
- *   sidebarItems={sidebarItems}
- *   contentFullWidth={true}
+ *   metaConfig={{
+ *     title: "文档标题",
+ *     description: "文档描述"
+ *   }}
+ *   sidebarConfig={{
+ *     sidebarItems: sidebarItems
+ *   }}
+ *   mainContentConfig={{
+ *     fullWidth: true
+ *   }}
  * >
  *   <!-- 全宽Hero部分，无需容器限制 -->
  *   <div class="cosy:bg-primary cosy:p-10 cosy:text-white cosy:text-center">
@@ -145,9 +150,13 @@
  * 调试模式示例：
  * ```astro
  * <AppLayout
- *   title="文档标题"
- *   description="文档描述"
- *   sidebarItems={sidebarItems}
+ *   metaConfig={{
+ *     title: "文档标题",
+ *     description: "文档描述"
+ *   }}
+ *   sidebarConfig={{
+ *     sidebarItems: sidebarItems
+ *   }}
  *   debug={true}
  * >
  *   <h1>文档内容</h1>
@@ -162,6 +171,7 @@ import Footer from './Footer.astro';
 import Main from '../containers/Main.astro';
 import Header from './Header.astro';
 import Sidebar from './Sidebar.astro';
+import { ClientRouter } from 'astro:transitions';
 import type { AppLayoutProps } from '@/types/layout';
 
 interface Props extends AppLayoutProps {}
@@ -174,28 +184,12 @@ const {
 	class: className,
 	'class:list': classList,
 	debug = true,
-	currentLocale,
 	mainContentConfig,
 	footerConfig,
 	headerConfig,
 	metaConfig,
 	...rest
 }: Props = Astro.props;
-
-// 获取当前路径，并处理基础路径
-const currentPath = Astro.url.pathname;
-
-// 根据header高度设置侧边栏top值
-const sidebarTopClasses = {
-	'3xs': 'cosy:top-4',
-	'2xs': 'cosy:top-6',
-	xs: 'cosy:top-8',
-	sm: 'cosy:top-10',
-	md: 'cosy:top-12',
-	lg: 'cosy:top-16',
-	xl: 'cosy:top-20',
-};
-const sidebarTopClass = sidebarTopClasses[headerConfig.height || 'md'];
 ---
 
 <BaseLayout
@@ -230,22 +224,12 @@ const sidebarTopClass = sidebarTopClasses[headerConfig.height || 'md'];
 
 	<div class="cosy:flex cosy:flex-row cosy:flex-1 cosy:pb-0 cosy:min-h-screen">
 		<!-- 侧边栏容器 -->
-		{
-			showSidebar && (
-				<div class={`${sidebarTopClass} cosy:z-10 cosy:sticky cosy:bg-base-100 cosy:h-screen`}>
-					<Sidebar
-						sidebarItems={sidebarConfig.sidebarItems}
-						currentPath={currentPath}
-						debug={sidebarConfig.debug}
-						class="cosy:lg:border-r cosy:border-b cosy:border-base-300 cosy:lg:border-b-0 cosy:lg:w-64 cosy:lg:shrink-0"
-					/>
-				</div>
-			)
-		}
+		{showSidebar && <Sidebar {...sidebarConfig} />}
 
 		<!-- 主内容区域 -->
 		<Main {...mainContentConfig}>
 			<slot />
+			<ClientRouter />
 		</Main>
 	</div>
 

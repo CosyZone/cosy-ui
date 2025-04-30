@@ -3,7 +3,6 @@ import { getGroupedRoutes } from '@docs/lib/route';
 import { getBaseUrl, getNavItems } from '@docs/lib/utils';
 import { type SidebarSection, AppLayout } from '@/index';
 import DefaultLogo from '@/assets/logo.png';
-import { ClientRouter } from 'astro:transitions';
 
 interface Props {
 	title: string;
@@ -89,8 +88,7 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 		showTableOfContents: showTOC,
 		isArticle: true,
 	}}
-	showHeader={true}
-	currentLocale={currentLocale}>
+	showHeader={true}>
 	<h1>文档布局</h1>
 
 	<h2>简介</h2>
@@ -103,6 +101,4 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 	<h3>小标题</h3>
 
 	<p>段落</p>
-
-	<ClientRouter />
 </AppLayout>

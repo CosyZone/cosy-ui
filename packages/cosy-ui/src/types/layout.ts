@@ -65,11 +65,6 @@ export interface AppLayoutProps {
     metaConfig: MetaProps;
 
     /**
-     * 当前语言
-     */
-    currentLocale?: string;
-
-    /**
      * 页脚相关配置
      */
     footerConfig: FooterProps;

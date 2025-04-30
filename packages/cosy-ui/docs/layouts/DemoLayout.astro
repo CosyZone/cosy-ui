@@ -1,9 +1,8 @@
 ---
-import { getGroupedRoutes, createUrl } from '../lib/route';
+import { getGroupedRoutes } from '../lib/route';
 import { getBaseUrl, getNavItems } from '../lib/utils';
 import { type SidebarSection, AppLayout } from '@/index';
 import DefaultLogo from '@/assets/logo.png';
-import { ClientRouter } from 'astro:transitions';
 
 interface Props {
 	title: string;
@@ -84,6 +83,7 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 		sidebarItems: sidebarItems,
 		debug: false,
 		currentPath: basePath,
+		marginTop: '2xl',
 	}}
 	mainContentConfig={{
 		verticalPadding: '4xl',
@@ -93,16 +93,6 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 	}}
 	showHeader={true}
 	showFooter={true}
-	showSidebar={showSidebar}
-	currentLocale={currentLocale}>
+	showSidebar={showSidebar}>
 	<slot />
-
-	<Fragment slot="head">
-		<meta charset="UTF-8" />
-		<meta name="description" content="Cosy UI - A beautiful Astro component library" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href={createUrl('/favicon.svg')} />
-		<meta name="generator" content={Astro.generator} />
-	</Fragment>
-	<ClientRouter />
 </AppLayout>

@@ -30,4 +30,14 @@ export interface SidebarProps {
      * @default false
      */
     debug?: boolean;
+
+    /**
+     * 侧边栏顶部外边距
+     */
+    marginTop?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | string;
+
+    /**
+     * 侧边栏底部外边距
+     */
+    marginBottom?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | string;
 }
