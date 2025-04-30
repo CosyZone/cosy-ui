@@ -30,7 +30,7 @@ export interface HeaderProps {
     /**
      * Logo图片元数据
      */
-    logo: ImageMetadata;
+    logo?: ImageMetadata;
 
     /**
      * Logo 链接地址

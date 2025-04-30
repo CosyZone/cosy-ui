@@ -172,7 +172,8 @@ import Main from '../containers/Main.astro';
 import Header from './Header.astro';
 import Sidebar from './Sidebar.astro';
 import { ClientRouter } from 'astro:transitions';
-import type { AppLayoutProps } from '@/types/layout';
+import type { AppLayoutProps } from '../../index';
+import Container from '../containers/Container.astro';
 
 interface Props extends AppLayoutProps {}
 
@@ -199,10 +200,7 @@ const {
 	author={metaConfig.author}
 	robots={metaConfig.robots}
 	head={metaConfig.head}
-	class:list={[
-		'cosy:min-h-screen cosy:flex cosy:flex-col',
-		{ 'cosy:border cosy:border-base-300': debug },
-	]}
+	debug={debug}
 	{...rest}>
 	{
 		showHeader && (
@@ -222,7 +220,7 @@ const {
 		)
 	}
 
-	<div class="cosy:flex cosy:flex-row cosy:flex-1 cosy:pb-0 cosy:min-h-screen">
+	<Container flex="row" gap="md" size="full" padding="none">
 		<!-- 侧边栏容器 -->
 		{showSidebar && <Sidebar {...sidebarConfig} />}
 
@@ -231,10 +229,16 @@ const {
 			<slot />
 			<ClientRouter />
 		</Main>
-	</div>
+	</Container>
 
 	<!-- Footer -->
-	{showFooter && <Footer {...footerConfig} />}
+	{
+		showFooter && (
+			<Container size="full" padding="none">
+				<Footer {...footerConfig} />
+			</Container>
+		)
+	}
 
 	<script>
 		// Handle sidebar toggle

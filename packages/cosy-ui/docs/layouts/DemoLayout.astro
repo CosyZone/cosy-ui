@@ -1,8 +1,7 @@
 ---
 import { getGroupedRoutes } from '../lib/route';
 import { getBaseUrl, getNavItems } from '../lib/utils';
-import { type SidebarSection, AppLayout } from '@/index';
-import DefaultLogo from '@/assets/logo.png';
+import { type SidebarSection, AppLayout } from '../../src/index';
 
 interface Props {
 	title: string;
@@ -72,7 +71,6 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 		techStackLink: 'https://coffic.cn/en/meta/tech-stack',
 	}}
 	headerConfig={{
-		logo: DefaultLogo,
 		logoHref: homeLink,
 		navItems: getNavItems(),
 		languages: languages,
