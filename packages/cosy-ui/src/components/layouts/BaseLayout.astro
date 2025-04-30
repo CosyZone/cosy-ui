@@ -49,59 +49,10 @@
  * ```
  */
 
-// 导入样式
 import '../../app.css';
+import type { MetaProps } from '@/types/meta';
 
-export interface Props {
-  /**
-   * 页面标题
-   */
-  title: string;
-  
-  /**
-   * 页面描述
-   * @default ""
-   */
-  description?: string;
-  
-  /**
-   * 页面关键词
-   * @default ""
-   */
-  keywords?: string;
-  
-  /**
-   * 页面语言
-   * @default "zh-CN"
-   */
-  lang?: string;
-  
-  /**
-   * 是否包含视口元标签
-   * @default true
-   */
-  viewport?: boolean;
-  
-  /**
-   * 自定义CSS
-   */
-  customStyles?: string;
-  
-  /**
-   * 自定义头部内容
-   */
-  head?: astroHTML.JSX.Element;
-  
-  /**
-   * 页面类名
-   */
-  class?: string;
-  
-  /**
-   * 类名列表
-   */
-  'class:list'?: any;
-}
+export interface Props extends MetaProps {}
 
 const {
   title,

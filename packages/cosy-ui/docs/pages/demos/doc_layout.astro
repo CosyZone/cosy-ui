@@ -1,6 +1,6 @@
 ---
-import { getGroupedRoutes } from '../lib/route';
-import { getBaseUrl, getNavItems } from '../lib/utils';
+import { getGroupedRoutes } from '@docs/lib/route';
+import { getBaseUrl, getNavItems } from '@docs/lib/utils';
 import { type SidebarSection, AppLayout } from '@/index';
 import DefaultLogo from '@/assets/logo.png';
 
@@ -10,7 +10,7 @@ interface Props {
 	showSidebar?: boolean;
 }
 
-const { title, showTOC = true, showSidebar = true } = Astro.props;
+const { title, showTOC = true } = Astro.props;
 
 // 获取基础路径
 const basePath = getBaseUrl();
@@ -37,7 +37,7 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 ---
 
 <AppLayout
-	debug={false}
+	debug={true}
 	metaConfig={{
 		title: title,
 		description: 'Cosy UI - A beautiful Astro component library',
@@ -57,7 +57,6 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 		copyright: '© 2025 CofficLab',
 		inspirationalSlogan:
 			currentLocale === 'zh-cn' ? '构建美好的用户界面' : 'Build a beautiful user interface',
-		socialLinks: ['https://github.com/CofficLab/cosy-ui'],
 		products: [
 			{ name: 'Cisum', href: 'https://coffic.cn/cisum' },
 			{ name: 'JuiceEditor', href: 'https://coffic.cn/juice_editor' },
@@ -81,17 +80,24 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 	}}
 	sidebarConfig={{
 		sidebarItems: sidebarItems,
-		debug: false,
-		marginTop: '2xl',
+		debug: true,
 	}}
 	mainContentConfig={{
 		verticalPadding: '4xl',
-		isArticle: true,
-		layout: 'row',
 		showTableOfContents: showTOC,
+		isArticle: true,
 	}}
-	showHeader={true}
-	showFooter={true}
-	showSidebar={showSidebar}>
-	<slot />
+	showHeader={true}>
+	<h1>文档布局</h1>
+
+	<h2>简介</h2>
+
+	<p>
+		文档布局是Cosy
+		UI提供的一种布局方式，用于展示文档内容。它可以帮助用户更好地组织和展示文档，提高阅读体验。
+	</p>
+
+	<h3>小标题</h3>
+
+	<p>段落</p>
 </AppLayout>

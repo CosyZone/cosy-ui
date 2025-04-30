@@ -28,7 +28,7 @@ export { default as Blog } from './components/data-display/Blog.astro';
 // Layouts
 export { default as Footer } from './components/layouts/Footer.astro';
 export { default as Header } from './components/layouts/Header.astro';
-export { default as DocumentationLayout } from './components/layouts/DocumentationLayout.astro';
+export { default as AppLayout } from './components/layouts/AppLayout.astro';
 export { default as DefaultLayout } from './components/layouts/DefaultLayout.astro';
 export { default as Stack } from './components/layouts/Stack.astro';
 export { default as Grid } from './components/layouts/Grid.astro';
@@ -78,5 +78,5 @@ export * from './utils/url';
 export * from './utils/language';
 
 // Types
-export type { SidebarSection } from './types/layout';
+export type { SidebarSection } from './types/sidebar';
 export type { ImageProvider, ImageOptions } from './utils/image';

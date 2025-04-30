@@ -54,82 +54,25 @@
  *   height="lg"
  * />
  */
+import '../../app.css';
 import Link from '../base/Link.astro';
 import Image from '../base/Image.astro';
-import '../../app.css';
+import type { HeaderProps } from '@/types/header';
 
-// 自定义图片元数据接口
-interface ImageMetadata {
-	src: string;
-	width: number;
-	height: number;
-	format: string;
-}
-
-interface Props {
-	logo: ImageMetadata;
-	/**
-	 * Logo 链接地址
-	 * @default "/"
-	 */
-	logoHref?: string;
-	languages?: Array<{ code: string; name: string }>;
-	currentLocale?: string;
-	navItems?: Array<{
-		href: string;
-		label: string;
-		match: (path: string) => boolean;
-	}>;
-	socialLinks?: Array<{
-		name: string;
-		url: string;
-		icon: any;
-	}>;
-	/**
-	 * 是否固定在顶部
-	 * @default true
-	 */
-	sticky?: boolean;
-	/**
-	 * 基础路径，用于处理网站部署在二级目录的情况
-	 * @default ""
-	 */
-	basePath?: string;
-	/**
-	 * 是否显示侧边栏切换按钮
-	 * @default false
-	 */
-	showSidebarToggle?: boolean;
-	/**
-	 * 侧边栏是否默认展开
-	 * @default false
-	 */
-	defaultSidebarOpen?: boolean;
-	/**
-	 * 导航栏高度
-	 * @default "md"
-	 */
-	height?: '3xs' | '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-	/**
-	 * 是否显示高度设置菜单
-	 * @default true
-	 */
-	showHeightSetting?: boolean;
-}
+interface Props extends HeaderProps {}
 
 const {
-	logo,
-	logoHref = '/',
-	navItems = [],
-	sticky = true,
+	basePath = '',
+	currentLocale = 'zh-cn',
+	height = 'md',
 	languages = [
 		{ code: 'zh-cn', name: '中文' },
 		{ code: 'en', name: 'English' },
 	],
-	currentLocale = 'zh-cn',
-	basePath = '',
-	height = 'md',
-	showHeightSetting = true,
+	logo,
+	logoHref = '/',
+	navItems = [],
+	sticky = true,
 } = Astro.props;
 
 type NavItem = { href: string; label: string; match: (path: string) => boolean };
@@ -149,17 +92,6 @@ function getLanguageUrl(langCode: string) {
 	// 如果有基础路径，需要加上
 	return `${basePath}/${langCode}${pathWithoutLocale}`;
 }
-
-// 定义可用的高度选项
-const heightOptions = [
-	{ value: '3xs', label: '超超小' },
-	{ value: '2xs', label: '超小' },
-	{ value: 'xs', label: '小' },
-	{ value: 'sm', label: '较小' },
-	{ value: 'md', label: '中等' },
-	{ value: 'lg', label: '大' },
-	{ value: 'xl', label: '超大' },
-];
 
 // 获取初始高度（优先使用localStorage中的值）
 type HeightType = '3xs' | '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -197,19 +129,6 @@ const logoSizeClasses = {
 };
 
 const logoSizeClass = logoSizeClasses[initialHeight];
-
-// 设置占位空间高度
-const spacerHeightClasses = {
-	'3xs': 'cosy:h-4',
-	'2xs': 'cosy:h-6',
-	xs: 'cosy:h-8',
-	sm: 'cosy:h-10',
-	md: 'cosy:h-12',
-	lg: 'cosy:h-16',
-	xl: 'cosy:h-20',
-};
-
-const spacerHeightClass = spacerHeightClasses[initialHeight];
 ---
 
 <header
@@ -265,50 +184,6 @@ const spacerHeightClass = spacerHeightClasses[initialHeight];
 	</div>
 
 	<div class="cosy:navbar-end">
-		{
-			showHeightSetting && (
-				<div class="cosy:mr-2 cosy:dropdown cosy:dropdown-end">
-					<div
-						tabindex="0"
-						role="button"
-						class:list={[
-							'cosy:btn cosy:btn-ghost',
-							initialHeight === 'xs' || initialHeight === '2xs' || initialHeight === '3xs'
-								? 'cosy:btn-xs cosy:h-auto cosy:min-h-0 cosy:p-1'
-								: initialHeight === 'sm'
-									? 'cosy:btn-sm'
-									: 'cosy:btn-sm',
-						]}
-						id="height-dropdown-btn">
-						<span class="cosy:mr-1">高度</span>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="cosy:w-4 cosy:h-4"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor">
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M19 9l-7 7-7-7"
-							/>
-						</svg>
-					</div>
-					<ul
-						tabindex="0"
-						class="cosy:z-[1] cosy:bg-base-100 cosy:shadow cosy:p-2 cosy:rounded-box cosy:w-40 cosy:dropdown-content cosy:menu"
-						id="height-dropdown-content">
-						{heightOptions.map((option) => (
-							<li data-height={option.value} class="height-option" id={`height-${option.value}`}>
-								<a class={initialHeight === option.value ? 'cosy:active' : ''}>{option.label}</a>
-							</li>
-						))}
-					</ul>
-				</div>
-			)
-		}
-
 		<!-- 语言切换按钮 -->
 		<div class="cosy:dropdown cosy:dropdown-end">
 			<div
@@ -351,160 +226,3 @@ const spacerHeightClass = spacerHeightClasses[initialHeight];
 		</div>
 	</div>
 </header>
-
-{sticky && <div class={spacerHeightClass} id="header-spacer" />}
-
-<script define:vars={{ sticky, height, headerHeightClasses, spacerHeightClasses }}>
-	// 等待DOM完全加载
-	document.addEventListener('DOMContentLoaded', () => {
-		// 获取存储的高度设置，如果没有则使用传入的默认高度
-		const storedHeight = localStorage.getItem('cosy-header-height');
-		let currentHeight = storedHeight || height;
-
-		// 更新DOM元素的高度类
-		function updateHeaderHeight(newHeight) {
-			const header = document.querySelector('header');
-			const spacer = document.getElementById('header-spacer');
-
-			if (!header) return;
-
-			// 先获取header当前的所有类名
-			const headerClasses = [...header.classList];
-
-			// 找出并移除当前的高度类
-			Object.values(headerHeightClasses).forEach((cls) => {
-				if (headerClasses.includes(cls)) {
-					header.classList.remove(cls);
-				}
-			});
-
-			// 添加新的高度类
-			const newHeaderClass = headerHeightClasses[newHeight];
-			header.classList.add(newHeaderClass);
-
-			// 更新占位元素高度
-			if (spacer) {
-				const spacerClasses = [...spacer.classList];
-
-				Object.values(spacerHeightClasses).forEach((cls) => {
-					const className = cls.replace('cosy:', '');
-					if (spacerClasses.includes(className)) {
-						spacer.classList.remove(className);
-					}
-				});
-
-				const newSpacerClass = spacerHeightClasses[newHeight].replace('cosy:', '');
-				spacer.classList.add(newSpacerClass);
-			}
-
-			// 更新样式类，需要处理:list中的类
-			// 1. 处理logo按钮
-			const logoBtn = document.querySelector('.cosy\\:navbar-start .cosy\\:btn');
-			if (logoBtn) {
-				// 清理之前的按钮大小类
-				['cosy:btn-xs', 'cosy:btn-sm', 'cosy:h-auto', 'cosy:min-h-0', 'cosy:p-1'].forEach((cls) => {
-					logoBtn.classList.remove(cls.replace('cosy:', ''));
-				});
-
-				// 根据新高度添加适当的类
-				if (newHeight === 'xs' || newHeight === '2xs' || newHeight === '3xs') {
-					['cosy:btn-xs', 'cosy:h-auto', 'cosy:min-h-0', 'cosy:p-1'].forEach((cls) => {
-						logoBtn.classList.add(cls.replace('cosy:', ''));
-					});
-				} else if (newHeight === 'sm') {
-					logoBtn.classList.add('btn-sm');
-				}
-			}
-
-			// 2. 处理导航菜单
-			const navMenu = document.querySelector('.cosy\\:navbar-center .cosy\\:menu');
-			if (navMenu) {
-				navMenu.classList.remove('menu-xs', 'menu-sm');
-
-				if (newHeight === 'xs' || newHeight === '2xs' || newHeight === '3xs') {
-					navMenu.classList.add('menu-xs');
-				} else if (newHeight === 'sm') {
-					navMenu.classList.add('menu-sm');
-				}
-			}
-
-			// 3. 处理菜单项
-			const navLinks = document.querySelectorAll('.cosy\\:navbar-center .cosy\\:menu li a');
-			navLinks.forEach((link) => {
-				['cosy:py-0', 'cosy:px-2', 'cosy:min-h-0', 'cosy:py-1', 'cosy:min-h-6'].forEach((cls) => {
-					link.classList.remove(cls.replace('cosy:', ''));
-				});
-
-				if (newHeight === 'xs' || newHeight === '2xs' || newHeight === '3xs') {
-					['cosy:py-0', 'cosy:px-2', 'cosy:min-h-0'].forEach((cls) => {
-						link.classList.add(cls.replace('cosy:', ''));
-					});
-				} else if (newHeight === 'sm') {
-					['cosy:py-1', 'cosy:min-h-6'].forEach((cls) => {
-						link.classList.add(cls.replace('cosy:', ''));
-					});
-				}
-			});
-
-			// 4. 处理下拉按钮
-			const dropdownBtns = document.querySelectorAll(
-				'.cosy\\:navbar-end .cosy\\:dropdown .cosy\\:btn'
-			);
-			dropdownBtns.forEach((btn) => {
-				['cosy:btn-xs', 'cosy:btn-sm', 'cosy:h-auto', 'cosy:min-h-0', 'cosy:p-1'].forEach((cls) => {
-					btn.classList.remove(cls.replace('cosy:', ''));
-				});
-
-				if (newHeight === 'xs' || newHeight === '2xs' || newHeight === '3xs') {
-					['cosy:btn-xs', 'cosy:h-auto', 'cosy:min-h-0', 'cosy:p-1'].forEach((cls) => {
-						btn.classList.add(cls.replace('cosy:', ''));
-					});
-				} else if (newHeight === 'sm' || newHeight === 'md') {
-					btn.classList.add('btn-sm');
-				}
-			});
-
-			// 标记当前选中的选项
-			document.querySelectorAll('.height-option a').forEach((item) => {
-				item.classList.remove('active');
-			});
-
-			const activeItem = document.querySelector(`#height-${newHeight} a`);
-			if (activeItem) {
-				activeItem.classList.add('active');
-			}
-
-			// 保存设置到本地存储
-			localStorage.setItem('cosy-header-height', newHeight);
-			currentHeight = newHeight;
-		}
-
-		// 如果有存储的高度设置，应用它
-		if (storedHeight) {
-			updateHeaderHeight(storedHeight);
-		}
-
-		// 绑定点击事件到高度选项
-		document.querySelectorAll('.height-option').forEach((item) => {
-			item.addEventListener('click', function () {
-				const newHeight = this.getAttribute('data-height');
-				updateHeaderHeight(newHeight);
-
-				// 关闭下拉菜单
-				document.activeElement.blur();
-			});
-		});
-
-		// 滚动时添加阴影
-		if (sticky) {
-			const header = document.querySelector('header');
-			window.addEventListener('scroll', () => {
-				if (window.pageYOffset > 0) {
-					header?.classList.add('cosy:shadow-lg'.replace('cosy:', ''));
-				} else {
-					header?.classList.remove('cosy:shadow-lg'.replace('cosy:', ''));
-				}
-			});
-		}
-	});
-</script>

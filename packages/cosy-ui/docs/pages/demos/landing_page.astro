@@ -1,16 +1,7 @@
 ---
-import { getGroupedRoutes } from '../lib/route';
-import { getBaseUrl, getNavItems } from '../lib/utils';
-import { type SidebarSection, AppLayout } from '@/index';
+import { getBaseUrl, getNavItems } from '@docs/lib/utils';
+import { AppLayout, Hero } from '@/index';
 import DefaultLogo from '@/assets/logo.png';
-
-interface Props {
-	title: string;
-	showTOC?: boolean;
-	showSidebar?: boolean;
-}
-
-const { title, showTOC = true, showSidebar = true } = Astro.props;
 
 // 获取基础路径
 const basePath = getBaseUrl();
@@ -18,34 +9,31 @@ const homeLink = `${basePath}/`;
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
-const groupedRoutes = await getGroupedRoutes(currentLocale);
 
 // 定义支持的语言
 const languages = [
 	{ code: 'zh-cn', name: '中文' },
 	{ code: 'en', name: 'English' },
 ];
-
-// 将路由转换为侧边栏项目格式
-const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
-	title: group.group,
-	items: group.routes.map((route) => ({
-		text: route.title,
-		href: route.path,
-	})),
-}));
 ---
 
 <AppLayout
-	debug={false}
+	debug={true}
 	metaConfig={{
-		title: title,
+		title: '产品首页',
 		description: 'Cosy UI - A beautiful Astro component library',
 		keywords: 'Cosy UI, Astro, component library',
 		author: 'CofficLab',
 		robots: 'index, follow',
 		basePath: basePath,
 	}}
+	sidebarConfig={{
+		sidebarItems: [],
+		debug: true,
+	}}
+	showHeader={true}
+	showFooter={true}
+	showSidebar={false}
 	footerConfig={{
 		siteName: 'Cosy UI',
 		homeLink: homeLink,
@@ -57,7 +45,6 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 		copyright: '© 2025 CofficLab',
 		inspirationalSlogan:
 			currentLocale === 'zh-cn' ? '构建美好的用户界面' : 'Build a beautiful user interface',
-		socialLinks: ['https://github.com/CofficLab/cosy-ui'],
 		products: [
 			{ name: 'Cisum', href: 'https://coffic.cn/cisum' },
 			{ name: 'JuiceEditor', href: 'https://coffic.cn/juice_editor' },
@@ -79,19 +66,17 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 		currentLocale: currentLocale,
 		basePath: basePath,
 	}}
-	sidebarConfig={{
-		sidebarItems: sidebarItems,
-		debug: false,
-		marginTop: '2xl',
-	}}
 	mainContentConfig={{
-		verticalPadding: '4xl',
-		isArticle: true,
-		layout: 'row',
-		showTableOfContents: showTOC,
-	}}
-	showHeader={true}
-	showFooter={true}
-	showSidebar={showSidebar}>
-	<slot />
+		verticalPadding: 'none',
+		size: 'full',
+		padding: 'none',
+	}}>
+	<Hero
+		title="产品首页"
+		backgroundOverlay="light"
+		overlayOpacity={0.3}
+		backgroundImage={getBaseUrl() + '/hero.png'}
+		description="安心做事，真诚为您"
+		links={[]}
+	/>
 </AppLayout>

@@ -47,58 +47,12 @@
  * </Main>
  * ```
  */
-
-import Container from './Container.astro';
-
-// 导入样式
 import '../../app.css';
+import type { MainContentProps } from '@/types/main';
+import Article from '../typography/Article.astro';
+import TableOfContents from '../navigation/TableOfContents.astro';
 
-export interface Props {
-	/**
-	 * 容器大小
-	 * @default "md"
-	 */
-	size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
-
-	/**
-	 * 水平内边距（通过 Container 组件的 padding 属性设置）
-	 * @default "md"
-	 */
-	padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
-
-	/**
-	 * 垂直内边距
-	 * @default "md"
-	 */
-	verticalPadding?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | string;
-
-	/**
-	 * 是否居中显示内容
-	 * @default true
-	 */
-	centered?: boolean;
-
-	/**
-	 * 背景颜色
-	 * @default undefined
-	 */
-	backgroundColor?: 'primary' | 'secondary' | 'tertiary' | 'light' | 'dark' | string;
-
-	/**
-	 * HTML id 属性
-	 */
-	id?: string;
-
-	/**
-	 * 类名
-	 */
-	class?: string;
-
-	/**
-	 * 类名列表
-	 */
-	'class:list'?: any;
-}
+export interface Props extends MainContentProps {}
 
 const {
 	size = 'md',
@@ -106,19 +60,37 @@ const {
 	verticalPadding = 'md',
 	centered = true,
 	backgroundColor,
+	layout = 'row',
+	isArticle = false,
 	id,
+	showTableOfContents = false,
 	class: className,
 	'class:list': classList,
+	currentLocale,
 	...rest
 } = Astro.props;
+
+// 新增获取布局类的函数
+function getLayoutClasses(layout: string) {
+	if (layout === 'row') return 'cosy:flex cosy:flex-row';
+	if (layout === 'column') return 'cosy:flex cosy:flex-col';
+	return 'cosy:flex cosy:flex-col'; // 默认列布局
+}
+
+const layoutClass = getLayoutClasses(layout as string);
 
 // 获取垂直内边距的Tailwind类
 function getVerticalPaddingClasses(padding: string) {
 	if (padding === 'none') return 'cosy:py-0';
+	if (padding === 'xs') return 'cosy:py-1';
 	if (padding === 'sm') return 'cosy:py-2';
 	if (padding === 'md') return 'cosy:py-4';
 	if (padding === 'lg') return 'cosy:py-6';
 	if (padding === 'xl') return 'cosy:py-8';
+	if (padding === '2xl') return 'cosy:py-10';
+	if (padding === '3xl') return 'cosy:py-12';
+	if (padding === '4xl') return 'cosy:py-16';
+	if (padding === '5xl') return 'cosy:py-20';
 	return ''; // 对于自定义padding，使用内联样式
 }
 
@@ -153,10 +125,25 @@ const inlineStyle = customStyle.length > 0 ? customStyle.join(' ') : undefined;
 
 <main
 	id={id}
-	class:list={['cosy:w-full', verticalPaddingClass, bgColorClass, className, classList]}
+	class:list={[
+		'cosy:w-full',
+		layoutClass,
+		verticalPaddingClass,
+		bgColorClass,
+		className,
+		classList,
+	]}
 	style={inlineStyle}
 	{...rest}>
-	<Container size={size} padding={padding} centered={centered}>
-		<slot />
-	</Container>
+	{
+		isArticle ? (
+			<Article>
+				<slot />
+			</Article>
+		) : (
+			<slot />
+		)
+	}
+
+	{showTableOfContents && <TableOfContents lang={currentLocale} />}
 </main>
