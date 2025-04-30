@@ -12,6 +12,17 @@ export interface MainContentProps {
     padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
 
     /**
+   * 布局方式
+   * @default 'column'
+   */
+    layout?: 'row' | 'column';
+
+    /**
+     * 当前语言
+     */
+    currentLocale?: string;
+
+    /**
      * 垂直内边距
      * @default "md"
      */
@@ -22,6 +33,18 @@ export interface MainContentProps {
      * @default true
      */
     centered?: boolean;
+
+    /**
+     * 是否为文章布局
+     * @default false
+     */
+    isArticle?: boolean;
+
+    /**
+     * 是否显示目录
+     * @default false
+     */
+    showTableOfContents?: boolean;
 
     /**
      * 背景颜色

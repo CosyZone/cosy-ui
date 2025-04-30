@@ -80,13 +80,14 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 	}}
 	mainContentConfig={{
 		verticalPadding: '4xl',
+		showTableOfContents: showTOC,
+		isArticle: true,
 	}}
 	sidebarConfig={{
 		sidebarItems: sidebarItems,
 		debug: true,
 		currentPath: basePath,
 	}}
-	showTableOfContents={showTOC}
 	showHeader={true}
 	showFooter={true}
 	showSidebar={false}

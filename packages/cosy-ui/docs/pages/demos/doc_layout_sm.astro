@@ -52,7 +52,6 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 		debug: true,
 		currentPath: basePath,
 	}}
-	showTableOfContents={showTOC}
 	showHeader={true}
 	showFooter={true}
 	showSidebar={showSidebar}
@@ -82,6 +81,8 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 	}}
 	mainContentConfig={{
 		verticalPadding: '4xl',
+		showTableOfContents: showTOC,
+		isArticle: true,
 	}}
 	headerConfig={{
 		logo: DefaultLogo,

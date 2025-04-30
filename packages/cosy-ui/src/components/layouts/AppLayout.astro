@@ -134,8 +134,6 @@
 
 import '../../app.css';
 import BaseLayout from './BaseLayout.astro';
-import TableOfContents from '../navigation/TableOfContents.astro';
-import Article from '../typography/Article.astro';
 import Footer from './Footer.astro';
 import Main from '../containers/Main.astro';
 import Header from './Header.astro';
@@ -146,7 +144,6 @@ interface Props extends AppLayoutProps {}
 
 const {
 	sidebarConfig,
-	showTableOfContents = true,
 	showHeader = true,
 	showFooter = true,
 	showSidebar = true,
@@ -223,20 +220,8 @@ const sidebarTopClass = sidebarTopClasses[headerConfig.height || 'md'];
 		}
 
 		<!-- 主内容区域 -->
-		<Main
-			size={mainContentConfig.size}
-			padding={mainContentConfig.padding}
-			verticalPadding={mainContentConfig.verticalPadding}>
-			<div class="cosy:mx-auto cosy:px-4 lg:cosy:px-8 cosy:container">
-				<div
-					class="cosy:flex cosy:lg:flex-row cosy:flex-col cosy:justify-center cosy:gap-8 cosy:pb-96">
-					<Article>
-						<slot />
-					</Article>
-
-					{showTableOfContents && <TableOfContents lang={currentLocale} />}
-				</div>
-			</div>
+		<Main {...mainContentConfig}>
+			<slot />
 		</Main>
 	</div>
 

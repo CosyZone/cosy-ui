@@ -12,12 +12,6 @@ export interface AppLayoutProps {
     showSidebar?: boolean;
 
     /**
-     * 是否显示目录
-     * @default true
-     */
-    showTableOfContents?: boolean;
-
-    /**
      * 是否显示页眉
      * @default true
      */

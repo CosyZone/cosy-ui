@@ -47,12 +47,10 @@
  * </Main>
  * ```
  */
-
-import Container from './Container.astro';
-
-// 导入样式
 import '../../app.css';
 import type { MainContentProps } from '@/types/main';
+import Article from '../typography/Article.astro';
+import TableOfContents from '../navigation/TableOfContents.astro';
 
 export interface Props extends MainContentProps {}
 
@@ -62,11 +60,24 @@ const {
 	verticalPadding = 'md',
 	centered = true,
 	backgroundColor,
+	layout = 'row',
+	isArticle = false,
 	id,
+	showTableOfContents = false,
 	class: className,
 	'class:list': classList,
+	currentLocale,
 	...rest
 } = Astro.props;
+
+// 新增获取布局类的函数
+function getLayoutClasses(layout: string) {
+	if (layout === 'row') return 'cosy:flex cosy:flex-row';
+	if (layout === 'column') return 'cosy:flex cosy:flex-col';
+	return 'cosy:flex cosy:flex-col'; // 默认列布局
+}
+
+const layoutClass = getLayoutClasses(layout as string);
 
 // 获取垂直内边距的Tailwind类
 function getVerticalPaddingClasses(padding: string) {
@@ -114,10 +125,25 @@ const inlineStyle = customStyle.length > 0 ? customStyle.join(' ') : undefined;
 
 <main
 	id={id}
-	class:list={['cosy:w-full', verticalPaddingClass, bgColorClass, className, classList]}
+	class:list={[
+		'cosy:w-full',
+		layoutClass,
+		verticalPaddingClass,
+		bgColorClass,
+		className,
+		classList,
+	]}
 	style={inlineStyle}
 	{...rest}>
-	<Container size={size} padding={padding} centered={centered}>
-		<slot />
-	</Container>
+	{
+		isArticle ? (
+			<Article>
+				<slot />
+			</Article>
+		) : (
+			<slot />
+		)
+	}
+
+	{showTableOfContents && <TableOfContents lang={currentLocale} />}
 </main>
