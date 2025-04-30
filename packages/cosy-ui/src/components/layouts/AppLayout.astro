@@ -1,8 +1,8 @@
 ---
 /**
- * DocumentationLayout组件
+ * AppLayout组件
  *
- * 适用于文档页面的布局，包含侧边栏导航和目录
+ * 适用于页面布局，包含侧边栏导航和目录
  *
  * 布局效果：
  *
@@ -39,7 +39,7 @@
  * @example
  * ```astro
  * ---
- * import DocumentationLayout from '../layouts/DocumentationLayout.astro';
+ * import AppLayout from '../layouts/AppLayout.astro';
  *
  * const sidebarItems = [
  *   { title: "入门", items: [
@@ -53,19 +53,19 @@
  * ];
  * ---
  *
- * <DocumentationLayout
+ * <AppLayout
  *   title="文档标题"
  *   description="文档描述"
  *   sidebarItems={sidebarItems}
  * >
  *   <h1>文档内容</h1>
  *   <p>这是文档的主要内容</p>
- * </DocumentationLayout>
+ * </AppLayout>
  * ```
  *
  * 自定义页脚示例：
  * ```astro
- * <DocumentationLayout
+ * <AppLayout
  *   title="文档标题"
  *   description="文档描述"
  *   sidebarItems={sidebarItems}
@@ -82,7 +82,7 @@
  * >
  *   <h1>文档内容</h1>
  *   <p>这是文档的主要内容</p>
- * </DocumentationLayout>
+ * </AppLayout>
  * ```
  *
  * 组件支持多种页脚相关的配置参数，可以通过以 `footer` 为前缀的属性来自定义页脚的内容和链接。
@@ -90,7 +90,7 @@
  *
  * 全宽内容区域示例：
  * ```astro
- * <DocumentationLayout
+ * <AppLayout
  *   title="文档标题"
  *   description="文档描述"
  *   sidebarItems={sidebarItems}
@@ -115,12 +115,12 @@
  *       <p>您可以自由组合全宽区域和容器限制区域</p>
  *     </div>
  *   </div>
- * </DocumentationLayout>
+ * </AppLayout>
  * ```
  *
  * 调试模式示例：
  * ```astro
- * <DocumentationLayout
+ * <AppLayout
  *   title="文档标题"
  *   description="文档描述"
  *   sidebarItems={sidebarItems}
@@ -128,7 +128,7 @@
  * >
  *   <h1>文档内容</h1>
  *   <p>这是文档的主要内容</p>
- * </DocumentationLayout>
+ * </AppLayout>
  * ```
  */
 
@@ -145,284 +145,8 @@ import Sidebar from './Sidebar.astro';
 import DefaultLogo from '../../assets/logo.png';
 import { getText } from '../../utils/i18n';
 import { getValidLanguage } from '../../utils/language';
-
-export interface SidebarItem {
-	href: string;
-	text: string;
-	items?: SidebarItem[];
-}
-
-export interface SidebarSection {
-	title: string;
-	items: SidebarItem[];
-}
-
-export interface Props {
-	/**
-	 * 页面标题
-	 */
-	title: string;
-
-	/**
-	 * 页面描述
-	 */
-	description?: string;
-
-	/**
-	 * 页面关键词
-	 */
-	keywords?: string;
-
-	/**
-	 * 网站名称
-	 * @default "文档中心"
-	 */
-	siteName?: string;
-
-	/**
-	 * Logo图片
-	 * @default "/logo.svg"
-	 */
-	logo?: ImageMetadata;
-
-	/**
-	 * Logo链接地址
-	 * @default "/"
-	 */
-	logoHref?: string;
-
-	/**
-	 * 侧边栏项目
-	 */
-	sidebarItems: SidebarSection[];
-
-	/**
-	 * 是否显示侧边栏
-	 * @default true
-	 */
-	showSidebar?: boolean;
-
-	/**
-	 * 是否显示目录
-	 * @default true
-	 */
-	showTableOfContents?: boolean;
-
-	/**
-	 * 是否显示页眉
-	 * @default true
-	 */
-	showHeader?: boolean;
-
-	/**
-	 * 是否显示页脚
-	 * @default true
-	 */
-	showFooter?: boolean;
-
-	/**
-	 * 自定义头部内容
-	 */
-	head?: astroHTML.JSX.Element;
-
-	/**
-	 * 页面类名
-	 */
-	class?: string;
-
-	/**
-	 * 类名列表
-	 */
-	'class:list'?: any;
-
-	/**
-	 * 调试模式，显示各个部分的边框
-	 * @default false
-	 */
-	debug?: boolean;
-
-	/**
-	 * 导航项目
-	 */
-	navItems?: Array<{
-		href: string;
-		label: string;
-		match: (path: string) => boolean;
-	}>;
-
-	/**
-	 * 语言列表
-	 */
-	languages?: Array<{ code: string; name: string }>;
-
-	/**
-	 * 当前语言
-	 */
-	currentLocale?: string;
-
-	/**
-	 * 基础路径，用于处理网站部署在二级目录的情况
-	 * @default ""
-	 */
-	basePath?: string;
-
-	/**
-	 * Header 组件的高度
-	 * @default "md"
-	 */
-	headerHeight?: '3xs' | '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-
-	/**
-	 * 内容区域是否全宽
-	 *
-	 * 当设置为 true 时：
-	 * - 内容区域将占满整个可用宽度
-	 * - 不会应用默认的容器和内边距
-	 * - 用户需要自行控制内容的布局、容器和边距
-	 * - 适合创建全宽背景的hero区域、分栏布局等
-	 * - 目录导航会固定在页面右侧
-	 *
-	 * 当设置为 false 时（默认）：
-	 * - 内容区域会有固定的最大宽度和内边距
-	 * - 使用标准的文档布局
-	 *
-	 * @default false
-	 *
-	 * @example
-	 * ```astro
-	 * <DocumentationLayout contentFullWidth={true}>
-	 *   <!-- 内容将占满整个宽度 -->
-	 * </DocumentationLayout>
-	 * ```
-	 */
-	contentFullWidth?: boolean;
-
-	/**
-	 * 页脚相关配置
-	 */
-	// Footer 相关参数
-	/**
-	 * 页脚标语
-	 * @default "优雅、高效的组件库"
-	 */
-	footerSlogan?: string;
-
-	/**
-	 * 公司名称
-	 * @default 与siteName相同
-	 */
-	footerCompany?: string;
-
-	/**
-	 * 版权信息
-	 * @default "保留所有权利"
-	 */
-	footerCopyright?: string;
-
-	/**
-	 * 页脚横幅标语
-	 * @default "构建美好的数字体验"
-	 */
-	footerInspirationalSlogan?: string;
-
-	/**
-	 * ICP备案号
-	 */
-	footerIcp?: string;
-
-	/**
-	 * 网站Logo
-	 */
-	footerLogo?: { src: string; alt: string };
-
-	/**
-	 * 产品链接列表
-	 */
-	footerProducts?: Array<{ name: string; href: string; external?: boolean }>;
-
-	/**
-	 * 关于我们链接
-	 * @default "/about"
-	 */
-	footerAboutLink?: string;
-
-	/**
-	 * 联系我们链接
-	 * @default "/contact"
-	 */
-	footerContactLink?: string;
-
-	/**
-	 * 服务条款链接
-	 */
-	footerTermsLink?: string;
-
-	/**
-	 * 隐私政策链接
-	 */
-	footerPrivacyLink?: string;
-
-	/**
-	 * 社交媒体链接列表
-	 */
-	footerSocialLinks?: string[];
-
-	/**
-	 * 团队介绍链接
-	 */
-	footerTeamLink?: string;
-
-	/**
-	 * 加入我们链接
-	 */
-	footerCareersLink?: string;
-
-	/**
-	 * 新闻动态链接
-	 */
-	footerNewsLink?: string;
-
-	/**
-	 * 发展历程链接
-	 */
-	footerHistoryLink?: string;
-
-	/**
-	 * 合作伙伴链接
-	 */
-	footerPartnersLink?: string;
-
-	/**
-	 * 技术博客链接
-	 */
-	footerBlogLink?: string;
-
-	/**
-	 * 常见问题链接
-	 */
-	footerFaqLink?: string;
-
-	/**
-	 * 媒体报道链接
-	 */
-	footerMediaLink?: string;
-
-	/**
-	 * 技术栈链接
-	 */
-	footerTechStackLink?: string;
-
-	/**
-	 * 首页链接
-	 */
-	footerHomeLink?: string;
-
-	/**
-	 * 是否默认展开侧边栏（移动端）
-	 * @default false
-	 */
-	defaultSidebarOpen?: boolean;
-}
+import type { AppLayoutProps } from '@/types/layout';
+import { normalizeTheLocale } from 'astro:i18n';
 
 const {
 	title,
@@ -469,8 +193,9 @@ const {
 	footerMediaLink,
 	footerTechStackLink,
 	defaultSidebarOpen = false,
+	noContentMarginTop = false,
 	...rest
-} = Astro.props;
+} = Astro.props as AppLayoutProps;
 
 // 获取当前路径，并处理基础路径
 const currentPath = Astro.url.pathname;
@@ -489,6 +214,8 @@ const sidebarTopClasses = {
 	xl: 'cosy:top-20',
 };
 const sidebarTopClass = sidebarTopClasses[headerHeight];
+
+const mainContentVerticalPadding = noContentMarginTop ? 'none' : showHeader ? 'xl' : 'none';
 ---
 
 <BaseLayout
@@ -519,56 +246,53 @@ const sidebarTopClass = sidebarTopClasses[headerHeight];
 		)
 	}
 
-	<div class="cosy:flex cosy:lg:flex-row cosy:flex-col cosy:flex-1">
-		<div class="cosy:flex cosy:flex-row cosy:flex-1 cosy:pb-0 cosy:min-h-screen">
-			<!-- 侧边栏容器 -->
+	<div class="cosy:flex cosy:flex-row cosy:flex-1 cosy:pb-0 cosy:min-h-screen">
+		<!-- 侧边栏容器 -->
+		{
+			showSidebar && (
+				<div class={`${sidebarTopClass} cosy:z-10 cosy:sticky cosy:bg-base-100 cosy:h-screen`}>
+					<Sidebar
+						sidebarItems={sidebarItems}
+						currentPath={currentPath}
+						debug={debug}
+						class="cosy:lg:border-r cosy:border-b cosy:border-base-300 cosy:lg:border-b-0 cosy:lg:w-64 cosy:lg:shrink-0"
+					/>
+				</div>
+			)
+		}
+
+		<!-- 主内容区域 -->
+		<Main size="full" padding="none" verticalPadding={mainContentVerticalPadding}>
 			{
-				showSidebar && (
-					<div class={`${sidebarTopClass} cosy:z-10 cosy:sticky cosy:bg-base-100 cosy:h-screen`}>
-						<Sidebar
-							sidebarItems={sidebarItems}
-							currentPath={currentPath}
-							debug={debug}
-							class="cosy:lg:border-r cosy:border-b cosy:border-base-300 cosy:lg:border-b-0 cosy:lg:w-64 cosy:lg:shrink-0"
-						/>
+				!contentFullWidth ? (
+					<div class="cosy:mx-auto cosy:px-4 lg:cosy:px-8 cosy:container">
+						<div class="cosy:flex cosy:lg:flex-row cosy:flex-col cosy:justify-center cosy:gap-8 cosy:pb-96">
+							<Article>
+								<slot />
+							</Article>
+
+							{showTableOfContents && <TableOfContents lang={currentLocale} />}
+						</div>
+					</div>
+				) : (
+					<div class="cosy:flex cosy:flex-row cosy:w-full">
+						<div class="cosy:flex-1">
+							<slot />
+						</div>
+						{showTableOfContents && (
+							<div class="cosy:hidden cosy:md:block cosy:p-4 cosy:w-64 cosy:shrink-0">
+								<div class="cosy:top-24 cosy:sticky">
+									<TableOfContents lang={currentLocale} />
+								</div>
+							</div>
+						)}
 					</div>
 				)
 			}
-
-			<!-- 主内容区域 -->
-			<Main size="full" padding="none">
-				{
-					!contentFullWidth ? (
-						<div class="cosy:mx-auto cosy:px-4 lg:cosy:px-8 cosy:container">
-							<div class="cosy:flex cosy:lg:flex-row cosy:flex-col cosy:justify-center cosy:gap-8 cosy:pb-96">
-								<Article class="cosy:flex-1 xl:cosy:w-[calc(100%-16rem)]">
-									<slot />
-								</Article>
-
-								{showTableOfContents && <TableOfContents lang={currentLocale} />}
-							</div>
-						</div>
-					) : (
-						<div class="cosy:flex cosy:flex-row cosy:w-full">
-							<div class="cosy:flex-1">
-								<Article class="cosy:flex-1" width="full">
-									<slot />
-								</Article>
-							</div>
-							{showTableOfContents && (
-								<div class="cosy:hidden cosy:md:block cosy:p-4 cosy:w-64 cosy:shrink-0">
-									<div class="cosy:top-24 cosy:sticky">
-										<TableOfContents lang={currentLocale} />
-									</div>
-								</div>
-							)}
-						</div>
-					)
-				}
-			</Main>
-		</div>
+		</Main>
 	</div>
 
+	<!-- Footer -->
 	{
 		showFooter && (
 			<Footer

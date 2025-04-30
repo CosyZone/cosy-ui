@@ -1,16 +1,9 @@
 ---
-import { getGroupedRoutes, createUrl } from '@docs/lib/route';
+import { createUrl } from '@docs/lib/route';
 import { getBaseUrl, getNavItems } from '@docs/lib/utils';
-import { type SidebarSection, AppLayout } from '@/index';
+import { AppLayout, Hero } from '@/index';
 
 import { ClientRouter } from 'astro:transitions';
-
-interface Props {
-	title: string;
-	showTOC?: boolean;
-}
-
-const { title, showTOC = true } = Astro.props;
 
 // 获取基础路径
 const basePath = getBaseUrl();
@@ -18,34 +11,24 @@ const homeLink = `${basePath}/`;
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
-const groupedRoutes = await getGroupedRoutes(currentLocale);
 
 // 定义支持的语言
 const languages = [
 	{ code: 'zh-cn', name: '中文' },
 	{ code: 'en', name: 'English' },
 ];
-
-// 将路由转换为侧边栏项目格式
-const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
-	title: group.group,
-	items: group.routes.map((route) => ({
-		text: route.title,
-		href: route.path,
-	})),
-}));
 ---
 
 <AppLayout
 	debug={true}
 	contentFullWidth={true}
-	title={title}
-	headerHeight="xs"
+	title="产品首页"
+	headerHeight="md"
 	logoHref={homeLink}
 	footerHomeLink={homeLink}
 	siteName="Cosy UI"
-	sidebarItems={sidebarItems}
-	showTableOfContents={showTOC}
+	sidebarItems={[]}
+	showTableOfContents={false}
 	showHeader={true}
 	showFooter={true}
 	showSidebar={false}
@@ -72,25 +55,16 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 	footerTechStackLink="https://coffic.cn/en/meta/tech-stack"
 	currentLocale={currentLocale}
 	languages={languages}
+	noContentMarginTop={true}
 	basePath={basePath}>
-	<h1>文档布局-隐藏侧边栏</h1>
-
-	<h2>简介</h2>
-
-	<p>
-		文档布局是Cosy
-		UI提供的一种布局方式，用于展示文档内容。它可以帮助用户更好地组织和展示文档，提高阅读体验。
-	</p>
-
-	<h2>隐藏侧边栏</h2>
-
-	<pre><code>{`<DocumentationLayout showSidebar={false}>
-    <!-- 内容将占满整个宽度 -->
-</DocumentationLayout>`}</code></pre>
-
-	<h3>小标题</h3>
-
-	<p>段落</p>
+	<Hero
+		title="产品首页"
+		backgroundOverlay="light"
+		overlayOpacity={0.3}
+		backgroundImage={getBaseUrl() + '/hero.png'}
+		description="安心做事，真诚为您"
+		links={[]}
+	/>
 
 	<Fragment slot="head">
 		<meta charset="UTF-8" />

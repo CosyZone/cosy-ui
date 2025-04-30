@@ -37,7 +37,7 @@
  *   <p>这是一段文章内容...</p>
  * </Article>
  * ```
- * 
+ *
  * 设置文章宽度：
  * ```astro
  * <Article width="narrow">
@@ -111,36 +111,32 @@ export interface Props {
 	 * 文章的类名
 	 */
 	class?: string;
-	
+
 	/**
 	 * 类名列表
 	 */
 	'class:list'?: any;
-	
+
 	/**
 	 * 内联样式
 	 */
 	style?: string;
-	
+
 	/**
 	 * 文章宽度
 	 * @default "medium"
 	 */
-	width?: "narrow" | "medium" | "wide" | "full";
+	width?: 'narrow' | 'medium' | 'wide' | 'full';
 }
 
-const { 
-	class: className = '',
-	width = "medium",
-	style = ""
-} = Astro.props;
+const { class: className = '', width = 'medium', style = '' } = Astro.props;
 
 // 根据宽度设置对应的 Tailwind 类名
 const widthClasses = {
 	narrow: 'cosy:max-w-2xl',
 	medium: 'cosy:max-w-4xl',
 	wide: 'cosy:max-w-6xl',
-	full: 'cosy:w-full'
+	full: 'cosy:w-full',
 }[width];
 
 // 基础样式类
@@ -150,8 +146,10 @@ const baseClasses = [
 	'cosy:w-full',
 	'cosy:mx-auto',
 	'cosy:dark:prose-invert', // 暗黑模式支持,
+	'cosy:m-0',
+	'cosy:p-0',
 	widthClasses,
-	className
+	className,
 ];
 ---
 

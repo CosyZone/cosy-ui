@@ -34,10 +34,12 @@ export interface FooterProps {
     faqLink?: string;
     mediaLink?: string;
     techStackLink?: string;
+
     /**
      * 语言代码，默认自动检测
      */
     lang?: string;
+
     /**
      * 是否启用日志输出
      * @default false

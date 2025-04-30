@@ -1,7 +1,7 @@
 ---
 import { getGroupedRoutes, createUrl } from '../lib/route';
 import { getBaseUrl, getNavItems } from '../lib/utils';
-import { type SidebarSection, DocumentationLayout, getCurrentLanguage } from '@/index';
+import { type SidebarSection, AppLayout, getCurrentLanguage } from '@/index';
 
 import { ClientRouter } from 'astro:transitions';
 
@@ -37,7 +37,7 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 }));
 ---
 
-<DocumentationLayout
+<AppLayout
 	debug={false}
 	contentFullWidth={false}
 	title={title}
@@ -84,4 +84,4 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 		<meta name="generator" content={Astro.generator} />
 	</Fragment>
 	<ClientRouter />
-</DocumentationLayout>
+</AppLayout>
