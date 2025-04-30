@@ -1,7 +1,7 @@
 ---
-import { getGroupedRoutes, createUrl } from '../lib/route';
-import { getBaseUrl, getNavItems } from '../lib/utils';
-import { type SidebarSection, DocumentationLayout, getCurrentLanguage } from '@/index';
+import { getGroupedRoutes, createUrl } from '@docs/lib/route';
+import { getBaseUrl, getNavItems } from '@docs/lib/utils';
+import { type SidebarSection, DocumentationLayout } from '@/index';
 
 import { ClientRouter } from 'astro:transitions';
 
@@ -38,8 +38,8 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 ---
 
 <DocumentationLayout
-	debug={false}
-	contentFullWidth={false}
+	debug={true}
+	contentFullWidth={true}
 	title={title}
 	headerHeight="xs"
 	logoHref={homeLink}
@@ -74,7 +74,24 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 	currentLocale={currentLocale}
 	languages={languages}
 	basePath={basePath}>
-	<slot />
+	<h1>文档布局-宽屏模式</h1>
+
+	<h2>简介</h2>
+
+	<p>
+		文档布局是Cosy
+		UI提供的一种布局方式，用于展示文档内容。它可以帮助用户更好地组织和展示文档，提高阅读体验。
+	</p>
+
+	<h2>宽屏模式</h2>
+
+	<pre><code>{`<DocumentationLayout contentFullWidth={true}>
+    <!-- 内容将占满整个宽度 -->
+</DocumentationLayout>`}</code></pre>
+
+	<h3>小标题</h3>
+
+	<p>段落</p>
 
 	<Fragment slot="head">
 		<meta charset="UTF-8" />
