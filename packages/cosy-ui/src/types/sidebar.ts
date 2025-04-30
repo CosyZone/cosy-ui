@@ -16,11 +16,6 @@ export interface SidebarProps {
     sidebarItems: SidebarSection[];
 
     /**
-     * 当前路径
-     */
-    currentPath: string;
-
-    /**
      * 桌面端类名
      */
     class?: string;

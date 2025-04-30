@@ -17,7 +17,7 @@
  * ];
  * ---
  *
- * <Sidebar sidebarItems={sidebarItems} currentPath="/docs/getting-started" />
+ * <Sidebar sidebarItems={sidebarItems} />
  * ```
  */
 
@@ -29,16 +29,18 @@ import MenuIcon from '../icons/MenuIcon.astro';
 
 import type { SidebarProps } from '../../types/sidebar';
 
-export interface Props extends SidebarProps {}
+export interface Props extends SidebarProps{}
 
 const {
 	sidebarItems,
-	currentPath,
 	class: className,
 	debug = false,
 	marginTop = 'md',
 	marginBottom = 'md',
 } = Astro.props;
+
+// 自动获取当前路径
+const currentPath = Astro.url.pathname;
 
 const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 
@@ -89,18 +91,16 @@ const currentSection = sidebarItems.find((section) =>
 			data-modal-target="mobile-sidebar">
 			<MenuIcon class="cosy:w-5 cosy:h-5" />
 		</button>
-		<span class="cosy:font-medium cosy:text-sm">
-			{currentSection?.title || '导航'}
-		</span>
+		<span class="cosy:font-medium cosy:text-sm">{currentSection?.title || '导航'}</span>
 	</div>
-</div>
+</div>;
 
 {/* 移动端侧边栏弹出层 */}
 <Modal id="mobile-sidebar" class="cosy:mx-4 cosy:lg:w-80 cosy:w-[calc(100vw-2rem)] cosy:max-w-full">
 	<div class="cosy:h-[calc(100vh-8rem)] cosy:overflow-y-auto">
 		<SidebarNav sidebarItems={sidebarItems} currentPath={currentPath} debug={debug} />
 	</div>
-</Modal>
+</Modal>;
 
 {/* 桌面端侧边栏 */}
 <aside
@@ -117,4 +117,4 @@ const currentSection = sidebarItems.find((section) =>
 	<div class="cosy:top-16 cosy:sticky cosy:pb-48 cosy:h-[calc(100vh-0rem)] cosy:overflow-y-auto">
 		<SidebarNav sidebarItems={sidebarItems} currentPath={currentPath} debug={debug} />
 	</div>
-</aside>
+</aside>; ---
