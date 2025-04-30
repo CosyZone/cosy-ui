@@ -27,30 +27,9 @@ import SidebarNav from './SidebarNav.astro';
 import MenuIcon from '../icons/MenuIcon.astro';
 import '../../app.css';
 
-import type { SidebarSection } from '../../types/layout';
+import type { SidebarProps, SidebarSection } from '../../types/sidebar';
 
-export interface Props {
-	/**
-	 * 侧边栏项目
-	 */
-	sidebarItems: SidebarSection[];
-
-	/**
-	 * 当前路径
-	 */
-	currentPath: string;
-
-	/**
-	 * 桌面端类名
-	 */
-	class?: string;
-
-	/**
-	 * 是否开启调试模式，显示边框
-	 * @default false
-	 */
-	debug?: boolean;
-}
+export interface Props extends SidebarProps {}
 
 const { sidebarItems, currentPath, class: className, debug = false } = Astro.props;
 

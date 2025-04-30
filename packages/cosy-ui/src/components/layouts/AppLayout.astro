@@ -132,9 +132,7 @@
  * ```
  */
 
-// 导入样式
 import '../../app.css';
-
 import BaseLayout from './BaseLayout.astro';
 import TableOfContents from '../navigation/TableOfContents.astro';
 import Article from '../typography/Article.astro';
@@ -142,66 +140,29 @@ import Footer from './Footer.astro';
 import Main from '../containers/Main.astro';
 import Header from './Header.astro';
 import Sidebar from './Sidebar.astro';
-import DefaultLogo from '../../assets/logo.png';
-import { getText } from '../../utils/i18n';
-import { getValidLanguage } from '../../utils/language';
 import type { AppLayoutProps } from '@/types/layout';
-import { normalizeTheLocale } from 'astro:i18n';
+
+interface Props extends AppLayoutProps {}
 
 const {
-	title,
-	description,
-	keywords,
-	siteName = '文档中心',
-	logo = DefaultLogo,
-	logoHref = '/',
-	sidebarItems,
-	showSidebar = true,
+	sidebarConfig,
 	showTableOfContents = true,
 	showHeader = true,
 	showFooter = true,
-	head,
+	showSidebar = true,
 	class: className,
 	'class:list': classList,
 	debug = true,
-	navItems,
-	languages,
 	currentLocale,
-	basePath = '',
-	headerHeight = 'md',
-	contentFullWidth = false,
-	footerHomeLink,
-	footerSlogan,
-	footerCompany,
-	footerCopyright,
-	footerInspirationalSlogan,
-	footerIcp,
-	footerLogo,
-	footerProducts,
-	footerAboutLink,
-	footerContactLink,
-	footerTermsLink,
-	footerPrivacyLink,
-	footerSocialLinks,
-	footerTeamLink,
-	footerCareersLink,
-	footerNewsLink,
-	footerHistoryLink,
-	footerPartnersLink,
-	footerBlogLink,
-	footerFaqLink,
-	footerMediaLink,
-	footerTechStackLink,
-	defaultSidebarOpen = false,
-	noContentMarginTop = false,
+	mainContentConfig,
+	footerConfig,
+	headerConfig,
+	metaConfig,
 	...rest
-} = Astro.props as AppLayoutProps;
+}: Props = Astro.props;
 
 // 获取当前路径，并处理基础路径
 const currentPath = Astro.url.pathname;
-
-// 获取有效的语言代码
-const validLang = getValidLanguage(currentLocale);
 
 // 根据header高度设置侧边栏top值
 const sidebarTopClasses = {
@@ -213,16 +174,16 @@ const sidebarTopClasses = {
 	lg: 'cosy:top-16',
 	xl: 'cosy:top-20',
 };
-const sidebarTopClass = sidebarTopClasses[headerHeight];
-
-const mainContentVerticalPadding = noContentMarginTop ? 'none' : showHeader ? 'xl' : 'none';
+const sidebarTopClass = sidebarTopClasses[headerConfig.height || 'md'];
 ---
 
 <BaseLayout
-	title={title}
-	description={description}
-	keywords={keywords}
-	head={head}
+	title={metaConfig.title}
+	description={metaConfig.description}
+	keywords={metaConfig.keywords}
+	author={metaConfig.author}
+	robots={metaConfig.robots}
+	head={metaConfig.head}
 	class:list={[
 		'cosy:min-h-screen cosy:flex cosy:flex-col',
 		{ 'cosy:border cosy:border-base-300': debug },
@@ -231,16 +192,16 @@ const mainContentVerticalPadding = noContentMarginTop ? 'none' : showHeader ? 'x
 	{
 		showHeader && (
 			<Header
-				logo={logo}
-				logoHref={logoHref}
-				navItems={navItems}
-				languages={languages}
-				currentLocale={currentLocale}
-				sticky={true}
-				basePath={basePath}
-				showSidebarToggle={showSidebar && true}
-				defaultSidebarOpen={defaultSidebarOpen}
-				height={headerHeight}
+				logo={headerConfig.logo}
+				logoHref={headerConfig.logoHref}
+				navItems={headerConfig.navItems}
+				languages={headerConfig.languages}
+				currentLocale={headerConfig.currentLocale}
+				sticky={headerConfig.sticky}
+				basePath={headerConfig.basePath}
+				showSidebarToggle={headerConfig.showSidebarToggle}
+				defaultSidebarOpen={headerConfig.defaultSidebarOpen}
+				height={headerConfig.height}
 				transition:persist
 			/>
 		)
@@ -252,9 +213,9 @@ const mainContentVerticalPadding = noContentMarginTop ? 'none' : showHeader ? 'x
 			showSidebar && (
 				<div class={`${sidebarTopClass} cosy:z-10 cosy:sticky cosy:bg-base-100 cosy:h-screen`}>
 					<Sidebar
-						sidebarItems={sidebarItems}
+						sidebarItems={sidebarConfig.sidebarItems}
 						currentPath={currentPath}
-						debug={debug}
+						debug={sidebarConfig.debug}
 						class="cosy:lg:border-r cosy:border-b cosy:border-base-300 cosy:lg:border-b-0 cosy:lg:w-64 cosy:lg:shrink-0"
 					/>
 				</div>
@@ -262,73 +223,25 @@ const mainContentVerticalPadding = noContentMarginTop ? 'none' : showHeader ? 'x
 		}
 
 		<!-- 主内容区域 -->
-		<Main size="full" padding="none" verticalPadding={mainContentVerticalPadding}>
-			{
-				!contentFullWidth ? (
-					<div class="cosy:mx-auto cosy:px-4 lg:cosy:px-8 cosy:container">
-						<div class="cosy:flex cosy:lg:flex-row cosy:flex-col cosy:justify-center cosy:gap-8 cosy:pb-96">
-							<Article>
-								<slot />
-							</Article>
+		<Main
+			size={mainContentConfig.size}
+			padding={mainContentConfig.padding}
+			verticalPadding={mainContentConfig.verticalPadding}>
+			<div class="cosy:mx-auto cosy:px-4 lg:cosy:px-8 cosy:container">
+				<div
+					class="cosy:flex cosy:lg:flex-row cosy:flex-col cosy:justify-center cosy:gap-8 cosy:pb-96">
+					<Article>
+						<slot />
+					</Article>
 
-							{showTableOfContents && <TableOfContents lang={currentLocale} />}
-						</div>
-					</div>
-				) : (
-					<div class="cosy:flex cosy:flex-row cosy:w-full">
-						<div class="cosy:flex-1">
-							<slot />
-						</div>
-						{showTableOfContents && (
-							<div class="cosy:hidden cosy:md:block cosy:p-4 cosy:w-64 cosy:shrink-0">
-								<div class="cosy:top-24 cosy:sticky">
-									<TableOfContents lang={currentLocale} />
-								</div>
-							</div>
-						)}
-					</div>
-				)
-			}
+					{showTableOfContents && <TableOfContents lang={currentLocale} />}
+				</div>
+			</div>
 		</Main>
 	</div>
 
 	<!-- Footer -->
-	{
-		showFooter && (
-			<Footer
-				siteName={siteName}
-				lang={currentLocale}
-				homeLink={footerHomeLink || '/'}
-				slogan={
-					footerSlogan ||
-					getText(validLang, 'footer', 'slogan') ||
-					getText(validLang, 'footer', 'defaultSlogan')
-				}
-				company={footerCompany || siteName}
-				copyright={footerCopyright || getText(validLang, 'footer', 'copyright')}
-				inspirationalSlogan={
-					footerInspirationalSlogan || getText(validLang, 'footer', 'inspirationalSlogan')
-				}
-				aboutLink={footerAboutLink || '/about'}
-				contactLink={footerContactLink || '/contact'}
-				icp={footerIcp}
-				logo={footerLogo}
-				products={footerProducts}
-				termsLink={footerTermsLink}
-				privacyLink={footerPrivacyLink}
-				socialLinks={footerSocialLinks}
-				teamLink={footerTeamLink}
-				careersLink={footerCareersLink}
-				newsLink={footerNewsLink}
-				historyLink={footerHistoryLink}
-				partnersLink={footerPartnersLink}
-				blogLink={footerBlogLink}
-				faqLink={footerFaqLink}
-				mediaLink={footerMediaLink}
-				techStackLink={footerTechStackLink}
-			/>
-		)
-	}
+	{showFooter && <Footer {...footerConfig} />}
 
 	<script>
 		// Handle sidebar toggle

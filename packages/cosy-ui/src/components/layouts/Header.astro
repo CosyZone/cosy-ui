@@ -54,76 +54,25 @@
  *   height="lg"
  * />
  */
+import '../../app.css';
 import Link from '../base/Link.astro';
 import Image from '../base/Image.astro';
-import '../../app.css';
+import type { HeaderProps } from '@/types/header';
 
-// 自定义图片元数据接口
-interface ImageMetadata {
-	src: string;
-	width: number;
-	height: number;
-	format: string;
-}
-
-interface Props {
-	logo: ImageMetadata;
-	/**
-	 * Logo 链接地址
-	 * @default "/"
-	 */
-	logoHref?: string;
-	languages?: Array<{ code: string; name: string }>;
-	currentLocale?: string;
-	navItems?: Array<{
-		href: string;
-		label: string;
-		match: (path: string) => boolean;
-	}>;
-	socialLinks?: Array<{
-		name: string;
-		url: string;
-		icon: any;
-	}>;
-	/**
-	 * 是否固定在顶部
-	 * @default true
-	 */
-	sticky?: boolean;
-	/**
-	 * 基础路径，用于处理网站部署在二级目录的情况
-	 * @default ""
-	 */
-	basePath?: string;
-	/**
-	 * 是否显示侧边栏切换按钮
-	 * @default false
-	 */
-	showSidebarToggle?: boolean;
-	/**
-	 * 侧边栏是否默认展开
-	 * @default false
-	 */
-	defaultSidebarOpen?: boolean;
-	/**
-	 * 导航栏高度
-	 * @default "md"
-	 */
-	height?: '3xs' | '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-}
+interface Props extends HeaderProps {}
 
 const {
-	logo,
-	logoHref = '/',
-	navItems = [],
-	sticky = true,
+	basePath = '',
+	currentLocale = 'zh-cn',
+	height = 'md',
 	languages = [
 		{ code: 'zh-cn', name: '中文' },
 		{ code: 'en', name: 'English' },
 	],
-	currentLocale = 'zh-cn',
-	basePath = '',
-	height = 'md',
+	logo,
+	logoHref = '/',
+	navItems = [],
+	sticky = true,
 } = Astro.props;
 
 type NavItem = { href: string; label: string; match: (path: string) => boolean };
@@ -180,17 +129,6 @@ const logoSizeClasses = {
 };
 
 const logoSizeClass = logoSizeClasses[initialHeight];
-
-// 设置占位空间高度
-const spacerHeightClasses = {
-	'3xs': 'cosy:h-4',
-	'2xs': 'cosy:h-6',
-	xs: 'cosy:h-8',
-	sm: 'cosy:h-10',
-	md: 'cosy:h-12',
-	lg: 'cosy:h-16',
-	xl: 'cosy:h-20',
-};
 ---
 
 <header

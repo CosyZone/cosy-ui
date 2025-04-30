@@ -2,7 +2,7 @@
 import { getGroupedRoutes, createUrl } from '@docs/lib/route';
 import { getBaseUrl, getNavItems } from '@docs/lib/utils';
 import { type SidebarSection, AppLayout } from '@/index';
-
+import DefaultLogo from '@/assets/logo.png';
 import { ClientRouter } from 'astro:transitions';
 
 interface Props {
@@ -39,41 +39,57 @@ const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
 
 <AppLayout
 	debug={true}
-	contentFullWidth={true}
-	title={title}
-	headerHeight="xs"
-	logoHref={homeLink}
-	footerHomeLink={homeLink}
-	siteName="Cosy UI"
-	sidebarItems={sidebarItems}
+	metaConfig={{
+		title: title,
+		description: 'Cosy UI - A beautiful Astro component library',
+		keywords: 'Cosy UI, Astro, component library',
+		author: 'CofficLab',
+		robots: 'index, follow',
+		basePath: basePath,
+	}}
+	footerConfig={{
+		siteName: 'Cosy UI',
+		homeLink: homeLink,
+		slogan:
+			currentLocale === 'zh-cn'
+				? '优雅、高效的 Astro 组件库'
+				: 'A beautiful Astro component library',
+		company: 'CofficLab',
+		copyright: '© 2025 CofficLab',
+		inspirationalSlogan:
+			currentLocale === 'zh-cn' ? '构建美好的用户界面' : 'Build a beautiful user interface',
+		products: [
+			{ name: 'Cisum', href: 'https://coffic.cn/cisum' },
+			{ name: 'JuiceEditor', href: 'https://coffic.cn/juice_editor' },
+			{ name: 'GitOK', href: 'https://coffic.cn/gitok' },
+			{ name: 'Cosy UI', href: 'https://github.com/CofficLab/cosy-ui' },
+		],
+		aboutLink: 'https://coffic.cn/en/meta/about',
+		contactLink: 'https://coffic.cn/en/meta/contact',
+		termsLink: 'https://coffic.cn/en/meta/terms',
+		privacyLink: 'https://coffic.cn/en/meta/privacy',
+		historyLink: 'https://coffic.cn/en/meta/out-story',
+		techStackLink: 'https://coffic.cn/en/meta/tech-stack',
+	}}
+	headerConfig={{
+		logo: DefaultLogo,
+		logoHref: homeLink,
+		navItems: getNavItems(),
+		languages: languages,
+		currentLocale: currentLocale,
+		basePath: basePath,
+	}}
+	sidebarConfig={{
+		sidebarItems: sidebarItems,
+		debug: true,
+		currentPath: basePath,
+	}}
+	mainContentConfig={{
+		verticalPadding: '4xl',
+	}}
 	showTableOfContents={showTOC}
 	showHeader={true}
-	showFooter={true}
-	showSidebar={showSidebar}
-	navItems={getNavItems()}
-	footerSlogan={currentLocale === 'zh-cn'
-		? '优雅、高效的 Astro 组件库'
-		: 'A beautiful Astro component library'}
-	footerInspirationalSlogan={currentLocale === 'zh-cn'
-		? '构建美好的用户界面'
-		: 'Build a beautiful user interface'}
-	footerSocialLinks={['https://github.com/CofficLab/cosy-ui']}
-	footerProducts={[
-		{ name: 'Cisum', href: 'https://coffic.cn/cisum' },
-		{ name: 'JuiceEditor', href: 'https://coffic.cn/juice_editor' },
-		{ name: 'GitOK', href: 'https://coffic.cn/gitok' },
-		{ name: 'Cosy UI', href: 'https://github.com/CofficLab/cosy-ui' },
-	]}
-	footerAboutLink="https://coffic.cn/en/meta/about"
-	footerContactLink="https://coffic.cn/en/meta/contact"
-	footerBlogLink="https://coffic.cn/en/blogs"
-	footerTermsLink="https://coffic.cn/en/meta/terms"
-	footerPrivacyLink="https://coffic.cn/en/meta/privacy"
-	footerHistoryLink="https://coffic.cn/en/meta/out-story"
-	footerTechStackLink="https://coffic.cn/en/meta/tech-stack"
-	currentLocale={currentLocale}
-	languages={languages}
-	basePath={basePath}>
+	currentLocale={currentLocale}>
 	<h1>文档布局-宽屏模式</h1>
 
 	<h2>简介</h2>
