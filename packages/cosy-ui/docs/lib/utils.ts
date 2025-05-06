@@ -1,16 +1,13 @@
-// 从 astro.config.ts 中获取基础路径
-export const getBaseUrl = (): string => {
-    return '/cosy-ui';
-};
+import { LinkUtil } from "../../src/index";
 
-export const homeLink = getBaseUrl();
+export const homeLink = LinkUtil.getBaseUrl();
+export const basePath = LinkUtil.getBaseUrl();
 
 export const getNavItems = (): {
     href: string;
     label: string;
     match: (path: string) => boolean;
 }[] => {
-    const basePath = getBaseUrl();
     return [
         {
             href: homeLink,
@@ -18,9 +15,9 @@ export const getNavItems = (): {
             match: (path) => path === homeLink,
         },
         {
-            href: `${basePath}/demos`,
+            href: `${basePath}demos`,
             label: 'Demos',
-            match: (path) => path.startsWith(`${basePath}/demos`),
+            match: (path) => path.startsWith(`${basePath}demos`),
         },
     ]
 };

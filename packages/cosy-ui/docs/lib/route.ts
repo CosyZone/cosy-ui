@@ -1,6 +1,5 @@
-import { getBaseUrl } from './utils';
+import { LinkUtil } from '../../src/index';
 import { getCollection } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
 
 export interface Route {
     path: string;
@@ -13,12 +12,6 @@ export interface GroupedRoute {
     routes: Route[];
     order: number;
 }
-
-// 生成带基础路径的完整 URL
-export const createUrl = (path: string): string => {
-    const baseUrl = getBaseUrl();
-    return `${baseUrl}${path}`;
-};
 
 // 获取分组路由
 export async function getGroupedRoutes(locale: string = 'zh-cn'): Promise<GroupedRoute[]> {
@@ -55,7 +48,7 @@ export async function getGroupedRoutes(locale: string = 'zh-cn'): Promise<Groupe
 
         const pathWithoutExtension = article.id.replace(/\.mdx$/, '');
         const docPath = `/${locale}/${pathWithoutExtension.substring(docLocale.length + 1)}`;
-        const url = createUrl(docPath);
+        const url = LinkUtil.createUrl(docPath);
 
         // 确保我们正确获取 order 值，默认为 999
         const docOrder = typeof article.data.order === 'number' ? article.data.order : 999;

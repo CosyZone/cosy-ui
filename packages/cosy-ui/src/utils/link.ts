@@ -1,6 +1,33 @@
 import { logger } from "./logger";
 
 export class LinkUtil {
+    // 从 astro.config.ts 中获取基础路径
+    static getBaseUrl = (): string => {
+        return import.meta.env.BASE_URL
+    };
+
+    // 生成带基础路径的完整 URL
+    static createUrl = (path: string): string => {
+        const baseUrl = LinkUtil.getBaseUrl();
+        // 如果路径以 '/' 开头，则直接返回路径
+        if (path.startsWith('/')) {
+            return path;
+        }
+        // 如果路径以 'http' 开头，则直接返回路径
+        if (path.startsWith('http')) {
+            return path;
+        }
+        // 如果路径以 '#' 开头，则直接返回路径
+        if (path.startsWith('#')) {
+            return path;
+        }
+        // 如果路径以 '.' 开头，则直接返回路径
+        if (path.startsWith('.')) {
+            return path;
+        }
+        return `${baseUrl}${path}`;
+    };
+
     /**
      * 规范化语言代码
      * @param lang - 语言代码
@@ -16,7 +43,7 @@ export class LinkUtil {
     }
 
     static getHomeLink(lang: string): string {
-        return `/${lang}`;
+        return `${this.getBaseUrl}/${lang}`;
     }
 
     static getLessonsLink(lang: string): string {

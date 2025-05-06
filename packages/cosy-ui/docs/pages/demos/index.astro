@@ -1,7 +1,9 @@
 ---
 import DemoLayout from '@docs/layouts/DemoLayout.astro';
 import { Products, getExampleImage } from '../../../src/index';
-import { getBaseUrl } from '@docs/lib/utils';
+import { LinkUtil } from '../../../src/index';
+
+const baseUrl = LinkUtil.getBaseUrl();
 ---
 
 <DemoLayout title="Cosy UI 组件库 - 示例" showSidebar={false} showTOC={false}>
@@ -16,7 +18,7 @@ import { getBaseUrl } from '@docs/lib/utils';
 					height: 100,
 				}),
 				description: '适用于展示文档的场景',
-				productUrl: `${getBaseUrl()}/demos/doc_layout`,
+				productUrl: `${baseUrl}/demos/doc_layout`,
 			},
 			{
 				name: '产品首页',
@@ -25,7 +27,7 @@ import { getBaseUrl } from '@docs/lib/utils';
 					height: 100,
 				}),
 				description: '适用于展示产品信息的场景',
-				productUrl: `${getBaseUrl()}/demos/landing_page`,
+				productUrl: `${baseUrl}/demos/landing_page`,
 			},
 		]}
 	/>
