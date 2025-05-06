@@ -1,5 +1,5 @@
 import { getCollection, getEntry, type CollectionEntry, type DataEntryMap } from "astro:content";
-import { logger } from "@/utils/logger";
+import { logger } from "../utils/logger";
 
 /**
  * BaseDB 是所有数据库类的基类，提供了通用的文档操作功能。
