@@ -1,6 +1,6 @@
 import { logger } from "./logger";
 
-export default class LinkUtil {
+export class LinkUtil {
     /**
      * 规范化语言代码
      * @param lang - 语言代码

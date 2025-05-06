@@ -1,5 +1,5 @@
 import { getCollection, getEntry, type CollectionEntry, type DataEntryMap } from "astro:content";
-import { logger } from "@/utils/logger";
+import { logger } from "../utils/logger";
 
 /**
  * BaseDB 是所有数据库类的基类，提供了通用的文档操作功能。
@@ -23,7 +23,7 @@ import { logger } from "@/utils/logger";
  * @template Entry - Collection 对应的条目类型
  * @template Doc - 文档类型，通常是自定义的文档类
  */
-export default abstract class BaseDB<
+export abstract class BaseDB<
     Collection extends keyof DataEntryMap,
     Entry extends CollectionEntry<Collection>,
     Doc

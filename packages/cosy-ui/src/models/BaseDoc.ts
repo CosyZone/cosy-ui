@@ -5,7 +5,7 @@ import { logger } from "../utils/logger";
 /**
  * 文档基类，提供所有文档类型共享的基本功能
  */
-export default abstract class BaseDoc<Collection extends keyof DataEntryMap, T extends CollectionEntry<Collection>> implements SidebarProvider {
+export abstract class BaseDoc<Collection extends keyof DataEntryMap, T extends CollectionEntry<Collection>> implements SidebarProvider {
     protected entry: T;
 
     constructor(entry: T) {
