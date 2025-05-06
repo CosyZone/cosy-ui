@@ -23,7 +23,7 @@ import { logger } from "../utils/logger";
  * @template Entry - Collection 对应的条目类型
  * @template Doc - 文档类型，通常是自定义的文档类
  */
-export default abstract class BaseDB<
+export abstract class BaseDB<
     Collection extends keyof DataEntryMap,
     Entry extends CollectionEntry<Collection>,
     Doc
