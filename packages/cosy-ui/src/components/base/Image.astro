@@ -142,7 +142,6 @@ const {
 	showPlaceholder = true,
 	showError = true,
 	class: className = '',
-	lazy = true,
 	rounded = 'none',
 	shadow = 'none',
 	hover = 'none',
@@ -150,8 +149,6 @@ const {
 	loadingIndicator = 'skeleton',
 } = Astro.props;
 
-// 判断是否为本地图片
-const isLocalImage = typeof src !== 'string' && 'src' in src;
 // 判断是否为远程图片
 const isRemoteImage = typeof src === 'string' && (src.startsWith('http') || src.startsWith('//'));
 // 获取图片源

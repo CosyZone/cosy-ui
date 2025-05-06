@@ -2,22 +2,21 @@
 import { getCollection } from 'astro:content';
 import { render } from 'astro:content';
 import DemoLayout from '@docs/layouts/DemoLayout.astro';
-import { getBaseUrl } from '@docs/lib/utils';
+import { ErrorPage404 } from '@/index';
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
+
 const { slug } = Astro.params;
 const docs = await getCollection('articles');
 const doc = docs.find((doc) => doc.id === slug);
+let title = '';
+let Content: AstroComponentFactory | null = null;
 
-// 如果文档不存在，返回404页面
-if (!doc) {
-	return new Response('', {
-		status: 404,
-		headers: {
-			'Content-Type': 'text/html',
-		},
-	});
+if (doc) {
+	title = doc.data.title;
+	Content = (await render(doc)).Content;
+} else {
+	title = '404 Not Found';
 }
-
-const { Content } = await render(doc);
 
 export const getStaticPaths = async () => {
 	const docs = await getCollection('articles');
@@ -28,21 +27,13 @@ export const getStaticPaths = async () => {
 };
 ---
 
-<DemoLayout title={doc.data.title}>
+<DemoLayout title={title}>
 	{
-		doc ? (
-			<>
-				<h1>{doc.data.title}</h1>
+		Content ? (
+				<h1>{title}</h1>
 				<Content />
-			</>
 		) : (
-			<div class="flex flex-col justify-center items-center min-h-[50vh] text-center">
-				<h1 class="mb-4 font-bold text-4xl">404 - 页面未找到</h1>
-				<p class="mb-8 text-lg">抱歉，您要找的文档不存在。</p>
-				<a href={getBaseUrl()} class="btn btn-primary">
-					返回首页
-				</a>
-			</div>
+			<ErrorPage404 />
 		)
 	}
 </DemoLayout>

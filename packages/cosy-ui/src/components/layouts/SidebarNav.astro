@@ -7,13 +7,13 @@
 
 import { isPathMatch } from '../../utils/path';
 import '../../app.css';
-import type { SidebarSection, SidebarItem } from '../../types/sidebar';
+import type { SidebarItem } from '../../types/sidebar';
 
 interface Props {
 	/**
 	 * 侧边栏项目
 	 */
-	sidebarItems: SidebarSection[];
+	sidebarItems: SidebarItem[];
 
 	/**
 	 * 当前路径
@@ -39,13 +39,13 @@ const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 
 <nav class:list={['cosy:p-4', debugClass, className]}>
 	{
-		sidebarItems.map((section: SidebarSection) => (
+		sidebarItems.map((section: SidebarItem) => (
 			<div class:list={['cosy:mb-6', debugClass]}>
 				<h3 class:list={['cosy:font-bold cosy:mb-2 cosy:text-base-content/70', debugClass]}>
-					{section.title}
+					{section.text}
 				</h3>
 				<ul class:list={['cosy:menu cosy:bg-base-200 cosy:rounded-box cosy:w-56', debugClass]}>
-					{section.items.map((item: SidebarItem) => {
+					{section.items?.map((item: SidebarItem) => {
 						const isActive = isPathMatch(currentPath, item.href);
 						return (
 							<li class:list={[debugClass]}>

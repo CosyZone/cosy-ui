@@ -73,7 +73,7 @@ function getVerticalMarginBottomClasses(marginBottom: string) {
 
 // 获取当前活动的一级导航项
 const currentSection = sidebarItems.find((section) =>
-	section.items.some((item) => isPathMatch(currentPath, item.href))
+	section.items?.some((item) => isPathMatch(currentPath, item.href))
 );
 ---
 
@@ -90,7 +90,7 @@ const currentSection = sidebarItems.find((section) =>
 			data-modal-target="mobile-sidebar">
 			<MenuIcon class="cosy:w-5 cosy:h-5" />
 		</button>
-		<span class="cosy:font-medium cosy:text-sm">{currentSection?.title || '导航'}</span>
+		<span class="cosy:font-medium cosy:text-sm">{currentSection?.text || '导航'}</span>
 	</div>
 </div>;
 

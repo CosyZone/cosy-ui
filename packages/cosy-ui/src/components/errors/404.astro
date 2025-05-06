@@ -1,0 +1,10 @@
+---
+import { LinkUtil } from '../../utils/link';
+const baseUrl = LinkUtil.getBaseUrl();
+---
+
+<div class="flex flex-col justify-center items-center min-h-[50vh] text-center">
+	<h1 class="mb-4 font-bold text-4xl">404 - 页面未找到</h1>
+	<p class="mb-8 text-lg">抱歉，您要找的文档不存在。</p>
+	<a href={baseUrl} class="btn btn-primary"> 返回首页 </a>
+</div>

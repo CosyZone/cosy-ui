@@ -1,19 +1,16 @@
 ---
-import { getBaseUrl, getNavItems } from '@docs/lib/utils';
-import { AppLayout, Hero } from '../../../src/index';
+import { getNavItems } from '@docs/lib/utils';
+import { AppLayout, Hero, LinkUtil } from '../../../src/index';
 
 // 获取基础路径
-const basePath = getBaseUrl();
+const basePath = LinkUtil.getBaseUrl();
 const homeLink = `${basePath}/`;
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
 
 // 定义支持的语言
-const languages = [
-	{ code: 'zh-cn', name: '中文' },
-	{ code: 'en', name: 'English' },
-];
+const languages = ['zh-cn', 'en'];
 ---
 
 <AppLayout
@@ -73,7 +70,7 @@ const languages = [
 		title="产品首页"
 		backgroundOverlay="light"
 		overlayOpacity={0.3}
-		backgroundImage={getBaseUrl() + '/hero.png'}
+		backgroundImage={basePath + '/hero.png'}
 		description="安心做事，真诚为您"
 		links={[]}
 	/>

@@ -148,9 +148,9 @@
 import { processSocialLink } from '../../utils/social';
 import SocialIcon from '../icons/SocialIcon.astro';
 import type { FooterProps } from '../../types/footer';
-import { getCurrentLanguage } from '../../utils/language';
 import { createTextGetter } from '../../utils/i18n';
 import NavSection from './NavSection.astro';
+import { LanguageUtil } from '../../utils/language';
 import '../../app.css';
 
 const {
@@ -182,7 +182,7 @@ const {
 } = Astro.props as FooterProps;
 
 // 获取当前语言
-const langInfo = getCurrentLanguage(userLang);
+const langInfo = LanguageUtil.getCurrentLanguage(userLang);
 // 创建文本获取函数
 const t = createTextGetter(langInfo, 'footer');
 

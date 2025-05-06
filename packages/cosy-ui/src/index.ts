@@ -42,6 +42,9 @@ export { default as Article } from './components/typography/Article.astro';
 export { default as Text } from './components/typography/Text.astro';
 export { default as Heading } from './components/typography/Heading.astro';
 
+// Errors Page 
+export { default as ErrorPage404 } from './components/errors/404.astro';
+
 // Icons
 export { default as SocialIcon } from './components/icons/SocialIcon.astro';
 export { default as TwitterIcon } from './components/icons/TwitterIcon.astro';

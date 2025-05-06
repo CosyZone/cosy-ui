@@ -54,8 +54,8 @@
 
 // 导入样式
 import '../../app.css';
-import { getCurrentLanguage } from '../../utils/language';
 import { createTextGetter } from '../../utils/i18n';
+import { LanguageUtil } from '../../utils/language';
 
 interface Props {
 	/**
@@ -111,7 +111,7 @@ const {
 } = Astro.props;
 
 // 获取当前语言
-const langInfo = getCurrentLanguage(userLang);
+const langInfo = LanguageUtil.getCurrentLanguage(userLang);
 // 创建文本获取函数
 const t = createTextGetter(langInfo, 'tableOfContents');
 // 获取标题文本，如果用户提供了标题则使用用户提供的标题
