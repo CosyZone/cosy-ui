@@ -4,6 +4,8 @@ export { default as Link } from './components/base/Link.astro';
 export { default as Image } from './components/base/Image.astro';
 export { default as ThemeItem } from './components/base/ThemeItem.astro';
 export { default as Alert } from './components/base/Alert.astro';
+export { default as Speak } from './components/base/Speak.astro';
+export { default as Module } from './components/base/Module.astro';
 
 // Navigation
 export { default as ThemeSwitcher } from './components/navigation/ThemeSwitcher.astro';
@@ -74,6 +76,8 @@ export * from './utils/i18n';
 export * from './utils/path';
 export * from './utils/url';
 export * from './utils/language';
+export * from './utils/logger';
+export * from './utils/link';
 
 // Types
 export * from './types/sidebar';
@@ -81,5 +85,12 @@ export * from './types/main';
 export * from './types/article';
 export * from './types/layout';
 export * from './types/header';
+export * from './types/heading';
 export * from './types/meta';
 export type { ImageProvider, ImageOptions } from './utils/image';
+
+// Models
+export * from './models/BaseDoc';
+
+// Database
+export * from './database/BaseDB';
