@@ -52,7 +52,7 @@
 import '../../app.css';
 import Link from '../base/Link.astro';
 import Image from '../base/Image.astro';
-import { LanguageSwitcher, type HeaderProps } from '../../index';
+import { LanguageSwitcher, LinkUtil, type HeaderProps, type NavItem } from '../../index';
 import Logo from '../../assets/logo-rounded.png';
 
 export interface Props extends HeaderProps {}
@@ -66,9 +66,7 @@ const {
 	sticky = true,
 } = Astro.props;
 
-type NavItem = { href: string; label: string; match: (path: string) => boolean };
-
-// 获取初始高度（优先使用localStorage中的值）
+// 获取初始高度
 type HeightType = '3xs' | '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 let initialHeight: HeightType;
@@ -104,6 +102,11 @@ const logoSizeClasses = {
 };
 
 const logoSizeClass = logoSizeClasses[initialHeight];
+const currentPath = Astro.url.pathname;
+const activeLink = LinkUtil.getActiveLink(
+	currentPath,
+	navItems.map((item: NavItem) => item.href)
+);
 ---
 
 <header
@@ -142,6 +145,7 @@ const logoSizeClass = logoSizeClasses[initialHeight];
 				navItems.map((item: NavItem) => (
 					<li>
 						<Link
+							variant={activeLink == item.href ? 'primary' : 'default'}
 							href={item.href}
 							class:list={[
 								initialHeight === 'xs' || initialHeight === '2xs' || initialHeight === '3xs'

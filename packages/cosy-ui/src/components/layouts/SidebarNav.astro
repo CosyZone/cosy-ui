@@ -45,7 +45,7 @@ const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 					{section.text}
 				</h3>
 				<ul class:list={['cosy:menu cosy:bg-base-200 cosy:rounded-box cosy:w-56', debugClass]}>
-					{section.items.map((item: SidebarItem) => {
+					{section.items?.map((item: SidebarItem) => {
 						const isActive = isPathMatch(currentPath, item.href);
 						return (
 							<li class:list={[debugClass]}>

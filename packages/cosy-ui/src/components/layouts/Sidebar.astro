@@ -73,7 +73,7 @@ function getVerticalMarginBottomClasses(marginBottom: string) {
 
 // 获取当前活动的一级导航项
 const currentSection = sidebarItems.find((section) =>
-	section.items.some((item) => isPathMatch(currentPath, item.href))
+	section.items?.some((item) => isPathMatch(currentPath, item.href))
 );
 ---
 

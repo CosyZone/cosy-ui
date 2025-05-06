@@ -1,23 +1,17 @@
-import { LinkUtil } from "../../src/index";
+import { LinkUtil, type NavItem } from "../../src/index";
 
 export const homeLink = LinkUtil.getBaseUrl();
 export const basePath = LinkUtil.getBaseUrl();
 
-export const getNavItems = (): {
-    href: string;
-    label: string;
-    match: (path: string) => boolean;
-}[] => {
+export const getNavItems = (): NavItem[] => {
     return [
         {
             href: homeLink,
-            label: 'Home',
-            match: (path) => path === homeLink,
+            label: 'Home'
         },
         {
             href: `${basePath}demos`,
-            label: 'Demos',
-            match: (path) => path.startsWith(`${basePath}demos`),
+            label: 'Demos'
         },
     ]
 };

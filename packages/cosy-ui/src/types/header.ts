@@ -41,11 +41,7 @@ export interface HeaderProps {
     /**
      * 导航菜单项
      */
-    navItems?: Array<{
-        href: string;
-        label: string;
-        match: (path: string) => boolean;
-    }>;
+    navItems?: NavItem[];
 
     /**
      * 是否显示侧边栏切换按钮
@@ -68,3 +64,5 @@ export interface HeaderProps {
      */
     sticky?: boolean;
 }
+
+export type NavItem = { href: string; label: string; };

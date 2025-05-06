@@ -229,4 +229,14 @@ export class LinkUtil {
     static getLoginLink(currentOrigin: string): string {
         return `${currentOrigin}/api/login`;
     }
+
+    static getActiveLink(currentLink: string, links: string[]): string {
+        let activeLink = '';
+        for (const link of links) {
+            if (currentLink.startsWith(link) && link.length > activeLink.length) {
+                activeLink = link;
+            }
+        }
+        return activeLink;
+    }
 }

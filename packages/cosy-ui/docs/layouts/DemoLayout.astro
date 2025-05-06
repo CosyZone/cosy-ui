@@ -10,8 +10,7 @@ interface Props {
 }
 
 const { title, showTOC = true, showSidebar = true } = Astro.props;
-const basePath = LinkUtil.getBaseUrl();
-const currentLocale = LanguageUtil.getCurrentLanguage(Astro.url.pathname);
+const currentLocale = Astro.currentLocale;
 const groupedRoutes = await getGroupedRoutes(currentLocale);
 const sidebarItems: SidebarItem[] = groupedRoutes.map((group) => ({
 	text: group.group,
@@ -31,7 +30,6 @@ const sidebarItems: SidebarItem[] = groupedRoutes.map((group) => ({
 		keywords: 'Cosy UI, Astro, component library',
 		author: 'CofficLab',
 		robots: 'index, follow',
-		basePath: basePath,
 	}}
 	footerConfig={{
 		siteName: 'Cosy UI',
@@ -63,7 +61,6 @@ const sidebarItems: SidebarItem[] = groupedRoutes.map((group) => ({
 		navItems: getNavItems(),
 		languages: ['zh-cn', 'en'],
 		currentLocale: currentLocale,
-		basePath: basePath,
 	}}
 	sidebarConfig={{
 		sidebarItems: sidebarItems,
