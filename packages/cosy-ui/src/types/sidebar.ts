@@ -1,19 +1,17 @@
+/**
+ * 侧边栏项目
+ */
 export interface SidebarItem {
     href: string;
     text: string;
     items?: SidebarItem[];
 }
 
-export interface SidebarSection {
-    title: string;
-    items: SidebarItem[];
-}
-
 export interface SidebarProps {
     /**
      * 侧边栏项目
      */
-    sidebarItems: SidebarSection[];
+    sidebarItems: SidebarItem[];
 
     /**
      * 桌面端类名

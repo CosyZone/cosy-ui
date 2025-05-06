@@ -1,7 +1,7 @@
 ---
 import { getGroupedRoutes } from '../lib/route';
-import { getBaseUrl, getNavItems } from '../lib/utils';
-import { type SidebarSection, AppLayout } from '../../src/index';
+import { getBaseUrl, getNavItems, homeLink } from '../lib/utils';
+import { type SidebarItem, AppLayout } from '../../src/index';
 
 interface Props {
 	title: string;
@@ -13,7 +13,6 @@ const { title, showTOC = true, showSidebar = true } = Astro.props;
 
 // 获取基础路径
 const basePath = getBaseUrl();
-const homeLink = `${basePath}/`;
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
@@ -26,8 +25,9 @@ const languages = [
 ];
 
 // 将路由转换为侧边栏项目格式
-const sidebarItems: SidebarSection[] = groupedRoutes.map((group) => ({
-	title: group.group,
+const sidebarItems: SidebarItem[] = groupedRoutes.map((group) => ({
+	text: group.group,
+	href: '',
 	items: group.routes.map((route) => ({
 		text: route.title,
 		href: route.path,

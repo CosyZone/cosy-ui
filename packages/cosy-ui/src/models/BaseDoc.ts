@@ -1,5 +1,5 @@
 import { render, type RenderResult, type CollectionEntry, type DataEntryMap } from "astro:content";
-import { SidebarItem, type SidebarProvider } from "../entities/SidebarItem";
+import { SidebarItemEntity, type SidebarProvider } from "../entities/SidebarItem";
 import { logger } from "../utils/logger";
 
 /**
@@ -72,9 +72,9 @@ export abstract class BaseDoc<Collection extends keyof DataEntryMap, T extends C
      * 转换为侧边栏项目
      * 基本实现，只包含当前文档
      */
-    async toSidebarItem(): Promise<SidebarItem> {
-        return new SidebarItem({
-            label: this.getTitle(),
+    async toSidebarItem(): Promise<SidebarItemEntity> {
+        return new SidebarItemEntity({
+            text: this.getTitle(),
             link: this.getLink(),
         });
     }
@@ -125,7 +125,7 @@ export abstract class HierarchicalDoc<Collection extends keyof DataEntryMap, T e
      * 转换为侧边栏项目
      * 如果文档有子文档，会包含子文档的侧边栏项目
      */
-    override async toSidebarItem(): Promise<SidebarItem> {
+    override async toSidebarItem(): Promise<SidebarItemEntity> {
         const debug = false;
 
         const children = await this.getChildren();
@@ -137,8 +137,8 @@ export abstract class HierarchicalDoc<Collection extends keyof DataEntryMap, T e
             console.log(childItems);
         }
 
-        return new SidebarItem({
-            label: this.getTitle(),
+        return new SidebarItemEntity({
+            text: this.getTitle(),
             items: childItems,
             link: this.getLink(),
         });
@@ -149,14 +149,14 @@ export abstract class HierarchicalDoc<Collection extends keyof DataEntryMap, T e
      * 如果有顶级文档，返回顶级文档的侧边栏项目
      * 否则返回当前文档的侧边栏项目
      */
-    async getTopSidebarItem(): Promise<SidebarItem> {
+    async getTopSidebarItem(): Promise<SidebarItemEntity> {
         const topDoc = await this.getTopDoc();
         if (topDoc) {
             return await topDoc.toSidebarItem();
         }
 
-        return new SidebarItem({
-            label: this.getTitle(),
+        return new SidebarItemEntity({
+            text: this.getTitle(),
             items: [],
             link: this.getLink(),
         });

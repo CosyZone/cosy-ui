@@ -3,6 +3,7 @@ export const getBaseUrl = (): string => {
     return '/cosy-ui';
 };
 
+export const homeLink = getBaseUrl();
 
 export const getNavItems = (): {
     href: string;
@@ -10,7 +11,6 @@ export const getNavItems = (): {
     match: (path: string) => boolean;
 }[] => {
     const basePath = getBaseUrl();
-    const homeLink = `${basePath}/`;
     return [
         {
             href: homeLink,
