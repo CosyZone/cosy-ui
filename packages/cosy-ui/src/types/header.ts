@@ -25,7 +25,7 @@ export interface HeaderProps {
     /**
      * 语言选项列表
      */
-    languages?: Array<{ code: string; name: string }>;
+    languages?: string[];
 
     /**
      * Logo图片元数据

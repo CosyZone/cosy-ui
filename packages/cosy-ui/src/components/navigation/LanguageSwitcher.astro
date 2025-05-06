@@ -22,88 +22,42 @@
  * 自定义语言列表：
  * ```astro
  * <LanguageSwitcher
- *   languages={[
- *     { code: 'zh-cn', name: '简体中文' },
- *     { code: 'en', name: 'English' },
- *     { code: 'ja', name: '日本語' }
- *   ]}
- *   currentLocale="en"
+ *   languages={['zh-cn', 'en']}
  * />
  * ```
  */
 
-import Button from '../base/Button.astro';
-import Link from '../base/Link.astro';
+import ChevronDownIcon from '../icons/ChevronDownIcon.astro';
 import '../../app.css';
-
-interface Language {
-	code: string;
-	name: string;
-}
+import { LanguageUtil } from '../../utils/language';
 
 interface Props {
-	/**
-	 * 自定义类名
-	 */
-	class?: string;
-
-	/**
-	 * 语言列表
-	 * @default [{ code: 'zh-cn', name: '简体中文' }, { code: 'en', name: 'English' }]
-	 */
-	languages?: Language[];
-
-	/**
-	 * 当前语言
-	 * @default 'zh-cn'
-	 */
-	currentLocale?: string;
+	languages: string[];
 }
 
-const {
-	class: className,
-	languages = [
-		{ code: 'zh-cn', name: '简体中文' },
-		{ code: 'en', name: 'English' },
-	],
-	currentLocale = 'zh-cn',
-} = Astro.props;
+const { languages = ['zh-cn', 'en'] } = Astro.props;
 
-const currentLanguageName =
-	languages.find((lang: Language) => lang.code === currentLocale)?.name || '简体中文';
-
-// 为每个语言生成对应的URL
-function generateLanguageUrl(langCode: string): string {
-	const currentPath = Astro.url.pathname;
-	const pathParts = currentPath.split('/').filter(Boolean);
-	const firstPathPart = pathParts[0];
-	const supportedLanguages = languages.map((lang: Language) => lang.code);
-	const isFirstPartLang = supportedLanguages.includes(firstPathPart);
-
-	if (isFirstPartLang) {
-		pathParts[0] = langCode;
-		return '/' + pathParts.join('/');
-	} else {
-		return '/' + langCode + (currentPath === '/' ? '' : currentPath);
-	}
-}
+const currentLocale = Astro.currentLocale;
+const currentLanguageName = LanguageUtil.getLanguageName(currentLocale);
 ---
 
-<div class:list={['cosy:dropdown cosy:dropdown-end', className]}>
-	<Button variant="ghost" size="sm" class="cosy:p-1">
-		{currentLanguageName}
-	</Button>
+<!-- 语言切换按钮 -->
+<div class="cosy:dropdown cosy:dropdown-end">
+	<div tabindex="0" role="button" class:list={['cosy:btn cosy:btn-ghost']}>
+		<span class="cosy:mr-1">{currentLanguageName}</span>
+		<ChevronDownIcon size="16px" class="cosy:w-4 cosy:h-4" />
+	</div>
 	<ul
-		tabindex={0}
-		class="cosy:bg-slate-900 cosy:dark:bg-slate-800 cosy:shadow-lg cosy:p-2 cosy:rounded-box cosy:w-40 cosy:dropdown-content cosy:menu">
+		tabindex="0"
+		class="cosy:z-[1] cosy:bg-base-100 cosy:shadow cosy:p-2 cosy:rounded-box cosy:w-32 cosy:dropdown-content cosy:menu">
 		{
-			languages.map((lang: Language) => (
-				<li>
-					<Link
-						href={generateLanguageUrl(lang.code)}
-						class:list={[{ 'cosy:active': lang.code === currentLocale }]}>
-						{lang.name}
-					</Link>
+			languages.map((lang) => (
+				<li class={currentLocale === lang ? 'cosy:disabled' : ''}>
+					<a
+						href={LanguageUtil.getRelativeLink(lang, Astro)}
+						class={currentLocale === lang ? 'cosy:active' : ''}>
+						{LanguageUtil.getLanguageName(lang)}
+					</a>
 				</li>
 			))
 		}

@@ -30,12 +30,7 @@
  * ```astro
  * <Header
  *   logo={import("../assets/logo.png")}
- *   languages={[
- *     { code: "zh-cn", name: "简体中文" },
- *     { code: "en", name: "English" },
- *     { code: "ja", name: "日本語" }
- *   ]}
- *   currentLocale="zh-cn"
+ *   languages={["zh-cn", "en", "ja"]}
  * />
  * ```
  *
@@ -57,19 +52,14 @@
 import '../../app.css';
 import Link from '../base/Link.astro';
 import Image from '../base/Image.astro';
-import type { HeaderProps } from '../../index';
+import { LanguageSwitcher, type HeaderProps } from '../../index';
 import Logo from '../../assets/logo-rounded.png';
 
-interface Props extends HeaderProps {}
+export interface Props extends HeaderProps {}
 
 const {
-	basePath = '',
-	currentLocale = 'zh-cn',
 	height = 'md',
-	languages = [
-		{ code: 'zh-cn', name: '中文' },
-		{ code: 'en', name: 'English' },
-	],
+	languages = ['zh-cn', 'en'],
 	logo = Logo,
 	logoHref = '/',
 	navItems = [],
@@ -77,22 +67,6 @@ const {
 } = Astro.props;
 
 type NavItem = { href: string; label: string; match: (path: string) => boolean };
-
-// 获取当前路径
-const currentPath = Astro.url.pathname;
-
-// 处理基础路径
-const basePathPattern = basePath ? new RegExp(`^${basePath}`) : null;
-const pathWithoutBase = basePathPattern ? currentPath.replace(basePathPattern, '') : currentPath;
-
-// 提取路径部分，排除语言代码
-const pathWithoutLocale = pathWithoutBase.replace(/^\/(zh-cn|en)/, '');
-
-// 生成语言切换链接
-function getLanguageUrl(langCode: string) {
-	// 如果有基础路径，需要加上
-	return `${basePath}/${langCode}${pathWithoutLocale}`;
-}
 
 // 获取初始高度（优先使用localStorage中的值）
 type HeightType = '3xs' | '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -185,45 +159,6 @@ const logoSizeClass = logoSizeClasses[initialHeight];
 	</div>
 
 	<div class="cosy:navbar-end">
-		<!-- 语言切换按钮 -->
-		<div class="cosy:dropdown cosy:dropdown-end">
-			<div
-				tabindex="0"
-				role="button"
-				class:list={[
-					'cosy:btn cosy:btn-ghost',
-					initialHeight === 'xs' || initialHeight === '2xs' || initialHeight === '3xs'
-						? 'cosy:btn-xs cosy:h-auto cosy:min-h-0 cosy:p-1'
-						: initialHeight === 'sm'
-							? 'cosy:btn-sm'
-							: 'cosy:btn-sm',
-				]}>
-				<span class="cosy:mr-1">{currentLocale === 'zh-cn' ? '中文' : 'English'}</span>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="cosy:w-4 cosy:h-4"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"
-					></path>
-				</svg>
-			</div>
-			<ul
-				tabindex="0"
-				class="cosy:z-[1] cosy:bg-base-100 cosy:shadow cosy:p-2 cosy:rounded-box cosy:w-32 cosy:dropdown-content cosy:menu">
-				{
-					languages.map((lang) => (
-						<li class={currentLocale === lang.code ? 'cosy:disabled' : ''}>
-							<a
-								href={getLanguageUrl(lang.code)}
-								class={currentLocale === lang.code ? 'cosy:active' : ''}>
-								{lang.name}
-							</a>
-						</li>
-					))
-				}
-			</ul>
-		</div>
+		<LanguageSwitcher languages={languages} />
 	</div>
 </header>

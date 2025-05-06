@@ -97,11 +97,7 @@ import logoImage from '../assets/logo.png';
 
 <Header
   logo={logoImage}
-  languages={[
-    { code: "zh-cn", name: "简体中文" },
-    { code: "en", name: "English" },
-    { code: "ja", name: "日本語" }
-  ]}
+  languages={["zh-cn", "en", "ja"]}
   currentLocale="zh-cn"
 />
 ```
@@ -145,7 +141,7 @@ import logoImage from '../assets/logo.png';
 | logo | ImageMetadata | - | 必填，网站 logo 图片 |
 | logoHref | string | "/" | Logo 链接地址 |
 | navItems | array | [] | 导航项数组，每项包含 href、label 和 match 函数 |
-| languages | array | [中文, English] | 语言选项数组，每项包含 code 和 name |
+| languages | array | [中文, English] | 语言选项数组，每项包含 code
 | currentLocale | string | "zh-cn" | 当前语言代码 |
 | sticky | boolean | true | 是否固定在页面顶部 |
 | basePath | string | "" | 网站基础路径，用于部署在子目录的情况 |

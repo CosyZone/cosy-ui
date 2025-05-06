@@ -9,22 +9,11 @@ export class LinkUtil {
     // 生成带基础路径的完整 URL
     static createUrl = (path: string): string => {
         const baseUrl = LinkUtil.getBaseUrl();
-        // 如果路径以 '/' 开头，则直接返回路径
+        // 如果路径以 '/' 开头，去除开头的 '/'
         if (path.startsWith('/')) {
-            return path;
+            path = path.substring(1);
         }
-        // 如果路径以 'http' 开头，则直接返回路径
-        if (path.startsWith('http')) {
-            return path;
-        }
-        // 如果路径以 '#' 开头，则直接返回路径
-        if (path.startsWith('#')) {
-            return path;
-        }
-        // 如果路径以 '.' 开头，则直接返回路径
-        if (path.startsWith('.')) {
-            return path;
-        }
+
         return `${baseUrl}${path}`;
     };
 

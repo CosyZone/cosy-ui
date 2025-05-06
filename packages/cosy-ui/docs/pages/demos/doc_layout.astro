@@ -20,10 +20,7 @@ const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
 const groupedRoutes = await getGroupedRoutes(currentLocale);
 
 // 定义支持的语言
-const languages = [
-	{ code: 'zh-cn', name: '中文' },
-	{ code: 'en', name: 'English' },
-];
+const languages = ['zh-cn', 'en'];
 
 // 将路由转换为侧边栏项目格式
 const sidebarItems: SidebarItem[] = groupedRoutes.map((group) => ({
