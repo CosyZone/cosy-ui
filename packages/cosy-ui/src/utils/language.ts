@@ -18,10 +18,15 @@ export const DEFAULT_LANGUAGE: SupportedLanguage = 'en';
 
 export class LanguageUtil {
     static getRelativeLink(locale: string, astro: AstroGlobal): string {
+        const debug = false;
         const currentLocale = astro.currentLocale;
         const originalPath = astro.originPathname;
         const result = getRelativeLocaleUrl(locale, originalPath.replaceAll("/" + currentLocale, ""));
-        logger.debug(`getRelativeLink: locale=${locale}, currentPath=${originalPath}, currentLocale=${currentLocale}, result=${result}`);
+
+        if (debug) {
+            logger.debug(`getRelativeLink: locale=${locale}, currentPath=${originalPath}, currentLocale=${currentLocale}, result=${result}`);
+        }
+
         return result;
     }
 

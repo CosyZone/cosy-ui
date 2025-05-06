@@ -66,17 +66,6 @@ const {
 	sticky = true,
 } = Astro.props;
 
-// 获取初始高度
-type HeightType = '3xs' | '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-
-let initialHeight: HeightType;
-if (typeof window !== 'undefined') {
-	const storedHeight = localStorage.getItem('cosy-header-height');
-	initialHeight = (storedHeight as HeightType) || height;
-} else {
-	initialHeight = height;
-}
-
 // 根据高度设置样式
 const headerHeightClasses = {
 	'3xs': 'cosy:h-4',
@@ -88,7 +77,16 @@ const headerHeightClasses = {
 	xl: 'cosy:h-20',
 };
 
-const headerHeightClass = headerHeightClasses[initialHeight];
+const headerHeightClass = headerHeightClasses[height];
+const linkHeightClasses = {
+	'3xs': 'cosy:py-0',
+	'2xs': 'cosy:py-0',
+	xs: 'cosy:py-0',
+	sm: 'cosy:py-1',
+	md: 'cosy:py-1',
+	lg: 'cosy:py-2',
+	xl: 'cosy:py-3',
+};
 
 // 设置logo大小
 const logoSizeClasses = {
@@ -101,7 +99,8 @@ const logoSizeClasses = {
 	xl: 'cosy:w-12 cosy:h-12',
 };
 
-const logoSizeClass = logoSizeClasses[initialHeight];
+const logoSizeClass = logoSizeClasses[height];
+const linkHeightClass = linkHeightClasses[height];
 const currentPath = Astro.url.pathname;
 const activeLink = LinkUtil.getActiveLink(
 	currentPath,
@@ -117,43 +116,30 @@ const activeLink = LinkUtil.getActiveLink(
 	]}>
 	<div class="cosy:navbar-start">
 		<Link
+			animation="none"
 			href={logoHref}
-			class:list={[
-				'cosy:btn cosy:btn-ghost',
-				initialHeight === 'xs' || initialHeight === '2xs' || initialHeight === '3xs'
-					? 'cosy:btn-xs cosy:h-auto cosy:min-h-0 cosy:p-1'
-					: initialHeight === 'sm'
-						? 'cosy:btn-sm'
-						: '',
-			]}>
-			<Image transition="none" src={logo} alt="logo" class={logoSizeClass} />
+			class:list={['cosy:btn cosy:btn-ghost', linkHeightClass]}>
+			<Image
+				showPlaceholder={false}
+				transition="none"
+				lazy={false}
+				src={logo}
+				alt="logo"
+				class={logoSizeClass}
+			/>
 		</Link>
 	</div>
 
 	<!-- 导航 -->
 	<div class="cosy:hidden cosy:lg:flex cosy:navbar-center">
-		<ul
-			class:list={[
-				'cosy:px-1 cosy:menu cosy:menu-horizontal',
-				initialHeight === 'xs' || initialHeight === '2xs' || initialHeight === '3xs'
-					? 'cosy:menu-xs'
-					: initialHeight === 'sm'
-						? 'cosy:menu-sm'
-						: '',
-			]}>
+		<ul class:list={['cosy:px-1 cosy:menu cosy:menu-horizontal', linkHeightClass]}>
 			{
 				navItems.map((item: NavItem) => (
 					<li>
 						<Link
 							variant={activeLink == item.href ? 'primary' : 'default'}
 							href={item.href}
-							class:list={[
-								initialHeight === 'xs' || initialHeight === '2xs' || initialHeight === '3xs'
-									? 'cosy:py-0 cosy:px-2 cosy:min-h-0'
-									: initialHeight === 'sm'
-										? 'cosy:py-1 cosy:min-h-6'
-										: '',
-							]}>
+							class:list={[linkHeightClass]}>
 							{item.label}
 						</Link>
 					</li>
