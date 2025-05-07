@@ -1,7 +1,7 @@
 ---
 import { getGroupedRoutes } from '../lib/route';
 import { getNavItems, homeLink } from '../lib/utils';
-import { type SidebarItem, AppLayout, LanguageUtil, LinkUtil } from '../../src/index';
+import { type SidebarItem, AppLayout } from '../../src/index';
 
 interface Props {
 	title: string;
@@ -60,7 +60,6 @@ const sidebarItems: SidebarItem[] = groupedRoutes.map((group) => ({
 		logoHref: homeLink,
 		navItems: getNavItems(),
 		languages: ['zh-cn', 'en'],
-		currentLocale: currentLocale,
 		navPosition: 'start',
 	}}
 	sidebarConfig={{
@@ -76,6 +75,7 @@ const sidebarItems: SidebarItem[] = groupedRoutes.map((group) => ({
 	}}
 	showHeader={true}
 	showFooter={true}
-	showSidebar={showSidebar}>
+	showSidebar={showSidebar}
+>
 	<slot />
 </AppLayout>

@@ -1,66 +1,64 @@
 /**
  * 国际化文本配置
- * 
+ *
  * 提供组件的多语言文本内容
  */
-
-import type { SupportedLanguage, LanguageInfo } from './language';
 
 // 定义文本内容的类型
 type TextContent = Record<string, Record<string, string>>;
 
 // 多语言文本内容
-export const texts: Record<SupportedLanguage, TextContent> = {
-    'en': {
-        tableOfContents: {
-            title: 'Table of Contents',
-            loading: 'Loading...'
-        },
-        footer: {
-            products: 'Products',
-            about: 'About',
-            aboutUs: 'About Us',
-            team: 'Our Team',
-            careers: 'Careers',
-            contactUs: 'Contact Us',
-            resources: 'Resources',
-            news: 'News',
-            blog: 'Blog',
-            faq: 'FAQ',
-            history: 'History',
-            techStack: 'Tech Stack',
-            legal: 'Legal',
-            terms: 'Terms of Service',
-            privacy: 'Privacy Policy',
-            slogan: 'Build a beautiful digital experience',
-            allRightsReserved: 'All Rights Reserved'
-        }
-    },
-    'zh-cn': {
-        tableOfContents: {
-            title: '目录',
-            loading: '加载中...'
-        },
-        footer: {
-            products: '产品',
-            about: '关于',
-            aboutUs: '关于我们',
-            team: '团队介绍',
-            careers: '加入我们',
-            contactUs: '联系我们',
-            defaultSlogan: '优雅、高效的组件库',
-            resources: '资源',
-            news: '新闻动态',
-            blog: '技术博客',
-            faq: '常见问题',
-            history: '发展历程',
-            techStack: '技术栈',
-            legal: '法律',
-            terms: '服务条款',
-            privacy: '隐私政策',
-            allRightsReserved: '保留所有权利'
-        }
-    }
+export const texts: Record<string, TextContent> = {
+	en: {
+		tableOfContents: {
+			title: 'Table of Contents',
+			loading: 'Loading...',
+		},
+		footer: {
+			products: 'Products',
+			about: 'About',
+			aboutUs: 'About Us',
+			team: 'Our Team',
+			careers: 'Careers',
+			contactUs: 'Contact Us',
+			resources: 'Resources',
+			news: 'News',
+			blog: 'Blog',
+			faq: 'FAQ',
+			history: 'History',
+			techStack: 'Tech Stack',
+			legal: 'Legal',
+			terms: 'Terms of Service',
+			privacy: 'Privacy Policy',
+			slogan: 'Build a beautiful digital experience',
+			allRightsReserved: 'All Rights Reserved',
+		},
+	},
+	'zh-cn': {
+		tableOfContents: {
+			title: '目录',
+			loading: '加载中...',
+		},
+		footer: {
+			products: '产品',
+			about: '关于',
+			aboutUs: '关于我们',
+			team: '团队介绍',
+			careers: '加入我们',
+			contactUs: '联系我们',
+			defaultSlogan: '优雅、高效的组件库',
+			resources: '资源',
+			news: '新闻动态',
+			blog: '技术博客',
+			faq: '常见问题',
+			history: '发展历程',
+			techStack: '技术栈',
+			legal: '法律',
+			terms: '服务条款',
+			privacy: '隐私政策',
+			allRightsReserved: '保留所有权利',
+		},
+	},
 };
 
 /**
@@ -70,8 +68,8 @@ export const texts: Record<SupportedLanguage, TextContent> = {
  * @param key 文本键名
  * @returns 对应的文本内容
  */
-export function getText(lang: SupportedLanguage, component: string, key: string): string {
-    return texts[lang]?.[component]?.[key] || texts['en'][component]?.[key] || '';
+export function getText(lang: string, component: string, key: string): string {
+	return texts[lang]?.[component]?.[key] || texts['en'][component]?.[key] || '';
 }
 
 /**
@@ -80,6 +78,6 @@ export function getText(lang: SupportedLanguage, component: string, key: string)
  * @param component 组件名称
  * @returns 文本获取函数
  */
-export function createTextGetter(langInfo: LanguageInfo, component: string) {
-    return (key: string): string => getText(langInfo.code, component, key);
-} 
+export function createTextGetter(langInfo: string, component: string) {
+	return (key: string): string => getText(langInfo, component, key);
+}
