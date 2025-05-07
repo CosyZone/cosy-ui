@@ -1,15 +1,11 @@
----
-description: about this project
-globs: 
-alwaysApply: true
----
-
 # 关于这个项目
 
 这是一个工作空间，它分成以下部分：
 
 - packages
     - cosy-ui：一个astro组件库
+      - src: 组件源代码
+      - docs: 文档 
 
 将来还会增加更多项目到packages目录中。
 
@@ -28,7 +24,7 @@ alwaysApply: true
 
 - 使用 Typescript
 - 优先使用 daisyUI 的类，并辅以 Tailwind CSS，在顶部导入 [app.css](mdc:packages/cosy-ui/src/app.css)
-- 使用 TailwindCSS 时要加前缀(not-prose除外)，如：cosy:mx-auto, cosy:dark:bg-red-500，因为 [app.css](mdc:packages/cosy-ui/src/app.css) 中定义了前缀
+- 使用 TailwindCSS 时要加前缀，如：cosy:mx-auto, cosy:dark:bg-red-500，因为 [app.css](mdc:packages/cosy-ui/src/app.css) 中定义了前缀
 - 注意：lg:cosy:mx-auto 这种写法是错误的，应该是 cosy:log:mx-auto
 - 不要忘记 frontmatter
 - 考虑到组件可能非常多，应该进行良好的分类，如：
@@ -48,7 +44,7 @@ alwaysApply: true
 - 当用户要求检查CSS或检查样式时，要做的事：
     - 确保顶部导入了 [app.css](mdc:packages/cosy-ui/src/app.css)
     - 优先使用 daisyUI 的类，并辅以 Tailwind CSS
-    - 使用 TailwindCSS 时要加前缀，如：cosy:mx-auto, cosy:dark:bg-red-500，因为 [app.css](mdc:packages/cosy-ui/src/app.css) 中定义了前缀
+    - 使用 TailwindCSS 时要加前缀(not-prose除外)，如：cosy:mx-auto, cosy:dark:bg-red-500，因为 [app.css](mdc:packages/cosy-ui/src/app.css) 中定义了前缀
     - 注意：lg:cosy:mx-auto 这种写法是错误的，应该是 cosy:log:mx-auto
     - 注意 Tailwind 的 class 的名字不能动态生成，这样 Tailwind 扫描不到
 

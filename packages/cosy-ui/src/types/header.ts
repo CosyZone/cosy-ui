@@ -1,11 +1,5 @@
 export interface HeaderProps {
     /**
-     * 基础路径，用于处理网站部署在二级目录的情况
-     * @default ""
-     */
-    basePath?: string;
-
-    /**
      * 当前语言代码
      */
     currentLocale?: string;
@@ -63,6 +57,13 @@ export interface HeaderProps {
      * @default true
      */
     sticky?: boolean;
+
+    rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+
+    paddingHorizontal?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+    paddingVertical?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+
+    navPosition?: 'start' | 'center' | 'end';
 }
 
 export type NavItem = { href: string; label: string; };

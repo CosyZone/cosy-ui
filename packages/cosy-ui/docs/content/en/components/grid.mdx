@@ -1,0 +1,77 @@
+---
+title: 'Grid'
+description: 'A flexible grid layout component for creating responsive multi-column layouts'
+folder: false
+order: 1
+---
+
+import { Grid, CodeExample } from '@/index';
+
+## Basic Usage
+
+The most basic grid layout. Use the `cols` prop to set the number of columns and `gap` prop to control spacing.
+
+<CodeExample
+  code={`<Grid cols={3} gap="md">
+  <div class="cosy:bg-base-200 cosy:p-4">Column 1</div>
+  <div class="cosy:bg-base-200 cosy:p-4">Column 2</div>
+  <div class="cosy:bg-base-200 cosy:p-4">Column 3</div>
+</Grid>`}
+>
+  <Grid cols={3} gap="md">
+    <div class="cosy:bg-base-200 cosy:p-4">Column 1</div>
+    <div class="cosy:bg-base-200 cosy:p-4">Column 2</div>
+    <div class="cosy:bg-base-200 cosy:p-4">Column 3</div>
+  </Grid>
+</CodeExample>
+
+## Responsive Layout
+
+Pass a responsive object to display different numbers of columns at different screen sizes.
+
+<CodeExample
+  code={`<Grid cols={{base: 1, md: 2, lg: 3}} gap="lg">
+  <div class="cosy:bg-base-200 cosy:p-4">Responsive Grid</div>
+  <div class="cosy:bg-base-200 cosy:p-4">Different Column Count</div>
+  <div class="cosy:bg-base-200 cosy:p-4">At Different Breakpoints</div>
+</Grid>`}
+>
+  <Grid cols={{base: 1, md: 2, lg: 3}} gap="lg">
+    <div class="cosy:bg-base-200 cosy:p-4">Responsive Grid</div>
+    <div class="cosy:bg-base-200 cosy:p-4">Different Column Count</div>
+    <div class="cosy:bg-base-200 cosy:p-4">At Different Breakpoints</div>
+  </Grid>
+</CodeExample>
+
+## Custom Spacing
+
+Set row gap (`rowGap`) and column gap (`colGap`) separately.
+
+<CodeExample
+  code={`<Grid cols={2} rowGap="lg" colGap="sm">
+  <div class="cosy:bg-base-200 cosy:p-4">Large Row Gap</div>
+  <div class="cosy:bg-base-200 cosy:p-4">Small Column Gap</div>
+  <div class="cosy:bg-base-200 cosy:p-4">Item 3</div>
+  <div class="cosy:bg-base-200 cosy:p-4">Item 4</div>
+</Grid>`}
+>
+  <Grid cols={2} rowGap="lg" colGap="sm">
+    <div class="cosy:bg-base-200 cosy:p-4">Large Row Gap</div>
+    <div class="cosy:bg-base-200 cosy:p-4">Small Column Gap</div>
+    <div class="cosy:bg-base-200 cosy:p-4">Item 3</div>
+    <div class="cosy:bg-base-200 cosy:p-4">Item 4</div>
+  </Grid>
+</CodeExample>
+
+## API
+
+### Props
+
+| Property | Type | Default | Description |
+| --- | --- | --- | --- |
+| cols | number \| ResponsiveValue\<number\> | 1 | Number of columns, can be a fixed value or a responsive object |
+| gap | 'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' | 'md' | Grid gap spacing |
+| rowGap | 'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' | - | Row gap spacing, defaults to gap value |
+| colGap | 'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' | - | Column gap spacing, defaults to gap value |
+| class | string | - | Custom class name |
+| class:list | any | - | Class name list |
