@@ -201,7 +201,8 @@ const {
 	robots={metaConfig.robots}
 	head={metaConfig.head}
 	debug={debug}
-	{...rest}>
+	{...rest}
+>
 	{showHeader && <Header {...headerConfig} debug={debug} transition:persist />}
 
 	<Container flex="row" gap="md" size="full" padding="none">
@@ -218,7 +219,7 @@ const {
 	<!-- Footer -->
 	{
 		showFooter && (
-			<Container size="full" padding="none">
+			<Container size="full" padding="none" transition:persist>
 				<Footer {...footerConfig} />
 			</Container>
 		)
