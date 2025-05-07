@@ -26,6 +26,22 @@
  * />
  * ```
  *
+ * 自定义导航菜单位置：
+ * ```astro
+ * <Header
+ *   logo={import("../assets/logo.png")}
+ *   navPosition="start"
+ *   navItems={[
+ *     { href: "/docs", label: "文档", match: (path) => path.startsWith("/docs") },
+ *     { href: "/components", label: "组件", match: (path) => path.startsWith("/components") }
+ *   ]}
+ * />
+ * ```
+ * navPosition 可选值：
+ * - start: 导航菜单在左侧
+ * - center: 导航菜单在中间（默认）
+ * - end: 导航菜单在右侧
+ *
  * 自定义语言选项：
  * ```astro
  * <Header
@@ -33,7 +49,6 @@
  *   languages={["zh-cn", "en", "ja"]}
  * />
  * ```
- *
  *
  * 自定义高度：
  * ```astro
@@ -63,6 +78,7 @@ const {
 	rounded = 'none',
 	paddingHorizontal = 'none',
 	paddingVertical = 'none',
+	navPosition = 'center',
 } = Astro.props;
 
 // 根据高度设置样式
@@ -146,45 +162,106 @@ const activeLink = LinkUtil.getActiveLink(
 			headerHeightClass,
 			{ 'cosy:border cosy:border-dashed cosy:border-red-500': debug },
 		]}>
-		<!-- 品牌Logo -->
+		<!-- 左侧 -->
 		<div class="cosy:navbar-start cosy:pl-1">
-			<Link
-				animation="none"
-				debug={debug}
-				href={logoHref}
-				class:list={['cosy:btn cosy:btn-ghost', linkHeightClass]}>
-				<Image
-					rounded="full"
-					showPlaceholder={false}
-					transition="none"
-					lazy={false}
-					src={logo}
-					alt="logo"
-					class={logoSizeClass}
-				/>
-			</Link>
+			{
+				navPosition === 'start' ? (
+					<div class="cosy:flex cosy:items-center cosy:gap-4">
+						<Link
+							animation="none"
+							debug={debug}
+							href={logoHref}
+							class:list={['cosy:btn cosy:btn-ghost', linkHeightClass]}>
+							<Image
+								rounded="full"
+								showPlaceholder={false}
+								transition="none"
+								lazy={false}
+								src={logo}
+								alt="logo"
+								class={logoSizeClass}
+							/>
+						</Link>
+						<ul
+							class:list={[
+								'cosy:hidden cosy:lg:flex cosy:px-1 cosy:menu cosy:menu-horizontal',
+								linkHeightClass,
+							]}>
+							{navItems.map((item: NavItem) => (
+								<li>
+									<Link
+										variant={activeLink == item.href ? 'primary' : 'default'}
+										href={item.href}
+										class:list={[linkHeightClass]}>
+										{item.label}
+									</Link>
+								</li>
+							))}
+						</ul>
+					</div>
+				) : (
+					<Link
+						animation="none"
+						debug={debug}
+						href={logoHref}
+						class:list={['cosy:btn cosy:btn-ghost', linkHeightClass]}>
+						<Image
+							rounded="full"
+							showPlaceholder={false}
+							transition="none"
+							lazy={false}
+							src={logo}
+							alt="logo"
+							class={logoSizeClass}
+						/>
+					</Link>
+				)
+			}
 		</div>
 
-		<!-- 导航 -->
-		<div class="cosy:hidden cosy:lg:flex cosy:navbar-center">
-			<ul class:list={['cosy:px-1 cosy:menu cosy:menu-horizontal', linkHeightClass]}>
-				{
-					navItems.map((item: NavItem) => (
-						<li>
-							<Link
-								variant={activeLink == item.href ? 'primary' : 'default'}
-								href={item.href}
-								class:list={[linkHeightClass]}>
-								{item.label}
-							</Link>
-						</li>
-					))
-				}
-			</ul>
-		</div>
+		<!-- 中间 -->
+		{
+			navPosition === 'center' && (
+				<div class="cosy:hidden cosy:lg:flex cosy:navbar-center">
+					<ul class:list={['cosy:px-1 cosy:menu cosy:menu-horizontal', linkHeightClass]}>
+						{navItems.map((item: NavItem) => (
+							<li>
+								<Link
+									variant={activeLink == item.href ? 'primary' : 'default'}
+									href={item.href}
+									class:list={[linkHeightClass]}>
+									{item.label}
+								</Link>
+							</li>
+						))}
+					</ul>
+				</div>
+			)
+		}
 
-		<!-- 语言切换 -->
+		<!-- 右侧 -->
 		<div class="cosy:navbar-end cosy:pr-1">
+			{
+				navPosition === 'end' && (
+					<ul
+						class:list={[
+							'cosy:hidden cosy:lg:flex cosy:px-1 cosy:menu cosy:menu-horizontal',
+							linkHeightClass,
+						]}>
+						{navItems.map((item: NavItem) => (
+							<li>
+								<Link
+									variant={activeLink == item.href ? 'primary' : 'default'}
+									href={item.href}
+									class:list={[linkHeightClass]}>
+									{item.label}
+								</Link>
+							</li>
+						))}
+					</ul>
+				)
+			}
+			<!-- 语言切换 -->
 			<LanguageSwitcher languages={languages} />
 		</div>
 	</div>

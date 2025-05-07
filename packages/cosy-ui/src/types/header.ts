@@ -62,6 +62,8 @@ export interface HeaderProps {
 
     paddingHorizontal?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
     paddingVertical?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+
+    navPosition?: 'start' | 'center' | 'end';
 }
 
 export type NavItem = { href: string; label: string; };
