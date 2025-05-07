@@ -34,13 +34,6 @@
  * />
  * ```
  *
- * 带有基础路径：
- * ```astro
- * <Header
- *   logo={import("../assets/logo.png")}
- *   basePath="/my-site"
- * />
- * ```
  *
  * 自定义高度：
  * ```astro
@@ -67,6 +60,9 @@ const {
 	navItems = [],
 	sticky = true,
 	debug = false,
+	rounded = 'none',
+	paddingHorizontal = 'none',
+	paddingVertical = 'none',
 } = Astro.props;
 
 // 根据高度设置样式
@@ -113,48 +109,83 @@ const activeLink = LinkUtil.getActiveLink(
 
 <header
 	class:list={[
-		'cosy:navbar cosy:bg-accent/70 cosy:backdrop-blur not-prose cosy:border-base-200 cosy:z-50 cosy:w-full cosy:m-0 cosy:p-0 cosy:min-h-1',
-		headerHeightClass,
-		{ 'cosy:fixed cosy:top-0': sticky },
-		{ 'cosy:border cosy:border-dashed cosy:border-red-500': debug },
+		'cosy:w-full cosy:z-50',
+		{
+			'cosy:fixed cosy:top-0': sticky,
+			'cosy:border cosy:bg-amber-300 cosy:border-dashed cosy:border-green-500': debug,
+		},
+		{
+			'cosy:px-2': paddingHorizontal === 'sm',
+			'cosy:px-4': paddingHorizontal === 'md',
+			'cosy:px-6': paddingHorizontal === 'lg',
+			'cosy:px-8': paddingHorizontal === 'xl',
+			'cosy:px-12': paddingHorizontal === '2xl',
+			'cosy:px-16': paddingHorizontal === '3xl',
+		},
+		{
+			'cosy:py-2': paddingVertical === 'sm',
+			'cosy:py-4': paddingVertical === 'md',
+			'cosy:py-6': paddingVertical === 'lg',
+			'cosy:py-8': paddingVertical === 'xl',
+			'cosy:py-12': paddingVertical === '2xl',
+			'cosy:py-16': paddingVertical === '3xl',
+		},
 	]}>
-	<div class="cosy:navbar-start cosy:pl-1">
-		<Link
-			animation="none"
-			debug={debug}
-			href={logoHref}
-			class:list={['cosy:btn cosy:btn-ghost', linkHeightClass]}>
-			<Image
-				rounded="full"
-				showPlaceholder={false}
-				transition="none"
-				lazy={false}
-				src={logo}
-				alt="logo"
-				class={logoSizeClass}
-			/>
-		</Link>
-	</div>
-
-	<!-- 导航 -->
-	<div class="cosy:hidden cosy:lg:flex cosy:navbar-center">
-		<ul class:list={['cosy:px-1 cosy:menu cosy:menu-horizontal', linkHeightClass]}>
+	<!-- 背景 -->
+	<div
+		class:list={[
+			'cosy:bg-accent/70 cosy:flex cosy:flex-grow cosy:backdrop-blur not-prose cosy:border-base-200',
 			{
-				navItems.map((item: NavItem) => (
-					<li>
-						<Link
-							variant={activeLink == item.href ? 'primary' : 'default'}
-							href={item.href}
-							class:list={[linkHeightClass]}>
-							{item.label}
-						</Link>
-					</li>
-				))
-			}
-		</ul>
-	</div>
+				'cosy:rounded-none': rounded === 'none',
+				'cosy:rounded-sm': rounded === 'sm',
+				'cosy:rounded-md': rounded === 'md',
+				'cosy:rounded-lg': rounded === 'lg',
+				'cosy:rounded-xl': rounded === 'xl',
+				'cosy:rounded-full': rounded === 'full',
+			},
+			headerHeightClass,
+			{ 'cosy:border cosy:border-dashed cosy:border-red-500': debug },
+		]}>
+		<!-- 品牌Logo -->
+		<div class="cosy:navbar-start cosy:pl-1">
+			<Link
+				animation="none"
+				debug={debug}
+				href={logoHref}
+				class:list={['cosy:btn cosy:btn-ghost', linkHeightClass]}>
+				<Image
+					rounded="full"
+					showPlaceholder={false}
+					transition="none"
+					lazy={false}
+					src={logo}
+					alt="logo"
+					class={logoSizeClass}
+				/>
+			</Link>
+		</div>
 
-	<div class="cosy:navbar-end cosy:pr-1">
-		<LanguageSwitcher languages={languages} />
+		<!-- 导航 -->
+		<div class="cosy:hidden cosy:lg:flex cosy:navbar-center">
+			<ul class:list={['cosy:px-1 cosy:menu cosy:menu-horizontal', linkHeightClass]}>
+				{
+					navItems.map((item: NavItem) => (
+						<li>
+							<Link
+								variant={activeLink == item.href ? 'primary' : 'default'}
+								href={item.href}
+								class:list={[linkHeightClass]}>
+								{item.label}
+							</Link>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+
+		<!-- 语言切换 -->
+		<div class="cosy:navbar-end cosy:pr-1">
+			<LanguageSwitcher languages={languages} />
+		</div>
 	</div>
 </header>

@@ -7,7 +7,9 @@ order: 6
 
 import { CodeExample, Header, getExampleImage } from '@/index';
 
-Header 组件是一个用于网站顶部导航的布局组件，提供了logo、导航菜单、语言切换等功能。组件支持响应式设计，在不同屏幕尺寸下有良好的显示效果，并可选择固定在页面顶部。
+Header 组件是一个用于网站顶部导航的布局组件，提供了logo、导航菜单、语言切换等功能。组件支持响应式设计，在不同屏幕尺寸下有良好的显示效果，并可选择固定在页面顶部。  
+
+这里的文档仅列出了常见用法，更多用法请参考组件的源码。
 
 ## 基础用法
 
@@ -22,7 +24,8 @@ Header 组件是一个用于网站顶部导航的布局组件，提供了logo、
   <Header 
     debug={false}
     logo={{ src: getExampleImage({ width: 100, height: 100, provider:"picsum", tag: "tech" }), width: 100, height: 100, format: "png" }}
-    logoHref="/"
+              logoHref="/"
+    rounded="lg"
     sticky={false}
   />
 </CodeExample>
@@ -45,7 +48,8 @@ Header 组件是一个用于网站顶部导航的布局组件，提供了logo、
   <Header 
     logo={{ src: getExampleImage({ width: 100, height: 100, provider:"picsum", tag: "tech" }), width: 100, height: 100, format: "png" }}
     logoHref="/"
-    sticky={false}
+              sticky={false}
+    rounded="lg"
     navItems={[
       { href: "/docs", label: "文档", match: (path) => path.startsWith("/docs") },
       { href: "/components", label: "组件", match: (path) => path.startsWith("/components") },
@@ -71,7 +75,8 @@ Header 组件是一个用于网站顶部导航的布局组件，提供了logo、
     logo={{ src: getExampleImage({ width: 100, height: 100, provider:"picsum", tag: "tech" }), width: 100, height: 100, format: "png" }}
     logoHref="/"
     sticky={false}
-    height="sm"
+              height="sm"
+    rounded="lg"
   />
 </CodeExample>
 
@@ -104,7 +109,8 @@ Header 组件是一个用于网站顶部导航的布局组件，提供了logo、
     logoHref="/"
     sticky={false}
     languages={["zh-cn", "en"]}
-    currentLocale="zh-cn"
+              currentLocale="zh-cn"
+    rounded="lg"
   />
 </CodeExample>
 
@@ -122,26 +128,8 @@ Header 组件是一个用于网站顶部导航的布局组件，提供了logo、
   <Header 
     logo={{ src: getExampleImage({ width: 100, height: 100, provider:"picsum", tag: "tech" }), width: 100, height: 100, format: "png" }}
     logoHref="/"
-    sticky={false}
-  />
-</CodeExample>
-
-## 带基础路径
-
-对于部署在子目录下的网站，可以使用 `basePath` 属性处理路径：
-
-<CodeExample
-  code={`<Header 
-  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
-  logoHref="/"
-  basePath="/my-site"
-/>`}
->
-  <Header 
-    logo={{ src:getExampleImage({ width: 100, height: 100, provider:"picsum", tag: "tech" }), width: 100, height: 100, format: "png" }}
-    logoHref="/"
-    sticky={false}
-    basePath="/my-site"
+              sticky={false}
+    rounded="lg"
   />
 </CodeExample>
 
@@ -155,7 +143,7 @@ Header 组件是一个用于网站顶部导航的布局组件，提供了logo、
 | languages | array | [中文, English] | 语言选项数组，每项包含 code
 | currentLocale | string | "zh-cn" | 当前语言代码 |
 | sticky | boolean | true | 是否固定在页面顶部 |
-| basePath | string | "" | 网站基础路径，用于部署在子目录的情况 |
+| rounded | 'none' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full' | 'md' | 圆角样式大小，从无圆角到全圆角 |
 | height | string | "md" | 导航栏高度: "sm", "md", "lg", "xl" |
 | socialLinks | array | - | 社交媒体链接数组 |
 | showSidebarToggle | boolean | false | 是否显示侧边栏切换按钮 |
@@ -177,12 +165,3 @@ interface Language {
   name: string;   // 语言显示名称
 }
 ```
-
-## 最佳实践
-
-- 为了良好的用户体验，建议在移动设备上使用固定的页头，并搭配汉堡菜单
-- 导航项数量不宜过多，通常4-6个为宜，过多时考虑使用下拉菜单分组
-- 为多语言网站设置清晰的语言切换按钮，并确保当前语言明显标识
-- 使用 `match` 函数提供精确的当前路径匹配逻辑，为用户提供明确的位置指示
-- 当使用 `sticky` 属性时，注意设置适当的内容边距，避免内容被固定的页头遮挡
-- 选择适合您网站风格的高度，一般而言，营销网站可以使用较大高度，而工具类网站通常选择较小高度以节省垂直空间

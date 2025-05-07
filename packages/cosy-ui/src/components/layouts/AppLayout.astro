@@ -202,23 +202,7 @@ const {
 	head={metaConfig.head}
 	debug={debug}
 	{...rest}>
-	{
-		showHeader && (
-			<Header
-				logo={headerConfig.logo}
-				logoHref={headerConfig.logoHref}
-				navItems={headerConfig.navItems}
-				languages={headerConfig.languages}
-				currentLocale={headerConfig.currentLocale}
-				sticky={headerConfig.sticky}
-				basePath={headerConfig.basePath}
-				showSidebarToggle={headerConfig.showSidebarToggle}
-				defaultSidebarOpen={headerConfig.defaultSidebarOpen}
-				height={headerConfig.height}
-				transition:persist
-			/>
-		)
-	}
+	{showHeader && <Header {...headerConfig} debug={debug} transition:persist />}
 
 	<Container flex="row" gap="md" size="full" padding="none">
 		<!-- 侧边栏容器 -->
