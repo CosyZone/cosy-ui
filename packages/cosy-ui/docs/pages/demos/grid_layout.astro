@@ -58,13 +58,13 @@ const languages = ['zh-cn', 'en'];
 		logoHref: homeLink,
 		navItems: getNavItems(),
 		languages: languages,
-		currentLocale: currentLocale,
 	}}
 	mainContentConfig={{
 		verticalPadding: '4xl',
 		size: 'full',
 		padding: 'xl',
-	}}>
+	}}
+>
 	<div class="cosy:space-y-8">
 		<h1 class="cosy:text-3xl cosy:font-bold">网格布局演示</h1>
 
@@ -95,14 +95,16 @@ const languages = ['zh-cn', 'en'];
 			<Grid cols={3} gap="md">
 				<div
 					class="cosy:bg-base-200 cosy:p-4 cosy:rounded-lg cosy:text-center"
-					style="grid-column: span 2;">
+					style="grid-column: span 2;"
+				>
 					跨越2列
 				</div>
 				<div class="cosy:bg-base-200 cosy:p-4 cosy:rounded-lg cosy:text-center">1列</div>
 				<div class="cosy:bg-base-200 cosy:p-4 cosy:rounded-lg cosy:text-center">1列</div>
 				<div
 					class="cosy:bg-base-200 cosy:p-4 cosy:rounded-lg cosy:text-center"
-					style="grid-column: span 2;">
+					style="grid-column: span 2;"
+				>
 					跨越2列
 				</div>
 			</Grid>

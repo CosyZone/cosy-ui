@@ -106,12 +106,11 @@ const {
 	maxDepth = 3,
 	containerSelector = 'main',
 	minHeadings = 2,
-	lang: userLang,
 	title,
 } = Astro.props;
 
 // 获取当前语言
-const langInfo = LanguageUtil.getCurrentLanguage(userLang);
+const langInfo = LanguageUtil.getCurrentLanguage(Astro);
 // 创建文本获取函数
 const t = createTextGetter(langInfo, 'tableOfContents');
 // 获取标题文本，如果用户提供了标题则使用用户提供的标题
@@ -126,7 +125,8 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
 		<div
 			class={`toc-container toc-scroll-container ${fixed ? 'cosy:w-64' : 'cosy:w-full cosy:max-w-xs'}`}
 			id={`${tocId}-container`}
-			style="display: none;">
+			style="display: none;"
+		>
 			<div class="cosy:bg-base-100 cosy:shadow-inner cosy:card">
 				<div class="cosy:p-4 cosy:card-body">
 					<div class="cosy:mb-2 cosy:font-bold cosy:text-lg cosy:card-title">{titleText}</div>
