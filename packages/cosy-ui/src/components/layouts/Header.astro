@@ -55,7 +55,9 @@ import Image from '../base/Image.astro';
 import { LanguageSwitcher, LinkUtil, type HeaderProps, type NavItem } from '../../index';
 import Logo from '../../assets/logo-rounded.png';
 
-export interface Props extends HeaderProps {}
+export interface Props extends HeaderProps {
+	debug?: boolean;
+}
 
 const {
 	height = 'md',
@@ -64,6 +66,7 @@ const {
 	logoHref = '/',
 	navItems = [],
 	sticky = true,
+	debug = false,
 } = Astro.props;
 
 // 根据高度设置样式
@@ -110,16 +113,19 @@ const activeLink = LinkUtil.getActiveLink(
 
 <header
 	class:list={[
-		'cosy:navbar cosy:bg-accent/70 cosy:backdrop-blur cosy:border-base-200 cosy:z-50 cosy:w-full cosy:m-0 cosy:p-0 cosy:min-h-1',
+		'cosy:navbar cosy:bg-accent/70 cosy:backdrop-blur not-prose cosy:border-base-200 cosy:z-50 cosy:w-full cosy:m-0 cosy:p-0 cosy:min-h-1',
 		headerHeightClass,
 		{ 'cosy:fixed cosy:top-0': sticky },
+		{ 'cosy:border cosy:border-dashed cosy:border-red-500': debug },
 	]}>
-	<div class="cosy:navbar-start">
+	<div class="cosy:navbar-start cosy:pl-1">
 		<Link
 			animation="none"
+			debug={debug}
 			href={logoHref}
 			class:list={['cosy:btn cosy:btn-ghost', linkHeightClass]}>
 			<Image
+				rounded="full"
 				showPlaceholder={false}
 				transition="none"
 				lazy={false}
@@ -148,7 +154,7 @@ const activeLink = LinkUtil.getActiveLink(
 		</ul>
 	</div>
 
-	<div class="cosy:navbar-end">
+	<div class="cosy:navbar-end cosy:pr-1">
 		<LanguageSwitcher languages={languages} />
 	</div>
 </header>

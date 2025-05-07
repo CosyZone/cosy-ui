@@ -5,7 +5,7 @@ folder: false
 order: 6
 ---
 
-import { CodeExample } from '@/index';
+import { CodeExample, Header, getExampleImage } from '@/index';
 
 Header 组件是一个用于网站顶部导航的布局组件，提供了logo、导航菜单、语言切换等功能。组件支持响应式设计，在不同屏幕尺寸下有良好的显示效果，并可选择固定在页面顶部。
 
@@ -13,47 +13,46 @@ Header 组件是一个用于网站顶部导航的布局组件，提供了logo、
 
 基本的 Header 组件包含 logo 和语言切换功能：
 
-```astro
----
-import { Header } from 'cosy-ui';
----
-
-<Header
-  logo={logoImage}
+<CodeExample
+  code={`<Header 
+  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
   logoHref="/"
-/>
-```
+/>`}
+>
+  <Header 
+    debug={false}
+    logo={{ src: getExampleImage({ width: 100, height: 100, provider:"picsum", tag: "tech" }), width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    sticky={false}
+  />
+</CodeExample>
 
 ## 带导航菜单
 
 通过 `navItems` 属性添加导航菜单项：
 
-```astro
----
-import { Header } from 'cosy-ui';
----
-
-<Header
+<CodeExample
+  code={`<Header 
+  logo={{ src: getExampleImage({ width: 100, height: 100, provider:"picsum", tag: "tech" }) }}
   logoHref="/"
   navItems={[
-    { 
-      href: "/docs", 
-      label: "文档", 
-      match: (path) => path.startsWith("/docs") 
-    },
-    { 
-      href: "/components", 
-      label: "组件", 
-      match: (path) => path.startsWith("/components") 
-    },
-    { 
-      href: "/blog", 
-      label: "博客", 
-      match: (path) => path.startsWith("/blog") 
-    }
+    { href: "/docs", label: "文档", match: (path) => path.startsWith("/docs") },
+    { href: "/components", label: "组件", match: (path) => path.startsWith("/components") },
+    { href: "/blog", label: "博客", match: (path) => path.startsWith("/blog") }
   ]}
-/>
-```
+/>`}
+>
+  <Header 
+    logo={{ src: getExampleImage({ width: 100, height: 100, provider:"picsum", tag: "tech" }), width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    sticky={false}
+    navItems={[
+      { href: "/docs", label: "文档", match: (path) => path.startsWith("/docs") },
+      { href: "/components", label: "组件", match: (path) => path.startsWith("/components") },
+      { href: "/blog", label: "博客", match: (path) => path.startsWith("/blog") }
+    ]}
+  />
+</CodeExample>
 
 `match` 函数用于确定当前页面是否与导航项匹配，如果匹配则应用活动样式。
 
@@ -61,17 +60,20 @@ import { Header } from 'cosy-ui';
 
 使用 `height` 属性可以设置导航栏的高度，支持七种预设大小：
 
-```astro
----
-import { Header } from 'cosy-ui';
-import logoImage from '../assets/logo.png';
----
-
-<Header
-  logo={logoImage}
-  height="sm" // 可选值: "3xs", "2xs", "xs", "sm", "md", "lg", "xl"
-/>
-```
+<CodeExample
+  code={`<Header 
+  logo={{ src: getExampleImage({ width: 100, height: 100, provider: "robohash", randomSeed: "cosy" }) }}
+  logoHref="/"
+  height="sm"
+/>`}
+>
+  <Header 
+    logo={{ src: getExampleImage({ width: 100, height: 100, provider:"picsum", tag: "tech" }), width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    sticky={false}
+    height="sm"
+  />
+</CodeExample>
 
 不同高度对比：
 
@@ -89,50 +91,59 @@ import logoImage from '../assets/logo.png';
 
 自定义语言切换下拉菜单中的选项：
 
-```astro
----
-import { Header } from 'cosy-ui';
-import logoImage from '../assets/logo.png';
----
-
-<Header
-  logo={logoImage}
-  languages={["zh-cn", "en", "ja"]}
+<CodeExample
+  code={`<Header 
+  logo={{ src: getExampleImage({ width: 100, height: 100, provider: "picsum", blur: 2 }) }}
+  logoHref="/"
+  languages={["zh-cn", "en"]}
   currentLocale="zh-cn"
-/>
-```
+/>`}
+>
+  <Header 
+    logo={{ src: getExampleImage({ width: 100, height: 100, provider:"picsum", tag: "tech" }), width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    sticky={false}
+    languages={["zh-cn", "en"]}
+    currentLocale="zh-cn"
+  />
+</CodeExample>
 
 ## 固定在顶部
 
 使用 `sticky` 属性可以使导航栏固定在页面顶部：
 
-```astro
----
-import { Header } from 'cosy-ui';
-import logoImage from '../assets/logo.png';
----
-
-<Header
-  logo={logoImage}
+<CodeExample
+  code={`<Header 
+  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+  logoHref="/"
   sticky={true}
-/>
-```
+/>`}
+>
+  <Header 
+    logo={{ src: getExampleImage({ width: 100, height: 100, provider:"picsum", tag: "tech" }), width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    sticky={false}
+  />
+</CodeExample>
 
 ## 带基础路径
 
 对于部署在子目录下的网站，可以使用 `basePath` 属性处理路径：
 
-```astro
----
-import { Header } from 'cosy-ui';
-import logoImage from '../assets/logo.png';
----
-
-<Header
-  logo={logoImage}
+<CodeExample
+  code={`<Header 
+  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+  logoHref="/"
   basePath="/my-site"
-/>
-```
+/>`}
+>
+  <Header 
+    logo={{ src:getExampleImage({ width: 100, height: 100, provider:"picsum", tag: "tech" }), width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    sticky={false}
+    basePath="/my-site"
+  />
+</CodeExample>
 
 ## 属性
 
