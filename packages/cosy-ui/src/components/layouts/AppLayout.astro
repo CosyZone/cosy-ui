@@ -203,16 +203,16 @@ const {
 	debug={debug}
 	{...rest}
 >
+	<ClientRouter />
 	{showHeader && <Header {...headerConfig} debug={debug} transition:persist />}
 
 	<Container flex="row" gap="md" size="full" padding="none">
 		<!-- 侧边栏容器 -->
-		{showSidebar && <Sidebar {...sidebarConfig} />}
+		{showSidebar && <Sidebar {...sidebarConfig} transition:name="sidebar" transition:persist />}
 
 		<!-- 主内容区域 -->
 		<Main {...mainContentConfig}>
 			<slot />
-			<ClientRouter />
 		</Main>
 	</Container>
 
