@@ -28,7 +28,6 @@ jobs:
           version: 9.15.9
       - name: Publish Package
         run: |
-          cd packages/cosy-ui
           npm config set //registry.npmjs.org/:_authToken ${NODE_AUTH_TOKEN}
           npm whoami
           pnpm i
