@@ -1,5 +1,5 @@
 import { render, type RenderResult, type CollectionEntry, type DataEntryMap } from 'astro:content';
-import { SidebarItemEntity, type SidebarProvider } from '../entities/SidebarItem';
+import { SidebarItemEntity, type SidebarProvider } from './SidebarItem';
 import { logger } from '../utils/logger';
 
 /**

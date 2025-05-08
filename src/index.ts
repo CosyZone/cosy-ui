@@ -94,7 +94,7 @@ export * from './types/meta';
 export type { ImageProvider, ImageOptions } from './utils/image';
 
 // Models
-export * from './models/BaseDoc';
+export * from './entities/BaseDoc';
 
 // Database
 export * from './database/BaseDB';
