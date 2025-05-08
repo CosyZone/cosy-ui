@@ -174,7 +174,6 @@ jobs:
             git pull origin $branch
             
             npm version ${{ env.VERSION }} --no-git-tag-version
-            cd ../..
             
             git add .
             git commit -m "chore: sync version ${{ env.VERSION }} from $current_branch branch"
