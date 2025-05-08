@@ -117,3 +117,59 @@ const currentSection = sidebarItems.find((section) =>
 		<SidebarNav sidebarItems={sidebarItems} currentPath={currentPath} debug={debug} />
 	</div>
 </aside>
+
+<script>
+	// 处理侧边栏滚动位置保存和恢复
+	document.addEventListener('astro:before-preparation', () => {
+		// 获取桌面侧边栏滚动容器
+		const desktopSidebarContent = document.querySelector(
+			'aside[data-sidebar] .cosy\\:overflow-y-auto'
+		);
+
+		// 保存滚动位置到localStorage
+		if (desktopSidebarContent) {
+			localStorage.setItem('sidebarScrollPosition', desktopSidebarContent.scrollTop.toString());
+		}
+
+		// 获取移动端侧边栏滚动容器
+		const mobileSidebarContent = document.querySelector(
+			'.cosy\\:h-\\[calc\\(100vh-8rem\\)\\].cosy\\:overflow-y-auto'
+		);
+
+		// 保存移动端滚动位置
+		if (mobileSidebarContent) {
+			localStorage.setItem(
+				'mobileSidebarScrollPosition',
+				mobileSidebarContent.scrollTop.toString()
+			);
+		}
+	});
+
+	document.addEventListener('astro:page-load', () => {
+		// 获取桌面侧边栏滚动容器
+		const desktopSidebarContent = document.querySelector(
+			'aside[data-sidebar] .cosy\\:overflow-y-auto'
+		);
+
+		// 恢复滚动位置
+		if (desktopSidebarContent) {
+			const savedPosition = localStorage.getItem('sidebarScrollPosition');
+			if (savedPosition) {
+				desktopSidebarContent.scrollTop = parseInt(savedPosition, 10);
+			}
+		}
+
+		// 获取移动端侧边栏滚动容器
+		const mobileSidebarContent = document.querySelector(
+			'.cosy\\:h-\\[calc\\(100vh-8rem\\)\\].cosy\\:overflow-y-auto'
+		);
+
+		// 恢复移动端滚动位置
+		if (mobileSidebarContent) {
+			const savedMobilePosition = localStorage.getItem('mobileSidebarScrollPosition');
+			if (savedMobilePosition) {
+				mobileSidebarContent.scrollTop = parseInt(savedMobilePosition, 10);
+			}
+		}
+	});
+</script>
