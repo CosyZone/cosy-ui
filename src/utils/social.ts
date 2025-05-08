@@ -63,7 +63,7 @@ function detectPlatform(url: string): [string, PlatformConfig] | null {
 			}
 		}
 	} catch (e) {
-		console.error('Invalid URL:', url);
+		console.error('Invalid URL:', url, e);
 	}
 	return null;
 }

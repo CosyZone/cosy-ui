@@ -94,13 +94,6 @@ export class LanguageUtil {
 			return pathMatch[1];
 		}
 
-		// 如果网站运行在二级目录，则从路径中提取语言代码
-		// 例如: /docs/zh-cn/components/button
-		const pathMatch2 = currentUrl.match(/^\/([^\/]+)\/([\w-]+)\//);
-		if (pathMatch2) {
-			return pathMatch2[2];
-		}
-
 		// 尝试从查询参数中提取语言代码
 		// 例如: ?lang=zh-cn
 		const urlParams = new URLSearchParams(currentUrl.split('?')[1]);

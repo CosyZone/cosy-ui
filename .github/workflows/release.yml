@@ -115,7 +115,6 @@ jobs:
           
       - name: Bump Version
         run: |
-          cd packages/cosy-ui
           current_version=$(node -p "require('./package.json').version")
           IFS='.' read -r major minor patch <<< "$current_version"
           
@@ -174,7 +173,6 @@ jobs:
             git checkout $branch
             git pull origin $branch
             
-            cd packages/cosy-ui
             npm version ${{ env.VERSION }} --no-git-tag-version
             cd ../..
             
