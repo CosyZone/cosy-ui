@@ -42,7 +42,7 @@ export { default as Article } from './components/typography/Article.astro';
 export { default as Text } from './components/typography/Text.astro';
 export { default as Heading } from './components/typography/Heading.astro';
 
-// Errors Page 
+// Errors Page
 export { default as ErrorPage404 } from './components/errors/404.astro';
 
 // Icons
@@ -79,6 +79,7 @@ export * from './utils/i18n';
 export * from './utils/path';
 export * from './utils/url';
 export * from './utils/language';
+export * from './utils/lang_package';
 export * from './utils/logger';
 export * from './utils/link';
 
