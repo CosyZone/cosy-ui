@@ -47,6 +47,11 @@ export class LanguageUtil {
 	 * @returns 当前应使用的语言代码
 	 */
 	static getCurrentLanguage(astro: AstroGlobal): string {
+		// 尝试从Astro全局对象中获取语言
+		const astroLang = astro.currentLocale;
+		if (astroLang) {
+			return astroLang;
+		}
 		// 尝试从URL中获取语言
 		const urlLang = this.getLanguageFromURL(astro.url.pathname);
 		if (urlLang) {
@@ -57,6 +62,12 @@ export class LanguageUtil {
 		const browserLang = this.getLanguageFromBrowser();
 		if (browserLang) {
 			return browserLang;
+		}
+
+		// 尝试从Astro全局对象中获取语言
+		const preferredLocale = astro.preferredLocale;
+		if (preferredLocale) {
+			return preferredLocale;
 		}
 
 		// 如果无法检测，返回默认语言
