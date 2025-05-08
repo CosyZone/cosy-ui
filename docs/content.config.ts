@@ -1,17 +1,9 @@
-import {
-	ArticleCollection,
-	BlogCollection,
-	MetaCollection,
-	CourseCollection,
-	ExperimentCollection,
-	LessonCollection,
-} from '@/index';
+import { articleLoader, articleSchema } from '@/collections/ArticleCollection';
+import { defineCollection } from 'astro:content';
 
 export const collections = {
-	articles: ArticleCollection,
-	blogs: BlogCollection,
-	meta: MetaCollection,
-	courses: CourseCollection,
-	lessons: LessonCollection,
-	experiments: ExperimentCollection,
+	articles: defineCollection({
+		loader: articleLoader,
+		schema: articleSchema,
+	}),
 };
