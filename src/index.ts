@@ -11,7 +11,7 @@ export { default as Module } from './components/base/Module.astro';
 export { ArticleCollection } from './collections/ArticleCollection';
 export { BlogCollection } from './collections/BlogCollection';
 export { CourseCollection } from './collections/CourseCollection';
-export { ExperimentCollection } from './collections/ExpirementCollection';
+export { ExperimentCollection } from './collections/ExperimentCollection';
 export { LessonCollection } from './collections/LessonCollection';
 export { MetaCollection } from './collections/MetaCollection';
 
