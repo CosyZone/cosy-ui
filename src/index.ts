@@ -7,6 +7,14 @@ export { default as Alert } from './components/base/Alert.astro';
 export { default as Speak } from './components/base/Speak.astro';
 export { default as Module } from './components/base/Module.astro';
 
+// Collections
+export { ArticleCollection } from './collections/ArticleCollection';
+export { BlogCollection } from './collections/BlogCollection';
+export { CourseCollection } from './collections/CourseCollection';
+export { ExperimentCollection } from './collections/ExpirementCollection';
+export { LessonCollection } from './collections/LessonCollection';
+export { MetaCollection } from './collections/MetaCollection';
+
 // Navigation
 export { default as ThemeSwitcher } from './components/navigation/ThemeSwitcher.astro';
 export { default as TableOfContents } from './components/navigation/TableOfContents.astro';
