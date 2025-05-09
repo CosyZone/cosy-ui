@@ -2,9 +2,9 @@ import type { BlogEntry } from '../database/BlogDB';
 import { LinkUtil } from '../utils/link';
 import Tag from './Tag';
 import { BaseDoc } from './BaseDoc';
-import { COLLECTION_NAME } from '../database/BlogDB';
+import { COLLECTION_BLOG } from '../database/BlogDB';
 
-export default class BlogDoc extends BaseDoc<typeof COLLECTION_NAME, BlogEntry> {
+export default class BlogDoc extends BaseDoc<typeof COLLECTION_BLOG, BlogEntry> {
 	private constructor(entry: BlogEntry) {
 		super(entry);
 	}

@@ -5,10 +5,10 @@ import { SidebarItemEntity } from './SidebarItem';
 import type { Heading } from './Heading';
 import { LinkUtil } from '../utils/link';
 import { HierarchicalDoc } from './BaseDoc';
-import { COLLECTION_NAME } from '../database/ExperimentDB';
+import { COLLECTION_EXPERIMENT } from '../database/ExperimentDB';
 
 export default class ExperimentDoc extends HierarchicalDoc<
-	typeof COLLECTION_NAME,
+	typeof COLLECTION_EXPERIMENT,
 	ExperimentEntry
 > {
 	constructor(entry: ExperimentEntry) {

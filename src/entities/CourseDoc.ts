@@ -4,9 +4,9 @@ import type { CourseEntry } from '../database/CourseDB';
 import courseDB from '../database/CourseDB';
 import { LinkUtil } from '../utils/link';
 import { HierarchicalDoc } from './BaseDoc';
-import { COLLECTION_NAME } from '../database/CourseDB';
+import { COLLECTION_COURSE } from '../database/CourseDB';
 
-export default class CourseDoc extends HierarchicalDoc<typeof COLLECTION_NAME, CourseEntry> {
+export default class CourseDoc extends HierarchicalDoc<typeof COLLECTION_COURSE, CourseEntry> {
 	constructor(entry: CourseEntry) {
 		super(entry);
 	}

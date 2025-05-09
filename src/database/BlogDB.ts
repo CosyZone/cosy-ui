@@ -4,8 +4,8 @@ import { logger } from '../utils/logger';
 import { type CollectionEntry } from 'astro:content';
 import { BaseDB } from './BaseDB';
 
-export const COLLECTION_NAME = 'blogs' as const;
-export type BlogEntry = CollectionEntry<typeof COLLECTION_NAME>;
+export const COLLECTION_BLOG = 'blogs' as const;
+export type BlogEntry = CollectionEntry<typeof COLLECTION_BLOG>;
 
 /**
  * 博客数据库类，用于管理博客内容集合。
@@ -23,8 +23,8 @@ export type BlogEntry = CollectionEntry<typeof COLLECTION_NAME>;
  *     └── web-performance.md
  * ```
  */
-class BlogDB extends BaseDB<typeof COLLECTION_NAME, BlogEntry, BlogDoc> {
-	protected collectionName = COLLECTION_NAME;
+class BlogDB extends BaseDB<typeof COLLECTION_BLOG, BlogEntry, BlogDoc> {
+	protected collectionName = COLLECTION_BLOG;
 
 	protected createDoc(entry: BlogEntry): BlogDoc {
 		return BlogDoc.fromEntry(entry);

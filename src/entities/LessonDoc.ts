@@ -5,9 +5,9 @@ import { SidebarItemEntity } from './SidebarItem';
 import type { Heading } from './Heading';
 import { LinkUtil } from '../utils/link';
 import { HierarchicalDoc } from './BaseDoc';
-import { COLLECTION_NAME } from '../database/LessonDB';
+import { COLLECTION_LESSON } from '../database/LessonDB';
 
-export default class LessonDoc extends HierarchicalDoc<typeof COLLECTION_NAME, LessonEntry> {
+export default class LessonDoc extends HierarchicalDoc<typeof COLLECTION_LESSON, LessonEntry> {
 	constructor(entry: LessonEntry) {
 		super(entry);
 	}

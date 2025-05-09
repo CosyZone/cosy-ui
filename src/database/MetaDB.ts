@@ -3,8 +3,8 @@ import { logger } from '../utils/logger';
 import { type CollectionEntry } from 'astro:content';
 import { BaseDB } from './BaseDB';
 
-export const COLLECTION_NAME = 'meta' as const;
-export type MetaEntry = CollectionEntry<typeof COLLECTION_NAME>;
+export const COLLECTION_META = 'meta' as const;
+export type MetaEntry = CollectionEntry<typeof COLLECTION_META>;
 
 /**
  * 元数据数据库类，用于管理网站的元数据内容集合（如"关于我们"等页面）
@@ -21,8 +21,8 @@ export type MetaEntry = CollectionEntry<typeof COLLECTION_NAME>;
  *     └── terms.md
  * ```
  */
-class MetaDB extends BaseDB<typeof COLLECTION_NAME, MetaEntry, MetaDoc> {
-	protected collectionName = COLLECTION_NAME;
+class MetaDB extends BaseDB<typeof COLLECTION_META, MetaEntry, MetaDoc> {
+	protected collectionName = COLLECTION_META;
 
 	protected createDoc(entry: MetaEntry): MetaDoc {
 		return new MetaDoc(entry);

@@ -118,3 +118,8 @@ export * from './entities/Tag';
 
 // Database
 export * from './database/BaseDB';
+export * from './database/BlogDB';
+export * from './database/CourseDB';
+export * from './database/ExperimentDB';
+export * from './database/LessonDB';
+export * from './database/MetaDB';

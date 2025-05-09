@@ -3,8 +3,8 @@ import { BaseDB } from './BaseDB';
 import LessonDoc from '../entities/LessonDoc';
 import { logger } from '../utils/logger';
 
-export const COLLECTION_NAME = 'lessons' as const;
-export type LessonEntry = CollectionEntry<typeof COLLECTION_NAME>;
+export const COLLECTION_LESSON = 'lessons' as const;
+export type LessonEntry = CollectionEntry<typeof COLLECTION_LESSON>;
 
 /**
  * 课程数据库类，用于管理课程内容集合
@@ -40,8 +40,8 @@ export type LessonEntry = CollectionEntry<typeof COLLECTION_NAME>;
  * - 每个语言版本包含完整的课程内容
  * - 课程目录可以作为 git 子模块独立管理
  */
-class LessonDB extends BaseDB<typeof COLLECTION_NAME, LessonEntry, LessonDoc> {
-	protected collectionName = COLLECTION_NAME;
+class LessonDB extends BaseDB<typeof COLLECTION_LESSON, LessonEntry, LessonDoc> {
+	protected collectionName = COLLECTION_LESSON;
 
 	protected createDoc(entry: LessonEntry): LessonDoc {
 		return new LessonDoc(entry);
