@@ -6,7 +6,7 @@ import { makeLessonCollection } from '@/collections/LessonCollection';
 import { makeMetaCollection } from '@/collections/MetaCollection';
 
 export const collections = {
-	articles: makeArticleCollection('./docs/content'),
+	articles: makeArticleCollection('./docs/articles'),
 	blogs: makeBlogCollection('./docs/blogs'),
 	courses: makeCourseCollection('./docs/courses'),
 	experiments: makeExperimentCollection('./docs/experiments'),

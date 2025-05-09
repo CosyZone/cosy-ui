@@ -1,7 +1,6 @@
 ---
-import { getGroupedRoutes } from '@docs/lib/route';
-import { getNavItems } from '@docs/lib/utils';
-import { type ISidebarItem, AppLayout, LinkUtil } from '../../..//src/index';
+import { navItems, homeLink } from '@docs/app.config';
+import { AppLayout } from '../../..//src/index';
 
 interface Props {
 	title: string;
@@ -11,26 +10,11 @@ interface Props {
 
 const { title, showTOC = true } = Astro.props;
 
-// 获取基础路径
-const basePath = LinkUtil.getBaseUrl();
-const homeLink = `${basePath}/`;
-
 // 从 URL 获取当前语言
 const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
-const groupedRoutes = await getGroupedRoutes(currentLocale);
 
 // 定义支持的语言
 const languages = ['zh-cn', 'en'];
-
-// 将路由转换为侧边栏项目格式
-const sidebarItems: ISidebarItem[] = groupedRoutes.map((group) => ({
-	text: group.group,
-	href: '',
-	items: group.routes.map((route) => ({
-		text: route.title,
-		href: route.path,
-	})),
-}));
 ---
 
 <AppLayout
@@ -41,7 +25,6 @@ const sidebarItems: ISidebarItem[] = groupedRoutes.map((group) => ({
 		keywords: 'Cosy UI, Astro, component library',
 		author: 'CofficLab',
 		robots: 'index, follow',
-		basePath: basePath,
 	}}
 	footerConfig={{
 		siteName: 'Cosy UI',
@@ -69,11 +52,11 @@ const sidebarItems: ISidebarItem[] = groupedRoutes.map((group) => ({
 	}}
 	headerConfig={{
 		logoHref: homeLink,
-		navItems: getNavItems(),
+		navItems: navItems,
 		languages: languages,
 	}}
 	sidebarConfig={{
-		sidebarItems: sidebarItems,
+		sidebarItems: [],
 		debug: false,
 	}}
 	mainContentConfig={{
