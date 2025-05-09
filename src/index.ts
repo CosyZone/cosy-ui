@@ -109,7 +109,6 @@ export * from './entities/SidebarItem';
 export * from './entities/Tag';
 
 // Database
-export * from './database/ArticleDB';
 export * from './database/BaseDB';
 export * from './database/BlogDB';
 export * from './database/CourseDB';

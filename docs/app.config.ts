@@ -1,4 +1,4 @@
-import { LinkUtil, type INavItem } from '../src/index';
+import { LinkUtil, type INavItem } from '@/index';
 
 export const homeLink = LinkUtil.getBaseUrl();
 export const basePath = LinkUtil.getBaseUrl();
@@ -8,7 +8,7 @@ export const navItems: INavItem[] = [
 		label: 'Home',
 	},
 	{
-		href: `${homeLink}courses`,
+		href: `${basePath}en/courses`,
 		label: 'Docs',
 	},
 	{
