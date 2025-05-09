@@ -1,15 +1,6 @@
-export interface Logo {
-	src: string;
-	alt: string;
-}
+import type { ILogo, IProduct } from './product';
 
-export interface Product {
-	name: string;
-	href: string;
-	external?: boolean;
-}
-
-export interface FooterProps {
+export interface IFooterProps {
 	/**
 	 * 关于链接
 	 */
@@ -79,7 +70,7 @@ export interface FooterProps {
 	/**
 	 * 徽标
 	 */
-	logo?: Logo;
+	logo?: ILogo;
 
 	/**
 	 * 媒体链接
@@ -104,7 +95,7 @@ export interface FooterProps {
 	/**
 	 * 产品
 	 */
-	products?: Product[];
+	products?: IProduct[];
 
 	/**
 	 * 站点名称

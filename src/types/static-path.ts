@@ -1,4 +1,4 @@
-export interface TagStaticPath {
+export interface ITagStaticPath {
 	params: {
 		slug: string;
 	};

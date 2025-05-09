@@ -1,7 +1,7 @@
 /**
  * 表示文档中的标题结构
  */
-export interface HeadingType {
+export interface IHeadingType {
 	/** 标题深度，如 h1=1, h2=2, h3=3 等 */
 	depth: number;
 

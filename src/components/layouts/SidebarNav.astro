@@ -7,13 +7,13 @@
 
 import { isPathMatch } from '../../utils/path';
 import '../../app.css';
-import type { SidebarItem } from '../../types/sidebar';
+import type { ISidebarItem } from '../../types/sidebar';
 
 interface Props {
 	/**
 	 * 侧边栏项目
 	 */
-	sidebarItems: SidebarItem[];
+	sidebarItems: ISidebarItem[];
 
 	/**
 	 * 当前路径
@@ -39,13 +39,13 @@ const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 
 <nav class:list={['cosy:p-4', debugClass, className]}>
 	{
-		sidebarItems.map((section: SidebarItem) => (
+		sidebarItems.map((section: ISidebarItem) => (
 			<div class:list={['cosy:mb-6', debugClass]}>
 				<h3 class:list={['cosy:font-bold cosy:mb-2 cosy:text-base-content/70', debugClass]}>
 					{section.text}
 				</h3>
 				<ul class:list={['cosy:menu cosy:bg-base-200 cosy:rounded-box cosy:w-56', debugClass]}>
-					{section.items?.map((item: SidebarItem) => {
+					{section.items?.map((item: ISidebarItem) => {
 						const isActive = isPathMatch(currentPath, item.href);
 						return (
 							<li class:list={[debugClass]}>
@@ -60,7 +60,7 @@ const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 								</a>
 								{item.items && (
 									<ul class:list={[debugClass]}>
-										{item.items.map((subitem: SidebarItem) => {
+										{item.items.map((subitem: ISidebarItem) => {
 											const isSubActive = isPathMatch(currentPath, subitem.href);
 											return (
 												<li class:list={[debugClass]}>
@@ -75,7 +75,7 @@ const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 													</a>
 													{subitem.items && (
 														<ul class:list={[debugClass]}>
-															{subitem.items.map((subsubitem: SidebarItem) => {
+															{subitem.items.map((subsubitem: ISidebarItem) => {
 																const isSubSubActive = isPathMatch(currentPath, subsubitem.href);
 																return (
 																	<li class:list={[debugClass]}>

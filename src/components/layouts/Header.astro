@@ -60,10 +60,10 @@
 import '../../app.css';
 import Link from '../base/Link.astro';
 import Image from '../base/Image.astro';
-import { LanguageSwitcher, LinkUtil, type HeaderProps, type NavItem } from '../../index';
+import { LanguageSwitcher, LinkUtil, type IHeaderProps, type INavItem } from '../../index';
 import Logo from '../../assets/logo-rounded.png';
 
-export interface Props extends HeaderProps {
+export interface Props extends IHeaderProps {
 	debug?: boolean;
 }
 
@@ -119,7 +119,7 @@ const linkHeightClass = linkHeightClasses[height];
 const currentPath = Astro.url.pathname;
 const activeLink = LinkUtil.getActiveLink(
 	currentPath,
-	navItems.map((item: NavItem) => item.href)
+	navItems.map((item: INavItem) => item.href)
 );
 ---
 
@@ -187,7 +187,7 @@ const activeLink = LinkUtil.getActiveLink(
 								'cosy:hidden cosy:lg:flex cosy:px-1 cosy:menu cosy:menu-horizontal',
 								linkHeightClass,
 							]}>
-							{navItems.map((item: NavItem) => (
+							{navItems.map((item: INavItem) => (
 								<li>
 									<Link
 										variant={activeLink == item.href ? 'primary' : 'default'}
@@ -224,7 +224,7 @@ const activeLink = LinkUtil.getActiveLink(
 			navPosition === 'center' && (
 				<div class="cosy:hidden cosy:lg:flex cosy:navbar-center">
 					<ul class:list={['cosy:px-1 cosy:menu cosy:menu-horizontal', linkHeightClass]}>
-						{navItems.map((item: NavItem) => (
+						{navItems.map((item: INavItem) => (
 							<li>
 								<Link
 									variant={activeLink == item.href ? 'primary' : 'default'}
@@ -248,7 +248,7 @@ const activeLink = LinkUtil.getActiveLink(
 							'cosy:hidden cosy:lg:flex cosy:px-1 cosy:menu cosy:menu-horizontal',
 							linkHeightClass,
 						]}>
-						{navItems.map((item: NavItem) => (
+						{navItems.map((item: INavItem) => (
 							<li>
 								<Link
 									variant={activeLink == item.href ? 'primary' : 'default'}

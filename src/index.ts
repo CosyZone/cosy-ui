@@ -99,6 +99,9 @@ export * from './types/layout';
 export * from './types/header';
 export * from './types/heading';
 export * from './types/meta';
+export * from './types/nav';
+export * from './types/product';
+export * from './types/footer';
 export * from './types/static-path';
 export type { ImageProvider, ImageOptions } from './utils/image';
 

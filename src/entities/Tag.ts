@@ -1,6 +1,6 @@
 import blogDB from '../database/BlogDB';
 import { SidebarItemEntity } from './SidebarItem';
-import { type TagStaticPath } from '../types/static-path';
+import { type ITagStaticPath } from '../types/static-path';
 import { LinkUtil } from '../utils/link';
 
 export class Tag {
@@ -21,7 +21,7 @@ export class Tag {
 		});
 	}
 
-	toTagPath(): TagStaticPath {
+	toTagPath(): ITagStaticPath {
 		return {
 			params: { slug: this.lang + '/blogs/tag/' + this.name },
 			props: { tag: this.name },
