@@ -8,12 +8,12 @@ export { default as Speak } from './components/base/Speak.astro';
 export { default as Module } from './components/base/Module.astro';
 
 // Collections
-export { ArticleCollection } from './collections/ArticleCollection';
-export { BlogCollection } from './collections/BlogCollection';
-export { CourseCollection } from './collections/CourseCollection';
-export { ExperimentCollection } from './collections/ExperimentCollection';
-export { LessonCollection } from './collections/LessonCollection';
-export { MetaCollection } from './collections/MetaCollection';
+export * from './collections/ArticleCollection';
+export * from './collections/BlogCollection';
+export * from './collections/CourseCollection';
+export * from './collections/ExperimentCollection';
+export * from './collections/LessonCollection';
+export * from './collections/MetaCollection';
 
 // Navigation
 export { default as ThemeSwitcher } from './components/navigation/ThemeSwitcher.astro';

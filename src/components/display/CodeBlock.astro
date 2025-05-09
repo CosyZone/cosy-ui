@@ -51,12 +51,11 @@ import '../../app.css';
 
 interface Props {
 	code: string;
-	lang?: string;
 	title?: string;
 	showLineNumbers?: boolean;
 }
 
-const { code, lang = 'plaintext', title, showLineNumbers = true } = Astro.props;
+const { code, title, showLineNumbers = true } = Astro.props;
 
 // 移除代码字符串开头和结尾的空行
 const trimmedCode = code.trim();

@@ -1,9 +1,11 @@
-import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { defineCollection } from 'astro:content';
 
-export const CourseCollection = defineCollection({
-	loader: glob({
-		pattern: '**/*.{md,mdx}',
-		base: './docs/courses',
-	}),
-});
+export const makeCourseCollection = (base: string) => {
+	return defineCollection({
+		loader: glob({
+			pattern: '**/*.{md,mdx}',
+			base,
+		}),
+	});
+};

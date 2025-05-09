@@ -4,7 +4,6 @@ import { createLogger } from 'vite';
 
 export default defineConfig({
 	plugins: [
-		// @ts-expect-error 类型错误
 		tailwindcss(),
 		{
 			name: 'post-build',

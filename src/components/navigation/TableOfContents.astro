@@ -125,8 +125,7 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
 		<div
 			class={`toc-container toc-scroll-container ${fixed ? 'cosy:w-64' : 'cosy:w-full cosy:max-w-xs'}`}
 			id={`${tocId}-container`}
-			style="display: none;"
-		>
+			style="display: none;">
 			<div class="cosy:bg-base-100 cosy:shadow-inner cosy:card">
 				<div class="cosy:p-4 cosy:card-body">
 					<div class="cosy:mb-2 cosy:font-bold cosy:text-lg cosy:card-title">{titleText}</div>
@@ -140,7 +139,11 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
 	</div>
 </aside>
 
-<script define:vars={{ selector, maxDepth, tocId, containerSelector, minHeadings, langInfo }}>
+<script
+	is:inline
+	define:vars={{ selector, maxDepth, tocId, containerSelector, minHeadings, langInfo }}
+>
+	// @ts-nocheck
 	// 在页面加载完成后生成目录
 	function generateTOC() {
 		// 使用指定的容器选择器查找内容容器

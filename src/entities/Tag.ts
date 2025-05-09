@@ -1,5 +1,5 @@
 import blogDB from '../database/BlogDB';
-import { SidebarItem } from './SidebarItem';
+import { SidebarItemEntity } from './SidebarItem';
 import { type TagStaticPath } from '../types/static-path';
 import { LinkUtil } from '../utils/link';
 
@@ -14,9 +14,9 @@ export class Tag {
 		this.lang = lang;
 	}
 
-	toSidebarItem(lang: string): SidebarItem {
-		return new SidebarItem({
-			label: this.name,
+	toSidebarItem(lang: string): SidebarItemEntity {
+		return new SidebarItemEntity({
+			text: this.name,
 			link: LinkUtil.getTagLink(lang, this.name),
 		});
 	}
@@ -28,11 +28,11 @@ export class Tag {
 		};
 	}
 
-	static async makeRootSidebarItem(lang: string): Promise<SidebarItem> {
+	static async makeRootSidebarItem(lang: string): Promise<SidebarItemEntity> {
 		const tags = await blogDB.getTagsByLang(lang);
 
-		return new SidebarItem({
-			label: 'Tags',
+		return new SidebarItemEntity({
+			text: 'Tags',
 			link: LinkUtil.getTagLink(lang, ''),
 			items: tags.map((tag: Tag) => tag.toSidebarItem(lang)),
 		});

@@ -93,7 +93,7 @@ const getGridClasses = (cols: 2 | 3 | 4) => {
 <div class:list={['cosy:w-full cosy:mx-auto cosy:px-4', className]}>
 	<div class:list={['cosy:grid cosy:gap-6', ...getGridClasses(columnsValue)]}>
 		{
-			members.map((member: TeamMemberData, index: number) => (
+			members.map((member: TeamMemberData) => (
 				<div class="cosy:transition-all cosy:hover:-translate-y-1 cosy:duration-300 cosy:transform">
 					<TeamMember {...member} />
 				</div>

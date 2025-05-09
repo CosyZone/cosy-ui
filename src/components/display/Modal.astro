@@ -103,7 +103,7 @@ const { id, title, showCloseButton = true, class: className = '' } = Astro.props
 	</form>
 </dialog>
 
-<script define:vars={{ id }}>
+<script is:inline define:vars={{ id }}>
 	// 为了方便使用，我们提供一些辅助方法
 	document.addEventListener('DOMContentLoaded', () => {
 		const modal = document.getElementById(id);
@@ -117,4 +117,3 @@ const { id, title, showCloseButton = true, class: className = '' } = Astro.props
 		});
 	});
 </script>
-
