@@ -1,7 +1,7 @@
 ---
 import { getGroupedRoutes } from '../lib/route';
 import { getNavItems, homeLink } from '../lib/utils';
-import { type SidebarItem, AppLayout } from '../../src/index';
+import { type ISidebarItem, AppLayout } from '../../src/index';
 
 interface Props {
 	title: string;
@@ -12,7 +12,7 @@ interface Props {
 const { title, showTOC = true, showSidebar = true } = Astro.props;
 const currentLocale = Astro.currentLocale;
 const groupedRoutes = await getGroupedRoutes(currentLocale);
-const sidebarItems: SidebarItem[] = groupedRoutes.map((group) => ({
+const sidebarItems: ISidebarItem[] = groupedRoutes.map((group) => ({
 	text: group.group,
 	href: '',
 	items: group.routes.map((route) => ({

@@ -1,71 +1,71 @@
-import type { FooterProps } from "./footer";
-import type { HeaderProps } from "./header";
-import type { MainContentProps } from "./main";
-import type { MetaProps } from "./meta";
-import type { SidebarProps } from "./sidebar";
+import type { IFooterProps } from './footer';
+import type { IHeaderProps } from './header';
+import type { IMainContentProps } from './main';
+import type { IMetaProps } from './meta';
+import type { ISidebarProps } from './sidebar';
 
-export interface AppLayoutProps {
-    /**
-     * 是否显示侧边栏
-     * @default true
-     */
-    showSidebar?: boolean;
+export interface IAppLayoutProps {
+	/**
+	 * 是否显示侧边栏
+	 * @default true
+	 */
+	showSidebar?: boolean;
 
-    /**
-     * 是否显示页眉
-     * @default true
-     */
-    showHeader?: boolean;
+	/**
+	 * 是否显示页眉
+	 * @default true
+	 */
+	showHeader?: boolean;
 
-    /**
-     * 是否显示页脚
-     * @default true
-     */
-    showFooter?: boolean;
+	/**
+	 * 是否显示页脚
+	 * @default true
+	 */
+	showFooter?: boolean;
 
-    /**
-     * 自定义头部内容
-     */
-    head?: astroHTML.JSX.Element;
+	/**
+	 * 自定义头部内容
+	 */
+	head?: astroHTML.JSX.Element;
 
-    /**
-     * 自定义头部内容
-     */
-    headerConfig: HeaderProps;
+	/**
+	 * 自定义头部内容
+	 */
+	headerConfig: IHeaderProps;
 
-    /**
-     * 侧边栏配置
-     */
-    sidebarConfig: SidebarProps;
+	/**
+	 * 侧边栏配置
+	 */
+	sidebarConfig: ISidebarProps;
 
-    /**
-     * 主内容配置
-     */
-    mainContentConfig: MainContentProps;
+	/**
+	 * 主内容配置
+	 */
+	mainContentConfig: IMainContentProps;
 
-    /**
-     * 页面类名
-     */
-    class?: string;
+	/**
+	 * 页面类名
+	 */
+	class?: string;
 
-    /**
-     * 类名列表
-     */
-    'class:list'?: any;
+	/**
+	 * 类名列表
+	 */
+	'class:list'?: any;
 
-    /**
-     * 调试模式，显示各个部分的边框
-     * @default false
-     */
-    debug?: boolean;
+	/**
+	 * 调试模式，显示各个部分的边框
+	 * @default false
+	 */
+	debug?: boolean;
 
-    /**
-     * 元数据配置
-     */
-    metaConfig: MetaProps;
+	/**
+	 * 元数据配置
+	 */
+	metaConfig: IMetaProps;
 
-    /**
-     * 页脚相关配置
-     */
-    footerConfig: FooterProps;
+	/**
+	 * 页脚相关配置
+	 */
+	footerConfig: IFooterProps;
 }

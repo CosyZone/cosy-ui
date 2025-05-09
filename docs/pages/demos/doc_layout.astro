@@ -1,7 +1,7 @@
 ---
 import { getGroupedRoutes } from '@docs/lib/route';
 import { getNavItems } from '@docs/lib/utils';
-import { type SidebarItem, AppLayout, LinkUtil } from '../../..//src/index';
+import { type ISidebarItem, AppLayout, LinkUtil } from '../../..//src/index';
 
 interface Props {
 	title: string;
@@ -23,7 +23,7 @@ const groupedRoutes = await getGroupedRoutes(currentLocale);
 const languages = ['zh-cn', 'en'];
 
 // 将路由转换为侧边栏项目格式
-const sidebarItems: SidebarItem[] = groupedRoutes.map((group) => ({
+const sidebarItems: ISidebarItem[] = groupedRoutes.map((group) => ({
 	text: group.group,
 	href: '',
 	items: group.routes.map((route) => ({
@@ -81,8 +81,7 @@ const sidebarItems: SidebarItem[] = groupedRoutes.map((group) => ({
 		showTableOfContents: showTOC,
 		isArticle: true,
 	}}
-	showHeader={true}
->
+	showHeader={true}>
 	<h1>文档布局</h1>
 
 	<h2>简介</h2>

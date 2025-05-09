@@ -147,7 +147,7 @@
 
 import { processSocialLink } from '../../utils/social';
 import SocialIcon from '../icons/SocialIcon.astro';
-import type { FooterProps } from '../../types/footer';
+import type { IFooterProps } from '../../types/footer';
 import { createTextGetter } from '../../utils/i18n';
 import NavSection from './NavSection.astro';
 import { LanguageUtil } from '../../utils/language';
@@ -178,7 +178,7 @@ const {
 	mediaLink,
 	techStackLink,
 	debug = false,
-} = Astro.props as FooterProps;
+} = Astro.props as IFooterProps;
 
 // 获取当前语言
 const lang = LanguageUtil.getCurrentLanguage(Astro);
@@ -210,14 +210,12 @@ const debugClasses = debug
 	class:list={[
 		'cosy:footer cosy:z-50 cosy:sm:footer-horizontal cosy:bg-base-200 cosy:text-base-content cosy:p-10',
 		debugClasses.footer,
-	]}
->
+	]}>
 	<div
 		class:list={[
 			'cosy:flex cosy:flex-col cosy:md:h-56 cosy:gap-8 cosy:container cosy:mx-auto cosy:items-center cosy:w-full cosy:md:flex-row cosy:md:justify-between',
 			debugClasses.section,
-		]}
-	>
+		]}>
 		{/* 品牌区域 */}
 		<aside class:list={['cosy:max-w-xs cosy:text-center', debugClasses.aside]}>
 			<a href={homeLink} class="cosy:flex cosy:items-center cosy:gap-2 cosy:mb-4 cosy:no-underline">
@@ -248,8 +246,7 @@ const debugClasses = debug
 								class="cosy:btn cosy:btn-circle cosy:btn-ghost cosy:btn-sm"
 								target="_blank"
 								rel="noopener noreferrer"
-								aria-label={link.name}
-							>
+								aria-label={link.name}>
 								<SocialIcon platform={link.platform} />
 							</a>
 						))}
@@ -263,8 +260,7 @@ const debugClasses = debug
 			class:list={[
 				'cosy:flex cosy:h-full cosy:flex-col cosy:justify-center cosy:gap-8 cosy:mx-auto cosy:max-w-xl cosy:text-center cosy:items-center cosy:w-full cosy:md:flex-row cosy:md:justify-between cosy:md:items-start',
 				debugClasses.section,
-			]}
-		>
+			]}>
 			{/* 产品导航 */}
 			{products.length > 0 && <NavSection title={t('products')} links={products} />}
 
@@ -328,8 +324,7 @@ const debugClasses = debug
 			class:list={[
 				'cosy:p-4 cosy:bg-primary cosy:text-primary-content cosy:w-full',
 				debugClasses.aside,
-			]}
-		>
+			]}>
 			<p class="cosy:text-center">{inspirationalSlogan}</p>
 		</aside>
 	)
@@ -340,8 +335,7 @@ const debugClasses = debug
 	class:list={[
 		'cosy:footer cosy:footer-center cosy:p-4 cosy:bg-base-300 cosy:text-base-content',
 		debugClasses.footer,
-	]}
->
+	]}>
 	<aside class:list={['cosy:items-center cosy:grid-flow-col', debugClasses.aside]}>
 		<p class="cosy:opacity-70 cosy:text-sm">
 			© {currentYear}

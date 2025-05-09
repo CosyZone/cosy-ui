@@ -1,4 +1,6 @@
-export interface HeaderProps {
+import type { INavItem } from './nav';
+
+export interface IHeaderProps {
 	/**
 	 * 侧边栏是否默认展开
 	 * @default false
@@ -30,7 +32,7 @@ export interface HeaderProps {
 	/**
 	 * 导航菜单项
 	 */
-	navItems?: NavItem[];
+	navItems?: INavItem[];
 
 	/**
 	 * 是否显示侧边栏切换按钮
@@ -60,5 +62,3 @@ export interface HeaderProps {
 
 	navPosition?: 'start' | 'center' | 'end';
 }
-
-export type NavItem = { href: string; label: string };
