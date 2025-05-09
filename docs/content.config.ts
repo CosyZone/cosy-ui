@@ -4,6 +4,7 @@ import {
 	makeCourseCollection,
 	makeExperimentCollection,
 	makeLessonCollection,
+	makeMetaCollection,
 } from '@/collection';
 
 export const collections = {
@@ -12,5 +13,5 @@ export const collections = {
 	blogs: makeBlogCollection('./docs/blogs'),
 	experiments: makeExperimentCollection('./docs/experiments'),
 	lessons: makeLessonCollection('./docs/lessons'),
-	metas: makeLessonCollection('./docs/metas'),
+	meta: makeMetaCollection('./docs/metas'),
 };

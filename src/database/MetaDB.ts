@@ -2,8 +2,6 @@ import MetaDoc from '../entities/MetaDoc';
 import { logger } from '../utils/logger';
 import { type CollectionEntry } from 'astro:content';
 import { BaseDB } from './BaseDB';
-import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders';
 
 export const COLLECTION_META = 'meta' as const;
 export type MetaEntry = CollectionEntry<typeof COLLECTION_META>;

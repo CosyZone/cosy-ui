@@ -2,8 +2,6 @@ import { type CollectionEntry } from 'astro:content';
 import { BaseDB } from './BaseDB';
 import ExperimentDoc from '../entities/ExperimentDoc';
 import { logger } from '../utils/logger';
-import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders';
 
 export const COLLECTION_EXPERIMENT = 'experiments' as const;
 export type ExperimentEntry = CollectionEntry<typeof COLLECTION_EXPERIMENT>;

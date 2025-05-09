@@ -2,8 +2,6 @@ import { type CollectionEntry } from 'astro:content';
 import { BaseDB } from './BaseDB';
 import LessonDoc from '../entities/LessonDoc';
 import { logger } from '../utils/logger';
-import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders';
 
 export const COLLECTION_LESSON = 'lessons' as const;
 export type LessonEntry = CollectionEntry<typeof COLLECTION_LESSON>;
