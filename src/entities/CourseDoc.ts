@@ -1,4 +1,4 @@
-import { logger } from '@/utils/logger';
+import { logger } from '../utils/logger';
 import { SidebarItemEntity } from './SidebarItem';
 import type { CourseEntry } from '../database/CourseDB';
 import courseDB from '../database/CourseDB';
