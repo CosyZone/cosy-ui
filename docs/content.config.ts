@@ -1,9 +1,9 @@
-import { makeArticleCollection } from '@/collections/ArticleCollection';
-import { makeBlogCollection } from '@/collections/BlogCollection';
-import { makeCourseCollection } from '@/collections/CourseCollection';
-import { makeExperimentCollection } from '@/collections/ExperimentCollection';
-import { makeLessonCollection } from '@/collections/LessonCollection';
-import { makeMetaCollection } from '@/collections/MetaCollection';
+import { makeArticleCollection } from '@/index';
+import { makeBlogCollection } from '@/index';
+import { makeCourseCollection } from '@/index';
+import { makeExperimentCollection } from '@/index';
+import { makeLessonCollection } from '@/index';
+import { makeMetaCollection } from '@/index';
 
 export const collections = {
 	articles: makeArticleCollection('./docs/articles'),

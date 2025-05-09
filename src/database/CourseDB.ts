@@ -1,6 +1,17 @@
 import CourseDoc from '../entities/CourseDoc';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { BaseDB } from './BaseDB';
+import { glob } from 'astro/loaders';
+import { defineCollection } from 'astro:content';
+
+export const makeCourseCollection = (base: string) => {
+	return defineCollection({
+		loader: glob({
+			pattern: '**/*.{md,mdx}',
+			base,
+		}),
+	});
+};
 
 export const COLLECTION_COURSE = 'courses' as const;
 export type CourseEntry = CollectionEntry<typeof COLLECTION_COURSE>;

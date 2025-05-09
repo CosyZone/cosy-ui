@@ -7,14 +7,6 @@ export { default as Alert } from './components/base/Alert.astro';
 export { default as Speak } from './components/base/Speak.astro';
 export { default as Module } from './components/base/Module.astro';
 
-// Collections
-export * from './collections/ArticleCollection';
-export * from './collections/BlogCollection';
-export * from './collections/CourseCollection';
-export * from './collections/ExperimentCollection';
-export * from './collections/LessonCollection';
-export * from './collections/MetaCollection';
-
 // Navigation
 export { default as ThemeSwitcher } from './components/navigation/ThemeSwitcher.astro';
 export { default as TableOfContents } from './components/navigation/TableOfContents.astro';
@@ -117,6 +109,7 @@ export * from './entities/SidebarItem';
 export * from './entities/Tag';
 
 // Database
+export * from './database/ArticleDB';
 export * from './database/BaseDB';
 export * from './database/BlogDB';
 export * from './database/CourseDB';

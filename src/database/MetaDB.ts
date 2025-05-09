@@ -2,6 +2,23 @@ import MetaDoc from '../entities/MetaDoc';
 import { logger } from '../utils/logger';
 import { type CollectionEntry } from 'astro:content';
 import { BaseDB } from './BaseDB';
+import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
+
+export const metaSchema = z.object({
+	title: z.string(),
+	description: z.string().optional(),
+});
+
+export const makeMetaCollection = (base: string) => {
+	return defineCollection({
+		loader: glob({
+			pattern: '**/*.{md,mdx}',
+			base,
+		}),
+		schema: metaSchema,
+	});
+};
 
 export const COLLECTION_META = 'meta' as const;
 export type MetaEntry = CollectionEntry<typeof COLLECTION_META>;

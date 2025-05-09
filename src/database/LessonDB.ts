@@ -2,6 +2,31 @@ import { type CollectionEntry } from 'astro:content';
 import { BaseDB } from './BaseDB';
 import LessonDoc from '../entities/LessonDoc';
 import { logger } from '../utils/logger';
+import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
+
+export const lessonSchema = z.object({
+	title: z.string(),
+	description: z.string().optional(),
+	authors: z
+		.array(
+			z.object({
+				name: z.string(),
+				picture: z.string().optional(),
+			})
+		)
+		.optional(),
+});
+
+export const makeLessonCollection = (base: string) => {
+	return defineCollection({
+		loader: glob({
+			pattern: '**/*.{md,mdx}',
+			base,
+		}),
+		schema: lessonSchema,
+	});
+};
 
 export const COLLECTION_LESSON = 'lessons' as const;
 export type LessonEntry = CollectionEntry<typeof COLLECTION_LESSON>;
