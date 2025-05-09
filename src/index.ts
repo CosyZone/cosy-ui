@@ -99,10 +99,19 @@ export * from './types/layout';
 export * from './types/header';
 export * from './types/heading';
 export * from './types/meta';
+export * from './types/static-path';
 export type { ImageProvider, ImageOptions } from './utils/image';
 
-// Models
+// Entities
 export * from './entities/BaseDoc';
+export * from './entities/BlogDoc';
+export * from './entities/CourseDoc';
+export * from './entities/ExperimentDoc';
+export * from './entities/Heading';
+export * from './entities/LessonDoc';
+export * from './entities/MetaDoc';
+export * from './entities/SidebarItem';
+export * from './entities/Tag';
 
 // Database
 export * from './database/BaseDB';
