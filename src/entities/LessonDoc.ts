@@ -2,10 +2,10 @@ import type { LessonEntry } from '../database/LessonDB';
 import lessonDB from '../database/LessonDB';
 import { logger } from '../utils/logger';
 import { SidebarItemEntity } from './SidebarItem';
-import type { Heading } from './Heading';
 import { LinkUtil } from '../utils/link';
-import { HierarchicalDoc } from './BaseDoc';
+import { HierarchicalDoc } from './HierarchicalDoc';
 import { COLLECTION_LESSON } from '../database/LessonDB';
+import { IHeadingType } from '@/types/heading';
 
 export default class LessonDoc extends HierarchicalDoc<typeof COLLECTION_LESSON, LessonEntry> {
 	constructor(entry: LessonEntry) {
@@ -67,14 +67,14 @@ export default class LessonDoc extends HierarchicalDoc<typeof COLLECTION_LESSON,
 		return this.entry.rendered?.html || '';
 	}
 
-	getHeadings(): Heading[] {
+	getHeadings(): IHeadingType[] {
 		const debug = false;
 
 		if (debug) {
 			logger.info(`获取 ${this.entry.id} 的 headings`);
 		}
 
-		return (this.entry.rendered?.metadata?.headings as Heading[]) || [];
+		return (this.entry.rendered?.metadata?.headings as IHeadingType[]) || [];
 	}
 
 	async getTopDoc(): Promise<LessonDoc | null> {
