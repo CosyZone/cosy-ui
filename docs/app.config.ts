@@ -8,7 +8,7 @@ export const navItems: INavItem[] = [
 		label: 'Home',
 	},
 	{
-		href: `${basePath}en/courses`,
+		href: `${basePath}en/courses/guide`,
 		label: 'Docs',
 	},
 	{
