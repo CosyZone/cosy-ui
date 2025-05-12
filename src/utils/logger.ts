@@ -15,7 +15,7 @@ const colors = {
 
 class Logger {
 	private formatArray(arr: any[]): string {
-		const MAX_LINES = 30;
+		const MAX_LINES = 70;
 		const MAX_LENGTH = 100;
 
 		const truncateString = (str: string): string => {

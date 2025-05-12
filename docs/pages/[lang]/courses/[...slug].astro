@@ -7,14 +7,18 @@ const { lang, slug } = Astro.params;
 const doc = await courseDB.find(`${lang}/${slug}`);
 let title = '';
 let Content: AstroComponentFactory | null = null;
-let sidebarItems: ISidebarItem | undefined = undefined;
+let sidebarItems: ISidebarItem | null = null;
 
 if (doc) {
 	title = doc.getTitle();
 	const renderResult = await doc.render();
 	Content = renderResult.Content;
 
-    sidebarItems = await doc.getTopSidebarItem();
+    // 获取顶级文档
+    const topDoc = await doc.getAncestor(1);
+    if (topDoc) {
+        sidebarItems = await topDoc.toSidebarItem();
+    }
 } else {
 	title = '404 Not Found';
 }

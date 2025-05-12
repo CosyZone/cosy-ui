@@ -46,6 +46,12 @@ export const makeCourseCollection = (base: string) => {
 			pattern: '**/*.{md,mdx}',
 			base,
 		}),
+		schema: z.object({
+			title: z.string(),
+			description: z.string().optional(),
+			folder: z.boolean(),
+			order: z.number(),
+		}),
 	});
 };
 

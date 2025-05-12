@@ -3,6 +3,7 @@ import { LinkUtil } from '../utils/link';
 import Tag from './Tag';
 import { BaseDoc } from './BaseDoc';
 import { COLLECTION_BLOG } from '../database/BlogDB';
+import blogDB from '../database/BlogDB';
 
 export default class BlogDoc extends BaseDoc<typeof COLLECTION_BLOG, BlogEntry> {
 	private constructor(entry: BlogEntry) {
@@ -11,6 +12,16 @@ export default class BlogDoc extends BaseDoc<typeof COLLECTION_BLOG, BlogEntry> 
 
 	static fromEntry(entry: BlogEntry) {
 		return new BlogDoc(entry);
+	}
+
+	async getTopDoc(): Promise<BlogDoc | null> {
+		const id = this.getTopDocId();
+		const doc = await blogDB.find(id);
+		return doc;
+	}
+
+	async getChildren(): Promise<BlogDoc[]> {
+		return await blogDB.getChildren(this.entry.id);
 	}
 
 	getLink(): string {

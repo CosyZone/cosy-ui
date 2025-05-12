@@ -6,7 +6,7 @@ interface Props {
 	title: string;
 	showTOC?: boolean;
 	showSidebar?: boolean;
-	sidebarItems?: ISidebarItem;
+	sidebarItems?: ISidebarItem | null;
 }
 
 const { title, showTOC = true, showSidebar = true, sidebarItems = null } = Astro.props;

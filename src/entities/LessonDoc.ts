@@ -3,11 +3,11 @@ import lessonDB from '../database/LessonDB';
 import { logger } from '../utils/logger';
 import { SidebarItemEntity } from './SidebarItem';
 import { LinkUtil } from '../utils/link';
-import { HierarchicalDoc } from './HierarchicalDoc';
 import { COLLECTION_LESSON } from '../database/LessonDB';
-import { IHeadingType } from '@/types/heading';
+import { BaseDoc } from './BaseDoc';
+import type { IHeadingType } from '../types/heading';
 
-export default class LessonDoc extends HierarchicalDoc<typeof COLLECTION_LESSON, LessonEntry> {
+export default class LessonDoc extends BaseDoc<typeof COLLECTION_LESSON, LessonEntry> {
 	constructor(entry: LessonEntry) {
 		super(entry);
 	}

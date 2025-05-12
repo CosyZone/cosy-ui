@@ -3,10 +3,10 @@ import { SidebarItemEntity } from './SidebarItem';
 import type { CourseEntry } from '../database/CourseDB';
 import { courseDB } from '../database/CourseDB';
 import { LinkUtil } from '../utils/link';
-import { HierarchicalDoc } from './HierarchicalDoc';
 import { COLLECTION_COURSE } from '../database/CourseDB';
+import { BaseDoc } from './BaseDoc';
 
-export default class CourseDoc extends HierarchicalDoc<typeof COLLECTION_COURSE, CourseEntry> {
+export default class CourseDoc extends BaseDoc<typeof COLLECTION_COURSE, CourseEntry> {
 	constructor(entry: CourseEntry) {
 		super(entry);
 	}
@@ -19,14 +19,54 @@ export default class CourseDoc extends HierarchicalDoc<typeof COLLECTION_COURSE,
 		return LinkUtil.getCourseLink(this.entry.id);
 	}
 
+	getOrder(): number {
+		return this.entry.data.order;
+	}
+
+	isFolder(): boolean {
+		return this.entry.data.folder;
+	}
+
 	async getTopDoc(): Promise<CourseDoc | null> {
-		const id = await this.getTopDocId();
+		const id = this.getTopDocId();
 		const doc = await courseDB.find(id);
 		return doc;
 	}
 
+	async getAncestor(level: number): Promise<CourseDoc | null> {
+		const debug = true;
+		if (debug) {
+			logger.info(`获取 ${this.entry.id} 的祖先文档，level: ${level}`);
+		}
+
+		if (level >= this.getLevel()) {
+			if (debug) {
+				logger.info(`祖先文档为自身`);
+			}
+			return this;
+		}
+
+		const id = this.getAncestorId(level);
+		const doc = await courseDB.find(id);
+		return doc;
+	}
+
+	/**
+	 * 获取子文档
+	 * @returns 子文档列表
+	 */
 	async getChildren(): Promise<CourseDoc[]> {
-		return await courseDB.getChildren(this.entry.id);
+		const debug = false;
+		const children = (await courseDB.getChildren(this.entry.id)).sort(
+			(a, b) => a.getOrder() - b.getOrder()
+		);
+		if (debug && children.length > 0) {
+			logger.array(
+				`${this.entry.id} 的子文档(${children.length})`,
+				children.map((child) => `#${child.getOrder()} ${child.entry.id}`)
+			);
+		}
+		return children;
 	}
 
 	override async toSidebarItem(): Promise<SidebarItemEntity> {

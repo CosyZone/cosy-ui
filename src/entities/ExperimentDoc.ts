@@ -3,14 +3,11 @@ import experimentDB from '../database/ExperimentDB';
 import { logger } from '../utils/logger';
 import { SidebarItemEntity } from './SidebarItem';
 import { LinkUtil } from '../utils/link';
-import { HierarchicalDoc } from './HierarchicalDoc';
 import { COLLECTION_EXPERIMENT } from '../database/ExperimentDB';
-import { IHeadingType } from '../types/heading';
+import { BaseDoc } from './BaseDoc';
+import type { IHeadingType } from '../types/heading';
 
-export default class ExperimentDoc extends HierarchicalDoc<
-	typeof COLLECTION_EXPERIMENT,
-	ExperimentEntry
-> {
+export default class ExperimentDoc extends BaseDoc<typeof COLLECTION_EXPERIMENT, ExperimentEntry> {
 	constructor(entry: ExperimentEntry) {
 		super(entry);
 	}
