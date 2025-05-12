@@ -1,0 +1,53 @@
+---
+title: 'AlertDialog'
+description: '一个简单的确认对话框组件，支持多语言显示，用于向用户展示重要信息并等待确认'
+folder: false
+order: 1
+---
+
+import { CodeExample } from '@/index';
+import { AlertDialog } from '@/vue';
+
+## 基础用法
+
+最基本的对话框展示方式
+
+<CodeExample
+  code={`<AlertDialog
+  v-model="isShow"
+  message="这是一条重要信息"
+/>`}
+>
+  <AlertDialog
+              v-model="isShow"
+              modelValue={true}
+    message="这是一条重要信息"
+  />
+</CodeExample>
+
+## 多语言支持
+
+通过设置 `lang` 属性来切换不同语言
+
+<CodeExample
+  code={`<AlertDialog
+  v-model="isShow"
+  message="This is an important message"
+  lang="en"
+/>`}
+>
+  <AlertDialog
+              v-model="isShow"
+    modelValue={true}
+    message="This is an important message"
+    lang="en"
+  />
+</CodeExample>
+
+## 属性
+
+| 属性名 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| modelValue | boolean | - | 控制对话框的显示状态 |
+| message | string | - | 对话框显示的消息内容 |
+| lang | 'zh-cn' \| 'en' | 'zh-cn' | 对话框的语言设置 |

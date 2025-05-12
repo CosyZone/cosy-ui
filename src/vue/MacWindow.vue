@@ -1,3 +1,66 @@
+<script setup lang="ts">
+import AlertDialog from './AlertDialog.vue'
+import { ref } from 'vue'
+
+const props = defineProps({
+    height: {
+        type: String,
+        default: 'h-96'
+    },
+    title: {
+        type: String,
+        default: ''
+    },
+    toolbarButtons: {
+        type: Array,
+        default: () => []
+    },
+    statusBarButtons: {
+        type: Array,
+        default: () => []
+    },
+    withShadow: {
+        type: Boolean,
+        default: true
+    },
+    tabs: {
+        type: Array,
+        default: () => []
+    },
+    modelValue: {
+        type: String,
+        default: ''
+    }
+})
+
+const emit = defineEmits(['close', 'minimize', 'maximize', 'update:modelValue'])
+
+const showAlertDialog = ref(false)
+const alertMessage = ref('')
+
+const handleCloseWindow = () => {
+    alertMessage.value = '关闭APP窗口（这是演示，不会真实操作）'
+    showAlertDialog.value = true
+    emit('close')
+}
+
+const handleMinimizeWindow = () => {
+    alertMessage.value = '最小化窗口（这是演示，不会真实操作）'
+    showAlertDialog.value = true
+    emit('minimize')
+}
+
+const handleMaximizeWindow = () => {
+    alertMessage.value = '最大化窗口（这是演示，不会真实操作）'
+    showAlertDialog.value = true
+    emit('maximize')
+}
+
+const handleTabClick = (value: string) => {
+    emit('update:modelValue', value)
+}
+</script>
+
 <template>
   <div
     class="flex max-w-5xl mx-auto bg-base-100 relative rounded-2xl overflow-hidden shadow"
@@ -106,66 +169,3 @@
     :message="alertMessage"
   />
 </template>
-
-<script setup lang="ts">
-import AlertDialog from './AlertDialog.vue'
-import { ref } from 'vue'
-
-const props = defineProps({
-    height: {
-        type: String,
-        default: 'h-96'
-    },
-    title: {
-        type: String,
-        default: ''
-    },
-    toolbarButtons: {
-        type: Array,
-        default: () => []
-    },
-    statusBarButtons: {
-        type: Array,
-        default: () => []
-    },
-    withShadow: {
-        type: Boolean,
-        default: true
-    },
-    tabs: {
-        type: Array,
-        default: () => []
-    },
-    modelValue: {
-        type: String,
-        default: ''
-    }
-})
-
-const emit = defineEmits(['close', 'minimize', 'maximize', 'update:modelValue'])
-
-const showAlertDialog = ref(false)
-const alertMessage = ref('')
-
-const handleCloseWindow = () => {
-    alertMessage.value = '关闭APP窗口（这是演示，不会真实操作）'
-    showAlertDialog.value = true
-    emit('close')
-}
-
-const handleMinimizeWindow = () => {
-    alertMessage.value = '最小化窗口（这是演示，不会真实操作）'
-    showAlertDialog.value = true
-    emit('minimize')
-}
-
-const handleMaximizeWindow = () => {
-    alertMessage.value = '最大化窗口（这是演示，不会真实操作）'
-    showAlertDialog.value = true
-    emit('maximize')
-}
-
-const handleTabClick = (value: string) => {
-    emit('update:modelValue', value)
-}
-</script>

@@ -1,110 +1,3 @@
-<template>
-  <div class="relative w-full rounded-2xl max-w-7xl mx-auto">
-    <!-- Add size indicator -->
-    <div
-      v-if="isLoadedFromStorage"
-      class="absolute top-4 right-4 bg-yellow-500/30 backdrop-blur-sm px-3 py-1 rounded-lg text-sm text-white"
-    >
-      {{ selectedSize.name }}
-    </div>
-
-    <!-- Download button with dropdown menu -->
-    <div
-      v-if="showDownloadButton"
-      class="absolute top-4 left-4 opacity-0 hover:opacity-100 transition-opacity"
-    >
-      <div class="relative">
-        <button
-          class="bg-yellow-500/30 backdrop-blur-sm p-2 rounded-lg hover:bg-yellow-500/40"
-          @click="toggleDropdown"
-        >
-          <RiDownloadLine class="w-6 h-6 text-white" />
-        </button>
-        <!-- Size selection dropdown -->
-        <div
-          v-if="isDropdownOpen"
-          class="absolute left-0 mt-2 w-96 bg-white dark:bg-gray-800 rounded-lg shadow-lg py-2 z-50"
-        >
-          <!-- Component size presets -->
-          <div class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
-            <div class="grid grid-cols-3 gap-2">
-              <button
-                v-for="preset in sizePresets"
-                :key="preset.name"
-                :class="[
-                  'p-2 text-left rounded text-sm',
-                  selectedSize.name === preset.name
-                    ? 'bg-yellow-500/30 text-yellow-900 dark:text-yellow-100'
-                    : 'hover:bg-gray-100 dark:hover:bg-gray-700'
-                ]"
-                @click="selectedSize = preset"
-              >
-                <div class="flex flex-col">
-                  <span class="font-medium">{{ preset.name }}</span>
-                  <span class="text-xs text-gray-500 dark:text-gray-400">
-                    {{ preset.width.replace('w-[', '').replace(']', '') }}
-                  </span>
-                </div>
-              </button>
-              <!-- Clear size button -->
-              <button
-                class="p-2 text-left rounded text-sm hover:bg-gray-100 dark:hover:bg-gray-700"
-                @click="clearStoredSize"
-              >
-                <div class="flex flex-col">
-                  <span class="font-medium text-red-600 dark:text-red-400">清除记住的尺寸</span>
-                  <span class="text-xs text-gray-500 dark:text-gray-400">重置为默认尺寸</span>
-                </div>
-              </button>
-            </div>
-          </div>
-          <!-- Background settings -->
-          <div class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
-            <div class="mt-2">
-              <div class="grid grid-cols-8 gap-2">
-                <button
-                  v-for="(_, index) in bgClasses"
-                  :key="index"
-                  :class="[
-                    bgClasses[index],
-                    'w-8 h-8 rounded-lg border-2',
-                    selectedBgIndex === index ? 'border-yellow-500' : 'border-transparent'
-                  ]"
-                  @click="selectedBgIndex = index"
-                />
-              </div>
-            </div>
-          </div>
-          <!-- Size options -->
-          <div class="p-4">
-            <button
-              class="w-full p-2 text-center rounded hover:bg-gray-100 dark:hover:bg-gray-700"
-              @click="downloadAsImage()"
-            >
-              <div class="flex items-center justify-center gap-2">
-                <RiDownloadLine class="w-4 h-4" />
-                <span class="font-medium">下载图片</span>
-              </div>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div
-      ref="componentRef"
-      class="flex p-8 rounded-2xl shadow"
-      :class="[
-        getBackgroundClass(),
-        selectedSize.width,
-        selectedSize.height
-      ]"
-    >
-      <slot />
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { ref, onMounted, watch, onUnmounted } from 'vue';
 import { RiDownloadLine } from '@remixicon/vue';
@@ -292,3 +185,83 @@ onUnmounted(() => {
     window.removeEventListener('bannerBoxSizeChange', handleSizeChange);
 });
 </script>
+
+<template>
+    <div class="relative w-full rounded-2xl max-w-7xl mx-auto">
+        <!-- Add size indicator -->
+        <div v-if="isLoadedFromStorage"
+            class="absolute top-4 right-4 bg-yellow-500/30 backdrop-blur-sm px-3 py-1 rounded-lg text-sm text-white">
+            {{ selectedSize.name }}
+        </div>
+
+        <!-- Download button with dropdown menu -->
+        <div v-if="showDownloadButton" class="absolute top-4 left-4 opacity-0 hover:opacity-100 transition-opacity">
+            <div class="relative">
+                <button class="bg-yellow-500/30 backdrop-blur-sm p-2 rounded-lg hover:bg-yellow-500/40"
+                    @click="toggleDropdown">
+                    <RiDownloadLine class="w-6 h-6 text-white" />
+                </button>
+                <!-- Size selection dropdown -->
+                <div v-if="isDropdownOpen"
+                    class="absolute left-0 mt-2 w-96 bg-white dark:bg-gray-800 rounded-lg shadow-lg py-2 z-50">
+                    <!-- Component size presets -->
+                    <div class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+                        <div class="grid grid-cols-3 gap-2">
+                            <button v-for="preset in sizePresets" :key="preset.name" :class="[
+                                'p-2 text-left rounded text-sm',
+                                selectedSize.name === preset.name
+                                    ? 'bg-yellow-500/30 text-yellow-900 dark:text-yellow-100'
+                                    : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                            ]" @click="selectedSize = preset">
+                                <div class="flex flex-col">
+                                    <span class="font-medium">{{ preset.name }}</span>
+                                    <span class="text-xs text-gray-500 dark:text-gray-400">
+                                        {{ preset.width.replace('w-[', '').replace(']', '') }}
+                                    </span>
+                                </div>
+                            </button>
+                            <!-- Clear size button -->
+                            <button class="p-2 text-left rounded text-sm hover:bg-gray-100 dark:hover:bg-gray-700"
+                                @click="clearStoredSize">
+                                <div class="flex flex-col">
+                                    <span class="font-medium text-red-600 dark:text-red-400">清除记住的尺寸</span>
+                                    <span class="text-xs text-gray-500 dark:text-gray-400">重置为默认尺寸</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Background settings -->
+                    <div class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+                        <div class="mt-2">
+                            <div class="grid grid-cols-8 gap-2">
+                                <button v-for="(_, index) in bgClasses" :key="index" :class="[
+                                    bgClasses[index],
+                                    'w-8 h-8 rounded-lg border-2',
+                                    selectedBgIndex === index ? 'border-yellow-500' : 'border-transparent'
+                                ]" @click="selectedBgIndex = index" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Size options -->
+                    <div class="p-4">
+                        <button class="w-full p-2 text-center rounded hover:bg-gray-100 dark:hover:bg-gray-700"
+                            @click="downloadAsImage()">
+                            <div class="flex items-center justify-center gap-2">
+                                <RiDownloadLine class="w-4 h-4" />
+                                <span class="font-medium">下载图片</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ref="componentRef" class="flex p-8 rounded-2xl shadow" :class="[
+            getBackgroundClass(),
+            selectedSize.width,
+            selectedSize.height
+        ]">
+            <slot />
+        </div>
+    </div>
+</template>
