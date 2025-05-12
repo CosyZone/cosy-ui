@@ -1,5 +1,5 @@
 import type { ExperimentEntry } from '../database/ExperimentDB';
-import experimentDB from '../database/ExperimentDB';
+import { experimentDB } from '../database/ExperimentDB';
 import { logger } from '../utils/logger';
 import { SidebarItemEntity } from './SidebarItem';
 import { LinkUtil } from '../utils/link';
@@ -17,7 +17,7 @@ export default class ExperimentDoc extends BaseDoc<typeof COLLECTION_EXPERIMENT,
 	}
 
 	async getBookId(): Promise<string> {
-		return await this.getTopDocId();
+		return this.getTopDocId();
 	}
 
 	async getBook(): Promise<ExperimentDoc | null> {
