@@ -2,15 +2,12 @@ import type { ExperimentEntry } from '../database/ExperimentDB';
 import experimentDB from '../database/ExperimentDB';
 import { logger } from '../utils/logger';
 import { SidebarItemEntity } from './SidebarItem';
-import type { Heading } from './Heading';
 import { LinkUtil } from '../utils/link';
-import { HierarchicalDoc } from './BaseDoc';
-import { COLLECTION_NAME } from '../database/ExperimentDB';
+import { COLLECTION_EXPERIMENT } from '../database/ExperimentDB';
+import { BaseDoc } from './BaseDoc';
+import type { IHeadingType } from '../types/heading';
 
-export default class ExperimentDoc extends HierarchicalDoc<
-	typeof COLLECTION_NAME,
-	ExperimentEntry
-> {
+export default class ExperimentDoc extends BaseDoc<typeof COLLECTION_EXPERIMENT, ExperimentEntry> {
 	constructor(entry: ExperimentEntry) {
 		super(entry);
 	}
@@ -70,14 +67,14 @@ export default class ExperimentDoc extends HierarchicalDoc<
 		return this.entry.rendered?.html || '';
 	}
 
-	getHeadings(): Heading[] {
+	getHeadings(): IHeadingType[] {
 		const debug = false;
 
 		if (debug) {
 			logger.info(`获取 ${this.entry.id} 的 headings`);
 		}
 
-		return (this.entry.rendered?.metadata?.headings as Heading[]) || [];
+		return (this.entry.rendered?.metadata?.headings as IHeadingType[]) || [];
 	}
 
 	async getTopDoc(): Promise<ExperimentDoc | null> {

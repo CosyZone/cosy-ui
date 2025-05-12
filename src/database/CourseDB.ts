@@ -2,8 +2,8 @@ import CourseDoc from '../entities/CourseDoc';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { BaseDB } from './BaseDB';
 
-export const COLLECTION_NAME = 'courses' as const;
-export type CourseEntry = CollectionEntry<typeof COLLECTION_NAME>;
+export const COLLECTION_COURSE = 'courses' as const;
+export type CourseEntry = CollectionEntry<typeof COLLECTION_COURSE>;
 
 /**
  * 课程数据库类，用于管理课程内容集合。
@@ -29,8 +29,8 @@ export type CourseEntry = CollectionEntry<typeof COLLECTION_NAME>;
  *     └── ...
  * ```
  */
-class CourseDB extends BaseDB<typeof COLLECTION_NAME, CourseEntry, CourseDoc> {
-	protected collectionName = COLLECTION_NAME;
+class CourseDB extends BaseDB<typeof COLLECTION_COURSE, CourseEntry, CourseDoc> {
+	protected collectionName = COLLECTION_COURSE;
 
 	protected createDoc(entry: CourseEntry): CourseDoc {
 		return new CourseDoc(entry);
@@ -43,7 +43,7 @@ class CourseDB extends BaseDB<typeof COLLECTION_NAME, CourseEntry, CourseDoc> {
 	 * @returns 返回指定语言的顶级课程数组
 	 */
 	async allCoursesByLang(lang: string): Promise<CourseDoc[]> {
-		const entries = await getCollection(COLLECTION_NAME, ({ id }) => {
+		const entries = await getCollection(COLLECTION_COURSE, ({ id }) => {
 			return id.startsWith(lang) && id.split('/').length === 2;
 		});
 		return entries.map((entry) => new CourseDoc(entry));
@@ -55,7 +55,7 @@ class CourseDB extends BaseDB<typeof COLLECTION_NAME, CourseEntry, CourseDoc> {
 	 * @returns 返回路径参数数组
 	 */
 	async getStaticPaths(): Promise<{ params: { lang: string; slug: string } }[]> {
-		const entries = await getCollection(COLLECTION_NAME);
+		const entries = await getCollection(COLLECTION_COURSE);
 		return entries.map((entry) => {
 			const doc = new CourseDoc(entry);
 			return {
@@ -81,5 +81,4 @@ class CourseDB extends BaseDB<typeof COLLECTION_NAME, CourseEntry, CourseDoc> {
 }
 
 // 创建并导出单例实例
-const courseDB = new CourseDB();
-export default courseDB;
+export const courseDB = new CourseDB();

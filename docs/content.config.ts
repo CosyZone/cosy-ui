@@ -1,15 +1,17 @@
-import { makeArticleCollection } from '@/collections/ArticleCollection';
-import { makeBlogCollection } from '@/collections/BlogCollection';
-import { makeCourseCollection } from '@/collections/CourseCollection';
-import { makeExperimentCollection } from '@/collections/ExperimentCollection';
-import { makeLessonCollection } from '@/collections/LessonCollection';
-import { makeMetaCollection } from '@/collections/MetaCollection';
+import {
+	makeArticleCollection,
+	makeBlogCollection,
+	makeCourseCollection,
+	makeExperimentCollection,
+	makeLessonCollection,
+	makeMetaCollection,
+} from '@/collection';
 
 export const collections = {
-	articles: makeArticleCollection('./docs/content'),
-	blogs: makeBlogCollection('./docs/blogs'),
+	articles: makeArticleCollection('./docs/articles'),
 	courses: makeCourseCollection('./docs/courses'),
+	blogs: makeBlogCollection('./docs/blogs'),
 	experiments: makeExperimentCollection('./docs/experiments'),
 	lessons: makeLessonCollection('./docs/lessons'),
-	meta: makeMetaCollection('./docs/meta'),
+	meta: makeMetaCollection('./docs/metas'),
 };

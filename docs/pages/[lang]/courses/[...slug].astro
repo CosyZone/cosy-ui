@@ -1,0 +1,47 @@
+---
+import DemoLayout from '@docs/layouts/DemoLayout.astro';
+import { ErrorPage404, courseDB, logger, type ISidebarItem } from '@/index';
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
+
+const { lang, slug } = Astro.params;
+const doc = await courseDB.find(`${lang}/${slug}`);
+let title = '';
+let Content: AstroComponentFactory | null = null;
+let sidebarItems: ISidebarItem | null = null;
+
+if (doc) {
+	title = doc.getTitle();
+	const renderResult = await doc.render();
+	Content = renderResult.Content;
+
+    // 获取顶级文档
+    const topDoc = await doc.getAncestor(1);
+    if (topDoc) {
+        sidebarItems = await topDoc.toSidebarItem();
+    }
+} else {
+	title = '404 Not Found';
+}
+
+export const getStaticPaths = async () => {
+    const paths = await courseDB.getStaticPaths();
+    const debug = false;
+
+    if (debug) {
+        logger.info(paths);
+    }
+
+	return paths;
+};
+---
+
+<DemoLayout title={title} sidebarItems={sidebarItems}>
+	{
+		Content ? (
+				<h1>{title}</h1>
+				<Content />
+		) : (
+			<ErrorPage404 debugKVs={{ slug }} />
+		)
+	}
+</DemoLayout>

@@ -3,9 +3,9 @@ import type { MetaEntry } from '../database/MetaDB';
 import { LinkUtil } from '../utils/link';
 import { BaseDoc } from './BaseDoc';
 import metaDB from '../database/MetaDB';
-import { COLLECTION_NAME } from '../database/MetaDB';
+import { COLLECTION_META } from '../database/MetaDB';
 
-export default class MetaDoc extends BaseDoc<typeof COLLECTION_NAME, MetaEntry> {
+export default class MetaDoc extends BaseDoc<typeof COLLECTION_META, MetaEntry> {
 	constructor(entry: MetaEntry) {
 		super(entry);
 	}

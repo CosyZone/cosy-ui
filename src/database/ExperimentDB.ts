@@ -3,8 +3,8 @@ import { BaseDB } from './BaseDB';
 import ExperimentDoc from '../entities/ExperimentDoc';
 import { logger } from '../utils/logger';
 
-export const COLLECTION_NAME = 'experiments' as const;
-export type ExperimentEntry = CollectionEntry<typeof COLLECTION_NAME>;
+export const COLLECTION_EXPERIMENT = 'experiments' as const;
+export type ExperimentEntry = CollectionEntry<typeof COLLECTION_EXPERIMENT>;
 
 /**
  * 实验数据库类，用于管理实验内容集合
@@ -40,8 +40,8 @@ export type ExperimentEntry = CollectionEntry<typeof COLLECTION_NAME>;
  * - 每个语言版本包含完整的课程内容
  * - 课程目录可以作为 git 子模块独立管理
  */
-class ExperimentDB extends BaseDB<typeof COLLECTION_NAME, ExperimentEntry, ExperimentDoc> {
-	protected collectionName = COLLECTION_NAME;
+class ExperimentDB extends BaseDB<typeof COLLECTION_EXPERIMENT, ExperimentEntry, ExperimentDoc> {
+	protected collectionName = COLLECTION_EXPERIMENT;
 
 	protected createDoc(entry: ExperimentEntry): ExperimentDoc {
 		return new ExperimentDoc(entry);
