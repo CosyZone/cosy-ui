@@ -19,7 +19,8 @@ export const getStaticPaths = async () => {
 	];
 };
 
-return Astro.redirect(LinkUtil.createUrl('/en/courses/guide'));
+const redirectLink = LinkUtil.createUrl('/en/courses/guide');
+return Astro.redirect(redirectLink);
 ---
 
 <DemoLayout title="Courses" />

@@ -43,7 +43,7 @@ export abstract class BaseDoc<
 	 */
 	getAncestorIds(): string[] {
 		const parts = this.entry.id.split('/');
-		return parts.slice(0, -1).map((part, index) => parts.slice(0, index + 1).join('/'));
+		return parts.slice(0, -1).map((_part, index) => parts.slice(0, index + 1).join('/'));
 	}
 
 	/**

@@ -3,7 +3,7 @@ import { LinkUtil } from '../utils/link';
 import Tag from './Tag';
 import { BaseDoc } from './BaseDoc';
 import { COLLECTION_BLOG } from '../database/BlogDB';
-import blogDB from '../database/BlogDB';
+import { blogDB } from '../database/BlogDB';
 
 export default class BlogDoc extends BaseDoc<typeof COLLECTION_BLOG, BlogEntry> {
 	private constructor(entry: BlogEntry) {

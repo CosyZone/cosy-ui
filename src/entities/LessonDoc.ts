@@ -1,5 +1,5 @@
 import type { LessonEntry } from '../database/LessonDB';
-import lessonDB from '../database/LessonDB';
+import { lessonDB } from '../database/LessonDB';
 import { logger } from '../utils/logger';
 import { SidebarItemEntity } from './SidebarItem';
 import { LinkUtil } from '../utils/link';
@@ -17,7 +17,7 @@ export default class LessonDoc extends BaseDoc<typeof COLLECTION_LESSON, LessonE
 	}
 
 	async getBookId(): Promise<string> {
-		return await this.getTopDocId();
+		return this.getTopDocId();
 	}
 
 	async getBook(): Promise<LessonDoc | null> {

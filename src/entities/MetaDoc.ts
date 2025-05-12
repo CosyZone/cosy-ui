@@ -2,7 +2,7 @@ import { SidebarItemEntity } from './SidebarItem';
 import type { MetaEntry } from '../database/MetaDB';
 import { LinkUtil } from '../utils/link';
 import { BaseDoc } from './BaseDoc';
-import metaDB from '../database/MetaDB';
+import { metaDB } from '../database/MetaDB';
 import { COLLECTION_META } from '../database/MetaDB';
 
 export default class MetaDoc extends BaseDoc<typeof COLLECTION_META, MetaEntry> {
@@ -12,6 +12,14 @@ export default class MetaDoc extends BaseDoc<typeof COLLECTION_META, MetaEntry> 
 
 	static fromEntry(entry: MetaEntry) {
 		return new MetaDoc(entry);
+	}
+
+	getTopDoc(): Promise<MetaDoc | null> {
+		return Promise.resolve(null);
+	}
+
+	getChildren(): Promise<MetaDoc[]> {
+		return Promise.resolve([]);
 	}
 
 	getLink(): string {
