@@ -99,5 +99,4 @@ class ExperimentDB extends BaseDB<typeof COLLECTION_EXPERIMENT, ExperimentEntry,
 }
 
 // 创建并导出单例实例
-const experimentDB = new ExperimentDB();
-export default experimentDB;
+export const experimentDB = new ExperimentDB();

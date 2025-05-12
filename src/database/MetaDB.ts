@@ -71,5 +71,4 @@ class MetaDB extends BaseDB<typeof COLLECTION_META, MetaEntry, MetaDoc> {
 }
 
 // 创建并导出单例实例
-const metaDB = new MetaDB();
-export default metaDB;
+export const metaDB = new MetaDB();
