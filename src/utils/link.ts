@@ -93,7 +93,7 @@ export class LinkUtil {
 			logger.info(`获取课程文档链接，课程文档ID: ${courseId}`);
 		}
 
-		return `/${lang}/courses/${courseIdWithoutLang}`;
+		return LinkUtil.createUrl(`/${lang}/courses/${courseIdWithoutLang}`);
 	}
 
 	static getMetaLink(lang: string, slug: string): string {

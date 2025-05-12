@@ -34,7 +34,7 @@ export default class CourseDoc extends BaseDoc<typeof COLLECTION_COURSE, CourseE
 	}
 
 	async getAncestor(level: number): Promise<CourseDoc | null> {
-		const debug = true;
+		const debug = false;
 		if (debug) {
 			logger.info(`获取 ${this.entry.id} 的祖先文档，level: ${level}`);
 		}

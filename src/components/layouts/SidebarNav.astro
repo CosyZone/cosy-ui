@@ -37,7 +37,10 @@ const { sidebarItems, currentPath, debug = false, class: className } = Astro.pro
 const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 ---
 
-<nav class:list={['cosy:p-4', debugClass, className]}>
+<nav
+	data-sidebar-nav
+	data-current-path={currentPath}
+	class:list={['cosy:p-4', debugClass, className]}>
 	{
 		sidebarItems.map((section: ISidebarItem) => (
 			<div class:list={['cosy:mb-6', debugClass]}>
@@ -50,6 +53,8 @@ const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 						return (
 							<li class:list={[debugClass]}>
 								<a
+									data-sidebar-item
+									data-current-path={currentPath}
 									href={item.href}
 									class:list={[
 										'cosy:hover:bg-base-300',
@@ -65,10 +70,12 @@ const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 											return (
 												<li class:list={[debugClass]}>
 													<a
+														data-sidebar-item
+														data-current-path={currentPath}
 														href={subitem.href}
 														class:list={[
 															'cosy:hover:bg-base-300',
-															{ 'cosy:active': isSubActive },
+															{ 'cosy:menu-active': isSubActive },
 															debugClass,
 														]}>
 														{subitem.text}
@@ -80,6 +87,8 @@ const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 																return (
 																	<li class:list={[debugClass]}>
 																		<a
+																			data-sidebar-item
+																			data-current-path={currentPath}
 																			href={subsubitem.href}
 																			class:list={[
 																				'cosy:hover:bg-base-300',
