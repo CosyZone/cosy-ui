@@ -60,6 +60,7 @@
 import '../../app.css';
 import Link from '../base/Link.astro';
 import Image from '../base/Image.astro';
+import NavItems from './NavItems.astro';
 import { LanguageSwitcher, LinkUtil, type IHeaderProps, type INavItem } from '../../index';
 import Logo from '../../assets/logo-rounded.png';
 
@@ -147,7 +148,6 @@ const activeLink = LinkUtil.getActiveLink(
 			'cosy:py-16': paddingVertical === '3xl',
 		},
 	]}>
-	<!-- 背景 -->
 	<div
 		class:list={[
 			'cosy:bg-accent/70 cosy:flex cosy:flex-grow cosy:backdrop-blur not-prose cosy:border-base-200',
@@ -162,7 +162,6 @@ const activeLink = LinkUtil.getActiveLink(
 			headerHeightClass,
 			{ 'cosy:border cosy:border-dashed cosy:border-red-500': debug },
 		]}>
-		<!-- 左侧 -->
 		<div class="cosy:navbar-start cosy:pl-1">
 			{
 				navPosition === 'start' ? (
@@ -182,22 +181,13 @@ const activeLink = LinkUtil.getActiveLink(
 								class={logoSizeClass}
 							/>
 						</Link>
-						<ul
-							class:list={[
-								'cosy:hidden cosy:lg:flex cosy:px-1 cosy:menu cosy:menu-horizontal',
-								linkHeightClass,
-							]}>
-							{navItems.map((item: INavItem) => (
-								<li>
-									<Link
-										variant={activeLink == item.href ? 'primary' : 'default'}
-										href={item.href}
-										class:list={[linkHeightClass]}>
-										{item.label}
-									</Link>
-								</li>
-							))}
-						</ul>
+						<div class="cosy:hidden cosy:lg:flex">
+							<NavItems
+								navItems={navItems}
+								activeLink={activeLink}
+								linkHeightClass={linkHeightClass}
+							/>
+						</div>
 					</div>
 				) : (
 					<Link
@@ -219,49 +209,26 @@ const activeLink = LinkUtil.getActiveLink(
 			}
 		</div>
 
-		<!-- 中间 -->
 		{
 			navPosition === 'center' && (
 				<div class="cosy:hidden cosy:lg:flex cosy:navbar-center">
-					<ul class:list={['cosy:px-1 cosy:menu cosy:menu-horizontal', linkHeightClass]}>
-						{navItems.map((item: INavItem) => (
-							<li>
-								<Link
-									variant={activeLink == item.href ? 'primary' : 'default'}
-									href={item.href}
-									class:list={[linkHeightClass]}>
-									{item.label}
-								</Link>
-							</li>
-						))}
-					</ul>
+					<NavItems navItems={navItems} activeLink={activeLink} linkHeightClass={linkHeightClass} />
 				</div>
 			)
 		}
 
-		<!-- 右侧 -->
 		<div class="cosy:navbar-end cosy:pr-1">
 			{
 				navPosition === 'end' && (
-					<ul
-						class:list={[
-							'cosy:hidden cosy:lg:flex cosy:px-1 cosy:menu cosy:menu-horizontal',
-							linkHeightClass,
-						]}>
-						{navItems.map((item: INavItem) => (
-							<li>
-								<Link
-									variant={activeLink == item.href ? 'primary' : 'default'}
-									href={item.href}
-									class:list={[linkHeightClass]}>
-									{item.label}
-								</Link>
-							</li>
-						))}
-					</ul>
+					<div class="cosy:hidden cosy:lg:flex">
+						<NavItems
+							navItems={navItems}
+							activeLink={activeLink}
+							linkHeightClass={linkHeightClass}
+						/>
+					</div>
 				)
 			}
-			<!-- 语言切换 -->
 			<LanguageSwitcher languages={languages} />
 		</div>
 	</div>

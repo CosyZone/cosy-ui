@@ -1,5 +1,25 @@
 ---
 import DemoLayout from '@docs/layouts/DemoLayout.astro';
+import { LinkUtil } from '@/index';
+
+export const getStaticPaths = async () => {
+	return [
+		{
+			params: { lang: 'zh-cn' },
+			props: {
+				lang: 'zh-cn',
+			},
+		},
+		{
+			params: { lang: 'en' },
+			props: {
+				lang: 'en',
+			},
+		},
+	];
+};
+
+return Astro.redirect(LinkUtil.createUrl('/en/courses/guide'));
 ---
 
 <DemoLayout title="Courses" />
