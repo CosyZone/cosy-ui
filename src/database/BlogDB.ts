@@ -195,5 +195,4 @@ class BlogDB extends BaseDB<typeof COLLECTION_BLOG, BlogEntry, BlogDoc> {
 }
 
 // 创建并导出单例实例
-const blogDB = new BlogDB();
-export default blogDB;
+export const blogDB = new BlogDB();

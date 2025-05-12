@@ -99,5 +99,4 @@ class LessonDB extends BaseDB<typeof COLLECTION_LESSON, LessonEntry, LessonDoc> 
 }
 
 // 创建并导出单例实例
-const lessonDB = new LessonDB();
-export default lessonDB;
+export const lessonDB = new LessonDB();
