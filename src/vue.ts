@@ -16,5 +16,8 @@ export { default as ListItem } from './vue/ListItem.vue';
 // Banner
 export { default as BannerBox } from './vue/BannerBox.vue';
 
+// Counter
+export { default as VueCounter } from './vue/VueCounter.vue';
+
 // SmartLink
 export { default as SmartLink } from './vue/SmartLink.vue';
