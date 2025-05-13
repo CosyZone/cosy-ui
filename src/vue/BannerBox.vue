@@ -142,7 +142,7 @@ onMounted(() => {
 
     document.addEventListener('click', (event) => {
         const target = event.target as HTMLElement;
-        if (!target.closest('.relative')) {
+        if (!target.closest('.cosy:relative')) {
             isDropdownOpen.value = false;
         }
     });
@@ -259,7 +259,7 @@ const downloadButtonStyles = computed(() => {
         case 'hover':
             return {
                 show: true,
-                classes: 'cosy:opacity-0 hover:cosy:opacity-100 cosy:transition-opacity'
+                classes: 'cosy:opacity-0 cosy:hover:opacity-100 cosy:transition-opacity'
             };
         case 'never':
             return {
@@ -269,7 +269,7 @@ const downloadButtonStyles = computed(() => {
         default:
             return {
                 show: true,
-                classes: 'cosy:opacity-0 hover:cosy:opacity-100 cosy:transition-opacity'
+                classes: 'cosy:opacity-0 cosy:hover:opacity-100 cosy:transition-opacity'
             };
     }
 });

@@ -26,7 +26,7 @@ import { RiDownloadLine } from '@remixicon/vue';
 import { BannerBox } from 'cosy-ui';
 </script>`}
 >
-  <BannerBox>
+  <BannerBox client:load>
     <div class="cosy:flex cosy:items-center cosy:justify-center cosy:min-h-[200px]">
       <h2 class="cosy:text-3xl cosy:font-bold">欢迎使用 BannerBox</h2>
     </div>
@@ -93,21 +93,21 @@ import { BannerBox } from 'cosy-ui';
 >
   <div class="cosy:space-y-4">
     <h3 class="cosy:text-lg cosy:font-medium">总是显示下载按钮</h3>
-    <BannerBox displayMode="always">
+    <BannerBox displayMode="always" client:load>
       <div class="cosy:flex cosy:items-center cosy:justify-center cosy:min-h-[100px]">
         <p>下载按钮始终可见</p>
       </div>
     </BannerBox>
 
     <h3 class="cosy:text-lg cosy:font-medium">悬停时显示下载按钮（默认）</h3>
-    <BannerBox displayMode="hover">
+    <BannerBox displayMode="hover" client:load>
       <div class="cosy:flex cosy:items-center cosy:justify-center cosy:min-h-[100px]">
         <p>鼠标悬停时显示下载按钮</p>
       </div>
     </BannerBox>
 
     <h3 class="cosy:text-lg cosy:font-medium">隐藏下载按钮</h3>
-    <BannerBox displayMode="never">
+    <BannerBox displayMode="never" client:load>
       <div class="cosy:flex cosy:items-center cosy:justify-center cosy:min-h-[100px]">
         <p>不显示下载按钮</p>
       </div>
