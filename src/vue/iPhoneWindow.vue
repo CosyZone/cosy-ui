@@ -47,6 +47,9 @@ import { ref, onMounted, onUnmounted, defineComponent } from 'vue'
 
 export default defineComponent({
     name: 'iPhoneWindow',
+    components: {
+        AlertDialog
+    },
     props: {
         height: {
             type: String,

@@ -95,6 +95,9 @@ interface Tab {
 
 export default defineComponent({
     name: 'MacWindow',
+    components: {
+        AlertDialog
+    },
     props: {
         height: {
             type: String,
