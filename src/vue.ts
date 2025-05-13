@@ -1,14 +1,20 @@
-export * from './vue/TagList.vue';
+export { default as TagList } from './vue/TagList.vue';
 export { default as AlertDialog } from './vue/AlertDialog.vue';
-export * from './vue/BannerBox.vue';
-export * from './vue/SmartHero.vue';
-export * from './vue/ConfirmDialog.vue';
-export * from './vue/FeatureButton.vue';
-export * from './vue/FeatureCard.vue';
-export * from './vue/FeatureGroup.vue';
+export { default as SmartHero } from './vue/SmartHero.vue';
+export { default as ConfirmDialog } from './vue/ConfirmDialog.vue';
+export { default as FeatureButton } from './vue/FeatureButton.vue';
+export { default as FeatureCard } from './vue/FeatureCard.vue';
+export { default as FeatureGroup } from './vue/FeatureGroup.vue';
+
+// Windows
 export { default as iPhoneWindow } from './vue/iPhoneWindow.vue';
-export * from './vue/ListItem.vue';
 export { default as MacWindow } from './vue/MacWindow.vue';
-export * from './vue/SmartBanner.vue';
-export * from './vue/SmartLink.vue';
-export * from './vue/WildBanner.vue';
+
+// List
+export { default as ListItem } from './vue/ListItem.vue';
+
+// Banner
+export { default as BannerBox } from './vue/BannerBox.vue';
+
+// SmartLink
+export { default as SmartLink } from './vue/SmartLink.vue';

@@ -1,0 +1,328 @@
+---
+title: 'BannerBox'
+description: '可自定义背景和尺寸的横幅容器组件，支持导出为图片和智能内容展示'
+folder: false
+order: 3
+---
+
+import { CodeExample } from '@/index';
+import { BannerBox } from '@/vue';
+import { RiDownloadLine } from '@remixicon/vue';
+
+## 基础用法
+
+最基本的横幅容器，可放置任何内容。
+
+<CodeExample
+  code={`<template>
+  <BannerBox>
+    <div class="flex items-center justify-center min-h-[200px]">
+      <h2 class="text-3xl font-bold">欢迎使用 BannerBox</h2>
+    </div>
+  </BannerBox>
+</template>
+
+<script setup>
+import { BannerBox } from 'cosy-ui';
+</script>`}
+>
+  <BannerBox>
+    <div class="cosy:flex cosy:items-center cosy:justify-center cosy:min-h-[200px]">
+      <h2 class="cosy:text-3xl cosy:font-bold">欢迎使用 BannerBox</h2>
+    </div>
+  </BannerBox>
+</CodeExample>
+
+## 自定义背景
+
+通过 `backgroundClassIndex` 属性选择预设的渐变背景。
+
+<CodeExample
+  code={`<template>
+  <BannerBox backgroundClassIndex={5}>
+    <div class="flex items-center justify-center min-h-[200px]">
+      <h2 class="text-3xl font-bold">自定义背景颜色</h2>
+    </div>
+  </BannerBox>
+</template>
+
+<script setup>
+import { BannerBox } from 'cosy-ui';
+</script>`}
+>
+  <BannerBox backgroundClassIndex={5}>
+    <div class="cosy:flex cosy:items-center cosy:justify-center cosy:min-h-[200px]">
+      <h2 class="cosy:text-3xl cosy:font-bold">自定义背景颜色</h2>
+    </div>
+  </BannerBox>
+</CodeExample>
+
+## 下载按钮显示控制
+
+通过 `displayMode` 属性控制下载按钮的显示方式，支持三种模式：`always`（总是显示）、`hover`（鼠标悬停时显示）和`never`（不显示）。
+
+<CodeExample
+  code={`<template>
+  <div class="space-y-4">
+    <h3 class="text-lg font-medium">总是显示下载按钮</h3>
+    <BannerBox displayMode="always">
+      <div class="flex items-center justify-center min-h-[100px]">
+        <p>下载按钮始终可见</p>
+      </div>
+    </BannerBox>
+
+    <h3 class="text-lg font-medium">悬停时显示下载按钮（默认）</h3>
+    <BannerBox displayMode="hover">
+      <div class="flex items-center justify-center min-h-[100px]">
+        <p>鼠标悬停时显示下载按钮</p>
+      </div>
+    </BannerBox>
+
+    <h3 class="text-lg font-medium">隐藏下载按钮</h3>
+    <BannerBox displayMode="never">
+      <div class="flex items-center justify-center min-h-[100px]">
+        <p>不显示下载按钮</p>
+      </div>
+    </BannerBox>
+  </div>
+</template>
+
+<script setup>
+import { BannerBox } from 'cosy-ui';
+</script>`}
+>
+  <div class="cosy:space-y-4">
+    <h3 class="cosy:text-lg cosy:font-medium">总是显示下载按钮</h3>
+    <BannerBox displayMode="always">
+      <div class="cosy:flex cosy:items-center cosy:justify-center cosy:min-h-[100px]">
+        <p>下载按钮始终可见</p>
+      </div>
+    </BannerBox>
+
+    <h3 class="cosy:text-lg cosy:font-medium">悬停时显示下载按钮（默认）</h3>
+    <BannerBox displayMode="hover">
+      <div class="cosy:flex cosy:items-center cosy:justify-center cosy:min-h-[100px]">
+        <p>鼠标悬停时显示下载按钮</p>
+      </div>
+    </BannerBox>
+
+    <h3 class="cosy:text-lg cosy:font-medium">隐藏下载按钮</h3>
+    <BannerBox displayMode="never">
+      <div class="cosy:flex cosy:items-center cosy:justify-center cosy:min-h-[100px]">
+        <p>不显示下载按钮</p>
+      </div>
+    </BannerBox>
+  </div>
+</CodeExample>
+
+## 尺寸预设
+
+组件内置多种尺寸预设，可通过下载按钮下拉菜单选择，组件会自动记住上次选择的尺寸。
+
+<CodeExample
+  code={`<template>
+  <p class="mb-4">悬停在左上角显示下载按钮，点击可切换尺寸。尺寸会保存在浏览器中。</p>
+  <BannerBox>
+    <div class="flex items-center justify-center min-h-[200px]">
+      <h2 class="text-3xl font-bold">点击左上角按钮切换尺寸</h2>
+    </div>
+  </BannerBox>
+</template>
+
+<script setup>
+import { BannerBox } from 'cosy-ui';
+</script>`}
+>
+  <p class="cosy:mb-4">悬停在左上角显示下载按钮，点击可切换尺寸。尺寸会保存在浏览器中。</p>
+  <BannerBox>
+    <div class="cosy:flex cosy:items-center cosy:justify-center cosy:min-h-[200px]">
+      <h2 class="cosy:text-3xl cosy:font-bold">点击左上角按钮切换尺寸</h2>
+    </div>
+  </BannerBox>
+</CodeExample>
+
+## 导出为图片
+
+BannerBox 组件支持将内容导出为图片，通过左上角的下载按钮操作。
+
+<CodeExample
+  code={`<template>
+  <p class="mb-4">悬停在左上角显示下载按钮，点击可下载当前内容为图片。</p>
+  <BannerBox backgroundClassIndex={8}>
+    <div class="flex flex-col items-center justify-center min-h-[200px] p-8 text-center">
+      <h2 class="text-3xl font-bold mb-4">可导出为图片的内容</h2>
+      <p class="text-lg">适用于创建社交媒体分享图、营销材料等场景</p>
+    </div>
+  </BannerBox>
+</template>
+
+<script setup>
+import { BannerBox } from 'cosy-ui';
+</script>`}
+>
+  <p class="cosy:mb-4">悬停在左上角显示下载按钮，点击可下载当前内容为图片。</p>
+  <BannerBox backgroundClassIndex={8}>
+    <div class="cosy:flex cosy:flex-col cosy:items-center cosy:justify-center cosy:min-h-[200px] cosy:p-8 cosy:text-center">
+      <h2 class="cosy:text-3xl cosy:font-bold cosy:mb-4">可导出为图片的内容</h2>
+      <p class="cosy:text-lg">适用于创建社交媒体分享图、营销材料等场景</p>
+    </div>
+  </BannerBox>
+</CodeExample>
+
+## 智能横幅模式
+
+通过传入 `banner` 属性使用智能横幅模式，自动展示标题、描述和特性列表。
+
+<CodeExample
+  code={`<template>
+  <BannerBox
+    :banner="banner"
+    lang="zh-cn"
+  />
+</template>
+
+<script setup>
+import { BannerBox } from 'cosy-ui';
+import Banner from 'cosy-ui/entities/Banner';
+
+// 创建Banner实例
+const banner = new Banner();
+banner.setTitle('zh-cn', '我们的产品特性');
+banner.setDescription('zh-cn', '探索产品提供的所有强大功能');
+
+// 添加特性
+banner.addFeature({
+  emoji: '⚡',
+  title: { 'zh-cn': '快速响应' },
+  link: '#speed'
+});
+
+banner.addFeature({
+  emoji: '🔒',
+  title: { 'zh-cn': '安全可靠' },
+  link: '#security'
+});
+
+banner.addFeature({
+  emoji: '🌐',
+  title: { 'zh-cn': '全球支持' },
+  link: '#global'
+});
+</script>`}
+>
+  <p class="cosy:text-sm cosy:mb-4">此处为示例展示，实际使用时需要导入并创建Banner对象</p>
+</CodeExample>
+
+## 多语言支持
+
+智能横幅模式支持多语言，通过 `lang` 属性切换显示语言。
+
+<CodeExample
+  code={`<template>
+  <div>
+    <div class="mb-4 flex gap-2">
+      <button class="btn btn-sm" @click="currentLang = 'zh-cn'">中文</button>
+      <button class="btn btn-sm" @click="currentLang = 'en'">English</button>
+    </div>
+    <BannerBox
+      :banner="banner"
+      :lang="currentLang"
+    />
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { BannerBox } from 'cosy-ui';
+import Banner from 'cosy-ui/entities/Banner';
+
+const currentLang = ref('zh-cn');
+
+// 创建多语言Banner实例
+const banner = new Banner();
+banner.setTitle('zh-cn', '多语言横幅');
+banner.setTitle('en', 'Multilingual Banner');
+banner.setDescription('zh-cn', '支持多种语言的内容展示');
+banner.setDescription('en', 'Content display supporting multiple languages');
+
+banner.addFeature({
+  emoji: '🌍',
+  title: { 'zh-cn': '国际化', 'en': 'Internationalization' },
+  link: '#i18n'
+});
+
+banner.addFeature({
+  emoji: '🔄',
+  title: { 'zh-cn': '即时切换', 'en': 'Instant Switching' },
+  link: '#switch'
+});
+</script>`}
+>
+  <p class="cosy:text-sm cosy:mb-4">此处为示例展示，实际使用时可通过按钮切换语言</p>
+</CodeExample>
+
+## 自定义组件集成
+
+Banner 实体支持集成自定义组件，可以在横幅中插入任意 Vue 组件。
+
+<CodeExample
+  code={`<template>
+  <BannerBox
+    :banner="banner"
+    lang="zh-cn"
+  />
+</template>
+
+<script setup>
+import { BannerBox, Button } from 'cosy-ui';
+import Banner from 'cosy-ui/entities/Banner';
+
+// 创建Banner实例
+const banner = new Banner();
+banner.setTitle('zh-cn', '带自定义组件的横幅');
+banner.setDescription('zh-cn', '在横幅中集成其他UI组件');
+
+banner.addFeature({
+  emoji: '🎨',
+  title: { 'zh-cn': '可定制UI' },
+  link: '#customize'
+});
+
+// 设置自定义组件
+banner.setComponent(() => Button, { 
+  text: '立即注册', 
+  variant: 'primary',
+  size: 'lg',
+  onClick: () => alert('注册按钮点击')
+});
+</script>`}
+>
+  <p class="cosy:text-sm cosy:mb-4">此处为示例展示，实际使用时可以设置任意Vue组件</p>
+</CodeExample>
+
+## 属性
+
+| 属性名 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| displayMode | string | 'hover' | 下载按钮显示模式：'always'(总是显示),'hover'(悬停显示),'never'(不显示) |
+| backgroundClassIndex | number | 0 | 背景样式索引，对应内置的背景样式列表 |
+| banner | Banner | null | Banner实体对象，包含标题、描述和特性列表 |
+| lang | string | 'en' | 当前语言，支持'en'和'zh-cn'，仅当使用banner属性时有效 |
+
+## 插槽
+
+| 插槽名 | 说明 |
+| --- | --- |
+| default | 横幅内容，当不使用banner属性时显示 |
+
+## Banner实体API
+
+| 方法 | 参数 | 说明 |
+| --- | --- | --- |
+| setTitle | (lang: string, title: string) | 设置指定语言的标题 |
+| setDescription | (lang: string, description: string) | 设置指定语言的描述 |
+| addFeature | (feature: Feature) | 添加特性项 |
+| getTitle | (lang: string) | 获取指定语言的标题 |
+| getDescription | (lang: string) | 获取指定语言的描述 |
+| getFeatures | () | 获取所有特性项 |
+| setComponent | (component: Component, props?: Object) | 设置自定义组件及其属性 |
