@@ -39,34 +39,54 @@ const showDialog = ref(false);
 @emit {update:modelValue} - 当对话框关闭时触发，用于更新v-model绑定值
 -->
 
-<script setup lang="ts">
+<script lang="ts">
 import '../app.css'
+import { defineComponent } from 'vue'
 
-interface Props {
-    modelValue: boolean;
-    message: string;
-    lang?: 'zh-cn' | 'en';
+type MessageKey = 'confirm';
+
+interface Messages {
+    [key: string]: {
+        [key in MessageKey]: string;
+    };
 }
 
-const props = withDefaults(defineProps<Props>(), {
-    lang: 'zh-cn'
-});
-
-// 多语言文本
-type MessageKey = 'confirm';
-const t = (key: MessageKey) => {
-    const messages = {
-        'zh-cn': {
-            confirm: '确定'
+export default defineComponent({
+    name: 'AlertDialog',
+    props: {
+        modelValue: {
+            type: Boolean,
+            required: true
         },
-        'en': {
-            confirm: 'OK'
+        message: {
+            type: String,
+            required: true
+        },
+        lang: {
+            type: String as () => 'zh-cn' | 'en',
+            default: 'zh-cn'
         }
-    };
-    return messages[props.lang][key];
-};
+    },
+    emits: ['update:modelValue'],
+    setup(props) {
+        // 多语言文本
+        const t = (key: MessageKey) => {
+            const messages: Messages = {
+                'zh-cn': {
+                    confirm: '确定'
+                },
+                'en': {
+                    confirm: 'OK'
+                }
+            };
+            return messages[props.lang][key];
+        };
 
-defineEmits(['update:modelValue']);
+        return {
+            t
+        };
+    }
+})
 </script>
 
 <template>

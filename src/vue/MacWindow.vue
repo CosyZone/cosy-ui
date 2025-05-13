@@ -82,10 +82,10 @@ const activeTab = ref('general');
 @emit {update:modelValue} - 切换标签页时触发，用于v-model
 -->
 
-<script setup lang="ts">
+<script lang="ts">
 import '../app.css'
 import AlertDialog from './AlertDialog.vue'
-import { ref } from 'vue'
+import { ref, defineComponent } from 'vue'
 
 // 定义标签页类型
 interface Tab {
@@ -93,62 +93,74 @@ interface Tab {
     value: string;
 }
 
-const props = defineProps({
-    height: {
-        type: String,
-        default: 'h-96'
+export default defineComponent({
+    name: 'MacWindow',
+    props: {
+        height: {
+            type: String,
+            default: 'h-96'
+        },
+        title: {
+            type: String,
+            default: ''
+        },
+        withShadow: {
+            type: Boolean,
+            default: true
+        },
+        tabs: {
+            type: Array as () => Tab[],
+            default: () => []
+        },
+        modelValue: {
+            type: String,
+            default: ''
+        }
     },
-    title: {
-        type: String,
-        default: ''
-    },
-    withShadow: {
-        type: Boolean,
-        default: true
-    },
-    tabs: {
-        type: Array as () => Tab[],
-        default: () => []
-    },
-    modelValue: {
-        type: String,
-        default: ''
+    emits: ['close', 'minimize', 'maximize', 'update:modelValue'],
+    setup(props, { emit }) {
+        const showAlertDialog = ref(false)
+        const alertMessage = ref('')
+
+        const handleCloseWindow = () => {
+            alertMessage.value = '关闭APP窗口（这是演示，不会真实操作）'
+            showAlertDialog.value = true
+            emit('close')
+        }
+
+        const handleMinimizeWindow = () => {
+            alertMessage.value = '最小化窗口（这是演示，不会真实操作）'
+            showAlertDialog.value = true
+            emit('minimize')
+        }
+
+        const handleMaximizeWindow = () => {
+            alertMessage.value = '最大化窗口（这是演示，不会真实操作）'
+            showAlertDialog.value = true
+            emit('maximize')
+        }
+
+        const handleTabClick = (value: string) => {
+            emit('update:modelValue', value)
+        }
+
+        return {
+            showAlertDialog,
+            alertMessage,
+            handleCloseWindow,
+            handleMinimizeWindow,
+            handleMaximizeWindow,
+            handleTabClick
+        }
     }
 })
-
-const emit = defineEmits(['close', 'minimize', 'maximize', 'update:modelValue'])
-
-const showAlertDialog = ref(false)
-const alertMessage = ref('')
-
-const handleCloseWindow = () => {
-    alertMessage.value = '关闭APP窗口（这是演示，不会真实操作）'
-    showAlertDialog.value = true
-    emit('close')
-}
-
-const handleMinimizeWindow = () => {
-    alertMessage.value = '最小化窗口（这是演示，不会真实操作）'
-    showAlertDialog.value = true
-    emit('minimize')
-}
-
-const handleMaximizeWindow = () => {
-    alertMessage.value = '最大化窗口（这是演示，不会真实操作）'
-    showAlertDialog.value = true
-    emit('maximize')
-}
-
-const handleTabClick = (value: string) => {
-    emit('update:modelValue', value)
-}
 </script>
 
 <template>
     <div class="cosy:flex cosy:max-w-5xl cosy:mx-auto cosy:bg-base-100 cosy:relative cosy:rounded-2xl cosy:overflow-hidden"
         :class="[
-            props.height,
-            props.withShadow ? 'cosy:shadow-lg' : ''
+            height,
+            withShadow ? 'cosy:shadow-lg' : ''
         ]">
         <!-- 窗口控制按钮 -->
         <div
@@ -162,13 +174,13 @@ const handleTabClick = (value: string) => {
                     @click="handleMaximizeWindow" />
             </div>
             <div class="cosy:ml-6 cosy:text-sm cosy:font-medium cosy:text-base-content">
-                {{ props.title }}
+                {{ title }}
             </div>
 
             <!-- 标签选择器 -->
-            <div v-if="props.tabs?.length" class="cosy:flex-1 cosy:flex cosy:justify-center">
+            <div v-if="tabs?.length" class="cosy:flex-1 cosy:flex cosy:justify-center">
                 <div class="cosy:inline-flex cosy:rounded-lg cosy:bg-base-300 cosy:p-1">
-                    <button v-for="(tab, index) in props.tabs" :key="index" :class="[
+                    <button v-for="(tab, index) in tabs" :key="index" :class="[
                         'cosy:px-3 cosy:py-1 cosy:text-sm cosy:rounded-md cosy:transition-colors',
                         modelValue === tab.value
                             ? 'cosy:bg-base-100 cosy:text-base-content cosy:shadow'

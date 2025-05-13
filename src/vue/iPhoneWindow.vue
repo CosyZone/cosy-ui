@@ -40,6 +40,74 @@ iPhoneWindow 组件模拟 iPhone 设备的外观，包含状态栏、时间显�
 
 @emits
 -->
+<script lang="ts">
+import '../app.css'
+import AlertDialog from './AlertDialog.vue'
+import { ref, onMounted, onUnmounted, defineComponent } from 'vue'
+
+export default defineComponent({
+    name: 'iPhoneWindow',
+    props: {
+        height: {
+            type: String,
+            default: 'h-96'
+        },
+        title: {
+            type: String,
+            default: ''
+        },
+        statusBarButtons: {
+            type: Array,
+            default: () => []
+        },
+        withShadow: {
+            type: Boolean,
+            default: true
+        },
+        showFrame: {
+            type: Boolean,
+            default: true
+        },
+        backgroundColor: {
+            type: String,
+            default: ''
+        }
+    },
+    setup() {
+        const showAlertDialog = ref(false)
+        const alertMessage = ref('')
+
+        const currentTime = ref('12:00')
+
+        // 更新时间的函数
+        const updateTime = () => {
+            const now = new Date()
+            const hours = now.getHours().toString().padStart(2, '0')
+            const minutes = now.getMinutes().toString().padStart(2, '0')
+            currentTime.value = `${hours}:${minutes}`
+        }
+
+        // 设置定时器更新时间
+        let timeInterval: number
+        onMounted(() => {
+            updateTime()
+            timeInterval = window.setInterval(updateTime, 60000) // 每分钟更新一次
+        })
+
+        onUnmounted(() => {
+            if (timeInterval) {
+                clearInterval(timeInterval)
+            }
+        })
+
+        return {
+            showAlertDialog,
+            alertMessage,
+            currentTime
+        }
+    }
+})
+</script>
 
 <template>
     <div class="cosy:relative cosy:w-full">
@@ -109,65 +177,6 @@ iPhoneWindow 组件模拟 iPhone 设备的外观，包含状态栏、时间显�
     <!-- 添加 AlertDialog 组件 -->
     <AlertDialog v-model="showAlertDialog" :message="alertMessage" />
 </template>
-
-<script setup lang="ts">
-import '../app.css'
-import AlertDialog from './AlertDialog.vue'
-import { ref, onMounted, onUnmounted } from 'vue'
-
-defineProps({
-    height: {
-        type: String,
-        default: 'h-96'
-    },
-    title: {
-        type: String,
-        default: ''
-    },
-    statusBarButtons: {
-        type: Array,
-        default: () => []
-    },
-    withShadow: {
-        type: Boolean,
-        default: true
-    },
-    showFrame: {
-        type: Boolean,
-        default: true
-    },
-    backgroundColor: {
-        type: String,
-        default: ''
-    }
-})
-
-const showAlertDialog = ref(false)
-const alertMessage = ref('')
-
-const currentTime = ref('12:00')
-
-// 更新时间的函数
-const updateTime = () => {
-    const now = new Date()
-    const hours = now.getHours().toString().padStart(2, '0')
-    const minutes = now.getMinutes().toString().padStart(2, '0')
-    currentTime.value = `${hours}:${minutes}`
-}
-
-// 设置定时器更新时间
-let timeInterval: number
-onMounted(() => {
-    updateTime()
-    timeInterval = window.setInterval(updateTime, 60000) // 每分钟更新一次
-})
-
-onUnmounted(() => {
-    if (timeInterval) {
-        clearInterval(timeInterval)
-    }
-})
-</script>
 
 <style scoped>
 /* 确保图标渲染更平滑 */
