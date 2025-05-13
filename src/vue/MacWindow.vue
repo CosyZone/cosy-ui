@@ -1,6 +1,97 @@
+<!--
+@component MacWindow
+
+@description
+MacWindow 组件模拟 macOS 风格的应用窗口，包含标题栏、工具栏按钮、标签页和状态栏。
+适用于创建模拟桌面应用界面或代码编辑器等场景。
+
+@usage
+基本用法：
+```vue
+<MacWindow title="代码编辑器">
+  <div>窗口内容</div>
+</MacWindow>
+```
+
+带标签页：
+```vue
+<template>
+  <MacWindow
+    title="设置"
+    v-model="activeTab"
+    :tabs="[
+      { label: '通用', value: 'general' },
+      { label: '外观', value: 'appearance' },
+      { label: '高级', value: 'advanced' }
+    ]"
+  >
+    <div v-if="activeTab === 'general'">通用设置内容</div>
+    <div v-if="activeTab === 'appearance'">外观设置内容</div>
+    <div v-if="activeTab === 'advanced'">高级设置内容</div>
+  </MacWindow>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { MacWindow } from 'cosy-ui';
+
+const activeTab = ref('general');
+</script>
+```
+
+带工具栏和状态栏：
+```vue
+<MacWindow title="文件浏览器">
+<template #toolbar>
+    <button class="cosy:btn cosy:btn-ghost cosy:btn-sm">
+      <SearchIcon class="cosy:w-4 cosy:h-4" />
+    </button>
+    <button class="cosy:btn cosy:btn-ghost cosy:btn-sm">
+      <SettingsIcon class="cosy:w-4 cosy:h-4" />
+    </button>
+  </template>
+
+<div>窗口内容</div>
+
+<template #status>
+    <div class="cosy:text-xs">就绪</div>
+    <button class="cosy:btn cosy:btn-ghost cosy:btn-xs">
+      <InfoIcon class="cosy:w-4 cosy:h-4" />
+    </button>
+  </template>
+</MacWindow>
+```
+
+@props
+@prop {String} [height='h-96'] - 窗口高度
+@prop {String} [title=''] - 窗口标题
+@prop {Boolean} [withShadow=true] - 是否显示阴影效果
+@prop {Array} [tabs=[]] - 标签页数组，每个标签包含label和value属性
+@prop {String} [modelValue=''] - 当前选中的标签页value值，可使用v-model绑定
+
+@slots
+@slot default - 窗口主要内容
+@slot sidebar - 侧边栏内容
+@slot toolbar - 工具栏内容，位于标题栏右侧
+@slot status - 状态栏内容，位于窗口底部
+
+@emits
+@emit {close} - 点击关闭按钮时触发
+@emit {minimize} - 点击最小化按钮时触发
+@emit {maximize} - 点击最大化按钮时触发
+@emit {update:modelValue} - 切换标签页时触发，用于v-model
+-->
+
 <script setup lang="ts">
+import '../app.css'
 import AlertDialog from './AlertDialog.vue'
 import { ref } from 'vue'
+
+// 定义标签页类型
+interface Tab {
+    label: string;
+    value: string;
+}
 
 const props = defineProps({
     height: {
@@ -11,20 +102,12 @@ const props = defineProps({
         type: String,
         default: ''
     },
-    toolbarButtons: {
-        type: Array,
-        default: () => []
-    },
-    statusBarButtons: {
-        type: Array,
-        default: () => []
-    },
     withShadow: {
         type: Boolean,
         default: true
     },
     tabs: {
-        type: Array,
+        type: Array as () => Tab[],
         default: () => []
     },
     modelValue: {
@@ -62,110 +145,65 @@ const handleTabClick = (value: string) => {
 </script>
 
 <template>
-  <div
-    class="flex max-w-5xl mx-auto bg-base-100 relative rounded-2xl overflow-hidden shadow"
-    :class="[
-      props.height,
-      props.withShadow ? 'shadow-lg' : ''
-    ]"
-  >
-    <!-- 窗口控制按钮 -->
-    <div class="absolute top-0 left-0 right-0 flex items-center h-12 px-4 bg-base-200 border-b border-base-300">
-      <div class="flex items-center space-x-2">
+    <div class="cosy:flex cosy:max-w-5xl cosy:mx-auto cosy:bg-base-100 cosy:relative cosy:rounded-2xl cosy:overflow-hidden"
+        :class="[
+            props.height,
+            props.withShadow ? 'cosy:shadow-lg' : ''
+        ]">
+        <!-- 窗口控制按钮 -->
         <div
-          class="w-3 h-3 rounded-full bg-error cursor-pointer hover:opacity-80 transition-opacity"
-          @click="handleCloseWindow"
-        />
-        <div
-          class="w-3 h-3 rounded-full bg-warning cursor-pointer hover:opacity-80 transition-opacity"
-          @click="handleMinimizeWindow"
-        />
-        <div
-          class="w-3 h-3 rounded-full bg-success cursor-pointer hover:opacity-80 transition-opacity"
-          @click="handleMaximizeWindow"
-        />
-      </div>
-      <div class="ml-6 text-sm font-medium text-base-content">
-        {{ props.title }}
-      </div>
+            class="cosy:absolute cosy:top-0 cosy:left-0 cosy:right-0 cosy:flex cosy:items-center cosy:h-12 cosy:px-4 cosy:bg-base-200 cosy:border-b cosy:border-base-300">
+            <div class="cosy:flex cosy:items-center cosy:space-x-2">
+                <div class="cosy:w-3 cosy:h-3 cosy:rounded-full cosy:bg-error cosy:cursor-pointer hover:cosy:opacity-80 cosy:transition-opacity"
+                    @click="handleCloseWindow" />
+                <div class="cosy:w-3 cosy:h-3 cosy:rounded-full cosy:bg-warning cosy:cursor-pointer hover:cosy:opacity-80 cosy:transition-opacity"
+                    @click="handleMinimizeWindow" />
+                <div class="cosy:w-3 cosy:h-3 cosy:rounded-full cosy:bg-success cosy:cursor-pointer hover:cosy:opacity-80 cosy:transition-opacity"
+                    @click="handleMaximizeWindow" />
+            </div>
+            <div class="cosy:ml-6 cosy:text-sm cosy:font-medium cosy:text-base-content">
+                {{ props.title }}
+            </div>
 
-      <!-- 标签选择器 -->
-      <div
-        v-if="props.tabs?.length"
-        class="flex-1 flex justify-center"
-      >
-        <div class="inline-flex rounded-lg bg-base-300 p-1">
-          <button
-            v-for="(tab, index) in props.tabs"
-            :key="index"
-            :class="[
-              'px-3 py-1 text-sm rounded-md transition-colors',
-              modelValue === tab.value
-                ? 'bg-base-100 text-base-content shadow'
-                : 'text-base-content/70 hover:text-base-content'
-            ]"
-            @click="handleTabClick(tab.value)"
-          >
-            {{ tab.label }}
-          </button>
+            <!-- 标签选择器 -->
+            <div v-if="props.tabs?.length" class="cosy:flex-1 cosy:flex cosy:justify-center">
+                <div class="cosy:inline-flex cosy:rounded-lg cosy:bg-base-300 cosy:p-1">
+                    <button v-for="(tab, index) in props.tabs" :key="index" :class="[
+                        'cosy:px-3 cosy:py-1 cosy:text-sm cosy:rounded-md cosy:transition-colors',
+                        modelValue === tab.value
+                            ? 'cosy:bg-base-100 cosy:text-base-content cosy:shadow'
+                            : 'cosy:text-base-content/70 hover:cosy:text-base-content'
+                    ]" @click="handleTabClick(tab.value)">
+                        {{ tab.label }}
+                    </button>
+                </div>
+            </div>
+
+            <!-- 工具栏插槽 -->
+            <div class="cosy:ml-auto cosy:flex cosy:items-center cosy:space-x-2">
+                <slot name="toolbar"></slot>
+            </div>
         </div>
-      </div>
 
-      <div class="ml-auto flex items-center space-x-2">
-        <template
-          v-for="(button, index) in props.toolbarButtons"
-          :key="index"
-        >
-          <button
-            class="p-1.5 text-base-content/70 hover:bg-base-300 rounded transition-colors"
-            @click="button.onClick"
-          >
-            <component
-              :is="button.icon"
-              class="w-4 h-4"
-            />
-          </button>
-        </template>
-      </div>
-    </div>
+        <!-- 主要内容区域 -->
+        <div class="cosy:flex-1 cosy:flex cosy:flex-col cosy:pt-12 cosy:h-full">
+            <div class="cosy:flex cosy:flex-1 cosy:h-full cosy:overflow-hidden">
+                <!-- 左侧栏插槽 -->
+                <slot name="sidebar" />
 
-    <!-- 主要内容区域 -->
-    <div class="flex-1 flex flex-col pt-12 h-full">
-      <div class="flex flex-1 h-full overflow-hidden">
-        <!-- 左侧栏插槽 -->
-        <slot name="sidebar" />
+                <!-- 主内容插槽 -->
+                <slot />
+            </div>
 
-        <!-- 主内容插槽 -->
-        <slot />
-      </div>
-
-      <!-- 底部状态栏 -->
-      <div
-        v-if="statusBarButtons?.length"
-        class="h-6 bg-base-200/95 border-t border-base-300 flex items-center justify-end px-4 text-sm"
-      >
-        <div class="flex items-center space-x-0">
-          <template
-            v-for="(button, index) in statusBarButtons"
-            :key="index"
-          >
-            <button
-              class="hover:text-primary p-2 text-base-content/70 transition-colors"
-              @click="button.onClick"
-            >
-              <component
-                :is="button.icon"
-                class="w-4 h-4"
-              />
-            </button>
-          </template>
+            <!-- 底部状态栏 -->
+            <div v-if="$slots.status"
+                class="cosy:h-6 cosy:bg-base-200/95 cosy:border-t cosy:border-base-300 cosy:flex cosy:items-center cosy:justify-end cosy:px-4 cosy:text-sm">
+                <div class="cosy:flex cosy:items-center cosy:space-x-2">
+                    <slot name="status"></slot>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  <!-- AlertDialog 组件 -->
-  <AlertDialog
-    v-model="showAlertDialog"
-    :message="alertMessage"
-  />
+    <!-- AlertDialog 组件 -->
+    <AlertDialog v-model="showAlertDialog" :message="alertMessage" />
 </template>

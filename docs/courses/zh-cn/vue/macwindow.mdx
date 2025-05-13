@@ -1,0 +1,250 @@
+---
+title: 'MacWindow'
+description: 'macOS 风格的窗口组件，用于创建模拟桌面应用界面'
+folder: false
+order: 2
+---
+
+import { CodeExample } from '@/index';
+import { MacWindow } from '@/vue';
+import { SearchIcon, SettingsIcon, InfoIcon } from '@/index';
+import { ref } from 'vue';
+
+## 基础用法
+
+最基本的窗口展示方式，带有标题和窗口控制按钮。
+
+<CodeExample
+  code={`<template>
+  <MacWindow title="代码编辑器">
+    <div class="p-4">
+      窗口内容区域
+    </div>
+  </MacWindow>
+</template>
+
+<script setup>
+import { MacWindow } from 'cosy-ui';
+</script>`}
+>
+  <MacWindow title="代码编辑器">
+    <div class="cosy:p-4">
+      窗口内容区域
+    </div>
+  </MacWindow>
+</CodeExample>
+
+## 标签页
+
+通过 `tabs` 属性和 `v-model` 创建带标签页的窗口。
+
+<CodeExample
+  code={`<template>
+  <MacWindow
+    title="设置"
+    v-model="activeTab"
+    :tabs="[
+      { label: '通用', value: 'general' },
+      { label: '外观', value: 'appearance' },
+      { label: '高级', value: 'advanced' }
+    ]"
+  >
+    <div class="p-4">
+      <div v-if="activeTab === 'general'">通用设置内容</div>
+      <div v-if="activeTab === 'appearance'">外观设置内容</div>
+      <div v-if="activeTab === 'advanced'">高级设置内容</div>
+    </div>
+  </MacWindow>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { MacWindow } from 'cosy-ui';
+
+const activeTab = ref('general');
+</script>`}
+>
+  <MacWindow
+    title="设置"
+    modelValue="general"
+    tabs={[
+      { label: '通用', value: 'general' },
+      { label: '外观', value: 'appearance' },
+      { label: '高级', value: 'advanced' }
+    ]}
+  >
+    <div class="cosy:p-4">
+      <div>通用设置内容（在实际使用中，可以根据选中的标签动态显示内容）</div>
+    </div>
+  </MacWindow>
+</CodeExample>
+
+## 工具栏和状态栏
+
+使用 `toolbar` 和 `status` 插槽自定义工具栏和状态栏内容。
+
+<CodeExample
+  code={`<template>
+  <MacWindow title="文件浏览器">
+    <!-- 工具栏插槽 -->
+    <template #toolbar>
+      <button class="btn btn-ghost btn-sm" @click="handleSearch">
+        <SearchIcon class="w-4 h-4" />
+      </button>
+      <button class="btn btn-ghost btn-sm" @click="handleSettings">
+        <SettingsIcon class="w-4 h-4" />
+      </button>
+    </template>
+    
+    <!-- 主内容 -->
+    <div class="p-4">
+      窗口内容区域
+    </div>
+    
+    <!-- 状态栏插槽 -->
+    <template #status>
+      <div class="text-xs">就绪</div>
+      <button class="btn btn-ghost btn-xs" @click="handleInfo">
+        <InfoIcon class="w-4 h-4" />
+      </button>
+    </template>
+  </MacWindow>
+</template>
+
+<script setup>
+import { MacWindow } from 'cosy-ui';
+import { SearchIcon, SettingsIcon, InfoIcon } from 'cosy-ui/icons';
+
+const handleSearch = () => {
+  console.log('搜索');
+};
+
+const handleSettings = () => {
+  console.log('设置');
+};
+
+const handleInfo = () => {
+  console.log('信息');
+};
+</script>`}
+>
+  <MacWindow title="文件浏览器">
+    <div slot="toolbar">
+      <button class="cosy:btn cosy:btn-ghost cosy:btn-sm">
+        <SearchIcon class="cosy:w-4 cosy:h-4" />
+      </button>
+      <button class="cosy:btn cosy:btn-ghost cosy:btn-sm">
+        <SettingsIcon class="cosy:w-4 cosy:h-4" />
+      </button>
+    </div>
+    
+    <div class="cosy:p-4">
+      窗口内容区域
+    </div>
+    
+    <div slot="status">
+      <div class="cosy:text-xs">就绪</div>
+      <button class="cosy:btn cosy:btn-ghost cosy:btn-xs">
+        <InfoIcon class="cosy:w-4 cosy:h-4" />
+      </button>
+    </div>
+  </MacWindow>
+</CodeExample>
+
+## 侧边栏
+
+使用 `sidebar` 插槽添加侧边栏内容。
+
+<CodeExample
+  code={`<template>
+  <MacWindow title="文件浏览器">
+    <template #sidebar>
+      <div class="w-48 border-r border-base-300 p-2">
+        <div class="font-medium mb-2">文件夹</div>
+        <ul>
+          <li class="py-1 px-2 hover:bg-base-200 rounded cursor-pointer">文档</li>
+          <li class="py-1 px-2 hover:bg-base-200 rounded cursor-pointer">下载</li>
+          <li class="py-1 px-2 hover:bg-base-200 rounded cursor-pointer">图片</li>
+        </ul>
+      </div>
+    </template>
+    <div class="p-4">
+      主内容区域
+    </div>
+  </MacWindow>
+</template>
+
+<script setup>
+import { MacWindow } from 'cosy-ui';
+</script>`}
+>
+  <MacWindow title="文件浏览器">
+    <div slot="sidebar" class="cosy:w-48 cosy:border-r cosy:border-base-300 cosy:p-2">
+      <div class="cosy:font-medium cosy:mb-2">文件夹</div>
+      <ul>
+        <li class="cosy:py-1 cosy:px-2 hover:cosy:bg-base-200 cosy:rounded cosy:cursor-pointer">文档</li>
+        <li class="cosy:py-1 cosy:px-2 hover:cosy:bg-base-200 cosy:rounded cosy:cursor-pointer">下载</li>
+        <li class="cosy:py-1 cosy:px-2 hover:cosy:bg-base-200 cosy:rounded cosy:cursor-pointer">图片</li>
+      </ul>
+    </div>
+    <div class="cosy:p-4">
+      主内容区域
+    </div>
+  </MacWindow>
+</CodeExample>
+
+## 自定义高度
+
+通过 `height` 属性自定义窗口高度。
+
+<CodeExample
+  code={`<template>
+  <MacWindow title="终端" height="h-64">
+    <div class="p-4 bg-gray-900 text-green-400 font-mono">
+      $ echo "Hello, World!"<br/>
+      Hello, World!<br/>
+      $ _
+    </div>
+  </MacWindow>
+</template>
+
+<script setup>
+import { MacWindow } from 'cosy-ui';
+</script>`}
+>
+  <MacWindow title="终端" height="cosy:h-64">
+    <div class="cosy:p-4 cosy:bg-gray-900 cosy:text-green-400 cosy:font-mono">
+      $ echo "Hello, World!"<br/>
+      Hello, World!<br/>
+      $ _
+    </div>
+  </MacWindow>
+</CodeExample>
+
+## 属性
+
+| 属性名 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| height | string | 'h-96' | 窗口高度 |
+| title | string | '' | 窗口标题 |
+| withShadow | boolean | true | 是否显示阴影效果 |
+| tabs | array | [] | 标签页数组，每个标签包含label和value属性 |
+| modelValue | string | '' | 当前选中的标签页value值，可使用v-model绑定 |
+
+## 插槽
+
+| 插槽名 | 说明 |
+| --- | --- |
+| default | 窗口主要内容 |
+| sidebar | 侧边栏内容 |
+| toolbar | 工具栏内容，位于标题栏右侧 |
+| status | 状态栏内容，位于窗口底部 |
+
+## 事件
+
+| 事件名 | 参数 | 说明 |
+| --- | --- | --- |
+| close | - | 点击关闭按钮时触发 |
+| minimize | - | 点击最小化按钮时触发 |
+| maximize | - | 点击最大化按钮时触发 |
+| update:modelValue | value | 切换标签页时触发，用于v-model |
