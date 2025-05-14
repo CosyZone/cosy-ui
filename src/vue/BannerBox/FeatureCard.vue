@@ -1,30 +1,3 @@
-<template>
-    <component :is="link ? 'a' : 'div'" :href="link || undefined" :target="link ? '_blank' : undefined"
-        :rel="link ? 'noopener noreferrer' : undefined" :class="[
-            'card bg-base-100/10 backdrop-blur-lg p-8 transition-all duration-300 hover:-translate-y-1 shadow-lg',
-            {
-                'hover:bg-primary/15 cursor-pointer': link,
-                'cursor-default': !link
-            }
-        ]">
-        <div class="card-body p-0">
-            <div class="mb-4">
-                <component :is="icon" v-if="icon" class="text-4xl text-base-content" />
-                <component :is="getPresetIcon" v-else-if="presetIcon" class="text-4xl text-base-content" />
-                <div v-else class="text-4xl text-base-content">
-                    {{ emoji }}
-                </div>
-            </div>
-            <h3 class="card-title text-lg font-medium text-base-content">
-                {{ title }}
-            </h3>
-            <p v-if="description" class="text-base-content/70">
-                {{ description }}
-            </p>
-        </div>
-    </component>
-</template>
-
 <script setup lang="ts">
 import { computed, type Component } from 'vue';
 import {
@@ -188,3 +161,30 @@ const getPresetIcon = computed(() => {
     return presetIcons[props.presetIcon];
 });
 </script>
+
+<template>
+    <component :is="link ? 'a' : 'div'" :href="link || undefined" :target="link ? '_blank' : undefined"
+        :rel="link ? 'noopener noreferrer' : undefined" :class="[
+            'cosy:card cosy:no-underline cosy:bg-base-100/10 cosy:backdrop-blur-lg cosy:p-8 cosy:transition-all cosy:duration-300 cosy:hover:-translate-y-1 cosy:shadow-lg',
+            {
+                'cosy:hover:bg-primary/15 cosy:cursor-pointer': link,
+                'cosy:cursor-default': !link
+            }
+        ]">
+        <div class="card-body cosy:p-0">
+            <div class="cosy:mb-4">
+                <component :is="icon" v-if="icon" class="cosy:text-4xl cosy:text-base-content" />
+                <component :is="getPresetIcon" v-else-if="presetIcon" class="cosy:text-4xl cosy:text-base-content" />
+                <div v-else class="cosy:text-4xl cosy:text-base-content">
+                    {{ emoji }}
+                </div>
+            </div>
+            <h3 class="card-title cosy:text-lg cosy:font-medium cosy:text-base-content">
+                {{ title }}
+            </h3>
+            <p v-if="description" class="cosy:text-base-content/70">
+                {{ description }}
+            </p>
+        </div>
+    </component>
+</template>

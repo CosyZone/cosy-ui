@@ -1,17 +1,19 @@
 import Basic from './ExampleBasic.vue';
 import CustomBg from './ExampleCustomBg.vue';
-import DisplayMode from './ExampleDisplayMode.vue';
+import DisplayModeAlways from './ExampleDisplayModeAlways.vue';
+import DisplayModeHover from './ExampleDisplayModeHover.vue';
+import DisplayModeNever from './ExampleDisplayModeNever.vue';
 import SmartBanner from './SmartBanner.vue';
 import SizePreset from './ExampleSizePreset.vue';
 import ImageExport from './ExampleImageExport.vue';
-import CustomComponent from './ExampleCustomComponent.vue';
 import BasicSource from './ExampleBasic.vue?raw';
 import CustomBgSource from './ExampleCustomBg.vue?raw';
-import DisplayModeSource from './ExampleDisplayMode.vue?raw';
+import DisplayModeAlwaysSource from './ExampleDisplayModeAlways.vue?raw';
+import DisplayModeHoverSource from './ExampleDisplayModeHover.vue?raw';
+import DisplayModeNeverSource from './ExampleDisplayModeNever.vue?raw';
 import SmartBannerSource from './SmartBanner.vue?raw';
 import SizePresetSource from './ExampleSizePreset.vue?raw';
 import ImageExportSource from './ExampleImageExport.vue?raw';
-import CustomComponentSource from './ExampleCustomComponent.vue?raw';
 
 // 提取简单示例源代码函数
 function extractSimpleExample(source: string): string {
@@ -54,25 +56,28 @@ export { default as BannerBox } from './BannerBox.vue';
 export { default as FeatureCard } from './FeatureCard.vue';
 export { default as DownloadButton } from './DownloadButton.vue';
 export { bgClasses } from './bgStyles';
+export { sizePresets, type SizePreset } from './sizePresets';
 
 // 导出示例组件
 export const BannerBoxExamples = {
 	Basic,
 	CustomBg,
-	DisplayMode,
+	DisplayModeAlways,
+	DisplayModeHover,
+	DisplayModeNever,
 	SmartBanner,
 	SizePreset,
 	ImageExport,
-	CustomComponent,
 };
 
 // 导出示例源代码
 export const BannerBoxExampleCodes = {
 	Basic: extractSimpleExample(BasicSource),
 	CustomBg: extractSimpleExample(CustomBgSource),
-	DisplayMode: extractSimpleExample(DisplayModeSource),
+	DisplayModeAlways: extractSimpleExample(DisplayModeAlwaysSource),
+	DisplayModeHover: extractSimpleExample(DisplayModeHoverSource),
+	DisplayModeNever: extractSimpleExample(DisplayModeNeverSource),
 	SmartBanner: extractSimpleExample(SmartBannerSource),
 	SizePreset: extractSimpleExample(SizePresetSource),
 	ImageExport: extractSimpleExample(ImageExportSource),
-	CustomComponent: extractSimpleExample(CustomComponentSource),
 };

@@ -40,13 +40,8 @@ DownloadButton 组件提供了一个下载按钮，带有可展开的下拉菜�
 import { ref, computed, defineComponent } from 'vue';
 import { RiDownloadLine } from '@remixicon/vue';
 import { bgClasses } from './bgStyles';
+import { sizePresets, type SizePreset } from './sizePresets';
 import '../../style'
-
-interface SizePreset {
-    name: string;
-    width: string;
-    height: string;
-}
 
 export default defineComponent({
     name: 'DownloadButton',
@@ -70,10 +65,6 @@ export default defineComponent({
         selectedBgIndex: {
             type: Number,
             default: 0
-        },
-        sizePresets: {
-            type: Array as () => SizePreset[],
-            required: true
         }
     },
     emits: ['update:selectedSize', 'update:selectedBgIndex', 'clear-stored-size', 'download-image'],
@@ -136,7 +127,8 @@ export default defineComponent({
             selectBackground,
             clearStoredSize,
             downloadImage,
-            bgClasses
+            bgClasses,
+            sizePresets
         };
     }
 });

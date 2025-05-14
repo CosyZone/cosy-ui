@@ -47,11 +47,9 @@ BannerBox 组件是一个可定制的横幅容器，支持自定义背景、尺�
 @prop {String} [title=''] - 横幅标题
 @prop {String} [description=''] - 横幅描述
 @prop {Array} [features=[]] - 特性列表，每项包含{emoji, title, link}
-@prop {Object} [customComponent=null] - 自定义组件
-@prop {Object} [customComponentProps={}] - 自定义组件的属性
 
 @slots
-@slot default - 横幅内容，当不使用title/description/features属性时显示
+@slot default - 横幅内容
 -->
 
 <script lang="ts">
@@ -61,9 +59,10 @@ import { toPng } from 'html-to-image';
 import FeatureCard from './FeatureCard.vue';
 import DownloadButton from './DownloadButton.vue';
 import { bgClasses } from './bgStyles';
+import { sizePresets } from './sizePresets';
 import '../../style'
 
-interface Feature {
+export interface IFeature {
     emoji: string;
     title: string;
     link?: string;
@@ -95,38 +94,15 @@ export default defineComponent({
             default: ''
         },
         features: {
-            type: Array as () => Feature[],
+            type: Array as () => IFeature[],
             default: () => []
         },
-        // 自定义组件
-        customComponent: {
-            type: Object,
-            default: null
-        },
-        // 自定义组件的属性
-        customComponentProps: {
-            type: Object,
-            default: () => ({})
-        }
     },
     setup(props) {
         const componentRef = ref<HTMLElement | null>(null);
         const isDropdownOpen = ref(false);
         const isLoadedFromStorage = ref(false);
         const selectedBgIndex = ref(props.backgroundClassIndex);
-
-        const sizePresets = [
-            { name: 'Default', width: 'cosy:w-full', height: 'cosy:h-full' },
-            { name: 'Square', width: 'cosy:w-[600px]', height: 'cosy:h-[600px]' },
-            { name: 'Landscape', width: 'cosy:w-[800px]', height: 'cosy:h-[450px]' },
-            { name: 'Portrait', width: 'cosy:w-[450px]', height: 'cosy:h-[800px]' },
-            { name: 'Wide', width: 'cosy:w-[1200px]', height: 'cosy:h-[675px]' },
-            { name: 'Banner', width: 'cosy:w-[1200px]', height: 'cosy:h-[300px]' },
-            { name: '1280 × 800', width: 'cosy:w-[1280px]', height: 'cosy:h-[800px]' },
-            { name: '1440 × 900', width: 'cosy:w-[1440px]', height: 'cosy:h-[900px]' },
-            { name: '2560 × 1600', width: 'cosy:w-[2560px]', height: 'cosy:h-[1600px]' },
-            { name: '2880 × 1800', width: 'cosy:w-[2880px]', height: 'cosy:h-[1800px]' },
-        ];
 
         const selectedSize = ref(sizePresets[0]);
 
@@ -233,9 +209,6 @@ export default defineComponent({
             window.removeEventListener('bannerBoxSizeChange', handleSizeChange);
         });
 
-        // 是否显示Banner内容
-        const showBannerContent = computed(() => props.title !== '' || props.description !== '' || props.features.length > 0 || props.customComponent !== null);
-
         // 计算下载按钮是否显示及其样式类
         const downloadButtonStyles = computed(() => {
             switch (props.displayMode) {
@@ -273,7 +246,6 @@ export default defineComponent({
             downloadAsImage,
             getBackgroundClass,
             clearStoredSize,
-            showBannerContent,
             downloadButtonStyles,
             bgClasses
         };
@@ -283,7 +255,7 @@ export default defineComponent({
 
 <template>
     <div class="cosy:relative cosy:w-full cosy:rounded-2xl cosy:max-w-7xl cosy:mx-auto">
-        <!-- Add size indicator -->
+        <!-- Size indicator -->
         <div v-if="isLoadedFromStorage"
             class="cosy:absolute cosy:top-4 cosy:right-4 cosy:bg-yellow-500/30 cosy:backdrop-blur-sm cosy:px-3 cosy:py-1 cosy:rounded-lg cosy:text-sm cosy:text-white">
             {{ selectedSize.name }}
@@ -291,19 +263,17 @@ export default defineComponent({
 
         <!-- Download button with dropdown menu -->
         <DownloadButton :displayMode="displayMode" :isLoadedFromStorage="isLoadedFromStorage"
-            :selectedSize="selectedSize" :selectedBgIndex="selectedBgIndex" :sizePresets="sizePresets"
-            @update:selectedSize="selectedSize = $event" @update:selectedBgIndex="selectedBgIndex = $event"
-            @clear-stored-size="clearStoredSize" @download-image="downloadAsImage" />
+            :selectedSize="selectedSize" :selectedBgIndex="selectedBgIndex" @update:selectedSize="selectedSize = $event"
+            @update:selectedBgIndex="selectedBgIndex = $event" @clear-stored-size="clearStoredSize"
+            @download-image="downloadAsImage" />
 
         <div ref="componentRef" class="cosy:flex cosy:p-8 cosy:rounded-2xl cosy:shadow" :class="[
             getBackgroundClass(),
             selectedSize.width,
             selectedSize.height
         ]">
-            <!-- Smart Banner Content (when banner prop is provided) -->
-            <div v-if="showBannerContent" class="cosy:py-16 cosy:px-8 cosy:text-center cosy:w-full cosy:rounded-2xl"
-                data-type="smart-banner">
-                <h2 class="cosy:text-4xl cosy:mb-4">
+            <div class="cosy:py-16 cosy:px-8 cosy:text-center cosy:w-full cosy:rounded-2xl" data-type="smart-banner">
+                <h2 v-if="title.length > 0" class="cosy:text-4xl cosy:mb-4">
                     {{ title }}
                 </h2>
 
@@ -311,18 +281,16 @@ export default defineComponent({
                     {{ description }}
                 </p>
 
-                <div class="cosy:flex cosy:flex-row cosy:justify-center cosy:gap-8 cosy:mx-auto cosy:w-full cosy:mt-24">
+                <div v-if="features.length > 0"
+                    class="cosy:flex cosy:flex-row cosy:justify-center cosy:gap-8 cosy:mx-auto cosy:w-full cosy:mt-24">
                     <FeatureCard v-for="feature in features" :key="feature.title" :emoji="feature.emoji"
                         :title="feature.title" :link="feature.link" />
                 </div>
 
-                <div class="cosy:mt-12">
-                    <component :is="customComponent" v-if="customComponent" v-bind="customComponentProps" />
+                <div :class="{ 'cosy:mt-12': title.length > 0 || description.length > 0 || features.length > 0 }">
+                    <slot />
                 </div>
             </div>
-
-            <!-- Default slot for custom content (when banner prop is not provided) -->
-            <slot v-if="!showBannerContent" />
         </div>
     </div>
 </template>
