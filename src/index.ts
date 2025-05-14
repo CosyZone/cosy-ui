@@ -46,7 +46,7 @@ export { default as Heading } from './components/typography/Heading.astro';
 export { default as ErrorPage404 } from './components/errors/404.astro';
 
 // Icons
-export * from './icons';
+export * from './index_icons';
 
 // Containers
 export { default as Container } from './components/containers/Container.astro';
