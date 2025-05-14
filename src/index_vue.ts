@@ -10,7 +10,7 @@ export { default as FeatureGroup } from './vue/FeatureGroup.vue';
 export { iPhoneWindow } from './vue/iPhone';
 export { MacWindow } from './vue/MacWindow';
 export * as MacWindowExamples from './vue/MacWindow';
-export * as iPhoneWindowExamples from './vue/iPhone';
+export { iPhoneWindowExamples, iPhoneWindowExampleCodes } from './vue/iPhone';
 
 // List
 export { default as ListItem } from './vue/ListItem.vue';
