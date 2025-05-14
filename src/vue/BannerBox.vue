@@ -3,7 +3,7 @@
 
 @description
 BannerBox 组件是一个可定制的横幅容器，支持自定义背景、尺寸调整和导出为图片功能。
-可以直接用作容器，也可以通过传入Banner实体对象来显示标题、描述和特性列表。
+可以直接用作容器，也可以通过传入标题、描述和特性列表来显示内容。
 适用于创建营销横幅、特性展示、社交媒体卡片等内容。
 
 @usage
@@ -14,11 +14,16 @@ BannerBox 组件是一个可定制的横幅容器，支持自定义背景、尺�
 </BannerBox>
 ```
 
-使用Banner实体：
+使用标题和描述：
 ```vue
 <BannerBox
-  :banner="banner"
-  lang="zh-cn"
+  title="我的横幅标题"
+  description="这是一段描述文字"
+  :features="[
+    { emoji: '🚀', title: '高性能' },
+    { emoji: '⚡', title: '快速响应' },
+    { emoji: '🔒', title: '安全可靠' }
+  ]"
 />
 ```
 
@@ -39,20 +44,28 @@ BannerBox 组件是一个可定制的横幅容器，支持自定义背景、尺�
 @props
 @prop {String} [displayMode='hover'] - 下载按钮显示模式：'always'(总是显示),'hover'(悬停显示),'never'(不显示)
 @prop {Number} [backgroundClassIndex=0] - 背景样式索引，对应内置的背景样式列表
-@prop {Object} [banner=null] - Banner实体对象，包含标题、描述和特性列表
-@prop {String} [lang='en'] - 当前语言，支持'en'和'zh-cn'，仅当使用banner属性时有效
+@prop {String} [title=''] - 横幅标题
+@prop {String} [description=''] - 横幅描述
+@prop {Array} [features=[]] - 特性列表，每项包含{emoji, title, link}
+@prop {Object} [customComponent=null] - 自定义组件
+@prop {Object} [customComponentProps={}] - 自定义组件的属性
 
 @slots
-@slot default - 横幅内容，当不使用banner属性时显示
+@slot default - 横幅内容，当不使用title/description/features属性时显示
 -->
 
 <script setup lang="ts">
 import { ref, onMounted, watch, onUnmounted, computed } from 'vue';
 import { RiDownloadLine } from '@remixicon/vue';
 import { toPng } from 'html-to-image';
-import Banner from '../entities/Banner';
 import FeatureCard from './FeatureCard.vue';
 import '../app.css'
+
+interface Feature {
+    emoji: string;
+    title: string;
+    link?: string;
+}
 
 const props = defineProps({
     displayMode: {
@@ -64,14 +77,27 @@ const props = defineProps({
         type: Number,
         default: 0
     },
-    banner: {
-        type: Banner,
+    title: {
+        type: String,
+        default: ''
+    },
+    description: {
+        type: String,
+        default: ''
+    },
+    features: {
+        type: Array as () => Feature[],
+        default: () => []
+    },
+    // 自定义组件
+    customComponent: {
+        type: Object,
         default: null
     },
-    lang: {
-        type: String,
-        default: 'en',
-        validator: (value: string) => ['en', 'zh-cn'].includes(value)
+    // 自定义组件的属性
+    customComponentProps: {
+        type: Object,
+        default: () => ({})
     }
 })
 
@@ -253,7 +279,7 @@ onUnmounted(() => {
 });
 
 // 是否显示Banner内容
-const showBannerContent = computed(() => props.banner !== null);
+const showBannerContent = computed(() => props.title !== '' || props.description !== '' || props.features.length > 0 || props.customComponent !== null);
 
 // 计算下载按钮是否显示及其样式类
 const downloadButtonStyles = computed(() => {
@@ -372,22 +398,20 @@ export default {
             <div v-if="showBannerContent" class="cosy:py-16 cosy:px-8 cosy:text-center cosy:w-full cosy:rounded-2xl"
                 data-type="smart-banner">
                 <h2 class="cosy:text-4xl cosy:mb-4">
-                    {{ banner.getTitle(lang) }}
+                    {{ title }}
                 </h2>
 
-                <p v-if="banner.getDescription(lang).length > 0"
-                    class="cosy:text-lg cosy:text-center cosy:max-w-2xl cosy:mx-auto">
-                    {{ banner.getDescription(lang) }}
+                <p v-if="description.length > 0" class="cosy:text-lg cosy:text-center cosy:max-w-2xl cosy:mx-auto">
+                    {{ description }}
                 </p>
 
                 <div class="cosy:flex cosy:flex-row cosy:justify-center cosy:gap-8 cosy:mx-auto cosy:w-full cosy:mt-24">
-                    <FeatureCard v-for="feature in banner.getFeatures()" :key="feature.getTitle(lang)"
-                        :emoji="feature.emoji" :title="feature.getTitle(lang)" :link="feature.link" />
+                    <FeatureCard v-for="feature in features" :key="feature.title" :emoji="feature.emoji"
+                        :title="feature.title" :link="feature.link" />
                 </div>
 
                 <div class="cosy:mt-12">
-                    <component :is="banner.getComponent()" v-if="banner.getComponent()"
-                        v-bind="banner.getComponentProps()" />
+                    <component :is="customComponent" v-if="customComponent" v-bind="customComponentProps" />
                 </div>
             </div>
 
