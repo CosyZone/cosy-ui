@@ -1,138 +1,28 @@
-// 导出主组件
-export { default as iPhoneWindow } from './iPhoneWindow.vue';
-
-// 导入所有iPhoneWindow示例组件
 import Basic from './Basic.vue';
 import WeatherApp from './WeatherApp.vue';
 import NoFrame from './NoFrame.vue';
 import CustomBackground from './CustomBackground.vue';
+import BasicSource from './Basic.vue?raw';
+import NoFrameSource from './NoFrame.vue?raw';
+import CustomBackgroundSource from './CustomBackground.vue?raw';
+import WeatherAppSource from './WeatherApp.vue?raw';
 
-// 在构建时，这些字符串将包含组件的源代码
-// 注意：这需要vite或webpack的raw-loader或类似插件支持
-// 实际的文件内容在构建时会被替换
-const BasicSourceCode = `
-<template>
-    <iPhoneWindow>
-        <div class="cosy:p-4 cosy:text-center">
-            <h2 class="cosy:text-xl cosy:font-bold cosy:mb-2">我的应用</h2>
-            <p>这是一个 iPhone 风格的应用界面</p>
-        </div>
-    </iPhoneWindow>
-</template>
+// 转换Vue SFC组件为简化的示例代码（只保留template和setup script）
+function extractSimpleExample(source: string): string {
+	// 提取模板部分
+	const templateMatch = source.match(/<template>([\s\S]*?)<\/template>/);
+	const template = templateMatch ? templateMatch[1].trim() : '';
 
-<script setup>
-import { iPhoneWindow } from 'cosy-ui';
-</script>
-`;
-
-const NoFrameSourceCode = `
-<template>
-    <iPhoneWindow :showFrame="false">
-        <div class="cosy:p-4 cosy:text-center">
-            <h2 class="cosy:text-xl cosy:font-bold cosy:mb-2">纯界面模式</h2>
-            <p>不显示 iPhone 边框，只展示内容</p>
-        </div>
-    </iPhoneWindow>
-</template>
+	// 创建简化版本的代码
+	return `<template>${template}</template>
 
 <script setup>
 import { iPhoneWindow } from 'cosy-ui';
-</script>
-`;
+</script>`;
+}
 
-const CustomBackgroundSourceCode = `
-<template>
-    <iPhoneWindow backgroundColor="cosy:bg-blue-50">
-        <div class="cosy:p-4 cosy:text-center">
-            <h2 class="cosy:text-xl cosy:font-bold cosy:mb-2 cosy:text-blue-800">蓝色主题</h2>
-            <p class="cosy:text-blue-600">自定义背景色的应用界面</p>
-        </div>
-    </iPhoneWindow>
-</template>
-
-<script setup>
-import { iPhoneWindow } from 'cosy-ui';
-</script>
-`;
-
-const WeatherAppSourceCode = `
-<template>
-    <iPhoneWindow>
-        <div class="cosy:flex cosy:flex-col cosy:h-full">
-            <!-- 应用标题栏 -->
-            <div
-                class="cosy:bg-primary cosy:text-white cosy:px-4 cosy:py-3 cosy:flex cosy:items-center cosy:justify-between">
-                <h2 class="cosy:font-medium">天气预报</h2>
-                <button class="cosy:btn cosy:btn-ghost cosy:btn-sm cosy:p-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="cosy:h-5 cosy:w-5" viewBox="0 0 20 20"
-                        fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </button>
-            </div>
-
-            <!-- 主要内容 -->
-            <div class="cosy:flex-1 cosy:p-4 cosy:bg-gradient-to-b cosy:from-blue-400 cosy:to-blue-600">
-                <div class="cosy:text-center cosy:text-white">
-                    <div class="cosy:text-5xl cosy:font-light cosy:mb-2">23°</div>
-                    <div class="cosy:text-xl cosy:mb-4">晴朗</div>
-                    <div class="cosy:text-sm cosy:opacity-90">上海市，今天</div>
-                </div>
-
-                <div class="cosy:mt-8 cosy:bg-white/20 cosy:backdrop-blur-sm cosy:rounded-xl cosy:p-4">
-                    <div class="cosy:grid cosy:grid-cols-3 cosy:gap-4 cosy:text-center cosy:text-white">
-                        <div>
-                            <div class="cosy:text-sm cosy:opacity-80">湿度</div>
-                            <div class="cosy:font-medium">68%</div>
-                        </div>
-                        <div>
-                            <div class="cosy:text-sm cosy:opacity-80">风速</div>
-                            <div class="cosy:font-medium">8 km/h</div>
-                        </div>
-                        <div>
-                            <div class="cosy:text-sm cosy:opacity-80">能见度</div>
-                            <div class="cosy:font-medium">10 km</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 底部导航 -->
-            <div class="cosy:bg-white cosy:border-t cosy:border-gray-200 cosy:flex cosy:justify-around cosy:py-2">
-                <button class="cosy:p-2 cosy:text-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="cosy:h-6 cosy:w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                    </svg>
-                </button>
-                <button class="cosy:p-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="cosy:h-6 cosy:w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                </button>
-                <button class="cosy:p-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="cosy:h-6 cosy:w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </iPhoneWindow>
-</template>
-
-<script setup>
-import { iPhoneWindow } from 'cosy-ui';
-</script>
-`;
+// 导出主组件
+export { default as iPhoneWindow } from './iPhoneWindow.vue';
 
 // 将示例组件整合为一个对象导出
 export const iPhoneWindowExamples = {
@@ -142,10 +32,10 @@ export const iPhoneWindowExamples = {
 	CustomBackground,
 };
 
-// 导出示例组件的源代码
+// 导出示例组件的源代码（简化版本）
 export const iPhoneWindowExampleCodes = {
-	Basic: BasicSourceCode,
-	NoFrame: NoFrameSourceCode,
-	CustomBackground: CustomBackgroundSourceCode,
-	WeatherApp: WeatherAppSourceCode,
+	Basic: extractSimpleExample(BasicSource),
+	NoFrame: extractSimpleExample(NoFrameSource),
+	CustomBackground: extractSimpleExample(CustomBackgroundSource),
+	WeatherApp: extractSimpleExample(WeatherAppSource),
 };

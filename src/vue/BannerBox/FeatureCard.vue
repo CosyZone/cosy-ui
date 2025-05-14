@@ -1,47 +1,28 @@
 <template>
-  <component
-    :is="link ? 'a' : 'div'"
-    :href="link || undefined"
-    :target="link ? '_blank' : undefined"
-    :rel="link ? 'noopener noreferrer' : undefined"
-    :class="[
-      'card bg-base-100/10 backdrop-blur-lg p-8 transition-all duration-300 hover:-translate-y-1 shadow-lg',
-      {
-        'hover:bg-primary/15 cursor-pointer': link,
-        'cursor-default': !link
-      }
-    ]"
-  >
-    <div class="card-body p-0">
-      <div class="mb-4">
-        <component
-          :is="icon"
-          v-if="icon"
-          class="text-4xl text-base-content"
-        />
-        <component
-          :is="getPresetIcon"
-          v-else-if="presetIcon"
-          class="text-4xl text-base-content"
-        />
-        <div
-          v-else
-          class="text-4xl text-base-content"
-        >
-          {{ emoji }}
+    <component :is="link ? 'a' : 'div'" :href="link || undefined" :target="link ? '_blank' : undefined"
+        :rel="link ? 'noopener noreferrer' : undefined" :class="[
+            'card bg-base-100/10 backdrop-blur-lg p-8 transition-all duration-300 hover:-translate-y-1 shadow-lg',
+            {
+                'hover:bg-primary/15 cursor-pointer': link,
+                'cursor-default': !link
+            }
+        ]">
+        <div class="card-body p-0">
+            <div class="mb-4">
+                <component :is="icon" v-if="icon" class="text-4xl text-base-content" />
+                <component :is="getPresetIcon" v-else-if="presetIcon" class="text-4xl text-base-content" />
+                <div v-else class="text-4xl text-base-content">
+                    {{ emoji }}
+                </div>
+            </div>
+            <h3 class="card-title text-lg font-medium text-base-content">
+                {{ title }}
+            </h3>
+            <p v-if="description" class="text-base-content/70">
+                {{ description }}
+            </p>
         </div>
-      </div>
-      <h3 class="card-title text-lg font-medium text-base-content">
-        {{ title }}
-      </h3>
-      <p
-        v-if="description"
-        class="text-base-content/70"
-      >
-        {{ description }}
-      </p>
-    </div>
-  </component>
+    </component>
 </template>
 
 <script setup lang="ts">

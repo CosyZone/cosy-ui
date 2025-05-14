@@ -6,7 +6,7 @@ order: 2
 ---
 
 import { CodeExample } from '@cosy/index';
-import { MacWindow, MacWindowExamples } from '@cosy/index_vue';
+import { MacWindow, MacWindowExamples, MacWindowExampleCodes } from '@cosy/index_vue';
 import { SearchIcon, SettingsIcon, InfoIcon } from '@cosy/index';
 
 ## 基础用法
@@ -14,17 +14,7 @@ import { SearchIcon, SettingsIcon, InfoIcon } from '@cosy/index';
 最基本的窗口展示方式，带有标题和窗口控制按钮。
 
 <CodeExample
-  code={`<template>
-  <MacWindow title="代码编辑器">
-    <div class="p-4">
-      窗口内容区域
-    </div>
-  </MacWindow>
-</template>
-
-<script setup>
-import { MacWindow } from 'cosy-ui';
-</script>`}
+  code={MacWindowExampleCodes.Basic}
 >
   <MacWindowExamples.Basic client:load />
 </CodeExample>
@@ -34,31 +24,7 @@ import { MacWindow } from 'cosy-ui';
 传递字符串数组作为标签页。组件内部会自动管理当前激活的标签，点击标签会触发 `onTabClick` 回调，您需要自行维护标签状态。
 
 <CodeExample
-  code={`<template>
-  <MacWindow
-    title="设置"
-    :tabs="['通用', '外观', '高级']"
-    :onTabClick="handleTabClick"
-  >
-    <div class="p-4">
-      <div v-if="activeTab === '通用'">通用设置内容</div>
-      <div v-if="activeTab === '外观'">外观设置内容</div>
-      <div v-if="activeTab === '高级'">高级设置内容</div>
-    </div>
-  </MacWindow>
-</template>
-
-<script setup>
-import { ref } from 'vue';
-import { MacWindow } from 'cosy-ui';
-
-const activeTab = ref('通用');
-
-const handleTabClick = (tab) => {
-  activeTab.value = tab;
-  console.log('当前标签:', tab);
-};
-</script>`}
+  code={MacWindowExampleCodes.WithTabs}
 >
   <MacWindowExamples.WithTabs client:load />
 </CodeExample>
@@ -68,46 +34,7 @@ const handleTabClick = (tab) => {
 通过 `onCloseWindow`、`onMinimizeWindow` 和 `onMaximizeWindow` 属性处理窗口控制按钮的点击事件。还可以使用 `onTabClick` 监听标签切换。
 
 <CodeExample
-  code={`<template>
-  <MacWindow 
-    title="应用窗口"
-    :tabs="['信息', '设置', '帮助']"
-    :onTabClick="handleTabClick"
-    :onCloseWindow="handleClose"
-    :onMinimizeWindow="handleMinimize"
-    :onMaximizeWindow="handleMaximize"
-  >
-    <div class="p-4">
-      <div v-if="activeTab === '信息'">信息内容</div>
-      <div v-if="activeTab === '设置'">设置内容</div>
-      <div v-if="activeTab === '帮助'">帮助内容</div>
-    </div>
-  </MacWindow>
-</template>
-
-<script setup>
-import { ref } from 'vue';
-import { MacWindow } from 'cosy-ui';
-
-const activeTab = ref('信息');
-
-const handleTabClick = (tab) => {
-  activeTab.value = tab;
-  console.log('切换到标签:', tab);
-};
-
-const handleClose = () => {
-  alert('关闭窗口');
-};
-
-const handleMinimize = () => {
-  alert('最小化窗口');
-};
-
-const handleMaximize = () => {
-  alert('最大化窗口');
-};
-</script>`}
+  code={MacWindowExampleCodes.WithEvents}
 >
   <MacWindowExamples.WithEvents client:load />
 </CodeExample>
@@ -117,49 +44,7 @@ const handleMaximize = () => {
 使用 `toolbar` 和 `status` 插槽自定义工具栏和状态栏内容。
 
 <CodeExample
-  code={`<template>
-  <MacWindow title="文件浏览器">
-    <!-- 工具栏插槽 -->
-    <template #toolbar>
-      <button class="btn btn-ghost btn-sm" @click="handleSearch">
-        <SearchIcon class="w-4 h-4" />
-      </button>
-      <button class="btn btn-ghost btn-sm" @click="handleSettings">
-        <SettingsIcon class="w-4 h-4" />
-      </button>
-    </template>
-    
-    <!-- 主内容 -->
-    <div class="p-4">
-      窗口内容区域
-    </div>
-    
-    <!-- 状态栏插槽 -->
-    <template #status>
-      <div class="text-xs">就绪</div>
-      <button class="btn btn-ghost btn-xs" @click="handleInfo">
-        <InfoIcon class="w-4 h-4" />
-      </button>
-    </template>
-  </MacWindow>
-</template>
-
-<script setup>
-import { MacWindow } from 'cosy-ui';
-import { SearchIcon, SettingsIcon, InfoIcon } from 'cosy-ui/icons';
-
-const handleSearch = () => {
-  console.log('搜索');
-};
-
-const handleSettings = () => {
-  console.log('设置');
-};
-
-const handleInfo = () => {
-  console.log('信息');
-};
-</script>`}
+  code={MacWindowExampleCodes.WithToolbar}
 >
   <MacWindowExamples.WithToolbar client:load />
 </CodeExample>
@@ -169,27 +54,7 @@ const handleInfo = () => {
 使用 `sidebar` 插槽添加侧边栏内容。
 
 <CodeExample
-  code={`<template>
-  <MacWindow title="文件浏览器">
-    <template #sidebar>
-      <div class="w-48 border-r border-base-300 p-2">
-        <div class="font-medium mb-2">文件夹</div>
-        <ul>
-          <li class="py-1 px-2 hover:bg-base-200 rounded cursor-pointer">文档</li>
-          <li class="py-1 px-2 hover:bg-base-200 rounded cursor-pointer">下载</li>
-          <li class="py-1 px-2 hover:bg-base-200 rounded cursor-pointer">图片</li>
-        </ul>
-      </div>
-    </template>
-    <div class="p-4">
-      主内容区域
-    </div>
-  </MacWindow>
-</template>
-
-<script setup>
-import { MacWindow } from 'cosy-ui';
-</script>`}
+  code={MacWindowExampleCodes.WithSidebar}
 >
   <MacWindowExamples.WithSidebar client:load />
 </CodeExample>
@@ -199,19 +64,7 @@ import { MacWindow } from 'cosy-ui';
 通过 `height` 属性自定义窗口高度。
 
 <CodeExample
-  code={`<template>
-  <MacWindow title="终端" height="h-64">
-    <div class="p-4 bg-gray-900 text-green-400 font-mono">
-      $ echo "Hello, World!"<br/>
-      Hello, World!<br/>
-      $ _
-    </div>
-  </MacWindow>
-</template>
-
-<script setup>
-import { MacWindow } from 'cosy-ui';
-</script>`}
+  code={MacWindowExampleCodes.CustomHeight}
 >
   <MacWindowExamples.CustomHeight client:load />
 </CodeExample>

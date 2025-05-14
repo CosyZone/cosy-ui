@@ -1,28 +1,21 @@
-export { default as TagList } from './vue/TagList.vue';
-export { default as AlertDialog } from './vue/AlertDialog.vue';
-export { default as SmartHero } from './vue/SmartHero.vue';
-export { default as ConfirmDialog } from './vue/ConfirmDialog.vue';
-export { default as FeatureButton } from './vue/FeatureButton.vue';
-export { default as FeatureCard } from './vue/FeatureCard.vue';
-export { default as FeatureGroup } from './vue/FeatureGroup.vue';
-
-// Windows
-export { iPhoneWindow } from './vue/iPhone';
-export { MacWindow } from './vue/MacWindow';
-export * as MacWindowExamples from './vue/MacWindow';
-export { iPhoneWindowExamples, iPhoneWindowExampleCodes } from './vue/iPhone';
-
-// List
-export { default as ListItem } from './vue/ListItem.vue';
+// AlertDialog
+export { AlertDialogExamples, AlertDialogExampleCodes, AlertDialog } from './vue/AlertDialog';
 
 // Banner
-export { default as BannerBox } from './vue/BannerBox.vue';
+export { BannerBoxExamples, BannerBoxExampleCodes, BannerBox } from './vue/BannerBox';
 
 // Counter
 export { default as VueCounter } from './vue/VueCounter.vue';
 
-// SmartLink
-export { default as SmartLink } from './vue/SmartLink.vue';
+// SmartHero
+export { default as SmartHero } from './vue/SmartHero.vue';
+
+// ConfirmDialog
+export { default as ConfirmDialog } from './vue/ConfirmDialog.vue';
+
+// FeatureButton
+export { default as FeatureButton } from './vue/FeatureButton.vue';
+export { default as FeatureCard } from './vue/BannerBox/FeatureCard.vue';
 
 // Icons
 export { default as SearchIcon } from './vue/Icons/SearchIcon.vue';
@@ -33,3 +26,16 @@ export { default as LinkIcon } from './vue/Icons/LinkIcon.vue';
 export { default as MenuIcon } from './vue/Icons/MenuIcon.vue';
 export { default as UserIcon } from './vue/Icons/UserIcon.vue';
 export { default as XCircleIcon } from './vue/Icons/XCircleIcon.vue';
+
+// List
+export { default as ListItem } from './vue/ListItem.vue';
+
+// Windows
+export { MacWindowExamples, MacWindowExampleCodes, MacWindow } from './vue/MacWindow';
+export { iPhoneWindowExamples, iPhoneWindowExampleCodes, iPhoneWindow } from './vue/iPhone';
+
+// SmartLink
+export { default as SmartLink } from './vue/SmartLink.vue';
+
+// TagList
+export { default as TagList } from './vue/TagList.vue';

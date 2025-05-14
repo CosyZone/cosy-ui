@@ -40,7 +40,7 @@ const showDialog = ref(false);
 -->
 
 <script lang="ts">
-import '../app.css'
+import '../../style'
 import { defineComponent } from 'vue'
 
 type MessageKey = 'confirm';

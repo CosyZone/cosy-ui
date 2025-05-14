@@ -6,71 +6,26 @@ order: 1
 ---
 
 import { CodeExample } from '@cosy/index';
-import { AlertDialog } from '@cosy/index_vue';
+import { AlertDialog, AlertDialogExampleCodes, AlertDialogExamples } from '@cosy/index_vue';
 
 ## 基础用法
 
 最基本的对话框展示方式。在实际应用中，您需要使用 `v-model` 来控制对话框的显示状态。
 
 <CodeExample
-  code={`<script setup>
-import { ref } from 'vue';
-
-const isShow = ref(false);
-</script>
-
-<template>
-  <button @click="isShow = true" class="btn btn-primary">
-    显示对话框
-  </button>
-  <AlertDialog
-    v-model="isShow"
-    message="这是一条重要信息"
-  />
-</template>`}
+  code={AlertDialogExampleCodes.Basic}
 >
-  <div className="cosy:p-4 cosy:border cosy:border-base-300 cosy:rounded-lg cosy:bg-base-100">
-    <p className="cosy:mb-2">点击按钮将在实际应用中显示如下对话框：</p>
-    <div className="cosy:p-4 cosy:border cosy:border-dashed cosy:border-base-300 cosy:rounded-lg cosy:bg-base-200">
-      <div className="cosy:flex cosy:items-center cosy:justify-between">
-        <p className="cosy:text-base-content">这是一条重要信息</p>
-        <button className="cosy:btn cosy:btn-sm cosy:btn-ghost">确定</button>
-      </div>
-    </div>
-  </div>
+  <AlertDialogExamples.Basic client:load />
 </CodeExample>
 
 ## 多语言支持
 
-通过设置 `lang` 属性来切换不同语言。
+通过自定义 `ok-text` 和 `cancel-text` 属性来支持不同语言。
 
 <CodeExample
-  code={`<script setup>
-import { ref } from 'vue';
-
-const isShow = ref(false);
-</script>
-
-<template>
-  <button @click="isShow = true" class="btn btn-primary">
-    Show Dialog
-  </button>
-  <AlertDialog
-    v-model="isShow"
-    message="This is an important message"
-    lang="en"
-  />
-</template>`}
+  code={AlertDialogExampleCodes.Multilang}
 >
-  <div className="cosy:p-4 cosy:border cosy:border-base-300 cosy:rounded-lg cosy:bg-base-100">
-    <p className="cosy:mb-2">点击按钮将在实际应用中显示如下对话框：</p>
-    <div className="cosy:p-4 cosy:border cosy:border-dashed cosy:border-base-300 cosy:rounded-lg cosy:bg-base-200">
-      <div className="cosy:flex cosy:items-center cosy:justify-between">
-        <p className="cosy:text-base-content">This is an important message</p>
-        <button className="cosy:btn cosy:btn-sm cosy:btn-ghost">OK</button>
-      </div>
-    </div>
-  </div>
+  <AlertDialogExamples.Multilang client:load />
 </CodeExample>
 
 ## 属性
@@ -79,4 +34,5 @@ const isShow = ref(false);
 | --- | --- | --- | --- |
 | modelValue | boolean | - | 控制对话框的显示状态 |
 | message | string | - | 对话框显示的消息内容 |
-| lang | 'zh-cn' \| 'en' | 'zh-cn' | 对话框的语言设置 |
+| ok-text | string | '确定' | 确认按钮文本 |
+| cancel-text | string | '取消' | 取消按钮文本 |

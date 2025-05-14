@@ -6,7 +6,7 @@ order: 3
 ---
 
 import { CodeExample } from '@cosy/index';
-import { BannerBox } from '@cosy/index_vue';
+import { BannerBoxExamples, BannerBoxExampleCodes } from '@cosy/index_vue';
 import { RiDownloadLine } from '@remixicon/vue';
 
 ## 基础用法
@@ -14,23 +14,9 @@ import { RiDownloadLine } from '@remixicon/vue';
 最基本的横幅容器，可放置任何内容。
 
 <CodeExample
-  code={`<template>
-  <BannerBox>
-    <div class="flex items-center justify-center min-h-[200px]">
-      <h2 class="text-3xl font-bold">欢迎使用 BannerBox</h2>
-    </div>
-  </BannerBox>
-</template>
-
-<script setup>
-import { BannerBox } from 'cosy-ui';
-</script>`}
+  code={BannerBoxExampleCodes.Basic}
 >
-  <BannerBox client:load>
-    <div class="cosy:flex cosy:items-center cosy:justify-center cosy:min-h-[200px]">
-      <h2 class="cosy:text-3xl cosy:font-bold">欢迎使用 BannerBox</h2>
-    </div>
-  </BannerBox>
+  <BannerBoxExamples.Basic client:load />
 </CodeExample>
 
 ## 自定义背景
@@ -38,23 +24,9 @@ import { BannerBox } from 'cosy-ui';
 通过 `backgroundClassIndex` 属性选择预设的渐变背景。
 
 <CodeExample
-  code={`<template>
-  <BannerBox backgroundClassIndex={5}>
-    <div class="flex items-center justify-center min-h-[200px]">
-      <h2 class="text-3xl font-bold">自定义背景颜色</h2>
-    </div>
-  </BannerBox>
-</template>
-
-<script setup>
-import { BannerBox } from 'cosy-ui';
-</script>`}
+  code={BannerBoxExampleCodes.CustomBg}
 >
-  <BannerBox backgroundClassIndex={5} client:load>
-    <div class="cosy:flex cosy:items-center cosy:justify-center cosy:min-h-[200px]">
-      <h2 class="cosy:text-3xl cosy:font-bold">自定义背景颜色</h2>
-    </div>
-  </BannerBox>
+  <BannerBoxExamples.CustomBg client:load />
 </CodeExample>
 
 ## 下载按钮显示控制
@@ -62,57 +34,9 @@ import { BannerBox } from 'cosy-ui';
 通过 `displayMode` 属性控制下载按钮的显示方式，支持三种模式：`always`（总是显示）、`hover`（鼠标悬停时显示）和`never`（不显示）。
 
 <CodeExample
-  code={`<template>
-  <div class="space-y-4">
-    <h3 class="text-lg font-medium">总是显示下载按钮</h3>
-    <BannerBox displayMode="always">
-      <div class="flex items-center justify-center min-h-[100px]">
-        <p>下载按钮始终可见</p>
-      </div>
-    </BannerBox>
-
-    <h3 class="text-lg font-medium">悬停时显示下载按钮（默认）</h3>
-    <BannerBox displayMode="hover">
-      <div class="flex items-center justify-center min-h-[100px]">
-        <p>鼠标悬停时显示下载按钮</p>
-      </div>
-    </BannerBox>
-
-    <h3 class="text-lg font-medium">隐藏下载按钮</h3>
-    <BannerBox displayMode="never">
-      <div class="flex items-center justify-center min-h-[100px]">
-        <p>不显示下载按钮</p>
-      </div>
-    </BannerBox>
-  </div>
-</template>
-
-<script setup>
-import { BannerBox } from 'cosy-ui';
-</script>`}
+  code={BannerBoxExampleCodes.DisplayMode}
 >
-  <div class="cosy:space-y-4">
-    <h3 class="cosy:text-lg cosy:font-medium">总是显示下载按钮</h3>
-    <BannerBox displayMode="always" client:load>
-      <div class="cosy:flex cosy:items-center cosy:justify-center cosy:min-h-[100px]">
-        <p>下载按钮始终可见</p>
-      </div>
-    </BannerBox>
-
-    <h3 class="cosy:text-lg cosy:font-medium">悬停时显示下载按钮（默认）</h3>
-    <BannerBox displayMode="hover" client:load>
-      <div class="cosy:flex cosy:items-center cosy:justify-center cosy:min-h-[100px]">
-        <p>鼠标悬停时显示下载按钮</p>
-      </div>
-    </BannerBox>
-
-    <h3 class="cosy:text-lg cosy:font-medium">隐藏下载按钮</h3>
-    <BannerBox displayMode="never" client:load>
-      <div class="cosy:flex cosy:items-center cosy:justify-center cosy:min-h-[100px]">
-        <p>不显示下载按钮</p>
-      </div>
-    </BannerBox>
-  </div>
+  <BannerBoxExamples.DisplayMode client:load />
 </CodeExample>
 
 ## 尺寸预设
@@ -120,25 +44,9 @@ import { BannerBox } from 'cosy-ui';
 组件内置多种尺寸预设，可通过下载按钮下拉菜单选择，组件会自动记住上次选择的尺寸。
 
 <CodeExample
-  code={`<template>
-  <p class="mb-4">悬停在左上角显示下载按钮，点击可切换尺寸。尺寸会保存在浏览器中。</p>
-  <BannerBox>
-    <div class="flex items-center justify-center min-h-[200px]">
-      <h2 class="text-3xl font-bold">点击左上角按钮切换尺寸</h2>
-    </div>
-  </BannerBox>
-</template>
-
-<script setup>
-import { BannerBox } from 'cosy-ui';
-</script>`}
+  code={BannerBoxExampleCodes.SizePreset}
 >
-  <p class="cosy:mb-4">悬停在左上角显示下载按钮，点击可切换尺寸。尺寸会保存在浏览器中。</p>
-  <BannerBox  client:load>
-    <div class="cosy:flex cosy:items-center cosy:justify-center cosy:min-h-[200px]">
-      <h2 class="cosy:text-3xl cosy:font-bold">点击左上角按钮切换尺寸</h2>
-    </div>
-  </BannerBox>
+  <BannerBoxExamples.SizePreset client:load />
 </CodeExample>
 
 ## 导出为图片
@@ -146,27 +54,9 @@ import { BannerBox } from 'cosy-ui';
 BannerBox 组件支持将内容导出为图片，通过左上角的下载按钮操作。
 
 <CodeExample
-  code={`<template>
-  <p class="mb-4">悬停在左上角显示下载按钮，点击可下载当前内容为图片。</p>
-  <BannerBox backgroundClassIndex={8}>
-    <div class="flex flex-col items-center justify-center min-h-[200px] p-8 text-center">
-      <h2 class="text-3xl font-bold mb-4">可导出为图片的内容</h2>
-      <p class="text-lg">适用于创建社交媒体分享图、营销材料等场景</p>
-    </div>
-  </BannerBox>
-</template>
-
-<script setup>
-import { BannerBox } from 'cosy-ui';
-</script>`}
+  code={BannerBoxExampleCodes.ImageExport}
 >
-  <p class="cosy:mb-4">悬停在左上角显示下载按钮，点击可下载当前内容为图片。</p>
-  <BannerBox backgroundClassIndex={8}  client:load>
-    <div class="cosy:flex cosy:flex-col cosy:items-center cosy:justify-center cosy:min-h-[200px] cosy:p-8 cosy:text-center">
-      <h2 class="cosy:text-3xl cosy:font-bold cosy:mb-4">可导出为图片的内容</h2>
-      <p class="cosy:text-lg">适用于创建社交媒体分享图、营销材料等场景</p>
-    </div>
-  </BannerBox>
+  <BannerBoxExamples.ImageExport client:load />
 </CodeExample>
 
 ## 智能横幅模式
@@ -174,35 +64,9 @@ import { BannerBox } from 'cosy-ui';
 通过传入 `title`、`description` 和 `features` 属性使用智能横幅模式，自动展示标题、描述和特性列表。
 
 <CodeExample
-  code={`<template>
-  <BannerBox
-    title="我们的产品特性"
-    description="探索产品提供的所有强大功能"
-    :features="[
-      {
-        emoji: '⚡',
-        title: '快速响应',
-        link: '#speed'
-      },
-      {
-        emoji: '🔒',
-        title: '安全可靠',
-        link: '#security'
-      },
-      {
-        emoji: '🌐',
-        title: '全球支持',
-        link: '#global'
-      }
-    ]"
-  />
-</template>
-
-<script setup>
-import { BannerBox } from 'cosy-ui';
-</script>`}
+  code={BannerBoxExampleCodes.SmartBanner}
 >
-  <p class="cosy:text-sm cosy:mb-4">此处为示例展示，实际使用时直接传入相应属性</p>
+  <BannerBoxExamples.SmartBanner client:load />
 </CodeExample>
 
 ## 自定义组件集成
@@ -210,32 +74,9 @@ import { BannerBox } from 'cosy-ui';
 BannerBox 支持集成自定义组件，可以在横幅中插入任意 Vue 组件。
 
 <CodeExample
-  code={`<template>
-  <BannerBox
-    title="带自定义组件的横幅"
-    description="在横幅中集成其他UI组件"
-    :features="[
-      {
-        emoji: '🎨',
-        title: '可定制UI',
-        link: '#customize'
-      }
-    ]"
-    :customComponent="Button"
-    :customComponentProps="{ 
-      text: '立即注册', 
-      variant: 'primary',
-      size: 'lg',
-      onClick: () => alert('注册按钮点击')
-    }"
-  />
-</template>
-
-<script setup>
-import { BannerBox, Button } from 'cosy-ui';
-</script>`}
+  code={BannerBoxExampleCodes.CustomComponent}
 >
-  <p class="cosy:text-sm cosy:mb-4">此处为示例展示，实际使用时可以设置任意Vue组件</p>
+  <BannerBoxExamples.CustomComponent client:load />
 </CodeExample>
 
 ## 属性
