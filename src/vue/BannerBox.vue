@@ -95,6 +95,7 @@ const sizePresets = [
 const selectedSize = ref(sizePresets[0]);
 
 const toggleDropdown = () => {
+    console.log("Toggle Dropdown")
     isDropdownOpen.value = !isDropdownOpen.value;
 };
 
@@ -140,9 +141,15 @@ onMounted(() => {
     window.addEventListener('bannerBoxClear', handleSizeClear);
     window.addEventListener('bannerBoxSizeChange', handleSizeChange);
 
+    // 恢复到简单的点击监听方式，但使用正确的选择器
     document.addEventListener('click', (event) => {
+        if (!isDropdownOpen.value) return; // 如果下拉菜单已经关闭，就不需要处理
+
         const target = event.target as HTMLElement;
-        if (!target.closest('.cosy:relative')) {
+        // 检查点击的元素是否是下拉菜单中的元素
+        const isClickedOnDropdown = !!target.closest('[data-dropdown]');
+
+        if (!isClickedOnDropdown) {
             isDropdownOpen.value = false;
         }
     });
@@ -239,7 +246,7 @@ const clearStoredSize = () => {
     isDropdownOpen.value = false;
 };
 
-// 清理事件监听
+// 确保在组件卸载时清理事件监听器
 onUnmounted(() => {
     window.removeEventListener('bannerBoxClear', handleSizeClear);
     window.removeEventListener('bannerBoxSizeChange', handleSizeChange);
@@ -292,7 +299,7 @@ export default {
         <!-- Download button with dropdown menu -->
         <div v-if="downloadButtonStyles.show" class="cosy:absolute cosy:top-4 cosy:left-4"
             :class="downloadButtonStyles.classes">
-            <div class="cosy:relative">
+            <div class="cosy:relative" data-dropdown>
                 <button
                     class="cosy:bg-yellow-500/30 cosy:backdrop-blur-sm cosy:p-2 cosy:rounded-lg hover:cosy:bg-yellow-500/40"
                     @click="toggleDropdown">
