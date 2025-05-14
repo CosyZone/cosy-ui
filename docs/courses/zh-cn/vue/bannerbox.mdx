@@ -31,12 +31,30 @@ import { RiDownloadLine } from '@remixicon/vue';
 
 ## 下载按钮显示控制
 
-通过 `displayMode` 属性控制下载按钮的显示方式，支持三种模式：`always`（总是显示）、`hover`（鼠标悬停时显示）和`never`（不显示）。
+通过 `displayMode` 属性控制下载按钮的显示方式，支持三种模式：
+
+### 总是显示 (always)
 
 <CodeExample
-  code={BannerBoxExampleCodes.DisplayMode}
+  code={BannerBoxExampleCodes.DisplayModeAlways}
 >
-  <BannerBoxExamples.DisplayMode client:load />
+  <BannerBoxExamples.DisplayModeAlways client:load />
+</CodeExample>
+
+### 悬停时显示 (hover，默认)
+
+<CodeExample
+  code={BannerBoxExampleCodes.DisplayModeHover}
+>
+  <BannerBoxExamples.DisplayModeHover client:load />
+</CodeExample>
+
+### 不显示 (never)
+
+<CodeExample
+  code={BannerBoxExampleCodes.DisplayModeNever}
+>
+  <BannerBoxExamples.DisplayModeNever client:load />
 </CodeExample>
 
 ## 尺寸预设
@@ -61,22 +79,12 @@ BannerBox 组件支持将内容导出为图片，通过左上角的下载按钮�
 
 ## 智能横幅模式
 
-通过传入 `title`、`description` 和 `features` 属性使用智能横幅模式，自动展示标题、描述和特性列表。
+通过传入 `title`、`description` 和 `features` 属性使用智能横幅模式，自动展示标题、描述和特性列表。您也可以使用默认插槽在底部添加自定义内容。
 
 <CodeExample
   code={BannerBoxExampleCodes.SmartBanner}
 >
   <BannerBoxExamples.SmartBanner client:load />
-</CodeExample>
-
-## 自定义组件集成
-
-BannerBox 支持集成自定义组件，可以在横幅中插入任意 Vue 组件。
-
-<CodeExample
-  code={BannerBoxExampleCodes.CustomComponent}
->
-  <BannerBoxExamples.CustomComponent client:load />
 </CodeExample>
 
 ## 属性
@@ -88,11 +96,9 @@ BannerBox 支持集成自定义组件，可以在横幅中插入任意 Vue 组�
 | title | string | '' | 横幅标题 |
 | description | string | '' | 横幅描述 |
 | features | Array | [] | 特性列表，每项包含 \{emoji, title, link\} |
-| customComponent | Object | null | 自定义组件 |
-| customComponentProps | Object | {} | 自定义组件的属性 |
 
 ## 插槽
 
 | 插槽名 | 说明 |
 | --- | --- |
-| default | 横幅内容，当不使用 title/description/features 属性时显示 |
+| default | 横幅内容，可用于在智能横幅模式下添加额外内容，或完全自定义横幅内容 |
