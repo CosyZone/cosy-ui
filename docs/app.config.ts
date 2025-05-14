@@ -1,4 +1,4 @@
-import { LinkUtil, type INavItem } from '@/index';
+import { LinkUtil, type INavItem } from '@cosy/index';
 
 export const homeLink = LinkUtil.getBaseUrl();
 export const basePath = LinkUtil.getBaseUrl();

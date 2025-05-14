@@ -1,44 +1,44 @@
 ---
 /**
  * @component Button
- * 
+ *
  * @description
  * Button 组件用于触发一个即时操作，如表单提交、打开对话框等。
  * 支持多种样式变体、尺寸和状态，可以满足不同场景的需求。
- * 
+ *
  * @design
  * 设计理念：
  * 1. 直观易用 - 通过视觉差异清晰传达按钮的重要性和功能
  * 2. 响应式交互 - 提供丰富的状态反馈，增强用户体验
  * 3. 可定制性 - 支持多种配置选项，适应不同场景需求
  * 4. 无障碍性 - 确保所有用户都能获得良好体验
- * 
+ *
  * 视觉特点：
  * - 悬停效果：轻微上浮和阴影增强
  * - 点击效果：轻微下沉
  * - 加载状态：显示加载动画
  * - 多种颜色变体：适应不同场景和语义
  * - 多种尺寸：适应不同布局需求
- * 
+ *
  * @usage
  * 基本用法：
  * ```astro
  * <Button>默认按钮</Button>
  * <Button variant="primary">主要按钮</Button>
  * ```
- * 
+ *
  * 不同尺寸：
  * ```astro
  * <Button size="sm">小型按钮</Button>
  * <Button size="lg">大型按钮</Button>
  * ```
- * 
+ *
  * 状态变化：
  * ```astro
  * <Button disabled>禁用按钮</Button>
  * <Button loading>加载中</Button>
  * ```
- * 
+ *
  * 带图标：
  * ```astro
  * <Button>
@@ -49,103 +49,114 @@
  */
 
 // 导入样式
-import '../../app.css';
+import '../../style.ts';
 
 interface Props {
-  variant?: 'primary' | 'secondary' | 'accent' | 'info' | 'success' | 'warning' | 'error' | 'ghost' | 'link' | 'outline' | 'neutral';
-  size?: 'lg' | 'md' | 'sm' | 'xs';
-  shape?: 'circle' | 'square';
-  wide?: boolean;
-  block?: boolean;
-  loading?: boolean;
-  disabled?: boolean;
-  type?: 'button' | 'submit' | 'reset';
-  class?: string;
-  onClick?: string;
-  formmethod?: string;
+	variant?:
+		| 'primary'
+		| 'secondary'
+		| 'accent'
+		| 'info'
+		| 'success'
+		| 'warning'
+		| 'error'
+		| 'ghost'
+		| 'link'
+		| 'outline'
+		| 'neutral';
+	size?: 'lg' | 'md' | 'sm' | 'xs';
+	shape?: 'circle' | 'square';
+	wide?: boolean;
+	block?: boolean;
+	loading?: boolean;
+	disabled?: boolean;
+	type?: 'button' | 'submit' | 'reset';
+	class?: string;
+	onClick?: string;
+	formmethod?: string;
 }
 
 const {
-  variant = 'primary',
-  size = 'md',
-  shape,
-  wide = false,
-  block = false,
-  loading = false,
-  disabled = false,
-  type = 'button',
-  class: className,
-  onClick,
-  formmethod,
+	variant = 'primary',
+	size = 'md',
+	shape,
+	wide = false,
+	block = false,
+	loading = false,
+	disabled = false,
+	type = 'button',
+	class: className,
+	onClick,
+	formmethod,
 } = Astro.props;
 
 // 计算按钮的类名
 const getButtonClasses = () => {
-  const classes = ['cosy:btn'];
-  
-  // Variant classes
-  const variantClasses = {
-    primary: 'cosy:btn-primary',
-    secondary: 'cosy:btn-secondary',
-    accent: 'cosy:btn-accent',
-    info: 'cosy:btn-info',
-    success: 'cosy:btn-success',
-    warning: 'cosy:btn-warning',
-    error: 'cosy:btn-error',
-    ghost: 'cosy:btn-ghost',
-    link: 'cosy:btn-link',
-    outline: 'cosy:btn-outline',
-    neutral: 'cosy:btn-neutral'
-  };
-  
-  // Size classes
-  const sizeClasses = {
-    lg: 'cosy:btn-lg',
-    md: 'cosy:btn-md',
-    sm: 'cosy:btn-sm',
-    xs: 'cosy:btn-xs'
-  };
-  
-  // Shape classes
-  const shapeClasses = {
-    circle: 'cosy:btn-circle',
-    square: 'cosy:btn-square'
-  };
+	const classes = ['cosy:btn'];
 
-  if (variantClasses[variant]) {
-    classes.push(variantClasses[variant]);
-  }
-  
-  if (sizeClasses[size]) {
-    classes.push(sizeClasses[size]);
-  }
-  
-  if (shape && shapeClasses[shape]) {
-    classes.push(shapeClasses[shape]);
-  }
-  
-  if (wide) classes.push('cosy:btn-wide');
-  if (block) classes.push('cosy:btn-block');
-  if (loading) classes.push('cosy:loading');
-  if (className) classes.push(className);
-  
-  return classes;
+	// Variant classes
+	const variantClasses = {
+		primary: 'cosy:btn-primary',
+		secondary: 'cosy:btn-secondary',
+		accent: 'cosy:btn-accent',
+		info: 'cosy:btn-info',
+		success: 'cosy:btn-success',
+		warning: 'cosy:btn-warning',
+		error: 'cosy:btn-error',
+		ghost: 'cosy:btn-ghost',
+		link: 'cosy:btn-link',
+		outline: 'cosy:btn-outline',
+		neutral: 'cosy:btn-neutral',
+	};
+
+	// Size classes
+	const sizeClasses = {
+		lg: 'cosy:btn-lg',
+		md: 'cosy:btn-md',
+		sm: 'cosy:btn-sm',
+		xs: 'cosy:btn-xs',
+	};
+
+	// Shape classes
+	const shapeClasses = {
+		circle: 'cosy:btn-circle',
+		square: 'cosy:btn-square',
+	};
+
+	if (variantClasses[variant]) {
+		classes.push(variantClasses[variant]);
+	}
+
+	if (sizeClasses[size]) {
+		classes.push(sizeClasses[size]);
+	}
+
+	if (shape && shapeClasses[shape]) {
+		classes.push(shapeClasses[shape]);
+	}
+
+	if (wide) classes.push('cosy:btn-wide');
+	if (block) classes.push('cosy:btn-block');
+	if (loading) classes.push('cosy:loading');
+	if (className) classes.push(className);
+
+	return classes;
 };
 
 const buttonClasses = getButtonClasses();
 ---
 
 <button
-  type={formmethod === 'dialog' ? 'submit' : type}
-  class:list={buttonClasses}
-  disabled={disabled}
-  onclick={onClick}
-  formmethod={formmethod}
-  data-variant={variant}
->
-  <span class="cosy:flex cosy:items-center cosy:gap-2">
-    <slot name="icon-left" />
-    <slot />
-    <slot name="icon-right" />
-  </span>
-</button> 
+	type={formmethod === 'dialog' ? 'submit' : type}
+	class:list={buttonClasses}
+	disabled={disabled}
+	onclick={onClick}
+	formmethod={formmethod}
+	data-variant={variant}>
+	<span class="cosy:flex cosy:items-center cosy:gap-2">
+		<slot name="icon-left" />
+		<slot />
+		<slot name="icon-right" />
+	</span>
+</button>
+

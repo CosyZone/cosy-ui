@@ -165,15 +165,11 @@
  * ```
  */
 
-import '../../app.css';
-import BaseLayout from './BaseLayout.astro';
-import Footer from './Footer.astro';
+import '../../style.ts';
+import { BaseLayout, type IAppLayoutProps, Footer, Header, Container } from '../../index';
 import Main from '../containers/Main.astro';
-import Header from './Header.astro';
 import Sidebar from './Sidebar.astro';
 import { ClientRouter } from 'astro:transitions';
-import type { IAppLayoutProps } from '../../index';
-import Container from '../containers/Container.astro';
 
 interface Props extends IAppLayoutProps {}
 

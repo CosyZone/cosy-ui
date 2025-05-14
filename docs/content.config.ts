@@ -5,7 +5,7 @@ import {
 	makeExperimentCollection,
 	makeLessonCollection,
 	makeMetaCollection,
-} from '@/collection';
+} from '@cosy/index_collection';
 
 export const collections = {
 	articles: makeArticleCollection('./docs/articles'),

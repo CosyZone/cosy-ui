@@ -1,18 +1,17 @@
 ---
 import DemoLayout from '@docs/layouts/DemoLayout.astro';
-import { ErrorPage404, courseDB, logger, type ISidebarItem } from '@/index';
-import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
+import { ErrorPage404, courseDB, logger, type ISidebarItem } from '@cosy/index';
+import type { RenderResult } from 'astro:content';
 
 const { lang, slug } = Astro.params;
 const doc = await courseDB.find(`${lang}/${slug}`);
 let title = '';
-let Content: AstroComponentFactory | null = null;
+let renderResult: RenderResult | null = null;
 let sidebarItems: ISidebarItem | null = null;
 
 if (doc) {
 	title = doc.getTitle();
-	const renderResult = await doc.render();
-	Content = renderResult.Content;
+	renderResult = await doc.render();
 
     // 获取顶级文档
     const topDoc = await doc.getAncestor(1);
@@ -37,9 +36,9 @@ export const getStaticPaths = async () => {
 
 <DemoLayout title={title} sidebarItems={sidebarItems}>
 	{
-		Content ? (
+		renderResult ? (
 				<h1>{title}</h1>
-				<Content />
+				<renderResult.Content />
 		) : (
 			<ErrorPage404 debugKVs={{ slug }} />
 		)
