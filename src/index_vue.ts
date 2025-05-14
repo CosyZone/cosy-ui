@@ -7,9 +7,10 @@ export { default as FeatureCard } from './vue/FeatureCard.vue';
 export { default as FeatureGroup } from './vue/FeatureGroup.vue';
 
 // Windows
-export { default as iPhoneWindow } from './vue/iPhoneWindow.vue';
+export { iPhoneWindow } from './vue/iPhone';
 export { MacWindow } from './vue/MacWindow';
 export * as MacWindowExamples from './vue/MacWindow';
+export * as iPhoneWindowExamples from './vue/iPhone';
 
 // List
 export { default as ListItem } from './vue/ListItem.vue';

@@ -41,8 +41,8 @@ iPhoneWindow 组件模拟 iPhone 设备的外观，包含状态栏、时间显�
 @emits
 -->
 <script lang="ts">
-import '../app.css'
-import AlertDialog from './AlertDialog.vue'
+import '../../style.ts'
+import { AlertDialog } from '../../index_vue'
 import { ref, onMounted, onUnmounted, defineComponent } from 'vue'
 
 export default defineComponent({
