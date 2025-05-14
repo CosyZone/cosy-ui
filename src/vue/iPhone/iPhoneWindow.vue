@@ -44,6 +44,8 @@ iPhoneWindow 组件模拟 iPhone 设备的外观，包含状态栏、时间显�
 import '../../style.ts'
 import { AlertDialog } from '../../index_vue'
 import { ref, onMounted, onUnmounted, defineComponent } from 'vue'
+// 导入内部图片资源
+import iphoneFrame from './assets/iPhone 14 Pro - Deep Purple - Portrait.png'
 
 export default defineComponent({
     name: 'iPhoneWindow',
@@ -79,8 +81,10 @@ export default defineComponent({
     setup() {
         const showAlertDialog = ref(false)
         const alertMessage = ref('')
-
         const currentTime = ref('12:00')
+
+        // 获取图片URL
+        const frameSrc = typeof iphoneFrame === 'string' ? iphoneFrame : iphoneFrame.src
 
         // 更新时间的函数
         const updateTime = () => {
@@ -106,7 +110,8 @@ export default defineComponent({
         return {
             showAlertDialog,
             alertMessage,
-            currentTime
+            currentTime,
+            frameSrc
         }
     }
 })
@@ -116,9 +121,8 @@ export default defineComponent({
     <div class="cosy:relative cosy:w-full">
         <div class="cosy:relative cosy:aspect-[9/19.5]">
             <!-- iPhone 边框 (放在最底层) -->
-            <img v-if="showFrame"
-                src="/assets/iPhone 14 Pro/iPhone 14 Pro - Deep Purple - Portrait.imageset/iPhone 14 Pro - Deep Purple - Portrait.png"
-                alt="iPhone frame" class="cosy:absolute cosy:inset-0 cosy:w-full cosy:h-full cosy:object-contain">
+            <img v-if="showFrame" :src="frameSrc" alt="iPhone frame"
+                class="cosy:absolute cosy:inset-0 cosy:w-full cosy:h-full cosy:object-contain">
 
             <!-- 内容区域 -->
             <div :class="[
