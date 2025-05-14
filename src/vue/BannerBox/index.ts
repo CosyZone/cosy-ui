@@ -1,17 +1,17 @@
-import Basic from './Basic.vue';
-import CustomBg from './CustomBg.vue';
-import DisplayMode from './DisplayMode.vue';
+import Basic from './ExampleBasic.vue';
+import CustomBg from './ExampleCustomBg.vue';
+import DisplayMode from './ExampleDisplayMode.vue';
 import SmartBanner from './SmartBanner.vue';
-import SizePreset from './SizePreset.vue';
-import ImageExport from './ImageExport.vue';
-import CustomComponent from './CustomComponent.vue';
-import BasicSource from './Basic.vue?raw';
-import CustomBgSource from './CustomBg.vue?raw';
-import DisplayModeSource from './DisplayMode.vue?raw';
+import SizePreset from './ExampleSizePreset.vue';
+import ImageExport from './ExampleImageExport.vue';
+import CustomComponent from './ExampleCustomComponent.vue';
+import BasicSource from './ExampleBasic.vue?raw';
+import CustomBgSource from './ExampleCustomBg.vue?raw';
+import DisplayModeSource from './ExampleDisplayMode.vue?raw';
 import SmartBannerSource from './SmartBanner.vue?raw';
-import SizePresetSource from './SizePreset.vue?raw';
-import ImageExportSource from './ImageExport.vue?raw';
-import CustomComponentSource from './CustomComponent.vue?raw';
+import SizePresetSource from './ExampleSizePreset.vue?raw';
+import ImageExportSource from './ExampleImageExport.vue?raw';
+import CustomComponentSource from './ExampleCustomComponent.vue?raw';
 
 // 提取简单示例源代码函数
 function extractSimpleExample(source: string): string {
@@ -52,6 +52,8 @@ import { BannerBox } from 'cosy-ui'
 // 获取 BannerBox 和 FeatureCard 组件
 export { default as BannerBox } from './BannerBox.vue';
 export { default as FeatureCard } from './FeatureCard.vue';
+export { default as DownloadButton } from './DownloadButton.vue';
+export { bgClasses } from './bgStyles';
 
 // 导出示例组件
 export const BannerBoxExamples = {
