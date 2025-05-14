@@ -21,11 +21,8 @@ export default defineConfig({
     vite: {
         resolve: {
             alias: {
-                '@': path.resolve('./src'),
-                '@/*': path.resolve('./src/*'),
-                '@components': path.resolve('./src/components'),
                 '@docs': path.resolve('./docs'),
-                '@layouts': path.resolve('./docs/layouts'),
+                '@cosy': path.resolve('./src'),
             },
         },
 

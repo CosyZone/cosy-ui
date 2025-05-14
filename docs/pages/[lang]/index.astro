@@ -1,7 +1,6 @@
 ---
 import DemoLayout from '@docs/layouts/DemoLayout.astro';
-// @ts-ignore
-import { LinkUtil } from '@/index';
+import { LinkUtil } from '@cosy/index';
 
 export const getStaticPaths = async () => {
 	return [
@@ -14,7 +13,6 @@ export const getStaticPaths = async () => {
 	];
 };
 
-// @ts-ignore
 return Astro.redirect(LinkUtil.createUrl('/en/courses/guide'));
 ---
 
