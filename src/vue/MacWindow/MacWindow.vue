@@ -19,6 +19,7 @@ MacWindow 组件模拟 macOS 风格的应用窗口，包含标题栏、工具栏
   <MacWindow
     title="设置"
     :tabs="['通用', '外观', '高级']"
+    defaultTab="外观"
     :onTabClick="(tab) => { 
       activeTab = tab;
       console.log('切换到标签:', tab);
@@ -34,7 +35,7 @@ MacWindow 组件模拟 macOS 风格的应用窗口，包含标题栏、工具栏
 import { ref } from 'vue';
 import { MacWindow } from 'cosy-ui';
 
-const activeTab = ref('通用');
+const activeTab = ref('外观');
 </script>
 ```
 
@@ -77,6 +78,7 @@ const activeTab = ref('通用');
 @prop {String} [title=''] - 窗口标题
 @prop {Boolean} [withShadow=true] - 是否显示阴影效果
 @prop {Array} [tabs=[]] - 标签页字符串数组，如 ['标签1', '标签2', '标签3']
+@prop {String} [defaultTab=''] - 默认选中的标签页
 @prop {Function} [onCloseWindow=null] - 关闭窗口时调用的函数
 @prop {Function} [onMinimizeWindow=null] - 最小化窗口时调用的函数
 @prop {Function} [onMaximizeWindow=null] - 最大化窗口时调用的函数
@@ -119,6 +121,10 @@ export default defineComponent({
             type: Array as PropType<string[]>,
             default: () => []
         },
+        defaultTab: {
+            type: String,
+            default: ''
+        },
         onCloseWindow: {
             type: Function,
             default: null
@@ -139,10 +145,10 @@ export default defineComponent({
     setup(props) {
         const showAlertDialog = ref(false)
         const alertMessage = ref('')
-        const activeTab = ref('')
+        const activeTab = ref(props.defaultTab)
 
-        // 默认选择第一个标签
-        if (props.tabs.length > 0 && !activeTab.value) {
+        // 如果没有设置默认标签或默认标签不在tabs中，则选择第一个标签
+        if ((!activeTab.value || !props.tabs.includes(activeTab.value)) && props.tabs.length > 0) {
             activeTab.value = props.tabs[0] as string
         }
 

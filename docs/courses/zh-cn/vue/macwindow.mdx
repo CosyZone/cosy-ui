@@ -21,7 +21,7 @@ import { SearchIcon, SettingsIcon, InfoIcon } from '@cosy/index';
 
 ## 标签页
 
-传递字符串数组作为标签页。组件内部会自动管理当前激活的标签，点击标签会触发 `onTabClick` 回调，您需要自行维护标签状态。
+传递字符串数组作为标签页。组件内部会自动管理当前激活的标签，点击标签会触发 `onTabClick` 回调，您需要自行维护标签状态。您也可以使用 `defaultTab` 属性设置默认选中的标签。
 
 <CodeExample
   code={MacWindowExampleCodes.WithTabs}
@@ -77,6 +77,7 @@ import { SearchIcon, SettingsIcon, InfoIcon } from '@cosy/index';
 | title | string | '' | 窗口标题 |
 | withShadow | boolean | true | 是否显示阴影效果 |
 | tabs | array | [] | 标签页字符串数组，如 ["标签1", "标签2", "标签3"] |
+| defaultTab | string | '' | 默认选中的标签页，若不提供或值不在tabs中，则选择第一个标签 |
 | onCloseWindow | function | null | 点击关闭按钮时调用的函数 |
 | onMinimizeWindow | function | null | 点击最小化按钮时调用的函数 |
 | onMaximizeWindow | function | null | 点击最大化按钮时调用的函数 |
