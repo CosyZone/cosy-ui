@@ -19,5 +19,6 @@ export { default as CloseIcon } from './icons/CloseIcon.astro';
 export { default as ErrorIcon } from './icons/ErrorIcon.astro';
 export { default as GithubIcon } from './icons/GithubIcon.astro';
 export { default as InfoCircle } from './icons/InfoCircle.astro';
+export { default as InboxArchive } from './icons/InboxArchive.astro';
 export { default as SettingsIcon } from './icons/SettingsIcon.astro';
 export { default as ChevronDownIcon } from './icons/ChevronDownIcon.astro';

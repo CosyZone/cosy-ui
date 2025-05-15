@@ -8,14 +8,16 @@ export { BannerBoxExamples, BannerBoxExampleCodes, BannerBox } from './vue/Banne
 export { default as VueCounter } from './vue/VueCounter.vue';
 
 // SmartHero
-export { default as SmartHero } from './vue/SmartHero.vue';
+export { SmartHero, SmartHeroExamples, SmartHeroExampleCodes } from './vue/SmartHero';
 
 // ConfirmDialog
 export { default as ConfirmDialog } from './vue/ConfirmDialog/ConfirmDialog.vue';
 export { ConfirmDialogExamples, ConfirmDialogExampleCodes } from './vue/ConfirmDialog';
 
-// FeatureButton
-export { default as FeatureButton } from './vue/FeatureButton.vue';
+// Buttons
+export { FeatureButton, LinkButton } from './vue/Buttons';
+export { ButtonsExamples, ButtonsExampleCodes } from './vue/Buttons';
+
 export { default as FeatureCard } from './vue/BannerBox/FeatureCard.vue';
 
 // Icons
@@ -27,6 +29,7 @@ export { default as LinkIcon } from './vue/Icons/LinkIcon.vue';
 export { default as MenuIcon } from './vue/Icons/MenuIcon.vue';
 export { default as UserIcon } from './vue/Icons/UserIcon.vue';
 export { default as XCircleIcon } from './vue/Icons/XCircleIcon.vue';
+export { default as InboxArchiveIcon } from './vue/Icons/InboxArchiveIcon.vue';
 
 // List
 export { default as ListItem } from './vue/ListItem.vue';
@@ -40,3 +43,6 @@ export { default as SmartLink } from './vue/SmartLink.vue';
 
 // TagList
 export { default as TagList } from './vue/TagList.vue';
+
+// BlogList
+export { BlogList, BlogListExamples, BlogListExampleCodes } from './vue/BlogList';
