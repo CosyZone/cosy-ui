@@ -11,7 +11,8 @@ export { default as VueCounter } from './vue/VueCounter.vue';
 export { default as SmartHero } from './vue/SmartHero.vue';
 
 // ConfirmDialog
-export { default as ConfirmDialog } from './vue/ConfirmDialog.vue';
+export { default as ConfirmDialog } from './vue/ConfirmDialog/ConfirmDialog.vue';
+export { ConfirmDialogExamples, ConfirmDialogExampleCodes } from './vue/ConfirmDialog';
 
 // FeatureButton
 export { default as FeatureButton } from './vue/FeatureButton.vue';

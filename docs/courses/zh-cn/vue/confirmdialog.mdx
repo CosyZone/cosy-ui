@@ -1,0 +1,46 @@
+---
+title: 'ConfirmDialog'
+description: '一个确认对话框组件，提供标题、消息内容和两个按钮（确认和取消），支持自定义按钮文本'
+folder: false
+order: 2
+---
+
+import { CodeExample } from '@cosy/index';
+import { ConfirmDialog, ConfirmDialogExampleCodes, ConfirmDialogExamples } from '@cosy/index_vue';
+
+## 基础用法
+
+基本的确认对话框，包含标题、消息内容和两个按钮（确认和取消）。当用户点击确认按钮时，会触发 confirm 事件。
+
+<CodeExample
+  code={ConfirmDialogExampleCodes.Basic}
+>
+  <ConfirmDialogExamples.Basic client:load />
+</CodeExample>
+
+## 自定义按钮
+
+您可以通过 `cancel-text` 和 `confirm-text` 属性自定义按钮的文本内容，以适应不同的场景。
+
+<CodeExample
+  code={ConfirmDialogExampleCodes.CustomButtons}
+>
+  <ConfirmDialogExamples.CustomButtons client:load />
+</CodeExample>
+
+## 属性
+
+| 属性名 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| modelValue | boolean | - | 控制对话框的显示状态 |
+| title | string | 'Confirm' | 对话框标题 |
+| message | string | 'Are you sure you want to confirm this action?' | 对话框显示的消息内容 |
+| cancel-text | string | '取消' | 取消按钮的文本 |
+| confirm-text | string | '确认' | 确认按钮的文本 |
+
+## 事件
+
+| 事件名 | 说明 |
+| --- | --- |
+| update:modelValue | 当对话框关闭时触发，用于更新v-model绑定值 |
+| confirm | 当用户点击确认按钮时触发 | 
