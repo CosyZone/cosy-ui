@@ -15,8 +15,7 @@ export { default as ConfirmDialog } from './vue/ConfirmDialog/ConfirmDialog.vue'
 export { ConfirmDialogExamples, ConfirmDialogExampleCodes } from './vue/ConfirmDialog';
 
 // Buttons
-export { FeatureButton, LinkButton } from './vue/Buttons';
-export { ButtonsExamples, ButtonsExampleCodes } from './vue/Buttons';
+export * from './vue/Buttons';
 
 export { default as FeatureCard } from './vue/BannerBox/FeatureCard.vue';
 

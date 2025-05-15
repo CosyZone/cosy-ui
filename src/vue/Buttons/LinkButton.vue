@@ -56,6 +56,7 @@ defineProps({
 <template>
     <a :href="href" :target="openInNewTab ? '_blank' : ''" class="cosy:px-6 cosy:py-3 cosy:rounded-lg cosy:bg-blue-600 cosy:text-white cosy:font-medium
                cosy:transition-all cosy:duration-300 cosy:ease-in-out
+               cosy:no-underline
                cosy:hover:bg-blue-700 cosy:hover:shadow-lg cosy:hover:-translate-y-0.5
                cosy:focus:outline-none cosy:focus:ring-2 cosy:focus:ring-blue-500 cosy:focus:ring-offset-2
                cosy:active:bg-blue-800 cosy:active:translate-y-0">

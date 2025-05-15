@@ -2,7 +2,7 @@
     <div>
         <!-- Button with hover effects -->
         <button :class="[
-            'bg-cyan-500/20 p-4 rounded-2xl text-center backdrop-blur-lg text-2xl transition-all duration-300 hover:scale-105 hover:bg-cyan-500/30',
+            'cosy:bg-cyan-500/20 cosy:text-cyan-500 cosy:border-cyan-500 cosy:border-2 cosy:hover:bg-cyan-500/30 cosy:hover:text-white cosy:hover:border-cyan-500/30 cosy:hover:scale-105 cosy:transition-all cosy:duration-300 cosy:rounded-2xl cosy:text-center cosy:backdrop-blur-lg cosy:text-2xl',
             props.size
         ]" @click="showPopup">
             <slot />
@@ -11,8 +11,11 @@
 
         <!-- Popup message -->
         <Transition name="fade">
-            <div v-if="isPopupVisible" class="fixed inset-0 flex items-center justify-center z-50" @click="hidePopup">
-                <div class="bg-black/80 backdrop-blur-sm p-6 rounded-xl text-white animate-popup">
+            <div v-if="isPopupVisible"
+                class="cosy:fixed cosy:inset-0 cosy:flex cosy:items-center cosy:justify-center cosy:z-50"
+                @click="hidePopup">
+                <div
+                    class="cosy:bg-black/80 cosy:backdrop-blur-sm cosy:p-6 cosy:rounded-xl cosy:text-white cosy:animate-popup">
                     {{ lang === 'zh' ? '这是展示图，不支持操作' : 'This is a preview image, no operation is supported' }}
                 </div>
             </div>
