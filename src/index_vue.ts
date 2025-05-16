@@ -4,6 +4,9 @@ export { AlertDialogExamples, AlertDialogExampleCodes, AlertDialog } from './vue
 // Banner
 export { BannerBoxExamples, BannerBoxExampleCodes, BannerBox } from './vue/BannerBox';
 
+// BlogList
+export * from './vue/BlogList';
+
 // Counter
 export { default as VueCounter } from './vue/VueCounter.vue';
 
@@ -42,6 +45,3 @@ export { default as SmartLink } from './vue/SmartLink.vue';
 
 // TagList
 export { default as TagList } from './vue/TagList.vue';
-
-// BlogList
-export { BlogList, BlogListExamples, BlogListExampleCodes } from './vue/BlogList';
