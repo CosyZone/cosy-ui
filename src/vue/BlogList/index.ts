@@ -32,6 +32,7 @@ function extractSimpleExample(source: string): string {
 
 // 导出主组件
 export { default as BlogList } from './BlogList.vue';
+export type { IBlog } from './BlogList.vue';
 
 // 将示例组件整合为一个对象导出
 export const BlogListExamples = {
