@@ -8,17 +8,12 @@ interface Props {
 	 */
 	size?: string;
 	/**
-	 * 图标的颜色
-	 * @default "currentColor"
-	 */
-	color?: string;
-	/**
 	 * 自定义类名
 	 */
 	class?: string;
 }
 
-const { size = '24px', color = 'currentColor', class: className = '' } = Astro.props;
+const { size = '24px', class: className = '' } = Astro.props;
 ---
 
-<AstroIcon name="github" size={size} color={color} class={className} />
+<AstroIcon name="github" size={size} fill={true} stroke="none" class={className} />
