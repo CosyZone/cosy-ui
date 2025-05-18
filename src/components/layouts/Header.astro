@@ -56,6 +56,17 @@
  *   logo={import("../assets/logo.png")}
  *   height="lg"
  * />
+ * ```
+ *
+ * 自定义导航栏右侧内容：
+ * ```astro
+ * <Header logo={import("../assets/logo.png")}>
+ *   <div slot="navbar-end" class="cosy:flex cosy:items-center cosy:gap-2">
+ *     <button class="cosy:btn cosy:btn-sm cosy:btn-ghost">登录</button>
+ *     <button class="cosy:btn cosy:btn-sm cosy:btn-primary">注册</button>
+ *   </div>
+ * </Header>
+ * ```
  */
 import '../../style.ts';
 import Link from '../base/Link.astro';
@@ -147,7 +158,8 @@ const activeLink = LinkUtil.getActiveLink(
 			'cosy:py-12': paddingVertical === '2xl',
 			'cosy:py-16': paddingVertical === '3xl',
 		},
-	]}>
+	]}
+>
 	<div
 		class:list={[
 			'cosy:bg-accent/70 cosy:flex cosy:flex-grow cosy:backdrop-blur not-prose cosy:border-base-200',
@@ -161,7 +173,8 @@ const activeLink = LinkUtil.getActiveLink(
 			},
 			headerHeightClass,
 			{ 'cosy:border cosy:border-dashed cosy:border-red-500': debug },
-		]}>
+		]}
+	>
 		<div class="cosy:navbar-start cosy:pl-1">
 			{
 				navPosition === 'start' ? (
@@ -170,7 +183,8 @@ const activeLink = LinkUtil.getActiveLink(
 							animation="none"
 							debug={debug}
 							href={logoHref}
-							class:list={['cosy:btn cosy:btn-ghost', linkHeightClass]}>
+							class:list={['cosy:btn cosy:btn-ghost', linkHeightClass]}
+						>
 							<Image
 								rounded="full"
 								showPlaceholder={false}
@@ -194,7 +208,8 @@ const activeLink = LinkUtil.getActiveLink(
 						animation="none"
 						debug={debug}
 						href={logoHref}
-						class:list={['cosy:btn cosy:btn-ghost', linkHeightClass]}>
+						class:list={['cosy:btn cosy:btn-ghost', linkHeightClass]}
+					>
 						<Image
 							rounded="full"
 							showPlaceholder={false}
@@ -229,7 +244,9 @@ const activeLink = LinkUtil.getActiveLink(
 					</div>
 				)
 			}
-			<LanguageSwitcher languages={languages} />
+			<slot name="navbar-end">
+				<LanguageSwitcher languages={languages} />
+			</slot>
 		</div>
 	</div>
 </header>

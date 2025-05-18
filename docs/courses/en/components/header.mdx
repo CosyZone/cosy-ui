@@ -171,3 +171,28 @@ Demonstration of the Header component with multiple properties combined
     defaultSidebarOpen={false}
   />
 </CodeExample> 
+
+## Customizing the Navbar End Content
+
+You can customize the right side of the navigation bar using the `navbar-end` slot. By default, it displays the language switcher:
+
+<CodeExample
+  code={`<Header 
+  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+  logoHref="/">
+  <div slot="navbar-end" class="cosy:flex cosy:items-center cosy:gap-2">
+    <button class="cosy:btn cosy:btn-sm cosy:btn-ghost">Login</button>
+    <button class="cosy:btn cosy:btn-sm cosy:btn-primary">Sign Up</button>
+  </div>
+</Header>`}
+>
+  <Header 
+    logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    sticky={false}>
+    <div slot="navbar-end" class="cosy:flex cosy:items-center cosy:gap-2">
+      <button class="cosy:btn cosy:btn-sm cosy:btn-ghost">Login</button>
+      <button class="cosy:btn cosy:btn-sm cosy:btn-primary">Sign Up</button>
+    </div>
+  </Header>
+</CodeExample>
