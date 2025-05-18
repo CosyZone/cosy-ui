@@ -29,7 +29,7 @@ export { default as Blog } from './components/data-display/Blog.astro';
 
 // Layouts
 export { default as Footer } from './components/layouts/Footer.astro';
-export { default as Header } from './components/layouts/Header.astro';
+export * from './components/layouts/Header/index';
 export { default as AppLayout } from './components/layouts/AppLayout.astro';
 export { default as Stack } from './components/layouts/Stack.astro';
 export { default as Grid } from './components/layouts/Grid.astro';

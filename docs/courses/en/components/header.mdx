@@ -5,7 +5,7 @@ folder: false
 order: 0
 ---
 
-import { Header, Section, Container, CodeExample } from '@cosy/index';
+import { CodeExample, Header, Basic as HeaderBasic, WithNavigation as HeaderWithNavigation, CustomPosition as HeaderCustomPosition, CustomNavbarEnd as HeaderCustomNavbarEnd, getExampleImage } from '@cosy/index';
 
 ## Basic Header
 
@@ -17,11 +17,7 @@ The simplest way to use the Header component, displaying the website logo and na
   logoHref="/"
 />`}
 >
-  <Header 
-    logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
-    logoHref="/"
-    sticky={false}
-  />
+  <HeaderBasic />
 </CodeExample>
 
 ## Header with Navigation Menu
@@ -39,16 +35,7 @@ Add navigation menu through the navItems property
   ]}
 />`}
 >
-  <Header 
-    logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
-    logoHref="/"
-    sticky={false}
-    navItems={[
-      { href: "/", label: "Home", match: (path) => path === "/" },
-      { href: "/products", label: "Products", match: (path) => path.startsWith("/products") },
-      { href: "/about", label: "About Us", match: (path) => path.startsWith("/about") }
-    ]}
-  />
+  <HeaderWithNavigation />
 </CodeExample>
 
 ## Header with Language Switching
