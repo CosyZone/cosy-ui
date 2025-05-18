@@ -6,23 +6,38 @@ interface Props {
 	 * 图标名称，必须在iconData中存在
 	 */
 	name: string;
+
 	/**
 	 * 图标的大小
 	 * @default "24px"
 	 */
 	size?: string;
+
 	/**
-	 * 图标的颜色
+	 * 描边颜色
 	 * @default "currentColor"
 	 */
-	color?: string;
+	stroke?: string;
+
 	/**
 	 * 自定义类名
 	 */
 	class?: string;
+
+	/**
+	 * 是否填充图标
+	 * @default false
+	 */
+	fill?: boolean;
 }
 
-const { name, size = '24px', color = 'currentColor', class: className = '' } = Astro.props;
+const {
+	name,
+	size = '24px',
+	stroke = 'currentColor',
+	class: className = '',
+	fill = false,
+} = Astro.props;
 const icon = iconData[name];
 const viewBox = icon?.viewBox || '0 0 24 24';
 ---
@@ -34,12 +49,12 @@ const viewBox = icon?.viewBox || '0 0 24 24';
 			width={size}
 			height={size}
 			viewBox={viewBox}
-			fill="none"
-			stroke={color}
+			fill={fill ? 'currentColor' : 'none'}
+			stroke={stroke}
 			stroke-width="2"
 			stroke-linecap="round"
 			stroke-linejoin="round"
-			className={className}>
+			class={className}>
 			<path d={icon.path} />
 		</svg>
 	)
