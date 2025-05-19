@@ -1,0 +1,44 @@
+---
+/**
+ * @component NavItems
+ *
+ * @description
+ * NavItems 组件用于渲染导航栏中的导航项目列表。
+ *
+ * @usage
+ * ```astro
+ * <NavItems
+ *   navItems={navItems}
+ *   activeLink={activeLink}
+ *   linkHeightClass={linkHeightClass}
+ * />
+ * ```
+ */
+import '../../style.ts';
+import { type INavItem, Link } from '../../index';
+
+interface Props {
+	navItems: INavItem[];
+	activeLink: string;
+	linkHeightClass: string;
+}
+
+const { navItems, activeLink, linkHeightClass } = Astro.props;
+---
+
+<ul
+	data-active-link={activeLink}
+	class:list={['cosy:px-1 cosy:menu cosy:menu-horizontal', linkHeightClass]}>
+	{
+		navItems.map((item) => (
+			<li>
+				<Link
+					variant={activeLink === item.href ? 'primary' : 'default'}
+					href={item.href}
+					class:list={[linkHeightClass]}>
+					{item.label}
+				</Link>
+			</li>
+		))
+	}
+</ul>

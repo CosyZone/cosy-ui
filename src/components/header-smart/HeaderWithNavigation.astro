@@ -1,0 +1,27 @@
+---
+/**
+ * @component Header.WithNavigation
+ *
+ * @description
+ * 带导航菜单的Header组件示例，展示如何添加导航菜单项。
+ */
+import '../../style.ts';
+import Header from './Header.astro';
+import { getExampleImage } from '../../utils/image.ts';
+
+const logo = {
+	src: getExampleImage({ width: 100, height: 100, provider: 'picsum', tag: 'tech' }),
+	width: 100,
+	height: 100,
+	format: 'png',
+};
+
+const navItems = [
+	{ href: '/', label: '首页', match: (path) => path === '/' },
+	{ href: '/docs', label: '文档', match: (path) => path.startsWith('/docs') },
+	{ href: '/components', label: '组件', match: (path) => path.startsWith('/components') },
+	{ href: '/about', label: '关于', match: (path) => path.startsWith('/about') },
+];
+---
+
+<Header logo={logo} logoHref="/" navItems={navItems} rounded="lg" sticky={false} />
