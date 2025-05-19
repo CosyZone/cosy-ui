@@ -10,21 +10,7 @@ import WithEventsSource from './WithEvents.vue?raw';
 import WithToolbarSource from './WithToolbar.vue?raw';
 import WithSidebarSource from './WithSidebar.vue?raw';
 import CustomHeightSource from './CustomHeight.vue?raw';
-
-// 转换Vue SFC组件为简化的示例代码（只保留template和setup script）
-function extractSimpleExample(source: string): string {
-	// 提取模板部分
-	const templateMatch = source.match(/<template>([\s\S]*?)<\/template>/);
-	const template = templateMatch ? templateMatch[1].trim() : '';
-
-	// 创建简化版本的代码
-	return `<template>${template}</template>
-
-<script setup>
-import { MacWindow } from 'cosy-ui';
-import { SearchIcon, SettingsIcon, InfoIcon } from 'cosy-ui/icons';
-</script>`;
-}
+import { extractSimpleExample } from '../../utils/component';
 
 // 导出主组件
 export { default as MacWindow } from './MacWindow.vue';
@@ -41,10 +27,10 @@ export const MacWindowExamples = {
 
 // 导出示例组件的源代码（简化版本）
 export const MacWindowExampleCodes = {
-	Basic: extractSimpleExample(BasicSource),
-	WithTabs: extractSimpleExample(WithTabsSource),
-	WithEvents: extractSimpleExample(WithEventsSource),
-	WithToolbar: extractSimpleExample(WithToolbarSource),
-	WithSidebar: extractSimpleExample(WithSidebarSource),
-	CustomHeight: extractSimpleExample(CustomHeightSource),
+	Basic: extractSimpleExample(BasicSource, 'MacWindow'),
+	WithTabs: extractSimpleExample(WithTabsSource, 'MacWindow'),
+	WithEvents: extractSimpleExample(WithEventsSource, 'MacWindow'),
+	WithToolbar: extractSimpleExample(WithToolbarSource, 'MacWindow'),
+	WithSidebar: extractSimpleExample(WithSidebarSource, 'MacWindow'),
+	CustomHeight: extractSimpleExample(CustomHeightSource, 'MacWindow'),
 };

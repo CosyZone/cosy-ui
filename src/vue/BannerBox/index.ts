@@ -14,42 +14,7 @@ import DisplayModeNeverSource from './ExampleDisplayModeNever.vue?raw';
 import SmartBannerSource from './SmartBanner.vue?raw';
 import SizePresetSource from './ExampleSizePreset.vue?raw';
 import ImageExportSource from './ExampleImageExport.vue?raw';
-
-// 提取简单示例源代码函数
-function extractSimpleExample(source: string): string {
-	// 提取模板部分
-	const templateMatch = source.match(/<template>([\s\S]*)<\/template>/m);
-	const scriptMatch = source.match(/<script[\s\S]*?>([\s\S]*)<\/script>/m);
-
-	if (!templateMatch) {
-		return source;
-	}
-
-	let importSection = `<script setup>
-import { BannerBox } from 'cosy-ui'
-`;
-
-	// 从源码中提取导入语句（除了组件的导入和app.css）
-	if (scriptMatch && scriptMatch[1]) {
-		const importLines = scriptMatch[1]
-			.split('\n')
-			.filter(
-				(line) =>
-					line.includes('import') && !line.includes('../../app.css') && !line.includes('BannerBox')
-			);
-
-		if (importLines.length > 0) {
-			importSection += importLines.join('\n') + '\n';
-		}
-	}
-
-	importSection += '</script>\n\n';
-
-	// 提取模板内容，并替换组件路径
-	const templateContent = templateMatch[1].replace('../BannerBox.vue', 'BannerBox');
-
-	return importSection + '<template>' + templateContent + '</template>';
-}
+import { extractSimpleExample } from '../../utils/component';
 
 // 获取 BannerBox 和 FeatureCard 组件
 export { default as BannerBox } from './BannerBox.vue';
@@ -72,12 +37,12 @@ export const BannerBoxExamples = {
 
 // 导出示例源代码
 export const BannerBoxExampleCodes = {
-	Basic: extractSimpleExample(BasicSource),
-	CustomBg: extractSimpleExample(CustomBgSource),
-	DisplayModeAlways: extractSimpleExample(DisplayModeAlwaysSource),
-	DisplayModeHover: extractSimpleExample(DisplayModeHoverSource),
-	DisplayModeNever: extractSimpleExample(DisplayModeNeverSource),
-	SmartBanner: extractSimpleExample(SmartBannerSource),
-	SizePreset: extractSimpleExample(SizePresetSource),
-	ImageExport: extractSimpleExample(ImageExportSource),
+	Basic: extractSimpleExample(BasicSource, 'BannerBox'),
+	CustomBg: extractSimpleExample(CustomBgSource, 'BannerBox'),
+	DisplayModeAlways: extractSimpleExample(DisplayModeAlwaysSource, 'BannerBox'),
+	DisplayModeHover: extractSimpleExample(DisplayModeHoverSource, 'BannerBox'),
+	DisplayModeNever: extractSimpleExample(DisplayModeNeverSource, 'BannerBox'),
+	SmartBanner: extractSimpleExample(SmartBannerSource, 'BannerBox'),
+	SizePreset: extractSimpleExample(SizePresetSource, 'BannerBox'),
+	ImageExport: extractSimpleExample(ImageExportSource, 'BannerBox'),
 };

@@ -1,7 +1,14 @@
 import Header from './Header.astro';
 import HeaderBasic from './HeaderBasic.astro';
-import WithNavigation from './WithNavigation.astro';
-import CustomPosition from './CustomPosition.astro';
-import CustomNavbarEnd from './CustomNavbarEnd.astro';
+import HeaderWithNavigation from './HeaderWithNavigation.astro';
+import HeaderCustomPosition from './HeaderCustomPosition.astro';
+import HeaderCustomNavbarEnd from './HeaderCustomNavbarEnd.astro';
+import BasicSourceCode from './HeaderBasic.astro?raw';
+import { extractSimpleExample } from '../../../utils/component';
 
-export { Header, HeaderBasic, WithNavigation, CustomPosition, CustomNavbarEnd };
+export { Header, HeaderBasic, HeaderWithNavigation, HeaderCustomPosition, HeaderCustomNavbarEnd };
+
+// 导出示例源代码
+export const HeaderExampleCodes = {
+	Basic: extractSimpleExample(BasicSourceCode, 'Header'),
+};

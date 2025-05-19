@@ -5,7 +5,7 @@ folder: false
 order: 6
 ---
 
-import { CodeExample, Header, HeaderBasic, HeaderWithNavigation, HeaderCustomPosition, HeaderCustomNavbarEnd, getExampleImage } from '@cosy/index';
+import { CodeExample, Header, HeaderBasic, HeaderWithNavigation, HeaderCustomPosition, HeaderCustomNavbarEnd, getExampleImage, HeaderExampleCodes } from '@cosy/index';
 
 Header 组件是一个用于网站顶部导航的布局组件，提供了logo、导航菜单、语言切换等功能。组件支持响应式设计，在不同屏幕尺寸下有良好的显示效果，并可选择固定在页面顶部。  
 
@@ -16,10 +16,7 @@ Header 组件是一个用于网站顶部导航的布局组件，提供了logo、
 基本的 Header 组件包含 logo 和语言切换功能：
 
 <CodeExample
-  code={`<Header 
-  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
-  logoHref="/"
-/>`}
+  code={HeaderExampleCodes.Basic}
 >
   <HeaderBasic />
 </CodeExample>
