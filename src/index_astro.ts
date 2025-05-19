@@ -1,18 +1,28 @@
-export * from './components/button';
-export * from './components/link';
-export * from './components/image';
-export * from './components/theme-item';
-export * from './components/alert';
-export * from './components/footer';
-export * from './components/layout-app/index';
-export * from './components/speak';
-export * from './components/module';
-export * from './components/nav-item/index';
-export * from './components/language-switcher';
-export * from './components/toc';
-export * from './components/sidebar';
-export * from './components/theme-switcher';
-export { default as Stack } from './components/stack/Stack.astro';
+export * from './button';
+export * from './article';
+export * from './link';
+export * from './image';
+export * from './theme-item';
+export * from './alert';
+export * from './footer';
+export * from './layout-app';
+export * from './layout-basic';
+export * from './speak';
+export * from './module';
+export * from './nav-item';
+export * from './language-switcher';
+export * from './toc';
+export * from './sidebar';
+export * from './sidebar-nav';
+export * from './theme-switcher';
+export * from './header';
+export * from './errors';
+export * from './flex';
+export * from './grid';
+export * from './heading';
+export * from './stack';
+export * from './text';
+export * from './nav-section';
 export { default as CodeBlock } from './components/display/CodeBlock.astro';
 export { default as Modal } from './components/display/Modal.astro';
 export { default as Hero } from './components/display/Hero.astro';
@@ -24,17 +34,8 @@ export { default as TeamMember } from './components/data-display/TeamMember.astr
 export { default as ProductCard } from './components/data-display/ProductCard.astro';
 export { default as Products } from './components/data-display/Products.astro';
 export { default as Blog } from './components/data-display/Blog.astro';
-export * from './components/header-smart/index';
-export { default as Grid } from './components/grid/Grid.astro';
-export { default as BaseLayout } from './components/layout-basic/BaseLayout.astro';
-export { default as DashboardLayout } from './components/layout-dashboard/DashboardLayout.astro';
-export { default as Flex } from './components/flex/Flex.astro';
-export { default as Article } from './components/article/Article.astro';
-export { default as Text } from './components/text/Text.astro';
-export { default as Heading } from './components/heading/Heading.astro';
-
-// Errors Page
-export { default as ErrorPage404 } from './components/errors/404.astro';
+export * from './layout-basic/BaseLayout.astro';
+export { default as DashboardLayout } from './layout-dashboard/DashboardLayout.astro';
 
 // Icons
 export * from './index_icons';

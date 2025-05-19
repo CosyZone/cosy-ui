@@ -1,0 +1,65 @@
+---
+/**
+ * @component Speak
+ *
+ * @description
+ * Speak 组件用于展示人物语录或评价，包含说话者的头像、姓名、头衔和言论。
+ * 适用于用户评价、团队介绍等场景。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Speak
+ *   speakerName="张三"
+ *   speakerTitle="产品经理"
+ *   image={avatar}
+ *   words="这是一个非常棒的产品！"
+ * />
+ * ```
+ */
+
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import '../style.ts';
+
+interface Props {
+	/**
+	 * 说话者姓名
+	 */
+	speakerName: string;
+	/**
+	 * 说话者头衔
+	 */
+	speakerTitle: string;
+	/**
+	 * 说话者头像
+	 */
+	image: ImageMetadata;
+	/**
+	 * 说话内容
+	 */
+	words: string;
+	/**
+	 * 自定义类名
+	 */
+	class?: string;
+}
+
+const { speakerName, speakerTitle, image, words, class: className = '' } = Astro.props;
+---
+
+<div
+	class={`cosy:flex cosy:flex-col cosy:items-center cosy:gap-4 cosy:p-6 cosy:bg-base-100 cosy:rounded-lg cosy:shadow-lg ${className}`}>
+	<Image
+		src={image}
+		alt={speakerName}
+		class="cosy:w-32 cosy:h-32 cosy:rounded-full cosy:object-cover"
+		width={128}
+		height={128}
+	/>
+	<div class="cosy:text-center">
+		<h3 class="cosy:text-xl cosy:font-semibold cosy:text-base-content">{speakerName}</h3>
+		<p class="cosy:text-base-content/70">{speakerTitle}</p>
+	</div>
+	<p class="cosy:text-base-content/80 cosy:italic cosy:text-center">{words}</p>
+</div>

@@ -1,0 +1,130 @@
+---
+/**
+ * @component ThemeSwitcher
+ *
+ * @description
+ * ThemeSwitcher 组件提供一个主题切换下拉菜单，允许用户在多个预定义主题之间切换。
+ * 组件会记住用户的主题选择，并在页面重新加载或访问网站的其他页面时保持该主题。
+ *
+ * @design
+ * 设计理念：
+ * 1. 简洁直观 - 使用图标按钮和下拉菜单提供清晰的交互方式
+ * 2. 主题持久化 - 使用本地存储记住用户的主题选择
+ * 3. 无缝集成 - 与 DaisyUI 主题系统无缝集成
+ * 4. 广泛兼容 - 支持多种主题选项，适应不同的视觉偏好
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <ThemeSwitcher />
+ * ```
+ *
+ * 自定义样式：
+ * ```astro
+ * <ThemeSwitcher class="cosy:top-4 cosy:right-4 cosy:fixed" />
+ * ```
+ */
+
+import Button from '../button/Button.astro';
+import SunCloudyIcon from '../icons/SunCloudyIcon.astro';
+import '../style.ts';
+
+interface Props {
+	/**
+	 * 自定义类名
+	 */
+	class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const themes = [
+	{ id: 'default', name: 'Default' },
+	{ id: 'light', name: 'Light' },
+	{ id: 'dark', name: 'Dark' },
+	{ id: 'pastel', name: 'Pastel' },
+	{ id: 'lemonade', name: 'Lemonade' },
+	{ id: 'cupcake', name: 'Cupcake' },
+	{ id: 'nord', name: 'Nord' },
+	{ id: 'business', name: 'Business' },
+	{ id: 'luxury', name: 'Luxury' },
+];
+---
+
+<div class:list={['cosy:dropdown-end cosy:dropdown', className]}>
+	<Button variant="ghost" size="sm" class="cosy:p-1">
+		<SunCloudyIcon class="cosy:w-5 cosy:h-5" slot="icon-left" />
+	</Button>
+	<ul
+		tabindex="0"
+		class="cosy:bg-slate-900 cosy:dark:bg-slate-800 cosy:shadow-lg cosy:p-2 cosy:rounded-box cosy:w-56 cosy:dropdown-content cosy:menu">
+		{
+			themes.map((theme) => (
+				<li>
+					<button
+						class="cosy:flex cosy:justify-between cosy:items-center cosy:w-full cosy:transition-colors cosy:theme-item"
+						data-theme={theme.id}
+						data-active={false}>
+						<span>{theme.name}</span>
+						<span class="cosy:hidden cosy:text-primary cosy:theme-check">✓</span>
+					</button>
+				</li>
+			))
+		}
+	</ul>
+</div>
+
+<script>
+	import { createThemeManager } from '../utils/theme';
+
+	const themeManager = createThemeManager();
+
+	function updateActiveTheme() {
+		const currentTheme = document.documentElement.getAttribute('data-theme') || 'default';
+		document.querySelectorAll('.cosy\\:theme-item').forEach((item) => {
+			const isActive = item.getAttribute('data-theme') === currentTheme;
+			item.setAttribute('data-active', String(isActive));
+
+			// 更新视觉状态
+			const checkmark = item.querySelector('.cosy\\:theme-check');
+			if (checkmark) {
+				if (isActive) {
+					checkmark.classList.remove('cosy:hidden');
+					item.classList.add('cosy:bg-base-200', 'cosy:font-medium');
+				} else {
+					checkmark.classList.add('cosy:hidden');
+					item.classList.remove('cosy:bg-base-200', 'cosy:font-medium');
+				}
+			}
+		});
+	}
+
+	// 初始化主题切换按钮
+	function initThemeSwitcher() {
+		document.querySelectorAll('.cosy\\:theme-item').forEach((item) => {
+			item.addEventListener('click', () => {
+				const theme = item.getAttribute('data-theme');
+				if (theme) {
+					themeManager.setTheme(theme);
+					updateActiveTheme();
+				}
+			});
+		});
+	}
+
+	// 初始加载时初始化
+	function initialize() {
+		themeManager.initialize();
+		initThemeSwitcher();
+		updateActiveTheme();
+	}
+
+	// 初始化
+	document.addEventListener('DOMContentLoaded', initialize);
+
+	// Astro view transitions 后重新初始化
+	document.addEventListener('astro:after-swap', initialize);
+
+	// 确保脚本加载后立即初始化
+	initialize();
+</script>
