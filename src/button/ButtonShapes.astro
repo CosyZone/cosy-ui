@@ -1,0 +1,23 @@
+---
+import Button from './Button.astro';
+---
+
+<div class="cosy:flex cosy:flex-wrap cosy:gap-2">
+	<Button>默认形状</Button>
+
+	<Button shape="circle" variant="primary">
+		<span slot="icon-left">🔄</span>
+	</Button>
+
+	<Button shape="square" variant="success">
+		<span slot="icon-left">✨</span>
+	</Button>
+
+	<Button shape="circle" variant="warning" size="lg">
+		<span slot="icon-left">⚡</span>
+	</Button>
+
+	<Button shape="square" variant="error" size="sm">
+		<span slot="icon-left">❌</span>
+	</Button>
+</div>

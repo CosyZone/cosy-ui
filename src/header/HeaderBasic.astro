@@ -1,0 +1,14 @@
+---
+/**
+ * @component Header.Basic
+ *
+ * @description
+ * Header组件的基础示例，展示最基本的顶部导航栏，包含logo和语言切换功能。
+ */
+import Header from './Header.astro';
+import { getExampleImage } from '../utils/image';
+
+const logo = getExampleImage({ width: 100, height: 100, provider: 'picsum', tag: 'tech' });
+---
+
+<Header logoHref={logo} rounded="lg" sticky={false} />

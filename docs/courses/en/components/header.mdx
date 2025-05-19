@@ -5,7 +5,7 @@ folder: false
 order: 0
 ---
 
-import { Header, Section, Container, CodeExample } from '@cosy/index';
+import { CodeExample, Header, HeaderBasic, HeaderWithNavigation, HeaderCustomPosition, HeaderCustomNavbarEnd, getExampleImage } from '@cosy/index';
 
 ## Basic Header
 
@@ -17,11 +17,7 @@ The simplest way to use the Header component, displaying the website logo and na
   logoHref="/"
 />`}
 >
-  <Header 
-    logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
-    logoHref="/"
-    sticky={false}
-  />
+  <HeaderBasic />
 </CodeExample>
 
 ## Header with Navigation Menu
@@ -39,16 +35,7 @@ Add navigation menu through the navItems property
   ]}
 />`}
 >
-  <Header 
-    logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
-    logoHref="/"
-    sticky={false}
-    navItems={[
-      { href: "/", label: "Home", match: (path) => path === "/" },
-      { href: "/products", label: "Products", match: (path) => path.startsWith("/products") },
-      { href: "/about", label: "About Us", match: (path) => path.startsWith("/about") }
-    ]}
-  />
+  <HeaderWithNavigation />
 </CodeExample>
 
 ## Header with Language Switching
@@ -171,3 +158,28 @@ Demonstration of the Header component with multiple properties combined
     defaultSidebarOpen={false}
   />
 </CodeExample> 
+
+## Customizing the Navbar End Content
+
+You can customize the right side of the navigation bar using the `navbar-end` slot. By default, it displays the language switcher:
+
+<CodeExample
+  code={`<Header 
+  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+  logoHref="/">
+  <div slot="navbar-end" class="cosy:flex cosy:items-center cosy:gap-2">
+    <button class="cosy:btn cosy:btn-sm cosy:btn-ghost">Login</button>
+    <button class="cosy:btn cosy:btn-sm cosy:btn-primary">Sign Up</button>
+  </div>
+</Header>`}
+>
+  <Header 
+    logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+    logoHref="/"
+    sticky={false}>
+    <div slot="navbar-end" class="cosy:flex cosy:items-center cosy:gap-2">
+      <button class="cosy:btn cosy:btn-sm cosy:btn-ghost">Login</button>
+      <button class="cosy:btn cosy:btn-sm cosy:btn-primary">Sign Up</button>
+    </div>
+  </Header>
+</CodeExample>
