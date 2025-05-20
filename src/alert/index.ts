@@ -9,7 +9,7 @@ import TypesSourceCode from './AlertTypes.astro?raw';
 import CustomStyleSourceCode from './AlertCustomStyle.astro?raw';
 import { extractSimpleExample } from '../utils/component';
 
-export { Alert, AlertBasic, AlertWithTitle, AlertTypes, AlertCustomStyle };
+export { Alert, AlertBasic, AlertWithTitle, AlertTypes, AlertCustomStyle, };
 
 // 导出示例源代码
 export const AlertExampleCodes = {

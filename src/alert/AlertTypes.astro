@@ -1,13 +1,17 @@
 ---
-import Alert from './Alert.astro';
+/**
+ * @component Alert.Types
+ *
+ * @description
+ * 展示Alert组件的所有类型：info、success、warning、error。
+ */
+import '../style.ts';
+import { Alert } from '../index';
 ---
 
-<div class="cosy:space-y-4">
-	<Alert type="info" title="信息提示"> 这是一条信息提示消息 </Alert>
-
-	<Alert type="success" title="成功提示"> 这是一条成功提示消息 </Alert>
-
-	<Alert type="warning" title="警告提示"> 这是一条警告提示消息 </Alert>
-
-	<Alert type="error" title="错误提示"> 这是一条错误提示消息 </Alert>
+<div class="cosy:flex cosy:flex-col cosy:gap-4">
+	<Alert type="info">这是一条信息提示</Alert>
+	<Alert type="success">这是一条成功提示</Alert>
+	<Alert type="warning">这是一条警告提示</Alert>
+	<Alert type="error">这是一条错误提示</Alert>
 </div>
