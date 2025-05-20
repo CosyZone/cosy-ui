@@ -168,15 +168,17 @@ const activeLink = LinkUtil.getActiveLink(
 					</Link>
 				)
 			}
+			<slot name="navbar-start" />
 		</div>
 
-		{
-			navPosition === 'center' && (
-				<div class="cosy:hidden cosy:lg:flex cosy:navbar-center">
+		<div class="cosy:hidden cosy:lg:flex cosy:navbar-center">
+			{
+				navPosition === 'center' && (
 					<NavItems navItems={navItems} activeLink={activeLink} linkHeightClass={linkHeightClass} />
-				</div>
-			)
-		}
+				)
+			}
+			<slot name="navbar-center" />
+		</div>
 
 		<div class="cosy:navbar-end cosy:pr-1">
 			{
@@ -190,9 +192,8 @@ const activeLink = LinkUtil.getActiveLink(
 					</div>
 				)
 			}
-			<slot name="navbar-end">
-				<LanguageSwitcher languages={languages} />
-			</slot>
+			<LanguageSwitcher languages={languages} />
+			<slot name="navbar-end" />
 		</div>
 	</div>
 </header>

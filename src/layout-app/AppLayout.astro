@@ -205,7 +205,21 @@ const {
 	debug={debug}
 	{...rest}>
 	<ClientRouter />
-	{showHeader && <Header {...headerConfig} debug={debug} transition:persist />}
+	{
+		showHeader && (
+			<Header {...headerConfig} debug={debug} transition:persist>
+				<div slot="navbar-start">
+					<slot name="navbar-start" />
+				</div>
+				<div slot="navbar-center">
+					<slot name="navbar-center" />
+				</div>
+				<div slot="navbar-end">
+					<slot name="navbar-end" />
+				</div>
+			</Header>
+		)
+	}
 
 	<Container flex="row" gap="md" size="full" padding="none">
 		<!-- 侧边栏容器 -->

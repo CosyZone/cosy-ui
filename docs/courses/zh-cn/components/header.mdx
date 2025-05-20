@@ -5,9 +5,11 @@ folder: false
 order: 6
 ---
 
-import { CodeExample, Header, HeaderBasic, HeaderWithNavigation, HeaderCustomPosition, HeaderCustomNavbarEnd, getExampleImage, HeaderExampleCodes } from '@cosy/index';
+import { CodeExample, Header, HeaderBasic, HeaderWithNavigation, HeaderCustomPosition, HeaderCustomNavbarEnd, HeaderCustomNavbarStart, HeaderCustomNavbarCenter, getExampleImage, HeaderExampleCodes } from '@cosy/index';
 
-Header 组件是一个用于网站顶部导航的布局组件，提供了logo、导航菜单、语言切换等功能。组件支持响应式设计，在不同屏幕尺寸下有良好的显示效果，并可选择固定在页面顶部。  
+Header 组件是一个用于网站顶部导航的布局组件，提供了logo、导航菜单、语言切换等功能。
+
+组件支持响应式设计，在不同屏幕尺寸下有良好的显示效果，并可选择固定在页面顶部。  
 
 这里的文档仅列出了常见用法，更多用法请参考组件的源码。
 
@@ -30,8 +32,6 @@ Header 组件是一个用于网站顶部导航的布局组件，提供了logo、
 >
   <HeaderWithNavigation />
 </CodeExample>
-
-`match` 函数用于确定当前页面是否与导航项匹配，如果匹配则应用活动样式。
 
 ## 自定义高度
 
@@ -106,42 +106,37 @@ Header 组件是一个用于网站顶部导航的布局组件，提供了logo、
   />
 </CodeExample>
 
-## 属性
+## 自定义导航栏内容
 
-| 属性名 | 类型 | 默认值 | 说明 |
-| ------ | ---- | ------ | ---- |
-| logo | ImageMetadata | - | 必填，网站 logo 图片 |
-| logoHref | string | "/" | Logo 链接地址 |
-| navItems | array | [] | 导航项数组，每项包含 href、label 和 match 函数 |
-| languages | array | [中文, English] | 语言选项数组，每项包含 code
-| currentLocale | string | "zh-cn" | 当前语言代码 |
-| sticky | boolean | true | 是否固定在页面顶部 |
-| rounded | 'none' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full' | 'md' | 圆角样式大小，从无圆角到全圆角 |
-| height | string | "md" | 导航栏高度: "sm", "md", "lg", "xl" |
-| socialLinks | array | - | 社交媒体链接数组 |
-| showSidebarToggle | boolean | false | 是否显示侧边栏切换按钮 |
-| defaultSidebarOpen | boolean | false | 侧边栏是否默认展开 |
+Header组件提供了三个插槽用于自定义导航栏的不同部分：
 
-**NavItem 类型：**
-```typescript
-interface NavItem {
-  href: string;       // 导航链接
-  label: string;      // 导航标签文本
-  match: (path: string) => boolean;  // 判断是否为当前活动项的函数
-}
-```
+- `navbar-start`: 自定义导航栏左侧内容
+- `navbar-center`: 自定义导航栏中间内容
+- `navbar-end`: 自定义导航栏右侧内容（默认显示语言切换器）
 
-**Language 类型：**
-```typescript
-interface Language {
-  code: string;   // 语言代码
-  name: string;   // 语言显示名称
-}
-```
+以下是自定义各部分内容的示例：
 
-## 自定义导航栏右侧内容
+### 自定义左侧内容
 
-通过 `navbar-end` 插槽可以自定义导航栏右侧的内容，默认显示语言切换器：
+可以在logo旁边添加自定义内容：
+
+<CodeExample
+  code={HeaderExampleCodes.CustomNavbarStart}
+>
+  <HeaderCustomNavbarStart />
+</CodeExample>
+
+### 自定义中间内容
+
+可以替换或增强默认的导航菜单：
+
+<CodeExample
+  code={HeaderExampleCodes.CustomNavbarCenter}
+>
+  <HeaderCustomNavbarCenter />
+</CodeExample>
+
+### 自定义右侧内容
 
 <CodeExample
   code={HeaderExampleCodes.CustomNavbarEnd}
