@@ -1,0 +1,77 @@
+---
+/**
+ * CardLink - 可点击的卡片组件
+ *
+ * @prop {string} [title] - 卡片标题
+ * @prop {string} [subtitle] - 卡片副标题或描述
+ * @prop {string} [imageUrl] - 卡片图片URL
+ * @prop {string} [href] - 卡片链接地址
+ * @prop {string} [class] - 自定义CSS类
+ */
+
+import '../style.ts';
+
+interface Props {
+	title?: string;
+	subtitle?: string;
+	imageUrl?: string;
+	href: string;
+	class?: string;
+}
+
+const { title, subtitle, imageUrl, href, class: className = '' } = Astro.props;
+
+const cardClasses = [
+	'cosy-card',
+	'cosy:bg-base-100',
+	'cosy:bg-opacity-70',
+	'cosy:backdrop-blur-sm',
+	'cosy:rounded-xl',
+	'cosy:shadow-md',
+	'cosy:overflow-hidden',
+	'cosy:transition-all',
+	'cosy:duration-300',
+	'cosy:ease-in-out',
+	'cosy:hover:shadow-lg',
+	'cosy:hover:scale-[1.02]',
+	className,
+].join(' ');
+---
+
+<a href={href} class={cardClasses} aria-label={`${title} ${subtitle || ''}`.trim()}>
+	{
+		imageUrl && (
+			<div
+				class="cosy-card__image"
+				style={`background-image: url(${imageUrl})`}
+				aria-hidden="true"
+			/>
+		)
+	}
+
+	<header class="cosy-card__header">
+		<h3 class="cosy-card__title">{title}</h3>
+		{subtitle && <p class="cosy-card__subtitle">{subtitle}</p>}
+	</header>
+
+	<div class="cosy-card__content">
+		<slot />
+	</div>
+</a>
+
+<style lang="scss">
+	@import '../style.scss';
+
+	.cosy-card__image {
+		height: 180px;
+		background-size: cover;
+		background-position: center;
+		border-radius: 12px 12px 0 0;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.cosy-card:hover {
+			transform: none !important;
+		}
+	}
+</style>

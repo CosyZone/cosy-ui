@@ -1,0 +1,79 @@
+---
+/**
+ * CardCompact - 紧凑模式卡片组件
+ *
+ * @prop {string} [title] - 卡片标题
+ * @prop {string} [subtitle] - 卡片副标题或描述
+ * @prop {string} [class] - 自定义CSS类
+ */
+
+import '../style.ts';
+
+interface Props {
+	title?: string;
+	subtitle?: string;
+	class?: string;
+}
+
+const { title, subtitle, class: className = '' } = Astro.props;
+
+const cardClasses = [
+	'cosy-card',
+	'cosy:bg-base-100',
+	'cosy:bg-opacity-70',
+	'cosy:backdrop-blur-sm',
+	'cosy:rounded-xl',
+	'cosy:shadow-md',
+	'cosy:overflow-hidden',
+	'cosy:transition-all',
+	'cosy:duration-300',
+	'cosy:ease-in-out',
+	'cosy:hover:shadow-lg',
+	'cosy:hover:scale-[1.02]',
+	'cosy-card--compact',
+	className,
+].join(' ');
+---
+
+<article class={cardClasses}>
+	<header class="cosy-card__header">
+		<h3 class="cosy-card__title">{title}</h3>
+		{subtitle && <p class="cosy-card__subtitle">{subtitle}</p>}
+	</header>
+
+	<div class="cosy-card__content">
+		<slot />
+	</div>
+</article>
+
+<style lang="scss">
+	@import '../style.scss';
+
+	.cosy-card--compact {
+		padding: 0.75rem;
+
+		.cosy-card__header {
+			margin-bottom: 0.5rem;
+		}
+
+		.cosy-card__title {
+			font-size: 0.95rem;
+			margin-bottom: 0.25rem;
+		}
+
+		.cosy-card__subtitle {
+			font-size: 0.85rem;
+		}
+
+		.cosy-card__content {
+			font-size: 0.85rem;
+			line-height: 1.4;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.cosy-card:hover {
+			transform: none !important;
+		}
+	}
+</style>

@@ -1,0 +1,22 @@
+---
+import '../style.ts';
+
+interface Props {
+	title: string;
+	subtitle?: string;
+	class?: string;
+}
+
+const { title, subtitle, class: className } = Astro.props;
+---
+
+<article class={`cosy-card ${className || ''}`}>
+	<header class="cosy-card__header">
+		<h3 class="cosy-card__title">{title}</h3>
+		{subtitle && <p class="cosy-card__subtitle">{subtitle}</p>}
+	</header>
+
+	<div class="cosy-card__content">
+		<slot />
+	</div>
+</article>
