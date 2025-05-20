@@ -25,8 +25,8 @@
  * ```
  */
 
-import Button from '../button/Button.astro';
-import SunCloudyIcon from '../icons/SunCloudyIcon.astro';
+import { SunCloudyIcon } from '../index';
+import ThemeItem from './ThemeItem.astro';
 import '../style.ts';
 
 interface Props {
@@ -51,26 +51,15 @@ const themes = [
 ];
 ---
 
+<!-- 主题切换按钮 -->
 <div class:list={['cosy:dropdown-end cosy:dropdown', className]}>
-	<Button variant="ghost" size="sm" class="cosy:p-1">
-		<SunCloudyIcon class="cosy:w-5 cosy:h-5" slot="icon-left" />
-	</Button>
+	<div tabindex="0" role="button" class:list={['cosy:btn cosy:btn-ghost']}>
+		<SunCloudyIcon size="16px" class="cosy:w-4 cosy:h-4" />
+	</div>
 	<ul
-		tabindex="0"
-		class="cosy:bg-slate-900 cosy:dark:bg-slate-800 cosy:shadow-lg cosy:p-2 cosy:rounded-box cosy:w-56 cosy:dropdown-content cosy:menu">
-		{
-			themes.map((theme) => (
-				<li>
-					<button
-						class="cosy:flex cosy:justify-between cosy:items-center cosy:w-full cosy:transition-colors cosy:theme-item"
-						data-theme={theme.id}
-						data-active={false}>
-						<span>{theme.name}</span>
-						<span class="cosy:hidden cosy:text-primary cosy:theme-check">✓</span>
-					</button>
-				</li>
-			))
-		}
+		tabindex={0}
+		class="cosy:dropdown-content cosy:menu cosy:bg-base-100 cosy:dark:bg-neutral-800 cosy:rounded-box cosy:z-[1] cosy:w-56 cosy:p-2 cosy:shadow-lg">
+		{themes.map((theme) => <ThemeItem theme={theme.id} label={theme.name} />)}
 	</ul>
 </div>
 
@@ -103,6 +92,7 @@ const themes = [
 	function initThemeSwitcher() {
 		document.querySelectorAll('.cosy\\:theme-item').forEach((item) => {
 			item.addEventListener('click', () => {
+				console.log('Theme item clicked:', item);
 				const theme = item.getAttribute('data-theme');
 				if (theme) {
 					themeManager.setTheme(theme);

@@ -22,6 +22,7 @@ import {
 	NavItems,
 	Link,
 	Image,
+	ThemeSwitcher,
 } from '../index';
 import Logo from '../assets/logo-rounded.png';
 
@@ -192,7 +193,10 @@ const activeLink = LinkUtil.getActiveLink(
 					</div>
 				)
 			}
+
+			<ThemeSwitcher />
 			<LanguageSwitcher languages={languages} />
+
 			<slot name="navbar-end" />
 		</div>
 	</div>
