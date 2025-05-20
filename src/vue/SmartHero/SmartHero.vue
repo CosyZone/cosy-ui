@@ -51,7 +51,7 @@ SmartHero 组件是一个响应式的英雄区域组件，用于展示标题、�
 <script setup lang="ts">
 import '../../style';
 import type { PropType } from 'vue';
-import LinkButton from '../Buttons/LinkButton.vue';
+import {VueBtnLink} from '../../button/index_vue';
 
 interface Link {
     text: string;
@@ -107,7 +107,7 @@ defineProps({
             </div>
 
             <div class="cosy:flex cosy:flex-row cosy:justify-center cosy:gap-8 cosy:mx-auto cosy:w-full">
-                <LinkButton v-for="link in links" :key="link.text" :text="link.text" :href="link.href" />
+                <VueBtnLink v-for="link in links" :key="link.text" :text="link.text" :href="link.href" />
             </div>
         </div>
     </div>
