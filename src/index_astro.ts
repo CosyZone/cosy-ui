@@ -1,4 +1,4 @@
-export * from './button';
+export * from './button/index_astro';
 export * from './banner';
 export * from './blog';
 export * from './card';

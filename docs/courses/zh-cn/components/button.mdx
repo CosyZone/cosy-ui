@@ -6,6 +6,7 @@ order: 2
 ---
 
 import { Button, CodeExample } from '@cosy/index';
+import { VueButtonsExamples, VueButtonsExampleCodes } from '@cosy/index_vue';
 
 ## 基础按钮
 
@@ -149,4 +150,52 @@ import { Button, CodeExample } from '@cosy/index';
     <Button variant="outline">描边按钮</Button>
     <Button variant="neutral">中性按钮</Button>
   </div>
+</CodeExample>
+
+## Vue 组件
+
+以下为 Vue 组件的示例代码。
+
+## FeatureButton
+
+特性按钮是一个具有现代感的功能按钮，常用于展示特性或功能。
+
+### 基础用法
+
+<CodeExample
+  code={VueButtonsExampleCodes.FeatureButton.Basic}
+>
+  <VueButtonsExamples.FeatureButton.Basic client:load />
+</CodeExample>
+
+### 带提示
+
+点击时会显示提示信息。
+
+<CodeExample
+  code={VueButtonsExampleCodes.FeatureButton.WithTips}
+>
+  <VueButtonsExamples.FeatureButton.WithTips client:load />
+</CodeExample>
+
+## LinkButton
+
+链接按钮是一个具有现代感的链接组件，具有动画效果和交互反馈。
+
+### 基础用法
+
+<CodeExample
+  code={VueButtonsExampleCodes.LinkButton.Basic}
+>
+  <VueButtonsExamples.LinkButton.Basic client:load />
+</CodeExample>
+
+### 多个按钮
+
+可以在一行显示多个链接按钮。
+
+<CodeExample
+  code={VueButtonsExampleCodes.LinkButton.Multiple}
+>
+  <VueButtonsExamples.LinkButton.Multiple client:load />
 </CodeExample>
