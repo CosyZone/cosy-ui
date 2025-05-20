@@ -74,6 +74,7 @@ interface Props {
 	class?: string;
 	onClick?: string;
 	formmethod?: string;
+	[key: string]: any; // 允许任意自定义属性
 }
 
 const {
@@ -88,6 +89,7 @@ const {
 	class: className,
 	onClick,
 	formmethod,
+	...rest
 } = Astro.props;
 
 // 计算按钮的类名
@@ -152,7 +154,8 @@ const buttonClasses = getButtonClasses();
 	disabled={disabled}
 	onclick={onClick}
 	formmethod={formmethod}
-	data-variant={variant}>
+	data-variant={variant}
+	{...rest}>
 	<span class="cosy:flex cosy:items-center cosy:gap-2">
 		<slot name="icon-left" />
 		<slot />

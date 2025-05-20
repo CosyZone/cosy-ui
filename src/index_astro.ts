@@ -2,7 +2,6 @@ export * from './button';
 export * from './article';
 export * from './link';
 export * from './image';
-export * from './theme-item';
 export * from './alert';
 export * from './footer';
 export * from './layout-app';
