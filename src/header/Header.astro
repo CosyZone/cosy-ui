@@ -42,6 +42,7 @@ const {
 	paddingHorizontal = 'none',
 	paddingVertical = 'none',
 	navPosition = 'center',
+	showThemeSwitcher = true,
 } = Astro.props;
 
 // 根据高度设置样式
@@ -194,8 +195,8 @@ const activeLink = LinkUtil.getActiveLink(
 				)
 			}
 
-			<ThemeSwitcher />
-			<LanguageSwitcher languages={languages} />
+			{showThemeSwitcher && <ThemeSwitcher />}
+			{languages.length > 1 && <LanguageSwitcher languages={languages} />}
 
 			<slot name="navbar-end" />
 		</div>
