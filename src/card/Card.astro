@@ -68,47 +68,24 @@
  * @slot default - 卡片的主要内容区域
  */
 
-import { CardBasic, CardWithImage, CardLink, CardCompact } from './index';
+import '../style.ts';
 
 interface Props {
-	title?: string;
+	title: string;
 	subtitle?: string;
-	imageUrl?: string;
-	href?: string;
-	compact?: boolean;
 	class?: string;
 }
 
-const { title, subtitle, imageUrl, href, compact, class: className, ...rest } = Astro.props;
-
-if (href) {
-	return (
-		<CardLink
-			title={title}
-			subtitle={subtitle}
-			href={href}
-			imageUrl={imageUrl}
-			class={className}
-			{...rest}
-		/>
-	);
-}
-
-if (imageUrl) {
-	return (
-		<CardWithImage
-			title={title}
-			subtitle={subtitle}
-			imageUrl={imageUrl}
-			class={className}
-			{...rest}
-		/>
-	);
-}
-
-if (compact) {
-	return <CardCompact title={title} subtitle={subtitle} class={className} {...rest} />;
-}
-
-return <CardBasic title={title} subtitle={subtitle} class={className} {...rest} />;
+const { title, subtitle, class: className } = Astro.props;
 ---
+
+<article class={`cosy-card ${className || ''}`}>
+	<header class="cosy-card__header">
+		<h3 class="cosy-card__title">{title}</h3>
+		{subtitle && <p class="cosy-card__subtitle">{subtitle}</p>}
+	</header>
+
+	<div class="cosy-card__content">
+		<slot />
+	</div>
+</article>

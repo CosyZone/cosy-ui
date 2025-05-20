@@ -1,5 +1,7 @@
 export * from './button';
 export * from './banner';
+export * from './blog';
+export * from './card';
 export * from './article';
 export * from './link';
 export * from './image';
@@ -24,25 +26,18 @@ export * from './stack';
 export * from './text';
 export * from './nav-section';
 export * from './team-member';
-export { default as CodeBlock } from './components/display/CodeBlock.astro';
-export { default as Modal } from './components/display/Modal.astro';
-export { default as Hero } from './components/display/Hero.astro';
-export { default as CodeExample } from './components/display/CodeExample.astro';
-export { default as ProductCard } from './components/data-display/ProductCard.astro';
-export { default as Products } from './components/data-display/Products.astro';
-export { default as Blog } from './components/data-display/Blog.astro';
+export * from './code-block';
+export * from './modal';
+export * from './hero';
+export * from './code-example';
+export * from './products';
+export * from './blog';
 export * from './layout-basic/BaseLayout.astro';
-export { default as DashboardLayout } from './layout-dashboard/DashboardLayout.astro';
-
-// Icons
+export * from './layout-dashboard';
 export * from './index_icons';
-
-// Containers
-export { default as Container } from './components/containers/Container.astro';
-export { default as Main } from './components/containers/Main.astro';
-export { default as Section } from './components/containers/Section.astro';
-
-// Types
+export * from './container';
+export * from './main';
+export * from './section';
 export * from './types/sidebar';
 export * from './types/main';
 export * from './types/article';
@@ -55,8 +50,6 @@ export * from './types/product';
 export * from './types/footer';
 export * from './types/static-path';
 export type { ImageProvider, ImageOptions } from './utils/image';
-
-// Entities
 export * from './entities/BaseDoc';
 export * from './entities/BlogDoc';
 export * from './entities/CourseDoc';
@@ -65,8 +58,6 @@ export * from './entities/LessonDoc';
 export * from './entities/MetaDoc';
 export * from './entities/SidebarItem';
 export * from './entities/Tag';
-
-// Database
 export * from './database/BaseDB';
 export * from './database/BlogDB';
 export * from './database/CourseDB';

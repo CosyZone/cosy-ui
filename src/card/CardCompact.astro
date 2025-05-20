@@ -1,11 +1,9 @@
 ---
 /**
- * CardLink - 可点击的卡片组件
+ * CardCompact - 紧凑模式卡片组件
  *
  * @prop {string} [title] - 卡片标题
  * @prop {string} [subtitle] - 卡片副标题或描述
- * @prop {string} [imageUrl] - 卡片图片URL
- * @prop {string} [href] - 卡片链接地址
  * @prop {string} [class] - 自定义CSS类
  */
 
@@ -14,12 +12,10 @@ import '../style.ts';
 interface Props {
 	title?: string;
 	subtitle?: string;
-	imageUrl?: string;
-	href: string;
 	class?: string;
 }
 
-const { title, subtitle, imageUrl, href, class: className = '' } = Astro.props;
+const { title, subtitle, class: className = '' } = Astro.props;
 
 const cardClasses = [
 	'cosy-card',
@@ -34,21 +30,12 @@ const cardClasses = [
 	'cosy:ease-in-out',
 	'cosy:hover:shadow-lg',
 	'cosy:hover:scale-[1.02]',
+	'cosy-card--compact',
 	className,
 ].join(' ');
 ---
 
-<a href={href} class={cardClasses} aria-label={`${title} ${subtitle || ''}`.trim()}>
-	{
-		imageUrl && (
-			<div
-				class="cosy-card__image"
-				style={`background-image: url(${imageUrl})`}
-				aria-hidden="true"
-			/>
-		)
-	}
-
+<article class={cardClasses}>
 	<header class="cosy-card__header">
 		<h3 class="cosy-card__title">{title}</h3>
 		{subtitle && <p class="cosy-card__subtitle">{subtitle}</p>}
@@ -57,16 +44,29 @@ const cardClasses = [
 	<div class="cosy-card__content">
 		<slot />
 	</div>
-</a>
+</article>
 
-<style lang="scss">
-	@import '../style.scss';
+<style scoped>
+	.cosy-card--compact {
+		padding: 0.75rem;
+	}
 
-	.cosy-card__image {
-		height: 180px;
-		background-size: cover;
-		background-position: center;
-		border-radius: 12px 12px 0 0;
+	.cosy-card__header {
+		margin-bottom: 0.5rem;
+	}
+
+	.cosy-card__title {
+		font-size: 0.95rem;
+		margin-bottom: 0.25rem;
+	}
+
+	.cosy-card__subtitle {
+		font-size: 0.85rem;
+	}
+
+	.cosy-card__content {
+		font-size: 0.85rem;
+		line-height: 1.4;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
