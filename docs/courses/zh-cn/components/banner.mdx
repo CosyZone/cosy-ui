@@ -1,76 +1,110 @@
 ---
 title: 'Banner'
-description: '用于在页面中展示醒目的横幅信息，通常用于展示重要的标语、公告或营销信息'
+description: '用于在页面顶部显示重要的通知信息，支持多种颜色和动画效果'
 folder: false
 order: 2
 ---
 
-import { Banner, CodeExample } from '@cosy/index';
+import { Banner, CodeExample, BannerBasic, BannerPrimary, BannerSecondary, BannerSuccess, BannerWarning, BannerDanger, BannerInfo, BannerCustomStyle, BannerFadeIn, BannerSlideUp, BannerAllAnimations, BannerExampleCodes } from '@cosy/index';
 
-## 基础横幅
+## 简介
 
-最简单的横幅信息展示，默认使用主题色背景
+Banner组件用于在页面顶部显示重要的通知信息，支持多种颜色和动画效果。
+
+组件特性：
+- 支持多种预设颜色(primary/secondary/success/warning/danger/info)
+- 可自定义样式和背景
+- 支持多种动画效果选择
+- 响应式设计，适配不同屏幕尺寸
+
+## 基础用法
+
+最简单的横幅展示：
 
 <CodeExample
-  code={`<Banner>欢迎使用我们的服务</Banner>`}
+  code={BannerExampleCodes.Basic}
 >
-  <Banner>欢迎使用我们的服务</Banner>
+  <BannerBasic />
 </CodeExample>
 
-## 不同背景色
+## 颜色示例
 
-通过 bgColor 属性设置不同的背景颜色
+### 主要颜色
 
 <CodeExample
-  code={`<Banner bgColor="secondary">探索更多功能</Banner>`}
+  code={BannerExampleCodes.Primary}
 >
-  <Banner bgColor="secondary">探索更多功能</Banner>
+  <BannerPrimary />
 </CodeExample>
 
+### 次要颜色
+
 <CodeExample
-  code={`<Banner bgColor="success">操作成功完成</Banner>`}
+  code={BannerExampleCodes.Secondary}
 >
-  <Banner bgColor="success">操作成功完成</Banner>
+  <BannerSecondary />
+</CodeExample>
+
+### 成功颜色
+
+<CodeExample
+  code={BannerExampleCodes.Success}
+>
+  <BannerSuccess />
+</CodeExample>
+
+### 警告颜色
+
+<CodeExample
+  code={BannerExampleCodes.Warning}
+>
+  <BannerWarning />
+</CodeExample>
+
+### 危险颜色
+
+<CodeExample
+  code={BannerExampleCodes.Danger}
+>
+  <BannerDanger />
+</CodeExample>
+
+### 信息颜色
+
+<CodeExample
+  code={BannerExampleCodes.Info}
+>
+  <BannerInfo />
 </CodeExample>
 
 ## 自定义样式
 
-通过 class 属性添加自定义样式类
+通过class属性自定义横幅样式：
 
 <CodeExample
-  code={`<Banner class="cosy:text-4xl cosy:py-10">构建美好的数字体验</Banner>`}
+  code={BannerExampleCodes.CustomStyle}
 >
-  <Banner class="cosy:text-4xl cosy:py-10">构建美好的数字体验</Banner>
+  <BannerCustomStyle />
 </CodeExample>
 
-## 关闭动画效果
+## 动画控制
 
-通过 animated 属性控制是否启用动画效果
+Banner组件支持多种动画效果选择：
+
+## 动画效果示例
+
+### 淡入动画
 
 <CodeExample
-  code={`<Banner animated={false}>无动画效果的横幅</Banner>`}
+  code={BannerExampleCodes.FadeIn}
 >
-  <Banner animated={false}>无动画效果的横幅</Banner>
+  <BannerFadeIn />
 </CodeExample>
 
-## 在页面布局中使用
+### 上滑动画
 
-Banner 组件可以灵活地融入各种页面布局中
-
-```astro
-<header>
-  <nav>...</nav>
-  <Banner>特别优惠：限时折扣中</Banner>
-</header>
-
-<main>
-  <section>
-    <Banner bgColor="accent">了解我们的最新产品</Banner>
-    <!-- 内容 -->
-  </section>
-</main>
-
-<footer>
-  <Banner bgColor="secondary">感谢您的访问</Banner>
-</footer>
-``` 
+<CodeExample
+  code={BannerExampleCodes.SlideUp}
+>
+  <BannerSlideUp />
+</CodeExample>

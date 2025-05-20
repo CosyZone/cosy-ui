@@ -1,4 +1,5 @@
 export * from './button';
+export * from './banner';
 export * from './article';
 export * from './link';
 export * from './image';
@@ -26,7 +27,6 @@ export * from './team-member';
 export { default as CodeBlock } from './components/display/CodeBlock.astro';
 export { default as Modal } from './components/display/Modal.astro';
 export { default as Hero } from './components/display/Hero.astro';
-export { default as Banner } from './components/display/Banner.astro';
 export { default as Card } from './components/display/Card.astro';
 export { default as CodeExample } from './components/display/CodeExample.astro';
 export { default as ProductCard } from './components/data-display/ProductCard.astro';

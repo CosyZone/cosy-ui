@@ -1,76 +1,110 @@
 ---
 title: 'Banner'
-description: 'Used to display prominent banner information on a page, typically used for important slogans, announcements, or marketing information'
+description: 'Used to display important notification messages at the top of the page, supporting multiple colors and animation effects'
 folder: false
 order: 2
 ---
 
-import { Banner, CodeExample } from '@cosy/index';
+import { Banner, CodeExample, BannerBasic, BannerPrimary, BannerSecondary, BannerSuccess, BannerWarning, BannerDanger, BannerInfo, BannerCustomStyle, BannerFadeIn, BannerSlideUp, BannerAllAnimations, BannerExampleCodes } from '@cosy/index';
 
-## Basic Banner
+## Introduction
 
-The simplest banner information display, using the theme color background by default
+The Banner component is used to display important notification messages at the top of the page, supporting multiple colors and animation effects.
+
+Component features:
+- Supports multiple preset colors (primary/secondary/success/warning/danger/info)
+- Customizable styles and backgrounds
+- Supports various animation effects
+- Responsive design, adapts to different screen sizes
+
+## Basic Usage
+
+Simplest banner display:
 
 <CodeExample
-  code={`<Banner>Welcome to our service</Banner>`}
+  code={BannerExampleCodes.Basic}
 >
-  <Banner>Welcome to our service</Banner>
+  <BannerBasic />
 </CodeExample>
 
-## Different Background Colors
+## Color Examples
 
-Set different background colors using the bgColor property
+### Primary Color
 
 <CodeExample
-  code={`<Banner bgColor="secondary">Explore more features</Banner>`}
+  code={BannerExampleCodes.Primary}
 >
-  <Banner bgColor="secondary">Explore more features</Banner>
+  <BannerPrimary />
 </CodeExample>
 
+### Secondary Color
+
 <CodeExample
-  code={`<Banner bgColor="success">Operation completed successfully</Banner>`}
+  code={BannerExampleCodes.Secondary}
 >
-  <Banner bgColor="success">Operation completed successfully</Banner>
+  <BannerSecondary />
+</CodeExample>
+
+### Success Color
+
+<CodeExample
+  code={BannerExampleCodes.Success}
+>
+  <BannerSuccess />
+</CodeExample>
+
+### Warning Color
+
+<CodeExample
+  code={BannerExampleCodes.Warning}
+>
+  <BannerWarning />
+</CodeExample>
+
+### Danger Color
+
+<CodeExample
+  code={BannerExampleCodes.Danger}
+>
+  <BannerDanger />
+</CodeExample>
+
+### Info Color
+
+<CodeExample
+  code={BannerExampleCodes.Info}
+>
+  <BannerInfo />
 </CodeExample>
 
 ## Custom Styles
 
-Add custom style classes using the class property
+Customize banner styles through the class property:
 
 <CodeExample
-  code={`<Banner class="cosy:text-4xl cosy:py-10">Building beautiful digital experiences</Banner>`}
+  code={BannerExampleCodes.CustomStyle}
 >
-  <Banner class="cosy:text-4xl cosy:py-10">Building beautiful digital experiences</Banner>
+  <BannerCustomStyle />
 </CodeExample>
 
-## Disable Animation Effects
+## Animation Control
 
-Control whether animation effects are enabled using the animated property
+The Banner component supports various animation effects:
+
+## Animation Examples
+
+### Fade In Animation
 
 <CodeExample
-  code={`<Banner animated={false}>Banner without animation effects</Banner>`}
+  code={BannerExampleCodes.FadeIn}
 >
-  <Banner animated={false}>Banner without animation effects</Banner>
+  <BannerFadeIn />
 </CodeExample>
 
-## Using in Page Layouts
+### Slide Up Animation
 
-The Banner component can flexibly integrate into various page layouts
-
-```astro
-<header>
-  <nav>...</nav>
-  <Banner>Special offer: Limited time discount</Banner>
-</header>
-
-<main>
-  <section>
-    <Banner bgColor="accent">Learn about our latest products</Banner>
-    <!-- Content -->
-  </section>
-</main>
-
-<footer>
-  <Banner bgColor="secondary">Thank you for your visit</Banner>
-</footer>
-``` 
+<CodeExample
+  code={BannerExampleCodes.SlideUp}
+>
+  <BannerSlideUp />
+</CodeExample>
