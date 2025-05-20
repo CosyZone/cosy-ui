@@ -39,12 +39,12 @@ interface Props {
 const { title, description, code } = Astro.props;
 ---
 
-<div class="cosy:bg-base-100 cosy:shadow-lg cosy:mb-8 cosy:rounded-none cosy:card" ignore-heading>
+<div data-role="code-example" class="cosy:mb-8 cosy:card" ignore-heading>
 	{title && <h3 class="cosy:p-4 cosy:border-b cosy:border-base-300 cosy:card-title">{title}</h3>}
 	{description && <p class="cosy:px-4 cosy:pt-4 cosy:text-base-content/70">{description}</p>}
 
 	<div
-		class="cosy:flex cosy:justify-between cosy:items-center cosy:bg-base-200 cosy:px-4 cosy:rounded-none">
+		class="cosy:flex cosy:justify-between cosy:items-center cosy:bg-base-200 cosy:px-4 cosy:rounded-t">
 		<div role="tablist" class="cosy:tabs cosy:tabs-box">
 			<button role="tab" class="cosy:tab cosy:tab-active" data-tab="preview">预览</button>
 			<button role="tab" class="cosy:tab" data-tab="code">代码</button>
@@ -58,17 +58,16 @@ const { title, description, code } = Astro.props;
 		</div>
 	</div>
 
-	<div class="cosy:relative cosy:p-0">
+	<div
+		class="cosy:relative cosy:p-4 cosy:bg-gradient-to-br cosy:from-red-100 cosy:to-green-300 cosy:rounded-b">
 		<div class="cosy:block cosy:code-example-panel" data-panel="preview">
-			<div class="cosy:bg-base-100 cosy:p-6">
-				<slot />
-			</div>
+			<slot />
 		</div>
 
 		<div class="cosy:hidden cosy:code-example-panel" data-panel="code">
-			<div class="cosy:bg-base-300 cosy:px-6 cosy:py-2">
-				<pre class="cosy:overflow-x-auto"><code class="cosy:language-astro">{code}</code></pre>
-			</div>
+			<pre
+				class="cosy:overflow-x-auto"
+				style="margin:0"><code class="cosy:language-astro">{code}</code></pre>
 		</div>
 	</div>
 </div>
