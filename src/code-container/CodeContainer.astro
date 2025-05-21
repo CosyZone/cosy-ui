@@ -44,6 +44,7 @@ const { titles = [], descriptions = [], codes } = Astro.props;
 	<!-- 工具栏 -->
 	<div
 		class="cosy:flex cosy:justify-between cosy:items-center cosy:bg-base-200 cosy:px-4 cosy:rounded-t">
+		<!-- 标签 -->
 		<div class="cosy:flex cosy:items-center cosy:gap-4">
 			<div role="tablist" class="cosy:tabs cosy:tabs-box">
 				{
@@ -57,6 +58,10 @@ const { titles = [], descriptions = [], codes } = Astro.props;
 					))
 				}
 			</div>
+		</div>
+
+		<!-- 工具按钮 -->
+		<div class="cosy:flex cosy:items-center cosy:gap-2">
 			<button
 				role="switch"
 				class="cosy:btn cosy:btn-ghost cosy:btn-sm"
@@ -65,8 +70,6 @@ const { titles = [], descriptions = [], codes } = Astro.props;
 				<span class="cosy:code-icon"><InfoIcon /></span>
 				<span>代码</span>
 			</button>
-		</div>
-		<div class="cosy:flex cosy:items-center cosy:gap-2">
 			<button class="cosy:gap-2 cosy:btn cosy:btn-ghost cosy:btn-sm" aria-label="复制代码">
 				<span class="cosy:copy-icon"><ClipboardIcon /></span>
 				<span class="cosy:hidden cosy:text-success cosy:check-icon"><CheckIcon /></span>
@@ -107,10 +110,16 @@ const { titles = [], descriptions = [], codes } = Astro.props;
 
 <script>
 	function initializeCodeContainer() {
+		if (isInitialized) return; // 避免重复执行
+		isInitialized = true;
+
+		console.log('CodeContainer: 初始化代码容器');
+
 		// 示例切换功能
 		const exampleTabs = document.querySelectorAll('[role="tab"][data-tab^="tab-"]');
 		exampleTabs.forEach((tab) => {
 			tab.addEventListener('click', () => {
+				console.log('CodeContainer: 切换示例', tab);
 				const container = tab.closest('[data-role="code-container"]');
 				if (!container) return;
 
@@ -153,11 +162,16 @@ const { titles = [], descriptions = [], codes } = Astro.props;
 		const codeToggles = document.querySelectorAll('[data-toggle="code"]');
 		codeToggles.forEach((toggle) => {
 			toggle.addEventListener('click', () => {
+				console.log('code toggle clicked', toggle);
 				const container = toggle.closest('[data-role="code-container"]');
-				if (!container) return;
+				if (!container) {
+					console.error('CodeContainer: 无法找到父容器');
+					return;
+				}
 
 				// 切换开关状态
 				const isChecked = toggle.getAttribute('aria-checked') === 'true';
+				console.log('代码按钮 isChecked:', isChecked);
 				toggle.setAttribute('aria-checked', !isChecked ? 'true' : 'false');
 				toggle.classList.toggle('cosy:btn-primary', !isChecked);
 				toggle.classList.toggle('cosy:btn-ghost', isChecked);
@@ -166,15 +180,20 @@ const { titles = [], descriptions = [], codes } = Astro.props;
 				const activeExample = container.querySelector(
 					'.cosy\\:example-container:not(.cosy\\:hidden)'
 				);
-				if (!activeExample) return;
+				if (!activeExample) {
+					console.error('CodeContainer: 无法找到活动示例');
+					return;
+				}
 
 				// 切换面板
 				activeExample.querySelectorAll('.cosy\\:code-example-panel').forEach((panel) => {
 					if (panel.getAttribute('data-panel') === 'code') {
-						panel.classList.toggle('cosy:hidden', !isChecked);
+						console.log('处理代码面板的展示/隐藏，此时的isChecked:', isChecked);
+						panel.classList.toggle('cosy:hidden', isChecked);
 						panel.classList.toggle('cosy:block', !isChecked);
 					} else {
-						panel.classList.toggle('cosy:hidden', isChecked);
+						console.log('处理预览面板的展示/隐藏，此时的isChecked:', isChecked);
+						panel.classList.toggle('cosy:hidden', !isChecked);
 						panel.classList.toggle('cosy:block', isChecked);
 					}
 				});
@@ -236,9 +255,7 @@ const { titles = [], descriptions = [], codes } = Astro.props;
 		});
 	}
 
-	// 初始化
-	initializeCodeContainer();
+	let isInitialized = false;
 
-	// Astro 页面切换时重新初始化
 	document.addEventListener('astro:page-load', initializeCodeContainer);
 </script>
