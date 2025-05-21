@@ -12,6 +12,5 @@ export const AlertPackage = {
 		WithTitle: AlertWithTitleContainer,
 		Types: AlertTypesContainer,
 		CustomStyle: AlertCustomStyleContainer,
-
 	},
 }
