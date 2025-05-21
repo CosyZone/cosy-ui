@@ -1,11 +1,25 @@
 ---
 import { CodeContainer } from '../index';
-import ButtonWithIcons from './ButtonWithIcons.astro';
-import ButtonWithIconsSourceCode from './ButtonWithIcons.astro?raw';
+import ButtonIconLeft from './ButtonIconLeft.astro';
+import ButtonIconRight from './ButtonIconRight.astro';
+import ButtonIconBoth from './ButtonIconBoth.astro';
+import ButtonIconLeftSourceCode from './ButtonIconLeft.astro?raw';
+import ButtonIconRightSourceCode from './ButtonIconRight.astro?raw';
+import ButtonIconBothSourceCode from './ButtonIconBoth.astro?raw';
 ---
 
-<CodeContainer codes={[ButtonWithIconsSourceCode]}>
+<CodeContainer
+	titles={['左侧图标', '右侧图标', '两侧图标']}
+	codes={[ButtonIconLeftSourceCode, ButtonIconRightSourceCode, ButtonIconBothSourceCode]}>
 	<div id="tab-1">
-		<ButtonWithIcons />
+		<ButtonIconLeft />
+	</div>
+
+	<div id="tab-2">
+		<ButtonIconRight />
+	</div>
+
+	<div id="tab-3">
+		<ButtonIconBoth />
 	</div>
 </CodeContainer>
