@@ -3,5 +3,5 @@
 </template>
 
 <script setup lang="ts">
-import FeatureButton from './VueBtnFeature.vue';
+import FeatureButton from './ButtonFeature.vue';
 </script>

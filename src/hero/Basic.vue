@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import '../../style';
+import '../style';
 import { ref } from 'vue';
 import SmartHero from './SmartHero.vue';
 

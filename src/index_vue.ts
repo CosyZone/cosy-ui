@@ -10,9 +10,6 @@ export * from './vue/BlogList';
 // Counter
 export { default as VueCounter } from './vue/VueCounter.vue';
 
-// SmartHero
-export { SmartHero, SmartHeroExamples, SmartHeroExampleCodes } from './vue/SmartHero';
-
 // ConfirmDialog
 export { default as ConfirmDialog } from './vue/ConfirmDialog/ConfirmDialog.vue';
 export { ConfirmDialogExamples, ConfirmDialogExampleCodes } from './vue/ConfirmDialog';

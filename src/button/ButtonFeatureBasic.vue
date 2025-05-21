@@ -4,5 +4,5 @@
 
 <script setup lang="ts">
 import '../style';
-import FeatureButton from './VueBtnFeature.vue';
+import FeatureButton from './ButtonFeature.vue';
 </script>
