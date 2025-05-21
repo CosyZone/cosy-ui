@@ -1,20 +1,17 @@
 import Alert from './Alert.astro';
-import AlertBasic from './AlertBasic.astro';
-import AlertWithTitle from './AlertWithTitle.astro';
-import AlertTypes from './AlertTypes.astro';
-import AlertCustomStyle from './AlertCustomStyle.astro';
-import BasicSourceCode from './AlertBasic.astro?raw';
-import WithTitleSourceCode from './AlertWithTitle.astro?raw';
-import TypesSourceCode from './AlertTypes.astro?raw';
-import CustomStyleSourceCode from './AlertCustomStyle.astro?raw';
-import { extractSimpleExample } from '../utils/component';
+import AlertBasicContainer from './AlertBasicContainer.astro';
+import AlertWithTitleContainer from './AlertWithTitleContainer.astro';
+import AlertTypesContainer from './AlertTypesContainer.astro';
+import AlertCustomStyleContainer from './AlertCustomStyleContainer.astro';
 
-export { Alert, AlertBasic, AlertWithTitle, AlertTypes, AlertCustomStyle, };
+export { Alert }
+export const AlertPackage = {
+	Alert,
+	AlertContainers: {
+		Basic: AlertBasicContainer,
+		WithTitle: AlertWithTitleContainer,
+		Types: AlertTypesContainer,
+		CustomStyle: AlertCustomStyleContainer,
 
-// 导出示例源代码
-export const AlertExampleCodes = {
-	Basic: extractSimpleExample(BasicSourceCode, 'Alert'),
-	WithTitle: extractSimpleExample(WithTitleSourceCode, 'Alert'),
-	Types: extractSimpleExample(TypesSourceCode, 'Alert'),
-	CustomStyle: extractSimpleExample(CustomStyleSourceCode, 'Alert'),
-};
+	},
+}
