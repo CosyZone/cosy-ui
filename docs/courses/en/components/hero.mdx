@@ -1,86 +1,44 @@
 ---
 title: 'Hero'
-description: "Full-screen display area typically used at the top of a website's homepage or important pages, featuring titles, descriptions, images, and call-to-action buttons"
+description: 'Full-screen display area, typically used at the top of homepage or important pages, containing title, description, image and call-to-action buttons'
 folder: false
-order: 1
+order: 7
 ---
 
-import { Hero, CodeExample } from '@cosy/index';
+import { Hero, HeroPackage, getExampleImage, getLandscapeImage } from '@cosy/index';
 
 ## Basic Usage
 
-The simplest Hero area display, including title, description, and action buttons
+Simplest Hero area display, containing title, description and call-to-action button
 
-<CodeExample
-  code={`<Hero
-  title="Welcome to Our Product"
-  description="This is a brief description highlighting the main features and value of the product."
-  links={[
-    { text: "Get Started", href: "/getting-started" },
-    { text: "Learn More", href: "/about" }
-  ]}
-/>`}
->
-  <Hero
-    title="Welcome to Our Product"
-    description="This is a brief description highlighting the main features and value of the product."
-    links={[
-      { text: "Get Started", href: "/getting-started" },
-      { text: "Learn More", href: "/about" }
-    ]}
-  />
-</CodeExample>
+<HeroPackage.HeroContainers.Basic />
 
-## Usage with Image
+## Alignment Options
 
-Make the Hero area more engaging by adding an image
+Hero component supports left-aligned, centered and right-aligned content
 
-<CodeExample
-  code={`<Hero
-  title="Product Showcase"
-  description="Check out our latest products."
-  image={{ src: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5", alt: "Laptop in workspace" }}
-  links={[
-    { text: "Buy Now", href: "/buy" }
-  ]}
-/>`}
->
-  <Hero
-    title="Product Showcase"
-    description="Check out our latest products."
-    image={{ src: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5", alt: "Laptop in workspace" }}
-    links={[
-      { text: "Buy Now", href: "/buy" }
-    ]}
-  />
-</CodeExample>
+<HeroPackage.HeroContainers.Align />
 
-## Usage with Custom Content
+## With Image
 
-Add custom content through slots for richer display effects
+Make the Hero area more vivid by adding images. Images can be placed in different positions.
 
-<CodeExample
-  code={`<Hero
-  title="Interactive Demo"
-  description="Try our interactive demonstration."
-  links={[
-    { text: "View Documentation", href: "/docs" }
-  ]}
->
-  <div slot="app" class="cosy:bg-base-200 cosy:p-4 cosy:rounded-lg cosy:w-full cosy:max-w-md cosy:mx-auto">
-    <p class="cosy:text-center">This is custom application demo content</p>
-  </div>
-</Hero>`}
->
-  <Hero
-    title="Interactive Demo"
-    description="Try our interactive demonstration."
-    links={[
-      { text: "View Documentation", href: "/docs" }
-    ]}
-  >
-    <div slot="app" class="cosy:bg-base-200 cosy:p-4 cosy:rounded-lg cosy:w-full cosy:max-w-md cosy:mx-auto">
-      <p class="cosy:text-center">This is custom application demo content</p>
-    </div>
-  </Hero>
-</CodeExample> 
+<HeroPackage.HeroContainers.WithImage />
+
+## Background Styles
+
+Hero component supports different background styles, including solid colors and gradients.
+
+<HeroPackage.HeroContainers.Background />
+
+## Background Image
+
+Adding background images can make the Hero area more attractive. Various overlay effects are also supported.
+
+<HeroPackage.HeroContainers.BackgroundImage />
+
+## With Custom Content
+
+Add custom content through slots to achieve richer display effects
+
+<HeroPackage.HeroContainers.WithButton />
