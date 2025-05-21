@@ -2,6 +2,7 @@ export * from './button/index_astro';
 export * from './banner';
 export * from './blog';
 export * from './card';
+export * from './code-container';
 export * from './article';
 export * from './link';
 export * from './image';
