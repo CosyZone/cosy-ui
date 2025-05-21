@@ -1,58 +1,42 @@
 ---
 title: 'Alert'
-description: 'Used to display important messages to users, supporting various types of alert styles and interactive effects'
+description: 'Used to display important prompt information to users, supporting various types of prompt styles and interactive effects'
 folder: false
 order: 1
 ---
 
-import { Alert, CodeExample, AlertBasic, AlertWithTitle, AlertTypes, AlertCustomStyle, AlertExampleCodes } from '@cosy/index';
+import { Alert, AlertPackage } from '@cosy/index';
 
 ## Introduction
 
-The Alert component is used to display important messages to users, supporting multiple types (info/success/warning/error) and custom styles.
+The Alert component is used to display important prompt information to users, supporting various types (info/success/warning/error) and custom styles.
 
 Component features:
 - Supports four preset types, each with corresponding icons and colors
-- Can add titles to make alerts more prominent
+- Can add titles to make prompts more prominent
 - Supports custom classes to override default styles
-- Responsive design, adapts to different screen sizes
+- Responsive design, adapting to different screen sizes
 
 ## Basic Usage
 
-The simplest way to display an alert message:
+The simplest way to display prompt information:
 
-<CodeExample
-  code={AlertExampleCodes.Basic}
->
-  <AlertBasic />
-</CodeExample>
+<AlertPackage.AlertContainers.Basic/>
 
 ## Alert with Title
 
 Add a title using the title property:
 
-<CodeExample
-  code={AlertExampleCodes.WithTitle}
->
-  <AlertWithTitle />
-</CodeExample>
+<AlertPackage.AlertContainers.WithTitle/>
 
 ## Alert Types
 
 The Alert component supports four preset types:
 
-<CodeExample
-  code={AlertExampleCodes.Types}
->
-  <AlertTypes />
-</CodeExample>
+<AlertPackage.AlertContainers.Types/>
 
 ## Custom Styles
 
-Customize alert styles using the class property:
+Customize the alert box style using the class property:
 
-<CodeExample
-  code={AlertExampleCodes.CustomStyle}
->
-  <AlertCustomStyle />
-</CodeExample>
+<AlertPackage.AlertContainers.CustomStyle/>
