@@ -46,6 +46,12 @@
  *   左侧图标
  * </Button>
  * ```
+ *
+ * 链接按钮：
+ * ```astro
+ * <Button href="https://example.com">跳转链接</Button>
+ * <Button href="https://example.com" target="_blank">新窗口打开</Button>
+ * ```
  */
 
 // 导入样式
@@ -74,6 +80,8 @@ interface Props {
 	class?: string;
 	onClick?: string;
 	formmethod?: string;
+	href?: string;
+	target?: string;
 	[key: string]: any; // 允许任意自定义属性
 }
 
@@ -89,6 +97,8 @@ const {
 	class: className,
 	onClick,
 	formmethod,
+	href,
+	target,
 	...rest
 } = Astro.props;
 
@@ -148,17 +158,35 @@ const getButtonClasses = () => {
 const buttonClasses = getButtonClasses();
 ---
 
-<button
-	type={formmethod === 'dialog' ? 'submit' : type}
-	class:list={buttonClasses}
-	disabled={disabled}
-	onclick={onClick}
-	formmethod={formmethod}
-	data-variant={variant}
-	{...rest}>
-	<span class="cosy:flex cosy:items-center cosy:gap-2">
-		<slot name="icon-left" />
-		<slot />
-		<slot name="icon-right" />
-	</span>
-</button>
+{
+	href ? (
+		<a
+			href={href}
+			class:list={buttonClasses}
+			target={target}
+			onclick={onClick}
+			data-variant={variant}
+			{...rest}>
+			<span class="cosy:flex cosy:items-center cosy:gap-2">
+				<slot name="icon-left" />
+				<slot />
+				<slot name="icon-right" />
+			</span>
+		</a>
+	) : (
+		<button
+			type={formmethod === 'dialog' ? 'submit' : type}
+			class:list={buttonClasses}
+			disabled={disabled}
+			onclick={onClick}
+			formmethod={formmethod}
+			data-variant={variant}
+			{...rest}>
+			<span class="cosy:flex cosy:items-center cosy:gap-2">
+				<slot name="icon-left" />
+				<slot />
+				<slot name="icon-right" />
+			</span>
+		</button>
+	)
+}

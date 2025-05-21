@@ -1,0 +1,368 @@
+---
+/**
+ * @component Hero
+ *
+ * @description
+ * Hero 组件是一个全屏的展示区域，通常用于网站的首页或重要页面的顶部。
+ * 它提供了一个引人注目的视觉区域，可以包含标题、描述、图片和行动按钮。
+ *
+ * @design
+ * 设计理念：
+ * 1. 视觉冲击力 - 全屏展示，吸引用户注意
+ * 2. 内容聚焦 - 清晰地传达核心信息
+ * 3. 引导行动 - 通过链接按钮引导用户进行下一步操作
+ * 4. 灵活布局 - 支持图片、标题、描述和自定义内容
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Hero
+ *   title="欢迎使用我们的产品"
+ *   description="这是一个简短的描述，介绍产品的主要特点和价值。"
+ *   links={[
+ *     { text: "开始使用", href: "/getting-started" },
+ *     { text: "了解更多", href: "/about" }
+ *   ]}
+ * />
+ * ```
+ *
+ * 带图片的用法（图片在右侧）：
+ * ```astro
+ * <Hero
+ *   title="产品展示"
+ *   description="查看我们的最新产品。"
+ *   image={{ src: "/images/product.png", alt: "产品图片" }}
+ *   imagePosition="right"
+ *   links={[
+ *     { text: "立即购买", href: "/buy" }
+ *   ]}
+ * />
+ * ```
+ *
+ * 带图片的用法（图片在左侧）：
+ * ```astro
+ * <Hero
+ *   title="产品展示"
+ *   description="查看我们的最新产品。"
+ *   image={{ src: "/images/product.png", alt: "产品图片" }}
+ *   imagePosition="left"
+ *   links={[
+ *     { text: "立即购买", href: "/buy" }
+ *   ]}
+ * />
+ * ```
+ *
+ * 带图片的用法（图片在顶部）：
+ * ```astro
+ * <Hero
+ *   title="产品展示"
+ *   description="查看我们的最新产品。"
+ *   image={{ src: "/images/product.png", alt: "产品图片" }}
+ *   imagePosition="top"
+ *   links={[
+ *     { text: "立即购买", href: "/buy" }
+ *   ]}
+ * />
+ * ```
+ *
+ * 带图片的用法（图片在底部）：
+ * ```astro
+ * <Hero
+ *   title="产品展示"
+ *   description="查看我们的最新产品。"
+ *   image={{ src: "/images/product.png", alt: "产品图片" }}
+ *   imagePosition="bottom"
+ *   links={[
+ *     { text: "立即购买", href: "/buy" }
+ *   ]}
+ * />
+ * ```
+ *
+ * 带背景图片的用法：
+ * ```astro
+ * <Hero
+ *   title="产品展示"
+ *   description="查看我们的最新产品。"
+ *   backgroundImage="/images/hero-bg.jpg"
+ *   backgroundOverlay="dark"
+ *   links={[
+ *     { text: "立即购买", href: "/buy" }
+ *   ]}
+ * />
+ * ```
+ *
+ * 带渐变背景遮罩的背景图片：
+ * ```astro
+ * <Hero
+ *   title="产品展示"
+ *   description="查看我们的最新产品。"
+ *   backgroundImage="/images/hero-bg.jpg"
+ *   backgroundOverlay="gradient"
+ *   links={[
+ *     { text: "立即购买", href: "/buy" }
+ *   ]}
+ * />
+ * ```
+ *
+ * 自定义遮罩不透明度：
+ * ```astro
+ * <Hero
+ *   title="产品展示"
+ *   description="查看我们的最新产品。"
+ *   backgroundImage="/images/hero-bg.jpg"
+ *   backgroundOverlay="dark"
+ *   overlayOpacity={0.5}
+ *   links={[
+ *     { text: "立即购买", href: "/buy" }
+ *   ]}
+ * />
+ * ```
+ *
+ * 带自定义内容的用法：
+ * ```astro
+ * <Hero
+ *   title="交互式演示"
+ *   description="尝试我们的交互式演示。"
+ *   links={[
+ *     { text: "查看文档", href: "/docs" }
+ *   ]}
+ * >
+ *   <div slot="app">
+ *     <InteractiveDemo />
+ *   </div>
+ * </Hero>
+ * ```
+ *
+ * @props
+ * @prop {string} title - Hero 区域的主标题
+ * @prop {string} description - 标题下方的描述文本
+ * @prop {Object} [image] - 可选的图片配置
+ * @prop {string} image.src - 图片的源地址
+ * @prop {string} image.alt - 图片的替代文本
+ * @prop {Array<Link>} links - 链接按钮数组
+ * @prop {string} links[].text - 链接按钮的文本
+ * @prop {string} links[].href - 链接按钮的目标地址
+ * @prop {string} [background="gradient"] - 背景样式，可选值："gradient", "plain"
+ * @prop {string} [align="center"] - 内容对齐方式，可选值："center", "left", "right"
+ * @prop {string} [imagePosition="right"] - 图片位置，可选值："right", "left", "top", "bottom"
+ * @prop {string} [backgroundImage] - 背景图片的URL
+ * @prop {string} [backgroundOverlay="none"] - 背景图片上的遮罩，可选值："none", "light", "dark", "primary", "gradient"
+ * @prop {number} [overlayOpacity=0.7] - 遮罩的不透明度，可选值：0-1之间的数字
+ */
+
+import '../style.ts';
+import { Link } from '../index';
+
+interface Link {
+	text: string;
+	href: string;
+}
+
+interface Props {
+	title: string;
+	description: string;
+	image?: {
+		src: string;
+		alt: string;
+	};
+	links: Link[];
+	background?: 'gradient' | 'plain';
+	align?: 'center' | 'left' | 'right';
+	imagePosition?: 'right' | 'left' | 'top' | 'bottom';
+	backgroundImage?: string;
+	backgroundOverlay?: 'none' | 'light' | 'dark' | 'primary' | 'gradient';
+	overlayOpacity?: number;
+}
+
+const {
+	title,
+	description,
+	image,
+	links = [],
+	background = 'gradient',
+	align = 'center',
+	imagePosition = 'right',
+	backgroundImage,
+	backgroundOverlay = 'none',
+	overlayOpacity = 0.7,
+} = Astro.props;
+
+// 确保不透明度在0-1之间
+const safeOpacity = Math.max(0, Math.min(1, overlayOpacity));
+
+// 确定容器类
+const containerClasses = [
+	'cosy:hero',
+	'cosy:min-h-screen',
+	'cosy:w-full',
+	'cosy:relative',
+	backgroundImage ? 'cosy:bg-cover cosy:bg-center' : '',
+	!backgroundImage && background === 'gradient'
+		? 'cosy:bg-gradient-to-br cosy:from-primary/10 cosy:to-secondary/20'
+		: '',
+	!backgroundImage && background === 'plain' ? 'cosy:bg-base-100' : '',
+].join(' ');
+
+// 确定内容布局类
+const contentClasses = [
+	'cosy:flex',
+	imagePosition === 'top' || imagePosition === 'bottom'
+		? 'cosy:flex-col'
+		: 'cosy:flex-col cosy:lg:flex-row',
+	align === 'center' ? 'cosy:text-center cosy:items-center' : '',
+	align === 'left' ? 'cosy:text-left cosy:items-start' : '',
+	align === 'right' ? 'cosy:text-right cosy:items-end' : '',
+	'cosy:max-w-7xl',
+	'cosy:mx-auto',
+	'cosy:gap-10',
+	'cosy:lg:gap-16',
+	'cosy:z-10',
+	'cosy:relative',
+	'cosy:py-16',
+	'cosy:px-4',
+	'cosy:sm:px-6',
+	'cosy:lg:px-8',
+].join(' ');
+
+// 确定背景遮罩类
+const overlayClasses = ['cosy:absolute', 'cosy:inset-0', 'cosy:z-0', 'cosy:m-0', 'cosy:p-0'].join(
+	' '
+);
+
+// 创建遮罩样式对象，包括不透明度
+const overlayStyle =
+	backgroundOverlay === 'light'
+		? { backgroundColor: `rgba(255, 255, 255, ${safeOpacity})` }
+		: backgroundOverlay === 'dark'
+			? { backgroundColor: `rgba(0, 0, 0, ${safeOpacity})` }
+			: backgroundOverlay === 'primary'
+				? { backgroundColor: `var(--color-primary-500, #4338ca)`, opacity: safeOpacity }
+				: backgroundOverlay === 'gradient'
+					? {
+							backgroundImage: `linear-gradient(135deg, var(--color-primary-500, #4338ca) ${safeOpacity * 100}%, var(--color-secondary-500, #0ea5e9) ${safeOpacity * 100}%)`,
+						}
+					: {};
+
+const titleClasses = [
+	'cosy:text-5xl',
+	'cosy:font-bold',
+	'cosy:mb-4',
+	'cosy:sm:text-6xl',
+	'cosy:lg:text-7xl',
+	backgroundImage && (backgroundOverlay === 'dark' || backgroundOverlay === 'gradient')
+		? 'cosy:text-white'
+		: 'cosy:text-primary',
+].join(' ');
+
+const descriptionClasses = [
+	'cosy:text-xl',
+	'cosy:max-w-3xl',
+	'cosy:mb-8',
+	backgroundImage && (backgroundOverlay === 'dark' || backgroundOverlay === 'gradient')
+		? 'cosy:text-white cosy:opacity-90'
+		: 'cosy:opacity-80',
+].join(' ');
+
+const imageClasses = [
+	'cosy:rounded-lg',
+	'cosy:shadow-2xl',
+	'cosy:transition-all',
+	'cosy:duration-300',
+	'cosy:hover:scale-105',
+	'cosy:hover:shadow-primary/20',
+	imagePosition === 'top' || imagePosition === 'bottom'
+		? 'cosy:max-w-lg cosy:w-full'
+		: 'cosy:max-w-sm cosy:lg:max-w-md',
+].join(' ');
+
+const linksContainerClasses = [
+	'cosy:flex',
+	'cosy:flex-wrap',
+	'cosy:gap-4',
+	align === 'center' ? 'cosy:justify-center' : '',
+	align === 'left' ? 'cosy:justify-start' : '',
+	align === 'right' ? 'cosy:justify-end' : '',
+	'cosy:mt-4',
+].join(' ');
+
+const appContainerClasses = ['cosy:w-full', 'cosy:max-w-3xl', 'cosy:mx-auto', 'cosy:my-8'].join(
+	' '
+);
+
+// 确定图片顺序
+const imageOrder = {
+	right: 'cosy:order-1 cosy:lg:order-2',
+	left: 'cosy:order-2 cosy:lg:order-1',
+	top: 'cosy:order-1',
+	bottom: 'cosy:order-3',
+};
+
+// 确定内容顺序
+const contentOrder = {
+	right: 'cosy:order-2 cosy:lg:order-1',
+	left: 'cosy:order-1 cosy:lg:order-2',
+	top: 'cosy:order-2',
+	bottom: 'cosy:order-1',
+};
+---
+
+<div
+	class={containerClasses}
+	style={backgroundImage ? `background-image: url(${backgroundImage})` : ''}
+	ignore-heading>
+	{
+		backgroundImage && backgroundOverlay !== 'none' && (
+			<div class={overlayClasses} style={overlayStyle} />
+		)
+	}
+
+	<div class={contentClasses}>
+		{
+			image && (
+				<div class={imageOrder[imagePosition]}>
+					<img class={imageClasses} src={image.src} alt={image.alt} />
+				</div>
+			)
+		}
+
+		<div
+			class={contentOrder[imagePosition] +
+				' cosy:flex cosy:flex-col cosy:w-full ' +
+				(align === 'center' ? 'cosy:text-center cosy:items-center' : '') +
+				(align === 'left' ? 'cosy:text-left cosy:items-start' : '') +
+				(align === 'right' ? 'cosy:text-right cosy:items-end' : '')}>
+			<h2 class={titleClasses}>{title}</h2>
+			<p class={descriptionClasses}>
+				{description}
+			</p>
+
+			{
+				Astro.slots.has('app') && (
+					<div class={appContainerClasses}>
+						<slot name="app" />
+					</div>
+				)
+			}
+
+			<div class={linksContainerClasses}>
+				{
+					links.map((link: Link) => (
+						<Link
+							href={link.href}
+							external
+							variant={
+								backgroundImage &&
+								(backgroundOverlay === 'dark' || backgroundOverlay === 'gradient')
+									? 'light'
+									: 'cta'
+							}
+							animation="hover-lift"
+							size="lg">
+							{link.text}
+						</Link>
+					))
+				}
+			</div>
+		</div>
+	</div>
+</div>

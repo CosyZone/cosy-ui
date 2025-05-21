@@ -1,0 +1,17 @@
+---
+import { CodeContainer } from '../index';
+import ButtonSizes from './ButtonSizes.astro';
+import VueButtonSizes from './ButtonSizes.vue';
+import ButtonSizesSourceCode from './ButtonSizes.astro?raw';
+import VueButtonSizesSourceCode from './ButtonSizes.vue?raw';
+---
+
+<CodeContainer codes={[ButtonSizesSourceCode, VueButtonSizesSourceCode]} titles={['Astro', 'Vue']}>
+	<div id="tab-1">
+		<ButtonSizes />
+	</div>
+
+	<div id="tab-2">
+		<VueButtonSizes client:load />
+	</div>
+</CodeContainer>

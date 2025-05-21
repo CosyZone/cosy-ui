@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from '../index';
+import ButtonFeatureBasic from './ButtonFeatureBasic.vue';
+import ButtonFeatureWithTips from './ButtonFeatureWithTips.vue';
+import ButtonFeatureBasicSourceCode from './ButtonFeatureBasic.vue?raw';
+import ButtonFeatureWithTipsSourceCode from './ButtonFeatureWithTips.vue?raw';
+---
+
+<CodeContainer
+	titles={['Vue-基础用法', 'Vue-带提示功能']}
+	codes={[ButtonFeatureBasicSourceCode, ButtonFeatureWithTipsSourceCode]}>
+	<div id="tab-1">
+		<ButtonFeatureBasic client:load />
+	</div>
+	<div id="tab-2">
+		<ButtonFeatureWithTips client:load />
+	</div>
+</CodeContainer>

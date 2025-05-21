@@ -1,0 +1,39 @@
+---
+import '../style.ts';
+
+interface Props {
+	title: string;
+	subtitle?: string;
+	imageUrl: string;
+	class?: string;
+}
+
+const { title, subtitle, imageUrl, class: className } = Astro.props;
+---
+
+<article class={`cosy-card cosy-card--with-image ${className || ''}`}>
+	<div class="cosy-card__image" style={`background-image: url(${imageUrl})`} aria-hidden="true">
+	</div>
+
+	<header class="cosy-card__header">
+		<h3 class="cosy-card__title">{title}</h3>
+		{subtitle && <p class="cosy-card__subtitle">{subtitle}</p>}
+	</header>
+
+	<div class="cosy-card__content">
+		<slot />
+	</div>
+</article>
+
+<style>
+	.cosy-card__image {
+		height: 160px;
+		background-size: cover;
+		background-position: center;
+		border-radius: 8px 8px 0 0;
+	}
+
+	.cosy-card__header {
+		padding-top: 1rem;
+	}
+</style>

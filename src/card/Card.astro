@@ -1,0 +1,91 @@
+---
+/**
+ * @component Card
+ *
+ * @description
+ * Card 组件用于在页面中展示相关内容的容器，通常包含标题、描述和可选的图片。
+ * 组件设计简洁大方，具有平滑的动画效果和交互反馈，适合展示产品、文章或功能介绍等内容。
+ *
+ * @design
+ * 设计理念：
+ * 1. 视觉层次感 - 通过阴影、悬停效果和微妙的动画创造深度感
+ * 2. 内容聚焦 - 简洁的布局让用户关注卡片内容
+ * 3. 交互反馈 - 悬停和点击时提供明确的视觉反馈
+ * 4. 适应性强 - 响应式设计，适应不同屏幕尺寸
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Card
+ *   title="卡片标题"
+ *   subtitle="卡片描述文本"
+ * >
+ *   卡片内容
+ * </Card>
+ * ```
+ *
+ * 带图片的卡片：
+ * ```astro
+ * <Card
+ *   title="产品名称"
+ *   subtitle="产品描述"
+ *   imageUrl="/path/to/image.jpg"
+ * >
+ *   其他产品信息
+ * </Card>
+ * ```
+ *
+ * 可点击的卡片（链接）：
+ * ```astro
+ * <Card
+ *   title="文章标题"
+ *   subtitle="文章摘要"
+ *   imageUrl="/path/to/image.jpg"
+ *   href="/articles/article-slug"
+ * />
+ * ```
+ *
+ * 紧凑模式：
+ * ```astro
+ * <Card
+ *   title="紧凑卡片"
+ *   subtitle="更小的内边距"
+ *   compact
+ * >
+ *   适合在空间有限的情况下使用
+ * </Card>
+ * ```
+ *
+ * @props
+ * @prop {string} [title] - 卡片标题
+ * @prop {string} [subtitle] - 卡片副标题或描述
+ * @prop {string} [imageUrl] - 卡片顶部图片的URL
+ * @prop {string} [href] - 如果提供，卡片将变成可点击的链接
+ * @prop {boolean} [compact] - 是否使用紧凑模式
+ * @prop {string} [class] - 自定义CSS类，可用于覆盖默认样式
+ *
+ * @slots
+ * @slot default - 卡片的主要内容区域
+ */
+
+import '../style.ts';
+
+interface Props {
+	title: string;
+	subtitle?: string;
+	class?: string;
+}
+
+const { title, subtitle, class: className } = Astro.props;
+---
+
+<article class={`cosy-card ${className || ''}`}>
+	<header class="cosy-card__header">
+		<h3 class="cosy-card__title">{title}</h3>
+		{subtitle && <p class="cosy-card__subtitle">{subtitle}</p>}
+	</header>
+
+	<div class="cosy-card__content">
+		<slot />
+	</div>
+</article>

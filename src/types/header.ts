@@ -35,13 +35,43 @@ export interface IHeaderProps {
 	navItems?: INavItem[];
 
 	/**
+	 * 导航栏位置
+	 * @default "start"
+	 */
+	navPosition?: 'start' | 'center' | 'end';
+
+	/**
+	 * 水平内边距
+	 * @default "md"
+	 */
+	paddingHorizontal?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+
+	/**
+	 * 垂直内边距
+	 * @default "md"
+	 */
+	paddingVertical?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+
+	/**
+	 * 圆角大小
+	 * @default "md"
+	 */
+	rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+
+	/**
 	 * 是否显示侧边栏切换按钮
 	 * @default false
 	 */
 	showSidebarToggle?: boolean;
 
 	/**
-	 * 社交链接
+	 * 是否显示主题切换按钮
+	 * @default false
+	 */
+	showThemeSwitcher?: boolean;
+
+	/**
+	 * 社交媒体链接列表
 	 */
 	socialLinks?: Array<{
 		name: string;
@@ -54,11 +84,4 @@ export interface IHeaderProps {
 	 * @default true
 	 */
 	sticky?: boolean;
-
-	rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
-
-	paddingHorizontal?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
-	paddingVertical?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
-
-	navPosition?: 'start' | 'center' | 'end';
 }

@@ -5,148 +5,58 @@ folder: false
 order: 2
 ---
 
-import { Button, CodeExample } from '@cosy/index';
+import { Button, ButtonPackage, CodeExample } from '@cosy/index';
 
 ## 基础按钮
 
 最基本的按钮使用方式，展示不同的样式变体。
 
-<CodeExample
-  code={`<div class="cosy:flex cosy:gap-2">
-  <Button>默认按钮</Button>
-  <Button variant="primary">主要按钮</Button>
-  <Button variant="secondary">次要按钮</Button>
-  <Button variant="accent">强调按钮</Button>
-</div>`}
->
-  <div class="cosy:flex cosy:gap-2">
-    <Button>默认按钮</Button>
-    <Button variant="primary">主要按钮</Button>
-    <Button variant="secondary">次要按钮</Button>
-    <Button variant="accent">强调按钮</Button>
-  </div>
-</CodeExample>
+<ButtonPackage.ButtonContainers.Basic />
 
 ## 按钮状态
 
 按钮支持不同的状态展示。
 
-<CodeExample
-  code={`<div class="cosy:flex cosy:gap-2">
-  <Button variant="primary" disabled>禁用状态</Button>
-  <Button variant="primary" loading>加载中</Button>
-</div>`}
->
-  <div class="cosy:flex cosy:gap-2">
-    <Button variant="primary" disabled>禁用状态</Button>
-    <Button variant="primary" loading>加载中</Button>
-  </div>
-</CodeExample>
+<ButtonPackage.ButtonContainers.States />
 
 ## 按钮尺寸
 
 提供多种尺寸以适应不同的场景需求。
 
-<CodeExample
-  code={`<div class="cosy:flex cosy:items-center cosy:gap-2">
-  <Button size="xs">超小按钮</Button>
-  <Button size="sm">小型按钮</Button>
-  <Button size="md">中等按钮</Button>
-  <Button size="lg">大型按钮</Button>
-</div>`}
->
-  <div class="cosy:flex cosy:items-center cosy:gap-2">
-    <Button size="xs">超小按钮</Button>
-    <Button size="sm">小型按钮</Button>
-    <Button size="md">中等按钮</Button>
-    <Button size="lg">大型按钮</Button>
-  </div>
-</CodeExample>
+<ButtonPackage.ButtonContainers.Sizes />
 
 ## 按钮形状
 
 按钮支持不同的形状样式。
 
-<CodeExample
-  code={`<div class="cosy:flex cosy:gap-2">
-  <Button shape="circle">O</Button>
-  <Button shape="square">□</Button>
-</div>`}
->
-  <div class="cosy:flex cosy:gap-2">
-    <Button shape="circle">O</Button>
-    <Button shape="square">□</Button>
-  </div>
-</CodeExample>
+<ButtonPackage.ButtonContainers.Shapes />
 
 ## 带图标的按钮
 
 按钮可以配合图标一起使用。
 
-<CodeExample
-  code={`<div class="cosy:flex cosy:gap-2">
-  <Button>
-    <span slot="icon-left">👈</span>
-    左侧图标
-  </Button>
-  <Button>
-    右侧图标
-    <span slot="icon-right">👉</span>
-  </Button>
-</div>`}
->
-  <div class="cosy:flex cosy:gap-2">
-    <Button>
-      <span slot="icon-left">👈</span>
-      左侧图标
-    </Button>
-    <Button>
-      右侧图标
-      <span slot="icon-right">👉</span>
-    </Button>
-  </div>
-</CodeExample>
+<ButtonPackage.ButtonContainers.WithIcons />
 
 ## 宽度变体
 
 按钮支持不同的宽度设置。
 
-<CodeExample
-  code={`<div class="cosy:flex cosy:flex-col cosy:gap-2">
-  <Button wide>宽按钮</Button>
-  <Button block>块级按钮</Button>
-</div>`}
->
-  <div class="cosy:flex cosy:flex-col cosy:gap-2">
-    <Button wide>宽按钮</Button>
-    <Button block>块级按钮</Button>
-  </div>
-</CodeExample>
+<ButtonPackage.ButtonContainers.Width />
 
 ## 语义化变体
 
 提供多种语义化的颜色变体。
 
-<CodeExample
-  code={`<div class="cosy:flex cosy:flex-wrap cosy:gap-2">
-  <Button variant="info">信息按钮</Button>
-  <Button variant="success">成功按钮</Button>
-  <Button variant="warning">警告按钮</Button>
-  <Button variant="error">错误按钮</Button>
-  <Button variant="ghost">幽灵按钮</Button>
-  <Button variant="link">链接按钮</Button>
-  <Button variant="outline">描边按钮</Button>
-  <Button variant="neutral">中性按钮</Button>
-</div>`}
->
-  <div class="cosy:flex cosy:flex-wrap cosy:gap-2">
-    <Button variant="info">信息按钮</Button>
-    <Button variant="success">成功按钮</Button>
-    <Button variant="warning">警告按钮</Button>
-    <Button variant="error">错误按钮</Button>
-    <Button variant="ghost">幽灵按钮</Button>
-    <Button variant="link">链接按钮</Button>
-    <Button variant="outline">描边按钮</Button>
-    <Button variant="neutral">中性按钮</Button>
-  </div>
-</CodeExample>
+<ButtonPackage.ButtonContainers.Variants />
+
+## 链接按钮
+
+按钮可以作为链接使用，支持内部跳转和外部链接。
+
+<ButtonPackage.ButtonContainers.Link />
+
+## 特性按钮
+
+特性按钮是一个具有现代感的功能按钮，常用于展示特性或功能。
+
+<ButtonPackage.ButtonContainers.Feature />

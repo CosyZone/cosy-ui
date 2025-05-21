@@ -1,0 +1,36 @@
+---
+import { CodeContainer } from '../index';
+import ButtonIconLeft from './ButtonIconLeft.astro';
+import ButtonIconRight from './ButtonIconRight.astro';
+import ButtonIconBoth from './ButtonIconBoth.astro';
+import VueButtonWithIcons from './ButtonWithIcons.vue';
+import ButtonIconLeftSourceCode from './ButtonIconLeft.astro?raw';
+import ButtonIconRightSourceCode from './ButtonIconRight.astro?raw';
+import ButtonIconBothSourceCode from './ButtonIconBoth.astro?raw';
+import VueButtonWithIconsSourceCode from './ButtonWithIcons.vue?raw';
+---
+
+<CodeContainer
+	titles={['左侧图标', '右侧图标', '两侧图标', 'Vue']}
+	codes={[
+		ButtonIconLeftSourceCode,
+		ButtonIconRightSourceCode,
+		ButtonIconBothSourceCode,
+		VueButtonWithIconsSourceCode,
+	]}>
+	<div id="tab-1">
+		<ButtonIconLeft />
+	</div>
+
+	<div id="tab-2">
+		<ButtonIconRight />
+	</div>
+
+	<div id="tab-3">
+		<ButtonIconBoth />
+	</div>
+
+	<div id="tab-4">
+		<VueButtonWithIcons client:load />
+	</div>
+</CodeContainer>

@@ -145,7 +145,7 @@
  * - 社交媒体图标包含屏幕阅读器专用的文本说明
  */
 
-import { processSocialLink } from '../utils/social.ts';
+import { processSocialLink } from '../utils/social';
 import { SocialIcon, LanguageUtil, type IFooterProps, createTextGetter } from '../index';
 import FooterSection from './FooterSection.astro';
 import '../style.ts';
@@ -317,11 +317,7 @@ const debugClasses = debug
 {/* 横幅 */}
 {
 	inspirationalSlogan && (
-		<aside
-			class:list={[
-				'cosy:p-4 cosy:bg-primary cosy:text-primary-content cosy:w-full',
-				debugClasses.aside,
-			]}>
+		<aside class:list={['cosy:p-4 cosy:w-full', debugClasses.aside]}>
 			<p class="cosy:text-center">{inspirationalSlogan}</p>
 		</aside>
 	)

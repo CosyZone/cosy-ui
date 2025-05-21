@@ -1,0 +1,119 @@
+---
+/**
+ * @component Modal
+ *
+ * @description
+ * Modal 组件是一个模态对话框，用于在不离开当前页面的情况下显示内容、通知或请求用户输入。
+ * 它会覆盖在页面内容上方，并提供一个聚焦的交互环境。
+ *
+ * @design
+ * 设计理念：
+ * 1. 聚焦交互 - 通过遮罩层和动画效果引导用户注意力
+ * 2. 灵活布局 - 支持标题、内容和操作按钮的灵活组合
+ * 3. 可访问性 - 支持键盘导航和屏幕阅读器
+ * 4. 响应式设计 - 在不同屏幕尺寸下保持良好的用户体验
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Modal id="my-modal" title="提示">
+ *   <p>这是一个模态对话框的内容。</p>
+ *   <button slot="actions" data-modal-target="my-modal">关闭</button>
+ * </Modal>
+ *
+ * <!-- 触发按钮 -->
+ * <button data-modal-target="my-modal">打开模态框</button>
+ * ```
+ *
+ * 自定义操作按钮：
+ * ```astro
+ * <Modal id="confirm-modal" title="确认操作">
+ *   <p>您确定要执行此操作吗？</p>
+ *   <div slot="actions">
+ *     <button class="btn btn-primary">确认</button>
+ *     <button class="btn" data-modal-target="confirm-modal">取消</button>
+ *   </div>
+ * </Modal>
+ * ```
+ *
+ * 不带标题的模态框：
+ * ```astro
+ * <Modal id="image-modal">
+ *   <img src="/images/large-image.jpg" alt="大图预览" />
+ * </Modal>
+ * ```
+ */
+
+import '../style.ts';
+import { Button } from '../index';
+
+interface Props {
+	/**
+	 * Modal 的唯一标识符
+	 */
+	id: string;
+	/**
+	 * 模态框的标题
+	 */
+	title?: string;
+	/**
+	 * 是否显示关闭按钮
+	 * @default true
+	 */
+	showCloseButton?: boolean;
+	/**
+	 * 自定义类名
+	 */
+	class?: string;
+}
+
+const { id, title, showCloseButton = true, class: className = '' } = Astro.props;
+---
+
+<dialog id={id} class="cosy:modal">
+	<div class:list={['cosy:modal-box', className]}>
+		{
+			showCloseButton && (
+				<form method="dialog">
+					<Button
+						variant="ghost"
+						size="sm"
+						shape="circle"
+						formmethod="dialog"
+						class="cosy:modal-close-button">
+						✕
+					</Button>
+				</form>
+			)
+		}
+
+		{title && <h3 class="cosy:modal-title">{title}</h3>}
+
+		<div class="cosy:modal-content">
+			<slot />
+		</div>
+
+		<div class="cosy:modal-action">
+			<slot name="actions" />
+		</div>
+	</div>
+
+	<form method="dialog" class="cosy:modal-backdrop">
+		<button>关闭</button>
+	</form>
+</dialog>
+
+<script is:inline define:vars={{ id }}>
+	// 为了方便使用，我们提供一些辅助方法
+	document.addEventListener('DOMContentLoaded', () => {
+		const modal = document.getElementById(id);
+		if (!modal) return;
+
+		// 为所有触发这个模态框的按钮添加点击事件
+		document.querySelectorAll(`[data-modal-target="${id}"]`).forEach((trigger) => {
+			trigger.addEventListener('click', () => {
+				modal.showModal();
+			});
+		});
+	});
+</script>

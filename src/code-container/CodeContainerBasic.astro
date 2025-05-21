@@ -1,0 +1,19 @@
+---
+/**
+ * CodeContainerBasic - 基础代码容器示例组件
+ * 展示CodeContainer的基本用法
+ */
+
+import { CodeContainer } from './index';
+import { Alert } from '../alert';
+
+const code = `<Alert type="info">
+  这是一个基础示例
+</Alert>`;
+---
+
+<CodeContainer codes={[code]}>
+	<div id="tab-1">
+		<Alert type="info"> 这是一个基础示例 </Alert>
+	</div>
+</CodeContainer>

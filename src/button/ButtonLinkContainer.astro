@@ -1,0 +1,25 @@
+---
+import { CodeContainer } from '../index';
+import ButtonLink from './ButtonLink.astro';
+import VueButtonLink from './ButtonLink.vue';
+import ButtonLinkExternal from './ButtonLinkExternal.astro';
+import ButtonLinkSourceCode from './ButtonLink.astro?raw';
+import VueButtonLinkSourceCode from './ButtonLink.vue?raw';
+import ButtonLinkExternalSourceCode from './ButtonLinkExternal.astro?raw';
+---
+
+<CodeContainer
+	titles={['基础链接', '外部链接', 'Vue']}
+	codes={[ButtonLinkSourceCode, ButtonLinkExternalSourceCode, VueButtonLinkSourceCode]}>
+	<div id="tab-1">
+		<ButtonLink />
+	</div>
+
+	<div id="tab-2">
+		<ButtonLinkExternal />
+	</div>
+
+	<div id="tab-3">
+		<VueButtonLink client:load />
+	</div>
+</CodeContainer>
