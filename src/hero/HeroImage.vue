@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import '../../style';
 import { ref } from 'vue';
-import SmartHero from './SmartHero.vue';
+import SmartHero from './Hero.vue';
 
 const image = ref({
     src: 'https://via.placeholder.com/600x300/4F46E5/FFFFFF?text=Smart+Hero',

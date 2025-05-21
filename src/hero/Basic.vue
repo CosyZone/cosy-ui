@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import '../style';
 import { ref } from 'vue';
-import SmartHero from './SmartHero.vue';
+import SmartHero from './Hero.vue';
 
 const links = ref([
     { text: '了解更多', href: '#' },
