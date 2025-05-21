@@ -110,9 +110,6 @@ const { titles = [], descriptions = [], codes } = Astro.props;
 
 <script>
 	function initializeCodeContainer() {
-		if (isInitialized) return; // 避免重复执行
-		isInitialized = true;
-
 		console.log('CodeContainer: 初始化代码容器');
 
 		// 示例切换功能
@@ -255,7 +252,8 @@ const { titles = [], descriptions = [], codes } = Astro.props;
 		});
 	}
 
-	let isInitialized = false;
-
-	document.addEventListener('astro:page-load', initializeCodeContainer);
+	document.addEventListener('astro:page-load', () => {
+		console.log('CodeContainer: 页面加载完成，初始化代码容器');
+		initializeCodeContainer();
+	});
 </script>
