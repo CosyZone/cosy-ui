@@ -6,6 +6,7 @@ import ButtonStatesContainer from './ButtonStatesContainer.astro';
 import ButtonWithIconsContainer from './ButtonWithIconsContainer.astro';
 import ButtonWidthContainer from './ButtonWidthContainer.astro';
 import ButtonVariantsContainer from './ButtonVariantsContainer.astro';
+import ButtonLinkContainer from './ButtonLinkContainer.astro';
 import ButtonWide from './ButtonWide.astro';
 import ButtonBlock from './ButtonBlock.astro';
 import ButtonIconLeft from './ButtonIconLeft.astro';
@@ -20,6 +21,7 @@ import ButtonWarning from './ButtonWarning.astro';
 import ButtonError from './ButtonError.astro';
 import ButtonGhost from './ButtonGhost.astro';
 import ButtonLink from './ButtonLink.astro';
+import ButtonLinkExternal from './ButtonLinkExternal.astro';
 import ButtonOutline from './ButtonOutline.astro';
 import ButtonNeutral from './ButtonNeutral.astro';
 
@@ -43,6 +45,7 @@ export const ButtonPackage = {
 	ButtonError,
 	ButtonGhost,
 	ButtonLink,
+	ButtonLinkExternal,
 	ButtonOutline,
 	ButtonNeutral,
 
@@ -53,6 +56,7 @@ export const ButtonPackage = {
 		States: ButtonStatesContainer,
 		WithIcons: ButtonWithIconsContainer,
 		Width: ButtonWidthContainer,
-		Variants: ButtonVariantsContainer
+		Variants: ButtonVariantsContainer,
+		Link: ButtonLinkContainer
 	}
 };
