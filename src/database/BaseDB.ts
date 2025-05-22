@@ -1,5 +1,5 @@
 import { getCollection, getEntry, type CollectionEntry, type DataEntryMap } from 'astro:content';
-import { logger } from '../utils/logger';
+import { cosyLogger } from '../utils/logger';
 import { LOG_PREFIX } from '..';
 
 /**
@@ -79,12 +79,15 @@ export abstract class BaseDB<
     /**
      * 根据ID查找单个文档
      * @param id - 文档ID
+     * @param debug - 是否启用调试模式, 默认为false
+     * @throws 如果ID不是字符串类型，则抛出错误
+     * @throws 如果文档不存在，则返回null
+     * @throws 如果发生其他错误，则抛出错误
      * @returns 返回找到的文档，如果不存在则返回null
      */
-    async find(id: string): Promise<Doc | null> {
-        const debug = false;
+    async find(id: string, debug: boolean = false): Promise<Doc | null> {
         if (debug) {
-            logger.info(`查找文档，ID: ${id}`);
+            cosyLogger.info(`查找文档，ID: ${id}`);
         }
 
         if (typeof id !== 'string') {
@@ -94,7 +97,7 @@ export abstract class BaseDB<
         // 获取所有文档的ID并排好顺序
         if (debug) {
             const allIds = (await this.getAllIds()).sort();
-            logger.array('所有文档的ID', allIds);
+            cosyLogger.array('所有文档的ID', allIds);
         }
 
         // 根据ID查找文档
@@ -150,7 +153,7 @@ export abstract class BaseDB<
         const docs = await this.getDocsByDepth(2);
 
         if (debug) {
-            logger.array('所有顶级文档', docs);
+            cosyLogger.array('所有顶级文档', docs);
         }
 
         return docs.filter((doc) => {
@@ -188,7 +191,7 @@ export abstract class BaseDB<
         });
 
         if (debug) {
-            logger.array('所有文档的路径', paths);
+            cosyLogger.array('所有文档的路径', paths);
         }
 
         return paths;
