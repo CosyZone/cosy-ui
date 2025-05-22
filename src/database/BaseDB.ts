@@ -43,18 +43,17 @@ export abstract class BaseDB<
      * 获取所有文档的ID
      * @returns 返回所有文档的ID数组
      */
-    async getAllIds(): Promise<string[]> {
+    protected async getAllIds(): Promise<string[]> {
         const entries = await getCollection(this.collectionName);
-        return entries.map((entry: Entry) => entry.id);
+        return entries.map(entry => entry.id);
     }
 
     /**
      * 获取集合中的所有条目
      * @returns 返回所有条目的数组
      */
-    async getEntries(): Promise<Entry[]> {
-        const entries = await getCollection(this.collectionName);
-        return entries.map((entry: Entry) => entry);
+    protected async getEntries(): Promise<Entry[]> {
+        return await getCollection(this.collectionName);
     }
 
     /**
@@ -68,7 +67,7 @@ export abstract class BaseDB<
      * @param depth - 文档深度
      * @returns 返回指定深度的文档数组
      */
-    async getDocsByDepth(depth: number): Promise<Doc[]> {
+    protected async getDocsByDepth(depth: number): Promise<Doc[]> {
         const entries = await getCollection(
             this.collectionName,
             ({ id }: { id: string }) => id.split('/').length === depth
@@ -77,11 +76,11 @@ export abstract class BaseDB<
         if (entries.length === 0) {
             cosyLogger.warn(`[BaseDB] 没有找到深度为${depth}的文档(collection=${this.collectionName as string})`);
             const allEntries = await getCollection(this.collectionName);
-            cosyLogger.array('[BaseDB] 所有文档', allEntries.map((entry: Entry) => entry.id));
+            cosyLogger.array('[BaseDB] 所有文档', allEntries.map(entry => entry.id));
             return [];
         }
 
-        return entries.map((entry: Entry) => this.createDoc(entry));
+        return entries.map(entry => this.createDoc(entry as Entry));
     }
 
     /**
@@ -117,7 +116,7 @@ export abstract class BaseDB<
 
         // 根据ID查找文档
         const entry = await getEntry(this.collectionName, id);
-        return entry ? this.createDoc(entry) : null;
+        return entry ? this.createDoc(entry as Entry) : null;
     }
 
     /**
@@ -138,7 +137,7 @@ export abstract class BaseDB<
             ({ id }: { id: string }) => id.startsWith(parentId) && id.split('/').length === childrenLevel
         );
 
-        return entries.map((entry: Entry) => this.createDoc(entry));
+        return entries.map(entry => this.createDoc(entry as Entry));
     }
 
     /**
@@ -153,7 +152,7 @@ export abstract class BaseDB<
      */
     async getDescendantDocs(parentId: string): Promise<Doc[]> {
         const entries = await getCollection(this.collectionName, ({ id }: { id: string }) => id.startsWith(parentId));
-        return entries.map((entry: Entry) => this.createDoc(entry));
+        return entries.map(entry => this.createDoc(entry as Entry));
     }
 
     /**
@@ -164,7 +163,7 @@ export abstract class BaseDB<
      * @param level - 文档级别
      * @returns 返回指定语言和级别的文档数组
      */
-    async allDocsByLangAndLevel(lang: string, level: number = 1, debug: boolean = false): Promise<Doc[]> {
+    protected async allDocsByLangAndLevel(lang: string, level: number = 1, debug: boolean = false): Promise<Doc[]> {
         const collectionName = this.collectionName as string;
         const docs = await this.getDocsByDepth(level);
 

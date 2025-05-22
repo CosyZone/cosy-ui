@@ -7,6 +7,40 @@ import { COLLECTION_LESSON } from '../database/LessonDB';
 import { BaseDoc } from './BaseDoc';
 import type { IHeadingType } from '../types/heading';
 
+/**
+ * 课程文档类，配合 LessonDB 使用
+ * 
+ * 目录结构：
+ * ```
+ * lessons/
+ * ├── build_your_own_web_toolbox/      # 课程目录
+ * │   ├── images/                      # 课程图片资源
+ * │   ├── components/                  # 课程组件
+ * │   ├── en/                          # 英文版本
+ * │   │   ├── index.mdx                # 课程首页
+ * │   │   ├── 1.mdx                    # 第一章
+ * │   │   └── 2.mdx                    # 第二章
+ * │   └── zh-cn/                       # 中文版本
+ * │       ├── index.mdx                # 课程首页
+ * │       ├── 1.mdx                    # 第一章
+ * │       └── 2.mdx                    # 第二章
+ * └── learn_astro/                     # 另一个课程
+ *     ├── en/
+ *     │   ├── index.mdx
+ *     │   ├── 1.mdx
+ *     │   └── 2.mdx
+ *     └── zh-cn/
+ *         ├── index.mdx
+ *         ├── 1.mdx
+ *         └── 2.mdx
+ * ```
+ *
+ * 说明：
+ * - 每个课程（如 build_your_own_web_toolbox）是一个独立的目录
+ * - 课程目录可以包含多语言版本（en, zh-cn 等）
+ * - 每个语言版本包含完整的课程内容
+ * - 课程目录可以作为 git 子模块独立管理
+ */
 export default class LessonDoc extends BaseDoc<typeof COLLECTION_LESSON, LessonEntry> {
 	constructor(entry: LessonEntry) {
 		super(entry);

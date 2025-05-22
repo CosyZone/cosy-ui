@@ -62,10 +62,10 @@ class BlogDB extends BaseDB<typeof COLLECTION_BLOG, BlogEntry, BlogDoc> {
 	/**
 	 * 获取用于 Astro 静态路由生成的路径参数，专门配合 [lang]/blogs/[slug].astro 使用
 	 *
+	 * @param debug - 是否开启调试模式
 	 * @returns 返回路径参数数组
 	 */
-	async getStaticPaths() {
-		const debug = false;
+	async getStaticPaths(debug: boolean = false) {
 		const docs = await this.allBlogs();
 
 		const paths = docs.map((doc) => {

@@ -11,9 +11,9 @@ export type CourseEntry = CollectionEntry<typeof COLLECTION_COURSE>;
  * 目录结构：
  * ```
  * courses/
- * ├── zh-cn/
- * │   ├── web-development/
- * │   │   ├── index.md
+ * ├── zh-cn/                  # 中文版本
+ * │   ├── web-development/    # 课程1
+ * │   │   ├── index.md        # 课程文档
  * │   │   ├── chapter1
  * │   │   │   ├── index.md
  * │   │   │   ├── content.md
@@ -22,10 +22,10 @@ export type CourseEntry = CollectionEntry<typeof COLLECTION_COURSE>;
  * │   │       ├── index.md
  * │   │       ├── content.md
  * │   │       └── ...
- * │   └── mobile-dev/
+ * │   └── mobile-dev/        # 课程2
  * │       ├── index.md
  * │       └── ...
- * └── en/
+ * └── en/                    # 英文版本
  *     └── ...
  * ```
  */

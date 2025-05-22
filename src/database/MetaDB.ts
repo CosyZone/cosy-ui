@@ -47,10 +47,10 @@ class MetaDB extends BaseDB<typeof COLLECTION_META, MetaEntry, MetaDoc> {
 	/**
 	 * 获取用于 Astro 静态路由生成的路径参数，专门配合 [lang]/meta/[slug].astro 使用
 	 *
+	 * @param debug - 是否开启调试模式
 	 * @returns 返回路径参数数组
 	 */
-	async getStaticPaths() {
-		const debug = false;
+	async getStaticPaths(debug: boolean = false) {
 		const docs = await this.getDescendantDocs('');
 
 		const paths = docs.map((doc) => {

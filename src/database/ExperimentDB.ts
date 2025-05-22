@@ -13,7 +13,7 @@ export type ExperimentEntry = CollectionEntry<typeof COLLECTION_EXPERIMENT>;
  * ```
  * experiments/
  * ├── safari_itp/           # 实验目录
- * │   ├── images/          # 实验图片资源
+ * │   ├── images/           # 实验图片资源
  * │   ├── components/                  # 课程组件
  * │   ├── en/                          # 英文版本
  * │   │   ├── index.mdx                # 课程首页
@@ -61,10 +61,10 @@ class ExperimentDB extends BaseDB<typeof COLLECTION_EXPERIMENT, ExperimentEntry,
 	/**
 	 * 获取用于 Astro 静态路由生成的路径参数
 	 *
+	 * @param debug - 是否开启调试模式
 	 * @returns 返回路径参数数组
 	 */
-	async getStaticPaths() {
-		const debug = false;
+	async getStaticPaths(debug: boolean = false) {
 		const docs = await this.getEntries();
 
 		if (debug) {
