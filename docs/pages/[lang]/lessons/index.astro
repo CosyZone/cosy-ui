@@ -24,7 +24,7 @@ export async function getStaticPaths() {
 
 const { lang } = Astro.params;
 
-const lessons = await lessonDB.allDocsByLang(lang);
+const lessons = await lessonDB.allDocsByLangAndLevel(lang, 2);
 const title = lang === 'zh-cn' ? '教程列表' : 'Build Your Own List';
 const description = lang === 'zh-cn' ? '教程列表' : 'Build Your Own List';
 ---

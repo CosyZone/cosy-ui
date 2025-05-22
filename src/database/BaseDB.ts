@@ -1,5 +1,6 @@
 import { getCollection, getEntry, type CollectionEntry, type DataEntryMap } from 'astro:content';
 import { cosyLogger, ERROR_PREFIX } from '../cosy';
+import type { BaseDoc } from '..';
 
 /**
  * BaseDB 是所有数据库类的基类，提供了通用的文档操作功能。
@@ -26,7 +27,7 @@ import { cosyLogger, ERROR_PREFIX } from '../cosy';
 export abstract class BaseDB<
     Collection extends keyof DataEntryMap,
     Entry extends CollectionEntry<Collection>,
-    Doc,
+    Doc extends BaseDoc<Collection, Entry>,
 > {
     /** 集合名称，必须在子类中指定 */
     protected abstract collectionName: Collection;
@@ -72,6 +73,14 @@ export abstract class BaseDB<
             this.collectionName,
             ({ id }: { id: string }) => id.split('/').length === depth
         );
+
+        if (entries.length === 0) {
+            cosyLogger.warn(`[BaseDB] 没有找到深度为${depth}的文档(collection=${this.collectionName as string})`);
+            const allEntries = await getCollection(this.collectionName);
+            cosyLogger.array('[BaseDB] 所有文档', allEntries.map((entry: Entry) => entry.id));
+            return [];
+        }
+
         return entries.map((entry: Entry) => this.createDoc(entry));
     }
 
@@ -148,24 +157,42 @@ export abstract class BaseDB<
     }
 
     /**
-     * 获取指定语言的顶级文档
+     * 获取指定语言和级别的文档
      * 通过检查文档ID是否以指定语言代码开头来筛选
      *
      * @param lang - 语言代码（如 'zh-cn', 'en'）
-     * @returns 返回指定语言的顶级文档数组
+     * @param level - 文档级别
+     * @returns 返回指定语言和级别的文档数组
      */
-    async allDocsByLang(lang: string): Promise<Doc[]> {
-        const debug = false;
-        const docs = await this.getDocsByDepth(2);
+    async allDocsByLangAndLevel(lang: string, level: number = 1, debug: boolean = false): Promise<Doc[]> {
+        const collectionName = this.collectionName as string;
+        const docs = await this.getDocsByDepth(level);
 
         if (debug) {
-            cosyLogger.array('所有顶级文档', docs);
+            cosyLogger.array(`[BaseDB] 所有${level}级文档(lang=any,collection=${collectionName})`, docs);
         }
 
-        return docs.filter((doc) => {
+        if (docs.length === 0) {
+            cosyLogger.warn(`[BaseDB] 没有找到${level}级文档(lang=any,collection=${collectionName})`);
+            return [];
+        }
+
+        const filteredDocs = docs.filter((doc) => {
             const id = (doc as any).getId();
             return id && typeof id === 'string' && id.startsWith(lang);
         });
+
+        if (debug) {
+            cosyLogger.array(`[BaseDB] 所有${level}级文档(lang=${lang},collection=${collectionName})`, filteredDocs);
+        }
+
+        if (filteredDocs.length === 0) {
+            cosyLogger.warn(`[BaseDB] 没有找到${level}级文档(lang=${lang},collection=${collectionName})`);
+            cosyLogger.array(`[BaseDB] 所有${level}级文档`, docs.map((doc) => doc.getId()));
+            return [];
+        }
+
+        return filteredDocs;
     }
 
     /**

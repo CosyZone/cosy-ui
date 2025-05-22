@@ -60,7 +60,7 @@ export class Logger {
         return output;
     }
 
-    private log(level: LogLevel, message: string | object | any[], newLine: boolean = true) {
+    private log(level: LogLevel, message: string | object | any[], newLine: boolean = false) {
         // 使用本地时间，并格式化为 HH:mm:ss 格式
         const timestamp = new Date().toLocaleTimeString('zh-CN', {
             hour12: false,

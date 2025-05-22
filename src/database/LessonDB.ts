@@ -96,6 +96,45 @@ class LessonDB extends BaseDB<typeof COLLECTION_LESSON, LessonEntry, LessonDoc> 
 
 		return paths;
 	}
+
+	/**
+	* 获取指定语言和级别的文档
+	* 通过检查文档ID是否以指定语言代码开头来筛选
+	*
+	* @param lang - 语言代码（如 'zh-cn', 'en'）
+	* @param level - 文档级别
+	* @returns 返回指定语言和级别的文档数组
+	*/
+	async allDocsByLangAndLevel(lang: string, level: number = 1, debug: boolean = false): Promise<LessonDoc[]> {
+		const collectionName = this.collectionName as string;
+		const docs = await this.getDocsByDepth(level);
+
+		if (debug) {
+			cosyLogger.array(`[BaseDB] 所有${level}级文档(lang=any,collection=${collectionName})`, docs);
+		}
+
+		if (docs.length === 0) {
+			cosyLogger.warn(`[BaseDB] 没有找到${level}级文档(lang=any,collection=${collectionName})`);
+			return [];
+		}
+
+		const filteredDocs = docs.filter((doc) => {
+			const id = (doc as any).getId();
+			return id && typeof id === 'string' && id.endsWith(lang);
+		});
+
+		if (debug) {
+			cosyLogger.array(`[BaseDB] 所有${level}级文档(lang=${lang},collection=${collectionName})`, filteredDocs);
+		}
+
+		if (filteredDocs.length === 0) {
+			cosyLogger.warn(`[BaseDB] 没有找到${level}级文档(lang=${lang},collection=${collectionName})`);
+			cosyLogger.array(`[BaseDB] 所有${level}级文档`, docs.map((doc) => doc.getId()));
+			return [];
+		}
+
+		return filteredDocs;
+	}
 }
 
 // 创建并导出单例实例
