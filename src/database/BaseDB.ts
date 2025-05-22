@@ -1,5 +1,5 @@
 import { getCollection, getEntry, type CollectionEntry, type DataEntryMap } from 'astro:content';
-import { cosyLogger, LOG_PREFIX } from '../cosy';
+import { cosyLogger, ERROR_PREFIX } from '../cosy';
 
 /**
  * BaseDB 是所有数据库类的基类，提供了通用的文档操作功能。
@@ -44,7 +44,7 @@ export abstract class BaseDB<
      */
     async getAllIds(): Promise<string[]> {
         const entries = await getCollection(this.collectionName);
-        return entries.map((entry) => entry.id);
+        return entries.map((entry: Entry) => entry.id);
     }
 
     /**
@@ -53,7 +53,7 @@ export abstract class BaseDB<
      */
     async getEntries(): Promise<Entry[]> {
         const entries = await getCollection(this.collectionName);
-        return entries.map((entry) => entry as Entry);
+        return entries.map((entry: Entry) => entry);
     }
 
     /**
@@ -70,9 +70,9 @@ export abstract class BaseDB<
     async getDocsByDepth(depth: number): Promise<Doc[]> {
         const entries = await getCollection(
             this.collectionName,
-            ({ id }) => id.split('/').length === depth
+            ({ id }: { id: string }) => id.split('/').length === depth
         );
-        return entries.map((entry) => this.createDoc(entry as Entry));
+        return entries.map((entry: Entry) => this.createDoc(entry));
     }
 
     /**
@@ -90,7 +90,8 @@ export abstract class BaseDB<
         }
 
         if (typeof id !== 'string') {
-            throw new Error(LOG_PREFIX + 'ID must be a string, but got ' + typeof id);
+            cosyLogger.error('ID must be a string, but got ' + typeof id);
+            throw new Error(ERROR_PREFIX + 'ID must be a string, but got ' + typeof id);
         }
 
         // 获取所有文档的ID并排好顺序
@@ -101,7 +102,7 @@ export abstract class BaseDB<
 
         // 根据ID查找文档
         const entry = await getEntry(this.collectionName, id);
-        return entry ? this.createDoc(entry as Entry) : null;
+        return entry ? this.createDoc(entry) : null;
     }
 
     /**
@@ -119,10 +120,10 @@ export abstract class BaseDB<
 
         const entries = await getCollection(
             this.collectionName,
-            ({ id }) => id.startsWith(parentId) && id.split('/').length === childrenLevel
+            ({ id }: { id: string }) => id.startsWith(parentId) && id.split('/').length === childrenLevel
         );
 
-        return entries.map((entry) => this.createDoc(entry as Entry));
+        return entries.map((entry: Entry) => this.createDoc(entry));
     }
 
     /**
@@ -136,8 +137,8 @@ export abstract class BaseDB<
      * @returns 返回所有后代文档数组
      */
     async getDescendantDocs(parentId: string): Promise<Doc[]> {
-        const entries = await getCollection(this.collectionName, ({ id }) => id.startsWith(parentId));
-        return entries.map((entry) => this.createDoc(entry as Entry));
+        const entries = await getCollection(this.collectionName, ({ id }: { id: string }) => id.startsWith(parentId));
+        return entries.map((entry: Entry) => this.createDoc(entry));
     }
 
     /**

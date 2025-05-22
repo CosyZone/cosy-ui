@@ -60,7 +60,7 @@ export class Logger {
         return output;
     }
 
-    private log(level: LogLevel, message: string | object | any[]) {
+    private log(level: LogLevel, message: string | object | any[], newLine: boolean = true) {
         // 使用本地时间，并格式化为 HH:mm:ss 格式
         const timestamp = new Date().toLocaleTimeString('zh-CN', {
             hour12: false,
@@ -84,6 +84,10 @@ export class Logger {
             error: '❌',
         }[level];
 
+        if (newLine) {
+            console.log("")
+        }
+
         console.log(
             timestampPart +
             `${colors[level]}${emoji} ${level.toUpperCase()}${colors.reset} ` +
@@ -93,7 +97,7 @@ export class Logger {
     }
 
     private getPrefix() {
-        return this.topic ? `${this.topic}: ➡️  ` : '';
+        return this.topic ? `[${this.topic}] ` : '';
     }
 
     constructor(topic: string = '') {
@@ -113,7 +117,7 @@ export class Logger {
     }
 
     error(message: string | object) {
-        this.log('error', this.getPrefix() + message);
+        this.log('error', this.getPrefix() + message, true);
     }
 
     array(title: string, arr: any[]) {
