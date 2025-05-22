@@ -1,6 +1,6 @@
 import { render, type RenderResult, type CollectionEntry, type DataEntryMap } from 'astro:content';
 import { SidebarItemEntity, type SidebarProvider } from './SidebarItem';
-import { cosyLogger } from '../cosy';
+import { cosyLogger, ERROR_PREFIX } from '../cosy';
 
 /**
  * 文档基类，提供所有文档类型共享的基本功能
@@ -53,6 +53,28 @@ export abstract class BaseDoc<
 	 */
 	getAncestorId(level: number): string {
 		const ancestorIds = this.getAncestorIds();
+
+		if (level < 1) {
+			cosyLogger.error('Level must be greater than 0');
+			throw new Error(ERROR_PREFIX + 'Level must be greater than 0');
+		}
+
+		if (level >= this.getLevel()) {
+			cosyLogger.debug("当前文档的ID：" + this.entry.id);
+			cosyLogger.debug("当前文档的Level：" + this.getLevel());
+			cosyLogger.debug("正在获取祖先ID，level：" + level);
+
+			throw new Error(ERROR_PREFIX + 'Level must be less than the document level');
+		}
+
+		if (ancestorIds.length < level) {
+			cosyLogger.debug("当前文档的ID\n" + this.entry.id);
+			cosyLogger.array("当前文档的祖先IDs", ancestorIds);
+			cosyLogger.debug("正在获取祖先ID，level:\n" + level);
+
+			throw new Error(ERROR_PREFIX + 'Level must be greater than 0');
+		}
+
 		return ancestorIds[level - 1];
 	}
 
@@ -92,6 +114,12 @@ export abstract class BaseDoc<
 	 * 子类可以根据需要覆盖此方法
 	 */
 	getTopDocId(): string {
+		const level = this.getLevel();
+
+		if (level <= 2) {
+			return this.entry.id;
+		}
+
 		return this.getAncestorId(2);
 	}
 

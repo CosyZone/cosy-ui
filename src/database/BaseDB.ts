@@ -89,8 +89,14 @@ export abstract class BaseDB<
             cosyLogger.info(`查找文档，ID: ${id}`);
         }
 
+        if (id == undefined) {
+            cosyLogger.error('ID is undefined');
+            throw new Error(ERROR_PREFIX + 'ID is undefined');
+        }
+
         if (typeof id !== 'string') {
             cosyLogger.error('ID must be a string, but got ' + typeof id);
+            cosyLogger.debug(id);
             throw new Error(ERROR_PREFIX + 'ID must be a string, but got ' + typeof id);
         }
 

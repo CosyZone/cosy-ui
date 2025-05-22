@@ -90,7 +90,9 @@ export class Logger {
 
         console.log(
             timestampPart +
-            `${colors[level]}${emoji} ${level.toUpperCase()}${colors.reset} ` +
+            `${colors[level]}${emoji} ` +
+            this.getPrefix() +
+            `${level.toUpperCase()}${colors.reset} ` +
             `${colors.gray}:${colors.reset} ` +
             `${colors[level]}${formattedMessage}${colors.reset}`
         );
@@ -105,23 +107,23 @@ export class Logger {
     }
 
     debug(message: string | object) {
-        this.log('debug', this.getPrefix() + message);
+        this.log('debug', message);
     }
 
     info(message: string | object) {
-        this.log('info', this.getPrefix() + message);
+        this.log('info', message);
     }
 
     warn(message: string | object) {
-        this.log('warn', this.getPrefix() + message);
+        this.log('warn', message);
     }
 
     error(message: string | object) {
-        this.log('error', this.getPrefix() + message, true);
+        this.log('error', message, true);
     }
 
     array(title: string, arr: any[]) {
-        this.log('info', this.getPrefix() + title + '\n' + this.formatArray(arr));
+        this.log('info', title + '\n' + this.formatArray(arr));
     }
 }
 
