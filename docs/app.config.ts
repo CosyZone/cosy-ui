@@ -11,10 +11,10 @@ export const navItems: INavItem[] = [
 		href: `${basePath}en/courses`,
 		label: 'Docs',
 	},
-	{
-		href: `${basePath}en/lessons`,
-		label: 'Lessons',
-	},
+	// {
+	// 	href: `${basePath}en/lessons`,
+	// 	label: 'Lessons',
+	// },
 	{
 		href: `${basePath}demos`,
 		label: 'Demos',
