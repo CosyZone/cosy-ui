@@ -1,3 +1,5 @@
+import { LOG_PREFIX } from '../index';
+
 type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 
 // 控制是否显示时间戳
@@ -5,110 +7,121 @@ const SHOW_TIMESTAMP = false;
 
 // ANSI 颜色代码
 const colors = {
-	reset: '\x1b[0m',
-	debug: '\x1b[36m', // 青色
-	info: '\x1b[32m', // 绿色
-	warn: '\x1b[33m', // 黄色
-	error: '\x1b[31m', // 红色
-	gray: '\x1b[90m', // 灰色用于时间戳
+    reset: '\x1b[0m',
+    debug: '\x1b[36m', // 青色
+    info: '\x1b[32m', // 绿色
+    warn: '\x1b[33m', // 黄色
+    error: '\x1b[31m', // 红色
+    gray: '\x1b[90m', // 灰色用于时间戳
 };
 
 class Logger {
-	private formatArray(arr: any[]): string {
-		const MAX_LINES = 70;
-		const MAX_LENGTH = 100;
+    private topic: string = '';
 
-		const truncateString = (str: string): string => {
-			return str.length > MAX_LENGTH ? str.slice(0, MAX_LENGTH) + '...' : str;
-		};
+    private formatArray(arr: any[]): string {
+        const MAX_LINES = 70;
+        const MAX_LENGTH = 100;
 
-		const truncateObject = (obj: any): any => {
-			if (typeof obj !== 'object' || obj === null) {
-				return typeof obj === 'string' ? truncateString(obj) : obj;
-			}
+        const truncateString = (str: string): string => {
+            return str.length > MAX_LENGTH ? str.slice(0, MAX_LENGTH) + '...' : str;
+        };
 
-			const result: any = Array.isArray(obj) ? [] : {};
-			for (const [key, value] of Object.entries(obj)) {
-				result[key] =
-					typeof value === 'string'
-						? truncateString(value)
-						: typeof value === 'object'
-							? truncateObject(value)
-							: value;
-			}
-			return result;
-		};
+        const truncateObject = (obj: any): any => {
+            if (typeof obj !== 'object' || obj === null) {
+                return typeof obj === 'string' ? truncateString(obj) : obj;
+            }
 
-		const items = arr.slice(0, MAX_LINES).map((item) => {
-			const truncatedItem = truncateObject(item);
-			// 使用2个空格缩进，并在每行前添加 "  • "
-			const jsonString = JSON.stringify(truncatedItem, null, 2)
-				.split('\n')
-				.map((line, index) => (index === 0 ? `  • ${line}` : `    ${line}`))
-				.join('\n');
-			return jsonString;
-		});
+            const result: any = Array.isArray(obj) ? [] : {};
+            for (const [key, value] of Object.entries(obj)) {
+                result[key] =
+                    typeof value === 'string'
+                        ? truncateString(value)
+                        : typeof value === 'object'
+                            ? truncateObject(value)
+                            : value;
+            }
+            return result;
+        };
 
-		let output = items.join('\n');
-		if (arr.length > MAX_LINES) {
-			const remainingCount = arr.length - MAX_LINES;
-			output += `\n  ⋮ ... and ${remainingCount} more items`;
-		}
+        const items = arr.slice(0, MAX_LINES).map((item) => {
+            const truncatedItem = truncateObject(item);
+            // 使用2个空格缩进，并在每行前添加 "  • "
+            const jsonString = JSON.stringify(truncatedItem, null, 2)
+                .split('\n')
+                .map((line, index) => (index === 0 ? `  • ${line}` : `    ${line}`))
+                .join('\n');
+            return jsonString;
+        });
 
-		return output;
-	}
+        let output = items.join('\n');
+        if (arr.length > MAX_LINES) {
+            const remainingCount = arr.length - MAX_LINES;
+            output += `\n  ⋮ ... and ${remainingCount} more items`;
+        }
 
-	private log(level: LogLevel, message: string | object | any[]) {
-		// 使用本地时间，并格式化为 HH:mm:ss 格式
-		const timestamp = new Date().toLocaleTimeString('zh-CN', {
-			hour12: false,
-			hour: '2-digit',
-			minute: '2-digit',
-			second: '2-digit',
-		});
+        return output;
+    }
 
-		const formattedMessage = Array.isArray(message)
-			? this.formatArray(message)
-			: typeof message === 'object'
-				? JSON.stringify(message, null, 2)
-				: message;
+    private log(level: LogLevel, message: string | object | any[]) {
+        // 使用本地时间，并格式化为 HH:mm:ss 格式
+        const timestamp = new Date().toLocaleTimeString('zh-CN', {
+            hour12: false,
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+        });
 
-		const timestampPart = SHOW_TIMESTAMP ? `${colors.gray}${timestamp}${colors.reset} ` : '';
+        const formattedMessage = Array.isArray(message)
+            ? this.formatArray(message)
+            : typeof message === 'object'
+                ? JSON.stringify(message, null, 2)
+                : message;
 
-		const emoji = {
-			debug: '🔍',
-			info: '🐳',
-			warn: '🚨',
-			error: '❌',
-		}[level];
+        const timestampPart = SHOW_TIMESTAMP ? `${colors.gray}${timestamp}${colors.reset} ` : '';
 
-		console.log(
-			timestampPart +
-				`${colors[level]}${emoji} ${level.toUpperCase()}${colors.reset} ` +
-				`${colors.gray}:${colors.reset} ` +
-				`${colors[level]}${formattedMessage}${colors.reset}`
-		);
-	}
+        const emoji = {
+            debug: '🔍',
+            info: '🐳',
+            warn: '🚨',
+            error: '❌',
+        }[level];
 
-	debug(message: string | object) {
-		this.log('debug', message);
-	}
+        console.log(
+            timestampPart +
+            `${colors[level]}${emoji} ${level.toUpperCase()}${colors.reset} ` +
+            `${colors.gray}:${colors.reset} ` +
+            `${colors[level]}${formattedMessage}${colors.reset}`
+        );
+    }
 
-	info(message: string | object) {
-		this.log('info', message);
-	}
+    private getPrefix() {
+        return this.topic ? `${this.topic}: ➡️  ` : '';
+    }
 
-	warn(message: string | object) {
-		this.log('warn', message);
-	}
+    constructor(topic: string = '') {
+        this.topic = topic;
+    }
 
-	error(message: string | object) {
-		this.log('error', message);
-	}
+    debug(message: string | object) {
+        this.log('debug', this.getPrefix() + message);
+    }
 
-	array(title: string, arr: any[]) {
-		this.log('info', title + '\n' + this.formatArray(arr));
-	}
+    info(message: string | object) {
+        this.log('info', this.getPrefix() + message);
+    }
+
+    warn(message: string | object) {
+        this.log('warn', this.getPrefix() + message);
+    }
+
+    error(message: string | object) {
+        this.log('error', this.getPrefix() + message);
+    }
+
+    array(title: string, arr: any[]) {
+        this.log('info', this.getPrefix() + title + '\n' + this.formatArray(arr));
+    }
 }
 
 export const logger = new Logger();
+export const cosyLogger = new Logger(LOG_PREFIX);
