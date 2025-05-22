@@ -1,16 +1,15 @@
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import type { AstroGlobal } from 'astro';
+import { cosyLogger } from '../cosy';
+
+// 默认语言
+export const DEFAULT_LANGUAGE = 'en';
+
 /**
  * 语言工具模块
  *
  * 提供语言相关的工具函数，用于多语言支持
  */
-
-import { getRelativeLocaleUrl } from 'astro:i18n';
-import { logger } from './logger';
-import type { AstroGlobal } from 'astro';
-
-// 默认语言
-export const DEFAULT_LANGUAGE = 'en';
-
 export class LanguageUtil {
 	static getRelativeLink(locale: string, astro: AstroGlobal): string {
 		const debug = false;
@@ -19,7 +18,7 @@ export class LanguageUtil {
 		const result = getRelativeLocaleUrl(locale, originalPath.replaceAll('/' + currentLocale, ''));
 
 		if (debug) {
-			logger.debug(
+			cosyLogger.debug(
 				`getRelativeLink: locale=${locale}, currentPath=${originalPath}, currentLocale=${currentLocale}, result=${result}`
 			);
 		}

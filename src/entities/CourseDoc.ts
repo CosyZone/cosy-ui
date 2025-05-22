@@ -1,4 +1,4 @@
-import { logger } from '../utils/logger';
+import { cosyLogger } from '../cosy';
 import { SidebarItemEntity } from './SidebarItem';
 import type { CourseEntry } from '../database/CourseDB';
 import { courseDB } from '../database/CourseDB';
@@ -36,12 +36,12 @@ export default class CourseDoc extends BaseDoc<typeof COLLECTION_COURSE, CourseE
 	async getAncestor(level: number): Promise<CourseDoc | null> {
 		const debug = false;
 		if (debug) {
-			logger.info(`获取 ${this.entry.id} 的祖先文档，level: ${level}`);
+			cosyLogger.info(`获取 ${this.entry.id} 的祖先文档，level: ${level}`);
 		}
 
 		if (level >= this.getLevel()) {
 			if (debug) {
-				logger.info(`祖先文档为自身`);
+				cosyLogger.info(`祖先文档为自身`);
 			}
 			return this;
 		}
@@ -61,7 +61,7 @@ export default class CourseDoc extends BaseDoc<typeof COLLECTION_COURSE, CourseE
 			(a, b) => a.getOrder() - b.getOrder()
 		);
 		if (debug && children.length > 0) {
-			logger.array(
+			cosyLogger.array(
 				`${this.entry.id} 的子文档(${children.length})`,
 				children.map((child) => `#${child.getOrder()} ${child.entry.id}`)
 			);
@@ -79,7 +79,7 @@ export default class CourseDoc extends BaseDoc<typeof COLLECTION_COURSE, CourseE
 		}
 
 		if (debug) {
-			logger.info(`${this.entry.id} 的侧边栏项目`);
+			cosyLogger.info(`${this.entry.id} 的侧边栏项目`);
 			console.log(childItems);
 		}
 

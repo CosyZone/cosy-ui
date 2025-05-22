@@ -1,5 +1,5 @@
 import MetaDoc from '../entities/MetaDoc';
-import { logger } from '../utils/logger';
+import { cosyLogger } from '../cosy';
 import { type CollectionEntry } from 'astro:content';
 import { BaseDB } from './BaseDB';
 
@@ -63,7 +63,7 @@ class MetaDB extends BaseDB<typeof COLLECTION_META, MetaEntry, MetaDoc> {
 		});
 
 		if (debug) {
-			logger.array('所有元数据文档的路径', paths);
+			cosyLogger.array('所有元数据文档的路径', paths);
 		}
 
 		return paths;

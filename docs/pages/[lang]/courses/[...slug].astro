@@ -1,6 +1,6 @@
 ---
 import DemoLayout from '@docs/layouts/DemoLayout.astro';
-import { Error404, courseDB, logger, type ISidebarItem } from '@cosy/index';
+import { Error404, courseDB, defaultLogger, type ISidebarItem } from '@cosy/index';
 import type { RenderResult } from 'astro:content';
 
 const { lang, slug } = Astro.params;
@@ -27,7 +27,7 @@ export const getStaticPaths = async () => {
     const debug = false;
 
     if (debug) {
-        logger.info(paths);
+        defaultLogger.info(paths);
     }
 
 	return paths;

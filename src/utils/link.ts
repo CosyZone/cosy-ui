@@ -1,4 +1,4 @@
-import { logger } from './logger';
+import { cosyLogger } from '../cosy';
 
 export class LinkUtil {
 	// 从 astro.config.ts 中获取基础路径
@@ -78,7 +78,7 @@ export class LinkUtil {
 		const blogIdWithoutLang = blogId.replace(`${lang}/`, '');
 
 		if (debug) {
-			logger.info(`获取博客文档链接，博客文档ID: ${blogId}`);
+			cosyLogger.info(`获取博客文档链接，博客文档ID: ${blogId}`);
 		}
 
 		return `/${lang}/blogs/${blogIdWithoutLang}`;
@@ -90,7 +90,7 @@ export class LinkUtil {
 		const courseIdWithoutLang = courseId.replace(`${lang}/`, '');
 
 		if (debug) {
-			logger.info(`获取课程文档链接，课程文档ID: ${courseId}`);
+			cosyLogger.info(`获取课程文档链接，课程文档ID: ${courseId}`);
 		}
 
 		return LinkUtil.createUrl(`/${lang}/courses/${courseIdWithoutLang}`);

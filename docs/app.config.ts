@@ -12,6 +12,10 @@ export const navItems: INavItem[] = [
 		label: 'Docs',
 	},
 	{
+		href: `${basePath}en/lessons`,
+		label: 'Lessons',
+	},
+	{
 		href: `${basePath}demos`,
 		label: 'Demos',
 	},

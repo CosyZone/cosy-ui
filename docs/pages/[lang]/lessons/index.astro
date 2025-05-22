@@ -1,0 +1,43 @@
+---
+/**
+ * 这里定义了每个语言的课程列表页，并将其作为静态页面预渲染。
+ */
+
+import DemoLayout from '@docs/layouts/DemoLayout.astro';
+import { CardCourse, lessonDB } from '../../../../src/index';
+export const prerender = true;
+
+export async function getStaticPaths() {
+	return [
+		{
+			params: {
+				lang: '/zh-cn',
+			},
+		},
+		{
+			params: {
+				lang: '/en',
+			},
+		},
+	];
+}
+
+const { lang } = Astro.params;
+
+const lessons = await lessonDB.allDocsByLang(lang);
+const title = lang === 'zh-cn' ? '教程列表' : 'Build Your Own List';
+const description = lang === 'zh-cn' ? '教程列表' : 'Build Your Own List';
+---
+
+<DemoLayout title={title}>
+	<div
+		class="container max-w-screen-lg mx-auto mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
+		{
+			lessons.length > 0 ? (
+				lessons.map((lesson) => <CardCourse title={lesson.getTitle()} link={lesson.getLink()} />)
+			) : (
+				<div class="text-center text-base-content/70">暂无教程</div>
+			)
+		}
+	</div>
+</DemoLayout>

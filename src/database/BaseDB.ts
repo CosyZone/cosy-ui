@@ -1,6 +1,5 @@
 import { getCollection, getEntry, type CollectionEntry, type DataEntryMap } from 'astro:content';
-import { cosyLogger } from '../utils/logger';
-import { LOG_PREFIX } from '..';
+import { cosyLogger, LOG_PREFIX } from '../cosy';
 
 /**
  * BaseDB 是所有数据库类的基类，提供了通用的文档操作功能。

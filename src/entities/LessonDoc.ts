@@ -1,6 +1,6 @@
 import type { LessonEntry } from '../database/LessonDB';
 import { lessonDB } from '../database/LessonDB';
-import { logger } from '../utils/logger';
+import { cosyLogger } from '../cosy';
 import { SidebarItemEntity } from './SidebarItem';
 import { LinkUtil } from '../utils/link';
 import { COLLECTION_LESSON } from '../database/LessonDB';
@@ -31,7 +31,7 @@ export default class LessonDoc extends BaseDoc<typeof COLLECTION_LESSON, LessonE
 		const link = LinkUtil.getLessonLink(lang, this.getId());
 
 		if (debug) {
-			logger.info(`获取 ${this.entry.id} 的链接: ${link}`);
+			cosyLogger.info(`获取 ${this.entry.id} 的链接: ${link}`);
 		}
 
 		return link;
@@ -51,7 +51,7 @@ export default class LessonDoc extends BaseDoc<typeof COLLECTION_LESSON, LessonE
 		const lang = parts[1];
 
 		if (debug) {
-			logger.info(`获取 ${this.entry.id} 的语言: ${lang}`);
+			cosyLogger.info(`获取 ${this.entry.id} 的语言: ${lang}`);
 		}
 
 		return lang;
@@ -61,7 +61,7 @@ export default class LessonDoc extends BaseDoc<typeof COLLECTION_LESSON, LessonE
 		const debug = false;
 
 		if (debug) {
-			logger.info(`获取 ${this.entry.id} 的 HTML`);
+			cosyLogger.info(`获取 ${this.entry.id} 的 HTML`);
 		}
 
 		return this.entry.rendered?.html || '';
@@ -71,7 +71,7 @@ export default class LessonDoc extends BaseDoc<typeof COLLECTION_LESSON, LessonE
 		const debug = false;
 
 		if (debug) {
-			logger.info(`获取 ${this.entry.id} 的 headings`);
+			cosyLogger.info(`获取 ${this.entry.id} 的 headings`);
 		}
 
 		return (this.entry.rendered?.metadata?.headings as IHeadingType[]) || [];
@@ -101,7 +101,7 @@ export default class LessonDoc extends BaseDoc<typeof COLLECTION_LESSON, LessonE
 		}
 
 		if (debug) {
-			logger.info(`${this.entry.id} 的侧边栏项目`);
+			cosyLogger.info(`${this.entry.id} 的侧边栏项目`);
 			console.log(childItems);
 		}
 

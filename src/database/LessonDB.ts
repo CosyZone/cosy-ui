@@ -1,7 +1,7 @@
 import { type CollectionEntry } from 'astro:content';
 import { BaseDB } from './BaseDB';
 import LessonDoc from '../entities/LessonDoc';
-import { logger } from '../utils/logger';
+import { cosyLogger } from '../cosy';
 
 export const COLLECTION_LESSON = 'lessons' as const;
 export type LessonEntry = CollectionEntry<typeof COLLECTION_LESSON>;
@@ -68,7 +68,7 @@ class LessonDB extends BaseDB<typeof COLLECTION_LESSON, LessonEntry, LessonDoc> 
 		const docs = await this.getEntries();
 
 		if (debug) {
-			logger.array('所有文档', docs);
+			cosyLogger.array('所有文档', docs);
 		}
 
 		const paths = docs.map((doc) => {
@@ -91,7 +91,7 @@ class LessonDB extends BaseDB<typeof COLLECTION_LESSON, LessonEntry, LessonDoc> 
 		});
 
 		if (debug) {
-			logger.array('所有文档的路径', paths);
+			cosyLogger.array('所有文档的路径', paths);
 		}
 
 		return paths;

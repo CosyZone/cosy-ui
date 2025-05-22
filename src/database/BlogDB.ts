@@ -1,6 +1,6 @@
 import BlogDoc from '../entities/BlogDoc';
 import type Tag from '../entities/Tag';
-import { logger } from '../utils/logger';
+import { cosyLogger } from '../cosy';
 import { type CollectionEntry } from 'astro:content';
 import { BaseDB } from './BaseDB';
 
@@ -40,7 +40,7 @@ class BlogDB extends BaseDB<typeof COLLECTION_BLOG, BlogEntry, BlogDoc> {
 		const entries = await this.getDocsByDepth(2);
 
 		if (debug) {
-			logger.array('所有博客文档', entries);
+			cosyLogger.array('所有博客文档', entries);
 		}
 
 		return entries;
@@ -78,7 +78,7 @@ class BlogDB extends BaseDB<typeof COLLECTION_BLOG, BlogEntry, BlogDoc> {
 		});
 
 		if (debug) {
-			logger.array('所有博客文档的路径', paths);
+			cosyLogger.array('所有博客文档的路径', paths);
 		}
 
 		return paths;
@@ -123,7 +123,7 @@ class BlogDB extends BaseDB<typeof COLLECTION_BLOG, BlogEntry, BlogDoc> {
 		const posts = await this.allBlogsByLang(lang);
 
 		if (debug) {
-			logger.array('posts', posts);
+			cosyLogger.array('posts', posts);
 		}
 
 		if (posts.length === 0) {
@@ -140,7 +140,7 @@ class BlogDB extends BaseDB<typeof COLLECTION_BLOG, BlogEntry, BlogDoc> {
 		});
 
 		if (debug) {
-			logger.array('tags', Array.from(tagsMap.values()));
+			cosyLogger.array('tags', Array.from(tagsMap.values()));
 		}
 
 		return Array.from(tagsMap.values());
@@ -187,7 +187,7 @@ class BlogDB extends BaseDB<typeof COLLECTION_BLOG, BlogEntry, BlogDoc> {
 		});
 
 		if (debug) {
-			logger.array('所有的标签路径', paths);
+			cosyLogger.array('所有的标签路径', paths);
 		}
 
 		return paths;

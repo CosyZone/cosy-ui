@@ -1,6 +1,6 @@
 import { render, type RenderResult, type CollectionEntry, type DataEntryMap } from 'astro:content';
 import { SidebarItemEntity, type SidebarProvider } from './SidebarItem';
-import { logger } from '../utils/logger';
+import { cosyLogger } from '../cosy';
 
 /**
  * 文档基类，提供所有文档类型共享的基本功能
@@ -8,8 +8,7 @@ import { logger } from '../utils/logger';
 export abstract class BaseDoc<
 	Collection extends keyof DataEntryMap,
 	T extends CollectionEntry<Collection>,
-> implements SidebarProvider
-{
+> implements SidebarProvider {
 	protected entry: T;
 
 	constructor(entry: T) {
@@ -155,7 +154,7 @@ export abstract class BaseDoc<
 		const childItems = await Promise.all(children.map((child) => child.toSidebarItem()));
 
 		if (debug) {
-			logger.info(`${this.entry.id} 的侧边栏项目`);
+			cosyLogger.info(`${this.entry.id} 的侧边栏项目`);
 			console.log(childItems);
 		}
 

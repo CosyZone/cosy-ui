@@ -1,6 +1,6 @@
 
-
 export { default as Card } from './Card.astro';
+export { default as CardCourse } from './CardCourse.astro';
 export { default as CardBasic } from './CardBasic.astro';
 export { default as CardWithImage } from './CardWithImage.astro';
 export { default as CardLink } from './CardLink.astro';

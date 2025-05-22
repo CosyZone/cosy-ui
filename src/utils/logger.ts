@@ -1,5 +1,3 @@
-import { LOG_PREFIX } from '../index';
-
 type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 
 // 控制是否显示时间戳
@@ -15,7 +13,7 @@ const colors = {
     gray: '\x1b[90m', // 灰色用于时间戳
 };
 
-class Logger {
+export class Logger {
     private topic: string = '';
 
     private formatArray(arr: any[]): string {
@@ -123,5 +121,4 @@ class Logger {
     }
 }
 
-export const logger = new Logger();
-export const cosyLogger = new Logger(LOG_PREFIX);
+export const defaultLogger = new Logger();

@@ -1,7 +1,7 @@
 import { type CollectionEntry } from 'astro:content';
 import { BaseDB } from './BaseDB';
 import ExperimentDoc from '../entities/ExperimentDoc';
-import { logger } from '../utils/logger';
+import { cosyLogger } from '../cosy';
 
 export const COLLECTION_EXPERIMENT = 'experiments' as const;
 export type ExperimentEntry = CollectionEntry<typeof COLLECTION_EXPERIMENT>;
@@ -68,7 +68,7 @@ class ExperimentDB extends BaseDB<typeof COLLECTION_EXPERIMENT, ExperimentEntry,
 		const docs = await this.getEntries();
 
 		if (debug) {
-			logger.array('所有文档', docs);
+			cosyLogger.array('所有文档', docs);
 		}
 
 		const paths = docs.map((doc) => {
@@ -91,7 +91,7 @@ class ExperimentDB extends BaseDB<typeof COLLECTION_EXPERIMENT, ExperimentEntry,
 		});
 
 		if (debug) {
-			logger.array('所有文档的路径', paths);
+			cosyLogger.array('所有文档的路径', paths);
 		}
 
 		return paths;

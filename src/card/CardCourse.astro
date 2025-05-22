@@ -1,0 +1,32 @@
+---
+import { Image } from 'astro:assets';
+import bookCover from '../assets/book.png';
+
+interface Props {
+	title: string;
+	link: string;
+}
+
+const { title, link } = Astro.props;
+---
+
+<div>
+	<a href={link} class="justify-center flex no-underline text-base-content">
+		<div class="w-56 h-80">
+			<div
+				class="bg-gradient-to-br w-full h-full from-accent/50 to-primary/30 rounded-3xl shadow-lg backdrop-blur-sm">
+				<div
+					class="bg-base-100/60 w-full h-full rounded-3xl border border-base-content/30 hover:scale-105 hover:shadow-2xl transform duration-200 backdrop-filter backdrop-blur-sm">
+					<div class="card-body p-1 h-full">
+						<Image src={bookCover} alt={title} class="h-3/5 w-full" />
+						<div>
+							<h2 class="text-lg text-center font-medium">
+								{title}
+							</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</a>
+</div>

@@ -1,4 +1,4 @@
-import { logger } from './logger';
+import { cosyLogger } from '../cosy';
 
 /**
  * 判断当前路径是否匹配目标路径
@@ -10,13 +10,13 @@ export function isPathMatch(currentPath: string, targetPath: string): boolean {
 	const debug = false;
 
 	if (debug) {
-		logger.info(`判断 ${currentPath} 是否匹配 ${targetPath}`);
+		cosyLogger.info(`判断 ${currentPath} 是否匹配 ${targetPath}`);
 	}
 
 	// 如果完全匹配，直接返回
 	if (currentPath === targetPath) {
 		if (debug) {
-			logger.info(`${currentPath} 完全匹配 ${targetPath}`);
+			cosyLogger.info(`${currentPath} 完全匹配 ${targetPath}`);
 		}
 		return true;
 	}
