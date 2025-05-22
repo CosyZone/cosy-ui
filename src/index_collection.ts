@@ -10,7 +10,7 @@ export const makeArticleCollection = (base: string) => {
         schema: z.object({
             title: z.string().optional(),
             folder: z.boolean().optional(),
-            order: z.number().optional,
+            order: z.number().optional(),
             description: z.string().optional(),
         }),
     });
@@ -50,7 +50,7 @@ export const makeCourseCollection = (base: string) => {
             title: z.string().optional(),
             description: z.string().optional(),
             folder: z.boolean().optional(),
-            order: z.number().optional,
+            order: z.number().optional(),
         }),
     });
 };
