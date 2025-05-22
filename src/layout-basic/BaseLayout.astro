@@ -50,7 +50,7 @@
  */
 
 import '../style.ts';
-import { LinkUtil, type IMetaProps } from '../index';
+import { type IMetaProps } from '../index';
 
 export interface Props extends IMetaProps {
 	debug?: boolean;
@@ -66,12 +66,12 @@ const {
 	head,
 	debug = true,
 	class: className,
+	favicon,
 	'class:list': classList,
 } = Astro.props;
 
 // 处理类名
 let bodyClasses = debug ? 'cosy:border cosy:border-red-500' : className || '';
-const faviconPath = LinkUtil.createUrl('/favicon.png');
 ---
 
 <!doctype html>
@@ -83,7 +83,7 @@ const faviconPath = LinkUtil.createUrl('/favicon.png');
 		{description && <meta name="description" content={description} />}
 		{keywords && <meta name="keywords" content={keywords} />}
 		<meta name="generator" content={Astro.generator} />
-		<link rel="icon" type="image/svg+xml" href={faviconPath} />
+		{favicon && <link rel="icon" type={favicon.format} href={favicon.src} />}
 
 		<!-- 自定义样式 -->
 		{customStyles && <style set:html={customStyles} />}

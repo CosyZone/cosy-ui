@@ -6,6 +6,11 @@ export interface IMetaProps {
 	robots: string;
 
 	/**
+	 * 图标
+	 */
+	favicon?: ImageMetadata;
+
+	/**
 	 * 基础路径，用于处理网站部署在二级目录的情况
 	 * @default ""
 	 */

@@ -1,6 +1,7 @@
 ---
 import { navItems, homeLink } from '@docs/app.config';
 import { AppLayout, Hero } from '../../../src/index';
+import HeroImage from '@docs/assets/hero.png';
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
@@ -63,7 +64,7 @@ const languages = ['zh-cn', 'en'];
 		title="产品首页"
 		backgroundOverlay="light"
 		overlayOpacity={0.3}
-		backgroundImage={homeLink + '/hero.png'}
+		backgroundImage={HeroImage.src}
 		description="安心做事，真诚为您"
 		links={[]}
 	/>

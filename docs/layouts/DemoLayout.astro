@@ -1,6 +1,7 @@
 ---
 import { navItems, homeLink } from '../app.config';
 import { type ISidebarItem, AppLayout } from '../../src/index';
+import Favicon from '@docs/assets/favicon.png';
 
 interface Props {
 	title: string;
@@ -21,6 +22,7 @@ const currentLocale = Astro.currentLocale;
 		keywords: 'Cosy UI, Astro, component library',
 		author: 'CofficLab',
 		robots: 'index, follow',
+		favicon: Favicon,
 	}}
 	footerConfig={{
 		siteName: 'Cosy UI',
