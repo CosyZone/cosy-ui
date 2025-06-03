@@ -1,106 +1,106 @@
 ---
 title: 'Link'
-description: '增强的链接组件，提供丰富的样式变体和动画效果，适用于导航、按钮和行动号召等多种场景'
+description: 'Enhanced link component providing rich style variants and animation effects, suitable for navigation, buttons, calls-to-action, and various other scenarios'
 folder: false
 order: 11
 ---
 
 import { Link, CodeExample } from '@cosy/index';
 
-## 基础用法
+## Basic Usage
 
-最简单的链接展示方式
+The simplest way to display links
 
 <CodeExample
-  code={`<Link href="/about">关于我们</Link>`}
+  code={`<Link href="/about">About Us</Link>`}
 >
-  <Link href="/about">关于我们</Link>
+  <Link href="/about">About Us</Link>
 </CodeExample>
 
-## 外部链接
+## External Links
 
-链接到外部网站，自动添加新窗口打开属性
+Links to external websites, automatically adding the open-in-new-window attribute
 
 <CodeExample
-  code={`<Link href="https://example.com" external>访问外部网站</Link>`}
+  code={`<Link href="https://example.com" external>Visit External Website</Link>`}
 >
-  <Link href="https://example.com" external>访问外部网站</Link>
+  <Link href="https://example.com" external>Visit External Website</Link>
 </CodeExample>
 
-## 样式变体
+## Style Variants
 
-通过`variant`属性应用不同的样式变体
+Apply different style variants using the `variant` property
 
 <CodeExample
-  code={`<Link href="/signup" variant="primary">主要链接</Link>
-<Link href="/learn-more" variant="secondary">次要链接</Link>
-<Link href="/docs" variant="text">文本链接</Link>
-<Link href="/get-started" variant="cta">行动号召</Link>
-<Link href="/preview" variant="ghost">幽灵链接</Link>`}
+  code={`<Link href="/signup" variant="primary">Primary Link</Link>
+<Link href="/learn-more" variant="secondary">Secondary Link</Link>
+<Link href="/docs" variant="text">Text Link</Link>
+<Link href="/get-started" variant="cta">Call to Action</Link>
+<Link href="/preview" variant="ghost">Ghost Link</Link>`}
 >
-  <Link href="/signup" variant="primary">主要链接</Link>
-  <Link href="/learn-more" variant="secondary" class="cosy:ml-2">次要链接</Link>
-  <Link href="/docs" variant="text" class="cosy:ml-2">文本链接</Link>
-  <Link href="/get-started" variant="cta" class="cosy:ml-2">行动号召</Link>
-  <Link href="/preview" variant="ghost" class="cosy:ml-2">幽灵链接</Link>
+  <Link href="/signup" variant="primary">Primary Link</Link>
+  <Link href="/learn-more" variant="secondary" class="cosy:ml-2">Secondary Link</Link>
+  <Link href="/docs" variant="text" class="cosy:ml-2">Text Link</Link>
+  <Link href="/get-started" variant="cta" class="cosy:ml-2">Call to Action</Link>
+  <Link href="/preview" variant="ghost" class="cosy:ml-2">Ghost Link</Link>
 </CodeExample>
 
-## 块级显示
+## Block Display
 
-通过`block`属性使链接占据整行显示
+Make links occupy the entire row using the `block` property
 
 <CodeExample
-  code={`<Link href="/contact" block variant="primary">独占一行的链接</Link>
-<p class="cosy:mt-2">这是一段文字，其中包含一个<Link href="/inline">内联链接</Link>。</p>`}
+  code={`<Link href="/contact" block variant="primary">Full-width Link</Link>
+<p class="cosy:mt-2">This is a paragraph that contains an <Link href="/inline">inline link</Link>.</p>`}
 >
-  <Link href="/contact" block variant="primary">独占一行的链接</Link>
-  <p class="cosy:mt-2">这是一段文字，其中包含一个<Link href="/inline">内联链接</Link>。</p>
+  <Link href="/contact" block variant="primary">Full-width Link</Link>
+  <p class="cosy:mt-2">This is a paragraph that contains an <Link href="/inline">inline link</Link>.</p>
 </CodeExample>
 
-## 动画效果
+## Animation Effects
 
-通过`animation`属性添加悬停动画效果
+Add hover animation effects using the `animation` property
 
 <CodeExample
-  code={`<Link href="/contact" animation="hover-lift" variant="primary">上浮效果</Link>
-<Link href="/features" animation="hover-glow" variant="secondary">发光效果</Link>
-<Link href="/pricing" animation="hover-scale" variant="cta">缩放效果</Link>`}
+  code={`<Link href="/contact" animation="hover-lift" variant="primary">Lift Effect</Link>
+<Link href="/features" animation="hover-glow" variant="secondary">Glow Effect</Link>
+<Link href="/pricing" animation="hover-scale" variant="cta">Scale Effect</Link>`}
 >
-  <Link href="/contact" animation="hover-lift" variant="primary">上浮效果</Link>
-  <Link href="/features" animation="hover-glow" variant="secondary" class="cosy:ml-2">发光效果</Link>
-  <Link href="/pricing" animation="hover-scale" variant="cta" class="cosy:ml-2">缩放效果</Link>
+  <Link href="/contact" animation="hover-lift" variant="primary">Lift Effect</Link>
+  <Link href="/features" animation="hover-glow" variant="secondary" class="cosy:ml-2">Glow Effect</Link>
+  <Link href="/pricing" animation="hover-scale" variant="cta" class="cosy:ml-2">Scale Effect</Link>
 </CodeExample>
 
-## 尺寸变体
+## Size Variants
 
-通过`size`属性控制链接的尺寸
+Control the size of links using the `size` property
 
 <CodeExample
-  code={`<Link href="/small" size="sm">小型链接</Link>
-<Link href="/medium" size="md">中型链接</Link>
-<Link href="/large" size="lg">大型链接</Link>`}
+  code={`<Link href="/small" size="sm">Small Link</Link>
+<Link href="/medium" size="md">Medium Link</Link>
+<Link href="/large" size="lg">Large Link</Link>`}
 >
-  <Link href="/small" size="sm">小型链接</Link>
-  <Link href="/medium" size="md" class="cosy:ml-2">中型链接</Link>
-  <Link href="/large" size="lg" class="cosy:ml-2">大型链接</Link>
+  <Link href="/small" size="sm">Small Link</Link>
+  <Link href="/medium" size="md" class="cosy:ml-2">Medium Link</Link>
+  <Link href="/large" size="lg" class="cosy:ml-2">Large Link</Link>
 </CodeExample>
 
-## 文本居中
+## Centered Text
 
-通过`centerText`属性使链接文本居中显示
+Center the link text using the `centerText` property
 
 <CodeExample
-  code={`<Link href="/centered" block centerText variant="primary">居中显示的链接文本</Link>`}
+  code={`<Link href="/centered" block centerText variant="primary">Centered Link Text</Link>`}
 >
-  <Link href="/centered" block centerText variant="primary">居中显示的链接文本</Link>
+  <Link href="/centered" block centerText variant="primary">Centered Link Text</Link>
 </CodeExample>
 
-## 调试模式
+## Debug Mode
 
-通过`debug`属性显示链接边界，便于开发调试
+Display link boundaries using the `debug` property for easier development debugging
 
 <CodeExample
-  code={`<Link href="/debug" debug>显示边界的链接</Link>`}
+  code={`<Link href="/debug" debug>Link with Visible Boundaries</Link>`}
 >
-  <Link href="/debug" debug>显示边界的链接</Link>
-</CodeExample> 
+  <Link href="/debug" debug>Link with Visible Boundaries</Link>
+</CodeExample>

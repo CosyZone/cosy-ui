@@ -1,17 +1,17 @@
 ---
 title: 'TableOfContents'
-description: '目录导航组件，用于显示页面内容的标题结构，并在用户滚动页面时高亮当前可见标题'
+description: 'Table of contents navigation component, used to display the heading structure of page content and highlight the currently visible heading as the user scrolls'
 folder: false
 order: 15
 ---
 
 import { TableOfContents, CodeExample } from '@cosy/index';
 
-TableOfContents 组件是一个目录导航组件，用于显示页面内容的标题结构。它会自动检测页面中的标题元素，生成目录列表，并在用户滚动页面时高亮当前可见的标题。当页面只有一个标题或没有足够的标题结构时，组件会自动隐藏。
+The TableOfContents component is a table of contents navigation component used to display the heading structure of page content. It automatically detects heading elements on the page, generates a table of contents list, and highlights the currently visible heading as the user scrolls. When the page has only one heading or insufficient heading structure, the component will automatically hide.
 
-## 基础用法
+## Basic Usage
 
-默认情况下，组件会自动检测页面中的 h2 和 h3 标题，生成目录列表：
+By default, the component automatically detects h2 and h3 headings on the page and generates a table of contents list:
 
 <CodeExample
   code={`<TableOfContents />`}
@@ -19,27 +19,27 @@ TableOfContents 组件是一个目录导航组件，用于显示页面内容的�
   <TableOfContents />
 </CodeExample>
 
-## 自定义标题和选择器
+## Custom Title and Selector
 
-您可以自定义目录的标题文本和要检测的标题选择器：
+You can customize the title text of the table of contents and the heading selector to detect:
 
 <CodeExample
   code={`<TableOfContents
-  title="章节导航"
+  title="Chapter Navigation"
   selector="h2, h3, h4"
   maxDepth={4}
 />`}
 >
   <TableOfContents
-    title="章节导航"
+    title="Chapter Navigation"
     selector="h2, h3, h4"
     maxDepth={4}
   />
 </CodeExample>
 
-## 非固定位置
+## Non-Fixed Position
 
-默认情况下，目录会固定在右侧，您也可以设置为非固定位置：
+By default, the table of contents is fixed on the right side. You can also set it to a non-fixed position:
 
 <CodeExample
   code={`<TableOfContents fixed={false} />`}
@@ -47,9 +47,9 @@ TableOfContents 组件是一个目录导航组件，用于显示页面内容的�
   <TableOfContents fixed={false} />
 </CodeExample>
 
-## 自定义内容容器
+## Custom Content Container
 
-您可以指定一个特定的内容容器，组件将只在该容器内查找标题：
+You can specify a specific content container, and the component will only look for headings within that container:
 
 <CodeExample
   code={`<TableOfContents containerSelector=".article-content" />`}

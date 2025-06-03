@@ -1,119 +1,119 @@
 ---
 title: 'ProductCard'
-description: '用于展示产品信息的卡片组件，包括产品名称、图片、描述和链接'
+description: 'Card component for displaying product information, including product name, image, description, and links'
 folder: false
 order: 13
 ---
 
 import { ProductCard, CodeExample, getExampleImage } from '@cosy/index';
 
-## 基础产品卡片
+## Basic Product Card
 
-最基本的产品信息展示卡片
+The most basic product information display card
 
 <CodeExample
   code={`<ProductCard
-  name="示例产品"
+  name="Example Product"
   image="/images/products/example-product.jpg"
-  description="这是一款功能强大的示例产品，为用户提供优质体验。"
+  description="This is a powerful example product that provides a quality experience for users."
   productUrl="https://example.com/product"
 />`}
 >
   <ProductCard
-    name="示例产品"
+    name="Example Product"
     image={getExampleImage({ width: 300, height: 200 })}
-    description="这是一款功能强大的示例产品，为用户提供优质体验。"
+    description="This is a powerful example product that provides a quality experience for users."
     productUrl="https://example.com/product"
   />
 </CodeExample>
 
-## 带App Store链接的产品卡片
+## Product Card with App Store Link
 
-同时提供产品官网和App Store下载链接
+Provides both product website and App Store download links
 
 <CodeExample
   code={`<ProductCard
-  name="移动应用示例"
+  name="Mobile App Example"
   image={getExampleImage({ width: 300, height: 200 })}
-  description="一款优秀的移动应用，让您随时随地享受便捷服务。"
+  description="An excellent mobile application that lets you enjoy convenient services anytime, anywhere."
   productUrl="https://example.com/app"
   appStoreUrl="https://apps.apple.com/app/example"
 />`}
 >
   <ProductCard
-    name="移动应用示例"
+    name="Mobile App Example"
     image={getExampleImage({ width: 300, height: 200 })}
-    description="一款优秀的移动应用，让您随时随地享受便捷服务。"
+    description="An excellent mobile application that lets you enjoy convenient services anytime, anywhere."
     productUrl="https://example.com/app"
     appStoreUrl="https://apps.apple.com/app/example"
   />
 </CodeExample>
 
-## 带GitHub链接的产品卡片
+## Product Card with GitHub Link
 
-对于开源产品，可以同时提供官网、GitHub和App Store链接
+For open source products, you can provide website, GitHub, and App Store links simultaneously
 
 <CodeExample
   code={`<ProductCard
-  name="开源项目示例"
+  name="Open Source Project Example"
   image={getExampleImage({ width: 300, height: 200 })}
-  description="一个优秀的开源项目，欢迎参与贡献。"
+  description="An excellent open source project. Contributions welcome."
   productUrl="https://example.com/opensource"
   githubUrl="https://github.com/example/repo"
   appStoreUrl="https://apps.apple.com/app/opensource"
 />`}
 >
   <ProductCard
-    name="开源项目示例"
+    name="Open Source Project Example"
     buttonLayout="column"
     image={getExampleImage({ width: 300, height: 200 })}
-    description="一个优秀的开源项目，欢迎参与贡献。"
+    description="An excellent open source project. Contributions welcome."
     productUrl="https://example.com/opensource"
     githubUrl="https://github.com/example/repo"
     appStoreUrl="https://apps.apple.com/app/opensource"
   />
 </CodeExample>
 
-## 自定义按钮文本
+## Custom Button Text
 
-通过 `primaryButtonText`、`secondaryButtonText` 和 `githubButtonText` 属性自定义按钮文本
+Customize button text using the `primaryButtonText`, `secondaryButtonText`, and `githubButtonText` properties
 
 <CodeExample
   code={`<ProductCard
-  name="自定义按钮示例"
+  name="Custom Button Example"
   image={getExampleImage({ width: 300, height: 200 })}
-  description="此产品支持自定义按钮文本，提供更灵活的展示方式。"
+  description="This product supports custom button text, providing a more flexible display method."
   productUrl="https://example.com/custom"
   appStoreUrl="https://apps.apple.com/app/custom"
   githubUrl="https://github.com/example/custom"
-  primaryButtonText="查看详情"
-  secondaryButtonText="立即下载"
-  githubButtonText="查看源码"
+  primaryButtonText="View Details"
+  secondaryButtonText="Download Now"
+  githubButtonText="View Source"
 />`}
 >
   <ProductCard
-    name="自定义按钮示例"
+    name="Custom Button Example"
     buttonLayout="column"
     image={getExampleImage({ width: 300, height: 200 })}
-    description="此产品支持自定义按钮文本，提供更灵活的展示方式。"
+    description="This product supports custom button text, providing a more flexible display method."
     productUrl="https://example.com/custom"
     appStoreUrl="https://apps.apple.com/app/custom"
     githubUrl="https://github.com/example/custom"
-    primaryButtonText="查看详情"
-    secondaryButtonText="立即下载"
-    githubButtonText="查看源码"
+    primaryButtonText="View Details"
+    secondaryButtonText="Download Now"
+    githubButtonText="View Source"
   />
 </CodeExample>
 
-## 垂直按钮布局
+## Vertical Button Layout
 
-通过 `buttonLayout="column"` 属性设置按钮垂直排列
+Set buttons to be arranged vertically using the `buttonLayout="column"` property
 
 <CodeExample
   code={`<ProductCard
-  name="垂直按钮示例"
+  name="Vertical Button Example"
   image={getExampleImage({ width: 300, height: 200 })}
-  description="使用垂直按钮布局，适合需要强调各个操作的场景。"
+  description="Using vertical button layout, suitable for scenarios where each action needs to be emphasized."
   productUrl="https://example.com/vertical"
   appStoreUrl="https://apps.apple.com/app/vertical"
   githubUrl="https://github.com/example/vertical"
@@ -121,9 +121,9 @@ import { ProductCard, CodeExample, getExampleImage } from '@cosy/index';
 />`}
 >
   <ProductCard
-    name="垂直按钮示例"
+    name="Vertical Button Example"
     image={getExampleImage({ width: 300, height: 200 })}
-    description="使用垂直按钮布局，适合需要强调各个操作的场景。"
+    description="Using vertical button layout, suitable for scenarios where each action needs to be emphasized."
     productUrl="https://example.com/vertical"
     appStoreUrl="https://apps.apple.com/app/vertical"
     githubUrl="https://github.com/example/vertical"
@@ -131,10 +131,10 @@ import { ProductCard, CodeExample, getExampleImage } from '@cosy/index';
   />
 </CodeExample>
 
-## 等高卡片布局
+## Equal Height Card Layout
 
-在网格或列表中展示多个产品卡片时，可能会因为内容长度不同导致卡片高度不一致，影响整体美观。
-通过设置 `equalHeight` 属性，可以确保所有卡片高度一致，实现整齐的布局效果。
+When displaying multiple product cards in a grid or list, cards may have inconsistent heights due to different content lengths, affecting the overall aesthetics.
+By setting the `equalHeight` property, you can ensure all cards have the same height, achieving a neat layout effect.
 
 <CodeExample
   code={`<div class="cosy:grid cosy:grid-cols-2 cosy:gap-4">
@@ -178,10 +178,10 @@ import { ProductCard, CodeExample, getExampleImage } from '@cosy/index';
   </div>
 </CodeExample>
 
-## 控制描述文本行数
+## Description Text Line Control
 
-通过 `descriptionLines` 属性可以控制描述文本的最大显示行数，超出部分会被截断并显示省略号。
-这有助于保持布局的一致性，防止过长的描述文本破坏卡片设计。
+You can control the number of lines displayed for the description text using the `descriptionLines` property. Text exceeding this limit will be truncated and displayed with an ellipsis.
+This is very useful for maintaining card layout consistency, especially in grid layouts.
 
 <CodeExample
   code={`<div class="cosy:grid cosy:grid-cols-2 cosy:gap-4">
@@ -221,9 +221,9 @@ import { ProductCard, CodeExample, getExampleImage } from '@cosy/index';
   </div>
 </CodeExample>
 
-## 完整的网格布局示例
+## Comprehensive Example: Grid Layout
 
-结合 `equalHeight` 和 `descriptionLines` 属性，可以创建一个整齐、一致的产品网格布局。
+By combining equal height cards and description line control, you can achieve a neat and aesthetically pleasing product grid layout.
 
 <CodeExample
   code={`<div class="cosy:grid cosy:grid-cols-3 cosy:gap-4">
@@ -291,13 +291,15 @@ import { ProductCard, CodeExample, getExampleImage } from '@cosy/index';
   </div>
 </CodeExample>
 
-## 不同尺寸的产品卡片
+## Size Variants
 
-ProductCard 组件提供了五种预设尺寸：xs、sm、md、lg 和 xl，以适应不同的场景需求。
+The `ProductCard` component provides multiple size variants that can be selected according to different display requirements.
 
-### 超小尺寸 (xs)
+Available size options include: `xs`, `sm`, `md`, `lg`, and `xl`, with the default being `md`.
 
-适合密集布局或侧边栏展示
+### Extra Small Size (xs)
+
+Suitable for sidebars or compact layouts
 
 <CodeExample
   code={`<ProductCard
@@ -317,9 +319,9 @@ ProductCard 组件提供了五种预设尺寸：xs、sm、md、lg 和 xl，以�
   />
 </CodeExample>
 
-### 小尺寸 (sm)
+### Small Size (sm)
 
-适合列表页面或网格布局
+Suitable for list pages or grid layouts
 
 <CodeExample
   code={`<ProductCard
@@ -339,9 +341,9 @@ ProductCard 组件提供了五种预设尺寸：xs、sm、md、lg 和 xl，以�
   />
 </CodeExample>
 
-### 中等尺寸 (md) - 默认
+### Medium Size (md) - Default
 
-适合一般产品展示页面
+Suitable for standard product pages
 
 <CodeExample
   code={`<ProductCard
@@ -361,9 +363,9 @@ ProductCard 组件提供了五种预设尺寸：xs、sm、md、lg 和 xl，以�
   />
 </CodeExample>
 
-### 大尺寸 (lg)
+### Large Size (lg)
 
-适合突出显示重要产品
+Suitable for highlighted products
 
 <CodeExample
   code={`<ProductCard
@@ -383,9 +385,9 @@ ProductCard 组件提供了五种预设尺寸：xs、sm、md、lg 和 xl，以�
   />
 </CodeExample>
 
-### 超大尺寸 (xl)
+### Extra Large Size (xl)
 
-适合特色产品或首页展示
+Suitable for hero sections or landing pages
 
 <CodeExample
   code={`<ProductCard
