@@ -1,0 +1,41 @@
+---
+/**
+ * @component Footer.Complete
+ *
+ * @description
+ * 展示完整功能的页脚示例，包含所有主要属性。
+ */
+import { Footer } from '../index';
+---
+
+<Footer
+	siteName="我的网站"
+	homeLink="/"
+	slogan="简单而强大"
+	company="我的公司"
+	copyright="保留所有权利"
+	inspirationalSlogan="构建美好的数字体验"
+	logo={{ src: '/logo.png', alt: '网站Logo' }}
+	products={[
+		{ name: '产品A', href: '/products/a' },
+		{ name: '产品B', href: '/products/b' },
+		{ name: '产品C', href: '/products/c' },
+		{ name: '外部产品', href: 'https://example.com', external: true },
+	]}
+	socialLinks={[
+		'https://github.com/myusername',
+		'https://twitter.com/myusername',
+		'https://linkedin.com/in/myusername',
+		'https://facebook.com/myusername',
+	]}
+	aboutLink="/about"
+	contactLink="/contact"
+	termsLink="/terms"
+	privacyLink="/privacy"
+	teamLink="/team"
+	careersLink="/careers"
+	newsLink="/news"
+	blogLink="/blog"
+	faqLink="/faq"
+	icp="京ICP备12345678号"
+/>

@@ -31,9 +31,11 @@ const { title, links } = Astro.props;
 	<ul class="cosy:flex cosy:flex-col cosy:gap-2">
 		{
 			links.map((link) => (
-				<li>
+				<li class="cosy:list-none">
 					{link.href ? (
-						<a href={link.href} class="cosy:link cosy:link-hover">
+						<a
+							href={link.href}
+							class="cosy:link cosy:link-hover cosy:no-underline cosy:hover:no-underline">
 							{link.name}
 						</a>
 					) : (
