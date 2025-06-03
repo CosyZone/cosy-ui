@@ -8,7 +8,6 @@ import ButtonGhost from './ButtonGhost.astro';
 import ButtonLink from './ButtonLink.astro';
 import ButtonOutline from './ButtonOutline.astro';
 import ButtonNeutral from './ButtonNeutral.astro';
-import VueButtonVariants from './ButtonVariants.vue';
 import ButtonInfoSourceCode from './ButtonInfo.astro?raw';
 import ButtonSuccessSourceCode from './ButtonSuccess.astro?raw';
 import ButtonWarningSourceCode from './ButtonWarning.astro?raw';
@@ -17,11 +16,10 @@ import ButtonGhostSourceCode from './ButtonGhost.astro?raw';
 import ButtonLinkSourceCode from './ButtonLink.astro?raw';
 import ButtonOutlineSourceCode from './ButtonOutline.astro?raw';
 import ButtonNeutralSourceCode from './ButtonNeutral.astro?raw';
-import VueButtonVariantsSourceCode from './ButtonVariants.vue?raw';
 ---
 
 <CodeContainer
-	titles={['Info', 'Success', 'Warning', 'Error', 'Ghost', 'Link', 'Outline', 'Neutral', 'Vue']}
+	titles={['Info', 'Success', 'Warning', 'Error', 'Ghost', 'Link', 'Outline', 'Neutral']}
 	codes={[
 		ButtonInfoSourceCode,
 		ButtonSuccessSourceCode,
@@ -31,7 +29,6 @@ import VueButtonVariantsSourceCode from './ButtonVariants.vue?raw';
 		ButtonLinkSourceCode,
 		ButtonOutlineSourceCode,
 		ButtonNeutralSourceCode,
-		VueButtonVariantsSourceCode,
 	]}>
 	<div id="tab-1">
 		<ButtonInfo />
@@ -63,9 +60,5 @@ import VueButtonVariantsSourceCode from './ButtonVariants.vue?raw';
 
 	<div id="tab-8">
 		<ButtonNeutral />
-	</div>
-
-	<div id="tab-9">
-		<VueButtonVariants client:load />
 	</div>
 </CodeContainer>

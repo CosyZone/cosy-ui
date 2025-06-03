@@ -1,17 +1,11 @@
 ---
 import { CodeContainer } from '../index';
 import ButtonBasic from './ButtonBasic.astro';
-import VueButtonBasic from './ButtonBasic.vue';
 import ButtonBasicSourceCode from './ButtonBasic.astro?raw';
-import VueButtonBasicSourceCode from './ButtonBasic.vue?raw';
 ---
 
-<CodeContainer codes={[ButtonBasicSourceCode, VueButtonBasicSourceCode]} titles={['Astro', 'Vue']}>
+<CodeContainer codes={[ButtonBasicSourceCode]} titles={['Basic']}>
 	<div id="tab-1">
 		<ButtonBasic />
-	</div>
-
-	<div id="tab-2">
-		<VueButtonBasic client:load />
 	</div>
 </CodeContainer>
