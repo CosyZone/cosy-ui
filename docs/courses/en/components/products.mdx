@@ -1,5 +1,5 @@
 ---
-title: 'Products Component'
+title: 'Products'
 description: 'A container component for displaying multiple product cards, supporting grid and list layouts, automatically adapting to different screen sizes'
 folder: false
 order: 14
@@ -71,7 +71,7 @@ Use grid layout to display products and customize the number of columns
     {
       name: "Product 3",
       image: "/images/products/product3.jpg",
-      description: "A third excellent product that meets diverse user needs.",
+      description: "A third excellent product that meets users' diverse needs.",
       productUrl: "https://example.com/product3"
     }
   ]}
@@ -96,7 +96,7 @@ Use grid layout to display products and customize the number of columns
       {
         name: "Product 3",
         image: getExampleImage({ width: 300, height: 200 }),
-        description: "A third excellent product that meets diverse user needs.",
+        description: "A third excellent product that meets users' diverse needs.",
         productUrl: "https://example.com/product3"
       }
     ]}
@@ -147,7 +147,7 @@ Use list layout to display products vertically
 
 ## Custom Card Size and Spacing
 
-Adjust the product display effect by setting card size and spacing
+Adjust product display effect by setting card size and spacing
 
 <CodeExample
   code={`<Products
@@ -169,7 +169,7 @@ Adjust the product display effect by setting card size and spacing
     {
       name: "Product 3",
       image: "/images/products/product3.jpg",
-      description: "A third excellent product that meets diverse user needs.",
+      description: "A third excellent product that meets users' diverse needs.",
       productUrl: "https://example.com/product3"
     },
     {
@@ -200,7 +200,7 @@ Adjust the product display effect by setting card size and spacing
       {
         name: "Product 3",
         image: getExampleImage({ width: 300, height: 200 }),
-        description: "A third excellent product that meets diverse user needs.",
+        description: "A third excellent product that meets users' diverse needs.",
         productUrl: "https://example.com/product3"
       },
       {
@@ -212,16 +212,3 @@ Adjust the product display effect by setting card size and spacing
     ]}
   />
 </CodeExample>
-
-## Properties
-
-| Property | Type | Default | Description |
-| --- | --- | --- | --- |
-| products | ProductItem[] | - | Array of product data, each item contains all properties of the ProductCard component (except class) |
-| layout | 'grid' \| 'list' | 'grid' | Layout type, grid or list |
-| columns | number \| ResponsiveColumns | \{ base: 1, sm: 2, md: 3, lg: 4 } | Column configuration, can be a fixed number or responsive object |
-| cardSize | 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' | 'md' | Card size, applied to all ProductCards |
-| gap | 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' | 'md' | Card spacing |
-| equalHeight | boolean | true | Whether to enable equal height cards |
-| descriptionLines | number | - | Maximum number of lines for description text |
-| class | string | - | Custom class name |

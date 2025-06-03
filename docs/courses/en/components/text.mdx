@@ -1,19 +1,17 @@
 ---
 title: 'Text'
-description: 'Create various text elements with consistent typography styles and flexible customization options'
+description: 'For creating various text elements, providing consistent typography styles and flexible customization options'
 folder: false
-order: 4
+order: 26
 ---
 
 import { Text, CodeExample } from '@cosy/index';
 
-# Text
-
-The Text component is used to create various text elements with consistent typography styles and flexible customization options. This component is ideal for scenarios requiring unified text styling, such as paragraphs, hints, labels, and more.
+The Text component is used to create various text elements, providing consistent typography styles and flexible customization options. This component is suitable for scenarios that require unified text styling, such as paragraphs, prompt text, labels, etc.
 
 ## Basic Usage
 
-The basic Text component renders as a `<p>` element by default:
+The basic Text component defaults to rendering as a `<p>` element:
 
 <CodeExample
   code={`<Text>This is a regular text</Text>`}
@@ -23,18 +21,18 @@ The basic Text component renders as a `<p>` element by default:
 
 ## Different Sizes
 
-The Text component offers multiple size options:
+The Text component provides multiple size options:
 
 <CodeExample
   code={`<Text size="xs">Extra small text (xs)</Text>
 <Text size="sm">Small text (sm)</Text>
-<Text size="md">Medium text (md) - default</Text>
+<Text size="md">Medium text (md) - Default</Text>
 <Text size="lg">Large text (lg)</Text>
 <Text size="xl">Extra large text (xl)</Text>`}
 >
   <Text size="xs">Extra small text (xs)</Text>
   <Text size="sm">Small text (sm)</Text>
-  <Text size="md">Medium text (md) - default</Text>
+  <Text size="md">Medium text (md) - Default</Text>
   <Text size="lg">Large text (lg)</Text>
   <Text size="xl">Extra large text (xl)</Text>
 </CodeExample>
@@ -59,41 +57,41 @@ You can set different text colors using the `color` property:
 
 ## Font Weight
 
-Adjust the thickness of the text:
+Adjust the weight of the text:
 
 <CodeExample
-  code={`<Text weight="light">Light weight text</Text>
-<Text weight="normal">Normal weight text (default)</Text>
-<Text weight="medium">Medium weight text</Text>
-<Text weight="semibold">Semibold weight text</Text>
-<Text weight="bold">Bold weight text</Text>`}
+  code={`<Text weight="light">Light text</Text>
+<Text weight="normal">Normal text (Default)</Text>
+<Text weight="medium">Medium text</Text>
+<Text weight="semibold">Semibold text</Text>
+<Text weight="bold">Bold text</Text>`}
 >
-  <Text weight="light">Light weight text</Text>
-  <Text weight="normal">Normal weight text (default)</Text>
-  <Text weight="medium">Medium weight text</Text>
-  <Text weight="semibold">Semibold weight text</Text>
-  <Text weight="bold">Bold weight text</Text>
+  <Text weight="light">Light text</Text>
+  <Text weight="normal">Normal text (Default)</Text>
+  <Text weight="medium">Medium text</Text>
+  <Text weight="semibold">Semibold text</Text>
+  <Text weight="bold">Bold text</Text>
 </CodeExample>
 
 ## Text Alignment
 
-Control text alignment:
+Control the alignment of text:
 
 <CodeExample
-  code={`<Text align="left">Left-aligned text (default)</Text>
+  code={`<Text align="left">Left-aligned text (Default)</Text>
 <Text align="center">Center-aligned text</Text>
 <Text align="right">Right-aligned text</Text>
-<Text align="justify">Justified text. This is a longer piece of text to demonstrate the effect of justified alignment. Justified alignment maintains alignment at both the left and right edges by adjusting word spacing.</Text>`}
+<Text align="justify">Justified text. This is a longer text to demonstrate the effect of justified alignment. Justified alignment keeps the left and right edges of the text aligned by adjusting the spacing between words.</Text>`}
 >
-  <Text align="left">Left-aligned text (default)</Text>
+  <Text align="left">Left-aligned text (Default)</Text>
   <Text align="center">Center-aligned text</Text>
   <Text align="right">Right-aligned text</Text>
-  <Text align="justify">Justified text. This is a longer piece of text to demonstrate the effect of justified alignment. Justified alignment maintains alignment at both the left and right edges by adjusting word spacing.</Text>
+  <Text align="justify">Justified text. This is a longer text to demonstrate the effect of justified alignment. Justified alignment keeps the left and right edges of the text aligned by adjusting the spacing between words.</Text>
 </CodeExample>
 
 ## Text Styles
 
-Set italic and underline styles:
+You can set italic and underline styles:
 
 <CodeExample
   code={`<Text italic>Italic text</Text>
@@ -107,15 +105,15 @@ Set italic and underline styles:
 
 ## Text Truncation
 
-For long text that might overflow its container, use the `truncate` property:
+For long text that might overflow its container, you can use the `truncate` property to truncate it:
 
 <CodeExample
   code={`<div style="width: 200px; border: 1px dashed #ccc; padding: 8px;">
-  <Text truncate>This is a very long text content that will exceed the container width and therefore will be truncated with an ellipsis...</Text>
+  <Text truncate>This is a very long text content that will exceed the container width, so it will be truncated and display an ellipsis...</Text>
 </div>`}
 >
   <div style="width: 200px; border: 1px dashed #ccc; padding: 8px;">
-    <Text truncate>This is a very long text content that will exceed the container width and therefore will be truncated with an ellipsis...</Text>
+    <Text truncate>This is a very long text content that will exceed the container width, so it will be truncated and display an ellipsis...</Text>
   </div>
 </CodeExample>
 
@@ -135,7 +133,7 @@ Use the `as` property to change the rendered HTML element:
 
 ## Combined Usage
 
-Combine multiple properties to create customized text styles:
+You can combine multiple properties to create customized text styles:
 
 <CodeExample
   code={`<Text 
@@ -145,7 +143,7 @@ Combine multiple properties to create customized text styles:
   align="center"
   class="cosy:py-2 cosy:border cosy:border-primary-200 cosy:rounded-md"
 >
-  This is an important notice
+  This is an important notification message
 </Text>`}
 >
   <Text 
@@ -155,28 +153,6 @@ Combine multiple properties to create customized text styles:
     align="center"
     class="cosy:py-2 cosy:border cosy:border-primary-200 cosy:rounded-md"
   >
-    This is an important notice
+    This is an important notification message
   </Text>
 </CodeExample>
-
-## Properties
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| as | string | 'p' | HTML element to render |
-| size | string | 'md' | Text size: 'xs', 'sm', 'md', 'lg', 'xl' |
-| weight | string | 'normal' | Font weight: 'light', 'normal', 'medium', 'semibold', 'bold' |
-| color | string | 'default' | Text color: 'default', 'primary', 'secondary', 'accent', 'muted' |
-| align | string | 'left' | Text alignment: 'left', 'center', 'right', 'justify' |
-| italic | boolean | false | Whether to use italic style |
-| underline | boolean | false | Whether to add underline |
-| truncate | boolean | false | Whether to truncate text with ellipsis |
-| class | string | - | Custom class name |
-
-## Best Practices
-
-- Maintain consistent text styles across your application using the same size and color schemes
-- For headings, use the Heading component instead of setting large sizes on the Text component
-- When using the `truncate` property, ensure the parent container has a clear width restriction
-- Pay attention to the contrast between text color and background color for good readability
-- For important content or information that needs to be emphasized, appropriately use bold and accent colors 

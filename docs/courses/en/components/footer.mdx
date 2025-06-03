@@ -1,262 +1,65 @@
 ---
 title: 'Footer'
-description: 'Used to create the footer section of a website, providing copyright information, navigation links, and social media links'
+description: 'Used to create the footer section of websites, providing copyright information, navigation links, social media links, and other content'
 folder: false
 order: 6
 ---
 
-import { Footer, Section, Container, CodeExample, getExampleImage } from '@cosy/index';
+import { Footer, FooterPackage } from '@cosy/index';
 
-## Basic Footer
+## Introduction
 
-The simplest way to use a Footer, displaying the site name, slogan, and copyright information
+The Footer component is used to create the footer section of websites, providing copyright information, navigation links, social media links, and other content. This component supports high customization and can display or hide different sections as needed.
 
-<CodeExample
-  code={`<Footer 
-  siteName="My Website"
-  homeLink="/"
-  slogan="Simple and Powerful"
-  company="My Company"
-  copyright="All Rights Reserved"
-/>`}
->
-  <Footer 
-    siteName="My Website"
-    homeLink="/"
-    slogan="Simple and Powerful"
-    company="My Company"
-    copyright="All Rights Reserved"
-  />
-</CodeExample>
+Component features:
+- Clear information hierarchy - Displays different categories of footer information through visual hierarchy and grouping
+- Responsive layout - Maintains good usability and aesthetics across different screen sizes
+- Customizability - Supports various configuration options to adapt to different website needs
+- Brand consistency - Maintains consistency with the overall website design style
+- Multi-language support - Supports display in multiple languages, automatically detecting the current language environment
+- Social media integration - Provides display of social media links
+- Product link display - Can add product link lists
+- Logo display - Supports adding website logos
 
-## Footer with Logo
+## Basic Usage
 
-Add a website Logo using the logo property
+The simplest footer usage, including website name, tagline, company name, and copyright information:
 
-<CodeExample
-  code={`<Footer 
-  siteName="My Website"
-  homeLink="/"
-  slogan="Simple and Powerful"
-  company="My Company"
-  copyright="All Rights Reserved"
-  logo={{ src: getExampleImage({ width: 100, height: 100 }), alt: "Website Logo" }}
-/>`}
->
-  <Footer 
-    siteName="My Website"
-    homeLink="/"
-    slogan="Simple and Powerful"
-    company="My Company"
-    copyright="All Rights Reserved"
-    logo={{ src: getExampleImage({ width: 100, height: 100 }), alt: "Website Logo" }}
-  />
-</CodeExample>
+<FooterPackage.FooterContainers.Basic/>
 
-## Footer with Social Media Links
+## Social Media Links
 
-Add social media links using the socialLinks property
+Add social media links, supporting various social platforms:
 
-<CodeExample
-  code={`<Footer 
-  siteName="My Website"
-  homeLink="/"
-  slogan="Simple and Powerful"
-  company="My Company"
-  copyright="All Rights Reserved"
-  socialLinks={[
-    "https://github.com/myusername",
-    "https://twitter.com/myusername",
-    "https://linkedin.com/in/myusername"
-  ]}
-/>`}
->
-  <Footer 
-    siteName="My Website"
-    homeLink="/"
-    slogan="Simple and Powerful"
-    company="My Company"
-    copyright="All Rights Reserved"
-    socialLinks={[
-      "https://github.com/myusername",
-      "https://twitter.com/myusername",
-      "https://linkedin.com/in/myusername"
-    ]}
-  />
-</CodeExample>
+<FooterPackage.FooterContainers.WithSocial/>
 
-## Footer with Product Links
+## Product Links
 
-Add product links using the products property
+Add product link lists, supporting both internal and external links:
 
-<CodeExample
-  code={`<Footer 
-  siteName="My Website"
-  homeLink="/"
-  slogan="Simple and Powerful"
-  company="My Company"
-  copyright="All Rights Reserved"
-  products={[
-    { name: "Product A", href: "/products/a" },
-    { name: "Product B", href: "/products/b" },
-    { name: "Product C", href: "/products/c", external: true }
-  ]}
-/>`}
->
-  <Footer 
-    siteName="My Website"
-    homeLink="/"
-    slogan="Simple and Powerful"
-    company="My Company"
-    copyright="All Rights Reserved"
-    products={[
-      { name: "Product A", href: "/products/a" },
-      { name: "Product B", href: "/products/b" },
-      { name: "Product C", href: "/products/c", external: true }
-    ]}
-  />
-</CodeExample>
+<FooterPackage.FooterContainers.WithProducts/>
 
-## Footer with Navigation Links
+## Logo Display
 
-Add navigation links using various link properties
+Add website logo to enhance brand recognition:
 
-<CodeExample
-  code={`<Footer 
-  siteName="My Website"
-  homeLink="/"
-  slogan="Simple and Powerful"
-  company="My Company"
-  copyright="All Rights Reserved"
-  aboutLink="/about"
-  contactLink="/contact"
-  termsLink="/terms"
-  privacyLink="/privacy"
-  blogLink="/blog"
-  faqLink="/faq"
-/>`}
->
-  <Footer 
-    siteName="My Website"
-    homeLink="/"
-    slogan="Simple and Powerful"
-    company="My Company"
-    copyright="All Rights Reserved"
-    aboutLink="/about"
-    contactLink="/contact"
-    termsLink="/terms"
-    privacyLink="/privacy"
-    blogLink="/blog"
-    faqLink="/faq"
-  />
-</CodeExample>
+<FooterPackage.FooterContainers.WithLogo/>
 
-## Footer with Inspirational Slogan
+## Navigation Links
 
-Add an inspirational slogan using the inspirationalSlogan property, displayed in a banner
+Add various navigation links, such as About Us, Contact Us, Terms of Service, etc.:
 
-<CodeExample
-  code={`<Footer 
-  siteName="My Website"
-  homeLink="/"
-  slogan="Simple and Powerful"
-  company="My Company"
-  copyright="All Rights Reserved"
-  inspirationalSlogan="Building beautiful digital experiences"
-/>`}
->
-  <Footer 
-    siteName="My Website"
-    homeLink="/"
-    slogan="Simple and Powerful"
-    company="My Company"
-    copyright="All Rights Reserved"
-    inspirationalSlogan="Building beautiful digital experiences"
-  />
-</CodeExample>
-
-## Footer with ICP Filing Number
-
-Add an ICP filing number using the icp property (required for Chinese websites)
-
-<CodeExample
-  code={`<Footer 
-  siteName="My Website"
-  homeLink="/"
-  slogan="Simple and Powerful"
-  company="My Company"
-  copyright="All Rights Reserved"
-  icp="京ICP备12345678号-1"
-/>`}
->
-  <Footer 
-    siteName="My Website"
-    homeLink="/"
-    slogan="Simple and Powerful"
-    company="My Company"
-    copyright="All Rights Reserved"
-    icp="京ICP备12345678号-1"
-  />
-</CodeExample>
+<FooterPackage.FooterContainers.WithNavigation/>
 
 ## Complete Example
 
-Demonstrates multiple properties of the Footer component used together
+A complete footer example combining all features:
 
-<CodeExample
-  code={`<Footer 
-  siteName="My Website"
-  homeLink="/"
-  slogan="Simple and Powerful"
-  company="My Company"
-  copyright="All Rights Reserved"
-  inspirationalSlogan="Building beautiful digital experiences"
-  logo={{ src: getExampleImage({ width: 100, height: 100 }), alt: "Website Logo" }}
-  products={[
-    { name: "Product A", href: "/products/a" },
-    { name: "Product B", href: "/products/b" }
-  ]}
-  socialLinks={[
-    "https://github.com/myusername",
-    "https://twitter.com/myusername"
-  ]}
-  aboutLink="/about"
-  contactLink="/contact"
-  termsLink="/terms"
-  privacyLink="/privacy"
-  teamLink="/team"
-  careersLink="/careers"
-  newsLink="/news"
-  blogLink="/blog"
-  faqLink="/faq"
-  icp="京ICP备12345678号-1"
-/>`}
->
-  <Footer 
-    siteName="My Website"
-    homeLink="/"
-    slogan="Simple and Powerful"
-    company="My Company"
-    copyright="All Rights Reserved"
-    inspirationalSlogan="Building beautiful digital experiences"
-    logo={{ src: getExampleImage({ width: 100, height: 100 }), alt: "Website Logo" }}
-    products={[
-      { name: "Product A", href: "/products/a" },
-      { name: "Product B", href: "/products/b" }
-    ]}
-    socialLinks={[
-      "https://github.com/myusername",
-      "https://twitter.com/myusername"
-    ]}
-    aboutLink="/about"
-    contactLink="/contact"
-    termsLink="/terms"
-    privacyLink="/privacy"
-    teamLink="/team"
-    careersLink="/careers"
-    newsLink="/news"
-    blogLink="/blog"
-    faqLink="/faq"
-    icp="京ICP备12345678号-1"
-  />
-</CodeExample> 
+<FooterPackage.FooterContainers.Complete/>
+
+## Feature Showcase
+
+View a comprehensive showcase of all footer features:
+
+<FooterPackage.FooterContainers.Features/>
+

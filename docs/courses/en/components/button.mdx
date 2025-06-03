@@ -1,152 +1,56 @@
 ---
 title: 'Button'
-description: 'A button component for triggering immediate actions, supporting various styles, sizes, and states'
+description: 'A button component used to trigger an immediate action, supporting various style variants, sizes, and states'
 folder: false
 order: 2
 ---
 
-import { Button, CodeExample } from '@cosy/index';
+import { Button, ButtonPackage, CodeExample } from '@cosy/index';
 
 ## Basic Buttons
 
-The most basic usage of buttons, showcasing different style variants.
+The most basic button usage, displaying different style variants.
 
-<CodeExample
-  code={`<div class="cosy:flex cosy:gap-2">
-  <Button>Default Button</Button>
-  <Button variant="primary">Primary Button</Button>
-  <Button variant="secondary">Secondary Button</Button>
-  <Button variant="accent">Accent Button</Button>
-</div>`}
->
-  <div class="cosy:flex cosy:gap-2">
-    <Button>Default Button</Button>
-    <Button variant="primary">Primary Button</Button>
-    <Button variant="secondary">Secondary Button</Button>
-    <Button variant="accent">Accent Button</Button>
-  </div>
-</CodeExample>
+<ButtonPackage.ButtonContainers.Basic />
 
 ## Button States
 
-Buttons support different states.
+Buttons support different state displays.
 
-<CodeExample
-  code={`<div class="cosy:flex cosy:gap-2">
-  <Button variant="primary" disabled>Disabled</Button>
-  <Button variant="primary" loading>Loading</Button>
-</div>`}
->
-  <div class="cosy:flex cosy:gap-2">
-    <Button variant="primary" disabled>Disabled</Button>
-    <Button variant="primary" loading>Loading</Button>
-  </div>
-</CodeExample>
+<ButtonPackage.ButtonContainers.States />
 
 ## Button Sizes
 
-Multiple sizes available to suit different scenarios.
+Provides multiple sizes to adapt to different scenario requirements.
 
-<CodeExample
-  code={`<div class="cosy:flex cosy:items-center cosy:gap-2">
-  <Button size="xs">Extra Small</Button>
-  <Button size="sm">Small</Button>
-  <Button size="md">Medium</Button>
-  <Button size="lg">Large</Button>
-</div>`}
->
-  <div class="cosy:flex cosy:items-center cosy:gap-2">
-    <Button size="xs">Extra Small</Button>
-    <Button size="sm">Small</Button>
-    <Button size="md">Medium</Button>
-    <Button size="lg">Large</Button>
-  </div>
-</CodeExample>
+<ButtonPackage.ButtonContainers.Sizes />
 
 ## Button Shapes
 
 Buttons support different shape styles.
 
-<CodeExample
-  code={`<div class="cosy:flex cosy:gap-2">
-  <Button shape="circle">O</Button>
-  <Button shape="square">□</Button>
-</div>`}
->
-  <div class="cosy:flex cosy:gap-2">
-    <Button shape="circle">O</Button>
-    <Button shape="square">□</Button>
-  </div>
-</CodeExample>
+<ButtonPackage.ButtonContainers.Shapes />
 
 ## Buttons with Icons
 
-Buttons can be used with icons.
+Buttons can be used together with icons.
 
-<CodeExample
-  code={`<div class="cosy:flex cosy:gap-2">
-  <Button>
-    <span slot="icon-left">👈</span>
-    Left Icon
-  </Button>
-  <Button>
-    Right Icon
-    <span slot="icon-right">👉</span>
-  </Button>
-</div>`}
->
-  <div class="cosy:flex cosy:gap-2">
-    <Button>
-      <span slot="icon-left">👈</span>
-      Left Icon
-    </Button>
-    <Button>
-      Right Icon
-      <span slot="icon-right">👉</span>
-    </Button>
-  </div>
-</CodeExample>
+<ButtonPackage.ButtonContainers.WithIcons />
 
 ## Width Variants
 
 Buttons support different width settings.
 
-<CodeExample
-  code={`<div class="cosy:flex cosy:flex-col cosy:gap-2">
-  <Button wide>Wide Button</Button>
-  <Button block>Block Button</Button>
-</div>`}
->
-  <div class="cosy:flex cosy:flex-col cosy:gap-2">
-    <Button wide>Wide Button</Button>
-    <Button block>Block Button</Button>
-  </div>
-</CodeExample>
+<ButtonPackage.ButtonContainers.Width />
 
 ## Semantic Variants
 
-Various semantic color variants are available.
+Provides multiple semantic color variants.
 
-<CodeExample
-  code={`<div class="cosy:flex cosy:flex-wrap cosy:gap-2">
-  <Button variant="info">Info Button</Button>
-  <Button variant="success">Success Button</Button>
-  <Button variant="warning">Warning Button</Button>
-  <Button variant="error">Error Button</Button>
-  <Button variant="ghost">Ghost Button</Button>
-  <Button variant="link">Link Button</Button>
-  <Button variant="outline">Outline Button</Button>
-  <Button variant="neutral">Neutral Button</Button>
-</div>`}
->
-  <div class="cosy:flex cosy:flex-wrap cosy:gap-2">
-    <Button variant="info">Info Button</Button>
-    <Button variant="success">Success Button</Button>
-    <Button variant="warning">Warning Button</Button>
-    <Button variant="error">Error Button</Button>
-    <Button variant="ghost">Ghost Button</Button>
-    <Button variant="link">Link Button</Button>
-    <Button variant="outline">Outline Button</Button>
-    <Button variant="neutral">Neutral Button</Button>
-  </div>
-</CodeExample>
+<ButtonPackage.ButtonContainers.Variants />
+
+## Link Buttons
+
+Buttons can be used as links, supporting internal navigation and external links.
+
+<ButtonPackage.ButtonContainers.Link />

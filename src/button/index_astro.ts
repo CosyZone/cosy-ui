@@ -24,7 +24,6 @@ import ButtonLink from './ButtonLink.astro';
 import ButtonLinkExternal from './ButtonLinkExternal.astro';
 import ButtonOutline from './ButtonOutline.astro';
 import ButtonNeutral from './ButtonNeutral.astro';
-import ButtonFeatureContainer from './ButtonFeatureContainer.astro';
 
 export {
 	Button
@@ -59,6 +58,5 @@ export const ButtonPackage = {
 		Width: ButtonWidthContainer,
 		Variants: ButtonVariantsContainer,
 		Link: ButtonLinkContainer,
-		Feature: ButtonFeatureContainer,
 	}
 };

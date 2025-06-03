@@ -1,0 +1,23 @@
+---
+/**
+ * @component Footer.WithLogo
+ *
+ * @description
+ * 展示带有Logo的页脚示例。
+ */
+import { Footer } from '../index';
+import { getExampleImage } from '../utils/image';
+---
+
+<Footer
+	siteName="我的网站"
+	homeLink="/"
+	slogan="简单而强大"
+	company="我的公司"
+	copyright="保留所有权利"
+	inspirationalSlogan="构建美好的数字体验"
+	logo={{
+		src: getExampleImage({ width: 100, height: 100, provider: 'robohash', tag: 'logo' }),
+		alt: '网站Logo',
+	}}
+/>

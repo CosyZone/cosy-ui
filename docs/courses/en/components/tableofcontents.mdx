@@ -1,19 +1,17 @@
 ---
 title: 'TableOfContents'
-description: 'A table of contents component that displays the heading structure of a page and highlights the currently visible heading during scrolling'
+description: 'Table of contents navigation component, used to display the heading structure of page content and highlight the currently visible heading as the user scrolls'
 folder: false
 order: 15
 ---
 
 import { TableOfContents, CodeExample } from '@cosy/index';
 
-# TableOfContents
-
-The TableOfContents component is a navigation component that displays the heading structure of a page. It automatically detects heading elements on the page, generates a table of contents list, and highlights the currently visible heading as the user scrolls. When the page has only one heading or not enough heading structure, the component will automatically hide.
+The TableOfContents component is a table of contents navigation component used to display the heading structure of page content. It automatically detects heading elements on the page, generates a table of contents list, and highlights the currently visible heading as the user scrolls. When the page has only one heading or insufficient heading structure, the component will automatically hide.
 
 ## Basic Usage
 
-By default, the component automatically detects h2 and h3 headings on the page and generates a table of contents:
+By default, the component automatically detects h2 and h3 headings on the page and generates a table of contents list:
 
 <CodeExample
   code={`<TableOfContents />`}
@@ -23,7 +21,7 @@ By default, the component automatically detects h2 and h3 headings on the page a
 
 ## Custom Title and Selector
 
-You can customize the title text and the heading selector:
+You can customize the title text of the table of contents and the heading selector to detect:
 
 <CodeExample
   code={`<TableOfContents
@@ -41,7 +39,7 @@ You can customize the title text and the heading selector:
 
 ## Non-Fixed Position
 
-By default, the table of contents is fixed on the right side, but you can set it to a non-fixed position:
+By default, the table of contents is fixed on the right side. You can also set it to a non-fixed position:
 
 <CodeExample
   code={`<TableOfContents fixed={false} />`}
@@ -51,42 +49,10 @@ By default, the table of contents is fixed on the right side, but you can set it
 
 ## Custom Content Container
 
-You can specify a particular content container where the component will look for headings:
+You can specify a specific content container, and the component will only look for headings within that container:
 
 <CodeExample
   code={`<TableOfContents containerSelector=".article-content" />`}
 >
   <TableOfContents containerSelector=".article-content" />
 </CodeExample>
-
-## Properties
-
-| Property | Type | Default | Description |
-| ------ | ---- | ------ | ---- |
-| fixed | boolean | true | Whether to fix the component on the right side |
-| class | string | - | Custom class name |
-| selector | string | 'h2, h3' | Heading selector |
-| maxDepth | number | 3 | Maximum depth of headings to include |
-| title | string | Auto-selected based on language | Title text |
-| containerSelector | string | 'main' | Content container selector to limit heading search scope |
-| minHeadings | number | 2 | Minimum number of headings required to display the TOC |
-| lang | string | Auto-detected | Language |
-
-## How It Works
-
-The main workflow of the TableOfContents component:
-
-1. After loading, the component searches for heading elements in the content container using the specified selector
-2. If the number of headings found is less than the minimum requirement (default 2), the TOC is automatically hidden
-3. For each heading, it creates a TOC item and generates a unique ID (if the heading doesn't have one)
-4. When a user clicks on a TOC item, the page smoothly scrolls to the corresponding heading position
-5. As the user scrolls the page, the component calculates and highlights the currently visible heading
-
-The component uses a throttle function to optimize scroll event handling for better performance.
-
-## Best Practices
-
-- Use this component in documentation or long article pages to help users navigate quickly
-- Ensure a logical heading structure using appropriate heading levels (h1, h2, h3, etc.)
-- For small screen devices, the component automatically hides, no additional handling needed
-- If page content changes dynamically, consider re-rendering this component after content updates 

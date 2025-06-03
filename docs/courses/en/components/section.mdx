@@ -1,15 +1,15 @@
 ---
-title: 'Section Component'
-description: 'A component for page content blocks, supporting different padding, backgrounds, and spacing'
+title: 'Section'
+description: 'Component for page content sections, supporting different padding, backgrounds, and spacing'
 folder: false
-order: 1
+order: 12
 ---
 
 import { Section, Container, CodeExample } from '@cosy/index';
 
 ## Basic Section
 
-The simplest way to use a Section, used to divide different content areas of a page
+The simplest way to use Section, for dividing different content areas of a page
 
 <CodeExample
   code={`<Section>
@@ -67,21 +67,21 @@ Set the centered property to true to center the section's content
 
 ## Section Without Container
 
-Set the container property to false to not wrap content with the internal Container component
+Set the container property to false to avoid wrapping content with the internal Container component
 
 <CodeExample
   code={`<Section container={false} background="primary">
-  <p>Content not wrapped with a container will take up the full section width</p>
+  <p>Content without container wrapping will occupy the full width of the section</p>
 </Section>`}
 >
   <Section container={false} background="primary" border={true}>
-    <p>Content not wrapped with a container will take up the full section width</p>
+    <p>Content without container wrapping will occupy the full width of the section</p>
   </Section>
 </CodeExample>
 
 ## Custom Container Size
 
-Set the internal container size using the containerSize property, only effective when container is true
+Set the size of the internal container using the containerSize property, only effective when container is true
 
 <CodeExample
   code={`<Section containerSize="sm" background="secondary">
@@ -111,7 +111,7 @@ Use the dark background to create a dark section, text automatically changes to 
 
 ## Complete Example
 
-Demonstrates multiple properties of the Section component used together
+Demonstrating the combined use of various Section component properties
 
 <CodeExample
   code={`<Section 
@@ -139,4 +139,4 @@ Demonstrates multiple properties of the Section component used together
       <p>Using theme color background, extra large padding, centered content display, and large size container</p>
     </div>
   </Section>
-</CodeExample> 
+</CodeExample>

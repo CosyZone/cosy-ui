@@ -5,105 +5,41 @@ folder: false
 order: 3
 ---
 
-import { Container, CodeExample } from '@cosy/index';
+import { Container, ContainerPackage } from '@cosy/index';
 
-## 基础容器
+## 简介
 
-最简单的容器使用方式，内容将被限制在一个合理的宽度内并居中显示
+Container 组件是一个基础的布局容器，用于限制内容宽度并居中显示。它提供了多种尺寸和内边距选项，适用于各种布局需求。
 
-<CodeExample
-  code={`<Container>
-  <p>内容将被限制在一个合理的宽度内并居中显示</p>
-</Container>`}
->
-  <Container border>
-    <p>内容将被限制在一个合理的宽度内并居中显示</p>
-  </Container>
-</CodeExample>
+组件特性：
+- 支持多种预设尺寸（xs、sm、md、lg、xl、full）
+- 可自定义内边距大小
+- 支持居中/不居中显示
+- 可选边框样式
+- 内置 Flex 布局功能，支持行/列排列和对齐方式
+- 响应式设计，适配不同屏幕尺寸
 
-## 不同尺寸的容器
+## 基础用法
 
-通过 size 属性设置容器的宽度尺寸，支持 xs、sm、md、lg、xl 和 full
+最简单的容器用法，内容会被限制在一个合理的宽度内并居中显示：
 
-<CodeExample
-  code={`<Container size="sm">
-  <p>小尺寸容器</p>
-</Container>`}
->
-  <Container size="sm" border>
-    <p>小尺寸容器</p>
-  </Container>
-</CodeExample>
+<ContainerPackage.ContainerContainers.Basic/>
 
-## 自定义内边距
+## 尺寸选项
 
-通过 padding 属性设置容器的内边距大小，支持 none、sm、md、lg 和 xl
+Container 组件支持多种预设尺寸：
 
-<CodeExample
-  code={`<Container padding="lg">
-  <p>大内边距的容器</p>
-</Container>`}
->
-  <Container padding="lg" border>
-    <p>大内边距的容器</p>
-  </Container>
-</CodeExample>
+<ContainerPackage.ContainerContainers.Sizes/>
 
-## 不居中的容器
+## 内边距选项
 
-设置 centered 属性为 false 使容器内容不居中显示
+通过 padding 属性设置不同的内边距大小：
 
-<CodeExample
-  code={`<Container centered={false}>
-  <p>不居中的容器，靠左对齐</p>
-</Container>`}
->
-  <Container centered={false} border>
-    <p>不居中的容器，靠左对齐</p>
-  </Container>
-</CodeExample>
+<ContainerPackage.ContainerContainers.Padding/>
 
-## 全宽容器
+## Flex 布局
 
-使用 size="full" 创建一个占满整个可用宽度的容器
+Container 组件内置 Flex 布局功能，支持行/列排列和各种对齐方式：
 
-<CodeExample
-  code={`<Container size="full" padding="none">
-  <p>全宽容器，无内边距</p>
-</Container>`}
->
-  <Container size="full" padding="none" border>
-    <p>全宽容器，无内边距</p>
-  </Container>
-</CodeExample>
+<ContainerPackage.ContainerContainers.Flex/>
 
-## 组合使用
-
-展示 Container 组件的多种属性组合使用
-
-<CodeExample
-  code={`<Container 
-  size="lg" 
-  padding="xl" 
-  centered={true}
-  class="my-custom-class"
->
-  <div class="bg-base-200 p-4 rounded-lg">
-    <h3 class="text-lg font-bold">大尺寸容器</h3>
-    <p>使用超大内边距，内容居中显示，并添加自定义类名</p>
-  </div>
-</Container>`}
->
-  <Container 
-    size="lg" 
-    padding="xl" 
-    centered={true}
-    class="my-custom-class"
-    border
-  >
-    <div class="bg-base-200 p-4 rounded-lg">
-      <h3 class="text-lg font-bold">大尺寸容器</h3>
-      <p>使用超大内边距，内容居中显示，并添加自定义类名</p>
-    </div>
-  </Container>
-</CodeExample>

@@ -1,0 +1,32 @@
+---
+/**
+ * @component Container.Padding
+ *
+ * @description
+ * 展示Container组件的不同内边距选项：none、sm、md、lg、xl。
+ */
+import '../style.ts';
+import { Container } from '../index';
+---
+
+<div class="cosy:space-y-4">
+	<Container padding="none" border>
+		<p class="cosy:text-center">无内边距 (none)</p>
+	</Container>
+
+	<Container padding="sm" border>
+		<p class="cosy:text-center">小内边距 (sm)</p>
+	</Container>
+
+	<Container padding="md" border>
+		<p class="cosy:text-center">中等内边距 (md) - 默认</p>
+	</Container>
+
+	<Container padding="lg" border>
+		<p class="cosy:text-center">大内边距 (lg)</p>
+	</Container>
+
+	<Container padding="xl" border>
+		<p class="cosy:text-center">超大内边距 (xl)</p>
+	</Container>
+</div>
