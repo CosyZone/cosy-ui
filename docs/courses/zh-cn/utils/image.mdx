@@ -39,8 +39,8 @@ const imageUrl = getExampleImage({ width: 400, height: 300 });
 
 Cosy UI 的图片工具函数支持多种图片服务提供商，可以通过 `provider` 参数进行设置：
 
-<CodeExample
-  code={`// Picsum Photos (默认)
+```
+// Picsum Photos (默认)
 getExampleImage({ width: 300, height: 200, provider: 'picsum' });
 
 // Unsplash 随机图片
@@ -51,33 +51,14 @@ getExampleImage({ width: 300, height: 200, provider: 'placeholder', tag: '示例
 
 // RoboHash 机器人头像
 getExampleImage({ width: 200, height: 200, provider: 'robohash', randomSeed: 'user123' });`}
->
-  <div class="cosy:grid cosy:grid-cols-2 cosy:gap-4">
-    <div>
-      <p class="cosy:text-sm cosy:mb-2">Picsum Photos:</p>
-      <Image src={getExampleImage({ width: 300, height: 200, provider: 'picsum' })} alt="Picsum 示例" />
-    </div>
-    <div>
-      <p class="cosy:text-sm cosy:mb-2">Unsplash 与标签:</p>
-      <Image src={getExampleImage({ width: 300, height: 200, provider: 'unsplash', tag: 'nature' })} alt="Unsplash 示例" />
-    </div>
-    <div>
-      <p class="cosy:text-sm cosy:mb-2">Placeholder.com:</p>
-      <Image src={getExampleImage({ width: 300, height: 200, provider: 'placeholder', tag: '示例文本' })} alt="Placeholder 示例" />
-    </div>
-    <div>
-      <p class="cosy:text-sm cosy:mb-2">RoboHash:</p>
-      <Image src={getExampleImage({ width: 200, height: 200, provider: 'robohash', randomSeed: 'user123' })} alt="RoboHash 示例" />
-    </div>
-  </div>
-</CodeExample>
+```
 
 ## 特殊效果
 
 对于 Picsum Photos，还支持灰度和模糊效果：
 
-<CodeExample
-  code={`// 灰度效果
+```ts
+// 灰度效果
 getExampleImage({ width: 300, height: 200, grayscale: true });
 
 // 模糊效果 (值范围 1-10)
@@ -85,22 +66,7 @@ getExampleImage({ width: 300, height: 200, blur: 5 });
 
 // 灰度 + 模糊组合
 getExampleImage({ width: 300, height: 200, grayscale: true, blur: 5 });`}
->
-  <div class="cosy:grid cosy:grid-cols-3 cosy:gap-4">
-    <div>
-      <p class="cosy:text-sm cosy:mb-2">灰度:</p>
-      <Image src={getExampleImage({ width: 300, height: 200, grayscale: true, randomSeed: 'effect1' })} alt="灰度示例" />
-    </div>
-    <div>
-      <p class="cosy:text-sm cosy:mb-2">模糊:</p>
-      <Image src={getExampleImage({ width: 300, height: 200, blur: 5, randomSeed: 'effect1' })} alt="模糊示例" />
-    </div>
-    <div>
-      <p class="cosy:text-sm cosy:mb-2">灰度 + 模糊:</p>
-      <Image src={getExampleImage({ width: 300, height: 200, grayscale: true, blur: 5, randomSeed: 'effect1' })} alt="组合效果示例" />
-    </div>
-  </div>
-</CodeExample>
+```
 
 ## 固定随机图片
 
@@ -121,8 +87,8 @@ getExampleImage({ width: 300, height: 200, randomSeed: 'abc123' }); // 返回相
 
 除了通用的 `getExampleImage` 函数外，Cosy UI 还提供了几个专用的图片生成函数，它们使用预设的参数：
 
-<CodeExample
-  code={`// 产品图片 (默认 400x300)
+```ts
+// 产品图片 (默认 400x300)
 getProductImage();
 getProductImage({ randomSeed: 'product1' });
 
@@ -133,22 +99,7 @@ getAvatarImage({ randomSeed: 'user1' });
 // 景观图片 (默认 800x400，使用 Unsplash)
 getLandscapeImage();
 getLandscapeImage({ tag: 'mountain' });`}
->
-  <div class="cosy:grid cosy:grid-cols-3 cosy:gap-4">
-    <div>
-      <p class="cosy:text-sm cosy:mb-2">产品图片:</p>
-      <Image src={getProductImage({ randomSeed: 'special1' })} alt="产品图片示例" />
-    </div>
-    <div>
-      <p class="cosy:text-sm cosy:mb-2">头像图片:</p>
-      <Image src={getAvatarImage({ randomSeed: 'user1' })} alt="头像图片示例" rounded="full" />
-    </div>
-    <div>
-      <p class="cosy:text-sm cosy:mb-2">景观图片:</p>
-      <Image src={getLandscapeImage({ tag: 'mountain' })} alt="景观图片示例" />
-    </div>
-  </div>
-</CodeExample>
+```
 
 ## API 参考
 
