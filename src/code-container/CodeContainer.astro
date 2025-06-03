@@ -113,7 +113,7 @@ const { titles = [], descriptions = [], codes } = Astro.props;
 		const exampleTabs = document.querySelectorAll('[role="tab"][data-tab^="tab-"]');
 		exampleTabs.forEach((tab) => {
 			tab.addEventListener('click', () => {
-				console.log('CodeContainer: 切换示例', tab);
+				console.log('CodeContainer: 切换示例', tab.getAttribute('data-tab'));
 				const container = tab.closest('[data-role="code-container"]');
 				if (!container) return;
 
