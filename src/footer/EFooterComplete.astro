@@ -6,6 +6,7 @@
  * 展示完整功能的页脚示例，包含所有主要属性。
  */
 import { Footer } from '../index';
+import { getExampleImage } from '../utils/image';
 ---
 
 <Footer
@@ -15,7 +16,10 @@ import { Footer } from '../index';
 	company="我的公司"
 	copyright="保留所有权利"
 	inspirationalSlogan="构建美好的数字体验"
-	logo={{ src: '/logo.png', alt: '网站Logo' }}
+	logo={{
+		src: getExampleImage({ width: 100, height: 100, provider: 'robohash', tag: 'logo' }),
+		alt: '网站Logo',
+	}}
 	products={[
 		{ name: '产品A', href: '/products/a' },
 		{ name: '产品B', href: '/products/b' },
