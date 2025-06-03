@@ -1,5 +1,5 @@
 ---
-import { navItems, homeLink } from '../app.config';
+import { navItems, homeLink, products } from '../app.config';
 import { type ISidebarItem, AppLayout } from '../../src/index';
 import Favicon from '@docs/assets/favicon.png';
 
@@ -36,12 +36,7 @@ const currentLocale = Astro.currentLocale;
 		inspirationalSlogan:
 			currentLocale === 'zh-cn' ? '构建美好的用户界面' : 'Build a beautiful user interface',
 		socialLinks: ['https://github.com/CofficLab/cosy-ui'],
-		products: [
-			{ name: 'Cisum', href: 'https://coffic.cn/cisum' },
-			{ name: 'JuiceEditor', href: 'https://coffic.cn/juice_editor' },
-			{ name: 'GitOK', href: 'https://coffic.cn/gitok' },
-			{ name: 'Cosy UI', href: 'https://github.com/CofficLab/cosy-ui' },
-		],
+		products: products,
 		aboutLink: 'https://coffic.cn/en/meta/about',
 		contactLink: 'https://coffic.cn/en/meta/contact',
 		termsLink: 'https://coffic.cn/en/meta/terms',
