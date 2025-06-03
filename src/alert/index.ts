@@ -1,16 +1,16 @@
 import Alert from './Alert.astro';
-import AlertBasicContainer from './AlertBasicContainer.astro';
-import AlertWithTitleContainer from './AlertWithTitleContainer.astro';
-import AlertTypesContainer from './AlertTypesContainer.astro';
-import AlertCustomStyleContainer from './AlertCustomStyleContainer.astro';
+import AlertBasicContainer from './EAlertBasicContainer.astro';
+import AlertWithTitleContainer from './EAlertWithTitleContainer.astro';
+import AlertTypesContainer from './EAlertTypesContainer.astro';
+import AlertCustomStyleContainer from './EAlertCustomStyleContainer.astro';
 
 export { Alert }
 export const AlertPackage = {
-	Alert,
-	AlertContainers: {
-		Basic: AlertBasicContainer,
-		WithTitle: AlertWithTitleContainer,
-		Types: AlertTypesContainer,
-		CustomStyle: AlertCustomStyleContainer,
-	},
+    Alert,
+    AlertContainers: {
+        Basic: AlertBasicContainer,
+        WithTitle: AlertWithTitleContainer,
+        Types: AlertTypesContainer,
+        CustomStyle: AlertCustomStyleContainer,
+    },
 }
