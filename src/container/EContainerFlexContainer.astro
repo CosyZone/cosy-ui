@@ -1,0 +1,34 @@
+---
+import { CodeContainer } from '../index';
+import ContainerFlexRow from './EContainerFlexRow.astro';
+import ContainerFlexColumn from './EContainerFlexColumn.astro';
+import ContainerFlexCenter from './EContainerFlexCenter.astro';
+import ContainerFlexBetween from './EContainerFlexBetween.astro';
+
+import ContainerFlexRowSourceCode from './EContainerFlexRow.astro?raw';
+import ContainerFlexColumnSourceCode from './EContainerFlexColumn.astro?raw';
+import ContainerFlexCenterSourceCode from './EContainerFlexCenter.astro?raw';
+import ContainerFlexBetweenSourceCode from './EContainerFlexBetween.astro?raw';
+---
+
+<CodeContainer
+	titles={['Row', 'Column', 'Center', 'Between']}
+	codes={[
+		ContainerFlexRowSourceCode,
+		ContainerFlexColumnSourceCode,
+		ContainerFlexCenterSourceCode,
+		ContainerFlexBetweenSourceCode,
+	]}>
+	<div id="tab-1">
+		<ContainerFlexRow />
+	</div>
+	<div id="tab-2">
+		<ContainerFlexColumn />
+	</div>
+	<div id="tab-3">
+		<ContainerFlexCenter />
+	</div>
+	<div id="tab-4">
+		<ContainerFlexBetween />
+	</div>
+</CodeContainer>
