@@ -31,6 +31,7 @@ export * from './code-block';
 export * from './modal';
 export * from './hero';
 export * from './code-example';
+export * from './icons';
 export * from './products';
 export * from './blog';
 export * from './layout-basic/BaseLayout.astro';
