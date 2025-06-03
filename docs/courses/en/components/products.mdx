@@ -1,29 +1,29 @@
 ---
-title: 'Products Component'
-description: 'A container component for displaying multiple product cards, supporting grid and list layouts, automatically adapting to different screen sizes'
+title: 'Products'
+description: '用于展示多个产品卡片的容器组件，支持网格和列表布局，自动适应不同屏幕尺寸'
 folder: false
 order: 14
 ---
 
 import { Products, ProductCard, CodeExample, getExampleImage } from '@cosy/index';
 
-## Basic Usage
+## 基础用法
 
-The most basic product collection display, automatically adjusting the layout based on screen size
+最基本的产品集合展示，自动根据屏幕尺寸调整布局
 
 <CodeExample
   code={`<Products
   products={[
     {
-      name: "Product 1",
+      name: "产品1",
       image: "/images/products/product1.jpg",
-      description: "This is a powerful example product that provides a quality experience for users.",
+      description: "这是一款功能强大的示例产品，为用户提供优质体验。",
       productUrl: "https://example.com/product1"
     },
     {
-      name: "Product 2",
+      name: "产品2",
       image: "/images/products/product2.jpg",
-      description: "Another excellent product with innovative features and an intuitive interface.",
+      description: "另一款出色的产品，具有创新功能和直观界面。",
       productUrl: "https://example.com/product2"
     }
   ]}
@@ -32,24 +32,24 @@ The most basic product collection display, automatically adjusting the layout ba
   <Products
     products={[
       {
-        name: "Product 1",
+        name: "产品1",
         image: getExampleImage({ width: 300, height: 200 }),
-        description: "This is a powerful example product that provides a quality experience for users.",
+        description: "这是一款功能强大的示例产品，为用户提供优质体验。",
         productUrl: "https://example.com/product1"
       },
       {
-        name: "Product 2",
+        name: "产品2",
         image: getExampleImage({ width: 300, height: 200 }),
-        description: "Another excellent product with innovative features and an intuitive interface.",
+        description: "另一款出色的产品，具有创新功能和直观界面。",
         productUrl: "https://example.com/product2"
       }
     ]}
   />
 </CodeExample>
 
-## Grid Layout
+## 网格布局
 
-Use grid layout to display products and customize the number of columns
+使用网格布局展示产品，并自定义列数
 
 <CodeExample
   code={`<Products
@@ -57,21 +57,21 @@ Use grid layout to display products and customize the number of columns
   columns={{ base: 1, sm: 2, md: 3, lg: 4 }}
   products={[
     {
-      name: "Product 1",
+      name: "产品1",
       image: "/images/products/product1.jpg",
-      description: "This is a powerful example product that provides a quality experience for users.",
+      description: "这是一款功能强大的示例产品，为用户提供优质体验。",
       productUrl: "https://example.com/product1"
     },
     {
-      name: "Product 2",
+      name: "产品2",
       image: "/images/products/product2.jpg",
-      description: "Another excellent product with innovative features and an intuitive interface.",
+      description: "另一款出色的产品，具有创新功能和直观界面。",
       productUrl: "https://example.com/product2"
     },
     {
-      name: "Product 3",
+      name: "产品3",
       image: "/images/products/product3.jpg",
-      description: "A third excellent product that meets diverse user needs.",
+      description: "第三款优秀产品，满足用户多样化需求。",
       productUrl: "https://example.com/product3"
     }
   ]}
@@ -82,45 +82,45 @@ Use grid layout to display products and customize the number of columns
     columns={{ base: 1, sm: 2, md: 3 }}
     products={[
       {
-        name: "Product 1",
+        name: "产品1",
         image: getExampleImage({ width: 300, height: 200 }),
-        description: "This is a powerful example product that provides a quality experience for users.",
+        description: "这是一款功能强大的示例产品，为用户提供优质体验。",
         productUrl: "https://example.com/product1"
       },
       {
-        name: "Product 2",
+        name: "产品2",
         image: getExampleImage({ width: 300, height: 200 }),
-        description: "Another excellent product with innovative features and an intuitive interface.",
+        description: "另一款出色的产品，具有创新功能和直观界面。",
         productUrl: "https://example.com/product2"
       },
       {
-        name: "Product 3",
+        name: "产品3",
         image: getExampleImage({ width: 300, height: 200 }),
-        description: "A third excellent product that meets diverse user needs.",
+        description: "第三款优秀产品，满足用户多样化需求。",
         productUrl: "https://example.com/product3"
       }
     ]}
   />
 </CodeExample>
 
-## List Layout
+## 列表布局
 
-Use list layout to display products vertically
+使用列表布局垂直展示产品
 
 <CodeExample
   code={`<Products
   layout="list"
   products={[
     {
-      name: "Product 1",
+      name: "产品1",
       image: "/images/products/product1.jpg",
-      description: "This is a powerful example product that provides a quality experience for users.",
+      description: "这是一款功能强大的示例产品，为用户提供优质体验。",
       productUrl: "https://example.com/product1"
     },
     {
-      name: "Product 2",
+      name: "产品2",
       image: "/images/products/product2.jpg",
-      description: "Another excellent product with innovative features and an intuitive interface.",
+      description: "另一款出色的产品，具有创新功能和直观界面。",
       productUrl: "https://example.com/product2"
     }
   ]}
@@ -130,24 +130,24 @@ Use list layout to display products vertically
     layout="list"
     products={[
       {
-        name: "Product 1",
+        name: "产品1",
         image: getExampleImage({ width: 300, height: 200 }),
-        description: "This is a powerful example product that provides a quality experience for users.",
+        description: "这是一款功能强大的示例产品，为用户提供优质体验。",
         productUrl: "https://example.com/product1"
       },
       {
-        name: "Product 2",
+        name: "产品2",
         image: getExampleImage({ width: 300, height: 200 }),
-        description: "Another excellent product with innovative features and an intuitive interface.",
+        description: "另一款出色的产品，具有创新功能和直观界面。",
         productUrl: "https://example.com/product2"
       }
     ]}
   />
 </CodeExample>
 
-## Custom Card Size and Spacing
+## 自定义卡片尺寸和间距
 
-Adjust the product display effect by setting card size and spacing
+通过设置卡片尺寸和间距，调整产品展示效果
 
 <CodeExample
   code={`<Products
@@ -155,27 +155,27 @@ Adjust the product display effect by setting card size and spacing
   gap="lg"
   products={[
     {
-      name: "Product 1",
+      name: "产品1",
       image: "/images/products/product1.jpg",
-      description: "This is a powerful example product that provides a quality experience for users.",
+      description: "这是一款功能强大的示例产品，为用户提供优质体验。",
       productUrl: "https://example.com/product1"
     },
     {
-      name: "Product 2",
+      name: "产品2",
       image: "/images/products/product2.jpg",
-      description: "Another excellent product with innovative features and an intuitive interface.",
+      description: "另一款出色的产品，具有创新功能和直观界面。",
       productUrl: "https://example.com/product2"
     },
     {
-      name: "Product 3",
+      name: "产品3",
       image: "/images/products/product3.jpg",
-      description: "A third excellent product that meets diverse user needs.",
+      description: "第三款优秀产品，满足用户多样化需求。",
       productUrl: "https://example.com/product3"
     },
     {
-      name: "Product 4",
+      name: "产品4",
       image: "/images/products/product4.jpg",
-      description: "A fourth premium product offering outstanding performance and user experience.",
+      description: "第四款精品，提供卓越性能和用户体验。",
       productUrl: "https://example.com/product4"
     }
   ]}
@@ -186,42 +186,29 @@ Adjust the product display effect by setting card size and spacing
     gap="lg"
     products={[
       {
-        name: "Product 1",
+        name: "产品1",
         image: getExampleImage({ width: 300, height: 200 }),
-        description: "This is a powerful example product that provides a quality experience for users.",
+        description: "这是一款功能强大的示例产品，为用户提供优质体验。",
         productUrl: "https://example.com/product1"
       },
       {
-        name: "Product 2",
+        name: "产品2",
         image: getExampleImage({ width: 300, height: 200 }),
-        description: "Another excellent product with innovative features and an intuitive interface.",
+        description: "另一款出色的产品，具有创新功能和直观界面。",
         productUrl: "https://example.com/product2"
       },
       {
-        name: "Product 3",
+        name: "产品3",
         image: getExampleImage({ width: 300, height: 200 }),
-        description: "A third excellent product that meets diverse user needs.",
+        description: "第三款优秀产品，满足用户多样化需求。",
         productUrl: "https://example.com/product3"
       },
       {
-        name: "Product 4",
+        name: "产品4",
         image: getExampleImage({ width: 300, height: 200 }),
-        description: "A fourth premium product offering outstanding performance and user experience.",
+        description: "第四款精品，提供卓越性能和用户体验。",
         productUrl: "https://example.com/product4"
       }
     ]}
   />
 </CodeExample>
-
-## Properties
-
-| Property | Type | Default | Description |
-| --- | --- | --- | --- |
-| products | ProductItem[] | - | Array of product data, each item contains all properties of the ProductCard component (except class) |
-| layout | 'grid' \| 'list' | 'grid' | Layout type, grid or list |
-| columns | number \| ResponsiveColumns | \{ base: 1, sm: 2, md: 3, lg: 4 } | Column configuration, can be a fixed number or responsive object |
-| cardSize | 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' | 'md' | Card size, applied to all ProductCards |
-| gap | 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' | 'md' | Card spacing |
-| equalHeight | boolean | true | Whether to enable equal height cards |
-| descriptionLines | number | - | Maximum number of lines for description text |
-| class | string | - | Custom class name |

@@ -1,19 +1,17 @@
 ---
 title: 'TableOfContents'
-description: 'A table of contents component that displays the heading structure of a page and highlights the currently visible heading during scrolling'
+description: '目录导航组件，用于显示页面内容的标题结构，并在用户滚动页面时高亮当前可见标题'
 folder: false
 order: 15
 ---
 
 import { TableOfContents, CodeExample } from '@cosy/index';
 
-# TableOfContents
+TableOfContents 组件是一个目录导航组件，用于显示页面内容的标题结构。它会自动检测页面中的标题元素，生成目录列表，并在用户滚动页面时高亮当前可见的标题。当页面只有一个标题或没有足够的标题结构时，组件会自动隐藏。
 
-The TableOfContents component is a navigation component that displays the heading structure of a page. It automatically detects heading elements on the page, generates a table of contents list, and highlights the currently visible heading as the user scrolls. When the page has only one heading or not enough heading structure, the component will automatically hide.
+## 基础用法
 
-## Basic Usage
-
-By default, the component automatically detects h2 and h3 headings on the page and generates a table of contents:
+默认情况下，组件会自动检测页面中的 h2 和 h3 标题，生成目录列表：
 
 <CodeExample
   code={`<TableOfContents />`}
@@ -21,27 +19,27 @@ By default, the component automatically detects h2 and h3 headings on the page a
   <TableOfContents />
 </CodeExample>
 
-## Custom Title and Selector
+## 自定义标题和选择器
 
-You can customize the title text and the heading selector:
+您可以自定义目录的标题文本和要检测的标题选择器：
 
 <CodeExample
   code={`<TableOfContents
-  title="Chapter Navigation"
+  title="章节导航"
   selector="h2, h3, h4"
   maxDepth={4}
 />`}
 >
   <TableOfContents
-    title="Chapter Navigation"
+    title="章节导航"
     selector="h2, h3, h4"
     maxDepth={4}
   />
 </CodeExample>
 
-## Non-Fixed Position
+## 非固定位置
 
-By default, the table of contents is fixed on the right side, but you can set it to a non-fixed position:
+默认情况下，目录会固定在右侧，您也可以设置为非固定位置：
 
 <CodeExample
   code={`<TableOfContents fixed={false} />`}
@@ -49,44 +47,12 @@ By default, the table of contents is fixed on the right side, but you can set it
   <TableOfContents fixed={false} />
 </CodeExample>
 
-## Custom Content Container
+## 自定义内容容器
 
-You can specify a particular content container where the component will look for headings:
+您可以指定一个特定的内容容器，组件将只在该容器内查找标题：
 
 <CodeExample
   code={`<TableOfContents containerSelector=".article-content" />`}
 >
   <TableOfContents containerSelector=".article-content" />
 </CodeExample>
-
-## Properties
-
-| Property | Type | Default | Description |
-| ------ | ---- | ------ | ---- |
-| fixed | boolean | true | Whether to fix the component on the right side |
-| class | string | - | Custom class name |
-| selector | string | 'h2, h3' | Heading selector |
-| maxDepth | number | 3 | Maximum depth of headings to include |
-| title | string | Auto-selected based on language | Title text |
-| containerSelector | string | 'main' | Content container selector to limit heading search scope |
-| minHeadings | number | 2 | Minimum number of headings required to display the TOC |
-| lang | string | Auto-detected | Language |
-
-## How It Works
-
-The main workflow of the TableOfContents component:
-
-1. After loading, the component searches for heading elements in the content container using the specified selector
-2. If the number of headings found is less than the minimum requirement (default 2), the TOC is automatically hidden
-3. For each heading, it creates a TOC item and generates a unique ID (if the heading doesn't have one)
-4. When a user clicks on a TOC item, the page smoothly scrolls to the corresponding heading position
-5. As the user scrolls the page, the component calculates and highlights the currently visible heading
-
-The component uses a throttle function to optimize scroll event handling for better performance.
-
-## Best Practices
-
-- Use this component in documentation or long article pages to help users navigate quickly
-- Ensure a logical heading structure using appropriate heading levels (h1, h2, h3, etc.)
-- For small screen devices, the component automatically hides, no additional handling needed
-- If page content changes dynamically, consider re-rendering this component after content updates 

@@ -1,19 +1,17 @@
 ---
 title: 'LanguageSwitcher'
-description: 'Provides a language switching dropdown menu for multilingual websites'
+description: 'Provides a language switching dropdown menu for multilingual website language switching functionality'
 folder: false
-order: 1
+order: 11
 ---
 
 import { LanguageSwitcher, CodeExample } from '@cosy/index';
 
-# LanguageSwitcher
-
-The LanguageSwitcher component provides a language switching dropdown menu for multilingual websites. It automatically handles URL paths to ensure the current page context is preserved when switching languages.
+The LanguageSwitcher component provides a language switching dropdown menu, supporting language switching functionality for multilingual websites. The component automatically handles URL paths, ensuring that the current page path is preserved when switching languages.
 
 ## Basic Usage
 
-By default, the component supports Chinese and English languages:
+By default, the component supports two languages: Chinese and English:
 
 <CodeExample
   code={`<LanguageSwitcher />`}
@@ -23,7 +21,7 @@ By default, the component supports Chinese and English languages:
 
 ## Custom Language List
 
-You can customize the language list using the `languages` property and set the current language with `currentLocale`:
+You can customize the language list through the `languages` property and set the current language via `currentLocale`:
 
 <CodeExample
   code={`<LanguageSwitcher
@@ -32,7 +30,7 @@ You can customize the language list using the `languages` property and set the c
 />`}
 >
   <LanguageSwitcher
-    languages={['zh-cn','en']}
+    languages={['zh-cn', 'en']}
     currentLocale="en"
   />
 </CodeExample>
@@ -46,39 +44,3 @@ You can add custom styles to the switcher using the `class` property:
 >
   <LanguageSwitcher class="cosy:border cosy:border-gray-300 cosy:rounded-md cosy:p-1" />
 </CodeExample>
-
-## Properties
-
-| Property | Type | Default | Description |
-| ------ | ---- | ------ | ---- |
-| languages | Array | Default Chinese and English options | List of languages, each with code and display name |
-| currentLocale | string | 'zh-cn' | Current language code |
-| class | string | - | Custom class name |
-
-**Language type structure:**
-```typescript
-interface Language {
-  code: string;  // Language code
-  name: string;  // Display name for the language
-}
-```
-
-## How It Works
-
-The main workflow of the LanguageSwitcher component:
-
-1. Display available languages based on the provided `languages` array
-2. Show the currently selected language (based on `currentLocale`)
-3. When a user selects a new language:
-   - The component analyzes the current URL
-   - If the URL already contains a language code, it's replaced with the new one
-   - If the URL doesn't have a language code, the new language code is added to the beginning of the path
-   - The user is redirected to the new URL
-
-This design ensures that when switching languages on multilingual websites, users can continue browsing the current page content, just in a different language.
-
-## Best Practices
-
-- Use this component in your global layout, such as in the header or navigation bar
-- Ensure your website routing structure supports language prefixes (like `/zh-cn/about`, `/en/about`)
-- For pages without multilingual content, set up redirection rules to the default language version 

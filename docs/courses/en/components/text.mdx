@@ -1,141 +1,139 @@
 ---
 title: 'Text'
-description: 'Create various text elements with consistent typography styles and flexible customization options'
+description: '用于创建各种文本元素，提供一致的排版样式和灵活的定制选项'
 folder: false
-order: 4
+order: 26
 ---
 
 import { Text, CodeExample } from '@cosy/index';
 
-# Text
+Text 组件用于创建各种文本元素，提供一致的排版样式和灵活的定制选项。该组件适用于需要统一文本样式的场景，如段落、提示文本、标签等。
 
-The Text component is used to create various text elements with consistent typography styles and flexible customization options. This component is ideal for scenarios requiring unified text styling, such as paragraphs, hints, labels, and more.
+## 基础用法
 
-## Basic Usage
-
-The basic Text component renders as a `<p>` element by default:
+基本的 Text 组件默认渲染为 `<p>` 元素：
 
 <CodeExample
-  code={`<Text>This is a regular text</Text>`}
+  code={`<Text>这是一段普通文本</Text>`}
 >
-  <Text>This is a regular text</Text>
+  <Text>这是一段普通文本</Text>
 </CodeExample>
 
-## Different Sizes
+## 不同大小
 
-The Text component offers multiple size options:
+Text 组件提供了多种大小选项：
 
 <CodeExample
-  code={`<Text size="xs">Extra small text (xs)</Text>
-<Text size="sm">Small text (sm)</Text>
-<Text size="md">Medium text (md) - default</Text>
-<Text size="lg">Large text (lg)</Text>
-<Text size="xl">Extra large text (xl)</Text>`}
+  code={`<Text size="xs">超小文本 (xs)</Text>
+<Text size="sm">小文本 (sm)</Text>
+<Text size="md">中等文本 (md) - 默认</Text>
+<Text size="lg">大文本 (lg)</Text>
+<Text size="xl">超大文本 (xl)</Text>`}
 >
-  <Text size="xs">Extra small text (xs)</Text>
-  <Text size="sm">Small text (sm)</Text>
-  <Text size="md">Medium text (md) - default</Text>
-  <Text size="lg">Large text (lg)</Text>
-  <Text size="xl">Extra large text (xl)</Text>
+  <Text size="xs">超小文本 (xs)</Text>
+  <Text size="sm">小文本 (sm)</Text>
+  <Text size="md">中等文本 (md) - 默认</Text>
+  <Text size="lg">大文本 (lg)</Text>
+  <Text size="xl">超大文本 (xl)</Text>
 </CodeExample>
 
-## Text Colors
+## 文本颜色
 
-You can set different text colors using the `color` property:
+可以使用 `color` 属性设置不同的文本颜色：
 
 <CodeExample
-  code={`<Text color="default">Default color text</Text>
-<Text color="primary">Primary color text</Text>
-<Text color="secondary">Secondary color text</Text>
-<Text color="accent">Accent color text</Text>
-<Text color="muted">Muted color text</Text>`}
+  code={`<Text color="default">默认颜色文本</Text>
+<Text color="primary">主要颜色文本</Text>
+<Text color="secondary">次要颜色文本</Text>
+<Text color="accent">强调色文本</Text>
+<Text color="muted">柔和色文本</Text>`}
 >
-  <Text color="default">Default color text</Text>
-  <Text color="primary">Primary color text</Text>
-  <Text color="secondary">Secondary color text</Text>
-  <Text color="accent">Accent color text</Text>
-  <Text color="muted">Muted color text</Text>
+  <Text color="default">默认颜色文本</Text>
+  <Text color="primary">主要颜色文本</Text>
+  <Text color="secondary">次要颜色文本</Text>
+  <Text color="accent">强调色文本</Text>
+  <Text color="muted">柔和色文本</Text>
 </CodeExample>
 
-## Font Weight
+## 字体粗细
 
-Adjust the thickness of the text:
+调整文本的粗细程度：
 
 <CodeExample
-  code={`<Text weight="light">Light weight text</Text>
-<Text weight="normal">Normal weight text (default)</Text>
-<Text weight="medium">Medium weight text</Text>
-<Text weight="semibold">Semibold weight text</Text>
-<Text weight="bold">Bold weight text</Text>`}
+  code={`<Text weight="light">细体文本</Text>
+<Text weight="normal">常规文本（默认）</Text>
+<Text weight="medium">中等粗文本</Text>
+<Text weight="semibold">半粗体文本</Text>
+<Text weight="bold">粗体文本</Text>`}
 >
-  <Text weight="light">Light weight text</Text>
-  <Text weight="normal">Normal weight text (default)</Text>
-  <Text weight="medium">Medium weight text</Text>
-  <Text weight="semibold">Semibold weight text</Text>
-  <Text weight="bold">Bold weight text</Text>
+  <Text weight="light">细体文本</Text>
+  <Text weight="normal">常规文本（默认）</Text>
+  <Text weight="medium">中等粗文本</Text>
+  <Text weight="semibold">半粗体文本</Text>
+  <Text weight="bold">粗体文本</Text>
 </CodeExample>
 
-## Text Alignment
+## 文本对齐
 
-Control text alignment:
+控制文本的对齐方式：
 
 <CodeExample
-  code={`<Text align="left">Left-aligned text (default)</Text>
-<Text align="center">Center-aligned text</Text>
-<Text align="right">Right-aligned text</Text>
-<Text align="justify">Justified text. This is a longer piece of text to demonstrate the effect of justified alignment. Justified alignment maintains alignment at both the left and right edges by adjusting word spacing.</Text>`}
+  code={`<Text align="left">左对齐文本（默认）</Text>
+<Text align="center">居中对齐文本</Text>
+<Text align="right">右对齐文本</Text>
+<Text align="justify">两端对齐文本。这是一段较长的文本，用于演示两端对齐的效果。两端对齐会使文本的左右边缘保持对齐，通过调整单词间距实现。</Text>`}
 >
-  <Text align="left">Left-aligned text (default)</Text>
-  <Text align="center">Center-aligned text</Text>
-  <Text align="right">Right-aligned text</Text>
-  <Text align="justify">Justified text. This is a longer piece of text to demonstrate the effect of justified alignment. Justified alignment maintains alignment at both the left and right edges by adjusting word spacing.</Text>
+  <Text align="left">左对齐文本（默认）</Text>
+  <Text align="center">居中对齐文本</Text>
+  <Text align="right">右对齐文本</Text>
+  <Text align="justify">两端对齐文本。这是一段较长的文本，用于演示两端对齐的效果。两端对齐会使文本的左右边缘保持对齐，通过调整单词间距实现。</Text>
 </CodeExample>
 
-## Text Styles
+## 文本样式
 
-Set italic and underline styles:
+可以设置斜体和下划线样式：
 
 <CodeExample
-  code={`<Text italic>Italic text</Text>
-<Text underline>Underlined text</Text>
-<Text italic underline>Italic and underlined text</Text>`}
+  code={`<Text italic>斜体文本</Text>
+<Text underline>带下划线文本</Text>
+<Text italic underline>斜体带下划线文本</Text>`}
 >
-  <Text italic>Italic text</Text>
-  <Text underline>Underlined text</Text>
-  <Text italic underline>Italic and underlined text</Text>
+  <Text italic>斜体文本</Text>
+  <Text underline>带下划线文本</Text>
+  <Text italic underline>斜体带下划线文本</Text>
 </CodeExample>
 
-## Text Truncation
+## 文本截断
 
-For long text that might overflow its container, use the `truncate` property:
+对于可能溢出容器的长文本，可以使用 `truncate` 属性进行截断：
 
 <CodeExample
   code={`<div style="width: 200px; border: 1px dashed #ccc; padding: 8px;">
-  <Text truncate>This is a very long text content that will exceed the container width and therefore will be truncated with an ellipsis...</Text>
+  <Text truncate>这是一段非常长的文本内容，会超出容器宽度，因此会被截断并显示省略号...</Text>
 </div>`}
 >
   <div style="width: 200px; border: 1px dashed #ccc; padding: 8px;">
-    <Text truncate>This is a very long text content that will exceed the container width and therefore will be truncated with an ellipsis...</Text>
+    <Text truncate>这是一段非常长的文本内容，会超出容器宽度，因此会被截断并显示省略号...</Text>
   </div>
 </CodeExample>
 
-## Custom Elements
+## 自定义元素
 
-Use the `as` property to change the rendered HTML element:
+使用 `as` 属性可以更改渲染的HTML元素：
 
 <CodeExample
-  code={`<Text as="span">This is a span element</Text>
-<Text as="div">This is a div element</Text>
-<Text as="label">This is a label element</Text>`}
+  code={`<Text as="span">这是一个 span 元素</Text>
+<Text as="div">这是一个 div 元素</Text>
+<Text as="label">这是一个 label 元素</Text>`}
 >
-  <Text as="span">This is a span element</Text>
-  <Text as="div">This is a div element</Text>
-  <Text as="label">This is a label element</Text>
+  <Text as="span">这是一个 span 元素</Text>
+  <Text as="div">这是一个 div 元素</Text>
+  <Text as="label">这是一个 label 元素</Text>
 </CodeExample>
 
-## Combined Usage
+## 组合使用
 
-Combine multiple properties to create customized text styles:
+可以组合多种属性创建定制化的文本样式：
 
 <CodeExample
   code={`<Text 
@@ -145,7 +143,7 @@ Combine multiple properties to create customized text styles:
   align="center"
   class="cosy:py-2 cosy:border cosy:border-primary-200 cosy:rounded-md"
 >
-  This is an important notice
+  这是一个重要的提示信息
 </Text>`}
 >
   <Text 
@@ -155,28 +153,6 @@ Combine multiple properties to create customized text styles:
     align="center"
     class="cosy:py-2 cosy:border cosy:border-primary-200 cosy:rounded-md"
   >
-    This is an important notice
+    这是一个重要的提示信息
   </Text>
 </CodeExample>
-
-## Properties
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| as | string | 'p' | HTML element to render |
-| size | string | 'md' | Text size: 'xs', 'sm', 'md', 'lg', 'xl' |
-| weight | string | 'normal' | Font weight: 'light', 'normal', 'medium', 'semibold', 'bold' |
-| color | string | 'default' | Text color: 'default', 'primary', 'secondary', 'accent', 'muted' |
-| align | string | 'left' | Text alignment: 'left', 'center', 'right', 'justify' |
-| italic | boolean | false | Whether to use italic style |
-| underline | boolean | false | Whether to add underline |
-| truncate | boolean | false | Whether to truncate text with ellipsis |
-| class | string | - | Custom class name |
-
-## Best Practices
-
-- Maintain consistent text styles across your application using the same size and color schemes
-- For headings, use the Heading component instead of setting large sizes on the Text component
-- When using the `truncate` property, ensure the parent container has a clear width restriction
-- Pay attention to the contrast between text color and background color for good readability
-- For important content or information that needs to be emphasized, appropriately use bold and accent colors 
