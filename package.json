@@ -5,10 +5,9 @@
     "private": true,
     "description": "Cosy UI component library workspace",
     "scripts": {
-        "build": "pnpm --recursive run build",
         "build:astro": "pnpm --filter @coffic/cosy-ui build",
-        "build:docs": "pnpm --filter @coffic/cosy-ui-docs build",
-        "dev": "pnpm --recursive run dev",
+        "build:docs": "pnpm build:astro && pnpm --filter @coffic/cosy-ui-docs build",
+        "dev:docs": "pnpm build:astro && pnpm --filter @coffic/cosy-ui-docs dev",
         "check": "pnpm --recursive run check",
         "test": "pnpm --recursive run test",
         "clean": "pnpm --recursive run clean",

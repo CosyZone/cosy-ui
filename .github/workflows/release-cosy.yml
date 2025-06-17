@@ -46,7 +46,7 @@
 #    git push origin main
 #    ```
 #
-name: 🎉 Release Cosy UI
+name: 📦 Release Cosy UI
 
 on:
   push:
@@ -106,7 +106,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
           
       - name: Install Dependencies
-        run: cd packages/astro && pnpm install
+        run: cd packages/cosy-ui && pnpm install
         
       - name: Configure Git
         run: |

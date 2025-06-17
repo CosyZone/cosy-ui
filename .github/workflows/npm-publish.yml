@@ -3,7 +3,7 @@ name: 📦 Publish to npm
 on:
   workflow_run:
     workflows:
-      - '🎉 Release Cosy UI'
+      - '📦 Release Cosy UI'
     types:
       - completed
 
@@ -30,7 +30,7 @@ jobs:
         run: |
           npm config set //registry.npmjs.org/:_authToken ${NODE_AUTH_TOKEN}
           npm whoami
-          cd packages/astro
+          cd packages/cosy-ui
           pnpm i
           pnpm build
           npm publish --access public --no-git-checks
