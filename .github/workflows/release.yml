@@ -150,7 +150,7 @@ jobs:
           current_branch=${GITHUB_REF#refs/heads/}
           git pull origin $current_branch
           git add .
-          git commit -m "chore: ${{ env.is_prerelease == 'true' && 'prerelease' || 'release' }} version ${{ env.VERSION }}"
+          git commit -m "👷 CI: ${{ env.is_prerelease == 'true' && 'prerelease' || 'release' }} version ${{ env.VERSION }}"
           git tag v${{ env.VERSION }}
           git push origin $current_branch
           git push origin v${{ env.VERSION }}

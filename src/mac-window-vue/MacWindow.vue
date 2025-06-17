@@ -96,7 +96,7 @@ const activeTab = ref('外观');
 
 <script lang="ts">
 import '../../style.ts'
-import AlertDialog from '../AlertDialog/AlertDialog.vue'
+import AlertDialog from '../alert-dialog-vue/AlertDialog.vue'
 import { ref, defineComponent, type PropType } from 'vue'
 
 export default defineComponent({
