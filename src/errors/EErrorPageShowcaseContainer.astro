@@ -1,0 +1,21 @@
+---
+/**
+ * @component ErrorPageShowcaseContainer
+ *
+ * @description
+ * 错误页面展示示例的容器组件，用于展示代码和预览。
+ */
+import { CodeContainer } from '../index';
+import EErrorPageShowcase from './EErrorPageShowcase.astro';
+// @ts-expect-error: Astro raw import
+import ShowcaseSourceCode from './EErrorPageShowcase.astro?raw';
+---
+
+<CodeContainer
+	titles={['错误页面展示']}
+	descriptions={['展示所有错误页面类型的综合示例']}
+	codes={[ShowcaseSourceCode]}>
+	<div id="tab-1">
+		<EErrorPageShowcase />
+	</div>
+</CodeContainer>

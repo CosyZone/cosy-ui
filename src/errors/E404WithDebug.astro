@@ -1,0 +1,18 @@
+---
+/**
+ * @component Error404.WithDebug
+ *
+ * @description
+ * 带调试信息的404错误页面示例，展示如何显示调试信息。
+ */
+import Error404 from './404.astro';
+---
+
+<Error404
+	debugKVs={{
+		reason: '页面不存在',
+		suggestedAction: '请检查URL拼写',
+		timestamp: new Date().toISOString(),
+		requestId: 'REQ_2024_001',
+	}}
+/>

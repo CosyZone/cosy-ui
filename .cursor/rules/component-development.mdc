@@ -68,7 +68,13 @@ export const ComponentPackage = {
 - 必须导入：`import { Component, ComponentPackage } from '@cosy/index';`
 - 文档结构参考 [alert.mdx](mdc:docs/courses/zh-cn/components/alert.mdx)
 
-### 3. 必须包含的章节
+### 3. 文档排序规范
+- `order` 值必须根据文档文件名的字母顺序生成
+- 确保 `abc.mdx` 的 order 值比 `def.mdx` 的 order 值小
+- 推荐使用连续递增的整数，如：1, 2, 3, 4...
+- 新增文档时需要检查现有文档的order值，确保按字母顺序正确排列
+
+### 4. 必须包含的章节
 - **简介** - 组件描述和特性
 - **基础用法** - `<ComponentPackage.ComponentContainers.Basic/>`
 - **功能示例** - 展示各种特性的用法
@@ -102,6 +108,13 @@ export const ComponentPackage = {
 - 创建中英文文档文件
 - 按照规范结构编写文档内容
 - 确保所有示例都能正常工作
+- 正确设置文档的order值，确保按字母顺序排列
+
+### 6. 构建验证
+- **必须**在完成所有操作后执行 `pnpm build`
+- 确保构建过程无错误
+- 如果构建失败，必须修复所有错误后重新构建
+- 只有构建成功才算完成组件开发
 
 ## 常见错误避免
 
@@ -111,6 +124,8 @@ export const ComponentPackage = {
 4. **导入缺失**：忘记导入 [style.ts](mdc:src/style.ts)
 5. **Package缺失**：忘记创建ComponentPackage导致文档中的示例无法工作
 6. **全局导出缺失**：忘记在 [index_astro.ts](mdc:src/index_astro.ts) 中导出组件
+7. **构建验证缺失**：忘记执行 `pnpm build` 验证构建
+8. **文档排序错误**：文档的order值不符合字母顺序
 
 ## 检查清单
 
@@ -127,3 +142,5 @@ export const ComponentPackage = {
 - [ ] 在 [index_astro.ts](mdc:src/index_astro.ts) 中按字母顺序添加了组件导出
 - [ ] 创建了中英文文档
 - [ ] 文档中的所有示例都能正常工作
+- [ ] 文档order值按字母顺序正确设置
+- [ ] 执行 `pnpm build` 验证构建成功
