@@ -1,0 +1,48 @@
+---
+title: 'TableOfContents'
+description: '目录导航组件，用于显示页面内容的标题结构，并在用户滚动页面时高亮当前可见标题'
+folder: false
+order: 22
+---
+
+import { TableOfContents, CodeExample } from '@coffic/cosy-ui';
+
+TableOfContents 组件是一个目录导航组件，用于显示页面内容的标题结构。它会自动检测页面中的标题元素，生成目录列表，并在用户滚动页面时高亮当前可见的标题。当页面只有一个标题或没有足够的标题结构时，组件会自动隐藏。
+
+## 基础用法
+
+默认情况下，组件会自动检测页面中的 h2 和 h3 标题，生成目录列表：
+
+<CodeExample code={`<TableOfContents />`}>
+  <TableOfContents />
+</CodeExample>
+
+## 自定义标题和选择器
+
+您可以自定义目录的标题文本和要检测的标题选择器：
+
+<CodeExample
+  code={`<TableOfContents
+  title="章节导航"
+  selector="h2, h3, h4"
+  maxDepth={4}
+/>`}
+>
+  <TableOfContents title="章节导航" selector="h2, h3, h4" maxDepth={4} />
+</CodeExample>
+
+## 非固定位置
+
+默认情况下，目录会固定在右侧，您也可以设置为非固定位置：
+
+<CodeExample code={`<TableOfContents fixed={false} />`}>
+  <TableOfContents fixed={false} />
+</CodeExample>
+
+## 自定义内容容器
+
+您可以指定一个特定的内容容器，组件将只在该容器内查找标题：
+
+<CodeExample code={`<TableOfContents containerSelector=".article-content" />`}>
+  <TableOfContents containerSelector=".article-content" />
+</CodeExample>

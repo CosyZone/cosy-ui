@@ -1,0 +1,150 @@
+---
+/**
+ * Section组件
+ *
+ * 一个用于页面内容区块的组件，支持不同的内边距、背景和间距
+ *
+ * @example
+ * ```astro
+ * <Section>
+ *   <h2>默认区块</h2>
+ *   <p>内容将被包裹在一个合适的区块中</p>
+ * </Section>
+ *
+ * <Section padding="lg" background="gray" centered={true} border={true}>
+ *   <h2>自定义区块</h2>
+ *   <p>大内边距，灰色背景，内容居中，带边框</p>
+ * </Section>
+ * ```
+ */
+
+import type { HTMLAttributes } from 'astro/types';
+import Container from '../container/Container.astro';
+import '../../style.ts';
+
+interface Props extends HTMLAttributes<'section'> {
+  /**
+   * 内边距大小
+   * @default "md"
+   */
+  padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+
+  /**
+   * 背景颜色
+   * @default "transparent"
+   */
+  background?:
+    | 'transparent'
+    | 'white'
+    | 'gray'
+    | 'primary'
+    | 'secondary'
+    | 'dark';
+
+  /**
+   * 是否使用容器包裹内容
+   * @default true
+   */
+  container?: boolean;
+
+  /**
+   * 容器尺寸，仅当container为true时有效
+   * @default "md"
+   */
+  containerSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+
+  /**
+   * 内容是否居中
+   * @default false
+   */
+  centered?: boolean;
+
+  /**
+   * 是否显示边框
+   * @default false
+   */
+  border?: boolean;
+
+  /**
+   * 自定义类名
+   */
+  class?: string;
+
+  /**
+   * 类名列表
+   */
+  'class:list'?: any;
+
+  /**
+   * 自定义ID
+   */
+  id?: string;
+
+  /**
+   * 自定义内联样式
+   */
+  style?: string;
+}
+
+const {
+  padding = 'md',
+  background = 'transparent',
+  container = true,
+  containerSize = 'md',
+  centered = false,
+  border = false,
+  class: className = '',
+  'class:list': classList,
+  id,
+  style,
+  ...rest
+} = Astro.props;
+
+// 内边距映射
+const paddingClasses = {
+  none: 'cosy:py-0',
+  sm: 'cosy:py-6',
+  md: 'cosy:py-12',
+  lg: 'cosy:py-16',
+  xl: 'cosy:py-24',
+};
+
+// 背景颜色映射
+const backgroundClasses = {
+  transparent: 'cosy:bg-transparent',
+  white: 'cosy:bg-base-100',
+  gray: 'cosy:bg-base-200',
+  primary: 'cosy:bg-primary/10',
+  secondary: 'cosy:bg-secondary/10',
+  dark: 'cosy:bg-neutral cosy:text-neutral-content',
+};
+
+// 构建最终类名
+const sectionClasses = [
+  paddingClasses[padding as keyof typeof paddingClasses],
+  backgroundClasses[background as keyof typeof backgroundClasses],
+  border ? 'cosy:border cosy:rounded-lg' : '',
+  className,
+].join(' ');
+
+// 内容类名
+const contentClasses = centered ? 'cosy:text-center' : '';
+---
+
+<section
+  id={id}
+  class:list={[sectionClasses, classList]}
+  style={style}
+  {...rest}>
+  {
+    container ? (
+      <Container size={containerSize} class={contentClasses}>
+        <slot />
+      </Container>
+    ) : (
+      <div class={contentClasses}>
+        <slot />
+      </div>
+    )
+  }
+</section>

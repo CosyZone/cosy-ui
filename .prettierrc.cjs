@@ -15,7 +15,7 @@ module.exports = {
       },
     },
     {
-      files: ['.*', '*.json', '*.md', '*.toml', '*.yml'],
+      files: ['.*', '*.json', '*.md', '*.toml', '*.yml', "*.mdx"],
       options: {
         useTabs: false,
       },

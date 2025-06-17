@@ -1,0 +1,50 @@
+---
+title: 为 Cursor 开发 MCP Server
+description: 这个教程用来让你理解扩展 Cursor 功能的基本流程
+---
+
+## 项目介绍
+
+在这个教程中，我们将一起学习如何为 Cursor 开发一个 MCP Server。
+
+通俗的说，我们将通过一个简单的项目扩展 Cursor 的功能，使其能够获取更多关于用户的个性化信息。
+
+这个教程用来让你理解扩展 Cursor 功能的基本流程，你可以以此为基础，开发更多复杂的功能，比如：
+
+- 让 Cursor 直接操作你的电脑上的文件系统
+- 让 Cursor 直接操作你的数据库：设计和创建表格、插入样本数据
+
+只要满足 MCP 协议的要求，你就可以开发任何功能。
+
+## 环境
+
+由于作者使用 macOS，教程中提到的所有操作都基于这个操作系统。
+
+## 项目结构
+
+本项目包含两个主要部分：
+
+- `content/`: 存放教程文档
+  - `zh-cn/`: 中文文档
+  - `en/`: 英文文档
+- `project/`: 存放项目源代码
+  - Python 实现的 MCP Server
+  - 示例代码和测试用例
+
+## 准备工作
+
+在开始之前，请确保你的环境中已经安装：
+
+- Python 3.8 或更高版本
+- Cursor IDE
+- uv
+
+如果还没有安装 uv，可这样安装:
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+让我们开始这个有趣的项目吧！
+
+在 GitHub 上可看到这个项目的所有内容：[build_mcp_for_cursor](https://github.com/BuildMyOwn/build_mcp_for_cursor)

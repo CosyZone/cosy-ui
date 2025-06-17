@@ -1,0 +1,26 @@
+---
+import DemoLayout from '@/layouts/DemoLayout.astro';
+import { LinkUtil } from '@coffic/cosy-ui';
+
+export const getStaticPaths = async () => {
+  return [
+    {
+      params: { lang: 'zh-cn' },
+      props: {
+        lang: 'zh-cn',
+      },
+    },
+    {
+      params: { lang: 'en' },
+      props: {
+        lang: 'en',
+      },
+    },
+  ];
+};
+
+const redirectLink = LinkUtil.createUrl('/en/courses/guide');
+return Astro.redirect(redirectLink);
+---
+
+<DemoLayout title="Courses" />

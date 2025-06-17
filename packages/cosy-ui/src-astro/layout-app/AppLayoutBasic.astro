@@ -1,0 +1,54 @@
+---
+import AppLayout from './AppLayout.astro';
+import type { ISidebarItem } from '../types/sidebar';
+
+const sidebarItems: ISidebarItem[] = [
+  {
+    text: '入门',
+    href: '/docs/getting-started',
+    items: [
+      { href: '/docs/getting-started', text: '快速开始' },
+      { href: '/docs/installation', text: '安装' },
+    ],
+  },
+  {
+    text: '组件',
+    href: '/docs/components',
+    items: [
+      { href: '/docs/components/button', text: 'Button 按钮' },
+      { href: '/docs/components/card', text: 'Card 卡片' },
+    ],
+  },
+];
+---
+
+<AppLayout
+  metaConfig={{
+    title: '应用布局示例',
+    description: '这是一个应用布局的示例页面',
+    keywords: '布局,示例,应用布局',
+    author: 'CofficLab',
+    robots: 'noindex,nofollow',
+  }}
+  sidebarConfig={{
+    sidebarItems: sidebarItems,
+  }}
+  headerConfig={{
+    height: 'md',
+  }}
+  footerConfig={{
+    siteName: '我的文档站点',
+    homeLink: '/',
+    slogan: '简单而强大的组件库',
+    company: 'CofficLab',
+    copyright: '保留所有权利',
+    inspirationalSlogan: '让开发更加愉悦',
+  }}
+  mainContentConfig={{
+    padding: 'md',
+  }}
+>
+  <h1 class="cosy:text-2xl cosy:font-bold cosy:mb-4">欢迎使用应用布局</h1>
+  <p class="cosy:mb-2">这是一个包含侧边栏、头部和页脚的完整布局示例。</p>
+  <p>应用布局适合用于文档站点、管理后台等场景。</p>
+</AppLayout>

@@ -1,0 +1,176 @@
+---
+title: 'Header'
+description: 'A layout component for website top navigation, providing logo, navigation menu, language switching, and other functions'
+folder: false
+order: 11
+---
+
+import {
+  CodeExample,
+  Header,
+  HeaderBasic,
+  HeaderWithNavigation,
+  HeaderCustomPosition,
+  HeaderCustomNavbarEnd,
+  HeaderCustomNavbarStart,
+  HeaderCustomNavbarCenter,
+  getExampleImage,
+  HeaderExampleCodes,
+} from '@coffic/cosy-ui';
+
+The Header component is a layout component for website top navigation, providing logo, navigation menu, language switching, and other functions.
+
+The component supports responsive design, with good display effects on different screen sizes, and can optionally be fixed at the top of the page.
+
+This documentation only lists common usages; for more usages, please refer to the component's source code.
+
+## Basic Usage
+
+The basic Header component includes logo and language switching functionality:
+
+<CodeExample code={HeaderExampleCodes.Basic}>
+  <HeaderBasic />
+</CodeExample>
+
+## With Navigation Menu
+
+Add navigation menu items using the `navItems` property:
+
+<CodeExample code={HeaderExampleCodes.WithNavigation}>
+  <HeaderWithNavigation />
+</CodeExample>
+
+## Custom Height
+
+Use the `height` property to set the height of the navigation bar, supporting seven preset sizes:
+
+<CodeExample
+  code={`<Header 
+  logo={{ src: getExampleImage({ width: 100, height: 100, provider: "robohash", randomSeed: "cosy" }) }}
+  logoHref="/"
+  height="sm"
+/>`}
+>
+  <Header
+    logo={{
+      src: getExampleImage({
+        width: 100,
+        height: 100,
+        provider: 'picsum',
+        tag: 'tech',
+      }),
+      width: 100,
+      height: 100,
+      format: 'png',
+    }}
+    logoHref="/"
+    sticky={false}
+    height="sm"
+    rounded="lg"
+  />
+</CodeExample>
+
+Height comparison:
+
+- `3xs`: Tiny size (16px) - Suitable for minimalist interfaces or embedded components
+- `2xs`: Extra small size (24px) - Suitable for compact toolbars
+- `xs`: Very small size (32px) - Suitable for secondary navigation bars
+- `sm`: Small size (40px) - Suitable for lightweight tool-type websites
+- `md`: Medium size (48px, default) - Suitable for most applications
+- `lg`: Large size (64px) - Suitable for content-centered websites
+- `xl`: Extra large size (80px) - Suitable for brand showcase websites
+
+Height settings automatically adjust the logo size and the placeholder space at the top of the page (when `sticky` is true).
+
+## Custom Language Options
+
+Customize options in the language switching dropdown menu:
+
+<CodeExample
+  code={`<Header 
+  logo={{ src: getExampleImage({ width: 100, height: 100, provider: "picsum", blur: 2 }) }}
+  logoHref="/"
+  languages={["zh-cn", "en"]}
+  currentLocale="zh-cn"
+/>`}
+>
+  <Header
+    logo={{
+      src: getExampleImage({
+        width: 100,
+        height: 100,
+        provider: 'picsum',
+        tag: 'tech',
+      }),
+      width: 100,
+      height: 100,
+      format: 'png',
+    }}
+    logoHref="/"
+    sticky={false}
+    languages={['zh-cn', 'en']}
+    currentLocale="zh-cn"
+    rounded="lg"
+  />
+</CodeExample>
+
+## Fixed at the Top
+
+Use the `sticky` property to fix the navigation bar at the top of the page:
+
+<CodeExample
+  code={`<Header 
+  logo={{ src: "https://via.placeholder.com/100", width: 100, height: 100, format: "png" }}
+  logoHref="/"
+  sticky={true}
+/>`}
+>
+  <Header
+    logo={{
+      src: getExampleImage({
+        width: 100,
+        height: 100,
+        provider: 'picsum',
+        tag: 'tech',
+      }),
+      width: 100,
+      height: 100,
+      format: 'png',
+    }}
+    logoHref="/"
+    sticky={false}
+    rounded="lg"
+  />
+</CodeExample>
+
+## Custom Navigation Bar Content
+
+The Header component provides three slots for customizing different parts of the navigation bar:
+
+- `navbar-start`: Customize the left side content of the navigation bar
+- `navbar-center`: Customize the middle content of the navigation bar
+- `navbar-end`: Customize the right side content of the navigation bar (displays language switcher by default)
+
+Here are examples of customizing each part:
+
+### Custom Left Content
+
+You can add custom content next to the logo:
+
+<CodeExample code={HeaderExampleCodes.CustomNavbarStart}>
+  <HeaderCustomNavbarStart />
+</CodeExample>
+
+### Custom Middle Content
+
+You can replace or enhance the default navigation menu:
+
+<CodeExample code={HeaderExampleCodes.CustomNavbarCenter}>
+  <HeaderCustomNavbarCenter />
+</CodeExample>
+
+### Custom Right Content
+
+<CodeExample code={HeaderExampleCodes.CustomNavbarEnd}>
+  <HeaderCustomNavbarEnd />
+</CodeExample>

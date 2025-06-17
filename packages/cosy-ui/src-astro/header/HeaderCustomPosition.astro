@@ -1,0 +1,34 @@
+---
+/**
+ * @component Header.CustomPosition
+ *
+ * @description
+ * 自定义导航菜单位置的Header组件示例，展示如何设置导航菜单在左侧、中间或右侧。
+ */
+import '../../style.ts';
+import Header from './Header.astro';
+import { getExampleImage } from '../utils/image.ts';
+
+const logo = getExampleImage({
+  width: 100,
+  height: 100,
+  provider: 'picsum',
+  tag: 'tech',
+});
+
+const navItems = [
+  { href: '/docs', label: '文档' },
+  { href: '/components', label: '组件' },
+];
+
+// 可以通过navPosition属性设置导航菜单位置：start(左侧)、center(中间)、end(右侧)
+const navPosition = 'start';
+---
+
+<Header
+  logoHref={logo}
+  navItems={navItems}
+  navPosition={navPosition}
+  rounded="lg"
+  sticky={false}
+/>

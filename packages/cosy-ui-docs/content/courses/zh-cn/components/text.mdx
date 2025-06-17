@@ -1,0 +1,162 @@
+---
+title: 'Text'
+description: '用于创建各种文本元素，提供一致的排版样式和灵活的定制选项'
+folder: false
+order: 24
+---
+
+import { Text, CodeExample } from '@coffic/cosy-ui';
+
+Text 组件用于创建各种文本元素，提供一致的排版样式和灵活的定制选项。该组件适用于需要统一文本样式的场景，如段落、提示文本、标签等。
+
+## 基础用法
+
+基本的 Text 组件默认渲染为 `<p>` 元素：
+
+<CodeExample code={`<Text>这是一段普通文本</Text>`}>
+  <Text>这是一段普通文本</Text>
+</CodeExample>
+
+## 不同大小
+
+Text 组件提供了多种大小选项：
+
+<CodeExample
+  code={`<Text size="xs">超小文本 (xs)</Text>
+<Text size="sm">小文本 (sm)</Text>
+<Text size="md">中等文本 (md) - 默认</Text>
+<Text size="lg">大文本 (lg)</Text>
+<Text size="xl">超大文本 (xl)</Text>`}
+>
+  <Text size="xs">超小文本 (xs)</Text>
+  <Text size="sm">小文本 (sm)</Text>
+  <Text size="md">中等文本 (md) - 默认</Text>
+  <Text size="lg">大文本 (lg)</Text>
+  <Text size="xl">超大文本 (xl)</Text>
+</CodeExample>
+
+## 文本颜色
+
+可以使用 `color` 属性设置不同的文本颜色：
+
+<CodeExample
+  code={`<Text color="default">默认颜色文本</Text>
+<Text color="primary">主要颜色文本</Text>
+<Text color="secondary">次要颜色文本</Text>
+<Text color="accent">强调色文本</Text>
+<Text color="muted">柔和色文本</Text>`}
+>
+  <Text color="default">默认颜色文本</Text>
+  <Text color="primary">主要颜色文本</Text>
+  <Text color="secondary">次要颜色文本</Text>
+  <Text color="accent">强调色文本</Text>
+  <Text color="muted">柔和色文本</Text>
+</CodeExample>
+
+## 字体粗细
+
+调整文本的粗细程度：
+
+<CodeExample
+  code={`<Text weight="light">细体文本</Text>
+<Text weight="normal">常规文本（默认）</Text>
+<Text weight="medium">中等粗文本</Text>
+<Text weight="semibold">半粗体文本</Text>
+<Text weight="bold">粗体文本</Text>`}
+>
+  <Text weight="light">细体文本</Text>
+  <Text weight="normal">常规文本（默认）</Text>
+  <Text weight="medium">中等粗文本</Text>
+  <Text weight="semibold">半粗体文本</Text>
+  <Text weight="bold">粗体文本</Text>
+</CodeExample>
+
+## 文本对齐
+
+控制文本的对齐方式：
+
+<CodeExample
+  code={`<Text align="left">左对齐文本（默认）</Text>
+<Text align="center">居中对齐文本</Text>
+<Text align="right">右对齐文本</Text>
+<Text align="justify">两端对齐文本。这是一段较长的文本，用于演示两端对齐的效果。两端对齐会使文本的左右边缘保持对齐，通过调整单词间距实现。</Text>`}
+>
+  <Text align="left">左对齐文本（默认）</Text>
+  <Text align="center">居中对齐文本</Text>
+  <Text align="right">右对齐文本</Text>
+  <Text align="justify">
+    两端对齐文本。这是一段较长的文本，用于演示两端对齐的效果。两端对齐会使文本的左右边缘保持对齐，通过调整单词间距实现。
+  </Text>
+</CodeExample>
+
+## 文本样式
+
+可以设置斜体和下划线样式：
+
+<CodeExample
+  code={`<Text italic>斜体文本</Text>
+<Text underline>带下划线文本</Text>
+<Text italic underline>斜体带下划线文本</Text>`}
+>
+  <Text italic>斜体文本</Text>
+  <Text underline>带下划线文本</Text>
+  <Text italic underline>
+    斜体带下划线文本
+  </Text>
+</CodeExample>
+
+## 文本截断
+
+对于可能溢出容器的长文本，可以使用 `truncate` 属性进行截断：
+
+<CodeExample
+  code={`<div style="width: 200px; border: 1px dashed #ccc; padding: 8px;">
+  <Text truncate>这是一段非常长的文本内容，会超出容器宽度，因此会被截断并显示省略号...</Text>
+</div>`}
+>
+  <div style="width: 200px; border: 1px dashed #ccc; padding: 8px;">
+    <Text truncate>
+      这是一段非常长的文本内容，会超出容器宽度，因此会被截断并显示省略号...
+    </Text>
+  </div>
+</CodeExample>
+
+## 自定义元素
+
+使用 `as` 属性可以更改渲染的HTML元素：
+
+<CodeExample
+  code={`<Text as="span">这是一个 span 元素</Text>
+<Text as="div">这是一个 div 元素</Text>
+<Text as="label">这是一个 label 元素</Text>`}
+>
+  <Text as="span">这是一个 span 元素</Text>
+  <Text as="div">这是一个 div 元素</Text>
+  <Text as="label">这是一个 label 元素</Text>
+</CodeExample>
+
+## 组合使用
+
+可以组合多种属性创建定制化的文本样式：
+
+<CodeExample
+  code={`<Text 
+  size="lg" 
+  color="primary" 
+  weight="bold" 
+  align="center"
+  class="cosy:py-2 cosy:border cosy:border-primary-200 cosy:rounded-md"
+>
+  这是一个重要的提示信息
+</Text>`}
+>
+  <Text
+    size="lg"
+    color="primary"
+    weight="bold"
+    align="center"
+    class="cosy:py-2 cosy:border cosy:border-primary-200 cosy:rounded-md"
+  >
+    这是一个重要的提示信息
+  </Text>
+</CodeExample>
