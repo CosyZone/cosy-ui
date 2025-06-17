@@ -1,2 +1,25 @@
-// 导出所有图标组件
-export * from '../index_icons';
+export { default as SocialIcon } from './SocialIcon.astro';
+export { default as TwitterIcon } from './TwitterIcon.astro';
+export { default as UserIcon } from './UserIcon.astro';
+export { default as WarningIcon } from './WarningIcon.astro';
+export { default as XCircle } from './XCircle.astro';
+export { default as InfoIcon } from './InfoIcon.astro';
+export { default as LinkIcon } from './LinkIcon.astro';
+export { default as LinkedinIcon } from './LinkedinIcon.astro';
+export { default as MenuIcon } from './MenuIcon.astro';
+export { default as SearchIcon } from './SearchIcon.astro';
+export { default as SuccessIcon } from './SuccessIcon.astro';
+export { default as SunCloudyIcon } from './SunCloudyIcon.astro';
+export { default as AlertTriangle } from './AlertTriangle.astro';
+export { default as CalendarIcon } from './CalendarIcon.astro';
+export { default as CheckCircle } from './CheckCircle.astro';
+export { default as CheckIcon } from './CheckIcon.astro';
+export { default as ClipboardIcon } from './ClipboardIcon.astro';
+export { default as CloseIcon } from './CloseIcon.astro';
+export { default as ErrorIcon } from './ErrorIcon.astro';
+export { default as GithubIcon } from './GithubIcon.astro';
+export { default as InfoCircle } from './InfoCircle.astro';
+export { default as InboxArchive } from './InboxArchive.astro';
+export { default as SettingsIcon } from './SettingsIcon.astro';
+export { default as ChevronDownIcon } from './ChevronDownIcon.astro';
+
