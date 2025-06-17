@@ -42,7 +42,7 @@ iPhoneWindow 组件模拟 iPhone 设备的外观，包含状态栏、时间显�
 -->
 <script lang="ts">
 import '../../style.ts';
-import { AlertDialog } from '../../index_vue';
+import { AlertDialog } from '../../index-vue.ts';
 import { ref, onMounted, onUnmounted, defineComponent } from 'vue';
 // 导入内部图片资源
 import iphoneFrame from './assets/iPhone 14 Pro - Deep Purple - Portrait.png';

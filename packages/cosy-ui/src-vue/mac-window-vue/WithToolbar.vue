@@ -1,6 +1,6 @@
 <script setup>
 import { MacWindow } from './index';
-import { SearchIcon, SettingsIcon, InfoIcon } from '../../index_vue';
+import { SearchIcon, SettingsIcon, InfoIcon } from '../../index-vue';
 
 const handleSearch = () => {
   console.log('搜索');

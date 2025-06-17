@@ -1,0 +1,36 @@
+---
+/**
+ * @component Container.Sizes
+ *
+ * @description
+ * 展示Container组件的不同尺寸选项：xs、sm、md、lg、xl、full。
+ */
+import '../../style.ts';
+import { Container } from '../../index-astro';
+---
+
+<div class="cosy:space-y-4">
+  <Container size="xs" border>
+    <p class="cosy:text-center">超小尺寸容器 (xs)</p>
+  </Container>
+
+  <Container size="sm" border>
+    <p class="cosy:text-center">小尺寸容器 (sm)</p>
+  </Container>
+
+  <Container size="md" border>
+    <p class="cosy:text-center">中等尺寸容器 (md) - 默认</p>
+  </Container>
+
+  <Container size="lg" border>
+    <p class="cosy:text-center">大尺寸容器 (lg)</p>
+  </Container>
+
+  <Container size="xl" border>
+    <p class="cosy:text-center">超大尺寸容器 (xl)</p>
+  </Container>
+
+  <Container size="full" border>
+    <p class="cosy:text-center">全宽容器 (full)</p>
+  </Container>
+</div>

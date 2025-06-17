@@ -1,0 +1,267 @@
+---
+/**
+ * AppLayout组件
+ *
+ * 适用于页面布局，包含侧边栏导航和目录
+ *
+ * 布局效果：
+ *
+ * 移动端：
+ * ```
+ * +------------------+
+ * |     Header      |
+ * +------------------+
+ * | Sidebar (1 line) |
+ * +------------------+
+ * |                  |
+ * |   Main Content   |
+ * |                  |
+ * |                  |
+ * +------------------+
+ * |     Footer      |
+ * +------------------+
+ * ```
+ *
+ * 桌面端：
+ * ```
+ * +------------------+
+ * |      Header     |
+ * +--------+---------+
+ * |        |         |
+ * |Sidebar | Content |
+ * |        |         |
+ * |        |         |
+ * +--------+---------+
+ * |      Footer     |
+ * +------------------+
+ * ```
+ *
+ * @param {Object} sidebarConfig - 侧边栏配置
+ * @param {boolean} [showHeader=true] - 是否显示头部
+ * @param {boolean} [showFooter=true] - 是否显示页脚
+ * @param {boolean} [showSidebar=true] - 是否显示侧边栏
+ * @param {string} [className] - 自定义类名
+ * @param {Array} [classList] - 自定义类名列表
+ * @param {boolean} [debug=true] - 是否启用调试模式
+ * @param {Object} mainContentConfig - 主内容区域配置
+ * @param {Object} footerConfig - 页脚配置
+ * @param {Object} headerConfig - 头部配置
+ * @param {Object} metaConfig - 元数据配置
+ * @param {Object} rest - 其他属性
+ *
+ * @example
+ * ```astro
+ * ---
+ * import AppLayout from '../layouts/AppLayout.astro';
+ *
+ * const sidebarItems = [
+ *   { title: "入门", items: [
+ *     { href: "/docs/getting-started", text: "快速开始" },
+ *     { href: "/docs/installation", text: "安装" }
+ *   ]},
+ *   { title: "组件", items: [
+ *     { href: "/docs/components/button", text: "Button 按钮" },
+ *     { href: "/docs/components/card", text: "Card 卡片" }
+ *   ]}
+ * ];
+ * ---
+ *
+ * <AppLayout
+ *   metaConfig={{
+ *     title: "文档标题",
+ *     description: "文档描述"
+ *   }}
+ *   sidebarConfig={{
+ *     sidebarItems: sidebarItems
+ *   }}
+ * >
+ *   <h1>文档内容</h1>
+ *   <p>这是文档的主要内容</p>
+ * </AppLayout>
+ * ```
+ *
+ * 自定义页脚示例：
+ * ```astro
+ * <AppLayout
+ *   metaConfig={{
+ *     title: "文档标题",
+ *     description: "文档描述"
+ *   }}
+ *   sidebarConfig={{
+ *     sidebarItems: sidebarItems
+ *   }}
+ *   footerConfig={{
+ *     slogan: "简单而强大的组件库",
+ *     inspirationalSlogan: "让开发更加愉悦",
+ *     socialLinks: [
+ *       "https://github.com/myorg/myrepo",
+ *       "https://twitter.com/myorg"
+ *     ],
+ *     products: [
+ *       { name: "组件库", href: "/components" },
+ *       { name: "模板", href: "/templates" }
+ *     ]
+ *   }}
+ * >
+ *   <h1>文档内容</h1>
+ *   <p>这是文档的主要内容</p>
+ * </AppLayout>
+ * ```
+ *
+ * 组件支持多种页脚相关的配置参数，可以通过以 `footer` 为前缀的属性来自定义页脚的内容和链接。
+ * 所有这些参数都是可选的，组件会为常用参数提供默认值。
+ *
+ * 全宽内容区域示例：
+ * ```astro
+ * <AppLayout
+ *   metaConfig={{
+ *     title: "文档标题",
+ *     description: "文档描述"
+ *   }}
+ *   sidebarConfig={{
+ *     sidebarItems: sidebarItems
+ *   }}
+ *   mainContentConfig={{
+ *     fullWidth: true
+ *   }}
+ * >
+ *   <!-- 全宽Hero部分，无需容器限制 -->
+ *   <div class="cosy:bg-primary cosy:p-10 cosy:text-white cosy:text-center">
+ *     <h1 class="cosy:text-3xl">全宽Hero部分</h1>
+ *     <p class="cosy:mt-4">没有容器限制，宽度可以100%占满</p>
+ *   </div>
+ *
+ *   <!-- 自定义容器部分 -->
+ *   <div class="cosy:mx-auto cosy:p-6 cosy:container">
+ *     <p>在全宽模式下，您可以自行控制内容的容器和间距</p>
+ *     <p>这使得创建全宽背景的同时，保持内容在合适的宽度内</p>
+ *   </div>
+ *
+ *   <!-- 另一个全宽部分 -->
+ *   <div class="cosy:bg-accent cosy:mt-8 cosy:p-10">
+ *     <div class="cosy:mx-auto cosy:container">
+ *       <h2 class="cosy:text-2xl">灵活的布局</h2>
+ *       <p>您可以自由组合全宽区域和容器限制区域</p>
+ *     </div>
+ *   </div>
+ * </AppLayout>
+ * ```
+ *
+ * 调试模式示例：
+ * ```astro
+ * <AppLayout
+ *   metaConfig={{
+ *     title: "文档标题",
+ *     description: "文档描述"
+ *   }}
+ *   sidebarConfig={{
+ *     sidebarItems: sidebarItems
+ *   }}
+ *   debug={true}
+ * >
+ *   <h1>文档内容</h1>
+ *   <p>这是文档的主要内容</p>
+ * </AppLayout>
+ * ```
+ */
+
+import '../../style.ts';
+import {
+  BaseLayout,
+  type IAppLayoutProps,
+  Footer,
+  Header,
+  Container,
+  Main,
+  Sidebar,
+} from '../../index-astro';
+import { ClientRouter } from 'astro:transitions';
+
+interface Props extends IAppLayoutProps {}
+
+const {
+  sidebarConfig,
+  showHeader = true,
+  showFooter = true,
+  showSidebar = true,
+  class: className,
+  'class:list': classList,
+  debug = false,
+  mainContentConfig,
+  footerConfig,
+  headerConfig,
+  metaConfig,
+  ...rest
+}: Props = Astro.props;
+---
+
+<BaseLayout
+  title={metaConfig.title}
+  description={metaConfig.description}
+  keywords={metaConfig.keywords}
+  author={metaConfig.author}
+  robots={metaConfig.robots}
+  head={metaConfig.head}
+  favicon={metaConfig.favicon}
+  debug={debug}
+  {...rest}>
+  <ClientRouter />
+  {
+    showHeader && (
+      <Header {...headerConfig} debug={debug} transition:persist>
+        <div slot="navbar-start">
+          <slot name="navbar-start" />
+        </div>
+        <div slot="navbar-center">
+          <slot name="navbar-center" />
+        </div>
+        <div slot="navbar-end">
+          <slot name="navbar-end" />
+        </div>
+      </Header>
+    )
+  }
+
+  <Container flex="row" gap="md" size="full" padding="none">
+    <!-- 侧边栏容器 -->
+    {
+      showSidebar && (
+        <Sidebar
+          {...sidebarConfig}
+          transition:name="sidebar"
+          transition:persist
+        />
+      )
+    }
+
+    <!-- 主内容区域 -->
+    <Main {...mainContentConfig}>
+      <slot />
+    </Main>
+  </Container>
+
+  <!-- Footer -->
+  {
+    showFooter && (
+      <Container size="full" padding="none" transition:persist>
+        <Footer {...footerConfig} />
+      </Container>
+    )
+  }
+
+  <script>
+    // Handle sidebar toggle
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebar = document.getElementById('sidebar-mobile');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+    function toggleSidebar() {
+      sidebar?.classList.toggle('cosy:hidden');
+      sidebarOverlay?.classList.toggle('cosy:hidden');
+      document.body.classList.toggle('cosy:overflow-hidden');
+    }
+
+    sidebarToggle?.addEventListener('click', toggleSidebar);
+    sidebarOverlay?.addEventListener('click', toggleSidebar);
+  </script>
+</BaseLayout>
