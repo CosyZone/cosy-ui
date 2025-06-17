@@ -11,7 +11,7 @@ title: 窗口管理
 ```dart
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // 初始化窗口管理器
   await windowManager.ensureInitialized();
 
@@ -23,7 +23,7 @@ void main() async {
     skipTaskbar: false,
     titleBarStyle: TitleBarStyle.hidden,
   );
-  
+
   await windowManager.waitUntilReadyToShow(windowOptions, () async {
     await windowManager.show();
     await windowManager.focus();
@@ -169,10 +169,12 @@ class MyApp extends StatelessWidget {
 ## 常见问题
 
 1. 窗口无法拖动
+
    - 确保 GestureDetector 的 behavior 设置正确
    - 检查是否正确调用了 windowManager.startDragging()
 
 2. 窗口大小不正确
+
    - 检查 WindowOptions 中的 size 配置
    - 确保在显示窗口前等待初始化完成
 

@@ -98,65 +98,65 @@
 import '../style.ts';
 
 export interface Props {
-	as?: string;
-	size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-	weight?: 'light' | 'normal' | 'medium' | 'semibold' | 'bold';
-	color?: 'default' | 'primary' | 'secondary' | 'accent' | 'muted';
-	align?: 'left' | 'center' | 'right' | 'justify';
-	italic?: boolean;
-	underline?: boolean;
-	truncate?: boolean;
-	class?: string;
+  as?: string;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  weight?: 'light' | 'normal' | 'medium' | 'semibold' | 'bold';
+  color?: 'default' | 'primary' | 'secondary' | 'accent' | 'muted';
+  align?: 'left' | 'center' | 'right' | 'justify';
+  italic?: boolean;
+  underline?: boolean;
+  truncate?: boolean;
+  class?: string;
 }
 
 const {
-	as: Element = 'p',
-	size = 'md',
-	weight = 'normal',
-	color = 'default',
-	align = 'left',
-	italic = false,
-	underline = false,
-	truncate = false,
-	class: className = '',
+  as: Element = 'p',
+  size = 'md',
+  weight = 'normal',
+  color = 'default',
+  align = 'left',
+  italic = false,
+  underline = false,
+  truncate = false,
+  class: className = '',
 } = Astro.props;
 
 // 根据大小设置样式
 const sizeClasses = {
-	xs: 'cosy:text-xs',
-	sm: 'cosy:text-sm',
-	md: 'cosy:text-base',
-	lg: 'cosy:text-lg',
-	xl: 'cosy:text-xl',
+  xs: 'cosy:text-xs',
+  sm: 'cosy:text-sm',
+  md: 'cosy:text-base',
+  lg: 'cosy:text-lg',
+  xl: 'cosy:text-xl',
 };
 const sizeClass = sizeClasses[size as keyof typeof sizeClasses];
 
 // 根据粗细设置样式
 const weightClasses = {
-	light: 'cosy:font-light',
-	normal: 'cosy:font-normal',
-	medium: 'cosy:font-medium',
-	semibold: 'cosy:font-semibold',
-	bold: 'cosy:font-bold',
+  light: 'cosy:font-light',
+  normal: 'cosy:font-normal',
+  medium: 'cosy:font-medium',
+  semibold: 'cosy:font-semibold',
+  bold: 'cosy:font-bold',
 };
 const weightClass = weightClasses[weight as keyof typeof weightClasses];
 
 // 根据颜色设置样式
 const colorClasses = {
-	default: 'cosy:text-gray-900 cosy:dark:text-gray-100',
-	primary: 'cosy:text-primary-600 cosy:dark:text-primary-400',
-	secondary: 'cosy:text-secondary-600 cosy:dark:text-secondary-400',
-	accent: 'cosy:text-accent-600 cosy:dark:text-accent-400',
-	muted: 'cosy:text-gray-600 cosy:dark:text-gray-400',
+  default: 'cosy:text-gray-900 cosy:dark:text-gray-100',
+  primary: 'cosy:text-primary-600 cosy:dark:text-primary-400',
+  secondary: 'cosy:text-secondary-600 cosy:dark:text-secondary-400',
+  accent: 'cosy:text-accent-600 cosy:dark:text-accent-400',
+  muted: 'cosy:text-gray-600 cosy:dark:text-gray-400',
 };
 const colorClass = colorClasses[color as keyof typeof colorClasses];
 
 // 根据对齐方式设置样式
 const alignClasses = {
-	left: 'cosy:text-left',
-	center: 'cosy:text-center',
-	right: 'cosy:text-right',
-	justify: 'cosy:text-justify',
+  left: 'cosy:text-left',
+  center: 'cosy:text-center',
+  right: 'cosy:text-right',
+  justify: 'cosy:text-justify',
 };
 const alignClass = alignClasses[align as keyof typeof alignClasses];
 
@@ -170,20 +170,20 @@ const combinedClass = `text ${sizeClass} ${weightClass} ${colorClass} ${alignCla
 ---
 
 <Element class={combinedClass}>
-	<slot />
+  <slot />
 </Element>
 
 <style>
-	.text {
-		margin-bottom: 1em;
-		line-height: 1.5;
-	}
+  .text {
+    margin-bottom: 1em;
+    line-height: 1.5;
+  }
 
-	/* 确保截断文本正常工作 */
-	.truncate {
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		max-width: 100%;
-	}
+  /* 确保截断文本正常工作 */
+  .truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
 </style>

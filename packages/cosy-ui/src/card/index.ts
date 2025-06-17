@@ -15,13 +15,13 @@ export { CardCourse };
 export { CardBasic };
 
 export const CardPackage = {
-    Card,
-    CardContainers: {
-        Basic: CardBasicContainer,
-        WithSubtitle: CardWithSubtitleContainer,
-        WithImage: CardWithImageContainer,
-        Clickable: CardClickableContainer,
-        Compact: CardCompactContainer,
-        CustomStyle: CardCustomStyleContainer,
-    },
+  Card,
+  CardContainers: {
+    Basic: CardBasicContainer,
+    WithSubtitle: CardWithSubtitleContainer,
+    WithImage: CardWithImageContainer,
+    Clickable: CardClickableContainer,
+    Compact: CardCompactContainer,
+    CustomStyle: CardCustomStyleContainer,
+  },
 };

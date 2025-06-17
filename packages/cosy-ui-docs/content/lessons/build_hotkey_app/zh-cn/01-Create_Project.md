@@ -7,6 +7,7 @@ title: 创建项目
 ## 创建 Flutter 项目
 
 1. 打开终端，进入你想要创建项目的目录，执行以下命令：
+
    ```bash
    flutter create hotkey_app
    cd hotkey_app
@@ -20,6 +21,7 @@ title: 创建项目
 ## 配置项目
 
 1. 打开 `pubspec.yaml` 文件，添加必要的依赖：
+
    ```yaml
    dependencies:
      flutter:
@@ -37,6 +39,7 @@ title: 创建项目
 ## 配置 macOS 权限
 
 1. 打开 `macos/Runner/DebugProfile.entitlements` 文件，添加以下权限：
+
    ```xml
    <dict>
      <!-- 其他现有配置 -->
@@ -52,6 +55,7 @@ title: 创建项目
 1. 打开 `lib/main.dart`，删除默认的计数器示例代码。
 
 2. 创建基本的应用结构：
+
    ```dart
    import 'package:flutter/material.dart';
    import 'package:window_manager/window_manager.dart';
@@ -59,13 +63,13 @@ title: 创建项目
 
    void main() async {
      WidgetsFlutterBinding.ensureInitialized();
-     
+
      // 初始化窗口管理器
      await windowManager.ensureInitialized();
-     
+
      // 初始化热键管理器
      await hotKeyManager.unregisterAll();
-     
+
      runApp(const MyApp());
    }
 
@@ -110,6 +114,7 @@ title: 创建项目
 ## 运行项目
 
 1. 确保 macOS 平台已启用：
+
    ```bash
    flutter devices
    ```
@@ -122,11 +127,13 @@ title: 创建项目
 ## 常见问题
 
 1. 依赖安装失败
+
    - 检查网络连接
    - 确保 Flutter SDK 版本兼容
    - 尝试使用镜像源
 
 2. macOS 权限问题
+
    - 确保正确配置了 entitlements 文件
    - 检查 Xcode 项目设置
 

@@ -25,38 +25,36 @@ import ButtonLinkExternal from './ButtonLinkExternal.astro';
 import ButtonOutline from './ButtonOutline.astro';
 import ButtonNeutral from './ButtonNeutral.astro';
 
-export {
-	Button
-};
+export { Button };
 
 export const ButtonPackage = {
-	Button,
-	ButtonWide,
-	ButtonBlock,
-	ButtonIconLeft,
-	ButtonIconRight,
-	ButtonIconBoth,
-	ButtonShapeCircle,
-	ButtonShapeSquare,
-	ButtonShapeDefault,
-	ButtonInfo,
-	ButtonSuccess,
-	ButtonWarning,
-	ButtonError,
-	ButtonGhost,
-	ButtonLink,
-	ButtonLinkExternal,
-	ButtonOutline,
-	ButtonNeutral,
+  Button,
+  ButtonWide,
+  ButtonBlock,
+  ButtonIconLeft,
+  ButtonIconRight,
+  ButtonIconBoth,
+  ButtonShapeCircle,
+  ButtonShapeSquare,
+  ButtonShapeDefault,
+  ButtonInfo,
+  ButtonSuccess,
+  ButtonWarning,
+  ButtonError,
+  ButtonGhost,
+  ButtonLink,
+  ButtonLinkExternal,
+  ButtonOutline,
+  ButtonNeutral,
 
-	ButtonContainers: {
-		Basic: ButtonBasicContainer,
-		Shapes: ButtonShapesContainer,
-		Sizes: ButtonSizesContainer,
-		States: ButtonStatesContainer,
-		WithIcons: ButtonWithIconsContainer,
-		Width: ButtonWidthContainer,
-		Variants: ButtonVariantsContainer,
-		Link: ButtonLinkContainer,
-	}
+  ButtonContainers: {
+    Basic: ButtonBasicContainer,
+    Shapes: ButtonShapesContainer,
+    Sizes: ButtonSizesContainer,
+    States: ButtonStatesContainer,
+    WithIcons: ButtonWithIconsContainer,
+    Width: ButtonWidthContainer,
+    Variants: ButtonVariantsContainer,
+    Link: ButtonLinkContainer,
+  },
 };

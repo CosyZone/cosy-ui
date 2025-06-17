@@ -9,11 +9,13 @@ In the previous chapters, we successfully created an MCP Server. Now, we need to
 1. First, open any project in Cursor (it can be a new project or an existing one).
 
 2. Create a `.cursor` folder in the project root (if it doesn't exist):
+
    ```bash
    mkdir .cursor
    ```
 
 3. Create an `mcp.json` file in the `.cursor` folder:
+
    ```bash
    touch .cursor/mcp.json
    ```
@@ -21,17 +23,17 @@ In the previous chapters, we successfully created an MCP Server. Now, we need to
 4. Add the following configuration to the `mcp.json` file:
    ```json
    {
-       "mcpServers": {
-           "about-me": {
-               "command": "uv",
-               "args": [
-                   "--directory",
-                   "/Users/{your_username}/Code/Playground/build_mcp_for_cursor/project",
-                   "run",
-                   "main.py"
-               ]
-           }
+     "mcpServers": {
+       "about-me": {
+         "command": "uv",
+         "args": [
+           "--directory",
+           "/Users/{your_username}/Code/Playground/build_mcp_for_cursor/project",
+           "run",
+           "main.py"
+         ]
        }
+     }
    }
    ```
 
@@ -40,13 +42,16 @@ In the previous chapters, we successfully created an MCP Server. Now, we need to
 Let's break down each part of this configuration file:
 
 1. **mcpServers**
+
    - This is the main section that defines all MCP servers
 
 2. **about-me**
+
    - This is our server name, which must match the name in `FastMCP("about-me")`
    - You can change this name, but ensure it matches in both places
 
 3. **command**
+
    - Specifies which command to use to run the server
    - We're using `uv`, our package manager
 
@@ -62,6 +67,7 @@ Let's break down each part of this configuration file:
 After creating the configuration file, we need to enable the service in Cursor:
 
 1. Open Cursor Settings
+
    - Windows/Linux: Click the gear icon in the bottom left or use `Ctrl + ,`
    - macOS: Click the gear icon in the bottom left or use `Cmd + ,`
 
@@ -75,10 +81,12 @@ After creating the configuration file, we need to enable the service in Cursor:
 Now we can test if our service is working:
 
 1. Open Cursor's Agent mode
+
    - Click the AI icon in the sidebar
    - Or use the keyboard shortcut to open the AI panel
 
 2. Try these test questions:
+
    ```
    Q: What's my name?
    A: [AI will call get_user_name() and return "Lucas Lee"]
@@ -92,10 +100,12 @@ If you receive the correct answers, congratulations! Your MCP Server is configur
 ## Common Issues
 
 1. **Can't Find MCP Settings?**
+
    - Ensure your Cursor is up to date
    - Try restarting Cursor IDE
 
 2. **Service Appears Grayed Out?**
+
    - Check if the configuration file format is correct
    - Ensure the project path is correct and accessible
 
@@ -107,7 +117,8 @@ If you receive the correct answers, congratulations! Your MCP Server is configur
 ## Next Steps
 
 Now that you've successfully configured and tested your MCP Server, you can:
+
 - Add more custom tools
 - Modify the returned information
 - Implement more complex functionality
-- Explore other possibilities with MCP servers 
+- Explore other possibilities with MCP servers

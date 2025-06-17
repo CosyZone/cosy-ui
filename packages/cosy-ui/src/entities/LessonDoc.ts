@@ -9,7 +9,7 @@ import type { IHeadingType } from '../types/heading';
 
 /**
  * 课程文档类，配合 LessonDB 使用
- * 
+ *
  * 目录结构：
  * ```
  * lessons/
@@ -41,108 +41,113 @@ import type { IHeadingType } from '../types/heading';
  * - 每个语言版本包含完整的课程内容
  * - 课程目录可以作为 git 子模块独立管理
  */
-export default class LessonDoc extends BaseDoc<typeof COLLECTION_LESSON, LessonEntry> {
-	constructor(entry: LessonEntry) {
-		super(entry);
-	}
+export default class LessonDoc extends BaseDoc<
+  typeof COLLECTION_LESSON,
+  LessonEntry
+> {
+  constructor(entry: LessonEntry) {
+    super(entry);
+  }
 
-	isBook(): boolean {
-		return this.entry.id.split('/').length === 2;
-	}
+  isBook(): boolean {
+    return this.entry.id.split('/').length === 2;
+  }
 
-	async getBookId(): Promise<string> {
-		return this.getTopDocId();
-	}
+  async getBookId(): Promise<string> {
+    return this.getTopDocId();
+  }
 
-	async getBook(): Promise<LessonDoc | null> {
-		const bookId = await this.getBookId();
-		return await lessonDB.find(bookId);
-	}
+  async getBook(): Promise<LessonDoc | null> {
+    const bookId = await this.getBookId();
+    return await lessonDB.find(bookId);
+  }
 
-	getLink(): string {
-		const debug = false;
-		const lang = this.getLang();
-		const link = LinkUtil.getLessonLink(lang, this.getId());
+  getLink(): string {
+    const debug = false;
+    const lang = this.getLang();
+    const link = LinkUtil.getLessonLink(lang, this.getId());
 
-		if (debug) {
-			cosyLogger.info(`获取 ${this.entry.id} 的链接: ${link}`);
-		}
+    if (debug) {
+      cosyLogger.info(`获取 ${this.entry.id} 的链接: ${link}`);
+    }
 
-		return link;
-	}
+    return link;
+  }
 
-	/**
-	 * 获取文档的语言
-	 *
-	 * 文档的 id 格式为 `book-id/zh-cn/chapter-id/lesson-id`
-	 *
-	 * @returns 语言
-	 */
-	override getLang(): string {
-		const debug = false;
+  /**
+   * 获取文档的语言
+   *
+   * 文档的 id 格式为 `book-id/zh-cn/chapter-id/lesson-id`
+   *
+   * @returns 语言
+   */
+  override getLang(): string {
+    const debug = false;
 
-		const parts = this.entry.id.split('/');
-		const lang = parts[1];
+    const parts = this.entry.id.split('/');
+    const lang = parts[1];
 
-		if (debug) {
-			cosyLogger.info(`获取 ${this.entry.id} 的语言: ${lang}`);
-		}
+    if (debug) {
+      cosyLogger.info(`获取 ${this.entry.id} 的语言: ${lang}`);
+    }
 
-		return lang;
-	}
+    return lang;
+  }
 
-	getHTML(): string {
-		const debug = false;
+  getHTML(): string {
+    const debug = false;
 
-		if (debug) {
-			cosyLogger.info(`获取 ${this.entry.id} 的 HTML`);
-		}
+    if (debug) {
+      cosyLogger.info(`获取 ${this.entry.id} 的 HTML`);
+    }
 
-		return this.entry.rendered?.html || '';
-	}
+    return this.entry.rendered?.html || '';
+  }
 
-	getHeadings(): IHeadingType[] {
-		const debug = false;
+  getHeadings(): IHeadingType[] {
+    const debug = false;
 
-		if (debug) {
-			cosyLogger.info(`获取 ${this.entry.id} 的 headings`);
-		}
+    if (debug) {
+      cosyLogger.info(`获取 ${this.entry.id} 的 headings`);
+    }
 
-		return (this.entry.rendered?.metadata?.headings as IHeadingType[]) || [];
-	}
+    return (this.entry.rendered?.metadata?.headings as IHeadingType[]) || [];
+  }
 
-	async getTopDoc(): Promise<LessonDoc | null> {
-		const bookId = await this.getBookId();
-		return await lessonDB.find(bookId);
-	}
+  async getTopDoc(): Promise<LessonDoc | null> {
+    const bookId = await this.getBookId();
+    return await lessonDB.find(bookId);
+  }
 
-	async getChildren(): Promise<LessonDoc[]> {
-		return await lessonDB.getChildren(this.entry.id);
-	}
+  async getChildren(): Promise<LessonDoc[]> {
+    return await lessonDB.getChildren(this.entry.id);
+  }
 
-	async getDescendants(): Promise<LessonDoc[]> {
-		return await lessonDB.getDescendantDocs(this.entry.id);
-	}
+  async getDescendants(): Promise<LessonDoc[]> {
+    return await lessonDB.getDescendantDocs(this.entry.id);
+  }
 
-	override async toSidebarItem(): Promise<SidebarItemEntity> {
-		const debug = false;
+  override async toSidebarItem(): Promise<SidebarItemEntity> {
+    const debug = false;
 
-		const children = await this.getChildren();
-		let childItems = await Promise.all(children.map((child) => child.toSidebarItem()));
+    const children = await this.getChildren();
+    let childItems = await Promise.all(
+      children.map((child) => child.toSidebarItem())
+    );
 
-		if (this.isBook()) {
-			childItems = [...childItems];
-		}
+    if (this.isBook()) {
+      childItems = [...childItems];
+    }
 
-		if (debug) {
-			cosyLogger.info(`${this.entry.id} 的侧边栏项目`);
-			console.log(childItems);
-		}
+    if (debug) {
+      cosyLogger.info(`${this.entry.id} 的侧边栏项目`);
+      console.log(childItems);
+    }
 
-		return new SidebarItemEntity({
-			text: this.getTitle(),
-			items: childItems,
-			link: this.getLink(),
-		});
-	}
+    return new SidebarItemEntity({
+      text: this.getTitle(),
+      items: childItems,
+      link: this.getLink(),
+    });
+  }
 }

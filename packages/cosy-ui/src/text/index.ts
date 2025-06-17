@@ -7,5 +7,5 @@ export { Text, TextBasic };
 
 // 导出示例源代码
 export const TextExampleCodes = {
-	Basic: extractSimpleExample(BasicSourceCode, 'Text'),
+  Basic: extractSimpleExample(BasicSourceCode, 'Text'),
 };

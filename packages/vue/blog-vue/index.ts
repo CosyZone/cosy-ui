@@ -14,16 +14,16 @@ export type { IBlog } from './BlogList.vue';
 
 // 将示例组件整合为一个对象导出
 export const BlogListExamples = {
-	Basic,
-	Empty,
-	English,
-	EmptyEnglish,
+  Basic,
+  Empty,
+  English,
+  EmptyEnglish,
 };
 
 // 导出示例组件的源代码（简化版本）
 export const BlogListExampleCodes = {
-	Basic: extractSimpleExample(BasicSource, 'BlogList'),
-	Empty: extractSimpleExample(EmptySource, 'BlogList'),
-	English: extractSimpleExample(EnglishSource, 'BlogList'),
-	EmptyEnglish: extractSimpleExample(EmptyEnglishSource, 'BlogList'),
+  Basic: extractSimpleExample(BasicSource, 'BlogList'),
+  Empty: extractSimpleExample(EmptySource, 'BlogList'),
+  English: extractSimpleExample(EnglishSource, 'BlogList'),
+  EmptyEnglish: extractSimpleExample(EmptyEnglishSource, 'BlogList'),
 };

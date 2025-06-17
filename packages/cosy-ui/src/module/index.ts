@@ -11,7 +11,7 @@ export { Module, ModuleBasic, ModuleGrid, ModuleCustom };
 
 // 导出示例源代码
 export const ModuleExampleCodes = {
-	Basic: extractSimpleExample(BasicSourceCode, 'Module'),
-	Grid: extractSimpleExample(GridSourceCode, 'Module'),
-	Custom: extractSimpleExample(CustomSourceCode, 'Module'),
+  Basic: extractSimpleExample(BasicSourceCode, 'Module'),
+  Grid: extractSimpleExample(GridSourceCode, 'Module'),
+  Custom: extractSimpleExample(CustomSourceCode, 'Module'),
 };

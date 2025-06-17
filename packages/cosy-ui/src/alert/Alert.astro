@@ -44,51 +44,53 @@ import '../style.ts';
 import { InfoIcon, SuccessIcon, WarningIcon, ErrorIcon } from '../index';
 
 interface Props {
-	type?: 'info' | 'success' | 'warning' | 'error';
-	title?: string;
-	class?: string;
+  type?: 'info' | 'success' | 'warning' | 'error';
+  title?: string;
+  class?: string;
 }
 
 const { type = 'info', title, class: className = '' } = Astro.props;
 
 // 根据类型设置样式
 const alertClass = {
-	info: 'cosy:alert-info',
-	success: 'cosy:alert-success',
-	warning: 'cosy:alert-warning',
-	error: 'cosy:alert-error',
+  info: 'cosy:alert-info',
+  success: 'cosy:alert-success',
+  warning: 'cosy:alert-warning',
+  error: 'cosy:alert-error',
 }[type as 'info' | 'success' | 'warning' | 'error'];
 
 // 根据类型设置图标组件
 const IconComponent = {
-	info: InfoIcon,
-	success: SuccessIcon,
-	warning: WarningIcon,
-	error: ErrorIcon,
+  info: InfoIcon,
+  success: SuccessIcon,
+  warning: WarningIcon,
+  error: ErrorIcon,
 }[type as 'info' | 'success' | 'warning' | 'error'];
 ---
 
 <div class={`cosy:alert ${alertClass} ${className}`} role="alert">
-	<div class="cosy:flex cosy:flex-row cosy:items-center cosy:gap-4 cosy:alert-content">
-		<IconComponent />
+  <div
+    class="cosy:flex cosy:flex-row cosy:items-center cosy:gap-4 cosy:alert-content"
+  >
+    <IconComponent />
 
-		<div class="cosy:flex cosy:flex-col cosy:items-center cosy:h-full">
-			{
-				title && (
-					<h3 class="cosy:font-bold" style="margin-top: 0 !important">
-						{title}
-					</h3>
-				)
-			}
-			{
-				title && (
-					<div class="cosy:text-xs">
-						<slot />
-					</div>
-				)
-			}
+    <div class="cosy:flex cosy:flex-col cosy:items-center cosy:h-full">
+      {
+        title && (
+          <h3 class="cosy:font-bold" style="margin-top: 0 !important">
+            {title}
+          </h3>
+        )
+      }
+      {
+        title && (
+          <div class="cosy:text-xs">
+            <slot />
+          </div>
+        )
+      }
 
-			{!title && <slot />}
-		</div>
-	</div>
+      {!title && <slot />}
+    </div>
+  </div>
 </div>

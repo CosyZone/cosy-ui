@@ -9,12 +9,12 @@ export { default as ConfirmDialog } from './ConfirmDialog.vue';
 
 // 导出示例组件
 export const ConfirmDialogExamples = {
-	Basic,
-	CustomButtons,
+  Basic,
+  CustomButtons,
 };
 
 // 导出示例源代码
 export const ConfirmDialogExampleCodes = {
-	Basic: extractSimpleExample(BasicSource, 'ConfirmDialog'),
-	CustomButtons: extractSimpleExample(CustomButtonsSource, 'ConfirmDialog'),
+  Basic: extractSimpleExample(BasicSource, 'ConfirmDialog'),
+  CustomButtons: extractSimpleExample(CustomButtonsSource, 'ConfirmDialog'),
 };

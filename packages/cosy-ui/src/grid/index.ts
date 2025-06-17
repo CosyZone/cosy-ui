@@ -7,5 +7,5 @@ export { Grid, GridBasic };
 
 // 导出示例源代码
 export const GridExampleCodes = {
-	Basic: extractSimpleExample(BasicSourceCode, 'Grid'),
+  Basic: extractSimpleExample(BasicSourceCode, 'Grid'),
 };

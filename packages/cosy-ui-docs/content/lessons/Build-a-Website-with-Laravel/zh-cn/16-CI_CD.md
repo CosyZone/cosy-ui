@@ -33,32 +33,27 @@ Let's take a look at a simple example of a workflow that builds and deploys a No
 name: Build and Deploy
 
 on:
-  push:
-    branches:
-      - main
+push:
+branches: - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install dependencies
-        run: npm install
-      - name: Build the application
-        run: npm run build
+build:
+runs-on: ubuntu-latest
+steps: - uses: actions/checkout@v2 - name: Install dependencies
+run: npm install - name: Build the application
+run: npm run build
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to Server
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          local_path: 'dist/**'
-          remote_path: '/var/www/html'
+deploy:
+needs: build
+runs-on: ubuntu-latest
+steps: - name: Deploy to Server
+uses: appleboy/scp-action@master
+with:
+host: ${{ secrets.SERVER_HOST }}
+username: ${{ secrets.SERVER_USERNAME }}
+password: ${{ secrets.SERVER_PASSWORD }}
+local_path: 'dist/\*\*'
+remote_path: '/var/www/html'
 In this example, the workflow is triggered whenever code is pushed to the&nbsp;main&nbsp;branch. The&nbsp;build&nbsp;job installs dependencies and builds the application, and the&nbsp;deploy&nbsp;job deploys the built files to a remote server.
 
 GitHub Actions also integrates well with other services and tools. You can use it to trigger notifications, update documentation, and much more.

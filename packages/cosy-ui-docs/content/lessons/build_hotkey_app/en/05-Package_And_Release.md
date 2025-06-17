@@ -48,6 +48,7 @@ Configure app information in the macos/Runner/Info.plist file:
 Configure signing settings in Xcode:
 
 1. Open the macOS project:
+
    ```bash
    open macos/Runner.xcworkspace
    ```
@@ -72,6 +73,7 @@ flutter build macos --release
 ### 2. Create DMG Installer
 
 1. Install create-dmg tool:
+
    ```bash
    brew install create-dmg
    ```
@@ -104,6 +106,7 @@ In App Store Connect:
 ### 2. Upload Application
 
 1. Archive the application in Xcode:
+
    - Select Product > Archive
    - In the Archives window, click "Distribute App"
    - Choose "App Store Connect"
@@ -118,11 +121,13 @@ In App Store Connect:
 ## Common Issues
 
 1. **Code Signing Issues**
+
    - Ensure certificates are valid
    - Check provisioning profile settings
    - Verify bundle identifier matches
 
 2. **App Store Rejection**
+
    - Follow App Store guidelines
    - Provide clear privacy policy
    - Test thoroughly before submission

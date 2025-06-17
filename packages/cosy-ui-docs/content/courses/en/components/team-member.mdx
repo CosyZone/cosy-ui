@@ -5,13 +5,22 @@ folder: false
 order: 23
 ---
 
-import { CodeExample, TeamMember, TeamMemberBasic, TeamMemberWithSocial, TeamMemberCustomStyle, TeamMemberGroup, TeamMemberExampleCodes } from '@coffic/cosy-ui';
+import {
+  CodeExample,
+  TeamMember,
+  TeamMemberBasic,
+  TeamMemberWithSocial,
+  TeamMemberCustomStyle,
+  TeamMemberGroup,
+  TeamMemberExampleCodes,
+} from '@coffic/cosy-ui';
 
 ## Introduction
 
 The TeamMember component is used to display detailed information about team members, supporting the display of avatars, names, positions, description text, and social media links.
 
 Component features:
+
 - Supports avatar image display
 - Can display name, position, and description text
 - Supports adding social media links
@@ -23,9 +32,7 @@ Component features:
 
 The simplest team member information display:
 
-<CodeExample
-  code={TeamMemberExampleCodes.Basic}
->
+<CodeExample code={TeamMemberExampleCodes.Basic}>
   <TeamMemberBasic />
 </CodeExample>
 
@@ -33,9 +40,7 @@ The simplest team member information display:
 
 Add social media links through the socialLinks property:
 
-<CodeExample
-  code={TeamMemberExampleCodes.WithSocial}
->
+<CodeExample code={TeamMemberExampleCodes.WithSocial}>
   <TeamMemberWithSocial />
 </CodeExample>
 
@@ -43,9 +48,7 @@ Add social media links through the socialLinks property:
 
 Use the class property to customize the member card style:
 
-<CodeExample
-  code={TeamMemberExampleCodes.CustomStyle}
->
+<CodeExample code={TeamMemberExampleCodes.CustomStyle}>
   <TeamMemberCustomStyle />
 </CodeExample>
 
@@ -53,8 +56,6 @@ Use the class property to customize the member card style:
 
 Combine multiple TeamMember components to display a complete team:
 
-<CodeExample
-  code={TeamMemberExampleCodes.Group}
->
+<CodeExample code={TeamMemberExampleCodes.Group}>
   <TeamMemberGroup />
 </CodeExample>

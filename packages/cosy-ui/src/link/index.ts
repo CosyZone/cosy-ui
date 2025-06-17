@@ -11,7 +11,7 @@ export { Link, LinkBasic, LinkVariants, LinkAnimations };
 
 // 导出示例源代码
 export const LinkExampleCodes = {
-	Basic: extractSimpleExample(BasicSourceCode, 'Link'),
-	Variants: extractSimpleExample(VariantsSourceCode, 'Link'),
-	Animations: extractSimpleExample(AnimationsSourceCode, 'Link'),
+  Basic: extractSimpleExample(BasicSourceCode, 'Link'),
+  Variants: extractSimpleExample(VariantsSourceCode, 'Link'),
+  Animations: extractSimpleExample(AnimationsSourceCode, 'Link'),
 };

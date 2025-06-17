@@ -1,1 +1,1 @@
-export { default as List } from './InfoIcon.vue'
+export { default as List } from './InfoIcon.vue';

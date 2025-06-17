@@ -13,14 +13,28 @@ import CustomNavbarStartSourceCode from './HeaderCustomNavbarStart.astro?raw';
 import CustomNavbarCenterSourceCode from './HeaderCustomNavbarCenter.astro?raw';
 import { extractSimpleExample } from '../utils/component';
 
-export { Header, HeaderBasic, HeaderWithNavigation, HeaderCustomPosition, HeaderCustomNavbarEnd, HeaderCustomNavbarStart, HeaderCustomNavbarCenter };
+export {
+  Header,
+  HeaderBasic,
+  HeaderWithNavigation,
+  HeaderCustomPosition,
+  HeaderCustomNavbarEnd,
+  HeaderCustomNavbarStart,
+  HeaderCustomNavbarCenter,
+};
 
 // 导出示例源代码
 export const HeaderExampleCodes = {
-	Basic: extractSimpleExample(BasicSourceCode, 'Header'),
-	WithNavigation: extractSimpleExample(WithNavigationSourceCode, 'Header'),
-	CustomPosition: extractSimpleExample(CustomPositionSourceCode, 'Header'),
-	CustomNavbarEnd: extractSimpleExample(CustomNavbarEndSourceCode, 'Header'),
-	CustomNavbarStart: extractSimpleExample(CustomNavbarStartSourceCode, 'Header'),
-	CustomNavbarCenter: extractSimpleExample(CustomNavbarCenterSourceCode, 'Header'),
+  Basic: extractSimpleExample(BasicSourceCode, 'Header'),
+  WithNavigation: extractSimpleExample(WithNavigationSourceCode, 'Header'),
+  CustomPosition: extractSimpleExample(CustomPositionSourceCode, 'Header'),
+  CustomNavbarEnd: extractSimpleExample(CustomNavbarEndSourceCode, 'Header'),
+  CustomNavbarStart: extractSimpleExample(
+    CustomNavbarStartSourceCode,
+    'Header'
+  ),
+  CustomNavbarCenter: extractSimpleExample(
+    CustomNavbarCenterSourceCode,
+    'Header'
+  ),
 };

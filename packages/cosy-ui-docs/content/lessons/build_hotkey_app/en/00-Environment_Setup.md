@@ -10,12 +10,14 @@ Before we start developing our hotkey application, we need to set up the develop
    https://flutter.dev/docs/get-started/install/macos
 
 2. Extract the downloaded file to your preferred location, for example:
+
    ```bash
    cd ~/development
    unzip ~/Downloads/flutter_macos_arm64_3.x.x-stable.zip
    ```
 
 3. Add Flutter to your environment variables by editing `~/.zshrc` or `~/.bash_profile`:
+
    ```bash
    export PATH="$PATH:~/development/flutter/bin"
    ```
@@ -32,6 +34,7 @@ Since we're developing a macOS application, we need to install Xcode:
 1. Install Xcode from the Mac App Store
 
 2. After installation, run the following command to accept the license agreement:
+
    ```bash
    sudo xcodebuild -license accept
    ```
@@ -53,6 +56,7 @@ Since we're developing a macOS application, we need to install Xcode:
 ## Enable macOS Desktop Support
 
 1. Enable macOS desktop support:
+
    ```bash
    flutter config --enable-macos-desktop
    ```
@@ -75,10 +79,12 @@ Ensure all check items show ✓. If there are any issues, follow the prompts to 
 ## Common Issues
 
 1. Slow Flutter SDK Download
+
    - Use a mirror site
    - Or use a proxy for downloading
 
 2. Xcode Installation Failure
+
    - Ensure Mac App Store login is working
    - Check network connection
    - Ensure sufficient disk space

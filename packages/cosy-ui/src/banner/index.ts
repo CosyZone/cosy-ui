@@ -23,7 +23,20 @@ import SlideUpSourceCode from './BannerSlideUp.astro?raw';
 import AllAnimationsSourceCode from './BannerAllAnimations.astro?raw';
 import { extractSimpleExample } from '../utils/component';
 
-export { Banner, BannerBasic, BannerPrimary, BannerSecondary, BannerSuccess, BannerWarning, BannerDanger, BannerInfo, BannerCustomStyle, BannerFadeIn, BannerSlideUp, BannerAllAnimations };
+export {
+  Banner,
+  BannerBasic,
+  BannerPrimary,
+  BannerSecondary,
+  BannerSuccess,
+  BannerWarning,
+  BannerDanger,
+  BannerInfo,
+  BannerCustomStyle,
+  BannerFadeIn,
+  BannerSlideUp,
+  BannerAllAnimations,
+};
 
 // 导出示例源代码
 export const BannerExampleCodes = {

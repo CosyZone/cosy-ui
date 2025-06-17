@@ -13,9 +13,7 @@ The Text component is used to create various text elements, providing consistent
 
 The basic Text component defaults to rendering as a `<p>` element:
 
-<CodeExample
-  code={`<Text>This is a regular text</Text>`}
->
+<CodeExample code={`<Text>This is a regular text</Text>`}>
   <Text>This is a regular text</Text>
 </CodeExample>
 
@@ -86,7 +84,11 @@ Control the alignment of text:
   <Text align="left">Left-aligned text (Default)</Text>
   <Text align="center">Center-aligned text</Text>
   <Text align="right">Right-aligned text</Text>
-  <Text align="justify">Justified text. This is a longer text to demonstrate the effect of justified alignment. Justified alignment keeps the left and right edges of the text aligned by adjusting the spacing between words.</Text>
+  <Text align="justify">
+    Justified text. This is a longer text to demonstrate the effect of justified
+    alignment. Justified alignment keeps the left and right edges of the text
+    aligned by adjusting the spacing between words.
+  </Text>
 </CodeExample>
 
 ## Text Styles
@@ -100,7 +102,9 @@ You can set italic and underline styles:
 >
   <Text italic>Italic text</Text>
   <Text underline>Underlined text</Text>
-  <Text italic underline>Italic and underlined text</Text>
+  <Text italic underline>
+    Italic and underlined text
+  </Text>
 </CodeExample>
 
 ## Text Truncation
@@ -113,7 +117,10 @@ For long text that might overflow its container, you can use the `truncate` prop
 </div>`}
 >
   <div style="width: 200px; border: 1px dashed #ccc; padding: 8px;">
-    <Text truncate>This is a very long text content that will exceed the container width, so it will be truncated and display an ellipsis...</Text>
+    <Text truncate>
+      This is a very long text content that will exceed the container width, so
+      it will be truncated and display an ellipsis...
+    </Text>
   </div>
 </CodeExample>
 
@@ -146,10 +153,10 @@ You can combine multiple properties to create customized text styles:
   This is an important notification message
 </Text>`}
 >
-  <Text 
-    size="lg" 
-    color="primary" 
-    weight="bold" 
+  <Text
+    size="lg"
+    color="primary"
+    weight="bold"
     align="center"
     class="cosy:py-2 cosy:border cosy:border-primary-200 cosy:rounded-md"
   >

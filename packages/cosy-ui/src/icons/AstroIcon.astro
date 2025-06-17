@@ -2,60 +2,61 @@
 import { iconData } from '../assets/iconData';
 
 interface Props {
-	/**
-	 * 图标名称，必须在iconData中存在
-	 */
-	name: string;
+  /**
+   * 图标名称，必须在iconData中存在
+   */
+  name: string;
 
-	/**
-	 * 图标的大小
-	 * @default "24px"
-	 */
-	size?: string;
+  /**
+   * 图标的大小
+   * @default "24px"
+   */
+  size?: string;
 
-	/**
-	 * 描边颜色
-	 * @default "currentColor"
-	 */
-	stroke?: string;
+  /**
+   * 描边颜色
+   * @default "currentColor"
+   */
+  stroke?: string;
 
-	/**
-	 * 自定义类名
-	 */
-	class?: string;
+  /**
+   * 自定义类名
+   */
+  class?: string;
 
-	/**
-	 * 是否填充图标
-	 * @default false
-	 */
-	fill?: boolean;
+  /**
+   * 是否填充图标
+   * @default false
+   */
+  fill?: boolean;
 }
 
 const {
-	name,
-	size = '24px',
-	stroke = 'currentColor',
-	class: className = '',
-	fill = false,
+  name,
+  size = '24px',
+  stroke = 'currentColor',
+  class: className = '',
+  fill = false,
 } = Astro.props;
 const icon = iconData[name];
 const viewBox = icon?.viewBox || '0 0 24 24';
 ---
 
 {
-	icon && (
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width={size}
-			height={size}
-			viewBox={viewBox}
-			fill={fill ? 'currentColor' : 'none'}
-			stroke={stroke}
-			stroke-width="2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			class={className}>
-			<path d={icon.path} />
-		</svg>
-	)
+  icon && (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox={viewBox}
+      fill={fill ? 'currentColor' : 'none'}
+      stroke={stroke}
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class={className}
+    >
+      <path d={icon.path} />
+    </svg>
+  )
 }

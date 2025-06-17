@@ -11,7 +11,7 @@ export { Image, ImageBasic, ImageEffects, ImageLoading };
 
 // 导出示例源代码
 export const ImageExampleCodes = {
-	Basic: extractSimpleExample(BasicSourceCode, 'Image'),
-	Effects: extractSimpleExample(EffectsSourceCode, 'Image'),
-	Loading: extractSimpleExample(LoadingSourceCode, 'Image'),
+  Basic: extractSimpleExample(BasicSourceCode, 'Image'),
+  Effects: extractSimpleExample(EffectsSourceCode, 'Image'),
+  Loading: extractSimpleExample(LoadingSourceCode, 'Image'),
 };

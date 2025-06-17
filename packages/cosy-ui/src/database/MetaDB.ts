@@ -22,52 +22,52 @@ export type MetaEntry = CollectionEntry<typeof COLLECTION_META>;
  * ```
  */
 class MetaDB extends BaseDB<typeof COLLECTION_META, MetaEntry, MetaDoc> {
-	protected collectionName = COLLECTION_META;
+  protected collectionName = COLLECTION_META;
 
-	protected createDoc(entry: MetaEntry): MetaDoc {
-		return new MetaDoc(entry);
-	}
+  protected createDoc(entry: MetaEntry): MetaDoc {
+    return new MetaDoc(entry);
+  }
 
-	/**
-	 * 获取指定文档的兄弟文档
-	 * 例如：对于 'zh-cn/about'，会返回 'zh-cn' 下的文档
-	 *
-	 * @param targetId - 目标文档ID
-	 * @returns 返回兄弟文档数组（包括目标文档本身）
-	 */
-	async getSiblings(targetId: string): Promise<MetaDoc[]> {
-		const target = await this.find(targetId);
-		if (!target) {
-			return [];
-		}
-		const docs = await this.getDocsByDepth(2);
-		return docs.filter((doc) => doc.getLang() === target.getLang());
-	}
+  /**
+   * 获取指定文档的兄弟文档
+   * 例如：对于 'zh-cn/about'，会返回 'zh-cn' 下的文档
+   *
+   * @param targetId - 目标文档ID
+   * @returns 返回兄弟文档数组（包括目标文档本身）
+   */
+  async getSiblings(targetId: string): Promise<MetaDoc[]> {
+    const target = await this.find(targetId);
+    if (!target) {
+      return [];
+    }
+    const docs = await this.getDocsByDepth(2);
+    return docs.filter((doc) => doc.getLang() === target.getLang());
+  }
 
-	/**
-	 * 获取用于 Astro 静态路由生成的路径参数，专门配合 [lang]/meta/[slug].astro 使用
-	 *
-	 * @param debug - 是否开启调试模式
-	 * @returns 返回路径参数数组
-	 */
-	async getStaticPaths(debug: boolean = false) {
-		const docs = await this.getDescendantDocs('');
+  /**
+   * 获取用于 Astro 静态路由生成的路径参数，专门配合 [lang]/meta/[slug].astro 使用
+   *
+   * @param debug - 是否开启调试模式
+   * @returns 返回路径参数数组
+   */
+  async getStaticPaths(debug: boolean = false) {
+    const docs = await this.getDescendantDocs('');
 
-		const paths = docs.map((doc) => {
-			return {
-				params: {
-					lang: doc.getLang(),
-					slug: doc.getSlug(),
-				},
-			};
-		});
+    const paths = docs.map((doc) => {
+      return {
+        params: {
+          lang: doc.getLang(),
+          slug: doc.getSlug(),
+        },
+      };
+    });
 
-		if (debug) {
-			cosyLogger.array('所有元数据文档的路径', paths);
-		}
+    if (debug) {
+      cosyLogger.array('所有元数据文档的路径', paths);
+    }
 
-		return paths;
-	}
+    return paths;
+  }
 }
 
 // 创建并导出单例实例

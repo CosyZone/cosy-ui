@@ -7,5 +7,5 @@ export { DashboardLayout, DashboardLayoutBasic };
 
 // 导出示例源代码
 export const DashboardLayoutExampleCodes = {
-	Basic: extractSimpleExample(BasicSourceCode, 'DashboardLayout'),
+  Basic: extractSimpleExample(BasicSourceCode, 'DashboardLayout'),
 };

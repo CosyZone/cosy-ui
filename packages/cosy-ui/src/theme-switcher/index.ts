@@ -7,5 +7,5 @@ export { ThemeSwitcher, ThemeSwitcherBasic };
 
 // 导出示例源代码
 export const ThemeSwitcherExampleCodes = {
-	Basic: extractSimpleExample(BasicSourceCode, 'ThemeSwitcher'),
+  Basic: extractSimpleExample(BasicSourceCode, 'ThemeSwitcher'),
 };

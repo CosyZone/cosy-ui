@@ -13,9 +13,7 @@ Text 组件用于创建各种文本元素，提供一致的排版样式和灵活
 
 基本的 Text 组件默认渲染为 `<p>` 元素：
 
-<CodeExample
-  code={`<Text>这是一段普通文本</Text>`}
->
+<CodeExample code={`<Text>这是一段普通文本</Text>`}>
   <Text>这是一段普通文本</Text>
 </CodeExample>
 
@@ -86,7 +84,9 @@ Text 组件提供了多种大小选项：
   <Text align="left">左对齐文本（默认）</Text>
   <Text align="center">居中对齐文本</Text>
   <Text align="right">右对齐文本</Text>
-  <Text align="justify">两端对齐文本。这是一段较长的文本，用于演示两端对齐的效果。两端对齐会使文本的左右边缘保持对齐，通过调整单词间距实现。</Text>
+  <Text align="justify">
+    两端对齐文本。这是一段较长的文本，用于演示两端对齐的效果。两端对齐会使文本的左右边缘保持对齐，通过调整单词间距实现。
+  </Text>
 </CodeExample>
 
 ## 文本样式
@@ -100,7 +100,9 @@ Text 组件提供了多种大小选项：
 >
   <Text italic>斜体文本</Text>
   <Text underline>带下划线文本</Text>
-  <Text italic underline>斜体带下划线文本</Text>
+  <Text italic underline>
+    斜体带下划线文本
+  </Text>
 </CodeExample>
 
 ## 文本截断
@@ -113,7 +115,9 @@ Text 组件提供了多种大小选项：
 </div>`}
 >
   <div style="width: 200px; border: 1px dashed #ccc; padding: 8px;">
-    <Text truncate>这是一段非常长的文本内容，会超出容器宽度，因此会被截断并显示省略号...</Text>
+    <Text truncate>
+      这是一段非常长的文本内容，会超出容器宽度，因此会被截断并显示省略号...
+    </Text>
   </div>
 </CodeExample>
 
@@ -146,10 +150,10 @@ Text 组件提供了多种大小选项：
   这是一个重要的提示信息
 </Text>`}
 >
-  <Text 
-    size="lg" 
-    color="primary" 
-    weight="bold" 
+  <Text
+    size="lg"
+    color="primary"
+    weight="bold"
     align="center"
     class="cosy:py-2 cosy:border cosy:border-primary-200 cosy:rounded-md"
   >

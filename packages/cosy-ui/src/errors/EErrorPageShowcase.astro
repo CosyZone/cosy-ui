@@ -10,51 +10,59 @@ import { Container, Stack } from '../index';
 ---
 
 <Container size="lg" padding="lg">
-	<Stack gap="xl">
-		<div class="cosy:text-center cosy:mb-8">
-			<h1 class="cosy:text-3xl cosy:font-bold cosy:mb-4">错误页面展示</h1>
-			<p class="cosy:text-base-content/70">以下是不同HTTP错误状态码对应的错误页面</p>
-		</div>
+  <Stack gap="xl">
+    <div class="cosy:text-center cosy:mb-8">
+      <h1 class="cosy:text-3xl cosy:font-bold cosy:mb-4">错误页面展示</h1>
+      <p class="cosy:text-base-content/70">
+        以下是不同HTTP错误状态码对应的错误页面
+      </p>
+    </div>
 
-		<!-- 404错误 -->
-		<section class="cosy:border cosy:border-base-300 cosy:rounded-lg cosy:p-6">
-			<h2 class="cosy:text-xl cosy:font-semibold cosy:mb-4">404 - 页面未找到</h2>
-			<ErrorPage errorCode={404} debugKVs={{ example: 'demo' }} />
-		</section>
+    <!-- 404错误 -->
+    <section class="cosy:border cosy:border-base-300 cosy:rounded-lg cosy:p-6">
+      <h2 class="cosy:text-xl cosy:font-semibold cosy:mb-4">
+        404 - 页面未找到
+      </h2>
+      <ErrorPage errorCode={404} debugKVs={{ example: 'demo' }} />
+    </section>
 
-		<!-- 403错误 -->
-		<section class="cosy:border cosy:border-base-300 cosy:rounded-lg cosy:p-6">
-			<h2 class="cosy:text-xl cosy:font-semibold cosy:mb-4">403 - 禁止访问</h2>
-			<ErrorPage
-				errorCode={403}
-				loginUrl="/login"
-				contactUrl="/contact"
-				debugKVs={{ requiredRole: 'admin', currentRole: 'user' }}
-			/>
-		</section>
+    <!-- 403错误 -->
+    <section class="cosy:border cosy:border-base-300 cosy:rounded-lg cosy:p-6">
+      <h2 class="cosy:text-xl cosy:font-semibold cosy:mb-4">403 - 禁止访问</h2>
+      <ErrorPage
+        errorCode={403}
+        loginUrl="/login"
+        contactUrl="/contact"
+        debugKVs={{ requiredRole: 'admin', currentRole: 'user' }}
+      />
+    </section>
 
-		<!-- 500错误 -->
-		<section class="cosy:border cosy:border-base-300 cosy:rounded-lg cosy:p-6">
-			<h2 class="cosy:text-xl cosy:font-semibold cosy:mb-4">500 - 服务器内部错误</h2>
-			<ErrorPage
-				errorCode={500}
-				supportUrl="/support"
-				statusPageUrl="/status"
-				debugKVs={{ errorId: 'ERR_2024_001', serverInfo: 'Server-01' }}
-			/>
-		</section>
+    <!-- 500错误 -->
+    <section class="cosy:border cosy:border-base-300 cosy:rounded-lg cosy:p-6">
+      <h2 class="cosy:text-xl cosy:font-semibold cosy:mb-4">
+        500 - 服务器内部错误
+      </h2>
+      <ErrorPage
+        errorCode={500}
+        supportUrl="/support"
+        statusPageUrl="/status"
+        debugKVs={{ errorId: 'ERR_2024_001', serverInfo: 'Server-01' }}
+      />
+    </section>
 
-		<!-- 503错误 -->
-		<section class="cosy:border cosy:border-base-300 cosy:rounded-lg cosy:p-6">
-			<h2 class="cosy:text-xl cosy:font-semibold cosy:mb-4">503 - 服务不可用</h2>
-			<ErrorPage
-				errorCode={503}
-				maintenanceMode={true}
-				estimatedRecovery="2024-12-25 10:00"
-				statusPageUrl="/status"
-				notificationUrl="/notifications"
-				debugKVs={{ reason: '系统升级', startTime: '2024-12-25 08:00' }}
-			/>
-		</section>
-	</Stack>
+    <!-- 503错误 -->
+    <section class="cosy:border cosy:border-base-300 cosy:rounded-lg cosy:p-6">
+      <h2 class="cosy:text-xl cosy:font-semibold cosy:mb-4">
+        503 - 服务不可用
+      </h2>
+      <ErrorPage
+        errorCode={503}
+        maintenanceMode={true}
+        estimatedRecovery="2024-12-25 10:00"
+        statusPageUrl="/status"
+        notificationUrl="/notifications"
+        debugKVs={{ reason: '系统升级', startTime: '2024-12-25 08:00' }}
+      />
+    </section>
+  </Stack>
 </Container>

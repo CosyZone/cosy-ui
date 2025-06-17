@@ -7,5 +7,5 @@ export { AppLayout, AppLayoutBasic };
 
 // 导出示例源代码
 export const AppLayoutExampleCodes = {
-	Basic: extractSimpleExample(BasicSourceCode, 'AppLayout'),
+  Basic: extractSimpleExample(BasicSourceCode, 'AppLayout'),
 };

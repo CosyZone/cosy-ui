@@ -15,13 +15,14 @@ Object-Oriented Programming (OOP) is a programming paradigm that uses "objects" 
 **Example**:
 
 class Car {
-    public $color;
-    public $model;
-    public function drive() {
+public $color;
+public $model;
+public function drive() {
 
         return "Driving a " . $this-&gt;color . " " . $this-&gt;model;
 
     }
+
 }
 
 $myCar = new Car();
@@ -37,13 +38,14 @@ Inheritance allows a class to inherit properties and methods from another class.
 **Example**:
 
 class Vehicle {
-    public $speed;
+public $speed;
 
     public function accelerate() {
 
         return "Accelerating at ".$this -&gt; speed. " km/h";
 
     }
+
 }
 
 class Bike extends Vehicle {
@@ -55,6 +57,7 @@ class Bike extends Vehicle {
         return "This is a ".$this -&gt; type. " bike.";
 
     }
+
 }
 
 $myBike = new Bike();
@@ -106,32 +109,32 @@ Polymorphism allows methods to do different things based on the object it is act
 **Example**:
 
 class Animal {
-    public function sound() 
-    {
-        return "Some sound";
-    }
+public function sound()
+{
+return "Some sound";
+}
 }
 
 class Dog extends Animal {
-    public function sound() 
-    {
-        return "Bark";
-    }
+public function sound()
+{
+return "Bark";
+}
 
 }
 
 class Cat extends Animal {
-    public function sound() 
-    {
-        return "Meow";
-    }
+public function sound()
+{
+return "Meow";
+}
 }
 
 $animals = [new Dog(), new Cat()];
 
 foreach($animals as $animal)
 {
-    echo $animal -&gt; sound(); // Output: Bark Meow
+echo $animal -&gt; sound(); // Output: Bark Meow
 }## OOP in Laravel
 
 Laravel is a PHP framework that heavily utilizes OOP principles. Understanding OOP will help you grasp Laravel's architecture, including:

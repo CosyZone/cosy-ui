@@ -10,16 +10,16 @@ import TeamMember from './TeamMember.astro';
 import { getExampleImage } from '../utils/image.ts';
 
 const avatar = getExampleImage({
-	width: 200,
-	height: 200,
-	provider: 'robohash',
-	randomSeed: 'member1',
+  width: 200,
+  height: 200,
+  provider: 'robohash',
+  randomSeed: 'member1',
 });
 ---
 
 <TeamMember
-	name="张三"
-	role="产品设计师"
-	avatar={avatar}
-	bio="专注于用户体验设计，拥有5年产品设计经验"
+  name="张三"
+  role="产品设计师"
+  avatar={avatar}
+  bio="专注于用户体验设计，拥有5年产品设计经验"
 />

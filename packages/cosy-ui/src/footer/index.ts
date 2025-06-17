@@ -13,19 +13,19 @@ export { default as Footer } from './Footer.astro';
 
 // 导出示例源代码
 export const FooterExampleCodes = {
-    Basic: extractSimpleExample(EFooterBasicSourceCode, 'Footer'),
+  Basic: extractSimpleExample(EFooterBasicSourceCode, 'Footer'),
 };
 
 // 导出页脚包
 export const FooterPackage = {
-    Footer,
-    FooterContainers: {
-        Basic: FooterBasicContainer,
-        WithSocial: FooterWithSocialContainer,
-        WithProducts: FooterWithProductsContainer,
-        WithLogo: FooterWithLogoContainer,
-        WithNavigation: FooterWithNavigationContainer,
-        Complete: FooterCompleteContainer,
-        Features: FooterFeaturesContainer,
-    },
+  Footer,
+  FooterContainers: {
+    Basic: FooterBasicContainer,
+    WithSocial: FooterWithSocialContainer,
+    WithProducts: FooterWithProductsContainer,
+    WithLogo: FooterWithLogoContainer,
+    WithNavigation: FooterWithNavigationContainer,
+    Complete: FooterCompleteContainer,
+    Features: FooterFeaturesContainer,
+  },
 };

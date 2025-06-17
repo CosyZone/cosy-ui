@@ -12,7 +12,14 @@ import GroupSourceCode from './TeamMemberGroup.astro?raw';
 
 import { extractSimpleExample } from '../utils/component';
 
-export { TeamMember, TeamMemberBasic, TeamMemberWithSocial, TeamMemberCustomStyle, TeamMemberGroup, TeamMemebrs };
+export {
+  TeamMember,
+  TeamMemberBasic,
+  TeamMemberWithSocial,
+  TeamMemberCustomStyle,
+  TeamMemberGroup,
+  TeamMemebrs,
+};
 
 // Export example codes
 export const TeamMemberExampleCodes = {

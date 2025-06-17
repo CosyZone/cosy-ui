@@ -71,32 +71,41 @@
 import '../style.ts';
 
 interface Props {
-	title: string;
-	subtitle?: string;
-	imageUrl?: string;
-	href?: string;
-	compact?: boolean;
-	class?: string;
+  title: string;
+  subtitle?: string;
+  imageUrl?: string;
+  href?: string;
+  compact?: boolean;
+  class?: string;
 }
 
-const { title, subtitle, imageUrl, href, compact, class: className = '' } = Astro.props;
+const {
+  title,
+  subtitle,
+  imageUrl,
+  href,
+  compact,
+  class: className = '',
+} = Astro.props;
 
 // 构建卡片样式类
 const cardClasses = [
-	'cosy:card',
-	'cosy:w-full',
-	'cosy:bg-base-100',
-	'cosy:shadow-xl',
-	'cosy:hover:shadow-2xl',
-	'cosy:transition-all',
-	'cosy:duration-300',
-	'cosy:ease-in-out',
-	compact ? 'cosy:card-compact' : '',
-	href ? 'cosy:cursor-pointer cosy:hover:scale-105 cosy:transform cosy:no-underline' : '',
-	className,
+  'cosy:card',
+  'cosy:w-full',
+  'cosy:bg-base-100',
+  'cosy:shadow-xl',
+  'cosy:hover:shadow-2xl',
+  'cosy:transition-all',
+  'cosy:duration-300',
+  'cosy:ease-in-out',
+  compact ? 'cosy:card-compact' : '',
+  href
+    ? 'cosy:cursor-pointer cosy:hover:scale-105 cosy:transform cosy:no-underline'
+    : '',
+  className,
 ]
-	.filter(Boolean)
-	.join(' ');
+  .filter(Boolean)
+  .join(' ');
 
 // 内容区域的padding类
 const contentPadding = compact ? 'cosy:p-4' : 'cosy:p-6';
@@ -106,35 +115,37 @@ const Tag = href ? 'a' : 'article';
 ---
 
 <Tag class={cardClasses} href={href} {...href && { target: '_self' }}>
-	{
-		imageUrl && (
-			<figure class="not-prose cosy:m-0 cosy:p-0">
-				<img
-					src={imageUrl}
-					alt={title}
-					class="cosy:w-full cosy:h-48 cosy:object-cover cosy:rounded-t-lg"
-				/>
-			</figure>
-		)
-	}
+  {
+    imageUrl && (
+      <figure class="not-prose cosy:m-0 cosy:p-0">
+        <img
+          src={imageUrl}
+          alt={title}
+          class="cosy:w-full cosy:h-48 cosy:object-cover cosy:rounded-t-lg"
+        />
+      </figure>
+    )
+  }
 
-	<div class={`cosy:card-body ${contentPadding}`}>
-		<h2 class="cosy:card-title cosy:text-xl cosy:font-bold">
-			{title}
-		</h2>
+  <div class={`cosy:card-body ${contentPadding}`}>
+    <h2 class="cosy:card-title cosy:text-xl cosy:font-bold">
+      {title}
+    </h2>
 
-		{
-			subtitle && (
-				<p class="cosy:text-base-content/70 cosy:text-sm cosy:leading-relaxed">{subtitle}</p>
-			)
-		}
+    {
+      subtitle && (
+        <p class="cosy:text-base-content/70 cosy:text-sm cosy:leading-relaxed">
+          {subtitle}
+        </p>
+      )
+    }
 
-		{
-			Astro.slots.has('default') && (
-				<div class="cosy:mt-4">
-					<slot />
-				</div>
-			)
-		}
-	</div>
+    {
+      Astro.slots.has('default') && (
+        <div class="cosy:mt-4">
+          <slot />
+        </div>
+      )
+    }
+  </div>
 </Tag>

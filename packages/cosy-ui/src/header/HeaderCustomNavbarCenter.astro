@@ -9,15 +9,20 @@ import '../style.ts';
 import Header from './Header.astro';
 import { getExampleImage } from '../utils/image.ts';
 
-const logo = getExampleImage({ width: 100, height: 100, provider: 'picsum', tag: 'tech' });
+const logo = getExampleImage({
+  width: 100,
+  height: 100,
+  provider: 'picsum',
+  tag: 'tech',
+});
 ---
 
 <Header logoHref={logo} rounded="lg" sticky={false}>
-	<div slot="navbar-center" class="cosy:flex cosy:items-center cosy:gap-4">
-		<span class="cosy:badge cosy:badge-accent">新功能</span>
-		<div class="cosy:divider cosy:divider-horizontal"></div>
-		<span class="cosy:badge cosy:badge-secondary">热门</span>
-		<div class="cosy:divider cosy:divider-horizontal"></div>
-		<span class="cosy:badge">推荐</span>
-	</div>
+  <div slot="navbar-center" class="cosy:flex cosy:items-center cosy:gap-4">
+    <span class="cosy:badge cosy:badge-accent">新功能</span>
+    <div class="cosy:divider cosy:divider-horizontal"></div>
+    <span class="cosy:badge cosy:badge-secondary">热门</span>
+    <div class="cosy:divider cosy:divider-horizontal"></div>
+    <span class="cosy:badge">推荐</span>
+  </div>
 </Header>

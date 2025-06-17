@@ -18,28 +18,29 @@ import { Button } from '../index';
 import '../style.ts';
 
 interface Props {
-	/**
-	 * 主题名称
-	 */
-	theme: string;
-	/**
-	 * 显示的标签文本
-	 */
-	label: string;
-	/**
-	 * 自定义类名
-	 */
-	class?: string;
+  /**
+   * 主题名称
+   */
+  theme: string;
+  /**
+   * 显示的标签文本
+   */
+  label: string;
+  /**
+   * 自定义类名
+   */
+  class?: string;
 }
 
 const { theme, label, class: className = '' } = Astro.props;
 ---
 
 <Button
-	variant="ghost"
-	size="sm"
-	block
-	class={`cosy:text-left cosy:justify-start ${className} cosy:theme-item`}
-	data-theme={theme}>
-	{label}
+  variant="ghost"
+  size="sm"
+  block
+  class={`cosy:text-left cosy:justify-start ${className} cosy:theme-item`}
+  data-theme={theme}
+>
+  {label}
 </Button>

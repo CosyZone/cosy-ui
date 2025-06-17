@@ -48,72 +48,80 @@ import '../style.ts';
 import { Button } from '../index';
 
 interface Props {
-	/**
-	 * Modal 的唯一标识符
-	 */
-	id: string;
-	/**
-	 * 模态框的标题
-	 */
-	title?: string;
-	/**
-	 * 是否显示关闭按钮
-	 * @default true
-	 */
-	showCloseButton?: boolean;
-	/**
-	 * 自定义类名
-	 */
-	class?: string;
+  /**
+   * Modal 的唯一标识符
+   */
+  id: string;
+  /**
+   * 模态框的标题
+   */
+  title?: string;
+  /**
+   * 是否显示关闭按钮
+   * @default true
+   */
+  showCloseButton?: boolean;
+  /**
+   * 自定义类名
+   */
+  class?: string;
 }
 
-const { id, title, showCloseButton = true, class: className = '' } = Astro.props;
+const {
+  id,
+  title,
+  showCloseButton = true,
+  class: className = '',
+} = Astro.props;
 ---
 
 <dialog id={id} class="cosy:modal">
-	<div class:list={['cosy:modal-box', className]}>
-		{
-			showCloseButton && (
-				<form method="dialog">
-					<Button
-						variant="ghost"
-						size="sm"
-						shape="circle"
-						formmethod="dialog"
-						class="cosy:modal-close-button">
-						✕
-					</Button>
-				</form>
-			)
-		}
+  <div class:list={['cosy:modal-box', className]}>
+    {
+      showCloseButton && (
+        <form method="dialog">
+          <Button
+            variant="ghost"
+            size="sm"
+            shape="circle"
+            formmethod="dialog"
+            class="cosy:modal-close-button"
+          >
+            ✕
+          </Button>
+        </form>
+      )
+    }
 
-		{title && <h3 class="cosy:modal-title">{title}</h3>}
+    {title && <h3 class="cosy:modal-title">{title}</h3>}
 
-		<div class="cosy:modal-content">
-			<slot />
-		</div>
+    <div class="cosy:modal-content">
+      <slot />
+    </div>
 
-		<div class="cosy:modal-action">
-			<slot name="actions" />
-		</div>
-	</div>
+    <div class="cosy:modal-action">
+      <slot name="actions" />
+    </div>
+  </div>
 
-	<form method="dialog" class="cosy:modal-backdrop">
-		<button>关闭</button>
-	</form>
+  <form method="dialog" class="cosy:modal-backdrop">
+    <button>关闭</button>
+  </form>
 </dialog>
 
 <script is:inline define:vars={{ id }}>
-	// 为了方便使用，我们提供一些辅助方法
-	document.addEventListener('DOMContentLoaded', () => {
-		const modal = document.getElementById(id);
-		if (!modal) return;
+  // 为了方便使用，我们提供一些辅助方法
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById(id);
+    if (!modal) return;
 
-		// 为所有触发这个模态框的按钮添加点击事件
-		document.querySelectorAll(`[data-modal-target="${id}"]`).forEach((trigger) => {
-			trigger.addEventListener('click', () => {
-				modal.showModal();
-			});
-		});
-	});
+    // 为所有触发这个模态框的按钮添加点击事件
+    document
+      .querySelectorAll(`[data-modal-target="${id}"]`)
+      .forEach((trigger) => {
+        trigger.addEventListener('click', () => {
+          modal.showModal();
+        });
+      });
+  });
 </script>

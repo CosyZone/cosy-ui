@@ -7,6 +7,7 @@ After completing the environment setup, we can start creating our hotkey applica
 ## Create Flutter Project
 
 1. Open terminal, navigate to your desired project directory, and execute the following commands:
+
    ```bash
    flutter create hotkey_app
    cd hotkey_app
@@ -20,6 +21,7 @@ After completing the environment setup, we can start creating our hotkey applica
 ## Configure Project
 
 1. Open `pubspec.yaml` file and add necessary dependencies:
+
    ```yaml
    dependencies:
      flutter:
@@ -37,6 +39,7 @@ After completing the environment setup, we can start creating our hotkey applica
 ## Configure macOS Permissions
 
 1. Open `macos/Runner/DebugProfile.entitlements` file and add the following permissions:
+
    ```xml
    <dict>
      <!-- Other existing configurations -->
@@ -52,6 +55,7 @@ After completing the environment setup, we can start creating our hotkey applica
 1. Open `lib/main.dart` and remove the default counter example code.
 
 2. Create the basic application structure:
+
    ```dart
    import 'package:flutter/material.dart';
    import 'package:window_manager/window_manager.dart';
@@ -59,13 +63,13 @@ After completing the environment setup, we can start creating our hotkey applica
 
    void main() async {
      WidgetsFlutterBinding.ensureInitialized();
-     
+
      // Initialize window manager
      await windowManager.ensureInitialized();
-     
+
      // Initialize hotkey manager
      await hotKeyManager.unregisterAll();
-     
+
      runApp(const MyApp());
    }
 
@@ -110,6 +114,7 @@ After completing the environment setup, we can start creating our hotkey applica
 ## Run Project
 
 1. Ensure macOS platform is enabled:
+
    ```bash
    flutter devices
    ```
@@ -122,11 +127,13 @@ After completing the environment setup, we can start creating our hotkey applica
 ## Common Issues
 
 1. Dependency Installation Failure
+
    - Check network connection
    - Ensure Flutter SDK version compatibility
    - Try using mirror sources
 
 2. macOS Permission Issues
+
    - Ensure entitlements files are correctly configured
    - Check Xcode project settings
 

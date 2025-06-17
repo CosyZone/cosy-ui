@@ -5,7 +5,13 @@ folder: false
 order: 1
 ---
 
-import { CodeExample, getExampleImage, getProductImage, getAvatarImage, getLandscapeImage } from '@coffic/cosy-ui';
+import {
+  CodeExample,
+  getExampleImage,
+  getProductImage,
+  getAvatarImage,
+  getLandscapeImage,
+} from '@coffic/cosy-ui';
 import { Image } from '@coffic/cosy-ui';
 
 在开发过程中，我们常常需要使用占位图片来展示设计和布局。Cosy UI 提供了一系列图片工具函数，让你可以轻松生成各种类型的示例图片，并且支持多个图片服务提供商。
@@ -13,11 +19,11 @@ import { Image } from '@coffic/cosy-ui';
 ## 导入工具函数
 
 ```ts
-import { 
-  getExampleImage, 
-  getProductImage, 
-  getAvatarImage, 
-  getLandscapeImage 
+import {
+  getExampleImage,
+  getProductImage,
+  getAvatarImage,
+  getLandscapeImage,
 } from '@coffic/cosy-ui';
 ```
 
@@ -30,6 +36,7 @@ import {
 const imageUrl = getExampleImage({ width: 400, height: 300 });
 
 // 在组件中使用
+
 <Image src={getExampleImage({ width: 400, height: 300 })} alt="示例图片" />`}
 >
   <Image src={getExampleImage({ width: 400, height: 300 })} alt="示例图片" />
@@ -78,8 +85,14 @@ getExampleImage({ width: 300, height: 200, randomSeed: 'abc123' });
 getExampleImage({ width: 300, height: 200, randomSeed: 'abc123' }); // 返回相同的图片`}
 >
   <div class="cosy:grid cosy:grid-cols-2 cosy:gap-4">
-    <Image src={getExampleImage({ width: 300, height: 200, randomSeed: 'abc123' })} alt="固定随机图片1" />
-    <Image src={getExampleImage({ width: 300, height: 200, randomSeed: 'abc123' })} alt="固定随机图片2" />
+    <Image
+      src={getExampleImage({ width: 300, height: 200, randomSeed: 'abc123' })}
+      alt="固定随机图片1"
+    />
+    <Image
+      src={getExampleImage({ width: 300, height: 200, randomSeed: 'abc123' })}
+      alt="固定随机图片2"
+    />
   </div>
 </CodeExample>
 
@@ -109,13 +122,13 @@ getLandscapeImage({ tag: 'mountain' });`}
 
 ```ts
 interface ImageOptions {
-  width: number;          // 图片宽度
-  height: number;         // 图片高度
-  tag?: string;           // 可选标签，不同服务商用途不同
+  width: number; // 图片宽度
+  height: number; // 图片高度
+  tag?: string; // 可选标签，不同服务商用途不同
   randomSeed?: number | string; // 随机种子，确保图片一致性
   provider?: ImageProvider; // 图片服务提供商
-  grayscale?: boolean;    // 是否使用灰度效果 (仅 Picsum)
-  blur?: number;          // 模糊效果级别 (仅 Picsum，范围 1-10)
+  grayscale?: boolean; // 是否使用灰度效果 (仅 Picsum)
+  blur?: number; // 模糊效果级别 (仅 Picsum，范围 1-10)
 }
 
 // 支持的图片服务提供商
@@ -136,4 +149,4 @@ function getAvatarImage(options?: Partial<ImageOptions>): string;
 
 // 景观图片生成函数
 function getLandscapeImage(options?: Partial<ImageOptions>): string;
-``` 
+```

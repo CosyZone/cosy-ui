@@ -5,7 +5,13 @@ folder: false
 order: 1
 ---
 
-import { CodeExample, getExampleImage, getProductImage, getAvatarImage, getLandscapeImage } from '@coffic/cosy-ui';
+import {
+  CodeExample,
+  getExampleImage,
+  getProductImage,
+  getAvatarImage,
+  getLandscapeImage,
+} from '@coffic/cosy-ui';
 import { Image } from '@coffic/cosy-ui';
 
 During development, we often need to use placeholder images to showcase designs and layouts. Cosy UI provides a series of image utility functions that allow you to easily generate various types of example images, with support for multiple image service providers.
@@ -13,11 +19,11 @@ During development, we often need to use placeholder images to showcase designs 
 ## Importing Utility Functions
 
 ```ts
-import { 
-  getExampleImage, 
-  getProductImage, 
-  getAvatarImage, 
-  getLandscapeImage 
+import {
+  getExampleImage,
+  getProductImage,
+  getAvatarImage,
+  getLandscapeImage,
 } from '@coffic/cosy-ui';
 ```
 
@@ -30,6 +36,7 @@ The simplest image generation:
 const imageUrl = getExampleImage({ width: 400, height: 300 });
 
 // Use in a component
+
 <Image src={getExampleImage({ width: 400, height: 300 })} alt="Example image" />`}
 >
   <Image src={getExampleImage({ width: 400, height: 300 })} alt="示例图片" />
@@ -78,8 +85,14 @@ getExampleImage({ width: 300, height: 200, randomSeed: 'abc123' });
 getExampleImage({ width: 300, height: 200, randomSeed: 'abc123' }); // Returns the same image`}
 >
   <div class="cosy:grid cosy:grid-cols-2 cosy:gap-4">
-    <Image src={getExampleImage({ width: 300, height: 200, randomSeed: 'abc123' })} alt="Fixed random image 1" />
-    <Image src={getExampleImage({ width: 300, height: 200, randomSeed: 'abc123' })} alt="Fixed random image 2" />
+    <Image
+      src={getExampleImage({ width: 300, height: 200, randomSeed: 'abc123' })}
+      alt="Fixed random image 1"
+    />
+    <Image
+      src={getExampleImage({ width: 300, height: 200, randomSeed: 'abc123' })}
+      alt="Fixed random image 2"
+    />
   </div>
 </CodeExample>
 
@@ -109,13 +122,13 @@ All image utility functions accept parameters of the `ImageOptions` type:
 
 ```ts
 interface ImageOptions {
-  width: number;          // Image width
-  height: number;         // Image height
-  tag?: string;           // Optional tag, different usage for different providers
+  width: number; // Image width
+  height: number; // Image height
+  tag?: string; // Optional tag, different usage for different providers
   randomSeed?: number | string; // Random seed, ensures image consistency
   provider?: ImageProvider; // Image service provider
-  grayscale?: boolean;    // Whether to use grayscale effect (Picsum only)
-  blur?: number;          // Blur effect level (Picsum only, range 1-10)
+  grayscale?: boolean; // Whether to use grayscale effect (Picsum only)
+  blur?: number; // Blur effect level (Picsum only, range 1-10)
 }
 
 // Supported image service providers

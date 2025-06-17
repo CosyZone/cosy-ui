@@ -11,9 +11,7 @@ import { Link, CodeExample } from '@coffic/cosy-ui';
 
 The simplest way to display links
 
-<CodeExample
-  code={`<Link href="/about">About Us</Link>`}
->
+<CodeExample code={`<Link href="/about">About Us</Link>`}>
   <Link href="/about">About Us</Link>
 </CodeExample>
 
@@ -24,7 +22,9 @@ Links to external websites, automatically adding the open-in-new-window attribut
 <CodeExample
   code={`<Link href="https://example.com" external>Visit External Website</Link>`}
 >
-  <Link href="https://example.com" external>Visit External Website</Link>
+  <Link href="https://example.com" external>
+    Visit External Website
+  </Link>
 </CodeExample>
 
 ## Style Variants
@@ -38,11 +38,21 @@ Apply different style variants using the `variant` property
 <Link href="/get-started" variant="cta">Call to Action</Link>
 <Link href="/preview" variant="ghost">Ghost Link</Link>`}
 >
-  <Link href="/signup" variant="primary">Primary Link</Link>
-  <Link href="/learn-more" variant="secondary" class="cosy:ml-2">Secondary Link</Link>
-  <Link href="/docs" variant="text" class="cosy:ml-2">Text Link</Link>
-  <Link href="/get-started" variant="cta" class="cosy:ml-2">Call to Action</Link>
-  <Link href="/preview" variant="ghost" class="cosy:ml-2">Ghost Link</Link>
+  <Link href="/signup" variant="primary">
+    Primary Link
+  </Link>
+  <Link href="/learn-more" variant="secondary" class="cosy:ml-2">
+    Secondary Link
+  </Link>
+  <Link href="/docs" variant="text" class="cosy:ml-2">
+    Text Link
+  </Link>
+  <Link href="/get-started" variant="cta" class="cosy:ml-2">
+    Call to Action
+  </Link>
+  <Link href="/preview" variant="ghost" class="cosy:ml-2">
+    Ghost Link
+  </Link>
 </CodeExample>
 
 ## Block Display
@@ -53,8 +63,13 @@ Make links occupy the entire row using the `block` property
   code={`<Link href="/contact" block variant="primary">Full-width Link</Link>
 <p class="cosy:mt-2">This is a paragraph that contains an <Link href="/inline">inline link</Link>.</p>`}
 >
-  <Link href="/contact" block variant="primary">Full-width Link</Link>
-  <p class="cosy:mt-2">This is a paragraph that contains an <Link href="/inline">inline link</Link>.</p>
+  <Link href="/contact" block variant="primary">
+    Full-width Link
+  </Link>
+  <p class="cosy:mt-2">
+    This is a paragraph that contains an <Link href="/inline">inline link</Link>
+    .
+  </p>
 </CodeExample>
 
 ## Animation Effects
@@ -66,9 +81,20 @@ Add hover animation effects using the `animation` property
 <Link href="/features" animation="hover-glow" variant="secondary">Glow Effect</Link>
 <Link href="/pricing" animation="hover-scale" variant="cta">Scale Effect</Link>`}
 >
-  <Link href="/contact" animation="hover-lift" variant="primary">Lift Effect</Link>
-  <Link href="/features" animation="hover-glow" variant="secondary" class="cosy:ml-2">Glow Effect</Link>
-  <Link href="/pricing" animation="hover-scale" variant="cta" class="cosy:ml-2">Scale Effect</Link>
+  <Link href="/contact" animation="hover-lift" variant="primary">
+    Lift Effect
+  </Link>
+  <Link
+    href="/features"
+    animation="hover-glow"
+    variant="secondary"
+    class="cosy:ml-2"
+  >
+    Glow Effect
+  </Link>
+  <Link href="/pricing" animation="hover-scale" variant="cta" class="cosy:ml-2">
+    Scale Effect
+  </Link>
 </CodeExample>
 
 ## Size Variants
@@ -80,9 +106,15 @@ Control the size of links using the `size` property
 <Link href="/medium" size="md">Medium Link</Link>
 <Link href="/large" size="lg">Large Link</Link>`}
 >
-  <Link href="/small" size="sm">Small Link</Link>
-  <Link href="/medium" size="md" class="cosy:ml-2">Medium Link</Link>
-  <Link href="/large" size="lg" class="cosy:ml-2">Large Link</Link>
+  <Link href="/small" size="sm">
+    Small Link
+  </Link>
+  <Link href="/medium" size="md" class="cosy:ml-2">
+    Medium Link
+  </Link>
+  <Link href="/large" size="lg" class="cosy:ml-2">
+    Large Link
+  </Link>
 </CodeExample>
 
 ## Centered Text
@@ -92,7 +124,9 @@ Center the link text using the `centerText` property
 <CodeExample
   code={`<Link href="/centered" block centerText variant="primary">Centered Link Text</Link>`}
 >
-  <Link href="/centered" block centerText variant="primary">Centered Link Text</Link>
+  <Link href="/centered" block centerText variant="primary">
+    Centered Link Text
+  </Link>
 </CodeExample>
 
 ## Debug Mode
@@ -102,5 +136,7 @@ Display link boundaries using the `debug` property for easier development debugg
 <CodeExample
   code={`<Link href="/debug" debug>Link with Visible Boundaries</Link>`}
 >
-  <Link href="/debug" debug>Link with Visible Boundaries</Link>
+  <Link href="/debug" debug>
+    Link with Visible Boundaries
+  </Link>
 </CodeExample>

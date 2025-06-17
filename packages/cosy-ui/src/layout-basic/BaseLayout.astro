@@ -53,21 +53,21 @@ import '../style.ts';
 import { type IMetaProps } from '../index';
 
 export interface Props extends IMetaProps {
-	debug?: boolean;
+  debug?: boolean;
 }
 
 const {
-	title,
-	description = '',
-	keywords = '',
-	lang = 'zh-CN',
-	viewport = true,
-	customStyles = '',
-	head,
-	debug = true,
-	class: className,
-	favicon,
-	'class:list': classList,
+  title,
+  description = '',
+  keywords = '',
+  lang = 'zh-CN',
+  viewport = true,
+  customStyles = '',
+  head,
+  debug = true,
+  class: className,
+  favicon,
+  'class:list': classList,
 } = Astro.props;
 
 // 处理类名
@@ -76,24 +76,28 @@ let bodyClasses = debug ? 'cosy:border cosy:border-red-500' : className || '';
 
 <!doctype html>
 <html lang={lang}>
-	<head>
-		<meta charset="UTF-8" />
-		{viewport && <meta name="viewport" content="width=device-width, initial-scale=1.0" />}
-		<title>{title}</title>
-		{description && <meta name="description" content={description} />}
-		{keywords && <meta name="keywords" content={keywords} />}
-		<meta name="generator" content={Astro.generator} />
-		{favicon && <link rel="icon" type={favicon.format} href={favicon.src} />}
+  <head>
+    <meta charset="UTF-8" />
+    {
+      viewport && (
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      )
+    }
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    {keywords && <meta name="keywords" content={keywords} />}
+    <meta name="generator" content={Astro.generator} />
+    {favicon && <link rel="icon" type={favicon.format} href={favicon.src} />}
 
-		<!-- 自定义样式 -->
-		{customStyles && <style set:html={customStyles} />}
+    <!-- 自定义样式 -->
+    {customStyles && <style set:html={customStyles} />}
 
-		<!-- 自定义头部内容 -->
-		{head && <div set:html={head} />}
+    <!-- 自定义头部内容 -->
+    {head && <div set:html={head} />}
 
-		<slot name="head" />
-	</head>
-	<body class:list={[bodyClasses, classList, 'min-h-screen']}>
-		<slot />
-	</body>
+    <slot name="head" />
+  </head>
+  <body class:list={[bodyClasses, classList, 'min-h-screen']}>
+    <slot />
+  </body>
 </html>

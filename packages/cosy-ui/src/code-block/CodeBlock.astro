@@ -50,9 +50,9 @@
 import '../style.ts';
 
 interface Props {
-	code: string;
-	title?: string;
-	showLineNumbers?: boolean;
+  code: string;
+  title?: string;
+  showLineNumbers?: boolean;
 }
 
 const { code, title, showLineNumbers = true } = Astro.props;
@@ -65,88 +65,94 @@ const lines = trimmedCode.split('\n');
 const lineNumbers = Array.from({ length: lines.length }, (_, i) => i + 1);
 ---
 
-<div class="cosy:border cosy:border-base-300 cosy:rounded-lg cosy:overflow-hidden cosy:not-prose">
-	{/* 标题栏 */}
-	{
-		title && (
-			<div class="cosy:flex cosy:justify-between cosy:items-center cosy:bg-base-200 cosy:px-4 cosy:py-2 cosy:border-b cosy:border-base-300">
-				<span class="cosy:font-medium cosy:text-base-content">{title}</span>
-				<button
-					class="cosy:flex cosy:items-center cosy:gap-1 cosy:hover:bg-base-300 cosy:px-2 cosy:py-1 cosy:rounded-md cosy:text-sm cosy:text-base-content cosy:transition-colors"
-					data-code={trimmedCode}
-					title="复制代码">
-					<svg
-						class="cosy:w-4 cosy:h-4"
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor">
-						<rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-						<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-					</svg>
-					<span class="cosy:copy-text">复制</span>
-				</button>
-			</div>
-		)
-	}
+<div
+  class="cosy:border cosy:border-base-300 cosy:rounded-lg cosy:overflow-hidden cosy:not-prose"
+>
+  {/* 标题栏 */}
+  {
+    title && (
+      <div class="cosy:flex cosy:justify-between cosy:items-center cosy:bg-base-200 cosy:px-4 cosy:py-2 cosy:border-b cosy:border-base-300">
+        <span class="cosy:font-medium cosy:text-base-content">{title}</span>
+        <button
+          class="cosy:flex cosy:items-center cosy:gap-1 cosy:hover:bg-base-300 cosy:px-2 cosy:py-1 cosy:rounded-md cosy:text-sm cosy:text-base-content cosy:transition-colors"
+          data-code={trimmedCode}
+          title="复制代码"
+        >
+          <svg
+            class="cosy:w-4 cosy:h-4"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+          </svg>
+          <span class="cosy:copy-text">复制</span>
+        </button>
+      </div>
+    )
+  }
 
-	{/* 代码区域 */}
-	<div class="cosy:flex cosy:overflow-auto">
-		{/* 行号 */}
-		{
-			showLineNumbers && (
-				<div class="cosy:flex cosy:flex-col cosy:bg-base-100 cosy:py-2 cosy:pr-2 cosy:pl-3 cosy:border-r cosy:border-base-300 cosy:text-base-content cosy:text-right cosy:text-opacity-50 cosy:select-none">
-					{lineNumbers.map((num) => (
-						<div class="cosy:font-mono cosy:text-xs cosy:leading-5">{num}</div>
-					))}
-				</div>
-			)
-		}
+  {/* 代码区域 */}
+  <div class="cosy:flex cosy:overflow-auto">
+    {/* 行号 */}
+    {
+      showLineNumbers && (
+        <div class="cosy:flex cosy:flex-col cosy:bg-base-100 cosy:py-2 cosy:pr-2 cosy:pl-3 cosy:border-r cosy:border-base-300 cosy:text-base-content cosy:text-right cosy:text-opacity-50 cosy:select-none">
+          {lineNumbers.map((num) => (
+            <div class="cosy:font-mono cosy:text-xs cosy:leading-5">{num}</div>
+          ))}
+        </div>
+      )
+    }
 
-		{/* 代码内容 */}
-		<pre
-			class:list={[
-				'cosy:p-2 cosy:overflow-auto cosy:font-mono cosy:text-sm cosy:bg-base-100 cosy:text-base-content cosy:w-full',
-				{ 'cosy:pl-0': showLineNumbers },
-			]}>
+    {/* 代码内容 */}
+    <pre
+      class:list={[
+        'cosy:p-2 cosy:overflow-auto cosy:font-mono cosy:text-sm cosy:bg-base-100 cosy:text-base-content cosy:w-full',
+        { 'cosy:pl-0': showLineNumbers },
+      ]}>
       <code class="cosy:block cosy:font-mono" set:html={trimmedCode} />
     </pre>
-	</div>
+  </div>
 </div>
 
 <script>
-	function initializeCopyButtons() {
-		const copyButtons = document.querySelectorAll('.cosy\\:flex.cosy\\:items-center.cosy\\:gap-1');
+  function initializeCopyButtons() {
+    const copyButtons = document.querySelectorAll(
+      '.cosy\\:flex.cosy\\:items-center.cosy\\:gap-1'
+    );
 
-		copyButtons.forEach((button) => {
-			button.addEventListener('click', async () => {
-				const code = button.getAttribute('data-code') || '';
-				const copyText = button.querySelector('.cosy\\:copy-text');
+    copyButtons.forEach((button) => {
+      button.addEventListener('click', async () => {
+        const code = button.getAttribute('data-code') || '';
+        const copyText = button.querySelector('.cosy\\:copy-text');
 
-				try {
-					await navigator.clipboard.writeText(code);
-					if (copyText) {
-						copyText.textContent = '已复制！';
-						setTimeout(() => {
-							copyText.textContent = '复制';
-						}, 2000);
-					}
-				} catch (err) {
-					console.error('复制失败:', err);
-					if (copyText) {
-						copyText.textContent = '复制失败';
-						setTimeout(() => {
-							copyText.textContent = '复制';
-						}, 2000);
-					}
-				}
-			});
-		});
-	}
+        try {
+          await navigator.clipboard.writeText(code);
+          if (copyText) {
+            copyText.textContent = '已复制！';
+            setTimeout(() => {
+              copyText.textContent = '复制';
+            }, 2000);
+          }
+        } catch (err) {
+          console.error('复制失败:', err);
+          if (copyText) {
+            copyText.textContent = '复制失败';
+            setTimeout(() => {
+              copyText.textContent = '复制';
+            }, 2000);
+          }
+        }
+      });
+    });
+  }
 
-	// 在页面加载时初始化
-	initializeCopyButtons();
+  // 在页面加载时初始化
+  initializeCopyButtons();
 
-	// 在 Astro 页面切换时重新初始化
-	document.addEventListener('astro:page-load', initializeCopyButtons);
+  // 在 Astro 页面切换时重新初始化
+  document.addEventListener('astro:page-load', initializeCopyButtons);
 </script>

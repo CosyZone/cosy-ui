@@ -12,6 +12,7 @@ import { ErrorPackage } from '@coffic/cosy-ui';
 错误页面组件集合，提供常见HTTP错误状态码的用户友好页面。通过统一的设计风格和清晰的信息传达，帮助用户理解错误原因并提供解决方案。
 
 组件特性：
+
 - 🎨 **设计统一** - 所有错误页面采用一致的设计风格
 - 🌐 **多种错误类型** - 支持404、403、500、503等常见错误
 - 🔧 **调试友好** - 可选的调试信息显示，便于开发和问题排查
@@ -22,7 +23,7 @@ import { ErrorPackage } from '@coffic/cosy-ui';
 
 使用404错误页面的最简单示例：
 
-<ErrorPackage.ErrorContainers.Basic404/>
+<ErrorPackage.ErrorContainers.Basic404 />
 
 ## 错误页面类型
 
@@ -30,19 +31,19 @@ import { ErrorPackage } from '@coffic/cosy-ui';
 
 用于显示用户无权限访问资源的提示：
 
-<ErrorPackage.ErrorContainers.Basic403/>
+<ErrorPackage.ErrorContainers.Basic403 />
 
 ### 500 服务器内部错误
 
 用于显示服务器出现内部错误的提示：
 
-<ErrorPackage.ErrorContainers.Basic500/>
+<ErrorPackage.ErrorContainers.Basic500 />
 
 ### 503 服务不可用
 
 用于显示服务临时不可用的提示，特别适用于维护模式：
 
-<ErrorPackage.ErrorContainers.Maintenance503/>
+<ErrorPackage.ErrorContainers.Maintenance503 />
 
 ## 通用错误页面
 
@@ -64,13 +65,13 @@ import { ErrorPage } from '@coffic/cosy-ui';
 
 通过class属性自定义错误页面的样式外观：
 
-<ErrorPackage.ErrorContainers.CustomStyle/>
+<ErrorPackage.ErrorContainers.CustomStyle />
 
 ## 错误页面展示
 
 查看所有错误页面类型的综合展示：
 
-<ErrorPackage.ErrorContainers.Showcase/>
+<ErrorPackage.ErrorContainers.Showcase />
 
 ## 高级用法
 
@@ -79,13 +80,13 @@ import { ErrorPage } from '@coffic/cosy-ui';
 所有错误页面都支持添加调试信息，便于开发和问题排查：
 
 ```astro
-<ErrorPage 
+<ErrorPage
   errorCode={404}
   debugKVs={{
     reason: '路由未匹配',
     requestedPath: '/some/path',
     timestamp: new Date().toISOString(),
-    requestId: 'REQ_2024_001'
+    requestId: 'REQ_2024_001',
   }}
 />
 ```
@@ -95,7 +96,7 @@ import { ErrorPage } from '@coffic/cosy-ui';
 对于503错误，可以配置详细的维护信息：
 
 ```astro
-<ErrorPage 
+<ErrorPage
   errorCode={503}
   maintenanceMode={true}
   estimatedRecovery="2024-12-25 10:00"
@@ -104,7 +105,7 @@ import { ErrorPage } from '@coffic/cosy-ui';
   debugKVs={{
     reason: '系统升级',
     version: 'v2.1.0',
-    startTime: '2024-12-25 08:00'
+    startTime: '2024-12-25 08:00',
   }}
 />
 ```
@@ -114,14 +115,14 @@ import { ErrorPage } from '@coffic/cosy-ui';
 对于403错误，可以提供登录和联系链接：
 
 ```astro
-<ErrorPage 
+<ErrorPage
   errorCode={403}
   loginUrl="/login"
   contactUrl="/contact"
   debugKVs={{
     requiredRole: 'admin',
     currentRole: 'user',
-    resource: '/admin/dashboard'
+    resource: '/admin/dashboard',
   }}
 />
 ```
@@ -130,17 +131,17 @@ import { ErrorPage } from '@coffic/cosy-ui';
 
 ### ErrorPage Props
 
-| 属性 | 类型 | 必需 | 默认值 | 描述 |
-|------|------|------|--------|------|
-| `errorCode` | `number` | ✅ | - | HTTP错误状态码 (404, 403, 500, 503等) |
-| `debugKVs` | `Record<string, string>` | ❌ | `{}` | 调试信息键值对，用于开发和调试 |
-| `loginUrl` | `string` | ❌ | - | 登录页面URL (适用于403错误) |
-| `contactUrl` | `string` | ❌ | - | 联系页面URL |
-| `supportUrl` | `string` | ❌ | - | 技术支持页面URL (适用于500错误) |
-| `statusPageUrl` | `string` | ❌ | - | 系统状态页面URL |
-| `notificationUrl` | `string` | ❌ | - | 通知订阅页面URL (适用于503错误) |
-| `maintenanceMode` | `boolean` | ❌ | `false` | 是否为维护模式 (适用于503错误) |
-| `estimatedRecovery` | `string` | ❌ | - | 预期恢复时间 (适用于503错误) |
+| 属性                | 类型                     | 必需 | 默认值  | 描述                                  |
+| ------------------- | ------------------------ | ---- | ------- | ------------------------------------- |
+| `errorCode`         | `number`                 | ✅   | -       | HTTP错误状态码 (404, 403, 500, 503等) |
+| `debugKVs`          | `Record<string, string>` | ❌   | `{}`    | 调试信息键值对，用于开发和调试        |
+| `loginUrl`          | `string`                 | ❌   | -       | 登录页面URL (适用于403错误)           |
+| `contactUrl`        | `string`                 | ❌   | -       | 联系页面URL                           |
+| `supportUrl`        | `string`                 | ❌   | -       | 技术支持页面URL (适用于500错误)       |
+| `statusPageUrl`     | `string`                 | ❌   | -       | 系统状态页面URL                       |
+| `notificationUrl`   | `string`                 | ❌   | -       | 通知订阅页面URL (适用于503错误)       |
+| `maintenanceMode`   | `boolean`                | ❌   | `false` | 是否为维护模式 (适用于503错误)        |
+| `estimatedRecovery` | `string`                 | ❌   | -       | 预期恢复时间 (适用于503错误)          |
 
 ### 个别错误页面 Props
 
@@ -153,6 +154,7 @@ import { ErrorPage } from '@coffic/cosy-ui';
 2. **提供有用信息** - 合理使用 `debugKVs` 提供调试信息，但避免在生产环境中泄露敏感信息
 
 3. **引导用户操作** - 根据错误类型提供相应的操作链接：
+
    - 403错误：提供登录链接和联系方式
    - 500错误：提供技术支持和状态页面链接
    - 503错误：提供维护信息和通知订阅
@@ -164,7 +166,8 @@ import { ErrorPage } from '@coffic/cosy-ui';
 ## 样式定制
 
 所有错误页面组件都遵循cosy-ui的样式规范：
+
 - 使用daisyUI类作为主要样式基础
 - Tailwind CSS类需要添加 `cosy:` 前缀
 - 支持响应式设计，适配各种屏幕尺寸
-- 完整支持暗色模式切换 
+- 完整支持暗色模式切换

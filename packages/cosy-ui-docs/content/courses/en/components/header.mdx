@@ -5,11 +5,22 @@ folder: false
 order: 11
 ---
 
-import { CodeExample, Header, HeaderBasic, HeaderWithNavigation, HeaderCustomPosition, HeaderCustomNavbarEnd, HeaderCustomNavbarStart, HeaderCustomNavbarCenter, getExampleImage, HeaderExampleCodes } from '@coffic/cosy-ui';
+import {
+  CodeExample,
+  Header,
+  HeaderBasic,
+  HeaderWithNavigation,
+  HeaderCustomPosition,
+  HeaderCustomNavbarEnd,
+  HeaderCustomNavbarStart,
+  HeaderCustomNavbarCenter,
+  getExampleImage,
+  HeaderExampleCodes,
+} from '@coffic/cosy-ui';
 
 The Header component is a layout component for website top navigation, providing logo, navigation menu, language switching, and other functions.
 
-The component supports responsive design, with good display effects on different screen sizes, and can optionally be fixed at the top of the page.  
+The component supports responsive design, with good display effects on different screen sizes, and can optionally be fixed at the top of the page.
 
 This documentation only lists common usages; for more usages, please refer to the component's source code.
 
@@ -17,9 +28,7 @@ This documentation only lists common usages; for more usages, please refer to th
 
 The basic Header component includes logo and language switching functionality:
 
-<CodeExample
-  code={HeaderExampleCodes.Basic}
->
+<CodeExample code={HeaderExampleCodes.Basic}>
   <HeaderBasic />
 </CodeExample>
 
@@ -27,9 +36,7 @@ The basic Header component includes logo and language switching functionality:
 
 Add navigation menu items using the `navItems` property:
 
-<CodeExample
-  code={HeaderExampleCodes.WithNavigation}
->
+<CodeExample code={HeaderExampleCodes.WithNavigation}>
   <HeaderWithNavigation />
 </CodeExample>
 
@@ -44,11 +51,21 @@ Use the `height` property to set the height of the navigation bar, supporting se
   height="sm"
 />`}
 >
-  <Header 
-    logo={{ src: getExampleImage({ width: 100, height: 100, provider:"picsum", tag: "tech" }), width: 100, height: 100, format: "png" }}
+  <Header
+    logo={{
+      src: getExampleImage({
+        width: 100,
+        height: 100,
+        provider: 'picsum',
+        tag: 'tech',
+      }),
+      width: 100,
+      height: 100,
+      format: 'png',
+    }}
     logoHref="/"
     sticky={false}
-              height="sm"
+    height="sm"
     rounded="lg"
   />
 </CodeExample>
@@ -77,12 +94,22 @@ Customize options in the language switching dropdown menu:
   currentLocale="zh-cn"
 />`}
 >
-  <Header 
-    logo={{ src: getExampleImage({ width: 100, height: 100, provider:"picsum", tag: "tech" }), width: 100, height: 100, format: "png" }}
+  <Header
+    logo={{
+      src: getExampleImage({
+        width: 100,
+        height: 100,
+        provider: 'picsum',
+        tag: 'tech',
+      }),
+      width: 100,
+      height: 100,
+      format: 'png',
+    }}
     logoHref="/"
     sticky={false}
-    languages={["zh-cn", "en"]}
-              currentLocale="zh-cn"
+    languages={['zh-cn', 'en']}
+    currentLocale="zh-cn"
     rounded="lg"
   />
 </CodeExample>
@@ -98,10 +125,20 @@ Use the `sticky` property to fix the navigation bar at the top of the page:
   sticky={true}
 />`}
 >
-  <Header 
-    logo={{ src: getExampleImage({ width: 100, height: 100, provider:"picsum", tag: "tech" }), width: 100, height: 100, format: "png" }}
+  <Header
+    logo={{
+      src: getExampleImage({
+        width: 100,
+        height: 100,
+        provider: 'picsum',
+        tag: 'tech',
+      }),
+      width: 100,
+      height: 100,
+      format: 'png',
+    }}
     logoHref="/"
-              sticky={false}
+    sticky={false}
     rounded="lg"
   />
 </CodeExample>
@@ -120,9 +157,7 @@ Here are examples of customizing each part:
 
 You can add custom content next to the logo:
 
-<CodeExample
-  code={HeaderExampleCodes.CustomNavbarStart}
->
+<CodeExample code={HeaderExampleCodes.CustomNavbarStart}>
   <HeaderCustomNavbarStart />
 </CodeExample>
 
@@ -130,16 +165,12 @@ You can add custom content next to the logo:
 
 You can replace or enhance the default navigation menu:
 
-<CodeExample
-  code={HeaderExampleCodes.CustomNavbarCenter}
->
+<CodeExample code={HeaderExampleCodes.CustomNavbarCenter}>
   <HeaderCustomNavbarCenter />
 </CodeExample>
 
 ### Custom Right Content
 
-<CodeExample
-  code={HeaderExampleCodes.CustomNavbarEnd}
->
+<CodeExample code={HeaderExampleCodes.CustomNavbarEnd}>
   <HeaderCustomNavbarEnd />
 </CodeExample>

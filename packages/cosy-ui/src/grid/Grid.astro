@@ -60,131 +60,131 @@ type GapSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type Breakpoint = 'base' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
 type ResponsiveValue<T> =
-	| T
-	| {
-			base?: T;
-			sm?: T;
-			md?: T;
-			lg?: T;
-			xl?: T;
-			'2xl'?: T;
-	  };
+  | T
+  | {
+      base?: T;
+      sm?: T;
+      md?: T;
+      lg?: T;
+      xl?: T;
+      '2xl'?: T;
+    };
 
 interface Props extends HTMLAttributes<'div'> {
-	/**
-	 * 网格列数，可以是固定值或响应式对象
-	 * @default 1
-	 */
-	cols?: ResponsiveValue<number>;
+  /**
+   * 网格列数，可以是固定值或响应式对象
+   * @default 1
+   */
+  cols?: ResponsiveValue<number>;
 
-	/**
-	 * 网格间距
-	 * @default "md"
-	 */
-	gap?: GapSize;
+  /**
+   * 网格间距
+   * @default "md"
+   */
+  gap?: GapSize;
 
-	/**
-	 * 行间距，默认与gap相同
-	 */
-	rowGap?: GapSize;
+  /**
+   * 行间距，默认与gap相同
+   */
+  rowGap?: GapSize;
 
-	/**
-	 * 列间距，默认与gap相同
-	 */
-	colGap?: GapSize;
+  /**
+   * 列间距，默认与gap相同
+   */
+  colGap?: GapSize;
 
-	/**
-	 * 自定义类名
-	 */
-	class?: string;
+  /**
+   * 自定义类名
+   */
+  class?: string;
 
-	/**
-	 * 类名列表
-	 */
-	'class:list'?: any;
+  /**
+   * 类名列表
+   */
+  'class:list'?: any;
 }
 
 const {
-	cols = 1,
-	gap = 'md',
-	rowGap,
-	colGap,
-	class: className = '',
-	'class:list': classList,
-	...rest
+  cols = 1,
+  gap = 'md',
+  rowGap,
+  colGap,
+  class: className = '',
+  'class:list': classList,
+  ...rest
 } = Astro.props;
 
 // 处理响应式列数
 const getColsClasses = (cols: ResponsiveValue<number>) => {
-	if (typeof cols === 'number') {
-		return `cosy:grid-cols-${cols}`;
-	}
+  if (typeof cols === 'number') {
+    return `cosy:grid-cols-${cols}`;
+  }
 
-	const breakpoints: Record<Breakpoint, string> = {
-		base: '',
-		sm: 'sm:',
-		md: 'md:',
-		lg: 'lg:',
-		xl: 'xl:',
-		'2xl': '2xl:',
-	};
+  const breakpoints: Record<Breakpoint, string> = {
+    base: '',
+    sm: 'sm:',
+    md: 'md:',
+    lg: 'lg:',
+    xl: 'xl:',
+    '2xl': '2xl:',
+  };
 
-	return Object.entries(cols)
-		.map(([breakpoint, value]) => {
-			if (breakpoint === 'base') {
-				return `cosy:grid-cols-${value}`;
-			}
-			return `cosy:${breakpoints[breakpoint as Breakpoint]}grid-cols-${value}`;
-		})
-		.join(' ');
+  return Object.entries(cols)
+    .map(([breakpoint, value]) => {
+      if (breakpoint === 'base') {
+        return `cosy:grid-cols-${value}`;
+      }
+      return `cosy:${breakpoints[breakpoint as Breakpoint]}grid-cols-${value}`;
+    })
+    .join(' ');
 };
 
 // 间距映射
 const gapClasses: Record<GapSize, string> = {
-	none: 'cosy:gap-0',
-	xs: 'cosy:gap-2',
-	sm: 'cosy:gap-4',
-	md: 'cosy:gap-6',
-	lg: 'cosy:gap-8',
-	xl: 'cosy:gap-12',
+  none: 'cosy:gap-0',
+  xs: 'cosy:gap-2',
+  sm: 'cosy:gap-4',
+  md: 'cosy:gap-6',
+  lg: 'cosy:gap-8',
+  xl: 'cosy:gap-12',
 };
 
 // 行间距映射
 const rowGapClasses: Record<GapSize, string> = {
-	none: 'cosy:row-gap-0',
-	xs: 'cosy:row-gap-2',
-	sm: 'cosy:row-gap-4',
-	md: 'cosy:row-gap-6',
-	lg: 'cosy:row-gap-8',
-	xl: 'cosy:row-gap-12',
+  none: 'cosy:row-gap-0',
+  xs: 'cosy:row-gap-2',
+  sm: 'cosy:row-gap-4',
+  md: 'cosy:row-gap-6',
+  lg: 'cosy:row-gap-8',
+  xl: 'cosy:row-gap-12',
 };
 
 // 列间距映射
 const colGapClasses: Record<GapSize, string> = {
-	none: 'cosy:col-gap-0',
-	xs: 'cosy:col-gap-2',
-	sm: 'cosy:col-gap-4',
-	md: 'cosy:col-gap-6',
-	lg: 'cosy:col-gap-8',
-	xl: 'cosy:col-gap-12',
+  none: 'cosy:col-gap-0',
+  xs: 'cosy:col-gap-2',
+  sm: 'cosy:col-gap-4',
+  md: 'cosy:col-gap-6',
+  lg: 'cosy:col-gap-8',
+  xl: 'cosy:col-gap-12',
 };
 
 // 构建最终类名
 const gridClasses = [
-	'cosy:grid',
-	getColsClasses(cols),
-	rowGap
-		? rowGapClasses[rowGap as GapSize]
-		: colGap
-			? gapClasses[gap as GapSize]
-			: gapClasses[gap as GapSize],
-	colGap ? colGapClasses[colGap as GapSize] : null,
-	className,
+  'cosy:grid',
+  getColsClasses(cols),
+  rowGap
+    ? rowGapClasses[rowGap as GapSize]
+    : colGap
+      ? gapClasses[gap as GapSize]
+      : gapClasses[gap as GapSize],
+  colGap ? colGapClasses[colGap as GapSize] : null,
+  className,
 ]
-	.filter(Boolean)
-	.join(' ');
+  .filter(Boolean)
+  .join(' ');
 ---
 
 <div class:list={[gridClasses, classList]} {...rest}>
-	<slot />
+  <slot />
 </div>

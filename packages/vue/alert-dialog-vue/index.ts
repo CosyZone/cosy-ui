@@ -9,12 +9,12 @@ export { default as AlertDialog } from './AlertDialog.vue';
 
 // 导出示例组件
 export const AlertDialogExamples = {
-	Basic,
-	Multilang,
+  Basic,
+  Multilang,
 };
 
 // 导出示例源代码
 export const AlertDialogExampleCodes = {
-	Basic: extractSimpleExample(BasicSource, 'Basic'),
-	Multilang: extractSimpleExample(MultilangSource, 'Multilang'),
+  Basic: extractSimpleExample(BasicSource, 'Basic'),
+  Multilang: extractSimpleExample(MultilangSource, 'Multilang'),
 };

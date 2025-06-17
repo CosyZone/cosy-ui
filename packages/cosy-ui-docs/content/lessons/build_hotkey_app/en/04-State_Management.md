@@ -41,13 +41,13 @@ class AppSettings extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     _isDarkMode = prefs.getBool('isDarkMode') ?? false;
     _startAtLogin = prefs.getBool('startAtLogin') ?? false;
-    
+
     // Load hotkey settings
     final hotKeyJson = prefs.getString('globalHotKey');
     if (hotKeyJson != null) {
       _globalHotKey = HotKey.fromJson(jsonDecode(hotKeyJson));
     }
-    
+
     notifyListeners();
   }
 
@@ -140,11 +140,13 @@ class SettingsPage extends StatelessWidget {
 ## Common Issues
 
 1. **State not updating**
+
    - Ensure you call notifyListeners() after state changes
    - Check if the widget is wrapped in a Provider
    - Verify the correct use of Consumer or context.watch()
 
 2. **State lost after app restart**
+
    - Make sure to properly save state to persistent storage
    - Handle loading state during app initialization
 

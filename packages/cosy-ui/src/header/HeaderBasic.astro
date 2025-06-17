@@ -8,7 +8,12 @@
 import Header from './Header.astro';
 import { getExampleImage } from '../utils/image';
 
-const logo = getExampleImage({ width: 100, height: 100, provider: 'picsum', tag: 'tech' });
+const logo = getExampleImage({
+  width: 100,
+  height: 100,
+  provider: 'picsum',
+  tag: 'tech',
+});
 ---
 
 <Header logoHref={logo} rounded="lg" sticky={false} />

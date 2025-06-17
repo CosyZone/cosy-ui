@@ -18,22 +18,22 @@ import HeroBackgroundImageContainer from './HeroBackgroundImageContainer.astro';
 export { Hero };
 
 export const HeroPackage = {
-    Hero,
-    HeroBasic,
-    HeroAlignCenter,
-    HeroAlignLeft,
-    HeroAlignRight,
-    HeroWithImage,
-    HeroWithButton,
-    HeroPlainBackground,
-    HeroGradientBackground,
-    HeroBackgroundImage,
-    HeroContainers: {
-        Basic: HeroBasicContainer,
-        Align: HeroAlignContainer,
-        WithImage: HeroWithImageContainer,
-        WithButton: HeroWithButtonContainer,
-        Background: HeroBackgroundContainer,
-        BackgroundImage: HeroBackgroundImageContainer
-    }
+  Hero,
+  HeroBasic,
+  HeroAlignCenter,
+  HeroAlignLeft,
+  HeroAlignRight,
+  HeroWithImage,
+  HeroWithButton,
+  HeroPlainBackground,
+  HeroGradientBackground,
+  HeroBackgroundImage,
+  HeroContainers: {
+    Basic: HeroBasicContainer,
+    Align: HeroAlignContainer,
+    WithImage: HeroWithImageContainer,
+    WithButton: HeroWithButtonContainer,
+    Background: HeroBackgroundContainer,
+    BackgroundImage: HeroBackgroundImageContainer,
+  },
 };

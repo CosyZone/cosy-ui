@@ -10,17 +10,17 @@ import TeamMember from './TeamMember.astro';
 import { getExampleImage } from '../utils/image.ts';
 
 const avatar = getExampleImage({
-	width: 200,
-	height: 200,
-	provider: 'robohash',
-	randomSeed: 'member3',
+  width: 200,
+  height: 200,
+  provider: 'robohash',
+  randomSeed: 'member3',
 });
 ---
 
 <TeamMember
-	name="王五"
-	role="市场总监"
-	avatar={avatar}
-	bio="负责产品市场策略和品牌推广，拥有丰富的市场营销经验"
-	class="cosy:bg-gradient-to-r cosy:from-purple-100 cosy:to-pink-100 cosy:shadow-lg cosy:w-72"
+  name="王五"
+  role="市场总监"
+  avatar={avatar}
+  bio="负责产品市场策略和品牌推广，拥有丰富的市场营销经验"
+  class="cosy:bg-gradient-to-r cosy:from-purple-100 cosy:to-pink-100 cosy:shadow-lg cosy:w-72"
 />

@@ -1,1 +1,1 @@
-export { default as VueCounter } from './VueCounter.vue'
+export { default as VueCounter } from './VueCounter.vue';

@@ -7,5 +7,5 @@ export { Heading, HeadingBasic };
 
 // 导出示例源代码
 export const HeadingExampleCodes = {
-	Basic: extractSimpleExample(BasicSourceCode, 'Heading'),
+  Basic: extractSimpleExample(BasicSourceCode, 'Heading'),
 };

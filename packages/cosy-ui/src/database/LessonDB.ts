@@ -40,62 +40,66 @@ export type LessonEntry = CollectionEntry<typeof COLLECTION_LESSON>;
  * - 每个语言版本包含完整的课程内容
  * - 课程目录可以作为 git 子模块独立管理
  */
-class LessonDB extends BaseDB<typeof COLLECTION_LESSON, LessonEntry, LessonDoc> {
-	protected collectionName = COLLECTION_LESSON;
+class LessonDB extends BaseDB<
+  typeof COLLECTION_LESSON,
+  LessonEntry,
+  LessonDoc
+> {
+  protected collectionName = COLLECTION_LESSON;
 
-	protected createDoc(entry: LessonEntry): LessonDoc {
-		return new LessonDoc(entry);
-	}
+  protected createDoc(entry: LessonEntry): LessonDoc {
+    return new LessonDoc(entry);
+  }
 
-	/**
-	 * 获取指定语言的所有课程
-	 *
-	 * @param {string} lang - 语言代码
-	 * @returns {Promise<LessonDoc[]>} 返回指定语言的所有课程
-	 */
-	async allLessons(lang: string): Promise<LessonDoc[]> {
-		const docs = await this.getDocsByDepth(2);
-		return docs.filter((doc) => doc.getId().endsWith(lang));
-	}
+  /**
+   * 获取指定语言的所有课程
+   *
+   * @param {string} lang - 语言代码
+   * @returns {Promise<LessonDoc[]>} 返回指定语言的所有课程
+   */
+  async allLessons(lang: string): Promise<LessonDoc[]> {
+    const docs = await this.getDocsByDepth(2);
+    return docs.filter((doc) => doc.getId().endsWith(lang));
+  }
 
-	/**
-	 * 获取用于 Astro 静态路由生成的路径参数
-	 * 
-	 * @param debug - 是否开启调试模式
-	 * @returns 返回路径参数数组
-	 */
-	async getStaticPaths(debug: boolean = false) {
-		const docs = await this.getEntries();
+  /**
+   * 获取用于 Astro 静态路由生成的路径参数
+   *
+   * @param debug - 是否开启调试模式
+   * @returns 返回路径参数数组
+   */
+  async getStaticPaths(debug: boolean = false) {
+    const docs = await this.getEntries();
 
-		if (debug) {
-			cosyLogger.array('所有文档', docs);
-		}
+    if (debug) {
+      cosyLogger.array('所有文档', docs);
+    }
 
-		const paths = docs.map((doc) => {
-			const id = doc.id;
-			const lang = id.split('/')[1];
+    const paths = docs.map((doc) => {
+      const id = doc.id;
+      const lang = id.split('/')[1];
 
-			let slug = '';
-			if (id.endsWith(lang)) {
-				slug = id.replace(`${lang}`, '');
-			} else {
-				slug = id.replace(`${lang}/`, '');
-			}
+      let slug = '';
+      if (id.endsWith(lang)) {
+        slug = id.replace(`${lang}`, '');
+      } else {
+        slug = id.replace(`${lang}/`, '');
+      }
 
-			return {
-				params: {
-					lang: lang,
-					slug: slug,
-				},
-			};
-		});
+      return {
+        params: {
+          lang: lang,
+          slug: slug,
+        },
+      };
+    });
 
-		if (debug) {
-			cosyLogger.array('所有文档的路径', paths);
-		}
+    if (debug) {
+      cosyLogger.array('所有文档的路径', paths);
+    }
 
-		return paths;
-	}
+    return paths;
+  }
 }
 
 // 创建并导出单例实例

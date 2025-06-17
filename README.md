@@ -90,6 +90,7 @@ pnpm lint
 ## 开发工作流
 
 1. **克隆项目并安装依赖**:
+
    ```bash
    git clone <repository-url>
    cd cosy-ui
@@ -97,25 +98,28 @@ pnpm lint
    ```
 
 2. **开发组件**:
+
    ```bash
    # 启动组件库开发环境
    pnpm --filter @coffic/cosy-ui dev
    ```
 
 3. **编写文档**:
+
    ```bash
    # 启动文档开发环境
    pnpm --filter @coffic/cosy-ui-docs dev
    ```
 
 4. **构建和测试**:
+
    ```bash
    # 构建所有项目
    pnpm build
-   
+
    # 类型检查
    pnpm check
-   
+
    # 代码检查
    pnpm lint
    ```

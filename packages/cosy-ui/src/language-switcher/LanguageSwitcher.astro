@@ -31,7 +31,7 @@ import { ChevronDownIcon, LanguageUtil } from '../index';
 import '../style.ts';
 
 interface Props {
-	languages: string[];
+  languages: string[];
 }
 
 const { languages = ['zh-cn', 'en'] } = Astro.props;
@@ -42,23 +42,25 @@ const currentLanguageName = LanguageUtil.getLanguageName(currentLocale);
 
 <!-- 语言切换按钮 -->
 <div class="cosy:dropdown cosy:dropdown-end">
-	<div tabindex="0" role="button" class:list={['cosy:btn cosy:btn-ghost']}>
-		<span class="cosy:mr-1">{currentLanguageName}</span>
-		<ChevronDownIcon size="16px" class="cosy:w-4 cosy:h-4" />
-	</div>
-	<ul
-		tabindex="0"
-		class="cosy:z-[1] cosy:bg-base-100 cosy:shadow cosy:p-2 cosy:rounded-box cosy:w-32 cosy:dropdown-content cosy:menu">
-		{
-			languages.map((lang) => (
-				<li class={currentLocale === lang ? 'cosy:disabled' : ''}>
-					<a
-						href={LanguageUtil.getRelativeLink(lang, Astro)}
-						class={currentLocale === lang ? 'cosy:active' : ''}>
-						{LanguageUtil.getLanguageName(lang)}
-					</a>
-				</li>
-			))
-		}
-	</ul>
+  <div tabindex="0" role="button" class:list={['cosy:btn cosy:btn-ghost']}>
+    <span class="cosy:mr-1">{currentLanguageName}</span>
+    <ChevronDownIcon size="16px" class="cosy:w-4 cosy:h-4" />
+  </div>
+  <ul
+    tabindex="0"
+    class="cosy:z-[1] cosy:bg-base-100 cosy:shadow cosy:p-2 cosy:rounded-box cosy:w-32 cosy:dropdown-content cosy:menu"
+  >
+    {
+      languages.map((lang) => (
+        <li class={currentLocale === lang ? 'cosy:disabled' : ''}>
+          <a
+            href={LanguageUtil.getRelativeLink(lang, Astro)}
+            class={currentLocale === lang ? 'cosy:active' : ''}
+          >
+            {LanguageUtil.getLanguageName(lang)}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </div>

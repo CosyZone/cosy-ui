@@ -7,5 +7,5 @@ export { LanguageSwitcher, LanguageSwitcherBasic };
 
 // 导出示例源代码
 export const LanguageSwitcherExampleCodes = {
-	Basic: extractSimpleExample(BasicSourceCode, 'LanguageSwitcher'),
+  Basic: extractSimpleExample(BasicSourceCode, 'LanguageSwitcher'),
 };

@@ -3,10 +3,10 @@
  * 用于统一管理项目中的图片元数据类型
  */
 export interface ImageMetadata {
-	src: string;
-	width: number;
-	height: number;
-	format: string;
+  src: string;
+  width: number;
+  height: number;
+  format: string;
 }
 
 /**

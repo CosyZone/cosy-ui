@@ -25,24 +25,24 @@ export { sizePresets, type SizePreset } from './sizePresets';
 
 // 导出示例组件
 export const BannerBoxExamples = {
-	Basic,
-	CustomBg,
-	DisplayModeAlways,
-	DisplayModeHover,
-	DisplayModeNever,
-	SmartBanner,
-	SizePreset,
-	ImageExport,
+  Basic,
+  CustomBg,
+  DisplayModeAlways,
+  DisplayModeHover,
+  DisplayModeNever,
+  SmartBanner,
+  SizePreset,
+  ImageExport,
 };
 
 // 导出示例源代码
 export const BannerBoxExampleCodes = {
-	Basic: extractSimpleExample(BasicSource, 'BannerBox'),
-	CustomBg: extractSimpleExample(CustomBgSource, 'BannerBox'),
-	DisplayModeAlways: extractSimpleExample(DisplayModeAlwaysSource, 'BannerBox'),
-	DisplayModeHover: extractSimpleExample(DisplayModeHoverSource, 'BannerBox'),
-	DisplayModeNever: extractSimpleExample(DisplayModeNeverSource, 'BannerBox'),
-	SmartBanner: extractSimpleExample(SmartBannerSource, 'BannerBox'),
-	SizePreset: extractSimpleExample(SizePresetSource, 'BannerBox'),
-	ImageExport: extractSimpleExample(ImageExportSource, 'BannerBox'),
+  Basic: extractSimpleExample(BasicSource, 'BannerBox'),
+  CustomBg: extractSimpleExample(CustomBgSource, 'BannerBox'),
+  DisplayModeAlways: extractSimpleExample(DisplayModeAlwaysSource, 'BannerBox'),
+  DisplayModeHover: extractSimpleExample(DisplayModeHoverSource, 'BannerBox'),
+  DisplayModeNever: extractSimpleExample(DisplayModeNeverSource, 'BannerBox'),
+  SmartBanner: extractSimpleExample(SmartBannerSource, 'BannerBox'),
+  SizePreset: extractSimpleExample(SizePresetSource, 'BannerBox'),
+  ImageExport: extractSimpleExample(ImageExportSource, 'BannerBox'),
 };

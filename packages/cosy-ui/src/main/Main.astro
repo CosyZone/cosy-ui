@@ -53,57 +53,59 @@ import { Article, TableOfContents, type IMainContentProps } from '../index';
 export interface Props extends IMainContentProps {}
 
 const {
-	size = 'md',
-	padding = 'md',
-	verticalPadding = 'md',
-	centered = true,
-	backgroundColor,
-	layout = 'row',
-	isArticle = false,
-	id,
-	showTableOfContents = false,
-	class: className,
-	'class:list': classList,
-	currentLocale,
-	...rest
+  size = 'md',
+  padding = 'md',
+  verticalPadding = 'md',
+  centered = true,
+  backgroundColor,
+  layout = 'row',
+  isArticle = false,
+  id,
+  showTableOfContents = false,
+  class: className,
+  'class:list': classList,
+  currentLocale,
+  ...rest
 } = Astro.props;
 
 // 新增获取布局类的函数
 function getLayoutClasses(layout: string) {
-	if (layout === 'row') return 'cosy:flex cosy:flex-row';
-	if (layout === 'column') return 'cosy:flex cosy:flex-col';
-	return 'cosy:flex cosy:flex-col'; // 默认列布局
+  if (layout === 'row') return 'cosy:flex cosy:flex-row';
+  if (layout === 'column') return 'cosy:flex cosy:flex-col';
+  return 'cosy:flex cosy:flex-col'; // 默认列布局
 }
 
 const layoutClass = getLayoutClasses(layout as string);
 
 // 获取垂直内边距的Tailwind类
 function getVerticalPaddingClasses(padding: string) {
-	if (padding === 'none') return 'cosy:py-0';
-	if (padding === 'xs') return 'cosy:py-1';
-	if (padding === 'sm') return 'cosy:py-2';
-	if (padding === 'md') return 'cosy:py-4';
-	if (padding === 'lg') return 'cosy:py-6';
-	if (padding === 'xl') return 'cosy:py-8';
-	if (padding === '2xl') return 'cosy:py-10';
-	if (padding === '3xl') return 'cosy:py-12';
-	if (padding === '4xl') return 'cosy:py-16';
-	if (padding === '5xl') return 'cosy:py-20';
-	return ''; // 对于自定义padding，使用内联样式
+  if (padding === 'none') return 'cosy:py-0';
+  if (padding === 'xs') return 'cosy:py-1';
+  if (padding === 'sm') return 'cosy:py-2';
+  if (padding === 'md') return 'cosy:py-4';
+  if (padding === 'lg') return 'cosy:py-6';
+  if (padding === 'xl') return 'cosy:py-8';
+  if (padding === '2xl') return 'cosy:py-10';
+  if (padding === '3xl') return 'cosy:py-12';
+  if (padding === '4xl') return 'cosy:py-16';
+  if (padding === '5xl') return 'cosy:py-20';
+  return ''; // 对于自定义padding，使用内联样式
 }
 
 // 获取背景颜色的Tailwind类
 function getBgColorClasses(color: string | undefined) {
-	if (!color) return '';
-	if (color === 'primary') return 'cosy:bg-primary';
-	if (color === 'secondary') return 'cosy:bg-secondary';
-	if (color === 'tertiary') return 'cosy:bg-accent';
-	if (color === 'light') return 'cosy:bg-base-100';
-	if (color === 'dark') return 'cosy:bg-base-300';
-	return ''; // 对于自定义颜色，使用内联样式
+  if (!color) return '';
+  if (color === 'primary') return 'cosy:bg-primary';
+  if (color === 'secondary') return 'cosy:bg-secondary';
+  if (color === 'tertiary') return 'cosy:bg-accent';
+  if (color === 'light') return 'cosy:bg-base-100';
+  if (color === 'dark') return 'cosy:bg-base-300';
+  return ''; // 对于自定义颜色，使用内联样式
 }
 
-const verticalPaddingClass = getVerticalPaddingClasses(verticalPadding as string);
+const verticalPaddingClass = getVerticalPaddingClasses(
+  verticalPadding as string
+);
 const bgColorClass = getBgColorClasses(backgroundColor);
 
 // 构建自定义样式
@@ -111,37 +113,40 @@ const customStyle = [];
 
 // 只有当没有对应的Tailwind类时，才使用内联样式
 if (!verticalPaddingClass && verticalPadding && verticalPadding !== 'none') {
-	customStyle.push(`padding-top: ${verticalPadding}; padding-bottom: ${verticalPadding};`);
+  customStyle.push(
+    `padding-top: ${verticalPadding}; padding-bottom: ${verticalPadding};`
+  );
 }
 
 if (!bgColorClass && backgroundColor) {
-	customStyle.push(`background-color: ${backgroundColor};`);
+  customStyle.push(`background-color: ${backgroundColor};`);
 }
 
 const inlineStyle = customStyle.length > 0 ? customStyle.join(' ') : undefined;
 ---
 
 <main
-	id={id}
-	class:list={[
-		'cosy:w-full',
-		layoutClass,
-		verticalPaddingClass,
-		bgColorClass,
-		className,
-		classList,
-	]}
-	style={inlineStyle}
-	{...rest}>
-	{
-		isArticle ? (
-			<Article>
-				<slot />
-			</Article>
-		) : (
-			<slot />
-		)
-	}
+  id={id}
+  class:list={[
+    'cosy:w-full',
+    layoutClass,
+    verticalPaddingClass,
+    bgColorClass,
+    className,
+    classList,
+  ]}
+  style={inlineStyle}
+  {...rest}
+>
+  {
+    isArticle ? (
+      <Article>
+        <slot />
+      </Article>
+    ) : (
+      <slot />
+    )
+  }
 
-	{showTableOfContents && <TableOfContents lang={currentLocale} />}
+  {showTableOfContents && <TableOfContents lang={currentLocale} />}
 </main>

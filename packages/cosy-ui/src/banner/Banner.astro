@@ -41,43 +41,50 @@
 import '../style.ts';
 
 interface Props {
-	/**
-	 * 自定义CSS类，可用于覆盖默认样式
-	 */
-	class?: string;
+  /**
+   * 自定义CSS类，可用于覆盖默认样式
+   */
+  class?: string;
 
-	/**
-	 * 背景颜色，默认为primary
-	 */
-	bgColor?: 'primary' | 'secondary' | 'accent' | 'info' | 'success' | 'warning' | 'error';
+  /**
+   * 背景颜色，默认为primary
+   */
+  bgColor?:
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'info'
+    | 'success'
+    | 'warning'
+    | 'error';
 
-	/**
-	 * 文本颜色，默认根据背景色自动设置
-	 */
-	textColor?: string;
+  /**
+   * 文本颜色，默认根据背景色自动设置
+   */
+  textColor?: string;
 
-	/**
-	 * 动画效果类型，可选值：
-	 * - 'none': 无动画
-	 * - 'fade': 仅淡入效果
-	 * - 'slide': 仅上滑效果
-	 * - 'both': 淡入和上滑效果
-	 * 默认为'both'
-	 */
-	animation?: 'none' | 'fade' | 'slide' | 'both';
+  /**
+   * 动画效果类型，可选值：
+   * - 'none': 无动画
+   * - 'fade': 仅淡入效果
+   * - 'slide': 仅上滑效果
+   * - 'both': 淡入和上滑效果
+   * 默认为'both'
+   */
+  animation?: 'none' | 'fade' | 'slide' | 'both';
 
-	/**
-	 * @deprecated 使用animation属性替代
-	 */
-	animated?: boolean;
+  /**
+   * @deprecated 使用animation属性替代
+   */
+  animated?: boolean;
 }
 
 const {
-	class: className = '',
-	bgColor = 'primary',
-	textColor = '',
-	animation = 'both',
-	animated, // 向后兼容
+  class: className = '',
+  bgColor = 'primary',
+  textColor = '',
+  animation = 'both',
+  animated, // 向后兼容
 } = Astro.props;
 
 // 处理向后兼容
@@ -85,81 +92,83 @@ const effectiveAnimation = animated === false ? 'none' : animation;
 
 // 根据背景色自动设置文本颜色
 const getTextColorClass = () => {
-	if (textColor) return `cosy:text-${textColor}`;
+  if (textColor) return `cosy:text-${textColor}`;
 
-	// 对于深色背景，使用白色文本
-	const darkBgColors = ['primary', 'secondary', 'accent', 'error'];
-	return darkBgColors.includes(bgColor) ? 'cosy:text-white' : 'cosy:text-gray-800';
+  // 对于深色背景，使用白色文本
+  const darkBgColors = ['primary', 'secondary', 'accent', 'error'];
+  return darkBgColors.includes(bgColor)
+    ? 'cosy:text-white'
+    : 'cosy:text-gray-800';
 };
 
 // 组合CSS类
 const bannerClasses = [
-	'cosy:w-full',
-	'cosy:py-8',
-	'cosy:px-4',
-	'cosy:rounded-lg',
-	'cosy:text-center',
-	'cosy:text-2xl',
-	'cosy:md:text-3xl',
-	'cosy:font-bold',
-	'cosy:transition-all',
-	'cosy:duration-300',
-	'cosy:ease-in-out',
-	'cosy:backdrop-blur-sm',
-	'cosy:bg-opacity-90',
-	'cosy:shadow-md',
-	'cosy:hover:shadow-lg',
-	'cosy:hover:scale-[1.01]',
-	`cosy:bg-${bgColor}`,
-	getTextColorClass(),
-	className,
+  'cosy:w-full',
+  'cosy:py-8',
+  'cosy:px-4',
+  'cosy:rounded-lg',
+  'cosy:text-center',
+  'cosy:text-2xl',
+  'cosy:md:text-3xl',
+  'cosy:font-bold',
+  'cosy:transition-all',
+  'cosy:duration-300',
+  'cosy:ease-in-out',
+  'cosy:backdrop-blur-sm',
+  'cosy:bg-opacity-90',
+  'cosy:shadow-md',
+  'cosy:hover:shadow-lg',
+  'cosy:hover:scale-[1.01]',
+  `cosy:bg-${bgColor}`,
+  getTextColorClass(),
+  className,
 ].join(' ');
 
 // 动画类
 const animationClasses = {
-	none: '',
-	fade: 'cosy:animate-fadeIn',
-	slide: 'cosy:animate-slideUp',
-	both: 'cosy:animate-fadeIn cosy:animate-slideUp',
+  none: '',
+  fade: 'cosy:animate-fadeIn',
+  slide: 'cosy:animate-slideUp',
+  both: 'cosy:animate-fadeIn cosy:animate-slideUp',
 }[effectiveAnimation];
 ---
 
 <div class={`${bannerClasses} ${animationClasses}`}>
-	<slot />
+  <slot />
 </div>
 
 <style>
-	@keyframes fadeIn {
-		from {
-			opacity: 0;
-		}
-		to {
-			opacity: 1;
-		}
-	}
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 
-	@keyframes slideUp {
-		from {
-			transform: translateY(20px);
-		}
-		to {
-			transform: translateY(0);
-		}
-	}
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
 
-	/* 动画类 */
-	.cosy\:animate-fadeIn {
-		animation: fadeIn 0.8s ease-in-out;
-	}
+  /* 动画类 */
+  .cosy\:animate-fadeIn {
+    animation: fadeIn 0.8s ease-in-out;
+  }
 
-	.cosy\:animate-slideUp {
-		animation: slideUp 0.5s ease-out;
-	}
+  .cosy\:animate-slideUp {
+    animation: slideUp 0.5s ease-out;
+  }
 
-	@media (prefers-reduced-motion: reduce) {
-		.cosy\:animate-fadeIn,
-		.cosy\:animate-slideUp {
-			animation: none;
-		}
-	}
+  @media (prefers-reduced-motion: reduce) {
+    .cosy\:animate-fadeIn,
+    .cosy\:animate-slideUp {
+      animation: none;
+    }
+  }
 </style>

@@ -7,5 +7,5 @@ export { BaseLayout, BaseLayoutBasic };
 
 // 导出示例源代码
 export const BaseLayoutExampleCodes = {
-	Basic: extractSimpleExample(BasicSourceCode, 'BaseLayout'),
+  Basic: extractSimpleExample(BasicSourceCode, 'BaseLayout'),
 };

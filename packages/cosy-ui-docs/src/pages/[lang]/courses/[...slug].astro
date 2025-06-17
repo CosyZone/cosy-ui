@@ -1,6 +1,11 @@
 ---
 import DemoLayout from '@/layouts/DemoLayout.astro';
-import { Error404, courseDB, defaultLogger, type ISidebarItem } from '@coffic/cosy-ui';
+import {
+  Error404,
+  courseDB,
+  defaultLogger,
+  type ISidebarItem,
+} from '@coffic/cosy-ui';
 import type { RenderResult } from 'astro:content';
 
 const { lang, slug } = Astro.params;
@@ -10,41 +15,43 @@ let renderResult: RenderResult | null = null;
 let sidebarItems: ISidebarItem | null = null;
 
 if (doc) {
-	title = doc.getTitle();
-	renderResult = await doc.render();
+  title = doc.getTitle();
+  renderResult = await doc.render();
 
-    // 获取顶级文档
-    const topDoc = await doc.getAncestor(1);
-    if (topDoc) {
-        sidebarItems = await topDoc.toSidebarItem();
-    }
+  // 获取顶级文档
+  const topDoc = await doc.getAncestor(1);
+  if (topDoc) {
+    sidebarItems = await topDoc.toSidebarItem();
+  }
 } else {
-	title = '404 Not Found';
+  title = '404 Not Found';
 }
 
 export const getStaticPaths = async () => {
-    const paths = await courseDB.getStaticPaths();
-    const debug = false;
+  const paths = await courseDB.getStaticPaths();
+  const debug = false;
 
-    if (debug) {
-        defaultLogger.info(paths);
-    }
+  if (debug) {
+    defaultLogger.info(paths);
+  }
 
-    // 过滤掉 slug 为空的路径
-    return paths.filter(path => {
-        const slug = path.params.slug;
-        return slug && slug.length > 0;
-    });
+  // 过滤掉 slug 为空的路径
+  return paths.filter((path) => {
+    const slug = path.params.slug;
+    return slug && slug.length > 0;
+  });
 };
 ---
 
 <DemoLayout title={title} sidebarItems={sidebarItems}>
-	{
-		renderResult ? (
-				<h1>{title}</h1>
-				<renderResult.Content />
-		) : (
-			<Error404 debugKVs={{ slug }} />
-		)
-	}
+  {
+    renderResult ? (
+      <>
+        <h1>{title}</h1>
+        <renderResult.Content />
+      </>
+    ) : (
+      <Error404 debugKVs={{ slug }} />
+    )
+  }
 </DemoLayout>

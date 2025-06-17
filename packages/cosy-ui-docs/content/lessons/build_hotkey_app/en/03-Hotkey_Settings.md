@@ -5,8 +5,11 @@ title: Hotkey Settings
 In this chapter, we will learn how to use the hotkey_manager package to implement global hotkey functionality, allowing users to show the application window through customized hotkey combinations.
 
 # Hotkey Settings
+
 ## Register Hotkey
+
 ### 3. Complete Example
+
 ```dart
 class HotKeySettingsPage extends StatefulWidget {
   @override
@@ -54,14 +57,17 @@ class _HotKeySettingsPageState extends State<HotKeySettingsPage> {
 ```
 
 # Hotkey Settings
+
 ## Common Issues
 
 1. **Why doesn't the hotkey work in certain applications?**
+
    - Some applications may intercept system-level hotkeys
    - Check if other applications have registered the same hotkey
    - Ensure the application has appropriate system permissions
 
 2. **How to handle hotkey conflicts?**
+
    ```dart
    try {
      await hotKeyManager.register(hotKey);
@@ -76,6 +82,7 @@ class _HotKeySettingsPageState extends State<HotKeySettingsPage> {
    - Load saved configurations when the application starts
 
 # Hotkey Settings
+
 ## Exercises
 
 1. Implement a complete hotkey configuration interface that supports adding, modifying, and deleting hotkeys.
@@ -83,6 +90,7 @@ class _HotKeySettingsPageState extends State<HotKeySettingsPage> {
 3. Implement import/export functionality for hotkey configurations.
 
 # Hotkey Settings
+
 ## Next Steps
 
 Now that we have implemented the global hotkey functionality, we will learn how to use Provider for state management in the next chapter [State Management](./04-State_Management.md).

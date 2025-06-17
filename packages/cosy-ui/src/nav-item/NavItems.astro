@@ -18,27 +18,29 @@ import '../style.ts';
 import { type INavItem, Link } from '../index';
 
 interface Props {
-	navItems: INavItem[];
-	activeLink: string;
-	linkHeightClass: string;
+  navItems: INavItem[];
+  activeLink: string;
+  linkHeightClass: string;
 }
 
 const { navItems, activeLink, linkHeightClass } = Astro.props;
 ---
 
 <ul
-	data-active-link={activeLink}
-	class:list={['cosy:px-1 cosy:menu cosy:menu-horizontal', linkHeightClass]}>
-	{
-		navItems.map((item) => (
-			<li>
-				<Link
-					variant={activeLink === item.href ? 'primary' : 'default'}
-					href={item.href}
-					class:list={[linkHeightClass]}>
-					{item.label}
-				</Link>
-			</li>
-		))
-	}
+  data-active-link={activeLink}
+  class:list={['cosy:px-1 cosy:menu cosy:menu-horizontal', linkHeightClass]}
+>
+  {
+    navItems.map((item) => (
+      <li>
+        <Link
+          variant={activeLink === item.href ? 'primary' : 'default'}
+          href={item.href}
+          class:list={[linkHeightClass]}
+        >
+          {item.label}
+        </Link>
+      </li>
+    ))
+  }
 </ul>

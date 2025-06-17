@@ -1,5 +1,5 @@
 <template>
-    <FeatureButton title="特性按钮" />
+  <FeatureButton title="特性按钮" />
 </template>
 
 <script setup lang="ts">

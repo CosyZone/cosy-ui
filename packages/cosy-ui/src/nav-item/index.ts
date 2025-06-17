@@ -7,5 +7,5 @@ export { NavItems, NavItemsBasic };
 
 // 导出示例源代码
 export const NavItemsExampleCodes = {
-	Basic: extractSimpleExample(BasicSourceCode, 'NavItems'),
+  Basic: extractSimpleExample(BasicSourceCode, 'NavItems'),
 };

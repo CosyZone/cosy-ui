@@ -1,1 +1,1 @@
-export { default as Main } from     './Main.astro';
+export { default as Main } from './Main.astro';

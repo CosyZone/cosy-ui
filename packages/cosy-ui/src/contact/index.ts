@@ -10,12 +10,12 @@ import ContactCustomStyleContainer from './EContactCustomStyleContainer.astro';
 export { Contact };
 
 export const ContactPackage = {
-    Contact,
-    ContactContainers: {
-        Basic: ContactBasicContainer,
-        WithTitle: ContactWithTitleContainer,
-        Social: ContactSocialContainer,
-        Compact: ContactCompactContainer,
-        CustomStyle: ContactCustomStyleContainer,
-    },
-}; 
+  Contact,
+  ContactContainers: {
+    Basic: ContactBasicContainer,
+    WithTitle: ContactWithTitleContainer,
+    Social: ContactSocialContainer,
+    Compact: ContactCompactContainer,
+    CustomStyle: ContactCustomStyleContainer,
+  },
+};

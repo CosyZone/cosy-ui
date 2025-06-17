@@ -46,6 +46,7 @@ title: 打包发布
 在 Xcode 中配置签名设置：
 
 1. 打开 macOS 项目：
+
    ```bash
    open macos/Runner.xcworkspace
    ```
@@ -70,6 +71,7 @@ flutter build macos --release
 ### 2. 创建 DMG 安装包
 
 1. 安装 create-dmg 工具：
+
    ```bash
    brew install create-dmg
    ```
@@ -102,6 +104,7 @@ flutter build macos --release
 ### 2. 上传应用
 
 1. 使用 Xcode 上传：
+
    - 选择 Product > Archive
    - 在 Archives 窗口中选择最新的归档
    - 点击 Distribute App
@@ -126,17 +129,20 @@ flutter build macos --release
 ### 1. 使用 Fastlane
 
 1. 安装 Fastlane：
+
    ```bash
    brew install fastlane
    ```
 
 2. 初始化 Fastlane：
+
    ```bash
    cd macos
    fastlane init
    ```
 
 3. 配置 Fastfile：
+
    ```ruby
    default_platform(:mac)
 
@@ -164,6 +170,7 @@ flutter build macos --release
 ## 常见问题
 
 1. **签名错误**
+
    - 检查开发者账号状态
    - 更新证书和配置文件
    - 清理 Xcode 缓存：
@@ -172,6 +179,7 @@ flutter build macos --release
      ```
 
 2. **上传失败**
+
    - 确保应用版本号唯一
    - 检查网络连接
    - 验证 Apple ID 和密码

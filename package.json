@@ -1,48 +1,46 @@
 {
-    "name": "@coffic/cosy-ui-workspace",
-    "version": "0.8.0",
-    "type": "module",
-    "private": true,
-    "description": "Cosy UI component library workspace",
-    "scripts": {
-        "build:astro": "pnpm --filter @coffic/cosy-ui build",
-        "build:docs": "pnpm build:astro && pnpm --filter @coffic/cosy-ui-docs build",
-        "dev:docs": "pnpm build:astro && pnpm --filter @coffic/cosy-ui-docs dev",
-        "check": "pnpm --recursive run check",
-        "test": "pnpm --recursive run test",
-        "clean": "pnpm --recursive run clean",
-        "format": "prettier --write \"**/*.{js,jsx,ts,tsx,astro,vue,md,mdx,json}\"",
-        "lint": "eslint . --ext .js,.jsx,.ts,.tsx,.astro,.vue",
-        "type-check": "pnpm --recursive run type-check"
-    },
-    "workspaces": [
-        "packages/*"
-    ],
-    "devDependencies": {
-        "prettier": "^3.5.3",
-        "prettier-plugin-astro": "^0.14.1",
-        "@typescript-eslint/eslint-plugin": "^8.15.0",
-        "@typescript-eslint/parser": "^8.15.0",
-        "eslint": "^9.15.0",
-        "eslint-plugin-astro": "^1.3.1",
-        "typescript": "^5.8.3"
-    },
-    "engines": {
-        "node": ">=18.0.0",
-        "pnpm": ">=8.0.0"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/your-org/cosy-ui.git"
-    },
-    "keywords": [
-        "astro",
-        "component-library",
-        "ui",
-        "typescript",
-        "tailwindcss",
-        "daisyui"
-    ],
-    "author": "Your Name",
-    "license": "MIT"
+  "name": "@coffic/cosy-ui-workspace",
+  "version": "0.8.0",
+  "type": "module",
+  "private": true,
+  "description": "Cosy UI component library workspace",
+  "scripts": {
+    "build:astro": "pnpm --filter @coffic/cosy-ui build",
+    "build:docs": "pnpm build:astro && pnpm --filter @coffic/cosy-ui-docs build",
+    "dev:docs": "pnpm build:astro && pnpm --filter @coffic/cosy-ui-docs dev",
+    "check": "pnpm --recursive run check",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,astro,vue,md,mdx,json}\"",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx,.astro,.vue",
+    "type-check": "pnpm --recursive run type-check"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "@typescript-eslint/eslint-plugin": "^8.15.0",
+    "@typescript-eslint/parser": "^8.15.0",
+    "eslint": "^9.15.0",
+    "eslint-plugin-astro": "^1.3.1",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/cosy-ui.git"
+  },
+  "keywords": [
+    "astro",
+    "component-library",
+    "ui",
+    "typescript",
+    "tailwindcss",
+    "daisyui"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
 }

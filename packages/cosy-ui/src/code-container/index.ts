@@ -9,6 +9,6 @@ export { CodeContainer, CodeContainerBasic, CodeContainerMultiple };
 
 // 导出示例源代码
 export const CodeContainerExampleCodes = {
-    Basic: extractSimpleExample(BasicSourceCode, 'CodeContainer'),
-    Multiple: extractSimpleExample(MultipleSourceCode, 'CodeContainer'),
+  Basic: extractSimpleExample(BasicSourceCode, 'CodeContainer'),
+  Multiple: extractSimpleExample(MultipleSourceCode, 'CodeContainer'),
 };

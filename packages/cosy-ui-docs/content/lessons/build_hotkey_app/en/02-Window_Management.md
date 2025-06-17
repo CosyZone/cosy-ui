@@ -11,7 +11,7 @@ In this chapter, we will learn how to use the window_manager package to control 
 ```dart
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Initialize window manager
   await windowManager.ensureInitialized();
 
@@ -23,7 +23,7 @@ void main() async {
     skipTaskbar: false,
     titleBarStyle: TitleBarStyle.hidden,
   );
-  
+
   await windowManager.waitUntilReadyToShow(windowOptions, () async {
     await windowManager.show();
     await windowManager.focus();
@@ -169,10 +169,12 @@ class MyApp extends StatelessWidget {
 ## Common Issues
 
 1. Window Not Draggable
+
    - Ensure GestureDetector behavior is set correctly
    - Verify windowManager.startDragging() is called properly
 
 2. Incorrect Window Size
+
    - Check size configuration in WindowOptions
    - Ensure initialization is complete before showing window
 

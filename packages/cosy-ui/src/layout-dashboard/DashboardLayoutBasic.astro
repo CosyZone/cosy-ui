@@ -3,46 +3,49 @@ import DashboardLayout from './DashboardLayout.astro';
 import type { IMenuItem } from '../types/menu';
 
 const menuItems: IMenuItem[] = [
-	{
-		text: '仪表盘',
-		href: '/dashboard',
-		icon: 'dashboard',
-	},
-	{
-		text: '用户管理',
-		href: '/dashboard/users',
-		icon: 'users',
-	},
-	{
-		text: '设置',
-		href: '/dashboard/settings',
-		icon: 'settings',
-	},
+  {
+    text: '仪表盘',
+    href: '/dashboard',
+    icon: 'dashboard',
+  },
+  {
+    text: '用户管理',
+    href: '/dashboard/users',
+    icon: 'users',
+  },
+  {
+    text: '设置',
+    href: '/dashboard/settings',
+    icon: 'settings',
+  },
 ];
 ---
 
 <DashboardLayout
-	title="仪表盘布局示例"
-	description="这是一个仪表盘布局的示例页面"
-	navItems={menuItems}>
-	<div class="cosy:grid cosy:grid-cols-1 cosy:md:grid-cols-2 cosy:lg:grid-cols-3 cosy:gap-4">
-		<div class="cosy:card cosy:bg-base-100 cosy:shadow-xl">
-			<div class="cosy:card-body">
-				<h2 class="cosy:card-title">总用户数</h2>
-				<p class="cosy:text-4xl cosy:font-bold">1,234</p>
-			</div>
-		</div>
-		<div class="cosy:card cosy:bg-base-100 cosy:shadow-xl">
-			<div class="cosy:card-body">
-				<h2 class="cosy:card-title">今日活跃</h2>
-				<p class="cosy:text-4xl cosy:font-bold">567</p>
-			</div>
-		</div>
-		<div class="cosy:card cosy:bg-base-100 cosy:shadow-xl">
-			<div class="cosy:card-body">
-				<h2 class="cosy:card-title">转化率</h2>
-				<p class="cosy:text-4xl cosy:font-bold">45.8%</p>
-			</div>
-		</div>
-	</div>
+  title="仪表盘布局示例"
+  description="这是一个仪表盘布局的示例页面"
+  navItems={menuItems}
+>
+  <div
+    class="cosy:grid cosy:grid-cols-1 cosy:md:grid-cols-2 cosy:lg:grid-cols-3 cosy:gap-4"
+  >
+    <div class="cosy:card cosy:bg-base-100 cosy:shadow-xl">
+      <div class="cosy:card-body">
+        <h2 class="cosy:card-title">总用户数</h2>
+        <p class="cosy:text-4xl cosy:font-bold">1,234</p>
+      </div>
+    </div>
+    <div class="cosy:card cosy:bg-base-100 cosy:shadow-xl">
+      <div class="cosy:card-body">
+        <h2 class="cosy:card-title">今日活跃</h2>
+        <p class="cosy:text-4xl cosy:font-bold">567</p>
+      </div>
+    </div>
+    <div class="cosy:card cosy:bg-base-100 cosy:shadow-xl">
+      <div class="cosy:card-body">
+        <h2 class="cosy:card-title">转化率</h2>
+        <p class="cosy:text-4xl cosy:font-bold">45.8%</p>
+      </div>
+    </div>
+  </div>
 </DashboardLayout>

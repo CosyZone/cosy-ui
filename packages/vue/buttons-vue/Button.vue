@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed } from 'vue';
 
 interface Props {
-  variant?: 
+  variant?:
     | 'primary'
     | 'secondary'
     | 'accent'
@@ -13,16 +13,16 @@ interface Props {
     | 'ghost'
     | 'link'
     | 'outline'
-    | 'neutral'
-  size?: 'lg' | 'md' | 'sm' | 'xs'
-  shape?: 'circle' | 'square'
-  wide?: boolean
-  block?: boolean
-  loading?: boolean
-  disabled?: boolean
-  type?: 'button' | 'submit' | 'reset'
-  href?: string
-  target?: string
+    | 'neutral';
+  size?: 'lg' | 'md' | 'sm' | 'xs';
+  shape?: 'circle' | 'square';
+  wide?: boolean;
+  block?: boolean;
+  loading?: boolean;
+  disabled?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+  href?: string;
+  target?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -32,11 +32,11 @@ const props = withDefaults(defineProps<Props>(), {
   block: false,
   loading: false,
   disabled: false,
-  type: 'button'
-})
+  type: 'button',
+});
 
 const buttonClasses = computed(() => {
-  const classes = ['cosy:btn']
+  const classes = ['cosy:btn'];
 
   // Variant classes
   const variantClasses = {
@@ -51,7 +51,7 @@ const buttonClasses = computed(() => {
     link: 'cosy:btn-link',
     outline: 'cosy:btn-outline',
     neutral: 'cosy:btn-neutral',
-  }
+  };
 
   // Size classes
   const sizeClasses = {
@@ -59,32 +59,32 @@ const buttonClasses = computed(() => {
     md: 'cosy:btn-md',
     sm: 'cosy:btn-sm',
     xs: 'cosy:btn-xs',
-  }
+  };
 
   // Shape classes
   const shapeClasses = {
     circle: 'cosy:btn-circle',
     square: 'cosy:btn-square',
-  }
+  };
 
   if (variantClasses[props.variant]) {
-    classes.push(variantClasses[props.variant])
+    classes.push(variantClasses[props.variant]);
   }
 
   if (sizeClasses[props.size]) {
-    classes.push(sizeClasses[props.size])
+    classes.push(sizeClasses[props.size]);
   }
 
   if (props.shape && shapeClasses[props.shape]) {
-    classes.push(shapeClasses[props.shape])
+    classes.push(shapeClasses[props.shape]);
   }
 
-  if (props.wide) classes.push('cosy:btn-wide')
-  if (props.block) classes.push('cosy:btn-block')
-  if (props.loading) classes.push('cosy:loading')
+  if (props.wide) classes.push('cosy:btn-wide');
+  if (props.block) classes.push('cosy:btn-block');
+  if (props.loading) classes.push('cosy:loading');
 
-  return classes
-})
+  return classes;
+});
 </script>
 
 <template>

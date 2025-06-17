@@ -1,5 +1,5 @@
 <template>
-    <BlogList :blogs="[]" lang="zh" />
+  <BlogList :blogs="[]" lang="zh" />
 </template>
 
 <script setup lang="ts">

@@ -13,9 +13,7 @@ TableOfContents 组件是一个目录导航组件，用于显示页面内容的�
 
 默认情况下，组件会自动检测页面中的 h2 和 h3 标题，生成目录列表：
 
-<CodeExample
-  code={`<TableOfContents />`}
->
+<CodeExample code={`<TableOfContents />`}>
   <TableOfContents />
 </CodeExample>
 
@@ -30,20 +28,14 @@ TableOfContents 组件是一个目录导航组件，用于显示页面内容的�
   maxDepth={4}
 />`}
 >
-  <TableOfContents
-    title="章节导航"
-    selector="h2, h3, h4"
-    maxDepth={4}
-  />
+  <TableOfContents title="章节导航" selector="h2, h3, h4" maxDepth={4} />
 </CodeExample>
 
 ## 非固定位置
 
 默认情况下，目录会固定在右侧，您也可以设置为非固定位置：
 
-<CodeExample
-  code={`<TableOfContents fixed={false} />`}
->
+<CodeExample code={`<TableOfContents fixed={false} />`}>
   <TableOfContents fixed={false} />
 </CodeExample>
 
@@ -51,8 +43,6 @@ TableOfContents 组件是一个目录导航组件，用于显示页面内容的�
 
 您可以指定一个特定的内容容器，组件将只在该容器内查找标题：
 
-<CodeExample
-  code={`<TableOfContents containerSelector=".article-content" />`}
->
+<CodeExample code={`<TableOfContents containerSelector=".article-content" />`}>
   <TableOfContents containerSelector=".article-content" />
 </CodeExample>

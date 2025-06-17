@@ -154,37 +154,37 @@ import '../style.ts';
 import { Link } from '../index';
 
 interface Link {
-	text: string;
-	href: string;
+  text: string;
+  href: string;
 }
 
 interface Props {
-	title: string;
-	description: string;
-	image?: {
-		src: string;
-		alt: string;
-	};
-	links: Link[];
-	background?: 'gradient' | 'plain';
-	align?: 'center' | 'left' | 'right';
-	imagePosition?: 'right' | 'left' | 'top' | 'bottom';
-	backgroundImage?: string;
-	backgroundOverlay?: 'none' | 'light' | 'dark' | 'primary' | 'gradient';
-	overlayOpacity?: number;
+  title: string;
+  description: string;
+  image?: {
+    src: string;
+    alt: string;
+  };
+  links: Link[];
+  background?: 'gradient' | 'plain';
+  align?: 'center' | 'left' | 'right';
+  imagePosition?: 'right' | 'left' | 'top' | 'bottom';
+  backgroundImage?: string;
+  backgroundOverlay?: 'none' | 'light' | 'dark' | 'primary' | 'gradient';
+  overlayOpacity?: number;
 }
 
 const {
-	title,
-	description,
-	image,
-	links = [],
-	background = 'gradient',
-	align = 'center',
-	imagePosition = 'right',
-	backgroundImage,
-	backgroundOverlay = 'none',
-	overlayOpacity = 0.7,
+  title,
+  description,
+  image,
+  links = [],
+  background = 'gradient',
+  align = 'center',
+  imagePosition = 'right',
+  backgroundImage,
+  backgroundOverlay = 'none',
+  overlayOpacity = 0.7,
 } = Astro.props;
 
 // 确保不透明度在0-1之间
@@ -192,177 +192,193 @@ const safeOpacity = Math.max(0, Math.min(1, overlayOpacity));
 
 // 确定容器类
 const containerClasses = [
-	'cosy:hero',
-	'cosy:min-h-screen',
-	'cosy:w-full',
-	'cosy:relative',
-	backgroundImage ? 'cosy:bg-cover cosy:bg-center' : '',
-	!backgroundImage && background === 'gradient'
-		? 'cosy:bg-gradient-to-br cosy:from-primary/10 cosy:to-secondary/20'
-		: '',
-	!backgroundImage && background === 'plain' ? 'cosy:bg-base-100' : '',
+  'cosy:hero',
+  'cosy:min-h-screen',
+  'cosy:w-full',
+  'cosy:relative',
+  backgroundImage ? 'cosy:bg-cover cosy:bg-center' : '',
+  !backgroundImage && background === 'gradient'
+    ? 'cosy:bg-gradient-to-br cosy:from-primary/10 cosy:to-secondary/20'
+    : '',
+  !backgroundImage && background === 'plain' ? 'cosy:bg-base-100' : '',
 ].join(' ');
 
 // 确定内容布局类
 const contentClasses = [
-	'cosy:flex',
-	imagePosition === 'top' || imagePosition === 'bottom'
-		? 'cosy:flex-col'
-		: 'cosy:flex-col cosy:lg:flex-row',
-	align === 'center' ? 'cosy:text-center cosy:items-center' : '',
-	align === 'left' ? 'cosy:text-left cosy:items-start' : '',
-	align === 'right' ? 'cosy:text-right cosy:items-end' : '',
-	'cosy:w-full',
-	'cosy:mx-auto',
-	'cosy:gap-10',
-	'cosy:lg:gap-16',
-	'cosy:z-10',
-	'cosy:relative',
-	'cosy:py-16',
-	'cosy:px-4',
-	'cosy:sm:px-6',
-	'cosy:lg:px-8',
+  'cosy:flex',
+  imagePosition === 'top' || imagePosition === 'bottom'
+    ? 'cosy:flex-col'
+    : 'cosy:flex-col cosy:lg:flex-row',
+  align === 'center' ? 'cosy:text-center cosy:items-center' : '',
+  align === 'left' ? 'cosy:text-left cosy:items-start' : '',
+  align === 'right' ? 'cosy:text-right cosy:items-end' : '',
+  'cosy:w-full',
+  'cosy:mx-auto',
+  'cosy:gap-10',
+  'cosy:lg:gap-16',
+  'cosy:z-10',
+  'cosy:relative',
+  'cosy:py-16',
+  'cosy:px-4',
+  'cosy:sm:px-6',
+  'cosy:lg:px-8',
 ].join(' ');
 
 // 确定背景遮罩类
-const overlayClasses = ['cosy:absolute', 'cosy:inset-0', 'cosy:z-0', 'cosy:m-0', 'cosy:p-0'].join(
-	' '
-);
+const overlayClasses = [
+  'cosy:absolute',
+  'cosy:inset-0',
+  'cosy:z-0',
+  'cosy:m-0',
+  'cosy:p-0',
+].join(' ');
 
 // 创建遮罩样式对象，包括不透明度
 const overlayStyle =
-	backgroundOverlay === 'light'
-		? { backgroundColor: `rgba(255, 255, 255, ${safeOpacity})` }
-		: backgroundOverlay === 'dark'
-			? { backgroundColor: `rgba(0, 0, 0, ${safeOpacity})` }
-			: backgroundOverlay === 'primary'
-				? { backgroundColor: `var(--color-primary-500, #4338ca)`, opacity: safeOpacity }
-				: backgroundOverlay === 'gradient'
-					? {
-							backgroundImage: `linear-gradient(135deg, var(--color-primary-500, #4338ca) ${safeOpacity * 100}%, var(--color-secondary-500, #0ea5e9) ${safeOpacity * 100}%)`,
-						}
-					: {};
+  backgroundOverlay === 'light'
+    ? { backgroundColor: `rgba(255, 255, 255, ${safeOpacity})` }
+    : backgroundOverlay === 'dark'
+      ? { backgroundColor: `rgba(0, 0, 0, ${safeOpacity})` }
+      : backgroundOverlay === 'primary'
+        ? {
+            backgroundColor: `var(--color-primary-500, #4338ca)`,
+            opacity: safeOpacity,
+          }
+        : backgroundOverlay === 'gradient'
+          ? {
+              backgroundImage: `linear-gradient(135deg, var(--color-primary-500, #4338ca) ${safeOpacity * 100}%, var(--color-secondary-500, #0ea5e9) ${safeOpacity * 100}%)`,
+            }
+          : {};
 
 const titleClasses = [
-	'cosy:text-5xl',
-	'cosy:font-bold',
-	'cosy:mb-4',
-	'cosy:sm:text-6xl',
-	'cosy:lg:text-7xl',
-	backgroundImage && (backgroundOverlay === 'dark' || backgroundOverlay === 'gradient')
-		? 'cosy:text-white'
-		: 'cosy:text-primary',
+  'cosy:text-5xl',
+  'cosy:font-bold',
+  'cosy:mb-4',
+  'cosy:sm:text-6xl',
+  'cosy:lg:text-7xl',
+  backgroundImage &&
+  (backgroundOverlay === 'dark' || backgroundOverlay === 'gradient')
+    ? 'cosy:text-white'
+    : 'cosy:text-primary',
 ].join(' ');
 
 const descriptionClasses = [
-	'cosy:text-xl',
-	'cosy:max-w-3xl',
-	'cosy:mb-8',
-	backgroundImage && (backgroundOverlay === 'dark' || backgroundOverlay === 'gradient')
-		? 'cosy:text-white cosy:opacity-90'
-		: 'cosy:opacity-80',
+  'cosy:text-xl',
+  'cosy:max-w-3xl',
+  'cosy:mb-8',
+  backgroundImage &&
+  (backgroundOverlay === 'dark' || backgroundOverlay === 'gradient')
+    ? 'cosy:text-white cosy:opacity-90'
+    : 'cosy:opacity-80',
 ].join(' ');
 
 const imageClasses = [
-	'cosy:rounded-lg',
-	'cosy:shadow-2xl',
-	'cosy:transition-all',
-	'cosy:duration-300',
-	'cosy:hover:scale-105',
-	'cosy:hover:shadow-primary/20',
-	imagePosition === 'top' || imagePosition === 'bottom'
-		? 'cosy:max-w-lg cosy:w-full'
-		: 'cosy:max-w-sm cosy:lg:max-w-md',
+  'cosy:rounded-lg',
+  'cosy:shadow-2xl',
+  'cosy:transition-all',
+  'cosy:duration-300',
+  'cosy:hover:scale-105',
+  'cosy:hover:shadow-primary/20',
+  imagePosition === 'top' || imagePosition === 'bottom'
+    ? 'cosy:max-w-lg cosy:w-full'
+    : 'cosy:max-w-sm cosy:lg:max-w-md',
 ].join(' ');
 
 const linksContainerClasses = [
-	'cosy:flex',
-	'cosy:flex-wrap',
-	'cosy:gap-4',
-	align === 'center' ? 'cosy:justify-center' : '',
-	align === 'left' ? 'cosy:justify-start' : '',
-	align === 'right' ? 'cosy:justify-end' : '',
-	'cosy:mt-4',
+  'cosy:flex',
+  'cosy:flex-wrap',
+  'cosy:gap-4',
+  align === 'center' ? 'cosy:justify-center' : '',
+  align === 'left' ? 'cosy:justify-start' : '',
+  align === 'right' ? 'cosy:justify-end' : '',
+  'cosy:mt-4',
 ].join(' ');
 
-const appContainerClasses = ['cosy:w-full', 'cosy:max-w-3xl', 'cosy:mx-auto', 'cosy:my-8'].join(
-	' '
-);
+const appContainerClasses = [
+  'cosy:w-full',
+  'cosy:max-w-3xl',
+  'cosy:mx-auto',
+  'cosy:my-8',
+].join(' ');
 
 // 确定图片顺序
 const imageOrder = {
-	right: 'cosy:order-1 cosy:lg:order-2',
-	left: 'cosy:order-2 cosy:lg:order-1',
-	top: 'cosy:order-1',
-	bottom: 'cosy:order-3',
+  right: 'cosy:order-1 cosy:lg:order-2',
+  left: 'cosy:order-2 cosy:lg:order-1',
+  top: 'cosy:order-1',
+  bottom: 'cosy:order-3',
 };
 
 // 确定内容顺序
 const contentOrder = {
-	right: 'cosy:order-2 cosy:lg:order-1',
-	left: 'cosy:order-1 cosy:lg:order-2',
-	top: 'cosy:order-2',
-	bottom: 'cosy:order-1',
+  right: 'cosy:order-2 cosy:lg:order-1',
+  left: 'cosy:order-1 cosy:lg:order-2',
+  top: 'cosy:order-2',
+  bottom: 'cosy:order-1',
 };
 ---
 
 <div
-	class={containerClasses}
-	style={backgroundImage ? `background-image: url(${backgroundImage})` : ''}
-	ignore-heading>
-	{
-		backgroundImage && backgroundOverlay !== 'none' && (
-			<div class={overlayClasses} style={overlayStyle} />
-		)
-	}
+  class={containerClasses}
+  style={backgroundImage ? `background-image: url(${backgroundImage})` : ''}
+  ignore-heading
+>
+  {
+    backgroundImage && backgroundOverlay !== 'none' && (
+      <div class={overlayClasses} style={overlayStyle} />
+    )
+  }
 
-	<div class={contentClasses}>
-		{
-			image && (
-				<div class={imageOrder[imagePosition]}>
-					<img class={imageClasses} src={image.src} alt={image.alt} />
-				</div>
-			)
-		}
+  <div class={contentClasses}>
+    {
+      image && (
+        <div class={imageOrder[imagePosition]}>
+          <img class={imageClasses} src={image.src} alt={image.alt} />
+        </div>
+      )
+    }
 
-		<div
-			class={contentOrder[imagePosition] +
-				' cosy:flex cosy:flex-col cosy:w-full ' +
-				(align === 'center' ? 'cosy:text-center cosy:items-center' : '') +
-				(align === 'left' ? 'cosy:text-left cosy:items-start' : '') +
-				(align === 'right' ? 'cosy:text-right cosy:items-end' : '')}>
-			<h2 class={titleClasses}>{title}</h2>
-			<p class={descriptionClasses}>
-				{description}
-			</p>
+    <div
+      class={contentOrder[imagePosition] +
+        ' cosy:flex cosy:flex-col cosy:w-full ' +
+        (align === 'center' ? 'cosy:text-center cosy:items-center' : '') +
+        (align === 'left' ? 'cosy:text-left cosy:items-start' : '') +
+        (align === 'right' ? 'cosy:text-right cosy:items-end' : '')}
+    >
+      <h2 class={titleClasses}>{title}</h2>
+      <p class={descriptionClasses}>
+        {description}
+      </p>
 
-			{
-				Astro.slots.has('app') && (
-					<div class={appContainerClasses}>
-						<slot name="app" />
-					</div>
-				)
-			}
+      {
+        Astro.slots.has('app') && (
+          <div class={appContainerClasses}>
+            <slot name="app" />
+          </div>
+        )
+      }
 
-			<div class={linksContainerClasses}>
-				{
-					links.map((link: Link) => (
-						<Link
-							href={link.href}
-							external
-							variant={
-								backgroundImage &&
-								(backgroundOverlay === 'dark' || backgroundOverlay === 'gradient')
-									? 'light'
-									: 'cta'
-							}
-							animation="hover-lift"
-							size="lg">
-							{link.text}
-						</Link>
-					))
-				}
-			</div>
-		</div>
-	</div>
+      <div class={linksContainerClasses}>
+        {
+          links.map((link: Link) => (
+            <Link
+              href={link.href}
+              external
+              variant={
+                backgroundImage &&
+                (backgroundOverlay === 'dark' ||
+                  backgroundOverlay === 'gradient')
+                  ? 'light'
+                  : 'cta'
+              }
+              animation="hover-lift"
+              size="lg"
+            >
+              {link.text}
+            </Link>
+          ))
+        }
+      </div>
+    </div>
+  </div>
 </div>

@@ -11,28 +11,28 @@ AlertDialog 组件的基础示例，展示最基本的对话框用法。
 -->
 
 <script lang="ts">
-import '../../app.css'
-import { ref, defineComponent } from 'vue'
-import AlertDialog from './AlertDialog.vue'
+import '../../app.css';
+import { ref, defineComponent } from 'vue';
+import AlertDialog from './AlertDialog.vue';
 
 export default defineComponent({
-    name: 'AlertDialogBasicExample',
-    components: {
-        AlertDialog
-    },
-    setup() {
-        const isShow = ref(false)
+  name: 'AlertDialogBasicExample',
+  components: {
+    AlertDialog,
+  },
+  setup() {
+    const isShow = ref(false);
 
-        return {
-            isShow
-        }
-    }
-})
+    return {
+      isShow,
+    };
+  },
+});
 </script>
 
 <template>
-    <button @click="isShow = true" class="cosy:btn cosy:btn-primary">
-        显示对话框
-    </button>
-    <AlertDialog v-model="isShow" message="这是一条重要信息" />
+  <button @click="isShow = true" class="cosy:btn cosy:btn-primary">
+    显示对话框
+  </button>
+  <AlertDialog v-model="isShow" message="这是一条重要信息" />
 </template>

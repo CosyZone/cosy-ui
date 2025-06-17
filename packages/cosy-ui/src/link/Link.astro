@@ -62,84 +62,100 @@ import type { HTMLAttributes } from 'astro/types';
 type LinkSize = 'sm' | 'md' | 'lg';
 
 // 定义链接变体类型
-type LinkVariant = 'default' | 'primary' | 'secondary' | 'text' | 'cta' | 'ghost' | 'light';
+type LinkVariant =
+  | 'default'
+  | 'primary'
+  | 'secondary'
+  | 'text'
+  | 'cta'
+  | 'ghost'
+  | 'light';
 
 // 定义链接动画类型
 type LinkAnimation = 'none' | 'hover-lift' | 'hover-glow' | 'hover-scale';
 
 interface Props extends HTMLAttributes<'a'> {
-	href: string;
-	external?: boolean;
-	block?: boolean;
-	class?: string;
-	'class:list'?: any;
-	variant?: LinkVariant;
-	animation?: LinkAnimation;
-	size?: LinkSize;
-	debug?: boolean;
-	centerText?: boolean;
+  href: string;
+  external?: boolean;
+  block?: boolean;
+  class?: string;
+  'class:list'?: any;
+  variant?: LinkVariant;
+  animation?: LinkAnimation;
+  size?: LinkSize;
+  debug?: boolean;
+  centerText?: boolean;
 }
 
 const {
-	href,
-	external = false,
-	block = false,
-	variant = 'default',
-	animation = 'none',
-	size = 'md',
-	class: className = '',
-	'class:list': classList,
-	debug = false,
-	centerText = false,
-	...rest
+  href,
+  external = false,
+  block = false,
+  variant = 'default',
+  animation = 'none',
+  size = 'md',
+  class: className = '',
+  'class:list': classList,
+  debug = false,
+  centerText = false,
+  ...rest
 } = Astro.props;
 
 // 构建类名
 const classes = [
-	// 基础链接样式
-	'cosy:items-center cosy:cursor-pointer cosy:no-underline cosy:transition-all cosy:duration-200',
+  // 基础链接样式
+  'cosy:items-center cosy:cursor-pointer cosy:no-underline cosy:transition-all cosy:duration-200',
 
-	// 显示方式
-	block ? 'cosy:flex cosy:w-full' : 'cosy:inline-flex',
+  // 显示方式
+  block ? 'cosy:flex cosy:w-full' : 'cosy:inline-flex',
 
-	// 变体样式
-	variant === 'primary' && 'cosy:text-primary cosy:hover:text-primary-focus',
-	variant === 'secondary' && 'cosy:text-secondary cosy:hover:text-secondary-focus',
-	variant === 'text' && 'cosy:text-neutral cosy:hover:text-neutral-focus',
-	variant === 'cta' && 'cosy:text-accent cosy:hover:text-accent-focus cosy:font-medium',
-	variant === 'ghost' && 'cosy:text-base-content cosy:hover:text-base-content/80',
-	variant === 'default' && 'cosy:text-base-content cosy:hover:text-base-content/90',
-	variant === 'light' && 'cosy:text-white cosy:hover:text-white/90 cosy:font-medium',
+  // 变体样式
+  variant === 'primary' && 'cosy:text-primary cosy:hover:text-primary-focus',
+  variant === 'secondary' &&
+    'cosy:text-secondary cosy:hover:text-secondary-focus',
+  variant === 'text' && 'cosy:text-neutral cosy:hover:text-neutral-focus',
+  variant === 'cta' &&
+    'cosy:text-accent cosy:hover:text-accent-focus cosy:font-medium',
+  variant === 'ghost' &&
+    'cosy:text-base-content cosy:hover:text-base-content/80',
+  variant === 'default' &&
+    'cosy:text-base-content cosy:hover:text-base-content/90',
+  variant === 'light' &&
+    'cosy:text-white cosy:hover:text-white/90 cosy:font-medium',
 
-	// 尺寸样式
-	size === 'sm' && 'cosy:text-sm',
-	size === 'md' && 'cosy:text-base',
-	size === 'lg' && 'cosy:text-lg',
+  // 尺寸样式
+  size === 'sm' && 'cosy:text-sm',
+  size === 'md' && 'cosy:text-base',
+  size === 'lg' && 'cosy:text-lg',
 
-	// 动画效果
-	animation === 'hover-lift' && 'cosy:hover:-translate-y-0.5 cosy:transition-transform',
-	animation === 'hover-glow' && 'cosy:hover:brightness-125 cosy:transition-[filter]',
-	animation === 'hover-scale' && 'cosy:hover:scale-105 cosy:transition-transform',
+  // 动画效果
+  animation === 'hover-lift' &&
+    'cosy:hover:-translate-y-0.5 cosy:transition-transform',
+  animation === 'hover-glow' &&
+    'cosy:hover:brightness-125 cosy:transition-[filter]',
+  animation === 'hover-scale' &&
+    'cosy:hover:scale-105 cosy:transition-transform',
 
-	// 自定义类名
-	className,
+  // 自定义类名
+  className,
 ];
 
 // 文本居中样式
 if (centerText) {
-	classes.push('cosy:justify-center cosy:text-center');
+  classes.push('cosy:justify-center cosy:text-center');
 }
 
 // 调试样式
 if (debug) {
-	classes.push('cosy:border cosy:border-dashed cosy:border-red-500');
+  classes.push('cosy:border cosy:border-dashed cosy:border-red-500');
 }
 ---
 
 <a
-	href={href}
-	class:list={[classes, classList]}
-	{...external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
-	{...rest}>
-	<slot />
+  href={href}
+  class:list={[classes, classList]}
+  {...external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
+  {...rest}
+>
+  <slot />
 </a>

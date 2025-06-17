@@ -28,49 +28,59 @@ import { Icon } from 'cosy-ui';
 -->
 
 <script setup lang="ts">
-import '../../style.ts'
-import { computed } from 'vue'
-import { iconData } from '../../assets/iconData'
+import '../../style.ts';
+import { computed } from 'vue';
+import { iconData } from '../../assets/iconData';
 
 interface Props {
-    /**
-     * 图标名称，必须在iconData中存在
-     */
-    name: string;
-    /**
-     * 图标大小
-     * @default "24px"
-     */
-    size?: string;
-    /**
-     * 图标颜色
-     * @default "currentColor"
-     */
-    color?: string;
-    /**
-     * 自定义类名
-     */
-    class?: string;
+  /**
+   * 图标名称，必须在iconData中存在
+   */
+  name: string;
+  /**
+   * 图标大小
+   * @default "24px"
+   */
+  size?: string;
+  /**
+   * 图标颜色
+   * @default "currentColor"
+   */
+  color?: string;
+  /**
+   * 自定义类名
+   */
+  class?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    size: '24px',
-    color: 'currentColor',
-    class: ''
-})
+  size: '24px',
+  color: 'currentColor',
+  class: '',
+});
 
 const icon = computed(() => {
-    return iconData[props.name] || null
-})
+  return iconData[props.name] || null;
+});
 
 const viewBox = computed(() => {
-    return icon.value?.viewBox || '0 0 24 24'
-})
+  return icon.value?.viewBox || '0 0 24 24';
+});
 </script>
 
 <template>
-    <svg xmlns="http://www.w3.org/2000/svg" :width="size" :height="size" :viewBox="viewBox" fill="none" :stroke="color"
-        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" :class="props.class">
-        <path v-if="icon" :d="icon.path" />
-    </svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    :width="size"
+    :height="size"
+    :viewBox="viewBox"
+    fill="none"
+    :stroke="color"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    :class="props.class"
+  >
+    <path v-if="icon" :d="icon.path" />
+  </svg>
 </template>

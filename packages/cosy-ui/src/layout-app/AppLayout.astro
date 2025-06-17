@@ -167,93 +167,102 @@
 
 import '../style.ts';
 import {
-	BaseLayout,
-	type IAppLayoutProps,
-	Footer,
-	Header,
-	Container,
-	Main,
-	Sidebar,
+  BaseLayout,
+  type IAppLayoutProps,
+  Footer,
+  Header,
+  Container,
+  Main,
+  Sidebar,
 } from '../index';
 import { ClientRouter } from 'astro:transitions';
 
 interface Props extends IAppLayoutProps {}
 
 const {
-	sidebarConfig,
-	showHeader = true,
-	showFooter = true,
-	showSidebar = true,
-	class: className,
-	'class:list': classList,
-	debug = false,
-	mainContentConfig,
-	footerConfig,
-	headerConfig,
-	metaConfig,
-	...rest
+  sidebarConfig,
+  showHeader = true,
+  showFooter = true,
+  showSidebar = true,
+  class: className,
+  'class:list': classList,
+  debug = false,
+  mainContentConfig,
+  footerConfig,
+  headerConfig,
+  metaConfig,
+  ...rest
 }: Props = Astro.props;
 ---
 
 <BaseLayout
-	title={metaConfig.title}
-	description={metaConfig.description}
-	keywords={metaConfig.keywords}
-	author={metaConfig.author}
-	robots={metaConfig.robots}
-	head={metaConfig.head}
-	favicon={metaConfig.favicon}
-	debug={debug}
-	{...rest}>
-	<ClientRouter />
-	{
-		showHeader && (
-			<Header {...headerConfig} debug={debug} transition:persist>
-				<div slot="navbar-start">
-					<slot name="navbar-start" />
-				</div>
-				<div slot="navbar-center">
-					<slot name="navbar-center" />
-				</div>
-				<div slot="navbar-end">
-					<slot name="navbar-end" />
-				</div>
-			</Header>
-		)
-	}
+  title={metaConfig.title}
+  description={metaConfig.description}
+  keywords={metaConfig.keywords}
+  author={metaConfig.author}
+  robots={metaConfig.robots}
+  head={metaConfig.head}
+  favicon={metaConfig.favicon}
+  debug={debug}
+  {...rest}
+>
+  <ClientRouter />
+  {
+    showHeader && (
+      <Header {...headerConfig} debug={debug} transition:persist>
+        <div slot="navbar-start">
+          <slot name="navbar-start" />
+        </div>
+        <div slot="navbar-center">
+          <slot name="navbar-center" />
+        </div>
+        <div slot="navbar-end">
+          <slot name="navbar-end" />
+        </div>
+      </Header>
+    )
+  }
 
-	<Container flex="row" gap="md" size="full" padding="none">
-		<!-- 侧边栏容器 -->
-		{showSidebar && <Sidebar {...sidebarConfig} transition:name="sidebar" transition:persist />}
+  <Container flex="row" gap="md" size="full" padding="none">
+    <!-- 侧边栏容器 -->
+    {
+      showSidebar && (
+        <Sidebar
+          {...sidebarConfig}
+          transition:name="sidebar"
+          transition:persist
+        />
+      )
+    }
 
-		<!-- 主内容区域 -->
-		<Main {...mainContentConfig}>
-			<slot />
-		</Main>
-	</Container>
+    <!-- 主内容区域 -->
+    <Main {...mainContentConfig}>
+      <slot />
+    </Main>
+  </Container>
 
-	<!-- Footer -->
-	{
-		showFooter && (
-			<Container size="full" padding="none" transition:persist>
-				<Footer {...footerConfig} />
-			</Container>
-		)
-	}
+  <!-- Footer -->
+  {
+    showFooter && (
+      <Container size="full" padding="none" transition:persist>
+        <Footer {...footerConfig} />
+      </Container>
+    )
+  }
 
-	<script>
-		// Handle sidebar toggle
-		const sidebarToggle = document.getElementById('sidebar-toggle');
-		const sidebar = document.getElementById('sidebar-mobile');
-		const sidebarOverlay = document.getElementById('sidebar-overlay');
+  <script>
+    // Handle sidebar toggle
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebar = document.getElementById('sidebar-mobile');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
 
-		function toggleSidebar() {
-			sidebar?.classList.toggle('cosy:hidden');
-			sidebarOverlay?.classList.toggle('cosy:hidden');
-			document.body.classList.toggle('cosy:overflow-hidden');
-		}
+    function toggleSidebar() {
+      sidebar?.classList.toggle('cosy:hidden');
+      sidebarOverlay?.classList.toggle('cosy:hidden');
+      document.body.classList.toggle('cosy:overflow-hidden');
+    }
 
-		sidebarToggle?.addEventListener('click', toggleSidebar);
-		sidebarOverlay?.addEventListener('click', toggleSidebar);
-	</script>
+    sidebarToggle?.addEventListener('click', toggleSidebar);
+    sidebarOverlay?.addEventListener('click', toggleSidebar);
+  </script>
 </BaseLayout>

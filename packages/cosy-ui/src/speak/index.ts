@@ -9,6 +9,6 @@ export { Speak, SpeakBasic, SpeakGrid };
 
 // 导出示例源代码
 export const SpeakExampleCodes = {
-	Basic: extractSimpleExample(BasicSourceCode, 'Speak'),
-	Grid: extractSimpleExample(GridSourceCode, 'Speak'),
+  Basic: extractSimpleExample(BasicSourceCode, 'Speak'),
+  Grid: extractSimpleExample(GridSourceCode, 'Speak'),
 };

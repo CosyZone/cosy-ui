@@ -113,27 +113,27 @@ const { class: className = '', width = 'medium', style = '' } = Astro.props;
 
 // 根据宽度设置对应的 Tailwind 类名
 const widthClasses = {
-	narrow: 'cosy:max-w-2xl',
-	medium: 'cosy:max-w-4xl',
-	wide: 'cosy:max-w-6xl',
-	full: 'cosy:w-full',
+  narrow: 'cosy:max-w-2xl',
+  medium: 'cosy:max-w-4xl',
+  wide: 'cosy:max-w-6xl',
+  full: 'cosy:w-full',
 }[width];
 
 // 基础样式类
 const baseClasses = [
-	'cosy:prose', // 使用 Tailwind Typography 插件的基础类
-	'cosy:prose-slate',
-	'cosy:w-full',
-	'cosy:mx-auto',
-	'cosy:dark:prose-invert', // 暗黑模式支持,
-	'cosy:m-0',
-	'cosy:min-h-screen',
-	'cosy:pb-96',
-	widthClasses,
-	className,
+  'cosy:prose', // 使用 Tailwind Typography 插件的基础类
+  'cosy:prose-slate',
+  'cosy:w-full',
+  'cosy:mx-auto',
+  'cosy:dark:prose-invert', // 暗黑模式支持,
+  'cosy:m-0',
+  'cosy:min-h-screen',
+  'cosy:pb-96',
+  widthClasses,
+  className,
 ];
 ---
 
 <article class:list={baseClasses} style={style}>
-	<slot />
+  <slot />
 </article>

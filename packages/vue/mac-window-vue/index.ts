@@ -17,20 +17,20 @@ export { default as MacWindow } from './MacWindow.vue';
 
 // 将示例组件整合为一个对象导出
 export const MacWindowExamples = {
-    Basic,
-    WithTabs,
-    WithEvents,
-    WithToolbar,
-    WithSidebar,
-    CustomHeight,
+  Basic,
+  WithTabs,
+  WithEvents,
+  WithToolbar,
+  WithSidebar,
+  CustomHeight,
 };
 
 // 导出示例组件的源代码（简化版本）
 export const MacWindowExampleCodes = {
-    Basic: extractSimpleExample(BasicSource, 'MacWindow'),
-    WithTabs: extractSimpleExample(WithTabsSource, 'MacWindow'),
-    WithEvents: extractSimpleExample(WithEventsSource, 'MacWindow'),
-    WithToolbar: extractSimpleExample(WithToolbarSource, 'MacWindow'),
-    WithSidebar: extractSimpleExample(WithSidebarSource, 'MacWindow'),
-    CustomHeight: extractSimpleExample(CustomHeightSource, 'MacWindow'),
+  Basic: extractSimpleExample(BasicSource, 'MacWindow'),
+  WithTabs: extractSimpleExample(WithTabsSource, 'MacWindow'),
+  WithEvents: extractSimpleExample(WithEventsSource, 'MacWindow'),
+  WithToolbar: extractSimpleExample(WithToolbarSource, 'MacWindow'),
+  WithSidebar: extractSimpleExample(WithSidebarSource, 'MacWindow'),
+  CustomHeight: extractSimpleExample(CustomHeightSource, 'MacWindow'),
 };

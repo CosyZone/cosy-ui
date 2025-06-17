@@ -29,12 +29,12 @@ import 'package:hotkey_manager/hotkey_manager.dart';
 void main() async {
   // 确保 Flutter 绑定初始化
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // 初始化 hotkey_manager
   await hotKeyManager.initialize();
 
   // 其他初始化代码...
-  
+
   runApp(const MyApp());
 }
 ```
@@ -234,11 +234,13 @@ class _HotKeySettingsPageState extends State<HotKeySettingsPage> {
 ## 常见问题
 
 1. **为什么快捷键在某些应用中不生效？**
+
    - 某些应用可能会拦截系统级快捷键
    - 检查是否有其他应用注册了相同的快捷键
    - 确保应用有适当的系统权限
 
 2. **如何处理快捷键冲突？**
+
    ```dart
    try {
      await hotKeyManager.register(hotKey);

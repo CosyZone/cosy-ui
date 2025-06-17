@@ -7,5 +7,5 @@ export { SidebarNav, SidebarNavBasic };
 
 // 导出示例源代码
 export const SidebarNavExampleCodes = {
-	Basic: extractSimpleExample(BasicSourceCode, 'SidebarNav'),
+  Basic: extractSimpleExample(BasicSourceCode, 'SidebarNav'),
 };

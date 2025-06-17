@@ -40,81 +40,91 @@ const showDialog = ref(false);
 -->
 
 <script lang="ts">
-import '../../style'
-import { defineComponent } from 'vue'
+import '../../style';
+import { defineComponent } from 'vue';
 
 type MessageKey = 'confirm';
 
 interface Messages {
-    [key: string]: {
-        [key in MessageKey]: string;
-    };
+  [key: string]: {
+    [key in MessageKey]: string;
+  };
 }
 
 export default defineComponent({
-    name: 'AlertDialog',
-    props: {
-        modelValue: {
-            type: Boolean,
-            required: true
-        },
-        message: {
-            type: String,
-            required: true
-        },
-        lang: {
-            type: String as () => 'zh-cn' | 'en',
-            default: 'zh-cn'
-        }
+  name: 'AlertDialog',
+  props: {
+    modelValue: {
+      type: Boolean,
+      required: true,
     },
-    emits: ['update:modelValue'],
-    setup(props) {
-        // 多语言文本
-        const t = (key: MessageKey) => {
-            const messages: Messages = {
-                'zh-cn': {
-                    confirm: '确定'
-                },
-                'en': {
-                    confirm: 'OK'
-                }
-            };
-            return messages[props.lang][key];
-        };
+    message: {
+      type: String,
+      required: true,
+    },
+    lang: {
+      type: String as () => 'zh-cn' | 'en',
+      default: 'zh-cn',
+    },
+  },
+  emits: ['update:modelValue'],
+  setup(props) {
+    // 多语言文本
+    const t = (key: MessageKey) => {
+      const messages: Messages = {
+        'zh-cn': {
+          confirm: '确定',
+        },
+        en: {
+          confirm: 'OK',
+        },
+      };
+      return messages[props.lang][key];
+    };
 
-        return {
-            t
-        };
-    }
-})
+    return {
+      t,
+    };
+  },
+});
 </script>
 
 <template>
-    <Transition name="fade" class="cosy:transition-opacity cosy:duration-200 cosy:ease-in-out">
-        <div v-if="modelValue"
-            class="cosy:fixed cosy:inset-0 cosy:z-50 cosy:flex cosy:items-center cosy:justify-center cosy:opacity-100 cosy:enter:opacity-0 cosy:leave:opacity-0">
-            <!-- 背景遮罩 -->
-            <div class="cosy:absolute cosy:inset-0 cosy:bg-base-200/80 cosy:backdrop-blur-sm"
-                @click="$emit('update:modelValue', false)" />
+  <Transition
+    name="fade"
+    class="cosy:transition-opacity cosy:duration-200 cosy:ease-in-out"
+  >
+    <div
+      v-if="modelValue"
+      class="cosy:fixed cosy:inset-0 cosy:z-50 cosy:flex cosy:items-center cosy:justify-center cosy:opacity-100 cosy:enter:opacity-0 cosy:leave:opacity-0"
+    >
+      <!-- 背景遮罩 -->
+      <div
+        class="cosy:absolute cosy:inset-0 cosy:bg-base-200/80 cosy:backdrop-blur-sm"
+        @click="$emit('update:modelValue', false)"
+      />
 
-            <!-- 对话框 -->
-            <div
-                class="cosy:relative cosy:bg-base-100 cosy:rounded-xl cosy:shadow-lg cosy:w-[400px] cosy:transform cosy:transition-all">
-                <!-- 内容区域 -->
-                <div class="cosy:p-6">
-                    <p class="cosy:text-base-content">
-                        {{ message }}
-                    </p>
-                </div>
-
-                <!-- 按钮区域 -->
-                <div class="cosy:flex cosy:border-t cosy:border-base-300">
-                    <button class="cosy:btn cosy:btn-ghost cosy:flex-1 cosy:rounded-none cosy:rounded-b-xl"
-                        @click="$emit('update:modelValue', false)">
-                        {{ t('confirm') }}
-                    </button>
-                </div>
-            </div>
+      <!-- 对话框 -->
+      <div
+        class="cosy:relative cosy:bg-base-100 cosy:rounded-xl cosy:shadow-lg cosy:w-[400px] cosy:transform cosy:transition-all"
+      >
+        <!-- 内容区域 -->
+        <div class="cosy:p-6">
+          <p class="cosy:text-base-content">
+            {{ message }}
+          </p>
         </div>
-    </Transition>
+
+        <!-- 按钮区域 -->
+        <div class="cosy:flex cosy:border-t cosy:border-base-300">
+          <button
+            class="cosy:btn cosy:btn-ghost cosy:flex-1 cosy:rounded-none cosy:rounded-b-xl"
+            @click="$emit('update:modelValue', false)"
+          >
+            {{ t('confirm') }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </Transition>
 </template>
