@@ -43,15 +43,15 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install
+        run: cd packages/docs && pnpm install
 
       - name: Build documentation site
-        run: pnpm build:docs
+        run: cd packages/docs && pnpm build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist-docs
+          path: packages/docs/dist
 
   deploy:
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment

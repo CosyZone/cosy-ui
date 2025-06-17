@@ -30,6 +30,7 @@ jobs:
         run: |
           npm config set //registry.npmjs.org/:_authToken ${NODE_AUTH_TOKEN}
           npm whoami
+          cd packages/astro
           pnpm i
           pnpm build
           npm publish --access public --no-git-checks
