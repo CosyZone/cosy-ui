@@ -144,7 +144,7 @@ jobs:
           echo "VERSION=${new_version}" >> $GITHUB_ENV
           
       - name: Build Packages
-        run: cd packages/astro && pnpm build
+        run: cd packages/cosy-ui && pnpm build
         
       - name: Commit Version Changes
         run: |
