@@ -10,7 +10,7 @@ alwaysApply: true
 ## 组件基本规范
 
 ### 1. 样式使用规范
-- **必须**导入 [style.ts](mdc:src/style.ts) 在组件顶部
+- **必须**导入 [style.ts](mdc:packages/cosy-ui/style.ts) 在组件顶部
 - **优先**使用 daisyUI 的类，如：`card`、`card-body`、`card-title`等
 - **辅助**使用 Tailwind CSS，但必须加 `cosy:` 前缀
 - **正确示例**：`cosy:mx-auto`、`cosy:dark:bg-red-500`
@@ -20,7 +20,7 @@ alwaysApply: true
 ### 2. Props接口规范
 - Props接口必须与组件文档中的 `@props` 描述**完全一致**
 - 如果文档提到某个属性，接口中必须定义
-- 参考 [Card.astro](mdc:src/card/Card.astro) 的完整Props定义
+- 参考 [Card.astro](mdc:packages/cosy-ui/src-astro/card/Card.astro) 的完整Props定义
 
 ### 3. 组件文档规范
 - 必须包含完整的JSDoc注释：`@component`、`@description`、`@usage`、`@props`、`@slots`
@@ -40,7 +40,7 @@ alwaysApply: true
 - **功能特性** - 根据组件特点创建对应示例
 
 ### 3. Package导出结构
-参考 [alert/index.ts](mdc:src/alert/index.ts)：
+参考 [alert/index.ts](mdc:packages/cosy-ui/src-astro/alert/index.ts)：
 ```typescript
 export const ComponentPackage = {
     Component,
@@ -53,20 +53,20 @@ export const ComponentPackage = {
 ```
 
 ### 4. 容器组件规范
-- 使用 [CodeContainer](mdc:src/index.ts) 来展示代码
+- 使用 [CodeContainer](mdc:packages/cosy-ui/src-astro/code-container/CodeContainer.astro) 来展示代码
 - 导入对应的示例组件和源码（`?raw`）
-- 参考 [ECardBasicContainer.astro](mdc:src/card/ECardBasicContainer.astro)
+- 参考 [ECardBasicContainer.astro](mdc:packages/cosy-ui/src-astro/card/ECardBasicContainer.astro)
 
 ## 组件文档规范
 
 ### 1. 文档文件结构
-- 中文文档：`docs/courses/zh-cn/components/{component}.mdx`
-- 英文文档：`docs/courses/en/components/{component}.mdx`
+- 中文文档：`packages/cosy-ui-docs/content/courses/zh-cn/components/{component}.mdx`
+- 英文文档：`packages/cosy-ui-docs/content/courses/en/components/{component}.mdx`
 
 ### 2. 文档内容规范
 - frontmatter 必须包含：`title`、`description`、`folder: false`、`order`
 - 必须导入：`import { Component, ComponentPackage } from '@cosy/index';`
-- 文档结构参考 [alert.mdx](mdc:docs/courses/zh-cn/components/alert.mdx)
+- 文档结构参考 [alert.mdx](mdc:packages/cosy-ui-docs/content/courses/zh-cn/components/alert.mdx)
 
 ### 3. 文档排序规范
 - `order` 值必须根据文档文件名的字母顺序生成
@@ -86,7 +86,7 @@ export const ComponentPackage = {
 - 确认是否使用了自定义CSS类而非daisyUI类
 - 检查Tailwind类是否正确添加了 `cosy:` 前缀
 - 验证Props接口是否与文档描述一致
-- 确认是否导入了 [style.ts](mdc:src/style.ts)
+- 确认是否导入了 [style.ts](mdc:packages/cosy-ui/style.ts)
 
 ### 2. 修复组件
 - 替换自定义CSS类为daisyUI标准类
@@ -100,7 +100,7 @@ export const ComponentPackage = {
 - 更新index.ts，导出ComponentPackage
 
 ### 4. 全局暴露组件
-- 在 [index_astro.ts](mdc:src/index_astro.ts) 中添加组件导出
+- 在 [index-astro.ts](mdc:packages/cosy-ui/index-astro.ts) 中添加组件导出
 - 按字母顺序插入到正确位置：`export * from './component-name';`
 - 确保组件可以通过 `@cosy/index` 访问
 
@@ -121,9 +121,9 @@ export const ComponentPackage = {
 1. **CSS类错误**：不要使用未定义的自定义类
 2. **前缀错误**：Tailwind类必须加 `cosy:` 前缀
 3. **接口不完整**：Props接口必须与文档一致
-4. **导入缺失**：忘记导入 [style.ts](mdc:src/style.ts)
+4. **导入缺失**：忘记导入 [style.ts](mdc:packages/cosy-ui/style.ts)
 5. **Package缺失**：忘记创建ComponentPackage导致文档中的示例无法工作
-6. **全局导出缺失**：忘记在 [index_astro.ts](mdc:src/index_astro.ts) 中导出组件
+6. **全局导出缺失**：忘记在 [index-astro.ts](mdc:packages/cosy-ui/index-astro.ts) 中导出组件
 7. **构建验证缺失**：忘记执行 `pnpm build` 验证构建
 8. **文档排序错误**：文档的order值不符合字母顺序
 
@@ -131,7 +131,7 @@ export const ComponentPackage = {
 
 修改/新建组件时，确保以下项目都已完成：
 
-- [ ] 导入 [style.ts](mdc:src/style.ts)
+- [ ] 导入 [style.ts](mdc:packages/cosy-ui/style.ts)
 - [ ] 使用daisyUI类和正确的Tailwind前缀
 - [ ] Props接口完整且与文档一致
 - [ ] 功能实现与文档描述一致
@@ -139,7 +139,7 @@ export const ComponentPackage = {
 - [ ] 创建了自定义样式示例
 - [ ] 创建了对应的容器组件
 - [ ] 更新了index.ts导出ComponentPackage
-- [ ] 在 [index_astro.ts](mdc:src/index_astro.ts) 中按字母顺序添加了组件导出
+- [ ] 在 [index-astro.ts](mdc:packages/cosy-ui/index-astro.ts) 中按字母顺序添加了组件导出
 - [ ] 创建了中英文文档
 - [ ] 文档中的所有示例都能正常工作
 - [ ] 文档order值按字母顺序正确设置
