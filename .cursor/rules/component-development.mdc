@@ -93,7 +93,12 @@ export const ComponentPackage = {
 - 创建对应的容器组件
 - 更新index.ts，导出ComponentPackage
 
-### 4. 创建文档
+### 4. 全局暴露组件
+- 在 [index_astro.ts](mdc:src/index_astro.ts) 中添加组件导出
+- 按字母顺序插入到正确位置：`export * from './component-name';`
+- 确保组件可以通过 `@cosy/index` 访问
+
+### 5. 创建文档
 - 创建中英文文档文件
 - 按照规范结构编写文档内容
 - 确保所有示例都能正常工作
@@ -105,6 +110,7 @@ export const ComponentPackage = {
 3. **接口不完整**：Props接口必须与文档一致
 4. **导入缺失**：忘记导入 [style.ts](mdc:src/style.ts)
 5. **Package缺失**：忘记创建ComponentPackage导致文档中的示例无法工作
+6. **全局导出缺失**：忘记在 [index_astro.ts](mdc:src/index_astro.ts) 中导出组件
 
 ## 检查清单
 
@@ -118,5 +124,6 @@ export const ComponentPackage = {
 - [ ] 创建了自定义样式示例
 - [ ] 创建了对应的容器组件
 - [ ] 更新了index.ts导出ComponentPackage
+- [ ] 在 [index_astro.ts](mdc:src/index_astro.ts) 中按字母顺序添加了组件导出
 - [ ] 创建了中英文文档
 - [ ] 文档中的所有示例都能正常工作

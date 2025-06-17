@@ -1,0 +1,50 @@
+---
+title: 'Contact'
+description: '用于展示企业或个人的联系信息，支持多种联系方式和社交媒体链接'
+folder: false
+order: 3
+---
+
+import { Contact, ContactPackage } from '@cosy/index';
+
+## 简介
+
+Contact组件用于展示企业或个人的联系信息，支持多种联系方式（邮件、电话、地址）和社交媒体链接。组件设计简洁专业，适合在企业网站的联系页面、页脚或关于我们页面中使用。
+
+组件特性：
+- 支持多种联系方式：邮件、电话、地址、网站
+- 内置社交媒体链接：GitHub、Twitter、Facebook、LinkedIn
+- 自动生成可点击的链接（邮件、电话、网站）
+- 提供紧凑模式，适应不同布局需求
+- 支持自定义标题和描述
+- 美观的图标设计，清晰易识别
+
+## 基础用法
+
+最简单的联系信息展示：
+
+<ContactPackage.ContactContainers.Basic/>
+
+## 带标题的联系信息
+
+通过title和description属性添加标题和描述：
+
+<ContactPackage.ContactContainers.WithTitle/>
+
+## 带社交媒体链接
+
+添加社交媒体链接，展示完整的联系方式：
+
+<ContactPackage.ContactContainers.Social/>
+
+## 紧凑模式
+
+使用compact属性创建更紧凑的布局：
+
+<ContactPackage.ContactContainers.Compact/>
+
+## 自定义样式
+
+通过class属性自定义联系信息卡片样式：
+
+<ContactPackage.ContactContainers.CustomStyle/> 
