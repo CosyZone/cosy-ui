@@ -23,6 +23,10 @@ async function cleanupDist() {
         }
 
         console.log('✅ 清理完成：只保留了 app.css（只需要构建好的 app.css 文件）');
+
+        // 复制 style.ts 到 dist
+        await fs.copyFile(path.join(__dirname, '../style.ts'), path.join(distPath, 'style.ts'));
+
     } catch (error) {
         console.error('❌ 清理失败:', error);
         process.exit(1);
