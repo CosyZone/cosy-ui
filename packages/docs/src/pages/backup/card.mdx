@@ -1,0 +1,162 @@
+---
+title: 'Card'
+description: '用于在页面中展示相关内容的容器，支持标题、描述、图片以及链接形式'
+folder: false
+order: 3
+---
+
+import { Card, CodeExample, getProductImage, getExampleImage } from 'packages/astro/src/index';
+
+## 基础卡片
+
+最简单的卡片展示，包含标题和描述
+
+<CodeExample
+  code={`<Card 
+  title="卡片标题" 
+  subtitle="卡片描述文本"
+>
+  这里是卡片的其他内容
+</Card>`}
+>
+  <Card 
+    title="卡片标题" 
+    subtitle="卡片描述文本"
+  >
+    这里是卡片的其他内容
+  </Card>
+</CodeExample>
+
+## 带图片的卡片
+
+通过 imageUrl 属性添加图片，为卡片增加视觉吸引力
+
+<CodeExample
+  code={`<Card 
+  title="产品名称" 
+  subtitle="产品描述" 
+  imageUrl={getProductImage({ width: 400, height: 200 })}
+>
+  其他产品信息
+</Card>`}
+>
+  <Card 
+    title="产品名称" 
+    subtitle="产品描述" 
+    imageUrl={getProductImage({ width: 400, height: 200 })}
+  >
+    其他产品信息
+  </Card>
+</CodeExample>
+
+## 可点击的卡片
+
+通过 href 属性使整个卡片成为一个链接
+
+<CodeExample
+  code={`<Card 
+  title="文章标题" 
+  subtitle="文章摘要" 
+  imageUrl={getExampleImage({ width: 400, height: 200, tag: 'article' })} 
+  href="#"
+/>`}
+>
+  <Card 
+    title="文章标题" 
+    subtitle="文章摘要" 
+    imageUrl={getExampleImage({ width: 400, height: 200, tag: 'article' })} 
+    href="#"
+  />
+</CodeExample>
+
+## 紧凑模式
+
+适合在空间有限的情况下使用，通过 compact 属性减少内边距
+
+<CodeExample
+  code={`<Card 
+  title="紧凑卡片" 
+  subtitle="更小的内边距" 
+  compact
+>
+  适合在空间有限的情况下使用
+</Card>`}
+>
+  <Card 
+    title="紧凑卡片" 
+    subtitle="更小的内边距" 
+    compact
+  >
+    适合在空间有限的情况下使用
+  </Card>
+</CodeExample>
+
+## 自定义样式
+
+通过 class 属性添加自定义样式类
+
+<CodeExample
+  code={`<Card 
+  title="定制卡片" 
+  subtitle="使用自定义样式" 
+  class="cosy:bg-primary cosy:text-white"
+>
+  卡片内容会继承主题色和白色文本
+</Card>`}
+>
+  <Card 
+    title="定制卡片" 
+    subtitle="使用自定义样式" 
+    class="cosy:bg-primary cosy:text-white"
+  >
+    卡片内容会继承主题色和白色文本
+  </Card>
+</CodeExample>
+
+## 在页面布局中使用
+
+Card 组件可以灵活地用于各种页面布局
+
+```astro
+<div class="cosy:grid cosy:grid-cols-1 cosy:md:grid-cols-2 cosy:lg:grid-cols-3 cosy:gap-6">
+  <Card 
+    title="功能一" 
+    subtitle="功能描述" 
+    imageUrl={getExampleImage({ width: 400, height: 200, tag: 'feature', randomSeed: 1 })}
+  />
+  <Card 
+    title="功能二" 
+    subtitle="功能描述" 
+    imageUrl={getExampleImage({ width: 400, height: 200, tag: 'feature', randomSeed: 2 })}
+  />
+  <Card 
+    title="功能三" 
+    subtitle="功能描述" 
+    imageUrl={getExampleImage({ width: 400, height: 200, tag: 'feature', randomSeed: 3 })}
+  />
+</div>
+```
+
+## 卡片分组
+
+将多个卡片组合在一起展示相关内容
+
+```astro
+<section>
+  <h2>我们的产品</h2>
+  <div class="cosy:flex cosy:flex-wrap cosy:gap-4">
+    <Card 
+      title="产品一" 
+      subtitle="产品描述" 
+      imageUrl={getProductImage({ randomSeed: 'product1' })} 
+      href="/products/product1"
+    />
+    <Card 
+      title="产品二" 
+      subtitle="产品描述" 
+      imageUrl={getProductImage({ randomSeed: 'product2' })} 
+      href="/products/product2"
+    />
+  </div>
+</section>
+``` 

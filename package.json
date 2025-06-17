@@ -1,87 +1,49 @@
 {
-    "name": "@coffic/cosy-ui",
-    "version": "0.7.4",
-    "description": "An astro component library",
-    "author": {
-        "name": "nookery",
-        "url": "https://github.com/nookery"
-    },
-    "repository": {
-        "url": "https://github.com/CofficLab/cosy-ui"
-    },
-    "license": "MIT",
-    "keywords": [
-        "astro-integration",
-        "astro-component",
-        "withastro",
-        "astro",
-        "cosy-ui"
-    ],
-    "homepage": "https://cofficlab.github.io/cosy-ui/en/",
-    "publishConfig": {
-        "access": "public"
-    },
-    "sideEffects": false,
-    "main": "./dist/index.js",
-    "exports": {
-        ".": "./dist/index.js",
-        "./collection": "./dist/index_collection.js",
-        "./icons": "./dist/index_icons.js",
-        "./vue": "./dist/index_vue.js"
-    },
-    "files": [
-        "dist",
-        "index.ts"
-    ],
-    "scripts": {
-        "dev": "astro dev --host 0.0.0.0 --port 6688",
-        "preview:docs": "astro preview --host 0.0.0.0 --port 4330 --outDir dist-docs",
-        "preview": "npm run preview:docs",
-        "build": "npm run build:cosy && npm run build:docs",
-        "build:cosy": "vite build && tsx scripts/post-build.ts",
-        "build:docs": "astro build",
-        "check": "astro check",
-        "lint": "eslint ."
-    },
+    "name": "@coffic/cosy-ui-workspace",
+    "version": "0.8.0",
     "type": "module",
-    "peerDependencies": {
-        "astro": "^5.1.3"
+    "private": true,
+    "description": "Cosy UI component library workspace",
+    "scripts": {
+        "build": "pnpm --recursive run build",
+        "build:astro": "pnpm --filter @coffic/cosy-ui build",
+        "build:docs": "pnpm --filter @coffic/cosy-ui-docs build",
+        "dev": "pnpm --recursive run dev",
+        "check": "pnpm --recursive run check",
+        "test": "pnpm --recursive run test",
+        "clean": "pnpm --recursive run clean",
+        "format": "prettier --write \"**/*.{js,jsx,ts,tsx,astro,vue,md,mdx,json}\"",
+        "lint": "eslint . --ext .js,.jsx,.ts,.tsx,.astro,.vue",
+        "type-check": "pnpm --recursive run type-check"
     },
-    "dependencies": {
-        "astro-integration-kit": "^0.18.0",
-        "fs-extra": "^11.3.0",
-        "html-to-image": "^1.11.13"
-    },
+    "workspaces": [
+        "packages/*"
+    ],
     "devDependencies": {
-        "@astrojs/check": "^0.9.4",
-        "@astrojs/mdx": "^4.2.6",
-        "@astrojs/ts-plugin": "^1.10.4",
-        "@eslint/js": "^9.27.0",
-        "@tailwindcss/typography": "^0.5.16",
-        "@tailwindcss/vite": "^4.1.7",
-        "@tsconfig/node22": "^22.0.2",
-        "@types/chai": "^5.2.2",
-        "@types/eslint": "^9.6.1",
-        "@types/fs-extra": "^11.0.4",
-        "@types/mocha": "^10.0.10",
-        "@types/node": "^22.15.19",
-        "@types/react": "^19.1.4",
-        "@typescript-eslint/parser": "^8.32.1",
-        "astro": "^5.7.13",
-        "chai": "^4.5.0",
-        "daisyui": "^5.0.35",
-        "eslint": "^9.27.0",
-        "eslint-plugin-astro": "^1.3.1",
-        "globals": "^16.1.0",
-        "mocha": "^10.8.2",
         "prettier": "^3.5.3",
         "prettier-plugin-astro": "^0.14.1",
-        "rollup-plugin-copy": "^3.5.0",
-        "sharp": "^0.33.5",
-        "tailwindcss": "^4.1.7",
-        "tsx": "^4.19.4",
-        "typescript": "^5.8.3",
-        "typescript-eslint": "^8.32.1",
-        "vite": "^6.3.5"
-    }
+        "@typescript-eslint/eslint-plugin": "^8.15.0",
+        "@typescript-eslint/parser": "^8.15.0",
+        "eslint": "^9.15.0",
+        "eslint-plugin-astro": "^1.3.1",
+        "typescript": "^5.8.3"
+    },
+    "engines": {
+        "node": ">=18.0.0",
+        "pnpm": ">=8.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/your-org/cosy-ui.git"
+    },
+    "keywords": [
+        "astro",
+        "component-library",
+        "ui",
+        "typescript",
+        "tailwindcss",
+        "daisyui"
+    ],
+    "author": "Your Name",
+    "license": "MIT"
 }

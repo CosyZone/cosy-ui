@@ -1,0 +1,39 @@
+---
+title: 'CodeContainer'
+description: 'A container component for displaying code examples, supporting multi-tab switching, code preview, and copy functionality'
+folder: false
+order: 5
+---
+
+import { CodeContainer, CodeContainerBasic, CodeContainerMultiple, CodeContainerExampleCodes, CodeExample } from 'packages/astro/src/index';
+
+## Introduction
+
+The CodeContainer component is used to display code examples, providing toggle functionality between preview and code views, supporting multiple example tabs and code copying.
+
+Component features:
+- Supports switching between multiple example tabs
+- Provides toggle between preview and code views
+- Built-in code copying functionality
+- Supports example titles and descriptions
+- Responsive design, adapts to different screen sizes
+
+## Basic Usage
+
+The simplest code example display:
+
+  <CodeContainerBasic />
+
+## Multi-tab Examples
+
+Display multiple related code examples:
+
+  <CodeContainerMultiple />
+
+
+## Notes
+
+1. Each example content must be contained in a div with `id="tab-n"`, where n starts from 1
+2. The length of the codes array must match the number of example contents
+3. The lengths of the titles and descriptions arrays should be the same as the codes array, if provided
+4. Example content can contain any valid HTML/CSS/JavaScript code

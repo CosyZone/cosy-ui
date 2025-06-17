@@ -1,0 +1,70 @@
+---
+title: 'ThemeSwitcher'
+description: '主题切换组件，允许用户在多个预定义主题之间切换'
+folder: false
+order: 27
+---
+
+import { ThemeSwitcher, CodeExample } from 'packages/astro/src/index';
+
+ThemeSwitcher 组件提供一个主题切换下拉菜单，允许用户在多个预定义主题之间切换。组件会记住用户的主题选择，并在页面重新加载或访问网站的其他页面时保持该主题。
+
+## 基础用法
+
+默认情况下，组件会显示一个主题切换图标，点击后显示可用主题列表：
+
+<CodeExample
+  code={`<ThemeSwitcher />`}
+>
+  <ThemeSwitcher />
+</CodeExample>
+
+## 自定义位置
+
+您可以通过 `class` 属性自定义主题切换器的位置和样式：
+
+<CodeExample
+  code={`<ThemeSwitcher class="cosy:border cosy:border-gray-300 cosy:rounded-full cosy:p-1" />`}
+>
+  <ThemeSwitcher class="cosy:border cosy:border-gray-300 cosy:rounded-full cosy:p-1" />
+</CodeExample>
+
+## 属性
+
+| 属性名 | 类型 | 默认值 | 说明 |
+| ------ | ---- | ------ | ---- |
+| class | string | - | 自定义类名 |
+
+## 可用主题
+
+ThemeSwitcher 组件默认提供以下主题选项：
+
+1. **Default** - 默认主题
+2. **Light** - 亮色主题
+3. **Dark** - 暗色主题
+4. **Pastel** - 柔和色彩主题
+5. **Lemonade** - 柠檬主题
+6. **Cupcake** - 蛋糕主题
+7. **Nord** - 北欧风格主题
+8. **Business** - 商务主题
+9. **Luxury** - 奢华主题
+
+## 工作原理
+
+ThemeSwitcher 组件的主要工作流程：
+
+1. 组件加载后，从本地存储中检查是否有已保存的主题设置
+2. 如果有，应用该主题；如果没有，应用默认主题
+3. 显示主题切换图标和下拉菜单
+4. 当用户选择一个新主题时：
+   - 在文档根元素上设置 `data-theme` 属性
+   - 将选择保存到本地存储中
+   - 视觉上标记当前激活的主题
+
+组件利用 Astro 的视图过渡支持，确保在页面导航后仍保持选择的主题。
+
+## 最佳实践
+
+- 在网站的顶部导航栏或设置面板中使用此组件
+- 确保您的网站样式适配所有支持的主题
+- 考虑在用户首次访问时根据其系统偏好（亮色/暗色模式）自动设置初始主题 

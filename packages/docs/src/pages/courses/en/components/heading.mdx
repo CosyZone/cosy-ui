@@ -1,0 +1,76 @@
+---
+title: 'Heading'
+description: 'Used to create headings of various levels, providing consistent typography styles and flexible customization options'
+folder: false
+order: 12
+---
+
+import { Heading, CodeExample } from 'packages/astro/src/index';
+
+# Heading
+
+The Heading component is used to create headings of various levels, providing consistent typography styles and flexible customization options. This component is suitable for content pages that require a clear hierarchical structure, such as documentation, blogs, and product introductions.
+
+## Basic Usage
+
+Use the `level` property to specify the heading level (1-6):
+
+<CodeExample
+  code={`<Heading level={1}>Heading Level 1</Heading>
+<Heading level={2}>Heading Level 2</Heading>
+<Heading level={3}>Heading Level 3</Heading>
+<Heading level={4}>Heading Level 4</Heading>
+<Heading level={5}>Heading Level 5</Heading>
+<Heading level={6}>Heading Level 6</Heading>`}
+>
+  <Heading level={1}>Heading Level 1</Heading>
+  <Heading level={2}>Heading Level 2</Heading>
+  <Heading level={3}>Heading Level 3</Heading>
+  <Heading level={4}>Heading Level 4</Heading>
+  <Heading level={5}>Heading Level 5</Heading>
+  <Heading level={6}>Heading Level 6</Heading>
+</CodeExample>
+
+## Custom Styles
+
+You can customize heading styles using the `color` and `underline` properties:
+
+<CodeExample
+  code={`<Heading level={2} color="primary">Primary Color Heading</Heading>
+<Heading level={2} color="secondary">Secondary Color Heading</Heading>
+<Heading level={2} color="accent">Accent Color Heading</Heading>
+<Heading level={2} color="muted">Muted Color Heading</Heading>
+<Heading level={2} underline>Underlined Heading</Heading>`}
+>
+  <Heading level={2} color="primary">Primary Color Heading</Heading>
+  <Heading level={2} color="secondary">Secondary Color Heading</Heading>
+  <Heading level={2} color="accent">Accent Color Heading</Heading>
+  <Heading level={2} color="muted">Muted Color Heading</Heading>
+  <Heading level={2} underline>Underlined Heading</Heading>
+</CodeExample>
+
+## Alignment
+
+Use the `align` property to control heading alignment:
+
+<CodeExample
+  code={`<Heading level={3} align="left">Left-aligned Heading</Heading>
+<Heading level={3} align="center">Center-aligned Heading</Heading>
+<Heading level={3} align="right">Right-aligned Heading</Heading>`}
+>
+  <Heading level={3} align="left">Left-aligned Heading</Heading>
+  <Heading level={3} align="center">Center-aligned Heading</Heading>
+  <Heading level={3} align="right">Right-aligned Heading</Heading>
+</CodeExample>
+
+## Heading with Anchor
+
+Use the `id` and `anchor` properties to create headings with anchor links:
+
+<CodeExample
+  code={`<Heading level={2} id="section-example" anchor>Heading with Anchor</Heading>`}
+>
+  <Heading level={2} id="section-example" anchor>Heading with Anchor</Heading>
+</CodeExample>
+
+When users hover over the heading, the anchor icon will appear, which can be clicked to jump to the corresponding location.

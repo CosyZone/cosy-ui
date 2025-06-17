@@ -1,23 +1,51 @@
 {
-  "extends": "astro/tsconfigs/strict",
-  "include": [
-    ".astro/types.d.ts",
-    "**/*"
-  ],
-  "exclude": [
-    "dist",
-    "dist-docs"
-  ],
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@cosy/*": [
-        "./src/*"
-      ],
-      "@docs/*": [
-        "./docs/*"
-      ]
+    "compilerOptions": {
+        "target": "ESNext",
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "es6"
+        ],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "preserve",
+        "jsxImportSource": "astro",
+        "declaration": true,
+        "declarationMap": true,
+        "outDir": "dist",
+        "baseUrl": ".",
+        "paths": {
+            "@cosy/*": [
+                "./packages/astro/src/*"
+            ],
+            "@cosy/docs/*": [
+                "./packages/docs/src/*"
+            ]
+        }
     },
-    "jsx": "preserve"
-  }
+    "include": [
+        "packages/*/src/**/*",
+        "packages/*/types/**/*",
+        "docs/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist",
+        "**/node_modules",
+        "**/dist"
+    ],
+    "references": [
+        {
+            "path": "./packages/astro"
+        }
+    ]
 }

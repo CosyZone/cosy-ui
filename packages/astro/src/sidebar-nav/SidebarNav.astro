@@ -1,0 +1,117 @@
+---
+/**
+ * SidebarNav组件
+ *
+ * 用于渲染侧边栏的导航内容
+ */
+
+import { isPathMatch } from '../utils/path.ts';
+import '../style.ts';
+import type { ISidebarItem } from '../types/sidebar.ts';
+
+interface Props {
+	/**
+	 * 侧边栏项目
+	 */
+	sidebarItems: ISidebarItem[];
+
+	/**
+	 * 当前路径
+	 */
+	currentPath: string;
+
+	/**
+	 * 是否开启调试模式，显示边框
+	 * @default false
+	 */
+	debug?: boolean;
+
+	/**
+	 * 自定义类名
+	 */
+	class?: string;
+}
+
+const { sidebarItems, currentPath, debug = false, class: className } = Astro.props;
+
+const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
+---
+
+<nav
+	data-sidebar-nav
+	data-current-path={currentPath}
+	class:list={['cosy:p-4', debugClass, className]}>
+	{
+		sidebarItems.map((section: ISidebarItem) => (
+			<div class:list={['cosy:mb-6', debugClass]}>
+				<h3 class:list={['cosy:font-bold cosy:mb-2 cosy:text-base-content/70', debugClass]}>
+					{section.text}
+				</h3>
+				<ul class:list={['cosy:menu cosy:bg-base-200 cosy:rounded-box cosy:w-56', debugClass]}>
+					{section.items?.map((item: ISidebarItem) => {
+						const isActive = isPathMatch(currentPath, item.href);
+						return (
+							<li class:list={[debugClass]}>
+								<a
+									data-sidebar-item
+									data-current-path={currentPath}
+									href={item.href}
+									class:list={[
+										'cosy:hover:bg-base-300',
+										{ 'cosy:menu-active': isActive },
+										debugClass,
+									]}>
+									{item.text}
+								</a>
+								{item.items && (
+									<ul class:list={[debugClass]}>
+										{item.items.map((subitem: ISidebarItem) => {
+											const isSubActive = isPathMatch(currentPath, subitem.href);
+											return (
+												<li class:list={[debugClass]}>
+													<a
+														data-sidebar-item
+														data-current-path={currentPath}
+														href={subitem.href}
+														class:list={[
+															'cosy:hover:bg-base-300',
+															{ 'cosy:menu-active': isSubActive },
+															debugClass,
+														]}>
+														{subitem.text}
+													</a>
+													{subitem.items && (
+														<ul class:list={[debugClass]}>
+															{subitem.items.map((subsubitem: ISidebarItem) => {
+																const isSubSubActive = isPathMatch(currentPath, subsubitem.href);
+																return (
+																	<li class:list={[debugClass]}>
+																		<a
+																			data-sidebar-item
+																			data-current-path={currentPath}
+																			href={subsubitem.href}
+																			class:list={[
+																				'cosy:hover:bg-base-300',
+																				{ 'cosy:active': isSubSubActive },
+																				debugClass,
+																			]}>
+																			{subsubitem.text}
+																		</a>
+																	</li>
+																);
+															})}
+														</ul>
+													)}
+												</li>
+											);
+										})}
+									</ul>
+								)}
+							</li>
+						);
+					})}
+				</ul>
+			</div>
+		))
+	}
+</nav>

@@ -1,0 +1,37 @@
+---
+import Image from './Image.astro';
+---
+
+<div class="cosy:grid cosy:grid-cols-2 cosy:gap-4">
+	<Image
+		src="https://picsum.photos/400/300"
+		alt="骨架屏加载"
+		width={400}
+		height={300}
+		loadingIndicator="skeleton"
+	/>
+
+	<Image
+		src="https://picsum.photos/400/300"
+		alt="进度条加载"
+		width={400}
+		height={300}
+		loadingIndicator="progress"
+	/>
+
+	<Image
+		src="https://picsum.photos/400/300"
+		alt="加载动画"
+		width={400}
+		height={300}
+		loadingIndicator="spinner"
+	/>
+
+	<Image
+		src="https://invalid-image-url.jpg"
+		alt="加载错误示例"
+		width={400}
+		height={300}
+		showError={true}
+	/>
+</div>

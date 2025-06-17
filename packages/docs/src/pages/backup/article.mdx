@@ -1,0 +1,217 @@
+---
+title: 'Article'
+description: '用于展示格式化的文章内容，提供了一套完整的排版样式'
+folder: false
+order: 1
+---
+
+import { Article, CodeExample } from 'packages/astro/src/index';
+
+Article 组件用于展示格式化的文章内容，提供了一套完整的排版样式，使文章内容更易于阅读和理解。该组件适用于博客文章、文档页面、新闻内容等需要良好排版的场景。
+
+## 基础用法
+
+使用 Article 组件包裹您的内容：
+
+<CodeExample
+  code={`<Article>
+  <h1>文章标题</h1>
+  <p>这是一段文章内容，可以包含<a href="#">链接</a>和<code>行内代码</code>。</p>
+  
+  <h2>二级标题</h2>
+  <p>这是二级标题下的段落内容。</p>
+</Article>`}
+>
+  <Article>
+    <h1>文章标题</h1>
+    <p>这是一段文章内容，可以包含<a href="#">链接</a>和<code>行内代码</code>。</p>
+    
+    <h2>二级标题</h2>
+    <p>这是二级标题下的段落内容。</p>
+  </Article>
+</CodeExample>
+
+## 不同宽度选项
+
+Article 组件提供了四种宽度选项：
+
+<CodeExample
+  code={`<Article width="narrow">
+  <h2>窄宽度文章</h2>
+  <p>这是一篇窄宽度的文章，最大宽度为 2xl (672px)。</p>
+</Article>`}
+>
+  <Article width="narrow">
+    <h2>窄宽度文章</h2>
+    <p>这是一篇窄宽度的文章，最大宽度为 2xl (672px)。</p>
+  </Article>
+</CodeExample>
+
+<CodeExample
+  code={`<Article width="medium">
+  <h2>中等宽度文章（默认）</h2>
+  <p>这是一篇中等宽度的文章，最大宽度为 4xl (896px)。</p>
+</Article>`}
+>
+  <Article width="medium">
+    <h2>中等宽度文章（默认）</h2>
+    <p>这是一篇中等宽度的文章，最大宽度为 4xl (896px)。</p>
+  </Article>
+</CodeExample>
+
+<CodeExample
+  code={`<Article width="wide">
+  <h2>宽幅文章</h2>
+  <p>这是一篇宽幅文章，最大宽度为 6xl (1152px)。</p>
+</Article>`}
+>
+  <Article width="wide">
+    <h2>宽幅文章</h2>
+    <p>这是一篇宽幅文章，最大宽度为 6xl (1152px)。</p>
+  </Article>
+</CodeExample>
+
+<CodeExample
+  code={`<Article width="full">
+  <h2>全宽文章</h2>
+  <p>这是一篇全宽文章，没有最大宽度限制。</p>
+</Article>`}
+>
+  <Article width="full">
+    <h2>全宽文章</h2>
+    <p>这是一篇全宽文章，没有最大宽度限制。</p>
+  </Article>
+</CodeExample>
+
+## 支持的元素
+
+Article 组件自动为以下元素应用样式：
+
+- 标题 (h1-h6)
+- 段落 (p)
+- 列表 (ul, ol, li)
+- 链接 (a)
+- 引用块 (blockquote)
+- 代码 (code, pre)
+- 图片 (img)
+- 水平线 (hr)
+- 表格 (table, th, td)
+
+## 完整示例
+
+<CodeExample
+  code={`<Article>
+  <h1>文章示例</h1>
+  <p>这是一段介绍性文字，可以包含<a href="#">链接</a>和<code>行内代码</code>。</p>
+
+  <h2>二级标题</h2>
+  <p>这是二级标题下的段落内容。下面是一个引用块：</p>
+
+  <blockquote>
+    这是一段引用内容，可以用来强调重要信息或引用他人的话。
+  </blockquote>
+
+  <h3>三级标题</h3>
+  <ul>
+    <li>无序列表项一</li>
+    <li>无序列表项二</li>
+  </ul>
+
+  <h4>四级标题</h4>
+  <ol>
+    <li>有序列表项一</li>
+    <li>有序列表项二</li>
+  </ol>
+
+  <pre><code>// 这是一个代码块
+function example() {
+  return "示例代码";
+}</code></pre>
+
+  <hr />
+
+  <table>
+    <thead>
+      <tr>
+        <th>表头一</th>
+        <th>表头二</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>单元格 1</td>
+        <td>单元格 2</td>
+      </tr>
+      <tr>
+        <td>单元格 3</td>
+        <td>单元格 4</td>
+      </tr>
+    </tbody>
+  </table>
+</Article>`}
+>
+  <Article>
+    <h1>文章示例</h1>
+    <p>这是一段介绍性文字，可以包含<a href="#">链接</a>和<code>行内代码</code>。</p>
+
+    <h2>二级标题</h2>
+    <p>这是二级标题下的段落内容。下面是一个引用块：</p>
+
+    <blockquote>
+      这是一段引用内容，可以用来强调重要信息或引用他人的话。
+    </blockquote>
+
+    <h3>三级标题</h3>
+    <ul>
+      <li>无序列表项一</li>
+      <li>无序列表项二</li>
+    </ul>
+
+    <h4>四级标题</h4>
+    <ol>
+      <li>有序列表项一</li>
+      <li>有序列表项二</li>
+    </ol>
+
+    <pre><code>{`// 这是一个代码块
+function example() {
+  return "示例代码";
+}`}</code></pre>
+
+    <hr />
+
+    <table>
+      <thead>
+        <tr>
+          <th>表头一</th>
+          <th>表头二</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>单元格 1</td>
+          <td>单元格 2</td>
+        </tr>
+        <tr>
+          <td>单元格 3</td>
+          <td>单元格 4</td>
+        </tr>
+      </tbody>
+    </table>
+  </Article>
+</CodeExample>
+
+## 属性
+
+| 属性名 | 类型 | 默认值 | 说明 |
+| ------ | ---- | ------ | ---- |
+| class | string | - | 自定义类名 |
+| width | string | "medium" | 文章宽度，支持 narrow(窄), medium(中等), wide(宽), full(全宽) |
+| style | string | - | 内联样式 |
+
+## 最佳实践
+
+- 使用合适的 HTML 语义标签，保持内容的结构化
+- 为长文章内容选择较窄的宽度，提高可读性
+- 利用 Article 组件与其他组件（如 TableOfContents）配合使用，提供更好的内容导航体验
+- 在响应式布局中，考虑在移动设备上使用较窄的宽度 

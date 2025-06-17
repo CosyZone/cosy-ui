@@ -1,0 +1,139 @@
+---
+/**
+ * @component Article
+ *
+ * @description
+ * Article 组件用于展示格式化的文章内容，提供了一套完整的排版样式，使文章内容更易于阅读和理解。
+ * 该组件适用于博客文章、文档页面、新闻内容等需要良好排版的场景。
+ *
+ * @design
+ * 设计理念：
+ * 1. 可读性优先 - 使用合理的行高、字体大小和间距，提高长文本的阅读体验
+ * 2. 层次分明 - 通过不同级别标题的样式区分，建立清晰的内容层次结构
+ * 3. 响应式设计 - 在不同设备上保持良好的阅读体验
+ * 4. 暗黑模式支持 - 自动适应系统的暗黑模式设置
+ *
+ * 视觉特点：
+ * - 合理的文本行高和段落间距
+ * - 标题使用较粗的字重和较小的行高
+ * - 列表项有适当的缩进和间距
+ * - 引用块使用左侧边框和斜体样式
+ * - 代码块和行内代码有不同的背景色
+ * - 表格有清晰的边框和背景色区分
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Article>
+ *   <h1>文章标题</h1>
+ *   <p>这是一段文章内容...</p>
+ * </Article>
+ * ```
+ *
+ * 添加自定义类名：
+ * ```astro
+ * <Article class="my-custom-article">
+ *   <h2>带自定义类的文章</h2>
+ *   <p>这是一段文章内容...</p>
+ * </Article>
+ * ```
+ *
+ * 设置文章宽度：
+ * ```astro
+ * <Article width="narrow">
+ *   <h2>窄宽度文章</h2>
+ *   <p>这是一段文章内容...</p>
+ * </Article>
+ * ```
+ *
+ * 完整示例：
+ * ```astro
+ * <Article>
+ *   <h1>文章标题</h1>
+ *   <p>这是一段介绍性文字，可以包含<a href="#">链接</a>和<code>行内代码</code>。</p>
+ *
+ *   <h2>二级标题</h2>
+ *   <p>这是二级标题下的段落内容。</p>
+ *
+ *   <blockquote>
+ *     这是一段引用内容，可以用来强调重要信息或引用他人的话。
+ *   </blockquote>
+ *
+ *   <h3>三级标题</h3>
+ *   <ul>
+ *     <li>无序列表项一</li>
+ *     <li>无序列表项二</li>
+ *   </ul>
+ *
+ *   <h4>四级标题</h4>
+ *   <ol>
+ *     <li>有序列表项一</li>
+ *     <li>有序列表项二</li>
+ *   </ol>
+ *
+ *   <pre><code>// 这是一个代码块
+ * function example() {
+ *   return "示例代码";
+ * }</code></pre>
+ * </Article>
+ * ```
+ *
+ * @props
+ * @prop {string} [class] - 自定义 CSS 类名，会与组件内置的类名合并
+ * @prop {string} [width="medium"] - 文章宽度，可选值为 "narrow"(窄), "medium"(中等), "wide"(宽), "full"(全宽)
+ *
+ * @slots
+ * @slot default - 文章内容，可以包含任何 HTML 元素
+ *
+ * @cssFeatures
+ * 组件支持的 HTML 元素样式：
+ * - 标题 (h1-h6)：不同级别的标题有不同的大小和间距
+ * - 段落 (p)：适当的行高和段落间距
+ * - 列表 (ul, ol, li)：合理的缩进和项目间距
+ * - 链接 (a)：带下划线的彩色文本
+ * - 引用块 (blockquote)：带左侧边框的斜体文本
+ * - 代码 (code, pre)：带背景色的等宽字体
+ * - 图片 (img)：自适应宽度
+ * - 水平线 (hr)：简洁的分隔线
+ * - 表格 (table, th, td)：清晰的表格样式
+ *
+ * @accessibility
+ * - 使用语义化的 article 元素作为容器
+ * - 保持足够的颜色对比度，确保在不同模式下的可读性
+ * - 支持系统的暗黑模式设置
+ */
+
+// 导入样式
+import '../style.ts';
+import type { IArticleProps } from '../types/article.ts';
+
+export interface Props extends IArticleProps {}
+
+const { class: className = '', width = 'medium', style = '' } = Astro.props;
+
+// 根据宽度设置对应的 Tailwind 类名
+const widthClasses = {
+	narrow: 'cosy:max-w-2xl',
+	medium: 'cosy:max-w-4xl',
+	wide: 'cosy:max-w-6xl',
+	full: 'cosy:w-full',
+}[width];
+
+// 基础样式类
+const baseClasses = [
+	'cosy:prose', // 使用 Tailwind Typography 插件的基础类
+	'cosy:prose-slate',
+	'cosy:w-full',
+	'cosy:mx-auto',
+	'cosy:dark:prose-invert', // 暗黑模式支持,
+	'cosy:m-0',
+	'cosy:min-h-screen',
+	'cosy:pb-96',
+	widthClasses,
+	className,
+];
+---
+
+<article class:list={baseClasses} style={style}>
+	<slot />
+</article>
