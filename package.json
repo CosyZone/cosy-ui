@@ -8,6 +8,7 @@
     "build:astro": "pnpm --filter @coffic/cosy-ui build",
     "build:docs": "pnpm build:astro && pnpm --filter @coffic/cosy-ui-docs build",
     "dev:docs": "pnpm build:astro && pnpm --filter @coffic/cosy-ui-docs dev",
+    "preview:docs": "pnpm build:docs && pnpm --filter @coffic/cosy-ui-docs preview",
     "check": "pnpm --recursive run check",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,astro,vue,md,mdx,json}\""
   },
