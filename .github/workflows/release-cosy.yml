@@ -115,7 +115,7 @@ jobs:
           
       - name: Bump Version
         run: |
-          cd packages/astro
+          cd packages/cosy-ui
           current_version=$(node -p "require('./package.json').version")
           IFS='.' read -r major minor patch <<< "$current_version"
           
