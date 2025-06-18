@@ -140,11 +140,11 @@ jobs:
           new_version="${major}.${minor}.${new_patch}"
           
           # 更新 package.json 中的版本号
-          npm version $new_version --no-git-tag-version
+          pnpm version $new_version --no-git-tag-version
           echo "VERSION=${new_version}" >> $GITHUB_ENV
           
       - name: Build Packages
-        run: cd packages/astro && pnpm build
+        run: cd packages/cosy-ui && pnpm build
         
       - name: Commit Version Changes
         run: |
@@ -174,7 +174,7 @@ jobs:
             git checkout $branch
             git pull origin $branch
             
-            npm version ${{ env.VERSION }} --no-git-tag-version
+            pnpm version ${{ env.VERSION }} --no-git-tag-version
             
             git add .
             git commit -m "chore: sync version ${{ env.VERSION }} from $current_branch branch"

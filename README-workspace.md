@@ -75,9 +75,9 @@ pnpm lint
 
 主要的 Astro 组件库包，包含所有可复用的 UI 组件。
 
-- **位置**: `packages/astro/`
+- **位置**: `packages/cosy-ui/`
 - **开发服务器**: `http://localhost:4321`
-- **构建输出**: `packages/astro/dist/`
+- **构建输出**: `packages/cosy-ui/dist/`
 
 ### @coffic/cosy-ui-docs
 
