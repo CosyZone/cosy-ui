@@ -1,0 +1,50 @@
+---
+title: 'URL Utility Functions'
+description: 'Provides URL processing utility functions to help determine URL types and characteristics'
+folder: false
+order: 2
+---
+
+import { CodeExample, isGitHubRepo, isGitLabRepo } from '@coffic/cosy-ui';
+
+Cosy UI provides a series of URL-related utility functions to help you easily detect URL types and characteristics.
+
+## Importing Utility Functions
+
+```ts
+import { isGitHubRepo, isGitLabRepo } from '@coffic/cosy-ui';
+```
+
+## Basic Usage
+
+Determine if a URL is a code repository link:
+
+```ts
+// Determine if it's a GitHub repository link
+const isGitHub = isGitHubRepo('https://github.com/user/repo');
+console.log(isGitHub); // true
+
+// Determine if it's a GitLab repository link
+const isGitLab = isGitLabRepo('https://gitlab.com/user/repo');
+console.log(isGitLab); // true
+```
+
+## Practical Application Scenarios
+
+These functions can be used in various scenarios:
+
+- Display different icons based on link type
+- Add special styles or behaviors to code repository links
+- Identify specific types of URLs in form validation
+
+```ts
+// Display different icons based on link type
+function getRepoIcon(url: string) {
+  if (isGitHubRepo(url)) {
+    return 'github-icon';
+  } else if (isGitLabRepo(url)) {
+    return 'gitlab-icon';
+  }
+  return 'default-icon';
+}
+```

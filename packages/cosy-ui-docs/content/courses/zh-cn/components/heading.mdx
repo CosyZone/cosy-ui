@@ -1,0 +1,94 @@
+---
+title: 'Heading'
+description: '用于创建各级标题，提供一致的排版样式和灵活的定制选项'
+folder: false
+order: 12
+---
+
+import { Heading, CodeExample } from '@coffic/cosy-ui';
+
+# 标题 (Heading)
+
+Heading 组件用于创建各级标题，提供一致的排版样式和灵活的定制选项。该组件适用于需要清晰层次结构的内容页面，如文档、博客和产品介绍等。
+
+## 基础用法
+
+使用 `level` 属性指定标题级别（1-6）：
+
+<CodeExample
+  code={`<Heading level={1}>一级标题</Heading>
+<Heading level={2}>二级标题</Heading>
+<Heading level={3}>三级标题</Heading>
+<Heading level={4}>四级标题</Heading>
+<Heading level={5}>五级标题</Heading>
+<Heading level={6}>六级标题</Heading>`}
+>
+  <Heading level={1}>一级标题</Heading>
+  <Heading level={2}>二级标题</Heading>
+  <Heading level={3}>三级标题</Heading>
+  <Heading level={4}>四级标题</Heading>
+  <Heading level={5}>五级标题</Heading>
+  <Heading level={6}>六级标题</Heading>
+</CodeExample>
+
+## 自定义样式
+
+您可以通过 `color` 和 `underline` 属性自定义标题样式：
+
+<CodeExample
+  code={`<Heading level={2} color="primary">主色调标题</Heading>
+<Heading level={2} color="secondary">次要色调标题</Heading>
+<Heading level={2} color="accent">强调色标题</Heading>
+<Heading level={2} color="muted">柔和色标题</Heading>
+<Heading level={2} underline>带下划线的标题</Heading>`}
+>
+  <Heading level={2} color="primary">
+    主色调标题
+  </Heading>
+  <Heading level={2} color="secondary">
+    次要色调标题
+  </Heading>
+  <Heading level={2} color="accent">
+    强调色标题
+  </Heading>
+  <Heading level={2} color="muted">
+    柔和色标题
+  </Heading>
+  <Heading level={2} underline>
+    带下划线的标题
+  </Heading>
+</CodeExample>
+
+## 对齐方式
+
+使用 `align` 属性控制标题对齐方式：
+
+<CodeExample
+  code={`<Heading level={3} align="left">左对齐标题</Heading>
+<Heading level={3} align="center">居中对齐标题</Heading>
+<Heading level={3} align="right">右对齐标题</Heading>`}
+>
+  <Heading level={3} align="left">
+    左对齐标题
+  </Heading>
+  <Heading level={3} align="center">
+    居中对齐标题
+  </Heading>
+  <Heading level={3} align="right">
+    右对齐标题
+  </Heading>
+</CodeExample>
+
+## 带锚点的标题
+
+使用 `id` 和 `anchor` 属性创建带有锚点链接的标题：
+
+<CodeExample
+  code={`<Heading level={2} id="section-example" anchor>带锚点的标题</Heading>`}
+>
+  <Heading level={2} id="section-example" anchor>
+    带锚点的标题
+  </Heading>
+</CodeExample>
+
+当用户悬停在标题上时，锚点图标将显示出来，点击可跳转到对应位置。

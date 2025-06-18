@@ -14,17 +14,18 @@
 
 ## 快速开始
 
-Installation
+### 安装
 
 ```bash
 npm install @coffic/cosy-ui
 ```
 
-Usage in an Astro component:
+### 在 Astro 组件中使用
 
-```js
+```astro
 ---
-import { Button } from "@coffic/cosy-ui";
+import { Button } from '@coffic/cosy-ui';
 ---
+
 <Button>Hi</Button>
 ```

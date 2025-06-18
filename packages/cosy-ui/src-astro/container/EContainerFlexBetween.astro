@@ -1,0 +1,23 @@
+---
+/**
+ * @component Container.FlexBetween
+ *
+ * @description
+ * 展示Container组件的两端对齐(justify="between")布局功能。
+ */
+import '../../style.ts';
+import { Container } from '../../index-astro';
+---
+
+<Container flex="row" justify="between" border padding="md">
+  <div class="cosy:bg-primary cosy:text-primary-content cosy:p-4 cosy:rounded">
+    左侧
+  </div>
+  <div
+    class="cosy:bg-secondary cosy:text-secondary-content cosy:p-4 cosy:rounded">
+    中间
+  </div>
+  <div class="cosy:bg-accent cosy:text-accent-content cosy:p-4 cosy:rounded">
+    右侧
+  </div>
+</Container>

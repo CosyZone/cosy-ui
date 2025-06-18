@@ -1,0 +1,135 @@
+---
+/**
+ * @component Error403
+ *
+ * @description
+ * 403禁止访问错误页面组件，用于显示用户无权限访问页面的提示信息。
+ * 提供清晰的权限说明和相关的操作建议。
+ *
+ * @design
+ * 设计理念：
+ * 1. 权限说明 - 清楚地说明用户当前无权限访问该资源
+ * 2. 操作引导 - 提供登录、联系管理员等有用的操作选项
+ * 3. 专业外观 - 保持与网站整体设计风格一致
+ * 4. 用户友好 - 避免让用户感到困惑或挫败
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Error403 />
+ * ```
+ *
+ * 带调试信息：
+ * ```astro
+ * <Error403 debugKVs={{
+ *   requiredRole: 'admin',
+ *   currentRole: 'user',
+ *   resource: '/admin/dashboard'
+ * }} />
+ * ```
+ *
+ * @props
+ * @prop {Record<string, string>} [debugKVs={}] - 调试信息键值对，用于开发和调试
+ * @prop {string} [loginUrl] - 登录页面URL，如果提供将显示登录按钮
+ * @prop {string} [contactUrl] - 联系我们页面URL，如果提供将显示联系按钮
+ */
+
+import '../../style.ts';
+import { LinkUtil } from '../utils/link.ts';
+
+const baseUrl = LinkUtil.getBaseUrl();
+const path = Astro.url.pathname;
+
+interface Error403Props {
+  debugKVs?: Record<string, string>;
+  loginUrl?: string;
+  contactUrl?: string;
+}
+
+const { debugKVs = {}, loginUrl, contactUrl } = Astro.props as Error403Props;
+---
+
+<div
+  class="cosy:min-h-screen cosy:flex cosy:flex-col cosy:items-center cosy:justify-center cosy:bg-base-100 cosy:p-4">
+  <div class="cosy:max-w-md cosy:w-full cosy:text-center cosy:space-y-6">
+    <!-- 错误代码 -->
+    <div class="cosy:mb-8">
+      <h1
+        class="cosy:text-9xl cosy:font-bold cosy:text-warning cosy:leading-none cosy:no-underline">
+        403
+      </h1>
+      <div
+        class="cosy:w-24 cosy:h-1 cosy:bg-warning cosy:mx-auto cosy:mt-4 cosy:rounded-full">
+      </div>
+    </div>
+
+    <!-- 错误信息 -->
+    <div class="cosy:space-y-4">
+      <h2 class="cosy:text-2xl cosy:font-semibold cosy:text-base-content">
+        禁止访问
+      </h2>
+      <p class="cosy:text-base-content/70 cosy:text-lg">
+        抱歉，您没有权限访问此页面。
+      </p>
+    </div>
+
+    <!-- 路径信息 -->
+    <div
+      class="cosy:bg-base-200 cosy:rounded-lg cosy:p-4 cosy:text-sm cosy:text-base-content/60">
+      <p>
+        <span class="cosy:font-medium">路径：</span><code
+          class="cosy:text-warning">{path}</code
+        >
+      </p>
+    </div>
+
+    <!-- 调试信息 -->
+    {
+      Object.keys(debugKVs).length > 0 && (
+        <details class="cosy:bg-base-200 cosy:rounded-lg cosy:p-4 cosy:text-left">
+          <summary class="cosy:cursor-pointer cosy:font-medium cosy:text-base-content">
+            权限信息
+          </summary>
+          <div class="cosy:mt-3 cosy:space-y-2">
+            {Object.entries(debugKVs).map(([key, value]) => (
+              <div class="cosy:text-sm">
+                <span class="cosy:font-medium cosy:text-base-content">
+                  {key}:
+                </span>
+                <span class="cosy:text-base-content/70 cosy:ml-2">{value}</span>
+              </div>
+            ))}
+          </div>
+        </details>
+      )
+    }
+
+    <!-- 操作按钮 -->
+    <div class="cosy:space-y-3">
+      {
+        loginUrl && (
+          <a href={loginUrl} class="btn btn-primary cosy:w-full">
+            登录账户
+          </a>
+        )
+      }
+
+      <a href={baseUrl} class="btn btn-outline cosy:w-full cosy:no-underline">
+        返回首页
+      </a>
+
+      {
+        contactUrl && (
+          <a href={contactUrl} class="btn btn-ghost cosy:w-full">
+            联系管理员
+          </a>
+        )
+      }
+    </div>
+
+    <!-- 帮助提示 -->
+    <div class="cosy:text-sm cosy:text-base-content/50 cosy:mt-8">
+      <p>如需访问权限，请联系系统管理员</p>
+    </div>
+  </div>
+</div>

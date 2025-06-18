@@ -1,0 +1,30 @@
+---
+import NavItems from './NavItems.astro';
+
+const navItems = [
+  {
+    label: '首页',
+    href: '/',
+  },
+  {
+    label: '文档',
+    href: '/docs',
+  },
+  {
+    label: '组件',
+    href: '/components',
+  },
+  {
+    label: '博客',
+    href: '/blog',
+  },
+];
+---
+
+<div class="cosy:bg-base-100 cosy:p-4">
+  <NavItems
+    navItems={navItems}
+    activeLink="/docs"
+    linkHeightClass="cosy:h-10"
+  />
+</div>

@@ -1,0 +1,148 @@
+---
+title: 'Section'
+description: 'Component for page content sections, supporting different padding, backgrounds, and spacing'
+folder: false
+order: 21
+---
+
+import { Section, Container, CodeExample } from '@coffic/cosy-ui';
+
+## Basic Section
+
+The simplest way to use Section, for dividing different content areas of a page
+
+<CodeExample
+  code={`<Section>
+  <p>Default section content</p>
+</Section>`}
+>
+  <Section border={true}>
+    <p>Default section content</p>
+  </Section>
+</CodeExample>
+
+## Sections with Different Backgrounds
+
+Set the section's background style using the background property, supporting transparent, white, gray, primary, secondary, and dark
+
+<CodeExample
+  code={`<Section background="gray">
+  <p>Section with gray background</p>
+</Section>`}
+>
+  <Section background="gray" border={true}>
+    <p>Section with gray background</p>
+  </Section>
+</CodeExample>
+
+## Custom Padding
+
+Adjust the section's padding size using the padding property, supporting none, sm, md, lg, and xl
+
+<CodeExample
+  code={`<Section padding="lg">
+  <p>Section with large padding</p>
+</Section>`}
+>
+  <Section padding="lg" border={true}>
+    <p>Section with large padding</p>
+  </Section>
+</CodeExample>
+
+## Centered Content Section
+
+Set the centered property to true to center the section's content
+
+<CodeExample
+  code={`<Section centered={true}>
+  <h3>Centered Title</h3>
+  <p>Centered content</p>
+</Section>`}
+>
+  <Section centered={true} border={true}>
+    <h3>Centered Title</h3>
+    <p>Centered content</p>
+  </Section>
+</CodeExample>
+
+## Section Without Container
+
+Set the container property to false to avoid wrapping content with the internal Container component
+
+<CodeExample
+  code={`<Section container={false} background="primary">
+  <p>Content without container wrapping will occupy the full width of the section</p>
+</Section>`}
+>
+  <Section container={false} background="primary" border={true}>
+    <p>
+      Content without container wrapping will occupy the full width of the
+      section
+    </p>
+  </Section>
+</CodeExample>
+
+## Custom Container Size
+
+Set the size of the internal container using the containerSize property, only effective when container is true
+
+<CodeExample
+  code={`<Section containerSize="sm" background="secondary">
+  <p>Section with small size container</p>
+</Section>`}
+>
+  <Section containerSize="sm" background="secondary" border={true}>
+    <p>Section with small size container</p>
+  </Section>
+</CodeExample>
+
+## Dark Background Section
+
+Use the dark background to create a dark section, text automatically changes to white
+
+<CodeExample
+  code={`<Section background="dark">
+  <h3>Dark Section</h3>
+  <p>Text in dark background sections automatically changes to white</p>
+</Section>`}
+>
+  <Section background="dark" border={true}>
+    <h3>Dark Section</h3>
+    <p>Text in dark background sections automatically changes to white</p>
+  </Section>
+</CodeExample>
+
+## Complete Example
+
+Demonstrating the combined use of various Section component properties
+
+<CodeExample
+  code={`<Section 
+  background="primary" 
+  padding="xl" 
+  centered={true}
+  containerSize="lg"
+  class="my-custom-class"
+>
+  <div class="py-8">
+    <h2 class="text-2xl font-bold mb-4">Featured Section</h2>
+    <p>Using theme color background, extra large padding, centered content display, and large size container</p>
+  </div>
+</Section>`}
+>
+  <Section
+    background="primary"
+    padding="xl"
+    centered={true}
+    containerSize="lg"
+    class="my-custom-class"
+  >
+    <div class="py-8">
+      <h2 class="text-2xl font-bold mb-4">Featured Section</h2>
+      <p>
+        Using theme color background, extra large padding, centered content
+        display, and large size container
+      </p>
+    </div>
+  </Section>
+</CodeExample>
