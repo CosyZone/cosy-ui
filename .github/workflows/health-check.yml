@@ -1,0 +1,266 @@
+---
+# 🏥 Cosy UI 健康检查工作流
+#
+# 这个工作流程用于定时检查 Cosy UI 组件库的健康状态：
+# 1. 验证包在各个包管理器中的可用性（npm、yarn、pnpm）
+# 2. 检查文档网站的可访问性
+# 3. 确保包的基本功能正常
+#
+# 检查频率：
+# - 每天北京时间 09:00 (UTC 01:00)
+# - 每天北京时间 21:00 (UTC 13:00)
+# - 也可以手动触发
+#
+# 如果检查失败，会创建 GitHub Issue 来通知维护者
+
+name: 🏥 Health Check
+
+on:
+  schedule:
+    # 每天 09:00 和 21:00 (北京时间)
+    - cron: '0 1,13 * * *'
+  workflow_dispatch: # 允许手动触发
+  
+  # 在发布后也运行一次检查
+  workflow_run:
+    workflows: ["📦 Release Cosy UI"]
+    types:
+      - completed
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  health-check:
+    name: 🔍 Health Check
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package-manager: [npm, yarn, pnpm]
+        node-version: [18, 20, 22]
+      fail-fast: false # 不要因为一个失败就停止所有检查
+      
+    steps:
+      - name: 📋 Setup Info
+        run: |
+          echo "🔍 开始健康检查..."
+          echo "📦 包管理器: ${{ matrix.package-manager }}"
+          echo "📦 Node.js 版本: ${{ matrix.node-version }}"
+          echo "🌐 文档网站: https://cofficlab.github.io/cosy-ui/en/courses/guide/"
+          
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          
+      - name: 📦 Setup Package Managers
+        run: |
+          # 安装 yarn 和 pnpm
+          npm install -g yarn pnpm
+          
+          # 显示版本信息
+          echo "📋 版本信息:"
+          echo "Node.js: $(node --version)"
+          echo "npm: $(npm --version)"
+          echo "yarn: $(yarn --version)"
+          echo "pnpm: $(pnpm --version)"
+          
+      - name: 🏗️ Create Test Project
+        run: |
+          # 创建临时测试项目
+          mkdir -p /tmp/cosy-ui-test
+          cd /tmp/cosy-ui-test
+          
+          # 初始化项目
+          if [[ "${{ matrix.package-manager }}" == "npm" ]]; then
+            npm init -y
+          elif [[ "${{ matrix.package-manager }}" == "yarn" ]]; then
+            yarn init -y
+          else
+            pnpm init
+          fi
+          
+      - name: 📥 Install Package
+        id: install
+        run: |
+          cd /tmp/cosy-ui-test
+          
+          echo "🔄 使用 ${{ matrix.package-manager }} 安装 @coffic/cosy-ui..."
+          
+          # 根据包管理器安装包
+          if [[ "${{ matrix.package-manager }}" == "npm" ]]; then
+            npm install @coffic/cosy-ui
+            INSTALL_EXIT_CODE=$?
+          elif [[ "${{ matrix.package-manager }}" == "yarn" ]]; then
+            yarn add @coffic/cosy-ui
+            INSTALL_EXIT_CODE=$?
+          else
+            pnpm add @coffic/cosy-ui
+            INSTALL_EXIT_CODE=$?
+          fi
+          
+          if [ $INSTALL_EXIT_CODE -eq 0 ]; then
+            echo "✅ 包安装成功"
+            echo "success=true" >> $GITHUB_OUTPUT
+          else
+            echo "❌ 包安装失败"
+            echo "success=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+          
+      - name: 🔍 Verify Package
+        if: steps.install.outputs.success == 'true'
+        run: |
+          cd /tmp/cosy-ui-test
+          
+          echo "🔍 验证包的完整性..."
+          
+          # 检查包是否正确安装
+          if [[ "${{ matrix.package-manager }}" == "npm" ]]; then
+            npm list @coffic/cosy-ui
+          elif [[ "${{ matrix.package-manager }}" == "yarn" ]]; then
+            yarn list @coffic/cosy-ui
+          else
+            pnpm list @coffic/cosy-ui
+          fi
+          
+          # 检查关键文件是否存在
+          if [ -f "node_modules/@coffic/cosy-ui/package.json" ]; then
+            echo "✅ package.json 存在"
+            cat node_modules/@coffic/cosy-ui/package.json | jq '.version'
+          else
+            echo "❌ package.json 不存在"
+            exit 1
+          fi
+          
+          # 检查主要导出文件
+          if [ -f "node_modules/@coffic/cosy-ui/dist/index-astro.ts" ]; then
+            echo "✅ 主要导出文件存在"
+          else
+            echo "❌ 主要导出文件不存在"
+            exit 1
+          fi
+          
+      - name: 🧪 Basic Functionality Test
+        if: steps.install.outputs.success == 'true'
+        run: |
+          cd /tmp/cosy-ui-test
+          
+          echo "🧪 测试基础功能..."
+          
+          # 创建简单的测试文件
+          cat > test.mjs << 'EOF'
+          try {
+            // 尝试导入包的主要模块
+            const pkg = await import('@coffic/cosy-ui');
+            console.log('✅ 包导入成功');
+            
+            // 检查包的基本信息
+            if (pkg) {
+              console.log('✅ 包对象存在');
+            } else {
+              console.log('❌ 包对象不存在');
+              process.exit(1);
+            }
+          } catch (error) {
+            console.error('❌ 包导入失败:', error.message);
+            process.exit(1);
+          }
+          EOF
+          
+          # 运行测试
+          node test.mjs
+          
+      - name: 🌐 Check Documentation Website
+        run: |
+          echo "🌐 检查文档网站可访问性..."
+          
+          # 检查主页
+          MAIN_URL="https://cofficlab.github.io/cosy-ui/en/courses/guide/"
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$MAIN_URL")
+          
+          if [ "$HTTP_STATUS" = "200" ]; then
+            echo "✅ 文档网站主页可访问 ($HTTP_STATUS)"
+          else
+            echo "❌ 文档网站主页访问失败 (HTTP $HTTP_STATUS)"
+            exit 1
+          fi
+          
+          # 检查关键页面
+          PAGES=(
+            "https://cofficlab.github.io/cosy-ui/en/courses/guide/installation/"
+            "https://cofficlab.github.io/cosy-ui/en/courses/components/alert/"
+            "https://cofficlab.github.io/cosy-ui/en/courses/components/button/"
+          )
+          
+          for page in "${PAGES[@]}"; do
+            HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$page")
+            if [ "$HTTP_STATUS" = "200" ]; then
+              echo "✅ 页面可访问: $page ($HTTP_STATUS)"
+            else
+              echo "⚠️  页面访问异常: $page (HTTP $HTTP_STATUS)"
+            fi
+          done
+          
+  # 汇总检查结果
+  summary:
+    name: 📊 Health Check Summary
+    runs-on: ubuntu-latest
+    needs: health-check
+    if: always()
+    
+    steps:
+      - name: 📊 Generate Summary
+        run: |
+          echo "🏥 Cosy UI 健康检查完成"
+          echo ""
+          echo "📋 检查结果汇总："
+          echo "- 包管理器测试: npm, yarn, pnpm"
+          echo "- Node.js 版本测试: 18, 20, 22"
+          echo "- 文档网站检查: ✅ 完成"
+          echo ""
+          echo "🔗 相关链接："
+          echo "- 📦 NPM 包: https://www.npmjs.com/package/@coffic/cosy-ui"
+          echo "- 📚 文档网站: https://cofficlab.github.io/cosy-ui/en/courses/guide/"
+          echo "- 🐙 GitHub 仓库: https://github.com/CofficLab/cosy-ui"
+          
+      - name: 🚨 Create Issue on Failure
+        if: needs.health-check.result == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const now = new Date().toISOString();
+            const title = `🚨 Health Check Failed - ${now}`;
+            const body = `
+            ## 🚨 健康检查失败
+            
+            **时间**: ${now}
+            **工作流**: [Health Check](${context.payload.repository.html_url}/actions/runs/${context.runId})
+            
+            ### 📋 检查项目
+            - ❌ 包管理器安装测试 (npm, yarn, pnpm)
+            - ❌ 多版本 Node.js 兼容性测试
+            - ❌ 文档网站可访问性检查
+            
+            ### 🔗 相关链接
+            - 📦 [NPM 包](https://www.npmjs.com/package/@coffic/cosy-ui)
+            - 📚 [文档网站](https://cofficlab.github.io/cosy-ui/en/courses/guide/)
+            - 🐙 [GitHub 仓库](https://github.com/CofficLab/cosy-ui)
+            
+            ### 🛠️ 建议操作
+            1. 检查最新发布的包是否正常
+            2. 验证文档网站的部署状态
+            3. 查看详细的错误日志
+            
+            ---
+            *此 Issue 由健康检查工作流自动创建*
+            `;
+            
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              body: body,
+              labels: ['🚨 health-check', '🐛 bug', '🔥 urgent']
+            }); 
