@@ -7,6 +7,7 @@ export { default as InfoIcon } from './InfoIcon.astro';
 export { default as LinkIcon } from './LinkIcon.astro';
 export { default as LinkedinIcon } from './LinkedinIcon.astro';
 export { default as MenuIcon } from './MenuIcon.astro';
+export { default as RefreshIcon } from './RefreshIcon.astro';
 export { default as SearchIcon } from './SearchIcon.astro';
 export { default as SuccessIcon } from './SuccessIcon.astro';
 export { default as SunCloudyIcon } from './SunCloudyIcon.astro';
