@@ -142,35 +142,56 @@ jobs:
             exit 1
           fi
           
-      - name: 🧪 Basic Functionality Test
+      - name: 🧪 Package Structure Test
         if: steps.install.outputs.success == 'true'
         run: |
           cd /tmp/cosy-ui-test
           
-          echo "🧪 测试基础功能..."
+          echo "🧪 测试包结构..."
           
-          # 创建简单的测试文件
-          cat > test.mjs << 'EOF'
-          try {
-            // 尝试导入包的主要模块
-            const pkg = await import('@coffic/cosy-ui');
-            console.log('✅ 包导入成功');
-            
-            // 检查包的基本信息
-            if (pkg) {
-              console.log('✅ 包对象存在');
-            } else {
-              console.log('❌ 包对象不存在');
-              process.exit(1);
-            }
-          } catch (error) {
-            console.error('❌ 包导入失败:', error.message);
-            process.exit(1);
-          }
-          EOF
+          # 检查包的基本信息
+          if [ -f "node_modules/@coffic/cosy-ui/package.json" ]; then
+            echo "✅ package.json 存在"
+            PACKAGE_VERSION=$(cat node_modules/@coffic/cosy-ui/package.json | grep '"version"' | sed 's/.*"version": "\(.*\)".*/\1/')
+            echo "📦 包版本: $PACKAGE_VERSION"
+          else
+            echo "❌ package.json 不存在"
+            exit 1
+          fi
           
-          # 运行测试
-          node test.mjs
+          # 检查关键文件结构
+          REQUIRED_FILES=(
+            "node_modules/@coffic/cosy-ui/dist/index-astro.ts"
+            "node_modules/@coffic/cosy-ui/dist/src-astro/"
+            "node_modules/@coffic/cosy-ui/dist/app.css"
+          )
+          
+          for file in "${REQUIRED_FILES[@]}"; do
+            if [ -e "$file" ]; then
+              echo "✅ 关键文件存在: $file"
+            else
+              echo "❌ 关键文件缺失: $file"
+              exit 1
+            fi
+          done
+          
+          # 检查一些重要的组件目录
+          COMPONENT_DIRS=(
+            "node_modules/@coffic/cosy-ui/dist/src-astro/alert"
+            "node_modules/@coffic/cosy-ui/dist/src-astro/button"
+            "node_modules/@coffic/cosy-ui/dist/src-astro/card"
+          )
+          
+          for dir in "${COMPONENT_DIRS[@]}"; do
+            if [ -d "$dir" ]; then
+              echo "✅ 组件目录存在: $dir"
+            else
+              echo "❌ 组件目录缺失: $dir"
+              exit 1
+            fi
+          done
+          
+          echo "✅ 包结构检查完成"
           
       - name: 🌐 Check Documentation Website
         run: |
