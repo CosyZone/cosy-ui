@@ -1,6 +1,6 @@
 # Cosy UI
 
-[![English](https://img.shields.io/badge/English-violet)](README.md)
+[![English](https://img.shields.io/badge/English-violet)](../README.md)
 [![简体中文](https://img.shields.io/badge/中文文档-gray)](README-zh.md)
 [![开发文档](https://img.shields.io/badge/开发文档-gray)](README-dev.md)
 [![NPM](https://img.shields.io/badge/NPM-orange)](https://www.npmjs.com/package/@coffic/cosy-ui)
