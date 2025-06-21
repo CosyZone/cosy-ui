@@ -1,0 +1,73 @@
+---
+import DashboardLayout from './DashboardLayout.astro';
+import type { NavItem } from './types';
+
+const navItems: NavItem[] = [
+  { text: '创作工作台', href: '/dashboard' },
+  { text: '设计素材', href: '/dashboard/assets' },
+  { text: '项目管理', href: '/dashboard/projects' },
+  { text: '团队协作', href: '/dashboard/team' },
+];
+---
+
+<DashboardLayout
+  title="透明背景主题"
+  description="无背景容器的自由布局模式"
+  navItems={navItems}
+  contentTheme="transparent"
+  userName="UI设计师">
+  <div class="cosy:space-y-6">
+    <div
+      class="cosy:hero cosy:bg-gradient-to-r cosy:from-purple-400 cosy:via-pink-500 cosy:to-red-500 cosy:text-white cosy:rounded-lg">
+      <div class="cosy:hero-content cosy:text-center">
+        <div class="cosy:max-w-md">
+          <h1 class="cosy:text-3xl cosy:font-bold">透明背景主题</h1>
+          <p class="cosy:py-6">
+            移除内容容器的边界，提供更大的设计自由度，适合创意展示和全屏内容
+          </p>
+          <button class="cosy:btn cosy:btn-primary">开始创作</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="cosy:grid cosy:grid-cols-1 cosy:md:grid-cols-2 cosy:gap-6">
+      <div class="cosy:card cosy:bg-base-100 cosy:shadow-xl">
+        <div class="cosy:card-body">
+          <h2 class="cosy:card-title">设计项目</h2>
+          <p>在透明背景下，内容可以自由组织，创建独特的视觉层次</p>
+          <div class="cosy:card-actions cosy:justify-end">
+            <button class="cosy:btn cosy:btn-primary cosy:btn-sm"
+              >查看详情</button
+            >
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="cosy:card cosy:bg-gradient-to-br cosy:from-green-400 cosy:to-blue-500 cosy:text-white cosy:shadow-xl">
+        <div class="cosy:card-body">
+          <h2 class="cosy:card-title">创意工具</h2>
+          <p>透明主题特别适合需要强调内容本身的场景</p>
+          <div class="cosy:card-actions cosy:justify-end">
+            <button class="cosy:btn cosy:btn-ghost cosy:text-white cosy:btn-sm"
+              >立即使用</button
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cosy:mockup-code cosy:bg-primary cosy:text-primary-content">
+      <pre data-prefix="$"><code>透明主题的特点</code></pre>
+      <pre
+        data-prefix=">"
+        class="cosy:text-warning"><code>✓ 无背景容器约束</code></pre>
+      <pre
+        data-prefix=">"
+        class="cosy:text-success"><code>✓ 更大设计自由度</code></pre>
+      <pre
+        data-prefix=">"
+        class="cosy:text-info"><code>✓ 适合创意展示</code></pre>
+    </div>
+  </div>
+</DashboardLayout>

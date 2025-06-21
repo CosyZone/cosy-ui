@@ -1,0 +1,50 @@
+---
+import DashboardLayout from './DashboardLayout.astro';
+import type { NavItem } from './types';
+
+const navItems: NavItem[] = [
+  { text: '监控中心', href: '/dashboard' },
+  { text: '告警管理', href: '/dashboard/alerts' },
+  { text: '待处理事项', href: '/dashboard/pending' },
+  { text: '系统配置', href: '/dashboard/settings' },
+];
+---
+
+<DashboardLayout
+  title="监控预警系统"
+  description="警告主题适合监控、预警类系统"
+  navItems={navItems}
+  sidebarTheme="warning"
+  userName="运维工程师">
+  <div class="cosy:space-y-4">
+    <div class="cosy:alert cosy:alert-warning">
+      <span>⚠️</span>
+      <div>
+        <h4 class="cosy:font-semibold">警告黄色主题</h4>
+        <p>谨慎的提醒色调，适合监控系统、待处理状态等需要用户注意的场景</p>
+      </div>
+    </div>
+
+    <div class="cosy:grid cosy:grid-cols-1 cosy:md:grid-cols-2 cosy:gap-4">
+      <div class="cosy:card cosy:bg-base-100 cosy:shadow">
+        <div class="cosy:card-body">
+          <h3 class="cosy:card-title cosy:text-warning">待处理告警</h3>
+          <p class="cosy:text-2xl cosy:font-bold cosy:text-warning">12</p>
+          <p class="cosy:text-sm cosy:opacity-70">需要立即关注</p>
+        </div>
+      </div>
+      <div class="cosy:card cosy:bg-base-100 cosy:shadow">
+        <div class="cosy:card-body">
+          <h3 class="cosy:card-title cosy:text-warning">系统负载</h3>
+          <p class="cosy:text-2xl cosy:font-bold cosy:text-warning">78%</p>
+          <p class="cosy:text-sm cosy:opacity-70">接近阈值，需监控</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cosy:alert cosy:alert-warning">
+      <span>📊</span>
+      <div>有 3 个服务器状态异常，建议立即检查</div>
+    </div>
+  </div>
+</DashboardLayout>

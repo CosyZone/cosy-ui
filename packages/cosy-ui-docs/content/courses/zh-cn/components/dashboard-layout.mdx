@@ -38,6 +38,18 @@ DashboardLayout支持四种不同的侧边栏尺寸，适应不同的设计需�
 
 <DashboardLayoutPackage.DashboardLayoutContainers.SidebarSizes />
 
+## 侧边栏主题
+
+DashboardLayout支持10种不同的侧边栏主题色彩，满足各种应用场景的视觉需求：
+
+<DashboardLayoutPackage.DashboardLayoutContainers.SidebarThemes />
+
+## 内容主题
+
+DashboardLayout支持11种不同的内容区域主题，可以灵活配置主要内容的背景样式：
+
+<DashboardLayoutPackage.DashboardLayoutContainers.ContentThemes />
+
 ## 使用示例
 
 ### 基本配置
@@ -140,6 +152,89 @@ const navItems = [
 </DashboardLayout>
 ```
 
+### 侧边栏主题配置
+
+```astro
+<!-- 默认主题 - 通用场景 -->
+<DashboardLayout
+  title="管理后台"
+  navItems={navItems}
+  sidebarTheme="default"
+>
+  <!-- 内容 -->
+</DashboardLayout>
+
+<!-- 品牌主色主题 - 强调品牌特色 -->
+<DashboardLayout
+  title="品牌仪表盘"
+  navItems={navItems}
+  sidebarTheme="primary"
+>
+  <!-- 内容 -->
+</DashboardLayout>
+
+<!-- 成功主题 - 积极正面的应用 -->
+<DashboardLayout
+  title="健康管理系统"
+  navItems={navItems}
+  sidebarTheme="success"
+>
+  <!-- 内容 -->
+</DashboardLayout>
+
+<!-- 组合使用尺寸和主题 -->
+<DashboardLayout
+  title="高级管理界面"
+  navItems={navItems}
+  sidebarSize="lg"
+  sidebarTheme="info"
+>
+  <!-- 内容 -->
+</DashboardLayout>
+```
+
+### 内容主题配置
+
+```astro
+<!-- 默认卡片主题 - 清晰边界 -->
+<DashboardLayout
+  title="管理后台"
+  navItems={navItems}
+  contentTheme="card"
+>
+  <!-- 内容包装在卡片容器中 -->
+</DashboardLayout>
+
+<!-- 透明主题 - 无背景容器 -->
+<DashboardLayout
+  title="创意工作台"
+  navItems={navItems}
+  contentTheme="transparent"
+>
+  <!-- 内容自由布局，无容器限制 -->
+</DashboardLayout>
+
+<!-- 品牌主色主题 - 强化识别度 -->
+<DashboardLayout
+  title="品牌展示"
+  navItems={navItems}
+  contentTheme="primary"
+  sidebarTheme="primary"
+>
+  <!-- 内容和侧边栏使用一致的品牌色 -->
+</DashboardLayout>
+
+<!-- 语义化主题 - 根据内容特性选择 -->
+<DashboardLayout
+  title="监控中心"
+  navItems={navItems}
+  contentTheme="warning"
+  sidebarTheme="warning"
+>
+  <!-- 警告色调适合监控预警场景 -->
+</DashboardLayout>
+```
+
 ## Props 参考
 
 ### DashboardLayout Props
@@ -154,6 +249,8 @@ const navItems = [
 | `userAvatar`       | `string`             | ❌   | -          | 用户头像URL              |
 | `sidebarCollapsed` | `boolean`            | ❌   | `false`    | 是否折叠侧边栏           |
 | `sidebarSize`      | `'sm' \| 'md' \| 'lg' \| 'xl'` | ❌   | `'md'`     | 侧边栏尺寸大小           |
+| `sidebarTheme`     | `SidebarTheme`       | ❌   | `'default'`| 侧边栏主题色彩           |
+| `contentTheme`     | `ContentTheme`       | ❌   | `'card'`   | 内容区域主题样式         |
 | `head`             | `astroHTML.JSX.Element` | ❌   | -          | 自定义头部内容           |
 | `class`            | `string`             | ❌   | -          | 页面类名                 |
 | `class:list`       | `any`                | ❌   | -          | 类名列表                 |
@@ -202,6 +299,46 @@ interface NavItem {
 - **MD (256px)**：默认尺寸，平衡的选择，适合大多数场景
 - **LG (288px)**：宽松布局，适合更多内容的展示
 - **XL (320px)**：最宽布局，适合复杂的多级导航结构
+
+### 侧边栏主题系统
+
+DashboardLayout 提供10种预设主题，基于 daisyUI 的语义化颜色系统：
+
+- **default**：默认浅灰色，通用场景的最佳选择
+- **dark**：深色主题，现代感设计，减少视觉疲劳
+- **neutral**：中性色调，专业商务场景
+- **primary**：品牌主色，强调企业特色
+- **secondary**：辅助色调，温和的视觉效果
+- **accent**：强调色，用于重点功能突出
+- **info**：信息蓝色，适合数据展示界面
+- **success**：成功绿色，健康、财务等正面应用
+- **warning**：警告黄色，监控、预警类系统
+- **error**：错误红色，安全、审计等严肃应用
+
+所有主题都自动处理文字对比度，确保良好的可读性和无障碍访问。
+
+### 内容主题系统
+
+DashboardLayout 提供11种内容区域主题，可以灵活配置主要内容的背景样式：
+
+- **card**：默认卡片样式，提供清晰的边界和轻微阴影效果
+- **transparent**：透明背景，移除容器限制，提供最大的设计自由度
+- **base**：基础背景色，使用 base-200 色调，温和的视觉效果
+- **neutral**：中性色调，专业商务感
+- **primary**：品牌主色，强化企业识别度
+- **secondary**：辅助色调，温和的品牌体现
+- **accent**：强调色，用于重点内容突出
+- **info**：信息蓝色，适合数据展示和分析界面
+- **success**：成功绿色，健康管理、财务增长等正面应用
+- **warning**：警告黄色，监控系统、待处理状态等需要注意的场景
+- **error**：错误红色，安全审计、错误处理等严肃应用
+
+内容主题系统特别适合：
+- **管理后台**：card 主题提供专业、清晰的管理界面
+- **创意工具**：transparent 主题提供无限制的设计空间
+- **品牌展示**：primary/secondary/accent 主题强化品牌特色
+- **数据看板**：info 主题营造专业的数据分析氛围
+- **状态监控**：warning/error 主题突出系统状态和问题
 
 ### 状态管理
 

@@ -1,18 +1,76 @@
 ---
+/**
+ * @component EDashboardLayoutSidebarSizesContainer
+ * @description 使用 CodeContainer 多标签特性展示不同侧边栏尺寸的容器组件
+ */
+import '../../style.ts';
 import CodeContainer from '../code-container/CodeContainer.astro';
-import EDashboardLayoutSidebarSizes from './EDashboardLayoutSidebarSizes.astro';
+import EDashboardLayoutSidebarSm from './EDashboardLayoutSidebarSm.astro';
+import EDashboardLayoutSidebarMd from './EDashboardLayoutSidebarMd.astro';
+import EDashboardLayoutSidebarLg from './EDashboardLayoutSidebarLg.astro';
+import EDashboardLayoutSidebarXl from './EDashboardLayoutSidebarXl.astro';
 
-const sidebarSizeCode = `<DashboardLayout
+// 导入源码
+import sidebarSmCode from './EDashboardLayoutSidebarSm.astro?raw';
+import sidebarMdCode from './EDashboardLayoutSidebarMd.astro?raw';
+import sidebarLgCode from './EDashboardLayoutSidebarLg.astro?raw';
+import sidebarXlCode from './EDashboardLayoutSidebarXl.astro?raw';
+
+const titles = ['SM (紧凑)', 'MD (默认)', 'LG (宽松)', 'XL (超大)'];
+const descriptions = [
+  '12rem (192px) - 紧凑布局，移动端友好',
+  '16rem (256px) - 默认尺寸，平衡的选择',
+  '18rem (288px) - 宽松布局，适合更多内容',
+  '20rem (320px) - 最宽布局，适合复杂导航',
+];
+
+const codes = [
+  `<DashboardLayout
   title="管理后台"
-  sidebarSize="lg"
   navItems={navItems}
+  sidebarSize="sm"
+  userName="演示用户"
 >
-  <!-- 内容 -->
-</DashboardLayout>`;
+  <!-- 你的内容 -->
+</DashboardLayout>`,
+  `<DashboardLayout
+  title="管理后台"
+  navItems={navItems}
+  sidebarSize="md"
+  userName="演示用户"
+>
+  <!-- 你的内容 -->
+</DashboardLayout>`,
+  `<DashboardLayout
+  title="管理后台"
+  navItems={navItems}
+  sidebarSize="lg"
+  userName="演示用户"
+>
+  <!-- 你的内容 -->
+</DashboardLayout>`,
+  `<DashboardLayout
+  title="管理后台"
+  navItems={navItems}
+  sidebarSize="xl"
+  userName="演示用户"
+>
+  <!-- 你的内容 -->
+</DashboardLayout>`,
+];
 ---
 
-<CodeContainer codes={[sidebarSizeCode]}>
+<CodeContainer titles={titles} descriptions={descriptions} codes={codes}>
   <div id="tab-1">
-    <EDashboardLayoutSidebarSizes />
+    <EDashboardLayoutSidebarSm />
+  </div>
+  <div id="tab-2">
+    <EDashboardLayoutSidebarMd />
+  </div>
+  <div id="tab-3">
+    <EDashboardLayoutSidebarLg />
+  </div>
+  <div id="tab-4">
+    <EDashboardLayoutSidebarXl />
   </div>
 </CodeContainer>

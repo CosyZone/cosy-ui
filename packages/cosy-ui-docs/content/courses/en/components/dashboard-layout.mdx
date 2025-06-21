@@ -38,6 +38,18 @@ DashboardLayout supports four different sidebar sizes to accommodate various des
 
 <DashboardLayoutPackage.DashboardLayoutContainers.SidebarSizes />
 
+## Sidebar Themes
+
+DashboardLayout supports 10 different sidebar theme colors to meet various application scenarios' visual requirements:
+
+<DashboardLayoutPackage.DashboardLayoutContainers.SidebarThemes />
+
+## Content Themes
+
+DashboardLayout supports 11 different content area themes, allowing flexible configuration of main content background styles:
+
+<DashboardLayoutPackage.DashboardLayoutContainers.ContentThemes />
+
 ## Usage Examples
 
 ### Basic Configuration
@@ -140,6 +152,89 @@ const navItems = [
 </DashboardLayout>
 ```
 
+### Sidebar Theme Configuration
+
+```astro
+<!-- Default theme - general purpose -->
+<DashboardLayout
+  title="Admin Dashboard"
+  navItems={navItems}
+  sidebarTheme="default"
+>
+  <!-- Content -->
+</DashboardLayout>
+
+<!-- Primary brand theme - emphasize brand identity -->
+<DashboardLayout
+  title="Brand Dashboard"
+  navItems={navItems}
+  sidebarTheme="primary"
+>
+  <!-- Content -->
+</DashboardLayout>
+
+<!-- Success theme - positive applications -->
+<DashboardLayout
+  title="Health Management System"
+  navItems={navItems}
+  sidebarTheme="success"
+>
+  <!-- Content -->
+</DashboardLayout>
+
+<!-- Combined size and theme usage -->
+<DashboardLayout
+  title="Advanced Management Interface"
+  navItems={navItems}
+  sidebarSize="lg"
+  sidebarTheme="info"
+>
+  <!-- Content -->
+</DashboardLayout>
+```
+
+### Content Theme Configuration
+
+```astro
+<!-- Default card theme - clear boundaries -->
+<DashboardLayout
+  title="Admin Dashboard"
+  navItems={navItems}
+  contentTheme="card"
+>
+  <!-- Content wrapped in card container -->
+</DashboardLayout>
+
+<!-- Transparent theme - no background container -->
+<DashboardLayout
+  title="Creative Workspace"
+  navItems={navItems}
+  contentTheme="transparent"
+>
+  <!-- Content with free layout, no container restrictions -->
+</DashboardLayout>
+
+<!-- Brand primary theme - enhanced brand identity -->
+<DashboardLayout
+  title="Brand Showcase"
+  navItems={navItems}
+  contentTheme="primary"
+  sidebarTheme="primary"
+>
+  <!-- Content and sidebar use consistent brand colors -->
+</DashboardLayout>
+
+<!-- Semantic theme - choose based on content characteristics -->
+<DashboardLayout
+  title="Monitoring Center"
+  navItems={navItems}
+  contentTheme="warning"
+  sidebarTheme="warning"
+>
+  <!-- Warning color scheme suitable for monitoring scenarios -->
+</DashboardLayout>
+```
+
 ## Props Reference
 
 ### DashboardLayout Props
@@ -154,6 +249,8 @@ const navItems = [
 | `userAvatar`       | `string`             | ❌       | -               | User avatar URL                    |
 | `sidebarCollapsed` | `boolean`            | ❌       | `false`         | Whether to collapse sidebar        |
 | `sidebarSize`      | `'sm' \| 'md' \| 'lg' \| 'xl'` | ❌       | `'md'`          | Sidebar size configuration         |
+| `sidebarTheme`     | `SidebarTheme`       | ❌       | `'default'`     | Sidebar theme color                |
+| `contentTheme`     | `ContentTheme`       | ❌       | `'card'`        | Content area theme styles          |
 | `head`             | `astroHTML.JSX.Element` | ❌       | -               | Custom head content                |
 | `class`            | `string`             | ❌       | -               | Page class name                    |
 | `class:list`       | `any`                | ❌       | -               | Class list                         |
@@ -202,6 +299,46 @@ The component includes built-in icon mappings:
 - **MD (256px)**: Default size, balanced choice, suitable for most scenarios
 - **LG (288px)**: Spacious layout, suitable for displaying more content
 - **XL (320px)**: Widest layout, suitable for complex multi-level navigation structures
+
+### Sidebar Theme System
+
+DashboardLayout provides 10 preset themes based on daisyUI's semantic color system:
+
+- **default**: Default light gray, the best choice for general scenarios
+- **dark**: Dark theme with modern design, reduces visual fatigue
+- **neutral**: Neutral tones for professional business scenarios
+- **primary**: Brand primary color, emphasizes corporate identity
+- **secondary**: Secondary color with gentle visual effects
+- **accent**: Accent color for highlighting key features
+- **info**: Information blue, suitable for data display interfaces
+- **success**: Success green for health, finance, and other positive applications
+- **warning**: Warning yellow for monitoring and alert systems
+- **error**: Error red for security, auditing, and other serious applications
+
+All themes automatically handle text contrast to ensure good readability and accessibility compliance.
+
+### Content Theme System
+
+DashboardLayout provides 11 content area themes for flexible configuration of main content background styles:
+
+- **card**: Default card style with clear boundaries and subtle shadow effects
+- **transparent**: Transparent background, removes container restrictions, provides maximum design freedom
+- **base**: Basic background color using base-200 tone, gentle visual effects
+- **neutral**: Neutral tones for professional business feel
+- **primary**: Brand primary color, enhances corporate identity
+- **secondary**: Secondary color with gentle brand representation
+- **accent**: Accent color for highlighting important content
+- **info**: Information blue, suitable for data display and analytics interfaces
+- **success**: Success green for health management, financial growth, and other positive applications
+- **warning**: Warning yellow for monitoring systems, pending states, and scenarios requiring attention
+- **error**: Error red for security auditing, error handling, and other serious applications
+
+The content theme system is particularly suitable for:
+- **Admin Dashboards**: card theme provides professional, clear management interfaces
+- **Creative Tools**: transparent theme offers unlimited design space
+- **Brand Showcase**: primary/secondary/accent themes enhance brand identity
+- **Data Dashboards**: info theme creates professional data analytics atmosphere
+- **Status Monitoring**: warning/error themes highlight system status and issues
 
 ### State Management
 

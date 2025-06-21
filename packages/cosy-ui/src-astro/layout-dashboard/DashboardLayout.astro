@@ -46,6 +46,8 @@
  * - userAvatar?: string - 用户头像
  * - sidebarCollapsed?: boolean - 是否折叠侧边栏，默认为false
  * - sidebarSize?: 'sm' | 'md' | 'lg' | 'xl' - 侧边栏尺寸，默认为"md"
+ * - sidebarTheme?: SidebarTheme - 侧边栏主题，默认为"default"
+ * - contentTheme?: ContentTheme - 内容区域主题，默认为"card"
  * - head?: astroHTML.JSX.Element - 自定义头部内容
  * - class?: string - 页面类名
  * - class:list?: any - 类名列表
@@ -58,7 +60,13 @@ import { BaseLayout } from '../../index-astro';
 import DashboardSidebar from './DashboardSidebar.astro';
 import DashboardTopNavbar from './DashboardTopNavbar.astro';
 import '../../style.ts';
-import { type NavItem, type SidebarSize } from './types';
+import {
+  type NavItem,
+  type SidebarSize,
+  type SidebarTheme,
+  type ContentTheme,
+  getContentTheme,
+} from './types';
 
 export interface Props {
   /**
@@ -105,6 +113,18 @@ export interface Props {
   sidebarSize?: SidebarSize;
 
   /**
+   * 侧边栏主题
+   * @default "default"
+   */
+  sidebarTheme?: SidebarTheme;
+
+  /**
+   * 内容区域主题
+   * @default "card"
+   */
+  contentTheme?: ContentTheme;
+
+  /**
    * 自定义头部内容
    */
   head?: astroHTML.JSX.Element;
@@ -129,6 +149,8 @@ const {
   userAvatar,
   sidebarCollapsed = false,
   sidebarSize = 'md',
+  sidebarTheme = 'default',
+  contentTheme = 'card',
   head,
   class: className,
   'class:list': classList,
@@ -136,6 +158,7 @@ const {
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
+const contentStyles = getContentTheme(contentTheme);
 ---
 
 <BaseLayout
@@ -161,6 +184,7 @@ const currentPath = Astro.url.pathname;
         navItems={navItems}
         currentPath={currentPath}
         size={sidebarSize}
+        theme={sidebarTheme}
       />
     </div>
 
@@ -175,11 +199,17 @@ const currentPath = Astro.url.pathname;
 
       <!-- 页面内容 -->
       <main class="cosy:flex-1 cosy:p-4 cosy:lg:p-6">
-        <div class="cosy:card cosy:bg-base-100 cosy:shadow-sm">
-          <div class="cosy:card-body">
+        {
+          contentStyles.container ? (
+            <div class={`${contentStyles.container} ${contentStyles.shadow}`}>
+              <div class="cosy:card-body">
+                <slot />
+              </div>
+            </div>
+          ) : (
             <slot />
-          </div>
-        </div>
+          )
+        }
       </main>
     </div>
   </div>
