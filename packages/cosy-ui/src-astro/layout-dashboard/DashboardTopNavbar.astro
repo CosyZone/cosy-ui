@@ -1,0 +1,132 @@
+---
+/**
+ * @component DashboardTopNavbar
+ *
+ * @description
+ * DashboardTopNavbar 组件提供仪表盘布局的顶部导航栏功能。
+ * 包含菜单切换按钮、面包屑导航、搜索框、通知和用户信息。
+ *
+ * @usage
+ * ```astro
+ * ---
+ * import { DashboardTopNavbar } from '@coffic/cosy-ui';
+ * ---
+ *
+ * <DashboardTopNavbar
+ *   title="仪表盘"
+ *   userName="管理员"
+ *   userAvatar="/avatar.jpg"
+ * />
+ * ```
+ *
+ * @props
+ * - title: string - 页面标题，用于面包屑导航
+ * - userName?: string - 用户名
+ * - userAvatar?: string - 用户头像
+ */
+
+import '../../style.ts';
+import AstroIcon from '../icons/AstroIcon.astro';
+
+export interface Props {
+  /**
+   * 页面标题，用于面包屑导航
+   */
+  title: string;
+
+  /**
+   * 用户名
+   */
+  userName?: string;
+
+  /**
+   * 用户头像
+   */
+  userAvatar?: string;
+}
+
+const { title, userName, userAvatar } = Astro.props;
+---
+
+<div class="cosy:navbar cosy:bg-base-100 cosy:shadow-sm">
+  <div class="cosy:navbar-start">
+    <label
+      for="dashboard-drawer"
+      class="cosy:btn cosy:btn-square cosy:btn-ghost cosy:lg:hidden">
+      <AstroIcon name="menu" size="18px" stroke="currentColor" />
+    </label>
+
+    <div class="cosy:breadcrumbs cosy:text-sm cosy:ml-4">
+      <ul>
+        <li><span class="cosy:text-base-content/70">{title}</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cosy:navbar-end cosy:gap-2">
+    <!-- 搜索框 -->
+    <div class="cosy:form-control cosy:hidden cosy:lg:flex">
+      <div class="cosy:input-group">
+        <input
+          type="text"
+          placeholder="搜索..."
+          class="cosy:input cosy:input-bordered cosy:input-sm cosy:w-48"
+        />
+        <button class="cosy:btn cosy:btn-square cosy:btn-sm">
+          <AstroIcon name="search" size="16px" stroke="currentColor" />
+        </button>
+      </div>
+    </div>
+
+    <!-- 通知 -->
+    <div class="cosy:indicator">
+      <button class="cosy:btn cosy:btn-ghost cosy:btn-circle">
+        <AstroIcon name="notification" size="18px" stroke="currentColor" />
+      </button>
+      <span
+        class="cosy:badge cosy:badge-xs cosy:badge-primary cosy:indicator-item"
+        >3</span
+      >
+    </div>
+
+    <!-- 用户信息 -->
+    {
+      userName && (
+        <div class="cosy:dropdown cosy:dropdown-end">
+          <div
+            tabindex="0"
+            role="button"
+            class="cosy:btn cosy:btn-ghost cosy:gap-2">
+            {userAvatar ? (
+              <div class="cosy:avatar">
+                <div class="cosy:w-8 cosy:rounded-full">
+                  <img src={userAvatar} alt={userName} />
+                </div>
+              </div>
+            ) : (
+              <div class="cosy:avatar cosy:placeholder">
+                <div class="cosy:bg-primary cosy:text-primary-content cosy:rounded-full cosy:w-8">
+                  <span class="cosy:text-sm">{userName.charAt(0)}</span>
+                </div>
+              </div>
+            )}
+            <span class="cosy:hidden cosy:lg:block">{userName}</span>
+          </div>
+          <ul
+            tabindex="0"
+            class="cosy:dropdown-content cosy:menu cosy:p-2 cosy:shadow cosy:bg-base-100 cosy:rounded-box cosy:w-52">
+            <li>
+              <a class="cosy:no-underline">个人资料</a>
+            </li>
+            <li>
+              <a class="cosy:no-underline">设置</a>
+            </li>
+            <li>
+              <a class="cosy:no-underline">退出登录</a>
+            </li>
+          </ul>
+        </div>
+      )
+    }
+  </div>
+</div>

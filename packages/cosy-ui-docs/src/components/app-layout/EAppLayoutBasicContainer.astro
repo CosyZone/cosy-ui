@@ -1,0 +1,14 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import AppLayoutBasic from './AppLayoutBasic.astro';
+import BasicSourceCode from './AppLayoutBasic.astro?raw';
+---
+
+<CodeContainer
+  titles={['基础用法']}
+  descriptions={['最基本的应用布局使用方式，包含侧边栏、头部、主内容区和页脚']}
+  codes={[BasicSourceCode]}>
+  <div id="tab-1">
+    <AppLayoutBasic />
+  </div>
+</CodeContainer>

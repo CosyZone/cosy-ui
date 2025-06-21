@@ -1,0 +1,41 @@
+---
+/**
+ * @component DashboardLayout.ContentThemes
+ *
+ * @description
+ * 展示DashboardLayout组件的所有内容主题：card、transparent、primary等。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import EDashboardLayoutContentCard from './EDashboardLayoutContentCard.astro';
+import EDashboardLayoutContentTransparent from './EDashboardLayoutContentTransparent.astro';
+import EDashboardLayoutContentPrimary from './EDashboardLayoutContentPrimary.astro';
+import ContentCardSourceCode from './EDashboardLayoutContentCard.astro?raw';
+import ContentTransparentSourceCode from './EDashboardLayoutContentTransparent.astro?raw';
+import ContentPrimarySourceCode from './EDashboardLayoutContentPrimary.astro?raw';
+---
+
+<CodeContainer
+  titles={['卡片主题', '透明主题', '品牌主题']}
+  descriptions={[
+    '默认卡片样式，提供清晰边界',
+    '无背景容器，最大设计自由度',
+    '使用品牌主色，强化识别度',
+  ]}
+  codes={[
+    ContentCardSourceCode,
+    ContentTransparentSourceCode,
+    ContentPrimarySourceCode,
+  ]}>
+  <div id="tab-1">
+    <EDashboardLayoutContentCard />
+  </div>
+
+  <div id="tab-2">
+    <EDashboardLayoutContentTransparent />
+  </div>
+
+  <div id="tab-3">
+    <EDashboardLayoutContentPrimary />
+  </div>
+</CodeContainer>
+

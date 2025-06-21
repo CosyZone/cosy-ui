@@ -5,13 +5,8 @@ folder: false
 order: 5
 ---
 
-import {
-  CodeContainer,
-  CodeContainerBasic,
-  CodeContainerMultiple,
-  CodeContainerExampleCodes,
-  CodeExample,
-} from '@coffic/cosy-ui';
+import { CodeContainer } from '@coffic/cosy-ui';
+import { CodeContainerPackage } from '@/components/code-container/index';
 
 ## 简介
 
@@ -29,13 +24,72 @@ CodeContainer组件用于展示代码示例，提供了预览和代码视图的�
 
 最简单的代码示例展示：
 
-<CodeContainerBasic />
+```astro 
+<CodeContainer codes={[YourComponentSourceCode]}>
+  <div id="tab-1">
+    <YourComponent />
+  </div>
+</CodeContainer>
+```
+
+渲染结果：
+
+<CodeContainerPackage.CodeContainerContainers.Basic />
 
 ## 多标签示例
 
 展示多个相关的代码示例：
 
-<CodeContainerMultiple />
+```astro
+---
+import { CodeContainer } from './index';
+import { Alert } from '../alert';
+
+const infoCode = `<Alert type="info" title="信息提示">
+  这是一条信息提示
+</Alert>`;
+
+const successCode = `<Alert type="success" title="成功提示">
+  操作已成功完成
+</Alert>`;
+
+const warningCode = `<Alert type="warning" title="警告提示">
+  请注意可能的风险
+</Alert>`;
+
+const errorCode = `<Alert type="error" title="错误提示">
+  操作失败，请重试
+</Alert>`;
+
+const titles = ['信息', '成功', '警告', '错误'];
+const descriptions = [
+  '用于展示一般信息',
+  '用于展示成功状态',
+  '用于展示警告信息',
+  '用于展示错误信息',
+];
+const codes = [infoCode, successCode, warningCode, errorCode];
+---
+
+<CodeContainer titles={titles} descriptions={descriptions} codes={codes}>
+  <div id="tab-1">
+    <Alert type="info" title="信息提示"> 这是一条信息提示 </Alert>
+  </div>
+  <div id="tab-2">
+    <Alert type="success" title="成功提示"> 操作已成功完成 </Alert>
+  </div>
+  <div id="tab-3">
+    <Alert type="warning" title="警告提示"> 请注意可能的风险 </Alert>
+  </div>
+  <div id="tab-4">
+    <Alert type="error" title="错误提示"> 操作失败，请重试 </Alert>
+  </div>
+</CodeContainer>
+```
+
+渲染结果：
+
+<CodeContainerPackage.CodeContainerContainers.Multiple />
 
 ## 注意事项
 

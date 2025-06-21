@@ -1,11 +1,17 @@
+/**
+ * 仪表盘布局组件
+ */
+
 import DashboardLayout from './DashboardLayout.astro';
-import DashboardLayoutBasic from './DashboardLayoutBasic.astro';
-import BasicSourceCode from './DashboardLayoutBasic.astro?raw';
-import { extractSimpleExample } from '../utils/component';
+import DashboardSidebar from './DashboardSidebar.astro';
+import DashboardTopNavbar from './DashboardTopNavbar.astro';
 
-export { DashboardLayout, DashboardLayoutBasic };
-
-// 导出示例源代码
-export const DashboardLayoutExampleCodes = {
-  Basic: extractSimpleExample(BasicSourceCode, 'DashboardLayout'),
+export {
+  DashboardLayout,
+  DashboardSidebar,
+  DashboardTopNavbar
 };
+
+// 导出类型和函数
+export type { NavItem, SidebarSize, SidebarTheme, ContentTheme } from './types';
+export { getIconFromHref, getNavItemIcon, getSidebarWidth, getSidebarTheme, getContentTheme } from './types';

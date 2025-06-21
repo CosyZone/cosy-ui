@@ -1,21 +1,17 @@
-import Contact from './Contact.astro';
+export { default as Contact } from './Contact.astro';
 
-// Container components
-import ContactBasicContainer from './EContactBasicContainer.astro';
-import ContactWithTitleContainer from './EContactWithTitleContainer.astro';
-import ContactSocialContainer from './EContactSocialContainer.astro';
-import ContactCompactContainer from './EContactCompactContainer.astro';
-import ContactCustomStyleContainer from './EContactCustomStyleContainer.astro';
-
-export { Contact };
-
-export const ContactPackage = {
-  Contact,
-  ContactContainers: {
-    Basic: ContactBasicContainer,
-    WithTitle: ContactWithTitleContainer,
-    Social: ContactSocialContainer,
-    Compact: ContactCompactContainer,
-    CustomStyle: ContactCustomStyleContainer,
-  },
-};
+// Export types
+export interface ContactProps {
+  title?: string;
+  description?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  website?: string;
+  github?: string;
+  twitter?: string;
+  facebook?: string;
+  linkedin?: string;
+  compact?: boolean;
+  class?: string;
+}

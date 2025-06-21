@@ -1,0 +1,206 @@
+---
+/**
+ * @component DashboardSidebar
+ *
+ * @description
+ * DashboardSidebar 组件提供仪表盘布局的侧边栏导航功能。
+ * 包含系统名称显示、导航菜单和折叠/展开功能。
+ *
+ * @usage
+ * ```astro
+ * ---
+ * import { DashboardSidebar } from '@coffic/cosy-ui';
+ *
+ * const navItems = [
+ *   { href: "/dashboard", icon: "home", text: "仪表盘" },
+ *   { href: "/dashboard/users", icon: "user", text: "用户管理" }
+ * ];
+ * ---
+ *
+ * <DashboardSidebar
+ *   systemName="管理系统"
+ *   navItems={navItems}
+ * />
+ * ```
+ *
+ * @props
+ * - systemName?: string - 系统名称，默认为"管理系统"
+ * - navItems: NavItem[] - 导航项目
+ * - currentPath?: string - 当前路径，用于高亮当前页面
+ * - size?: 'sm' | 'md' | 'lg' | 'xl' - 侧边栏尺寸，默认为"md"
+ * - theme?: SidebarTheme - 侧边栏主题，默认为"default"
+ */
+
+import '../../style.ts';
+import {
+  getNavItemIcon,
+  getSidebarWidth,
+  getSidebarTheme,
+  type NavItem,
+  type SidebarSize,
+  type SidebarTheme,
+} from './types';
+import AstroIcon from '../icons/AstroIcon.astro';
+
+export interface Props {
+  /**
+   * 系统名称
+   * @default "管理系统"
+   */
+  systemName?: string;
+
+  /**
+   * 导航项目
+   */
+  navItems: NavItem[];
+
+  /**
+   * 当前路径，用于高亮当前页面
+   */
+  currentPath?: string;
+
+  /**
+   * 侧边栏尺寸
+   * @default "md"
+   */
+  size?: SidebarSize;
+
+  /**
+   * 侧边栏主题
+   * @default "default"
+   */
+  theme?: SidebarTheme;
+}
+
+const {
+  systemName = '管理系统',
+  navItems,
+  currentPath = '',
+  size = 'md',
+  theme = 'default',
+} = Astro.props;
+
+const themeStyles = getSidebarTheme(theme);
+---
+
+<aside
+  class:list={[
+    getSidebarWidth(size),
+    'cosy:min-h-full',
+    themeStyles.bg,
+    themeStyles.textColor,
+  ]}>
+  <!-- 侧边栏头部 -->
+  <div
+    class:list={[
+      'cosy:navbar cosy:border-b',
+      themeStyles.headerBg,
+      themeStyles.borderColor,
+    ]}>
+    <div class="cosy:navbar-start">
+      <a
+        href="/dashboard"
+        class="cosy:btn cosy:btn-ghost cosy:text-lg cosy:font-semibold cosy:no-underline">
+        <span class="cosy:text-xl">⚡</span>
+        <span class="cosy:hidden cosy:lg:block">{systemName}</span>
+      </a>
+    </div>
+    <div class="cosy:navbar-end">
+      <button class="cosy:btn cosy:btn-ghost cosy:btn-sm" id="collapse-sidebar">
+        <AstroIcon name="menu" size="16px" stroke="currentColor" />
+      </button>
+    </div>
+  </div>
+
+  <!-- 导航菜单 -->
+  <ul
+    class="cosy:menu cosy:p-4 cosy:space-y-1 cosy:list-none cosy:no-underline">
+    {
+      navItems.map((item: NavItem) => {
+        const isActive =
+          currentPath === item.href ||
+          (item.items &&
+            item.items.some(
+              (subitem: NavItem) => currentPath === subitem.href
+            ));
+
+        return (
+          <li>
+            <a
+              href={item.href}
+              class:list={['cosy:no-underline', { active: isActive }]}>
+              <AstroIcon
+                name={getNavItemIcon(item)}
+                size="16px"
+                stroke="currentColor"
+              />
+              <span>{item.text}</span>
+              {item.badge && (
+                <span class="cosy:badge cosy:badge-primary cosy:badge-sm">
+                  {item.badge}
+                </span>
+              )}
+            </a>
+
+            {item.items && (
+              <ul class="cosy:ml-4 cosy:list-none cosy:no-underline">
+                {item.items.map((subitem: NavItem) => {
+                  const isSubActive = currentPath === subitem.href;
+                  return (
+                    <li>
+                      <a
+                        href={subitem.href}
+                        class:list={[
+                          'cosy:text-sm cosy:no-underline',
+                          { active: isSubActive },
+                        ]}>
+                        <AstroIcon
+                          name={getNavItemIcon(subitem)}
+                          size="14px"
+                          stroke="currentColor"
+                        />
+                        <span>{subitem.text}</span>
+                        {subitem.badge && (
+                          <span class="cosy:badge cosy:badge-primary cosy:badge-xs">
+                            {subitem.badge}
+                          </span>
+                        )}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </li>
+        );
+      })
+    }
+  </ul>
+</aside>
+
+<script>
+  // 侧边栏折叠/展开功能
+  document.addEventListener('DOMContentLoaded', () => {
+    const collapseSidebarBtn = document.getElementById('collapse-sidebar');
+    const drawerToggle = document.getElementById(
+      'dashboard-drawer'
+    ) as HTMLInputElement;
+
+    if (collapseSidebarBtn && drawerToggle) {
+      collapseSidebarBtn.addEventListener('click', () => {
+        drawerToggle.checked = !drawerToggle.checked;
+        // 保存状态到本地存储
+        localStorage.setItem(
+          'sidebarCollapsed',
+          drawerToggle.checked.toString()
+        );
+      });
+    }
+
+    // 从本地存储恢复状态
+    const savedState = localStorage.getItem('sidebarCollapsed');
+    if (savedState && drawerToggle) {
+      drawerToggle.checked = savedState === 'true';
+    }
+  });
+</script>

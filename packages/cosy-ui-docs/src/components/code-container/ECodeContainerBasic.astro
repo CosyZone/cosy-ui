@@ -1,0 +1,16 @@
+---
+/**
+ * CodeContainerBasic - 基础代码容器示例组件
+ * 展示CodeContainer的基本用法
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import AlertSourceCode from '../alert/EAlertBasic.astro?raw';
+import EAlertBasic from '../alert/EAlertBasic.astro';
+---
+
+<CodeContainer codes={[AlertSourceCode]}>
+  <div id="tab-1">
+    <EAlertBasic />
+  </div>
+</CodeContainer>
