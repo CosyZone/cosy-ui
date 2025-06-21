@@ -30,6 +30,7 @@
  *   title="管理后台"
  *   navItems={navItems}
  *   userName="管理员"
+ *   sidebarSize="lg"
  * >
  *   <h1>仪表盘内容</h1>
  *   <p>这是仪表盘的主要内容</p>
@@ -44,6 +45,7 @@
  * - userName?: string - 用户名
  * - userAvatar?: string - 用户头像
  * - sidebarCollapsed?: boolean - 是否折叠侧边栏，默认为false
+ * - sidebarSize?: 'sm' | 'md' | 'lg' | 'xl' - 侧边栏尺寸，默认为"md"
  * - head?: astroHTML.JSX.Element - 自定义头部内容
  * - class?: string - 页面类名
  * - class:list?: any - 类名列表
@@ -56,7 +58,7 @@ import { BaseLayout } from '../../index-astro';
 import DashboardSidebar from './DashboardSidebar.astro';
 import DashboardTopNavbar from './DashboardTopNavbar.astro';
 import '../../style.ts';
-import { type NavItem } from './types';
+import { type NavItem, type SidebarSize } from './types';
 
 export interface Props {
   /**
@@ -97,6 +99,12 @@ export interface Props {
   sidebarCollapsed?: boolean;
 
   /**
+   * 侧边栏尺寸
+   * @default "md"
+   */
+  sidebarSize?: SidebarSize;
+
+  /**
    * 自定义头部内容
    */
   head?: astroHTML.JSX.Element;
@@ -120,6 +128,7 @@ const {
   userName,
   userAvatar,
   sidebarCollapsed = false,
+  sidebarSize = 'md',
   head,
   class: className,
   'class:list': classList,
@@ -151,6 +160,7 @@ const currentPath = Astro.url.pathname;
         systemName={systemName}
         navItems={navItems}
         currentPath={currentPath}
+        size={sidebarSize}
       />
     </div>
 

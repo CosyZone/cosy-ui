@@ -1,0 +1,151 @@
+---
+import DashboardLayout from './DashboardLayout.astro';
+import type { NavItem } from './types';
+
+const navItems: NavItem[] = [
+  {
+    text: '仪表盘',
+    href: '/dashboard',
+  },
+  {
+    text: '用户管理',
+    href: '/dashboard/users',
+  },
+  {
+    text: '数据分析',
+    href: '/dashboard/analytics',
+  },
+  {
+    text: '系统设置',
+    href: '/dashboard/settings',
+  },
+];
+
+// 获取当前演示的尺寸
+const currentSize = Astro.url.searchParams.get('size') || 'md';
+const validSizes = ['sm', 'md', 'lg', 'xl'];
+const displaySize = validSizes.includes(currentSize) ? currentSize : 'md';
+---
+
+<DashboardLayout
+  title={`侧边栏尺寸示例 - ${displaySize.toUpperCase()}`}
+  description="展示不同侧边栏尺寸的效果"
+  navItems={navItems}
+  sidebarSize={displaySize as any}
+  userName="演示用户">
+  <div class="cosy:space-y-6">
+    <!-- 尺寸选择器 -->
+    <div class="cosy:card cosy:bg-base-100 cosy:shadow-sm">
+      <div class="cosy:card-body">
+        <h2 class="cosy:card-title">侧边栏尺寸选择</h2>
+        <div class="cosy:flex cosy:gap-2 cosy:flex-wrap">
+          {
+            validSizes.map((size) => (
+              <a
+                href={`?size=${size}`}
+                class:list={[
+                  'cosy:btn',
+                  displaySize === size
+                    ? 'cosy:btn-primary'
+                    : 'cosy:btn-outline',
+                ]}>
+                {size.toUpperCase()}
+                <span class="cosy:text-xs cosy:opacity-70">
+                  {size === 'sm' && '(192px)'}
+                  {size === 'md' && '(256px)'}
+                  {size === 'lg' && '(288px)'}
+                  {size === 'xl' && '(320px)'}
+                </span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- 当前配置信息 -->
+    <div class="cosy:card cosy:bg-base-100 cosy:shadow-sm">
+      <div class="cosy:card-body">
+        <h3 class="cosy:card-title">当前配置</h3>
+        <div class="cosy:grid cosy:grid-cols-2 cosy:gap-4">
+          <div>
+            <p class="cosy:font-semibold">侧边栏尺寸</p>
+            <p class="cosy:text-lg">{displaySize.toUpperCase()}</p>
+          </div>
+          <div>
+            <p class="cosy:font-semibold">实际宽度</p>
+            <p class="cosy:text-lg">
+              {displaySize === 'sm' && '12rem (192px)'}
+              {displaySize === 'md' && '16rem (256px)'}
+              {displaySize === 'lg' && '18rem (288px)'}
+              {displaySize === 'xl' && '20rem (320px)'}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 使用说明 -->
+    <div class="cosy:card cosy:bg-base-100 cosy:shadow-sm">
+      <div class="cosy:card-body">
+        <h3 class="cosy:card-title">代码示例</h3>
+        <div class="cosy:mockup-code">
+          <pre data-prefix="1"><code>&lt;DashboardLayout</code></pre>
+          <pre data-prefix="2"><code>  title="管理后台"</code></pre>
+          <pre data-prefix="3"><code>  navItems={navItems}</code></pre>
+          <pre
+            data-prefix="4"
+            class="cosy:text-warning"><code>  sidebarSize="{displaySize}"</code></pre>
+          <pre data-prefix="5"><code>&gt;</code></pre>
+          <pre data-prefix="6"><code>  &lt;!-- 你的内容 --&gt;</code></pre>
+          <pre data-prefix="7"><code>&lt;/DashboardLayout&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- 响应式说明 -->
+    <div class="cosy:card cosy:bg-base-100 cosy:shadow-sm">
+      <div class="cosy:card-body">
+        <h3 class="cosy:card-title">尺寸说明</h3>
+        <div class="cosy:overflow-x-auto">
+          <table class="cosy:table cosy:table-zebra">
+            <thead>
+              <tr>
+                <th>尺寸</th>
+                <th>宽度 (rem)</th>
+                <th>宽度 (px)</th>
+                <th>适用场景</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="cosy:font-semibold">SM</td>
+                <td>12rem</td>
+                <td>192px</td>
+                <td>紧凑布局，移动端友好</td>
+              </tr>
+              <tr>
+                <td class="cosy:font-semibold">MD</td>
+                <td>16rem</td>
+                <td>256px</td>
+                <td>默认尺寸，平衡的选择</td>
+              </tr>
+              <tr>
+                <td class="cosy:font-semibold">LG</td>
+                <td>18rem</td>
+                <td>288px</td>
+                <td>宽松布局，适合更多内容</td>
+              </tr>
+              <tr>
+                <td class="cosy:font-semibold">XL</td>
+                <td>20rem</td>
+                <td>320px</td>
+                <td>最宽布局，适合复杂导航</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</DashboardLayout>

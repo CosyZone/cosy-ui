@@ -32,6 +32,12 @@ DashboardLayout 组件适用于管理后台的布局，包含侧边栏导航和�
 
 <DashboardLayoutPackage.DashboardLayoutContainers.CustomStyle />
 
+## 侧边栏尺寸
+
+DashboardLayout支持四种不同的侧边栏尺寸，适应不同的设计需求：
+
+<DashboardLayoutPackage.DashboardLayoutContainers.SidebarSizes />
+
 ## 使用示例
 
 ### 基本配置
@@ -103,6 +109,37 @@ const navItems = [
 </DashboardLayout>
 ```
 
+### 侧边栏尺寸配置
+
+```astro
+<!-- 紧凑尺寸 - 适合移动端友好 -->
+<DashboardLayout
+  title="紧凑版仪表盘"
+  navItems={navItems}
+  sidebarSize="sm"
+>
+  <!-- 内容 -->
+</DashboardLayout>
+
+<!-- 大尺寸 - 适合复杂导航 -->
+<DashboardLayout
+  title="宽松版仪表盘"
+  navItems={navItems}
+  sidebarSize="lg"
+>
+  <!-- 内容 -->
+</DashboardLayout>
+
+<!-- 超大尺寸 - 适合最复杂的导航结构 -->
+<DashboardLayout
+  title="超大版仪表盘"
+  navItems={navItems}
+  sidebarSize="xl"
+>
+  <!-- 内容 -->
+</DashboardLayout>
+```
+
 ## Props 参考
 
 ### DashboardLayout Props
@@ -116,6 +153,7 @@ const navItems = [
 | `userName`         | `string`             | ❌   | -          | 用户名，显示在顶部导航栏 |
 | `userAvatar`       | `string`             | ❌   | -          | 用户头像URL              |
 | `sidebarCollapsed` | `boolean`            | ❌   | `false`    | 是否折叠侧边栏           |
+| `sidebarSize`      | `'sm' \| 'md' \| 'lg' \| 'xl'` | ❌   | `'md'`     | 侧边栏尺寸大小           |
 | `head`             | `astroHTML.JSX.Element` | ❌   | -          | 自定义头部内容           |
 | `class`            | `string`             | ❌   | -          | 页面类名                 |
 | `class:list`       | `any`                | ❌   | -          | 类名列表                 |
@@ -157,6 +195,13 @@ interface NavItem {
 - **桌面端**：显示完整的侧边栏和所有功能
 - **平板端**：侧边栏可折叠，保持良好的交互体验
 - **移动端**：侧边栏转为抽屉模式，节省屏幕空间
+
+### 侧边栏尺寸配置
+
+- **SM (192px)**：紧凑布局，移动端友好，适合简单导航
+- **MD (256px)**：默认尺寸，平衡的选择，适合大多数场景
+- **LG (288px)**：宽松布局，适合更多内容的展示
+- **XL (320px)**：最宽布局，适合复杂的多级导航结构
 
 ### 状态管理
 

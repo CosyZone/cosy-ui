@@ -1,0 +1,18 @@
+---
+import CodeContainer from '../code-container/CodeContainer.astro';
+import EDashboardLayoutSidebarSizes from './EDashboardLayoutSidebarSizes.astro';
+
+const sidebarSizeCode = `<DashboardLayout
+  title="管理后台"
+  sidebarSize="lg"
+  navItems={navItems}
+>
+  <!-- 内容 -->
+</DashboardLayout>`;
+---
+
+<CodeContainer codes={[sidebarSizeCode]}>
+  <div id="tab-1">
+    <EDashboardLayoutSidebarSizes />
+  </div>
+</CodeContainer>

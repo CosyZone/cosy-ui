@@ -27,10 +27,16 @@
  * - systemName?: string - 系统名称，默认为"管理系统"
  * - navItems: NavItem[] - 导航项目
  * - currentPath?: string - 当前路径，用于高亮当前页面
+ * - size?: 'sm' | 'md' | 'lg' | 'xl' - 侧边栏尺寸，默认为"md"
  */
 
 import '../../style.ts';
-import { getNavItemIcon, type NavItem } from './types';
+import {
+  getNavItemIcon,
+  getSidebarWidth,
+  type NavItem,
+  type SidebarSize,
+} from './types';
 import AstroIcon from '../icons/AstroIcon.astro';
 
 export interface Props {
@@ -49,13 +55,27 @@ export interface Props {
    * 当前路径，用于高亮当前页面
    */
   currentPath?: string;
+
+  /**
+   * 侧边栏尺寸
+   * @default "md"
+   */
+  size?: SidebarSize;
 }
 
-const { systemName = '管理系统', navItems, currentPath = '' } = Astro.props;
+const {
+  systemName = '管理系统',
+  navItems,
+  currentPath = '',
+  size = 'md',
+} = Astro.props;
 ---
 
 <aside
-  class="cosy:w-64 cosy:min-h-full cosy:bg-base-300 cosy:text-base-content">
+  class:list={[
+    getSidebarWidth(size),
+    'cosy:min-h-full cosy:bg-base-300 cosy:text-base-content',
+  ]}>
   <!-- 侧边栏头部 -->
   <div class="cosy:navbar cosy:bg-base-300 cosy:border-b cosy:border-base-200">
     <div class="cosy:navbar-start">

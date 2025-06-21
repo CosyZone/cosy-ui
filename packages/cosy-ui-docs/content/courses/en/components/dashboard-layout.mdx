@@ -32,6 +32,12 @@ Customize the dashboard appearance using the class attribute:
 
 <DashboardLayoutPackage.DashboardLayoutContainers.CustomStyle />
 
+## Sidebar Sizes
+
+DashboardLayout supports four different sidebar sizes to accommodate various design needs:
+
+<DashboardLayoutPackage.DashboardLayoutContainers.SidebarSizes />
+
 ## Usage Examples
 
 ### Basic Configuration
@@ -103,6 +109,37 @@ const navItems = [
 </DashboardLayout>
 ```
 
+### Sidebar Size Configuration
+
+```astro
+<!-- Compact size - mobile-friendly -->
+<DashboardLayout
+  title="Compact Dashboard"
+  navItems={navItems}
+  sidebarSize="sm"
+>
+  <!-- Content -->
+</DashboardLayout>
+
+<!-- Large size - suitable for complex navigation -->
+<DashboardLayout
+  title="Spacious Dashboard"
+  navItems={navItems}
+  sidebarSize="lg"
+>
+  <!-- Content -->
+</DashboardLayout>
+
+<!-- Extra large size - for the most complex navigation structures -->
+<DashboardLayout
+  title="Extra Large Dashboard"
+  navItems={navItems}
+  sidebarSize="xl"
+>
+  <!-- Content -->
+</DashboardLayout>
+```
+
 ## Props Reference
 
 ### DashboardLayout Props
@@ -116,6 +153,7 @@ const navItems = [
 | `userName`         | `string`             | ❌       | -               | Username displayed in top navbar   |
 | `userAvatar`       | `string`             | ❌       | -               | User avatar URL                    |
 | `sidebarCollapsed` | `boolean`            | ❌       | `false`         | Whether to collapse sidebar        |
+| `sidebarSize`      | `'sm' \| 'md' \| 'lg' \| 'xl'` | ❌       | `'md'`          | Sidebar size configuration         |
 | `head`             | `astroHTML.JSX.Element` | ❌       | -               | Custom head content                |
 | `class`            | `string`             | ❌       | -               | Page class name                    |
 | `class:list`       | `any`                | ❌       | -               | Class list                         |
@@ -157,6 +195,13 @@ The component includes built-in icon mappings:
 - **Desktop**: Shows complete sidebar and all features
 - **Tablet**: Collapsible sidebar with good interaction experience
 - **Mobile**: Sidebar converts to drawer mode to save screen space
+
+### Sidebar Size Configuration
+
+- **SM (192px)**: Compact layout, mobile-friendly, suitable for simple navigation
+- **MD (256px)**: Default size, balanced choice, suitable for most scenarios
+- **LG (288px)**: Spacious layout, suitable for displaying more content
+- **XL (320px)**: Widest layout, suitable for complex multi-level navigation structures
 
 ### State Management
 
