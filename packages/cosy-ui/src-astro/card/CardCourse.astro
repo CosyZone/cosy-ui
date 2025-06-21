@@ -1,6 +1,22 @@
 ---
-import { Image } from 'astro:assets';
-import bookCover from '../assets/book.png';
+/**
+ * @component CardCourse
+ *
+ * @description
+ * 课程卡片组件，用于展示课程信息，具有统一的设计风格。
+ *
+ * @usage
+ * ```astro
+ * <CardCourse title="React 基础教程" link="/courses/react-basics" />
+ * ```
+ *
+ * @props
+ * - title: string - 课程标题
+ * - link: string - 课程链接
+ */
+
+// 导入样式
+import '../../style.ts';
 
 interface Props {
   title: string;
@@ -11,18 +27,22 @@ const { title, link } = Astro.props;
 ---
 
 <div>
-  <a href={link} class="justify-center flex no-underline text-base-content">
-    <div class="w-56 h-80">
+  <a
+    href={link}
+    class="cosy:justify-center cosy:flex cosy:no-underline cosy:text-base-content">
+    <div class="cosy:w-56 cosy:h-80">
       <div
-        class="bg-gradient-to-br w-full h-full from-accent/50 to-primary/30 rounded-3xl shadow-lg backdrop-blur-sm"
-      >
+        class="cosy:bg-gradient-to-br cosy:w-full cosy:h-full cosy:from-accent/50 cosy:to-primary/30 cosy:rounded-3xl cosy:shadow-lg cosy:backdrop-blur-sm">
         <div
-          class="bg-base-100/60 w-full h-full rounded-3xl border border-base-content/30 hover:scale-105 hover:shadow-2xl transform duration-200 backdrop-filter backdrop-blur-sm"
-        >
-          <div class="card-body p-1 h-full">
-            <Image src={bookCover} alt={title} class="h-3/5 w-full" />
+          class="cosy:bg-base-100/60 cosy:w-full cosy:h-full cosy:rounded-3xl cosy:border cosy:border-base-content/30 hover:cosy:scale-105 hover:cosy:shadow-2xl cosy:transform cosy:duration-200 cosy:backdrop-filter cosy:backdrop-blur-sm">
+          <div class="card-body cosy:p-1 cosy:h-full">
+            <!-- 使用书本图标代替图片 -->
+            <div
+              class="cosy:h-3/5 cosy:w-full cosy:flex cosy:items-center cosy:justify-center cosy:text-6xl cosy:text-primary">
+              📚
+            </div>
             <div>
-              <h2 class="text-lg text-center font-medium">
+              <h2 class="cosy:text-lg cosy:text-center cosy:font-medium">
                 {title}
               </h2>
             </div>

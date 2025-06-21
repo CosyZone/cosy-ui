@@ -1,0 +1,73 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonInfo from './ButtonInfo.astro';
+import ButtonSuccess from './ButtonSuccess.astro';
+import ButtonWarning from './ButtonWarning.astro';
+import ButtonError from './ButtonError.astro';
+import ButtonGhost from './ButtonGhost.astro';
+import ButtonLink from './ButtonLink.astro';
+import ButtonOutline from './ButtonOutline.astro';
+import ButtonNeutral from './ButtonNeutral.astro';
+import ButtonInfoSourceCode from './ButtonInfo.astro?raw';
+import ButtonSuccessSourceCode from './ButtonSuccess.astro?raw';
+import ButtonWarningSourceCode from './ButtonWarning.astro?raw';
+import ButtonErrorSourceCode from './ButtonError.astro?raw';
+import ButtonGhostSourceCode from './ButtonGhost.astro?raw';
+import ButtonLinkSourceCode from './ButtonLink.astro?raw';
+import ButtonOutlineSourceCode from './ButtonOutline.astro?raw';
+import ButtonNeutralSourceCode from './ButtonNeutral.astro?raw';
+---
+
+<CodeContainer
+  titles={[
+    'Info',
+    'Success',
+    'Warning',
+    'Error',
+    'Ghost',
+    'Link',
+    'Outline',
+    'Neutral',
+  ]}
+  codes={[
+    ButtonInfoSourceCode,
+    ButtonSuccessSourceCode,
+    ButtonWarningSourceCode,
+    ButtonErrorSourceCode,
+    ButtonGhostSourceCode,
+    ButtonLinkSourceCode,
+    ButtonOutlineSourceCode,
+    ButtonNeutralSourceCode,
+  ]}>
+  <div id="tab-1">
+    <ButtonInfo />
+  </div>
+
+  <div id="tab-2">
+    <ButtonSuccess />
+  </div>
+
+  <div id="tab-3">
+    <ButtonWarning />
+  </div>
+
+  <div id="tab-4">
+    <ButtonError />
+  </div>
+
+  <div id="tab-5">
+    <ButtonGhost />
+  </div>
+
+  <div id="tab-6">
+    <ButtonLink />
+  </div>
+
+  <div id="tab-7">
+    <ButtonOutline />
+  </div>
+
+  <div id="tab-8">
+    <ButtonNeutral />
+  </div>
+</CodeContainer>

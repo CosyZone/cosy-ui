@@ -5,13 +5,8 @@ folder: false
 order: 5
 ---
 
-import {
-  CodeContainer,
-  CodeContainerBasic,
-  CodeContainerMultiple,
-  CodeContainerExampleCodes,
-  CodeExample,
-} from '@coffic/cosy-ui';
+import { CodeContainer } from '@coffic/cosy-ui';
+import { CodeContainerPackage } from '@/components/code-container/index';
 
 ## Introduction
 
@@ -39,7 +34,7 @@ The simplest code example display:
 
 Rendered result:
 
-<CodeContainerBasic />
+<CodeContainerPackage.CodeContainerContainers.Basic />
 
 ## Multi-tab Examples
 
@@ -94,7 +89,7 @@ const codes = [infoCode, successCode, warningCode, errorCode];
 
 Rendered result:
 
-<CodeContainerMultiple />
+<CodeContainerPackage.CodeContainerContainers.Multiple />
 
 ## Notes
 

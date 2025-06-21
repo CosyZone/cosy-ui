@@ -1,0 +1,20 @@
+---
+/**
+ * @component Error503.Maintenance
+ *
+ * @description
+ * 503服务不可用错误页面的维护模式示例，展示系统维护时的页面。
+ */
+import { Error503 } from '@coffic/cosy-ui';
+---
+
+<Error503
+  maintenanceMode={true}
+  estimatedRecovery="2024-12-25 10:00"
+  statusPageUrl="https://status.example.com"
+  debugKVs={{
+    reason: '系统升级',
+    startTime: '2024-12-25 08:00',
+    version: 'v2.1.0',
+  }}
+/>

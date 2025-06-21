@@ -5,13 +5,8 @@ folder: false
 order: 5
 ---
 
-import {
-  CodeContainer,
-  CodeContainerBasic,
-  CodeContainerMultiple,
-  CodeContainerExampleCodes,
-  CodeExample,
-} from '@coffic/cosy-ui';
+import { CodeContainer } from '@coffic/cosy-ui';
+import { CodeContainerPackage } from '@/components/code-container/index';
 
 ## 简介
 
@@ -39,7 +34,7 @@ CodeContainer组件用于展示代码示例，提供了预览和代码视图的�
 
 渲染结果：
 
-<CodeContainerBasic />
+<CodeContainerPackage.CodeContainerContainers.Basic />
 
 ## 多标签示例
 
@@ -94,7 +89,7 @@ const codes = [infoCode, successCode, warningCode, errorCode];
 
 渲染结果：
 
-<CodeContainerMultiple />
+<CodeContainerPackage.CodeContainerContainers.Multiple />
 
 ## 注意事项
 

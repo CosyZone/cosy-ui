@@ -1,0 +1,19 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonWide from './ButtonWide.astro';
+import ButtonBlock from './ButtonBlock.astro';
+import ButtonWideSourceCode from './ButtonWide.astro?raw';
+import ButtonBlockSourceCode from './ButtonBlock.astro?raw';
+---
+
+<CodeContainer
+  titles={['宽按钮', '块级按钮']}
+  codes={[ButtonWideSourceCode, ButtonBlockSourceCode]}>
+  <div id="tab-1">
+    <ButtonWide />
+  </div>
+
+  <div id="tab-2">
+    <ButtonBlock />
+  </div>
+</CodeContainer>
