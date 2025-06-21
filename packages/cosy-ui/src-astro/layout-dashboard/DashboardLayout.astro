@@ -19,9 +19,10 @@
  * import { DashboardLayout } from '@coffic/cosy-ui';
  *
  * const navItems = [
- *   { href: "/dashboard", icon: "home", text: "仪表盘" },
- *   { href: "/dashboard/users", icon: "user", text: "用户管理" },
- *   { href: "/dashboard/settings", icon: "settings", text: "系统设置" }
+ *   { href: "/dashboard", text: "仪表盘" },                    // 自动匹配 dashboard 图标
+ *   { href: "/dashboard/users", text: "用户管理" },             // 自动匹配 users 图标
+ *   { href: "/dashboard/settings", text: "系统设置" },          // 自动匹配 settings 图标
+ *   { href: "/dashboard/reports", icon: "chart", text: "报表" } // 手动指定图标
  * ];
  * ---
  *
@@ -52,15 +53,10 @@
  */
 
 import { BaseLayout } from '../../index-astro';
+import DashboardSidebar from './DashboardSidebar.astro';
+import DashboardTopNavbar from './DashboardTopNavbar.astro';
 import '../../style.ts';
-
-export interface NavItem {
-  href: string;
-  icon: string;
-  text: string;
-  badge?: string | number;
-  items?: NavItem[];
-}
+import { type NavItem } from './types';
 
 export interface Props {
   /**
@@ -131,23 +127,6 @@ const {
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
-
-// 图标映射
-const iconMap: Record<string, string> = {
-  home: '🏠',
-  user: '👤',
-  users: '👥',
-  settings: '⚙️',
-  chart: '📊',
-  document: '📄',
-  calendar: '📅',
-  notification: '🔔',
-  message: '💬',
-  search: '🔍',
-  star: '⭐',
-  heart: '❤️',
-  menu: '☰',
-};
 ---
 
 <BaseLayout
@@ -168,176 +147,21 @@ const iconMap: Record<string, string> = {
         for="dashboard-drawer"
         aria-label="close sidebar"
         class="cosy:drawer-overlay"></label>
-      <aside
-        class="cosy:w-64 cosy:min-h-full cosy:bg-base-300 cosy:text-base-content">
-        <!-- 侧边栏头部 -->
-        <div
-          class="cosy:navbar cosy:bg-base-300 cosy:border-b cosy:border-base-200">
-          <div class="cosy:navbar-start">
-            <a
-              href="/dashboard"
-              class="cosy:btn cosy:btn-ghost cosy:text-lg cosy:font-semibold cosy:no-underline">
-              <span class="cosy:text-xl">⚡</span>
-              <span class="cosy:hidden cosy:lg:block">{systemName}</span>
-            </a>
-          </div>
-          <div class="cosy:navbar-end">
-            <button
-              class="cosy:btn cosy:btn-ghost cosy:btn-sm"
-              id="collapse-sidebar">
-              <span class="cosy:text-sm">{iconMap.menu}</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- 导航菜单 -->
-        <ul
-          class="cosy:menu cosy:p-4 cosy:space-y-1 cosy:list-none cosy:no-underline">
-          {
-            navItems.map((item: NavItem) => {
-              const isActive =
-                currentPath === item.href ||
-                (item.items &&
-                  item.items.some(
-                    (subitem: NavItem) => currentPath === subitem.href
-                  ));
-
-              return (
-                <li>
-                  <a
-                    href={item.href}
-                    class:list={['cosy:no-underline', { active: isActive }]}>
-                    <span class="cosy:text-base">
-                      {iconMap[item.icon] || '📁'}
-                    </span>
-                    <span>{item.text}</span>
-                    {item.badge && (
-                      <span class="cosy:badge cosy:badge-primary cosy:badge-sm">
-                        {item.badge}
-                      </span>
-                    )}
-                  </a>
-
-                  {item.items && (
-                    <ul class="cosy:ml-4 cosy:list-none cosy:no-underline">
-                      {item.items.map((subitem: NavItem) => {
-                        const isSubActive = currentPath === subitem.href;
-                        return (
-                          <li>
-                            <a
-                              href={subitem.href}
-                              class:list={[
-                                'cosy:text-sm cosy:no-underline',
-                                { active: isSubActive },
-                              ]}>
-                              <span class="cosy:text-sm">
-                                {iconMap[subitem.icon] || '📄'}
-                              </span>
-                              <span>{subitem.text}</span>
-                              {subitem.badge && (
-                                <span class="cosy:badge cosy:badge-primary cosy:badge-xs">
-                                  {subitem.badge}
-                                </span>
-                              )}
-                            </a>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  )}
-                </li>
-              );
-            })
-          }
-        </ul>
-      </aside>
+      <DashboardSidebar
+        systemName={systemName}
+        navItems={navItems}
+        currentPath={currentPath}
+      />
     </div>
 
     <!-- 主内容区 -->
     <div class="cosy:drawer-content cosy:flex cosy:flex-col">
       <!-- 顶部导航栏 -->
-      <div class="cosy:navbar cosy:bg-base-100 cosy:shadow-sm">
-        <div class="cosy:navbar-start">
-          <label
-            for="dashboard-drawer"
-            class="cosy:btn cosy:btn-square cosy:btn-ghost cosy:lg:hidden">
-            <span class="cosy:text-lg">{iconMap.menu}</span>
-          </label>
-
-          <div class="cosy:breadcrumbs cosy:text-sm cosy:ml-4">
-            <ul>
-              <li><span class="cosy:text-base-content/70">{title}</span></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="cosy:navbar-end cosy:gap-2">
-          <!-- 搜索框 -->
-          <div class="cosy:form-control cosy:hidden cosy:lg:flex">
-            <div class="cosy:input-group">
-              <input
-                type="text"
-                placeholder="搜索..."
-                class="cosy:input cosy:input-bordered cosy:input-sm cosy:w-48"
-              />
-              <button class="cosy:btn cosy:btn-square cosy:btn-sm">
-                <span class="cosy:text-sm">{iconMap.search}</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- 通知 -->
-          <div class="cosy:indicator">
-            <button class="cosy:btn cosy:btn-ghost cosy:btn-circle">
-              <span class="cosy:text-lg">{iconMap.notification}</span>
-            </button>
-            <span
-              class="cosy:badge cosy:badge-xs cosy:badge-primary cosy:indicator-item"
-              >3</span
-            >
-          </div>
-
-          <!-- 用户信息 -->
-          {
-            userName && (
-              <div class="cosy:dropdown cosy:dropdown-end">
-                <div
-                  tabindex="0"
-                  role="button"
-                  class="cosy:btn cosy:btn-ghost cosy:gap-2">
-                  {userAvatar ? (
-                    <div class="cosy:avatar">
-                      <div class="cosy:w-8 cosy:rounded-full">
-                        <img src={userAvatar} alt={userName} />
-                      </div>
-                    </div>
-                  ) : (
-                    <div class="cosy:avatar cosy:placeholder">
-                      <div class="cosy:bg-primary cosy:text-primary-content cosy:rounded-full cosy:w-8">
-                        <span class="cosy:text-sm">{userName.charAt(0)}</span>
-                      </div>
-                    </div>
-                  )}
-                  <span class="cosy:hidden cosy:lg:block">{userName}</span>
-                </div>
-                <ul
-                  tabindex="0"
-                  class="cosy:dropdown-content cosy:menu cosy:p-2 cosy:shadow cosy:bg-base-100 cosy:rounded-box cosy:w-52">
-                  <li>
-                    <a class="cosy:no-underline">个人资料</a>
-                  </li>
-                  <li>
-                    <a class="cosy:no-underline">设置</a>
-                  </li>
-                  <li>
-                    <a class="cosy:no-underline">退出登录</a>
-                  </li>
-                </ul>
-              </div>
-            )
-          }
-        </div>
-      </div>
+      <DashboardTopNavbar
+        title={title}
+        userName={userName}
+        userAvatar={userAvatar}
+      />
 
       <!-- 页面内容 -->
       <main class="cosy:flex-1 cosy:p-4 cosy:lg:p-6">
@@ -352,28 +176,17 @@ const iconMap: Record<string, string> = {
 </BaseLayout>
 
 <script>
-  // 侧边栏折叠/展开功能
+  // 从本地存储恢复状态
   document.addEventListener('DOMContentLoaded', () => {
-    const collapseSidebarBtn = document.getElementById('collapse-sidebar');
     const drawerToggle = document.getElementById(
       'dashboard-drawer'
     ) as HTMLInputElement;
 
-    if (collapseSidebarBtn && drawerToggle) {
-      collapseSidebarBtn.addEventListener('click', () => {
-        drawerToggle.checked = !drawerToggle.checked;
-        // 保存状态到本地存储
-        localStorage.setItem(
-          'sidebarCollapsed',
-          drawerToggle.checked.toString()
-        );
-      });
-    }
-
-    // 从本地存储恢复状态
-    const savedState = localStorage.getItem('sidebarCollapsed');
-    if (savedState && drawerToggle) {
-      drawerToggle.checked = savedState === 'true';
+    if (drawerToggle) {
+      const savedState = localStorage.getItem('sidebarCollapsed');
+      if (savedState) {
+        drawerToggle.checked = savedState === 'true';
+      }
     }
   });
 </script>
