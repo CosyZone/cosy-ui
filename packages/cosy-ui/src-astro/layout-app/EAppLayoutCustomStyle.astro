@@ -1,0 +1,174 @@
+---
+import AppLayout from './AppLayout.astro';
+import type { ISidebarItem } from '../types/sidebar';
+
+const sidebarItems: ISidebarItem[] = [
+  {
+    text: '设计系统',
+    href: '/design',
+    items: [
+      { href: '/design/colors', text: '色彩体系' },
+      { href: '/design/typography', text: '字体规范' },
+      { href: '/design/spacing', text: '间距规则' },
+    ],
+  },
+  {
+    text: '组件库',
+    href: '/components',
+    items: [
+      { href: '/components/buttons', text: '按钮组件' },
+      { href: '/components/forms', text: '表单组件' },
+      { href: '/components/layout', text: '布局组件' },
+    ],
+  },
+  {
+    text: '模板',
+    href: '/templates',
+    items: [
+      { href: '/templates/landing', text: '落地页模板' },
+      { href: '/templates/dashboard', text: '仪表盘模板' },
+    ],
+  },
+];
+---
+
+<AppLayout
+  metaConfig={{
+    title: '自定义样式布局',
+    description: '展示自定义样式的应用布局',
+    keywords: '自定义,样式,布局',
+    author: 'Design Team',
+    robots: 'index,follow',
+  }}
+  sidebarConfig={{
+    sidebarItems: sidebarItems,
+  }}
+  headerConfig={{
+    height: 'lg',
+  }}
+  footerConfig={{
+    siteName: '设计系统文档',
+    homeLink: '/',
+    slogan: '一致性与美感并重',
+    company: 'Design Studio',
+    copyright: '2024 设计工作室',
+    inspirationalSlogan: '设计让世界更美好',
+    socialLinks: [
+      'https://github.com/design-studio/design-system',
+      'https://dribbble.com/design-studio',
+      'https://twitter.com/design_studio',
+    ],
+  }}
+  mainContentConfig={{
+    padding: 'lg',
+  }}
+  class="cosy:bg-gradient-to-br cosy:from-purple-50 cosy:to-blue-50">
+  <!-- Hero 区域 -->
+  <div
+    class="card cosy:bg-gradient-to-r cosy:from-purple-600 cosy:to-blue-600 cosy:text-white cosy:shadow-2xl cosy:mb-8">
+    <div class="card-body cosy:text-center">
+      <h1 class="card-title cosy:text-4xl cosy:justify-center cosy:mb-4">
+        <span class="cosy:text-5xl cosy:mr-4">🎨</span>
+        设计系统文档
+      </h1>
+      <p class="cosy:text-xl cosy:text-purple-100">
+        构建一致性的用户体验，让设计和开发更高效
+      </p>
+      <div class="card-actions cosy:justify-center cosy:mt-6">
+        <button class="btn btn-primary btn-lg">开始探索</button>
+        <button
+          class="btn btn-outline btn-lg cosy:text-white cosy:border-white">
+          查看组件
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 特性展示 -->
+  <div
+    class="cosy:grid cosy:grid-cols-1 cosy:md:grid-cols-2 cosy:lg:grid-cols-3 cosy:gap-6 cosy:mb-8">
+    <div
+      class="card cosy:bg-gradient-to-br cosy:from-green-50 cosy:to-emerald-50 cosy:shadow-lg">
+      <div class="card-body">
+        <h2 class="card-title cosy:text-green-700">
+          <span class="cosy:text-2xl">🎯</span>
+          一致性设计
+        </h2>
+        <p class="cosy:text-green-600">
+          通过统一的设计语言和组件库，确保产品体验的一致性。
+        </p>
+      </div>
+    </div>
+
+    <div
+      class="card cosy:bg-gradient-to-br cosy:from-blue-50 cosy:to-indigo-50 cosy:shadow-lg">
+      <div class="card-body">
+        <h2 class="card-title cosy:text-blue-700">
+          <span class="cosy:text-2xl">⚡</span>
+          高效协作
+        </h2>
+        <p class="cosy:text-blue-600">
+          设计师和开发者之间的无缝协作，加速产品迭代。
+        </p>
+      </div>
+    </div>
+
+    <div
+      class="card cosy:bg-gradient-to-br cosy:from-purple-50 cosy:to-pink-50 cosy:shadow-lg">
+      <div class="card-body">
+        <h2 class="card-title cosy:text-purple-700">
+          <span class="cosy:text-2xl">🚀</span>
+          可扩展性
+        </h2>
+        <p class="cosy:text-purple-600">
+          模块化的设计体系，支持业务的快速增长和变化。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 使用统计 -->
+  <div
+    class="stats cosy:shadow-xl cosy:bg-gradient-to-r cosy:from-indigo-500 cosy:to-purple-600 cosy:text-white cosy:mb-8">
+    <div class="stat">
+      <div class="stat-figure">
+        <span class="cosy:text-3xl">📦</span>
+      </div>
+      <div class="stat-title cosy:text-indigo-100">组件数量</div>
+      <div class="stat-value">120+</div>
+      <div class="stat-desc cosy:text-indigo-200">覆盖所有场景</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-figure">
+        <span class="cosy:text-3xl">👥</span>
+      </div>
+      <div class="stat-title cosy:text-indigo-100">团队使用</div>
+      <div class="stat-value">50+</div>
+      <div class="stat-desc cosy:text-indigo-200">设计师和开发者</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-figure">
+        <span class="cosy:text-3xl">🎯</span>
+      </div>
+      <div class="stat-title cosy:text-indigo-100">项目应用</div>
+      <div class="stat-value">30+</div>
+      <div class="stat-desc cosy:text-indigo-200">活跃项目</div>
+    </div>
+  </div>
+
+  <!-- 最新动态 -->
+  <div class="alert alert-info cosy:shadow-lg">
+    <span class="cosy:text-2xl">📢</span>
+    <div>
+      <h3 class="cosy:font-bold">最新更新</h3>
+      <div class="cosy:text-sm">
+        设计系统 v2.0 已发布，新增了暗色主题支持和更多组件变体。
+      </div>
+    </div>
+    <div>
+      <button class="btn btn-sm btn-primary">查看详情</button>
+    </div>
+  </div>
+</AppLayout>

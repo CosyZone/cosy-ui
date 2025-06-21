@@ -1,0 +1,14 @@
+---
+import CodeContainer from '../code-container/CodeContainer.astro';
+import EAppLayoutCustomStyle from './EAppLayoutCustomStyle.astro';
+import CustomStyleSourceCode from './EAppLayoutCustomStyle.astro?raw';
+---
+
+<CodeContainer
+  titles={['自定义样式']}
+  descriptions={['展示如何使用自定义CSS类和配置来个性化应用布局的外观']}
+  codes={[CustomStyleSourceCode]}>
+  <div id="tab-1">
+    <EAppLayoutCustomStyle />
+  </div>
+</CodeContainer>
