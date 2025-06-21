@@ -5,15 +5,12 @@
  */
 
 import { CodeContainer } from './index';
-import { Alert } from '../alert';
-
-const code = `<Alert type="info">
-  这是一个基础示例
-</Alert>`;
+import AlertSourceCode from '../alert/EAlertBasic.astro?raw';
+import EAlertBasic from '../alert/EAlertBasic.astro';
 ---
 
-<CodeContainer codes={[code]}>
+<CodeContainer codes={[AlertSourceCode]}>
   <div id="tab-1">
-    <Alert type="info"> 这是一个基础示例 </Alert>
+    <EAlertBasic />
   </div>
 </CodeContainer>
