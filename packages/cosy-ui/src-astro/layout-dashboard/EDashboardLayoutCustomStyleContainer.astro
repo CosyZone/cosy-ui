@@ -1,0 +1,14 @@
+---
+import CodeContainer from '../code-container/CodeContainer.astro';
+import EDashboardLayoutCustomStyle from './EDashboardLayoutCustomStyle.astro';
+import CustomStyleSourceCode from './EDashboardLayoutCustomStyle.astro?raw';
+---
+
+<CodeContainer
+  titles={['自定义样式']}
+  descriptions={['展示如何使用自定义CSS类来个性化仪表盘的外观']}
+  codes={[CustomStyleSourceCode]}>
+  <div id="tab-1">
+    <EDashboardLayoutCustomStyle />
+  </div>
+</CodeContainer>

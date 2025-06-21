@@ -1,0 +1,208 @@
+---
+title: 'Dashboard Layout'
+description: '管理后台布局组件，提供完整的仪表盘框架，包含侧边栏导航、顶部导航栏和响应式设计'
+folder: false
+order: 7.5
+---
+
+import { DashboardLayout, DashboardLayoutPackage } from '@coffic/cosy-ui';
+
+## 简介
+
+DashboardLayout 组件适用于管理后台的布局，包含侧边栏导航和顶部导航栏。提供了完整的管理界面框架，包括响应式设计和暗色主题支持。
+
+组件特性：
+
+- 🏗️ **完整框架** - 提供侧边栏、顶部导航栏和主内容区的完整布局
+- 📱 **响应式设计** - 在不同设备上提供良好的用户体验
+- 🎨 **daisyUI样式** - 使用daisyUI组件库提供一致的设计风格
+- 🔧 **高度可定制** - 支持自定义导航项、系统名称和用户信息
+- 💾 **状态保持** - 记住用户的侧边栏折叠状态
+- 🌙 **主题支持** - 完整支持明暗主题切换
+
+## 基础用法
+
+最简单的仪表盘布局使用方式：
+
+<DashboardLayoutPackage.DashboardLayoutContainers.Basic />
+
+## 自定义样式
+
+通过class属性自定义仪表盘的外观样式：
+
+<DashboardLayoutPackage.DashboardLayoutContainers.CustomStyle />
+
+## 使用示例
+
+### 基本配置
+
+```astro
+---
+import { DashboardLayout } from '@coffic/cosy-ui';
+
+// 定义导航项
+const navItems = [
+  { href: "/dashboard", icon: "home", text: "仪表盘" },
+  { href: "/dashboard/users", icon: "users", text: "用户管理", badge: "5" },
+  { 
+    href: "/dashboard/content", 
+    icon: "document", 
+    text: "内容管理",
+    items: [
+      { href: "/dashboard/content/articles", icon: "document", text: "文章管理" },
+      { href: "/dashboard/content/categories", icon: "star", text: "分类管理" }
+    ]
+  },
+  { href: "/dashboard/settings", icon: "settings", text: "系统设置" }
+];
+---
+
+<DashboardLayout
+  title="管理后台"
+  navItems={navItems}
+  userName="管理员"
+  systemName="内容管理系统"
+>
+  <h1>欢迎使用管理后台</h1>
+  <p>这里是主要内容区域</p>
+</DashboardLayout>
+```
+
+### 带用户头像
+
+```astro
+<DashboardLayout
+  title="个人仪表盘"
+  navItems={navItems}
+  userName="张三"
+  userAvatar="/assets/avatar.jpg"
+  systemName="个人管理中心"
+>
+  <div class="stats shadow">
+    <div class="stat">
+      <div class="stat-title">今日访问</div>
+      <div class="stat-value">1,234</div>
+    </div>
+  </div>
+</DashboardLayout>
+```
+
+### 自定义样式
+
+```astro
+<DashboardLayout
+  title="自定义仪表盘"
+  navItems={navItems}
+  userName="管理员"
+  class="cosy:bg-gradient-to-br cosy:from-blue-50 cosy:to-purple-50"
+>
+  <div class="alert alert-info">
+    <span>💡</span>
+    <div>这是一个自定义样式的仪表盘</div>
+  </div>
+</DashboardLayout>
+```
+
+## Props 参考
+
+### DashboardLayout Props
+
+| 属性               | 类型                 | 必需 | 默认值     | 描述                     |
+| ------------------ | -------------------- | ---- | ---------- | ------------------------ |
+| `title`            | `string`             | ✅   | -          | 页面标题                 |
+| `description`      | `string`             | ❌   | -          | 页面描述                 |
+| `systemName`       | `string`             | ❌   | "管理系统" | 系统名称，显示在侧边栏   |
+| `navItems`         | `NavItem[]`          | ✅   | -          | 导航项目数组             |
+| `userName`         | `string`             | ❌   | -          | 用户名，显示在顶部导航栏 |
+| `userAvatar`       | `string`             | ❌   | -          | 用户头像URL              |
+| `sidebarCollapsed` | `boolean`            | ❌   | `false`    | 是否折叠侧边栏           |
+| `head`             | `astroHTML.JSX.Element` | ❌   | -          | 自定义头部内容           |
+| `class`            | `string`             | ❌   | -          | 页面类名                 |
+| `class:list`       | `any`                | ❌   | -          | 类名列表                 |
+
+### NavItem 接口
+
+```typescript
+interface NavItem {
+  href: string;           // 链接地址
+  icon: string;           // 图标名称
+  text: string;           // 显示文本
+  badge?: string | number; // 可选的徽章显示
+  items?: NavItem[];      // 子菜单项
+}
+```
+
+### 支持的图标
+
+组件内置了常用图标的映射：
+
+- `home` - 🏠 首页
+- `user` - 👤 用户
+- `users` - 👥 用户组
+- `settings` - ⚙️ 设置
+- `chart` - 📊 图表
+- `document` - 📄 文档
+- `calendar` - 📅 日历
+- `notification` - 🔔 通知
+- `message` - 💬 消息
+- `search` - 🔍 搜索
+- `star` - ⭐ 收藏
+- `heart` - ❤️ 喜欢
+- `menu` - ☰ 菜单
+
+## 功能特性
+
+### 响应式设计
+
+- **桌面端**：显示完整的侧边栏和所有功能
+- **平板端**：侧边栏可折叠，保持良好的交互体验
+- **移动端**：侧边栏转为抽屉模式，节省屏幕空间
+
+### 状态管理
+
+- 自动保存侧边栏折叠状态到本地存储
+- 页面刷新后恢复用户的使用习惯
+- 支持编程控制侧边栏状态
+
+### 导航系统
+
+- 支持多级导航结构
+- 自动高亮当前页面对应的导航项
+- 支持徽章显示（如消息数量、待处理任务等）
+
+## 最佳实践
+
+### 导航结构设计
+
+1. **保持简洁** - 主导航项建议不超过7个
+2. **逻辑分组** - 相关功能归类到子菜单中
+3. **重要性排序** - 常用功能放在顶部
+4. **图标一致** - 使用语义化的图标提升识别度
+
+### 内容区域布局
+
+1. **卡片包装** - 使用 `card` 组件包装内容区域
+2. **间距统一** - 使用一致的内外边距
+3. **响应式考虑** - 确保内容在各种屏幕尺寸下的可读性
+
+### 性能优化
+
+1. **按需加载** - 大型页面考虑懒加载
+2. **状态缓存** - 合理利用本地存储
+3. **组件复用** - 提取公共组件避免重复
+
+## 样式定制
+
+DashboardLayout 组件遵循 cosy-ui 的样式规范：
+
+- 使用 daisyUI 的 `drawer`、`navbar`、`menu`、`card` 等组件
+- Tailwind CSS 类需要添加 `cosy:` 前缀（如 `cosy:bg-base-200`）
+- 支持完整的响应式设计
+- 内置明暗主题支持
+
+```css
+/* 自定义样式示例 */
+.custom-dashboard {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+``` 

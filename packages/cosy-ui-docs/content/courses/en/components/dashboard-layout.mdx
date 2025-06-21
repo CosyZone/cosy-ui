@@ -1,0 +1,208 @@
+---
+title: 'Dashboard Layout'
+description: 'Admin dashboard layout component providing complete dashboard framework with sidebar navigation, top navbar, and responsive design'
+folder: false
+order: 7.5
+---
+
+import { DashboardLayout, DashboardLayoutPackage } from '@coffic/cosy-ui';
+
+## Introduction
+
+The DashboardLayout component is designed for admin dashboards, featuring sidebar navigation and top navbar. It provides a complete management interface framework with responsive design and dark theme support.
+
+Component Features:
+
+- 🏗️ **Complete Framework** - Provides sidebar, top navbar, and main content area in a complete layout
+- 📱 **Responsive Design** - Delivers excellent user experience across different devices
+- 🎨 **daisyUI Styling** - Uses daisyUI component library for consistent design
+- 🔧 **Highly Customizable** - Supports custom navigation items, system name, and user information
+- 💾 **State Persistence** - Remembers user's sidebar collapse state
+- 🌙 **Theme Support** - Full support for light and dark theme switching
+
+## Basic Usage
+
+The simplest dashboard layout usage:
+
+<DashboardLayoutPackage.DashboardLayoutContainers.Basic />
+
+## Custom Styling
+
+Customize the dashboard appearance using the class attribute:
+
+<DashboardLayoutPackage.DashboardLayoutContainers.CustomStyle />
+
+## Usage Examples
+
+### Basic Configuration
+
+```astro
+---
+import { DashboardLayout } from '@coffic/cosy-ui';
+
+// Define navigation items
+const navItems = [
+  { href: "/dashboard", icon: "home", text: "Dashboard" },
+  { href: "/dashboard/users", icon: "users", text: "User Management", badge: "5" },
+  { 
+    href: "/dashboard/content", 
+    icon: "document", 
+    text: "Content Management",
+    items: [
+      { href: "/dashboard/content/articles", icon: "document", text: "Article Management" },
+      { href: "/dashboard/content/categories", icon: "star", text: "Category Management" }
+    ]
+  },
+  { href: "/dashboard/settings", icon: "settings", text: "System Settings" }
+];
+---
+
+<DashboardLayout
+  title="Admin Dashboard"
+  navItems={navItems}
+  userName="Administrator"
+  systemName="Content Management System"
+>
+  <h1>Welcome to Admin Dashboard</h1>
+  <p>This is the main content area</p>
+</DashboardLayout>
+```
+
+### With User Avatar
+
+```astro
+<DashboardLayout
+  title="Personal Dashboard"
+  navItems={navItems}
+  userName="John Doe"
+  userAvatar="/assets/avatar.jpg"
+  systemName="Personal Management Center"
+>
+  <div class="stats shadow">
+    <div class="stat">
+      <div class="stat-title">Today's Visits</div>
+      <div class="stat-value">1,234</div>
+    </div>
+  </div>
+</DashboardLayout>
+```
+
+### Custom Styling
+
+```astro
+<DashboardLayout
+  title="Custom Dashboard"
+  navItems={navItems}
+  userName="Administrator"
+  class="cosy:bg-gradient-to-br cosy:from-blue-50 cosy:to-purple-50"
+>
+  <div class="alert alert-info">
+    <span>💡</span>
+    <div>This is a custom styled dashboard</div>
+  </div>
+</DashboardLayout>
+```
+
+## Props Reference
+
+### DashboardLayout Props
+
+| Property           | Type                 | Required | Default         | Description                        |
+| ------------------ | -------------------- | -------- | --------------- | ---------------------------------- |
+| `title`            | `string`             | ✅       | -               | Page title                         |
+| `description`      | `string`             | ❌       | -               | Page description                   |
+| `systemName`       | `string`             | ❌       | "Management System" | System name displayed in sidebar   |
+| `navItems`         | `NavItem[]`          | ✅       | -               | Navigation items array             |
+| `userName`         | `string`             | ❌       | -               | Username displayed in top navbar   |
+| `userAvatar`       | `string`             | ❌       | -               | User avatar URL                    |
+| `sidebarCollapsed` | `boolean`            | ❌       | `false`         | Whether to collapse sidebar        |
+| `head`             | `astroHTML.JSX.Element` | ❌       | -               | Custom head content                |
+| `class`            | `string`             | ❌       | -               | Page class name                    |
+| `class:list`       | `any`                | ❌       | -               | Class list                         |
+
+### NavItem Interface
+
+```typescript
+interface NavItem {
+  href: string;           // Link URL
+  icon: string;           // Icon name
+  text: string;           // Display text
+  badge?: string | number; // Optional badge display
+  items?: NavItem[];      // Sub-menu items
+}
+```
+
+### Supported Icons
+
+The component includes built-in icon mappings:
+
+- `home` - 🏠 Home
+- `user` - 👤 User
+- `users` - 👥 Users
+- `settings` - ⚙️ Settings
+- `chart` - 📊 Chart
+- `document` - 📄 Document
+- `calendar` - 📅 Calendar
+- `notification` - 🔔 Notification
+- `message` - 💬 Message
+- `search` - 🔍 Search
+- `star` - ⭐ Star
+- `heart` - ❤️ Heart
+- `menu` - ☰ Menu
+
+## Features
+
+### Responsive Design
+
+- **Desktop**: Shows complete sidebar and all features
+- **Tablet**: Collapsible sidebar with good interaction experience
+- **Mobile**: Sidebar converts to drawer mode to save screen space
+
+### State Management
+
+- Automatically saves sidebar collapse state to local storage
+- Restores user preferences after page refresh
+- Supports programmatic control of sidebar state
+
+### Navigation System
+
+- Supports multi-level navigation structure
+- Automatically highlights current page navigation item
+- Supports badge display (like message count, pending tasks, etc.)
+
+## Best Practices
+
+### Navigation Structure Design
+
+1. **Keep it Simple** - Recommend no more than 7 main navigation items
+2. **Logical Grouping** - Group related features into sub-menus
+3. **Priority Ordering** - Place frequently used features at the top
+4. **Consistent Icons** - Use semantic icons to improve recognition
+
+### Content Area Layout
+
+1. **Card Wrapping** - Use `card` component to wrap content areas
+2. **Consistent Spacing** - Use consistent padding and margins
+3. **Responsive Considerations** - Ensure content readability across all screen sizes
+
+### Performance Optimization
+
+1. **Lazy Loading** - Consider lazy loading for large pages
+2. **State Caching** - Utilize local storage appropriately
+3. **Component Reuse** - Extract common components to avoid duplication
+
+## Style Customization
+
+The DashboardLayout component follows cosy-ui styling conventions:
+
+- Uses daisyUI's `drawer`, `navbar`, `menu`, `card` components
+- Tailwind CSS classes require `cosy:` prefix (e.g., `cosy:bg-base-200`)
+- Supports complete responsive design
+- Built-in light and dark theme support
+
+```css
+/* Custom styling example */
+.custom-dashboard {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+``` 
