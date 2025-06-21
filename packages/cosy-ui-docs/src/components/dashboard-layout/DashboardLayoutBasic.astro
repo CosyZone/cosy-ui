@@ -1,8 +1,8 @@
 ---
-import DashboardLayout from './DashboardLayout.astro';
-import type { IMenuItem } from '../types/menu';
+import { DashboardLayout } from '@coffic/cosy-ui';
+import type { NavItem } from '@coffic/cosy-ui';
 
-const menuItems: IMenuItem[] = [
+const menuItems: NavItem[] = [
   {
     text: '仪表盘',
     href: '/dashboard',
@@ -24,11 +24,9 @@ const menuItems: IMenuItem[] = [
 <DashboardLayout
   title="仪表盘布局示例"
   description="这是一个仪表盘布局的示例页面"
-  navItems={menuItems}
->
+  navItems={menuItems}>
   <div
-    class="cosy:grid cosy:grid-cols-1 cosy:md:grid-cols-2 cosy:lg:grid-cols-3 cosy:gap-4"
-  >
+    class="cosy:grid cosy:grid-cols-1 cosy:md:grid-cols-2 cosy:lg:grid-cols-3 cosy:gap-4">
     <div class="cosy:card cosy:bg-base-100 cosy:shadow-xl">
       <div class="cosy:card-body">
         <h2 class="cosy:card-title">总用户数</h2>
