@@ -51,6 +51,7 @@
  * - head?: astroHTML.JSX.Element - 自定义头部内容
  * - class?: string - 页面类名
  * - class:list?: any - 类名列表
+ * - debug?: boolean - 调试模式，默认为false
  *
  * @slots
  * - default - 主要内容区域
@@ -138,6 +139,12 @@ export interface Props {
    * 类名列表
    */
   'class:list'?: any;
+
+  /**
+   * 调试模式
+   * @default false
+   */
+  debug?: boolean;
 }
 
 const {
@@ -154,6 +161,7 @@ const {
   head,
   class: className,
   'class:list': classList,
+  debug = false,
   ...rest
 } = Astro.props;
 
@@ -168,6 +176,7 @@ const contentStyles = getContentTheme(contentTheme);
   keywords=""
   author=""
   robots=""
+  debug={debug}
   class:list={['cosy:min-h-screen cosy:bg-base-200', className, classList]}
   {...rest}>
   <div class:list={['cosy:drawer', { 'cosy:drawer-open': !sidebarCollapsed }]}>
