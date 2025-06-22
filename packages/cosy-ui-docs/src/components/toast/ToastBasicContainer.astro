@@ -4,7 +4,7 @@
  * @description Toast 基础示例的容器组件，使用 CodeContainer 的多标签系统展示不同用法
  */
 
-import { CodeContainer } from '@coffic/cosy-ui';
+import { CodeContainer, ToastContainer } from '@coffic/cosy-ui';
 import ToastTypes from './ToastTypes.astro';
 import ToastDuration from './ToastDuration.astro';
 import ToastControl from './ToastControl.astro';
@@ -15,6 +15,34 @@ import ToastDurationCode from './ToastDuration.astro?raw';
 import ToastControlCode from './ToastControl.astro?raw';
 import ToastRealWorldCode from './ToastRealWorld.astro?raw';
 ---
+
+<!-- 全局 Toast 容器 -->
+<ToastContainer />
+
+<!-- 使用说明 -->
+<div class="cosy:alert cosy:alert-info cosy:mb-4">
+  <div class="cosy:flex cosy:gap-2">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      class="cosy:w-6 cosy:h-6 cosy:stroke-current cosy:shrink-0">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <div>
+      <p class="cosy:font-medium">重要提示</p>
+      <p class="cosy:text-sm">
+        在实际应用中，请确保将 <code class="cosy:badge cosy:badge-ghost"
+          >&lt;ToastContainer /&gt;</code
+        > 放置在应用的根组件或布局组件中，这样 Toast 通知才能在任何页面正常工作。
+      </p>
+    </div>
+  </div>
+</div>
 
 <CodeContainer
   titles={['消息类型', '持续时间', '手动控制', '实际场景']}
