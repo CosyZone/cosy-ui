@@ -1,6 +1,6 @@
 ---
 title: 'Dashboard Layout'
-description: 'Admin dashboard layout component providing complete dashboard framework with sidebar navigation, top navbar, and responsive design'
+description: 'Admin dashboard layout component providing complete dashboard framework with sidebar navigation, top navbar, confirm dialog, and responsive design'
 folder: false
 order: 7.5
 ---
@@ -21,6 +21,7 @@ Component Features:
 - 💾 **State Persistence** - Remembers user's sidebar collapse state
 - 🌙 **Theme Support** - Full support for light and dark theme switching
 - 🔔 **Built-in Notifications** - Integrated Toast notification system for unified message prompting experience
+- 🔒 **Confirm Dialog** - Built-in confirm dialog for important action confirmation
 
 ## Basic Usage
 
@@ -96,6 +97,52 @@ clearAllToasts();
 - 🎨 **Elegant animations** - Smooth slide-in and slide-out effects
 - 🔧 **Batch management** - Support for displaying multiple notifications simultaneously and batch clearing
 
+## Confirm Dialog
+
+DashboardLayout has a built-in confirm dialog functionality for important action confirmation:
+
+```javascript
+// Trigger confirm dialog
+document.getElementById('dashboard-confirm').showModal();
+
+// Handle confirmation event
+document.addEventListener('confirm-dialog-confirm', (e) => {
+  const { dialogId } = e.detail;
+  if (dialogId === 'dashboard-confirm') {
+    // Handle confirmation action
+    console.log('User confirmed the action');
+  }
+});
+```
+
+**Usage Methods:**
+
+1. Trigger via button:
+```html
+<button data-confirm-dialog-target="dashboard-confirm">
+  Delete
+</button>
+```
+
+2. Trigger via navigation item:
+```typescript
+const navItems = [
+  {
+    text: 'Logout',
+    href: '#',
+    icon: 'logout',
+    onClick: "document.getElementById('dashboard-confirm').showModal()"
+  }
+];
+```
+
+**Confirm Dialog Features:**
+- ✅ **Out of the box** - DashboardLayout automatically enables, no additional configuration required
+- 🎯 **Unified Experience** - Provides consistent confirmation interaction pattern
+- ⌨️ **Keyboard Support** - Supports keyboard operation and Esc to close
+- 🎨 **Elegant Animations** - Smooth fade-in and fade-out effects
+- 🔧 **Customizable** - Supports custom title, message, and button text
+
 ## Props Reference
 
 ### DashboardLayout Props
@@ -114,6 +161,7 @@ clearAllToasts();
 | `sidebarTheme`     | `SidebarTheme`       | ❌       | `'default'`     | Sidebar theme color                |
 | `mainBackgroundTheme` | `MainBackgroundTheme` | ❌       | `'transparent'` | Main content area background theme  |
 | `enableToast`      | `boolean`            | ❌       | `true`          | Whether to enable Toast notification functionality |
+| `enableConfirmDialog` | `boolean`         | ❌       | `true`          | Whether to enable confirm dialog functionality |
 | `head`             | `astroHTML.JSX.Element` | ❌       | -               | Custom head content                |
 | `class`            | `string`             | ❌       | -               | Page class name                    |
 | `class:list`       | `any`                | ❌       | -               | Class list                         |

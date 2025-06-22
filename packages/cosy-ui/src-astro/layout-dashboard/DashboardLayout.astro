@@ -156,7 +156,7 @@
 import { BaseLayout } from '../../index-astro';
 import DashboardSidebar from './DashboardSidebar.astro';
 import DashboardTopNavbar from './DashboardTopNavbar.astro';
-import { ToastContainer } from '../toast';
+import { ToastContainer, ConfirmDialog } from '../../index-astro';
 import '../../style.ts';
 import {
   type NavItem,
@@ -250,6 +250,12 @@ export interface Props {
   enableToast?: boolean;
 
   /**
+   * 是否启用确认对话框功能
+   * @default true
+   */
+  enableConfirmDialog?: boolean;
+
+  /**
    * 调试模式
    * @default false
    */
@@ -269,6 +275,7 @@ const {
   sidebarTheme = 'default',
   mainBackgroundTheme = 'transparent',
   enableToast = true,
+  enableConfirmDialog = true,
   head,
   class: className,
   'class:list': classList,
@@ -329,6 +336,16 @@ const mainBackgroundStyles = getMainBackgroundTheme(mainBackgroundTheme);
 
   <!-- Toast 容器 -->
   {enableToast && <ToastContainer />}
+
+  {
+    enableConfirmDialog && (
+      <ConfirmDialog
+        id="dashboard-confirm"
+        title="确认操作"
+        message="您确定要执行此操作吗？"
+      />
+    )
+  }
 </BaseLayout>
 
 <script>
