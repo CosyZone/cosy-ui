@@ -128,7 +128,10 @@ const themeStyles = getSidebarTheme(theme);
           <li>
             <a
               href={item.href}
-              class:list={['cosy:no-underline', { active: isActive }]}>
+              class:list={[
+                'cosy:no-underline',
+                { 'cosy:menu-active': isActive },
+              ]}>
               <AstroIcon
                 name={getNavItemIcon(item)}
                 size="16px"
@@ -152,7 +155,7 @@ const themeStyles = getSidebarTheme(theme);
                         href={subitem.href}
                         class:list={[
                           'cosy:text-sm cosy:no-underline',
-                          { active: isSubActive },
+                          { 'cosy:menu-active': isSubActive },
                         ]}>
                         <AstroIcon
                           name={getNavItemIcon(subitem)}
