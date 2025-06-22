@@ -20,6 +20,7 @@ DashboardLayout 组件适用于管理后台的布局，包含侧边栏导航和�
 - 🔧 **高度可定制** - 支持自定义导航项、系统名称和用户信息
 - 💾 **状态保持** - 记住用户的侧边栏折叠状态
 - 🌙 **主题支持** - 完整支持明暗主题切换
+- 🔔 **内置通知** - 集成 Toast 通知系统，提供统一的消息提示体验
 
 ## 基础用法
 
@@ -59,6 +60,42 @@ DashboardLayout 支持为主内容区域设置背景，提供丰富的视觉效�
 
 <ComponentPackage.DashboardLayoutContainers.MainBackground />
 
+## Toast 通知系统
+
+DashboardLayout 内置了完整的 Toast 通知系统，无需额外配置即可使用全局通知功能：
+
+```javascript
+// 简单用法
+showToast('操作成功！');
+
+// 带类型的用法
+showToast({
+  message: '数据保存成功',
+  type: 'success',
+  duration: 3000
+});
+
+// 四种消息类型
+showToast({ message: '操作成功', type: 'success' });
+showToast({ message: '网络错误', type: 'error' });
+showToast({ message: '请注意', type: 'warning' });
+showToast({ message: '系统消息', type: 'info' });
+
+// 手动控制
+const toastId = showToast('正在处理...');
+setTimeout(() => closeToast(toastId), 2000);
+
+// 清除所有通知
+clearAllToasts();
+```
+
+**Toast 特性：**
+- ✅ **开箱即用** - DashboardLayout 自动启用，无需额外配置
+- 🎯 **四种类型** - success、error、warning、info
+- ⏱️ **自动消失** - 支持自定义显示时长
+- 🎨 **优雅动画** - 平滑的滑入滑出效果
+- 🔧 **批量管理** - 支持同时显示多个通知和批量清除
+
 ## Props 参考
 
 ### DashboardLayout Props
@@ -76,6 +113,7 @@ DashboardLayout 支持为主内容区域设置背景，提供丰富的视觉效�
 | `sidebarSize`      | `'sm' \| 'md' \| 'lg' \| 'xl'` | ❌   | `'md'`     | 侧边栏尺寸大小           |
 | `sidebarTheme`     | `SidebarTheme`       | ❌   | `'default'`| 侧边栏主题色彩           |
 | `mainBackgroundTheme` | `MainBackgroundTheme` | ❌   | `'transparent'` | 主内容区域背景主题       |
+| `enableToast`      | `boolean`            | ❌   | `true`     | 是否启用 Toast 通知功能  |
 | `head`             | `astroHTML.JSX.Element` | ❌   | -          | 自定义头部内容           |
 | `class`            | `string`             | ❌   | -          | 页面类名                 |
 | `class:list`       | `any`                | ❌   | -          | 类名列表                 |

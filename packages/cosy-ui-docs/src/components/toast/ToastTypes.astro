@@ -1,0 +1,46 @@
+---
+/**
+ * @component ToastTypes
+ * @description Toast 类型示例 - 展示不同类型的通知消息
+ */
+
+import { ToastContainer } from '@coffic/cosy-ui';
+---
+
+<div class="cosy:space-y-4">
+  <div class="cosy:text-center cosy:mb-6">
+    <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-2">四种消息类型</h3>
+    <p class="cosy:text-sm cosy:text-base-content/70">
+      点击按钮体验不同类型的 Toast 通知
+    </p>
+  </div>
+
+  <div class="cosy:grid cosy:grid-cols-1 sm:cosy:grid-cols-2 cosy:gap-4">
+    <button
+      class="cosy:btn cosy:btn-info cosy:btn-block"
+      onclick="showToast({ message: '系统信息：数据同步已完成', type: 'info' })">
+      信息 (Info)
+    </button>
+
+    <button
+      class="cosy:btn cosy:btn-success cosy:btn-block"
+      onclick="showToast({ message: '成功：文件上传完成！', type: 'success' })">
+      成功 (Success)
+    </button>
+
+    <button
+      class="cosy:btn cosy:btn-warning cosy:btn-block"
+      onclick="showToast({ message: '警告：磁盘空间不足', type: 'warning' })">
+      警告 (Warning)
+    </button>
+
+    <button
+      class="cosy:btn cosy:btn-error cosy:btn-block"
+      onclick="showToast({ message: '错误：网络连接失败', type: 'error' })">
+      错误 (Error)
+    </button>
+  </div>
+</div>
+
+<!-- Toast 容器 -->
+<ToastContainer />

@@ -39,6 +39,7 @@ export * from './src-astro/team-member';
 export * from './src-astro/text';
 export * from './src-astro/theme-switcher';
 export * from './src-astro/toc';
+export * from './src-astro/toast';
 
 // 类型定义 (按字母顺序)
 export * from './src-astro/types/article';

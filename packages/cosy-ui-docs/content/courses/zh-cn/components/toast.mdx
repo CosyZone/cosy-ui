@@ -1,0 +1,243 @@
+---
+title: Toast 通知组件
+description: Toast 通知组件用于显示临时的反馈消息，支持多种类型和自动消失功能。
+folder: false
+order: 25
+---
+
+import { Toast, ToastContainer } from '@coffic/cosy-ui';
+import { ToastPackage } from '@/components/toast/index.ts';
+
+Toast 通知组件用于显示临时的反馈消息，支持多种类型（成功、错误、警告、信息）和自动消失功能。与 DashboardLayout 深度集成，提供全局通知能力。
+
+## 特性
+
+- 🎯 **四种类型** - 支持 success、error、warning、info 四种消息类型
+- ⚡ **简单 API** - 通过全局函数 `showToast()` 快速调用
+- 🔄 **自动管理** - 自动显示、定时消失和内存清理
+- 🎨 **优雅动画** - 平滑的滑入滑出动画效果
+- 📱 **响应式设计** - 适配不同屏幕尺寸
+- ♿ **可访问性** - 支持屏幕阅读器和 ARIA 标准
+- 🔧 **批量管理** - 支持同时显示多个通知和批量清除
+
+## 基础用法
+
+通过不同的标签页展示 Toast 的各种使用场景：
+
+<ToastPackage.ToastContainers.Basic />
+
+## 独立使用
+
+Toast 组件可以独立使用，只需要添加 ToastContainer：
+
+```astro
+---
+import { ToastContainer } from '@coffic/cosy-ui';
+---
+
+<!-- 页面内容 -->
+<div>
+  <button onclick="showToast('操作成功！')">
+    点击显示通知
+  </button>
+</div>
+
+<!-- Toast 容器 -->
+<ToastContainer />
+```
+
+## API 参考
+
+### 全局函数
+
+#### showToast(config)
+
+显示一个 Toast 通知。
+
+```javascript
+// 字符串形式（简化用法）
+const id = showToast('操作成功！');
+
+// 对象形式（完整配置）
+const id = showToast({
+  message: '数据保存成功',
+  type: 'success',       // 'info' | 'success' | 'warning' | 'error'
+  duration: 3000,        // 显示时长（毫秒），0 表示不自动关闭
+  id: 'custom-id'        // 可选的自定义 ID
+});
+```
+
+**参数：**
+- `config` (string | ToastConfig) - 消息内容或配置对象
+
+**返回值：**
+- `string` - Toast 的唯一 ID，可用于手动关闭
+
+#### closeToast(id)
+
+关闭指定的 Toast 通知。
+
+```javascript
+const toastId = showToast('正在处理...');
+setTimeout(() => closeToast(toastId), 2000);
+```
+
+**参数：**
+- `id` (string) - Toast 的唯一 ID
+
+#### clearAllToasts()
+
+关闭所有当前显示的 Toast 通知。
+
+```javascript
+clearAllToasts();
+```
+
+### ToastConfig 接口
+
+```typescript
+interface ToastConfig {
+  message: string;           // 消息内容
+  type?: ToastType;          // 消息类型，默认 'info'
+  duration?: number;         // 显示时长（毫秒），默认 3000
+  id?: string;              // 自定义 ID，不提供会自动生成
+}
+
+type ToastType = 'info' | 'success' | 'warning' | 'error';
+```
+
+### ToastContainer 组件
+
+用于独立使用 Toast 系统的容器组件。
+
+```astro
+---
+import { ToastContainer } from '@coffic/cosy-ui';
+---
+
+<!-- 页面内容 -->
+<div>
+  <button onclick="showToast('Hello!')">
+    显示通知
+  </button>
+</div>
+
+<!-- Toast 容器 -->
+<ToastContainer />
+```
+
+**注意：** 如果使用 DashboardLayout，无需手动添加 ToastContainer。
+
+## 样式定制
+
+Toast 组件使用 DaisyUI 的 alert 样式系统，支持主题切换：
+
+```css
+/* 自定义 Toast 容器位置 */
+#toast-container {
+  top: 1rem;
+  right: 1rem;
+  z-index: 50;
+}
+
+/* 自定义动画时长 */
+.toast-enter, .toast-exit {
+  transition-duration: 300ms;
+}
+```
+
+## 最佳实践
+
+### 1. 合理使用消息类型
+
+```javascript
+// ✅ 正确：根据操作结果选择合适的类型
+showToast({ message: '用户创建成功', type: 'success' });
+showToast({ message: '网络连接失败', type: 'error' });
+showToast({ message: '请注意数据安全', type: 'warning' });
+showToast({ message: '系统维护通知', type: 'info' });
+
+// ❌ 错误：类型与消息内容不匹配
+showToast({ message: '操作失败', type: 'success' });
+```
+
+### 2. 设置合适的显示时长
+
+```javascript
+// ✅ 正确：根据消息重要性设置时长
+showToast({ message: '保存成功', duration: 2000 });      // 简单确认
+showToast({ message: '重要警告信息', duration: 5000 });   // 重要提醒
+showToast({ message: '正在处理...', duration: 0 });      // 需要手动关闭
+
+// ❌ 错误：重要信息显示时间太短
+showToast({ message: '系统将重启，请保存数据', duration: 1000 });
+```
+
+### 3. 避免信息过载
+
+```javascript
+// ✅ 正确：合并相关消息
+showToast({ message: '批量操作完成：成功 5 项，失败 1 项', type: 'warning' });
+
+// ❌ 错误：短时间内显示过多消息
+for (let i = 0; i < 10; i++) {
+  showToast(`处理第 ${i + 1} 项`);
+}
+```
+
+### 4. 提供有意义的消息
+
+```javascript
+// ✅ 正确：清晰的操作反馈
+showToast({ message: '用户 "张三" 已删除', type: 'success' });
+showToast({ message: '上传失败：文件大小超过 10MB', type: 'error' });
+
+// ❌ 错误：模糊的消息
+showToast({ message: '操作完成', type: 'success' });
+showToast({ message: '出错了', type: 'error' });
+```
+
+## 常见问题
+
+### Q: 为什么 showToast 函数未定义？
+
+**A:** 确保已正确集成 Toast 系统：
+
+1. 使用 DashboardLayout 且 `enableToast` 为 true（默认）
+2. 或手动添加 `<ToastContainer />` 到页面中
+3. 等待页面完全加载后再调用
+
+### Q: 如何在服务器端渲染时使用？
+
+**A:** Toast 是客户端功能，只能在浏览器环境中使用：
+
+```javascript
+// ✅ 正确：检查环境
+if (typeof window !== 'undefined') {
+  showToast('客户端消息');
+}
+
+// 或在事件处理函数中使用
+function handleClick() {
+  showToast('点击成功');  // 事件处理函数总是在客户端执行
+}
+```
+
+### Q: 如何实现持久化通知？
+
+**A:** 设置 `duration` 为 0，手动控制关闭：
+
+```javascript
+const persistentToast = showToast({
+  message: '重要：请完成必填项',
+  type: 'warning',
+  duration: 0  // 不自动关闭
+});
+
+// 在某个条件满足时关闭
+if (formIsValid) {
+  closeToast(persistentToast);
+}
+```
+
+ 

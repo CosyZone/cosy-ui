@@ -1,0 +1,63 @@
+---
+/**
+ * @component ToastControl
+ * @description Toast 控制示例 - 展示手动控制通知的功能
+ */
+
+import { ToastContainer } from '@coffic/cosy-ui';
+---
+
+<div class="cosy:space-y-4">
+  <div class="cosy:text-center cosy:mb-6">
+    <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-2">手动控制</h3>
+    <p class="cosy:text-sm cosy:text-base-content/70">
+      手动显示、关闭和批量管理通知
+    </p>
+  </div>
+
+  <div class="cosy:space-y-3">
+    <div class="cosy:flex cosy:gap-3">
+      <button
+        class="cosy:btn cosy:btn-primary cosy:flex-1"
+        onclick="window.currentToastId = showToast({ message: '可控制的通知消息', type: 'info', duration: 0 })">
+        显示可控制通知
+      </button>
+
+      <button
+        class="cosy:btn cosy:btn-ghost"
+        onclick="if (window.currentToastId) { closeToast(window.currentToastId); window.currentToastId = null; }">
+        关闭
+      </button>
+    </div>
+
+    <div class="cosy:flex cosy:gap-3">
+      <button
+        class="cosy:btn cosy:btn-secondary cosy:flex-1"
+        onclick="
+          showToast({ message: '通知 1', type: 'info' });
+          showToast({ message: '通知 2', type: 'success' });
+          showToast({ message: '通知 3', type: 'warning' });
+        ">
+        显示多个通知
+      </button>
+
+      <button class="cosy:btn cosy:btn-ghost" onclick="clearAllToasts()">
+        清除全部
+      </button>
+    </div>
+
+    <div class="cosy:divider cosy:my-2"></div>
+
+    <button
+      class="cosy:btn cosy:btn-neutral cosy:btn-block"
+      onclick="
+        const id = showToast({ message: '这条通知将在 2 秒后自动关闭', type: 'warning', duration: 0 });
+        setTimeout(() => closeToast(id), 2000);
+      ">
+      延时自动关闭示例
+    </button>
+  </div>
+</div>
+
+<!-- Toast 容器 -->
+<ToastContainer />

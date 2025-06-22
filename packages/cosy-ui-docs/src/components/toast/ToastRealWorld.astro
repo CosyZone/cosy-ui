@@ -1,0 +1,110 @@
+---
+/**
+ * @component ToastRealWorld
+ * @description Toast 实际应用场景示例 - 模拟真实的使用场景
+ */
+
+import { ToastContainer } from '@coffic/cosy-ui';
+---
+
+<div class="cosy:space-y-4">
+  <div class="cosy:text-center cosy:mb-6">
+    <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-2">实际应用场景</h3>
+    <p class="cosy:text-sm cosy:text-base-content/70">
+      模拟真实应用中的 Toast 使用场景
+    </p>
+  </div>
+
+  <div class="cosy:space-y-3">
+    <!-- 表单保存场景 -->
+    <div class="cosy:card cosy:bg-base-100 cosy:shadow">
+      <div class="cosy:card-body cosy:py-4">
+        <h4 class="cosy:card-title cosy:text-base">表单保存</h4>
+        <div class="cosy:flex cosy:gap-2">
+          <button
+            class="cosy:btn cosy:btn-success cosy:btn-sm"
+            onclick="
+              showToast({ message: '用户信息保存成功！', type: 'success' });
+            ">
+            保存成功
+          </button>
+          <button
+            class="cosy:btn cosy:btn-error cosy:btn-sm"
+            onclick="
+              showToast({ message: '保存失败：请检查必填字段', type: 'error', duration: 5000 });
+            ">
+            保存失败
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 文件上传场景 -->
+    <div class="cosy:card cosy:bg-base-100 cosy:shadow">
+      <div class="cosy:card-body cosy:py-4">
+        <h4 class="cosy:card-title cosy:text-base">文件上传</h4>
+        <div class="cosy:flex cosy:gap-2">
+          <button
+            class="cosy:btn cosy:btn-primary cosy:btn-sm"
+            onclick="
+              const uploadId = showToast({ 
+                message: '正在上传文件...', 
+                type: 'info', 
+                duration: 0 
+              });
+              setTimeout(() => {
+                closeToast(uploadId);
+                showToast({ message: '文件上传完成！', type: 'success' });
+              }, 3000);
+            ">
+            开始上传
+          </button>
+          <button
+            class="cosy:btn cosy:btn-warning cosy:btn-sm"
+            onclick="
+              showToast({ 
+                message: '文件大小超过限制（最大 10MB）', 
+                type: 'warning', 
+                duration: 4000 
+              });
+            ">
+            大小超限
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 系统通知场景 -->
+    <div class="cosy:card cosy:bg-base-100 cosy:shadow">
+      <div class="cosy:card-body cosy:py-4">
+        <h4 class="cosy:card-title cosy:text-base">系统通知</h4>
+        <div class="cosy:flex cosy:gap-2">
+          <button
+            class="cosy:btn cosy:btn-info cosy:btn-sm"
+            onclick="
+              showToast({ 
+                message: '系统将在 5 分钟后进行维护', 
+                type: 'info', 
+                duration: 8000 
+              });
+            ">
+            维护通知
+          </button>
+          <button
+            class="cosy:btn cosy:btn-neutral cosy:btn-sm"
+            onclick="
+              showToast({ 
+                message: '您有 3 条新消息', 
+                type: 'info' 
+              });
+            ">
+            新消息提醒
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast 容器 -->
+<ToastContainer />

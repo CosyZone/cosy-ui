@@ -1,0 +1,46 @@
+---
+/**
+ * @component ToastDuration
+ * @description Toast 持续时间示例 - 展示不同持续时间的通知
+ */
+
+import { ToastContainer } from '@coffic/cosy-ui';
+---
+
+<div class="cosy:space-y-4">
+  <div class="cosy:text-center cosy:mb-6">
+    <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-2">自定义持续时间</h3>
+    <p class="cosy:text-sm cosy:text-base-content/70">
+      体验不同持续时间的通知消息
+    </p>
+  </div>
+
+  <div class="cosy:grid cosy:grid-cols-1 sm:cosy:grid-cols-2 cosy:gap-4">
+    <button
+      class="cosy:btn cosy:btn-outline cosy:btn-block"
+      onclick="showToast({ message: '快速提示（1秒）', type: 'info', duration: 1000 })">
+      短暂显示 (1s)
+    </button>
+
+    <button
+      class="cosy:btn cosy:btn-outline cosy:btn-block"
+      onclick="showToast({ message: '标准提示（3秒）', type: 'success', duration: 3000 })">
+      标准显示 (3s)
+    </button>
+
+    <button
+      class="cosy:btn cosy:btn-outline cosy:btn-block"
+      onclick="showToast({ message: '重要提示（5秒）', type: 'warning', duration: 5000 })">
+      长时间显示 (5s)
+    </button>
+
+    <button
+      class="cosy:btn cosy:btn-outline cosy:btn-block"
+      onclick="showToast({ message: '需要手动关闭的通知', type: 'error', duration: 0 })">
+      持久显示 (手动关闭)
+    </button>
+  </div>
+</div>
+
+<!-- Toast 容器 -->
+<ToastContainer />
