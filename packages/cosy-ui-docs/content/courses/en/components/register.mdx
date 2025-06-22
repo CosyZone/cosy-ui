@@ -1,0 +1,80 @@
+---
+title: Register Page
+description: Create flexible and feature-rich registration pages
+folder: false
+order: 16
+---
+
+import { RegisterPackage } from '@/components/register/index.ts';
+
+The Register component is used to create flexible and feature-rich registration pages, supporting multiple registration methods, form validation, and custom styles.
+
+## Basic Usage
+
+The most basic registration page includes a title, username, email, password input fields, terms of service and privacy policy options, and social registration buttons.
+
+<RegisterPackage.RegisterContainers.Basic />
+
+## Custom Styles
+
+You can customize the style and content of the registration page through custom class names and slots.
+
+<RegisterPackage.RegisterContainers.CustomStyle />
+
+## Props
+
+### Basic Properties
+- `title` (string, optional) - Registration page title, defaults to "Register"
+- `subtitle` (string, optional) - Registration page subtitle
+- `logo` (string, optional) - Path to the registration page logo image
+
+### Feature Configuration
+- `socialLogins` (('github' | 'google' | 'wechat')[], optional) - List of social registration methods
+- `showTerms` (boolean, optional) - Whether to show the terms of service option, defaults to true
+- `showPrivacy` (boolean, optional) - Whether to show the privacy policy option, defaults to true
+
+### Text Customization
+- `registerButtonText` (string, optional) - Register button text, defaults to "Register"
+- `usernameLabel` (string, optional) - Username input field label, defaults to "Username"
+- `emailLabel` (string, optional) - Email input field label, defaults to "Email"
+- `passwordLabel` (string, optional) - Password input field label, defaults to "Password"
+- `confirmPasswordLabel` (string, optional) - Confirm password input field label, defaults to "Confirm Password"
+- `termsText` (string, optional) - Terms of service text, defaults to "I have read and agree to the Terms of Service"
+- `privacyText` (string, optional) - Privacy policy text, defaults to "I have read and agree to the Privacy Policy"
+- `dividerText` (string, optional) - Social registration divider text, defaults to "or"
+
+### Style Customization
+- `customClass` (string, optional) - Custom CSS class name
+
+## Slots
+
+The component provides the following slots for custom content:
+
+- `header` - Custom header content
+- `footer` - Custom footer content
+- `socialButtons` - Custom social registration buttons
+
+## Best Practices
+
+1. **Security Considerations**
+   - Ensure HTTPS is used for data transmission
+   - Implement password strength validation
+   - Add registration rate limiting
+   - Implement email verification process
+
+2. **User Experience**
+   - Provide clear error messages
+   - Disable submit button during registration process
+   - Support keyboard navigation and form auto-fill
+   - Display password strength indicator
+
+3. **Responsive Design**
+   - Component supports responsive layout by default
+   - Automatically adjust input field sizes on mobile devices
+   - Ensure social registration buttons are easy to click on various screen sizes
+
+4. **Customization Tips**
+   - Adjust color scheme according to brand guidelines
+   - Add brand logo
+   - Adjust social registration options as needed
+   - Customize terms of service and privacy policy links 
