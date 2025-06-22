@@ -29,6 +29,9 @@
  * - currentPath?: string - 当前路径，用于高亮当前页面
  * - size?: 'sm' | 'md' | 'lg' | 'xl' - 侧边栏尺寸，默认为"md"
  * - theme?: SidebarTheme - 侧边栏主题，默认为"default"
+ *
+ * @slots
+ * - footer - 侧边栏底部自定义内容，可用于展示用户信息等
  */
 
 import '../../style.ts';
@@ -86,7 +89,7 @@ const themeStyles = getSidebarTheme(theme);
 <aside
   class:list={[
     getSidebarWidth(size),
-    'cosy:min-h-full',
+    'cosy:min-h-full cosy:flex cosy:flex-col',
     themeStyles.bg,
     themeStyles.textColor,
   ]}>
@@ -113,72 +116,79 @@ const themeStyles = getSidebarTheme(theme);
   </div>
 
   <!-- 导航菜单 -->
-  <ul
-    class="cosy:menu cosy:p-4 cosy:space-y-1 cosy:list-none cosy:no-underline">
-    {
-      navItems.map((item: NavItem) => {
-        const isActive =
-          currentPath === item.href ||
-          (item.items &&
-            item.items.some(
-              (subitem: NavItem) => currentPath === subitem.href
-            ));
+  <div class="cosy:flex-1 cosy:overflow-y-auto">
+    <ul
+      class="cosy:menu cosy:p-4 cosy:space-y-1 cosy:list-none cosy:no-underline">
+      {
+        navItems.map((item: NavItem) => {
+          const isActive =
+            currentPath === item.href ||
+            (item.items &&
+              item.items.some(
+                (subitem: NavItem) => currentPath === subitem.href
+              ));
 
-        return (
-          <li>
-            <a
-              href={item.href}
-              class:list={[
-                'cosy:no-underline',
-                { 'cosy:menu-active': isActive },
-              ]}>
-              <AstroIcon
-                name={getNavItemIcon(item)}
-                size="16px"
-                stroke="currentColor"
-              />
-              <span>{item.text}</span>
-              {item.badge && (
-                <span class="cosy:badge cosy:badge-primary cosy:badge-sm">
-                  {item.badge}
-                </span>
+          return (
+            <li>
+              <a
+                href={item.href}
+                class:list={[
+                  'cosy:no-underline',
+                  { 'cosy:menu-active': isActive },
+                ]}>
+                <AstroIcon
+                  name={getNavItemIcon(item)}
+                  size="16px"
+                  stroke="currentColor"
+                />
+                <span>{item.text}</span>
+                {item.badge && (
+                  <span class="cosy:badge cosy:badge-primary cosy:badge-sm">
+                    {item.badge}
+                  </span>
+                )}
+              </a>
+
+              {item.items && (
+                <ul class="cosy:ml-4 cosy:list-none cosy:no-underline">
+                  {item.items.map((subitem: NavItem) => {
+                    const isSubActive = currentPath === subitem.href;
+                    return (
+                      <li>
+                        <a
+                          href={subitem.href}
+                          class:list={[
+                            'cosy:text-sm cosy:no-underline',
+                            { 'cosy:menu-active': isSubActive },
+                          ]}>
+                          <AstroIcon
+                            name={getNavItemIcon(subitem)}
+                            size="14px"
+                            stroke="currentColor"
+                          />
+                          <span>{subitem.text}</span>
+                          {subitem.badge && (
+                            <span class="cosy:badge cosy:badge-primary cosy:badge-xs">
+                              {subitem.badge}
+                            </span>
+                          )}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
               )}
-            </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
 
-            {item.items && (
-              <ul class="cosy:ml-4 cosy:list-none cosy:no-underline">
-                {item.items.map((subitem: NavItem) => {
-                  const isSubActive = currentPath === subitem.href;
-                  return (
-                    <li>
-                      <a
-                        href={subitem.href}
-                        class:list={[
-                          'cosy:text-sm cosy:no-underline',
-                          { 'cosy:menu-active': isSubActive },
-                        ]}>
-                        <AstroIcon
-                          name={getNavItemIcon(subitem)}
-                          size="14px"
-                          stroke="currentColor"
-                        />
-                        <span>{subitem.text}</span>
-                        {subitem.badge && (
-                          <span class="cosy:badge cosy:badge-primary cosy:badge-xs">
-                            {subitem.badge}
-                          </span>
-                        )}
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
-          </li>
-        );
-      })
-    }
-  </ul>
+  <!-- 侧边栏底部自定义内容 -->
+  <div class:list={['cosy:mt-auto cosy:border-t', themeStyles.borderColor]}>
+    <slot name="footer" />
+  </div>
 </aside>
 
 <script>

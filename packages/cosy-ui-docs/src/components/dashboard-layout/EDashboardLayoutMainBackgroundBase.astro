@@ -1,0 +1,47 @@
+---
+/**
+ * @component EDashboardLayoutMainBackgroundBase
+ * @description 展示基础背景色的示例
+ */
+
+import { DashboardLayout } from '@coffic/cosy-ui';
+
+const navItems = [
+  { href: '/dashboard', icon: 'home', text: '仪表盘' },
+  { href: '/dashboard/users', icon: 'users', text: '用户管理' },
+  { href: '/dashboard/settings', icon: 'settings', text: '系统设置' },
+];
+---
+
+<div
+  class="cosy:h-96 cosy:border cosy:border-base-300 cosy:rounded cosy:overflow-hidden">
+  <DashboardLayout
+    title="基础背景示例"
+    navItems={navItems}
+    sidebarSize="sm"
+    mainBackgroundTheme="base-200"
+    class="cosy:h-full">
+    <div class="cosy:p-6">
+      <div class="cosy:card cosy:bg-base-100 cosy:shadow">
+        <div class="cosy:card-body">
+          <h3 class="cosy:card-title">基础背景色</h3>
+          <p>
+            使用 base-200 浅灰色背景，营造稳重的商务氛围，适合企业管理系统。
+          </p>
+          <div
+            class="cosy:stats cosy:stats-horizontal cosy:shadow cosy:text-xs">
+            <div class="cosy:stat">
+              <div class="cosy:stat-title cosy:text-xs">特点</div>
+              <div class="cosy:stat-value cosy:text-sm">稳重</div>
+            </div>
+            <div class="cosy:stat">
+              <div class="cosy:stat-title cosy:text-xs">场景</div>
+              <div class="cosy:stat-value cosy:text-sm">商务</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </DashboardLayout>
+</div>
+

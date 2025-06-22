@@ -1,0 +1,47 @@
+---
+/**
+ * @component EDashboardLayoutMainBackgroundGradientCool
+ * @description 展示冷色渐变背景的示例
+ */
+
+import { DashboardLayout } from '@coffic/cosy-ui';
+
+const navItems = [
+  { href: '/dashboard', icon: 'home', text: '仪表盘' },
+  { href: '/dashboard/users', icon: 'users', text: '用户管理' },
+  { href: '/dashboard/settings', icon: 'settings', text: '系统设置' },
+];
+---
+
+<div
+  class="cosy:h-96 cosy:border cosy:border-base-300 cosy:rounded cosy:overflow-hidden">
+  <DashboardLayout
+    title="冷色渐变背景示例"
+    navItems={navItems}
+    sidebarSize="sm"
+    mainBackgroundTheme="gradient-cool"
+    class="cosy:h-full">
+    <div class="cosy:p-6">
+      <div class="cosy:card cosy:bg-base-100/90 cosy:backdrop-blur cosy:shadow">
+        <div class="cosy:card-body">
+          <h3 class="cosy:card-title">冷色渐变背景</h3>
+          <p>
+            蓝色到青色再到绿色的清新渐变，营造专业现代的感觉，适合科技和创意工具。
+          </p>
+          <div
+            class="cosy:stats cosy:stats-horizontal cosy:shadow cosy:text-xs">
+            <div class="cosy:stat">
+              <div class="cosy:stat-title cosy:text-xs">特点</div>
+              <div class="cosy:stat-value cosy:text-sm">现代</div>
+            </div>
+            <div class="cosy:stat">
+              <div class="cosy:stat-title cosy:text-xs">场景</div>
+              <div class="cosy:stat-value cosy:text-sm">科技</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </DashboardLayout>
+</div>
+

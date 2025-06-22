@@ -1,0 +1,83 @@
+---
+/**
+ * @component EDashboardLayoutMainBackgroundContainer
+ * @description 主内容区域背景示例的容器组件，展示多种背景选项
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import EDashboardLayoutMainBackgroundTransparent from './EDashboardLayoutMainBackgroundTransparent.astro';
+import EDashboardLayoutMainBackgroundBase from './EDashboardLayoutMainBackgroundBase.astro';
+import EDashboardLayoutMainBackgroundPrimary from './EDashboardLayoutMainBackgroundPrimary.astro';
+import EDashboardLayoutMainBackgroundSuccess from './EDashboardLayoutMainBackgroundSuccess.astro';
+import EDashboardLayoutMainBackgroundGradientWarm from './EDashboardLayoutMainBackgroundGradientWarm.astro';
+import EDashboardLayoutMainBackgroundGradientCool from './EDashboardLayoutMainBackgroundGradientCool.astro';
+import EDashboardLayoutMainBackgroundInfo from './EDashboardLayoutMainBackgroundInfo.astro';
+import EDashboardLayoutMainBackgroundGradientSunset from './EDashboardLayoutMainBackgroundGradientSunset.astro';
+
+// 导入源码用于代码展示
+import transparentSourceCode from './EDashboardLayoutMainBackgroundTransparent.astro?raw';
+import baseSourceCode from './EDashboardLayoutMainBackgroundBase.astro?raw';
+import primarySourceCode from './EDashboardLayoutMainBackgroundPrimary.astro?raw';
+import successSourceCode from './EDashboardLayoutMainBackgroundSuccess.astro?raw';
+import gradientWarmSourceCode from './EDashboardLayoutMainBackgroundGradientWarm.astro?raw';
+import gradientCoolSourceCode from './EDashboardLayoutMainBackgroundGradientCool.astro?raw';
+import infoSourceCode from './EDashboardLayoutMainBackgroundInfo.astro?raw';
+import gradientSunsetSourceCode from './EDashboardLayoutMainBackgroundGradientSunset.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    transparentSourceCode,
+    baseSourceCode,
+    primarySourceCode,
+    successSourceCode,
+    infoSourceCode,
+    gradientWarmSourceCode,
+    gradientCoolSourceCode,
+    gradientSunsetSourceCode,
+  ]}
+  titles={[
+    '透明背景',
+    '基础背景色',
+    '主题色背景',
+    '成功色背景',
+    '信息色背景',
+    '暖色渐变',
+    '冷色渐变',
+    '日落渐变',
+  ]}
+  descriptions={[
+    '默认的透明背景，与外层背景完美融合，适合大多数常规场景',
+    '使用 base-200 浅灰色背景，营造稳重的商务氛围',
+    '使用品牌主色作为背景，强化企业识别度，适合品牌展示',
+    '使用成功绿色背景，传达积极正面的体验，适合健康管理应用',
+    '使用明亮的信息蓝色背景，传达专业可信的感觉，适合数据分析',
+    '橙色到红色再到粉色的温暖渐变，营造温馨友好的氛围',
+    '蓝色到青色再到绿色的清新渐变，营造专业现代的感觉',
+    '从深蓝到橙黄的日落色彩渐变，营造浪漫温馨的黄昏氛围',
+  ]}>
+  <div id="tab-1">
+    <EDashboardLayoutMainBackgroundTransparent />
+  </div>
+  <div id="tab-2">
+    <EDashboardLayoutMainBackgroundBase />
+  </div>
+  <div id="tab-3">
+    <EDashboardLayoutMainBackgroundPrimary />
+  </div>
+  <div id="tab-4">
+    <EDashboardLayoutMainBackgroundSuccess />
+  </div>
+  <div id="tab-5">
+    <EDashboardLayoutMainBackgroundInfo />
+  </div>
+  <div id="tab-6">
+    <EDashboardLayoutMainBackgroundGradientWarm />
+  </div>
+  <div id="tab-7">
+    <EDashboardLayoutMainBackgroundGradientCool />
+  </div>
+  <div id="tab-8">
+    <EDashboardLayoutMainBackgroundGradientSunset />
+  </div>
+</CodeContainer>

@@ -11,6 +11,15 @@ export interface NavItem {
 }
 
 /**
+ * 用户菜单项接口
+ */
+export interface UserMenuItem {
+    href: string;
+    text: string;
+    icon?: string;
+}
+
+/**
  * 侧边栏尺寸类型
  */
 export type SidebarSize = 'sm' | 'md' | 'lg' | 'xl';
@@ -115,67 +124,43 @@ export function getSidebarTheme(theme: SidebarTheme = 'default') {
 }
 
 /**
- * 内容区域背景色主题类型
+ * 主内容区域背景主题类型
  */
-export type ContentTheme = 'card' | 'transparent' | 'base' | 'neutral' | 'primary' | 'secondary' | 'accent' | 'info' | 'success' | 'warning' | 'error';
+export type MainBackgroundTheme = 'transparent' | 'base-100' | 'base-200' | 'base-300' | 'neutral' | 'primary' | 'secondary' | 'accent' | 'info' | 'success' | 'warning' | 'error' | 'gradient-warm' | 'gradient-cool' | 'gradient-rainbow' | 'gradient-sunset' | 'gradient-ocean' | 'gradient-forest';
+
+
 
 /**
- * 内容区域背景色主题配置映射
+ * 主内容区域背景主题配置映射
  */
-export const contentThemeMap: Record<ContentTheme, { container: string; shadow: string }> = {
-    'card': {
-        container: 'cosy:card cosy:bg-base-100',
-        shadow: 'cosy:shadow-sm'
-    },
-    'transparent': {
-        container: '',
-        shadow: ''
-    },
-    'base': {
-        container: 'cosy:card cosy:bg-base-200',
-        shadow: 'cosy:shadow-sm'
-    },
-    'neutral': {
-        container: 'cosy:card cosy:bg-neutral',
-        shadow: 'cosy:shadow-sm'
-    },
-    'primary': {
-        container: 'cosy:card cosy:bg-primary cosy:text-primary-content',
-        shadow: 'cosy:shadow-sm'
-    },
-    'secondary': {
-        container: 'cosy:card cosy:bg-secondary cosy:text-secondary-content',
-        shadow: 'cosy:shadow-sm'
-    },
-    'accent': {
-        container: 'cosy:card cosy:bg-accent cosy:text-accent-content',
-        shadow: 'cosy:shadow-sm'
-    },
-    'info': {
-        container: 'cosy:card cosy:bg-info cosy:text-info-content',
-        shadow: 'cosy:shadow-sm'
-    },
-    'success': {
-        container: 'cosy:card cosy:bg-success cosy:text-success-content',
-        shadow: 'cosy:shadow-sm'
-    },
-    'warning': {
-        container: 'cosy:card cosy:bg-warning cosy:text-warning-content',
-        shadow: 'cosy:shadow-sm'
-    },
-    'error': {
-        container: 'cosy:card cosy:bg-error cosy:text-error-content',
-        shadow: 'cosy:shadow-sm'
-    }
+export const mainBackgroundThemeMap: Record<MainBackgroundTheme, string> = {
+    'transparent': '',
+    'base-100': 'cosy:bg-base-100',
+    'base-200': 'cosy:bg-base-200',
+    'base-300': 'cosy:bg-base-300',
+    'neutral': 'cosy:bg-neutral',
+    'primary': 'cosy:bg-primary',
+    'secondary': 'cosy:bg-secondary',
+    'accent': 'cosy:bg-accent',
+    'info': 'cosy:bg-info',
+    'success': 'cosy:bg-success',
+    'warning': 'cosy:bg-warning',
+    'error': 'cosy:bg-error',
+    'gradient-warm': 'cosy:bg-gradient-to-br cosy:from-orange-100 cosy:via-red-50 cosy:to-pink-100',
+    'gradient-cool': 'cosy:bg-gradient-to-br cosy:from-blue-100 cosy:via-cyan-50 cosy:to-green-100',
+    'gradient-rainbow': 'cosy:bg-gradient-to-br cosy:from-purple-100 cosy:via-pink-50 cosy:to-blue-100',
+    'gradient-sunset': 'cosy:bg-gradient-to-br cosy:from-yellow-100 cosy:via-orange-50 cosy:to-red-100',
+    'gradient-ocean': 'cosy:bg-gradient-to-br cosy:from-blue-100 cosy:via-teal-50 cosy:to-cyan-100',
+    'gradient-forest': 'cosy:bg-gradient-to-br cosy:from-green-100 cosy:via-emerald-50 cosy:to-teal-100'
 };
 
 /**
- * 获取内容区域主题样式类
- * @param theme 内容主题
- * @returns 对应的样式配置
+ * 获取主内容区域背景主题样式类
+ * @param theme 主内容区域背景主题
+ * @returns 对应的样式类名
  */
-export function getContentTheme(theme: ContentTheme = 'card') {
-    return contentThemeMap[theme];
+export function getMainBackgroundTheme(theme: MainBackgroundTheme = 'transparent'): string {
+    return mainBackgroundThemeMap[theme];
 }
 
 /**
@@ -268,6 +253,10 @@ const hrefToIconMap: Record<string, string> = {
     'download': 'download',
     'upload': 'upload',
     'refresh': 'refresh',
+    'logout': 'logout',
+    'signin': 'login',
+    'signout': 'logout',
+    'exit': 'logout',
 
     // 工具和实用程序
     'clipboard': 'clipboard',
@@ -275,6 +264,8 @@ const hrefToIconMap: Record<string, string> = {
     'menu': 'menu',
     'close': 'close',
     'check': 'check',
+    'help': 'help',
+    'support': 'help',
 };
 
 /**
@@ -310,4 +301,19 @@ export function getNavItemIcon(item: NavItem): string {
 
     // 否则根据 href 自动推断
     return getIconFromHref(item.href);
+}
+
+/**
+ * 根据 UserMenuItem 获取完整的图标信息
+ * @param item 用户菜单项
+ * @returns 图标名称
+ */
+export function getUserMenuItemIcon(item: UserMenuItem): string {
+    // 如果显式指定了图标，优先使用
+    if (item.icon) {
+        return item.icon;
+    }
+
+    // 否则根据 href 自动推断，用户菜单默认图标为 'user'
+    return getIconFromHref(item.href, 'user');
 } 

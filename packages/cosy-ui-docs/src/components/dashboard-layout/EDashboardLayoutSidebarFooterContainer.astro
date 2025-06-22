@@ -1,0 +1,34 @@
+---
+/**
+ * @component EDashboardLayoutSidebarFooterContainer
+ * @description 侧边栏底部自定义内容示例的容器组件，使用多标签展示不同用法
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import EDashboardLayoutSidebarFooterUserInfo from './EDashboardLayoutSidebarFooterUserInfo.astro';
+import EDashboardLayoutSidebarFooterCopyright from './EDashboardLayoutSidebarFooterCopyright.astro';
+import EDashboardLayoutSidebarFooterStatus from './EDashboardLayoutSidebarFooterStatus.astro';
+
+import userInfoCode from './EDashboardLayoutSidebarFooterUserInfo.astro?raw';
+import copyrightCode from './EDashboardLayoutSidebarFooterCopyright.astro?raw';
+import statusCode from './EDashboardLayoutSidebarFooterStatus.astro?raw';
+---
+
+<CodeContainer
+  codes={[userInfoCode, copyrightCode, statusCode]}
+  titles={['用户信息', '版权信息', '系统状态']}
+  descriptions={[
+    '展示如何在侧边栏底部显示用户信息，包括头像、姓名和职位',
+    '展示如何显示版权信息、版本号和系统状态标识',
+    '展示如何显示实时系统状态信息，如在线用户数、CPU使用率等',
+  ]}>
+  <div id="tab-1">
+    <EDashboardLayoutSidebarFooterUserInfo />
+  </div>
+  <div id="tab-2">
+    <EDashboardLayoutSidebarFooterCopyright />
+  </div>
+  <div id="tab-3">
+    <EDashboardLayoutSidebarFooterStatus />
+  </div>
+</CodeContainer>
