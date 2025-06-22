@@ -14,6 +14,7 @@
  * 4. 状态保持 - 记住用户的侧边栏折叠状态
  *
  * @usage
+ * 基本用法：
  * ```astro
  * ---
  * import { DashboardLayout } from '@coffic/cosy-ui';
@@ -24,16 +25,62 @@
  *   { href: "/dashboard/settings", text: "系统设置" },          // 自动匹配 settings 图标
  *   { href: "/dashboard/reports", icon: "chart", text: "报表" } // 手动指定图标
  * ];
+ *
+ * const userMenuItems = [
+ *   { href: "/profile", text: "个人资料" },        // 自动匹配 user 图标
+ *   { href: "/settings", text: "设置" },          // 自动匹配 settings 图标
+ *   { href: "/logout", text: "退出登录" }          // 自动匹配 logout 图标
+ * ];
  * ---
  *
  * <DashboardLayout
  *   title="管理后台"
  *   navItems={navItems}
  *   userName="管理员"
+ *   userMenuItems={userMenuItems}
  *   sidebarSize="lg"
  * >
  *   <h1>仪表盘内容</h1>
  *   <p>这是仪表盘的主要内容</p>
+ * </DashboardLayout>
+ * ```
+ *
+ * 带有底部自定义内容的用法：
+ * ```astro
+ * <DashboardLayout
+ *   title="管理后台"
+ *   navItems={navItems}
+ *   userName="管理员"
+ * >
+ *   <h1>仪表盘内容</h1>
+ *   <p>这是仪表盘的主要内容</p>
+ *
+ *   <div slot="sidebar-footer" class="p-4">
+ *     <div class="flex items-center gap-3">
+ *       <div class="avatar">
+ *         <div class="w-10 rounded-full">
+ *           <img src="/avatar.jpg" alt="用户头像" />
+ *         </div>
+ *       </div>
+ *       <div>
+ *         <div class="font-semibold">张三</div>
+ *         <div class="text-sm opacity-70">产品经理</div>
+ *       </div>
+ *     </div>
+ *   </div>
+ * </DashboardLayout>
+ * ```
+ *
+ * 带有主内容区域背景的用法：
+ * ```astro
+ * <DashboardLayout
+ *   title="管理后台"
+ *   navItems={navItems}
+ *   userName="管理员"
+ *   mainBackgroundTheme="gradient-cool"
+ * >
+ *   <h1>仪表盘内容</h1>
+ *   <p>这是带有背景的主要内容</p>
  * </DashboardLayout>
  * ```
  *
@@ -44,16 +91,19 @@
  * - navItems: NavItem[] - 导航项目
  * - userName?: string - 用户名
  * - userAvatar?: string - 用户头像
+ * - userMenuItems?: UserMenuItem[] - 用户菜单项，默认包含个人资料、设置、退出登录，图标会自动匹配
  * - sidebarCollapsed?: boolean - 是否折叠侧边栏，默认为false
  * - sidebarSize?: 'sm' | 'md' | 'lg' | 'xl' - 侧边栏尺寸，默认为"md"
  * - sidebarTheme?: SidebarTheme - 侧边栏主题，默认为"default"
- * - contentTheme?: ContentTheme - 内容区域主题，默认为"card"
+ * - mainBackgroundTheme?: MainBackgroundTheme - 主内容区域背景主题，默认为"transparent"
  * - head?: astroHTML.JSX.Element - 自定义头部内容
  * - class?: string - 页面类名
  * - class:list?: any - 类名列表
+ * - debug?: boolean - 调试模式，默认为false
  *
  * @slots
  * - default - 主要内容区域
+ * - sidebar-footer - 侧边栏底部自定义内容，可用于展示用户信息、版权信息等
  */
 
 import { BaseLayout } from '../../index-astro';
@@ -64,8 +114,9 @@ import {
   type NavItem,
   type SidebarSize,
   type SidebarTheme,
-  type ContentTheme,
-  getContentTheme,
+  type MainBackgroundTheme,
+  type UserMenuItem,
+  getMainBackgroundTheme,
 } from './types';
 
 export interface Props {
@@ -101,6 +152,11 @@ export interface Props {
   userAvatar?: string;
 
   /**
+   * 用户菜单项
+   */
+  userMenuItems?: UserMenuItem[];
+
+  /**
    * 是否折叠侧边栏
    * @default false
    */
@@ -119,10 +175,10 @@ export interface Props {
   sidebarTheme?: SidebarTheme;
 
   /**
-   * 内容区域主题
-   * @default "card"
+   * 主内容区域背景主题
+   * @default "transparent"
    */
-  contentTheme?: ContentTheme;
+  mainBackgroundTheme?: MainBackgroundTheme;
 
   /**
    * 自定义头部内容
@@ -138,6 +194,12 @@ export interface Props {
    * 类名列表
    */
   'class:list'?: any;
+
+  /**
+   * 调试模式
+   * @default false
+   */
+  debug?: boolean;
 }
 
 const {
@@ -147,18 +209,20 @@ const {
   navItems,
   userName,
   userAvatar,
+  userMenuItems,
   sidebarCollapsed = false,
   sidebarSize = 'md',
   sidebarTheme = 'default',
-  contentTheme = 'card',
+  mainBackgroundTheme = 'transparent',
   head,
   class: className,
   'class:list': classList,
+  debug = false,
   ...rest
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
-const contentStyles = getContentTheme(contentTheme);
+const mainBackgroundStyles = getMainBackgroundTheme(mainBackgroundTheme);
 ---
 
 <BaseLayout
@@ -168,6 +232,7 @@ const contentStyles = getContentTheme(contentTheme);
   keywords=""
   author=""
   robots=""
+  debug={debug}
   class:list={['cosy:min-h-screen cosy:bg-base-200', className, classList]}
   {...rest}>
   <div class:list={['cosy:drawer', { 'cosy:drawer-open': !sidebarCollapsed }]}>
@@ -184,8 +249,9 @@ const contentStyles = getContentTheme(contentTheme);
         navItems={navItems}
         currentPath={currentPath}
         size={sidebarSize}
-        theme={sidebarTheme}
-      />
+        theme={sidebarTheme}>
+        <slot name="sidebar-footer" slot="footer" />
+      </DashboardSidebar>
     </div>
 
     <!-- 主内容区 -->
@@ -195,21 +261,13 @@ const contentStyles = getContentTheme(contentTheme);
         title={title}
         userName={userName}
         userAvatar={userAvatar}
+        userMenuItems={userMenuItems}
       />
 
       <!-- 页面内容 -->
-      <main class="cosy:flex-1 cosy:p-4 cosy:lg:p-6">
-        {
-          contentStyles.container ? (
-            <div class={`${contentStyles.container} ${contentStyles.shadow}`}>
-              <div class="cosy:card-body">
-                <slot />
-              </div>
-            </div>
-          ) : (
-            <slot />
-          )
-        }
+      <main
+        class:list={['cosy:flex-1 cosy:p-4 cosy:lg:p-6', mainBackgroundStyles]}>
+        <slot />
       </main>
     </div>
   </div>

@@ -1,0 +1,47 @@
+---
+/**
+ * @component EDashboardLayoutMainBackgroundGradientSunset
+ * @description 展示日落渐变背景的示例
+ */
+
+import { DashboardLayout } from '@coffic/cosy-ui';
+
+const navItems = [
+  { href: '/dashboard', icon: 'home', text: '仪表盘' },
+  { href: '/dashboard/users', icon: 'users', text: '用户管理' },
+  { href: '/dashboard/settings', icon: 'settings', text: '系统设置' },
+];
+---
+
+<div
+  class="cosy:h-96 cosy:border cosy:border-base-300 cosy:rounded cosy:overflow-hidden">
+  <DashboardLayout
+    title="日落渐变背景示例"
+    navItems={navItems}
+    sidebarSize="sm"
+    mainBackgroundTheme="gradient-sunset"
+    class="cosy:h-full">
+    <div class="cosy:p-6">
+      <div class="cosy:card cosy:bg-base-100/90 cosy:backdrop-blur cosy:shadow">
+        <div class="cosy:card-body">
+          <h3 class="cosy:card-title">日落渐变背景</h3>
+          <p>
+            从深蓝到橙黄的日落色彩渐变，营造浪漫温馨的黄昏氛围，适合创意和娱乐应用。
+          </p>
+          <div
+            class="cosy:stats cosy:stats-horizontal cosy:shadow cosy:text-xs">
+            <div class="cosy:stat">
+              <div class="cosy:stat-title cosy:text-xs">特点</div>
+              <div class="cosy:stat-value cosy:text-sm">浪漫</div>
+            </div>
+            <div class="cosy:stat">
+              <div class="cosy:stat-title cosy:text-xs">场景</div>
+              <div class="cosy:stat-value cosy:text-sm">创意</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </DashboardLayout>
+</div>
+
