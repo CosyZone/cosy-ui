@@ -6,49 +6,50 @@
 
 ### 核心架构阶段
 
-**[步骤 001：项目基础设置](./step-001-project-setup.md)**
+**[步骤 01：项目基础设置](./01-project-setup.md)**
 - 创建项目结构和配置文件
 - 配置 TypeScript 和构建系统
 - 建立基础类型定义
+- **附件**: [reflect-metadata 详解](./01.1-reflect-metadata详解.md)
 - **预计时间**: 2-3 小时
 
-**[步骤 002：服务容器](./step-002-service-container.md)**
+**[步骤 02：服务容器](./02-service-container.md)**
 - 实现依赖注入容器
 - 创建装饰器支持
 - 添加服务提供者机制
 - **预计时间**: 4-6 小时
 
-**[步骤 003：HTTP 基础设施](./step-003-http-foundation.md)**
+**[步骤 03：HTTP 基础设施](./03-http-foundation.md)**
 - 实现 Request 和 Response 类
 - 创建 HTTP 上下文
 - 添加 Cookie 和 Header 处理
 - **预计时间**: 3-4 小时
 
-**[步骤 004：路由系统](./step-004-routing-system.md)**
+**[步骤 04：路由系统](./04-routing-system.md)**
 - 实现路由匹配和参数提取
 - 创建路由组和装饰器
 - 添加路由约束支持
 - **预计时间**: 4-5 小时
 
-**[步骤 005：中间件系统](./step-005-middleware-system.md)**
+**[步骤 05：中间件系统](./05-middleware-system.md)**
 - 实现中间件管道
 - 创建常用中间件
 - 添加条件中间件支持
 - **预计时间**: 3-4 小时
 
-**[步骤 006：配置系统](./step-006-configuration-system.md)**
+**[步骤 06：配置系统](./06-configuration-system.md)**
 - 实现配置管理器
 - 支持多种配置源
 - 添加配置验证
 - **预计时间**: 2-3 小时
 
-**[步骤 007：应用程序核心](./step-007-application-core.md)**
+**[步骤 07：应用程序核心](./07-application-core.md)**
 - 整合所有模块
 - 实现应用生命周期
 - 创建启动器和工具
 - **预计时间**: 4-5 小时
 
-**[步骤 008：基础示例项目](./step-008-basic-example.md)**
+**[步骤 08：基础示例项目](./08-basic-example.md)**
 - 创建完整的 API 示例
 - 展示所有功能的使用
 - 添加测试和文档
@@ -91,7 +92,7 @@
 2. **开始第一步**:
    ```bash
    # 阅读步骤文档
-   cat schedule/step-001-project-setup.md
+   cat schedule/01-project-setup.md
    
    # 按照文档执行所有操作
    ```
@@ -104,7 +105,7 @@
 
 4. **继续下一步**:
    ```bash
-   cat schedule/step-002-service-container.md
+   cat schedule/02-service-container.md
    ```
 
 ## 架构设计原则

@@ -20,7 +20,6 @@
 mkdir -p src/{core,container,routing,middleware,config,http,database,orm,migrations,auth,validation,events,queue,view,cache,logging,types}
 mkdir -p cli/{src,bin,templates}
 mkdir -p tests/{unit,integration,feature}
-mkdir -p examples
 mkdir -p docs
 ```
 
@@ -114,8 +113,7 @@ mkdir -p docs
   "exclude": [
     "node_modules",
     "dist",
-    "tests",
-    "examples"
+    "tests"
   ]
 }
 ```
@@ -318,6 +316,10 @@ ls -la dist/
 - [ ] TypeScript 类型检查无错误
 - [ ] 生成的 `dist` 目录包含所有预期文件
 
+## 📚 附件资料
+
+- **[reflect-metadata 详解](./01.1-reflect-metadata详解.md)** - 深入理解框架核心依赖的工作原理
+
 ## 下一步
 
-完成此步骤后，继续执行 `step-002-service-container.md`。 
+完成此步骤后，继续执行 `02-service-container.md`。 
