@@ -1,0 +1,42 @@
+{
+  "name": "@coffic/cosy-framework",
+  "version": "0.1.0",
+  "description": "A Laravel-inspired TypeScript framework with Astro and Cosy-UI integration",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./auth": "./dist/auth/index.js",
+    "./view": "./dist/view/index.js",
+    "./database": "./dist/database/index.js",
+    "./validation": "./dist/validation/index.js",
+    "./events": "./dist/events/index.js",
+    "./queue": "./dist/queue/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0",
+    "@types/node": "^20.0.0",
+    "@vitest/coverage-v8": "^1.0.0"
+  },
+  "keywords": [
+    "framework",
+    "typescript",
+    "astro",
+    "laravel",
+    "web-framework"
+  ],
+  "author": "coffic.cn",
+  "license": "MIT"
+}

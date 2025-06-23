@@ -1,0 +1,190 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Cosy Framework 开发指南和架构规则
+
+## 项目概述
+
+Cosy Framework 是一个受 Laravel 启发的 TypeScript Web 框架，旨在为现代 Web 开发提供优雅的解决方案。该项目分为多个子项目：
+
+- **cosy-ui**: Astro 组件库，提供 UI 组件
+- **cosy-framework**: 核心框架代码
+- **cosy-framework-docs**: 框架文档和开发计划
+
+## 架构设计原则
+
+### Laravel 风格的开发体验
+- **装饰器驱动**: 使用 TypeScript 装饰器实现路由、控制器和依赖注入
+- **服务容器**: 强大的依赖注入容器，支持单例和工厂模式
+- **中间件管道**: 灵活的中间件系统，支持全局、路由和条件中间件
+- **服务提供者**: 模块化的服务注册和启动机制
+
+### 现代 TypeScript 最佳实践
+- **严格类型检查**: 启用所有 TypeScript 严格模式
+- **装饰器和元数据**: 使用 `reflect-metadata` 实现运行时类型信息
+- **ESM 模块**: 完全支持 ES2022 模块系统
+- **接口优先**: 通过接口定义契约，实现松耦合
+
+## 核心模块架构
+
+### 1. 服务容器 (`src/container/`)
+- **ServiceContainer**: 主要的依赖注入容器实现
+- **装饰器**: `@Injectable`, `@Inject`, `@AutoInject`
+- **服务提供者**: `BaseServiceProvider` 基类
+
+### 2. HTTP 基础设施 (`src/http/`)
+- **Request/Response**: HTTP 请求和响应的封装
+- **HttpContext**: 请求上下文管理
+- **状态码**: 完整的 HTTP 状态码枚举
+
+### 3. 路由系统 (`src/routing/`)
+- **Router**: 路由注册和解析
+- **路由编译器**: 支持参数、约束和可选参数
+- **装饰器**: `@Controller`, `@Get`, `@Post` 等
+
+### 4. 中间件系统 (`src/middleware/`)
+- **Pipeline**: 中间件执行管道
+- **MiddlewareRegistry**: 中间件注册和管理
+- **常用中间件**: CORS, 日志, 认证, 限流等
+
+### 5. 配置管理 (`src/config/`)
+- **Configuration**: 多源配置管理
+- **ConfigSource**: 环境变量、JSON 文件等配置源
+- **验证器**: 配置验证和类型检查
+
+### 6. 应用核心 (`src/core/`)
+- **Application**: 主应用类，整合所有模块
+- **Bootstrap**: 应用启动器
+- **生命周期**: 启动、停止和钩子管理
+
+## 开发规范
+
+### 代码组织
+```
+src/
+├── types/           # 公共类型定义
+├── container/       # 依赖注入容器
+├── http/           # HTTP 基础设施
+├── routing/        # 路由系统
+├── middleware/     # 中间件系统
+├── config/         # 配置管理
+├── core/           # 应用核心
+└── index.ts        # 主入口文件
+```
+
+### 装饰器使用模式
+```typescript
+// 控制器装饰器
+@Controller('/api/users')
+export class UserController {
+  @Get('/{id}')
+  @Middleware(authMiddleware)
+  async show(@Inject('UserService') userService: UserService) {
+    // 控制器逻辑
+  }
+}
+
+// 服务装饰器
+@Injectable
+export class UserService {
+  constructor(@Inject('DatabaseService') private db: DatabaseService) {}
+}
+```
+
+### 应用启动模式
+```typescript
+const app = Application.create({
+  name: 'My App',
+  debug: true,
+  port: 3000
+})
+
+// 注册服务
+app.bind('UserService', UserService)
+
+// 注册路由
+app.get('/users', handler)
+
+// 启动应用
+await app.boot()
+await app.start()
+```
+
+## 项目分离策略
+
+### cosy-framework (核心框架)
+- **纯框架代码**: 只包含框架的核心实现
+- **类型定义**: 完整的 TypeScript 类型支持
+- **测试**: 单元测试和集成测试
+- **构建产物**: 发布到 npm 的包
+
+### cosy-framework-docs (文档项目)
+- **开发计划**: 分步骤的开发指南
+- **API 文档**: 框架的使用文档
+- **示例项目**: 完整的使用示例
+- **最佳实践**: 开发模式和规范
+
+### cosy-ui (UI 组件库)
+- **Astro 组件**: 基于 Astro 的 UI 组件
+- **样式系统**: daisyUI + TailwindCSS
+- **文档集成**: 组件使用文档
+
+## 开发工作流
+
+### 1. 框架开发
+1. 在 `packages/cosy-framework` 中开发核心功能
+2. 编写单元测试验证功能
+3. 更新类型定义
+4. 构建和发布
+
+### 2. 文档维护
+1. 在 `cosy-framework-docs` 中更新文档
+2. 同步 API 变更
+3. 更新示例代码
+4. 发布文档网站
+
+### 3. 示例开发
+1. 创建实际项目示例
+2. 验证框架功能
+3. 记录最佳实践
+4. 提供学习资源
+
+## 质量保证
+
+### 测试策略
+- **单元测试**: 每个模块的独立测试
+- **集成测试**: 模块间协作测试
+- **端到端测试**: 完整应用场景测试
+- **类型检查**: TypeScript 编译验证
+
+### 代码质量
+- **ESLint**: 代码风格检查
+- **Prettier**: 代码格式化
+- **Husky**: Git 钩子自动化
+- **测试覆盖率**: 保持高测试覆盖率
+
+## 版本管理
+
+### 语义化版本
+- **主版本**: 破坏性变更
+- **次版本**: 新功能添加
+- **修订版本**: 错误修复
+
+### 发布流程
+1. 功能开发和测试
+2. 文档更新
+3. 版本号升级
+4. 发布到 npm
+5. 更新 CHANGELOG
+
+## 社区贡献
+
+### 贡献指南
+- **Issue 模板**: 标准化问题报告
+- **PR 模板**: 标准化代码贡献
+- **代码审查**: 保证代码质量
+- **文档要求**: 确保功能有文档
+
+这个规则文档作为 Cosy Framework 项目的核心指南，帮助开发者理解项目架构、开发规范和最佳实践。
