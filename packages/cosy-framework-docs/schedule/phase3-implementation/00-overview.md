@@ -1,8 +1,8 @@
-# Phase 2 - Implementation: 框架实现阶段
+# Phase 3 - Implementation: 框架完整实现阶段
 
 ## 概述
 
-在完成了[接口设计阶段](../phase1-interface-design/)后，我们进入实现阶段。这个阶段将把设计的接口转化为实际的代码实现。
+在完成了[接口设计阶段](../phase1-interface-design/)和[MVP实现阶段](../phase2-mvp/)后，我们进入完整实现阶段。这个阶段将在MVP的基础上，实现框架的所有设计功能。
 
 ## 实现章节
 
