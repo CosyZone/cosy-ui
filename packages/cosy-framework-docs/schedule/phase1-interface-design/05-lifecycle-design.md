@@ -1,13 +1,5 @@
 # 生命周期系统设计
 
-## 学习目标
-
-完成本节后，你将能够：
-1. 理解应用生命周期的核心概念和工作原理
-2. 设计生命周期钩子和事件系统
-3. 实现启动和关闭流程
-4. 在 cosy-framework-design 中完成生命周期模块的接口设计
-
 ## 1. 理解生命周期系统
 
 ### 1.1 基本概念
@@ -82,11 +74,6 @@ export enum LifecycleEventType {
 }
 ```
 
-**动手实践 1**：
-1. 创建生命周期基本类型
-2. 定义事件类型枚举
-3. 在 index.ts 中导出
-
 ## 2. 设计核心接口
 
 ### 2.1 生命周期管理器接口
@@ -121,11 +108,6 @@ export interface ILifecycleManager {
   getCurrentPhase(): LifecyclePhase;
 }
 ```
-
-**动手实践 2**：
-1. 创建管理器接口
-2. 添加钩子注册方法
-3. 实现启动和关闭方法
 
 ### 2.2 事件管理器接口
 
@@ -174,11 +156,6 @@ export interface IEventManager {
 }
 ```
 
-**动手实践 3**：
-1. 创建事件接口
-2. 实现事件管理器
-3. 添加事件监听机制
-
 ## 3. 实现装饰器类型
 
 ### 3.1 生命周期钩子装饰器
@@ -216,11 +193,6 @@ export interface ILifecycleDecorators {
   OnShutdown: () => MethodDecorator;
 }
 ```
-
-**动手实践 4**：
-1. 创建装饰器类型定义
-2. 添加配置选项接口
-3. 导出所有类型定义
 
 ## 4. 设计辅助类型
 
@@ -266,110 +238,7 @@ export class LifecycleError extends Error {
 }
 ```
 
-**动手实践 5**：
-1. 创建状态类型定义
-2. 实现错误处理类
-3. 添加状态管理支持
-
-## 5. 集成示例
-
-### 5.1 基本服务示例
-
-```typescript
-@Injectable()
-class DatabaseService {
-  @OnInit()
-  async initialize(): Promise<void> {
-    // 初始化数据库连接
-  }
-
-  @OnShutdown()
-  async cleanup(): Promise<void> {
-    // 关闭数据库连接
-  }
-}
-
-@Injectable()
-class CacheService {
-  @OnBoot()
-  async warmup(): Promise<void> {
-    // 预热缓存
-  }
-
-  @OnShutdown()
-  async flush(): Promise<void> {
-    // 刷新缓存
-  }
-}
-```
-
-**动手实践 6**：
-1. 创建示例服务
-2. 实现生命周期钩子
-3. 测试钩子执行顺序
-
-### 5.2 事件监听示例
-
-```typescript
-@Injectable()
-class LifecycleLogger {
-  constructor(private eventManager: IEventManager) {
-    this.setupListeners();
-  }
-
-  private setupListeners(): void {
-    this.eventManager.on(LifecycleEventType.PHASE_START, (event) => {
-      console.log(`Starting phase: ${event.phase}`);
-    });
-
-    this.eventManager.on(LifecycleEventType.PHASE_END, (event) => {
-      console.log(`Completed phase: ${event.phase}`);
-    });
-
-    this.eventManager.on(LifecycleEventType.ERROR, (event) => {
-      console.error(`Error in phase ${event.phase}:`, event.data);
-    });
-  }
-}
-```
-
-**动手实践 7**：
-1. 创建日志服务
-2. 实现事件监听
-3. 测试事件触发
-
-### 5.3 生命周期管理器使用示例
-
-```typescript
-// 创建生命周期管理器
-const lifecycleManager = new LifecycleManager();
-
-// 注册钩子
-lifecycleManager.hook(LifecyclePhase.INIT, async () => {
-  // 初始化逻辑
-});
-
-lifecycleManager.hook(LifecyclePhase.BOOT, async () => {
-  // 启动逻辑
-});
-
-lifecycleManager.hook(LifecyclePhase.SHUTDOWN, async () => {
-  // 关闭逻辑
-});
-
-// 启动应用
-await lifecycleManager.boot();
-
-// 关闭应用
-await lifecycleManager.shutdown();
-```
-
-**动手实践 8**：
-1. 创建管理器实例
-2. 注册不同阶段的钩子
-3. 测试完整的生命周期流程
-
-## 6. 导出模块
+## 5. 导出模块
 
 在 `src/lifecycle/index.ts` 中导出所有类型：
 

@@ -1,13 +1,5 @@
 # 中间件系统设计
 
-## 学习目标
-
-完成本节后，你将能够：
-1. 理解中间件系统的核心概念和洋葱模型
-2. 设计中间件的基本接口
-3. 实现中间件的注册和执行机制
-4. 在 cosy-framework-design 中完成中间件模块的接口设计
-
 ## 1. 理解中间件系统
 
 ### 1.1 洋葱模型
@@ -16,7 +8,6 @@
 - 请求从外到内穿过中间件层
 - 响应从内到外穿过相同的中间件层
 
-**动手实践 1**：
 在 `src/middleware/types.ts` 中定义基本类型：
 
 ```typescript
@@ -72,11 +63,6 @@ export enum MiddlewareType {
 }
 ```
 
-**动手实践 2**：
-1. 创建中间件类型枚举
-2. 添加相应的类型定义
-3. 在 index.ts 中导出
-
 ## 2. 设计核心接口
 
 ### 2.1 中间件接口
@@ -110,11 +96,6 @@ export interface IErrorMiddleware {
 }
 ```
 
-**动手实践 3**：
-1. 创建中间件接口
-2. 添加错误处理中间件接口
-3. 编写完整的类型注释
-
 ### 2.2 中间件管理器接口
 
 ```typescript
@@ -136,11 +117,6 @@ export interface IMiddlewareManager {
   execute(context: IContext): Promise<void>;
 }
 ```
-
-**动手实践 4**：
-1. 创建管理器接口
-2. 实现中间件注册方法
-3. 添加执行机制
 
 ## 3. 实现装饰器类型
 
@@ -169,11 +145,6 @@ export interface IMiddlewareOptions {
  */
 export type MiddlewareDecorator = (options?: IMiddlewareOptions) => ClassDecorator;
 ```
-
-**动手实践 5**：
-1. 创建装饰器类型定义
-2. 添加配置选项接口
-3. 导出所有类型定义
 
 ## 4. 设计辅助类型
 
@@ -216,100 +187,7 @@ export interface IMiddlewareGroupConfig {
 }
 ```
 
-**动手实践 6**：
-1. 创建配置类型定义
-2. 实现中间件组配置
-3. 添加路径匹配支持
-
-## 5. 集成示例
-
-### 5.1 基本中间件示例
-
-```typescript
-// 日志中间件
-@Middleware()
-class LoggerMiddleware implements IMiddleware {
-  async handle(context: IContext, next: NextFunction): Promise<void> {
-    const start = Date.now();
-    
-    try {
-      await next();
-      
-      const duration = Date.now() - start;
-      console.log(`${context.request.method} ${context.request.path} - ${duration}ms`);
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  }
-}
-
-// 认证中间件
-@Middleware({ type: MiddlewareType.ROUTE })
-class AuthMiddleware implements IMiddleware {
-  async handle(context: IContext, next: NextFunction): Promise<void> {
-    const token = context.request.headers.get('Authorization');
-    if (!token) {
-      throw new UnauthorizedError();
-    }
-    
-    await next();
-  }
-}
-```
-
-**动手实践 7**：
-1. 创建示例中间件
-2. 实现不同类型的中间件
-3. 测试中间件执行顺序
-
-### 5.2 错误处理中间件示例
-
-```typescript
-@Middleware({ type: MiddlewareType.ERROR })
-class ErrorHandlerMiddleware implements IErrorMiddleware {
-  async handle(error: Error, context: IContext, next: NextFunction): Promise<void> {
-    if (error instanceof UnauthorizedError) {
-      context.response.status = 401;
-      context.response.body = { error: 'Unauthorized' };
-      return;
-    }
-
-    await next();
-  }
-}
-```
-
-**动手实践 8**：
-1. 创建错误处理中间件
-2. 实现不同类型的错误处理
-3. 测试错误处理流程
-
-### 5.3 中间件管理器使用示例
-
-```typescript
-// 创建中间件管理器
-const manager = new MiddlewareManager();
-
-// 注册全局中间件
-manager.use(new LoggerMiddleware());
-
-// 注册路由中间件
-manager.use(new AuthMiddleware(), MiddlewareType.ROUTE);
-
-// 注册错误处理中间件
-manager.use(new ErrorHandlerMiddleware(), MiddlewareType.ERROR);
-
-// 执行中间件链
-await manager.execute(context);
-```
-
-**动手实践 9**：
-1. 创建管理器实例
-2. 注册不同类型的中间件
-3. 测试完整的执行流程
-
-## 6. 导出模块
+## 5. 导出模块
 
 在 `src/middleware/index.ts` 中导出所有类型：
 
@@ -319,11 +197,6 @@ export * from './types';
 export * from './constants';
 export * from './decorators';
 ```
-
-**动手实践 10**：
-1. 创建模块导出文件
-2. 确保所有类型都被导出
-3. 验证模块的完整性
 
 ## 下一步
 
