@@ -52,3 +52,108 @@ export interface ServiceProvider {
 export const INJECTABLE_TOKEN = Symbol('injectable')
 export const INJECT_TOKEN = Symbol('inject')
 export const DEPENDENCIES_TOKEN = Symbol('dependencies')
+
+// HTTP 扩展类型
+export interface RequestInterface {
+    method: string
+    url: string
+    path: string
+    query: Record<string, any>
+    params: Record<string, any>
+    headers: Record<string, string>
+    body: any
+    cookies: Record<string, string>
+    files: Record<string, FileUpload[]>
+    ip: string
+    userAgent: string
+    get(key: string): any
+    has(key: string): boolean
+    input(key?: string, defaultValue?: any): any
+    cookie(name: string, defaultValue?: string): string
+    header(name: string, defaultValue?: string): string
+    file(name: string): FileUpload | FileUpload[] | undefined
+    isAjax(): boolean
+    isJson(): boolean
+    isForm(): boolean
+    fullUrl(): string
+    queryString(): string
+}
+
+export interface ResponseInterface {
+    status(code: number): ResponseInterface
+    json(data: any): ResponseInterface
+    html(content: string): ResponseInterface
+    redirect(url: string, status?: number): ResponseInterface
+    cookie(name: string, value: string, options?: CookieOptions): ResponseInterface
+    clearCookie(name: string): ResponseInterface
+    header(name: string, value: string): ResponseInterface
+    send(content?: any): ResponseInterface
+    download(filePath: string, filename?: string): ResponseInterface
+    attachment(filename?: string): ResponseInterface
+    getStatus(): number
+    getHeaders(): Record<string, string>
+    getCookies(): Array<{ name: string; value: string; options: CookieOptions | undefined }>
+    getContent(): any
+    hasResponded(): boolean
+    getSetCookieHeaders(): string[]
+}
+
+export interface FileUpload {
+    fieldname: string
+    originalname: string
+    encoding: string
+    mimetype: string
+    size: number
+    destination?: string
+    filename?: string
+    path?: string
+    buffer?: Buffer
+}
+
+export interface CookieOptions {
+    maxAge?: number
+    expires?: Date
+    httpOnly?: boolean
+    secure?: boolean
+    sameSite?: 'strict' | 'lax' | 'none'
+    domain?: string
+    path?: string
+}
+
+export interface HttpContextInterface {
+    request: RequestInterface
+    response: ResponseInterface
+}
+
+// HTTP 状态码
+export enum HttpStatus {
+    OK = 200,
+    CREATED = 201,
+    ACCEPTED = 202,
+    NO_CONTENT = 204,
+    MOVED_PERMANENTLY = 301,
+    FOUND = 302,
+    NOT_MODIFIED = 304,
+    BAD_REQUEST = 400,
+    UNAUTHORIZED = 401,
+    FORBIDDEN = 403,
+    NOT_FOUND = 404,
+    METHOD_NOT_ALLOWED = 405,
+    CONFLICT = 409,
+    UNPROCESSABLE_ENTITY = 422,
+    INTERNAL_SERVER_ERROR = 500,
+    NOT_IMPLEMENTED = 501,
+    BAD_GATEWAY = 502,
+    SERVICE_UNAVAILABLE = 503
+}
+
+// HTTP 方法
+export enum HttpMethod {
+    GET = 'GET',
+    POST = 'POST',
+    PUT = 'PUT',
+    PATCH = 'PATCH',
+    DELETE = 'DELETE',
+    HEAD = 'HEAD',
+    OPTIONS = 'OPTIONS'
+}
