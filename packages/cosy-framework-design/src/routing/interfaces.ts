@@ -1,5 +1,6 @@
+import { HttpMethod } from '../http';
 import { IMiddleware } from '../middleware';
-import { HttpMethod, RouteHandler, IRouteParams } from './types';
+import { RouteHandler, IRouteParams, IRouteConstraints } from './types';
 import { RoutePattern } from './constants';
 
 /**
@@ -25,6 +26,11 @@ export interface IRouteConfig {
      * 中间件列表
      */
     middlewares?: IMiddleware[];
+
+    /**
+     * 路由约束
+     */
+    constraints?: IRouteConstraints;
 }
 
 /**
@@ -48,6 +54,11 @@ export interface IRoute {
      * @param path 请求路径
      */
     extractParams(path: string): IRouteParams;
+
+    /**
+     * 验证参数约束
+     */
+    validateParams(params: IRouteParams): boolean;
 }
 
 /**
@@ -59,6 +70,11 @@ export interface IRouteManager {
      * @param config 路由配置
      */
     register(config: IRouteConfig): void;
+
+    /**
+     * 注册路由组
+     */
+    group(prefix: string, callback: (router: IRouteManager) => void): void;
 
     /**
      * 查找匹配的路由

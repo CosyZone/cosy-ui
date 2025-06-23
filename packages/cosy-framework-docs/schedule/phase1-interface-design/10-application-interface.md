@@ -172,191 +172,226 @@ graph TD
 
 ### 1. 应用程序接口
 
+在 `src/core/interfaces.ts` 中定义应用程序接口：
+
 ```typescript
-interface ApplicationInterface {
-  // 生命周期管理
-  boot(): Promise<void>;
-  start(port?: number): Promise<void>;
-  stop(): Promise<void>;
-  isRunning(): boolean;
-  
-  // 配置管理
-  configure(callback: (app: ApplicationInterface) => void): this;
-  config<T>(key: string, value?: T): T;
-  
-  // 服务管理
-  register(provider: ServiceProvider): this;
-  resolve<T>(token: string | symbol): T;
-  singleton<T>(token: string | symbol, implementation: Constructor<T>): this;
-  bind<T>(token: string | symbol, implementation: Constructor<T>): this;
-  
-  // 路由管理
-  get(path: string, handler: RouteHandler): RouteInterface;
-  post(path: string, handler: RouteHandler): RouteInterface;
-  put(path: string, handler: RouteHandler): RouteInterface;
-  patch(path: string, handler: RouteHandler): RouteInterface;
-  delete(path: string, handler: RouteHandler): RouteInterface;
-  group(prefix: string | RouteGroupOptions, callback: (router: RouterInterface) => void): void;
-  
-  // 中间件管理
-  use(middleware: MiddlewareHandler): this;
-  useGlobal(middleware: MiddlewareHandler): this;
-  
-  // 请求处理
-  handle(request: RequestInterface): Promise<ResponseInterface>;
-  handleHttp(req: any, res: any): Promise<void>;
-  
-  // 状态管理
-  getPort(): number | undefined;
-  getEnvironment(): string;
-  getVersion(): string;
+/**
+ * 应用程序接口
+ */
+export interface ApplicationInterface {
+    // 生命周期管理
+    boot(): Promise<void>;
+    start(port?: number): Promise<void>;
+    stop(): Promise<void>;
+    isRunning(): boolean;
+
+    // 配置管理
+    configure(callback: (app: ApplicationInterface) => void): this;
+    config<T>(key: string, value?: T): T;
+
+    // 服务管理
+    register(provider: IServiceProvider): this;
+    resolve<T>(token: string | symbol): T;
+    singleton<T>(token: string | symbol, implementation: Constructor<T>): this;
+    bind<T>(token: string | symbol, implementation: Constructor<T>): this;
+
+    // 路由管理
+    get(path: string, handler: MiddlewareHandler): IRoute;
+    post(path: string, handler: MiddlewareHandler): IRoute;
+    put(path: string, handler: MiddlewareHandler): IRoute;
+    patch(path: string, handler: MiddlewareHandler): IRoute;
+    delete(path: string, handler: MiddlewareHandler): IRoute;
+    group(prefix: string | RouteGroupOptions, callback: (router: IRouteManager) => void): void;
+
+    // 中间件管理
+    use(middleware: MiddlewareHandler): this;
+    useGlobal(middleware: MiddlewareHandler): this;
+
+    // 请求处理
+    handle(request: RequestInterface): Promise<ResponseInterface>;
+    handleHttp(req: any, res: any): Promise<void>;
+
+    // 状态管理
+    getPort(): number | undefined;
+    getEnvironment(): string;
+    getVersion(): string;
 }
-```
 
-### 2. 应用程序配置接口
+/**
+ * 应用程序配置接口
+ */
+export interface ApplicationConfig {
+    // 基本配置
+    name?: string;
+    version?: string;
+    debug?: boolean;
 
-```typescript
-interface ApplicationConfig {
-  // 基本配置
-  name?: string;
-  version?: string;
-  debug?: boolean;
-  
-  // 服务器配置
-  port?: number;
-  host?: string;
-  
-  // 环境配置
-  env?: string;
-  timezone?: string;
-  locale?: string;
-  
-  // 组件配置
-  providers?: Constructor<ServiceProvider>[];
-  middleware?: MiddlewareHandler[];
-  plugins?: ApplicationPlugin[];
+    // 服务器配置
+    port?: number;
+    host?: string;
+
+    // 环境配置
+    env?: string;
+    timezone?: string;
+    locale?: string;
+
+    // 组件配置
+    providers?: Constructor<IServiceProvider>[];
+    middleware?: MiddlewareHandler[];
+    plugins?: ApplicationPlugin[];
 }
-```
 
-### 3. 生命周期钩子接口
+/**
+ * 生命周期钩子接口
+ */
+export interface ApplicationLifecycleHooks {
+    // 启动阶段
+    beforeBoot?: () => Awaitable<void>;
+    afterBoot?: () => Awaitable<void>;
 
-```typescript
-interface ApplicationLifecycleHooks {
-  // 启动阶段
-  beforeBoot?: () => Awaitable<void>;
-  afterBoot?: () => Awaitable<void>;
-  
-  // 运行阶段
-  beforeStart?: () => Awaitable<void>;
-  afterStart?: () => Awaitable<void>;
-  
-  // 停止阶段
-  beforeStop?: () => Awaitable<void>;
-  afterStop?: () => Awaitable<void>;
+    // 运行阶段
+    beforeStart?: () => Awaitable<void>;
+    afterStart?: () => Awaitable<void>;
+
+    // 停止阶段
+    beforeStop?: () => Awaitable<void>;
+    afterStop?: () => Awaitable<void>;
+}
+
+/**
+ * 插件接口
+ */
+export interface ApplicationPlugin {
+    // 插件信息
+    getName(): string;
+    getVersion(): string;
+
+    // 生命周期
+    install(app: ApplicationInterface): void | Promise<void>;
+    uninstall?(app: ApplicationInterface): void | Promise<void>;
+
+    // 配置
+    getDefaults?(): Record<string, any>;
+    validate?(config: Record<string, any>): boolean;
+}
+
+/**
+ * 路由组选项
+ */
+export interface RouteGroupOptions {
+    prefix: string;
+    middleware?: MiddlewareHandler[];
 }
 
 type Awaitable<T> = T | Promise<T>;
 ```
 
-### 4. 插件接口
+### 2. 应用程序状态
+
+在 `src/core/constants.ts` 中定义状态枚举：
 
 ```typescript
-interface ApplicationPlugin {
-  // 插件信息
-  getName(): string;
-  getVersion(): string;
-  
-  // 生命周期
-  install(app: ApplicationInterface): void | Promise<void>;
-  uninstall?(app: ApplicationInterface): void | Promise<void>;
-  
-  // 配置
-  getDefaults?(): Record<string, any>;
-  validate?(config: Record<string, any>): boolean;
+/**
+ * 应用程序状态枚举
+ */
+export enum ApplicationStatus {
+    /**
+     * 初始化状态
+     */
+    INIT = 'init',
+
+    /**
+     * 启动中
+     */
+    BOOTING = 'booting',
+
+    /**
+     * 已启动
+     */
+    BOOTED = 'booted',
+
+    /**
+     * 运行中
+     */
+    RUNNING = 'running',
+
+    /**
+     * 停止中
+     */
+    STOPPING = 'stopping',
+
+    /**
+     * 已停止
+     */
+    STOPPED = 'stopped'
+}
+
+/**
+ * 应用程序环境枚举
+ */
+export enum ApplicationEnvironment {
+    /**
+     * 开发环境
+     */
+    DEVELOPMENT = 'development',
+
+    /**
+     * 测试环境
+     */
+    TEST = 'test',
+
+    /**
+     * 生产环境
+     */
+    PRODUCTION = 'production'
 }
 ```
 
-## 扩展接口
+### 3. 应用程序状态类型
 
-### 1. 启动器接口
-
-```typescript
-interface BootstrapInterface {
-  // 配置
-  setConfig(config: ApplicationConfig): this;
-  loadConfigFile(path: string): Promise<this>;
-  
-  // 服务提供者
-  addProvider(provider: Constructor<ServiceProvider>): this;
-  addProviders(providers: Constructor<ServiceProvider>[]): this;
-  
-  // 生命周期钩子
-  setHooks(hooks: ApplicationLifecycleHooks): this;
-  
-  // 启动
-  start(): Promise<ApplicationInterface>;
-}
-```
-
-### 2. 错误处理接口
+在 `src/core/types.ts` 中定义状态相关类型：
 
 ```typescript
-interface ErrorHandlerInterface {
-  // 错误处理
-  handle(error: Error, context?: any): void | Promise<void>;
-  handleFatal(error: Error): void | Promise<void>;
-  
-  // 错误过滤
-  shouldHandle(error: Error): boolean;
-  
-  // 错误报告
-  report(error: Error): void | Promise<void>;
-  
-  // 错误渲染
-  render(error: Error): string | Record<string, any>;
-}
-```
-
-### 3. 状态监控接口
-
-```typescript
-interface ApplicationMonitor {
-  // 状态检查
-  getStatus(): ApplicationStatus;
-  getMetrics(): ApplicationMetrics;
-  
-  // 健康检查
-  check(): Promise<HealthCheckResult>;
-  addCheck(name: string, check: HealthCheck): this;
-  
-  // 事件监听
-  onStatusChange(callback: StatusChangeCallback): void;
-  offStatusChange(callback: StatusChangeCallback): void;
+/**
+ * 应用程序状态信息
+ */
+export interface ApplicationStatus {
+    running: boolean;
+    uptime: number;
+    memory: NodeJS.MemoryUsage;
+    cpu: NodeJS.CpuUsage;
 }
 
-interface ApplicationStatus {
-  running: boolean;
-  uptime: number;
-  memory: NodeJS.MemoryUsage;
-  cpu: NodeJS.CpuUsage;
+/**
+ * 应用程序指标
+ */
+export interface ApplicationMetrics {
+    requests: {
+        total: number;
+        active: number;
+        errors: number;
+    };
+    response: {
+        avg: number;
+        min: number;
+        max: number;
+    };
 }
 
-interface ApplicationMetrics {
-  requests: {
-    total: number;
-    active: number;
-    errors: number;
-  };
-  response: {
-    avg: number;
-    min: number;
-    max: number;
-  };
-}
+/**
+ * 健康检查函数
+ */
+export type HealthCheck = () => Promise<boolean>;
 
-type HealthCheck = () => Promise<boolean>;
-type HealthCheckResult = Record<string, boolean>;
-type StatusChangeCallback = (status: ApplicationStatus) => void;
+/**
+ * 健康检查结果
+ */
+export type HealthCheckResult = Record<string, boolean>;
+
+/**
+ * 状态变更回调
+ */
+export type StatusChangeCallback = (status: ApplicationStatus) => void;
 ```
 
 ## 使用示例
@@ -366,17 +401,17 @@ type StatusChangeCallback = (status: ApplicationStatus) => void;
 ```typescript
 // 创建应用
 const app = new Application({
-  name: 'My App',
-  port: 3000,
-  debug: true
+    name: 'My App',
+    port: 3000,
+    debug: true
 });
 
 // 配置应用
 app.configure(app => {
-  app.use(cors());
-  app.use(bodyParser());
-  
-  app.get('/', () => 'Hello World');
+    app.use(cors());
+    app.use(bodyParser());
+    
+    app.get('/', () => 'Hello World');
 });
 
 // 启动应用
@@ -384,83 +419,56 @@ await app.boot();
 await app.start();
 ```
 
-### 2. 使用启动器
-
-```typescript
-// 创建启动器
-const bootstrap = new Bootstrap()
-  .setConfig({
-    name: 'My App',
-    port: 3000
-  })
-  .addProviders([
-    DatabaseProvider,
-    CacheProvider,
-    QueueProvider
-  ])
-  .setHooks({
-    afterBoot: () => console.log('Application booted'),
-    afterStart: () => console.log('Application started')
-  });
-
-// 启动应用
-const app = await bootstrap.start();
-```
-
-### 3. 插件开发
+### 2. 使用插件
 
 ```typescript
 class LoggerPlugin implements ApplicationPlugin {
-  getName() {
-    return 'logger';
-  }
-  
-  getVersion() {
-    return '1.0.0';
-  }
-  
-  install(app: ApplicationInterface) {
-    app.singleton('logger', Logger);
-    app.useGlobal(loggerMiddleware);
-  }
-  
-  getDefaults() {
-    return {
-      level: 'info',
-      file: 'app.log'
-    };
-  }
+    getName() {
+        return 'logger';
+    }
+    
+    getVersion() {
+        return '1.0.0';
+    }
+    
+    install(app: ApplicationInterface) {
+        app.singleton('logger', Logger);
+        app.useGlobal(loggerMiddleware);
+    }
+    
+    getDefaults() {
+        return {
+            level: 'info',
+            file: 'app.log'
+        };
+    }
 }
 
 // 使用插件
 app.configure(app => {
-  const plugin = new LoggerPlugin();
-  plugin.install(app);
+    const plugin = new LoggerPlugin();
+    plugin.install(app);
 });
 ```
 
 ## 设计原则
 
 ### 1. 一致性
-
 - 统一的接口设计
 - 一致的生命周期
 - 标准的错误处理
 
 ### 2. 可扩展性
-
 - 插件系统
 - 服务提供者
 - 中间件机制
 
 ### 3. 可靠性
-
 - 优雅启动
 - 优雅关闭
 - 错误恢复
 
 ### 4. 可维护性
-
 - 模块化设计
 - 清晰的职责
 - 完整的文档
@@ -490,4 +498,4 @@ app.configure(app => {
 2. 编写单元测试
 3. 创建示例应用
 
-请继续阅读 `phase2/` 目录下的实现文档。 
+请继续阅读 [11-design-summary.md](./11-design-summary.md) 来了解设计总结。 

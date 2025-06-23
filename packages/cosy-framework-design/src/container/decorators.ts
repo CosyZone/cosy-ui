@@ -1,14 +1,14 @@
-import { LifecycleEnum } from "./constants";
-import { ServiceToken } from "./types";
+import { ServiceScope } from './constants';
+import { ServiceIdentifier } from './types';
 
 /**
- * 服务注入选项
+ * Injectable 装饰器选项
  */
 export interface IInjectableOptions {
     /**
-     * 服务生命周期
+     * 服务作用域
      */
-    lifecycle?: LifecycleEnum;
+    scope?: ServiceScope;
 }
 
 /**
@@ -23,10 +23,10 @@ export interface IInjectOptions {
     /**
      * 服务标识符
      */
-    token?: ServiceToken;
+    id?: ServiceIdentifier;
 }
 
 /**
- * 参数注入装饰器类型
+ * Inject 装饰器类型
  */
 export type InjectDecorator = (options?: IInjectOptions) => ParameterDecorator;

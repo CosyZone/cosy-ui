@@ -1,4 +1,5 @@
 import { IMiddleware } from '../middleware';
+import { IRouteConstraints } from './types';
 
 /**
  * 控制器装饰器选项
@@ -33,6 +34,11 @@ export interface IRouteMethodOptions {
      * 中间件列表
      */
     middlewares?: IMiddleware[];
+
+    /**
+     * 路由约束
+     */
+    constraints?: IRouteConstraints;
 }
 
 /**
@@ -41,12 +47,12 @@ export interface IRouteMethodOptions {
 export type RouteMethodDecorator = (options: IRouteMethodOptions) => MethodDecorator;
 
 /**
- * HTTP方法装饰器类型
+ * HTTP 方法装饰器
  */
 export interface IHttpMethodDecorators {
-    Get: RouteMethodDecorator;
-    Post: RouteMethodDecorator;
-    Put: RouteMethodDecorator;
-    Delete: RouteMethodDecorator;
-    Patch: RouteMethodDecorator;
+    Get(path: string, options?: Omit<IRouteMethodOptions, 'path'>): MethodDecorator;
+    Post(path: string, options?: Omit<IRouteMethodOptions, 'path'>): MethodDecorator;
+    Put(path: string, options?: Omit<IRouteMethodOptions, 'path'>): MethodDecorator;
+    Delete(path: string, options?: Omit<IRouteMethodOptions, 'path'>): MethodDecorator;
+    Patch(path: string, options?: Omit<IRouteMethodOptions, 'path'>): MethodDecorator;
 } 

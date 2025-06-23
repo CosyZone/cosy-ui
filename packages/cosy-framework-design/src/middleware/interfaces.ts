@@ -1,4 +1,5 @@
-import { IContext, NextFunction } from './types';
+import { IHttpContext } from '../http';
+import { MiddlewareHandler, NextFunction } from './types';
 import { MiddlewareType } from './constants';
 
 /**
@@ -6,11 +7,14 @@ import { MiddlewareType } from './constants';
  */
 export interface IMiddleware {
     /**
-     * 处理请求
-     * @param context 上下文对象
-     * @param next 下一个中间件
+     * 获取中间件配置
      */
-    handle(context: IContext, next: NextFunction): Promise<void>;
+    getConfig(): IMiddlewareConfig;
+
+    /**
+     * 执行中间件
+     */
+    execute(context: IHttpContext, next: NextFunction): Promise<void>;
 }
 
 /**
@@ -23,7 +27,7 @@ export interface IErrorMiddleware {
      * @param context 上下文对象
      * @param next 下一个中间件
      */
-    handle(error: Error, context: IContext, next: NextFunction): Promise<void>;
+    handle(error: Error, context: IHttpContext, next: NextFunction): Promise<void>;
 }
 
 /**
@@ -31,17 +35,64 @@ export interface IErrorMiddleware {
  */
 export interface IMiddlewareManager {
     /**
-     * 添加中间件
-     * @param middleware 中间件实例
-     * @param type 中间件类型
+     * 注册中间件
      */
-    use(middleware: IMiddleware, type?: MiddlewareType): void;
+    register(middleware: IMiddleware): void;
 
     /**
-     * 执行中间件链
-     * @param context 上下文对象
+     * 注册全局中间件
      */
-    execute(context: IContext): Promise<void>;
+    useGlobal(middleware: IMiddleware): void;
+
+    /**
+     * 创建中间件链
+     */
+    createChain(middlewares: IMiddleware[]): MiddlewareHandler;
+}
+
+/**
+ * 中间件工厂接口
+ */
+export interface IMiddlewareFactory {
+    /**
+     * 创建中间件
+     */
+    create(config: IMiddlewareConfig): IMiddleware;
+
+    /**
+     * 创建中间件链
+     */
+    createChain(middlewares: IMiddleware[]): MiddlewareHandler;
+}
+
+/**
+ * 中间件上下文接口
+ */
+export interface IMiddlewareContext extends IHttpContext {
+    /**
+     * 中间件特定状态
+     */
+    middlewareState: Map<string, any>;
+
+    /**
+     * 获取中间件状态
+     */
+    getMiddlewareState<T>(key: string): T | undefined;
+
+    /**
+     * 设置中间件状态
+     */
+    setMiddlewareState<T>(key: string, value: T): void;
+}
+
+/**
+ * 中间件错误处理器
+ */
+export interface IMiddlewareErrorHandler {
+    /**
+     * 处理中间件错误
+     */
+    handleError(error: Error, context: IMiddlewareContext): Promise<void>;
 }
 
 /**

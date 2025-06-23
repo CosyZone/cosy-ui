@@ -12,37 +12,39 @@
 /**
  * 服务标识符类型
  */
-export type ServiceToken = string | symbol | Constructor;
+export type ServiceIdentifier = string | symbol | Constructor<any>;
 
 /**
  * 构造函数类型
  */
 export type Constructor<T = any> = new (...args: any[]) => T;
+
+/**
+ * 工厂函数类型
+ */
+export type Factory<T = any> = (container: IContainer) => T;
 ```
 
-### 1.2 服务生命周期
+### 1.2 服务作用域
 
-在 `src/container/constants.ts` 中定义生命周期枚举：
+在 `src/container/constants.ts` 中定义作用域类型：
 
 ```typescript
 /**
- * 服务生命周期
+ * 服务作用域枚举
  */
-export enum LifecycleEnum {
+export enum ServiceScope {
   /**
-   * 每次解析都创建新实例
-   */
-  TRANSIENT = 'transient',
-  
-  /**
-   * 在容器中只有一个实例
+   * 单例作用域
+   * 整个应用生命周期只创建一个实例
    */
   SINGLETON = 'singleton',
-  
+
   /**
-   * 在特定作用域内共享实例
+   * 瞬态作用域
+   * 每次解析都创建新实例
    */
-  SCOPED = 'scoped'
+  TRANSIENT = 'transient'
 }
 ```
 
@@ -53,32 +55,32 @@ export enum LifecycleEnum {
 在 `src/container/interfaces.ts` 中定义容器接口：
 
 ```typescript
-import { LifecycleEnum } from './constants';
-import { ServiceToken, Constructor } from './types';
-
 /**
  * 服务容器接口
- * @interface IContainer
  */
 export interface IContainer {
   /**
    * 注册服务
-   * @param token 服务标识符
+   * @param id 服务标识符
    * @param provider 服务提供者
    */
-  register(token: ServiceToken, provider: IServiceProvider): void;
+  register(id: ServiceIdentifier, provider: IServiceProvider): void;
 
   /**
    * 解析服务
-   * @param token 服务标识符
+   * @param id 服务标识符
    */
-  resolve<T>(token: ServiceToken): T;
+  resolve<T>(id: ServiceIdentifier): T;
+
+  /**
+   * 检查服务是否已注册
+   * @param id 服务标识符
+   */
+  has(id: ServiceIdentifier): boolean;
 }
 ```
 
 ### 2.2 服务提供者接口
-
-在同一个文件 `src/container/interfaces.ts` 中继续定义：
 
 ```typescript
 /**
@@ -89,21 +91,21 @@ export interface IServiceProvider<T = any> {
    * 使用类作为提供者
    */
   useClass?: Constructor<T>;
-  
+
   /**
    * 使用工厂函数作为提供者
    */
-  useFactory?: (...args: any[]) => T;
-  
+  useFactory?: Factory<T>;
+
   /**
    * 使用值作为提供者
    */
   useValue?: T;
-  
+
   /**
-   * 服务生命周期
+   * 服务作用域
    */
-  lifecycle?: LifecycleEnum;
+  scope?: ServiceScope;
 }
 ```
 
@@ -114,17 +116,14 @@ export interface IServiceProvider<T = any> {
 在 `src/container/decorators.ts` 中定义装饰器类型：
 
 ```typescript
-import { LifecycleEnum } from "./constants";
-import { ServiceToken } from "./types";
-
 /**
- * 服务注入选项
+ * Injectable 装饰器选项
  */
 export interface IInjectableOptions {
   /**
-   * 服务生命周期
+   * 服务作用域
    */
-  lifecycle?: LifecycleEnum;
+  scope?: ServiceScope;
 }
 
 /**
@@ -135,8 +134,6 @@ export type InjectableDecorator = (options?: IInjectableOptions) => ClassDecorat
 
 ### 3.2 Inject 装饰器
 
-在同一个文件 `src/container/decorators.ts` 中继续定义：
-
 ```typescript
 /**
  * Inject 装饰器选项
@@ -145,50 +142,33 @@ export interface IInjectOptions {
   /**
    * 服务标识符
    */
-  token?: ServiceToken;
+  id?: ServiceIdentifier;
 }
 
 /**
- * 参数注入装饰器类型
+ * Inject 装饰器类型
  */
 export type InjectDecorator = (options?: IInjectOptions) => ParameterDecorator;
 ```
 
 ## 4. 设计辅助类型
 
-### 4.1 反射元数据类型
-
-在 `src/container/interfaces.ts` 中继续定义：
+### 4.1 服务依赖类型
 
 ```typescript
 /**
- * 依赖项元数据
+ * 服务依赖项
  */
-export interface IDependencyMetadata {
+export interface IServiceDependency {
   /**
    * 参数索引
    */
   index: number;
-  
+
   /**
    * 服务标识符
    */
-  token: ServiceToken;
-}
-
-/**
- * 服务元数据
- */
-export interface IServiceMetadata {
-  /**
-   * 生命周期
-   */
-  lifecycle: LifecycleEnum;
-  
-  /**
-   * 依赖项列表
-   */
-  dependencies: IDependencyMetadata[];
+  id: ServiceIdentifier;
 }
 ```
 
@@ -206,8 +186,8 @@ export * from './decorators';
 ## 下一步
 
 完成本节后，你应该已经：
-1. 在 cosy-framework-design 项目中创建了完整的依赖注入接口设计
+1. 在 cosy-framework-design 项目中创建了基础的依赖注入接口设计
 2. 理解了依赖注入的核心概念和实现方式
-3. 掌握了服务容器的设计原则
+3. 掌握了服务容器的基本设计原则
 
 继续阅读 [03-middleware-design.md](./03-middleware-design.md) 来学习中间件系统的设计。 

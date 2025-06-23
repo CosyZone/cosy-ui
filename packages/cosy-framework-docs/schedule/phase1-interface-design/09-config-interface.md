@@ -1,15 +1,5 @@
 # 配置系统接口设计
 
-## 设计目标
-
-配置系统负责管理应用程序的配置信息，提供灵活的配置加载和访问机制。设计目标包括：
-
-1. 支持多种配置源
-2. 提供类型安全的配置访问
-3. 实现配置的热重载
-4. 支持环境变量覆盖
-5. 提供配置验证机制
-
 ## 核心接口
 
 ### 1. 配置管理器接口
@@ -169,126 +159,6 @@ interface ValidatorFactory {
 }
 ```
 
-## 使用示例
-
-### 1. 基本配置管理
-
-```typescript
-// 创建配置管理器
-const config = new Config();
-
-// 加载配置
-await config.load(new FileConfig('config.json'));
-await config.load(new EnvConfig('APP_'));
-
-// 访问配置
-const port = config.get<number>('app.port', 3000);
-const debug = config.get<boolean>('app.debug');
-
-// 监听变化
-config.onChange((key, newValue, oldValue) => {
-  console.log(`Config changed: ${key}`);
-});
-```
-
-### 2. 配置验证
-
-```typescript
-// 创建验证器
-const validator = new ConfigValidator({
-  'app.port': {
-    type: 'number',
-    required: true,
-    validate: value => value > 0 && value < 65536
-  },
-  'app.name': {
-    type: 'string',
-    required: true,
-    pattern: /^[a-zA-Z0-9-_]+$/
-  }
-});
-
-// 验证配置
-const result = validator.validate({
-  app: {
-    port: 3000,
-    name: 'my-app'
-  }
-});
-
-if (!result.valid) {
-  console.error('Config validation failed:', result.errors);
-}
-```
-
-### 3. 环境特定配置
-
-```typescript
-// 加载基础配置
-await config.load(new FileConfig('config/default.json'));
-
-// 加载环境配置
-const env = process.env.NODE_ENV || 'development';
-await config.load(new FileConfig(`config/${env}.json`));
-
-// 加载环境变量
-await config.load(new EnvConfig('APP_', {
-  mapping: {
-    'APP_PORT': 'app.port',
-    'APP_NAME': 'app.name'
-  },
-  transform: (value) => {
-    if (value === 'true') return true;
-    if (value === 'false') return false;
-    if (/^\d+$/.test(value)) return parseInt(value);
-    return value;
-  }
-}));
-```
-
-## 设计原则
-
-### 1. 灵活性
-
-- 支持多种配置源
-- 可扩展的验证规则
-- 自定义转换规则
-
-### 2. 类型安全
-
-- 泛型配置访问
-- 配置验证
-- 类型转换
-
-### 3. 可维护性
-
-- 配置分层
-- 环境隔离
-- 变更追踪
-
-### 4. 性能优化
-
-- 配置缓存
-- 懒加载
-- 增量更新
-
-## 注意事项
-
-1. **配置优先级**
-   - 明确配置源优先级
-   - 处理配置冲突
-   - 环境变量覆盖
-
-2. **安全考虑**
-   - 敏感信息保护
-   - 配置加密
-   - 访问控制
-
-3. **性能考虑**
-   - 减少配置重载
-   - 优化配置访问
-   - 合理使用缓存
-
 ## 下一步
 
 理解了配置系统接口后，我们将：
@@ -297,4 +167,4 @@ await config.load(new EnvConfig('APP_', {
 2. 了解错误处理接口
 3. 掌握日志系统接口
 
-请继续阅读 [02.6-application.md](./02.6-application.md) 了解应用程序接口设计。 
+请继续阅读 [10-application-interface.md](./10-application-interface.md) 了解应用程序接口设计。 

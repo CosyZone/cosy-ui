@@ -261,4 +261,4 @@ export * from './decorators';
 2. 理解了生命周期系统的核心概念和实现方式
 3. 掌握了生命周期钩子和事件的设计原则
 
-继续阅读 [06-container-interface.md](./06-container-interface.md) 来学习服务容器接口的设计。 
+继续阅读 [06-http-interface.md](./06-http-interface.md) 来学习 HTTP 接口的设计。 

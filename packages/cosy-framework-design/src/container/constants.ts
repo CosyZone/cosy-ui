@@ -1,16 +1,16 @@
-export enum LifecycleEnum {
+/**
+ * 服务作用域枚举
+ */
+export enum ServiceScope {
     /**
-     * 每次解析都创建新实例
-     */
-    TRANSIENT = 'transient',
-
-    /**
-     * 在容器中只有一个实例
+     * 单例作用域
+     * 整个应用生命周期只创建一个实例
      */
     SINGLETON = 'singleton',
 
     /**
-     * 在特定作用域内共享实例
+     * 瞬态作用域
+     * 每次解析都创建新实例
      */
-    SCOPED = 'scoped'
+    TRANSIENT = 'transient'
 }

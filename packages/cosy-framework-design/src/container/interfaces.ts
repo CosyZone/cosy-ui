@@ -1,23 +1,28 @@
-import { LifecycleEnum } from './constants';
-import { ServiceToken, Constructor } from './types';
+import { ServiceIdentifier, Constructor, Factory } from './types';
+import { ServiceScope } from './constants';
 
 /**
  * 服务容器接口
- * @interface IContainer
  */
 export interface IContainer {
     /**
      * 注册服务
-     * @param token 服务标识符
+     * @param id 服务标识符
      * @param provider 服务提供者
      */
-    register(token: ServiceToken, provider: IServiceProvider): void;
+    register(id: ServiceIdentifier, provider: IServiceProvider): void;
 
     /**
      * 解析服务
-     * @param token 服务标识符
+     * @param id 服务标识符
      */
-    resolve<T>(token: ServiceToken): T;
+    resolve<T>(id: ServiceIdentifier): T;
+
+    /**
+     * 检查服务是否已注册
+     * @param id 服务标识符
+     */
+    has(id: ServiceIdentifier): boolean;
 }
 
 /**
@@ -32,7 +37,7 @@ export interface IServiceProvider<T = any> {
     /**
      * 使用工厂函数作为提供者
      */
-    useFactory?: (...args: any[]) => T;
+    useFactory?: Factory<T>;
 
     /**
      * 使用值作为提供者
@@ -40,15 +45,15 @@ export interface IServiceProvider<T = any> {
     useValue?: T;
 
     /**
-     * 服务生命周期
+     * 服务作用域
      */
-    lifecycle?: LifecycleEnum;
+    scope?: ServiceScope;
 }
 
 /**
- * 依赖项元数据
+ * 服务依赖项
  */
-export interface IDependencyMetadata {
+export interface IServiceDependency {
     /**
      * 参数索引
      */
@@ -57,20 +62,5 @@ export interface IDependencyMetadata {
     /**
      * 服务标识符
      */
-    token: ServiceToken;
-}
-
-/**
- * 服务元数据
- */
-export interface IServiceMetadata {
-    /**
-     * 生命周期
-     */
-    lifecycle: LifecycleEnum;
-
-    /**
-     * 依赖项列表
-     */
-    dependencies: IDependencyMetadata[];
+    id: ServiceIdentifier;
 }
