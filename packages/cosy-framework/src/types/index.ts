@@ -260,3 +260,46 @@ export interface MiddlewareContext extends HttpContextInterface {
 
 // 中间件类型
 export type MiddlewareHandler = (context: HttpContextInterface, next: NextFunction) => Awaitable<any>
+
+// 配置相关类型
+export interface ConfigManager {
+    get<T = any>(key: string, defaultValue?: T): T
+    set(key: string, value: any): void
+    has(key: string): boolean
+    all(): Record<string, any>
+    load(source: ConfigSource): Promise<void>
+    merge(config: Record<string, any>): void
+    validate(): boolean
+    getErrors(): string[]
+}
+
+export interface ConfigSource {
+    name: string
+    load(): Promise<Record<string, any>>
+    watch?(callback: (config: Record<string, any>) => void): void
+}
+
+export interface ConfigValidator {
+    rules: Record<string, ConfigRule>
+    validate(config: Record<string, any>): ConfigValidationResult
+}
+
+export interface ConfigRule {
+    required?: boolean
+    type?: 'string' | 'number' | 'boolean' | 'array' | 'object'
+    default?: any
+    validator?: ((value: any) => boolean | string) | undefined
+    transform?: (value: any) => any
+}
+
+export interface ConfigValidationResult {
+    valid: boolean
+    errors: string[]
+    warnings: string[]
+}
+
+export interface EnvironmentConfig {
+    name: string
+    debug?: boolean
+    [key: string]: any
+}
