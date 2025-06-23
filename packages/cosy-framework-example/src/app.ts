@@ -1,3 +1,15 @@
+/**
+ * @file app.ts
+ * @description 应用程序主配置文件，负责设置和配置整个应用程序的核心功能
+ * 
+ * 该文件主要职责：
+ * 1. 创建和配置应用实例
+ * 2. 注册核心服务和中间件
+ * 3. 配置全局中间件（CORS、日志、错误处理）
+ * 4. 定义API路由和端点
+ * 5. 设置错误处理和优雅关闭机制
+ */
+
 import {
     Application,
     gracefulShutdown,
@@ -13,21 +25,31 @@ import { AuthMiddleware } from './middleware/auth-middleware'
 import { UserService } from './services/user-service'
 import { PostService } from './services/post-service'
 
-// 创建应用实例
-export const app = Application.create({
+/**
+ * 创建应用实例
+ * @description 使用环境变量和默认配置初始化应用
+ */
+console.log("🚀🚀 创建应用实例")
+const app = Application.create({
     name: 'Basic API Example',
     debug: process.env.NODE_ENV !== 'production',
     port: parseInt(process.env.PORT || '3000')
 })
 
-// 注册服务
+/**
+ * 服务注册
+ * @description 注册应用所需的核心服务
+ */
 app.bind('UserService', UserService)
 app.bind('PostService', PostService)
 
-// 注册中间件
+/**
+ * 中间件配置
+ * @description 注册认证中间件和配置全局中间件
+ */
 app.middleware('auth', AuthMiddleware)
 
-// 全局中间件
+// 全局中间件配置
 app.use(cors({
     origin: process.env.CORS_ORIGIN || '*',
     credentials: true
@@ -41,16 +63,22 @@ app.use(errorHandler({
     showStack: app.config('app.debug')
 }))
 
-// 健康检查路由
+/**
+ * 健康检查路由
+ * @description 提供基本的健康检查端点
+ */
 app.get('/health', () => ({
     status: 'ok',
     timestamp: new Date().toISOString(),
     uptime: process.uptime()
 }))
 
-// API 路由
+/**
+ * API路由配置
+ * @description 配置所有API端点，包括用户管理和帖子管理
+ */
 app.group('/api/v1', (api) => {
-    // 用户路由
+    // 用户路由组
     api.group('/users', (users) => {
         users.get('/', (context) => {
             const userService = app.resolve<UserService>('UserService')
@@ -83,7 +111,7 @@ app.group('/api/v1', (api) => {
         })
     })
 
-    // 需要认证的路由
+    // 需要认证的帖子路由组
     api.group({ prefix: '/posts', middleware: AuthMiddleware }, (posts) => {
         posts.get('/', (context) => {
             const postService = app.resolve<PostService>('PostService')
@@ -99,18 +127,12 @@ app.group('/api/v1', (api) => {
     })
 })
 
-// 错误处理
+/**
+ * 错误处理和优雅关闭配置
+ * @description 设置全局错误处理和应用关闭机制
+ */
 setupErrorHandling(app)
-
-// 优雅关闭
 gracefulShutdown(app)
 
-// 启动应用
-if (require.main === module) {
-    app.boot().then(() => {
-        return app.start()
-    }).catch(error => {
-        console.error('Failed to start application:', error)
-        process.exit(1)
-    })
-} 
+// 导出应用实例供 server.ts 使用
+export { app } 
