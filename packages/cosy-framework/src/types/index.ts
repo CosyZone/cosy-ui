@@ -32,3 +32,23 @@ export type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
 export type RequiredKeys<T> = {
     [K in keyof T]-?: {} extends Pick<T, K> ? never : K
 }[keyof T]
+
+// 服务容器扩展类型
+export interface Container {
+    bind<T>(token: string | symbol, implementation: Constructor<T>, singleton?: boolean): void
+    singleton<T>(token: string | symbol, implementation: Constructor<T>): void
+    resolve<T>(token: string | symbol): T
+    make<T>(implementation: Constructor<T>): T
+    has(token: string | symbol): boolean
+    instance<T>(token: string | symbol, instance: T): void
+}
+
+export interface ServiceProvider {
+    register(container: Container): void
+    boot?(container: Container): void
+}
+
+// 装饰器元数据
+export const INJECTABLE_TOKEN = Symbol('injectable')
+export const INJECT_TOKEN = Symbol('inject')
+export const DEPENDENCIES_TOKEN = Symbol('dependencies')
