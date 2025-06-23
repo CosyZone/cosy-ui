@@ -303,3 +303,68 @@ export interface EnvironmentConfig {
     debug?: boolean
     [key: string]: any
 }
+
+// 应用程序相关类型
+export interface ApplicationInterface {
+    // 生命周期
+    boot(): Promise<void>
+    start(port?: number): Promise<void>
+    stop(): Promise<void>
+
+    // 配置
+    configure(callback: (app: ApplicationInterface) => void): ApplicationInterface
+    config(key: string, value?: any): any
+
+    // 服务管理
+    register(provider: ServiceProvider): ApplicationInterface
+    resolve<T>(token: string | symbol): T
+    singleton<T>(token: string | symbol, implementation: Constructor<T>): ApplicationInterface
+    bind<T>(token: string | symbol, implementation: Constructor<T>): ApplicationInterface
+
+    // 路由
+    get(path: string, handler: RouteHandler): RouteInterface
+    post(path: string, handler: RouteHandler): RouteInterface
+    put(path: string, handler: RouteHandler): RouteInterface
+    patch(path: string, handler: RouteHandler): RouteInterface
+    delete(path: string, handler: RouteHandler): RouteInterface
+    group(prefix: string | RouteGroupOptions, callback: (router: RouterInterface) => void): void
+
+    // 中间件
+    use(middleware: MiddlewareHandler): ApplicationInterface
+    useGlobal(middleware: MiddlewareHandler): ApplicationInterface
+
+    // 请求处理
+    handle(request: RequestInterface): Promise<ResponseInterface>
+    handleHttp(req: any, res: any): Promise<void>
+
+    // 状态
+    isRunning(): boolean
+    getPort(): number | undefined
+}
+
+export interface ApplicationConfig {
+    name?: string
+    debug?: boolean
+    port?: number
+    host?: string
+    timezone?: string
+    locale?: string
+    providers?: Constructor<ServiceProvider>[]
+    middleware?: MiddlewareHandler[]
+}
+
+export interface ApplicationLifecycleHooks {
+    beforeBoot?: () => Awaitable<void>
+    afterBoot?: () => Awaitable<void>
+    beforeStart?: () => Awaitable<void>
+    afterStart?: () => Awaitable<void>
+    beforeStop?: () => Awaitable<void>
+    afterStop?: () => Awaitable<void>
+}
+
+export interface BootstrapOptions {
+    config?: ApplicationConfig
+    configPath?: string
+    providers?: Constructor<ServiceProvider>[]
+    hooks?: ApplicationLifecycleHooks
+}
