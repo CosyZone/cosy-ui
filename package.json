@@ -6,8 +6,11 @@
   "description": "Cosy UI component library workspace",
   "scripts": {
     "build:astro": "pnpm --filter @coffic/cosy-ui build",
+    "build:framework": "pnpm --filter @coffic/cosy-framework build",
     "build:docs": "pnpm build:astro && pnpm --filter @coffic/cosy-ui-docs build",
     "dev:docs": "pnpm build:astro && pnpm --filter @coffic/cosy-ui-docs dev",
+    "dev:framework": "pnpm --filter @coffic/cosy-framework dev",
+    "dev:example": "concurrently \"pnpm dev:framework\" \"pnpm --filter @coffic/cosy-framework-example dev\"",
     "dev": "pnpm dev:docs",
     "preview:docs": "pnpm build:docs && pnpm --filter @coffic/cosy-ui-docs preview",
     "check": "pnpm --recursive run check",

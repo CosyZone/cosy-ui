@@ -1,4 +1,3 @@
-// 核心模块 - 稍后实现
 export const CORE_MODULE = 'core'
 
 import { Bootstrap } from './bootstrap'
@@ -26,6 +25,8 @@ import { Router } from '../routing'
 import { Pipeline, MiddlewareRegistry } from '../middleware'
 import { Configuration, Environment, EnvironmentSource, ObjectSource } from '../config'
 import { HttpContext, Request, Response, HttpStatus } from '../http'
+import fastify, { FastifyInstance } from 'fastify'
+import cors from '@fastify/cors'
 
 export class Application implements ApplicationInterface {
     private container: ServiceContainer
@@ -35,7 +36,7 @@ export class Application implements ApplicationInterface {
     private globalMiddlewares: MiddlewareHandler[] = []
     private running = false
     private port?: number
-    private server?: any
+    private server?: FastifyInstance
     private hooks: ApplicationLifecycleHooks = {}
 
     constructor(config?: ApplicationConfig) {
@@ -79,6 +80,8 @@ export class Application implements ApplicationInterface {
      * 启动 HTTP 服务器
      */
     async start(port?: number): Promise<void> {
+        console.log('[Cosy] 🔄 Application:start, port:', port)
+
         if (this.running) {
             throw new Error('Application is already running')
         }
@@ -89,13 +92,61 @@ export class Application implements ApplicationInterface {
 
         this.port = port || this.configuration.get('app.port', 3000)
 
-        // 这里应该创建实际的 HTTP 服务器
-        // 为了简化，我们只设置状态
+        // 创建 Fastify 实例
+        this.server = fastify({
+            logger: this.configuration.get('app.debug', false)
+        })
+
+        // 注册 CORS 插件
+        await this.server.register(cors, {
+            origin: this.configuration.get('cors.origin', '*'),
+            credentials: this.configuration.get('cors.credentials', true)
+        })
+
+        // 注册路由处理器
+        this.server.route({
+            method: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD'],
+            url: '/*',
+            handler: async (request, reply) => {
+                try {
+                    // 创建请求上下文
+                    const context = HttpContext.create({
+                        method: request.method,
+                        url: request.url,
+                        headers: request.headers as Record<string, string>,
+                        body: request.body,
+                        query: request.query as Record<string, string>,
+                        params: request.params as Record<string, string>
+                    })
+
+                    // 处理请求
+                    const response = await this.handle(context.request)
+
+                    // 设置响应
+                    reply.status(response.getStatus())
+                    const headers = response.getHeaders()
+                    for (const name in headers) {
+                        reply.header(name, headers[name])
+                    }
+                    return response.getContent()
+                } catch (error) {
+                    // 错误处理
+                    const status = error instanceof Error ? HttpStatus.INTERNAL_SERVER_ERROR : HttpStatus.BAD_REQUEST
+                    reply.status(status).send({
+                        error: error instanceof Error ? error.message : String(error),
+                        stack: this.configuration.get('app.debug') ? error instanceof Error ? error.stack : undefined : undefined
+                    })
+                }
+            }
+        })
+
+        // 启动服务器
+        await this.server.listen({ port: this.port, host: '0.0.0.0' })
         this.running = true
 
-        console.log(`🚀 Application started on port ${this.port}`)
-        console.log(`🌍 Environment: ${Environment.getCurrent()}`)
-        console.log(`🎯 Debug mode: ${Environment.isDebug() ? 'enabled' : 'disabled'}`)
+        console.log(`[Cosy] 🚀 Application started on port ${this.port}`)
+        console.log(`[Cosy] 🌍 Environment: ${Environment.getCurrent()}`)
+        console.log(`[Cosy] 🎯 Debug mode: ${Environment.isDebug() ? 'enabled' : 'disabled'}`)
 
         if (this.hooks.afterStart) {
             await this.hooks.afterStart()
@@ -114,16 +165,12 @@ export class Application implements ApplicationInterface {
             await this.hooks.beforeStop()
         }
 
-        this.running = false
-
         if (this.server) {
-            // 关闭服务器
-            await new Promise<void>((resolve) => {
-                this.server.close(() => resolve())
-            })
+            await this.server.close()
         }
 
-        console.log('Application stopped')
+        this.running = false
+        console.log('[Cosy] Application stopped')
 
         if (this.hooks.afterStop) {
             await this.hooks.afterStop()

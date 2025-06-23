@@ -16,6 +16,7 @@ export class Bootstrap {
      * 启动应用程序
      */
     async start(): Promise<Application> {
+        console.log('[Cosy] 🔄 Bootstrap:start...')
         // 设置生命周期钩子
         if (this.options.hooks) {
             this.app.setHooks(this.options.hooks)
@@ -40,6 +41,7 @@ export class Bootstrap {
      * 加载配置文件
      */
     private async loadConfigFiles(): Promise<void> {
+        console.log('[Cosy] 🔄 Bootstrap:loadConfigFiles...')
         const configPath = this.options.configPath || './config'
 
         // 尝试加载通用配置
@@ -73,6 +75,7 @@ export class Bootstrap {
      * 创建启动器
      */
     static create(options: BootstrapOptions = {}): Bootstrap {
+        console.log('[Cosy] 🔄 Bootstrap:create...')
         return new Bootstrap(options)
     }
 

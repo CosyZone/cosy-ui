@@ -3,6 +3,13 @@
 ## 目标
 整合所有组件，创建完整的应用程序核心，实现应用生命周期管理。
 
+## 依赖
+首先需要安装以下依赖：
+
+```bash
+npm install fastify @fastify/cors
+```
+
 ## 任务清单
 - [ ] 创建应用程序类
 - [ ] 实现生命周期管理
@@ -12,7 +19,24 @@
 
 ## 执行步骤
 
-### 1. 更新类型定义
+### 1. HTTP 服务器实现说明
+
+应用程序核心使用 Fastify 作为 HTTP 服务器实现，主要特点：
+
+1. **高性能**：Fastify 是最快的 web 框架之一
+2. **可扩展**：支持插件系统，易于扩展功能
+3. **类型安全**：完整的 TypeScript 支持
+4. **现代化**：支持 async/await，优秀的请求处理
+5. **CORS 支持**：通过 @fastify/cors 插件处理跨域请求
+
+主要实现细节：
+- 使用 Fastify 的通配符路由 (`*`) 捕获所有请求
+- 将请求委托给框架的请求处理管道
+- 支持优雅关闭
+- 完整的错误处理
+- 环境感知的日志和错误报告
+
+### 2. 更新类型定义
 
 **更新文件**: `src/types/index.ts`
 
@@ -85,7 +109,7 @@ export interface BootstrapOptions {
 }
 ```
 
-### 2. 创建应用程序类
+### 3. 创建应用程序类
 
 **更新文件**: `src/core/index.ts`
 
@@ -174,8 +198,33 @@ export class Application implements ApplicationInterface {
 
     this.port = port || this.config.get('app.port', 3000)
     
-    // 这里应该创建实际的 HTTP 服务器
-    // 为了简化，我们只设置状态
+    // 创建 HTTP 服务器
+    const fastify = require('fastify')({
+      logger: Environment.isDebug()
+    })
+
+    // 添加 CORS 支持
+    await fastify.register(require('@fastify/cors'), {
+      origin: '*',
+      methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
+      allowedHeaders: ['Content-Type', 'Authorization']
+    })
+
+    // 注册路由处理器
+    fastify.all('*', async (req, reply) => {
+      try {
+        await this.handleHttp(req.raw, reply.raw)
+      } catch (error) {
+        console.error('Request handling error:', error)
+        reply.status(500).send({
+          error: Environment.isDebug() ? error.message : 'Internal Server Error'
+        })
+      }
+    })
+
+    // 启动服务器
+    await fastify.listen({ port: this.port, host: '0.0.0.0' })
+    this.server = fastify
     this.running = true
     
     console.log(`🚀 Application started on port ${this.port}`)
@@ -199,13 +248,13 @@ export class Application implements ApplicationInterface {
       await this.hooks.beforeStop()
     }
 
-    this.running = false
-    
     if (this.server) {
-      // 关闭服务器
-      this.server.close()
+      // 关闭 Fastify 服务器
+      await this.server.close()
+      this.server = undefined
     }
 
+    this.running = false
     console.log('Application stopped')
 
     if (this.hooks.afterStop) {
@@ -1310,11 +1359,30 @@ npx tsx tests/manual-application-test.ts
 
 - [ ] 应用程序类功能完整
 - [ ] 生命周期管理正常
+- [ ] HTTP 服务器集成完成
+- [ ] CORS 支持正常工作
 - [ ] 所有模块集成正确
 - [ ] 请求处理流程正常
 - [ ] Bootstrap 功能正常
 - [ ] 所有测试通过
 - [ ] TypeScript 类型检查无错误
+
+## 注意事项
+
+1. **环境变量**：
+   - `PORT`: 可以通过环境变量覆盖默认端口
+   - `DEBUG`: 设置为 true 启用调试模式
+   - `NODE_ENV`: 控制运行环境
+
+2. **错误处理**：
+   - 生产环境不暴露详细错误信息
+   - 开发环境显示完整错误栈
+   - 所有错误都被正确记录
+
+3. **性能考虑**：
+   - Fastify 服务器配置已优化
+   - 请求处理管道经过优化
+   - 支持异步操作
 
 ## 下一步
 
