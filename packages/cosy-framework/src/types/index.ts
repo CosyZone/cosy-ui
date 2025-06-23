@@ -141,6 +141,7 @@ export enum HttpStatus {
     METHOD_NOT_ALLOWED = 405,
     CONFLICT = 409,
     UNPROCESSABLE_ENTITY = 422,
+    TOO_MANY_REQUESTS = 429,
     INTERNAL_SERVER_ERROR = 500,
     NOT_IMPLEMENTED = 501,
     BAD_GATEWAY = 502,
@@ -218,6 +219,43 @@ export interface CompiledRoute {
 
 export interface RouteMatchResult {
     params: Record<string, string>
+}
+
+// 中间件扩展类型
+export interface MiddlewarePipeline {
+    pipe(middleware: MiddlewareHandler): MiddlewarePipeline
+    through(middlewares: MiddlewareHandler[]): MiddlewarePipeline
+    then(finalHandler: RouteHandler): Promise<any>
+    execute(context: HttpContextInterface): Promise<any>
+    count(): number
+}
+
+export interface MiddlewareManager {
+    register(name: string, middleware: MiddlewareHandler): void
+    resolve(name: string): MiddlewareHandler | undefined
+    group(name: string, middlewares: (string | MiddlewareHandler)[]): void
+    getGroup(name: string): MiddlewareHandler[]
+    global(middleware: MiddlewareHandler): void
+    getGlobal(): MiddlewareHandler[]
+}
+
+export interface ConditionalMiddleware {
+    when(condition: (context: HttpContextInterface) => boolean): MiddlewareHandler
+    unless(condition: (context: HttpContextInterface) => boolean): MiddlewareHandler
+}
+
+export interface MiddlewareOptions {
+    except?: string[]
+    only?: string[]
+    domain?: string
+    methods?: string[]
+}
+
+// 中间件上下文
+export interface MiddlewareContext extends HttpContextInterface {
+    state: Record<string, any>
+    skipRemaining(): void
+    shouldSkip: boolean
 }
 
 // 中间件类型

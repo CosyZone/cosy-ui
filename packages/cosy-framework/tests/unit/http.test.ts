@@ -93,15 +93,29 @@ describe('HTTP Foundation', () => {
 
             const cookies = response.getCookies()
             expect(cookies).toHaveLength(2)
-            expect(cookies[0].name).toBe('session')
-            expect(cookies[0].value).toBe('abc123')
-            expect(cookies[1].name).toBe('old-session')
-            expect(cookies[1].value).toBe('')
+
+            const cookie1 = cookies[0]
+            expect(cookie1).toBeDefined()
+            if (cookie1) {
+                expect(cookie1.name).toBe('session')
+                expect(cookie1.value).toBe('abc123')
+            }
+
+            const cookie2 = cookies[1]
+            expect(cookie2).toBeDefined()
+            if (cookie2) {
+                expect(cookie2.name).toBe('old-session')
+                expect(cookie2.value).toBe('')
+            }
 
             const setCookieHeaders = response.getSetCookieHeaders()
-            expect(setCookieHeaders[0]).toContain('session=abc123')
-            expect(setCookieHeaders[0]).toContain('HttpOnly')
-            expect(setCookieHeaders[0]).toContain('Max-Age=3600')
+            const header1 = setCookieHeaders[0]
+            expect(header1).toBeDefined()
+            if (header1) {
+                expect(header1).toContain('session=abc123')
+                expect(header1).toContain('HttpOnly')
+                expect(header1).toContain('Max-Age=3600')
+            }
         })
 
         it('should chain methods', () => {
