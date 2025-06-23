@@ -1,5 +1,12 @@
-import { Application, gracefulShutdown, setupErrorHandling } from '@coffic/cosy-framework'
-import { cors, logger, errorHandler } from '@coffic/cosy-framework/middleware'
+import {
+    Application,
+    gracefulShutdown,
+    setupErrorHandling,
+    cors,
+    logger,
+    errorHandler,
+    type HttpContextInterface
+} from '@coffic/cosy-framework'
 import { UserController } from './controllers/user-controller'
 import { PostController } from './controllers/post-controller'
 import { AuthMiddleware } from './middleware/auth-middleware'
@@ -27,7 +34,7 @@ app.use(cors({
 }))
 
 app.use(logger({
-    skip: (context) => context.request.path === '/health'
+    skip: (context: HttpContextInterface) => context.request.path === '/health'
 }))
 
 app.use(errorHandler({

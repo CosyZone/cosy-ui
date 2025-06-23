@@ -1,6 +1,9 @@
 // 核心模块 - 稍后实现
 export const CORE_MODULE = 'core'
 
+import { Bootstrap } from './bootstrap'
+export { Bootstrap }
+
 import {
     ApplicationInterface,
     ApplicationConfig,
@@ -407,7 +410,6 @@ export class Application implements ApplicationInterface {
 export const app = new Application()
 
 // 导出其他核心组件
-export { Bootstrap } from './bootstrap'
 export {
     App,
     AutoRegister,
