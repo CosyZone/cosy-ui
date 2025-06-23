@@ -71,7 +71,7 @@ export interface RouteCompiler {
 
 export interface CompiledRoute {
   pattern: RegExp
-  paramNames: string[]
+  paramNames: (string | number)[]
   path: string
 }
 
@@ -89,42 +89,18 @@ export type MiddlewareHandler = (context: HttpContextInterface, next: NextFuncti
 
 ```typescript
 import { RouteCompiler, CompiledRoute, RouteMatchResult } from '../types'
+import { pathToRegexp, match, Key } from 'path-to-regexp'
 
 export class DefaultRouteCompiler implements RouteCompiler {
   /**
-   * 编译路由路径为正则表达式
+   * 编译路由路径
    */
   compile(path: string): CompiledRoute {
-    const paramNames: string[] = []
-    
-    // 处理路由参数 {id}, {id?}, {id:pattern}
-    let pattern = path
-      // 可选参数: {id?}
-      .replace(/\{([^}?:]+)\?\}/g, (match, paramName) => {
-        paramNames.push(paramName)
-        return '(?:/([^/]+))?'
-      })
-      // 带约束的参数: {id:[0-9]+}
-      .replace(/\{([^}:]+):([^}]+)\}/g, (match, paramName, constraint) => {
-        paramNames.push(paramName)
-        return `([${constraint}]+)`
-      })
-      // 普通参数: {id}
-      .replace(/\{([^}]+)\}/g, (match, paramName) => {
-        paramNames.push(paramName)
-        return '([^/]+)'
-      })
-      // 转义其他特殊字符
-      .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-      // 处理通配符
-      .replace(/\\\*/g, '.*')
-
-    // 确保完全匹配
-    pattern = `^${pattern}$`
-
+    const keys: Key[] = []
+    const pattern = pathToRegexp(path, keys)
     return {
-      pattern: new RegExp(pattern),
-      paramNames,
+      pattern,
+      paramNames: keys.map(k => k.name),
       path
     }
   }
@@ -133,25 +109,16 @@ export class DefaultRouteCompiler implements RouteCompiler {
    * 匹配路径并提取参数
    */
   match(compiledRoute: CompiledRoute, path: string): RouteMatchResult | null {
-    const matches = path.match(compiledRoute.pattern)
-    
-    if (!matches) {
+    const matcher = match(compiledRoute.path, { decode: decodeURIComponent })
+    const result = matcher(path)
+
+    if (!result) {
       return null
     }
 
-    const params: Record<string, string> = {}
-    
-    // 提取参数值
-    for (let i = 0; i < compiledRoute.paramNames.length; i++) {
-      const paramName = compiledRoute.paramNames[i]
-      const paramValue = matches[i + 1] // 第一个匹配是完整匹配
-      
-      if (paramValue !== undefined) {
-        params[paramName] = decodeURIComponent(paramValue)
-      }
+    return {
+      params: result.params as Record<string, string>
     }
-
-    return { params }
   }
 }
 ```
@@ -722,7 +689,7 @@ describe('Routing System', () => {
 
   describe('Route Parameters', () => {
     it('should extract single parameter', () => {
-      router.get('/users/{id}', () => 'User')
+      router.get('/users/:id', () => 'User')
 
       const match = router.resolve(HttpMethod.GET, '/users/123')
       
@@ -731,7 +698,7 @@ describe('Routing System', () => {
     })
 
     it('should extract multiple parameters', () => {
-      router.get('/users/{userId}/posts/{postId}', () => 'Post')
+      router.get('/users/:userId/posts/:postId', () => 'Post')
 
       const match = router.resolve(HttpMethod.GET, '/users/123/posts/456')
       
@@ -741,7 +708,7 @@ describe('Routing System', () => {
     })
 
     it('should handle optional parameters', () => {
-      router.get('/posts/{id?}', () => 'Posts')
+      router.get('/posts/:id?', () => 'Posts')
 
       const matchWithParam = router.resolve(HttpMethod.GET, '/posts/123')
       const matchWithoutParam = router.resolve(HttpMethod.GET, '/posts')
@@ -754,7 +721,7 @@ describe('Routing System', () => {
     })
 
     it('should handle parameter constraints', () => {
-      router.get('/users/{id:[0-9]+}', () => 'User')
+      router.get('/users/:id(\\d+)', () => 'User')
 
       const validMatch = router.resolve(HttpMethod.GET, '/users/123')
       const invalidMatch = router.resolve(HttpMethod.GET, '/users/abc')
@@ -849,7 +816,7 @@ describe('Routing System', () => {
           return 'All users'
         }
 
-        @Get('/{id}')
+        @Get('/:id')
         show() {
           return 'Single user'
         }
@@ -866,7 +833,7 @@ describe('Routing System', () => {
       expect(routes[0].method).toBe(HttpMethod.GET)
       expect(routes[0].path).toBe('/')
       expect(routes[0].methodName).toBe('index')
-      expect(routes[1].path).toBe('/{id}')
+      expect(routes[1].path).toBe('/:id')
       expect(routes[2].method).toBe(HttpMethod.POST)
     })
   })
@@ -902,16 +869,16 @@ router.get('/', () => 'Home Page')
 router.get('/about', () => 'About Page')
 
 // 带参数的路由
-router.get('/users/{id}', (id: string) => `User: ${id}`)
-router.get('/posts/{slug}', (slug: string) => `Post: ${slug}`)
+router.get('/users/:id', (id: string) => `User: ${id}`)
+router.get('/posts/:slug', (slug: string) => `Post: ${slug}`)
 
 // 可选参数
-router.get('/posts/{category?}', (category?: string) => {
+router.get('/posts/:category?', (category?: string) => {
   return category ? `Posts in ${category}` : 'All Posts'
 })
 
 // 约束参数
-router.get('/users/{id:[0-9]+}', (id: string) => `User ID: ${id}`)
+router.get('/users/:id(\\d+)', (id: string) => `User ID: ${id}`)
 
 // 路由组
 router.group('/api', (api) => {
@@ -970,7 +937,7 @@ class PostController {
     return 'All posts'
   }
 
-  @Get('/{id}')
+  @Get('/:id')
   show() {
     return 'Single post'
   }

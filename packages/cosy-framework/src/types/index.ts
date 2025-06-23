@@ -157,3 +157,68 @@ export enum HttpMethod {
     HEAD = 'HEAD',
     OPTIONS = 'OPTIONS'
 }
+
+// 路由相关类型
+export interface RouteInterface {
+    method: string | string[]
+    path: string
+    handler: RouteHandler
+    name?: string
+    middleware?: MiddlewareHandler[]
+    domain?: string
+    matchesMethod(method: string): boolean
+}
+
+export interface RouterInterface {
+    get(path: string, handler: RouteHandler): RouteInterface
+    post(path: string, handler: RouteHandler): RouteInterface
+    put(path: string, handler: RouteHandler): RouteInterface
+    patch(path: string, handler: RouteHandler): RouteInterface
+    delete(path: string, handler: RouteHandler): RouteInterface
+    options(path: string, handler: RouteHandler): RouteInterface
+    head(path: string, handler: RouteHandler): RouteInterface
+    any(path: string, handler: RouteHandler): RouteInterface
+    match(methods: string[], path: string, handler: RouteHandler): RouteInterface
+    group(prefix: string, callback: (router: RouterInterface) => void): void
+    group(options: RouteGroupOptions, callback: (router: RouterInterface) => void): void
+    middleware(middleware: MiddlewareHandler | MiddlewareHandler[]): RouterInterface
+    name(name: string): RouterInterface
+    domain(domain: string): RouterInterface
+    resolve(method: string, path: string): RouteMatch | null
+    getRoutes(): RouteInterface[]
+}
+
+export interface RouteMatch {
+    route: RouteInterface
+    params: Record<string, string>
+    middleware?: MiddlewareHandler | MiddlewareHandler[]
+    name?: string
+    domain?: string
+    namespace?: string
+}
+
+export interface RouteGroupOptions {
+    prefix?: string
+    middleware?: MiddlewareHandler | MiddlewareHandler[]
+    name?: string
+    domain?: string
+    namespace?: string
+}
+
+export interface RouteCompiler {
+    compile(path: string): CompiledRoute
+    match(compiledRoute: CompiledRoute, path: string): RouteMatchResult | null
+}
+
+export interface CompiledRoute {
+    pattern: RegExp
+    paramNames: string[]
+    path: string
+}
+
+export interface RouteMatchResult {
+    params: Record<string, string>
+}
+
+// 中间件类型
+export type MiddlewareHandler = (context: HttpContextInterface, next: NextFunction) => Awaitable<any>
