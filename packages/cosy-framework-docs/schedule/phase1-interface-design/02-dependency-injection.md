@@ -1,20 +1,11 @@
 # 依赖注入系统设计
 
-## 学习目标
-
-完成本节后，你将能够：
-1. 理解依赖注入的核心概念和原理
-2. 设计基本的依赖注入接口
-3. 实现服务容器的基础功能
-4. 在 cosy-framework-design 中完成依赖注入模块的接口设计
-
 ## 1. 理解依赖注入
 
 ### 1.1 基本概念
 
 依赖注入（DI）是一种设计模式，它通过控制反转（IoC）来实现组件之间的解耦。
 
-**动手实践 1**：
 在 `src/container/types.ts` 中定义基本类型：
 
 ```typescript
@@ -31,10 +22,12 @@ export type Constructor<T = any> = new (...args: any[]) => T;
 
 ### 1.2 服务生命周期
 
-服务实例的生命周期类型：
+在 `src/container/constants.ts` 中定义生命周期枚举：
 
 ```typescript
-// src/container/constants.ts
+/**
+ * 服务生命周期
+ */
 export enum LifecycleEnum {
   /**
    * 每次解析都创建新实例
@@ -53,11 +46,6 @@ export enum LifecycleEnum {
 }
 ```
 
-**动手实践 2**：
-1. 创建上述枚举定义
-2. 添加相应的类型定义
-3. 在 index.ts 中导出
-
 ## 2. 设计核心接口
 
 ### 2.1 容器接口
@@ -65,6 +53,9 @@ export enum LifecycleEnum {
 在 `src/container/interfaces.ts` 中定义容器接口：
 
 ```typescript
+import { LifecycleEnum } from './constants';
+import { ServiceToken, Constructor } from './types';
+
 /**
  * 服务容器接口
  * @interface IContainer
@@ -75,7 +66,7 @@ export interface IContainer {
    * @param token 服务标识符
    * @param provider 服务提供者
    */
-  register(token: ServiceToken, provider: ServiceProvider): void;
+  register(token: ServiceToken, provider: IServiceProvider): void;
 
   /**
    * 解析服务
@@ -85,12 +76,9 @@ export interface IContainer {
 }
 ```
 
-**动手实践 3**：
-1. 创建容器接口
-2. 添加必要的方法定义
-3. 编写完整的类型注释
-
 ### 2.2 服务提供者接口
+
+在同一个文件 `src/container/interfaces.ts` 中继续定义：
 
 ```typescript
 /**
@@ -119,11 +107,6 @@ export interface IServiceProvider<T = any> {
 }
 ```
 
-**动手实践 4**：
-1. 创建提供者接口
-2. 实现不同的提供者类型
-3. 添加生命周期支持
-
 ## 3. 实现装饰器类型
 
 ### 3.1 Injectable 装饰器
@@ -131,6 +114,9 @@ export interface IServiceProvider<T = any> {
 在 `src/container/decorators.ts` 中定义装饰器类型：
 
 ```typescript
+import { LifecycleEnum } from "./constants";
+import { ServiceToken } from "./types";
+
 /**
  * 服务注入选项
  */
@@ -147,12 +133,9 @@ export interface IInjectableOptions {
 export type InjectableDecorator = (options?: IInjectableOptions) => ClassDecorator;
 ```
 
-**动手实践 5**：
-1. 创建装饰器类型定义
-2. 添加配置选项接口
-3. 导出所有类型定义
-
 ### 3.2 Inject 装饰器
+
+在同一个文件 `src/container/decorators.ts` 中继续定义：
 
 ```typescript
 /**
@@ -171,14 +154,11 @@ export interface IInjectOptions {
 export type InjectDecorator = (options?: IInjectOptions) => ParameterDecorator;
 ```
 
-**动手实践 6**：
-1. 创建注入装饰器类型
-2. 添加参数装饰器支持
-3. 完善类型定义
-
 ## 4. 设计辅助类型
 
 ### 4.1 反射元数据类型
+
+在 `src/container/interfaces.ts` 中继续定义：
 
 ```typescript
 /**
@@ -212,74 +192,7 @@ export interface IServiceMetadata {
 }
 ```
 
-**动手实践 7**：
-1. 创建元数据类型定义
-2. 实现依赖项描述
-3. 添加服务描述支持
-
-## 5. 集成示例
-
-### 5.1 基本使用示例
-
-```typescript
-// 定义服务接口
-interface IUserService {
-  getUser(id: number): Promise<User>;
-}
-
-// 使用装饰器注册服务
-@Injectable({ lifecycle: LifecycleEnum.SINGLETON })
-class UserService implements IUserService {
-  constructor(
-    @Inject() private database: Database,
-    @Inject('CONFIG') private config: Config
-  ) {}
-
-  async getUser(id: number) {
-    return this.database.query('users', id);
-  }
-}
-```
-
-**动手实践 8**：
-1. 创建示例服务接口
-2. 实现服务类
-3. 应用装饰器
-
-### 5.2 容器使用示例
-
-```typescript
-// 创建容器实例
-const container = new Container();
-
-// 注册服务
-container.register(Database, {
-  useClass: DatabaseImpl,
-  lifecycle: LifecycleEnum.SINGLETON
-});
-
-container.register('CONFIG', {
-  useValue: {
-    host: 'localhost',
-    port: 3306
-  }
-});
-
-// 注册服务类
-container.register(UserService, {
-  useClass: UserService
-});
-
-// 解析服务
-const userService = container.resolve<UserService>(UserService);
-```
-
-**动手实践 9**：
-1. 编写完整的使用示例
-2. 测试不同的注册方式
-3. 验证依赖解析
-
-## 6. 导出模块
+## 5. 导出模块
 
 在 `src/container/index.ts` 中导出所有类型：
 
@@ -289,11 +202,6 @@ export * from './types';
 export * from './constants';
 export * from './decorators';
 ```
-
-**动手实践 10**：
-1. 创建模块导出文件
-2. 确保所有类型都被导出
-3. 验证模块的完整性
 
 ## 下一步
 
