@@ -11,6 +11,44 @@
 - [ ] 编写启动脚本
 - [ ] 添加文档说明
 
+## 最佳实践
+
+### 导入规范
+1. 从主模块导入所有内容：
+   ```typescript
+   import { 
+       Application, 
+       gracefulShutdown, 
+       setupErrorHandling,
+       cors,
+       logger,
+       errorHandler,
+       type HttpContextInterface
+   } from '@coffic/cosy-framework'
+   ```
+
+2. 不要从子模块导入：
+   ```typescript
+   // ❌ 错误的导入方式
+   import { cors, logger } from '@coffic/cosy-framework/middleware'
+   
+   // ✅ 正确的导入方式
+   import { cors, logger } from '@coffic/cosy-framework'
+   ```
+
+3. 始终为回调函数参数添加类型注解：
+   ```typescript
+   // ❌ 错误的类型推断
+   app.use(logger({
+       skip: (context) => context.request.path === '/health'
+   }))
+   
+   // ✅ 正确的类型注解
+   app.use(logger({
+       skip: (context: HttpContextInterface) => context.request.path === '/health'
+   }))
+   ```
+
 ## 执行步骤
 
 ### 1. 创建示例项目结构
@@ -27,8 +65,15 @@ mkdir -p examples/basic-api/src/{controllers,services,middleware,types}
 **创建文件**: `examples/basic-api/src/app.ts`
 
 ```typescript
-import { Application, gracefulShutdown, setupErrorHandling } from '@coffic/cosy-framework'
-import { cors, logger, errorHandler } from '@coffic/cosy-framework/middleware'
+import { 
+    Application, 
+    gracefulShutdown, 
+    setupErrorHandling,
+    cors,
+    logger,
+    errorHandler,
+    type HttpContextInterface
+} from '@coffic/cosy-framework'
 import { UserController } from './controllers/user-controller'
 import { PostController } from './controllers/post-controller'
 import { AuthMiddleware } from './middleware/auth-middleware'
@@ -37,9 +82,9 @@ import { PostService } from './services/post-service'
 
 // 创建应用实例
 export const app = Application.create({
-  name: 'Basic API Example',
-  debug: process.env.NODE_ENV !== 'production',
-  port: parseInt(process.env.PORT || '3000')
+    name: 'Basic API Example',
+    debug: process.env.NODE_ENV !== 'production',
+    port: parseInt(process.env.PORT || '3000')
 })
 
 // 注册服务
@@ -51,16 +96,16 @@ app.middleware('auth', AuthMiddleware)
 
 // 全局中间件
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || '*',
-  credentials: true
+    origin: process.env.CORS_ORIGIN || '*',
+    credentials: true
 }))
 
 app.use(logger({
-  skip: (context) => context.request.path === '/health'
+    skip: (context: HttpContextInterface) => context.request.path === '/health'
 }))
 
 app.use(errorHandler({
-  showStack: app.config('app.debug')
+    showStack: app.config('app.debug')
 }))
 
 // 健康检查路由
@@ -138,7 +183,54 @@ if (require.main === module) {
 }
 ```
 
-### 3. 创建服务层
+### 3. 创建服务器启动文件
+
+**创建文件**: `examples/basic-api/src/server.ts`
+
+```typescript
+import { Bootstrap } from '@coffic/cosy-framework'
+import { UserService } from './services/user-service'
+import { PostService } from './services/post-service'
+
+async function startServer() {
+    const bootstrap = Bootstrap.create({
+        configPath: './config',
+        hooks: {
+            beforeStart: () => {
+                console.log('🔄 正在启动服务器...')
+            },
+            afterStart: () => {
+                console.log('✅ 服务器启动成功!')
+                console.log('📚 API 文档: http://localhost:3000/docs')
+                console.log('🏥 健康检查: http://localhost:3000/health')
+            }
+        }
+    })
+
+    try {
+        const app = await bootstrap.start()
+
+        // 注册服务
+        app.bind('UserService', UserService)
+        app.bind('PostService', PostService)
+
+        // 返回应用实例以便测试
+        return app
+    } catch (error) {
+        console.error('❌ 服务器启动失败:', error)
+        process.exit(1)
+    }
+}
+
+// 如果直接运行此文件，启动服务器
+if (require.main === module) {
+    startServer()
+}
+
+export { startServer }
+```
+
+### 4. 创建服务层
 
 **创建文件**: `examples/basic-api/src/services/user-service.ts`
 
@@ -327,7 +419,7 @@ export class PostService {
 }
 ```
 
-### 4. 创建类型定义
+### 5. 创建类型定义
 
 **创建文件**: `examples/basic-api/src/types/user.ts`
 
@@ -367,7 +459,7 @@ export interface CreatePostData {
 }
 ```
 
-### 5. 创建中间件
+### 6. 创建中间件
 
 **创建文件**: `examples/basic-api/src/middleware/auth-middleware.ts`
 
@@ -410,7 +502,7 @@ export const AuthMiddleware: MiddlewareHandler = async (context, next) => {
 }
 ```
 
-### 6. 创建控制器（装饰器风格）
+### 7. 创建控制器（装饰器风格）
 
 **创建文件**: `examples/basic-api/src/controllers/user-controller.ts`
 
@@ -480,7 +572,7 @@ export class PostController {
 }
 ```
 
-### 7. 创建配置文件
+### 8. 创建配置文件
 
 **创建文件**: `examples/basic-api/config/app.json`
 
@@ -536,53 +628,6 @@ export class PostController {
     "level": "warn"
   }
 }
-```
-
-### 8. 创建启动脚本
-
-**创建文件**: `examples/basic-api/src/server.ts`
-
-```typescript
-import { Bootstrap } from '@coffic/cosy-framework'
-import { UserService } from './services/user-service'
-import { PostService } from './services/post-service'
-
-async function startServer() {
-  const bootstrap = Bootstrap.create({
-    configPath: './config',
-    hooks: {
-      beforeStart: () => {
-        console.log('🔄 正在启动服务器...')
-      },
-      afterStart: () => {
-        console.log('✅ 服务器启动成功!')
-        console.log('📚 API 文档: http://localhost:3000/docs')
-        console.log('🏥 健康检查: http://localhost:3000/health')
-      }
-    }
-  })
-
-  try {
-    const app = await bootstrap.start()
-
-    // 注册服务
-    app.bind('UserService', UserService)
-    app.bind('PostService', PostService)
-
-    // 返回应用实例以便测试
-    return app
-  } catch (error) {
-    console.error('❌ 服务器启动失败:', error)
-    process.exit(1)
-  }
-}
-
-// 如果直接运行此文件，启动服务器
-if (require.main === module) {
-  startServer()
-}
-
-export { startServer }
 ```
 
 ### 9. 创建包配置
