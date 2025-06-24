@@ -1,29 +1,6 @@
 import { ILogger, LogLevel, LogContext, LoggerConfig } from '@coffic/cosy-interfaces'
 import pino, { Logger as PinoLogger } from 'pino'
 import pretty from 'pino-pretty'
-import { fileURLToPath } from 'url'
-
-/**
- * 获取调用栈中的源文件位置
- */
-function getCallerLocation(depth = 2): string {
-    const error = new Error()
-    const stack = error.stack?.split('\n')[depth]
-    if (!stack) return ''
-
-    const match = stack.match(/at\s+.*\s+\((.*):(\d+):(\d+)\)/)
-    if (!match) return ''
-
-    const [_, filePath, line] = match
-    if (!filePath) return ''
-
-    // 如果是 file:// URL，转换为文件路径
-    const resolvedPath = filePath.startsWith('file://') ? fileURLToPath(filePath) : filePath
-    return `${resolvedPath}:${line}`
-    // 获取相对于工作目录的路径
-    // const relativePath = path.relative(process.cwd(), resolvedPath)
-    // return `${relativePath}:${line}`
-}
 
 /**
  * Pino 日志记录器实现
@@ -68,32 +45,20 @@ export class Logger implements ILogger {
         }
     }
 
-    private addCallerInfo(message: string, context?: LogContext): { message: string; context: LogContext | undefined } {
-        const callerLocation = getCallerLocation(4) // 调整深度以获取正确的调用位置
-        return {
-            message: `${callerLocation} ${message}`,
-            context
-        }
-    }
-
     error(message: string, context?: LogContext): void {
-        const callerLocation = getCallerLocation(4)
-        this.log(LogLevel.ERROR, `${callerLocation} ${message}`, context)
+        this.log(LogLevel.ERROR, message, context)
     }
 
     warn(message: string, context?: LogContext): void {
-        const callerLocation = getCallerLocation(4)
-        this.log(LogLevel.WARN, `${callerLocation} ${message}`, context)
+        this.log(LogLevel.WARN, message, context)
     }
 
     info(message: string, context?: LogContext): void {
-        const callerLocation = getCallerLocation(4)
-        this.log(LogLevel.INFO, `${callerLocation} ${message}`, context)
+        this.log(LogLevel.INFO, message, context)
     }
 
     debug(message: string, context?: LogContext): void {
-        const callerLocation = getCallerLocation(4)
-        this.log(LogLevel.DEBUG, `${callerLocation} ${message}`, context)
+        this.log(LogLevel.DEBUG, message, context)
     }
 
     log(level: LogLevel, message: string, context?: LogContext): void {

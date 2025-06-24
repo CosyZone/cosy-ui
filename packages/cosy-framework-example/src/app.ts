@@ -18,7 +18,6 @@ import {
 import { AuthMiddleware } from './middleware/auth-middleware'
 import { UserService } from './services/user-service'
 import { PostService } from './services/post-service'
-import { cors } from '@coffic/cosy-middleware'
 
 /**
  * 创建应用实例
