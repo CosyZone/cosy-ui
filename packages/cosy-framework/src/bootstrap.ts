@@ -1,17 +1,6 @@
-/**
- * 应用程序启动器模块
- * 
- * 本模块提供了应用程序的启动机制，负责：
- * 1. 加载配置文件
- * 2. 注册服务提供者
- * 3. 执行生命周期钩子
- * 4. 启动应用程序
- */
-
 import { Application } from './application'
 import { BootstrapOptions } from './types'
 import { existsSync, readFileSync } from 'fs'
-import { ConfigManager } from '@coffic/cosy-config'
 
 /**
  * 应用程序启动器类

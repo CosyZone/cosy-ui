@@ -1,47 +1,4 @@
-/**
- * 核心辅助函数模块
- * 
- * 本模块提供了一系列用于创建和管理应用程序的辅助函数。
- * 这些函数简化了常见的应用程序配置和管理任务。
- */
-
 import { Application } from './application'
-import { ApplicationConfig } from './types'
-
-/**
- * 创建 Web 应用程序
- * 
- * 原理：
- * 1. 创建一个预配置的 Web 应用程序实例
- * 2. 自动添加常用的 Web 中间件
- * 3. 配置适合 Web 应用的默认设置
- * 
- * 工作流程：
- * 1. 使用提供的配置创建应用程序
- * 2. 添加必要的中间件（CORS、日志等）
- * 3. 配置静态文件服务等 Web 特性
- * 
- * 使用示例：
- * ```typescript
- * const app = createWebApp({
- *   name: 'My Web App',
- *   port: 3000
- * })
- * ```
- * 
- * @param config 应用程序配置
- * @returns 配置好的 Web 应用程序实例
- */
-export function createWebApp(config?: ApplicationConfig): Application {
-    const app = new Application(config)
-
-    // 添加常用中间件
-    // app.use(cors())
-    // app.use(logger())
-    // app.use(bodyParser())
-
-    return app
-}
 
 /**
  * 配置优雅关闭处理
