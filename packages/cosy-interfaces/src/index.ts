@@ -15,5 +15,8 @@ export { HttpStatus } from './http'
 // Middleware interfaces
 export * from './middleware'
 
+// Route handler interfaces
+export * from './route-handler'
+
 // Common interfaces
 export * from './common'

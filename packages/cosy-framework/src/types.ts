@@ -1,5 +1,4 @@
-import { IServiceProvider } from '@coffic/cosy-interfaces'
-import { Application } from './application'
+import { ILifecycleHooks, IServiceProvider } from '@coffic/cosy-interfaces'
 
 /**
  * 应用程序配置接口
@@ -13,25 +12,13 @@ export interface ApplicationConfig {
 }
 
 /**
- * 生命周期钩子接口
- */
-export interface LifecycleHooks {
-    beforeBoot?: () => Promise<void> | void
-    afterBoot?: () => Promise<void> | void
-    beforeStart?: () => Promise<void> | void
-    afterStart?: () => Promise<void> | void
-    beforeStop?: () => Promise<void> | void
-    afterStop?: () => Promise<void> | void
-}
-
-/**
  * 启动选项接口
  */
 export interface BootstrapOptions {
     config?: ApplicationConfig
     configPath?: string
     providers?: Constructor<IServiceProvider>[]
-    hooks?: LifecycleHooks
+    hooks?: ILifecycleHooks
 }
 
 /**

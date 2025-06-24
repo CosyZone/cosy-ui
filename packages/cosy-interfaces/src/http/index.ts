@@ -23,4 +23,7 @@ export * from './request'
 export * from './response'
 
 // 导出上下文接口
-export * from './context' 
+export * from './context'
+
+// 导出服务器接口
+export * from './server' 

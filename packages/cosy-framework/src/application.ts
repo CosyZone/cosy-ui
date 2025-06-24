@@ -1,14 +1,11 @@
-import {
-    ApplicationConfig,
-    LifecycleHooks,
-} from './types'
-
+import { ApplicationConfig } from './types'
+import { ILifecycleHooks } from '@coffic/cosy-interfaces'
 import { Configuration } from '@coffic/cosy-config'
 import { ServiceContainer } from '@coffic/cosy-container'
 import { cors, errorHandler, logger, Pipeline } from '@coffic/cosy-middleware'
 import { Router } from '@coffic/cosy-router'
 import { Server } from '@coffic/cosy-http'
-import { IRequest, ResponseInterface, IRouteHandler, IConfigManager, IContainer, IServiceProvider, IRouter, IMiddlewarePipeline } from '@coffic/cosy-interfaces'
+import { IRequest, ResponseInterface, IRouteHandler, IConfigManager, IContainer, IServiceProvider, IRouter, IMiddlewarePipeline, IServer } from '@coffic/cosy-interfaces'
 
 
 /**
@@ -50,7 +47,7 @@ export class Application {
     /**
      * HTTP 服务器
      */
-    private server?: Server
+    private server?: IServer
 
     /**
      * 生命周期钩子
@@ -58,17 +55,12 @@ export class Application {
      * 生命周期钩子是应用程序的生命周期管理组件，负责处理应用程序的生命周期。
      * 它提供了生命周期钩子的注册和执行的功能。
      */
-    private hooks: LifecycleHooks = {}
+    private hooks: ILifecycleHooks = {}
 
     /**
      * 是否已启动
      */
     private booted: boolean = false
-
-    /**
-     * 是否已启动
-     */
-    private started: boolean = false
 
     /**
      * 服务提供者
@@ -115,7 +107,7 @@ export class Application {
      * 设置生命周期钩子
      * @param hooks 生命周期钩子
      */
-    setHooks(hooks: LifecycleHooks): void {
+    setHooks(hooks: ILifecycleHooks): void {
         this.hooks = hooks
     }
 

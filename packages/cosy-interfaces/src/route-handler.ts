@@ -1,4 +1,4 @@
-import { IRequest, ResponseInterface } from '../http'
+import { IRequest, ResponseInterface } from './http'
 
 /**
  * 路由处理器
@@ -6,4 +6,5 @@ import { IRequest, ResponseInterface } from '../http'
 export type IRouteHandler = (
     request: IRequest,
     response: ResponseInterface
-) => Promise<void | ResponseInterface> 
+) => Promise<void | ResponseInterface>
+

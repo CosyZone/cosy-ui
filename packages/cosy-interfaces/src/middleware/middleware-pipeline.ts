@@ -1,6 +1,6 @@
 import { IRequest, ResponseInterface } from '../http'
 import { IMiddlewareHandler } from './middleware-handler'
-import { IRouteHandler } from './route-handler'
+import { IRouteHandler } from '../route-handler'
 
 /**
  * 中间件管道接口

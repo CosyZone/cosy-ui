@@ -68,7 +68,7 @@
 export * from './middleware-handler'
 
 // 导出路由处理器
-export * from './route-handler'
+export * from '../route-handler'
 
 // 导出中间件管道
 export * from './middleware-pipeline'
