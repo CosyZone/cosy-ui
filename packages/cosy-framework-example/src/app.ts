@@ -14,13 +14,7 @@ import {
     Application,
     gracefulShutdown,
     setupErrorHandling,
-    cors,
-    logger,
-    errorHandler,
-    type HttpContextInterface
 } from '@coffic/cosy-framework'
-import { UserController } from './controllers/user-controller'
-import { PostController } from './controllers/post-controller'
 import { AuthMiddleware } from './middleware/auth-middleware'
 import { UserService } from './services/user-service'
 import { PostService } from './services/post-service'
@@ -30,7 +24,7 @@ import { PostService } from './services/post-service'
  * @description 使用环境变量和默认配置初始化应用
  */
 console.log("🚀🚀 创建应用实例")
-const app = Application.create({
+const app = Application.createApiApp({
     name: 'Basic API Example',
     debug: process.env.NODE_ENV !== 'production',
     port: parseInt(process.env.PORT || '3000')

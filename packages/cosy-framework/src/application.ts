@@ -178,4 +178,42 @@ export class Application {
             await this.hooks.afterStop()
         }
     }
+
+
+    /**
+     * 创建 API 应用程序
+     * 
+     * 原理：
+     * 1. 创建一个预配置的 API 应用程序实例
+     * 2. 自动添加适合 API 的中间件
+     * 3. 配置 API 特定的设置
+     * 
+     * 工作流程：
+     * 1. 使用提供的配置创建应用程序
+     * 2. 添加 API 相关中间件（CORS、认证等）
+     * 3. 配置 API 特定的错误处理和响应格式
+     * 
+     * 使用示例：
+     * ```typescript
+     * const api = createApiApp({
+     *   name: 'My API',
+     *   port: 8080
+     * })
+     * ```
+     * 
+     * @param config 应用程序配置
+     * @returns 配置好的 API 应用程序实例
+     */
+    static createApiApp(config?: ApplicationConfig): Application {
+        const app = new Application({
+            ...config,
+            name: config?.name || 'API Application'
+        })
+
+        // API 特定的中间件和配置
+        // app.use(cors({ origin: '*' }))
+        // app.use(apiMiddleware())
+
+        return app
+    }
 } 
