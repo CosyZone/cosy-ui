@@ -1,173 +1,185 @@
 import { ServerResponse } from 'http'
-import { CookieOptions } from './types'
-import { HttpStatus } from '@coffic/cosy-interfaces'
-
+import { HttpStatus, ResponseInterface, CookieOptions } from '@coffic/cosy-interfaces'
 
 /**
  * HTTP 响应类
  * 
  * 封装了 Node.js 的 ServerResponse，提供更友好的 API
  */
-export class Response {
+export class Response implements ResponseInterface {
     private _body: any
     private _status: number = 200
     private _headers: Map<string, string | string[]> = new Map()
+    private _cookies: Array<{ name: string; value: string; options: CookieOptions | undefined }> = []
 
     constructor(private res: ServerResponse) { }
 
     /**
      * 设置响应状态码
-     * @param code 状态码
      */
-    status(code: number): this {
+    status(code: number): ResponseInterface {
         this._status = code
         return this
     }
 
     /**
-     * 设置响应头
-     * @param name 响应头名称
-     * @param value 响应头值
+     * 发送 JSON 响应
      */
-    header(name: string, value: string | string[]): this {
+    json(data: any): ResponseInterface {
+        this.type('application/json')
+        this._body = JSON.stringify(data)
+        return this
+    }
+
+    /**
+     * 发送 HTML 响应
+     */
+    html(content: string): ResponseInterface {
+        this.type('text/html')
+        this._body = content
+        return this
+    }
+
+    /**
+     * 重定向到指定 URL
+     */
+    redirect(url: string, status: number = 302): ResponseInterface {
+        this.status(status)
+        this.header('Location', url)
+        return this
+    }
+
+    /**
+     * 设置 Cookie
+     */
+    cookie(name: string, value: string, options?: CookieOptions): ResponseInterface {
+        this._cookies.push({ name, value, options })
+        return this
+    }
+
+    /**
+     * 清除 Cookie
+     */
+    clearCookie(name: string): ResponseInterface {
+        return this.cookie(name, '', { expires: new Date(0) })
+    }
+
+    /**
+     * 设置响应头
+     */
+    header(name: string, value: string): ResponseInterface {
         this._headers.set(name.toLowerCase(), value)
         return this
     }
 
     /**
-     * 获取响应头
-     * @param name 响应头名称
+     * 设置响应类型
      */
-    getHeader(name: string): string | string[] | undefined {
-        return this._headers.get(name.toLowerCase())
-    }
-
-    /**
-     * 删除响应头
-     * @param name 响应头名称
-     */
-    removeHeader(name: string): this {
-        this._headers.delete(name.toLowerCase())
-        return this
-    }
-
-    /**
-     * 设置 Content-Type
-     * @param type Content-Type 值
-     */
-    type(type: string): this {
+    type(type: string): ResponseInterface {
         return this.header('Content-Type', type)
     }
 
     /**
-     * 设置响应体
-     * @param body 响应体
+     * 发送响应
      */
-    send(body: any): this {
-        this._body = body
-
-        // 如果没有设置 Content-Type，根据 body 类型自动设置
-        if (!this.getHeader('content-type')) {
-            if (typeof body === 'string') {
-                this.type('text/plain')
-            } else if (Buffer.isBuffer(body)) {
-                this.type('application/octet-stream')
-            } else if (typeof body === 'object') {
-                this.type('application/json')
-            }
+    send(content?: any): ResponseInterface {
+        if (content !== undefined) {
+            this._body = content
         }
-
         return this
     }
 
     /**
-     * 发送 JSON 响应
-     * @param body JSON 数据
+     * 下载文件
      */
-    json(body: any): this {
-        return this.type('application/json').send(JSON.stringify(body))
+    download(filePath: string, filename?: string): ResponseInterface {
+        if (filename) {
+            this.attachment(filename)
+        }
+        // TODO: 实现文件下载
+        return this
     }
 
     /**
-     * 发送文本响应
-     * @param text 文本内容
+     * 设置下载头部
      */
-    text(text: string): this {
-        return this.type('text/plain').send(text)
+    attachment(filename?: string): ResponseInterface {
+        this.header('Content-Disposition', filename
+            ? `attachment; filename="${filename}"`
+            : 'attachment'
+        )
+        return this
     }
 
     /**
-     * 发送 HTML 响应
-     * @param html HTML 内容
+     * 获取当前状态码
      */
-    html(html: string): this {
-        return this.type('text/html').send(html)
+    getStatus(): number {
+        return this._status
     }
 
     /**
-     * 重定向
-     * @param url 目标 URL
-     * @param status 状态码
+     * 获取所有响应头
      */
-    redirect(url: string, status: number = HttpStatus.FOUND): this {
-        this.header('Location', url)
-        return this.status(status)
+    getHeaders(): Record<string, string> {
+        const headers: Record<string, string> = {}
+        for (const [name, value] of this._headers) {
+            headers[name] = Array.isArray(value) ? value.join(', ') : value
+        }
+        return headers
     }
 
     /**
-     * 设置 Cookie
-     * @param name Cookie 名称
-     * @param value Cookie 值
-     * @param options Cookie 选项
+     * 获取所有设置的 Cookie
      */
-    cookie(name: string, value: string, options: CookieOptions = {}): this {
-        const opts = { ...options }
-        let cookie = `${name}=${value}`
+    getCookies(): Array<{ name: string; value: string; options: CookieOptions | undefined }> {
+        return this._cookies
+    }
 
-        if (opts.maxAge) {
-            cookie += `; Max-Age=${opts.maxAge}`
-        }
+    /**
+     * 获取响应内容
+     */
+    getContent(): any {
+        return this._body
+    }
 
-        if (opts.domain) {
-            cookie += `; Domain=${opts.domain}`
-        }
+    /**
+     * 检查是否已经发送响应
+     */
+    hasResponded(): boolean {
+        return this.res.headersSent
+    }
 
-        if (opts.path) {
-            cookie += `; Path=${opts.path}`
-        }
-
-        if (opts.expires) {
-            cookie += `; Expires=${opts.expires.toUTCString()}`
-        }
-
-        if (opts.httpOnly) {
-            cookie += '; HttpOnly'
-        }
-
-        if (opts.secure) {
-            cookie += '; Secure'
-        }
-
-        if (opts.sameSite) {
-            if (typeof opts.sameSite === 'string') {
-                cookie += `; SameSite=${opts.sameSite}`
-            } else {
-                cookie += '; SameSite=Strict'
+    /**
+     * 获取 Set-Cookie 头部数组
+     */
+    getSetCookieHeaders(): string[] {
+        return this._cookies.map(({ name, value, options }) => {
+            let cookie = `${name}=${value}`
+            if (options) {
+                if (options.expires) {
+                    cookie += `; Expires=${options.expires.toUTCString()}`
+                }
+                if (options.maxAge) {
+                    cookie += `; Max-Age=${options.maxAge}`
+                }
+                if (options.domain) {
+                    cookie += `; Domain=${options.domain}`
+                }
+                if (options.path) {
+                    cookie += `; Path=${options.path}`
+                }
+                if (options.secure) {
+                    cookie += '; Secure'
+                }
+                if (options.httpOnly) {
+                    cookie += '; HttpOnly'
+                }
+                if (options.sameSite) {
+                    cookie += `; SameSite=${options.sameSite}`
+                }
             }
-        }
-
-        return this.header('Set-Cookie', cookie)
-    }
-
-    /**
-     * 清除 Cookie
-     * @param name Cookie 名称
-     * @param options Cookie 选项
-     */
-    clearCookie(name: string, options: CookieOptions = {}): this {
-        return this.cookie(name, '', {
-            ...options,
-            expires: new Date(0)
+            return cookie
         })
     }
 
@@ -181,6 +193,12 @@ export class Response {
         // 设置响应头
         for (const [name, value] of this._headers) {
             this.res.setHeader(name, value)
+        }
+
+        // 设置 Cookie
+        const cookies = this.getSetCookieHeaders()
+        if (cookies.length > 0) {
+            this.res.setHeader('Set-Cookie', cookies)
         }
 
         // 发送响应体

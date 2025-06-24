@@ -8,8 +8,8 @@ import { Configuration } from '@coffic/cosy-config'
 import { ServiceContainer } from '@coffic/cosy-container'
 import { cors, errorHandler, logger, Pipeline } from '@coffic/cosy-middleware'
 import { Router } from '@coffic/cosy-router'
-import { createServer, Server } from 'http'
-import { Context } from '@coffic/cosy-http'
+import { Server } from '@coffic/cosy-http'
+import { IRequest, ResponseInterface, RouteHandler } from '@coffic/cosy-interfaces'
 
 /**
  * 应用程序类
@@ -50,7 +50,7 @@ export class Application {
     /**
      * HTTP 服务器
      */
-    private server: Server | null = null
+    private server?: Server
 
     /**
      * 生命周期钩子
@@ -158,96 +158,40 @@ export class Application {
     }
 
     /**
-     * 启动 HTTP 服务器
-     * @param port 端口号
+     * 启动应用
      */
     async start(port: number = 3000): Promise<void> {
-        console.log('[Cosy Framework] Starting HTTP server on port', port)
-        if (!this.booted) {
-            await this.boot()
-        }
-
-        if (this.started) {
-            return
-        }
-
-        // 执行启动前钩子
-        if (this.hooks.beforeStart) {
-            await this.hooks.beforeStart()
-        }
-
         // 启动服务提供者
-        for (const provider of this.providers) {
-            if (provider.start) {
-                await provider.start(this)
-            }
-        }
+        await this.boot()
 
         // 创建 HTTP 服务器
-        this.server = createServer(async (req, res) => {
-            const ctx = new Context(req, res)
+        this.server = new Server()
 
-            try {
-                // 运行中间件管道
-                await this.pipeline.execute(ctx.request, ctx.response)
+        // 添加全局中间件
+        for (const middleware of this.pipeline.getMiddlewares()) {
+            this.server.use(middleware)
+        }
 
-                // 如果响应还没有发送，尝试路由匹配
-                if (!res.headersSent) {
-                    const route = this.router.match(req.method || 'GET', req.url || '/')
-                    if (route) {
-                        const result = await route.handler(ctx.request, ctx.response)
-                        if (result !== undefined && !res.headersSent) {
-                            ctx.response.json(result)
-                        }
-                    } else {
-                        ctx.response.status(404).json({ error: 'Not Found' })
-                    }
-                }
-
-                // 确保响应被发送
-                if (!res.headersSent) {
-                    ctx.response.end()
-                }
-            } catch (error) {
-                console.error('Request handling error:', error)
-                if (!res.headersSent) {
-                    ctx.response.status(500).json({ error: 'Internal Server Error' })
-                }
+        // 设置路由处理器
+        const routeHandler: RouteHandler = async (request: IRequest, response: ResponseInterface) => {
+            const route = this.router.resolve(request.method, request.path)
+            if (route) {
+                return route.handler(request, response)
             }
-        })
+            response.status(404).json({ error: 'Not Found' })
+        }
+        this.server.setRouteHandler(routeHandler)
 
         // 启动服务器
-        await new Promise<void>((resolve) => {
-            this.server?.listen(port, () => {
-                console.log(`[Cosy Framework] Server is running at http://localhost:${port}`)
-                resolve()
-            })
-        })
-
-        this.started = true
-
-        // 执行启动后钩子
-        if (this.hooks.afterStart) {
-            await this.hooks.afterStart()
-        }
+        await this.server.listen(port)
     }
 
     /**
-     * 停止 HTTP 服务器
+     * 停止应用
      */
     async stop(): Promise<void> {
         if (this.server) {
-            await new Promise<void>((resolve, reject) => {
-                this.server?.close((err) => {
-                    if (err) {
-                        reject(err)
-                    } else {
-                        resolve()
-                    }
-                })
-            })
-            this.server = null
-            this.started = false
+            await this.server.close()
         }
     }
 

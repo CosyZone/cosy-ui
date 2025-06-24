@@ -3,20 +3,27 @@ import { Socket } from 'net'
 import { TLSSocket } from 'tls'
 import { parse as parseUrl } from 'url'
 import { parse as parseQuery } from 'querystring'
-import { FileUpload, HttpMethod } from './types'
+import { IRequest, FileUpload } from '@coffic/cosy-interfaces'
 
 /**
  * HTTP 请求类
  * 
  * 封装了 Node.js 的 IncomingMessage，提供更友好的 API
  */
-export class Request {
+export class Request implements IRequest {
     public body: any
     public params: Record<string, string> = {}
     public query: Record<string, string> = {}
     public cookies: Record<string, string> = {}
-    public files?: FileUpload[]
+    public files: Record<string, FileUpload[]> = {}
     public res?: ServerResponse
+    public method: string
+    public url: string
+    public path: string
+    public headers: Record<string, string>
+    public userAgent: string
+    public isForm: boolean
+    public queryString: string
 
     constructor(
         public readonly req: IncomingMessage,
@@ -24,46 +31,77 @@ export class Request {
     ) {
         // 解析查询参数
         const url = parseUrl(req.url || '')
+        this.url = req.url || ''
+        this.path = url.pathname || '/'
+        this.method = req.method || 'GET'
+        this.headers = req.headers as Record<string, string>
+        this.userAgent = this.headers['user-agent'] || ''
+        this.isForm = this.headers['content-type']?.includes('multipart/form-data') || false
+        this.queryString = url.query || ''
+
         if (url.query) {
             this.query = parseQuery(url.query) as Record<string, string>
         }
     }
 
     /**
-     * 获取请求方法
+     * 获取请求数据
      */
-    get method(): HttpMethod {
-        return (this.req.method || 'GET') as HttpMethod
+    get(key: string): any {
+        return this.body?.[key] || this.query[key] || this.params[key]
     }
 
     /**
-     * 获取请求路径
+     * 获取输入数据，支持默认值
      */
-    get path(): string {
-        return parseUrl(this.req.url || '').pathname || '/'
+    input(key: string, defaultValue?: any): any {
+        const value = this.get(key)
+        return value === undefined ? defaultValue : value
+    }
+
+    /**
+     * 检查是否存在某个输入
+     */
+    has(key: string): boolean {
+        return this.get(key) !== undefined
     }
 
     /**
      * 获取请求头
-     * @param name 请求头名称
      */
-    get(name: string): string | undefined {
-        return this.req.headers[name.toLowerCase()] as string
+    header(name: string, defaultValue?: string): string {
+        const value = this.headers[name.toLowerCase()]
+        return value || defaultValue || ''
     }
 
     /**
-     * 获取所有请求头
+     * 获取上传的文件
      */
-    headers(): OutgoingHttpHeaders {
-        return this.req.headers
+    file(name: string): FileUpload | FileUpload[] | undefined {
+        return this.files[name]
     }
 
     /**
-     * 判断是否包含指定请求头
-     * @param name 请求头名称
+     * 是否是 AJAX 请求
      */
-    has(name: string): boolean {
-        return name.toLowerCase() in this.req.headers
+    isAjax(): boolean {
+        return this.header('X-Requested-With') === 'XMLHttpRequest'
+    }
+
+    /**
+     * 是否是 JSON 请求
+     */
+    isJson(): boolean {
+        return this.header('content-type')?.includes('application/json') || false
+    }
+
+    /**
+     * 获取完整的请求 URL
+     */
+    fullUrl(): string {
+        const protocol = this.protocol
+        const host = this.hostname
+        return `${protocol}://${host}${this.url}`
     }
 
     /**
@@ -71,19 +109,12 @@ export class Request {
      */
     get protocol(): string {
         // X-Forwarded-Proto header
-        const proto = this.get('X-Forwarded-Proto')
+        const proto = this.header('X-Forwarded-Proto')
         if (proto) {
             return proto.split(/\s*,\s*/)[0]
         }
 
         return (this.socket instanceof TLSSocket) ? 'https' : 'http'
-    }
-
-    /**
-     * 判断是否是 HTTPS 请求
-     */
-    get secure(): boolean {
-        return this.protocol === 'https'
     }
 
     /**
@@ -94,21 +125,18 @@ export class Request {
     }
 
     /**
-     * 获取客户端 IP 列表
+     * 获取所有客户端 IP
      */
     get ips(): string[] {
-        const proxy = this.get('X-Forwarded-For')
-        if (proxy) {
-            return proxy.split(/\s*,\s*/)
-        }
-        return [this.socket.remoteAddress || '']
+        const forwarded = this.header('X-Forwarded-For')
+        return forwarded ? forwarded.split(/\s*,\s*/) : []
     }
 
     /**
      * 获取主机名
      */
     get hostname(): string {
-        let host = this.get('X-Forwarded-Host') || this.get('Host')
+        let host = this.header('X-Forwarded-Host') || this.header('Host')
         if (!host) {
             return ''
         }
@@ -141,7 +169,7 @@ export class Request {
         // 2xx or 304 as per rfc2616 14.26
         if ((status >= 200 && status < 300) || 304 === status) {
             const resHeaders = this.res?.getHeaders() || {}
-            return fresh(this.headers(), resHeaders)
+            return fresh(this.headers, resHeaders)
         }
 
         return false
@@ -153,18 +181,10 @@ export class Request {
     get stale(): boolean {
         return !this.fresh
     }
-
-    /**
-     * 判断是否是 XHR 请求
-     */
-    get xhr(): boolean {
-        const val = this.get('X-Requested-With') || ''
-        return val.toLowerCase() === 'xmlhttprequest'
-    }
 }
 
 /**
- * 检查请求是否新鲜（未修改）
+ * 检查响应是否新鲜
  * @param reqHeaders 请求头
  * @param resHeaders 响应头
  */
@@ -178,10 +198,8 @@ function fresh(reqHeaders: OutgoingHttpHeaders, resHeaders: OutgoingHttpHeaders)
         return false
     }
 
-    // Always return stale when Cache-Control: no-cache
-    // to support end-to-end reload requests
-    const cacheControl = reqHeaders['cache-control']
-    if (cacheControl && /(?:^|,)\s*?no-cache\s*?(?:,|$)/.test(cacheControl as string)) {
+    // Always return stale when must-revalidate is present
+    if (reqHeaders['cache-control'] && reqHeaders['cache-control'].toString().includes('must-revalidate')) {
         return false
     }
 
@@ -193,19 +211,7 @@ function fresh(reqHeaders: OutgoingHttpHeaders, resHeaders: OutgoingHttpHeaders)
             return false
         }
 
-        let etagStale = true
-        const matches = (noneMatch as string).split(/\s*,\s*/)
-        for (let i = 0; i < matches.length; i++) {
-            const match = matches[i]
-            if (match === etag || match === 'W/' + etag || 'W/' + match === etag) {
-                etagStale = false
-                break
-            }
-        }
-
-        if (etagStale) {
-            return false
-        }
+        return noneMatch.split(/\s*,\s*/).includes(etag.toString())
     }
 
     // if-modified-since
@@ -215,11 +221,8 @@ function fresh(reqHeaders: OutgoingHttpHeaders, resHeaders: OutgoingHttpHeaders)
             return false
         }
 
-        const modifiedStale = Date.parse(lastModified as string) > Date.parse(modifiedSince as string)
-        if (modifiedStale) {
-            return false
-        }
+        return new Date(modifiedSince.toString()) >= new Date(lastModified.toString())
     }
 
-    return true
+    return false
 } 

@@ -1,5 +1,6 @@
 import { IncomingMessage, ServerResponse } from 'http'
 import { Socket } from 'net'
+import { FileUpload } from '@coffic/cosy-interfaces'
 
 /**
  * HTTP 请求方法枚举
@@ -12,20 +13,6 @@ export enum HttpMethod {
     PATCH = 'PATCH',
     HEAD = 'HEAD',
     OPTIONS = 'OPTIONS'
-}
-
-/**
- * 文件上传接口
- */
-export interface FileUpload {
-    fieldname: string
-    originalname: string
-    encoding: string
-    mimetype: string
-    size: number
-    destination: string
-    filename: string
-    path: string
 }
 
 /**

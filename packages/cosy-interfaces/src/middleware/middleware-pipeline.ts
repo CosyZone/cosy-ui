@@ -77,4 +77,9 @@ export interface IMiddlewarePipeline {
     then(finalHandler: RouteHandler): Promise<any>
     execute(request: IRequest, response: ResponseInterface): Promise<any>
     count(): number
+    /**
+     * 获取所有中间件
+     * @returns 中间件处理器数组
+     */
+    getMiddlewares(): IMiddlewareHandler[]
 } 
