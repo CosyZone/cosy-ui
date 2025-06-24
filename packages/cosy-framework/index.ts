@@ -10,8 +10,8 @@
  * - 类型定义
  */
 
-export * from './types'
-export * from './application'
-export * from './bootstrap'
-export * from './decorators'
-export * from './helpers' 
+export * from './src/types'
+export * from './src/bootstrap'
+export * from './src/decorators'
+export * from './src/helpers'
+export * from './src/factory'

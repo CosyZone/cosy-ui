@@ -15,12 +15,13 @@
     "./queue": "./dist/queue/index.js"
   },
   "scripts": {
+    "clean": "rimraf dist",
+    "prebuild": "pnpm clean",
     "build": "tsc",
     "dev": "tsc --watch",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest --coverage",
-    "clean": "rm -rf dist"
+    "test:coverage": "vitest --coverage"
   },
   "dependencies": {
     "@coffic/cosy-router": "workspace:*",
@@ -39,6 +40,7 @@
     "@types/path-to-regexp": "^1.7.0",
     "@vitest/coverage-v8": "^1.2.2",
     "concurrently": "^9.2.0",
+    "rimraf": "^5.0.5",
     "typescript": "^5.3.3",
     "vitest": "^1.6.0"
   },

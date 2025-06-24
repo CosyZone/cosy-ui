@@ -1,0 +1,122 @@
+import { Configuration } from '@coffic/cosy-config'
+import { ServiceContainer } from '@coffic/cosy-container'
+import { Pipeline } from '@coffic/cosy-middleware'
+import { Router } from '@coffic/cosy-router'
+import { IConfigManager, IContainer, IRouter, IMiddlewarePipeline } from '@coffic/cosy-interfaces'
+import { Application, ApplicationDependencies } from './application'
+import { ApplicationConfig } from './types'
+
+/**
+ * 应用程序工厂类
+ * 
+ * 负责创建和初始化应用程序实例及其依赖。
+ * 提供了默认的依赖实现，同时允许自定义依赖。
+ */
+export class ApplicationFactory {
+    /**
+     * 创建配置管理器
+     */
+    protected static createConfigManager(): IConfigManager {
+        return new Configuration()
+    }
+
+    /**
+     * 创建服务容器
+     */
+    protected static createContainer(): IContainer {
+        return new ServiceContainer()
+    }
+
+    /**
+     * 创建路由器
+     */
+    protected static createRouter(): IRouter {
+        return new Router()
+    }
+
+    /**
+     * 创建中间件管道
+     */
+    protected static createPipeline(): IMiddlewarePipeline {
+        return new Pipeline()
+    }
+
+    /**
+     * 创建默认依赖
+     */
+    protected static createDefaultDependencies(): ApplicationDependencies {
+        return {
+            config: ApplicationFactory.createConfigManager(),
+            container: ApplicationFactory.createContainer(),
+            router: ApplicationFactory.createRouter(),
+            pipeline: ApplicationFactory.createPipeline()
+        }
+    }
+
+    /**
+     * 创建应用程序实例
+     * 
+     * @param config 应用程序配置
+     * @param customDependencies 自定义依赖
+     * @returns Application 实例
+     */
+    static create(
+        config: ApplicationConfig = {},
+        customDependencies: Partial<ApplicationDependencies> = {}
+    ): Application {
+        // 合并默认依赖和自定义依赖
+        const dependencies = {
+            ...ApplicationFactory.createDefaultDependencies(),
+            ...customDependencies
+        }
+
+        return new Application(config, dependencies)
+    }
+
+    /**
+     * 创建 API 应用程序
+     * 
+     * @example
+     * ```typescript
+     * const app = ApplicationFactory.createApiApp({
+     *   name: 'My API',
+     *   port: 3000
+     * });
+     * ```
+     * 
+     * @param config 应用程序配置
+     * @param customDependencies 自定义依赖
+     * @returns API Application 实例
+     */
+    static createApiApp(
+        config: ApplicationConfig = {},
+        customDependencies: Partial<ApplicationDependencies> = {}
+    ): Application {
+        return ApplicationFactory.create({
+            ...config,
+            name: config.name || 'API Application'
+        }, customDependencies)
+    }
+
+    /**
+     * 创建 Web 应用程序
+     * 
+     * @example
+     * ```typescript
+     * const app = ApplicationFactory.createWebApp({
+     *   name: 'My Web App',
+     *   port: 3000
+     * });
+     * ```
+     * 
+     * @param config 应用程序配置
+     * @param customDependencies 自定义依赖
+     * @returns Web Application 实例
+     */
+    static createWebApp(
+        config: ApplicationConfig = {},
+        customDependencies: Partial<ApplicationDependencies> = {}
+    ): Application {
+        return ApplicationFactory.create(config, customDependencies)
+    }
+} 

@@ -11,7 +11,7 @@
  */
 
 import {
-    Application,
+    ApplicationFactory,
     gracefulShutdown,
     setupErrorHandling,
 } from '@coffic/cosy-framework'
@@ -25,7 +25,7 @@ import { cors } from '@coffic/cosy-middleware'
  * @description 使用环境变量和默认配置初始化应用
  */
 console.log("🚀🚀 创建应用实例")
-const app = Application.createApiApp({
+const app = ApplicationFactory.createApiApp({
     name: 'Basic API Example',
     debug: process.env.NODE_ENV !== 'production',
     port: parseInt(process.env.PORT || '3000')
