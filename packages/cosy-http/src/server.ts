@@ -1,6 +1,6 @@
 import { createServer, Server as HttpServer } from 'http'
 import { Context } from './context'
-import { IMiddlewareHandler, IMiddlewarePipeline, RouteHandler } from '@coffic/cosy-interfaces'
+import { IMiddlewareHandler, IMiddlewarePipeline, IRouteHandler } from '@coffic/cosy-interfaces'
 import { Pipeline } from './pipeline'
 
 /**
@@ -14,7 +14,7 @@ import { Pipeline } from './pipeline'
 export class Server {
     private server?: HttpServer
     private pipeline: IMiddlewarePipeline
-    private routeHandler?: RouteHandler
+    private routeHandler?: IRouteHandler
 
     constructor() {
         this.pipeline = new Pipeline()
@@ -24,7 +24,7 @@ export class Server {
     /**
      * 设置路由处理器
      */
-    setRouteHandler(handler: RouteHandler): this {
+    setRouteHandler(handler: IRouteHandler): this {
         this.routeHandler = handler
         console.log('[Cosy HTTP] Route handler set')
         return this
@@ -56,7 +56,7 @@ export class Server {
 
             try {
                 // 设置最终处理器
-                const finalHandler: RouteHandler = async (request, response) => {
+                const finalHandler: IRouteHandler = async (request, response) => {
                     if (!res.headersSent && this.routeHandler) {
                         console.log('[Cosy HTTP] Executing route handler')
                         const result = await this.routeHandler(request, response)

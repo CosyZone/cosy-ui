@@ -8,7 +8,7 @@ import { ServiceContainer } from '@coffic/cosy-container'
 import { cors, errorHandler, logger, Pipeline } from '@coffic/cosy-middleware'
 import { Router } from '@coffic/cosy-router'
 import { Server } from '@coffic/cosy-http'
-import { IRequest, ResponseInterface, IRouteHandler, IConfigManager, IContainer, IServiceProvider, IRouter } from '@coffic/cosy-interfaces'
+import { IRequest, ResponseInterface, IRouteHandler, IConfigManager, IContainer, IServiceProvider, IRouter, IMiddlewarePipeline } from '@coffic/cosy-interfaces'
 
 
 /**
@@ -45,7 +45,7 @@ export class Application {
      * 管道是应用程序的中间件管理组件，负责处理请求的中间件和响应的中间件。
      * 它提供了中间件注册、匹配和处理的功能。
      */
-    public pipeline: Pipeline
+    public pipeline: IMiddlewarePipeline
 
     /**
      * HTTP 服务器
