@@ -1,6 +1,14 @@
 import { IRequest, ResponseInterface } from '../http'
 import { IMiddlewareHandler } from './middleware-handler'
 import { IRouteHandler } from '../route-handler'
+import { ILogger } from '../logger'
+
+/**
+ * 中间件管道配置接口
+ */
+export interface PipelineConfig {
+    logger?: ILogger;
+}
 
 /**
  * 中间件管道接口
@@ -11,7 +19,7 @@ import { IRouteHandler } from '../route-handler'
  * @example
  * ```typescript
  * // 创建管道实例
- * const pipeline = new Pipeline();
+ * const pipeline = new Pipeline([], { logger });
  * 
  * // 使用 pipe 添加单个中间件
  * pipeline.pipe(authMiddleware)
@@ -45,9 +53,16 @@ import { IRouteHandler } from '../route-handler'
  * ```typescript
  * class Pipeline implements IMiddlewarePipeline {
  *   private middlewares: IMiddlewareHandler[] = [];
+ *   private logger: ILogger;
+ *   
+ *   constructor(middlewares: IMiddlewareHandler[] = [], config: PipelineConfig = {}) {
+ *     this.middlewares = middlewares;
+ *     this.logger = config.logger || console;
+ *   }
  *   
  *   pipe(middleware: IMiddlewareHandler): this {
  *     this.middlewares.push(middleware);
+ *     this.logger.debug('Middleware added', { name: middleware.name });
  *     return this;
  *   }
  *   
@@ -57,6 +72,7 @@ import { IRouteHandler } from '../route-handler'
  *     const next = async (): Promise<void> => {
  *       const middleware = this.middlewares[index++];
  *       if (middleware) {
+ *         this.logger.debug('Executing middleware', { name: middleware.name });
  *         await middleware(req, res, next);
  *       }
  *     };

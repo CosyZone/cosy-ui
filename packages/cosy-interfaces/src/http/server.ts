@@ -1,5 +1,21 @@
 import { IMiddlewareHandler } from '../middleware'
 import { IRouteHandler } from '../route-handler'
+import { ILogger } from '../logger'
+
+/**
+ * HTTP 服务器配置接口
+ */
+export interface ServerConfig {
+    port?: number;
+    hostname?: string;
+    ssl?: {
+        key: string;
+        cert: string;
+    };
+    timeout?: number;
+    keepAliveTimeout?: number;
+    logger?: ILogger;
+}
 
 /**
  * HTTP 服务器接口
@@ -8,7 +24,10 @@ import { IRouteHandler } from '../route-handler'
  * 
  * @example
  * ```typescript
- * const server = new Server();
+ * const server = new Server({
+ *   port: 3000,
+ *   logger: myLogger
+ * });
  * 
  * // 添加中间件
  * server.use(logger);
@@ -63,7 +82,7 @@ export interface IServer {
      * @param port - 监听端口
      * @param hostname - 监听主机名（可选）
      */
-    listen(port: number, hostname?: string): Promise<void>;
+    listen(port?: number, hostname?: string): Promise<void>;
 
     /**
      * 关闭服务器
@@ -78,16 +97,7 @@ export interface IServer {
     /**
      * 获取服务器配置
      */
-    getConfig(): {
-        port: number;
-        hostname?: string;
-        ssl?: {
-            key: string;
-            cert: string;
-        };
-        timeout?: number;
-        keepAliveTimeout?: number;
-    };
+    getConfig(): Required<Pick<ServerConfig, 'port'>> & Omit<ServerConfig, 'port'>;
 
     /**
      * 获取中间件列表

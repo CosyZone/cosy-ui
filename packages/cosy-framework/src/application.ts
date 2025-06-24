@@ -205,13 +205,16 @@ export class Application {
 
             this.logger.info('Starting HTTP server', { port })
 
-            // 创建 HTTP 服务器
-            this.server = new Server()
+            // 创建 HTTP 服务器，并传入日志记录器
+            const server = new Server({
+                port,
+                logger: this.logger.child('http')
+            })
 
             // 添加全局中间件
             for (const middleware of this.pipeline.getMiddlewares()) {
                 this.logger.debug('Adding middleware', { middleware: middleware.name })
-                this.server.use(middleware)
+                server.use(middleware)
             }
 
             // 设置路由处理器
@@ -228,10 +231,11 @@ export class Application {
                 this.logger.warn('Route not found', { method: request.method, path: request.path })
                 response.status(404).json({ error: 'Not Found' })
             }
-            this.server.setRouteHandler(routeHandler)
+            server.setRouteHandler(routeHandler)
 
             // 启动服务器
-            await this.server.listen(port)
+            await server.listen(port)
+            this.server = server
             this.logger.info('Server started successfully', { port })
         } catch (error) {
             this.logger.error('Failed to start server', { error })

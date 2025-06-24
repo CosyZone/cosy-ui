@@ -3,7 +3,7 @@ import { ServiceContainer } from '@coffic/cosy-container'
 import { Pipeline } from '@coffic/cosy-middleware'
 import { Router } from '@coffic/cosy-router'
 import { Logger } from '@coffic/cosy-logger'
-import { IConfigManager, IContainer, IRouter, IMiddlewarePipeline, ILogger } from '@coffic/cosy-interfaces'
+import { IConfigManager, IContainer, IRouter, ILogger, LogLevel } from '@coffic/cosy-interfaces'
 import { Application, ApplicationDependencies } from './application'
 import { ApplicationConfig } from './types'
 
@@ -36,19 +36,13 @@ export class ApplicationFactory {
     }
 
     /**
-     * 创建中间件管道
-     */
-    protected static createPipeline(): IMiddlewarePipeline {
-        return new Pipeline()
-    }
-
-    /**
      * 创建日志记录器
      */
     protected static createLogger(): ILogger {
         return new Logger({
             pretty: true, // 开发环境下默认美化输出
-            timestamp: true
+            timestamp: false,
+            level: LogLevel.DEBUG // 启用调试级别的日志
         })
     }
 
@@ -56,12 +50,16 @@ export class ApplicationFactory {
      * 创建默认依赖
      */
     protected static createDefaultDependencies(): ApplicationDependencies {
+        const logger = ApplicationFactory.createLogger()
+        const pipelineLogger = logger.child('pipeline')
+        const pipeline = new Pipeline([], { logger: pipelineLogger })
+
         return {
             config: ApplicationFactory.createConfigManager(),
             container: ApplicationFactory.createContainer(),
             router: ApplicationFactory.createRouter(),
-            pipeline: ApplicationFactory.createPipeline(),
-            logger: ApplicationFactory.createLogger()
+            pipeline,
+            logger
         }
     }
 

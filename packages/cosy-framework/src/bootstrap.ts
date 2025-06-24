@@ -1,6 +1,7 @@
 import { Application } from './application'
 import { BootstrapOptions } from './types'
 import { existsSync, readFileSync } from 'fs'
+import { ApplicationFactory } from './factory'
 
 /**
  * 应用程序启动器类
@@ -28,7 +29,7 @@ export class Bootstrap {
      */
     constructor(options: BootstrapOptions = {}) {
         this.options = options
-        this.app = new Application(options.config)
+        this.app = ApplicationFactory.create(options.config || {})
     }
 
     /**

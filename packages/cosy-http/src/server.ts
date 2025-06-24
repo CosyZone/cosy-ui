@@ -1,6 +1,6 @@
 import { createServer, Server as HttpServer } from 'http'
 import { Context } from './context'
-import { IMiddlewareHandler, IMiddlewarePipeline, IRouteHandler, IServer } from '@coffic/cosy-interfaces'
+import { IMiddlewareHandler, IMiddlewarePipeline, IRouteHandler, IServer, ILogger, ServerConfig } from '@coffic/cosy-interfaces'
 import { Pipeline } from './pipeline'
 
 /**
@@ -15,23 +15,30 @@ export class Server implements IServer {
     private server?: HttpServer
     private pipeline: IMiddlewarePipeline
     private routeHandler?: IRouteHandler
-    private config: {
-        port: number;
-        hostname?: string;
-        ssl?: {
-            key: string;
-            cert: string;
-        };
-        timeout?: number;
-        keepAliveTimeout?: number;
-    }
+    private config: Required<Pick<ServerConfig, 'port'>> & Omit<ServerConfig, 'port'>
+    private logger: ILogger
 
-    constructor() {
-        this.pipeline = new Pipeline()
-        this.config = {
-            port: 3000
+    constructor(config: ServerConfig = {}) {
+        // 如果没有提供日志记录器，使用一个简单的控制台适配器
+        this.logger = config.logger || {
+            info: (msg: string) => console.log(`[Cosy HTTP] ${msg}`),
+            error: (msg: string, context?: any) => console.error(`[Cosy HTTP] ${msg}`, context),
+            warn: (msg: string) => console.warn(`[Cosy HTTP] ${msg}`),
+            debug: (msg: string, context?: any) => console.debug(`[Cosy HTTP] ${msg}`, context),
+            log: (level: any, msg: string) => console.log(`[Cosy HTTP] ${msg}`),
+            child: (name: string) => this.logger
         }
-        console.log('[Cosy HTTP] Server instance created')
+
+        this.pipeline = new Pipeline([], { logger: this.logger.child('pipeline') })
+        this.config = {
+            port: config.port || 3000,
+            hostname: config.hostname,
+            ssl: config.ssl,
+            timeout: config.timeout,
+            keepAliveTimeout: config.keepAliveTimeout
+        }
+
+        this.logger.info('Server instance created')
     }
 
     /**
@@ -39,7 +46,7 @@ export class Server implements IServer {
      */
     setRouteHandler(handler: IRouteHandler): void {
         this.routeHandler = handler
-        console.log('[Cosy HTTP] Route handler set')
+        this.logger.debug('Route handler set')
     }
 
     /**
@@ -47,7 +54,7 @@ export class Server implements IServer {
      */
     use(middleware: IMiddlewareHandler): void {
         this.pipeline.pipe(middleware)
-        console.log('[Cosy HTTP] Middleware added to pipeline')
+        this.logger.debug('Middleware added to pipeline', { name: middleware.name })
     }
 
     /**
@@ -61,18 +68,24 @@ export class Server implements IServer {
         this.config.port = port
         this.config.hostname = hostname
 
-        console.log('[Cosy HTTP] Starting server...')
+        this.logger.info('Starting server...')
 
         // 创建 HTTP 服务器
         this.server = createServer(async (req, res) => {
             const ctx = new Context(req, res)
-            console.log(`[Cosy HTTP] Incoming ${req.method} request to ${req.url}`)
+            const requestLogger = this.logger.child('request')
+
+            requestLogger.info(`Incoming ${req.method} request`, {
+                method: req.method,
+                url: req.url,
+                headers: req.headers
+            })
 
             try {
                 // 设置最终处理器
                 const finalHandler: IRouteHandler = async (request, response) => {
                     if (!res.headersSent && this.routeHandler) {
-                        console.log('[Cosy HTTP] Executing route handler')
+                        requestLogger.debug('Executing route handler')
                         const result = await this.routeHandler(request, response)
                         if (result !== undefined && !res.headersSent) {
                             return result
@@ -81,7 +94,7 @@ export class Server implements IServer {
                 }
 
                 // 运行中间件管道
-                console.log('[Cosy HTTP] Executing middleware pipeline')
+                requestLogger.debug('Executing middleware pipeline')
                 const result = await this.pipeline.pipe(finalHandler).execute(ctx.request, ctx.response)
 
                 // 如果有返回值且响应未发送，则发送响应
@@ -90,34 +103,43 @@ export class Server implements IServer {
                 }
                 // 确保响应被发送
                 else if (!res.headersSent) {
-                    console.log('[Cosy HTTP] Ending response')
+                    requestLogger.debug('Ending response')
                     ctx.response.end()
                 }
+
+                requestLogger.info('Request completed successfully', {
+                    method: req.method,
+                    url: req.url,
+                    statusCode: res.statusCode
+                })
             } catch (error) {
-                console.error('[Cosy HTTP] Request handling error:', error)
+                requestLogger.error('Request handling error', { error })
                 if (!res.headersSent) {
                     ctx.response.status(500).json({ error: 'Internal Server Error' })
                 }
-            } finally {
-                console.log(`[Cosy HTTP] Request completed: ${req.method} ${req.url}`)
             }
         })
 
         // 设置超时
         if (this.config.timeout) {
             this.server.timeout = this.config.timeout
+            this.logger.debug('Server timeout set', { timeout: this.config.timeout })
         }
 
         // 设置 keep-alive 超时
         if (this.config.keepAliveTimeout) {
             this.server.keepAliveTimeout = this.config.keepAliveTimeout
+            this.logger.debug('Keep-alive timeout set', { timeout: this.config.keepAliveTimeout })
         }
 
         // 启动服务器
         await new Promise<void>((resolve) => {
             this.server?.listen(port, hostname, () => {
-                console.log(`[Cosy HTTP] Server is running at http://${hostname || 'localhost'}:${port}`)
-                console.log('[Cosy HTTP] Ready to handle requests')
+                this.logger.info('Server started', {
+                    url: `http://${hostname || 'localhost'}:${port}`,
+                    port,
+                    hostname: hostname || 'localhost'
+                })
                 resolve()
             })
         })
@@ -131,15 +153,15 @@ export class Server implements IServer {
             throw new Error('Server is not running')
         }
 
-        console.log('[Cosy HTTP] Stopping server...')
+        this.logger.info('Stopping server...')
         await new Promise<void>((resolve, reject) => {
             this.server?.close((err) => {
                 if (err) {
-                    console.error('[Cosy HTTP] Error while stopping server:', err)
+                    this.logger.error('Error while stopping server', { error: err })
                     reject(err)
                 } else {
                     this.server = undefined
-                    console.log('[Cosy HTTP] Server stopped')
+                    this.logger.info('Server stopped successfully')
                     resolve()
                 }
             })
@@ -156,8 +178,11 @@ export class Server implements IServer {
     /**
      * 获取服务器配置
      */
-    getConfig() {
-        return { ...this.config }
+    getConfig(): Required<Pick<ServerConfig, 'port'>> & Omit<ServerConfig, 'port'> {
+        return {
+            ...this.config,
+            logger: this.logger // 确保 logger 总是存在
+        }
     }
 
     /**
