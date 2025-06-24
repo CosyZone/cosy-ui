@@ -42,7 +42,11 @@ export class ApplicationFactory {
         return new Logger({
             pretty: true, // 开发环境下默认美化输出
             timestamp: false,
-            level: LogLevel.DEBUG // 启用调试级别的日志
+            level: LogLevel.DEBUG, // 启用调试级别的日志
+            context: {
+                source: 'framework' // 标记这是框架日志
+            },
+            prefix: '🚀' // 为框架日志添加火箭emoji前缀
         })
     }
 
@@ -51,7 +55,7 @@ export class ApplicationFactory {
      */
     protected static createDefaultDependencies(): ApplicationDependencies {
         const logger = ApplicationFactory.createLogger()
-        const pipelineLogger = logger.child('pipeline')
+        const pipelineLogger = logger.child('pipeline', { component: 'pipeline' })
         const pipeline = new Pipeline([], { logger: pipelineLogger })
 
         return {

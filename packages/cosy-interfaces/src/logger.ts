@@ -47,6 +47,18 @@ export interface LoggerConfig {
      * 自定义格式化函数
      */
     format?: (level: LogLevel, message: string, context?: LogContext) => string;
+
+    /**
+     * 默认上下文
+     * 这些值会被添加到每条日志中
+     */
+    context?: LogContext;
+
+    /**
+     * 日志消息前缀
+     * 如果设置，每条日志消息前都会添加这个前缀
+     */
+    prefix?: string;
 }
 
 /**

@@ -7,6 +7,8 @@ import pretty from 'pino-pretty'
  */
 export class Logger implements ILogger {
     private logger: PinoLogger
+    private defaultContext: LogContext = {}
+    private prefix: string = ''
 
     constructor(config: LoggerConfig = {}) {
         const pinoConfig: pino.LoggerOptions = {
@@ -21,12 +23,27 @@ export class Logger implements ILogger {
             }
         }
 
+        // 保存默认上下文
+        if (config.context) {
+            this.defaultContext = config.context
+        }
+
+        // 保存前缀
+        if (config.prefix) {
+            this.prefix = config.prefix
+        }
+
         // 如果需要美化输出
         if (config.pretty) {
             const stream = pretty({
                 colorize: true,
                 singleLine: true, // 强制单行输出
-                hideObject: false // 显示额外的上下文信息
+                hideObject: false, // 显示额外的上下文信息
+                // 自定义消息格式，将前缀放在最前面
+                messageFormat: (log, messageKey) => {
+                    const prefix = this.prefix ? `${this.prefix} ` : ''
+                    return `${prefix}${log[messageKey]}`
+                }
             })
 
             // 创建基础 logger
@@ -62,8 +79,13 @@ export class Logger implements ILogger {
     }
 
     log(level: LogLevel, message: string, context?: LogContext): void {
-        if (context) {
-            this.logger[level](context, message)
+        const mergedContext = {
+            ...this.defaultContext,
+            ...(context || {})
+        }
+
+        if (Object.keys(mergedContext).length > 0) {
+            this.logger[level](mergedContext, message)
         } else {
             this.logger[level](message)
         }
@@ -72,10 +94,17 @@ export class Logger implements ILogger {
     child(name: string, context?: LogContext): ILogger {
         const childLogger = this.logger.child({
             component: name,
-            ...context
+            ...this.defaultContext,
+            ...(context || {})
         })
         const logger = Object.create(this) as Logger
         logger.logger = childLogger
+        logger.defaultContext = {
+            ...this.defaultContext,
+            ...(context || {})
+        }
+        // 继承前缀
+        logger.prefix = this.prefix
         return logger
     }
 } 
