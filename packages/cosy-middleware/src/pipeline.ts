@@ -1,23 +1,17 @@
-import {
-    MiddlewareHandler,
-    MiddlewarePipeline,
-    RouteHandler,
-    RequestInterface,
-    ResponseInterface
-} from './types'
+import { IMiddlewareHandler, IMiddlewarePipeline, RequestInterface, ResponseInterface, RouteHandler } from '@coffic/cosy-interfaces'
 
-export class Pipeline implements MiddlewarePipeline {
-    private middlewares: MiddlewareHandler[] = []
+export class Pipeline implements IMiddlewarePipeline {
+    private middlewares: IMiddlewareHandler[] = []
     private finalHandler?: RouteHandler
 
-    constructor(middlewares: MiddlewareHandler[] = []) {
+    constructor(middlewares: IMiddlewareHandler[] = []) {
         this.middlewares = middlewares
     }
 
     /**
      * 添加单个中间件
      */
-    pipe(middleware: MiddlewareHandler): MiddlewarePipeline {
+    pipe(middleware: IMiddlewareHandler): IMiddlewarePipeline {
         this.middlewares.push(middleware)
         return this
     }
@@ -25,7 +19,7 @@ export class Pipeline implements MiddlewarePipeline {
     /**
      * 添加多个中间件
      */
-    through(middlewares: MiddlewareHandler[]): MiddlewarePipeline {
+    through(middlewares: IMiddlewareHandler[]): IMiddlewarePipeline {
         this.middlewares.push(...middlewares)
         return this
     }
@@ -75,6 +69,6 @@ export class Pipeline implements MiddlewarePipeline {
 /**
  * 创建中间件管道
  */
-export function pipeline(middlewares: MiddlewareHandler[] = []): MiddlewarePipeline {
+export function pipeline(middlewares: IMiddlewareHandler[] = []): IMiddlewarePipeline {
     return new Pipeline(middlewares)
 }

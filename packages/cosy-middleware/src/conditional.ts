@@ -1,9 +1,9 @@
-import { ConditionalMiddleware, MiddlewareHandler, RequestInterface, ResponseInterface } from './types'
+import { IConditionalMiddleware, IMiddlewareHandler, RequestInterface, ResponseInterface } from '@coffic/cosy-interfaces'
 
-export class ConditionalMiddlewareImpl implements ConditionalMiddleware {
-    constructor(private middleware: MiddlewareHandler) { }
+export class ConditionalMiddlewareImpl implements IConditionalMiddleware {
+    constructor(private middleware: IMiddlewareHandler) { }
 
-    when(condition: (request: RequestInterface, response: ResponseInterface) => boolean): MiddlewareHandler {
+    when(condition: (request: RequestInterface, response: ResponseInterface) => boolean): IMiddlewareHandler {
         return async (request, response, next) => {
             if (condition(request, response)) {
                 return this.middleware(request, response, next)
@@ -12,12 +12,12 @@ export class ConditionalMiddlewareImpl implements ConditionalMiddleware {
         }
     }
 
-    unless(condition: (request: RequestInterface, response: ResponseInterface) => boolean): MiddlewareHandler {
+    unless(condition: (request: RequestInterface, response: ResponseInterface) => boolean): IMiddlewareHandler {
         return this.when((request, response) => !condition(request, response))
     }
 }
 
-export const conditional = (middleware: MiddlewareHandler): ConditionalMiddleware => {
+export const conditional = (middleware: IMiddlewareHandler): IConditionalMiddleware => {
     return new ConditionalMiddlewareImpl(middleware)
 }
 

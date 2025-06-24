@@ -1,10 +1,8 @@
-import { MiddlewareHandler, HttpStatus } from './types'
-
+import { HttpStatus, IMiddlewareHandler } from '@coffic/cosy-interfaces'
 /**
  * CORS 中间件
  */
-export const cors: MiddlewareHandler = async (request, response, next) => {
-    response.header('Access-Control-Allow-Origin', '*')
+export const cors: IMiddlewareHandler = async (request, response, next) => {
     response.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
     response.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
     await next()
@@ -13,7 +11,7 @@ export const cors: MiddlewareHandler = async (request, response, next) => {
 /**
  * 日志中间件
  */
-export const logger: MiddlewareHandler = async (request, response, next) => {
+export const logger: IMiddlewareHandler = async (request, response, next) => {
     const start = Date.now()
     await next()
     const duration = Date.now() - start
@@ -23,7 +21,7 @@ export const logger: MiddlewareHandler = async (request, response, next) => {
 /**
  * 认证中间件
  */
-export const auth: MiddlewareHandler = async (request, response, next) => {
+export const auth: IMiddlewareHandler = async (request, response, next) => {
     const token = request.header('Authorization')
     if (!token) {
         response.status(HttpStatus.UNAUTHORIZED).json({ error: 'Unauthorized' })
@@ -35,7 +33,7 @@ export const auth: MiddlewareHandler = async (request, response, next) => {
 /**
  * 限流中间件
  */
-export const rateLimit: MiddlewareHandler = async (request, response, next) => {
+export const rateLimit: IMiddlewareHandler = async (request, response, next) => {
     const ip = request.ip
     const limit = 100
     const current = Math.floor(Math.random() * limit) // 示例：随机限流
@@ -54,7 +52,7 @@ export const rateLimit: MiddlewareHandler = async (request, response, next) => {
 /**
  * 错误处理中间件
  */
-export const errorHandler: MiddlewareHandler = async (request, response, next) => {
+export const errorHandler: IMiddlewareHandler = async (request, response, next) => {
     try {
         await next()
     } catch (error) {
@@ -68,7 +66,7 @@ export const errorHandler: MiddlewareHandler = async (request, response, next) =
 /**
  * 计时器中间件
  */
-export const timer: MiddlewareHandler = async (request, response, next) => {
+export const timer: IMiddlewareHandler = async (request, response, next) => {
     const start = Date.now()
     await next()
     const duration = Date.now() - start
@@ -78,7 +76,7 @@ export const timer: MiddlewareHandler = async (request, response, next) => {
 /**
  * 压缩中间件
  */
-export const compress: MiddlewareHandler = async (request, response, next) => {
+export const compress: IMiddlewareHandler = async (request, response, next) => {
     response.header('Content-Encoding', 'gzip')
     await next()
 }
@@ -86,7 +84,7 @@ export const compress: MiddlewareHandler = async (request, response, next) => {
 /**
  * 缓存中间件
  */
-export const cache: MiddlewareHandler = async (request, response, next) => {
+export const cache: IMiddlewareHandler = async (request, response, next) => {
     const cacheKey = request.path
     const cached = false // 示例：检查缓存
 
@@ -102,7 +100,7 @@ export const cache: MiddlewareHandler = async (request, response, next) => {
 /**
  * 安全中间件
  */
-export const security: MiddlewareHandler = async (request, response, next) => {
+export const security: IMiddlewareHandler = async (request, response, next) => {
     response.header('X-Content-Type-Options', 'nosniff')
     response.header('X-Frame-Options', 'DENY')
     response.header('X-XSS-Protection', '1; mode=block')
@@ -112,7 +110,7 @@ export const security: MiddlewareHandler = async (request, response, next) => {
 /**
  * 请求ID中间件
  */
-export const requestId: MiddlewareHandler = async (request, response, next) => {
+export const requestId: IMiddlewareHandler = async (request, response, next) => {
     const id = Math.random().toString(36).substring(7)
     response.header('X-Request-ID', id)
     await next()

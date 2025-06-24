@@ -31,21 +31,3 @@ export {
     getClassMiddleware,
     getMethodMiddleware
 } from './decorators'
-
-// 导出类型
-export type {
-    MiddlewareHandler,
-    IMiddlewareHandler,
-    HttpContextInterface,
-    MiddlewareManager,
-    MiddlewarePipeline
-} from './types'
-
-// 导出函数
-export {
-    createMiddlewareAdapter,
-    createBaseMiddlewareAdapter
-} from './types'
-
-// 导出 HTTP 状态码
-export { HttpStatus } from './types' 

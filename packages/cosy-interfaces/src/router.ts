@@ -1,5 +1,5 @@
 import { RequestInterface, ResponseInterface } from './http'
-import { MiddlewareHandler, RouteHandler } from './middleware'
+import { IMiddlewareHandler, RouteHandler } from './middleware'
 
 /**
  * 路由接口
@@ -9,7 +9,7 @@ export interface RouteInterface {
     path: string
     handler: RouteHandler
     name?: string
-    middleware?: MiddlewareHandler[]
+    middleware?: IMiddlewareHandler[]
     domain?: string
     matchesMethod(method: string): boolean
 }
@@ -29,7 +29,7 @@ export interface RouterInterface {
     match(methods: string[], path: string, handler: RouteHandler): RouteInterface
     group(prefix: string, callback: (router: RouterInterface) => void): void
     group(options: RouteGroupOptions, callback: (router: RouterInterface) => void): void
-    middleware(middleware: MiddlewareHandler | MiddlewareHandler[]): RouterInterface
+    middleware(middleware: IMiddlewareHandler | IMiddlewareHandler[]): RouterInterface
     name(name: string): RouterInterface
     domain(domain: string): RouterInterface
     resolve(method: string, path: string): RouteMatch | null
@@ -42,7 +42,7 @@ export interface RouterInterface {
 export interface RouteMatch {
     route: RouteInterface
     params: Record<string, string>
-    middleware?: MiddlewareHandler | MiddlewareHandler[]
+    middleware?: IMiddlewareHandler | IMiddlewareHandler[]
     name?: string
     domain?: string
     namespace?: string
@@ -54,7 +54,7 @@ export interface RouteMatch {
  */
 export interface RouteGroupOptions {
     prefix?: string
-    middleware?: MiddlewareHandler | MiddlewareHandler[]
+    middleware?: IMiddlewareHandler | IMiddlewareHandler[]
     name?: string
     domain?: string
     namespace?: string

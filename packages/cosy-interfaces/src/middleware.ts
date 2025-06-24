@@ -3,7 +3,7 @@ import { RequestInterface, ResponseInterface } from './http'
 /**
  * 中间件处理器
  */
-export type MiddlewareHandler = (
+export type IMiddlewareHandler = (
     request: RequestInterface,
     response: ResponseInterface,
     next: () => Promise<void>
@@ -20,9 +20,9 @@ export type RouteHandler = (
 /**
  * 中间件管道
  */
-export interface MiddlewarePipeline {
-    pipe(middleware: MiddlewareHandler): MiddlewarePipeline
-    through(middlewares: MiddlewareHandler[]): MiddlewarePipeline
+export interface IMiddlewarePipeline {
+    pipe(middleware: IMiddlewareHandler): IMiddlewarePipeline
+    through(middlewares: IMiddlewareHandler[]): IMiddlewarePipeline
     then(finalHandler: RouteHandler): Promise<any>
     execute(request: RequestInterface, response: ResponseInterface): Promise<any>
     count(): number
@@ -31,21 +31,21 @@ export interface MiddlewarePipeline {
 /**
  * 中间件管理器
  */
-export interface MiddlewareManager {
-    register(name: string, middleware: MiddlewareHandler): void
-    resolve(name: string): MiddlewareHandler | undefined
-    group(name: string, middlewares: (string | MiddlewareHandler)[]): void
-    getGroup(name: string): MiddlewareHandler[]
-    global(middleware: MiddlewareHandler): void
-    getGlobal(): MiddlewareHandler[]
+export interface IMiddlewareManager {
+    register(name: string, middleware: IMiddlewareHandler): void
+    resolve(name: string): IMiddlewareHandler | undefined
+    group(name: string, middlewares: (string | IMiddlewareHandler)[]): void
+    getGroup(name: string): IMiddlewareHandler[]
+    global(middleware: IMiddlewareHandler): void
+    getGlobal(): IMiddlewareHandler[]
 }
 
 /**
  * 条件中间件
  */
-export interface ConditionalMiddleware {
-    when(condition: (request: RequestInterface, response: ResponseInterface) => boolean): MiddlewareHandler
-    unless(condition: (request: RequestInterface, response: ResponseInterface) => boolean): MiddlewareHandler
+export interface IConditionalMiddleware {
+    when(condition: (request: RequestInterface, response: ResponseInterface) => boolean): IMiddlewareHandler
+    unless(condition: (request: RequestInterface, response: ResponseInterface) => boolean): IMiddlewareHandler
 }
 
 /**
@@ -61,7 +61,7 @@ export interface MiddlewareOptions {
 /**
  * 中间件上下文
  */
-export interface MiddlewareContext {
+export interface IMiddlewareContext {
     request: RequestInterface
     response: ResponseInterface
     state: Record<string, any>

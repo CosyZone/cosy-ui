@@ -1,19 +1,7 @@
-import {
-    MiddlewareManager,
-    MiddlewareHandler,
-    IMiddlewareHandler,
-    createMiddlewareAdapter,
-    createBaseMiddlewareAdapter,
-    isIMiddlewareHandler,
-    isMiddlewareHandler,
-    StoredMiddleware,
-    convertToMiddlewareHandler,
-    convertToMiddlewareHandlers,
-    convertToIMiddlewareHandler,
-    convertToIMiddlewareHandlers
-} from './types'
+import { IMiddlewareHandler, IMiddlewareManager } from '@coffic/cosy-interfaces'
+import { convertToMiddlewareHandler, convertToIMiddlewareHandler, convertToIMiddlewareHandlers, StoredMiddleware } from './types'
 
-export class MiddlewareRegistry implements MiddlewareManager {
+export class MiddlewareRegistry implements IMiddlewareManager {
     private middlewares: Map<string, StoredMiddleware> = new Map()
     private groups: Map<string, StoredMiddleware[]> = new Map()
     private globalMiddlewares: StoredMiddleware[] = []
@@ -21,14 +9,14 @@ export class MiddlewareRegistry implements MiddlewareManager {
     /**
      * 注册命名中间件
      */
-    register(name: string, middleware: MiddlewareHandler): void {
+    register(name: string, middleware: IMiddlewareHandler): void {
         this.middlewares.set(name, convertToMiddlewareHandler(middleware))
     }
 
     /**
      * 解析中间件
      */
-    resolve(name: string): MiddlewareHandler | undefined {
+    resolve(name: string): IMiddlewareHandler | undefined {
         const middleware = this.middlewares.get(name)
         if (!middleware) return undefined
         return middleware
@@ -37,7 +25,7 @@ export class MiddlewareRegistry implements MiddlewareManager {
     /**
      * 创建中间件组
      */
-    group(name: string, middlewares: (string | MiddlewareHandler | IMiddlewareHandler)[]): void {
+    group(name: string, middlewares: (string | IMiddlewareHandler | IMiddlewareHandler)[]): void {
         const resolvedMiddlewares: StoredMiddleware[] = []
 
         for (const middleware of middlewares) {
@@ -66,7 +54,7 @@ export class MiddlewareRegistry implements MiddlewareManager {
     /**
      * 注册全局中间件
      */
-    global(middleware: MiddlewareHandler): void {
+    global(middleware: IMiddlewareHandler): void {
         this.globalMiddlewares.push(convertToMiddlewareHandler(middleware))
     }
 
@@ -80,14 +68,14 @@ export class MiddlewareRegistry implements MiddlewareManager {
     /**
      * 解析中间件列表（支持字符串和函数混合）
      */
-    resolveMiddlewares(middlewares: (string | MiddlewareHandler)[]): MiddlewareHandler[] {
+    resolveMiddlewares(middlewares: (string | IMiddlewareHandler)[]): IMiddlewareHandler[] {
         return middlewares.map(middleware => {
             if (typeof middleware === 'string') {
                 // 检查是否是组
                 const group = this.getGroup(middleware)
                 if (group.length > 0) {
                     // 将组中的中间件转换为 MiddlewareHandler 类型
-                    return group.map(m => createBaseMiddlewareAdapter(m))
+                    return group.map(m => convertToIMiddlewareHandler(m))
                 }
 
                 // 检查是否是单个中间件
