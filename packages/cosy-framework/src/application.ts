@@ -1,20 +1,18 @@
 import { ApplicationConfig } from './types'
 import { ILifecycleHooks } from '@coffic/cosy-interfaces'
-import { Configuration } from '@coffic/cosy-config'
-import { ServiceContainer } from '@coffic/cosy-container'
-import { cors, errorHandler, logger, Pipeline } from '@coffic/cosy-middleware'
-import { Router } from '@coffic/cosy-router'
+import { cors, errorHandler, logger } from '@coffic/cosy-middleware'
 import { Server } from '@coffic/cosy-http'
-import { IRequest, ResponseInterface, IRouteHandler, IConfigManager, IContainer, IServiceProvider, IRouter, IMiddlewarePipeline, IServer } from '@coffic/cosy-interfaces'
+import { IRequest, ResponseInterface, IRouteHandler, IConfigManager, IContainer, IServiceProvider, IRouter, IMiddlewarePipeline, IServer, ILogger } from '@coffic/cosy-interfaces'
 
 /**
  * 应用程序配置接口
  */
 export interface ApplicationDependencies {
-    config?: IConfigManager;
-    container?: IContainer;
-    router?: IRouter;
-    pipeline?: IMiddlewarePipeline;
+    config: IConfigManager;
+    container: IContainer;
+    router: IRouter;
+    pipeline: IMiddlewarePipeline;
+    logger: ILogger;
 }
 
 /**
@@ -26,6 +24,7 @@ export interface ApplicationDependencies {
  * 3. 中间件管理
  * 4. 路由管理
  * 5. 生命周期管理
+ * 6. 日志管理
  */
 export class Application {
     public config: IConfigManager
@@ -52,6 +51,11 @@ export class Application {
      * 它提供了中间件注册、匹配和处理的功能。
      */
     public pipeline: IMiddlewarePipeline
+
+    /**
+     * 日志记录器
+     */
+    public logger: ILogger
 
     /**
      * HTTP 服务器
@@ -86,13 +90,13 @@ export class Application {
      */
     constructor(
         appConfig: ApplicationConfig = {},
-        dependencies: ApplicationDependencies = {}
+        dependencies: ApplicationDependencies
     ) {
-        // 初始化依赖，如果没有提供则使用默认实现
-        this.config = dependencies.config || new Configuration()
-        this.container = dependencies.container || new ServiceContainer()
-        this.router = dependencies.router || new Router()
-        this.pipeline = dependencies.pipeline || new Pipeline()
+        this.config = dependencies.config
+        this.container = dependencies.container
+        this.router = dependencies.router
+        this.pipeline = dependencies.pipeline
+        this.logger = dependencies.logger
 
         // 合并配置
         this.config.merge(appConfig)
@@ -102,6 +106,12 @@ export class Application {
 
         // 注册核心服务
         this.registerCoreServices()
+
+        // 记录应用程序初始化日志
+        this.logger.info('Application initialized', {
+            name: this.config.get('name', 'Cosy Application'),
+            env: this.config.get('env', 'development')
+        })
     }
 
     /**
@@ -125,6 +135,7 @@ export class Application {
         this.container.instance('app', this)
         this.container.instance('config', this.config)
         this.container.instance('router', this.router)
+        this.container.instance('logger', this.logger)
     }
 
     /**
@@ -148,28 +159,39 @@ export class Application {
      * 启动应用程序
      */
     async boot(): Promise<void> {
-        console.log('[Cosy Framework] Booting application...')
+        this.logger.info('Booting application...')
+
         if (this.booted) {
+            this.logger.warn('Application already booted')
             return
         }
 
-        // 执行启动前钩子
-        if (this.hooks.beforeBoot) {
-            await this.hooks.beforeBoot()
-        }
-
-        // 启动服务提供者
-        for (const provider of this.providers) {
-            if (provider.boot) {
-                await provider.boot(this.container)
+        try {
+            // 执行启动前钩子
+            if (this.hooks.beforeBoot) {
+                this.logger.debug('Executing beforeBoot hooks')
+                await this.hooks.beforeBoot()
             }
-        }
 
-        this.booted = true
+            // 启动服务提供者
+            for (const provider of this.providers) {
+                this.logger.debug('Booting provider', { provider: provider.constructor.name })
+                if (provider.boot) {
+                    await provider.boot(this.container)
+                }
+            }
 
-        // 执行启动后钩子
-        if (this.hooks.afterBoot) {
-            await this.hooks.afterBoot()
+            this.booted = true
+            this.logger.info('Application booted successfully')
+
+            // 执行启动后钩子
+            if (this.hooks.afterBoot) {
+                this.logger.debug('Executing afterBoot hooks')
+                await this.hooks.afterBoot()
+            }
+        } catch (error) {
+            this.logger.error('Failed to boot application', { error })
+            throw error
         }
     }
 
@@ -177,37 +199,59 @@ export class Application {
      * 启动应用
      */
     async start(port: number = 3000): Promise<void> {
-        // 启动服务提供者
-        await this.boot()
+        try {
+            // 启动服务提供者
+            await this.boot()
 
-        // 创建 HTTP 服务器
-        this.server = new Server()
+            this.logger.info('Starting HTTP server', { port })
 
-        // 添加全局中间件
-        for (const middleware of this.pipeline.getMiddlewares()) {
-            this.server.use(middleware)
-        }
+            // 创建 HTTP 服务器
+            this.server = new Server()
 
-        // 设置路由处理器
-        const routeHandler: IRouteHandler = async (request: IRequest, response: ResponseInterface) => {
-            const route = this.router.resolve(request.method, request.path)
-            if (route) {
-                return route.handler(request, response)
+            // 添加全局中间件
+            for (const middleware of this.pipeline.getMiddlewares()) {
+                this.logger.debug('Adding middleware', { middleware: middleware.name })
+                this.server.use(middleware)
             }
-            response.status(404).json({ error: 'Not Found' })
-        }
-        this.server.setRouteHandler(routeHandler)
 
-        // 启动服务器
-        await this.server.listen(port)
+            // 设置路由处理器
+            const routeHandler: IRouteHandler = async (request: IRequest, response: ResponseInterface) => {
+                const route = this.router.resolve(request.method, request.path)
+                if (route) {
+                    this.logger.debug('Route matched', {
+                        method: request.method,
+                        path: request.path,
+                        handler: route.handler.name
+                    })
+                    return route.handler(request, response)
+                }
+                this.logger.warn('Route not found', { method: request.method, path: request.path })
+                response.status(404).json({ error: 'Not Found' })
+            }
+            this.server.setRouteHandler(routeHandler)
+
+            // 启动服务器
+            await this.server.listen(port)
+            this.logger.info('Server started successfully', { port })
+        } catch (error) {
+            this.logger.error('Failed to start server', { error })
+            throw error
+        }
     }
 
     /**
      * 停止应用
      */
     async stop(): Promise<void> {
-        if (this.server) {
-            await this.server.close()
+        try {
+            if (this.server) {
+                this.logger.info('Stopping server...')
+                await this.server.close()
+                this.logger.info('Server stopped successfully')
+            }
+        } catch (error) {
+            this.logger.error('Failed to stop server', { error })
+            throw error
         }
     }
 } 

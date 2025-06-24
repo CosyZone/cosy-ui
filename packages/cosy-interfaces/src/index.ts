@@ -20,3 +20,5 @@ export * from './route-handler'
 
 // Common interfaces
 export * from './common'
+
+export * from './logger'

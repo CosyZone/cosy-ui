@@ -2,7 +2,8 @@ import { Configuration } from '@coffic/cosy-config'
 import { ServiceContainer } from '@coffic/cosy-container'
 import { Pipeline } from '@coffic/cosy-middleware'
 import { Router } from '@coffic/cosy-router'
-import { IConfigManager, IContainer, IRouter, IMiddlewarePipeline } from '@coffic/cosy-interfaces'
+import { Logger } from '@coffic/cosy-logger'
+import { IConfigManager, IContainer, IRouter, IMiddlewarePipeline, ILogger } from '@coffic/cosy-interfaces'
 import { Application, ApplicationDependencies } from './application'
 import { ApplicationConfig } from './types'
 
@@ -42,6 +43,16 @@ export class ApplicationFactory {
     }
 
     /**
+     * 创建日志记录器
+     */
+    protected static createLogger(): ILogger {
+        return new Logger({
+            pretty: true, // 开发环境下默认美化输出
+            timestamp: true
+        })
+    }
+
+    /**
      * 创建默认依赖
      */
     protected static createDefaultDependencies(): ApplicationDependencies {
@@ -49,7 +60,8 @@ export class ApplicationFactory {
             config: ApplicationFactory.createConfigManager(),
             container: ApplicationFactory.createContainer(),
             router: ApplicationFactory.createRouter(),
-            pipeline: ApplicationFactory.createPipeline()
+            pipeline: ApplicationFactory.createPipeline(),
+            logger: ApplicationFactory.createLogger()
         }
     }
 
