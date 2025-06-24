@@ -1,16 +1,31 @@
 {
     "compilerOptions": {
-        "target": "ES2020",
-        "module": "ESNext",
+        "target": "ESNext",
         "lib": [
-            "ES2020"
+            "dom",
+            "dom.iterable",
+            "es6"
         ],
-        "moduleResolution": "bundler",
-        "esModuleInterop": true,
-        "strict": true,
+        "allowJs": true,
         "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "jsx": "preserve",
+        "jsxImportSource": "astro",
         "declaration": true,
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true
-    }
+        "declarationMap": true,
+        "baseUrl": "."
+    },
+    "exclude": [
+        "node_modules",
+        "dist",
+        "**/node_modules",
+        "**/dist"
+    ]
 }

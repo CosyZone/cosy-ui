@@ -1,26 +1,16 @@
 // 导入 reflect-metadata（必须在最前面）
 import 'reflect-metadata'
 
-// 核心模块导出
-export * from './core'
-export * from './container'
-export * from './routing'
-export * from './http'
-export * from './config'
+// 核心模块
+export { Application } from './core/application'
+export { Bootstrap } from './core/bootstrap'
 
-// 类型导出
-export type {
-    Constructor,
-    ClassDecorator,
-    MethodDecorator,
-    ParameterDecorator,
-    ServiceBinding,
-    RouteHandler,
-    NextFunction,
-    Awaitable,
-    Optional,
-    RequiredKeys
+// 类型
+export {
+    ApplicationConfig,
+    LifecycleHooks,
+    ServiceProvider,
+    Application as ApplicationInterface,
+    BootstrapOptions,
+    Constructor
 } from './types'
-
-// 版本信息
-export const VERSION = '0.1.0'

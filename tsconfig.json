@@ -1,25 +1,10 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "lib": ["dom", "dom.iterable", "es6"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "preserve",
-    "jsxImportSource": "astro",
-    "declaration": true,
-    "declarationMap": true,
-    "outDir": "dist",
-    "baseUrl": "."
+    "noEmit": true
   },
-  "include": ["packages/*/src/**/*", "packages/*/types/**/*"],
-  "exclude": ["node_modules", "dist", "**/node_modules", "**/dist"]
+  "include": [
+    "packages/*/src/**/*",
+    "packages/*/types/**/*"
+  ]
 }

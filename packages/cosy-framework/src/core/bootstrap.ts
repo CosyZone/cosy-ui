@@ -9,9 +9,9 @@
  */
 
 import { Application } from './application'
-import { BootstrapOptions, ApplicationConfig } from '../types'
-import { Environment, JsonFileSource } from '../config'
-import { existsSync } from 'fs'
+import { BootstrapOptions } from '../types'
+import { existsSync, readFileSync } from 'fs'
+import { ConfigManager } from '@coffic/cosy-config'
 
 /**
  * 应用程序启动器类
@@ -70,7 +70,8 @@ export class Bootstrap {
         // 启动应用
         await this.app.boot()
 
-        const port = this.app.config('app.port')
+        // 获取端口号
+        const port = this.app.config.get('app.port', 3000)
         await this.app.start(port)
 
         return this.app
@@ -104,15 +105,18 @@ export class Bootstrap {
         // 尝试加载通用配置
         const appConfigPath = `${configPath}/app.json`
         if (existsSync(appConfigPath)) {
-            const configSource = new JsonFileSource(appConfigPath)
-            await this.app.getConfig().load(configSource)
+            const content = readFileSync(appConfigPath, 'utf-8')
+            const config = JSON.parse(content)
+            this.app.config.merge(config)
         }
 
         // 尝试加载环境特定配置
-        const envConfigPath = `${configPath}/${Environment.getCurrent()}.json`
+        const env = process.env.NODE_ENV || 'development'
+        const envConfigPath = `${configPath}/${env}.json`
         if (existsSync(envConfigPath)) {
-            const envConfigSource = new JsonFileSource(envConfigPath)
-            await this.app.getConfig().load(envConfigSource)
+            const content = readFileSync(envConfigPath, 'utf-8')
+            const config = JSON.parse(content)
+            this.app.config.merge(config)
         }
     }
 
@@ -131,8 +135,8 @@ export class Bootstrap {
      */
     private registerProviders(): void {
         if (this.options.providers) {
-            for (const ProviderClass of this.options.providers) {
-                const provider = new ProviderClass()
+            for (const Provider of this.options.providers) {
+                const provider = new Provider()
                 this.app.register(provider)
             }
         }

@@ -18,6 +18,7 @@ import {
 
 export class Pipeline implements MiddlewarePipeline {
     private middlewares: MiddlewareHandler[] = []
+    private finalHandler?: RouteHandler
 
     constructor(middlewares: MiddlewareHandler[] = []) {
         this.middlewares = middlewares
@@ -43,6 +44,10 @@ export class Pipeline implements MiddlewarePipeline {
      * 执行中间件管道
      */
     async execute(request: RequestInterface, response: ResponseInterface): Promise<any> {
+        if (!this.finalHandler) {
+            throw new Error('No final handler set. Call then() before execute().')
+        }
+
         let index = 0
         const middlewares = this.middlewares
 
@@ -56,17 +61,17 @@ export class Pipeline implements MiddlewarePipeline {
         }
 
         await next()
+
+        // 执行最终处理器
+        return this.finalHandler(request, response)
     }
 
     /**
      * 添加最终处理器并执行
      */
     async then(finalHandler: RouteHandler): Promise<any> {
-        const handler = async (request: RequestInterface, response: ResponseInterface) => {
-            await this.execute(request, response)
-            return finalHandler(request, response)
-        }
-        return handler
+        this.finalHandler = finalHandler
+        return this
     }
 
     /**

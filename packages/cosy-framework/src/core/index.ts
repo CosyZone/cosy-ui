@@ -54,9 +54,7 @@ export {
  * 提供了框架核心的类型定义
  */
 export type {
-    ApplicationInterface,   // 应用程序接口
     ApplicationConfig,      // 应用程序配置
-    ApplicationLifecycleHooks, // 生命周期钩子
     BootstrapOptions       // 启动选项
 } from '../types'
 

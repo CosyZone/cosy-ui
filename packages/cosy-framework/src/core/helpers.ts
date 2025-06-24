@@ -33,7 +33,7 @@ import { ApplicationConfig } from '../types'
  * @returns 配置好的 Web 应用程序实例
  */
 export function createWebApp(config?: ApplicationConfig): Application {
-    const app = Application.create(config)
+    const app = new Application(config)
 
     // 添加常用中间件
     // app.use(cors())
@@ -68,7 +68,7 @@ export function createWebApp(config?: ApplicationConfig): Application {
  * @returns 配置好的 API 应用程序实例
  */
 export function createApiApp(config?: ApplicationConfig): Application {
-    const app = Application.create({
+    const app = new Application({
         ...config,
         name: config?.name || 'API Application'
     })
