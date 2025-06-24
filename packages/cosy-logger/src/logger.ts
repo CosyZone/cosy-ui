@@ -1,6 +1,7 @@
 import { ILogger, LogLevel, LogContext, LoggerConfig } from '@coffic/cosy-interfaces'
 import pino, { Logger as PinoLogger } from 'pino'
 import pretty from 'pino-pretty'
+import caller from 'pino-caller'
 
 /**
  * Pino 日志记录器实现
@@ -12,18 +13,39 @@ export class Logger implements ILogger {
         const pinoConfig: pino.LoggerOptions = {
             level: config.level || LogLevel.INFO,
             timestamp: config.timestamp !== false,
+            messageKey: 'msg',
+            base: null, // 禁用默认的基础字段
+            formatters: {
+                level: (label: string) => {
+                    return { level: label.toUpperCase() }
+                }
+            }
         }
 
         // 如果需要美化输出
         if (config.pretty) {
             const stream = pretty({
                 colorize: true,
-                translateTime: true,
-                ignore: 'pid,hostname'
+                // translateTime: 'yyyy-mm-dd HH:MM:ss',
+                // ignore: 'pid,hostname,level,caller,component',
+                // messageFormat: (log: Record<string, any>) => {
+                //     const level = log.level;
+                //     const component = log.component ? `(${log.component}) ` : '';
+                //     const caller = log.caller ? `[${log.caller}] ` : '';
+                //     return `[${level}] ${component}${log.msg}`;
+                // },
+                singleLine: true, // 强制单行输出
+                hideObject: false // 显示额外的上下文信息
             })
-            this.logger = pino(pinoConfig, stream)
+
+            // 创建基础 logger
+            let baseLogger = pino(pinoConfig, stream)
+
+            // 使用 pino-caller 包装 logger
+            this.logger = caller(baseLogger, { relativeTo: process.cwd(), stackAdjustment: 2 })
         } else {
-            this.logger = pino(pinoConfig)
+            let baseLogger = pino(pinoConfig)
+            this.logger = caller(baseLogger, { relativeTo: process.cwd() })
         }
 
         // 如果配置了文件输出
@@ -32,7 +54,8 @@ export class Logger implements ILogger {
                 dest: config.file,
                 sync: false // 异步写入以提高性能
             })
-            this.logger = pino(pinoConfig, fileStream)
+            let baseLogger = pino(pinoConfig, fileStream)
+            this.logger = caller(baseLogger, { relativeTo: process.cwd() })
         }
     }
 
@@ -61,7 +84,10 @@ export class Logger implements ILogger {
     }
 
     child(name: string, context?: LogContext): ILogger {
-        const childLogger = this.logger.child({ name, ...context })
+        const childLogger = this.logger.child({
+            component: name,
+            ...context
+        })
         const logger = Object.create(this) as Logger
         logger.logger = childLogger
         return logger
