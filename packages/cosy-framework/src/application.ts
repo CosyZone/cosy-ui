@@ -8,7 +8,6 @@ import { Configuration } from '@coffic/cosy-config'
 import { ServiceContainer } from '@coffic/cosy-container'
 import { cors, errorHandler, logger, Pipeline } from '@coffic/cosy-middleware'
 import { Router } from '@coffic/cosy-router'
-import { HttpContextInterface } from '@coffic/cosy-interfaces'
 
 /**
  * 应用程序类
@@ -126,6 +125,7 @@ export class Application {
      * 启动应用程序
      */
     async boot(): Promise<void> {
+        console.log('[Cosy Framework] Booting application...')
         if (this.booted) {
             return
         }
@@ -155,6 +155,7 @@ export class Application {
      * @param port 端口号
      */
     async start(port: number = 3000): Promise<void> {
+        console.log('[Cosy Framework] Starting HTTP server on port', port)
         if (!this.booted) {
             await this.boot()
         }
