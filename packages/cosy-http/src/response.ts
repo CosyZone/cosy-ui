@@ -1,5 +1,7 @@
 import { ServerResponse } from 'http'
-import { CookieOptions, HttpStatus } from './types'
+import { CookieOptions } from './types'
+import { HttpStatus } from '@coffic/cosy-interfaces'
+
 
 /**
  * HTTP 响应类

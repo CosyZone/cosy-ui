@@ -1,17 +1,17 @@
-import { MiddlewareHandler, HttpStatus } from '@coffic/cosy-framework'
+import { HttpStatus, IMiddlewareHandler } from '@coffic/cosy-interfaces'
 
-export const AuthMiddleware: MiddlewareHandler = async (context, next) => {
-    const authHeader = context.request.header('authorization')
+export const AuthMiddleware: IMiddlewareHandler = async (req, res, next) => {
+    const authHeader = req.header('authorization')
 
     if (!authHeader) {
-        return context.response.status(HttpStatus.UNAUTHORIZED).json({
+        return res.status(HttpStatus.UNAUTHORIZED).json({
             error: 'Authorization header required'
         })
     }
 
     // 简单的令牌验证（实际应用中应该使用 JWT 或其他安全机制）
     if (!authHeader.startsWith('Bearer ')) {
-        return context.response.status(HttpStatus.UNAUTHORIZED).json({
+        return res.status(HttpStatus.UNAUTHORIZED).json({
             error: 'Invalid authorization format. Use: Bearer <token>'
         })
     }
@@ -20,7 +20,7 @@ export const AuthMiddleware: MiddlewareHandler = async (context, next) => {
 
     // 模拟令牌验证
     if (token !== 'valid-token') {
-        return context.response.status(HttpStatus.UNAUTHORIZED).json({
+        return res.status(HttpStatus.UNAUTHORIZED).json({
             error: 'Invalid token'
         })
     }

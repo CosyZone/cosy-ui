@@ -4,7 +4,7 @@ import {
     RouteHandler,
     RouteMatch,
     RouteGroupOptions,
-    MiddlewareHandler,
+    IMiddlewareHandler,
     HttpMethod
 } from '@coffic/cosy-interfaces'
 import { Route } from './route'
@@ -97,7 +97,7 @@ export class Router implements RouterInterface {
     /**
      * 添加中间件
      */
-    middleware(middleware: MiddlewareHandler | MiddlewareHandler[]): RouterInterface {
+    middleware(middleware: IMiddlewareHandler | IMiddlewareHandler[]): RouterInterface {
         const lastRoute = this.routes[this.routes.length - 1] as Route
         if (lastRoute) {
             lastRoute.addMiddleware(middleware)
@@ -206,7 +206,7 @@ export class Router implements RouterInterface {
 
             if (group.middleware) {
                 const middlewares = Array.isArray(group.middleware) ? group.middleware : [group.middleware]
-                merged.middleware = [...(merged.middleware as MiddlewareHandler[] || []), ...middlewares]
+                merged.middleware = [...(merged.middleware as IMiddlewareHandler[] || []), ...middlewares]
             }
 
             if (group.domain) {

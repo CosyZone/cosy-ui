@@ -1,11 +1,11 @@
-import { RouteInterface, RouteHandler, MiddlewareHandler, CompiledRoute } from '@coffic/cosy-interfaces'
+import { RouteInterface, RouteHandler, IMiddlewareHandler, CompiledRoute } from '@coffic/cosy-interfaces'
 
 export class Route implements RouteInterface {
     public method: string | string[]
     public path: string
     public handler: RouteHandler
     public name?: string
-    public middleware: MiddlewareHandler[] = []
+    public middleware: IMiddlewareHandler[] = []
     public constraints: Record<string, RegExp | string> = {}
     public domain?: string
     public compiled!: CompiledRoute
@@ -23,7 +23,7 @@ export class Route implements RouteInterface {
     /**
      * 添加中间件
      */
-    addMiddleware(middleware: MiddlewareHandler | MiddlewareHandler[]): this {
+    addMiddleware(middleware: IMiddlewareHandler | IMiddlewareHandler[]): this {
         const middlewares = Array.isArray(middleware) ? middleware : [middleware]
         this.middleware.push(...middlewares)
         return this

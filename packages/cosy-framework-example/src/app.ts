@@ -18,6 +18,7 @@ import {
 import { AuthMiddleware } from './middleware/auth-middleware'
 import { UserService } from './services/user-service'
 import { PostService } from './services/post-service'
+import { cors } from '@coffic/cosy-middleware'
 
 /**
  * 创建应用实例
@@ -41,31 +42,19 @@ app.container.bind('PostService', PostService)
  * 中间件配置
  * @description 注册认证中间件和配置全局中间件
  */
-app.pipeline.use(AuthMiddleware)
+app.pipeline.pipe(AuthMiddleware)
 
-// // 全局中间件配置
-// app.use(cors({
-//     origin: process.env.CORS_ORIGIN || '*',
-//     credentials: true
-// }))
-
-// app.use(logger({
-//     skip: (context: HttpContextInterface) => context.request.path === '/health'
-// }))
-
-// app.use(errorHandler({
-//     showStack: app.config('app.debug')
-// }))
-
-// /**
-//  * 健康检查路由
-//  * @description 提供基本的健康检查端点
-//  */
-// app.get('/health', () => ({
-//     status: 'ok',
-//     timestamp: new Date().toISOString(),
-//     uptime: process.uptime()
-// }))
+/**
+ * 健康检查路由
+ * @description 提供基本的健康检查端点
+ */
+app.router.get('/health', (req, res) => {
+    return res.json({
+        status: 'ok',
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime()
+    }) as any
+})
 
 // /**
 //  * API路由配置

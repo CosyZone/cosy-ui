@@ -15,7 +15,7 @@ export const logger: IMiddlewareHandler = async (request, response, next) => {
     const start = Date.now()
     await next()
     const duration = Date.now() - start
-    console.log(`${request.method} ${request.path} - ${duration}ms`)
+    console.log(`[Cosy Middleware] ${request.method} ${request.path} - ${duration}ms`)
 }
 
 /**
@@ -56,7 +56,7 @@ export const errorHandler: IMiddlewareHandler = async (request, response, next) 
     try {
         await next()
     } catch (error) {
-        console.error('Error:', error)
+        console.error('❌ [Cosy Middleware] Error:', error)
         response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
             error: error instanceof Error ? error.message : 'Internal Server Error'
         })

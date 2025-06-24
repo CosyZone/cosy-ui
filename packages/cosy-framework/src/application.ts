@@ -6,8 +6,9 @@ import {
 
 import { Configuration } from '@coffic/cosy-config'
 import { ServiceContainer } from '@coffic/cosy-container'
-import { Pipeline } from '@coffic/cosy-middleware'
+import { cors, errorHandler, logger, Pipeline } from '@coffic/cosy-middleware'
 import { Router } from '@coffic/cosy-router'
+import { HttpContextInterface } from '@coffic/cosy-interfaces'
 
 /**
  * 应用程序类
@@ -81,6 +82,15 @@ export class Application {
         this.container = new ServiceContainer()
         this.router = new Router()
         this.pipeline = new Pipeline()
+
+        // 注册日志中间件
+        this.pipeline.pipe(logger)
+
+        // 注册错误处理中间件
+        this.pipeline.pipe(errorHandler)
+
+        // 注册 CORS 中间件
+        this.pipeline.pipe(cors)
 
         // 注册核心服务
         this.registerCoreServices()
