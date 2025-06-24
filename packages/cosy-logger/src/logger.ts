@@ -1,7 +1,29 @@
 import { ILogger, LogLevel, LogContext, LoggerConfig } from '@coffic/cosy-interfaces'
 import pino, { Logger as PinoLogger } from 'pino'
 import pretty from 'pino-pretty'
-import caller from 'pino-caller'
+import { fileURLToPath } from 'url'
+
+/**
+ * 获取调用栈中的源文件位置
+ */
+function getCallerLocation(depth = 2): string {
+    const error = new Error()
+    const stack = error.stack?.split('\n')[depth]
+    if (!stack) return ''
+
+    const match = stack.match(/at\s+.*\s+\((.*):(\d+):(\d+)\)/)
+    if (!match) return ''
+
+    const [_, filePath, line] = match
+    if (!filePath) return ''
+
+    // 如果是 file:// URL，转换为文件路径
+    const resolvedPath = filePath.startsWith('file://') ? fileURLToPath(filePath) : filePath
+    return `${resolvedPath}:${line}`
+    // 获取相对于工作目录的路径
+    // const relativePath = path.relative(process.cwd(), resolvedPath)
+    // return `${relativePath}:${line}`
+}
 
 /**
  * Pino 日志记录器实现
@@ -26,26 +48,14 @@ export class Logger implements ILogger {
         if (config.pretty) {
             const stream = pretty({
                 colorize: true,
-                // translateTime: 'yyyy-mm-dd HH:MM:ss',
-                // ignore: 'pid,hostname,level,caller,component',
-                // messageFormat: (log: Record<string, any>) => {
-                //     const level = log.level;
-                //     const component = log.component ? `(${log.component}) ` : '';
-                //     const caller = log.caller ? `[${log.caller}] ` : '';
-                //     return `[${level}] ${component}${log.msg}`;
-                // },
                 singleLine: true, // 强制单行输出
                 hideObject: false // 显示额外的上下文信息
             })
 
             // 创建基础 logger
-            let baseLogger = pino(pinoConfig, stream)
-
-            // 使用 pino-caller 包装 logger
-            this.logger = caller(baseLogger, { relativeTo: process.cwd(), stackAdjustment: 2 })
+            this.logger = pino(pinoConfig, stream)
         } else {
-            let baseLogger = pino(pinoConfig)
-            this.logger = caller(baseLogger, { relativeTo: process.cwd() })
+            this.logger = pino(pinoConfig)
         }
 
         // 如果配置了文件输出
@@ -54,25 +64,36 @@ export class Logger implements ILogger {
                 dest: config.file,
                 sync: false // 异步写入以提高性能
             })
-            let baseLogger = pino(pinoConfig, fileStream)
-            this.logger = caller(baseLogger, { relativeTo: process.cwd() })
+            this.logger = pino(pinoConfig, fileStream)
+        }
+    }
+
+    private addCallerInfo(message: string, context?: LogContext): { message: string; context: LogContext | undefined } {
+        const callerLocation = getCallerLocation(4) // 调整深度以获取正确的调用位置
+        return {
+            message: `${callerLocation} ${message}`,
+            context
         }
     }
 
     error(message: string, context?: LogContext): void {
-        this.log(LogLevel.ERROR, message, context)
+        const callerLocation = getCallerLocation(4)
+        this.log(LogLevel.ERROR, `${callerLocation} ${message}`, context)
     }
 
     warn(message: string, context?: LogContext): void {
-        this.log(LogLevel.WARN, message, context)
+        const callerLocation = getCallerLocation(4)
+        this.log(LogLevel.WARN, `${callerLocation} ${message}`, context)
     }
 
     info(message: string, context?: LogContext): void {
-        this.log(LogLevel.INFO, message, context)
+        const callerLocation = getCallerLocation(4)
+        this.log(LogLevel.INFO, `${callerLocation} ${message}`, context)
     }
 
     debug(message: string, context?: LogContext): void {
-        this.log(LogLevel.DEBUG, message, context)
+        const callerLocation = getCallerLocation(4)
+        this.log(LogLevel.DEBUG, `${callerLocation} ${message}`, context)
     }
 
     log(level: LogLevel, message: string, context?: LogContext): void {

@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
-    "dev": "tsx watch src/server.ts",
+    "dev": "NODE_OPTIONS='--enable-source-maps' tsx watch src/server.ts",
     "test": "vitest",
     "test:api": "tsx tests/api.test.ts"
   },

@@ -8,14 +8,13 @@
  */
 
 import { app } from './app'
-import type { Application } from '@coffic/cosy-framework'
 
 /**
  * 启动服务器的主函数
  * @description 负责启动应用程序并处理启动过程中的错误
  * @throws {Error} 当服务器启动失败时抛出错误
  */
-async function startServer(): Promise<Application> {
+async function startServer() {
     try {
         console.log('🔄 正在启动服务器...')
 
