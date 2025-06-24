@@ -9,7 +9,7 @@
  */
 
 import { Application } from './application'
-import { BootstrapOptions } from '../types'
+import { BootstrapOptions } from './types'
 import { existsSync, readFileSync } from 'fs'
 import { ConfigManager } from '@coffic/cosy-config'
 

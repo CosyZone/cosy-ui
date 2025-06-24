@@ -16,7 +16,7 @@ import {
     LifecycleHooks as ApplicationLifecycleHooks,
     ServiceProvider,
     Constructor
-} from '../types'
+} from './types'
 
 import { ConfigManager } from '@coffic/cosy-config'
 import { Container } from '@coffic/cosy-container'

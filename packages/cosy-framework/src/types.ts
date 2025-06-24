@@ -2,7 +2,6 @@ import { ConfigManager } from '@coffic/cosy-config'
 import { Container } from '@coffic/cosy-container'
 import { Pipeline } from '@coffic/cosy-middleware'
 import { Router } from '@coffic/cosy-router'
-import { HttpContextInterface } from '@coffic/cosy-http'
 
 /**
  * 应用程序配置接口

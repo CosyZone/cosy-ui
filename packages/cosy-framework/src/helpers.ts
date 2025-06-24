@@ -6,7 +6,7 @@
  */
 
 import { Application } from './application'
-import { ApplicationConfig } from '../types'
+import { ApplicationConfig } from './types'
 
 /**
  * 创建 Web 应用程序
