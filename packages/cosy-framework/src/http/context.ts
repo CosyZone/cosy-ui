@@ -3,12 +3,14 @@ import { Request } from './request'
 import { Response } from './response'
 
 export class HttpContext implements HttpContextInterface {
-    public readonly request: RequestInterface
-    public readonly response: ResponseInterface
+    public request: RequestInterface
+    public response: ResponseInterface
+    public state: Record<string, any> = {}
+    public shouldSkip: boolean = false
 
-    constructor(request: RequestInterface, response?: ResponseInterface) {
+    constructor(request: RequestInterface, response: ResponseInterface) {
         this.request = request
-        this.response = response || new Response()
+        this.response = response
     }
 
     /**
@@ -34,24 +36,19 @@ export class HttpContext implements HttpContextInterface {
      * 从对象创建上下文（用于测试）
      */
     static create(options: {
-        method?: string
-        url?: string
+        method: string
+        url: string
         headers?: Record<string, string>
         body?: any
         query?: Record<string, any>
         params?: Record<string, any>
-    } = {}): HttpContext {
-        const request = new Request({
-            method: options.method || 'GET',
-            url: options.url || '/',
-            headers: options.headers || {},
-            body: options.body || {},
-            query: options.query || {},
-            params: options.params || {}
-        })
-
+    }): HttpContext {
+        const request = new Request(options)
         const response = new Response()
-
         return new HttpContext(request, response)
+    }
+
+    skipRemaining(): void {
+        this.shouldSkip = true
     }
 } 

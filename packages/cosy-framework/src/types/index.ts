@@ -23,8 +23,8 @@ export interface ServiceBinding<T = any> {
 }
 
 // HTTP 类型
-export type RouteHandler = (...args: any[]) => any
-export type NextFunction = (request?: any) => Promise<any>
+export type RouteHandler = (request: RequestInterface, response: ResponseInterface) => Awaitable<any>
+export type NextFunction = () => Promise<void>
 
 // 通用工具类型
 export type Awaitable<T> = T | Promise<T>
@@ -66,17 +66,17 @@ export interface RequestInterface {
     files: Record<string, FileUpload[]>
     ip: string
     userAgent: string
+    isForm: boolean
+    queryString: string
+
     get(key: string): any
+    input(key: string, defaultValue?: any): any
     has(key: string): boolean
-    input(key?: string, defaultValue?: any): any
-    cookie(name: string, defaultValue?: string): string
     header(name: string, defaultValue?: string): string
     file(name: string): FileUpload | FileUpload[] | undefined
     isAjax(): boolean
     isJson(): boolean
-    isForm(): boolean
     fullUrl(): string
-    queryString(): string
 }
 
 export interface ResponseInterface {
@@ -123,6 +123,9 @@ export interface CookieOptions {
 export interface HttpContextInterface {
     request: RequestInterface
     response: ResponseInterface
+    state: Record<string, any>
+    shouldSkip: boolean
+    skipRemaining(): void
 }
 
 // HTTP 状态码
@@ -251,15 +254,12 @@ export interface MiddlewareOptions {
     methods?: string[]
 }
 
-// 中间件上下文
-export interface MiddlewareContext extends HttpContextInterface {
-    state: Record<string, any>
-    skipRemaining(): void
-    shouldSkip: boolean
-}
-
 // 中间件类型
-export type MiddlewareHandler = (context: HttpContextInterface, next: NextFunction) => Awaitable<any>
+export type MiddlewareHandler = (
+    request: RequestInterface,
+    response: ResponseInterface,
+    next: NextFunction
+) => Awaitable<any>
 
 // 配置相关类型
 export interface ConfigManager {

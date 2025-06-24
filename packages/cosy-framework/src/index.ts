@@ -5,7 +5,6 @@ import 'reflect-metadata'
 export * from './core'
 export * from './container'
 export * from './routing'
-export * from './middleware'
 export * from './http'
 export * from './config'
 

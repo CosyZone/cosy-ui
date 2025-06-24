@@ -1,18 +1,12 @@
 {
-  "name": "@coffic/cosy-framework",
+  "name": "@coffic/cosy-middleware",
   "version": "0.1.0",
-  "description": "A Laravel-inspired TypeScript framework with Astro and Cosy-UI integration",
+  "description": "Middleware system for Cosy Framework",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./auth": "./dist/auth/index.js",
-    "./view": "./dist/view/index.js",
-    "./database": "./dist/database/index.js",
-    "./validation": "./dist/validation/index.js",
-    "./events": "./dist/events/index.js",
-    "./queue": "./dist/queue/index.js"
+    ".": "./dist/index.js"
   },
   "scripts": {
     "build": "tsc",
@@ -23,9 +17,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@coffic/cosy-router": "workspace:*",
     "@coffic/cosy-interfaces": "workspace:*",
-    "@coffic/cosy-middleware": "workspace:*",
     "@fastify/cors": "^11.0.1",
     "fastify": "^5.4.0",
     "path-to-regexp": "^6.2.2",
@@ -40,10 +32,9 @@
     "vitest": "^1.6.0"
   },
   "keywords": [
-    "framework",
+    "middleware",
     "typescript",
-    "astro",
-    "laravel",
+    "cosy-framework",
     "web-framework"
   ],
   "author": "coffic.cn",

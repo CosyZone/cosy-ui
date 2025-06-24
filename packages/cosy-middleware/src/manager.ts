@@ -1,38 +1,56 @@
-import { MiddlewareManager, MiddlewareHandler } from '../types'
+import {
+    MiddlewareManager,
+    MiddlewareHandler,
+    IMiddlewareHandler,
+    createMiddlewareAdapter,
+    createBaseMiddlewareAdapter,
+    isIMiddlewareHandler,
+    isMiddlewareHandler,
+    StoredMiddleware,
+    convertToMiddlewareHandler,
+    convertToMiddlewareHandlers,
+    convertToIMiddlewareHandler,
+    convertToIMiddlewareHandlers
+} from './types'
 
 export class MiddlewareRegistry implements MiddlewareManager {
-    private middlewares = new Map<string, MiddlewareHandler>()
-    private groups = new Map<string, MiddlewareHandler[]>()
-    private globalMiddlewares: MiddlewareHandler[] = []
+    private middlewares: Map<string, StoredMiddleware> = new Map()
+    private groups: Map<string, StoredMiddleware[]> = new Map()
+    private globalMiddlewares: StoredMiddleware[] = []
 
     /**
      * 注册命名中间件
      */
     register(name: string, middleware: MiddlewareHandler): void {
-        this.middlewares.set(name, middleware)
+        this.middlewares.set(name, convertToMiddlewareHandler(middleware))
     }
 
     /**
      * 解析中间件
      */
     resolve(name: string): MiddlewareHandler | undefined {
-        return this.middlewares.get(name)
+        const middleware = this.middlewares.get(name)
+        if (!middleware) return undefined
+        return middleware
     }
 
     /**
      * 创建中间件组
      */
-    group(name: string, middlewares: (string | MiddlewareHandler)[]): void {
-        const resolvedMiddlewares = middlewares.map(middleware => {
+    group(name: string, middlewares: (string | MiddlewareHandler | IMiddlewareHandler)[]): void {
+        const resolvedMiddlewares: StoredMiddleware[] = []
+
+        for (const middleware of middlewares) {
             if (typeof middleware === 'string') {
                 const resolved = this.resolve(middleware)
                 if (!resolved) {
-                    throw new Error(`Middleware not found: ${middleware}`)
+                    throw new Error(`Middleware ${middleware} not found`)
                 }
-                return resolved
+                resolvedMiddlewares.push(resolved)
+            } else if (typeof middleware === 'function') {
+                resolvedMiddlewares.push(convertToMiddlewareHandler(middleware))
             }
-            return middleware
-        })
+        }
 
         this.groups.set(name, resolvedMiddlewares)
     }
@@ -40,22 +58,23 @@ export class MiddlewareRegistry implements MiddlewareManager {
     /**
      * 获取中间件组
      */
-    getGroup(name: string): MiddlewareHandler[] {
-        return this.groups.get(name) || []
+    getGroup(name: string): IMiddlewareHandler[] {
+        const middlewares = this.groups.get(name) || []
+        return convertToIMiddlewareHandlers(middlewares)
     }
 
     /**
      * 注册全局中间件
      */
     global(middleware: MiddlewareHandler): void {
-        this.globalMiddlewares.push(middleware)
+        this.globalMiddlewares.push(convertToMiddlewareHandler(middleware))
     }
 
     /**
      * 获取所有全局中间件
      */
-    getGlobal(): MiddlewareHandler[] {
-        return [...this.globalMiddlewares]
+    getGlobal(): IMiddlewareHandler[] {
+        return convertToIMiddlewareHandlers(this.globalMiddlewares)
     }
 
     /**
@@ -67,7 +86,8 @@ export class MiddlewareRegistry implements MiddlewareManager {
                 // 检查是否是组
                 const group = this.getGroup(middleware)
                 if (group.length > 0) {
-                    return group
+                    // 将组中的中间件转换为 MiddlewareHandler 类型
+                    return group.map(m => createBaseMiddlewareAdapter(m))
                 }
 
                 // 检查是否是单个中间件
@@ -78,7 +98,7 @@ export class MiddlewareRegistry implements MiddlewareManager {
 
                 throw new Error(`Middleware not found: ${middleware}`)
             }
-            return middleware
+            return convertToMiddlewareHandler(middleware)
         }).flat()
     }
 

@@ -30,9 +30,9 @@ import {
 
 import { ServiceContainer } from '../container'
 import { Router } from '../routing'
-import { Pipeline, MiddlewareRegistry } from '../middleware'
 import { Configuration, Environment, EnvironmentSource } from '../config'
 import { HttpContext, Request, Response, HttpStatus } from '../http'
+import { MiddlewareRegistry, Pipeline, IMiddlewareHandler } from '@coffic/cosy-middleware'
 
 /**
  * 应用程序核心类
@@ -453,12 +453,12 @@ export class Application implements ApplicationInterface {
             const pipeline = new Pipeline(middlewares)
 
             // 执行中间件和路由处理器
-            const finalHandler = async (ctx: HttpContextInterface) => {
-                return match.route.handler(ctx)
+            const finalHandler: RouteHandler = (request, response) => {
+                return match.route.handler(request, response)
             }
 
             const handler = await pipeline.then(finalHandler)
-            const result = await handler(context)
+            const result = await handler(context.request, context.response)
 
             // 如果处理器返回了结果但响应没有设置，自动设置 JSON 响应
             if (result !== undefined && !response.hasResponded()) {

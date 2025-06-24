@@ -12,6 +12,8 @@ export class Request implements RequestInterface {
     public files: Record<string, FileUpload[]> = {}
     public ip: string = ''
     public userAgent: string = ''
+    private _isForm: boolean = false
+    private _queryString: string = ''
 
     constructor(options: {
         method: string
@@ -36,9 +38,23 @@ export class Request implements RequestInterface {
         this.ip = options.ip || ''
         this.userAgent = options.userAgent || this.headers['user-agent'] || ''
 
-        // 解析路径（移除查询字符串）
+        // 解析路径和查询字符串
         const urlObj = new URL(this.url, 'http://localhost')
         this.path = urlObj.pathname
+        this._queryString = urlObj.search
+
+        // 检查是否为表单请求
+        const contentType = this.header('content-type').toLowerCase()
+        this._isForm = contentType.includes('application/x-www-form-urlencoded') ||
+            contentType.includes('multipart/form-data')
+    }
+
+    get isForm(): boolean {
+        return this._isForm
+    }
+
+    get queryString(): string {
+        return this._queryString
     }
 
     /**
@@ -58,13 +74,8 @@ export class Request implements RequestInterface {
     /**
      * 获取输入数据（从 body 和 query 中）
      */
-    input(key?: string, defaultValue?: any): any {
+    input(key: string, defaultValue?: any): any {
         const allInput = { ...this.query, ...this.body }
-
-        if (key === undefined) {
-            return allInput
-        }
-
         return allInput[key] ?? defaultValue
     }
 
@@ -111,26 +122,9 @@ export class Request implements RequestInterface {
     }
 
     /**
-     * 判断是否为表单请求
-     */
-    isForm(): boolean {
-        const contentType = this.header('content-type').toLowerCase()
-        return contentType.includes('application/x-www-form-urlencoded') ||
-            contentType.includes('multipart/form-data')
-    }
-
-    /**
      * 获取完整 URL
      */
     fullUrl(): string {
         return this.url
-    }
-
-    /**
-     * 获取查询字符串
-     */
-    queryString(): string {
-        const urlObj = new URL(this.url, 'http://localhost')
-        return urlObj.search
     }
 } 
