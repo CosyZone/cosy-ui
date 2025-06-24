@@ -1,9 +1,14 @@
-import { ConfigManager, ConfigSource, ConfigValidator, ConfigValidationResult } from './types'
+import {
+    IConfigManager,
+    IConfigSource,
+    IConfigValidator,
+    IConfigValidationResult
+} from '@coffic/cosy-interfaces'
 
-export class Configuration implements ConfigManager {
+export class Configuration implements IConfigManager {
     private config: Record<string, any> = {}
-    private sources: ConfigSource[] = []
-    private validator?: ConfigValidator
+    private sources: IConfigSource[] = []
+    private validator?: IConfigValidator
     private errors: string[] = []
 
     /**
@@ -64,7 +69,7 @@ export class Configuration implements ConfigManager {
     /**
      * 加载配置源
      */
-    async load(source: ConfigSource): Promise<void> {
+    async load(source: IConfigSource): Promise<void> {
         try {
             const config = await source.load()
             this.merge(config)
@@ -107,7 +112,7 @@ export class Configuration implements ConfigManager {
     /**
      * 设置配置验证器
      */
-    setValidator(validator: ConfigValidator): void {
+    setValidator(validator: IConfigValidator): void {
         this.validator = validator
     }
 

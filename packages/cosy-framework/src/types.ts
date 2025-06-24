@@ -1,3 +1,4 @@
+import { IServiceProvider } from '@coffic/cosy-interfaces'
 import { Application } from './application'
 
 /**
@@ -24,22 +25,12 @@ export interface LifecycleHooks {
 }
 
 /**
- * 服务提供者接口
- */
-export interface ServiceProvider {
-    register(app: Application): void | Promise<void>
-    boot?(app: Application): void | Promise<void>
-    start?(app: Application): void | Promise<void>
-    stop?(app: Application): void | Promise<void>
-}
-
-/**
  * 启动选项接口
  */
 export interface BootstrapOptions {
     config?: ApplicationConfig
     configPath?: string
-    providers?: Constructor<ServiceProvider>[]
+    providers?: Constructor<IServiceProvider>[]
     hooks?: LifecycleHooks
 }
 

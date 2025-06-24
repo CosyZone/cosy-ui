@@ -1,7 +1,6 @@
 import {
     ApplicationConfig,
     LifecycleHooks,
-    ServiceProvider
 } from './types'
 
 import { Configuration } from '@coffic/cosy-config'
@@ -9,7 +8,8 @@ import { ServiceContainer } from '@coffic/cosy-container'
 import { cors, errorHandler, logger, Pipeline } from '@coffic/cosy-middleware'
 import { Router } from '@coffic/cosy-router'
 import { Server } from '@coffic/cosy-http'
-import { IRequest, ResponseInterface, IRouteHandler } from '@coffic/cosy-interfaces'
+import { IRequest, ResponseInterface, IRouteHandler, IConfigManager, IContainer, IServiceProvider, IRouter } from '@coffic/cosy-interfaces'
+
 
 /**
  * 应用程序类
@@ -22,14 +22,14 @@ import { IRequest, ResponseInterface, IRouteHandler } from '@coffic/cosy-interfa
  * 5. 生命周期管理
  */
 export class Application {
-    public config: Configuration
+    public config: IConfigManager
     /**
      * 服务容器
      * 
      * 服务容器是应用程序的核心组件，负责管理应用程序的依赖注入和生命周期。
      * 它提供了绑定、解析和获取服务实例的功能。
      */
-    public container: ServiceContainer
+    public container: IContainer
 
     /**
      * 路由器
@@ -37,7 +37,7 @@ export class Application {
      * 路由器是应用程序的路由管理组件，负责处理请求的路由和分发。
      * 它提供了路由注册、匹配和处理的功能。
      */
-    public router: Router
+    public router: IRouter
 
     /**
      * 管道
@@ -76,7 +76,7 @@ export class Application {
      * 服务提供者是应用程序的服务管理组件，负责管理应用程序的服务。
      * 它提供了服务注册、解析和获取的功能。
      */
-    private providers: ServiceProvider[] = []
+    private providers: IServiceProvider[] = []
 
     /**
      * 创建应用程序实例
@@ -123,9 +123,9 @@ export class Application {
      * 注册服务提供者
      * @param provider 服务提供者
      */
-    register(provider: ServiceProvider): void {
+    register(provider: IServiceProvider): void {
         this.providers.push(provider)
-        provider.register(this)
+        provider.register(this.container)
     }
 
     /**
@@ -145,7 +145,7 @@ export class Application {
         // 启动服务提供者
         for (const provider of this.providers) {
             if (provider.boot) {
-                await provider.boot(this)
+                await provider.boot(this.container)
             }
         }
 

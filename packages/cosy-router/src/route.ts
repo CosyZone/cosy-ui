@@ -1,9 +1,9 @@
-import { RouteInterface, RouteHandler, IMiddlewareHandler, CompiledRoute } from '@coffic/cosy-interfaces'
+import { IRoute, IRouteHandler, IMiddlewareHandler, CompiledRoute } from '@coffic/cosy-interfaces'
 
-export class Route implements RouteInterface {
+export class Route implements IRoute {
     public method: string | string[]
     public path: string
-    public handler: RouteHandler
+    public handler: IRouteHandler
     public name?: string
     public middleware: IMiddlewareHandler[] = []
     public constraints: Record<string, RegExp | string> = {}
@@ -13,7 +13,7 @@ export class Route implements RouteInterface {
     constructor(
         method: string | string[],
         path: string,
-        handler: RouteHandler
+        handler: IRouteHandler
     ) {
         this.method = Array.isArray(method) ? method : [method]
         this.path = this.normalizePath(path)

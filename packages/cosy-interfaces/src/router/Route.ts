@@ -3,7 +3,7 @@ import { IRouteHandler, IMiddlewareHandler } from '../middleware'
 /**
  * 路由接口
  */
-export interface RouteInterface {
+export interface IRoute {
     method: string | string[]
     path: string
     handler: IRouteHandler

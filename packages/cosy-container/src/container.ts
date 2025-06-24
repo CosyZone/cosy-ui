@@ -1,5 +1,12 @@
 import 'reflect-metadata'
-import { Container, ServiceBinding, Constructor, ServiceIdentifier, INJECTABLE_TOKEN, INJECT_TOKEN } from './types'
+import {
+    IContainer,
+    IServiceBinding,
+    Constructor,
+    ServiceIdentifier,
+    INJECTABLE_TOKEN,
+    INJECT_TOKEN
+} from '@coffic/cosy-interfaces'
 
 /**
  * 依赖注入容器的核心实现类
@@ -18,9 +25,9 @@ import { Container, ServiceBinding, Constructor, ServiceIdentifier, INJECTABLE_T
  * const db = container.resolve('database');
  * ```
  */
-export class ServiceContainer implements Container {
+export class ServiceContainer implements IContainer {
     /** 存储服务绑定信息的Map */
-    private bindings = new Map<ServiceIdentifier, ServiceBinding>()
+    private bindings = new Map<ServiceIdentifier, IServiceBinding>()
     /** 存储单例服务实例的Map */
     private instances = new Map<ServiceIdentifier, any>()
 

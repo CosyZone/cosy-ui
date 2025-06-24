@@ -1,11 +1,11 @@
 import { IRouteHandler, IMiddlewareHandler } from '../middleware'
-import { RouteInterface } from './RouteInterface'
+import { IRoute } from './Route'
 
 /**
  * 路由匹配结果
  */
-export interface RouteMatch {
-    route: RouteInterface
+export interface IRouteMatch {
+    route: IRoute
     params: Record<string, string>
     middleware?: IMiddlewareHandler | IMiddlewareHandler[]
     name?: string

@@ -1,80 +1,80 @@
 import {
-    RouterInterface,
-    RouteInterface,
-    RouteHandler,
-    RouteMatch,
-    RouteGroupOptions,
+    IRouter,
+    IRoute,
+    IRouteHandler,
+    IRouteMatch,
+    IRouteGroupOptions,
     IMiddlewareHandler,
     HttpMethod
 } from '@coffic/cosy-interfaces'
 import { Route } from './route'
 import { DefaultRouteCompiler } from './compiler'
 
-export class Router implements RouterInterface {
-    private routes: RouteInterface[] = []
+export class Router implements IRouter {
+    private routes: IRoute[] = []
     private compiler = new DefaultRouteCompiler()
-    private groupStack: RouteGroupOptions[] = []
+    private groupStack: IRouteGroupOptions[] = []
 
     /**
      * GET 路由
      */
-    get(path: string, handler: RouteHandler): RouteInterface {
+    get(path: string, handler: IRouteHandler): IRoute {
         return this.addRoute(HttpMethod.GET, path, handler)
     }
 
     /**
      * POST 路由
      */
-    post(path: string, handler: RouteHandler): RouteInterface {
+    post(path: string, handler: IRouteHandler): IRoute {
         return this.addRoute(HttpMethod.POST, path, handler)
     }
 
     /**
      * PUT 路由
      */
-    put(path: string, handler: RouteHandler): RouteInterface {
+    put(path: string, handler: IRouteHandler): IRoute {
         return this.addRoute(HttpMethod.PUT, path, handler)
     }
 
     /**
      * PATCH 路由
      */
-    patch(path: string, handler: RouteHandler): RouteInterface {
+    patch(path: string, handler: IRouteHandler): IRoute {
         return this.addRoute(HttpMethod.PATCH, path, handler)
     }
 
     /**
      * DELETE 路由
      */
-    delete(path: string, handler: RouteHandler): RouteInterface {
+    delete(path: string, handler: IRouteHandler): IRoute {
         return this.addRoute(HttpMethod.DELETE, path, handler)
     }
 
     /**
      * OPTIONS 路由
      */
-    options(path: string, handler: RouteHandler): RouteInterface {
+    options(path: string, handler: IRouteHandler): IRoute {
         return this.addRoute(HttpMethod.OPTIONS, path, handler)
     }
 
     /**
      * HEAD 路由
      */
-    head(path: string, handler: RouteHandler): RouteInterface {
+    head(path: string, handler: IRouteHandler): IRoute {
         return this.addRoute(HttpMethod.HEAD, path, handler)
     }
 
     /**
      * 任意方法的路由
      */
-    any(path: string, handler: RouteHandler): RouteInterface {
+    any(path: string, handler: IRouteHandler): IRoute {
         return this.addRoute(Object.values(HttpMethod), path, handler)
     }
 
     /**
      * 匹配指定方法的路由
      */
-    match(methods: string[], path: string, handler: RouteHandler): RouteInterface {
+    match(methods: string[], path: string, handler: IRouteHandler): IRoute {
         return this.addRoute(methods, path, handler)
     }
 
@@ -82,10 +82,10 @@ export class Router implements RouterInterface {
      * 路由组
      */
     group(
-        optionsOrPrefix: string | RouteGroupOptions,
-        callback: (router: RouterInterface) => void
+        optionsOrPrefix: string | IRouteGroupOptions,
+        callback: (router: IRouter) => void
     ): void {
-        const options: RouteGroupOptions = typeof optionsOrPrefix === 'string'
+        const options: IRouteGroupOptions = typeof optionsOrPrefix === 'string'
             ? { prefix: optionsOrPrefix }
             : optionsOrPrefix
 
@@ -97,7 +97,7 @@ export class Router implements RouterInterface {
     /**
      * 添加中间件
      */
-    middleware(middleware: IMiddlewareHandler | IMiddlewareHandler[]): RouterInterface {
+    middleware(middleware: IMiddlewareHandler | IMiddlewareHandler[]): IRouter {
         const lastRoute = this.routes[this.routes.length - 1] as Route
         if (lastRoute) {
             lastRoute.addMiddleware(middleware)
@@ -108,7 +108,7 @@ export class Router implements RouterInterface {
     /**
      * 设置路由名称
      */
-    name(name: string): RouterInterface {
+    name(name: string): IRouter {
         const lastRoute = this.routes[this.routes.length - 1] as Route
         if (lastRoute) {
             lastRoute.setName(name)
@@ -119,7 +119,7 @@ export class Router implements RouterInterface {
     /**
      * 设置域名
      */
-    domain(domain: string): RouterInterface {
+    domain(domain: string): IRouter {
         const lastRoute = this.routes[this.routes.length - 1] as Route
         if (lastRoute) {
             lastRoute.setDomain(domain)
@@ -130,7 +130,7 @@ export class Router implements RouterInterface {
     /**
      * 解析路由
      */
-    resolve(method: string, path: string): RouteMatch | null {
+    resolve(method: string, path: string): IRouteMatch | null {
         for (const route of this.routes as Route[]) {
             if (!route.matchesMethod(method)) {
                 continue
@@ -153,14 +153,14 @@ export class Router implements RouterInterface {
     /**
      * 获取所有路由
      */
-    getRoutes(): RouteInterface[] {
+    getRoutes(): IRoute[] {
         return [...this.routes]
     }
 
     /**
      * 添加路由
      */
-    private addRoute(method: string | string[], path: string, handler: RouteHandler): RouteInterface {
+    private addRoute(method: string | string[], path: string, handler: IRouteHandler): IRoute {
         // 应用路由组的配置
         const groupOptions = this.mergeGroupOptions()
 
@@ -196,8 +196,8 @@ export class Router implements RouterInterface {
     /**
      * 合并路由组配置
      */
-    private mergeGroupOptions(): RouteGroupOptions {
-        const merged: RouteGroupOptions = {}
+    private mergeGroupOptions(): IRouteGroupOptions {
+        const merged: IRouteGroupOptions = {}
 
         for (const group of this.groupStack) {
             if (group.prefix) {

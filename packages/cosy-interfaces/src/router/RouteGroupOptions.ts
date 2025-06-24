@@ -3,7 +3,7 @@ import { IMiddlewareHandler } from '../middleware'
 /**
  * 路由组选项
  */
-export interface RouteGroupOptions {
+export interface IRouteGroupOptions {
     prefix?: string
     middleware?: IMiddlewareHandler | IMiddlewareHandler[]
     name?: string
