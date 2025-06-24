@@ -18,7 +18,7 @@ export class Pipeline implements IMiddlewarePipeline {
             child: (name: string) => this.logger
         }
 
-        this.logger.info('Pipeline created', {
+        this.logger.debug('Pipeline created', {
             middlewareCount: middlewares.length,
             hasLogger: !!config.logger,
             loggerType: config.logger ? 'provided' : 'default'
@@ -39,7 +39,6 @@ export class Pipeline implements IMiddlewarePipeline {
     pipe(middleware: IMiddlewareHandler): IMiddlewarePipeline {
         this.middlewares.push(middleware)
         this.logger.debug('Middleware added to pipeline', {
-            name: middleware.name,
             total: this.middlewares.length
         })
         return this

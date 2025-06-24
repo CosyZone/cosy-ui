@@ -23,7 +23,6 @@ import { PostService } from './services/post-service'
  * 创建应用实例
  * @description 使用环境变量和默认配置初始化应用
  */
-console.log("🚀🚀 创建应用实例")
 const app = ApplicationFactory.createApiApp({
     name: 'Basic API Example',
     debug: process.env.NODE_ENV !== 'production',

@@ -38,7 +38,7 @@ export class Server implements IServer {
             keepAliveTimeout: config.keepAliveTimeout
         }
 
-        this.logger.info('Server instance created')
+        this.logger.debug('Server instance created')
     }
 
     /**
@@ -54,7 +54,7 @@ export class Server implements IServer {
      */
     use(middleware: IMiddlewareHandler): void {
         this.pipeline.pipe(middleware)
-        this.logger.debug('Middleware added to pipeline', { name: middleware.name })
+        this.logger.debug('Middleware added to pipeline')
     }
 
     /**
@@ -68,7 +68,7 @@ export class Server implements IServer {
         this.config.port = port
         this.config.hostname = hostname
 
-        this.logger.info('Starting server...')
+        this.logger.debug('Starting server...')
 
         // 创建 HTTP 服务器
         this.server = createServer(async (req, res) => {
@@ -135,7 +135,7 @@ export class Server implements IServer {
         // 启动服务器
         await new Promise<void>((resolve) => {
             this.server?.listen(port, hostname, () => {
-                this.logger.info('Server started', {
+                this.logger.debug('Server started', {
                     url: `http://${hostname || 'localhost'}:${port}`,
                     port,
                     hostname: hostname || 'localhost'

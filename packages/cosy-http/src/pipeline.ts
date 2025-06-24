@@ -31,7 +31,6 @@ export class Pipeline implements IMiddlewarePipeline {
     pipe(middleware: IMiddlewareHandler): IMiddlewarePipeline {
         this.middlewares.push(middleware)
         this.logger.debug('Middleware added to pipeline', {
-            name: middleware.name,
             total: this.middlewares.length
         })
         return this

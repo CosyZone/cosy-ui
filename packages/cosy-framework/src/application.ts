@@ -55,7 +55,7 @@ export class Application {
     /**
      * 日志记录器
      */
-    public logger: ILogger
+    private logger: ILogger
 
     /**
      * HTTP 服务器
@@ -108,8 +108,7 @@ export class Application {
         this.registerCoreServices()
 
         // 记录应用程序初始化日志
-        this.logger.info('Application initialized', {
-            name: this.config.get('name', 'Cosy Application'),
+        this.logger.debug('✅ Application initialized', {
             env: this.config.get('env', 'development')
         })
     }
@@ -159,7 +158,7 @@ export class Application {
      * 启动应用程序
      */
     async boot(): Promise<void> {
-        this.logger.info('Booting application...')
+        this.logger.debug('Booting application...')
 
         if (this.booted) {
             this.logger.warn('Application already booted')
@@ -182,7 +181,7 @@ export class Application {
             }
 
             this.booted = true
-            this.logger.info('Application booted successfully')
+            this.logger.debug('Application booted successfully')
 
             // 执行启动后钩子
             if (this.hooks.afterBoot) {
@@ -203,7 +202,7 @@ export class Application {
             // 启动服务提供者
             await this.boot()
 
-            this.logger.info('Starting HTTP server', { port })
+            this.logger.debug('Starting HTTP server', { port })
 
             // 创建 HTTP 服务器，并传入日志记录器
             const server = new Server({
@@ -236,7 +235,7 @@ export class Application {
             // 启动服务器
             await server.listen(port)
             this.server = server
-            this.logger.info('Server started successfully', { port })
+            this.logger.debug('Server started successfully', { port })
         } catch (error) {
             this.logger.error('Failed to start server', { error })
             throw error

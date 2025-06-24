@@ -16,13 +16,8 @@ import { app } from './app'
  */
 async function startServer() {
     try {
-        console.log('🔄 正在启动服务器...')
-
         await app.boot()
         await app.start()
-
-        console.log('✅ 服务器启动成功!')
-        console.log('🏥 健康检查: http://localhost:3000/health')
 
         return app
     } catch (error) {
