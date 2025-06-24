@@ -47,14 +47,10 @@ export class Application {
      * @param config 应用程序配置
      */
     constructor(config: ApplicationConfig = {}) {
-
         this.config = new Configuration()
         this.config.merge(config)
-
         this.container = new ServiceContainer()
-
         this.router = new Router()
-
         this.pipeline = new Pipeline()
 
         // 注册核心服务
@@ -65,12 +61,9 @@ export class Application {
      * 注册核心服务
      */
     private registerCoreServices(): void {
-
-        this.container.bind('app', this)
-
-        this.container.bind('config', this.config)
-
-        this.container.bind('router', this.router)
+        this.container.instance('app', this)
+        this.container.instance('config', this.config)
+        this.container.instance('router', this.router)
     }
 
     /**
@@ -178,7 +171,6 @@ export class Application {
             await this.hooks.afterStop()
         }
     }
-
 
     /**
      * 创建 API 应用程序
