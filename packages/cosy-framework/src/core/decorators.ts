@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import { ApplicationInterface, Constructor } from '../types'
+import { Application, Constructor } from '../types'
 
 // 元数据键
 const APP_METADATA = Symbol('app')
@@ -32,7 +32,7 @@ const CONTROLLER_METADATA = Symbol('controller')
  * @param config 应用程序配置对象
  */
 export function App(config?: any) {
-    return function <T extends Constructor>(target: T) {
+    return function <T extends Constructor<any>>(target: T) {
         Reflect.defineMetadata('app:config', config || {}, target)
         return target
     }
@@ -60,7 +60,7 @@ export function App(config?: any) {
  * ```
  */
 export function AutoRegister() {
-    return function <T extends Constructor>(target: T) {
+    return function <T extends Constructor<any>>(target: T) {
         Reflect.defineMetadata('app:auto-register', true, target)
         return target
     }
@@ -154,7 +154,7 @@ export function shouldAutoRegister(target: any): boolean {
  * @param AppClass 应用程序类
  * @returns 配置好的应用程序实例
  */
-export function createApp(AppClass: Constructor<any>): ApplicationInterface {
+export function createApp(AppClass: Constructor<Application>): Application {
     const config = getAppMetadata(AppClass)
     const app = new AppClass()
 
