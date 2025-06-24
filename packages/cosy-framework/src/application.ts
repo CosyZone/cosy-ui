@@ -16,8 +16,8 @@ import {
     ServiceProvider
 } from './types'
 
-import { ConfigManager } from '@coffic/cosy-config'
-import { Container } from '@coffic/cosy-container'
+import { Configuration } from '@coffic/cosy-config'
+import { ServiceContainer } from '@coffic/cosy-container'
 import { Pipeline } from '@coffic/cosy-middleware'
 import { Router } from '@coffic/cosy-router'
 
@@ -32,8 +32,8 @@ import { Router } from '@coffic/cosy-router'
  * 5. 生命周期管理
  */
 export class Application {
-    public config: ConfigManager
-    public container: Container
+    public config: Configuration
+    public container: ServiceContainer
     public router: Router
     public pipeline: Pipeline
 
@@ -47,14 +47,14 @@ export class Application {
      * @param config 应用程序配置
      */
     constructor(config: ApplicationConfig = {}) {
-        // @ts-ignore
-        this.config = new ConfigManager()
+
+        this.config = new Configuration()
         this.config.merge(config)
-        // @ts-ignore
-        this.container = new Container()
-        // @ts-ignore
+
+        this.container = new ServiceContainer()
+
         this.router = new Router()
-        // @ts-ignore
+
         this.pipeline = new Pipeline()
 
         // 注册核心服务
@@ -65,11 +65,11 @@ export class Application {
      * 注册核心服务
      */
     private registerCoreServices(): void {
-        // @ts-ignore
+
         this.container.bind('app', this)
-        // @ts-ignore
+
         this.container.bind('config', this.config)
-        // @ts-ignore
+
         this.container.bind('router', this.router)
     }
 
