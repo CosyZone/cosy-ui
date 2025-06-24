@@ -1,4 +1,4 @@
-import { RequestInterface, ResponseInterface } from '../http'
+import { IRequest, ResponseInterface } from '../http'
 import { IMiddlewareHandler } from './middleware-handler'
 
 /**
@@ -68,12 +68,12 @@ export interface IConditionalMiddleware {
      * @param condition - 条件函数，返回true时执行中间件
      * @returns 新的中间件处理器
      */
-    when(condition: (request: RequestInterface, response: ResponseInterface) => boolean): IMiddlewareHandler;
+    when(condition: (request: IRequest, response: ResponseInterface) => boolean): IMiddlewareHandler;
 
     /**
      * 当条件不满足时执行中间件
      * @param condition - 条件函数，返回false时执行中间件
      * @returns 新的中间件处理器
      */
-    unless(condition: (request: RequestInterface, response: ResponseInterface) => boolean): IMiddlewareHandler;
+    unless(condition: (request: IRequest, response: ResponseInterface) => boolean): IMiddlewareHandler;
 } 

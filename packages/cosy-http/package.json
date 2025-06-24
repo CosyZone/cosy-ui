@@ -1,41 +1,24 @@
 {
-  "name": "@coffic/cosy-http",
-  "version": "0.1.0",
-  "description": "HTTP module for Cosy Framework",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    "sourceMap": true,
+    "declarationMap": true
+  },
+  "include": [
+    "src/**/*",
+    "src/index.ts"
   ],
-  "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
-    "dev": "pnpm build --watch",
-    "clean": "rimraf dist",
-    "test": "vitest run",
-    "test:watch": "vitest watch",
-    "lint": "eslint src --ext .ts",
-    "lint:fix": "eslint src --ext .ts --fix"
-  },
-  "keywords": [
-    "cosy",
-    "framework",
-    "http"
-  ],
-  "author": "colorfy",
-  "license": "MIT",
-  "dependencies": {
-    "@coffic/cosy-interfaces": "workspace:*",
-    "@coffic/cosy-middleware": "workspace:*"
-  },
-  "devDependencies": {
-    "@types/node": "^20.8.7",
-    "rimraf": "^5.0.5",
-    "tsup": "^7.2.0",
-    "typescript": "^5.2.2",
-    "vitest": "^0.34.6"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+  "exclude": [
+    "node_modules",
+    "dist",
+    "tests"
+  ]
 }

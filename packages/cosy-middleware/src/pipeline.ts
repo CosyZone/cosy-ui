@@ -1,4 +1,4 @@
-import { IMiddlewareHandler, IMiddlewarePipeline, RequestInterface, ResponseInterface, RouteHandler } from '@coffic/cosy-interfaces'
+import { IMiddlewareHandler, IMiddlewarePipeline, IRequest, ResponseInterface, RouteHandler } from '@coffic/cosy-interfaces'
 
 export class Pipeline implements IMiddlewarePipeline {
     private middlewares: IMiddlewareHandler[] = []
@@ -27,7 +27,7 @@ export class Pipeline implements IMiddlewarePipeline {
     /**
      * 执行中间件管道
      */
-    async execute(request: RequestInterface, response: ResponseInterface): Promise<any> {
+    async execute(request: IRequest, response: ResponseInterface): Promise<any> {
         if (!this.finalHandler) {
             throw new Error('No final handler set. Call then() before execute().')
         }

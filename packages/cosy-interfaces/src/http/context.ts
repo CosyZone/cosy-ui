@@ -1,4 +1,4 @@
-import { RequestInterface } from './request'
+import { IRequest } from './request'
 import { ResponseInterface } from './response'
 
 /**
@@ -78,7 +78,7 @@ export interface HttpContextInterface {
      * 请求对象
      * 包含所有请求相关的信息和方法
      */
-    request: RequestInterface;
+    request: IRequest;
 
     /**
      * 响应对象

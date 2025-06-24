@@ -9,7 +9,7 @@ import { FileUpload } from './file-upload'
  * @example
  * ```typescript
  * // 基本用法
- * app.post('/api/users', (req: RequestInterface) => {
+ * app.post('/api/users', (req: IRequest) => {
  *   const name = req.input('name');
  *   const email = req.input('email');
  *   const age = req.input('age', 18); // 带默认值
@@ -20,7 +20,7 @@ import { FileUpload } from './file-upload'
  * });
  * 
  * // 处理文件上传
- * app.post('/upload', (req: RequestInterface) => {
+ * app.post('/upload', (req: IRequest) => {
  *   const file = req.file('document');
  *   if (file) {
  *     console.log(`上传文件: ${file.originalname}`);
@@ -29,7 +29,7 @@ import { FileUpload } from './file-upload'
  * });
  * 
  * // 处理 JSON 请求
- * app.post('/api/data', (req: RequestInterface) => {
+ * app.post('/api/data', (req: IRequest) => {
  *   if (req.isJson()) {
  *     const data = req.body;
  *     // 处理 JSON 数据
@@ -37,7 +37,7 @@ import { FileUpload } from './file-upload'
  * });
  * 
  * // 访问请求头和 Cookie
- * app.get('/api/profile', (req: RequestInterface) => {
+ * app.get('/api/profile', (req: IRequest) => {
  *   const token = req.header('Authorization');
  *   const sessionId = req.cookies['sessionId'];
  *   const userAgent = req.userAgent;
@@ -66,7 +66,7 @@ import { FileUpload } from './file-upload'
  *    - 避免过大的请求体
  *    - 正确处理流数据
  */
-export interface RequestInterface {
+export interface IRequest {
     /**
      * HTTP 请求方法
      * 例如：'GET', 'POST', 'PUT', 'DELETE'

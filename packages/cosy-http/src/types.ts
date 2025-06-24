@@ -45,7 +45,7 @@ export interface CookieOptions {
 /**
  * HTTP 上下文接口
  */
-export interface HttpContextInterface {
+export interface IHttpContext {
     req: IncomingMessage
     res: ServerResponse
     socket: Socket

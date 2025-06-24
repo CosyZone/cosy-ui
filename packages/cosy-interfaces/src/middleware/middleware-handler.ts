@@ -1,4 +1,4 @@
-import { RequestInterface, ResponseInterface } from '../http'
+import { IRequest, ResponseInterface } from '../http'
 
 /**
  * 中间件处理器接口
@@ -49,7 +49,7 @@ import { RequestInterface, ResponseInterface } from '../http'
  * @returns 如果需要提前结束请求处理，可以返回响应对象；否则应该调用next()
  */
 export type IMiddlewareHandler = (
-    request: RequestInterface,
+    request: IRequest,
     response: ResponseInterface,
     next: () => Promise<void>
 ) => Promise<void | ResponseInterface> 

@@ -1,4 +1,4 @@
-import { RequestInterface, ResponseInterface } from './http'
+import { IRequest, ResponseInterface } from './http'
 import { IMiddlewareHandler, RouteHandler } from './middleware'
 
 /**

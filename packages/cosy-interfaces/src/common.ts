@@ -41,18 +41,6 @@ export interface ServiceProvider {
     boot?(): Promise<void>
 }
 
-/**
- * HTTP 相关类型
- */
-export interface Request {
-    method: string
-    path: string
-    params: Record<string, string>
-    query: Record<string, string>
-    headers: Record<string, string>
-    body: any
-}
-
 export interface Response {
     status(code: number): this
     header(name: string, value: string): this

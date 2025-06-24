@@ -2,14 +2,14 @@ import { IncomingMessage, ServerResponse } from 'http'
 import { Socket } from 'net'
 import { Request } from './request'
 import { Response } from './response'
-import { HttpContextInterface } from './types'
+import { IHttpContext } from './types'
 
 /**
  * HTTP 上下文类
  * 
  * 封装了请求和响应对象，提供统一的上下文环境
  */
-export class Context implements HttpContextInterface {
+export class Context implements IHttpContext {
     public req: IncomingMessage
     public res: ServerResponse
     public socket: Socket

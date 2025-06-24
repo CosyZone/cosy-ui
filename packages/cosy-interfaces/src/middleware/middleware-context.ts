@@ -1,4 +1,4 @@
-import { RequestInterface, ResponseInterface } from '../http'
+import { IRequest, ResponseInterface } from '../http'
 
 /**
  * 中间件上下文接口
@@ -103,7 +103,7 @@ export interface IMiddlewareContext {
     /**
      * HTTP请求对象
      */
-    request: RequestInterface;
+    request: IRequest;
 
     /**
      * HTTP响应对象

@@ -1,4 +1,4 @@
-import { RequestInterface, ResponseInterface } from '../http'
+import { IRequest, ResponseInterface } from '../http'
 import { IMiddlewareHandler } from './middleware-handler'
 import { RouteHandler } from './route-handler'
 
@@ -75,6 +75,6 @@ export interface IMiddlewarePipeline {
     pipe(middleware: IMiddlewareHandler): IMiddlewarePipeline
     through(middlewares: IMiddlewareHandler[]): IMiddlewarePipeline
     then(finalHandler: RouteHandler): Promise<any>
-    execute(request: RequestInterface, response: ResponseInterface): Promise<any>
+    execute(request: IRequest, response: ResponseInterface): Promise<any>
     count(): number
 } 

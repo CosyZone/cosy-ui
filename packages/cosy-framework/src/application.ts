@@ -8,6 +8,8 @@ import { Configuration } from '@coffic/cosy-config'
 import { ServiceContainer } from '@coffic/cosy-container'
 import { cors, errorHandler, logger, Pipeline } from '@coffic/cosy-middleware'
 import { Router } from '@coffic/cosy-router'
+import { createServer, Server } from 'http'
+import { Context } from '@coffic/cosy-http'
 
 /**
  * 应用程序类
@@ -44,6 +46,11 @@ export class Application {
      * 它提供了中间件注册、匹配和处理的功能。
      */
     public pipeline: Pipeline
+
+    /**
+     * HTTP 服务器
+     */
+    private server: Server | null = null
 
     /**
      * 生命周期钩子
@@ -176,6 +183,47 @@ export class Application {
             }
         }
 
+        // 创建 HTTP 服务器
+        this.server = createServer(async (req, res) => {
+            const ctx = new Context(req, res)
+
+            try {
+                // 运行中间件管道
+                await this.pipeline.execute(ctx.request, ctx.response)
+
+                // 如果响应还没有发送，尝试路由匹配
+                if (!res.headersSent) {
+                    const route = this.router.match(req.method || 'GET', req.url || '/')
+                    if (route) {
+                        const result = await route.handler(ctx.request, ctx.response)
+                        if (result !== undefined && !res.headersSent) {
+                            ctx.response.json(result)
+                        }
+                    } else {
+                        ctx.response.status(404).json({ error: 'Not Found' })
+                    }
+                }
+
+                // 确保响应被发送
+                if (!res.headersSent) {
+                    ctx.response.end()
+                }
+            } catch (error) {
+                console.error('Request handling error:', error)
+                if (!res.headersSent) {
+                    ctx.response.status(500).json({ error: 'Internal Server Error' })
+                }
+            }
+        })
+
+        // 启动服务器
+        await new Promise<void>((resolve) => {
+            this.server?.listen(port, () => {
+                console.log(`[Cosy Framework] Server is running at http://localhost:${port}`)
+                resolve()
+            })
+        })
+
         this.started = true
 
         // 执行启动后钩子
@@ -185,30 +233,21 @@ export class Application {
     }
 
     /**
-     * 停止应用程序
+     * 停止 HTTP 服务器
      */
     async stop(): Promise<void> {
-        if (!this.started) {
-            return
-        }
-
-        // 执行停止前钩子
-        if (this.hooks.beforeStop) {
-            await this.hooks.beforeStop()
-        }
-
-        // 停止服务提供者
-        for (const provider of this.providers) {
-            if (provider.stop) {
-                await provider.stop(this)
-            }
-        }
-
-        this.started = false
-
-        // 执行停止后钩子
-        if (this.hooks.afterStop) {
-            await this.hooks.afterStop()
+        if (this.server) {
+            await new Promise<void>((resolve, reject) => {
+                this.server?.close((err) => {
+                    if (err) {
+                        reject(err)
+                    } else {
+                        resolve()
+                    }
+                })
+            })
+            this.server = null
+            this.started = false
         }
     }
 
