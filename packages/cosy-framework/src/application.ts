@@ -1,18 +1,6 @@
-/**
- * 应用程序核心模块
- * 
- * 本模块实现了框架的核心应用程序类，提供：
- * 1. 应用程序生命周期管理（启动、运行、停止）
- * 2. HTTP 服务器集成
- * 3. 服务容器集成（依赖注入）
- * 4. 路由系统（RESTful API）
- * 5. 中间件系统（请求处理管道）
- * 6. 配置管理（环境配置）
- */
-
 import {
     ApplicationConfig,
-    LifecycleHooks as ApplicationLifecycleHooks,
+    LifecycleHooks,
     ServiceProvider
 } from './types'
 
@@ -33,13 +21,54 @@ import { Router } from '@coffic/cosy-router'
  */
 export class Application {
     public config: Configuration
+    /**
+     * 服务容器
+     * 
+     * 服务容器是应用程序的核心组件，负责管理应用程序的依赖注入和生命周期。
+     * 它提供了绑定、解析和获取服务实例的功能。
+     */
     public container: ServiceContainer
+
+    /**
+     * 路由器
+     * 
+     * 路由器是应用程序的路由管理组件，负责处理请求的路由和分发。
+     * 它提供了路由注册、匹配和处理的功能。
+     */
     public router: Router
+
+    /**
+     * 管道
+     * 
+     * 管道是应用程序的中间件管理组件，负责处理请求的中间件和响应的中间件。
+     * 它提供了中间件注册、匹配和处理的功能。
+     */
     public pipeline: Pipeline
 
-    private hooks: ApplicationLifecycleHooks = {}
+    /**
+     * 生命周期钩子
+     * 
+     * 生命周期钩子是应用程序的生命周期管理组件，负责处理应用程序的生命周期。
+     * 它提供了生命周期钩子的注册和执行的功能。
+     */
+    private hooks: LifecycleHooks = {}
+
+    /**
+     * 是否已启动
+     */
     private booted: boolean = false
+
+    /**
+     * 是否已启动
+     */
     private started: boolean = false
+
+    /**
+     * 服务提供者
+     * 
+     * 服务提供者是应用程序的服务管理组件，负责管理应用程序的服务。
+     * 它提供了服务注册、解析和获取的功能。
+     */
     private providers: ServiceProvider[] = []
 
     /**
@@ -70,7 +99,7 @@ export class Application {
      * 设置生命周期钩子
      * @param hooks 生命周期钩子
      */
-    setHooks(hooks: ApplicationLifecycleHooks): void {
+    setHooks(hooks: LifecycleHooks): void {
         this.hooks = hooks
     }
 

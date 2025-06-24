@@ -30,18 +30,18 @@ const app = Application.createApiApp({
     port: parseInt(process.env.PORT || '3000')
 })
 
-// /**
-//  * 服务注册
-//  * @description 注册应用所需的核心服务
-//  */
-// app.bind('UserService', UserService)
-// app.bind('PostService', PostService)
+/**
+ * 服务注册
+ * @description 注册应用所需的核心服务
+ */
+app.container.bind('UserService', UserService)
+app.container.bind('PostService', PostService)
 
-// /**
-//  * 中间件配置
-//  * @description 注册认证中间件和配置全局中间件
-//  */
-// app.middleware('auth', AuthMiddleware)
+/**
+ * 中间件配置
+ * @description 注册认证中间件和配置全局中间件
+ */
+app.pipeline.use(AuthMiddleware)
 
 // // 全局中间件配置
 // app.use(cors({
