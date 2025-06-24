@@ -3,7 +3,7 @@
  * 
  * 本模块实现了框架的核心应用程序类，提供：
  * 1. 应用程序生命周期管理（启动、运行、停止）
- * 2. HTTP 服务器集成（基于 Fastify）
+ * 2. HTTP 服务器集成
  * 3. 服务容器集成（依赖注入）
  * 4. 路由系统（RESTful API）
  * 5. 中间件系统（请求处理管道）
@@ -11,11 +11,9 @@
  */
 
 import {
-    Application as ApplicationInterface,
     ApplicationConfig,
     LifecycleHooks as ApplicationLifecycleHooks,
-    ServiceProvider,
-    Constructor
+    ServiceProvider
 } from './types'
 
 import { ConfigManager } from '@coffic/cosy-config'
@@ -33,7 +31,7 @@ import { Router } from '@coffic/cosy-router'
  * 4. 路由管理
  * 5. 生命周期管理
  */
-export class Application implements ApplicationInterface {
+export class Application {
     public config: ConfigManager
     public container: Container
     public router: Router

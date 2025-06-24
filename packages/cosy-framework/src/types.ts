@@ -1,7 +1,4 @@
-import { ConfigManager } from '@coffic/cosy-config'
-import { Container } from '@coffic/cosy-container'
-import { Pipeline } from '@coffic/cosy-middleware'
-import { Router } from '@coffic/cosy-router'
+import { Application } from './application'
 
 /**
  * 应用程序配置接口
@@ -34,20 +31,6 @@ export interface ServiceProvider {
     boot?(app: Application): void | Promise<void>
     start?(app: Application): void | Promise<void>
     stop?(app: Application): void | Promise<void>
-}
-
-/**
- * 应用程序接口
- */
-export interface Application {
-    config: ConfigManager
-    container: Container
-    router: Router
-    pipeline: Pipeline
-    register(provider: ServiceProvider): void
-    boot(): Promise<void>
-    start(port?: number): Promise<void>
-    stop(): Promise<void>
 }
 
 /**
