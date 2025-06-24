@@ -1,13 +1,15 @@
 {
   "name": "@coffic/cosy-framework-example",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
-  "description": "Basic API example using Cosy Framework",
+  "description": "Example application using Cosy Framework",
+  "type": "module",
   "main": "dist/server.js",
   "scripts": {
+    "dev": "node ../cosy-framework/dist/cli/bin.js serve",
+    "start": "node ../cosy-framework/dist/cli/bin.js serve",
     "build": "tsc",
-    "start": "node dist/server.js",
-    "dev": "NODE_OPTIONS='--enable-source-maps' tsx watch src/server.ts",
+    "clean": "rimraf dist",
     "test": "vitest",
     "test:api": "tsx tests/api.test.ts"
   },

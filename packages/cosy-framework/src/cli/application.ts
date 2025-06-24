@@ -99,8 +99,7 @@ export class CliApplication extends Application {
      * 启动命令行应用程序
      * 覆盖父类的start方法，移除HTTP服务器相关的逻辑
      */
-    override async start(): Promise<void> {
-        await this.boot()
+    async start(): Promise<void> {
         await this.runCommand()
     }
 } 
