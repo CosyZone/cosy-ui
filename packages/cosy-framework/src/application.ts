@@ -9,7 +9,7 @@ import { ServiceContainer } from '@coffic/cosy-container'
 import { cors, errorHandler, logger, Pipeline } from '@coffic/cosy-middleware'
 import { Router } from '@coffic/cosy-router'
 import { Server } from '@coffic/cosy-http'
-import { IRequest, ResponseInterface, RouteHandler } from '@coffic/cosy-interfaces'
+import { IRequest, ResponseInterface, IRouteHandler } from '@coffic/cosy-interfaces'
 
 /**
  * 应用程序类
@@ -173,7 +173,7 @@ export class Application {
         }
 
         // 设置路由处理器
-        const routeHandler: RouteHandler = async (request: IRequest, response: ResponseInterface) => {
+        const routeHandler: IRouteHandler = async (request: IRequest, response: ResponseInterface) => {
             const route = this.router.resolve(request.method, request.path)
             if (route) {
                 return route.handler(request, response)

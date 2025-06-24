@@ -1,8 +1,8 @@
-import { IMiddlewareHandler, IMiddlewarePipeline, IRequest, ResponseInterface, RouteHandler } from '@coffic/cosy-interfaces'
+import { IMiddlewareHandler, IMiddlewarePipeline, IRequest, ResponseInterface, IRouteHandler } from '@coffic/cosy-interfaces'
 
 export class Pipeline implements IMiddlewarePipeline {
     private middlewares: IMiddlewareHandler[] = []
-    private finalHandler?: RouteHandler
+    private finalHandler?: IRouteHandler
 
     constructor(middlewares: IMiddlewareHandler[] = []) {
         this.middlewares = middlewares
@@ -60,7 +60,7 @@ export class Pipeline implements IMiddlewarePipeline {
     /**
      * 添加最终处理器并执行
      */
-    async then(finalHandler: RouteHandler): Promise<any> {
+    async then(finalHandler: IRouteHandler): Promise<any> {
         this.finalHandler = finalHandler
         return this
     }

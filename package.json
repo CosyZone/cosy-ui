@@ -11,7 +11,7 @@
     "build:middleware": "pnpm build:interfaces && pnpm --filter @coffic/cosy-middleware build",
     "build:container": "pnpm build:interfaces && pnpm --filter @coffic/cosy-container build",
     "build:config": "pnpm --filter @coffic/cosy-config build",
-    "build:framework": "pnpm build:middleware && pnpm build:router && pnpm build:container && pnpm build:config && pnpm build:http && pnpm --filter @coffic/cosy-framework build",
+    "build:framework": "pnpm --filter @coffic/cosy-framework build",
     "build:http": "pnpm build:interfaces && pnpm --filter @coffic/cosy-http build",
     "build:docs": "pnpm build:astro && pnpm --filter @coffic/cosy-ui-docs build",
     "dev:docs": "pnpm build:astro && pnpm --filter @coffic/cosy-ui-docs dev",

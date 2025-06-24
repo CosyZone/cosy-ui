@@ -1,6 +1,6 @@
 import { IRequest, ResponseInterface } from '../http'
 import { IMiddlewareHandler } from './middleware-handler'
-import { RouteHandler } from './route-handler'
+import { IRouteHandler } from './route-handler'
 
 /**
  * 中间件管道接口
@@ -74,7 +74,7 @@ export interface IMiddlewarePipeline {
      */
     pipe(middleware: IMiddlewareHandler): IMiddlewarePipeline
     through(middlewares: IMiddlewareHandler[]): IMiddlewarePipeline
-    then(finalHandler: RouteHandler): Promise<any>
+    then(finalHandler: IRouteHandler): Promise<any>
     execute(request: IRequest, response: ResponseInterface): Promise<any>
     count(): number
     /**

@@ -49,6 +49,7 @@ app.pipeline.pipe(AuthMiddleware)
  * @description 提供基本的健康检查端点
  */
 app.router.get('/health', (req, res) => {
+    console.log('🚀🚀 健康检查路由')
     return res.json({
         status: 'ok',
         timestamp: new Date().toISOString(),
