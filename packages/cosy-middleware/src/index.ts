@@ -33,12 +33,16 @@ export {
 } from './decorators'
 
 // 导出类型
-export {
+export type {
     MiddlewareHandler,
     IMiddlewareHandler,
     HttpContextInterface,
     MiddlewareManager,
-    MiddlewarePipeline,
+    MiddlewarePipeline
+} from './types'
+
+// 导出函数
+export {
     createMiddlewareAdapter,
     createBaseMiddlewareAdapter
 } from './types'
