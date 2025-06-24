@@ -46,7 +46,7 @@ export class ApplicationFactory {
             context: {
                 source: 'framework' // 标记这是框架日志
             },
-            prefix: '💤' // 为框架日志添加火箭emoji前缀
+            prefix: '💤' // 为框架日志添加前缀
         })
     }
 
