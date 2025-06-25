@@ -1,4 +1,4 @@
-import { ApplicationConfig } from '../../types.js'
+import { ApplicationConfig } from '../types.js'
 import { ILifecycleHooks } from '@coffic/cosy-interfaces'
 import { cors, errorHandler, logger } from '@coffic/cosy-middleware'
 import { Server } from '@coffic/cosy-http'

@@ -11,11 +11,11 @@
  */
 
 export * from './types.js'
-export * from './core/web/bootstrap.js'
-export * from './core/web/decorators.js'
-export * from './core/web/helpers.js'
+export * from './web/bootstrap.js'
+export * from './web/decorators.js'
+export * from './web/helpers.js'
 export * from './factory.js'
-export * from './core/cli/commander-app.js'
-export * from './commands/serve-commander.js'
-export * from './commands/env-commander.js'
-export * from './commands/example-custom-command.js' 
+export * from './cli/commander-app.js'
+export * from './cli/commands/serve-commander.js'
+export * from './cli/commands/env-commander.js'
+export * from './cli/commands/example-custom-command.js' 

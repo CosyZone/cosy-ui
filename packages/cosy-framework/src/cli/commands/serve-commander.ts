@@ -1,5 +1,5 @@
 import { Command } from 'commander'
-import { ApplicationFactory } from '../factory.js'
+import { ApplicationFactory } from '../../factory.js'
 
 /**
  * 配置 serve 命令

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import { ApplicationFactory } from '../../factory.js'
-import { configureServeCommand } from '../../commands/serve-commander.js'
-import { configureEnvCommand } from '../../commands/env-commander.js'
-import { configureCustomCommand, configureProjectInfoCommand } from '../../commands/example-custom-command.js'
+import { ApplicationFactory } from './factory.js'
+import { configureServeCommand } from './cli/commands/serve-commander.js'
+import { configureEnvCommand } from './cli/commands/env-commander.js'
+import { configureCustomCommand, configureProjectInfoCommand } from './cli/commands/example-custom-command.js'
 
 /**
  * Cosy Framework CLI 入口点 (Commander.js 版本)
