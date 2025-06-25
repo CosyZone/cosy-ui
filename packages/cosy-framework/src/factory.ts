@@ -6,7 +6,8 @@ import { Logger } from '@coffic/cosy-logger'
 import { IConfigManager, IContainer, IRouter, ILogger, LogLevel } from '@coffic/cosy-interfaces'
 import { WebApplication, WebApplicationDependencies } from './core/web/web-app.js'
 import { ApplicationConfig } from './types.js'
-import { CliApplication, CliApplicationConfig } from './core/cli/cli-app.js'
+
+import { CommanderApp } from './core/cli/commander-app.js'
 
 /**
  * 应用程序工厂类
@@ -162,23 +163,35 @@ export class ApplicationFactory {
      * @example
      * ```typescript
      * const app = ApplicationFactory.createCliApp({
-     *   name: 'My CLI App',
-     *   debug: true
+     *   name: 'cosy',
+     *   description: 'Cosy Framework CLI',
+     *   version: '1.0.0'
      * });
      * 
-     * app.registerCommand(new MyCommand());
-     * app.runCommand();
+     * app.command('serve').action(async () => {
+     *   // 执行 serve 命令
+     * });
+     * 
+     * await app.parse();
      * ```
      * 
      * @param config CLI 应用程序配置
-     * @param customLogger 自定义日志记录器
      * @returns CLI Application 实例
      */
-    static createCliApp(
-        config: CliApplicationConfig = {},
-        customLogger?: ILogger
-    ): CliApplication {
-        const logger = customLogger || ApplicationFactory.createLogger('cli')
-        return new CliApplication(logger, config)
+    static createCliApp(config: {
+        name?: string
+        description?: string
+        version?: string
+        debug?: boolean
+    } = {}): CommanderApp {
+        const logger = ApplicationFactory.createLogger('cli')
+
+        return new CommanderApp(logger, {
+            name: config.name || 'cosy',
+            description: config.description || 'Cosy Framework CLI',
+            version: config.version || '0.1.0'
+        })
     }
+
+
 } 

@@ -68,17 +68,20 @@
     "test:coverage": "nx vite:test --coverage"
   },
   "dependencies": {
-    "@coffic/cosy-router": "workspace:*",
+    "@coffic/cosy-config": "workspace:*",
+    "@coffic/cosy-container": "workspace:*",
+    "@coffic/cosy-http": "workspace:*",
     "@coffic/cosy-interfaces": "workspace:*",
     "@coffic/cosy-middleware": "workspace:*",
-    "@coffic/cosy-container": "workspace:*",
-    "@coffic/cosy-config": "workspace:*",
-    "@coffic/cosy-http": "workspace:*"
+    "@coffic/cosy-router": "workspace:*",
+    "commander": "^14.0.0",
+    "drizzle-orm": "^0.44.2"
   },
   "devDependencies": {
     "@types/node": "^20.12.12",
     "@vitest/coverage-v8": "^1.2.2",
     "concurrently": "^9.2.0",
+    "drizzle-kit": "^0.31.2",
     "rimraf": "^5.0.5",
     "typescript": "^5.3.3",
     "vitest": "^1.6.0"
