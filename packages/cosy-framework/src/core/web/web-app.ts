@@ -3,6 +3,7 @@ import { ILifecycleHooks } from '@coffic/cosy-interfaces'
 import { cors, errorHandler, logger } from '@coffic/cosy-middleware'
 import { Server } from '@coffic/cosy-http'
 import { IRequest, ResponseInterface, IRouteHandler, IConfigManager, IContainer, IServiceProvider, IRouter, IMiddlewarePipeline, IServer, ILogger } from '@coffic/cosy-interfaces'
+import { Application } from '../base/application.js'
 
 /**
  * 应用程序配置接口
@@ -26,8 +27,9 @@ export interface WebApplicationDependencies {
  * 5. 生命周期管理
  * 6. 日志管理
  */
-export class WebApplication {
+export class WebApplication extends Application {
     public config: IConfigManager
+
     /**
      * 服务容器
      * 
@@ -51,11 +53,6 @@ export class WebApplication {
      * 它提供了中间件注册、匹配和处理的功能。
      */
     public pipeline: IMiddlewarePipeline
-
-    /**
-     * 日志记录器
-     */
-    private logger: ILogger
 
     /**
      * HTTP 服务器
@@ -92,11 +89,18 @@ export class WebApplication {
         appConfig: ApplicationConfig = {},
         dependencies: WebApplicationDependencies
     ) {
+        // 调用基类构造函数，传入日志记录器和应用配置
+        super(
+            dependencies.logger,
+            appConfig.name || 'Web Application',
+            appConfig.env || 'development',
+            appConfig.debug || false
+        )
+
         this.config = dependencies.config
         this.container = dependencies.container
         this.router = dependencies.router
         this.pipeline = dependencies.pipeline
-        this.logger = dependencies.logger
 
         // 合并配置
         this.config.merge(appConfig)
@@ -108,8 +112,10 @@ export class WebApplication {
         this.registerCoreServices()
 
         // 记录应用程序初始化日志
-        this.logger.debug('✅ Application initialized', {
-            env: this.config.get('env', 'development')
+        this.logger.debug('✅ Web Application initialized', {
+            name: this.getName(),
+            env: this.getEnv(),
+            debug: this.isDebug()
         })
     }
 
@@ -117,6 +123,8 @@ export class WebApplication {
      * 注册默认中间件
      */
     private registerDefaultMiddlewares(): void {
+        this.logger.debug('Registering default middlewares')
+
         // 注册日志中间件
         this.pipeline.pipe(logger)
 
@@ -131,6 +139,8 @@ export class WebApplication {
      * 注册核心服务
      */
     private registerCoreServices(): void {
+        this.logger.debug('Registering core services')
+
         this.container.instance('app', this)
         this.container.instance('config', this.config)
         this.container.instance('router', this.router)
@@ -143,6 +153,10 @@ export class WebApplication {
      */
     setHooks(hooks: ILifecycleHooks): void {
         this.hooks = hooks
+        this.logger.debug('Lifecycle hooks set', {
+            hasBeforeBoot: !!hooks.beforeBoot,
+            hasAfterBoot: !!hooks.afterBoot
+        })
     }
 
     /**
@@ -152,6 +166,9 @@ export class WebApplication {
     register(provider: IServiceProvider): void {
         this.providers.push(provider)
         provider.register(this.container)
+        this.logger.debug('Service provider registered', {
+            provider: provider.constructor.name
+        })
     }
 
     /**
@@ -181,7 +198,7 @@ export class WebApplication {
             }
 
             this.booted = true
-            this.logger.debug('Application booted successfully')
+            this.logger.info('Application booted successfully')
 
             // 执行启动后钩子
             if (this.hooks.afterBoot) {
@@ -202,12 +219,12 @@ export class WebApplication {
             // 启动服务提供者
             await this.boot()
 
-            this.logger.debug('Starting HTTP server', { port })
+            this.logger.info('Starting HTTP server', { port })
 
             // 创建 HTTP 服务器，并传入日志记录器
             const server = new Server({
                 port,
-                logger: this.logger.child('http')
+                logger: this.createChildLogger('http')
             })
 
             // 添加全局中间件
@@ -235,7 +252,11 @@ export class WebApplication {
             // 启动服务器
             await server.listen(port)
             this.server = server
-            this.logger.debug('Server started successfully', { port })
+            this.logger.info('Server started successfully', {
+                port,
+                name: this.getName(),
+                env: this.getEnv()
+            })
         } catch (error) {
             this.logger.error('Failed to start server', { error })
             throw error

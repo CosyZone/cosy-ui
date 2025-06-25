@@ -1,6 +1,14 @@
-
-import { ICommand } from '@coffic/cosy-interfaces'
+import { ICommand, ILogger } from '@coffic/cosy-interfaces'
 import { Application } from '../base/application.js'
+
+/**
+ * 命令行应用程序配置接口
+ */
+export interface CliApplicationConfig {
+    name?: string
+    env?: string
+    debug?: boolean
+}
 
 /**
  * 命令行应用程序类
@@ -15,6 +23,30 @@ export class CliApplication extends Application {
     private commands: Map<string, ICommand> = new Map()
 
     /**
+     * 创建命令行应用程序实例
+     * @param logger 日志记录器
+     * @param config 应用程序配置
+     */
+    constructor(
+        logger: ILogger,
+        config: CliApplicationConfig = {}
+    ) {
+        super(
+            logger,
+            config.name || 'CLI Application',
+            config.env || 'development',
+            config.debug || false
+        )
+
+        // 记录CLI应用程序初始化日志
+        this.logger.info('CLI Application initialized', {
+            name: this.getName(),
+            env: this.getEnv(),
+            debug: this.isDebug()
+        })
+    }
+
+    /**
      * 注册命令
      * @param command 命令实例
      */
@@ -23,7 +55,12 @@ export class CliApplication extends Application {
         if (!name) {
             throw new Error('Command name cannot be empty')
         }
+
         this.commands.set(name, command)
+        this.logger.debug('Command registered', {
+            name,
+            description: command.getDescription()
+        })
     }
 
     /**
@@ -46,6 +83,8 @@ export class CliApplication extends Application {
      * @param args 命令行参数
      */
     async runCommand(args: string[] = process.argv.slice(2)): Promise<void> {
+        this.logger.debug('Starting command execution', { args })
+
         if (args.length === 0 || args[0] === '--help' || args[0] === '-h') {
             this.showHelp()
             return
@@ -53,22 +92,30 @@ export class CliApplication extends Application {
 
         const commandName = args[0]
         if (!commandName) {
-            console.error('Command name is required')
+            this.logger.error('Command name is required')
             this.showHelp()
             return
         }
 
         const command = this.getCommand(commandName)
         if (!command) {
-            console.error(`Command "${commandName}" not found`)
+            this.logger.error('Command not found', { commandName })
             this.showHelp()
             return
         }
 
         try {
+            this.logger.info('Executing command', {
+                commandName,
+                args: args.slice(1)
+            })
             await command.execute(args.slice(1))
+            this.logger.info('Command executed successfully', { commandName })
         } catch (error) {
-            console.error(`Failed to execute command "${commandName}"`, error)
+            this.logger.error('Failed to execute command', {
+                commandName,
+                error: error instanceof Error ? error.message : String(error)
+            })
             throw error
         }
     }
@@ -77,7 +124,9 @@ export class CliApplication extends Application {
      * 显示帮助信息
      */
     private showHelp(): void {
-        console.log('\nAvailable commands:')
+        this.logger.debug('Showing help information')
+
+        console.log(`\n${this.getName()} - Available commands:`)
         for (const [name, command] of this.commands) {
             console.log(`  ${name.padEnd(20)} ${command.getDescription()}`)
         }

@@ -6,7 +6,7 @@ import { Logger } from '@coffic/cosy-logger'
 import { IConfigManager, IContainer, IRouter, ILogger, LogLevel } from '@coffic/cosy-interfaces'
 import { WebApplication, WebApplicationDependencies } from './core/web/web-app.js'
 import { ApplicationConfig } from './types.js'
-import { CliApplication } from './core/cli/cli-app.js'
+import { CliApplication, CliApplicationConfig } from './core/cli/cli-app.js'
 
 /**
  * 应用程序工厂类
@@ -38,16 +38,36 @@ export class ApplicationFactory {
 
     /**
      * 创建日志记录器
+     * @param appType 应用程序类型，用于区分不同的日志记录器配置
      */
-    protected static createLogger(): ILogger {
-        return new Logger({
+    protected static createLogger(appType: 'web' | 'cli' = 'web'): ILogger {
+        const baseConfig = {
             pretty: true, // 开发环境下默认美化输出
             timestamp: false,
             level: LogLevel.DEBUG, // 启用调试级别的日志
             context: {
                 source: 'framework' // 标记这是框架日志
-            },
-            prefix: '💤' // 为框架日志添加前缀
+            }
+        }
+
+        if (appType === 'cli') {
+            return new Logger({
+                ...baseConfig,
+                prefix: '🔧', // CLI 应用程序前缀
+                context: {
+                    ...baseConfig.context,
+                    type: 'cli'
+                }
+            })
+        }
+
+        return new Logger({
+            ...baseConfig,
+            prefix: '💤', // Web 应用程序前缀
+            context: {
+                ...baseConfig.context,
+                type: 'web'
+            }
         })
     }
 
@@ -55,7 +75,7 @@ export class ApplicationFactory {
      * 创建默认依赖
      */
     protected static createDefaultDependencies(): WebApplicationDependencies {
-        const logger = ApplicationFactory.createLogger()
+        const logger = ApplicationFactory.createLogger('web')
         const pipelineLogger = logger.child('pipeline', { component: 'pipeline' })
         const pipeline = new Pipeline([], { logger: pipelineLogger })
 
@@ -140,15 +160,24 @@ export class ApplicationFactory {
      * 
      * @example
      * ```typescript
-     * const app = CliApplicationFactory.create();
+     * const app = ApplicationFactory.createCliApp({
+     *   name: 'My CLI App',
+     *   debug: true
+     * });
      * 
      * app.registerCommand(new MyCommand());
-     * app.start();
+     * app.runCommand();
      * ```
      * 
+     * @param config CLI 应用程序配置
+     * @param customLogger 自定义日志记录器
      * @returns CLI Application 实例
      */
-    static createCliApp(): CliApplication {
-        return new CliApplication()
+    static createCliApp(
+        config: CliApplicationConfig = {},
+        customLogger?: ILogger
+    ): CliApplication {
+        const logger = customLogger || ApplicationFactory.createLogger('cli')
+        return new CliApplication(logger, config)
     }
 } 
