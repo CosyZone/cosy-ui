@@ -1,4 +1,4 @@
-import ToastBasicContainer from './ToastBasicContainer.astro.js';
+import ToastBasicContainer from './ToastBasicContainer.astro';
 
 export const ToastPackage = {
     ToastContainers: {

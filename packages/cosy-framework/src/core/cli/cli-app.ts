@@ -1,7 +1,6 @@
-import { Application } from '../core/app/application.js'
-import { ApplicationConfig } from '../types.js'
-import { ApplicationDependencies } from '../core/app/application.js'
+
 import { ICommand } from '@coffic/cosy-interfaces'
+import { Application } from '../base/application.js'
 
 /**
  * 命令行应用程序类
@@ -14,16 +13,6 @@ import { ICommand } from '@coffic/cosy-interfaces'
  */
 export class CliApplication extends Application {
     private commands: Map<string, ICommand> = new Map()
-
-    /**
-     * 创建命令行应用程序实例
-     */
-    constructor(
-        appConfig: ApplicationConfig = {},
-        dependencies: ApplicationDependencies
-    ) {
-        super(appConfig, dependencies)
-    }
 
     /**
      * 注册命令
@@ -93,13 +82,5 @@ export class CliApplication extends Application {
             console.log(`  ${name.padEnd(20)} ${command.getDescription()}`)
         }
         console.log('\nUse --help with any command for more information\n')
-    }
-
-    /**
-     * 启动命令行应用程序
-     * 覆盖父类的start方法，移除HTTP服务器相关的逻辑
-     */
-    override async start(): Promise<void> {
-        await this.runCommand()
     }
 } 

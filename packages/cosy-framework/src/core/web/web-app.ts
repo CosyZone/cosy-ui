@@ -7,7 +7,7 @@ import { IRequest, ResponseInterface, IRouteHandler, IConfigManager, IContainer,
 /**
  * 应用程序配置接口
  */
-export interface ApplicationDependencies {
+export interface WebApplicationDependencies {
     config: IConfigManager;
     container: IContainer;
     router: IRouter;
@@ -26,7 +26,7 @@ export interface ApplicationDependencies {
  * 5. 生命周期管理
  * 6. 日志管理
  */
-export class Application {
+export class WebApplication {
     public config: IConfigManager
     /**
      * 服务容器
@@ -90,7 +90,7 @@ export class Application {
      */
     constructor(
         appConfig: ApplicationConfig = {},
-        dependencies: ApplicationDependencies
+        dependencies: WebApplicationDependencies
     ) {
         this.config = dependencies.config
         this.container = dependencies.container

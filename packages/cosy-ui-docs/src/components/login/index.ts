@@ -1,7 +1,7 @@
-import ELoginBasic from './ELoginBasic.astro.js';
-import ELoginBasicContainer from './ELoginBasicContainer.astro.js';
-import ELoginCustomStyle from './ELoginCustomStyle.astro.js';
-import ELoginCustomStyleContainer from './ELoginCustomStyleContainer.astro.js';
+import ELoginBasic from './ELoginBasic.astro';
+import ELoginBasicContainer from './ELoginBasicContainer.astro';
+import ELoginCustomStyle from './ELoginCustomStyle.astro';
+import ELoginCustomStyleContainer from './ELoginCustomStyleContainer.astro';
 
 export const LoginPackage = {
     LoginContainers: {

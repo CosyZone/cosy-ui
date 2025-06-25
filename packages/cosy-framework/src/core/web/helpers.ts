@@ -1,4 +1,4 @@
-import { Application } from './application.js'
+import { WebApplication } from './web-app.js'
 
 /**
  * 配置优雅关闭处理
@@ -23,7 +23,7 @@ import { Application } from './application.js'
  * 
  * @param app 应用程序实例
  */
-export function gracefulShutdown(app: Application): void {
+export function gracefulShutdown(app: WebApplication): void {
     const signals = ['SIGTERM', 'SIGINT', 'SIGUSR2']
 
     signals.forEach(signal => {
@@ -63,7 +63,7 @@ export function gracefulShutdown(app: Application): void {
  * 
  * @param app 应用程序实例
  */
-export function setupErrorHandling(app: Application): void {
+export function setupErrorHandling(app: WebApplication): void {
     process.on('unhandledRejection', (reason, promise) => {
         console.error('Unhandled Rejection at:', promise, 'reason:', reason)
         // 这里可以添加更复杂的错误处理逻辑

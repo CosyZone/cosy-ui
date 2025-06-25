@@ -1,4 +1,4 @@
-import { Application } from './application.js'
+import { WebApplication } from './web-app.js'
 import { BootstrapOptions } from '../../types.js'
 import { existsSync, readFileSync } from 'fs'
 import { ApplicationFactory } from '../../factory.js'
@@ -19,7 +19,7 @@ import { ApplicationFactory } from '../../factory.js'
  * 4. 返回配置好的应用程序实例
  */
 export class Bootstrap {
-    private app: Application
+    private app: WebApplication
     private options: BootstrapOptions
 
     /**
@@ -44,7 +44,7 @@ export class Bootstrap {
      * 
      * @returns 启动完成的应用程序实例
      */
-    async start(): Promise<Application> {
+    async start(): Promise<WebApplication> {
         console.log('[Cosy] 🔄 Bootstrap:start...')
         // 设置生命周期钩子
         if (this.options.hooks) {
@@ -164,7 +164,7 @@ export class Bootstrap {
      * @param options 启动选项
      * @returns 启动完成的应用程序实例
      */
-    static async run(options: BootstrapOptions = {}): Promise<Application> {
+    static async run(options: BootstrapOptions = {}): Promise<WebApplication> {
         const bootstrap = new Bootstrap(options)
         return bootstrap.start()
     }

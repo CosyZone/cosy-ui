@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { Constructor } from '../../types.js'
-import { Application } from './application.js'
+import { WebApplication } from './web-app.js'
 
 // 元数据键
 const APP_METADATA = Symbol('app')
@@ -155,7 +155,7 @@ export function shouldAutoRegister(target: any): boolean {
  * @param AppClass 应用程序类
  * @returns 配置好的应用程序实例
  */
-export function createApp(AppClass: Constructor<Application>): Application {
+export function createApp(AppClass: Constructor<WebApplication>): WebApplication {
     const config = getAppMetadata(AppClass)
     const app = new AppClass()
 

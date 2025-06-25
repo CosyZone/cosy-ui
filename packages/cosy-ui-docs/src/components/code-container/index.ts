@@ -1,7 +1,7 @@
 
-import ECodeContainerMultiple from './ECodeContainerMultiple.astro.js';
-import ECodeContainerIsolation from './ECodeContainerIsolation.astro.js';
-import ECodeContainerBasic from './ECodeContainerBasic.astro.js';
+import ECodeContainerMultiple from './ECodeContainerMultiple.astro';
+import ECodeContainerIsolation from './ECodeContainerIsolation.astro';
+import ECodeContainerBasic from './ECodeContainerBasic.astro';
 
 export const CodeContainerPackage = {
     CodeContainerExamples: {

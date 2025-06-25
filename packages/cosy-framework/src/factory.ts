@@ -4,9 +4,9 @@ import { Pipeline } from '@coffic/cosy-middleware'
 import { Router } from '@coffic/cosy-router'
 import { Logger } from '@coffic/cosy-logger'
 import { IConfigManager, IContainer, IRouter, ILogger, LogLevel } from '@coffic/cosy-interfaces'
-import { Application, ApplicationDependencies } from './core/app/application.js'
+import { WebApplication, WebApplicationDependencies } from './core/web/web-app.js'
 import { ApplicationConfig } from './types.js'
-import { CliApplication } from './core/cli/application.js'
+import { CliApplication } from './core/cli/cli-app.js'
 
 /**
  * 应用程序工厂类
@@ -54,7 +54,7 @@ export class ApplicationFactory {
     /**
      * 创建默认依赖
      */
-    protected static createDefaultDependencies(): ApplicationDependencies {
+    protected static createDefaultDependencies(): WebApplicationDependencies {
         const logger = ApplicationFactory.createLogger()
         const pipelineLogger = logger.child('pipeline', { component: 'pipeline' })
         const pipeline = new Pipeline([], { logger: pipelineLogger })
@@ -77,15 +77,15 @@ export class ApplicationFactory {
      */
     static create(
         config: ApplicationConfig = {},
-        customDependencies: Partial<ApplicationDependencies> = {}
-    ): Application {
+        customDependencies: Partial<WebApplicationDependencies> = {}
+    ): WebApplication {
         // 合并默认依赖和自定义依赖
         const dependencies = {
             ...ApplicationFactory.createDefaultDependencies(),
             ...customDependencies
         }
 
-        return new Application(config, dependencies)
+        return new WebApplication(config, dependencies)
     }
 
     /**
@@ -105,8 +105,8 @@ export class ApplicationFactory {
      */
     static createApiApp(
         config: ApplicationConfig = {},
-        customDependencies: Partial<ApplicationDependencies> = {}
-    ): Application {
+        customDependencies: Partial<WebApplicationDependencies> = {}
+    ): WebApplication {
         return ApplicationFactory.create({
             ...config,
             name: config.name || 'API Application'
@@ -130,8 +130,8 @@ export class ApplicationFactory {
      */
     static createWebApp(
         config: ApplicationConfig = {},
-        customDependencies: Partial<ApplicationDependencies> = {}
-    ): Application {
+        customDependencies: Partial<WebApplicationDependencies> = {}
+    ): WebApplication {
         return ApplicationFactory.create(config, customDependencies)
     }
 
@@ -140,31 +140,15 @@ export class ApplicationFactory {
      * 
      * @example
      * ```typescript
-     * const app = CliApplicationFactory.create({
-     *   name: 'My CLI App'
-     * });
+     * const app = CliApplicationFactory.create();
      * 
      * app.registerCommand(new MyCommand());
      * app.start();
      * ```
      * 
-     * @param config 应用程序配置
-     * @param customDependencies 自定义依赖
      * @returns CLI Application 实例
      */
-    static createCliApp(
-        config: ApplicationConfig = {},
-        customDependencies: Partial<ApplicationDependencies> = {}
-    ): CliApplication {
-        // 合并默认依赖和自定义依赖
-        const dependencies = {
-            ...ApplicationFactory.createDefaultDependencies(),
-            ...customDependencies
-        }
-
-        return new CliApplication({
-            ...config,
-            name: config.name || 'CLI Application'
-        }, dependencies)
+    static createCliApp(): CliApplication {
+        return new CliApplication()
     }
 } 

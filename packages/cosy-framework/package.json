@@ -6,7 +6,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "cosy": "./dist/bin.js"
+    "cosy": "./dist/core/cli/bin.js"
   },
   "files": [
     "dist",
@@ -61,7 +61,7 @@
     "clean": "rimraf dist",
     "prebuild": "pnpm clean",
     "build": "tsc --build",
-    "postbuild": "chmod +x dist/cli/bin.js",
+    "postbuild": "chmod +x dist/core/cli/bin.js",
     "dev": "tsc --watch",
     "test": "nx vite:test run",
     "test:watch": "nx vite:test",
