@@ -1,0 +1,14 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ELoginBasic from './ELoginBasic.astro';
+const code = `--- import { Login } from
+'@coffic/cosy-ui'; --- <Login title="欢迎回来" subtitle="请登录以继续"
+showRememberMe={true} showForgotPassword={true} socialLogins={['github',
+'google']} />`;
+---
+
+<CodeContainer codes={[code]}>
+  <div id="tab-1">
+    <ELoginBasic />
+  </div>
+</CodeContainer>

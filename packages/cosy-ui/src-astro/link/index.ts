@@ -5,7 +5,7 @@ import LinkAnimations from './LinkAnimations.astro';
 import BasicSourceCode from './LinkBasic.astro?raw';
 import VariantsSourceCode from './LinkVariants.astro?raw';
 import AnimationsSourceCode from './LinkAnimations.astro?raw';
-import { extractSimpleExample } from '../utils/component';
+import { extractSimpleExample } from '../../src/utils/component';
 
 export { Link, LinkBasic, LinkVariants, LinkAnimations };
 

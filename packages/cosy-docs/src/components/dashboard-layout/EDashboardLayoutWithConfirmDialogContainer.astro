@@ -1,0 +1,47 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import EDashboardLayoutWithConfirmDialog from './EDashboardLayoutWithConfirmDialog.astro';
+---
+
+<CodeContainer
+  codes={[
+    `const navItems = [
+  {
+    title: '仪表盘',
+    href: '#',
+    icon: 'dashboard',
+  },
+  {
+    title: '设置',
+    href: '#',
+    icon: 'settings',
+  },
+  {
+    title: '退出',
+    href: '#',
+    icon: 'logout',
+    onClick: "document.getElementById('dashboard-confirm').showModal()",
+  },
+];
+
+<DashboardLayout navItems={navItems}>
+  <div class="cosy:flex cosy:flex-col cosy:gap-4">
+    <h1 class="cosy:text-2xl cosy:font-bold">仪表盘</h1>
+    <p>这是一个带有确认对话框的仪表盘示例。</p>
+    <p>点击左侧导航栏的"退出"按钮来触发确认对话框。</p>
+  </div>
+</DashboardLayout>
+
+<script>
+  document.addEventListener('confirm-dialog-confirm', (e) => {
+    const { dialogId } = (e as CustomEvent).detail;
+    if (dialogId === 'dashboard-confirm') {
+      alert('用户已确认退出');
+    }
+  });
+</script>`,
+  ]}>
+  <div id="tab-1">
+    <EDashboardLayoutWithConfirmDialog />
+  </div>
+</CodeContainer>

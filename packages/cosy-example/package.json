@@ -1,0 +1,25 @@
+{
+  "name": "@coffic/cosy-framework-example",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Example application using Cosy Framework",
+  "type": "module",
+  "main": "dist/server.js",
+  "scripts": {
+    "cosy": "cosy",
+    "start": "cosy serve",
+    "build": "tsc",
+    "clean": "rimraf dist",
+    "test": "vitest",
+    "test:api": "tsx tests/api.test.ts"
+  },
+  "dependencies": {
+    "@coffic/cosy-framework": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.1",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3",
+    "vitest": "^1.6.1"
+  }
+}

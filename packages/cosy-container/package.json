@@ -1,0 +1,37 @@
+{
+  "name": "@coffic/cosy-container",
+  "version": "0.1.0",
+  "description": "A dependency injection container for Cosy Framework",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest --coverage",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@coffic/cosy-interfaces": "workspace:*",
+    "reflect-metadata": "^0.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "@vitest/coverage-v8": "^1.2.2",
+    "typescript": "^5.3.3",
+    "vitest": "^1.6.0"
+  },
+  "keywords": [
+    "dependency-injection",
+    "container",
+    "ioc",
+    "typescript"
+  ],
+  "author": "coffic.cn",
+  "license": "MIT"
+}

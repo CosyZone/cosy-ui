@@ -43,4 +43,5 @@ export { default as ReportIcon } from './ReportIcon.astro';
 export { default as SecurityIcon } from './SecurityIcon.astro';
 export { default as UploadIcon } from './UploadIcon.astro';
 export { default as DownloadIcon } from './DownloadIcon.astro';
+export { default as LogOut } from './LogOut.astro';
 

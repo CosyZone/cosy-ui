@@ -4,13 +4,12 @@
  *
  * @description
  * 用于展示代码示例的容器组件，提供样式隔离功能防止内外样式相互影响。
- * 支持两种隔离模式：样式重置模式和iframe完全隔离模式。
+ * 支持样式重置模式。
  * 使用时只需在默认slot中传入内容，并为每个示例设置对应的id (tab-1, tab-2等)
  *
  * @features
  * - 样式隔离：防止外部样式影响内部组件展示
  * - 样式重置：重置内部样式，避免样式冲突
- * - iframe模式：完全隔离的预览环境
  * - 代码预览切换：支持预览和代码视图切换
  * - 多标签页：支持多个示例的标签页展示
  *
@@ -23,13 +22,6 @@
  *   </div>
  *   <div id="tab-2">
  *     <Alert type="success">这是第二个示例</Alert>
- *   </div>
- * </CodeContainer>
- *
- * <!-- 使用iframe完全隔离 -->
- * <CodeContainer codes={[code]} useIframe={true}>
- *   <div id="tab-1">
- *     <SomeComponent />
  *   </div>
  * </CodeContainer>
  *
@@ -59,11 +51,6 @@ interface Props {
    */
   codes: string[];
   /**
-   * 是否使用iframe隔离内容
-   * @default false
-   */
-  useIframe?: boolean;
-  /**
    * 是否重置内部样式
    * @default true
    */
@@ -74,7 +61,6 @@ const {
   titles = [],
   descriptions = [],
   codes,
-  useIframe = false,
   resetStyles = true,
 } = Astro.props;
 ---
@@ -132,22 +118,11 @@ const {
 
         <div class="cosy:relative cosy:p-4 cosy:bg-gradient-to-br cosy:from-red-100 cosy:to-green-300 cosy:rounded-b">
           <div class="cosy:block cosy:code-example-panel" data-panel="preview">
-            {useIframe ? (
-              <div class="cosy:w-full cosy:min-h-64 cosy:bg-white cosy:rounded cosy:border">
-                <iframe
-                  class="cosy:w-full cosy:min-h-64 cosy:border-none cosy:rounded"
-                  data-preview-frame={`tab-${index + 1}`}
-                  sandbox="allow-scripts allow-same-origin"
-                  title={`示例预览 ${index + 1}`}
-                />
-              </div>
-            ) : (
-              <div
-                class={`cosy:code-preview-area ${resetStyles ? 'cosy:reset-styles' : ''}`}
-                data-preview-area={`tab-${index + 1}`}>
-                <slot />
-              </div>
-            )}
+            <div
+              class={`cosy:code-preview-area ${resetStyles ? 'cosy:reset-styles' : ''}`}
+              data-preview-area={`tab-${index + 1}`}>
+              <slot />
+            </div>
           </div>
 
           <div class="cosy:hidden cosy:code-example-panel" data-panel="code">
@@ -228,13 +203,6 @@ const {
     margin-bottom: 0.25em;
   }
 
-  /* iframe 隔离样式 */
-  [data-role='code-container'] iframe[data-preview-frame] {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.375rem;
-  }
-
   /* 防止内部组件的样式泄漏到外部 */
   [data-role='code-container'] .cosy\:code-preview-area {
     position: relative;
@@ -255,61 +223,8 @@ const {
 </style>
 
 <script>
-  function initializeIframePreviews() {
-    const iframes = document.querySelectorAll('[data-preview-frame]');
-
-    iframes.forEach((iframe) => {
-      const container = iframe.closest('[data-role="code-container"]');
-      if (!container) return;
-
-      const frameId = iframe.getAttribute('data-preview-frame');
-      const contentElement = container.querySelector(`#${frameId}`);
-
-      if (contentElement) {
-        // 创建独立的HTML文档内容
-        const iframeElement = iframe as HTMLIFrameElement;
-        const iframeDoc =
-          iframeElement.contentDocument ||
-          iframeElement.contentWindow?.document;
-        if (iframeDoc) {
-          const htmlContent = `
-            <!DOCTYPE html>
-            <html>
-            <head>
-              <meta charset="UTF-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <title>示例预览</title>
-              <style>
-                /* 基础样式重置 */
-                * { margin: 0; padding: 0; box-sizing: border-box; }
-                body { 
-                  font-family: system-ui, -apple-system, sans-serif; 
-                  padding: 1rem;
-                  background: white;
-                  color: #374151;
-                  line-height: 1.5;
-                }
-              </style>
-            </head>
-            <body>
-              ${contentElement.innerHTML}
-            </body>
-            </html>
-          `;
-
-          iframeDoc.open();
-          iframeDoc.write(htmlContent);
-          iframeDoc.close();
-        }
-      }
-    });
-  }
-
   function initializeCodeContainer() {
     console.log('CodeContainer: 初始化代码容器');
-
-    // 初始化 iframe 预览
-    initializeIframePreviews();
 
     // 示例切换功能
     const exampleTabs = document.querySelectorAll(

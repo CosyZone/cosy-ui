@@ -2,7 +2,7 @@ import type { ExperimentEntry } from '../database/ExperimentDB';
 import { experimentDB } from '../database/ExperimentDB';
 import { cosyLogger } from '../cosy';
 import { SidebarItemEntity } from './SidebarItem';
-import { LinkUtil } from '../utils/link';
+import { LinkUtil } from '../../src/utils/link';
 import { COLLECTION_EXPERIMENT } from '../database/ExperimentDB';
 import { BaseDoc } from './BaseDoc';
 import type { IHeadingType } from '../types/heading';

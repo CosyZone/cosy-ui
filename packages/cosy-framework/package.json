@@ -1,0 +1,106 @@
+{
+  "name": "@coffic/cosy-framework",
+  "version": "0.1.0",
+  "description": "A Laravel-inspired TypeScript framework with Astro and Cosy-UI integration",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "cosy": "./dist/bin.js"
+  },
+  "files": [
+    "dist",
+    "src",
+    "*.d.ts",
+    "*.js.map",
+    "*.d.ts.map"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./cli": {
+      "types": "./dist/cli/index.d.ts",
+      "import": "./dist/cli/index.js",
+      "default": "./dist/cli/index.js"
+    },
+    "./auth": {
+      "types": "./dist/auth/index.d.ts",
+      "import": "./dist/auth/index.js",
+      "default": "./dist/auth/index.js"
+    },
+    "./view": {
+      "types": "./dist/view/index.d.ts",
+      "import": "./dist/view/index.js",
+      "default": "./dist/view/index.js"
+    },
+    "./database": {
+      "types": "./dist/database/index.d.ts",
+      "import": "./dist/database/index.js",
+      "default": "./dist/database/index.js"
+    },
+    "./validation": {
+      "types": "./dist/validation/index.d.ts",
+      "import": "./dist/validation/index.js",
+      "default": "./dist/validation/index.js"
+    },
+    "./events": {
+      "types": "./dist/events/index.d.ts",
+      "import": "./dist/events/index.js",
+      "default": "./dist/events/index.js"
+    },
+    "./queue": {
+      "types": "./dist/queue/index.d.ts",
+      "import": "./dist/queue/index.js",
+      "default": "./dist/queue/index.js"
+    }
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "prebuild": "pnpm clean",
+    "build": "tsc --build",
+    "postbuild": "chmod +x dist/bin.js",
+    "dev": "tsc --watch",
+    "test": "nx vite:test run",
+    "test:watch": "nx vite:test",
+    "test:coverage": "nx vite:test --coverage"
+  },
+  "dependencies": {
+    "@coffic/cosy-config": "workspace:*",
+    "@coffic/cosy-container": "workspace:*",
+    "@coffic/cosy-http": "workspace:*",
+    "@coffic/cosy-interfaces": "workspace:*",
+    "@coffic/cosy-middleware": "workspace:*",
+    "@coffic/cosy-router": "workspace:*",
+    "commander": "^14.0.0",
+    "drizzle-orm": "^0.44.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "@vitest/coverage-v8": "^1.2.2",
+    "concurrently": "^9.2.0",
+    "drizzle-kit": "^0.31.2",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3",
+    "vitest": "^1.6.0"
+  },
+  "keywords": [
+    "framework",
+    "typescript",
+    "astro",
+    "laravel",
+    "web-framework",
+    "cosy",
+    "web",
+    "http",
+    "router",
+    "middleware"
+  ],
+  "author": "coffic.cn",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}

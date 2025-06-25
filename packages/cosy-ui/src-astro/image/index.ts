@@ -5,7 +5,7 @@ import ImageLoading from './ImageLoading.astro';
 import BasicSourceCode from './ImageBasic.astro?raw';
 import EffectsSourceCode from './ImageEffects.astro?raw';
 import LoadingSourceCode from './ImageLoading.astro?raw';
-import { extractSimpleExample } from '../utils/component';
+import { extractSimpleExample } from '../../src/utils/component';
 
 export { Image, ImageBasic, ImageEffects, ImageLoading };
 

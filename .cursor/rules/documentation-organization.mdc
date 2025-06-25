@@ -1,0 +1,94 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Cosy Framework 文档组织规范
+
+本规则定义了 `packages/cosy-framework-docs` 项目中框架文档的组织和结构标准。
+
+## 适用范围
+本规范适用于 `packages/cosy-framework-docs/schedule` 目录下的所有文档文件。这些文档用于描述 Cosy Framework 的实现步骤和开发指南。
+
+## 文档结构规范
+
+### 1. 主题文件组织
+- 每个主题使用数字前缀，如：`01-getting-started.md`、`02-service-container.md`
+- 子主题使用小数点分隔，如：`02.1-container-types.md`、`02.2-container-implementation.md`
+- 不要创建深层目录结构，保持文件扁平化组织
+- 所有文档必须放在 `schedule` 目录下
+
+### 2. 文档格式
+每个文档文件应包含以下部分：
+
+```markdown
+# 步骤 XXX：主题名称
+
+## 目标
+简要描述本节内容的目标
+
+## 子步骤（如果有）
+列出子步骤及其对应文件
+
+## 任务清单
+- [ ] 任务1
+- [ ] 任务2
+
+## 执行步骤
+详细的实现步骤
+
+## 完成标志
+- [ ] 标志1
+- [ ] 标志2
+
+## 下一步
+指向下一个步骤的链接
+```
+
+### 3. 文件命名规则
+- 使用小写字母
+- 使用连字符(-)分隔单词
+- 使用数字前缀确保正确排序
+- 使用 `.md` 或 `.mdx` 扩展名
+
+### 4. 内容组织原则
+- 每个文件专注于单一主题
+- 相关内容应该放在一起
+- 使用清晰的层次结构
+- 保持文档的连贯性
+
+### 5. 示例结构
+```
+packages/cosy-framework-docs/schedule/
+├── 01-getting-started.md
+├── 02-service-container.md
+├── 02.1-container-types.md
+├── 02.2-container-implementation.md
+├── 02.3-decorators.md
+├── 02.4-service-provider.md
+└── 02.5-testing.md
+```
+
+## 最佳实践
+
+### 1. 文档拆分
+- 当单个文档超过500行时，考虑拆分
+- 按照功能或主题进行逻辑拆分
+- 保持子文档之间的关联性
+
+### 2. 文档关联
+- 使用相对链接关联相关文档
+- 在主文档中提供子文档的概述
+- 在子文档中链接回主文档
+
+### 3. 版本控制
+- 文档变更应该与代码变更同步
+- 保持文档的版本一致性
+- 及时更新过时的内容
+
+## 注意事项
+1. 避免创建过深的目录结构
+2. 保持文档结构的一致性
+3. 定期检查和更新文档
+4. 确保文档之间的链接有效
+5. 所有文档必须放在 `packages/cosy-framework-docs/schedule` 目录下

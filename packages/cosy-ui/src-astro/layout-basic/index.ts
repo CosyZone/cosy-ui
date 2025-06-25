@@ -1,7 +1,7 @@
 import BaseLayout from './BaseLayout.astro';
 import BaseLayoutBasic from './BaseLayoutBasic.astro';
 import BasicSourceCode from './BaseLayoutBasic.astro?raw';
-import { extractSimpleExample } from '../utils/component';
+import { extractSimpleExample } from '../../src/utils/component';
 
 export { BaseLayout, BaseLayoutBasic };
 

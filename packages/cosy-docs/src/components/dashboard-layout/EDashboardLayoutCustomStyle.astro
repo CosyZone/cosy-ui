@@ -1,0 +1,106 @@
+---
+import { DashboardLayout } from '@coffic/cosy-ui';
+
+const navItems = [
+  { href: '/dashboard', icon: 'home', text: '仪表盘' },
+  { href: '/dashboard/users', icon: 'users', text: '用户管理', badge: '5' },
+  {
+    href: '/dashboard/content',
+    icon: 'document',
+    text: '内容管理',
+    items: [
+      {
+        href: '/dashboard/content/articles',
+        icon: 'document',
+        text: '文章管理',
+      },
+      { href: '/dashboard/content/categories', icon: 'star', text: '分类管理' },
+    ],
+  },
+  { href: '/dashboard/settings', icon: 'settings', text: '系统设置' },
+];
+---
+
+<DashboardLayout
+  title="自定义样式仪表盘"
+  description="展示自定义样式的仪表盘布局"
+  systemName="自定义管理系统"
+  navItems={navItems}
+  userName="管理员"
+  class="cosy:bg-gradient-to-br cosy:from-blue-50 cosy:to-purple-50">
+  <div class="cosy:space-y-6">
+    <div
+      class="stats cosy:shadow-lg cosy:bg-gradient-to-r cosy:from-primary cosy:to-secondary cosy:text-primary-content">
+      <div class="stat">
+        <div class="stat-figure">
+          <span class="cosy:text-3xl">👥</span>
+        </div>
+        <div class="stat-title cosy:text-primary-content/80">总用户数</div>
+        <div class="stat-value">31K</div>
+        <div class="stat-desc cosy:text-primary-content/70">↗︎ 400 (22%)</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-figure">
+          <span class="cosy:text-3xl">📊</span>
+        </div>
+        <div class="stat-title cosy:text-primary-content/80">页面浏览量</div>
+        <div class="stat-value">4,200</div>
+        <div class="stat-desc cosy:text-primary-content/70">↗︎ 40 (2%)</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-figure">
+          <span class="cosy:text-3xl">⭐</span>
+        </div>
+        <div class="stat-title cosy:text-primary-content/80">新用户</div>
+        <div class="stat-value">1,200</div>
+        <div class="stat-desc cosy:text-primary-content/70">↘︎ 90 (14%)</div>
+      </div>
+    </div>
+
+    <div class="cosy:grid cosy:grid-cols-1 cosy:md:grid-cols-2 cosy:gap-6">
+      <div
+        class="card cosy:bg-gradient-to-br cosy:from-green-50 cosy:to-blue-50 cosy:shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title cosy:text-green-700">
+            <span class="cosy:text-2xl">📈</span>
+            销售趋势
+          </h2>
+          <p class="cosy:text-green-600">
+            这个月的销售表现非常优异，达到了预期目标的120%。
+          </p>
+          <div class="card-actions justify-end">
+            <button class="btn btn-primary">查看详情</button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="card cosy:bg-gradient-to-br cosy:from-purple-50 cosy:to-pink-50 cosy:shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title cosy:text-purple-700">
+            <span class="cosy:text-2xl">🎯</span>
+            目标完成度
+          </h2>
+          <p class="cosy:text-purple-600">
+            当前季度目标完成度85%，还需要加把劲！
+          </p>
+          <div class="card-actions justify-end">
+            <button class="btn btn-secondary">查看目标</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-info cosy:shadow-lg">
+      <span class="cosy:text-2xl">💡</span>
+      <div>
+        <h3 class="cosy:font-bold">自定义样式提示</h3>
+        <div class="cosy:text-sm">
+          这个示例展示了如何使用自定义CSS类来个性化仪表盘的外观。
+        </div>
+      </div>
+    </div>
+  </div>
+</DashboardLayout>

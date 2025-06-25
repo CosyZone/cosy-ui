@@ -5,7 +5,7 @@ import ModuleCustom from './ModuleCustom.astro';
 import BasicSourceCode from './ModuleBasic.astro?raw';
 import GridSourceCode from './ModuleGrid.astro?raw';
 import CustomSourceCode from './ModuleCustom.astro?raw';
-import { extractSimpleExample } from '../utils/component';
+import { extractSimpleExample } from '../../src/utils/component';
 
 export { Module, ModuleBasic, ModuleGrid, ModuleCustom };
 

@@ -3,7 +3,7 @@ import SpeakBasic from './SpeakBasic.astro';
 import SpeakGrid from './SpeakGrid.astro';
 import BasicSourceCode from './SpeakBasic.astro?raw';
 import GridSourceCode from './SpeakGrid.astro?raw';
-import { extractSimpleExample } from '../utils/component';
+import { extractSimpleExample } from '../../src/utils/component';
 
 export { Speak, SpeakBasic, SpeakGrid };
 

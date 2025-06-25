@@ -1,7 +1,7 @@
 import ThemeSwitcher from './ThemeSwitcher.astro';
 import ThemeSwitcherBasic from './ThemeSwitcherBasic.astro';
 import BasicSourceCode from './ThemeSwitcherBasic.astro?raw';
-import { extractSimpleExample } from '../utils/component';
+import { extractSimpleExample } from '../../src/utils/component';
 
 export { ThemeSwitcher, ThemeSwitcherBasic };
 

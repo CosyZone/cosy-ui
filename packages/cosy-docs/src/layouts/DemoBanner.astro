@@ -1,0 +1,15 @@
+---
+import { Banner, Container } from '@coffic/cosy-ui';
+
+const currentLocale = Astro.currentLocale;
+---
+
+<Banner bgColor="info" animation="fade">
+  {
+    currentLocale === 'zh-cn'
+      ? '这是演示内容，仅供参考'
+      : 'This is demo content for reference only'
+  }
+</Banner>
+
+<Container />

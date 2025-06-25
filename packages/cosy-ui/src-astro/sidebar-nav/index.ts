@@ -1,7 +1,7 @@
 import SidebarNav from './SidebarNav.astro';
 import SidebarNavBasic from './SidebarNavBasic.astro';
 import BasicSourceCode from './SidebarNavBasic.astro?raw';
-import { extractSimpleExample } from '../utils/component';
+import { extractSimpleExample } from '../../src/utils/component';
 
 export { SidebarNav, SidebarNavBasic };
 

@@ -21,7 +21,7 @@ import CustomStyleSourceCode from './BannerCustomStyle.astro?raw';
 import FadeInSourceCode from './BannerFadeIn.astro?raw';
 import SlideUpSourceCode from './BannerSlideUp.astro?raw';
 import AllAnimationsSourceCode from './BannerAllAnimations.astro?raw';
-import { extractSimpleExample } from '../utils/component';
+import { extractSimpleExample } from '../../src/utils/component';
 
 export {
   Banner,

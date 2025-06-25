@@ -1,0 +1,60 @@
+---
+title: Logout Page
+description: Create flexible logout confirmation pages
+folder: false
+order: 16
+---
+
+import { LogoutPackage } from '@/components/logout';
+
+The Logout component is used to create logout confirmation pages with customizable messages and button text.
+
+## Basic Usage
+
+The most basic logout page includes a title, confirmation message, and action buttons.
+
+<LogoutPackage.LogoutContainers.Basic />
+
+## Custom Styles
+
+You can customize the style and content of the logout page through custom class names and slots.
+
+<LogoutPackage.LogoutContainers.CustomStyle />
+
+## Props
+
+### Basic Properties
+- `title` (string, optional) - Page title, defaults to "Logout"
+- `message` (string, optional) - Confirmation message, defaults to "Are you sure you want to log out?"
+- `logo` (string, optional) - Path to the logo image
+
+### Button Text
+- `confirmText` (string, optional) - Confirm button text, defaults to "Logout"
+- `cancelText` (string, optional) - Cancel button text, defaults to "Cancel"
+
+### Style Customization
+- `customClass` (string, optional) - Custom CSS class name
+
+## Slots
+
+The component provides the following slots for custom content:
+
+- `header` - Custom header content
+- `footer` - Custom footer content
+
+## Best Practices
+
+1. **User Experience**
+   - Provide clear logout confirmation messages
+   - Ensure button text clearly conveys the action
+   - Give users the option to cancel the operation
+
+2. **Style Guidelines**
+   - Use warning colors (e.g., red) for the confirm button
+   - Keep the page layout clean and simple
+   - Use icons appropriately to enhance visual feedback
+
+3. **Functionality Tips**
+   - Remind users to save unsaved work before logging out
+   - Provide help links or support information
+   - Consider adding "Remember me" option for future logins 

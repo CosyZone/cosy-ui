@@ -1,0 +1,67 @@
+{
+  "name": "@coffic/cosy-config",
+  "version": "0.1.0",
+  "description": "Configuration management for Cosy Framework",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./manager": {
+      "types": "./dist/manager.d.ts",
+      "import": "./dist/manager.js",
+      "default": "./dist/manager.js"
+    },
+    "./environment": {
+      "types": "./dist/environment.d.ts",
+      "import": "./dist/environment.js",
+      "default": "./dist/environment.js"
+    },
+    "./types": {
+      "types": "./dist/types.d.ts",
+      "import": "./dist/types.js",
+      "default": "./dist/types.js"
+    },
+    "./validator": {
+      "types": "./dist/validator.d.ts",
+      "import": "./dist/validator.js",
+      "default": "./dist/validator.js"
+    },
+    "./sources": {
+      "types": "./dist/sources.d.ts",
+      "import": "./dist/sources.js",
+      "default": "./dist/sources.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest --coverage",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "configuration",
+    "config",
+    "typescript"
+  ],
+  "author": "coffic.cn",
+  "license": "MIT",
+  "dependencies": {
+    "@coffic/cosy-interfaces": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "@vitest/coverage-v8": "^1.2.2",
+    "typescript": "^5.3.3",
+    "vitest": "^1.3.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

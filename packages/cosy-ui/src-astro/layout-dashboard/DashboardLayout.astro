@@ -4,7 +4,7 @@
  *
  * @description
  * DashboardLayout 组件适用于管理后台的布局，包含侧边栏导航和顶部导航栏。
- * 提供了完整的管理界面框架，包括响应式设计和暗色主题支持。
+ * 提供了完整的管理界面框架，包括响应式设计、暗色主题支持和内置 Toast 通知系统。
  *
  * @design
  * 设计理念：
@@ -12,6 +12,7 @@
  * 2. 响应式布局 - 在不同设备上提供良好的用户体验
  * 3. 可定制性 - 支持自定义导航项、系统名称和用户信息
  * 4. 状态保持 - 记住用户的侧边栏折叠状态
+ * 5. 统一通知 - 内置 Toast 系统，提供一致的消息提示体验
  *
  * @usage
  * 基本用法：
@@ -81,7 +82,53 @@
  * >
  *   <h1>仪表盘内容</h1>
  *   <p>这是带有背景的主要内容</p>
+ *
+ *   <script>
+ *     // 在页面中使用 toast
+ *     function handleAction() {
+ *       // 简单用法
+ *       showToast('操作成功！');
+ *
+ *       // 带选项的用法
+ *       showToast({
+ *         message: '数据保存成功',
+ *         type: 'success',
+ *         duration: 2000
+ *       });
+ *     }
+ *   </script>
  * </DashboardLayout>
+ * ```
+ *
+ * Toast 使用示例：
+ * ```javascript
+ * // 成功消息
+ * showToast({
+ *   message: '保存成功！',
+ *   type: 'success'
+ * });
+ *
+ * // 错误消息
+ * showToast({
+ *   message: '网络连接失败',
+ *   type: 'error',
+ *   duration: 5000
+ * });
+ *
+ * // 警告消息
+ * showToast({
+ *   message: '请注意数据安全',
+ *   type: 'warning'
+ * });
+ *
+ * // 信息消息
+ * showToast({
+ *   message: '系统将在 5 分钟后维护',
+ *   type: 'info'
+ * });
+ *
+ * // 简化用法
+ * showToast('这是一条简单的消息');
  * ```
  *
  * @props
@@ -109,6 +156,7 @@
 import { BaseLayout } from '../../index-astro';
 import DashboardSidebar from './DashboardSidebar.astro';
 import DashboardTopNavbar from './DashboardTopNavbar.astro';
+import { ToastContainer, ConfirmDialog } from '../../index-astro';
 import '../../style.ts';
 import {
   type NavItem,
@@ -196,6 +244,18 @@ export interface Props {
   'class:list'?: any;
 
   /**
+   * 是否启用 Toast 功能
+   * @default true
+   */
+  enableToast?: boolean;
+
+  /**
+   * 是否启用确认对话框功能
+   * @default true
+   */
+  enableConfirmDialog?: boolean;
+
+  /**
    * 调试模式
    * @default false
    */
@@ -214,6 +274,8 @@ const {
   sidebarSize = 'md',
   sidebarTheme = 'default',
   mainBackgroundTheme = 'transparent',
+  enableToast = true,
+  enableConfirmDialog = true,
   head,
   class: className,
   'class:list': classList,
@@ -271,6 +333,19 @@ const mainBackgroundStyles = getMainBackgroundTheme(mainBackgroundTheme);
       </main>
     </div>
   </div>
+
+  <!-- Toast 容器 -->
+  {enableToast && <ToastContainer />}
+
+  {
+    enableConfirmDialog && (
+      <ConfirmDialog
+        id="dashboard-confirm"
+        title="确认操作"
+        message="您确定要执行此操作吗？"
+      />
+    )
+  }
 </BaseLayout>
 
 <script>

@@ -1,0 +1,215 @@
+---
+title: 'Dashboard Layout'
+description: 'Admin dashboard layout component providing complete dashboard framework with sidebar navigation, top navbar, confirm dialog, and responsive design'
+folder: false
+order: 7.5
+---
+
+import { DashboardLayout } from '@coffic/cosy-ui';
+import { DashboardLayoutPackage as ComponentPackage } from '@/components/dashboard-layout/index.ts';
+
+## Introduction
+
+The DashboardLayout component is designed for admin dashboards, featuring sidebar navigation and top navbar. It provides a complete management interface framework with responsive design and dark theme support.
+
+Component Features:
+
+- 🏗️ **Complete Framework** - Provides sidebar, top navbar, and main content area in a complete layout
+- 📱 **Responsive Design** - Delivers excellent user experience across different devices
+- 🎨 **daisyUI Styling** - Uses daisyUI component library for consistent design
+- 🔧 **Highly Customizable** - Supports custom navigation items, system name, and user information
+- 💾 **State Persistence** - Remembers user's sidebar collapse state
+- 🌙 **Theme Support** - Full support for light and dark theme switching
+- 🔔 **Built-in Notifications** - Integrated Toast notification system for unified message prompting experience
+- 🔒 **Confirm Dialog** - Built-in confirm dialog for important action confirmation
+
+## Basic Usage
+
+The simplest dashboard layout usage:
+
+<ComponentPackage.DashboardLayoutContainers.Basic />
+
+## Custom Styling
+
+Customize the dashboard appearance using the class attribute:
+
+<ComponentPackage.DashboardLayoutContainers.CustomStyle />
+
+## Sidebar Sizes
+
+DashboardLayout supports four different sidebar sizes to accommodate various design needs:
+
+<ComponentPackage.DashboardLayoutContainers.SidebarSizes />
+
+## Sidebar Themes
+
+DashboardLayout supports 10 different sidebar theme colors to meet various application scenarios' visual requirements:
+
+<ComponentPackage.DashboardLayoutContainers.SidebarThemes />
+
+
+
+## Sidebar Footer Custom Content
+
+DashboardLayout supports adding custom content to the sidebar footer, which can be used to display user information, copyright information, or other important details:
+
+<ComponentPackage.DashboardLayoutContainers.SidebarFooter />
+
+## Main Content Area Background
+
+DashboardLayout supports setting backgrounds for the main content area, providing rich visual effect options:
+
+<ComponentPackage.DashboardLayoutContainers.MainBackground />
+
+## Toast Notification System
+
+DashboardLayout has a built-in complete Toast notification system that can use global notification functionality without additional configuration:
+
+```javascript
+// Simple usage
+showToast('Operation successful!');
+
+// Usage with type
+showToast({
+  message: 'Data saved successfully',
+  type: 'success',
+  duration: 3000
+});
+
+// Four message types
+showToast({ message: 'Operation successful', type: 'success' });
+showToast({ message: 'Network error', type: 'error' });
+showToast({ message: 'Please note', type: 'warning' });
+showToast({ message: 'System message', type: 'info' });
+
+// Manual control
+const toastId = showToast('Processing...');
+setTimeout(() => closeToast(toastId), 2000);
+
+// Clear all notifications
+clearAllToasts();
+```
+
+**Toast Features:**
+- ✅ **Out of the box** - DashboardLayout automatically enables, no additional configuration required
+- 🎯 **Four types** - success, error, warning, info
+- ⏱️ **Auto-dismiss** - Support for custom display duration
+- 🎨 **Elegant animations** - Smooth slide-in and slide-out effects
+- 🔧 **Batch management** - Support for displaying multiple notifications simultaneously and batch clearing
+
+## Confirm Dialog
+
+DashboardLayout has a built-in confirm dialog functionality for important action confirmation:
+
+```javascript
+// Trigger confirm dialog
+document.getElementById('dashboard-confirm').showModal();
+
+// Handle confirmation event
+document.addEventListener('confirm-dialog-confirm', (e) => {
+  const { dialogId } = e.detail;
+  if (dialogId === 'dashboard-confirm') {
+    // Handle confirmation action
+    console.log('User confirmed the action');
+  }
+});
+```
+
+**Usage Methods:**
+
+1. Trigger via button:
+```html
+<button data-confirm-dialog-target="dashboard-confirm">
+  Delete
+</button>
+```
+
+2. Trigger via navigation item:
+```typescript
+const navItems = [
+  {
+    text: 'Logout',
+    href: '#',
+    icon: 'logout',
+    onClick: "document.getElementById('dashboard-confirm').showModal()"
+  }
+];
+```
+
+**Confirm Dialog Features:**
+- ✅ **Out of the box** - DashboardLayout automatically enables, no additional configuration required
+- 🎯 **Unified Experience** - Provides consistent confirmation interaction pattern
+- ⌨️ **Keyboard Support** - Supports keyboard operation and Esc to close
+- 🎨 **Elegant Animations** - Smooth fade-in and fade-out effects
+- 🔧 **Customizable** - Supports custom title, message, and button text
+
+## Props Reference
+
+### DashboardLayout Props
+
+| Property           | Type                 | Required | Default         | Description                        |
+| ------------------ | -------------------- | -------- | --------------- | ---------------------------------- |
+| `title`            | `string`             | ✅       | -               | Page title                         |
+| `description`      | `string`             | ❌       | -               | Page description                   |
+| `systemName`       | `string`             | ❌       | "Management System" | System name displayed in sidebar   |
+| `navItems`         | `NavItem[]`          | ✅       | -               | Navigation items array             |
+| `userName`         | `string`             | ❌       | -               | Username displayed in top navbar   |
+| `userAvatar`       | `string`             | ❌       | -               | User avatar URL                    |
+| `userMenuItems`    | `UserMenuItem[]`     | ❌       | Default menu    | User dropdown menu items with auto icon matching |
+| `sidebarCollapsed` | `boolean`            | ❌       | `false`         | Whether to collapse sidebar        |
+| `sidebarSize`      | `'sm' \| 'md' \| 'lg' \| 'xl'` | ❌       | `'md'`          | Sidebar size configuration         |
+| `sidebarTheme`     | `SidebarTheme`       | ❌       | `'default'`     | Sidebar theme color                |
+| `mainBackgroundTheme` | `MainBackgroundTheme` | ❌       | `'transparent'` | Main content area background theme  |
+| `enableToast`      | `boolean`            | ❌       | `true`          | Whether to enable Toast notification functionality |
+| `enableConfirmDialog` | `boolean`         | ❌       | `true`          | Whether to enable confirm dialog functionality |
+| `head`             | `astroHTML.JSX.Element` | ❌       | -               | Custom head content                |
+| `class`            | `string`             | ❌       | -               | Page class name                    |
+| `class:list`       | `any`                | ❌       | -               | Class list                         |
+
+### NavItem Interface
+
+```typescript
+interface NavItem {
+  href: string;           // Link URL
+  icon?: string;          // Icon name, optional, supports auto-matching
+  text: string;           // Display text
+  badge?: string | number; // Optional badge display
+  items?: NavItem[];      // Sub-menu items
+}
+```
+
+### UserMenuItem Interface
+
+```typescript
+interface UserMenuItem {
+  href: string;           // Link URL
+  text: string;           // Display text
+  icon?: string;          // Icon name, optional, supports auto-matching
+}
+```
+
+### Automatic Icon Matching
+
+The component supports automatic icon matching based on href paths, including:
+
+**Navigation Related**:
+- `dashboard`, `home`, `index` → 🏠 Home icon
+- `user`, `profile`, `account` → 👤 User icon
+- `users`, `member`, `team` → 👥 Users icon
+- `settings`, `config`, `admin` → ⚙️ Settings icon
+
+**Function Related**:
+- `chart`, `analytics`, `report` → 📊 Chart icon
+- `document`, `doc`, `file` → 📄 Document icon
+- `calendar`, `schedule`, `event` → 📅 Calendar icon
+- `notification` → 🔔 Notification icon
+- `message`, `chat` → 💬 Message icon
+- `search`, `find` → 🔍 Search icon
+- `logout`, `signout`, `exit` → 🚪 Logout icon
+- `help`, `support` → ❓ Help icon
+
+**Usage Instructions**:
+- If an `icon` attribute is explicitly specified, the specified icon will be used first
+- If no `icon` is specified, the system will automatically match icons based on the `href` path
+- For NavItem, the `folder` icon is used when matching fails
+- For UserMenuItem, the `user` icon is used when matching fails

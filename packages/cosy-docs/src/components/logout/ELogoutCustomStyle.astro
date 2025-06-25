@@ -1,0 +1,26 @@
+---
+import { Logout } from '@coffic/cosy-ui';
+import { getAvatarImage } from '@coffic/cosy-ui';
+
+const logoUrl = getAvatarImage({
+  name: 'logo',
+  type: 'rounded',
+});
+---
+
+<Logout
+  title="确认退出系统"
+  message="退出后需要重新登录才能访问系统。您的所有未保存的工作将会丢失。"
+  logo={logoUrl}
+  confirmText="确认退出系统"
+  cancelText="继续工作"
+  customClass="custom-logout">
+  <div
+    slot="footer"
+    class="cosy:text-center cosy:mt-4 cosy:text-sm cosy:text-base-content/60">
+    遇到问题？<a
+      href="#"
+      class="cosy:text-primary cosy:hover:text-primary-focus">联系支持</a
+    >
+  </div>
+</Logout>

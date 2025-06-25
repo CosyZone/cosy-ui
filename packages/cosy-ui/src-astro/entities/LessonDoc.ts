@@ -2,7 +2,7 @@ import type { LessonEntry } from '../database/LessonDB';
 import { lessonDB } from '../database/LessonDB';
 import { cosyLogger } from '../cosy';
 import { SidebarItemEntity } from './SidebarItem';
-import { LinkUtil } from '../utils/link';
+import { LinkUtil } from '../../src/utils/link';
 import { COLLECTION_LESSON } from '../database/LessonDB';
 import { BaseDoc } from './BaseDoc';
 import type { IHeadingType } from '../types/heading';

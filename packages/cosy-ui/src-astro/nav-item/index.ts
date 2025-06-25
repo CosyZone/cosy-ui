@@ -1,7 +1,7 @@
 import NavItems from './NavItems.astro';
 import NavItemsBasic from './NavItemsBasic.astro';
 import BasicSourceCode from './NavItemsBasic.astro?raw';
-import { extractSimpleExample } from '../utils/component';
+import { extractSimpleExample } from '../../src/utils/component';
 
 export { NavItems, NavItemsBasic };
 

@@ -10,7 +10,7 @@ import WithSocialSourceCode from './TeamMemberWithSocial.astro?raw';
 import CustomStyleSourceCode from './TeamMemberCustomStyle.astro?raw';
 import GroupSourceCode from './TeamMemberGroup.astro?raw';
 
-import { extractSimpleExample } from '../utils/component';
+import { extractSimpleExample } from '../../src/utils/component';
 
 export {
   TeamMember,

@@ -2,7 +2,7 @@ import { cosyLogger } from '../cosy';
 import { SidebarItemEntity } from './SidebarItem';
 import type { CourseEntry } from '../database/CourseDB';
 import { courseDB } from '../database/CourseDB';
-import { LinkUtil } from '../utils/link';
+import { LinkUtil } from '../../src/utils/link';
 import { COLLECTION_COURSE } from '../database/CourseDB';
 import { BaseDoc } from './BaseDoc';
 

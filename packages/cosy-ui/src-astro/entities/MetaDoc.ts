@@ -1,6 +1,6 @@
 import { SidebarItemEntity } from './SidebarItem';
 import type { MetaEntry } from '../database/MetaDB';
-import { LinkUtil } from '../utils/link';
+import { LinkUtil } from '../../src/utils/link';
 import { BaseDoc } from './BaseDoc';
 import { metaDB } from '../database/MetaDB';
 import { COLLECTION_META } from '../database/MetaDB';

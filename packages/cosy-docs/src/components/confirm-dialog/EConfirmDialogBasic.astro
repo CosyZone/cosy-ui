@@ -1,0 +1,49 @@
+---
+import { ConfirmDialog } from '@coffic/cosy-ui';
+---
+
+<div class="cosy:flex cosy:flex-col cosy:gap-4">
+  <button
+    class="cosy:btn cosy:btn-error"
+    data-confirm-dialog-target="delete-confirm">
+    删除文件
+  </button>
+
+  <button
+    class="cosy:btn cosy:btn-primary"
+    data-confirm-dialog-target="save-confirm">
+    保存更改
+  </button>
+</div>
+
+<ConfirmDialog
+  id="delete-confirm"
+  title="删除确认"
+  message="您确定要删除这个文件吗？此操作无法撤销。"
+  confirmText="删除"
+  cancelText="取消"
+/>
+
+<ConfirmDialog
+  id="save-confirm"
+  title="保存更改"
+  message="您的更改尚未保存，确定要保存吗？"
+  confirmText="保存"
+  cancelText="稍后再说"
+/>
+
+<script>
+  document.addEventListener('confirm-dialog-confirm', (e) => {
+    const { dialogId } = (e as CustomEvent).detail;
+
+    // 根据不同的对话框ID执行不同的操作
+    switch (dialogId) {
+      case 'delete-confirm':
+        alert('文件已删除');
+        break;
+      case 'save-confirm':
+        alert('更改已保存');
+        break;
+    }
+  });
+</script>

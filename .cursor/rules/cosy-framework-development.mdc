@@ -1,0 +1,85 @@
+# Cosy Framework 开发规则
+
+## 项目概述
+Cosy Framework 是一个受 Laravel 启发的 TypeScript 框架，集成了 Astro 和 Cosy-UI。
+
+## 开发步骤参考
+主要的开发步骤文档位于 [01-project-setup.md](mdc:packages/cosy-framework-docs/schedule/01-project-setup.md)
+
+## 项目结构
+- 核心框架代码：`packages/cosy-framework/`
+- 框架文档：`packages/cosy-framework-docs/`
+- UI 组件库：`packages/cosy-ui/`
+- UI 文档：`packages/cosy-ui-docs/`
+
+## 开发原则
+1. 严格按照步骤文档执行
+2. 每个步骤都要完成验证
+3. 确保类型安全
+4. 保持代码整洁和可测试性
+5. IoC 容器是核心架构
+
+## 当前阶段
+已完成步骤 002：服务容器实现
+
+## 关键配置文件
+- 主配置：[package.json](mdc:packages/cosy-framework/package.json)
+- TypeScript 配置：[tsconfig.json](mdc:packages/cosy-framework/tsconfig.json)
+- 测试配置：[vitest.config.ts](mdc:packages/cosy-framework/vitest.config.ts)
+
+## 文档命名规则
+
+### 主步骤文档
+- **格式**：`01-xxx.md`、`02-xxx.md`、`03-xxx.md`、...
+- **位置**：`packages/cosy-framework-docs/schedule/`
+- **用途**：记录每个开发步骤的具体实施过程
+
+### 附件文档
+- **格式**：`01.1-xxx详解.md`、`01.2-xxx.md`、`02.1-xxx详解.md`、...
+- **位置**：`packages/cosy-framework-docs/schedule/`
+- **用途**：深入讲解主步骤中涉及的核心概念和技术原理
+- **引用格式**：在主步骤文档中使用 `**[xxx详解](./xx.x-xxx详解.md)**` 格式引用
+
+### 示例文档
+- **格式**：`xxx-simple.ts`、`xxx-demo.ts`、`xxx-tutorial.ts`
+- **位置**：`packages/cosy-framework-docs/examples/`
+- **用途**：提供可运行的代码演示和教程
+
+### 文档组织原则
+1. **主步骤文档**保持简洁，专注于实施步骤
+2. **附件文档**提供深度理论讲解和最佳实践
+3. **示例代码**提供实际可运行的演示
+4. 附件文档应包含完整的目录、演示链接和FAQ
+
+### 附件文档标准结构
+```markdown
+# 附件 XX.X：主题详解
+
+> 本文档是步骤 XX 的补充材料，深入讲解...
+> 
+> **文件命名规则**: 
+> - 主步骤：`01-xxx.md`、`02-xxx.md`、...
+> - 附件文档：`01.1-xxx.md`、`01.2-xxx.md`、`02.1-xxx.md`、...
+
+## 📚 目录
+- [核心概念](#核心概念)
+- [实际代码演示](#实际代码演示)
+- [常见问题解答](#常见问题解答)
+
+## 🎯 可运行演示
+我们在 `examples/` 目录中提供了演示文件：
+1. **[xxx-simple.ts](../examples/xxx-simple.ts)** - 简化版演示
+2. **[xxx-demo.ts](../examples/xxx-demo.ts)** - 完整版演示
+
+运行演示：
+\`\`\`bash
+cd packages/cosy-framework-docs
+npx tsx examples/xxx-simple.ts
+\`\`\`
+```
+
+## 核心概念
+- IoC（控制反转）容器是框架的核心
+- 依赖注入模式
+- 装饰器模式
+- 中间件架构

@@ -1,0 +1,203 @@
+---
+title: 'Dashboard Layout'
+description: '管理后台布局组件，提供完整的仪表盘框架，包含侧边栏导航、顶部导航栏、确认对话框和响应式设计'
+folder: false
+order: 7.5
+---
+
+import { DashboardLayout } from '@coffic/cosy-ui';
+import { DashboardLayoutPackage as ComponentPackage } from '@/components/dashboard-layout/index.ts';
+
+## 简介
+
+DashboardLayout 组件适用于管理后台的布局，包含侧边栏导航和顶部导航栏。提供了完整的管理界面框架，包括响应式设计和暗色主题支持。
+
+组件特性：
+
+- 🏗️ **完整框架** - 提供侧边栏、顶部导航栏和主内容区的完整布局
+- 📱 **响应式设计** - 在不同设备上提供良好的用户体验
+- 🎨 **daisyUI样式** - 使用daisyUI组件库提供一致的设计风格
+- 🔧 **高度可定制** - 支持自定义导航项、系统名称和用户信息
+- 💾 **状态保持** - 记住用户的侧边栏折叠状态
+- 🌙 **主题支持** - 完整支持明暗主题切换
+- 🔔 **内置通知** - 集成 Toast 通知系统，提供统一的消息提示体验
+- 🔒 **确认对话框** - 内置确认对话框，用于重要操作的二次确认
+
+## 基础用法
+
+最简单的仪表盘布局使用方式：
+
+<ComponentPackage.DashboardLayoutContainers.Basic />
+
+## 自定义样式
+
+通过class属性自定义仪表盘的外观样式：
+
+<ComponentPackage.DashboardLayoutContainers.CustomStyle />
+
+## 侧边栏尺寸
+
+DashboardLayout支持四种不同的侧边栏尺寸，适应不同的设计需求：
+
+<ComponentPackage.DashboardLayoutContainers.SidebarSizes />
+
+## 侧边栏主题
+
+DashboardLayout支持10种不同的侧边栏主题色彩，满足各种应用场景的视觉需求：
+
+<ComponentPackage.DashboardLayoutContainers.SidebarThemes />
+
+
+
+## 侧边栏底部自定义内容
+
+DashboardLayout支持在侧边栏底部添加自定义内容，可用于展示用户信息、版权信息或其他重要信息：
+
+<ComponentPackage.DashboardLayoutContainers.SidebarFooter />
+
+## 主内容区域背景
+
+DashboardLayout 支持为主内容区域设置背景，提供丰富的视觉效果选择：
+
+<ComponentPackage.DashboardLayoutContainers.MainBackground />
+
+## Toast 通知系统
+
+DashboardLayout 内置了完整的 Toast 通知系统，无需额外配置即可使用全局通知功能：
+
+```javascript
+// 简单用法
+showToast('操作成功！');
+
+// 带类型的用法
+showToast({
+  message: '数据保存成功',
+  type: 'success',
+  duration: 3000
+});
+
+// 四种消息类型
+showToast({ message: '操作成功', type: 'success' });
+showToast({ message: '网络错误', type: 'error' });
+showToast({ message: '请注意', type: 'warning' });
+showToast({ message: '系统消息', type: 'info' });
+
+// 手动控制
+const toastId = showToast('正在处理...');
+setTimeout(() => closeToast(toastId), 2000);
+
+// 清除所有通知
+clearAllToasts();
+```
+
+**Toast 特性：**
+- ✅ **开箱即用** - DashboardLayout 自动启用，无需额外配置
+- 🎯 **四种类型** - success、error、warning、info
+- ⏱️ **自动消失** - 支持自定义显示时长
+- 🎨 **优雅动画** - 平滑的滑入滑出效果
+- 🔧 **批量管理** - 支持同时显示多个通知和批量清除
+
+## 确认对话框
+
+DashboardLayout 内置了确认对话框功能，用于重要操作的二次确认：
+
+```javascript
+// 触发确认对话框
+document.getElementById('dashboard-confirm').showModal();
+
+// 处理确认事件
+document.addEventListener('confirm-dialog-confirm', (e) => {
+  const { dialogId } = e.detail;
+  if (dialogId === 'dashboard-confirm') {
+    // 处理确认操作
+    console.log('用户确认了操作');
+  }
+});
+```
+
+**使用方式：**
+
+通过按钮触发：
+```html
+<button data-confirm-dialog-target="dashboard-confirm">
+  删除
+</button>
+```
+
+**确认对话框特性：**
+- ✅ **开箱即用** - DashboardLayout 自动启用，无需额外配置
+- 🎯 **统一体验** - 提供一致的确认交互模式
+- ⌨️ **键盘支持** - 支持键盘操作和 Esc 关闭
+- 🎨 **优雅动画** - 平滑的淡入淡出效果
+- 🔧 **可定制** - 支持自定义标题、消息和按钮文本
+
+## Props 参考
+
+### DashboardLayout Props
+
+| 属性               | 类型                 | 必需 | 默认值     | 描述                     |
+| ------------------ | -------------------- | ---- | ---------- | ------------------------ |
+| `title`            | `string`             | ✅   | -          | 页面标题                 |
+| `description`      | `string`             | ❌   | -          | 页面描述                 |
+| `systemName`       | `string`             | ❌   | "管理系统" | 系统名称，显示在侧边栏   |
+| `navItems`         | `NavItem[]`          | ✅   | -          | 导航项目数组             |
+| `userName`         | `string`             | ❌   | -          | 用户名，显示在顶部导航栏 |
+| `userAvatar`       | `string`             | ❌   | -          | 用户头像URL              |
+| `userMenuItems`    | `UserMenuItem[]`     | ❌   | 默认菜单   | 用户下拉菜单项，支持自动图标匹配 |
+| `sidebarCollapsed` | `boolean`            | ❌   | `false`    | 是否折叠侧边栏           |
+| `sidebarSize`      | `'sm' \| 'md' \| 'lg' \| 'xl'` | ❌   | `'md'`     | 侧边栏尺寸大小           |
+| `sidebarTheme`     | `SidebarTheme`       | ❌   | `'default'`| 侧边栏主题色彩           |
+| `mainBackgroundTheme` | `MainBackgroundTheme` | ❌   | `'transparent'` | 主内容区域背景主题       |
+| `enableToast`      | `boolean`            | ❌   | `true`     | 是否启用 Toast 通知功能  |
+| `enableConfirmDialog` | `boolean`         | ❌   | `true`     | 是否启用确认对话框功能   |
+| `head`             | `astroHTML.JSX.Element` | ❌   | -          | 自定义头部内容           |
+| `class`            | `string`             | ❌   | -          | 页面类名                 |
+| `class:list`       | `any`                | ❌   | -          | 类名列表                 |
+
+### NavItem 接口
+
+```typescript
+interface NavItem {
+  href: string;           // 链接地址
+  icon?: string;          // 图标名称，可选，支持自动匹配
+  text: string;           // 显示文本
+  badge?: string | number; // 可选的徽章显示
+  items?: NavItem[];      // 子菜单项
+}
+```
+
+### UserMenuItem 接口
+
+```typescript
+interface UserMenuItem {
+  href: string;           // 链接地址
+  text: string;           // 显示文本
+  icon?: string;          // 图标名称，可选，支持自动匹配
+}
+```
+
+### 自动图标匹配
+
+组件支持根据 href 路径自动匹配合适的图标，包括：
+
+**导航相关**：
+- `dashboard`, `home`, `index` → 🏠 首页图标
+- `user`, `profile`, `account` → 👤 用户图标
+- `users`, `member`, `team` → 👥 用户组图标
+- `settings`, `config`, `admin` → ⚙️ 设置图标
+
+**功能相关**：
+- `chart`, `analytics`, `report` → 📊 图表图标
+- `document`, `doc`, `file` → 📄 文档图标
+- `calendar`, `schedule`, `event` → 📅 日历图标
+- `notification` → 🔔 通知图标
+- `message`, `chat` → 💬 消息图标
+- `search`, `find` → 🔍 搜索图标
+- `logout`, `signout`, `exit` → 🚪 退出图标
+- `help`, `support` → ❓ 帮助图标
+
+**使用说明**：
+- 如果显式指定了 `icon` 属性，将优先使用指定的图标
+- 如果未指定 `icon`，系统会根据 `href` 路径自动匹配图标
+- 对于 NavItem，匹配失败时使用 `folder` 图标
+- 对于 UserMenuItem，匹配失败时使用 `user` 图标
