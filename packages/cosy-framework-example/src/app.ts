@@ -16,8 +16,6 @@ import {
     setupErrorHandling,
 } from '@coffic/cosy-framework'
 import { AuthMiddleware } from './middleware/auth-middleware'
-import { UserService } from './services/user-service'
-import { PostService } from './services/post-service'
 
 /**
  * 创建应用实例
@@ -29,12 +27,6 @@ const app = ApplicationFactory.createApiApp({
     port: parseInt(process.env.PORT || '3000')
 })
 
-/**
- * 服务注册
- * @description 注册应用所需的核心服务
- */
-app.container.bind('UserService', UserService)
-app.container.bind('PostService', PostService)
 
 /**
  * 中间件配置
