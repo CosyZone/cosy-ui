@@ -1,6 +1,7 @@
 import { Command } from 'commander'
 import { ILogger } from '@coffic/cosy-interfaces'
 import boxen from 'boxen'
+import { configureDbCommand } from './commands/db-commander.js'
 
 /**
  * 基于 Commander.js 的 CLI 应用程序类
@@ -40,6 +41,9 @@ export class CommanderApp {
 
         // 设置帮助信息主题
         this.setupHelpTheme()
+
+        // 配置数据库命令
+        configureDbCommand(this.program)
 
         this.logger.debug('Commander application initialized', {
             name: config.name,
