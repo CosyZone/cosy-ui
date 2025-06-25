@@ -6,7 +6,36 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./manager": {
+      "types": "./dist/manager.d.ts",
+      "import": "./dist/manager.js",
+      "default": "./dist/manager.js"
+    },
+    "./environment": {
+      "types": "./dist/environment.d.ts",
+      "import": "./dist/environment.js",
+      "default": "./dist/environment.js"
+    },
+    "./types": {
+      "types": "./dist/types.d.ts",
+      "import": "./dist/types.js",
+      "default": "./dist/types.js"
+    },
+    "./validator": {
+      "types": "./dist/validator.d.ts",
+      "import": "./dist/validator.js",
+      "default": "./dist/validator.js"
+    },
+    "./sources": {
+      "types": "./dist/sources.d.ts",
+      "import": "./dist/sources.js",
+      "default": "./dist/sources.js"
+    }
   },
   "scripts": {
     "build": "tsc",
