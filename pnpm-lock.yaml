@@ -4,15 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-catalogs:
-  default:
-    '@types/node':
-      specifier: ^22.10.2
-      version: 22.15.32
-    typescript:
-      specifier: ^5.8.3
-      version: 5.8.3
-
 importers:
 
   .:
@@ -105,6 +96,137 @@ importers:
         specifier: ^1.6.0
         version: 1.6.1(@types/node@20.19.1)(@vitest/ui@1.6.1)(lightningcss@1.30.1)
 
+  packages/cosy-docs:
+    dependencies:
+      '@coffic/cosy-ui':
+        specifier: workspace:*
+        version: link:../cosy-ui
+      astro-integration-kit:
+        specifier: ^0.18.0
+        version: 0.18.0(astro@5.9.4(@types/node@22.15.32)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.43.0)(tsx@4.20.3)(typescript@5.8.3)(yaml@2.8.0))
+      fs-extra:
+        specifier: ^11.3.0
+        version: 11.3.0
+      html-to-image:
+        specifier: ^1.11.13
+        version: 1.11.13
+    devDependencies:
+      '@astrojs/check':
+        specifier: ^0.9.4
+        version: 0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.5.3)(typescript@5.8.3)
+      '@astrojs/mdx':
+        specifier: ^4.2.6
+        version: 4.3.0(astro@5.9.4(@types/node@22.15.32)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.43.0)(tsx@4.20.3)(typescript@5.8.3)(yaml@2.8.0))
+      '@astrojs/ts-plugin':
+        specifier: ^1.10.4
+        version: 1.10.4
+      '@eslint/js':
+        specifier: ^9.27.0
+        version: 9.29.0
+      '@tailwindcss/typography':
+        specifier: ^0.5.16
+        version: 0.5.16(tailwindcss@4.1.10)
+      '@tailwindcss/vite':
+        specifier: ^4.1.7
+        version: 4.1.10(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(lightningcss@1.30.1)(tsx@4.20.3)(yaml@2.8.0))
+      '@tsconfig/node22':
+        specifier: ^22.0.2
+        version: 22.0.2
+      '@types/chai':
+        specifier: ^5.2.2
+        version: 5.2.2
+      '@types/eslint':
+        specifier: ^9.6.1
+        version: 9.6.1
+      '@types/fs-extra':
+        specifier: ^11.0.4
+        version: 11.0.4
+      '@types/mocha':
+        specifier: ^10.0.10
+        version: 10.0.10
+      '@types/node':
+        specifier: ^22.15.19
+        version: 22.15.32
+      '@types/react':
+        specifier: ^19.1.4
+        version: 19.1.8
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^8.34.1
+        version: 8.34.1(@typescript-eslint/parser@8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3)
+      '@typescript-eslint/parser':
+        specifier: ^8.34.1
+        version: 8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3)
+      astro:
+        specifier: ^5.7.13
+        version: 5.9.4(@types/node@22.15.32)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.43.0)(tsx@4.20.3)(typescript@5.8.3)(yaml@2.8.0)
+      chai:
+        specifier: ^4.5.0
+        version: 4.5.0
+      daisyui:
+        specifier: ^5.0.35
+        version: 5.0.43
+      eslint:
+        specifier: ^9.29.0
+        version: 9.29.0(jiti@2.4.2)
+      eslint-import-resolver-typescript:
+        specifier: ^4.4.3
+        version: 4.4.3(eslint@9.29.0(jiti@2.4.2))
+      eslint-plugin-astro:
+        specifier: ^1.3.1
+        version: 1.3.1(eslint@9.29.0(jiti@2.4.2))
+      globals:
+        specifier: ^16.1.0
+        version: 16.2.0
+      mocha:
+        specifier: ^10.8.2
+        version: 10.8.2
+      prettier:
+        specifier: ^3.5.3
+        version: 3.5.3
+      prettier-plugin-astro:
+        specifier: ^0.14.1
+        version: 0.14.1
+      rollup-plugin-copy:
+        specifier: ^3.5.0
+        version: 3.5.0
+      sharp:
+        specifier: ^0.33.5
+        version: 0.33.5
+      tailwindcss:
+        specifier: ^4.1.7
+        version: 4.1.10
+      tsx:
+        specifier: ^4.19.4
+        version: 4.20.3
+      typescript:
+        specifier: ^5.8.3
+        version: 5.8.3
+      typescript-eslint:
+        specifier: ^8.32.1
+        version: 8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3)
+      vite:
+        specifier: ^6.3.5
+        version: 6.3.5(@types/node@22.15.32)(jiti@2.4.2)(lightningcss@1.30.1)(tsx@4.20.3)(yaml@2.8.0)
+
+  packages/cosy-example:
+    dependencies:
+      '@coffic/cosy-framework':
+        specifier: workspace:*
+        version: link:../cosy-framework
+    devDependencies:
+      '@types/node':
+        specifier: ^20.19.1
+        version: 20.19.1
+      tsx:
+        specifier: ^4.20.3
+        version: 4.20.3
+      typescript:
+        specifier: ^5.8.3
+        version: 5.8.3
+      vitest:
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@20.19.1)(@vitest/ui@1.6.1)(lightningcss@1.30.1)
+
   packages/cosy-framework:
     dependencies:
       '@coffic/cosy-config':
@@ -152,58 +274,6 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^1.6.0
-        version: 1.6.1(@types/node@20.19.1)(@vitest/ui@1.6.1)(lightningcss@1.30.1)
-
-  packages/cosy-framework-design:
-    devDependencies:
-      '@types/node':
-        specifier: 'catalog:'
-        version: 22.15.32
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^8.34.1
-        version: 8.34.1(@typescript-eslint/parser@8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3)
-      '@typescript-eslint/parser':
-        specifier: ^8.34.1
-        version: 8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3)
-      eslint:
-        specifier: ^9.29.0
-        version: 9.29.0(jiti@2.4.2)
-      typescript:
-        specifier: 'catalog:'
-        version: 5.8.3
-
-  packages/cosy-framework-docs:
-    devDependencies:
-      '@types/node':
-        specifier: ^20.0.0
-        version: 20.19.1
-      reflect-metadata:
-        specifier: ^0.1.13
-        version: 0.1.14
-      tsx:
-        specifier: ^4.6.0
-        version: 4.20.3
-      typescript:
-        specifier: ^5.3.0
-        version: 5.8.3
-
-  packages/cosy-framework-example:
-    dependencies:
-      '@coffic/cosy-framework':
-        specifier: workspace:*
-        version: link:../cosy-framework
-    devDependencies:
-      '@types/node':
-        specifier: ^20.19.1
-        version: 20.19.1
-      tsx:
-        specifier: ^4.20.3
-        version: 4.20.3
-      typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
-      vitest:
-        specifier: ^1.6.1
         version: 1.6.1(@types/node@20.19.1)(@vitest/ui@1.6.1)(lightningcss@1.30.1)
 
   packages/cosy-http:
@@ -378,118 +448,6 @@ importers:
       eslint:
         specifier: ^9.27.0
         version: 9.29.0(jiti@2.4.2)
-      eslint-plugin-astro:
-        specifier: ^1.3.1
-        version: 1.3.1(eslint@9.29.0(jiti@2.4.2))
-      globals:
-        specifier: ^16.1.0
-        version: 16.2.0
-      mocha:
-        specifier: ^10.8.2
-        version: 10.8.2
-      prettier:
-        specifier: ^3.5.3
-        version: 3.5.3
-      prettier-plugin-astro:
-        specifier: ^0.14.1
-        version: 0.14.1
-      rollup-plugin-copy:
-        specifier: ^3.5.0
-        version: 3.5.0
-      sharp:
-        specifier: ^0.33.5
-        version: 0.33.5
-      tailwindcss:
-        specifier: ^4.1.7
-        version: 4.1.10
-      tsx:
-        specifier: ^4.19.4
-        version: 4.20.3
-      typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
-      typescript-eslint:
-        specifier: ^8.32.1
-        version: 8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3)
-      vite:
-        specifier: ^6.3.5
-        version: 6.3.5(@types/node@22.15.32)(jiti@2.4.2)(lightningcss@1.30.1)(tsx@4.20.3)(yaml@2.8.0)
-
-  packages/cosy-ui-docs:
-    dependencies:
-      '@coffic/cosy-ui':
-        specifier: workspace:*
-        version: link:../cosy-ui
-      astro-integration-kit:
-        specifier: ^0.18.0
-        version: 0.18.0(astro@5.9.4(@types/node@22.15.32)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.43.0)(tsx@4.20.3)(typescript@5.8.3)(yaml@2.8.0))
-      fs-extra:
-        specifier: ^11.3.0
-        version: 11.3.0
-      html-to-image:
-        specifier: ^1.11.13
-        version: 1.11.13
-    devDependencies:
-      '@astrojs/check':
-        specifier: ^0.9.4
-        version: 0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.5.3)(typescript@5.8.3)
-      '@astrojs/mdx':
-        specifier: ^4.2.6
-        version: 4.3.0(astro@5.9.4(@types/node@22.15.32)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.43.0)(tsx@4.20.3)(typescript@5.8.3)(yaml@2.8.0))
-      '@astrojs/ts-plugin':
-        specifier: ^1.10.4
-        version: 1.10.4
-      '@eslint/js':
-        specifier: ^9.27.0
-        version: 9.29.0
-      '@tailwindcss/typography':
-        specifier: ^0.5.16
-        version: 0.5.16(tailwindcss@4.1.10)
-      '@tailwindcss/vite':
-        specifier: ^4.1.7
-        version: 4.1.10(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(lightningcss@1.30.1)(tsx@4.20.3)(yaml@2.8.0))
-      '@tsconfig/node22':
-        specifier: ^22.0.2
-        version: 22.0.2
-      '@types/chai':
-        specifier: ^5.2.2
-        version: 5.2.2
-      '@types/eslint':
-        specifier: ^9.6.1
-        version: 9.6.1
-      '@types/fs-extra':
-        specifier: ^11.0.4
-        version: 11.0.4
-      '@types/mocha':
-        specifier: ^10.0.10
-        version: 10.0.10
-      '@types/node':
-        specifier: ^22.15.19
-        version: 22.15.32
-      '@types/react':
-        specifier: ^19.1.4
-        version: 19.1.8
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^8.34.1
-        version: 8.34.1(@typescript-eslint/parser@8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3)
-      '@typescript-eslint/parser':
-        specifier: ^8.34.1
-        version: 8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3)
-      astro:
-        specifier: ^5.7.13
-        version: 5.9.4(@types/node@22.15.32)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.43.0)(tsx@4.20.3)(typescript@5.8.3)(yaml@2.8.0)
-      chai:
-        specifier: ^4.5.0
-        version: 4.5.0
-      daisyui:
-        specifier: ^5.0.35
-        version: 5.0.43
-      eslint:
-        specifier: ^9.29.0
-        version: 9.29.0(jiti@2.4.2)
-      eslint-import-resolver-typescript:
-        specifier: ^4.4.3
-        version: 4.4.3(eslint@9.29.0(jiti@2.4.2))
       eslint-plugin-astro:
         specifier: ^1.3.1
         version: 1.3.1(eslint@9.29.0(jiti@2.4.2))
@@ -3650,9 +3608,6 @@ packages:
   recma-stringify@1.0.0:
     resolution: {integrity: sha512-cjwII1MdIIVloKvC9ErQ+OgAtwHBmcZ0Bg4ciz78FtbT8In39aAYbaA7zvxQ61xVMSPE8WxhLwLbhif4Js2C+g==}
 
-  reflect-metadata@0.1.14:
-    resolution: {integrity: sha512-ZhYeb6nRaXCfhnndflDK8qI6ZQ/YcWZCISRAWICW9XYqMUwjZM9Z0DveWX/ABN01oxSHwVxKQmxeYZSsm0jh5A==}
-
   reflect-metadata@0.2.2:
     resolution: {integrity: sha512-urBwgfrvVP/eAyXx4hluJivBKzuEbSQs9rKWCrCkbSxNv8mxPcUZKeuoF3Uy4mJl3Lwprp6yy5/39VWigZ4K6Q==}
 
@@ -5708,7 +5663,7 @@ snapshots:
       pathe: 1.1.2
       picocolors: 1.1.1
       sirv: 2.0.4
-      vitest: 1.6.1(@types/node@22.15.32)(@vitest/ui@1.6.1)(lightningcss@1.30.1)
+      vitest: 1.6.1(@types/node@20.19.1)(@vitest/ui@1.6.1)(lightningcss@1.30.1)
 
   '@vitest/utils@1.6.1':
     dependencies:
@@ -8038,8 +7993,6 @@ snapshots:
       estree-util-to-js: 2.0.0
       unified: 11.0.5
       vfile: 6.0.3
-
-  reflect-metadata@0.1.14: {}
 
   reflect-metadata@0.2.2: {}
 
