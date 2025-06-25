@@ -1,7 +1,7 @@
 ---
-import { type ISidebarItem, AppLayout } from '@coffic/cosy-ui';
-import Favicon from '@/assets/favicon.png';
-import { configApp } from '@/config/config.app';
+import { type ISidebarItem, Banner, Container } from '@coffic/cosy-ui';
+import BaseLayout from './BaseLayout.astro';
+import DemoBanner from './DemoBanner.astro';
 
 interface Props {
   title: string;
@@ -19,58 +19,12 @@ const {
 const currentLocale = Astro.currentLocale;
 ---
 
-<AppLayout
-  debug={false}
-  metaConfig={{
-    title: title,
-    description: 'Cosy UI - A beautiful Astro component library',
-    keywords: 'Cosy UI, Astro, component library',
-    author: 'CofficLab',
-    robots: 'index, follow',
-    favicon: Favicon,
-  }}
-  footerConfig={{
-    siteName: 'Cosy UI',
-    homeLink: configApp.homeLink,
-    slogan:
-      currentLocale === 'zh-cn'
-        ? '优雅、高效的 Astro 组件库'
-        : 'A beautiful Astro component library',
-    company: 'CofficLab',
-    copyright: '© 2025 CofficLab',
-    inspirationalSlogan:
-      currentLocale === 'zh-cn'
-        ? '构建美好的用户界面'
-        : 'Build a beautiful user interface',
-    socialLinks: ['https://github.com/CofficLab/cosy-ui'],
-    products: configApp.products,
-    aboutLink: 'https://coffic.cn/en/meta/about',
-    contactLink: 'https://coffic.cn/en/meta/contact',
-    termsLink: 'https://coffic.cn/en/meta/terms',
-    privacyLink: 'https://coffic.cn/en/meta/privacy',
-    historyLink: 'https://coffic.cn/en/meta/our-story',
-    techStackLink: 'https://coffic.cn/en/meta/tech-stack',
-  }}
-  headerConfig={{
-    logoHref: configApp.homeLink,
-    navItems: configApp.getNavItems(currentLocale || 'zh-cn'),
-    languages: ['zh-cn', 'en'],
-    navPosition: 'start',
-    showThemeSwitcher: true,
-  }}
-  sidebarConfig={{
-    sidebarItems: sidebarItems ? [sidebarItems] : [],
-    debug: false,
-    marginTop: '2xl',
-  }}
-  mainContentConfig={{
-    verticalPadding: '4xl',
-    isArticle: true,
-    layout: 'row',
-    showTableOfContents: showTOC,
-  }}
-  showHeader={true}
-  showFooter={true}
-  showSidebar={showSidebar}>
+<BaseLayout
+  title={title}
+  showTOC={showTOC}
+  showSidebar={showSidebar}
+  sidebarItems={sidebarItems}>
+  <DemoBanner />
+
   <slot />
-</AppLayout>
+</BaseLayout>

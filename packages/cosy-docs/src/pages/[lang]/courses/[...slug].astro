@@ -1,5 +1,5 @@
 ---
-import DemoLayout from '@/layouts/DemoLayout.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
 import {
   Error404,
   courseDB,
@@ -43,7 +43,7 @@ export const getStaticPaths = async () => {
 };
 ---
 
-<DemoLayout title={title} sidebarItems={sidebarItems}>
+<BaseLayout title={title} sidebarItems={sidebarItems}>
   {
     renderResult ? (
       <>
@@ -54,4 +54,4 @@ export const getStaticPaths = async () => {
       <Error404 debugKVs={{ slug }} />
     )
   }
-</DemoLayout>
+</BaseLayout>

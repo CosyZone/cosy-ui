@@ -1,5 +1,5 @@
 ---
-import DemoLayout from '@/layouts/DemoLayout.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
 import { LinkUtil } from '@coffic/cosy-ui';
 
 export const getStaticPaths = async () => {
@@ -23,4 +23,4 @@ const redirectLink = LinkUtil.createUrl('/en/courses/guide');
 return Astro.redirect(redirectLink);
 ---
 
-<DemoLayout title="Courses" />
+<BaseLayout title="Courses" />
