@@ -1,7 +1,7 @@
-import { Application } from '../application.js'
+import { Application } from '../app/application.js'
 import { ApplicationConfig } from '../types.js'
-import { ApplicationDependencies } from '../application.js'
-import { ICommand } from './interfaces.js'
+import { ApplicationDependencies } from '../app/application.js'
+import { ICommand } from '@coffic/cosy-interfaces'
 
 /**
  * 命令行应用程序类

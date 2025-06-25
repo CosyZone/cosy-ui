@@ -22,3 +22,6 @@ export * from './route-handler.js'
 export * from './common/index.js'
 
 export * from './logger.js'
+
+// Command interfaces
+export * from './command.js'

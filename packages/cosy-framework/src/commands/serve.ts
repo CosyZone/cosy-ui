@@ -1,5 +1,6 @@
-import { BaseCommand } from '../interfaces.js'
-import { ApplicationFactory } from '../../factory.js'
+
+import { BaseCommand } from '@coffic/cosy-interfaces'
+import { ApplicationFactory } from '../factory.js'
 
 export class ServeCommand extends BaseCommand {
     constructor() {

@@ -19,6 +19,7 @@ export interface ICommand {
     execute(args: string[]): Promise<void>;
 }
 
+
 /**
  * 基础命令类
  */
@@ -41,6 +42,8 @@ export abstract class BaseCommand implements ICommand {
 
     abstract execute(args: string[]): Promise<void>;
 }
+
+
 
 /**
  * 命令注册选项
