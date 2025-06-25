@@ -60,12 +60,12 @@
   "scripts": {
     "clean": "rimraf dist",
     "prebuild": "pnpm clean",
-    "build": "tsc",
+    "build": "tsc --build",
     "postbuild": "chmod +x dist/cli/bin.js",
     "dev": "tsc --watch",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:coverage": "vitest --coverage"
+    "test": "nx vite:test run",
+    "test:watch": "nx vite:test",
+    "test:coverage": "nx vite:test --coverage"
   },
   "dependencies": {
     "@coffic/cosy-router": "workspace:*",
