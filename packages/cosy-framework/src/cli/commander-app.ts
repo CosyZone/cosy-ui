@@ -1,5 +1,6 @@
 import { Command } from 'commander'
 import { ILogger } from '@coffic/cosy-interfaces'
+import boxen from 'boxen'
 
 /**
  * 基于 Commander.js 的 CLI 应用程序类
@@ -122,22 +123,26 @@ export class CommanderApp {
      */
     private getHelpHeader(): string {
         const version = this.program.version() || '0.1.0'
-        return `
-╭─────────────────────────────────────────────────────────────╮
-│                                                             │
-│   🚀 Cosy Framework CLI v${version.padEnd(10)}                     │
-│                                                             │
-│   A Laravel-inspired TypeScript framework                  │
-│                                                             │
-╰─────────────────────────────────────────────────────────────╯
+        const headerText = `
+🚀 Cosy Framework CLI v${version}
+
+A Laravel-inspired TypeScript framework
 `
+        return boxen(headerText, {
+            padding: 1,
+            margin: 1,
+            borderStyle: 'double',
+            borderColor: 'cyan',
+            title: '欢迎使用',
+            titleAlignment: 'center'
+        })
     }
 
     /**
      * 获取帮助信息尾部
      */
     private getHelpFooter(): string {
-        return `
+        const footerText = `
 💡 示例:
    cosy serve           启动开发服务器 (默认端口: 3000)
    cosy serve 8080      启动开发服务器在指定端口
@@ -148,6 +153,12 @@ export class CommanderApp {
 📚 了解更多:
    访问文档: https://github.com/coffic/cosy-ui
 `
+        return boxen(footerText, {
+            padding: 1,
+            margin: { top: 1 },
+            borderStyle: 'round',
+            borderColor: 'green'
+        })
     }
 
     /**
@@ -203,4 +214,4 @@ export class CommanderApp {
     getLogger(): ILogger {
         return this.logger
     }
-} 
+}
