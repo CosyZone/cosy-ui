@@ -126,10 +126,34 @@ export class CliApplication extends Application {
     private showHelp(): void {
         this.logger.debug('Showing help information')
 
-        console.log(`\n${this.getName()} - Available commands:`)
-        for (const [name, command] of this.commands) {
-            console.log(`  ${name.padEnd(20)} ${command.getDescription()}`)
+        console.log(`
+📋 ${this.getName()} 可用命令:
+`)
+
+        if (this.commands.size === 0) {
+            console.log('   暂无可用命令')
+            return
         }
-        console.log('\nUse --help with any command for more information\n')
+
+        // 找出最长的命令名称，用于对齐
+        const maxNameLength = Math.max(...Array.from(this.commands.keys()).map(name => name.length))
+        const padding = Math.max(maxNameLength + 2, 20)
+
+        for (const [name, command] of this.commands) {
+            const paddedName = name.padEnd(padding)
+            console.log(`   ${paddedName} ${command.getDescription()}`)
+        }
+
+        console.log(`
+🔧 全局选项:
+   --help, -h         显示此帮助信息
+   --version, -v      显示版本信息
+
+💡 获取特定命令的帮助:
+   cosy <command> --help
+
+📚 了解更多:
+   访问文档: https://github.com/coffic/cosy-ui
+`)
     }
 } 

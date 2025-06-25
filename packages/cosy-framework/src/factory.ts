@@ -44,7 +44,6 @@ export class ApplicationFactory {
         const baseConfig = {
             pretty: true, // 开发环境下默认美化输出
             timestamp: false,
-            level: LogLevel.DEBUG, // 启用调试级别的日志
             context: {
                 source: 'framework' // 标记这是框架日志
             }
@@ -53,6 +52,7 @@ export class ApplicationFactory {
         if (appType === 'cli') {
             return new Logger({
                 ...baseConfig,
+                level: LogLevel.WARN, // CLI 应用默认只显示警告和错误
                 prefix: '🔧', // CLI 应用程序前缀
                 context: {
                     ...baseConfig.context,
@@ -63,6 +63,7 @@ export class ApplicationFactory {
 
         return new Logger({
             ...baseConfig,
+            level: LogLevel.DEBUG, // Web 应用保持调试级别
             prefix: '💤', // Web 应用程序前缀
             context: {
                 ...baseConfig.context,
