@@ -3,12 +3,12 @@
  */
 
 // 示例组件
-import AppLayoutBasic from './AppLayoutBasic.astro';
-import EAppLayoutCustomStyle from './EAppLayoutCustomStyle.astro';
+import AppLayoutBasic from './AppLayoutBasic.astro.js';
+import EAppLayoutCustomStyle from './EAppLayoutCustomStyle.astro.js';
 
 // 容器组件
-import EAppLayoutBasicContainer from './EAppLayoutBasicContainer.astro';
-import EAppLayoutCustomStyleContainer from './EAppLayoutCustomStyleContainer.astro';
+import EAppLayoutBasicContainer from './EAppLayoutBasicContainer.astro.js';
+import EAppLayoutCustomStyleContainer from './EAppLayoutCustomStyleContainer.astro.js';
 
 export {
     // 示例组件

@@ -7,8 +7,8 @@ import {
     IMiddlewareHandler,
     HttpMethod
 } from '@coffic/cosy-interfaces'
-import { Route } from './route'
-import { DefaultRouteCompiler } from './compiler'
+import { Route } from './route.js'
+import { DefaultRouteCompiler } from './compiler.js'
 
 export class Router implements IRouter {
     private routes: IRoute[] = []

@@ -1,4 +1,4 @@
-import { Application } from './application'
+import { Application } from './application.js'
 
 /**
  * 配置优雅关闭处理

@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { IMiddlewareHandler } from '@coffic/cosy-interfaces'
-import { auth, cors, rateLimit } from './common'
+import { auth, cors, rateLimit } from './common.js'
 
 const MIDDLEWARE_METADATA_KEY = Symbol('middleware')
 

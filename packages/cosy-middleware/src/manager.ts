@@ -1,5 +1,5 @@
 import { IMiddlewareHandler, IMiddlewareManager } from '@coffic/cosy-interfaces'
-import { convertToMiddlewareHandler, convertToIMiddlewareHandler, convertToIMiddlewareHandlers, StoredMiddleware } from './types'
+import { convertToMiddlewareHandler, convertToIMiddlewareHandler, convertToIMiddlewareHandlers, StoredMiddleware } from './types.js'
 
 export class MiddlewareRegistry implements IMiddlewareManager {
     private middlewares: Map<string, StoredMiddleware> = new Map()

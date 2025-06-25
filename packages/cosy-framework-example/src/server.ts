@@ -7,7 +7,7 @@
  * 2. 处理启动过程中的错误
  */
 
-import { app } from './app'
+import { app } from './app.js'
 
 /**
  * 启动服务器的主函数

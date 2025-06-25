@@ -1,5 +1,5 @@
 import { IRouteHandler, IMiddlewareHandler } from '../middleware'
-import { IRoute } from './Route'
+import { IRoute } from './Route.js'
 
 /**
  * 路由匹配结果

@@ -1,5 +1,5 @@
-import { IRequest } from './request'
-import { ResponseInterface } from './response'
+import { IRequest } from './request.js'
+import { ResponseInterface } from './response.js'
 
 /**
  * HTTP 上下文接口

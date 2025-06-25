@@ -15,7 +15,7 @@ import {
     gracefulShutdown,
     setupErrorHandling,
 } from '@coffic/cosy-framework'
-import { AuthMiddleware } from './middleware/auth-middleware'
+import { AuthMiddleware } from './middleware/auth-middleware.js'
 
 /**
  * 创建应用实例

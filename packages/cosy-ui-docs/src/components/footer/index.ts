@@ -1,19 +1,19 @@
 // Footer 示例组件
-import EFooterBasic from './EFooterBasic.astro';
-import EFooterComplete from './EFooterComplete.astro';
-import EFooterWithLogo from './EFooterWithLogo.astro';
-import EFooterWithNavigation from './EFooterWithNavigation.astro';
-import EFooterWithProducts from './EFooterWithProducts.astro';
-import EFooterWithSocial from './EFooterWithSocial.astro';
+import EFooterBasic from './EFooterBasic.astro.js';
+import EFooterComplete from './EFooterComplete.astro.js';
+import EFooterWithLogo from './EFooterWithLogo.astro.js';
+import EFooterWithNavigation from './EFooterWithNavigation.astro.js';
+import EFooterWithProducts from './EFooterWithProducts.astro.js';
+import EFooterWithSocial from './EFooterWithSocial.astro.js';
 
 // Footer 容器组件
-import EFooterBasicContainer from './EFooterBasicContainer.astro';
-import EFooterCompleteContainer from './EFooterCompleteContainer.astro';
-import EFooterFeaturesContainer from './EFooterFeaturesContainer.astro';
-import EFooterWithLogoContainer from './EFooterWithLogoContainer.astro';
-import EFooterWithNavigationContainer from './EFooterWithNavigationContainer.astro';
-import EFooterWithProductsContainer from './EFooterWithProductsContainer.astro';
-import EFooterWithSocialContainer from './EFooterWithSocialContainer.astro';
+import EFooterBasicContainer from './EFooterBasicContainer.astro.js';
+import EFooterCompleteContainer from './EFooterCompleteContainer.astro.js';
+import EFooterFeaturesContainer from './EFooterFeaturesContainer.astro.js';
+import EFooterWithLogoContainer from './EFooterWithLogoContainer.astro.js';
+import EFooterWithNavigationContainer from './EFooterWithNavigationContainer.astro.js';
+import EFooterWithProductsContainer from './EFooterWithProductsContainer.astro.js';
+import EFooterWithSocialContainer from './EFooterWithSocialContainer.astro.js';
 
 export const FooterPackage = {
     FooterContainers: {

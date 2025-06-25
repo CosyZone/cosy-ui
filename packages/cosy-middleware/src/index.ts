@@ -1,11 +1,11 @@
 // 导出中间件管理器
-export { MiddlewareRegistry } from './manager'
+export { MiddlewareRegistry } from './manager.js'
 
 // 导出中间件管道
-export { Pipeline } from './pipeline'
+export { Pipeline } from './pipeline.js'
 
 // 导出条件中间件
-export { ConditionalMiddlewareImpl as ConditionalMiddleware, conditional } from './conditional'
+export { ConditionalMiddlewareImpl as ConditionalMiddleware, conditional } from './conditional.js'
 
 // 导出通用中间件
 export {
@@ -19,7 +19,7 @@ export {
     cache,
     security,
     requestId
-} from './common'
+} from './common.js'
 
 // 导出装饰器
 export {
@@ -30,4 +30,4 @@ export {
     Cors,
     getClassMiddleware,
     getMethodMiddleware
-} from './decorators'
+} from './decorators.js'

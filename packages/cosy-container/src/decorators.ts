@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import { Constructor, INJECTABLE_TOKEN, INJECT_TOKEN } from './types'
+import { Constructor, INJECTABLE_TOKEN, INJECT_TOKEN } from './types.js'
 
 /**
  * 标记一个类可以被注入

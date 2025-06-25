@@ -1,4 +1,4 @@
-import { FileUpload } from './file-upload'
+import { FileUpload } from './file-upload.js'
 
 /**
  * 请求接口

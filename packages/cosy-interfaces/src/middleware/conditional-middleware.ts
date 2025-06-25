@@ -1,5 +1,5 @@
 import { IRequest, ResponseInterface } from '../http'
-import { IMiddlewareHandler } from './middleware-handler'
+import { IMiddlewareHandler } from './middleware-handler.js'
 
 /**
  * 条件中间件接口

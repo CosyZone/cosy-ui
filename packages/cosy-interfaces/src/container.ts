@@ -1,4 +1,4 @@
-import { Constructor } from "./common"
+import { Constructor } from "./common/index.js"
 
 /**
  * 服务标识符类型

@@ -1,7 +1,7 @@
-import { Application } from './application'
-import { BootstrapOptions } from './types'
+import { Application } from './application.js'
+import { BootstrapOptions } from './types.js'
 import { existsSync, readFileSync } from 'fs'
-import { ApplicationFactory } from './factory'
+import { ApplicationFactory } from './factory.js'
 
 /**
  * 应用程序启动器类

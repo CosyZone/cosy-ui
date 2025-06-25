@@ -1,5 +1,5 @@
 import { IncomingMessage, ServerResponse } from 'http'
-import { Context } from './context'
+import { Context } from './context.js'
 
 /**
  * 创建 HTTP 上下文

@@ -1,7 +1,7 @@
 import { createServer, Server as HttpServer } from 'http'
-import { Context } from './context'
+import { Context } from './context.js'
 import { IMiddlewareHandler, IMiddlewarePipeline, IRouteHandler, IServer, ILogger, ServerConfig } from '@coffic/cosy-interfaces'
-import { Pipeline } from './pipeline'
+import { Pipeline } from './pipeline.js'
 
 /**
  * HTTP 服务器类

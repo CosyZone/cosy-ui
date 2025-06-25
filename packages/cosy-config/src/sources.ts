@@ -1,4 +1,4 @@
-import { ConfigSource } from './types'
+import { ConfigSource } from './types.js'
 import { readFile } from 'fs/promises'
 import { existsSync, watch } from 'fs'
 

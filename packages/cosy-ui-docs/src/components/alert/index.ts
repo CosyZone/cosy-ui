@@ -1,14 +1,14 @@
-import EAlertBasic from './EAlertBasic.astro';
-import EAlertWithTitle from './EAlertWithTitle.astro';
-import EAlertCustomStyle from './EAlertCustomStyle.astro';
-import EAlertInfo from './EAlertInfo.astro';
-import EAlertSuccess from './EAlertSuccess.astro';
-import EAlertWarning from './EAlertWarning.astro';
-import EAlertError from './EAlertError.astro';
-import EAlertBasicContainer from './EAlertBasicContainer.astro';
-import EAlertWithTitleContainer from './EAlertWithTitleContainer.astro';
-import EAlertCustomStyleContainer from './EAlertCustomStyleContainer.astro';
-import EAlertTypesContainer from './EAlertTypesContainer.astro';
+import EAlertBasic from './EAlertBasic.astro.js';
+import EAlertWithTitle from './EAlertWithTitle.astro.js';
+import EAlertCustomStyle from './EAlertCustomStyle.astro.js';
+import EAlertInfo from './EAlertInfo.astro.js';
+import EAlertSuccess from './EAlertSuccess.astro.js';
+import EAlertWarning from './EAlertWarning.astro.js';
+import EAlertError from './EAlertError.astro.js';
+import EAlertBasicContainer from './EAlertBasicContainer.astro.js';
+import EAlertWithTitleContainer from './EAlertWithTitleContainer.astro.js';
+import EAlertCustomStyleContainer from './EAlertCustomStyleContainer.astro.js';
+import EAlertTypesContainer from './EAlertTypesContainer.astro.js';
 
 export const AlertPackage = {
     AlertContainers: {

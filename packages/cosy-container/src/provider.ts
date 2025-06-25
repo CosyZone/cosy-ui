@@ -1,4 +1,4 @@
-import { Container, ServiceProvider } from './types'
+import { Container, ServiceProvider } from './types.js'
 
 /**
  * 服务提供者基类

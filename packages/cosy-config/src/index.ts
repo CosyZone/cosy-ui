@@ -1,8 +1,8 @@
 // 配置管理器
-export { Configuration } from './manager'
+export { Configuration } from './manager.js'
 
 // 环境管理器
-export { Environment } from './environment'
+export { Environment } from './environment.js'
 
 // 配置源
 export {
@@ -10,7 +10,7 @@ export {
     JsonFileSource,
     ObjectSource,
     MultiSource
-} from './sources'
+} from './sources.js'
 
 // 配置验证器
 export {
@@ -22,7 +22,7 @@ export {
     boolean,
     array,
     object
-} from './validator'
+} from './validator.js'
 
 // 类型
 export type {
@@ -32,4 +32,4 @@ export type {
     ConfigRule,
     ConfigValidationResult,
     EnvironmentConfig
-} from './types' 
+} from './types.js' 

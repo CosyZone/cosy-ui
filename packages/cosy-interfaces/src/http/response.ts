@@ -1,4 +1,4 @@
-import { CookieOptions } from './cookie-options'
+import { CookieOptions } from './cookie-options.js'
 
 /**
  * 响应接口

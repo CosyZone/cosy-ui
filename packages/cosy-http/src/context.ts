@@ -1,8 +1,8 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { Socket } from 'net';
-import { Request } from './request';
-import { Response } from './response';
-import { IHttpContext } from './types';
+import { Request } from './request.js';
+import { Response } from './response.js';
+import { IHttpContext } from './types.js';
 import { FileUpload } from '@coffic/cosy-interfaces';
 
 /**

@@ -1,5 +1,5 @@
 import { IRequest, ResponseInterface } from '../http'
-import { IMiddlewareHandler } from './middleware-handler'
+import { IMiddlewareHandler } from './middleware-handler.js'
 import { IRouteHandler } from '../route-handler'
 import { ILogger } from '../logger'
 

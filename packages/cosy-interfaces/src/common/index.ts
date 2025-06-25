@@ -6,5 +6,5 @@
  * @module
  */
 
-export * from './lifecycle'
-export * from './common'
+export * from './lifecycle.js'
+export * from './common.js'

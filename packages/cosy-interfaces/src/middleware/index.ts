@@ -65,22 +65,22 @@
  */
 
 // 导出中间件处理器
-export * from './middleware-handler'
+export * from './middleware-handler.js'
 
 // 导出路由处理器
-export * from '../route-handler'
+export * from '../route-handler.js'
 
 // 导出中间件管道
-export * from './middleware-pipeline'
+export * from './middleware-pipeline.js'
 
 // 导出中间件管理器
-export * from './middleware-manager'
+export * from './middleware-manager.js'
 
 // 导出条件中间件
-export * from './conditional-middleware'
+export * from './conditional-middleware.js'
 
 // 导出中间件选项
-export * from './middleware-options'
+export * from './middleware-options.js'
 
 // 导出中间件上下文
-export * from './middleware-context'
+export * from './middleware-context.js'

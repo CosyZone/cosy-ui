@@ -2,9 +2,9 @@
 import 'reflect-metadata'
 
 // 导出路由实现
-export { Route } from './route'
-export { Router } from './router'
-export { DefaultRouteCompiler } from './compiler'
+export { Route } from './route.js'
+export { Router } from './router.js'
+export { DefaultRouteCompiler } from './compiler.js'
 export {
     Controller,
     Get,
@@ -18,7 +18,7 @@ export {
     getControllerRoutes,
     getControllerPrefix,
     type RouteMetadata
-} from './decorators'
+} from './decorators.js'
 
 // 版本信息
 export const VERSION = '0.1.0' 

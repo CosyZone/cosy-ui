@@ -229,7 +229,11 @@ class DevExampleScript {
                 // 先构建依赖包
                 const depsSuccess = await this.buildDependencies()
                 if (!depsSuccess) {
-                    this.log('❌ 无法构建依赖包，退出', 'error')
+                    this.log('❌ 依赖包构建失败。这可能是由于:', 'error')
+                    this.log('  • ES 模块导入路径问题', 'error')
+                    this.log('  • TypeScript 配置问题', 'error')
+                    this.log('  • 依赖关系问题', 'error')
+                    this.log('💡 建议先手动修复构建错误，然后重试', 'warning')
                     process.exit(1)
                 }
 

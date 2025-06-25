@@ -1,4 +1,4 @@
-import { IMiddlewareHandler } from './middleware-handler'
+import { IMiddlewareHandler } from './middleware-handler.js'
 
 /**
  * 中间件管理器接口

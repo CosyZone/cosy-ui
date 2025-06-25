@@ -1,4 +1,4 @@
-import { ConfigRule, ConfigValidator, ConfigValidationResult } from './types'
+import { ConfigRule, ConfigValidator, ConfigValidationResult } from './types.js'
 
 /**
  * 配置验证器实现

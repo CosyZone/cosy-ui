@@ -1,4 +1,4 @@
-import { IRequest, ResponseInterface } from './http'
+import { IRequest, ResponseInterface } from './http/index.js'
 
 /**
  * 路由处理器

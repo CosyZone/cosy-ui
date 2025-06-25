@@ -1,4 +1,4 @@
-import { EnvironmentConfig } from './types'
+import { EnvironmentConfig } from './types.js'
 
 export class Environment {
     private static current: string = process.env.NODE_ENV || 'development'

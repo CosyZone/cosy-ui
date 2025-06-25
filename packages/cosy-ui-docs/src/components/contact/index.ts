@@ -1,13 +1,13 @@
-import EContactBasic from './EContactBasic.astro';
-import EContactWithTitle from './EContactWithTitle.astro';
-import EContactSocial from './EContactSocial.astro';
-import EContactCompact from './EContactCompact.astro';
-import EContactCustomStyle from './EContactCustomStyle.astro';
-import EContactBasicContainer from './EContactBasicContainer.astro';
-import EContactWithTitleContainer from './EContactWithTitleContainer.astro';
-import EContactSocialContainer from './EContactSocialContainer.astro';
-import EContactCompactContainer from './EContactCompactContainer.astro';
-import EContactCustomStyleContainer from './EContactCustomStyleContainer.astro';
+import EContactBasic from './EContactBasic.astro.js';
+import EContactWithTitle from './EContactWithTitle.astro.js';
+import EContactSocial from './EContactSocial.astro.js';
+import EContactCompact from './EContactCompact.astro.js';
+import EContactCustomStyle from './EContactCustomStyle.astro.js';
+import EContactBasicContainer from './EContactBasicContainer.astro.js';
+import EContactWithTitleContainer from './EContactWithTitleContainer.astro.js';
+import EContactSocialContainer from './EContactSocialContainer.astro.js';
+import EContactCompactContainer from './EContactCompactContainer.astro.js';
+import EContactCustomStyleContainer from './EContactCustomStyleContainer.astro.js';
 
 export const ContactPackage = {
     ContactContainers: {

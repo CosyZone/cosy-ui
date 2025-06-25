@@ -1,6 +1,6 @@
 import 'reflect-metadata'
-import { Constructor } from './types'
-import { Application } from './application'
+import { Constructor } from './types.js'
+import { Application } from './application.js'
 
 // 元数据键
 const APP_METADATA = Symbol('app')

@@ -1,24 +1,24 @@
 // Container interfaces
-export * from './container'
+export * from './container.js'
 
 // Config interfaces
-export * from './config'
+export * from './config.js'
 
 // Router interfaces
-export * from './router'
+export * from './router/index.js'
 
 // HTTP interfaces
-export * from './http'
+export * from './http/index.js'
 
-export { HttpStatus } from './http'
+export { HttpStatus } from './http/index.js'
 
 // Middleware interfaces
-export * from './middleware'
+export * from './middleware/index.js'
 
 // Route handler interfaces
-export * from './route-handler'
+export * from './route-handler.js'
 
 // Common interfaces
-export * from './common'
+export * from './common/index.js'
 
-export * from './logger'
+export * from './logger.js'

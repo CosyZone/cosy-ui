@@ -1,24 +1,24 @@
 // Header 示例组件
-import HeaderBasic from './HeaderBasic.astro';
-import HeaderCustomNavbarCenter from './HeaderCustomNavbarCenter.astro';
-import HeaderCustomNavbarEnd from './HeaderCustomNavbarEnd.astro';
-import HeaderCustomNavbarStart from './HeaderCustomNavbarStart.astro';
-import HeaderCustomPosition from './HeaderCustomPosition.astro';
-import HeaderWithNavigation from './HeaderWithNavigation.astro';
+import HeaderBasic from './HeaderBasic.astro.js';
+import HeaderCustomNavbarCenter from './HeaderCustomNavbarCenter.astro.js';
+import HeaderCustomNavbarEnd from './HeaderCustomNavbarEnd.astro.js';
+import HeaderCustomNavbarStart from './HeaderCustomNavbarStart.astro.js';
+import HeaderCustomPosition from './HeaderCustomPosition.astro.js';
+import HeaderWithNavigation from './HeaderWithNavigation.astro.js';
 
 // Header 容器组件
-import HeaderBasicContainer from './HeaderBasicContainer.astro';
-import HeaderCustomNavbarCenterContainer from './HeaderCustomNavbarCenterContainer.astro';
-import HeaderCustomNavbarEndContainer from './HeaderCustomNavbarEndContainer.astro';
-import HeaderCustomNavbarStartContainer from './HeaderCustomNavbarStartContainer.astro';
-import HeaderWithNavigationContainer from './HeaderWithNavigationContainer.astro';
+import HeaderBasicContainer from './HeaderBasicContainer.astro.js';
+import HeaderCustomNavbarCenterContainer from './HeaderCustomNavbarCenterContainer.astro.js';
+import HeaderCustomNavbarEndContainer from './HeaderCustomNavbarEndContainer.astro.js';
+import HeaderCustomNavbarStartContainer from './HeaderCustomNavbarStartContainer.astro.js';
+import HeaderWithNavigationContainer from './HeaderWithNavigationContainer.astro.js';
 
 // Header 示例代码
-import HeaderBasicSourceCode from './HeaderBasic.astro?raw';
-import HeaderWithNavigationSourceCode from './HeaderWithNavigation.astro?raw';
-import HeaderCustomNavbarStartSourceCode from './HeaderCustomNavbarStart.astro?raw';
-import HeaderCustomNavbarCenterSourceCode from './HeaderCustomNavbarCenter.astro?raw';
-import HeaderCustomNavbarEndSourceCode from './HeaderCustomNavbarEnd.astro?raw';
+import HeaderBasicSourceCode from './HeaderBasic.astro?raw.js';
+import HeaderWithNavigationSourceCode from './HeaderWithNavigation.astro?raw.js';
+import HeaderCustomNavbarStartSourceCode from './HeaderCustomNavbarStart.astro?raw.js';
+import HeaderCustomNavbarCenterSourceCode from './HeaderCustomNavbarCenter.astro?raw.js';
+import HeaderCustomNavbarEndSourceCode from './HeaderCustomNavbarEnd.astro?raw.js';
 
 // 提取简单示例的工具函数
 function extractSimpleExample(sourceCode: string, componentName: string): string {

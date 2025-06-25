@@ -1,12 +1,12 @@
 // Button 容器组件 - 只导入确定存在的文件
-import ButtonBasicContainer from './ButtonBasicContainer.astro';
-import ButtonShapesContainer from './ButtonShapesContainer.astro';
-import ButtonSizesContainer from './ButtonSizesContainer.astro';
-import ButtonStatesContainer from './ButtonStatesContainer.astro';
-import ButtonWithIconsContainer from './ButtonWithIconsContainer.astro';
-import ButtonWidthContainer from './ButtonWidthContainer.astro';
-import ButtonVariantsContainer from './ButtonVariantsContainer.astro';
-import ButtonLinkContainer from './ButtonLinkContainer.astro';
+import ButtonBasicContainer from './ButtonBasicContainer.astro.js';
+import ButtonShapesContainer from './ButtonShapesContainer.astro.js';
+import ButtonSizesContainer from './ButtonSizesContainer.astro.js';
+import ButtonStatesContainer from './ButtonStatesContainer.astro.js';
+import ButtonWithIconsContainer from './ButtonWithIconsContainer.astro.js';
+import ButtonWidthContainer from './ButtonWidthContainer.astro.js';
+import ButtonVariantsContainer from './ButtonVariantsContainer.astro.js';
+import ButtonLinkContainer from './ButtonLinkContainer.astro.js';
 
 export const ButtonPackage = {
     ButtonContainers: {

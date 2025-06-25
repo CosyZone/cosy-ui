@@ -1,7 +1,7 @@
 import { IRouteHandler, IMiddlewareHandler } from '../middleware'
-import { IRoute } from './Route'
-import { IRouteGroupOptions } from './RouteGroupOptions'
-import { IRouteMatch } from './RouteMatch'
+import { IRoute } from './Route.js'
+import { IRouteGroupOptions } from './RouteGroupOptions.js'
+import { IRouteMatch } from './RouteMatch.js'
 
 /**
  * 路由器接口
