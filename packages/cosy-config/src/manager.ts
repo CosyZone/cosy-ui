@@ -1,8 +1,7 @@
 import {
     IConfigManager,
     IConfigSource,
-    IConfigValidator,
-    IConfigValidationResult
+    IConfigValidator
 } from '@coffic/cosy-interfaces'
 
 export class Configuration implements IConfigManager {
