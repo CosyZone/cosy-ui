@@ -157,7 +157,25 @@ export class CommanderApp {
     async parse(argv?: string[]): Promise<void> {
         try {
             this.logger.debug('Parsing command line arguments', { argv })
-            await this.program.parseAsync(argv)
+
+            // 获取参数数组，如果没有提供则使用 process.argv
+            const args = argv || process.argv
+
+            // 检查是否没有提供任何命令参数（只有 node 和脚本路径）
+            if (args.length <= 2) {
+                // 显示帮助信息但不退出
+                this.program.help({ error: false })
+            }
+
+            // 检查是否只提供了选项但没有命令
+            const nonOptionArgs = args.slice(2).filter(arg => !arg.startsWith('-'))
+            if (nonOptionArgs.length === 0 && args.slice(2).length > 0) {
+                // 如果只有选项参数，让 Commander.js 正常处理
+                await this.program.parseAsync(args)
+                return
+            }
+
+            await this.program.parseAsync(args)
         } catch (error) {
             this.logger.error('Command execution failed', { error })
 
