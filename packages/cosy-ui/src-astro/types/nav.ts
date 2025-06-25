@@ -1,4 +1,4 @@
-export interface NavItem {
+export interface INavItem {
     /**
      * 导航项的标题
      */
@@ -22,5 +22,5 @@ export interface NavItem {
     /**
      * 子导航项
      */
-    children?: NavItem[];
+    children?: INavItem[];
 }

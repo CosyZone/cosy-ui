@@ -89,3 +89,6 @@ export * from './src/utils/link';
 
 // 图标组件
 export * from './src-astro/icons';
+
+// 数据库
+export * from './src-astro/database/index'; 
