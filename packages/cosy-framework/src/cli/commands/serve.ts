@@ -1,5 +1,5 @@
-import { BaseCommand } from '../interfaces'
-import { ApplicationFactory } from '../../factory'
+import { BaseCommand } from '../interfaces.js'
+import { ApplicationFactory } from '../../factory.js'
 
 export class ServeCommand extends BaseCommand {
     constructor() {

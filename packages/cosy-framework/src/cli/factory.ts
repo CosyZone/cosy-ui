@@ -1,7 +1,7 @@
-import { ApplicationFactory } from '../factory'
-import { ApplicationConfig } from '../types'
-import { ApplicationDependencies } from '../application'
-import { CliApplication } from './application'
+import { ApplicationFactory } from '../factory.js'
+import { ApplicationConfig } from '../types.js'
+import { ApplicationDependencies } from '../application.js'
+import { CliApplication } from './application.js'
 
 /**
  * 命令行应用程序工厂类

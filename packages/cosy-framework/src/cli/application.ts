@@ -1,7 +1,7 @@
-import { Application } from '../application'
-import { ApplicationConfig } from '../types'
-import { ApplicationDependencies } from '../application'
-import { ICommand } from './interfaces'
+import { Application } from '../application.js'
+import { ApplicationConfig } from '../types.js'
+import { ApplicationDependencies } from '../application.js'
+import { ICommand } from './interfaces.js'
 
 /**
  * 命令行应用程序类
@@ -99,7 +99,7 @@ export class CliApplication extends Application {
      * 启动命令行应用程序
      * 覆盖父类的start方法，移除HTTP服务器相关的逻辑
      */
-    async start(): Promise<void> {
+    override async start(): Promise<void> {
         await this.runCommand()
     }
 } 

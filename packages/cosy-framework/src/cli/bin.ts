@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import { CliApplicationFactory } from './factory'
-import { gracefulShutdown } from '../helpers'
-import { ServeCommand } from './commands/serve'
+import { CliApplicationFactory } from './factory.js'
+import { gracefulShutdown } from '../helpers.js'
+import { ServeCommand } from './commands/serve.js'
 
 async function main() {
     // 创建CLI应用程序
