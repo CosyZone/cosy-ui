@@ -28,7 +28,6 @@ if (slug.split('/').length === 1) {
 
 const lesson = await lessonDB.find(id);
 const title = lesson?.getTitle() || '没有找到课程';
-const description = lesson?.getDescription() || '没有找到课程';
 const sidebarItem = (await (await lesson?.getBook())?.toSidebarItem()) || null;
 
 let Content: RenderResult['Content'] | null = null;
