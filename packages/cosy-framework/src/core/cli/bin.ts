@@ -2,6 +2,7 @@
 
 import { ApplicationFactory } from '../../factory.js'
 import { ServeCommand } from '../../commands/serve.js'
+import { EnvCommand } from '../../commands/env.js'
 import { readFileSync } from 'fs'
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
@@ -56,6 +57,7 @@ function showUsage() {
 💡 示例:
    cosy serve           启动开发服务器 (默认端口: 3000)
    cosy serve 8080      启动开发服务器在指定端口
+   cosy env             显示环境和系统信息
    cosy --help          显示此帮助信息
    cosy --version       显示版本信息
 
@@ -108,6 +110,7 @@ async function main() {
 
         // 注册内置命令
         app.registerCommand(new ServeCommand())
+        app.registerCommand(new EnvCommand())
 
         // 执行命令
         await app.runCommand(args)
