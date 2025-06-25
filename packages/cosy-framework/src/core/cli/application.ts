@@ -1,6 +1,6 @@
-import { Application } from '../app/application.js'
+import { Application } from '../core/app/application.js'
 import { ApplicationConfig } from '../types.js'
-import { ApplicationDependencies } from '../app/application.js'
+import { ApplicationDependencies } from '../core/app/application.js'
 import { ICommand } from '@coffic/cosy-interfaces'
 
 /**

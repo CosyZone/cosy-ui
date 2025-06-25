@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { ApplicationFactory } from './factory.js'
-import { gracefulShutdown } from './app/helpers.js'
+import { gracefulShutdown } from './core/app/helpers.js'
 import { ServeCommand } from './commands/serve.js'
 
 async function main() {

@@ -11,7 +11,7 @@
  */
 
 export * from './types.js'
-export * from './app/bootstrap.js'
-export * from './app/decorators.js'
-export * from './app/helpers.js'
+export * from './core/app/bootstrap.js'
+export * from './core/app/decorators.js'
+export * from './core/app/helpers.js'
 export * from './factory.js' 

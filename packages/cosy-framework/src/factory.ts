@@ -4,9 +4,9 @@ import { Pipeline } from '@coffic/cosy-middleware'
 import { Router } from '@coffic/cosy-router'
 import { Logger } from '@coffic/cosy-logger'
 import { IConfigManager, IContainer, IRouter, ILogger, LogLevel } from '@coffic/cosy-interfaces'
-import { Application, ApplicationDependencies } from './app/application.js'
+import { Application, ApplicationDependencies } from './core/app/application.js'
 import { ApplicationConfig } from './types.js'
-import { CliApplication } from './cli/application.js'
+import { CliApplication } from './core/cli/application.js'
 
 /**
  * 应用程序工厂类
