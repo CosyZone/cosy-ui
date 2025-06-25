@@ -1,12 +1,20 @@
 {
-  "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "dist-docs"],
-  "compilerOptions": {
-    "baseUrl": ".",
-    "jsx": "preserve",
-    "jsxImportSource": "astro",
-    "allowJs": true,
-    "types": ["astro/client"]
-  }
+    "extends": "astro/tsconfigs/strict",
+    "include": [
+        ".astro/types.d.ts",
+        "**/*"
+    ],
+    "exclude": [
+        "dist"
+    ],
+    "compilerOptions": {
+        "baseUrl": ".",
+        "jsx": "preserve",
+        "jsxImportSource": "astro",
+        "allowJs": true,
+        "types": [
+            "astro/client"
+        ],
+        "sourceMap": true
+    }
 }
