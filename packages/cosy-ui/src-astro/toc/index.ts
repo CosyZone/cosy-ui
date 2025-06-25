@@ -1,7 +1,7 @@
 import TableOfContents from './TableOfContents.astro';
 import TableOfContentsBasic from './TableOfContentsBasic.astro';
 import BasicSourceCode from './TableOfContentsBasic.astro?raw';
-import { extractSimpleExample } from '../utils/component';
+import { extractSimpleExample } from '../../src/utils/component';
 
 export { TableOfContents, TableOfContentsBasic };
 

@@ -1,5 +1,5 @@
 import type { BlogEntry } from '../database/BlogDB';
-import { LinkUtil } from '../utils/link';
+import { LinkUtil } from '../../src/utils/link';
 import Tag from './Tag';
 import { BaseDoc } from './BaseDoc';
 import { COLLECTION_BLOG } from '../database/BlogDB';

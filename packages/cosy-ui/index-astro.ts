@@ -77,15 +77,15 @@ export * from './src-astro/database/LessonDB';
 export * from './src-astro/database/MetaDB';
 
 // 工具类型
-export type { ImageProvider, ImageOptions } from './src-astro/utils/image';
-export * from './src-astro/utils/image';
-export * from './src-astro/utils/i18n';
-export * from './src-astro/utils/path';
-export * from './src-astro/utils/url';
-export * from './src-astro/utils/language';
-export * from './src-astro/utils/lang_package';
-export * from './src-astro/utils/logger';
-export * from './src-astro/utils/link';
+export type { ImageProvider, ImageOptions } from './src/utils/image';
+export * from './src/utils/image';
+export * from './src/utils/i18n';
+export * from './src/utils/path';
+export * from './src/utils/url';
+export * from './src/utils/language';
+export * from './src/utils/lang_package';
+export * from './src/utils/logger';
+export * from './src/utils/link';
 
 // 图标组件
 export * from './src-astro/icons';

@@ -1,7 +1,7 @@
 import Text from './Text.astro';
 import TextBasic from './TextBasic.astro';
 import BasicSourceCode from './TextBasic.astro?raw';
-import { extractSimpleExample } from '../utils/component';
+import { extractSimpleExample } from '../../src/utils/component';
 
 export { Text, TextBasic };
 

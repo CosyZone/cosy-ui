@@ -1,10 +1,12 @@
 import { buildAstro } from './build-astro';
 import { buildStyle } from './build-style';
 import { buildVue } from './build-vue';
+import { buildSrc } from './build-src';
 
 async function postBuild() {
     try {
         await buildStyle();
+        await buildSrc();
         await buildAstro();
         await buildVue();
     } catch (error) {

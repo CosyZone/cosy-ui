@@ -1,7 +1,7 @@
 import Article from './Article.astro';
 import ArticleBasic from './ArticleBasic.astro';
 import BasicSourceCode from './ArticleBasic.astro?raw';
-import { extractSimpleExample } from '../utils/component';
+import { extractSimpleExample } from '../../src/utils/component';
 
 export { Article, ArticleBasic };
 

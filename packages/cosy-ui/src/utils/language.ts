@@ -1,6 +1,6 @@
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import type { AstroGlobal } from 'astro';
-import { cosyLogger } from '../cosy';
+import { cosyLogger } from '../../src-astro/cosy';
 
 // 默认语言
 export const DEFAULT_LANGUAGE = 'en';

@@ -1,7 +1,7 @@
 import Grid from './Grid.astro';
 import GridBasic from './GridBasic.astro';
 import BasicSourceCode from './GridBasic.astro?raw';
-import { extractSimpleExample } from '../utils/component';
+import { extractSimpleExample } from '../../src/utils/component';
 
 export { Grid, GridBasic };
 
