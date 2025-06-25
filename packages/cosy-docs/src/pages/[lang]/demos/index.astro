@@ -2,8 +2,18 @@
 import DemoLayout from '@/layouts/DemoLayout.astro';
 import { Products, getExampleImage, LinkUtil } from '@coffic/cosy-ui';
 
-export const prerender = false;
 const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
+
+export const getStaticPaths = async () => {
+  return [
+    {
+      params: { lang: 'zh-cn' },
+    },
+    {
+      params: { lang: 'en' },
+    },
+  ];
+};
 ---
 
 <DemoLayout title="Cosy UI 组件库 - 示例" showSidebar={false} showTOC={false}>

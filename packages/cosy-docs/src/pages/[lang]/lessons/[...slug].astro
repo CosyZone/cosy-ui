@@ -3,7 +3,6 @@ import DemoLayout from '@/layouts/DemoLayout.astro';
 import { lessonDB } from '@coffic/cosy-ui';
 import { type RenderResult } from 'astro:content';
 
-export const prerender = false;
 export async function getStaticPaths() {
   return lessonDB.getStaticPaths();
 }
