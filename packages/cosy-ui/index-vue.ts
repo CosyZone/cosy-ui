@@ -14,10 +14,10 @@ export * from './src-vue/counter-vue/index';
 export * from './src-vue/confirm-dialog-vue/index';
 
 // Buttons
-export * from './src-vue/buttons-vue/index';
+export * from './src-vue/buttons/index';
 
 // Icons
-export * from './src-vue/icons-vue/index';
+export * from './src-vue/icons/index';
 
 // List
 export * from './src-vue/list-vue/index';
