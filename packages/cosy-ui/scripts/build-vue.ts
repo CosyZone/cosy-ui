@@ -10,7 +10,7 @@ const rootDir = path.resolve(__dirname, '..');
 async function copySrcToDist(): Promise<void> {
     const srcDir = path.join(rootDir, 'src-vue');
     const distDir = path.join(rootDir, 'dist');
-    const vueDistDir = path.join(distDir, 'vue');
+    const vueDistDir = path.join(distDir, 'src-vue');
 
     try {
         if (!fs_extra.existsSync(srcDir)) {

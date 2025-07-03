@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import '../../style.ts';
 
 interface Props {
   variant?:
-    | 'primary'
-    | 'secondary'
-    | 'accent'
-    | 'info'
-    | 'success'
-    | 'warning'
-    | 'error'
-    | 'ghost'
-    | 'link'
-    | 'outline'
-    | 'neutral';
+  | 'primary'
+  | 'secondary'
+  | 'accent'
+  | 'info'
+  | 'success'
+  | 'warning'
+  | 'error'
+  | 'ghost'
+  | 'link'
+  | 'outline'
+  | 'neutral';
   size?: 'lg' | 'md' | 'sm' | 'xs';
   shape?: 'circle' | 'square';
   wide?: boolean;
@@ -88,14 +89,8 @@ const buttonClasses = computed(() => {
 </script>
 
 <template>
-  <component
-    :is="props.href ? 'a' : 'button'"
-    :class="buttonClasses"
-    :type="props.href ? undefined : props.type"
-    :disabled="props.disabled"
-    :href="props.href"
-    :target="props.target"
-  >
+  <component :is="props.href ? 'a' : 'button'" :class="buttonClasses" :type="props.href ? undefined : props.type"
+    :disabled="props.disabled" :href="props.href" :target="props.target">
     <span class="cosy:flex cosy:items-center cosy:gap-2">
       <slot name="icon-left" />
       <slot />
