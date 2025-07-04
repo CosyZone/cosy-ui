@@ -2,6 +2,8 @@ import { defineConfig } from 'astro/config';
 import path from 'path';
 import mdx from '@astrojs/mdx';
 
+import vue from '@astrojs/vue';
+
 // https://astro.build/config
 export default defineConfig({
     base: '/cosy-ui/',
@@ -24,5 +26,5 @@ export default defineConfig({
         }
     },
 
-    integrations: [mdx()],
+    integrations: [mdx(), vue()],
 });

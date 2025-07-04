@@ -1,11 +1,16 @@
 ---
 import { CodeContainer } from '@coffic/cosy-ui';
 import ButtonBasic from './ButtonBasic.astro';
+import { Button } from '@coffic/cosy-ui/vue';
 import ButtonBasicSourceCode from './ButtonBasic.astro?raw';
 ---
 
-<CodeContainer codes={[ButtonBasicSourceCode]} titles={['Basic']}>
+<CodeContainer codes={[ButtonBasicSourceCode, '']} titles={['Astro', 'Vue']}>
   <div id="tab-1">
     <ButtonBasic />
+  </div>
+
+  <div id="tab-2">
+    <Button>This is a Vue Button</Button>
   </div>
 </CodeContainer>
