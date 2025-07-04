@@ -1,5 +1,5 @@
 ---
-import { AppLayout } from '@coffic/cosy-ui';
+import { AppLayout, Container } from '@coffic/cosy-ui';
 import type { ISidebarItem } from '@coffic/cosy-ui';
 
 const sidebarItems: ISidebarItem[] = [
@@ -46,9 +46,11 @@ const sidebarItems: ISidebarItem[] = [
   }}
   mainContentConfig={{
     padding: 'md',
-  }}
->
-  <h1 class="cosy:text-2xl cosy:font-bold cosy:mb-4">欢迎使用应用布局</h1>
-  <p class="cosy:mb-2">这是一个包含侧边栏、头部和页脚的完整布局示例。</p>
-  <p>应用布局适合用于文档站点、管理后台等场景。</p>
+    verticalPadding: '4xl',
+  }}>
+  <Container size="lg">
+    <h1 class="cosy:text-2xl cosy:font-bold cosy:mb-4">欢迎使用应用布局</h1>
+    <p class="cosy:mb-2">这是一个包含侧边栏、头部和页脚的完整布局示例。</p>
+    <p>应用布局适合用于文档站点、管理后台等场景。</p>
+  </Container>
 </AppLayout>

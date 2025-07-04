@@ -58,19 +58,19 @@ const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
         </h3>
         <ul
           class:list={[
-            'cosy:menu cosy:bg-base-200 cosy:rounded-box cosy:w-56',
+            'cosy:menu cosy:bg-base-200 cosy:rounded-box cosy:w-56 cosy:no-underline',
             debugClass,
           ]}>
           {section.items?.map((item: ISidebarItem) => {
             const isActive = isPathMatch(currentPath, item.href);
             return (
-              <li class:list={[debugClass]}>
+              <li class:list={[debugClass, 'cosy:no-underline']}>
                 <a
                   data-sidebar-item
                   data-current-path={currentPath}
                   href={item.href}
                   class:list={[
-                    'cosy:hover:bg-base-300',
+                    'cosy:hover:bg-base-300 cosy:no-underline',
                     { 'cosy:menu-active': isActive },
                     debugClass,
                   ]}>
