@@ -1,11 +1,17 @@
 // AlertDialog
 export * from './src-vue/alert-dialog/index';
 
+// Alert
+export * from './src-vue/alert/index';
+
 // Banner
 export * from './src-vue/banner-box/index';
 
 // BlogList
 export * from './src-vue/blog/index';
+
+// Container
+export * from './src-vue/container/index';
 
 // Counter
 export * from './src-vue/counter/index';
