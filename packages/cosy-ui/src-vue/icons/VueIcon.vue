@@ -30,7 +30,7 @@ import { Icon } from 'cosy-ui';
 <script setup lang="ts">
 import '../../style.js';
 import { computed } from 'vue';
-import { iconData } from '../../assets/iconData';
+import { iconData } from '../../src/assets/iconData';
 
 interface Props {
   /**
@@ -69,8 +69,18 @@ const viewBox = computed(() => {
 </script>
 
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" :width="size" :height="size" :viewBox="viewBox" fill="none" :stroke="color"
-    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" :class="props.class">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    :width="size"
+    :height="size"
+    :viewBox="viewBox"
+    fill="none"
+    :stroke="color"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    :class="props.class"
+  >
     <path v-if="icon" :d="icon.path" />
   </svg>
 </template>

@@ -6,7 +6,7 @@ import BasicSource from './Basic.vue?raw';
 import EmptySource from './Empty.vue?raw';
 import EnglishSource from './English.vue?raw';
 import EmptyEnglishSource from './EmptyEnglish.vue?raw';
-import { extractSimpleExample } from '../../utils/component';
+import { extractSimpleExample } from '../../src/utils/component';
 
 // 导出主组件
 export { default as BlogList } from './BlogList.vue';

@@ -14,7 +14,7 @@ import DisplayModeNeverSource from './ExampleDisplayModeNever.vue?raw';
 import SmartBannerSource from './SmartBanner.vue?raw';
 import SizePresetSource from './ExampleSizePreset.vue?raw';
 import ImageExportSource from './ExampleImageExport.vue?raw';
-import { extractSimpleExample } from '../../utils/component';
+import { extractSimpleExample } from '../../src/utils/component';
 
 // 获取 BannerBox 和 FeatureCard 组件
 export { default as BannerBox } from './BannerBox.vue';

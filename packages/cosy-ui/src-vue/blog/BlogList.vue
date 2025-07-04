@@ -39,9 +39,9 @@ const currentLang = ref('zh');
 
 <script setup lang="ts">
 import '../../style';
-import InboxArchiveIcon from '../Icons/InboxArchiveIcon.vue';
+import InboxArchiveIcon from '../icons/InboxArchiveIcon.vue';
 import Link from '../SmartLink.vue';
-import ListItem from '../ListItem.vue';
+import ListItem from '../list/ListItem.vue';
 
 export interface IBlog {
   id: string;

@@ -1,17 +1,17 @@
 // AlertDialog
-export * from './src-vue/alert-dialog-vue/index';
+export * from './src-vue/alert-dialog/index';
 
 // Banner
-export * from './src-vue/banner-box-vue/index';
+export * from './src-vue/banner-box/index';
 
 // BlogList
-export * from './src-vue/blog-vue/index';
+export * from './src-vue/blog/index';
 
 // Counter
-export * from './src-vue/counter-vue/index';
+export * from './src-vue/counter/index';
 
 // ConfirmDialog
-export * from './src-vue/confirm-dialog-vue/index';
+export * from './src-vue/confirm-dialog/index';
 
 // Buttons
 export * from './src-vue/buttons/index';
@@ -20,7 +20,7 @@ export * from './src-vue/buttons/index';
 export * from './src-vue/icons/index';
 
 // List
-export * from './src-vue/list-vue/index';
+export * from './src-vue/list/index';
 
 // Windows
 // export { MacWindowExamples, MacWindowExampleCodes, MacWindow } from './vue/MacWindow';
