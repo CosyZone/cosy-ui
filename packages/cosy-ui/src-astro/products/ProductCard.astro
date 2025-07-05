@@ -64,9 +64,32 @@
  *   />
  * </div>
  * ```
+ *
+ * 自定义阴影样式：
+ * ```astro
+ * <ProductCard
+ *   shadow="lg"
+ *   name="突出显示的产品"
+ *   image="/images/products/product1.jpg"
+ *   description="使用大阴影突出显示的产品"
+ * />
+ *
+ * <ProductCard
+ *   shadow="none"
+ *   name="简洁风格产品"
+ *   image="/images/products/product2.jpg"
+ *   description="无阴影的简洁风格"
+ * />
+ * ```
  */
 
-import { SocialIcon, Image, Link } from '../../index-astro';
+import {
+  SocialIcon,
+  Image,
+  Button,
+  LinkIcon,
+  AppStoreIcon,
+} from '../../index-astro';
 import '../../style.ts';
 import type { ImageSource } from '../types/image.ts';
 
@@ -138,6 +161,15 @@ export interface Props {
    * 自定义类名
    */
   class?: string;
+  /**
+   * 卡片阴影样式
+   * - none: 无阴影
+   * - sm: 小阴影
+   * - md: 中等阴影（默认）
+   * - lg: 大阴影
+   * - xl: 超大阴影
+   */
+  shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
 const {
@@ -155,6 +187,7 @@ const {
   equalHeight = false,
   descriptionLines,
   class: className = '',
+  shadow = 'md',
 } = Astro.props;
 
 // 尺寸样式映射
@@ -238,6 +271,15 @@ const sizeStyles = {
 
 const currentSize = sizeStyles[size];
 
+// 阴影样式映射
+const shadowStyles = {
+  none: 'cosy:shadow-none',
+  sm: 'cosy:shadow-sm cosy:hover:shadow-md',
+  md: 'cosy:shadow-md cosy:hover:shadow-lg',
+  lg: 'cosy:shadow-lg cosy:hover:shadow-xl',
+  xl: 'cosy:shadow-xl cosy:hover:shadow-2xl',
+};
+
 // 描述文本的行数限制
 const descriptionClass = descriptionLines
   ? `cosy:line-clamp-${descriptionLines}`
@@ -279,7 +321,8 @@ const buttonsContainerClass =
 
 <div
   class:list={[
-    'cosy:card cosy:bg-base-100 cosy:shadow-md cosy:hover:shadow-lg cosy:transition-shadow cosy:duration-300',
+    'cosy:card cosy:bg-base-100 cosy:transition-shadow cosy:duration-300',
+    shadowStyles[shadow],
     currentSize.card,
     equalHeight && currentSize.cardHeight,
     'cosy:flex cosy:flex-col',
@@ -319,54 +362,47 @@ const buttonsContainerClass =
     <div class={buttonsContainerClass}>
       {
         productUrl && (
-          <Link
+          <Button
             href={productUrl}
-            external
+            target="_blank"
             variant="primary"
-            class:list={[
-              'cosy:btn cosy:bg-[#4468e3] cosy:hover:bg-[#3857cc] cosy:border-0',
-              'cosy:text-white cosy:font-bold cosy:shadow-sm',
-              buttonLayoutClass,
-              currentSize.buttons,
-            ]}
+            class:list={[buttonLayoutClass, currentSize.buttons]}
             aria-label={`Visit ${name}'s website`}>
+            <span slot="icon-left">
+              <LinkIcon size="22px" />
+            </span>
             {primaryButtonText}
-          </Link>
+          </Button>
         )
       }
       {
         appStoreUrl && (
-          <Link
+          <Button
             href={appStoreUrl}
-            external
+            target="_blank"
             variant="secondary"
-            class:list={[
-              'cosy:btn cosy:bg-[#161616] cosy:hover:bg-black cosy:border-0',
-              'cosy:text-white cosy:font-bold cosy:shadow-sm',
-              buttonLayoutClass,
-              currentSize.buttons,
-            ]}
+            class:list={[buttonLayoutClass, currentSize.buttons]}
             aria-label={`Download ${name} on App Store`}>
+            <span slot="icon-left">
+              <AppStoreIcon size="22px" />
+            </span>
             {secondaryButtonText}
-          </Link>
+          </Button>
         )
       }
       {
         githubUrl && (
-          <Link
+          <Button
             href={githubUrl}
-            external
-            variant="ghost"
-            class:list={[
-              'cosy:btn cosy:bg-[#f0f0f0] cosy:hover:bg-[#e0e0e0] cosy:border-0',
-              'cosy:text-[#24292f] cosy:font-bold cosy:shadow-sm',
-              buttonLayoutClass,
-              currentSize.buttons,
-            ]}
+            target="_blank"
+            variant="info"
+            class:list={[buttonLayoutClass, currentSize.buttons]}
             aria-label={`View ${name}'s GitHub repository`}>
-            <SocialIcon platform="github" size="18px" />
-            <span class="cosy:inline-block">{githubButtonText}</span>
-          </Link>
+            <span slot="icon-left">
+              <SocialIcon platform="github" size="22px" />
+            </span>
+            {githubButtonText}
+          </Button>
         )
       }
     </div>

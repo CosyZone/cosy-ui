@@ -157,6 +157,7 @@ import { Button } from '../../index-astro';
 interface Link {
   text: string;
   href: string;
+  target?: '_self' | '_blank' | '_parent' | '_top';
   variant:
     | 'primary'
     | 'secondary'
@@ -368,7 +369,11 @@ const contentOrder = {
       <div class={linksContainerClasses}>
         {
           links.map((link: Link) => (
-            <Button href={link.href} variant={link.variant} size="lg">
+            <Button
+              href={link.href}
+              target={link.target}
+              variant={link.variant}
+              size="lg">
               {link.text}
             </Button>
           ))

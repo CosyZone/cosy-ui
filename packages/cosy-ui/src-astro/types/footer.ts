@@ -1,129 +1,134 @@
 import type { ILogo, IProduct } from './product';
 
 export interface IFooterProps {
-  /**
-   * 关于链接
-   */
-  aboutLink?: string;
+    /**
+     * 关于链接
+     */
+    aboutLink?: string;
 
-  /**
-   * 博客链接
-   */
-  blogLink?: string;
+    /**
+     * 博客链接
+     */
+    blogLink?: string;
 
-  /**
-   * 职业链接
-   */
-  careersLink?: string;
+    /**
+     * 职业链接
+     */
+    careersLink?: string;
 
-  /**
-   * 公司名称
-   */
-  company: string;
+    /**
+     * 公司名称
+     */
+    company: string;
 
-  /**
-   * 联系链接
-   */
-  contactLink?: string;
+    /**
+     * 联系链接
+     */
+    contactLink?: string;
 
-  /**
-   * 版权信息
-   */
-  copyright: string;
+    /**
+     * 版权信息
+     */
+    copyright: string;
 
-  /**
-   * 调试模式
-   */
-  debug?: boolean;
+    /**
+     * 调试模式
+     */
+    debug?: boolean;
 
-  /**
-   * 是否启用日志输出
-   * @default false
-   */
-  enableLogging?: boolean;
+    /**
+     * 是否启用日志输出
+     * @default false
+     */
+    enableLogging?: boolean;
 
-  /**
-   * 常见问题链接
-   */
-  faqLink?: string;
+    /**
+     * 常见问题链接
+     */
+    faqLink?: string;
 
-  /**
-   * 历史链接
-   */
-  historyLink?: string;
+    /**
+     * 友情链接
+     */
+    friendlyLinks?: IProduct[];
 
-  /**
-   * 首页链接
-   */
-  homeLink: string;
+    /**
+     * 历史链接
+     */
+    historyLink?: string;
 
-  /**
-   * ICP备案号
-   */
-  icp?: string;
+    /**
+     * 首页链接
+     */
+    homeLink: string;
 
-  /**
-   * 激励标语
-   */
-  inspirationalSlogan: string;
+    /**
+     * ICP备案号
+     */
+    icp?: string;
 
-  /**
-   * 徽标
-   */
-  logo?: ILogo;
+    /**
+     * 激励标语
+     */
+    inspirationalSlogan: string;
 
-  /**
-   * 媒体链接
-   */
-  mediaLink?: string;
+    /**
+     * 徽标
+     */
+    logo?: ILogo;
 
-  /**
-   * 新闻链接
-   */
-  newsLink?: string;
+    /**
+     * 媒体链接
+     */
+    mediaLink?: string;
 
-  /**
-   * 合作伙伴链接
-   */
-  partnersLink?: string;
+    /**
+     * 新闻链接
+     */
+    newsLink?: string;
 
-  /**
-   * 隐私链接
-   */
-  privacyLink?: string;
+    /**
+     * 合作伙伴链接
+     */
+    partnersLink?: string;
 
-  /**
-   * 产品
-   */
-  products?: IProduct[];
+    /**
+     * 隐私链接
+     */
+    privacyLink?: string;
 
-  /**
-   * 站点名称
-   */
-  siteName: string;
+    /**
+     * 产品
+     */
+    products?: IProduct[];
 
-  /**
-   * 标语
-   */
-  slogan: string;
+    /**
+     * 站点名称
+     */
+    siteName: string;
 
-  /**
-   * 社交链接
-   */
-  socialLinks?: string[];
+    /**
+     * 标语
+     */
+    slogan: string;
 
-  /**
-   * 团队链接
-   */
-  teamLink?: string;
+    /**
+     * 社交链接
+     */
+    socialLinks?: string[];
 
-  /**
-   * 技术栈链接
-   */
-  techStackLink?: string;
+    /**
+     * 团队链接
+     */
+    teamLink?: string;
 
-  /**
-   * 条款链接
-   */
-  termsLink?: string;
+    /**
+     * 技术栈链接
+     */
+    techStackLink?: string;
+
+    /**
+     * 条款链接
+     */
+    termsLink?: string;
 }

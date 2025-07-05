@@ -5,6 +5,7 @@ import EFooterWithLogo from './EFooterWithLogo.astro';
 import EFooterWithNavigation from './EFooterWithNavigation.astro';
 import EFooterWithProducts from './EFooterWithProducts.astro';
 import EFooterWithSocial from './EFooterWithSocial.astro';
+import EFooterWithFriendlyLinks from './EFooterWithFriendlyLinks.astro';
 
 // Footer 容器组件
 import EFooterBasicContainer from './EFooterBasicContainer.astro';
@@ -14,6 +15,7 @@ import EFooterWithLogoContainer from './EFooterWithLogoContainer.astro';
 import EFooterWithNavigationContainer from './EFooterWithNavigationContainer.astro';
 import EFooterWithProductsContainer from './EFooterWithProductsContainer.astro';
 import EFooterWithSocialContainer from './EFooterWithSocialContainer.astro';
+import EFooterWithFriendlyLinksContainer from './EFooterWithFriendlyLinksContainer.astro';
 
 export const FooterPackage = {
     FooterContainers: {
@@ -24,6 +26,7 @@ export const FooterPackage = {
         WithNavigation: EFooterWithNavigationContainer,
         WithProducts: EFooterWithProductsContainer,
         WithSocial: EFooterWithSocialContainer,
+        WithFriendlyLinks: EFooterWithFriendlyLinksContainer,
     },
     FooterExamples: {
         Basic: EFooterBasic,
@@ -32,5 +35,6 @@ export const FooterPackage = {
         WithNavigation: EFooterWithNavigation,
         WithProducts: EFooterWithProducts,
         WithSocial: EFooterWithSocial,
+        WithFriendlyLinks: EFooterWithFriendlyLinks,
     },
 }; 

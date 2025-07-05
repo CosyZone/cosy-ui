@@ -20,6 +20,12 @@ interface Props {
   stroke?: string;
 
   /**
+   * 描边宽度
+   * @default "2"
+   */
+  strokeWidth?: string;
+
+  /**
    * 自定义类名
    */
   class?: string;
@@ -35,6 +41,7 @@ const {
   name,
   size = '24px',
   stroke = 'currentColor',
+  strokeWidth = '2',
   class: className = '',
   fill = false,
 } = Astro.props;
@@ -51,7 +58,7 @@ const viewBox = icon?.viewBox || '0 0 24 24';
       viewBox={viewBox}
       fill={fill ? 'currentColor' : 'none'}
       stroke={stroke}
-      stroke-width="2"
+      stroke-width={strokeWidth}
       stroke-linecap="round"
       stroke-linejoin="round"
       class={className}>
