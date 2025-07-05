@@ -64,6 +64,23 @@
  *   />
  * </div>
  * ```
+ *
+ * 自定义阴影样式：
+ * ```astro
+ * <ProductCard
+ *   shadow="lg"
+ *   name="突出显示的产品"
+ *   image="/images/products/product1.jpg"
+ *   description="使用大阴影突出显示的产品"
+ * />
+ *
+ * <ProductCard
+ *   shadow="none"
+ *   name="简洁风格产品"
+ *   image="/images/products/product2.jpg"
+ *   description="无阴影的简洁风格"
+ * />
+ * ```
  */
 
 import {
@@ -144,6 +161,15 @@ export interface Props {
    * 自定义类名
    */
   class?: string;
+  /**
+   * 卡片阴影样式
+   * - none: 无阴影
+   * - sm: 小阴影
+   * - md: 中等阴影（默认）
+   * - lg: 大阴影
+   * - xl: 超大阴影
+   */
+  shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
 const {
@@ -161,6 +187,7 @@ const {
   equalHeight = false,
   descriptionLines,
   class: className = '',
+  shadow = 'md',
 } = Astro.props;
 
 // 尺寸样式映射
@@ -244,6 +271,15 @@ const sizeStyles = {
 
 const currentSize = sizeStyles[size];
 
+// 阴影样式映射
+const shadowStyles = {
+  none: 'cosy:shadow-none',
+  sm: 'cosy:shadow-sm cosy:hover:shadow-md',
+  md: 'cosy:shadow-md cosy:hover:shadow-lg',
+  lg: 'cosy:shadow-lg cosy:hover:shadow-xl',
+  xl: 'cosy:shadow-xl cosy:hover:shadow-2xl',
+};
+
 // 描述文本的行数限制
 const descriptionClass = descriptionLines
   ? `cosy:line-clamp-${descriptionLines}`
@@ -285,7 +321,8 @@ const buttonsContainerClass =
 
 <div
   class:list={[
-    'cosy:card cosy:bg-base-100 cosy:shadow-md cosy:hover:shadow-lg cosy:transition-shadow cosy:duration-300',
+    'cosy:card cosy:bg-base-100 cosy:transition-shadow cosy:duration-300',
+    shadowStyles[shadow],
     currentSize.card,
     equalHeight && currentSize.cardHeight,
     'cosy:flex cosy:flex-col',

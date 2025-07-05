@@ -1,0 +1,42 @@
+---
+import { ProductCard, getExampleImage } from '@coffic/cosy-ui';
+---
+
+<div class="cosy:flex cosy:gap-4 cosy:flex-wrap">
+  <ProductCard
+    size="xs"
+    name="超小尺寸产品"
+    image={getExampleImage({ width: 150, height: 100 })}
+    description="小巧精致的产品卡片，节省空间。"
+    productUrl="https://example.com/xs"
+  />
+  <ProductCard
+    size="sm"
+    name="小尺寸产品"
+    image={getExampleImage({ width: 150, height: 100 })}
+    description="紧凑型产品卡片，适合在列表中展示。"
+    productUrl="https://example.com/sm"
+  />
+  <ProductCard
+    size="md"
+    name="中等尺寸产品"
+    image={getExampleImage({ width: 300, height: 200 })}
+    description="标准产品卡片，平衡信息展示和空间占用。"
+    productUrl="https://example.com/md"
+  />
+  <ProductCard
+    size="lg"
+    name="大尺寸产品"
+    image={getExampleImage({ width: 380, height: 253 })}
+    description="大尺寸产品卡片，提供更多细节和视觉吸引力，适合突出展示重要产品。"
+    productUrl="https://example.com/lg"
+  />
+  <ProductCard
+    size="xl"
+    name="超大尺寸产品"
+    image={getExampleImage({ width: 480, height: 320 })}
+    description="超大尺寸产品卡片，提供最佳视觉体验和完整信息展示，适合特色产品或首页展示。"
+    productUrl="https://example.com/xl"
+    appStoreUrl="https://apps.apple.com/app/example-xl"
+  />
+</div>

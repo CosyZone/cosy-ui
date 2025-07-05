@@ -1,0 +1,23 @@
+---
+import { ProductCard, getExampleImage } from '@coffic/cosy-ui';
+---
+
+<div class="cosy:grid cosy:grid-cols-2 cosy:gap-4">
+  <ProductCard
+    equalHeight
+    size="md"
+    name="产品一"
+    image={getExampleImage({ width: 300, height: 200 })}
+    description="这是一段很短的产品描述。"
+    productUrl="https://example.com/product1"
+  />
+  <ProductCard
+    equalHeight
+    size="md"
+    name="产品二"
+    image={getExampleImage({ width: 300, height: 200 })}
+    description="这是一段较长的产品描述，包含更多详细信息，可能会导致卡片高度增加。使用equalHeight属性可以确保所有卡片高度一致。"
+    productUrl="https://example.com/product2"
+    appStoreUrl="https://apps.apple.com/app/product2"
+  />
+</div>

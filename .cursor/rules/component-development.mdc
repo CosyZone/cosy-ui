@@ -11,7 +11,7 @@ alwaysApply: true
 
 ### 1. 组件分离原则
 - **核心组件**：放在 `packages/cosy-ui/src-astro/` 中，只包含实际的业务组件
-- **示例组件**：以 `E` 开头的示例组件应放在 `packages/cosy-docs/src/components/` 中
+- **示例组件**：示例组件应放在 `packages/cosy-docs/src/components/` 中
 - **容器组件**：以 `Container` 结尾的容器组件也应放在文档项目中
 - **基础示例**：如 `ComponentBasic.astro` 等基础示例也应放在文档项目中
 
@@ -66,23 +66,23 @@ export type { ComponentProps } from './types';
 ### 2. 文档项目示例组件结构
 ```typescript
 // packages/cosy-docs/src/components/component-name/index.ts
-import ExampleBasic from './ExampleBasic.astro';
-import ExampleBasicContainer from './ExampleBasicContainer.astro';
+import Basic from './Basic.astro';
+import BasicContainer from './BasicContainer.astro';
 // ... 其他示例组件
 
 export const ComponentPackage = {
   ComponentContainers: {
-    Basic: ExampleBasicContainer,
-    CustomStyle: ExampleCustomStyleContainer,
+    Basic: BasicContainer,
+    CustomStyle: CustomStyleContainer,
     // ... 其他容器
   },
 };
 ```
 
 ### 3. 示例组件命名规范
-- 基础示例：`E{ComponentName}Basic.astro` 或 `{ComponentName}Basic.astro`
-- 功能示例：`E{ComponentName}{FeatureName}.astro`
-- 容器组件：`E{ComponentName}{FeatureName}Container.astro`
+- 基础示例：`Basic.astro` 或 `Basic.astro`
+- 功能示例：`{FeatureName}.astro`
+- 容器组件：`{FeatureName}Container.astro`
 
 ### 4. 示例组件导入规范
 - **核心组件**：`import { Component } from '@coffic/cosy-ui';`

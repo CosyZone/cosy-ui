@@ -1,0 +1,19 @@
+---
+import { ProductCard, getExampleImage } from '@coffic/cosy-ui';
+---
+
+<ProductCard
+  name="大阴影产品"
+  image={getExampleImage({ width: 300, height: 200 })}
+  description="使用大阴影突出显示的产品。"
+  productUrl="https://example.com/product"
+  shadow="lg"
+/>
+
+<ProductCard
+  name="无阴影产品"
+  image={getExampleImage({ width: 300, height: 200 })}
+  description="无阴影的简洁风格。"
+  productUrl="https://example.com/product"
+  shadow="none"
+/>
