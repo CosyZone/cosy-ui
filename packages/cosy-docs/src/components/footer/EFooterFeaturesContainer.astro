@@ -3,22 +3,25 @@ import { CodeContainer } from '@coffic/cosy-ui';
 import FooterBasic from './EFooterBasic.astro';
 import FooterWithSocial from './EFooterWithSocial.astro';
 import FooterWithProducts from './EFooterWithProducts.astro';
+import FooterWithFriendlyLinks from './EFooterWithFriendlyLinks.astro';
 import FooterWithLogo from './EFooterWithLogo.astro';
 import FooterWithNavigation from './EFooterWithNavigation.astro';
 
 import FooterBasicSourceCode from './EFooterBasic.astro?raw';
 import FooterWithSocialSourceCode from './EFooterWithSocial.astro?raw';
 import FooterWithProductsSourceCode from './EFooterWithProducts.astro?raw';
+import FooterWithFriendlyLinksSourceCode from './EFooterWithFriendlyLinks.astro?raw';
 import FooterWithLogoSourceCode from './EFooterWithLogo.astro?raw';
 import FooterWithNavigationSourceCode from './EFooterWithNavigation.astro?raw';
 ---
 
 <CodeContainer
-  titles={['基础', '社交媒体', '产品链接', 'Logo', '导航链接']}
+  titles={['基础', '社交媒体', '产品链接', '友情链接', 'Logo', '导航链接']}
   codes={[
     FooterBasicSourceCode,
     FooterWithSocialSourceCode,
     FooterWithProductsSourceCode,
+    FooterWithFriendlyLinksSourceCode,
     FooterWithLogoSourceCode,
     FooterWithNavigationSourceCode,
   ]}>
@@ -32,9 +35,12 @@ import FooterWithNavigationSourceCode from './EFooterWithNavigation.astro?raw';
     <FooterWithProducts />
   </div>
   <div id="tab-4">
-    <FooterWithLogo />
+    <FooterWithFriendlyLinks />
   </div>
   <div id="tab-5">
+    <FooterWithLogo />
+  </div>
+  <div id="tab-6">
     <FooterWithNavigation />
   </div>
 </CodeContainer>

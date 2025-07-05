@@ -65,6 +65,22 @@
  * />
  * ```
  *
+ * 添加友情链接：
+ * ```astro
+ * <Footer
+ *   siteName="我的网站"
+ *   homeLink="/"
+ *   slogan="简单而强大"
+ *   company="我的公司"
+ *   copyright="保留所有权利"
+ *   inspirationalSlogan="构建美好的数字体验"
+ *   friendlyLinks={[
+ *     { name: "合作伙伴A", href: "https://partner-a.com" },
+ *     { name: "合作伙伴B", href: "https://partner-b.com", external: true }
+ *   ]}
+ * />
+ * ```
+ *
  * 完整示例：
  * ```astro
  * <Footer
@@ -78,6 +94,10 @@
  *   products={[
  *     { name: "产品A", href: "/products/a" },
  *     { name: "产品B", href: "/products/b" }
+ *   ]}
+ *   friendlyLinks={[
+ *     { name: "合作伙伴A", href: "https://partner-a.com" },
+ *     { name: "合作伙伴B", href: "https://partner-b.com", external: true }
  *   ]}
  *   socialLinks={[
  *     "https://github.com/myusername",
@@ -121,6 +141,7 @@
  * @prop {string} [icp] - ICP备案号（中国网站需要）
  * @prop {Object} [logo] - 网站Logo对象，包含src和alt属性
  * @prop {Array<Object>} [products=[]] - 产品链接数组，每个对象包含name、href和可选的external属性
+ * @prop {Array<Object>} [friendlyLinks=[]] - 友情链接数组，每个对象包含name、href和可选的external属性
  * @prop {string} [aboutLink] - "关于我们"页面链接
  * @prop {string} [contactLink] - "联系我们"页面链接
  * @prop {string} [termsLink] - "服务条款"页面链接
@@ -165,6 +186,7 @@ const {
   icp,
   logo,
   products = [],
+  friendlyLinks = [],
   aboutLink,
   contactLink,
   termsLink,
@@ -269,6 +291,13 @@ const debugClasses = debug
       {
         products.length > 0 && (
           <FooterSection title={t('products')} links={products} />
+        )
+      }
+
+      {/* 友情链接导航 */}
+      {
+        friendlyLinks.length > 0 && (
+          <FooterSection title={t('friendlyLinks')} links={friendlyLinks} />
         )
       }
 
