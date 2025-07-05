@@ -224,7 +224,7 @@ export default defineComponent({
             backgroundColor: debug ? 'rgba(0, 0, 255, 0.3)' : 'transparent',
             zIndex: 10,
         }">
-            <div :class="[debug ? 'cosy:bg-green-300/50' : '', 'cosy:h-full cosy:w-full']">
+            <div :class="[debug ? 'cosy:bg-green-300/50' : '', 'cosy:h-full cosy:w-full cosy:overflow-hidden']">
                 <slot />
             </div>
         </div>
