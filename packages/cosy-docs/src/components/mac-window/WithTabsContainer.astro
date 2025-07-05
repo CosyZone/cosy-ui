@@ -1,0 +1,11 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import WithTabs from './WithTabs.vue';
+import WithTabsSourceCode from './WithTabs.vue?raw';
+---
+
+<CodeContainer codes={[WithTabsSourceCode]}>
+  <div id="tab-1">
+    <WithTabs client:idle />
+  </div>
+</CodeContainer>

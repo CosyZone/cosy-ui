@@ -1,35 +1,31 @@
 // Astro 示例组件
-import EMacWindowBasic from './EMacWindowBasic.astro';
-import EMacWindowWithTabs from './EMacWindowWithTabs.astro';
-import EMacWindowWithEvents from './EMacWindowWithEvents.astro';
-import EMacWindowWithToolbar from './EMacWindowWithToolbar.astro';
-import EMacWindowWithSidebar from './EMacWindowWithSidebar.astro';
-import EMacWindowCustomHeight from './EMacWindowCustomHeight.astro';
+import Basic from './Basic.astro';
+import WithToolbar from './WithToolbar.astro';
+import WithSidebar from './WithSidebar.astro';
+import CustomHeight from './CustomHeight.astro';
 
 // Astro 容器组件
-import EMacWindowBasicContainer from './EMacWindowBasicContainer.astro';
-import EMacWindowWithTabsContainer from './EMacWindowWithTabsContainer.astro';
-import EMacWindowWithEventsContainer from './EMacWindowWithEventsContainer.astro';
-import EMacWindowWithToolbarContainer from './EMacWindowWithToolbarContainer.astro';
-import EMacWindowWithSidebarContainer from './EMacWindowWithSidebarContainer.astro';
-import EMacWindowCustomHeightContainer from './EMacWindowCustomHeightContainer.astro';
+import BasicContainer from './BasicContainer.astro';
+import WithTabsContainer from './WithTabsContainer.astro';
+import WithEventsContainer from './WithEventsContainer.astro';
+import WithToolbarContainer from './WithToolbarContainer.astro';
+import WithSidebarContainer from './WithSidebarContainer.astro';
+import CustomHeightContainer from './CustomHeightContainer.astro';
 
 // 导出 MacWindow 组件包
 export const MacWindowPackage = {
-    MacWindowContainers: {
-        Basic: EMacWindowBasicContainer,
-        WithTabs: EMacWindowWithTabsContainer,
-        WithEvents: EMacWindowWithEventsContainer,
-        WithToolbar: EMacWindowWithToolbarContainer,
-        WithSidebar: EMacWindowWithSidebarContainer,
-        CustomHeight: EMacWindowCustomHeightContainer,
+    Containers: {
+        Basic: BasicContainer,
+        WithTabs: WithTabsContainer,
+        WithEvents: WithEventsContainer,
+        WithToolbar: WithToolbarContainer,
+        WithSidebar: WithSidebarContainer,
+        CustomHeight: CustomHeightContainer,
     },
-    MacWindowExamples: {
-        Basic: EMacWindowBasic,
-        WithTabs: EMacWindowWithTabs,
-        WithEvents: EMacWindowWithEvents,
-        WithToolbar: EMacWindowWithToolbar,
-        WithSidebar: EMacWindowWithSidebar,
-        CustomHeight: EMacWindowCustomHeight,
+    Examples: {
+        Basic: Basic,
+        WithToolbar: WithToolbar,
+        WithSidebar: WithSidebar,
+        CustomHeight: CustomHeight,
     },
 };
