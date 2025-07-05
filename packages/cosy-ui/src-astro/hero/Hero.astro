@@ -142,6 +142,7 @@
  * @prop {Array<Link>} links - 链接按钮数组
  * @prop {string} links[].text - 链接按钮的文本
  * @prop {string} links[].href - 链接按钮的目标地址
+ * @prop {string} links[].variant - 链接按钮的变体，可选值："primary", "secondary", "accent", "info", "success", "warning", "error"
  * @prop {string} [background="gradient"] - 背景样式，可选值："gradient", "plain"
  * @prop {string} [align="center"] - 内容对齐方式，可选值："center", "left", "right"
  * @prop {string} [imagePosition="right"] - 图片位置，可选值："right", "left", "top", "bottom"
@@ -151,11 +152,19 @@
  */
 
 import '../../style.ts';
-import { Link } from '../../index-astro';
+import { Button } from '../../index-astro';
 
 interface Link {
   text: string;
   href: string;
+  variant:
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'info'
+    | 'success'
+    | 'warning'
+    | 'error';
 }
 
 interface Props {
@@ -263,12 +272,12 @@ const titleClasses = [
 ].join(' ');
 
 const descriptionClasses = [
-  'cosy:text-xl',
+  'cosy:text-xl cosy:prose',
   'cosy:max-w-3xl',
   'cosy:mb-8',
   backgroundImage &&
   (backgroundOverlay === 'dark' || backgroundOverlay === 'gradient')
-    ? 'cosy:text-white cosy:opacity-90'
+    ? 'cosy:opacity-90'
     : 'cosy:opacity-80',
 ].join(' ');
 
@@ -339,7 +348,7 @@ const contentOrder = {
 
     <div
       class={contentOrder[imagePosition] +
-        ' cosy:flex cosy:flex-col cosy:w-full ' +
+        ' cosy:flex cosy:flex-col cosy:w-full not-prose cosy:not-prose' +
         (align === 'center' ? 'cosy:text-center cosy:items-center' : '') +
         (align === 'left' ? 'cosy:text-left cosy:items-start' : '') +
         (align === 'right' ? 'cosy:text-right cosy:items-end' : '')}>
@@ -359,20 +368,9 @@ const contentOrder = {
       <div class={linksContainerClasses}>
         {
           links.map((link: Link) => (
-            <Link
-              href={link.href}
-              external
-              variant={
-                backgroundImage &&
-                (backgroundOverlay === 'dark' ||
-                  backgroundOverlay === 'gradient')
-                  ? 'light'
-                  : 'cta'
-              }
-              animation="hover-lift"
-              size="lg">
+            <Button href={link.href} variant={link.variant} size="lg">
               {link.text}
-            </Link>
+            </Button>
           ))
         }
       </div>
