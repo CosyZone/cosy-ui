@@ -1,0 +1,35 @@
+---
+/**
+ * @component MacWindow.WithToolbar
+ *
+ * @description
+ * 带工具栏和状态栏的MacWindow组件示例，展示自定义工具栏功能。
+ */
+import { MacWindow } from '@coffic/cosy-ui/vue';
+---
+
+<MacWindow title="文件浏览器">
+  <template #toolbar>
+    <button
+      class="cosy:btn cosy:btn-ghost cosy:btn-sm"
+      onclick="console.log('搜索')">
+      🔍
+    </button>
+    <button
+      class="cosy:btn cosy:btn-ghost cosy:btn-sm"
+      onclick="console.log('设置')">
+      ⚙️
+    </button>
+  </template>
+
+  <div class="cosy:p-4">窗口内容区域</div>
+
+  <template #status>
+    <div class="cosy:text-xs">就绪</div>
+    <button
+      class="cosy:btn cosy:btn-ghost cosy:btn-xs"
+      onclick="console.log('信息')">
+      ℹ️
+    </button>
+  </template>
+</MacWindow>
