@@ -144,10 +144,6 @@ export default defineComponent({
         const showAlertDialog = ref(false);
         const alertMessage = ref('');
 
-        // 获取图片URL
-        const frameSrc =
-            typeof iphoneFrame === 'string' ? iphoneFrame : iphoneFrame.src;
-
         // 计算当前高度的缩放比例
         const getScaleRatio = () => {
             const heightValues = {
@@ -168,7 +164,7 @@ export default defineComponent({
         return {
             showAlertDialog,
             alertMessage,
-            frameSrc,
+            iphoneFrame: (iphoneFrame as any).src || iphoneFrame,
             heightClasses,
             mainContentWidthAspectRatio,
             mainContentHeightAspectRatio,
@@ -191,7 +187,7 @@ export default defineComponent({
         backgroundColor: debug ? 'rgba(255, 255, 0, 0.3)' : 'transparent',
     }">
         <!-- iPhone 边框 -->
-        <img v-if="showFrame" style="max-width: 100%; max-height: 100%;" :src="frameSrc" alt="iPhone frame" />
+        <img v-if="showFrame" style="max-width: 100%; max-height: 100%;" :src="iphoneFrame" alt="iPhone frame" />
 
         <!-- 顶部状态栏 -->
         <div :style="{
