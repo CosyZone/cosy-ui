@@ -1,0 +1,106 @@
+---
+import { iPhoneWindow as ApplePhoneWindow } from '@coffic/cosy-ui/vue';
+---
+
+<div class="cosy:space-y-6">
+  <!-- 不显示边框的示例 -->
+  <div>
+    <h4
+      class="cosy:text-sm cosy:font-medium cosy:text-gray-700 cosy:dark:text-gray-300 cosy:mb-2">
+      不显示边框
+    </h4>
+    <ApplePhoneWindow
+      :showFrame="false"
+      backgroundColor="cosy:bg-gradient-to-br cosy:from-purple-400 cosy:to-pink-400">
+      <div
+        class="cosy:flex cosy:flex-col cosy:items-center cosy:justify-center cosy:h-full cosy:text-white">
+        <div class="cosy:text-center">
+          <div
+            class="cosy:w-12 cosy:h-12 cosy:mx-auto cosy:mb-3 cosy:bg-white cosy:bg-opacity-20 cosy:rounded-full cosy:flex cosy:items-center cosy:justify-center">
+            <svg
+              class="cosy:w-6 cosy:h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+          <h3 class="cosy:text-base cosy:font-semibold cosy:mb-1">
+            无边框模式
+          </h3>
+          <p class="cosy:text-xs cosy:opacity-90">简洁的移动端界面</p>
+        </div>
+      </div>
+    </ApplePhoneWindow>
+  </div>
+
+  <!-- 自定义高度的示例 -->
+  <div>
+    <h4
+      class="cosy:text-sm cosy:font-medium cosy:text-gray-700 cosy:dark:text-gray-300 cosy:mb-2">
+      自定义高度
+    </h4>
+    <ApplePhoneWindow
+      height="cosy:h-64"
+      backgroundColor="cosy:bg-gradient-to-r cosy:from-green-400 cosy:to-blue-500">
+      <div
+        class="cosy:flex cosy:flex-col cosy:items-center cosy:justify-center cosy:h-full cosy:text-white">
+        <div class="cosy:text-center">
+          <div
+            class="cosy:w-10 cosy:h-10 cosy:mx-auto cosy:mb-2 cosy:bg-white cosy:bg-opacity-20 cosy:rounded-full cosy:flex cosy:items-center cosy:justify-center">
+            <svg
+              class="cosy:w-5 cosy:h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="cosy:text-sm cosy:font-semibold">紧凑设计</h3>
+          <p class="cosy:text-xs cosy:opacity-90">适合卡片展示</p>
+        </div>
+      </div>
+    </ApplePhoneWindow>
+  </div>
+
+  <!-- 深色主题示例 -->
+  <div>
+    <h4
+      class="cosy:text-sm cosy:font-medium cosy:text-gray-700 cosy:dark:text-gray-300 cosy:mb-2">
+      深色主题
+    </h4>
+    <ApplePhoneWindow backgroundColor="cosy:bg-gray-900">
+      <div
+        class="cosy:flex cosy:flex-col cosy:items-center cosy:justify-center cosy:h-full cosy:text-gray-100">
+        <div class="cosy:text-center">
+          <div
+            class="cosy:w-14 cosy:h-14 cosy:mx-auto cosy:mb-3 cosy:bg-gray-700 cosy:rounded-full cosy:flex cosy:items-center cosy:justify-center">
+            <svg
+              class="cosy:w-7 cosy:h-7 cosy:text-gray-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="cosy:text-base cosy:font-semibold cosy:mb-1">夜间模式</h3>
+          <p class="cosy:text-xs cosy:text-gray-400">护眼舒适的界面</p>
+        </div>
+      </div>
+    </ApplePhoneWindow>
+  </div>
+</div>

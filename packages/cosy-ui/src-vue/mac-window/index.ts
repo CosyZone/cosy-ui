@@ -10,7 +10,7 @@ import WithEventsSource from './WithEvents.vue?raw';
 import WithToolbarSource from './WithToolbar.vue?raw';
 import WithSidebarSource from './WithSidebar.vue?raw';
 import CustomHeightSource from './CustomHeight.vue?raw';
-import { extractSimpleExample } from '../../astro/src/utils/component';
+import { extractSimpleExample } from '../utils/component';
 
 // 导出主组件
 export { default as MacWindow } from './MacWindow.vue';

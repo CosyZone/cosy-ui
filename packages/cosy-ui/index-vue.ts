@@ -29,8 +29,8 @@ export * from './src-vue/icons/index';
 export * from './src-vue/list/index';
 
 // Windows
-// export { MacWindowExamples, MacWindowExampleCodes, MacWindow } from './vue/MacWindow';
-// export { iPhoneWindowExamples, iPhoneWindowExampleCodes, iPhoneWindow } from './vue/iPhone';
+export * from './src-vue/mac-window/index';
+export * from './src-vue/iPhone/index';
 
 // SmartLink
 // export { default as SmartLink } from './vue/SmartLink.vue';
