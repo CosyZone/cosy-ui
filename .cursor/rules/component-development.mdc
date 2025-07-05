@@ -11,12 +11,12 @@ alwaysApply: true
 
 ### 1. 组件分离原则
 - **核心组件**：放在 `packages/cosy-ui/src-astro/` 中，只包含实际的业务组件
-- **示例组件**：以 `E` 开头的示例组件应放在 `packages/cosy-ui-docs/src/components/` 中
+- **示例组件**：以 `E` 开头的示例组件应放在 `packages/cosy-docs/src/components/` 中
 - **容器组件**：以 `Container` 结尾的容器组件也应放在文档项目中
 - **基础示例**：如 `ComponentBasic.astro` 等基础示例也应放在文档项目中
 
 ### 2. 示例组件放置规则
-- **位置**：`packages/cosy-ui-docs/src/components/{component-name}/`
+- **位置**：`packages/cosy-docs/src/components/{component-name}/`
 - **导入**：示例组件从 `@coffic/cosy-ui` 导入核心组件和类型
 - **导出**：在文档项目中创建独立的 `index.ts` 导出 `ComponentPackage`
 - **文档引用**：文档通过相对路径导入示例组件的 `ComponentPackage`
@@ -65,7 +65,7 @@ export type { ComponentProps } from './types';
 
 ### 2. 文档项目示例组件结构
 ```typescript
-// packages/cosy-ui-docs/src/components/component-name/index.ts
+// packages/cosy-docs/src/components/component-name/index.ts
 import ExampleBasic from './ExampleBasic.astro';
 import ExampleBasicContainer from './ExampleBasicContainer.astro';
 // ... 其他示例组件
@@ -112,8 +112,8 @@ export const ComponentPackage = {
 ## 组件文档规范
 
 ### 1. 文档文件结构
-- 中文文档：`packages/cosy-ui-docs/content/courses/zh-cn/components/{component}.mdx`
-- 英文文档：`packages/cosy-ui-docs/content/courses/en/components/{component}.mdx`
+- 中文文档：`packages/cosy-docs/content/courses/zh-cn/components/{component}.mdx`
+- 英文文档：`packages/cosy-docs/content/courses/en/components/{component}.mdx`
 
 ### 2. 文档内容规范
 - frontmatter 必须包含：`title`、`description`、`folder: false`、`order`
@@ -143,7 +143,7 @@ export const ComponentPackage = {
 3. 在 [index-astro.ts](mdc:packages/cosy-ui/index-astro.ts) 中导出组件
 
 #### 示例组件开发
-1. 在 `packages/cosy-ui-docs/src/components/{component-name}/` 创建示例组件
+1. 在 `packages/cosy-docs/src/components/{component-name}/` 创建示例组件
 2. 创建各种示例和容器组件
 3. 创建 ComponentPackage 导出
 4. 更新文档中的导入路径
@@ -152,7 +152,7 @@ export const ComponentPackage = {
 
 ### 3. 迁移现有示例组件
 1. **识别示例组件**：找出所有以 `E` 开头和 `Container` 结尾的组件
-2. **移动到文档项目**：`mv packages/cosy-ui/src-astro/{component}/E*.astro packages/cosy-ui-docs/src/components/{component}/`
+2. **移动到文档项目**：`mv packages/cosy-ui/src-astro/{component}/E*.astro packages/cosy-docs/src/components/{component}/`
 3. **更新导入路径**：示例组件中的导入改为从 `@coffic/cosy-ui` 导入
 4. **创建文档导出**：在文档项目中创建 ComponentPackage
 5. **更新文档导入**：文档中导入路径改为相对路径
@@ -217,7 +217,7 @@ export const ComponentPackage = {
 - [ ] 在 [index-astro.ts](mdc:packages/cosy-ui/index-astro.ts) 中按字母顺序添加了组件导出
 
 ### 示例组件（文档项目中）
-- [ ] 示例组件放在 `packages/cosy-ui-docs/src/components/{component-name}/`
+- [ ] 示例组件放在 `packages/cosy-docs/src/components/{component-name}/`
 - [ ] 正确从 `@coffic/cosy-ui` 导入核心组件和类型
 - [ ] 创建了基础示例组件
 - [ ] 创建了自定义样式示例

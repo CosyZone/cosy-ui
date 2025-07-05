@@ -1,0 +1,33 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ApplePhoneHeightSm from './ApplePhoneHeightSm.astro';
+import ApplePhoneHeightMd from './ApplePhoneHeightMd.astro';
+import ApplePhoneHeightLg from './ApplePhoneHeightLg.astro';
+import ApplePhoneHeightXl from './ApplePhoneHeightXl.astro';
+import ApplePhoneHeightSmSource from './ApplePhoneHeightSm.astro?raw';
+import ApplePhoneHeightMdSource from './ApplePhoneHeightMd.astro?raw';
+import ApplePhoneHeightLgSource from './ApplePhoneHeightLg.astro?raw';
+import ApplePhoneHeightXlSource from './ApplePhoneHeightXl.astro?raw';
+---
+
+<CodeContainer
+  titles={['Sm', 'Md', 'Lg', 'Xl']}
+  codes={[
+    ApplePhoneHeightSmSource,
+    ApplePhoneHeightMdSource,
+    ApplePhoneHeightLgSource,
+    ApplePhoneHeightXlSource,
+  ]}>
+  <div id="tab-1">
+    <ApplePhoneHeightSm />
+  </div>
+  <div id="tab-2">
+    <ApplePhoneHeightMd />
+  </div>
+  <div id="tab-3">
+    <ApplePhoneHeightLg />
+  </div>
+  <div id="tab-4">
+    <ApplePhoneHeightXl />
+  </div>
+</CodeContainer>

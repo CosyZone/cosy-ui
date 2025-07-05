@@ -17,3 +17,6 @@ export { default as SuccessIcon } from './SuccessIcon.vue';
 export { default as UserIcon } from './UserIcon.vue';
 export { default as WarningIcon } from './WarningIcon.vue';
 export { default as XCircleIcon } from './XCircleIcon.vue';
+export { default as IPhoneSignalIcon } from './IPhoneSignalIcon.vue';
+export { default as IPhoneWifiIcon } from './IPhoneWifiIcon.vue';
+export { default as IPhoneBatteryIcon } from './IPhoneBatteryIcon.vue';
