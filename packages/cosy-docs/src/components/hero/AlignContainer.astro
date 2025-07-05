@@ -1,0 +1,23 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import AlignCenter from './AlignCenter.astro';
+import AlignLeft from './AlignLeft.astro';
+import AlignRight from './AlignRight.astro';
+import AlignCenterSourceCode from './AlignCenter.astro?raw';
+import AlignLeftSourceCode from './AlignLeft.astro?raw';
+import AlignRightSourceCode from './AlignRight.astro?raw';
+---
+
+<CodeContainer
+  titles={['居中对齐', '左对齐', '右对齐']}
+  codes={[AlignCenterSourceCode, AlignLeftSourceCode, AlignRightSourceCode]}>
+  <div id="tab-1">
+    <AlignCenter />
+  </div>
+  <div id="tab-2">
+    <AlignLeft />
+  </div>
+  <div id="tab-3">
+    <AlignRight />
+  </div>
+</CodeContainer>
