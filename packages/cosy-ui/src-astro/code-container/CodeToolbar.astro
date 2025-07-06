@@ -42,52 +42,59 @@ const {
 </div>
 
 <script>
-  // 示例切换功能
-  const exampleTabs = document.querySelectorAll(
-    '[role="tab"][data-tab^="tab-"]'
-  );
-  exampleTabs.forEach((tab) => {
-    tab.addEventListener('click', () => {
-      console.log('CodeContainer: 切换示例', tab.getAttribute('data-tab'));
-      const container = tab.closest('[data-role="code-container"]');
-      if (!container) return;
+  function initializeTab() {
+    console.log('CodeContainer: 初始化标签切换按钮');
 
-      // 更新标签状态
-      container
-        .querySelectorAll('[role="tab"][data-tab^="tab-"]')
-        .forEach((t) => {
-          t.classList.remove('cosy:tab-active');
-        });
-      tab.classList.add('cosy:tab-active');
+    const exampleTabs = document.querySelectorAll(
+      '[role="tab"][data-tab^="tab-"]'
+    );
+    exampleTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        console.log('CodeContainer: 切换示例', tab.getAttribute('data-tab'));
+        const container = tab.closest('[data-role="code-container"]');
+        if (!container) return;
 
-      // 获取当前标签对应的内容 id
-      const targetId = tab.getAttribute('data-tab');
-      if (!targetId) return;
+        // 更新标签状态
+        container
+          .querySelectorAll('[role="tab"][data-tab^="tab-"]')
+          .forEach((t) => {
+            t.classList.remove('cosy:tab-active');
+          });
+        tab.classList.add('cosy:tab-active');
 
-      // 切换示例容器
-      container
-        .querySelectorAll('.cosy\\:example-container')
-        .forEach((example) => {
-          if (example.getAttribute('data-example') === targetId) {
-            example.classList.remove('cosy:hidden');
-            example.classList.add('cosy:block');
+        // 获取当前标签对应的内容 id
+        const targetId = tab.getAttribute('data-tab');
+        if (!targetId) return;
+
+        // 切换示例容器
+        container
+          .querySelectorAll('.cosy\\:example-container')
+          .forEach((example) => {
+            if (example.getAttribute('data-example') === targetId) {
+              example.classList.remove('cosy:hidden');
+              example.classList.add('cosy:block');
+            } else {
+              example.classList.add('cosy:hidden');
+              example.classList.remove('cosy:block');
+            }
+          });
+
+        // 更新对应内容的可见性
+        const allContent = container.querySelectorAll('[id^="tab-"]');
+        allContent.forEach((content) => {
+          if (content.id === targetId) {
+            content.classList.remove('cosy:hidden');
+            content.classList.add('cosy:block');
           } else {
-            example.classList.add('cosy:hidden');
-            example.classList.remove('cosy:block');
+            content.classList.add('cosy:hidden');
+            content.classList.remove('cosy:block');
           }
         });
-
-      // 更新对应内容的可见性
-      const allContent = container.querySelectorAll('[id^="tab-"]');
-      allContent.forEach((content) => {
-        if (content.id === targetId) {
-          content.classList.remove('cosy:hidden');
-          content.classList.add('cosy:block');
-        } else {
-          content.classList.add('cosy:hidden');
-          content.classList.remove('cosy:block');
-        }
       });
     });
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    initializeTab();
   });
 </script>
