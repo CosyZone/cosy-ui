@@ -38,10 +38,6 @@ import { ClipboardIcon } from '../icons';
     button.addEventListener('click', () => {
       const container = button.closest('[data-role="code-container"]');
       if (!container) return;
-      const codeToggle = container.querySelector('[data-toggle="code"]');
-      if (codeToggle && codeToggle.getAttribute('aria-checked') !== 'true') {
-        codeToggle instanceof HTMLElement && codeToggle.click();
-      }
       const activeExample = container.querySelector(
         '.cosy\\:example-container:not(.cosy\\:hidden)'
       );
