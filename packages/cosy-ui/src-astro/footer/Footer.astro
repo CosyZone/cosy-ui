@@ -243,9 +243,7 @@ const debugClasses = debug
     ]}>
     {/* 品牌区域 */}
     <aside class:list={['cosy:max-w-xs cosy:text-center', debugClasses.aside]}>
-      <Link
-        href={homeLink}
-        class="cosy:flex cosy:items-center cosy:gap-2 cosy:mb-4 cosy:no-underline">
+      <Link href={homeLink} align="center" noUnderline block class="cosy:mb-4">
         {
           logo && (
             <img
@@ -270,8 +268,12 @@ const debugClasses = debug
             {processedSocialLinks.map((link) => (
               <Link
                 href={link.url}
-                class="cosy:btn cosy:btn-circle cosy:btn-ghost cosy:btn-sm"
-                target="_blank"
+                btn
+                circle
+                ghost
+                size="sm"
+                color="primary"
+                external
                 rel="noopener noreferrer"
                 aria-label={link.name}>
                 <SocialIcon platform={link.platform} />
@@ -367,7 +369,7 @@ const debugClasses = debug
 {/* 底部版权信息 */}
 <div
   class:list={[
-    'cosy:footer cosy:footer-center cosy:p-4 cosy:bg-base-300 cosy:text-base-content',
+    'cosy:footer cosy:footer-center cosy:p-4 cosy:bg-base-300',
     debugClasses.footer,
   ]}>
   <aside

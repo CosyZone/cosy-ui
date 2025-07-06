@@ -1,0 +1,17 @@
+---
+/**
+ * @component LinkCompatibility
+ * @description Link组件的兼容性功能示例
+ */
+
+import { Link } from '@coffic/cosy-ui';
+---
+
+<div class="cosy:space-y-2">
+  <Link href="/center-text" centerText block variant="primary"
+    >文本居中（兼容）</Link
+  >
+  <p class="cosy:text-sm cosy:text-gray-600">
+    centerText 属性是为了向后兼容，推荐使用 align="center"
+  </p>
+</div>

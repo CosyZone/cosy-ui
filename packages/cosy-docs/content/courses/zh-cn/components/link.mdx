@@ -1,139 +1,102 @@
 ---
 title: 'Link'
-description: '增强的链接组件，提供丰富的样式变体和动画效果，适用于导航、按钮和行动号召等多种场景'
+description: '增强的链接组件，支持丰富的样式变体、按钮风格和动画效果，适用于导航、按钮、行动号召等多种场景'
 folder: false
 order: 17
 ---
 
-import { Link, CodeExample } from '@coffic/cosy-ui';
+import { Link } from '@coffic/cosy-ui';
+import { LinkPackage } from '../../../../src/components/link/index.ts';
+
+## 简介
+
+Link 组件是一个功能强大的链接组件，不仅支持传统的链接样式，还提供了按钮风格、动画效果和丰富的自定义选项。通过语义化的属性配置，无需手动编写 CSS 类名即可实现各种视觉效果。
+
+**主要特性：**
+- 🎨 多种样式变体（default、primary、secondary、text、cta、ghost、light）
+- 🔘 完整的按钮风格支持（普通、幽灵、圆形、各种尺寸）
+- ✨ 丰富的动画效果（上浮、发光、缩放）
+- 📱 响应式设计，支持各种对齐方式
+- 🎯 语义化属性，无需手动拼接 CSS 类
+- ♿ 完善的无障碍支持
 
 ## 基础用法
 
-最简单的链接展示方式
+最简单的链接使用方式，支持内部链接和外部链接。
 
-<CodeExample code={`<Link href="/about">关于我们</Link>`}>
-  <Link href="/about">关于我们</Link>
-</CodeExample>
+<LinkPackage.ComponentContainers.Basic />
 
-## 外部链接
+## 按钮风格
 
-链接到外部网站，自动添加新窗口打开属性
+通过 `btn` 属性启用按钮风格，支持多种颜色、尺寸和形状。
 
-<CodeExample
-  code={`<Link href="https://example.com" external>访问外部网站</Link>`}
->
-  <Link href="https://example.com" external>
-    访问外部网站
-  </Link>
-</CodeExample>
+<LinkPackage.ComponentContainers.ButtonStyle />
 
 ## 样式变体
 
-通过`variant`属性应用不同的样式变体
+通过 `variant` 属性应用不同的样式变体，适用于不同的使用场景。
 
-<CodeExample
-  code={`<Link href="/signup" variant="primary">主要链接</Link>
-<Link href="/learn-more" variant="secondary">次要链接</Link>
-<Link href="/docs" variant="text">文本链接</Link>
-<Link href="/get-started" variant="cta">行动号召</Link>
-<Link href="/preview" variant="ghost">幽灵链接</Link>`}
->
-  <Link href="/signup" variant="primary">
-    主要链接
-  </Link>
-  <Link href="/learn-more" variant="secondary" class="cosy:ml-2">
-    次要链接
-  </Link>
-  <Link href="/docs" variant="text" class="cosy:ml-2">
-    文本链接
-  </Link>
-  <Link href="/get-started" variant="cta" class="cosy:ml-2">
-    行动号召
-  </Link>
-  <Link href="/preview" variant="ghost" class="cosy:ml-2">
-    幽灵链接
-  </Link>
-</CodeExample>
-
-## 块级显示
-
-通过`block`属性使链接占据整行显示
-
-<CodeExample
-  code={`<Link href="/contact" block variant="primary">独占一行的链接</Link>
-<p class="cosy:mt-2">这是一段文字，其中包含一个<Link href="/inline">内联链接</Link>。</p>`}
->
-  <Link href="/contact" block variant="primary">
-    独占一行的链接
-  </Link>
-  <p class="cosy:mt-2">
-    这是一段文字，其中包含一个<Link href="/inline">内联链接</Link>。
-  </p>
-</CodeExample>
+<LinkPackage.ComponentContainers.Variants />
 
 ## 动画效果
 
-通过`animation`属性添加悬停动画效果
+通过 `animation` 属性添加悬停动画效果，提升用户体验。
 
-<CodeExample
-  code={`<Link href="/contact" animation="hover-lift" variant="primary">上浮效果</Link>
-<Link href="/features" animation="hover-glow" variant="secondary">发光效果</Link>
-<Link href="/pricing" animation="hover-scale" variant="cta">缩放效果</Link>`}
->
-  <Link href="/contact" animation="hover-lift" variant="primary">
-    上浮效果
-  </Link>
-  <Link
-    href="/features"
-    animation="hover-glow"
-    variant="secondary"
-    class="cosy:ml-2"
-  >
-    发光效果
-  </Link>
-  <Link href="/pricing" animation="hover-scale" variant="cta" class="cosy:ml-2">
-    缩放效果
-  </Link>
-</CodeExample>
+<LinkPackage.ComponentContainers.Animations />
 
-## 尺寸变体
+## 高级功能
 
-通过`size`属性控制链接的尺寸
+更多高级功能，包括对齐方式、样式修饰、调试模式等。
 
-<CodeExample
-  code={`<Link href="/small" size="sm">小型链接</Link>
-<Link href="/medium" size="md">中型链接</Link>
-<Link href="/large" size="lg">大型链接</Link>`}
->
-  <Link href="/small" size="sm">
-    小型链接
-  </Link>
-  <Link href="/medium" size="md" class="cosy:ml-2">
-    中型链接
-  </Link>
-  <Link href="/large" size="lg" class="cosy:ml-2">
-    大型链接
-  </Link>
-</CodeExample>
+<LinkPackage.ComponentContainers.Advanced />
 
-## 文本居中
+## API 参考
 
-通过`centerText`属性使链接文本居中显示
+### Props
 
-<CodeExample
-  code={`<Link href="/centered" block centerText variant="primary">居中显示的链接文本</Link>`}
->
-  <Link href="/centered" block centerText variant="primary">
-    居中显示的链接文本
-  </Link>
-</CodeExample>
+| 属性 | 说明 | 类型 | 默认值 |
+|------|------|------|--------|
+| `href` | 链接地址 | `string` | - |
+| `external` | 是否为外部链接，自动新窗口打开 | `boolean` | `false` |
+| `variant` | 样式变体 | `'default' \| 'primary' \| 'secondary' \| 'text' \| 'cta' \| 'ghost' \| 'light'` | `'default'` |
+| `size` | 尺寸大小 | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| `animation` | 动画效果 | `'none' \| 'hover-lift' \| 'hover-glow' \| 'hover-scale'` | `'none'` |
+| `block` | 是否为块级显示 | `boolean` | `false` |
+| `btn` | 是否启用按钮风格 | `boolean` | `false` |
+| `circle` | 是否为圆形按钮（需配合 `btn` 使用） | `boolean` | `false` |
+| `ghost` | 是否为幽灵按钮（需配合 `btn` 使用） | `boolean` | `false` |
+| `color` | 按钮颜色（需配合 `btn` 使用） | `'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | - |
+| `align` | 对齐方式 | `'left' \| 'center' \| 'right'` | - |
+| `rounded` | 是否添加圆角 | `boolean` | `false` |
+| `noUnderline` | 是否移除下划线 | `boolean` | `false` |
+| `fullWidth` | 是否占满宽度 | `boolean` | `false` |
+| `centerText` | 是否居中文本（兼容属性） | `boolean` | `false` |
+| `debug` | 是否显示调试边框 | `boolean` | `false` |
+| `class` | 自定义 CSS 类名 | `string` | - |
+| `...rest` | 其他 HTML `<a>` 标签属性 | `HTMLAttributes<'a'>` | - |
 
-## 调试模式
+### 使用建议
 
-通过`debug`属性显示链接边界，便于开发调试
+1. **语义化优先**：优先使用 `variant` 属性而不是自定义样式
+2. **按钮风格**：需要按钮样式时使用 `btn` 属性，配合 `color` 属性设置颜色
+3. **动画适度**：动画效果应适度使用，避免过度干扰用户
+4. **无障碍支持**：外部链接会自动添加 `rel="noopener noreferrer"` 属性
+5. **响应式设计**：使用 `block` 和 `align` 属性实现响应式布局
 
-<CodeExample code={`<Link href="/debug" debug>显示边界的链接</Link>`}>
-  <Link href="/debug" debug>
-    显示边界的链接
-  </Link>
-</CodeExample>
+### 最佳实践
+
+```astro
+<!-- ✅ 推荐：使用语义化属性 -->
+<Link href="/signup" btn color="primary" size="lg">注册账号</Link>
+
+<!-- ❌ 不推荐：手动拼接 CSS 类 -->
+<Link href="/signup" class="cosy:btn cosy:btn-primary cosy:btn-lg">注册账号</Link>
+
+<!-- ✅ 推荐：外部链接使用 external 属性 -->
+<Link href="https://example.com" external>外部链接</Link>
+
+<!-- ✅ 推荐：组合使用多个属性 -->
+<Link href="/cta" btn ghost color="accent" animation="hover-scale">
+  立即体验
+</Link>
+```
