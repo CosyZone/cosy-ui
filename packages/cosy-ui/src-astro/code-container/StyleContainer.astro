@@ -1,0 +1,89 @@
+<div data-role="code-container-style">
+  <slot />
+</div>
+
+<!-- 样式隔离和重置 -->
+<style>
+  /* 预览区域样式重置，防止外部样式影响内部组件 */
+  [data-role='code-container'] .cosy\:reset-styles {
+    /* 重置所有可能影响布局的样式 */
+    all: initial;
+    font-family: inherit;
+    color: inherit;
+    line-height: 1.5;
+
+    /* 恢复必要的基础样式 */
+    display: block;
+    box-sizing: border-box;
+
+    /* 隔离样式作用域 */
+    isolation: isolate;
+    contain: layout style;
+  }
+
+  /* 重置内部所有元素的样式 */
+  [data-role='code-container'] .cosy\:reset-styles * {
+    all: unset;
+    display: revert;
+    box-sizing: border-box;
+  }
+
+  /* 恢复必要的文本样式 */
+  [data-role='code-container'] .cosy\:reset-styles {
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Arial,
+      sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #374151;
+  }
+
+  /* 恢复基本的HTML元素样式 */
+  [data-role='code-container'] .cosy\:reset-styles h1,
+  [data-role='code-container'] .cosy\:reset-styles h2,
+  [data-role='code-container'] .cosy\:reset-styles h3,
+  [data-role='code-container'] .cosy\:reset-styles h4,
+  [data-role='code-container'] .cosy\:reset-styles h5,
+  [data-role='code-container'] .cosy\:reset-styles h6 {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+  }
+
+  [data-role='code-container'] .cosy\:reset-styles p {
+    margin-bottom: 1em;
+  }
+
+  [data-role='code-container'] .cosy\:reset-styles ul,
+  [data-role='code-container'] .cosy\:reset-styles ol {
+    padding-left: 1.5em;
+    margin-bottom: 1em;
+  }
+
+  [data-role='code-container'] .cosy\:reset-styles li {
+    margin-bottom: 0.25em;
+  }
+
+  /* 防止内部组件的样式泄漏到外部 */
+  [data-role='code-container'] .cosy\:code-preview-area {
+    position: relative;
+    z-index: 0;
+  }
+
+  /* 确保预览区域的样式隔离 */
+  [data-role='code-container'] .cosy\:code-preview-area::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    pointer-events: none;
+    z-index: -1;
+  }
+</style>
