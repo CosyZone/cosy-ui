@@ -1,0 +1,23 @@
+---
+/**
+ * @component TeamMemberCustomStyle
+ * @description TeamMember 组件自定义 class 用法示例。
+ */
+import { TeamMember } from '@coffic/cosy-ui';
+import { getExampleImage } from '@coffic/cosy-ui';
+
+const avatar = getExampleImage({
+  width: 200,
+  height: 200,
+  provider: 'robohash',
+  randomSeed: 'member3',
+});
+---
+
+<TeamMember
+  name="王五"
+  role="后端开发工程师"
+  avatar={avatar}
+  bio="专注于Node.js和云原生架构，热爱开源。"
+  class="cosy:border-2 cosy:border-primary cosy:shadow-xl"
+/>

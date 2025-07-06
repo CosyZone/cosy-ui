@@ -1,0 +1,15 @@
+---
+/**
+ * @component TextTruncateContainer
+ * @description Text 组件文本截断用法容器，带源码展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import Truncate from './Truncate.astro';
+---
+
+<CodeContainer
+  codes={[
+    `<Text truncate>这是一段很长的文本，将会被截断并显示省略号，这是一段很长的文本，将会被截断并显示省略号，这是一段很长的文本，将会被截断并显示省略号...</Text>`,
+  ]}>
+  <Truncate />
+</CodeContainer>

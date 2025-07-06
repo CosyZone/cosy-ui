@@ -1,0 +1,16 @@
+---
+/**
+ * @component LinkBasicContainer
+ * @description Link组件基础示例的容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import Basic from './Basic.astro';
+import basicCode from './Basic.astro?raw';
+---
+
+<CodeContainer codes={[basicCode]}>
+  <div id="tab-1">
+    <Basic />
+  </div>
+</CodeContainer>

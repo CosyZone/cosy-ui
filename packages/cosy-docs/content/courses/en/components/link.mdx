@@ -1,142 +1,76 @@
 ---
 title: 'Link'
-description: 'Enhanced link component providing rich style variants and animation effects, suitable for navigation, buttons, calls-to-action, and various other scenarios'
+description: 'Enhanced link component with rich style variants, button styles, and animation effects, suitable for navigation, buttons, calls-to-action, and various other scenarios'
 folder: false
-order: 17
+order: 14.3
 ---
 
-import { Link, CodeExample } from '@coffic/cosy-ui';
+import { Link } from '@coffic/cosy-ui';
+import { LinkPackage } from '../../../../src/components/link/index.ts';
+
+## Introduction
+
+The Link component is a powerful link component that not only supports traditional link styles but also provides button styles, animation effects, and rich customization options. Through semantic property configuration, you can achieve various visual effects without manually writing CSS class names.
+
+**Key Features:**
+- 🎨 Multiple style variants (default, primary, secondary, text, cta, ghost, light)
+- 🔘 Complete button style support (normal, ghost, circular, various sizes)
+- ✨ Rich animation effects (lift, glow, scale)
+- 📱 Responsive design with various alignment options
+- 🎯 Semantic properties, no need to manually concatenate CSS classes
+- ♿ Comprehensive accessibility support
 
 ## Basic Usage
 
-The simplest way to display links
+The simplest way to use links, supporting both internal and external links.
 
-<CodeExample code={`<Link href="/about">About Us</Link>`}>
-  <Link href="/about">About Us</Link>
-</CodeExample>
+<LinkPackage.ComponentContainers.Basic />
 
-## External Links
+## Button Styles
 
-Links to external websites, automatically adding the open-in-new-window attribute
+Enable button styles with the `btn` attribute, supporting multiple colors, sizes, and shapes.
 
-<CodeExample
-  code={`<Link href="https://example.com" external>Visit External Website</Link>`}
->
-  <Link href="https://example.com" external>
-    Visit External Website
-  </Link>
-</CodeExample>
+<LinkPackage.ComponentContainers.ButtonStyle />
 
 ## Style Variants
 
-Apply different style variants using the `variant` property
+Apply different style variants using the `variant` attribute, suitable for different use cases.
 
-<CodeExample
-  code={`<Link href="/signup" variant="primary">Primary Link</Link>
-<Link href="/learn-more" variant="secondary">Secondary Link</Link>
-<Link href="/docs" variant="text">Text Link</Link>
-<Link href="/get-started" variant="cta">Call to Action</Link>
-<Link href="/preview" variant="ghost">Ghost Link</Link>`}
->
-  <Link href="/signup" variant="primary">
-    Primary Link
-  </Link>
-  <Link href="/learn-more" variant="secondary" class="cosy:ml-2">
-    Secondary Link
-  </Link>
-  <Link href="/docs" variant="text" class="cosy:ml-2">
-    Text Link
-  </Link>
-  <Link href="/get-started" variant="cta" class="cosy:ml-2">
-    Call to Action
-  </Link>
-  <Link href="/preview" variant="ghost" class="cosy:ml-2">
-    Ghost Link
-  </Link>
-</CodeExample>
-
-## Block Display
-
-Make links occupy the entire row using the `block` property
-
-<CodeExample
-  code={`<Link href="/contact" block variant="primary">Full-width Link</Link>
-<p class="cosy:mt-2">This is a paragraph that contains an <Link href="/inline">inline link</Link>.</p>`}
->
-  <Link href="/contact" block variant="primary">
-    Full-width Link
-  </Link>
-  <p class="cosy:mt-2">
-    This is a paragraph that contains an <Link href="/inline">inline link</Link>
-    .
-  </p>
-</CodeExample>
+<LinkPackage.ComponentContainers.Variants />
 
 ## Animation Effects
 
-Add hover animation effects using the `animation` property
+Add hover animation effects using the `animation` attribute to enhance user experience.
 
-<CodeExample
-  code={`<Link href="/contact" animation="hover-lift" variant="primary">Lift Effect</Link>
-<Link href="/features" animation="hover-glow" variant="secondary">Glow Effect</Link>
-<Link href="/pricing" animation="hover-scale" variant="cta">Scale Effect</Link>`}
->
-  <Link href="/contact" animation="hover-lift" variant="primary">
-    Lift Effect
-  </Link>
-  <Link
-    href="/features"
-    animation="hover-glow"
-    variant="secondary"
-    class="cosy:ml-2"
-  >
-    Glow Effect
-  </Link>
-  <Link href="/pricing" animation="hover-scale" variant="cta" class="cosy:ml-2">
-    Scale Effect
-  </Link>
-</CodeExample>
+<LinkPackage.ComponentContainers.Animations />
 
-## Size Variants
+## Advanced Features
 
-Control the size of links using the `size` property
+More advanced features including alignment, style decorations, debug mode, and more.
 
-<CodeExample
-  code={`<Link href="/small" size="sm">Small Link</Link>
-<Link href="/medium" size="md">Medium Link</Link>
-<Link href="/large" size="lg">Large Link</Link>`}
->
-  <Link href="/small" size="sm">
-    Small Link
-  </Link>
-  <Link href="/medium" size="md" class="cosy:ml-2">
-    Medium Link
-  </Link>
-  <Link href="/large" size="lg" class="cosy:ml-2">
-    Large Link
-  </Link>
-</CodeExample>
+<LinkPackage.ComponentContainers.Advanced />
 
-## Centered Text
+## API Reference
 
-Center the link text using the `centerText` property
+### Props
 
-<CodeExample
-  code={`<Link href="/centered" block centerText variant="primary">Centered Link Text</Link>`}
->
-  <Link href="/centered" block centerText variant="primary">
-    Centered Link Text
-  </Link>
-</CodeExample>
-
-## Debug Mode
-
-Display link boundaries using the `debug` property for easier development debugging
-
-<CodeExample
-  code={`<Link href="/debug" debug>Link with Visible Boundaries</Link>`}
->
-  <Link href="/debug" debug>
-    Link with Visible Boundaries
-  </Link>
-</CodeExample>
+| Property | Description | Type | Default |
+|----------|-------------|------|---------|
+| `href` | Link URL | `string` | - |
+| `external` | Whether it's an external link, automatically opens in new window | `boolean` | `false` |
+| `variant` | Style variant | `'default' \| 'primary' \| 'secondary' \| 'text' \| 'cta' \| 'ghost' \| 'light'` | `'default'` |
+| `size` | Size | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| `animation` | Animation effect | `'none' \| 'hover-lift' \| 'hover-glow' \| 'hover-scale'` | `'none'` |
+| `block` | Whether to display as block | `boolean` | `false` |
+| `btn` | Whether to enable button style | `boolean` | `false` |
+| `circle` | Whether it's a circular button (use with `btn`) | `boolean` | `false` |
+| `ghost` | Whether it's a ghost button (use with `btn`) | `boolean` | `false` |
+| `color` | Button color (use with `btn`) | `'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | - |
+| `align` | Alignment | `'left' \| 'center' \| 'right'` | - |
+| `rounded` | Whether to add rounded corners | `boolean` | `false` |
+| `noUnderline` | Whether to remove underline | `boolean` | `false` |
+| `fullWidth` | Whether to take full width | `boolean` | `false` |
+| `centerText` | Whether to center text (compatibility property) | `boolean` | `false` |
+| `debug` | Whether to show debug borders | `boolean` | `false` |
+| `class` | Custom CSS class | `string` | - |
+| `...rest` | Other HTML `<a>` tag attributes | `HTMLAttributes<'a'>` | - |

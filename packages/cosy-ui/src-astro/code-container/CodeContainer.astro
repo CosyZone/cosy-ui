@@ -34,7 +34,10 @@
  * ```
  */
 
-import { ClipboardIcon, CheckIcon, InfoIcon } from '../../index-astro';
+import CodeToolbar from './CodeToolbar.astro';
+import Description from './Description.astro';
+import Preview from './Preview.astro';
+import CodePanel from './CodePanel.astro';
 import '../../style.ts';
 
 interface Props {
@@ -66,317 +69,39 @@ const {
 ---
 
 <div data-role="code-container" class="cosy:mb-8 cosy:card" ignore-heading>
-  <!-- 工具栏 -->
-  <div
-    class="cosy:flex cosy:justify-between cosy:items-center cosy:bg-base-200 cosy:px-4 cosy:rounded-t">
-    <!-- 标签 -->
-    <div class="cosy:flex cosy:items-center cosy:gap-4">
-      <div role="tablist" class="cosy:tabs cosy:tabs-box">
-        {
-          codes.map((_, index) => (
-            <button
-              role="tab"
-              class={`cosy:tab ${index === 0 ? 'cosy:tab-active' : ''}`}
-              data-tab={`tab-${index + 1}`}>
-              {titles[index] || `示例 ${index + 1}`}
-            </button>
-          ))
-        }
-      </div>
-    </div>
-
-    <!-- 工具按钮 -->
-    <div class="cosy:flex cosy:items-center cosy:gap-2">
-      <button
-        role="switch"
-        class="cosy:btn cosy:btn-ghost cosy:btn-sm"
-        aria-checked="false"
-        aria-label="切换代码/预览"
-        data-toggle="code">
-        <span class="cosy:code-icon"><InfoIcon /></span>
-      </button>
-      <button
-        class="cosy:gap-2 cosy:btn cosy:btn-ghost cosy:btn-sm"
-        aria-label="复制代码">
-        <span class="cosy:copy-icon"><ClipboardIcon /></span>
-        <span class="cosy:hidden cosy:check-icon"><CheckIcon /></span>
-      </button>
-    </div>
-  </div>
+  <CodeToolbar
+    titles={titles.length ? titles : codes.map((_, i) => `示例 ${i + 1}`)}
+    activeTab={0}
+    isCodeView={false}
+    code={codes[0]}
+  />
 
   {
     codes.map((code, index) => (
       <div
         class={`cosy:example-container ${index === 0 ? 'cosy:block' : 'cosy:hidden'}`}
         data-example={`tab-${index + 1}`}>
-        {/* 描述 */}
-        {descriptions[index] && (
-          <p
-            class="cosy:px-6 cosy:py-2 cosy:text-sm not-prose
-          cosy:bg-gradient-to-b cosy:from-blue-100/50 cosy:to-blue-100/90 
-          cosy:dark:from-blue-900/20 cosy:dark:to-blue-900/20">
-            {descriptions[index]}
-          </p>
-        )}
+        <Description text={descriptions[index]} />
 
         <div class="cosy:relative cosy:p-4 cosy:bg-gradient-to-br cosy:from-red-100 cosy:to-green-300 cosy:dark:from-red-900/20 cosy:dark:to-green-900/20 cosy:rounded-b">
-          <div class="cosy:block cosy:code-example-panel" data-panel="preview">
+          <Preview>
             <div
               class={`cosy:code-preview-area ${resetStyles ? 'cosy:reset-styles' : ''}`}
               data-preview-area={`tab-${index + 1}`}>
               <slot />
             </div>
-          </div>
+          </Preview>
 
-          <div class="cosy:hidden cosy:code-example-panel" data-panel="code">
-            <pre class="cosy:overflow-x-auto" style="margin:0">
-              <code class="cosy:language-astro">{code}</code>
-            </pre>
-          </div>
+          <CodePanel code={code} />
         </div>
       </div>
     ))
   }
 </div>
 
-<!-- 样式隔离和重置 -->
-<style>
-  /* 预览区域样式重置，防止外部样式影响内部组件 */
-  [data-role='code-container'] .cosy\:reset-styles {
-    /* 重置所有可能影响布局的样式 */
-    all: initial;
-    font-family: inherit;
-    color: inherit;
-    line-height: 1.5;
-
-    /* 恢复必要的基础样式 */
-    display: block;
-    box-sizing: border-box;
-
-    /* 隔离样式作用域 */
-    isolation: isolate;
-    contain: layout style;
-  }
-
-  /* 重置内部所有元素的样式 */
-  [data-role='code-container'] .cosy\:reset-styles * {
-    all: unset;
-    display: revert;
-    box-sizing: border-box;
-  }
-
-  /* 恢复必要的文本样式 */
-  [data-role='code-container'] .cosy\:reset-styles {
-    font-family:
-      system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      'Segoe UI',
-      Roboto,
-      'Helvetica Neue',
-      Arial,
-      sans-serif;
-    font-size: 14px;
-    line-height: 1.5;
-    color: #374151;
-  }
-
-  /* 恢复基本的HTML元素样式 */
-  [data-role='code-container'] .cosy\:reset-styles h1,
-  [data-role='code-container'] .cosy\:reset-styles h2,
-  [data-role='code-container'] .cosy\:reset-styles h3,
-  [data-role='code-container'] .cosy\:reset-styles h4,
-  [data-role='code-container'] .cosy\:reset-styles h5,
-  [data-role='code-container'] .cosy\:reset-styles h6 {
-    font-weight: bold;
-    margin-bottom: 0.5em;
-  }
-
-  [data-role='code-container'] .cosy\:reset-styles p {
-    margin-bottom: 1em;
-  }
-
-  [data-role='code-container'] .cosy\:reset-styles ul,
-  [data-role='code-container'] .cosy\:reset-styles ol {
-    padding-left: 1.5em;
-    margin-bottom: 1em;
-  }
-
-  [data-role='code-container'] .cosy\:reset-styles li {
-    margin-bottom: 0.25em;
-  }
-
-  /* 防止内部组件的样式泄漏到外部 */
-  [data-role='code-container'] .cosy\:code-preview-area {
-    position: relative;
-    z-index: 0;
-  }
-
-  /* 确保预览区域的样式隔离 */
-  [data-role='code-container'] .cosy\:code-preview-area::before {
-    content: '';
-    position: absolute;
-    top: -1px;
-    left: -1px;
-    right: -1px;
-    bottom: -1px;
-    pointer-events: none;
-    z-index: -1;
-  }
-</style>
-
 <script>
   function initializeCodeContainer() {
     console.log('CodeContainer: 初始化代码容器');
-
-    // 示例切换功能
-    const exampleTabs = document.querySelectorAll(
-      '[role="tab"][data-tab^="tab-"]'
-    );
-    exampleTabs.forEach((tab) => {
-      tab.addEventListener('click', () => {
-        console.log('CodeContainer: 切换示例', tab.getAttribute('data-tab'));
-        const container = tab.closest('[data-role="code-container"]');
-        if (!container) return;
-
-        // 更新标签状态
-        container
-          .querySelectorAll('[role="tab"][data-tab^="tab-"]')
-          .forEach((t) => {
-            t.classList.remove('cosy:tab-active');
-          });
-        tab.classList.add('cosy:tab-active');
-
-        // 获取当前标签对应的内容 id
-        const targetId = tab.getAttribute('data-tab');
-        if (!targetId) return;
-
-        // 切换示例容器
-        container
-          .querySelectorAll('.cosy\\:example-container')
-          .forEach((example) => {
-            if (example.getAttribute('data-example') === targetId) {
-              example.classList.remove('cosy:hidden');
-              example.classList.add('cosy:block');
-            } else {
-              example.classList.add('cosy:hidden');
-              example.classList.remove('cosy:block');
-            }
-          });
-
-        // 更新对应内容的可见性
-        const allContent = container.querySelectorAll('[id^="tab-"]');
-        allContent.forEach((content) => {
-          if (content.id === targetId) {
-            content.classList.remove('cosy:hidden');
-            content.classList.add('cosy:block');
-          } else {
-            content.classList.add('cosy:hidden');
-            content.classList.remove('cosy:block');
-          }
-        });
-      });
-    });
-
-    // 代码开关功能
-    const codeToggles = document.querySelectorAll('[data-toggle="code"]');
-    codeToggles.forEach((toggle) => {
-      toggle.addEventListener('click', () => {
-        console.log('code toggle clicked', toggle);
-        const container = toggle.closest('[data-role="code-container"]');
-        if (!container) {
-          console.error('CodeContainer: 无法找到父容器');
-          return;
-        }
-
-        // 切换开关状态
-        const isChecked = toggle.getAttribute('aria-checked') === 'true';
-        console.log('代码按钮 isChecked:', isChecked);
-        toggle.setAttribute('aria-checked', !isChecked ? 'true' : 'false');
-        toggle.classList.toggle('cosy:btn-primary', !isChecked);
-        toggle.classList.toggle('cosy:btn-ghost', isChecked);
-
-        // 找到当前显示的示例
-        const activeExample = container.querySelector(
-          '.cosy\\:example-container:not(.cosy\\:hidden)'
-        );
-        if (!activeExample) {
-          console.error('CodeContainer: 无法找到活动示例');
-          return;
-        }
-
-        // 切换面板
-        activeExample
-          .querySelectorAll('.cosy\\:code-example-panel')
-          .forEach((panel) => {
-            if (panel.getAttribute('data-panel') === 'code') {
-              console.log(
-                '处理代码面板的展示/隐藏，此时的isChecked:',
-                isChecked
-              );
-              panel.classList.toggle('cosy:hidden', isChecked);
-              panel.classList.toggle('cosy:block', !isChecked);
-            } else {
-              console.log(
-                '处理预览面板的展示/隐藏，此时的isChecked:',
-                isChecked
-              );
-              panel.classList.toggle('cosy:hidden', !isChecked);
-              panel.classList.toggle('cosy:block', isChecked);
-            }
-          });
-      });
-    });
-
-    // 复制代码功能
-    const copyButtons = document.querySelectorAll('[aria-label="复制代码"]');
-    copyButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const container = button.closest('[data-role="code-container"]');
-        if (!container) return;
-
-        // 确保代码面板是显示的
-        const codeToggle = container.querySelector('[data-toggle="code"]');
-        if (codeToggle?.getAttribute('aria-checked') !== 'true') {
-          (codeToggle as HTMLElement)?.click();
-        }
-
-        // 找到当前显示的示例
-        const activeExample = container.querySelector(
-          '.cosy\\:example-container:not(.cosy\\:hidden)'
-        );
-        if (!activeExample) return;
-
-        const codePanel = activeExample.querySelector('[data-panel="code"]');
-        if (!codePanel) return;
-
-        const codeElement = codePanel.querySelector('code');
-        if (!codeElement) return;
-
-        const code = codeElement.textContent || '';
-
-        // 复制到剪贴板
-        navigator.clipboard.writeText(code).then(() => {
-          button.classList.add('cosy:btn-success');
-          button
-            .querySelector('.cosy\\:copy-icon')
-            ?.classList.add('cosy:hidden');
-          button
-            .querySelector('.cosy\\:check-icon')
-            ?.classList.remove('cosy:hidden');
-
-          setTimeout(() => {
-            button.classList.remove('cosy:btn-success');
-            button
-              .querySelector('.cosy\\:copy-icon')
-              ?.classList.remove('cosy:hidden');
-            button
-              .querySelector('.cosy\\:check-icon')
-              ?.classList.add('cosy:hidden');
-          }, 3000);
-        });
-      });
-    });
 
     // 初始化时隐藏除第一个以外的所有内容
     document

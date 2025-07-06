@@ -5,57 +5,33 @@ folder: false
 order: 23
 ---
 
-import {
-  CodeExample,
-  TeamMember,
-  TeamMemberBasic,
-  TeamMemberWithSocial,
-  TeamMemberCustomStyle,
-  TeamMemberGroup,
-  TeamMemberExampleCodes,
-} from '@coffic/cosy-ui';
+import { ComponentPackage } from '@/components/team-member/index.ts';
 
 ## 简介
 
-TeamMember组件用于展示团队成员的详细信息，支持头像、姓名、职位、描述文本和社交媒体链接等内容的展示。
+TeamMember 组件用于展示团队成员的详细信息，支持头像、姓名、职位、描述文本和社交媒体链接等内容的展示。
 
 组件特性：
-
 - 支持头像图片展示
 - 可显示姓名、职位和描述文本
 - 支持添加社交媒体链接
 - 提供多个样式自定义选项
 - 响应式设计，适配不同屏幕尺寸
-- 可组合使用，展示完整团队
 
 ## 基础用法
 
 最简单的团队成员信息展示：
 
-<CodeExample code={TeamMemberExampleCodes.Basic}>
-  <TeamMemberBasic />
-</CodeExample>
+<ComponentPackage.ComponentContainers.Basic />
 
 ## 社交媒体链接
 
-通过socialLinks属性添加社交媒体链接：
+通过 socialLinks 属性添加社交媒体链接：
 
-<CodeExample code={TeamMemberExampleCodes.WithSocial}>
-  <TeamMemberWithSocial />
-</CodeExample>
+<ComponentPackage.ComponentContainers.WithSocial />
 
 ## 自定义样式
 
-使用class属性自定义成员卡片样式：
+使用 class 属性自定义成员卡片样式：
 
-<CodeExample code={TeamMemberExampleCodes.CustomStyle}>
-  <TeamMemberCustomStyle />
-</CodeExample>
-
-## 团队展示
-
-组合多个TeamMember组件展示完整团队：
-
-<CodeExample code={TeamMemberExampleCodes.Group}>
-  <TeamMemberGroup />
-</CodeExample>
+<ComponentPackage.ComponentContainers.CustomStyle />

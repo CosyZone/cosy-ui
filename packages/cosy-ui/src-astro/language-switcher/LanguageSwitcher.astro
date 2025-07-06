@@ -32,16 +32,20 @@ import '../../style.ts';
 
 interface Props {
   languages: string[];
+  /**
+   * 自定义类名
+   */
+  class?: string;
 }
 
-const { languages = ['zh-cn', 'en'] } = Astro.props;
+const { languages = ['zh-cn', 'en'], class: className = '' } = Astro.props;
 
 const currentLocale = Astro.currentLocale;
 const currentLanguageName = LanguageUtil.getLanguageName(currentLocale);
 ---
 
 <!-- 语言切换按钮 -->
-<div class="cosy:dropdown cosy:dropdown-end">
+<div class={`cosy:dropdown cosy:dropdown-end ${className}`}>
   <div tabindex="0" role="button" class:list={['cosy:btn cosy:btn-ghost']}>
     <span class="cosy:mr-1">{currentLanguageName}</span>
     <ChevronDownIcon size="16px" class="cosy:w-4 cosy:h-4" />

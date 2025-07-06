@@ -5,48 +5,14 @@ folder: false
 order: 22
 ---
 
-import { TableOfContents, CodeExample } from '@coffic/cosy-ui';
+import { ComponentPackage } from '@/components/toc/index';
 
-The TableOfContents component is a table of contents navigation component used to display the heading structure of page content. It automatically detects heading elements on the page, generates a table of contents list, and highlights the currently visible heading as the user scrolls. When the page has only one heading or insufficient heading structure, the component will automatically hide.
+The TableOfContents component is used to display the heading structure of page content, automatically detecting heading elements, generating a table of contents list, and highlighting the currently visible heading as the user scrolls.
 
 ## Basic Usage
 
-By default, the component automatically detects h2 and h3 headings on the page and generates a table of contents list:
+<ComponentPackage.ComponentContainers.Basic />
 
-<CodeExample code={`<TableOfContents />`}>
-  <TableOfContents />
-</CodeExample>
+## Custom Usage
 
-## Custom Title and Selector
-
-You can customize the title text of the table of contents and the heading selector to detect:
-
-<CodeExample
-  code={`<TableOfContents
-  title="Chapter Navigation"
-  selector="h2, h3, h4"
-  maxDepth={4}
-/>`}
->
-  <TableOfContents
-    title="Chapter Navigation"
-    selector="h2, h3, h4"
-    maxDepth={4}
-  />
-</CodeExample>
-
-## Non-Fixed Position
-
-By default, the table of contents is fixed on the right side. You can also set it to a non-fixed position:
-
-<CodeExample code={`<TableOfContents fixed={false} />`}>
-  <TableOfContents fixed={false} />
-</CodeExample>
-
-## Custom Content Container
-
-You can specify a specific content container, and the component will only look for headings within that container:
-
-<CodeExample code={`<TableOfContents containerSelector=".article-content" />`}>
-  <TableOfContents containerSelector=".article-content" />
-</CodeExample>
+<ComponentPackage.ComponentContainers.Custom />

@@ -1,0 +1,52 @@
+---
+/**
+ * @component LinkButtonStyleContainer
+ * @description Link组件按钮风格示例的容器组件，使用多标签展示不同功能
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonColors from './ButtonColors.astro';
+import ButtonGhost from './ButtonGhost.astro';
+import ButtonShapes from './ButtonShapes.astro';
+import ButtonSizes from './ButtonSizes.astro';
+import ButtonFullWidth from './ButtonFullWidth.astro';
+
+import buttonColorsCode from './ButtonColors.astro?raw';
+import buttonGhostCode from './ButtonGhost.astro?raw';
+import buttonShapesCode from './ButtonShapes.astro?raw';
+import buttonSizesCode from './ButtonSizes.astro?raw';
+import buttonFullWidthCode from './ButtonFullWidth.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    buttonColorsCode,
+    buttonGhostCode,
+    buttonShapesCode,
+    buttonSizesCode,
+    buttonFullWidthCode,
+  ]}
+  titles={['按钮颜色', '幽灵按钮', '按钮形状', '按钮尺寸', '全宽按钮']}
+  descriptions={[
+    '使用 color 属性设置按钮颜色，支持 primary、secondary、accent、info、success、warning、error',
+    '使用 ghost 属性创建幽灵按钮，具有透明背景和边框',
+    '使用 circle 和 rounded 属性控制按钮形状',
+    '使用 size 属性控制按钮尺寸，支持 sm、md、lg',
+    '使用 fullWidth 属性创建全宽按钮',
+  ]}>
+  <div id="tab-1">
+    <ButtonColors />
+  </div>
+  <div id="tab-2">
+    <ButtonGhost />
+  </div>
+  <div id="tab-3">
+    <ButtonShapes />
+  </div>
+  <div id="tab-4">
+    <ButtonSizes />
+  </div>
+  <div id="tab-5">
+    <ButtonFullWidth />
+  </div>
+</CodeContainer>

@@ -5,30 +5,15 @@ folder: false
 order: 2
 ---
 
-import {
-  Banner,
-  CodeExample,
-  BannerBasic,
-  BannerPrimary,
-  BannerSecondary,
-  BannerSuccess,
-  BannerWarning,
-  BannerDanger,
-  BannerInfo,
-  BannerCustomStyle,
-  BannerFadeIn,
-  BannerSlideUp,
-  BannerAllAnimations,
-  BannerExampleCodes,
-} from '@coffic/cosy-ui';
+import { Banner } from '@coffic/cosy-ui';
+import { BannerPackage } from '@/components/banner/index.ts';
 
 ## Introduction
 
-The Banner component is used to display important notification messages at the top of the page, supporting various colors and animation effects.
+The Banner component is used to display prominent banner messages at the top of the page, typically for important slogans, announcements, or marketing information.
 
 Component features:
-
-- Supports multiple preset colors (primary/secondary/success/warning/danger/info)
+- Supports multiple preset colors (primary/secondary/success/warning/error/info)
 - Customizable styles and backgrounds
 - Supports various animation effects
 - Responsive design, adapts to different screen sizes
@@ -37,70 +22,32 @@ Component features:
 
 The simplest banner display:
 
-<CodeExample code={BannerExampleCodes.Basic}>
-  <BannerBasic />
-</CodeExample>
+<BannerPackage.BannerContainers.Basic />
 
 ## Color Examples
 
-### Primary Color
+<BannerPackage.BannerContainers.Colors />
 
-<CodeExample code={BannerExampleCodes.Primary}>
-  <BannerPrimary />
-</CodeExample>
+## Animation Effects
 
-### Secondary Color
-
-<CodeExample code={BannerExampleCodes.Secondary}>
-  <BannerSecondary />
-</CodeExample>
-
-### Success Color
-
-<CodeExample code={BannerExampleCodes.Success}>
-  <BannerSuccess />
-</CodeExample>
-
-### Warning Color
-
-<CodeExample code={BannerExampleCodes.Warning}>
-  <BannerWarning />
-</CodeExample>
-
-### Danger Color
-
-<CodeExample code={BannerExampleCodes.Danger}>
-  <BannerDanger />
-</CodeExample>
-
-### Info Color
-
-<CodeExample code={BannerExampleCodes.Info}>
-  <BannerInfo />
-</CodeExample>
+<BannerPackage.BannerContainers.Animations />
 
 ## Custom Styles
 
 Customize banner styles using the class property:
 
-<CodeExample code={BannerExampleCodes.CustomStyle}>
-  <BannerCustomStyle />
-</CodeExample>
+<BannerPackage.BannerContainers.CustomStyle />
 
-## Animation Control
+## Props
 
-The Banner component supports various animation effects:
+| Property     | Description                        | Type                                                                 | Default   |
+| ------------ | ---------------------------------- | -------------------------------------------------------------------- | --------- |
+| class        | Custom CSS class                   | string                                                              | -         |
+| bgColor      | Background color                   | 'primary'\|'secondary'\|'accent'\|'info'\|'success'\|'warning'\|'error' | 'primary' |
+| textColor    | Text color                         | string                                                              | auto      |
+| animation    | Animation effect                   | 'none'\|'fade'\|'slide'\|'both'                                     | 'both'    |
+| animated     | Deprecated, use animation instead  | boolean                                                             | -         |
 
-## Animation Effect Examples
+## Slots
 
-### Fade In Animation
-
-<CodeExample code={BannerExampleCodes.FadeIn}>
-  <BannerFadeIn />
-</CodeExample>
-
-### Slide Up Animation
-
-<CodeExample code={BannerExampleCodes.SlideUp}>
-  <BannerSlideUp />
-</CodeExample>
+- `default`: Content to display inside the Banner

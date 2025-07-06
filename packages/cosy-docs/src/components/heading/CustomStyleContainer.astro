@@ -1,0 +1,16 @@
+---
+/**
+ * @component HeadingCustomStyleContainer
+ * @description Heading 组件自定义样式示例容器，展示 color 和 underline 属性。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import CustomStyle from './CustomStyle.astro';
+// @ts-ignore
+import CustomStyleSource from './CustomStyle.astro?raw';
+---
+
+<CodeContainer codes={[CustomStyleSource]}>
+  <div id="tab-1">
+    <CustomStyle />
+  </div>
+</CodeContainer>

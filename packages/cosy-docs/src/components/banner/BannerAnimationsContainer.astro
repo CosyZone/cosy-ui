@@ -1,0 +1,37 @@
+---
+/**
+ * @component Banner.Animations
+ * @description Banner 动画效果多标签示例。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import BannerAllAnimationsNone from './BannerAllAnimationsNone.astro';
+import BannerAllAnimationsFade from './BannerAllAnimationsFade.astro';
+import BannerAllAnimationsSlide from './BannerAllAnimationsSlide.astro';
+import BannerAllAnimationsBoth from './BannerAllAnimationsBoth.astro';
+import BannerAllAnimationsNoneSourceCode from './BannerAllAnimationsNone.astro?raw';
+import BannerAllAnimationsFadeSourceCode from './BannerAllAnimationsFade.astro?raw';
+import BannerAllAnimationsSlideSourceCode from './BannerAllAnimationsSlide.astro?raw';
+import BannerAllAnimationsBothSourceCode from './BannerAllAnimationsBoth.astro?raw';
+---
+
+<CodeContainer
+  titles={['无动画', '淡入动画', '上滑动画', '组合动画']}
+  codes={[
+    BannerAllAnimationsNoneSourceCode,
+    BannerAllAnimationsFadeSourceCode,
+    BannerAllAnimationsSlideSourceCode,
+    BannerAllAnimationsBothSourceCode,
+  ]}>
+  <div id="tab-1">
+    <BannerAllAnimationsNone />
+  </div>
+  <div id="tab-2">
+    <BannerAllAnimationsFade />
+  </div>
+  <div id="tab-3">
+    <BannerAllAnimationsSlide />
+  </div>
+  <div id="tab-4">
+    <BannerAllAnimationsBoth />
+  </div>
+</CodeContainer>

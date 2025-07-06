@@ -1,0 +1,45 @@
+---
+/**
+ * @component LinkAdvancedContainer
+ * @description Link组件高级功能示例的容器组件，使用多标签展示不同功能
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import LinkAlignment from './LinkAlignment.astro';
+import LinkModifiers from './LinkModifiers.astro';
+import LinkDebug from './LinkDebug.astro';
+import LinkCompatibility from './LinkCompatibility.astro';
+
+import linkAlignmentCode from './LinkAlignment.astro?raw';
+import linkModifiersCode from './LinkModifiers.astro?raw';
+import linkDebugCode from './LinkDebug.astro?raw';
+import linkCompatibilityCode from './LinkCompatibility.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    linkAlignmentCode,
+    linkModifiersCode,
+    linkDebugCode,
+    linkCompatibilityCode,
+  ]}
+  titles={['对齐方式', '样式修饰', '调试模式', '兼容性']}
+  descriptions={[
+    '使用 align 属性控制链接的对齐方式，支持 left、center、right',
+    '使用 rounded、noUnderline、fullWidth 等属性修饰链接样式',
+    '使用 debug 属性显示调试边框，方便开发时查看组件边界',
+    '提供向后兼容的属性，如 centerText 等',
+  ]}>
+  <div id="tab-1">
+    <LinkAlignment />
+  </div>
+  <div id="tab-2">
+    <LinkModifiers />
+  </div>
+  <div id="tab-3">
+    <LinkDebug />
+  </div>
+  <div id="tab-4">
+    <LinkCompatibility />
+  </div>
+</CodeContainer>

@@ -2,40 +2,21 @@
 title: 'LanguageSwitcher'
 description: 'Provides a language switching dropdown menu for multilingual website language switching functionality'
 folder: false
-order: 16
+order: 14.2
 ---
 
-import { LanguageSwitcher, CodeExample } from '@coffic/cosy-ui';
+import { ComponentPackage } from '@/components/language-switcher/index';
 
 The LanguageSwitcher component provides a language switching dropdown menu, supporting language switching functionality for multilingual websites. The component automatically handles URL paths, ensuring that the current page path is preserved when switching languages.
 
 ## Basic Usage
 
-By default, the component supports two languages: Chinese and English:
-
-<CodeExample code={`<LanguageSwitcher />`}>
-  <LanguageSwitcher />
-</CodeExample>
+<ComponentPackage.ComponentContainers.Basic />
 
 ## Custom Language List
 
-You can customize the language list through the `languages` property and set the current language via `currentLocale`:
-
-<CodeExample
-  code={`<LanguageSwitcher
-  languages={['zh-cn', 'en']}
-  currentLocale="en"
-/>`}
->
-  <LanguageSwitcher languages={['zh-cn', 'en']} currentLocale="en" />
-</CodeExample>
+<ComponentPackage.ComponentContainers.CustomList />
 
 ## Custom Styling
 
-You can add custom styles to the switcher using the `class` property:
-
-<CodeExample
-  code={`<LanguageSwitcher class="cosy:border cosy:border-gray-300 cosy:rounded-md cosy:p-1" />`}
->
-  <LanguageSwitcher class="cosy:border cosy:border-gray-300 cosy:rounded-md cosy:p-1" />
-</CodeExample>
+<ComponentPackage.ComponentContainers.CustomStyle />

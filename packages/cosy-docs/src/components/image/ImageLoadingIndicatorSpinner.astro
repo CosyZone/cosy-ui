@@ -1,0 +1,16 @@
+---
+/**
+ * @component ImageLoadingIndicatorSpinner
+ * @description Image 组件加载指示器 spinner 示例
+ */
+import { Image } from '@coffic/cosy-ui';
+import { getExampleImage } from '@coffic/cosy-ui';
+---
+
+<Image
+  src={getExampleImage({ width: 320, height: 180, randomSeed: 3 })}
+  alt="加载指示器图片"
+  loadingIndicator="spinner"
+  width={320}
+  height={180}
+/>

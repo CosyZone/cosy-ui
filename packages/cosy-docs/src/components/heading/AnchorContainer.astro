@@ -1,0 +1,16 @@
+---
+/**
+ * @component HeadingAnchorContainer
+ * @description Heading 组件带锚点示例容器，展示 id 和 anchor 属性。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import Anchor from './Anchor.astro';
+// @ts-ignore
+import AnchorSource from './Anchor.astro?raw';
+---
+
+<CodeContainer codes={[AnchorSource]}>
+  <div id="tab-1">
+    <Anchor />
+  </div>
+</CodeContainer>

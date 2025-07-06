@@ -85,6 +85,21 @@ interface Props extends HTMLAttributes<'a'> {
   size?: LinkSize;
   debug?: boolean;
   centerText?: boolean;
+  btn?: boolean;
+  circle?: boolean;
+  ghost?: boolean;
+  noUnderline?: boolean;
+  rounded?: boolean;
+  fullWidth?: boolean;
+  color?:
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'info'
+    | 'success'
+    | 'warning'
+    | 'error';
+  align?: 'left' | 'center' | 'right';
 }
 
 const {
@@ -98,13 +113,21 @@ const {
   'class:list': classList,
   debug = false,
   centerText = false,
+  btn = false,
+  circle = false,
+  ghost = false,
+  noUnderline = true,
+  rounded = false,
+  fullWidth = false,
+  color,
+  align,
   ...rest
 } = Astro.props;
 
 // 构建类名
 const classes = [
   // 基础链接样式
-  'cosy:items-center cosy:cursor-pointer cosy:no-underline cosy:transition-all cosy:duration-200',
+  'cosy:items-center cosy:cursor-pointer cosy:transition-all cosy:duration-200',
 
   // 显示方式
   block ? 'cosy:flex cosy:w-full' : 'cosy:inline-flex',
@@ -113,7 +136,7 @@ const classes = [
   variant === 'primary' && 'cosy:text-primary cosy:hover:text-primary-focus',
   variant === 'secondary' &&
     'cosy:text-secondary cosy:hover:text-secondary-focus',
-  variant === 'text' && 'cosy:text-neutral cosy:hover:text-neutral-focus',
+  variant === 'text',
   variant === 'cta' &&
     'cosy:text-accent cosy:hover:text-accent-focus cosy:font-medium',
   variant === 'ghost' &&
@@ -136,11 +159,35 @@ const classes = [
   animation === 'hover-scale' &&
     'cosy:hover:scale-105 cosy:transition-transform',
 
+  // 新增：按钮风格
+  btn && 'cosy:btn',
+  btn && size === 'sm' && 'cosy:btn-sm',
+  btn && size === 'lg' && 'cosy:btn-lg',
+  btn && ghost && 'cosy:btn-ghost',
+  btn && color && `cosy:btn-${color}`,
+  btn && fullWidth && 'cosy:btn-block',
+  btn && circle && 'cosy:btn-circle',
+  btn && rounded && 'cosy:rounded-full',
+
+  // 非按钮风格下的圆角
+  !btn && rounded && 'cosy:rounded',
+
+  // 非按钮风格下的无下划线
+  !btn && noUnderline && 'cosy:no-underline cosy:hover:no-underline',
+
+  // 宽度100%
+  fullWidth && !btn && 'cosy:w-full',
+
+  // 对齐
+  align === 'center' && 'cosy:justify-center cosy:text-center',
+  align === 'right' && 'cosy:justify-end cosy:text-right',
+  align === 'left' && 'cosy:justify-start cosy:text-left',
+
   // 自定义类名
   className,
 ];
 
-// 文本居中样式
+// 文本居中样式（兼容旧用法）
 if (centerText) {
   classes.push('cosy:justify-center cosy:text-center');
 }

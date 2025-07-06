@@ -1,0 +1,28 @@
+---
+/**
+ * @component LinkAnimationsContainer
+ * @description Link组件动画效果示例的容器组件，使用多标签展示不同功能
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import LinkAnimations from './LinkAnimations.astro';
+import ButtonAnimations from './ButtonAnimations.astro';
+
+import linkAnimationsCode from './LinkAnimations.astro?raw';
+import buttonAnimationsCode from './ButtonAnimations.astro?raw';
+---
+
+<CodeContainer
+  codes={[linkAnimationsCode, buttonAnimationsCode]}
+  titles={['链接动画', '按钮动画']}
+  descriptions={[
+    '使用 animation 属性为链接添加动画效果，支持 hover-lift、hover-glow、hover-scale、none',
+    '按钮样式的链接也支持相同的动画效果',
+  ]}>
+  <div id="tab-1">
+    <LinkAnimations />
+  </div>
+  <div id="tab-2">
+    <ButtonAnimations />
+  </div>
+</CodeContainer>
