@@ -5,30 +5,15 @@ folder: false
 order: 2
 ---
 
-import {
-  Banner,
-  CodeExample,
-  BannerBasic,
-  BannerPrimary,
-  BannerSecondary,
-  BannerSuccess,
-  BannerWarning,
-  BannerDanger,
-  BannerInfo,
-  BannerCustomStyle,
-  BannerFadeIn,
-  BannerSlideUp,
-  BannerAllAnimations,
-  BannerExampleCodes,
-} from '@coffic/cosy-ui';
+import { Banner } from '@coffic/cosy-ui';
+import { BannerPackage } from '@/components/banner/index';
 
 ## 简介
 
-Banner组件用于在页面顶部显示重要的通知信息，支持多种颜色和动画效果。
+Banner 组件用于在页面顶部显示醒目的横幅信息，通常用于展示重要的标语、公告或营销信息。
 
 组件特性：
-
-- 支持多种预设颜色(primary/secondary/success/warning/danger/info)
+- 支持多种预设颜色（primary/secondary/success/warning/error/info）
 - 可自定义样式和背景
 - 支持多种动画效果选择
 - 响应式设计，适配不同屏幕尺寸
@@ -37,70 +22,32 @@ Banner组件用于在页面顶部显示重要的通知信息，支持多种颜�
 
 最简单的横幅展示：
 
-<CodeExample code={BannerExampleCodes.Basic}>
-  <BannerBasic />
-</CodeExample>
+<BannerPackage.BannerContainers.Basic />
 
 ## 颜色示例
 
-### 主要颜色
+<BannerPackage.BannerContainers.Colors />
 
-<CodeExample code={BannerExampleCodes.Primary}>
-  <BannerPrimary />
-</CodeExample>
+## 动画效果
 
-### 次要颜色
-
-<CodeExample code={BannerExampleCodes.Secondary}>
-  <BannerSecondary />
-</CodeExample>
-
-### 成功颜色
-
-<CodeExample code={BannerExampleCodes.Success}>
-  <BannerSuccess />
-</CodeExample>
-
-### 警告颜色
-
-<CodeExample code={BannerExampleCodes.Warning}>
-  <BannerWarning />
-</CodeExample>
-
-### 危险颜色
-
-<CodeExample code={BannerExampleCodes.Danger}>
-  <BannerDanger />
-</CodeExample>
-
-### 信息颜色
-
-<CodeExample code={BannerExampleCodes.Info}>
-  <BannerInfo />
-</CodeExample>
+<BannerPackage.BannerContainers.Animations />
 
 ## 自定义样式
 
-通过class属性自定义横幅样式：
+通过 class 属性自定义横幅样式：
 
-<CodeExample code={BannerExampleCodes.CustomStyle}>
-  <BannerCustomStyle />
-</CodeExample>
+<BannerPackage.BannerContainers.CustomStyle />
 
-## 动画控制
+## Props
 
-Banner组件支持多种动画效果选择：
+| 属性         | 说明                   | 类型                                                                 | 默认值    |
+| ------------ | ---------------------- | -------------------------------------------------------------------- | --------- |
+| class        | 自定义 CSS 类名        | string                                                              | -         |
+| bgColor      | 背景颜色               | 'primary'\|'secondary'\|'accent'\|'info'\|'success'\|'warning'\|'error' | 'primary' |
+| textColor    | 文本颜色               | string                                                              | 自动      |
+| animation    | 动画效果类型           | 'none'\|'fade'\|'slide'\|'both'                                     | 'both'    |
+| animated     | 兼容旧 animated 属性   | boolean                                                             | -         |
 
-## 动画效果示例
+## 插槽
 
-### 淡入动画
-
-<CodeExample code={BannerExampleCodes.FadeIn}>
-  <BannerFadeIn />
-</CodeExample>
-
-### 上滑动画
-
-<CodeExample code={BannerExampleCodes.SlideUp}>
-  <BannerSlideUp />
-</CodeExample>
+- `default`：Banner 中显示的文本内容
