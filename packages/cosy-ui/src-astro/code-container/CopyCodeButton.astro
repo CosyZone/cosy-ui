@@ -1,0 +1,51 @@
+---
+import { ClipboardIcon, CheckIcon } from '../icons';
+---
+
+<button
+  class="cosy:gap-2 cosy:btn cosy:btn-ghost cosy:btn-sm"
+  aria-label="复制代码"
+  id="cosy-copy-btn"
+  type="button">
+  <span class="cosy:copy-icon"><ClipboardIcon /></span>
+  <span class="cosy:hidden cosy:check-icon"><CheckIcon /></span>
+</button>
+
+<script>
+  const copyButtons = document.querySelectorAll('[aria-label="复制代码"]');
+  copyButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const container = button.closest('[data-role="code-container"]');
+      if (!container) return;
+      const codeToggle = container.querySelector('[data-toggle="code"]');
+      if (codeToggle && codeToggle.getAttribute('aria-checked') !== 'true') {
+        (codeToggle as HTMLElement).click();
+      }
+      const activeExample = container.querySelector(
+        '.cosy\\:example-container:not(.cosy\\:hidden)'
+      );
+      if (!activeExample) return;
+      const codePanel = activeExample.querySelector('[data-panel="code"]');
+      if (!codePanel) return;
+      const codeElement = codePanel.querySelector('code');
+      if (!codeElement) return;
+      const code = codeElement.textContent || '';
+      navigator.clipboard.writeText(code).then(() => {
+        button.classList.add('cosy:btn-success');
+        button.querySelector('.cosy\\:copy-icon')?.classList.add('cosy:hidden');
+        button
+          .querySelector('.cosy\\:check-icon')
+          ?.classList.remove('cosy:hidden');
+        setTimeout(() => {
+          button.classList.remove('cosy:btn-success');
+          button
+            .querySelector('.cosy\\:copy-icon')
+            ?.classList.remove('cosy:hidden');
+          button
+            .querySelector('.cosy\\:check-icon')
+            ?.classList.add('cosy:hidden');
+        }, 3000);
+      });
+    });
+  });
+</script>
