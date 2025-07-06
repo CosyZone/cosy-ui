@@ -2,7 +2,7 @@
 title: 'Link'
 description: '增强的链接组件，支持丰富的样式变体、按钮风格和动画效果，适用于导航、按钮、行动号召等多种场景'
 folder: false
-order: 17
+order: 14.3
 ---
 
 import { Link } from '@coffic/cosy-ui';
@@ -74,29 +74,3 @@ Link 组件是一个功能强大的链接组件，不仅支持传统的链接样
 | `debug` | 是否显示调试边框 | `boolean` | `false` |
 | `class` | 自定义 CSS 类名 | `string` | - |
 | `...rest` | 其他 HTML `<a>` 标签属性 | `HTMLAttributes<'a'>` | - |
-
-### 使用建议
-
-1. **语义化优先**：优先使用 `variant` 属性而不是自定义样式
-2. **按钮风格**：需要按钮样式时使用 `btn` 属性，配合 `color` 属性设置颜色
-3. **动画适度**：动画效果应适度使用，避免过度干扰用户
-4. **无障碍支持**：外部链接会自动添加 `rel="noopener noreferrer"` 属性
-5. **响应式设计**：使用 `block` 和 `align` 属性实现响应式布局
-
-### 最佳实践
-
-```astro
-<!-- ✅ 推荐：使用语义化属性 -->
-<Link href="/signup" btn color="primary" size="lg">注册账号</Link>
-
-<!-- ❌ 不推荐：手动拼接 CSS 类 -->
-<Link href="/signup" class="cosy:btn cosy:btn-primary cosy:btn-lg">注册账号</Link>
-
-<!-- ✅ 推荐：外部链接使用 external 属性 -->
-<Link href="https://example.com" external>外部链接</Link>
-
-<!-- ✅ 推荐：组合使用多个属性 -->
-<Link href="/cta" btn ghost color="accent" animation="hover-scale">
-  立即体验
-</Link>
-```
