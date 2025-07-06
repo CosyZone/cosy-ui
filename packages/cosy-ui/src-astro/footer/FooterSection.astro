@@ -6,10 +6,7 @@
  * FooterSection 组件用于在页脚中显示一组链接，通常用于导航、产品列表等。
  */
 
-interface Link {
-  name: string;
-  href?: string;
-}
+import { Link, type IProduct } from '../../index-astro';
 
 interface Props {
   /**
@@ -20,7 +17,7 @@ interface Props {
   /**
    * 链接列表
    */
-  links: Link[];
+  links: IProduct[];
 }
 
 const { title, links } = Astro.props;
@@ -33,12 +30,14 @@ const { title, links } = Astro.props;
       links.map((link) => (
         <li class="cosy:list-none">
           {link.href ? (
-            <a
+            <Link
               href={link.href}
-              class="cosy:link cosy:link-hover cosy:no-underline cosy:hover:no-underline"
-            >
+              size="sm"
+              target={link.external ? '_blank' : '_self'}
+              variant="text"
+              class="cosy:link cosy:link-hover cosy:no-underline cosy:hover:no-underline">
               {link.name}
-            </a>
+            </Link>
           ) : (
             <span class="cosy:opacity-50">{link.name}</span>
           )}

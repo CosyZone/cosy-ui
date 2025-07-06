@@ -172,6 +172,7 @@ import {
   LanguageUtil,
   type IFooterProps,
   createTextGetter,
+  Link,
 } from '../../index-astro';
 import FooterSection from './FooterSection.astro';
 import '../../style.ts';
@@ -242,7 +243,7 @@ const debugClasses = debug
     ]}>
     {/* 品牌区域 */}
     <aside class:list={['cosy:max-w-xs cosy:text-center', debugClasses.aside]}>
-      <a
+      <Link
         href={homeLink}
         class="cosy:flex cosy:items-center cosy:gap-2 cosy:mb-4 cosy:no-underline">
         {
@@ -260,21 +261,21 @@ const debugClasses = debug
           <h2 class="cosy:font-bold cosy:text-xl">{siteName}</h2>
           <p class="cosy:text-base-content/70">{slogan}</p>
         </div>
-      </a>
+      </Link>
 
       {/* 社交媒体链接 */}
       {
         processedSocialLinks.length > 0 && (
           <div class="cosy:flex cosy:justify-center cosy:gap-2 cosy:mt-4">
             {processedSocialLinks.map((link) => (
-              <a
+              <Link
                 href={link.url}
                 class="cosy:btn cosy:btn-circle cosy:btn-ghost cosy:btn-sm"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={link.name}>
                 <SocialIcon platform={link.platform} />
-              </a>
+              </Link>
             ))}
           </div>
         )
@@ -307,10 +308,10 @@ const debugClasses = debug
           <FooterSection
             title={t('about')}
             links={[
-              { name: t('aboutUs'), href: aboutLink },
-              { name: t('team'), href: teamLink },
-              { name: t('careers'), href: careersLink },
-              { name: t('contactUs'), href: contactLink },
+              { name: t('aboutUs'), href: aboutLink ?? '' },
+              { name: t('team'), href: teamLink ?? '' },
+              { name: t('careers'), href: careersLink ?? '' },
+              { name: t('contactUs'), href: contactLink ?? '' },
             ].filter((link) => link.href)}
           />
         )
@@ -328,11 +329,11 @@ const debugClasses = debug
           <FooterSection
             title={t('resources')}
             links={[
-              { name: t('news'), href: newsLink },
-              { name: t('blog'), href: blogLink },
-              { name: t('faq'), href: faqLink },
-              { name: t('history'), href: historyLink },
-              { name: t('techStack'), href: techStackLink },
+              { name: t('news'), href: newsLink ?? '' },
+              { name: t('blog'), href: blogLink ?? '' },
+              { name: t('faq'), href: faqLink ?? '' },
+              { name: t('history'), href: historyLink ?? '' },
+              { name: t('techStack'), href: techStackLink ?? '' },
             ].filter((link) => link.href)}
           />
         )
@@ -344,8 +345,8 @@ const debugClasses = debug
           <FooterSection
             title={t('legal')}
             links={[
-              { name: t('terms'), href: termsLink },
-              { name: t('privacy'), href: privacyLink },
+              { name: t('terms'), href: termsLink ?? '' },
+              { name: t('privacy'), href: privacyLink ?? '' },
             ].filter((link) => link.href)}
           />
         )
