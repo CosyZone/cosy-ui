@@ -1,0 +1,15 @@
+---
+/**
+ * @component TextCustomStyleContainer
+ * @description Text 组件自定义样式用法容器，带源码展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import CustomStyle from './CustomStyle.astro';
+---
+
+<CodeContainer
+  codes={[
+    `<Text class=\"cosy:bg-yellow-100 cosy:px-2 cosy:py-1 cosy:rounded\">自定义背景和圆角</Text>\n<Text class=\"cosy:text-red-500 cosy:underline\">自定义颜色和下划线</Text>`,
+  ]}>
+  <CustomStyle />
+</CodeContainer>
