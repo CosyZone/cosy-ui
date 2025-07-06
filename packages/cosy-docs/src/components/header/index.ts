@@ -48,15 +48,15 @@ export const HeaderExampleCodes = {
     CustomNavbarEnd: extractSimpleExample(HeaderCustomNavbarEndSourceCode, 'Header'),
 };
 
-export const HeaderPackage = {
-    HeaderContainers: {
+export const ComponentPackage = {
+    ComponentContainers: {
         Basic: HeaderBasicContainer,
+        WithNavigation: HeaderWithNavigationContainer,
+        CustomNavbarStart: HeaderCustomNavbarStartContainer,
         CustomNavbarCenter: HeaderCustomNavbarCenterContainer,
         CustomNavbarEnd: HeaderCustomNavbarEndContainer,
-        CustomNavbarStart: HeaderCustomNavbarStartContainer,
-        WithNavigation: HeaderWithNavigationContainer,
     },
-    HeaderExamples: {
+    Examples: {
         Basic: HeaderBasic,
         CustomNavbarCenter: HeaderCustomNavbarCenter,
         CustomNavbarEnd: HeaderCustomNavbarEnd,
