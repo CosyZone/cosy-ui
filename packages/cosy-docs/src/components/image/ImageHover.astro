@@ -1,0 +1,17 @@
+---
+/**
+ * @component ImageHover
+ * @description Image 组件悬停交互效果示例
+ */
+import { Image } from '@coffic/cosy-ui';
+import { getExampleImage } from '@coffic/cosy-ui';
+---
+
+<Image
+  src={getExampleImage({ width: 320, height: 180, randomSeed: 2 })}
+  alt="悬停交互图片"
+  hover="scale"
+  rounded="md"
+  width={320}
+  height={180}
+/>

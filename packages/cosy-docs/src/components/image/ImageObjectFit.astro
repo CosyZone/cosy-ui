@@ -1,0 +1,16 @@
+---
+/**
+ * @component ImageObjectFit
+ * @description Image 组件 objectFit 示例
+ */
+import { Image } from '@coffic/cosy-ui';
+import { getExampleImage } from '@coffic/cosy-ui';
+---
+
+<Image
+  src={getExampleImage({ width: 300, height: 200, randomSeed: 5 })}
+  alt="objectFit 图片"
+  objectFit="contain"
+  width={300}
+  height={200}
+/>

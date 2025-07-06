@@ -1,0 +1,16 @@
+---
+/**
+ * @component ImageLoadingIndicatorProgress
+ * @description Image 组件加载指示器 progress 示例
+ */
+import { Image } from '@coffic/cosy-ui';
+import { getExampleImage } from '@coffic/cosy-ui';
+---
+
+<Image
+  src={getExampleImage({ width: 320, height: 180, randomSeed: 4 })}
+  alt="加载进度图片"
+  loadingIndicator="progress"
+  width={320}
+  height={180}
+/>
