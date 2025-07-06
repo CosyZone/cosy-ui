@@ -1,14 +1,35 @@
 ---
-import { ClipboardIcon, CheckIcon } from '../icons';
+import { ClipboardIcon } from '../icons';
 ---
 
 <button
   class="cosy:gap-2 cosy:btn cosy:btn-ghost cosy:btn-sm"
   aria-label="复制代码"
   id="cosy-copy-btn"
-  type="button">
+  type="button"
+  style="position: relative;">
   <span class="cosy:copy-icon"><ClipboardIcon /></span>
-  <span class="cosy:hidden cosy:check-icon"><CheckIcon /></span>
+  <span
+    id="copy-toast"
+    style="
+    display: none;
+    position: absolute;
+    top: -2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #22c55e;
+    color: #fff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    pointer-events: none;
+    transition: opacity 0.2s;
+  "
+    >复制成功</span
+  >
 </button>
 
 <script>
@@ -19,7 +40,7 @@ import { ClipboardIcon, CheckIcon } from '../icons';
       if (!container) return;
       const codeToggle = container.querySelector('[data-toggle="code"]');
       if (codeToggle && codeToggle.getAttribute('aria-checked') !== 'true') {
-        (codeToggle as HTMLElement).click();
+        codeToggle instanceof HTMLElement && codeToggle.click();
       }
       const activeExample = container.querySelector(
         '.cosy\\:example-container:not(.cosy\\:hidden)'
@@ -31,20 +52,18 @@ import { ClipboardIcon, CheckIcon } from '../icons';
       if (!codeElement) return;
       const code = codeElement.textContent || '';
       navigator.clipboard.writeText(code).then(() => {
-        button.classList.add('cosy:btn-success');
-        button.querySelector('.cosy\\:copy-icon')?.classList.add('cosy:hidden');
-        button
-          .querySelector('.cosy\\:check-icon')
-          ?.classList.remove('cosy:hidden');
-        setTimeout(() => {
-          button.classList.remove('cosy:btn-success');
-          button
-            .querySelector('.cosy\\:copy-icon')
-            ?.classList.remove('cosy:hidden');
-          button
-            .querySelector('.cosy\\:check-icon')
-            ?.classList.add('cosy:hidden');
-        }, 3000);
+        // 气泡提示
+        const toast = button.querySelector('#copy-toast');
+        if (toast && toast instanceof HTMLElement) {
+          toast.style.display = 'block';
+          toast.style.opacity = '1';
+          setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => {
+              toast.style.display = 'none';
+            }, 200);
+          }, 2000);
+        }
       });
     });
   });
