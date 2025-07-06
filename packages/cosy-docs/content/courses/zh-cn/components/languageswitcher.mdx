@@ -5,37 +5,18 @@ folder: false
 order: 14.2
 ---
 
-import { LanguageSwitcher, CodeExample } from '@coffic/cosy-ui';
+import { ComponentPackage } from '@/components/language-switcher/index';
 
 LanguageSwitcher 组件提供一个语言切换下拉菜单，支持多语言网站的语言切换功能。组件会自动处理 URL 路径，确保在切换语言时保留当前页面路径。
 
 ## 基础用法
 
-默认情况下，组件支持中文和英文两种语言：
-
-<CodeExample code={`<LanguageSwitcher />`}>
-  <LanguageSwitcher />
-</CodeExample>
+<ComponentPackage.ComponentContainers.Basic />
 
 ## 自定义语言列表
 
-您可以通过 `languages` 属性自定义语言列表，并通过 `currentLocale` 设置当前语言：
-
-<CodeExample
-  code={`<LanguageSwitcher
-  languages={['zh-cn', 'en']}
-  currentLocale="en"
-/>`}
->
-  <LanguageSwitcher languages={['zh-cn', 'en']} currentLocale="en" />
-</CodeExample>
+<ComponentPackage.ComponentContainers.CustomList />
 
 ## 自定义样式
 
-您可以通过 `class` 属性为切换器添加自定义样式：
-
-<CodeExample
-  code={`<LanguageSwitcher class="cosy:border cosy:border-gray-300 cosy:rounded-md cosy:p-1" />`}
->
-  <LanguageSwitcher class="cosy:border cosy:border-gray-300 cosy:rounded-md cosy:p-1" />
-</CodeExample>
+<ComponentPackage.ComponentContainers.CustomStyle />
