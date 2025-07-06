@@ -1,0 +1,15 @@
+---
+/**
+ * @component MainCustomBgContainer
+ * @description Main 组件自定义背景色演示容器，展示源码和效果
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import MainCustomBg from './MainCustomBg.astro';
+import MainCustomBgSource from './MainCustomBg.astro?raw';
+---
+
+<CodeContainer codes={[MainCustomBgSource]}>
+  <div>
+    <MainCustomBg />
+  </div>
+</CodeContainer>

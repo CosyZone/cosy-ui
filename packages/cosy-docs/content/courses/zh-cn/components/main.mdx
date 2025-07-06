@@ -5,62 +5,22 @@ folder: false
 order: 18
 ---
 
-import { Main, CodeExample } from '@coffic/cosy-ui';
+import { ComponentPackage } from '@/components/main/index';
+
+Main 组件是页面的主要内容区域，使用 Container 组件提供响应式布局。适合作为页面主体，自动处理不同屏幕尺寸下的布局和内边距。
 
 ## 基础用法
 
-基本的主内容区域，自动处理不同屏幕尺寸下的布局和内边距
-
-<CodeExample
-  code={`<Main>
-  <h1>页面标题</h1>
-  <p>页面内容</p>
-</Main>`}
->
-  <Main>
-    <h1>页面标题</h1>
-    <p>页面内容</p>
-  </Main>
-</CodeExample>
+<ComponentPackage.ComponentContainers.Basic />
 
 ## 自定义容器尺寸
 
-通过 size 属性调整容器宽度
-
-<CodeExample
-  code={`<Main size="lg">
-  <p>这是一个较宽的主内容区域</p>
-</Main>`}
->
-  <Main size="lg">
-    <p>这是一个较宽的主内容区域</p>
-  </Main>
-</CodeExample>
+<ComponentPackage.ComponentContainers.CustomSize />
 
 ## 自定义内边距
 
-通过 padding 和 verticalPadding 属性调整内边距大小
-
-<CodeExample
-  code={`<Main padding="lg" verticalPadding="xl">
-  <p>这个主内容区域有更大的内边距</p>
-</Main>`}
->
-  <Main padding="lg" verticalPadding="xl">
-    <p>这个主内容区域有更大的内边距</p>
-  </Main>
-</CodeExample>
+<ComponentPackage.ComponentContainers.CustomPadding />
 
 ## 自定义背景颜色
 
-通过 backgroundColor 属性设置背景颜色
-
-<CodeExample
-  code={`<Main backgroundColor="primary">
-  <p>这个主内容区域有主题色背景</p>
-</Main>`}
->
-  <Main backgroundColor="primary">
-    <p>这个主内容区域有主题色背景</p>
-  </Main>
-</CodeExample>
+<ComponentPackage.ComponentContainers.CustomBg />

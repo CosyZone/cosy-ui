@@ -5,62 +5,22 @@ folder: false
 order: 18
 ---
 
-import { Main, CodeExample } from '@coffic/cosy-ui';
+import { ComponentPackage } from '@/components/main/index';
+
+The Main component is the main content area of the page, using the Container component to provide a responsive layout. It is suitable as the main part of the page and automatically handles layout and padding for different screen sizes.
 
 ## Basic Usage
 
-Basic main content area, automatically handling layout and padding for different screen sizes
-
-<CodeExample
-  code={`<Main>
-  <h1>Page Title</h1>
-  <p>Page content</p>
-</Main>`}
->
-  <Main>
-    <h1>页面标题</h1>
-    <p>页面内容</p>
-  </Main>
-</CodeExample>
+<ComponentPackage.ComponentContainers.Basic />
 
 ## Custom Container Size
 
-Adjust container width using the size property
-
-<CodeExample
-  code={`<Main size="lg">
-  <p>This is a wider main content area</p>
-</Main>`}
->
-  <Main size="lg">
-    <p>This is a wider main content area</p>
-  </Main>
-</CodeExample>
+<ComponentPackage.ComponentContainers.CustomSize />
 
 ## Custom Padding
 
-Adjust padding size using the padding and verticalPadding properties
-
-<CodeExample
-  code={`<Main padding="lg" verticalPadding="xl">
-  <p>This main content area has larger padding</p>
-</Main>`}
->
-  <Main padding="lg" verticalPadding="xl">
-    <p>This main content area has larger padding</p>
-  </Main>
-</CodeExample>
+<ComponentPackage.ComponentContainers.CustomPadding />
 
 ## Custom Background Color
 
-Set background color using the backgroundColor property
-
-<CodeExample
-  code={`<Main backgroundColor="primary">
-  <p>This main content area has a theme color background</p>
-</Main>`}
->
-  <Main backgroundColor="primary">
-    <p>This main content area has a theme color background</p>
-  </Main>
-</CodeExample>
+<ComponentPackage.ComponentContainers.CustomBg />
