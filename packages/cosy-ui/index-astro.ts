@@ -7,6 +7,8 @@ export * from './src-astro/card';
 export * from './src-astro/code-block';
 export * from './src-astro/code-container';
 export * from './src-astro/code-example';
+export * from './src-astro/code-panel';
+export * from './src-astro/install-tabs';
 export * from './src-astro/contact';
 export * from './src-astro/container';
 export * from './src-astro/errors';

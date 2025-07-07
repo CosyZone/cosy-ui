@@ -1,0 +1,57 @@
+---
+/**
+ * @component CodePanelThemeExample
+ * @description CodePanel 组件的主题切换示例
+ */
+import { CodePanel } from '@coffic/cosy-ui';
+
+const sampleCode = `// React Hook for theme management
+import { useState, useEffect } from 'react';
+
+export function useTheme() {
+  const [theme, setTheme] = useState('light');
+  
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, []);
+  
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
+  
+  return { theme, toggleTheme };
+}`;
+---
+
+<div class="cosy:space-y-6">
+  <!-- Dark Plus 主题 -->
+  <div>
+    <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-3">
+      Dark Plus 主题（默认）
+    </h3>
+    <CodePanel code={sampleCode} language="typescript" theme="dark-plus" />
+  </div>
+
+  <!-- Light Plus 主题 -->
+  <div>
+    <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-3">Light Plus 主题</h3>
+    <CodePanel code={sampleCode} language="typescript" theme="light-plus" />
+  </div>
+
+  <!-- GitHub Dark 主题 -->
+  <div>
+    <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-3">GitHub Dark 主题</h3>
+    <CodePanel code={sampleCode} language="typescript" theme="github-dark" />
+  </div>
+
+  <!-- GitHub Light 主题 -->
+  <div>
+    <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-3">GitHub Light 主题</h3>
+    <CodePanel code={sampleCode} language="typescript" theme="github-light" />
+  </div>
+</div>

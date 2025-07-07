@@ -1,0 +1,73 @@
+---
+/**
+ * @component CodePanelBasic
+ * @description CodePanel 组件的基础用法示例
+ */
+import { CodePanel } from '@coffic/cosy-ui';
+
+const javascriptCode = `function greet(name) {
+  console.log(\`Hello, \${name}!\`);
+  return \`Welcome to CodePanel!\`;
+}
+
+greet('Developer');`;
+
+const typescriptCode = `interface User {
+  id: number;
+  name: string;
+  email?: string;
+}
+
+const createUser = (userData: Partial<User>): User => {
+  return {
+    id: Date.now(),
+    name: 'Unknown',
+    ...userData
+  };
+};
+
+const user = createUser({ name: 'Alice', email: 'alice@example.com' });`;
+
+const pythonCode = `def fibonacci(n):
+    """Generate Fibonacci sequence up to n terms"""
+    if n <= 0:
+        return []
+    elif n == 1:
+        return [0]
+    elif n == 2:
+        return [0, 1]
+    
+    sequence = [0, 1]
+    for i in range(2, n):
+        sequence.append(sequence[i-1] + sequence[i-2])
+    
+    return sequence
+
+# Generate first 10 Fibonacci numbers
+fib_numbers = fibonacci(10)
+print(f"Fibonacci sequence: {fib_numbers}")`;
+---
+
+<div class="cosy:space-y-6">
+  <!-- JavaScript 示例 -->
+  <div>
+    <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-3">
+      JavaScript 代码高亮
+    </h3>
+    <CodePanel code={javascriptCode} language="javascript" />
+  </div>
+
+  <!-- TypeScript 示例 -->
+  <div>
+    <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-3">
+      TypeScript 代码高亮
+    </h3>
+    <CodePanel code={typescriptCode} language="typescript" />
+  </div>
+
+  <!-- Python 示例 -->
+  <div>
+    <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-3">Python 代码高亮</h3>
+    <CodePanel code={pythonCode} language="python" />
+  </div>
+</div>

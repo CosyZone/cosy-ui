@@ -1,0 +1,102 @@
+---
+import { ClipboardIcon } from '../icons';
+
+/**
+ * 安装命令复制按钮，带气泡toast反馈
+ * @param code 要复制的命令字符串
+ */
+interface Props {
+  code: string;
+}
+
+const { code } = Astro.props;
+const uniqueId = `copy-install-${Math.random().toString(36).substr(2, 9)}`;
+const toastId = `toast-${uniqueId}`;
+---
+
+<button
+  class="cosy:gap-2 cosy:btn cosy:btn-ghost cosy:btn-sm"
+  aria-label="复制安装命令"
+  type="button"
+  style="position: relative;"
+  id={uniqueId}
+  data-code={code}>
+  <span class="cosy:copy-icon"><ClipboardIcon /></span>
+  <span
+    id={toastId}
+    style="
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #22c55e;
+      color: #fff;
+      padding: 0.75rem 1.25rem;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      white-space: nowrap;
+      z-index: 99999;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      pointer-events: none;
+      transition: all 0.2s ease;
+    ">
+    复制成功 ✓
+  </span>
+</button>
+
+<script>
+  function initializeCopyInstall() {
+    console.log('InstallTabs: 初始化复制按钮');
+
+    document.querySelectorAll('[id^="copy-install-"]').forEach((btn) => {
+      // 防止重复绑定事件
+      if (btn.hasAttribute('data-initialized')) return;
+      btn.setAttribute('data-initialized', 'true');
+
+      btn.addEventListener('click', () => {
+        const code = btn.getAttribute('data-code') || '';
+        const toastId = `toast-${btn.id}`;
+        const toast = document.getElementById(toastId);
+
+        console.log('InstallTabs: 点击复制按钮', { code, toastId, toast });
+
+        navigator.clipboard
+          .writeText(code)
+          .then(() => {
+            console.log('InstallTabs: 复制成功', code);
+            if (toast && toast instanceof HTMLElement) {
+              console.log('InstallTabs: 显示toast');
+              // 确保toast在最前面
+              document.body.appendChild(toast);
+
+              toast.style.display = 'block';
+              toast.style.opacity = '1';
+              toast.style.visibility = 'visible';
+
+              setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => {
+                  toast.style.display = 'none';
+                  toast.style.visibility = 'hidden';
+                  // 移回原位
+                  btn.appendChild(toast);
+                }, 200);
+              }, 2000);
+            } else {
+              console.error('InstallTabs: 无法找到toast元素', toastId);
+            }
+          })
+          .catch((err) => {
+            console.error('InstallTabs: 复制失败', err);
+          });
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    console.log('InstallTabs: 页面加载完成，初始化复制按钮');
+    initializeCopyInstall();
+  });
+</script>

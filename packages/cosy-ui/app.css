@@ -1,7 +1,20 @@
 @import 'tailwindcss' prefix(cosy);
 @plugin '@tailwindcss/typography';
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark, lemonade, pastel, cupcake, nord,
-    luxury, business;
+  themes:
+    light --default,
+    dark --prefersdark,
+    lemonade,
+    pastel,
+    cupcake,
+    nord,
+    luxury,
+    business;
   logs: false;
+}
+
+.cosy-shiki-container pre {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding: 1rem !important;
 }

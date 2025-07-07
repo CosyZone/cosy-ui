@@ -1,0 +1,159 @@
+---
+/**
+ * @component CodePanelLanguageSupport
+ * @description CodePanel 组件的多语言支持示例
+ */
+import { CodePanel } from '@coffic/cosy-ui';
+
+const astroCode = `---
+// Astro 组件示例
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<div class="card">
+  <h2>{title}</h2>
+  {description && <p>{description}</p>}
+</div>
+
+<style>
+  .card {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+</style>`;
+
+const goCode = `package main
+
+import (
+    "fmt"
+    "net/http"
+    "encoding/json"
+)
+
+type User struct {
+    ID   int    \`json:"id"\`
+    Name string \`json:"name"\`
+    Email string \`json:"email"\`
+}
+
+func getUserHandler(w http.ResponseWriter, r *http.Request) {
+    user := User{
+        ID:   1,
+        Name: "Alice",
+        Email: "alice@example.com",
+    }
+    
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(user)
+}
+
+func main() {
+    http.HandleFunc("/user", getUserHandler)
+    fmt.Println("Server starting on :8080")
+    http.ListenAndServe(":8080", nil)
+}`;
+
+const rustCode = `use std::collections::HashMap;
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Serialize, Deserialize)]
+struct User {
+    id: u64,
+    name: String,
+    email: Option<String>,
+}
+
+impl User {
+    fn new(id: u64, name: String) -> Self {
+        Self {
+            id,
+            name,
+            email: None,
+        }
+    }
+    
+    fn with_email(mut self, email: String) -> Self {
+        self.email = Some(email);
+        self
+    }
+}
+
+fn main() {
+    let mut users: HashMap<u64, User> = HashMap::new();
+    
+    let user = User::new(1, "Alice".to_string())
+        .with_email("alice@example.com".to_string());
+    
+    users.insert(user.id, user);
+    
+    println!("Users: {:#?}", users);
+}`;
+
+const sqlCode = `-- 用户管理系统数据库设计
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_active BOOLEAN DEFAULT true
+);
+
+CREATE TABLE profiles (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    bio TEXT,
+    avatar_url VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 查询活跃用户及其资料
+SELECT 
+    u.id,
+    u.username,
+    u.email,
+    p.first_name,
+    p.last_name,
+    p.bio
+FROM users u
+LEFT JOIN profiles p ON u.id = p.user_id
+WHERE u.is_active = true
+ORDER BY u.created_at DESC
+LIMIT 10;`;
+---
+
+<div class="cosy:space-y-6">
+  <!-- Astro 代码 -->
+  <div>
+    <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-3">Astro 组件</h3>
+    <CodePanel code={astroCode} language="astro" />
+  </div>
+
+  <!-- Go 代码 -->
+  <div>
+    <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-3">Go 语言</h3>
+    <CodePanel code={goCode} language="go" />
+  </div>
+
+  <!-- Rust 代码 -->
+  <div>
+    <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-3">Rust 语言</h3>
+    <CodePanel code={rustCode} language="rust" />
+  </div>
+
+  <!-- SQL 代码 -->
+  <div>
+    <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-3">SQL 查询</h3>
+    <CodePanel code={sqlCode} language="sql" />
+  </div>
+</div>

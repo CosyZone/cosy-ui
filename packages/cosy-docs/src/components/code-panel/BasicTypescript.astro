@@ -1,0 +1,25 @@
+---
+/**
+ * @component CodePanelBasicTypescript
+ * @description CodePanel 组件 TypeScript 代码高亮示例
+ */
+import { CodePanel } from '@coffic/cosy-ui';
+
+const typescriptCode = `interface User {
+  id: number;
+  name: string;
+  email?: string;
+}
+
+const createUser = (userData: Partial<User>): User => {
+  return {
+    id: Date.now(),
+    name: 'Unknown',
+    ...userData
+  };
+};
+
+const user = createUser({ name: 'Alice', email: 'alice@example.com' });`;
+---
+
+<CodePanel code={typescriptCode} language="typescript" />

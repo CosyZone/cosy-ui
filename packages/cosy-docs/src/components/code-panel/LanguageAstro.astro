@@ -1,0 +1,33 @@
+---
+/**
+ * @component CodePanelLanguageAstro
+ * @description CodePanel 组件 Astro 语言高亮示例
+ */
+import { CodePanel } from '@coffic/cosy-ui';
+
+const astroCode = `---
+// Astro 组件示例
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<div class="card">
+  <h2>{title}</h2>
+  {description && <p>{description}</p>}
+</div>
+
+<style>
+  .card {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+</style>`;
+---
+
+<CodePanel code={astroCode} language="astro" />

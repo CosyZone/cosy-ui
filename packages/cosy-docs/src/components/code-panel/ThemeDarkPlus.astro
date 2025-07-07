@@ -1,0 +1,31 @@
+---
+/**
+ * @component CodePanelThemeDarkPlus
+ * @description CodePanel 组件 dark-plus 主题高亮示例
+ */
+import { CodePanel } from '@coffic/cosy-ui';
+
+const sampleCode = `// React Hook for theme management
+import { useState, useEffect } from 'react';
+
+export function useTheme() {
+  const [theme, setTheme] = useState('light');
+  
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, []);
+  
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
+  
+  return { theme, toggleTheme };
+}`;
+---
+
+<CodePanel code={sampleCode} language="typescript" theme="dark-plus" />
