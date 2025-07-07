@@ -195,16 +195,7 @@ const {
 }: Props = Astro.props;
 ---
 
-<BaseLayout
-  title={metaConfig.title}
-  description={metaConfig.description}
-  keywords={metaConfig.keywords}
-  author={metaConfig.author}
-  robots={metaConfig.robots}
-  head={metaConfig.head}
-  favicon={metaConfig.favicon}
-  debug={debug}
-  {...rest}>
+<BaseLayout {...metaConfig} debug={debug}>
   <ClientRouter />
   {
     showHeader && (
