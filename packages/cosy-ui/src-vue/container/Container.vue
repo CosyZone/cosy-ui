@@ -77,7 +77,7 @@ Flex布局容器（按列排列）：
 -->
 
 <script setup lang="ts">
-import '../../style.ts';
+import '../../style';
 import { computed } from 'vue';
 
 interface Props {
