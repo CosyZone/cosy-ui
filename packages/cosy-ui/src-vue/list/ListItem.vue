@@ -1,50 +1,95 @@
 <template>
-  <li
-    class="cosy:mb-2 cosy:rounded-md cosy:bg-base-300 cosy:p-2 cosy:flex cosy:items-center cosy:gap-3 cosy:hover:bg-accent/10 cosy:relative cosy:overflow-hidden"
+  <ListItemRing
+    v-if="animationType === 'ring'"
+    :loading="loading"
+    :duration="duration"
     @click="$emit('click')"
   >
-    <div
-      v-if="loading"
-      class="cosy:absolute cosy:left-0 cosy:top-0 cosy:h-full cosy:bg-accent/40 cosy:z-0 loading-bar"
-      :style="{ animationDuration: duration + 'ms' }"
-    ></div>
-    <div
-      class="cosy:relative cosy:z-10 cosy:w-full cosy:flex cosy:items-center cosy:gap-3"
-    >
-      <slot />
-    </div>
-  </li>
+    <slot />
+  </ListItemRing>
+
+  <ListItemIconLeft
+    v-else-if="animationType === 'icon-left'"
+    :loading="loading"
+    :duration="duration"
+    @click="$emit('click')"
+  >
+    <slot />
+  </ListItemIconLeft>
+
+  <ListItemIconRight
+    v-else-if="animationType === 'icon-right'"
+    :loading="loading"
+    :duration="duration"
+    @click="$emit('click')"
+  >
+    <slot />
+  </ListItemIconRight>
+
+  <ListItemBreath
+    v-else-if="animationType === 'breath'"
+    :loading="loading"
+    :duration="duration"
+    @click="$emit('click')"
+  >
+    <slot />
+  </ListItemBreath>
+
+  <ListItemPulse
+    v-else-if="animationType === 'pulse'"
+    :loading="loading"
+    :duration="duration"
+    @click="$emit('click')"
+  >
+    <slot />
+  </ListItemPulse>
+
+  <ListItemGlow
+    v-else-if="animationType === 'glow'"
+    :loading="loading"
+    :duration="duration"
+    @click="$emit('click')"
+  >
+    <slot />
+  </ListItemGlow>
+
+  <!-- 默认使用 ring 动画 -->
+  <ListItemRing
+    v-else
+    :loading="loading"
+    :duration="duration"
+    @click="$emit('click')"
+  >
+    <slot />
+  </ListItemRing>
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults, defineEmits } from 'vue';
+import ListItemRing from './ListItemRing.vue';
+import ListItemIconLeft from './ListItemIconLeft.vue';
+import ListItemIconRight from './ListItemIconRight.vue';
+import ListItemBreath from './ListItemBreath.vue';
+import ListItemPulse from './ListItemPulse.vue';
+import ListItemGlow from './ListItemGlow.vue';
 
 withDefaults(
   defineProps<{
     loading?: boolean;
-    duration?: number; // 进度条动画时长，毫秒
+    duration?: number;
+    animationType?:
+      | 'ring'
+      | 'icon-left'
+      | 'icon-right'
+      | 'breath'
+      | 'pulse'
+      | 'glow';
   }>(),
   {
     loading: false,
-    duration: 1500,
+    duration: undefined,
+    animationType: 'ring',
   }
 );
 
 defineEmits(['click']);
 </script>
-
-<style scoped>
-.loading-bar {
-  width: 0%;
-  height: 100%;
-  animation: loading-bar-anim linear forwards;
-}
-@keyframes loading-bar-anim {
-  0% {
-    width: 0%;
-  }
-  100% {
-    width: 100%;
-  }
-}
-</style>

@@ -11,7 +11,7 @@ AlertDialog 组件的多语言示例，展示如何使用不同语言的对话�
 -->
 
 <script lang="ts">
-import '../../app.css';
+import '../../style';
 import { ref, defineComponent } from 'vue';
 import AlertDialog from './AlertDialog.vue';
 
