@@ -114,29 +114,283 @@ const {
   ...rest
 } = Astro.props;
 
-// 处理响应式列数
+// 处理响应式列数（所有 class 必须静态字符串，不能拼接）
 const getColsClasses = (cols: ResponsiveValue<number>) => {
+  // 单一数字
   if (typeof cols === 'number') {
-    return `cosy:grid-cols-${cols}`;
+    switch (cols) {
+      case 1:
+        return 'cosy:grid-cols-1';
+      case 2:
+        return 'cosy:grid-cols-2';
+      case 3:
+        return 'cosy:grid-cols-3';
+      case 4:
+        return 'cosy:grid-cols-4';
+      case 5:
+        return 'cosy:grid-cols-5';
+      case 6:
+        return 'cosy:grid-cols-6';
+      case 7:
+        return 'cosy:grid-cols-7';
+      case 8:
+        return 'cosy:grid-cols-8';
+      case 9:
+        return 'cosy:grid-cols-9';
+      case 10:
+        return 'cosy:grid-cols-10';
+      case 11:
+        return 'cosy:grid-cols-11';
+      case 12:
+        return 'cosy:grid-cols-12';
+      default:
+        return '';
+    }
   }
-
-  const breakpoints: Record<Breakpoint, string> = {
-    base: '',
-    sm: 'sm:',
-    md: 'md:',
-    lg: 'lg:',
-    xl: 'xl:',
-    '2xl': '2xl:',
-  };
-
-  return Object.entries(cols)
-    .map(([breakpoint, value]) => {
-      if (breakpoint === 'base') {
-        return `cosy:grid-cols-${value}`;
-      }
-      return `cosy:${breakpoints[breakpoint as Breakpoint]}grid-cols-${value}`;
-    })
-    .join(' ');
+  // 响应式对象
+  let result: string[] = [];
+  const responsive = cols as any;
+  if (responsive.base) {
+    switch (responsive.base) {
+      case 1:
+        result.push('cosy:grid-cols-1');
+        break;
+      case 2:
+        result.push('cosy:grid-cols-2');
+        break;
+      case 3:
+        result.push('cosy:grid-cols-3');
+        break;
+      case 4:
+        result.push('cosy:grid-cols-4');
+        break;
+      case 5:
+        result.push('cosy:grid-cols-5');
+        break;
+      case 6:
+        result.push('cosy:grid-cols-6');
+        break;
+      case 7:
+        result.push('cosy:grid-cols-7');
+        break;
+      case 8:
+        result.push('cosy:grid-cols-8');
+        break;
+      case 9:
+        result.push('cosy:grid-cols-9');
+        break;
+      case 10:
+        result.push('cosy:grid-cols-10');
+        break;
+      case 11:
+        result.push('cosy:grid-cols-11');
+        break;
+      case 12:
+        result.push('cosy:grid-cols-12');
+        break;
+    }
+  }
+  if (responsive.sm) {
+    switch (responsive.sm) {
+      case 1:
+        result.push('cosy:sm:grid-cols-1');
+        break;
+      case 2:
+        result.push('cosy:sm:grid-cols-2');
+        break;
+      case 3:
+        result.push('cosy:sm:grid-cols-3');
+        break;
+      case 4:
+        result.push('cosy:sm:grid-cols-4');
+        break;
+      case 5:
+        result.push('cosy:sm:grid-cols-5');
+        break;
+      case 6:
+        result.push('cosy:sm:grid-cols-6');
+        break;
+      case 7:
+        result.push('cosy:sm:grid-cols-7');
+        break;
+      case 8:
+        result.push('cosy:sm:grid-cols-8');
+        break;
+      case 9:
+        result.push('cosy:sm:grid-cols-9');
+        break;
+      case 10:
+        result.push('cosy:sm:grid-cols-10');
+        break;
+      case 11:
+        result.push('cosy:sm:grid-cols-11');
+        break;
+      case 12:
+        result.push('cosy:sm:grid-cols-12');
+        break;
+    }
+  }
+  if (responsive.md) {
+    switch (responsive.md) {
+      case 1:
+        result.push('cosy:md:grid-cols-1');
+        break;
+      case 2:
+        result.push('cosy:md:grid-cols-2');
+        break;
+      case 3:
+        result.push('cosy:md:grid-cols-3');
+        break;
+      case 4:
+        result.push('cosy:md:grid-cols-4');
+        break;
+      case 5:
+        result.push('cosy:md:grid-cols-5');
+        break;
+      case 6:
+        result.push('cosy:md:grid-cols-6');
+        break;
+      case 7:
+        result.push('cosy:md:grid-cols-7');
+        break;
+      case 8:
+        result.push('cosy:md:grid-cols-8');
+        break;
+      case 9:
+        result.push('cosy:md:grid-cols-9');
+        break;
+      case 10:
+        result.push('cosy:md:grid-cols-10');
+        break;
+      case 11:
+        result.push('cosy:md:grid-cols-11');
+        break;
+      case 12:
+        result.push('cosy:md:grid-cols-12');
+        break;
+    }
+  }
+  if (responsive.lg) {
+    switch (responsive.lg) {
+      case 1:
+        result.push('cosy:lg:grid-cols-1');
+        break;
+      case 2:
+        result.push('cosy:lg:grid-cols-2');
+        break;
+      case 3:
+        result.push('cosy:lg:grid-cols-3');
+        break;
+      case 4:
+        result.push('cosy:lg:grid-cols-4');
+        break;
+      case 5:
+        result.push('cosy:lg:grid-cols-5');
+        break;
+      case 6:
+        result.push('cosy:lg:grid-cols-6');
+        break;
+      case 7:
+        result.push('cosy:lg:grid-cols-7');
+        break;
+      case 8:
+        result.push('cosy:lg:grid-cols-8');
+        break;
+      case 9:
+        result.push('cosy:lg:grid-cols-9');
+        break;
+      case 10:
+        result.push('cosy:lg:grid-cols-10');
+        break;
+      case 11:
+        result.push('cosy:lg:grid-cols-11');
+        break;
+      case 12:
+        result.push('cosy:lg:grid-cols-12');
+        break;
+    }
+  }
+  if (responsive.xl) {
+    switch (responsive.xl) {
+      case 1:
+        result.push('cosy:xl:grid-cols-1');
+        break;
+      case 2:
+        result.push('cosy:xl:grid-cols-2');
+        break;
+      case 3:
+        result.push('cosy:xl:grid-cols-3');
+        break;
+      case 4:
+        result.push('cosy:xl:grid-cols-4');
+        break;
+      case 5:
+        result.push('cosy:xl:grid-cols-5');
+        break;
+      case 6:
+        result.push('cosy:xl:grid-cols-6');
+        break;
+      case 7:
+        result.push('cosy:xl:grid-cols-7');
+        break;
+      case 8:
+        result.push('cosy:xl:grid-cols-8');
+        break;
+      case 9:
+        result.push('cosy:xl:grid-cols-9');
+        break;
+      case 10:
+        result.push('cosy:xl:grid-cols-10');
+        break;
+      case 11:
+        result.push('cosy:xl:grid-cols-11');
+        break;
+      case 12:
+        result.push('cosy:xl:grid-cols-12');
+        break;
+    }
+  }
+  if (responsive['2xl']) {
+    switch (responsive['2xl']) {
+      case 1:
+        result.push('cosy:2xl:grid-cols-1');
+        break;
+      case 2:
+        result.push('cosy:2xl:grid-cols-2');
+        break;
+      case 3:
+        result.push('cosy:2xl:grid-cols-3');
+        break;
+      case 4:
+        result.push('cosy:2xl:grid-cols-4');
+        break;
+      case 5:
+        result.push('cosy:2xl:grid-cols-5');
+        break;
+      case 6:
+        result.push('cosy:2xl:grid-cols-6');
+        break;
+      case 7:
+        result.push('cosy:2xl:grid-cols-7');
+        break;
+      case 8:
+        result.push('cosy:2xl:grid-cols-8');
+        break;
+      case 9:
+        result.push('cosy:2xl:grid-cols-9');
+        break;
+      case 10:
+        result.push('cosy:2xl:grid-cols-10');
+        break;
+      case 11:
+        result.push('cosy:2xl:grid-cols-11');
+        break;
+      case 12:
+        result.push('cosy:2xl:grid-cols-12');
+        break;
+    }
+  }
+  return result.join(' ');
 };
 
 // 间距映射

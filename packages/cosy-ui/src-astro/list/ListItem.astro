@@ -1,0 +1,45 @@
+---
+/**
+ * @component ListItem
+ * @description 支持加载中进度条的列表项组件。点击后可显示从左到右的进度条，适合异步操作场景。
+ * @usage
+ * <ListItem loading={loading} duration={1500} on:click={...}>内容</ListItem>
+ * @props loading?: boolean 是否加载中
+ * @props duration?: number 进度条动画时长（毫秒），默认1500
+ * @slots default 默认插槽，列表项内容
+ */
+import '../../style.ts';
+const { loading = false, duration = 1500 } = Astro.props;
+---
+
+<li
+  class="cosy:mb-2 cosy:rounded-md cosy:p-2 cosy:flex cosy:items-center cosy:gap-3 cosy:bg-base-300 cosy:hover:bg-accent/10 cosy:relative cosy:overflow-hidden"
+  {...Astro.props}>
+  {
+    loading && (
+      <div
+        class="cosy:absolute cosy:left-0 cosy:top-0 cosy:h-full cosy:bg-accent/40 cosy:z-0 loading-bar"
+        style={`animation-duration: ${duration}ms;`}
+      />
+    )
+  }
+  <div
+    class="cosy:relative cosy:z-10 cosy:w-full cosy:flex cosy:items-center cosy:gap-3">
+    <slot />
+  </div>
+</li>
+<style scoped>
+  .loading-bar {
+    width: 0%;
+    height: 100%;
+    animation: loading-bar-anim linear forwards;
+  }
+  @keyframes loading-bar-anim {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+</style>
