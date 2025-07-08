@@ -1,22 +1,46 @@
 ---
 /**
  * @component ListItem
- * @description 支持加载中进度条的列表项组件。点击后可显示从左到右的进度条，适合异步操作场景。
+ * @description 支持加载中进度条的列表项组件。点击后可显示进度条或多种无限动画效果，适合异步操作场景。
  * @usage
- * <ListItem loading={loading} duration={1500} on:click={...}>内容</ListItem>
+ * <ListItem loading={loading} duration={1500} animationType="ring" on:click={...}>内容</ListItem>
  * @props loading?: boolean 是否加载中
- * @props duration?: number 进度条动画时长（毫秒），默认1500
+ * @props duration?: number 进度条动画时长（毫秒），不传则显示无限动画
+ * @props animationType?: 'ring' | 'icon-left' | 'icon-right' | 'breath' | 'pulse' | 'glow' 无限动画类型，默认 'ring'
  * @slots default 默认插槽，列表项内容
  */
 import '../../style.ts';
-const { loading = false, duration = 1500 } = Astro.props;
+const { loading = false, duration, animationType = 'ring' } = Astro.props;
+
+// 根据动画类型生成对应的 CSS 类
+const getAnimationClasses = () => {
+  if (!loading || duration) return '';
+
+  switch (animationType) {
+    case 'ring':
+      return 'cosy:ring-2 cosy:ring-accent ring-pulse-anim';
+    case 'breath':
+      return 'breath-anim';
+    case 'pulse':
+      return 'pulse-anim';
+    case 'glow':
+      return 'glow-anim';
+    default:
+      return 'cosy:ring-2 cosy:ring-accent ring-pulse-anim';
+  }
+};
+
+const animationClasses = getAnimationClasses();
 ---
 
 <li
-  class="cosy:mb-2 cosy:rounded-md cosy:p-2 cosy:flex cosy:items-center cosy:gap-3 cosy:bg-base-300 cosy:hover:bg-accent/10 cosy:relative cosy:overflow-hidden"
+  class:list={[
+    'cosy:mb-2 cosy:rounded-md cosy:bg-base-300 cosy:p-2 cosy:flex cosy:items-center cosy:gap-3 cosy:hover:bg-accent/10 cosy:relative cosy:overflow-hidden',
+    animationClasses,
+  ]}
   {...Astro.props}>
   {
-    loading && (
+    loading && duration && (
       <div
         class="cosy:absolute cosy:left-0 cosy:top-0 cosy:h-full cosy:bg-accent/40 cosy:z-0 loading-bar"
         style={`animation-duration: ${duration}ms;`}
@@ -25,10 +49,94 @@ const { loading = false, duration = 1500 } = Astro.props;
   }
   <div
     class="cosy:relative cosy:z-10 cosy:w-full cosy:flex cosy:items-center cosy:gap-3">
+    {/* 前置 loading 图标 */}
+    {
+      loading && !duration && animationType === 'icon-left' && (
+        <div
+          class="cosy:flex-shrink-0 cosy:transform-none"
+          style="transform: none !important;">
+          <div class="cosy:loading cosy:loading-spinner cosy:loading-sm cosy:text-accent" />
+        </div>
+      )
+    }
+
     <slot />
+
+    {/* 后置 loading 图标 */}
+    {
+      loading && !duration && animationType === 'icon-right' && (
+        <div
+          class="cosy:flex-shrink-0 cosy:ml-auto cosy:transform-none"
+          style="transform: none !important;">
+          <div class="cosy:loading cosy:loading-dots cosy:loading-sm cosy:text-accent" />
+        </div>
+      )
+    }
   </div>
 </li>
+
 <style scoped>
+  /* Ring 外环脉冲动画 */
+  @keyframes ring-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.02);
+    }
+  }
+  .ring-pulse-anim {
+    animation: ring-pulse 1.5s ease-in-out infinite;
+  }
+
+  /* 背景色呼吸动画 */
+  @keyframes breath {
+    0%,
+    100% {
+      background-color: hsl(var(--b3));
+    }
+    50% {
+      background-color: hsl(var(--ac) / 0.1);
+    }
+  }
+  .breath-anim {
+    animation: breath 2s ease-in-out infinite;
+  }
+
+  /* 整体脉冲动画 */
+  @keyframes pulse-scale {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.01);
+      opacity: 0.9;
+    }
+  }
+  .pulse-anim {
+    animation: pulse-scale 1.5s ease-in-out infinite;
+  }
+
+  /* 发光边框动画 */
+  @keyframes glow {
+    0%,
+    100% {
+      box-shadow: 0 0 5px hsl(var(--ac) / 0.3);
+    }
+    50% {
+      box-shadow:
+        0 0 20px hsl(var(--ac) / 0.6),
+        0 0 30px hsl(var(--ac) / 0.3);
+    }
+  }
+  .glow-anim {
+    animation: glow 2s ease-in-out infinite;
+  }
+
+  /* 进度条动画 */
   .loading-bar {
     width: 0%;
     height: 100%;

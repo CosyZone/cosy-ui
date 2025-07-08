@@ -1,16 +1,20 @@
 ---
+/**
+ * @component ListItemBasicContainer
+ * @description ListItem 基础用法示例容器
+ */
 import { CodeContainer } from '@coffic/cosy-ui';
 import Basic from './Basic.astro';
 import BasicVue from './Basic.vue';
 import BasicSource from './Basic.astro?raw';
-import VueSource from './Basic.vue?raw';
+import BasicVueSource from './Basic.vue?raw';
 ---
 
-<CodeContainer codes={[BasicSource, VueSource]} titles={['Astro', 'Vue']}>
-  <div id="tab-1" class="not-prose">
+<CodeContainer codes={[BasicSource, BasicVueSource]} titles={['Astro', 'Vue']}>
+  <div id="tab-1">
     <Basic />
   </div>
-  <div id="tab-2" class="not-prose">
-    <BasicVue client:idle />
+  <div id="tab-2">
+    <BasicVue />
   </div>
 </CodeContainer>

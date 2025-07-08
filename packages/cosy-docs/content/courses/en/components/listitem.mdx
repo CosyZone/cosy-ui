@@ -1,35 +1,41 @@
 ---
 title: ListItem
-order: 14.4
+order: 20
 folder: false
-description: List item component with loading progress bar support
+description: List item component with progress bar or ring loading animation
 ---
 import { ComponentPackage } from '@/components/listitem/index.ts';
 
-ListItem is a list item component that supports a loading progress bar animation, suitable for scenarios requiring async operation feedback.
+ListItem is a list item component that supports a loading progress bar or ring animation, suitable for async operation feedback scenarios.
 
 ## Introduction
 
-The ListItem component displays list item content and shows a left-to-right progress bar animation during async operations, improving user feedback experience.
+The ListItem component displays list item content and shows a progress bar or ring animation during async operations, improving user feedback experience.
 
 ## Basic Usage
 
 <ComponentPackage.ComponentContainers.Basic />
 
-## Loading State
+## Loading State (Indeterminate)
 
 <ComponentPackage.ComponentContainers.Loading />
 
 ## Custom Progress Duration
 
+If duration is provided, a progress bar animation is shown:
+
 <ComponentPackage.ComponentContainers.CustomDuration />
+
+```astro
+<ListItem loading={true} duration={3000}>3s Progress Bar</ListItem>
+```
 
 ## Props
 
-| Name     | Type    | Default | Description                    |
-|----------|---------|---------|--------------------------------|
-| loading  | boolean | false   | Whether to show the progress bar |
-| duration | number  | 1500    | Progress bar animation duration (ms) |
+| Name     | Type    | Default | Description                                         |
+|----------|---------|---------|-----------------------------------------------------|
+| loading  | boolean | false   | Whether to show the loading animation               |
+| duration | number  | none    | Progress bar animation duration (ms), ring if unset |
 
 ## Slots
 

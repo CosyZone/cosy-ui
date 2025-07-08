@@ -1,7 +1,7 @@
 <template>
-  <ListItem :loading="false">普通列表项 Vue</ListItem>
+  <ListItem>基础列表项</ListItem>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ListItem } from '@coffic/cosy-ui/vue';
 </script>
