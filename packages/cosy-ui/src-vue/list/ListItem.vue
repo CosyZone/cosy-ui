@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { defineProps, withDefaults, defineEmits } from 'vue';
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
     loading?: boolean;
     duration?: number; // 进度条动画时长，毫秒
