@@ -1,0 +1,16 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import Loading from './Loading.astro';
+import LoadingSource from './Loading.astro?raw';
+import VueSource from './Loading.vue?raw';
+import LoadingVue from './Loading.vue';
+---
+
+<CodeContainer codes={[LoadingSource, VueSource]} titles={['Astro', 'Vue']}>
+  <div id="tab-1" class="not-prose">
+    <Loading />
+  </div>
+  <div id="tab-2" class="not-prose">
+    <LoadingVue client:idle />
+  </div>
+</CodeContainer>
