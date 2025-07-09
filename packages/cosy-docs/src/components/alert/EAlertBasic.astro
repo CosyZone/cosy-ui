@@ -1,11 +1,16 @@
 ---
 /**
- * @component Alert.Basic
- *
- * @description
- * 基础Alert组件示例，展示最简单的信息提示用法。
+ * @component EAlertBasic
+ * @description The basic usage of Alert component.
  */
 import { Alert } from '@coffic/cosy-ui';
+
+const handleClose = () => {
+  console.log('Alert closed!');
+};
 ---
 
-<Alert type="info">这是一条信息提示</Alert>
+<Alert type="info" closable> 这是一条可以关闭的信息提示 </Alert>
+<script define:vars={{ handleClose }}>
+  // 实际的关闭事件由组件内部处理，这里只是为了演示
+</script>

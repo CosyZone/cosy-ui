@@ -1,0 +1,22 @@
+---
+/**
+ * @component EAlertClosableContainer
+ * @description Container to demonstrate closable and non-closable Alerts.
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import EAlertBasic from './EAlertBasic.astro';
+import EAlertNotClosable from './EAlertNotClosable.astro';
+import EAlertBasicRaw from './EAlertBasic.astro?raw';
+import EAlertNotClosableRaw from './EAlertNotClosable.astro?raw';
+---
+
+<CodeContainer
+  codes={[EAlertBasicRaw, EAlertNotClosableRaw]}
+  titles={['Closable', 'Not Closable']}>
+  <div id="tab-1">
+    <EAlertBasic />
+  </div>
+  <div id="tab-2">
+    <EAlertNotClosable />
+  </div>
+</CodeContainer>
