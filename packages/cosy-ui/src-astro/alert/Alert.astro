@@ -27,6 +27,16 @@
  * </Alert>
  * ```
  *
+ * 自定义操作按钮：
+ * ```astro
+ * <Alert type="info">
+ *   这是带自定义操作的提示
+ *   <slot name="action">
+ *     <button>操作</button>
+ *   </slot>
+ * </Alert>
+ * ```
+ *
  * @props
  * @prop {('info'|'success'|'warning'|'error')} [type='info'] - 提示类型，影响颜色和图标
  * @prop {string} [title] - 提示标题，可选
@@ -35,6 +45,7 @@
  *
  * @slots
  * @slot default - 提示内容
+ * @slot action - 自定义操作按钮，显示在 alert 右侧
  */
 
 // 注意：
@@ -86,7 +97,9 @@ const IconComponent = {
   role="alert">
   <div
     class="cosy:flex cosy:flex-row cosy:items-center cosy:gap-4 cosy:justify-between cosy:w-full">
-    <IconComponent />
+    <IconComponent
+      class="cosy:btn cosy:btn-sm cosy:btn-ghost cosy:btn-circle"
+    />
 
     <div
       class="cosy:flex cosy:flex-col cosy:items-start cosy:h-full cosy:flex-1">
@@ -107,14 +120,21 @@ const IconComponent = {
 
       {!title && <slot />}
     </div>
-    {
-      closable && (
-        <button
-          class="cosy:ml-auto cosy:btn cosy:btn-ghost cosy:btn-sm cosy:btn-circle"
-          onclick="this.parentElement.parentElement.style.display = 'none';">
-          <CloseIcon class="cosy:h-5 cosy:w-5" />
-        </button>
-      )
-    }
+
+    <div
+      class="cosy:flex cosy:flex-row cosy:items-center cosy:gap-2"
+      data-role="actions">
+      <slot name="action" />
+
+      {
+        closable && (
+          <button
+            class="cosy:ml-auto cosy:btn cosy:btn-ghost cosy:btn-sm cosy:btn-circle"
+            onclick="this.parentElement.parentElement.style.display = 'none';">
+            <CloseIcon class="cosy:h-5 cosy:w-5" />
+          </button>
+        )
+      }
+    </div>
   </div>
 </div>

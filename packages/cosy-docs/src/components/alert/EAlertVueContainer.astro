@@ -14,6 +14,8 @@ import EAlertBasicRaw from './EAlertBasic.vue?raw';
 import EAlertWithTitleRaw from './EAlertWithTitle.vue?raw';
 import EAlertTypesRaw from './EAlertTypes.vue?raw';
 import EAlertCustomStyleRaw from './EAlertCustomStyle.vue?raw';
+import EAlertAction from './EAlertAction.vue';
+import EAlertActionRaw from './EAlertAction.vue?raw';
 ---
 
 <CodeContainer
@@ -22,8 +24,9 @@ import EAlertCustomStyleRaw from './EAlertCustomStyle.vue?raw';
     EAlertWithTitleRaw,
     EAlertTypesRaw,
     EAlertCustomStyleRaw,
+    EAlertActionRaw,
   ]}
-  titles={['Basic', 'With Title', 'Types', 'Custom Style']}>
+  titles={['Basic', 'With Title', 'Types', 'Custom Style', 'Action']}>
   <div id="tab-1">
     <EAlertBasic client:visible />
   </div>
@@ -35,5 +38,8 @@ import EAlertCustomStyleRaw from './EAlertCustomStyle.vue?raw';
   </div>
   <div id="tab-4">
     <EAlertCustomStyle client:visible />
+  </div>
+  <div id="tab-5">
+    <EAlertAction client:visible />
   </div>
 </CodeContainer>
