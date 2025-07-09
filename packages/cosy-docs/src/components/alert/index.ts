@@ -9,6 +9,7 @@ import EAlertBasicContainer from './EAlertBasicContainer.astro';
 import EAlertWithTitleContainer from './EAlertWithTitleContainer.astro';
 import EAlertCustomStyleContainer from './EAlertCustomStyleContainer.astro';
 import EAlertTypesContainer from './EAlertTypesContainer.astro';
+import EAlertVueContainer from './EAlertVueContainer.astro';
 
 export const AlertPackage = {
     AlertContainers: {
@@ -16,6 +17,7 @@ export const AlertPackage = {
         WithTitle: EAlertWithTitleContainer,
         Types: EAlertTypesContainer,
         CustomStyle: EAlertCustomStyleContainer,
+        Vue: EAlertVueContainer,
     },
     AlertExamples: {
         Basic: EAlertBasic,

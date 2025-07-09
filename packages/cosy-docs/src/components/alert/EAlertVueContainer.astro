@@ -1,0 +1,39 @@
+---
+/**
+ * @component EAlertVueContainer
+ * @description
+ * This component demonstrates the usage of the Vue-based Alert component,
+ * including basic usage, with a title, different types, and custom styles.
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import EAlertBasic from './EAlertBasic.vue';
+import EAlertWithTitle from './EAlertWithTitle.vue';
+import EAlertTypes from './EAlertTypes.vue';
+import EAlertCustomStyle from './EAlertCustomStyle.vue';
+import EAlertBasicRaw from './EAlertBasic.vue?raw';
+import EAlertWithTitleRaw from './EAlertWithTitle.vue?raw';
+import EAlertTypesRaw from './EAlertTypes.vue?raw';
+import EAlertCustomStyleRaw from './EAlertCustomStyle.vue?raw';
+---
+
+<CodeContainer
+  codes={[
+    EAlertBasicRaw,
+    EAlertWithTitleRaw,
+    EAlertTypesRaw,
+    EAlertCustomStyleRaw,
+  ]}
+  titles={['Basic', 'With Title', 'Types', 'Custom Style']}>
+  <div id="tab-1">
+    <EAlertBasic client:visible />
+  </div>
+  <div id="tab-2">
+    <EAlertWithTitle client:visible />
+  </div>
+  <div id="tab-3">
+    <EAlertTypes client:visible />
+  </div>
+  <div id="tab-4">
+    <EAlertCustomStyle client:visible />
+  </div>
+</CodeContainer>

@@ -30,6 +30,7 @@ Alert 组件用于向用户显示重要的提示信息，支持多种类型的�
 @prop {('info'|'success'|'warning'|'error')} [type='info'] - 提示类型，影响颜色和图标
 @prop {string} [title] - 提示标题，可选
 @prop {string} [class] - 自定义 CSS 类名
+@prop {boolean} [closable] - 是否可关闭，默认可关闭
 
 @slots
 @slot default - 提示内容
@@ -39,18 +40,27 @@ Alert 组件用于向用户显示重要的提示信息，支持多种类型的�
 import '../../style';
 import { computed } from 'vue';
 import { InfoIcon, SuccessIcon, WarningIcon, ErrorIcon } from '../icons/index';
+import { RiCloseLine } from '@remixicon/vue';
 
 interface Props {
   type?: 'info' | 'success' | 'warning' | 'error';
   title?: string;
   class?: string;
+  closable?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   type: 'info',
   title: '',
   class: '',
+  closable: true,
 });
+
+const emit = defineEmits(['close']);
+
+const handleClose = () => {
+  emit('close');
+};
 
 // 根据类型设置样式
 const alertClass = computed(() => {
@@ -82,7 +92,9 @@ const IconComponent = computed(() => {
     >
       <component :is="IconComponent" />
 
-      <div class="cosy:flex cosy:flex-col cosy:items-center cosy:h-full">
+      <div
+        class="cosy:flex cosy:flex-col cosy:items-start cosy:h-full cosy:flex-1"
+      >
         <h3
           v-if="props.title"
           class="cosy:font-bold"
@@ -95,6 +107,13 @@ const IconComponent = computed(() => {
         </div>
         <slot v-else />
       </div>
+      <button
+        v-if="props.closable"
+        @click="handleClose"
+        class="cosy:ml-auto cosy:btn cosy:btn-ghost cosy:btn-sm cosy:btn-circle"
+      >
+        <RiCloseLine class="cosy:h-5 cosy:w-5" />
+      </button>
     </div>
   </div>
 </template>
