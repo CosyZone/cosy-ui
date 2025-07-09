@@ -86,31 +86,37 @@ const IconComponent = computed(() => {
 </script>
 
 <template>
-  <div :class="['cosy:alert', alertClass, props.class]" role="alert">
+  <div
+    :class="['cosy:alert cosy:w-full cosy:flex', alertClass, props.class]"
+    role="alert"
+  >
     <div
-      class="cosy:flex cosy:flex-row cosy:items-center cosy:gap-4 cosy:alert-content"
+      class="cosy:flex cosy:flex-row cosy:items-center cosy:gap-4 cosy:justify-between cosy:w-full"
     >
-      <component :is="IconComponent" />
+      <div class="cosy:flex cosy:items-center cosy:gap-4">
+        <component :is="IconComponent" />
 
-      <div
-        class="cosy:flex cosy:flex-col cosy:items-start cosy:h-full cosy:flex-1"
-      >
-        <h3
-          v-if="props.title"
-          class="cosy:font-bold"
-          style="margin-top: 0 !important"
+        <div
+          class="cosy:flex cosy:flex-col cosy:items-start cosy:h-full cosy:flex-1"
         >
-          {{ props.title }}
-        </h3>
-        <div v-if="props.title" class="cosy:text-xs">
-          <slot />
+          <h3
+            v-if="props.title"
+            class="cosy:font-bold"
+            style="margin-top: 0 !important"
+          >
+            {{ props.title }}
+          </h3>
+          <div v-if="props.title" class="cosy:text-xs">
+            <slot />
+          </div>
+          <slot v-else />
         </div>
-        <slot v-else />
       </div>
+
       <button
         v-if="props.closable"
         @click="handleClose"
-        class="cosy:ml-auto cosy:btn cosy:btn-ghost cosy:btn-sm cosy:btn-circle"
+        class="cosy:btn cosy:btn-ghost cosy:btn-sm cosy:btn-circle"
       >
         <RiCloseLine class="cosy:h-5 cosy:w-5" />
       </button>
