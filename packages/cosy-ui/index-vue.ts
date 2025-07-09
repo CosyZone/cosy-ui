@@ -13,6 +13,9 @@ export * from './src-vue/banner-box/index';
 // BlogList
 export * from './src-vue/blog/index';
 
+// Card
+export * from './src-vue/card/index';
+
 // Container
 export * from './src-vue/container/index';
 
@@ -30,6 +33,15 @@ export * from './src-vue/icons/index';
 
 // List
 export * from './src-vue/list/index';
+
+// Progress
+export * from './src-vue/progress/index';
+
+// StatusBar
+export * from './src-vue/status-bar/index';
+
+// ToolBar
+export * from './src-vue/tool-bar/index';
 
 // Windows
 export * from './src-vue/mac-window/index';
