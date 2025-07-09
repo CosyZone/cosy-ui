@@ -4,6 +4,9 @@ export * from './src-vue/alert-dialog/index';
 // Alert
 export * from './src-vue/alert/index';
 
+// Badge
+export * from './src-vue/badge/index';
+
 // Banner
 export * from './src-vue/banner-box/index';
 
