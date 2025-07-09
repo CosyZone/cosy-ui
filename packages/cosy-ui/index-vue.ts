@@ -31,6 +31,9 @@ export * from './src-vue/buttons/index';
 // Icons
 export * from './src-vue/icons/index';
 
+// KeyCatcher
+export * from './src-vue/key-catcher/index';
+
 // List
 export * from './src-vue/list/index';
 
