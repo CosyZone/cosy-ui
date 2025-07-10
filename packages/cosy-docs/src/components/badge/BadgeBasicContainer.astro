@@ -1,0 +1,28 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import BadgeBasic from './BadgeBasic.astro';
+import BadgeSizes from './BadgeSizes.astro';
+import BadgeOutline from './BadgeOutline.astro';
+import BadgeVue from './BadgeVue.vue';
+import BadgeBasicCode from './BadgeBasic.astro?raw';
+import BadgeSizesCode from './BadgeSizes.astro?raw';
+import BadgeOutlineCode from './BadgeOutline.astro?raw';
+import BadgeVueCode from './BadgeVue.vue?raw';
+---
+
+<CodeContainer
+  codes={[BadgeBasicCode, BadgeSizesCode, BadgeOutlineCode, BadgeVueCode]}
+  titles={['基础用法', '尺寸', '描边', 'Vue 组件']}>
+  <div id="tab-1">
+    <BadgeBasic />
+  </div>
+  <div id="tab-2">
+    <BadgeSizes />
+  </div>
+  <div id="tab-3">
+    <BadgeOutline />
+  </div>
+  <div id="tab-4">
+    <BadgeVue client:load />
+  </div>
+</CodeContainer>

@@ -2,6 +2,7 @@
 export * from './src-astro/alert';
 export * from './src-astro/article';
 export * from './src-astro/banner';
+export * from './src-astro/badge';
 export * from './src-astro/button/index_astro';
 export * from './src-astro/card';
 export * from './src-astro/code-block';

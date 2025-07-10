@@ -1,0 +1,67 @@
+---
+/**
+ * @component Badge
+ * @description 一个用于高亮信息的小组件。
+ * @usage
+ * ```astro
+ * <Badge>默认</Badge>
+ * <Badge variant="primary">Primary</Badge>
+ * ```
+ * @props
+ * @prop {('primary'|'secondary'|'accent'|'ghost'|'info'|'success'|'warning'|'error')} [variant] - 徽章的颜色变体。
+ * @prop {('xs'|'sm'|'md'|'lg')} [size] - 徽章的尺寸。
+ * @prop {boolean} [outline=false] - 徽章是否为描边样式。
+ * @prop {string} [class] - 自定义 CSS 类。
+ * @slots
+ * @slot default - 徽章内容。
+ */
+import '../../style.ts';
+
+interface Props {
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'ghost'
+    | 'info'
+    | 'success'
+    | 'warning'
+    | 'error';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
+  outline?: boolean;
+  class?: string;
+}
+
+const { variant, size, outline = false, class: className } = Astro.props;
+
+function getVariantClass(variant: Props['variant']) {
+  if (variant === 'primary') return 'cosy:badge-primary';
+  if (variant === 'secondary') return 'cosy:badge-secondary';
+  if (variant === 'accent') return 'cosy:badge-accent';
+  if (variant === 'ghost') return 'cosy:badge-ghost';
+  if (variant === 'info') return 'cosy:badge-info';
+  if (variant === 'success') return 'cosy:badge-success';
+  if (variant === 'warning') return 'cosy:badge-warning';
+  if (variant === 'error') return 'cosy:badge-error';
+  return '';
+}
+
+function getSizeClass(size: Props['size']) {
+  if (size === 'xs') return 'cosy:badge-xs';
+  if (size === 'sm') return 'cosy:badge-sm';
+  if (size === 'md') return 'cosy:badge-md';
+  if (size === 'lg') return 'cosy:badge-lg';
+  return '';
+}
+---
+
+<div
+  class:list={[
+    'cosy:badge',
+    getVariantClass(variant),
+    getSizeClass(size),
+    outline ? 'cosy:badge-outline' : '',
+    className,
+  ]}>
+  <slot />
+</div>
