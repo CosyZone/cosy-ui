@@ -37,7 +37,7 @@
 import CodeToolbar from './CodeToolbar.astro';
 import Description from './Description.astro';
 import Preview from './Preview.astro';
-import CodePanel from './CodePanel.astro';
+import { CodePanel } from '../../index-astro';
 import '../../style.ts';
 
 interface Props {
@@ -92,7 +92,9 @@ const {
             </div>
           </Preview>
 
-          <CodePanel code={code} />
+          <div class="cosy:hidden cosy:code-example-panel" data-panel="code">
+            <CodePanel code={code} />
+          </div>
         </div>
       </div>
     ))
