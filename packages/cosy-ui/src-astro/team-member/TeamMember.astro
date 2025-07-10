@@ -19,7 +19,7 @@
  * <TeamMember
  *   name="张三"
  *   role="前端开发工程师"
- *   avatar="/images/avatars/zhangsan.jpg"
+ *   avatar="/images/avatars/jack.jpg"
  *   bio="拥有5年前端开发经验，专注于React和Vue生态系统。"
  * />
  * ```
@@ -29,7 +29,7 @@
  * <TeamMember
  *   name="李四"
  *   role="UI设计师"
- *   avatar="/images/avatars/lisi.jpg"
+ *   avatar="/images/avatars/mary.jpg"
  *   bio="专注于用户体验和界面设计，热爱创造直观易用的产品。"
  *   socialLinks={[
  *     { platform: 'github', url: 'https://github.com/lisi' },
@@ -80,6 +80,16 @@ export interface Props {
    * 自定义类名
    */
   class?: string;
+  /**
+   * 卡片阴影强度
+   * @default 'md'
+   */
+  shadow?: 'sm' | 'md' | 'lg' | 'xl';
+  /**
+   * 悬停时卡片阴影强度
+   * @default 'lg'
+   */
+  hoverShadow?: 'sm' | 'md' | 'lg' | 'xl';
 }
 
 const {
@@ -89,13 +99,35 @@ const {
   bio,
   socialLinks,
   class: className = '',
+  shadow = 'md',
+  hoverShadow = 'lg',
 } = Astro.props;
+
+const shadowMap = {
+  sm: 'cosy:shadow-sm',
+  md: 'cosy:shadow-md',
+  lg: 'cosy:shadow-lg',
+  xl: 'cosy:shadow-xl',
+};
+const hoverShadowMap = {
+  sm: 'cosy:hover:shadow-sm',
+  md: 'cosy:hover:shadow-md',
+  lg: 'cosy:hover:shadow-lg',
+  xl: 'cosy:hover:shadow-xl',
+};
+
+const shadowClass = shadowMap[shadow] || shadowMap['md'];
+const hoverShadowClass = hoverShadowMap[hoverShadow] || hoverShadowMap['lg'];
 ---
 
 <div
   class:list={[
-    'cosy:card cosy:bg-base-100 cosy:shadow-md cosy:hover:shadow-lg cosy:transition-shadow cosy:duration-300',
-    className,
+    [
+      'cosy:card cosy:bg-base-100 cosy:transition-shadow cosy:duration-300',
+      shadowClass,
+      hoverShadowClass,
+      className,
+    ],
   ]}>
   <figure class="cosy:flex cosy:justify-center cosy:p-4">
     <Image

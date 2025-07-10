@@ -1,0 +1,24 @@
+---
+/**
+ * @component TeamMemberShadowMdLg
+ * @description TeamMember 组件 shadow=md, hoverShadow=lg 示例。
+ */
+import { TeamMember } from '@coffic/cosy-ui';
+import { getExampleImage } from '@coffic/cosy-ui';
+
+const avatar = getExampleImage({
+  width: 200,
+  height: 200,
+  provider: 'robohash',
+  randomSeed: 'member-shadow-md-lg',
+});
+---
+
+<TeamMember
+  name="shadow=md, hover=lg"
+  role="后端开发"
+  avatar={avatar}
+  bio="shadow=md, hoverShadow=lg"
+  shadow="md"
+  hoverShadow="lg"
+/>
