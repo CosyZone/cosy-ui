@@ -2,12 +2,15 @@
 import { type ISidebarItem, AppLayout } from '@coffic/cosy-ui';
 import Favicon from '@/assets/favicon.png';
 import { configApp } from '@/config/config.app';
+import { configProducts } from '@/config/config.products';
 
 interface Props {
   title: string;
   showTOC?: boolean;
   showSidebar?: boolean;
   sidebarItems?: ISidebarItem | null;
+  isArticle?: boolean;
+  verticalPadding?: string;
 }
 
 const {
@@ -15,6 +18,8 @@ const {
   showTOC = true,
   showSidebar = true,
   sidebarItems = null,
+  isArticle = true,
+  verticalPadding = '4xl',
 } = Astro.props;
 const currentLocale = Astro.currentLocale;
 ---
@@ -43,7 +48,7 @@ const currentLocale = Astro.currentLocale;
         ? '构建美好的用户界面'
         : 'Build a beautiful user interface',
     socialLinks: ['https://github.com/CofficLab/cosy-ui'],
-    products: configApp.products,
+    products: configProducts.products,
     aboutLink: 'https://coffic.cn/en/meta/about',
     contactLink: 'https://coffic.cn/en/meta/contact',
     termsLink: 'https://coffic.cn/en/meta/terms',
@@ -55,7 +60,7 @@ const currentLocale = Astro.currentLocale;
     logoHref: configApp.homeLink,
     navItems: configApp.getNavItems(currentLocale || 'zh-cn'),
     languages: ['zh-cn', 'en'],
-    navPosition: 'start',
+    navPosition: 'center',
     showThemeSwitcher: true,
   }}
   sidebarConfig={{
@@ -64,9 +69,11 @@ const currentLocale = Astro.currentLocale;
     marginTop: '2xl',
   }}
   mainContentConfig={{
-    verticalPadding: '4xl',
-    isArticle: true,
+    verticalPadding: verticalPadding,
+    isArticle: isArticle,
     layout: 'row',
+    size: isArticle ? 'full' : 'lg',
+    padding: 'none',
     showTableOfContents: showTOC,
   }}
   showHeader={true}
