@@ -1,6 +1,24 @@
 ---
-import DemoLayout from '@/layouts/DemoLayout.astro';
-import { LinkUtil } from '@coffic/cosy-ui';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import {
+  Banner,
+  Container,
+  Grid,
+  Header,
+  Hero,
+  LinkUtil,
+  TeamMember,
+} from '@coffic/cosy-ui';
+import { MemberConfig } from '@/config/config.member';
+
+const { lang = 'zh-cn' } = Astro.params;
+
+const title = 'Cosy UI';
+
+const description =
+  lang === 'zh-cn'
+    ? '一个组件库，帮助你构建美好的用户界面'
+    : 'A library of components for building user interfaces';
 
 export const getStaticPaths = async () => {
   return [
@@ -12,14 +30,82 @@ export const getStaticPaths = async () => {
     },
   ];
 };
-
-return Astro.redirect(LinkUtil.createUrl('/en/courses/guide'));
 ---
 
-<DemoLayout title="Cosy UI 组件库">
-  <h1>Cosy UI 组件库 - 文档</h1>
+<BaseLayout
+  title="Cosy UI 组件库"
+  showSidebar={false}
+  showTOC={false}
+  isArticle={false}
+  verticalPadding="none">
+  <Hero
+    title={title}
+    description={description}
+    links={[
+      {
+        text: lang === 'zh-cn' ? '开始使用' : 'Get Started',
+        href: LinkUtil.createUrl(`/${lang}/courses/guide`),
+        variant: 'primary',
+      },
+      {
+        text: 'GitHub',
+        href: 'https://github.com/Cofficlab/cosy-ui',
+        variant: 'secondary',
+        target: '_blank',
+      },
+    ]}>
+    <div slot="app">
+      <Container size="lg" padding="sm" border={true}>
+        <Header
+          rounded="lg"
+          sticky={false}
+          showThemeSwitcher={false}
+          languages={['zh-cn']}>
+          <div
+            slot="navbar-center"
+            class="cosy:flex cosy:items-center cosy:gap-4">
+            <span class="cosy:badge cosy:badge-accent">
+              {lang === 'zh-cn' ? '新功能' : 'New Features'}
+            </span>
+            <div class="cosy:divider cosy:divider-horizontal"></div>
+            <span class="cosy:badge cosy:badge-secondary">
+              {lang === 'zh-cn' ? '热门' : 'Hot'}
+            </span>
+            <div class="cosy:divider cosy:divider-horizontal"></div>
+            <span class="cosy:badge">
+              {lang === 'zh-cn' ? '推荐' : 'Recommend'}
+            </span>
+          </div>
+        </Header>
 
-  <p>
-    Cosy UI 是一个基于 Astro 的组件库，旨在为 Astro 项目提供美观实用的组件。
-  </p>
-</DemoLayout>
+        <Container
+          size="lg"
+          padding="none"
+          style="margin-top: 1rem; margin-bottom: 1rem;">
+          <Banner animation="slide" bgColor="gradient-forest">
+            {lang === 'zh-cn' ? '创造更多精彩' : 'Create more magic'}
+          </Banner>
+        </Container>
+
+        <Grid cols={4} gap="xs">
+          {
+            MemberConfig.getMembers().map((member) => (
+              <TeamMember
+                name={member.title.get(lang)}
+                role=""
+                avatar={member.image ?? ''}
+                bio={member.description.get(lang)}
+                socialLinks={[
+                  {
+                    platform: 'github',
+                    url: member.links.github,
+                  },
+                ]}
+              />
+            ))
+          }
+        </Grid>
+      </Container>
+    </div>
+  </Hero>
+</BaseLayout>
