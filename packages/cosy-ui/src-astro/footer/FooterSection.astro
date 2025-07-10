@@ -33,6 +33,9 @@ const { title, links } = Astro.props;
             <Link
               href={link.href}
               size="sm"
+              ghost
+              btn
+              color="primary"
               target={link.external ? '_blank' : '_self'}
               variant="text">
               {link.name}
