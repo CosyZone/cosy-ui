@@ -1,0 +1,63 @@
+---
+import { DashboardLayout } from '@coffic/cosy-ui';
+import type { NavItem } from '@coffic/cosy-ui';
+
+const menuItems: NavItem[] = [
+  {
+    text: '仪表盘',
+    href: '/dashboard',
+    icon: 'dashboard',
+  },
+  {
+    text: '用户管理',
+    href: '/dashboard/users',
+    icon: 'users',
+  },
+  {
+    text: '设置',
+    href: '/dashboard/settings',
+    icon: 'settings',
+  },
+];
+---
+
+<!-- mainPadding 多种用法演示 -->
+<DashboardLayout
+  title="mainPadding=md (默认)"
+  navItems={menuItems}
+  mainPadding="md"
+>
+  <div class="cosy:p-2 cosy:bg-base-200 cosy:rounded">mainPadding = md (cosy:p-4)</div>
+</DashboardLayout>
+
+<DashboardLayout
+  title="mainPadding=sm"
+  navItems={menuItems}
+  mainPadding="sm"
+>
+  <div class="cosy:p-2 cosy:bg-base-200 cosy:rounded">mainPadding = sm (cosy:p-2)</div>
+</DashboardLayout>
+
+<DashboardLayout
+  title="mainPadding=lg"
+  navItems={menuItems}
+  mainPadding="lg"
+>
+  <div class="cosy:p-2 cosy:bg-base-200 cosy:rounded">mainPadding = lg (cosy:p-8)</div>
+</DashboardLayout>
+
+<DashboardLayout
+  title="mainPadding=xl"
+  navItems={menuItems}
+  mainPadding="xl"
+>
+  <div class="cosy:p-2 cosy:bg-base-200 cosy:rounded">mainPadding = xl (cosy:p-12)</div>
+</DashboardLayout>
+
+<DashboardLayout
+  title="mainPadding=none"
+  navItems={menuItems}
+  mainPadding="none"
+>
+  <div class="cosy:p-2 cosy:bg-base-200 cosy:rounded">mainPadding = none (无 padding)</div>
+</DashboardLayout>

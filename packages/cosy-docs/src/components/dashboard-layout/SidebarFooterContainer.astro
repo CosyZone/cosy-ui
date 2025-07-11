@@ -5,13 +5,13 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import EDashboardLayoutSidebarFooterUserInfo from './EDashboardLayoutSidebarFooterUserInfo.astro';
-import EDashboardLayoutSidebarFooterCopyright from './EDashboardLayoutSidebarFooterCopyright.astro';
-import EDashboardLayoutSidebarFooterStatus from './EDashboardLayoutSidebarFooterStatus.astro';
+import SidebarFooterUserInfo from './SidebarFooterUserInfo.astro';
+import SidebarFooterCopyright from './SidebarFooterCopyright.astro';
+import SidebarFooterStatus from './SidebarFooterStatus.astro';
 
-import userInfoCode from './EDashboardLayoutSidebarFooterUserInfo.astro?raw';
-import copyrightCode from './EDashboardLayoutSidebarFooterCopyright.astro?raw';
-import statusCode from './EDashboardLayoutSidebarFooterStatus.astro?raw';
+import userInfoCode from './SidebarFooterUserInfo.astro?raw';
+import copyrightCode from './SidebarFooterCopyright.astro?raw';
+import statusCode from './SidebarFooterStatus.astro?raw';
 ---
 
 <CodeContainer
@@ -23,12 +23,12 @@ import statusCode from './EDashboardLayoutSidebarFooterStatus.astro?raw';
     '展示如何显示实时系统状态信息，如在线用户数、CPU使用率等',
   ]}>
   <div id="tab-1">
-    <EDashboardLayoutSidebarFooterUserInfo />
+    <SidebarFooterUserInfo />
   </div>
   <div id="tab-2">
-    <EDashboardLayoutSidebarFooterCopyright />
+    <SidebarFooterCopyright />
   </div>
   <div id="tab-3">
-    <EDashboardLayoutSidebarFooterStatus />
+    <SidebarFooterStatus />
   </div>
 </CodeContainer>

@@ -1,0 +1,36 @@
+---
+/**
+ * @component EDashboardLayoutSidebarFooterCopyright
+ * @description 展示侧边栏底部版权信息的示例
+ */
+
+import { DashboardLayout } from '@coffic/cosy-ui';
+
+const navItems = [
+  { href: '/dashboard', icon: 'home', text: '仪表盘' },
+  { href: '/dashboard/users', icon: 'users', text: '用户管理', badge: '5' },
+  { href: '/dashboard/settings', icon: 'settings', text: '系统设置' },
+];
+---
+
+<DashboardLayout
+  title="管理系统"
+  navItems={navItems}
+  sidebarSize="sm"
+  class="cosy:h-full">
+  <div class="cosy:p-4">
+    <div class="cosy:alert cosy:alert-success">
+      <span>📄</span>
+      <div>这里展示了如何显示版权和版本信息</div>
+    </div>
+  </div>
+
+  <!-- 侧边栏底部版权信息 -->
+  <div slot="sidebar-footer" class="cosy:p-4 cosy:text-center">
+    <div class="cosy:text-xs cosy:opacity-60 cosy:space-y-1">
+      <div>© 2024 您的公司</div>
+      <div>版本 v1.0.0</div>
+      <div class="cosy:badge cosy:badge-success cosy:badge-xs">稳定版</div>
+    </div>
+  </div>
+</DashboardLayout>

@@ -1,0 +1,25 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import BasicMd from './BasicMd.astro';
+import BasicMdSource from './BasicMd.astro?raw';
+import BasicSm from './BasicSm.astro';
+import BasicSmSource from './BasicSm.astro?raw';
+import BasicLg from './BasicLg.astro';
+import BasicLgSource from './BasicLg.astro?raw';
+import BasicXl from './BasicXl.astro';
+import BasicXlSource from './BasicXl.astro?raw';
+import BasicNone from './BasicNone.astro';
+import BasicNoneSource from './BasicNone.astro?raw';
+---
+
+<CodeContainer
+  titles={["mainPadding=md (默认)", "mainPadding=sm", "mainPadding=lg", "mainPadding=xl", "mainPadding=none"]}
+  descriptions={["主内容区默认 padding (cosy:p-4)", "主内容区小号 padding (cosy:p-2)", "主内容区大号 padding (cosy:p-8)", "主内容区超大 padding (cosy:p-12)", "主内容区无 padding"]}
+  codes={[BasicMdSource, BasicSmSource, BasicLgSource, BasicXlSource, BasicNoneSource]}
+>
+  <div id="tab-1"><BasicMd /></div>
+  <div id="tab-2"><BasicSm /></div>
+  <div id="tab-3"><BasicLg /></div>
+  <div id="tab-4"><BasicXl /></div>
+  <div id="tab-5"><BasicNone /></div>
+</CodeContainer>
