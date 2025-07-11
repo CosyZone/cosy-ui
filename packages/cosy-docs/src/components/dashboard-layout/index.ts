@@ -1,9 +1,4 @@
-/**
- * 文档项目中的 Dashboard Layout 示例组件
- */
-
 // 示例组件
-import EDashboardLayoutCustomStyle from './EDashboardLayoutCustomStyle.astro';
 import EDashboardLayoutSidebarSizes from './EDashboardLayoutSidebarSizes.astro';
 import EDashboardLayoutSidebarSm from './EDashboardLayoutSidebarSm.astro';
 import EDashboardLayoutSidebarMd from './EDashboardLayoutSidebarMd.astro';
@@ -11,7 +6,7 @@ import EDashboardLayoutSidebarLg from './EDashboardLayoutSidebarLg.astro';
 import EDashboardLayoutSidebarXl from './EDashboardLayoutSidebarXl.astro';
 
 // 主题示例组件
-import EDashboardLayoutThemeDefault from './EDashboardLayoutThemeDefault.astro';
+import EDashboardLayoutThemeDefault from './ThemeDefault.astro';
 import EDashboardLayoutThemePrimary from './EDashboardLayoutThemePrimary.astro';
 import EDashboardLayoutThemeSuccess from './EDashboardLayoutThemeSuccess.astro';
 import EDashboardLayoutThemeWarning from './EDashboardLayoutThemeWarning.astro';
@@ -19,21 +14,20 @@ import EDashboardLayoutThemeWarning from './EDashboardLayoutThemeWarning.astro';
 
 
 // 侧边栏底部自定义内容示例组件
-import EDashboardLayoutSidebarFooterUserInfo from './EDashboardLayoutSidebarFooterUserInfo.astro';
-import EDashboardLayoutSidebarFooterCopyright from './EDashboardLayoutSidebarFooterCopyright.astro';
-import EDashboardLayoutSidebarFooterStatus from './EDashboardLayoutSidebarFooterStatus.astro';
+import SidebarFooterUserInfo from './SidebarFooterUserInfo.astro';
+import SidebarFooterCopyright from './SidebarFooterCopyright.astro';
+import SidebarFooterStatus from './SidebarFooterStatus.astro';
 
 // 容器组件
-import EDashboardLayoutBasicContainer from './EDashboardLayoutBasicContainer.astro';
-import EDashboardLayoutCustomStyleContainer from './EDashboardLayoutCustomStyleContainer.astro';
+import BasicContainer from './BasicContainer.astro';
 import EDashboardLayoutSidebarSizesContainer from './EDashboardLayoutSidebarSizesContainer.astro';
-import EDashboardLayoutSidebarThemesContainer from './EDashboardLayoutSidebarThemesContainer.astro';
-import EDashboardLayoutSidebarFooterContainer from './EDashboardLayoutSidebarFooterContainer.astro';
-import EDashboardLayoutMainBackgroundContainer from './EDashboardLayoutMainBackgroundContainer.astro';
+import EDashboardLayoutSidebarThemesContainer from './ThemesContainer.astro';
+import SidebarFooterContainer from './SidebarFooterContainer.astro';
+import MainBackgroundContainer from './MainBackgroundContainer.astro';
 
 // 主内容区域背景示例组件
 import EDashboardLayoutMainBackgroundTransparent from './EDashboardLayoutMainBackgroundTransparent.astro';
-import EDashboardLayoutMainBackgroundBase from './EDashboardLayoutMainBackgroundBase.astro';
+import EDashboardLayoutMainBackgroundBase from './MainBackgroundBase.astro';
 import EDashboardLayoutMainBackgroundPrimary from './EDashboardLayoutMainBackgroundPrimary.astro';
 import EDashboardLayoutMainBackgroundSuccess from './EDashboardLayoutMainBackgroundSuccess.astro';
 import EDashboardLayoutMainBackgroundGradientWarm from './EDashboardLayoutMainBackgroundGradientWarm.astro';
@@ -43,7 +37,6 @@ import EDashboardLayoutMainBackgroundGradientSunset from './EDashboardLayoutMain
 
 export {
     // 示例组件
-    EDashboardLayoutCustomStyle,
     EDashboardLayoutSidebarSizes,
     EDashboardLayoutSidebarSm,
     EDashboardLayoutSidebarMd,
@@ -59,17 +52,16 @@ export {
 
 
     // 侧边栏底部自定义内容示例组件
-    EDashboardLayoutSidebarFooterUserInfo,
-    EDashboardLayoutSidebarFooterCopyright,
-    EDashboardLayoutSidebarFooterStatus,
+    SidebarFooterUserInfo,
+    SidebarFooterCopyright,
+    SidebarFooterStatus,
 
     // 容器组件
-    EDashboardLayoutBasicContainer,
-    EDashboardLayoutCustomStyleContainer,
+    BasicContainer,
     EDashboardLayoutSidebarSizesContainer,
     EDashboardLayoutSidebarThemesContainer,
-    EDashboardLayoutSidebarFooterContainer,
-    EDashboardLayoutMainBackgroundContainer,
+    SidebarFooterContainer,
+    MainBackgroundContainer,
 
     // 主内容区域背景示例组件
     EDashboardLayoutMainBackgroundTransparent,
@@ -85,11 +77,10 @@ export {
 // 导出 ComponentPackage 用于文档
 export const DashboardLayoutPackage = {
     DashboardLayoutContainers: {
-        Basic: EDashboardLayoutBasicContainer,
-        CustomStyle: EDashboardLayoutCustomStyleContainer,
+        Basic: BasicContainer,
         SidebarSizes: EDashboardLayoutSidebarSizesContainer,
         SidebarThemes: EDashboardLayoutSidebarThemesContainer,
-        SidebarFooter: EDashboardLayoutSidebarFooterContainer,
-        MainBackground: EDashboardLayoutMainBackgroundContainer,
+        SidebarFooter: SidebarFooterContainer,
+        MainBackground: MainBackgroundContainer,
     },
 }; 

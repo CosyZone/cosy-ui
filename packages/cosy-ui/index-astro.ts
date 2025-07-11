@@ -38,7 +38,6 @@ export * from './src-astro/products';
 export * from './src-astro/register';
 export * from './src-astro/section';
 export * from './src-astro/sidebar';
-export * from './src-astro/sidebar-nav';
 export * from './src-astro/speak';
 export * from './src-astro/stack';
 export * from './src-astro/team-member';

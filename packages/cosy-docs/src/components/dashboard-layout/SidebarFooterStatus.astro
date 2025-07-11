@@ -1,0 +1,45 @@
+---
+/**
+ * @component EDashboardLayoutSidebarFooterStatus
+ * @description 展示侧边栏底部系统状态的示例
+ */
+
+import { DashboardLayout } from '@coffic/cosy-ui';
+
+const navItems = [
+  { href: '/dashboard', icon: 'home', text: '仪表盘' },
+  { href: '/dashboard/users', icon: 'users', text: '用户管理', badge: '5' },
+  { href: '/dashboard/settings', icon: 'settings', text: '系统设置' },
+];
+---
+
+<DashboardLayout
+  title="监控面板"
+  navItems={navItems}
+  sidebarSize="sm"
+  class="cosy:h-full">
+  <div class="cosy:p-4">
+    <div class="cosy:alert cosy:alert-warning">
+      <span>📊</span>
+      <div>这里展示了如何显示系统状态信息</div>
+    </div>
+  </div>
+
+  <!-- 侧边栏底部系统状态 -->
+  <div slot="sidebar-footer" class="cosy:p-3">
+    <div class="cosy:space-y-2">
+      <div class="cosy:flex cosy:justify-between cosy:items-center">
+        <span class="cosy:text-xs cosy:opacity-70">系统状态</span>
+        <span class="cosy:badge cosy:badge-success cosy:badge-xs">正常</span>
+      </div>
+      <div class="cosy:flex cosy:justify-between cosy:items-center">
+        <span class="cosy:text-xs cosy:opacity-70">在线用户</span>
+        <span class="cosy:text-xs cosy:font-mono">1,234</span>
+      </div>
+      <div class="cosy:flex cosy:justify-between cosy:items-center">
+        <span class="cosy:text-xs cosy:opacity-70">CPU使用率</span>
+        <span class="cosy:text-xs cosy:font-mono">23%</span>
+      </div>
+    </div>
+  </div>
+</DashboardLayout>

@@ -176,6 +176,7 @@ import {
 } from '../../index-astro';
 import FooterSection from './FooterSection.astro';
 import '../../style.ts';
+import FooterCopyright from './FooterCopyright.astro';
 
 const {
   siteName,
@@ -367,17 +368,11 @@ const debugClasses = debug
 }
 
 {/* 底部版权信息 */}
-<div
-  class:list={[
-    'cosy:footer cosy:footer-center cosy:p-4 cosy:bg-base-300',
-    debugClasses.footer,
-  ]}>
-  <aside
-    class:list={['cosy:items-center cosy:grid-flow-col', debugClasses.aside]}>
-    <p class="cosy:opacity-70 cosy:text-sm">
-      © {currentYear}
-      {company} - {copyright || t('allRightsReserved')}
-    </p>
-    {icp && <p class="cosy:opacity-70 cosy:ml-4 cosy:text-sm">{icp}</p>}
-  </aside>
-</div>
+<FooterCopyright
+  company={company}
+  copyright={copyright}
+  icp={icp}
+  currentYear={currentYear}
+  t={t}
+  debugClasses={debugClasses}
+/>

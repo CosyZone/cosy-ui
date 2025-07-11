@@ -260,6 +260,12 @@ export interface Props {
    * @default false
    */
   debug?: boolean;
+
+  /**
+   * 主内容区 padding 尺寸
+   * @default 'md'
+   */
+  mainPadding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
 const {
@@ -273,18 +279,27 @@ const {
   sidebarCollapsed = false,
   sidebarSize = 'md',
   sidebarTheme = 'default',
-  mainBackgroundTheme = 'transparent',
+  mainBackgroundTheme = 'base-100',
   enableToast = true,
   enableConfirmDialog = true,
   head,
   class: className,
   'class:list': classList,
   debug = false,
+  mainPadding = 'md',
   ...rest
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
 const mainBackgroundStyles = getMainBackgroundTheme(mainBackgroundTheme);
+
+const mainPaddingMap = {
+  none: '',
+  sm: 'cosy:p-2',
+  md: 'cosy:p-4',
+  lg: 'cosy:p-8',
+  xl: 'cosy:p-12',
+};
 ---
 
 <BaseLayout
@@ -328,7 +343,11 @@ const mainBackgroundStyles = getMainBackgroundTheme(mainBackgroundTheme);
 
       <!-- 页面内容 -->
       <main
-        class:list={['cosy:flex-1 cosy:p-4 cosy:lg:p-6', mainBackgroundStyles]}>
+        class:list={[
+          'cosy:flex-1',
+          mainPaddingMap[mainPadding],
+          mainBackgroundStyles,
+        ]}>
         <slot />
       </main>
     </div>

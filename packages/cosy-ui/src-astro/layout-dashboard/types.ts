@@ -159,7 +159,7 @@ export const mainBackgroundThemeMap: Record<MainBackgroundTheme, string> = {
  * @param theme 主内容区域背景主题
  * @returns 对应的样式类名
  */
-export function getMainBackgroundTheme(theme: MainBackgroundTheme = 'transparent'): string {
+export function getMainBackgroundTheme(theme: MainBackgroundTheme = 'base-100'): string {
     return mainBackgroundThemeMap[theme];
 }
 

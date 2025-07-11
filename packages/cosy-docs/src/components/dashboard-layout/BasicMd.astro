@@ -1,0 +1,51 @@
+---
+import { DashboardLayout } from '@coffic/cosy-ui';
+import type { NavItem } from '@coffic/cosy-ui';
+
+const menuItems: NavItem[] = [
+  { text: '仪表盘', href: '/dashboard', icon: 'dashboard' },
+  { text: '用户管理', href: '/dashboard/users', icon: 'users' },
+  { text: '设置', href: '/dashboard/settings', icon: 'settings' },
+];
+---
+
+<DashboardLayout
+  title="mainPadding=md (默认)"
+  navItems={menuItems}
+  mainPadding="md">
+  <div class="cosy:p-2 cosy:bg-base-200 cosy:rounded">
+    mainPadding = md (cosy:p-4)
+  </div>
+
+  <!-- 演示按钮 -->
+  <div class="cosy:card cosy:bg-base-300 cosy:mt-4">
+    <div class="cosy:card-body">
+      <h2 class="cosy:card-title">Toast 演示</h2>
+      <p class="cosy:text-sm cosy:text-base-content/70">
+        点击下面的按钮来触发不同类型的 Toast 通知
+      </p>
+      <div class="cosy:flex cosy:gap-2 cosy:mt-4">
+        <button
+          class="cosy:btn cosy:btn-info"
+          onclick="window.showToast?.({ message: '这是一条信息通知', type: 'info' })">
+          显示信息
+        </button>
+        <button
+          class="cosy:btn cosy:btn-success"
+          onclick="window.showToast?.({ message: '操作成功完成！', type: 'success' })">
+          显示成功
+        </button>
+        <button
+          class="cosy:btn cosy:btn-warning"
+          onclick="window.showToast?.({ message: '请注意这个警告信息', type: 'warning' })">
+          显示警告
+        </button>
+        <button
+          class="cosy:btn cosy:btn-error"
+          onclick="window.showToast?.({ message: '出现了一个错误', type: 'error' })">
+          显示错误
+        </button>
+      </div>
+    </div>
+  </div>
+</DashboardLayout>
