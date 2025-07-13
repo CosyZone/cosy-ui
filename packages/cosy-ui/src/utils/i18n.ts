@@ -1,9 +1,3 @@
-/**
- * 国际化文本配置
- *
- * 提供组件的多语言文本内容
- */
-
 // 定义文本内容的类型
 type TextContent = Record<string, Record<string, string>>;
 
