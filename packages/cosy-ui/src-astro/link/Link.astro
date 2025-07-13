@@ -100,6 +100,7 @@ interface Props extends HTMLAttributes<'a'> {
     | 'warning'
     | 'error';
   align?: 'left' | 'center' | 'right';
+  active?: boolean;
 }
 
 const {
@@ -121,6 +122,7 @@ const {
   fullWidth = false,
   color,
   align,
+  active = false,
   ...rest
 } = Astro.props;
 
@@ -159,7 +161,10 @@ const classes = [
   animation === 'hover-scale' &&
     'cosy:hover:scale-105 cosy:transition-transform',
 
-  // 新增：按钮风格
+  // Active state
+  active && 'cosy:active',
+
+  // 按钮风格
   btn && 'cosy:btn',
   btn && size === 'sm' && 'cosy:btn-sm',
   btn && size === 'lg' && 'cosy:btn-lg',

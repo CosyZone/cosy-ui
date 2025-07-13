@@ -19,50 +19,59 @@
  * <LanguageSwitcher />
  * ```
  *
- * 自定义语言列表：
- * ```astro
- * <LanguageSwitcher
- *   languages={['zh-cn', 'en']}
- * />
- * ```
  */
 
-import { ChevronDownIcon, LanguageUtil } from '../../index-astro';
+import {
+  ChevronDownIcon,
+  LanguageUtil,
+  Link,
+  ListItem,
+} from '../../index-astro';
 import '../../style.ts';
+import { i18n } from 'astro:config/server';
 
 interface Props {
-  languages: string[];
   /**
    * 自定义类名
    */
   class?: string;
 }
 
-const { languages = ['zh-cn', 'en'], class: className = '' } = Astro.props;
+const { class: className = '' } = Astro.props;
 
-const currentLocale = Astro.currentLocale;
-const currentLanguageName = LanguageUtil.getLanguageName(currentLocale);
+let links: any[] = [];
+let currentLocale: string | undefined = undefined;
+let currentLanguageName: string | undefined = undefined;
+
+if (i18n !== undefined) {
+  const { getSwitcherLinks } = await import('./switcher_util.ts');
+  links = getSwitcherLinks(Astro);
+
+  currentLocale = Astro.currentLocale!;
+  currentLanguageName = LanguageUtil.getLanguageName(currentLocale);
+} else {
+  throw new Error('can not use LanguageSwitcher when i18n is disabled');
+}
 ---
 
-<!-- 语言切换按钮 -->
-<div class={`cosy:dropdown cosy:dropdown-end ${className}`}>
-  <div tabindex="0" role="button" class:list={['cosy:btn cosy:btn-ghost']}>
-    <span class="cosy:mr-1">{currentLanguageName}</span>
-    <ChevronDownIcon size="16px" class="cosy:w-4 cosy:h-4" />
-  </div>
-  <ul
-    tabindex="0"
-    class="cosy:z-[1] cosy:bg-base-100 cosy:shadow cosy:p-2 cosy:rounded-box cosy:w-32 cosy:dropdown-content cosy:menu">
-    {
-      languages.map((lang) => (
-        <li class={currentLocale === lang ? 'cosy:disabled' : ''}>
-          <a
-            href={LanguageUtil.getRelativeLink(lang, Astro)}
-            class={currentLocale === lang ? 'cosy:active' : ''}>
-            {LanguageUtil.getLanguageName(lang)}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
-</div>
+{
+  i18n !== undefined && (
+    <div class={`cosy:dropdown cosy:dropdown-end ${className}`}>
+      <div tabindex="0" role="button" class:list={['cosy:btn cosy:btn-ghost']}>
+        <span class="cosy:mr-1">{currentLanguageName}</span>
+        <ChevronDownIcon size="16px" class="cosy:w-4 cosy:h-4" />
+      </div>
+      <ul
+        tabindex="0"
+        class="cosy:z-[1] cosy:bg-base-100 cosy:shadow cosy:p-2 cosy:rounded-box cosy:w-32 cosy:dropdown-content cosy:menu">
+        {links.map((link) => (
+          <ListItem>
+            <Link href={link.url} active={currentLocale === link.locale}>
+              {link.name}
+            </Link>
+          </ListItem>
+        ))}
+      </ul>
+    </div>
+  )
+}

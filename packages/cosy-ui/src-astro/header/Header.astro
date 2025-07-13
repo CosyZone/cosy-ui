@@ -22,8 +22,9 @@ import {
   Link,
   Image,
   ThemeSwitcher,
-} from '@coffic/cosy-ui';
+} from '../../index-astro';
 import Logo from '../../src/assets/logo-rounded.png';
+import { i18n } from 'astro:config/server';
 
 export interface Props extends IHeaderProps {
   debug?: boolean;
@@ -31,7 +32,6 @@ export interface Props extends IHeaderProps {
 
 const {
   height = 'md',
-  languages = ['zh-cn', 'en'],
   logo = Logo,
   logoHref = '/',
   navItems = [],
@@ -200,7 +200,7 @@ const activeLink = LinkUtil.getActiveLink(
       }
 
       {showThemeSwitcher && <ThemeSwitcher />}
-      {languages.length > 1 && <LanguageSwitcher languages={languages} />}
+      {i18n !== undefined && <LanguageSwitcher />}
 
       <slot name="navbar-end" />
     </div>
