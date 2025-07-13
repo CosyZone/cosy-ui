@@ -21,7 +21,12 @@
  *
  */
 
-import { ChevronDownIcon, LanguageUtil } from '../../index-astro';
+import {
+  ChevronDownIcon,
+  LanguageUtil,
+  Link,
+  ListItem,
+} from '../../index-astro';
 import '../../style.ts';
 import { i18n } from 'astro:config/server';
 
@@ -60,13 +65,11 @@ if (i18n !== undefined) {
         tabindex="0"
         class="cosy:z-[1] cosy:bg-base-100 cosy:shadow cosy:p-2 cosy:rounded-box cosy:w-32 cosy:dropdown-content cosy:menu">
         {links.map((link) => (
-          <li class={currentLocale === link.locale ? 'cosy:disabled' : ''}>
-            <a
-              href={link.url}
-              class={currentLocale === link.locale ? 'cosy:active' : ''}>
+          <ListItem>
+            <Link href={link.url} active={currentLocale === link.locale}>
               {link.name}
-            </a>
-          </li>
+            </Link>
+          </ListItem>
         ))}
       </ul>
     </div>
