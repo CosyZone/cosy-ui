@@ -24,7 +24,6 @@ import {
   ThemeSwitcher,
 } from '../../index-astro';
 import Logo from '../../src/assets/logo-rounded.png';
-import { i18n } from 'astro:config/server';
 
 export interface Props extends IHeaderProps {
   debug?: boolean;
@@ -79,6 +78,19 @@ const logoSizeClasses = {
 
 const logoSizeClass = logoSizeClasses[height];
 const linkHeightClass = linkHeightClasses[height];
+
+// 动态检查 i18n 是否启用，避免构建时被 Vite 扫描
+let isI18nEnabled = false;
+try {
+  const astroConfig = await import('astro:config/server');
+  isI18nEnabled = astroConfig.i18n !== undefined;
+} catch (error) {
+  console.warn(
+    'Header: Unable to load astro:config/server module. i18n might not be enabled.'
+  );
+  isI18nEnabled = false;
+}
+
 const currentPath = Astro.url.pathname;
 const activeLink = LinkUtil.getActiveLink(
   currentPath,
@@ -200,7 +212,7 @@ const activeLink = LinkUtil.getActiveLink(
       }
 
       {showThemeSwitcher && <ThemeSwitcher />}
-      {i18n !== undefined && <LanguageSwitcher />}
+      {isI18nEnabled && <LanguageSwitcher />}
 
       <slot name="navbar-end" />
     </div>

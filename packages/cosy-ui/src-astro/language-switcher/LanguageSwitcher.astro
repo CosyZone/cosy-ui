@@ -28,7 +28,6 @@ import {
   ListItem,
 } from '../../index-astro';
 import '../../style.ts';
-import { i18n } from 'astro:config/server';
 
 interface Props {
   /**
@@ -42,20 +41,36 @@ const { class: className = '' } = Astro.props;
 let links: any[] = [];
 let currentLocale: string | undefined = undefined;
 let currentLanguageName: string | undefined = undefined;
+let isI18nEnabled = false;
 
-if (i18n !== undefined) {
+// 动态检查 i18n 是否启用，避免构建时被 Vite 扫描
+try {
+  // 通过动态构造模块名来避免静态分析
+  const configModuleName = 'astro' + ':' + 'config/server';
+  const astroConfig = await import(/* @vite-ignore */ configModuleName);
+  isI18nEnabled = astroConfig.i18n !== undefined;
+} catch (error) {
+  console.warn(
+    'LanguageSwitcher: Unable to load astro:config/server module. i18n might not be enabled.'
+  );
+  isI18nEnabled = false;
+}
+
+if (isI18nEnabled) {
   const { getSwitcherLinks } = await import('./switcher_util.ts');
-  links = getSwitcherLinks(Astro);
+  links = await getSwitcherLinks(Astro);
 
   currentLocale = Astro.currentLocale!;
   currentLanguageName = LanguageUtil.getLanguageName(currentLocale);
 } else {
-  throw new Error('can not use LanguageSwitcher when i18n is disabled');
+  console.warn(
+    'LanguageSwitcher: i18n is not enabled in Astro config. Component will not render.'
+  );
 }
 ---
 
 {
-  i18n !== undefined && (
+  isI18nEnabled && (
     <div class={`cosy:dropdown cosy:dropdown-end ${className}`}>
       <div tabindex="0" role="button" class:list={['cosy:btn cosy:btn-ghost']}>
         <span class="cosy:mr-1">{currentLanguageName}</span>
