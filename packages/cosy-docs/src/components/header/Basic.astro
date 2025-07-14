@@ -4,9 +4,11 @@
  *
  * @description
  * Header组件的基础示例，展示最基本的顶部导航栏，包含logo和语言切换功能。
+ * 演示如何传入完整的 astro:i18n 模块以支持语言切换。
  */
 import { Header } from '@coffic/cosy-ui';
 import { getExampleImage } from '@coffic/cosy-ui';
+import * as astroI18n from 'astro:i18n';
 
 const logo = getExampleImage({
   width: 100,
@@ -16,4 +18,4 @@ const logo = getExampleImage({
 });
 ---
 
-<Header logoHref={logo} rounded="lg" sticky={false} />
+<Header logoHref={logo} rounded="lg" sticky={false} astroI18n={astroI18n} />
