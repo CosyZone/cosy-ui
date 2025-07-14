@@ -1,0 +1,16 @@
+---
+/**
+ * @component
+ * @description
+ * `DashboardLayout` can handle long content. When the content in the main area exceeds the viewport height, a vertical scrollbar will automatically appear to ensure that all content is accessible. This example uses a container with a fixed height to demonstrate this behavior.
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import LongContent from './LongContent.astro';
+import LongContentRaw from './LongContent.astro?raw';
+---
+
+<CodeContainer titles={['长内容']} codes={[LongContentRaw]}>
+  <div id="tab-1">
+    <LongContent />
+  </div>
+</CodeContainer>

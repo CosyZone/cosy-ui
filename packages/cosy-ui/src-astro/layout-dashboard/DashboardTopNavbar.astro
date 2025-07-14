@@ -73,7 +73,8 @@ const defaultUserMenuItems: UserMenuItem[] = [
 const menuItems = userMenuItems || defaultUserMenuItems;
 ---
 
-<div class="cosy:navbar cosy:bg-base-100 cosy:shadow-sm">
+<div
+  class="cosy:navbar cosy:bg-base-100 cosy:shadow-2xl cosy:border-b cosy:border-base-300">
   <div class="cosy:navbar-start">
     <label
       for="dashboard-drawer"
@@ -88,31 +89,6 @@ const menuItems = userMenuItems || defaultUserMenuItems;
   </div>
 
   <div class="cosy:navbar-end cosy:gap-2">
-    <!-- 搜索框 -->
-    <div class="cosy:form-control cosy:hidden cosy:lg:flex">
-      <div class="cosy:input-group">
-        <input
-          type="text"
-          placeholder="搜索..."
-          class="cosy:input cosy:input-bordered cosy:input-sm cosy:w-48"
-        />
-        <button class="cosy:btn cosy:btn-square cosy:btn-sm">
-          <AstroIcon name="search" size="16px" stroke="currentColor" />
-        </button>
-      </div>
-    </div>
-
-    <!-- 通知 -->
-    <div class="cosy:indicator">
-      <button class="cosy:btn cosy:btn-ghost cosy:btn-circle">
-        <AstroIcon name="notification" size="18px" stroke="currentColor" />
-      </button>
-      <span
-        class="cosy:badge cosy:badge-xs cosy:badge-primary cosy:indicator-item"
-        >3</span
-      >
-    </div>
-
     <!-- 用户信息 -->
     {
       userName && (

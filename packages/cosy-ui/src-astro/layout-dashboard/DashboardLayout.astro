@@ -307,7 +307,7 @@ const mainPaddingMap = {
     </div>
 
     <!-- 主内容区 -->
-    <div class="cosy:drawer-content cosy:flex cosy:flex-col">
+    <div class="cosy:drawer-content cosy:flex cosy:flex-col cosy:h-screen">
       <!-- 顶部导航栏 -->
       <DashboardTopNavbar
         title={title}
@@ -320,6 +320,7 @@ const mainPaddingMap = {
       <main
         class:list={[
           'cosy:flex-1',
+          'cosy:overflow-y-auto',
           mainPaddingMap[mainPadding],
           'cosy:bg-base-100',
         ]}>
