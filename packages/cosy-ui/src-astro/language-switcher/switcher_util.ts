@@ -26,8 +26,8 @@ export async function getSwitcherLinks(astro: AstroGlobal): Promise<SwitcherLink
     try {
         // 动态导入 astro:i18n 模块，避免在构建时被 Vite 扫描
         // 通过动态构造模块名来避免静态分析
-        const moduleName = 'astro' + ':' + 'i18n';
-        const astroI18n = await import(/* @vite-ignore */ moduleName);
+        const moduleName = 'astro:i18n';
+        const astroI18n = await import(moduleName);
         const { getRelativeLocaleUrl, getRelativeLocaleUrlList } = astroI18n;
 
         const currentLocalURLPrefix = getRelativeLocaleUrl(currentLocale, '');
