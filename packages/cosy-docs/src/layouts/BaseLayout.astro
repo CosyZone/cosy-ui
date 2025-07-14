@@ -3,6 +3,7 @@ import { type ISidebarItem, AppLayout } from '@coffic/cosy-ui';
 import Favicon from '@/assets/favicon.png';
 import { configApp } from '@/config/config.app';
 import { configProducts } from '@/config/config.products';
+import * as astroI18n from 'astro:i18n';
 
 interface Props {
   title: string;
@@ -59,9 +60,9 @@ const currentLocale = Astro.currentLocale;
   headerConfig={{
     logoHref: configApp.homeLink,
     navItems: configApp.getNavItems(currentLocale || 'zh-cn'),
-    languages: ['zh-cn', 'en'],
     navPosition: 'center',
     showThemeSwitcher: true,
+    astroI18n: astroI18n,
   }}
   sidebarConfig={{
     sidebarItems: sidebarItems ? [sidebarItems] : [],

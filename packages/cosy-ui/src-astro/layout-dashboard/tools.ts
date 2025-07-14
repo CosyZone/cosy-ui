@@ -115,7 +115,7 @@ const hrefToIconMap: Record<string, string> = {
  */
 export function getIconFromHref(href: string, fallbackIcon: string = 'folder'): string {
     // 将 href 转换为小写并移除路径分隔符
-    const normalizedHref = href.toLowerCase().replace(/[\/\-_]/g, '');
+    const normalizedHref = href.toLowerCase().replace(/[/\-_]/g, '');
 
     // 遍历映射表，找到匹配的关键词
     for (const [keyword, iconName] of Object.entries(hrefToIconMap)) {

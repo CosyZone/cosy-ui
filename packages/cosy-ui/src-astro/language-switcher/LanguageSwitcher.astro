@@ -14,51 +14,71 @@
  * 4. 一致的视觉风格 - 使用与整体设计系统一致的下拉菜单样式
  *
  * @usage
- * 基本用法：
+ * 基本用法（需要用户传入 astro:i18n 模块）：
  * ```astro
- * <LanguageSwitcher />
+ * ---
+ * import * as astroI18n from 'astro:i18n';
+ * ---
+ * <LanguageSwitcher astroI18n={astroI18n} />
  * ```
  *
+ * @props
+ * - astroI18n - 完整的 astro:i18n 模块
+ * - class - 自定义CSS类名
  */
 
+import { ChevronDownIcon, Link, ListItem } from '../../index-astro';
 import {
-  ChevronDownIcon,
-  LanguageUtil,
-  Link,
-  ListItem,
-} from '../../index-astro';
+  checkSwitcherRenderState,
+  generateSwitcherLinks,
+  type SwitcherLink,
+} from './switcher_util';
 import '../../style.ts';
-import { i18n } from 'astro:config/server';
 
 interface Props {
+  /**
+   * 完整的 astro:i18n 模块
+   */
+  astroI18n?: any;
+
   /**
    * 自定义类名
    */
   class?: string;
 }
 
-const { class: className = '' } = Astro.props;
+const { astroI18n, class: className = '' } = Astro.props;
 
-let links: any[] = [];
-let currentLocale: string | undefined = undefined;
-let currentLanguageName: string | undefined = undefined;
+// 检查渲染状态
+const renderState = checkSwitcherRenderState(Astro.currentLocale, astroI18n);
 
-if (i18n !== undefined) {
-  const { getSwitcherLinks } = await import('./switcher_util.ts');
-  links = getSwitcherLinks(Astro);
+// 输出警告信息
+if (renderState.warnings) {
+  renderState.warnings.forEach((warning) => console.warn(warning));
+}
 
-  currentLocale = Astro.currentLocale!;
-  currentLanguageName = LanguageUtil.getLanguageName(currentLocale);
-} else {
-  throw new Error('can not use LanguageSwitcher when i18n is disabled');
+let links: SwitcherLink[] = [];
+
+// 如果应该渲染，生成切换链接
+if (renderState.shouldRender && Astro.currentLocale) {
+  try {
+    links = generateSwitcherLinks(
+      astroI18n,
+      Astro.currentLocale,
+      Astro.url.pathname
+    );
+  } catch (error) {
+    // 如果生成链接失败，设置为不渲染
+    renderState.shouldRender = false;
+  }
 }
 ---
 
 {
-  i18n !== undefined && (
+  renderState.shouldRender && (
     <div class={`cosy:dropdown cosy:dropdown-end ${className}`}>
       <div tabindex="0" role="button" class:list={['cosy:btn cosy:btn-ghost']}>
-        <span class="cosy:mr-1">{currentLanguageName}</span>
+        <span class="cosy:mr-1">{renderState.currentLanguageName}</span>
         <ChevronDownIcon size="16px" class="cosy:w-4 cosy:h-4" />
       </div>
       <ul
@@ -66,7 +86,7 @@ if (i18n !== undefined) {
         class="cosy:z-[1] cosy:bg-base-100 cosy:shadow cosy:p-2 cosy:rounded-box cosy:w-32 cosy:dropdown-content cosy:menu">
         {links.map((link) => (
           <ListItem>
-            <Link href={link.url} active={currentLocale === link.locale}>
+            <Link href={link.url} active={Astro.currentLocale === link.locale}>
               {link.name}
             </Link>
           </ListItem>

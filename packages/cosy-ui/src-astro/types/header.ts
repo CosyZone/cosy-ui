@@ -1,4 +1,5 @@
 import type { INavItem } from './nav';
+import type { ImageMetadata } from 'astro';
 
 export interface IHeaderProps {
     /**
@@ -6,6 +7,11 @@ export interface IHeaderProps {
      * @default false
      */
     defaultSidebarOpen?: boolean;
+
+    /**
+     * 完整的 astro:i18n 模块（启用语言切换时需要）
+     */
+    astroI18n?: any;
 
     /**
      * 导航栏高度

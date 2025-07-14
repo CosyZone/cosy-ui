@@ -1,0 +1,17 @@
+---
+/**
+ * @component HeaderWithNavigation.Container
+ *
+ * @description
+ * Header带导航菜单用法的展示容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import WithNavigation from './WithNavigation.astro';
+import WithNavigationSourceCode from './WithNavigation.astro?raw';
+---
+
+<CodeContainer codes={[WithNavigationSourceCode]}>
+  <div id="tab-1">
+    <WithNavigation />
+  </div>
+</CodeContainer>

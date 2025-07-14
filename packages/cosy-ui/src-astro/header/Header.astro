@@ -12,19 +12,35 @@
  * 2. 响应式适配 - 在移动端和桌面端都有合适的展现形式
  * 3. 可定制性 - 支持多种配置选项，适应不同网站的风格和需求
  * 4. 多语言支持 - 内置语言切换功能，便于构建国际化网站
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Header />
+ * ```
+ *
+ * 启用语言切换功能：
+ * ```astro
+ * ---
+ * import * as astroI18n from 'astro:i18n';
+ * ---
+ * <Header astroI18n={astroI18n} />
+ * ```
+ *
+ * @props
+ * - astroI18n - 完整的 astro:i18n 模块（启用语言切换时需要）
  */
 import {
+  Image,
   LanguageSwitcher,
+  Link,
   LinkUtil,
   type IHeaderProps,
   type INavItem,
   NavItems,
-  Link,
-  Image,
   ThemeSwitcher,
 } from '../../index-astro';
 import Logo from '../../src/assets/logo-rounded.png';
-import { i18n } from 'astro:config/server';
 
 export interface Props extends IHeaderProps {
   debug?: boolean;
@@ -42,6 +58,7 @@ const {
   paddingVertical = 'none',
   navPosition = 'center',
   showThemeSwitcher = true,
+  astroI18n,
 } = Astro.props;
 
 // 根据高度设置样式
@@ -79,6 +96,10 @@ const logoSizeClasses = {
 
 const logoSizeClass = logoSizeClasses[height];
 const linkHeightClass = linkHeightClasses[height];
+
+// 检查 i18n 是否启用，通过 Astro.currentLocale 来判断
+let isI18nEnabled = Astro.currentLocale !== undefined;
+
 const currentPath = Astro.url.pathname;
 const activeLink = LinkUtil.getActiveLink(
   currentPath,
@@ -200,7 +221,7 @@ const activeLink = LinkUtil.getActiveLink(
       }
 
       {showThemeSwitcher && <ThemeSwitcher />}
-      {i18n !== undefined && <LanguageSwitcher />}
+      {isI18nEnabled && <LanguageSwitcher astroI18n={astroI18n} />}
 
       <slot name="navbar-end" />
     </div>

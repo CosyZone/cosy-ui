@@ -7,6 +7,7 @@
  */
 import { Header } from '@coffic/cosy-ui';
 import { getExampleImage } from '@coffic/cosy-ui';
+import * as astroI18n from 'astro:i18n';
 
 const logo = getExampleImage({
   width: 100,
@@ -16,7 +17,7 @@ const logo = getExampleImage({
 });
 ---
 
-<Header logoHref={logo} rounded="lg" sticky={false}>
+<Header logoHref={logo} rounded="lg" sticky={false} astroI18n={astroI18n}>
   <div
     slot="navbar-start"
     class="cosy:flex cosy:items-center cosy:gap-2 cosy:ml-2">

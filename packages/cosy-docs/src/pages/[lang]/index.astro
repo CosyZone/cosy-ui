@@ -10,6 +10,11 @@ import {
   TeamMember,
 } from '@coffic/cosy-ui';
 import { MemberConfig } from '@/config/config.member';
+import { getExampleImage } from '@coffic/cosy-ui';
+import Favicon from '@/assets/favicon.png';
+import { configApp } from '@/config/config.app';
+import { configProducts } from '@/config/config.products';
+import * as astroI18n from 'astro:i18n';
 
 const { lang = 'zh-cn' } = Astro.params;
 
@@ -30,6 +35,21 @@ export const getStaticPaths = async () => {
     },
   ];
 };
+
+interface Props {
+  lang: string;
+}
+
+const currentLocale = Astro.currentLocale;
+
+const logo = getExampleImage({
+  width: 100,
+  height: 100,
+  provider: 'picsum',
+  tag: 'tech',
+});
+
+const products = configProducts.products;
 ---
 
 <BaseLayout
@@ -60,7 +80,7 @@ export const getStaticPaths = async () => {
           rounded="lg"
           sticky={false}
           showThemeSwitcher={false}
-          languages={['zh-cn']}>
+          astroI18n={astroI18n}>
           <div
             slot="navbar-center"
             class="cosy:flex cosy:items-center cosy:gap-4">

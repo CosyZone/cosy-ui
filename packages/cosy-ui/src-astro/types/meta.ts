@@ -1,3 +1,5 @@
+import type { ImageMetadata } from 'astro';
+
 export interface IMetaProps {
     title: string;
     description: string;
@@ -41,7 +43,7 @@ export interface IMetaProps {
     /**
      * 自定义头部内容
      */
-    head?: astroHTML.JSX.Element;
+    head?: any;
 
     /**
      * 页面类名

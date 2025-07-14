@@ -1,6 +1,7 @@
 ---
 import { AppLayout, Container } from '@coffic/cosy-ui';
 import type { ISidebarItem } from '@coffic/cosy-ui';
+import * as astroI18n from 'astro:i18n';
 
 const sidebarItems: ISidebarItem[] = [
   {
@@ -36,6 +37,7 @@ const sidebarItems: ISidebarItem[] = [
   headerConfig={{
     height: 'md',
     sticky: false,
+    astroI18n: astroI18n,
   }}
   footerConfig={{
     siteName: '我的文档站点',
