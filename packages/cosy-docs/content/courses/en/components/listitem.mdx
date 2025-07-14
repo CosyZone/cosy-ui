@@ -25,20 +25,3 @@ The ListItem component displays list item content and shows a progress bar or ri
 If duration is provided, a progress bar animation is shown:
 
 <ComponentPackage.ComponentContainers.CustomDuration />
-
-```astro
-<ListItem loading={true} duration={3000}>3s Progress Bar</ListItem>
-```
-
-## Props
-
-| Name     | Type    | Default | Description                                         |
-|----------|---------|---------|-----------------------------------------------------|
-| loading  | boolean | false   | Whether to show the loading animation               |
-| duration | number  | none    | Progress bar animation duration (ms), ring if unset |
-
-## Slots
-
-| Name    | Description      |
-|---------|------------------|
-| default | List item content |

@@ -26,35 +26,8 @@ ListItem 支持多种无限动画效果，通过 `animationType` 属性控制：
 
 <ComponentPackage.ComponentContainers.AnimationTypes />
 
-### 动画类型说明
-
-- **ring**：外环脉冲动画（默认）
-- **icon-left**：前置 Spinner 旋转图标
-- **icon-right**：后置 Dots 跳动图标
-- **breath**：背景色呼吸效果
-- **pulse**：整体脉冲缩放
-- **glow**：发光边框效果
-
 ## 进度条时长自定义
 
 传入 duration 时，显示进度条动画：
 
 <ComponentPackage.ComponentContainers.CustomDuration />
-
-```astro
-<ListItem loading={true} duration={3000}>3秒进度条</ListItem>
-```
-
-## Props
-
-| 名称          | 类型    | 默认值  | 说明                                    |
-|-------------|--------|-------|-----------------------------------------|
-| loading     | boolean | false | 是否显示加载动画                         |
-| duration    | number  | 无    | 进度条动画时长（毫秒），不传为无限动画      |
-| animationType | 'ring' \| 'icon-left' \| 'icon-right' \| 'breath' \| 'pulse' \| 'glow' | 'ring' | 无限动画类型 |
-
-## Slots
-
-| 名称   | 说明         |
-|------|------------|
-| default | 列表项内容 |
