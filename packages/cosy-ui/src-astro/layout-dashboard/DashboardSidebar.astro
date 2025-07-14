@@ -28,7 +28,6 @@
  * - navItems: NavItem[] - 导航项目
  * - currentPath?: string - 当前路径，用于高亮当前页面
  * - size?: 'sm' | 'md' | 'lg' | 'xl' - 侧边栏尺寸，默认为"md"
- * - theme?: SidebarTheme - 侧边栏主题，默认为"default"
  *
  * @slots
  * - footer - 侧边栏底部自定义内容，可用于展示用户信息等
@@ -38,10 +37,8 @@ import '../../style.ts';
 import {
   getNavItemIcon,
   getSidebarWidth,
-  getSidebarTheme,
   type NavItem,
   type SidebarSize,
-  type SidebarTheme,
 } from './types';
 import AstroIcon from '../icons/AstroIcon.astro';
 
@@ -67,12 +64,6 @@ export interface Props {
    * @default "md"
    */
   size?: SidebarSize;
-
-  /**
-   * 侧边栏主题
-   * @default "default"
-   */
-  theme?: SidebarTheme;
 }
 
 const {
@@ -80,26 +71,16 @@ const {
   navItems,
   currentPath = '',
   size = 'md',
-  theme = 'default',
 } = Astro.props;
-
-const themeStyles = getSidebarTheme(theme);
 ---
 
 <aside
   class:list={[
     getSidebarWidth(size),
-    'cosy:min-h-full cosy:flex cosy:flex-col',
-    themeStyles.bg,
-    themeStyles.textColor,
+    'cosy:min-h-full cosy:flex cosy:flex-col cosy:bg-base-200 cosy:text-base-content',
   ]}>
   <!-- 侧边栏头部 -->
-  <div
-    class:list={[
-      'cosy:navbar cosy:border-b',
-      themeStyles.headerBg,
-      themeStyles.borderColor,
-    ]}>
+  <div class:list={['cosy:navbar cosy:border-b cosy:border-base-300']}>
     <div class="cosy:navbar-start">
       <a
         href="/dashboard"
@@ -118,7 +99,7 @@ const themeStyles = getSidebarTheme(theme);
   <!-- 导航菜单 -->
   <div class="cosy:flex-1 cosy:overflow-y-auto">
     <ul
-      class="cosy:menu cosy:p-4 cosy:space-y-1 cosy:list-none cosy:no-underline">
+      class="cosy:menu cosy:p-4 cosy:space-y-1 cosy:list-none cosy:no-underline cosy:w-full">
       {
         navItems.map((item: NavItem) => {
           const isActive =
@@ -129,7 +110,7 @@ const themeStyles = getSidebarTheme(theme);
               ));
 
           return (
-            <li>
+            <li class="cosy:w-full">
               <a
                 href={item.href}
                 class:list={[
@@ -186,7 +167,7 @@ const themeStyles = getSidebarTheme(theme);
   </div>
 
   <!-- 侧边栏底部自定义内容 -->
-  <div class:list={['cosy:mt-auto cosy:border-t', themeStyles.borderColor]}>
+  <div class:list={['cosy:mt-auto cosy:border-t cosy:border-base-300']}>
     <slot name="footer" />
   </div>
 </aside>
