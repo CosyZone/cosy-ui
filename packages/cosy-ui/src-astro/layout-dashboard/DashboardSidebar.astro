@@ -118,7 +118,7 @@ const themeStyles = getSidebarTheme(theme);
   <!-- 导航菜单 -->
   <div class="cosy:flex-1 cosy:overflow-y-auto">
     <ul
-      class="cosy:menu cosy:p-4 cosy:space-y-1 cosy:list-none cosy:no-underline">
+      class="cosy:menu cosy:p-4 cosy:space-y-1 cosy:list-none cosy:no-underline cosy:w-full">
       {
         navItems.map((item: NavItem) => {
           const isActive =
@@ -129,7 +129,7 @@ const themeStyles = getSidebarTheme(theme);
               ));
 
           return (
-            <li>
+            <li class="cosy:w-full">
               <a
                 href={item.href}
                 class:list={[
