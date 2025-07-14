@@ -141,8 +141,6 @@
  * - userMenuItems?: UserMenuItem[] - 用户菜单项，默认包含个人资料、设置、退出登录，图标会自动匹配
  * - sidebarCollapsed?: boolean - 是否折叠侧边栏，默认为false
  * - sidebarSize?: 'sm' | 'md' | 'lg' | 'xl' - 侧边栏尺寸，默认为"md"
- * - sidebarTheme?: SidebarTheme - 侧边栏主题，默认为"default"
- * - mainBackgroundTheme?: MainBackgroundTheme - 主内容区域背景主题，默认为"transparent"
  * - head?: astroHTML.JSX.Element - 自定义头部内容
  * - class?: string - 页面类名
  * - class:list?: any - 类名列表
@@ -158,14 +156,7 @@ import DashboardSidebar from './DashboardSidebar.astro';
 import DashboardTopNavbar from './DashboardTopNavbar.astro';
 import { ToastContainer, ConfirmDialog } from '../../index-astro';
 import '../../style.ts';
-import {
-  type NavItem,
-  type SidebarSize,
-  type SidebarTheme,
-  type MainBackgroundTheme,
-  type UserMenuItem,
-  getMainBackgroundTheme,
-} from './types';
+import { type NavItem, type SidebarSize, type UserMenuItem } from './types';
 
 export interface Props {
   /**
@@ -217,18 +208,6 @@ export interface Props {
   sidebarSize?: SidebarSize;
 
   /**
-   * 侧边栏主题
-   * @default "default"
-   */
-  sidebarTheme?: SidebarTheme;
-
-  /**
-   * 主内容区域背景主题
-   * @default "transparent"
-   */
-  mainBackgroundTheme?: MainBackgroundTheme;
-
-  /**
    * 自定义头部内容
    */
   head?: astroHTML.JSX.Element;
@@ -278,8 +257,6 @@ const {
   userMenuItems,
   sidebarCollapsed = false,
   sidebarSize = 'md',
-  sidebarTheme = 'default',
-  mainBackgroundTheme = 'base-100',
   enableToast = true,
   enableConfirmDialog = true,
   head,
@@ -291,7 +268,6 @@ const {
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
-const mainBackgroundStyles = getMainBackgroundTheme(mainBackgroundTheme);
 
 const mainPaddingMap = {
   none: '',
@@ -325,8 +301,7 @@ const mainPaddingMap = {
         systemName={systemName}
         navItems={navItems}
         currentPath={currentPath}
-        size={sidebarSize}
-        theme={sidebarTheme}>
+        size={sidebarSize}>
         <slot name="sidebar-footer" slot="footer" />
       </DashboardSidebar>
     </div>
@@ -346,7 +321,7 @@ const mainPaddingMap = {
         class:list={[
           'cosy:flex-1',
           mainPaddingMap[mainPadding],
-          mainBackgroundStyles,
+          'cosy:bg-base-100',
         ]}>
         <slot />
       </main>

@@ -1,0 +1,42 @@
+---
+/**
+ * @component EDashboardLayoutSidebarSizesContainer
+ * @description 使用 CodeContainer 多标签特性展示不同侧边栏尺寸的容器组件
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import SidebarSm from './SidebarSm.astro';
+import SidebarMd from './SidebarMd.astro';
+import SidebarLg from './SidebarLg.astro';
+import SidebarXl from './SidebarXl.astro';
+
+// 导入源码
+import sidebarSmCode from './SidebarSm.astro?raw';
+import sidebarMdCode from './SidebarMd.astro?raw';
+import sidebarLgCode from './SidebarLg.astro?raw';
+import sidebarXlCode from './SidebarXl.astro?raw';
+
+const titles = ['SM (紧凑)', 'MD (默认)', 'LG (宽松)', 'XL (超大)'];
+const descriptions = [
+  '12rem (192px) - 紧凑布局，移动端友好',
+  '16rem (256px) - 默认尺寸，平衡的选择',
+  '18rem (288px) - 宽松布局，适合更多内容',
+  '20rem (320px) - 最宽布局，适合复杂导航',
+];
+
+const codes = [sidebarSmCode, sidebarMdCode, sidebarLgCode, sidebarXlCode];
+---
+
+<CodeContainer titles={titles} descriptions={descriptions} codes={codes}>
+  <div id="tab-1">
+    <SidebarSm />
+  </div>
+  <div id="tab-2">
+    <SidebarMd />
+  </div>
+  <div id="tab-3">
+    <SidebarLg />
+  </div>
+  <div id="tab-4">
+    <SidebarXl />
+  </div>
+</CodeContainer>
