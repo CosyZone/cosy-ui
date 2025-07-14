@@ -1,7 +1,5 @@
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
-import json from '@eslint/json';
-import css from '@eslint/css';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 
@@ -33,34 +31,7 @@ export default defineConfig([
             '@typescript-eslint/no-unused-vars': 'off',
             '@typescript-eslint/no-explicit-any': 'off',
             '@typescript-eslint/no-empty-object-type': 'off',
-        },
-    },
-    {
-        files: ['**/*.json'],
-        plugins: { json },
-        language: 'json/json',
-        extends: ['json/recommended'],
-    },
-    {
-        files: ['**/*.jsonc'],
-        plugins: { json },
-        language: 'json/jsonc',
-        extends: ['json/recommended'],
-    },
-    {
-        files: ['**/*.json5'],
-        plugins: { json },
-        language: 'json/json5',
-        extends: ['json/recommended'],
-    },
-    {
-        files: ['**/*.css'],
-        plugins: { css },
-        language: 'css/css',
-        extends: ['css/recommended'],
-        rules: {
-            'css/no-invalid-at-rules': 'off',
-            'css/no-invalid-properties': 'off',
+            '@typescript-eslint/no-unused-expressions': 'off',
         },
     },
 ]);

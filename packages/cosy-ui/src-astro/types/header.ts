@@ -1,4 +1,5 @@
 import type { INavItem } from './nav';
+import type { ImageMetadata } from 'astro';
 
 export interface IHeaderProps {
     /**

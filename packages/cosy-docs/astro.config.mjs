@@ -10,13 +10,13 @@ export default defineConfig({
     srcDir: 'src',
     outDir: 'dist',
 
-    //   i18n: {
-    //     locales: ['zh-cn', 'en'],
-    //     defaultLocale: 'zh-cn',
-    //     routing: {
-    //       prefixDefaultLocale: true,
-    //     },
-    //   },
+    i18n: {
+        locales: ['zh-cn', 'en'],
+        defaultLocale: 'zh-cn',
+        routing: {
+            prefixDefaultLocale: true,
+        },
+    },
 
     vite: {
         resolve: {
