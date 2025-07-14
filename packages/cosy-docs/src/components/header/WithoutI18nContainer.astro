@@ -1,0 +1,17 @@
+---
+/**
+ * @component HeaderWithoutI18n.Container
+ *
+ * @description
+ * Header无i18n用法的展示容器，演示不传递astroI18n参数时的效果
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import WithoutI18n from './WithoutI18n.astro';
+import WithoutI18nSourceCode from './WithoutI18n.astro?raw';
+---
+
+<CodeContainer codes={[WithoutI18nSourceCode]}>
+  <div id="tab-1">
+    <WithoutI18n />
+  </div>
+</CodeContainer>

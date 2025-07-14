@@ -27,12 +27,12 @@
  * - class - 自定义CSS类名
  */
 
+import { ChevronDownIcon, Link, ListItem } from '../../index-astro';
 import {
-  ChevronDownIcon,
-  LanguageUtil,
-  Link,
-  ListItem,
-} from '../../index-astro';
+  checkSwitcherRenderState,
+  generateSwitcherLinks,
+  type SwitcherLink,
+} from './switcher_util';
 import '../../style.ts';
 
 interface Props {
@@ -49,61 +49,36 @@ interface Props {
 
 const { astroI18n, class: className = '' } = Astro.props;
 
-let links: any[] = [];
-let currentLocale: string | undefined = undefined;
-let currentLanguageName: string | undefined = undefined;
-let shouldRender = false;
+// 检查渲染状态
+const renderState = checkSwitcherRenderState(Astro.currentLocale, astroI18n);
 
-// 检查是否有当前语言和 astroI18n 模块
-if (Astro.currentLocale && astroI18n) {
-  currentLocale = Astro.currentLocale;
-  currentLanguageName = LanguageUtil.getLanguageName(currentLocale);
-  shouldRender = true;
+// 输出警告信息
+if (renderState.warnings) {
+  renderState.warnings.forEach((warning) => console.warn(warning));
+}
 
+let links: SwitcherLink[] = [];
+
+// 如果应该渲染，生成切换链接
+if (renderState.shouldRender && Astro.currentLocale) {
   try {
-    // 使用用户传入的 astroI18n 模块
-    const { getRelativeLocaleUrl, getRelativeLocaleUrlList } = astroI18n;
-
-    const getBaseUrl = (): string => {
-      return import.meta.env.BASE_URL || '/';
-    };
-
-    const getLocaleFromUrl = (url: string): string => {
-      return url.replace(getBaseUrl(), '').split('/')[0];
-    };
-
-    const currentLocalURLPrefix = getRelativeLocaleUrl(currentLocale, '');
-    const pathname = Astro.url.pathname + '/';
-    const slug = pathname.replace(currentLocalURLPrefix, '');
-    const urls = getRelativeLocaleUrlList(slug);
-
-    links = urls.map((url: string) => ({
-      locale: getLocaleFromUrl(url),
-      name: LanguageUtil.getLanguageName(getLocaleFromUrl(url)),
-      url: url,
-    }));
+    links = generateSwitcherLinks(
+      astroI18n,
+      Astro.currentLocale,
+      Astro.url.pathname
+    );
   } catch (error) {
-    console.warn('LanguageSwitcher: Error generating switcher links:', error);
-    shouldRender = false;
-  }
-} else {
-  if (!Astro.currentLocale) {
-    console.warn(
-      'LanguageSwitcher: i18n is not enabled in the current project'
-    );
-  } else if (!astroI18n) {
-    console.warn(
-      'LanguageSwitcher: astroI18n module is required. Please pass the astro:i18n module as a prop.'
-    );
+    // 如果生成链接失败，设置为不渲染
+    renderState.shouldRender = false;
   }
 }
 ---
 
 {
-  shouldRender && (
+  renderState.shouldRender && (
     <div class={`cosy:dropdown cosy:dropdown-end ${className}`}>
       <div tabindex="0" role="button" class:list={['cosy:btn cosy:btn-ghost']}>
-        <span class="cosy:mr-1">{currentLanguageName}</span>
+        <span class="cosy:mr-1">{renderState.currentLanguageName}</span>
         <ChevronDownIcon size="16px" class="cosy:w-4 cosy:h-4" />
       </div>
       <ul
@@ -111,7 +86,7 @@ if (Astro.currentLocale && astroI18n) {
         class="cosy:z-[1] cosy:bg-base-100 cosy:shadow cosy:p-2 cosy:rounded-box cosy:w-32 cosy:dropdown-content cosy:menu">
         {links.map((link) => (
           <ListItem>
-            <Link href={link.url} active={currentLocale === link.locale}>
+            <Link href={link.url} active={Astro.currentLocale === link.locale}>
               {link.name}
             </Link>
           </ListItem>
