@@ -1,0 +1,51 @@
+---
+/**
+ * @component EmptyState
+ * @description 一个用于表示空状态的组件，通常在列表、搜索结果或任何需要数据的区域为空时使用。
+ *
+ * @usage
+ * ```astro
+ * <EmptyState
+ *   icon="users"
+ *   title="没有找到用户"
+ *   description="尝试更改筛选条件或创建一个新用户。"
+ * >
+ *   <Button>创建用户</Button>
+ * </EmptyState>
+ * ```
+ *
+ * @props
+ * - icon?: string - 在标题上方显示的图标名称。
+ * - title: string - 主标题，用于描述空状态。
+ * - description?: string - 对空状态的详细描述。
+ *
+ * @slots
+ * - default - 用于放置操作按钮，如"创建"或"返回"。
+ */
+import '../../style.ts';
+import type { EmptyStateProps } from './types';
+import AstroIcon from '../icons/AstroIcon.astro';
+
+const { icon, title, description } = Astro.props as EmptyStateProps;
+---
+
+<div class="cosy:text-center cosy:py-16 cosy:px-6">
+  {
+    icon && (
+      <div class="cosy:text-primary cosy:w-16 cosy:h-16 cosy:mx-auto cosy:mb-4">
+        <AstroIcon name={icon} size="100%" />
+      </div>
+    )
+  }
+  <h3 class="cosy:text-2xl cosy:font-bold cosy:text-base-content cosy:mb-2">
+    {title}
+  </h3>
+  {
+    description && (
+      <p class="cosy:text-base-content/70 cosy:mb-6">{description}</p>
+    )
+  }
+  <div class="cosy:flex cosy:justify-center cosy:gap-4">
+    <slot />
+  </div>
+</div>

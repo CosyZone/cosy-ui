@@ -12,6 +12,7 @@ export * from './src-astro/code-panel';
 export * from './src-astro/install-tabs';
 export * from './src-astro/contact';
 export * from './src-astro/container';
+export * from './src-astro/empty-state';
 export * from './src-astro/errors';
 export * from './src-astro/flex';
 export * from './src-astro/footer';

@@ -1,0 +1,28 @@
+---
+/**
+ * @component BasicContainer
+ * @description `EmptyState` 组件的基础用法和功能展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+
+import Basic from './Basic.astro';
+import BasicRaw from './Basic.astro?raw';
+import WithIcon from './WithIcon.astro';
+import WithIconRaw from './WithIcon.astro?raw';
+import WithAction from './WithAction.astro';
+import WithActionRaw from './WithAction.astro?raw';
+---
+
+<CodeContainer
+  titles={['基础用法', '带图标', '带操作按钮']}
+  codes={[BasicRaw, WithIconRaw, WithActionRaw]}>
+  <div id="tab-1">
+    <Basic />
+  </div>
+  <div id="tab-2">
+    <WithIcon />
+  </div>
+  <div id="tab-3">
+    <WithAction />
+  </div>
+</CodeContainer>
