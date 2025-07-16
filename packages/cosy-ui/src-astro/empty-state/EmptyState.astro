@@ -23,29 +23,78 @@
  * - default - 用于放置操作按钮，如"创建"或"返回"。
  */
 import '../../style.ts';
-import type { EmptyStateProps } from './types';
-import AstroIcon from '../icons/AstroIcon.astro';
+import * as Icons from '../icons';
+import type { EmptyStateProps, IconName } from './types';
 
-const { icon, title, description } = Astro.props as EmptyStateProps;
+const { title, description, icon, ...rest } = Astro.props;
+
+const iconMap: Record<IconName, any> = {
+  SocialIcon: Icons.SocialIcon,
+  TwitterIcon: Icons.TwitterIcon,
+  UserIcon: Icons.UserIcon,
+  WarningIcon: Icons.WarningIcon,
+  XCircle: Icons.XCircle,
+  InfoIcon: Icons.InfoIcon,
+  LinkIcon: Icons.LinkIcon,
+  LinkedinIcon: Icons.LinkedinIcon,
+  MenuIcon: Icons.MenuIcon,
+  RefreshIcon: Icons.RefreshIcon,
+  SearchIcon: Icons.SearchIcon,
+  SuccessIcon: Icons.SuccessIcon,
+  SunCloudyIcon: Icons.SunCloudyIcon,
+  AlertTriangle: Icons.AlertTriangle,
+  CalendarIcon: Icons.CalendarIcon,
+  CheckCircle: Icons.CheckCircle,
+  CheckIcon: Icons.CheckIcon,
+  ClipboardIcon: Icons.ClipboardIcon,
+  CloseIcon: Icons.CloseIcon,
+  CodeIcon: Icons.CodeIcon,
+  DeleteIcon: Icons.DeleteIcon,
+  ErrorIcon: Icons.ErrorIcon,
+  GithubIcon: Icons.GithubIcon,
+  InfoCircle: Icons.InfoCircle,
+  InboxArchive: Icons.InboxArchive,
+  SettingsIcon: Icons.SettingsIcon,
+  ChevronDownIcon: Icons.ChevronDownIcon,
+  HomeIcon: Icons.HomeIcon,
+  DashboardIcon: Icons.DashboardIcon,
+  ChartIcon: Icons.ChartIcon,
+  DocumentIcon: Icons.DocumentIcon,
+  NotificationIcon: Icons.NotificationIcon,
+  UsersIcon: Icons.UsersIcon,
+  MessageIcon: Icons.MessageIcon,
+  MailIcon: Icons.MailIcon,
+  FolderIcon: Icons.FolderIcon,
+  StarIcon: Icons.StarIcon,
+  HeartIcon: Icons.HeartIcon,
+  SaveIcon: Icons.SaveIcon,
+  EditIcon: Icons.EditIcon,
+  ToolsIcon: Icons.ToolsIcon,
+  WalletIcon: Icons.WalletIcon,
+  ReportIcon: Icons.ReportIcon,
+  SecurityIcon: Icons.SecurityIcon,
+  UploadIcon: Icons.UploadIcon,
+  DownloadIcon: Icons.DownloadIcon,
+  LogOut: Icons.LogOut,
+  AppStoreIcon: Icons.AppStoreIcon,
+  WebsiteIcon: Icons.WebsiteIcon,
+};
+
+const IconComponent =
+  icon && iconMap[icon as IconName] ? iconMap[icon as IconName] : null;
 ---
 
-<div class="cosy:text-center cosy:py-16 cosy:px-6">
-  {
-    icon && (
-      <div class="cosy:text-primary cosy:w-16 cosy:h-16 cosy:mx-auto cosy:mb-4">
-        <AstroIcon name={icon} size="100%" />
-      </div>
-    )
-  }
-  <h3 class="cosy:text-2xl cosy:font-bold cosy:text-base-content cosy:mb-2">
-    {title}
-  </h3>
+<div class="cosy:text-center cosy:py-16 cosy:px-6" {...rest}>
+  {IconComponent && <IconComponent class="cosy:mx-auto cosy:h-12 cosy:w-12" />}
+  {title && <h3 class="cosy:mt-2 cosy:text-2xl cosy:font-bold">{title}</h3>}
   {
     description && (
-      <p class="cosy:text-base-content/70 cosy:mb-6">{description}</p>
+      <p class="cosy:mt-1 cosy:text-sm cosy:text-base-content/80">
+        {description}
+      </p>
     )
   }
-  <div class="cosy:flex cosy:justify-center cosy:gap-4">
+  <div class="cosy:mt-6 cosy:flex cosy:justify-center cosy:gap-4">
     <slot />
   </div>
 </div>

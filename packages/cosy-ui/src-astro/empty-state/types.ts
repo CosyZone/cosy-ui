@@ -1,19 +1,70 @@
-export interface EmptyStateProps {
-    /**
-     * 在标题上方显示的图标名称。
-     * 从 cosy-ui 的图标库中选择。
-     */
-    icon?: string;
+import type { HTMLAttributes } from 'astro/types';
 
-    /**
-     * 主标题，用于描述空状态。
-     * 这是必填项。
-     */
-    title: string;
+export const iconNames = [
+    'SocialIcon',
+    'TwitterIcon',
+    'UserIcon',
+    'WarningIcon',
+    'XCircle',
+    'InfoIcon',
+    'LinkIcon',
+    'LinkedinIcon',
+    'MenuIcon',
+    'RefreshIcon',
+    'SearchIcon',
+    'SuccessIcon',
+    'SunCloudyIcon',
+    'AlertTriangle',
+    'CalendarIcon',
+    'CheckCircle',
+    'CheckIcon',
+    'ClipboardIcon',
+    'CloseIcon',
+    'CodeIcon',
+    'DeleteIcon',
+    'ErrorIcon',
+    'GithubIcon',
+    'InfoCircle',
+    'InboxArchive',
+    'SettingsIcon',
+    'ChevronDownIcon',
+    'HomeIcon',
+    'DashboardIcon',
+    'ChartIcon',
+    'DocumentIcon',
+    'NotificationIcon',
+    'UsersIcon',
+    'MessageIcon',
+    'MailIcon',
+    'FolderIcon',
+    'StarIcon',
+    'HeartIcon',
+    'SaveIcon',
+    'EditIcon',
+    'ToolsIcon',
+    'WalletIcon',
+    'ReportIcon',
+    'SecurityIcon',
+    'UploadIcon',
+    'DownloadIcon',
+    'LogOut',
+    'AppStoreIcon',
+    'WebsiteIcon',
+] as const;
 
+export type IconName = (typeof iconNames)[number];
+
+export interface EmptyStateProps extends HTMLAttributes<'div'> {
     /**
-     * 对空状态的详细描述。
-     * 这是可选项，提供更多上下文。
+     * The title of the empty state.
+     */
+    title?: string;
+    /**
+     * The description of the empty state.
      */
     description?: string;
-} 
+    /**
+     * The name of the icon to display.
+     */
+    icon?: IconName;
+}
