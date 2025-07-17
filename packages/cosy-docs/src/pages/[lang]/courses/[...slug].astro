@@ -1,15 +1,11 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import {
-  Error404,
-  courseDB,
-  defaultLogger,
-  type ISidebarItem,
-} from '@coffic/cosy-ui';
+import { Error404, type ISidebarItem } from '@coffic/cosy-ui';
+import { courseRepo } from '@coffic/cosy-ui/collection';
 import type { RenderResult } from 'astro:content';
 
 const { lang, slug } = Astro.params;
-const doc = await courseDB.find(`${lang}/${slug}`);
+const doc = await courseRepo.find(`${lang}/${slug}`);
 let title = '';
 let renderResult: RenderResult | null = null;
 let sidebarItems: ISidebarItem | null = null;
@@ -28,12 +24,7 @@ if (doc) {
 }
 
 export const getStaticPaths = async () => {
-  const paths = await courseDB.getStaticPaths();
-  const debug = false;
-
-  if (debug) {
-    defaultLogger.info(paths);
-  }
+  const paths = await courseRepo.getStaticPaths();
 
   // 过滤掉 slug 为空的路径
   return paths.filter((path) => {

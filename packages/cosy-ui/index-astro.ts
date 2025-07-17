@@ -63,22 +63,8 @@ export * from './src-astro/types/sidebar';
 export * from './src-astro/types/static-path';
 
 // 实体类 (按字母顺序)
-export * from './src-astro/entities/BaseDoc';
-export * from './src-astro/entities/BlogDoc';
-export * from './src-astro/entities/CourseDoc';
-export * from './src-astro/entities/ExperimentDoc';
-export * from './src-astro/entities/LessonDoc';
-export * from './src-astro/entities/MetaDoc';
-export * from './src-astro/entities/SidebarItem';
-export * from './src-astro/entities/Tag';
-
-// 数据库类 (按字母顺序)
-export * from './src-astro/database/BaseDB';
-export * from './src-astro/database/BlogDB';
-export * from './src-astro/database/CourseDB';
-export * from './src-astro/database/ExperimentDB';
-export * from './src-astro/database/LessonDB';
-export * from './src-astro/database/MetaDB';
+export * from './src-astro/collection/entities/SidebarItem';
+export * from './src-astro/collection/entities/Tag';
 
 // 工具类型
 export type { ImageProvider, ImageOptions } from './src/utils/image';
@@ -93,6 +79,3 @@ export * from './src/utils/link';
 
 // 图标组件
 export * from './src-astro/icons';
-
-// 数据库
-export * from './src-astro/database/index'; 

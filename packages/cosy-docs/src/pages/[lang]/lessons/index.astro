@@ -4,7 +4,8 @@
  */
 
 import DemoLayout from '@/layouts/DemoLayout.astro';
-import { lessonDB, Products } from '@coffic/cosy-ui';
+import { Products } from '@coffic/cosy-ui';
+import { lessonRepo } from '@coffic/cosy-ui/collection';
 import { getExampleImage } from '@coffic/cosy-ui';
 
 export async function getStaticPaths() {
@@ -24,7 +25,7 @@ export async function getStaticPaths() {
 
 const { lang } = Astro.params;
 
-const lessons = await lessonDB.allLessons(lang);
+const lessons = await lessonRepo.allLessons(lang);
 const title = lang === 'zh-cn' ? '教程列表' : 'Build Your Own List';
 ---
 

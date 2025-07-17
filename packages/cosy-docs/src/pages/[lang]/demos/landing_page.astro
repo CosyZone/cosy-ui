@@ -6,9 +6,6 @@ import { configApp } from '@/config/config.app';
 // 从 URL 获取当前语言
 const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
 
-// 定义支持的语言
-const languages = ['zh-cn', 'en'];
-
 export const getStaticPaths = async () => {
   return [
     {
@@ -66,7 +63,6 @@ export const getStaticPaths = async () => {
   headerConfig={{
     logoHref: configApp.homeLink,
     navItems: configApp.getNavItems(currentLocale),
-    languages: languages,
   }}
   mainContentConfig={{
     verticalPadding: 'none',
