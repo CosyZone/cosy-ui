@@ -49,6 +49,7 @@ import { BaseDoc } from './BaseDoc';
 
 export default class BlogDoc extends BaseDoc implements SidebarProvider {
     entry: BlogEntry;
+    collectionName = 'blogs' as const;
 
     private constructor(entry: BlogEntry) {
         super();

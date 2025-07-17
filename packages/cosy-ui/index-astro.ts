@@ -71,14 +71,6 @@ export * from './src-astro/collection/entities/MetaDoc';
 export * from './src-astro/collection/entities/SidebarItem';
 export * from './src-astro/collection/entities/Tag';
 
-// 数据库类 (按字母顺序)
-export * from './src-astro/collection/BaseDB';
-export * from './src-astro/collection/BlogRepo';
-export * from './src-astro/collection/CourseRepo';
-export * from './src-astro/collection/ExperimentRepo';
-export * from './src-astro/collection/LessonRepo';
-export * from './src-astro/collection/MetaRepo';
-
 // 工具类型
 export type { ImageProvider, ImageOptions } from './src/utils/image';
 export * from './src/utils/image';
