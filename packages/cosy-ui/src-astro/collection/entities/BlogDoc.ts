@@ -3,7 +3,6 @@ import Tag from './Tag';
 import { blogRepo, type BlogEntry } from '..';
 import { SidebarItemEntity, type SidebarProvider } from './SidebarItem';
 import { cosyLogger, ERROR_PREFIX } from '../../cosy';
-import { render } from 'astro:content';
 import { BaseDoc } from './BaseDoc';
 
 /**
@@ -196,10 +195,6 @@ export default class BlogDoc extends BaseDoc implements SidebarProvider {
             items: [],
             link: this.getLink(),
         });
-    }
-
-    async render(): Promise<any> {
-        return await render(this.entry);
     }
 
     async toSidebarItem(): Promise<SidebarItemEntity> {

@@ -1,7 +1,7 @@
 import { cosyLogger } from '../../cosy';
 import { SidebarItemEntity, type SidebarProvider } from './SidebarItem';
 import { LinkUtil } from '../../../src/utils/link';
-import { render, type CollectionEntry } from 'astro:content';
+import { type CollectionEntry } from 'astro:content';
 import { BaseDoc } from './BaseDoc';
 import { courseRepo } from '../repos/CourseRepo';
 
@@ -176,10 +176,6 @@ export default class CourseDoc extends BaseDoc implements SidebarProvider {
             console.error(`Error formatting date: ${this.entry.data.date}`, error);
             return 'Date unavailable';
         }
-    }
-
-    async render(): Promise<any> {
-        return await render(this.entry);
     }
 
     async getTopSidebarItem(): Promise<SidebarItemEntity> {

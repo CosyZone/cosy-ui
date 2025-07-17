@@ -3,7 +3,6 @@ import { experimentRepo } from '../repos/ExperimentRepo';
 import { cosyLogger } from '../../cosy';
 import { SidebarItemEntity, type SidebarProvider } from './SidebarItem';
 import { LinkUtil } from '../../../src/utils/link';
-import { render } from 'astro:content';
 import type { IHeadingType } from '../../types/heading';
 import { BaseDoc } from './BaseDoc';
 
@@ -129,10 +128,6 @@ export default class ExperimentDoc extends BaseDoc implements SidebarProvider {
 
     async getDescendants(): Promise<ExperimentDoc[]> {
         return await experimentRepo.getDescendantDocs(this.entry.id);
-    }
-
-    async render(): Promise<any> {
-        return await render(this.entry);
     }
 
     async toSidebarItem(): Promise<SidebarItemEntity> {
