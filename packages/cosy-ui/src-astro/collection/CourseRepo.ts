@@ -1,6 +1,7 @@
-import CourseDoc from '../entities/CourseDoc';
-import { getCollection, type CollectionEntry } from 'astro:content';
+import CourseDoc from './entities/CourseDoc';
+import { defineCollection, getCollection, z, type CollectionEntry } from 'astro:content';
 import { BaseDB } from './BaseDB';
+import { glob } from 'astro/loaders';
 
 export const COLLECTION_COURSE = 'courses' as const;
 export type CourseEntry = CollectionEntry<typeof COLLECTION_COURSE>;
@@ -29,7 +30,7 @@ export type CourseEntry = CollectionEntry<typeof COLLECTION_COURSE>;
  *     └── ...
  * ```
  */
-class CourseDB extends BaseDB<
+class CourseRepo extends BaseDB<
     typeof COLLECTION_COURSE,
     CourseEntry,
     CourseDoc
@@ -84,7 +85,25 @@ class CourseDB extends BaseDB<
         const courses = await this.allCoursesByLang(lang);
         return courses.slice(0, 4);
     }
+
+    makeCourseCollection = (base: string) => {
+        return defineCollection({
+            loader: glob({
+                pattern: '**/*.{md,mdx}',
+                base,
+            }),
+            schema: z.object({
+                title: z.string(),
+                description: z.string(),
+                folder: z.boolean(),
+                order: z.number(),
+                badge: z.string(),
+                draft: z.boolean(),
+                hidden: z.boolean(),
+            }),
+        });
+    };
 }
 
 // 创建并导出单例实例
-export const courseDB = new CourseDB();
+export const courseRepo = new CourseRepo();

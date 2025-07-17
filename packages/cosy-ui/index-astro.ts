@@ -63,22 +63,21 @@ export * from './src-astro/types/sidebar';
 export * from './src-astro/types/static-path';
 
 // 实体类 (按字母顺序)
-export * from './src-astro/entities/BaseDoc';
-export * from './src-astro/entities/BlogDoc';
-export * from './src-astro/entities/CourseDoc';
-export * from './src-astro/entities/ExperimentDoc';
-export * from './src-astro/entities/LessonDoc';
-export * from './src-astro/entities/MetaDoc';
-export * from './src-astro/entities/SidebarItem';
-export * from './src-astro/entities/Tag';
+export * from './src-astro/collection/entities/BlogDoc';
+export * from './src-astro/collection/entities/CourseDoc';
+export * from './src-astro/collection/entities/ExperimentDoc';
+export * from './src-astro/collection/entities/LessonDoc';
+export * from './src-astro/collection/entities/MetaDoc';
+export * from './src-astro/collection/entities/SidebarItem';
+export * from './src-astro/collection/entities/Tag';
 
 // 数据库类 (按字母顺序)
 export * from './src-astro/collection/BaseDB';
-export * from './src-astro/collection/BlogDB';
-export * from './src-astro/collection/CourseDB';
-export * from './src-astro/collection/ExperimentDB';
-export * from './src-astro/collection/LessonDB';
-export * from './src-astro/collection/MetaDB';
+export * from './src-astro/collection/BlogRepo';
+export * from './src-astro/collection/CourseRepo';
+export * from './src-astro/collection/ExperimentRepo';
+export * from './src-astro/collection/LessonRepo';
+export * from './src-astro/collection/MetaRepo';
 
 // 工具类型
 export type { ImageProvider, ImageOptions } from './src/utils/image';

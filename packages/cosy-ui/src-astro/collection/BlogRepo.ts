@@ -1,11 +1,10 @@
-import BlogDoc from '../entities/BlogDoc';
-import type Tag from '../entities/Tag';
+import BlogDoc from './entities/BlogDoc';
+import type Tag from './entities/Tag';
 import { cosyLogger } from '../cosy';
-import { type CollectionEntry } from 'astro:content';
+import { defineCollection, z, type CollectionEntry } from 'astro:content';
 import { BaseDB } from './BaseDB';
-
-const COLLECTION_BLOG = 'blogs' as const;
-export type BlogEntry = CollectionEntry<typeof COLLECTION_BLOG>;
+import { glob } from 'astro/loaders';
+import { COLLECTION_BLOG, type BlogEntry } from '.';
 
 /**
  * 博客数据库类，用于管理博客内容集合。
@@ -23,7 +22,7 @@ export type BlogEntry = CollectionEntry<typeof COLLECTION_BLOG>;
  *     └── web-performance.md
  * ```
  */
-class BlogDB extends BaseDB<typeof COLLECTION_BLOG, BlogEntry, BlogDoc> {
+class BlogRepo extends BaseDB<typeof COLLECTION_BLOG, BlogEntry, BlogDoc> {
     protected collectionName = COLLECTION_BLOG;
 
     protected createDoc(entry: BlogEntry): BlogDoc {
@@ -192,7 +191,31 @@ class BlogDB extends BaseDB<typeof COLLECTION_BLOG, BlogEntry, BlogDoc> {
 
         return paths;
     }
+
+    makeBlogCollection = (base: string) => {
+        return defineCollection({
+            loader: glob({
+                pattern: '**/*.{md,mdx}',
+                base,
+            }),
+            schema: z.object({
+                title: z.string(),
+                description: z.string().optional(),
+                tags: z.array(z.string()).optional(),
+                date: z.date().optional(),
+                authors: z
+                    .array(
+                        z.object({
+                            name: z.string(),
+                            picture: z.string().optional(),
+                            url: z.string().optional(),
+                        })
+                    )
+                    .optional(),
+            }),
+        });
+    };
 }
 
 // 创建并导出单例实例
-export const blogDB = new BlogDB();
+export const blogRepo = new BlogRepo();

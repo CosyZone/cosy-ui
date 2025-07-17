@@ -1,7 +1,12 @@
-export * from './helpers';
+import type { CollectionEntry } from 'astro:content';
+
 export * from './BaseDB';
-export * from './BlogDB';
-export * from './CourseDB';
-export * from './ExperimentDB';
-export * from './LessonDB';
-export * from './MetaDB';
+export * from './BlogRepo';
+export * from './CourseRepo';
+export * from './ExperimentRepo';
+export * from './LessonRepo';
+export * from './MetaRepo';
+
+
+export const COLLECTION_BLOG = 'blogs' as const;
+export type BlogEntry = CollectionEntry<typeof COLLECTION_BLOG>;
