@@ -2,7 +2,6 @@ import {
     getCollection,
     getEntry,
     type CollectionEntry,
-    type DataEntry,
 } from 'astro:content';
 import { cosyLogger, ERROR_PREFIX } from '../cosy';
 import type { BaseDoc } from '../../index-astro';
@@ -25,16 +24,23 @@ import type { BaseDoc } from '../../index-astro';
  * ```
  *
  * 类型参数说明：
- * @template Collection - Astro content collection 的名称，必须是 DataEntryMap 的键
+ * @template Collection - Astro content collection 的名称
  * @template Entry - Collection 对应的条目类型
  * @template Doc - 文档类型，通常是自定义的文档类
  */
 export abstract class BaseDB<
-    Collection extends keyof DataEntry,
+    Collection extends string,
     Entry extends CollectionEntry<Collection>,
     Doc extends BaseDoc<Collection, Entry>,
 > {
-    /** 集合名称，必须在子类中指定 */
+    /**
+     * 集合名称，必须在子类中指定
+     * 
+     * 例如：
+     * ```typescript
+     * protected collectionName = 'blogs' as const;
+     * ```
+     */
     protected abstract collectionName: Collection;
 
     /**
