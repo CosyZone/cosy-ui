@@ -106,8 +106,6 @@ export default class BlogDoc extends BaseDoc implements SidebarProvider {
         return this.getAncestorId(2);
     }
 
-
-
     getSlug(): string {
         return this.getId().split('/').slice(1).join('/');
     }
@@ -160,6 +158,46 @@ export default class BlogDoc extends BaseDoc implements SidebarProvider {
         }
     }
 
+    getBadge(): string {
+        return this.entry.data.badge ?? '';
+    }
+
+    hasTag(tag: string): boolean {
+        return this.getTags().some((t) => t.name === tag);
+    }
+
+    hasBadge(): boolean {
+        return this.getBadge() !== '';
+    }
+
+    isDraft(): boolean {
+        return this.entry.data.draft ?? false;
+    }
+
+    isHidden(): boolean {
+        return this.entry.data.hidden ?? false;
+    }
+
+    isNotHidden(): boolean {
+        return !this.isHidden();
+    }
+
+    isFamous(): boolean {
+        return this.entry.data.famous ?? false;
+    }
+
+    async getTopSidebarItem(): Promise<SidebarItemEntity> {
+        const topDoc = await this.getTopDoc();
+        if (topDoc) {
+            return await topDoc.toSidebarItem();
+        }
+        return new SidebarItemEntity({
+            text: this.getTitle(),
+            items: [],
+            link: this.getLink(),
+        });
+    }
+
     async render(): Promise<any> {
         return await render(this.entry);
     }
@@ -177,18 +215,6 @@ export default class BlogDoc extends BaseDoc implements SidebarProvider {
         return new SidebarItemEntity({
             text: this.getTitle(),
             items: childItems,
-            link: this.getLink(),
-        });
-    }
-
-    async getTopSidebarItem(): Promise<SidebarItemEntity> {
-        const topDoc = await this.getTopDoc();
-        if (topDoc) {
-            return await topDoc.toSidebarItem();
-        }
-        return new SidebarItemEntity({
-            text: this.getTitle(),
-            items: [],
             link: this.getLink(),
         });
     }

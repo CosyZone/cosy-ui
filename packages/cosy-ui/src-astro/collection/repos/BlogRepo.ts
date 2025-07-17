@@ -205,6 +205,9 @@ class BlogRepo extends BaseDB<typeof COLLECTION_BLOG, BlogEntry, BlogDoc> {
                 description: z.string().optional(),
                 tags: z.array(z.string()).optional(),
                 date: z.date().optional(),
+                draft: z.boolean().optional(),
+                hidden: z.boolean().optional(),
+                famous: z.boolean().optional(),
                 authors: z
                     .array(
                         z.object({

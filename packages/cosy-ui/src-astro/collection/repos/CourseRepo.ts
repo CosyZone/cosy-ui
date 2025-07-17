@@ -29,6 +29,9 @@ export type CourseEntry = CollectionEntry<typeof COLLECTION_COURSE>;
  * └── en/                    # 英文版本
  *     └── ...
  * ```
+ * 
+ * 说明：
+ * - 如果希望单个课程可以作为 git 项目管理，考虑使用 LessonRepo 代替 CourseRepo
  */
 class CourseRepo extends BaseDB<
     typeof COLLECTION_COURSE,
@@ -108,6 +111,16 @@ class CourseRepo extends BaseDB<
                 title: z.string().optional(),
                 description: z.string().optional(),
                 folder: z.boolean().optional(),
+                authors: z
+                    .array(
+                        z.object({
+                            name: z.string(),
+                            picture: z.string().optional(),
+                            url: z.string().optional(),
+                        })
+                    )
+                    .optional(),
+                date: z.date().optional(),
                 order: z.number().optional(),
                 badge: z.string().optional(),
                 draft: z.boolean().optional(),

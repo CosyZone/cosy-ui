@@ -156,6 +156,28 @@ export default class CourseDoc extends BaseDoc implements SidebarProvider {
         return LinkUtil.getCourseLink(this.entry.id);
     }
 
+    getDate(): Date {
+        return new Date(this.entry.data.date as Date);
+    }
+
+    getDateForDisplay() {
+        try {
+            const dateObj = new Date(this.entry.data.date as Date);
+            if (isNaN(dateObj.getTime())) {
+                console.warn(`Invalid date format: ${this.entry.data.date}`);
+                return 'Date unavailable: ' + this.getTitle() + ' ' + this.getLink();
+            }
+            return dateObj.toLocaleDateString('zh-CN', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+            });
+        } catch (error) {
+            console.error(`Error formatting date: ${this.entry.data.date}`, error);
+            return 'Date unavailable';
+        }
+    }
+
     async render(): Promise<any> {
         return await render(this.entry);
     }
