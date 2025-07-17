@@ -31,7 +31,7 @@ import type { BaseDoc } from '../entities/BaseDoc';
 export abstract class BaseDB<
     Collection extends string,
     Entry extends CollectionEntry<Collection>,
-    Doc extends BaseDoc<Collection, Entry>,
+    Doc extends BaseDoc,
 > {
     /**
      * 集合名称，必须在子类中指定
