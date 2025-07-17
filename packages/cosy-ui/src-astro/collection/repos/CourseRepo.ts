@@ -42,16 +42,15 @@ class CourseRepo extends BaseDB<
     }
 
     /**
-     * 获取指定语言的所有顶级课程
+     * 获取指定语言的所有顶级课程，适用于在索引页面展示课程列表的情况
      *
      * @param lang - 语言代码
      * @returns 返回指定语言的顶级课程数组
      */
     async allCoursesByLang(lang: string): Promise<CourseDoc[]> {
-        const entries = await getCollection(COLLECTION_COURSE, ({ id }: { id: string }) => {
+        return await getCollection(COLLECTION_COURSE, ({ id }: { id: string }) => {
             return id.startsWith(lang) && id.split('/').length === 2;
-        });
-        return entries.map((entry: CourseEntry) => new CourseDoc(entry));
+        }).map((entry: CourseEntry) => new CourseDoc(entry));
     }
 
     /**
@@ -76,14 +75,27 @@ class CourseRepo extends BaseDB<
 
     /**
      * 获取精选课程
-     * 返回指定语言的前4个顶级课程文档
      *
      * @param lang - 语言代码（如 'zh-cn', 'en'）
-     * @returns 返回精选课程文档数组（最多4个）
+     * @param count - 返回的课程数量（默认4个）
+     * @returns 返回精选课程文档数组
      */
-    async getFamousCourses(lang: string): Promise<CourseDoc[]> {
-        const courses = await this.allCoursesByLang(lang);
-        return courses.slice(0, 4);
+    async getFamousCourses(lang: string, count: number = 4): Promise<CourseDoc[]> {
+        return (await this.allCoursesByLang(lang))
+            .filter((course) => course.isFamous())
+            .slice(0, count);
+    }
+
+    /**
+     * 获取指定语言的课程，并根据标签过滤
+     *
+     * @param lang - 语言代码（如 'zh-cn', 'en'）
+     * @param tag - 标签
+     * @returns 返回符合条件的课程文档数组
+     */
+    async getCoursesWithTag(lang: string, tag: string): Promise<CourseDoc[]> {
+        return (await this.allCoursesByLang(lang))
+            .filter((course) => course.hasTag(tag));
     }
 
     makeCourseCollection = (base: string) => {
@@ -100,6 +112,9 @@ class CourseRepo extends BaseDB<
                 badge: z.string().optional(),
                 draft: z.boolean().optional(),
                 hidden: z.boolean().optional(),
+                famous: z.boolean().optional(),
+                tags: z.array(z.string()).optional(),
+                category: z.string().optional(),
             }),
         });
     };

@@ -1,10 +1,9 @@
 import { cosyLogger } from '../../cosy';
 import { SidebarItemEntity, type SidebarProvider } from './SidebarItem';
 import { LinkUtil } from '../../../src/utils/link';
-import { defineCollection, getCollection, render, z, type CollectionEntry } from 'astro:content';
+import { render, type CollectionEntry } from 'astro:content';
 import { BaseDoc } from './BaseDoc';
-import { glob } from 'astro/loaders';
-import { BaseDB } from '../repos/BaseRepo';
+import { courseRepo } from '../repos/CourseRepo';
 
 export const COLLECTION_COURSE = 'courses' as const;
 export type CourseEntry = CollectionEntry<typeof COLLECTION_COURSE>;
@@ -35,12 +34,10 @@ export type CourseEntry = CollectionEntry<typeof COLLECTION_COURSE>;
  */
 export default class CourseDoc extends BaseDoc implements SidebarProvider {
     entry: CourseEntry;
-    repo: CourseRepo;
 
     constructor(entry: CourseEntry) {
         super();
         this.entry = entry;
-        this.repo = new CourseRepo();
     }
 
     static fromEntry(entry: CourseEntry) {
@@ -105,13 +102,9 @@ export default class CourseDoc extends BaseDoc implements SidebarProvider {
         return this.entry.data.order ?? 0;
     }
 
-    isFolder(): boolean {
-        return this.entry.data.folder ?? false;
-    }
-
     async getTopDoc(): Promise<CourseDoc | null> {
         const id = this.getTopDocId();
-        const doc = await this.repo.find(id);
+        const doc = await courseRepo.find(id);
         return doc;
     }
 
@@ -129,13 +122,13 @@ export default class CourseDoc extends BaseDoc implements SidebarProvider {
         }
 
         const id = this.getAncestorId(level);
-        const doc = await this.repo.find(id);
+        const doc = await courseRepo.find(id);
         return doc;
     }
 
     async getChildren(): Promise<CourseDoc[]> {
         const debug = false;
-        const children = (await this.repo.getChildren(this.entry.id)).sort(
+        const children = (await courseRepo.getChildren(this.entry.id)).sort(
             (a, b) => a.getOrder() - b.getOrder()
         );
         if (debug && children.length > 0) {
@@ -147,32 +140,16 @@ export default class CourseDoc extends BaseDoc implements SidebarProvider {
         return children;
     }
 
-    async toSidebarItem(): Promise<SidebarItemEntity> {
-        const debug = false;
-        const children = await this.getChildren();
-        let childItems = await Promise.all(
-            children.map((child) => child.toSidebarItem())
-        );
-
-        if (this.isBook()) {
-            childItems = [...childItems];
-        }
-
-        if (debug) {
-            cosyLogger.info(`${this.entry.id} 的侧边栏项目`);
-            console.log(childItems);
-        }
-
-        return new SidebarItemEntity({
-            text: this.getTitle(),
-            items: childItems,
-            link: this.getLink(),
-            badge: this.entry.data.badge,
-        });
+    getBadge(): string {
+        return this.entry.data.badge ?? '';
     }
 
-    isBook(): boolean {
-        return this.entry.id.split('/').length === 2;
+    getCategory(): string {
+        return this.entry.data.category ?? '';
+    }
+
+    getTags(): string[] {
+        return this.entry.data.tags ?? [];
     }
 
     getLink(): string {
@@ -195,80 +172,61 @@ export default class CourseDoc extends BaseDoc implements SidebarProvider {
         });
     }
 
-
-
-    makeCourseCollection = (base: string) => {
-        return defineCollection({
-            loader: glob({
-                pattern: '**/*.{md,mdx}',
-                base,
-            }),
-            schema: z.object({
-                title: z.string(),
-                description: z.string(),
-                folder: z.boolean(),
-                order: z.number(),
-                badge: z.string(),
-                draft: z.boolean(),
-                hidden: z.boolean(),
-            }),
-        });
-    };
-}
-
-class CourseRepo extends BaseDB<
-    typeof COLLECTION_COURSE,
-    CourseEntry,
-    CourseDoc
-> {
-    protected collectionName = COLLECTION_COURSE;
-
-    protected createDoc(entry: CourseEntry): CourseDoc {
-        return new CourseDoc(entry);
+    hasTag(tag: string): boolean {
+        return this.getTags().includes(tag);
     }
 
-    /**
-     * 获取指定语言的所有顶级课程
-     *
-     * @param lang - 语言代码
-     * @returns 返回指定语言的顶级课程数组
-     */
-    async allCoursesByLang(lang: string): Promise<CourseDoc[]> {
-        const entries = await getCollection(COLLECTION_COURSE, ({ id }: { id: string }) => {
-            return id.startsWith(lang) && id.split('/').length === 2;
-        });
-        return entries.map((entry: CourseEntry) => new CourseDoc(entry));
+    hasBadge(): boolean {
+        return this.getBadge() !== '';
     }
 
-    /**
-     * 获取用于 Astro 静态路由生成的路径参数，专门配合 [lang]/courses/[...slug].astro 使用
-     *
-     * @returns 返回路径参数数组
-     */
-    async getStaticPaths(): Promise<
-        { params: { lang: string; slug: string } }[]
-    > {
-        const entries = await getCollection(COLLECTION_COURSE);
-        return entries.map((entry: CourseEntry) => {
-            const doc = new CourseDoc(entry);
-            return {
-                params: {
-                    lang: doc.getLang(),
-                    slug: doc.getSlug(),
-                },
-            };
-        });
+    isBook(): boolean {
+        return this.entry.id.split('/').length === 2;
     }
 
-    /**
-     * 获取精选课程
-     * 返回指定语言的前4个顶级课程文档
-     *
-     * @param lang - 语言代码（如 'zh-cn', 'en'）
-     * @returns 返回精选课程文档数组（最多4个）
-     */
-    async getFamousCourses(lang: string): Promise<CourseDoc[]> {
-        const courses = await this.allCoursesByLang(lang);
-        return courses.slice(0, 4);
+    isDraft(): boolean {
+        return this.entry.data.draft ?? false;
+    }
+
+    isHidden(): boolean {
+        return this.entry.data.hidden ?? false;
+    }
+
+    isNotHidden(): boolean {
+        return !this.isHidden();
+    }
+
+    isFolder(): boolean {
+        return this.entry.data.folder ?? false;
+    }
+
+    isFamous(): boolean {
+        return this.entry.data.famous ?? false;
+    }
+
+    async toSidebarItem(): Promise<SidebarItemEntity> {
+        const debug = false;
+        const children = await this.getChildren();
+        let childItems = await Promise.all(
+            children
+                .filter((child) => child.isNotHidden())
+                .map((child) => child.toSidebarItem())
+        );
+
+        if (this.isBook()) {
+            childItems = [...childItems];
+        }
+
+        if (debug) {
+            cosyLogger.info(`${this.entry.id} 的侧边栏项目`);
+            console.log(childItems);
+        }
+
+        return new SidebarItemEntity({
+            text: this.getTitle(),
+            items: childItems,
+            link: this.getLink(),
+            badge: this.entry.data.badge,
+        });
     }
 }
