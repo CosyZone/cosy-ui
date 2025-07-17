@@ -51,9 +51,9 @@ class CourseRepo extends BaseDB<
      * @returns 返回指定语言的顶级课程数组
      */
     async allCoursesByLang(lang: string): Promise<CourseDoc[]> {
-        return await getCollection(COLLECTION_COURSE, ({ id }: { id: string }) => {
+        return (await getCollection(COLLECTION_COURSE, ({ id }: { id: string }) => {
             return id.startsWith(lang) && id.split('/').length === 2;
-        }).map((entry: CourseEntry) => new CourseDoc(entry));
+        })).map((entry: CourseEntry) => new CourseDoc(entry));
     }
 
     /**
