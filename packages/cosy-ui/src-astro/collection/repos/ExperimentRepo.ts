@@ -1,20 +1,20 @@
 import { defineCollection, z, type CollectionEntry } from 'astro:content';
 import { BaseDB } from './BaseDB';
-import LessonDoc from './entities/LessonDoc';
-import { cosyLogger } from '../cosy';
+import ExperimentDoc from '../entities/ExperimentDoc';
+import { cosyLogger } from '../../cosy';
 import { glob } from 'astro/loaders';
 
-export const COLLECTION_LESSON = 'lessons' as const;
-export type LessonEntry = CollectionEntry<typeof COLLECTION_LESSON>;
+export const COLLECTION_EXPERIMENT = 'experiments' as const;
+export type ExperimentEntry = CollectionEntry<typeof COLLECTION_EXPERIMENT>;
 
 /**
- * 课程数据库类，用于管理课程内容集合
+ * 实验数据库类，用于管理实验内容集合
  *
  * 目录结构：
  * ```
- * lessons/
- * ├── build_your_own_web_toolbox/      # 课程目录
- * │   ├── images/                      # 课程图片资源
+ * experiments/
+ * ├── safari_itp/           # 实验目录
+ * │   ├── images/           # 实验图片资源
  * │   ├── components/                  # 课程组件
  * │   ├── en/                          # 英文版本
  * │   │   ├── index.mdx                # 课程首页
@@ -41,24 +41,24 @@ export type LessonEntry = CollectionEntry<typeof COLLECTION_LESSON>;
  * - 每个语言版本包含完整的课程内容
  * - 课程目录可以作为 git 子模块独立管理
  */
-class LessonRepo extends BaseDB<
-    typeof COLLECTION_LESSON,
-    LessonEntry,
-    LessonDoc
+class ExperimentRepo extends BaseDB<
+    typeof COLLECTION_EXPERIMENT,
+    ExperimentEntry,
+    ExperimentDoc
 > {
-    protected collectionName = COLLECTION_LESSON;
+    protected collectionName = COLLECTION_EXPERIMENT;
 
-    protected createDoc(entry: LessonEntry): LessonDoc {
-        return new LessonDoc(entry);
+    protected createDoc(entry: ExperimentEntry): ExperimentDoc {
+        return new ExperimentDoc(entry);
     }
 
     /**
      * 获取指定语言的所有课程
      *
      * @param {string} lang - 语言代码
-     * @returns {Promise<LessonDoc[]>} 返回指定语言的所有课程
+     * @returns {Promise<ExperimentDoc[]>} 返回指定语言的所有课程
      */
-    async allLessons(lang: string): Promise<LessonDoc[]> {
+    async allExperiments(lang: string): Promise<ExperimentDoc[]> {
         const docs = await this.getDocsByDepth(2);
         return docs.filter((doc) => doc.getId().endsWith(lang));
     }
@@ -102,7 +102,7 @@ class LessonRepo extends BaseDB<
         return paths;
     }
 
-    makeLessonCollection = (base: string) => {
+    makeExperimentCollection = (base: string) => {
         return defineCollection({
             loader: glob({
                 pattern: '**/*.{md,mdx}',
@@ -111,18 +111,11 @@ class LessonRepo extends BaseDB<
             schema: z.object({
                 title: z.string().optional(),
                 description: z.string().optional(),
-                authors: z
-                    .array(
-                        z.object({
-                            name: z.string(),
-                            picture: z.string().optional(),
-                        })
-                    )
-                    .optional(),
+                pubDate: z.date().optional(),
             }),
         });
     };
 }
 
 // 创建并导出单例实例
-export const lessonRepo = new LessonRepo();
+export const experimentRepo = new ExperimentRepo();

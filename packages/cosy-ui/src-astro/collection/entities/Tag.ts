@@ -1,4 +1,4 @@
-import { blogRepo } from '../BlogRepo';
+import { blogRepo } from '../repos/BlogRepo';
 import { SidebarItemEntity } from './SidebarItem';
 import { type ITagStaticPath } from '../../types/static-path';
 import { LinkUtil } from '../../../src/utils/link';

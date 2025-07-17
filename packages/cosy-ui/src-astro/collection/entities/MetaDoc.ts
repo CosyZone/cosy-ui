@@ -1,7 +1,7 @@
 import { SidebarItemEntity } from './SidebarItem';
-import type { MetaEntry } from '../MetaRepo';
+import type { MetaEntry } from '../repos/MetaRepo';
 import { LinkUtil } from '../../../src/utils/link';
-import { metaRepo } from '../MetaRepo';
+import { metaRepo } from '../repos/MetaRepo';
 import type { SidebarProvider } from '../types';
 import { cosyLogger } from '../../cosy';
 import { BaseDoc } from './BaseDoc';

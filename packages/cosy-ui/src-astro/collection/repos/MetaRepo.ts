@@ -1,5 +1,5 @@
-import MetaDoc from './entities/MetaDoc';
-import { cosyLogger } from '../cosy';
+import MetaDoc from '../entities/MetaDoc';
+import { cosyLogger } from '../../cosy';
 import { defineCollection, z, type CollectionEntry } from 'astro:content';
 import { BaseDB } from './BaseDB';
 import { glob } from 'astro/loaders';

@@ -5,7 +5,7 @@ import type { SidebarProvider } from '../types';
 import { defineCollection, getCollection, render, z, type CollectionEntry } from 'astro:content';
 import { BaseDoc } from './BaseDoc';
 import { glob } from 'astro/loaders';
-import { BaseDB } from '../BaseDB';
+import { BaseDB } from '../repos/BaseDB';
 
 export const COLLECTION_COURSE = 'courses' as const;
 export type CourseEntry = CollectionEntry<typeof COLLECTION_COURSE>;

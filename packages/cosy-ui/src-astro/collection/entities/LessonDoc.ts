@@ -1,5 +1,5 @@
-import type { LessonEntry } from '../LessonRepo';
-import { lessonRepo } from '../LessonRepo';
+import type { LessonEntry } from '../repos/LessonRepo';
+import { lessonRepo } from '../repos/LessonRepo';
 import { cosyLogger } from '../../cosy';
 import { SidebarItemEntity } from './SidebarItem';
 import { LinkUtil } from '../../../src/utils/link';
