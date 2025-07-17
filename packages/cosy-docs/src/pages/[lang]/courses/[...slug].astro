@@ -1,11 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import {
-  Error404,
-  courseRepo,
-  defaultLogger,
-  type ISidebarItem,
-} from '@coffic/cosy-ui';
+import { Error404, defaultLogger, type ISidebarItem } from '@coffic/cosy-ui';
+import { courseRepo } from '@coffic/cosy-ui/collection';
 import type { RenderResult } from 'astro:content';
 
 const { lang, slug } = Astro.params;
