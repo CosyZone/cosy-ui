@@ -1,6 +1,6 @@
 import type { CollectionEntry } from 'astro:content';
 
-export * from './repos/BaseDB';
+export * from './repos/BaseRepo';
 export * from './repos/BlogRepo';
 export * from './repos/ExperimentRepo';
 export * from './repos/LessonRepo';

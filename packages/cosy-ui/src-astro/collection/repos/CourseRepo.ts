@@ -1,6 +1,6 @@
 import CourseDoc from '../entities/CourseDoc';
 import { defineCollection, getCollection, z, type CollectionEntry } from 'astro:content';
-import { BaseDB } from './BaseDB';
+import { BaseDB } from './BaseRepo';
 import { glob } from 'astro/loaders';
 
 export const COLLECTION_COURSE = 'courses' as const;

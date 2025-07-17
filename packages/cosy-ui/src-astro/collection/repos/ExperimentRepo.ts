@@ -1,5 +1,5 @@
 import { defineCollection, z, type CollectionEntry } from 'astro:content';
-import { BaseDB } from './BaseDB';
+import { BaseDB } from './BaseRepo';
 import ExperimentDoc from '../entities/ExperimentDoc';
 import { cosyLogger } from '../../cosy';
 import { glob } from 'astro/loaders';
