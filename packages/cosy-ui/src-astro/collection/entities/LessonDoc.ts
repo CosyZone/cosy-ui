@@ -44,6 +44,7 @@ import { BaseDoc } from './BaseDoc';
  */
 export default class LessonDoc extends BaseDoc implements SidebarProvider {
     entry: LessonEntry;
+    collectionName = 'lessons' as const;
 
     constructor(entry: LessonEntry) {
         super();

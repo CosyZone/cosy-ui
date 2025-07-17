@@ -8,6 +8,7 @@ import { BaseDoc } from './BaseDoc';
 
 export default class MetaDoc extends BaseDoc implements SidebarProvider {
     entry: MetaEntry;
+    collectionName = 'meta' as const;
 
     constructor(entry: MetaEntry) {
         super();

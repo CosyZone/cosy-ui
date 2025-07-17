@@ -4,7 +4,7 @@ import {
     type CollectionEntry,
 } from 'astro:content';
 import { cosyLogger, ERROR_PREFIX } from '../cosy';
-import type { BaseDoc } from '../../index-astro';
+import type { BaseDoc } from './entities/BaseDoc';
 
 /**
  * BaseDB 是所有数据库类的基类，提供了通用的文档操作功能。
