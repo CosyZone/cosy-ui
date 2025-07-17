@@ -1,7 +1,6 @@
 import { cosyLogger } from '../../cosy';
-import { SidebarItemEntity } from './SidebarItem';
+import { SidebarItemEntity, type SidebarProvider } from './SidebarItem';
 import { LinkUtil } from '../../../src/utils/link';
-import type { SidebarProvider } from '../types';
 import { defineCollection, getCollection, render, z, type CollectionEntry } from 'astro:content';
 import { BaseDoc } from './BaseDoc';
 import { glob } from 'astro/loaders';
@@ -37,7 +36,6 @@ export type CourseEntry = CollectionEntry<typeof COLLECTION_COURSE>;
 export default class CourseDoc extends BaseDoc implements SidebarProvider {
     entry: CourseEntry;
     repo: CourseRepo;
-    collectionName = 'courses' as const;
 
     constructor(entry: CourseEntry) {
         super();

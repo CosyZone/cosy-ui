@@ -1,9 +1,8 @@
 import type { ExperimentEntry } from '../repos/ExperimentRepo';
 import { experimentRepo } from '../repos/ExperimentRepo';
 import { cosyLogger } from '../../cosy';
-import { SidebarItemEntity } from './SidebarItem';
+import { SidebarItemEntity, type SidebarProvider } from './SidebarItem';
 import { LinkUtil } from '../../../src/utils/link';
-import type { SidebarProvider } from '../types';
 import { render } from 'astro:content';
 import type { IHeadingType } from '../../types/heading';
 import { BaseDoc } from './BaseDoc';

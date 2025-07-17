@@ -1,9 +1,8 @@
 import type { LessonEntry } from '../repos/LessonRepo';
 import { lessonRepo } from '../repos/LessonRepo';
 import { cosyLogger } from '../../cosy';
-import { SidebarItemEntity } from './SidebarItem';
+import { SidebarItemEntity, type SidebarProvider } from './SidebarItem';
 import { LinkUtil } from '../../../src/utils/link';
-import type { SidebarProvider } from '../types';
 import { render } from 'astro:content';
 import type { IHeadingType } from '../../types/heading';
 import { BaseDoc } from './BaseDoc';
@@ -44,7 +43,6 @@ import { BaseDoc } from './BaseDoc';
  */
 export default class LessonDoc extends BaseDoc implements SidebarProvider {
     entry: LessonEntry;
-    collectionName = 'lessons' as const;
 
     constructor(entry: LessonEntry) {
         super();

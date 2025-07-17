@@ -1,10 +1,9 @@
 import { LinkUtil } from '../../../src/utils/link';
 import Tag from './Tag';
 import { blogRepo, type BlogEntry } from '..';
-import { SidebarItemEntity } from './SidebarItem';
+import { SidebarItemEntity, type SidebarProvider } from './SidebarItem';
 import { cosyLogger, ERROR_PREFIX } from '../../cosy';
 import { render } from 'astro:content';
-import type { SidebarProvider } from '../types';
 import { BaseDoc } from './BaseDoc';
 
 /**
@@ -49,7 +48,6 @@ import { BaseDoc } from './BaseDoc';
 
 export default class BlogDoc extends BaseDoc implements SidebarProvider {
     entry: BlogEntry;
-    collectionName = 'blogs' as const;
 
     private constructor(entry: BlogEntry) {
         super();
