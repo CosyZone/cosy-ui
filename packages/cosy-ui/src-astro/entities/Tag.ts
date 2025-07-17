@@ -1,4 +1,4 @@
-import { blogDB } from '../database/BlogDB';
+import { blogDB } from '../collection/BlogDB';
 import { SidebarItemEntity } from './SidebarItem';
 import { type ITagStaticPath } from '../types/static-path';
 import { LinkUtil } from '../../src/utils/link';

@@ -1,9 +1,9 @@
 import { SidebarItemEntity } from './SidebarItem';
-import type { MetaEntry } from '../database/MetaDB';
+import type { MetaEntry } from '../collection/MetaDB';
 import { LinkUtil } from '../../src/utils/link';
 import { BaseDoc } from './BaseDoc';
-import { metaDB } from '../database/MetaDB';
-import { COLLECTION_META } from '../database/MetaDB';
+import { metaDB } from '../collection/MetaDB';
+import { COLLECTION_META } from '../collection/MetaDB';
 
 export default class MetaDoc extends BaseDoc<
   typeof COLLECTION_META,

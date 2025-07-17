@@ -1,9 +1,9 @@
 import { cosyLogger } from '../cosy';
 import { SidebarItemEntity } from './SidebarItem';
-import type { CourseEntry } from '../database/CourseDB';
-import { courseDB } from '../database/CourseDB';
+import type { CourseEntry } from '../collection/CourseDB';
+import { courseDB } from '../collection/CourseDB';
 import { LinkUtil } from '../../src/utils/link';
-import { COLLECTION_COURSE } from '../database/CourseDB';
+import { COLLECTION_COURSE } from '../collection/CourseDB';
 import { BaseDoc } from './BaseDoc';
 
 export default class CourseDoc extends BaseDoc<

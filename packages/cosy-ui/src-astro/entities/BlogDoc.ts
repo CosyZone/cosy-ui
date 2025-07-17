@@ -1,9 +1,9 @@
-import type { BlogEntry } from '../database/BlogDB';
+import type { BlogEntry } from '../collection/BlogDB';
 import { LinkUtil } from '../../src/utils/link';
 import Tag from './Tag';
 import { BaseDoc } from './BaseDoc';
-import { COLLECTION_BLOG } from '../database/BlogDB';
-import { blogDB } from '../database/BlogDB';
+import { COLLECTION_BLOG } from '../collection/BlogDB';
+import { blogDB } from '../collection/BlogDB';
 
 /**
  * 博客文档类，配合 BlogDB 使用

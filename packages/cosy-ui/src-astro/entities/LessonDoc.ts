@@ -1,9 +1,9 @@
-import type { LessonEntry } from '../database/LessonDB';
-import { lessonDB } from '../database/LessonDB';
+import type { LessonEntry } from '../collection/LessonDB';
+import { lessonDB } from '../collection/LessonDB';
 import { cosyLogger } from '../cosy';
 import { SidebarItemEntity } from './SidebarItem';
 import { LinkUtil } from '../../src/utils/link';
-import { COLLECTION_LESSON } from '../database/LessonDB';
+import { COLLECTION_LESSON } from '../collection/LessonDB';
 import { BaseDoc } from './BaseDoc';
 import type { IHeadingType } from '../types/heading';
 

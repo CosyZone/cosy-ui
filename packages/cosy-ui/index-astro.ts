@@ -73,12 +73,12 @@ export * from './src-astro/entities/SidebarItem';
 export * from './src-astro/entities/Tag';
 
 // 数据库类 (按字母顺序)
-export * from './src-astro/database/BaseDB';
-export * from './src-astro/database/BlogDB';
-export * from './src-astro/database/CourseDB';
-export * from './src-astro/database/ExperimentDB';
-export * from './src-astro/database/LessonDB';
-export * from './src-astro/database/MetaDB';
+export * from './src-astro/collection/BaseDB';
+export * from './src-astro/collection/BlogDB';
+export * from './src-astro/collection/CourseDB';
+export * from './src-astro/collection/ExperimentDB';
+export * from './src-astro/collection/LessonDB';
+export * from './src-astro/collection/MetaDB';
 
 // 工具类型
 export type { ImageProvider, ImageOptions } from './src/utils/image';
