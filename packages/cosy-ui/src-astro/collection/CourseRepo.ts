@@ -93,13 +93,13 @@ class CourseRepo extends BaseDB<
                 base,
             }),
             schema: z.object({
-                title: z.string(),
-                description: z.string(),
-                folder: z.boolean(),
-                order: z.number(),
-                badge: z.string(),
-                draft: z.boolean(),
-                hidden: z.boolean(),
+                title: z.string().optional(),
+                description: z.string().optional(),
+                folder: z.boolean().optional(),
+                order: z.number().optional(),
+                badge: z.string().optional(),
+                draft: z.boolean().optional(),
+                hidden: z.boolean().optional(),
             }),
         });
     };
