@@ -4,7 +4,9 @@ import { cosyLogger } from '../../cosy';
 import { defineCollection, z, type CollectionEntry } from 'astro:content';
 import { BaseDB } from './BaseRepo';
 import { glob } from 'astro/loaders';
-import { COLLECTION_BLOG, type BlogEntry } from '..';
+
+export const COLLECTION_BLOG = 'blogs' as const;
+export type BlogEntry = CollectionEntry<typeof COLLECTION_BLOG>;
 
 /**
  * 博客数据库类，用于管理博客内容集合。

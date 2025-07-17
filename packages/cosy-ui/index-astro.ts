@@ -63,11 +63,6 @@ export * from './src-astro/types/sidebar';
 export * from './src-astro/types/static-path';
 
 // 实体类 (按字母顺序)
-export * from './src-astro/collection/entities/BlogDoc';
-export * from './src-astro/collection/entities/CourseDoc';
-export * from './src-astro/collection/entities/ExperimentDoc';
-export * from './src-astro/collection/entities/LessonDoc';
-export * from './src-astro/collection/entities/MetaDoc';
 export * from './src-astro/collection/entities/SidebarItem';
 export * from './src-astro/collection/entities/Tag';
 
