@@ -30,9 +30,6 @@ async function copySrcToDist(): Promise<void> {
         // 复制 index-astro.ts 到 dist
         await fs_extra.copy(path.join(rootDir, 'index-astro.ts'), path.join(distDir, 'index-astro.ts'));
 
-        // 复制 index-collection.ts 到 dist
-        await fs_extra.copy(path.join(rootDir, 'index-collection.ts'), path.join(distDir, 'index-collection.ts'));
-
         console.log('✅ 成功复制 Astro 源代码到 dist');
     } catch (error) {
         console.error('❌ 复制 Astro 源代码失败:', error);

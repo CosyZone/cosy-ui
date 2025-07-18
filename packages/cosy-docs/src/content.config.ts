@@ -1,9 +1,9 @@
 import {
-    courseRepo,
-    lessonRepo,
-} from '@coffic/cosy-ui/collection';
+    makeCourseCollection,
+    makeLessonCollection
+} from '@coffic/cosy-content/schema';
 
 export const collections = {
-    courses: courseRepo.makeCourseCollection('./content/courses'),
-    lessons: lessonRepo.makeLessonCollection('./content/lessons'),
+    courses: makeCourseCollection('./content/courses'),
+    lessons: makeLessonCollection('./content/lessons'),
 };
