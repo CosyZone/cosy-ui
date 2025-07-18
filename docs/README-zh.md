@@ -8,7 +8,7 @@
 ![NPM Downloads](https://img.shields.io/npm/dm/%40coffic%2Fcosy-ui)
 [![Coffic](https://img.shields.io/badge/Coffic-green)](https://coffic.cn)
 [![Maintainer](https://img.shields.io/badge/Maintainer-blue)](https://github.com/nookery)
-![GitHub License](https://img.shields.io/github/license/cofficlab/cosy-ui)
+![GitHub License](https://img.shields.io/github/license/cosyzone/cosy-ui)
 
 这是一个 Astro 组件库，为同一个组织下的多个项目提供统一的 UI 风格。
 

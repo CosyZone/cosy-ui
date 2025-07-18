@@ -47,7 +47,7 @@ jobs:
           echo "🔍 开始健康检查..."
           echo "📦 包管理器: ${{ matrix.package-manager }}"
           echo "📦 Node.js 版本: ${{ matrix.node-version }}"
-          echo "🌐 文档网站: https://cofficlab.github.io/cosy-ui/en/courses/guide/"
+          echo "🌐 文档网站: https://cosyzone.github.io/cosy-ui/en/courses/guide/"
           
       - name: 🔧 Setup Node.js
         uses: actions/setup-node@v4
@@ -198,7 +198,7 @@ jobs:
           echo "🌐 检查文档网站可访问性..."
           
           # 检查主页
-          MAIN_URL="https://cofficlab.github.io/cosy-ui/en/courses/guide/"
+          MAIN_URL="https://cosyzone.github.io/cosy-ui/en/courses/guide/"
           HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$MAIN_URL")
           
           if [ "$HTTP_STATUS" = "200" ]; then
@@ -210,9 +210,9 @@ jobs:
           
           # 检查关键页面
           PAGES=(
-            "https://cofficlab.github.io/cosy-ui/en/courses/guide/installation/"
-            "https://cofficlab.github.io/cosy-ui/en/courses/components/alert/"
-            "https://cofficlab.github.io/cosy-ui/en/courses/components/button/"
+            "https://cosyzone.github.io/cosy-ui/en/courses/guide/installation/"
+            "https://cosyzone.github.io/cosy-ui/en/courses/components/alert/"
+            "https://cosyzone.github.io/cosy-ui/en/courses/components/button/"
           )
           
           for page in "${PAGES[@]}"; do
@@ -243,8 +243,8 @@ jobs:
           echo ""
           echo "🔗 相关链接："
           echo "- 📦 NPM 包: https://www.npmjs.com/package/@coffic/cosy-ui"
-          echo "- 📚 文档网站: https://cofficlab.github.io/cosy-ui/en/courses/guide/"
-          echo "- 🐙 GitHub 仓库: https://github.com/CofficLab/cosy-ui"
+          echo "- 📚 文档网站: https://cosyzone.github.io/cosy-ui/en/courses/guide/"
+          echo "- 🐙 GitHub 仓库: https://github.com/cosyzone/cosy-ui"
           
       - name: 🚨 Create Issue on Failure
         if: needs.health-check.result == 'failure'
@@ -266,8 +266,8 @@ jobs:
             
             ### 🔗 相关链接
             - 📦 [NPM 包](https://www.npmjs.com/package/@coffic/cosy-ui)
-            - 📚 [文档网站](https://cofficlab.github.io/cosy-ui/en/courses/guide/)
-            - 🐙 [GitHub 仓库](https://github.com/CofficLab/cosy-ui)
+            - 📚 [文档网站](https://cosyzone.github.io/cosy-ui/en/courses/guide/)
+            - 🐙 [GitHub 仓库](https://github.com/cosyzone/cosy-ui)
             
             ### 🛠️ 建议操作
             1. 检查最新发布的包是否正常
