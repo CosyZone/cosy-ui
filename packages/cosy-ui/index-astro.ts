@@ -62,10 +62,6 @@ export * from './src-astro/types/product';
 export * from './src-astro/types/sidebar';
 export * from './src-astro/types/static-path';
 
-// 实体类 (按字母顺序)
-export * from './src-astro/collection/entities/SidebarItem';
-export * from './src-astro/collection/entities/Tag';
-
 // 工具类型
 export type { ImageProvider, ImageOptions } from './src/utils/image';
 export * from './src/utils/image';
