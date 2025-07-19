@@ -93,8 +93,12 @@ export class LanguageUtil {
     private static getLanguageFromBrowser(): string | undefined {
         if (typeof navigator === 'undefined') return undefined;
 
-        // 获取浏览器语言
-        const browserLang = navigator.language.toLowerCase();
-        return browserLang;
+        const browserLang = navigator.language;
+
+        if (browserLang) {
+            return browserLang.toLowerCase();
+        }
+
+        return undefined;
     }
 }
