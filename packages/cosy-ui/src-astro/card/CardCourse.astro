@@ -19,6 +19,14 @@
  */
 
 import '../../style.ts';
+import WebsiteIcon from '../icons/WebsiteIcon.astro';
+import AstroIcon from '../icons/AstroIcon.astro';
+import GolangIcon from '../icons/CodeIcon.astro';
+import JavaIcon from '../icons/CodeIcon.astro';
+import PhpIcon from '../icons/CodeIcon.astro';
+import VueIcon from '../icons/CodeIcon.astro';
+import SwiftIcon from '../icons/CodeIcon.astro';
+import BookIcon from '../icons/DocumentIcon.astro';
 
 interface Props {
   courseName: string;
@@ -30,27 +38,26 @@ interface Props {
 
 const { courseName, courseSlug, description = '', lang, href } = Astro.props;
 
-// 图标映射（用 emoji 或 SVG，示例用 emoji）
-const courseIconMap: Record<string, string> = {
-  computer_networks: '🖧',
-  computer_organization: '🖥️',
-  operating_systems: '💻',
-  data_structures: '🗄️',
-  higher_mathematics: '📐',
-  linear_algebra: '➗',
-  probability_and_statistics: '📊',
-  vue: '🟩',
-  php: '🐘',
-  javascript: '🟨',
-  java: '☕',
-  golang: '💙',
-  swift_ui: '🍏',
-  docker: '🐳',
-  flutter: '💙',
-  astro: '🚀',
-  caddy: '🛡️',
-  kong: '🐒',
-  default: '📚',
+// 图标映射（用 SVG 组件）
+const courseIconMap: Record<string, any> = {
+  computer_networks: WebsiteIcon,
+  computer_organization: BookIcon,
+  operating_systems: BookIcon,
+  data_structures: BookIcon,
+  higher_mathematics: BookIcon,
+  linear_algebra: BookIcon,
+  probability_and_statistics: BookIcon,
+  vue: VueIcon,
+  php: PhpIcon,
+  javascript: BookIcon,
+  java: JavaIcon,
+  golang: GolangIcon,
+  swift_ui: SwiftIcon,
+  flutter: BookIcon,
+  astro: AstroIcon,
+  caddy: BookIcon,
+  kong: BookIcon,
+  default: BookIcon,
 };
 
 const courseGradientMap: Record<string, string> = {
@@ -67,7 +74,6 @@ const courseGradientMap: Record<string, string> = {
   java: 'cosy:from-error/50 cosy:to-warning/50',
   golang: 'cosy:from-info/50 cosy:to-primary/50',
   swift_ui: 'cosy:from-warning/50 cosy:to-error/50',
-  docker: 'cosy:from-info/50 cosy:to-primary/50',
   flutter: 'cosy:from-primary/50 cosy:to-secondary/50',
   astro: 'cosy:from-secondary/50 cosy:to-accent/50',
   caddy: 'cosy:from-success/50 cosy:to-primary/50',
@@ -82,16 +88,16 @@ function normalizeName(name: string) {
 const normalizedName = normalizeName(courseSlug);
 
 // 动态选择图标
-let courseIcon = courseIconMap[normalizedName] || '';
-if (!courseIcon) {
+let IconComponent = courseIconMap[normalizedName] || null;
+if (!IconComponent) {
   for (const key in courseIconMap) {
     if (key !== 'default' && normalizedName.includes(key)) {
-      courseIcon = courseIconMap[key];
+      IconComponent = courseIconMap[key];
       break;
     }
   }
 }
-if (!courseIcon) courseIcon = courseIconMap.default;
+if (!IconComponent) IconComponent = courseIconMap.default;
 
 // 动态选择渐变
 let courseGradient = courseGradientMap[normalizedName] || '';
@@ -112,13 +118,13 @@ const displayName = courseName
 ---
 
 <div
-  class={`card cosy:shadow-lg hover:cosy:shadow-xl cosy:transition-all cosy:duration-300 hover:cosy:-translate-y-1 cosy:border-0 cosy:overflow-hidden cosy:bg-gradient-to-br ${courseGradient} cosy:relative`}>
+  class={`cosy:card cosy:shadow-lg hover:cosy:shadow-xl cosy:transition-all cosy:duration-300 hover:cosy:-translate-y-1 cosy:border-0 cosy:overflow-hidden cosy:bg-gradient-to-br ${courseGradient} cosy:relative`}>
   <!-- 背景图标 -->
   <div
-    class="cosy:absolute cosy:top-2 cosy:right-2 cosy:opacity-30 cosy:text-5xl">
-    {courseIcon}
+    class="cosy:absolute cosy:top-2 cosy:right-2 cosy:opacity-30 cosy:w-24 cosy:h-24">
+    <IconComponent class="cosy:w-full cosy:h-full" />
   </div>
-  <div class="card-body cosy:p-6 cosy:relative cosy:z-10">
+  <div class="cosy:card-body cosy:p-6 cosy:relative cosy:z-10">
     <!-- 标题和描述区域 -->
     <div class="cosy:mb-4">
       <h3 class="cosy:text-lg cosy:font-semibold cosy:truncate cosy:text-start">
@@ -133,10 +139,10 @@ const displayName = courseName
       }
     </div>
     <!-- 操作按钮 -->
-    <div class="card-actions cosy:justify-end cosy:mt-4">
+    <div class="cosy:card-actions cosy:justify-end cosy:mt-4">
       <a
         href={href}
-        class="btn cosy:bg-base-100 cosy:backdrop-blur-sm cosy:border cosy:border-base-100/30 hover:cosy:bg-base-100/30 cosy:transition-all cosy:duration-300">
+        class="cosy:btn cosy:bg-base-100 cosy:backdrop-blur-sm cosy:border cosy:border-base-100/30 hover:cosy:bg-base-100/30 cosy:transition-all cosy:duration-300">
         {lang === 'en' ? 'Start Learning' : '开始学习'}
       </a>
     </div>

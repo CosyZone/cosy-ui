@@ -1,15 +1,32 @@
 ---
 /**
  * @component ECardCourseContainer
- * @description CardCourse 课程卡片演示容器，展示 CardCourse 组件的标准用法。
+ * @description CardCourse 课程卡片演示容器，展示 CardCourse 示例组件的多种用法。
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import ECardCourse from './ECardCourse.astro';
-import CardCourseSource from './ECardCourse.astro?raw';
+import ECardCourseBasic from './ECardCourseBasic.astro';
+import ECardCourseWithDescription from './ECardCourseWithDescription.astro';
+import ECardCourseEnglish from './ECardCourseEnglish.astro';
+import ECardCourseBasicSource from './ECardCourseBasic.astro?raw';
+import ECardCourseWithDescriptionSource from './ECardCourseWithDescription.astro?raw';
+import ECardCourseEnglishSource from './ECardCourseEnglish.astro?raw';
+
+const codes = [
+  ECardCourseBasicSource,
+  ECardCourseWithDescriptionSource,
+  ECardCourseEnglishSource,
+];
+const titles = ['基础用法', '带描述（中文）', '英文课程卡片'];
 ---
 
-<CodeContainer codes={[CardCourseSource]}>
+<CodeContainer codes={codes} titles={titles}>
   <div id="tab-1">
-    <ECardCourse />
+    <ECardCourseBasic />
+  </div>
+  <div id="tab-2">
+    <ECardCourseWithDescription />
+  </div>
+  <div id="tab-3">
+    <ECardCourseEnglish />
   </div>
 </CodeContainer>
