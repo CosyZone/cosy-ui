@@ -40,7 +40,7 @@ const { courseName, courseSlug, description = '', lang, href } = Astro.props;
 
 // 图标映射（用 SVG 组件）
 const courseIconMap: Record<string, any> = {
-  computer_networks: WebsiteIcon,
+  computer_networks: BookIcon,
   computer_organization: BookIcon,
   operating_systems: BookIcon,
   data_structures: BookIcon,
@@ -54,7 +54,7 @@ const courseIconMap: Record<string, any> = {
   golang: GolangIcon,
   swift_ui: SwiftIcon,
   flutter: BookIcon,
-  astro: AstroIcon,
+  astro: GolangIcon,
   caddy: BookIcon,
   kong: BookIcon,
   default: BookIcon,
@@ -122,7 +122,13 @@ const displayName = courseName
   <!-- 背景图标 -->
   <div
     class="cosy:absolute cosy:top-2 cosy:right-2 cosy:opacity-30 cosy:w-24 cosy:h-24">
-    <IconComponent class="cosy:w-full cosy:h-full" />
+    {
+      IconComponent === AstroIcon ? (
+        <IconComponent name="astro" class="cosy:w-full cosy:h-full" />
+      ) : (
+        <IconComponent class="cosy:w-full cosy:h-full" />
+      )
+    }
   </div>
   <div class="cosy:card-body cosy:p-6 cosy:relative cosy:z-10">
     <!-- 标题和描述区域 -->
