@@ -3,52 +3,142 @@
  * @component CardCourse
  *
  * @description
- * 课程卡片组件，用于展示课程信息，具有统一的设计风格。
+ * 课程卡片组件，用于展示课程信息，具有统一的设计风格。支持动态图标和渐变背景。
  *
  * @usage
  * ```astro
- * <CardCourse title="React 基础教程" link="/courses/react-basics" />
+ * <CardCourse courseName="React 基础教程" courseSlug="react" lang="zh" href="/courses/react-basics" />
  * ```
  *
  * @props
- * - title: string - 课程标题
- * - link: string - 课程链接
+ * - courseName: string - 课程标题
+ * - courseSlug: string - 课程唯一标识（用于图标和背景）
+ * - description?: string - 课程描述
+ * - lang: string - 语言（"en" 或 "zh"）
+ * - href: string - 课程链接
  */
 
-// 导入样式
 import '../../style.ts';
 
 interface Props {
-  title: string;
-  link: string;
+  courseName: string;
+  courseSlug: string;
+  description?: string;
+  lang: string;
+  href: string;
 }
 
-const { title, link } = Astro.props;
+const { courseName, courseSlug, description = '', lang, href } = Astro.props;
+
+// 图标映射（用 emoji 或 SVG，示例用 emoji）
+const courseIconMap: Record<string, string> = {
+  computer_networks: '🖧',
+  computer_organization: '🖥️',
+  operating_systems: '💻',
+  data_structures: '🗄️',
+  higher_mathematics: '📐',
+  linear_algebra: '➗',
+  probability_and_statistics: '📊',
+  vue: '🟩',
+  php: '🐘',
+  javascript: '🟨',
+  java: '☕',
+  golang: '💙',
+  swift_ui: '🍏',
+  docker: '🐳',
+  flutter: '💙',
+  astro: '🚀',
+  caddy: '🛡️',
+  kong: '🐒',
+  default: '📚',
+};
+
+const courseGradientMap: Record<string, string> = {
+  computer_networks: 'cosy:from-primary/50 cosy:to-secondary/50',
+  computer_organization: 'cosy:from-primary/50 cosy:to-accent/50',
+  operating_systems: 'cosy:from-secondary/50 cosy:to-accent/50',
+  data_structures: 'cosy:from-accent/50 cosy:to-primary/50',
+  higher_mathematics: 'cosy:from-success/50 cosy:to-info/50',
+  linear_algebra: 'cosy:from-info/50 cosy:to-success/50',
+  probability_and_statistics: 'cosy:from-success/50 cosy:to-accent/50',
+  vue: 'cosy:from-success/50 cosy:to-primary/50',
+  php: 'cosy:from-secondary/50 cosy:to-accent/50',
+  javascript: 'cosy:from-warning/50 cosy:to-error/50',
+  java: 'cosy:from-error/50 cosy:to-warning/50',
+  golang: 'cosy:from-info/50 cosy:to-primary/50',
+  swift_ui: 'cosy:from-warning/50 cosy:to-error/50',
+  docker: 'cosy:from-info/50 cosy:to-primary/50',
+  flutter: 'cosy:from-primary/50 cosy:to-secondary/50',
+  astro: 'cosy:from-secondary/50 cosy:to-accent/50',
+  caddy: 'cosy:from-success/50 cosy:to-primary/50',
+  kong: 'cosy:from-accent/50 cosy:to-secondary/50',
+  default: 'cosy:from-neutral cosy:to-base-content',
+};
+
+function normalizeName(name: string) {
+  return name.toLowerCase().replace(/[^a-z0-9]/g, '_');
+}
+
+const normalizedName = normalizeName(courseSlug);
+
+// 动态选择图标
+let courseIcon = courseIconMap[normalizedName] || '';
+if (!courseIcon) {
+  for (const key in courseIconMap) {
+    if (key !== 'default' && normalizedName.includes(key)) {
+      courseIcon = courseIconMap[key];
+      break;
+    }
+  }
+}
+if (!courseIcon) courseIcon = courseIconMap.default;
+
+// 动态选择渐变
+let courseGradient = courseGradientMap[normalizedName] || '';
+if (!courseGradient) {
+  for (const key in courseGradientMap) {
+    if (key !== 'default' && normalizedName.includes(key)) {
+      courseGradient = courseGradientMap[key];
+      break;
+    }
+  }
+}
+if (!courseGradient) courseGradient = courseGradientMap.default;
+
+// 标题格式化
+const displayName = courseName
+  .replace(/_/g, ' ')
+  .replace(/\b\w/g, (l) => l.toUpperCase());
 ---
 
-<div>
-  <a
-    href={link}
-    class="cosy:justify-center cosy:flex cosy:no-underline cosy:text-base-content">
-    <div class="cosy:w-56 cosy:h-80">
-      <div
-        class="cosy:bg-gradient-to-br cosy:w-full cosy:h-full cosy:from-accent/50 cosy:to-primary/30 cosy:rounded-3xl cosy:shadow-lg cosy:backdrop-blur-sm">
-        <div
-          class="cosy:bg-base-100/60 cosy:w-full cosy:h-full cosy:rounded-3xl cosy:border cosy:border-base-content/30 hover:cosy:scale-105 hover:cosy:shadow-2xl cosy:transform cosy:duration-200 cosy:backdrop-filter cosy:backdrop-blur-sm">
-          <div class="card-body cosy:p-1 cosy:h-full">
-            <!-- 使用书本图标代替图片 -->
-            <div
-              class="cosy:h-3/5 cosy:w-full cosy:flex cosy:items-center cosy:justify-center cosy:text-6xl cosy:text-primary">
-              📚
-            </div>
-            <div>
-              <h2 class="cosy:text-lg cosy:text-center cosy:font-medium">
-                {title}
-              </h2>
-            </div>
-          </div>
-        </div>
-      </div>
+<div
+  class={`card cosy:shadow-lg hover:cosy:shadow-xl cosy:transition-all cosy:duration-300 hover:cosy:-translate-y-1 cosy:border-0 cosy:overflow-hidden cosy:bg-gradient-to-br ${courseGradient} cosy:relative`}>
+  <!-- 背景图标 -->
+  <div
+    class="cosy:absolute cosy:top-2 cosy:right-2 cosy:opacity-30 cosy:text-5xl">
+    {courseIcon}
+  </div>
+  <div class="card-body cosy:p-6 cosy:relative cosy:z-10">
+    <!-- 标题和描述区域 -->
+    <div class="cosy:mb-4">
+      <h3 class="cosy:text-lg cosy:font-semibold cosy:truncate cosy:text-start">
+        {displayName}
+      </h3>
+      {
+        description && (
+          <p class="cosy:text-sm cosy:mt-4 cosy:line-clamp-3 cosy:text-start">
+            {description}
+          </p>
+        )
+      }
     </div>
-  </a>
+    <!-- 操作按钮 -->
+    <div class="card-actions cosy:justify-end cosy:mt-4">
+      <a
+        href={href}
+        class="btn cosy:bg-base-100 cosy:backdrop-blur-sm cosy:border cosy:border-base-100/30 hover:cosy:bg-base-100/30 cosy:transition-all cosy:duration-300">
+        {lang === 'en' ? 'Start Learning' : '开始学习'}
+      </a>
+    </div>
+  </div>
 </div>

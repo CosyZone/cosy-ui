@@ -1,0 +1,15 @@
+---
+/**
+ * @component ECardCourseContainer
+ * @description CardCourse 课程卡片演示容器，展示 CardCourse 组件的标准用法。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ECardCourse from './ECardCourse.astro';
+import CardCourseSource from './ECardCourse.astro?raw';
+---
+
+<CodeContainer codes={[CardCourseSource]}>
+  <div id="tab-1">
+    <ECardCourse />
+  </div>
+</CodeContainer>
