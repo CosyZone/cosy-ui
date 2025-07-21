@@ -1,0 +1,53 @@
+---
+title: 'CardCourse'
+description: '课程卡片组件，用于展示课程信息，支持动态图标和渐变背景'
+folder: false
+order: 4.1
+---
+
+import { CardCourse } from '@coffic/cosy-ui';
+import { CardCoursePackage } from '@/components/card-course/index';
+
+## 简介
+
+CardCourse 组件用于展示课程信息，支持动态图标和渐变背景，适合在课程列表、专题页等场景下统一展示课程。
+
+组件特性：
+
+- 支持动态图标，根据课程名称自动匹配对应图标
+- 渐变背景设计，不同课程类型有不同的背景色彩
+- 响应式设计，适配不同屏幕尺寸
+- 悬停动画效果，提升用户体验
+- 支持中英文界面切换
+
+## 基础用法
+
+最简单的课程卡片展示：
+
+<CardCoursePackage.CardCourseContainers.Course />
+
+## 组件属性
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| courseName | string | - | 课程标题（必填） |
+| description | string | - | 课程描述（可选） |
+| lang | string | - | 语言设置，"en" 或 "zh"（必填） |
+| href | string | - | 课程链接（必填） |
+
+## 使用示例
+
+```astro
+<CardCourse 
+  courseName="React 基础教程" 
+  lang="zh" 
+  href="/courses/react-basics" 
+/>
+
+<CardCourse 
+  courseName="Vue.js 进阶" 
+  description="深入学习 Vue.js 框架的核心概念和高级特性"
+  lang="zh" 
+  href="/courses/vue-advanced" 
+/>
+``` 

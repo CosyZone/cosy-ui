@@ -1,0 +1,53 @@
+---
+title: 'CardCourse'
+description: 'Course card component for displaying course information with dynamic icons and gradient backgrounds'
+folder: false
+order: 4.1
+---
+
+import { CardCourse } from '@coffic/cosy-ui';
+import { CardCoursePackage } from '@/components/card-course/index';
+
+## Introduction
+
+The CardCourse component is used to display course information with dynamic icons and gradient backgrounds, suitable for course lists, feature pages, and other scenarios where courses need to be displayed uniformly.
+
+Component features:
+
+- Supports dynamic icons that automatically match corresponding icons based on course names
+- Gradient background design with different background colors for different course types
+- Responsive design that adapts to different screen sizes
+- Hover animation effects to enhance user experience
+- Supports Chinese and English interface switching
+
+## Basic Usage
+
+The simplest course card display:
+
+<CardCoursePackage.CardCourseContainers.Course />
+
+## Component Properties
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| courseName | string | - | Course title (required) |
+| description | string | - | Course description (optional) |
+| lang | string | - | Language setting, "en" or "zh" (required) |
+| href | string | - | Course link (required) |
+
+## Usage Examples
+
+```astro
+<CardCourse 
+  courseName="React Basics" 
+  lang="en" 
+  href="/courses/react-basics" 
+/>
+
+<CardCourse 
+  courseName="Vue.js Advanced" 
+  description="Deep dive into Vue.js framework core concepts and advanced features"
+  lang="en" 
+  href="/courses/vue-advanced" 
+/>
+``` 

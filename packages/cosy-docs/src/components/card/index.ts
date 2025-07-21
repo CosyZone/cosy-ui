@@ -4,7 +4,6 @@ import CardWithImageContainer from './CardWithImageContainer.astro';
 import CardClickableContainer from './CardClickableContainer.astro';
 import CardCompactContainer from './CardCompactContainer.astro';
 import CardCustomStyleContainer from './CardCustomStyleContainer.astro';
-import CardCourseContainer from './CardCourseContainer.astro';
 
 export const CardPackage = {
     CardContainers: {
@@ -14,6 +13,5 @@ export const CardPackage = {
         Clickable: CardClickableContainer,
         Compact: CardCompactContainer,
         CustomStyle: CardCustomStyleContainer,
-        Course: CardCourseContainer,
     }
 }; 
