@@ -1,63 +1,40 @@
-import WebsiteIcon from '../icons/WebsiteIcon.astro';
-import AstroIcon from '../icons/AstroIcon.astro';
-import GolangIcon from '../icons/CodeIcon.astro';
-import JavaIcon from '../icons/CodeIcon.astro';
-import PhpIcon from '../icons/CodeIcon.astro';
-import VueIcon from '../icons/CodeIcon.astro';
-import SwiftIcon from '../icons/CodeIcon.astro';
-import BookIcon from '../icons/DocumentIcon.astro';
-
 /**
- * 课程图标映射配置
- * 根据课程名称返回对应的图标组件
+ * 通用渐变色配置
+ * key 为描述性名称，value 为渐变色 class
  */
-export const courseIconMap: Record<string, any> = {
-    computer_networks: BookIcon,
-    computer_organization: BookIcon,
-    operating_systems: BookIcon,
-    data_structures: BookIcon,
-    higher_mathematics: BookIcon,
-    linear_algebra: BookIcon,
-    probability_and_statistics: BookIcon,
-    vue: VueIcon,
-    php: PhpIcon,
-    javascript: BookIcon,
-    java: JavaIcon,
-    golang: GolangIcon,
-    swift_ui: SwiftIcon,
-    flutter: BookIcon,
-    astro: GolangIcon,
-    caddy: BookIcon,
-    kong: BookIcon,
-    website: WebsiteIcon,
-    default: BookIcon,
+export const gradientPresets: Record<string, string> = {
+    bluePurple: 'cosy:bg-gradient-to-br cosy:from-blue-500 cosy:to-purple-600',
+    indigoBlue: 'cosy:bg-gradient-to-br cosy:from-indigo-500 cosy:to-blue-600',
+    purplePink: 'cosy:bg-gradient-to-br cosy:from-purple-500 cosy:to-pink-600',
+    greenTeal: 'cosy:bg-gradient-to-br cosy:from-green-500 cosy:to-teal-600',
+    redOrange: 'cosy:bg-gradient-to-br cosy:from-red-500 cosy:to-orange-600',
+    yellowOrange: 'cosy:bg-gradient-to-br cosy:from-yellow-500 cosy:to-orange-600',
+    pinkRed: 'cosy:bg-gradient-to-br cosy:from-pink-500 cosy:to-red-600',
+    emeraldCyan: 'cosy:bg-gradient-to-br cosy:from-blue-400 cosy:to-cyan-600',
+    orangeRed: 'cosy:bg-gradient-to-br cosy:from-orange-400 cosy:to-red-600',
+    gray: 'cosy:bg-gradient-to-br cosy:from-gray-500 cosy:to-gray-600',
+    purplePinkDark: 'cosy:bg-gradient-to-br cosy:from-purple-500 cosy:to-pink-700',
+    greenEmerald: 'cosy:bg-gradient-to-br cosy:from-green-500 cosy:to-emerald-700',
+    blueIndigo: 'cosy:bg-gradient-to-br cosy:from-blue-500 cosy:to-indigo-700',
+    primarySecondary: 'cosy:bg-gradient-to-br cosy:from-primary/50 cosy:to-secondary/50',
 };
 
 /**
- * 课程背景渐变映射配置
- * 根据课程名称返回对应的渐变背景类名
+ * 渐变色 key 列表，保证顺序稳定
  */
-export const courseGradientMap: Record<string, string> = {
-    computer_networks: 'cosy:bg-gradient-to-br cosy:from-blue-500 cosy:to-purple-600',
-    computer_organization: 'cosy:bg-gradient-to-br cosy:from-indigo-500 cosy:to-blue-600',
-    operating_systems: 'cosy:bg-gradient-to-br cosy:from-purple-500 cosy:to-pink-600',
-    data_structures: 'cosy:bg-gradient-to-br cosy:from-green-500 cosy:to-teal-600',
-    higher_mathematics: 'cosy:bg-gradient-to-br cosy:from-red-500 cosy:to-orange-600',
-    linear_algebra: 'cosy:bg-gradient-to-br cosy:from-yellow-500 cosy:to-orange-600',
-    probability_and_statistics: 'cosy:bg-gradient-to-br cosy:from-pink-500 cosy:to-red-600',
-    vue: 'cosy:bg-gradient-to-br cosy:from-green-400 cosy:to-emerald-600',
-    php: 'cosy:bg-gradient-to-br cosy:from-purple-400 cosy:to-indigo-600',
-    javascript: 'cosy:bg-gradient-to-br cosy:from-yellow-400 cosy:to-orange-600',
-    java: 'cosy:bg-gradient-to-br cosy:from-red-400 cosy:to-orange-600',
-    golang: 'cosy:bg-gradient-to-br cosy:from-blue-400 cosy:to-cyan-600',
-    swift_ui: 'cosy:bg-gradient-to-br cosy:from-orange-400 cosy:to-red-600',
-    flutter: 'cosy:bg-gradient-to-br cosy:from-primary/50 cosy:to-secondary/50',
-    astro: 'cosy:bg-gradient-to-br cosy:from-purple-500 cosy:to-pink-600',
-    caddy: 'cosy:bg-gradient-to-br cosy:from-green-500 cosy:to-emerald-700',
-    kong: 'cosy:bg-gradient-to-br cosy:from-blue-500 cosy:to-indigo-700',
-    website: 'cosy:bg-gradient-to-br cosy:from-purple-500 cosy:to-pink-700',
-    default: 'cosy:bg-gradient-to-br cosy:from-gray-500 cosy:to-gray-600',
-};
+export const gradientKeys = Object.keys(gradientPresets);
+
+/**
+ * 根据字符串生成稳定 hash
+ */
+function stringToStableIndex(str: string, mod: number): number {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        hash = ((hash << 5) - hash) + str.charCodeAt(i);
+        hash |= 0; // 转为32位整数
+    }
+    return Math.abs(hash) % mod;
+}
 
 /**
  * 图标尺寸配置
@@ -88,51 +65,16 @@ export function normalizeName(name: string): string {
 }
 
 /**
- * 根据课程名称获取对应的图标组件
+ * 根据课程名称获取对应的背景渐变类名（稳定分配，所有 courseName 都有）
  * @param courseName 课程名称
- * @returns 图标组件或默认图标
- */
-export function getCourseIcon(courseName: string): any {
-    const normalizedName = normalizeName(courseName);
-
-    // 直接匹配
-    let IconComponent = courseIconMap[normalizedName];
-    if (IconComponent) return IconComponent;
-
-    // 模糊匹配
-    for (const key in courseIconMap) {
-        if (key !== 'default' && normalizedName.includes(key)) {
-            IconComponent = courseIconMap[key];
-            break;
-        }
-    }
-
-    // 返回默认图标
-    return IconComponent || courseIconMap.default;
-}
-
-/**
- * 根据课程名称获取对应的背景渐变类名
- * @param courseName 课程名称
- * @returns 渐变背景类名或默认渐变
+ * @returns 渐变背景类名
  */
 export function getCourseGradient(courseName: string): string {
     const normalizedName = normalizeName(courseName);
-
-    // 直接匹配
-    let gradient = courseGradientMap[normalizedName];
-    if (gradient) return gradient;
-
-    // 模糊匹配
-    for (const key in courseGradientMap) {
-        if (key !== 'default' && normalizedName.includes(key)) {
-            gradient = courseGradientMap[key];
-            break;
-        }
-    }
-
-    // 返回默认渐变
-    return gradient || courseGradientMap.default;
+    // 稳定 hash 到渐变色 key
+    const idx = stringToStableIndex(normalizedName, gradientKeys.length);
+    const key = gradientKeys[idx];
+    return gradientPresets[key] || gradientPresets.gray;
 }
 
 /**

@@ -47,3 +47,6 @@ export { default as DownloadIcon } from './DownloadIcon.astro';
 export { default as LogOut } from './LogOut.astro';
 export { default as AppStoreIcon } from './AppStoreIcon.astro';
 export { default as WebsiteIcon } from './WebsiteIcon.astro';
+
+// 智能图标
+export { default as SmartIcon } from './SmartIcon.astro';

@@ -4,26 +4,17 @@
  * @description 课程卡片背景图标组件，处理图标的显示和动画
  */
 
-import AstroIcon from '../icons/AstroIcon.astro';
+import { SmartIcon } from '../icons';
 
 interface Props {
-  IconComponent: any;
+  courseName: string;
   iconSizeClasses: string;
 }
 
-const { IconComponent, iconSizeClasses } = Astro.props;
+const { courseName, iconSizeClasses } = Astro.props;
 ---
 
 <div
   class={`cosy:absolute cosy:top-2 cosy:right-2 cosy:opacity-30 hover:cosy:opacity-50 cosy:transition-all cosy:duration-500 cosy:ease-out hover:cosy:scale-110 hover:cosy:rotate-12 ${iconSizeClasses} cosy:group-hover:cosy:animate-pulse`}>
-  {
-    IconComponent === AstroIcon ? (
-      <IconComponent
-        name="astro"
-        class="cosy:w-full cosy:h-full cosy:transition-transform cosy:duration-300 hover:cosy:rotate-180 cosy:group-hover:cosy:animate-spin"
-      />
-    ) : (
-      <IconComponent class="cosy:w-full cosy:h-full cosy:transition-transform cosy:duration-300 hover:cosy:rotate-180 cosy:group-hover:cosy:animate-spin" />
-    )
-  }
+  <SmartIcon keyword={courseName} class="cosy:w-full cosy:h-full" />
 </div>

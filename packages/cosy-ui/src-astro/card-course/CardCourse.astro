@@ -20,7 +20,6 @@
 
 import '../../style.ts';
 import {
-  getCourseIcon,
   getCourseGradient,
   formatDisplayName,
   getIconSizeClasses,
@@ -46,7 +45,6 @@ const {
 } = Astro.props;
 
 // 获取对应的图标组件和背景渐变
-const IconComponent = getCourseIcon(courseName);
 const courseGradient = getCourseGradient(courseName);
 const displayName = formatDisplayName(courseName);
 const iconSizeClasses = getIconSizeClasses(iconSize);
@@ -70,10 +68,7 @@ const iconSizeClasses = getIconSizeClasses(iconSize);
     cosy:duration-300
     cosy:backdrop-blur-sm`}>
   <!-- 背景图标 -->
-  <CardCourseIcon
-    IconComponent={IconComponent}
-    iconSizeClasses={iconSizeClasses}
-  />
+  <CardCourseIcon courseName={courseName} iconSizeClasses={iconSizeClasses} />
 
   <div class="cosy:card-body cosy:p-6 cosy:relative cosy:z-10">
     <!-- 内容区域 -->
