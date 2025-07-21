@@ -19,13 +19,12 @@
  */
 
 import '../../style.ts';
-import AstroIcon from '../icons/AstroIcon.astro';
-import {
-  getCourseIcon,
-  getCourseGradient,
-  formatDisplayName,
-  getIconSizeClasses,
-} from './config';
+import { getCourseIcon, formatDisplayName, getIconSizeClasses } from './config';
+import CardCourseBackground from './CardCourseBackground.astro';
+import CardCourseIcon from './CardCourseIcon.astro';
+import CardCourseContent from './CardCourseContent.astro';
+import CardCourseButton from './CardCourseButton.astro';
+import CardCourseRipple from './CardCourseRipple.astro';
 
 interface Props {
   courseName: string;
@@ -45,45 +44,31 @@ const {
 
 // 获取对应的图标组件和背景渐变
 const IconComponent = getCourseIcon(courseName);
-const courseGradient = getCourseGradient(courseName);
 const displayName = formatDisplayName(courseName);
 const iconSizeClasses = getIconSizeClasses(iconSize);
 ---
 
-<div
-  class={`cosy:card cosy:shadow-lg hover:cosy:shadow-xl cosy:transition-all cosy:duration-300 hover:cosy:-translate-y-1 cosy:border-0 cosy:overflow-hidden cosy:bg-gradient-to-br ${courseGradient} cosy:relative`}>
+<div class={`cosy:card cosy:shadow-lg hover:cosy:shadow-2xl`}>
+  <!-- 背景装饰 -->
+  <CardCourseBackground courseName={courseName} />
+
   <!-- 背景图标 -->
+  <CardCourseIcon
+    IconComponent={IconComponent}
+    iconSizeClasses={iconSizeClasses}
+  />
+
   <div
-    class={`cosy:absolute cosy:top-2 cosy:right-2 cosy:opacity-30 ${iconSizeClasses}`}>
-    {
-      IconComponent === AstroIcon ? (
-        <IconComponent name="astro" class="cosy:w-full cosy:h-full" />
-      ) : (
-        <IconComponent class="cosy:w-full cosy:h-full" />
-      )
-    }
-  </div>
-  <div class="cosy:card-body cosy:p-6 cosy:relative cosy:z-10">
-    <!-- 标题和描述区域 -->
-    <div class="cosy:mb-4">
-      <h3 class="cosy:text-lg cosy:font-semibold cosy:truncate cosy:text-start">
-        {displayName}
-      </h3>
-      {
-        description && (
-          <p class="cosy:text-sm cosy:mt-4 cosy:line-clamp-3 cosy:text-start">
-            {description}
-          </p>
-        )
-      }
-    </div>
-    <!-- 操作按钮 -->
+    class="cosy:card-body cosy:p-6 cosy:relative cosy:z-10 cosy:transition-all cosy:duration-300">
+    <!-- 内容区域 -->
+    <CardCourseContent displayName={displayName} description={description} />
+
+    <!-- 按钮区域 -->
     <div class="cosy:card-actions cosy:justify-start cosy:mt-4">
-      <a
-        href={href}
-        class="cosy:btn cosy:bg-base-100 cosy:backdrop-blur-sm cosy:border cosy:border-base-100/30 hover:cosy:bg-base-100/30 cosy:transition-all cosy:duration-300">
-        {lang === 'en' ? 'Start Learning' : '开始学习'}
-      </a>
+      <CardCourseButton href={href} lang={lang} />
     </div>
+
+    <!-- 波纹效果 -->
+    <CardCourseRipple />
   </div>
 </div>
