@@ -6,57 +6,29 @@
  * @props {boolean} enableGradient - 是否启用渐变色，默认 false
  * @usage <SmartBg keyword="JavaScript" enableGradient>内容</SmartBg>
  */
+import { bgColorMap, bgGradientMap, mapKeywordToBgKey } from './bg-util';
+
 const {
   keyword = '',
   class: className = '',
   style = '',
   enableGradient = false,
+  showKey = false,
 } = Astro.props;
 
-const colorMap: { [key: string]: string } = {
-  javascript: 'bg-yellow-200',
-  js: 'bg-yellow-200',
-  python: 'bg-green-200',
-  php: 'bg-indigo-200',
-  swift: 'bg-orange-200',
-  java: 'bg-orange-300',
-  caddy: 'bg-lime-200',
-  kong: 'bg-teal-200',
-  website: 'bg-blue-200',
-  math: 'bg-pink-200',
-  数学: 'bg-blue-100',
-  编程: 'bg-green-100',
-  英语: 'bg-purple-100',
-  default: 'bg-gray-100',
-};
-
-const gradientMap: { [key: string]: string } = {
-  javascript: 'bg-gradient-to-r from-yellow-200 via-yellow-300 to-yellow-400',
-  js: 'bg-gradient-to-r from-yellow-200 via-yellow-300 to-yellow-400',
-  python: 'bg-gradient-to-r from-green-200 via-green-300 to-green-400',
-  php: 'bg-gradient-to-r from-indigo-200 via-indigo-300 to-indigo-400',
-  swift: 'bg-gradient-to-r from-orange-200 via-orange-300 to-orange-400',
-  java: 'bg-gradient-to-r from-orange-300 via-orange-400 to-orange-500',
-  caddy: 'bg-gradient-to-r from-lime-200 via-lime-300 to-lime-400',
-  kong: 'bg-gradient-to-r from-teal-200 via-teal-300 to-teal-400',
-  website: 'bg-gradient-to-r from-blue-200 via-blue-300 to-blue-400',
-  math: 'bg-gradient-to-r from-pink-200 via-pink-300 to-pink-400',
-  数学: 'bg-gradient-to-r from-blue-100 via-blue-200 to-blue-300',
-  编程: 'bg-gradient-to-r from-green-100 via-green-200 to-green-300',
-  英语: 'bg-gradient-to-r from-purple-100 via-purple-200 to-purple-300',
-  default: 'bg-gradient-to-r from-gray-100 via-gray-200 to-gray-300',
-};
-
-let bgClass = enableGradient ? gradientMap.default : colorMap.default;
-const lower = keyword.toLowerCase();
-for (const key in enableGradient ? gradientMap : colorMap) {
-  if (key !== 'default' && (lower.includes(key) || keyword.includes(key))) {
-    bgClass = enableGradient ? gradientMap[key] : colorMap[key];
-    break;
-  }
-}
+const bgKey = mapKeywordToBgKey(keyword);
+const bgClass = enableGradient
+  ? bgGradientMap[bgKey] || bgGradientMap['neutral']
+  : bgColorMap[bgKey] || bgColorMap['neutral'];
 ---
 
 <div class={`${bgClass} ${className}`} style={style}>
   <slot />
+  {
+    showKey && (
+      <span style="position:absolute;right:0.5rem;bottom:0.5rem;z-index:10;font-size:0.75rem;opacity:0.7;background:rgba(0,0,0,0.1);padding:0.1em 0.5em;border-radius:0.25em;pointer-events:none;">
+        {bgKey}
+      </span>
+    )
+  }
 </div>
