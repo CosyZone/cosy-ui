@@ -5,6 +5,7 @@ export * from './src-astro/banner';
 export * from './src-astro/badge';
 export * from './src-astro/button/index_astro';
 export * from './src-astro/card';
+export * from './src-astro/card-course';
 export * from './src-astro/code-block';
 export * from './src-astro/code-container';
 export * from './src-astro/code-example';
