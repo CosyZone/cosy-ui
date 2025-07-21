@@ -6,14 +6,14 @@
  * 错误页面基础示例的容器组件，用于通过标签页展示不同状态码的错误页面。
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import E403Basic from './E403Basic.astro';
-import E403BasicCode from './E403Basic.astro?raw';
-import E404Basic from './E404Basic.astro';
-import E404BasicCode from './E404Basic.astro?raw';
-import E500Basic from './E500Basic.astro';
-import E500BasicCode from './E500Basic.astro?raw';
-import E503Maintenance from './E503Maintenance.astro';
-import E503MaintenanceCode from './E503Maintenance.astro?raw';
+import Basic403 from './403Basic.astro';
+import Basic403Code from './403Basic.astro?raw';
+import Basic404 from './404Basic.astro';
+import Basic404Code from './404Basic.astro?raw';
+import Basic500 from './500Basic.astro';
+import Basic500Code from './500Basic.astro?raw';
+import Maintenance503 from './503Maintenance.astro';
+import Maintenance503Code from './503Maintenance.astro?raw';
 ---
 
 <CodeContainer
@@ -24,17 +24,17 @@ import E503MaintenanceCode from './E503Maintenance.astro?raw';
     '基础的500服务器内部错误页面示例。',
     '503服务不可用错误页面的维护模式示例。',
   ]}
-  codes={[E403BasicCode, E404BasicCode, E500BasicCode, E503MaintenanceCode]}>
+  codes={[Basic403Code, Basic404Code, Basic500Code, Maintenance503Code]}>
   <div id="tab-1">
-    <E403Basic />
+    <Basic403 />
   </div>
   <div id="tab-2">
-    <E404Basic />
+    <Basic404 />
   </div>
   <div id="tab-3">
-    <E500Basic />
+    <Basic500 />
   </div>
   <div id="tab-4">
-    <E503Maintenance />
+    <Maintenance503 />
   </div>
 </CodeContainer>
