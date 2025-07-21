@@ -19,12 +19,15 @@
  */
 
 import '../../style.ts';
-import { getCourseIcon, formatDisplayName, getIconSizeClasses } from './config';
-import CardCourseBackground from './CardCourseBackground.astro';
+import {
+  getCourseIcon,
+  getCourseGradient,
+  formatDisplayName,
+  getIconSizeClasses,
+} from './config';
 import CardCourseIcon from './CardCourseIcon.astro';
 import CardCourseContent from './CardCourseContent.astro';
 import CardCourseButton from './CardCourseButton.astro';
-import CardCourseRipple from './CardCourseRipple.astro';
 
 interface Props {
   courseName: string;
@@ -44,22 +47,35 @@ const {
 
 // 获取对应的图标组件和背景渐变
 const IconComponent = getCourseIcon(courseName);
+const courseGradient = getCourseGradient(courseName);
 const displayName = formatDisplayName(courseName);
 const iconSizeClasses = getIconSizeClasses(iconSize);
 ---
 
-<div class={`cosy:card cosy:shadow-lg hover:cosy:shadow-2xl`}>
-  <!-- 背景装饰 -->
-  <CardCourseBackground courseName={courseName} />
-
+<div
+  class={`
+    cosy:card 
+    cosy:shadow-lg
+    cosy:hover:shadow-2xl 
+    cosy:hover:scale-105 
+    cosy:border-0 
+    cosy:overflow-hidden 
+    ${courseGradient} 
+    cosy:relative 
+    cosy:group 
+    cosy:cursor-pointer 
+    cosy:transform 
+    cosy:ease-in-out
+    cosy:transition-all
+    cosy:duration-300
+    cosy:backdrop-blur-sm`}>
   <!-- 背景图标 -->
   <CardCourseIcon
     IconComponent={IconComponent}
     iconSizeClasses={iconSizeClasses}
   />
 
-  <div
-    class="cosy:card-body cosy:p-6 cosy:relative cosy:z-10 cosy:transition-all cosy:duration-300">
+  <div class="cosy:card-body cosy:p-6 cosy:relative cosy:z-10">
     <!-- 内容区域 -->
     <CardCourseContent displayName={displayName} description={description} />
 
@@ -67,8 +83,5 @@ const iconSizeClasses = getIconSizeClasses(iconSize);
     <div class="cosy:card-actions cosy:justify-start cosy:mt-4">
       <CardCourseButton href={href} lang={lang} />
     </div>
-
-    <!-- 波纹效果 -->
-    <CardCourseRipple />
   </div>
 </div>
