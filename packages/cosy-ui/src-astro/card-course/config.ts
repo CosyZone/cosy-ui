@@ -29,6 +29,7 @@ export const courseIconMap: Record<string, any> = {
     astro: GolangIcon,
     caddy: BookIcon,
     kong: BookIcon,
+    website: WebsiteIcon,
     default: BookIcon,
 };
 
@@ -37,25 +38,46 @@ export const courseIconMap: Record<string, any> = {
  * 根据课程名称返回对应的渐变背景类名
  */
 export const courseGradientMap: Record<string, string> = {
-    computer_networks: 'cosy:from-primary/50 cosy:to-secondary/50',
-    computer_organization: 'cosy:from-primary/50 cosy:to-accent/50',
-    operating_systems: 'cosy:from-secondary/50 cosy:to-accent/50',
-    data_structures: 'cosy:from-accent/50 cosy:to-primary/50',
-    higher_mathematics: 'cosy:from-success/50 cosy:to-info/50',
-    linear_algebra: 'cosy:from-info/50 cosy:to-success/50',
-    probability_and_statistics: 'cosy:from-success/50 cosy:to-accent/50',
-    vue: 'cosy:from-success/50 cosy:to-primary/50',
-    php: 'cosy:from-secondary/50 cosy:to-accent/50',
-    javascript: 'cosy:from-warning/50 cosy:to-error/50',
-    java: 'cosy:from-error/50 cosy:to-warning/50',
-    golang: 'cosy:from-info/50 cosy:to-primary/50',
-    swift_ui: 'cosy:from-warning/50 cosy:to-error/50',
+    computer_networks: 'cosy:from-blue-500 cosy:to-purple-600',
+    computer_organization: 'cosy:from-indigo-500 cosy:to-blue-600',
+    operating_systems: 'cosy:from-purple-500 cosy:to-pink-600',
+    data_structures: 'cosy:from-green-500 cosy:to-teal-600',
+    higher_mathematics: 'cosy:from-red-500 cosy:to-orange-600',
+    linear_algebra: 'cosy:from-yellow-500 cosy:to-orange-600',
+    probability_and_statistics: 'cosy:from-pink-500 cosy:to-red-600',
+    vue: 'cosy:from-green-400 cosy:to-emerald-600',
+    php: 'cosy:from-purple-400 cosy:to-indigo-600',
+    javascript: 'cosy:from-yellow-400 cosy:to-orange-600',
+    java: 'cosy:from-red-400 cosy:to-orange-600',
+    golang: 'cosy:from-blue-400 cosy:to-cyan-600',
+    swift_ui: 'cosy:from-orange-400 cosy:to-red-600',
     flutter: 'cosy:from-primary/50 cosy:to-secondary/50',
-    astro: 'cosy:from-secondary/50 cosy:to-accent/50',
-    caddy: 'cosy:from-success/50 cosy:to-primary/50',
-    kong: 'cosy:from-accent/50 cosy:to-secondary/50',
-    default: 'cosy:from-neutral cosy:to-base-content',
+    astro: 'cosy:from-purple-500 cosy:to-pink-600',
+    caddy: 'cosy:from-green-500 cosy:to-emerald-700',
+    kong: 'cosy:from-blue-500 cosy:to-indigo-700',
+    website: 'cosy:from-purple-500 cosy:to-pink-700',
+    default: 'cosy:from-gray-500 cosy:to-gray-600',
 };
+
+/**
+ * 图标尺寸配置
+ * 预设的几种图标尺寸类名
+ */
+export const iconSizeConfig: Record<string, string> = {
+    sm: 'cosy:w-16 cosy:h-16',
+    md: 'cosy:w-24 cosy:h-24',
+    lg: 'cosy:w-32 cosy:h-32',
+    xl: 'cosy:w-40 cosy:h-40',
+};
+
+/**
+ * 获取图标尺寸类名
+ * @param size 图标尺寸
+ * @returns 对应的CSS类名
+ */
+export function getIconSizeClasses(size: "sm" | "md" | "lg" | "xl" = "md"): string {
+    return iconSizeConfig[size] || iconSizeConfig.md;
+}
 
 /**
  * 标准化课程名称

@@ -19,6 +19,7 @@ Component features:
 - Responsive design that adapts to different screen sizes
 - Hover animation effects to enhance user experience
 - Supports Chinese and English interface switching
+- **Supports icon size configuration** with four preset sizes available
 
 ## Basic Usage
 
@@ -26,28 +27,8 @@ The simplest course card display:
 
 <CardCoursePackage.CardCourseContainers.Course />
 
-## Component Properties
+## Icon Size Configuration
 
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| courseName | string | - | Course title (required) |
-| description | string | - | Course description (optional) |
-| lang | string | - | Language setting, "en" or "zh" (required) |
-| href | string | - | Course link (required) |
+The CardCourse component supports four preset icon sizes that can be configured via the `iconSize` property:
 
-## Usage Examples
-
-```astro
-<CardCourse 
-  courseName="React Basics" 
-  lang="en" 
-  href="/courses/react-basics" 
-/>
-
-<CardCourse 
-  courseName="Vue.js Advanced" 
-  description="Deep dive into Vue.js framework core concepts and advanced features"
-  lang="en" 
-  href="/courses/vue-advanced" 
-/>
-``` 
+<CardCoursePackage.CardCourseContainers.IconSizes />

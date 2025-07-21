@@ -15,32 +15,46 @@
  * - description?: string - 课程描述
  * - lang: string - 语言（"en" 或 "zh"）
  * - href: string - 课程链接
+ * - iconSize?: "sm" | "md" | "lg" | "xl" - 图标尺寸，默认为 "md"
  */
 
 import '../../style.ts';
 import AstroIcon from '../icons/AstroIcon.astro';
-import { getCourseIcon, getCourseGradient, formatDisplayName } from './config';
+import {
+  getCourseIcon,
+  getCourseGradient,
+  formatDisplayName,
+  getIconSizeClasses,
+} from './config';
 
 interface Props {
   courseName: string;
   description?: string;
   lang: string;
   href: string;
+  iconSize?: 'sm' | 'md' | 'lg' | 'xl';
 }
 
-const { courseName, description = '', lang, href } = Astro.props;
+const {
+  courseName,
+  description = '',
+  lang,
+  href,
+  iconSize = 'md',
+} = Astro.props;
 
 // 获取对应的图标组件和背景渐变
 const IconComponent = getCourseIcon(courseName);
 const courseGradient = getCourseGradient(courseName);
 const displayName = formatDisplayName(courseName);
+const iconSizeClasses = getIconSizeClasses(iconSize);
 ---
 
 <div
   class={`cosy:card cosy:shadow-lg hover:cosy:shadow-xl cosy:transition-all cosy:duration-300 hover:cosy:-translate-y-1 cosy:border-0 cosy:overflow-hidden cosy:bg-gradient-to-br ${courseGradient} cosy:relative`}>
   <!-- 背景图标 -->
   <div
-    class="cosy:absolute cosy:top-2 cosy:right-2 cosy:opacity-30 cosy:w-24 cosy:h-24">
+    class={`cosy:absolute cosy:top-2 cosy:right-2 cosy:opacity-30 ${iconSizeClasses}`}>
     {
       IconComponent === AstroIcon ? (
         <IconComponent name="astro" class="cosy:w-full cosy:h-full" />
@@ -64,7 +78,7 @@ const displayName = formatDisplayName(courseName);
       }
     </div>
     <!-- 操作按钮 -->
-    <div class="cosy:card-actions cosy:justify-end cosy:mt-4">
+    <div class="cosy:card-actions cosy:justify-start cosy:mt-4">
       <a
         href={href}
         class="cosy:btn cosy:bg-base-100 cosy:backdrop-blur-sm cosy:border cosy:border-base-100/30 hover:cosy:bg-base-100/30 cosy:transition-all cosy:duration-300">

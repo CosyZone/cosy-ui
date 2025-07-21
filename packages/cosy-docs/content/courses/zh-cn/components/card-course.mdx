@@ -19,6 +19,7 @@ CardCourse 组件用于展示课程信息，支持动态图标和渐变背景，
 - 响应式设计，适配不同屏幕尺寸
 - 悬停动画效果，提升用户体验
 - 支持中英文界面切换
+- **支持图标尺寸配置**，预设四种尺寸可选
 
 ## 基础用法
 
@@ -26,28 +27,9 @@ CardCourse 组件用于展示课程信息，支持动态图标和渐变背景，
 
 <CardCoursePackage.CardCourseContainers.Course />
 
-## 组件属性
+## 图标尺寸配置
 
-| 属性 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| courseName | string | - | 课程标题（必填） |
-| description | string | - | 课程描述（可选） |
-| lang | string | - | 语言设置，"en" 或 "zh"（必填） |
-| href | string | - | 课程链接（必填） |
+CardCourse 组件支持四种预设的图标尺寸，可以通过 `iconSize` 属性进行配置：
 
-## 使用示例
+<CardCoursePackage.CardCourseContainers.IconSizes />
 
-```astro
-<CardCourse 
-  courseName="React 基础教程" 
-  lang="zh" 
-  href="/courses/react-basics" 
-/>
-
-<CardCourse 
-  courseName="Vue.js 进阶" 
-  description="深入学习 Vue.js 框架的核心概念和高级特性"
-  lang="zh" 
-  href="/courses/vue-advanced" 
-/>
-``` 

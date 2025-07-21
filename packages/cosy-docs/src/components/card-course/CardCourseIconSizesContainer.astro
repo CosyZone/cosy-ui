@@ -1,0 +1,38 @@
+---
+/**
+ * @component CardCourseIconSizesContainer
+ * @description CardCourse 组件图标尺寸展示容器，使用多标签展示不同尺寸。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import CardCourseIconSizeSm from './CardCourseIconSizeSm.astro';
+import CardCourseIconSizeMd from './CardCourseIconSizeMd.astro';
+import CardCourseIconSizeLg from './CardCourseIconSizeLg.astro';
+import CardCourseIconSizeXl from './CardCourseIconSizeXl.astro';
+
+import CardCourseIconSizeSmRaw from './CardCourseIconSizeSm.astro?raw';
+import CardCourseIconSizeMdRaw from './CardCourseIconSizeMd.astro?raw';
+import CardCourseIconSizeLgRaw from './CardCourseIconSizeLg.astro?raw';
+import CardCourseIconSizeXlRaw from './CardCourseIconSizeXl.astro?raw';
+---
+
+<CodeContainer
+  titles={['小尺寸 (sm)', '中等尺寸 (md)', '大尺寸 (lg)', '超大尺寸 (xl)']}
+  codes={[
+    CardCourseIconSizeSmRaw,
+    CardCourseIconSizeMdRaw,
+    CardCourseIconSizeLgRaw,
+    CardCourseIconSizeXlRaw,
+  ]}>
+  <div id="tab-1">
+    <CardCourseIconSizeSm />
+  </div>
+  <div id="tab-2">
+    <CardCourseIconSizeMd />
+  </div>
+  <div id="tab-3">
+    <CardCourseIconSizeLg />
+  </div>
+  <div id="tab-4">
+    <CardCourseIconSizeXl />
+  </div>
+</CodeContainer>

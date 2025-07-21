@@ -10,4 +10,6 @@ export interface CardCourseProps {
     lang: string;
     /** 课程链接 */
     href: string;
+    /** 图标尺寸，默认为 "md" */
+    iconSize?: "sm" | "md" | "lg" | "xl";
 } 
