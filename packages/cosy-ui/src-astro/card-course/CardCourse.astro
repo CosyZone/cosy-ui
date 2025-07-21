@@ -19,14 +19,11 @@
  */
 
 import '../../style.ts';
-import {
-  getCourseGradient,
-  formatDisplayName,
-  getIconSizeClasses,
-} from './config';
+import { formatDisplayName, getIconSizeClasses } from './config';
 import CardCourseIcon from './CardCourseIcon.astro';
 import CardCourseContent from './CardCourseContent.astro';
 import CardCourseButton from './CardCourseButton.astro';
+import { SmartBg } from '../smart-bg';
 
 interface Props {
   courseName: string;
@@ -44,8 +41,6 @@ const {
   iconSize = 'md',
 } = Astro.props;
 
-// 获取对应的图标组件和背景渐变
-const courseGradient = getCourseGradient(courseName);
 const displayName = formatDisplayName(courseName);
 const iconSizeClasses = getIconSizeClasses(iconSize);
 ---
@@ -57,8 +52,7 @@ const iconSizeClasses = getIconSizeClasses(iconSize);
     cosy:hover:shadow-2xl 
     cosy:hover:scale-105 
     cosy:border-0 
-    cosy:overflow-hidden 
-    ${courseGradient} 
+    cosy:overflow-hidden
     cosy:relative 
     cosy:group 
     cosy:cursor-pointer 
@@ -67,16 +61,22 @@ const iconSizeClasses = getIconSizeClasses(iconSize);
     cosy:transition-all
     cosy:duration-300
     cosy:backdrop-blur-sm`}>
-  <!-- 背景图标 -->
-  <CardCourseIcon courseName={courseName} iconSizeClasses={iconSizeClasses} />
+  <!-- 背景 -->
+  <SmartBg
+    keyword={courseName}
+    class="cosy:card-body cosy:p-6 cosy:relative cosy:z-10"
+    enableGradient={true}>
+    <!-- 背景图标 -->
+    <CardCourseIcon courseName={courseName} iconSizeClasses={iconSizeClasses} />
 
-  <div class="cosy:card-body cosy:p-6 cosy:relative cosy:z-10">
-    <!-- 内容区域 -->
-    <CardCourseContent displayName={displayName} description={description} />
+    <div class="cosy:card-body cosy:p-6 cosy:relative cosy:z-10">
+      <!-- 内容区域 -->
+      <CardCourseContent displayName={displayName} description={description} />
 
-    <!-- 按钮区域 -->
-    <div class="cosy:card-actions cosy:justify-start cosy:mt-4">
-      <CardCourseButton href={href} lang={lang} />
+      <!-- 按钮区域 -->
+      <div class="cosy:card-actions cosy:justify-start cosy:mt-4">
+        <CardCourseButton href={href} lang={lang} />
+      </div>
     </div>
-  </div>
+  </SmartBg>
 </div>
