@@ -1,0 +1,100 @@
+---
+/**
+ * @component ECardCourseContainer
+ * @description CardCourse 课程卡片演示容器，展示 CardCourse 示例组件的多种用法。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ECardCourseBasic from './ECardCourseBasic.astro';
+import ECardCourseWithDescription from './ECardCourseWithDescription.astro';
+import ECardCourseEnglish from './ECardCourseEnglish.astro';
+import ECardCourseVue from './ECardCourseVue.astro';
+import ECardCoursePhp from './ECardCoursePhp.astro';
+import ECardCourseJavascript from './ECardCourseJavascript.astro';
+import ECardCourseJava from './ECardCourseJava.astro';
+import ECardCourseWebsite from './ECardCourseWebsite.astro';
+import ECardCourseMath from './ECardCourseMath.astro';
+import ECardCourseSwift from './ECardCourseSwift.astro';
+import ECardCourseCaddy from './ECardCourseCaddy.astro';
+import ECardCourseKong from './ECardCourseKong.astro';
+
+import ECardCourseBasicSource from './ECardCourseBasic.astro?raw';
+import ECardCourseWithDescriptionSource from './ECardCourseWithDescription.astro?raw';
+import ECardCourseEnglishSource from './ECardCourseEnglish.astro?raw';
+import ECardCourseVueSource from './ECardCourseVue.astro?raw';
+import ECardCoursePhpSource from './ECardCoursePhp.astro?raw';
+import ECardCourseJavascriptSource from './ECardCourseJavascript.astro?raw';
+import ECardCourseJavaSource from './ECardCourseJava.astro?raw';
+import ECardCourseWebsiteSource from './ECardCourseWebsite.astro?raw';
+import ECardCourseMathSource from './ECardCourseMath.astro?raw';
+import ECardCourseSwiftSource from './ECardCourseSwift.astro?raw';
+import ECardCourseCaddySource from './ECardCourseCaddy.astro?raw';
+import ECardCourseKongSource from './ECardCourseKong.astro?raw';
+
+const codes = [
+  ECardCourseBasicSource,
+  ECardCourseWithDescriptionSource,
+  ECardCourseEnglishSource,
+  ECardCourseVueSource,
+  ECardCoursePhpSource,
+  ECardCourseJavascriptSource,
+  ECardCourseJavaSource,
+  ECardCourseWebsiteSource,
+  ECardCourseMathSource,
+  ECardCourseSwiftSource,
+  ECardCourseCaddySource,
+  ECardCourseKongSource,
+];
+const titles = [
+  '基础用法',
+  '带描述（中文）',
+  '英文课程卡片',
+  'Vue.js 课程',
+  'PHP 后端开发',
+  'JavaScript 进阶',
+  'Java 企业级开发',
+  '计算机网络基础',
+  '高等数学',
+  'Swift UI 开发',
+  'Caddy 服务器配置',
+  'Kong API 网关',
+];
+---
+
+<CodeContainer codes={codes} titles={titles}>
+  <div id="tab-1">
+    <ECardCourseBasic />
+  </div>
+  <div id="tab-2">
+    <ECardCourseWithDescription />
+  </div>
+  <div id="tab-3">
+    <ECardCourseEnglish />
+  </div>
+  <div id="tab-4">
+    <ECardCourseVue />
+  </div>
+  <div id="tab-5">
+    <ECardCoursePhp />
+  </div>
+  <div id="tab-6">
+    <ECardCourseJavascript />
+  </div>
+  <div id="tab-7">
+    <ECardCourseJava />
+  </div>
+  <div id="tab-8">
+    <ECardCourseWebsite />
+  </div>
+  <div id="tab-9">
+    <ECardCourseMath />
+  </div>
+  <div id="tab-10">
+    <ECardCourseSwift />
+  </div>
+  <div id="tab-11">
+    <ECardCourseCaddy />
+  </div>
+  <div id="tab-12">
+    <ECardCourseKong />
+  </div>
+</CodeContainer>
