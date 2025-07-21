@@ -1,11 +1,11 @@
-import ERegisterBasic from './ERegisterBasic.astro';
-import ERegisterBasicContainer from './ERegisterBasicContainer.astro';
-import ERegisterCustomStyle from './ERegisterCustomStyle.astro';
-import ERegisterCustomStyleContainer from './ERegisterCustomStyleContainer.astro';
+import RegisterBasic from './RegisterBasic.astro';
+import RegisterBasicContainer from './RegisterBasicContainer.astro';
+import RegisterCustomStyle from './RegisterCustomStyle.astro';
+import RegisterCustomStyleContainer from './RegisterCustomStyleContainer.astro';
 
 export const RegisterPackage = {
     RegisterContainers: {
-        Basic: ERegisterBasicContainer,
-        CustomStyle: ERegisterCustomStyleContainer,
+        Basic: RegisterBasicContainer,
+        CustomStyle: RegisterCustomStyleContainer,
     },
 }; 

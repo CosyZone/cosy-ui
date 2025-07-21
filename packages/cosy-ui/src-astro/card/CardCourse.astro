@@ -7,114 +7,33 @@
  *
  * @usage
  * ```astro
- * <CardCourse courseName="React 基础教程" courseSlug="react" lang="zh" href="/courses/react-basics" />
+ * <CardCourse courseName="React 基础教程" lang="zh" href="/courses/react-basics" />
  * ```
  *
  * @props
  * - courseName: string - 课程标题
- * - courseSlug: string - 课程唯一标识（用于图标和背景）
  * - description?: string - 课程描述
  * - lang: string - 语言（"en" 或 "zh"）
  * - href: string - 课程链接
  */
 
 import '../../style.ts';
-import WebsiteIcon from '../icons/WebsiteIcon.astro';
 import AstroIcon from '../icons/AstroIcon.astro';
-import GolangIcon from '../icons/CodeIcon.astro';
-import JavaIcon from '../icons/CodeIcon.astro';
-import PhpIcon from '../icons/CodeIcon.astro';
-import VueIcon from '../icons/CodeIcon.astro';
-import SwiftIcon from '../icons/CodeIcon.astro';
-import BookIcon from '../icons/DocumentIcon.astro';
+import { getCourseIcon, getCourseGradient, formatDisplayName } from './config';
 
 interface Props {
   courseName: string;
-  courseSlug: string;
   description?: string;
   lang: string;
   href: string;
 }
 
-const { courseName, courseSlug, description = '', lang, href } = Astro.props;
+const { courseName, description = '', lang, href } = Astro.props;
 
-// 图标映射（用 SVG 组件）
-const courseIconMap: Record<string, any> = {
-  computer_networks: BookIcon,
-  computer_organization: BookIcon,
-  operating_systems: BookIcon,
-  data_structures: BookIcon,
-  higher_mathematics: BookIcon,
-  linear_algebra: BookIcon,
-  probability_and_statistics: BookIcon,
-  vue: VueIcon,
-  php: PhpIcon,
-  javascript: BookIcon,
-  java: JavaIcon,
-  golang: GolangIcon,
-  swift_ui: SwiftIcon,
-  flutter: BookIcon,
-  astro: GolangIcon,
-  caddy: BookIcon,
-  kong: BookIcon,
-  default: BookIcon,
-};
-
-const courseGradientMap: Record<string, string> = {
-  computer_networks: 'cosy:from-primary/50 cosy:to-secondary/50',
-  computer_organization: 'cosy:from-primary/50 cosy:to-accent/50',
-  operating_systems: 'cosy:from-secondary/50 cosy:to-accent/50',
-  data_structures: 'cosy:from-accent/50 cosy:to-primary/50',
-  higher_mathematics: 'cosy:from-success/50 cosy:to-info/50',
-  linear_algebra: 'cosy:from-info/50 cosy:to-success/50',
-  probability_and_statistics: 'cosy:from-success/50 cosy:to-accent/50',
-  vue: 'cosy:from-success/50 cosy:to-primary/50',
-  php: 'cosy:from-secondary/50 cosy:to-accent/50',
-  javascript: 'cosy:from-warning/50 cosy:to-error/50',
-  java: 'cosy:from-error/50 cosy:to-warning/50',
-  golang: 'cosy:from-info/50 cosy:to-primary/50',
-  swift_ui: 'cosy:from-warning/50 cosy:to-error/50',
-  flutter: 'cosy:from-primary/50 cosy:to-secondary/50',
-  astro: 'cosy:from-secondary/50 cosy:to-accent/50',
-  caddy: 'cosy:from-success/50 cosy:to-primary/50',
-  kong: 'cosy:from-accent/50 cosy:to-secondary/50',
-  default: 'cosy:from-neutral cosy:to-base-content',
-};
-
-function normalizeName(name: string) {
-  return name.toLowerCase().replace(/[^a-z0-9]/g, '_');
-}
-
-const normalizedName = normalizeName(courseSlug);
-
-// 动态选择图标
-let IconComponent = courseIconMap[normalizedName] || null;
-if (!IconComponent) {
-  for (const key in courseIconMap) {
-    if (key !== 'default' && normalizedName.includes(key)) {
-      IconComponent = courseIconMap[key];
-      break;
-    }
-  }
-}
-if (!IconComponent) IconComponent = courseIconMap.default;
-
-// 动态选择渐变
-let courseGradient = courseGradientMap[normalizedName] || '';
-if (!courseGradient) {
-  for (const key in courseGradientMap) {
-    if (key !== 'default' && normalizedName.includes(key)) {
-      courseGradient = courseGradientMap[key];
-      break;
-    }
-  }
-}
-if (!courseGradient) courseGradient = courseGradientMap.default;
-
-// 标题格式化
-const displayName = courseName
-  .replace(/_/g, ' ')
-  .replace(/\b\w/g, (l) => l.toUpperCase());
+// 获取对应的图标组件和背景渐变
+const IconComponent = getCourseIcon(courseName);
+const courseGradient = getCourseGradient(courseName);
+const displayName = formatDisplayName(courseName);
 ---
 
 <div

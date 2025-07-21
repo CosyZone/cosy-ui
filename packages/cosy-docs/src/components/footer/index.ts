@@ -1,40 +1,40 @@
 // Footer 示例组件
-import EFooterBasic from './EFooterBasic.astro';
-import EFooterComplete from './EFooterComplete.astro';
-import EFooterWithLogo from './EFooterWithLogo.astro';
-import EFooterWithNavigation from './EFooterWithNavigation.astro';
-import EFooterWithProducts from './EFooterWithProducts.astro';
-import EFooterWithSocial from './EFooterWithSocial.astro';
-import EFooterWithFriendlyLinks from './EFooterWithFriendlyLinks.astro';
+import FooterBasic from './FooterBasic.astro';
+import FooterComplete from './FooterComplete.astro';
+import FooterWithLogo from './FooterWithLogo.astro';
+import FooterWithNavigation from './FooterWithNavigation.astro';
+import FooterWithProducts from './FooterWithProducts.astro';
+import FooterWithSocial from './FooterWithSocial.astro';
+import FooterWithFriendlyLinks from './FooterWithFriendlyLinks.astro';
 
 // Footer 容器组件
-import EFooterBasicContainer from './EFooterBasicContainer.astro';
-import EFooterCompleteContainer from './EFooterCompleteContainer.astro';
-import EFooterFeaturesContainer from './EFooterFeaturesContainer.astro';
-import EFooterWithLogoContainer from './EFooterWithLogoContainer.astro';
-import EFooterWithNavigationContainer from './EFooterWithNavigationContainer.astro';
-import EFooterWithProductsContainer from './EFooterWithProductsContainer.astro';
-import EFooterWithSocialContainer from './EFooterWithSocialContainer.astro';
-import EFooterWithFriendlyLinksContainer from './EFooterWithFriendlyLinksContainer.astro';
+import FooterBasicContainer from './FooterBasicContainer.astro';
+import FooterCompleteContainer from './FooterCompleteContainer.astro';
+import FooterFeaturesContainer from './FooterFeaturesContainer.astro';
+import FooterWithLogoContainer from './FooterWithLogoContainer.astro';
+import FooterWithNavigationContainer from './FooterWithNavigationContainer.astro';
+import FooterWithProductsContainer from './FooterWithProductsContainer.astro';
+import FooterWithSocialContainer from './FooterWithSocialContainer.astro';
+import FooterWithFriendlyLinksContainer from './FooterWithFriendlyLinksContainer.astro';
 
 export const FooterPackage = {
     FooterContainers: {
-        Basic: EFooterBasicContainer,
-        Complete: EFooterCompleteContainer,
-        Features: EFooterFeaturesContainer,
-        WithLogo: EFooterWithLogoContainer,
-        WithNavigation: EFooterWithNavigationContainer,
-        WithProducts: EFooterWithProductsContainer,
-        WithSocial: EFooterWithSocialContainer,
-        WithFriendlyLinks: EFooterWithFriendlyLinksContainer,
+        Basic: FooterBasicContainer,
+        Complete: FooterCompleteContainer,
+        Features: FooterFeaturesContainer,
+        WithLogo: FooterWithLogoContainer,
+        WithNavigation: FooterWithNavigationContainer,
+        WithProducts: FooterWithProductsContainer,
+        WithSocial: FooterWithSocialContainer,
+        WithFriendlyLinks: FooterWithFriendlyLinksContainer,
     },
     FooterExamples: {
-        Basic: EFooterBasic,
-        Complete: EFooterComplete,
-        WithLogo: EFooterWithLogo,
-        WithNavigation: EFooterWithNavigation,
-        WithProducts: EFooterWithProducts,
-        WithSocial: EFooterWithSocial,
-        WithFriendlyLinks: EFooterWithFriendlyLinks,
+        Basic: FooterBasic,
+        Complete: FooterComplete,
+        WithLogo: FooterWithLogo,
+        WithNavigation: FooterWithNavigation,
+        WithProducts: FooterWithProducts,
+        WithSocial: FooterWithSocial,
+        WithFriendlyLinks: FooterWithFriendlyLinks,
     },
 }; 

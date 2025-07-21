@@ -1,0 +1,19 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ProductCardBasic from './ProductCardBasic.astro';
+---
+
+<CodeContainer
+  codes={[
+    `import { ProductCard } from '@coffic/cosy-ui';
+
+<ProductCard
+  title="产品名称"
+  description="产品描述信息"
+  price="¥99.00"
+  image="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500"
+  href="/products/1"
+/>`,
+  ]}>
+  <ProductCardBasic />
+</CodeContainer>

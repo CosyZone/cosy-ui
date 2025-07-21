@@ -1,9 +1,9 @@
-import ELogoutBasicContainer from './ELogoutBasicContainer.astro';
-import ELogoutCustomStyleContainer from './ELogoutCustomStyleContainer.astro';
+import LogoutBasicContainer from './LogoutBasicContainer.astro';
+import LogoutCustomStyleContainer from './LogoutCustomStyleContainer.astro';
 
 export const LogoutPackage = {
     LogoutContainers: {
-        Basic: ELogoutBasicContainer,
-        CustomStyle: ELogoutCustomStyleContainer,
+        Basic: LogoutBasicContainer,
+        CustomStyle: LogoutCustomStyleContainer,
     },
 }; 

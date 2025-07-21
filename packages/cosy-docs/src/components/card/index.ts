@@ -1,19 +1,19 @@
-import ECardBasicContainer from './ECardBasicContainer.astro';
-import ECardWithSubtitleContainer from './ECardWithSubtitleContainer.astro';
-import ECardWithImageContainer from './ECardWithImageContainer.astro';
-import ECardClickableContainer from './ECardClickableContainer.astro';
-import ECardCompactContainer from './ECardCompactContainer.astro';
-import ECardCustomStyleContainer from './ECardCustomStyleContainer.astro';
-import ECardCourseContainer from './ECardCourseContainer.astro';
+import CardBasicContainer from './CardBasicContainer.astro';
+import CardWithSubtitleContainer from './CardWithSubtitleContainer.astro';
+import CardWithImageContainer from './CardWithImageContainer.astro';
+import CardClickableContainer from './CardClickableContainer.astro';
+import CardCompactContainer from './CardCompactContainer.astro';
+import CardCustomStyleContainer from './CardCustomStyleContainer.astro';
+import CardCourseContainer from './CardCourseContainer.astro';
 
 export const CardPackage = {
     CardContainers: {
-        Basic: ECardBasicContainer,
-        WithSubtitle: ECardWithSubtitleContainer,
-        WithImage: ECardWithImageContainer,
-        Clickable: ECardClickableContainer,
-        Compact: ECardCompactContainer,
-        CustomStyle: ECardCustomStyleContainer,
-        Course: ECardCourseContainer,
+        Basic: CardBasicContainer,
+        WithSubtitle: CardWithSubtitleContainer,
+        WithImage: CardWithImageContainer,
+        Clickable: CardClickableContainer,
+        Compact: CardCompactContainer,
+        CustomStyle: CardCustomStyleContainer,
+        Course: CardCourseContainer,
     }
 }; 

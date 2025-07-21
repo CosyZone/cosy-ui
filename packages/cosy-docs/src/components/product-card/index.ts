@@ -1,27 +1,27 @@
-import EProductCardBasic from './EProductCardBasic.astro';
-import EProductCardBasicContainer from './EProductCardBasicContainer.astro';
-import EProductCardSizes from './EProductCardSizes.astro';
-import EProductCardSizesContainer from './EProductCardSizesContainer.astro';
-import EProductCardShadow from './EProductCardShadow.astro';
-import EProductCardShadowContainer from './EProductCardShadowContainer.astro';
-import EProductCardEqualHeight from './EProductCardEqualHeight.astro';
-import EProductCardEqualHeightContainer from './EProductCardEqualHeightContainer.astro';
-import EProductCardDescriptionLines from './EProductCardDescriptionLines.astro';
-import EProductCardDescriptionLinesContainer from './EProductCardDescriptionLinesContainer.astro';
+import ProductCardBasic from './ProductCardBasic.astro';
+import ProductCardBasicContainer from './ProductCardBasicContainer.astro';
+import ProductCardSizes from './ProductCardSizes.astro';
+import ProductCardSizesContainer from './ProductCardSizesContainer.astro';
+import ProductCardShadow from './ProductCardShadow.astro';
+import ProductCardShadowContainer from './ProductCardShadowContainer.astro';
+import ProductCardEqualHeight from './ProductCardEqualHeight.astro';
+import ProductCardEqualHeightContainer from './ProductCardEqualHeightContainer.astro';
+import ProductCardDescriptionLines from './ProductCardDescriptionLines.astro';
+import ProductCardDescriptionLinesContainer from './ProductCardDescriptionLinesContainer.astro';
 
 export const ProductCardPackage = {
     ComponentContainers: {
-        Basic: EProductCardBasicContainer,
-        Sizes: EProductCardSizesContainer,
-        Shadow: EProductCardShadowContainer,
-        EqualHeight: EProductCardEqualHeightContainer,
-        DescriptionLines: EProductCardDescriptionLinesContainer,
+        Basic: ProductCardBasicContainer,
+        Sizes: ProductCardSizesContainer,
+        Shadow: ProductCardShadowContainer,
+        EqualHeight: ProductCardEqualHeightContainer,
+        DescriptionLines: ProductCardDescriptionLinesContainer,
     },
     ComponentExamples: {
-        Basic: EProductCardBasic,
-        Sizes: EProductCardSizes,
-        Shadow: EProductCardShadow,
-        EqualHeight: EProductCardEqualHeight,
-        DescriptionLines: EProductCardDescriptionLines,
+        Basic: ProductCardBasic,
+        Sizes: ProductCardSizes,
+        Shadow: ProductCardShadow,
+        EqualHeight: ProductCardEqualHeight,
+        DescriptionLines: ProductCardDescriptionLines,
     },
 }; 

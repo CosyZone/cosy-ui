@@ -1,0 +1,53 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import FooterBasic from './FooterBasic.astro';
+import FooterWithSocial from './FooterWithSocial.astro';
+import FooterWithProducts from './FooterWithProducts.astro';
+import FooterWithFriendlyLinks from './FooterWithFriendlyLinks.astro';
+import FooterWithLogo from './FooterWithLogo.astro';
+import FooterWithNavigation from './FooterWithNavigation.astro';
+
+import FooterBasicSourceCode from './FooterBasic.astro?raw';
+import FooterWithSocialSourceCode from './FooterWithSocial.astro?raw';
+import FooterWithProductsSourceCode from './FooterWithProducts.astro?raw';
+import FooterWithFriendlyLinksSourceCode from './FooterWithFriendlyLinks.astro?raw';
+import FooterWithLogoSourceCode from './FooterWithLogo.astro?raw';
+import FooterWithNavigationSourceCode from './FooterWithNavigation.astro?raw';
+---
+
+<CodeContainer
+  titles={[
+    '基础页脚',
+    '带社交媒体的页脚',
+    '带产品的页脚',
+    '带友好链接的页脚',
+    '带Logo的页脚',
+    '带导航的页脚',
+  ]}
+  codes={[
+    FooterBasicSourceCode,
+    FooterWithSocialSourceCode,
+    FooterWithProductsSourceCode,
+    FooterWithFriendlyLinksSourceCode,
+    FooterWithLogoSourceCode,
+    FooterWithNavigationSourceCode,
+  ]}>
+  <div id="tab-1">
+    <FooterBasic />
+  </div>
+  <div id="tab-2">
+    <FooterWithSocial />
+  </div>
+  <div id="tab-3">
+    <FooterWithProducts />
+  </div>
+  <div id="tab-4">
+    <FooterWithFriendlyLinks />
+  </div>
+  <div id="tab-5">
+    <FooterWithLogo />
+  </div>
+  <div id="tab-6">
+    <FooterWithNavigation />
+  </div>
+</CodeContainer>

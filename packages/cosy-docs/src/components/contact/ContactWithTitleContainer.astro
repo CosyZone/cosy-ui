@@ -1,0 +1,13 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContactWithTitle from './ContactWithTitle.astro';
+import ContactWithTitleSourceCode from './ContactWithTitle.astro?raw';
+---
+
+<CodeContainer
+  titles={['带标题的联系表单']}
+  codes={[ContactWithTitleSourceCode]}>
+  <div id="tab-1">
+    <ContactWithTitle />
+  </div>
+</CodeContainer>
