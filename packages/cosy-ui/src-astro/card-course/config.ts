@@ -10,12 +10,38 @@ export const iconSizeConfig: Record<string, string> = {
 };
 
 /**
+ * 内容区域内边距配置
+ * 预设的几种内容区域内边距类名
+ */
+export const contentPaddingConfig: Record<string, string> = {
+    none: 'cosy:p-0',
+    xs: 'cosy:p-2',
+    sm: 'cosy:p-3',
+    md: 'cosy:p-4',
+    lg: 'cosy:p-6',
+    xl: 'cosy:p-8',
+    '2xl': 'cosy:p-10',
+    '3xl': 'cosy:p-12',
+};
+
+/**
  * 获取图标尺寸类名
  * @param size 图标尺寸
  * @returns 对应的CSS类名
  */
 export function getIconSizeClasses(size: "sm" | "md" | "lg" | "xl" = "md"): string {
     return iconSizeConfig[size] || iconSizeConfig.md;
+}
+
+
+
+/**
+ * 获取内容区域内边距类名
+ * @param padding 内容区域内边距尺寸
+ * @returns 对应的CSS类名
+ */
+export function getContentPaddingClasses(padding: "none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" = "lg"): string {
+    return contentPaddingConfig[padding] || contentPaddingConfig.lg;
 }
 
 /**

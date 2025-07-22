@@ -1,0 +1,55 @@
+---
+/**
+ * @component CardCoursePaddingContainer
+ * @description CardCourse 组件 contentPadding 属性演示容器，展示不同内边距效果。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import CardCoursePaddingNone from './CardCoursePaddingNone.astro';
+import CardCoursePaddingXs from './CardCoursePaddingXs.astro';
+import CardCoursePaddingSm from './CardCoursePaddingSm.astro';
+import CardCoursePaddingMd from './CardCoursePaddingMd.astro';
+import CardCoursePaddingLg from './CardCoursePaddingLg.astro';
+import CardCoursePaddingXl from './CardCoursePaddingXl.astro';
+import CardCoursePadding2xl from './CardCoursePadding2xl.astro';
+import CardCoursePadding3xl from './CardCoursePadding3xl.astro';
+
+import CardCoursePaddingNoneRaw from './CardCoursePaddingNone.astro?raw';
+import CardCoursePaddingXsRaw from './CardCoursePaddingXs.astro?raw';
+import CardCoursePaddingSmRaw from './CardCoursePaddingSm.astro?raw';
+import CardCoursePaddingMdRaw from './CardCoursePaddingMd.astro?raw';
+import CardCoursePaddingLgRaw from './CardCoursePaddingLg.astro?raw';
+import CardCoursePaddingXlRaw from './CardCoursePaddingXl.astro?raw';
+import CardCoursePadding2xlRaw from './CardCoursePadding2xl.astro?raw';
+import CardCoursePadding3xlRaw from './CardCoursePadding3xl.astro?raw';
+---
+
+<CodeContainer
+  titles={[
+    '无内边距 (none)',
+    '极小 (xs)',
+    '小 (sm)',
+    '中 (md)',
+    '大 (lg)',
+    '超大 (xl)',
+    '2xl',
+    '3xl',
+  ]}
+  codes={[
+    CardCoursePaddingNoneRaw,
+    CardCoursePaddingXsRaw,
+    CardCoursePaddingSmRaw,
+    CardCoursePaddingMdRaw,
+    CardCoursePaddingLgRaw,
+    CardCoursePaddingXlRaw,
+    CardCoursePadding2xlRaw,
+    CardCoursePadding3xlRaw,
+  ]}>
+  <div id="tab-1"><CardCoursePaddingNone /></div>
+  <div id="tab-2"><CardCoursePaddingXs /></div>
+  <div id="tab-3"><CardCoursePaddingSm /></div>
+  <div id="tab-4"><CardCoursePaddingMd /></div>
+  <div id="tab-5"><CardCoursePaddingLg /></div>
+  <div id="tab-6"><CardCoursePaddingXl /></div>
+  <div id="tab-7"><CardCoursePadding2xl /></div>
+  <div id="tab-8"><CardCoursePadding3xl /></div>
+</CodeContainer>

@@ -8,6 +8,7 @@
  * @usage
  * ```astro
  * <CardCourse courseName="React 基础教程" lang="zh" href="/courses/react-basics" />
+ * <CardCourse courseName="Vue 进阶" lang="zh" href="/courses/vue" padding="xl" contentPadding="md" />
  * ```
  *
  * @props
@@ -16,14 +17,20 @@
  * - lang: string - 语言（"en" 或 "zh"）
  * - href: string - 课程链接
  * - iconSize?: "sm" | "md" | "lg" | "xl" - 图标尺寸，默认为 "md"
+ * - contentPadding?: "none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" - 内容区域内边距，默认为 "lg"
  */
 
 import '../../style.ts';
-import { formatDisplayName, getIconSizeClasses } from './config';
+import {
+  formatDisplayName,
+  getIconSizeClasses,
+  getContentPaddingClasses,
+} from './config';
 import CardCourseIcon from './CardCourseIcon.astro';
 import CardCourseContent from './CardCourseContent.astro';
 import CardCourseButton from './CardCourseButton.astro';
 import { SmartBg } from '../smart-bg';
+import type { PaddingSize } from './types';
 
 interface Props {
   courseName: string;
@@ -31,6 +38,8 @@ interface Props {
   lang: string;
   href: string;
   iconSize?: 'sm' | 'md' | 'lg' | 'xl';
+  padding?: PaddingSize;
+  contentPadding?: PaddingSize;
 }
 
 const {
@@ -39,10 +48,12 @@ const {
   lang,
   href,
   iconSize = 'md',
+  contentPadding = 'lg',
 } = Astro.props;
 
 const displayName = formatDisplayName(courseName);
 const iconSizeClasses = getIconSizeClasses(iconSize);
+const contentPaddingClasses = getContentPaddingClasses(contentPadding);
 ---
 
 <div
@@ -65,12 +76,13 @@ const iconSizeClasses = getIconSizeClasses(iconSize);
   <!-- 背景 -->
   <SmartBg
     keyword={courseName}
-    class="cosy:card-body cosy:p-6 cosy:relative cosy:z-10"
+    class={`cosy:relative cosy:z-10`}
     enableGradient={true}>
     <!-- 背景图标 -->
     <CardCourseIcon courseName={courseName} iconSizeClasses={iconSizeClasses} />
 
-    <div class="cosy:card-body cosy:p-6 cosy:relative cosy:z-10">
+    <div
+      class={`cosy:card-body ${contentPaddingClasses} cosy:relative cosy:z-10`}>
       <!-- 内容区域 -->
       <CardCourseContent displayName={displayName} description={description} />
 
