@@ -42,15 +42,12 @@
  * @prop {string} [title] - 提示标题，可选
  * @prop {string} [class] - 自定义 CSS 类名
  * @prop {boolean} [closable=true] - 是否可关闭
+ * @prop {number} [bgOpacity=1] - 背景色透明度，取值范围 0~1，1 为不透明
  *
  * @slots
  * @slot default - 提示内容
  * @slot action - 自定义操作按钮，显示在 alert 右侧
  */
-
-// 注意：
-// 	1. 导入样式文件才能正确处理文件中使用的class
-//  2. 所有的导入必须使用相对路径
 
 import '../../style.ts';
 import {
@@ -61,27 +58,32 @@ import {
   CloseIcon,
 } from '../../index-astro';
 
-interface Props {
+export interface AlertProps {
   type?: 'info' | 'success' | 'warning' | 'error';
   title?: string;
+  description?: string;
   class?: string;
   closable?: boolean;
+  variant?: 'solid' | 'outline' | 'dash' | 'soft';
 }
 
 const {
   type = 'info',
   title,
+  description,
   class: className = '',
   closable = true,
-} = Astro.props;
+  variant = 'solid',
+} = Astro.props as AlertProps;
 
-// 根据类型设置样式
-const alertClass = {
-  info: 'cosy:alert-info',
-  success: 'cosy:alert-success',
-  warning: 'cosy:alert-warning',
-  error: 'cosy:alert-error',
-}[type as 'info' | 'success' | 'warning' | 'error'];
+// 组合样式
+const alertClass = [
+  `cosy:alert-${type}`,
+  variant !== 'solid' ? `cosy:alert-${variant}` : '',
+  'cosy:alert-horizontal',
+]
+  .filter(Boolean)
+  .join(' ');
 
 // 根据类型设置图标组件
 const IconComponent = {
@@ -100,7 +102,6 @@ const IconComponent = {
     <IconComponent
       class="cosy:btn cosy:btn-sm cosy:btn-ghost cosy:btn-circle"
     />
-
     <div
       class="cosy:flex cosy:flex-col cosy:items-start cosy:h-full cosy:flex-1">
       {
@@ -111,21 +112,23 @@ const IconComponent = {
         )
       }
       {
+        description && (
+          <div class="cosy:text-xs cosy:opacity-80">{description}</div>
+        )
+      }
+      {
         title && (
           <div class="cosy:text-xs">
             <slot />
           </div>
         )
       }
-
       {!title && <slot />}
     </div>
-
     <div
       class="cosy:flex cosy:flex-row cosy:items-center cosy:gap-2"
       data-role="actions">
       <slot name="action" />
-
       {
         closable && (
           <button
