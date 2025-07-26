@@ -10,18 +10,21 @@ alwaysApply: true
 ## 项目架构规范
 
 ### 1. 组件分离原则
+
 - **核心组件**：放在 `packages/cosy-ui/src-astro/` 中，只包含实际的业务组件
 - **示例组件**：示例组件应放在 `packages/cosy-docs/src/components/` 中
 - **容器组件**：以 `Container` 结尾的容器组件也应放在文档项目中
 - **基础示例**：如 `ComponentBasic.astro` 等基础示例也应放在文档项目中
 
 ### 2. 示例组件放置规则
+
 - **位置**：`packages/cosy-docs/src/components/{component-name}/`
 - **导入**：示例组件从 `@coffic/cosy-ui` 导入核心组件和类型
 - **导出**：在文档项目中创建独立的 `index.ts` 导出 `ComponentPackage`
 - **文档引用**：文档通过相对路径导入示例组件的 `ComponentPackage`
 
 ### 3. 架构优势
+
 - **关注点分离**：核心组件库专注于组件本身，文档项目专注于展示
 - **减少打包体积**：核心组件库不包含示例代码
 - **独立维护**：示例组件可以独立于核心组件进行更新和维护
@@ -30,6 +33,7 @@ alwaysApply: true
 ## 组件基本规范
 
 ### 1. 样式使用规范
+
 - **必须**导入 [style.ts](mdc:packages/cosy-ui/style.ts) 在组件顶部（仅限核心组件）
 - **文档示例组件**：通过 `@coffic/cosy-ui` 导入，无需直接导入 style.ts
 - **优先**使用 daisyUI 的类，如：`card`、`card-body`、`card-title`等
@@ -39,11 +43,13 @@ alwaysApply: true
 - **注意**：not-prose 不需要前缀
 
 ### 2. Props接口规范
+
 - Props接口必须与组件文档中的 `@props` 描述**完全一致**
 - 如果文档提到某个属性，接口中必须定义
 - 参考 [Card.astro](mdc:packages/cosy-ui/src-astro/card/Card.astro) 的完整Props定义
 
 ### 3. 组件文档规范
+
 - 必须包含完整的JSDoc注释：`@component`、`@description`、`@usage`、`@props`、`@slots`
 - 使用示例要覆盖主要功能场景
 - Props描述要准确，包含类型和默认值
@@ -51,7 +57,9 @@ alwaysApply: true
 ## 组件Package结构
 
 ### 1. 核心组件项目结构
+
 参考 [alert/index.ts](mdc:packages/cosy-ui/src-astro/alert/index.ts) 的简洁模式：
+
 ```typescript
 // packages/cosy-ui/src-astro/component-name/index.ts
 export { default as Component } from './Component.astro';
@@ -59,11 +67,13 @@ export type { ComponentProps } from './types';
 ```
 
 **重要**：
+
 - 核心组件项目的 index.ts 应保持简洁，只导出组件和类型
 - **不要**在核心组件项目中包含示例组件
 - **不要**在核心组件项目中包含 ComponentPackage
 
 ### 2. 文档项目示例组件结构
+
 ```typescript
 // packages/cosy-docs/src/components/component-name/index.ts
 import Basic from './Basic.astro';
@@ -80,20 +90,24 @@ export const ComponentPackage = {
 ```
 
 ### 3. 示例组件命名规范
+
 - 基础示例：`Basic.astro` 或 `Basic.astro`
 - 功能示例：`{FeatureName}.astro`
 - 容器组件：`{FeatureName}Container.astro`
 
 ### 4. 示例组件导入规范
+
 - **核心组件**：`import { Component } from '@coffic/cosy-ui';`
 - **类型**：`import type { ComponentProps } from '@coffic/cosy-ui';`
 - **CodeContainer**：`import { CodeContainer } from '@coffic/cosy-ui';`
 - **本地组件**：使用相对路径 `'./ExampleComponent.astro'`
 
 ### 5. 容器组件规范
+
 - 使用 [CodeContainer](mdc:packages/cosy-ui/src-astro/code-container/CodeContainer.astro) 来展示代码
 - **源码导入最佳实践**：在容器组件中直接导入源码（`?raw`）
 - 标准模式：
+
   ```astro
   ---
   import { CodeContainer } from '@coffic/cosy-ui';
@@ -106,28 +120,33 @@ export const ComponentPackage = {
     </div>
   </CodeContainer>
   ```
+
 - **多标签容器组件**应使用 CodeContainer 的多标签特性，每个标签对应一个功能演示
 - 必须包含组件文档注释：`@component`、`@description`
 
 ## 组件文档规范
 
 ### 1. 文档文件结构
+
 - 中文文档：`packages/cosy-docs/content/courses/zh-cn/components/{component}.mdx`
 - 英文文档：`packages/cosy-docs/content/courses/en/components/{component}.mdx`
 
 ### 2. 文档内容规范
+
 - frontmatter 必须包含：`title`、`description`、`folder: false`、`order`
 - **核心组件导入**：`import { Component } from '@coffic/cosy-ui';`
 - **示例组件导入**：`import { ComponentPackage } from '@/components/component-name/index.ts';`
 - 文档结构参考 [alert.mdx](mdc:packages/cosy-ui-docs/content/courses/zh-cn/components/alert.mdx)
 
 ### 3. 文档排序规范
+
 - `order` 值必须根据文档文件名的字母顺序生成
 - 确保 `abc.mdx` 的 order 值比 `def.mdx` 的 order 值小
 - 推荐使用连续递增的整数，如：1, 2, 3, 4...
 - 新增文档时需要检查现有文档的order值，确保按字母顺序正确排列
 
 ### 4. 必须包含的章节
+
 - **简介** - 组件描述和特性
 - **基础用法** - `<ComponentPackage.ComponentContainers.Basic/>`
 - **功能示例** - 展示各种特性的用法
@@ -138,11 +157,14 @@ export const ComponentPackage = {
 ### 1. 创建新组件的步骤
 
 #### 核心组件开发
+
 1. 在 `packages/cosy-ui/src-astro/{component-name}/` 创建核心组件
 2. 创建简洁的 index.ts，只导出组件和类型
 3. 在 [index-astro.ts](mdc:packages/cosy-ui/index-astro.ts) 中导出组件
+4. 执行 pnpm build:ui 确保构建成功
 
 #### 示例组件开发
+
 1. 在 `packages/cosy-docs/src/components/{component-name}/` 创建示例组件
 2. 创建各种示例和容器组件
 3. 创建 ComponentPackage 导出
@@ -151,6 +173,7 @@ export const ComponentPackage = {
 ### 2. 修复现有组件的步骤
 
 ### 3. 迁移现有示例组件
+
 1. **识别示例组件**：找出所有以 `E` 开头和 `Container` 结尾的组件
 2. **移动到文档项目**：`mv packages/cosy-ui/src-astro/{component}/E*.astro packages/cosy-docs/src/components/{component}/`
 3. **更新导入路径**：示例组件中的导入改为从 `@coffic/cosy-ui` 导入
@@ -161,6 +184,7 @@ export const ComponentPackage = {
 ## 检查问题和修复
 
 ### 1. 检查问题
+
 - 确认是否使用了自定义CSS类而非daisyUI类
 - 检查Tailwind类是否正确添加了 `cosy:` 前缀
 - 验证Props接口是否与文档描述一致
@@ -168,6 +192,7 @@ export const ComponentPackage = {
 - **新增**：检查示例组件是否正确放置在文档项目中
 
 ### 2. 修复组件
+
 - 替换自定义CSS类为daisyUI标准类
 - 添加正确的Tailwind前缀
 - 完善Props接口
@@ -175,17 +200,20 @@ export const ComponentPackage = {
 - **新增**：确保示例组件正确导入核心组件
 
 ### 3. 全局暴露组件
+
 - 在 [index-astro.ts](mdc:packages/cosy-ui/index-astro.ts) 中添加**核心组件**导出
 - 按字母顺序插入到正确位置：`export * from './component-name';`
 - **不要**导出示例组件到核心组件库
 
 ### 4. 创建文档
+
 - 创建中英文文档文件
 - 正确导入核心组件和示例组件
 - 确保所有示例都能正常工作
 - 正确设置文档的order值，确保按字母顺序排列
 
 ### 5. 构建验证
+
 - **必须**在完成所有操作后执行 `pnpm build:docs`
 - 确保构建过程无错误
 - 如果构建失败，必须修复所有错误后重新构建
@@ -209,6 +237,7 @@ export const ComponentPackage = {
 修改/新建组件时，确保以下项目都已完成：
 
 ### 核心组件
+
 - [ ] 导入 [style.ts](mdc:packages/cosy-ui/style.ts)
 - [ ] 使用daisyUI类和正确的Tailwind前缀
 - [ ] Props接口完整且与文档一致
@@ -217,6 +246,7 @@ export const ComponentPackage = {
 - [ ] 在 [index-astro.ts](mdc:packages/cosy-ui/index-astro.ts) 中按字母顺序添加了组件导出
 
 ### 示例组件（文档项目中）
+
 - [ ] 示例组件放在 `packages/cosy-docs/src/components/{component-name}/`
 - [ ] 正确从 `@coffic/cosy-ui` 导入核心组件和类型
 - [ ] 创建了基础示例组件
@@ -227,6 +257,7 @@ export const ComponentPackage = {
 - [ ] 创建了 ComponentPackage 导出
 
 ### 文档
+
 - [ ] 创建了中英文文档
 - [ ] 正确导入核心组件和示例组件
 - [ ] 文档中的所有示例都能正常工作
