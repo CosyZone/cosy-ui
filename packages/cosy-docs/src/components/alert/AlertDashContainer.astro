@@ -1,11 +1,37 @@
 ---
+/**
+ * @component AlertDashContainer
+ * @description 展示 Alert 组件 dash 虚线描边风格的示例
+ */
 import { CodeContainer } from '@coffic/cosy-ui';
-import AlertDash from './AlertDash.astro';
-import AlertDashSourceCode from './AlertDash.astro?raw';
+import AlertDashInfo from './AlertDashInfo.astro';
+import AlertDashSuccess from './AlertDashSuccess.astro';
+import AlertDashWarning from './AlertDash.astro';
+import AlertDashError from './AlertDashError.astro';
+import AlertDashInfoSource from './AlertDashInfo.astro?raw';
+import AlertDashSuccessSource from './AlertDashSuccess.astro?raw';
+import AlertDashWarningSource from './AlertDash.astro?raw';
+import AlertDashErrorSource from './AlertDashError.astro?raw';
 ---
 
-<CodeContainer codes={[AlertDashSourceCode]}>
+<CodeContainer
+  codes={[
+    AlertDashInfoSource,
+    AlertDashSuccessSource,
+    AlertDashWarningSource,
+    AlertDashErrorSource,
+  ]}
+  titles={['Info', 'Success', 'Warning', 'Error']}>
   <div id="tab-1">
-    <AlertDash />
+    <AlertDashInfo />
+  </div>
+  <div id="tab-2">
+    <AlertDashSuccess />
+  </div>
+  <div id="tab-3">
+    <AlertDashWarning />
+  </div>
+  <div id="tab-4">
+    <AlertDashError />
   </div>
 </CodeContainer>

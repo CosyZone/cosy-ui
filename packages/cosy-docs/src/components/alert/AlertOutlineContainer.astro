@@ -1,11 +1,37 @@
 ---
+/**
+ * @component AlertOutlineContainer
+ * @description 展示 Alert 组件 outline 描边风格的示例
+ */
 import { CodeContainer } from '@coffic/cosy-ui';
-import AlertOutline from './AlertOutline.astro';
-import AlertOutlineSourceCode from './AlertOutline.astro?raw';
+import AlertOutlineInfo from './AlertOutline.astro';
+import AlertOutlineSuccess from './AlertOutlineSuccess.astro';
+import AlertOutlineWarning from './AlertOutlineWarning.astro';
+import AlertOutlineError from './AlertOutlineError.astro';
+import AlertOutlineInfoSource from './AlertOutline.astro?raw';
+import AlertOutlineSuccessSource from './AlertOutlineSuccess.astro?raw';
+import AlertOutlineWarningSource from './AlertOutlineWarning.astro?raw';
+import AlertOutlineErrorSource from './AlertOutlineError.astro?raw';
 ---
 
-<CodeContainer codes={[AlertOutlineSourceCode]}>
+<CodeContainer
+  codes={[
+    AlertOutlineInfoSource,
+    AlertOutlineSuccessSource,
+    AlertOutlineWarningSource,
+    AlertOutlineErrorSource,
+  ]}
+  titles={['Info', 'Success', 'Warning', 'Error']}>
   <div id="tab-1">
-    <AlertOutline />
+    <AlertOutlineInfo />
+  </div>
+  <div id="tab-2">
+    <AlertOutlineSuccess />
+  </div>
+  <div id="tab-3">
+    <AlertOutlineWarning />
+  </div>
+  <div id="tab-4">
+    <AlertOutlineError />
   </div>
 </CodeContainer>

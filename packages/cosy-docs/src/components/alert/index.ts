@@ -8,6 +8,7 @@ import AlertActionContainer from './AlertActionContainer.astro';
 import AlertOutlineContainer from './AlertOutlineContainer.astro';
 import AlertDashContainer from './AlertDashContainer.astro';
 import AlertSoftContainer from './AlertSoftContainer.astro';
+import AlertNoIconContainer from './AlertNoIconContainer.astro';
 
 export const AlertPackage = {
     AlertContainers: {
@@ -21,5 +22,6 @@ export const AlertPackage = {
         Outline: AlertOutlineContainer,
         Dash: AlertDashContainer,
         Soft: AlertSoftContainer,
+        NoIcon: AlertNoIconContainer,
     }
 }; 

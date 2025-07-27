@@ -1,11 +1,37 @@
 ---
+/**
+ * @component AlertSoftContainer
+ * @description 展示 Alert 组件 soft 柔和风格的示例
+ */
 import { CodeContainer } from '@coffic/cosy-ui';
-import AlertSoft from './AlertSoft.astro';
-import AlertSoftSourceCode from './AlertSoft.astro?raw';
+import AlertSoftInfo from './AlertSoftInfo.astro';
+import AlertSoftSuccess from './AlertSoft.astro';
+import AlertSoftWarning from './AlertSoftWarning.astro';
+import AlertSoftError from './AlertSoftError.astro';
+import AlertSoftInfoSource from './AlertSoftInfo.astro?raw';
+import AlertSoftSuccessSource from './AlertSoft.astro?raw';
+import AlertSoftWarningSource from './AlertSoftWarning.astro?raw';
+import AlertSoftErrorSource from './AlertSoftError.astro?raw';
 ---
 
-<CodeContainer codes={[AlertSoftSourceCode]}>
+<CodeContainer
+  codes={[
+    AlertSoftInfoSource,
+    AlertSoftSuccessSource,
+    AlertSoftWarningSource,
+    AlertSoftErrorSource,
+  ]}
+  titles={['Info', 'Success', 'Warning', 'Error']}>
   <div id="tab-1">
-    <AlertSoft />
+    <AlertSoftInfo />
+  </div>
+  <div id="tab-2">
+    <AlertSoftSuccess />
+  </div>
+  <div id="tab-3">
+    <AlertSoftWarning />
+  </div>
+  <div id="tab-4">
+    <AlertSoftError />
   </div>
 </CodeContainer>
