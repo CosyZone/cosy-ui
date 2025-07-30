@@ -175,7 +175,6 @@ import {
   Main,
   Sidebar,
 } from '../../index-astro';
-import { ClientRouter } from 'astro:transitions';
 
 interface Props extends IAppLayoutProps {}
 
@@ -196,7 +195,6 @@ const {
 ---
 
 <BaseLayout {...metaConfig} debug={debug}>
-  <ClientRouter />
   {
     showHeader && (
       <Header {...headerConfig} debug={debug} transition:persist>

@@ -51,6 +51,8 @@
 
 import '../../style.ts';
 import { type IMetaProps } from '../../index-astro';
+import { ClientRouter } from 'astro:transitions';
+import { LoadingOverlay } from '../loading-overlay';
 
 export interface Props extends IMetaProps {}
 
@@ -111,9 +113,12 @@ let bodyClasses = [
     <!-- 自定义头部内容 -->
     {head && <div set:html={head} />}
 
+    <ClientRouter />
+
     <slot name="head" />
   </head>
   <body class:list={[bodyClasses, classList, 'min-h-screen']}>
     <slot />
+    <LoadingOverlay />
   </body>
 </html>
