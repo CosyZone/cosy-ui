@@ -29,6 +29,7 @@ export * from './src-astro/layout-basic';
 export * from './src-astro/layout-basic/BaseLayout.astro';
 export * from './src-astro/layout-dashboard';
 export * from './src-astro/link';
+export * from './src-astro/loading-overlay';
 export * from './src-astro/login';
 export * from './src-astro/logout';
 export * from './src-astro/main';

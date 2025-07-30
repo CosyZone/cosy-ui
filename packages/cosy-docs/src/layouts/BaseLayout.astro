@@ -12,6 +12,7 @@ interface Props {
   sidebarItems?: ISidebarItem | null;
   isArticle?: boolean;
   verticalPadding?: string;
+  mainLayout?: 'row' | 'column';
 }
 
 const {
@@ -21,6 +22,7 @@ const {
   sidebarItems = null,
   isArticle = true,
   verticalPadding = '4xl',
+  mainLayout = 'row',
 } = Astro.props;
 const currentLocale = Astro.currentLocale;
 ---
@@ -72,7 +74,7 @@ const currentLocale = Astro.currentLocale;
   mainContentConfig={{
     verticalPadding: verticalPadding,
     isArticle: isArticle,
-    layout: 'row',
+    layout: mainLayout,
     size: isArticle ? 'full' : 'lg',
     padding: 'none',
     showTableOfContents: showTOC,
