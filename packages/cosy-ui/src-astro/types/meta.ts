@@ -66,10 +66,4 @@ export interface IMetaProps {
      * @default 'default'
      */
     background?: 'default' | 'white' | 'gray' | 'dark' | 'gradient-blue' | 'gradient-pink' | 'gradient-green';
-
-    /**
-     * 加载延迟时间（毫秒），默认1000ms
-     * @default 1000
-     */
-    loadingDelay?: number;
 }

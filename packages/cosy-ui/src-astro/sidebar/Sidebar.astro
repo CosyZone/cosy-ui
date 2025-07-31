@@ -22,8 +22,9 @@
  */
 
 import '../../style.ts';
-import { isPathMatch } from '../../src/utils/path.ts';
-import { MenuIcon, SidebarNav, Modal } from '../../index-astro';
+import { SidebarNav, Modal } from '../../index-astro';
+import { getMarginTopClass, getMarginBottomClass } from './utils.ts';
+import MobileNav from './MobileNav.astro';
 import type { ISidebarProps } from '../../index-astro';
 
 export interface Props extends ISidebarProps {}
@@ -40,65 +41,22 @@ const {
 const currentPath = Astro.url.pathname;
 
 const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
-
-function getVerticalMarginTopClasses(marginTop: string) {
-  if (marginTop === 'none') return 'cosy:mt-0';
-  if (marginTop === 'xs') return 'cosy:mt-1';
-  if (marginTop === 'sm') return 'cosy:mt-2';
-  if (marginTop === 'md') return 'cosy:mt-4';
-  if (marginTop === 'lg') return 'cosy:mt-6';
-  if (marginTop === 'xl') return 'cosy:mt-8';
-  if (marginTop === '2xl') return 'cosy:mt-10';
-  if (marginTop === '3xl') return 'cosy:mt-12';
-  if (marginTop === '4xl') return 'cosy:mt-16';
-  if (marginTop === '5xl') return 'cosy:mt-20';
-  return '';
-}
-
-function getVerticalMarginBottomClasses(marginBottom: string) {
-  if (marginBottom === 'none') return 'cosy:mb-0';
-  if (marginBottom === 'xs') return 'cosy:mb-1';
-  if (marginBottom === 'sm') return 'cosy:mb-2';
-  if (marginBottom === 'md') return 'cosy:mb-4';
-  if (marginBottom === 'lg') return 'cosy:mb-6';
-  if (marginBottom === 'xl') return 'cosy:mb-8';
-  if (marginBottom === '2xl') return 'cosy:mb-10';
-  if (marginBottom === '3xl') return 'cosy:mb-12';
-  if (marginBottom === '4xl') return 'cosy:mb-16';
-  if (marginBottom === '5xl') return 'cosy:mb-20';
-  return '';
-}
-
-// 获取当前活动的一级导航项
-const currentSection = sidebarItems.find((section) =>
-  section.items?.some((item) => isPathMatch(currentPath, item.href))
-);
 ---
 
 {/* 移动端导航栏 */}
-<div
-  class:list={[
-    'cosy:flex cosy:lg:hidden cosy:items-center cosy:justify-between cosy:px-4 cosy:py-2 cosy:border-b cosy:border-base-300 cosy:bg-base-100 cosy:relative cosy:z-10',
-    debugClass,
-  ]}>
-  <div class="cosy:flex cosy:items-center cosy:gap-2">
-    <button
-      type="button"
-      class="cosy:p-2 cosy:btn cosy:btn-ghost cosy:btn-sm"
-      data-modal-target="mobile-sidebar">
-      <MenuIcon class="cosy:w-5 cosy:h-5" />
-    </button>
-    <span class="cosy:font-medium cosy:text-sm"
-      >{currentSection?.text || '导航'}</span
-    >
-  </div>
-</div>
+<MobileNav
+  sidebarItems={sidebarItems}
+  currentPath={currentPath}
+  debug={debug}
+/>
 
 {/* 移动端侧边栏弹出层 */}
 <Modal
   id="mobile-sidebar"
   class="cosy:mx-4 cosy:lg:w-80 cosy:w-[calc(100vw-2rem)] cosy:max-w-full">
-  <div class="cosy:h-[calc(100vh-8rem)] cosy:overflow-y-auto">
+  <div
+    class="cosy:h-[calc(100vh-8rem)] cosy:overflow-y-auto"
+    data-mobile-sidebar-content>
     <SidebarNav
       sidebarItems={sidebarItems}
       currentPath={currentPath}
@@ -117,11 +75,12 @@ const currentSection = sidebarItems.find((section) =>
     className,
     debugClass,
     'cosy:hidden cosy:lg:block',
-    getVerticalMarginTopClasses(marginTop),
-    getVerticalMarginBottomClasses(marginBottom),
+    getMarginTopClass(marginTop),
+    getMarginBottomClass(marginBottom),
   ]}>
   <div
-    class="cosy:top-16 cosy:sticky cosy:pb-48 cosy:h-[calc(100vh-0rem)] cosy:overflow-y-auto">
+    class="cosy:top-16 cosy:sticky cosy:pb-48 cosy:h-[calc(100vh-0rem)] cosy:overflow-y-auto"
+    data-desktop-sidebar-content>
     <SidebarNav
       sidebarItems={sidebarItems}
       currentPath={currentPath}
@@ -131,62 +90,42 @@ const currentSection = sidebarItems.find((section) =>
 </aside>
 
 <script>
+  import { saveScrollPosition, restoreScrollPosition } from './utils.ts';
+
   // 处理侧边栏滚动位置保存和恢复
   document.addEventListener('astro:before-preparation', () => {
-    // 获取桌面侧边栏滚动容器
-    const desktopSidebarContent = document.querySelector(
-      'aside[data-sidebar] .cosy\\:overflow-y-auto'
+    // 保存桌面端滚动位置
+    const desktopContent = document.querySelector(
+      '[data-desktop-sidebar-content]'
     );
-
-    // 保存滚动位置到localStorage
-    if (desktopSidebarContent) {
-      localStorage.setItem(
-        'sidebarScrollPosition',
-        desktopSidebarContent.scrollTop.toString()
-      );
+    if (desktopContent) {
+      saveScrollPosition(desktopContent, 'sidebarScrollPosition');
     }
 
-    // 获取移动端侧边栏滚动容器
-    const mobileSidebarContent = document.querySelector(
-      '.cosy\\:h-\\[calc\\(100vh-8rem\\)\\].cosy\\:overflow-y-auto'
-    );
-
     // 保存移动端滚动位置
-    if (mobileSidebarContent) {
-      localStorage.setItem(
-        'mobileSidebarScrollPosition',
-        mobileSidebarContent.scrollTop.toString()
-      );
+    const mobileContent = document.querySelector(
+      '[data-mobile-sidebar-content]'
+    );
+    if (mobileContent) {
+      saveScrollPosition(mobileContent, 'mobileSidebarScrollPosition');
     }
   });
 
   document.addEventListener('astro:page-load', () => {
-    // 获取桌面侧边栏滚动容器
-    const desktopSidebarContent = document.querySelector(
-      'aside[data-sidebar] .cosy\\:overflow-y-auto'
+    // 恢复桌面端滚动位置
+    const desktopContent = document.querySelector(
+      '[data-desktop-sidebar-content]'
     );
-
-    // 恢复滚动位置
-    if (desktopSidebarContent) {
-      const savedPosition = localStorage.getItem('sidebarScrollPosition');
-      if (savedPosition) {
-        desktopSidebarContent.scrollTop = parseInt(savedPosition, 10);
-      }
+    if (desktopContent) {
+      restoreScrollPosition(desktopContent, 'sidebarScrollPosition');
     }
 
-    // 获取移动端侧边栏滚动容器
-    const mobileSidebarContent = document.querySelector(
-      '.cosy\\:h-\\[calc\\(100vh-8rem\\)\\].cosy\\:overflow-y-auto'
-    );
-
     // 恢复移动端滚动位置
-    if (mobileSidebarContent) {
-      const savedMobilePosition = localStorage.getItem(
-        'mobileSidebarScrollPosition'
-      );
-      if (savedMobilePosition) {
-        mobileSidebarContent.scrollTop = parseInt(savedMobilePosition, 10);
-      }
+    const mobileContent = document.querySelector(
+      '[data-mobile-sidebar-content]'
+    );
+    if (mobileContent) {
+      restoreScrollPosition(mobileContent, 'mobileSidebarScrollPosition');
     }
   });
 </script>

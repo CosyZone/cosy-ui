@@ -175,6 +175,7 @@ import {
   Main,
   Sidebar,
 } from '../../index-astro';
+import SkeletonLoader from './SkeletonLoader.astro';
 
 interface Props extends IAppLayoutProps {}
 
@@ -190,6 +191,7 @@ const {
   footerConfig,
   headerConfig,
   metaConfig,
+  loadingDelay = 100,
   ...rest
 }: Props = Astro.props;
 ---
@@ -197,7 +199,7 @@ const {
 <BaseLayout {...metaConfig} debug={debug}>
   {
     showHeader && (
-      <Header {...headerConfig} debug={debug} transition:persist>
+      <Header {...headerConfig} debug={debug}>
         <div slot="navbar-start">
           <slot name="navbar-start" />
         </div>
@@ -213,26 +215,24 @@ const {
 
   <Container flex="row" gap="md" size="full" padding="none">
     <!-- 侧边栏容器 -->
-    {
-      showSidebar && (
-        <Sidebar
-          {...sidebarConfig}
-          transition:name="sidebar"
-          transition:persist
-        />
-      )
-    }
+    {showSidebar && <Sidebar {...sidebarConfig} />}
 
     <!-- 主内容区域 -->
     <Main {...mainContentConfig}>
-      <slot />
+      <SkeletonLoader
+        showLoading={true}
+        loadingSize="xl"
+        loadingDelay={loadingDelay}
+        skeletonClass="cosy:w-full cosy:h-screen  cosy:flex cosy:items-center cosy:justify-center">
+        <slot />
+      </SkeletonLoader>
     </Main>
   </Container>
 
   <!-- Footer -->
   {
     showFooter && (
-      <Container size="full" padding="none" transition:persist>
+      <Container size="full" padding="none">
         <Footer {...footerConfig} />
       </Container>
     )

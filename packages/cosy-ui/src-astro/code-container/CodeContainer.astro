@@ -103,8 +103,6 @@ const {
 
 <script>
   function initializeCodeContainer() {
-    console.log('CodeContainer: 初始化代码容器');
-
     // 初始化时隐藏除第一个以外的所有内容
     document
       .querySelectorAll('[data-role="code-container"]')
@@ -119,7 +117,6 @@ const {
   }
 
   document.addEventListener('astro:page-load', () => {
-    console.log('CodeContainer: 页面加载完成，初始化代码容器');
     initializeCodeContainer();
   });
 </script>

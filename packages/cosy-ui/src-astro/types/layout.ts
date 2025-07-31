@@ -68,4 +68,9 @@ export interface IAppLayoutProps {
      * 页脚相关配置
      */
     footerConfig: IFooterProps;
+
+    /**
+     * 加载中界面延迟显示的时间
+     */
+    loadingDelay?: number;
 }

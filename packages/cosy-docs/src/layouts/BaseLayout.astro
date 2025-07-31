@@ -36,7 +36,6 @@ const currentLocale = Astro.currentLocale;
     author: 'CofficLab',
     robots: 'index, follow',
     favicon: Favicon,
-    loadingDelay: 500,
   }}
   footerConfig={{
     siteName: 'Cosy UI',
@@ -82,6 +81,7 @@ const currentLocale = Astro.currentLocale;
   }}
   showHeader={true}
   showFooter={true}
-  showSidebar={showSidebar}>
+  showSidebar={showSidebar}
+  loadingDelay={500}>
   <slot />
 </AppLayout>

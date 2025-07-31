@@ -52,9 +52,11 @@
 import '../../style.ts';
 import { type IMetaProps } from '../../index-astro';
 import { ClientRouter } from 'astro:transitions';
-import { LoadingOverlay } from '../loading-overlay';
 
-export interface Props extends IMetaProps {}
+export interface Props extends IMetaProps {
+  /** 最小显示时间（毫秒），默认300ms，确保用户能看到加载状态 */
+  loadingMinDisplayTime?: number;
+}
 
 const {
   title,
@@ -69,7 +71,6 @@ const {
   favicon,
   'class:list': classList,
   background = 'default',
-  loadingDelay = 1000,
 } = Astro.props;
 
 // 处理背景色 class
@@ -108,18 +109,17 @@ let bodyClasses = [
     <meta name="generator" content={Astro.generator} />
     {favicon && <link rel="icon" type={favicon.format} href={favicon.src} />}
 
+    <ClientRouter />
+
     <!-- 自定义样式 -->
     {customStyles && <style set:html={customStyles} />}
 
     <!-- 自定义头部内容 -->
     {head && <div set:html={head} />}
 
-    <ClientRouter />
-
     <slot name="head" />
   </head>
   <body class:list={[bodyClasses, classList, 'min-h-screen']}>
     <slot />
-    <LoadingOverlay loadingDelay={loadingDelay} />
   </body>
 </html>
