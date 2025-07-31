@@ -75,14 +75,6 @@ const overlayId = `loading-overlay`;
 </div>
 
 <script is:inline define:vars={{ overlayId, loadingDelay, minDisplayTime }}>
-  // 获取加载弹出层元素
-  const overlay = document.getElementById(overlayId);
-
-  if (!overlay) {
-    console.log('LoadingOverlay overlay not found');
-    return;
-  }
-
   let loadingStartTime = null;
   let showTimeout = null;
   let hideTimeout = null;
@@ -91,29 +83,27 @@ const overlayId = `loading-overlay`;
 
   // 显示加载弹出层的函数
   const showOverlay = () => {
+    const overlay = document.getElementById(overlayId);
+    if (!overlay) {
+      console.error('LoadingOverlay: overlay not found');
+      return;
+    }
+
     if (isLoading) return;
 
     isLoading = true;
     loadingStartTime = Date.now();
 
-    // 延迟显示，避免短时间加载的视觉干扰
-    showTimeout = window.setTimeout(() => {
-      overlay.style.opacity = '1';
-      overlay.style.pointerEvents = 'auto';
-      displayStartTime = Date.now();
-    }, loadingDelay);
+    overlay.style.opacity = '1';
+    overlay.style.pointerEvents = 'auto';
   };
 
   // 隐藏加载弹出层的函数
   const hideOverlay = () => {
-    if (showTimeout) {
-      clearTimeout(showTimeout);
-      showTimeout = null;
-    }
-
-    if (hideTimeout) {
-      clearTimeout(hideTimeout);
-      hideTimeout = null;
+    const overlay = document.getElementById(overlayId);
+    if (!overlay) {
+      console.error('LoadingOverlay: overlay not found');
+      return;
     }
 
     isLoading = false;
@@ -124,50 +114,10 @@ const overlayId = `loading-overlay`;
     overlay.style.pointerEvents = 'none';
   };
 
-  // 检查最小显示时间的函数
-  const checkMinDisplayTime = () => {
-    console.log(
-      'checkMinDisplayTime called, displayStartTime:',
-      displayStartTime
-    );
-
-    if (!displayStartTime) {
-      console.log('No displayStartTime, hiding overlay immediately');
-      hideOverlay();
-      return;
-    }
-
-    const displayTime = Date.now() - displayStartTime;
-    console.log(
-      'Display time:',
-      displayTime,
-      'minDisplayTime:',
-      minDisplayTime
-    );
-
-    if (displayTime >= minDisplayTime) {
-      console.log('Display time >= minDisplayTime, hiding overlay');
-      hideOverlay();
-    } else {
-      console.log(
-        'Display time < minDisplayTime, waiting for:',
-        minDisplayTime - displayTime,
-        'ms'
-      );
-      // 等待最小显示时间
-      hideTimeout = setTimeout(() => {
-        console.log('Min display time reached, hiding overlay');
-        hideOverlay();
-      }, minDisplayTime - displayTime);
-    }
-  };
-
   // 监听 Astro 页面过渡事件
   document.addEventListener('astro:page-load', () => {
-    // 检查最小显示时间，而不是直接隐藏
-    setTimeout(() => {
-      checkMinDisplayTime();
-    }, 100);
+    console.log('astro:page-load, hideOverlay');
+    hideOverlay();
   });
 
   document.addEventListener('astro:before-preparation', () => {
@@ -182,16 +132,7 @@ const overlayId = `loading-overlay`;
   });
 
   document.addEventListener('astro:after-swap', () => {
-    // 如果加载时间很短，且 LoadingOverlay 没有显示，直接隐藏
-    if (loadingStartTime && Date.now() - loadingStartTime < loadingDelay) {
-      console.log('astro:after-swap, hideOverlay');
-      hideOverlay();
-    } else {
-      // 否则检查最小显示时间
-      setTimeout(() => {
-        console.log('astro:after-swap, checkMinDisplayTime');
-        checkMinDisplayTime();
-      }, 100);
-    }
+    console.log('astro:after-swap, hideOverlay');
+    hideOverlay();
   });
 </script>
