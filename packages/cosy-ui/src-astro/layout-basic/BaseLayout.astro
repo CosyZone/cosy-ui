@@ -69,6 +69,7 @@ const {
   favicon,
   'class:list': classList,
   background = 'default',
+  loadingDelay = 1000,
 } = Astro.props;
 
 // 处理背景色 class
@@ -119,6 +120,6 @@ let bodyClasses = [
   </head>
   <body class:list={[bodyClasses, classList, 'min-h-screen']}>
     <slot />
-    <LoadingOverlay />
+    <LoadingOverlay loadingDelay={loadingDelay} />
   </body>
 </html>

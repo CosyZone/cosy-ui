@@ -4,14 +4,16 @@
  *
  * @description
  * LoadingOverlay 组件是一个全屏加载弹出层，用于在页面跳转时显示加载状态。
- * 它监听 Astro 的页面过渡事件，在跳转开始时显示，跳转完成后隐藏。
+ * 它监听 Astro 的页面过渡事件，在跳转开始时延迟显示，跳转完成后隐藏。
+ * 为了避免频繁的视觉干扰，只有在加载时间超过指定延迟时间（默认1秒）时才显示。
  *
  * @design
  * 设计理念：
  * 1. 全屏覆盖 - 使用固定定位覆盖整个视口
  * 2. 居中显示 - 加载指示器在屏幕中央显示
  * 3. 平滑动画 - 使用淡入淡出动画效果
- * 4. 可定制性 - 支持自定义加载文本和样式
+ * 4. 延迟显示 - 避免短时间加载的视觉干扰
+ * 5. 可定制性 - 支持自定义加载文本、样式和延迟时间
  *
  * @usage
  * 基本用法：
@@ -23,9 +25,9 @@
  * <LoadingOverlay />
  * ```
  *
- * 自定义文本：
+ * 自定义延迟时间：
  * ```astro
- * <LoadingOverlay text="页面加载中..." />
+ * <LoadingOverlay delay={2000} text="页面加载中..." />
  * ```
  *
  * 自定义样式：
@@ -33,6 +35,7 @@
  * <LoadingOverlay
  *   text="正在跳转..."
  *   class="custom-loading-overlay"
+ *   delay={1500}
  * />
  * ```
  */
@@ -48,13 +51,16 @@ export interface Props {
   showSpinner?: boolean;
   /** 加载动画类型 */
   spinnerType?: 'dots' | 'spinner' | 'pulse';
+  /** 延迟显示时间（毫秒），默认1000ms */
+  loadingDelay?: number;
 }
 
 const {
-  text = '页面加载中...',
+  text = 'Loading...',
   class: className,
   showSpinner = true,
   spinnerType = 'dots',
+  loadingDelay = 1000,
 } = Astro.props;
 
 // 生成唯一的 ID
@@ -106,55 +112,67 @@ const overlayId = `loading-overlay-${Math.random().toString(36).substr(2, 9)}`;
   </div>
 </div>
 
-<script define:vars={{ overlayId }}>
+<script define:vars={{ overlayId, loadingDelay }}>
   // 获取加载弹出层元素
   const overlay = document.getElementById(overlayId);
 
   if (overlay) {
-    console.log('LoadingOverlay initialized with ID:', overlayId);
+    let loadingStartTime = null;
+    let showTimeout = null;
+    let isLoading = false;
+
+    // 显示加载弹出层的函数
+    const showOverlay = () => {
+      if (isLoading) return;
+
+      isLoading = true;
+      loadingStartTime = Date.now();
+
+      // 延迟显示，避免短时间加载的视觉干扰
+      showTimeout = window.setTimeout(() => {
+        overlay.style.opacity = '1';
+        overlay.style.pointerEvents = 'auto';
+      }, loadingDelay);
+    };
+
+    // 隐藏加载弹出层的函数
+    const hideOverlay = () => {
+      if (showTimeout) {
+        clearTimeout(showTimeout);
+        showTimeout = null;
+      }
+
+      isLoading = false;
+      loadingStartTime = null;
+
+      overlay.style.opacity = '0';
+      overlay.style.pointerEvents = 'none';
+    };
 
     // 监听 Astro 页面过渡事件
     document.addEventListener('astro:page-load', () => {
-      console.log('astro:page-load - hiding overlay');
-      overlay.style.opacity = '0';
-      overlay.style.pointerEvents = 'none';
+      hideOverlay();
     });
 
     document.addEventListener('astro:before-preparation', () => {
-      console.log('astro:before-preparation - showing overlay');
-      overlay.style.opacity = '1';
-      overlay.style.pointerEvents = 'auto';
+      showOverlay();
     });
 
     // 监听路由变化
     document.addEventListener('astro:before-swap', () => {
-      console.log('astro:before-swap - showing overlay');
-      overlay.style.opacity = '1';
-      overlay.style.pointerEvents = 'auto';
+      showOverlay();
     });
 
     document.addEventListener('astro:after-swap', () => {
-      console.log('astro:after-swap - hiding overlay');
-      setTimeout(() => {
-        overlay.style.opacity = '0';
-        overlay.style.pointerEvents = 'none';
-      }, 100);
-    });
-
-    // 监听所有 Astro 相关事件
-    const astroEvents = [
-      'astro:before-preparation',
-      'astro:after-preparation',
-      'astro:before-swap',
-      'astro:after-swap',
-      'astro:page-load',
-      'astro:page-loading',
-    ];
-
-    astroEvents.forEach((eventName) => {
-      document.addEventListener(eventName, (e) => {
-        console.log(`Event triggered: ${eventName}`, e);
-      });
+      // 如果加载时间很短，立即隐藏
+      if (loadingStartTime && Date.now() - loadingStartTime < loadingDelay) {
+        hideOverlay();
+      } else {
+        // 否则延迟隐藏，给用户一个视觉反馈
+        setTimeout(() => {
+          hideOverlay();
+        }, 100);
+      }
     });
   }
 </script>
