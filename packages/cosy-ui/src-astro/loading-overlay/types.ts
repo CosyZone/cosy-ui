@@ -7,4 +7,6 @@ export interface LoadingOverlayProps {
     showSpinner?: boolean;
     /** 加载动画类型 */
     spinnerType?: 'dots' | 'spinner' | 'pulse';
+    /** 延迟显示时间（毫秒），默认1000ms */
+    delay?: number;
 }
