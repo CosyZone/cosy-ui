@@ -43,6 +43,7 @@ const badgeSize = level === 0 ? 'cosy:badge-sm' : 'cosy:badge-xs';
   <a
     data-sidebar-item
     data-current-path={currentPath}
+    data-href={item.href}
     href={item.href}
     class:list={[
       'cosy:hover:bg-base-300',
@@ -72,3 +73,79 @@ const badgeSize = level === 0 ? 'cosy:badge-sm' : 'cosy:badge-xs';
     )
   }
 </li>
+
+<script>
+  // 简化的路径匹配函数
+  function isPathMatch(currentPath: string, href: string): boolean {
+    if (href === currentPath) return true;
+    if (href === '/') return currentPath === '/';
+    if (href.endsWith('/')) {
+      return currentPath.startsWith(href) || currentPath === href.slice(0, -1);
+    }
+    return currentPath.startsWith(href);
+  }
+
+  // 立即处理导航项点击，更新高亮状态
+  document.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    const navItem = target.closest('[data-sidebar-item]') as HTMLAnchorElement;
+
+    if (navItem) {
+      // 立即移除所有导航项的高亮状态
+      const allNavItems = document.querySelectorAll('[data-sidebar-item]');
+      allNavItems.forEach((item) => {
+        item.classList.remove('cosy:menu-active');
+      });
+
+      // 立即为当前点击的导航项添加高亮状态
+      navItem.classList.add('cosy:menu-active');
+
+      // 可选：添加一个短暂的视觉反馈
+      navItem.style.transition = 'background-color 0.2s ease';
+      setTimeout(() => {
+        navItem.style.transition = '';
+      }, 200);
+    }
+  });
+
+  // 处理 Astro 页面切换后的状态恢复
+  document.addEventListener('astro:page-load', () => {
+    const currentPath = window.location.pathname;
+    const allNavItems = document.querySelectorAll(
+      '[data-sidebar-item]'
+    ) as NodeListOf<HTMLAnchorElement>;
+
+    // 移除所有高亮状态
+    allNavItems.forEach((item) => {
+      item.classList.remove('cosy:menu-active');
+    });
+
+    // 找到最精确匹配的导航项
+    let bestMatch: HTMLAnchorElement | null = null;
+    let bestMatchLength = 0;
+
+    allNavItems.forEach((item) => {
+      const href = item.getAttribute('data-href');
+      if (href) {
+        // 精确匹配优先
+        if (href === currentPath) {
+          bestMatch = item;
+          bestMatchLength = href.length;
+        }
+        // 如果没有精确匹配，选择最长的前缀匹配
+        else if (
+          currentPath.startsWith(href) &&
+          href.length > bestMatchLength
+        ) {
+          bestMatch = item;
+          bestMatchLength = href.length;
+        }
+      }
+    });
+
+    // 只高亮最匹配的项
+    if (bestMatch) {
+      (bestMatch as HTMLAnchorElement).classList.add('cosy:menu-active');
+    }
+  });
+</script>
