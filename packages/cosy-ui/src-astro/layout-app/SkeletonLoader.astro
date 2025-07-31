@@ -54,15 +54,9 @@ export interface Props {
   loadingDelay?: number;
   /** 骨架屏的自定义 CSS 类名 */
   skeletonClass?: string;
-  /** 是否显示骨架屏，默认true */
-  showSkeleton?: boolean;
 }
 
-const {
-  loadingDelay = 1000,
-  skeletonClass = 'cosy:bg-gray-200 cosy:animate-pulse',
-  showSkeleton = true,
-} = Astro.props;
+const { loadingDelay = 1000, skeletonClass = '' } = Astro.props;
 
 // 生成唯一的 ID
 const loaderId = `skeleton-loader-${Math.random().toString(36).substr(2, 9)}`;
@@ -70,48 +64,15 @@ const loaderId = `skeleton-loader-${Math.random().toString(36).substr(2, 9)}`;
 
 <div id={loaderId} class="cosy:relative">
   <!-- 骨架屏 -->
-  {
-    showSkeleton && (
-      <div
-        id={`${loaderId}-skeleton`}
-        class:list={[
-          'cosy:absolute cosy:inset-0 cosy:z-10',
-          'cosy:bg-white cosy:dark:bg-gray-900',
-          'cosy:flex cosy:flex-col cosy:space-y-4',
-          'cosy:p-6',
-          skeletonClass,
-        ]}
-        style="display: none;">
-        <!-- 标题骨架 -->
-        <div class="cosy:h-8 cosy:bg-gray-300 cosy:dark:bg-gray-700 cosy:rounded cosy:w-3/4 cosy:animate-pulse" />
-        
-        <!-- 段落骨架 -->
-        <div class="cosy:space-y-3">
-          <div class="cosy:h-4 cosy:bg-gray-300 cosy:dark:bg-gray-700 cosy:rounded cosy:animate-pulse" />
-          <div class="cosy:h-4 cosy:bg-gray-300 cosy:dark:bg-gray-700 cosy:rounded cosy:w-5/6 cosy:animate-pulse" />
-          <div class="cosy:h-4 cosy:bg-gray-300 cosy:dark:bg-gray-700 cosy:rounded cosy:w-4/6 cosy:animate-pulse" />
-        </div>
-        
-        <!-- 卡片骨架 -->
-        <div class="cosy:grid cosy:grid-cols-1 cosy:md:grid-cols-2 cosy:gap-4 cosy:mt-6">
-          <div class="cosy:bg-gray-300 cosy:dark:bg-gray-700 cosy:rounded-lg cosy:p-4 cosy:h-32 cosy:animate-pulse" />
-          <div class="cosy:bg-gray-300 cosy:dark:bg-gray-700 cosy:rounded-lg cosy:p-4 cosy:h-32 cosy:animate-pulse" />
-        </div>
-        
-        <!-- 按钮骨架 -->
-        <div class="cosy:flex cosy:space-x-4 cosy:mt-6">
-          <div class="cosy:h-10 cosy:bg-gray-300 cosy:dark:bg-gray-700 cosy:rounded cosy:w-24 cosy:animate-pulse" />
-          <div class="cosy:h-10 cosy:bg-gray-300 cosy:dark:bg-gray-700 cosy:rounded cosy:w-32 cosy:animate-pulse" />
-        </div>
-      </div>
-    )
-  }
+  <div id={`${loaderId}-skeleton`} style="display: none;" class={skeletonClass}>
+    <div class="cosy:skeleton cosy:h-96 cosy:w-96"></div>
+  </div>
 
   <!-- 实际内容 -->
   <div
     id={`${loaderId}-content`}
     class="cosy:relative cosy:z-20"
-    style="opacity: 0; transition: opacity 0.3s ease-in-out;">
+    style="opacity: 1; transition: opacity 0.3s ease-in-out;">
     <slot />
   </div>
 </div>
@@ -132,25 +93,13 @@ const loaderId = `skeleton-loader-${Math.random().toString(36).substr(2, 9)}`;
   const showSkeleton = () => {
     const skeleton = getSkeletonElement();
     const content = getContentElement();
-    
+
     if (!skeleton || !content || loaded) return;
 
-    // 显示骨架屏
-    skeleton.style.display = 'flex';
     // 隐藏内容
     content.style.opacity = '0';
-  };
-
-  const hideSkeleton = () => {
-    const skeleton = getSkeletonElement();
-    const content = getContentElement();
-    
-    if (!skeleton || !content) return;
-
-    // 隐藏骨架屏
-    skeleton.style.display = 'none';
-    // 显示内容
-    content.style.opacity = '1';
+    // 显示骨架屏
+    skeleton.style.display = 'flex';
   };
 
   // 显示骨架屏的函数
@@ -164,23 +113,9 @@ const loaderId = `skeleton-loader-${Math.random().toString(36).substr(2, 9)}`;
     }, loadingDelay);
   };
 
-  // 隐藏骨架屏的函数
-  const hideLoader = (reason) => {
-    console.log('SkeletonLoader: hideLoader', reason);
-
-    // 清除显示延迟
-    if (showTimeout) {
-      clearTimeout(showTimeout);
-      showTimeout = null;
-    }
-
-    hideSkeleton();
-  };
-
   // 监听 Astro 页面过渡事件
   document.addEventListener('astro:page-load', () => {
     loaded = true;
-    hideLoader('astro:page-load');
   });
 
   document.addEventListener('astro:before-preparation', () => {
@@ -196,7 +131,6 @@ const loaderId = `skeleton-loader-${Math.random().toString(36).substr(2, 9)}`;
 
   document.addEventListener('astro:after-swap', () => {
     loaded = true;
-    hideLoader('astro:after-swap');
   });
 
   // 页面卸载时清理定时器
@@ -208,4 +142,4 @@ const loaderId = `skeleton-loader-${Math.random().toString(36).substr(2, 9)}`;
       clearTimeout(hideTimeout);
     }
   });
-</script> 
+</script>

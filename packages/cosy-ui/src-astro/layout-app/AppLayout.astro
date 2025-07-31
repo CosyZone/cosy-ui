@@ -191,6 +191,7 @@ const {
   footerConfig,
   headerConfig,
   metaConfig,
+  loadingDelay = 100,
   ...rest
 }: Props = Astro.props;
 ---
@@ -226,7 +227,9 @@ const {
 
     <!-- 主内容区域 -->
     <Main {...mainContentConfig}>
-      <SkeletonLoader loadingDelay={10}>
+      <SkeletonLoader
+        loadingDelay={loadingDelay}
+        skeletonClass="cosy:w-full cosy:h-screen  cosy:flex cosy:items-center cosy:justify-center">
         <slot />
       </SkeletonLoader>
     </Main>
