@@ -70,6 +70,7 @@ const {
   'class:list': classList,
   background = 'default',
   loadingDelay = 1000,
+  loadingMinDisplayTime = 300,
 } = Astro.props;
 
 // 处理背景色 class
@@ -94,7 +95,7 @@ let bodyClasses = [
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} transition:animate="fade">
   <head>
     <meta charset="UTF-8" />
     {

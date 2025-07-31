@@ -72,4 +72,10 @@ export interface IMetaProps {
      * @default 1000
      */
     loadingDelay?: number;
+
+    /**
+     * 加载最少显示时间（毫秒），默认300ms
+     * @default 300
+     */
+    loadingMinDisplayTime?: number;
 }
