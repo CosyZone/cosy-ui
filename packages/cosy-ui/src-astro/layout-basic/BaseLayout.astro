@@ -73,7 +73,6 @@ const {
   'class:list': classList,
   background = 'default',
   loadingDelay = 1000,
-  loadingMinDisplayTime = 300,
 } = Astro.props;
 
 // 处理背景色 class
@@ -112,22 +111,18 @@ let bodyClasses = [
     <meta name="generator" content={Astro.generator} />
     {favicon && <link rel="icon" type={favicon.format} href={favicon.src} />}
 
+    <ClientRouter />
+
     <!-- 自定义样式 -->
     {customStyles && <style set:html={customStyles} />}
 
     <!-- 自定义头部内容 -->
     {head && <div set:html={head} />}
 
-    <ClientRouter />
-
     <slot name="head" />
   </head>
   <body class:list={[bodyClasses, classList, 'min-h-screen']}>
     <slot />
-    <LoadingOverlay
-      loadingDelay={loadingDelay}
-      minDisplayTime={loadingMinDisplayTime}
-      transition:persist
-    />
+    <LoadingOverlay loadingDelay={loadingDelay} />
   </body>
 </html>
