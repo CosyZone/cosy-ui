@@ -22,7 +22,7 @@ const {
   showSpinner = true,
   spinnerType = 'dots',
   loadingDelay = 1000,
-  showBackdrop = false,
+  showBackdrop = true,
 } = Astro.props;
 
 // 生成唯一的 ID
@@ -41,7 +41,7 @@ const overlayId = `loading-overlay`;
   ]}
   data-loading-overlay>
   <div
-    class="cosy:bg-white cosy:dark:bg-gray-800 cosy:rounded-lg cosy:shadow-xl cosy:p-6 cosy:max-w-sm cosy:w-full cosy:mx-4">
+    class="cosy:bg-accent cosy:rounded-lg cosy:shadow-xl cosy:p-6 cosy:max-w-sm cosy:w-full cosy:mx-4">
     <div class="cosy:flex cosy:flex-col cosy:items-center cosy:space-y-4">
       {
         showSpinner && (
