@@ -5,6 +5,7 @@
  * @description
  * SkeletonLoader 组件是一个智能的骨架屏加载器，用于在页面加载或路由切换时显示骨架屏。
  * 它会监听 Astro 的页面过渡事件，在加载期间隐藏实际内容并显示骨架屏。
+ * 支持在骨架屏背景上显示 loading 动画元素。
  *
  * @design
  * 设计理念：
@@ -12,6 +13,7 @@
  * 2. 智能切换 - 自动在加载状态和内容状态之间切换
  * 3. 可定制性 - 支持自定义骨架屏样式和布局
  * 4. 性能优化 - 使用 CSS 动画，避免阻塞主线程
+ * 5. 视觉层次 - 骨架屏提供内容结构，loading 动画提供动态反馈
  *
  * @usage
  * 基本用法：
@@ -21,11 +23,23 @@
  * </SkeletonLoader>
  * ```
  *
+ * 显示 loading 元素：
+ * ```astro
+ * <SkeletonLoader
+ *   showLoading={true}
+ *   loadingSize="lg"
+ *   loadingType="ring"
+ * >
+ *   <div>实际内容</div>
+ * </SkeletonLoader>
+ * ```
+ *
  * 自定义骨架屏：
  * ```astro
  * <SkeletonLoader
  *   skeletonClass="cosy:bg-gray-200 cosy:animate-pulse"
  *   loadingDelay={500}
+ *   showLoading={false}
  * >
  *   <div>实际内容</div>
  * </SkeletonLoader>
@@ -34,7 +48,9 @@
  * @props
  * - loadingDelay?: number - 延迟显示时间（毫秒），默认为 1000ms
  * - skeletonClass?: string - 骨架屏的自定义 CSS 类名
- * - showSkeleton?: boolean - 是否显示骨架屏，默认为 true
+ * - showLoading?: boolean - 是否显示 loading 元素，默认为 false
+ * - loadingSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' - loading 元素尺寸，默认为 'md'
+ * - loadingType?: 'ring' | 'dots' | 'spinner' | 'bars' | 'infinity' - loading 类型，默认为 'ring'
  *
  * @slots
  * - default - 实际内容，在加载完成后显示
@@ -48,15 +64,32 @@
  */
 
 import '../../style.ts';
+import {
+  getLoadingClass,
+  type LoadingType,
+  type LoadingSize,
+} from './loading-classes';
 
 export interface Props {
   /** 延迟显示时间（毫秒），默认1000ms */
   loadingDelay?: number;
   /** 骨架屏的自定义 CSS 类名 */
   skeletonClass?: string;
+  /** 是否显示 loading 元素，默认 false */
+  showLoading?: boolean;
+  /** loading 元素尺寸，默认 'md' */
+  loadingSize?: LoadingSize;
+  /** loading 类型，默认 'ring' */
+  loadingType?: LoadingType;
 }
 
-const { loadingDelay = 1000, skeletonClass = '' } = Astro.props;
+const {
+  loadingDelay = 1000,
+  skeletonClass = '',
+  showLoading = false,
+  loadingSize = 'md',
+  loadingType = 'ring',
+} = Astro.props;
 
 // 生成唯一的 ID
 const loaderId = `skeleton-loader-${Math.random().toString(36).substr(2, 9)}`;
@@ -64,8 +97,21 @@ const loaderId = `skeleton-loader-${Math.random().toString(36).substr(2, 9)}`;
 
 <div id={loaderId} class="cosy:relative">
   <!-- 骨架屏 -->
-  <div id={`${loaderId}-skeleton`} style="display: none;" class={skeletonClass}>
-    <div class="cosy:skeleton cosy:h-96 cosy:w-96"></div>
+  <div
+    id={`${loaderId}-skeleton`}
+    style="display: none;"
+    class={`cosy:relative cosy:flex cosy:items-center cosy:justify-center cosy:min-h-[200px] ${skeletonClass}`}>
+    <!-- 骨架屏背景 -->
+    <div class="cosy:skeleton cosy:h-24 cosy:w-24 cosy:rounded-md"></div>
+
+    <!-- Loading 前景元素 -->
+    {
+      showLoading && (
+        <div class="cosy:absolute cosy:inset-0 cosy:flex cosy:items-center cosy:justify-center">
+          <span class={getLoadingClass(loadingType, loadingSize)} />
+        </div>
+      )
+    }
   </div>
 
   <!-- 实际内容 -->
