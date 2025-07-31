@@ -1,0 +1,211 @@
+---
+/**
+ * @component SkeletonLoader
+ *
+ * @description
+ * SkeletonLoader 组件是一个智能的骨架屏加载器，用于在页面加载或路由切换时显示骨架屏。
+ * 它会监听 Astro 的页面过渡事件，在加载期间隐藏实际内容并显示骨架屏。
+ *
+ * @design
+ * 设计理念：
+ * 1. 用户体验优先 - 通过骨架屏提供视觉反馈，避免空白页面
+ * 2. 智能切换 - 自动在加载状态和内容状态之间切换
+ * 3. 可定制性 - 支持自定义骨架屏样式和布局
+ * 4. 性能优化 - 使用 CSS 动画，避免阻塞主线程
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <SkeletonLoader>
+ *   <div>实际内容</div>
+ * </SkeletonLoader>
+ * ```
+ *
+ * 自定义骨架屏：
+ * ```astro
+ * <SkeletonLoader
+ *   skeletonClass="cosy:bg-gray-200 cosy:animate-pulse"
+ *   loadingDelay={500}
+ * >
+ *   <div>实际内容</div>
+ * </SkeletonLoader>
+ * ```
+ *
+ * @props
+ * - loadingDelay?: number - 延迟显示时间（毫秒），默认为 1000ms
+ * - skeletonClass?: string - 骨架屏的自定义 CSS 类名
+ * - showSkeleton?: boolean - 是否显示骨架屏，默认为 true
+ *
+ * @slots
+ * - default - 实际内容，在加载完成后显示
+ *
+ * @events
+ * 组件会自动监听以下 Astro 事件：
+ * - astro:page-load - 页面加载完成时显示内容
+ * - astro:before-preparation - 页面准备前显示骨架屏
+ * - astro:before-swap - 路由切换前显示骨架屏
+ * - astro:after-swap - 路由切换后显示内容
+ */
+
+import '../../style.ts';
+
+export interface Props {
+  /** 延迟显示时间（毫秒），默认1000ms */
+  loadingDelay?: number;
+  /** 骨架屏的自定义 CSS 类名 */
+  skeletonClass?: string;
+  /** 是否显示骨架屏，默认true */
+  showSkeleton?: boolean;
+}
+
+const {
+  loadingDelay = 1000,
+  skeletonClass = 'cosy:bg-gray-200 cosy:animate-pulse',
+  showSkeleton = true,
+} = Astro.props;
+
+// 生成唯一的 ID
+const loaderId = `skeleton-loader-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div id={loaderId} class="cosy:relative">
+  <!-- 骨架屏 -->
+  {
+    showSkeleton && (
+      <div
+        id={`${loaderId}-skeleton`}
+        class:list={[
+          'cosy:absolute cosy:inset-0 cosy:z-10',
+          'cosy:bg-white cosy:dark:bg-gray-900',
+          'cosy:flex cosy:flex-col cosy:space-y-4',
+          'cosy:p-6',
+          skeletonClass,
+        ]}
+        style="display: none;">
+        <!-- 标题骨架 -->
+        <div class="cosy:h-8 cosy:bg-gray-300 cosy:dark:bg-gray-700 cosy:rounded cosy:w-3/4 cosy:animate-pulse" />
+        
+        <!-- 段落骨架 -->
+        <div class="cosy:space-y-3">
+          <div class="cosy:h-4 cosy:bg-gray-300 cosy:dark:bg-gray-700 cosy:rounded cosy:animate-pulse" />
+          <div class="cosy:h-4 cosy:bg-gray-300 cosy:dark:bg-gray-700 cosy:rounded cosy:w-5/6 cosy:animate-pulse" />
+          <div class="cosy:h-4 cosy:bg-gray-300 cosy:dark:bg-gray-700 cosy:rounded cosy:w-4/6 cosy:animate-pulse" />
+        </div>
+        
+        <!-- 卡片骨架 -->
+        <div class="cosy:grid cosy:grid-cols-1 cosy:md:grid-cols-2 cosy:gap-4 cosy:mt-6">
+          <div class="cosy:bg-gray-300 cosy:dark:bg-gray-700 cosy:rounded-lg cosy:p-4 cosy:h-32 cosy:animate-pulse" />
+          <div class="cosy:bg-gray-300 cosy:dark:bg-gray-700 cosy:rounded-lg cosy:p-4 cosy:h-32 cosy:animate-pulse" />
+        </div>
+        
+        <!-- 按钮骨架 -->
+        <div class="cosy:flex cosy:space-x-4 cosy:mt-6">
+          <div class="cosy:h-10 cosy:bg-gray-300 cosy:dark:bg-gray-700 cosy:rounded cosy:w-24 cosy:animate-pulse" />
+          <div class="cosy:h-10 cosy:bg-gray-300 cosy:dark:bg-gray-700 cosy:rounded cosy:w-32 cosy:animate-pulse" />
+        </div>
+      </div>
+    )
+  }
+
+  <!-- 实际内容 -->
+  <div
+    id={`${loaderId}-content`}
+    class="cosy:relative cosy:z-20"
+    style="opacity: 0; transition: opacity 0.3s ease-in-out;">
+    <slot />
+  </div>
+</div>
+
+<script is:inline define:vars={{ loaderId, loadingDelay }}>
+  let showTimeout = null;
+  let hideTimeout = null;
+  let loaded = false;
+
+  const getSkeletonElement = () => {
+    return document.getElementById(`${loaderId}-skeleton`);
+  };
+
+  const getContentElement = () => {
+    return document.getElementById(`${loaderId}-content`);
+  };
+
+  const showSkeleton = () => {
+    const skeleton = getSkeletonElement();
+    const content = getContentElement();
+    
+    if (!skeleton || !content || loaded) return;
+
+    // 显示骨架屏
+    skeleton.style.display = 'flex';
+    // 隐藏内容
+    content.style.opacity = '0';
+  };
+
+  const hideSkeleton = () => {
+    const skeleton = getSkeletonElement();
+    const content = getContentElement();
+    
+    if (!skeleton || !content) return;
+
+    // 隐藏骨架屏
+    skeleton.style.display = 'none';
+    // 显示内容
+    content.style.opacity = '1';
+  };
+
+  // 显示骨架屏的函数
+  const showLoader = () => {
+    if (loaded) return;
+
+    // 设置延迟显示
+    showTimeout = setTimeout(() => {
+      if (loaded) return;
+      showSkeleton();
+    }, loadingDelay);
+  };
+
+  // 隐藏骨架屏的函数
+  const hideLoader = (reason) => {
+    console.log('SkeletonLoader: hideLoader', reason);
+
+    // 清除显示延迟
+    if (showTimeout) {
+      clearTimeout(showTimeout);
+      showTimeout = null;
+    }
+
+    hideSkeleton();
+  };
+
+  // 监听 Astro 页面过渡事件
+  document.addEventListener('astro:page-load', () => {
+    loaded = true;
+    hideLoader('astro:page-load');
+  });
+
+  document.addEventListener('astro:before-preparation', () => {
+    loaded = false;
+    showLoader('astro:before-preparation');
+  });
+
+  // 监听路由变化
+  document.addEventListener('astro:before-swap', () => {
+    loaded = false;
+    showLoader('astro:before-swap');
+  });
+
+  document.addEventListener('astro:after-swap', () => {
+    loaded = true;
+    hideLoader('astro:after-swap');
+  });
+
+  // 页面卸载时清理定时器
+  window.addEventListener('beforeunload', () => {
+    if (showTimeout) {
+      clearTimeout(showTimeout);
+    }
+    if (hideTimeout) {
+      clearTimeout(hideTimeout);
+    }
+  });
+</script> 

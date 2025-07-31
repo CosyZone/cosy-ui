@@ -175,6 +175,7 @@ import {
   Main,
   Sidebar,
 } from '../../index-astro';
+import SkeletonLoader from './SkeletonLoader.astro';
 
 interface Props extends IAppLayoutProps {}
 
@@ -225,7 +226,9 @@ const {
 
     <!-- 主内容区域 -->
     <Main {...mainContentConfig}>
-      <slot />
+      <SkeletonLoader loadingDelay={10}>
+        <slot />
+      </SkeletonLoader>
     </Main>
   </Container>
 

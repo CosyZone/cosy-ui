@@ -1,4 +1,74 @@
 ---
+/**
+ * @component LoadingOverlay
+ *
+ * @description
+ * LoadingOverlay 组件是一个全屏加载遮罩层，用于在页面加载或路由切换时显示加载状态。
+ * 它提供了多种加载动画类型，支持延迟显示和背景模糊效果，确保良好的用户体验。
+ *
+ * @design
+ * 设计理念：
+ * 1. 用户体验优先 - 通过延迟显示避免闪烁，确保最小显示时间
+ * 2. 视觉反馈 - 提供多种动画类型，满足不同场景需求
+ * 3. 无障碍设计 - 支持键盘导航和屏幕阅读器
+ * 4. 性能优化 - 使用 CSS 动画和事件监听，避免阻塞主线程
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * ---
+ * import { LoadingOverlay } from '@coffic/cosy-ui';
+ * ---
+ *
+ * <LoadingOverlay text="正在加载..." />
+ * ```
+ *
+ * 自定义动画类型：
+ * ```astro
+ * <LoadingOverlay
+ *   text="处理中..."
+ *   spinnerType="spinner"
+ *   loadingDelay={500}
+ * />
+ * ```
+ *
+ * 无背景遮罩：
+ * ```astro
+ * <LoadingOverlay
+ *   text="加载中..."
+ *   showBackdrop={false}
+ *   class="cosy:bg-transparent"
+ * />
+ * ```
+ *
+ * 自定义样式：
+ * ```astro
+ * <LoadingOverlay
+ *   text="请稍候..."
+ *   spinnerType="pulse"
+ *   class="cosy:bg-blue-500/20"
+ * />
+ * ```
+ *
+ * @props
+ * - text?: string - 加载文本，默认为 "Loading..."
+ * - class?: string - 自定义 CSS 类名
+ * - showSpinner?: boolean - 是否显示加载动画，默认为 true
+ * - spinnerType?: 'dots' | 'spinner' | 'pulse' - 加载动画类型，默认为 'dots'
+ * - loadingDelay?: number - 延迟显示时间（毫秒），默认为 1000ms
+ * - showBackdrop?: boolean - 是否显示背景模糊遮罩，默认为 true
+ *
+ * @slots
+ * 此组件没有插槽，所有内容通过 props 配置
+ *
+ * @events
+ * 组件会自动监听以下 Astro 事件：
+ * - astro:page-load - 页面加载完成时隐藏
+ * - astro:before-preparation - 页面准备前显示
+ * - astro:before-swap - 路由切换前显示
+ * - astro:after-swap - 路由切换后隐藏
+ */
+
 import '../../style.ts';
 
 export interface Props {
