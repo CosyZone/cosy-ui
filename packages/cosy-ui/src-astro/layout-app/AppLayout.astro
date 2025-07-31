@@ -199,7 +199,7 @@ const {
 <BaseLayout {...metaConfig} debug={debug}>
   {
     showHeader && (
-      <Header {...headerConfig} debug={debug} transition:persist>
+      <Header {...headerConfig} debug={debug}>
         <div slot="navbar-start">
           <slot name="navbar-start" />
         </div>
@@ -215,15 +215,7 @@ const {
 
   <Container flex="row" gap="md" size="full" padding="none">
     <!-- 侧边栏容器 -->
-    {
-      showSidebar && (
-        <Sidebar
-          {...sidebarConfig}
-          transition:name="sidebar"
-          transition:persist
-        />
-      )
-    }
+    {showSidebar && <Sidebar {...sidebarConfig} />}
 
     <!-- 主内容区域 -->
     <Main {...mainContentConfig}>
@@ -238,7 +230,7 @@ const {
   <!-- Footer -->
   {
     showFooter && (
-      <Container size="full" padding="none" transition:persist>
+      <Container size="full" padding="none">
         <Footer {...footerConfig} />
       </Container>
     )
