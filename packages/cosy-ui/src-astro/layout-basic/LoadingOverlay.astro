@@ -1,0 +1,197 @@
+---
+import '../../style.ts';
+
+export interface Props {
+  /** 加载文本 */
+  text?: string;
+  /** 自定义 CSS 类名 */
+  class?: string;
+  /** 是否显示加载动画 */
+  showSpinner?: boolean;
+  /** 加载动画类型 */
+  spinnerType?: 'dots' | 'spinner' | 'pulse';
+  /** 延迟显示时间（毫秒），默认1000ms */
+  loadingDelay?: number;
+  /** 最小显示时间（毫秒），默认300ms，确保用户能看到加载状态 */
+  minDisplayTime?: number;
+}
+
+const {
+  text = 'Loading...',
+  class: className,
+  showSpinner = true,
+  spinnerType = 'dots',
+  loadingDelay = 1000,
+  minDisplayTime = 300,
+} = Astro.props;
+
+// 生成唯一的 ID
+const overlayId = `loading-overlay`;
+---
+
+<div
+  id={overlayId}
+  class:list={[
+    'cosy:fixed cosy:inset-0 cosy:z-[9999] cosy:bg-black/50 cosy:backdrop-blur-sm',
+    'cosy:flex cosy:items-center cosy:justify-center',
+    'cosy:opacity-0 cosy:pointer-events-none cosy:transition-opacity cosy:duration-300',
+    className,
+  ]}
+  data-loading-overlay>
+  <div
+    class="cosy:bg-white cosy:dark:bg-gray-800 cosy:rounded-lg cosy:shadow-xl cosy:p-6 cosy:max-w-sm cosy:w-full cosy:mx-4">
+    <div class="cosy:flex cosy:flex-col cosy:items-center cosy:space-y-4">
+      {
+        showSpinner && (
+          <div class="cosy:flex cosy:justify-center">
+            {spinnerType === 'dots' && (
+              <div class="cosy:flex cosy:space-x-1">
+                <div class="cosy:w-2 cosy:h-2 cosy:bg-blue-500 cosy:rounded-full cosy:animate-bounce" />
+                <div
+                  class="cosy:w-2 cosy:h-2 cosy:bg-blue-500 cosy:rounded-full cosy:animate-bounce"
+                  style="animation-delay: 0.1s;"
+                />
+                <div
+                  class="cosy:w-2 cosy:h-2 cosy:bg-blue-500 cosy:rounded-full cosy:animate-bounce"
+                  style="animation-delay: 0.2s;"
+                />
+              </div>
+            )}
+            {spinnerType === 'spinner' && (
+              <div class="cosy:w-8 cosy:h-8 cosy:border-4 cosy:border-blue-200 cosy:border-t-blue-500 cosy:rounded-full cosy:animate-spin" />
+            )}
+            {spinnerType === 'pulse' && (
+              <div class="cosy:w-8 cosy:h-8 cosy:bg-blue-500 cosy:rounded-full cosy:animate-pulse" />
+            )}
+          </div>
+        )
+      }
+      <p
+        class="cosy:text-gray-700 cosy:dark:text-gray-300 cosy:text-center cosy:font-medium">
+        {text}
+      </p>
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ overlayId, loadingDelay, minDisplayTime }}>
+  // 获取加载弹出层元素
+  const overlay = document.getElementById(overlayId);
+
+  if (!overlay) {
+    console.log('LoadingOverlay overlay not found');
+    return;
+  }
+
+  let loadingStartTime = null;
+  let showTimeout = null;
+  let hideTimeout = null;
+  let isLoading = false;
+  let displayStartTime = null;
+
+  // 显示加载弹出层的函数
+  const showOverlay = () => {
+    if (isLoading) return;
+
+    isLoading = true;
+    loadingStartTime = Date.now();
+
+    // 延迟显示，避免短时间加载的视觉干扰
+    showTimeout = window.setTimeout(() => {
+      overlay.style.opacity = '1';
+      overlay.style.pointerEvents = 'auto';
+      displayStartTime = Date.now();
+    }, loadingDelay);
+  };
+
+  // 隐藏加载弹出层的函数
+  const hideOverlay = () => {
+    if (showTimeout) {
+      clearTimeout(showTimeout);
+      showTimeout = null;
+    }
+
+    if (hideTimeout) {
+      clearTimeout(hideTimeout);
+      hideTimeout = null;
+    }
+
+    isLoading = false;
+    loadingStartTime = null;
+    displayStartTime = null;
+
+    overlay.style.opacity = '0';
+    overlay.style.pointerEvents = 'none';
+  };
+
+  // 检查最小显示时间的函数
+  const checkMinDisplayTime = () => {
+    console.log(
+      'checkMinDisplayTime called, displayStartTime:',
+      displayStartTime
+    );
+
+    if (!displayStartTime) {
+      console.log('No displayStartTime, hiding overlay immediately');
+      hideOverlay();
+      return;
+    }
+
+    const displayTime = Date.now() - displayStartTime;
+    console.log(
+      'Display time:',
+      displayTime,
+      'minDisplayTime:',
+      minDisplayTime
+    );
+
+    if (displayTime >= minDisplayTime) {
+      console.log('Display time >= minDisplayTime, hiding overlay');
+      hideOverlay();
+    } else {
+      console.log(
+        'Display time < minDisplayTime, waiting for:',
+        minDisplayTime - displayTime,
+        'ms'
+      );
+      // 等待最小显示时间
+      hideTimeout = setTimeout(() => {
+        console.log('Min display time reached, hiding overlay');
+        hideOverlay();
+      }, minDisplayTime - displayTime);
+    }
+  };
+
+  // 监听 Astro 页面过渡事件
+  document.addEventListener('astro:page-load', () => {
+    // 检查最小显示时间，而不是直接隐藏
+    setTimeout(() => {
+      checkMinDisplayTime();
+    }, 100);
+  });
+
+  document.addEventListener('astro:before-preparation', () => {
+    console.log('astro:before-preparation, showOverlay');
+    showOverlay();
+  });
+
+  // 监听路由变化
+  document.addEventListener('astro:before-swap', () => {
+    console.log('astro:before-swap, showOverlay');
+    showOverlay();
+  });
+
+  document.addEventListener('astro:after-swap', () => {
+    // 如果加载时间很短，且 LoadingOverlay 没有显示，直接隐藏
+    if (loadingStartTime && Date.now() - loadingStartTime < loadingDelay) {
+      console.log('astro:after-swap, hideOverlay');
+      hideOverlay();
+    } else {
+      // 否则检查最小显示时间
+      setTimeout(() => {
+        console.log('astro:after-swap, checkMinDisplayTime');
+        checkMinDisplayTime();
+      }, 100);
+    }
+  });
+</script>
