@@ -12,6 +12,8 @@ export interface Props {
   spinnerType?: 'dots' | 'spinner' | 'pulse';
   /** 延迟显示时间（毫秒），默认1000ms */
   loadingDelay?: number;
+  /** 是否显示背景模糊遮罩，默认true */
+  showBackdrop?: boolean;
 }
 
 const {
@@ -20,6 +22,7 @@ const {
   showSpinner = true,
   spinnerType = 'dots',
   loadingDelay = 1000,
+  showBackdrop = false,
 } = Astro.props;
 
 // 生成唯一的 ID
@@ -30,7 +33,8 @@ const overlayId = `loading-overlay`;
   id={overlayId}
   transition:persist
   class:list={[
-    'cosy:fixed cosy:inset-0 cosy:z-[9999] cosy:bg-black/50 cosy:backdrop-blur-sm',
+    'cosy:fixed cosy:inset-0 cosy:z-[9999]',
+    showBackdrop ? 'cosy:bg-black/50 cosy:backdrop-blur-sm' : '',
     'cosy:flex cosy:items-center cosy:justify-center',
     'cosy:opacity-0 cosy:pointer-events-none cosy:transition-opacity cosy:duration-300',
     className,
