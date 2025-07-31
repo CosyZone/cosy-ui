@@ -108,7 +108,9 @@ const overlayId = `loading-overlay`;
   };
 
   // 隐藏加载弹出层的函数
-  const hideOverlay = () => {
+  const hideOverlay = (reason) => {
+    console.log('LoadingOverlay: hideOverlay', reason);
+
     const overlay = document.getElementById(overlayId);
     if (!overlay) {
       console.error('LoadingOverlay: overlay not found');
@@ -132,6 +134,7 @@ const overlayId = `loading-overlay`;
     // 如果已经显示，检查最小显示时间
     const displayTime = Date.now() - displayStartTime;
     const remainingTime = Math.max(0, minDisplayTime - displayTime);
+    console.log('LoadingOverlay: remainingTime', remainingTime);
 
     if (remainingTime > 0) {
       // 延迟隐藏，确保最小显示时间
@@ -160,24 +163,20 @@ const overlayId = `loading-overlay`;
 
   // 监听 Astro 页面过渡事件
   document.addEventListener('astro:page-load', () => {
-    console.log('astro:page-load, hideOverlay');
-    hideOverlay();
+    hideOverlay('astro:page-load');
   });
 
   document.addEventListener('astro:before-preparation', () => {
-    console.log('astro:before-preparation, showOverlay');
-    showOverlay();
+    showOverlay('astro:before-preparation');
   });
 
   // 监听路由变化
   document.addEventListener('astro:before-swap', () => {
-    console.log('astro:before-swap, showOverlay');
-    showOverlay();
+    showOverlay('astro:before-swap');
   });
 
   document.addEventListener('astro:after-swap', () => {
-    console.log('astro:after-swap, hideOverlay');
-    hideOverlay();
+    hideOverlay('astro:after-swap');
   });
 
   // 页面卸载时清理定时器
