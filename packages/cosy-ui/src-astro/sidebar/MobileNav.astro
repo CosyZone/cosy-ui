@@ -1,0 +1,55 @@
+---
+/**
+ * MobileNav组件
+ *
+ * 移动端导航栏组件
+ */
+
+import { MenuIcon } from '../../index-astro';
+import { isPathMatch } from '../../src/utils/path.ts';
+import type { ISidebarItem } from '../types/sidebar.ts';
+
+interface Props {
+  /**
+   * 侧边栏项目
+   */
+  sidebarItems: ISidebarItem[];
+
+  /**
+   * 当前路径
+   */
+  currentPath: string;
+
+  /**
+   * 是否开启调试模式
+   */
+  debug?: boolean;
+}
+
+const { sidebarItems, currentPath, debug = false } = Astro.props;
+
+const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
+
+// 获取当前活动的一级导航项
+const currentSection = sidebarItems.find((section) =>
+  section.items?.some((item) => isPathMatch(currentPath, item.href))
+);
+---
+
+<div
+  class:list={[
+    'cosy:flex cosy:lg:hidden cosy:items-center cosy:justify-between cosy:px-4 cosy:py-2 cosy:border-b cosy:border-base-300 cosy:bg-base-100 cosy:relative cosy:z-10',
+    debugClass,
+  ]}>
+  <div class="cosy:flex cosy:items-center cosy:gap-2">
+    <button
+      type="button"
+      class="cosy:p-2 cosy:btn cosy:btn-ghost cosy:btn-sm"
+      data-modal-target="mobile-sidebar">
+      <MenuIcon class="cosy:w-5 cosy:h-5" />
+    </button>
+    <span class="cosy:font-medium cosy:text-sm">
+      {currentSection?.text || '导航'}
+    </span>
+  </div>
+</div>
