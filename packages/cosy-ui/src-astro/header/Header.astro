@@ -31,9 +31,7 @@
  * - astroI18n - 完整的 astro:i18n 模块（启用语言切换时需要）
  */
 import {
-  Image,
   LanguageSwitcher,
-  Link,
   LinkUtil,
   type IHeaderProps,
   type INavItem,
@@ -41,6 +39,7 @@ import {
   ThemeSwitcher,
 } from '../../index-astro';
 import Logo from '../../src/assets/logo-rounded.png';
+import LogoLink from './LogoLink.astro';
 
 export interface Props extends IHeaderProps {
   debug?: boolean;
@@ -83,18 +82,6 @@ const linkHeightClasses = {
   xl: 'cosy:py-3',
 };
 
-// 设置logo大小
-const logoSizeClasses = {
-  '3xs': 'cosy:w-3 cosy:h-3',
-  '2xs': 'cosy:w-4 cosy:h-4',
-  xs: 'cosy:w-5 cosy:h-5',
-  sm: 'cosy:w-6 cosy:h-6',
-  md: 'cosy:w-8 cosy:h-8',
-  lg: 'cosy:w-10 cosy:h-10',
-  xl: 'cosy:w-12 cosy:h-12',
-};
-
-const logoSizeClass = logoSizeClasses[height];
 const linkHeightClass = linkHeightClasses[height];
 
 // 检查 i18n 是否启用，通过 Astro.currentLocale 来判断
@@ -108,7 +95,6 @@ const activeLink = LinkUtil.getActiveLink(
 ---
 
 <header
-  transition:persist
   class:list={[
     'cosy:w-full cosy:z-50',
     {
@@ -151,21 +137,7 @@ const activeLink = LinkUtil.getActiveLink(
       {
         navPosition === 'start' ? (
           <div class="cosy:flex cosy:items-center cosy:gap-4">
-            <Link
-              animation="none"
-              debug={debug}
-              href={logoHref}
-              class:list={['cosy:btn cosy:btn-ghost', linkHeightClass]}>
-              <Image
-                rounded="full"
-                showPlaceholder={false}
-                transition="none"
-                lazy={false}
-                src={logo}
-                alt="logo"
-                class={logoSizeClass}
-              />
-            </Link>
+            <LogoLink src={logo} href={logoHref} size={height} debug={debug} />
             <div class="cosy:hidden cosy:lg:flex">
               <NavItems
                 navItems={navItems}
@@ -175,21 +147,7 @@ const activeLink = LinkUtil.getActiveLink(
             </div>
           </div>
         ) : (
-          <Link
-            animation="none"
-            debug={debug}
-            href={logoHref}
-            class:list={['cosy:btn cosy:btn-ghost', linkHeightClass]}>
-            <Image
-              rounded="full"
-              showPlaceholder={false}
-              transition="none"
-              lazy={false}
-              src={logo}
-              alt="logo"
-              class={logoSizeClass}
-            />
-          </Link>
+          <LogoLink src={logo} href={logoHref} size={height} debug={debug} />
         )
       }
       <slot name="navbar-start" />
