@@ -41,6 +41,14 @@
  * <Heading level={1} class="cosy:mb-8">自定义底部间距的标题</Heading>
  * ```
  *
+ * 外边距控制：
+ * ```astro
+ * <Heading level={2} margin="none">无外边距的标题</Heading>
+ * <Heading level={2} margin="sm">小外边距的标题</Heading>
+ * <Heading level={2} margin="lg">大外边距的标题</Heading>
+ * <Heading level={2} margin="xl">超大外边距的标题</Heading>
+ * ```
+ *
  * @props
  * @prop {1|2|3|4|5|6} [level=2] - 标题级别，对应 h1-h6 标签
  * @prop {string} [id] - 标题的 ID，用于锚点链接
@@ -48,6 +56,7 @@
  * @prop {boolean} [underline=false] - 是否显示下划线
  * @prop {string} [align='left'] - 文本对齐方式：'left', 'center', 'right'
  * @prop {'default'|'primary'|'secondary'|'accent'|'muted'} [color='default'] - 标题颜色
+ * @prop {'none'|'sm'|'md'|'lg'|'xl'} [margin='md'] - 上下外边距大小
  * @prop {string} [class] - 自定义 CSS 类名
  *
  * @slots
@@ -74,6 +83,7 @@ interface Props {
   underline?: boolean;
   align?: 'left' | 'center' | 'right';
   color?: 'default' | 'primary' | 'secondary' | 'accent' | 'muted';
+  margin?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
   class?: string;
 }
 
@@ -84,6 +94,7 @@ const {
   underline = false,
   align = 'left',
   color = 'default',
+  margin = 'md',
   class: className = '',
 } = Astro.props;
 
@@ -122,8 +133,17 @@ const underlineClass = underline
   ? 'cosy:border-b cosy:pb-2 cosy:border-gray-200 cosy:dark:border-gray-700'
   : '';
 
+// 外边距样式
+const marginClass = {
+  none: '',
+  sm: 'cosy:my-2',
+  md: 'cosy:my-4',
+  lg: 'cosy:my-6',
+  xl: 'cosy:my-8',
+}[(margin ?? 'md') as 'none' | 'sm' | 'md' | 'lg' | 'xl'];
+
 // 组合所有类名
-const combinedClass = `heading ${headingClass} ${colorClass} ${alignClass} ${underlineClass} ${className}`;
+const combinedClass = `heading ${headingClass} ${colorClass} ${alignClass} ${underlineClass} ${marginClass} ${className}`;
 ---
 
 {
@@ -182,7 +202,6 @@ const combinedClass = `heading ${headingClass} ${colorClass} ${alignClass} ${und
 
 <style>
   .heading {
-    margin-bottom: 0.5em;
     line-height: 1.2;
     scroll-margin-top: 100px;
   }
