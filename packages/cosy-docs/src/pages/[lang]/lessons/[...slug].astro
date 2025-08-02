@@ -16,6 +16,10 @@ export async function getStaticPaths() {
  */
 
 const { slug, lang } = Astro.params;
+if (!slug) {
+  return Astro.redirect('/lessons');
+}
+
 let bookId = slug.split('/')[0];
 let id = '';
 
