@@ -5,6 +5,7 @@
  * @description
  * Heading 组件用于创建各级标题，提供一致的排版样式和灵活的定制选项。
  * 支持链接功能，当传入 href 属性时，标题会变成可点击的链接。
+ * 组件保持语义化结构：即使作为链接使用时，仍然渲染正确的 h1-h6 标签。
  *
  * @design
  * 设计理念：
@@ -202,7 +203,7 @@ const paddingClass =
   paddingClassMap[padding as keyof typeof paddingClassMap] || '';
 
 // 组合所有类名
-const combinedClass = `heading ${headingClass} ${colorClass} ${alignClass} ${underlineClass} ${marginClass} ${backgroundClass} ${paddingClass} ${className}`;
+const combinedClass = `heading cosy:w-full ${headingClass} ${colorClass} ${alignClass} ${underlineClass} ${marginClass} ${backgroundClass} ${paddingClass} ${className}`;
 
 // 如果有链接，添加链接相关的样式
 const linkClass = href ? 'cosy:hover:opacity-80 cosy:transition-opacity' : '';
@@ -214,10 +215,13 @@ const linkClass = href ? 'cosy:hover:opacity-80 cosy:transition-opacity' : '';
       <Link
         href={href}
         external={external}
-        class={`${combinedClass} ${linkClass}`}
-        noUnderline>
-        <slot />
-        <HeadingAnchor id={id} show={anchor} />
+        class={`${linkClass}`}
+        noUnderline
+        fullWidth>
+        <h1 id={id} class={combinedClass}>
+          <slot />
+          <HeadingAnchor id={id} show={anchor} />
+        </h1>
       </Link>
     ) : (
       <h1 id={id} class={combinedClass}>
@@ -233,10 +237,13 @@ const linkClass = href ? 'cosy:hover:opacity-80 cosy:transition-opacity' : '';
       <Link
         href={href}
         external={external}
-        class={`${combinedClass} ${linkClass}`}
-        noUnderline>
-        <slot />
-        <HeadingAnchor id={id} show={anchor} />
+        class={`${linkClass}`}
+        noUnderline
+        fullWidth>
+        <h2 id={id} class={combinedClass}>
+          <slot />
+          <HeadingAnchor id={id} show={anchor} />
+        </h2>
       </Link>
     ) : (
       <h2 id={id} class={combinedClass}>
@@ -252,10 +259,13 @@ const linkClass = href ? 'cosy:hover:opacity-80 cosy:transition-opacity' : '';
       <Link
         href={href}
         external={external}
-        class={`${combinedClass} ${linkClass}`}
-        noUnderline>
-        <slot />
-        <HeadingAnchor id={id} show={anchor} />
+        class={`${linkClass}`}
+        noUnderline
+        fullWidth>
+        <h3 id={id} class={combinedClass}>
+          <slot />
+          <HeadingAnchor id={id} show={anchor} />
+        </h3>
       </Link>
     ) : (
       <h3 id={id} class={combinedClass}>
@@ -271,10 +281,13 @@ const linkClass = href ? 'cosy:hover:opacity-80 cosy:transition-opacity' : '';
       <Link
         href={href}
         external={external}
-        class={`${combinedClass} ${linkClass}`}
-        noUnderline>
-        <slot />
-        <HeadingAnchor id={id} show={anchor} />
+        class={`${linkClass}`}
+        noUnderline
+        fullWidth>
+        <h4 id={id} class={combinedClass}>
+          <slot />
+          <HeadingAnchor id={id} show={anchor} />
+        </h4>
       </Link>
     ) : (
       <h4 id={id} class={combinedClass}>
@@ -290,10 +303,13 @@ const linkClass = href ? 'cosy:hover:opacity-80 cosy:transition-opacity' : '';
       <Link
         href={href}
         external={external}
-        class={`${combinedClass} ${linkClass}`}
-        noUnderline>
-        <slot />
-        <HeadingAnchor id={id} show={anchor} />
+        class={`${linkClass}`}
+        noUnderline
+        fullWidth>
+        <h5 id={id} class={combinedClass}>
+          <slot />
+          <HeadingAnchor id={id} show={anchor} />
+        </h5>
       </Link>
     ) : (
       <h5 id={id} class={combinedClass}>
@@ -309,10 +325,13 @@ const linkClass = href ? 'cosy:hover:opacity-80 cosy:transition-opacity' : '';
       <Link
         href={href}
         external={external}
-        class={`${combinedClass} ${linkClass}`}
-        noUnderline>
-        <slot />
-        <HeadingAnchor id={id} show={anchor} />
+        class={`${linkClass}`}
+        noUnderline
+        fullWidth>
+        <h6 id={id} class={combinedClass}>
+          <slot />
+          <HeadingAnchor id={id} show={anchor} />
+        </h6>
       </Link>
     ) : (
       <h6 id={id} class={combinedClass}>
