@@ -1,0 +1,42 @@
+---
+title: 'CardCourse'
+folder: false
+order: 4.1
+---
+
+import { CardCourse } from '@coffic/cosy-ui';
+import { CardCoursePackage } from '@/components/card-course/index';
+
+# {frontmatter.title}
+
+## 简介
+
+CardCourse 组件用于展示课程信息，支持动态图标和渐变背景，适合在课程列表、专题页等场景下统一展示课程。
+
+组件特性：
+
+- 支持动态图标，根据课程名称自动匹配对应图标
+- 渐变背景设计，不同课程类型有不同的背景色彩
+- 响应式设计，适配不同屏幕尺寸
+- 悬停动画效果，提升用户体验
+- 支持中英文界面切换
+- **支持图标尺寸配置**，预设四种尺寸可选
+
+## 基础用法
+
+最简单的课程卡片展示：
+
+<CardCoursePackage.CardCourseContainers.Course />
+
+## 图标尺寸配置
+
+CardCourse 组件支持四种预设的图标尺寸，可以通过 `iconSize` 属性进行配置：
+
+<CardCoursePackage.CardCourseContainers.IconSizes />
+
+## 内容内边距配置
+
+CardCourse 组件支持通过 `contentPadding` 属性配置内容区域的内边距，支持 8 种尺寸（none, xs, sm, md, lg, xl, 2xl, 3xl），可根据实际需求灵活调整：
+
+<CardCoursePackage.CardCourseContainers.Padding />
+

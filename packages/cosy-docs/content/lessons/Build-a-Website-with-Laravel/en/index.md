@@ -2,6 +2,8 @@
 title: Build a Website with Laravel
 ---
 
+# {frontmatter.title}
+
 This page documents the entire process of me developing a website that sells APIs.
 
 It is not a small project, but a complete project that can run in a production environment.

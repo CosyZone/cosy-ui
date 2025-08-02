@@ -1,0 +1,30 @@
+---
+/**
+ * @component PlaceHolderBasic
+ * @description PlaceHolder 组件基础用法示例
+ */
+import { PlaceHolder } from '@coffic/cosy-ui';
+---
+
+<div class="cosy:bg-base-100 cosy:p-4 cosy:space-y-4">
+  <div class="cosy:bg-base-200 cosy:rounded-lg">
+    <PlaceHolder width="md" height="md" padding="md">
+      <p class="cosy:text-center">中等宽度和高度，中等内边距</p>
+    </PlaceHolder>
+  </div>
+  <div class="cosy:bg-base-200 cosy:rounded-lg">
+    <PlaceHolder width="lg" height="lg" padding="lg" background="base-300">
+      <p class="cosy:text-center">大宽度和高度，大内边距，带背景色</p>
+    </PlaceHolder>
+  </div>
+  <div class="cosy:bg-base-200 cosy:rounded-lg">
+    <PlaceHolder
+      width="xl"
+      height="xl"
+      padding="xl"
+      background="primary"
+      class="cosy:text-white">
+      <p class="cosy:text-center">超大宽度和高度，超大内边距，主要背景色</p>
+    </PlaceHolder>
+  </div>
+</div>

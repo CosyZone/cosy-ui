@@ -10,6 +10,7 @@ import {
   TeamMember,
   Products,
   Heading,
+  PlaceHolder,
 } from '@coffic/cosy-ui';
 import { MemberConfig } from '@/config/config.member';
 import { getExampleImage } from '@coffic/cosy-ui';
@@ -54,7 +55,7 @@ interface Props {
     links={[
       {
         text: lang === 'zh-cn' ? '开始使用' : 'Get Started',
-        href: LinkUtil.createUrl(`/${lang}/courses/guide`),
+        href: LinkUtil.createUrl(`/${lang}/manuals`),
         variant: 'primary',
       },
       {
@@ -104,11 +105,13 @@ interface Props {
     </div>
   </Hero>
 
-  <Container class="my-16">
-    <Heading level={2}>
+  <Container>
+    <Heading level={2} align="center" margin="lg">
       {lang === 'zh-cn' ? '使用案例' : 'Showcase'}
     </Heading>
     <Products
+      showBorder={false}
+      margin="xl"
       products={[
         {
           name: lang === 'zh-cn' ? '快易知' : 'Kuaiyizhi',
@@ -129,4 +132,6 @@ interface Props {
       gap="md"
     />
   </Container>
+
+  <PlaceHolder width="full" height="6xl" />
 </BaseLayout>

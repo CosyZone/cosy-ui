@@ -1,0 +1,54 @@
+---
+title: 'Banner'
+folder: false
+order: 2.6
+---
+
+import { Banner } from '@coffic/cosy-ui';
+import { BannerPackage } from '@/components/banner/index.ts';
+
+# {frontmatter.title}
+
+## Introduction
+
+The Banner component is used to display prominent banner messages at the top of the page, typically for important slogans, announcements, or marketing information.
+
+Component features:
+- Supports multiple preset colors (primary/secondary/success/warning/error/info)
+- Customizable styles and backgrounds
+- Supports various animation effects
+- Responsive design, adapts to different screen sizes
+
+## Basic Usage
+
+The simplest banner display:
+
+<BannerPackage.BannerContainers.Basic />
+
+## Color Examples
+
+<BannerPackage.BannerContainers.Colors />
+
+## Animation Effects
+
+<BannerPackage.BannerContainers.Animations />
+
+## Custom Styles
+
+Customize banner styles using the class property:
+
+<BannerPackage.BannerContainers.CustomStyle />
+
+## Props
+
+| Property     | Description                        | Type                                                                 | Default   |
+| ------------ | ---------------------------------- | -------------------------------------------------------------------- | --------- |
+| class        | Custom CSS class                   | string                                                              | -         |
+| bgColor      | Background color                   | 'primary'\|'secondary'\|'accent'\|'info'\|'success'\|'warning'\|'error' | 'primary' |
+| textColor    | Text color                         | string                                                              | auto      |
+| animation    | Animation effect                   | 'none'\|'fade'\|'slide'\|'both'                                     | 'both'    |
+| animated     | Deprecated, use animation instead  | boolean                                                             | -         |
+
+## Slots
+
+- `default`: Content to display inside the Banner

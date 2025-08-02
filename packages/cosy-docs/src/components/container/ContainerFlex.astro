@@ -1,0 +1,78 @@
+---
+/**
+ * @component ContainerFlex
+ * @description Container 组件 Flex 布局示例
+ */
+import { Container } from '@coffic/cosy-ui';
+---
+
+<div class="cosy:space-y-6">
+  <div>
+    <h4 class="cosy:font-bold cosy:mb-2">行布局（默认）</h4>
+    <Container flex="row" gap="md" class="cosy:bg-base-200">
+      <div
+        class="cosy:bg-primary cosy:text-primary-content cosy:p-2 cosy:rounded">
+        项目 1
+      </div>
+      <div
+        class="cosy:bg-secondary cosy:text-secondary-content cosy:p-2 cosy:rounded">
+        项目 2
+      </div>
+      <div
+        class="cosy:bg-accent cosy:text-accent-content cosy:p-2 cosy:rounded">
+        项目 3
+      </div>
+    </Container>
+  </div>
+
+  <div>
+    <h4 class="cosy:font-bold cosy:mb-2">列布局</h4>
+    <Container flex="col" gap="md" class="cosy:bg-base-200">
+      <div
+        class="cosy:bg-primary cosy:text-primary-content cosy:p-2 cosy:rounded">
+        项目 1
+      </div>
+      <div
+        class="cosy:bg-secondary cosy:text-secondary-content cosy:p-2 cosy:rounded">
+        项目 2
+      </div>
+      <div
+        class="cosy:bg-accent cosy:text-accent-content cosy:p-2 cosy:rounded">
+        项目 3
+      </div>
+    </Container>
+  </div>
+
+  <div>
+    <h4 class="cosy:font-bold cosy:mb-2">居中对齐</h4>
+    <Container
+      flex="row"
+      gap="md"
+      items="center"
+      justify="center"
+      class="cosy:bg-base-200">
+      <div
+        class="cosy:bg-primary cosy:text-primary-content cosy:p-2 cosy:rounded">
+        居中
+      </div>
+      <div
+        class="cosy:bg-secondary cosy:text-secondary-content cosy:p-2 cosy:rounded">
+        对齐
+      </div>
+    </Container>
+  </div>
+
+  <div>
+    <h4 class="cosy:font-bold cosy:mb-2">两端对齐</h4>
+    <Container flex="row" gap="md" justify="between" class="cosy:bg-base-200">
+      <div
+        class="cosy:bg-primary cosy:text-primary-content cosy:p-2 cosy:rounded">
+        左侧
+      </div>
+      <div
+        class="cosy:bg-secondary cosy:text-secondary-content cosy:p-2 cosy:rounded">
+        右侧
+      </div>
+    </Container>
+  </div>
+</div>

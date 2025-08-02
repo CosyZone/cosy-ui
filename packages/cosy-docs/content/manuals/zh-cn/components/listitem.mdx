@@ -1,0 +1,33 @@
+---
+title: ListItem
+order: 20
+folder: false
+---
+
+import { ComponentPackage } from '@/components/listitem/index.ts';
+
+# {frontmatter.title}
+
+## 简介
+
+ListItem 组件用于展示列表项内容，并在异步操作时显示进度条或多种无限动画效果，提升用户操作反馈体验。
+
+## 基础用法
+
+<ComponentPackage.ComponentContainers.Basic />
+
+## 加载中状态（无限动画）
+
+<ComponentPackage.ComponentContainers.Loading />
+
+## 动画类型
+
+ListItem 支持多种无限动画效果，通过 `animationType` 属性控制：
+
+<ComponentPackage.ComponentContainers.AnimationTypes />
+
+## 进度条时长自定义
+
+传入 duration 时，显示进度条动画：
+
+<ComponentPackage.ComponentContainers.CustomDuration />

@@ -1,0 +1,59 @@
+---
+title: 'MacWindow'
+folder: false
+order: 19
+---
+
+import { MacWindow } from '@coffic/cosy-ui/vue';
+import { MacWindowPackage } from '@/components/mac-window/index';
+
+# {frontmatter.title}
+
+## Introduction
+
+The MacWindow component simulates a macOS-style application window with title bar, toolbar buttons, tabs, and status bar. It's suitable for creating desktop application interfaces or code editors.
+
+Component Features:
+
+- Complete macOS-style window appearance with close, minimize, and maximize buttons
+- Tab functionality support for switching between different content areas
+- Toolbar and status bar slots for custom content
+- Sidebar layout support, perfect for file browsers and similar applications
+- Customizable window height and shadow effects
+- Window operation event callbacks
+
+## Basic Usage
+
+Simple window display:
+
+<MacWindowPackage.Containers.Basic />
+
+## Window with Tabs
+
+Add tab functionality using the tabs property:
+
+<MacWindowPackage.Containers.WithTabs />
+
+## Window Event Handling
+
+Handle window operations through event callback functions:
+
+<MacWindowPackage.Containers.WithEvents />
+
+## Toolbar and Status Bar
+
+Add custom functionality using toolbar and status bar slots:
+
+<MacWindowPackage.Containers.WithToolbar />
+
+## Sidebar Layout
+
+Create file browser-style layout using the sidebar slot:
+
+<MacWindowPackage.Containers.WithSidebar />
+
+## Custom Height
+
+Customize window height using the height property:
+
+<MacWindowPackage.Containers.CustomHeight /> 

@@ -76,9 +76,7 @@ if (renderState.shouldRender && Astro.currentLocale) {
 
 {
   renderState.shouldRender && (
-    <div
-      transition:persist
-      class={`cosy:dropdown cosy:dropdown-end ${className}`}>
+    <div class={`cosy:dropdown cosy:dropdown-end ${className}`}>
       <div tabindex="0" role="button" class:list={['cosy:btn cosy:btn-ghost']}>
         <span class="cosy:mr-1">{renderState.currentLanguageName}</span>
         <ChevronDownIcon size="16px" class="cosy:w-4 cosy:h-4" />

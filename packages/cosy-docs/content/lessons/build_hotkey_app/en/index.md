@@ -2,6 +2,8 @@
 title: Develop a Global Hotkey Desktop App with Flutter
 ---
 
+# {frontmatter.title}
+
 This tutorial will guide you through developing a macOS desktop application using Flutter that can be invoked with global hotkeys.
 
 ## Project Overview

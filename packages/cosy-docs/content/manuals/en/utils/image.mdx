@@ -1,0 +1,154 @@
+---
+title: 'Image Utility Functions'
+description: 'Provides placeholder image generation tools for various image services, supporting features such as random seeds, tags, grayscale, and blur effects'
+folder: false
+order: 1
+---
+
+# {frontmatter.title}
+
+import {
+    CodeExample,
+    getExampleImage,
+    getProductImage,
+    getAvatarImage,
+    getLandscapeImage,
+} from '@coffic/cosy-ui';
+import { Image } from '@coffic/cosy-ui';
+
+During development, we often need to use placeholder images to showcase designs and layouts. Cosy UI provides a series of image utility functions that allow you to easily generate various types of example images, with support for multiple image service providers.
+
+## Importing Utility Functions
+
+```ts
+import {
+  getExampleImage,
+  getProductImage,
+  getAvatarImage,
+  getLandscapeImage,
+} from '@coffic/cosy-ui';
+```
+
+## Basic Usage
+
+The simplest image generation:
+
+<CodeExample
+  code={`// Generate a 400x300 random image URL
+const imageUrl = getExampleImage({ width: 400, height: 300 });
+
+// Use in a component
+
+<Image src={getExampleImage({ width: 400, height: 300 })} alt="Example image" />`}
+>
+  <Image src={getExampleImage({ width: 400, height: 300 })} alt="示例图片" />
+</CodeExample>
+
+## Supported Image Services
+
+Cosy UI's image utility functions support multiple image service providers, which can be set using the `provider` parameter:
+
+```
+// Picsum Photos (default)
+getExampleImage({ width: 300, height: 200, provider: 'picsum' });
+
+// Unsplash random images
+getExampleImage({ width: 300, height: 200, provider: 'unsplash', tag: 'nature' });
+
+// Placeholder.com placeholder images
+getExampleImage({ width: 300, height: 200, provider: 'placeholder', tag: 'example text' });
+
+// RoboHash robot avatars
+getExampleImage({ width: 200, height: 200, provider: 'robohash', randomSeed: 'user123' });`}
+```
+
+## Special Effects
+
+For Picsum Photos, grayscale and blur effects are also supported:
+
+```ts
+// Grayscale effect
+getExampleImage({ width: 300, height: 200, grayscale: true });
+
+// Blur effect (value range 1-10)
+getExampleImage({ width: 300, height: 200, blur: 5 });
+
+// Grayscale + blur combination
+getExampleImage({ width: 300, height: 200, grayscale: true, blur: 5 });`}
+```
+
+## Fixed Random Images
+
+Using the `randomSeed` parameter ensures you get the same image each time:
+
+<CodeExample
+  code={`// Using the same random seed
+getExampleImage({ width: 300, height: 200, randomSeed: 'abc123' });
+getExampleImage({ width: 300, height: 200, randomSeed: 'abc123' }); // Returns the same image`}
+>
+  <div class="cosy:grid cosy:grid-cols-2 cosy:gap-4">
+    <Image
+      src={getExampleImage({ width: 300, height: 200, randomSeed: 'abc123' })}
+      alt="Fixed random image 1"
+    />
+    <Image
+      src={getExampleImage({ width: 300, height: 200, randomSeed: 'abc123' })}
+      alt="Fixed random image 2"
+    />
+  </div>
+</CodeExample>
+
+## Specialized Image Functions
+
+Besides the general `getExampleImage` function, Cosy UI also provides several specialized image generation functions that use preset parameters:
+
+```ts
+// Product images (default 400x300)
+getProductImage();
+getProductImage({ randomSeed: 'product1' });
+
+// Avatar images (default 200x200, using RoboHash)
+getAvatarImage();
+getAvatarImage({ randomSeed: 'user1' });
+
+// Landscape images (default 800x400, using Unsplash)
+getLandscapeImage();
+getLandscapeImage({ tag: 'mountain' });`}
+```
+
+## API Reference
+
+### ImageOptions Interface
+
+All image utility functions accept parameters of the `ImageOptions` type:
+
+```ts
+interface ImageOptions {
+  width: number; // Image width
+  height: number; // Image height
+  tag?: string; // Optional tag, different usage for different providers
+  randomSeed?: number | string; // Random seed, ensures image consistency
+  provider?: ImageProvider; // Image service provider
+  grayscale?: boolean; // Whether to use grayscale effect (Picsum only)
+  blur?: number; // Blur effect level (Picsum only, range 1-10)
+}
+
+// Supported image service providers
+type ImageProvider = 'picsum' | 'unsplash' | 'placeholder' | 'robohash';
+```
+
+### Function Reference
+
+```ts
+// General image generation function
+function getExampleImage(options: ImageOptions): string;
+
+// Product image generation function
+function getProductImage(options?: Partial<ImageOptions>): string;
+
+// Avatar image generation function
+function getAvatarImage(options?: Partial<ImageOptions>): string;
+
+// Landscape image generation function
+function getLandscapeImage(options?: Partial<ImageOptions>): string;
+```

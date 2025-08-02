@@ -1,0 +1,24 @@
+---
+/**
+ * @component ContainerFlexContainer
+ * @description Container 组件 Flex 布局多标签演示容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerFlexRow from './ContainerFlexRow.astro';
+import ContainerFlexCol from './ContainerFlexCol.astro';
+import ContainerFlexCenter from './ContainerFlexCenter.astro';
+import ContainerFlexBetween from './ContainerFlexBetween.astro';
+import sourceRow from './ContainerFlexRow.astro?raw';
+import sourceCol from './ContainerFlexCol.astro?raw';
+import sourceCenter from './ContainerFlexCenter.astro?raw';
+import sourceBetween from './ContainerFlexBetween.astro?raw';
+---
+
+<CodeContainer
+  titles={['行布局', '列布局', '居中对齐', '两端对齐']}
+  codes={[sourceRow, sourceCol, sourceCenter, sourceBetween]}>
+  <div id="tab-1"><ContainerFlexRow /></div>
+  <div id="tab-2"><ContainerFlexCol /></div>
+  <div id="tab-3"><ContainerFlexCenter /></div>
+  <div id="tab-4"><ContainerFlexBetween /></div>
+</CodeContainer>

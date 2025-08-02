@@ -27,14 +27,19 @@ import { getMarginTopClass, getMarginBottomClass } from './utils.ts';
 import MobileNav from './MobileNav.astro';
 import type { ISidebarProps } from '../../index-astro';
 
-export interface Props extends ISidebarProps {}
+export interface Props extends ISidebarProps {
+  topClass?: string;
+  heightClass?: string;
+}
 
 const {
   sidebarItems,
   class: className,
   debug = false,
-  marginTop = 'md',
-  marginBottom = 'md',
+  marginTop = 'none',
+  marginBottom = 'none',
+  topClass = 'cosy:top-12',
+  heightClass = 'cosy:h-[calc(100vh-3rem)]',
 } = Astro.props;
 
 // 自动获取当前路径
@@ -67,26 +72,25 @@ const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 
 {/* 桌面端侧边栏 */}
 <aside
-  data-sidebar
+  data-desktop-sidebar
   data-current-path={currentPath}
   data-margin-top={marginTop}
   data-margin-bottom={marginBottom}
   class:list={[
     className,
     debugClass,
-    'cosy:hidden cosy:lg:block',
+    'cosy:hidden cosy:w-60 cosy:lg:block cosy:bg-base-200 cosy:px-4 cosy:overflow-y-auto cosy:sticky',
+    topClass,
+    heightClass,
+    'cosy:border-r cosy:border-base-300',
     getMarginTopClass(marginTop),
     getMarginBottomClass(marginBottom),
   ]}>
-  <div
-    class="cosy:top-16 cosy:sticky cosy:pb-48 cosy:h-[calc(100vh-0rem)] cosy:overflow-y-auto"
-    data-desktop-sidebar-content>
-    <SidebarNav
-      sidebarItems={sidebarItems}
-      currentPath={currentPath}
-      debug={debug}
-    />
-  </div>
+  <SidebarNav
+    sidebarItems={sidebarItems}
+    currentPath={currentPath}
+    debug={debug}
+  />
 </aside>
 
 <script>
@@ -95,9 +99,7 @@ const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
   // 处理侧边栏滚动位置保存和恢复
   document.addEventListener('astro:before-preparation', () => {
     // 保存桌面端滚动位置
-    const desktopContent = document.querySelector(
-      '[data-desktop-sidebar-content]'
-    );
+    const desktopContent = document.querySelector('[data-desktop-sidebar]');
     if (desktopContent) {
       saveScrollPosition(desktopContent, 'sidebarScrollPosition');
     }
@@ -113,9 +115,7 @@ const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 
   document.addEventListener('astro:page-load', () => {
     // 恢复桌面端滚动位置
-    const desktopContent = document.querySelector(
-      '[data-desktop-sidebar-content]'
-    );
+    const desktopContent = document.querySelector('[data-desktop-sidebar]');
     if (desktopContent) {
       restoreScrollPosition(desktopContent, 'sidebarScrollPosition');
     }

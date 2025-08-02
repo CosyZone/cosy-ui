@@ -1,0 +1,30 @@
+---
+/**
+ * @component ContainerSizesContainer
+ * @description Container 组件尺寸多标签演示容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerSizeXs from './ContainerSizeXs.astro';
+import ContainerSizeSm from './ContainerSizeSm.astro';
+import ContainerSizeMd from './ContainerSizeMd.astro';
+import ContainerSizeLg from './ContainerSizeLg.astro';
+import ContainerSizeXl from './ContainerSizeXl.astro';
+import ContainerSizeFull from './ContainerSizeFull.astro';
+import sourceXs from './ContainerSizeXs.astro?raw';
+import sourceSm from './ContainerSizeSm.astro?raw';
+import sourceMd from './ContainerSizeMd.astro?raw';
+import sourceLg from './ContainerSizeLg.astro?raw';
+import sourceXl from './ContainerSizeXl.astro?raw';
+import sourceFull from './ContainerSizeFull.astro?raw';
+---
+
+<CodeContainer
+  titles={['xs', 'sm', 'md', 'lg', 'xl', 'full']}
+  codes={[sourceXs, sourceSm, sourceMd, sourceLg, sourceXl, sourceFull]}>
+  <div id="tab-1"><ContainerSizeXs /></div>
+  <div id="tab-2"><ContainerSizeSm /></div>
+  <div id="tab-3"><ContainerSizeMd /></div>
+  <div id="tab-4"><ContainerSizeLg /></div>
+  <div id="tab-5"><ContainerSizeXl /></div>
+  <div id="tab-6"><ContainerSizeFull /></div>
+</CodeContainer>

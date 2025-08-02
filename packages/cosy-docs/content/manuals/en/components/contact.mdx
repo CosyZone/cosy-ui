@@ -1,0 +1,53 @@
+---
+title: 'Contact'
+folder: false
+order: 6
+---
+
+import { Contact } from '@coffic/cosy-ui';
+import { ContactPackage } from '@/components/contact/index';
+
+# {frontmatter.title}
+
+## Introduction
+
+The Contact component is used to display enterprise or personal contact information, supporting multiple contact methods (email, phone, address) and social media links. The component features a clean and professional design, perfect for use in contact pages, footers, or about us pages of business websites.
+
+Component features:
+
+- Supports multiple contact methods: email, phone, address, website
+- Built-in social media links: GitHub, Twitter, Facebook, LinkedIn
+- Automatically generates clickable links (email, phone, website)
+- Provides compact mode for different layout requirements
+- Supports custom titles and descriptions
+- Beautiful icon design, clear and recognizable
+
+## Basic Usage
+
+The simplest contact information display:
+
+<ContactPackage.ContactContainers.Basic />
+
+## Contact with Title
+
+Add title and description using title and description properties:
+
+<ContactPackage.ContactContainers.WithTitle />
+
+## With Social Media Links
+
+Add social media links to show complete contact information:
+
+<ContactPackage.ContactContainers.Social />
+
+## Compact Mode
+
+Use the compact property to create a more compact layout:
+
+<ContactPackage.ContactContainers.Compact />
+
+## Custom Styles
+
+Customize contact card styles using the class property:
+
+<ContactPackage.ContactContainers.CustomStyle />

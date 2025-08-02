@@ -1,0 +1,101 @@
+---
+title: 'CodeContainer'
+folder: false
+order: 5
+---
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import { CodeContainerPackage } from '@/components/code-container/index';
+
+# {frontmatter.title}
+
+## 简介
+
+CodeContainer组件用于展示代码示例，提供了预览和代码视图的切换功能，支持多个示例标签页和代码复制。
+
+组件特性：
+
+- 支持多个示例标签页切换
+- 提供预览和代码视图切换
+- 内置代码复制功能
+- 支持示例标题和描述
+- 响应式设计，适配不同屏幕尺寸
+- 样式隔离，防止外部样式影响内部组件展示
+
+## 基础用法
+
+最简单的代码示例展示：
+
+```astro 
+<CodeContainer codes={[YourComponentSourceCode]}>
+  <div id="tab-1">
+    <YourComponent />
+  </div>
+</CodeContainer>
+```
+
+渲染结果：
+
+<CodeContainerPackage.CodeContainerExamples.Basic />
+
+## 多标签示例
+
+展示多个相关的代码示例：
+
+```astro
+---
+import { CodeContainer } from './index';
+import { Alert } from '../alert';
+
+const infoCode = `<Alert type="info" title="信息提示">
+  这是一条信息提示
+</Alert>`;
+
+const successCode = `<Alert type="success" title="成功提示">
+  操作已成功完成
+</Alert>`;
+
+const warningCode = `<Alert type="warning" title="警告提示">
+  请注意可能的风险
+</Alert>`;
+
+const errorCode = `<Alert type="error" title="错误提示">
+  操作失败，请重试
+</Alert>`;
+
+const titles = ['信息', '成功', '警告', '错误'];
+const descriptions = [
+  '用于展示一般信息',
+  '用于展示成功状态',
+  '用于展示警告信息',
+  '用于展示错误信息',
+];
+const codes = [infoCode, successCode, warningCode, errorCode];
+---
+
+<CodeContainer titles={titles} descriptions={descriptions} codes={codes}>
+  <div id="tab-1">
+    <Alert type="info" title="信息提示"> 这是一条信息提示 </Alert>
+  </div>
+  <div id="tab-2">
+    <Alert type="success" title="成功提示"> 操作已成功完成 </Alert>
+  </div>
+  <div id="tab-3">
+    <Alert type="warning" title="警告提示"> 请注意可能的风险 </Alert>
+  </div>
+  <div id="tab-4">
+    <Alert type="error" title="错误提示"> 操作失败，请重试 </Alert>
+  </div>
+</CodeContainer>
+```
+
+渲染结果：
+
+<CodeContainerPackage.CodeContainerExamples.Multiple />
+
+## 注意事项
+
+1. 每个示例内容必须包含在带有`id="tab-n"`的div中，其中n从1开始
+2. codes数组的长度必须与示例内容的数量相匹配
+3. titles和descriptions数组的长度应该与codes数组相同，如果提供的话
+4. 示例内容可以包含任何有效的HTML/CSS/JavaScript代码

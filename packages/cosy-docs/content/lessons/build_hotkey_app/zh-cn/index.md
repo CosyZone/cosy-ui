@@ -2,6 +2,8 @@
 title: 使用 Flutter 开发全局快捷键桌面应用
 ---
 
+# {frontmatter.title}
+
 本教程将指导你使用 Flutter 开发一个可以通过全局快捷键唤出的 macOS 桌面应用。
 
 ## 项目概述

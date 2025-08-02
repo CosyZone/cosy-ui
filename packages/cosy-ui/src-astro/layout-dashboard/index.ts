@@ -13,5 +13,5 @@ export {
 };
 
 // 导出类型和函数
-export type { NavItem, SidebarSize, UserMenuItem } from './types';
+export type { SidebarSize, UserMenuItem } from './types';
 export { getIconFromHref, getNavItemIcon, getSidebarWidth } from './types';

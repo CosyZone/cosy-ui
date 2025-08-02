@@ -21,12 +21,18 @@
  * <Alert type="warning" showIcon={false}>不显示图标的警告</Alert>
  * ```
  *
+ * 设置垂直外边距：
+ * ```astro
+ * <Alert type="info" marginY="md">带垂直外边距的提示</Alert>
+ * ```
+ *
  * 组合使用：
  * ```astro
  * <Alert
  *   type="error"
  *   title="提交失败"
  *   class="my-custom-class"
+ *   marginY="lg"
  * >
  *   请检查表单并重新提交
  * </Alert>
@@ -48,7 +54,7 @@
  * @prop {string} [class] - 自定义 CSS 类名
  * @prop {boolean} [closable=true] - 是否可关闭
  * @prop {boolean} [showIcon=true] - 是否显示图标
- * @prop {number} [bgOpacity=1] - 背景色透明度，取值范围 0~1，1 为不透明
+ * @prop {('xs'|'sm'|'md'|'lg'|'xl')} [marginY] - 垂直方向外边距大小
  *
  * @slots
  * @slot default - 提示内容
@@ -72,6 +78,7 @@ export interface AlertProps {
   closable?: boolean;
   showIcon?: boolean;
   variant?: 'solid' | 'outline' | 'dash' | 'soft';
+  marginY?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
 const {
@@ -82,13 +89,33 @@ const {
   closable = true,
   showIcon = true,
   variant = 'solid',
+  marginY,
 } = Astro.props as AlertProps;
+
+// 根据 marginY 值设置对应的 CSS 类
+const getMarginYClass = (marginY?: string) => {
+  switch (marginY) {
+    case 'xs':
+      return 'cosy:my-1';
+    case 'sm':
+      return 'cosy:my-2';
+    case 'md':
+      return 'cosy:my-4';
+    case 'lg':
+      return 'cosy:my-8';
+    case 'xl':
+      return 'cosy:my-12';
+    default:
+      return '';
+  }
+};
 
 // 组合样式
 const alertClass = [
   `cosy:alert-${type}`,
   variant !== 'solid' ? `cosy:alert-${variant}` : '',
   'cosy:alert-horizontal',
+  getMarginYClass(marginY),
 ]
   .filter(Boolean)
   .join(' ');

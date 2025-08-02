@@ -1,0 +1,37 @@
+---
+title: 'Header'
+folder: false
+order: 11
+---
+
+import { ComponentPackage } from '@/components/header/index';
+
+# {frontmatter.title}
+
+The Header component is a layout component for website top navigation, providing logo, navigation menu, language switching, and other functions.
+
+## Basic Usage
+
+<ComponentPackage.ComponentContainers.Basic />
+
+## With Navigation Menu
+
+<ComponentPackage.ComponentContainers.WithNavigation />
+
+## Without Language Switcher
+
+When the `astroI18n` parameter is not passed, the Header component will not display the language switching functionality.
+
+<ComponentPackage.ComponentContainers.WithoutI18n />
+
+## Custom Left Content
+
+<ComponentPackage.ComponentContainers.CustomNavbarStart />
+
+## Custom Middle Content
+
+<ComponentPackage.ComponentContainers.CustomNavbarCenter />
+
+## Custom Right Content
+
+<ComponentPackage.ComponentContainers.CustomNavbarEnd />

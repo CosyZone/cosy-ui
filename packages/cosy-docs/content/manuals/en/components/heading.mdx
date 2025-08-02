@@ -1,0 +1,62 @@
+---
+title: 'Heading'
+folder: false
+order: 12
+---
+
+import { ComponentPackage } from '@/components/heading/index.ts';
+
+# {frontmatter.title}
+
+The Heading component is used to create headings of various levels, providing consistent typography styles and flexible customization options. This component is suitable for content pages that require a clear hierarchical structure, such as documentation, blogs, and product introductions. It supports link functionality - when the `href` property is provided, the heading becomes a clickable link.
+
+## Basic Usage
+
+The most basic usage, supporting heading levels 1-6:
+
+<ComponentPackage.ComponentContainers.Basic />
+
+## Link Headings
+
+Create clickable heading links using the `href` property, supporting both internal and external links:
+
+<ComponentPackage.ComponentContainers.LinkHeading />
+
+## Custom Styles
+
+Customize heading styles using the `color` and `underline` properties:
+
+<ComponentPackage.ComponentContainers.CustomStyle />
+
+## Alignment
+
+Control heading alignment using the `align` property:
+
+<ComponentPackage.ComponentContainers.Align />
+
+## Heading with Anchor
+
+Create headings with anchor links using the `id` and `anchor` properties:
+
+<ComponentPackage.ComponentContainers.Anchor />
+
+## Props
+
+| Property     | Description                        | Type                                              | Default   |
+| ------------ | ---------------------------------- | ------------------------------------------------- | --------- |
+| level        | Heading level                      | 1 \| 2 \| 3 \| 4 \| 5 \| 6                      | 2         |
+| id           | Heading ID                         | string                                            | -         |
+| href         | Link URL                           | string                                            | -         |
+| external     | Whether it's an external link      | boolean                                           | false     |
+| anchor       | Show anchor link icon              | boolean                                           | false     |
+| underline    | Show underline                     | boolean                                           | false     |
+| align        | Text alignment                     | 'left' \| 'center' \| 'right'                    | 'left'    |
+| color        | Heading color                      | 'default'\|'primary'\|'secondary'\|'accent'\|'muted' | 'default' |
+| margin       | Top and bottom margin size         | 'none' \| 'sm' \| 'md' \| 'lg' \| 'xl'          | 'md'      |
+| background   | Background color class name        | string                                            | -         |
+| padding      | Padding size                       | 'none' \| 'sm' \| 'md' \| 'lg' \| 'xl'          | 'none'    |
+| class        | Custom CSS class                   | string                                            | -         |
+
+## Slots
+
+- `default`: Heading content

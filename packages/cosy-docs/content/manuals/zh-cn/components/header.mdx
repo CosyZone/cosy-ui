@@ -1,0 +1,37 @@
+---
+title: 'Header'
+folder: false
+order: 11
+---
+
+import { ComponentPackage } from '@/components/header/index';
+
+# {frontmatter.title}
+
+Header 组件是一个用于网站顶部导航的布局组件，提供了 logo、导航菜单、语言切换等功能。
+
+## 基础用法
+
+<ComponentPackage.ComponentContainers.Basic />
+
+## 带导航菜单
+
+<ComponentPackage.ComponentContainers.WithNavigation />
+
+## 不显示语言切换
+
+当不传递 `astroI18n` 参数时，Header 组件将不会显示语言切换功能。
+
+<ComponentPackage.ComponentContainers.WithoutI18n />
+
+## 自定义左侧内容
+
+<ComponentPackage.ComponentContainers.CustomNavbarStart />
+
+## 自定义中间内容
+
+<ComponentPackage.ComponentContainers.CustomNavbarCenter />
+
+## 自定义右侧内容
+
+<ComponentPackage.ComponentContainers.CustomNavbarEnd />

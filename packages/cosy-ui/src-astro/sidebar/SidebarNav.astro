@@ -8,6 +8,7 @@
 import '../../style.ts';
 import NavItem from './NavItem.astro';
 import type { ISidebarItem } from '../types/sidebar.ts';
+import { Heading } from '../../index-astro.ts';
 
 interface Props {
   /**
@@ -45,20 +46,16 @@ const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 <nav
   data-sidebar-nav
   data-current-path={currentPath}
-  class:list={['cosy:p-4', debugClass, className]}>
+  class:list={['cosy:p-0', debugClass, className]}>
   {
     sidebarItems.map((section: ISidebarItem) => (
-      <div class:list={['cosy:mb-6', debugClass]}>
-        <h3
-          class:list={[
-            'cosy:font-bold cosy:mb-2 cosy:text-base-content/70',
-            debugClass,
-          ]}>
+      <div class:list={[debugClass]}>
+        <Heading level={5} align="center" href={section.href}>
           {section.text}
-        </h3>
+        </Heading>
         <ul
           class:list={[
-            'cosy:menu cosy:bg-base-200 cosy:rounded-box cosy:w-56 cosy:no-underline',
+            'cosy:menu cosy:rounded-box cosy:w-full cosy:no-underline',
             debugClass,
           ]}>
           {section.items?.map((item: ISidebarItem) => (

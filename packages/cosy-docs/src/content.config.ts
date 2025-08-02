@@ -1,9 +1,9 @@
 import {
-    makeCourseCollection,
-    makeLessonCollection
+    makeLessonCollection,
+    makeManualCollection,
 } from '@coffic/cosy-content/schema';
 
 export const collections = {
-    courses: makeCourseCollection('./content/courses'),
     lessons: makeLessonCollection('./content/lessons'),
+    manuals: makeManualCollection('./content/manuals'),
 };

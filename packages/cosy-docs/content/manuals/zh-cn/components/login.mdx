@@ -1,0 +1,77 @@
+---
+title: Login
+folder: false
+order: 15
+badge: beta
+---
+
+import { LoginPackage } from '@/components/login/index.ts';
+
+# {frontmatter.title}
+
+Login 组件用于创建灵活且功能丰富的登录页面，支持多种登录方式、自定义样式和布局。
+
+## 基础用法
+
+最基本的登录页面包含标题、用户名密码输入框、记住我选项、忘记密码链接和社交登录按钮。
+
+<LoginPackage.LoginContainers.Basic />
+
+## 自定义样式
+
+你可以通过自定义类名、插槽等方式来自定义登录页面的样式和内容。
+
+<LoginPackage.LoginContainers.CustomStyle />
+
+## Props
+
+### 基础属性
+- `title` (string, 可选) - 登录页标题，默认为"登录"
+- `subtitle` (string, 可选) - 登录页副标题
+- `logo` (string, 可选) - 登录页Logo图片路径
+
+### 功能配置
+- `socialLogins` (('github' | 'google' | 'wechat')[], 可选) - 社交登录方式列表
+- `showRememberMe` (boolean, 可选) - 是否显示"记住我"选项，默认为 false
+- `showForgotPassword` (boolean, 可选) - 是否显示"忘记密码"链接，默认为 false
+
+### 文本自定义
+- `loginButtonText` (string, 可选) - 登录按钮文本，默认为"登录"
+- `usernameLabel` (string, 可选) - 用户名输入框标签，默认为"用户名"
+- `passwordLabel` (string, 可选) - 密码输入框标签，默认为"密码"
+- `forgotPasswordText` (string, 可选) - 忘记密码链接文本，默认为"忘记密码？"
+- `rememberMeText` (string, 可选) - 记住我选项文本，默认为"记住我"
+- `dividerText` (string, 可选) - 社交登录分隔符文本，默认为"或"
+
+### 样式定制
+- `customClass` (string, 可选) - 自定义CSS类名
+
+## 插槽
+
+组件提供了以下插槽用于自定义内容：
+
+- `header` - 页头自定义内容
+- `footer` - 页脚自定义内容
+- `socialButtons` - 自定义社交登录按钮
+
+## 最佳实践
+
+1. **安全性考虑**
+   - 确保使用 HTTPS 进行数据传输
+   - 实现适当的密码强度验证
+   - 添加登录尝试次数限制
+
+2. **用户体验**
+   - 提供清晰的错误提示
+   - 在登录过程中禁用提交按钮
+   - 支持键盘导航和表单自动填充
+
+3. **响应式设计**
+   - 组件默认支持响应式布局
+   - 在移动设备上自动调整输入框大小
+   - 确保社交登录按钮在各种屏幕尺寸下都易于点击
+
+4. **自定义建议**
+   - 根据品牌调整配色方案
+   - 添加品牌Logo
+   - 根据需要调整社交登录选项 

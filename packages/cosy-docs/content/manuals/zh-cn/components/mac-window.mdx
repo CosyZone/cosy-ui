@@ -1,0 +1,59 @@
+---
+title: 'MacWindow'
+folder: false
+order: 19
+---
+
+import { MacWindow } from '@coffic/cosy-ui/vue';
+import { MacWindowPackage } from '@/components/mac-window/index';
+
+# {frontmatter.title}
+
+## 简介
+
+MacWindow 组件模拟 macOS 风格的应用窗口，包含标题栏、工具栏按钮、标签页和状态栏。适用于创建模拟桌面应用界面或代码编辑器等场景。
+
+组件特性：
+
+- 完整的 macOS 风格窗口外观，包含关闭、最小化、最大化按钮
+- 支持标签页功能，可切换不同内容区域
+- 提供工具栏和状态栏插槽，支持自定义内容
+- 支持侧边栏布局，适合文件浏览器等应用
+- 可自定义窗口高度和阴影效果
+- 支持窗口操作事件回调
+
+## 基础用法
+
+最简单的窗口展示：
+
+<MacWindowPackage.Containers.Basic />
+
+## 带标签页的窗口
+
+通过 tabs 属性添加标签页功能：
+
+<MacWindowPackage.Containers.WithTabs />
+
+## 窗口事件处理
+
+通过事件回调函数处理窗口操作：
+
+<MacWindowPackage.Containers.WithEvents />
+
+## 工具栏和状态栏
+
+使用工具栏和状态栏插槽添加自定义功能：
+
+<MacWindowPackage.Containers.WithToolbar />
+
+## 侧边栏布局
+
+使用侧边栏插槽创建文件浏览器风格的布局：
+
+<MacWindowPackage.Containers.WithSidebar />
+
+## 自定义高度
+
+通过 height 属性自定义窗口高度：
+
+<MacWindowPackage.Containers.CustomHeight /> 

@@ -1,0 +1,64 @@
+---
+title: 'InstallTabs'
+folder: false
+order: 13
+---
+
+import { InstallTabs } from '@coffic/cosy-ui';
+
+# {frontmatter.title}
+
+## 简介
+
+InstallTabs 组件用于展示常见包管理器（npm、pnpm、yarn等）的安装命令，支持标签切换和一键复制。只需传入包名即可自动生成各包管理器的安装命令，适合在文档、教程、组件库等场景下快速展示安装方式。
+
+组件特性：
+- 支持 npm、pnpm、yarn 等主流包管理器
+- 一键复制命令
+- 支持开发依赖（-D）参数
+- 可自定义包管理器列表
+- 响应式设计，适配不同屏幕尺寸
+
+## 基础用法
+
+最简单的安装命令切换：
+
+```astro
+<InstallTabs packageName="react" />
+```
+
+渲染结果：
+
+<InstallTabs packageName="react" />
+
+## 开发依赖用法
+
+展示开发依赖安装命令：
+
+```astro
+<InstallTabs packageName="vite" dev />
+```
+
+渲染结果：
+
+<InstallTabs packageName="vite" dev />
+
+## 自定义包管理器
+
+只展示 npm 和 yarn：
+
+```astro
+<InstallTabs packageName="eslint" managers={["npm", "yarn"]} />
+```
+
+渲染结果：
+
+<InstallTabs packageName="eslint" managers={["npm", "yarn"]} />
+
+## Props
+
+| 属性         | 说明                   | 类型                | 默认值                |
+| ------------ | ---------------------- | ------------------- | --------------------- |
+| packageName  | 要安装的包名           | string              | -                     |
+| managers     | 支持的包管理器         | string[]            | ['npm','pnpm','yarn'] |
+| dev          | 是否为开发依赖         | boolean             | false                 |

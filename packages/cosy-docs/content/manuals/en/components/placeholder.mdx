@@ -1,0 +1,166 @@
+---
+title: "PlaceHolder"
+folder: false
+order: 16
+---
+
+import { PlaceHolder } from '@coffic/cosy-ui';
+import { PlaceHolderPackage } from '@/components/placeholder/index';
+
+# {frontmatter.title}
+
+## Introduction
+
+The PlaceHolder component is used to occupy specified space in layouts, similar to SwiftUI's Spacer. You can independently set the width and height of the component, supporting different size options and background color configurations.
+
+## Features
+
+- **Space Occupation** - Occupy specified space in layouts
+- **Flexibility** - Support independent control of width and height
+- **Consistency** - Maintain consistent size specifications with the design system
+- **Responsive** - Maintain good layout effects on different screen sizes
+- **Visualization** - Support background color configuration for easy debugging and design
+
+## Basic Usage
+
+Use the `width` and `height` properties to set the placeholder's width and height, and use the `padding` property to set internal spacing:
+
+<PlaceHolderPackage.ComponentContainers.Basic />
+
+## Different Sizes
+
+The PlaceHolder component supports multiple preset sizes, each with background colors for visualization:
+
+<PlaceHolderPackage.ComponentContainers.Sizes />
+
+## Padding Control
+
+You can set different padding sizes to control the distance between content and boundaries:
+
+<PlaceHolderPackage.ComponentContainers.Padding />
+
+## Background Color Options
+
+The PlaceHolder component supports multiple background color configurations for easy debugging and design:
+
+<PlaceHolderPackage.ComponentContainers.Backgrounds />
+
+## API Reference
+
+### Props
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `width` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl' \| '3xl' \| '4xl' \| '5xl' \| '6xl' \| 'full'` | `'md'` | Placeholder width |
+| `height` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl' \| '3xl' \| '4xl' \| '5xl' \| '6xl' \| 'full'` | `'md'` | Placeholder height |
+| `padding` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'none'` | Internal spacing size |
+| `background` | `string` | - | Background color class name, such as 'base-200', 'primary', 'secondary' |
+| `class` | `string` | - | Custom CSS class name |
+
+### Size Reference Table
+
+| Size | Width/Height | Description |
+|------|--------------|-------------|
+| `none` | 0px | No placeholder |
+| `xs` | 32px | Extra small placeholder |
+| `sm` | 64px | Small placeholder |
+| `md` | 96px | Medium placeholder |
+| `lg` | 128px | Large placeholder |
+| `xl` | 160px | Extra large placeholder |
+| `2xl` | 192px | 2x extra large placeholder |
+| `3xl` | 224px | 3x extra large placeholder |
+| `4xl` | 256px | 4x extra large placeholder |
+| `5xl` | 288px | 5x extra large placeholder |
+| `6xl` | 320px | 6x extra large placeholder |
+| `full` | 100% | Fill entire container |
+
+### Padding Reference Table
+
+| Padding | Pixel Value | Description |
+|---------|-------------|-------------|
+| `none` | 0px | No padding |
+| `xs` | 4px | Extra small padding |
+| `sm` | 8px | Small padding |
+| `md` | 16px | Medium padding |
+| `lg` | 24px | Large padding |
+| `xl` | 32px | Extra large padding |
+
+### Supported Background Colors
+
+| Background Color | Description |
+|------------------|-------------|
+| `base-100` | Base background color (light) |
+| `base-200` | Base background color (medium) |
+| `base-300` | Base background color (dark) |
+| `primary` | Primary background color |
+| `secondary` | Secondary background color |
+| `accent` | Accent background color |
+| `info` | Info background color |
+| `success` | Success background color |
+| `warning` | Warning background color |
+| `error` | Error background color |
+
+## Use Cases
+
+### 1. Layout Placeholder
+
+Use placeholders in layouts to occupy specified space:
+
+```astro
+<div class="cosy:bg-base-200">
+  <PlaceHolder width="lg" height="md" padding="md" background="base-300">
+    <p>This content has appropriate width, height, padding, and background color</p>
+  </PlaceHolder>
+</div>
+```
+
+### 2. Card Layout
+
+Use PlaceHolder in card components to create content areas:
+
+```astro
+<div class="cosy:bg-base-100 cosy:rounded-lg cosy:shadow">
+  <PlaceHolder width="md" height="lg" padding="lg" background="base-200">
+    <h3>Card Title</h3>
+    <p>Card content</p>
+  </PlaceHolder>
+</div>
+```
+
+### 3. Debug Layout
+
+Use background colors to visualize layout structure:
+
+```astro
+<PlaceHolder width="xl" height="lg" padding="lg" background="primary" class="cosy:text-white">
+  <p>This area is used for debugging layout, background color helps visualize space occupation</p>
+</PlaceHolder>
+```
+
+### 4. Responsive Layout
+
+Combine with responsive class names:
+
+```astro
+<PlaceHolder 
+  width="lg" 
+  height="md" 
+  padding="md" 
+  background="base-200"
+  class="cosy:lg:width-xl cosy:lg:height-lg cosy:lg:padding-lg"
+>
+  <p>Responsive placeholder, larger dimensions on desktop screens</p>
+</PlaceHolder>
+```
+
+### 5. Fill Container
+
+Use the `full` option to make the placeholder fill the entire container:
+
+```astro
+<div class="cosy:h-64 cosy:bg-base-200">
+  <PlaceHolder width="full" height="full" padding="md" background="base-300">
+    <p>Placeholder that fills the entire container</p>
+  </PlaceHolder>
+</div>
+``` 

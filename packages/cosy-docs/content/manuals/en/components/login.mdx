@@ -1,0 +1,77 @@
+---
+title: Login Page
+folder: false
+order: 15
+badge: 'beta'
+---
+
+import { LoginPackage } from '@/components/login';
+
+# {frontmatter.title}
+
+The Login component is used to create flexible and feature-rich login pages, supporting multiple login methods, custom styles, and layouts.
+
+## Basic Usage
+
+The most basic login page includes a title, username and password input fields, remember me option, forgot password link, and social login buttons.
+
+<LoginPackage.LoginContainers.Basic />
+
+## Custom Styles
+
+You can customize the style and content of the login page through custom class names and slots.
+
+<LoginPackage.LoginContainers.CustomStyle />
+
+## Props
+
+### Basic Properties
+- `title` (string, optional) - Login page title, defaults to "Login"
+- `subtitle` (string, optional) - Login page subtitle
+- `logo` (string, optional) - Path to the login page logo image
+
+### Feature Configuration
+- `socialLogins` (('github' | 'google' | 'wechat')[], optional) - List of social login methods
+- `showRememberMe` (boolean, optional) - Whether to show the "Remember me" option, defaults to false
+- `showForgotPassword` (boolean, optional) - Whether to show the "Forgot password" link, defaults to false
+
+### Text Customization
+- `loginButtonText` (string, optional) - Login button text, defaults to "Login"
+- `usernameLabel` (string, optional) - Username input field label, defaults to "Username"
+- `passwordLabel` (string, optional) - Password input field label, defaults to "Password"
+- `forgotPasswordText` (string, optional) - Forgot password link text, defaults to "Forgot password?"
+- `rememberMeText` (string, optional) - Remember me option text, defaults to "Remember me"
+- `dividerText` (string, optional) - Social login divider text, defaults to "or"
+
+### Style Customization
+- `customClass` (string, optional) - Custom CSS class name
+
+## Slots
+
+The component provides the following slots for custom content:
+
+- `header` - Custom header content
+- `footer` - Custom footer content
+- `socialButtons` - Custom social login buttons
+
+## Best Practices
+
+1. **Security Considerations**
+   - Ensure HTTPS is used for data transmission
+   - Implement appropriate password strength validation
+   - Add login attempt limits
+
+2. **User Experience**
+   - Provide clear error messages
+   - Disable submit button during login process
+   - Support keyboard navigation and form auto-fill
+
+3. **Responsive Design**
+   - Component supports responsive layout by default
+   - Automatically adjust input field sizes on mobile devices
+   - Ensure social login buttons are easy to click on various screen sizes
+
+4. **Customization Tips**
+   - Adjust color scheme according to brand guidelines
+   - Add brand logo
+   - Adjust social login options as needed 
