@@ -1,23 +1,24 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { Error404, type ISidebarItem, Link, ListItem } from '@coffic/cosy-ui';
-import { courseRepo, CourseDoc } from '@coffic/cosy-content';
+import { manualRepo, ManualDoc } from '@coffic/cosy-content';
 import type { RenderResult } from 'astro:content';
 
 const { lang, slug } = Astro.params;
-const doc = await courseRepo.find(`${lang}/${slug}`);
+const id = slug ? `${lang}/${slug}` : `${lang}`;
+const doc = await manualRepo.find(id);
 let title = '';
 let renderResult: RenderResult | null = null;
 let sidebarItems: ISidebarItem | null = null;
 let courseDescription = '';
-let childrenDocs: CourseDoc[] = [];
+let childrenDocs: ManualDoc[] = [];
 
 if (doc) {
   title = doc.getTitle();
   renderResult = await doc.render();
 
   // 获取顶级文档
-  const topDoc = await doc.getAncestor(2);
+  const topDoc = await doc.getAncestor(1);
   if (topDoc) {
     sidebarItems = await topDoc.toSidebarItem();
     console.log(sidebarItems);
@@ -29,13 +30,7 @@ if (doc) {
 }
 
 export const getStaticPaths = async () => {
-  const paths = await courseRepo.getStaticPaths();
-
-  // 过滤掉 slug 为空的路径
-  return paths.filter((path) => {
-    const slug = path.params.slug;
-    return slug && slug.length > 0;
-  });
+  return await manualRepo.getStaticPaths();
 };
 ---
 

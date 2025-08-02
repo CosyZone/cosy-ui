@@ -9,7 +9,7 @@ export const configApp = {
             title: 'Home',
         },
         {
-            href: `${LinkUtil.getBaseUrl()}${lang}/courses/docs`,
+            href: `${LinkUtil.getBaseUrl()}${lang}/manuals`,
             title: 'Docs',
         },
         {
