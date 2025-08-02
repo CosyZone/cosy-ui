@@ -49,6 +49,12 @@
  * <Heading level={2} margin="xl">超大外边距的标题</Heading>
  * ```
  *
+ * 背景色支持：
+ * ```astro
+ * <Heading level={3} background="base-300" padding="sm">带背景色的标题</Heading>
+ * <Heading level={3} background="primary" color="white">主要背景色标题</Heading>
+ * ```
+ *
  * @props
  * @prop {1|2|3|4|5|6} [level=2] - 标题级别，对应 h1-h6 标签
  * @prop {string} [id] - 标题的 ID，用于锚点链接
@@ -57,6 +63,8 @@
  * @prop {string} [align='left'] - 文本对齐方式：'left', 'center', 'right'
  * @prop {'default'|'primary'|'secondary'|'accent'|'muted'} [color='default'] - 标题颜色
  * @prop {'none'|'sm'|'md'|'lg'|'xl'} [margin='md'] - 上下外边距大小
+ * @prop {string} [background] - 背景色类名，如 'base-300', 'primary', 'secondary'
+ * @prop {'none'|'sm'|'md'|'lg'|'xl'} [padding='none'] - 内边距大小（仅在设置背景色时生效）
  * @prop {string} [class] - 自定义 CSS 类名
  *
  * @slots
@@ -84,6 +92,8 @@ interface Props {
   align?: 'left' | 'center' | 'right';
   color?: 'default' | 'primary' | 'secondary' | 'accent' | 'muted';
   margin?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+  background?: string;
+  padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
   class?: string;
 }
 
@@ -95,6 +105,8 @@ const {
   align = 'left',
   color = 'default',
   margin = 'md',
+  background,
+  padding = 'none',
   class: className = '',
 } = Astro.props;
 
@@ -142,8 +154,38 @@ const marginClass = {
   xl: 'cosy:my-8',
 }[(margin ?? 'md') as 'none' | 'sm' | 'md' | 'lg' | 'xl'];
 
+// 背景色样式映射
+const backgroundClassMap = {
+  'base-100': 'cosy:bg-base-100 cosy:dark:bg-base-100',
+  'base-200': 'cosy:bg-base-200 cosy:dark:bg-base-200',
+  'base-300': 'cosy:bg-base-300 cosy:dark:bg-base-300',
+  primary: 'cosy:bg-primary cosy:dark:bg-primary',
+  secondary: 'cosy:bg-secondary cosy:dark:bg-secondary',
+  accent: 'cosy:bg-accent cosy:dark:bg-accent',
+  info: 'cosy:bg-info cosy:dark:bg-info',
+  success: 'cosy:bg-success cosy:dark:bg-success',
+  warning: 'cosy:bg-warning cosy:dark:bg-warning',
+  error: 'cosy:bg-error cosy:dark:bg-error',
+} as const;
+
+const backgroundClass = background
+  ? backgroundClassMap[background as keyof typeof backgroundClassMap] || ''
+  : '';
+
+// 内边距样式映射
+const paddingClassMap = {
+  none: '',
+  sm: 'cosy:py-2',
+  md: 'cosy:py-4',
+  lg: 'cosy:py-6',
+  xl: 'cosy:py-8',
+} as const;
+
+const paddingClass =
+  paddingClassMap[padding as keyof typeof paddingClassMap] || '';
+
 // 组合所有类名
-const combinedClass = `heading ${headingClass} ${colorClass} ${alignClass} ${underlineClass} ${marginClass} ${className}`;
+const combinedClass = `heading ${headingClass} ${colorClass} ${alignClass} ${underlineClass} ${marginClass} ${backgroundClass} ${paddingClass} ${className}`;
 ---
 
 {

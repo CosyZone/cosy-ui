@@ -104,11 +104,13 @@ interface Props {
     </div>
   </Hero>
 
-  <Container class="my-16">
+  <Container>
     <Heading level={2} align="center" margin="lg">
       {lang === 'zh-cn' ? '使用案例' : 'Showcase'}
     </Heading>
     <Products
+      showBorder={false}
+      margin="xl"
       products={[
         {
           name: lang === 'zh-cn' ? '快易知' : 'Kuaiyizhi',

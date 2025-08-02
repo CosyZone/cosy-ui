@@ -60,6 +60,22 @@
  *   products={products}
  * />
  * ```
+ *
+ * 显示容器边框：
+ * ```astro
+ * <Products
+ *   showBorder={true}
+ *   products={products}
+ * />
+ * ```
+ *
+ * 设置上下外边距：
+ * ```astro
+ * <Products
+ *   margin="lg"
+ *   products={products}
+ * />
+ * ```
  */
 
 import { ProductCard } from '../../index-astro';
@@ -80,6 +96,9 @@ type ResponsiveColumns = {
 
 // 定义间距大小
 type GapSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+// 定义外边距大小
+type MarginSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 // 定义布局类型
 type LayoutType = 'grid' | 'list';
@@ -126,6 +145,21 @@ export interface Props {
    */
   descriptionLines?: number;
   /**
+   * 是否显示容器边框
+   * 控制Products组件整体容器的边框显示
+   */
+  showBorder?: boolean;
+  /**
+   * 上下外边距
+   * - none: 无外边距
+   * - xs: 超小外边距
+   * - sm: 小外边距
+   * - md: 中等外边距（默认）
+   * - lg: 大外边距
+   * - xl: 超大外边距
+   */
+  margin?: MarginSize;
+  /**
    * 自定义类名
    */
   class?: string;
@@ -139,6 +173,8 @@ const {
   gap = 'md',
   equalHeight = true,
   descriptionLines,
+  showBorder = false,
+  margin = 'md',
   class: className = '',
 } = Astro.props;
 
@@ -149,6 +185,16 @@ const gapMap = {
   md: 'cosy:gap-4',
   lg: 'cosy:gap-6',
   xl: 'cosy:gap-8',
+};
+
+// 外边距映射
+const marginMap = {
+  none: '',
+  xs: 'cosy:my-1',
+  sm: 'cosy:my-2',
+  md: 'cosy:my-4',
+  lg: 'cosy:my-6',
+  xl: 'cosy:my-8',
 };
 
 // 获取响应式列数类名
@@ -181,7 +227,9 @@ const getLayoutClasses = () => {
 const containerClasses = [
   ...getLayoutClasses(),
   gapMap[gap],
+  marginMap[margin],
   'cosy:w-full',
+  showBorder && 'cosy:border cosy:border-base-300 cosy:p-4 cosy:rounded-lg',
   className,
 ];
 ---

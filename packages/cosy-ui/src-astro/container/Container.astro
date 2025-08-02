@@ -49,6 +49,13 @@
  * </Container>
  * ```
  *
+ * 设置外边距：
+ * ```astro
+ * <Container margin="lg">
+ *   <p>带有大外边距的容器</p>
+ * </Container>
+ * ```
+ *
  * Flex布局容器（按行排列）：
  * ```astro
  * <Container flex="row" gap="md">
@@ -81,6 +88,23 @@ interface Props extends HTMLAttributes<'div'> {
    * @default "md"
    */
   padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+
+  /**
+   * 外边距大小
+   * @default "none"
+   */
+  margin?:
+    | 'none'
+    | 'xs'
+    | 'sm'
+    | 'md'
+    | 'lg'
+    | 'xl'
+    | '2xl'
+    | '3xl'
+    | '4xl'
+    | '5xl'
+    | '6xl';
 
   /**
    * 是否居中显示
@@ -129,6 +153,7 @@ interface Props extends HTMLAttributes<'div'> {
 const {
   size = 'md',
   padding = 'md',
+  margin = 'none',
   centered = true,
   border = false,
   flex,
@@ -156,6 +181,20 @@ const paddingClasses = {
   md: 'cosy:p-4',
   lg: 'cosy:p-6',
   xl: 'cosy:p-8',
+} as const;
+
+const marginClasses = {
+  none: '',
+  xs: 'cosy:my-1',
+  sm: 'cosy:my-2',
+  md: 'cosy:my-4',
+  lg: 'cosy:my-6',
+  xl: 'cosy:my-8',
+  '2xl': 'cosy:my-12',
+  '3xl': 'cosy:my-16',
+  '4xl': 'cosy:my-20',
+  '5xl': 'cosy:my-24',
+  '6xl': 'cosy:my-32',
 } as const;
 
 const flexClasses = {
@@ -197,6 +236,7 @@ const containerClasses = [
   centered ? 'cosy:mx-auto' : '',
   sizeClasses[size],
   paddingClasses[padding],
+  marginClasses[margin],
   border ? 'cosy:border cosy:rounded-lg' : '',
   flex ? flexClasses[flex] : '',
   flex ? gapClasses[gap] : '',
