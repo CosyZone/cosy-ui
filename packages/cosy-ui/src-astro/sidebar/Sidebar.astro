@@ -27,14 +27,19 @@ import { getMarginTopClass, getMarginBottomClass } from './utils.ts';
 import MobileNav from './MobileNav.astro';
 import type { ISidebarProps } from '../../index-astro';
 
-export interface Props extends ISidebarProps {}
+export interface Props extends ISidebarProps {
+  topClass?: string;
+  heightClass?: string;
+}
 
 const {
   sidebarItems,
   class: className,
   debug = false,
-  marginTop = 'md',
-  marginBottom = 'md',
+  marginTop = 'none',
+  marginBottom = 'none',
+  topClass = 'cosy:top-12',
+  heightClass = 'cosy:h-[calc(100vh-3rem)]',
 } = Astro.props;
 
 // 自动获取当前路径
@@ -74,7 +79,10 @@ const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
   class:list={[
     className,
     debugClass,
-    'cosy:hidden cosy:w-60 cosy:top-16 cosy:lg:block cosy:bg-base-200 cosy:pb-48 cosy:p-4 cosy:overflow-y-auto cosy:h-[calc(100vh-0rem)]',
+    'cosy:hidden cosy:w-60 cosy:lg:block cosy:bg-base-200 cosy:px-4 cosy:overflow-y-auto cosy:sticky',
+    topClass,
+    heightClass,
+    'cosy:border-r cosy:border-base-300',
     getMarginTopClass(marginTop),
     getMarginBottomClass(marginBottom),
   ]}>

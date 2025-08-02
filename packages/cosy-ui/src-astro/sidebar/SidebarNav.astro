@@ -49,7 +49,7 @@ const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
   class:list={['cosy:p-0', debugClass, className]}>
   {
     sidebarItems.map((section: ISidebarItem) => (
-      <div class:list={['cosy:mb-6', debugClass]}>
+      <div class:list={[debugClass]}>
         <Heading level={5} align="center" href={section.href}>
           {section.text}
         </Heading>
