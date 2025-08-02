@@ -29,7 +29,7 @@ const lessons = await lessonRepo.allLessons(lang);
 const title = lang === 'zh-cn' ? '教程列表' : 'Build Your Own List';
 ---
 
-<DemoLayout title={title} showTOC={false}>
+<DemoLayout title={title} showTOC={false} showSidebar={false}>
   {
     lessons.length > 0 ? (
       <Products

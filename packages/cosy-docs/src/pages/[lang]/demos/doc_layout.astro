@@ -30,6 +30,7 @@ export const getStaticPaths = async () => {
 
 <AppLayout
   debug={false}
+  showSidebar={false}
   metaConfig={{
     title: title,
     description: 'Cosy UI - A beautiful Astro component library',
@@ -66,7 +67,6 @@ export const getStaticPaths = async () => {
   headerConfig={{
     logoHref: configApp.homeLink,
     navItems: configApp.getNavItems(currentLocale || 'zh-cn'),
-    languages: languages,
   }}
   sidebarConfig={{
     sidebarItems: [],
