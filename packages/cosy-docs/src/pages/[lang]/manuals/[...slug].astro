@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { Error404, type ISidebarItem, Link, ListItem } from '@coffic/cosy-ui';
+import { Alert, Error404, type ISidebarItem, Link, ListItem } from '@coffic/cosy-ui';
 import { manualRepo, ManualDoc } from '@coffic/cosy-content';
 import type { RenderResult } from 'astro:content';
 
@@ -12,6 +12,7 @@ let renderResult: RenderResult | null = null;
 let sidebarItems: ISidebarItem | null = null;
 let courseDescription = '';
 let childrenDocs: ManualDoc[] = [];
+let isBeta = false;
 
 if (doc) {
   title = doc.getTitle();
@@ -23,6 +24,7 @@ if (doc) {
     sidebarItems = await topDoc.toSidebarItem();
     courseDescription = doc.getDescription();
     childrenDocs = await doc.getChildren();
+    isBeta = doc.getBadge() === 'beta';
   }
 } else {
   title = '404 Not Found';
@@ -37,6 +39,13 @@ export const getStaticPaths = async () => {
   {
     renderResult ? (
       <>
+        {isBeta && (
+          <Alert type="warning" closable={false} marginY="md">
+            {lang === 'zh-cn'
+              ? '当前版本为 Beta，可能不稳定。请谨慎使用。'
+              : 'The current version is Beta, which may be unstable. Please use with caution.'}
+          </Alert>
+        )}
 
         <renderResult.Content />
 
