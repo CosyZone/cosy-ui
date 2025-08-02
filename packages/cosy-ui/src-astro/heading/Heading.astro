@@ -59,11 +59,13 @@
  * - 遵循标题层次结构的最佳实践
  *
  * @dependencies
- * 依赖于以下图标组件：
+ * 依赖于以下组件：
  * - LinkIcon (用于锚点链接)
+ * - Link (用于锚点链接)
  */
 
-import { LinkIcon } from '../../index-astro';
+import { LinkIcon, Link } from '../../index-astro';
+import HeadingAnchor from './HeadingAnchor.astro';
 import '../../style.ts';
 
 interface Props {
@@ -129,14 +131,7 @@ const combinedClass = `heading ${headingClass} ${colorClass} ${alignClass} ${und
   level === 1 && (
     <h1 id={id} class={combinedClass}>
       <slot />
-      {anchor && id && (
-        <a
-          href={`#${id}`}
-          class="cosy:hover:opacity-100 cosy:opacity-0 cosy:ml-2 cosy:transition-opacity heading-anchor"
-          aria-label={`链接到 ${id} 部分`}>
-          <LinkIcon class="cosy:inline-block cosy:w-4 cosy:h-4" />
-        </a>
-      )}
+      <HeadingAnchor id={id} show={anchor} />
     </h1>
   )
 }
@@ -145,14 +140,7 @@ const combinedClass = `heading ${headingClass} ${colorClass} ${alignClass} ${und
   level === 2 && (
     <h2 id={id} class={combinedClass}>
       <slot />
-      {anchor && id && (
-        <a
-          href={`#${id}`}
-          class="cosy:hover:opacity-100 cosy:opacity-0 cosy:ml-2 cosy:transition-opacity heading-anchor"
-          aria-label={`链接到 ${id} 部分`}>
-          <LinkIcon class="cosy:inline-block cosy:w-4 cosy:h-4" />
-        </a>
-      )}
+      <HeadingAnchor id={id} show={anchor} />
     </h2>
   )
 }
@@ -161,14 +149,7 @@ const combinedClass = `heading ${headingClass} ${colorClass} ${alignClass} ${und
   level === 3 && (
     <h3 id={id} class={combinedClass}>
       <slot />
-      {anchor && id && (
-        <a
-          href={`#${id}`}
-          class="cosy:hover:opacity-100 cosy:opacity-0 cosy:ml-2 cosy:transition-opacity heading-anchor"
-          aria-label={`链接到 ${id} 部分`}>
-          <LinkIcon class="cosy:inline-block cosy:w-4 cosy:h-4" />
-        </a>
-      )}
+      <HeadingAnchor id={id} show={anchor} />
     </h3>
   )
 }
@@ -177,14 +158,7 @@ const combinedClass = `heading ${headingClass} ${colorClass} ${alignClass} ${und
   level === 4 && (
     <h4 id={id} class={combinedClass}>
       <slot />
-      {anchor && id && (
-        <a
-          href={`#${id}`}
-          class="cosy:hover:opacity-100 cosy:opacity-0 cosy:ml-2 cosy:transition-opacity heading-anchor"
-          aria-label={`链接到 ${id} 部分`}>
-          <LinkIcon class="cosy:inline-block cosy:w-4 cosy:h-4" />
-        </a>
-      )}
+      <HeadingAnchor id={id} show={anchor} />
     </h4>
   )
 }
@@ -193,14 +167,7 @@ const combinedClass = `heading ${headingClass} ${colorClass} ${alignClass} ${und
   level === 5 && (
     <h5 id={id} class={combinedClass}>
       <slot />
-      {anchor && id && (
-        <a
-          href={`#${id}`}
-          class="cosy:hover:opacity-100 cosy:opacity-0 cosy:ml-2 cosy:transition-opacity heading-anchor"
-          aria-label={`链接到 ${id} 部分`}>
-          <LinkIcon class="cosy:inline-block cosy:w-4 cosy:h-4" />
-        </a>
-      )}
+      <HeadingAnchor id={id} show={anchor} />
     </h5>
   )
 }
@@ -209,14 +176,7 @@ const combinedClass = `heading ${headingClass} ${colorClass} ${alignClass} ${und
   level === 6 && (
     <h6 id={id} class={combinedClass}>
       <slot />
-      {anchor && id && (
-        <a
-          href={`#${id}`}
-          class="cosy:hover:opacity-100 cosy:opacity-0 cosy:ml-2 cosy:transition-opacity heading-anchor"
-          aria-label={`链接到 ${id} 部分`}>
-          <LinkIcon class="cosy:inline-block cosy:w-4 cosy:h-4" />
-        </a>
-      )}
+      <HeadingAnchor id={id} show={anchor} />
     </h6>
   )
 }
