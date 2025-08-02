@@ -4,6 +4,7 @@
  *
  * @description
  * Heading 组件用于创建各级标题，提供一致的排版样式和灵活的定制选项。
+ * 支持链接功能，当传入 href 属性时，标题会变成可点击的链接。
  *
  * @design
  * 设计理念：
@@ -11,12 +12,14 @@
  * 2. 一致性 - 确保整个应用中标题样式的一致性
  * 3. 可定制性 - 支持多种配置选项，适应不同场景需求
  * 4. 无障碍性 - 遵循语义化HTML标准，确保屏幕阅读器可以正确解析内容结构
+ * 5. 链接支持 - 标题可以作为链接使用，提供更好的导航体验
  *
  * 视觉特点：
  * - 字体大小和粗细随级别变化
  * - 可选的下划线或底部边框
  * - 可定制的颜色和间距
  * - 响应式设计，在不同屏幕尺寸下保持良好的可读性
+ * - 链接状态下的悬停效果
  *
  * @usage
  * 基本用法：
@@ -24,6 +27,12 @@
  * <Heading level={1}>这是一个一级标题</Heading>
  * <Heading level={2}>这是一个二级标题</Heading>
  * <Heading level={3}>这是一个三级标题</Heading>
+ * ```
+ *
+ * 链接标题：
+ * ```astro
+ * <Heading level={2} href="/about">关于我们</Heading>
+ * <Heading level={3} href="https://example.com" external>外部链接标题</Heading>
  * ```
  *
  * 自定义样式：
@@ -58,6 +67,8 @@
  * @props
  * @prop {1|2|3|4|5|6} [level=2] - 标题级别，对应 h1-h6 标签
  * @prop {string} [id] - 标题的 ID，用于锚点链接
+ * @prop {string} [href] - 链接地址，传入后标题会变成可点击的链接
+ * @prop {boolean} [external=false] - 是否为外部链接，影响链接的打开方式
  * @prop {boolean} [anchor=false] - 是否显示锚点链接图标
  * @prop {boolean} [underline=false] - 是否显示下划线
  * @prop {string} [align='left'] - 文本对齐方式：'left', 'center', 'right'
@@ -74,6 +85,7 @@
  * - 使用语义化的 h1-h6 标签
  * - 锚点链接带有描述性 aria-label
  * - 遵循标题层次结构的最佳实践
+ * - 链接标题保持良好的可访问性
  *
  * @dependencies
  * 依赖于以下组件：
@@ -82,11 +94,14 @@
  */
 
 import HeadingAnchor from './HeadingAnchor.astro';
+import Link from '../link/Link.astro';
 import '../../style.ts';
 
 interface Props {
   level?: 1 | 2 | 3 | 4 | 5 | 6;
   id?: string;
+  href?: string;
+  external?: boolean;
   anchor?: boolean;
   underline?: boolean;
   align?: 'left' | 'center' | 'right';
@@ -100,6 +115,8 @@ interface Props {
 const {
   level = 2,
   id,
+  href,
+  external = false,
   anchor = false,
   underline = false,
   align = 'left',
@@ -186,60 +203,123 @@ const paddingClass =
 
 // 组合所有类名
 const combinedClass = `heading ${headingClass} ${colorClass} ${alignClass} ${underlineClass} ${marginClass} ${backgroundClass} ${paddingClass} ${className}`;
+
+// 如果有链接，添加链接相关的样式
+const linkClass = href ? 'cosy:hover:opacity-80 cosy:transition-opacity' : '';
 ---
 
 {
-  level === 1 && (
-    <h1 id={id} class={combinedClass}>
-      <slot />
-      <HeadingAnchor id={id} show={anchor} />
-    </h1>
-  )
+  level === 1 &&
+    (href ? (
+      <Link
+        href={href}
+        external={external}
+        class={`${combinedClass} ${linkClass}`}
+        noUnderline>
+        <slot />
+        <HeadingAnchor id={id} show={anchor} />
+      </Link>
+    ) : (
+      <h1 id={id} class={combinedClass}>
+        <slot />
+        <HeadingAnchor id={id} show={anchor} />
+      </h1>
+    ))
 }
 
 {
-  level === 2 && (
-    <h2 id={id} class={combinedClass}>
-      <slot />
-      <HeadingAnchor id={id} show={anchor} />
-    </h2>
-  )
+  level === 2 &&
+    (href ? (
+      <Link
+        href={href}
+        external={external}
+        class={`${combinedClass} ${linkClass}`}
+        noUnderline>
+        <slot />
+        <HeadingAnchor id={id} show={anchor} />
+      </Link>
+    ) : (
+      <h2 id={id} class={combinedClass}>
+        <slot />
+        <HeadingAnchor id={id} show={anchor} />
+      </h2>
+    ))
 }
 
 {
-  level === 3 && (
-    <h3 id={id} class={combinedClass}>
-      <slot />
-      <HeadingAnchor id={id} show={anchor} />
-    </h3>
-  )
+  level === 3 &&
+    (href ? (
+      <Link
+        href={href}
+        external={external}
+        class={`${combinedClass} ${linkClass}`}
+        noUnderline>
+        <slot />
+        <HeadingAnchor id={id} show={anchor} />
+      </Link>
+    ) : (
+      <h3 id={id} class={combinedClass}>
+        <slot />
+        <HeadingAnchor id={id} show={anchor} />
+      </h3>
+    ))
 }
 
 {
-  level === 4 && (
-    <h4 id={id} class={combinedClass}>
-      <slot />
-      <HeadingAnchor id={id} show={anchor} />
-    </h4>
-  )
+  level === 4 &&
+    (href ? (
+      <Link
+        href={href}
+        external={external}
+        class={`${combinedClass} ${linkClass}`}
+        noUnderline>
+        <slot />
+        <HeadingAnchor id={id} show={anchor} />
+      </Link>
+    ) : (
+      <h4 id={id} class={combinedClass}>
+        <slot />
+        <HeadingAnchor id={id} show={anchor} />
+      </h4>
+    ))
 }
 
 {
-  level === 5 && (
-    <h5 id={id} class={combinedClass}>
-      <slot />
-      <HeadingAnchor id={id} show={anchor} />
-    </h5>
-  )
+  level === 5 &&
+    (href ? (
+      <Link
+        href={href}
+        external={external}
+        class={`${combinedClass} ${linkClass}`}
+        noUnderline>
+        <slot />
+        <HeadingAnchor id={id} show={anchor} />
+      </Link>
+    ) : (
+      <h5 id={id} class={combinedClass}>
+        <slot />
+        <HeadingAnchor id={id} show={anchor} />
+      </h5>
+    ))
 }
 
 {
-  level === 6 && (
-    <h6 id={id} class={combinedClass}>
-      <slot />
-      <HeadingAnchor id={id} show={anchor} />
-    </h6>
-  )
+  level === 6 &&
+    (href ? (
+      <Link
+        href={href}
+        external={external}
+        class={`${combinedClass} ${linkClass}`}
+        noUnderline>
+        <slot />
+        <HeadingAnchor id={id} show={anchor} />
+      </Link>
+    ) : (
+      <h6 id={id} class={combinedClass}>
+        <slot />
+        <HeadingAnchor id={id} show={anchor} />
+      </h6>
+    ))
 }
 
 <style>

@@ -6,13 +6,19 @@ order: 12
 
 import { ComponentPackage } from '@/components/heading/index.ts';
 
-Heading 组件用于创建各级标题，提供一致的排版样式和灵活的定制选项。该组件适用于需要清晰层次结构的内容页面，如文档、博客和产品介绍等。
+Heading 组件用于创建各级标题，提供一致的排版样式和灵活的定制选项。该组件适用于需要清晰层次结构的内容页面，如文档、博客和产品介绍等。支持链接功能，当传入 `href` 属性时，标题会变成可点击的链接。
 
 ## 基础用法
 
 最基本的标题用法，支持 1-6 级标题：
 
 <ComponentPackage.ComponentContainers.Basic />
+
+## 链接标题
+
+通过 `href` 属性创建可点击的标题链接，支持内部和外部链接：
+
+<ComponentPackage.ComponentContainers.LinkHeading />
 
 ## 自定义样式
 
@@ -38,10 +44,15 @@ Heading 组件用于创建各级标题，提供一致的排版样式和灵活的
 | ------------ | ---------------------- | ------------------------------------------------- | --------- |
 | level        | 标题级别               | 1 \| 2 \| 3 \| 4 \| 5 \| 6                      | 2         |
 | id           | 标题的 ID              | string                                            | -         |
+| href         | 链接地址               | string                                            | -         |
+| external     | 是否为外部链接         | boolean                                           | false     |
 | anchor       | 是否显示锚点链接图标   | boolean                                           | false     |
 | underline    | 是否显示下划线         | boolean                                           | false     |
 | align        | 文本对齐方式           | 'left' \| 'center' \| 'right'                    | 'left'    |
 | color        | 标题颜色               | 'default'\|'primary'\|'secondary'\|'accent'\|'muted' | 'default' |
+| margin       | 上下外边距大小         | 'none' \| 'sm' \| 'md' \| 'lg' \| 'xl'          | 'md'      |
+| background   | 背景色类名             | string                                            | -         |
+| padding      | 内边距大小             | 'none' \| 'sm' \| 'md' \| 'lg' \| 'xl'          | 'none'    |
 | class        | 自定义 CSS 类名        | string                                            | -         |
 
 ## 插槽

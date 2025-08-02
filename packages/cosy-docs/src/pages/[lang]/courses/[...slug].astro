@@ -17,9 +17,10 @@ if (doc) {
   renderResult = await doc.render();
 
   // 获取顶级文档
-  const topDoc = await doc.getAncestor(1);
+  const topDoc = await doc.getAncestor(2);
   if (topDoc) {
     sidebarItems = await topDoc.toSidebarItem();
+    console.log(sidebarItems);
     courseDescription = doc.getDescription();
     childrenDocs = await doc.getChildren();
   }
