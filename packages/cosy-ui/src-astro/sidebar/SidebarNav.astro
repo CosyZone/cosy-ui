@@ -45,7 +45,7 @@ const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 <nav
   data-sidebar-nav
   data-current-path={currentPath}
-  class:list={['cosy:p-4', debugClass, className]}>
+  class:list={['cosy:p-0', debugClass, className]}>
   {
     sidebarItems.map((section: ISidebarItem) => (
       <div class:list={['cosy:mb-6', debugClass]}>
@@ -58,7 +58,7 @@ const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
         </h3>
         <ul
           class:list={[
-            'cosy:menu cosy:bg-base-200 cosy:rounded-box cosy:w-56 cosy:no-underline',
+            'cosy:menu cosy:rounded-box cosy:w-full cosy:no-underline',
             debugClass,
           ]}>
           {section.items?.map((item: ISidebarItem) => (
