@@ -1,0 +1,21 @@
+---
+/**
+ * @component PlaceHolderBasicContainer
+ * @description PlaceHolder 组件基础用法示例容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import PlaceHolderBasicSimple from './PlaceHolderBasicSimple.astro';
+import PlaceHolderBasicBackground from './PlaceHolderBasicBackground.astro';
+import PlaceHolderBasicTheme from './PlaceHolderBasicTheme.astro';
+import sourceSimple from './PlaceHolderBasicSimple.astro?raw';
+import sourceBackground from './PlaceHolderBasicBackground.astro?raw';
+import sourceTheme from './PlaceHolderBasicTheme.astro?raw';
+---
+
+<CodeContainer
+  titles={['基础用法', '带背景色', '主题背景色']}
+  codes={[sourceSimple, sourceBackground, sourceTheme]}>
+  <div id="tab-1"><PlaceHolderBasicSimple /></div>
+  <div id="tab-2"><PlaceHolderBasicBackground /></div>
+  <div id="tab-3"><PlaceHolderBasicTheme /></div>
+</CodeContainer>

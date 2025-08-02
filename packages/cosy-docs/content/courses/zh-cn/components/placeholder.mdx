@@ -1,0 +1,164 @@
+---
+title: "PlaceHolder"
+folder: false
+order: 16
+---
+
+import { PlaceHolder } from '@coffic/cosy-ui';
+import { PlaceHolderPackage } from '@/components/placeholder/index';
+
+## 简介
+
+PlaceHolder 组件用于在布局中占用指定的空间，类似于 SwiftUI 的 Spacer。可以独立设置组件的宽度和高度，支持不同的尺寸选项和背景色配置。
+
+## 特性
+
+- **空间占用** - 在布局中占用指定的空间
+- **灵活性** - 支持独立控制宽度和高度
+- **一致性** - 与设计系统保持一致的尺寸规范
+- **响应式** - 在不同屏幕尺寸下保持良好的布局效果
+- **可视化** - 支持背景色配置，便于调试和设计
+
+## 基础用法
+
+使用 `width` 和 `height` 属性设置占位符的宽度和高度，使用 `padding` 属性设置内边距：
+
+<PlaceHolderPackage.ComponentContainers.Basic />
+
+## 不同尺寸
+
+PlaceHolder 组件支持多种预设尺寸，每个尺寸都配有背景色以便可视化：
+
+<PlaceHolderPackage.ComponentContainers.Sizes />
+
+## 内边距控制
+
+可以设置不同的内边距大小来控制内容与边界的距离：
+
+<PlaceHolderPackage.ComponentContainers.Padding />
+
+## 背景色选项
+
+PlaceHolder 组件支持多种背景色配置，便于调试和设计：
+
+<PlaceHolderPackage.ComponentContainers.Backgrounds />
+
+## API 参考
+
+### Props
+
+| 属性 | 类型 | 默认值 | 描述 |
+|------|------|--------|------|
+| `width` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl' \| '3xl' \| '4xl' \| '5xl' \| '6xl' \| 'full'` | `'md'` | 占位符宽度 |
+| `height` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl' \| '3xl' \| '4xl' \| '5xl' \| '6xl' \| 'full'` | `'md'` | 占位符高度 |
+| `padding` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'none'` | 内边距大小 |
+| `background` | `string` | - | 背景色类名，如 'base-200', 'primary', 'secondary' |
+| `class` | `string` | - | 自定义 CSS 类名 |
+
+### 尺寸对照表
+
+| 尺寸 | 宽度/高度 | 描述 |
+|------|-----------|------|
+| `none` | 0px | 无占位符 |
+| `xs` | 32px | 超小占位符 |
+| `sm` | 64px | 小占位符 |
+| `md` | 96px | 中等占位符 |
+| `lg` | 128px | 大占位符 |
+| `xl` | 160px | 超大占位符 |
+| `2xl` | 192px | 2倍超大占位符 |
+| `3xl` | 224px | 3倍超大占位符 |
+| `4xl` | 256px | 4倍超大占位符 |
+| `5xl` | 288px | 5倍超大占位符 |
+| `6xl` | 320px | 6倍超大占位符 |
+| `full` | 100% | 占满整个容器 |
+
+### 内边距对照表
+
+| 内边距 | 像素值 | 描述 |
+|--------|--------|------|
+| `none` | 0px | 无内边距 |
+| `xs` | 4px | 超小内边距 |
+| `sm` | 8px | 小内边距 |
+| `md` | 16px | 中等内边距 |
+| `lg` | 24px | 大内边距 |
+| `xl` | 32px | 超大内边距 |
+
+### 支持的背景色
+
+| 背景色 | 描述 |
+|--------|------|
+| `base-100` | 基础背景色 (浅色) |
+| `base-200` | 基础背景色 (中等) |
+| `base-300` | 基础背景色 (深色) |
+| `primary` | 主要背景色 |
+| `secondary` | 次要背景色 |
+| `accent` | 强调背景色 |
+| `info` | 信息背景色 |
+| `success` | 成功背景色 |
+| `warning` | 警告背景色 |
+| `error` | 错误背景色 |
+
+## 使用场景
+
+### 1. 布局占位
+
+在布局中使用占位符来占用指定的空间：
+
+```astro
+<div class="cosy:bg-base-200">
+  <PlaceHolder width="lg" height="md" padding="md" background="base-300">
+    <p>这个内容有合适的宽度、高度、内边距和背景色</p>
+  </PlaceHolder>
+</div>
+```
+
+### 2. 卡片布局
+
+在卡片组件中使用 PlaceHolder 创建内容区域：
+
+```astro
+<div class="cosy:bg-base-100 cosy:rounded-lg cosy:shadow">
+  <PlaceHolder width="md" height="lg" padding="lg" background="base-200">
+    <h3>卡片标题</h3>
+    <p>卡片内容</p>
+  </PlaceHolder>
+</div>
+```
+
+### 3. 调试布局
+
+使用背景色来可视化布局结构：
+
+```astro
+<PlaceHolder width="xl" height="lg" padding="lg" background="primary" class="cosy:text-white">
+  <p>这个区域用于调试布局，背景色帮助可视化空间占用</p>
+</PlaceHolder>
+```
+
+### 4. 响应式布局
+
+结合响应式类名使用：
+
+```astro
+<PlaceHolder 
+  width="lg" 
+  height="md" 
+  padding="md" 
+  background="base-200"
+  class="cosy:lg:width-xl cosy:lg:height-lg cosy:lg:padding-lg"
+>
+  <p>响应式占位符，在大屏幕上尺寸更大</p>
+</PlaceHolder>
+```
+
+### 5. 占满容器
+
+使用 `full` 选项让占位符占满整个容器：
+
+```astro
+<div class="cosy:h-64 cosy:bg-base-200">
+  <PlaceHolder width="full" height="full" padding="md" background="base-300">
+    <p>占满整个容器的占位符</p>
+  </PlaceHolder>
+</div>
+``` 

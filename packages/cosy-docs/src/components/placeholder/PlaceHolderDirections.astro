@@ -1,0 +1,43 @@
+---
+/**
+ * @component PlaceHolderDirections
+ * @description PlaceHolder 组件方向控制示例
+ */
+import { PlaceHolder } from '@coffic/cosy-ui';
+---
+
+<div class="cosy:bg-base-100 cosy:p-4 cosy:space-y-4">
+  <div class="cosy:bg-base-200 cosy:rounded-lg">
+    <PlaceHolder top="lg" bottom="sm" background="base-300">
+      <p class="cosy:text-center">上大下小的内边距</p>
+    </PlaceHolder>
+  </div>
+
+  <div class="cosy:bg-base-200 cosy:rounded-lg">
+    <PlaceHolder left="md" right="xl" background="base-300">
+      <p class="cosy:text-center">左中等右超大的内边距</p>
+    </PlaceHolder>
+  </div>
+
+  <div class="cosy:bg-base-200 cosy:rounded-lg">
+    <PlaceHolder
+      top="lg"
+      bottom="md"
+      left="sm"
+      right="sm"
+      background="base-300">
+      <p class="cosy:text-center">自定义四个方向的内边距</p>
+    </PlaceHolder>
+  </div>
+
+  <div class="cosy:bg-base-200 cosy:rounded-lg">
+    <PlaceHolder
+      top="xl"
+      bottom="none"
+      left="lg"
+      right="lg"
+      background="base-300">
+      <p class="cosy:text-center">只有上左右内边距</p>
+    </PlaceHolder>
+  </div>
+</div>
