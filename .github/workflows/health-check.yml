@@ -13,6 +13,11 @@
 #
 # 如果检查失败，会创建 GitHub Issue 来通知维护者
 
+# 常量定义
+env:
+  HOMEPAGE: "https://cosyzone.github.io/cosy-ui/"
+  REPOSITORY: "https://github.com/cosyzone/cosy-ui"
+
 name: 🏥 Health Check
 
 on:
@@ -48,11 +53,9 @@ jobs:
           echo "📦 包管理器: ${{ matrix.package-manager }}"
           echo "📦 Node.js 版本: ${{ matrix.node-version }}"
           
-          # 从 package.json 读取 homepage 和 repository 字段
-          HOMEPAGE=$(node -p "require('./packages/cosy-ui/package.json').homepage")
-          REPOSITORY=$(node -p "require('./packages/cosy-ui/package.json').repository.url")
-          echo "🌐 文档网站: $HOMEPAGE"
-          echo "🐙 GitHub 仓库: $REPOSITORY"
+          # 使用环境变量中的常量
+          echo "🌐 文档网站: ${{ env.HOMEPAGE }}"
+          echo "🐙 GitHub 仓库: ${{ env.REPOSITORY }}"
           
       - name: 🔧 Setup Node.js
         uses: actions/setup-node@v4
@@ -202,12 +205,11 @@ jobs:
         run: |
           echo "🌐 检查文档网站可访问性..."
           
-          # 从 package.json 读取 homepage 字段
-          HOMEPAGE=$(node -p "require('./packages/cosy-ui/package.json').homepage")
-          echo "📋 使用 homepage: $HOMEPAGE"
+          # 使用环境变量中的常量
+          echo "📋 使用 homepage: ${{ env.HOMEPAGE }}"
           
           # 检查主页
-          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$HOMEPAGE")
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "${{ env.HOMEPAGE }}")
           
           if [ "$HTTP_STATUS" = "200" ]; then
             echo "✅ 文档网站主页可访问 ($HTTP_STATUS)"
@@ -236,11 +238,9 @@ jobs:
           echo "🔗 相关链接："
           echo "- 📦 NPM 包: https://www.npmjs.com/package/@coffic/cosy-ui"
           
-          # 从 package.json 读取 homepage 和 repository 字段
-          HOMEPAGE=$(node -p "require('./packages/cosy-ui/package.json').homepage")
-          REPOSITORY=$(node -p "require('./packages/cosy-ui/package.json').repository.url")
-          echo "- 📚 文档网站: $HOMEPAGE"
-          echo "- 🐙 GitHub 仓库: $REPOSITORY"
+          # 使用环境变量中的常量
+          echo "- 📚 文档网站: ${{ env.HOMEPAGE }}"
+          echo "- 🐙 GitHub 仓库: ${{ env.REPOSITORY }}"
           
       - name: 🚨 Create Issue on Failure
         if: needs.health-check.result == 'failure'
@@ -249,11 +249,9 @@ jobs:
           script: |
             const now = new Date().toISOString();
             const title = `🚨 Health Check Failed - ${now}`;
-            // 从 package.json 读取 homepage 和 repository 字段
-            const fs = require('fs');
-            const packageJson = JSON.parse(fs.readFileSync('./packages/cosy-ui/package.json', 'utf8'));
-            const homepage = packageJson.homepage;
-            const repository = packageJson.repository.url;
+            // 使用环境变量中的常量
+            const homepage = process.env.HOMEPAGE;
+            const repository = process.env.REPOSITORY;
             
             const body = `
             ## 🚨 健康检查失败
