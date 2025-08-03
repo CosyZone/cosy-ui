@@ -58,64 +58,7 @@ const themes = [
   </Button>
   <ul
     tabindex={0}
-    class="cosy:dropdown-content cosy:menu cosy:bg-base-300 cosy:rounded-box cosy:z-[1] cosy:w-56 cosy:p-2 cosy:shadow-lg">
+    class="cosy:dropdown-content cosy:ring-1 cosy:ring-base-300 cosy:bg-base-200 cosy:menu cosy:rounded-box cosy:z-[1] cosy:w-56 cosy:p-2 cosy:shadow-lg">
     {themes.map((theme) => <ThemeItem theme={theme.id} label={theme.name} />)}
   </ul>
 </div>
-
-<script>
-  import { createThemeManager } from '../../src/utils/theme';
-
-  const themeManager = createThemeManager();
-
-  function updateActiveTheme() {
-    const currentTheme =
-      document.documentElement.getAttribute('data-theme') || 'default';
-    document.querySelectorAll('.cosy\\:theme-item').forEach((item) => {
-      const isActive = item.getAttribute('data-theme') === currentTheme;
-      item.setAttribute('data-active', String(isActive));
-
-      // 更新视觉状态
-      const checkmark = item.querySelector('.cosy\\:theme-check');
-      if (checkmark) {
-        if (isActive) {
-          checkmark.classList.remove('cosy:hidden');
-          item.classList.add('cosy:bg-base-200', 'cosy:font-medium');
-        } else {
-          checkmark.classList.add('cosy:hidden');
-          item.classList.remove('cosy:bg-base-200', 'cosy:font-medium');
-        }
-      }
-    });
-  }
-
-  // 初始化主题切换按钮
-  function initThemeSwitcher() {
-    document.querySelectorAll('.cosy\\:theme-item').forEach((item) => {
-      item.addEventListener('click', () => {
-        console.log('Theme item clicked:', item);
-        const theme = item.getAttribute('data-theme');
-        if (theme) {
-          themeManager.setTheme(theme);
-          updateActiveTheme();
-        }
-      });
-    });
-  }
-
-  // 初始加载时初始化
-  function initialize() {
-    themeManager.initialize();
-    initThemeSwitcher();
-    updateActiveTheme();
-  }
-
-  // 初始化
-  document.addEventListener('DOMContentLoaded', initialize);
-
-  // Astro view transitions 后重新初始化
-  document.addEventListener('astro:after-swap', initialize);
-
-  // 确保脚本加载后立即初始化
-  initialize();
-</script>
