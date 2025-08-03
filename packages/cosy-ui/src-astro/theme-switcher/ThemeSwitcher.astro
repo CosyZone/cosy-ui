@@ -25,7 +25,7 @@
  * ```
  */
 
-import { SunCloudyIcon } from '../../index-astro';
+import { Button, SunCloudyIcon } from '../../index-astro';
 import ThemeItem from './ThemeItem.astro';
 import '../../style.ts';
 
@@ -52,15 +52,13 @@ const themes = [
 ---
 
 <!-- 主题切换按钮 -->
-<div
-  transition:persist
-  class:list={['cosy:dropdown-end cosy:dropdown', className]}>
-  <div tabindex="0" role="button" class:list={['cosy:btn cosy:btn-ghost']}>
-    <SunCloudyIcon size="16px" class="cosy:w-4 cosy:h-4" />
-  </div>
+<div class:list={['cosy:dropdown-end cosy:dropdown', className]}>
+  <Button tabindex="0" variant="ghost">
+    <SunCloudyIcon size="16px" />
+  </Button>
   <ul
     tabindex={0}
-    class="cosy:dropdown-content cosy:menu cosy:bg-base-100 cosy:dark:bg-neutral-800 cosy:rounded-box cosy:z-[1] cosy:w-56 cosy:p-2 cosy:shadow-lg">
+    class="cosy:dropdown-content cosy:menu cosy:bg-base-300 cosy:rounded-box cosy:z-[1] cosy:w-56 cosy:p-2 cosy:shadow-lg">
     {themes.map((theme) => <ThemeItem theme={theme.id} label={theme.name} />)}
   </ul>
 </div>
