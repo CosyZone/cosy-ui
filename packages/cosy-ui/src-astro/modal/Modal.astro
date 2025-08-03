@@ -108,6 +108,16 @@ const { id, title = '', class: className = '' } = Astro.props;
       if (trigger) {
         console.log('Modal: 触发模态框', id);
         modal.showModal();
+
+        // 在modal显示后自动focus到第一个input元素
+        setTimeout(() => {
+          const firstInput = modal.querySelector(
+            'input, textarea, select, [contenteditable="true"]'
+          );
+          if (firstInput) {
+            firstInput.focus();
+          }
+        }, 100); // 延迟100ms确保modal完全显示
       }
     };
 
