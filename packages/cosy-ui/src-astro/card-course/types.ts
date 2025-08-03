@@ -15,6 +15,8 @@ export interface CardCourseProps {
     lang: string;
     /** 课程链接 */
     href: string;
+    /** 图标关键词数组，用于图标匹配 */
+    keywords?: string[];
     /** 图标尺寸，默认为 "md" */
     iconSize?: "sm" | "md" | "lg" | "xl";
     /** 内容区域内边距，默认为 "lg" */
