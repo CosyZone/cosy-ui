@@ -35,7 +35,6 @@ export * from './src-astro/logout';
 export * from './src-astro/main';
 export * from './src-astro/modal';
 export * from './src-astro/module';
-export * from './src-astro/nav-item';
 export * from './src-astro/nav-section';
 export * from './src-astro/placeholder';
 export * from './src-astro/products';

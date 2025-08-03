@@ -21,14 +21,19 @@ interface Props {
   navItems: INavItem[];
   activeLink: string;
   linkHeightClass: string;
+  vertical?: boolean;
 }
 
-const { navItems, activeLink, linkHeightClass } = Astro.props;
+const { navItems, activeLink, linkHeightClass, vertical = false } = Astro.props;
 ---
 
 <ul
   data-active-link={activeLink}
-  class:list={['cosy:px-1 cosy:menu cosy:menu-horizontal', linkHeightClass]}>
+  class:list={[
+    'cosy:px-1 cosy:menu',
+    vertical ? 'cosy:menu-vertical' : 'cosy:menu-horizontal',
+    linkHeightClass,
+  ]}>
   {
     navItems.map((item) => (
       <li>
