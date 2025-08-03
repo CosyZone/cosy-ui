@@ -1,8 +1,8 @@
-import type { IFooterProps } from './footer';
-import type { IHeaderProps } from './header';
-import type { IMainContentProps } from './main';
-import type { IMetaProps } from '../layout-basic/meta';
-import type { ISidebarProps } from './sidebar';
+import type { IFooterProps } from '../types/footer';
+import type { IHeaderProps } from '../types/header';
+import type { IMainContentProps } from '../types/main';
+import type { IMetaProps } from './meta';
+import type { ISidebarProps } from '../types/sidebar';
 
 export interface IAppLayoutProps {
     /**
