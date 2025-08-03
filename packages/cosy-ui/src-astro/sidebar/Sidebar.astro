@@ -2,7 +2,7 @@
 /**
  * Sidebar组件
  *
- * 用于文档页面的侧边栏导航
+ * 用于文档页面的侧边栏导航，自动适配移动端和桌面端
  *
  * @example
  * ```astro
@@ -22,12 +22,44 @@
  */
 
 import '../../style.ts';
-import { SidebarNav, Modal } from '../../index-astro';
-import { getMarginTopClass, getMarginBottomClass } from './utils.ts';
+import MobileSidebar from './MobileSidebar.astro';
+import DesktopSidebar from './DesktopSidebar.astro';
 import type { ISidebarProps } from '../../index-astro';
 
 export interface Props extends ISidebarProps {
+  /**
+   * 自定义类名
+   */
+  class?: string;
+
+  /**
+   * 是否开启调试模式，显示边框
+   * @default false
+   */
+  debug?: boolean;
+
+  /**
+   * 顶部外边距
+   * @default 'none'
+   */
+  marginTop?: string;
+
+  /**
+   * 底部外边距
+   * @default 'none'
+   */
+  marginBottom?: string;
+
+  /**
+   * 顶部定位类名
+   * @default 'cosy:top-12'
+   */
   topClass?: string;
+
+  /**
+   * 高度类名
+   * @default 'cosy:h-[calc(100vh-3rem)]'
+   */
   heightClass?: string;
 }
 
@@ -40,83 +72,18 @@ const {
   topClass = 'cosy:top-12',
   heightClass = 'cosy:h-[calc(100vh-3rem)]',
 } = Astro.props;
-
-// 自动获取当前路径
-const currentPath = Astro.url.pathname;
-
-const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 ---
 
-{/* 移动端侧边栏弹出层 */}
-<Modal
-  id="mobile-sidebar"
-  class="cosy:mx-4 cosy:lg:w-80 cosy:w-[calc(100vw-2rem)] cosy:max-w-full">
-  <div
-    class="cosy:h-[calc(100vh-8rem)] cosy:overflow-y-auto"
-    data-mobile-sidebar-content>
-    <SidebarNav
-      sidebarItems={sidebarItems}
-      currentPath={currentPath}
-      debug={debug}
-    />
-  </div>
-</Modal>
+{/* 移动端侧边栏 */}
+<MobileSidebar sidebarItems={sidebarItems} debug={debug} />
 
 {/* 桌面端侧边栏 */}
-<aside
-  data-desktop-sidebar
-  data-current-path={currentPath}
-  data-margin-top={marginTop}
-  data-margin-bottom={marginBottom}
-  class:list={[
-    className,
-    debugClass,
-    'cosy:hidden cosy:w-60 cosy:lg:block cosy:bg-base-200 cosy:px-4 cosy:overflow-y-auto cosy:sticky',
-    topClass,
-    heightClass,
-    getMarginTopClass(marginTop),
-    getMarginBottomClass(marginBottom),
-  ]}>
-  <SidebarNav
-    sidebarItems={sidebarItems}
-    currentPath={currentPath}
-    debug={debug}
-  />
-</aside>
-
-<script>
-  import { saveScrollPosition, restoreScrollPosition } from './utils.ts';
-
-  // 处理侧边栏滚动位置保存和恢复
-  document.addEventListener('astro:before-preparation', () => {
-    // 保存桌面端滚动位置
-    const desktopContent = document.querySelector('[data-desktop-sidebar]');
-    if (desktopContent) {
-      saveScrollPosition(desktopContent, 'sidebarScrollPosition');
-    }
-
-    // 保存移动端滚动位置
-    const mobileContent = document.querySelector(
-      '[data-mobile-sidebar-content]'
-    );
-    if (mobileContent) {
-      saveScrollPosition(mobileContent, 'mobileSidebarScrollPosition');
-    }
-  });
-
-  document.addEventListener('astro:page-load', () => {
-    // 恢复桌面端滚动位置
-    const desktopContent = document.querySelector('[data-desktop-sidebar]');
-    if (desktopContent) {
-      restoreScrollPosition(desktopContent, 'sidebarScrollPosition');
-    }
-
-    // 恢复移动端滚动位置
-    const mobileContent = document.querySelector(
-      '[data-mobile-sidebar-content]'
-    );
-    if (mobileContent) {
-      restoreScrollPosition(mobileContent, 'mobileSidebarScrollPosition');
-    }
-  });
-</script>
+<DesktopSidebar
+  sidebarItems={sidebarItems}
+  class={className}
+  debug={debug}
+  marginTop={marginTop}
+  marginBottom={marginBottom}
+  topClass={topClass}
+  heightClass={heightClass}
+/>

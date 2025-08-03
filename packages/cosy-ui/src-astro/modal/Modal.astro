@@ -42,6 +42,13 @@
  *   <img src="/images/large-image.jpg" alt="大图预览" />
  * </Modal>
  * ```
+ *
+ * 带链接标题的模态框：
+ * ```astro
+ * <Modal id="help-modal" title="帮助文档" titleHref="/help" titleExternal>
+ *   <p>点击标题可以跳转到帮助文档。</p>
+ * </Modal>
+ * ```
  */
 
 import '../../style.ts';
@@ -58,19 +65,37 @@ interface Props {
    */
   title?: string;
   /**
+   * 标题的链接地址，传入后标题会变成可点击的链接
+   */
+  titleHref?: string;
+  /**
+   * 标题链接是否为外部链接
+   */
+  titleExternal?: boolean;
+  /**
    * 自定义类名
    */
   class?: string;
 }
 
-const { id, title = '', class: className = '' } = Astro.props;
+const {
+  id,
+  title = '',
+  titleHref,
+  titleExternal = false,
+  class: className = '',
+} = Astro.props;
 ---
 
 <dialog id={id} class="cosy:modal">
-  <div class:list={['cosy:modal-box cosy:pt-0', className]}>
+  <div class:list={['cosy:modal-box', className]}>
     <div
-      class="cosy:flex cosy:justify-between cosy:items-center cosy:border-b-1 cosy:border-base-300 cosy:mb-4 not-prose">
-      <Heading level={4} class="cosy:modal-title cosy:m-0">
+      class="cosy:flex cosy:justify-between cosy:items-center cosy:p-2 cosy:border-b-1 cosy:border-base-300 not-prose">
+      <Heading
+        level={4}
+        class="cosy:modal-title cosy:m-0"
+        href={titleHref}
+        external={titleExternal}>
         {title}
       </Heading>
       <CloseButton class="cosy:absolute" />
