@@ -5,25 +5,16 @@
  * @props
  * @prop {string} company - 公司名称
  * @prop {string} copyright - 版权信息
- * @prop {string} icp - ICP备案号（可选）
  * @prop {number} currentYear - 当前年份
  * @prop {Function} t - 文本获取函数
- * @prop {object} debugClasses - 调试样式类
  */
-const { company, copyright, icp, currentYear, t, debugClasses } = Astro.props;
+
+import '../../style.ts';
+
+const { company, copyright, currentYear, t } = Astro.props;
 ---
 
-<div
-  class:list={[
-    'cosy:footer cosy:footer-center cosy:p-4 cosy:bg-base-300',
-    debugClasses?.footer,
-  ]}>
-  <aside
-    class:list={['cosy:items-center cosy:grid-flow-col', debugClasses?.aside]}>
-    <p class="cosy:opacity-70 cosy:text-sm">
-      © {currentYear}
-      {company} - {copyright || (t && t('allRightsReserved'))}
-    </p>
-    {icp && <p class="cosy:opacity-70 cosy:ml-4 cosy:text-sm">{icp}</p>}
-  </aside>
-</div>
+<p class="cosy:text-sm cosy:text-center">
+  © {currentYear}
+  {company} - {copyright || (t && t('allRightsReserved'))}
+</p>

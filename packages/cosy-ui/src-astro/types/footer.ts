@@ -68,6 +68,11 @@ export interface IFooterProps {
     icp?: string;
 
     /**
+     * ICP备案链接
+     */
+    icpLink?: string;
+
+    /**
      * 激励标语
      */
     inspirationalSlogan: string;
