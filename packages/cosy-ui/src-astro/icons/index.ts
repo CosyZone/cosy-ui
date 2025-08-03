@@ -21,6 +21,7 @@ export { default as CodeIcon } from './CodeIcon.astro';
 export { default as DeleteIcon } from './DeleteIcon.astro';
 export { default as ErrorIcon } from './ErrorIcon.astro';
 export { default as GithubIcon } from './GithubIcon.astro';
+export { default as GlobeIcon } from './GlobeIcon.astro';
 export { default as InfoCircle } from './InfoCircle.astro';
 export { default as InboxArchive } from './InboxArchive.astro';
 export { default as SettingsIcon } from './SettingsIcon.astro';
