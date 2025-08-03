@@ -139,6 +139,7 @@
  * @prop {string} copyright - 版权信息
  * @prop {string} inspirationalSlogan - 鼓舞人心的标语，显示在横幅中
  * @prop {string} [icp] - ICP备案号（中国网站需要）
+ * @prop {string} [icpLink] - ICP备案链接（可选）
  * @prop {Object} [logo] - 网站Logo对象，包含src和alt属性
  * @prop {Array<Object>} [products=[]] - 产品链接数组，每个对象包含name、href和可选的external属性
  * @prop {Array<Object>} [friendlyLinks=[]] - 友情链接数组，每个对象包含name、href和可选的external属性
@@ -173,10 +174,12 @@ import {
   type IFooterProps,
   createTextGetter,
   Link,
+  Container,
 } from '../../index-astro';
 import FooterSection from './FooterSection.astro';
 import '../../style.ts';
 import FooterCopyright from './FooterCopyright.astro';
+import FooterICP from './FooterICP.astro';
 
 const {
   siteName,
@@ -186,6 +189,7 @@ const {
   copyright,
   inspirationalSlogan,
   icp,
+  icpLink,
   logo,
   products = [],
   friendlyLinks = [],
@@ -234,7 +238,7 @@ const debugClasses = debug
 
 <footer
   class:list={[
-    'cosy:footer cosy:z-50 cosy:sm:footer-horizontal cosy:bg-base-200 cosy:text-base-content cosy:p-10',
+    'cosy:footer cosy:flex cosy:flex-col cosy:z-50 cosy:sm:footer-horizontal cosy:bg-base-200 cosy:text-base-content cosy:p-10',
     debugClasses.footer,
   ]}>
   <div
@@ -356,23 +360,16 @@ const debugClasses = debug
       }
     </div>
   </div>
+
+  <div
+    class="cosy:flex cosy:flex-col cosy:items-center cosy:justify-center cosy:w-full cosy:opacity-70 cosy:lg:flex-row cosy:gap-4">
+    <FooterCopyright
+      company={company}
+      copyright={copyright}
+      currentYear={currentYear}
+      t={t}
+    />
+
+    {icp && <FooterICP icp={icp} icpLink={icpLink} />}
+  </div>
 </footer>
-
-{/* 横幅 */}
-{
-  inspirationalSlogan && (
-    <aside class:list={['cosy:p-4 cosy:w-full', debugClasses.aside]}>
-      <p class="cosy:text-center">{inspirationalSlogan}</p>
-    </aside>
-  )
-}
-
-{/* 底部版权信息 */}
-<FooterCopyright
-  company={company}
-  copyright={copyright}
-  icp={icp}
-  currentYear={currentYear}
-  t={t}
-  debugClasses={debugClasses}
-/>

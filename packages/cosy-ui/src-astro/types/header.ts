@@ -85,4 +85,10 @@ export interface IHeaderProps {
      * @default true
      */
     sticky?: boolean;
+
+    /**
+     * 导航项之间的间距
+     * @default 2
+     */
+    gap?: number;
 }

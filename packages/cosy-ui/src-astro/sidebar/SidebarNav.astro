@@ -28,6 +28,12 @@ interface Props {
   debug?: boolean;
 
   /**
+   * 是否显示标题
+   * @default true
+   */
+  showHeading?: boolean;
+
+  /**
    * 自定义类名
    */
   class?: string;
@@ -37,6 +43,7 @@ const {
   sidebarItems,
   currentPath,
   debug = false,
+  showHeading = true,
   class: className,
 } = Astro.props;
 
@@ -50,9 +57,11 @@ const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
   {
     sidebarItems.map((section: ISidebarItem) => (
       <div class:list={[debugClass]}>
-        <Heading level={5} align="center" href={section.href}>
-          {section.text}
-        </Heading>
+        {showHeading && (
+          <Heading level={5} align="center" href={section.href}>
+            {section.text}
+          </Heading>
+        )}
         <ul
           class:list={[
             'cosy:menu cosy:rounded-box cosy:w-full cosy:no-underline',

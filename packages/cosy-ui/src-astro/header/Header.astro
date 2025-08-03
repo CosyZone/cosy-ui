@@ -27,19 +27,26 @@
  * <Header astroI18n={astroI18n} />
  * ```
  *
+ * 自定义导航项间距：
+ * ```astro
+ * <Header gap={4} />
+ * ```
+ *
  * @props
  * - astroI18n - 完整的 astro:i18n 模块（启用语言切换时需要）
+ * - gap - 导航项之间的间距，可选值：0, 1, 2, 3, 4, 6, 8, 10, 12，默认 2
  */
 import {
-  LanguageSwitcher,
   LinkUtil,
   type IHeaderProps,
   type INavItem,
-  NavItems,
-  ThemeSwitcher,
+  Modal,
 } from '../../index-astro';
 import Logo from '../../src/assets/logo-rounded.png';
-import LogoLink from './LogoLink.astro';
+import HeaderStart from './HeaderStart.astro';
+import HeaderCenter from './HeaderCenter.astro';
+import HeaderEnd from './HeaderEnd.astro';
+import MobileNav from './MobileNav.astro';
 
 export interface Props extends IHeaderProps {
   debug?: boolean;
@@ -57,6 +64,7 @@ const {
   paddingVertical = 'none',
   navPosition = 'center',
   showThemeSwitcher = true,
+  gap = 2,
   astroI18n,
 } = Astro.props;
 
@@ -121,7 +129,7 @@ const activeLink = LinkUtil.getActiveLink(
   ]}>
   <div
     class:list={[
-      'cosy:bg-accent/70 cosy:flex cosy:flex-grow cosy:backdrop-blur not-prose cosy:border-base-200',
+      'cosy:bg-base-300/90 cosy:text-base-content cosy:flex cosy:flex-grow cosy:backdrop-blur not-prose cosy:shadow-md',
       {
         'cosy:rounded-none': rounded === 'none',
         'cosy:rounded-sm': rounded === 'sm',
@@ -133,56 +141,47 @@ const activeLink = LinkUtil.getActiveLink(
       headerHeightClass,
       { 'cosy:border cosy:border-dashed cosy:border-red-500': debug },
     ]}>
-    <div class="cosy:navbar-start cosy:pl-1">
-      {
-        navPosition === 'start' ? (
-          <div class="cosy:flex cosy:items-center cosy:gap-4">
-            <LogoLink src={logo} href={logoHref} size={height} debug={debug} />
-            <div class="cosy:hidden cosy:lg:flex">
-              <NavItems
-                navItems={navItems}
-                activeLink={activeLink}
-                linkHeightClass={linkHeightClass}
-              />
-            </div>
-          </div>
-        ) : (
-          <LogoLink src={logo} href={logoHref} size={height} debug={debug} />
-        )
-      }
-      <slot name="navbar-start" />
-    </div>
+    <HeaderStart
+      logo={logo}
+      logoHref={logoHref}
+      height={height}
+      navPosition={navPosition}
+      navItems={navItems}
+      activeLink={activeLink}
+      linkHeightClass={linkHeightClass}
+      debug={debug}>
+      <slot name="navbar-start" slot="navbar-start" />
+    </HeaderStart>
 
-    <div class="cosy:hidden cosy:lg:flex cosy:navbar-center">
-      {
-        navPosition === 'center' && (
-          <NavItems
-            navItems={navItems}
-            activeLink={activeLink}
-            linkHeightClass={linkHeightClass}
-          />
-        )
-      }
-      <slot name="navbar-center" />
-    </div>
+    <HeaderCenter
+      navPosition={navPosition}
+      navItems={navItems}
+      activeLink={activeLink}
+      linkHeightClass={linkHeightClass}
+      gap={gap}
+    />
 
-    <div class="cosy:navbar-end cosy:pr-1">
-      {
-        navPosition === 'end' && (
-          <div class="cosy:hidden cosy:lg:flex">
-            <NavItems
-              navItems={navItems}
-              activeLink={activeLink}
-              linkHeightClass={linkHeightClass}
-            />
-          </div>
-        )
-      }
-
-      {showThemeSwitcher && <ThemeSwitcher />}
-      {isI18nEnabled && <LanguageSwitcher astroI18n={astroI18n} />}
-
-      <slot name="navbar-end" />
-    </div>
+    <HeaderEnd
+      navPosition={navPosition}
+      navItems={navItems}
+      activeLink={activeLink}
+      linkHeightClass={linkHeightClass}
+      showThemeSwitcher={showThemeSwitcher}
+      isI18nEnabled={isI18nEnabled}
+      astroI18n={astroI18n}
+    />
   </div>
 </header>
+
+<!-- 移动端导航 Modal -->
+{
+  navItems.length > 0 && (
+    <Modal id="mobile-nav" title="导航菜单">
+      <MobileNav
+        navItems={navItems}
+        activeLink={activeLink}
+        linkHeightClass={linkHeightClass}
+      />
+    </Modal>
+  )
+}

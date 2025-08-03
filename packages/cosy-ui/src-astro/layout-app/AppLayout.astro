@@ -2,7 +2,7 @@
 /**
  * AppLayout组件
  *
- * 适用于页面布局，包含侧边栏导航和目录
+ * 适用于页面布局，包含头部导航、侧边栏导航和目录
  *
  * 布局效果：
  *
@@ -45,15 +45,15 @@
  * @param {boolean} [debug=true] - 是否启用调试模式
  * @param {Object} mainContentConfig - 主内容区域配置
  * @param {Object} footerConfig - 页脚配置
- * @param {Object} headerConfig - 头部配置
+ * @param {Object} headerConfig - 头部配置（传递给AppHeader组件）
  * @param {Object} metaConfig - 元数据配置
  * @param {Object} rest - 其他属性
  *
  * @slot default - 主内容区域
- * @slot navbar-start - 导航栏开始位置的内容
- * @slot navbar-center - 导航栏中间位置的内容
- * @slot navbar-end - 导航栏结束位置的内容
- * @slot modal-search - 搜索模态框内容，当提供此slot时会显示搜索按钮
+ * @slot navbar-start - 导航栏开始位置的内容（传递给AppHeader）
+ * @slot navbar-center - 导航栏中间位置的内容（传递给AppHeader）
+ * @slot navbar-end - 导航栏结束位置的内容（传递给AppHeader）
+ * @slot modal-search - 搜索模态框内容，当提供此slot时会显示搜索按钮（传递给AppHeader）
  *
  * @example
  * ```astro
@@ -242,14 +242,12 @@ import {
   BaseLayout,
   type IAppLayoutProps,
   Footer,
-  Header,
   Container,
   Main,
   Sidebar,
   Modal,
-  SearchIcon,
-  Button,
 } from '../../index-astro';
+import AppHeader from './AppHeader.astro';
 import SkeletonLoader from './SkeletonLoader.astro';
 
 interface Props extends IAppLayoutProps {}
@@ -328,22 +326,16 @@ const sidebarHeightClass = getSidebarHeightClass(headerConfig?.height);
 <BaseLayout {...metaConfig} debug={debug}>
   {
     showHeader && (
-      <Header {...headerConfig} debug={debug}>
-        <div slot="navbar-start">
-          <slot name="navbar-start" />
-        </div>
-        <div slot="navbar-center">
-          <slot name="navbar-center" />
-        </div>
-        <div slot="navbar-end">
-          {Astro.slots.has('modal-search') && (
-            <Button data-modal-target="modalSearch" variant="ghost" size="sm">
-              <SearchIcon size="24px" />
-            </Button>
-          )}
-          <slot name="navbar-end" />
-        </div>
-      </Header>
+      <AppHeader
+        headerConfig={headerConfig}
+        debug={debug}
+        showSidebar={showSidebar}
+        showSearch={true}>
+        <slot name="navbar-start" slot="navbar-start" />
+        <slot name="navbar-center" slot="navbar-center" />
+        <slot name="navbar-end" slot="navbar-end" />
+        <slot name="modal-search" slot="modal-search" />
+      </AppHeader>
     )
   }
 
@@ -365,7 +357,7 @@ const sidebarHeightClass = getSidebarHeightClass(headerConfig?.height);
     }
 
     <!-- 主内容区域 -->
-    <Main {...mainContentConfig} class="cosy:flex-1 cosy:min-w-0">
+    <Main {...mainContentConfig} class="cosy:flex-1 cosy:min-w-xs">
       <SkeletonLoader
         showLoading={true}
         loadingSize="xl"
