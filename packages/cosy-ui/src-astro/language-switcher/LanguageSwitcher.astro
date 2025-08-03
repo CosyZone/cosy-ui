@@ -79,7 +79,9 @@ if (renderState.shouldRender && Astro.currentLocale) {
     <div class={`cosy:dropdown cosy:dropdown-end ${className}`}>
       <div tabindex="0" role="button" class:list={['cosy:btn cosy:btn-ghost']}>
         <GlobeIcon size="16px" class="cosy:w-4 cosy:h-4 cosy:mr-1" />
-        <span class="cosy:mr-1">{renderState.currentLanguageName}</span>
+        <span class="cosy:mr-1 cosy:hidden cosy:sm:inline">
+          {renderState.currentLanguageName}
+        </span>
         <ChevronDownIcon size="16px" class="cosy:w-4 cosy:h-4" />
       </div>
       <ul
