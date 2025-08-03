@@ -27,8 +27,14 @@
  * <Header astroI18n={astroI18n} />
  * ```
  *
+ * 自定义导航项间距：
+ * ```astro
+ * <Header gap={4} />
+ * ```
+ *
  * @props
  * - astroI18n - 完整的 astro:i18n 模块（启用语言切换时需要）
+ * - gap - 导航项之间的间距，可选值：0, 1, 2, 3, 4, 6, 8, 10, 12，默认 2
  */
 import {
   LinkUtil,
@@ -58,6 +64,7 @@ const {
   paddingVertical = 'none',
   navPosition = 'center',
   showThemeSwitcher = true,
+  gap = 2,
   astroI18n,
 } = Astro.props;
 
@@ -151,6 +158,7 @@ const activeLink = LinkUtil.getActiveLink(
       navItems={navItems}
       activeLink={activeLink}
       linkHeightClass={linkHeightClass}
+      gap={gap}
     />
 
     <HeaderEnd

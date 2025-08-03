@@ -13,6 +13,7 @@
  *   navItems={navItems}
  *   activeLink={activeLink}
  *   linkHeightClass={linkHeightClass}
+ *   gap={2}
  * />
  * ```
  *
@@ -21,6 +22,7 @@
  * - navItems - 导航项数组
  * - activeLink - 当前激活的链接
  * - linkHeightClass - 链接高度类名
+ * - gap - 导航项之间的间距，可选值：0, 1, 2, 3, 4, 6, 8, 10, 12，默认 2
  */
 import { type INavItem } from '../../index-astro';
 import NavItems from './NavItems.astro';
@@ -30,9 +32,16 @@ export interface Props {
   navItems: INavItem[];
   activeLink: string;
   linkHeightClass: string;
+  gap?: number;
 }
 
-const { navPosition, navItems, activeLink, linkHeightClass } = Astro.props;
+const {
+  navPosition,
+  navItems,
+  activeLink,
+  linkHeightClass,
+  gap = 2,
+} = Astro.props;
 ---
 
 <div class="cosy:hidden cosy:lg:flex cosy:navbar-center">
@@ -42,6 +51,7 @@ const { navPosition, navItems, activeLink, linkHeightClass } = Astro.props;
         navItems={navItems}
         activeLink={activeLink}
         linkHeightClass={linkHeightClass}
+        gap={gap}
       />
     )
   }
