@@ -45,7 +45,7 @@
  */
 
 import '../../style.ts';
-import { Button } from '../../index-astro';
+import { Button, Heading } from '../../index-astro';
 
 interface Props {
   /**
@@ -85,14 +85,20 @@ const {
             size="sm"
             shape="circle"
             formmethod="dialog"
-            class="cosy:modal-close-button">
+            class="cosy:modal-close-button cosy:right-2 cosy:top-2 cosy:absolute">
             ✕
           </Button>
         </form>
       )
     }
 
-    {title && <h3 class="cosy:modal-title">{title}</h3>}
+    {
+      title && (
+        <Heading level={3} class="cosy:modal-title">
+          {title}
+        </Heading>
+      )
+    }
 
     <div class="cosy:modal-content">
       <slot />
@@ -102,10 +108,6 @@ const {
       <slot name="actions" />
     </div>
   </div>
-
-  <form method="dialog" class="cosy:modal-backdrop">
-    <button>关闭</button>
-  </form>
 </dialog>
 
 <script is:inline define:vars={{ id }}>
