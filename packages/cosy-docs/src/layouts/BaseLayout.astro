@@ -4,6 +4,7 @@ import Favicon from '@/assets/favicon.png';
 import { configApp } from '@/config/config.app';
 import { configProducts } from '@/config/config.products';
 import * as astroI18n from 'astro:i18n';
+import Search from 'astro-pagefind/components/Search';
 
 interface Props {
   title: string;
@@ -83,4 +84,8 @@ const currentLocale = Astro.currentLocale;
   showSidebar={showSidebar}
   loadingDelay={500}>
   <slot />
+
+  <div slot="modal-search">
+    <Search uiOptions={{ showImages: false }} />
+  </div>
 </AppLayout>

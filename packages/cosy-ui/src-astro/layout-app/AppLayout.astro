@@ -49,6 +49,12 @@
  * @param {Object} metaConfig - 元数据配置
  * @param {Object} rest - 其他属性
  *
+ * @slot default - 主内容区域
+ * @slot navbar-start - 导航栏开始位置的内容
+ * @slot navbar-center - 导航栏中间位置的内容
+ * @slot navbar-end - 导航栏结束位置的内容
+ * @slot modal-search - 搜索模态框内容，当提供此slot时会显示搜索按钮
+ *
  * @example
  * ```astro
  * ---
@@ -163,6 +169,72 @@
  *   <p>这是文档的主要内容</p>
  * </AppLayout>
  * ```
+ *
+ * 自定义导航栏示例：
+ * ```astro
+ * <AppLayout
+ *   metaConfig={{
+ *     title: "文档标题",
+ *     description: "文档描述"
+ *   }}
+ *   sidebarConfig={{
+ *     sidebarItems: sidebarItems
+ *   }}
+ * >
+ *   <!-- 导航栏开始位置 -->
+ *   <div slot="navbar-start">
+ *     <h1 class="cosy:text-xl cosy:font-bold">我的应用</h1>
+ *   </div>
+ *
+ *   <!-- 导航栏中间位置 -->
+ *   <div slot="navbar-center">
+ *     <nav class="cosy:flex cosy:gap-4">
+ *       <a href="/docs" class="cosy:link cosy:link-hover">文档</a>
+ *       <a href="/components" class="cosy:link cosy:link-hover">组件</a>
+ *       <a href="/examples" class="cosy:link cosy:link-hover">示例</a>
+ *     </nav>
+ *   </div>
+ *
+ *   <!-- 导航栏结束位置 -->
+ *   <div slot="navbar-end">
+ *     <button class="cosy:btn cosy:btn-primary">登录</button>
+ *   </div>
+ *
+ *   <h1>文档内容</h1>
+ *   <p>这是文档的主要内容</p>
+ * </AppLayout>
+ * ```
+ *
+ * 搜索功能示例：
+ * ```astro
+ * <AppLayout
+ *   metaConfig={{
+ *     title: "文档标题",
+ *     description: "文档描述"
+ *   }}
+ *   sidebarConfig={{
+ *     sidebarItems: sidebarItems
+ *   }}
+ * >
+ *   <h1>文档内容</h1>
+ *   <p>这是文档的主要内容</p>
+ *
+ *   <!-- 提供搜索模态框内容，会自动显示搜索按钮 -->
+ *   <div slot="modal-search">
+ *     <div class="cosy:space-y-4">
+ *       <input
+ *         type="text"
+ *         placeholder="搜索文档..."
+ *         class="cosy:input cosy:input-bordered cosy:w-full"
+ *       />
+ *       <div class="cosy:flex cosy:gap-2">
+ *         <button class="cosy:btn cosy:btn-primary">搜索</button>
+ *         <button class="cosy:btn cosy:btn-ghost">清除</button>
+ *       </div>
+ *     </div>
+ *   </div>
+ * </AppLayout>
+ * ```
  */
 
 import '../../style.ts';
@@ -174,6 +246,9 @@ import {
   Container,
   Main,
   Sidebar,
+  Modal,
+  SearchIcon,
+  Button,
 } from '../../index-astro';
 import SkeletonLoader from './SkeletonLoader.astro';
 
@@ -261,6 +336,11 @@ const sidebarHeightClass = getSidebarHeightClass(headerConfig?.height);
           <slot name="navbar-center" />
         </div>
         <div slot="navbar-end">
+          {Astro.slots.has('modal-search') && (
+            <Button data-modal-target="modalSearch" variant="ghost" size="sm">
+              <SearchIcon size="24px" />
+            </Button>
+          )}
           <slot name="navbar-end" />
         </div>
       </Header>
@@ -302,6 +382,15 @@ const sidebarHeightClass = getSidebarHeightClass(headerConfig?.height);
       <Container size="full" padding="none">
         <Footer {...footerConfig} />
       </Container>
+    )
+  }
+
+  <!-- 搜索模态框 -->
+  {
+    Astro.slots.has('modal-search') && (
+      <Modal id="modalSearch" title="搜索">
+        <slot name="modal-search" />
+      </Modal>
     )
   }
 

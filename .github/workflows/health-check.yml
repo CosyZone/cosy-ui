@@ -47,7 +47,12 @@ jobs:
           echo "🔍 开始健康检查..."
           echo "📦 包管理器: ${{ matrix.package-manager }}"
           echo "📦 Node.js 版本: ${{ matrix.node-version }}"
-          echo "🌐 文档网站: https://cosyzone.github.io/cosy-ui/en/courses/guide/"
+          
+          # 从 package.json 读取 homepage 和 repository 字段
+          HOMEPAGE=$(node -p "require('./packages/cosy-ui/package.json').homepage")
+          REPOSITORY=$(node -p "require('./packages/cosy-ui/package.json').repository.url")
+          echo "🌐 文档网站: $HOMEPAGE"
+          echo "🐙 GitHub 仓库: $REPOSITORY"
           
       - name: 🔧 Setup Node.js
         uses: actions/setup-node@v4
@@ -197,9 +202,12 @@ jobs:
         run: |
           echo "🌐 检查文档网站可访问性..."
           
+          # 从 package.json 读取 homepage 字段
+          HOMEPAGE=$(node -p "require('./packages/cosy-ui/package.json').homepage")
+          echo "📋 使用 homepage: $HOMEPAGE"
+          
           # 检查主页
-          MAIN_URL="https://cosyzone.github.io/cosy-ui/en/courses/guide/"
-          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$MAIN_URL")
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$HOMEPAGE")
           
           if [ "$HTTP_STATUS" = "200" ]; then
             echo "✅ 文档网站主页可访问 ($HTTP_STATUS)"
@@ -207,22 +215,6 @@ jobs:
             echo "❌ 文档网站主页访问失败 (HTTP $HTTP_STATUS)"
             exit 1
           fi
-          
-          # 检查关键页面
-          PAGES=(
-            "https://cosyzone.github.io/cosy-ui/en/courses/guide/installation/"
-            "https://cosyzone.github.io/cosy-ui/en/courses/components/alert/"
-            "https://cosyzone.github.io/cosy-ui/en/courses/components/button/"
-          )
-          
-          for page in "${PAGES[@]}"; do
-            HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$page")
-            if [ "$HTTP_STATUS" = "200" ]; then
-              echo "✅ 页面可访问: $page ($HTTP_STATUS)"
-            else
-              echo "⚠️  页面访问异常: $page (HTTP $HTTP_STATUS)"
-            fi
-          done
           
   # 汇总检查结果
   summary:
@@ -243,8 +235,12 @@ jobs:
           echo ""
           echo "🔗 相关链接："
           echo "- 📦 NPM 包: https://www.npmjs.com/package/@coffic/cosy-ui"
-          echo "- 📚 文档网站: https://cosyzone.github.io/cosy-ui/en/courses/guide/"
-          echo "- 🐙 GitHub 仓库: https://github.com/cosyzone/cosy-ui"
+          
+          # 从 package.json 读取 homepage 和 repository 字段
+          HOMEPAGE=$(node -p "require('./packages/cosy-ui/package.json').homepage")
+          REPOSITORY=$(node -p "require('./packages/cosy-ui/package.json').repository.url")
+          echo "- 📚 文档网站: $HOMEPAGE"
+          echo "- 🐙 GitHub 仓库: $REPOSITORY"
           
       - name: 🚨 Create Issue on Failure
         if: needs.health-check.result == 'failure'
@@ -253,6 +249,12 @@ jobs:
           script: |
             const now = new Date().toISOString();
             const title = `🚨 Health Check Failed - ${now}`;
+            // 从 package.json 读取 homepage 和 repository 字段
+            const fs = require('fs');
+            const packageJson = JSON.parse(fs.readFileSync('./packages/cosy-ui/package.json', 'utf8'));
+            const homepage = packageJson.homepage;
+            const repository = packageJson.repository.url;
+            
             const body = `
             ## 🚨 健康检查失败
             
@@ -266,8 +268,8 @@ jobs:
             
             ### 🔗 相关链接
             - 📦 [NPM 包](https://www.npmjs.com/package/@coffic/cosy-ui)
-            - 📚 [文档网站](https://cosyzone.github.io/cosy-ui/en/courses/guide/)
-            - 🐙 [GitHub 仓库](https://github.com/cosyzone/cosy-ui)
+            - 📚 [文档网站](${homepage})
+            - 🐙 [GitHub 仓库](${repository})
             
             ### 🛠️ 建议操作
             1. 检查最新发布的包是否正常

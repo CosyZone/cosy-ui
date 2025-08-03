@@ -66,4 +66,8 @@ export interface IMetaProps {
      * @default 'default'
      */
     background?: 'default' | 'white' | 'gray' | 'dark' | 'gradient-blue' | 'gradient-pink' | 'gradient-green';
+
+
+    /** 最小显示时间（毫秒），默认300ms，确保用户能看到加载状态 */
+    loadingMinDisplayTime?: number;
 }

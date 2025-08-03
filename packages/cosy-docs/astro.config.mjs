@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import path from 'path';
 import mdx from '@astrojs/mdx';
 import vue from '@astrojs/vue';
+import pagefind from 'astro-pagefind';
 
 // https://astro.build/config
 export default defineConfig({
@@ -29,5 +30,5 @@ export default defineConfig({
     },
   },
 
-  integrations: [mdx(), vue()],
+  integrations: [mdx(), vue(), pagefind()],
 });
