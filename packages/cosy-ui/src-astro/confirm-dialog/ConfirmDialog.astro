@@ -92,11 +92,27 @@ const style = getConfirmDialogStyle();
 
 <script is:inline define:vars={{ id }}>
   // 为了方便使用，我们提供一些辅助方法
-  document.addEventListener('DOMContentLoaded', () => {
+  function initializeConfirmDialog() {
     const dialog = document.getElementById(id);
-    if (!dialog) return;
+    if (!dialog) {
+      console.log('ConfirmDialog: dialog is null', id);
+      return;
+    }
 
-    // 为所有触发这个确认框的按钮添加点击事件
+    console.log('ConfirmDialog: 初始化确认对话框', id);
+
+    // 使用事件委托来处理动态加载的内容
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      // 使用 closest() 查找最近的匹配元素，包括按钮内部的元素
+      const trigger = target.closest(`[data-confirm-dialog-target="${id}"]`);
+      if (trigger) {
+        console.log('ConfirmDialog: 触发确认对话框', id);
+        dialog.showModal();
+      }
+    });
+
+    // 为已存在的按钮添加点击事件（向后兼容）
     document
       .querySelectorAll(`[data-confirm-dialog-target="${id}"]`)
       .forEach((trigger) => {
@@ -115,5 +131,14 @@ const style = getConfirmDialogStyle();
         document.dispatchEvent(event);
       };
     }
-  });
+  }
+
+  // 初始加载时初始化
+  document.addEventListener('DOMContentLoaded', initializeConfirmDialog);
+
+  // Astro 页面切换时重新初始化
+  document.addEventListener('astro:page-load', initializeConfirmDialog);
+
+  // 确保脚本加载后立即初始化
+  initializeConfirmDialog();
 </script>

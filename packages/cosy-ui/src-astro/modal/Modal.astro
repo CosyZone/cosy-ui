@@ -45,7 +45,8 @@
  */
 
 import '../../style.ts';
-import { Button, Heading } from '../../index-astro';
+import { Heading } from '../../index-astro';
+import CloseButton from './CloseButton.astro';
 
 interface Props {
   /**
@@ -57,48 +58,23 @@ interface Props {
    */
   title?: string;
   /**
-   * 是否显示关闭按钮
-   * @default true
-   */
-  showCloseButton?: boolean;
-  /**
    * 自定义类名
    */
   class?: string;
 }
 
-const {
-  id,
-  title,
-  showCloseButton = true,
-  class: className = '',
-} = Astro.props;
+const { id, title = '', class: className = '' } = Astro.props;
 ---
 
 <dialog id={id} class="cosy:modal">
-  <div class:list={['cosy:modal-box', className]}>
-    {
-      showCloseButton && (
-        <form method="dialog">
-          <Button
-            variant="ghost"
-            size="sm"
-            shape="circle"
-            formmethod="dialog"
-            class="cosy:modal-close-button cosy:right-2 cosy:top-2 cosy:absolute">
-            ✕
-          </Button>
-        </form>
-      )
-    }
-
-    {
-      title && (
-        <Heading level={3} class="cosy:modal-title">
-          {title}
-        </Heading>
-      )
-    }
+  <div class:list={['cosy:modal-box cosy:pt-0', className]}>
+    <div
+      class="cosy:flex cosy:justify-between cosy:items-center cosy:border-b-1 cosy:border-base-300 cosy:mb-4 not-prose">
+      <Heading level={4} class="cosy:modal-title cosy:m-0">
+        {title}
+      </Heading>
+      <CloseButton class="cosy:absolute" />
+    </div>
 
     <div class="cosy:modal-content">
       <slot />
@@ -111,18 +87,43 @@ const {
 </dialog>
 
 <script is:inline define:vars={{ id }}>
-  // 为了方便使用，我们提供一些辅助方法
-  document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById(id);
-    if (!modal) return;
+  let handleClick;
 
-    // 为所有触发这个模态框的按钮添加点击事件
-    document
-      .querySelectorAll(`[data-modal-target="${id}"]`)
-      .forEach((trigger) => {
-        trigger.addEventListener('click', () => {
-          modal.showModal();
-        });
-      });
+  function initializeModal() {
+    const modal = document.getElementById(id);
+    if (!modal) {
+      return;
+    }
+
+    // 移除之前的事件监听器（如果存在）
+    if (handleClick) {
+      document.removeEventListener('click', handleClick);
+    }
+
+    // 使用事件委托来处理动态加载的内容
+    handleClick = (event) => {
+      const target = event.target;
+      // 使用 closest() 查找最近的匹配元素，包括按钮内部的元素
+      const trigger = target.closest(`[data-modal-target="${id}"]`);
+      if (trigger) {
+        console.log('Modal: 触发模态框', id);
+        modal.showModal();
+      }
+    };
+
+    document.addEventListener('click', handleClick);
+  }
+
+  // Astro 页面切换时初始化
+  document.addEventListener('astro:page-load', () => {
+    initializeModal();
+  });
+
+  // 页面卸载时清理事件监听器
+  document.addEventListener('astro:before-preparation', () => {
+    if (handleClick) {
+      document.removeEventListener('click', handleClick);
+      handleClick = null;
+    }
   });
 </script>
