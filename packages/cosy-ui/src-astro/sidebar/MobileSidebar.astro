@@ -38,8 +38,13 @@ const { sidebarItems, debug = false } = Astro.props;
 // 自动获取当前路径
 const currentPath = Astro.url.pathname;
 
-const title = sidebarItems[0].text;
-const titleHref = sidebarItems[0].href;
+let title = '';
+let titleHref = '';
+if (sidebarItems.length > 0) {
+  const sidebarMainItem = sidebarItems[0];
+  title = sidebarMainItem.text;
+  titleHref = sidebarMainItem.href;
+}
 ---
 
 {/* 移动端侧边栏弹出层 */}

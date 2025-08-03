@@ -32,7 +32,7 @@ export class LinkUtil {
     }
 
     static getHomeLink(lang: string): string {
-        return `${this.getBaseUrl}/${lang}`;
+        return `${this.getBaseUrl()}/${lang}`;
     }
 
     static getLessonsLink(lang: string): string {
