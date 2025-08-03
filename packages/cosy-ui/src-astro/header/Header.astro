@@ -142,8 +142,9 @@ const activeLink = LinkUtil.getActiveLink(
       navItems={navItems}
       activeLink={activeLink}
       linkHeightClass={linkHeightClass}
-      debug={debug}
-    />
+      debug={debug}>
+      <slot name="navbar-start" slot="navbar-start" />
+    </HeaderStart>
 
     <HeaderCenter
       navPosition={navPosition}

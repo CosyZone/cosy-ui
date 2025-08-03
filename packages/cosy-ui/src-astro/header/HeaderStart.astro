@@ -57,12 +57,12 @@ const {
 } = Astro.props;
 ---
 
-<div class="cosy:navbar-start cosy:pl-1">
+<div class="cosy:navbar-start cosy:pl-1" data-role="header-start">
   {
     navPosition === 'start' ? (
       <div class="cosy:flex cosy:items-center cosy:gap-4">
         <LogoLink src={logo} href={logoHref} size={height} debug={debug} />
-        <div class="cosy:hidden cosy:lg:flex">
+        <div class="cosy:lg:flex">
           <NavItems
             navItems={navItems}
             activeLink={activeLink}

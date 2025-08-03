@@ -24,7 +24,6 @@
 import '../../style.ts';
 import { SidebarNav, Modal } from '../../index-astro';
 import { getMarginTopClass, getMarginBottomClass } from './utils.ts';
-import MobileNav from './MobileNav.astro';
 import type { ISidebarProps } from '../../index-astro';
 
 export interface Props extends ISidebarProps {
@@ -47,13 +46,6 @@ const currentPath = Astro.url.pathname;
 
 const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 ---
-
-{/* 移动端导航栏 */}
-<MobileNav
-  sidebarItems={sidebarItems}
-  currentPath={currentPath}
-  debug={debug}
-/>
 
 {/* 移动端侧边栏弹出层 */}
 <Modal
