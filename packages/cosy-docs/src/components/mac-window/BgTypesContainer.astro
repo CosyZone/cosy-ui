@@ -5,7 +5,6 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import BgTypesCode from './BgTypes.astro?raw';
 
 // 导入各个背景色示例
 import DefaultBg from './DefaultBg.astro';
@@ -16,9 +15,39 @@ import GreenBg from './GreenBg.astro';
 import PurpleBg from './PurpleBg.astro';
 import OrangeBg from './OrangeBg.astro';
 import RedBg from './RedBg.astro';
+
+// 导入对应的源码
+import DefaultBgCode from './DefaultBg.astro?raw';
+import LightBgCode from './LightBg.astro?raw';
+import DarkBgCode from './DarkBg.astro?raw';
+import BlueBgCode from './BlueBg.astro?raw';
+import GreenBgCode from './GreenBg.astro?raw';
+import PurpleBgCode from './PurpleBg.astro?raw';
+import OrangeBgCode from './OrangeBg.astro?raw';
+import RedBgCode from './RedBg.astro?raw';
 ---
 
-<CodeContainer codes={[BgTypesCode]}>
+<CodeContainer
+  titles={[
+    '默认背景',
+    '浅色背景',
+    '深色背景',
+    '蓝色背景',
+    '绿色背景',
+    '紫色背景',
+    '橙色背景',
+    '红色背景',
+  ]}
+  codes={[
+    DefaultBgCode,
+    LightBgCode,
+    DarkBgCode,
+    BlueBgCode,
+    GreenBgCode,
+    PurpleBgCode,
+    OrangeBgCode,
+    RedBgCode,
+  ]}>
   <div id="tab-1">
     <DefaultBg />
   </div>
