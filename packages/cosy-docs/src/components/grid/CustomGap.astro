@@ -1,10 +1,18 @@
 ---
-import { Grid } from '@coffic/cosy-ui';
+import { Grid, PlaceHolder } from '@coffic/cosy-ui';
 ---
 
-<Grid cols={2} rowGap="lg" colGap="sm">
-  <div class="cosy:bg-base-200 cosy:p-4">行间距大</div>
-  <div class="cosy:bg-base-200 cosy:p-4">列间距小</div>
-  <div class="cosy:bg-base-200 cosy:p-4">第三项</div>
-  <div class="cosy:bg-base-200 cosy:p-4">第四项</div>
+<Grid cols={2} rowGap="lg" colGap="sm" border>
+  <PlaceHolder width="full" height="lg" background="base-200">
+    行间距大
+  </PlaceHolder>
+  <PlaceHolder width="full" height="lg" background="base-200">
+    列间距小
+  </PlaceHolder>
+  <PlaceHolder width="full" height="lg" background="base-200">
+    第三项
+  </PlaceHolder>
+  <PlaceHolder width="full" height="lg" background="base-200">
+    第四项
+  </PlaceHolder>
 </Grid>

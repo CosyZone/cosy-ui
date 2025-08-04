@@ -55,7 +55,7 @@ export interface Props extends IHeaderProps {
 const {
   height = 'md',
   logo = Logo,
-  logoHref = '/',
+  logoHref = LinkUtil.getBaseUrl(),
   navItems = [],
   sticky = true,
   debug = false,
@@ -150,7 +150,7 @@ const activeLink = LinkUtil.getActiveLink(
       activeLink={activeLink}
       linkHeightClass={linkHeightClass}
       debug={debug}>
-      <slot name="navbar-start" slot="navbar-start" />
+      <slot name="navbar-start" />
     </HeaderStart>
 
     <HeaderCenter
@@ -158,8 +158,9 @@ const activeLink = LinkUtil.getActiveLink(
       navItems={navItems}
       activeLink={activeLink}
       linkHeightClass={linkHeightClass}
-      gap={gap}
-    />
+      gap={gap}>
+      <slot name="navbar-center" />
+    </HeaderCenter>
 
     <HeaderEnd
       navPosition={navPosition}
@@ -168,8 +169,9 @@ const activeLink = LinkUtil.getActiveLink(
       linkHeightClass={linkHeightClass}
       showThemeSwitcher={showThemeSwitcher}
       isI18nEnabled={isI18nEnabled}
-      astroI18n={astroI18n}
-    />
+      astroI18n={astroI18n}>
+      <slot name="navbar-end" />
+    </HeaderEnd>
   </div>
 </header>
 

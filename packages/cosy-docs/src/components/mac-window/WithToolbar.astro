@@ -6,28 +6,31 @@
  * 带工具栏和状态栏的MacWindow组件示例，展示自定义工具栏功能。
  */
 import { MacWindow } from '@coffic/cosy-ui/vue';
+import { PlaceHolder } from '@coffic/cosy-ui';
 ---
 
-<MacWindow title="文件浏览器">
+<MacWindow title="文件浏览器-Astro版本">
   <template #toolbar>
     <button
-      class="cosy:btn cosy:btn-ghost cosy:btn-sm"
+      style="background: transparent; border: none; padding: 0.25rem 0.5rem; cursor: pointer;"
       onclick="console.log('搜索')">
       🔍
     </button>
     <button
-      class="cosy:btn cosy:btn-ghost cosy:btn-sm"
+      style="background: transparent; border: none; padding: 0.25rem 0.5rem; cursor: pointer;"
       onclick="console.log('设置')">
       ⚙️
     </button>
   </template>
 
-  <div class="cosy:p-4">窗口内容区域</div>
+  <PlaceHolder width="full" height="lg" padding="md">
+    窗口内容区域
+  </PlaceHolder>
 
   <template #status>
-    <div class="cosy:text-xs">就绪</div>
+    <div style="font-size: 0.75rem;">就绪</div>
     <button
-      class="cosy:btn cosy:btn-ghost cosy:btn-xs"
+      style="background: transparent; border: none; padding: 0.125rem 0.25rem; cursor: pointer; font-size: 0.75rem;"
       onclick="console.log('信息')">
       ℹ️
     </button>

@@ -1,0 +1,22 @@
+---
+/**
+ * @component ProductsSingleColumnContainer
+ * @description Products 组件居中显示示例容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ProductsSingleColumn from './ProductsSingleColumn.astro';
+---
+
+<CodeContainer
+  codes={[
+    `<Products
+  layout="grid"
+  columns={{ base: 1, sm: 2, md: 3, lg: 4 }}
+  centerItems={true}
+  products={products}
+/>`,
+  ]}>
+  <div id="tab-1">
+    <ProductsSingleColumn />
+  </div>
+</CodeContainer>

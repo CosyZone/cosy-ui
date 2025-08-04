@@ -6,27 +6,29 @@
  * 带侧边栏的MacWindow组件示例，展示文件浏览器风格的布局。
  */
 import { MacWindow } from '@coffic/cosy-ui/vue';
+import { PlaceHolder } from '@coffic/cosy-ui';
 ---
 
-<MacWindow title="文件浏览器">
+<MacWindow title="文件浏览器-Astro版本">
   <template #sidebar>
-    <div class="cosy:w-48 cosy:border-r cosy:border-base-300 cosy:p-2">
-      <div class="cosy:font-medium cosy:mb-2">文件夹</div>
+    <div
+      style="width: 12rem; border-right: 1px solid #d1d5db; padding: 0.5rem;">
+      <div style="font-weight: 500; margin-bottom: 0.5rem;">文件夹</div>
       <ul>
         <li
-          class="cosy:py-1 cosy:px-2 hover:cosy:bg-base-200 cosy:rounded cosy:cursor-pointer">
+          style="padding: 0.25rem 0.5rem; border-radius: 0.25rem; cursor: pointer; margin-bottom: 0.25rem;">
           文档
         </li>
         <li
-          class="cosy:py-1 cosy:px-2 hover:cosy:bg-base-200 cosy:rounded cosy:cursor-pointer">
+          style="padding: 0.25rem 0.5rem; border-radius: 0.25rem; cursor: pointer; margin-bottom: 0.25rem;">
           下载
         </li>
         <li
-          class="cosy:py-1 cosy:px-2 hover:cosy:bg-base-200 cosy:rounded cosy:cursor-pointer">
+          style="padding: 0.25rem 0.5rem; border-radius: 0.25rem; cursor: pointer; margin-bottom: 0.25rem;">
           图片
         </li>
       </ul>
     </div>
   </template>
-  <div class="cosy:p-4">主内容区域</div>
+  <PlaceHolder width="full" height="lg" padding="md"> 主内容区域 </PlaceHolder>
 </MacWindow>

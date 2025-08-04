@@ -1,11 +1,24 @@
 ---
+/**
+ * @component MacWindow.WithToolbarContainer
+ *
+ * @description
+ * 带工具栏的MacWindow组件示例容器，展示Astro和Vue两个版本。
+ */
 import { CodeContainer } from '@coffic/cosy-ui';
 import WithToolbar from './WithToolbar.astro';
+import WithToolbarVue from './WithToolbar.vue';
 import WithToolbarSourceCode from './WithToolbar.astro?raw';
+import WithToolbarVueSourceCode from './WithToolbar.vue?raw';
 ---
 
-<CodeContainer codes={[WithToolbarSourceCode]}>
+<CodeContainer
+  codes={[WithToolbarSourceCode, WithToolbarVueSourceCode]}
+  titles={['Astro', 'Vue']}>
   <div id="tab-1">
     <WithToolbar />
+  </div>
+  <div id="tab-2">
+    <WithToolbarVue />
   </div>
 </CodeContainer>

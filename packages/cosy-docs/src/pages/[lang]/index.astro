@@ -11,6 +11,7 @@ import {
   Products,
   Heading,
   PlaceHolder,
+  MacWindow,
 } from '@coffic/cosy-ui';
 import { MemberConfig } from '@/config/config.member';
 import { getExampleImage } from '@coffic/cosy-ui';
@@ -66,42 +67,46 @@ interface Props {
       },
     ]}>
     <div slot="app">
-      <Container size="lg" padding="sm" border={true}>
-        <Header
-          rounded="lg"
-          sticky={false}
-          showThemeSwitcher={false}
-          astroI18n={astroI18n}
-        />
+      <MacWindow title="Cosy UI 组件库" height="h-64" bgType="primary">
+        <Container size="lg" padding="sm">
+          <Grid
+            marginY="lg"
+            cols={{
+              base: 1,
+              sm: 2,
+              md: 2,
+              lg: 4,
+              xl: 4,
+            }}
+            gap="xs">
+            {
+              MemberConfig.getMembers().map((member) => (
+                <TeamMember
+                  name={member.title.get(lang)}
+                  role=""
+                  avatar={member.image ?? ''}
+                  bio={member.description.get(lang)}
+                  socialLinks={[
+                    {
+                      platform: 'github',
+                      url: member.links.github,
+                    },
+                  ]}
+                />
+              ))
+            }
+          </Grid>
 
-        <Container
-          size="lg"
-          padding="none"
-          style="margin-top: 1rem; margin-bottom: 1rem;">
-          <Banner animation="slide" bgColor="gradient-forest">
-            {lang === 'zh-cn' ? '创造更多精彩' : 'Create more magic'}
-          </Banner>
+          <Container
+            size="lg"
+            padding="none"
+            style="margin-top: 1rem; margin-bottom: 1rem;">
+            <Banner animation="slide" bgColor="gradient-forest">
+              {lang === 'zh-cn' ? '创造更多精彩' : 'Create more magic'}
+            </Banner>
+          </Container>
         </Container>
-
-        <Grid cols={4} gap="xs">
-          {
-            MemberConfig.getMembers().map((member) => (
-              <TeamMember
-                name={member.title.get(lang)}
-                role=""
-                avatar={member.image ?? ''}
-                bio={member.description.get(lang)}
-                socialLinks={[
-                  {
-                    platform: 'github',
-                    url: member.links.github,
-                  },
-                ]}
-              />
-            ))
-          }
-        </Grid>
-      </Container>
+      </MacWindow>
     </div>
   </Hero>
 
@@ -127,7 +132,13 @@ interface Props {
           image: 'https://github.com/cofficlab.png',
         },
       ]}
-      columns={2}
+      columns={{
+        base: 1,
+        sm: 2,
+        md: 2,
+        lg: 2,
+        xl: 2,
+      }}
       cardSize="md"
       gap="md"
     />

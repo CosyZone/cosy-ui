@@ -1,0 +1,122 @@
+---
+/**
+ * @component MacWindow.WithEvents
+ *
+ * @description
+ * 带事件处理的MacWindow组件示例，展示窗口操作事件。
+ * 使用客户端JavaScript来处理事件和显示事件信息。
+ */
+import { MacWindow, PlaceHolder } from '@coffic/cosy-ui';
+
+const windowId = 'with-events-window';
+---
+
+<MacWindow
+  title="应用窗口-Astro版本"
+  tabs={['信息', '设置', '帮助']}
+  id={windowId}>
+  <div id="tab-信息">
+    <PlaceHolder width="full" height="lg" padding="md" background="base-200">
+      <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <div style="font-weight: 500;">窗口内容区域</div>
+        <div
+          id="event-log"
+          style="display: flex; flex-direction: column; gap: 0.25rem;">
+          <div style="font-size: 0.875rem; opacity: 0.7;">最近事件：</div>
+          <!-- 事件日志将通过 JavaScript 动态添加 -->
+        </div>
+      </div>
+    </PlaceHolder>
+  </div>
+  <div id="tab-设置" style="display: none;">
+    <PlaceHolder width="full" height="lg" padding="md" background="base-200">
+      设置内容
+    </PlaceHolder>
+  </div>
+  <div id="tab-帮助" style="display: none;">
+    <PlaceHolder width="full" height="lg" padding="md" background="base-200">
+      帮助内容
+    </PlaceHolder>
+  </div>
+</MacWindow>
+
+<script>
+  // 事件日志管理
+  let eventLog: string[] = [];
+
+  // 添加事件到日志
+  function addEvent(event: string) {
+    const timestamp = new Date().toLocaleTimeString();
+    eventLog.unshift(`${timestamp} - ${event}`);
+    // 只保留最近5个事件
+    if (eventLog.length > 5) {
+      eventLog = eventLog.slice(0, 5);
+    }
+    updateEventLog();
+  }
+
+  // 更新事件日志显示
+  function updateEventLog() {
+    const eventLogElement = document.getElementById('event-log');
+    if (eventLogElement) {
+      // 直接使用 eventLogElement 作为容器，因为它已经有正确的类名
+      const logContainer = eventLogElement;
+      if (logContainer) {
+        // 清除现有事件
+        const existingEvents = logContainer.querySelectorAll('.event-item');
+        existingEvents.forEach((event) => event.remove());
+
+        // 添加新事件
+        eventLog.forEach((event) => {
+          const eventDiv = document.createElement('div');
+          eventDiv.className = 'event-item';
+          eventDiv.style.cssText =
+            'font-size: 0.75rem; background-color: #e5e7eb; padding: 0.25rem 0.5rem; border-radius: 0.25rem;';
+          eventDiv.textContent = event;
+          logContainer.appendChild(eventDiv);
+        });
+      }
+    }
+  }
+
+  // 窗口事件处理
+  document.addEventListener('DOMContentLoaded', () => {
+    const windowElement = document.querySelector(
+      '[data-window-id="with-events-window"]'
+    );
+    if (windowElement) {
+      // 监听窗口控制按钮点击 - 使用更通用的选择器
+      const controlButtons = windowElement.querySelectorAll(
+        'div[class*="bg-error"], div[class*="bg-warning"], div[class*="bg-success"]'
+      );
+
+      controlButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const buttonClasses = button.className;
+          if (buttonClasses.includes('bg-error')) {
+            console.log('关闭窗口');
+            addEvent('关闭窗口');
+          } else if (buttonClasses.includes('bg-warning')) {
+            console.log('最小化窗口');
+            addEvent('最小化窗口');
+          } else if (buttonClasses.includes('bg-success')) {
+            console.log('最大化窗口');
+            addEvent('最大化窗口');
+          }
+        });
+      });
+
+      // 监听标签切换
+      const tabButtons = windowElement.querySelectorAll('[data-tab]');
+      tabButtons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+          const clickedTab = (e.target as HTMLElement).getAttribute('data-tab');
+          if (clickedTab) {
+            console.log('切换到标签:', clickedTab);
+            addEvent(`切换到标签: ${clickedTab}`);
+          }
+        });
+      });
+    }
+  });
+</script>

@@ -2,6 +2,7 @@
 title: 'MacWindow'
 folder: false
 order: 19
+badge: 'beta'
 ---
 
 import { MacWindow } from '@coffic/cosy-ui/vue';
@@ -21,6 +22,7 @@ MacWindow 组件模拟 macOS 风格的应用窗口，包含标题栏、工具栏
 - 支持侧边栏布局，适合文件浏览器等应用
 - 可自定义窗口高度和阴影效果
 - 支持窗口操作事件回调
+- 支持多种预设背景色主题，包括默认、主要、次要、强调、中性、信息、成功、警告、错误
 
 ## 基础用法
 
@@ -56,4 +58,10 @@ MacWindow 组件模拟 macOS 风格的应用窗口，包含标题栏、工具栏
 
 通过 height 属性自定义窗口高度：
 
-<MacWindowPackage.Containers.CustomHeight /> 
+<MacWindowPackage.Containers.CustomHeight />
+
+## 背景色主题
+
+通过 bgType 属性选择不同的背景色主题：
+
+<MacWindowPackage.Containers.BgTypes /> 

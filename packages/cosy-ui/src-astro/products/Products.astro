@@ -76,6 +76,14 @@
  *   products={products}
  * />
  * ```
+ *
+ * 居中显示：
+ * ```astro
+ * <Products
+ *   centerItems={true}
+ *   products={products}
+ * />
+ * ```
  */
 
 import { ProductCard } from '../../index-astro';
@@ -160,6 +168,11 @@ export interface Props {
    */
   margin?: MarginSize;
   /**
+   * 是否居中显示
+   * 控制网格布局中所有卡片是否居中显示
+   */
+  centerItems?: boolean;
+  /**
    * 自定义类名
    */
   class?: string;
@@ -175,6 +188,7 @@ const {
   descriptionLines,
   showBorder = false,
   margin = 'md',
+  centerItems = true,
   class: className = '',
 } = Astro.props;
 
@@ -217,7 +231,14 @@ const getColumnsClasses = () => {
 // 获取布局类名
 const getLayoutClasses = () => {
   if (layout === 'grid') {
-    return ['cosy:grid', getColumnsClasses()];
+    const gridClasses = ['cosy:grid', getColumnsClasses()];
+
+    // 如果启用居中，添加居中样式
+    if (centerItems) {
+      gridClasses.push('cosy:justify-items-center');
+    }
+
+    return gridClasses;
   } else {
     return ['cosy:flex', 'cosy:flex-col'];
   }

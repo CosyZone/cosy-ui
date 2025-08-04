@@ -9,6 +9,7 @@
  * ```astro
  * <CardCourse courseName="React 基础教程" lang="zh" href="/courses/react-basics" />
  * <CardCourse courseName="Vue 进阶" lang="zh" href="/courses/vue" padding="xl" contentPadding="md" />
+ * <CardCourse courseName="AI 编程" keywords={["人工智能", "机器学习", "Python"]} lang="zh" href="/courses/ai" />
  * ```
  *
  * @props
@@ -16,6 +17,7 @@
  * - description?: string - 课程描述
  * - lang: string - 语言（"en" 或 "zh"）
  * - href: string - 课程链接
+ * - keywords?: string[] - 图标关键词数组，用于图标匹配
  * - iconSize?: "sm" | "md" | "lg" | "xl" - 图标尺寸，默认为 "md"
  * - contentPadding?: "none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" - 内容区域内边距，默认为 "lg"
  */
@@ -37,6 +39,7 @@ interface Props {
   description?: string;
   lang: string;
   href: string;
+  keywords?: string[];
   iconSize?: 'sm' | 'md' | 'lg' | 'xl';
   padding?: PaddingSize;
   contentPadding?: PaddingSize;
@@ -47,6 +50,7 @@ const {
   description = '',
   lang,
   href,
+  keywords = [],
   iconSize = 'md',
   contentPadding = 'lg',
 } = Astro.props;
@@ -79,10 +83,14 @@ const contentPaddingClasses = getContentPaddingClasses(contentPadding);
     class={`cosy:relative cosy:z-10`}
     enableGradient={true}>
     <!-- 背景图标 -->
-    <CardCourseIcon courseName={courseName} iconSizeClasses={iconSizeClasses} />
+    <CardCourseIcon
+      courseName={courseName}
+      keywords={keywords}
+      iconSizeClasses={iconSizeClasses}
+    />
 
     <div
-      class={`cosy:card-body ${contentPaddingClasses} cosy:relative cosy:z-10`}>
+      class={`cosy:card-body ${contentPaddingClasses} cosy:bg-base-100/30 cosy:relative cosy:z-10`}>
       <!-- 内容区域 -->
       <CardCourseContent displayName={displayName} description={description} />
 

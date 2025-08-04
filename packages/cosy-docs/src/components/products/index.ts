@@ -5,6 +5,7 @@ import ProductsListContainer from './ProductsListContainer.astro';
 import ProductsCustomContainer from './ProductsCustomContainer.astro';
 import ProductsWithBorderContainer from './ProductsWithBorderContainer.astro';
 import ProductsWithMarginContainer from './ProductsWithMarginContainer.astro';
+import ProductsSingleColumnContainer from './ProductsSingleColumnContainer.astro';
 
 export const ComponentPackage = {
     ComponentContainers: {
@@ -14,5 +15,6 @@ export const ComponentPackage = {
         Custom: ProductsCustomContainer,
         WithBorder: ProductsWithBorderContainer,
         WithMargin: ProductsWithMarginContainer,
+        SingleColumn: ProductsSingleColumnContainer,
     }
 }; 

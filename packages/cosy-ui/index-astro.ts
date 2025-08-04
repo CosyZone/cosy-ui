@@ -1,5 +1,6 @@
 // 基础组件和功能模块 (按字母顺序)
 export * from './src-astro/alert';
+export * from './src-astro/alert-dialog';
 export * from './src-astro/article';
 export * from './src-astro/banner';
 export * from './src-astro/badge';
@@ -33,6 +34,7 @@ export * from './src-astro/loading-overlay';
 export * from './src-astro/login';
 export * from './src-astro/logout';
 export * from './src-astro/main';
+export * from './src-astro/mac-window';
 export * from './src-astro/modal';
 export * from './src-astro/module';
 export * from './src-astro/nav-section';
@@ -73,6 +75,7 @@ export * from './src/utils/language';
 export * from './src/utils/lang_package';
 export * from './src/utils/logger';
 export * from './src/utils/link';
+export * from './src/utils/mac-window-bg';
 
 // 图标组件
 export * from './src-astro/icons';

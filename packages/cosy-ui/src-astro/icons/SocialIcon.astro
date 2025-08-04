@@ -95,6 +95,4 @@ const IconComponent = getIconComponent(platform);
 const socialIconClass = `social-icon social-icon-${platform.toLowerCase()} ${className}`;
 ---
 
-<div class={socialIconClass} aria-label={`${platformName} 图标`}>
-  <IconComponent size={size} color={color} />
-</div>
+<IconComponent size={size} color={color} class={socialIconClass} />

@@ -1,0 +1,82 @@
+---
+/**
+ * @component MacWindow BgTypes Container
+ * @description 展示 MacWindow 组件的不同背景色类型的容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+
+// 导入各个背景色示例
+import DefaultBg from './DefaultBg.astro';
+import PrimaryBg from './PrimaryBg.astro';
+import SecondaryBg from './SecondaryBg.astro';
+import AccentBg from './AccentBg.astro';
+import NeutralBg from './NeutralBg.astro';
+import InfoBg from './InfoBg.astro';
+import SuccessBg from './SuccessBg.astro';
+import WarningBg from './WarningBg.astro';
+import ErrorBg from './ErrorBg.astro';
+
+// 导入对应的源码
+import DefaultBgCode from './DefaultBg.astro?raw';
+import PrimaryBgCode from './PrimaryBg.astro?raw';
+import SecondaryBgCode from './SecondaryBg.astro?raw';
+import AccentBgCode from './AccentBg.astro?raw';
+import NeutralBgCode from './NeutralBg.astro?raw';
+import InfoBgCode from './InfoBg.astro?raw';
+import SuccessBgCode from './SuccessBg.astro?raw';
+import WarningBgCode from './WarningBg.astro?raw';
+import ErrorBgCode from './ErrorBg.astro?raw';
+---
+
+<CodeContainer
+  titles={[
+    '默认背景',
+    '主要背景',
+    '次要背景',
+    '强调背景',
+    '中性背景',
+    '信息背景',
+    '成功背景',
+    '警告背景',
+    '错误背景',
+  ]}
+  codes={[
+    DefaultBgCode,
+    PrimaryBgCode,
+    SecondaryBgCode,
+    AccentBgCode,
+    NeutralBgCode,
+    InfoBgCode,
+    SuccessBgCode,
+    WarningBgCode,
+    ErrorBgCode,
+  ]}>
+  <div id="tab-1">
+    <DefaultBg />
+  </div>
+  <div id="tab-2">
+    <PrimaryBg />
+  </div>
+  <div id="tab-3">
+    <SecondaryBg />
+  </div>
+  <div id="tab-4">
+    <AccentBg />
+  </div>
+  <div id="tab-5">
+    <NeutralBg />
+  </div>
+  <div id="tab-6">
+    <InfoBg />
+  </div>
+  <div id="tab-7">
+    <SuccessBg />
+  </div>
+  <div id="tab-8">
+    <WarningBg />
+  </div>
+  <div id="tab-9">
+    <ErrorBg />
+  </div>
+</CodeContainer>

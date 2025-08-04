@@ -1,11 +1,24 @@
 ---
+/**
+ * @component MacWindow.WithSidebarContainer
+ *
+ * @description
+ * 带侧边栏的MacWindow组件示例容器，展示Astro和Vue两个版本。
+ */
 import { CodeContainer } from '@coffic/cosy-ui';
 import WithSidebar from './WithSidebar.astro';
+import WithSidebarVue from './WithSidebar.vue';
 import WithSidebarSourceCode from './WithSidebar.astro?raw';
+import WithSidebarVueSourceCode from './WithSidebar.vue?raw';
 ---
 
-<CodeContainer codes={[WithSidebarSourceCode]}>
+<CodeContainer
+  codes={[WithSidebarSourceCode, WithSidebarVueSourceCode]}
+  titles={['Astro', 'Vue']}>
   <div id="tab-1">
     <WithSidebar />
+  </div>
+  <div id="tab-2">
+    <WithSidebarVue />
   </div>
 </CodeContainer>
