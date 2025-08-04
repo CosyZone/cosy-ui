@@ -2,6 +2,7 @@
 title: 'Link'
 folder: false
 order: 14.3
+badge: 'beta'
 ---
 
 import { Link } from '@coffic/cosy-ui';
@@ -14,19 +15,26 @@ import { LinkPackage } from '../../../../src/components/link/index.ts';
 The Link component is a powerful link component that not only supports traditional link styles but also provides button styles, animation effects, and rich customization options. Through semantic property configuration, you can achieve various visual effects without manually writing CSS class names.
 
 **Key Features:**
-- 🎨 Multiple style variants (default, primary, secondary, text, cta, ghost, light, github)
+- 🎨 Multiple style variants (default, primary, secondary, text, cta, ghost, light, github, navigation)
 - 🔘 Complete button style support (normal, ghost, circular, various sizes)
 - ✨ Rich animation effects (lift, glow, scale)
 - 📱 Responsive design with various alignment options
 - 🎯 Semantic properties, no need to manually concatenate CSS classes
 - ♿ Comprehensive accessibility support
 - 🔗 Automatic icon support (GitHub links automatically display GitHub icon)
+- 🎨 Custom icon support (specify any icon via the `icon` property)
 
 ## Basic Usage
 
 The simplest way to use links, supporting both internal and external links.
 
 <LinkPackage.ComponentContainers.Basic />
+
+## Icon Support
+
+Add various icons to links using the `icon` property.
+
+<LinkPackage.ComponentContainers.Icons />
 
 ## Button Styles
 
@@ -36,21 +44,9 @@ Enable button styles with the `btn` attribute, supporting multiple colors, sizes
 
 ## Style Variants
 
-Apply different style variants using the `variant` attribute, suitable for different use cases.
+Apply different style variants using the `variant` attribute, suitable for different use cases. Includes GitHub link variant and document navigation variant.
 
 <LinkPackage.ComponentContainers.Variants />
-
-## GitHub Links
-
-Use `variant="github"` to create links with GitHub icons, automatically displaying the GitHub icon before the link.
-
-<LinkPackage.ComponentContainers.Github />
-
-## Document Navigation
-
-Use `variant="navigation"` to create link styles specifically designed for "previous" and "next" navigation in documents.
-
-<LinkPackage.ComponentContainers.Navigation />
 
 ## Animation Effects
 
@@ -63,29 +59,3 @@ Add hover animation effects using the `animation` attribute to enhance user expe
 More advanced features including alignment, style decorations, debug mode, and more.
 
 <LinkPackage.ComponentContainers.Advanced />
-
-## API Reference
-
-### Props
-
-| Property | Description | Type | Default |
-|----------|-------------|------|---------|
-| `href` | Link URL | `string` | - |
-| `external` | Whether it's an external link, automatically opens in new window | `boolean` | `false` |
-| `variant` | Style variant | `'default' \| 'primary' \| 'secondary' \| 'text' \| 'cta' \| 'ghost' \| 'light' \| 'navigation' \| 'github'` | `'default'` |
-| `size` | Size | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| `animation` | Animation effect | `'none' \| 'hover-lift' \| 'hover-glow' \| 'hover-scale'` | `'none'` |
-| `block` | Whether to display as block | `boolean` | `false` |
-| `btn` | Whether to enable button style | `boolean` | `false` |
-| `circle` | Whether it's a circular button (use with `btn`) | `boolean` | `false` |
-| `ghost` | Whether it's a ghost button (use with `btn`) | `boolean` | `false` |
-| `color` | Button color (use with `btn`) | `'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | - |
-| `align` | Alignment | `'left' \| 'center' \| 'right'` | - |
-| `rounded` | Whether to add rounded corners | `boolean` | `false` |
-| `noUnderline` | Whether to remove underline | `boolean` | `false` |
-| `fullWidth` | Whether to take full width | `boolean` | `false` |
-| `centerText` | Whether to center text (compatibility property) | `boolean` | `false` |
-| `debug` | Whether to show debug borders | `boolean` | `false` |
-| `navigationType` | Navigation type, automatically adds corresponding icons | `'previous' \| 'next'` | - |
-| `class` | Custom CSS class | `string` | - |
-| `...rest` | Other HTML `<a>` tag attributes | `HTMLAttributes<'a'>` | - |

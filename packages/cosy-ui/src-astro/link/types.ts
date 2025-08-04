@@ -18,6 +18,59 @@ export type LinkVariant =
 // 定义链接动画类型
 export type LinkAnimation = 'none' | 'hover-lift' | 'hover-glow' | 'hover-scale';
 
+// 定义图标类型（排除需要特殊属性的组件）
+export type LinkIconName =
+    | 'AlertTriangle'
+    | 'AppStoreIcon'
+    | 'CalendarIcon'
+    | 'ChartIcon'
+    | 'CheckCircle'
+    | 'CheckIcon'
+    | 'ChevronDownIcon'
+    | 'ChevronLeftIcon'
+    | 'ChevronRightIcon'
+    | 'ClipboardIcon'
+    | 'CloseIcon'
+    | 'CodeIcon'
+    | 'DashboardIcon'
+    | 'DeleteIcon'
+    | 'DocumentIcon'
+    | 'DownloadIcon'
+    | 'EditIcon'
+    | 'ErrorIcon'
+    | 'FolderIcon'
+    | 'GithubIcon'
+    | 'GlobeIcon'
+    | 'HeartIcon'
+    | 'HomeIcon'
+    | 'InfoCircle'
+    | 'InfoIcon'
+    | 'InboxArchive'
+    | 'LinkIcon'
+    | 'LinkedinIcon'
+    | 'LogOut'
+    | 'MailIcon'
+    | 'MenuIcon'
+    | 'MessageIcon'
+    | 'NotificationIcon'
+    | 'RefreshIcon'
+    | 'ReportIcon'
+    | 'SaveIcon'
+    | 'SearchIcon'
+    | 'SecurityIcon'
+    | 'SettingsIcon'
+    | 'StarIcon'
+    | 'SunCloudyIcon'
+    | 'ToolsIcon'
+    | 'TwitterIcon'
+    | 'UploadIcon'
+    | 'UserIcon'
+    | 'UsersIcon'
+    | 'WalletIcon'
+    | 'WarningIcon'
+    | 'WebsiteIcon'
+    | 'XCircle';
+
 export interface LinkProps extends HTMLAttributes<'a'> {
     href: string;
     external?: boolean;
@@ -46,4 +99,5 @@ export interface LinkProps extends HTMLAttributes<'a'> {
     align?: 'left' | 'center' | 'right';
     active?: boolean;
     navigationType?: 'previous' | 'next';
+    icon?: LinkIconName;
 } 

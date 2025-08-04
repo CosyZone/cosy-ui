@@ -1,0 +1,17 @@
+---
+/**
+ * @component LinkIconsContainer
+ * @description 展示 Link 组件图标功能的容器组件
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import LinkIcons from './LinkIcons.astro';
+
+// 导入对应的源码
+import LinkIconsCode from './LinkIcons.astro?raw';
+---
+
+<CodeContainer titles={['图标功能']} codes={[LinkIconsCode]}>
+  <div id="tab-1">
+    <LinkIcons />
+  </div>
+</CodeContainer>

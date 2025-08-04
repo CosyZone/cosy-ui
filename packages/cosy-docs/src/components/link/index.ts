@@ -3,11 +3,7 @@ import ButtonStyleContainer from './ButtonStyleContainer.astro';
 import VariantsContainer from './VariantsContainer.astro';
 import AnimationsContainer from './AnimationsContainer.astro';
 import AdvancedContainer from './AdvancedContainer.astro';
-import NavigationContainer from './NavigationContainer.astro';
-import GithubContainer from './GithubContainer.astro';
-import LinkBasic from './LinkBasic.astro';
-import LinkVariants from './LinkVariants.astro';
-import LinkAnimations from './LinkAnimations.astro';
+import LinkIconsContainer from './LinkIconsContainer.astro';
 
 export const LinkPackage = {
     ComponentContainers: {
@@ -16,12 +12,6 @@ export const LinkPackage = {
         Variants: VariantsContainer,
         Animations: AnimationsContainer,
         Advanced: AdvancedContainer,
-        Navigation: NavigationContainer,
-        Github: GithubContainer,
-    },
-    Examples: {
-        LinkBasic,
-        LinkVariants,
-        LinkAnimations,
+        Icons: LinkIconsContainer,
     },
 }; 
