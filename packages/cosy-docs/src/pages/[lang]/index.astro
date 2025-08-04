@@ -83,7 +83,15 @@ interface Props {
           </Banner>
         </Container>
 
-        <Grid cols={4} gap="xs">
+        <Grid
+          cols={{
+            base: 1,
+            sm: 2,
+            md: 2,
+            lg: 4,
+            xl: 4,
+          }}
+          gap="xs">
           {
             MemberConfig.getMembers().map((member) => (
               <TeamMember
@@ -127,7 +135,13 @@ interface Props {
           image: 'https://github.com/cofficlab.png',
         },
       ]}
-      columns={2}
+      columns={{
+        base: 1,
+        sm: 2,
+        md: 2,
+        lg: 2,
+        xl: 2,
+      }}
       cardSize="md"
       gap="md"
     />
