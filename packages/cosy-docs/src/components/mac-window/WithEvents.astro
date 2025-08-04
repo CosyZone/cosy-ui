@@ -6,7 +6,7 @@
  * 带事件处理的MacWindow组件示例，展示窗口操作事件。
  * 使用客户端JavaScript来处理事件和显示事件信息。
  */
-import { MacWindow } from '@coffic/cosy-ui';
+import { MacWindow, PlaceHolder } from '@coffic/cosy-ui';
 
 const windowId = 'with-events-window';
 ---
@@ -15,20 +15,28 @@ const windowId = 'with-events-window';
   title="应用窗口-Astro版本"
   tabs={['信息', '设置', '帮助']}
   id={windowId}>
-  <div id="tab-信息" class="cosy:p-4">
-    <div class="cosy:space-y-2">
-      <div class="cosy:font-medium">窗口内容区域</div>
-      <div id="event-log" class="cosy:space-y-1">
-        <div class="cosy:text-sm cosy:text-base-content/70">最近事件：</div>
-        <!-- 事件日志将通过 JavaScript 动态添加 -->
+  <div id="tab-信息">
+    <PlaceHolder width="full" height="lg" padding="md" background="base-200">
+      <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <div style="font-weight: 500;">窗口内容区域</div>
+        <div
+          id="event-log"
+          style="display: flex; flex-direction: column; gap: 0.25rem;">
+          <div style="font-size: 0.875rem; opacity: 0.7;">最近事件：</div>
+          <!-- 事件日志将通过 JavaScript 动态添加 -->
+        </div>
       </div>
-    </div>
+    </PlaceHolder>
   </div>
-  <div id="tab-设置" class="cosy:p-4" style="display: none;">
-    <div>设置内容</div>
+  <div id="tab-设置" style="display: none;">
+    <PlaceHolder width="full" height="lg" padding="md" background="base-200">
+      设置内容
+    </PlaceHolder>
   </div>
-  <div id="tab-帮助" class="cosy:p-4" style="display: none;">
-    <div>帮助内容</div>
+  <div id="tab-帮助" style="display: none;">
+    <PlaceHolder width="full" height="lg" padding="md" background="base-200">
+      帮助内容
+    </PlaceHolder>
   </div>
 </MacWindow>
 
@@ -61,8 +69,9 @@ const windowId = 'with-events-window';
         // 添加新事件
         eventLog.forEach((event) => {
           const eventDiv = document.createElement('div');
-          eventDiv.className =
-            'cosy:text-xs cosy:bg-base-200 cosy:px-2 cosy:py-1 cosy:rounded event-item';
+          eventDiv.className = 'event-item';
+          eventDiv.style.cssText =
+            'font-size: 0.75rem; background-color: #e5e7eb; padding: 0.25rem 0.5rem; border-radius: 0.25rem;';
           eventDiv.textContent = event;
           logContainer.appendChild(eventDiv);
         });

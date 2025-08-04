@@ -6,7 +6,7 @@
  * 带标签页的MacWindow组件示例，展示标签页功能。
  * 使用客户端JavaScript来处理标签切换。
  */
-import { MacWindow } from '@coffic/cosy-ui';
+import { MacWindow, PlaceHolder } from '@coffic/cosy-ui';
 
 const windowId = 'with-tabs-window';
 ---
@@ -16,17 +16,23 @@ const windowId = 'with-tabs-window';
   tabs={['通用', '外观', '高级']}
   defaultTab="外观"
   id={windowId}>
-  <div id="tab-通用" class="cosy:p-4" style="display: none;">
-    <div>通用设置内容</div>
-    <div class="cosy:mt-2">当前选择的标签: 通用</div>
+  <div id="tab-通用" style="display: none;">
+    <PlaceHolder width="full" height="lg" padding="md" background="base-200">
+      <div>通用设置内容</div>
+      <div style="margin-top: 0.5rem;">当前选择的标签: 通用</div>
+    </PlaceHolder>
   </div>
-  <div id="tab-外观" class="cosy:p-4">
-    <div>外观设置内容</div>
-    <div class="cosy:mt-2">当前选择的标签: 外观</div>
+  <div id="tab-外观">
+    <PlaceHolder width="full" height="lg" padding="md" background="base-200">
+      <div>外观设置内容</div>
+      <div style="margin-top: 0.5rem;">当前选择的标签: 外观</div>
+    </PlaceHolder>
   </div>
-  <div id="tab-高级" class="cosy:p-4" style="display: none;">
-    <div>高级设置内容</div>
-    <div class="cosy:mt-2">当前选择的标签: 高级</div>
+  <div id="tab-高级" style="display: none;">
+    <PlaceHolder width="full" height="lg" padding="md" background="base-200">
+      <div>高级设置内容</div>
+      <div style="margin-top: 0.5rem;">当前选择的标签: 高级</div>
+    </PlaceHolder>
   </div>
 </MacWindow>
 
