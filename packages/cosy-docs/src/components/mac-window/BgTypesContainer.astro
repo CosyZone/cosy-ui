@@ -8,68 +8,75 @@ import { CodeContainer } from '@coffic/cosy-ui';
 
 // 导入各个背景色示例
 import DefaultBg from './DefaultBg.astro';
-import LightBg from './LightBg.astro';
-import DarkBg from './DarkBg.astro';
-import BlueBg from './BlueBg.astro';
-import GreenBg from './GreenBg.astro';
-import PurpleBg from './PurpleBg.astro';
-import OrangeBg from './OrangeBg.astro';
-import RedBg from './RedBg.astro';
+import PrimaryBg from './PrimaryBg.astro';
+import SecondaryBg from './SecondaryBg.astro';
+import AccentBg from './AccentBg.astro';
+import NeutralBg from './NeutralBg.astro';
+import InfoBg from './InfoBg.astro';
+import SuccessBg from './SuccessBg.astro';
+import WarningBg from './WarningBg.astro';
+import ErrorBg from './ErrorBg.astro';
 
 // 导入对应的源码
 import DefaultBgCode from './DefaultBg.astro?raw';
-import LightBgCode from './LightBg.astro?raw';
-import DarkBgCode from './DarkBg.astro?raw';
-import BlueBgCode from './BlueBg.astro?raw';
-import GreenBgCode from './GreenBg.astro?raw';
-import PurpleBgCode from './PurpleBg.astro?raw';
-import OrangeBgCode from './OrangeBg.astro?raw';
-import RedBgCode from './RedBg.astro?raw';
+import PrimaryBgCode from './PrimaryBg.astro?raw';
+import SecondaryBgCode from './SecondaryBg.astro?raw';
+import AccentBgCode from './AccentBg.astro?raw';
+import NeutralBgCode from './NeutralBg.astro?raw';
+import InfoBgCode from './InfoBg.astro?raw';
+import SuccessBgCode from './SuccessBg.astro?raw';
+import WarningBgCode from './WarningBg.astro?raw';
+import ErrorBgCode from './ErrorBg.astro?raw';
 ---
 
 <CodeContainer
   titles={[
     '默认背景',
-    '浅色背景',
-    '深色背景',
-    '蓝色背景',
-    '绿色背景',
-    '紫色背景',
-    '橙色背景',
-    '红色背景',
+    '主要背景',
+    '次要背景',
+    '强调背景',
+    '中性背景',
+    '信息背景',
+    '成功背景',
+    '警告背景',
+    '错误背景',
   ]}
   codes={[
     DefaultBgCode,
-    LightBgCode,
-    DarkBgCode,
-    BlueBgCode,
-    GreenBgCode,
-    PurpleBgCode,
-    OrangeBgCode,
-    RedBgCode,
+    PrimaryBgCode,
+    SecondaryBgCode,
+    AccentBgCode,
+    NeutralBgCode,
+    InfoBgCode,
+    SuccessBgCode,
+    WarningBgCode,
+    ErrorBgCode,
   ]}>
   <div id="tab-1">
     <DefaultBg />
   </div>
   <div id="tab-2">
-    <LightBg />
+    <PrimaryBg />
   </div>
   <div id="tab-3">
-    <DarkBg />
+    <SecondaryBg />
   </div>
   <div id="tab-4">
-    <BlueBg />
+    <AccentBg />
   </div>
   <div id="tab-5">
-    <GreenBg />
+    <NeutralBg />
   </div>
   <div id="tab-6">
-    <PurpleBg />
+    <InfoBg />
   </div>
   <div id="tab-7">
-    <OrangeBg />
+    <SuccessBg />
   </div>
   <div id="tab-8">
-    <RedBg />
+    <WarningBg />
+  </div>
+  <div id="tab-9">
+    <ErrorBg />
   </div>
 </CodeContainer>

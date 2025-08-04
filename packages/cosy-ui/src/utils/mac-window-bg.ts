@@ -5,13 +5,14 @@
 
 export type MacWindowBgType =
     | 'default'
-    | 'light'
-    | 'dark'
-    | 'blue'
-    | 'green'
-    | 'purple'
-    | 'orange'
-    | 'red';
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'neutral'
+    | 'info'
+    | 'success'
+    | 'warning'
+    | 'error';
 
 export interface MacWindowBgConfig {
     type: MacWindowBgType;
@@ -26,66 +27,74 @@ export const MAC_WINDOW_BG_CONFIGS: Record<MacWindowBgType, MacWindowBgConfig> =
     default: {
         type: 'default',
         name: '默认',
-        description: '默认的浅色背景',
+        description: '默认背景，自动适配明暗主题',
         bgClass: 'cosy:bg-base-100',
         headerBgClass: 'cosy:bg-base-200',
         statusBgClass: 'cosy:bg-base-200/95',
     },
-    light: {
-        type: 'light',
-        name: '浅色',
-        description: '明亮的浅色背景',
-        bgClass: 'cosy:bg-white',
-        headerBgClass: 'cosy:bg-gray-50',
-        statusBgClass: 'cosy:bg-gray-50/95',
+    primary: {
+        type: 'primary',
+        name: '主要',
+        description: '主要主题背景',
+        bgClass: 'cosy:bg-primary/10',
+        headerBgClass: 'cosy:bg-base-200',
+        statusBgClass: 'cosy:bg-primary/15',
     },
-    dark: {
-        type: 'dark',
-        name: '深色',
-        description: '深色主题背景',
-        bgClass: 'cosy:bg-gray-900',
-        headerBgClass: 'cosy:bg-gray-800',
-        statusBgClass: 'cosy:bg-gray-800/95',
+    secondary: {
+        type: 'secondary',
+        name: '次要',
+        description: '次要主题背景',
+        bgClass: 'cosy:bg-secondary/10',
+        headerBgClass: 'cosy:bg-base-200',
+        statusBgClass: 'cosy:bg-secondary/15',
     },
-    blue: {
-        type: 'blue',
-        name: '蓝色',
-        description: '蓝色主题背景',
-        bgClass: 'cosy:bg-blue-50',
-        headerBgClass: 'cosy:bg-blue-100',
-        statusBgClass: 'cosy:bg-blue-100/95',
+    accent: {
+        type: 'accent',
+        name: '强调',
+        description: '强调主题背景',
+        bgClass: 'cosy:bg-accent/10',
+        headerBgClass: 'cosy:bg-base-200',
+        statusBgClass: 'cosy:bg-accent/15',
     },
-    green: {
-        type: 'green',
-        name: '绿色',
-        description: '绿色主题背景',
-        bgClass: 'cosy:bg-green-50',
-        headerBgClass: 'cosy:bg-green-100',
-        statusBgClass: 'cosy:bg-green-100/95',
+    neutral: {
+        type: 'neutral',
+        name: '中性',
+        description: '中性主题背景',
+        bgClass: 'cosy:bg-neutral/10',
+        headerBgClass: 'cosy:bg-base-200',
+        statusBgClass: 'cosy:bg-neutral/15',
     },
-    purple: {
-        type: 'purple',
-        name: '紫色',
-        description: '紫色主题背景',
-        bgClass: 'cosy:bg-purple-50',
-        headerBgClass: 'cosy:bg-purple-100',
-        statusBgClass: 'cosy:bg-purple-100/95',
+    info: {
+        type: 'info',
+        name: '信息',
+        description: '信息主题背景',
+        bgClass: 'cosy:bg-info/10',
+        headerBgClass: 'cosy:bg-base-200',
+        statusBgClass: 'cosy:bg-info/15',
     },
-    orange: {
-        type: 'orange',
-        name: '橙色',
-        description: '橙色主题背景',
-        bgClass: 'cosy:bg-orange-50',
-        headerBgClass: 'cosy:bg-orange-100',
-        statusBgClass: 'cosy:bg-orange-100/95',
+    success: {
+        type: 'success',
+        name: '成功',
+        description: '成功主题背景',
+        bgClass: 'cosy:bg-success/10',
+        headerBgClass: 'cosy:bg-base-200',
+        statusBgClass: 'cosy:bg-success/15',
     },
-    red: {
-        type: 'red',
-        name: '红色',
-        description: '红色主题背景',
-        bgClass: 'cosy:bg-red-50',
-        headerBgClass: 'cosy:bg-red-100',
-        statusBgClass: 'cosy:bg-red-100/95',
+    warning: {
+        type: 'warning',
+        name: '警告',
+        description: '警告主题背景',
+        bgClass: 'cosy:bg-warning/10',
+        headerBgClass: 'cosy:bg-base-200',
+        statusBgClass: 'cosy:bg-warning/15',
+    },
+    error: {
+        type: 'error',
+        name: '错误',
+        description: '错误主题背景',
+        bgClass: 'cosy:bg-error/10',
+        headerBgClass: 'cosy:bg-base-200',
+        statusBgClass: 'cosy:bg-error/15',
     },
 };
 
