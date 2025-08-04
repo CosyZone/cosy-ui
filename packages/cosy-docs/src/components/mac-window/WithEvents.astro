@@ -51,7 +51,8 @@ const windowId = 'with-events-window';
   function updateEventLog() {
     const eventLogElement = document.getElementById('event-log');
     if (eventLogElement) {
-      const logContainer = eventLogElement.querySelector('.cosy:space-y-1');
+      // 直接使用 eventLogElement 作为容器，因为它已经有正确的类名
+      const logContainer = eventLogElement;
       if (logContainer) {
         // 清除现有事件
         const existingEvents = logContainer.querySelectorAll('.event-item');
@@ -75,31 +76,26 @@ const windowId = 'with-events-window';
       '[data-window-id="with-events-window"]'
     );
     if (windowElement) {
-      // 监听窗口控制按钮点击
-      const closeButton = windowElement.querySelector('.cosy:bg-error');
-      const minimizeButton = windowElement.querySelector('.cosy:bg-warning');
-      const maximizeButton = windowElement.querySelector('.cosy:bg-success');
+      // 监听窗口控制按钮点击 - 使用更通用的选择器
+      const controlButtons = windowElement.querySelectorAll(
+        'div[class*="bg-error"], div[class*="bg-warning"], div[class*="bg-success"]'
+      );
 
-      if (closeButton) {
-        closeButton.addEventListener('click', () => {
-          console.log('关闭窗口');
-          addEvent('关闭窗口');
+      controlButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const buttonClasses = button.className;
+          if (buttonClasses.includes('bg-error')) {
+            console.log('关闭窗口');
+            addEvent('关闭窗口');
+          } else if (buttonClasses.includes('bg-warning')) {
+            console.log('最小化窗口');
+            addEvent('最小化窗口');
+          } else if (buttonClasses.includes('bg-success')) {
+            console.log('最大化窗口');
+            addEvent('最大化窗口');
+          }
         });
-      }
-
-      if (minimizeButton) {
-        minimizeButton.addEventListener('click', () => {
-          console.log('最小化窗口');
-          addEvent('最小化窗口');
-        });
-      }
-
-      if (maximizeButton) {
-        maximizeButton.addEventListener('click', () => {
-          console.log('最大化窗口');
-          addEvent('最大化窗口');
-        });
-      }
+      });
 
       // 监听标签切换
       const tabButtons = windowElement.querySelectorAll('[data-tab]');

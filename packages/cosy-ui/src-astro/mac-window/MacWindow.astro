@@ -239,6 +239,7 @@ const windowId = id || `mac-window-${Math.random().toString(36).substr(2, 9)}`;
     }
   }
 
+  // 处理标签点击的函数
   function handleTabClick(windowId: string, tab: string) {
     // 隐藏所有标签内容
     const windowElement = document.querySelector(
@@ -279,17 +280,22 @@ const windowId = id || `mac-window-${Math.random().toString(36).substr(2, 9)}`;
     }
   }
 
+  // 将函数暴露到全局作用域
+  (window as any).handleCloseWindow = handleCloseWindow;
+  (window as any).handleMinimizeWindow = handleMinimizeWindow;
+  (window as any).handleMaximizeWindow = handleMaximizeWindow;
+  (window as any).handleTabClick = handleTabClick;
+
   // 初始化标签页显示状态
   document.addEventListener('DOMContentLoaded', () => {
     const windows = document.querySelectorAll('[data-window-id]');
     windows.forEach((windowElement) => {
       const windowId = windowElement.getAttribute('data-window-id');
       if (windowId) {
-        const activeTabButton = windowElement.querySelector(
-          '[data-tab].cosy:bg-base-100'
-        );
-        if (activeTabButton) {
-          const activeTab = activeTabButton.getAttribute('data-tab');
+        // 查找第一个标签按钮作为默认激活的标签
+        const firstTabButton = windowElement.querySelector('[data-tab]');
+        if (firstTabButton) {
+          const activeTab = firstTabButton.getAttribute('data-tab');
           if (activeTab) {
             // 隐藏所有标签内容
             const tabContents = windowElement.querySelectorAll('[id^="tab-"]');

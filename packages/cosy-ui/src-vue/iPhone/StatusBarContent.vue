@@ -23,7 +23,11 @@ StatusBarContent 组件显示 iPhone 状态栏的内容，包括时间、信号�
 -->
 <script lang="ts">
 import { defineComponent, ref, onMounted, onUnmounted, computed } from 'vue';
-import { IPhoneSignalIcon, IPhoneWifiIcon, IPhoneBatteryIcon } from '../icons';
+import {
+  IPhoneSignalIcon,
+  IPhoneWifiIcon,
+  IPhoneBatteryIcon,
+} from '../icons/index';
 import '../../style';
 
 export default defineComponent({
