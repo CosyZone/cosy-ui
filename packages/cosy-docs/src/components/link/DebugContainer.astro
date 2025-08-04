@@ -1,0 +1,19 @@
+---
+import { CodeContainer, Container } from '@coffic/cosy-ui';
+import { Link } from '@coffic/cosy-ui';
+
+// 导入示例组件
+import DebugExample from './DebugExample.astro';
+
+// 导入源码
+import DebugExampleCode from './DebugExample.astro?raw';
+---
+
+<CodeContainer titles={['调试模式']} codes={[DebugExampleCode]}>
+  <div id="tab-1">
+    <Container flex="row" gap="sm" items="center">
+      <DebugExample />
+    </Container>
+  </div>
+</CodeContainer>
+
