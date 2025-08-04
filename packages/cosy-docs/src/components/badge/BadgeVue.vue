@@ -3,11 +3,10 @@ import { Badge } from '@coffic/cosy-ui/vue';
 </script>
 
 <template>
-    <div class="cosy:flex cosy:gap-2">
+    <div style="display: flex; gap: 0.5rem;">
         <Badge>default</Badge>
         <Badge variant="primary">primary</Badge>
         <Badge variant="secondary">secondary</Badge>
         <Badge variant="accent">accent</Badge>
     </div>
 </template>
- 
