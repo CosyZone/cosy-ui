@@ -5,7 +5,7 @@ order: 1.5
 ---
 
 import { AlertDialog } from '@coffic/cosy-ui';
-import { ComponentPackage } from '@/components/alert-dialog/index';
+import { AlertDialogPackage } from '@/components/alert-dialog/index';
 
 # {frontmatter.title}
 
@@ -22,57 +22,32 @@ Component Features:
 - Supports custom dialog ID
 - Uses daisyUI styling for consistent design
 
+## id
+
+Unique identifier for the dialog, used to control the dialog's show and hide behavior through JavaScript.
+
+<AlertDialogPackage.Basic />
+
+## lang
+
+Language setting that affects button text, supporting both Chinese and English languages.
+
+<AlertDialogPackage.English />
+
+## message
+
+The message content displayed in the dialog, supporting any text content.
+
+<AlertDialogPackage.Basic />
+
 ## Basic Usage
 
 The simplest confirmation dialog:
 
-<ComponentPackage.ComponentContainers.Basic />
+<AlertDialogPackage.Basic />
 
 ## English Dialog
 
 Display English dialog by using the `lang="en"` property:
 
-<ComponentPackage.ComponentContainers.English />
-
-## API Reference
-
-### Props
-
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| message | string | - | The message content displayed in the dialog |
-| lang | 'zh-cn' \| 'en' | 'zh-cn' | Language setting that affects button text |
-| id | string | 'alert-dialog' | Unique identifier for the dialog |
-
-### Usage Instructions
-
-1. **Show Dialog**: Use the `showAlertDialog(dialogId)` function to display the dialog
-2. **Close Dialog**: Click the background overlay or confirm button to close the dialog
-3. **Internationalization**: Switch between Chinese and English interfaces using the `lang` property
-4. **Custom ID**: Set a unique identifier for the dialog using the `id` property
-
-### Example Code
-
-```astro
----
-import { AlertDialog } from '@coffic/cosy-ui';
----
-
-<button 
-  style="
-    background-color: #3b82f6;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
-    cursor: pointer;
-  "
-  onclick="showAlertDialog('my-dialog')">
-  Show Dialog
-</button>
-
-<AlertDialog 
-  message="Are you sure you want to perform this action?" 
-  id="my-dialog"
-/>
-``` 
+<AlertDialogPackage.English />
