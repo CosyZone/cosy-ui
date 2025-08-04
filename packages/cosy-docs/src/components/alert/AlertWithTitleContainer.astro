@@ -1,10 +1,14 @@
 ---
+/**
+ * @component AlertWithTitleContainer
+ * @description 带标题的 Alert 组件示例容器
+ */
 import { CodeContainer } from '@coffic/cosy-ui';
 import AlertWithTitle from './AlertWithTitle.astro';
 import WithTitleSourceCode from './AlertWithTitle.astro?raw';
 ---
 
-<CodeContainer codes={[WithTitleSourceCode]}>
+<CodeContainer titles={['带标题']} codes={[WithTitleSourceCode]}>
   <div id="tab-1">
     <AlertWithTitle />
   </div>

@@ -11,7 +11,7 @@ import { AlertPackage } from '@/components/alert/index';
 
 ## Introduction
 
-The Alert component is used to display important alert messages to users, supporting various types (info/success/warning/error) and custom styles.
+The Alert component is used to display important alert messages to users, supporting various types of alert styles and interactive effects.
 
 Component features:
 
@@ -21,77 +21,88 @@ Component features:
 - Responsive design, adapts to different screen sizes
 - Can control whether to display icons
 - Supports setting vertical margin
+- Supports multiple style variants
+
+## class
+
+Custom CSS class name for overriding default styles.
+
+<AlertPackage.CustomStyle />
+
+## closable
+
+Whether the alert is closable. When set to false, the close button is hidden.
+
+<AlertPackage.Closable />
+
+## description
+
+Description text displayed below the title, with smaller font size and reduced opacity.
+
+<AlertPackage.WithTitle />
+
+## marginY
+
+Vertical margin size, supporting preset size values.
+
+<AlertPackage.MarginY />
+
+## showIcon
+
+Whether to display the icon. When set to false, the type-specific icon is hidden.
+
+<AlertPackage.NoIcon />
+
+## title
+
+Alert title, optional, displayed as bold text.
+
+<AlertPackage.WithTitle />
+
+## type
+
+Alert type, affecting color and icon. Supports four types: info, success, warning, error.
+
+<AlertPackage.Types />
+
+## variant
+
+Style variant, supporting four styles: solid (filled), outline (bordered), dash (dashed), soft (gentle).
+
+### Outline Style
+
+Set `variant="outline"` to use outline style:
+
+<AlertPackage.Outline />
+
+### Dash Style
+
+Set `variant="dash"` to use dashed outline style:
+
+<AlertPackage.Dash />
+
+### Soft Style
+
+Set `variant="soft"` to use soft style:
+
+<AlertPackage.Soft />
 
 ## Basic Usage
 
 The simplest way to display alert messages:
 
-<AlertPackage.AlertContainers.Basic />
-
-## Alert with Title
-
-Add a title using the title property:
-
-<AlertPackage.AlertContainers.WithTitle />
-
-## Alert Types
-
-The Alert component supports four preset types:
-
-<AlertPackage.AlertContainers.Types />
-
-## Hide Icon
-
-You can hide the icon using `showIcon={false}`:
-
-<AlertPackage.AlertContainers.NoIcon />
-
-## Custom Styles
-
-Customize alert box styles using the class property:
-
-<AlertPackage.AlertContainers.CustomStyle />
-
-## Vertical Margin
-
-You can set vertical margin using the `marginY` property, which supports preset size values:
-
-<AlertPackage.AlertContainers.MarginY />
-
-## Closable Alert
-
-You can control whether an alert is closable using the `closable` prop. It defaults to `true`.
-
-<AlertPackage.AlertContainers.Closable />
+<AlertPackage.Basic />
 
 ## Custom Action Button
 
 You can use the `action` slot to add a custom action button on the right side of the Alert:
 
-<AlertPackage.AlertContainers.Action />
+<AlertPackage.Action />
 
 This slot is rendered on the right side of the Alert, suitable for custom buttons or other actions.
-
-## Outline Style    
-
-Set `variant="outline"` to use outline style:
-
-<AlertPackage.AlertContainers.Outline />
-
-## Dash Style
-
-Set `variant="dash"` to use dashed outline style:
-
-<AlertPackage.AlertContainers.Dash />
-
-## Soft Style
-
-Set `variant="soft"` to use soft style:
-
-<AlertPackage.AlertContainers.Soft />
 
 ## Vue Component
 
 This component also supports Vue, with the following usage:
 
-<AlertPackage.AlertContainers.Vue />
+<AlertPackage.Vue />
