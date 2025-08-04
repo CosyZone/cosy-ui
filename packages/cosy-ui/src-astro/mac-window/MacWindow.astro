@@ -14,6 +14,13 @@
  * </MacWindow>
  * ```
  *
+ * 带背景色：
+ * ```astro
+ * <MacWindow title="代码编辑器" bgType="blue">
+ *   <div>窗口内容</div>
+ * </MacWindow>
+ * ```
+ *
  * 带标签页：
  * ```astro
  * <MacWindow
@@ -21,6 +28,7 @@
  *   tabs={['通用', '外观', '高级']}
  *   defaultTab="外观"
  *   id="settings-window"
+ *   bgType="purple"
  * >
  *   <div id="tab-通用">通用设置内容</div>
  *   <div id="tab-外观">外观设置内容</div>
@@ -30,7 +38,7 @@
  *
  * 带工具栏和状态栏：
  * ```astro
- * <MacWindow title="文件浏览器">
+ * <MacWindow title="文件浏览器" bgType="green">
  *   <div slot="toolbar">
  *     <button class="cosy:btn cosy:btn-ghost cosy:btn-sm">
  *       <SearchIcon class="cosy:w-4 cosy:h-4" />
@@ -58,6 +66,7 @@
  * @prop {Array} [tabs=[]] - 标签页字符串数组，如 ['标签1', '标签2', '标签3']
  * @prop {String} [defaultTab=''] - 默认选中的标签页
  * @prop {String} [id=''] - 窗口唯一标识符，用于标签页切换
+ * @prop {String} [bgType='default'] - 背景色类型，可选值：default, light, dark, blue, green, purple, orange, red
  *
  * @slots
  * @slot default - 窗口主要内容
@@ -68,6 +77,8 @@
 
 import '../../style';
 import { AlertDialog } from '../alert-dialog';
+import { getMacWindowBgConfig } from '../../src/utils/mac-window-bg';
+import type { MacWindowBgType } from '../../src/utils/mac-window-bg';
 
 export interface Props {
   height?: string;
@@ -76,6 +87,7 @@ export interface Props {
   tabs?: string[];
   defaultTab?: string;
   id?: string;
+  bgType?: MacWindowBgType;
 }
 
 const {
@@ -85,7 +97,11 @@ const {
   tabs = [],
   defaultTab = '',
   id = '',
+  bgType = 'default',
 } = Astro.props;
+
+// 获取背景色配置
+const bgConfig = getMacWindowBgConfig(bgType);
 
 // 如果没有设置默认标签或默认标签不在tabs中，则选择第一个标签
 const activeTab =
@@ -100,11 +116,11 @@ const windowId = id || `mac-window-${Math.random().toString(36).substr(2, 9)}`;
 ---
 
 <div
-  class={`cosy:flex cosy:max-w-5xl cosy:mx-auto cosy:bg-base-100 cosy:relative cosy:rounded-2xl cosy:overflow-hidden ${height} ${withShadow ? 'cosy:shadow-lg' : ''}`}
+  class={`cosy:flex cosy:max-w-5xl cosy:mx-auto cosy:relative cosy:rounded-2xl cosy:overflow-hidden ${bgConfig.bgClass} ${height} ${withShadow ? 'cosy:shadow-lg' : ''}`}
   data-window-id={windowId}>
   <!-- 窗口控制按钮 -->
   <div
-    class="cosy:absolute cosy:top-0 cosy:left-0 cosy:right-0 cosy:flex cosy:items-center cosy:h-12 cosy:px-4 cosy:bg-base-200 cosy:border-b cosy:border-base-300">
+    class={`cosy:absolute cosy:top-0 cosy:left-0 cosy:right-0 cosy:flex cosy:items-center cosy:h-12 cosy:px-4 cosy:border-b cosy:border-base-300 ${bgConfig.headerBgClass}`}>
     <div class="cosy:flex cosy:items-center cosy:space-x-2">
       <div
         class="cosy:w-3 cosy:h-3 cosy:rounded-full cosy:bg-error cosy:cursor-pointer hover:cosy:opacity-80 cosy:transition-opacity"
@@ -164,7 +180,8 @@ const windowId = id || `mac-window-${Math.random().toString(36).substr(2, 9)}`;
     <!-- 底部状态栏 -->
     {
       Astro.slots.status && (
-        <div class="cosy:h-6 cosy:bg-base-200/95 cosy:border-t cosy:border-base-300 cosy:flex cosy:items-center cosy:justify-end cosy:px-4 cosy:text-sm">
+        <div
+          class={`cosy:h-6 cosy:border-t cosy:border-base-300 cosy:flex cosy:items-center cosy:justify-end cosy:px-4 cosy:text-sm ${bgConfig.statusBgClass}`}>
           <div class="cosy:flex cosy:items-center cosy:space-x-2">
             <slot name="status" />
           </div>

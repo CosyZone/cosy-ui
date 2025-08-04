@@ -75,6 +75,7 @@ export * from './src/utils/language';
 export * from './src/utils/lang_package';
 export * from './src/utils/logger';
 export * from './src/utils/link';
+export * from './src/utils/mac-window-bg';
 
 // 图标组件
 export * from './src-astro/icons';

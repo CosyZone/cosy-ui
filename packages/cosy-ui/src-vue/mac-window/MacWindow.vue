@@ -13,6 +13,13 @@ MacWindow 组件模拟 macOS 风格的应用窗口，包含标题栏、工具栏
 </MacWindow>
 ```
 
+带背景色：
+```vue
+<MacWindow title="代码编辑器" bgType="blue">
+  <div>窗口内容</div>
+</MacWindow>
+```
+
 带标签页：
 ```vue
 <template>
@@ -20,6 +27,7 @@ MacWindow 组件模拟 macOS 风格的应用窗口，包含标题栏、工具栏
     title="设置"
     :tabs="['通用', '外观', '高级']"
     defaultTab="外观"
+    bgType="purple"
     :onTabClick="(tab) => { 
       activeTab = tab;
       console.log('切换到标签:', tab);
@@ -43,6 +51,7 @@ const activeTab = ref('外观');
 ```vue
 <MacWindow 
   title="文件浏览器"
+  bgType="green"
   :onCloseWindow="() => handleClose()"
   :onTabClick="(tab) => handleTabChange(tab)"
 >
@@ -52,7 +61,7 @@ const activeTab = ref('外观');
 
 带工具栏和状态栏：
 ```vue
-<MacWindow title="文件浏览器">
+<MacWindow title="文件浏览器" bgType="orange">
 <template #toolbar>
     <button class="cosy:btn cosy:btn-ghost cosy:btn-sm">
       <SearchIcon class="cosy:w-4 cosy:h-4" />
@@ -79,6 +88,7 @@ const activeTab = ref('外观');
 @prop {Boolean} [withShadow=true] - 是否显示阴影效果
 @prop {Array} [tabs=[]] - 标签页字符串数组，如 ['标签1', '标签2', '标签3']
 @prop {String} [defaultTab=''] - 默认选中的标签页
+@prop {String} [bgType='default'] - 背景色类型，可选值：default, light, dark, blue, green, purple, orange, red
 @prop {Function} [onCloseWindow=null] - 关闭窗口时调用的函数
 @prop {Function} [onMinimizeWindow=null] - 最小化窗口时调用的函数
 @prop {Function} [onMaximizeWindow=null] - 最大化窗口时调用的函数
@@ -98,6 +108,8 @@ const activeTab = ref('外观');
 import '../../style';
 import AlertDialog from '../alert-dialog/AlertDialog.vue';
 import { ref, defineComponent, type PropType } from 'vue';
+import { getMacWindowBgConfig } from '../../src/utils/mac-window-bg';
+import type { MacWindowBgType } from '../../src/utils/mac-window-bg';
 
 export default defineComponent({
   name: 'MacWindow',
@@ -125,6 +137,10 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    bgType: {
+      type: String as PropType<MacWindowBgType>,
+      default: 'default',
+    },
     onCloseWindow: {
       type: Function,
       default: null,
@@ -146,6 +162,9 @@ export default defineComponent({
     const showAlertDialog = ref(false);
     const alertMessage = ref('');
     const activeTab = ref(props.defaultTab);
+
+    // 获取背景色配置
+    const bgConfig = getMacWindowBgConfig(props.bgType);
 
     // 如果没有设置默认标签或默认标签不在tabs中，则选择第一个标签
     if (
@@ -190,6 +209,7 @@ export default defineComponent({
       showAlertDialog,
       alertMessage,
       activeTab,
+      bgConfig,
       handleCloseWindow,
       handleMinimizeWindow,
       handleMaximizeWindow,
@@ -201,12 +221,13 @@ export default defineComponent({
 
 <template>
   <div
-    class="cosy:flex cosy:max-w-5xl cosy:mx-auto cosy:bg-base-100 cosy:relative cosy:rounded-2xl cosy:overflow-hidden"
-    :class="[height, withShadow ? 'cosy:shadow-lg' : '']"
+    class="cosy:flex cosy:max-w-5xl cosy:mx-auto cosy:relative cosy:rounded-2xl cosy:overflow-hidden"
+    :class="[bgConfig.bgClass, height, withShadow ? 'cosy:shadow-lg' : '']"
   >
     <!-- 窗口控制按钮 -->
     <div
-      class="cosy:absolute cosy:top-0 cosy:left-0 cosy:right-0 cosy:flex cosy:items-center cosy:h-12 cosy:px-4 cosy:bg-base-200 cosy:border-b cosy:border-base-300"
+      class="cosy:absolute cosy:top-0 cosy:left-0 cosy:right-0 cosy:flex cosy:items-center cosy:h-12 cosy:px-4 cosy:border-b cosy:border-base-300"
+      :class="bgConfig.headerBgClass"
     >
       <div class="cosy:flex cosy:items-center cosy:space-x-2">
         <div
@@ -269,7 +290,8 @@ export default defineComponent({
       <!-- 底部状态栏 -->
       <div
         v-if="$slots.status"
-        class="cosy:h-6 cosy:bg-base-200/95 cosy:border-t cosy:border-base-300 cosy:flex cosy:items-center cosy:justify-end cosy:px-4 cosy:text-sm"
+        class="cosy:h-6 cosy:border-t cosy:border-base-300 cosy:flex cosy:items-center cosy:justify-end cosy:px-4 cosy:text-sm"
+        :class="bgConfig.statusBgClass"
       >
         <div class="cosy:flex cosy:items-center cosy:space-x-2">
           <slot name="status"></slot>

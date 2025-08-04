@@ -1,3 +1,5 @@
+import type { MacWindowBgType } from '../../src/utils/mac-window-bg';
+
 export interface MacWindowProps {
     height?: string;
     title?: string;
@@ -5,4 +7,5 @@ export interface MacWindowProps {
     tabs?: string[];
     defaultTab?: string;
     id?: string;
+    bgType?: MacWindowBgType;
 } 

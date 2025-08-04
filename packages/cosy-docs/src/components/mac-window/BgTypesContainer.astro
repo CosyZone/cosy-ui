@@ -1,0 +1,46 @@
+---
+/**
+ * @component MacWindow BgTypes Container
+ * @description 展示 MacWindow 组件的不同背景色类型的容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import BgTypesCode from './BgTypes.astro?raw';
+
+// 导入各个背景色示例
+import DefaultBg from './DefaultBg.astro';
+import LightBg from './LightBg.astro';
+import DarkBg from './DarkBg.astro';
+import BlueBg from './BlueBg.astro';
+import GreenBg from './GreenBg.astro';
+import PurpleBg from './PurpleBg.astro';
+import OrangeBg from './OrangeBg.astro';
+import RedBg from './RedBg.astro';
+---
+
+<CodeContainer codes={[BgTypesCode]}>
+  <div id="tab-1">
+    <DefaultBg />
+  </div>
+  <div id="tab-2">
+    <LightBg />
+  </div>
+  <div id="tab-3">
+    <DarkBg />
+  </div>
+  <div id="tab-4">
+    <BlueBg />
+  </div>
+  <div id="tab-5">
+    <GreenBg />
+  </div>
+  <div id="tab-6">
+    <PurpleBg />
+  </div>
+  <div id="tab-7">
+    <OrangeBg />
+  </div>
+  <div id="tab-8">
+    <RedBg />
+  </div>
+</CodeContainer>

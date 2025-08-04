@@ -42,11 +42,30 @@
  * </Grid>
  * ```
  *
+ * 设置垂直外边距：
+ * ```astro
+ * <Grid cols={3} gap="md" marginY="lg">
+ *   <div>第一列</div>
+ *   <div>第二列</div>
+ *   <div>第三列</div>
+ * </Grid>
+ * ```
+ *
+ * 显示边框：
+ * ```astro
+ * <Grid cols={2} gap="md" border>
+ *   <div>第一列</div>
+ *   <div>第二列</div>
+ * </Grid>
+ * ```
+ *
  * @props
  * @prop {number | Object} [cols=1] - 网格列数，可以是固定值或响应式对象
  * @prop {string} [gap="md"] - 网格间距，可选值：none, xs, sm, md, lg, xl
  * @prop {string} [rowGap] - 行间距，默认与 gap 相同
  * @prop {string} [colGap] - 列间距，默认与 gap 相同
+ * @prop {string} [marginY] - 垂直外边距，可选值：none, xs, sm, md, lg, xl
+ * @prop {boolean} [border] - 是否显示边框
  * @prop {string} [class] - 自定义类名
  * @prop {any} [class:list] - 类名列表
  */
@@ -54,11 +73,9 @@
 // 导入样式
 import '../../style.ts';
 
-import type { HTMLAttributes } from 'astro/types';
+import type { GridProps } from './types';
 
 type GapSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type Breakpoint = 'base' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-
 type ResponsiveValue<T> =
   | T
   | {
@@ -70,45 +87,15 @@ type ResponsiveValue<T> =
       '2xl'?: T;
     };
 
-interface Props extends HTMLAttributes<'div'> {
-  /**
-   * 网格列数，可以是固定值或响应式对象
-   * @default 1
-   */
-  cols?: ResponsiveValue<number>;
-
-  /**
-   * 网格间距
-   * @default "md"
-   */
-  gap?: GapSize;
-
-  /**
-   * 行间距，默认与gap相同
-   */
-  rowGap?: GapSize;
-
-  /**
-   * 列间距，默认与gap相同
-   */
-  colGap?: GapSize;
-
-  /**
-   * 自定义类名
-   */
-  class?: string;
-
-  /**
-   * 类名列表
-   */
-  'class:list'?: any;
-}
+type Props = GridProps;
 
 const {
   cols = 1,
   gap = 'md',
   rowGap,
   colGap,
+  marginY,
+  border = false,
   class: className = '',
   'class:list': classList,
   ...rest
@@ -423,6 +410,16 @@ const colGapClasses: Record<GapSize, string> = {
   xl: 'cosy:col-gap-12',
 };
 
+// 垂直外边距映射
+const marginYClasses: Record<GapSize, string> = {
+  none: 'cosy:my-0',
+  xs: 'cosy:my-2',
+  sm: 'cosy:my-4',
+  md: 'cosy:my-6',
+  lg: 'cosy:my-8',
+  xl: 'cosy:my-12',
+};
+
 // 构建最终类名
 const gridClasses = [
   'cosy:grid',
@@ -433,6 +430,8 @@ const gridClasses = [
       ? gapClasses[gap as GapSize]
       : gapClasses[gap as GapSize],
   colGap ? colGapClasses[colGap as GapSize] : null,
+  marginY ? marginYClasses[marginY as GapSize] : null,
+  border ? 'cosy:border cosy:rounded-lg' : null,
   className,
 ]
   .filter(Boolean)
