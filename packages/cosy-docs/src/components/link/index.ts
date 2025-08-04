@@ -2,6 +2,7 @@ import BasicContainer from './BasicContainer.astro';
 import ButtonStyleContainer from './ButtonStyleContainer.astro';
 import VariantsContainer from './VariantsContainer.astro';
 import AnimationsContainer from './AnimationsContainer.astro';
+import ButtonAnimationsContainer from './ButtonAnimationsContainer.astro';
 import AdvancedContainer from './AdvancedContainer.astro';
 import LinkIconsContainer from './LinkIconsContainer.astro';
 import ExternalContainer from './ExternalContainer.astro';
@@ -17,35 +18,32 @@ import AlignContainer from './AlignContainer.astro';
 import ActiveContainer from './ActiveContainer.astro';
 import NavigationTypeContainer from './NavigationTypeContainer.astro';
 import DebugContainer from './DebugContainer.astro';
-import CenterTextContainer from './CenterTextContainer.astro';
 import CustomClassContainer from './CustomClassContainer.astro';
 import ClassListContainer from './ClassListContainer.astro';
 import RestContainer from './RestContainer.astro';
 
 export const LinkPackage = {
-    ComponentContainers: {
-        Basic: BasicContainer,
-        External: ExternalContainer,
-        Variants: VariantsContainer,
-        Sizes: SizesContainer,
-        Animations: AnimationsContainer,
-        Block: BlockContainer,
-        ButtonStyle: ButtonStyleContainer,
-        Circle: CircleContainer,
-        Ghost: GhostContainer,
-        Rounded: RoundedContainer,
-        NoUnderline: NoUnderlineContainer,
-        FullWidth: FullWidthContainer,
-        Colors: ColorsContainer,
-        Align: AlignContainer,
-        Active: ActiveContainer,
-        NavigationType: NavigationTypeContainer,
-        Icons: LinkIconsContainer,
-        Debug: DebugContainer,
-        CenterText: CenterTextContainer,
-        CustomClass: CustomClassContainer,
-        ClassList: ClassListContainer,
-        Rest: RestContainer,
-        Advanced: AdvancedContainer,
-    },
+    Active: ActiveContainer,
+    Align: AlignContainer,
+    Animations: AnimationsContainer,
+    Block: BlockContainer,
+    Basic: BasicContainer,
+    ButtonAnimations: ButtonAnimationsContainer,
+    ButtonStyle: ButtonStyleContainer,
+    Circle: CircleContainer,
+    ClassList: ClassListContainer,
+    Colors: ColorsContainer,
+    CustomClass: CustomClassContainer,
+    Debug: DebugContainer,
+    External: ExternalContainer,
+    FullWidth: FullWidthContainer,
+    Ghost: GhostContainer,
+    Icons: LinkIconsContainer,
+    NavigationType: NavigationTypeContainer,
+    NoUnderline: NoUnderlineContainer,
+    Rest: RestContainer,
+    Rounded: RoundedContainer,
+    Sizes: SizesContainer,
+    Variants: VariantsContainer,
+    Advanced: AdvancedContainer,
 }; 

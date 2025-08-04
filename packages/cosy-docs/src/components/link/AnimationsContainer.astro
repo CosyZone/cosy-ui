@@ -5,24 +5,48 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import LinkAnimations from './LinkAnimations.astro';
-import ButtonAnimations from './ButtonAnimations.astro';
+import HoverLiftAnimation from './HoverLiftAnimation.astro';
+import HoverGlowAnimation from './HoverGlowAnimation.astro';
+import HoverScaleAnimation from './HoverScaleAnimation.astro';
+import BlockLinkExample from './BlockLinkExample.astro';
+import LightVariantExample from './LightVariantExample.astro';
 
-import linkAnimationsCode from './LinkAnimations.astro?raw';
-import buttonAnimationsCode from './ButtonAnimations.astro?raw';
+import hoverLiftCode from './HoverLiftAnimation.astro?raw';
+import hoverGlowCode from './HoverGlowAnimation.astro?raw';
+import hoverScaleCode from './HoverScaleAnimation.astro?raw';
+import blockLinkCode from './BlockLinkExample.astro?raw';
+import lightVariantCode from './LightVariantExample.astro?raw';
 ---
 
 <CodeContainer
-  codes={[linkAnimationsCode, buttonAnimationsCode]}
-  titles={['链接动画', '按钮动画']}
+  codes={[
+    hoverLiftCode,
+    hoverGlowCode,
+    hoverScaleCode,
+    blockLinkCode,
+    lightVariantCode,
+  ]}
+  titles={['上浮效果', '发光效果', '缩放效果', '块级链接', '浅色变体']}
   descriptions={[
-    '使用 animation 属性为链接添加动画效果，支持 hover-lift、hover-glow、hover-scale、none',
-    '按钮样式的链接也支持相同的动画效果',
+    '使用 animation="hover-lift" 为链接添加上浮动画效果',
+    '使用 animation="hover-glow" 为链接添加发光动画效果',
+    '使用 animation="hover-scale" 为链接添加缩放动画效果',
+    '使用 block 和 align="center" 属性创建块级居中链接',
+    '使用 variant="light" 在浅色背景中显示链接',
   ]}>
   <div id="tab-1">
-    <LinkAnimations />
+    <HoverLiftAnimation />
   </div>
   <div id="tab-2">
-    <ButtonAnimations />
+    <HoverGlowAnimation />
+  </div>
+  <div id="tab-3">
+    <HoverScaleAnimation />
+  </div>
+  <div id="tab-4">
+    <BlockLinkExample />
+  </div>
+  <div id="tab-5">
+    <LightVariantExample />
   </div>
 </CodeContainer>

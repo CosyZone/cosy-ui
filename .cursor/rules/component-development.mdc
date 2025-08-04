@@ -99,6 +99,36 @@ alwaysApply: true
 1. **简介** - 组件描述和特性
 2. **按字母顺序的属性介绍** - 每个属性一个二级标题
 3. **多标签展示** - 每个属性使用多标签展示不同的用法
+4. **复杂属性的三级标题拆分** - 当单个属性的功能特性过多时，可以使用三级标题进行拆分
+
+**三级标题拆分规则**：
+
+当一个属性包含多种不同的使用场景或功能特性时，可以在二级标题下创建多个三级标题来分别展示：
+
+**正确示例**：
+```markdown
+## animation
+
+动画效果，定义鼠标悬停时的动画行为。可选值：`none`、`hover-lift`、`hover-glow`、`hover-scale`。
+
+### 链接动画
+
+基础链接的动画效果展示。
+
+<ComponentPackage.ComponentContainers.Animations />
+
+### 按钮动画
+
+按钮样式的链接也支持动画效果，可以结合 `btn` 和 `animation` 属性使用。
+
+<ComponentPackage.ComponentContainers.ButtonAnimations />
+```
+
+**拆分原则**：
+- 当单个 CodeContainer 无法充分展示所有功能特性时
+- 当属性有多个不同的使用场景时（如基础用法 vs 按钮用法）
+- 当需要分别展示不同的功能组合时
+- 每个三级标题对应一个独立的容器组件
 
 **正确示例**：
 ```markdown
@@ -189,13 +219,42 @@ import BasicContainer from './BasicContainer.astro';
 // ... 其他示例组件
 
 export const ComponentPackage = {
+  Basic: BasicContainer,
+  CustomStyle: CustomStyleContainer,
+  // ... 其他容器
+};
+```
+
+**重要**：ComponentPackage 结构应该保持简洁，直接导出容器组件，避免不必要的嵌套层级。
+
+**正确示例**：
+```typescript
+export const ComponentPackage = {
+  Active: ActiveContainer,
+  Align: AlignContainer,
+  Animations: AnimationsContainer,
+  Block: BlockContainer,
+  Basic: BasicContainer,
+  ButtonAnimations: ButtonAnimationsContainer,
+  // ... 其他容器
+};
+```
+
+**错误示例**：
+```typescript
+export const ComponentPackage = {
   ComponentContainers: {
-    Basic: BasicContainer,
-    CustomStyle: CustomStyleContainer,
+    Active: ActiveContainer,
+    Align: AlignContainer,
     // ... 其他容器
   },
 };
 ```
+
+**原因**：
+1. 减少不必要的嵌套层级，提高代码可读性
+2. 简化文档中的引用方式：`<ComponentPackage.Active />` 而不是 `<ComponentPackage.ComponentContainers.Active />`
+3. 保持结构的一致性，避免过度设计
 
 ### 3. 示例组件命名规范
 
@@ -445,6 +504,8 @@ import CustomStyleExampleCode from './CustomStyleExample.astro?raw';
 18. **Props排序错误**：组件注释文档中的 `@props` 没有按字母顺序排列
 19. **文档顺序错误**：文档没有按照组件注释文档中 `@props` 的顺序编写
 20. **多标签用法缺失**：没有为每个属性创建多标签展示多种用法
+21. **复杂属性未拆分**：当单个属性功能特性过多时，没有使用三级标题进行拆分展示
+22. **ComponentPackage结构复杂**：使用不必要的嵌套层级，如 `ComponentContainers` 包装
 
 ## 检查清单
 
@@ -473,6 +534,7 @@ import CustomStyleExampleCode from './CustomStyleExample.astro?raw';
 - [ ] 容器组件使用 CodeContainer 的多标签特性
 - [ ] 容器组件包含完整的组件文档注释
 - [ ] 创建了 ComponentPackage 导出
+- [ ] **ComponentPackage 结构简洁**：直接导出容器组件，避免不必要的嵌套层级
 - [ ] 示例组件优先使用组件库组件：优先使用 Button、Card 等组件库组件
 - [ ] 示例组件使用原生 CSS 样式作为备选：当组件库组件不满足需求时使用原生样式
 - [ ] 容器组件正确导入源代码：使用 `?raw` 后缀导入示例组件源代码
@@ -494,3 +556,4 @@ import CustomStyleExampleCode from './CustomStyleExample.astro?raw';
 - [ ] 执行 `pnpm build:docs` 验证构建成功
 - [ ] **文档按照组件注释文档中 `@props` 的顺序编写**
 - [ ] **每个属性使用多标签展示多种用法**
+- [ ] **复杂属性使用三级标题拆分**：当单个属性功能特性过多时，使用三级标题分别展示不同场景

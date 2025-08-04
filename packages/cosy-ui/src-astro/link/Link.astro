@@ -19,7 +19,6 @@
  * @prop {string} [animation='none'] - 动画效果：none、hover-lift、hover-glow、hover-scale
  * @prop {boolean} [block=false] - 是否为块级显示
  * @prop {boolean} [btn=false] - 是否启用按钮风格
- * @prop {boolean} [centerText=false] - 是否居中文本（兼容属性）
  * @prop {boolean} [circle=false] - 是否为圆形按钮（需配合 btn 使用）
  * @prop {string} [class] - 自定义 CSS 类名
  * @prop {any} [class:list] - 类名列表
@@ -114,7 +113,6 @@ const {
   class: className = '',
   'class:list': classList,
   debug = false,
-  centerText = false,
   btn = false,
   circle = false,
   ghost = false,
@@ -204,11 +202,6 @@ const classes = [
   // 自定义类名
   className,
 ];
-
-// 文本居中样式（兼容旧用法）
-if (centerText) {
-  classes.push('cosy:justify-center cosy:text-center');
-}
 
 // 调试样式
 if (debug) {

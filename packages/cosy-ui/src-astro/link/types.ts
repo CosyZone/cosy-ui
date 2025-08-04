@@ -81,7 +81,6 @@ export interface LinkProps extends HTMLAttributes<'a'> {
     animation?: LinkAnimation;
     size?: LinkSize;
     debug?: boolean;
-    centerText?: boolean;
     btn?: boolean;
     circle?: boolean;
     ghost?: boolean;

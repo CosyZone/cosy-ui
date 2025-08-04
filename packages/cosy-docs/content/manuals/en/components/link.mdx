@@ -2,11 +2,10 @@
 title: 'Link'
 folder: false
 order: 14.3
-badge: 'beta'
 ---
 
 import { Link } from '@coffic/cosy-ui';
-import { LinkPackage } from '../../../../src/components/link/index.ts';
+import { LinkPackage } from '@/components/link/index.ts';
 
 # {frontmatter.title}
 
@@ -14,38 +13,136 @@ import { LinkPackage } from '../../../../src/components/link/index.ts';
 
 The Link component is a powerful link component that not only supports traditional link styles but also provides button styles, animation effects, and rich customization options. Through semantic property configuration, you can achieve various visual effects without manually writing CSS class names.
 
-## Basic Usage
+## active
 
-The simplest way to use links, supporting both internal and external links.
+Whether the link is in an active state.
 
-<LinkPackage.ComponentContainers.Basic />
+<LinkPackage.Active />
 
-## Style Variants
+## align
 
-Apply different style variants using the `variant` attribute, suitable for different use cases. Includes GitHub link variant and document navigation variant.
+Alignment method. Optional values: `left`, `center`, `right`.
 
-<LinkPackage.ComponentContainers.Variants />
+<LinkPackage.Align />
 
-## Icon Support
+## animation
 
-Add various icons to links using the `icon` property.
+### Link Animations
 
-<LinkPackage.ComponentContainers.Icons />
+Animation effects that define the animation behavior on mouse hover. Optional values: `none`, `hover-lift`, `hover-glow`, `hover-scale`.
 
-## Button Styles
+<LinkPackage.Animations />
 
-Enable button styles with the `btn` attribute, supporting multiple colors, sizes, and shapes.
+### Button Animations
 
-<LinkPackage.ComponentContainers.ButtonStyle />
+Button-style links also support animation effects, which can be used in combination with the `btn` and `animation` attributes.
 
-## Animation Effects
+<LinkPackage.ButtonAnimations />
 
-Add hover animation effects using the `animation` attribute to enhance user experience.
+## block
 
-<LinkPackage.ComponentContainers.Animations />
+Whether to display as a block element. When set to `true`, the link will occupy a full line.
 
-## Advanced Features
+<LinkPackage.Block />
 
-More advanced features including alignment, style decorations, debug mode, and more.
+## btn
 
-<LinkPackage.ComponentContainers.Advanced />
+Whether to enable button style. When set to `true`, button styles will be applied.
+
+<LinkPackage.ButtonStyle />
+
+## circle
+
+Whether it's a circular button, requires the `btn` attribute to be used together.
+
+<LinkPackage.Circle />
+
+## class
+
+Custom CSS class name.
+
+<LinkPackage.CustomClass />
+
+## class:list
+
+Class name list.
+
+<LinkPackage.ClassList />
+
+## color
+
+Button color, requires the `btn` attribute to be used together. Optional values: `primary`, `secondary`, `accent`, `info`, `success`, `warning`, `error`.
+
+<LinkPackage.Colors />
+
+## debug
+
+Whether to display debug borders.
+
+<LinkPackage.Debug />
+
+## external
+
+Whether it's an external link. When set to `true`, it will automatically open in a new window.
+
+<LinkPackage.External />
+
+## fullWidth
+
+Whether to occupy full width.
+
+<LinkPackage.FullWidth />
+
+## ghost
+
+Whether it's a ghost button, requires the `btn` attribute to be used together.
+
+<LinkPackage.Ghost />
+
+## href
+
+Link address, required property.
+
+<LinkPackage.Basic />
+
+## icon
+
+Icon name, supports all available icon components.
+
+<LinkPackage.Icons />
+
+## navigationType
+
+Navigation type, requires the `navigation` variant to be used together. Optional values: `previous`, `next`.
+
+<LinkPackage.NavigationType />
+
+## noUnderline
+
+Whether to remove the underline, defaults to `true`.
+
+<LinkPackage.NoUnderline />
+
+## rounded
+
+Whether to add rounded corners.
+
+<LinkPackage.Rounded />
+
+## size
+
+Size, controls the font size and spacing of the link. Optional values: `sm`, `md`, `lg`.
+
+<LinkPackage.Sizes />
+
+## variant
+
+Style variant, used to define the visual style of the link. Optional values: `default`, `primary`, `secondary`, `text`, `cta`, `ghost`, `light`, `navigation`, `github`.
+
+<LinkPackage.Variants />
+
+## rest
+
+Other HTML `<a>` tag attributes.
+
+<LinkPackage.Rest />
