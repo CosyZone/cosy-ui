@@ -6,38 +6,28 @@
 import { PlaceHolder } from '@coffic/cosy-ui';
 ---
 
-<div class="cosy:bg-base-100 cosy:p-4 cosy:space-y-4">
-  <div class="cosy:bg-base-200 cosy:rounded-lg">
-    <PlaceHolder top="lg" bottom="sm" background="base-300">
-      <p class="cosy:text-center">上大下小的内边距</p>
+<div style="padding: 1rem; display: flex; flex-direction: column; gap: 1rem;">
+  <div style=" border-radius: 0.5rem;">
+    <PlaceHolder width="md" height="lg" padding="md" background="base-300">
+      <p style="text-align: center;">中等宽度，大高度</p>
     </PlaceHolder>
   </div>
 
-  <div class="cosy:bg-base-200 cosy:rounded-lg">
-    <PlaceHolder left="md" right="xl" background="base-300">
-      <p class="cosy:text-center">左中等右超大的内边距</p>
+  <div style=" border-radius: 0.5rem;">
+    <PlaceHolder width="xl" height="md" padding="md" background="base-300">
+      <p style="text-align: center;">超大宽度，中等高度</p>
     </PlaceHolder>
   </div>
 
-  <div class="cosy:bg-base-200 cosy:rounded-lg">
-    <PlaceHolder
-      top="lg"
-      bottom="md"
-      left="sm"
-      right="sm"
-      background="base-300">
-      <p class="cosy:text-center">自定义四个方向的内边距</p>
+  <div style=" border-radius: 0.5rem;">
+    <PlaceHolder width="xl" height="xl" padding="xl" background="primary">
+      <p style="text-align: center;">超大宽度和高度，超大内边距</p>
     </PlaceHolder>
   </div>
 
-  <div class="cosy:bg-base-200 cosy:rounded-lg">
-    <PlaceHolder
-      top="xl"
-      bottom="none"
-      left="lg"
-      right="lg"
-      background="base-300">
-      <p class="cosy:text-center">只有上左右内边距</p>
+  <div style=" border-radius: 0.5rem;">
+    <PlaceHolder width="lg" height="lg" padding="lg" background="secondary">
+      <p style="text-align: center;">大宽度和高度，大内边距</p>
     </PlaceHolder>
   </div>
 </div>

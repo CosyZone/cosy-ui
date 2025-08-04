@@ -3,14 +3,14 @@ export type PlaceHolderHeight = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl
 export type PlaceHolderPadding = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface PlaceHolderProps {
-    /** 占位符宽度 */
-    width?: PlaceHolderWidth;
-    /** 占位符高度 */
-    height?: PlaceHolderHeight;
-    /** 内边距大小 */
-    padding?: PlaceHolderPadding;
     /** 背景色类名，如 'base-200', 'primary', 'secondary' */
     background?: string;
     /** 自定义 CSS 类名 */
     class?: string;
+    /** 占位符高度 */
+    height?: PlaceHolderHeight;
+    /** 内边距大小 */
+    padding?: PlaceHolderPadding;
+    /** 占位符宽度 */
+    width?: PlaceHolderWidth;
 } 

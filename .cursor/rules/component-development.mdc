@@ -41,6 +41,52 @@ alwaysApply: true
 2. 示例组件需要独立于任何 CSS 框架，确保用户无论使用什么技术栈都能正常工作
 3. 当组件库组件不满足需求时，使用原生 CSS 样式作为备选方案
 
+### 1.1 示例组件样式强制要求
+
+**重要**：示例组件**必须**使用原生 CSS 样式，**禁止**使用 Tailwind 类。
+
+**强制要求**：
+- ✅ 使用 `style` 属性定义样式
+- ✅ 使用原生 CSS 属性，如 `background-color`、`color`、`padding` 等
+- ❌ **禁止**使用 `class="cosy:bg-primary"` 等 Tailwind 类
+- ❌ **禁止**使用 `class="cosy:text-center"` 等 Tailwind 类
+
+**正确示例**：
+```astro
+<Container style="background-color: #f1f5f9;">
+  <p style="text-align: center;">居中的容器</p>
+</Container>
+```
+
+**错误示例**：
+```astro
+<Container class="cosy:bg-base-200">
+  <p class="cosy:text-center">居中的容器</p>
+</Container>
+```
+
+### 1.2 样式语法规范
+
+**重要**：避免多行 style 属性，可能导致构建错误。
+
+**推荐做法**：
+```astro
+<Container style="background-color: #f1f5f9; border: 2px solid #3b82f6;">
+  <p style="text-align: center;">使用动态样式的容器</p>
+</Container>
+```
+
+**避免做法**：
+```astro
+<Container
+  style="
+    background-color: #f1f5f9;
+    border: 2px solid #3b82f6;
+  ">
+  <p style="text-align: center;">使用动态样式的容器</p>
+</Container>
+```
+
 ### 2. Props接口规范
 
 - Props接口必须与组件文档中的 `@props` 描述**完全一致**
@@ -433,7 +479,7 @@ import CustomStyleExampleCode from './CustomStyleExample.astro?raw';
 - 验证Props接口是否与文档描述一致
 - 确认核心组件是否导入了 [style.ts](mdc:packages/cosy-ui/style.ts)
 - 检查示例组件是否正确放置在文档项目中
-- 检查示例组件是否优先使用组件库组件，或使用原生 CSS 样式而不是 Tailwind 类
+- **检查示例组件是否使用原生 CSS 样式而不是 Tailwind 类**
 - 检查容器组件是否正确使用 `?raw` 后缀导入源代码
 - 检查容器组件是否使用多标签展示，每个功能特性一个标签
 - 检查容器组件的源码数组是否与标签页一一对应
@@ -443,6 +489,7 @@ import CustomStyleExampleCode from './CustomStyleExample.astro?raw';
 - **检查组件注释文档中的 `@props` 是否按字母顺序排列**
 - **检查文档是否按照组件注释文档中 `@props` 的顺序编写**
 - **检查每个属性是否使用多标签展示多种用法**
+- **检查示例组件是否避免使用多行 style 属性**
 
 ### 2. 修复组件
 
@@ -451,7 +498,8 @@ import CustomStyleExampleCode from './CustomStyleExample.astro?raw';
 - 完善Props接口
 - 确保功能实现与文档描述一致
 - 确保示例组件正确导入核心组件
-- 将示例组件中的 Tailwind 类替换为组件库组件或原生 CSS 样式
+- **将示例组件中的 Tailwind 类替换为原生 CSS 样式**
+- **修复多行 style 属性，合并为单行**
 - 确保容器组件使用 `?raw` 后缀导入源代码
 - 确保容器组件使用多标签展示，每个功能特性一个标签
 - 确保容器组件的源码数组与标签页一一对应
@@ -494,7 +542,7 @@ import CustomStyleExampleCode from './CustomStyleExample.astro?raw';
 8. **全局导出错误**：不要在核心组件库中导出示例组件
 9. **构建验证缺失**：忘记执行 `pnpm build:docs` 验证构建
 10. **文档排序错误**：文档的order值不符合字母顺序
-11. **示例组件样式错误**：示例组件使用 Tailwind 类而不是组件库组件或原生 CSS 样式
+11. **示例组件样式错误**：示例组件使用 Tailwind 类而不是原生 CSS 样式
 12. **容器组件导入错误**：容器组件没有使用 `?raw` 后缀导入源代码
 13. **多标签展示错误**：将所有示例放在一个标签中，而不是为每个功能特性创建单独的标签
 14. **源码对应错误**：容器组件的源码数组与标签页不一一对应
@@ -506,6 +554,7 @@ import CustomStyleExampleCode from './CustomStyleExample.astro?raw';
 20. **多标签用法缺失**：没有为每个属性创建多标签展示多种用法
 21. **复杂属性未拆分**：当单个属性功能特性过多时，没有使用三级标题进行拆分展示
 22. **ComponentPackage结构复杂**：使用不必要的嵌套层级，如 `ComponentContainers` 包装
+23. **多行style属性错误**：使用多行style属性导致构建错误
 
 ## 检查清单
 
@@ -535,8 +584,8 @@ import CustomStyleExampleCode from './CustomStyleExample.astro?raw';
 - [ ] 容器组件包含完整的组件文档注释
 - [ ] 创建了 ComponentPackage 导出
 - [ ] **ComponentPackage 结构简洁**：直接导出容器组件，避免不必要的嵌套层级
-- [ ] 示例组件优先使用组件库组件：优先使用 Button、Card 等组件库组件
-- [ ] 示例组件使用原生 CSS 样式作为备选：当组件库组件不满足需求时使用原生样式
+- [ ] **示例组件使用原生 CSS 样式**：使用 `style` 属性而不是 Tailwind 类
+- [ ] **示例组件避免多行 style 属性**：将多行样式合并为单行
 - [ ] 容器组件正确导入源代码：使用 `?raw` 后缀导入示例组件源代码
 - [ ] 多标签展示要求：为每个功能特性创建单独的示例组件和标签页
 - [ ] 源码对应要求：容器组件的源码数组与标签页一一对应
