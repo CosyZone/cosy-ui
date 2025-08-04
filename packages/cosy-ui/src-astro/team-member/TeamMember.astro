@@ -157,9 +157,9 @@ const hoverShadowClass = hoverShadowMap[hoverShadow] || hoverShadowMap['lg'];
               href={link.url}
               external
               variant="ghost"
-              class="cosy:hover:bg-base-200 cosy:p-2 cosy:rounded-full"
+              class="cosy:hover:bg-base-200 cosy:p-2 cosy:rounded-full cosy:flex cosy:items-center cosy:justify-center"
               aria-label={`Visit ${name}'s ${link.platform} profile`}>
-              <SocialIcon platform={link.platform} class="cosy:w-5 cosy:h-5" />
+              <SocialIcon platform={link.platform} />
             </Link>
           ))}
         </div>
