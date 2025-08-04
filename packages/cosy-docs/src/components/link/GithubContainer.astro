@@ -1,0 +1,18 @@
+---
+/**
+ * @component GithubContainer
+ * @description GitHub 链接示例的容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import GithubLink from './GithubLink.astro';
+
+// 导入对应的源码
+import GithubLinkCode from './GithubLink.astro?raw';
+---
+
+<CodeContainer titles={['GitHub 链接示例']} codes={[GithubLinkCode]}>
+  <div id="tab-1">
+    <GithubLink />
+  </div>
+</CodeContainer>

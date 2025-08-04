@@ -1,0 +1,22 @@
+---
+/**
+ * @component NavigationComplete
+ * @description 展示完整的导航示例，包含上一个和下一个按钮
+ */
+
+import { Link } from '@coffic/cosy-ui';
+---
+
+<div
+  style="padding: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 1rem; min-height: 200px;">
+  <div
+    style="display: flex; justify-content: space-between; align-items: center; gap: 2rem;">
+    <Link href="/previous" variant="navigation" navigationType="previous">
+      上一页：组件基础
+    </Link>
+
+    <Link href="/next" variant="navigation" navigationType="next">
+      下一页：高级用法
+    </Link>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+---
+/**
+ * @component NavigationContainer
+ * @description 展示 Link 组件的 navigation 变体，用于文档中的上一个、下一个导航
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import NavigationPrevious from './NavigationPrevious.astro';
+import NavigationNext from './NavigationNext.astro';
+import NavigationComplete from './NavigationComplete.astro';
+
+// 导入对应的源码
+import NavigationPreviousCode from './NavigationPrevious.astro?raw';
+import NavigationNextCode from './NavigationNext.astro?raw';
+import NavigationCompleteCode from './NavigationComplete.astro?raw';
+---
+
+<CodeContainer
+  titles={['上一个导航', '下一个导航', '完整导航']}
+  codes={[NavigationPreviousCode, NavigationNextCode, NavigationCompleteCode]}>
+  <div id="tab-1">
+    <NavigationPrevious />
+  </div>
+  <div id="tab-2">
+    <NavigationNext />
+  </div>
+  <div id="tab-3">
+    <NavigationComplete />
+  </div>
+</CodeContainer>

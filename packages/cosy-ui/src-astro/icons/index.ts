@@ -26,6 +26,8 @@ export { default as InfoCircle } from './InfoCircle.astro';
 export { default as InboxArchive } from './InboxArchive.astro';
 export { default as SettingsIcon } from './SettingsIcon.astro';
 export { default as ChevronDownIcon } from './ChevronDownIcon.astro';
+export { default as ChevronLeftIcon } from './ChevronLeftIcon.astro';
+export { default as ChevronRightIcon } from './ChevronRightIcon.astro';
 export { default as HomeIcon } from './HomeIcon.astro';
 export { default as DashboardIcon } from './DashboardIcon.astro';
 export { default as ChartIcon } from './ChartIcon.astro';

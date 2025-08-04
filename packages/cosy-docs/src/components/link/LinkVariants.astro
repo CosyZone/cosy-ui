@@ -1,18 +1,20 @@
 ---
-/**
- * @component LinkVariants
- * @description Link组件的样式变体示例
- */
-
 import { Link } from '@coffic/cosy-ui';
 ---
 
-<div class="cosy:flex cosy:gap-4 cosy:flex-wrap cosy:items-center">
-  <Link href="/default" variant="default">默认链接</Link>
-  <Link href="/primary" variant="primary">主要链接</Link>
-  <Link href="/secondary" variant="secondary">次要链接</Link>
-  <Link href="/text" variant="text">文本链接</Link>
-  <Link href="/cta" variant="cta">行动号召</Link>
-  <Link href="/ghost" variant="ghost">幽灵链接</Link>
-  <Link href="/light" variant="light">浅色链接</Link>
+<div style="padding: 1rem;">
+  <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+    <Link href="/signup" variant="primary">主要链接</Link>
+    <Link href="/learn-more" variant="secondary">次要链接</Link>
+    <Link href="/docs" variant="text">文本链接</Link>
+    <Link href="/get-started" variant="cta">行动号召</Link>
+    <Link href="/preview" variant="ghost">幽灵链接</Link>
+    <Link href="/help" variant="light">浅色链接</Link>
+  </div>
+
+  <div style="display: flex; gap: 1rem;">
+    <Link href="/small" size="sm">小型链接</Link>
+    <Link href="/medium" size="md">中型链接</Link>
+    <Link href="/large" size="lg">大型链接</Link>
+  </div>
 </div>

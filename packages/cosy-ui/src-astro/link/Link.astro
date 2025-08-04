@@ -31,6 +31,9 @@
  * <Link href="/docs" variant="text">查看文档</Link>
  * <Link href="/get-started" variant="cta">立即开始</Link>
  * <Link href="/preview" variant="ghost">预览</Link>
+ * <Link href="/previous" variant="navigation" navigationType="previous">上一页</Link>
+ * <Link href="/next" variant="navigation" navigationType="next">下一页</Link>
+ * <Link href="https://github.com/user/repo" variant="github">GitHub 仓库</Link>
  * ```
  *
  * 块级显示：
@@ -55,6 +58,7 @@
  */
 
 import '../../style.ts';
+import { ChevronLeftIcon, ChevronRightIcon, GithubIcon } from '../icons';
 
 import type { HTMLAttributes } from 'astro/types';
 
@@ -69,7 +73,9 @@ type LinkVariant =
   | 'text'
   | 'cta'
   | 'ghost'
-  | 'light';
+  | 'light'
+  | 'navigation'
+  | 'github';
 
 // 定义链接动画类型
 type LinkAnimation = 'none' | 'hover-lift' | 'hover-glow' | 'hover-scale';
@@ -101,6 +107,7 @@ interface Props extends HTMLAttributes<'a'> {
     | 'error';
   align?: 'left' | 'center' | 'right';
   active?: boolean;
+  navigationType?: 'previous' | 'next';
 }
 
 const {
@@ -123,6 +130,7 @@ const {
   color,
   align,
   active = false,
+  navigationType,
   ...rest
 } = Astro.props;
 
@@ -147,6 +155,10 @@ const classes = [
     'cosy:text-base-content cosy:hover:text-base-content/90',
   variant === 'light' &&
     'cosy:text-white cosy:hover:text-white/90 cosy:font-medium',
+  variant === 'navigation' &&
+    'cosy:flex cosy:items-center cosy:gap-3 cosy:p-4 cosy:bg-base-100 cosy:border cosy:border-base-300 cosy:rounded-lg cosy:shadow-sm cosy:hover:shadow-md cosy:hover:border-base-400 cosy:transition-all cosy:duration-300 cosy:ease-in-out cosy:no-underline cosy:hover:no-underline cosy:font-medium cosy:text-base-content cosy:hover:text-base-content cosy:hover:-translate-y-1 cosy:hover:scale-[1.01] cosy:backdrop-blur-sm cosy:hover:backdrop-blur-md',
+  variant === 'github' &&
+    'cosy:flex cosy:items-center cosy:gap-2 cosy:text-base-content cosy:hover:text-base-content/80 cosy:transition-colors cosy:duration-200 cosy:no-underline cosy:hover:no-underline cosy:font-medium',
 
   // 尺寸样式
   size === 'sm' && 'cosy:text-sm',
@@ -208,5 +220,8 @@ if (debug) {
   class:list={[classes, classList]}
   {...external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
   {...rest}>
+  {navigationType === 'previous' && <ChevronLeftIcon />}
+  {variant === 'github' && <GithubIcon />}
   <slot />
+  {navigationType === 'next' && <ChevronRightIcon />}
 </a>
