@@ -1,5 +1,6 @@
 // 基础组件和功能模块 (按字母顺序)
 export * from './src-astro/alert';
+export * from './src-astro/alert-dialog';
 export * from './src-astro/article';
 export * from './src-astro/banner';
 export * from './src-astro/badge';

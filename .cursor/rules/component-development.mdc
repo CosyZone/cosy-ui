@@ -34,13 +34,68 @@ alwaysApply: true
 
 ### 1. 样式使用规范
 
+#### 核心组件样式规范
+
 - **必须**导入 [style.ts](mdc:packages/cosy-ui/style.ts) 在组件顶部（仅限核心组件）
-- **文档示例组件**：通过 `@coffic/cosy-ui` 导入，无需直接导入 style.ts
 - **优先**使用 daisyUI 的类，如：`card`、`card-body`、`card-title`等
 - **辅助**使用 Tailwind CSS，但必须加 `cosy:` 前缀
 - **正确示例**：`cosy:mx-auto`、`cosy:dark:bg-red-500`
 - **错误示例**：`lg:cosy:mx-auto`（应该是 `cosy:lg:mx-auto`）
 - **注意**：not-prose 不需要前缀
+
+#### 示例组件样式规范
+
+- **文档示例组件**：通过 `@coffic/cosy-ui` 导入，无需直接导入 style.ts
+- **优先使用组件库组件**：优先使用组件库中的组件（如 Button、Card 等），它们都有良好的设计
+- **原生 CSS 样式作为备选**：当组件库的组件不满足要求时，再使用原生 CSS 样式
+- **禁止使用 Tailwind 类**：示例组件中不要使用 `cosy:` 前缀的 Tailwind 类
+
+**正确示例（优先使用组件库组件）**：
+
+```astro
+---
+import { AlertDialog, Button } from '@coffic/cosy-ui';
+---
+
+<div style="padding: 1rem;">
+  <Button onclick="showAlertDialog('basic-dialog')">
+    显示确认对话框
+  </Button>
+  
+  <AlertDialog message="这是一个基础的确认对话框示例" id="basic-dialog" />
+</div>
+```
+
+**正确示例（原生 CSS 样式作为备选）**：
+
+```astro
+<button
+  style="
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+  "
+  onclick="showDialog()">
+  显示对话框
+</button>
+```
+
+**错误示例**：
+
+```astro
+<button class="cosy:btn cosy:btn-primary" onclick="showDialog()">
+  显示对话框
+</button>
+```
+
+**原因**：
+
+1. 组件库组件有良好的设计，直接使用更简单
+2. 示例组件需要独立于任何 CSS 框架，确保用户无论使用什么技术栈都能正常工作
+3. 当组件库组件不满足需求时，使用原生 CSS 样式作为备选方案
 
 ### 2. Props接口规范
 
@@ -190,6 +245,8 @@ export const ComponentPackage = {
 - 验证Props接口是否与文档描述一致
 - 确认核心组件是否导入了 [style.ts](mdc:packages/cosy-ui/style.ts)
 - **新增**：检查示例组件是否正确放置在文档项目中
+- **新增**：检查示例组件是否优先使用组件库组件，或使用原生 CSS 样式而不是 Tailwind 类
+- **新增**：检查容器组件是否正确使用 `?raw` 后缀导入源代码
 
 ### 2. 修复组件
 
@@ -198,6 +255,8 @@ export const ComponentPackage = {
 - 完善Props接口
 - 确保功能实现与文档描述一致
 - **新增**：确保示例组件正确导入核心组件
+- **新增**：将示例组件中的 Tailwind 类替换为组件库组件或原生 CSS 样式
+- **新增**：确保容器组件使用 `?raw` 后缀导入源代码
 
 ### 3. 全局暴露组件
 
@@ -231,6 +290,8 @@ export const ComponentPackage = {
 8. **全局导出错误**：不要在核心组件库中导出示例组件
 9. **构建验证缺失**：忘记执行 `pnpm build:docs` 验证构建
 10. **文档排序错误**：文档的order值不符合字母顺序
+11. **示例组件样式错误**：示例组件使用 Tailwind 类而不是组件库组件或原生 CSS 样式
+12. **容器组件导入错误**：容器组件没有使用 `?raw` 后缀导入源代码
 
 ## 检查清单
 
@@ -255,6 +316,9 @@ export const ComponentPackage = {
 - [ ] 容器组件使用 CodeContainer 的多标签特性
 - [ ] 容器组件包含完整的组件文档注释
 - [ ] 创建了 ComponentPackage 导出
+- [ ] **示例组件优先使用组件库组件**：优先使用 Button、Card 等组件库组件
+- [ ] **示例组件使用原生 CSS 样式作为备选**：当组件库组件不满足需求时使用原生样式
+- [ ] **容器组件正确导入源代码**：使用 `?raw` 后缀导入示例组件源代码
 
 ### 文档
 
