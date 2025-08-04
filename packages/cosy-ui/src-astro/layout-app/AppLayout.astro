@@ -330,11 +330,10 @@ const sidebarHeightClass = getSidebarHeightClass(headerConfig?.height);
         headerConfig={headerConfig}
         debug={debug}
         showSidebar={showSidebar}
-        showSearch={true}>
+        showSearch={Astro.slots.has('modal-search')}>
         <slot name="navbar-start" slot="navbar-start" />
         <slot name="navbar-center" slot="navbar-center" />
         <slot name="navbar-end" slot="navbar-end" />
-        <slot name="modal-search" slot="modal-search" />
       </AppHeader>
     )
   }
