@@ -169,14 +169,13 @@
 
 import { processSocialLink } from '../../src/utils/social.ts';
 import {
-  SocialIcon,
   LanguageUtil,
   type IFooterProps,
   createTextGetter,
-  Link,
   Container,
 } from '../../index-astro';
 import FooterSection from './FooterSection.astro';
+import FooterBrand from './FooterBrand.astro';
 import '../../style.ts';
 import FooterCopyright from './FooterCopyright.astro';
 import FooterICP from './FooterICP.astro';
@@ -247,47 +246,14 @@ const debugClasses = debug
       debugClasses.section,
     ]}>
     {/* 品牌区域 */}
-    <aside class:list={['cosy:max-w-xs cosy:text-center', debugClasses.aside]}>
-      <Link href={homeLink} align="center" noUnderline block class="cosy:mb-4">
-        {
-          logo && (
-            <img
-              src={logo.src}
-              alt={logo.alt}
-              class="cosy:w-12 cosy:h-12 cosy:mask cosy:mask-squircle"
-              width="48"
-              height="48"
-            />
-          )
-        }
-        <div>
-          <h2 class="cosy:font-bold cosy:text-xl">{siteName}</h2>
-          <p class="cosy:text-base-content/70">{slogan}</p>
-        </div>
-      </Link>
-
-      {/* 社交媒体链接 */}
-      {
-        processedSocialLinks.length > 0 && (
-          <div class="cosy:flex cosy:justify-center cosy:gap-2 cosy:mt-4">
-            {processedSocialLinks.map((link) => (
-              <Link
-                href={link.url}
-                btn
-                circle
-                ghost
-                size="sm"
-                color="primary"
-                external
-                rel="noopener noreferrer"
-                aria-label={link.name}>
-                <SocialIcon platform={link.platform} />
-              </Link>
-            ))}
-          </div>
-        )
-      }
-    </aside>
+    <FooterBrand
+      siteName={siteName}
+      homeLink={homeLink}
+      slogan={slogan}
+      logo={logo}
+      socialLinks={processedSocialLinks}
+      debug={debug}
+    />
 
     {/* 导航区域 */}
     <div

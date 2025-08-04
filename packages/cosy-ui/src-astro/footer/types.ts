@@ -24,4 +24,20 @@ export interface FooterSectionProps {
         href?: string;
         external?: boolean;
     }>;
+}
+
+export interface FooterBrandProps {
+    siteName: string;
+    homeLink: string;
+    slogan: string;
+    logo?: {
+        src: string;
+        alt: string;
+    };
+    socialLinks?: Array<{
+        url: string;
+        platform: string;
+        name: string;
+    }>;
+    debug?: boolean;
 } 
