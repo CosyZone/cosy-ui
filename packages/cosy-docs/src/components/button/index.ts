@@ -8,14 +8,12 @@ import ButtonVariantsContainer from './ButtonVariantsContainer.astro';
 import ButtonLinkContainer from './ButtonLinkContainer.astro';
 
 export const ButtonPackage = {
-    ButtonContainers: {
-        Basic: ButtonBasicContainer,
-        Shapes: ButtonShapesContainer,
-        Sizes: ButtonSizesContainer,
-        States: ButtonStatesContainer,
-        WithIcons: ButtonWithIconsContainer,
-        Width: ButtonWidthContainer,
-        Variants: ButtonVariantsContainer,
-        Link: ButtonLinkContainer,
-    },
+    Basic: ButtonBasicContainer,
+    Link: ButtonLinkContainer,
+    Shapes: ButtonShapesContainer,
+    Sizes: ButtonSizesContainer,
+    States: ButtonStatesContainer,
+    Variants: ButtonVariantsContainer,
+    Width: ButtonWidthContainer,
+    WithIcons: ButtonWithIconsContainer,
 }; 
