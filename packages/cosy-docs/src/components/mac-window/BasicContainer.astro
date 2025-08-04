@@ -1,11 +1,24 @@
 ---
+/**
+ * @component MacWindow.BasicContainer
+ *
+ * @description
+ * 基础MacWindow组件示例容器，展示Astro和Vue两个版本。
+ */
 import { CodeContainer } from '@coffic/cosy-ui';
 import Basic from './Basic.astro';
+import BasicVue from './Basic.vue';
 import BasicSourceCode from './Basic.astro?raw';
+import BasicVueSourceCode from './Basic.vue?raw';
 ---
 
-<CodeContainer codes={[BasicSourceCode]}>
+<CodeContainer
+  codes={[BasicSourceCode, BasicVueSourceCode]}
+  titles={['Astro', 'Vue']}>
   <div id="tab-1">
     <Basic />
+  </div>
+  <div id="tab-2">
+    <BasicVue />
   </div>
 </CodeContainer>

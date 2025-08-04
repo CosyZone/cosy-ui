@@ -1,11 +1,24 @@
 ---
+/**
+ * @component MacWindow.WithEventsContainer
+ *
+ * @description
+ * 带事件处理的MacWindow组件示例容器，展示Astro和Vue两个版本。
+ */
 import { CodeContainer } from '@coffic/cosy-ui';
-import WithEvents from './WithEvents.vue';
-import WithEventsSourceCode from './WithEvents.vue?raw';
+import WithEvents from './WithEvents.astro';
+import WithEventsVue from './WithEvents.vue';
+import WithEventsSourceCode from './WithEvents.astro?raw';
+import WithEventsVueSourceCode from './WithEvents.vue?raw';
 ---
 
-<CodeContainer codes={[WithEventsSourceCode]}>
+<CodeContainer
+  codes={[WithEventsSourceCode, WithEventsVueSourceCode]}
+  titles={['Astro', 'Vue']}>
   <div id="tab-1">
-    <WithEvents client:idle />
+    <WithEvents />
+  </div>
+  <div id="tab-2">
+    <WithEventsVue client:idle />
   </div>
 </CodeContainer>
