@@ -22,32 +22,78 @@ Contact组件用于展示企业或个人的联系信息，支持多种联系方�
 - 支持自定义标题和描述
 - 美观的图标设计，清晰易识别
 
-## 基础用法
+## address
 
-最简单的联系信息展示：
+地址信息。
 
-<ContactPackage.ContactContainers.Basic />
+```astro
+<Contact address="123 Business St, City, State 12345" />
+```
 
-## 带标题的联系信息
+## class
 
-通过title和description属性添加标题和描述：
+自定义CSS类，可用于覆盖默认样式。
 
-<ContactPackage.ContactContainers.WithTitle />
+<ContactPackage.ContactContainers.CustomStyle />
 
-## 带社交媒体链接
+## compact
 
-添加社交媒体链接，展示完整的联系方式：
-
-<ContactPackage.ContactContainers.Social />
-
-## 紧凑模式
-
-使用compact属性创建更紧凑的布局：
+是否使用紧凑模式。
 
 <ContactPackage.ContactContainers.Compact />
 
-## 自定义样式
+## description
 
-通过class属性自定义联系信息卡片样式：
+联系信息描述。
 
-<ContactPackage.ContactContainers.CustomStyle />
+<ContactPackage.ContactContainers.WithTitle />
+
+## email
+
+电子邮件地址。
+
+<ContactPackage.ContactContainers.Basic />
+
+## facebook
+
+Facebook链接。
+
+<ContactPackage.ContactContainers.Social />
+
+## github
+
+GitHub链接。
+
+<ContactPackage.ContactContainers.Social />
+
+## linkedin
+
+LinkedIn链接。
+
+<ContactPackage.ContactContainers.Social />
+
+## phone
+
+电话号码。
+
+<ContactPackage.ContactContainers.Basic />
+
+## title
+
+联系信息标题。
+
+<ContactPackage.ContactContainers.WithTitle />
+
+## twitter
+
+Twitter链接。
+
+<ContactPackage.ContactContainers.Social />
+
+## website
+
+网站链接。
+
+```astro
+<Contact website="https://example.com" />
+```
