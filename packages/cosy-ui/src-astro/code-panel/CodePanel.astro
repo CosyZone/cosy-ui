@@ -7,14 +7,6 @@
  * 基于 Shiki 提供高质量的代码高亮效果，与 VS Code 保持一致的渲染效果。
  * 支持服务端渲染，无需客户端 JavaScript 即可展示代码高亮。
  *
- * @features
- * - 🎨 语法高亮：基于 Shiki，支持 180+ 编程语言
- * - 🎭 多主题：支持 VS Code 主题（dark-plus、light-plus、github-dark 等）
- * - 📏 行号显示：可选的行号显示功能
- * - 🚀 性能优化：服务端渲染，避免客户端重复计算
- * - 📱 响应式：自适应不同屏幕尺寸
- * - 🎯 可访问性：语义化 HTML 结构，支持键盘导航
- *
  * @usage
  * 基本用法：
  * ```astro
@@ -41,12 +33,12 @@
  * ```
  *
  * @props
+ * @param {string} class - 自定义 CSS 类名，用于覆盖默认样式
  * @param {string} code - 要显示的代码字符串
  * @param {string} [language="typescript"] - 代码语言，用于语法高亮
- * @param {string} [theme="dark-plus"] - 主题名称
  * @param {boolean} [showLineNumbers=false] - 是否显示行号
+ * @param {string} [theme="dark-plus"] - 主题名称
  * @param {boolean} [visible=true] - 是否显示在面板中
- * @param {string} [class] - 自定义类名
  *
  * @slots
  * 此组件不包含插槽，通过 props 传入代码内容
@@ -63,12 +55,12 @@ import '../../style.ts';
 interface Props extends CodePanelProps {}
 
 const {
+  class: className = '',
   code = '',
   language = 'typescript',
-  theme = 'dark-plus',
   showLineNumbers = false,
+  theme = 'dark-plus',
   visible = true,
-  class: className = '',
 } = Astro.props;
 
 // 优化 Shiki 加载 - 使用动态导入避免构建时创建多个实例
@@ -104,6 +96,7 @@ try {
   <!-- Shiki 渲染的代码 -->
   <div
     class="cosy:w-full not-prose cosy-shiki-container"
+    class:list={[className]}
     set:html={highlightedCode}
   />
 </div>
