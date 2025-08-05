@@ -2,10 +2,26 @@
 import { CodeContainer } from '@coffic/cosy-ui';
 import CardCompact from './CardCompact.astro';
 import CardCompactSourceCode from './CardCompact.astro?raw';
+import CardCompact2 from './CardCompact2.astro';
+import CardCompact2SourceCode from './CardCompact2.astro?raw';
+import CardCompact3 from './CardCompact3.astro';
+import CardCompact3SourceCode from './CardCompact3.astro?raw';
 ---
 
-<CodeContainer codes={[CardCompactSourceCode]}>
+<CodeContainer
+  codes={[
+    CardCompactSourceCode,
+    CardCompact2SourceCode,
+    CardCompact3SourceCode,
+  ]}
+  titles={['基础紧凑', '紧凑带图片', '紧凑链接']}>
   <div id="tab-1">
     <CardCompact />
+  </div>
+  <div id="tab-2">
+    <CardCompact2 />
+  </div>
+  <div id="tab-3">
+    <CardCompact3 />
   </div>
 </CodeContainer>

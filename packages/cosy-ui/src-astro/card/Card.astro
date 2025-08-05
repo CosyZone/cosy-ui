@@ -57,12 +57,12 @@
  * ```
  *
  * @props
- * @prop {string} title - 卡片标题
- * @prop {string} [subtitle] - 卡片副标题或描述
- * @prop {string} [imageUrl] - 卡片顶部图片的URL
- * @prop {string} [href] - 如果提供，卡片将变成可点击的链接
- * @prop {boolean} [compact] - 是否使用紧凑模式
  * @prop {string} [class] - 自定义CSS类，可用于覆盖默认样式
+ * @prop {boolean} [compact] - 是否使用紧凑模式
+ * @prop {string} [href] - 如果提供，卡片将变成可点击的链接
+ * @prop {string} [imageUrl] - 卡片顶部图片的URL
+ * @prop {string} [subtitle] - 卡片副标题或描述
+ * @prop {string} title - 卡片标题
  *
  * @slots
  * @slot default - 卡片的主要内容区域
@@ -74,27 +74,27 @@ import '../../style.ts';
  * Card 组件的 Props 接口
  */
 export interface CardProps {
-  /** 卡片标题 */
-  title: string;
-  /** 卡片副标题或描述 */
-  subtitle?: string;
-  /** 卡片顶部图片的URL */
-  imageUrl?: string;
-  /** 如果提供，卡片将变成可点击的链接 */
-  href?: string;
-  /** 是否使用紧凑模式 */
-  compact?: boolean;
   /** 自定义CSS类，可用于覆盖默认样式 */
   class?: string;
+  /** 是否使用紧凑模式 */
+  compact?: boolean;
+  /** 如果提供，卡片将变成可点击的链接 */
+  href?: string;
+  /** 卡片顶部图片的URL */
+  imageUrl?: string;
+  /** 卡片副标题或描述 */
+  subtitle?: string;
+  /** 卡片标题 */
+  title: string;
 }
 
 const {
-  title,
-  subtitle,
-  imageUrl,
-  href,
-  compact,
   class: className = '',
+  compact,
+  href,
+  imageUrl,
+  subtitle,
+  title,
 } = Astro.props;
 
 // 构建卡片样式类
