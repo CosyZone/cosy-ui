@@ -1,0 +1,46 @@
+---
+import { TableOfContents, Heading, Container, Alert } from '@coffic/cosy-ui';
+---
+
+<Container style="display: flex; gap: 2rem;">
+  <div style="flex: 1;">
+    <Heading level={1} margin="none">选择器示例</Heading>
+    <p style="margin-bottom: 1rem;">
+      这个示例展示了如何使用 selector 属性自定义要包含在目录中的标题元素。
+    </p>
+
+    <Alert type="info" title="说明" marginY="md">
+      左侧的目录设置了 selector="h2, h4"，所以只会显示 h2 和 h4 级别的标题，跳过
+      h3 级别。
+    </Alert>
+
+    <Heading level={2} margin="sm">H2 标题（会显示在目录中）</Heading>
+    <p style="margin-bottom: 1rem;">这是 H2 标题的内容。</p>
+
+    <Heading level={3} margin="sm">H3 标题（不会显示在目录中）</Heading>
+    <p style="margin-bottom: 1rem;">
+      这是 H3 标题的内容，由于 selector 设置，这个标题不会出现在目录中。
+    </p>
+
+    <Heading level={4} margin="sm">H4 标题（会显示在目录中）</Heading>
+    <p style="margin-bottom: 1rem;">这是 H4 标题的内容。</p>
+
+    <Heading level={2} margin="sm">另一个 H2 标题</Heading>
+    <p style="margin-bottom: 1rem;">这是另一个 H2 标题的内容。</p>
+
+    <Heading level={3} margin="sm">另一个 H3 标题（不会显示）</Heading>
+    <p style="margin-bottom: 1rem;">这是另一个 H3 标题的内容。</p>
+
+    <Heading level={4} margin="sm">另一个 H4 标题</Heading>
+    <p style="margin-bottom: 1rem;">这是另一个 H4 标题的内容。</p>
+
+    <Heading level={5} margin="sm">H5 标题（不会显示）</Heading>
+    <p style="margin-bottom: 1rem;">
+      这是 H5 标题的内容，同样不会出现在目录中。
+    </p>
+  </div>
+
+  <div style="width: 16rem;">
+    <TableOfContents selector="h2, h4" />
+  </div>
+</Container>

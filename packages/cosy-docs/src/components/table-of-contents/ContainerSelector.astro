@@ -1,0 +1,50 @@
+---
+import { TableOfContents, Heading, Container, Alert } from '@coffic/cosy-ui';
+---
+
+<Container style="display: flex; gap: 2rem;">
+  <div style="flex: 1;">
+    <Heading level={1} margin="none">容器选择器示例</Heading>
+    <p style="margin-bottom: 1rem;">
+      这个示例展示了如何使用 containerSelector 属性来指定目录搜索的内容容器。
+    </p>
+
+    <Alert type="info" title="说明" marginY="md">
+      左侧的目录只会显示 article 容器内的标题，而不会包含其他区域的标题。
+    </Alert>
+
+    <div
+      style="background-color: #f8fafc; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">
+      <Heading level={2} margin="none">这个标题不会被包含在目录中</Heading>
+      <p>这是侧边栏或其他区域的内容，不会被目录组件检测到。</p>
+    </div>
+
+    <article
+      style="border: 2px solid #3b82f6; padding: 1rem; border-radius: 0.5rem;">
+      <Heading level={2} margin="sm">文章标题 1</Heading>
+      <p style="margin-bottom: 1rem;">这是文章内容，会被目录组件检测到。</p>
+
+      <Heading level={3} margin="sm">子标题 1.1</Heading>
+      <p style="margin-bottom: 1rem;">这是子标题的内容。</p>
+
+      <Heading level={3} margin="sm">子标题 1.2</Heading>
+      <p style="margin-bottom: 1rem;">这是另一个子标题的内容。</p>
+
+      <Heading level={2} margin="sm">文章标题 2</Heading>
+      <p style="margin-bottom: 1rem;">这是第二个文章标题。</p>
+
+      <Heading level={3} margin="sm">子标题 2.1</Heading>
+      <p style="margin-bottom: 1rem;">第二个标题的子内容。</p>
+    </article>
+
+    <div
+      style="background-color: #fef3c7; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+      <Heading level={2} margin="none">这个标题也不会被包含</Heading>
+      <p>这是页脚或其他区域的内容，同样不会被目录组件检测到。</p>
+    </div>
+  </div>
+
+  <div style="width: 16rem;">
+    <TableOfContents containerSelector="article" />
+  </div>
+</Container>

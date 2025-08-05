@@ -1,4 +1,4 @@
-import TableOfContentsBasic from './TableOfContentsBasic.astro';
+
 import TableOfContentsCustom from './TableOfContentsCustom.astro';
 
 import TableOfContentsBasicContainer from './TableOfContentsBasicContainer.astro';
@@ -10,7 +10,6 @@ export const ComponentPackage = {
         Custom: TableOfContentsCustomContainer,
     },
     Examples: {
-        Basic: TableOfContentsBasic,
         Custom: TableOfContentsCustom,
     },
 }; 
