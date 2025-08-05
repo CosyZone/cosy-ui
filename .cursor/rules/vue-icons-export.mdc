@@ -8,10 +8,12 @@ alwaysApply: true
 每当在 `packages/cosy-ui/src-vue/icons/` 目录下添加新的 Vue 图标组件时，必须：
 
 ### 1. 在 index.ts 中导出
+
 - 必须在 [packages/cosy-ui/src-vue/icons/index.ts](mdc:packages/cosy-ui/src-vue/icons/index.ts) 中添加导出语句
 - 使用格式：`export { default as IconName } from './IconName.vue';`
 
 ### 2. 按字母顺序排列
+
 - 所有导出语句必须按照字母顺序（A-Z）排列
 - 参考现有的导出顺序：
   - AlertTriangleIcon
@@ -32,18 +34,22 @@ alwaysApply: true
   - XCircleIcon
 
 ### 3. 检查清单
+
 - [ ] 新图标组件已创建
 - [ ] 在 index.ts 中添加了导出语句
 - [ ] 导出语句按字母顺序插入到正确位置
 - [ ] 导出名称与文件名一致（PascalCase）
 
 ### 4. 示例
+
 如果添加 `WarningIcon.vue`，应该在 `UserIcon` 和 `XCircleIcon` 之间插入：
+
 ```typescript
 export { default as WarningIcon } from './WarningIcon.vue';
 ```
 
 ## 注意事项
+
 - 忘记导出会导致图标无法通过 `@coffic/cosy-ui/vue` 导入
 - 不按字母顺序排列会影响代码的可读性和维护性
 - 导出名称必须与组件文件名完全一致

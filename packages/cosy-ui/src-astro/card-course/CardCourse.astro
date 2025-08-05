@@ -8,18 +8,18 @@
  * @usage
  * ```astro
  * <CardCourse courseName="React 基础教程" lang="zh" href="/courses/react-basics" />
- * <CardCourse courseName="Vue 进阶" lang="zh" href="/courses/vue" padding="xl" contentPadding="md" />
+ * <CardCourse courseName="Vue 进阶" lang="zh" href="/courses/vue" contentPadding="md" />
  * <CardCourse courseName="AI 编程" keywords={["人工智能", "机器学习", "Python"]} lang="zh" href="/courses/ai" />
  * ```
  *
  * @props
+ * - contentPadding?: "none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" - 内容区域内边距，默认为 "lg"
  * - courseName: string - 课程标题
  * - description?: string - 课程描述
- * - lang: string - 语言（"en" 或 "zh"）
  * - href: string - 课程链接
- * - keywords?: string[] - 图标关键词数组，用于图标匹配
  * - iconSize?: "sm" | "md" | "lg" | "xl" - 图标尺寸，默认为 "md"
- * - contentPadding?: "none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" - 内容区域内边距，默认为 "lg"
+ * - keywords?: string[] - 图标关键词数组，用于图标匹配
+ * - lang: string - 语言（"en" 或 "zh"）
  */
 
 import '../../style.ts';
@@ -35,24 +35,23 @@ import { SmartBg } from '../smart-bg';
 import type { PaddingSize } from './types';
 
 interface Props {
+  contentPadding?: PaddingSize;
   courseName: string;
   description?: string;
-  lang: string;
   href: string;
-  keywords?: string[];
   iconSize?: 'sm' | 'md' | 'lg' | 'xl';
-  padding?: PaddingSize;
-  contentPadding?: PaddingSize;
+  keywords?: string[];
+  lang: string;
 }
 
 const {
+  contentPadding = 'lg',
   courseName,
   description = '',
-  lang,
   href,
-  keywords = [],
   iconSize = 'md',
-  contentPadding = 'lg',
+  keywords = [],
+  lang,
 } = Astro.props;
 
 const displayName = formatDisplayName(courseName);
