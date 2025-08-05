@@ -1,608 +1,115 @@
----
-alwaysApply: true
----
-<div style="padding: 1rem;">
-  <Button onclick="showAlertDialog('basic-dialog')">
-    显示确认对话框
-  </Button>
-  
-  <AlertDialog message="这是一个基础的确认对话框示例" id="basic-dialog" />
-</div>
-```
+# 组件开发规范
 
-**正确示例（原生 CSS 样式作为备选）**：
+## 核心原则
+
+### 1. 示例组件样式规范
+
+- **优先使用组件库组件**，不满足需求时使用原生 CSS 样式
+- **禁止**使用 Tailwind 类
+- 使用 `style` 属性定义样式，避免多行 style 属性
+- 示例组件需要独立于任何 CSS 框架
+
+**正确示例（优先使用组件库）**：
 
 ```astro
-<button
-  style="
-    background-color: #3b82f6;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
-    cursor: pointer;
-  "
-  onclick="showDialog()">
-  显示对话框
+<Button variant="primary" size="lg">
+  主要按钮
+</Button>
+```
+
+**正确示例（原生 CSS 作为备选）**：
+
+```astro
+<button style="background-color: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 0.375rem; border: none;">
+  自定义按钮
 </button>
 ```
 
 **错误示例**：
 
 ```astro
-<button class="cosy:btn cosy:btn-primary" onclick="showDialog()">
-  显示对话框
+<button class="cosy:btn cosy:btn-primary">
+  错误：使用 Tailwind 类
 </button>
 ```
 
-**原因**：
+### 2. 项目结构规范
 
-1. 组件库组件有良好的设计，直接使用更简单
-2. 示例组件需要独立于任何 CSS 框架，确保用户无论使用什么技术栈都能正常工作
-3. 当组件库组件不满足需求时，使用原生 CSS 样式作为备选方案
+#### 核心组件项目
 
-### 1.1 示例组件样式强制要求
+- 位置：`packages/cosy-ui/src-astro/{component-name}/`
+- index.ts 保持简洁，只导出组件和类型
+- 在 [index-astro.ts](mdc:packages/cosy-ui/index-astro.ts) 中按字母顺序导出
 
-**重要**：示例组件**必须**使用原生 CSS 样式，**禁止**使用 Tailwind 类。
+#### 示例组件项目
 
-**强制要求**：
-- ✅ 使用 `style` 属性定义样式
-- ✅ 使用原生 CSS 属性，如 `background-color`、`color`、`padding` 等
-- ❌ **禁止**使用 `class="cosy:bg-primary"` 等 Tailwind 类
-- ❌ **禁止**使用 `class="cosy:text-center"` 等 Tailwind 类
+- 位置：`packages/cosy-docs/src/components/{component-name}/`
+- 使用 ComponentPackage 导出容器组件
+- 避免不必要的嵌套层级
 
-**正确示例**：
-```astro
-<Container style="background-color: #f1f5f9;">
-  <p style="text-align: center;">居中的容器</p>
-</Container>
-```
+### 3. 文档规范
 
-**错误示例**：
-```astro
-<Container class="cosy:bg-base-200">
-  <p class="cosy:text-center">居中的容器</p>
-</Container>
-```
+#### Props 注释排序
 
-### 1.2 样式语法规范
+- `@props` 必须按字母顺序（A-Z）排列
+- 文档必须按照 `@props` 的顺序编写
+- 每个属性使用多标签展示多种用法
 
-**重要**：避免多行 style 属性，可能导致构建错误。
+#### 容器组件规范
 
-**推荐做法**：
-```astro
-<Container style="background-color: #f1f5f9; border: 2px solid #3b82f6;">
-  <p style="text-align: center;">使用动态样式的容器</p>
-</Container>
-```
+- 使用 [CodeContainer](mdc:packages/cosy-ui/src-astro/code-container/CodeContainer.astro)
+- 使用 `?raw` 后缀导入源代码
+- 每个功能特性一个标签页
+- 提供 titles 数组
 
-**避免做法**：
-```astro
-<Container
-  style="
-    background-color: #f1f5f9;
-    border: 2px solid #3b82f6;
-  ">
-  <p style="text-align: center;">使用动态样式的容器</p>
-</Container>
-```
+### 4. 开发流程
 
-### 2. Props接口规范
+#### 创建新组件
 
-- Props接口必须与组件文档中的 `@props` 描述**完全一致**
-- 如果文档提到某个属性，接口中必须定义
-- 参考 [Card.astro](mdc:packages/cosy-ui/src-astro/card/Card.astro) 的完整Props定义
+1. 创建核心组件和类型
+2. 创建示例组件（优先使用组件库组件）
+3. 创建容器组件（多标签展示）
+4. 创建中英文文档（按核心组件的props字母顺序）
+5. 执行 `pnpm build:docs` 验证
 
-### 3. 组件文档规范
+#### 检查清单
 
-- 必须包含完整的JSDoc注释：`@component`、`@description`、`@usage`、`@props`、`@slots`
-- 使用示例要覆盖主要功能场景
-- Props描述要准确，包含类型和默认值
-- 组件注释文档必须包括每个props的用法：在 `@props` 部分详细说明每个属性的用途、类型、默认值和使用场景
-- 中英文文档必须按逻辑顺序介绍各个prop：按照使用频率和功能相关性排序，从基础属性到高级属性，确保文档结构清晰易读
-
-### 4. 组件注释文档规范
-
-#### 4.1 Props 注释排序规范
-
-**重要**：组件注释文档中的 `@props` 必须按照字母顺序（A-Z）排列。
-
-**正确示例**：
-```typescript
-/**
- * @props
- * @prop {string} [active=false] - 是否为激活状态
- * @prop {string} [align] - 对齐方式：left、center、right
- * @prop {string} [animation='none'] - 动画效果：none、hover-lift、hover-glow、hover-scale
- * @prop {boolean} [block=false] - 是否为块级显示
- * @prop {boolean} [btn=false] - 是否启用按钮风格
- * @prop {boolean} [centerText=false] - 是否居中文本（兼容属性）
- * @prop {boolean} [circle=false] - 是否为圆形按钮（需配合 btn 使用）
- * @prop {string} [class] - 自定义 CSS 类名
- * @prop {any} [class:list] - 类名列表
- * @prop {string} [color] - 按钮颜色（需配合 btn 使用）：primary、secondary、accent、info、success、warning、error
- * @prop {boolean} [debug=false] - 是否显示调试边框
- * @prop {boolean} [external=false] - 是否为外部链接，自动新窗口打开
- * @prop {boolean} [fullWidth=false] - 是否占满宽度
- * @prop {boolean} [ghost=false] - 是否为幽灵按钮（需配合 btn 使用）
- * @prop {string} href - 链接地址（必需）
- * @prop {string} [icon] - 图标名称，支持所有可用的图标组件
- * @prop {string} [navigationType] - 导航类型（需配合 navigation 变体使用）：previous、next
- * @prop {boolean} [noUnderline=true] - 是否移除下划线
- * @prop {boolean} [rounded=false] - 是否添加圆角
- * @prop {string} [size='md'] - 尺寸大小：sm、md、lg
- * @prop {string} [variant='default'] - 样式变体：default、primary、secondary、text、cta、ghost、light、navigation、github
- * @prop {...HTMLAttributes<'a'>} [rest] - 其他 HTML <a> 标签属性
- */
-```
-
-#### 4.2 文档编写规范
-
-**重要**：文档必须按照组件注释文档中 `@props` 的顺序编写，每个属性一个二级标题，并利用多标签展示每个prop的多种用法。
-
-**文档结构规范**：
-
-1. **简介** - 组件描述和特性
-2. **按字母顺序的属性介绍** - 每个属性一个二级标题
-3. **多标签展示** - 每个属性使用多标签展示不同的用法
-4. **复杂属性的三级标题拆分** - 当单个属性的功能特性过多时，可以使用三级标题进行拆分
-
-**三级标题拆分规则**：
-
-当一个属性包含多种不同的使用场景或功能特性时，可以在二级标题下创建多个三级标题来分别展示：
-
-**正确示例**：
-```markdown
-## animation
-
-动画效果，定义鼠标悬停时的动画行为。可选值：`none`、`hover-lift`、`hover-glow`、`hover-scale`。
-
-### 链接动画
-
-基础链接的动画效果展示。
-
-<ComponentPackage.ComponentContainers.Animations />
-
-### 按钮动画
-
-按钮样式的链接也支持动画效果，可以结合 `btn` 和 `animation` 属性使用。
-
-<ComponentPackage.ComponentContainers.ButtonAnimations />
-```
-
-**拆分原则**：
-- 当单个 CodeContainer 无法充分展示所有功能特性时
-- 当属性有多个不同的使用场景时（如基础用法 vs 按钮用法）
-- 当需要分别展示不同的功能组合时
-- 每个三级标题对应一个独立的容器组件
-
-**正确示例**：
-```markdown
-## active
-
-是否为激活状态。
-
-<ComponentPackage.ComponentContainers.Active />
-
-## align
-
-对齐方式。可选值：`left`、`center`、`right`。
-
-<ComponentPackage.ComponentContainers.Align />
-
-## animation
-
-动画效果，定义鼠标悬停时的动画行为。可选值：`none`、`hover-lift`、`hover-glow`、`hover-scale`。
-
-<ComponentPackage.ComponentContainers.Animations />
-```
-
-**多标签容器组件规范**：
-
-每个属性必须创建对应的容器组件，使用多标签展示不同的用法：
-
-```astro
----
-import { CodeContainer, Container } from '@coffic/cosy-ui';
-import { Component } from '@coffic/cosy-ui';
-
-// 导入示例组件
-import Usage1 from './Usage1.astro';
-import Usage2 from './Usage2.astro';
-import Usage3 from './Usage3.astro';
-
-// 导入源码
-import Usage1Code from './Usage1.astro?raw';
-import Usage2Code from './Usage2.astro?raw';
-import Usage3Code from './Usage3.astro?raw';
----
-
-<CodeContainer
-  titles={['用法1', '用法2', '用法3']}
-  codes={[Usage1Code, Usage2Code, Usage3Code]}>
-  <div id="tab-1">
-    <Container flex="row" gap="sm" items="center">
-      <Usage1 />
-    </Container>
-  </div>
-  <div id="tab-2">
-    <Container flex="row" gap="sm" items="center">
-      <Usage2 />
-    </Container>
-  </div>
-  <div id="tab-3">
-    <Container flex="row" gap="sm" items="center">
-      <Usage3 />
-    </Container>
-  </div>
-</CodeContainer>
-```
-
-## 组件Package结构
-
-### 1. 核心组件项目结构
-
-参考 [alert/index.ts](mdc:packages/cosy-ui/src-astro/alert/index.ts) 的简洁模式：
-
-```typescript
-// packages/cosy-ui/src-astro/component-name/index.ts
-export { default as Component } from './Component.astro';
-export type { ComponentProps } from './types';
-```
-
-**重要**：
-
-- 核心组件项目的 index.ts 应保持简洁，只导出组件和类型
-- **不要**在核心组件项目中包含示例组件
-- **不要**在核心组件项目中包含 ComponentPackage
-
-### 2. 文档项目示例组件结构
-
-```typescript
-// packages/cosy-docs/src/components/component-name/index.ts
-import Basic from './Basic.astro';
-import BasicContainer from './BasicContainer.astro';
-// ... 其他示例组件
-
-export const ComponentPackage = {
-  Basic: BasicContainer,
-  CustomStyle: CustomStyleContainer,
-  // ... 其他容器
-};
-```
-
-**重要**：ComponentPackage 结构应该保持简洁，直接导出容器组件，避免不必要的嵌套层级。
-
-**正确示例**：
-```typescript
-export const ComponentPackage = {
-  Active: ActiveContainer,
-  Align: AlignContainer,
-  Animations: AnimationsContainer,
-  Block: BlockContainer,
-  Basic: BasicContainer,
-  ButtonAnimations: ButtonAnimationsContainer,
-  // ... 其他容器
-};
-```
-
-**错误示例**：
-```typescript
-export const ComponentPackage = {
-  ComponentContainers: {
-    Active: ActiveContainer,
-    Align: AlignContainer,
-    // ... 其他容器
-  },
-};
-```
-
-**原因**：
-1. 减少不必要的嵌套层级，提高代码可读性
-2. 简化文档中的引用方式：`<ComponentPackage.Active />` 而不是 `<ComponentPackage.ComponentContainers.Active />`
-3. 保持结构的一致性，避免过度设计
-
-### 3. 示例组件命名规范
-
-- 基础示例：`Basic.astro` 或 `Basic.astro`
-- 功能示例：`{FeatureName}.astro`
-- 容器组件：`{FeatureName}Container.astro`
-
-### 4. 示例组件导入规范
-
-- **核心组件**：`import { Component } from '@coffic/cosy-ui';`
-- **类型**：`import type { ComponentProps } from '@coffic/cosy-ui';`
-- **CodeContainer**：`import { CodeContainer } from '@coffic/cosy-ui';`
-- **本地组件**：使用相对路径 `'./ExampleComponent.astro'`
-
-### 5. 容器组件规范
-
-- 使用 [CodeContainer](mdc:packages/cosy-ui/src-astro/code-container/CodeContainer.astro) 来展示代码
-- **源码导入最佳实践**：在容器组件中直接导入源码（`?raw`）
-- **多标签展示要求**：每个功能特性必须使用单独的标签页展示，不能将所有示例放在一个标签中
-- **源码对应要求**：每个标签页都必须有对应的源码，codes 数组中的源码顺序必须与标签页顺序一致
-- **标题要求**：必须提供 titles 数组，为每个标签页添加有意义的标题
-- 标准模式：
-
-  ```astro
-  ---
-  import { CodeContainer } from '@coffic/cosy-ui';
-  import ExampleComponent from './ExampleComponent.astro';
-  import FeatureExample from './FeatureExample.astro';
-  
-  // 导入对应的源码
-  import ExampleComponentCode from './ExampleComponent.astro?raw';
-  import FeatureExampleCode from './FeatureExample.astro?raw';
-  ---
-  
-  <CodeContainer 
-    titles={['基础示例', '功能示例']}
-    codes={[ExampleComponentCode, FeatureExampleCode]}>
-    <div id="tab-1">
-      <ExampleComponent />
-    </div>
-    <div id="tab-2">
-      <FeatureExample />
-    </div>
-  </CodeContainer>
-  ```
-
-- **多标签容器组件**应使用 CodeContainer 的多标签特性，每个标签对应一个功能演示
-- 必须包含组件文档注释：`@component`、`@description`
-
-### 6. 多标签展示强制要求
-
-**重要**：当组件有多个功能特性时，必须为每个特性创建单独的示例组件和标签页：
-
-**正确做法**：
-
-```astro
-<!-- 容器组件 -->
----
-import { CodeContainer } from '@coffic/cosy-ui';
-import BasicExample from './BasicExample.astro';
-import FeatureExample from './FeatureExample.astro';
-import CustomStyleExample from './CustomStyleExample.astro';
-
-// 导入对应的源码
-import BasicExampleCode from './BasicExample.astro?raw';
-import FeatureExampleCode from './FeatureExample.astro?raw';
-import CustomStyleExampleCode from './CustomStyleExample.astro?raw';
----
-
-<CodeContainer 
-  titles={['基础用法', '功能特性', '自定义样式']}
-  codes={[BasicExampleCode, FeatureExampleCode, CustomStyleExampleCode]}>
-  <div id="tab-1">
-    <BasicExample />
-  </div>
-  <div id="tab-2">
-    <FeatureExample />
-  </div>
-  <div id="tab-3">
-    <CustomStyleExample />
-  </div>
-</CodeContainer>
-```
-
-**错误做法**：
-
-```astro
-<!-- 不要将所有示例放在一个标签中 -->
-<CodeContainer codes={[code]}>
-  <div id="tab-1">
-    <BasicExample />
-    <FeatureExample />
-    <CustomStyleExample />
-  </div>
-</CodeContainer>
-```
-
-**错误做法**：
-
-```astro
-<!-- 不要使用错误的源码对应 -->
-<CodeContainer codes={[wrongCode]}>
-  <div id="tab-1">
-    <BasicExample />
-  </div>
-  <div id="tab-2">
-    <FeatureExample />
-  </div>
-</CodeContainer>
-```
-
-## 组件文档规范
-
-### 1. 文档文件结构
-
-- 中文文档：`packages/cosy-docs/content/courses/zh-cn/components/{component}.mdx`
-- 英文文档：`packages/cosy-docs/content/courses/en/components/{component}.mdx`
-
-### 2. 文档内容规范
-
-- frontmatter 必须包含：`title`、`description`、`folder: false`、`order`
-- **核心组件导入**：`import { Component } from '@coffic/cosy-ui';`
-- **示例组件导入**：`import { ComponentPackage } from '@/components/component-name/index.ts';`
-- 文档结构参考 [alert.mdx](mdc:packages/cosy-ui-docs/content/courses/zh-cn/components/alert.mdx)
-
-### 3. 文档排序规范
-
-- `order` 值必须根据文档文件名的字母顺序生成
-- 确保 `abc.mdx` 的 order 值比 `def.mdx` 的 order 值小
-- 推荐使用连续递增的整数，如：1, 2, 3, 4...
-- 新增文档时需要检查现有文档的order值，确保按字母顺序正确排列
-
-### 4. 必须包含的章节
-
-- **简介** - 组件描述和特性
-- **基础用法** - `<ComponentPackage.ComponentContainers.Basic/>`
-- **功能示例** - 展示各种特性的用法
-- **自定义样式** - `<ComponentPackage.ComponentContainers.CustomStyle/>`
-
-## 开发流程
-
-### 1. 创建新组件的步骤
-
-#### 核心组件开发
-
-1. 在 `packages/cosy-ui/src-astro/{component-name}/` 创建核心组件
-2. 创建简洁的 index.ts，只导出组件和类型
-3. 在 [index-astro.ts](mdc:packages/cosy-ui/index-astro.ts) 中导出组件
-4. 执行 pnpm build:ui 确保构建成功
-
-#### 示例组件开发
-
-1. 在 `packages/cosy-docs/src/components/{component-name}/` 创建示例组件
-2. **为每个功能特性创建单独的示例组件**
-3. 创建对应的容器组件，使用多标签展示
-4. 创建 ComponentPackage 导出
-5. 更新文档中的导入路径
-
-### 2. 修复现有组件的步骤
-
-### 3. 迁移现有示例组件
-
-1. **识别示例组件**：找出所有以 `E` 开头和 `Container` 结尾的组件
-2. **移动到文档项目**：`mv packages/cosy-ui/src-astro/{component}/E*.astro packages/cosy-docs/src/components/{component}/`
-3. **更新导入路径**：示例组件中的导入改为从 `@coffic/cosy-ui` 导入
-4. **创建文档导出**：在文档项目中创建 ComponentPackage
-5. **更新文档导入**：文档中导入路径改为相对路径
-6. **清理核心项目**：从核心组件项目的 index.ts 中移除示例组件导出
-
-## 检查问题和修复
-
-### 1. 检查问题
-
-- 确认是否使用了自定义CSS类而非daisyUI类
-- 检查Tailwind类是否正确添加了 `cosy:` 前缀
-- 验证Props接口是否与文档描述一致
-- 确认核心组件是否导入了 [style.ts](mdc:packages/cosy-ui/style.ts)
-- 检查示例组件是否正确放置在文档项目中
-- **检查示例组件是否使用原生 CSS 样式而不是 Tailwind 类**
-- 检查容器组件是否正确使用 `?raw` 后缀导入源代码
-- 检查容器组件是否使用多标签展示，每个功能特性一个标签
-- 检查容器组件的源码数组是否与标签页一一对应
-- 检查容器组件是否提供了 titles 数组，为每个标签页添加了有意义的标题
-- 检查组件注释文档是否包含每个props的用法：确保 `@props` 部分详细说明了每个属性的用途、类型、默认值和使用场景
-- 检查中英文文档是否按逻辑顺序介绍各个prop：确保文档结构清晰，按照使用频率和功能相关性排序
-- **检查组件注释文档中的 `@props` 是否按字母顺序排列**
-- **检查文档是否按照组件注释文档中 `@props` 的顺序编写**
-- **检查每个属性是否使用多标签展示多种用法**
-- **检查示例组件是否避免使用多行 style 属性**
-
-### 2. 修复组件
-
-- 替换自定义CSS类为daisyUI标准类
-- 添加正确的Tailwind前缀
-- 完善Props接口
-- 确保功能实现与文档描述一致
-- 确保示例组件正确导入核心组件
-- **将示例组件中的 Tailwind 类替换为原生 CSS 样式**
-- **修复多行 style 属性，合并为单行**
-- 确保容器组件使用 `?raw` 后缀导入源代码
-- 确保容器组件使用多标签展示，每个功能特性一个标签
-- 确保容器组件的源码数组与标签页一一对应
-- 确保容器组件提供了 titles 数组，为每个标签页添加了有意义的标题
-- 完善组件注释文档的props用法：在 `@props` 部分详细说明每个属性的用途、类型、默认值和使用场景
-- 重新组织中英文文档结构：按照使用频率和功能相关性排序，从基础属性到高级属性，确保文档结构清晰易读
-- **按字母顺序重新排列组件注释文档中的 `@props`**
-- **按组件注释文档中 `@props` 的顺序重新编写文档**
-- **为每个属性创建多标签展示，展示多种用法**
-
-### 3. 全局暴露组件
-
-- 在 [index-astro.ts](mdc:packages/cosy-ui/index-astro.ts) 中添加**核心组件**导出
-- 按字母顺序插入到正确位置：`export * from './component-name';`
-- **不要**导出示例组件到核心组件库
-
-### 4. 创建文档
-
-- 创建中英文文档文件
-- 正确导入核心组件和示例组件
-- 确保所有示例都能正常工作
-- 正确设置文档的order值，确保按字母顺序排列
-
-### 5. 构建验证
-
-- **必须**在完成所有操作后执行 `pnpm build:docs`
-- 确保构建过程无错误
-- 如果构建失败，必须修复所有错误后重新构建
-- 只有构建成功才算完成组件开发
-
-## 常见错误避免
-
-1. **CSS类错误**：不要使用未定义的自定义类
-2. **前缀错误**：Tailwind类必须加 `cosy:` 前缀
-3. **接口不完整**：Props接口必须与文档一致
-4. **导入缺失**：忘记导入 [style.ts](mdc:packages/cosy-ui/style.ts)（仅限核心组件）
-5. **示例组件放错位置**：示例组件应放在文档项目而不是核心组件项目
-6. **文档导入错误**：文档中导入路径应该分别导入核心组件和示例组件
-7. **Package导出混乱**：ComponentPackage应该在文档项目中导出，不在核心组件项目
-8. **全局导出错误**：不要在核心组件库中导出示例组件
-9. **构建验证缺失**：忘记执行 `pnpm build:docs` 验证构建
-10. **文档排序错误**：文档的order值不符合字母顺序
-11. **示例组件样式错误**：示例组件使用 Tailwind 类而不是原生 CSS 样式
-12. **容器组件导入错误**：容器组件没有使用 `?raw` 后缀导入源代码
-13. **多标签展示错误**：将所有示例放在一个标签中，而不是为每个功能特性创建单独的标签
-14. **源码对应错误**：容器组件的源码数组与标签页不一一对应
-15. **标题缺失错误**：容器组件没有提供 titles 数组或标题不完整
-16. **Props文档缺失**：组件注释文档缺少 `@props` 部分或props说明不完整
-17. **文档结构混乱**：中英文文档没有按逻辑顺序介绍各个prop，结构不清晰
-18. **Props排序错误**：组件注释文档中的 `@props` 没有按字母顺序排列
-19. **文档顺序错误**：文档没有按照组件注释文档中 `@props` 的顺序编写
-20. **多标签用法缺失**：没有为每个属性创建多标签展示多种用法
-21. **复杂属性未拆分**：当单个属性功能特性过多时，没有使用三级标题进行拆分展示
-22. **ComponentPackage结构复杂**：使用不必要的嵌套层级，如 `ComponentContainers` 包装
-23. **多行style属性错误**：使用多行style属性导致构建错误
-
-## 检查清单
-
-修改/新建组件时，确保以下项目都已完成：
-
-### 核心组件
-
-- [ ] 导入 [style.ts](mdc:packages/cosy-ui/style.ts)
-- [ ] 使用daisyUI类和正确的Tailwind前缀
-- [ ] Props接口完整且与文档一致
-- [ ] 功能实现与文档描述一致
-- [ ] index.ts 保持简洁，只导出组件和类型
-- [ ] 在 [index-astro.ts](mdc:packages/cosy-ui/index-astro.ts) 中按字母顺序添加了组件导出
-- [ ] 组件注释文档包含每个props的用法：在 `@props` 部分详细说明每个属性的用途、类型、默认值和使用场景
-- [ ] 中英文文档按逻辑顺序介绍各个prop：按照使用频率和功能相关性排序，从基础属性到高级属性
-- [ ] **组件注释文档中的 `@props` 按字母顺序排列**
-- [ ] **文档按照组件注释文档中 `@props` 的顺序编写**
-
-### 示例组件（文档项目中）
-
-- [ ] 示例组件放在 `packages/cosy-docs/src/components/{component-name}/`
-- [ ] 正确从 `@coffic/cosy-ui` 导入核心组件和类型
-- [ ] 创建了基础示例组件
-- [ ] 创建了自定义样式示例
-- [ ] 创建了对应的容器组件
-- [ ] 容器组件使用 CodeContainer 的多标签特性
-- [ ] 容器组件包含完整的组件文档注释
-- [ ] 创建了 ComponentPackage 导出
-- [ ] **ComponentPackage 结构简洁**：直接导出容器组件，避免不必要的嵌套层级
-- [ ] **示例组件使用原生 CSS 样式**：使用 `style` 属性而不是 Tailwind 类
-- [ ] **示例组件避免多行 style 属性**：将多行样式合并为单行
-- [ ] 容器组件正确导入源代码：使用 `?raw` 后缀导入示例组件源代码
-- [ ] 多标签展示要求：为每个功能特性创建单独的示例组件和标签页
-- [ ] 源码对应要求：容器组件的源码数组与标签页一一对应
-- [ ] 标题要求：容器组件提供了 titles 数组，为每个标签页添加了有意义的标题
-- [ ] **为每个属性创建多标签展示，展示多种用法**
-
-### 文档
-
-- [ ] 创建了中英文文档
-- [ ] 正确导入核心组件和示例组件
-- [ ] 文档中的所有示例都能正常工作
-- [ ] 文档order值按字母顺序正确设置
-- [ ] 执行 `pnpm build:docs` 验证构建成功
-- [ ] 正确导入核心组件和示例组件
-- [ ] 文档中的所有示例都能正常工作
-- [ ] 文档order值按字母顺序正确设置
-- [ ] 执行 `pnpm build:docs` 验证构建成功
-- [ ] **文档按照组件注释文档中 `@props` 的顺序编写**
+- [ ] 核心组件导入 [style.ts](mdc:packages/cosy-ui/style.ts)
+- [ ] 示例组件优先使用组件库组件，不满足需求时使用原生 CSS
+- [ ] 容器组件使用多标签展示
+- [ ] Props 按字母顺序排列
+- [ ] 文档按 Props 顺序编写
+- [ ] 构建验证通过
 - [ ] **每个属性使用多标签展示多种用法**
 - [ ] **复杂属性使用三级标题拆分**：当单个属性功能特性过多时，使用三级标题分别展示不同场景
+
+### 5. 常见错误避免
+
+1. **示例组件使用 Tailwind 类** → 优先使用组件库组件，不满足需求时使用原生 CSS
+2. **多行 style 属性** → 合并为单行
+3. **Props 未按字母顺序** → 重新排序
+4. **文档未按 Props 顺序** → 重新组织
+5. **容器组件未使用多标签** → 为每个特性创建标签
+6. **忘记构建验证** → 执行 `pnpm build:docs`
+
+### 6. 导入规范
+
+#### 核心组件
+
+```typescript
+import { Component } from '@coffic/cosy-ui';
+import type { ComponentProps } from '@coffic/cosy-ui';
+```
+
+#### 示例组件
+
+```typescript
+import { ComponentPackage } from '@/components/component-name/index.ts';
+```
+
+#### 容器组件
+
+```astro
+import { CodeContainer } from '@coffic/cosy-ui';
+import ExampleCode from './Example.astro?raw';
+```
