@@ -1,0 +1,67 @@
+---
+import { AppLayout, Heading, Alert, ListItem } from '@coffic/cosy-ui';
+import type { ISidebarItem } from '@coffic/cosy-ui';
+
+const sidebarItems: ISidebarItem[] = [
+  {
+    text: '显示控制',
+    href: '/show',
+    items: [
+      { href: '/show/header', text: '显示头部' },
+      { href: '/show/sidebar', text: '显示侧边栏' },
+      { href: '/show/footer', text: '显示页脚' },
+    ],
+  },
+];
+---
+
+<AppLayout
+  metaConfig={{
+    title: '页脚显示控制示例',
+    description: '展示AppLayout的页脚显示控制功能',
+    keywords: '页脚,显示,控制,布局',
+    author: 'Designer',
+    robots: 'noindex,nofollow',
+  }}
+  sidebarConfig={{
+    sidebarItems: sidebarItems,
+  }}
+  headerConfig={{
+    height: 'md',
+    sticky: false,
+  }}
+  footerConfig={{
+    siteName: '页脚显示控制示例',
+    homeLink: '/',
+    slogan: '页脚显示控制展示',
+    company: 'Show Demo',
+    copyright: '2024 页脚显示控制示例',
+    inspirationalSlogan: '让布局更加灵活',
+  }}
+  mainContentConfig={{
+    padding: 'md',
+  }}
+  showFooter={true}>
+  <div style="padding: 1rem;">
+    <Heading level={1} margin="none"> 页脚显示控制示例 </Heading>
+    <p style="margin-bottom: 0.5rem;">
+      这个示例展示了如何控制页脚的显示和隐藏。
+    </p>
+    <Alert type="info" title="显示控制属性" marginY="md">
+      <ul style="list-style-type: disc; margin-left: 1rem;">
+        <ListItem>showFooter: true (显示页脚)</ListItem>
+        <ListItem>showHeader: true (显示头部)</ListItem>
+        <ListItem>showSidebar: true (显示侧边栏)</ListItem>
+      </ul>
+    </Alert>
+    <div style="margin-top: 2rem;">
+      <Heading level={2} margin="sm"> 使用场景 </Heading>
+      <ul style="list-style-type: disc; margin-left: 1rem;">
+        <ListItem>showFooter=false: 适合全屏应用</ListItem>
+        <ListItem>showHeader=false: 适合简洁页面</ListItem>
+        <ListItem>showSidebar=false: 适合单页应用</ListItem>
+        <ListItem>全部为false: 适合自定义布局</ListItem>
+      </ul>
+    </div>
+  </div>
+</AppLayout>

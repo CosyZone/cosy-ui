@@ -1,0 +1,65 @@
+---
+import { AppLayout, Heading, Alert, ListItem } from '@coffic/cosy-ui';
+import type { ISidebarItem } from '@coffic/cosy-ui';
+
+const sidebarItems: ISidebarItem[] = [
+  {
+    text: '头部配置',
+    href: '/header',
+    items: [
+      { href: '/header/height', text: '头部高度' },
+      { href: '/header/sticky', text: '粘性头部' },
+    ],
+  },
+];
+---
+
+<AppLayout
+  metaConfig={{
+    title: '头部配置示例',
+    description: '展示AppLayout的头部配置功能',
+    keywords: '头部,配置,导航',
+    author: 'Designer',
+    robots: 'noindex,nofollow',
+  }}
+  sidebarConfig={{
+    sidebarItems: sidebarItems,
+  }}
+  headerConfig={{
+    height: 'lg',
+    sticky: false,
+  }}
+  footerConfig={{
+    siteName: '头部配置示例',
+    homeLink: '/',
+    slogan: '头部配置展示',
+    company: 'Header Demo',
+    copyright: '2024 头部配置示例',
+    inspirationalSlogan: '让头部更加美观',
+  }}
+  mainContentConfig={{
+    padding: 'md',
+  }}>
+  <div style="padding: 1rem;">
+    <Heading level={1} margin="none"> 头部配置示例 </Heading>
+    <p style="margin-bottom: 0.5rem;">这个示例展示了如何配置头部的各种属性。</p>
+    <Alert type="warning" title="配置的头部属性" marginY="md">
+      <ul style="list-style-type: disc; margin-left: 1rem;">
+        <ListItem>height: 头部高度 (lg)</ListItem>
+        <ListItem>sticky: 粘性头部 (true)</ListItem>
+      </ul>
+    </Alert>
+    <div style="margin-top: 2rem;">
+      <Heading level={2} margin="sm"> 头部高度选项 </Heading>
+      <ul style="list-style-type: disc; margin-left: 1rem;">
+        <ListItem>3xs: 最小高度</ListItem>
+        <ListItem>2xs: 较小高度</ListItem>
+        <ListItem>xs: 小高度</ListItem>
+        <ListItem>sm: 较小高度</ListItem>
+        <ListItem>md: 中等高度 (默认)</ListItem>
+        <ListItem>lg: 大高度</ListItem>
+        <ListItem>xl: 最大高度</ListItem>
+      </ul>
+    </div>
+  </div>
+</AppLayout>

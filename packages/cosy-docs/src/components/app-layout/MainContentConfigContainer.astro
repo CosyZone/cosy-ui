@@ -1,0 +1,11 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import MainContentConfig from './MainContentConfig.astro';
+import MainContentConfigCode from './MainContentConfig.astro?raw';
+---
+
+<CodeContainer titles={['主内容配置']} codes={[MainContentConfigCode]}>
+  <div id="tab-1">
+    <MainContentConfig />
+  </div>
+</CodeContainer>

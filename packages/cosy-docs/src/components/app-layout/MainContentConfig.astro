@@ -1,0 +1,72 @@
+---
+import { AppLayout, Heading, ListItem } from '@coffic/cosy-ui';
+import type { ISidebarItem } from '@coffic/cosy-ui';
+
+const sidebarItems: ISidebarItem[] = [
+  {
+    text: '主内容配置',
+    href: '/main',
+    items: [
+      { href: '/main/padding', text: '内边距' },
+      { href: '/main/fullwidth', text: '全宽模式' },
+    ],
+  },
+];
+---
+
+<AppLayout
+  metaConfig={{
+    title: '主内容配置示例',
+    description: '展示AppLayout的主内容配置功能',
+    keywords: '主内容,配置,布局',
+    author: 'Designer',
+    robots: 'noindex,nofollow',
+  }}
+  sidebarConfig={{
+    sidebarItems: sidebarItems,
+  }}
+  headerConfig={{
+    height: 'md',
+    sticky: false,
+  }}
+  footerConfig={{
+    siteName: '主内容配置示例',
+    homeLink: '/',
+    slogan: '主内容配置展示',
+    company: 'Main Demo',
+    copyright: '2024 主内容配置示例',
+    inspirationalSlogan: '让内容更加美观',
+  }}
+  mainContentConfig={{
+    padding: 'lg',
+  }}>
+  <!-- 全宽Hero部分 -->
+  <div
+    style="background-color: #3b82f6; color: white; padding: 2.5rem; text-align: center;">
+    <Heading level={1} align="center" margin="none"> 全宽Hero部分 </Heading>
+    <p style="font-size: 1.125rem;">没有容器限制，宽度可以100%占满</p>
+  </div>
+
+  <!-- 自定义容器部分 -->
+  <div style="margin: 0 auto; padding: 1.5rem; max-width: 1200px;">
+    <Heading level={2} margin="none"> 主内容配置示例 </Heading>
+    <p style="margin-bottom: 0.5rem;">
+      这个示例展示了如何配置主内容区域的各种属性。
+    </p>
+    <div
+      style="border: 1px solid #10b981; padding: 1rem; border-radius: 0.375rem; margin-top: 1rem;">
+      <Heading level={3} margin="none"> 配置的主内容属性 </Heading>
+      <ul style="list-style-type: disc; margin-left: 1rem;">
+        <ListItem>padding: lg (大内边距)</ListItem>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 另一个全宽部分 -->
+  <div style="background-color: #f59e0b; margin-top: 2rem; padding: 2.5rem;">
+    <div style="margin: 0 auto; max-width: 1200px;">
+      <Heading level={2} align="center" margin="none"> 灵活的布局 </Heading>
+      <p>您可以自由组合全宽区域和容器限制区域</p>
+    </div>
+  </div>
+</AppLayout>

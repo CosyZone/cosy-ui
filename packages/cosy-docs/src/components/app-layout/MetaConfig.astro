@@ -1,0 +1,70 @@
+---
+import { AppLayout, Heading, Alert, ListItem } from '@coffic/cosy-ui';
+import type { ISidebarItem } from '@coffic/cosy-ui';
+import Logo from '@/assets/favicon.png';
+
+const sidebarItems: ISidebarItem[] = [
+  {
+    text: '元数据配置',
+    href: '/meta',
+    items: [
+      { href: '/meta/basic', text: '基础元数据' },
+      { href: '/meta/advanced', text: '高级元数据' },
+    ],
+  },
+];
+---
+
+<AppLayout
+  metaConfig={{
+    title: '元数据配置示例',
+    description: '展示AppLayout的元数据配置功能，包含完整的SEO信息',
+    keywords: '元数据,SEO,配置,布局',
+    author: 'SEO Expert',
+    robots: 'index,follow',
+    favicon: Logo,
+  }}
+  sidebarConfig={{
+    sidebarItems: sidebarItems,
+  }}
+  headerConfig={{
+    height: 'md',
+    sticky: false,
+  }}
+  footerConfig={{
+    siteName: '元数据配置示例',
+    homeLink: '/',
+    slogan: '元数据配置展示',
+    company: 'Meta Demo',
+    copyright: '2024 元数据配置示例',
+    inspirationalSlogan: '让SEO更加优化',
+  }}
+  mainContentConfig={{
+    padding: 'md',
+  }}>
+  <div style="padding: 1rem;">
+    <Heading level={1} margin="none"> 元数据配置示例 </Heading>
+    <p style="margin-bottom: 0.5rem;">
+      这个示例展示了如何配置页面的元数据信息。
+    </p>
+    <Alert type="info" title="配置的元数据属性" marginY="md">
+      <ul style="list-style-type: disc; margin-left: 1rem;">
+        <ListItem>title: 页面标题</ListItem>
+        <ListItem>description: 页面描述</ListItem>
+        <ListItem>keywords: 关键词</ListItem>
+        <ListItem>author: 作者</ListItem>
+        <ListItem>robots: 搜索引擎指令</ListItem>
+        <ListItem>favicon: 网站图标</ListItem>
+      </ul>
+    </Alert>
+    <div style="margin-top: 2rem;">
+      <Heading level={2} margin="sm"> SEO优化建议 </Heading>
+      <ul style="list-style-type: disc; margin-left: 1rem;">
+        <ListItem>title: 50-60字符，包含关键词</ListItem>
+        <ListItem>description: 150-160字符，吸引点击</ListItem>
+        <ListItem>keywords: 相关关键词，用逗号分隔</ListItem>
+        <ListItem>robots: 控制搜索引擎爬虫行为</ListItem>
+      </ul>
+    </div>
+  </div>
+</AppLayout>

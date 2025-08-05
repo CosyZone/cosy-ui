@@ -1,25 +1,26 @@
-// 示例组件
-import AppLayoutBasic from './Basic.astro';
-import CustomStyle from './CustomStyle.astro';
-
-// 容器组件
 import BasicContainer from './BasicContainer.astro';
-import CustomStyleContainer from './CustomStyleContainer.astro';
-
-export {
-    // 示例组件
-    AppLayoutBasic,
-    CustomStyle,
-
-    // 容器组件
-    BasicContainer,
-    CustomStyleContainer
-};
+import DebugContainer from './DebugContainer.astro';
+import FooterConfigContainer from './FooterConfigContainer.astro';
+import HeaderConfigContainer from './HeaderConfigContainer.astro';
+import LoadingDelayContainer from './LoadingDelayContainer.astro';
+import MainContentConfigContainer from './MainContentConfigContainer.astro';
+import MetaConfigContainer from './MetaConfigContainer.astro';
+import ShowFooterContainer from './ShowFooterContainer.astro';
+import ShowHeaderContainer from './ShowHeaderContainer.astro';
+import ShowSidebarContainer from './ShowSidebarContainer.astro';
+import SidebarConfigContainer from './SidebarConfigContainer.astro';
 
 // 导出 ComponentPackage 用于文档
 export const AppLayoutPackage = {
-    AppLayoutContainers: {
-        Basic: BasicContainer,
-        CustomStyle: CustomStyleContainer,
-    },
+    Basic: BasicContainer,
+    Debug: DebugContainer,
+    FooterConfig: FooterConfigContainer,
+    HeaderConfig: HeaderConfigContainer,
+    LoadingDelay: LoadingDelayContainer,
+    MainContentConfig: MainContentConfigContainer,
+    MetaConfig: MetaConfigContainer,
+    ShowFooter: ShowFooterContainer,
+    ShowHeader: ShowHeaderContainer,
+    ShowSidebar: ShowSidebarContainer,
+    SidebarConfig: SidebarConfigContainer,
 }; 

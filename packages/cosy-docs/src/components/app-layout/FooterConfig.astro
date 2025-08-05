@@ -1,0 +1,63 @@
+---
+import { AppLayout, Heading, Alert, ListItem } from '@coffic/cosy-ui';
+import type { ISidebarItem } from '@coffic/cosy-ui';
+
+const sidebarItems: ISidebarItem[] = [
+  {
+    text: '页脚配置',
+    href: '/footer',
+    items: [
+      { href: '/footer/basic', text: '基础页脚' },
+      { href: '/footer/advanced', text: '高级页脚' },
+    ],
+  },
+];
+---
+
+<AppLayout
+  metaConfig={{
+    title: '页脚配置示例',
+    description: '展示AppLayout的页脚配置功能',
+    keywords: '页脚,配置,布局',
+    author: 'Designer',
+    robots: 'noindex,nofollow',
+  }}
+  sidebarConfig={{
+    sidebarItems: sidebarItems,
+  }}
+  headerConfig={{
+    height: 'md',
+    sticky: false,
+  }}
+  footerConfig={{
+    siteName: '页脚配置示例',
+    homeLink: '/',
+    slogan: '完整的页脚配置展示',
+    company: 'Footer Demo',
+    copyright: '2024 页脚示例',
+    inspirationalSlogan: '让页脚更加美观',
+    socialLinks: [
+      'https://github.com/footer-demo',
+      'https://twitter.com/footer_demo',
+      'https://linkedin.com/company/footer-demo',
+    ],
+  }}
+  mainContentConfig={{
+    padding: 'md',
+  }}>
+  <div style="padding: 1rem;">
+    <Heading level={1} margin="none"> 页脚配置示例 </Heading>
+    <p style="margin-bottom: 0.5rem;">这个示例展示了如何配置页脚的各种属性。</p>
+    <Alert type="success" title="配置的页脚属性" marginY="md">
+      <ul style="list-style-type: disc; margin-left: 1rem;">
+        <ListItem>siteName: 站点名称</ListItem>
+        <ListItem>homeLink: 首页链接</ListItem>
+        <ListItem>slogan: 站点口号</ListItem>
+        <ListItem>company: 公司名称</ListItem>
+        <ListItem>copyright: 版权信息</ListItem>
+        <ListItem>inspirationalSlogan: 激励口号</ListItem>
+        <ListItem>socialLinks: 社交媒体链接</ListItem>
+      </ul>
+    </Alert>
+  </div>
+</AppLayout>
