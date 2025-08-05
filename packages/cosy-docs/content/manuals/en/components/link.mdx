@@ -5,7 +5,7 @@ order: 14.3
 ---
 
 import { Link } from '@coffic/cosy-ui';
-import { LinkPackage } from '../../../../src/components/link/index.ts';
+import { LinkPackage } from '@/components/link/index.ts';
 
 # {frontmatter.title}
 
@@ -13,65 +13,136 @@ import { LinkPackage } from '../../../../src/components/link/index.ts';
 
 The Link component is a powerful link component that not only supports traditional link styles but also provides button styles, animation effects, and rich customization options. Through semantic property configuration, you can achieve various visual effects without manually writing CSS class names.
 
-**Key Features:**
-- 🎨 Multiple style variants (default, primary, secondary, text, cta, ghost, light)
-- 🔘 Complete button style support (normal, ghost, circular, various sizes)
-- ✨ Rich animation effects (lift, glow, scale)
-- 📱 Responsive design with various alignment options
-- 🎯 Semantic properties, no need to manually concatenate CSS classes
-- ♿ Comprehensive accessibility support
+## active
 
-## Basic Usage
+Whether the link is in an active state.
 
-The simplest way to use links, supporting both internal and external links.
+<LinkPackage.Active />
 
-<LinkPackage.ComponentContainers.Basic />
+## align
 
-## Button Styles
+Alignment method. Optional values: `left`, `center`, `right`.
 
-Enable button styles with the `btn` attribute, supporting multiple colors, sizes, and shapes.
+<LinkPackage.Align />
 
-<LinkPackage.ComponentContainers.ButtonStyle />
+## animation
 
-## Style Variants
+### Link Animations
 
-Apply different style variants using the `variant` attribute, suitable for different use cases.
+Animation effects that define the animation behavior on mouse hover. Optional values: `none`, `hover-lift`, `hover-glow`, `hover-scale`.
 
-<LinkPackage.ComponentContainers.Variants />
+<LinkPackage.Animations />
 
-## Animation Effects
+### Button Animations
 
-Add hover animation effects using the `animation` attribute to enhance user experience.
+Button-style links also support animation effects, which can be used in combination with the `btn` and `animation` attributes.
 
-<LinkPackage.ComponentContainers.Animations />
+<LinkPackage.ButtonAnimations />
 
-## Advanced Features
+## block
 
-More advanced features including alignment, style decorations, debug mode, and more.
+Whether to display as a block element. When set to `true`, the link will occupy a full line.
 
-<LinkPackage.ComponentContainers.Advanced />
+<LinkPackage.Block />
 
-## API Reference
+## btn
 
-### Props
+Whether to enable button style. When set to `true`, button styles will be applied.
 
-| Property | Description | Type | Default |
-|----------|-------------|------|---------|
-| `href` | Link URL | `string` | - |
-| `external` | Whether it's an external link, automatically opens in new window | `boolean` | `false` |
-| `variant` | Style variant | `'default' \| 'primary' \| 'secondary' \| 'text' \| 'cta' \| 'ghost' \| 'light'` | `'default'` |
-| `size` | Size | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| `animation` | Animation effect | `'none' \| 'hover-lift' \| 'hover-glow' \| 'hover-scale'` | `'none'` |
-| `block` | Whether to display as block | `boolean` | `false` |
-| `btn` | Whether to enable button style | `boolean` | `false` |
-| `circle` | Whether it's a circular button (use with `btn`) | `boolean` | `false` |
-| `ghost` | Whether it's a ghost button (use with `btn`) | `boolean` | `false` |
-| `color` | Button color (use with `btn`) | `'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | - |
-| `align` | Alignment | `'left' \| 'center' \| 'right'` | - |
-| `rounded` | Whether to add rounded corners | `boolean` | `false` |
-| `noUnderline` | Whether to remove underline | `boolean` | `false` |
-| `fullWidth` | Whether to take full width | `boolean` | `false` |
-| `centerText` | Whether to center text (compatibility property) | `boolean` | `false` |
-| `debug` | Whether to show debug borders | `boolean` | `false` |
-| `class` | Custom CSS class | `string` | - |
-| `...rest` | Other HTML `<a>` tag attributes | `HTMLAttributes<'a'>` | - |
+<LinkPackage.ButtonStyle />
+
+## circle
+
+Whether it's a circular button, requires the `btn` attribute to be used together.
+
+<LinkPackage.Circle />
+
+## class
+
+Custom CSS class name.
+
+<LinkPackage.CustomClass />
+
+## class:list
+
+Class name list.
+
+<LinkPackage.ClassList />
+
+## color
+
+Button color, requires the `btn` attribute to be used together. Optional values: `primary`, `secondary`, `accent`, `info`, `success`, `warning`, `error`.
+
+<LinkPackage.Colors />
+
+## debug
+
+Whether to display debug borders.
+
+<LinkPackage.Debug />
+
+## external
+
+Whether it's an external link. When set to `true`, it will automatically open in a new window.
+
+<LinkPackage.External />
+
+## fullWidth
+
+Whether to occupy full width.
+
+<LinkPackage.FullWidth />
+
+## ghost
+
+Whether it's a ghost button, requires the `btn` attribute to be used together.
+
+<LinkPackage.Ghost />
+
+## href
+
+Link address, required property.
+
+<LinkPackage.Basic />
+
+## icon
+
+Icon name, supports all available icon components.
+
+<LinkPackage.Icons />
+
+## navigationType
+
+Navigation type, requires the `navigation` variant to be used together. Optional values: `previous`, `next`.
+
+<LinkPackage.NavigationType />
+
+## noUnderline
+
+Whether to remove the underline, defaults to `true`.
+
+<LinkPackage.NoUnderline />
+
+## rounded
+
+Whether to add rounded corners.
+
+<LinkPackage.Rounded />
+
+## size
+
+Size, controls the font size and spacing of the link. Optional values: `sm`, `md`, `lg`.
+
+<LinkPackage.Sizes />
+
+## variant
+
+Style variant, used to define the visual style of the link. Optional values: `default`, `primary`, `secondary`, `text`, `cta`, `ghost`, `light`, `navigation`, `github`.
+
+<LinkPackage.Variants />
+
+## rest
+
+Other HTML `<a>` tag attributes.
+
+<LinkPackage.Rest />

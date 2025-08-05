@@ -2,10 +2,26 @@
 import { CodeContainer } from '@coffic/cosy-ui';
 import CardWithSubtitle from './CardWithSubtitle.astro';
 import CardWithSubtitleSourceCode from './CardWithSubtitle.astro?raw';
+import CardWithSubtitle2 from './CardWithSubtitle2.astro';
+import CardWithSubtitle2SourceCode from './CardWithSubtitle2.astro?raw';
+import CardWithSubtitle3 from './CardWithSubtitle3.astro';
+import CardWithSubtitle3SourceCode from './CardWithSubtitle3.astro?raw';
 ---
 
-<CodeContainer codes={[CardWithSubtitleSourceCode]}>
+<CodeContainer
+  codes={[
+    CardWithSubtitleSourceCode,
+    CardWithSubtitle2SourceCode,
+    CardWithSubtitle3SourceCode,
+  ]}
+  titles={['基础副标题', '副标题链接', '副标题紧凑']}>
   <div id="tab-1">
     <CardWithSubtitle />
+  </div>
+  <div id="tab-2">
+    <CardWithSubtitle2 />
+  </div>
+  <div id="tab-3">
+    <CardWithSubtitle3 />
   </div>
 </CodeContainer>

@@ -1,0 +1,52 @@
+---
+import { TableOfContents, Heading, Container, Alert } from '@coffic/cosy-ui';
+---
+
+<Container>
+  <Heading level={1} margin="none">固定位置示例</Heading>
+  <p style="margin-bottom: 1rem;">这个示例展示了 fixed 属性的不同设置效果。</p>
+
+  <Alert type="info" title="说明" marginY="md">
+    当 fixed=false 时，目录会跟随内容流，而不是固定在右侧。
+  </Alert>
+
+  <div style="display: flex; gap: 2rem; margin-top: 2rem;">
+    <div style="flex: 1;">
+      <Heading level={2} margin="sm">内容区域</Heading>
+      <p style="margin-bottom: 1rem;">
+        这是主要内容区域，包含多个标题用于演示目录功能。
+      </p>
+
+      <Heading level={3} margin="sm">子标题 1</Heading>
+      <p style="margin-bottom: 1rem;">这是第一个子标题的内容。</p>
+
+      <Heading level={3} margin="sm">子标题 2</Heading>
+      <p style="margin-bottom: 1rem;">这是第二个子标题的内容。</p>
+
+      <Heading level={2} margin="sm">另一个主标题</Heading>
+      <p style="margin-bottom: 1rem;">这是另一个主标题的内容。</p>
+
+      <Heading level={3} margin="sm">更多子标题</Heading>
+      <p style="margin-bottom: 1rem;">这是更多的子标题内容。</p>
+    </div>
+
+    <div style="width: 16rem;">
+      <Heading level={3} margin="sm">固定目录</Heading>
+      <TableOfContents fixed={true} />
+    </div>
+  </div>
+
+  <div style="margin-top: 3rem;">
+    <Heading level={2} margin="sm">非固定目录示例</Heading>
+    <p style="margin-bottom: 1rem;">
+      下面的目录设置为非固定模式，会跟随内容流：
+    </p>
+
+    <div
+      style="border: 2px dashed #3b82f6; padding: 1rem; border-radius: 0.5rem; margin-bottom: 2rem;">
+      <TableOfContents fixed={false} />
+    </div>
+
+    <p>这是目录下方的其他内容，展示了非固定目录如何跟随内容流。</p>
+  </div>
+</Container>

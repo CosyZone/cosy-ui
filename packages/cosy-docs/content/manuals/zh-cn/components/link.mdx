@@ -5,7 +5,7 @@ order: 14.3
 ---
 
 import { Link } from '@coffic/cosy-ui';
-import { LinkPackage } from '../../../../src/components/link/index.ts';
+import { LinkPackage } from '@/components/link/index.ts';
 
 # {frontmatter.title}
 
@@ -13,65 +13,136 @@ import { LinkPackage } from '../../../../src/components/link/index.ts';
 
 Link 组件是一个功能强大的链接组件，不仅支持传统的链接样式，还提供了按钮风格、动画效果和丰富的自定义选项。通过语义化的属性配置，无需手动编写 CSS 类名即可实现各种视觉效果。
 
-**主要特性：**
-- 🎨 多种样式变体（default、primary、secondary、text、cta、ghost、light）
-- 🔘 完整的按钮风格支持（普通、幽灵、圆形、各种尺寸）
-- ✨ 丰富的动画效果（上浮、发光、缩放）
-- 📱 响应式设计，支持各种对齐方式
-- 🎯 语义化属性，无需手动拼接 CSS 类
-- ♿ 完善的无障碍支持
+## active
 
-## 基础用法
+是否为激活状态。
 
-最简单的链接使用方式，支持内部链接和外部链接。
+<LinkPackage.Active />
 
-<LinkPackage.ComponentContainers.Basic />
+## align
 
-## 按钮风格
+对齐方式。可选值：`left`、`center`、`right`。
 
-通过 `btn` 属性启用按钮风格，支持多种颜色、尺寸和形状。
+<LinkPackage.Align />
 
-<LinkPackage.ComponentContainers.ButtonStyle />
+## animation
 
-## 样式变体
+### 链接动画
 
-通过 `variant` 属性应用不同的样式变体，适用于不同的使用场景。
+动画效果，定义鼠标悬停时的动画行为。可选值：`none`、`hover-lift`、`hover-glow`、`hover-scale`。
 
-<LinkPackage.ComponentContainers.Variants />
+<LinkPackage.Animations />
 
-## 动画效果
+### 按钮动画
 
-通过 `animation` 属性添加悬停动画效果，提升用户体验。
+按钮样式的链接也支持动画效果，可以结合 `btn` 和 `animation` 属性使用。
 
-<LinkPackage.ComponentContainers.Animations />
+<LinkPackage.ButtonAnimations />
 
-## 高级功能
+## block
 
-更多高级功能，包括对齐方式、样式修饰、调试模式等。
+是否为块级显示，设置为 `true` 时链接会独占一行。
 
-<LinkPackage.ComponentContainers.Advanced />
+<LinkPackage.Block />
 
-## API 参考
+## btn
 
-### Props
+是否启用按钮风格，设置为 `true` 时会应用按钮样式。
 
-| 属性 | 说明 | 类型 | 默认值 |
-|------|------|------|--------|
-| `href` | 链接地址 | `string` | - |
-| `external` | 是否为外部链接，自动新窗口打开 | `boolean` | `false` |
-| `variant` | 样式变体 | `'default' \| 'primary' \| 'secondary' \| 'text' \| 'cta' \| 'ghost' \| 'light'` | `'default'` |
-| `size` | 尺寸大小 | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| `animation` | 动画效果 | `'none' \| 'hover-lift' \| 'hover-glow' \| 'hover-scale'` | `'none'` |
-| `block` | 是否为块级显示 | `boolean` | `false` |
-| `btn` | 是否启用按钮风格 | `boolean` | `false` |
-| `circle` | 是否为圆形按钮（需配合 `btn` 使用） | `boolean` | `false` |
-| `ghost` | 是否为幽灵按钮（需配合 `btn` 使用） | `boolean` | `false` |
-| `color` | 按钮颜色（需配合 `btn` 使用） | `'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | - |
-| `align` | 对齐方式 | `'left' \| 'center' \| 'right'` | - |
-| `rounded` | 是否添加圆角 | `boolean` | `false` |
-| `noUnderline` | 是否移除下划线 | `boolean` | `false` |
-| `fullWidth` | 是否占满宽度 | `boolean` | `false` |
-| `centerText` | 是否居中文本（兼容属性） | `boolean` | `false` |
-| `debug` | 是否显示调试边框 | `boolean` | `false` |
-| `class` | 自定义 CSS 类名 | `string` | - |
-| `...rest` | 其他 HTML `<a>` 标签属性 | `HTMLAttributes<'a'>` | - |
+<LinkPackage.ButtonStyle />
+
+## circle
+
+是否为圆形按钮，需要配合 `btn` 属性使用。
+
+<LinkPackage.Circle />
+
+## class
+
+自定义 CSS 类名。
+
+<LinkPackage.CustomClass />
+
+## class:list
+
+类名列表。
+
+<LinkPackage.ClassList />
+
+## color
+
+按钮颜色，需要配合 `btn` 属性使用。可选值：`primary`、`secondary`、`accent`、`info`、`success`、`warning`、`error`。
+
+<LinkPackage.Colors />
+
+## debug
+
+是否显示调试边框。
+
+<LinkPackage.Debug />
+
+## external
+
+是否为外部链接，设置为 `true` 时会自动在新窗口打开。
+
+<LinkPackage.External />
+
+## fullWidth
+
+是否占满宽度。
+
+<LinkPackage.FullWidth />
+
+## ghost
+
+是否为幽灵按钮，需要配合 `btn` 属性使用。
+
+<LinkPackage.Ghost />
+
+## href
+
+链接地址，必需属性。
+
+<LinkPackage.Basic />
+
+## icon
+
+图标名称，支持所有可用的图标组件。
+
+<LinkPackage.Icons />
+
+## navigationType
+
+导航类型，需要配合 `navigation` 变体使用。可选值：`previous`、`next`。
+
+<LinkPackage.NavigationType />
+
+## noUnderline
+
+是否移除下划线，默认为 `true`。
+
+<LinkPackage.NoUnderline />
+
+## rounded
+
+是否添加圆角。
+
+<LinkPackage.Rounded />
+
+## size
+
+尺寸大小，控制链接的字体大小和间距。可选值：`sm`、`md`、`lg`。
+
+<LinkPackage.Sizes />
+
+## variant
+
+样式变体，用于定义链接的视觉风格。可选值：`default`、`primary`、`secondary`、`text`、`cta`、`ghost`、`light`、`navigation`、`github`。
+
+<LinkPackage.Variants />
+
+## rest
+
+其他 HTML `<a>` 标签属性。
+
+<LinkPackage.Rest />

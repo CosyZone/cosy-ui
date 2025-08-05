@@ -1,77 +1,84 @@
 ---
 /**
  * @component ContainerFlex
- * @description Container 组件 Flex 布局示例
+ * @description Container 组件Flex布局示例
  */
 import { Container } from '@coffic/cosy-ui';
 ---
 
-<div class="cosy:space-y-6">
+<div style="display: flex; flex-direction: column; gap: 1rem;">
   <div>
-    <h4 class="cosy:font-bold cosy:mb-2">行布局（默认）</h4>
-    <Container flex="row" gap="md" class="cosy:bg-base-200">
+    <h4 style="font-weight: bold; margin-bottom: 0.5rem;">行布局 (row)</h4>
+    <Container flex="row" gap="md" style="background-color: #f1f5f9;">
       <div
-        class="cosy:bg-primary cosy:text-primary-content cosy:p-2 cosy:rounded">
-        项目 1
+        style="background-color: #3b82f6; color: white; padding: 0.5rem; border-radius: 0.25rem;">
+        项目1
       </div>
       <div
-        class="cosy:bg-secondary cosy:text-secondary-content cosy:p-2 cosy:rounded">
-        项目 2
+        style="background-color: #64748b; color: white; padding: 0.5rem; border-radius: 0.25rem;">
+        项目2
       </div>
       <div
-        class="cosy:bg-accent cosy:text-accent-content cosy:p-2 cosy:rounded">
-        项目 3
+        style="background-color: #06b6d4; color: white; padding: 0.5rem; border-radius: 0.25rem;">
+        项目3
       </div>
     </Container>
   </div>
 
   <div>
-    <h4 class="cosy:font-bold cosy:mb-2">列布局</h4>
-    <Container flex="col" gap="md" class="cosy:bg-base-200">
+    <h4 style="font-weight: bold; margin-bottom: 0.5rem;">列布局 (col)</h4>
+    <Container flex="col" gap="md" style="background-color: #f1f5f9;">
       <div
-        class="cosy:bg-primary cosy:text-primary-content cosy:p-2 cosy:rounded">
-        项目 1
+        style="background-color: #3b82f6; color: white; padding: 0.5rem; border-radius: 0.25rem;">
+        项目1
       </div>
       <div
-        class="cosy:bg-secondary cosy:text-secondary-content cosy:p-2 cosy:rounded">
-        项目 2
+        style="background-color: #64748b; color: white; padding: 0.5rem; border-radius: 0.25rem;">
+        项目2
       </div>
       <div
-        class="cosy:bg-accent cosy:text-accent-content cosy:p-2 cosy:rounded">
-        项目 3
-      </div>
-    </Container>
-  </div>
-
-  <div>
-    <h4 class="cosy:font-bold cosy:mb-2">居中对齐</h4>
-    <Container
-      flex="row"
-      gap="md"
-      items="center"
-      justify="center"
-      class="cosy:bg-base-200">
-      <div
-        class="cosy:bg-primary cosy:text-primary-content cosy:p-2 cosy:rounded">
-        居中
-      </div>
-      <div
-        class="cosy:bg-secondary cosy:text-secondary-content cosy:p-2 cosy:rounded">
-        对齐
+        style="background-color: #06b6d4; color: white; padding: 0.5rem; border-radius: 0.25rem;">
+        项目3
       </div>
     </Container>
   </div>
 
   <div>
-    <h4 class="cosy:font-bold cosy:mb-2">两端对齐</h4>
-    <Container flex="row" gap="md" justify="between" class="cosy:bg-base-200">
+    <h4 style="font-weight: bold; margin-bottom: 0.5rem;">
+      反向行布局 (row-reverse)
+    </h4>
+    <Container flex="row-reverse" gap="md" style="background-color: #f1f5f9;">
       <div
-        class="cosy:bg-primary cosy:text-primary-content cosy:p-2 cosy:rounded">
-        左侧
+        style="background-color: #3b82f6; color: white; padding: 0.5rem; border-radius: 0.25rem;">
+        项目1
       </div>
       <div
-        class="cosy:bg-secondary cosy:text-secondary-content cosy:p-2 cosy:rounded">
-        右侧
+        style="background-color: #64748b; color: white; padding: 0.5rem; border-radius: 0.25rem;">
+        项目2
+      </div>
+      <div
+        style="background-color: #06b6d4; color: white; padding: 0.5rem; border-radius: 0.25rem;">
+        项目3
+      </div>
+    </Container>
+  </div>
+
+  <div>
+    <h4 style="font-weight: bold; margin-bottom: 0.5rem;">
+      反向列布局 (col-reverse)
+    </h4>
+    <Container flex="col-reverse" gap="md" style="background-color: #f1f5f9;">
+      <div
+        style="background-color: #3b82f6; color: white; padding: 0.5rem; border-radius: 0.25rem;">
+        项目1
+      </div>
+      <div
+        style="background-color: #64748b; color: white; padding: 0.5rem; border-radius: 0.25rem;">
+        项目2
+      </div>
+      <div
+        style="background-color: #06b6d4; color: white; padding: 0.5rem; border-radius: 0.25rem;">
+        项目3
       </div>
     </Container>
   </div>

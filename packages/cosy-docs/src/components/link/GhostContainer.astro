@@ -1,0 +1,46 @@
+---
+import { CodeContainer, Container } from '@coffic/cosy-ui';
+import { Link } from '@coffic/cosy-ui';
+
+// 导入示例组件
+import GhostPrimary from './GhostPrimary.astro';
+import GhostSecondary from './GhostSecondary.astro';
+import GhostAccent from './GhostAccent.astro';
+import GhostInfo from './GhostInfo.astro';
+
+// 导入源码
+import GhostPrimaryCode from './GhostPrimary.astro?raw';
+import GhostSecondaryCode from './GhostSecondary.astro?raw';
+import GhostAccentCode from './GhostAccent.astro?raw';
+import GhostInfoCode from './GhostInfo.astro?raw';
+---
+
+<CodeContainer
+  titles={['主要幽灵按钮', '次要幽灵按钮', '强调幽灵按钮', '信息幽灵按钮']}
+  codes={[
+    GhostPrimaryCode,
+    GhostSecondaryCode,
+    GhostAccentCode,
+    GhostInfoCode,
+  ]}>
+  <div id="tab-1">
+    <Container flex="row" gap="sm" items="center">
+      <GhostPrimary />
+    </Container>
+  </div>
+  <div id="tab-2">
+    <Container flex="row" gap="sm" items="center">
+      <GhostSecondary />
+    </Container>
+  </div>
+  <div id="tab-3">
+    <Container flex="row" gap="sm" items="center">
+      <GhostAccent />
+    </Container>
+  </div>
+  <div id="tab-4">
+    <Container flex="row" gap="sm" items="center">
+      <GhostInfo />
+    </Container>
+  </div>
+</CodeContainer>

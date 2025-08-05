@@ -1,0 +1,45 @@
+---
+/**
+ * @component ButtonAnimationsContainer
+ * @description Link组件按钮动画效果示例的容器组件，使用多标签展示不同功能
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonLiftAnimation from './ButtonLiftAnimation.astro';
+import ButtonGlowAnimation from './ButtonGlowAnimation.astro';
+import ButtonScaleAnimation from './ButtonScaleAnimation.astro';
+import ButtonNoAnimation from './ButtonNoAnimation.astro';
+
+import buttonLiftCode from './ButtonLiftAnimation.astro?raw';
+import buttonGlowCode from './ButtonGlowAnimation.astro?raw';
+import buttonScaleCode from './ButtonScaleAnimation.astro?raw';
+import buttonNoAnimationCode from './ButtonNoAnimation.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    buttonLiftCode,
+    buttonGlowCode,
+    buttonScaleCode,
+    buttonNoAnimationCode,
+  ]}
+  titles={['按钮上浮', '按钮发光', '按钮缩放', '按钮无动画']}
+  descriptions={[
+    '使用 btn 和 animation="hover-lift" 为按钮样式的链接添加上浮动画效果',
+    '使用 btn 和 animation="hover-glow" 为按钮样式的链接添加发光动画效果',
+    '使用 btn 和 animation="hover-scale" 为按钮样式的链接添加缩放动画效果',
+    '使用 btn 和 animation="none" 为按钮样式的链接禁用动画效果',
+  ]}>
+  <div id="tab-1">
+    <ButtonLiftAnimation />
+  </div>
+  <div id="tab-2">
+    <ButtonGlowAnimation />
+  </div>
+  <div id="tab-3">
+    <ButtonScaleAnimation />
+  </div>
+  <div id="tab-4">
+    <ButtonNoAnimation />
+  </div>
+</CodeContainer>

@@ -1,0 +1,59 @@
+---
+import { AppLayout, Heading, Alert } from '@coffic/cosy-ui';
+import type { ISidebarItem } from '@coffic/cosy-ui';
+
+const sidebarItems: ISidebarItem[] = [
+  {
+    text: '调试模式',
+    href: '/debug',
+    items: [
+      { href: '/debug/layout', text: '布局调试' },
+      { href: '/debug/components', text: '组件调试' },
+    ],
+  },
+];
+---
+
+<AppLayout
+  metaConfig={{
+    title: '调试模式示例',
+    description: '展示AppLayout的调试模式功能',
+    keywords: '调试,布局,开发',
+    author: 'Developer',
+    robots: 'noindex,nofollow',
+  }}
+  sidebarConfig={{
+    sidebarItems: sidebarItems,
+  }}
+  headerConfig={{
+    height: 'md',
+    sticky: false,
+  }}
+  footerConfig={{
+    siteName: '调试示例',
+    homeLink: '/',
+    slogan: '开发调试工具',
+    company: 'Dev Team',
+    copyright: '2024 调试示例',
+    inspirationalSlogan: '让调试更加高效',
+  }}
+  mainContentConfig={{
+    padding: 'md',
+  }}
+  debug={true}>
+  <div style="padding: 1rem;">
+    <Heading level={1} margin="none"> 调试模式示例 </Heading>
+    <p style="margin-bottom: 0.5rem;">
+      启用调试模式后，您可以看到各个布局区域的边框。
+    </p>
+    <p style="margin-bottom: 0.5rem;">这对于开发时调整布局非常有帮助。</p>
+    <Alert type="info" title="调试信息" marginY="md">
+      <ul style="list-style-type: disc; margin-left: 1rem;">
+        <li>头部区域：显示导航栏和搜索功能</li>
+        <li>侧边栏：显示导航菜单</li>
+        <li>主内容区：显示页面主要内容</li>
+        <li>页脚：显示站点信息和链接</li>
+      </ul>
+    </Alert>
+  </div>
+</AppLayout>

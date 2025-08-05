@@ -6,29 +6,47 @@
 
 import { CodeContainer } from '@coffic/cosy-ui';
 import LinkVariants from './LinkVariants.astro';
+import GithubLink from './GitHubLink.astro';
 import LinkBlock from './LinkBlock.astro';
 import LinkSizes from './LinkSizes.astro';
+import NavigationComplete from './NavigationComplete.astro';
 
 import linkVariantsCode from './LinkVariants.astro?raw';
+import githubLinkCode from './GitHubLink.astro?raw';
 import linkBlockCode from './LinkBlock.astro?raw';
 import linkSizesCode from './LinkSizes.astro?raw';
+import navigationCompleteCode from './NavigationComplete.astro?raw';
 ---
 
 <CodeContainer
-  codes={[linkVariantsCode, linkBlockCode, linkSizesCode]}
-  titles={['样式变体', '块级显示', '尺寸变体']}
+  codes={[
+    linkVariantsCode,
+    githubLinkCode,
+    linkBlockCode,
+    linkSizesCode,
+    navigationCompleteCode,
+  ]}
+  titles={['样式变体', 'GitHub 变体', '块级显示', '尺寸变体', '文档导航']}
   descriptions={[
     '使用 variant 属性设置链接样式，支持 default、primary、secondary、text、cta、ghost、light',
+    '使用 variant="github" 创建带有 GitHub 图标的链接',
     '使用 block 属性让链接以块级元素显示，占据整行',
     '使用 size 属性控制链接尺寸，支持 sm、md、lg',
+    '使用 variant="navigation" 创建文档导航链接，支持 previous 和 next 类型',
   ]}>
   <div id="tab-1">
     <LinkVariants />
   </div>
   <div id="tab-2">
-    <LinkBlock />
+    <GithubLink />
   </div>
   <div id="tab-3">
+    <LinkBlock />
+  </div>
+  <div id="tab-4">
     <LinkSizes />
+  </div>
+  <div id="tab-5">
+    <NavigationComplete />
   </div>
 </CodeContainer>

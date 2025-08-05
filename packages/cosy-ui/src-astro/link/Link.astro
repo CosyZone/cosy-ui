@@ -13,6 +13,29 @@
  * 3. 一致性 - 保持与整体设计系统的一致性
  * 4. 可访问性 - 确保链接可被键盘导航和屏幕阅读器识别
  *
+ * @props
+ * @prop {string} [active=false] - 是否为激活状态
+ * @prop {string} [align] - 对齐方式：left、center、right
+ * @prop {string} [animation='none'] - 动画效果：none、hover-lift、hover-glow、hover-scale
+ * @prop {boolean} [block=false] - 是否为块级显示
+ * @prop {boolean} [btn=false] - 是否启用按钮风格
+ * @prop {boolean} [circle=false] - 是否为圆形按钮（需配合 btn 使用）
+ * @prop {string} [class] - 自定义 CSS 类名
+ * @prop {any} [class:list] - 类名列表
+ * @prop {string} [color] - 按钮颜色（需配合 btn 使用）：primary、secondary、accent、info、success、warning、error
+ * @prop {boolean} [debug=false] - 是否显示调试边框
+ * @prop {boolean} [external=false] - 是否为外部链接，自动新窗口打开
+ * @prop {boolean} [fullWidth=false] - 是否占满宽度
+ * @prop {boolean} [ghost=false] - 是否为幽灵按钮（需配合 btn 使用）
+ * @prop {string} href - 链接地址（必需）
+ * @prop {string} [icon] - 图标名称，支持所有可用的图标组件
+ * @prop {string} [navigationType] - 导航类型（需配合 navigation 变体使用）：previous、next
+ * @prop {boolean} [noUnderline=true] - 是否移除下划线
+ * @prop {boolean} [rounded=false] - 是否添加圆角
+ * @prop {string} [size='md'] - 尺寸大小：sm、md、lg
+ * @prop {string} [variant='default'] - 样式变体：default、primary、secondary、text、cta、ghost、light、navigation、github
+ * @prop {...HTMLAttributes<'a'>} [rest] - 其他 HTML <a> 标签属性
+ *
  * @usage
  * 基本用法：
  * ```astro
@@ -31,6 +54,19 @@
  * <Link href="/docs" variant="text">查看文档</Link>
  * <Link href="/get-started" variant="cta">立即开始</Link>
  * <Link href="/preview" variant="ghost">预览</Link>
+ * <Link href="/previous" variant="navigation" navigationType="previous">上一页</Link>
+ * <Link href="/next" variant="navigation" navigationType="next">下一页</Link>
+ * <Link href="https://github.com/user/repo" variant="github">GitHub 仓库</Link>
+ * ```
+ *
+ * 图标支持：
+ * ```astro
+ * <Link href="/home" icon="HomeIcon">首页</Link>
+ * <Link href="/settings" icon="SettingsIcon">设置</Link>
+ * <Link href="/search" icon="SearchIcon">搜索</Link>
+ * <Link href="/user" icon="UserIcon">用户</Link>
+ * <Link href="/mail" icon="MailIcon">邮件</Link>
+ * <Link href="/download" icon="DownloadIcon">下载</Link>
  * ```
  *
  * 块级显示：
@@ -52,56 +88,20 @@
  * <Link href="/medium" size="md">中型链接</Link>
  * <Link href="/large" size="lg">大型链接</Link>
  * ```
+ *
+ * 按钮风格：
+ * ```astro
+ * <Link href="/signup" btn>按钮链接</Link>
+ * <Link href="/ghost" btn ghost>幽灵按钮</Link>
+ * <Link href="/circle" btn circle>圆形按钮</Link>
+ * <Link href="/full" btn fullWidth>全宽按钮</Link>
+ * ```
  */
 
 import '../../style.ts';
-
-import type { HTMLAttributes } from 'astro/types';
-
-// 定义链接尺寸类型
-type LinkSize = 'sm' | 'md' | 'lg';
-
-// 定义链接变体类型
-type LinkVariant =
-  | 'default'
-  | 'primary'
-  | 'secondary'
-  | 'text'
-  | 'cta'
-  | 'ghost'
-  | 'light';
-
-// 定义链接动画类型
-type LinkAnimation = 'none' | 'hover-lift' | 'hover-glow' | 'hover-scale';
-
-interface Props extends HTMLAttributes<'a'> {
-  href: string;
-  external?: boolean;
-  block?: boolean;
-  class?: string;
-  'class:list'?: any;
-  variant?: LinkVariant;
-  animation?: LinkAnimation;
-  size?: LinkSize;
-  debug?: boolean;
-  centerText?: boolean;
-  btn?: boolean;
-  circle?: boolean;
-  ghost?: boolean;
-  noUnderline?: boolean;
-  rounded?: boolean;
-  fullWidth?: boolean;
-  color?:
-    | 'primary'
-    | 'secondary'
-    | 'accent'
-    | 'info'
-    | 'success'
-    | 'warning'
-    | 'error';
-  align?: 'left' | 'center' | 'right';
-  active?: boolean;
-}
+import { ChevronLeftIcon, ChevronRightIcon, GithubIcon } from '../icons';
+// 导入所有图标组件
+import * as Icons from '../icons';
 
 const {
   href,
@@ -113,7 +113,6 @@ const {
   class: className = '',
   'class:list': classList,
   debug = false,
-  centerText = false,
   btn = false,
   circle = false,
   ghost = false,
@@ -123,8 +122,13 @@ const {
   color,
   align,
   active = false,
+  navigationType,
+  icon,
   ...rest
 } = Astro.props;
+
+// 获取图标组件
+const IconComponent = icon ? (Icons as any)[icon] : null;
 
 // 构建类名
 const classes = [
@@ -133,6 +137,9 @@ const classes = [
 
   // 显示方式
   block ? 'cosy:flex cosy:w-full' : 'cosy:inline-flex',
+
+  // 图标和文字间距（当有图标时添加间距）
+  icon && 'cosy:gap-2',
 
   // 变体样式
   variant === 'primary' && 'cosy:text-primary cosy:hover:text-primary-focus',
@@ -147,6 +154,10 @@ const classes = [
     'cosy:text-base-content cosy:hover:text-base-content/90',
   variant === 'light' &&
     'cosy:text-white cosy:hover:text-white/90 cosy:font-medium',
+  variant === 'navigation' &&
+    'cosy:flex cosy:items-center cosy:gap-3 cosy:p-4 cosy:bg-base-100 cosy:border cosy:border-base-300 cosy:rounded-lg cosy:shadow-sm cosy:hover:shadow-md cosy:hover:border-base-400 cosy:transition-all cosy:duration-300 cosy:ease-in-out cosy:no-underline cosy:hover:no-underline cosy:font-medium cosy:text-base-content cosy:hover:text-base-content cosy:hover:-translate-y-1 cosy:hover:scale-[1.01] cosy:backdrop-blur-sm cosy:hover:backdrop-blur-md',
+  variant === 'github' &&
+    'cosy:flex cosy:items-center cosy:gap-2 cosy:text-base-content cosy:hover:text-base-content/80 cosy:transition-colors cosy:duration-200 cosy:no-underline cosy:hover:no-underline cosy:font-medium',
 
   // 尺寸样式
   size === 'sm' && 'cosy:text-sm',
@@ -192,11 +203,6 @@ const classes = [
   className,
 ];
 
-// 文本居中样式（兼容旧用法）
-if (centerText) {
-  classes.push('cosy:justify-center cosy:text-center');
-}
-
 // 调试样式
 if (debug) {
   classes.push('cosy:border cosy:border-dashed cosy:border-red-500');
@@ -208,5 +214,9 @@ if (debug) {
   class:list={[classes, classList]}
   {...external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
   {...rest}>
+  {navigationType === 'previous' && <ChevronLeftIcon />}
+  {variant === 'github' && <GithubIcon />}
+  {IconComponent && <IconComponent />}
   <slot />
+  {navigationType === 'next' && <ChevronRightIcon />}
 </a>

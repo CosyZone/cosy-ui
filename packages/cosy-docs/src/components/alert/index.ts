@@ -12,18 +12,16 @@ import AlertNoIconContainer from './AlertNoIconContainer.astro';
 import AlertMarginYContainer from './AlertMarginYContainer.astro';
 
 export const AlertPackage = {
-    AlertContainers: {
-        Basic: AlertBasicContainer,
-        WithTitle: AlertWithTitleContainer,
-        Types: AlertTypesContainer,
-        CustomStyle: AlertCustomStyleContainer,
-        Vue: AlertVueContainer,
-        Closable: AlertClosableContainer,
-        Action: AlertActionContainer,
-        Outline: AlertOutlineContainer,
-        Dash: AlertDashContainer,
-        Soft: AlertSoftContainer,
-        NoIcon: AlertNoIconContainer,
-        MarginY: AlertMarginYContainer,
-    }
+    Action: AlertActionContainer,
+    Basic: AlertBasicContainer,
+    Closable: AlertClosableContainer,
+    CustomStyle: AlertCustomStyleContainer,
+    Dash: AlertDashContainer,
+    MarginY: AlertMarginYContainer,
+    NoIcon: AlertNoIconContainer,
+    Outline: AlertOutlineContainer,
+    Soft: AlertSoftContainer,
+    Types: AlertTypesContainer,
+    Vue: AlertVueContainer,
+    WithTitle: AlertWithTitleContainer,
 }; 

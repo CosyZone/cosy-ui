@@ -1,0 +1,34 @@
+---
+import { CodeContainer, Container } from '@coffic/cosy-ui';
+import { Link } from '@coffic/cosy-ui';
+
+// 导入示例组件
+import ColorPrimary from './ColorPrimary.astro';
+import ColorSecondary from './ColorSecondary.astro';
+import ColorAccent from './ColorAccent.astro';
+
+// 导入源码
+import ColorPrimaryCode from './ColorPrimary.astro?raw';
+import ColorSecondaryCode from './ColorSecondary.astro?raw';
+import ColorAccentCode from './ColorAccent.astro?raw';
+---
+
+<CodeContainer
+  titles={['主要颜色', '次要颜色', '强调颜色']}
+  codes={[ColorPrimaryCode, ColorSecondaryCode, ColorAccentCode]}>
+  <div id="tab-1">
+    <Container flex="row" gap="sm" items="center">
+      <ColorPrimary />
+    </Container>
+  </div>
+  <div id="tab-2">
+    <Container flex="row" gap="sm" items="center">
+      <ColorSecondary />
+    </Container>
+  </div>
+  <div id="tab-3">
+    <Container flex="row" gap="sm" items="center">
+      <ColorAccent />
+    </Container>
+  </div>
+</CodeContainer>

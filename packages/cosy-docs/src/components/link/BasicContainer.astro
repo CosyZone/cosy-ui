@@ -5,12 +5,26 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import Basic from './Basic.astro';
-import basicCode from './Basic.astro?raw';
+import BasicLink from './BasicLink.astro';
+import ExternalLink from './ExternalLink.astro';
+import VariantsLink from './VariantsLink.astro';
+
+// 导入对应的源码
+import BasicLinkCode from './BasicLink.astro?raw';
+import ExternalLinkCode from './ExternalLink.astro?raw';
+import VariantsLinkCode from './VariantsLink.astro?raw';
 ---
 
-<CodeContainer codes={[basicCode]}>
+<CodeContainer
+  titles={['基础链接', '外部链接', '链接变体']}
+  codes={[BasicLinkCode, ExternalLinkCode, VariantsLinkCode]}>
   <div id="tab-1">
-    <Basic />
+    <BasicLink />
+  </div>
+  <div id="tab-2">
+    <ExternalLink />
+  </div>
+  <div id="tab-3">
+    <VariantsLink />
   </div>
 </CodeContainer>

@@ -1,0 +1,18 @@
+---
+/**
+ * @component NavigationComplete
+ * @description 展示完整的导航示例，包含上一个和下一个按钮
+ */
+
+import { Container, Link } from '@coffic/cosy-ui';
+---
+
+<Container gap="md" size="full" flex="row" justify="between">
+  <Link href="/previous" variant="navigation" navigationType="previous">
+    上一页：组件基础
+  </Link>
+
+  <Link href="/next" variant="navigation" navigationType="next">
+    下一页：高级用法
+  </Link>
+</Container>

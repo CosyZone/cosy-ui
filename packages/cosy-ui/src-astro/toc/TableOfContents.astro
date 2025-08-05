@@ -1,111 +1,85 @@
 ---
 /**
  * @component TableOfContents
+ * @description 目录导航组件，用于显示页面内容的标题结构，自动检测页面中的标题元素，生成目录列表，并在用户滚动页面时高亮当前可见的标题
+ * @usage 用于创建页面内容的目录导航，帮助用户快速了解页面结构和导航到特定内容
+ * @props
+ * @prop {string} [class] - 自定义 CSS 类名，用于覆盖默认样式
+ * @prop {string} [containerSelector='main'] - 内容容器选择器，用于限制标题搜索范围
+ * @prop {boolean} [fixed=true] - 是否固定在右侧，设置为 false 时目录会跟随内容流
+ * @prop {string} [lang] - 语言设置，默认自动检测当前语言环境
+ * @prop {number} [maxDepth=3] - 最大深度，控制目录显示的标题级别
+ * @prop {number} [minHeadings=2] - 显示目录所需的最少标题数量，少于此时目录会自动隐藏
+ * @prop {string} [selector='h2, h3'] - 标题选择器，用于指定要包含在目录中的标题元素
+ * @prop {string} [title] - 目录标题文本，默认根据语言自动选择
+ * @slots
+ * @slot default - 目录内容（通常为空，内容由 JavaScript 动态生成）
  *
- * @description
- * TableOfContents 组件是一个目录导航组件，用于显示页面内容的标题结构。
- * 它会自动检测页面中的标题元素，生成目录列表，并在用户滚动页面时高亮当前可见的标题。
- * 当页面只有一个标题或没有足够的标题结构时，组件会自动隐藏。
- *
- * @design
- * 设计理念：
- * 1. 导航辅助 - 帮助用户快速了解页面结构和导航到特定内容
- * 2. 上下文感知 - 自动高亮当前阅读位置，提供阅读进度反馈
- * 3. 视觉层次 - 通过缩进和样式区分不同级别的标题
- * 4. 响应式设计 - 在小屏幕设备上自动隐藏，优化空间利用
- * 5. 智能显示 - 当页面结构不需要目录时自动隐藏
- * 6. 多语言支持 - 支持多种语言显示，自动检测当前语言环境
- *
- * @usage
- * 基本用法：
- * ```astro
- * <TableOfContents />
- * ```
- *
- * 自定义标题和选择器：
- * ```astro
- * <TableOfContents
- *   title="章节导航"
- *   selector="h2, h3, h4"
- *   maxDepth={4}
- * />
- * ```
- *
- * 非固定位置：
- * ```astro
- * <TableOfContents fixed={false} />
- * ```
- *
- * 指定内容容器：
- * ```astro
- * <TableOfContents containerSelector=".article-content" />
- * ```
- *
- * 指定语言：
- * ```astro
- * <TableOfContents lang="zh-cn" />
- * ```
- *
- * 启用日志：
- * ```astro
- * <TableOfContents enableLogging={true} />
- * ```
+ * 功能特性：
+ * - 自动检测页面标题结构
+ * - 智能显示/隐藏（根据标题数量）
+ * - 滚动时高亮当前标题
+ * - 平滑滚动到目标位置
+ * - 响应式设计（小屏幕自动隐藏）
+ * - 多语言支持
+ * - 支持自定义容器和选择器
+ * - 自动生成标题 ID
+ * - 排除特定标题（通过 ignore-heading 属性）
  */
-
-// 导入样式
 import '../../style.ts';
 import { createTextGetter } from '../../src/utils/i18n.ts';
 import { LanguageUtil } from '../../src/utils/language.ts';
 
 interface Props {
   /**
-   * 是否固定在右侧
-   * @default true
-   */
-  fixed?: boolean;
-  /**
-   * 自定义类名
+   * 自定义 CSS 类名
    */
   class?: string;
-  /**
-   * 标题选择器
-   * @default "h2, h3"
-   */
-  selector?: string;
-  /**
-   * 最大深度
-   * @default 3
-   */
-  maxDepth?: number;
-  /**
-   * 标题文本
-   * @default 根据语言自动选择
-   */
-  title?: string;
   /**
    * 内容容器选择器，用于限制标题搜索范围
    * @default "main"
    */
   containerSelector?: string;
   /**
+   * 是否固定在右侧
+   * @default true
+   */
+  fixed?: boolean;
+  /**
+   * 语言设置
+   * @default 自动检测
+   */
+  lang?: string;
+  /**
+   * 最大深度
+   * @default 3
+   */
+  maxDepth?: number;
+  /**
    * 显示目录所需的最少标题数量
    * @default 2
    */
   minHeadings?: number;
   /**
-   * 语言
-   * @default 自动检测
+   * 标题选择器
+   * @default "h2, h3"
    */
-  lang?: string;
+  selector?: string;
+  /**
+   * 目录标题文本
+   * @default 根据语言自动选择
+   */
+  title?: string;
 }
 
 const {
-  fixed = true,
   class: className = '',
-  selector = 'h2, h3',
-  maxDepth = 3,
   containerSelector = 'main',
+  fixed = true,
+  lang,
+  maxDepth = 3,
   minHeadings = 2,
+  selector = 'h2, h3',
   title,
 } = Astro.props;
 
@@ -121,13 +95,16 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
 ---
 
 <aside
-  class:list={['cosy:hidden cosy:xl:block cosy:w-64 cosy:shrink-0', className]}>
+  class:list={[
+    'cosy:hidden cosy:xl:block cosy:w-64 cosy:pr-3 cosy:shrink-0',
+    className,
+  ]}>
   <div class="cosy:top-18 cosy:sticky">
     <div
-      class={`toc-container toc-scroll-container ${fixed ? 'cosy:w-64' : 'cosy:w-full cosy:max-w-xs'}`}
+      class={`toc-container toc-scroll-container ${fixed ? 'cosy:w-60' : 'cosy:w-full cosy:max-w-xs'}`}
       id={`${tocId}-container`}
       style="display: none;">
-      <div class="cosy:bg-base-100 cosy:shadow-inner cosy:card">
+      <div class="cosy:bg-base-200 cosy:shadow-inner cosy:card">
         <div class="cosy:p-4 cosy:card-body">
           <div class="cosy:mb-2 cosy:font-bold cosy:text-lg cosy:card-title">
             {titleText}

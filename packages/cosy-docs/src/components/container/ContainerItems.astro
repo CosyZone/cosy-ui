@@ -1,0 +1,51 @@
+---
+/**
+ * @component ContainerItems
+ * @description Container 组件对齐方式示例
+ */
+import { Container } from '@coffic/cosy-ui';
+---
+
+<div style="display: flex; flex-direction: column; gap: 1rem;">
+  <Container
+    flex="row"
+    items="start"
+    style="background-color: #f1f5f9; height: 5rem;">
+    <div
+      style="background-color: #3b82f6; padding: 0.5rem; border-radius: 0.25rem; color: white;">
+      顶部对齐
+    </div>
+    <div
+      style="background-color: #64748b; padding: 0.5rem; border-radius: 0.25rem; color: white;">
+      顶部对齐
+    </div>
+  </Container>
+
+  <Container
+    flex="row"
+    items="center"
+    style="background-color: #f1f5f9; height: 5rem;">
+    <div
+      style="background-color: #3b82f6; padding: 0.5rem; border-radius: 0.25rem; color: white;">
+      居中对齐
+    </div>
+    <div
+      style="background-color: #64748b; padding: 0.5rem; border-radius: 0.25rem; color: white;">
+      居中对齐
+    </div>
+  </Container>
+
+  <Container
+    flex="row"
+    items="end"
+    style="background-color: #f1f5f9; height: 5rem;">
+    <div
+      style="background-color: #3b82f6; padding: 0.5rem; border-radius: 0.25rem; color: white;">
+      底部对齐
+    </div>
+    <div
+      style="background-color: #64748b; padding: 0.5rem; border-radius: 0.25rem; color: white;">
+      底部对齐
+    </div>
+  </Container>
+</div>

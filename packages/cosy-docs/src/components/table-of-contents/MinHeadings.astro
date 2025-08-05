@@ -1,0 +1,51 @@
+---
+import { TableOfContents, Heading, Container, Alert } from '@coffic/cosy-ui';
+---
+
+<Container>
+  <Heading level={1} margin="none">最少标题数量示例</Heading>
+  <p style="margin-bottom: 1rem;">
+    这个示例展示了如何使用 minHeadings 属性控制目录显示的条件。
+  </p>
+
+  <Alert type="info" title="说明" marginY="md">
+    当页面中的标题数量少于 minHeadings 设置的值时，目录会自动隐藏。
+  </Alert>
+
+  <div style="display: flex; gap: 2rem; margin-top: 2rem;">
+    <div style="flex: 1;">
+      <Heading level={2} margin="sm">第一个标题</Heading>
+      <p style="margin-bottom: 1rem;">这是第一个标题的内容。</p>
+
+      <Heading level={2} margin="sm">第二个标题</Heading>
+      <p style="margin-bottom: 1rem;">这是第二个标题的内容。</p>
+
+      <Heading level={2} margin="sm">第三个标题</Heading>
+      <p style="margin-bottom: 1rem;">这是第三个标题的内容。</p>
+    </div>
+
+    <div style="width: 16rem;">
+      <Heading level={3} margin="sm">目录（minHeadings=2）</Heading>
+      <TableOfContents minHeadings={2} />
+    </div>
+  </div>
+
+  <div style="margin-top: 3rem;">
+    <Heading level={2} margin="sm">隐藏目录示例</Heading>
+    <p style="margin-bottom: 1rem;">下面的内容只有一个标题，所以目录会隐藏：</p>
+
+    <div
+      style="border: 2px dashed #ef4444; padding: 1rem; border-radius: 0.5rem; margin-bottom: 2rem;">
+      <Heading level={2} margin="sm">唯一的标题</Heading>
+      <p style="margin-bottom: 1rem;">这个区域只有一个标题，所以目录会隐藏。</p>
+
+      <div
+        style="background-color: #fef2f2; padding: 1rem; border-radius: 0.5rem;">
+        <Heading level={3} margin="sm">目录状态</Heading>
+        <p style="margin: 0; color: #dc2626;">
+          由于标题数量少于 minHeadings=2，目录已隐藏
+        </p>
+      </div>
+    </div>
+  </div>
+</Container>

@@ -20,23 +20,47 @@ CardCourse 组件用于展示课程信息，支持动态图标和渐变背景，
 - 响应式设计，适配不同屏幕尺寸
 - 悬停动画效果，提升用户体验
 - 支持中英文界面切换
-- **支持图标尺寸配置**，预设四种尺寸可选
+- 支持图标尺寸和内容内边距配置
 
-## 基础用法
+## contentPadding
 
-最简单的课程卡片展示：
+内容区域内边距配置，支持 8 种尺寸（none, xs, sm, md, lg, xl, 2xl, 3xl），可根据实际需求灵活调整：
+
+<CardCoursePackage.CardCourseContainers.Padding />
+
+## courseName
+
+课程标题，必填属性，用于显示课程名称：
 
 <CardCoursePackage.CardCourseContainers.Course />
 
-## 图标尺寸配置
+## description
 
-CardCourse 组件支持四种预设的图标尺寸，可以通过 `iconSize` 属性进行配置：
+课程描述，可选属性，用于展示课程的详细说明：
+
+<CardCoursePackage.CardCourseContainers.Course />
+
+## href
+
+课程链接，必填属性，点击卡片后跳转的目标地址：
+
+<CardCoursePackage.CardCourseContainers.Course />
+
+## iconSize
+
+图标尺寸配置，支持四种预设尺寸（sm, md, lg, xl），默认为 md：
 
 <CardCoursePackage.CardCourseContainers.IconSizes />
 
-## 内容内边距配置
+## keywords
 
-CardCourse 组件支持通过 `contentPadding` 属性配置内容区域的内边距，支持 8 种尺寸（none, xs, sm, md, lg, xl, 2xl, 3xl），可根据实际需求灵活调整：
+图标关键词数组，用于图标匹配，可选属性：
 
-<CardCoursePackage.CardCourseContainers.Padding />
+<CardCoursePackage.CardCourseContainers.Keywords />
+
+## lang
+
+语言设置，支持 "en" 和 "zh" 两种语言，影响按钮文本显示：
+
+<CardCoursePackage.CardCourseContainers.Course />
 

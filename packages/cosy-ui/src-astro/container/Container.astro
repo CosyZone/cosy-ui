@@ -73,13 +73,18 @@
  * ```
  *
  * @props
- * @prop {string} size - 容器尺寸
- * @prop {string} padding - 内边距大小
- * @prop {string} margin - 外边距大小
- * @prop {boolean} centered - 是否居中显示
- * @prop {boolean} border - 是否显示边框
- * @prop {string} flex - flex布局方向
- * @prop {string} gap - flex项目间距
+ * @prop {boolean} [border=false] - 是否显示边框，启用后会在容器周围添加边框和圆角
+ * @prop {boolean} [centered=true] - 是否居中显示，设置为false时容器将靠左对齐
+ * @prop {string} [class] - 自定义CSS类名，用于添加额外的样式
+ * @prop {any} [class:list] - 类名列表，支持动态类名组合
+ * @prop {string} [flex] - flex布局方向，可选值：row、col、row-reverse、col-reverse，不设置则不启用flex布局
+ * @prop {string} [gap='none'] - flex项目间距，可选值：none、xs、sm、md、lg、xl，仅在启用flex布局时生效
+ * @prop {string} [items] - flex项目水平对齐方式，可选值：start、end、center、baseline、stretch，仅在启用flex布局时生效
+ * @prop {string} [justify] - flex项目垂直对齐方式，可选值：start、end、center、between、around、evenly，仅在启用flex布局时生效
+ * @prop {string} [margin='none'] - 外边距大小，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl
+ * @prop {string} [padding='md'] - 内边距大小，可选值：none、sm、md、lg、xl
+ * @prop {string} [size='md'] - 容器尺寸，可选值：xs、sm、md、lg、xl、full，控制容器的最大宽度
+ * @prop {...HTMLAttributes<'div'>} [rest] - 其他HTML div标签属性
  */
 
 import type { HTMLAttributes } from 'astro/types';
@@ -87,33 +92,10 @@ import '../../style.ts';
 
 interface Props extends HTMLAttributes<'div'> {
   /**
-   * 容器尺寸
-   * @default "md"
+   * 是否显示边框
+   * @default false
    */
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
-
-  /**
-   * 内边距大小
-   * @default "md"
-   */
-  padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
-
-  /**
-   * 外边距大小
-   * @default "none"
-   */
-  margin?:
-    | 'none'
-    | 'xs'
-    | 'sm'
-    | 'md'
-    | 'lg'
-    | 'xl'
-    | '2xl'
-    | '3xl'
-    | '4xl'
-    | '5xl'
-    | '6xl';
+  border?: boolean;
 
   /**
    * 是否居中显示
@@ -122,10 +104,14 @@ interface Props extends HTMLAttributes<'div'> {
   centered?: boolean;
 
   /**
-   * 是否显示边框
-   * @default false
+   * 自定义类名
    */
-  border?: boolean;
+  class?: string;
+
+  /**
+   * 类名列表
+   */
+  'class:list'?: any;
 
   /**
    * flex布局方向，不设置则不启用flex布局
@@ -149,14 +135,33 @@ interface Props extends HTMLAttributes<'div'> {
   justify?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
 
   /**
-   * 自定义类名
+   * 外边距大小
+   * @default "none"
    */
-  class?: string;
+  margin?:
+    | 'none'
+    | 'xs'
+    | 'sm'
+    | 'md'
+    | 'lg'
+    | 'xl'
+    | '2xl'
+    | '3xl'
+    | '4xl'
+    | '5xl'
+    | '6xl';
 
   /**
-   * 类名列表
+   * 内边距大小
+   * @default "md"
    */
-  'class:list'?: any;
+  padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+
+  /**
+   * 容器尺寸
+   * @default "md"
+   */
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 }
 
 const {

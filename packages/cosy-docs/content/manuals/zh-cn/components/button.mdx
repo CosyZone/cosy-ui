@@ -9,50 +9,143 @@ import { ButtonPackage } from '@/components/button/index.ts';
 
 # {frontmatter.title}
 
+## 简介
+
+Button 组件用于触发一个即时操作，如表单提交、打开对话框等。支持多种样式变体、尺寸和状态，可以满足不同场景的需求。
+
+组件特性：
+
+- 支持多种样式变体（primary、secondary、accent 等）
+- 支持多种尺寸（lg、md、sm、xs）
+- 支持不同形状（默认、circle、square）
+- 支持加载状态和禁用状态
+- 支持图标插槽（左侧和右侧）
+- 支持链接形式（href 属性）
+- 支持渐变效果
+- 响应式设计，适配不同屏幕尺寸
+
+## block
+
+是否为块级显示，设置为 true 时按钮占满容器宽度。
+
+<ButtonPackage.Width />
+
+## class
+
+自定义 CSS 类名，用于覆盖默认样式。
+
+<ButtonPackage.Basic />
+
+## disabled
+
+是否禁用按钮，设置为 true 时按钮不可点击。
+
+<ButtonPackage.States />
+
+## formmethod
+
+表单提交方法，支持 dialog 等特殊值。
+
+<ButtonPackage.Basic />
+
+## href
+
+链接地址，设置后按钮变为链接形式。
+
+<ButtonPackage.Link />
+
+## loading
+
+是否显示加载状态，设置为 true 时显示加载动画。
+
+<ButtonPackage.States />
+
+## onClick
+
+点击事件处理函数，支持内联 JavaScript 代码。
+
+<ButtonPackage.Basic />
+
+## shape
+
+按钮形状，支持 circle（圆形）和 square（方形）。
+
+<ButtonPackage.Shapes />
+
+## size
+
+按钮尺寸，支持 lg、md、sm、xs 四种尺寸。
+
+<ButtonPackage.Sizes />
+
+## target
+
+链接目标，支持 _self、_blank、_parent、_top。
+
+<ButtonPackage.Link />
+
+## type
+
+按钮类型，支持 button、submit、reset。
+
+<ButtonPackage.Basic />
+
+## variant
+
+按钮样式变体，支持多种预设样式和渐变效果。
+
+<ButtonPackage.Variants />
+
+## wide
+
+是否为宽按钮，设置为 true 时按钮宽度增加。
+
+<ButtonPackage.Width />
+
 ## 基础按钮
 
 最基本的按钮使用方式，展示不同的样式变体。
 
-<ButtonPackage.ButtonContainers.Basic />
+<ButtonPackage.Basic />
 
 ## 按钮状态
 
 按钮支持不同的状态展示。
 
-<ButtonPackage.ButtonContainers.States />
+<ButtonPackage.States />
 
 ## 按钮尺寸
 
 提供多种尺寸以适应不同的场景需求。
 
-<ButtonPackage.ButtonContainers.Sizes />
+<ButtonPackage.Sizes />
 
 ## 按钮形状
 
 按钮支持不同的形状样式。
 
-<ButtonPackage.ButtonContainers.Shapes />
+<ButtonPackage.Shapes />
 
 ## 带图标的按钮
 
 按钮可以配合图标一起使用。
 
-<ButtonPackage.ButtonContainers.WithIcons />
+<ButtonPackage.WithIcons />
 
 ## 宽度变体
 
 按钮支持不同的宽度设置。
 
-<ButtonPackage.ButtonContainers.Width />
+<ButtonPackage.Width />
 
 ## 语义化变体
 
 提供多种语义化的颜色变体。
 
-<ButtonPackage.ButtonContainers.Variants />
+<ButtonPackage.Variants />
 
 ## 链接按钮
 
 按钮可以作为链接使用，支持内部跳转和外部链接。
 
-<ButtonPackage.ButtonContainers.Link />
+<ButtonPackage.Link />

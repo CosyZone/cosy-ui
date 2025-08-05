@@ -1,0 +1,71 @@
+---
+title: TableOfContents Navigation
+description: Table of contents navigation component for displaying page content structure, automatically detecting heading elements and generating navigation lists
+folder: false
+order: 19
+---
+
+import { TableOfContents } from '@coffic/cosy-ui';
+import { TableOfContentsPackage } from '@/components/table-of-contents/index.ts';
+
+## Introduction
+
+The TableOfContents component is an intelligent table of contents navigation component that automatically detects heading elements on the page, generates a navigation list, and highlights the currently visible heading as users scroll through the page. When there's only one heading or insufficient heading structure on the page, the component automatically hides itself.
+
+### Key Features
+
+- **Auto Detection**: Automatically detects heading structure on the page
+- **Smart Display**: Automatically shows or hides based on heading count
+- **Scroll Highlighting**: Automatically highlights current heading during scrolling
+- **Smooth Scrolling**: Smoothly scrolls to target position when clicking navigation items
+- **Responsive Design**: Automatically hides on small screen devices
+- **Multi-language Support**: Supports multiple language displays
+- **Custom Configuration**: Supports custom containers, selectors, depth, etc.
+
+## Basic Usage
+
+The simplest usage, the component automatically detects headings on the page and generates a table of contents.
+
+<TableOfContentsPackage.Basic />
+
+## class
+
+Custom CSS class name for overriding default styles.
+
+<TableOfContentsPackage.Basic />
+
+## containerSelector
+
+Content container selector for limiting heading search scope. Default value is `"main"`.
+
+<TableOfContentsPackage.ContainerSelector />
+
+## fixed
+
+Whether to fix on the right side. When set to `false`, the table of contents follows the content flow. Default value is `true`.
+
+<TableOfContentsPackage.Fixed />
+
+## maxDepth
+
+Maximum depth controlling the heading levels displayed in the table of contents. Default value is `3`.
+
+<TableOfContentsPackage.MaxDepth />
+
+## minHeadings
+
+Minimum number of headings required to display the table of contents. When fewer than this number, the table of contents automatically hides. Default value is `2`.
+
+<TableOfContentsPackage.MinHeadings />
+
+## selector
+
+Heading selector for specifying which heading elements to include in the table of contents. Default value is `"h2, h3"`.
+
+<TableOfContentsPackage.Selector />
+
+## title
+
+Table of contents title text, automatically selected based on language by default.
+
+<TableOfContentsPackage.Title /> 

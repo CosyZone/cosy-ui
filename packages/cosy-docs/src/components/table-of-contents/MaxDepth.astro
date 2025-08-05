@@ -1,0 +1,46 @@
+---
+import { TableOfContents, Heading, Container, Alert } from '@coffic/cosy-ui';
+---
+
+<Container style="display: flex; gap: 2rem;">
+  <div style="flex: 1;">
+    <Heading level={1} margin="none">最大深度示例</Heading>
+    <p style="margin-bottom: 1rem;">
+      这个示例展示了如何使用 maxDepth 属性控制目录显示的标题级别。
+    </p>
+
+    <Alert type="info" title="说明" marginY="md">
+      左侧的目录设置了 maxDepth={2}，所以只会显示 h2 和 h3 级别的标题，不会显示
+      h4 及以下级别。
+    </Alert>
+
+    <Heading level={2} margin="sm">一级标题</Heading>
+    <p style="margin-bottom: 1rem;">这是一级标题的内容。</p>
+
+    <Heading level={3} margin="sm">二级标题</Heading>
+    <p style="margin-bottom: 1rem;">这是二级标题的内容。</p>
+
+    <Heading level={4} margin="sm">三级标题（不会显示在目录中）</Heading>
+    <p style="margin-bottom: 1rem;">
+      这是三级标题的内容，由于 maxDepth=2，这个标题不会出现在目录中。
+    </p>
+
+    <Heading level={5} margin="sm">四级标题（不会显示在目录中）</Heading>
+    <p style="margin-bottom: 1rem;">
+      这是四级标题的内容，同样不会出现在目录中。
+    </p>
+
+    <Heading level={2} margin="sm">另一个一级标题</Heading>
+    <p style="margin-bottom: 1rem;">这是另一个一级标题的内容。</p>
+
+    <Heading level={3} margin="sm">另一个二级标题</Heading>
+    <p style="margin-bottom: 1rem;">这是另一个二级标题的内容。</p>
+
+    <Heading level={4} margin="sm">另一个三级标题（不会显示）</Heading>
+    <p style="margin-bottom: 1rem;">这是另一个三级标题的内容。</p>
+  </div>
+
+  <div style="width: 16rem;">
+    <TableOfContents maxDepth={2} />
+  </div>
+</Container>

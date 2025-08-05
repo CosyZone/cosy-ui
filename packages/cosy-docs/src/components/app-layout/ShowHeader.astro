@@ -1,0 +1,63 @@
+---
+import { AppLayout, Heading, Alert, ListItem } from '@coffic/cosy-ui';
+import type { ISidebarItem } from '@coffic/cosy-ui';
+
+const sidebarItems: ISidebarItem[] = [
+  {
+    text: '头部控制',
+    href: '/header',
+    items: [
+      { href: '/header/show', text: '显示头部' },
+      { href: '/header/hide', text: '隐藏头部' },
+    ],
+  },
+];
+---
+
+<AppLayout
+  metaConfig={{
+    title: '头部显示控制示例',
+    description: '展示AppLayout的头部显示控制功能',
+    keywords: '头部,显示,控制,导航',
+    author: 'Designer',
+    robots: 'noindex,nofollow',
+  }}
+  sidebarConfig={{
+    sidebarItems: sidebarItems,
+  }}
+  headerConfig={{
+    height: 'md',
+    sticky: false,
+  }}
+  footerConfig={{
+    siteName: '头部显示控制示例',
+    homeLink: '/',
+    slogan: '头部显示控制展示',
+    company: 'Header Demo',
+    copyright: '2024 头部显示控制示例',
+    inspirationalSlogan: '让导航更加灵活',
+  }}
+  mainContentConfig={{
+    padding: 'md',
+  }}
+  showHeader={true}>
+  <div style="padding: 1rem;">
+    <Heading level={1} margin="none"> 头部显示控制示例 </Heading>
+    <p style="margin-bottom: 0.5rem;">
+      这个示例展示了如何控制头部的显示和隐藏。
+    </p>
+    <Alert type="warning" title="头部控制选项" marginY="md">
+      <ul style="list-style-type: disc; margin-left: 1rem;">
+        <ListItem>showHeader: true (显示头部)</ListItem>
+        <ListItem>showHeader: false (隐藏头部)</ListItem>
+      </ul>
+    </Alert>
+    <div style="margin-top: 2rem;">
+      <Heading level={2} margin="sm"> 使用场景 </Heading>
+      <ul style="list-style-type: disc; margin-left: 1rem;">
+        <ListItem>showHeader=true: 适合需要导航的页面</ListItem>
+        <ListItem>showHeader=false: 适合全屏应用或简洁页面</ListItem>
+      </ul>
+    </div>
+  </div>
+</AppLayout>

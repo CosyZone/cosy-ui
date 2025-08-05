@@ -2,10 +2,26 @@
 import { CodeContainer } from '@coffic/cosy-ui';
 import CardClickable from './CardClickable.astro';
 import CardClickableSourceCode from './CardClickable.astro?raw';
+import CardClickable2 from './CardClickable2.astro';
+import CardClickable2SourceCode from './CardClickable2.astro?raw';
+import CardClickable3 from './CardClickable3.astro';
+import CardClickable3SourceCode from './CardClickable3.astro?raw';
 ---
 
-<CodeContainer codes={[CardClickableSourceCode]}>
+<CodeContainer
+  codes={[
+    CardClickableSourceCode,
+    CardClickable2SourceCode,
+    CardClickable3SourceCode,
+  ]}
+  titles={['基础链接', '图片链接', '紧凑链接']}>
   <div id="tab-1">
     <CardClickable />
+  </div>
+  <div id="tab-2">
+    <CardClickable2 />
+  </div>
+  <div id="tab-3">
+    <CardClickable3 />
   </div>
 </CodeContainer>

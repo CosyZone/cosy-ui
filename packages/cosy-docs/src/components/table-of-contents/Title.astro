@@ -1,0 +1,44 @@
+---
+import { TableOfContents, Heading, Container, Alert } from '@coffic/cosy-ui';
+---
+
+<Container style="display: flex; gap: 2rem;">
+  <div style="flex: 1;">
+    <Heading level={1} margin="none">自定义标题示例</Heading>
+    <p style="margin-bottom: 1rem;">
+      这个示例展示了如何使用 title 属性自定义目录的标题文本。
+    </p>
+
+    <Alert type="info" title="说明" marginY="md">
+      左侧的目录使用了自定义标题 "章节导航"，而不是默认的标题。
+    </Alert>
+
+    <Heading level={2} margin="sm">第一章：介绍</Heading>
+    <p style="margin-bottom: 1rem;">这是第一章的内容。</p>
+
+    <Heading level={3} margin="sm">1.1 基本概念</Heading>
+    <p style="margin-bottom: 1rem;">介绍基本概念。</p>
+
+    <Heading level={3} margin="sm">1.2 使用方法</Heading>
+    <p style="margin-bottom: 1rem;">介绍使用方法。</p>
+
+    <Heading level={2} margin="sm">第二章：高级功能</Heading>
+    <p style="margin-bottom: 1rem;">这是第二章的内容。</p>
+
+    <Heading level={3} margin="sm">2.1 自定义配置</Heading>
+    <p style="margin-bottom: 1rem;">介绍自定义配置。</p>
+
+    <Heading level={3} margin="sm">2.2 最佳实践</Heading>
+    <p style="margin-bottom: 1rem;">介绍最佳实践。</p>
+
+    <Heading level={2} margin="sm">第三章：总结</Heading>
+    <p style="margin-bottom: 1rem;">这是第三章的内容。</p>
+
+    <Heading level={3} margin="sm">3.1 回顾要点</Heading>
+    <p style="margin-bottom: 1rem;">回顾重要要点。</p>
+  </div>
+
+  <div style="width: 16rem;">
+    <TableOfContents title="章节导航" />
+  </div>
+</Container>

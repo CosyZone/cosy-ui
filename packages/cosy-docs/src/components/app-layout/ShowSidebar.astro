@@ -1,0 +1,63 @@
+---
+import { AppLayout, Heading, Alert, ListItem } from '@coffic/cosy-ui';
+import type { ISidebarItem } from '@coffic/cosy-ui';
+
+const sidebarItems: ISidebarItem[] = [
+  {
+    text: '侧边栏控制',
+    href: '/sidebar',
+    items: [
+      { href: '/sidebar/show', text: '显示侧边栏' },
+      { href: '/sidebar/hide', text: '隐藏侧边栏' },
+    ],
+  },
+];
+---
+
+<AppLayout
+  metaConfig={{
+    title: '侧边栏显示控制示例',
+    description: '展示AppLayout的侧边栏显示控制功能',
+    keywords: '侧边栏,显示,控制,导航',
+    author: 'Designer',
+    robots: 'noindex,nofollow',
+  }}
+  sidebarConfig={{
+    sidebarItems: sidebarItems,
+  }}
+  headerConfig={{
+    height: 'md',
+    sticky: false,
+  }}
+  footerConfig={{
+    siteName: '侧边栏显示控制示例',
+    homeLink: '/',
+    slogan: '侧边栏显示控制展示',
+    company: 'Sidebar Demo',
+    copyright: '2024 侧边栏显示控制示例',
+    inspirationalSlogan: '让导航更加灵活',
+  }}
+  mainContentConfig={{
+    padding: 'md',
+  }}
+  showSidebar={true}>
+  <div style="padding: 1rem;">
+    <Heading level={1} margin="none"> 侧边栏显示控制示例 </Heading>
+    <p style="margin-bottom: 0.5rem;">
+      这个示例展示了如何控制侧边栏的显示和隐藏。
+    </p>
+    <Alert type="success" title="侧边栏控制选项" marginY="md">
+      <ul style="list-style-type: disc; margin-left: 1rem;">
+        <ListItem>showSidebar: true (显示侧边栏)</ListItem>
+        <ListItem>showSidebar: false (隐藏侧边栏)</ListItem>
+      </ul>
+    </Alert>
+    <div style="margin-top: 2rem;">
+      <Heading level={2} margin="sm"> 使用场景 </Heading>
+      <ul style="list-style-type: disc; margin-left: 1rem;">
+        <ListItem>showSidebar=true: 适合需要导航的文档站点</ListItem>
+        <ListItem>showSidebar=false: 适合单页应用或简洁页面</ListItem>
+      </ul>
+    </div>
+  </div>
+</AppLayout>

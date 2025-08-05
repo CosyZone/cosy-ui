@@ -1,0 +1,33 @@
+---
+import { CodeContainer, Container } from '@coffic/cosy-ui';
+
+// 导入示例组件
+import CirclePrimary from './CirclePrimary.astro';
+import CircleSecondary from './CircleSecondary.astro';
+import CircleAccent from './CircleAccent.astro';
+
+// 导入源码
+import CirclePrimaryCode from './CirclePrimary.astro?raw';
+import CircleSecondaryCode from './CircleSecondary.astro?raw';
+import CircleAccentCode from './CircleAccent.astro?raw';
+---
+
+<CodeContainer
+  titles={['主要圆形按钮', '次要圆形按钮', '强调圆形按钮']}
+  codes={[CirclePrimaryCode, CircleSecondaryCode, CircleAccentCode]}>
+  <div id="tab-1">
+    <Container flex="row" gap="sm" items="center">
+      <CirclePrimary />
+    </Container>
+  </div>
+  <div id="tab-2">
+    <Container flex="row" gap="sm" items="center">
+      <CircleSecondary />
+    </Container>
+  </div>
+  <div id="tab-3">
+    <Container flex="row" gap="sm" items="center">
+      <CircleAccent />
+    </Container>
+  </div>
+</CodeContainer>

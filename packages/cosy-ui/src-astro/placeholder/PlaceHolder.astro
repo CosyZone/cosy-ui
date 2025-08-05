@@ -1,7 +1,7 @@
 ---
 /**
  * @component PlaceHolder
- * @description 占位符组件，用于在布局中占用指定的空间
+ * @description 占位符组件，用于在布局中占用指定的空间，支持自定义宽度、高度、内边距和背景色
  * @usage
  * ```astro
  * <PlaceHolder width="md" height="lg" padding="md" background="base-200">
@@ -9,31 +9,20 @@
  * </PlaceHolder>
  * ```
  * @props
- * - width: 宽度尺寸 ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | 'full')
- * - height: 高度尺寸 ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | 'full')
- * - padding: 内边距大小 ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl')
- * - background: 背景色类名，如 'base-200', 'primary', 'secondary'
- * - class: 自定义 CSS 类名
+ * @prop {string} [background] - 背景色类名，可选值：base-100、base-200、base-300、primary、secondary、accent、info、success、warning、error
+ * @prop {string} [class] - 自定义 CSS 类名，用于添加额外的样式
+ * @prop {string} [height='md'] - 高度尺寸，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl、full
+ * @prop {string} [padding='none'] - 内边距大小，可选值：none、xs、sm、md、lg、xl
+ * @prop {string} [width='md'] - 宽度尺寸，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl、full
  * @slots
- * - default: 占位符内容
+ * @slot default - 占位符内容
  */
 import '../../style.ts';
 import type { PlaceHolderProps } from './types';
 
 interface Props extends PlaceHolderProps {
-  width?:
-    | 'none'
-    | 'xs'
-    | 'sm'
-    | 'md'
-    | 'lg'
-    | 'xl'
-    | '2xl'
-    | '3xl'
-    | '4xl'
-    | '5xl'
-    | '6xl'
-    | 'full';
+  background?: string;
+  class?: string;
   height?:
     | 'none'
     | 'xs'
@@ -48,16 +37,27 @@ interface Props extends PlaceHolderProps {
     | '6xl'
     | 'full';
   padding?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  background?: string;
-  class?: string;
+  width?:
+    | 'none'
+    | 'xs'
+    | 'sm'
+    | 'md'
+    | 'lg'
+    | 'xl'
+    | '2xl'
+    | '3xl'
+    | '4xl'
+    | '5xl'
+    | '6xl'
+    | 'full';
 }
 
 const {
-  width = 'md',
-  height = 'md',
-  padding = 'none',
   background,
   class: className = '',
+  height = 'md',
+  padding = 'none',
+  width = 'md',
 } = Astro.props;
 
 // 宽度样式映射
