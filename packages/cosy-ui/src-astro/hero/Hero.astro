@@ -186,7 +186,7 @@
 import '../../style.ts';
 import { Button } from '../../index-astro';
 import { Image } from 'astro:assets';
-import type { HeroProps, Link, ImageSource } from '../types/hero';
+import type { HeroProps, IHeroLink, ImageSource } from '../types/hero';
 
 const {
   title,
@@ -438,7 +438,7 @@ const contentOrder = {
 
       <div class={linksContainerClasses}>
         {
-          links.map((link: Link) => (
+          links.map((link: IHeroLink) => (
             <Button
               href={link.href}
               target={link.target}

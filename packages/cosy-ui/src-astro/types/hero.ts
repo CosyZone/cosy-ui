@@ -6,7 +6,7 @@ import type { ImageMetadata } from 'astro';
 /**
  * 链接接口
  */
-export interface Link {
+export interface IHeroLink {
     text: string;
     href: string;
     target?: '_self' | '_blank' | '_parent' | '_top';
@@ -86,7 +86,7 @@ export interface HeroProps {
     description: string;
     image?: ImageConfig;
     imagePosition?: ImagePositionType;
-    links: Link[];
+    links: IHeroLink[];
     overlayOpacity?: number;
     title: string;
 }

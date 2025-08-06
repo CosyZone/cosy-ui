@@ -114,6 +114,7 @@ Button 组件用于触发一个即时操作...
 - [ ] 构建验证通过
 - [ ] **每个属性使用多标签展示多种用法**
 - [ ] **复杂属性使用三级标题拆分**：当单个属性功能特性过多时，使用三级标题分别展示不同场景
+- [ ] **接口命名以 I 开头**：所有 interface 必须以大写字母 I 开头
 
 ### 5. 常见错误避免
 
@@ -124,8 +125,48 @@ Button 组件用于触发一个即时操作...
 5. **二级标题未使用 props 名字** → 使用 props 名字作为二级标题
 6. **容器组件未使用多标签** → 为每个特性创建标签
 7. **忘记构建验证** → 执行 `pnpm build:docs`
+8. **接口命名不规范** → 确保所有 interface 名称以大写字母 I 开头
 
-### 6. 导入规范
+### 6. 命名规范
+
+#### 接口命名
+
+- **接口名称必须以大写字母 `I` 开头**
+- 使用 PascalCase 命名方式
+- 名称应清晰描述接口的用途
+
+**正确示例**：
+
+```typescript
+interface IButtonProps {
+  variant?: string;
+  size?: string;
+}
+
+interface IUserData {
+  id: number;
+  name: string;
+}
+
+interface IApiResponse<T> {
+  data: T;
+  status: number;
+}
+```
+
+**错误示例**：
+
+```typescript
+interface ButtonProps {  // 错误：未以 I 开头
+  variant?: string;
+}
+
+interface userInfo {    // 错误：未以 I 开头且非 PascalCase
+  name: string;
+}
+```
+
+### 7. 导入规范
 
 #### 核心组件
 
