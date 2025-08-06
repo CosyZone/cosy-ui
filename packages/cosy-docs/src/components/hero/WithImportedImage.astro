@@ -1,0 +1,16 @@
+---
+import { Hero } from '@coffic/cosy-ui';
+import heroImage from '@/assets/hero.png';
+
+const image = {
+  src: heroImage,
+  alt: '导入的示例图片',
+};
+---
+
+<Hero
+  title="使用导入图片的Hero"
+  description="这是一个使用导入图片资源的Hero组件示例，支持 Astro 的图片优化功能。"
+  image={image}
+  links={[{ text: '查看详情', href: '#', variant: 'primary' }]}
+/>

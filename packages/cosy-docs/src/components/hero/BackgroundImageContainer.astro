@@ -1,11 +1,18 @@
 ---
 import { CodeContainer } from '@coffic/cosy-ui';
 import BackgroundImage from './BackgroundImage.astro';
+import WithImportedBackground from './WithImportedBackground.astro';
 import BackgroundImageSourceCode from './BackgroundImage.astro?raw';
+import WithImportedBackgroundSourceCode from './WithImportedBackground.astro?raw';
 ---
 
-<CodeContainer titles={['背景图片']} codes={[BackgroundImageSourceCode]}>
+<CodeContainer
+  titles={['字符串URL', '导入图片']}
+  codes={[BackgroundImageSourceCode, WithImportedBackgroundSourceCode]}>
   <div id="tab-1">
     <BackgroundImage />
+  </div>
+  <div id="tab-2">
+    <WithImportedBackground />
   </div>
 </CodeContainer>

@@ -26,12 +26,28 @@
  * />
  * ```
  *
- * 带图片的用法（图片在右侧）：
+ * 带图片的用法（图片在右侧，字符串 URL）：
  * ```astro
  * <Hero
  *   title="产品展示"
  *   description="查看我们的最新产品。"
  *   image={{ src: "/images/product.png", alt: "产品图片" }}
+ *   imagePosition="right"
+ *   links={[
+ *     { text: "立即购买", href: "/buy" }
+ *   ]}
+ * />
+ * ```
+ *
+ * 带图片的用法（图片在右侧，导入资源）：
+ * ```astro
+ * ---
+ * import productImg from '../assets/product.png';
+ * ---
+ * <Hero
+ *   title="产品展示"
+ *   description="查看我们的最新产品。"
+ *   image={{ src: productImg, alt: "产品图片" }}
  *   imagePosition="right"
  *   links={[
  *     { text: "立即购买", href: "/buy" }
@@ -78,12 +94,28 @@
  * />
  * ```
  *
- * 带背景图片的用法：
+ * 带背景图片的用法（字符串 URL）：
  * ```astro
  * <Hero
  *   title="产品展示"
  *   description="查看我们的最新产品。"
  *   backgroundImage="/images/hero-bg.jpg"
+ *   backgroundOverlay="dark"
+ *   links={[
+ *     { text: "立即购买", href: "/buy" }
+ *   ]}
+ * />
+ * ```
+ *
+ * 带背景图片的用法（导入资源）：
+ * ```astro
+ * ---
+ * import heroBg from '../assets/hero-bg.jpg';
+ * ---
+ * <Hero
+ *   title="产品展示"
+ *   description="查看我们的最新产品。"
+ *   backgroundImage={heroBg}
  *   backgroundOverlay="dark"
  *   links={[
  *     { text: "立即购买", href: "/buy" }
@@ -136,11 +168,11 @@
  * @props
  * @prop {string} [align="center"] - 内容对齐方式，可选值："center", "left", "right"
  * @prop {string} [background="gradient"] - 背景样式，可选值："gradient", "plain", "gradient-primary", "gradient-secondary", "gradient-accent", "gradient-success", "gradient-warning", "gradient-info", "gradient-sky", "gradient-sunset", "gradient-forest", "gradient-ocean", "gradient-mountain", "gradient-flower", "gradient-watermelon", "gradient-lemon", "gradient-grape", "gradient-blueberry", "gradient-mango", "gradient-kiwi", "gradient-pitaya", "gradient-banana"
- * @prop {string} [backgroundImage] - 背景图片的URL
+ * @prop {string | ImageMetadata} [backgroundImage] - 背景图片的URL或导入的图片资源
  * @prop {string} [backgroundOverlay="none"] - 背景图片上的遮罩，可选值："none", "light", "dark", "primary", "gradient"
  * @prop {string} description - 标题下方的描述文本
  * @prop {Object} [image] - 可选的图片配置
- * @prop {string} image.src - 图片的源地址
+ * @prop {string | ImageMetadata} image.src - 图片的源地址或导入的图片资源
  * @prop {string} image.alt - 图片的替代文本
  * @prop {string} [imagePosition="right"] - 图片位置，可选值："right", "left", "top", "bottom"
  * @prop {Array<Link>} links - 链接按钮数组
@@ -153,7 +185,8 @@
 
 import '../../style.ts';
 import { Button } from '../../index-astro';
-import type { HeroProps, Link } from '../types/hero';
+import { Image } from 'astro:assets';
+import type { HeroProps, Link, ImageSource } from '../types/hero';
 
 const {
   title,
@@ -170,6 +203,14 @@ const {
 
 // 确保不透明度在0-1之间
 const safeOpacity = Math.max(0, Math.min(1, overlayOpacity));
+
+// 获取图片源的 URL
+function getImageUrl(imageSource: ImageSource): string {
+  if (typeof imageSource === 'string') {
+    return imageSource;
+  }
+  return imageSource.src;
+}
 
 // 渐变色背景映射
 const gradientBgClassMap = {
@@ -345,7 +386,9 @@ const contentOrder = {
 
 <div
   class={containerClasses}
-  style={backgroundImage ? `background-image: url(${backgroundImage})` : {}}
+  style={backgroundImage
+    ? `background-image: url(${getImageUrl(backgroundImage)})`
+    : {}}
   ignore-heading>
   {
     backgroundImage && backgroundOverlay !== 'none' && (
@@ -357,7 +400,21 @@ const contentOrder = {
     {
       image && (
         <div class={imageOrder[imagePosition]}>
-          <img class={imageClasses} src={image.src} alt={image.alt} />
+          {typeof image.src === 'string' ? (
+            <img class={imageClasses} src={image.src} alt={image.alt} />
+          ) : (
+            <Image
+              class={imageClasses}
+              src={image.src}
+              alt={image.alt}
+              width={
+                typeof image.src !== 'string' ? image.src.width : undefined
+              }
+              height={
+                typeof image.src !== 'string' ? image.src.height : undefined
+              }
+            />
+          )}
         </div>
       )
     }

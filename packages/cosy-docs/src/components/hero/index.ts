@@ -8,6 +8,8 @@ import GradientBackground from './GradientBackground.astro';
 import PlainBackground from './PlainBackground.astro';
 import WithButton from './WithButton.astro';
 import WithImage from './WithImage.astro';
+import WithImportedImage from './WithImportedImage.astro';
+import WithImportedBackground from './WithImportedBackground.astro';
 
 // Hero 容器组件
 import AlignContainer from './AlignContainer.astro';
@@ -36,5 +38,7 @@ export const HeroPackage = {
         PlainBackground: PlainBackground,
         WithButton: WithButton,
         WithImage: WithImage,
+        WithImportedImage: WithImportedImage,
+        WithImportedBackground: WithImportedBackground,
     },
 }; 

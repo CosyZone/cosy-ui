@@ -1,11 +1,18 @@
 ---
 import { CodeContainer } from '@coffic/cosy-ui';
 import WithImage from './WithImage.astro';
+import WithImportedImage from './WithImportedImage.astro';
 import WithImageSourceCode from './WithImage.astro?raw';
+import WithImportedImageSourceCode from './WithImportedImage.astro?raw';
 ---
 
-<CodeContainer titles={['带图片']} codes={[WithImageSourceCode]}>
+<CodeContainer
+  titles={['字符串URL', '导入图片']}
+  codes={[WithImageSourceCode, WithImportedImageSourceCode]}>
   <div id="tab-1">
     <WithImage />
+  </div>
+  <div id="tab-2">
+    <WithImportedImage />
   </div>
 </CodeContainer>
