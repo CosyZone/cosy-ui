@@ -19,35 +19,35 @@ Component features:
 - Supports various animation effects
 - Responsive design, adapts to different screen sizes
 
-## Basic Usage
+## animation
 
-The simplest banner display:
+Animation effect type, options: `none` (no animation), `fade` (fade in only), `slide` (slide up only), `both` (fade in and slide up).
 
-<BannerPackage.BannerContainers.Basic />
+<BannerPackage.Animations />
 
-## Color Examples
+## bgColor
 
-<BannerPackage.BannerContainers.Colors />
+Background color, supports basic colors and gradient colors.
 
-## Animation Effects
+<BannerPackage.Colors />
 
-<BannerPackage.BannerContainers.Animations />
+## class
 
-## Custom Styles
+Custom CSS class name for overriding default styles.
 
-Customize banner styles using the class property:
+<BannerPackage.CustomStyle />
 
-<BannerPackage.BannerContainers.CustomStyle />
+## style
 
-## Props
+Custom CSS styles for overriding default styles.
 
-| Property     | Description                        | Type                                                                 | Default   |
-| ------------ | ---------------------------------- | -------------------------------------------------------------------- | --------- |
-| class        | Custom CSS class                   | string                                                              | -         |
-| bgColor      | Background color                   | 'primary'\|'secondary'\|'accent'\|'info'\|'success'\|'warning'\|'error' | 'primary' |
-| textColor    | Text color                         | string                                                              | auto      |
-| animation    | Animation effect                   | 'none'\|'fade'\|'slide'\|'both'                                     | 'both'    |
-| animated     | Deprecated, use animation instead  | boolean                                                             | -         |
+<BannerPackage.CustomStyle />
+
+## textColor
+
+Text color, automatically set based on background color by default, can be manually specified.
+
+<BannerPackage.Basic />
 
 ## Slots
 

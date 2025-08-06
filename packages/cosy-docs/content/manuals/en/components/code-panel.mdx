@@ -22,121 +22,44 @@ Component Features:
 - 🎯 **Accessibility**: Semantic HTML structure with keyboard navigation support
 - 🔧 **Highly Customizable**: Supports custom themes and styles
 
-## Basic Usage
+## class
 
-Simple code display:
+Custom CSS class name for overriding default styles.
+
+```astro
+<CodePanel code="console.log('class prop example');" class="my-custom-class" />
+```
+
+## code
+
+Code string to display (required).
 
 <ComponentPackage.ComponentContainers.Basic />
 
-## Theme Switching
+## language
 
-CodePanel supports multiple VS Code themes for consistent code reading experience:
-
-<ComponentPackage.ComponentContainers.ThemeExample />
-
-## Multi-language Support
-
-Supports syntax highlighting for 180+ programming languages:
+Code language for syntax highlighting, default 'typescript'.
 
 <ComponentPackage.ComponentContainers.LanguageSupport />
 
-## Props
+## showLineNumbers
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `code` | `string` | - | Code string to display (required) |
-| `language` | `string` | `'typescript'` | Code language for syntax highlighting |
-| `theme` | `string` | `'dark-plus'` | Theme name |
-| `showLineNumbers` | `boolean` | `false` | Whether to show line numbers |
-| `visible` | `boolean` | `true` | Whether to show in panel |
-| `class` | `string` | - | Custom class name |
-
-## Supported Themes
-
-- `dark-plus` - VS Code default dark theme
-- `light-plus` - VS Code default light theme
-- `github-dark` - GitHub dark theme
-- `github-light` - GitHub light theme
-- `nord` - Nord theme
-- `dracula` - Dracula theme
-
-## Supported Languages
-
-CodePanel supports all programming languages supported by Shiki, including but not limited to:
-
-- **Frontend**: JavaScript, TypeScript, HTML, CSS, SCSS, Vue, React, Astro
-- **Backend**: Python, Java, C#, Go, Rust, PHP, Ruby, Node.js
-- **Database**: SQL, MongoDB, Redis
-- **Configuration**: JSON, YAML, TOML, XML
-- **Scripts**: Shell, PowerShell, Bash
-- **Others**: Markdown, Docker, Kubernetes, Terraform
-
-## Best Practices
-
-### 1. Performance Optimization
+Whether to show line numbers, default false.
 
 ```astro
-<!-- Recommended: Specify exact language, avoid auto-detection -->
-<CodePanel 
-  code={code}
-  language="typescript"
-/>
-
-<!-- Avoid: Using generic language may affect highlighting quality -->
-<CodePanel 
-  code={code}
-  language="text"
-/>
+<CodePanel code="console.log('show line numbers');" showLineNumbers={true} />
 ```
 
-### 2. Theme Selection
+## theme
+
+Theme name, default 'dark-plus'.
+
+<ComponentPackage.ComponentContainers.ThemeExample />
+
+## visible
+
+Whether to show in panel, default true.
 
 ```astro
-<!-- Choose appropriate code theme based on page theme -->
-<CodePanel 
-  code={code}
-  language="javascript"
-  theme="github-light"  // Suitable for light pages
-/>
-
-<CodePanel 
-  code={code}
-  language="javascript"  
-  theme="github-dark"   // Suitable for dark pages
-/>
+<CodePanel code="console.log('hide panel');" visible={false} />
 ```
-
-### 3. Use in Container
-
-```astro
----
-import { CodeContainer, CodePanel } from '@coffic/cosy-ui';
----
-
-<CodeContainer codes={[sourceCode]}>
-  <div id="tab-1">
-    <YourComponent />
-  </div>
-</CodeContainer>
-```
-
-## Notes
-
-1. **Code Escaping**: Ensure the input code string properly escapes special characters
-2. **Theme Consistency**: Maintain theme consistency within the same page for better user experience
-3. **Performance Considerations**: Large amounts of code blocks may affect page loading speed, consider lazy loading
-4. **Mobile Adaptation**: Long code lines will produce horizontal scrolling on mobile devices, pay attention to code formatting
-
-## FAQ
-
-**Q: Why is the highlighting effect poor for some languages?**
-
-A: Please ensure the specified `language` parameter matches the actual code language and that the language is supported by Shiki.
-
-**Q: How to customize code styles?**
-
-A: You can add custom CSS classes through the `class` attribute, or override default styles through CSS variables.
-
-**Q: How to handle very long code?**
-
-A: The component automatically adds horizontal scroll bars. For extremely long code, consider segmented display or providing download links. 

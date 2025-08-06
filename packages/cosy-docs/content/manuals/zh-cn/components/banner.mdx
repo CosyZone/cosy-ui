@@ -19,35 +19,35 @@ Banner 组件用于在页面顶部显示醒目的横幅信息，通常用于展�
 - 支持多种动画效果选择
 - 响应式设计，适配不同屏幕尺寸
 
-## 基础用法
+## animation
 
-最简单的横幅展示：
+动画效果类型，可选值：`none`（无动画）、`fade`（仅淡入）、`slide`（仅上滑）、`both`（淡入和上滑）。
 
-<BannerPackage.BannerContainers.Basic />
+<BannerPackage.Animations />
 
-## 颜色示例
+## bgColor
 
-<BannerPackage.BannerContainers.Colors />
+背景颜色，支持基础颜色和渐变色彩。
 
-## 动画效果
+<BannerPackage.Colors />
 
-<BannerPackage.BannerContainers.Animations />
+## class
 
-## 自定义样式
+自定义 CSS 类名，用于覆盖默认样式。
 
-通过 class 属性自定义横幅样式：
+<BannerPackage.CustomStyle />
 
-<BannerPackage.BannerContainers.CustomStyle />
+## style
 
-## Props
+自定义 CSS 样式，用于覆盖默认样式。
 
-| 属性         | 说明                   | 类型                                                                 | 默认值    |
-| ------------ | ---------------------- | -------------------------------------------------------------------- | --------- |
-| class        | 自定义 CSS 类名        | string                                                              | -         |
-| bgColor      | 背景颜色               | 'primary'\|'secondary'\|'accent'\|'info'\|'success'\|'warning'\|'error' | 'primary' |
-| textColor    | 文本颜色               | string                                                              | 自动      |
-| animation    | 动画效果类型           | 'none'\|'fade'\|'slide'\|'both'                                     | 'both'    |
-| animated     | 兼容旧 animated 属性   | boolean                                                             | -         |
+<BannerPackage.CustomStyle />
+
+## textColor
+
+文本颜色，默认根据背景色自动设置，可手动指定颜色值。
+
+<BannerPackage.Basic />
 
 ## 插槽
 

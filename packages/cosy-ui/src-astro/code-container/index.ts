@@ -1,10 +1,5 @@
-export { default as CodeContainer } from './CodeContainer.astro';
+import CodeContainer from './CodeContainer.astro';
+import type { Props as CodeContainerProps } from './CodeContainer.astro';
 
-// Export types
-export interface CodeContainerProps {
-  titles?: string[];
-  descriptions?: string[];
-  codes: string[];
-  useIframe?: boolean;
-  resetStyles?: boolean;
-}
+export { CodeContainer };
+export type { CodeContainerProps };

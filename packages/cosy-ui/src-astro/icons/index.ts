@@ -20,6 +20,7 @@ export { default as CloseIcon } from './CloseIcon.astro';
 export { default as CodeIcon } from './CodeIcon.astro';
 export { default as DeleteIcon } from './DeleteIcon.astro';
 export { default as ErrorIcon } from './ErrorIcon.astro';
+export { default as FacebookIcon } from './FacebookIcon.astro';
 export { default as GithubIcon } from './GithubIcon.astro';
 export { default as GlobeIcon } from './GlobeIcon.astro';
 export { default as InfoCircle } from './InfoCircle.astro';
@@ -36,6 +37,7 @@ export { default as NotificationIcon } from './NotificationIcon.astro';
 export { default as UsersIcon } from './UsersIcon.astro';
 export { default as MessageIcon } from './MessageIcon.astro';
 export { default as MailIcon } from './MailIcon.astro';
+export { default as MapPinIcon } from './MapPinIcon.astro';
 export { default as FolderIcon } from './FolderIcon.astro';
 export { default as StarIcon } from './StarIcon.astro';
 export { default as HeartIcon } from './HeartIcon.astro';
@@ -50,6 +52,7 @@ export { default as DownloadIcon } from './DownloadIcon.astro';
 export { default as LogOut } from './LogOut.astro';
 export { default as AppStoreIcon } from './AppStoreIcon.astro';
 export { default as WebsiteIcon } from './WebsiteIcon.astro';
+export { default as PhoneIcon } from './PhoneIcon.astro';
 
 // 智能图标
 export { default as SmartIcon } from './SmartIcon.astro';
