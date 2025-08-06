@@ -134,77 +134,26 @@
  * ```
  *
  * @props
- * @prop {string} title - Hero 区域的主标题
+ * @prop {string} [align="center"] - 内容对齐方式，可选值："center", "left", "right"
+ * @prop {string} [background="gradient"] - 背景样式，可选值："gradient", "plain", "gradient-primary", "gradient-secondary", "gradient-accent", "gradient-success", "gradient-warning", "gradient-info", "gradient-sky", "gradient-sunset", "gradient-forest", "gradient-ocean", "gradient-mountain", "gradient-flower", "gradient-watermelon", "gradient-lemon", "gradient-grape", "gradient-blueberry", "gradient-mango", "gradient-kiwi", "gradient-pitaya", "gradient-banana"
+ * @prop {string} [backgroundImage] - 背景图片的URL
+ * @prop {string} [backgroundOverlay="none"] - 背景图片上的遮罩，可选值："none", "light", "dark", "primary", "gradient"
  * @prop {string} description - 标题下方的描述文本
  * @prop {Object} [image] - 可选的图片配置
  * @prop {string} image.src - 图片的源地址
  * @prop {string} image.alt - 图片的替代文本
+ * @prop {string} [imagePosition="right"] - 图片位置，可选值："right", "left", "top", "bottom"
  * @prop {Array<Link>} links - 链接按钮数组
  * @prop {string} links[].text - 链接按钮的文本
  * @prop {string} links[].href - 链接按钮的目标地址
  * @prop {string} links[].variant - 链接按钮的变体，可选值："primary", "secondary", "accent", "info", "success", "warning", "error"
- * @prop {string} [background="gradient"] - 背景样式，可选值："gradient", "plain", "gradient-primary", "gradient-secondary", "gradient-accent", "gradient-success", "gradient-warning", "gradient-info", "gradient-sky", "gradient-sunset", "gradient-forest", "gradient-ocean", "gradient-mountain", "gradient-flower", "gradient-watermelon", "gradient-lemon", "gradient-grape", "gradient-blueberry", "gradient-mango", "gradient-kiwi", "gradient-pitaya", "gradient-banana"
- * @prop {string} [align="center"] - 内容对齐方式，可选值："center", "left", "right"
- * @prop {string} [imagePosition="right"] - 图片位置，可选值："right", "left", "top", "bottom"
- * @prop {string} [backgroundImage] - 背景图片的URL
- * @prop {string} [backgroundOverlay="none"] - 背景图片上的遮罩，可选值："none", "light", "dark", "primary", "gradient"
  * @prop {number} [overlayOpacity=0.7] - 遮罩的不透明度，可选值：0-1之间的数字
+ * @prop {string} title - Hero 区域的主标题
  */
 
 import '../../style.ts';
 import { Button } from '../../index-astro';
-
-interface Link {
-  text: string;
-  href: string;
-  target?: '_self' | '_blank' | '_parent' | '_top';
-  variant:
-    | 'primary'
-    | 'secondary'
-    | 'accent'
-    | 'info'
-    | 'success'
-    | 'warning'
-    | 'error';
-}
-
-interface Props {
-  title: string;
-  description: string;
-  image?: {
-    src: string;
-    alt: string;
-  };
-  links: Link[];
-  background?:
-    | 'gradient'
-    | 'plain'
-    | 'gradient-primary'
-    | 'gradient-secondary'
-    | 'gradient-accent'
-    | 'gradient-success'
-    | 'gradient-warning'
-    | 'gradient-info'
-    | 'gradient-sky'
-    | 'gradient-sunset'
-    | 'gradient-forest'
-    | 'gradient-ocean'
-    | 'gradient-mountain'
-    | 'gradient-flower'
-    | 'gradient-watermelon'
-    | 'gradient-lemon'
-    | 'gradient-grape'
-    | 'gradient-blueberry'
-    | 'gradient-mango'
-    | 'gradient-kiwi'
-    | 'gradient-pitaya'
-    | 'gradient-banana';
-  align?: 'center' | 'left' | 'right';
-  imagePosition?: 'right' | 'left' | 'top' | 'bottom';
-  backgroundImage?: string;
-  backgroundOverlay?: 'none' | 'light' | 'dark' | 'primary' | 'gradient';
-  overlayOpacity?: number;
-}
+import type { HeroProps, Link } from '../types/hero';
 
 const {
   title,
@@ -217,7 +166,7 @@ const {
   backgroundImage,
   backgroundOverlay = 'none',
   overlayOpacity = 0.7,
-} = Astro.props;
+} = Astro.props as HeroProps;
 
 // 确保不透明度在0-1之间
 const safeOpacity = Math.max(0, Math.min(1, overlayOpacity));
