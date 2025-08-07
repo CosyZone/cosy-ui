@@ -1,0 +1,39 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ImageBorderNoneCode from './ImageBorderNone.astro?raw';
+import ImageBorderSmallCode from './ImageBorderSmall.astro?raw';
+import ImageBorderMediumCode from './ImageBorderMedium.astro?raw';
+import ImageBorderLargeCode from './ImageBorderLarge.astro?raw';
+import ImageBorderXlCode from './ImageBorderXl.astro?raw';
+import ImageBorderNone from './ImageBorderNone.astro';
+import ImageBorderSmall from './ImageBorderSmall.astro';
+import ImageBorderMedium from './ImageBorderMedium.astro';
+import ImageBorderLarge from './ImageBorderLarge.astro';
+import ImageBorderXl from './ImageBorderXl.astro';
+---
+
+<CodeContainer
+  codes={[
+    ImageBorderNoneCode,
+    ImageBorderSmallCode,
+    ImageBorderMediumCode,
+    ImageBorderLargeCode,
+    ImageBorderXlCode,
+  ]}
+  titles={['none', 'sm', 'md', 'lg', 'xl']}>
+  <div id="tab-1">
+    <ImageBorderNone />
+  </div>
+  <div id="tab-2">
+    <ImageBorderSmall />
+  </div>
+  <div id="tab-3">
+    <ImageBorderMedium />
+  </div>
+  <div id="tab-4">
+    <ImageBorderLarge />
+  </div>
+  <div id="tab-5">
+    <ImageBorderXl />
+  </div>
+</CodeContainer>

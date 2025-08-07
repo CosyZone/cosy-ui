@@ -1,0 +1,46 @@
+---
+/**
+ * @component ImageError
+ * @description 图片错误占位图组件
+ */
+
+import { AlertTriangle } from '../../index-astro';
+import {
+  roundedClasses,
+  maskClasses,
+  type RoundedType,
+  type MaskType,
+} from './utils';
+
+interface Props {
+  /**
+   * 错误占位图的CSS类名
+   */
+  class?: string;
+  /**
+   * 圆角大小
+   */
+  rounded?: RoundedType;
+  /**
+   * 遮罩形状
+   */
+  mask?: MaskType;
+}
+
+const { class: className = '', rounded = 'none', mask = 'none' } = Astro.props;
+
+// 构建错误占位图类名
+const errorClasses = [
+  'cosy:absolute cosy:inset-0 cosy:flex cosy:items-center cosy:justify-center',
+  roundedClasses[rounded],
+  maskClasses[mask],
+  'cosy:bg-error cosy:bg-opacity-10',
+  className,
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<div class={errorClasses} data-error hidden>
+  <AlertTriangle size="32px" class="cosy:text-error" />
+</div>

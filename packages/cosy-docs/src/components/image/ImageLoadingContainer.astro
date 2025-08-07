@@ -1,0 +1,22 @@
+---
+/**
+ * @component ImageLoadingContainer
+ * @description Image 组件加载方式属性演示容器，展示源码和效果
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ImageLoadingLazy from './ImageLoadingLazy.astro';
+import ImageLoadingLazySource from './ImageLoadingLazy.astro?raw';
+import ImageLoadingEager from './ImageLoadingEager.astro';
+import ImageLoadingEagerSource from './ImageLoadingEager.astro?raw';
+---
+
+<CodeContainer
+  codes={[ImageLoadingLazySource, ImageLoadingEagerSource]}
+  titles={['lazy', 'eager']}>
+  <div id="tab-1">
+    <ImageLoadingLazy />
+  </div>
+  <div id="tab-2">
+    <ImageLoadingEager />
+  </div>
+</CodeContainer>

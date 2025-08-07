@@ -92,6 +92,56 @@ Button 组件用于触发一个即时操作...
 - 使用 `?raw` 后缀导入源代码
 - 每个功能特性一个标签页
 - 提供 titles 数组
+- **每个标签页的 div 必须有对应的 id**：`id="tab-1"`, `id="tab-2"`, `id="tab-3"` 等
+- **属性的每个值都要至少有一个对应的标签**：确保组件属性的每个可能值都有对应的示例展示
+
+**正确示例**：
+
+```astro
+<CodeContainer
+  codes={[code1, code2, code3, code4]}
+  titles={['none', 'fade', 'slide', 'zoom']}>
+  <div id="tab-1">
+    <Component transition="none" />
+  </div>
+  <div id="tab-2">
+    <Component transition="fade" />
+  </div>
+  <div id="tab-3">
+    <Component transition="slide" />
+  </div>
+  <div id="tab-4">
+    <Component transition="zoom" />
+  </div>
+</CodeContainer>
+```
+
+**错误示例**：
+
+```astro
+<CodeContainer codes={[code1, code2]}>
+  <div>  <!-- 错误：缺少 id -->
+    <Component />
+  </div>
+  <div>  <!-- 错误：缺少 id -->
+    <Component variant="advanced" />
+  </div>
+</CodeContainer>
+```
+
+**错误示例（缺少属性值）**：
+
+```astro
+<CodeContainer codes={[code1, code2]} titles={['none', 'fade']}>
+  <div id="tab-1">
+    <Component transition="none" />
+  </div>
+  <div id="tab-2">
+    <Component transition="fade" />
+  </div>
+  <!-- 错误：缺少 slide 和 zoom 值的展示 -->
+</CodeContainer>
+```
 
 ### 4. 开发流程
 
@@ -108,6 +158,8 @@ Button 组件用于触发一个即时操作...
 - [ ] 核心组件导入 [style.ts](mdc:packages/cosy-ui/style.ts)
 - [ ] 示例组件优先使用组件库组件，不满足需求时使用原生 CSS
 - [ ] 容器组件使用多标签展示
+- [ ] **容器组件每个标签页 div 都有对应的 id**：`id="tab-1"`, `id="tab-2"` 等
+- [ ] **属性的每个值都要至少有一个对应的标签**：确保组件属性的每个可能值都有对应的示例展示
 - [ ] Props 按字母顺序排列
 - [ ] 文档按 Props 顺序编写
 - [ ] **二级标题使用 props 名字**
@@ -124,8 +176,10 @@ Button 组件用于触发一个即时操作...
 4. **文档未按 Props 顺序** → 重新组织
 5. **二级标题未使用 props 名字** → 使用 props 名字作为二级标题
 6. **容器组件未使用多标签** → 为每个特性创建标签
-7. **忘记构建验证** → 执行 `pnpm build:docs`
-8. **接口命名不规范** → 确保所有 interface 名称以大写字母 I 开头
+7. **容器组件标签页缺少 id** → 为每个标签页 div 添加 `id="tab-1"`, `id="tab-2"` 等
+8. **属性值展示不完整** → 确保组件属性的每个可能值都有对应的示例展示
+9. **忘记构建验证** → 执行 `pnpm build:docs`
+10. **接口命名不规范** → 确保所有 interface 名称以大写字母 I 开头
 
 ### 6. 命名规范
 

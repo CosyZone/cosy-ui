@@ -1,0 +1,17 @@
+---
+/**
+ * @component ImageTooltipOpen
+ * @description Image 组件强制显示提示框示例
+ */
+import { Image } from '@coffic/cosy-ui';
+import { getExampleImage } from '@coffic/cosy-ui';
+---
+
+<Image
+  src={getExampleImage({ width: 200, height: 120 })}
+  alt="强制显示提示框图片"
+  width={200}
+  height={120}
+  tooltip="强制显示的提示框"
+  tooltipOpen={true}
+/>

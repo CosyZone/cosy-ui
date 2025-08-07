@@ -1,0 +1,27 @@
+---
+/**
+ * @component ImageContainer
+ * @description 图片容器组件，用于包装Image组件的最外层div
+ */
+
+interface Props {
+  /**
+   * 容器的CSS类名
+   */
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+
+// 构建容器类名
+const containerClasses = [
+  'cosy:relative cosy:w-full cosy:h-full cosy:align-middle cosy:mx-auto cosy:my-auto cosy:justify-center cosy:flex cosy:items-center',
+  className,
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<div class={containerClasses} data-image-container>
+  <slot />
+</div>

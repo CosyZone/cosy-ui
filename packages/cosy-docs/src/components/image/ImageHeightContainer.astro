@@ -1,0 +1,31 @@
+---
+/**
+ * @component ImageHeightContainer
+ * @description Image 组件高度属性演示容器，展示源码和效果
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ImageHeightSmall from './ImageHeightSmall.astro';
+import ImageHeightSmallSource from './ImageHeightSmall.astro?raw';
+import ImageHeightMedium from './ImageHeightMedium.astro';
+import ImageHeightMediumSource from './ImageHeightMedium.astro?raw';
+import ImageHeightLarge from './ImageHeightLarge.astro';
+import ImageHeightLargeSource from './ImageHeightLarge.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    ImageHeightSmallSource,
+    ImageHeightMediumSource,
+    ImageHeightLargeSource,
+  ]}
+  titles={['小尺寸', '中等尺寸', '大尺寸']}>
+  <div id="tab-1">
+    <ImageHeightSmall />
+  </div>
+  <div id="tab-2">
+    <ImageHeightMedium />
+  </div>
+  <div id="tab-3">
+    <ImageHeightLarge />
+  </div>
+</CodeContainer>

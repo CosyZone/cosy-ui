@@ -1,0 +1,16 @@
+---
+/**
+ * @component ImageLazyFalse
+ * @description 展示 lazy=false 的图片加载
+ */
+import { Image } from '@coffic/cosy-ui';
+import { getExampleImage } from '@coffic/cosy-ui';
+---
+
+<Image
+  src={getExampleImage({ width: 200, height: 150 })}
+  alt="立即加载示例"
+  width={200}
+  height={150}
+  lazy={false}
+/>

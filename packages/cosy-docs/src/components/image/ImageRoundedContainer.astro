@@ -1,0 +1,61 @@
+---
+/**
+ * @component ImageRoundedContainer
+ * @description Image 组件圆角属性演示容器，展示源码和效果
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ImageRoundedNone from './ImageRoundedNone.astro';
+import ImageRoundedNoneSource from './ImageRoundedNone.astro?raw';
+import ImageRoundedSmall from './ImageRoundedSmall.astro';
+import ImageRoundedSmallSource from './ImageRoundedSmall.astro?raw';
+import ImageRoundedMedium from './ImageRoundedMedium.astro';
+import ImageRoundedMediumSource from './ImageRoundedMedium.astro?raw';
+import ImageRoundedLarge from './ImageRoundedLarge.astro';
+import ImageRoundedLargeSource from './ImageRoundedLarge.astro?raw';
+import ImageRoundedXl from './ImageRoundedXl.astro';
+import ImageRoundedXlSource from './ImageRoundedXl.astro?raw';
+import ImageRounded2xl from './ImageRounded2xl.astro';
+import ImageRounded2xlSource from './ImageRounded2xl.astro?raw';
+import ImageRounded3xl from './ImageRounded3xl.astro';
+import ImageRounded3xlSource from './ImageRounded3xl.astro?raw';
+import ImageRoundedFull from './ImageRoundedFull.astro';
+import ImageRoundedFullSource from './ImageRoundedFull.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    ImageRoundedNoneSource,
+    ImageRoundedSmallSource,
+    ImageRoundedMediumSource,
+    ImageRoundedLargeSource,
+    ImageRoundedXlSource,
+    ImageRounded2xlSource,
+    ImageRounded3xlSource,
+    ImageRoundedFullSource,
+  ]}
+  titles={['none', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', 'full']}>
+  <div id="tab-1">
+    <ImageRoundedNone />
+  </div>
+  <div id="tab-2">
+    <ImageRoundedSmall />
+  </div>
+  <div id="tab-3">
+    <ImageRoundedMedium />
+  </div>
+  <div id="tab-4">
+    <ImageRoundedLarge />
+  </div>
+  <div id="tab-5">
+    <ImageRoundedXl />
+  </div>
+  <div id="tab-6">
+    <ImageRounded2xl />
+  </div>
+  <div id="tab-7">
+    <ImageRounded3xl />
+  </div>
+  <div id="tab-8">
+    <ImageRoundedFull />
+  </div>
+</CodeContainer>

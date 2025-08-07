@@ -1,0 +1,84 @@
+---
+/**
+ * @component ImageTooltipContainer
+ * @description Image 组件提示框演示容器，展示多种提示框效果
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ImageTooltipBasic from './ImageTooltipBasic.astro';
+import ImageTooltipBasicSource from './ImageTooltipBasic.astro?raw';
+import ImageTooltipTop from './ImageTooltipTop.astro';
+import ImageTooltipTopSource from './ImageTooltipTop.astro?raw';
+import ImageTooltipBottom from './ImageTooltipBottom.astro';
+import ImageTooltipBottomSource from './ImageTooltipBottom.astro?raw';
+import ImageTooltipLeft from './ImageTooltipLeft.astro';
+import ImageTooltipLeftSource from './ImageTooltipLeft.astro?raw';
+import ImageTooltipRight from './ImageTooltipRight.astro';
+import ImageTooltipRightSource from './ImageTooltipRight.astro?raw';
+import ImageTooltipPrimary from './ImageTooltipPrimary.astro';
+import ImageTooltipPrimarySource from './ImageTooltipPrimary.astro?raw';
+import ImageTooltipSuccess from './ImageTooltipSuccess.astro';
+import ImageTooltipSuccessSource from './ImageTooltipSuccess.astro?raw';
+import ImageTooltipWarning from './ImageTooltipWarning.astro';
+import ImageTooltipWarningSource from './ImageTooltipWarning.astro?raw';
+import ImageTooltipError from './ImageTooltipError.astro';
+import ImageTooltipErrorSource from './ImageTooltipError.astro?raw';
+import ImageTooltipOpen from './ImageTooltipOpen.astro';
+import ImageTooltipOpenSource from './ImageTooltipOpen.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    ImageTooltipBasicSource,
+    ImageTooltipTopSource,
+    ImageTooltipBottomSource,
+    ImageTooltipLeftSource,
+    ImageTooltipRightSource,
+    ImageTooltipPrimarySource,
+    ImageTooltipSuccessSource,
+    ImageTooltipWarningSource,
+    ImageTooltipErrorSource,
+    ImageTooltipOpenSource,
+  ]}
+  titles={[
+    'basic',
+    'top',
+    'bottom',
+    'left',
+    'right',
+    'primary',
+    'success',
+    'warning',
+    'error',
+    'open',
+  ]}>
+  <div id="tab-1">
+    <ImageTooltipBasic />
+  </div>
+  <div id="tab-2">
+    <ImageTooltipTop />
+  </div>
+  <div id="tab-3">
+    <ImageTooltipBottom />
+  </div>
+  <div id="tab-4">
+    <ImageTooltipLeft />
+  </div>
+  <div id="tab-5">
+    <ImageTooltipRight />
+  </div>
+  <div id="tab-6">
+    <ImageTooltipPrimary />
+  </div>
+  <div id="tab-7">
+    <ImageTooltipSuccess />
+  </div>
+  <div id="tab-8">
+    <ImageTooltipWarning />
+  </div>
+  <div id="tab-9">
+    <ImageTooltipError />
+  </div>
+  <div id="tab-10">
+    <ImageTooltipOpen />
+  </div>
+</CodeContainer>
