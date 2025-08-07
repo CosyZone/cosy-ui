@@ -9,8 +9,11 @@ import ImageLoadingContainer from './ImageLoadingContainer.astro';
 import ImageLoadingIndicatorContainer from './ImageLoadingIndicatorContainer.astro';
 import ImageLoadingIndicatorSpinnerContainer from './ImageLoadingIndicatorSpinnerContainer.astro';
 import ImageLoadingIndicatorProgressContainer from './ImageLoadingIndicatorProgressContainer.astro';
+import ImageModelContainer from './ImageModelContainer.astro';
 import ImageObjectFitContainer from './ImageObjectFitContainer.astro';
 import ImageObjectPositionContainer from './ImageObjectPositionContainer.astro';
+import ImagePromptContainer from './ImagePromptContainer.astro';
+import ImagePromptModelContainer from './ImagePromptModelContainer.astro';
 import ImageRoundedContainer from './ImageRoundedContainer.astro';
 import ImageRoundedShadowContainer from './ImageRoundedShadowContainer.astro';
 import ImageShadowContainer from './ImageShadowContainer.astro';
@@ -33,8 +36,11 @@ export const ComponentPackage = {
     LoadingIndicator: ImageLoadingIndicatorContainer,
     LoadingIndicatorSpinner: ImageLoadingIndicatorSpinnerContainer,
     LoadingIndicatorProgress: ImageLoadingIndicatorProgressContainer,
+    Model: ImageModelContainer,
     ObjectFit: ImageObjectFitContainer,
     ObjectPosition: ImageObjectPositionContainer,
+    Prompt: ImagePromptContainer,
+    PromptModel: ImagePromptModelContainer,
     Rounded: ImageRoundedContainer,
     RoundedShadow: ImageRoundedShadowContainer,
     Shadow: ImageShadowContainer,

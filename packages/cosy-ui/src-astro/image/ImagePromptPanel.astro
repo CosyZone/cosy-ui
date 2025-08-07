@@ -1,0 +1,49 @@
+---
+interface Props {
+  prompt?: string;
+  model?: string;
+}
+const { prompt = '', model = '' } = Astro.props;
+---
+
+{
+  (prompt || model) && (
+    <div class="cosy:absolute cosy:top-2 cosy:right-2 cosy:z-10">
+      <div class="cosy:dropdown cosy:dropdown-end">
+        <div
+          tabindex="0"
+          role="button"
+          class="cosy:btn cosy:btn-sm cosy:btn-circle cosy:btn-ghost cosy:bg-base-300/80 cosy:backdrop-blur-sm cosy:text-base-content hover:bg-base-300">
+          🎨
+        </div>
+        <div
+          tabindex="0"
+          class="cosy:dropdown-content cosy:z-[1] cosy:menu cosy:p-2 cosy:shadow cosy:bg-base-200 cosy:rounded-box cosy:w-80 cosy:max-w-xs">
+          <div class="space-y-3">
+            {prompt && (
+              <div>
+                <h4 class="cosy:text-xs cosy:font-semibold cosy:uppercase cosy:tracking-wider cosy:text-primary cosy:mb-1">
+                  生成提示词
+                </h4>
+                <p class="cosy:text-xs cosy:text-base-content/80 cosy:leading-relaxed cosy:break-words">
+                  {prompt}
+                </p>
+              </div>
+            )}
+
+            {model && (
+              <div>
+                <h4 class="cosy:text-xs cosy:font-semibold cosy:uppercase cosy:tracking-wider cosy:text-primary cosy:mb-1">
+                  使用模型
+                </h4>
+                <p class="cosy:text-xs cosy:text-base-content/80 cosy:font-mono">
+                  {model}
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
