@@ -4,10 +4,11 @@
  * @description 展示 objectFit="contain" 的效果
  */
 import { Image } from '@coffic/cosy-ui';
+import { getExampleImage } from '@coffic/cosy-ui';
 ---
 
 <Image
-  src="https://picsum.photos/300/200"
+  src={getExampleImage({ width: 300, height: 200 })}
   alt="contain 填充方式示例"
   width={200}
   height={150}

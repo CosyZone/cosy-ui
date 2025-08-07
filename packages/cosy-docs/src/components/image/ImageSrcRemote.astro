@@ -4,10 +4,11 @@
  * @description Image 组件远程 URL 用法示例
  */
 import { Image } from '@coffic/cosy-ui';
+import { getExampleImage } from '@coffic/cosy-ui';
 ---
 
 <Image
-  src="https://picsum.photos/300/200?random=1"
+  src={getExampleImage({ width: 300, height: 200 })}
   alt="远程图片"
   width={300}
   height={200}

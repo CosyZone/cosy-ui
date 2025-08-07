@@ -4,10 +4,11 @@
  * @description 展示中等尺寸高度的图片
  */
 import { Image } from '@coffic/cosy-ui';
+import { getExampleImage } from '@coffic/cosy-ui';
 ---
 
 <Image
-  src="https://picsum.photos/200/200"
+  src={getExampleImage({ width: 200, height: 200 })}
   alt="中等尺寸高度示例"
   width={200}
   height={200}
