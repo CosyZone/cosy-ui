@@ -16,6 +16,7 @@
  *
  * @props
  * - alt: string - 图片的替代文本，用于无障碍访问和图片加载失败时的显示
+ * - border?: 'none' | 'sm' | 'md' | 'lg' | 'xl' - 图片的边框样式，支持多种边框粗细
  * - class?: string - 自定义 CSS 类名，用于覆盖默认样式
  * - height?: number - 图片的高度，单位为像素
  * - hover?: 'none' | 'scale' | 'brightness' | 'blur' - 图片的悬停效果，支持缩放、亮度调整和模糊效果
@@ -70,12 +71,18 @@ import '../../style.ts';
 import type { ImageSource } from './image.ts';
 import LocalImage from './LocalImage.astro';
 import RemoteImage from './RemoteImage.astro';
+import type { BorderType } from './utils';
 
-interface Props {
+export interface Props {
   /**
    * 图片的替代文本
    */
   alt: string;
+  /**
+   * 图片的边框样式
+   * @default "none"
+   */
+  border?: BorderType;
   /**
    * 自定义类名
    */
@@ -211,6 +218,7 @@ const {
   rounded = 'none',
   mask = 'none',
   shadow = 'none',
+  border = 'none',
   hover = 'none',
   transition = 'none',
   loadingIndicator = 'skeleton',
@@ -239,6 +247,7 @@ const commonProps = {
   rounded,
   mask,
   shadow,
+  border,
   hover,
   transition,
   tooltip,

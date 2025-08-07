@@ -14,6 +14,15 @@ export const roundedClasses = {
     full: 'cosy:rounded-full',
 } as const;
 
+// 边框类名映射
+export const borderClasses = {
+    none: '',
+    sm: 'cosy:border cosy:border-base-300',
+    md: 'cosy:border-2 cosy:border-base-300',
+    lg: 'cosy:border-4 cosy:border-base-300',
+    xl: 'cosy:border-8 cosy:border-base-300',
+} as const;
+
 // 遮罩类名映射
 export const maskClasses = {
     circle: 'cosy:mask cosy:mask-circle',
@@ -71,6 +80,7 @@ export const transitionClasses = {
 
 // 类型定义
 export type RoundedType = keyof typeof roundedClasses;
+export type BorderType = keyof typeof borderClasses;
 export type MaskType = keyof typeof maskClasses;
 export type ObjectFitType = keyof typeof objectFitClasses;
 export type ShadowType = keyof typeof shadowClasses;

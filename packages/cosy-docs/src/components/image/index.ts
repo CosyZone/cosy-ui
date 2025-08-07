@@ -1,5 +1,6 @@
 
 import ImageBasicContainer from './ImageBasicContainer.astro';
+import ImageBorderContainer from './ImageBorderContainer.astro';
 import ImageErrorContainer from './ImageErrorContainer.astro';
 import ImageHeightContainer from './ImageHeightContainer.astro';
 import ImageHoverContainer from './ImageHoverContainer.astro';
@@ -23,6 +24,7 @@ import ImageWidthContainer from './ImageWidthContainer.astro';
 
 export const ComponentPackage = {
     Basic: ImageBasicContainer,
+    Border: ImageBorderContainer,
     Error: ImageErrorContainer,
     Height: ImageHeightContainer,
     Hover: ImageHoverContainer,
