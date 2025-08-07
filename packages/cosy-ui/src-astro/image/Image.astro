@@ -3,13 +3,14 @@
  * @component Image
  *
  * @description
- * Image 组件是一个增强的图片组件，提供了丰富的功能，包括懒加载、加载状态指示、错误处理、
- * 以及各种视觉效果。它旨在提供更好的用户体验和性能优化。
+ * Image 组件是一个基于 Astro Image 组件的增强图片组件，提供了丰富的功能，
+ * 包括自动图片优化、懒加载、加载状态指示、错误处理以及各种视觉效果。
+ * 它旨在提供更好的用户体验和性能优化。
  *
  * @design
  * 设计理念：
  * 1. 用户体验优先 - 提供加载状态反馈，减少用户等待焦虑
- * 2. 性能优化 - 支持懒加载，减少初始加载时间
+ * 2. 性能优化 - 自动图片优化，支持多种格式和尺寸
  * 3. 错误处理 - 优雅地处理图片加载失败的情况
  * 4. 视觉一致性 - 提供统一的圆角、阴影和过渡效果
  * 5. 灵活配置 - 支持多种自定义选项，适应不同场景
@@ -59,6 +60,8 @@
  * ```
  */
 
+import { Image as AstroImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import '../../style.ts';
 import { AlertTriangle } from '../../index-astro';
 import type { ImageSource } from './image.ts';
@@ -163,6 +166,10 @@ const {
 const isRemoteImage =
   typeof imageSource === 'string' &&
   (imageSource.startsWith('http') || imageSource.startsWith('//'));
+
+// 判断是否为本地图片（ImageMetadata）
+const isLocalImage = typeof imageSource === 'object' && 'src' in imageSource;
+
 // 获取图片源
 const imgSrc = typeof imageSource === 'string' ? imageSource : imageSource.src;
 
@@ -316,16 +323,42 @@ const errorClasses = [
 
 <div
   class="cosy:relative cosy:w-full cosy:h-full cosy:align-middle cosy:mx-auto cosy:my-auto cosy:justify-center cosy:flex cosy:items-center">
-  <img
-    src={imgSrc}
-    alt={alt}
-    width={width}
-    height={height}
-    loading={loading}
-    class={imgClasses}
-    style={{ objectPosition }}
-    data-remote={isRemoteImage ? 'true' : 'false'}
-  />
+  {/* 使用 Astro Image 组件处理本地图片 */}
+  {
+    isLocalImage ? (
+      <AstroImage
+        src={imageSource as ImageMetadata}
+        alt={alt}
+        width={width}
+        height={height}
+        class={imgClasses}
+        style={{ objectPosition }}
+      />
+    ) : (
+      /* 使用原生 img 标签处理远程图片
+         Astro Image 组件不支持远程图片，因为：
+         1. 需要在构建时处理图片优化
+         2. 无法在构建时访问远程图片
+         3. 无法生成多种格式和尺寸
+         4. 无法进行图片压缩和优化
+      */
+      <img
+        src={imgSrc}
+        alt={alt}
+        width={width}
+        height={height}
+        loading={loading}
+        class={imgClasses}
+        style={{ objectPosition }}
+        data-remote={isRemoteImage ? 'true' : 'false'}
+        decoding="async"
+        {...(isRemoteImage && {
+          'data-loading': 'true',
+          'data-src': imgSrc,
+        })}
+      />
+    )
+  }
 
   {/* 加载占位图 */}
   {
