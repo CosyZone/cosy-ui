@@ -15,6 +15,7 @@ import ImageRoundedShadowContainer from './ImageRoundedShadowContainer.astro';
 import ImageShadowContainer from './ImageShadowContainer.astro';
 import ImageShowErrorContainer from './ImageShowErrorContainer.astro';
 import ImageShowPlaceholderContainer from './ImageShowPlaceholderContainer.astro';
+import ImageMaskContainer from './ImageMaskContainer.astro';
 import ImageSrcContainer from './ImageSrcContainer.astro';
 import ImageTransitionContainer from './ImageTransitionContainer.astro';
 import ImageWidthContainer from './ImageWidthContainer.astro';
@@ -36,6 +37,7 @@ export const ComponentPackage = {
     Shadow: ImageShadowContainer,
     ShowError: ImageShowErrorContainer,
     ShowPlaceholder: ImageShowPlaceholderContainer,
+    Mask: ImageMaskContainer,
     Src: ImageSrcContainer,
     Transition: ImageTransitionContainer,
     Width: ImageWidthContainer,

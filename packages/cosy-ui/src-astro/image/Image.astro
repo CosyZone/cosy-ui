@@ -26,6 +26,7 @@
  * - objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down' - 图片的填充方式，控制图片如何适应容器
  * - objectPosition?: string - 图片的位置，控制图片在容器中的对齐方式
  * - rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full' - 图片的圆角大小，提供多种圆角选项
+ * - mask?: 'circle' | 'decagon' | 'diamond' | 'heart' | 'hexagon' | 'hexagon-2' | 'none' | 'pentagon' | 'square' | 'squircle' | 'star' | 'star-2' | 'triangle' | 'triangle-2' | 'triangle-3' | 'triangle-4' - 图片的遮罩形状，支持多种几何形状
  * - shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' - 图片的阴影效果，增强视觉层次感
  * - showError?: boolean - 是否显示加载失败的错误图，默认为 true
  * - showPlaceholder?: boolean - 是否显示加载中的占位图，默认为 true
@@ -115,6 +116,27 @@ interface Props {
    */
   rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';
   /**
+   * 图片的遮罩形状
+   * @default "none"
+   */
+  mask?:
+    | 'circle'
+    | 'decagon'
+    | 'diamond'
+    | 'heart'
+    | 'hexagon'
+    | 'hexagon-2'
+    | 'none'
+    | 'pentagon'
+    | 'square'
+    | 'squircle'
+    | 'star'
+    | 'star-2'
+    | 'triangle'
+    | 'triangle-2'
+    | 'triangle-3'
+    | 'triangle-4';
+  /**
    * 图片的阴影效果
    * @default "none"
    */
@@ -156,6 +178,7 @@ const {
   showError = true,
   class: className = '',
   rounded = 'none',
+  mask = 'none',
   shadow = 'none',
   hover = 'none',
   transition = 'none',
@@ -202,6 +225,25 @@ const shadowClasses = {
   '2xl': 'cosy:shadow-2xl',
 };
 
+const maskClasses = {
+  circle: 'cosy:mask cosy:mask-circle',
+  decagon: 'cosy:mask cosy:mask-decagon',
+  diamond: 'cosy:mask cosy:mask-diamond',
+  heart: 'cosy:mask cosy:mask-heart',
+  hexagon: 'cosy:mask cosy:mask-hexagon',
+  'hexagon-2': 'cosy:mask cosy:mask-hexagon-2',
+  none: '',
+  pentagon: 'cosy:mask cosy:mask-pentagon',
+  square: 'cosy:mask cosy:mask-square',
+  squircle: 'cosy:mask cosy:mask-squircle',
+  star: 'cosy:mask cosy:mask-star',
+  'star-2': 'cosy:mask cosy:mask-star-2',
+  triangle: 'cosy:mask cosy:mask-triangle',
+  'triangle-2': 'cosy:mask cosy:mask-triangle-2',
+  'triangle-3': 'cosy:mask cosy:mask-triangle-3',
+  'triangle-4': 'cosy:mask cosy:mask-triangle-4',
+};
+
 const hoverClasses = {
   none: '',
   scale: 'cosy:hover:scale-110 cosy:transition-transform cosy:duration-300',
@@ -221,6 +263,7 @@ const imgClasses = [
   'cosy:object-center',
   objectFitClasses[objectFit] || objectFitClasses['cover'],
   roundedClasses[rounded],
+  maskClasses[mask],
   shadowClasses[shadow],
   hoverClasses[hover],
   transitionClasses[transition],
@@ -233,6 +276,7 @@ const imgClasses = [
 const placeholderClasses = [
   'cosy:absolute cosy:inset-0',
   roundedClasses[rounded],
+  maskClasses[mask],
   loadingIndicator === 'skeleton' || loadingIndicator === 'pulse'
     ? 'cosy:animate-pulse cosy:bg-base-300'
     : '',
@@ -244,6 +288,7 @@ const placeholderClasses = [
 const errorClasses = [
   'cosy:absolute cosy:inset-0 cosy:flex cosy:items-center cosy:justify-center',
   roundedClasses[rounded],
+  maskClasses[mask],
   'cosy:bg-error cosy:bg-opacity-10',
 ]
   .filter(Boolean)
