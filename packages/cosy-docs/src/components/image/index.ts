@@ -17,6 +17,7 @@ import ImageShowErrorContainer from './ImageShowErrorContainer.astro';
 import ImageShowPlaceholderContainer from './ImageShowPlaceholderContainer.astro';
 import ImageMaskContainer from './ImageMaskContainer.astro';
 import ImageSrcContainer from './ImageSrcContainer.astro';
+import ImageTooltipContainer from './ImageTooltipContainer.astro';
 import ImageTransitionContainer from './ImageTransitionContainer.astro';
 import ImageWidthContainer from './ImageWidthContainer.astro';
 
@@ -39,6 +40,7 @@ export const ComponentPackage = {
     ShowPlaceholder: ImageShowPlaceholderContainer,
     Mask: ImageMaskContainer,
     Src: ImageSrcContainer,
+    Tooltip: ImageTooltipContainer,
     Transition: ImageTransitionContainer,
     Width: ImageWidthContainer,
 }; 

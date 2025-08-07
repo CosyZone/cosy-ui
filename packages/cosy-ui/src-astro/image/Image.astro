@@ -3,41 +3,45 @@
  * @component Image
  *
  * @description
- * Image 组件是一个基于 Astro Image 组件的增强图片组件，提供了丰富的功能，
- * 包括自动图片优化、懒加载、加载状态指示、错误处理以及各种视觉效果。
- * 它旨在提供更好的用户体验和性能优化。
+ * Image 组件是一个智能图片组件，根据图片源类型自动选择合适的处理方式。
+ * 对于本地图片使用 LocalImage 组件（基于 Astro Image 优化），
+ * 对于远程图片使用 RemoteImage 组件（包含加载状态和错误处理）。
  *
  * @design
  * 设计理念：
- * 1. 用户体验优先 - 提供加载状态反馈，减少用户等待焦虑
- * 2. 性能优化 - 自动图片优化，支持多种格式和尺寸
- * 3. 错误处理 - 优雅地处理图片加载失败的情况
- * 4. 视觉一致性 - 提供统一的圆角、阴影和过渡效果
- * 5. 灵活配置 - 支持多种自定义选项，适应不同场景
+ * 1. 智能分发 - 根据图片类型自动选择最佳处理方式
+ * 2. 统一接口 - 提供一致的 API，隐藏内部实现差异
+ * 3. 性能优化 - 本地图片自动优化，远程图片提供加载反馈
+ * 4. 用户体验 - 统一的视觉效果和交互体验
  *
  * @props
  * - alt: string - 图片的替代文本，用于无障碍访问和图片加载失败时的显示
  * - class?: string - 自定义 CSS 类名，用于覆盖默认样式
  * - height?: number - 图片的高度，单位为像素
  * - hover?: 'none' | 'scale' | 'brightness' | 'blur' - 图片的悬停效果，支持缩放、亮度调整和模糊效果
- * - lazy?: boolean - 是否启用图片懒加载，默认为 true
+ * - lazy?: boolean - 是否启用图片懒加载，默认为 true（仅对远程图片有效）
  * - loading?: 'lazy' | 'eager' - 图片的加载方式，支持 lazy 和 eager
- * - loadingIndicator?: 'pulse' | 'spinner' | 'progress' | 'skeleton' - 加载指示器类型，支持脉冲、旋转器、进度条和骨架屏
+ * - loadingIndicator?: 'pulse' | 'spinner' | 'progress' | 'skeleton' - 加载指示器类型，支持脉冲、旋转器、进度条和骨架屏（仅对远程图片有效）
  * - objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down' - 图片的填充方式，控制图片如何适应容器
  * - objectPosition?: string - 图片的位置，控制图片在容器中的对齐方式
  * - rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full' - 图片的圆角大小，提供多种圆角选项
  * - mask?: 'circle' | 'decagon' | 'diamond' | 'heart' | 'hexagon' | 'hexagon-2' | 'none' | 'pentagon' | 'square' | 'squircle' | 'star' | 'star-2' | 'triangle' | 'triangle-2' | 'triangle-3' | 'triangle-4' - 图片的遮罩形状，支持多种几何形状
  * - shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' - 图片的阴影效果，增强视觉层次感
- * - showError?: boolean - 是否显示加载失败的错误图，默认为 true
- * - showPlaceholder?: boolean - 是否显示加载中的占位图，默认为 true
+ * - showError?: boolean - 是否显示加载失败的错误图，默认为 true（仅对远程图片有效）
+ * - showPlaceholder?: boolean - 是否显示加载中的占位图，默认为 true（仅对远程图片有效）
  * - src: ImageSource - 图片源，可以是本地图片或远程URL
+ * - tooltip?: string - 图片的提示文本，鼠标悬停时显示
+ * - tooltipPlacement?: 'top' | 'bottom' | 'left' | 'right' - 提示框的位置，默认为 top
+ * - tooltipColor?: 'neutral' | 'primary' | 'secondary' | 'accent' | 'info' | 'success' | 'warning' | 'error' - 提示框的颜色主题
+ * - tooltipOpen?: boolean - 是否强制显示提示框，默认为 false
  * - transition?: 'none' | 'fade' | 'slide' | 'zoom' - 图片的过渡动画效果，支持淡入、滑动和缩放
  * - width?: number - 图片的宽度，单位为像素
  *
  * @usage
- * 基本用法：
+ * 基本用法（自动识别图片类型）：
  * ```astro
- * <Image src="/images/photo.jpg" alt="一张照片" />
+ * <Image src="/images/photo.jpg" alt="本地图片" />
+ * <Image src="https://example.com/image.jpg" alt="远程图片" />
  * ```
  *
  * 带样式效果：
@@ -51,7 +55,7 @@
  * />
  * ```
  *
- * 自定义加载指示器：
+ * 远程图片带加载指示器：
  * ```astro
  * <Image
  *   src="https://example.com/large-image.jpg"
@@ -61,11 +65,11 @@
  * ```
  */
 
-import { Image as AstroImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import '../../style.ts';
-import { AlertTriangle } from '../../index-astro';
 import type { ImageSource } from './image.ts';
+import LocalImage from './LocalImage.astro';
+import RemoteImage from './RemoteImage.astro';
 
 interface Props {
   /**
@@ -161,6 +165,33 @@ interface Props {
    */
   transition?: 'none' | 'fade' | 'slide' | 'zoom';
   /**
+   * 图片的提示文本
+   */
+  tooltip?: string;
+  /**
+   * 提示框的位置
+   * @default "top"
+   */
+  tooltipPlacement?: 'top' | 'bottom' | 'left' | 'right';
+  /**
+   * 提示框的颜色主题
+   * @default "neutral"
+   */
+  tooltipColor?:
+    | 'neutral'
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'info'
+    | 'success'
+    | 'warning'
+    | 'error';
+  /**
+   * 是否强制显示提示框
+   * @default false
+   */
+  tooltipOpen?: boolean;
+  /**
    * 图片的宽度
    */
   width?: number;
@@ -183,6 +214,10 @@ const {
   hover = 'none',
   transition = 'none',
   loadingIndicator = 'skeleton',
+  tooltip,
+  tooltipPlacement = 'top',
+  tooltipColor = 'neutral',
+  tooltipOpen = false,
 } = Astro.props;
 
 // 判断是否为远程图片
@@ -193,242 +228,46 @@ const isRemoteImage =
 // 判断是否为本地图片（ImageMetadata）
 const isLocalImage = typeof imageSource === 'object' && 'src' in imageSource;
 
-// 获取图片源
-const imgSrc = typeof imageSource === 'string' ? imageSource : imageSource.src;
-
-// 对象映射定义所有可能的类名
-const objectFitClasses = {
-  contain: 'cosy:object-contain',
-  cover: 'cosy:object-cover',
-  fill: 'cosy:object-fill',
-  none: 'cosy:object-none',
-  'scale-down': 'cosy:object-scale-down',
+// 构建通用属性对象
+const commonProps = {
+  alt,
+  width,
+  height,
+  objectFit,
+  objectPosition,
+  class: className,
+  rounded,
+  mask,
+  shadow,
+  hover,
+  transition,
+  tooltip,
+  tooltipPlacement,
+  tooltipColor,
+  tooltipOpen,
 };
 
-const roundedClasses = {
-  none: '',
-  sm: 'cosy:rounded-sm',
-  md: 'cosy:rounded-md',
-  lg: 'cosy:rounded-lg',
-  xl: 'cosy:rounded-xl',
-  '2xl': 'cosy:rounded-2xl',
-  '3xl': 'cosy:rounded-3xl',
-  full: 'cosy:rounded-full',
+// 远程图片专用属性
+const remoteProps = {
+  ...commonProps,
+  loading,
+  showPlaceholder,
+  showError,
+  loadingIndicator,
+  src: imageSource as string,
 };
 
-const shadowClasses = {
-  none: '',
-  sm: 'cosy:shadow-sm',
-  md: 'cosy:shadow-md',
-  lg: 'cosy:shadow-lg',
-  xl: 'cosy:shadow-xl',
-  '2xl': 'cosy:shadow-2xl',
+// 本地图片专用属性
+const localProps = {
+  ...commonProps,
+  src: imageSource as ImageMetadata,
 };
-
-const maskClasses = {
-  circle: 'cosy:mask cosy:mask-circle',
-  decagon: 'cosy:mask cosy:mask-decagon',
-  diamond: 'cosy:mask cosy:mask-diamond',
-  heart: 'cosy:mask cosy:mask-heart',
-  hexagon: 'cosy:mask cosy:mask-hexagon',
-  'hexagon-2': 'cosy:mask cosy:mask-hexagon-2',
-  none: '',
-  pentagon: 'cosy:mask cosy:mask-pentagon',
-  square: 'cosy:mask cosy:mask-square',
-  squircle: 'cosy:mask cosy:mask-squircle',
-  star: 'cosy:mask cosy:mask-star',
-  'star-2': 'cosy:mask cosy:mask-star-2',
-  triangle: 'cosy:mask cosy:mask-triangle',
-  'triangle-2': 'cosy:mask cosy:mask-triangle-2',
-  'triangle-3': 'cosy:mask cosy:mask-triangle-3',
-  'triangle-4': 'cosy:mask cosy:mask-triangle-4',
-};
-
-const hoverClasses = {
-  none: '',
-  scale: 'cosy:hover:scale-110 cosy:transition-transform cosy:duration-300',
-  brightness: 'cosy:hover:brightness-110 cosy:transition-all cosy:duration-300',
-  blur: 'cosy:hover:blur-sm',
-};
-
-const transitionClasses = {
-  none: '',
-  fade: 'cosy:transition-opacity cosy:duration-300',
-  slide: 'cosy:transition-transform cosy:duration-300',
-  zoom: 'cosy:transition-all cosy:duration-300',
-};
-
-// 构建图片类名
-const imgClasses = [
-  'cosy:object-center',
-  objectFitClasses[objectFit] || objectFitClasses['cover'],
-  roundedClasses[rounded],
-  maskClasses[mask],
-  shadowClasses[shadow],
-  hoverClasses[hover],
-  transitionClasses[transition],
-  className,
-]
-  .filter(Boolean)
-  .join(' ');
-
-// 构建占位图类名
-const placeholderClasses = [
-  'cosy:absolute cosy:inset-0',
-  roundedClasses[rounded],
-  maskClasses[mask],
-  loadingIndicator === 'skeleton' || loadingIndicator === 'pulse'
-    ? 'cosy:animate-pulse cosy:bg-base-300'
-    : '',
-]
-  .filter(Boolean)
-  .join(' ');
-
-// 构建错误占位图类名
-const errorClasses = [
-  'cosy:absolute cosy:inset-0 cosy:flex cosy:items-center cosy:justify-center',
-  roundedClasses[rounded],
-  maskClasses[mask],
-  'cosy:bg-error cosy:bg-opacity-10',
-]
-  .filter(Boolean)
-  .join(' ');
 ---
 
-<script is:inline>
-  function handleImageLoad(img) {
-    if (!(img instanceof HTMLImageElement)) return;
-    const placeholder = img.parentElement?.querySelector('[data-placeholder]');
-    if (placeholder) {
-      placeholder.classList.add('opacity-0');
-      setTimeout(() => placeholder.remove(), 300);
-    }
-  }
-
-  function handleImageError(img) {
-    if (!(img instanceof HTMLImageElement)) return;
-    const placeholder = img.parentElement?.querySelector('[data-placeholder]');
-    if (placeholder) {
-      placeholder.remove();
-    }
-    const errorElement = img.parentElement?.querySelector('[data-error]');
-    if (errorElement) {
-      errorElement.classList.remove('hidden');
-    }
-  }
-
-  function simulateLoadingProgress(img) {
-    if (
-      !(img instanceof HTMLImageElement) ||
-      img.getAttribute('data-remote') !== 'true'
-    )
-      return;
-    const progressBar = img.parentElement?.querySelector('progress');
-    if (!progressBar) return;
-
-    let progress = 0;
-    const interval = setInterval(() => {
-      progress += Math.random() * 15;
-      if (progress >= 100 || img.complete) {
-        clearInterval(interval);
-        progress = 100;
-      }
-      progressBar.value = Math.min(progress, 100);
-    }, 200);
-
-    img.addEventListener('load', () => {
-      clearInterval(interval);
-      progressBar.value = 100;
-    });
-
-    img.addEventListener('error', () => {
-      clearInterval(interval);
-    });
-  }
-
-  function initializeImageHandlers() {
-    document.querySelectorAll('img[data-remote]').forEach((img) => {
-      if (img instanceof HTMLImageElement) {
-        if (img.complete) {
-          handleImageLoad(img);
-        } else {
-          img.addEventListener('load', () => handleImageLoad(img));
-          img.addEventListener('error', () => handleImageError(img));
-          if (img.getAttribute('data-remote') === 'true') {
-            simulateLoadingProgress(img);
-          }
-        }
-      }
-    });
-  }
-
-  document.addEventListener('astro:page-load', initializeImageHandlers);
-  initializeImageHandlers();
-</script>
-
-<div
-  class="cosy:relative cosy:w-full cosy:h-full cosy:align-middle cosy:mx-auto cosy:my-auto cosy:justify-center cosy:flex cosy:items-center">
-  {/* 使用 Astro Image 组件处理本地图片 */}
-  {
-    isLocalImage ? (
-      <AstroImage
-        src={imageSource as ImageMetadata}
-        alt={alt}
-        width={width}
-        height={height}
-        class={imgClasses}
-        style={{ objectPosition }}
-      />
-    ) : (
-      /* 使用原生 img 标签处理远程图片
-         Astro Image 组件不支持远程图片，因为：
-         1. 需要在构建时处理图片优化
-         2. 无法在构建时访问远程图片
-         3. 无法生成多种格式和尺寸
-         4. 无法进行图片压缩和优化
-      */
-      <img
-        src={imgSrc}
-        alt={alt}
-        width={width}
-        height={height}
-        loading={loading}
-        class={imgClasses}
-        style={{ objectPosition }}
-        data-remote={isRemoteImage ? 'true' : 'false'}
-        decoding="async"
-        {...(isRemoteImage && {
-          'data-loading': 'true',
-          'data-src': imgSrc,
-        })}
-      />
-    )
-  }
-
-  {/* 加载占位图 */}
-  {
-    showPlaceholder && (
-      <div class={placeholderClasses} data-placeholder>
-        {/* 远程图片加载指示器 */}
-        {isRemoteImage && loadingIndicator === 'spinner' && (
-          <div class="cosy:absolute cosy:inset-0 cosy:m-auto cosy:text-primary cosy:loading cosy:loading-spinner cosy:loading-lg" />
-        )}
-
-        {isRemoteImage && loadingIndicator === 'progress' && (
-          <div class="cosy:right-0 cosy:bottom-0 cosy:left-0 cosy:absolute">
-            <progress class="cosy:w-full cosy:progress cosy:progress-primary" />
-          </div>
-        )}
-      </div>
-    )
-  }
-
-  {/* 错误占位图 */}
-  {
-    showError && (
-      <div class={errorClasses} data-error hidden>
-        <AlertTriangle size="32px" class="cosy:text-error" />
-      </div>
-    )
-  }
-</div>
+{
+  isLocalImage ? (
+    <LocalImage {...localProps} />
+  ) : (
+    <RemoteImage {...remoteProps} />
+  )
+}
