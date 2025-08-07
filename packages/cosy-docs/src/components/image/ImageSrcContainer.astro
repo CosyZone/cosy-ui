@@ -1,0 +1,27 @@
+---
+/**
+ * @component ImageSrcContainer
+ * @description Image 组件 src 属性多种用法演示容器，使用多标签展示
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ImageSrcLocal from './ImageSrcLocal.astro';
+import ImageSrcRemote from './ImageSrcRemote.astro';
+import ImageSrcDynamic from './ImageSrcDynamic.astro';
+import ImageSrcLocalSource from './ImageSrcLocal.astro?raw';
+import ImageSrcRemoteSource from './ImageSrcRemote.astro?raw';
+import ImageSrcDynamicSource from './ImageSrcDynamic.astro?raw';
+---
+
+<CodeContainer
+  codes={[ImageSrcLocalSource, ImageSrcRemoteSource, ImageSrcDynamicSource]}
+  titles={['本地路径', '远程 URL', '动态生成']}>
+  <div id="tab-1">
+    <ImageSrcLocal />
+  </div>
+  <div id="tab-2">
+    <ImageSrcRemote />
+  </div>
+  <div id="tab-3">
+    <ImageSrcDynamic />
+  </div>
+</CodeContainer>

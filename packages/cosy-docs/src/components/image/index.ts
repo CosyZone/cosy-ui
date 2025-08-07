@@ -1,18 +1,42 @@
 
 import ImageBasicContainer from './ImageBasicContainer.astro';
-import ImageRoundedShadowContainer from './ImageRoundedShadowContainer.astro';
+import ImageErrorContainer from './ImageErrorContainer.astro';
+import ImageHeightContainer from './ImageHeightContainer.astro';
 import ImageHoverContainer from './ImageHoverContainer.astro';
+import ImageLazyContainer from './ImageLazyContainer.astro';
+import ImageLoadingContainer from './ImageLoadingContainer.astro';
+import ImageLoadingIndicatorContainer from './ImageLoadingIndicatorContainer.astro';
 import ImageLoadingIndicatorSpinnerContainer from './ImageLoadingIndicatorSpinnerContainer.astro';
 import ImageLoadingIndicatorProgressContainer from './ImageLoadingIndicatorProgressContainer.astro';
 import ImageObjectFitContainer from './ImageObjectFitContainer.astro';
+import ImageObjectPositionContainer from './ImageObjectPositionContainer.astro';
+import ImageRoundedContainer from './ImageRoundedContainer.astro';
+import ImageRoundedShadowContainer from './ImageRoundedShadowContainer.astro';
+import ImageShadowContainer from './ImageShadowContainer.astro';
+import ImageShowErrorContainer from './ImageShowErrorContainer.astro';
+import ImageShowPlaceholderContainer from './ImageShowPlaceholderContainer.astro';
+import ImageSrcContainer from './ImageSrcContainer.astro';
 import ImageTransitionContainer from './ImageTransitionContainer.astro';
+import ImageWidthContainer from './ImageWidthContainer.astro';
 
 export const ComponentPackage = {
     Basic: ImageBasicContainer,
-    RoundedShadow: ImageRoundedShadowContainer,
+    Error: ImageErrorContainer,
+    Height: ImageHeightContainer,
     Hover: ImageHoverContainer,
+    Lazy: ImageLazyContainer,
+    Loading: ImageLoadingContainer,
+    LoadingIndicator: ImageLoadingIndicatorContainer,
     LoadingIndicatorSpinner: ImageLoadingIndicatorSpinnerContainer,
     LoadingIndicatorProgress: ImageLoadingIndicatorProgressContainer,
     ObjectFit: ImageObjectFitContainer,
+    ObjectPosition: ImageObjectPositionContainer,
+    Rounded: ImageRoundedContainer,
+    RoundedShadow: ImageRoundedShadowContainer,
+    Shadow: ImageShadowContainer,
+    ShowError: ImageShowErrorContainer,
+    ShowPlaceholder: ImageShowPlaceholderContainer,
+    Src: ImageSrcContainer,
     Transition: ImageTransitionContainer,
+    Width: ImageWidthContainer,
 }; 

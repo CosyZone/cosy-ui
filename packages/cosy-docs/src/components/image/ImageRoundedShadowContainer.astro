@@ -6,10 +6,26 @@
 import { CodeContainer } from '@coffic/cosy-ui';
 import ImageRoundedShadow from './ImageRoundedShadow.astro';
 import ImageRoundedShadowSource from './ImageRoundedShadow.astro?raw';
+import ImageRoundedShadowSmall from './ImageRoundedShadowSmall.astro';
+import ImageRoundedShadowSmallSource from './ImageRoundedShadowSmall.astro?raw';
+import ImageRoundedShadowLarge from './ImageRoundedShadowLarge.astro';
+import ImageRoundedShadowLargeSource from './ImageRoundedShadowLarge.astro?raw';
 ---
 
-<CodeContainer codes={[ImageRoundedShadowSource]}>
-  <div>
+<CodeContainer
+  codes={[
+    ImageRoundedShadowSource,
+    ImageRoundedShadowSmallSource,
+    ImageRoundedShadowLargeSource,
+  ]}
+  titles={['基础效果', '小圆角浅阴影', '大圆角深阴影']}>
+  <div id="tab-1">
     <ImageRoundedShadow />
+  </div>
+  <div id="tab-2">
+    <ImageRoundedShadowSmall />
+  </div>
+  <div id="tab-3">
+    <ImageRoundedShadowLarge />
   </div>
 </CodeContainer>

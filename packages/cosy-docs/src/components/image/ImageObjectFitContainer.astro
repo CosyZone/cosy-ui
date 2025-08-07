@@ -1,15 +1,43 @@
 ---
 /**
  * @component ImageObjectFitContainer
- * @description Image 组件 objectFit 演示容器，展示源码和效果
+ * @description Image 组件填充方式属性演示容器，展示源码和效果
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import ImageObjectFit from './ImageObjectFit.astro';
-import ImageObjectFitSource from './ImageObjectFit.astro?raw';
+import ImageObjectFitContain from './ImageObjectFitContain.astro';
+import ImageObjectFitContainSource from './ImageObjectFitContain.astro?raw';
+import ImageObjectFitCover from './ImageObjectFitCover.astro';
+import ImageObjectFitCoverSource from './ImageObjectFitCover.astro?raw';
+import ImageObjectFitFill from './ImageObjectFitFill.astro';
+import ImageObjectFitFillSource from './ImageObjectFitFill.astro?raw';
+import ImageObjectFitNone from './ImageObjectFitNone.astro';
+import ImageObjectFitNoneSource from './ImageObjectFitNone.astro?raw';
+import ImageObjectFitScaleDown from './ImageObjectFitScaleDown.astro';
+import ImageObjectFitScaleDownSource from './ImageObjectFitScaleDown.astro?raw';
 ---
 
-<CodeContainer codes={[ImageObjectFitSource]}>
-  <div>
-    <ImageObjectFit />
+<CodeContainer
+  codes={[
+    ImageObjectFitContainSource,
+    ImageObjectFitCoverSource,
+    ImageObjectFitFillSource,
+    ImageObjectFitNoneSource,
+    ImageObjectFitScaleDownSource,
+  ]}
+  titles={['contain', 'cover', 'fill', 'none', 'scale-down']}>
+  <div id="tab-1">
+    <ImageObjectFitContain />
+  </div>
+  <div id="tab-2">
+    <ImageObjectFitCover />
+  </div>
+  <div id="tab-3">
+    <ImageObjectFitFill />
+  </div>
+  <div id="tab-4">
+    <ImageObjectFitNone />
+  </div>
+  <div id="tab-5">
+    <ImageObjectFitScaleDown />
   </div>
 </CodeContainer>
