@@ -245,11 +245,6 @@ const {
   showPromptPanel = true,
 } = Astro.props;
 
-// 判断是否为远程图片
-const isRemoteImage =
-  typeof imageSource === 'string' &&
-  (imageSource.startsWith('http') || imageSource.startsWith('//'));
-
 // 判断是否为本地图片（ImageMetadata）
 const isLocalImage = typeof imageSource === 'object' && 'src' in imageSource;
 
