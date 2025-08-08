@@ -1,21 +1,93 @@
 ---
-import { PictureBookPage, PictureBookTextBox } from '@coffic/cosy-ui';
+import {
+  Grid,
+  Image,
+  PictureBookPage,
+  PictureBookTextBox,
+} from '@coffic/cosy-ui';
+import PictureBookBg1 from '@/assets/picture-book-bg.svg';
+import PictureBookBg2 from '@/assets/picture-book-bg-2.svg';
+import PictureBookBg3 from '@/assets/picture-book-bg-3.svg';
 ---
 
-<PictureBookPage lines={35} pageAspectRatio={3 / 4} ariaLabelPrefix="绘本页">
-  <div
-    slot="background"
-    style="width:100%;height:100%;background:linear-gradient(180deg,#fff8e1,#ffe0b2)">
+<Grid cols={3}>
+  <div style="width: 100%">
+    <PictureBookPage
+      lines={12}
+      pageAspectRatio={3 / 4}
+      ariaLabelPrefix="绘本页">
+      <Image
+        slot="background"
+        src={PictureBookBg1}
+        alt="温馨绘本背景"
+        objectFit="cover"
+        objectPosition="center"
+        layout="fill"
+      />
+      <PictureBookTextBox
+        slot="overlay"
+        top={12}
+        left={10}
+        width={80}
+        heightInLines={6}
+        bgColor="#ffffffcc"
+        paddingPx={12}
+        roundedPx={10}>
+        欢迎来到象彩彩的故事世界。象彩彩可不是小象，她是一只可爱的小猫咪。
+      </PictureBookTextBox>
+    </PictureBookPage>
   </div>
-  <PictureBookTextBox
-    slot="overlay"
-    top={12}
-    left={10}
-    width={80}
-    heightInLines={6}
-    bgColor="#ffffffcc"
-    paddingPx={12}
-    roundedPx={10}>
-    这是一个基础示例。将文本框按百分比定位，并以“行数”定义高度，自动与页面行高对齐。
-  </PictureBookTextBox>
-</PictureBookPage>
+
+  <div style="width: 100%">
+    <PictureBookPage
+      lines={12}
+      pageAspectRatio={3 / 4}
+      ariaLabelPrefix="绘本页">
+      <Image
+        slot="background"
+        src={PictureBookBg2}
+        alt="天空绘本背景"
+        objectFit="cover"
+        objectPosition="center"
+        layout="fill"
+      />
+      <PictureBookTextBox
+        slot="overlay"
+        top={24}
+        left={10}
+        width={80}
+        heightInLines={4}
+        bgColor="#ffffffcc"
+        paddingPx={12}
+        roundedPx={10}>
+        我是樱樱，这里是我的故事世界，来和我一起冒险吧。
+      </PictureBookTextBox>
+    </PictureBookPage>
+  </div>
+  <div style="width: 100%">
+    <PictureBookPage
+      lines={12}
+      pageAspectRatio={3 / 4}
+      ariaLabelPrefix="绘本页">
+      <Image
+        slot="background"
+        src={PictureBookBg3}
+        alt="森林绘本背景"
+        objectFit="cover"
+        objectPosition="center"
+        layout="fill"
+      />
+      <PictureBookTextBox
+        slot="overlay"
+        top={24}
+        left={10}
+        width={50}
+        heightInLines={2}
+        bgColor="#ffffffcc"
+        paddingPx={12}
+        roundedPx={10}>
+        天气真好啊。
+      </PictureBookTextBox>
+    </PictureBookPage>
+  </div>
+</Grid>

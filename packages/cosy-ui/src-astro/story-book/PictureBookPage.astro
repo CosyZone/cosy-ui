@@ -4,7 +4,8 @@
  *
  * @description
  * 绘本页面容器：固定宽高比、按行等分、背景/覆盖插槽、可选横线网格。
- * 通过在安全区域容器上设置 CSS 变量 `--pb-line` 来告知子组件每行像素高度。
+ * 通过在内容容器上设置 CSS 变量 `--pb-line` 来告知子组件每行像素高度。
+ * 背景图片100%填充整个页面，无安全区域限制。
  *
  * @usage
  * 基本用法：
@@ -60,7 +61,7 @@ const ariaLabel =
     class="cosy:relative cosy:w-full"
     style={`padding-bottom: ${100 / (pageAspectRatio || 0.75)}%`}>
     <!-- 背景层：由使用者提供节点（图片或其他元素） -->
-    <div class="cosy:absolute cosy:inset-0">
+    <div class="cosy:absolute cosy:inset-0 cosy:w-full cosy:h-full">
       <slot name="background" />
     </div>
 
@@ -69,12 +70,12 @@ const ariaLabel =
       class="cosy:absolute cosy:inset-0 cosy:pointer-events-none cosy:bg-white/0">
     </div>
 
-    <!-- 安全区域容器：在此等分为若干行，并暴露 CSS 变量 --pb-line 给子元素使用 -->
-    <div class="cosy:absolute cosy:inset-0 cosy:flex">
+    <!-- 内容容器：100%填充整个页面 -->
+    <div class="cosy:absolute cosy:inset-0">
       <div
         data-pb-container
         data-pb-lines={String(lines)}
-        class="cosy:relative cosy:m-auto cosy:h-[95%] cosy:w-[88%]">
+        class="cosy:relative cosy:h-full cosy:w-full">
         {
           showLines && (
             <div

@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800" fill="none">
+  <!-- 渐变定义 -->
+  <defs>
+    <!-- 天空渐变 -->
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#87ceeb"/>
+      <stop offset="60%" stop-color="#98d8e8"/>
+      <stop offset="100%" stop-color="#b0e0e6"/>
+    </linearGradient>
+    
+    <!-- 草地渐变 -->
+    <linearGradient id="grassGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#90ee90"/>
+      <stop offset="100%" stop-color="#32cd32"/>
+    </linearGradient>
+    
+    <!-- 树干渐变 -->
+    <linearGradient id="treeTrunkGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8b4513"/>
+      <stop offset="100%" stop-color="#a0522d"/>
+    </linearGradient>
+    
+    <!-- 树叶渐变 -->
+    <radialGradient id="leafGradient1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#228b22"/>
+      <stop offset="100%" stop-color="#006400"/>
+    </radialGradient>
+    
+    <radialGradient id="leafGradient2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#32cd32"/>
+      <stop offset="100%" stop-color="#228b22"/>
+    </radialGradient>
+    
+    <!-- 云朵渐变 -->
+    <linearGradient id="cloudGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#f0f8ff" stop-opacity="0.7"/>
+    </linearGradient>
+    
+    <!-- 太阳渐变 -->
+    <radialGradient id="sunGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffd700"/>
+      <stop offset="100%" stop-color="#ffa500"/>
+    </radialGradient>
+  </defs>
+  
+  <!-- 天空背景 -->
+  <rect width="600" height="800" fill="url(#skyGradient)"/>
+  
+  <!-- 太阳 -->
+  <circle cx="500" cy="120" r="40" fill="url(#sunGradient)"/>
+  
+  <!-- 云朵 -->
+  <g fill="url(#cloudGradient)">
+    <!-- 左上角云朵 -->
+    <ellipse cx="120" cy="100" rx="35" ry="20"/>
+    <ellipse cx="145" cy="95" rx="30" ry="18"/>
+    <ellipse cx="130" cy="85" rx="25" ry="15"/>
+    
+    <!-- 右上角云朵 -->
+    <ellipse cx="480" cy="80" rx="25" ry="15"/>
+    <ellipse cx="495" cy="75" rx="20" ry="12"/>
+    <ellipse cx="485" cy="65" rx="15" ry="10"/>
+  </g>
+  
+  <!-- 草地 -->
+  <rect x="0" y="600" width="600" height="200" fill="url(#grassGradient)"/>
+  
+  <!-- 树木 -->
+  <g>
+    <!-- 左侧大树 -->
+    <rect x="80" y="500" width="20" height="120" fill="url(#treeTrunkGradient)"/>
+    <ellipse cx="90" cy="480" rx="40" ry="60" fill="url(#leafGradient1)"/>
+    <ellipse cx="90" cy="450" rx="35" ry="50" fill="url(#leafGradient2)"/>
+    
+    <!-- 右侧大树 -->
+    <rect x="500" y="520" width="18" height="100" fill="url(#treeTrunkGradient)"/>
+    <ellipse cx="509" cy="500" rx="35" ry="55" fill="url(#leafGradient1)"/>
+    <ellipse cx="509" cy="470" rx="30" ry="45" fill="url(#leafGradient2)"/>
+    
+    <!-- 中间小树 -->
+    <rect x="280" y="550" width="15" height="80" fill="url(#treeTrunkGradient)"/>
+    <ellipse cx="287" cy="530" rx="25" ry="40" fill="url(#leafGradient1)"/>
+    <ellipse cx="287" cy="510" rx="20" ry="30" fill="url(#leafGradient2)"/>
+  </g>
+  
+  <!-- 装饰性花朵 -->
+  <g fill="#ff69b4" opacity="0.8">
+    <!-- 花朵1 -->
+    <g transform="translate(150, 650)">
+      <circle cx="0" cy="0" r="6"/>
+      <circle cx="8" cy="0" r="4"/>
+      <circle cx="-8" cy="0" r="4"/>
+      <circle cx="0" cy="8" r="4"/>
+      <circle cx="0" cy="-8" r="4"/>
+    </g>
+    
+    <!-- 花朵2 -->
+    <g transform="translate(450, 670)">
+      <circle cx="0" cy="0" r="5"/>
+      <circle cx="7" cy="0" r="3"/>
+      <circle cx="-7" cy="0" r="3"/>
+      <circle cx="0" cy="7" r="3"/>
+      <circle cx="0" cy="-7" r="3"/>
+    </g>
+    
+    <!-- 花朵3 -->
+    <g transform="translate(320, 680)">
+      <circle cx="0" cy="0" r="4"/>
+      <circle cx="6" cy="0" r="2.5"/>
+      <circle cx="-6" cy="0" r="2.5"/>
+      <circle cx="0" cy="6" r="2.5"/>
+      <circle cx="0" cy="-6" r="2.5"/>
+    </g>
+  </g>
+  
+  <!-- 装饰性小点（露珠效果） -->
+  <g fill="#ffffff" opacity="0.6">
+    <circle cx="200" cy="300" r="2"/>
+    <circle cx="400" cy="280" r="1.5"/>
+    <circle cx="300" cy="350" r="2"/>
+    <circle cx="180" cy="400" r="1.5"/>
+    <circle cx="420" cy="450" r="2"/>
+    <circle cx="250" cy="500" r="1.5"/>
+    <circle cx="380" cy="550" r="2"/>
+    <circle cx="320" cy="600" r="1.5"/>
+  </g>
+  
+  <!-- 装饰性小鸟 -->
+  <g fill="#8b4513" opacity="0.8">
+    <!-- 小鸟1 -->
+    <g transform="translate(200, 200)">
+      <ellipse cx="0" cy="0" rx="8" ry="4"/>
+      <ellipse cx="6" cy="-2" rx="4" ry="2"/>
+    </g>
+    
+    <!-- 小鸟2 -->
+    <g transform="translate(450, 180)">
+      <ellipse cx="0" cy="0" rx="6" ry="3"/>
+      <ellipse cx="4" cy="-1" rx="3" ry="1.5"/>
+    </g>
+  </g>
+  
+  <!-- 装饰性曲线（风的效果） -->
+  <g stroke="#ffffff" stroke-width="1" opacity="0.3" fill="none">
+    <path d="M 50 150 Q 100 140 150 150"/>
+    <path d="M 350 120 Q 400 110 450 120"/>
+    <path d="M 100 250 Q 150 240 200 250"/>
+  </g>
+</svg>
