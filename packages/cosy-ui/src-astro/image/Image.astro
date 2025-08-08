@@ -292,22 +292,19 @@ const localProps = {
 };
 ---
 
-<>
-  <div
-    class={`cosy:relative ${layout === 'fill' ? 'cosy:w-full not-prose cosy:h-full cosy:block' : 'cosy:inline-block'}`}>
-    {
-      isLocalImage ? (
-        <LocalImage {...localProps} />
-      ) : (
-        <RemoteImage {...remoteProps} />
-      )
-    }
+<div class={`cosy:relative not-prose cosy:w-full cosy:h-full cosy:block`}>
+  {
+    isLocalImage ? (
+      <LocalImage {...localProps} />
+    ) : (
+      <RemoteImage {...remoteProps} />
+    )
+  }
 
-    {/* 生成信息面板 */}
-    {
-      showPromptPanel !== false && (prompt || model) && (
-        <ImagePromptPanel prompt={prompt} model={model} />
-      )
-    }
-  </div>
-</>
+  {/* 生成信息面板 */}
+  {
+    showPromptPanel !== false && (prompt || model) && (
+      <ImagePromptPanel prompt={prompt} model={model} />
+    )
+  }
+</div>
