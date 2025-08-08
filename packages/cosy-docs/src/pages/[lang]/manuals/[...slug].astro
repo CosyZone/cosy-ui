@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { Alert, Error404, type ISidebarItem, Link, ListItem } from '@coffic/cosy-ui';
+import { Alert, Badge, Container, Error404, Grid, Heading, type ISidebarItem, Link, ListItem } from '@coffic/cosy-ui';
 import { manualRepo, ManualDoc } from '@coffic/cosy-content';
 import type { RenderResult } from 'astro:content';
 
@@ -8,6 +8,7 @@ const { lang, slug } = Astro.params;
 const id = slug ? `${lang}/${slug}` : `${lang}`;
 const doc = await manualRepo.find(id);
 let title = '';
+let tags: string[] = [];
 let renderResult: RenderResult | null = null;
 let sidebarItems: ISidebarItem | null = null;
 let courseDescription = '';
@@ -17,6 +18,8 @@ let isBeta = false;
 if (doc) {
   title = doc.getTitle();
   renderResult = await doc.render();
+  tags = doc.getTags();
+    isBeta = doc.getBadge() === 'beta';
 
   // 获取顶级文档
   const topDoc = await doc.getAncestor(1);
@@ -24,7 +27,6 @@ if (doc) {
     sidebarItems = await topDoc.toSidebarItem();
     courseDescription = doc.getDescription();
     childrenDocs = await doc.getChildren();
-    isBeta = doc.getBadge() === 'beta';
   }
 } else {
   title = '404 Not Found';
@@ -48,6 +50,15 @@ export const getStaticPaths = async () => {
         )}
 
         <renderResult.Content />
+
+        {tags.length > 0 && (
+            <Heading>Tags</Heading>
+          <Container gap="md" flex="row" size='full' justify='start'>
+            {tags.map(tag => (
+            <Badge variant="primary" size="sm">{tag}</Badge>
+            ))}
+          </Container>
+        )}
 
         {childrenDocs.length > 0 && (
                     <h2>目录</h2>

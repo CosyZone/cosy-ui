@@ -13,13 +13,15 @@ import { PlaceHolderPackage } from '@/components/placeholder/index';
 
 PlaceHolder 组件用于在布局中占用指定的空间，类似于 SwiftUI 的 Spacer。可以独立设置组件的宽度和高度，支持不同的尺寸选项和背景色配置。
 
-## 特性
+## 案例
 
-- **空间占用** - 在布局中占用指定的空间
-- **灵活性** - 支持独立控制宽度和高度
-- **一致性** - 与设计系统保持一致的尺寸规范
-- **响应式** - 在不同屏幕尺寸下保持良好的布局效果
-- **可视化** - 支持背景色配置，便于调试和设计
+### 基础用法
+
+<PlaceHolderPackage.Cases />
+
+### 多占位符展示
+
+<PlaceHolderPackage.MultiplePlaceholders />
 
 ## background
 
@@ -50,9 +52,3 @@ PlaceHolder 组件用于在布局中占用指定的空间，类似于 SwiftUI �
 宽度尺寸，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl、full。
 
 <PlaceHolderPackage.Sizes />
-
-## 基础用法
-
-使用 `width` 和 `height` 属性设置占位符的宽度和高度，使用 `padding` 属性设置内边距：
-
-<PlaceHolderPackage.Basic />

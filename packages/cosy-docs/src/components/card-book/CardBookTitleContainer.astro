@@ -1,0 +1,19 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import CardBookTitleShort from './CardBookTitleShort.astro';
+import CardBookTitleLong from './CardBookTitleLong.astro';
+
+import CardBookTitleShortSource from './CardBookTitleShort.astro?raw';
+import CardBookTitleLongSource from './CardBookTitleLong.astro?raw';
+---
+
+<CodeContainer
+  codes={[CardBookTitleShortSource, CardBookTitleLongSource]}
+  titles={['短标题', '长标题']}>
+  <div id="tab-1">
+    <CardBookTitleShort />
+  </div>
+  <div id="tab-2">
+    <CardBookTitleLong />
+  </div>
+</CodeContainer>

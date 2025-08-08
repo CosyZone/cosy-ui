@@ -1,0 +1,49 @@
+---
+title: CardBook
+folder: false
+order: 4.01
+---
+
+import { CardBook } from '@coffic/cosy-ui';
+import { CardBookPackage } from '@/components/card-book';
+
+# {frontmatter.title}
+
+CardBook 组件用于展示一本书的信息。支持传入封面图；当未提供封面时，将根据书名使用智能渐变背景作为占位，并在中央显示书名。
+
+## 简介
+适用于课程、图书列表、阅读推荐等场景。
+
+## author
+作者名称。
+<CardBookPackage.ComponentContainers.Basic />
+
+## class
+自定义类名，用于覆盖默认样式。
+<CardBookPackage.ComponentContainers.Class />
+
+## cover
+书籍封面图（本地或远程）。当未提供时，将显示智能渐变背景占位。
+<CardBookPackage.ComponentContainers.Cover />
+
+## description
+书籍简介文本。
+<CardBookPackage.ComponentContainers.Description />
+
+## href
+点击跳转链接（显示“查看详情”按钮）。
+<CardBookPackage.ComponentContainers.Href />
+
+## shadow
+卡片阴影样式：`none | sm | md | lg | xl`。
+<CardBookPackage.ComponentContainers.Shadow />
+
+## size
+卡片尺寸：`sm | md | lg`。
+<CardBookPackage.ComponentContainers.Sizes />
+
+## title
+书名（必填）。
+<CardBookPackage.ComponentContainers.Title />
+
+

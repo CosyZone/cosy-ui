@@ -1,0 +1,46 @@
+---
+title: CardBook
+folder: false
+order: 4.01
+---
+
+import { CardBook } from '@coffic/cosy-ui';
+import { CardBookPackage } from '@/components/card-book';
+
+# {frontmatter.title}
+
+CardBook is a book card component. It supports a cover image; when not provided, it shows an adaptive gradient background based on the title and centers the title as a placeholder.
+
+## author
+Author name.
+<CardBookPackage.ComponentContainers.Basic />
+
+## class
+Custom CSS class for overriding default styles.
+<CardBookPackage.ComponentContainers.Basic />
+
+## cover
+Book cover image (local or remote). If omitted, a smart gradient background placeholder will be used.
+<CardBookPackage.ComponentContainers.Cover />
+
+## description
+Brief description of the book.
+<CardBookPackage.ComponentContainers.Basic />
+
+## href
+Link for navigation (shows a "View details" button).
+<CardBookPackage.ComponentContainers.Basic />
+
+## shadow
+Card shadow style: `none | sm | md | lg | xl`.
+<CardBookPackage.ComponentContainers.Shadow />
+
+## size
+Card size: `sm | md | lg`.
+<CardBookPackage.ComponentContainers.Sizes />
+
+## title
+Book title (required).
+<CardBookPackage.ComponentContainers.Title />
+
+

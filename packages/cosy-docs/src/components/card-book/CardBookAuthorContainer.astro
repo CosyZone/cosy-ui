@@ -1,0 +1,19 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import CardBookAuthorWith from './CardBookAuthorWith.astro';
+import CardBookAuthorWithout from './CardBookAuthorWithout.astro';
+
+import CardBookAuthorWithSource from './CardBookAuthorWith.astro?raw';
+import CardBookAuthorWithoutSource from './CardBookAuthorWithout.astro?raw';
+---
+
+<CodeContainer
+  codes={[CardBookAuthorWithSource, CardBookAuthorWithoutSource]}
+  titles={['带作者', '不带作者']}>
+  <div id="tab-1">
+    <CardBookAuthorWith />
+  </div>
+  <div id="tab-2">
+    <CardBookAuthorWithout />
+  </div>
+</CodeContainer>
