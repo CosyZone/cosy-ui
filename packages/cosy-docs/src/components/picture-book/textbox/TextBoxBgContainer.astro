@@ -1,0 +1,17 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import BgNone from './TextBoxBgNone.astro';
+import BgBlur from './TextBoxBgBlur.astro';
+
+import BgNoneCode from './TextBoxBgNone.astro?raw';
+import BgBlurCode from './TextBoxBgBlur.astro?raw';
+---
+
+<CodeContainer codes={[BgNoneCode, BgBlurCode]} titles={['none', 'bg+blur']}>
+  <div id="tab-1">
+    <BgNone />
+  </div>
+  <div id="tab-2">
+    <BgBlur />
+  </div>
+</CodeContainer>

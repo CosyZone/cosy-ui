@@ -1,0 +1,17 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import T10 from './TextBoxTop10.astro';
+import T30 from './TextBoxTop30.astro';
+
+import T10Code from './TextBoxTop10.astro?raw';
+import T30Code from './TextBoxTop30.astro?raw';
+---
+
+<CodeContainer codes={[T10Code, T30Code]} titles={['10%', '30%']}>
+  <div id="tab-1">
+    <T10 />
+  </div>
+  <div id="tab-2">
+    <T30 />
+  </div>
+</CodeContainer>

@@ -1,0 +1,95 @@
+---
+title: PictureBook
+folder: false
+order: 18.5
+---
+
+import { PictureBookPage, PictureBookTextBox } from '@coffic/cosy-ui';
+import { PictureBookPackage } from '@/components/picture-book';
+
+# {frontmatter.title}
+
+Picture book layout components. `PictureBookPage` provides a fixed aspect ratio canvas with line-based layout; `PictureBookTextBox` positions by percentage and can set height by number of lines using the parent line height.
+
+## Introduction
+Great for illustrated pages, reading booklets, and cover layouts.
+
+## Cases
+
+### Basic
+
+<PictureBookPackage.PageExamples.Basic />
+
+### Text box basic
+
+<PictureBookPackage.TextBoxExamples.Basic />
+
+## Props
+
+### ariaLabelPrefix
+ARIA label prefix.
+<PictureBookPackage.PageContainers.AriaLabelPrefix />
+
+### backdropBlur
+Text box background blur (px).
+<PictureBookPackage.TextBoxContainers.BgAndBlur />
+
+### bgColor
+Text box translucent background color.
+<PictureBookPackage.TextBoxContainers.BgAndBlur />
+
+### bottom
+Percentage distance from bottom.
+<PictureBookPackage.TextBoxContainers.Bottom />
+
+### heightInLines
+Text box height in lines.
+<PictureBookPackage.TextBoxContainers.HeightInLines />
+
+### lang
+Force language: `zh | en`.
+<PictureBookPackage.PageContainers.Lang />
+
+### lines
+Number of lines on the page.
+<PictureBookPackage.PageContainers.Lines />
+
+### pageAspectRatio
+Page aspect ratio (width/height).
+<PictureBookPackage.PageContainers.PageAspectRatio />
+
+### paddingPx / roundedPx
+Text box padding and rounded radius.
+<PictureBookPackage.TextBoxContainers.RoundedAndPadding />
+
+### showLines
+Show helper grid lines.
+<PictureBookPackage.PageContainers.ShowLines />
+
+### textShadow
+Toggle text shadow.
+<PictureBookPackage.TextBoxContainers.TextShadow />
+
+### width
+Width in percentage.
+<PictureBookPackage.TextBoxContainers.Width />
+
+### zIndex
+Text box stacking order.
+<PictureBookPackage.TextBoxContainers.ZIndex />
+
+## Slots
+
+### background
+Background slot filling the whole page area (absolute cover).
+<PictureBookPackage.SlotContainers.Background />
+
+### overlay
+Overlay slot positioned relative to the safe area, for `PictureBookTextBox`, decorations, etc.
+<PictureBookPackage.SlotContainers.Overlay />
+
+### default
+Default text slot laid out by `--pb-line` line-height.
+<PictureBookPackage.SlotContainers.Default />
+
+

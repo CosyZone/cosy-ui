@@ -1,0 +1,19 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import AriaDefault from './PictureBookPageAriaDefault.astro';
+import AriaCustom from './PictureBookPageAriaCustom.astro';
+
+import AriaDefaultCode from './PictureBookPageAriaDefault.astro?raw';
+import AriaCustomCode from './PictureBookPageAriaCustom.astro?raw';
+---
+
+<CodeContainer
+  codes={[AriaDefaultCode, AriaCustomCode]}
+  titles={['default', 'custom']}>
+  <div id="tab-1">
+    <AriaDefault />
+  </div>
+  <div id="tab-2">
+    <AriaCustom />
+  </div>
+</CodeContainer>

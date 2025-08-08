@@ -1,0 +1,17 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import LinesOn from './PictureBookPageLinesOn.astro';
+import LinesOff from './PictureBookPageLinesOff.astro';
+
+import LinesOnCode from './PictureBookPageLinesOn.astro?raw';
+import LinesOffCode from './PictureBookPageLinesOff.astro?raw';
+---
+
+<CodeContainer codes={[LinesOnCode, LinesOffCode]} titles={['on', 'off']}>
+  <div id="tab-1">
+    <LinesOn />
+  </div>
+  <div id="tab-2">
+    <LinesOff />
+  </div>
+</CodeContainer>

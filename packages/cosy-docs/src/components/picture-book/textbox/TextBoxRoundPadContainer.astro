@@ -1,0 +1,17 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import Small from './TextBoxRoundPadSm.astro';
+import Large from './TextBoxRoundPadLg.astro';
+
+import SmallCode from './TextBoxRoundPadSm.astro?raw';
+import LargeCode from './TextBoxRoundPadLg.astro?raw';
+---
+
+<CodeContainer codes={[SmallCode, LargeCode]} titles={['8px', '16px']}>
+  <div id="tab-1">
+    <Small />
+  </div>
+  <div id="tab-2">
+    <Large />
+  </div>
+</CodeContainer>

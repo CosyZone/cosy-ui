@@ -12,6 +12,7 @@ export * from './src-astro/code-block';
 export * from './src-astro/code-container';
 export * from './src-astro/code-example';
 export * from './src-astro/code-panel';
+export * from './src-astro/confirm-dialog';
 export * from './src-astro/install-tabs';
 export * from './src-astro/contact';
 export * from './src-astro/container';
@@ -30,7 +31,7 @@ export * from './src-astro/layout-app';
 export * from './src-astro/layout-basic';
 export * from './src-astro/layout-basic/BaseLayout.astro';
 export * from './src-astro/layout-dashboard';
-export * from './src-astro/link';
+export * from './src-astro/link'; export * from './src-astro/list';
 export * from './src-astro/loading-overlay';
 export * from './src-astro/login';
 export * from './src-astro/logout';
@@ -47,13 +48,13 @@ export * from './src-astro/sidebar';
 export * from './src-astro/smart-bg';
 export * from './src-astro/speak';
 export * from './src-astro/stack';
+export * from './src-astro/story-book';
 export * from './src-astro/team-member';
 export * from './src-astro/text';
 export * from './src-astro/theme-switcher';
 export * from './src-astro/toc';
 export * from './src-astro/toast';
-export * from './src-astro/confirm-dialog';
-export * from './src-astro/list';
+
 
 // 类型定义 (按字母顺序)
 export * from './src-astro/types/article';
