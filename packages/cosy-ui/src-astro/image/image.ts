@@ -13,4 +13,4 @@ export interface IImageMetadata extends ImageMetadata {
  * 图片源类型
  * 可以是 IImageMetadata 对象、字符串 URL 或 Astro 的 ImageMetadata
  */
-export type ImageSource = IImageMetadata | ImageMetadata | string;
+export type ImageSource = string | ImageMetadata;

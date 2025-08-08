@@ -1,0 +1,19 @@
+---
+import { PictureBookPage, PictureBookTextBox } from '@coffic/cosy-ui';
+---
+
+<PictureBookPage lines={35} ariaLabelPrefix="覆盖-单文本框">
+  <div slot="background" style="width:100%;height:100%;background:#f3f4f6">
+  </div>
+  <PictureBookTextBox
+    slot="overlay"
+    top={20}
+    left={10}
+    width={80}
+    heightInLines={6}
+    bgColor="#ffffffcc"
+    paddingPx={10}
+    roundedPx={8}>
+    覆盖层：单个文本框
+  </PictureBookTextBox>
+</PictureBookPage>

@@ -1,7 +1,7 @@
 /**
  * Hero 组件相关类型定义
  */
-import type { ImageMetadata } from 'astro';
+import type { ImageSource } from 'src-astro/image';
 
 /**
  * 链接接口
@@ -69,11 +69,6 @@ export type ImagePositionType = 'right' | 'left' | 'top' | 'bottom';
  * 背景遮罩类型
  */
 export type BackgroundOverlayType = 'none' | 'light' | 'dark' | 'primary' | 'gradient';
-
-/**
- * 图片资源类型 - 支持字符串 URL 和 Astro 导入的图片
- */
-export type ImageSource = string | ImageMetadata;
 
 /**
  * Hero 组件属性接口

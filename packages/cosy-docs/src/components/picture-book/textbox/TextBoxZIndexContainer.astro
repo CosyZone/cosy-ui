@@ -1,0 +1,17 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import Low from './TextBoxZIndexLow.astro';
+import High from './TextBoxZIndexHigh.astro';
+
+import LowCode from './TextBoxZIndexLow.astro?raw';
+import HighCode from './TextBoxZIndexHigh.astro?raw';
+---
+
+<CodeContainer codes={[LowCode, HighCode]} titles={['5', '50']}>
+  <div id="tab-1" style="width: 50%;margin: 0 auto">
+    <Low />
+  </div>
+  <div id="tab-2" style="width: 50%;margin: 0 auto">
+    <High />
+  </div>
+</CodeContainer>

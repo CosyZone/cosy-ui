@@ -123,7 +123,11 @@ const contentPadding = compact ? 'cosy:p-4' : 'cosy:p-6';
 const Tag = href ? 'a' : 'article';
 ---
 
-<Tag class={cardClasses} href={href} {...href && { target: '_self' }}>
+<Tag
+  ignore-heading
+  class={cardClasses}
+  href={href}
+  {...href && { target: '_self' }}>
   {
     imageUrl && (
       <figure class="not-prose cosy:m-0 cosy:p-0">

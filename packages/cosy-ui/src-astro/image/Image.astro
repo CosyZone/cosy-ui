@@ -204,6 +204,11 @@ export interface Props {
    */
   width?: number;
   /**
+   * 图片的布局方式
+   * @default "constrained"
+   */
+  layout?: string;
+  /**
    * 生成提示词
    */
   prompt?: string;
@@ -223,6 +228,7 @@ const {
   alt,
   width,
   height,
+  layout = 'constrained',
   loading = 'lazy',
   objectFit = 'cover',
   objectPosition = 'center',
@@ -245,19 +251,15 @@ const {
   showPromptPanel = true,
 } = Astro.props;
 
-// 判断是否为远程图片
-const isRemoteImage =
-  typeof imageSource === 'string' &&
-  (imageSource.startsWith('http') || imageSource.startsWith('//'));
-
 // 判断是否为本地图片（ImageMetadata）
-const isLocalImage = typeof imageSource === 'object' && 'src' in imageSource;
+const isLocalImage = typeof imageSource !== 'string';
 
 // 构建通用属性对象
 const commonProps = {
   alt,
   width,
   height,
+  layout,
   objectFit,
   objectPosition,
   class: className,
@@ -291,7 +293,8 @@ const localProps = {
 ---
 
 <>
-  <div class="relative inline-block">
+  <div
+    class={`cosy:relative ${layout === 'fill' ? 'cosy:w-full not-prose cosy:h-full cosy:block' : 'cosy:inline-block'}`}>
     {
       isLocalImage ? (
         <LocalImage {...localProps} />

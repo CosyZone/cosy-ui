@@ -3,7 +3,6 @@ export type {
     HeroProps,
     IHeroLink,
     ImageConfig,
-    ImageSource,
     BackgroundType,
     AlignType,
     ImagePositionType,

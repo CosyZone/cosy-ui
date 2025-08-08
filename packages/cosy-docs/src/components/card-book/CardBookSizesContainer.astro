@@ -1,0 +1,24 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import CardBookSizeSm from './CardBookSizeSm.astro';
+import CardBookSizeMd from './CardBookSizeMd.astro';
+import CardBookSizeLg from './CardBookSizeLg.astro';
+
+import CardBookSizeSmSource from './CardBookSizeSm.astro?raw';
+import CardBookSizeMdSource from './CardBookSizeMd.astro?raw';
+import CardBookSizeLgSource from './CardBookSizeLg.astro?raw';
+---
+
+<CodeContainer
+  codes={[CardBookSizeSmSource, CardBookSizeMdSource, CardBookSizeLgSource]}
+  titles={['sm', 'md', 'lg']}>
+  <div id="tab-1">
+    <CardBookSizeSm />
+  </div>
+  <div id="tab-2">
+    <CardBookSizeMd />
+  </div>
+  <div id="tab-3">
+    <CardBookSizeLg />
+  </div>
+</CodeContainer>

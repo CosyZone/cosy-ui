@@ -37,7 +37,7 @@ export function getExampleImage(options: ImageOptions): string {
     const {
         width,
         height,
-        provider = 'robohash',
+        provider = 'picsum',
         tag = '',
         randomSeed = Math.floor(Math.random() * 1000),
         grayscale = false,

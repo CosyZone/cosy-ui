@@ -1,0 +1,17 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import Off from './TextBoxShadowOff.astro';
+import On from './TextBoxShadowOn.astro';
+
+import OffCode from './TextBoxShadowOff.astro?raw';
+import OnCode from './TextBoxShadowOn.astro?raw';
+---
+
+<CodeContainer codes={[OffCode, OnCode]} titles={['off', 'on']}>
+  <div id="tab-1" style="width: 50%;margin: 0 auto">
+    <Off />
+  </div>
+  <div id="tab-2" style="width: 50%;margin: 0 auto">
+    <On />
+  </div>
+</CodeContainer>

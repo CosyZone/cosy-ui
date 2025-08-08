@@ -1,0 +1,92 @@
+---
+title: PictureBook
+folder: false
+order: 18.5
+---
+
+import { PictureBookPage, PictureBookTextBox } from '@coffic/cosy-ui';
+import { PictureBookPackage } from '@/components/picture-book';
+
+# {frontmatter.title}
+
+用于制作图文绘本页。
+
+- `PictureBookPage` 提供固定宽高比和按行等分的排版容器；
+- `PictureBookTextBox` 以百分比定位，并可用“行数”定义高度，自动与父容器的行高对齐。
+
+## 简介
+适用于课程插画页、阅读绘本页、讲义封面等场景。
+
+## 案例
+
+<PictureBookPackage.PageExamples.Basic />
+
+## Props
+
+### ariaLabelPrefix
+无障碍 aria 标签前缀。
+<PictureBookPackage.PageContainers.AriaLabelPrefix />
+
+### backdropBlur
+文本框背景虚化像素。
+<PictureBookPackage.TextBoxContainers.BgAndBlur />
+
+### bgColor
+文本框半透明背景色。
+<PictureBookPackage.TextBoxContainers.BgAndBlur />
+
+### bottom
+文本框距离底部的百分比。
+<PictureBookPackage.TextBoxContainers.Bottom />
+
+### heightInLines
+文本框高度（行数）。
+<PictureBookPackage.TextBoxContainers.HeightInLines />
+
+### lang
+强制语言：`zh | en`。
+<PictureBookPackage.PageContainers.Lang />
+
+### lines
+页面行数，决定每行像素高度。
+<PictureBookPackage.PageContainers.Lines />
+
+### pageAspectRatio
+页面宽高比（宽/高）。
+<PictureBookPackage.PageContainers.PageAspectRatio />
+
+### paddingPx / roundedPx
+文本框内边距与圆角。
+<PictureBookPackage.TextBoxContainers.RoundedAndPadding />
+
+### showLines
+是否显示排版辅助横线。
+<PictureBookPackage.PageContainers.ShowLines />
+
+### textShadow
+是否启用文本阴影。
+<PictureBookPackage.TextBoxContainers.TextShadow />
+
+### width
+文本框宽度的百分比。
+<PictureBookPackage.TextBoxContainers.Width />
+
+### zIndex
+文本框层叠顺序。
+<PictureBookPackage.TextBoxContainers.ZIndex />
+
+## Slots
+
+### background
+背景层插槽，填充整个页面区域（absolute 覆盖）。
+<PictureBookPackage.SlotContainers.Background />
+
+### overlay
+覆盖层插槽，相对安全区域定位，可放置 `PictureBookTextBox` 等。
+<PictureBookPackage.SlotContainers.Overlay />
+
+### default
+默认文字内容插槽，将按 `--pb-line` 行高排版。
+<PictureBookPackage.SlotContainers.Default />
+
+

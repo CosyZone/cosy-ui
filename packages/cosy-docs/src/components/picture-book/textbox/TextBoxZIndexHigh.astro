@@ -1,0 +1,22 @@
+---
+import { PictureBookPage, PictureBookTextBox } from '@coffic/cosy-ui';
+---
+
+<PictureBookPage lines={35} ariaLabelPrefix="zIndex 50">
+  <div
+    slot="background"
+    style="width:100%;height:100%;background:linear-gradient(180deg,#fdfbfb,#ebedee)">
+  </div>
+  <PictureBookTextBox
+    slot="overlay"
+    top={28}
+    left={10}
+    width={80}
+    heightInLines={6}
+    bgColor="#ffffffdd"
+    paddingPx={10}
+    roundedPx={10}
+    zIndex={50}>
+    zIndex=50（更高）
+  </PictureBookTextBox>
+</PictureBookPage>

@@ -1,0 +1,25 @@
+---
+import { CardBook, getExampleImage } from '@coffic/cosy-ui';
+---
+
+<div class="cosy:flex cosy:gap-4 cosy:flex-wrap">
+  <CardBook
+    size="sm"
+    title="小册子"
+    author="Anon"
+    cover={getExampleImage({ width: 180, height: 260 })}
+  />
+  <CardBook
+    size="md"
+    title="中等读物"
+    author="Anon"
+    cover={getExampleImage({ width: 240, height: 340 })}
+  />
+  <CardBook
+    size="lg"
+    title="巨著"
+    author="Anon"
+    cover={getExampleImage({ width: 300, height: 420 })}
+  />
+  <CardBook size="md" title="无封面占位" author="Anon" />
+</div>

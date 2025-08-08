@@ -1,0 +1,18 @@
+---
+import { PictureBookPage, PictureBookTextBox } from '@coffic/cosy-ui';
+---
+
+<PictureBookPage lines={35} ariaLabelPrefix="无背景">
+  <div
+    slot="background"
+    style="width:100%;height:100%;background:linear-gradient(180deg,#fdfbfb,#ebedee)">
+  </div>
+  <PictureBookTextBox
+    slot="overlay"
+    top={20}
+    left={10}
+    width={80}
+    heightInLines={6}>
+    无背景与模糊
+  </PictureBookTextBox>
+</PictureBookPage>

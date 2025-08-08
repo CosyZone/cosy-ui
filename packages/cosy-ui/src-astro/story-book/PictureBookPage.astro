@@ -1,0 +1,139 @@
+---
+/**
+ * @component PictureBookPage
+ *
+ * @description
+ * 绘本页面容器：固定宽高比、按行等分、背景/覆盖插槽、可选横线网格。
+ * 通过在内容容器上设置 CSS 变量 `--pb-line` 来告知子组件每行像素高度。
+ * 背景图片100%填充整个页面，无安全区域限制。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <PictureBookPage lines={35} pageAspectRatio={3/4} ariaLabelPrefix="绘本页">
+ *   <div slot="background" style="width:100%;height:100%;background:#faf7ef"></div>
+ *   <PictureBookTextBox slot="overlay" top={8} left={50} width={48} heightInLines={8}>
+ *     正文内容……
+ *   </PictureBookTextBox>
+ * </PictureBookPage>
+ * ```
+ *
+ * @props
+ * - ariaLabelPrefix?: string - 无障碍 aria 标签前缀
+ * - lang?: 'zh' | 'en' - 可选：强制语言
+ * - lines?: number - 页面被分为的“行”数量，决定每行像素高度，默认 35
+ * - pageAspectRatio?: number - 页面宽高比（宽/高），默认 3/4
+ * - showLines?: boolean - 是否显示横线网格（排版辅助），默认 true
+ *
+ * @slots
+ * - background: 背景层插槽，填充整个页面区域（absolute 充满容器）
+ * - overlay: 覆盖层插槽，相对安全区域进行绝对定位放置文本框/装饰
+ * - default: 文字内容插槽，将按 `--pb-line` 行高进行排版
+ */
+
+import '../../style.ts';
+
+export interface IPictureBookPageProps {
+  ariaLabelPrefix?: string;
+  lang?: 'zh' | 'en';
+  lines?: number;
+  pageAspectRatio?: number;
+  showLines?: boolean;
+}
+
+const {
+  ariaLabelPrefix = '',
+  lang,
+  lines = 35,
+  pageAspectRatio = 3 / 4,
+  showLines = true,
+} = Astro.props as IPictureBookPageProps;
+
+const ariaLabel =
+  ariaLabelPrefix || (lang === 'en' ? 'Picture book page' : '绘本页');
+---
+
+<section
+  aria-label={ariaLabel}
+  class="cosy:relative cosy:w-full cosy:overflow-hidden cosy:rounded-xl cosy:shadow-lg cosy:ring-1 cosy:ring-black/5">
+  <!-- 固定页面宽高比容器（padding-bottom 技术） -->
+  <div
+    class="cosy:relative cosy:w-full"
+    style={`padding-bottom: ${100 / (pageAspectRatio || 0.75)}%`}>
+    <!-- 背景层：由使用者提供节点（图片或其他元素） -->
+    <div class="cosy:absolute cosy:inset-0 cosy:w-full cosy:h-full">
+      <slot name="background" />
+    </div>
+
+    <!-- 纸张质感或亮度覆盖，可按需微调，这里保持透明占位 -->
+    <div
+      class="cosy:absolute cosy:inset-0 cosy:pointer-events-none cosy:bg-white/0">
+    </div>
+
+    <!-- 内容容器：100%填充整个页面 -->
+    <div class="cosy:absolute cosy:inset-0">
+      <div
+        data-pb-container
+        data-pb-lines={String(lines)}
+        class="cosy:relative cosy:h-full cosy:w-full">
+        {
+          showLines && (
+            <div
+              aria-hidden="true"
+              class="cosy:pointer-events-none cosy:absolute cosy:inset-0 cosy:opacity-30"
+              style={`background-image: repeating-linear-gradient(to bottom, transparent, transparent calc(var(--pb-line) - 1px), rgba(0,0,0,0.15) calc(var(--pb-line) - 1px), rgba(0,0,0,0.15) var(--pb-line))`}
+            />
+          )
+        }
+
+        <!-- 覆盖层：绝对定位区域，由使用者提供 -->
+        <div class="cosy:absolute cosy:inset-0">
+          <slot name="overlay" />
+        </div>
+
+        <!-- 文字层：按行高对齐排版 -->
+        <div
+          class="cosy:relative cosy:h-full cosy:w-full cosy:whitespace-pre-wrap cosy:break-words cosy:text-gray-900"
+          style={`line-height: var(--pb-line); font-size: ${lang === 'en' ? '17px' : '18px'}; font-weight: 500;`}>
+          <slot />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 行高计算脚本：根据容器可用高度与 lines 计算 --pb-line，并监听尺寸变化 -->
+  <script is:inline>
+    (() => {
+      const scriptEl = document.currentScript;
+      if (!scriptEl) return;
+      const parent = scriptEl.parentElement;
+      if (!parent) return;
+      const root = parent.querySelector('[data-pb-container]');
+      if (!root) return;
+      const getLines = () => {
+        const v = root.getAttribute('data-pb-lines');
+        const n = Number(v);
+        return Number.isFinite(n) && n > 0 ? n : 35;
+      };
+      const compute = () => {
+        const L = getLines();
+        const height = root.clientHeight;
+        const next = height / L;
+        if (Number.isFinite(next) && next > 0) {
+          root.style.setProperty('--pb-line', `${next}px`);
+        }
+      };
+      compute();
+      const ro = new ResizeObserver(compute);
+      ro.observe(root);
+      window.addEventListener('load', compute);
+    })();
+  </script>
+</section>
+
+<style>
+  /* 用于可选的文字阴影 class，占位与 Vue 版本一致 */
+  .text-shadow {
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+  }
+</style>
