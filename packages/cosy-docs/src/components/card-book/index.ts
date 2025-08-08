@@ -2,6 +2,8 @@
 import CardBookDescription from './CardBookDescription.astro';
 import CardBookHref from './CardBookHref.astro';
 import CardBookClass from './CardBookClass.astro';
+import CardBookCases from './CardBookCases.astro';
+import CardBookCasesGrid from './CardBookCasesGrid.astro';
 import CardBookCoverContainer from './CardBookCoverContainer.astro';
 import CardBookSizesContainer from './CardBookSizesContainer.astro';
 import CardBookShadowContainer from './CardBookShadowContainer.astro';
@@ -16,6 +18,8 @@ export const CardBookPackage = {
         Description: CardBookDescription,
         Href: CardBookHref,
         Class: CardBookClass,
+        Cases: CardBookCases,
+        CasesGrid: CardBookCasesGrid,
     },
     ComponentContainers: {
         Basic: CardBookAuthorContainer,
