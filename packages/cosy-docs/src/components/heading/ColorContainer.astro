@@ -9,11 +9,23 @@ import ColorPrimary from './ColorPrimary.astro';
 import ColorSecondary from './ColorSecondary.astro';
 import ColorAccent from './ColorAccent.astro';
 import ColorMuted from './ColorMuted.astro';
+import ColorInfo from './ColorInfo.astro';
+import ColorSuccess from './ColorSuccess.astro';
+import ColorWarning from './ColorWarning.astro';
+import ColorError from './ColorError.astro';
+import ColorBaseContent from './ColorBaseContent.astro';
+import ColorNeutralContent from './ColorNeutralContent.astro';
 import ColorDefaultSource from './ColorDefault.astro?raw';
 import ColorPrimarySource from './ColorPrimary.astro?raw';
 import ColorSecondarySource from './ColorSecondary.astro?raw';
 import ColorAccentSource from './ColorAccent.astro?raw';
 import ColorMutedSource from './ColorMuted.astro?raw';
+import ColorInfoSource from './ColorInfo.astro?raw';
+import ColorSuccessSource from './ColorSuccess.astro?raw';
+import ColorWarningSource from './ColorWarning.astro?raw';
+import ColorErrorSource from './ColorError.astro?raw';
+import ColorBaseContentSource from './ColorBaseContent.astro?raw';
+import ColorNeutralContentSource from './ColorNeutralContent.astro?raw';
 ---
 
 <CodeContainer
@@ -23,8 +35,26 @@ import ColorMutedSource from './ColorMuted.astro?raw';
     ColorSecondarySource,
     ColorAccentSource,
     ColorMutedSource,
+    ColorInfoSource,
+    ColorSuccessSource,
+    ColorWarningSource,
+    ColorErrorSource,
+    ColorBaseContentSource,
+    ColorNeutralContentSource,
   ]}
-  titles={['默认', '主色调', '次要色调', '强调色', '柔和色']}>
+  titles={[
+    'default',
+    'primary',
+    'secondary',
+    'accent',
+    'muted',
+    'info',
+    'success',
+    'warning',
+    'error',
+    'base-content',
+    'neutral-content',
+  ]}>
   <div id="tab-1">
     <ColorDefault />
   </div>
@@ -39,5 +69,23 @@ import ColorMutedSource from './ColorMuted.astro?raw';
   </div>
   <div id="tab-5">
     <ColorMuted />
+  </div>
+  <div id="tab-6">
+    <ColorInfo />
+  </div>
+  <div id="tab-7">
+    <ColorSuccess />
+  </div>
+  <div id="tab-8">
+    <ColorWarning />
+  </div>
+  <div id="tab-9">
+    <ColorError />
+  </div>
+  <div id="tab-10">
+    <ColorBaseContent />
+  </div>
+  <div id="tab-11">
+    <ColorNeutralContent />
   </div>
 </CodeContainer>
