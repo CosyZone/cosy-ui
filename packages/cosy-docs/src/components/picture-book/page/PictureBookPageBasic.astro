@@ -10,7 +10,11 @@ import PictureBookBg2 from '@/assets/picture-book-bg-2.svg';
 import PictureBookBg3 from '@/assets/picture-book-bg-3.svg';
 ---
 
-<Grid cols={3}>
+<Grid
+  cols={{
+    base: 1,
+    lg: 3,
+  }}>
   <div style="width: 100%">
     <PictureBookPage pageAspectRatio={3 / 4} ariaLabelPrefix="绘本页">
       <Image

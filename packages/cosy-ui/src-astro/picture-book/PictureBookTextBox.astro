@@ -4,7 +4,9 @@
  *
  * @description
  * 文字容器，按百分比在父容器中绝对定位。
- * 字体会随容器宽度缩小时自动缩小（font-size: clamp(12px, 4.5cqw, 18px)）。
+ * 组件采用容器查询单位实现“像图片一样同比缩放”的体验：
+ * - 尺寸支持百分比（top/left/right/bottom/width/height）
+ * - 字体基于 cqw 按容器宽度同比缩放（默认 4cqw）
  * 支持遮罩背景、背后虚化、圆角与文本阴影以提升可读性。
  *
  * @usage
@@ -42,12 +44,14 @@ export interface IPictureBookTextBoxProps {
   bottom?: number;
   width?: number;
   heightPx?: number;
+  height?: number; // 百分比高度，建议与 width/top 等配合以实现同比缩放
   zIndex?: number;
   bgColor?: string;
   backdropBlur?: number;
   paddingPx?: number;
   roundedPx?: number;
   textShadow?: boolean;
+  fontScaleCqw?: number; // 基于容器宽度的字体缩放系数，默认 4（即 4cqw）
 }
 
 const props = Astro.props as IPictureBookTextBoxProps;
@@ -68,11 +72,12 @@ const styleList: string = [
   props.right !== undefined ? `right: ${pct(props.right)}` : '',
   props.bottom !== undefined ? `bottom: ${pct(props.bottom)}` : '',
   props.width !== undefined ? `width: ${pct(props.width)}` : '',
-  // 让 cqw 单位可用，以容器宽度驱动字体自适应
-  'container-type: inline-size',
-  // 字体随容器宽度缩小时自动缩小；不超过 18px，不小于 12px
-  'font-size: clamp(12px, 4.5cqw, 18px)',
+  props.height !== undefined ? `height: ${pct(props.height)}` : '',
   typeof props.heightPx === 'number' ? `height: ${props.heightPx}px` : '',
+  // 让 cqw 单位可用，以父级容器宽度驱动字体同比缩放
+  'container-type: inline-size',
+  // 字体与容器宽度同比：默认 4cqw，可通过 fontScaleCqw 覆盖
+  `font-size: ${typeof props.fontScaleCqw === 'number' ? `${props.fontScaleCqw}cqw` : '4cqw'}`,
 ]
   .filter(Boolean)
   .join('; ');
