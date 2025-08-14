@@ -4,6 +4,7 @@
  *
  * @description
  * 文字容器，按百分比在父容器中绝对定位。
+ * 字体会随容器宽度缩小时自动缩小（font-size: clamp(12px, 4.5cqw, 18px)）。
  * 支持遮罩背景、背后虚化、圆角与文本阴影以提升可读性。
  *
  * @usage
@@ -67,6 +68,10 @@ const styleList: string = [
   props.right !== undefined ? `right: ${pct(props.right)}` : '',
   props.bottom !== undefined ? `bottom: ${pct(props.bottom)}` : '',
   props.width !== undefined ? `width: ${pct(props.width)}` : '',
+  // 让 cqw 单位可用，以容器宽度驱动字体自适应
+  'container-type: inline-size',
+  // 字体随容器宽度缩小时自动缩小；不超过 18px，不小于 12px
+  'font-size: clamp(12px, 4.5cqw, 18px)',
   typeof props.heightPx === 'number' ? `height: ${props.heightPx}px` : '',
 ]
   .filter(Boolean)
