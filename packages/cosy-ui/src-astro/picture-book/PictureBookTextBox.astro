@@ -3,12 +3,12 @@
  * @component PictureBookTextBox
  *
  * @description
- * 文字容器，按百分比在父容器中绝对定位，并可基于父容器暴露的 `--pb-line` 变量以“行数”控制高度。
+ * 文字容器，按百分比在父容器中绝对定位。
  * 支持遮罩背景、背后虚化、圆角与文本阴影以提升可读性。
  *
  * @usage
  * ```astro
- * <PictureBookTextBox top={58} left={52} width={40} heightInLines={7}
+ * <PictureBookTextBox top={58} left={52} width={40}
  *   bgColor="rgba(255,255,255,0.75)" backdropBlur={4} paddingPx={12} roundedPx={12} textShadow>
  *   文字内容…
  * </PictureBookTextBox>
@@ -20,7 +20,7 @@
  * - right?: number - 绝对定位 right（百分比）
  * - top?: number - 绝对定位 top（百分比）
  * - width?: number - 宽度（百分比）
- * - heightInLines?: number - 高度（行数），将通过父容器的 `--pb-line` 转换为像素
+ * - heightPx?: number - 高度（像素）。不设置则根据内容自适应高度
  * - zIndex?: number - 层叠顺序，默认 10
  * - bgColor?: string - 半透明背景色
  * - backdropBlur?: number - 背景虚化像素（backdrop-filter: blur(px)）
@@ -40,7 +40,7 @@ export interface IPictureBookTextBoxProps {
   right?: number;
   bottom?: number;
   width?: number;
-  heightInLines?: number;
+  heightPx?: number;
   zIndex?: number;
   bgColor?: string;
   backdropBlur?: number;
@@ -67,9 +67,7 @@ const styleList: string = [
   props.right !== undefined ? `right: ${pct(props.right)}` : '',
   props.bottom !== undefined ? `bottom: ${pct(props.bottom)}` : '',
   props.width !== undefined ? `width: ${pct(props.width)}` : '',
-  typeof props.heightInLines === 'number'
-    ? `height: calc(${props.heightInLines} * var(--pb-line)); line-height: var(--pb-line)`
-    : '',
+  typeof props.heightPx === 'number' ? `height: ${props.heightPx}px` : '',
 ]
   .filter(Boolean)
   .join('; ');

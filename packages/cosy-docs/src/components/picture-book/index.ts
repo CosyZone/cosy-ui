@@ -1,12 +1,9 @@
 import PictureBookPageBasic from './page/PictureBookPageBasic.astro';
-import PictureBookPageLinesContainer from './page/PictureBookPageLinesContainer.astro';
 import PictureBookPageLangContainer from './page/PictureBookPageLangContainer.astro';
 import PictureBookPageRatioContainer from './page/PictureBookPageRatioContainer.astro';
-import PictureBookPageShowLinesContainer from './page/PictureBookPageShowLinesContainer.astro';
 import PictureBookPageAriaContainer from './page/PictureBookPageAriaContainer.astro';
 
 import TextBoxBasic from './textbox/TextBoxBasic.astro';
-import TextBoxHeightContainer from './textbox/TextBoxHeightContainer.astro';
 import TextBoxBottomContainer from './textbox/TextBoxBottomContainer.astro';
 import TextBoxLeftContainer from './textbox/TextBoxLeftContainer.astro';
 import TextBoxRightContainer from './textbox/TextBoxRightContainer.astro';
@@ -25,17 +22,14 @@ export const PictureBookPackage = {
         Basic: PictureBookPageBasic,
     },
     PageContainers: {
-        Lines: PictureBookPageLinesContainer,
         Lang: PictureBookPageLangContainer,
         PageAspectRatio: PictureBookPageRatioContainer,
-        ShowLines: PictureBookPageShowLinesContainer,
         AriaLabelPrefix: PictureBookPageAriaContainer,
     },
     TextBoxExamples: {
         Basic: TextBoxBasic,
     },
     TextBoxContainers: {
-        HeightInLines: TextBoxHeightContainer,
         BgAndBlur: TextBoxBgContainer,
         RoundedAndPadding: TextBoxRoundPadContainer,
         TextShadow: TextBoxShadowContainer,

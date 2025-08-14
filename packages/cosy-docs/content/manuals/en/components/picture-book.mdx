@@ -9,10 +9,10 @@ import { PictureBookPackage } from '@/components/picture-book';
 
 # {frontmatter.title}
 
-Picture book layout components.
+ Picture book layout components.
 
-- `PictureBookPage` provides a fixed aspect ratio canvas with line-based layout;
-- `PictureBookTextBox` positions by percentage and can set height by number of lines using the parent line height.
+ - `PictureBookPage` provides a fixed aspect ratio canvas;
+ - `PictureBookTextBox` positions by percentage and auto-sizes height by content by default.
 
 ## Introduction
 Great for illustrated pages, reading booklets, and cover layouts.
@@ -39,17 +39,10 @@ Text box translucent background color.
 Percentage distance from bottom.
 <PictureBookPackage.TextBoxContainers.Bottom />
 
-### heightInLines
-Text box height in lines.
-<PictureBookPackage.TextBoxContainers.HeightInLines />
 
 ### lang
 Force language: `zh | en`.
 <PictureBookPackage.PageContainers.Lang />
-
-### lines
-Number of lines on the page.
-<PictureBookPackage.PageContainers.Lines />
 
 ### pageAspectRatio
 Page aspect ratio (width/height).
@@ -59,9 +52,6 @@ Page aspect ratio (width/height).
 Text box padding and rounded radius.
 <PictureBookPackage.TextBoxContainers.RoundedAndPadding />
 
-### showLines
-Show helper grid lines.
-<PictureBookPackage.PageContainers.ShowLines />
 
 ### textShadow
 Toggle text shadow.
@@ -86,7 +76,7 @@ Overlay slot positioned relative to the safe area, for `PictureBookTextBox`, dec
 <PictureBookPackage.SlotContainers.Overlay />
 
 ### default
-Default text slot laid out by `--pb-line` line-height.
+Default text slot laid out with regular paragraph line-height.
 <PictureBookPackage.SlotContainers.Default />
 
 
