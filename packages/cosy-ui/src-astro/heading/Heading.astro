@@ -66,18 +66,18 @@
  * ```
  *
  * @props
- * @prop {1|2|3|4|5|6} [level=2] - 标题级别，对应 h1-h6 标签
- * @prop {string} [id] - 标题的 ID，用于锚点链接
- * @prop {string} [href] - 链接地址，传入后标题会变成可点击的链接
- * @prop {boolean} [external=false] - 是否为外部链接，影响链接的打开方式
+ * @prop {'left'|'center'|'right'} [align='left'] - 文本对齐方式
  * @prop {boolean} [anchor=false] - 是否显示锚点链接图标
- * @prop {boolean} [underline=false] - 是否显示下划线
- * @prop {string} [align='left'] - 文本对齐方式：'left', 'center', 'right'
- * @prop {'default'|'primary'|'secondary'|'accent'|'muted'} [color='default'] - 标题颜色
- * @prop {'none'|'sm'|'md'|'lg'|'xl'} [margin='md'] - 上下外边距大小
  * @prop {string} [background] - 背景色类名，如 'base-300', 'primary', 'secondary'
- * @prop {'none'|'sm'|'md'|'lg'|'xl'} [padding='none'] - 内边距大小（仅在设置背景色时生效）
+ * @prop {'default'|'primary'|'secondary'|'accent'|'muted'} [color='default'] - 标题颜色
  * @prop {string} [class] - 自定义 CSS 类名
+ * @prop {boolean} [external=false] - 是否为外部链接，影响链接的打开方式
+ * @prop {string} [href] - 链接地址，传入后标题会变成可点击的链接
+ * @prop {string} [id] - 标题的 ID，用于锚点链接
+ * @prop {1|2|3|4|5|6} [level=2] - 标题级别，对应 h1-h6 标签
+ * @prop {'none'|'sm'|'md'|'lg'|'xl'} [margin='md'] - 上下外边距大小
+ * @prop {'none'|'sm'|'md'|'lg'|'xl'} [padding='none'] - 内边距大小（仅在设置背景色时生效）
+ * @prop {boolean} [underline=false] - 是否显示下划线
  *
  * @slots
  * @slot default - 标题内容
@@ -98,34 +98,34 @@ import HeadingAnchor from './HeadingAnchor.astro';
 import Link from '../link/Link.astro';
 import '../../style.ts';
 
-interface Props {
-  level?: 1 | 2 | 3 | 4 | 5 | 6;
-  id?: string;
-  href?: string;
-  external?: boolean;
-  anchor?: boolean;
-  underline?: boolean;
+interface IHeadingProps {
   align?: 'left' | 'center' | 'right';
-  color?: 'default' | 'primary' | 'secondary' | 'accent' | 'muted';
-  margin?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+  anchor?: boolean;
   background?: string;
-  padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+  color?: 'default' | 'primary' | 'secondary' | 'accent' | 'muted';
   class?: string;
+  external?: boolean;
+  href?: string;
+  id?: string;
+  level?: 1 | 2 | 3 | 4 | 5 | 6;
+  margin?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+  padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+  underline?: boolean;
 }
 
 const {
-  level = 2,
-  id,
-  href,
-  external = false,
-  anchor = false,
-  underline = false,
   align = 'left',
-  color = 'default',
-  margin = 'md',
+  anchor = false,
   background,
-  padding = 'none',
+  color = 'default',
   class: className = '',
+  external = false,
+  href,
+  id,
+  level = 2,
+  margin = 'md',
+  padding = 'none',
+  underline = false,
 } = Astro.props;
 
 // 根据级别和颜色设置样式

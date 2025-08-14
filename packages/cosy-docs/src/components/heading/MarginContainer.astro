@@ -1,0 +1,43 @@
+---
+/**
+ * @component HeadingMarginContainer
+ * @description Heading 组件 margin 属性示例容器，展示不同的外边距。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import MarginNone from './MarginNone.astro';
+import MarginSmall from './MarginSmall.astro';
+import MarginMedium from './MarginMedium.astro';
+import MarginLarge from './MarginLarge.astro';
+import MarginXLarge from './MarginXLarge.astro';
+import MarginNoneSource from './MarginNone.astro?raw';
+import MarginSmallSource from './MarginSmall.astro?raw';
+import MarginMediumSource from './MarginMedium.astro?raw';
+import MarginLargeSource from './MarginLarge.astro?raw';
+import MarginXLargeSource from './MarginXLarge.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    MarginNoneSource,
+    MarginSmallSource,
+    MarginMediumSource,
+    MarginLargeSource,
+    MarginXLargeSource,
+  ]}
+  titles={['无外边距', '小外边距', '中等外边距', '大外边距', '超大外边距']}>
+  <div id="tab-1">
+    <MarginNone />
+  </div>
+  <div id="tab-2">
+    <MarginSmall />
+  </div>
+  <div id="tab-3">
+    <MarginMedium />
+  </div>
+  <div id="tab-4">
+    <MarginLarge />
+  </div>
+  <div id="tab-5">
+    <MarginXLarge />
+  </div>
+</CodeContainer>

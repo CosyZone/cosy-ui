@@ -8,55 +8,66 @@ import { ComponentPackage } from '@/components/heading/index.ts';
 
 # {frontmatter.title}
 
+## 简介
+
 Heading 组件用于创建各级标题，提供一致的排版样式和灵活的定制选项。该组件适用于需要清晰层次结构的内容页面，如文档、博客和产品介绍等。支持链接功能，当传入 `href` 属性时，标题会变成可点击的链接。
 
-## 基础用法
+## 案例
 
-最基本的标题用法，支持 1-6 级标题：
-
-<ComponentPackage.ComponentContainers.Basic />
-
-## 链接标题
-
-通过 `href` 属性创建可点击的标题链接，支持内部和外部链接：
-
-<ComponentPackage.ComponentContainers.LinkHeading />
-
-## 自定义样式
-
-通过 `color` 和 `underline` 属性自定义标题样式：
-
-<ComponentPackage.ComponentContainers.CustomStyle />
-
-## 对齐方式
-
-通过 `align` 属性控制标题的对齐方式：
-
-<ComponentPackage.ComponentContainers.Align />
-
-## 带锚点的标题
-
-通过 `id` 和 `anchor` 属性创建带锚点的标题：
-
-<ComponentPackage.ComponentContainers.Anchor />
+<ComponentPackage.ComponentContainers.Level />
 
 ## Props
 
-| 属性         | 说明                   | 类型                                              | 默认值    |
-| ------------ | ---------------------- | ------------------------------------------------- | --------- |
-| level        | 标题级别               | 1 \| 2 \| 3 \| 4 \| 5 \| 6                      | 2         |
-| id           | 标题的 ID              | string                                            | -         |
-| href         | 链接地址               | string                                            | -         |
-| external     | 是否为外部链接         | boolean                                           | false     |
-| anchor       | 是否显示锚点链接图标   | boolean                                           | false     |
-| underline    | 是否显示下划线         | boolean                                           | false     |
-| align        | 文本对齐方式           | 'left' \| 'center' \| 'right'                    | 'left'    |
-| color        | 标题颜色               | 'default'\|'primary'\|'secondary'\|'accent'\|'muted' | 'default' |
-| margin       | 上下外边距大小         | 'none' \| 'sm' \| 'md' \| 'lg' \| 'xl'          | 'md'      |
-| background   | 背景色类名             | string                                            | -         |
-| padding      | 内边距大小             | 'none' \| 'sm' \| 'md' \| 'lg' \| 'xl'          | 'none'    |
-| class        | 自定义 CSS 类名        | string                                            | -         |
+### align
+通过 `align` 属性控制标题的对齐方式。
+<ComponentPackage.ComponentContainers.Align />
 
-## 插槽
+### anchor
+通过 `id` 和 `anchor` 属性创建带锚点的标题。
+<ComponentPackage.ComponentContainers.Anchor />
 
-- `default`：标题内容
+### background
+通过 `background` 属性为标题添加背景色。
+<ComponentPackage.ComponentContainers.Background />
+
+### class
+通过 `class` 属性自定义标题样式。
+<ComponentPackage.ComponentContainers.Class />
+
+### color
+通过 `color` 属性自定义标题颜色。
+<ComponentPackage.ComponentContainers.Color />
+
+### external
+通过 `external` 属性创建外部链接标题。
+<ComponentPackage.ComponentContainers.External />
+
+### href
+通过 `href` 属性创建可点击的链接标题。
+<ComponentPackage.ComponentContainers.Href />
+
+### id
+通过 `id` 属性为标题添加唯一标识。
+<ComponentPackage.ComponentContainers.Id />
+
+### level
+通过 `level` 属性设置标题级别。
+<ComponentPackage.ComponentContainers.Level />
+
+### margin
+通过 `margin` 属性控制标题的外边距。
+<ComponentPackage.ComponentContainers.Margin />
+
+### padding
+通过 `padding` 属性控制标题的内边距（仅在设置背景色时生效）。
+<ComponentPackage.ComponentContainers.Padding />
+
+### underline
+通过 `underline` 属性为标题添加下划线。
+<ComponentPackage.ComponentContainers.Underline />
+
+## Slots
+
+### default
+标题内容插槽，用于放置标题文本内容。
+<ComponentPackage.ComponentContainers.Level />

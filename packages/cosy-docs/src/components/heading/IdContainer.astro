@@ -1,0 +1,30 @@
+---
+/**
+ * @component HeadingIdContainer
+ * @description Heading 组件 id 属性示例容器，展示带 ID 的标题。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import IdMain from './IdMain.astro';
+import IdSection from './IdSection.astro';
+import IdSubsection from './IdSubsection.astro';
+// @ts-ignore
+import IdMainSource from './IdMain.astro?raw';
+// @ts-ignore
+import IdSectionSource from './IdSection.astro?raw';
+// @ts-ignore
+import IdSubsectionSource from './IdSubsection.astro?raw';
+---
+
+<CodeContainer
+  codes={[IdMainSource, IdSectionSource, IdSubsectionSource]}
+  titles={['主标题', '介绍章节', '详细说明']}>
+  <div id="tab-1">
+    <IdMain />
+  </div>
+  <div id="tab-2">
+    <IdSection />
+  </div>
+  <div id="tab-3">
+    <IdSubsection />
+  </div>
+</CodeContainer>
