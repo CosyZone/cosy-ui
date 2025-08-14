@@ -1,17 +1,81 @@
 ---
 import { CodeContainer } from '@coffic/cosy-ui';
 import BgNone from './TextBoxBgNone.astro';
-import BgBlur from './TextBoxBgBlur.astro';
+import BgPaper from './TextBoxBgPaper.astro';
+import BgMuted from './TextBoxBgMuted.astro';
+import BgPrimary from './TextBoxBgPrimary.astro';
+import BgSecondary from './TextBoxBgSecondary.astro';
+import BgAccent from './TextBoxBgAccent.astro';
+import BgInfo from './TextBoxBgInfo.astro';
+import BgSuccess from './TextBoxBgSuccess.astro';
+import BgWarning from './TextBoxBgWarning.astro';
+import BgError from './TextBoxBgError.astro';
 
 import BgNoneCode from './TextBoxBgNone.astro?raw';
-import BgBlurCode from './TextBoxBgBlur.astro?raw';
+import BgPaperCode from './TextBoxBgPaper.astro?raw';
+import BgMutedCode from './TextBoxBgMuted.astro?raw';
+import BgPrimaryCode from './TextBoxBgPrimary.astro?raw';
+import BgSecondaryCode from './TextBoxBgSecondary.astro?raw';
+import BgAccentCode from './TextBoxBgAccent.astro?raw';
+import BgInfoCode from './TextBoxBgInfo.astro?raw';
+import BgSuccessCode from './TextBoxBgSuccess.astro?raw';
+import BgWarningCode from './TextBoxBgWarning.astro?raw';
+import BgErrorCode from './TextBoxBgError.astro?raw';
 ---
 
-<CodeContainer codes={[BgNoneCode, BgBlurCode]} titles={['none', 'bg+blur']}>
+<CodeContainer
+  codes={[
+    BgNoneCode,
+    BgPaperCode,
+    BgMutedCode,
+    BgPrimaryCode,
+    BgSecondaryCode,
+    BgAccentCode,
+    BgInfoCode,
+    BgSuccessCode,
+    BgWarningCode,
+    BgErrorCode,
+  ]}
+  titles={[
+    'none',
+    'paper',
+    'muted',
+    'primary',
+    'secondary',
+    'accent',
+    'info',
+    'success',
+    'warning',
+    'error',
+  ]}>
   <div id="tab-1" style="width: 50%;margin: 0 auto">
     <BgNone />
   </div>
   <div id="tab-2" style="width: 50%;margin: 0 auto">
-    <BgBlur />
+    <BgPaper />
+  </div>
+  <div id="tab-3" style="width: 50%;margin: 0 auto">
+    <BgMuted />
+  </div>
+  <div id="tab-4" style="width: 50%;margin: 0 auto">
+    <BgPrimary />
+  </div>
+  <div id="tab-5" style="width: 50%;margin: 0 auto">
+    <BgSecondary />
+  </div>
+  <div id="tab-6" style="width: 50%;margin: 0 auto">
+    <BgAccent />
+  </div>
+  <div id="tab-7" style="width: 50%;margin: 0 auto">
+    <BgInfo />
+  </div>
+  <div id="tab-8" style="width: 50%;margin: 0 auto">
+    <BgSuccess />
+  </div>
+  <div id="tab-9" style="width: 50%;margin: 0 auto">
+    <BgWarning />
+  </div>
+  <div id="tab-10" style="width: 50%;margin: 0 auto">
+    <BgError />
   </div>
 </CodeContainer>
