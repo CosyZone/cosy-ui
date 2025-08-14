@@ -1,0 +1,148 @@
+---
+/**
+ * @component PictureBookTextBox
+ *
+ * @description
+ * 文字容器，按百分比在父容器中绝对定位。
+ * 组件采用容器查询单位实现“像图片一样同比缩放”的体验：
+ * - 尺寸支持百分比（top/left/right/bottom/width/height）
+ * - 字体基于 cqw 按容器宽度同比缩放（默认 4cqw）
+ * - 圆角与内边距可选择 cqw 同比缩放（paddingCqw / roundedCqw）
+ * 支持遮罩背景、背后虚化、圆角与文本阴影以提升可读性。
+ *
+ * @usage
+ * ```astro
+ * <PictureBookTextBox top={58} left={52} width={40} bg="paper"
+ *   backdropBlur={4} paddingPx={12} roundedPx={12} textShadow>
+ *   文字内容…
+ * </PictureBookTextBox>
+ * ```
+ *
+ * @props
+ * - bottom?: number - 绝对定位 bottom（百分比）
+ * - left?: number - 绝对定位 left（百分比）
+ * - right?: number - 绝对定位 right（百分比）
+ * - top?: number - 绝对定位 top（百分比）
+ * - width?: number - 宽度（百分比）
+ * - heightPx?: number - 高度（像素）。不设置则根据内容自适应高度
+ * - zIndex?: number - 层叠顺序，默认 10
+ * - bg?: 'none' | 'paper' | 'muted' | 'primary' | 'secondary' | 'accent' | 'info' | 'success' | 'warning' | 'error' - 预设背景，支持 daisyUI 主题
+ * - backdropBlur?: number - 背景虚化像素（backdrop-filter: blur(px)）
+ * - paddingPx?: number - 内边距（px）
+ * - roundedPx?: number - 圆角（px）
+ * - textShadow?: boolean - 是否启用文字阴影
+ *
+ * @slots
+ * - default: 文本内容插槽
+ */
+
+import '../../style.ts';
+
+export interface IPictureBookTextBoxProps {
+  top?: number;
+  left?: number;
+  right?: number;
+  bottom?: number;
+  width?: number;
+  heightPx?: number;
+  height?: number; // 百分比高度，建议与 width/top 等配合以实现同比缩放
+  zIndex?: number;
+  bg?:
+    | 'none'
+    | 'paper'
+    | 'muted'
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'info'
+    | 'success'
+    | 'warning'
+    | 'error';
+  backdropBlur?: number;
+  paddingPx?: number; // 固定像素内边距（不随容器缩放）
+  roundedPx?: number; // 固定像素圆角（不随容器缩放）
+  paddingCqw?: number; // 根据容器宽度同比缩放的内边距（单位 cqw）
+  roundedCqw?: number; // 根据容器宽度同比缩放的圆角（单位 cqw）
+  textShadow?: boolean;
+  fontScaleCqw?: number; // 基于容器宽度的字体缩放系数，默认 4（即 4cqw）
+}
+
+const props = Astro.props as IPictureBookTextBoxProps;
+
+const pct = (v?: number) => (typeof v === 'number' ? `${v}%` : undefined);
+
+const bgClass = (() => {
+  switch (props.bg) {
+    case 'paper':
+      return 'cosy:bg-base-100/80 cosy:text-base-content';
+    case 'muted':
+      return 'cosy:bg-base-200/70 cosy:text-base-content';
+    case 'primary':
+      return 'cosy:bg-primary/20 cosy:text-base-content';
+    case 'secondary':
+      return 'cosy:bg-secondary/20 cosy:text-base-content';
+    case 'accent':
+      return 'cosy:bg-accent/20 cosy:text-base-content';
+    case 'info':
+      return 'cosy:bg-info/20 cosy:text-base-content';
+    case 'success':
+      return 'cosy:bg-success/20 cosy:text-base-content';
+    case 'warning':
+      return 'cosy:bg-warning/20 cosy:text-base-content';
+    case 'error':
+      return 'cosy:bg-error/20 cosy:text-base-content';
+    case 'none':
+    default:
+      return '';
+  }
+})();
+
+const paddingStyle = (() => {
+  if (typeof props.paddingCqw === 'number')
+    return `padding: ${props.paddingCqw}cqw`;
+  if (typeof props.paddingPx === 'number')
+    return `padding: ${props.paddingPx}px`;
+  return 'padding: 0';
+})();
+
+const radiusStyle = (() => {
+  if (typeof props.roundedCqw === 'number')
+    return `border-radius: ${props.roundedCqw}cqw`;
+  if (typeof props.roundedPx === 'number')
+    return `border-radius: ${props.roundedPx}px`;
+  return 'border-radius: 0';
+})();
+
+const styleList: string = [
+  'position: absolute',
+  `z-index: ${props.zIndex ?? 10}`,
+  paddingStyle,
+  radiusStyle,
+  typeof props.backdropBlur === 'number' && props.backdropBlur > 0
+    ? `backdrop-filter: blur(${props.backdropBlur}px)`
+    : '',
+  props.top !== undefined ? `top: ${pct(props.top)}` : '',
+  props.left !== undefined ? `left: ${pct(props.left)}` : '',
+  props.right !== undefined ? `right: ${pct(props.right)}` : '',
+  props.bottom !== undefined ? `bottom: ${pct(props.bottom)}` : '',
+  props.width !== undefined ? `width: ${pct(props.width)}` : '',
+  props.height !== undefined ? `height: ${pct(props.height)}` : '',
+  typeof props.heightPx === 'number' ? `height: ${props.heightPx}px` : '',
+  // 让 cqw 单位可用，以父级容器宽度驱动字体同比缩放
+  'container-type: inline-size',
+  // 字体与容器宽度同比：默认 4cqw，可通过 fontScaleCqw 覆盖
+  `font-size: ${typeof props.fontScaleCqw === 'number' ? `${props.fontScaleCqw}cqw` : '4cqw'}`,
+]
+  .filter(Boolean)
+  .join('; ');
+---
+
+<div style={styleList} class={`cosy:pointer-events-auto ${bgClass}`}>
+  <slot />
+
+  <style>
+    :global(.text-shadow) {
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    }
+  </style>
+</div>

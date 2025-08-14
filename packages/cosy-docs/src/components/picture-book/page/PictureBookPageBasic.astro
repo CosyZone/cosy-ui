@@ -10,12 +10,13 @@ import PictureBookBg2 from '@/assets/picture-book-bg-2.svg';
 import PictureBookBg3 from '@/assets/picture-book-bg-3.svg';
 ---
 
-<Grid cols={3}>
+<Grid
+  cols={{
+    base: 1,
+    lg: 3,
+  }}>
   <div style="width: 100%">
-    <PictureBookPage
-      lines={12}
-      pageAspectRatio={3 / 4}
-      ariaLabelPrefix="绘本页">
+    <PictureBookPage pageAspectRatio={3 / 4} ariaLabelPrefix="绘本页">
       <Image
         slot="background"
         src={PictureBookBg1}
@@ -29,8 +30,7 @@ import PictureBookBg3 from '@/assets/picture-book-bg-3.svg';
         top={12}
         left={10}
         width={80}
-        heightInLines={6}
-        bgColor="#ffffffcc"
+        bg="paper"
         paddingPx={12}
         roundedPx={10}>
         欢迎来到象彩彩的故事世界。象彩彩可不是小象，她是一只可爱的小猫咪。
@@ -39,10 +39,7 @@ import PictureBookBg3 from '@/assets/picture-book-bg-3.svg';
   </div>
 
   <div style="width: 100%">
-    <PictureBookPage
-      lines={12}
-      pageAspectRatio={3 / 4}
-      ariaLabelPrefix="绘本页">
+    <PictureBookPage pageAspectRatio={3 / 4} ariaLabelPrefix="绘本页">
       <Image
         slot="background"
         src={PictureBookBg2}
@@ -56,8 +53,7 @@ import PictureBookBg3 from '@/assets/picture-book-bg-3.svg';
         top={24}
         left={10}
         width={80}
-        heightInLines={4}
-        bgColor="#ffffffcc"
+        bg="paper"
         paddingPx={12}
         roundedPx={10}>
         我是樱樱，这里是我的故事世界，来和我一起冒险吧。
@@ -65,10 +61,7 @@ import PictureBookBg3 from '@/assets/picture-book-bg-3.svg';
     </PictureBookPage>
   </div>
   <div style="width: 100%">
-    <PictureBookPage
-      lines={12}
-      pageAspectRatio={3 / 4}
-      ariaLabelPrefix="绘本页">
+    <PictureBookPage pageAspectRatio={3 / 4} ariaLabelPrefix="绘本页">
       <Image
         slot="background"
         src={PictureBookBg3}
@@ -82,8 +75,7 @@ import PictureBookBg3 from '@/assets/picture-book-bg-3.svg';
         top={24}
         left={10}
         width={50}
-        heightInLines={2}
-        bgColor="#ffffffcc"
+        bg="paper"
         paddingPx={12}
         roundedPx={10}>
         天气真好啊。

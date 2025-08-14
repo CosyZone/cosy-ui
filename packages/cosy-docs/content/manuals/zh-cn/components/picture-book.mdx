@@ -11,8 +11,8 @@ import { PictureBookPackage } from '@/components/picture-book';
 
 用于制作图文绘本页。
 
-- `PictureBookPage` 提供固定宽高比和按行等分的排版容器；
-- `PictureBookTextBox` 以百分比定位，并可用“行数”定义高度，自动与父容器的行高对齐。
+- `PictureBookPage` 提供固定宽高比的排版容器；
+- `PictureBookTextBox` 以百分比定位，默认根据内容自适应高度。
 
 ## 简介
 适用于课程插画页、阅读绘本页、讲义封面等场景。
@@ -31,37 +31,30 @@ import { PictureBookPackage } from '@/components/picture-book';
 文本框背景虚化像素。
 <PictureBookPackage.TextBoxContainers.BgAndBlur />
 
-### bgColor
-文本框半透明背景色。
+### bg
+文本框背景预设，支持：`none | paper | muted | primary | secondary | accent | info | success | warning | error`。
 <PictureBookPackage.TextBoxContainers.BgAndBlur />
 
 ### bottom
 文本框距离底部的百分比。
 <PictureBookPackage.TextBoxContainers.Bottom />
 
-### heightInLines
-文本框高度（行数）。
-<PictureBookPackage.TextBoxContainers.HeightInLines />
 
 ### lang
 强制语言：`zh | en`。
 <PictureBookPackage.PageContainers.Lang />
-
-### lines
-页面行数，决定每行像素高度。
-<PictureBookPackage.PageContainers.Lines />
 
 ### pageAspectRatio
 页面宽高比（宽/高）。
 <PictureBookPackage.PageContainers.PageAspectRatio />
 
 ### paddingPx / roundedPx
-文本框内边距与圆角。
+文本框固定像素内边距与圆角。
 <PictureBookPackage.TextBoxContainers.RoundedAndPadding />
 
-### showLines
-是否显示排版辅助横线。
-<PictureBookPackage.PageContainers.ShowLines />
+### paddingCqw / roundedCqw
+根据容器宽度同比缩放的内边距与圆角（cqw 单位）。
+
 
 ### textShadow
 是否启用文本阴影。
@@ -86,7 +79,7 @@ import { PictureBookPackage } from '@/components/picture-book';
 <PictureBookPackage.SlotContainers.Overlay />
 
 ### default
-默认文字内容插槽，将按 `--pb-line` 行高排版。
+默认文字内容插槽，采用常规段落行高排版。
 <PictureBookPackage.SlotContainers.Default />
 
 
