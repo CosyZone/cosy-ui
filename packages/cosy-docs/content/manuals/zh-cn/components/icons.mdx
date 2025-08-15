@@ -1,0 +1,43 @@
+---
+title: Icons
+description: 'Astro 版本的图标组件，提供丰富的 SVG 图标库'
+order: 12
+---
+
+import { IconsPackage } from '@/components/icons/index.ts';
+
+# {frontmatter.title}
+
+## 简介
+
+Icons 组件库提供了一套完整的 Astro 图标组件，基于 SVG 图标构建，支持自定义大小、颜色和样式。所有图标都经过精心设计，确保在不同尺寸下都能保持清晰和美观。该组件库适用于需要丰富视觉元素的应用，如仪表盘、导航菜单、操作按钮等场景。
+
+## Props
+
+### class
+
+通过 `class` 属性自定义图标的 CSS 类名，用于覆盖默认样式。
+
+<IconsPackage.ClassContainer />
+
+### color
+
+通过 `color` 属性自定义图标的颜色，支持任何有效的 CSS 颜色值。
+
+<IconsPackage.ColorContainer />
+
+### size
+
+通过 `size` 属性自定义图标的大小，支持任何有效的 CSS 尺寸值。
+
+<IconsPackage.SizeContainer />
+
+## Slots
+
+图标组件不提供内容插槽，所有内容通过 SVG 路径数据渲染。
+
+## 所有图标
+
+展示所有可用的 Astro 图标组件。
+
+<IconsPackage.IconShowcase /> 
