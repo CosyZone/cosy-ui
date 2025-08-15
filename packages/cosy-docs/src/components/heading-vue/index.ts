@@ -1,15 +1,15 @@
-import AlignContainer from './AlignContainer.vue';
-import AnchorContainer from './AnchorContainer.vue';
-import BackgroundContainer from './BackgroundContainer.vue';
-import CustomStyleContainer from './CustomStyleContainer.vue';
-import ColorContainer from './ColorContainer.vue';
-import ExternalContainer from './ExternalContainer.vue';
-import HrefContainer from './HrefContainer.vue';
-import IdContainer from './IdContainer.vue';
-import LevelContainer from './LevelContainer.vue';
-import MarginContainer from './MarginContainer.vue';
-import PaddingContainer from './PaddingContainer.vue';
-import UnderlineContainer from './UnderlineContainer.vue';
+import AlignContainer from './AlignContainer.astro';
+import AnchorContainer from './AnchorContainer.astro';
+import BackgroundContainer from './BackgroundContainer.astro';
+import CustomStyleContainer from './CustomStyleContainer.astro';
+import ColorContainer from './ColorContainer.astro';
+import ExternalContainer from './ExternalContainer.astro';
+import HrefContainer from './HrefContainer.astro';
+import IdContainer from './IdContainer.astro';
+import LevelContainer from './LevelContainer.astro';
+import MarginContainer from './MarginContainer.astro';
+import PaddingContainer from './PaddingContainer.astro';
+import UnderlineContainer from './UnderlineContainer.astro';
 
 export const ComponentPackage = {
     ComponentContainers: {
