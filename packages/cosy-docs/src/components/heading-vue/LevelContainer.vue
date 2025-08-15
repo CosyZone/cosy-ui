@@ -1,0 +1,53 @@
+<template>
+  <CodeContainer
+    :codes="[
+      Level1Source,
+      Level2Source,
+      Level3Source,
+      Level4Source,
+      Level5Source,
+      Level6Source,
+    ]"
+    :titles="['一级', '二级', '三级', '四级', '五级', '六级']"
+  >
+    <div id="tab-1">
+      <Level1 />
+    </div>
+    <div id="tab-2">
+      <Level2 />
+    </div>
+    <div id="tab-3">
+      <Level3 />
+    </div>
+    <div id="tab-4">
+      <Level4 />
+    </div>
+    <div id="tab-5">
+      <Level5 />
+    </div>
+    <div id="tab-6">
+      <Level6 />
+    </div>
+  </CodeContainer>
+</template>
+
+<script setup lang="ts">
+import { CodeContainer } from '@coffic/cosy-ui';
+import Level1 from './Level1.vue';
+import Level2 from './Level2.vue';
+import Level3 from './Level3.vue';
+import Level4 from './Level4.vue';
+import Level5 from './Level5.vue';
+import Level6 from './Level6.vue';
+import Level1Source from './Level1.vue?raw';
+import Level2Source from './Level2.vue?raw';
+import Level3Source from './Level3.vue?raw';
+import Level4Source from './Level4.vue?raw';
+import Level5Source from './Level5.vue?raw';
+import Level6Source from './Level6.vue?raw';
+
+/**
+ * @component HeadingLevelContainer
+ * @description Heading 组件 level 属性示例容器，展示不同级别的标题。
+ */
+</script>

@@ -1,0 +1,30 @@
+<template>
+  <CodeContainer
+    :codes="[AlignLeftSource, AlignCenterSource, AlignRightSource]"
+    :titles="['左对齐', '居中对齐', '右对齐']">
+    <div id="tab-1">
+      <AlignLeft />
+    </div>
+    <div id="tab-2">
+      <AlignCenter />
+    </div>
+    <div id="tab-3">
+      <AlignRight />
+    </div>
+  </CodeContainer>
+</template>
+
+<script setup lang="ts">
+import { CodeContainer } from '@coffic/cosy-ui';
+import AlignLeft from './AlignLeft.vue';
+import AlignCenter from './AlignCenter.vue';
+import AlignRight from './AlignRight.vue';
+import AlignLeftSource from './AlignLeft.vue?raw';
+import AlignCenterSource from './AlignCenter.vue?raw';
+import AlignRightSource from './AlignRight.vue?raw';
+
+/**
+ * @component HeadingAlignContainer
+ * @description Heading 组件 align 属性示例容器，展示不同的文本对齐方式。
+ */
+</script>

@@ -233,7 +233,66 @@ interface userInfo {    // 错误：未以 I 开头且非 PascalCase
 }
 ```
 
-### 7. 导入规范
+### 7. Vue 组件结构规范
+
+#### Vue 组件文件结构
+
+- **script 部分必须写在 template 上方**
+- 使用 `<script setup lang="ts">` 语法
+- 类型定义和逻辑放在 script 部分的最上方
+- 组件文档注释放在 script 部分的开头
+
+**正确示例**：
+
+```vue
+<script setup lang="ts">
+import { computed } from 'vue';
+import type { IComponentProps } from './types';
+
+/**
+ * @component ComponentName
+ * @description 组件描述...
+ * @props 属性说明...
+ */
+
+interface Props extends IComponentProps {}
+
+const props = withDefaults(defineProps<Props>(), {
+  // 默认值
+});
+
+// 计算属性和逻辑
+const computedValue = computed(() => {
+  // 计算逻辑
+});
+</script>
+
+<template>
+  <div>
+    <!-- 模板内容 -->
+  </div>
+</template>
+
+<style scoped>
+/* 样式 */
+</style>
+```
+
+**错误示例**：
+
+```vue
+<template>
+  <div>
+    <!-- 模板内容 -->
+  </div>
+</template>
+
+<script setup lang="ts">
+// 错误：script 部分在 template 下方
+</script>
+```
+
+### 8. 导入规范
 
 #### 核心组件
 

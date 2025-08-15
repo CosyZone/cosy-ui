@@ -10,6 +10,9 @@ export * from './src-vue/badge/index';
 // Banner
 export * from './src-vue/banner-box/index';
 
+// Heading
+export * from './src-vue/heading/index';
+
 // BlogList
 export * from './src-vue/blog/index';
 
