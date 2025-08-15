@@ -1,0 +1,114 @@
+---
+title: 'Icons Vue'
+description: 'Vue version of icon components, providing a rich SVG icon library'
+badge: 'Vue'
+tags:
+  - Vue
+order: 12.1
+---
+
+import { IconsVuePackage } from '@/components/icons-vue/index.ts';
+
+# Icons Vue
+
+## Introduction
+
+Icons Vue component library provides a complete set of Vue icon components based on SVG icons, supporting customizable size, color, and styles. All icons are carefully designed to ensure clarity and beauty at different sizes.
+
+## class
+
+Custom CSS class name for overriding default styles.
+
+<IconsVuePackage.IconShowcase />
+
+## color
+
+Icon color, supporting any valid CSS color value.
+
+<IconsVuePackage.IconColors />
+
+## size
+
+Icon size, supporting any valid CSS dimension value.
+
+<IconsVuePackage.IconSizes />
+
+## Available Icons
+
+### Basic Icons
+
+- **AlertTriangleIcon** - Warning triangle icon
+- **CalendarIcon** - Calendar icon
+- **CheckIcon** - Check icon
+- **CheckCircleIcon** - Check circle icon
+- **ChevronDownIcon** - Chevron down icon
+- **ClipboardIcon** - Clipboard icon
+- **CloseIcon** - Close icon
+- **ErrorIcon** - Error icon
+- **InboxArchiveIcon** - Inbox archive icon
+- **InfoCircleIcon** - Info circle icon
+- **InfoIcon** - Info icon
+- **LinkIcon** - Link icon
+- **MenuIcon** - Menu icon
+- **SearchIcon** - Search icon
+- **SettingsIcon** - Settings icon
+- **SuccessIcon** - Success icon
+- **UserIcon** - User icon
+- **WarningIcon** - Warning icon
+- **XCircleIcon** - X circle icon
+
+### Special Icons
+
+- **IPhoneBatteryIcon** - iPhone battery icon
+- **IPhoneSignalIcon** - iPhone signal icon
+- **IPhoneWifiIcon** - iPhone WiFi icon
+- **VueIcon** - Vue framework icon
+
+## Usage
+
+### Basic Usage
+
+```vue
+<template>
+  <UserIcon />
+  <SettingsIcon size="32px" color="blue" />
+  <SearchIcon class="custom-icon" />
+</template>
+
+<script setup>
+import { UserIcon, SettingsIcon, SearchIcon } from '@coffic/cosy-ui/vue';
+</script>
+```
+
+### Custom Styling
+
+```vue
+<template>
+  <div>
+    <HeartIcon 
+      size="48px" 
+      color="#ef4444" 
+      class="cosy:animate-pulse" 
+    />
+  </div>
+</template>
+
+<script setup>
+import { HeartIcon } from '@coffic/cosy-ui/vue';
+</script>
+```
+
+## Technical Features
+
+- **TypeScript Support** - Complete type definitions
+- **Responsive Design** - Support for different screen sizes
+- **Accessibility** - WCAG compliant
+- **Performance Optimized** - Lightweight SVG icons
+- **Theme Support** - Support for dark/light theme switching
+
+## Notes
+
+1. All icons are based on a 24x24 grid design to ensure visual consistency
+2. Icon color defaults to `currentColor` and automatically inherits the parent element's text color
+3. Icon size supports any valid CSS dimension value, including pixels, em, rem, etc.
+4. Custom class names can be passed through the `class` attribute, supporting frameworks like Tailwind CSS 
