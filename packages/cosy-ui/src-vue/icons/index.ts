@@ -6,6 +6,7 @@ export { default as CheckIcon } from './CheckIcon.vue';
 export { default as ChevronDownIcon } from './ChevronDownIcon.vue';
 export { default as ClipboardIcon } from './ClipboardIcon.vue';
 export { default as CloseIcon } from './CloseIcon.vue';
+export { default as DeleteIcon } from './DeleteIcon.vue';
 export { default as ErrorIcon } from './ErrorIcon.vue';
 export { default as HomeIcon } from './HomeIcon.vue';
 export { default as IPhoneBatteryIcon } from './IPhoneBatteryIcon.vue';
