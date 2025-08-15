@@ -292,7 +292,57 @@ const computedValue = computed(() => {
 </script>
 ```
 
-### 8. 导入规范
+### 8. Vue 组件文档规范
+
+#### Vue 组件文档标识
+
+- **所有 Vue 组件的文档必须添加 badge 和 tags**
+- badge 值必须为 `'Vue'`
+- tags 必须包含 `Vue` 标签
+- 文档文件名必须以 `-vue.mdx` 结尾
+
+**正确示例**：
+
+```mdx
+---
+title: 'Heading Vue'
+description: 'Vue 版本的 Heading 组件'
+badge: 'Vue'
+tags:
+  - Vue
+order: 11.1
+---
+
+# Heading Vue
+
+## 简介
+Vue 版本的 Heading 组件...
+```
+
+**错误示例**：
+
+```mdx
+---
+title: 'Heading Vue'
+description: 'Vue 版本的 Heading 组件'
+# 错误：缺少 badge 和 tags
+order: 11.1
+---
+```
+
+#### Vue 组件文档命名
+
+- Vue 组件文档必须使用 `-vue` 后缀
+- 例如：`heading-vue.mdx`, `button-vue.mdx`, `alert-vue.mdx`
+- 对应的 Astro 组件文档不使用后缀：`heading.mdx`, `button.mdx`, `alert.mdx`
+
+#### Vue 组件文档结构
+
+- 必须包含 `badge: 'Vue'` 和 `tags: [Vue]`
+- 文档内容结构遵循标准组件文档规范
+- 示例组件导入路径使用 `@/components/{component-name}-vue/index.ts`
+
+### 9. 导入规范
 
 #### 核心组件
 

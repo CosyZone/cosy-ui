@@ -1,0 +1,27 @@
+---
+/**
+ * @component ImageDisplayImagesContainer
+ * @description ImageDisplay 组件 images 属性示例容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import FewImages from './FewImages.vue';
+import MediumImages from './MediumImages.vue';
+import ManyImages from './ManyImages.vue';
+import FewImagesSource from './FewImages.vue?raw';
+import MediumImagesSource from './MediumImages.vue?raw';
+import ManyImagesSource from './ManyImages.vue?raw';
+---
+
+<CodeContainer
+  codes={[FewImagesSource, MediumImagesSource, ManyImagesSource]}
+  titles={['少量图片 (3张)', '中等数量 (6张)', '大量图片 (12张)']}>
+  <div id="tab-1">
+    <FewImages client:load />
+  </div>
+  <div id="tab-2">
+    <MediumImages client:load />
+  </div>
+  <div id="tab-3">
+    <ManyImages client:load />
+  </div>
+</CodeContainer>

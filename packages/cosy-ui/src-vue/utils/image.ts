@@ -6,13 +6,13 @@
 export type ImageProvider = 'picsum' | 'unsplash' | 'placeholder' | 'robohash';
 
 export interface ImageOptions {
-  width: number;
-  height: number;
-  tag?: string;
-  randomSeed?: number | string;
-  provider?: ImageProvider;
-  grayscale?: boolean;
-  blur?: number;
+    width: number;
+    height: number;
+    tag?: string;
+    randomSeed?: number | string;
+    provider?: ImageProvider;
+    grayscale?: boolean;
+    blur?: number;
 }
 
 /**
@@ -34,56 +34,56 @@ export interface ImageOptions {
  * })
  */
 export function getExampleImage(options: ImageOptions): string {
-  const {
-    width,
-    height,
-    provider = 'picsum',
-    tag = '',
-    randomSeed = Math.floor(Math.random() * 1000),
-    grayscale = false,
-    blur = 0,
-  } = options;
+    const {
+        width,
+        height,
+        provider = 'picsum',
+        tag = '',
+        randomSeed = Math.floor(Math.random() * 1000),
+        grayscale = false,
+        blur = 0,
+    } = options;
 
-  switch (provider) {
-    case 'picsum': {
-      const picsumParams = [];
-      if (grayscale) picsumParams.push('grayscale');
-      if (blur > 0 && blur <= 10) picsumParams.push(`blur=${blur}`);
+    switch (provider) {
+        case 'picsum': {
+            const picsumParams = [];
+            if (grayscale) picsumParams.push('grayscale');
+            if (blur > 0 && blur <= 10) picsumParams.push(`blur=${blur}`);
 
-      const picsumQuery = picsumParams.length
-        ? `?${picsumParams.join('&')}`
-        : `?random=${randomSeed}`;
+            const picsumQuery = picsumParams.length
+                ? `?${picsumParams.join('&')}`
+                : `?random=${randomSeed}`;
 
-      return `https://picsum.photos/${width}/${height}${picsumQuery}`;
+            return `https://picsum.photos/${width}/${height}${picsumQuery}`;
+        }
+
+        case 'unsplash': {
+            const tagQuery = tag ? `?${tag}` : '';
+            return `https://source.unsplash.com/random/${width}x${height}${tagQuery}`;
+        }
+
+        case 'placeholder': {
+            const color = grayscale ? 'gray' : '';
+            const placeholderParams = [];
+            if (tag) placeholderParams.push(`text=${encodeURIComponent(tag)}`);
+            if (color) placeholderParams.push(`bg=${color}`);
+
+            const placeholderQuery = placeholderParams.length
+                ? `?${placeholderParams.join('&')}`
+                : '';
+
+            return `https://via.placeholder.com/${width}x${height}${placeholderQuery}`;
+        }
+
+        case 'robohash': {
+            const seed = String(tag || randomSeed);
+            return `https://robohash.org/${encodeURIComponent(seed)}?size=${width}x${height}`;
+        }
+
+        default: {
+            return `https://picsum.photos/${width}/${height}?random=${randomSeed}`;
+        }
     }
-
-    case 'unsplash': {
-      const tagQuery = tag ? `?${tag}` : '';
-      return `https://source.unsplash.com/random/${width}x${height}${tagQuery}`;
-    }
-
-    case 'placeholder': {
-      const color = grayscale ? 'gray' : '';
-      const placeholderParams = [];
-      if (tag) placeholderParams.push(`text=${encodeURIComponent(tag)}`);
-      if (color) placeholderParams.push(`bg=${color}`);
-
-      const placeholderQuery = placeholderParams.length
-        ? `?${placeholderParams.join('&')}`
-        : '';
-
-      return `https://via.placeholder.com/${width}x${height}${placeholderQuery}`;
-    }
-
-    case 'robohash': {
-      const seed = String(tag || randomSeed);
-      return `https://robohash.org/${encodeURIComponent(seed)}?size=${width}x${height}`;
-    }
-
-    default: {
-      return `https://picsum.photos/${width}/${height}?random=${randomSeed}`;
-    }
-  }
 }
 
 /**
@@ -91,13 +91,13 @@ export function getExampleImage(options: ImageOptions): string {
  * @param options 可选的图片选项配置
  */
 export function getProductImage(options: Partial<ImageOptions> = {}): string {
-  return getExampleImage({
-    width: options.width || 400,
-    height: options.height || 300,
-    provider: options.provider || 'picsum',
-    tag: options.tag || 'product',
-    ...options,
-  });
+    return getExampleImage({
+        width: options.width || 400,
+        height: options.height || 300,
+        provider: options.provider || 'picsum',
+        tag: options.tag || 'product',
+        ...options,
+    });
 }
 
 /**
@@ -105,12 +105,12 @@ export function getProductImage(options: Partial<ImageOptions> = {}): string {
  * @param options 可选的图片选项配置
  */
 export function getAvatarImage(options: Partial<ImageOptions> = {}): string {
-  return getExampleImage({
-    width: options.width || 200,
-    height: options.height || 200,
-    provider: options.provider || 'robohash',
-    ...options,
-  });
+    return getExampleImage({
+        width: options.width || 200,
+        height: options.height || 200,
+        provider: options.provider || 'robohash',
+        ...options,
+    });
 }
 
 /**
@@ -118,11 +118,11 @@ export function getAvatarImage(options: Partial<ImageOptions> = {}): string {
  * @param options 可选的图片选项配置
  */
 export function getLandscapeImage(options: Partial<ImageOptions> = {}): string {
-  return getExampleImage({
-    width: options.width || 800,
-    height: options.height || 400,
-    provider: options.provider || 'unsplash',
-    tag: options.tag || 'landscape',
-    ...options,
-  });
+    return getExampleImage({
+        width: options.width || 800,
+        height: options.height || 400,
+        provider: options.provider || 'picsum',
+        tag: options.tag || 'landscape',
+        ...options,
+    });
 }

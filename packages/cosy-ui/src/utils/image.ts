@@ -121,7 +121,7 @@ export function getLandscapeImage(options: Partial<ImageOptions> = {}): string {
     return getExampleImage({
         width: options.width || 800,
         height: options.height || 400,
-        provider: options.provider || 'unsplash',
+        provider: options.provider || 'picsum',
         tag: options.tag || 'landscape',
         ...options,
     });
