@@ -1,7 +1,30 @@
+<script setup lang="ts">
+import Icon from './VueIcon.vue';
+
+interface Props {
+    /**
+     * 图标的大小
+     * @default "24px"
+     */
+    size?: string;
+    /**
+     * 图标的颜色
+     * @default "currentColor"
+     */
+    color?: string;
+    /**
+     * 自定义类名
+     */
+    class?: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    size: '24px',
+    color: 'currentColor',
+    class: '',
+});
+</script>
+
 <template>
-    <svg width="100%" height="100%" viewBox="0 0 25 12" fill="none" stroke="currentColor" style="display: block;">
-        <rect x="0.5" y="0.5" width="21" height="11" rx="2.5" stroke-width="1" />
-        <rect x="2" y="2" width="18" height="8" rx="1" fill="currentColor" />
-        <path d="M23 4h1a1 1 0 011 1v2a1 1 0 01-1 1h-1V4z" fill="currentColor" />
-    </svg>
+    <Icon name="iphoneBattery" :size="size" :color="color" :class="props.class" />
 </template>

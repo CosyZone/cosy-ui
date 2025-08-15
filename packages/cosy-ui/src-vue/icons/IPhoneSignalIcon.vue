@@ -1,6 +1,30 @@
+<script setup lang="ts">
+import Icon from './VueIcon.vue';
+
+interface Props {
+    /**
+     * 图标的大小
+     * @default "24px"
+     */
+    size?: string;
+    /**
+     * 图标的颜色
+     * @default "currentColor"
+     */
+    color?: string;
+    /**
+     * 自定义类名
+     */
+    class?: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    size: '24px',
+    color: 'currentColor',
+    class: '',
+});
+</script>
+
 <template>
-    <svg width="100%" height="100%" viewBox="0 0 20 12" fill="none" stroke="currentColor" style="display: block;">
-        <path d="M1 11h2V6H1v5zm4 0h2V4H5v7zm4 0h2V2H9v9zm4 0h2V0h-2v11z" fill="currentColor" />
-        <path d="M17 11h2V0h-2v11z" fill="currentColor" opacity="0.4" />
-    </svg>
+    <Icon name="iphoneSignal" :size="size" :color="color" :class="props.class" />
 </template>

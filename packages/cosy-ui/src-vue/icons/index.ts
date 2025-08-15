@@ -19,7 +19,6 @@ export { default as SearchIcon } from './SearchIcon.vue';
 export { default as SettingsIcon } from './SettingsIcon.vue';
 export { default as SuccessIcon } from './SuccessIcon.vue';
 export { default as UserIcon } from './UserIcon.vue';
-export { default as VueIcon } from './VueIcon.vue';
 export { default as WarningIcon } from './WarningIcon.vue';
 export { default as XCircleIcon } from './XCircleIcon.vue';
 

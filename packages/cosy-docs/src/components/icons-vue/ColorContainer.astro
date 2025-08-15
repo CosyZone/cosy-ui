@@ -1,0 +1,32 @@
+---
+/**
+ * @component IconsVueColorContainer
+ * @description Vue 图标组件 color 属性示例容器，展示不同颜色的图标。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ColorRed from './ColorRed.vue';
+import ColorBlue from './ColorBlue.vue';
+import ColorGreen from './ColorGreen.vue';
+import ColorPurple from './ColorPurple.vue';
+import ColorRedSource from './ColorRed.vue?raw';
+import ColorBlueSource from './ColorBlue.vue?raw';
+import ColorGreenSource from './ColorGreen.vue?raw';
+import ColorPurpleSource from './ColorPurple.vue?raw';
+---
+
+<CodeContainer
+  codes={[ColorRedSource, ColorBlueSource, ColorGreenSource, ColorPurpleSource]}
+  titles={['红色', '蓝色', '绿色', '紫色']}>
+  <div id="tab-1">
+    <ColorRed />
+  </div>
+  <div id="tab-2">
+    <ColorBlue />
+  </div>
+  <div id="tab-3">
+    <ColorGreen />
+  </div>
+  <div id="tab-4">
+    <ColorPurple />
+  </div>
+</CodeContainer>
