@@ -1,16 +1,27 @@
 ---
 /**
  * @component HeadingAlignContainer
- * @description Heading 组件对齐方式示例容器，展示 align 属性。
+ * @description Heading 组件 align 属性示例容器，展示不同的文本对齐方式。
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import Align from './Align.astro';
-// @ts-ignore
-import AlignSource from './Align.astro?raw';
+import AlignLeft from './AlignLeft.astro';
+import AlignCenter from './AlignCenter.astro';
+import AlignRight from './AlignRight.astro';
+import AlignLeftSource from './AlignLeft.astro?raw';
+import AlignCenterSource from './AlignCenter.astro?raw';
+import AlignRightSource from './AlignRight.astro?raw';
 ---
 
-<CodeContainer codes={[AlignSource]}>
+<CodeContainer
+  codes={[AlignLeftSource, AlignCenterSource, AlignRightSource]}
+  titles={['左对齐', '居中对齐', '右对齐']}>
   <div id="tab-1">
-    <Align />
+    <AlignLeft />
+  </div>
+  <div id="tab-2">
+    <AlignCenter />
+  </div>
+  <div id="tab-3">
+    <AlignRight />
   </div>
 </CodeContainer>

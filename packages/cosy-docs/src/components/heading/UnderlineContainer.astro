@@ -1,0 +1,22 @@
+---
+/**
+ * @component HeadingUnderlineContainer
+ * @description Heading 组件 underline 属性示例容器，展示带下划线的标题。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import UnderlineBasic from './UnderlineBasic.astro';
+import UnderlineSubsection from './UnderlineSubsection.astro';
+import UnderlineBasicSource from './UnderlineBasic.astro?raw';
+import UnderlineSubsectionSource from './UnderlineSubsection.astro?raw';
+---
+
+<CodeContainer
+  codes={[UnderlineBasicSource, UnderlineSubsectionSource]}
+  titles={['带下划线', '子标题下划线']}>
+  <div id="tab-1">
+    <UnderlineBasic />
+  </div>
+  <div id="tab-2">
+    <UnderlineSubsection />
+  </div>
+</CodeContainer>
