@@ -34,13 +34,13 @@ export interface IIconData {
 }
 
 /**
- * 图标名称类型
+ * 图标名称类型，按字母顺序排序
  */
 export type IconName =
     | 'alertTriangle'
     | 'calendar'
-    | 'check'
     | 'checkCircle'
+    | 'check'
     | 'chevronDown'
     | 'clipboard'
     | 'close'
@@ -50,10 +50,12 @@ export type IconName =
     | 'info'
     | 'link'
     | 'menu'
+    | 'refresh'
     | 'search'
     | 'settings'
     | 'success'
     | 'user'
+    | 'view'
     | 'warning'
     | 'xCircle'
     | 'code'
@@ -65,7 +67,6 @@ export type IconName =
     | 'linkedin'
     | 'twitter'
     | 'sunCloudy'
-    | 'refresh'
     | 'home'
     | 'dashboard'
     | 'chart'

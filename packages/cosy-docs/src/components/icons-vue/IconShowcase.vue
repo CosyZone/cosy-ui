@@ -8,6 +8,7 @@ import {
     ClipboardIcon,
     CloseIcon,
     ErrorIcon,
+    HomeIcon,
     IPhoneBatteryIcon,
     IPhoneSignalIcon,
     IPhoneWifiIcon,
@@ -16,10 +17,12 @@ import {
     InfoIcon,
     LinkIcon,
     MenuIcon,
+    RefreshIcon,
     SearchIcon,
     SettingsIcon,
     SuccessIcon,
     UserIcon,
+    ViewIcon,
     WarningIcon,
     XCircleIcon
 } from '@coffic/cosy-ui/vue';
@@ -39,6 +42,7 @@ const icons = [
     { component: ClipboardIcon, name: 'Clipboard', color: '#8b5cf6' },
     { component: CloseIcon, name: 'Close', color: '#ef4444' },
     { component: ErrorIcon, name: 'Error', color: '#ef4444' },
+    { component: HomeIcon, name: 'Home', color: '#8b5cf6' },
     { component: IPhoneBatteryIcon, name: 'IPhoneBattery', color: '#10b981' },
     { component: IPhoneSignalIcon, name: 'IPhoneSignal', color: '#3b82f6' },
     { component: IPhoneWifiIcon, name: 'IPhoneWifi', color: '#8b5cf6' },
@@ -47,10 +51,12 @@ const icons = [
     { component: InfoIcon, name: 'Info', color: '#3b82f6' },
     { component: LinkIcon, name: 'Link', color: '#06b6d4' },
     { component: MenuIcon, name: 'Menu', color: '#6b7280' },
+    { component: RefreshIcon, name: 'Refresh', color: '#10b981' },
     { component: SearchIcon, name: 'Search', color: '#8b5cf6' },
     { component: SettingsIcon, name: 'Settings', color: '#6b7280' },
     { component: SuccessIcon, name: 'Success', color: '#10b981' },
     { component: UserIcon, name: 'User', color: '#8b5cf6' },
+    { component: ViewIcon, name: 'View', color: '#06b6d4' },
     { component: WarningIcon, name: 'Warning', color: '#f59e0b' },
     { component: XCircleIcon, name: 'XCircle', color: '#ef4444' }
 ];
