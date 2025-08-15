@@ -1,0 +1,44 @@
+---
+title: 'ImageDisplay'
+description: '图片展示组件，支持图片网格展示、预览功能和错误处理'
+badge: 'Vue'
+tags:
+  - Vue
+order: 12
+---
+
+import { ComponentPackage } from '@/components/image-display/index.ts';
+
+# {frontmatter.title}
+
+## 简介
+
+ImageDisplay 组件是一个功能丰富的图片展示组件，支持图片网格布局、点击预览、错误处理等功能。适用于需要展示多张图片的场景，如相册、产品图片展示、用户头像列表等。组件支持多种尺寸配置，提供流畅的交互体验和优雅的错误处理。
+
+## 案例
+
+<ComponentPackage.ComponentContainers.Basic />
+
+## Props
+
+### images
+图片URL数组，必填属性。
+<ComponentPackage.ComponentContainers.Images />
+
+### maxDisplay
+最大显示图片数量，超出部分会显示 "+N 更多" 提示。
+<ComponentPackage.ComponentContainers.MaxDisplay />
+
+### showPreview
+是否显示预览功能，设置为 false 时点击图片会触发 imageClick 事件。
+<ComponentPackage.ComponentContainers.ShowPreview />
+
+### size
+图片尺寸大小，支持 sm、md、lg 三种尺寸。
+<ComponentPackage.ComponentContainers.Size />
+
+## Events
+
+### imageClick
+图片点击事件，当 showPreview 为 false 时触发。
+<ComponentPackage.ComponentContainers.Events />

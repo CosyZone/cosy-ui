@@ -6,29 +6,29 @@ import pagefind from 'astro-pagefind';
 
 // https://astro.build/config
 export default defineConfig({
-  base: '/cosy-ui/',
-  srcDir: 'src',
-  outDir: 'dist',
+    base: '/cosy-ui/',
+    srcDir: 'src',
+    outDir: 'dist',
 
-  prefetch: {
-    enabled: false,
-  },
-
-  i18n: {
-    locales: ['zh-cn', 'en'],
-    defaultLocale: 'zh-cn',
-    routing: {
-      prefixDefaultLocale: true,
+    prefetch: {
+        enabled: false,
     },
-  },
 
-  vite: {
-    resolve: {
-      alias: {
-        '@': path.resolve('./src'),
-      },
+    i18n: {
+        locales: ['zh-cn', 'en'],
+        defaultLocale: 'zh-cn',
+        routing: {
+            prefixDefaultLocale: true,
+        },
     },
-  },
 
-  integrations: [mdx(), vue(), pagefind()],
+    vite: {
+        resolve: {
+            alias: {
+                '@': path.resolve('./src'),
+            },
+        },
+    },
+
+    integrations: [mdx(), vue(), pagefind()],
 });

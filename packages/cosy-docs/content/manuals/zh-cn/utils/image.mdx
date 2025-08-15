@@ -52,8 +52,8 @@ Cosy UI 的图片工具函数支持多种图片服务提供商，可以通过 `p
 // Picsum Photos (默认)
 getExampleImage({ width: 300, height: 200, provider: 'picsum' });
 
-// Unsplash 随机图片
-getExampleImage({ width: 300, height: 200, provider: 'unsplash', tag: 'nature' });
+// Picsum 随机图片
+getExampleImage({ width: 300, height: 200, provider: 'picsum', tag: 'nature' });
 
 // Placeholder.com 占位图
 getExampleImage({ width: 300, height: 200, provider: 'placeholder', tag: '示例文本' });
@@ -111,7 +111,7 @@ getProductImage({ randomSeed: 'product1' });
 getAvatarImage();
 getAvatarImage({ randomSeed: 'user1' });
 
-// 景观图片 (默认 800x400，使用 Unsplash)
+// 景观图片 (默认 800x400，使用 Picsum)
 getLandscapeImage();
 getLandscapeImage({ tag: 'mountain' });`}
 ```
@@ -134,7 +134,7 @@ interface ImageOptions {
 }
 
 // 支持的图片服务提供商
-type ImageProvider = 'picsum' | 'unsplash' | 'placeholder' | 'robohash';
+type ImageProvider = 'picsum' | 'placeholder' | 'robohash';
 ```
 
 ### 函数参考

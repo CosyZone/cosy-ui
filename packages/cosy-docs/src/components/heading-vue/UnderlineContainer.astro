@@ -1,0 +1,22 @@
+---
+/**
+ * @component HeadingUnderlineContainer
+ * @description Heading 组件 underline 属性示例容器，展示下划线功能。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import UnderlineBasic from './UnderlineBasic.vue';
+import UnderlineSubsection from './UnderlineSubsection.vue';
+import UnderlineBasicSource from './UnderlineBasic.vue?raw';
+import UnderlineSubsectionSource from './UnderlineSubsection.vue?raw';
+---
+
+<CodeContainer
+  codes={[UnderlineBasicSource, UnderlineSubsectionSource]}
+  titles={['基础下划线', '子章节下划线']}>
+  <div id="tab-1">
+    <UnderlineBasic client:load />
+  </div>
+  <div id="tab-2">
+    <UnderlineSubsection client:load />
+  </div>
+</CodeContainer>

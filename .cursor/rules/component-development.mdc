@@ -233,7 +233,116 @@ interface userInfo {    // 错误：未以 I 开头且非 PascalCase
 }
 ```
 
-### 7. 导入规范
+### 7. Vue 组件结构规范
+
+#### Vue 组件文件结构
+
+- **script 部分必须写在 template 上方**
+- 使用 `<script setup lang="ts">` 语法
+- 类型定义和逻辑放在 script 部分的最上方
+- 组件文档注释放在 script 部分的开头
+
+**正确示例**：
+
+```vue
+<script setup lang="ts">
+import { computed } from 'vue';
+import type { IComponentProps } from './types';
+
+/**
+ * @component ComponentName
+ * @description 组件描述...
+ * @props 属性说明...
+ */
+
+interface Props extends IComponentProps {}
+
+const props = withDefaults(defineProps<Props>(), {
+  // 默认值
+});
+
+// 计算属性和逻辑
+const computedValue = computed(() => {
+  // 计算逻辑
+});
+</script>
+
+<template>
+  <div>
+    <!-- 模板内容 -->
+  </div>
+</template>
+
+<style scoped>
+/* 样式 */
+</style>
+```
+
+**错误示例**：
+
+```vue
+<template>
+  <div>
+    <!-- 模板内容 -->
+  </div>
+</template>
+
+<script setup lang="ts">
+// 错误：script 部分在 template 下方
+</script>
+```
+
+### 8. Vue 组件文档规范
+
+#### Vue 组件文档标识
+
+- **所有 Vue 组件的文档必须添加 badge 和 tags**
+- badge 值必须为 `'Vue'`
+- tags 必须包含 `Vue` 标签
+- 文档文件名必须以 `-vue.mdx` 结尾
+
+**正确示例**：
+
+```mdx
+---
+title: 'Heading Vue'
+description: 'Vue 版本的 Heading 组件'
+badge: 'Vue'
+tags:
+  - Vue
+order: 11.1
+---
+
+# Heading Vue
+
+## 简介
+Vue 版本的 Heading 组件...
+```
+
+**错误示例**：
+
+```mdx
+---
+title: 'Heading Vue'
+description: 'Vue 版本的 Heading 组件'
+# 错误：缺少 badge 和 tags
+order: 11.1
+---
+```
+
+#### Vue 组件文档命名
+
+- Vue 组件文档必须使用 `-vue` 后缀
+- 例如：`heading-vue.mdx`, `button-vue.mdx`, `alert-vue.mdx`
+- 对应的 Astro 组件文档不使用后缀：`heading.mdx`, `button.mdx`, `alert.mdx`
+
+#### Vue 组件文档结构
+
+- 必须包含 `badge: 'Vue'` 和 `tags: [Vue]`
+- 文档内容结构遵循标准组件文档规范
+- 示例组件导入路径使用 `@/components/{component-name}-vue/index.ts`
+
+### 9. 导入规范
 
 #### 核心组件
 

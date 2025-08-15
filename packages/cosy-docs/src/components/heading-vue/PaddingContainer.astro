@@ -1,0 +1,43 @@
+---
+/**
+ * @component HeadingPaddingContainer
+ * @description Heading 组件 padding 属性示例容器，展示不同的内边距。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import PaddingNone from './PaddingNone.vue';
+import PaddingSmall from './PaddingSmall.vue';
+import PaddingMedium from './PaddingMedium.vue';
+import PaddingLarge from './PaddingLarge.vue';
+import PaddingXLarge from './PaddingXLarge.vue';
+import PaddingNoneSource from './PaddingNone.vue?raw';
+import PaddingSmallSource from './PaddingSmall.vue?raw';
+import PaddingMediumSource from './PaddingMedium.vue?raw';
+import PaddingLargeSource from './PaddingLarge.vue?raw';
+import PaddingXLargeSource from './PaddingXLarge.vue?raw';
+---
+
+<CodeContainer
+  codes={[
+    PaddingNoneSource,
+    PaddingSmallSource,
+    PaddingMediumSource,
+    PaddingLargeSource,
+    PaddingXLargeSource,
+  ]}
+  titles={['无内边距', '小内边距', '中等内边距', '大内边距', '超大内边距']}>
+  <div id="tab-1">
+    <PaddingNone client:load />
+  </div>
+  <div id="tab-2">
+    <PaddingSmall client:load />
+  </div>
+  <div id="tab-3">
+    <PaddingMedium client:load />
+  </div>
+  <div id="tab-4">
+    <PaddingLarge client:load />
+  </div>
+  <div id="tab-5">
+    <PaddingXLarge client:load />
+  </div>
+</CodeContainer>

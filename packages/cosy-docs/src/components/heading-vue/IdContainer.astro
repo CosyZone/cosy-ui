@@ -1,0 +1,27 @@
+---
+/**
+ * @component HeadingIdContainer
+ * @description Heading 组件 id 属性示例容器，展示不同层级的标题 ID。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import IdMain from './IdMain.vue';
+import IdSection from './IdSection.vue';
+import IdSubsection from './IdSubsection.vue';
+import IdMainSource from './IdMain.vue?raw';
+import IdSectionSource from './IdSection.vue?raw';
+import IdSubsectionSource from './IdSubsection.vue?raw';
+---
+
+<CodeContainer
+  codes={[IdMainSource, IdSectionSource, IdSubsectionSource]}
+  titles={['主标题', '章节标题', '子章节标题']}>
+  <div id="tab-1">
+    <IdMain client:load />
+  </div>
+  <div id="tab-2">
+    <IdSection client:load />
+  </div>
+  <div id="tab-3">
+    <IdSubsection client:load />
+  </div>
+</CodeContainer>

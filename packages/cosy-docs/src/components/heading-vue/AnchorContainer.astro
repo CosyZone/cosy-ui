@@ -1,0 +1,22 @@
+---
+/**
+ * @component HeadingAnchorContainer
+ * @description Heading 组件 anchor 属性示例容器，展示锚点链接功能。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import AnchorBasic from './AnchorBasic.vue';
+import AnchorSubsection from './AnchorSubsection.vue';
+import AnchorBasicSource from './AnchorBasic.vue?raw';
+import AnchorSubsectionSource from './AnchorSubsection.vue?raw';
+---
+
+<CodeContainer
+  codes={[AnchorBasicSource, AnchorSubsectionSource]}
+  titles={['基础锚点', '子章节锚点']}>
+  <div id="tab-1">
+    <AnchorBasic client:load />
+  </div>
+  <div id="tab-2">
+    <AnchorSubsection client:load />
+  </div>
+</CodeContainer>

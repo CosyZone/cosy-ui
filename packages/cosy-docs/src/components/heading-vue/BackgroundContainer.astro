@@ -1,0 +1,31 @@
+---
+/**
+ * @component HeadingBackgroundContainer
+ * @description Heading 组件 background 属性示例容器，展示不同的背景色。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import BackgroundBase from './BackgroundBase.vue';
+import BackgroundPrimary from './BackgroundPrimary.vue';
+import BackgroundAccent from './BackgroundAccent.vue';
+import BackgroundBaseSource from './BackgroundBase.vue?raw';
+import BackgroundPrimarySource from './BackgroundPrimary.vue?raw';
+import BackgroundAccentSource from './BackgroundAccent.vue?raw';
+---
+
+<CodeContainer
+  codes={[
+    BackgroundBaseSource,
+    BackgroundPrimarySource,
+    BackgroundAccentSource,
+  ]}
+  titles={['基础背景', '主要背景', '强调背景']}>
+  <div id="tab-1">
+    <BackgroundBase client:load />
+  </div>
+  <div id="tab-2">
+    <BackgroundPrimary client:load />
+  </div>
+  <div id="tab-3">
+    <BackgroundAccent client:load />
+  </div>
+</CodeContainer>

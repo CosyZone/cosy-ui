@@ -1,0 +1,44 @@
+---
+title: 'ImageDisplay'
+description: 'Image display component with grid layout, preview functionality and error handling'
+badge: 'Vue'
+tags:
+  - Vue
+order: 12
+---
+
+import { ComponentPackage } from '@/components/image-display/index.ts';
+
+# {frontmatter.title}
+
+## Introduction
+
+The ImageDisplay component is a feature-rich image display component that supports image grid layout, click preview, error handling, and more. It's suitable for scenarios that require displaying multiple images, such as photo albums, product image displays, user avatar lists, etc. The component supports multiple size configurations and provides smooth interaction experience and elegant error handling.
+
+## Examples
+
+<ComponentPackage.ComponentContainers.Basic />
+
+## Props
+
+### images
+Array of image URLs, required property.
+<ComponentPackage.ComponentContainers.Images />
+
+### maxDisplay
+Maximum number of images to display, overflow will show "+N more" indicator.
+<ComponentPackage.ComponentContainers.MaxDisplay />
+
+### showPreview
+Whether to show preview functionality, when set to false, clicking an image will trigger the imageClick event.
+<ComponentPackage.ComponentContainers.ShowPreview />
+
+### size
+Image size, supports sm, md, lg three sizes.
+<ComponentPackage.ComponentContainers.Size />
+
+## Events
+
+### imageClick
+Image click event, triggered when showPreview is false.
+<ComponentPackage.ComponentContainers.Events />

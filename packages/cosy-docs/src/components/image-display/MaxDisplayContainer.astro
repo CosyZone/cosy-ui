@@ -1,0 +1,27 @@
+---
+/**
+ * @component ImageDisplayMaxDisplayContainer
+ * @description ImageDisplay 组件 maxDisplay 属性示例容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import MaxDisplay3 from './MaxDisplay3.vue';
+import MaxDisplay4 from './MaxDisplay4.vue';
+import MaxDisplay6 from './MaxDisplay6.vue';
+import MaxDisplay3Source from './MaxDisplay3.vue?raw';
+import MaxDisplay4Source from './MaxDisplay4.vue?raw';
+import MaxDisplay6Source from './MaxDisplay6.vue?raw';
+---
+
+<CodeContainer
+  codes={[MaxDisplay3Source, MaxDisplay4Source, MaxDisplay6Source]}
+  titles={['最大显示 3 张', '最大显示 4 张', '最大显示 6 张']}>
+  <div id="tab-1">
+    <MaxDisplay3 client:load />
+  </div>
+  <div id="tab-2">
+    <MaxDisplay4 client:load />
+  </div>
+  <div id="tab-3">
+    <MaxDisplay6 client:load />
+  </div>
+</CodeContainer>

@@ -1,0 +1,22 @@
+---
+/**
+ * @component HeadingCustomStyleContainer
+ * @description Heading 组件 class 属性示例容器，展示自定义样式功能。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import CustomStyleBasic from './CustomStyleBasic.vue';
+import CustomStyleAdvanced from './CustomStyleAdvanced.vue';
+import CustomStyleBasicSource from './CustomStyleBasic.vue?raw';
+import CustomStyleAdvancedSource from './CustomStyleAdvanced.vue?raw';
+---
+
+<CodeContainer
+  codes={[CustomStyleBasicSource, CustomStyleAdvancedSource]}
+  titles={['基础自定义', '高级自定义']}>
+  <div id="tab-1">
+    <CustomStyleBasic client:load />
+  </div>
+  <div id="tab-2">
+    <CustomStyleAdvanced client:load />
+  </div>
+</CodeContainer>

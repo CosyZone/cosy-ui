@@ -1,0 +1,27 @@
+---
+/**
+ * @component ImageDisplaySizeContainer
+ * @description ImageDisplay 组件 size 属性示例容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import SizeSm from './SizeSm.vue';
+import SizeMd from './SizeMd.vue';
+import SizeLg from './SizeLg.vue';
+import SizeSmSource from './SizeSm.vue?raw';
+import SizeMdSource from './SizeMd.vue?raw';
+import SizeLgSource from './SizeLg.vue?raw';
+---
+
+<CodeContainer
+  codes={[SizeSmSource, SizeMdSource, SizeLgSource]}
+  titles={['小尺寸 (sm)', '中等尺寸 (md) - 默认', '大尺寸 (lg)']}>
+  <div id="tab-1">
+    <SizeSm client:load />
+  </div>
+  <div id="tab-2">
+    <SizeMd client:load />
+  </div>
+  <div id="tab-3">
+    <SizeLg client:load />
+  </div>
+</CodeContainer>

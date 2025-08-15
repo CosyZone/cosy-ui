@@ -1,0 +1,91 @@
+---
+/**
+ * @component HeadingColorContainer
+ * @description Heading 组件 color 属性示例容器，展示不同的颜色变体。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ColorDefault from './ColorDefault.vue';
+import ColorPrimary from './ColorPrimary.vue';
+import ColorSecondary from './ColorSecondary.vue';
+import ColorAccent from './ColorAccent.vue';
+import ColorMuted from './ColorMuted.vue';
+import ColorInfo from './ColorInfo.vue';
+import ColorSuccess from './ColorSuccess.vue';
+import ColorWarning from './ColorWarning.vue';
+import ColorError from './ColorError.vue';
+import ColorBaseContent from './ColorBaseContent.vue';
+import ColorNeutralContent from './ColorNeutralContent.vue';
+import ColorDefaultSource from './ColorDefault.vue?raw';
+import ColorPrimarySource from './ColorPrimary.vue?raw';
+import ColorSecondarySource from './ColorSecondary.vue?raw';
+import ColorAccentSource from './ColorAccent.vue?raw';
+import ColorMutedSource from './ColorMuted.vue?raw';
+import ColorInfoSource from './ColorInfo.vue?raw';
+import ColorSuccessSource from './ColorSuccess.vue?raw';
+import ColorWarningSource from './ColorWarning.vue?raw';
+import ColorErrorSource from './ColorError.vue?raw';
+import ColorBaseContentSource from './ColorBaseContent.vue?raw';
+import ColorNeutralContentSource from './ColorNeutralContent.vue?raw';
+---
+
+<CodeContainer
+  codes={[
+    ColorDefaultSource,
+    ColorPrimarySource,
+    ColorSecondarySource,
+    ColorAccentSource,
+    ColorMutedSource,
+    ColorInfoSource,
+    ColorSuccessSource,
+    ColorWarningSource,
+    ColorErrorSource,
+    ColorBaseContentSource,
+    ColorNeutralContentSource,
+  ]}
+  titles={[
+    '默认',
+    '主要',
+    '次要',
+    '强调',
+    '静音',
+    '信息',
+    '成功',
+    '警告',
+    '错误',
+    '基础内容',
+    '中性内容',
+  ]}>
+  <div id="tab-1">
+    <ColorDefault client:load />
+  </div>
+  <div id="tab-2">
+    <ColorPrimary client:load />
+  </div>
+  <div id="tab-3">
+    <ColorSecondary client:load />
+  </div>
+  <div id="tab-4">
+    <ColorAccent client:load />
+  </div>
+  <div id="tab-5">
+    <ColorMuted client:load />
+  </div>
+  <div id="tab-6">
+    <ColorInfo client:load />
+  </div>
+  <div id="tab-7">
+    <ColorSuccess client:load />
+  </div>
+  <div id="tab-8">
+    <ColorWarning client:load />
+  </div>
+  <div id="tab-9">
+    <ColorError client:load />
+  </div>
+  <div id="tab-10">
+    <ColorBaseContent client:load />
+  </div>
+  <div id="tab-11">
+    <ColorNeutralContent client:load />
+  </div>
+</CodeContainer>

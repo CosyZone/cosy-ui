@@ -49,16 +49,15 @@ export const getStaticPaths = async () => {
           </Alert>
         )}
 
-        <renderResult.Content />
-
         {tags.length > 0 && (
-            <Heading>Tags</Heading>
-          <Container gap="md" flex="row" size='full' justify='start'>
+          <Container gap="md" flex="row" size='full' justify='start' border margin="md">
             {tags.map(tag => (
             <Badge variant="primary" size="sm">{tag}</Badge>
             ))}
           </Container>
         )}
+
+        <renderResult.Content />
 
         {childrenDocs.length > 0 && (
                     <h2>目录</h2>
