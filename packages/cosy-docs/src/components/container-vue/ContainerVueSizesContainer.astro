@@ -1,0 +1,23 @@
+---
+/**
+ * @component ContainerVue Sizes Container
+ * @description ContainerVue 尺寸容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerVueSizes from './ContainerVueSizes.vue';
+import ContainerVueSizesCode from './ContainerVueSizes.vue?raw';
+---
+
+<CodeContainer
+  titles={['小尺寸', '中等尺寸', '大尺寸', '全宽尺寸']}
+  codes={[
+    ContainerVueSizesCode,
+    ContainerVueSizesCode,
+    ContainerVueSizesCode,
+    ContainerVueSizesCode,
+  ]}>
+  <div id="tab-1">
+    <ContainerVueSizes client:load />
+  </div>
+</CodeContainer>

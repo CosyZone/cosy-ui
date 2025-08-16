@@ -1,0 +1,18 @@
+---
+/**
+ * @component ContainerVue Centered Container
+ * @description ContainerVue 居中容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerVueCentered from './ContainerVueCentered.vue';
+import ContainerVueCenteredCode from './ContainerVueCentered.vue?raw';
+---
+
+<CodeContainer
+  titles={['居中显示', '左对齐']}
+  codes={[ContainerVueCenteredCode, ContainerVueCenteredCode]}>
+  <div id="tab-1">
+    <ContainerVueCentered client:load />
+  </div>
+</CodeContainer>

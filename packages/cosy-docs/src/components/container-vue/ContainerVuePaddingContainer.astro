@@ -1,0 +1,23 @@
+---
+/**
+ * @component ContainerVue Padding Container
+ * @description ContainerVue 内边距容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerVuePadding from './ContainerVuePadding.vue';
+import ContainerVuePaddingCode from './ContainerVuePadding.vue?raw';
+---
+
+<CodeContainer
+  titles={['无内边距', '小内边距', '中等内边距', '大内边距']}
+  codes={[
+    ContainerVuePaddingCode,
+    ContainerVuePaddingCode,
+    ContainerVuePaddingCode,
+    ContainerVuePaddingCode,
+  ]}>
+  <div id="tab-1">
+    <ContainerVuePadding client:load />
+  </div>
+</CodeContainer>

@@ -1,0 +1,18 @@
+---
+/**
+ * @component ContainerVue Flex Container
+ * @description ContainerVue Flex 布局容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerVueFlex from './ContainerVueFlex.vue';
+import ContainerVueFlexCode from './ContainerVueFlex.vue?raw';
+---
+
+<CodeContainer
+  titles={['行布局', '列布局']}
+  codes={[ContainerVueFlexCode, ContainerVueFlexCode]}>
+  <div id="tab-1">
+    <ContainerVueFlex client:load />
+  </div>
+</CodeContainer>

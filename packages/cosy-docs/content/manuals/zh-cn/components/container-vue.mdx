@@ -1,0 +1,93 @@
+---
+title: 'Container'
+description: 'Vue 版本的 Container 组件'
+badge: 'Vue'
+tags:
+  - Vue
+order: 5
+---
+
+import { Container } from '@coffic/cosy-ui/vue';
+import { ContainerVuePackage } from '@/components/container-vue/index';
+
+# {frontmatter.title}
+
+## 简介
+
+Container 组件是一个基础的布局容器，用于限制内容宽度并居中显示。它提供了多种尺寸和内边距选项，适用于各种布局需求。
+
+组件特性：
+
+- 内容宽度约束，提高可读性和视觉美感
+- 响应式设计，在不同屏幕尺寸下自动调整内边距
+- 灵活配置，支持多种尺寸和内边距选项
+- 简单易用的 API，易于集成到各种页面布局中
+- 支持 Flexbox 布局，可自定义对齐方式和间距
+
+## 案例
+
+<ContainerVuePackage.Basic />
+
+## Props
+
+### border
+
+是否显示边框。启用时，会在容器周围添加边框和圆角。
+
+<ContainerVuePackage.Border />
+
+### centered
+
+是否居中显示。设置为 false 时，容器将左对齐。
+
+<ContainerVuePackage.Centered />
+
+### class
+
+自定义 CSS 类名，用于添加额外样式。
+
+<ContainerVuePackage.CustomClass />
+
+### flex
+
+Flex 布局方向。可选值：row、col、row-reverse、col-reverse。不设置则不启用 flex 布局。
+
+<ContainerVuePackage.Flex />
+
+### gap
+
+Flex 项目间距。可选值：none、xs、sm、md、lg、xl。仅在启用 flex 布局时有效。
+
+<ContainerVuePackage.Gap />
+
+### items
+
+Flex 项目水平对齐方式。可选值：start、end、center、baseline、stretch。仅在启用 flex 布局时有效。
+
+<ContainerVuePackage.Items />
+
+### justify
+
+Flex 项目垂直对齐方式。可选值：start、end、center、between、around、evenly。仅在启用 flex 布局时有效。
+
+<ContainerVuePackage.Justify />
+
+### padding
+
+内边距大小。可选值：none、sm、md、lg、xl。
+
+<ContainerVuePackage.Padding />
+
+### size
+
+容器尺寸。可选值：xs、sm、md、lg、xl、full。控制容器的最大宽度。
+
+<ContainerVuePackage.Sizes />
+
+## Slots
+
+### default
+
+默认内容插槽，用于在容器内放置任何内容。
+
+<ContainerVuePackage.Slots />

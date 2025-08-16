@@ -1,0 +1,18 @@
+---
+/**
+ * @component ContainerVue Slots Container
+ * @description ContainerVue 插槽容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerVueSlots from './ContainerVueSlots.vue';
+import ContainerVueSlotsCode from './ContainerVueSlots.vue?raw';
+---
+
+<CodeContainer
+  titles={['基础内容', '复杂布局', '表单内容']}
+  codes={[ContainerVueSlotsCode, ContainerVueSlotsCode, ContainerVueSlotsCode]}>
+  <div id="tab-1">
+    <ContainerVueSlots client:load />
+  </div>
+</CodeContainer>

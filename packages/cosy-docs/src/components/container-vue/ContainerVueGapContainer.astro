@@ -1,0 +1,18 @@
+---
+/**
+ * @component ContainerVue Gap Container
+ * @description ContainerVue 间距容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerVueGap from './ContainerVueGap.vue';
+import ContainerVueGapCode from './ContainerVueGap.vue?raw';
+---
+
+<CodeContainer
+  titles={['小间距', '中等间距', '大间距']}
+  codes={[ContainerVueGapCode, ContainerVueGapCode, ContainerVueGapCode]}>
+  <div id="tab-1">
+    <ContainerVueGap client:load />
+  </div>
+</CodeContainer>

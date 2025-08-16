@@ -1,0 +1,23 @@
+---
+/**
+ * @component ContainerVue Justify Container
+ * @description ContainerVue 垂直对齐容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerVueJustify from './ContainerVueJustify.vue';
+import ContainerVueJustifyCode from './ContainerVueJustify.vue?raw';
+---
+
+<CodeContainer
+  titles={['左对齐', '居中对齐', '两端对齐', '右对齐']}
+  codes={[
+    ContainerVueJustifyCode,
+    ContainerVueJustifyCode,
+    ContainerVueJustifyCode,
+    ContainerVueJustifyCode,
+  ]}>
+  <div id="tab-1">
+    <ContainerVueJustify client:load />
+  </div>
+</CodeContainer>
