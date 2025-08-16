@@ -1,0 +1,22 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import { SmartIcon } from '@coffic/cosy-ui';
+import SmartIconExample from './examples/SmartIconExample.astro?raw';
+import SmartIconSizes from './examples/SmartIconSizes.astro?raw';
+---
+
+<CodeContainer
+  codes={[SmartIconExample, SmartIconSizes]}
+  titles={['基础用法', '不同尺寸']}>
+  <div id="tab-1">
+    <SmartIcon size="32px" color="#8b5cf6" />
+  </div>
+  <div id="tab-2">
+    <div style="display: flex; gap: 1rem; align-items: center;">
+      <SmartIcon size="16px" color="#8b5cf6" />
+      <SmartIcon size="24px" color="#8b5cf6" />
+      <SmartIcon size="32px" color="#8b5cf6" />
+      <SmartIcon size="48px" color="#8b5cf6" />
+    </div>
+  </div>
+</CodeContainer>

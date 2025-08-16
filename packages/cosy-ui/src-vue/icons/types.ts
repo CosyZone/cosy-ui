@@ -83,7 +83,6 @@ export type IconName =
     | 'security'
     | 'settings'
     | 'smart'
-    | 'social-github'
     | 'star'
     | 'success'
     | 'sunCloudy'
