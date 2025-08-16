@@ -1,11 +1,14 @@
 ---
 title: 'Card'
-folder: false
+description: 'Vue version of Card component'
+badge: 'Vue'
+tags:
+  - Vue
 order: 4
 ---
 
-import { Card } from '@coffic/cosy-ui';
-import { CardPackage } from '@/components/card/index';
+import { Card } from '@coffic/cosy-ui/vue';
+import { CardVuePackage } from '@/components/card-vue/index';
 
 # {frontmatter.title}
 
@@ -21,15 +24,9 @@ Component features:
 - Smooth hover animation effects
 - Responsive design, adapts to different screen sizes
 
-## Cases
+## Example
 
-### Basic
-
-<CardPackage.Cases />
-
-### Multiple Cards
-
-<CardPackage.MultipleCards />
+<CardVuePackage.Basic />
 
 ## Props
 
@@ -37,37 +34,37 @@ Component features:
 
 Custom CSS class that can be used to override default styles.
 
-<CardPackage.CardContainers.CustomStyle />
+<CardVuePackage.CustomStyle />
 
 ### compact
 
 Whether to use compact mode.
 
-<CardPackage.CardContainers.Compact />
+<CardVuePackage.Compact />
 
 ### href
 
 If provided, the card will become a clickable link.
 
-<CardPackage.CardContainers.Clickable />
+<CardVuePackage.Clickable />
 
 ### imageUrl
 
 URL of the image displayed at the top of the card.
 
-<CardPackage.CardContainers.WithImage />
+<CardVuePackage.WithImage />
 
 ### subtitle
 
 Card subtitle or description.
 
-<CardPackage.CardContainers.WithSubtitle />
+<CardVuePackage.WithSubtitle />
 
 ### title
 
-Card title.
+Card title (required).
 
-<CardPackage.CardContainers.Basic />
+<CardVuePackage.Basic />
 
 ## Slots
 
@@ -75,4 +72,4 @@ Card title.
 
 Card content slot, used to place additional content below the subtitle.
 
-<CardPackage.CardContainers.Basic />
+<CardVuePackage.WithContent />

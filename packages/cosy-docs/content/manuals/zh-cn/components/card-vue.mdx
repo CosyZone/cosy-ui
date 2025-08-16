@@ -1,14 +1,14 @@
 ---
 title: 'Card'
-folder: false
-order: 4
+description: 'Vue 版本的 Card 组件'
+badge: 'Vue'
 tags:
-- astro
-- card
+  - Vue
+order: 4
 ---
 
-import { Card } from '@coffic/cosy-ui';
-import { CardPackage } from '@/components/card/index';
+import { Card } from '@coffic/cosy-ui/vue';
+import { CardVuePackage } from '@/components/card-vue/index';
 
 # {frontmatter.title}
 
@@ -26,13 +26,7 @@ Card组件用于在页面中展示相关内容的容器，通常包含标题、�
 
 ## 案例
 
-### 基础卡片
-
-<CardPackage.Cases />
-
-### 多卡片展示
-
-<CardPackage.MultipleCards />
+<CardVuePackage.Basic />
 
 ## Props
 
@@ -40,37 +34,37 @@ Card组件用于在页面中展示相关内容的容器，通常包含标题、�
 
 自定义CSS类，可用于覆盖默认样式。
 
-<CardPackage.CardContainers.CustomStyle />
+<CardVuePackage.CustomStyle />
 
 ### compact
 
 是否使用紧凑模式。
 
-<CardPackage.CardContainers.Compact />
+<CardVuePackage.Compact />
 
 ### href
 
 如果提供，卡片将变成可点击的链接。
 
-<CardPackage.CardContainers.Clickable />
+<CardVuePackage.Clickable />
 
 ### imageUrl
 
 卡片顶部图片的URL。
 
-<CardPackage.CardContainers.WithImage />
+<CardVuePackage.WithImage />
 
 ### subtitle
 
 卡片副标题或描述。
 
-<CardPackage.CardContainers.WithSubtitle />
+<CardVuePackage.WithSubtitle />
 
 ### title
 
-卡片标题。
+卡片标题（必填）。
 
-<CardPackage.CardContainers.Basic />
+<CardVuePackage.Basic />
 
 ## Slots
 
@@ -78,4 +72,4 @@ Card组件用于在页面中展示相关内容的容器，通常包含标题、�
 
 卡片内容插槽，用于在副标题下方放置额外内容。
 
-<CardPackage.CardContainers.Basic />
+<CardVuePackage.WithContent />
