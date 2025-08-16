@@ -44,7 +44,6 @@ export { default as SaveIcon } from './SaveIcon.astro';
 export { default as SearchIcon } from './SearchIcon.astro';
 export { default as SecurityIcon } from './SecurityIcon.astro';
 export { default as SettingsIcon } from './SettingsIcon.astro';
-export { default as SocialIcon } from './SocialIcon.astro';
 export { default as StarIcon } from './StarIcon.astro';
 export { default as SuccessIcon } from './SuccessIcon.astro';
 export { default as SunCloudyIcon } from './SunCloudyIcon.astro';
@@ -58,6 +57,3 @@ export { default as WalletIcon } from './WalletIcon.astro';
 export { default as WarningIcon } from './WarningIcon.astro';
 export { default as WebsiteIcon } from './WebsiteIcon.astro';
 export { default as XCircle } from './XCircle.astro';
-
-// 智能图标
-export { default as SmartIcon } from './SmartIcon.astro';

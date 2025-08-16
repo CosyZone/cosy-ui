@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import VueIcon from './VueIcon.vue';
+import VueIcon from '../icons/VueIcon.vue';
 
 interface Props {
     /**

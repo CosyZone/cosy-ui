@@ -44,8 +44,6 @@ export { default as SaveIcon } from './SaveIcon.vue';
 export { default as SearchIcon } from './SearchIcon.vue';
 export { default as SecurityIcon } from './SecurityIcon.vue';
 export { default as SettingsIcon } from './SettingsIcon.vue';
-export { default as SmartIcon } from './SmartIcon.vue';
-export { default as SocialIcon } from './SocialIcon.vue';
 export { default as StarIcon } from './StarIcon.vue';
 export { default as SuccessIcon } from './SuccessIcon.vue';
 export { default as SunCloudyIcon } from './SunCloudyIcon.vue';

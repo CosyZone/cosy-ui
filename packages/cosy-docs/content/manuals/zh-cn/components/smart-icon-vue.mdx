@@ -1,0 +1,130 @@
+---
+title: 'SmartIcon Vue'
+description: 'Vue 版本的智能图标组件，根据关键词自动选择最合适的图标'
+badge: 'Vue'
+tags:
+  - Vue
+order: 14.1
+---
+
+import { SmartIcon } from '@coffic/cosy-ui/vue';
+
+# {frontmatter.title}
+
+## 简介
+
+SmartIcon Vue 组件是一个智能图标选择器，它根据关键词自动选择最合适的图标。支持多个关键词，优先匹配第一个找到的图标，未匹配时渲染默认图标。该组件特别适用于需要根据上下文动态显示图标的场景。
+
+## Props
+
+### keyword
+
+关键词，支持多个关键词用空格或逗号分隔。组件会根据关键词自动选择最合适的图标。
+
+<SmartIcon keyword="用户" size="32px" color="#8b5cf6" />
+
+### size
+
+图标的大小，支持任何有效的 CSS 尺寸值。
+
+<div style="display: flex; gap: 1rem; align-items: center;">
+  <SmartIcon keyword="用户" size="16px" color="#8b5cf6" />
+  <SmartIcon keyword="设置" size="24px" color="#8b5cf6" />
+  <SmartIcon keyword="搜索" size="32px" color="#8b5cf6" />
+  <SmartIcon keyword="文档" size="48px" color="#8b5cf6" />
+</div>
+
+### color
+
+图标的颜色，支持任何有效的 CSS 颜色值。
+
+<div style="display: flex; gap: 1rem; align-items: center;">
+  <SmartIcon keyword="用户" size="24px" color="#8b5cf6" />
+  <SmartIcon keyword="用户" size="24px" color="#3b82f6" />
+  <SmartIcon keyword="用户" size="24px" color="#10b981" />
+  <SmartIcon keyword="用户" size="24px" color="#f59e0b" />
+</div>
+
+### class
+
+自定义 CSS 类名，用于覆盖默认样式。
+
+<SmartIcon keyword="用户" size="32px" color="#8b5cf6" class="custom-smart-icon" />
+
+## 关键词示例
+
+### 用户相关
+
+<div style="display: flex; gap: 1rem; align-items: center;">
+  <SmartIcon keyword="用户" size="24px" color="#8b5cf6" />
+  <SmartIcon keyword="人" size="24px" color="#8b5cf6" />
+  <SmartIcon keyword="账号" size="24px" color="#8b5cf6" />
+  <SmartIcon keyword="个人" size="24px" color="#8b5cf6" />
+</div>
+
+### 功能相关
+
+<div style="display: flex; gap: 1rem; align-items: center;">
+  <SmartIcon keyword="设置" size="24px" color="#8b5cf6" />
+  <SmartIcon keyword="搜索" size="24px" color="#8b5cf6" />
+  <SmartIcon keyword="编辑" size="24px" color="#8b5cf6" />
+  <SmartIcon keyword="删除" size="24px" color="#8b5cf6" />
+</div>
+
+### 状态相关
+
+<div style="display: flex; gap: 1rem; align-items: center;">
+  <SmartIcon keyword="成功" size="24px" color="#8b5cf6" />
+  <SmartIcon keyword="警告" size="24px" color="#8b5cf6" />
+  <SmartIcon keyword="错误" size="24px" color="#8b5cf6" />
+  <SmartIcon keyword="信息" size="24px" color="#8b5cf6" />
+</div>
+
+### 技术相关
+
+<div style="display: flex; gap: 1rem; align-items: center;">
+  <SmartIcon keyword="代码" size="24px" color="#8b5cf6" />
+  <SmartIcon keyword="数据库" size="24px" color="#8b5cf6" />
+  <SmartIcon keyword="网络" size="24px" color="#8b5cf6" />
+  <SmartIcon keyword="API" size="24px" color="#8b5cf6" />
+</div>
+
+## 多关键词支持
+
+SmartIcon 支持多个关键词，用空格或逗号分隔：
+
+<SmartIcon keyword="用户 设置" size="32px" color="#8b5cf6" />
+
+<SmartIcon keyword="代码,编程,开发" size="32px" color="#8b5cf6" />
+
+## 使用场景
+
+- 动态内容展示，根据内容类型自动选择图标
+- 智能搜索结果的图标显示
+- 自动化的用户界面生成
+- 内容管理系统的动态图标
+- 基于上下文的图标选择
+
+## 智能匹配逻辑
+
+1. **直接匹配** - 优先匹配完全匹配的关键词
+2. **包含匹配** - 如果直接匹配失败，尝试包含匹配
+3. **默认图标** - 未匹配时使用文档图标作为默认图标
+4. **关键词优先级** - 多个关键词时，使用第一个匹配的图标
+
+## 支持的关键词类别
+
+- **用户相关**：用户、人、账号、个人、团队、成员
+- **功能相关**：设置、搜索、编辑、删除、保存、上传、下载
+- **状态相关**：成功、警告、错误、信息、完成、进行中
+- **技术相关**：代码、编程、开发、数据库、网络、API、框架
+- **内容相关**：文档、文件、图片、视频、音频、链接
+- **时间相关**：日历、时钟、历史、计划、提醒
+
+## Vue 特性
+
+- 使用 Vue 3 Composition API
+- 响应式属性绑定
+- 计算属性优化性能
+- TypeScript 类型支持
+- 智能图标映射逻辑 
