@@ -1,0 +1,114 @@
+---
+title: 'Button'
+description: 'Vue 版本的 Button 组件'
+badge: 'Vue'
+tags:
+  - Vue
+order: 3.1
+---
+
+import { Button } from '@coffic/cosy-ui';
+import { ButtonVuePackage } from '@/components/button-vue/index';
+
+# {frontmatter.title}
+
+## 简介
+
+Button 组件用于触发一个即时操作，如表单提交、打开对话框等。支持多种样式变体、尺寸和状态，可以满足不同场景的需求。
+
+组件特性：
+
+- 支持多种样式变体（primary、secondary、accent 等）
+- 支持多种尺寸（lg、md、sm、xs）
+- 支持不同形状（默认、circle、square）
+- 支持加载状态和禁用状态
+- 支持图标插槽（左侧和右侧）
+- 支持链接形式（href 属性）
+- 支持渐变效果
+- 响应式设计，适配不同屏幕尺寸
+
+## 案例
+
+<ButtonVuePackage.Basic />
+
+## Props
+
+### block
+
+是否为块级显示，设置为 true 时按钮占满容器宽度。
+
+<ButtonVuePackage.Width />
+
+### disabled
+
+是否禁用按钮，设置为 true 时按钮不可点击。
+
+<ButtonVuePackage.States />
+
+### href
+
+链接地址，设置后按钮变为链接形式。
+
+<ButtonVuePackage.Link />
+
+### loading
+
+是否显示加载状态，设置为 true 时显示加载动画。
+
+<ButtonVuePackage.States />
+
+### shape
+
+按钮形状，支持 circle（圆形）和 square（方形）。
+
+<ButtonVuePackage.Shapes />
+
+### size
+
+按钮尺寸，支持 lg、md、sm、xs 四种尺寸。
+
+<ButtonVuePackage.Sizes />
+
+### target
+
+链接目标，支持 _self、_blank、_parent、_top。
+
+<ButtonVuePackage.Link />
+
+### type
+
+按钮类型，支持 button、submit、reset。
+
+<ButtonVuePackage.Basic />
+
+### variant
+
+按钮样式变体，支持多种预设样式和渐变效果。
+
+<ButtonVuePackage.Variants />
+
+### wide
+
+是否为宽按钮，设置为 true 时按钮宽度增加。
+
+<ButtonVuePackage.Width />
+
+## Slots
+
+### default
+
+按钮内容插槽，用于放置按钮文本内容。
+
+<ButtonVuePackage.Basic />
+
+### icon-left
+
+左侧图标插槽，显示在按钮内容左侧。
+
+<ButtonVuePackage.WithIcons />
+
+### icon-right
+
+右侧图标插槽，显示在按钮内容右侧。
+
+<ButtonVuePackage.WithIcons />

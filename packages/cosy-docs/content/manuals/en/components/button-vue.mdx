@@ -1,0 +1,114 @@
+---
+title: 'Button'
+description: 'Vue version of Button component'
+badge: 'Vue'
+tags:
+  - Vue
+order: 3.1
+---
+
+import { Button } from '@coffic/cosy-ui';
+import { ButtonVuePackage } from '@/components/button-vue/index';
+
+# {frontmatter.title}
+
+## Introduction
+
+The Button component is used to trigger an immediate action, such as form submission, opening dialogs, etc. It supports various style variants, sizes, and states to meet different scenario requirements.
+
+Component Features:
+
+- Supports multiple style variants (primary, secondary, accent, etc.)
+- Supports multiple sizes (lg, md, sm, xs)
+- Supports different shapes (default, circle, square)
+- Supports loading and disabled states
+- Supports icon slots (left and right)
+- Supports link form (href attribute)
+- Supports gradient effects
+- Responsive design that adapts to different screen sizes
+
+## Example
+
+<ButtonVuePackage.Basic />
+
+## Props
+
+### block
+
+Whether it's a block-level display, when set to true, the button fills the container width.
+
+<ButtonVuePackage.Width />
+
+### disabled
+
+Whether the button is disabled, when set to true, the button cannot be clicked.
+
+<ButtonVuePackage.States />
+
+### href
+
+Link address, when set, the button becomes a link form.
+
+<ButtonVuePackage.Link />
+
+### loading
+
+Whether to show loading state, when set to true, shows loading animation.
+
+<ButtonVuePackage.States />
+
+### shape
+
+Button shape, supports circle and square.
+
+<ButtonVuePackage.Shapes />
+
+### size
+
+Button size, supports lg, md, sm, xs four sizes.
+
+<ButtonVuePackage.Sizes />
+
+### target
+
+Link target, supports _self, _blank, _parent, _top.
+
+<ButtonVuePackage.Link />
+
+### type
+
+Button type, supports button, submit, reset.
+
+<ButtonVuePackage.Basic />
+
+### variant
+
+Button style variant, supports multiple preset styles and gradient effects.
+
+<ButtonVuePackage.Variants />
+
+### wide
+
+Whether it's a wide button, when set to true, the button width increases.
+
+<ButtonVuePackage.Width />
+
+## Slots
+
+### default
+
+Button content slot, used to place button text content.
+
+<ButtonVuePackage.Basic />
+
+### icon-left
+
+Left icon slot, displayed to the left of button content.
+
+<ButtonVuePackage.WithIcons />
+
+### icon-right
+
+Right icon slot, displayed to the right of button content.
+
+<ButtonVuePackage.WithIcons />

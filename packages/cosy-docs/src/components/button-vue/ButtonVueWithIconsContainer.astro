@@ -1,0 +1,32 @@
+---
+/**
+ * @component ButtonVue With Icons Container
+ * @description ButtonVue 图标容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonVueIconLeft from './ButtonVueIconLeft.vue';
+import ButtonVueIconRight from './ButtonVueIconRight.vue';
+import ButtonVueIconBoth from './ButtonVueIconBoth.vue';
+import ButtonVueIconLeftCode from './ButtonVueIconLeft.vue?raw';
+import ButtonVueIconRightCode from './ButtonVueIconRight.vue?raw';
+import ButtonVueIconBothCode from './ButtonVueIconBoth.vue?raw';
+---
+
+<CodeContainer
+  titles={['左侧图标', '右侧图标', '双图标']}
+  codes={[
+    ButtonVueIconLeftCode,
+    ButtonVueIconRightCode,
+    ButtonVueIconBothCode,
+  ]}>
+  <div id="tab-1">
+    <ButtonVueIconLeft client:load />
+  </div>
+  <div id="tab-2">
+    <ButtonVueIconRight client:load />
+  </div>
+  <div id="tab-3">
+    <ButtonVueIconBoth client:load />
+  </div>
+</CodeContainer>

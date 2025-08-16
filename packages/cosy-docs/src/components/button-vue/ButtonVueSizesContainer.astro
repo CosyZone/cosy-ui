@@ -1,0 +1,38 @@
+---
+/**
+ * @component ButtonVue Sizes Container
+ * @description ButtonVue 尺寸容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonVueSizeXs from './ButtonVueSizeXs.vue';
+import ButtonVueSizeSm from './ButtonVueSizeSm.vue';
+import ButtonVueSizeMd from './ButtonVueSizeMd.vue';
+import ButtonVueSizeLg from './ButtonVueSizeLg.vue';
+import ButtonVueSizeXsCode from './ButtonVueSizeXs.vue?raw';
+import ButtonVueSizeSmCode from './ButtonVueSizeSm.vue?raw';
+import ButtonVueSizeMdCode from './ButtonVueSizeMd.vue?raw';
+import ButtonVueSizeLgCode from './ButtonVueSizeLg.vue?raw';
+---
+
+<CodeContainer
+  titles={['XS', 'SM', 'MD', 'LG']}
+  codes={[
+    ButtonVueSizeXsCode,
+    ButtonVueSizeSmCode,
+    ButtonVueSizeMdCode,
+    ButtonVueSizeLgCode,
+  ]}>
+  <div id="tab-1">
+    <ButtonVueSizeXs client:load />
+  </div>
+  <div id="tab-2">
+    <ButtonVueSizeSm client:load />
+  </div>
+  <div id="tab-3">
+    <ButtonVueSizeMd client:load />
+  </div>
+  <div id="tab-4">
+    <ButtonVueSizeLg client:load />
+  </div>
+</CodeContainer>

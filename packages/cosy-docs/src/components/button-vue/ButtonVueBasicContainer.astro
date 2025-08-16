@@ -1,0 +1,38 @@
+---
+/**
+ * @component ButtonVue Basic Container
+ * @description ButtonVue 基础用法容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonVueBasic from './ButtonVueBasic.vue';
+import ButtonVueSecondary from './ButtonVueSecondary.vue';
+import ButtonVueAccent from './ButtonVueAccent.vue';
+import ButtonVueGhost from './ButtonVueGhost.vue';
+import ButtonVueBasicCode from './ButtonVueBasic.vue?raw';
+import ButtonVueSecondaryCode from './ButtonVueSecondary.vue?raw';
+import ButtonVueAccentCode from './ButtonVueAccent.vue?raw';
+import ButtonVueGhostCode from './ButtonVueGhost.vue?raw';
+---
+
+<CodeContainer
+  titles={['默认', '次要', '强调', '幽灵']}
+  codes={[
+    ButtonVueBasicCode,
+    ButtonVueSecondaryCode,
+    ButtonVueAccentCode,
+    ButtonVueGhostCode,
+  ]}>
+  <div id="tab-1">
+    <ButtonVueBasic client:load />
+  </div>
+  <div id="tab-2">
+    <ButtonVueSecondary client:load />
+  </div>
+  <div id="tab-3">
+    <ButtonVueAccent client:load />
+  </div>
+  <div id="tab-4">
+    <ButtonVueGhost client:load />
+  </div>
+</CodeContainer>
