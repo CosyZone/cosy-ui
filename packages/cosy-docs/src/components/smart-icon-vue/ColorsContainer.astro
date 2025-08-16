@@ -1,11 +1,18 @@
 ---
 import { CodeContainer } from '@coffic/cosy-ui';
-import ColorsCode from './Colors.vue?raw';
-import Colors from './Colors.vue';
+import ColorPrimaryCode from './ColorPrimary.vue?raw';
+import ColorAccentCode from './ColorAccent.vue?raw';
+import ColorPrimary from './ColorPrimary.vue';
+import ColorAccent from './ColorAccent.vue';
 ---
 
-<CodeContainer codes={[ColorsCode]} titles={['颜色定制']}>
+<CodeContainer
+  codes={[ColorPrimaryCode, ColorAccentCode]}
+  titles={['主要颜色', '强调颜色']}>
   <div id="tab-1">
-    <Colors />
+    <ColorPrimary />
+  </div>
+  <div id="tab-2">
+    <ColorAccent />
   </div>
 </CodeContainer>

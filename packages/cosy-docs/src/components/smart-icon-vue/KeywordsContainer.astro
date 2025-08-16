@@ -1,11 +1,39 @@
 ---
 import { CodeContainer } from '@coffic/cosy-ui';
 import KeywordsCode from './Keywords.vue?raw';
+import UserKeywordsCode from './UserKeywords.vue?raw';
+import TechKeywordsCode from './TechKeywords.vue?raw';
+import ActionKeywordsCode from './ActionKeywords.vue?raw';
+import MultiKeywordsCode from './MultiKeywords.vue?raw';
 import Keywords from './Keywords.vue';
+import UserKeywords from './UserKeywords.vue';
+import TechKeywords from './TechKeywords.vue';
+import ActionKeywords from './ActionKeywords.vue';
+import MultiKeywords from './MultiKeywords.vue';
 ---
 
-<CodeContainer codes={[KeywordsCode]} titles={['基本用法']}>
+<CodeContainer
+  codes={[
+    KeywordsCode,
+    UserKeywordsCode,
+    TechKeywordsCode,
+    ActionKeywordsCode,
+    MultiKeywordsCode,
+  ]}
+  titles={['基本用法', '用户相关', '技术相关', '操作相关', '多关键词']}>
   <div id="tab-1">
     <Keywords />
+  </div>
+  <div id="tab-2">
+    <UserKeywords />
+  </div>
+  <div id="tab-3">
+    <TechKeywords />
+  </div>
+  <div id="tab-4">
+    <ActionKeywords />
+  </div>
+  <div id="tab-5">
+    <MultiKeywords />
   </div>
 </CodeContainer>
