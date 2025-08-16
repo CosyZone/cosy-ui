@@ -1,0 +1,15 @@
+---
+import { AlertDialog, Button } from '@coffic/cosy-ui';
+---
+
+<div style="padding: 1rem;">
+  <Button onclick="showAlertDialog('custom-dialog')"
+    >显示自定义样式对话框</Button
+  >
+
+  <AlertDialog
+    message="这是一个带有自定义样式的确认对话框"
+    id="custom-dialog"
+    class="cosy:bg-primary cosy:text-primary-content"
+  />
+</div>

@@ -22,32 +22,38 @@ AlertDialog 组件用于显示简单的确认对话框，支持国际化，带�
 - 支持自定义对话框 ID
 - 使用 daisyUI 样式，与整体设计风格一致
 
-## id
+## 案例
+
+<AlertDialogPackage.Basic />
+
+## Props
+
+### class
+
+自定义 CSS 类名，用于覆盖默认样式。
+
+<AlertDialogPackage.CustomStyle />
+
+### id
 
 对话框的唯一标识符，用于通过 JavaScript 控制对话框的显示和隐藏。
 
 <AlertDialogPackage.Basic />
 
-## lang
+### lang
 
 语言设置，影响按钮文本，支持中文和英文两种语言。
 
 <AlertDialogPackage.English />
 
-## message
+### message
 
 对话框显示的消息内容，支持任意文本内容。
 
 <AlertDialogPackage.Basic />
 
-## 基础用法
+## Slots
 
-最简单的确认对话框：
+### default
 
-<AlertDialogPackage.Basic />
-
-## 英文对话框
-
-通过 `lang="en"` 属性可以显示英文对话框：
-
-<AlertDialogPackage.English />
+无插槽内容，所有内容通过 message 属性传递。
