@@ -1,5 +1,6 @@
 ---
 title: 'Alert'
+description: 'Alert 组件用于向用户显示重要的提示信息，支持多种类型的提示样式和交互效果'
 folder: false
 order: 1
 ---
@@ -23,69 +24,59 @@ Alert 组件用于向用户显示重要的提示信息，支持多种类型的�
 - 支持设置垂直方向外边距
 - 支持多种样式变体
 
-## class
+## 案例
+
+<AlertPackage.Basic />
+
+## Props
+
+### class
 
 自定义 CSS 类名，用于覆盖默认样式。
 
 <AlertPackage.CustomStyle />
 
-## closable
+### closable
 
 是否可关闭，设置为 false 时隐藏关闭按钮。
 
 <AlertPackage.Closable />
 
-## description
+### description
 
 描述文本，显示在标题下方，字体较小且透明度降低。
 
 <AlertPackage.WithTitle />
 
-## marginY
+### marginY
 
 垂直方向外边距大小，支持预设的尺寸值。
 
 <AlertPackage.MarginY />
 
-## showIcon
+### showIcon
 
 是否显示图标，设置为 false 时隐藏类型对应的图标。
 
 <AlertPackage.NoIcon />
 
-## title
+### title
 
 提示标题，可选，显示为粗体文本。
 
 <AlertPackage.WithTitle />
 
-## type
+### type
 
 提示类型，影响颜色和图标，支持 info、success、warning、error 四种类型。
 
 <AlertPackage.Types />
 
-## variant
+### variant
 
 样式变体，支持 solid（实心）、outline（描边）、dash（虚线）、soft（柔和）四种风格。
 
-### Outline 描边风格
-
-通过 `variant="outline"` 可切换为描边风格：
-
 <AlertPackage.Outline />
-
-### Dash 虚线描边风格
-
-通过 `variant="dash"` 可切换为虚线描边风格：
-
-<AlertPackage.Dash />
-
-### Soft 柔和风格
-
-通过 `variant="soft"` 可切换为柔和风格：
-
-<AlertPackage.Soft />
 
 ## 基础用法
 
