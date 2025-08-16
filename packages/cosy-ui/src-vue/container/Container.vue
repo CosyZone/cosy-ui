@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import '../../style';
 import { computed } from 'vue';
+import type { IContainerProps } from './types';
 
 /**
  * @component Container
@@ -14,59 +15,10 @@ import { computed } from 'vue';
  * @props {('start'|'end'|'center'|'between'|'around'|'evenly')} [justify] - flex项目垂直对齐方式
  * @props {('none'|'sm'|'md'|'lg'|'xl')} [padding='md'] - 内边距大小
  * @props {('xs'|'sm'|'md'|'lg'|'xl'|'full')} [size='md'] - 容器尺寸
+ * @props {string} [background] - 预设的语义化背景色，支持 DaisyUI 主题系统
  */
 
-interface Props {
-    /**
-     * 是否显示边框
-     * @default false
-     */
-    border?: boolean;
-
-    /**
-     * 是否居中显示
-     * @default true
-     */
-    centered?: boolean;
-
-    /**
-     * 自定义类名
-     */
-    class?: string;
-
-    /**
-     * flex布局方向，不设置则不启用flex布局
-     */
-    flex?: 'row' | 'col' | 'row-reverse' | 'col-reverse';
-
-    /**
-     * flex项目间距
-     * @default "none"
-     */
-    gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-
-    /**
-     * flex项目水平对齐方式
-     */
-    items?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
-
-    /**
-     * flex项目垂直对齐方式
-     */
-    justify?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
-
-    /**
-     * 内边距大小
-     * @default "md"
-     */
-    padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
-
-    /**
-     * 容器尺寸
-     * @default "md"
-     */
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
-}
+interface Props extends IContainerProps { }
 
 const props = withDefaults(defineProps<Props>(), {
     size: 'md',
@@ -128,6 +80,21 @@ const justifyClasses = {
     evenly: 'cosy:justify-evenly',
 } as const;
 
+// 背景色类名映射
+const backgroundClasses = {
+    primary: 'cosy:bg-primary',
+    secondary: 'cosy:bg-secondary',
+    accent: 'cosy:bg-accent',
+    neutral: 'cosy:bg-neutral',
+    'base-100': 'cosy:bg-base-100',
+    'base-200': 'cosy:bg-base-200',
+    'base-300': 'cosy:bg-base-300',
+    success: 'cosy:bg-success',
+    warning: 'cosy:bg-warning',
+    error: 'cosy:bg-error',
+    info: 'cosy:bg-info',
+} as const;
+
 // 构建CSS类名
 const containerClasses = computed(() => [
     'cosy:w-full',
@@ -139,6 +106,8 @@ const containerClasses = computed(() => [
     props.flex ? gapClasses[props.gap] : '',
     props.items && props.flex ? itemsClasses[props.items] : '',
     props.justify && props.flex ? justifyClasses[props.justify] : '',
+    // 处理背景色
+    props.background ? backgroundClasses[props.background] : '',
     props.class,
 ]);
 </script>

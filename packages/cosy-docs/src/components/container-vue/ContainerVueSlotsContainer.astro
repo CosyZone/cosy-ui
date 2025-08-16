@@ -5,14 +5,28 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import ContainerVueSlots from './ContainerVueSlots.vue';
-import ContainerVueSlotsCode from './ContainerVueSlots.vue?raw';
+import ContainerVueSlotsBasic from './ContainerVueSlotsBasic.vue';
+import ContainerVueSlotsComplex from './ContainerVueSlotsComplex.vue';
+import ContainerVueSlotsForm from './ContainerVueSlotsForm.vue';
+import ContainerVueSlotsBasicCode from './ContainerVueSlotsBasic.vue?raw';
+import ContainerVueSlotsComplexCode from './ContainerVueSlotsComplex.vue?raw';
+import ContainerVueSlotsFormCode from './ContainerVueSlotsForm.vue?raw';
 ---
 
 <CodeContainer
   titles={['基础内容', '复杂布局', '表单内容']}
-  codes={[ContainerVueSlotsCode, ContainerVueSlotsCode, ContainerVueSlotsCode]}>
+  codes={[
+    ContainerVueSlotsBasicCode,
+    ContainerVueSlotsComplexCode,
+    ContainerVueSlotsFormCode,
+  ]}>
   <div id="tab-1">
-    <ContainerVueSlots client:load />
+    <ContainerVueSlotsBasic client:load />
+  </div>
+  <div id="tab-2">
+    <ContainerVueSlotsComplex client:load />
+  </div>
+  <div id="tab-3">
+    <ContainerVueSlotsForm client:load />
   </div>
 </CodeContainer>

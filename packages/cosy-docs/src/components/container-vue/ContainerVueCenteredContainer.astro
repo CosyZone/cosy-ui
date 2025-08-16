@@ -6,13 +6,18 @@
 
 import { CodeContainer } from '@coffic/cosy-ui';
 import ContainerVueCentered from './ContainerVueCentered.vue';
+import ContainerVueCenteredLeft from './ContainerVueCenteredLeft.vue';
 import ContainerVueCenteredCode from './ContainerVueCentered.vue?raw';
+import ContainerVueCenteredLeftCode from './ContainerVueCenteredLeft.vue?raw';
 ---
 
 <CodeContainer
-  titles={['居中显示', '左对齐']}
-  codes={[ContainerVueCenteredCode, ContainerVueCenteredCode]}>
+  titles={['true', 'false']}
+  codes={[ContainerVueCenteredCode, ContainerVueCenteredLeftCode]}>
   <div id="tab-1">
     <ContainerVueCentered client:load />
+  </div>
+  <div id="tab-2">
+    <ContainerVueCenteredLeft client:load />
   </div>
 </CodeContainer>

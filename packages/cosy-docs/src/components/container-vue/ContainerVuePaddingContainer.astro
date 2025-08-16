@@ -5,19 +5,40 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import ContainerVuePadding from './ContainerVuePadding.vue';
-import ContainerVuePaddingCode from './ContainerVuePadding.vue?raw';
+import ContainerVuePaddingNone from './ContainerVuePaddingNone.vue';
+import ContainerVuePaddingSm from './ContainerVuePaddingSm.vue';
+import ContainerVuePaddingMd from './ContainerVuePaddingMd.vue';
+import ContainerVuePaddingLg from './ContainerVuePaddingLg.vue';
+import ContainerVuePaddingXl from './ContainerVuePaddingXl.vue';
+import ContainerVuePaddingNoneCode from './ContainerVuePaddingNone.vue?raw';
+import ContainerVuePaddingSmCode from './ContainerVuePaddingSm.vue?raw';
+import ContainerVuePaddingMdCode from './ContainerVuePaddingMd.vue?raw';
+import ContainerVuePaddingLgCode from './ContainerVuePaddingLg.vue?raw';
+import ContainerVuePaddingXlCode from './ContainerVuePaddingXl.vue?raw';
 ---
 
 <CodeContainer
-  titles={['无内边距', '小内边距', '中等内边距', '大内边距']}
+  titles={['none', 'sm', 'md', 'lg', 'xl']}
   codes={[
-    ContainerVuePaddingCode,
-    ContainerVuePaddingCode,
-    ContainerVuePaddingCode,
-    ContainerVuePaddingCode,
+    ContainerVuePaddingNoneCode,
+    ContainerVuePaddingSmCode,
+    ContainerVuePaddingMdCode,
+    ContainerVuePaddingLgCode,
+    ContainerVuePaddingXlCode,
   ]}>
   <div id="tab-1">
-    <ContainerVuePadding client:load />
+    <ContainerVuePaddingNone client:load />
+  </div>
+  <div id="tab-2">
+    <ContainerVuePaddingSm client:load />
+  </div>
+  <div id="tab-3">
+    <ContainerVuePaddingMd client:load />
+  </div>
+  <div id="tab-4">
+    <ContainerVuePaddingLg client:load />
+  </div>
+  <div id="tab-5">
+    <ContainerVuePaddingXl client:load />
   </div>
 </CodeContainer>

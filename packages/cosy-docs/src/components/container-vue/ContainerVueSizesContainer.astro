@@ -5,19 +5,46 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import ContainerVueSizes from './ContainerVueSizes.vue';
-import ContainerVueSizesCode from './ContainerVueSizes.vue?raw';
+import ContainerVueSizeXs from './ContainerVueSizeXs.vue';
+import ContainerVueSizeSm from './ContainerVueSizeSm.vue';
+import ContainerVueSizeMd from './ContainerVueSizeMd.vue';
+import ContainerVueSizeLg from './ContainerVueSizeLg.vue';
+import ContainerVueSizeXl from './ContainerVueSizeXl.vue';
+import ContainerVueSizeFull from './ContainerVueSizeFull.vue';
+import ContainerVueSizeXsCode from './ContainerVueSizeXs.vue?raw';
+import ContainerVueSizeSmCode from './ContainerVueSizeSm.vue?raw';
+import ContainerVueSizeMdCode from './ContainerVueSizeMd.vue?raw';
+import ContainerVueSizeLgCode from './ContainerVueSizeLg.vue?raw';
+import ContainerVueSizeXlCode from './ContainerVueSizeXl.vue?raw';
+import ContainerVueSizeFullCode from './ContainerVueSizeFull.vue?raw';
 ---
 
 <CodeContainer
-  titles={['小尺寸', '中等尺寸', '大尺寸', '全宽尺寸']}
+  titles={['xs', 'sm', 'md', 'lg', 'xl', 'full']}
   codes={[
-    ContainerVueSizesCode,
-    ContainerVueSizesCode,
-    ContainerVueSizesCode,
-    ContainerVueSizesCode,
+    ContainerVueSizeXsCode,
+    ContainerVueSizeSmCode,
+    ContainerVueSizeMdCode,
+    ContainerVueSizeLgCode,
+    ContainerVueSizeXlCode,
+    ContainerVueSizeFullCode,
   ]}>
   <div id="tab-1">
-    <ContainerVueSizes client:load />
+    <ContainerVueSizeXs client:load />
+  </div>
+  <div id="tab-2">
+    <ContainerVueSizeSm client:load />
+  </div>
+  <div id="tab-3">
+    <ContainerVueSizeMd client:load />
+  </div>
+  <div id="tab-4">
+    <ContainerVueSizeLg client:load />
+  </div>
+  <div id="tab-5">
+    <ContainerVueSizeXl client:load />
+  </div>
+  <div id="tab-6">
+    <ContainerVueSizeFull client:load />
   </div>
 </CodeContainer>

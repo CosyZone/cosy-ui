@@ -1,0 +1,44 @@
+---
+/**
+ * @component ContainerVue Items Container
+ * @description ContainerVue Items 对齐容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerVueItemsStart from './ContainerVueItemsStart.vue';
+import ContainerVueItemsEnd from './ContainerVueItemsEnd.vue';
+import ContainerVueItemsCenter from './ContainerVueItemsCenter.vue';
+import ContainerVueItemsBaseline from './ContainerVueItemsBaseline.vue';
+import ContainerVueItemsStretch from './ContainerVueItemsStretch.vue';
+import ContainerVueItemsStartCode from './ContainerVueItemsStart.vue?raw';
+import ContainerVueItemsEndCode from './ContainerVueItemsEnd.vue?raw';
+import ContainerVueItemsCenterCode from './ContainerVueItemsCenter.vue?raw';
+import ContainerVueItemsBaselineCode from './ContainerVueItemsBaseline.vue?raw';
+import ContainerVueItemsStretchCode from './ContainerVueItemsStretch.vue?raw';
+---
+
+<CodeContainer
+  titles={['start', 'end', 'center', 'baseline', 'stretch']}
+  codes={[
+    ContainerVueItemsStartCode,
+    ContainerVueItemsEndCode,
+    ContainerVueItemsCenterCode,
+    ContainerVueItemsBaselineCode,
+    ContainerVueItemsStretchCode,
+  ]}>
+  <div id="tab-1">
+    <ContainerVueItemsStart client:load />
+  </div>
+  <div id="tab-2">
+    <ContainerVueItemsEnd client:load />
+  </div>
+  <div id="tab-3">
+    <ContainerVueItemsCenter client:load />
+  </div>
+  <div id="tab-4">
+    <ContainerVueItemsBaseline client:load />
+  </div>
+  <div id="tab-5">
+    <ContainerVueItemsStretch client:load />
+  </div>
+</CodeContainer>

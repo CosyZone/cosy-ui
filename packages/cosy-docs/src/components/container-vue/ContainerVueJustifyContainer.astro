@@ -5,19 +5,46 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import ContainerVueJustify from './ContainerVueJustify.vue';
-import ContainerVueJustifyCode from './ContainerVueJustify.vue?raw';
+import ContainerVueJustifyStart from './ContainerVueJustifyStart.vue';
+import ContainerVueJustifyEnd from './ContainerVueJustifyEnd.vue';
+import ContainerVueJustifyCenter from './ContainerVueJustifyCenter.vue';
+import ContainerVueJustifyBetween from './ContainerVueJustifyBetween.vue';
+import ContainerVueJustifyAround from './ContainerVueJustifyAround.vue';
+import ContainerVueJustifyEvenly from './ContainerVueJustifyEvenly.vue';
+import ContainerVueJustifyStartCode from './ContainerVueJustifyStart.vue?raw';
+import ContainerVueJustifyEndCode from './ContainerVueJustifyEnd.vue?raw';
+import ContainerVueJustifyCenterCode from './ContainerVueJustifyCenter.vue?raw';
+import ContainerVueJustifyBetweenCode from './ContainerVueJustifyBetween.vue?raw';
+import ContainerVueJustifyAroundCode from './ContainerVueJustifyAround.vue?raw';
+import ContainerVueJustifyEvenlyCode from './ContainerVueJustifyEvenly.vue?raw';
 ---
 
 <CodeContainer
-  titles={['左对齐', '居中对齐', '两端对齐', '右对齐']}
+  titles={['start', 'end', 'center', 'between', 'around', 'evenly']}
   codes={[
-    ContainerVueJustifyCode,
-    ContainerVueJustifyCode,
-    ContainerVueJustifyCode,
-    ContainerVueJustifyCode,
+    ContainerVueJustifyStartCode,
+    ContainerVueJustifyEndCode,
+    ContainerVueJustifyCenterCode,
+    ContainerVueJustifyBetweenCode,
+    ContainerVueJustifyAroundCode,
+    ContainerVueJustifyEvenlyCode,
   ]}>
   <div id="tab-1">
-    <ContainerVueJustify client:load />
+    <ContainerVueJustifyStart client:load />
+  </div>
+  <div id="tab-2">
+    <ContainerVueJustifyEnd client:load />
+  </div>
+  <div id="tab-3">
+    <ContainerVueJustifyCenter client:load />
+  </div>
+  <div id="tab-4">
+    <ContainerVueJustifyBetween client:load />
+  </div>
+  <div id="tab-5">
+    <ContainerVueJustifyAround client:load />
+  </div>
+  <div id="tab-6">
+    <ContainerVueJustifyEvenly client:load />
   </div>
 </CodeContainer>

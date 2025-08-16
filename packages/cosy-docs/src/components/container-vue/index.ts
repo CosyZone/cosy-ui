@@ -1,3 +1,4 @@
+import ContainerVueBackgroundContainer from './ContainerVueBackgroundContainer.astro';
 import ContainerVueBasicContainer from './ContainerVueBasicContainer.astro';
 import ContainerVueBorderContainer from './ContainerVueBorderContainer.astro';
 import ContainerVueCenteredContainer from './ContainerVueCenteredContainer.astro';
@@ -11,6 +12,7 @@ import ContainerVueSizesContainer from './ContainerVueSizesContainer.astro';
 import ContainerVueSlotsContainer from './ContainerVueSlotsContainer.astro';
 
 export const ContainerVuePackage = {
+    Background: ContainerVueBackgroundContainer,
     Basic: ContainerVueBasicContainer,
     Border: ContainerVueBorderContainer,
     Centered: ContainerVueCenteredContainer,
