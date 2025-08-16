@@ -1,45 +1,9 @@
 <!--
-@component iPhoneWindow
+@component ApplePhone
 
 @description
-iPhoneWindow 组件模拟 iPhone 设备的外观，包含状态栏、时间显示和设备边框。
+ApplePhone 组件模拟 iPhone 设备的外观，包含状态栏、时间显示和设备边框。
 适用于创建移动应用界面原型或展示移动端设计效果。
-
-@usage
-基本用法：
-```vue
-<iPhoneWindow>
-  <div>应用内容</div>
-</iPhoneWindow>
-```
-
-不显示边框：
-```vue
-<iPhoneWindow :showFrame="false">
-  <div>应用内容</div>
-</iPhoneWindow>
-```
-
-自定义背景色：
-```vue
-<iPhoneWindow backgroundColor="bg-blue-50">
-  <div>应用内容</div>
-</iPhoneWindow>
-```
-
-自定义高度：
-```vue
-<iPhoneWindow height="md">
-  <div>应用内容</div>
-</iPhoneWindow>
-```
-
-使用较大高度：
-```vue
-<iPhoneWindow height="2xl">
-  <div>应用内容</div>
-</iPhoneWindow>
-```
 
 @props
 @prop {'sm'|'md'|'lg'|'xl'|'2xl'|'3xl'|'4xl'|'5xl'} [height='lg'] - 窗口高度选项
@@ -55,7 +19,7 @@ iPhoneWindow 组件模拟 iPhone 设备的外观，包含状态栏、时间显�
 @prop {Array} [statusBarButtons=[]] - 状态栏按钮数组
 @prop {Boolean} [withShadow=true] - 是否显示阴影效果
 @prop {Boolean} [showFrame=true] - 是否显示 iPhone 边框
-@prop {String} [backgroundColor=''] - 内容区域背景色
+@prop {BackgroundColor} [backgroundColor=''] - 内容区域背景色，等同于为其内部的 Container 设置背景色
 
 @slots
 @slot default - 主要内容区域
@@ -64,8 +28,9 @@ iPhoneWindow 组件模拟 iPhone 设备的外观，包含状态栏、时间显�
 -->
 <script lang="ts">
 import '../../style';
-import { AlertDialog } from '../../index-vue';
+import { AlertDialog, Container } from '../../index-vue';
 import { ref, defineComponent } from 'vue';
+import type { BackgroundColor } from '../container/backgrounds';
 import iphoneFrame from './assets/iPhone 14 Pro - Deep Purple - Portrait.png';
 import StatusBarContent from './StatusBarContent.vue';
 
@@ -104,10 +69,11 @@ const heightClasses: Record<HeightOption, string> = {
 };
 
 export default defineComponent({
-    name: 'iPhoneWindow',
+    name: 'ApplePhone',
     components: {
         AlertDialog,
         StatusBarContent,
+        Container,
     },
     props: {
         height: {
@@ -116,10 +82,6 @@ export default defineComponent({
             validator: (value: string) => {
                 return Object.keys(heightClasses).includes(value);
             },
-        },
-        debug: {
-            type: Boolean,
-            default: false,
         },
         title: {
             type: String,
@@ -138,7 +100,7 @@ export default defineComponent({
             default: true,
         },
         backgroundColor: {
-            type: String,
+            type: String as () => BackgroundColor,
             default: '',
         },
     },
@@ -185,8 +147,6 @@ export default defineComponent({
 <template>
     <div :class="['cosy:relative not-prose', heightClasses[height]]" :style="{
         aspectRatio: `${iphoneFrameWidth}/${iphoneFrameHeight}`,
-        // 调试模式，背景色为半透明的黄色
-        backgroundColor: debug ? 'rgba(255, 255, 0, 0.3)' : 'transparent',
     }">
         <!-- iPhone 边框 -->
         <img v-if="showFrame" style="max-width: 100%; max-height: 100%" :src="iphoneFrame" alt="iPhone frame" />
@@ -201,8 +161,6 @@ export default defineComponent({
             transform: 'translate(-50%, 0)',
             paddingLeft: '5%',
             paddingRight: '5%',
-            // 调试模式，背景色为半透明的红色
-            backgroundColor: debug ? 'rgba(255, 0, 0, 0.3)' : 'transparent',
             zIndex: 10,
         }">
             <StatusBarContent :scaleRatio="getScaleRatio()" />
@@ -218,15 +176,12 @@ export default defineComponent({
             top: '50%',
             transform: 'translate(-50%, -50%)',
             position: 'absolute',
-            // 调试模式，背景色为半透明的蓝色
-            backgroundColor: debug ? 'rgba(0, 0, 255, 0.3)' : 'transparent',
             zIndex: 10,
         }">
-            <div :class="[
-                debug ? 'cosy:bg-green-300/50' : '',
-                'cosy:h-full cosy:w-full cosy:overflow-hidden',
-            ]">
-                <slot />
+            <div class="cosy:h-full cosy:w-full cosy:overflow-hidden">
+                <Container border style="height: 100%;" :background="backgroundColor || 'accent/90'">
+                    <slot />
+                </Container>
             </div>
         </div>
     </div>

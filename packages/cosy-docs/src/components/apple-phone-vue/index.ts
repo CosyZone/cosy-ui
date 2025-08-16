@@ -1,6 +1,5 @@
 import ApplePhoneVueBasicContainer from './ApplePhoneVueBasicContainer.astro';
 import ApplePhoneVueBackgroundColorContainer from './ApplePhoneVueBackgroundColorContainer.astro';
-import ApplePhoneVueDebugContainer from './ApplePhoneVueDebugContainer.astro';
 import ApplePhoneVueHeightContainer from './ApplePhoneVueHeightContainer.astro';
 import ApplePhoneVueShowFrameContainer from './ApplePhoneVueShowFrameContainer.astro';
 import ApplePhoneVueStatusBarButtonsContainer from './ApplePhoneVueStatusBarButtonsContainer.astro';
@@ -11,7 +10,6 @@ import ApplePhoneVueSlotsContainer from './ApplePhoneVueSlotsContainer.astro';
 export const ApplePhoneVuePackage = {
     Basic: ApplePhoneVueBasicContainer,
     BackgroundColor: ApplePhoneVueBackgroundColorContainer,
-    Debug: ApplePhoneVueDebugContainer,
     Height: ApplePhoneVueHeightContainer,
     ShowFrame: ApplePhoneVueShowFrameContainer,
     StatusBarButtons: ApplePhoneVueStatusBarButtonsContainer,

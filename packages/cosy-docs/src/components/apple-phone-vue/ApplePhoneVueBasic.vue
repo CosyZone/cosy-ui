@@ -3,12 +3,10 @@ import { ApplePhone, Container } from '@coffic/cosy-ui/vue';
 </script>
 
 <template>
-    <Container size="full" border justify="center" flex="row">
+    <Container size="full" border justify="center" flex="row" background="primary/10">
         <ApplePhone>
-            <Container border style="height: 100%;" background="accent/10">
-                <h3>基础用法</h3>
-                <p>这是一个基础的 ApplePhone 窗口示例，展示了默认的外观和状态栏。</p>
-            </Container>
+            <h3>基础用法</h3>
+            <p>这是一个基础的 ApplePhone 窗口示例，展示了默认的外观和状态栏。</p>
         </ApplePhone>
     </Container>
 </template>

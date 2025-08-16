@@ -5,14 +5,34 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import ApplePhoneVueBackgroundColor from './ApplePhoneVueBackgroundColor.vue';
-import ApplePhoneVueBackgroundColorCode from './ApplePhoneVueBackgroundColor.vue?raw';
+import ApplePhoneVueBackgroundColorPrimary from './ApplePhoneVueBackgroundColorPrimary.vue';
+import ApplePhoneVueBackgroundColorSuccess from './ApplePhoneVueBackgroundColorSuccess.vue';
+import ApplePhoneVueBackgroundColorWarning from './ApplePhoneVueBackgroundColorWarning.vue';
+import ApplePhoneVueBackgroundColorOpacity from './ApplePhoneVueBackgroundColorOpacity.vue';
+import ApplePhoneVueBackgroundColorPrimaryCode from './ApplePhoneVueBackgroundColorPrimary.vue?raw';
+import ApplePhoneVueBackgroundColorSuccessCode from './ApplePhoneVueBackgroundColorSuccess.vue?raw';
+import ApplePhoneVueBackgroundColorWarningCode from './ApplePhoneVueBackgroundColorWarning.vue?raw';
+import ApplePhoneVueBackgroundColorOpacityCode from './ApplePhoneVueBackgroundColorOpacity.vue?raw';
 ---
 
 <CodeContainer
-  titles={['自定义背景色']}
-  codes={[ApplePhoneVueBackgroundColorCode]}>
+  titles={['Primary', 'Success', 'Warning', '透明度']}
+  codes={[
+    ApplePhoneVueBackgroundColorPrimaryCode,
+    ApplePhoneVueBackgroundColorSuccessCode,
+    ApplePhoneVueBackgroundColorWarningCode,
+    ApplePhoneVueBackgroundColorOpacityCode,
+  ]}>
   <div id="tab-1">
-    <ApplePhoneVueBackgroundColor client:load />
+    <ApplePhoneVueBackgroundColorPrimary client:load />
+  </div>
+  <div id="tab-2">
+    <ApplePhoneVueBackgroundColorSuccess client:load />
+  </div>
+  <div id="tab-3">
+    <ApplePhoneVueBackgroundColorWarning client:load />
+  </div>
+  <div id="tab-4">
+    <ApplePhoneVueBackgroundColorOpacity client:load />
   </div>
 </CodeContainer>
