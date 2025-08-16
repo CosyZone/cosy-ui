@@ -1,0 +1,21 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import { UserIcon } from '@coffic/cosy-ui';
+import code1 from './examples/size-small.astro?raw';
+import code2 from './examples/size-medium.astro?raw';
+import code3 from './examples/size-large.astro?raw';
+---
+
+<CodeContainer
+  codes={[code1, code2, code3]}
+  titles={['小尺寸', '中等尺寸', '大尺寸']}>
+  <div id="tab-1">
+    <UserIcon size="16px" />
+  </div>
+  <div id="tab-2">
+    <UserIcon size="32px" />
+  </div>
+  <div id="tab-3">
+    <UserIcon size="48px" />
+  </div>
+</CodeContainer>

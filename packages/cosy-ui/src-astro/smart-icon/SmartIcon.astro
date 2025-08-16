@@ -1,0 +1,362 @@
+---
+/**
+ * @component SmartIcon
+ * @description 根据关键词自动渲染最合适的图标组件，支持多个关键词，优先匹配第一个找到的图标，未匹配时渲染默认图标。
+ * @props {string} keyword - 关键词，支持多个关键词用空格或逗号分隔
+ * @usage <SmartIcon keyword="用户 设置" class="w-6 h-6" />
+ * @usage <SmartIcon keyword="用户,设置" class="w-6 h-6" />
+ */
+import SocialIcon from '../social-icon/SocialIcon.astro';
+import TwitterIcon from '../icons/TwitterIcon.astro';
+import UserIcon from '../icons/UserIcon.astro';
+import WarningIcon from '../icons/WarningIcon.astro';
+import XCircle from '../icons/XCircle.astro';
+import InfoIcon from '../icons/InfoIcon.astro';
+import LinkIcon from '../icons/LinkIcon.astro';
+import LinkedinIcon from '../icons/LinkedinIcon.astro';
+import MenuIcon from '../icons/MenuIcon.astro';
+import RefreshIcon from '../icons/RefreshIcon.astro';
+import SearchIcon from '../icons/SearchIcon.astro';
+import SuccessIcon from '../icons/SuccessIcon.astro';
+import SunCloudyIcon from '../icons/SunCloudyIcon.astro';
+import AlertTriangle from '../icons/AlertTriangle.astro';
+import CalendarIcon from '../icons/CalendarIcon.astro';
+import CheckCircle from '../icons/CheckCircle.astro';
+import CheckIcon from '../icons/CheckIcon.astro';
+import ClipboardIcon from '../icons/ClipboardIcon.astro';
+import CloseIcon from '../icons/CloseIcon.astro';
+import CodeIcon from '../icons/CodeIcon.astro';
+import DeleteIcon from '../icons/DeleteIcon.astro';
+import ErrorIcon from '../icons/ErrorIcon.astro';
+import GithubIcon from '../icons/GithubIcon.astro';
+import InfoCircle from '../icons/InfoCircle.astro';
+import InboxArchive from '../icons/InboxArchive.astro';
+import SettingsIcon from '../icons/SettingsIcon.astro';
+import ChevronDownIcon from '../icons/ChevronDownIcon.astro';
+import HomeIcon from '../icons/HomeIcon.astro';
+import DashboardIcon from '../icons/DashboardIcon.astro';
+import ChartIcon from '../icons/ChartIcon.astro';
+import DocumentIcon from '../icons/DocumentIcon.astro';
+import NotificationIcon from '../icons/NotificationIcon.astro';
+import UsersIcon from '../icons/UsersIcon.astro';
+import MessageIcon from '../icons/MessageIcon.astro';
+import MailIcon from '../icons/MailIcon.astro';
+import FolderIcon from '../icons/FolderIcon.astro';
+import StarIcon from '../icons/StarIcon.astro';
+import HeartIcon from '../icons/HeartIcon.astro';
+import SaveIcon from '../icons/SaveIcon.astro';
+import EditIcon from '../icons/EditIcon.astro';
+import ToolsIcon from '../icons/ToolsIcon.astro';
+import WalletIcon from '../icons/WalletIcon.astro';
+import ReportIcon from '../icons/ReportIcon.astro';
+import SecurityIcon from '../icons/SecurityIcon.astro';
+import UploadIcon from '../icons/UploadIcon.astro';
+import DownloadIcon from '../icons/DownloadIcon.astro';
+import LogOut from '../icons/LogOut.astro';
+import AppStoreIcon from '../icons/AppStoreIcon.astro';
+import WebsiteIcon from '../icons/WebsiteIcon.astro';
+
+const { keyword = '', ...rest } = Astro.props;
+
+const zhMap: { [key: string]: any } = {
+  用户: UserIcon,
+  人: UserIcon,
+  账号: UserIcon,
+  个人: UserIcon,
+  警告: WarningIcon,
+  注意: WarningIcon,
+  信息: InfoIcon,
+  提示: InfoIcon,
+  链接: LinkIcon,
+  菜单: MenuIcon,
+  刷新: RefreshIcon,
+  搜索: SearchIcon,
+  成功: SuccessIcon,
+  太阳: SunCloudyIcon,
+  天气: SunCloudyIcon,
+  日历: CalendarIcon,
+  勾: CheckIcon,
+  对: CheckIcon,
+  完成: CheckIcon,
+  剪贴板: ClipboardIcon,
+  关闭: CloseIcon,
+  叉: CloseIcon,
+  代码: CodeIcon,
+  编程: CodeIcon,
+  开发: CodeIcon,
+  软件: CodeIcon,
+  算法: CodeIcon,
+  数据结构: CodeIcon,
+  删除: DeleteIcon,
+  错误: ErrorIcon,
+  github: GithubIcon,
+  设置: SettingsIcon,
+  配置: SettingsIcon,
+  主页: HomeIcon,
+  首页: HomeIcon,
+  仪表盘: DashboardIcon,
+  图表: ChartIcon,
+  数据: ChartIcon,
+  分析: ChartIcon,
+  文档: DocumentIcon,
+  文件: DocumentIcon,
+  通知: NotificationIcon,
+  群: UsersIcon,
+  成员: UsersIcon,
+  团队: UsersIcon,
+  消息: MessageIcon,
+  邮件: MailIcon,
+  文件夹: FolderIcon,
+  收藏: StarIcon,
+  星: StarIcon,
+  喜欢: HeartIcon,
+  心: HeartIcon,
+  保存: SaveIcon,
+  编辑: EditIcon,
+  修改: EditIcon,
+  工具: ToolsIcon,
+  钱包: WalletIcon,
+  报告: ReportIcon,
+  安全: SecurityIcon,
+  上传: UploadIcon,
+  下载: DownloadIcon,
+  退出: LogOut,
+  应用: AppStoreIcon,
+  网站: WebsiteIcon,
+  社交: SocialIcon,
+  推特: TwitterIcon,
+  数学: ChartIcon,
+  计算: ChartIcon,
+  函数: ChartIcon,
+  公式: ChartIcon,
+  几何: ChartIcon,
+  代数: ChartIcon,
+  微积分: ChartIcon,
+  概率: ChartIcon,
+  统计: ChartIcon,
+  机器学习: ChartIcon,
+  人工智能: ChartIcon,
+  深度学习: ChartIcon,
+  神经网络: ChartIcon,
+  数据库: FolderIcon,
+  服务器: SettingsIcon,
+  网络: LinkIcon,
+  协议: DocumentIcon,
+  架构: SettingsIcon,
+  设计模式: DocumentIcon,
+  测试: CheckIcon,
+  调试: ToolsIcon,
+  部署: UploadIcon,
+  运维: SettingsIcon,
+  监控: ChartIcon,
+  日志: DocumentIcon,
+  版本控制: DocumentIcon,
+  代码审查: CheckIcon,
+  持续集成: ToolsIcon,
+  持续部署: UploadIcon,
+  容器化: SettingsIcon,
+  虚拟化: SettingsIcon,
+  云计算: SettingsIcon,
+  大数据: ChartIcon,
+  数据挖掘: ChartIcon,
+  数据可视化: ChartIcon,
+  前端: CodeIcon,
+  后端: CodeIcon,
+  全栈: CodeIcon,
+  API: DocumentIcon,
+  接口: DocumentIcon,
+  框架: DocumentIcon,
+  库: DocumentIcon,
+  依赖: DocumentIcon,
+  包管理: ToolsIcon,
+  构建: ToolsIcon,
+  编译: ToolsIcon,
+  打包: ToolsIcon,
+  优化: SettingsIcon,
+  性能: ChartIcon,
+  缓存: SettingsIcon,
+  负载均衡: SettingsIcon,
+  高可用: SettingsIcon,
+  容错: SettingsIcon,
+  备份: SaveIcon,
+  恢复: RefreshIcon,
+  迁移: UploadIcon,
+  升级: UploadIcon,
+  回滚: DownloadIcon,
+  回退: DownloadIcon,
+};
+
+const iconMap: { [key: string]: any } = {
+  social: SocialIcon,
+  twitter: TwitterIcon,
+  user: UserIcon,
+  warning: WarningIcon,
+  x_circle: XCircle,
+  info: InfoIcon,
+  link: LinkIcon,
+  linkedin: LinkedinIcon,
+  menu: MenuIcon,
+  refresh: RefreshIcon,
+  search: SearchIcon,
+  success: SuccessIcon,
+  suncloudy: SunCloudyIcon,
+  alerttriangle: AlertTriangle,
+  calendar: CalendarIcon,
+  checkcircle: CheckCircle,
+  check: CheckIcon,
+  clipboard: ClipboardIcon,
+  close: CloseIcon,
+  code: CodeIcon,
+  programming: CodeIcon,
+  development: CodeIcon,
+  software: CodeIcon,
+  algorithm: CodeIcon,
+  data_structure: CodeIcon,
+  delete: DeleteIcon,
+  error: ErrorIcon,
+  github: GithubIcon,
+  infocircle: InfoCircle,
+  inboxarchive: InboxArchive,
+  settings: SettingsIcon,
+  configuration: SettingsIcon,
+  chevrondown: ChevronDownIcon,
+  home: HomeIcon,
+  dashboard: DashboardIcon,
+  chart: ChartIcon,
+  data: ChartIcon,
+  analysis: ChartIcon,
+  document: DocumentIcon,
+  notification: NotificationIcon,
+  users: UsersIcon,
+  team: UsersIcon,
+  message: MessageIcon,
+  mail: MailIcon,
+  folder: FolderIcon,
+  star: StarIcon,
+  heart: HeartIcon,
+  save: SaveIcon,
+  edit: EditIcon,
+  modify: EditIcon,
+  tools: ToolsIcon,
+  wallet: WalletIcon,
+  report: ReportIcon,
+  security: SecurityIcon,
+  upload: UploadIcon,
+  download: DownloadIcon,
+  logout: LogOut,
+  appstore: AppStoreIcon,
+  website: WebsiteIcon,
+  math: ChartIcon,
+  mathematics: ChartIcon,
+  calculation: ChartIcon,
+  function: ChartIcon,
+  formula: ChartIcon,
+  geometry: ChartIcon,
+  algebra: ChartIcon,
+  calculus: ChartIcon,
+  probability: ChartIcon,
+  statistics: ChartIcon,
+  machine_learning: ChartIcon,
+  ai: ChartIcon,
+  artificial_intelligence: ChartIcon,
+  deep_learning: ChartIcon,
+  neural_network: ChartIcon,
+  database: FolderIcon,
+  server: SettingsIcon,
+  network: LinkIcon,
+  protocol: DocumentIcon,
+  architecture: SettingsIcon,
+  design_pattern: DocumentIcon,
+  test: CheckIcon,
+  testing: CheckIcon,
+  debug: ToolsIcon,
+  debugging: ToolsIcon,
+  deploy: UploadIcon,
+  deployment: UploadIcon,
+  devops: SettingsIcon,
+  monitor: ChartIcon,
+  monitoring: ChartIcon,
+  log: DocumentIcon,
+  logging: DocumentIcon,
+  version_control: DocumentIcon,
+  git: DocumentIcon,
+  code_review: CheckIcon,
+  ci: ToolsIcon,
+  continuous_integration: ToolsIcon,
+  cd: UploadIcon,
+  continuous_deployment: UploadIcon,
+  container: SettingsIcon,
+  docker: SettingsIcon,
+  virtualization: SettingsIcon,
+  cloud: SettingsIcon,
+  cloud_computing: SettingsIcon,
+  big_data: ChartIcon,
+  data_mining: ChartIcon,
+  data_visualization: ChartIcon,
+  frontend: CodeIcon,
+  backend: CodeIcon,
+  fullstack: CodeIcon,
+  api: DocumentIcon,
+  interface: DocumentIcon,
+  framework: DocumentIcon,
+  library: DocumentIcon,
+  dependency: DocumentIcon,
+  package: ToolsIcon,
+  build: ToolsIcon,
+  compile: ToolsIcon,
+  bundle: ToolsIcon,
+  optimize: SettingsIcon,
+  performance: ChartIcon,
+  cache: SettingsIcon,
+  load_balancing: SettingsIcon,
+  high_availability: SettingsIcon,
+  fault_tolerance: SettingsIcon,
+  backup: SaveIcon,
+  restore: RefreshIcon,
+  migrate: UploadIcon,
+  upgrade: UploadIcon,
+  rollback: DownloadIcon,
+};
+
+let IconComponent = DocumentIcon;
+if (keyword) {
+  // 支持多个关键词，用空格或逗号分隔
+  const keywords = keyword.split(/[\s,]+/).filter((k: string) => k.trim());
+
+  // 遍历每个关键词，找到第一个匹配的图标
+  for (const singleKeyword of keywords) {
+    const trimmedKeyword = singleKeyword.trim();
+    if (!trimmedKeyword) continue;
+
+    // 先检查中文映射
+    for (const zh in zhMap) {
+      if (trimmedKeyword.includes(zh)) {
+        IconComponent = zhMap[zh];
+        break;
+      }
+    }
+
+    // 如果中文映射没找到，检查英文映射
+    if (IconComponent === DocumentIcon) {
+      const lower = trimmedKeyword.toLowerCase();
+      if (iconMap[lower]) {
+        IconComponent = iconMap[lower];
+      } else {
+        for (const key in iconMap) {
+          if (lower.includes(key)) {
+            IconComponent = iconMap[key];
+            break;
+          }
+        }
+      }
+    }
+
+    // 如果找到了匹配的图标，就停止搜索
+    if (IconComponent !== DocumentIcon) {
+      break;
+    }
+  }
+}
+---
+
+<IconComponent {...rest} />

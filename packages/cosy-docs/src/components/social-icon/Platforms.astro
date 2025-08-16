@@ -1,0 +1,25 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import { SocialIcon } from '@coffic/cosy-ui';
+import GitHubCode from './examples/GitHub.astro?raw';
+import TwitterCode from './examples/Twitter.astro?raw';
+import LinkedInCode from './examples/LinkedIn.astro?raw';
+import FacebookCode from './examples/Facebook.astro?raw';
+---
+
+<CodeContainer
+  codes={[GitHubCode, TwitterCode, LinkedInCode, FacebookCode]}
+  titles={['GitHub', 'Twitter', 'LinkedIn', 'Facebook']}>
+  <div id="tab-1">
+    <SocialIcon platform="github" size="32px" color="#333" />
+  </div>
+  <div id="tab-2">
+    <SocialIcon platform="twitter" size="32px" color="#1da1f2" />
+  </div>
+  <div id="tab-3">
+    <SocialIcon platform="linkedin" size="32px" color="#0077b5" />
+  </div>
+  <div id="tab-4">
+    <SocialIcon platform="facebook" size="32px" color="#1877f2" />
+  </div>
+</CodeContainer>

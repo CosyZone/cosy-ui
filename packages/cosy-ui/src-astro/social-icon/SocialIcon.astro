@@ -1,0 +1,98 @@
+---
+/**
+ * @component SocialIcon
+ *
+ * @description
+ * SocialIcon 组件用于显示社交媒体平台的图标，支持多种常见的社交媒体平台。
+ * 它提供了一致的样式和交互效果，同时支持自定义大小和颜色。
+ *
+ * @design
+ * 设计理念：
+ * 1. 简洁明了 - 使用清晰易识别的图标表示社交媒体平台
+ * 2. 一致性 - 保持统一的样式和交互效果
+ * 3. 可定制性 - 支持自定义大小、颜色和样式
+ * 4. 可访问性 - 提供适当的 aria 标签，确保屏幕阅读器可以识别
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <SocialIcon platform="github" />
+ * <SocialIcon platform="twitter" />
+ * <SocialIcon platform="linkedin" />
+ * ```
+ *
+ * 自定义大小和颜色：
+ * ```astro
+ * <SocialIcon platform="github" size="32px" color="#333" />
+ * ```
+ *
+ * 使用自定义类名：
+ * ```astro
+ * <SocialIcon platform="twitter" class="my-custom-class" />
+ * ```
+ */
+
+// 导入样式
+import '../../style.ts';
+
+import GithubIcon from '../icons/GithubIcon.astro';
+import TwitterIcon from '../icons/TwitterIcon.astro';
+import LinkedinIcon from '../icons/LinkedinIcon.astro';
+
+interface Props {
+  /**
+   * 社交媒体平台名称
+   * @default "default"
+   */
+  platform: string;
+
+  /**
+   * 图标的大小
+   * @default "24px"
+   */
+  size?: string;
+
+  /**
+   * 图标的颜色
+   * @default "currentColor"
+   */
+  color?: string;
+
+  /**
+   * 自定义类名
+   */
+  class?: string;
+}
+
+const {
+  platform = 'default',
+  size = '24px',
+  color = 'currentColor',
+  class: className = '',
+} = Astro.props;
+
+// 获取平台名称的首字母大写版本，用于显示
+const platformName = platform.charAt(0).toUpperCase() + platform.slice(1);
+
+// 根据平台名称选择对应的图标组件
+const getIconComponent = (platform: string) => {
+  switch (platform.toLowerCase()) {
+    case 'github':
+      return GithubIcon;
+    case 'twitter':
+      return TwitterIcon;
+    case 'linkedin':
+      return LinkedinIcon;
+    // 其他平台图标可以在这里添加
+    default:
+      return GithubIcon; // 默认使用 GitHub 图标
+  }
+};
+
+const IconComponent = getIconComponent(platform);
+
+// 构建社交图标的类名
+const socialIconClass = `social-icon social-icon-${platform.toLowerCase()} ${className}`;
+---
+
+<IconComponent size={size} color={color} class={socialIconClass} />

@@ -1,0 +1,22 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import { SocialIcon } from '@coffic/cosy-ui';
+import SocialIconExample from './examples/SocialIconExample.astro?raw';
+import SocialIconPlatforms from './examples/SocialIconPlatforms.astro?raw';
+---
+
+<CodeContainer
+  codes={[SocialIconExample, SocialIconPlatforms]}
+  titles={['基础用法', '不同平台']}>
+  <div id="tab-1">
+    <SocialIcon platform="github" size="32px" color="#333" />
+  </div>
+  <div id="tab-2">
+    <div style="display: flex; gap: 1rem; align-items: center;">
+      <SocialIcon platform="github" size="24px" color="#333" />
+      <SocialIcon platform="twitter" size="24px" color="#1da1f2" />
+      <SocialIcon platform="facebook" size="24px" color="#1877f2" />
+      <SocialIcon platform="linkedin" size="24px" color="#0077b5" />
+    </div>
+  </div>
+</CodeContainer>

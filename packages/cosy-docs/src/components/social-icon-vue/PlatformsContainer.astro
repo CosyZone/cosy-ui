@@ -1,0 +1,32 @@
+---
+/**
+ * @component SocialIconPlatformsContainer
+ * @description SocialIcon 组件 platform 属性示例容器，展示不同的社交媒体平台。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import Github from './Github.vue';
+import Twitter from './Twitter.vue';
+import Linkedin from './Linkedin.vue';
+import Facebook from './Facebook.vue';
+import GithubSource from './Github.vue?raw';
+import TwitterSource from './Twitter.vue?raw';
+import LinkedinSource from './Linkedin.vue?raw';
+import FacebookSource from './Facebook.vue?raw';
+---
+
+<CodeContainer
+  codes={[GithubSource, TwitterSource, LinkedinSource, FacebookSource]}
+  titles={['GitHub', 'Twitter', 'LinkedIn', 'Facebook']}>
+  <div id="tab-1">
+    <Github client:load />
+  </div>
+  <div id="tab-2">
+    <Twitter client:load />
+  </div>
+  <div id="tab-3">
+    <Linkedin client:load />
+  </div>
+  <div id="tab-4">
+    <Facebook client:load />
+  </div>
+</CodeContainer>

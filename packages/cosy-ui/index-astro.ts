@@ -26,6 +26,8 @@ export * from './src-astro/heading';
 export * from './src-astro/hero';
 export * from './src-astro/icons';
 export * from './src-astro/image';
+export * from './src-astro/smart-icon';
+export * from './src-astro/social-icon';
 export * from './src-astro/language-switcher';
 export * from './src-astro/layout-app';
 export * from './src-astro/layout-basic';
@@ -54,7 +56,6 @@ export * from './src-astro/text';
 export * from './src-astro/theme-switcher';
 export * from './src-astro/toc';
 export * from './src-astro/toast';
-
 
 // 类型定义 (按字母顺序)
 export * from './src-astro/types/article';

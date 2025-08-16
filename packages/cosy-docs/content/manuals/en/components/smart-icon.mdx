@@ -1,0 +1,52 @@
+---
+title: 'SmartIcon'
+folder: false
+order: 21
+---
+
+import { SmartIconPackage } from '@/components/smart-icon/index.ts';
+
+# {frontmatter.title}
+
+## Introduction
+
+The SmartIcon component is an intelligent icon selector that automatically renders the most suitable icon component based on keywords. It supports multiple keywords, prioritizing the first matching icon found, and renders a default icon when no match is found. This component is particularly suitable for scenarios where you need to dynamically select icons based on content, such as search result displays and content category presentations.
+
+## Examples
+
+<SmartIconPackage.Keywords />
+
+## Props
+
+### class
+Customize the style class name of the smart icon through the `class` attribute.
+<SmartIconPackage.CustomStyle />
+
+### color
+Customize the color of the smart icon through the `color` attribute.
+<SmartIconPackage.Colors />
+
+### keyword
+Specify keywords for icon matching through the `keyword` attribute, supporting multiple keywords separated by spaces or commas.
+<SmartIconPackage.Keywords />
+
+### size
+Control the size of the smart icon through the `size` attribute.
+<SmartIconPackage.Sizes />
+
+## Keyword Examples
+
+### User Related
+<SmartIconPackage.UserKeywords />
+
+### Technology Related
+<SmartIconPackage.TechKeywords />
+
+### Action Related
+<SmartIconPackage.ActionKeywords />
+
+## Multi-Keyword Support
+
+SmartIcon supports multiple keywords separated by spaces or commas. The system will search for matching icons in order.
+
+<SmartIconPackage.MultiKeywords />

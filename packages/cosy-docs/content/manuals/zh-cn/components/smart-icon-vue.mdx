@@ -1,0 +1,50 @@
+---
+title: 'SmartIcon'
+description: 'Vue 版本的 SmartIcon 组件'
+badge: 'Vue'
+tags:
+  - Vue
+folder: false
+order: 21
+---
+
+import { SmartIconVuePackage } from '@/components/smart-icon-vue/index.ts';
+
+# {frontmatter.title}
+
+## 简介
+
+Vue 版本的 SmartIcon 组件是一个智能图标选择器，能够根据关键词自动渲染最合适的图标组件。它支持多个关键词，优先匹配第一个找到的图标，未匹配时渲染默认图标。该组件特别适用于需要根据内容动态选择图标的场景，如搜索结果显示、内容分类展示等。
+
+## 案例
+
+<SmartIconVuePackage.Keywords />
+
+## Props
+
+### class
+通过 `class` 属性自定义智能图标的样式类名。
+<SmartIconVuePackage.CustomStyle />
+
+### color
+通过 `color` 属性自定义智能图标的颜色。
+<SmartIconVuePackage.Colors />
+
+### keyword
+通过 `keyword` 属性指定用于匹配图标的关键词，支持多个关键词用空格或逗号分隔。
+<SmartIconVuePackage.Keywords />
+
+### size
+通过 `size` 属性控制智能图标的大小。
+<SmartIconVuePackage.Sizes />
+
+## 关键词示例
+
+SmartIcon 支持多种类型的关键词，包括用户相关、技术相关、操作相关等。它还支持多个关键词的组合使用，用空格或逗号分隔，系统会按顺序查找匹配的图标。
+
+### 支持的关键词类型
+
+- **用户相关**：user, person, account, profile
+- **技术相关**：code, github, settings, tools
+- **操作相关**：search, edit, delete, save
+- **多关键词支持**：支持 "user profile"、"search,find" 等组合

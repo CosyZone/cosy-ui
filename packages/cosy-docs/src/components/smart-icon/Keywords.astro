@@ -1,0 +1,30 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import { SmartIcon } from '@coffic/cosy-ui';
+import KeywordUserCode from './examples/KeywordUser.astro?raw';
+import KeywordSettingsCode from './examples/KeywordSettings.astro?raw';
+import KeywordSearchCode from './examples/KeywordSearch.astro?raw';
+import KeywordDocumentCode from './examples/KeywordDocument.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    KeywordUserCode,
+    KeywordSettingsCode,
+    KeywordSearchCode,
+    KeywordDocumentCode,
+  ]}
+  titles={['用户', '设置', '搜索', '文档']}>
+  <div id="tab-1">
+    <SmartIcon keyword="用户" size="24px" color="#8b5cf6" />
+  </div>
+  <div id="tab-2">
+    <SmartIcon keyword="设置" size="24px" color="#8b5cf6" />
+  </div>
+  <div id="tab-3">
+    <SmartIcon keyword="搜索" size="24px" color="#8b5cf6" />
+  </div>
+  <div id="tab-4">
+    <SmartIcon keyword="文档" size="24px" color="#8b5cf6" />
+  </div>
+</CodeContainer>

@@ -1,0 +1,52 @@
+---
+title: 'SmartIcon'
+folder: false
+order: 21
+---
+
+import { SmartIconPackage } from '@/components/smart-icon/index.ts';
+
+# {frontmatter.title}
+
+## 简介
+
+SmartIcon 组件是一个智能图标选择器，能够根据关键词自动渲染最合适的图标组件。它支持多个关键词，优先匹配第一个找到的图标，未匹配时渲染默认图标。该组件特别适用于需要根据内容动态选择图标的场景，如搜索结果显示、内容分类展示等。
+
+## 案例
+
+<SmartIconPackage.Keywords />
+
+## Props
+
+### class
+通过 `class` 属性自定义智能图标的样式类名。
+<SmartIconPackage.CustomStyle />
+
+### color
+通过 `color` 属性自定义智能图标的颜色。
+<SmartIconPackage.Colors />
+
+### keyword
+通过 `keyword` 属性指定用于匹配图标的关键词，支持多个关键词用空格或逗号分隔。
+<SmartIconPackage.Keywords />
+
+### size
+通过 `size` 属性控制智能图标的大小。
+<SmartIconPackage.Sizes />
+
+## 关键词示例
+
+### 用户相关
+<SmartIconPackage.UserKeywords />
+
+### 技术相关
+<SmartIconPackage.TechKeywords />
+
+### 操作相关
+<SmartIconPackage.ActionKeywords />
+
+## 多关键词支持
+
+SmartIcon 支持多个关键词，用空格或逗号分隔，系统会按顺序查找匹配的图标。
+
+<SmartIconPackage.MultiKeywords />

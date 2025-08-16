@@ -1,0 +1,57 @@
+---
+title: 'Icons'
+description: 'Astro version of icon components, providing a rich SVG icon library'
+order: 12
+---
+
+import { IconsPackage } from '@/components/icons/index.ts';
+
+# {frontmatter.title}
+
+## Introduction
+
+The Icons component library provides a complete set of Astro icon components, built on SVG icons, supporting custom sizes, colors, and styles. All icons are carefully designed to ensure clarity and beauty at different sizes. This component library is suitable for applications that require rich visual elements, such as dashboards, navigation menus, action buttons, and other scenarios.
+
+## Props
+
+### class
+
+Customize the CSS class name of the icon through the `class` attribute to override default styles.
+
+<IconsPackage.ClassContainer />
+
+### color
+
+Customize the color of the icon through the `color` attribute, supporting any valid CSS color value.
+
+<IconsPackage.ColorContainer />
+
+### size
+
+Customize the size of the icon through the `size` attribute, supporting any valid CSS size value.
+
+<IconsPackage.SizeContainer />
+
+## Slots
+
+Icon components do not provide content slots, all content is rendered through SVG path data.
+
+## Special Icons
+
+### SocialIcon
+
+Social platform icon component that supports displaying icons for various social platforms. Use the `platform` attribute to specify which social platform to display.
+
+<IconsPackage.SocialIconContainer />
+
+### SmartIcon
+
+Smart icon component with unique visual design, suitable for representing intelligent and technology-related functions.
+
+<IconsPackage.SmartIconContainer />
+
+## All Icons
+
+Display all available Astro icon components.
+
+<IconsPackage.IconShowcase /> 

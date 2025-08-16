@@ -1,0 +1,20 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import { SmartIcon } from '@coffic/cosy-ui';
+import MultiKeywordsCode from './examples/MultiKeywords.astro?raw';
+import MultiKeywordsExample from './examples/MultiKeywords.astro';
+---
+
+<CodeContainer
+  codes={[MultiKeywordsCode]}
+  titles={['用户 设置', '代码,编程,开发', '搜索 查找']}>
+  <div id="tab-1">
+    <SmartIcon keyword="用户 设置" size="32px" color="#8b5cf6" />
+  </div>
+  <div id="tab-2">
+    <SmartIcon keyword="代码,编程,开发" size="32px" color="#8b5cf6" />
+  </div>
+  <div id="tab-3">
+    <SmartIcon keyword="搜索 查找" size="32px" color="#8b5cf6" />
+  </div>
+</CodeContainer>

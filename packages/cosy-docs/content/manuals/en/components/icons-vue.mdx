@@ -1,0 +1,60 @@
+---
+title: 'Icons Vue'
+description: 'Vue version of icon components, providing a rich SVG icon library'
+badge: 'Vue'
+tags:
+  - Vue
+order: 12.1
+---
+
+import { IconsVuePackage } from '@/components/icons-vue/index.ts';
+
+# {frontmatter.title}
+
+## Introduction
+
+Icons Vue component library provides a complete set of Vue icon components based on SVG icons, supporting customizable size, color, and styles. All icons are carefully designed to ensure clarity and beauty at different sizes. This component library is suitable for applications that need rich visual elements, such as dashboards, navigation menus, action buttons, and other scenarios.
+
+## Props
+
+### class
+
+Customize the CSS class name of the icon through the `class` attribute to override default styles.
+
+<IconsVuePackage.ClassContainer />
+
+### color
+
+Customize the color of the icon through the `color` attribute, supporting any valid CSS color value.
+
+<IconsVuePackage.ColorContainer />
+
+### size
+
+Customize the size of the icon through the `size` attribute, supporting any valid CSS dimension value.
+
+<IconsVuePackage.SizeContainer />
+
+## Slots
+
+Icon components do not provide content slots, all content is rendered through SVG path data.
+
+## Special Icons
+
+### SocialIcon
+
+Social platform icon component that supports displaying icons for various social platforms. Use the `platform` attribute to specify which social platform to display.
+
+<IconsVuePackage.SocialIconContainer />
+
+### SmartIcon
+
+Smart icon component with unique visual design, suitable for representing intelligent and technology-related functions.
+
+<IconsVuePackage.SmartIconContainer />
+
+## All Icons
+
+Display all available Vue icon components.
+
+<IconsVuePackage.IconShowcase />

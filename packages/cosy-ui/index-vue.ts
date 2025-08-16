@@ -37,6 +37,12 @@ export * from './src-vue/buttons/index';
 // Icons
 export * from './src-vue/icons/index';
 
+// SmartIcon
+export * from './src-vue/smart-icon/index';
+
+// SocialIcon
+export * from './src-vue/social-icon/index';
+
 // KeyCatcher
 export * from './src-vue/key-catcher/index';
 

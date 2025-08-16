@@ -1,5 +1,6 @@
 ---
-title: ProductCard
+title: 'ProductCard'
+description: 'ProductCard 组件用于展示产品信息，包括产品名称、图片、描述、App Store链接和产品官网链接'
 folder: false
 order: 16
 ---
@@ -9,167 +10,72 @@ import { ProductCardPackage } from '@/components/product-card';
 
 # {frontmatter.title}
 
+## 简介
+
 ProductCard 组件用于展示产品信息，包括产品名称、图片、描述、App Store链接和产品官网链接。组件采用卡片式设计，支持悬停效果，并提供链接到产品相关页面的功能。
 
-## 特性
-
-- 🎨 **多种尺寸**：支持 xs、sm、md、lg、xl 五种预设尺寸
-- 🎯 **灵活布局**：支持水平和垂直按钮布局
-- 🌟 **自定义阴影**：提供 none、sm、md、lg、xl 五种阴影样式
-- 📏 **等高卡片**：支持在网格布局中保持统一高度
-- 📝 **文本控制**：可控制描述文本的最大显示行数
-- 🔗 **多链接支持**：支持产品官网、App Store、GitHub 等多种链接
-- 🎭 **悬停效果**：提供平滑的悬停动画和阴影变化
-
-## 基础用法
+## 案例
 
 <ProductCardPackage.ComponentContainers.Basic />
 
-## 尺寸选项
+## Props
 
-ProductCard 支持五种预设尺寸，适应不同的展示需求：
+### appStoreUrl
+App Store 链接地址，用于跳转到 App Store 应用页面。
+<ProductCardPackage.ComponentContainers.Basic />
 
-<ProductCardPackage.ComponentContainers.Sizes />
+### buttonLayout
+按钮布局方向，支持水平（row）和垂直（column）两种布局方式。
+<ProductCardPackage.ComponentContainers.Basic />
 
-## 阴影样式
+### class
+自定义 CSS 类名，用于覆盖默认样式。
+<ProductCardPackage.ComponentContainers.Basic />
 
-通过 `shadow` 属性可以自定义卡片的阴影效果：
+### description
+产品描述文本，支持多行显示。
+<ProductCardPackage.ComponentContainers.Basic />
 
-<ProductCardPackage.ComponentContainers.Shadow />
-
-## 等高卡片
-
-在网格布局中使用 `equalHeight` 属性可以确保所有卡片高度一致：
-
-<ProductCardPackage.ComponentContainers.EqualHeight />
-
-## 描述文本控制
-
-使用 `descriptionLines` 属性可以控制描述文本的最大显示行数：
-
+### descriptionLines
+描述文本的最大显示行数，超出部分会被截断。
 <ProductCardPackage.ComponentContainers.DescriptionLines />
 
-## API 参考
+### equalHeight
+是否启用等高卡片，在网格布局中确保所有卡片高度一致。
+<ProductCardPackage.ComponentContainers.EqualHeight />
 
-### Props
+### githubButtonText
+GitHub 按钮的显示文本。
+<ProductCardPackage.ComponentContainers.Basic />
 
-| 属性 | 类型 | 默认值 | 描述 |
-|------|------|--------|------|
-| `name` | `string` | - | 产品名称（必填） |
-| `image` | `ImageSource` | - | 产品图片（必填） |
-| `description` | `string` | - | 产品描述（必填） |
-| `appStoreUrl` | `string` | - | App Store链接 |
-| `productUrl` | `string` | - | 产品官网链接 |
-| `githubUrl` | `string` | - | GitHub仓库链接 |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | 卡片尺寸 |
-| `primaryButtonText` | `string` | `'访问官网'` | 主按钮文本 |
-| `secondaryButtonText` | `string` | `'App Store'` | 次按钮文本 |
-| `githubButtonText` | `string` | `'GitHub'` | GitHub按钮文本 |
-| `buttonLayout` | `'row' \| 'column'` | `'row'` | 按钮布局方向 |
-| `equalHeight` | `boolean` | `false` | 是否启用等高卡片 |
-| `descriptionLines` | `number` | - | 描述文本的最大行数 |
-| `shadow` | `'none' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | 卡片阴影样式 |
-| `class` | `string` | - | 自定义类名 |
+### githubUrl
+GitHub 仓库链接地址。
+<ProductCardPackage.ComponentContainers.Basic />
 
-### 尺寸说明
+### image
+产品图片，支持多种图片源格式。
+<ProductCardPackage.ComponentContainers.Basic />
 
-| 尺寸 | 宽度 | 高度 | 适用场景 |
-|------|------|------|----------|
-| `xs` | 200px | 280px | 密集布局，列表展示 |
-| `sm` | 250px | 360px | 小尺寸展示 |
-| `md` | 320px | 450px | 标准展示（默认） |
-| `lg` | 400px | 550px | 突出显示 |
-| `xl` | 500px | 650px | 特色产品展示 |
+### name
+产品名称，必填属性。
+<ProductCardPackage.ComponentContainers.Basic />
 
-### 阴影样式
+### primaryButtonText
+主按钮（产品官网按钮）的显示文本。
+<ProductCardPackage.ComponentContainers.Basic />
 
-| 样式 | 描述 |
-|------|------|
-| `none` | 无阴影，简洁风格 |
-| `sm` | 小阴影，轻微立体感 |
-| `md` | 中等阴影（默认） |
-| `lg` | 大阴影，突出显示 |
-| `xl` | 超大阴影，强烈立体感 |
+### productUrl
+产品官网链接地址。
+<ProductCardPackage.ComponentContainers.Basic />
 
-## 使用示例
+### secondaryButtonText
+次按钮（App Store 按钮）的显示文本。
+<ProductCardPackage.ComponentContainers.Basic />
 
-### 基础产品卡片
+### shadow
+卡片阴影样式，提供 none、sm、md、lg、xl 五种样式选择。
+<ProductCardPackage.ComponentContainers.Shadow />
 
-```astro
-<ProductCard
-  name="产品名称"
-  image="/images/products/product1.jpg"
-  description="产品简短描述文本"
-  productUrl="https://product-website.com"
-/>
-```
-
-### 包含App Store链接
-
-```astro
-<ProductCard
-  name="产品名称"
-  image="/images/products/product1.jpg"
-  description="产品简短描述文本"
-  appStoreUrl="https://apps.apple.com/app/product"
-  productUrl="https://product-website.com"
-/>
-```
-
-### 自定义尺寸和阴影
-
-```astro
-<ProductCard
-  size="lg"
-  shadow="xl"
-  name="突出显示的产品"
-  image="/images/products/product1.jpg"
-  description="使用大尺寸和大阴影突出显示的产品"
-  productUrl="https://product-website.com"
-/>
-```
-
-### 网格布局中的等高卡片
-
-```astro
-<div class="cosy:gap-4 cosy:grid cosy:grid-cols-3">
-  <ProductCard
-    equalHeight
-    name="产品1"
-    image="/images/products/product1.jpg"
-    description="产品描述文本"
-  />
-  <ProductCard
-    equalHeight
-    name="产品2"
-    image="/images/products/product2.jpg"
-    description="另一个产品的描述"
-  />
-</div>
-```
-
-### 垂直按钮布局
-
-```astro
-<ProductCard
-  buttonLayout="column"
-  name="产品名称"
-  image="/images/products/product1.jpg"
-  description="产品描述"
-  appStoreUrl="https://apps.apple.com/app/product"
-  productUrl="https://product-website.com"
-  githubUrl="https://github.com/product"
-/>
-```
-
-### 控制描述行数
-
-```astro
-<ProductCard
-  descriptionLines={2}
-  name="产品名称"
-  image="/images/products/product1.jpg"
-  description="这是一个很长的产品描述，可能会超过两行，但会被截断显示"
-  productUrl="https://product-website.com"
-/>
-``` 
+### size
+卡片尺寸，支持 xs、sm、md、lg、xl 五种预设尺寸。
+<ProductCardPackage.ComponentContainers.Sizes /> 

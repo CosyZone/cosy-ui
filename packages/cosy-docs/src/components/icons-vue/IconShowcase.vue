@@ -1,0 +1,141 @@
+<script setup lang="ts">
+import {
+    AlertTriangleIcon,
+    AppStoreIcon,
+    CalendarIcon,
+    ChartIcon,
+    CheckIcon,
+    CheckCircleIcon,
+    ChevronDownIcon,
+    ChevronLeftIcon,
+    ChevronRightIcon,
+    ClipboardIcon,
+    CloseIcon,
+    CodeIcon,
+    DashboardIcon,
+    DeleteIcon,
+    DocumentIcon,
+    DownloadIcon,
+    EditIcon,
+    ErrorIcon,
+    FacebookIcon,
+    FolderIcon,
+    GithubIcon,
+    GlobeIcon,
+    HeartIcon,
+    HomeIcon,
+    IPhoneBatteryIcon,
+    IPhoneSignalIcon,
+    IPhoneWifiIcon,
+    InboxArchiveIcon,
+    InfoCircleIcon,
+    InfoIcon,
+    LinkIcon,
+    LinkedinIcon,
+    LogOut,
+    MailIcon,
+    MapPinIcon,
+    MenuIcon,
+    MessageIcon,
+    NotificationIcon,
+    PhoneIcon,
+    RefreshIcon,
+    ReportIcon,
+    SaveIcon,
+    SearchIcon,
+    SecurityIcon,
+    SettingsIcon,
+    StarIcon,
+    SuccessIcon,
+    SunCloudyIcon,
+    ToolsIcon,
+    TwitterIcon,
+    UploadIcon,
+    UserIcon,
+    UsersIcon,
+    ViewIcon,
+    WalletIcon,
+    WarningIcon,
+    WebsiteIcon,
+    XCircleIcon
+} from '@coffic/cosy-ui/vue';
+
+/**
+ * @component IconShowcase
+ * @description Vue 图标展示组件，展示各种图标的使用方法
+ */
+
+// 图标配置数组
+const icons = [
+    { component: AlertTriangleIcon, name: 'AlertTriangle', color: '#f59e0b' },
+    { component: AppStoreIcon, name: 'AppStore', color: '#8b5cf6' },
+    { component: CalendarIcon, name: 'Calendar', color: '#3b82f6' },
+    { component: ChartIcon, name: 'Chart', color: '#06b6d4' },
+    { component: CheckIcon, name: 'Check', color: '#10b981' },
+    { component: CheckCircleIcon, name: 'CheckCircle', color: '#10b981' },
+    { component: ChevronDownIcon, name: 'ChevronDown', color: '#6b7280' },
+    { component: ChevronLeftIcon, name: 'ChevronLeft', color: '#6b7280' },
+    { component: ChevronRightIcon, name: 'ChevronRight', color: '#6b7280' },
+    { component: ClipboardIcon, name: 'Clipboard', color: '#8b5cf6' },
+    { component: CloseIcon, name: 'Close', color: '#ef4444' },
+    { component: CodeIcon, name: 'Code', color: '#8b5cf6' },
+    { component: DashboardIcon, name: 'Dashboard', color: '#3b82f6' },
+    { component: DeleteIcon, name: 'Delete', color: '#ef4444' },
+    { component: DocumentIcon, name: 'Document', color: '#8b5cf6' },
+    { component: DownloadIcon, name: 'Download', color: '#10b981' },
+    { component: EditIcon, name: 'Edit', color: '#3b82f6' },
+    { component: ErrorIcon, name: 'Error', color: '#ef4444' },
+    { component: FacebookIcon, name: 'Facebook', color: '#1877f2' },
+    { component: FolderIcon, name: 'Folder', color: '#f59e0b' },
+    { component: GithubIcon, name: 'Github', color: '#333' },
+    { component: GlobeIcon, name: 'Globe', color: '#06b6d4' },
+    { component: HeartIcon, name: 'Heart', color: '#ef4444' },
+    { component: HomeIcon, name: 'Home', color: '#8b5cf6' },
+    { component: IPhoneBatteryIcon, name: 'IPhoneBattery', color: '#10b981' },
+    { component: IPhoneSignalIcon, name: 'IPhoneSignal', color: '#3b82f6' },
+    { component: IPhoneWifiIcon, name: 'IPhoneWifi', color: '#8b5cf6' },
+    { component: InboxArchiveIcon, name: 'InboxArchive', color: '#f97316' },
+    { component: InfoCircleIcon, name: 'InfoCircle', color: '#3b82f6' },
+    { component: InfoIcon, name: 'Info', color: '#3b82f6' },
+    { component: LinkIcon, name: 'Link', color: '#06b6d4' },
+    { component: LinkedinIcon, name: 'Linkedin', color: '#0077b5' },
+    { component: LogOut, name: 'LogOut', color: '#6b7280' },
+    { component: MailIcon, name: 'Mail', color: '#8b5cf6' },
+    { component: MapPinIcon, name: 'MapPin', color: '#ef4444' },
+    { component: MenuIcon, name: 'Menu', color: '#6b7280' },
+    { component: MessageIcon, name: 'Message', color: '#06b6d4' },
+    { component: NotificationIcon, name: 'Notification', color: '#f59e0b' },
+    { component: PhoneIcon, name: 'Phone', color: '#10b981' },
+    { component: RefreshIcon, name: 'Refresh', color: '#10b981' },
+    { component: ReportIcon, name: 'Report', color: '#ef4444' },
+    { component: SaveIcon, name: 'Save', color: '#10b981' },
+    { component: SearchIcon, name: 'Search', color: '#8b5cf6' },
+    { component: SecurityIcon, name: 'Security', color: '#f59e0b' },
+    { component: SettingsIcon, name: 'Settings', color: '#6b7280' },
+    { component: StarIcon, name: 'Star', color: '#f59e0b' },
+    { component: SuccessIcon, name: 'Success', color: '#10b981' },
+    { component: SunCloudyIcon, name: 'SunCloudy', color: '#f59e0b' },
+    { component: ToolsIcon, name: 'Tools', color: '#6b7280' },
+    { component: TwitterIcon, name: 'Twitter', color: '#1da1f2' },
+    { component: UploadIcon, name: 'Upload', color: '#10b981' },
+    { component: UserIcon, name: 'User', color: '#8b5cf6' },
+    { component: UsersIcon, name: 'Users', color: '#8b5cf6' },
+    { component: ViewIcon, name: 'View', color: '#06b6d4' },
+    { component: WalletIcon, name: 'Wallet', color: '#10b981' },
+    { component: WarningIcon, name: 'Warning', color: '#f59e0b' },
+    { component: WebsiteIcon, name: 'Website', color: '#06b6d4' },
+    { component: XCircleIcon, name: 'XCircle', color: '#ef4444' }
+];
+</script>
+
+<template>
+    <div style="padding: 2rem; background-color: #f8f9fa; border-radius: 0.5rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 1rem;">
+            <div v-for="icon in icons" :key="icon.name"
+                style="text-align: center; padding: 1rem; background: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
+                <component :is="icon.component" size="32px" :color="icon.color" />
+                <p style="margin-top: 0.5rem; font-size: 0.875rem; color: #6b7280;">{{ icon.name }}</p>
+            </div>
+        </div>
+    </div>
+</template>
