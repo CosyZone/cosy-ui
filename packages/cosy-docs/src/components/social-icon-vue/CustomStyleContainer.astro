@@ -1,0 +1,27 @@
+---
+/**
+ * @component SocialIconCustomStyleContainer
+ * @description SocialIcon 组件 class 属性示例容器，展示自定义样式的社交图标。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import StyleRounded from './StyleRounded.vue';
+import StyleSquare from './StyleSquare.vue';
+import StyleGradient from './StyleGradient.vue';
+import StyleRoundedSource from './StyleRounded.vue?raw';
+import StyleSquareSource from './StyleSquare.vue?raw';
+import StyleGradientSource from './StyleGradient.vue?raw';
+---
+
+<CodeContainer
+  codes={[StyleRoundedSource, StyleSquareSource, StyleGradientSource]}
+  titles={['圆角样式', '方形样式', '渐变样式']}>
+  <div id="tab-1">
+    <StyleRounded client:load />
+  </div>
+  <div id="tab-2">
+    <StyleSquare client:load />
+  </div>
+  <div id="tab-3">
+    <StyleGradient client:load />
+  </div>
+</CodeContainer>

@@ -1,96 +1,39 @@
 ---
-title: 'SocialIcon Vue'
-description: 'Vue 版本的社交平台图标组件，支持多种社交平台的图标显示'
+title: 'SocialIcon'
+description: 'Vue 版本的 SocialIcon 组件'
 badge: 'Vue'
 tags:
   - Vue
+folder: false
 order: 13.1
 ---
 
-import { SocialIcon } from '@coffic/cosy-ui/vue';
+import { SocialIconVuePackage } from '@/components/social-icon-vue/index.ts';
 
 # {frontmatter.title}
 
 ## 简介
 
-SocialIcon Vue 组件用于显示社交媒体平台的图标，支持多种常见的社交媒体平台。它提供了一致的样式和交互效果，同时支持自定义大小和颜色。
+Vue 版本的 SocialIcon 组件用于显示社交媒体平台的图标，支持多种常见的社交媒体平台。它提供了一致的样式和交互效果，同时支持自定义大小和颜色。该组件适用于需要在 Vue 应用中展示社交媒体链接或品牌标识的场景。
+
+## 案例
+
+<SocialIconVuePackage.Platforms />
 
 ## Props
 
-### platform
-
-社交媒体平台名称，支持以下平台：
-
-- `github` - GitHub 平台
-- `twitter` - Twitter 平台  
-- `linkedin` - LinkedIn 平台
-- `facebook` - Facebook 平台
-
-<SocialIcon platform="github" size="32px" color="#333" />
-
-### size
-
-图标的大小，支持任何有效的 CSS 尺寸值。
-
-<div style="display: flex; gap: 1rem; align-items: center;">
-  <SocialIcon platform="github" size="16px" color="#333" />
-  <SocialIcon platform="github" size="24px" color="#333" />
-  <SocialIcon platform="github" size="32px" color="#333" />
-  <SocialIcon platform="github" size="48px" color="#333" />
-</div>
+### class
+通过 `class` 属性自定义社交图标的样式类名。
+<SocialIconVuePackage.CustomStyle />
 
 ### color
+通过 `color` 属性自定义社交图标的颜色。
+<SocialIconVuePackage.Colors />
 
-图标的颜色，支持任何有效的 CSS 颜色值。
+### platform
+通过 `platform` 属性指定要显示的社交媒体平台。
+<SocialIconVuePackage.Platforms />
 
-<div style="display: flex; gap: 1rem; align-items: center;">
-  <SocialIcon platform="github" size="24px" color="#333" />
-  <SocialIcon platform="github" size="24px" color="#0366d6" />
-  <SocialIcon platform="github" size="24px" color="#28a745" />
-  <SocialIcon platform="github" size="24px" color="#d73a49" />
-</div>
-
-### class
-
-自定义 CSS 类名，用于覆盖默认样式。
-
-<SocialIcon platform="github" size="32px" color="#333" class="custom-social-icon" />
-
-## 不同平台示例
-
-### GitHub
-
-<SocialIcon platform="github" size="32px" color="#333" />
-
-### Twitter
-
-<SocialIcon platform="twitter" size="32px" color="#1da1f2" />
-
-### LinkedIn
-
-<SocialIcon platform="linkedin" size="32px" color="#0077b5" />
-
-### Facebook
-
-<SocialIcon platform="facebook" size="32px" color="#1877f2" />
-
-## 使用场景
-
-- 社交媒体链接按钮
-- 团队成员的社交资料展示
-- 网站的社交分享功能
-- 应用内的社交登录选项
-
-## 设计理念
-
-1. **简洁明了** - 使用清晰易识别的图标表示社交媒体平台
-2. **一致性** - 保持统一的样式和交互效果
-3. **可定制性** - 支持自定义大小、颜色和样式
-4. **可访问性** - 提供适当的 aria 标签，确保屏幕阅读器可以识别
-
-## Vue 特性
-
-- 使用 Vue 3 Composition API
-- 响应式属性绑定
-- 计算属性优化性能
-- TypeScript 类型支持 
+### size
+通过 `size` 属性控制社交图标的大小。
+<SocialIconVuePackage.Sizes /> 

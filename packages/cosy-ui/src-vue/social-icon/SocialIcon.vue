@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import VueIcon from '../icons/VueIcon.vue';
+import { computed, h } from 'vue';
+import GithubIcon from '../icons/GithubIcon.vue';
+import TwitterIcon from '../icons/TwitterIcon.vue';
+import LinkedinIcon from '../icons/LinkedinIcon.vue';
+import FacebookIcon from '../icons/FacebookIcon.vue';
 
 interface Props {
     /**
@@ -10,9 +13,9 @@ interface Props {
     platform: string;
     /**
      * 图标的大小
-     * @default "24px"
+     * @default "md"
      */
-    size?: string;
+    size?: 'sm' | 'md' | 'lg' | 'xl';
     /**
      * 图标的颜色
      * @default "currentColor"
@@ -26,34 +29,46 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
     platform: 'github',
-    size: '24px',
+    size: 'md',
     color: 'currentColor',
     class: '',
 });
 
-// 根据平台名称选择对应的图标名称
-const iconName = computed(() => {
+// 根据平台名称选择对应的图标组件
+const getIconComponent = computed(() => {
     const platformLower = props.platform.toLowerCase();
 
-    // 社交平台图标映射
-    const platformIconMap: Record<string, string> = {
-        github: 'github',
-        twitter: 'twitter',
-        linkedin: 'linkedin',
-        facebook: 'facebook',
-        // 可以在这里添加更多平台
-    };
-
-    // 如果找到对应的图标，使用它；否则使用默认的 github 图标
-    return platformIconMap[platformLower] || 'github';
+    switch (platformLower) {
+        case 'github':
+            return GithubIcon;
+        case 'twitter':
+            return TwitterIcon;
+        case 'linkedin':
+            return LinkedinIcon;
+        case 'facebook':
+            return FacebookIcon;
+        default:
+            return GithubIcon; // 默认使用 GitHub 图标
+    }
 });
 
 // 构建社交图标的类名
 const socialIconClass = computed(() => {
     return `social-icon social-icon-${props.platform.toLowerCase()} ${props.class}`;
 });
+
+// 将 size 转换为实际的像素值
+const iconSize = computed(() => {
+    const sizeMap: Record<string, string> = {
+        sm: '16px',
+        md: '24px',
+        lg: '32px',
+        xl: '48px',
+    };
+    return sizeMap[props.size] || '24px';
+});
 </script>
 
 <template>
-    <VueIcon :name="iconName" :size="size" :color="color" :class="socialIconClass" />
+    <component :is="getIconComponent" :size="iconSize" :color="color" :class="socialIconClass" />
 </template>

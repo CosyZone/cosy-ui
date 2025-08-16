@@ -1,0 +1,23 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import { SmartIcon } from '@coffic/cosy-ui';
+import TechKeywordsCode from './examples/TechKeywords.astro?raw';
+import TechKeywordsExample from './examples/TechKeywords.astro';
+---
+
+<CodeContainer
+  codes={[TechKeywordsCode]}
+  titles={['代码', '数据库', '网络', 'API']}>
+  <div id="tab-1">
+    <SmartIcon keyword="代码" size="24px" color="#8b5cf6" />
+  </div>
+  <div id="tab-2">
+    <SmartIcon keyword="数据库" size="24px" color="#8b5cf6" />
+  </div>
+  <div id="tab-3">
+    <SmartIcon keyword="网络" size="24px" color="#8b5cf6" />
+  </div>
+  <div id="tab-4">
+    <SmartIcon keyword="API" size="24px" color="#8b5cf6" />
+  </div>
+</CodeContainer>

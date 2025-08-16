@@ -1,0 +1,25 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import { SocialIcon } from '@coffic/cosy-ui';
+import Size16Code from './examples/Size16.astro?raw';
+import Size24Code from './examples/Size24.astro?raw';
+import Size32Code from './examples/Size32.astro?raw';
+import Size48Code from './examples/Size48.astro?raw';
+---
+
+<CodeContainer
+  codes={[Size16Code, Size24Code, Size32Code, Size48Code]}
+  titles={['16px', '24px', '32px', '48px']}>
+  <div id="tab-1">
+    <SocialIcon platform="github" size="16px" color="#333" />
+  </div>
+  <div id="tab-2">
+    <SocialIcon platform="github" size="24px" color="#333" />
+  </div>
+  <div id="tab-3">
+    <SocialIcon platform="github" size="32px" color="#333" />
+  </div>
+  <div id="tab-4">
+    <SocialIcon platform="github" size="48px" color="#333" />
+  </div>
+</CodeContainer>

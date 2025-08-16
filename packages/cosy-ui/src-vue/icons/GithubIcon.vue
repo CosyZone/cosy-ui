@@ -8,6 +8,11 @@ interface Props {
      */
     size?: string;
     /**
+     * 图标的颜色
+     * @default "currentColor"
+     */
+    color?: string;
+    /**
      * 自定义类名
      */
     class?: string;
@@ -15,10 +20,11 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
     size: '24px',
+    color: 'currentColor',
     class: '',
 });
 </script>
 
 <template>
-    <Icon name="github" :size="size" :class="props.class" />
+    <Icon name="github" :size="size" :color="color" :class="props.class" />
 </template>

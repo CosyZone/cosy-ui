@@ -33,54 +33,62 @@ import { computed } from 'vue';
 import { iconData } from '../../src/assets/iconData';
 
 interface Props {
-  /**
-   * 图标名称，必须在iconData中存在
-   */
-  name: string;
-  /**
-   * 图标大小
-   * @default "24px"
-   */
-  size?: string;
-  /**
-   * 图标颜色
-   * @default "currentColor"
-   */
-  color?: string;
-  /**
-   * 自定义类名
-   */
-  class?: string;
+    /**
+     * 图标名称，必须在iconData中存在
+     */
+    name: string;
+    /**
+     * 图标大小
+     * @default "24px"
+     */
+    size?: string;
+    /**
+     * 图标颜色
+     * @default "currentColor"
+     */
+    color?: string;
+    /**
+     * 自定义类名
+     */
+    class?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  size: '24px',
-  color: 'currentColor',
-  class: '',
+    size: '24px',
+    color: 'currentColor',
+    class: '',
+});
+
+// 颜色映射，将语义化颜色转换为具体的颜色值
+const strokeColor = computed(() => {
+    const colorMap: Record<string, string> = {
+        primary: '#3b82f6',
+        secondary: '#6b7280',
+        accent: '#f59e0b',
+        neutral: '#9ca3af',
+        success: '#10b981',
+        warning: '#f59e0b',
+        error: '#ef4444',
+        info: '#3b82f6',
+        muted: '#6b7280',
+        default: 'currentColor',
+    };
+
+    return colorMap[props.color] || props.color;
 });
 
 const icon = computed(() => {
-  return iconData[props.name] || null;
+    return iconData[props.name] || null;
 });
 
 const viewBox = computed(() => {
-  return icon.value?.viewBox || '0 0 24 24';
+    return icon.value?.viewBox || '0 0 24 24';
 });
 </script>
 
 <template>
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    :width="size"
-    :height="size"
-    :viewBox="viewBox"
-    fill="none"
-    :stroke="color"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    :class="props.class"
-  >
-    <path v-if="icon" :d="icon.path" />
-  </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" :width="size" :height="size" :viewBox="viewBox" fill="none"
+        :stroke="strokeColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" :class="props.class">
+        <path v-if="icon" :d="icon.path" />
+    </svg>
 </template>

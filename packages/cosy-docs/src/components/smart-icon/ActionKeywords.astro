@@ -1,0 +1,23 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import { SmartIcon } from '@coffic/cosy-ui';
+import ActionKeywordsCode from './examples/ActionKeywords.astro?raw';
+import ActionKeywordsExample from './examples/ActionKeywords.astro';
+---
+
+<CodeContainer
+  codes={[ActionKeywordsCode]}
+  titles={['设置', '搜索', '编辑', '删除']}>
+  <div id="tab-1">
+    <SmartIcon keyword="设置" size="24px" color="#8b5cf6" />
+  </div>
+  <div id="tab-2">
+    <SmartIcon keyword="搜索" size="24px" color="#8b5cf6" />
+  </div>
+  <div id="tab-3">
+    <SmartIcon keyword="编辑" size="24px" color="#8b5cf6" />
+  </div>
+  <div id="tab-4">
+    <SmartIcon keyword="删除" size="24px" color="#8b5cf6" />
+  </div>
+</CodeContainer>

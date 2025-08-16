@@ -1,0 +1,32 @@
+---
+/**
+ * @component SocialIconSizesContainer
+ * @description SocialIcon 组件 size 属性示例容器，展示不同尺寸的社交图标。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import SizeSm from './SizeSm.vue';
+import SizeMd from './SizeMd.vue';
+import SizeLg from './SizeLg.vue';
+import SizeXl from './SizeXl.vue';
+import SizeSmSource from './SizeSm.vue?raw';
+import SizeMdSource from './SizeMd.vue?raw';
+import SizeLgSource from './SizeLg.vue?raw';
+import SizeXlSource from './SizeXl.vue?raw';
+---
+
+<CodeContainer
+  codes={[SizeSmSource, SizeMdSource, SizeLgSource, SizeXlSource]}
+  titles={['小尺寸', '中等尺寸', '大尺寸', '超大尺寸']}>
+  <div id="tab-1">
+    <SizeSm client:load />
+  </div>
+  <div id="tab-2">
+    <SizeMd client:load />
+  </div>
+  <div id="tab-3">
+    <SizeLg client:load />
+  </div>
+  <div id="tab-4">
+    <SizeXl client:load />
+  </div>
+</CodeContainer>

@@ -1,130 +1,104 @@
 ---
 title: 'SmartIcon Vue'
-description: 'Vue 版本的智能图标组件，根据关键词自动选择最合适的图标'
+description: 'Vue 版本的 SmartIcon 组件'
 badge: 'Vue'
 tags:
   - Vue
+folder: false
 order: 14.1
 ---
 
-import { SmartIcon } from '@coffic/cosy-ui/vue';
+import { SmartIconVuePackage } from '@/components/smart-icon-vue/index.ts';
 
 # {frontmatter.title}
 
 ## 简介
 
-SmartIcon Vue 组件是一个智能图标选择器，它根据关键词自动选择最合适的图标。支持多个关键词，优先匹配第一个找到的图标，未匹配时渲染默认图标。该组件特别适用于需要根据上下文动态显示图标的场景。
+Vue 版本的 SmartIcon 组件是一个智能图标选择器，能够根据关键词自动渲染最合适的图标组件。它支持多个关键词，优先匹配第一个找到的图标，未匹配时渲染默认图标。该组件特别适用于需要根据内容动态选择图标的场景，如搜索结果显示、内容分类展示等。
+
+## 案例
+
+<SmartIconVuePackage.Keywords />
 
 ## Props
 
-### keyword
-
-关键词，支持多个关键词用空格或逗号分隔。组件会根据关键词自动选择最合适的图标。
-
-<SmartIcon keyword="用户" size="32px" color="#8b5cf6" />
-
-### size
-
-图标的大小，支持任何有效的 CSS 尺寸值。
-
-<div style="display: flex; gap: 1rem; align-items: center;">
-  <SmartIcon keyword="用户" size="16px" color="#8b5cf6" />
-  <SmartIcon keyword="设置" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="搜索" size="32px" color="#8b5cf6" />
-  <SmartIcon keyword="文档" size="48px" color="#8b5cf6" />
-</div>
+### class
+通过 `class` 属性自定义智能图标的样式类名。
+<SmartIconVuePackage.CustomStyle />
 
 ### color
+通过 `color` 属性自定义智能图标的颜色。
+<SmartIconVuePackage.Colors />
 
-图标的颜色，支持任何有效的 CSS 颜色值。
+### keyword
+通过 `keyword` 属性指定用于匹配图标的关键词，支持多个关键词用空格或逗号分隔。
+<SmartIconVuePackage.Keywords />
 
-<div style="display: flex; gap: 1rem; align-items: center;">
-  <SmartIcon keyword="用户" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="用户" size="24px" color="#3b82f6" />
-  <SmartIcon keyword="用户" size="24px" color="#10b981" />
-  <SmartIcon keyword="用户" size="24px" color="#f59e0b" />
-</div>
-
-### class
-
-自定义 CSS 类名，用于覆盖默认样式。
-
-<SmartIcon keyword="用户" size="32px" color="#8b5cf6" class="custom-smart-icon" />
+### size
+通过 `size` 属性控制智能图标的大小。
+<SmartIconVuePackage.Sizes />
 
 ## 关键词示例
 
 ### 用户相关
-
-<div style="display: flex; gap: 1rem; align-items: center;">
-  <SmartIcon keyword="用户" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="人" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="账号" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="个人" size="24px" color="#8b5cf6" />
-</div>
-
-### 功能相关
-
-<div style="display: flex; gap: 1rem; align-items: center;">
-  <SmartIcon keyword="设置" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="搜索" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="编辑" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="删除" size="24px" color="#8b5cf6" />
-</div>
-
-### 状态相关
-
-<div style="display: flex; gap: 1rem; align-items: center;">
-  <SmartIcon keyword="成功" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="警告" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="错误" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="信息" size="24px" color="#8b5cf6" />
-</div>
+<SmartIconVuePackage.UserKeywords />
 
 ### 技术相关
+<SmartIconVuePackage.TechKeywords />
 
-<div style="display: flex; gap: 1rem; align-items: center;">
-  <SmartIcon keyword="代码" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="数据库" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="网络" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="API" size="24px" color="#8b5cf6" />
-</div>
+### 操作相关
+<SmartIconVuePackage.ActionKeywords />
 
 ## 多关键词支持
 
-SmartIcon 支持多个关键词，用空格或逗号分隔：
+SmartIcon 支持多个关键词，用空格或逗号分隔，系统会按顺序查找匹配的图标。
 
-<SmartIcon keyword="用户 设置" size="32px" color="#8b5cf6" />
+<SmartIconVuePackage.MultiKeywords />
 
-<SmartIcon keyword="代码,编程,开发" size="32px" color="#8b5cf6" />
+## Vue 特有功能
+
+### 响应式更新
+Vue 版本的 SmartIcon 组件支持响应式更新，当 `keyword` 属性发生变化时，图标会自动重新渲染。
+
+### 计算属性优化
+使用 Vue 的计算属性来优化图标匹配逻辑，确保只有在关键词变化时才重新计算图标名称。
+
+### 事件处理
+组件支持 Vue 的事件系统，可以绑定 `@click`、`@mouseenter` 等事件处理器。
 
 ## 使用场景
 
-- 动态内容展示，根据内容类型自动选择图标
-- 智能搜索结果的图标显示
-- 自动化的用户界面生成
-- 内容管理系统的动态图标
-- 基于上下文的图标选择
+### 搜索结果显示
+在搜索功能中，根据搜索结果的内容类型自动显示相应的图标，提升用户体验。
+
+### 内容分类展示
+在内容管理系统中，根据内容的分类或标签自动选择对应的图标进行展示。
+
+### 动态图标选择
+在需要根据用户输入或系统状态动态选择图标的场景中，提供智能的图标匹配功能。
 
 ## 智能匹配逻辑
 
-1. **直接匹配** - 优先匹配完全匹配的关键词
-2. **包含匹配** - 如果直接匹配失败，尝试包含匹配
-3. **默认图标** - 未匹配时使用文档图标作为默认图标
-4. **关键词优先级** - 多个关键词时，使用第一个匹配的图标
+SmartIcon 采用多层次的匹配策略：
+
+1. **直接匹配** - 优先查找完全匹配的关键词
+2. **包含匹配** - 查找包含关键词的图标名称
+3. **中文映射** - 支持中文关键词到图标的映射
+4. **默认回退** - 未匹配时使用默认图标
 
 ## 支持的关键词类别
 
-- **用户相关**：用户、人、账号、个人、团队、成员
-- **功能相关**：设置、搜索、编辑、删除、保存、上传、下载
-- **状态相关**：成功、警告、错误、信息、完成、进行中
-- **技术相关**：代码、编程、开发、数据库、网络、API、框架
-- **内容相关**：文档、文件、图片、视频、音频、链接
-- **时间相关**：日历、时钟、历史、计划、提醒
+### 用户与身份
+- 用户、人、账号、个人、团队、成员
 
-## Vue 特性
+### 操作与状态
+- 添加、删除、编辑、保存、刷新、搜索、设置
 
-- 使用 Vue 3 Composition API
-- 响应式属性绑定
-- 计算属性优化性能
-- TypeScript 类型支持
-- 智能图标映射逻辑 
+### 内容类型
+- 文档、图片、视频、音频、链接、代码
+
+### 技术概念
+- 数据库、服务器、网络、安全、工具、分析
+
+### 业务功能
+- 通知、消息、邮件、日历、钱包、报告 

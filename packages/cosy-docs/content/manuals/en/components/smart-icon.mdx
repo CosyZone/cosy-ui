@@ -1,119 +1,52 @@
 ---
 title: 'SmartIcon'
-description: 'Smart icon component that automatically selects the most appropriate icon based on keywords'
+folder: false
 order: 14
 ---
 
-import { SmartIcon } from '@coffic/cosy-ui';
+import { SmartIconPackage } from '@/components/smart-icon/index.ts';
 
 # {frontmatter.title}
 
 ## Introduction
 
-The SmartIcon component is an intelligent icon selector that automatically chooses the most appropriate icon based on keywords. It supports multiple keywords, prioritizes the first matching icon, and renders a default icon when no match is found. This component is particularly suitable for scenarios that require dynamic icon display based on context.
+The SmartIcon component is an intelligent icon selector that automatically renders the most suitable icon component based on keywords. It supports multiple keywords, prioritizing the first matching icon found, and renders a default icon when no match is found. This component is particularly suitable for scenarios where you need to dynamically select icons based on content, such as search result displays and content category presentations.
+
+## Examples
+
+<SmartIconPackage.Keywords />
 
 ## Props
 
-### keyword
-
-Keywords, supporting multiple keywords separated by spaces or commas. The component will automatically select the most appropriate icon based on the keywords.
-
-<SmartIcon keyword="user" size="32px" color="#8b5cf6" />
-
-### size
-
-The size of the icon, supports any valid CSS dimension value.
-
-<div style="display: flex; gap: 1rem; align-items: center;">
-  <SmartIcon keyword="user" size="16px" color="#8b5cf6" />
-  <SmartIcon keyword="settings" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="search" size="32px" color="#8b5cf6" />
-  <SmartIcon keyword="document" size="48px" color="#8b5cf6" />
-</div>
+### class
+Customize the style class name of the smart icon through the `class` attribute.
+<SmartIconPackage.CustomStyle />
 
 ### color
+Customize the color of the smart icon through the `color` attribute.
+<SmartIconPackage.Colors />
 
-The color of the icon, supports any valid CSS color value.
+### keyword
+Specify keywords for icon matching through the `keyword` attribute, supporting multiple keywords separated by spaces or commas.
+<SmartIconPackage.Keywords />
 
-<div style="display: flex; gap: 1rem; align-items: center;">
-  <SmartIcon keyword="user" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="user" size="24px" color="#3b82f6" />
-  <SmartIcon keyword="user" size="24px" color="#10b981" />
-  <SmartIcon keyword="user" size="24px" color="#f59e0b" />
-</div>
-
-### class
-
-Custom CSS class name for overriding default styles.
-
-<SmartIcon keyword="user" size="32px" color="#8b5cf6" class="custom-smart-icon" />
+### size
+Control the size of the smart icon through the `size` attribute.
+<SmartIconPackage.Sizes />
 
 ## Keyword Examples
 
 ### User Related
-
-<div style="display: flex; gap: 1rem; align-items: center;">
-  <SmartIcon keyword="user" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="person" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="account" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="profile" size="24px" color="#8b5cf6" />
-</div>
-
-### Function Related
-
-<div style="display: flex; gap: 1rem; align-items: center;">
-  <SmartIcon keyword="settings" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="search" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="edit" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="delete" size="24px" color="#8b5cf6" />
-</div>
-
-### Status Related
-
-<div style="display: flex; gap: 1rem; align-items: center;">
-  <SmartIcon keyword="success" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="warning" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="error" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="info" size="24px" color="#8b5cf6" />
-</div>
+<SmartIconPackage.UserKeywords />
 
 ### Technology Related
+<SmartIconPackage.TechKeywords />
 
-<div style="display: flex; gap: 1rem; align-items: center;">
-  <SmartIcon keyword="code" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="database" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="network" size="24px" color="#8b5cf6" />
-  <SmartIcon keyword="api" size="24px" color="#8b5cf6" />
-</div>
+### Action Related
+<SmartIconPackage.ActionKeywords />
 
-## Multiple Keywords Support
+## Multi-Keyword Support
 
-SmartIcon supports multiple keywords separated by spaces or commas:
+SmartIcon supports multiple keywords separated by spaces or commas. The system will search for matching icons in order.
 
-<SmartIcon keyword="user settings" size="32px" color="#8b5cf6" />
-
-<SmartIcon keyword="code,programming,development" size="32px" color="#8b5cf6" />
-
-## Use Cases
-
-- Dynamic content display, automatically selecting icons based on content type
-- Smart search result icon display
-- Automated user interface generation
-- Content management system dynamic icons
-- Context-based icon selection
-
-## Intelligent Matching Logic
-
-1. **Direct Match** - Prioritize exact keyword matches
-2. **Contains Match** - If direct match fails, try contains matching
-3. **Default Icon** - Use document icon as default when no match is found
-4. **Keyword Priority** - When multiple keywords exist, use the first matching icon
-
-## Supported Keyword Categories
-
-- **User Related**: user, person, account, profile, team, member
-- **Function Related**: settings, search, edit, delete, save, upload, download
-- **Status Related**: success, warning, error, info, complete, in-progress
-- **Technology Related**: code, programming, development, database, network, API, framework
-- **Content Related**: document, file, image, video, audio, link
-- **Time Related**: calendar, clock, history, plan, reminder 
+<SmartIconPackage.MultiKeywords />

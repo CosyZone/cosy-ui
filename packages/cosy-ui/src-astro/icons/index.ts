@@ -44,6 +44,7 @@ export { default as SaveIcon } from './SaveIcon.astro';
 export { default as SearchIcon } from './SearchIcon.astro';
 export { default as SecurityIcon } from './SecurityIcon.astro';
 export { default as SettingsIcon } from './SettingsIcon.astro';
+export { default as SmartIcon } from '../smart-icon/SmartIcon.astro';
 export { default as StarIcon } from './StarIcon.astro';
 export { default as SuccessIcon } from './SuccessIcon.astro';
 export { default as SunCloudyIcon } from './SunCloudyIcon.astro';

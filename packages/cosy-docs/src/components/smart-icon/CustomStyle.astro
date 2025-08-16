@@ -1,0 +1,33 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import { SmartIcon } from '@coffic/cosy-ui';
+import CustomStyleCode from './examples/CustomStyle.astro?raw';
+import CustomStyleExample from './examples/CustomStyle.astro';
+---
+
+<CodeContainer codes={[CustomStyleCode]} titles={['用户', '设置', '搜索']}>
+  <div id="tab-1">
+    <SmartIcon
+      keyword="用户"
+      size="32px"
+      color="#8b5cf6"
+      class="custom-smart-icon"
+    />
+  </div>
+  <div id="tab-2">
+    <SmartIcon
+      keyword="设置"
+      size="32px"
+      color="#8b5cf6"
+      class="custom-smart-icon"
+    />
+  </div>
+  <div id="tab-3">
+    <SmartIcon
+      keyword="搜索"
+      size="32px"
+      color="#8b5cf6"
+      class="custom-smart-icon"
+    />
+  </div>
+</CodeContainer>
