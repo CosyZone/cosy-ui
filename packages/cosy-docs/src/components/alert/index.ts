@@ -2,7 +2,6 @@ import AlertBasicContainer from './AlertBasicContainer.astro';
 import AlertWithTitleContainer from './AlertWithTitleContainer.astro';
 import AlertCustomStyleContainer from './AlertCustomStyleContainer.astro';
 import AlertTypesContainer from './AlertTypesContainer.astro';
-import AlertVueContainer from './AlertVueContainer.astro';
 import AlertClosableContainer from './AlertClosableContainer.astro';
 import AlertActionContainer from './AlertActionContainer.astro';
 import AlertOutlineContainer from './AlertOutlineContainer.astro';
@@ -22,6 +21,5 @@ export const AlertPackage = {
     Outline: AlertOutlineContainer,
     Soft: AlertSoftContainer,
     Types: AlertTypesContainer,
-    Vue: AlertVueContainer,
     WithTitle: AlertWithTitleContainer,
 }; 

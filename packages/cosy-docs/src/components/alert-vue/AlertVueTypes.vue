@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import { Alert } from '@coffic/cosy-ui/vue';
+</script>
+
 <template>
     <div style="display: flex; flex-direction: column; gap: 1rem;">
         <Alert type="info" title="提示">这是一条信息提示</Alert>
@@ -6,7 +10,3 @@
         <Alert type="error" title="错误">发生了一个错误</Alert>
     </div>
 </template>
-
-<script setup lang="ts">
-import { Alert } from '@coffic/cosy-ui/vue';
-</script>
