@@ -14,13 +14,13 @@ interface Props {
   size?: string;
 
   /**
-   * 描边颜色
+   * 图标颜色
    * @default "currentColor"
    */
-  stroke?: string;
+  color?: string;
 
   /**
-   * 描边宽度
+   * 描边宽度（仅用于stroke类型图标）
    * @default "2"
    */
   strokeWidth?: string;
@@ -29,40 +29,53 @@ interface Props {
    * 自定义类名
    */
   class?: string;
-
-  /**
-   * 是否填充图标
-   * @default false
-   */
-  fill?: boolean;
 }
 
 const {
   name,
   size = '24px',
-  stroke = 'currentColor',
+  color = 'currentColor',
   strokeWidth = '2',
   class: className = '',
-  fill = false,
 } = Astro.props;
 const icon = iconData[name];
 const viewBox = icon?.viewBox || '0 0 24 24';
+const iconType = icon?.type || 'stroke';
+const isMultiPath = icon?.multiPath || false;
 ---
 
 {
-  icon && (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
-      viewBox={viewBox}
-      fill={fill ? 'currentColor' : 'none'}
-      stroke={stroke}
-      stroke-width={strokeWidth}
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class={className}>
-      <path d={icon.path} />
-    </svg>
-  )
+  icon &&
+    (iconType === 'fill' ? (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size}
+        height={size}
+        viewBox={viewBox}
+        fill={color}
+        class={className}>
+        {isMultiPath ? (
+          icon.path
+            .split(/(?=M)/)
+            .filter((path) => path.trim().length > 0)
+            .map((path, index) => <path d={path.trim()} />)
+        ) : (
+          <path d={icon.path} />
+        )}
+      </svg>
+    ) : (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size}
+        height={size}
+        viewBox={viewBox}
+        fill="none"
+        stroke={color}
+        stroke-width={strokeWidth}
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class={className}>
+        <path d={icon.path} />
+      </svg>
+    ))
 }

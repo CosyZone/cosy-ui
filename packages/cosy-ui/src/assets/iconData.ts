@@ -13,6 +13,14 @@ export interface IconData {
      * 额外的视图框设置，默认为"0 0 24 24"
      */
     viewBox?: string;
+    /**
+     * 图标类型：fill（实心）或stroke（线条），默认为"stroke"
+     */
+    type?: 'fill' | 'stroke';
+    /**
+     * 是否为多路径图标，默认为false
+     */
+    multiPath?: boolean;
 }
 
 export const iconData: Record<string, IconData> = {
@@ -262,20 +270,26 @@ export const iconData: Record<string, IconData> = {
 
     // iPhone 电池图标
     iphoneBattery: {
-        path: 'M0.5 0.5h21v11h-21z M2 2h18v8h-18z M23 4h1v4h-1z',
-        viewBox: '0 0 25 12',
+        path: 'M2 6h10v4H2z M2 4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm10 1a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm4 3a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8',
+        viewBox: '0 0 16 16',
+        type: 'fill',
+        multiPath: true,
     },
 
     // iPhone 信号图标
     iphoneSignal: {
-        path: 'M1 11h2V6H1v5zm4 0h2V4H5v7zm4 0h2V2H9v9zm4 0h2V0h-2v11z M17 11h2V0h-2v11z',
-        viewBox: '0 0 20 12',
+        path: 'M1 11h2V6H1v5zm4 0h2V4H5v7zm4 0h2V2H9v9zm4 0h2V0h-2v11z',
+        viewBox: '0 0 16 12',
+        type: 'fill',
+        multiPath: true,
     },
 
     // iPhone WiFi 图标
     iphoneWifi: {
         path: 'M8 10.5a1 1 0 100-2 1 1 0 000 2zM4.25 7.25a5 5 0 017.5 0l-1.06 1.06a3.5 3.5 0 00-5.38 0L4.25 7.25z M1.75 4.75a8.5 8.5 0 0112.5 0l-1.06 1.06a7 7 0 00-10.38 0L1.75 4.75z',
         viewBox: '0 0 16 12',
+        type: 'fill',
+        multiPath: true,
     },
 
     // Facebook 图标
