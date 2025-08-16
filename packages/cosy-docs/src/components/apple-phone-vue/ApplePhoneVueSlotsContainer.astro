@@ -1,0 +1,22 @@
+---
+/**
+ * @component ApplePhoneVue Slots Container
+ * @description ApplePhoneVue 插槽容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ApplePhoneVueSlots from './ApplePhoneVueSlots.vue';
+import ApplePhoneVueSlotsCode from './ApplePhoneVueSlots.vue?raw';
+---
+
+<CodeContainer
+  titles={['基础内容', '复杂布局', '表单内容']}
+  codes={[
+    ApplePhoneVueSlotsCode,
+    ApplePhoneVueSlotsCode,
+    ApplePhoneVueSlotsCode,
+  ]}>
+  <div id="tab-1">
+    <ApplePhoneVueSlots client:load />
+  </div>
+</CodeContainer>

@@ -1,0 +1,23 @@
+---
+/**
+ * @component ApplePhoneVue Height Container
+ * @description ApplePhoneVue 高度容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ApplePhoneVueHeight from './ApplePhoneVueHeight.vue';
+import ApplePhoneVueHeightCode from './ApplePhoneVueHeight.vue?raw';
+---
+
+<CodeContainer
+  titles={['小尺寸', '中等尺寸', '大尺寸', '超大尺寸']}
+  codes={[
+    ApplePhoneVueHeightCode,
+    ApplePhoneVueHeightCode,
+    ApplePhoneVueHeightCode,
+    ApplePhoneVueHeightCode,
+  ]}>
+  <div id="tab-1">
+    <ApplePhoneVueHeight client:load />
+  </div>
+</CodeContainer>

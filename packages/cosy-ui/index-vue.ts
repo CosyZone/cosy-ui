@@ -60,7 +60,7 @@ export * from './src-vue/tool-bar/index';
 
 // Windows
 export * from './src-vue/mac-window/index';
-export * from './src-vue/iPhone/index';
+export * from './src-vue/apple-phone/index';
 
 // ===== 工具函数 =====
 

@@ -1,0 +1,16 @@
+---
+/**
+ * @component ApplePhoneVue Debug Container
+ * @description ApplePhoneVue 调试模式容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ApplePhoneVueDebug from './ApplePhoneVueDebug.vue';
+import ApplePhoneVueDebugCode from './ApplePhoneVueDebug.vue?raw';
+---
+
+<CodeContainer titles={['调试模式']} codes={[ApplePhoneVueDebugCode]}>
+  <div id="tab-1">
+    <ApplePhoneVueDebug client:load />
+  </div>
+</CodeContainer>
