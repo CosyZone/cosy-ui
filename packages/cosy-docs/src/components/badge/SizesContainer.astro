@@ -5,11 +5,28 @@
  */
 import { CodeContainer } from '@coffic/cosy-ui';
 import BadgeSizes from './BadgeSizes.astro';
+import BadgeSizeMd from './BadgeSizeMd.astro';
+import BadgeSizeSm from './BadgeSizeSm.astro';
+import BadgeSizeXs from './BadgeSizeXs.astro';
 import BadgeSizesCode from './BadgeSizes.astro?raw';
+import BadgeSizeMdCode from './BadgeSizeMd.astro?raw';
+import BadgeSizeSmCode from './BadgeSizeSm.astro?raw';
+import BadgeSizeXsCode from './BadgeSizeXs.astro?raw';
 ---
 
-<CodeContainer codes={[BadgeSizesCode]} titles={['尺寸']}>
+<CodeContainer
+  codes={[BadgeSizesCode, BadgeSizeMdCode, BadgeSizeSmCode, BadgeSizeXsCode]}
+  titles={['lg', 'md', 'sm', 'xs']}>
   <div id="tab-1">
     <BadgeSizes />
+  </div>
+  <div id="tab-2">
+    <BadgeSizeMd />
+  </div>
+  <div id="tab-3">
+    <BadgeSizeSm />
+  </div>
+  <div id="tab-4">
+    <BadgeSizeXs />
   </div>
 </CodeContainer>

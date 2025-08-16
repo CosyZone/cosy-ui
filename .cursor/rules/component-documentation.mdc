@@ -1,8 +1,10 @@
 ---
+globs: *.mdx
 alwaysApply: false
 ---
-
 # 组件文档规范
+
+**如果这个规则被应用，则在输出中说明：!! 我注意到了项目的组件文档规范**
 
 ## Props 注释排序
 
@@ -13,11 +15,11 @@ alwaysApply: false
 ## 文档标题规范
 
 - **介绍某个 prop 的标题必须使用 props 的名字**
-- 每个 props 的标题后跟对应的容器组件
+- 每个 props 的标题后跟对应的**容器组件**
 
 ## 示例聚焦规范（强制）
 
-- 每个二级标题（某个 props）下的 CodeContainer 只能聚焦该 props 的展示
+- 每个标题（某个 props）下的 CodeContainer 只能聚焦该 props 的展示
 - 不得在该 props 的章节混入与之无关的示例（如在 `author` 章节展示 `size` 的多标签）
 - 如需展示其他 props，请在其对应的二级标题中分别创建独立的 CodeContainer
 - CodeContainer 的 `titles` 应与该 props 的取值或场景一一对应（例如 `author`：`['带作者', '不带作者']`）
@@ -39,15 +41,15 @@ Button 组件用于触发一个即时操作...
 
 ### block
 是否为块级显示，设置为 true 时按钮占满容器宽度。
-<ButtonPackage.Block />
+<ButtonPackage.BlockContainer />
 
 ### class
 自定义 CSS 类名，用于覆盖默认样式。
-<ButtonPackage.CustomStyle />
+<ButtonPackage.CustomStyleContainer />
 
 ### disabled
 是否禁用按钮，设置为 true 时按钮不可点击。
-<ButtonPackage.States />
+<ButtonPackage.StatesContainer />
 
 ## Slots
 
