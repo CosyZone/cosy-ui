@@ -24,6 +24,7 @@ Container 组件是一个基础的布局容器，用于限制内容宽度并居�
 - 简单易用的 API，易于集成到各种页面布局中
 - 支持 Flexbox 布局，可自定义对齐方式和间距
 - 语义化背景色支持，兼容主题系统
+- 背景色透明度支持，提供预设透明度值
 
 ## 案例
 
@@ -33,9 +34,17 @@ Container 组件是一个基础的布局容器，用于限制内容宽度并居�
 
 ### background
 
-语义化背景色，支持主题系统。提供预设的语义化颜色，适用于不同使用场景。
+基础背景色，支持主题系统。提供预设的语义化颜色，适用于不同使用场景。
+
+#### 基础背景色
 
 <ContainerVuePackage.Background />
+
+#### 背景色透明度
+
+背景色透明度，预设几个值供用户选择。使用 Tailwind v4 语法：`bg-color/opacity`（如 `bg-primary/50`）。
+
+<ContainerVuePackage.BackgroundOpacity />
 
 ### border
 

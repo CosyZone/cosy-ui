@@ -2,6 +2,7 @@
 import '../../style';
 import { computed } from 'vue';
 import type { IContainerProps } from './types';
+import { allBackgroundClasses } from './backgrounds';
 
 /**
  * @component Container
@@ -15,7 +16,7 @@ import type { IContainerProps } from './types';
  * @props {('start'|'end'|'center'|'between'|'around'|'evenly')} [justify] - flex项目垂直对齐方式
  * @props {('none'|'sm'|'md'|'lg'|'xl')} [padding='md'] - 内边距大小
  * @props {('xs'|'sm'|'md'|'lg'|'xl'|'full')} [size='md'] - 容器尺寸
- * @props {string} [background] - 预设的语义化背景色，支持 DaisyUI 主题系统
+ * @props {string} [background] - 预设的语义化背景色，使用 Tailwind v4 语法（如 bg-primary/50）
  */
 
 interface Props extends IContainerProps { }
@@ -80,21 +81,6 @@ const justifyClasses = {
     evenly: 'cosy:justify-evenly',
 } as const;
 
-// 背景色类名映射
-const backgroundClasses = {
-    primary: 'cosy:bg-primary',
-    secondary: 'cosy:bg-secondary',
-    accent: 'cosy:bg-accent',
-    neutral: 'cosy:bg-neutral',
-    'base-100': 'cosy:bg-base-100',
-    'base-200': 'cosy:bg-base-200',
-    'base-300': 'cosy:bg-base-300',
-    success: 'cosy:bg-success',
-    warning: 'cosy:bg-warning',
-    error: 'cosy:bg-error',
-    info: 'cosy:bg-info',
-} as const;
-
 // 构建CSS类名
 const containerClasses = computed(() => [
     'cosy:w-full',
@@ -106,8 +92,8 @@ const containerClasses = computed(() => [
     props.flex ? gapClasses[props.gap] : '',
     props.items && props.flex ? itemsClasses[props.items] : '',
     props.justify && props.flex ? justifyClasses[props.justify] : '',
-    // 处理背景色
-    props.background ? backgroundClasses[props.background] : '',
+    // 处理背景色 - 使用预定义的完整类名
+    props.background ? allBackgroundClasses[props.background] : '',
     props.class,
 ]);
 </script>

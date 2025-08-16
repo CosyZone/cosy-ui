@@ -1,3 +1,5 @@
+import type { BackgroundColor } from './backgrounds';
+
 /**
  * Container 组件的属性接口
  */
@@ -54,7 +56,8 @@ export interface IContainerProps {
 
     /**
      * 预设的语义化背景色，支持 DaisyUI 主题系统
+     * 包含透明度设置，使用 Tailwind v4 语法：bg-color/opacity
      * @default undefined
      */
-    background?: 'primary' | 'secondary' | 'accent' | 'neutral' | 'base-100' | 'base-200' | 'base-300' | 'success' | 'warning' | 'error' | 'info';
+    background?: BackgroundColor;
 }

@@ -5,19 +5,34 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import ApplePhoneVueHeight from './ApplePhoneVueHeight.vue';
-import ApplePhoneVueHeightCode from './ApplePhoneVueHeight.vue?raw';
+import ApplePhoneVueHeightSm from './ApplePhoneVueHeightSm.vue';
+import ApplePhoneVueHeightMd from './ApplePhoneVueHeightMd.vue';
+import ApplePhoneVueHeightLg from './ApplePhoneVueHeightLg.vue';
+import ApplePhoneVueHeight2xl from './ApplePhoneVueHeight2xl.vue';
+import ApplePhoneVueHeightSmCode from './ApplePhoneVueHeightSm.vue?raw';
+import ApplePhoneVueHeightMdCode from './ApplePhoneVueHeightMd.vue?raw';
+import ApplePhoneVueHeightLgCode from './ApplePhoneVueHeightLg.vue?raw';
+import ApplePhoneVueHeight2xlCode from './ApplePhoneVueHeight2xl.vue?raw';
 ---
 
 <CodeContainer
   titles={['小尺寸', '中等尺寸', '大尺寸', '超大尺寸']}
   codes={[
-    ApplePhoneVueHeightCode,
-    ApplePhoneVueHeightCode,
-    ApplePhoneVueHeightCode,
-    ApplePhoneVueHeightCode,
+    ApplePhoneVueHeightSmCode,
+    ApplePhoneVueHeightMdCode,
+    ApplePhoneVueHeightLgCode,
+    ApplePhoneVueHeight2xlCode,
   ]}>
   <div id="tab-1">
-    <ApplePhoneVueHeight client:load />
+    <ApplePhoneVueHeightSm client:load />
+  </div>
+  <div id="tab-2">
+    <ApplePhoneVueHeightMd client:load />
+  </div>
+  <div id="tab-3">
+    <ApplePhoneVueHeightLg client:load />
+  </div>
+  <div id="tab-4">
+    <ApplePhoneVueHeight2xl client:load />
   </div>
 </CodeContainer>

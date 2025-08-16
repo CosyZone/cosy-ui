@@ -1,0 +1,44 @@
+---
+/**
+ * @component ContainerVue Background Opacity Container
+ * @description ContainerVue 背景色透明度容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerVueBackgroundOpacity10 from './ContainerVueBackgroundOpacity10.vue';
+import ContainerVueBackgroundOpacity30 from './ContainerVueBackgroundOpacity30.vue';
+import ContainerVueBackgroundOpacity50 from './ContainerVueBackgroundOpacity50.vue';
+import ContainerVueBackgroundOpacity70 from './ContainerVueBackgroundOpacity70.vue';
+import ContainerVueBackgroundOpacity90 from './ContainerVueBackgroundOpacity90.vue';
+import ContainerVueBackgroundOpacity10Code from './ContainerVueBackgroundOpacity10.vue?raw';
+import ContainerVueBackgroundOpacity30Code from './ContainerVueBackgroundOpacity30.vue?raw';
+import ContainerVueBackgroundOpacity50Code from './ContainerVueBackgroundOpacity50.vue?raw';
+import ContainerVueBackgroundOpacity70Code from './ContainerVueBackgroundOpacity70.vue?raw';
+import ContainerVueBackgroundOpacity90Code from './ContainerVueBackgroundOpacity90.vue?raw';
+---
+
+<CodeContainer
+  titles={['10%', '30%', '50%', '70%', '90%']}
+  codes={[
+    ContainerVueBackgroundOpacity10Code,
+    ContainerVueBackgroundOpacity30Code,
+    ContainerVueBackgroundOpacity50Code,
+    ContainerVueBackgroundOpacity70Code,
+    ContainerVueBackgroundOpacity90Code,
+  ]}>
+  <div id="tab-1">
+    <ContainerVueBackgroundOpacity10 client:load />
+  </div>
+  <div id="tab-2">
+    <ContainerVueBackgroundOpacity30 client:load />
+  </div>
+  <div id="tab-3">
+    <ContainerVueBackgroundOpacity50 client:load />
+  </div>
+  <div id="tab-4">
+    <ContainerVueBackgroundOpacity70 client:load />
+  </div>
+  <div id="tab-5">
+    <ContainerVueBackgroundOpacity90 client:load />
+  </div>
+</CodeContainer>

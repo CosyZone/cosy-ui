@@ -5,14 +5,19 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import ApplePhoneVueShowFrame from './ApplePhoneVueShowFrame.vue';
-import ApplePhoneVueShowFrameCode from './ApplePhoneVueShowFrame.vue?raw';
+import ApplePhoneVueShowFrameTrue from './ApplePhoneVueShowFrameTrue.vue';
+import ApplePhoneVueShowFrameFalse from './ApplePhoneVueShowFrameFalse.vue';
+import ApplePhoneVueShowFrameTrueCode from './ApplePhoneVueShowFrameTrue.vue?raw';
+import ApplePhoneVueShowFrameFalseCode from './ApplePhoneVueShowFrameFalse.vue?raw';
 ---
 
 <CodeContainer
   titles={['显示边框', '隐藏边框']}
-  codes={[ApplePhoneVueShowFrameCode, ApplePhoneVueShowFrameCode]}>
+  codes={[ApplePhoneVueShowFrameTrueCode, ApplePhoneVueShowFrameFalseCode]}>
   <div id="tab-1">
-    <ApplePhoneVueShowFrame client:load />
+    <ApplePhoneVueShowFrameTrue client:load />
+  </div>
+  <div id="tab-2">
+    <ApplePhoneVueShowFrameFalse client:load />
   </div>
 </CodeContainer>
