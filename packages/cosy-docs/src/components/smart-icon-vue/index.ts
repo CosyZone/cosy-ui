@@ -1,13 +1,19 @@
-// 临时导出，避免构建错误
-// TODO: 完善 smart-icon-vue 组件包
+import ActionKeywordsContainer from './ActionKeywordsContainer.astro';
+import ColorsContainer from './ColorsContainer.astro';
+import CustomStyleContainer from './CustomStyleContainer.astro';
+import KeywordsContainer from './KeywordsContainer.astro';
+import MultiKeywordsContainer from './MultiKeywordsContainer.astro';
+import SizesContainer from './SizesContainer.astro';
+import TechKeywordsContainer from './TechKeywordsContainer.astro';
+import UserKeywordsContainer from './UserKeywordsContainer.astro';
 
 export const SmartIconVuePackage = {
-    Keywords: () => null,
-    CustomStyle: () => null,
-    Colors: () => null,
-    Sizes: () => null,
-    UserKeywords: () => null,
-    TechKeywords: () => null,
-    ActionKeywords: () => null,
-    MultiKeywords: () => null,
+    ActionKeywords: ActionKeywordsContainer,
+    Colors: ColorsContainer,
+    CustomStyle: CustomStyleContainer,
+    Keywords: KeywordsContainer,
+    MultiKeywords: MultiKeywordsContainer,
+    Sizes: SizesContainer,
+    TechKeywords: TechKeywordsContainer,
+    UserKeywords: UserKeywordsContainer,
 }; 

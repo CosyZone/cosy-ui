@@ -1,0 +1,56 @@
+---
+title: 'SmartIcon'
+description: 'Vue version of SmartIcon component'
+badge: 'Vue'
+tags:
+  - Vue
+folder: false
+order: 21
+---
+
+import { SmartIconVuePackage } from '@/components/smart-icon-vue/index.ts';
+
+# {frontmatter.title}
+
+## Introduction
+
+The Vue version of SmartIcon component is an intelligent icon selector that automatically renders the most suitable icon component based on keywords. It supports multiple keywords, prioritizing the first matching icon, and renders a default icon when no match is found. This component is particularly suitable for scenarios that require dynamic icon selection based on content, such as search result display and content category presentation.
+
+## Examples
+
+<SmartIconVuePackage.Keywords />
+
+## Props
+
+### class
+Customize the style class name of the smart icon through the `class` property.
+<SmartIconVuePackage.CustomStyle />
+
+### color
+Customize the color of the smart icon through the `color` property.
+<SmartIconVuePackage.Colors />
+
+### keyword
+Specify keywords for icon matching through the `keyword` property, supporting multiple keywords separated by spaces or commas.
+<SmartIconVuePackage.Keywords />
+
+### size
+Control the size of the smart icon through the `size` property.
+<SmartIconVuePackage.Sizes />
+
+## Keyword Examples
+
+### User Related
+<SmartIconVuePackage.UserKeywords />
+
+### Technology Related
+<SmartIconVuePackage.TechKeywords />
+
+### Action Related
+<SmartIconVuePackage.ActionKeywords />
+
+## Multi-Keyword Support
+
+SmartIcon supports multiple keywords separated by spaces or commas. The system will search for matching icons in order.
+
+<SmartIconVuePackage.MultiKeywords /> 
