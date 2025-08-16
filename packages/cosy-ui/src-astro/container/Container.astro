@@ -56,6 +56,13 @@
  * </Container>
  * ```
  *
+ * 设置圆角：
+ * ```astro
+ * <Container rounded="lg">
+ *   <p>带有大圆角的容器</p>
+ * </Container>
+ * ```
+ *
  * Flex布局容器（按行排列）：
  * ```astro
  * <Container flex="row" gap="md">
@@ -84,6 +91,7 @@
  * @prop {string} [margin='none'] - 外边距大小，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl
  * @prop {string} [padding='md'] - 内边距大小，可选值：none、sm、md、lg、xl
  * @prop {string} [size='md'] - 容器尺寸，可选值：xs、sm、md、lg、xl、full，控制容器的最大宽度
+ * @prop {string} [rounded='none'] - 圆角大小，可选值：none、sm、md、lg、xl、full
  * @prop {...HTMLAttributes<'div'>} [rest] - 其他HTML div标签属性
  */
 
@@ -162,6 +170,12 @@ interface Props extends HTMLAttributes<'div'> {
    * @default "md"
    */
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+
+  /**
+   * 圆角大小
+   * @default "none"
+   */
+  rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 }
 
 const {
@@ -174,6 +188,7 @@ const {
   gap = 'none',
   items,
   justify,
+  rounded = 'none',
   class: className = '',
   'class:list': classList,
   ...rest
@@ -195,6 +210,15 @@ const paddingClasses = {
   md: 'cosy:p-4',
   lg: 'cosy:p-6',
   xl: 'cosy:p-8',
+} as const;
+
+const roundedClasses = {
+  none: '',
+  sm: 'cosy:rounded-sm',
+  md: 'cosy:rounded-md',
+  lg: 'cosy:rounded-lg',
+  xl: 'cosy:rounded-xl',
+  full: 'cosy:rounded-full',
 } as const;
 
 const marginClasses = {
@@ -251,7 +275,8 @@ const containerClasses = [
   sizeClasses[size],
   paddingClasses[padding],
   marginClasses[margin],
-  border ? 'cosy:border cosy:rounded-lg' : '',
+  roundedClasses[rounded],
+  border ? 'cosy:border' : '',
   flex ? flexClasses[flex] : '',
   flex ? gapClasses[gap] : '',
   items && flex ? itemsClasses[items] : '',

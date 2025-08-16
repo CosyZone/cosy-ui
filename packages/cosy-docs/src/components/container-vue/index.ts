@@ -9,6 +9,7 @@ import ContainerVueGapContainer from './ContainerVueGapContainer.astro';
 import ContainerVueItemsContainer from './ContainerVueItemsContainer.astro';
 import ContainerVueJustifyContainer from './ContainerVueJustifyContainer.astro';
 import ContainerVuePaddingContainer from './ContainerVuePaddingContainer.astro';
+import ContainerVueRoundedContainer from './ContainerVueRoundedContainer.astro';
 import ContainerVueSizesContainer from './ContainerVueSizesContainer.astro';
 import ContainerVueSlotsContainer from './ContainerVueSlotsContainer.astro';
 
@@ -24,6 +25,7 @@ export const ContainerVuePackage = {
     Items: ContainerVueItemsContainer,
     Justify: ContainerVueJustifyContainer,
     Padding: ContainerVuePaddingContainer,
+    Rounded: ContainerVueRoundedContainer,
     Sizes: ContainerVueSizesContainer,
     Slots: ContainerVueSlotsContainer,
 };

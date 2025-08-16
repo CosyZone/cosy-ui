@@ -107,9 +107,9 @@ const iphoneFrameSrc = (iphoneFrame as any).src || iphoneFrame;
 </script>
 
 <template>
-    <div :class="['cosy:relative not-prose', heightClasses[height]]" :style="{
+    <div :class="['cosy:relative not-prose cosy:mx-auto', heightClasses[height]]" :style="{
         aspectRatio: `${iphoneFrameWidth}/${iphoneFrameHeight}`,
-    }">
+    }" apple-phone>
         <!-- iPhone 边框 -->
         <img v-if="showFrame"
             style="max-width: 100%; max-height: 100%; position: absolute; top: 0; left: 0; z-index: 100;"
@@ -142,7 +142,7 @@ const iphoneFrameSrc = (iphoneFrame as any).src || iphoneFrame;
             position: 'absolute',
             zIndex: 20,
         }">
-            <Container style="height: 100%;" :background="backgroundColor || 'accent/90'">
+            <Container rounded="lg" style="height: 100%;" :background="backgroundColor || 'accent/90'">
                 <slot />
             </Container>
         </div>

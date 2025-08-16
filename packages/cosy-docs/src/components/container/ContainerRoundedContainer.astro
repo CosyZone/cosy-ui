@@ -1,0 +1,45 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerRoundedNone from './ContainerRoundedNone.astro';
+import ContainerRoundedSm from './ContainerRoundedSm.astro';
+import ContainerRoundedMd from './ContainerRoundedMd.astro';
+import ContainerRoundedLg from './ContainerRoundedLg.astro';
+import ContainerRoundedXl from './ContainerRoundedXl.astro';
+import ContainerRoundedFull from './ContainerRoundedFull.astro';
+import ContainerRoundedNoneCode from './ContainerRoundedNone.astro?raw';
+import ContainerRoundedSmCode from './ContainerRoundedSm.astro?raw';
+import ContainerRoundedMdCode from './ContainerRoundedMd.astro?raw';
+import ContainerRoundedLgCode from './ContainerRoundedLg.astro?raw';
+import ContainerRoundedXlCode from './ContainerRoundedXl.astro?raw';
+import ContainerRoundedFullCode from './ContainerRoundedFull.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    ContainerRoundedNoneCode,
+    ContainerRoundedSmCode,
+    ContainerRoundedMdCode,
+    ContainerRoundedLgCode,
+    ContainerRoundedXlCode,
+    ContainerRoundedFullCode,
+  ]}
+  titles={['none', 'sm', 'md', 'lg', 'xl', 'full']}>
+  <div id="tab-1">
+    <ContainerRoundedNone />
+  </div>
+  <div id="tab-2">
+    <ContainerRoundedSm />
+  </div>
+  <div id="tab-3">
+    <ContainerRoundedMd />
+  </div>
+  <div id="tab-4">
+    <ContainerRoundedLg />
+  </div>
+  <div id="tab-5">
+    <ContainerRoundedXl />
+  </div>
+  <div id="tab-6">
+    <ContainerRoundedFull />
+  </div>
+</CodeContainer>

@@ -55,6 +55,12 @@ export interface IContainerProps {
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 
     /**
+     * 圆角大小
+     * @default "none"
+     */
+    rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+
+    /**
      * 预设的语义化背景色，支持 DaisyUI 主题系统
      * 包含透明度设置，使用 Tailwind v4 语法：bg-color/opacity
      * @default undefined

@@ -16,6 +16,7 @@ import { allBackgroundClasses } from './backgrounds';
  * @props {('start'|'end'|'center'|'between'|'around'|'evenly')} [justify] - flex项目垂直对齐方式
  * @props {('none'|'sm'|'md'|'lg'|'xl')} [padding='md'] - 内边距大小
  * @props {('xs'|'sm'|'md'|'lg'|'xl'|'full')} [size='md'] - 容器尺寸
+ * @props {('none'|'sm'|'md'|'lg'|'xl'|'full')} [rounded='none'] - 圆角大小
  * @props {string} [background] - 预设的语义化背景色，使用 Tailwind v4 语法（如 bg-primary/50）
  */
 
@@ -27,6 +28,7 @@ const props = withDefaults(defineProps<Props>(), {
     centered: true,
     border: false,
     gap: 'none',
+    rounded: 'none',
     class: '',
 });
 
@@ -46,6 +48,15 @@ const paddingClasses = {
     md: 'cosy:p-4',
     lg: 'cosy:p-6',
     xl: 'cosy:p-8',
+} as const;
+
+const roundedClasses = {
+    none: '',
+    sm: 'cosy:rounded-sm',
+    md: 'cosy:rounded-md',
+    lg: 'cosy:rounded-lg',
+    xl: 'cosy:rounded-xl',
+    full: 'cosy:rounded-full',
 } as const;
 
 const flexClasses = {
@@ -87,7 +98,8 @@ const containerClasses = computed(() => [
     props.centered ? 'cosy:mx-auto' : '',
     sizeClasses[props.size],
     paddingClasses[props.padding],
-    props.border ? 'cosy:border cosy:rounded-lg' : '',
+    roundedClasses[props.rounded],
+    props.border ? 'cosy:border' : '',
     props.flex ? flexClasses[props.flex] : '',
     props.flex ? gapClasses[props.gap] : '',
     props.items && props.flex ? itemsClasses[props.items] : '',
