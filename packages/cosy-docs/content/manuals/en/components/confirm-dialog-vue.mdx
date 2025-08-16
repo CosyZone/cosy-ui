@@ -1,0 +1,73 @@
+---
+title: 'ConfirmDialog'
+description: 'Vue version of ConfirmDialog component'
+badge: 'Vue'
+tags:
+  - Vue
+order: 1.7
+---
+
+import { ConfirmDialog } from '@coffic/cosy-ui/vue';
+import { ConfirmDialogVuePackage } from '@/components/confirm-dialog-vue/index';
+
+# {frontmatter.title}
+
+## Introduction
+
+The ConfirmDialog component is used to display confirmation dialogs with title, message content, and two buttons (confirm and cancel). It supports custom button text and features fade-in/fade-out animation effects.
+
+Component Features:
+
+- Displays confirmation dialogs with customizable title and message
+- Supports custom button text for confirm and cancel actions
+- Features fade-in/fade-out animation effects
+- Can be closed by clicking the background or cancel button
+- Responsive design that adapts to different screen sizes
+- Supports v-model two-way binding
+- Emits events for user interactions
+
+## Example
+
+<ConfirmDialogVuePackage.Basic />
+
+## Props
+
+### cancelText
+
+Text displayed on the cancel button.
+
+<ConfirmDialogVuePackage.CustomButtons />
+
+### confirmText
+
+Text displayed on the confirm button.
+
+<ConfirmDialogVuePackage.CustomButtons />
+
+### message
+
+The message content displayed in the dialog.
+
+<ConfirmDialogVuePackage.Basic />
+
+### modelValue
+
+Controls the dialog display state, supports v-model two-way binding.
+
+<ConfirmDialogVuePackage.Basic />
+
+### title
+
+The title displayed at the top of the dialog.
+
+<ConfirmDialogVuePackage.Basic />
+
+## Emits
+
+### update:modelValue
+
+Triggered when the dialog closes, used to update the v-model binding value.
+
+### confirm
+
+Triggered when the user clicks the confirm button.
