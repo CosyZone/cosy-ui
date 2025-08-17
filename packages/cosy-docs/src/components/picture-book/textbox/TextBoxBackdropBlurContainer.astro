@@ -1,0 +1,34 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import BackdropBlurNone from './TextBoxBackdropBlurNone.astro';
+import BackdropBlurLight from './TextBoxBackdropBlurLight.astro';
+import BackdropBlurMedium from './TextBoxBackdropBlurMedium.astro';
+import BackdropBlurStrong from './TextBoxBackdropBlurStrong.astro';
+
+import BackdropBlurNoneCode from './TextBoxBackdropBlurNone.astro?raw';
+import BackdropBlurLightCode from './TextBoxBackdropBlurLight.astro?raw';
+import BackdropBlurMediumCode from './TextBoxBackdropBlurMedium.astro?raw';
+import BackdropBlurStrongCode from './TextBoxBackdropBlurStrong.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    BackdropBlurNoneCode,
+    BackdropBlurLightCode,
+    BackdropBlurMediumCode,
+    BackdropBlurStrongCode,
+  ]}
+  titles={['无虚化', '轻微虚化 (2px)', '中等虚化 (6px)', '强烈虚化 (12px)']}>
+  <div id="tab-1" style="width: 30%;margin: 0 auto">
+    <BackdropBlurNone />
+  </div>
+  <div id="tab-2" style="width: 30%;margin: 0 auto">
+    <BackdropBlurLight />
+  </div>
+  <div id="tab-3" style="width: 30%;margin: 0 auto">
+    <BackdropBlurMedium />
+  </div>
+  <div id="tab-4" style="width: 30%;margin: 0 auto">
+    <BackdropBlurStrong />
+  </div>
+</CodeContainer>

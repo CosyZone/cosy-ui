@@ -9,6 +9,7 @@ import TextBoxRightContainer from './textbox/TextBoxRightContainer.astro';
 import TextBoxTopContainer from './textbox/TextBoxTopContainer.astro';
 import TextBoxWidthContainer from './textbox/TextBoxWidthContainer.astro';
 import TextBoxBgContainer from './textbox/TextBoxBgContainer.astro';
+import TextBoxBackdropBlurContainer from './textbox/TextBoxBackdropBlurContainer.astro';
 import TextBoxRoundPadContainer from './textbox/TextBoxRoundPadContainer.astro';
 import TextBoxShadowContainer from './textbox/TextBoxShadowContainer.astro';
 import TextBoxZIndexContainer from './textbox/TextBoxZIndexContainer.astro';
@@ -29,6 +30,7 @@ export const PictureBookPackage = {
     },
     TextBoxContainers: {
         BgAndBlur: TextBoxBgContainer,
+        BackdropBlur: TextBoxBackdropBlurContainer,
         RoundedAndPadding: TextBoxRoundPadContainer,
         TextShadow: TextBoxShadowContainer,
         ZIndex: TextBoxZIndexContainer,
