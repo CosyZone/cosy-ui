@@ -1,17 +1,52 @@
 ---
 import { CodeContainer } from '@coffic/cosy-ui';
-import Ratio34 from './PictureBookPageRatio34.astro';
+import Ratio11 from './PictureBookPageRatio11.astro';
+import Ratio12 from './PictureBookPageRatio12.astro';
 import Ratio23 from './PictureBookPageRatio23.astro';
+import Ratio34 from './PictureBookPageRatio34.astro';
+import Ratio43 from './PictureBookPageRatio43.astro';
+import Ratio169 from './PictureBookPageRatio169.astro';
+import Ratio219 from './PictureBookPageRatio219.astro';
 
-import Ratio34Code from './PictureBookPageRatio34.astro?raw';
+import Ratio11Code from './PictureBookPageRatio11.astro?raw';
+import Ratio12Code from './PictureBookPageRatio12.astro?raw';
 import Ratio23Code from './PictureBookPageRatio23.astro?raw';
+import Ratio34Code from './PictureBookPageRatio34.astro?raw';
+import Ratio43Code from './PictureBookPageRatio43.astro?raw';
+import Ratio169Code from './PictureBookPageRatio169.astro?raw';
+import Ratio219Code from './PictureBookPageRatio219.astro?raw';
 ---
 
-<CodeContainer codes={[Ratio34Code, Ratio23Code]} titles={['3/4', '2/3']}>
-  <div id="tab-1" style="width: 50%;margin: 0 auto">
+<CodeContainer
+  codes={[
+    Ratio11Code,
+    Ratio12Code,
+    Ratio23Code,
+    Ratio34Code,
+    Ratio43Code,
+    Ratio169Code,
+    Ratio219Code,
+  ]}
+  titles={['1/1', '1/2', '2/3', '3/4', '4/3', '16/9', '21/9']}>
+  <div id="tab-1" style="width: 30%;margin: 0 auto">
+    <Ratio11 />
+  </div>
+  <div id="tab-2" style="width: 30%;margin: 0 auto">
+    <Ratio12 />
+  </div>
+  <div id="tab-3" style="width: 30%;margin: 0 auto">
+    <Ratio23 />
+  </div>
+  <div id="tab-4" style="width: 30%;margin: 0 auto">
     <Ratio34 />
   </div>
-  <div id="tab-2" style="width: 50%;margin: 0 auto">
-    <Ratio23 />
+  <div id="tab-5" style="width: 30%;margin: 0 auto">
+    <Ratio43 />
+  </div>
+  <div id="tab-6" style="width: 30%;margin: 0 auto">
+    <Ratio169 />
+  </div>
+  <div id="tab-7" style="width: 30%;margin: 0 auto">
+    <Ratio219 />
   </div>
 </CodeContainer>
