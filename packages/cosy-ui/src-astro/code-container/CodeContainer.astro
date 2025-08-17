@@ -95,7 +95,10 @@ const {
 } = Astro.props;
 ---
 
-<div data-role="code-container" class="cosy:mb-8 cosy:card" ignore-heading>
+<div
+  data-role="code-container"
+  class="cosy:mb-8 cosy:card not-prose"
+  ignore-heading>
   <CodeToolbar
     titles={titles.length ? titles : codes.map((_, i) => `示例 ${i + 1}`)}
     activeTab={0}

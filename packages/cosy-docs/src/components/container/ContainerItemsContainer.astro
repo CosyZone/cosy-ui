@@ -4,12 +4,34 @@
  * @description Container 组件对齐方式示例容器
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import ContainerItems from './ContainerItems.astro';
-import sourceCode from './ContainerItems.astro?raw';
+import ContainerItemsStart from './ContainerItemsStart.astro';
+import ContainerItemsCenter from './ContainerItemsCenter.astro';
+import ContainerItemsEnd from './ContainerItemsEnd.astro';
+import ContainerItemsStretch from './ContainerItemsStretch.astro';
+import ContainerItemsBaseline from './ContainerItemsBaseline.astro';
+import sourceStart from './ContainerItemsStart.astro?raw';
+import sourceCenter from './ContainerItemsCenter.astro?raw';
+import sourceEnd from './ContainerItemsEnd.astro?raw';
+import sourceStretch from './ContainerItemsStretch.astro?raw';
+import sourceBaseline from './ContainerItemsBaseline.astro?raw';
 ---
 
-<CodeContainer codes={[sourceCode]}>
+<CodeContainer
+  codes={[sourceStart, sourceCenter, sourceEnd, sourceStretch, sourceBaseline]}
+  titles={['start', 'center', 'end', 'stretch', 'baseline']}>
   <div id="tab-1">
-    <ContainerItems />
+    <ContainerItemsStart />
+  </div>
+  <div id="tab-2">
+    <ContainerItemsCenter />
+  </div>
+  <div id="tab-3">
+    <ContainerItemsEnd />
+  </div>
+  <div id="tab-4">
+    <ContainerItemsStretch />
+  </div>
+  <div id="tab-5">
+    <ContainerItemsBaseline />
   </div>
 </CodeContainer>

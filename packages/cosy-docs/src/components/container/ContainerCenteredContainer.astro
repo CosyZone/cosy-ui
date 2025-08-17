@@ -4,12 +4,19 @@
  * @description Container 组件居中示例容器
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import ContainerCentered from './ContainerCentered.astro';
-import sourceCode from './ContainerCentered.astro?raw';
+import ContainerCenteredTrue from './ContainerCenteredTrue.astro';
+import ContainerCenteredFalse from './ContainerCenteredFalse.astro';
+import sourceTrue from './ContainerCenteredTrue.astro?raw';
+import sourceFalse from './ContainerCenteredFalse.astro?raw';
 ---
 
-<CodeContainer codes={[sourceCode]}>
+<CodeContainer
+  codes={[sourceTrue, sourceFalse]}
+  titles={['居中显示', '左对齐']}>
   <div id="tab-1">
-    <ContainerCentered />
+    <ContainerCenteredTrue />
+  </div>
+  <div id="tab-2">
+    <ContainerCenteredFalse />
   </div>
 </CodeContainer>

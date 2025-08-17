@@ -3,18 +3,11 @@
  * @component ContainerFlexCol
  * @description Container 组件列布局示例
  */
-import { Container } from '@coffic/cosy-ui';
+import { Container, PlaceHolder } from '@coffic/cosy-ui';
 ---
 
-<Container flex="col" gap="md" class="cosy:bg-base-200">
-  <div class="cosy:bg-primary cosy:text-primary-content cosy:p-2 cosy:rounded">
-    项目 1
-  </div>
-  <div
-    class="cosy:bg-secondary cosy:text-secondary-content cosy:p-2 cosy:rounded">
-    项目 2
-  </div>
-  <div class="cosy:bg-accent cosy:text-accent-content cosy:p-2 cosy:rounded">
-    项目 3
-  </div>
+<Container flex="col" gap="md" background="accent/40">
+  <PlaceHolder background="primary" class="cosy:p-2"> 项目 1 </PlaceHolder>
+  <PlaceHolder background="secondary" class="cosy:p-2"> 项目 2 </PlaceHolder>
+  <PlaceHolder background="accent" class="cosy:p-2"> 项目 3 </PlaceHolder>
 </Container>

@@ -1,0 +1,15 @@
+---
+import { PictureBookPage, PictureBookTextBox } from '@coffic/cosy-ui';
+---
+
+<div
+  style="border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1rem;width: 16rem; height: 12rem;">
+  <PictureBookPage
+    fillParent={true}
+    pageAspectRatio={3 / 4}
+    background="primary/20">
+    <PictureBookTextBox slot="overlay" top={10} left={20} width={60}>
+      占满父容器：充分利用可用空间
+    </PictureBookTextBox>
+  </PictureBookPage>
+</div>
