@@ -1,0 +1,24 @@
+---
+/**
+ * @component ContainerAspectRatioContainer
+ * @description Container 组件宽高比多标签演示容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerAspectRatio16x9 from './ContainerAspectRatio16x9.astro';
+import ContainerAspectRatio4x3 from './ContainerAspectRatio4x3.astro';
+import ContainerAspectRatio1x1 from './ContainerAspectRatio1x1.astro';
+import ContainerAspectRatio3x2 from './ContainerAspectRatio3x2.astro';
+import source16x9 from './ContainerAspectRatio16x9.astro?raw';
+import source4x3 from './ContainerAspectRatio4x3.astro?raw';
+import source1x1 from './ContainerAspectRatio1x1.astro?raw';
+import source3x2 from './ContainerAspectRatio3x2.astro?raw';
+---
+
+<CodeContainer
+  titles={['16:9 比例', '4:3 比例', '正方形', '3:2 比例']}
+  codes={[source16x9, source4x3, source1x1, source3x2]}>
+  <div id="tab-1"><ContainerAspectRatio16x9 /></div>
+  <div id="tab-2"><ContainerAspectRatio4x3 /></div>
+  <div id="tab-3"><ContainerAspectRatio1x1 /></div>
+  <div id="tab-4"><ContainerAspectRatio3x2 /></div>
+</CodeContainer>

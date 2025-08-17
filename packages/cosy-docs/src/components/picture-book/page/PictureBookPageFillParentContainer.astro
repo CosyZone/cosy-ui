@@ -2,18 +2,33 @@
 import { CodeContainer } from '@coffic/cosy-ui';
 import DefaultBehavior from './PictureBookPageDefault.astro';
 import FillParent from './PictureBookPageFillParent.astro';
+import FillParentRatio1To2 from './PictureBookPageFillParentRatio1To2.astro';
+import FillParentRatio2To1 from './PictureBookPageFillParentRatio2To1.astro';
 
 import DefaultBehaviorCode from './PictureBookPageDefault.astro?raw';
 import FillParentCode from './PictureBookPageFillParent.astro?raw';
+import FillParentRatio1To2Code from './PictureBookPageFillParentRatio1To2.astro?raw';
+import FillParentRatio2To1Code from './PictureBookPageFillParentRatio2To1.astro?raw';
 ---
 
 <CodeContainer
-  codes={[DefaultBehaviorCode, FillParentCode]}
-  titles={['默认行为', '占满父容器']}>
+  codes={[
+    DefaultBehaviorCode,
+    FillParentCode,
+    FillParentRatio1To2Code,
+    FillParentRatio2To1Code,
+  ]}
+  titles={['默认行为', '占满父容器 3:4', '占满父容器 1:2', '占满父容器 2:1']}>
   <div id="tab-1" style="width: 100%; margin: 0 auto">
     <DefaultBehavior />
   </div>
   <div id="tab-2" style="width: 100%; margin: 0 auto">
     <FillParent />
+  </div>
+  <div id="tab-3" style="width: 100%; margin: 0 auto">
+    <FillParentRatio1To2 />
+  </div>
+  <div id="tab-4" style="width: 100%; margin: 0 auto">
+    <FillParentRatio2To1 />
   </div>
 </CodeContainer>
