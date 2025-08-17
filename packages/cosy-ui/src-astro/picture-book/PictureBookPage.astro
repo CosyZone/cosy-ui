@@ -17,8 +17,18 @@
  * </PictureBookPage>
  * ```
  *
+ * 带背景色的用法：
+ * ```astro
+ * <PictureBookPage background="base-100/80" pageAspectRatio={3/4}>
+ *   <div slot="background" style="width:100%;height:100%;background:#faf7ef"></div>
+ *   <PictureBookTextBox slot="overlay" top={8} left={50} width={48}>
+ *     正文内容……
+ *   </PictureBookTextBox>
+ * </PictureBookPage>
+ * ```
+ *
  * @props
- * - lang?: 'zh' | 'en' - 可选：强制语言
+ * - background?: string - 背景色类型，支持所有 Container 组件的背景色配置，如：base-100、primary/20、secondary/30 等
  * - pageAspectRatio?: number - 页面宽高比（宽/高），默认 3/4
  *
  * @slots
@@ -28,20 +38,28 @@
  */
 
 import '../../style.ts';
+import Container from '../container/Container.astro';
+import type { BackgroundColor } from '../container/backgrounds';
 
 export interface IPictureBookPageProps {
-  lang?: 'zh' | 'en';
+  background?: BackgroundColor;
   pageAspectRatio?: number;
 }
 
-const { lang, pageAspectRatio = 3 / 4 } = Astro.props as IPictureBookPageProps;
-
-const ariaLabel = lang === 'en' ? 'Picture book page' : '绘本页';
+const { background, pageAspectRatio = 3 / 4 } =
+  Astro.props as IPictureBookPageProps;
 ---
 
-<section
-  aria-label={ariaLabel}
-  class="cosy:relative cosy:w-full cosy:overflow-hidden cosy:rounded-xl cosy:shadow-lg cosy:ring-1 cosy:ring-black/5">
+<Container
+  background={background}
+  size="full"
+  padding="none"
+  margin="none"
+  rounded="xl"
+  border={false}
+  centered={false}
+  aria-label="绘本页"
+  class="cosy:relative cosy:overflow-hidden cosy:shadow-lg cosy:ring-1 cosy:ring-black/5">
   <!-- 固定页面宽高比容器（padding-bottom 技术） -->
   <div
     class="cosy:relative cosy:w-full"
@@ -69,17 +87,10 @@ const ariaLabel = lang === 'en' ? 'Picture book page' : '绘本页';
         <!-- 文字层：按行高对齐排版 -->
         <div
           class="cosy:relative cosy:h-full cosy:w-full cosy:whitespace-pre-wrap cosy:break-words cosy:text-gray-900"
-          style={`line-height: 1.7; font-size: ${lang === 'en' ? '17px' : '18px'}; font-weight: 500;`}>
+          style="line-height: 1.7; font-size: 18px; font-weight: 500;">
           <slot />
         </div>
       </div>
     </div>
   </div>
-</section>
-
-<style>
-  /* 用于可选的文字阴影 class */
-  .text-shadow {
-    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
-  }
-</style>
+</Container>

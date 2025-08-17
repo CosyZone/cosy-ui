@@ -1,6 +1,6 @@
 import PictureBookPageBasic from './page/PictureBookPageBasic.astro';
-import PictureBookPageLangContainer from './page/PictureBookPageLangContainer.astro';
 import PictureBookPageRatioContainer from './page/PictureBookPageRatioContainer.astro';
+import PictureBookPageBackgroundContainer from './page/PictureBookPageBackgroundContainer.astro';
 
 import TextBoxBasic from './textbox/TextBoxBasic.astro';
 import TextBoxBottomContainer from './textbox/TextBoxBottomContainer.astro';
@@ -22,8 +22,8 @@ export const PictureBookPackage = {
         Basic: PictureBookPageBasic,
     },
     PageContainers: {
-        Lang: PictureBookPageLangContainer,
         PageAspectRatio: PictureBookPageRatioContainer,
+        Background: PictureBookPageBackgroundContainer,
     },
     TextBoxExamples: {
         Basic: TextBoxBasic,

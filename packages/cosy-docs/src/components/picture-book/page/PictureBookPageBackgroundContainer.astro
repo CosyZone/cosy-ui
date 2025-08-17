@@ -1,0 +1,39 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import BackgroundNone from './PictureBookPageBackgroundNone.astro';
+import BackgroundBase100 from './PictureBookPageBackgroundBase100.astro';
+import BackgroundPrimary from './PictureBookPageBackgroundPrimary.astro';
+import BackgroundSecondary from './PictureBookPageBackgroundSecondary.astro';
+
+import BackgroundNoneCode from './PictureBookPageBackgroundNone.astro?raw';
+import BackgroundBase100Code from './PictureBookPageBackgroundBase100.astro?raw';
+import BackgroundPrimaryCode from './PictureBookPageBackgroundPrimary.astro?raw';
+import BackgroundSecondaryCode from './PictureBookPageBackgroundSecondary.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    BackgroundNoneCode,
+    BackgroundBase100Code,
+    BackgroundPrimaryCode,
+    BackgroundSecondaryCode,
+  ]}
+  titles={[
+    '无背景色',
+    'base-100 背景',
+    'primary/20 背景',
+    'secondary/30 背景',
+  ]}>
+  <div id="tab-1" style="width: 30%;margin: 0 auto">
+    <BackgroundNone />
+  </div>
+  <div id="tab-2" style="width: 30%;margin: 0 auto">
+    <BackgroundBase100 />
+  </div>
+  <div id="tab-3" style="width: 30%;margin: 0 auto">
+    <BackgroundPrimary />
+  </div>
+  <div id="tab-4" style="width: 30%;margin: 0 auto">
+    <BackgroundSecondary />
+  </div>
+</CodeContainer>

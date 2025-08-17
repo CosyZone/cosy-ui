@@ -6,7 +6,7 @@
  *
  * 用法（简要）：
  * - 基本：
- *   <PictureBookPage client:load lang="zh" :lines="35" :pageAspectRatio="3/4">
+ *   <PictureBookPage client:load :lines="35" :pageAspectRatio="3/4">
  *     <Image slot="background" :src="bgImage" alt="页面背景" />
  *     <PictureBookTextBox slot="overlay" :top="8" :left="50" :width="48" :heightInLines="8">正文</PictureBookTextBox>
  *   </PictureBookPage>
@@ -14,7 +14,6 @@
  *
  * Props：
  * - lines：页面被分为的"行"数量，决定行高
- * - lang：强制语言 'zh'|'en'；不传按 URL 推断
  * - pageAspectRatio：页面宽高比（宽/高），如 3/4=0.75
  * - showLines：是否显示横线网格（排版辅助）
  *
@@ -40,26 +39,15 @@ import type { PropType } from 'vue';
 const props = defineProps({
     /** 页面被分为的"行"数量（用于计算每行像素高度） */
     lines: { type: Number, default: 35 },
-    /** 可选：强制指定语言（'zh' 或 'en'）。提供时可避免 SSR/CSR 判断不一致导致的水合警告。 */
-    lang: {
-        type: String as PropType<'zh' | 'en' | undefined>,
-        default: undefined,
-    },
+
     /** 可选：页面宽高比（宽/高）。未提供时容器按宽度自适应；常见绘本为 3/4 或 2/3。 */
     pageAspectRatio: { type: Number, default: 3 / 4 },
     /** 是否显示用于排版参考的横线网格 */
     showLines: { type: Boolean, default: true },
 });
 
-// 根据 props.lang 或 URL 自动判断语言（优先使用 props.lang，确保 SSR/CSR 一致）
-const isZh = computed(() => {
-    if (props.lang === 'zh') return true;
-    if (props.lang === 'en') return false;
-    return (
-        typeof window !== 'undefined' &&
-        window.location?.pathname?.startsWith('/zh-cn')
-    );
-});
+// 默认使用中文
+const isZh = computed(() => true);
 
 const containerRef = ref<HTMLElement | null>(null);
 const textRef = ref<HTMLElement | null>(null);

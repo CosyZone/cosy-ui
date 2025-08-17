@@ -2,16 +2,15 @@
 import { PictureBookPage, PictureBookTextBox } from '@coffic/cosy-ui';
 ---
 
-<PictureBookPage lang="zh">
-  <div slot="background" style="width:100%;height:100%;background:#fff"></div>
+<PictureBookPage pageAspectRatio={3 / 4}>
   <PictureBookTextBox
     slot="overlay"
-    top={15}
+    top={20}
     left={10}
     width={80}
     bg="paper"
-    paddingPx={10}
-    roundedPx={8}>
-    中文排版示例：字体略大，18px。
+    paddingPx={12}
+    roundedPx={12}>
+    默认背景色
   </PictureBookTextBox>
 </PictureBookPage>
