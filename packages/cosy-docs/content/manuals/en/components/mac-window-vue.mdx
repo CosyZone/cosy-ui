@@ -2,16 +2,18 @@
 title: 'MacWindow'
 folder: false
 order: 17
+badge: 'Vue'
+tags: ['Vue']
 ---
 
-import { MacWindow } from '@coffic/cosy-ui';
-import { MacWindowPackage } from '@/components/mac-window/index';
+import { MacWindow } from '@coffic/cosy-ui/vue';
+import { MacWindowVuePackage } from '@/components/mac-window-vue/index';
 
 # {frontmatter.title}
 
 ## Introduction
 
-The MacWindow component simulates a macOS-style application window, including a title bar, toolbar buttons, tabs, and status bar. Suitable for creating simulated desktop application interfaces or code editors.
+The MacWindow Vue component is the Vue version of the MacWindow component, providing the same macOS-style application window functionality but implemented using Vue 3 Composition API.
 
 Component features:
 
@@ -27,51 +29,51 @@ Component features:
 
 Simplest window display:
 
-<MacWindowPackage.Containers.Basic />
+<MacWindowVuePackage.Containers.Basic />
 
 ## Props
 
 ### bgType
 Background color theme type, supporting multiple preset colors.
 
-<MacWindowPackage.Containers.BgTypes />
+<MacWindowVuePackage.Containers.BgTypes />
 
 ### height
 Custom window height, supporting pixel values or percentages.
 
-<MacWindowPackage.Containers.CustomHeight />
+<MacWindowVuePackage.Containers.CustomHeight />
 
 ### tabs
 Tab configuration, supporting multiple tab switching.
 
-<MacWindowPackage.Containers.WithTabs />
+<MacWindowVuePackage.Containers.WithTabs />
 
 ### onClose
 Window close event callback function.
 
-<MacWindowPackage.Containers.WithEvents />
+<MacWindowVuePackage.Containers.WithEvents />
 
 ### onMinimize
 Window minimize event callback function.
 
-<MacWindowPackage.Containers.WithEvents />
+<MacWindowVuePackage.Containers.WithEvents />
 
 ### onMaximize
 Window maximize event callback function.
 
-<MacWindowPackage.Containers.WithEvents />
+<MacWindowVuePackage.Containers.WithEvents />
 
 ## Slots
 
 ### toolbar
 Toolbar slot for placing toolbar buttons and functionality.
 
-<MacWindowPackage.Containers.WithToolbar />
+<MacWindowVuePackage.Containers.WithToolbar />
 
 ### sidebar
 Sidebar slot for creating file browser-style layouts.
 
-<MacWindowPackage.Containers.WithSidebar />
+<MacWindowVuePackage.Containers.WithSidebar />
 
 ### default
-Default slot for placing the main content of the window. 
+Default slot for placing the main content of the window.

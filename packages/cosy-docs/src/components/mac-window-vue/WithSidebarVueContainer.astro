@@ -1,0 +1,16 @@
+---
+/**
+ * @component MacWindow WithSidebar Vue Container
+ * @description MacWindow 带侧边栏 Vue 容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import WithSidebarVue from '../mac-window/WithSidebar.vue';
+import WithSidebarVueSource from '../mac-window/WithSidebar.vue?raw';
+---
+
+<CodeContainer titles={['侧边栏']} codes={[WithSidebarVueSource]}>
+  <div id="tab-1">
+    <WithSidebarVue client:load />
+  </div>
+</CodeContainer>

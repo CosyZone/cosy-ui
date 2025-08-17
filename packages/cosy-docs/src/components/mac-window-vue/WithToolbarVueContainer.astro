@@ -1,0 +1,16 @@
+---
+/**
+ * @component MacWindow WithToolbar Vue Container
+ * @description MacWindow 带工具栏 Vue 容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import WithToolbarVue from '../mac-window/WithToolbar.vue';
+import WithToolbarVueSource from '../mac-window/WithToolbar.vue?raw';
+---
+
+<CodeContainer titles={['工具栏']} codes={[WithToolbarVueSource]}>
+  <div id="tab-1">
+    <WithToolbarVue client:load />
+  </div>
+</CodeContainer>

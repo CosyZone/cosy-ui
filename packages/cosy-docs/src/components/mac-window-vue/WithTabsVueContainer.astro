@@ -1,0 +1,16 @@
+---
+/**
+ * @component MacWindow WithTabs Vue Container
+ * @description MacWindow 带标签页 Vue 容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import WithTabsVue from '../mac-window/WithTabs.vue';
+import WithTabsVueSource from '../mac-window/WithTabs.vue?raw';
+---
+
+<CodeContainer titles={['带标签页']} codes={[WithTabsVueSource]}>
+  <div id="tab-1">
+    <WithTabsVue client:load />
+  </div>
+</CodeContainer>

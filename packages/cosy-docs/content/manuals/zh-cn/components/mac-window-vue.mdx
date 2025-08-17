@@ -2,16 +2,18 @@
 title: 'MacWindow'
 folder: false
 order: 17
+badge: 'Vue'
+tags: ['Vue']
 ---
 
-import { MacWindow } from '@coffic/cosy-ui';
-import { MacWindowPackage } from '@/components/mac-window/index';
+import { MacWindow } from '@coffic/cosy-ui/vue';
+import { MacWindowVuePackage } from '@/components/mac-window-vue/index';
 
 # {frontmatter.title}
 
 ## 简介
 
-MacWindow 组件模拟 macOS 风格的应用窗口，包含标题栏、工具栏按钮、标签页和状态栏。适用于创建模拟桌面应用界面或代码编辑器等场景。
+MacWindow Vue 组件是 MacWindow 组件的 Vue 版本，提供相同的 macOS 风格应用窗口功能，但使用 Vue 3 Composition API 实现。
 
 组件特性：
 
@@ -27,51 +29,51 @@ MacWindow 组件模拟 macOS 风格的应用窗口，包含标题栏、工具栏
 
 最简单的窗口展示：
 
-<MacWindowPackage.Containers.Basic />
+<MacWindowVuePackage.Containers.Basic />
 
 ## Props
 
 ### bgType
 背景色主题类型，支持多种预设颜色。
 
-<MacWindowPackage.Containers.BgTypes />
+<MacWindowVuePackage.Containers.BgTypes />
 
 ### height
 自定义窗口高度，支持像素值或百分比。
 
-<MacWindowPackage.Containers.CustomHeight />
+<MacWindowVuePackage.Containers.CustomHeight />
 
 ### tabs
 标签页配置，支持多个标签页切换。
 
-<MacWindowPackage.Containers.WithTabs />
+<MacWindowVuePackage.Containers.WithTabs />
 
 ### onClose
 窗口关闭事件回调函数。
 
-<MacWindowPackage.Containers.WithEvents />
+<MacWindowVuePackage.Containers.WithEvents />
 
 ### onMinimize
 窗口最小化事件回调函数。
 
-<MacWindowPackage.Containers.WithEvents />
+<MacWindowVuePackage.Containers.WithEvents />
 
 ### onMaximize
 窗口最大化事件回调函数。
 
-<MacWindowPackage.Containers.WithEvents />
+<MacWindowVuePackage.Containers.WithEvents />
 
 ## Slots
 
 ### toolbar
 工具栏插槽，用于放置工具栏按钮和功能。
 
-<MacWindowPackage.Containers.WithToolbar />
+<MacWindowVuePackage.Containers.WithToolbar />
 
 ### sidebar
 侧边栏插槽，用于创建文件浏览器风格的布局。
 
-<MacWindowPackage.Containers.WithSidebar />
+<MacWindowVuePackage.Containers.WithSidebar />
 
 ### default
-默认插槽，用于放置窗口的主要内容。 
+默认插槽，用于放置窗口的主要内容。

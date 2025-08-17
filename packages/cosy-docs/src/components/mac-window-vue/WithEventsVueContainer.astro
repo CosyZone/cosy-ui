@@ -1,0 +1,16 @@
+---
+/**
+ * @component MacWindow WithEvents Vue Container
+ * @description MacWindow 带事件处理 Vue 容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import WithEventsVue from '../mac-window/WithEvents.vue';
+import WithEventsVueSource from '../mac-window/WithEvents.vue?raw';
+---
+
+<CodeContainer titles={['事件处理']} codes={[WithEventsVueSource]}>
+  <div id="tab-1">
+    <WithEventsVue client:load />
+  </div>
+</CodeContainer>

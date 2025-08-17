@@ -1,0 +1,78 @@
+---
+/**
+ * @component MacWindow BgTypes Vue Container
+ * @description MacWindow 背景色类型 Vue 容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import DefaultBgVue from '../mac-window/DefaultBg.astro';
+import PrimaryBgVue from '../mac-window/PrimaryBg.astro';
+import SecondaryBgVue from '../mac-window/SecondaryBg.astro';
+import AccentBgVue from '../mac-window/AccentBg.astro';
+import NeutralBgVue from '../mac-window/NeutralBg.astro';
+import InfoBgVue from '../mac-window/InfoBg.astro';
+import SuccessBgVue from '../mac-window/SuccessBg.astro';
+import WarningBgVue from '../mac-window/WarningBg.astro';
+import ErrorBgVue from '../mac-window/ErrorBg.astro';
+import DefaultBgVueSource from '../mac-window/DefaultBg.astro?raw';
+import PrimaryBgVueSource from '../mac-window/PrimaryBg.astro?raw';
+import SecondaryBgVueSource from '../mac-window/SecondaryBg.astro?raw';
+import AccentBgVueSource from '../mac-window/AccentBg.astro?raw';
+import NeutralBgVueSource from '../mac-window/NeutralBg.astro?raw';
+import InfoBgVueSource from '../mac-window/InfoBg.astro?raw';
+import SuccessBgVueSource from '../mac-window/SuccessBg.astro?raw';
+import WarningBgVueSource from '../mac-window/WarningBg.astro?raw';
+import ErrorBgVueSource from '../mac-window/ErrorBg.astro?raw';
+---
+
+<CodeContainer
+  titles={[
+    '默认',
+    '主要',
+    '次要',
+    '强调',
+    '中性',
+    '信息',
+    '成功',
+    '警告',
+    '错误',
+  ]}
+  codes={[
+    DefaultBgVueSource,
+    PrimaryBgVueSource,
+    SecondaryBgVueSource,
+    AccentBgVueSource,
+    NeutralBgVueSource,
+    InfoBgVueSource,
+    SuccessBgVueSource,
+    WarningBgVueSource,
+    ErrorBgVueSource,
+  ]}>
+  <div id="tab-1">
+    <DefaultBgVue />
+  </div>
+  <div id="tab-2">
+    <PrimaryBgVue />
+  </div>
+  <div id="tab-3">
+    <SecondaryBgVue />
+  </div>
+  <div id="tab-4">
+    <AccentBgVue />
+  </div>
+  <div id="tab-5">
+    <NeutralBgVue />
+  </div>
+  <div id="tab-6">
+    <InfoBgVue />
+  </div>
+  <div id="tab-7">
+    <SuccessBgVue />
+  </div>
+  <div id="tab-8">
+    <WarningBgVue />
+  </div>
+  <div id="tab-9">
+    <ErrorBgVue />
+  </div>
+</CodeContainer>

@@ -1,0 +1,16 @@
+---
+/**
+ * @component MacWindow Basic Vue Container
+ * @description MacWindow 基础用法 Vue 容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import BasicVue from './Basic.vue';
+import BasicVueSource from './Basic.vue?raw';
+---
+
+<CodeContainer titles={['基础用法']} codes={[BasicVueSource]}>
+  <div id="tab-1">
+    <BasicVue client:load />
+  </div>
+</CodeContainer>
