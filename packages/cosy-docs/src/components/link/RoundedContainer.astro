@@ -4,15 +4,59 @@ import { Link } from '@coffic/cosy-ui';
 
 // 导入示例组件
 import RoundedExample from './RoundedExample.astro';
+import RoundedSmExample from './RoundedSmExample.astro';
+import RoundedMdExample from './RoundedMdExample.astro';
+import RoundedLgExample from './RoundedLgExample.astro';
+import RoundedXlExample from './RoundedXlExample.astro';
+import RoundedFullExample from './RoundedFullExample.astro';
 
 // 导入源码
 import RoundedExampleCode from './RoundedExample.astro?raw';
+import RoundedSmExampleCode from './RoundedSmExample.astro?raw';
+import RoundedMdExampleCode from './RoundedMdExample.astro?raw';
+import RoundedLgExampleCode from './RoundedLgExample.astro?raw';
+import RoundedXlExampleCode from './RoundedXlExample.astro?raw';
+import RoundedFullExampleCode from './RoundedFullExample.astro?raw';
 ---
 
-<CodeContainer titles={['圆角设置']} codes={[RoundedExampleCode]}>
+<CodeContainer
+  titles={['none', 'sm', 'md', 'lg', 'xl', 'full']}
+  codes={[
+    RoundedExampleCode,
+    RoundedSmExampleCode,
+    RoundedMdExampleCode,
+    RoundedLgExampleCode,
+    RoundedXlExampleCode,
+    RoundedFullExampleCode,
+  ]}>
   <div id="tab-1">
     <Container flex="row" gap="sm" items="center">
       <RoundedExample />
+    </Container>
+  </div>
+  <div id="tab-2">
+    <Container flex="row" gap="sm" items="center">
+      <RoundedSmExample />
+    </Container>
+  </div>
+  <div id="tab-3">
+    <Container flex="row" gap="sm" items="center">
+      <RoundedMdExample />
+    </Container>
+  </div>
+  <div id="tab-4">
+    <Container flex="row" gap="sm" items="center">
+      <RoundedLgExample />
+    </Container>
+  </div>
+  <div id="tab-5">
+    <Container flex="row" gap="sm" items="center">
+      <RoundedXlExample />
+    </Container>
+  </div>
+  <div id="tab-6">
+    <Container flex="row" gap="sm" items="center">
+      <RoundedFullExample />
     </Container>
   </div>
 </CodeContainer>
