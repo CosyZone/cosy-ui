@@ -1,17 +1,28 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+/**
+ * @component Card
+ * @description Vue 版本的 Card 组件，用于在页面中展示相关内容的容器，通常包含标题、描述和可选的图片
+ * @props {string} title - 卡片标题（必填）
+ * @props {string} [subtitle] - 卡片副标题或描述
+ * @props {string} [imageUrl] - 卡片顶部图片的URL
+ * @props {string} [href] - 如果提供，卡片将变成可点击的链接
+ * @props {boolean} [compact=false] - 是否使用紧凑模式
+ * @props {string} [class] - 自定义CSS类，可用于覆盖默认样式
+ */
+
 defineOptions({
     name: 'Card',
 });
 
 const props = defineProps({
-    title: { type: String, required: true },
-    subtitle: String,
-    imageUrl: String,
-    href: String,
-    compact: Boolean,
     class: String,
+    compact: Boolean,
+    href: String,
+    imageUrl: String,
+    subtitle: String,
+    title: { type: String, required: true },
 });
 
 const cardClasses = computed(() => [

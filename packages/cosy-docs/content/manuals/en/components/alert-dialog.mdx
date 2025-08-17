@@ -22,32 +22,38 @@ Component Features:
 - Supports custom dialog ID
 - Uses daisyUI styling for consistent design
 
-## id
+## Example
+
+<AlertDialogPackage.Basic />
+
+## Props
+
+### class
+
+Custom CSS class name for overriding default styles.
+
+<AlertDialogPackage.CustomStyle />
+
+### id
 
 Unique identifier for the dialog, used to control the dialog's show and hide behavior through JavaScript.
 
 <AlertDialogPackage.Basic />
 
-## lang
+### lang
 
 Language setting that affects button text, supporting both Chinese and English languages.
 
 <AlertDialogPackage.English />
 
-## message
+### message
 
 The message content displayed in the dialog, supporting any text content.
 
 <AlertDialogPackage.Basic />
 
-## Basic Usage
+## Slots
 
-The simplest confirmation dialog:
+### default
 
-<AlertDialogPackage.Basic />
-
-## English Dialog
-
-Display English dialog by using the `lang="en"` property:
-
-<AlertDialogPackage.English />
+No slot content, all content is passed through the message property.

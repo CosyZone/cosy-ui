@@ -1,0 +1,78 @@
+---
+/**
+ * @component LinkVue Variants Container
+ * @description LinkVue 样式变体容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import LinkVueVariantDefault from './LinkVueVariantDefault.vue';
+import LinkVueVariantPrimary from './LinkVueVariantPrimary.vue';
+import LinkVueVariantSecondary from './LinkVueVariantSecondary.vue';
+import LinkVueVariantText from './LinkVueVariantText.vue';
+import LinkVueVariantCta from './LinkVueVariantCta.vue';
+import LinkVueVariantGhost from './LinkVueVariantGhost.vue';
+import LinkVueVariantLight from './LinkVueVariantLight.vue';
+import LinkVueVariantNav from './LinkVueVariantNav.vue';
+import LinkVueVariantGithub from './LinkVueVariantGithub.vue';
+import LinkVueVariantDefaultSource from './LinkVueVariantDefault.vue?raw';
+import LinkVueVariantPrimarySource from './LinkVueVariantPrimary.vue?raw';
+import LinkVueVariantSecondarySource from './LinkVueVariantSecondary.vue?raw';
+import LinkVueVariantTextSource from './LinkVueVariantText.vue?raw';
+import LinkVueVariantCtaSource from './LinkVueVariantCta.vue?raw';
+import LinkVueVariantGhostSource from './LinkVueVariantGhost.vue?raw';
+import LinkVueVariantLightSource from './LinkVueVariantLight.vue?raw';
+import LinkVueVariantNavSource from './LinkVueVariantNav.vue?raw';
+import LinkVueVariantGithubSource from './LinkVueVariantGithub.vue?raw';
+---
+
+<CodeContainer
+  titles={[
+    '默认',
+    '主要',
+    '次要',
+    '文本',
+    '行动号召',
+    '幽灵',
+    '浅色',
+    '导航',
+    'GitHub',
+  ]}
+  codes={[
+    LinkVueVariantDefaultSource,
+    LinkVueVariantPrimarySource,
+    LinkVueVariantSecondarySource,
+    LinkVueVariantTextSource,
+    LinkVueVariantCtaSource,
+    LinkVueVariantGhostSource,
+    LinkVueVariantLightSource,
+    LinkVueVariantNavSource,
+    LinkVueVariantGithubSource,
+  ]}>
+  <div id="tab-1">
+    <LinkVueVariantDefault client:load />
+  </div>
+  <div id="tab-2">
+    <LinkVueVariantPrimary client:load />
+  </div>
+  <div id="tab-3">
+    <LinkVueVariantSecondary client:load />
+  </div>
+  <div id="tab-4">
+    <LinkVueVariantText client:load />
+  </div>
+  <div id="tab-5">
+    <LinkVueVariantCta client:load />
+  </div>
+  <div id="tab-6">
+    <LinkVueVariantGhost client:load />
+  </div>
+  <div id="tab-7">
+    <LinkVueVariantLight client:load />
+  </div>
+  <div id="tab-8">
+    <LinkVueVariantNav client:load />
+  </div>
+  <div id="tab-9">
+    <LinkVueVariantGithub client:load />
+  </div>
+</CodeContainer>

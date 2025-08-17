@@ -1,0 +1,16 @@
+---
+/**
+ * @component ContainerVue Basic Container
+ * @description ContainerVue 基础用法容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerVueBasic from './ContainerVueBasic.vue';
+import ContainerVueBasicCode from './ContainerVueBasic.vue?raw';
+---
+
+<CodeContainer titles={['基础用法']} codes={[ContainerVueBasicCode]}>
+  <div id="tab-1">
+    <ContainerVueBasic client:load />
+  </div>
+</CodeContainer>

@@ -1,0 +1,44 @@
+---
+/**
+ * @component ContainerVue Flex Container
+ * @description ContainerVue Flex 布局容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerVueFlexNone from './ContainerVueFlexNone.vue';
+import ContainerVueFlexRow from './ContainerVueFlexRow.vue';
+import ContainerVueFlexCol from './ContainerVueFlexCol.vue';
+import ContainerVueFlexRowReverse from './ContainerVueFlexRowReverse.vue';
+import ContainerVueFlexColReverse from './ContainerVueFlexColReverse.vue';
+import ContainerVueFlexNoneCode from './ContainerVueFlexNone.vue?raw';
+import ContainerVueFlexRowCode from './ContainerVueFlexRow.vue?raw';
+import ContainerVueFlexColCode from './ContainerVueFlexCol.vue?raw';
+import ContainerVueFlexRowReverseCode from './ContainerVueFlexRowReverse.vue?raw';
+import ContainerVueFlexColReverseCode from './ContainerVueFlexColReverse.vue?raw';
+---
+
+<CodeContainer
+  titles={['undefined', 'row', 'col', 'row-reverse', 'col-reverse']}
+  codes={[
+    ContainerVueFlexNoneCode,
+    ContainerVueFlexRowCode,
+    ContainerVueFlexColCode,
+    ContainerVueFlexRowReverseCode,
+    ContainerVueFlexColReverseCode,
+  ]}>
+  <div id="tab-1">
+    <ContainerVueFlexNone client:load />
+  </div>
+  <div id="tab-2">
+    <ContainerVueFlexRow client:load />
+  </div>
+  <div id="tab-3">
+    <ContainerVueFlexCol client:load />
+  </div>
+  <div id="tab-4">
+    <ContainerVueFlexRowReverse client:load />
+  </div>
+  <div id="tab-5">
+    <ContainerVueFlexColReverse client:load />
+  </div>
+</CodeContainer>

@@ -1,0 +1,73 @@
+---
+title: 'ConfirmDialog'
+description: 'Vue 版本的 ConfirmDialog 组件'
+badge: 'Vue'
+tags:
+  - Vue
+order: 1.7
+---
+
+import { ConfirmDialog } from '@coffic/cosy-ui/vue';
+import { ConfirmDialogVuePackage } from '@/components/confirm-dialog-vue/index';
+
+# {frontmatter.title}
+
+## 简介
+
+ConfirmDialog 组件用于显示确认对话框，带有标题、消息内容和两个按钮（确认和取消），支持自定义按钮文本，并带有淡入淡出动画效果。
+
+组件特性：
+
+- 显示带有可自定义标题和消息的确认对话框
+- 支持自定义确认和取消操作的按钮文本
+- 具有淡入淡出动画效果
+- 可通过点击背景或取消按钮关闭
+- 响应式设计，适配不同屏幕尺寸
+- 支持 v-model 双向绑定
+- 发出用户交互事件
+
+## 案例
+
+<ConfirmDialogVuePackage.Basic />
+
+## Props
+
+### cancelText
+
+取消按钮上显示的文本。
+
+<ConfirmDialogVuePackage.CustomButtons />
+
+### confirmText
+
+确认按钮上显示的文本。
+
+<ConfirmDialogVuePackage.CustomButtons />
+
+### message
+
+对话框中显示的消息内容。
+
+<ConfirmDialogVuePackage.Basic />
+
+### modelValue
+
+控制对话框显示状态，支持 v-model 双向绑定。
+
+<ConfirmDialogVuePackage.Basic />
+
+### title
+
+对话框顶部显示的标题。
+
+<ConfirmDialogVuePackage.Basic />
+
+## Emits
+
+### update:modelValue
+
+当对话框关闭时触发，用于更新 v-model 绑定值。
+
+### confirm
+
+当用户点击确认按钮时触发。

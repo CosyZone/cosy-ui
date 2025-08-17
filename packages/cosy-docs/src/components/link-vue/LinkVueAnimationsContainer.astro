@@ -1,0 +1,38 @@
+---
+/**
+ * @component LinkVue Animations Container
+ * @description LinkVue 动画效果容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import LinkVueAnimationNone from './LinkVueAnimationNone.vue';
+import LinkVueAnimationHoverLift from './LinkVueAnimationHoverLift.vue';
+import LinkVueAnimationHoverGlow from './LinkVueAnimationHoverGlow.vue';
+import LinkVueAnimationHoverScale from './LinkVueAnimationHoverScale.vue';
+import LinkVueAnimationNoneSource from './LinkVueAnimationNone.vue?raw';
+import LinkVueAnimationHoverLiftSource from './LinkVueAnimationHoverLift.vue?raw';
+import LinkVueAnimationHoverGlowSource from './LinkVueAnimationHoverGlow.vue?raw';
+import LinkVueAnimationHoverScaleSource from './LinkVueAnimationHoverScale.vue?raw';
+---
+
+<CodeContainer
+  titles={['无动画', '悬停上浮', '悬停发光', '悬停缩放']}
+  codes={[
+    LinkVueAnimationNoneSource,
+    LinkVueAnimationHoverLiftSource,
+    LinkVueAnimationHoverGlowSource,
+    LinkVueAnimationHoverScaleSource,
+  ]}>
+  <div id="tab-1">
+    <LinkVueAnimationNone client:load />
+  </div>
+  <div id="tab-2">
+    <LinkVueAnimationHoverLift client:load />
+  </div>
+  <div id="tab-3">
+    <LinkVueAnimationHoverGlow client:load />
+  </div>
+  <div id="tab-4">
+    <LinkVueAnimationHoverScale client:load />
+  </div>
+</CodeContainer>

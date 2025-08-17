@@ -1,12 +1,12 @@
 ---
 title: 'MacWindow'
 folder: false
-order: 19
-badge: 'beta'
+order: 17
 ---
 
-import { MacWindow } from '@coffic/cosy-ui/vue';
+import { MacWindow } from '@coffic/cosy-ui';
 import { MacWindowPackage } from '@/components/mac-window/index';
+import Basic from '@/components/mac-window/Basic.astro';
 
 # {frontmatter.title}
 
@@ -24,44 +24,55 @@ MacWindow 组件模拟 macOS 风格的应用窗口，包含标题栏、工具栏
 - 支持窗口操作事件回调
 - 支持多种预设背景色主题，包括默认、主要、次要、强调、中性、信息、成功、警告、错误
 
-## 基础用法
+## 案例
 
 最简单的窗口展示：
 
-<MacWindowPackage.Containers.Basic />
+<Basic />
 
-## 带标签页的窗口
+## Props
 
-通过 tabs 属性添加标签页功能：
+### bgType
+背景色主题类型，支持多种预设颜色。
 
-<MacWindowPackage.Containers.WithTabs />
+<MacWindowPackage.Containers.BgTypes />
 
-## 窗口事件处理
-
-通过事件回调函数处理窗口操作：
-
-<MacWindowPackage.Containers.WithEvents />
-
-## 工具栏和状态栏
-
-使用工具栏和状态栏插槽添加自定义功能：
-
-<MacWindowPackage.Containers.WithToolbar />
-
-## 侧边栏布局
-
-使用侧边栏插槽创建文件浏览器风格的布局：
-
-<MacWindowPackage.Containers.WithSidebar />
-
-## 自定义高度
-
-通过 height 属性自定义窗口高度：
+### height
+自定义窗口高度，支持像素值或百分比。
 
 <MacWindowPackage.Containers.CustomHeight />
 
-## 背景色主题
+### tabs
+标签页配置，支持多个标签页切换。
 
-通过 bgType 属性选择不同的背景色主题：
+<MacWindowPackage.Containers.WithTabs />
 
-<MacWindowPackage.Containers.BgTypes /> 
+### onClose
+窗口关闭事件回调函数。
+
+<MacWindowPackage.Containers.WithEvents />
+
+### onMinimize
+窗口最小化事件回调函数。
+
+<MacWindowPackage.Containers.WithEvents />
+
+### onMaximize
+窗口最大化事件回调函数。
+
+<MacWindowPackage.Containers.WithEvents />
+
+## Slots
+
+### toolbar
+工具栏插槽，用于放置工具栏按钮和功能。
+
+<MacWindowPackage.Containers.WithToolbar />
+
+### sidebar
+侧边栏插槽，用于创建文件浏览器风格的布局。
+
+<MacWindowPackage.Containers.WithSidebar />
+
+### default
+默认插槽，用于放置窗口的主要内容。 

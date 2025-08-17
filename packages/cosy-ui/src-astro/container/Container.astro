@@ -42,6 +42,13 @@
  * </Container>
  * ```
  *
+ * 带背景色的容器：
+ * ```astro
+ * <Container background="primary/10">
+ *   <p>带有主要背景色的容器</p>
+ * </Container>
+ * ```
+ *
  * 带边框的容器：
  * ```astro
  * <Container border>
@@ -53,6 +60,13 @@
  * ```astro
  * <Container margin="lg">
  *   <p>带有大外边距的容器</p>
+ * </Container>
+ * ```
+ *
+ * 设置圆角：
+ * ```astro
+ * <Container rounded="lg">
+ *   <p>带有大圆角的容器</p>
  * </Container>
  * ```
  *
@@ -73,6 +87,7 @@
  * ```
  *
  * @props
+ * @prop {string} [background] - 背景色类型，支持所有 Tailwind 背景色和透明度变体，如：base-100、primary、secondary、accent、neutral、info、success、warning、error，以及透明度变体如 primary/10、secondary/20 等
  * @prop {boolean} [border=false] - 是否显示边框，启用后会在容器周围添加边框和圆角
  * @prop {boolean} [centered=true] - 是否居中显示，设置为false时容器将靠左对齐
  * @prop {string} [class] - 自定义CSS类名，用于添加额外的样式
@@ -84,13 +99,21 @@
  * @prop {string} [margin='none'] - 外边距大小，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl
  * @prop {string} [padding='md'] - 内边距大小，可选值：none、sm、md、lg、xl
  * @prop {string} [size='md'] - 容器尺寸，可选值：xs、sm、md、lg、xl、full，控制容器的最大宽度
+ * @prop {string} [rounded='none'] - 圆角大小，可选值：none、sm、md、lg、xl、full
  * @prop {...HTMLAttributes<'div'>} [rest] - 其他HTML div标签属性
  */
 
 import type { HTMLAttributes } from 'astro/types';
 import '../../style.ts';
+import type { BackgroundColor } from './backgrounds';
+import { getBackgroundClass } from './backgrounds';
 
 interface Props extends HTMLAttributes<'div'> {
+  /**
+   * 背景色类型
+   */
+  background?: BackgroundColor;
+
   /**
    * 是否显示边框
    * @default false
@@ -162,9 +185,16 @@ interface Props extends HTMLAttributes<'div'> {
    * @default "md"
    */
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+
+  /**
+   * 圆角大小
+   * @default "none"
+   */
+  rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 }
 
 const {
+  background,
   size = 'md',
   padding = 'md',
   margin = 'none',
@@ -174,6 +204,7 @@ const {
   gap = 'none',
   items,
   justify,
+  rounded = 'none',
   class: className = '',
   'class:list': classList,
   ...rest
@@ -195,6 +226,15 @@ const paddingClasses = {
   md: 'cosy:p-4',
   lg: 'cosy:p-6',
   xl: 'cosy:p-8',
+} as const;
+
+const roundedClasses = {
+  none: '',
+  sm: 'cosy:rounded-sm',
+  md: 'cosy:rounded-md',
+  lg: 'cosy:rounded-lg',
+  xl: 'cosy:rounded-xl',
+  full: 'cosy:rounded-full',
 } as const;
 
 const marginClasses = {
@@ -251,7 +291,9 @@ const containerClasses = [
   sizeClasses[size],
   paddingClasses[padding],
   marginClasses[margin],
-  border ? 'cosy:border cosy:rounded-lg' : '',
+  roundedClasses[rounded],
+  getBackgroundClass(background),
+  border ? 'cosy:border' : '',
   flex ? flexClasses[flex] : '',
   flex ? gapClasses[gap] : '',
   items && flex ? itemsClasses[items] : '',

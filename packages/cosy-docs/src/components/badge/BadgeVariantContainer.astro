@@ -1,0 +1,73 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import BadgeVariant from './BadgeVariant.astro';
+import BadgeVariantPrimary from './BadgeVariantPrimary.astro';
+import BadgeVariantSecondary from './BadgeVariantSecondary.astro';
+import BadgeVariantAccent from './BadgeVariantAccent.astro';
+import BadgeVariantGhost from './BadgeVariantGhost.astro';
+import BadgeVariantInfo from './BadgeVariantInfo.astro';
+import BadgeVariantSuccess from './BadgeVariantSuccess.astro';
+import BadgeVariantWarning from './BadgeVariantWarning.astro';
+import BadgeVariantError from './BadgeVariantError.astro';
+import BadgeVariantCode from './BadgeVariant.astro?raw';
+import BadgeVariantPrimaryCode from './BadgeVariantPrimary.astro?raw';
+import BadgeVariantSecondaryCode from './BadgeVariantSecondary.astro?raw';
+import BadgeVariantAccentCode from './BadgeVariantAccent.astro?raw';
+import BadgeVariantGhostCode from './BadgeVariantGhost.astro?raw';
+import BadgeVariantInfoCode from './BadgeVariantInfo.astro?raw';
+import BadgeVariantSuccessCode from './BadgeVariantSuccess.astro?raw';
+import BadgeVariantWarningCode from './BadgeVariantWarning.astro?raw';
+import BadgeVariantErrorCode from './BadgeVariantError.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    BadgeVariantCode,
+    BadgeVariantPrimaryCode,
+    BadgeVariantSecondaryCode,
+    BadgeVariantAccentCode,
+    BadgeVariantGhostCode,
+    BadgeVariantInfoCode,
+    BadgeVariantSuccessCode,
+    BadgeVariantWarningCode,
+    BadgeVariantErrorCode,
+  ]}
+  titles={[
+    'default',
+    'primary',
+    'secondary',
+    'accent',
+    'ghost',
+    'info',
+    'success',
+    'warning',
+    'error',
+  ]}>
+  <div id="tab-1">
+    <BadgeVariant />
+  </div>
+  <div id="tab-2">
+    <BadgeVariantPrimary />
+  </div>
+  <div id="tab-3">
+    <BadgeVariantSecondary />
+  </div>
+  <div id="tab-4">
+    <BadgeVariantAccent />
+  </div>
+  <div id="tab-5">
+    <BadgeVariantGhost />
+  </div>
+  <div id="tab-6">
+    <BadgeVariantInfo />
+  </div>
+  <div id="tab-7">
+    <BadgeVariantSuccess />
+  </div>
+  <div id="tab-8">
+    <BadgeVariantWarning />
+  </div>
+  <div id="tab-9">
+    <BadgeVariantError />
+  </div>
+</CodeContainer>

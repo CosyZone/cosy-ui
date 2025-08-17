@@ -1,0 +1,16 @@
+---
+/**
+ * @component AlertDialog Custom Style Container
+ * @description AlertDialog 自定义样式容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import CustomStyle from './CustomStyle.astro';
+import CustomStyleSourceCode from './CustomStyle.astro?raw';
+---
+
+<CodeContainer titles={['自定义样式']} codes={[CustomStyleSourceCode]}>
+  <div id="tab-1">
+    <CustomStyle />
+  </div>
+</CodeContainer>

@@ -1,0 +1,37 @@
+---
+/**
+ * @component BadgeVueSizesContainer
+ * @description Badge Vue 尺寸示例容器组件
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import BadgeVueSizes from './BadgeVueSizes.vue';
+import BadgeVueSizeMd from './BadgeVueSizeMd.vue';
+import BadgeVueSizeSm from './BadgeVueSizeSm.vue';
+import BadgeVueSizeXs from './BadgeVueSizeXs.vue';
+import BadgeVueSizesCode from './BadgeVueSizes.vue?raw';
+import BadgeVueSizeMdCode from './BadgeVueSizeMd.vue?raw';
+import BadgeVueSizeSmCode from './BadgeVueSizeSm.vue?raw';
+import BadgeVueSizeXsCode from './BadgeVueSizeXs.vue?raw';
+---
+
+<CodeContainer
+  codes={[
+    BadgeVueSizesCode,
+    BadgeVueSizeMdCode,
+    BadgeVueSizeSmCode,
+    BadgeVueSizeXsCode,
+  ]}
+  titles={['lg', 'md', 'sm', 'xs']}>
+  <div id="tab-1">
+    <BadgeVueSizes client:load />
+  </div>
+  <div id="tab-2">
+    <BadgeVueSizeMd client:load />
+  </div>
+  <div id="tab-3">
+    <BadgeVueSizeSm client:load />
+  </div>
+  <div id="tab-4">
+    <BadgeVueSizeXs client:load />
+  </div>
+</CodeContainer>

@@ -1,0 +1,31 @@
+---
+/**
+ * @component BadgeVueOutlineContainer
+ * @description Badge Vue 描边样式示例容器组件
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import BadgeVueOutline from './BadgeVueOutline.vue';
+import BadgeVueOutlineSecondary from './BadgeVueOutlineSecondary.vue';
+import BadgeVueOutlineAccent from './BadgeVueOutlineAccent.vue';
+import BadgeVueOutlineCode from './BadgeVueOutline.vue?raw';
+import BadgeVueOutlineSecondaryCode from './BadgeVueOutlineSecondary.vue?raw';
+import BadgeVueOutlineAccentCode from './BadgeVueOutlineAccent.vue?raw';
+---
+
+<CodeContainer
+  codes={[
+    BadgeVueOutlineCode,
+    BadgeVueOutlineSecondaryCode,
+    BadgeVueOutlineAccentCode,
+  ]}
+  titles={['primary', 'secondary', 'accent']}>
+  <div id="tab-1">
+    <BadgeVueOutline client:load />
+  </div>
+  <div id="tab-2">
+    <BadgeVueOutlineSecondary client:load />
+  </div>
+  <div id="tab-3">
+    <BadgeVueOutlineAccent client:load />
+  </div>
+</CodeContainer>

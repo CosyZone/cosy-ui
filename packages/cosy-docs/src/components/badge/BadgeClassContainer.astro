@@ -1,0 +1,33 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import BadgeClass from './BadgeClass.astro';
+import BadgeClassCustom from './BadgeClassCustom.astro';
+import BadgeClassRounded from './BadgeClassRounded.astro';
+import BadgeClassShadow from './BadgeClassShadow.astro';
+import BadgeClassCode from './BadgeClass.astro?raw';
+import BadgeClassCustomCode from './BadgeClassCustom.astro?raw';
+import BadgeClassRoundedCode from './BadgeClassRounded.astro?raw';
+import BadgeClassShadowCode from './BadgeClassShadow.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    BadgeClassCode,
+    BadgeClassCustomCode,
+    BadgeClassRoundedCode,
+    BadgeClassShadowCode,
+  ]}
+  titles={['默认样式', '自定义类名', '圆角样式', '阴影效果']}>
+  <div id="tab-1">
+    <BadgeClass />
+  </div>
+  <div id="tab-2">
+    <BadgeClassCustom />
+  </div>
+  <div id="tab-3">
+    <BadgeClassRounded />
+  </div>
+  <div id="tab-4">
+    <BadgeClassShadow />
+  </div>
+</CodeContainer>

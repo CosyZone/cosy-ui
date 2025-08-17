@@ -1,0 +1,69 @@
+---
+title: 'AlertDialog'
+description: 'Vue version of AlertDialog component'
+badge: 'Vue'
+tags:
+  - Vue
+order: 1.6
+---
+
+import { AlertDialog } from '@coffic/cosy-ui';
+import { AlertDialogVuePackage } from '@/components/alert-dialog-vue/index';
+
+# {frontmatter.title}
+
+## Introduction
+
+The AlertDialog component is used to display simple confirmation dialogs with internationalization support and fade-in/fade-out animation effects.
+
+Component Features:
+
+- Supports Chinese and English internationalization
+- Features fade-in/fade-out animation effects
+- Can be closed by clicking the background or button
+- Responsive design that adapts to different screen sizes
+- Supports custom dialog ID
+- Uses daisyUI styling for consistent design
+- Supports v-model two-way binding
+
+## Example
+
+<AlertDialogVuePackage.Basic />
+
+## Props
+
+### class
+
+Custom CSS class name for overriding default styles.
+
+<AlertDialogVuePackage.CustomStyle />
+
+### lang
+
+Language setting that affects button text, supporting both Chinese and English languages.
+
+<AlertDialogVuePackage.English />
+
+### message
+
+The message content displayed in the dialog, supporting any text content.
+
+<AlertDialogVuePackage.Basic />
+
+### modelValue
+
+Controls the dialog display state, supports v-model two-way binding.
+
+<AlertDialogVuePackage.Basic />
+
+## Emits
+
+### update:modelValue
+
+Triggered when the dialog closes, used to update the v-model binding value.
+
+## Slots
+
+### default
+
+No slot content, all content is passed through the message property.

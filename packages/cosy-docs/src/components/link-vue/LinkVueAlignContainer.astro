@@ -1,0 +1,32 @@
+---
+/**
+ * @component LinkVue Align Container
+ * @description LinkVue 对齐方式容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import LinkVueAlignLeft from './LinkVueAlignLeft.vue';
+import LinkVueAlignCenter from './LinkVueAlignCenter.vue';
+import LinkVueAlignRight from './LinkVueAlignRight.vue';
+import LinkVueAlignLeftSource from './LinkVueAlignLeft.vue?raw';
+import LinkVueAlignCenterSource from './LinkVueAlignCenter.vue?raw';
+import LinkVueAlignRightSource from './LinkVueAlignRight.vue?raw';
+---
+
+<CodeContainer
+  titles={['左对齐', '居中对齐', '右对齐']}
+  codes={[
+    LinkVueAlignLeftSource,
+    LinkVueAlignCenterSource,
+    LinkVueAlignRightSource,
+  ]}>
+  <div id="tab-1">
+    <LinkVueAlignLeft client:load />
+  </div>
+  <div id="tab-2">
+    <LinkVueAlignCenter client:load />
+  </div>
+  <div id="tab-3">
+    <LinkVueAlignRight client:load />
+  </div>
+</CodeContainer>

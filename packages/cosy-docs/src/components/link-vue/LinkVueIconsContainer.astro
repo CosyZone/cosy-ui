@@ -1,0 +1,38 @@
+---
+/**
+ * @component LinkVue Icons Container
+ * @description LinkVue 图标支持容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import LinkVueIconHome from './LinkVueIconHome.vue';
+import LinkVueIconSettings from './LinkVueIconSettings.vue';
+import LinkVueIconSearch from './LinkVueIconSearch.vue';
+import LinkVueIconUser from './LinkVueIconUser.vue';
+import LinkVueIconHomeSource from './LinkVueIconHome.vue?raw';
+import LinkVueIconSettingsSource from './LinkVueIconSettings.vue?raw';
+import LinkVueIconSearchSource from './LinkVueIconSearch.vue?raw';
+import LinkVueIconUserSource from './LinkVueIconUser.vue?raw';
+---
+
+<CodeContainer
+  titles={['首页', '设置', '搜索', '用户']}
+  codes={[
+    LinkVueIconHomeSource,
+    LinkVueIconSettingsSource,
+    LinkVueIconSearchSource,
+    LinkVueIconUserSource,
+  ]}>
+  <div id="tab-1">
+    <LinkVueIconHome client:load />
+  </div>
+  <div id="tab-2">
+    <LinkVueIconSettings client:load />
+  </div>
+  <div id="tab-3">
+    <LinkVueIconSearch client:load />
+  </div>
+  <div id="tab-4">
+    <LinkVueIconUser client:load />
+  </div>
+</CodeContainer>

@@ -1,0 +1,115 @@
+---
+title: 'Container'
+description: 'Vue version of Container component'
+badge: 'Vue'
+tags:
+  - Vue
+order: 5
+---
+
+import { Container } from '@coffic/cosy-ui/vue';
+import { ContainerVuePackage } from '@/components/container-vue/index';
+
+# {frontmatter.title}
+
+## Introduction
+
+The Container component is a basic layout container used to limit content width and center display. It provides various sizes and padding options, suitable for different layout needs.
+
+Component Features:
+
+- Content width constraints for better readability and visual appeal
+- Responsive design that automatically adjusts padding on different screen sizes
+- Flexible configuration with multiple size and padding options
+- Simple and intuitive API for easy integration into various page layouts
+- Flexbox layout support with customizable alignment and spacing
+- Semantic background color support with theme system
+- Background color opacity support with preset opacity values
+
+## Example
+
+<ContainerVuePackage.Basic />
+
+## Props
+
+### background
+
+Base background color with theme system support. Provides preset semantic colors for different use cases.
+
+#### Base Background Colors
+
+<ContainerVuePackage.Background />
+
+#### Background Color Opacity
+
+Background color opacity with preset values for user selection. Uses Tailwind v4 syntax: `bg-color/opacity` (e.g., `bg-primary/50`).
+
+<ContainerVuePackage.BackgroundOpacity />
+
+### border
+
+Whether to display a border. When enabled, adds a border and rounded corners around the container.
+
+<ContainerVuePackage.Border />
+
+### centered
+
+Whether to center the display. When set to false, the container will be left-aligned.
+
+<ContainerVuePackage.Centered />
+
+### class
+
+Custom CSS class name for adding additional styles.
+
+<ContainerVuePackage.CustomClass />
+
+### flex
+
+Flex layout direction. Optional values: row, col, row-reverse, col-reverse. If not set, flex layout is not enabled.
+
+<ContainerVuePackage.Flex />
+
+### gap
+
+Flex item spacing. Optional values: none, xs, sm, md, lg, xl. Only effective when flex layout is enabled.
+
+<ContainerVuePackage.Gap />
+
+### items
+
+Flex item horizontal alignment. Optional values: start, end, center, baseline, stretch. Only effective when flex layout is enabled.
+
+<ContainerVuePackage.Items />
+
+### justify
+
+Flex item vertical alignment. Optional values: start, end, center, between, around, evenly. Only effective when flex layout is enabled.
+
+<ContainerVuePackage.Justify />
+
+### padding
+
+Inner padding size. Optional values: none, sm, md, lg, xl.
+
+<ContainerVuePackage.Padding />
+
+### rounded
+
+Border radius size. Optional values: none, sm, md, lg, xl, full.
+
+<ContainerVuePackage.Rounded />
+
+### size
+
+Container size. Optional values: xs, sm, md, lg, xl, full. Controls the maximum width of the container.
+
+<ContainerVuePackage.Sizes />
+
+## Slots
+
+### default
+
+Default content slot for placing any content inside the container.
+
+<ContainerVuePackage.Slots />

@@ -1,0 +1,23 @@
+---
+/**
+ * @component LinkVue Active Container
+ * @description LinkVue 激活状态容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import LinkVueActiveTrue from './LinkVueActiveTrue.vue';
+import LinkVueActiveFalse from './LinkVueActiveFalse.vue';
+import LinkVueActiveTrueSource from './LinkVueActiveTrue.vue?raw';
+import LinkVueActiveFalseSource from './LinkVueActiveFalse.vue?raw';
+---
+
+<CodeContainer
+  titles={['激活状态', '非激活状态']}
+  codes={[LinkVueActiveTrueSource, LinkVueActiveFalseSource]}>
+  <div id="tab-1">
+    <LinkVueActiveTrue client:load />
+  </div>
+  <div id="tab-2">
+    <LinkVueActiveFalse client:load />
+  </div>
+</CodeContainer>

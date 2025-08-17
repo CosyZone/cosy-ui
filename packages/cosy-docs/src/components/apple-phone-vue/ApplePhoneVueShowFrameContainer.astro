@@ -1,0 +1,23 @@
+---
+/**
+ * @component ApplePhoneVue Show Frame Container
+ * @description ApplePhoneVue 边框显示容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ApplePhoneVueShowFrameTrue from './ApplePhoneVueShowFrameTrue.vue';
+import ApplePhoneVueShowFrameFalse from './ApplePhoneVueShowFrameFalse.vue';
+import ApplePhoneVueShowFrameTrueCode from './ApplePhoneVueShowFrameTrue.vue?raw';
+import ApplePhoneVueShowFrameFalseCode from './ApplePhoneVueShowFrameFalse.vue?raw';
+---
+
+<CodeContainer
+  titles={['显示边框', '隐藏边框']}
+  codes={[ApplePhoneVueShowFrameTrueCode, ApplePhoneVueShowFrameFalseCode]}>
+  <div id="tab-1">
+    <ApplePhoneVueShowFrameTrue client:load />
+  </div>
+  <div id="tab-2">
+    <ApplePhoneVueShowFrameFalse client:load />
+  </div>
+</CodeContainer>

@@ -1,0 +1,23 @@
+---
+/**
+ * @component AlertVue Closable Container
+ * @description AlertVue 可关闭容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import AlertVueClosableTrue from './AlertVueClosableTrue.vue';
+import AlertVueClosableFalse from './AlertVueClosableFalse.vue';
+import AlertVueClosableTrueCode from './AlertVueClosableTrue.vue?raw';
+import AlertVueClosableFalseCode from './AlertVueClosableFalse.vue?raw';
+---
+
+<CodeContainer
+  titles={['可关闭', '不可关闭']}
+  codes={[AlertVueClosableTrueCode, AlertVueClosableFalseCode]}>
+  <div id="tab-1">
+    <AlertVueClosableTrue client:load />
+  </div>
+  <div id="tab-2">
+    <AlertVueClosableFalse client:load />
+  </div>
+</CodeContainer>

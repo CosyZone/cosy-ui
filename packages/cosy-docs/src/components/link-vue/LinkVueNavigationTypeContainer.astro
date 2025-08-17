@@ -1,0 +1,26 @@
+---
+/**
+ * @component LinkVue NavigationType Container
+ * @description LinkVue 导航类型容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import LinkVueNavigationTypePrevious from './LinkVueNavigationTypePrevious.vue';
+import LinkVueNavigationTypeNext from './LinkVueNavigationTypeNext.vue';
+import LinkVueNavigationTypePreviousSource from './LinkVueNavigationTypePrevious.vue?raw';
+import LinkVueNavigationTypeNextSource from './LinkVueNavigationTypeNext.vue?raw';
+---
+
+<CodeContainer
+  titles={['上一页', '下一页']}
+  codes={[
+    LinkVueNavigationTypePreviousSource,
+    LinkVueNavigationTypeNextSource,
+  ]}>
+  <div id="tab-1">
+    <LinkVueNavigationTypePrevious client:load />
+  </div>
+  <div id="tab-2">
+    <LinkVueNavigationTypeNext client:load />
+  </div>
+</CodeContainer>

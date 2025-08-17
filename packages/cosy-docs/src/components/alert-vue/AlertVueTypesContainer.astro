@@ -1,0 +1,38 @@
+---
+/**
+ * @component AlertVue Types Container
+ * @description AlertVue 类型容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import AlertVueTypesInfo from './AlertVueTypesInfo.vue';
+import AlertVueTypesSuccess from './AlertVueTypesSuccess.vue';
+import AlertVueTypesWarning from './AlertVueTypesWarning.vue';
+import AlertVueTypesError from './AlertVueTypesError.vue';
+import AlertVueTypesInfoCode from './AlertVueTypesInfo.vue?raw';
+import AlertVueTypesSuccessCode from './AlertVueTypesSuccess.vue?raw';
+import AlertVueTypesWarningCode from './AlertVueTypesWarning.vue?raw';
+import AlertVueTypesErrorCode from './AlertVueTypesError.vue?raw';
+---
+
+<CodeContainer
+  titles={['信息', '成功', '警告', '错误']}
+  codes={[
+    AlertVueTypesInfoCode,
+    AlertVueTypesSuccessCode,
+    AlertVueTypesWarningCode,
+    AlertVueTypesErrorCode,
+  ]}>
+  <div id="tab-1">
+    <AlertVueTypesInfo client:load />
+  </div>
+  <div id="tab-2">
+    <AlertVueTypesSuccess client:load />
+  </div>
+  <div id="tab-3">
+    <AlertVueTypesWarning client:load />
+  </div>
+  <div id="tab-4">
+    <AlertVueTypesError client:load />
+  </div>
+</CodeContainer>

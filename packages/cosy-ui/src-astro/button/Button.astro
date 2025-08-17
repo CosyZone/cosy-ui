@@ -78,6 +78,17 @@
 import '../../style.ts';
 
 interface Props {
+  block?: boolean;
+  class?: string;
+  disabled?: boolean;
+  formmethod?: string;
+  href?: string;
+  loading?: boolean;
+  onClick?: string;
+  shape?: 'circle' | 'square';
+  size?: 'lg' | 'md' | 'sm' | 'xs';
+  target?: '_self' | '_blank' | '_parent' | '_top';
+  type?: 'button' | 'submit' | 'reset';
   variant?:
     | 'primary'
     | 'secondary'
@@ -103,35 +114,24 @@ interface Props {
     | 'gradient-banana'
     | 'gradient-blueberry'
     | 'gradient-kiwi';
-  size?: 'lg' | 'md' | 'sm' | 'xs';
-  shape?: 'circle' | 'square';
   wide?: boolean;
-  block?: boolean;
-  loading?: boolean;
-  disabled?: boolean;
-  type?: 'button' | 'submit' | 'reset';
-  class?: string;
-  onClick?: string;
-  formmethod?: string;
-  href?: string;
-  target?: '_self' | '_blank' | '_parent' | '_top';
   [key: string]: any; // 允许任意自定义属性
 }
 
 const {
-  variant = 'primary',
-  size = 'md',
-  shape,
-  wide = false,
   block = false,
-  loading = false,
-  disabled = false,
-  type = 'button',
   class: className,
-  onClick,
+  disabled = false,
   formmethod,
   href,
+  loading = false,
+  onClick,
+  shape,
+  size = 'md',
   target,
+  type = 'button',
+  variant = 'primary',
+  wide = false,
   ...rest
 } = Astro.props;
 

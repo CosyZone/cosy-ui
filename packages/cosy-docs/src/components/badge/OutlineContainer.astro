@@ -5,11 +5,23 @@
  */
 import { CodeContainer } from '@coffic/cosy-ui';
 import BadgeOutline from './BadgeOutline.astro';
+import BadgeOutlineSecondary from './BadgeOutlineSecondary.astro';
+import BadgeOutlineAccent from './BadgeOutlineAccent.astro';
 import BadgeOutlineCode from './BadgeOutline.astro?raw';
+import BadgeOutlineSecondaryCode from './BadgeOutlineSecondary.astro?raw';
+import BadgeOutlineAccentCode from './BadgeOutlineAccent.astro?raw';
 ---
 
-<CodeContainer codes={[BadgeOutlineCode]} titles={['描边']}>
+<CodeContainer
+  codes={[BadgeOutlineCode, BadgeOutlineSecondaryCode, BadgeOutlineAccentCode]}
+  titles={['primary', 'secondary', 'accent']}>
   <div id="tab-1">
     <BadgeOutline />
+  </div>
+  <div id="tab-2">
+    <BadgeOutlineSecondary />
+  </div>
+  <div id="tab-3">
+    <BadgeOutlineAccent />
   </div>
 </CodeContainer>

@@ -1,0 +1,23 @@
+---
+/**
+ * @component CardVue Compact Container
+ * @description CardVue 紧凑模式容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import CardVueCompact from './CardVueCompact.vue';
+import CardVueBasic from './CardVueBasic.vue';
+import CardVueCompactCode from './CardVueCompact.vue?raw';
+import CardVueBasicCode from './CardVueBasic.vue?raw';
+---
+
+<CodeContainer
+  titles={['紧凑模式 (true)', '默认模式 (false)']}
+  codes={[CardVueCompactCode, CardVueBasicCode]}>
+  <div id="tab-1">
+    <CardVueCompact client:load />
+  </div>
+  <div id="tab-2">
+    <CardVueBasic client:load />
+  </div>
+</CodeContainer>

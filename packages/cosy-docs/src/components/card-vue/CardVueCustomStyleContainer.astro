@@ -1,0 +1,16 @@
+---
+/**
+ * @component CardVue Custom Style Container
+ * @description CardVue 自定义样式容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import CardVueCustomStyle from './CardVueCustomStyle.vue';
+import CardVueCustomStyleCode from './CardVueCustomStyle.vue?raw';
+---
+
+<CodeContainer titles={['自定义样式']} codes={[CardVueCustomStyleCode]}>
+  <div id="tab-1">
+    <CardVueCustomStyle client:load />
+  </div>
+</CodeContainer>

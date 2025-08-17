@@ -24,128 +24,70 @@ Component Features:
 - Supports gradient effects
 - Responsive design that adapts to different screen sizes
 
-## block
+## Props
 
+### block
 Whether the button is block-level display. When set to true, the button fills the container width.
-
 <ButtonPackage.Width />
 
-## class
-
+### class
 Custom CSS class name for overriding default styles.
-
 <ButtonPackage.Basic />
 
-## disabled
-
+### disabled
 Whether the button is disabled. When set to true, the button cannot be clicked.
-
 <ButtonPackage.States />
 
-## formmethod
-
+### formmethod
 Form submission method, supporting special values like dialog.
-
 <ButtonPackage.Basic />
 
-## href
-
+### href
 Link address. When set, the button becomes a link form.
-
 <ButtonPackage.Link />
 
-## loading
-
+### loading
 Whether to show loading state. When set to true, displays loading animation.
-
 <ButtonPackage.States />
 
-## onClick
-
+### onClick
 Click event handler function, supporting inline JavaScript code.
-
 <ButtonPackage.Basic />
 
-## shape
-
+### shape
 Button shape, supporting circle (circular) and square (square).
-
 <ButtonPackage.Shapes />
 
-## size
-
+### size
 Button size, supporting lg, md, sm, xs four sizes.
-
 <ButtonPackage.Sizes />
 
-## target
-
+### target
 Link target, supporting _self, _blank, _parent, _top.
-
 <ButtonPackage.Link />
 
-## type
-
+### type
 Button type, supporting button, submit, reset.
-
 <ButtonPackage.Basic />
 
-## variant
-
+### variant
 Button style variant, supporting multiple preset styles and gradient effects.
-
 <ButtonPackage.Variants />
 
-## wide
-
+### wide
 Whether the button is wide. When set to true, the button width increases.
-
 <ButtonPackage.Width />
 
-## Basic Buttons
+## Slots
 
-The most basic button usage, displaying different style variants.
-
+### default
+Button content slot, used for placing button text content.
 <ButtonPackage.Basic />
 
-## Button States
-
-Buttons support different state displays.
-
-<ButtonPackage.States />
-
-## Button Sizes
-
-Provides multiple sizes to adapt to different scenario requirements.
-
-<ButtonPackage.Sizes />
-
-## Button Shapes
-
-Buttons support different shape styles.
-
-<ButtonPackage.Shapes />
-
-## Buttons with Icons
-
-Buttons can be used together with icons.
-
+### icon-left
+Left icon slot, displayed to the left of button content.
 <ButtonPackage.WithIcons />
 
-## Width Variants
-
-Buttons support different width settings.
-
-<ButtonPackage.Width />
-
-## Semantic Variants
-
-Provides multiple semantic color variants.
-
-<ButtonPackage.Variants />
-
-## Link Buttons
-
-Buttons can be used as links, supporting internal navigation and external links.
-
-<ButtonPackage.Link />
+### icon-right
+Right icon slot, displayed to the right of button content.
+<ButtonPackage.WithIcons />

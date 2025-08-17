@@ -1,0 +1,23 @@
+---
+/**
+ * @component LinkVue NoUnderline Container
+ * @description LinkVue 无下划线容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import LinkVueNoUnderlineWith from './LinkVueNoUnderlineWith.vue';
+import LinkVueNoUnderlineWithout from './LinkVueNoUnderlineWithout.vue';
+import LinkVueNoUnderlineWithSource from './LinkVueNoUnderlineWith.vue?raw';
+import LinkVueNoUnderlineWithoutSource from './LinkVueNoUnderlineWithout.vue?raw';
+---
+
+<CodeContainer
+  titles={['带下划线', '无下划线']}
+  codes={[LinkVueNoUnderlineWithSource, LinkVueNoUnderlineWithoutSource]}>
+  <div id="tab-1">
+    <LinkVueNoUnderlineWith client:load />
+  </div>
+  <div id="tab-2">
+    <LinkVueNoUnderlineWithout client:load />
+  </div>
+</CodeContainer>

@@ -84,10 +84,29 @@ const icon = computed(() => {
 const viewBox = computed(() => {
     return icon.value?.viewBox || '0 0 24 24';
 });
+
+const iconType = computed(() => {
+    return icon.value?.type || 'stroke';
+});
+
+const isMultiPath = computed(() => {
+    return icon.value?.multiPath || false;
+});
 </script>
 
 <template>
-    <svg xmlns="http://www.w3.org/2000/svg" :width="size" :height="size" :viewBox="viewBox" fill="none"
+    <!-- Fill类型图标（实心图标） -->
+    <svg v-if="iconType === 'fill'" xmlns="http://www.w3.org/2000/svg" :width="size" :height="size" :viewBox="viewBox"
+        :fill="strokeColor" :class="props.class">
+        <path v-if="icon && !isMultiPath" :d="icon.path" />
+        <g v-else-if="icon && isMultiPath">
+            <path v-for="(path, index) in icon.path.split(/(?=M)/).filter(p => p.trim().length > 0)" :key="index"
+                :d="path.trim()" />
+        </g>
+    </svg>
+
+    <!-- Stroke类型图标（线条图标） -->
+    <svg v-else xmlns="http://www.w3.org/2000/svg" :width="size" :height="size" :viewBox="viewBox" fill="none"
         :stroke="strokeColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" :class="props.class">
         <path v-if="icon" :d="icon.path" />
     </svg>

@@ -23,6 +23,7 @@
  * ```
  *
  * @props
+ * @prop {string} [class] - 自定义 CSS 类名，用于覆盖默认样式
  * @prop {string} [id='alert-dialog'] - 对话框的唯一标识符，用于通过 JavaScript 控制对话框的显示和隐藏
  * @prop {('zh-cn'|'en')} [lang='zh-cn'] - 语言设置，影响按钮文本，支持中文和英文两种语言
  * @prop {string} message - 对话框显示的消息内容，支持任意文本内容
@@ -37,9 +38,15 @@ export interface Props {
   message: string;
   lang?: 'zh-cn' | 'en';
   id?: string;
+  class?: string;
 }
 
-const { message, lang = 'zh-cn', id = 'alert-dialog' } = Astro.props;
+const {
+  message,
+  lang = 'zh-cn',
+  id = 'alert-dialog',
+  class: className,
+} = Astro.props;
 
 // 多语言文本
 const t = (key: 'confirm') => {
@@ -57,7 +64,7 @@ const t = (key: 'confirm') => {
 
 <div
   id={id}
-  class="cosy:fixed cosy:inset-0 cosy:z-50 cosy:flex cosy:items-center cosy:justify-center cosy:opacity-0 cosy:pointer-events-none cosy:transition-opacity cosy:duration-200 cosy:ease-in-out"
+  class={`cosy:fixed cosy:inset-0 cosy:z-50 cosy:flex cosy:items-center cosy:justify-center cosy:opacity-0 cosy:pointer-events-none cosy:transition-opacity cosy:duration-200 cosy:ease-in-out ${className || ''}`}
   data-alert-dialog>
   <!-- 背景遮罩 -->
   <div

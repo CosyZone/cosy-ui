@@ -1,0 +1,29 @@
+---
+/**
+ * @component ButtonVue Width Container
+ * @description ButtonVue 宽度容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonVueWidthDefault from './ButtonVueWidthDefault.vue';
+import ButtonVueWidthWide from './ButtonVueWidthWide.vue';
+import ButtonVueWidthBlock from './ButtonVueWidthBlock.vue';
+import ButtonVueWidthDefaultCode from './ButtonVueWidthDefault.vue?raw';
+import ButtonVueWidthWideCode from './ButtonVueWidthWide.vue?raw';
+import ButtonVueWidthBlockCode from './ButtonVueWidthBlock.vue?raw';
+---
+
+<CodeContainer 
+  titles={['默认宽度', '宽按钮', '块级按钮']} 
+  codes={[ButtonVueWidthDefaultCode, ButtonVueWidthWideCode, ButtonVueWidthBlockCode]}
+>
+  <div id="tab-1">
+    <ButtonVueWidthDefault client:load />
+  </div>
+  <div id="tab-2">
+    <ButtonVueWidthWide client:load />
+  </div>
+  <div id="tab-3">
+    <ButtonVueWidthBlock client:load />
+  </div>
+</CodeContainer>

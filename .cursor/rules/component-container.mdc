@@ -1,0 +1,68 @@
+---
+globs: *Container.astro
+alwaysApply: false
+---
+# 容器组件规范
+
+**如果这个规则被应用，则在输出中说明：!! 我注意到了项目的容器组件规范**
+
+## CodeContainer 使用规范
+
+- 使用 [CodeContainer](mdc:packages/cosy-ui/src-astro/code-container/CodeContainer.astro)
+- 使用 `?raw` 后缀导入源代码
+- 每个功能特性一个标签页
+- 提供 titles 数组
+- **每个标签页的 div 必须有对应的 id**：`id="tab-1"`, `id="tab-2"`, `id="tab-3"` 等
+- **属性的每个值都要至少有一个对应的标签**：确保组件属性的每个可能值都有对应的示例展示
+- **每个标签页仅包含一个核心组件实例**：一个标签页/示例文件只能渲染一次核心组件
+- **禁止在单个示例文件中渲染多个核心组件实例**：需要展示多个变体/对比时，应拆分为多个示例文件，并在容器组件中以多个标签页呈现
+
+## 正确示例
+
+```astro
+<CodeContainer
+  codes={[code1, code2, code3, code4]}
+  titles={['none', 'fade', 'slide', 'zoom']}>
+  <div id="tab-1">
+    <Component transition="none" />
+  </div>
+  <div id="tab-2">
+    <Component transition="fade" />
+  </div>
+  <div id="tab-3">
+    <Component transition="slide" />
+  </div>
+  <div id="tab-4">
+    <Component transition="zoom" />
+  </div>
+</CodeContainer>
+```
+
+## 错误示例
+
+### 缺少 id 属性
+
+```astro
+<CodeContainer codes={[code1, code2]}>
+  <div>  <!-- 错误：缺少 id -->
+    <Component />
+  </div>
+  <div>  <!-- 错误：缺少 id -->
+    <Component variant="advanced" />
+  </div>
+</CodeContainer>
+```
+
+### 缺少属性值展示
+
+```astro
+<CodeContainer codes={[code1, code2]} titles={['none', 'fade']}>
+  <div id="tab-1">
+    <Component transition="none" />
+  </div>
+  <div id="tab-2">
+    <Component transition="fade" />
+  </div>
+  <!-- 错误：缺少 slide 和 zoom 值的展示 -->
+</CodeContainer>
+```

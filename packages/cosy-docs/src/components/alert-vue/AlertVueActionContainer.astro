@@ -1,0 +1,16 @@
+---
+/**
+ * @component AlertVue Action Container
+ * @description AlertVue 自定义操作容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import AlertVueAction from './AlertVueAction.vue';
+import AlertVueActionCode from './AlertVueAction.vue?raw';
+---
+
+<CodeContainer titles={['自定义操作']} codes={[AlertVueActionCode]}>
+  <div id="tab-1">
+    <AlertVueAction client:load />
+  </div>
+</CodeContainer>

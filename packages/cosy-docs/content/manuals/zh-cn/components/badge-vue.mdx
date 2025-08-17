@@ -1,0 +1,63 @@
+---
+title: 'Badge'
+description: 'Vue 版本的 Badge 组件'
+badge: 'Vue'
+tags:
+  - Vue
+folder: false
+order: 2.5
+---
+
+import { BadgeVuePackage } from '@/components/badge-vue/index';
+
+# {frontmatter.title}
+
+## 简介
+
+Badge Vue 组件用于突出显示少量信息，如标签、状态或计数。这是 Vue 版本的实现，提供了响应式的交互体验。
+
+组件特性：
+
+- 支持多种预设颜色
+- 支持多种尺寸
+- 支持描边样式
+- 响应式设计，适配不同屏幕尺寸
+- Vue 3 Composition API 支持
+
+## 案例
+
+<BadgeVuePackage.Basic />
+
+## Props
+
+### class
+
+自定义 CSS 类名，用于覆盖默认样式。
+
+<BadgeVuePackage.Class />
+
+### outline
+
+徽章是否为描边样式，设置为 true 时显示为描边风格。
+
+<BadgeVuePackage.Outline />
+
+### size
+
+徽章的尺寸，支持 xs、sm、md、lg 四种尺寸。
+
+<BadgeVuePackage.Sizes />
+
+### variant
+
+徽章的颜色变体，支持多种预设颜色主题。
+
+<BadgeVuePackage.Variant />
+
+## Slots
+
+### default
+
+徽章内容，支持任意文本内容。
+
+<BadgeVuePackage.Basic />
