@@ -5,14 +5,19 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import External from './External.vue';
-import ExternalSource from './External.vue?raw';
+import LinkVueExternalInternal from './LinkVueExternalInternal.vue';
+import LinkVueExternalExternal from './LinkVueExternalExternal.vue';
+import LinkVueExternalInternalSource from './LinkVueExternalInternal.vue?raw';
+import LinkVueExternalExternalSource from './LinkVueExternalExternal.vue?raw';
 ---
 
 <CodeContainer
   titles={['内部链接', '外部链接']}
-  codes={[ExternalSource, ExternalSource]}>
+  codes={[LinkVueExternalInternalSource, LinkVueExternalExternalSource]}>
   <div id="tab-1">
-    <External client:load />
+    <LinkVueExternalInternal client:load />
+  </div>
+  <div id="tab-2">
+    <LinkVueExternalExternal client:load />
   </div>
 </CodeContainer>

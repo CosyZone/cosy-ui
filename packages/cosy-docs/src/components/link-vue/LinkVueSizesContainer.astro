@@ -5,14 +5,28 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import Sizes from './Sizes.vue';
-import SizesSource from './Sizes.vue?raw';
+import LinkVueSizeSmall from './LinkVueSizeSmall.vue';
+import LinkVueSizeMedium from './LinkVueSizeMedium.vue';
+import LinkVueSizeLarge from './LinkVueSizeLarge.vue';
+import LinkVueSizeSmallSource from './LinkVueSizeSmall.vue?raw';
+import LinkVueSizeMediumSource from './LinkVueSizeMedium.vue?raw';
+import LinkVueSizeLargeSource from './LinkVueSizeLarge.vue?raw';
 ---
 
 <CodeContainer
   titles={['小型', '中型', '大型']}
-  codes={[SizesSource, SizesSource, SizesSource]}>
+  codes={[
+    LinkVueSizeSmallSource,
+    LinkVueSizeMediumSource,
+    LinkVueSizeLargeSource,
+  ]}>
   <div id="tab-1">
-    <Sizes client:load />
+    <LinkVueSizeSmall client:load />
+  </div>
+  <div id="tab-2">
+    <LinkVueSizeMedium client:load />
+  </div>
+  <div id="tab-3">
+    <LinkVueSizeLarge client:load />
   </div>
 </CodeContainer>

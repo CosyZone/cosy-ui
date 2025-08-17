@@ -5,14 +5,19 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import CustomClass from './CustomClass.vue';
-import CustomClassSource from './CustomClass.vue?raw';
+import LinkVueCustomClassDefault from './LinkVueCustomClassDefault.vue';
+import LinkVueCustomClassCustom from './LinkVueCustomClassCustom.vue';
+import LinkVueCustomClassDefaultSource from './LinkVueCustomClassDefault.vue?raw';
+import LinkVueCustomClassCustomSource from './LinkVueCustomClassCustom.vue?raw';
 ---
 
 <CodeContainer
   titles={['默认样式', '自定义样式']}
-  codes={[CustomClassSource, CustomClassSource]}>
+  codes={[LinkVueCustomClassDefaultSource, LinkVueCustomClassCustomSource]}>
   <div id="tab-1">
-    <CustomClass client:load />
+    <LinkVueCustomClassDefault client:load />
+  </div>
+  <div id="tab-2">
+    <LinkVueCustomClassCustom client:load />
   </div>
 </CodeContainer>

@@ -5,14 +5,22 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import NavigationType from './NavigationType.vue';
-import NavigationTypeSource from './NavigationType.vue?raw';
+import LinkVueNavigationTypePrevious from './LinkVueNavigationTypePrevious.vue';
+import LinkVueNavigationTypeNext from './LinkVueNavigationTypeNext.vue';
+import LinkVueNavigationTypePreviousSource from './LinkVueNavigationTypePrevious.vue?raw';
+import LinkVueNavigationTypeNextSource from './LinkVueNavigationTypeNext.vue?raw';
 ---
 
 <CodeContainer
   titles={['上一页', '下一页']}
-  codes={[NavigationTypeSource, NavigationTypeSource]}>
+  codes={[
+    LinkVueNavigationTypePreviousSource,
+    LinkVueNavigationTypeNextSource,
+  ]}>
   <div id="tab-1">
-    <NavigationType client:load />
+    <LinkVueNavigationTypePrevious client:load />
+  </div>
+  <div id="tab-2">
+    <LinkVueNavigationTypeNext client:load />
   </div>
 </CodeContainer>

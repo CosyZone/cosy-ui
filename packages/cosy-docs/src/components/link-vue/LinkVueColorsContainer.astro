@@ -5,14 +5,52 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import Colors from './Colors.vue';
-import ColorsSource from './Colors.vue?raw';
+import LinkVueColorPrimary from './LinkVueColorPrimary.vue';
+import LinkVueColorSecondary from './LinkVueColorSecondary.vue';
+import LinkVueColorAccent from './LinkVueColorAccent.vue';
+import LinkVueColorInfo from './LinkVueColorInfo.vue';
+import LinkVueColorSuccess from './LinkVueColorSuccess.vue';
+import LinkVueColorWarning from './LinkVueColorWarning.vue';
+import LinkVueColorError from './LinkVueColorError.vue';
+import LinkVueColorPrimarySource from './LinkVueColorPrimary.vue?raw';
+import LinkVueColorSecondarySource from './LinkVueColorSecondary.vue?raw';
+import LinkVueColorAccentSource from './LinkVueColorAccent.vue?raw';
+import LinkVueColorInfoSource from './LinkVueColorInfo.vue?raw';
+import LinkVueColorSuccessSource from './LinkVueColorSuccess.vue?raw';
+import LinkVueColorWarningSource from './LinkVueColorWarning.vue?raw';
+import LinkVueColorErrorSource from './LinkVueColorError.vue?raw';
 ---
 
 <CodeContainer
   titles={['主要', '次要', '强调', '信息', '成功', '警告', '错误']}
-  codes={[ColorsSource, ColorsSource, ColorsSource, ColorsSource, ColorsSource, ColorsSource, ColorsSource]}>
+  codes={[
+    LinkVueColorPrimarySource,
+    LinkVueColorSecondarySource,
+    LinkVueColorAccentSource,
+    LinkVueColorInfoSource,
+    LinkVueColorSuccessSource,
+    LinkVueColorWarningSource,
+    LinkVueColorErrorSource,
+  ]}>
   <div id="tab-1">
-    <Colors client:load />
+    <LinkVueColorPrimary client:load />
+  </div>
+  <div id="tab-2">
+    <LinkVueColorSecondary client:load />
+  </div>
+  <div id="tab-3">
+    <LinkVueColorAccent client:load />
+  </div>
+  <div id="tab-4">
+    <LinkVueColorInfo client:load />
+  </div>
+  <div id="tab-5">
+    <LinkVueColorSuccess client:load />
+  </div>
+  <div id="tab-6">
+    <LinkVueColorWarning client:load />
+  </div>
+  <div id="tab-7">
+    <LinkVueColorError client:load />
   </div>
 </CodeContainer>

@@ -5,14 +5,19 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import Debug from './Debug.vue';
-import DebugSource from './Debug.vue?raw';
+import LinkVueDebugNormal from './LinkVueDebugNormal.vue';
+import LinkVueDebugDebug from './LinkVueDebugDebug.vue';
+import LinkVueDebugNormalSource from './LinkVueDebugNormal.vue?raw';
+import LinkVueDebugDebugSource from './LinkVueDebugDebug.vue?raw';
 ---
 
 <CodeContainer
   titles={['正常模式', '调试模式']}
-  codes={[DebugSource, DebugSource]}>
+  codes={[LinkVueDebugNormalSource, LinkVueDebugDebugSource]}>
   <div id="tab-1">
-    <Debug client:load />
+    <LinkVueDebugNormal client:load />
+  </div>
+  <div id="tab-2">
+    <LinkVueDebugDebug client:load />
   </div>
 </CodeContainer>

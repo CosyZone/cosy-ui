@@ -5,14 +5,19 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import NoUnderline from './NoUnderline.vue';
-import NoUnderlineSource from './NoUnderline.vue?raw';
+import LinkVueNoUnderlineWith from './LinkVueNoUnderlineWith.vue';
+import LinkVueNoUnderlineWithout from './LinkVueNoUnderlineWithout.vue';
+import LinkVueNoUnderlineWithSource from './LinkVueNoUnderlineWith.vue?raw';
+import LinkVueNoUnderlineWithoutSource from './LinkVueNoUnderlineWithout.vue?raw';
 ---
 
 <CodeContainer
   titles={['带下划线', '无下划线']}
-  codes={[NoUnderlineSource, NoUnderlineSource]}>
+  codes={[LinkVueNoUnderlineWithSource, LinkVueNoUnderlineWithoutSource]}>
   <div id="tab-1">
-    <NoUnderline client:load />
+    <LinkVueNoUnderlineWith client:load />
+  </div>
+  <div id="tab-2">
+    <LinkVueNoUnderlineWithout client:load />
   </div>
 </CodeContainer>

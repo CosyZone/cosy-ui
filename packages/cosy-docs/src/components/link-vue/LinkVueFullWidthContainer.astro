@@ -5,14 +5,19 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import FullWidth from './FullWidth.vue';
-import FullWidthSource from './FullWidth.vue?raw';
+import LinkVueFullWidthNormal from './LinkVueFullWidthNormal.vue';
+import LinkVueFullWidthFull from './LinkVueFullWidthFull.vue';
+import LinkVueFullWidthNormalSource from './LinkVueFullWidthNormal.vue?raw';
+import LinkVueFullWidthFullSource from './LinkVueFullWidthFull.vue?raw';
 ---
 
 <CodeContainer
   titles={['普通宽度', '全宽显示']}
-  codes={[FullWidthSource, FullWidthSource]}>
+  codes={[LinkVueFullWidthNormalSource, LinkVueFullWidthFullSource]}>
   <div id="tab-1">
-    <FullWidth client:load />
+    <LinkVueFullWidthNormal client:load />
+  </div>
+  <div id="tab-2">
+    <LinkVueFullWidthFull client:load />
   </div>
 </CodeContainer>

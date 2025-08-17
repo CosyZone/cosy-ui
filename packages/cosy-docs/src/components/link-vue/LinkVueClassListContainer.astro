@@ -5,14 +5,19 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import ClassList from './ClassList.vue';
-import ClassListSource from './ClassList.vue?raw';
+import LinkVueClassListDefault from './LinkVueClassListDefault.vue';
+import LinkVueClassListList from './LinkVueClassListList.vue';
+import LinkVueClassListDefaultSource from './LinkVueClassListDefault.vue?raw';
+import LinkVueClassListListSource from './LinkVueClassListList.vue?raw';
 ---
 
 <CodeContainer
   titles={['默认样式', '类名列表']}
-  codes={[ClassListSource, ClassListSource]}>
+  codes={[LinkVueClassListDefaultSource, LinkVueClassListListSource]}>
   <div id="tab-1">
-    <ClassList client:load />
+    <LinkVueClassListDefault client:load />
+  </div>
+  <div id="tab-2">
+    <LinkVueClassListList client:load />
   </div>
 </CodeContainer>

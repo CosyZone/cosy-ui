@@ -5,14 +5,28 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import Align from './Align.vue';
-import AlignSource from './Align.vue?raw';
+import LinkVueAlignLeft from './LinkVueAlignLeft.vue';
+import LinkVueAlignCenter from './LinkVueAlignCenter.vue';
+import LinkVueAlignRight from './LinkVueAlignRight.vue';
+import LinkVueAlignLeftSource from './LinkVueAlignLeft.vue?raw';
+import LinkVueAlignCenterSource from './LinkVueAlignCenter.vue?raw';
+import LinkVueAlignRightSource from './LinkVueAlignRight.vue?raw';
 ---
 
 <CodeContainer
   titles={['左对齐', '居中对齐', '右对齐']}
-  codes={[AlignSource, AlignSource, AlignSource]}>
+  codes={[
+    LinkVueAlignLeftSource,
+    LinkVueAlignCenterSource,
+    LinkVueAlignRightSource,
+  ]}>
   <div id="tab-1">
-    <Align client:load />
+    <LinkVueAlignLeft client:load />
+  </div>
+  <div id="tab-2">
+    <LinkVueAlignCenter client:load />
+  </div>
+  <div id="tab-3">
+    <LinkVueAlignRight client:load />
   </div>
 </CodeContainer>

@@ -5,14 +5,19 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import Circle from './Circle.vue';
-import CircleSource from './Circle.vue?raw';
+import LinkVueCircleNormal from './LinkVueCircleNormal.vue';
+import LinkVueCircleCircle from './LinkVueCircleCircle.vue';
+import LinkVueCircleNormalSource from './LinkVueCircleNormal.vue?raw';
+import LinkVueCircleCircleSource from './LinkVueCircleCircle.vue?raw';
 ---
 
 <CodeContainer
   titles={['普通按钮', '圆形按钮']}
-  codes={[CircleSource, CircleSource]}>
+  codes={[LinkVueCircleNormalSource, LinkVueCircleCircleSource]}>
   <div id="tab-1">
-    <Circle client:load />
+    <LinkVueCircleNormal client:load />
+  </div>
+  <div id="tab-2">
+    <LinkVueCircleCircle client:load />
   </div>
 </CodeContainer>
