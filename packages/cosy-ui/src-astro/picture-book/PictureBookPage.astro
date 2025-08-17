@@ -9,7 +9,7 @@
  * @usage
  * 基本用法：
  * ```astro
- * <PictureBookPage pageAspectRatio={3/4} ariaLabelPrefix="绘本页">
+ * <PictureBookPage pageAspectRatio={3/4}>
  *   <div slot="background" style="width:100%;height:100%;background:#faf7ef"></div>
  *   <PictureBookTextBox slot="overlay" top={8} left={50} width={48}>
  *     正文内容……
@@ -18,7 +18,6 @@
  * ```
  *
  * @props
- * - ariaLabelPrefix?: string - 无障碍 aria 标签前缀
  * - lang?: 'zh' | 'en' - 可选：强制语言
  * - pageAspectRatio?: number - 页面宽高比（宽/高），默认 3/4
  *
@@ -31,19 +30,13 @@
 import '../../style.ts';
 
 export interface IPictureBookPageProps {
-  ariaLabelPrefix?: string;
   lang?: 'zh' | 'en';
   pageAspectRatio?: number;
 }
 
-const {
-  ariaLabelPrefix = '',
-  lang,
-  pageAspectRatio = 3 / 4,
-} = Astro.props as IPictureBookPageProps;
+const { lang, pageAspectRatio = 3 / 4 } = Astro.props as IPictureBookPageProps;
 
-const ariaLabel =
-  ariaLabelPrefix || (lang === 'en' ? 'Picture book page' : '绘本页');
+const ariaLabel = lang === 'en' ? 'Picture book page' : '绘本页';
 ---
 
 <section
