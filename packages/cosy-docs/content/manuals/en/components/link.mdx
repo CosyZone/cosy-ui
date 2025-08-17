@@ -13,136 +13,142 @@ import { LinkPackage } from '@/components/link/index.ts';
 
 The Link component is a powerful link component that not only supports traditional link styles but also provides button styles, animation effects, and rich customization options. Through semantic property configuration, you can achieve various visual effects without manually writing CSS class names.
 
-## active
+## Examples
+
+<LinkPackage.Basic />
+
+## Props
+
+### active
 
 Whether the link is in an active state.
 
 <LinkPackage.Active />
 
-## align
+### align
 
 Alignment method. Optional values: `left`, `center`, `right`.
 
 <LinkPackage.Align />
 
-## animation
-
-### Link Animations
+### animation
 
 Animation effects that define the animation behavior on mouse hover. Optional values: `none`, `hover-lift`, `hover-glow`, `hover-scale`.
 
 <LinkPackage.Animations />
 
-### Button Animations
-
-Button-style links also support animation effects, which can be used in combination with the `btn` and `animation` attributes.
-
-<LinkPackage.ButtonAnimations />
-
-## block
+### block
 
 Whether to display as a block element. When set to `true`, the link will occupy a full line.
 
 <LinkPackage.Block />
 
-## btn
+### btn
 
 Whether to enable button style. When set to `true`, button styles will be applied.
 
 <LinkPackage.ButtonStyle />
 
-## circle
+### circle
 
 Whether it's a circular button, requires the `btn` attribute to be used together.
 
 <LinkPackage.Circle />
 
-## class
+### class
 
 Custom CSS class name.
 
 <LinkPackage.CustomClass />
 
-## class:list
+### class:list
 
 Class name list.
 
 <LinkPackage.ClassList />
 
-## color
+### color
 
 Button color, requires the `btn` attribute to be used together. Optional values: `primary`, `secondary`, `accent`, `info`, `success`, `warning`, `error`.
 
 <LinkPackage.Colors />
 
-## debug
+### debug
 
 Whether to display debug borders.
 
 <LinkPackage.Debug />
 
-## external
+### external
 
 Whether it's an external link. When set to `true`, it will automatically open in a new window.
 
 <LinkPackage.External />
 
-## fullWidth
+### fullWidth
 
 Whether to occupy full width.
 
 <LinkPackage.FullWidth />
 
-## ghost
+### ghost
 
 Whether it's a ghost button, requires the `btn` attribute to be used together.
 
 <LinkPackage.Ghost />
 
-## href
+### href
 
 Link address, required property.
 
 <LinkPackage.Basic />
 
-## icon
+### icon
 
 Icon name, supports all available icon components.
 
 <LinkPackage.Icons />
 
-## navigationType
+### navigationType
 
 Navigation type, requires the `navigation` variant to be used together. Optional values: `previous`, `next`.
 
 <LinkPackage.NavigationType />
 
-## noUnderline
+### noUnderline
 
 Whether to remove the underline, defaults to `true`.
 
 <LinkPackage.NoUnderline />
 
-## rounded
+### rounded
 
 Whether to add rounded corners.
 
 <LinkPackage.Rounded />
 
-## size
+### size
 
 Size, controls the font size and spacing of the link. Optional values: `sm`, `md`, `lg`.
 
 <LinkPackage.Sizes />
 
-## variant
+### variant
 
 Style variant, used to define the visual style of the link. Optional values: `default`, `primary`, `secondary`, `text`, `cta`, `ghost`, `light`, `navigation`, `github`.
 
 <LinkPackage.Variants />
 
-## rest
+### rest
 
 Other HTML `<a>` tag attributes.
 
 <LinkPackage.Rest />
+
+## Slots
+
+### default
+
+The text content of the link.
+
+<LinkPackage.Basic />
