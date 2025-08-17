@@ -1,0 +1,18 @@
+---
+/**
+ * @component LinkVue Rounded Container
+ * @description LinkVue 圆角容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import Rounded from './Rounded.vue';
+import RoundedSource from './Rounded.vue?raw';
+---
+
+<CodeContainer
+  titles={['普通链接', '圆角链接']}
+  codes={[RoundedSource, RoundedSource]}>
+  <div id="tab-1">
+    <Rounded client:load />
+  </div>
+</CodeContainer>

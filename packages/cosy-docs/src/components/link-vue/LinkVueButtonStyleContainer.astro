@@ -1,0 +1,18 @@
+---
+/**
+ * @component LinkVue ButtonStyle Container
+ * @description LinkVue 按钮风格容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonStyle from './ButtonStyle.vue';
+import ButtonStyleSource from './ButtonStyle.vue?raw';
+---
+
+<CodeContainer
+  titles={['普通链接', '按钮风格', '主要按钮']}
+  codes={[ButtonStyleSource, ButtonStyleSource, ButtonStyleSource]}>
+  <div id="tab-1">
+    <ButtonStyle client:load />
+  </div>
+</CodeContainer>

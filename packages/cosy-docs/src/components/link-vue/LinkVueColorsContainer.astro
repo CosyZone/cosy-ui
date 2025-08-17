@@ -1,0 +1,18 @@
+---
+/**
+ * @component LinkVue Colors Container
+ * @description LinkVue 按钮颜色容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import Colors from './Colors.vue';
+import ColorsSource from './Colors.vue?raw';
+---
+
+<CodeContainer
+  titles={['主要', '次要', '强调', '信息', '成功', '警告', '错误']}
+  codes={[ColorsSource, ColorsSource, ColorsSource, ColorsSource, ColorsSource, ColorsSource, ColorsSource]}>
+  <div id="tab-1">
+    <Colors client:load />
+  </div>
+</CodeContainer>

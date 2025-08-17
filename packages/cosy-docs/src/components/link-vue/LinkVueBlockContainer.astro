@@ -1,0 +1,18 @@
+---
+/**
+ * @component LinkVue Block Container
+ * @description LinkVue 块级显示容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import Block from './Block.vue';
+import BlockSource from './Block.vue?raw';
+---
+
+<CodeContainer
+  titles={['内联链接', '块级链接']}
+  codes={[BlockSource, BlockSource]}>
+  <div id="tab-1">
+    <Block client:load />
+  </div>
+</CodeContainer>

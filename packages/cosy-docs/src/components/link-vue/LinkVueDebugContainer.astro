@@ -1,0 +1,18 @@
+---
+/**
+ * @component LinkVue Debug Container
+ * @description LinkVue 调试模式容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import Debug from './Debug.vue';
+import DebugSource from './Debug.vue?raw';
+---
+
+<CodeContainer
+  titles={['正常模式', '调试模式']}
+  codes={[DebugSource, DebugSource]}>
+  <div id="tab-1">
+    <Debug client:load />
+  </div>
+</CodeContainer>

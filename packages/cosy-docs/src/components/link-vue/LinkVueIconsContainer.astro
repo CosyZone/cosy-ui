@@ -1,0 +1,18 @@
+---
+/**
+ * @component LinkVue Icons Container
+ * @description LinkVue 图标支持容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import Icons from './Icons.vue';
+import IconsSource from './Icons.vue?raw';
+---
+
+<CodeContainer
+  titles={['首页', '设置', '搜索', '用户']}
+  codes={[IconsSource, IconsSource, IconsSource, IconsSource]}>
+  <div id="tab-1">
+    <Icons client:load />
+  </div>
+</CodeContainer>

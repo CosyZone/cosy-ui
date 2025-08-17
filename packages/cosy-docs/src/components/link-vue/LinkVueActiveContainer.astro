@@ -1,0 +1,18 @@
+---
+/**
+ * @component LinkVue Active Container
+ * @description LinkVue 激活状态容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import Active from './Active.vue';
+import ActiveSource from './Active.vue?raw';
+---
+
+<CodeContainer
+  titles={['激活状态', '非激活状态']}
+  codes={[ActiveSource, ActiveSource]}>
+  <div id="tab-1">
+    <Active client:load />
+  </div>
+</CodeContainer>

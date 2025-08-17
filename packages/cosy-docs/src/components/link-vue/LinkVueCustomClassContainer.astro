@@ -1,0 +1,18 @@
+---
+/**
+ * @component LinkVue CustomClass Container
+ * @description LinkVue 自定义类名容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import CustomClass from './CustomClass.vue';
+import CustomClassSource from './CustomClass.vue?raw';
+---
+
+<CodeContainer
+  titles={['默认样式', '自定义样式']}
+  codes={[CustomClassSource, CustomClassSource]}>
+  <div id="tab-1">
+    <CustomClass client:load />
+  </div>
+</CodeContainer>

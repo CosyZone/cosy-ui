@@ -1,0 +1,18 @@
+---
+/**
+ * @component LinkVue Circle Container
+ * @description LinkVue 圆形按钮容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import Circle from './Circle.vue';
+import CircleSource from './Circle.vue?raw';
+---
+
+<CodeContainer
+  titles={['普通按钮', '圆形按钮']}
+  codes={[CircleSource, CircleSource]}>
+  <div id="tab-1">
+    <Circle client:load />
+  </div>
+</CodeContainer>

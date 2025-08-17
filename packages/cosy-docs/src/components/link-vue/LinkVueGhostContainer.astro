@@ -1,0 +1,18 @@
+---
+/**
+ * @component LinkVue Ghost Container
+ * @description LinkVue 幽灵按钮容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import Ghost from './Ghost.vue';
+import GhostSource from './Ghost.vue?raw';
+---
+
+<CodeContainer
+  titles={['普通按钮', '幽灵按钮']}
+  codes={[GhostSource, GhostSource]}>
+  <div id="tab-1">
+    <Ghost client:load />
+  </div>
+</CodeContainer>

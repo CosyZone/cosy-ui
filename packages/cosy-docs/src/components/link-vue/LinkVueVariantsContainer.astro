@@ -1,0 +1,38 @@
+---
+/**
+ * @component LinkVue Variants Container
+ * @description LinkVue 样式变体容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import Variants from './Variants.vue';
+import VariantsSource from './Variants.vue?raw';
+---
+
+<CodeContainer
+  titles={[
+    '默认',
+    '主要',
+    '次要',
+    '文本',
+    '行动号召',
+    '幽灵',
+    '浅色',
+    '导航',
+    'GitHub',
+  ]}
+  codes={[
+    VariantsSource,
+    VariantsSource,
+    VariantsSource,
+    VariantsSource,
+    VariantsSource,
+    VariantsSource,
+    VariantsSource,
+    VariantsSource,
+    VariantsSource,
+  ]}>
+  <div id="tab-1">
+    <Variants client:load />
+  </div>
+</CodeContainer>

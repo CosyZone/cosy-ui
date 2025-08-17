@@ -1,0 +1,18 @@
+---
+/**
+ * @component LinkVue ClassList Container
+ * @description LinkVue 类名列容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import ClassList from './ClassList.vue';
+import ClassListSource from './ClassList.vue?raw';
+---
+
+<CodeContainer
+  titles={['默认样式', '类名列表']}
+  codes={[ClassListSource, ClassListSource]}>
+  <div id="tab-1">
+    <ClassList client:load />
+  </div>
+</CodeContainer>

@@ -1,0 +1,18 @@
+---
+/**
+ * @component LinkVue External Container
+ * @description LinkVue 外部链接容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import External from './External.vue';
+import ExternalSource from './External.vue?raw';
+---
+
+<CodeContainer
+  titles={['内部链接', '外部链接']}
+  codes={[ExternalSource, ExternalSource]}>
+  <div id="tab-1">
+    <External client:load />
+  </div>
+</CodeContainer>

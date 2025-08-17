@@ -1,0 +1,18 @@
+---
+/**
+ * @component LinkVue NavigationType Container
+ * @description LinkVue 导航类型容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import NavigationType from './NavigationType.vue';
+import NavigationTypeSource from './NavigationType.vue?raw';
+---
+
+<CodeContainer
+  titles={['上一页', '下一页']}
+  codes={[NavigationTypeSource, NavigationTypeSource]}>
+  <div id="tab-1">
+    <NavigationType client:load />
+  </div>
+</CodeContainer>

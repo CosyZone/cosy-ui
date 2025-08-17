@@ -1,0 +1,23 @@
+---
+/**
+ * @component LinkVue Animations Container
+ * @description LinkVue 动画效果容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import Animations from './Animations.vue';
+import AnimationsSource from './Animations.vue?raw';
+---
+
+<CodeContainer
+  titles={['无动画', '悬停上浮', '悬停发光', '悬停缩放']}
+  codes={[
+    AnimationsSource,
+    AnimationsSource,
+    AnimationsSource,
+    AnimationsSource,
+  ]}>
+  <div id="tab-1">
+    <Animations client:load />
+  </div>
+</CodeContainer>

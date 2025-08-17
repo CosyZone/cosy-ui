@@ -1,0 +1,18 @@
+---
+/**
+ * @component LinkVue FullWidth Container
+ * @description LinkVue 全宽显示容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import FullWidth from './FullWidth.vue';
+import FullWidthSource from './FullWidth.vue?raw';
+---
+
+<CodeContainer
+  titles={['普通宽度', '全宽显示']}
+  codes={[FullWidthSource, FullWidthSource]}>
+  <div id="tab-1">
+    <FullWidth client:load />
+  </div>
+</CodeContainer>

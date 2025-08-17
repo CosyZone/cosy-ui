@@ -1,0 +1,18 @@
+---
+/**
+ * @component LinkVue Sizes Container
+ * @description LinkVue 尺寸大小容器组件
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import Sizes from './Sizes.vue';
+import SizesSource from './Sizes.vue?raw';
+---
+
+<CodeContainer
+  titles={['小型', '中型', '大型']}
+  codes={[SizesSource, SizesSource, SizesSource]}>
+  <div id="tab-1">
+    <Sizes client:load />
+  </div>
+</CodeContainer>

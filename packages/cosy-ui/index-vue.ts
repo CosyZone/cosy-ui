@@ -1,64 +1,26 @@
-// AlertDialog
+// 导出组件，按照字母排序
 export * from './src-vue/alert-dialog/index';
-
-// Alert
 export * from './src-vue/alert/index';
-
-// Badge
 export * from './src-vue/badge/index';
-
-// Banner
 export * from './src-vue/banner-box/index';
-
-// Heading
+export * from './src-vue/badge/index';
 export * from './src-vue/heading/index';
-
-// ImageDisplay
 export * from './src-vue/image-display/index';
-
-// BlogList
 export * from './src-vue/blog/index';
-
-// Card
 export * from './src-vue/card/index';
-
-// Container
 export * from './src-vue/container/index';
-
-// Counter
 export * from './src-vue/counter/index';
-
-// ConfirmDialog
 export * from './src-vue/confirm-dialog/index';
-
-// Buttons
 export * from './src-vue/buttons/index';
-
-// Icons
 export * from './src-vue/icons/index';
-
-// SmartIcon
+export * from './src-vue/link/index';
 export * from './src-vue/smart-icon/index';
-
-// SocialIcon
 export * from './src-vue/social-icon/index';
-
-// KeyCatcher
 export * from './src-vue/key-catcher/index';
-
-// List
 export * from './src-vue/list/index';
-
-// Progress
 export * from './src-vue/progress/index';
-
-// StatusBar
 export * from './src-vue/status-bar/index';
-
-// ToolBar
 export * from './src-vue/tool-bar/index';
-
-// Windows
 export * from './src-vue/mac-window/index';
 export * from './src-vue/apple-phone/index';
 
