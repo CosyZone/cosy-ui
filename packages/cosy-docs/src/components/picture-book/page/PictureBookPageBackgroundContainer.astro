@@ -4,11 +4,13 @@ import BackgroundNone from './PictureBookPageBackgroundNone.astro';
 import BackgroundBase100 from './PictureBookPageBackgroundBase100.astro';
 import BackgroundPrimary from './PictureBookPageBackgroundPrimary.astro';
 import BackgroundSecondary from './PictureBookPageBackgroundSecondary.astro';
+import BackgroundImage from './PictureBookPageBackgroundImage.astro';
 
 import BackgroundNoneCode from './PictureBookPageBackgroundNone.astro?raw';
 import BackgroundBase100Code from './PictureBookPageBackgroundBase100.astro?raw';
 import BackgroundPrimaryCode from './PictureBookPageBackgroundPrimary.astro?raw';
 import BackgroundSecondaryCode from './PictureBookPageBackgroundSecondary.astro?raw';
+import BackgroundImageCode from './PictureBookPageBackgroundImage.astro?raw';
 ---
 
 <CodeContainer
@@ -17,12 +19,14 @@ import BackgroundSecondaryCode from './PictureBookPageBackgroundSecondary.astro?
     BackgroundBase100Code,
     BackgroundPrimaryCode,
     BackgroundSecondaryCode,
+    BackgroundImageCode,
   ]}
   titles={[
-    '无背景色',
-    'base-100 背景',
-    'primary/20 背景',
-    'secondary/30 背景',
+    '默认背景色',
+    'background="base-100"',
+    'background="primary/20"',
+    'background="secondary/30"',
+    'background={SampleImage}',
   ]}>
   <div id="tab-1" style="width: 30%;margin: 0 auto">
     <BackgroundNone />
@@ -35,5 +39,8 @@ import BackgroundSecondaryCode from './PictureBookPageBackgroundSecondary.astro?
   </div>
   <div id="tab-4" style="width: 30%;margin: 0 auto">
     <BackgroundSecondary />
+  </div>
+  <div id="tab-5" style="width: 30%;margin: 0 auto">
+    <BackgroundImage />
   </div>
 </CodeContainer>

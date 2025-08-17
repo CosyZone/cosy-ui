@@ -2,7 +2,6 @@
 import {
   Grid,
   Heading,
-  Image,
   PictureBookPage,
   PictureBookTextBox,
 } from '@coffic/cosy-ui';
@@ -17,15 +16,7 @@ import PictureBookBg3 from '@/assets/picture-book-bg-3.svg';
     lg: 3,
   }}>
   <div style="width: 100%">
-    <PictureBookPage pageAspectRatio={3 / 4}>
-      <Image
-        slot="background"
-        src={PictureBookBg1}
-        alt="温馨绘本背景"
-        objectFit="cover"
-        objectPosition="center"
-        layout="fill"
-      />
+    <PictureBookPage background={PictureBookBg1} pageAspectRatio={3 / 4}>
       <PictureBookTextBox
         slot="overlay"
         top={12}
@@ -40,15 +31,7 @@ import PictureBookBg3 from '@/assets/picture-book-bg-3.svg';
   </div>
 
   <div style="width: 100%">
-    <PictureBookPage pageAspectRatio={3 / 4}>
-      <Image
-        slot="background"
-        src={PictureBookBg2}
-        alt="天空绘本背景"
-        objectFit="cover"
-        objectPosition="center"
-        layout="fill"
-      />
+    <PictureBookPage background={PictureBookBg2} pageAspectRatio={3 / 4}>
       <PictureBookTextBox
         slot="overlay"
         top={24}
@@ -62,15 +45,7 @@ import PictureBookBg3 from '@/assets/picture-book-bg-3.svg';
     </PictureBookPage>
   </div>
   <div style="width: 100%">
-    <PictureBookPage pageAspectRatio={3 / 4}>
-      <Image
-        slot="background"
-        src={PictureBookBg3}
-        alt="森林绘本背景"
-        objectFit="cover"
-        objectPosition="center"
-        layout="fill"
-      />
+    <PictureBookPage background={PictureBookBg3} pageAspectRatio={3 / 4}>
       <PictureBookTextBox
         slot="overlay"
         top={24}
