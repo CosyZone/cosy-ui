@@ -59,8 +59,9 @@ const { background, pageAspectRatio = 3 / 4 } =
   Astro.props as IPictureBookPageProps;
 
 // 判断是否为图片类型
-console.log(background);
-const isImageBackground = typeof background === 'object' && background !== null;
+const isImageBackground =
+  (typeof background === 'object' || typeof background === 'function') &&
+  background !== null;
 ---
 
 <Container
