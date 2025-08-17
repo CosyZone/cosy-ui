@@ -1,26 +1,33 @@
-<script setup lang="ts">
-import { MacWindow } from '@coffic/cosy-ui/vue';
-import { ref } from 'vue';
+<!--
+@component MacWindow.WithTabs
 
-const activeTab = ref('外观');
-</script>
-
+@description
+带标签页的MacWindow组件示例，展示标签页功能。
+使用Vue的响应式特性来处理标签切换，无需手动DOM操作。
+-->
 <template>
-    <MacWindow title="设置" :tabs="['通用', '外观', '高级']" defaultTab="外观" bgType="accent" :onTabClick="(tab) => {
-        activeTab = tab;
-        console.log('切换到标签:', tab);
-    }">
-        <div v-if="activeTab === '通用'" style="padding: 1rem;">
-            <h3 style="margin-bottom: 1rem; font-weight: 600;">通用设置</h3>
-            <p>这里是一些通用的设置选项。</p>
-        </div>
-        <div v-if="activeTab === '外观'" style="padding: 1rem;">
-            <h3 style="margin-bottom: 1rem; font-weight: 600;">外观设置</h3>
-            <p>这里是一些外观相关的设置选项。</p>
-        </div>
-        <div v-if="activeTab === '高级'" style="padding: 1rem;">
-            <h3 style="margin-bottom: 1rem; font-weight: 600;">高级设置</h3>
-            <p>这里是一些高级设置选项。</p>
-        </div>
-    </MacWindow>
+  <MacWindow
+    title="设置-Vue版本"
+    :tabs="['通用', '外观', '高级']"
+    :defaultTab="activeTab"
+    :onTabClick="handleTabClick"
+  >
+    <div class="cosy:p-4">
+      <div>当前选择的标签: {{ activeTab }}</div>
+    </div>
+  </MacWindow>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { MacWindow } from '@coffic/cosy-ui/vue';
+
+// 响应式状态
+const activeTab = ref('外观');
+
+// 处理标签点击事件
+const handleTabClick = (tab: string) => {
+  console.log('切换到标签:', tab);
+  activeTab.value = tab;
+};
+</script>

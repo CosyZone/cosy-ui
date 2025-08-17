@@ -1,5 +1,6 @@
 
 
+import ContainerBackgroundContainer from './ContainerBackgroundContainer.astro';
 import ContainerBasicContainer from './ContainerBasicContainer.astro';
 import ContainerBorderContainer from './ContainerBorderContainer.astro';
 import ContainerCenteredContainer from './ContainerCenteredContainer.astro';
@@ -15,6 +16,7 @@ import ContainerRoundedContainer from './ContainerRoundedContainer.astro';
 import ContainerSizesContainer from './ContainerSizesContainer.astro';
 
 export const ContainerPackage = {
+    Background: ContainerBackgroundContainer,
     Basic: ContainerBasicContainer,
     Border: ContainerBorderContainer,
     Centered: ContainerCenteredContainer,

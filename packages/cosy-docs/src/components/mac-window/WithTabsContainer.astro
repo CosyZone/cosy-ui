@@ -3,22 +3,15 @@
  * @component MacWindow.WithTabsContainer
  *
  * @description
- * 带标签页的MacWindow组件示例容器，展示Astro和Vue两个版本。
+ * 带标签页的MacWindow组件示例容器，展示Astro版本。
  */
 import { CodeContainer } from '@coffic/cosy-ui';
 import WithTabs from './WithTabs.astro';
-import WithTabsVue from './WithTabs.vue';
 import WithTabsSourceCode from './WithTabs.astro?raw';
-import WithTabsVueSourceCode from './WithTabs.vue?raw';
 ---
 
-<CodeContainer
-  codes={[WithTabsSourceCode, WithTabsVueSourceCode]}
-  titles={['Astro', 'Vue']}>
+<CodeContainer codes={[WithTabsSourceCode]} titles={['标签页']}>
   <div id="tab-1">
     <WithTabs />
-  </div>
-  <div id="tab-2">
-    <WithTabsVue />
   </div>
 </CodeContainer>
