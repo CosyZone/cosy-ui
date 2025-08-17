@@ -111,7 +111,7 @@ const containerClasses = computed(() => [
 </script>
 
 <template>
-    <section :class="containerClasses">
+    <section :class="containerClasses" container>
         <slot />
     </section>
 </template>

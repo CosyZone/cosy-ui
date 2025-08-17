@@ -14,6 +14,7 @@ export * from './src-vue/confirm-dialog/index';
 export * from './src-vue/buttons/index';
 export * from './src-vue/icons/index';
 export * from './src-vue/link/index';
+export * from './src-vue/placeholder/index';
 export * from './src-vue/smart-icon/index';
 export * from './src-vue/social-icon/index';
 export * from './src-vue/key-catcher/index';
