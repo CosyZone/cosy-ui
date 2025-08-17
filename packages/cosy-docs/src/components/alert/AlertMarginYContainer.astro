@@ -4,12 +4,40 @@
  * @description 展示 Alert 组件的垂直外边距功能的容器组件。
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import AlertMarginY from './AlertMarginY.astro';
-import AlertMarginYSource from './AlertMarginY.astro?raw';
+import AlertMarginYXs from './AlertMarginYXs.astro';
+import AlertMarginYSm from './AlertMarginYSm.astro';
+import AlertMarginYMd from './AlertMarginYMd.astro';
+import AlertMarginYLg from './AlertMarginYLg.astro';
+import AlertMarginYXl from './AlertMarginYXl.astro';
+import AlertMarginYXsSource from './AlertMarginYXs.astro?raw';
+import AlertMarginYSmSource from './AlertMarginYSm.astro?raw';
+import AlertMarginYMdSource from './AlertMarginYMd.astro?raw';
+import AlertMarginYLgSource from './AlertMarginYLg.astro?raw';
+import AlertMarginYXlSource from './AlertMarginYXl.astro?raw';
 ---
 
-<CodeContainer titles={['垂直外边距']} codes={[AlertMarginYSource]}>
+<CodeContainer
+  titles={['xs', 'sm', 'md', 'lg', 'xl']}
+  codes={[
+    AlertMarginYXsSource,
+    AlertMarginYSmSource,
+    AlertMarginYMdSource,
+    AlertMarginYLgSource,
+    AlertMarginYXlSource,
+  ]}>
   <div id="tab-1">
-    <AlertMarginY />
+    <AlertMarginYXs />
+  </div>
+  <div id="tab-2">
+    <AlertMarginYSm />
+  </div>
+  <div id="tab-3">
+    <AlertMarginYMd />
+  </div>
+  <div id="tab-4">
+    <AlertMarginYLg />
+  </div>
+  <div id="tab-5">
+    <AlertMarginYXl />
   </div>
 </CodeContainer>
