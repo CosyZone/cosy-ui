@@ -1,0 +1,19 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import PaddingCqw2 from './TextBoxPaddingCqw2.astro';
+import PaddingCqw4 from './TextBoxPaddingCqw4.astro';
+
+import PaddingCqw2Code from './TextBoxPaddingCqw2.astro?raw';
+import PaddingCqw4Code from './TextBoxPaddingCqw4.astro?raw';
+---
+
+<CodeContainer
+  codes={[PaddingCqw2Code, PaddingCqw4Code]}
+  titles={['2cqw', '4cqw']}>
+  <div id="tab-1" style="width: 30%;margin: 0 auto">
+    <PaddingCqw2 />
+  </div>
+  <div id="tab-2" style="width: 30%;margin: 0 auto">
+    <PaddingCqw4 />
+  </div>
+</CodeContainer>

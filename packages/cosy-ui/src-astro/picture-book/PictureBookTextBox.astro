@@ -13,7 +13,7 @@
  * @usage
  * ```astro
  * <PictureBookTextBox top={58} left={52} width={40} bg="paper"
- *   backdropBlur={4} paddingPx={12} roundedPx={12} textShadow>
+ *   backdropBlur={4} paddingPx={12} roundedPx={12}>
  *   文字内容…
  * </PictureBookTextBox>
  * ```
@@ -30,7 +30,7 @@
  * - backdropBlur?: number - 背景虚化像素（backdrop-filter: blur(px)）
  * - paddingPx?: number - 内边距（px）
  * - roundedPx?: number - 圆角（px）
- * - textShadow?: boolean - 是否启用文字阴影
+
  *
  * @slots
  * - default: 文本内容插槽
@@ -63,7 +63,7 @@ export interface IPictureBookTextBoxProps {
   roundedPx?: number; // 固定像素圆角（不随容器缩放）
   paddingCqw?: number; // 根据容器宽度同比缩放的内边距（单位 cqw）
   roundedCqw?: number; // 根据容器宽度同比缩放的圆角（单位 cqw）
-  textShadow?: boolean;
+
   fontScaleCqw?: number; // 基于容器宽度的字体缩放系数，默认 4（即 4cqw）
 }
 
@@ -139,10 +139,4 @@ const styleList: string = [
 
 <div style={styleList} class={`cosy:pointer-events-auto not-prose ${bgClass}`}>
   <slot />
-
-  <style>
-    :global(.text-shadow) {
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
-    }
-  </style>
 </div>

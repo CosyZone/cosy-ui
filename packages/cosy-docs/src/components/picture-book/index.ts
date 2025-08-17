@@ -11,8 +11,12 @@ import TextBoxWidthContainer from './textbox/TextBoxWidthContainer.astro';
 import TextBoxBgContainer from './textbox/TextBoxBgContainer.astro';
 import TextBoxBackdropBlurContainer from './textbox/TextBoxBackdropBlurContainer.astro';
 import TextBoxRoundPadContainer from './textbox/TextBoxRoundPadContainer.astro';
-import TextBoxShadowContainer from './textbox/TextBoxShadowContainer.astro';
 import TextBoxZIndexContainer from './textbox/TextBoxZIndexContainer.astro';
+import TextBoxHeightContainer from './textbox/TextBoxHeightContainer.astro';
+import TextBoxHeightPercentContainer from './textbox/TextBoxHeightPercentContainer.astro';
+import TextBoxPaddingCqwContainer from './textbox/TextBoxPaddingCqwContainer.astro';
+import TextBoxRoundedCqwContainer from './textbox/TextBoxRoundedCqwContainer.astro';
+import TextBoxFontScaleContainer from './textbox/TextBoxFontScaleContainer.astro';
 import SlotBackgroundContainer from './slots/BackgroundContainer.astro';
 import SlotOverlayContainer from './slots/OverlayContainer.astro';
 import SlotDefaultContainer from './slots/DefaultContainer.astro';
@@ -32,13 +36,18 @@ export const PictureBookPackage = {
         BgAndBlur: TextBoxBgContainer,
         BackdropBlur: TextBoxBackdropBlurContainer,
         RoundedAndPadding: TextBoxRoundPadContainer,
-        TextShadow: TextBoxShadowContainer,
+
         ZIndex: TextBoxZIndexContainer,
         Bottom: TextBoxBottomContainer,
         Left: TextBoxLeftContainer,
         Right: TextBoxRightContainer,
         Top: TextBoxTopContainer,
         Width: TextBoxWidthContainer,
+        Height: TextBoxHeightContainer,
+        HeightPercent: TextBoxHeightPercentContainer,
+        PaddingCqw: TextBoxPaddingCqwContainer,
+        RoundedCqw: TextBoxRoundedCqwContainer,
+        FontScale: TextBoxFontScaleContainer,
     },
     SlotContainers: {
         Background: SlotBackgroundContainer,

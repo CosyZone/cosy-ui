@@ -1,0 +1,92 @@
+---
+title: PictureBookTextBox
+folder: false
+order: 18.6
+---
+
+import { PictureBookPage, PictureBookTextBox } from '@coffic/cosy-ui';
+import { PictureBookPackage } from '@/components/picture-book';
+
+# {frontmatter.title}
+
+文本框容器，在父容器中按百分比定位，并根据内容自动调整高度。
+
+## 简介
+
+`PictureBookTextBox` 是一个灵活的文本框容器，在父容器中按百分比定位。它根据内容自动调整高度，支持各种样式选项，包括背景虚化、圆角和文字阴影。
+
+完美适用于在绘本页面上创建定位文字覆盖层，支持响应式缩放。
+
+> **相关组件**：此组件设计为在 `PictureBookPage` 容器内工作。`PictureBookPage` 提供固定宽高比的基础，而 `PictureBookTextBox` 添加在其内响应式缩放的定位文字内容。
+
+## 案例
+
+<PictureBookPackage.PageExamples.Basic />
+
+## Props
+
+### backdropBlur
+文本框背景虚化像素。
+<PictureBookPackage.TextBoxContainers.BackdropBlur />
+
+### bg
+文本框背景预设，支持：`none | paper | muted | primary | secondary | accent | info | success | warning | error`。
+<PictureBookPackage.TextBoxContainers.BgAndBlur />
+
+### bottom
+文本框距离底部的百分比。
+<PictureBookPackage.TextBoxContainers.Bottom />
+
+### fontScaleCqw
+基于容器宽度的字体缩放系数（cqw 单位），默认为 4。
+<PictureBookPackage.TextBoxContainers.FontScale />
+
+### height
+高度百分比。
+<PictureBookPackage.TextBoxContainers.HeightPercent />
+
+### heightPx
+固定像素高度（不设置时根据内容自适应）。
+<PictureBookPackage.TextBoxContainers.Height />
+
+### left
+文本框距离左侧的百分比。
+<PictureBookPackage.TextBoxContainers.Left />
+
+### paddingCqw
+根据容器宽度同比缩放的内边距（cqw 单位）。
+<PictureBookPackage.TextBoxContainers.PaddingCqw />
+
+### paddingPx
+固定像素内边距。
+<PictureBookPackage.TextBoxContainers.RoundedAndPadding />
+
+### right
+文本框距离右侧的百分比。
+<PictureBookPackage.TextBoxContainers.Right />
+
+### roundedCqw
+根据容器宽度同比缩放的圆角（cqw 单位）。
+<PictureBookPackage.TextBoxContainers.RoundedCqw />
+
+### roundedPx
+固定像素圆角。
+<PictureBookPackage.TextBoxContainers.RoundedAndPadding />
+
+### top
+文本框距离顶部的百分比。
+<PictureBookPackage.TextBoxContainers.Top />
+
+### width
+文本框宽度的百分比。
+<PictureBookPackage.TextBoxContainers.Width />
+
+### zIndex
+文本框层叠顺序，默认为 10。
+<PictureBookPackage.TextBoxContainers.ZIndex />
+
+## Slots
+
+### default
+默认文字内容插槽，采用常规段落行高排版。
+<PictureBookPackage.SlotContainers.Default />

@@ -1,20 +1,20 @@
 <script setup lang="ts">
-  /**
-   * PictureBookTextBox
-   *
-   * 文字容器，按百分比定位于页面，并可基于父组件注入的行高（pictureBookLineHeightPx）以“行数”控制高度。
-   * 提供可选的遮罩背景、模糊与文本阴影以提升可读性。
-   *
-   * 用法（提升可读性示例）：
-   * <PictureBookTextBox
-   *   :top="58" :left="52" :width="40" :heightInLines="7"
-   *   bgColor="rgba(255,255,255,0.75)" :backdropBlur="4" :paddingPx="12" :roundedPx="12" :textShadow="true">
-   *   文字内容…
-   * </PictureBookTextBox>
-   */
-  import { computed, inject } from 'vue';
+/**
+ * PictureBookTextBox
+ *
+ * 文字容器，按百分比定位于页面，并可基于父组件注入的行高（pictureBookLineHeightPx）以“行数”控制高度。
+ * 提供可选的遮罩背景、模糊与文本阴影以提升可读性。
+ *
+ * 用法（提升可读性示例）：
+ * <PictureBookTextBox
+ *   :top="58" :left="52" :width="40" :heightInLines="7"
+ *   bgColor="rgba(255,255,255,0.75)" :backdropBlur="4" :paddingPx="12" :roundedPx="12">
+ *   文字内容…
+ * </PictureBookTextBox>
+ */
+import { computed, inject } from 'vue';
 
-  type Props = {
+type Props = {
     /**
      * 以容器百分比进行绝对定位。
      * 例：{ top: 10, left: 5, width: 40 } 表示距离顶部 10%、左侧 5%，宽度 40%。
@@ -36,11 +36,9 @@
     paddingPx?: number;
     /** 圆角（px） */
     roundedPx?: number;
-    /** 是否启用文本阴影增强可读性 */
-    textShadow?: boolean;
-  };
+};
 
-  const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
     top: undefined,
     left: undefined,
     right: undefined,
@@ -52,28 +50,25 @@
     backdropBlur: undefined,
     paddingPx: 0,
     roundedPx: 0,
-    textShadow: false,
-  });
+});
 
-  // 从父组件注入每一行的像素高度
-  const lineHeightPx = inject('pictureBookLineHeightPx', null) as unknown as {
+// 从父组件注入每一行的像素高度
+const lineHeightPx = inject('pictureBookLineHeightPx', null) as unknown as {
     value: number;
-  } | null;
+} | null;
 
-  const styleObject = computed(() => {
+const styleObject = computed(() => {
     const styles: Record<string, string | number> = {
-      position: 'absolute',
-      zIndex: String(props.zIndex),
-      padding: props.paddingPx ? `${props.paddingPx}px` : 0,
-      borderRadius: props.roundedPx ? `${props.roundedPx}px` : 0,
+        position: 'absolute',
+        zIndex: String(props.zIndex),
+        padding: props.paddingPx ? `${props.paddingPx}px` : 0,
+        borderRadius: props.roundedPx ? `${props.roundedPx}px` : 0,
     };
     if (props.bgColor) styles.background = props.bgColor;
     if (typeof props.backdropBlur === 'number' && props.backdropBlur > 0) {
-      (styles as any).backdropFilter = `blur(${props.backdropBlur}px)`;
+        (styles as any).backdropFilter = `blur(${props.backdropBlur}px)`;
     }
-    if (props.textShadow) {
-      styles.textShadow = '0 1px 2px rgba(0,0,0,.6)';
-    }
+
 
     const pct = (v?: number) => (typeof v === 'number' ? `${v}%` : undefined);
     if (props.top !== undefined) styles.top = pct(props.top) as string;
@@ -84,21 +79,21 @@
 
     // 高度支持“按行数”定义，自动乘以父组件的行高
     if (
-      typeof props.heightInLines === 'number' &&
-      lineHeightPx &&
-      lineHeightPx.value
+        typeof props.heightInLines === 'number' &&
+        lineHeightPx &&
+        lineHeightPx.value
     ) {
-      styles.height = `${props.heightInLines * lineHeightPx.value}px`;
-      styles.lineHeight = `${lineHeightPx.value}px`;
+        styles.height = `${props.heightInLines * lineHeightPx.value}px`;
+        styles.lineHeight = `${lineHeightPx.value}px`;
     }
     return styles;
-  });
+});
 </script>
 
 <template>
-  <div :style="styleObject" class="pointer-events-auto">
-    <slot />
-  </div>
+    <div :style="styleObject" class="pointer-events-auto">
+        <slot />
+    </div>
 </template>
 
 <style scoped></style>
