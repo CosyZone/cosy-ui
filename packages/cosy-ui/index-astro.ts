@@ -45,7 +45,6 @@ export * from './src-astro/nav-section';
 export * from './src-astro/placeholder';
 export * from './src-astro/products';
 export * from './src-astro/register';
-export * from './src-astro/section';
 export * from './src-astro/sidebar';
 export * from './src-astro/smart-bg';
 export * from './src-astro/speak';
