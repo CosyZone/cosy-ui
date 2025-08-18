@@ -165,7 +165,7 @@ import '../../style.ts';
 import type { BackgroundColor } from './backgrounds';
 import { getBackgroundClass } from './backgrounds';
 import { validateContainerProps } from './validateProps';
-import ConfigAlert from './ContainerConfigAlert.astro';
+import ContainerError from './ContainerError.astro';
 
 interface Props extends HTMLAttributes<'div'> {
   /**
@@ -443,46 +443,50 @@ const inlineStyles = fitEnabled
   : aspectRatio
     ? `aspect-ratio: ${aspectRatio};`
     : '';
+
+const hasError = hasSizingConflict || filteredMessages.length > 0;
 ---
 
-<section class:list={[containerClasses]} style={inlineStyles} {...rest}>
-  {
-    hasSizingConflict || filteredMessages.length > 0 ? (
-      <ConfigAlert messages={filteredMessages} />
-    ) : fitEnabled ? (
-      hasExplicitHeight ? (
-        <div class="cosy:absolute cosy:inset-0 cosy:grid cosy:place-items-center">
-          <div
-            class:list={[
-              contentBorder ? 'cosy:border cosy:border-black/10' : '',
-            ]}
-            style={`aspect-ratio: ${aspectRatio}; width: ${effectiveFit === 'contain' ? `min(100cqw, calc(100cqh * ${aspectRatio}))` : `max(100cqw, calc(100cqh * ${aspectRatio}))`}; height: auto;`}>
-            <div class="cosy:relative cosy:w-full cosy:h-full">
-              <slot />
+{hasError && <ContainerError messages={filteredMessages} />}
+
+{
+  !hasError && (
+    <section class:list={[containerClasses]} style={inlineStyles} {...rest}>
+      {fitEnabled ? (
+        hasExplicitHeight ? (
+          <div class="cosy:absolute cosy:inset-0 cosy:grid cosy:place-items-center">
+            <div
+              class:list={[
+                contentBorder ? 'cosy:border cosy:border-black/10' : '',
+              ]}
+              style={`aspect-ratio: ${aspectRatio}; width: ${effectiveFit === 'contain' ? `min(100cqw, calc(100cqh * ${aspectRatio}))` : `max(100cqw, calc(100cqh * ${aspectRatio}))`}; height: auto;`}>
+              <div class="cosy:relative cosy:w-full cosy:h-full">
+                <slot />
+              </div>
             </div>
+          </div>
+        ) : (
+          <div class="cosy:grid cosy:place-items-center">
+            <div
+              class:list={[
+                contentBorder ? 'cosy:border cosy:border-black/10' : '',
+              ]}
+              style={`aspect-ratio: ${aspectRatio}; width: 100%; height: auto;`}>
+              <div class="cosy:relative cosy:w-full cosy:h-full">
+                <slot />
+              </div>
+            </div>
+          </div>
+        )
+      ) : isHeightDrivenAspect ? (
+        <div class="cosy:relative cosy:w-full cosy:h-full">
+          <div class="cosy:absolute cosy:inset-0">
+            <slot />
           </div>
         </div>
       ) : (
-        <div class="cosy:grid cosy:place-items-center">
-          <div
-            class:list={[
-              contentBorder ? 'cosy:border cosy:border-black/10' : '',
-            ]}
-            style={`aspect-ratio: ${aspectRatio}; width: 100%; height: auto;`}>
-            <div class="cosy:relative cosy:w-full cosy:h-full">
-              <slot />
-            </div>
-          </div>
-        </div>
-      )
-    ) : isHeightDrivenAspect ? (
-      <div class="cosy:relative cosy:w-full cosy:h-full">
-        <div class="cosy:absolute cosy:inset-0">
-          <slot />
-        </div>
-      </div>
-    ) : (
-      <slot />
-    )
-  }
-</section>
+        <slot />
+      )}
+    </section>
+  )
+}

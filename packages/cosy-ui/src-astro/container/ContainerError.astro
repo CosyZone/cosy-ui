@@ -1,0 +1,21 @@
+---
+import '../../style.ts';
+import { Alert } from '../../index-astro';
+
+interface IContainerErrorProps {
+  messages: string[];
+  class?: string;
+}
+
+const { messages, class: className = '' } = Astro.props as IContainerErrorProps;
+---
+
+<section
+  class={`cosy:w-full cosy:mx-auto ${className}`}
+  aria-label="container-error">
+  <Alert type="warning" variant="soft" closable={false}>
+    <ul class="cosy:list-disc cosy:pl-5 cosy:space-y-1">
+      {messages.map((m) => <li>{m}</li>)}
+    </ul>
+  </Alert>
+</section>

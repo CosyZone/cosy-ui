@@ -22,7 +22,7 @@ export function validateContainerProps(rawProps: Record<string, unknown>): ICont
     // 规则1：aspectRatio 与 width、height 同时显式设置 → 冲突
     if (userSetAspect && userSetHeight && userSetWidth) {
         hasConflict = true;
-        messages.push('配置冲突：已同时设置 aspectRatio、width 与 height。请移除 width 或 height，使组件基于 aspectRatio 正确计算尺寸。');
+        messages.push('不能同时设置 aspectRatio、width 与 height。可两两组合，但不能同时设置3个。');
     }
 
     // 规则2：fit 依赖 aspectRatio
