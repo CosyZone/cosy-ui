@@ -1,0 +1,24 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import BorderTrue from './PictureBookPageBorderTrue.astro';
+import BorderFalse from './PictureBookPageBorderFalse.astro';
+import BorderPrimary50 from './PictureBookPageBorderPrimary50.astro';
+
+import BorderTrueCode from './PictureBookPageBorderTrue.astro?raw';
+import BorderFalseCode from './PictureBookPageBorderFalse.astro?raw';
+import BorderPrimary50Code from './PictureBookPageBorderPrimary50.astro?raw';
+---
+
+<CodeContainer
+  codes={[BorderTrueCode, BorderFalseCode, BorderPrimary50Code]}
+  titles={['true', 'false', 'primary/50']}>
+  <div id="tab-1" style="width: 30%;margin: 0 auto">
+    <BorderTrue />
+  </div>
+  <div id="tab-2" style="width: 30%;margin: 0 auto">
+    <BorderFalse />
+  </div>
+  <div id="tab-3" style="width: 30%;margin: 0 auto">
+    <BorderPrimary50 />
+  </div>
+</CodeContainer>

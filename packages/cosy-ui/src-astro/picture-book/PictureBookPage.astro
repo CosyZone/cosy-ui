@@ -50,13 +50,14 @@
 import '../../style.ts';
 import Container from '../container/Container.astro';
 import type { BackgroundColor } from '../container/backgrounds';
+import type { ContentBorderColor } from '../container/contentBorderColors';
 import type { ImageMetadata } from 'astro';
 import Image from '../image/Image.astro';
 
 export interface IPictureBookPageProps {
   background?: BackgroundColor | ImageMetadata;
   pageAspectRatio?: number;
-  border?: boolean;
+  border?: boolean | ContentBorderColor;
 }
 
 const {
@@ -84,13 +85,14 @@ const isImageBackground =
   aria-label="绘本页"
   class="cosy:relative cosy:overflow-hidden">
   <!-- 背景层：自动显示背景色或图片，填充比例内容区域 -->
-  <div class="cosy:absolute cosy:inset-0 cosy:w-full cosy:h-full">
+  <div
+    class="cosy:absolute cosy:inset-0 cosy:w-full cosy:h-full cosy:rounded-xl">
     {
       isImageBackground && (
         <Image
           src={background as ImageMetadata}
           alt="页面背景"
-          class="cosy:w-full cosy:h-full cosy:object-cover"
+          class="cosy:w-full cosy:h-full cosy:object-cover cosy:rounded-xl"
         />
       )
     }
