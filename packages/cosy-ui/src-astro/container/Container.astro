@@ -164,6 +164,8 @@ import type { HTMLAttributes } from 'astro/types';
 import '../../style.ts';
 import type { BackgroundColor } from './backgrounds';
 import { getBackgroundClass } from './backgrounds';
+import { validateContainerProps } from './validateProps';
+import ConfigAlert from './ContainerConfigAlert.astro';
 
 interface Props extends HTMLAttributes<'div'> {
   /**
@@ -297,6 +299,11 @@ const {
   ...rest
 } = Astro.props;
 
+// 用户是否显式传入了冲突的尺寸相关配置
+const rawProps = Astro.props as Record<string, unknown>;
+const { hasConflict: hasSizingConflict, message: sizingConflictMessage } =
+  validateContainerProps(rawProps);
+
 // 静态类名映射
 const widthClasses = {
   none: '',
@@ -389,10 +396,18 @@ const heightClasses = {
 } as const;
 
 const fitEnabled = fit !== 'none' && typeof aspectRatio === 'number';
+const isHeightDrivenAspect =
+  !fitEnabled &&
+  typeof aspectRatio === 'number' &&
+  !!height &&
+  height !== 'none';
 
 // 构建CSS类名
 const containerClasses = [
-  'cosy:w-full',
+  isHeightDrivenAspect ? 'cosy:w-auto' : 'cosy:w-full',
+  isHeightDrivenAspect
+    ? 'cosy:overflow-hidden cosy:min-w-0 cosy:max-w-full'
+    : '',
   centered ? 'cosy:mx-auto' : '',
   widthClasses[width],
   paddingClasses[padding],
@@ -418,6 +433,7 @@ const inlineStyles = fitEnabled
 ---
 
 <section class:list={[containerClasses]} style={inlineStyles} {...rest}>
+  {hasSizingConflict && <ConfigAlert message={sizingConflictMessage!} />}
   {
     fitEnabled ? (
       <div class="cosy:absolute cosy:inset-0 cosy:grid cosy:place-items-center">
@@ -427,6 +443,12 @@ const inlineStyles = fitEnabled
           <div class="cosy:relative cosy:w-full cosy:h-full">
             <slot />
           </div>
+        </div>
+      </div>
+    ) : isHeightDrivenAspect ? (
+      <div class="cosy:relative cosy:w-full cosy:h-full">
+        <div class="cosy:absolute cosy:inset-0">
+          <slot />
         </div>
       </div>
     ) : (

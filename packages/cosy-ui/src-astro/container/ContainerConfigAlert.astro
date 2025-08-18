@@ -1,0 +1,14 @@
+---
+import '../../style.ts';
+import { Alert } from '../../index-astro';
+
+interface Props {
+  message: string;
+}
+
+const { message } = Astro.props as Props;
+---
+
+<Alert type="warning" closable={false}>
+  {message}
+</Alert>
