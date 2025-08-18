@@ -76,14 +76,13 @@ const isImageBackground =
   fit="contain"
   contentBorder={border}
   background={isImageBackground ? undefined : (background as BackgroundColor)}
-  width="md"
   padding="none"
   margin="none"
   rounded="xl"
   border={false}
-  centered={false}
+  centered={true}
   aria-label="绘本页"
-  class="cosy:relative cosy:overflow-hidden cosy:h-full">
+  class="cosy:relative cosy:overflow-hidden">
   <!-- 背景层：自动显示背景色或图片，填充比例内容区域 -->
   <div class="cosy:absolute cosy:inset-0 cosy:w-full cosy:h-full">
     {
