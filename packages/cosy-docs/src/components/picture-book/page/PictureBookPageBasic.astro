@@ -1,5 +1,6 @@
 ---
 import {
+  Container,
   Grid,
   Heading,
   PictureBookPage,
@@ -10,52 +11,62 @@ import PictureBookBg2 from '@/assets/picture-book-bg-2.svg';
 import PictureBookBg3 from '@/assets/picture-book-bg-3.svg';
 ---
 
-<Grid
-  cols={{
-    base: 1,
-    lg: 3,
-  }}>
-  <div style="width: 100%">
-    <PictureBookPage background={PictureBookBg1} pageAspectRatio={3 / 4}>
-      <PictureBookTextBox
-        slot="overlay"
-        top={12}
-        left={10}
-        width={80}
-        bg="paper"
-        paddingPx={12}
-        roundedPx={10}>
-        欢迎来到象彩彩的故事世界。象彩彩可不是小象，她是一只可爱的小猫咪。
-      </PictureBookTextBox>
-    </PictureBookPage>
-  </div>
+<Container
+  height="6xl"
+  width="full"
+  background="accent/10"
+  rounded="md"
+  class="not-prose">
+  <Grid
+    style={{ height: '100%' }}
+    cols={{
+      base: 1,
+      lg: 3,
+    }}>
+    <div style="width: 100%">
+      <PictureBookPage background={PictureBookBg1} pageAspectRatio={3 / 4}>
+        <PictureBookTextBox
+          slot="overlay"
+          top={12}
+          left={10}
+          width={80}
+          bg="paper"
+          paddingPx={12}
+          roundedPx={10}>
+          欢迎来到象彩彩的故事世界。象彩彩可不是小象，她是一只可爱的小猫咪。
+        </PictureBookTextBox>
+      </PictureBookPage>
+    </div>
 
-  <div style="width: 100%">
-    <PictureBookPage background={PictureBookBg2} pageAspectRatio={3 / 4}>
-      <PictureBookTextBox
-        slot="overlay"
-        top={24}
-        left={10}
-        width={80}
-        bg="paper"
-        paddingPx={12}
-        roundedPx={10}>
-        我是樱樱，这里是我的故事世界，来和我一起冒险吧。
-      </PictureBookTextBox>
-    </PictureBookPage>
-  </div>
-  <div style="width: 100%">
-    <PictureBookPage background={PictureBookBg3} pageAspectRatio={3 / 4}>
-      <PictureBookTextBox
-        slot="overlay"
-        top={24}
-        left={10}
-        width={85}
-        bg="paper"
-        paddingPx={12}
-        roundedPx={10}>
-        <Heading margin="none" padding="none" level={1}> 天气真好啊。 </Heading>
-      </PictureBookTextBox>
-    </PictureBookPage>
-  </div>
-</Grid>
+    <div style="width: 100%">
+      <PictureBookPage background={PictureBookBg2} pageAspectRatio={3 / 4}>
+        <PictureBookTextBox
+          slot="overlay"
+          top={24}
+          left={10}
+          width={80}
+          bg="paper"
+          paddingPx={12}
+          roundedPx={10}>
+          我是樱樱，这里是我的故事世界，来和我一起冒险吧。
+        </PictureBookTextBox>
+      </PictureBookPage>
+    </div>
+    <div style="width: 100%">
+      <PictureBookPage background={PictureBookBg3} pageAspectRatio={3 / 4}>
+        <PictureBookTextBox
+          slot="overlay"
+          top={24}
+          left={10}
+          width={85}
+          bg="paper"
+          paddingPx={12}
+          roundedPx={10}>
+          <Heading margin="none" padding="none" level={1}>
+            天气真好啊。
+          </Heading>
+        </PictureBookTextBox>
+      </PictureBookPage>
+    </div>
+  </Grid>
+</Container>
