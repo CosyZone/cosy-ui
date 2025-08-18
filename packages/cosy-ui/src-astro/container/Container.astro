@@ -109,6 +109,21 @@
  * </Container>
  * ```
  *
+ * 按比例自适应（contain）：
+ * ```astro
+ * <Container fit="contain" aspectRatio={1/2} height="lg">
+ *   <!-- 放入任何内容，容器内部会创建比例盒按 contain 规则自适应 → 永不溢出父容器 -->
+ *   <YourContent />
+ * </Container>
+ * ```
+ *
+ * 按比例铺满（cover）：
+ * ```astro
+ * <Container fit="cover" aspectRatio={4/3} height="lg">
+ *   <YourContent />
+ * </Container>
+ * ```
+ *
  * 正方形容器：
  * ```astro
  * <Container aspectRatio={1} width="sm">
@@ -130,7 +145,7 @@
  * @props
  * @prop {number} [aspectRatio] - 宽高比（宽/高），设置后容器会保持这个比例，如 16/9、4/3、1 等
  * @prop {string} [background] - 背景色类型，支持所有 Tailwind 背景色和透明度变体，如：base-100、primary、secondary、accent、neutral、info、success、warning、error，以及透明度变体如 primary/10、secondary/20 等
- * @prop {boolean} [border=false] - 是否显示边框，启用后会在容器周围添加边框和圆角
+ * @prop {boolean} [border=false] - 是否显示边框，启用后会在容器周围添加边框
  * @prop {boolean} [centered=true] - 是否居中显示，设置为false时容器将靠左对齐
  * @prop {string} [class] - 自定义CSS类名，用于添加额外的样式
  * @prop {string} [flex] - flex布局方向，可选值：row、col、row-reverse、col-reverse，不设置则不启用flex布局
@@ -166,6 +181,16 @@ interface Props extends HTMLAttributes<'div'> {
    * @default false
    */
   border?: boolean;
+
+  /**
+   * 内容适配模式：none（默认）、contain（保持比例，尽量占满且不溢出）、cover（保持比例，铺满并可能裁剪）
+   */
+  fit?: 'none' | 'contain' | 'cover';
+
+  /**
+   * 是否给内容比例盒加边框（仅在 fit 模式下生效）
+   */
+  contentBorder?: boolean;
 
   /**
    * 是否居中显示
@@ -260,6 +285,8 @@ const {
   margin = 'none',
   centered = true,
   border = false,
+  fit = 'none',
+  contentBorder = false,
   flex,
   gap = 'none',
   items,
@@ -361,6 +388,8 @@ const heightClasses = {
   auto: 'cosy:h-auto',
 } as const;
 
+const fitEnabled = fit !== 'none' && typeof aspectRatio === 'number';
+
 // 构建CSS类名
 const containerClasses = [
   'cosy:w-full',
@@ -371,6 +400,7 @@ const containerClasses = [
   roundedClasses[rounded],
   getBackgroundClass(background),
   border ? 'cosy:border' : '',
+  fitEnabled ? 'cosy:relative cosy:overflow-hidden' : '',
   flex ? flexClasses[flex] : '',
   flex ? gapClasses[gap] : '',
   items && flex ? itemsClasses[items] : '',
@@ -380,9 +410,27 @@ const containerClasses = [
 ];
 
 // 构建内联样式
-const inlineStyles = aspectRatio ? `aspect-ratio: ${aspectRatio};` : '';
+const inlineStyles = fitEnabled
+  ? 'container-type: size;'
+  : aspectRatio
+    ? `aspect-ratio: ${aspectRatio};`
+    : '';
 ---
 
 <section class:list={[containerClasses]} style={inlineStyles} {...rest}>
-  <slot />
+  {
+    fitEnabled ? (
+      <div class="cosy:absolute cosy:inset-0 cosy:grid cosy:place-items-center">
+        <div
+          class:list={[contentBorder ? 'cosy:border cosy:border-black/10' : '']}
+          style={`aspect-ratio: ${aspectRatio}; width: ${fit === 'contain' ? `min(100cqw, calc(100cqh * ${aspectRatio}))` : `max(100cqw, calc(100cqh * ${aspectRatio}))`}; height: auto;`}>
+          <div class="cosy:relative cosy:w-full cosy:h-full">
+            <slot />
+          </div>
+        </div>
+      </div>
+    ) : (
+      <slot />
+    )
+  }
 </section>

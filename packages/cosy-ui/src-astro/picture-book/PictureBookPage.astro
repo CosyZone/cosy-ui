@@ -40,7 +40,7 @@
  * @props
  * - background?: BackgroundColor | ImageMetadata - 背景配置，支持背景色或图片。背景色如：base-100、primary/20、secondary/30 等；图片直接传递 ImageMetadata 对象
  * - pageAspectRatio?: number - 页面宽高比（宽/高），默认 3/4
- * - border?: boolean - 是否在比例盒（pb-box）上显示边框，默认 false
+ * - border?: boolean - 是否在比例内容区域显示边框（由容器控制），默认 true
  *
  * @slots
  * - overlay: 覆盖层插槽，相对安全区域进行绝对定位放置文本框/装饰
@@ -72,6 +72,9 @@ const isImageBackground =
 ---
 
 <Container
+  aspectRatio={pageAspectRatio}
+  fit="contain"
+  contentBorder={border}
   background={isImageBackground ? undefined : (background as BackgroundColor)}
   width="md"
   padding="none"
@@ -81,46 +84,28 @@ const isImageBackground =
   centered={false}
   aria-label="绘本页"
   class="cosy:relative cosy:overflow-hidden cosy:h-full">
-  <!-- 自适应居中：在父容器内按照比例尽可能放大（类似 object-fit: contain） -->
+  <!-- 背景层：自动显示背景色或图片，填充比例内容区域 -->
+  <div class="cosy:absolute cosy:inset-0 cosy:w-full cosy:h-full">
+    {
+      isImageBackground && (
+        <Image
+          src={background as ImageMetadata}
+          alt="页面背景"
+          class="cosy:w-full cosy:h-full cosy:object-cover"
+        />
+      )
+    }
+  </div>
+
+  <!-- 覆盖层：绝对定位区域，由使用者提供 -->
+  <div class="cosy:absolute cosy:inset-0">
+    <slot name="overlay" />
+  </div>
+
+  <!-- 文字层：按行高对齐排版 -->
   <div
-    class="cosy:absolute cosy:inset-0 cosy:grid cosy:place-items-center"
-    style="container-type: size">
-    <div
-      class={`pb-box ${border ? 'cosy:border cosy:border-black/10' : ''}`}
-      style={`aspect-ratio: ${pageAspectRatio}; width: min(100cqw, calc(100cqh * ${pageAspectRatio})); height: auto;`}>
-      <div
-        class="cosy:relative cosy:w-full cosy:h-full"
-        style="container-type: size">
-        <!-- 背景层：自动显示背景色或图片，仅填充比例盒子区域 -->
-        <div class="cosy:absolute cosy:inset-0 cosy:w-full cosy:h-full">
-          {
-            isImageBackground && (
-              <Image
-                src={background as ImageMetadata}
-                alt="页面背景"
-                class="cosy:w-full cosy:h-full cosy:object-cover"
-              />
-            )
-          }
-        </div>
-
-        <!-- 纸张质感或亮度覆盖，可按需微调，这里保持透明占位 -->
-        <div
-          class="cosy:absolute cosy:inset-0 cosy:pointer-events-none cosy:bg-white/0">
-        </div>
-
-        <!-- 覆盖层：绝对定位区域，由使用者提供 -->
-        <div class="cosy:absolute cosy:inset-0">
-          <slot name="overlay" />
-        </div>
-
-        <!-- 文字层：按行高对齐排版 -->
-        <div
-          class="cosy:relative cosy:h-full cosy:w-full cosy:whitespace-pre-wrap cosy:break-words cosy:text-gray-900"
-          style="line-height: 1.7; font-size: 18px; font-weight: 500;">
-          <slot />
-        </div>
-      </div>
-    </div>
+    class="cosy:relative cosy:h-full cosy:w-full cosy:whitespace-pre-wrap cosy:break-words cosy:text-gray-900"
+    style="line-height: 1.7; font-size: 18px; font-weight: 500;">
+    <slot />
   </div>
 </Container>

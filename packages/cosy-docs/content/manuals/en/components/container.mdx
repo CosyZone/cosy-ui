@@ -5,7 +5,7 @@ folder: false
 order: 5
 ---
 
-import { Container } from '@coffic/cosy-ui';
+import { Container, Alert } from '@coffic/cosy-ui';
 import { ContainerPackage } from '@/components/container';
 
 # {frontmatter.title}
@@ -29,7 +29,7 @@ Background color type, supporting background colors and opacity variants, such a
 <ContainerPackage.Containers.Background />
 
 ### border
-Whether to display a border. When enabled, adds a border and rounded corners around the container.
+Whether to display a border. When enabled, adds a border around the container.
 <ContainerPackage.Containers.Border />
 
 ### centered
@@ -39,6 +39,19 @@ Whether to center the display. When set to false, the container will be left-ali
 ### class
 Custom CSS class name for adding additional styles.
 <ContainerPackage.Containers.CustomClass />
+
+### contentBorder
+
+<Alert type="info" variant="soft" closable={false}>
+  Only effective when `fit` is `contain` or `cover`.
+</Alert>
+
+Whether to add a border to the proportional content area (the inner ratio box in fit mode).
+<ContainerPackage.Containers.ContentBorder />
+
+### fit
+Content fitting mode. Options: `none` (default), `contain` (preserve ratio, fill as much as possible without overflow), `cover` (preserve ratio, fill and possibly crop). Must be used together with `aspectRatio`, and it is recommended that the parent container has an explicit height (e.g., `height="lg"`).
+<ContainerPackage.Containers.Fit />
 
 ### flex
 Flex layout direction. Optional values: row, col, row-reverse, col-reverse. If not set, flex layout is not enabled.

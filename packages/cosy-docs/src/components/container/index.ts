@@ -16,6 +16,8 @@ import ContainerMarginContainer from './ContainerMarginContainer.astro';
 import ContainerPaddingContainer from './ContainerPaddingContainer.astro';
 import ContainerRoundedContainer from './ContainerRoundedContainer.astro';
 import ContainerWidthsContainer from './ContainerWidthsContainer.astro';
+import ContainerFitContainer from './ContainerFitContainer.astro';
+import ContainerContentBorderContainer from './ContainerContentBorderContainer.astro';
 
 export const ContainerPackage = {
     Examples: {
@@ -37,5 +39,7 @@ export const ContainerPackage = {
         Padding: ContainerPaddingContainer,
         Rounded: ContainerRoundedContainer,
         Widths: ContainerWidthsContainer,
+        Fit: ContainerFitContainer,
+        ContentBorder: ContainerContentBorderContainer,
     },
 }; 

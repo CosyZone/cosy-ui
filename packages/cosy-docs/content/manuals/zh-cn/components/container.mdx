@@ -5,7 +5,7 @@ folder: false
 order: 5
 ---
 
-import { Container } from '@coffic/cosy-ui';
+import { Container, Alert } from '@coffic/cosy-ui';
 import { ContainerPackage } from '@/components/container';
 
 # {frontmatter.title}
@@ -21,7 +21,7 @@ Container 组件是一个基础的布局容器，用于限制内容宽度并居�
 ## Props
 
 ### aspectRatio
-宽高比（宽/高），设置后容器会保持这个比例，如 16/9、4/3、1 等。当设置了 aspectRatio 时，容器会始终保持这个比例，无论屏幕尺寸如何变化。
+宽高比（宽/高），设置后容器会保持这个比例，如 16/9、4/3、1 等。
 <ContainerPackage.Containers.AspectRatio />
 
 ### background
@@ -29,7 +29,7 @@ Container 组件是一个基础的布局容器，用于限制内容宽度并居�
 <ContainerPackage.Containers.Background />
 
 ### border
-是否显示边框，启用后会在容器周围添加边框和圆角。
+是否显示边框，启用后会在容器周围添加边框。
 <ContainerPackage.Containers.Border />
 
 ### centered
@@ -39,6 +39,20 @@ Container 组件是一个基础的布局容器，用于限制内容宽度并居�
 ### class
 自定义 CSS 类名，用于添加额外的样式。
 <ContainerPackage.Containers.CustomClass />
+
+### contentBorder
+
+<Alert type="info" variant="soft" closable={false}>
+仅在 `fit` 为 `contain` 或 `cover` 时生效。
+</Alert>
+
+是否给比例内容区域（fit 模式下的内部比例盒）添加边框。
+
+<ContainerPackage.Containers.ContentBorder />
+
+### fit
+内容适配模式。可选值：`none`（默认）、`contain`（保持比例，尽量占满且不溢出）、`cover`（保持比例，铺满并可能裁剪）。需要与 `aspectRatio` 一起使用，且建议父容器具有明确高度（如 `height="lg"`）。
+<ContainerPackage.Containers.Fit />
 
 ### flex
 flex 布局方向，可选值：row、col、row-reverse、col-reverse，不设置则不启用 flex 布局。
