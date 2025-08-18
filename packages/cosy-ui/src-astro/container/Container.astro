@@ -301,8 +301,12 @@ const {
 
 // 用户是否显式传入了冲突的尺寸相关配置
 const rawProps = Astro.props as Record<string, unknown>;
-const { hasConflict: hasSizingConflict, message: sizingConflictMessage } =
-  validateContainerProps(rawProps);
+const {
+  hasConflict: hasSizingConflict,
+  messages: validationMessages,
+  resolvedFit,
+  suggestFallbackMinHeight,
+} = validateContainerProps(rawProps);
 
 // 静态类名映射
 const widthClasses = {
@@ -395,12 +399,18 @@ const heightClasses = {
   auto: 'cosy:h-auto',
 } as const;
 
-const fitEnabled = fit !== 'none' && typeof aspectRatio === 'number';
+const effectiveFit = resolvedFit ?? fit;
+const fitEnabled = effectiveFit !== 'none' && typeof aspectRatio === 'number';
 const isHeightDrivenAspect =
   !fitEnabled &&
   typeof aspectRatio === 'number' &&
   !!height &&
   height !== 'none';
+const hasExplicitHeight = !!height && height !== 'none';
+const hasDefaultSlot = (Astro as any)?.slots?.has?.('default') ?? false;
+const filteredMessages = hasDefaultSlot
+  ? validationMessages.filter((m) => !m.includes('可见性风险'))
+  : validationMessages;
 
 // 构建CSS类名
 const containerClasses = [
@@ -416,6 +426,7 @@ const containerClasses = [
   getBackgroundClass(background),
   border ? 'cosy:border' : '',
   fitEnabled ? 'cosy:relative cosy:overflow-hidden' : '',
+  suggestFallbackMinHeight && !hasDefaultSlot ? 'cosy:min-h-32' : '',
   flex ? flexClasses[flex] : '',
   flex ? gapClasses[gap] : '',
   items && flex ? itemsClasses[items] : '',
@@ -426,25 +437,44 @@ const containerClasses = [
 
 // 构建内联样式
 const inlineStyles = fitEnabled
-  ? 'container-type: size;'
+  ? hasExplicitHeight
+    ? 'container-type: size;'
+    : 'container-type: inline-size;'
   : aspectRatio
     ? `aspect-ratio: ${aspectRatio};`
     : '';
 ---
 
 <section class:list={[containerClasses]} style={inlineStyles} {...rest}>
-  {hasSizingConflict && <ConfigAlert message={sizingConflictMessage!} />}
   {
-    fitEnabled ? (
-      <div class="cosy:absolute cosy:inset-0 cosy:grid cosy:place-items-center">
-        <div
-          class:list={[contentBorder ? 'cosy:border cosy:border-black/10' : '']}
-          style={`aspect-ratio: ${aspectRatio}; width: ${fit === 'contain' ? `min(100cqw, calc(100cqh * ${aspectRatio}))` : `max(100cqw, calc(100cqh * ${aspectRatio}))`}; height: auto;`}>
-          <div class="cosy:relative cosy:w-full cosy:h-full">
-            <slot />
+    hasSizingConflict || filteredMessages.length > 0 ? (
+      <ConfigAlert messages={filteredMessages} />
+    ) : fitEnabled ? (
+      hasExplicitHeight ? (
+        <div class="cosy:absolute cosy:inset-0 cosy:grid cosy:place-items-center">
+          <div
+            class:list={[
+              contentBorder ? 'cosy:border cosy:border-black/10' : '',
+            ]}
+            style={`aspect-ratio: ${aspectRatio}; width: ${effectiveFit === 'contain' ? `min(100cqw, calc(100cqh * ${aspectRatio}))` : `max(100cqw, calc(100cqh * ${aspectRatio}))`}; height: auto;`}>
+            <div class="cosy:relative cosy:w-full cosy:h-full">
+              <slot />
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div class="cosy:grid cosy:place-items-center">
+          <div
+            class:list={[
+              contentBorder ? 'cosy:border cosy:border-black/10' : '',
+            ]}
+            style={`aspect-ratio: ${aspectRatio}; width: 100%; height: auto;`}>
+            <div class="cosy:relative cosy:w-full cosy:h-full">
+              <slot />
+            </div>
+          </div>
+        </div>
+      )
     ) : isHeightDrivenAspect ? (
       <div class="cosy:relative cosy:w-full cosy:h-full">
         <div class="cosy:absolute cosy:inset-0">

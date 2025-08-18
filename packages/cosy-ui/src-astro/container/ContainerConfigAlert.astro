@@ -2,13 +2,15 @@
 import '../../style.ts';
 import { Alert } from '../../index-astro';
 
-interface Props {
-  message: string;
+interface IProps {
+  messages: string[];
 }
 
-const { message } = Astro.props as Props;
+const { messages } = Astro.props as IProps;
 ---
 
-<Alert type="warning" closable={false}>
-  {message}
+<Alert type="warning" variant="soft" closable={false}>
+  <ul class="cosy:list-disc cosy:pl-5 cosy:space-y-1">
+    {messages.map((m) => <li>{m}</li>)}
+  </ul>
 </Alert>
