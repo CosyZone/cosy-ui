@@ -1,0 +1,48 @@
+---
+title: PictureBookPage
+folder: false
+order: 18.5
+---
+
+import { PictureBookPage, PictureBookTextBox } from '@coffic/cosy-ui';
+import { PictureBookPackage } from '@/components/picture-book';
+
+# {frontmatter.title}
+
+固定宽高比的页面容器，作为绘本页面的基础。
+
+## 简介
+
+`PictureBookPage` 提供固定宽高比的画布容器，支持背景设置。专为创建具有一致比例和灵活背景选项的绘本风格页面而设计。
+
+适用于课程插画页、阅读绘本页、讲义封面等场景。
+
+> **相关组件**：此组件通常与 `PictureBookTextBox` 一起使用，创建完整的绘本布局。`PictureBookTextBox` 提供在 `PictureBookPage` 容器内工作的定位文字覆盖层。
+
+## 案例
+
+<PictureBookPackage.PageExamples.Basic />
+
+## Props
+
+### background
+页面背景色或图片，支持所有 Container 组件的背景色配置。
+<PictureBookPackage.PageContainers.Background />
+
+### border
+是否在内容区域显示边框。可设置为 `true`（默认黑色边框）、`false`（无边框）或具体的颜色值（如 "primary/50"、"success"、"gray-300" 等）。
+<PictureBookPackage.PageContainers.Border />
+
+### pageAspectRatio
+页面宽高比（宽/高），默认为 3/4。
+<PictureBookPackage.PageContainers.PageAspectRatio />
+
+## Slots
+
+### default
+默认内容插槽，用于放置文本框和其他内容。
+<PictureBookPackage.SlotContainers.Default />
+
+### overlay
+覆盖层插槽，相对安全区域定位，可放置 `PictureBookTextBox`、装饰等。
+<PictureBookPackage.SlotContainers.Overlay />

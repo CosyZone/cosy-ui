@@ -1,0 +1,48 @@
+---
+title: PictureBookPage
+folder: false
+order: 18.5
+---
+
+import { PictureBookPage, PictureBookTextBox } from '@coffic/cosy-ui';
+import { PictureBookPackage } from '@/components/picture-book';
+
+# {frontmatter.title}
+
+A fixed aspect ratio container that serves as the foundation for picture book pages.
+
+## Introduction
+
+`PictureBookPage` provides a fixed aspect ratio canvas with background support. It's designed for creating picture book-style pages with consistent proportions and flexible background options.
+
+Great for illustrated pages, reading booklets, and cover layouts.
+
+> **Related Component**: This component is typically used together with `PictureBookTextBox` to create complete picture book layouts. `PictureBookTextBox` provides positioned text overlays that work within the `PictureBookPage` container.
+
+## Cases
+
+<PictureBookPackage.PageExamples.Basic />
+
+## Props
+
+### background
+Page background color or image, supporting all Container component background color configurations.
+<PictureBookPackage.PageContainers.Background />
+
+### border
+Whether to display a border around the content area. Can be set to `true` (default black border), `false` (no border), or a specific color value (e.g., "primary/50", "success", "gray-300").
+<PictureBookPackage.PageContainers.Border />
+
+### pageAspectRatio
+Page aspect ratio (width/height), defaults to 3/4.
+<PictureBookPackage.PageContainers.PageAspectRatio />
+
+## Slots
+
+### default
+Default content slot for placing text boxes and other content.
+<PictureBookPackage.SlotContainers.Default />
+
+### overlay
+Overlay slot positioned relative to the safe area, for `PictureBookTextBox`, decorations, etc.
+<PictureBookPackage.SlotContainers.Overlay />

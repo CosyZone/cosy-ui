@@ -9,84 +9,104 @@
  * @usage
  * 基本用法：
  * ```astro
- * <PictureBookPage pageAspectRatio={3/4} ariaLabelPrefix="绘本页">
- *   <div slot="background" style="width:100%;height:100%;background:#faf7ef"></div>
+ * <PictureBookPage pageAspectRatio={3/4}>
  *   <PictureBookTextBox slot="overlay" top={8} left={50} width={48}>
  *     正文内容……
  *   </PictureBookTextBox>
  * </PictureBookPage>
  * ```
  *
+ * 带背景色的用法：
+ * ```astro
+ * <PictureBookPage background="base-100/80" pageAspectRatio={3/4}>
+ *   <PictureBookTextBox slot="overlay" top={8} left={50} width={48}>
+ *     正文内容……
+ *   </PictureBookTextBox>
+ * </PictureBookPage>
+ * ```
+ *
+ * 带背景图片的用法：
+ * ```astro
+ * import bgImage from '@/assets/hero.png';
+ * <PictureBookPage background={bgImage} pageAspectRatio={3/4}>
+ *   <PictureBookTextBox slot="overlay" top={8} left={50} width={48}>
+ *     正文内容……
+ *   </PictureBookTextBox>
+ * </PictureBookPage>
+ * ```
+ *
+ *
+ *
  * @props
- * - ariaLabelPrefix?: string - 无障碍 aria 标签前缀
- * - lang?: 'zh' | 'en' - 可选：强制语言
+ * - background?: BackgroundColor | ImageMetadata - 背景配置，支持背景色或图片。背景色如：base-100、primary/20、secondary/30 等；图片直接传递 ImageMetadata 对象
  * - pageAspectRatio?: number - 页面宽高比（宽/高），默认 3/4
+ * - border?: boolean - 是否在比例内容区域显示边框（由容器控制），默认 true
  *
  * @slots
- * - background: 背景层插槽，填充整个页面区域（absolute 充满容器）
  * - overlay: 覆盖层插槽，相对安全区域进行绝对定位放置文本框/装饰
  * - default: 文字内容插槽，将按 `--pb-line` 行高进行排版
  */
 
 import '../../style.ts';
+import Container from '../container/Container.astro';
+import type { BackgroundColor } from '../container/backgrounds';
+import type { ContentBorderColor } from '../container/contentBorderColors';
+import type { ImageMetadata } from 'astro';
+import Image from '../image/Image.astro';
 
 export interface IPictureBookPageProps {
-  ariaLabelPrefix?: string;
-  lang?: 'zh' | 'en';
+  background?: BackgroundColor | ImageMetadata;
   pageAspectRatio?: number;
+  border?: boolean | ContentBorderColor;
 }
 
 const {
-  ariaLabelPrefix = '',
-  lang,
+  background,
   pageAspectRatio = 3 / 4,
+  border = true,
 } = Astro.props as IPictureBookPageProps;
 
-const ariaLabel =
-  ariaLabelPrefix || (lang === 'en' ? 'Picture book page' : '绘本页');
+// 判断是否为图片类型
+const isImageBackground =
+  (typeof background === 'object' || typeof background === 'function') &&
+  background !== null;
 ---
 
-<section
-  aria-label={ariaLabel}
-  class="cosy:relative cosy:w-full cosy:overflow-hidden cosy:rounded-xl cosy:shadow-lg cosy:ring-1 cosy:ring-black/5">
-  <!-- 固定页面宽高比容器（padding-bottom 技术） -->
+<Container
+  aspectRatio={pageAspectRatio}
+  fit="contain"
+  contentBorder={border}
+  background={isImageBackground ? undefined : (background as BackgroundColor)}
+  padding="none"
+  margin="none"
+  rounded="xl"
+  border={false}
+  centered={true}
+  aria-label="绘本页"
+  class="cosy:relative cosy:overflow-hidden">
+  <!-- 背景层：自动显示背景色或图片，填充比例内容区域 -->
   <div
-    class="cosy:relative cosy:w-full"
-    style={`padding-bottom: ${100 / (pageAspectRatio || 0.75)}%`}>
-    <!-- 背景层：由使用者提供节点（图片或其他元素） -->
-    <div class="cosy:absolute cosy:inset-0 cosy:w-full cosy:h-full">
-      <slot name="background" />
-    </div>
-
-    <!-- 纸张质感或亮度覆盖，可按需微调，这里保持透明占位 -->
-    <div
-      class="cosy:absolute cosy:inset-0 cosy:pointer-events-none cosy:bg-white/0">
-    </div>
-
-    <!-- 内容容器：100%填充整个页面 -->
-    <div class="cosy:absolute cosy:inset-0">
-      <div
-        class="cosy:relative cosy:h-full cosy:w-full"
-        style="container-type: inline-size">
-        <!-- 覆盖层：绝对定位区域，由使用者提供 -->
-        <div class="cosy:absolute cosy:inset-0">
-          <slot name="overlay" />
-        </div>
-
-        <!-- 文字层：按行高对齐排版 -->
-        <div
-          class="cosy:relative cosy:h-full cosy:w-full cosy:whitespace-pre-wrap cosy:break-words cosy:text-gray-900"
-          style={`line-height: 1.7; font-size: ${lang === 'en' ? '17px' : '18px'}; font-weight: 500;`}>
-          <slot />
-        </div>
-      </div>
-    </div>
+    class="cosy:absolute cosy:inset-0 cosy:w-full cosy:h-full cosy:rounded-xl">
+    {
+      isImageBackground && (
+        <Image
+          src={background as ImageMetadata}
+          alt="页面背景"
+          class="cosy:w-full cosy:h-full cosy:object-cover cosy:rounded-xl"
+        />
+      )
+    }
   </div>
-</section>
 
-<style>
-  /* 用于可选的文字阴影 class */
-  .text-shadow {
-    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
-  }
-</style>
+  <!-- 覆盖层：绝对定位区域，由使用者提供 -->
+  <div class="cosy:absolute cosy:inset-0">
+    <slot name="overlay" />
+  </div>
+
+  <!-- 文字层：按行高对齐排版 -->
+  <div
+    class="cosy:relative cosy:h-full cosy:w-full cosy:whitespace-pre-wrap cosy:break-words cosy:text-gray-900"
+    style="line-height: 1.7; font-size: 18px; font-weight: 500;">
+    <slot />
+  </div>
+</Container>

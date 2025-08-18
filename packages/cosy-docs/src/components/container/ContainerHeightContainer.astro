@@ -1,0 +1,37 @@
+---
+/**
+ * @component ContainerHeightContainer
+ * @description Container 组件高度多标签演示容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerHeightXs from './ContainerHeightXs.astro';
+import ContainerHeightMd from './ContainerHeightMd.astro';
+import ContainerHeightLg from './ContainerHeightLg.astro';
+import ContainerHeight2xl from './ContainerHeight2xl.astro';
+import ContainerHeightScreen from './ContainerHeightScreen.astro';
+import ContainerHeightAuto from './ContainerHeightAuto.astro';
+import sourceXs from './ContainerHeightXs.astro?raw';
+import sourceMd from './ContainerHeightMd.astro?raw';
+import sourceLg from './ContainerHeightLg.astro?raw';
+import source2xl from './ContainerHeight2xl.astro?raw';
+import sourceScreen from './ContainerHeightScreen.astro?raw';
+import sourceAuto from './ContainerHeightAuto.astro?raw';
+---
+
+<CodeContainer
+  titles={[
+    'xs (64px)',
+    'md (128px)',
+    'lg (160px)',
+    '2xl (224px)',
+    'screen (100vh)',
+    'auto',
+  ]}
+  codes={[sourceXs, sourceMd, sourceLg, source2xl, sourceScreen, sourceAuto]}>
+  <div id="tab-1"><ContainerHeightXs /></div>
+  <div id="tab-2"><ContainerHeightMd /></div>
+  <div id="tab-3"><ContainerHeightLg /></div>
+  <div id="tab-4"><ContainerHeight2xl /></div>
+  <div id="tab-5"><ContainerHeightScreen /></div>
+  <div id="tab-6"><ContainerHeightAuto /></div>
+</CodeContainer>

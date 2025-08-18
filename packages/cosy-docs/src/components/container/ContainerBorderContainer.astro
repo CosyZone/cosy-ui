@@ -4,12 +4,17 @@
  * @description Container 组件边框示例容器
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import ContainerBorder from './ContainerBorder.astro';
-import sourceCode from './ContainerBorder.astro?raw';
+import ContainerBorderTrue from './ContainerBorderTrue.astro';
+import ContainerBorderFalse from './ContainerBorderFalse.astro';
+import sourceTrue from './ContainerBorderTrue.astro?raw';
+import sourceFalse from './ContainerBorderFalse.astro?raw';
 ---
 
-<CodeContainer codes={[sourceCode]}>
+<CodeContainer codes={[sourceTrue, sourceFalse]} titles={['true', 'false']}>
   <div id="tab-1">
-    <ContainerBorder />
+    <ContainerBorderTrue />
+  </div>
+  <div id="tab-2">
+    <ContainerBorderFalse />
   </div>
 </CodeContainer>

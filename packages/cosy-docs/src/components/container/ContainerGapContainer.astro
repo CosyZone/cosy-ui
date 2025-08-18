@@ -4,12 +4,34 @@
  * @description Container 组件间距示例容器
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import ContainerGap from './ContainerGap.astro';
-import sourceCode from './ContainerGap.astro?raw';
+import ContainerGapNone from './ContainerGapNone.astro';
+import ContainerGapSm from './ContainerGapSm.astro';
+import ContainerGapMd from './ContainerGapMd.astro';
+import ContainerGapLg from './ContainerGapLg.astro';
+import ContainerGapXl from './ContainerGapXl.astro';
+import sourceNone from './ContainerGapNone.astro?raw';
+import sourceSm from './ContainerGapSm.astro?raw';
+import sourceMd from './ContainerGapMd.astro?raw';
+import sourceLg from './ContainerGapLg.astro?raw';
+import sourceXl from './ContainerGapXl.astro?raw';
 ---
 
-<CodeContainer codes={[sourceCode]}>
+<CodeContainer
+  codes={[sourceNone, sourceSm, sourceMd, sourceLg, sourceXl]}
+  titles={['none', 'sm', 'md', 'lg', 'xl']}>
   <div id="tab-1">
-    <ContainerGap />
+    <ContainerGapNone />
+  </div>
+  <div id="tab-2">
+    <ContainerGapSm />
+  </div>
+  <div id="tab-3">
+    <ContainerGapMd />
+  </div>
+  <div id="tab-4">
+    <ContainerGapLg />
+  </div>
+  <div id="tab-5">
+    <ContainerGapXl />
   </div>
 </CodeContainer>

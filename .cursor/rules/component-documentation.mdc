@@ -4,7 +4,7 @@ alwaysApply: false
 ---
 # 组件文档规范
 
-**如果这个规则被应用，则在输出中说明：!! 我注意到了项目的组件文档规范**
+如果这个规则被应用，则在输出中说明：!! 我注意到了项目的组件文档规范
 
 ## Props 注释排序
 
@@ -17,12 +17,16 @@ alwaysApply: false
 - **介绍某个 prop 的标题必须使用 props 的名字**
 - 每个 props 的标题后跟对应的**Astro容器组件**
 
+## 中英文同步
+
+修改文档时，要保持中文文档、英文文档内容一致。
+
 ## 示例聚焦规范（强制）
 
 - 每个标题（某个 props）下的 CodeContainer 只能聚焦该 props 的展示
 - 不得在该 props 的章节混入与之无关的示例（如在 `author` 章节展示 `size` 的多标签）
 - 如需展示其他 props，请在其对应的二级标题中分别创建独立的 CodeContainer
-- CodeContainer 的 `titles` 应与该 props 的取值或场景一一对应（例如 `author`：`['带作者', '不带作者']`）
+- CodeContainer 的 `titles` 应与该 props 的取值或场景一一对应（例如 `border`：`['true', 'false']`）
 - 为了上下文完整，可使用与主题无关的 props 作为最小必要支撑，但不得成为展示重点（例如仅为排版补充的 `class`/`shadow` 等）
 
 **正确示例**：

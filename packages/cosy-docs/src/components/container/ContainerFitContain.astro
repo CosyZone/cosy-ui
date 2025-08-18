@@ -1,0 +1,19 @@
+---
+/**
+ * @component ContainerFitContain
+ * @description Container 组件 fit="contain" 示例
+ */
+import { Container, Heading } from '@coffic/cosy-ui';
+---
+
+<Container
+  fit="contain"
+  aspectRatio={1 / 2}
+  height="2xl"
+  background="primary/10"
+  contentBorder
+  rounded="md">
+  <Heading level={4}>按比例自适应（contain）</Heading>
+  <p>内容保持 1:2 比例，尽可能占满父容器且不会溢出。</p>
+  <p>父容器高度由 height 控制，宽度受 width 或页面布局限制。</p>
+</Container>

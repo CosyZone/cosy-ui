@@ -5,7 +5,7 @@ folder: false
 order: 5
 ---
 
-import { Container } from '@coffic/cosy-ui';
+import { Container, Alert } from '@coffic/cosy-ui';
 import { ContainerPackage } from '@/components/container';
 
 # {frontmatter.title}
@@ -16,58 +16,76 @@ Container 组件是一个基础的布局容器，用于限制内容宽度并居�
 
 ## 案例
 
-<ContainerPackage.Basic />
+<ContainerPackage.Examples.Basic />
 
 ## Props
 
+### aspectRatio
+宽高比（宽/高），设置后容器会保持这个比例，如 16/9、4/3、1 等。
+<ContainerPackage.Containers.AspectRatio />
+
 ### background
-背景色类型，支持所有 Tailwind 背景色和透明度变体，如：base-100、primary、secondary、accent、neutral、info、success、warning、error，以及透明度变体如 primary/10、secondary/20 等。
-<ContainerPackage.Background />
+背景色类型，支持背景色和透明度变体，如：base-100、primary、secondary、accent、neutral、info、success、warning、error、primary/10、secondary/20 等。
+<ContainerPackage.Containers.Background />
 
 ### border
-是否显示边框，启用后会在容器周围添加边框和圆角。
-<ContainerPackage.Border />
+是否显示边框，启用后会在容器周围添加边框。
+<ContainerPackage.Containers.Border />
 
 ### centered
 是否居中显示，设置为 false 时容器将靠左对齐。
-<ContainerPackage.Centered />
+<ContainerPackage.Containers.Centered />
 
 ### class
 自定义 CSS 类名，用于添加额外的样式。
-<ContainerPackage.CustomClass />
+<ContainerPackage.Containers.CustomClass />
 
-### class:list
-类名列表，支持动态类名组合。
-<ContainerPackage.ClassList />
+### contentBorder
+
+<Alert type="info" variant="soft" closable={false}>
+仅在 `fit` 为 `contain` 或 `cover` 时生效。
+</Alert>
+
+是否给比例内容区域（fit 模式下的内部比例盒）添加边框。
+
+<ContainerPackage.Containers.ContentBorder />
+
+### fit
+内容适配模式。可选值：`none`（默认）、`contain`（保持比例，尽量占满且不溢出）、`cover`（保持比例，铺满并可能裁剪）。需要与 `aspectRatio` 一起使用，且建议父容器具有明确高度（如 `height="lg"`）。
+<ContainerPackage.Containers.Fit />
 
 ### flex
 flex 布局方向，可选值：row、col、row-reverse、col-reverse，不设置则不启用 flex 布局。
-<ContainerPackage.Flex />
+<ContainerPackage.Containers.Flex />
 
 ### gap
 flex 项目间距，可选值：none、xs、sm、md、lg、xl，仅在启用 flex 布局时生效。
-<ContainerPackage.Gap />
+<ContainerPackage.Containers.Gap />
+
+### height
+容器高度，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl、screen、auto，none 表示不设置高度。
+<ContainerPackage.Containers.Height />
 
 ### items
 flex 项目水平对齐方式，可选值：start、end、center、baseline、stretch，仅在启用 flex 布局时生效。
-<ContainerPackage.Items />
+<ContainerPackage.Containers.Items />
 
 ### justify
 flex 项目垂直对齐方式，可选值：start、end、center、between、around、evenly，仅在启用 flex 布局时生效。
-<ContainerPackage.Justify />
+<ContainerPackage.Containers.Justify />
 
 ### margin
 外边距大小，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl。
-<ContainerPackage.Margin />
+<ContainerPackage.Containers.Margin />
 
 ### padding
 内边距大小，可选值：none、sm、md、lg、xl。
-<ContainerPackage.Padding />
+<ContainerPackage.Containers.Padding />
 
 ### rounded
 圆角大小，可选值：none、sm、md、lg、xl、full。
-<ContainerPackage.Rounded />
+<ContainerPackage.Containers.Rounded />
 
-### size
-容器尺寸，可选值：xs、sm、md、lg、xl、full，控制容器的最大宽度。
-<ContainerPackage.Sizes />
+### width
+容器宽度，可选值：xs、sm、md、lg、xl、full，控制容器的最大宽度。
+<ContainerPackage.Containers.Widths />

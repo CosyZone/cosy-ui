@@ -1,0 +1,30 @@
+---
+/**
+ * @component ContainerWidthsContainer
+ * @description Container 组件宽度多标签演示容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerWidthXs from './ContainerWidthXs.astro';
+import ContainerWidthSm from './ContainerWidthSm.astro';
+import ContainerWidthMd from './ContainerWidthMd.astro';
+import ContainerWidthLg from './ContainerWidthLg.astro';
+import ContainerWidthXl from './ContainerWidthXl.astro';
+import ContainerWidthFull from './ContainerWidthFull.astro';
+import sourceXs from './ContainerWidthXs.astro?raw';
+import sourceSm from './ContainerWidthSm.astro?raw';
+import sourceMd from './ContainerWidthMd.astro?raw';
+import sourceLg from './ContainerWidthLg.astro?raw';
+import sourceXl from './ContainerWidthXl.astro?raw';
+import sourceFull from './ContainerWidthFull.astro?raw';
+---
+
+<CodeContainer
+  titles={['xs', 'sm', 'md', 'lg', 'xl', 'full']}
+  codes={[sourceXs, sourceSm, sourceMd, sourceLg, sourceXl, sourceFull]}>
+  <div id="tab-1"><ContainerWidthXs /></div>
+  <div id="tab-2"><ContainerWidthSm /></div>
+  <div id="tab-3"><ContainerWidthMd /></div>
+  <div id="tab-4"><ContainerWidthLg /></div>
+  <div id="tab-5"><ContainerWidthXl /></div>
+  <div id="tab-6"><ContainerWidthFull /></div>
+</CodeContainer>

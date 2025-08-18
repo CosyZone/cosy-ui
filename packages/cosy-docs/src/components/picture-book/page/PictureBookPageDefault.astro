@@ -1,0 +1,15 @@
+---
+import {
+  Container,
+  PictureBookPage,
+  PictureBookTextBox,
+} from '@coffic/cosy-ui';
+---
+
+<Container size="xs" border background="info">
+  <PictureBookPage pageAspectRatio={3 / 4} background="primary/50">
+    <PictureBookTextBox slot="overlay" top={10} left={20} width={60}>
+      默认行为：高度由宽度和宽高比决定
+    </PictureBookTextBox>
+  </PictureBookPage>
+</Container>

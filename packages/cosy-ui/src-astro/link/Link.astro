@@ -31,7 +31,7 @@
  * @prop {string} [icon] - 图标名称，支持所有可用的图标组件
  * @prop {string} [navigationType] - 导航类型（需配合 navigation 变体使用）：previous、next
  * @prop {boolean} [noUnderline=true] - 是否移除下划线
- * @prop {boolean} [rounded=false] - 是否添加圆角
+ * @prop {string} [rounded='none'] - 圆角大小，可选值：none、sm、md、lg、xl、full
  * @prop {string} [size='md'] - 尺寸大小：sm、md、lg
  * @prop {string} [variant='default'] - 样式变体：default、primary、secondary、text、cta、ghost、light、navigation、github
  * @prop {...HTMLAttributes<'a'>} [rest] - 其他 HTML <a> 标签属性
@@ -96,6 +96,15 @@
  * <Link href="/circle" btn circle>圆形按钮</Link>
  * <Link href="/full" btn fullWidth>全宽按钮</Link>
  * ```
+ *
+ * 圆角样式：
+ * ```astro
+ * <Link href="/rounded-sm" rounded="sm">小圆角链接</Link>
+ * <Link href="/rounded-md" rounded="md">中等圆角链接</Link>
+ * <Link href="/rounded-lg" rounded="lg">大圆角链接</Link>
+ * <Link href="/rounded-xl" rounded="xl">超大圆角链接</Link>
+ * <Link href="/rounded-full" rounded="full">完全圆角链接</Link>
+ * ```
  */
 
 import '../../style.ts';
@@ -117,7 +126,7 @@ const {
   circle = false,
   ghost = false,
   noUnderline = true,
-  rounded = false,
+  rounded = 'none',
   fullWidth = false,
   color,
   align,
@@ -129,6 +138,19 @@ const {
 
 // 获取图标组件
 const IconComponent = icon ? (Icons as any)[icon] : null;
+
+// 圆角类名映射
+const roundedClasses = {
+  none: '',
+  sm: 'cosy:rounded-sm',
+  md: 'cosy:rounded-md',
+  lg: 'cosy:rounded-lg',
+  xl: 'cosy:rounded-xl',
+  full: 'cosy:rounded-full',
+} as const;
+
+// 圆角类型定义
+type RoundedType = keyof typeof roundedClasses;
 
 // 构建类名
 const classes = [
@@ -183,10 +205,10 @@ const classes = [
   btn && color && `cosy:btn-${color}`,
   btn && fullWidth && 'cosy:btn-block',
   btn && circle && 'cosy:btn-circle',
-  btn && rounded && 'cosy:rounded-full',
+  btn && rounded === 'full' && 'cosy:rounded-full',
 
   // 非按钮风格下的圆角
-  !btn && rounded && 'cosy:rounded',
+  !btn && roundedClasses[rounded as RoundedType],
 
   // 非按钮风格下的无下划线
   !btn && noUnderline && 'cosy:no-underline cosy:hover:no-underline',

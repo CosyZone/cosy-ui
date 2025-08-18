@@ -5,6 +5,7 @@
  * @description
  * Container 组件是一个基础的布局容器，用于限制内容宽度并居中显示。
  * 它提供了多种尺寸和内边距选项，适用于各种布局需求。
+ * 当提供 aspectRatio 属性时，容器会保持指定的宽高比。
  *
  * @design
  * 设计理念：
@@ -12,6 +13,7 @@
  * 2. 响应式设计 - 在不同屏幕尺寸下自动调整内边距
  * 3. 灵活配置 - 支持多种尺寸和内边距选项
  * 4. 简单易用 - 提供直观的API，易于集成到各种页面布局中
+ * 5. 比例保持 - 支持设置固定的宽高比，确保内容始终保持指定比例
  *
  * @usage
  * 基本用法：
@@ -23,14 +25,14 @@
  *
  * 自定义尺寸和内边距：
  * ```astro
- * <Container size="sm" padding="lg">
- *   <p>小尺寸容器，大内边距</p>
+ * <Container width="sm" padding="lg">
+ *   <p>小宽度容器，大内边距</p>
  * </Container>
  * ```
  *
  * 全宽容器：
  * ```astro
- * <Container size="full" padding="none">
+ * <Container width="full" padding="none">
  *   <p>全宽容器，无内边距</p>
  * </Container>
  * ```
@@ -70,6 +72,20 @@
  * </Container>
  * ```
  *
+ * 设置固定高度：
+ * ```astro
+ * <Container height="lg">
+ *   <p>固定高度的容器</p>
+ * </Container>
+ * ```
+ *
+ * 设置屏幕高度：
+ * ```astro
+ * <Container height="screen">
+ *   <p>占满屏幕高度的容器</p>
+ * </Container>
+ * ```
+ *
  * Flex布局容器（按行排列）：
  * ```astro
  * <Container flex="row" gap="md">
@@ -86,19 +102,71 @@
  * </Container>
  * ```
  *
+ * 保持宽高比的容器：
+ * ```astro
+ * <Container aspectRatio={16/9}>
+ *   <img src="image.jpg" alt="16:9 比例的图片" class="w-full h-full object-cover" />
+ * </Container>
+ * ```
+ *
+ * 按比例自适应（contain）：
+ * ```astro
+ * <Container fit="contain" aspectRatio={1/2} height="lg">
+ *   <!-- 放入任何内容，容器内部会创建比例盒按 contain 规则自适应 → 永不溢出父容器 -->
+ *   <YourContent />
+ * </Container>
+ * ```
+ *
+ * 按比例铺满（cover）：
+ * ```astro
+ * <Container fit="cover" aspectRatio={4/3} height="lg">
+ *   <YourContent />
+ * </Container>
+ * ```
+ *
+ * 带内容边框的容器：
+ * ```astro
+ * <Container fit="contain" aspectRatio={16/9} contentBorder="primary/50">
+ *   <div class="w-full h-full bg-primary/10 flex items-center justify-center">
+ *     带主要色边框的内容区域
+ *   </div>
+ * </Container>
+ * ```
+ *
+ * 正方形容器：
+ * ```astro
+ * <Container aspectRatio={1} width="sm">
+ *   <div class="w-full h-full bg-primary/10 flex items-center justify-center">
+ *     正方形内容
+ *   </div>
+ * </Container>
+ * ```
+ *
+ * 4:3 比例容器：
+ * ```astro
+ * <Container aspectRatio={4/3} background="primary/5" border>
+ *   <div class="w-full h-full flex items-center justify-center">
+ *     4:3 比例的内容区域
+ *   </div>
+ * </Container>
+ * ```
+ *
  * @props
+ * @prop {number} [aspectRatio] - 宽高比（宽/高），设置后容器会保持这个比例，如 16/9、4/3、1 等
  * @prop {string} [background] - 背景色类型，支持所有 Tailwind 背景色和透明度变体，如：base-100、primary、secondary、accent、neutral、info、success、warning、error，以及透明度变体如 primary/10、secondary/20 等
- * @prop {boolean} [border=false] - 是否显示边框，启用后会在容器周围添加边框和圆角
+ * @prop {boolean} [border=false] - 是否显示边框，启用后会在容器周围添加边框
+ * @prop {boolean|string} [contentBorder=false] - 是否给内容比例盒加边框（仅在 fit 模式下生效）。可设置为 true（使用默认黑色边框）或具体的颜色值（如 "primary/50"、"success"、"gray-300" 等）
  * @prop {boolean} [centered=true] - 是否居中显示，设置为false时容器将靠左对齐
  * @prop {string} [class] - 自定义CSS类名，用于添加额外的样式
- * @prop {any} [class:list] - 类名列表，支持动态类名组合
+ * @prop {string} [fit='none'] - 内容适配模式：none（默认）、contain（保持比例，尽量占满且不溢出）、cover（保持比例，铺满并可能裁剪）
  * @prop {string} [flex] - flex布局方向，可选值：row、col、row-reverse、col-reverse，不设置则不启用flex布局
  * @prop {string} [gap='none'] - flex项目间距，可选值：none、xs、sm、md、lg、xl，仅在启用flex布局时生效
+ * @prop {string} [height] - 容器高度，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl、screen、auto，none表示不设置高度
  * @prop {string} [items] - flex项目水平对齐方式，可选值：start、end、center、baseline、stretch，仅在启用flex布局时生效
  * @prop {string} [justify] - flex项目垂直对齐方式，可选值：start、end、center、between、around、evenly，仅在启用flex布局时生效
  * @prop {string} [margin='none'] - 外边距大小，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl
  * @prop {string} [padding='md'] - 内边距大小，可选值：none、sm、md、lg、xl
- * @prop {string} [size='md'] - 容器尺寸，可选值：xs、sm、md、lg、xl、full，控制容器的最大宽度
+ * @prop {string} [width='md'] - 容器宽度，可选值：xs、sm、md、lg、xl、full，控制容器的最大宽度
  * @prop {string} [rounded='none'] - 圆角大小，可选值：none、sm、md、lg、xl、full
  * @prop {...HTMLAttributes<'div'>} [rest] - 其他HTML div标签属性
  */
@@ -107,8 +175,17 @@ import type { HTMLAttributes } from 'astro/types';
 import '../../style.ts';
 import type { BackgroundColor } from './backgrounds';
 import { getBackgroundClass } from './backgrounds';
+import type { ContentBorderColor } from './contentBorderColors';
+import { getContentBorderClass } from './contentBorderColors';
+import { validateContainerProps } from './validateProps';
+import ContainerError from './ContainerError.astro';
 
 interface Props extends HTMLAttributes<'div'> {
+  /**
+   * 宽高比（宽/高），设置后容器会保持这个比例
+   */
+  aspectRatio?: number;
+
   /**
    * 背景色类型
    */
@@ -119,6 +196,16 @@ interface Props extends HTMLAttributes<'div'> {
    * @default false
    */
   border?: boolean;
+
+  /**
+   * 内容适配模式：none（默认）、contain（保持比例，尽量占满且不溢出）、cover（保持比例，铺满并可能裁剪）
+   */
+  fit?: 'none' | 'contain' | 'cover';
+
+  /**
+   * 是否给内容比例盒加边框（仅在 fit 模式下生效）
+   */
+  contentBorder?: boolean | ContentBorderColor;
 
   /**
    * 是否居中显示
@@ -132,11 +219,6 @@ interface Props extends HTMLAttributes<'div'> {
   class?: string;
 
   /**
-   * 类名列表
-   */
-  'class:list'?: any;
-
-  /**
    * flex布局方向，不设置则不启用flex布局
    */
   flex?: 'row' | 'col' | 'row-reverse' | 'col-reverse';
@@ -146,6 +228,24 @@ interface Props extends HTMLAttributes<'div'> {
    * @default "none"
    */
   gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+  /**
+   * 容器高度，不设置则不设置高度
+   */
+  height?:
+    | 'none'
+    | 'xs'
+    | 'sm'
+    | 'md'
+    | 'lg'
+    | 'xl'
+    | '2xl'
+    | '3xl'
+    | '4xl'
+    | '5xl'
+    | '6xl'
+    | 'screen'
+    | 'auto';
 
   /**
    * flex项目水平对齐方式
@@ -181,10 +281,9 @@ interface Props extends HTMLAttributes<'div'> {
   padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
 
   /**
-   * 容器尺寸
-   * @default "md"
+   * 容器宽度，不设置则不设置宽度
    */
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  width?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 
   /**
    * 圆角大小
@@ -194,24 +293,44 @@ interface Props extends HTMLAttributes<'div'> {
 }
 
 const {
+  aspectRatio,
   background,
-  size = 'md',
+  width = 'md',
   padding = 'md',
   margin = 'none',
   centered = true,
   border = false,
+  fit = 'none',
+  contentBorder = false,
   flex,
   gap = 'none',
   items,
   justify,
   rounded = 'none',
   class: className = '',
-  'class:list': classList,
+  height,
   ...rest
 } = Astro.props;
 
+// 处理 contentBorder 属性
+const hasContentBorder = !!contentBorder;
+const contentBorderClass =
+  typeof contentBorder === 'string'
+    ? getContentBorderClass(contentBorder)
+    : getContentBorderClass();
+
+// 用户是否显式传入了冲突的尺寸相关配置
+const rawProps = Astro.props as Record<string, unknown>;
+const {
+  hasConflict: hasSizingConflict,
+  messages: validationMessages,
+  resolvedFit,
+  suggestFallbackMinHeight,
+} = validateContainerProps(rawProps);
+
 // 静态类名映射
-const sizeClasses = {
+const widthClasses = {
+  none: '',
   xs: 'cosy:max-w-xs',
   sm: 'cosy:max-w-sm',
   md: 'cosy:max-w-2xl',
@@ -284,24 +403,123 @@ const justifyClasses = {
   evenly: 'cosy:justify-evenly',
 } as const;
 
+const heightClasses = {
+  none: '',
+  xs: 'cosy:h-16',
+  sm: 'cosy:h-24',
+  md: 'cosy:h-32',
+  lg: 'cosy:h-40',
+  xl: 'cosy:h-48',
+  '2xl': 'cosy:h-56',
+  '3xl': 'cosy:h-64',
+  '4xl': 'cosy:h-72',
+  '5xl': 'cosy:h-80',
+  '6xl': 'cosy:h-96',
+  screen: 'cosy:h-screen',
+  auto: 'cosy:h-auto',
+} as const;
+
+const effectiveFit = resolvedFit ?? fit;
+const fitEnabled = effectiveFit !== 'none' && typeof aspectRatio === 'number';
+const isHeightDrivenAspect =
+  !fitEnabled &&
+  typeof aspectRatio === 'number' &&
+  !!height &&
+  height !== 'none';
+const hasExplicitHeight = !!height && height !== 'none';
+const hasDefaultSlot = (Astro as any)?.slots?.has?.('default') ?? false;
+const filteredMessages = hasDefaultSlot
+  ? validationMessages.filter((m) => !m.includes('可见性风险'))
+  : validationMessages;
+
 // 构建CSS类名
 const containerClasses = [
-  'cosy:w-full',
+  isHeightDrivenAspect ? 'cosy:w-auto' : 'cosy:w-full',
+  isHeightDrivenAspect
+    ? 'cosy:overflow-hidden cosy:min-w-0 cosy:max-w-full'
+    : '',
   centered ? 'cosy:mx-auto' : '',
-  sizeClasses[size],
+  widthClasses[width],
   paddingClasses[padding],
   marginClasses[margin],
   roundedClasses[rounded],
   getBackgroundClass(background),
   border ? 'cosy:border' : '',
+  fitEnabled ? 'cosy:relative cosy:overflow-hidden' : '',
+  suggestFallbackMinHeight && !hasDefaultSlot ? 'cosy:min-h-32' : '',
   flex ? flexClasses[flex] : '',
   flex ? gapClasses[gap] : '',
   items && flex ? itemsClasses[items] : '',
   justify && flex ? justifyClasses[justify] : '',
+  height ? heightClasses[height] : '',
   className,
 ];
+
+// 构建内联样式
+const inlineStyles = fitEnabled
+  ? hasExplicitHeight
+    ? 'container-type: size;'
+    : 'container-type: inline-size;'
+  : aspectRatio
+    ? `aspect-ratio: ${aspectRatio};`
+    : '';
+
+const hasError = hasSizingConflict || filteredMessages.length > 0;
 ---
 
-<section class:list={[containerClasses, classList]} {...rest}>
-  <slot />
-</section>
+{hasError && <ContainerError messages={filteredMessages} />}
+
+{
+  !hasError && (
+    <section class:list={[containerClasses]} style={inlineStyles} {...rest}>
+      {fitEnabled ? (
+        hasExplicitHeight ? (
+          <div class="cosy:absolute cosy:inset-0 cosy:grid cosy:place-items-center">
+            <div
+              class:list={[
+                hasContentBorder
+                  ? `cosy:border ${contentBorderClass} ${roundedClasses[rounded]}`
+                  : '',
+              ]}
+              style={`aspect-ratio: ${aspectRatio}; width: ${effectiveFit === 'contain' ? `min(100cqw, calc(100cqh * ${aspectRatio}))` : `max(100cqw, calc(100cqh * ${aspectRatio}))`}; height: auto;`}>
+              <div class="cosy:relative cosy:w-full cosy:h-full">
+                <slot />
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div
+            class:list={[
+              'cosy:grid cosy:place-items-center',
+              roundedClasses[rounded],
+            ]}>
+            <div
+              class:list={[
+                hasContentBorder
+                  ? `cosy:border ${contentBorderClass} ${roundedClasses[rounded]}`
+                  : '',
+              ]}
+              style={`aspect-ratio: ${aspectRatio}; width: 100%; height: auto;`}>
+              <div
+                class:list={[
+                  'cosy:relative cosy:w-full cosy:h-full',
+                  roundedClasses[rounded],
+                ]}
+                aria-label="container-content">
+                <slot />
+              </div>
+            </div>
+          </div>
+        )
+      ) : isHeightDrivenAspect ? (
+        <div class="cosy:relative cosy:w-full cosy:h-full">
+          <div class="cosy:absolute cosy:inset-0">
+            <slot />
+          </div>
+        </div>
+      ) : (
+        <slot />
+      )}
+    </section>
+  )
+}

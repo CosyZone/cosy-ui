@@ -1,8 +1,8 @@
 ---
 import {
+  Container,
   Grid,
   Heading,
-  Image,
   PictureBookPage,
   PictureBookTextBox,
 } from '@coffic/cosy-ui';
@@ -11,21 +11,19 @@ import PictureBookBg2 from '@/assets/picture-book-bg-2.svg';
 import PictureBookBg3 from '@/assets/picture-book-bg-3.svg';
 ---
 
-<Grid
-  cols={{
-    base: 1,
-    lg: 3,
-  }}>
-  <div style="width: 100%">
-    <PictureBookPage pageAspectRatio={3 / 4} ariaLabelPrefix="绘本页">
-      <Image
-        slot="background"
-        src={PictureBookBg1}
-        alt="温馨绘本背景"
-        objectFit="cover"
-        objectPosition="center"
-        layout="fill"
-      />
+<Container
+  height="auto"
+  width="full"
+  background="accent/10"
+  rounded="md"
+  class="not-prose">
+  <Grid
+    style={{ height: '100%' }}
+    cols={{
+      base: 1,
+      lg: 3,
+    }}>
+    <PictureBookPage background={PictureBookBg1} pageAspectRatio={3 / 4}>
       <PictureBookTextBox
         slot="overlay"
         top={12}
@@ -37,18 +35,8 @@ import PictureBookBg3 from '@/assets/picture-book-bg-3.svg';
         欢迎来到象彩彩的故事世界。象彩彩可不是小象，她是一只可爱的小猫咪。
       </PictureBookTextBox>
     </PictureBookPage>
-  </div>
 
-  <div style="width: 100%">
-    <PictureBookPage pageAspectRatio={3 / 4} ariaLabelPrefix="绘本页">
-      <Image
-        slot="background"
-        src={PictureBookBg2}
-        alt="天空绘本背景"
-        objectFit="cover"
-        objectPosition="center"
-        layout="fill"
-      />
+    <PictureBookPage background={PictureBookBg2} pageAspectRatio={3 / 4}>
       <PictureBookTextBox
         slot="overlay"
         top={24}
@@ -60,17 +48,7 @@ import PictureBookBg3 from '@/assets/picture-book-bg-3.svg';
         我是樱樱，这里是我的故事世界，来和我一起冒险吧。
       </PictureBookTextBox>
     </PictureBookPage>
-  </div>
-  <div style="width: 100%">
-    <PictureBookPage pageAspectRatio={3 / 4} ariaLabelPrefix="绘本页">
-      <Image
-        slot="background"
-        src={PictureBookBg3}
-        alt="森林绘本背景"
-        objectFit="cover"
-        objectPosition="center"
-        layout="fill"
-      />
+    <PictureBookPage background={PictureBookBg3} pageAspectRatio={3 / 4}>
       <PictureBookTextBox
         slot="overlay"
         top={24}
@@ -82,5 +60,5 @@ import PictureBookBg3 from '@/assets/picture-book-bg-3.svg';
         <Heading margin="none" padding="none" level={1}> 天气真好啊。 </Heading>
       </PictureBookTextBox>
     </PictureBookPage>
-  </div>
-</Grid>
+  </Grid>
+</Container>

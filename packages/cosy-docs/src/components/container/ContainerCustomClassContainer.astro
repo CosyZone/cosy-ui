@@ -4,12 +4,19 @@
  * @description Container 组件自定义类名示例容器
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import ContainerCustomClass from './ContainerCustomClass.astro';
-import sourceCode from './ContainerCustomClass.astro?raw';
+import ContainerCustomClassBasic from './ContainerCustomClassBasic.astro';
+import ContainerCustomClassAdvanced from './ContainerCustomClassAdvanced.astro';
+import sourceBasic from './ContainerCustomClassBasic.astro?raw';
+import sourceAdvanced from './ContainerCustomClassAdvanced.astro?raw';
 ---
 
-<CodeContainer codes={[sourceCode]}>
+<CodeContainer
+  codes={[sourceBasic, sourceAdvanced]}
+  titles={['basic', 'advanced']}>
   <div id="tab-1">
-    <ContainerCustomClass />
+    <ContainerCustomClassBasic />
+  </div>
+  <div id="tab-2">
+    <ContainerCustomClassAdvanced />
   </div>
 </CodeContainer>
