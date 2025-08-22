@@ -1,0 +1,17 @@
+---
+/**
+ * @component ApiTesterDefaultHeadersContainer
+ * @description API测试组件默认请求头示例容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ApiTesterDefaultHeaders from './ApiTesterDefaultHeaders.astro';
+import ApiTesterDefaultHeadersSourceCode from './ApiTesterDefaultHeaders.astro?raw';
+---
+
+<CodeContainer
+  titles={['默认请求头']}
+  codes={[ApiTesterDefaultHeadersSourceCode]}>
+  <div id="tab-1">
+    <ApiTesterDefaultHeaders />
+  </div>
+</CodeContainer>

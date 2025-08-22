@@ -1,0 +1,18 @@
+---
+import { ApiTester } from '@coffic/cosy-ui';
+
+const sampleEndpoints = [
+  {
+    name: '获取用户信息',
+    method: 'GET',
+    path: '/api/users/1',
+    description: '根据用户ID获取用户详细信息',
+  },
+];
+---
+
+<ApiTester
+  endpoints={sampleEndpoints}
+  title="请求详情显示示例"
+  showRequestDetails={true}
+/>

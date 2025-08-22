@@ -1,6 +1,7 @@
 // 基础组件和功能模块 (按字母顺序)
 export * from './src-astro/alert';
 export * from './src-astro/alert-dialog';
+export * from './src-astro/api-test';
 export * from './src-astro/article';
 export * from './src-astro/banner';
 export * from './src-astro/badge';
@@ -57,6 +58,7 @@ export * from './src-astro/toc';
 export * from './src-astro/toast';
 
 // 类型定义 (按字母顺序)
+export * from './src-astro/types/api-test';
 export * from './src-astro/types/article';
 export * from './src-astro/types/footer';
 export * from './src-astro/types/header';
