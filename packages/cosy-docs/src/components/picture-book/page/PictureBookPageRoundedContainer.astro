@@ -1,0 +1,66 @@
+---
+import {
+  PictureBookPage,
+  PictureBookTextBox,
+  CodeContainer,
+} from '@coffic/cosy-ui';
+import code1 from './PictureBookPageRoundedNone.astro?raw';
+import code2 from './PictureBookPageRoundedSm.astro?raw';
+import code3 from './PictureBookPageRoundedMd.astro?raw';
+import code4 from './PictureBookPageRoundedLg.astro?raw';
+import code5 from './PictureBookPageRoundedXl.astro?raw';
+import code6 from './PictureBookPageRoundedFull.astro?raw';
+---
+
+<CodeContainer
+  codes={[code1, code2, code3, code4, code5, code6]}
+  titles={['none', 'sm', 'md', 'lg', 'xl', 'full']}>
+  <div id="tab-1">
+    <PictureBookPage
+      rounded="none"
+      pageAspectRatio={3 / 4}
+      background="base-100">
+      <PictureBookTextBox slot="overlay" top={8} left={50} width={48}>
+        无圆角
+      </PictureBookTextBox>
+    </PictureBookPage>
+  </div>
+  <div id="tab-2">
+    <PictureBookPage rounded="sm" pageAspectRatio={3 / 4} background="base-100">
+      <PictureBookTextBox slot="overlay" top={8} left={50} width={48}>
+        小圆角
+      </PictureBookTextBox>
+    </PictureBookPage>
+  </div>
+  <div id="tab-3">
+    <PictureBookPage rounded="md" pageAspectRatio={3 / 4} background="base-100">
+      <PictureBookTextBox slot="overlay" top={8} left={50} width={48}>
+        中等圆角
+      </PictureBookTextBox>
+    </PictureBookPage>
+  </div>
+  <div id="tab-4">
+    <PictureBookPage rounded="lg" pageAspectRatio={3 / 4} background="base-100">
+      <PictureBookTextBox slot="overlay" top={8} left={50} width={48}>
+        大圆角
+      </PictureBookTextBox>
+    </PictureBookPage>
+  </div>
+  <div id="tab-5">
+    <PictureBookPage rounded="xl" pageAspectRatio={3 / 4} background="base-100">
+      <PictureBookTextBox slot="overlay" top={8} left={50} width={48}>
+        超大圆角
+      </PictureBookTextBox>
+    </PictureBookPage>
+  </div>
+  <div id="tab-6">
+    <PictureBookPage
+      rounded="full"
+      pageAspectRatio={3 / 4}
+      background="base-100">
+      <PictureBookTextBox slot="overlay" top={8} left={50} width={48}>
+        完全圆角
+      </PictureBookTextBox>
+    </PictureBookPage>
+  </div>
+</CodeContainer>
