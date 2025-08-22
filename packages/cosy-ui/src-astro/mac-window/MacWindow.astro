@@ -118,9 +118,9 @@ const windowId = id || `mac-window-${Math.random().toString(36).substr(2, 9)}`;
 
 <Container
   background={bgType}
-  size="full"
   padding="none"
-  centered={false}
+  centered={true}
+  aria-label="MacWindow-Container"
   class={`cosy:flex cosy:relative cosy:rounded-2xl cosy:overflow-hidden ${height} ${withShadow ? 'cosy:shadow-lg' : ''}`}
   data-window-id={windowId}>
   <!-- 窗口控制按钮 -->

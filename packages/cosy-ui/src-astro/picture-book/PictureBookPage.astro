@@ -41,6 +41,7 @@
  * - background?: BackgroundColor | ImageMetadata - 背景配置，支持背景色或图片。背景色如：base-100、primary/20、secondary/30 等；图片直接传递 ImageMetadata 对象
  * - pageAspectRatio?: number - 页面宽高比（宽/高），默认 3/4
  * - border?: boolean - 是否在比例内容区域显示边框（由容器控制），默认 true
+ * - rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full' - 页面圆角大小，默认 'xl'
  *
  * @slots
  * - overlay: 覆盖层插槽，相对安全区域进行绝对定位放置文本框/装饰
@@ -58,12 +59,14 @@ export interface IPictureBookPageProps {
   background?: BackgroundColor | ImageMetadata;
   pageAspectRatio?: number;
   border?: boolean | ContentBorderColor;
+  rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 }
 
 const {
   background,
   pageAspectRatio = 3 / 4,
   border = true,
+  rounded = 'xl',
 } = Astro.props as IPictureBookPageProps;
 
 // 判断是否为图片类型
@@ -79,20 +82,20 @@ const isImageBackground =
   background={isImageBackground ? undefined : (background as BackgroundColor)}
   padding="none"
   margin="none"
-  rounded="xl"
+  rounded={rounded}
   border={false}
   centered={true}
   aria-label="绘本页"
   class="cosy:relative cosy:overflow-hidden">
   <!-- 背景层：自动显示背景色或图片，填充比例内容区域 -->
   <div
-    class="cosy:absolute cosy:inset-0 cosy:w-full cosy:h-full cosy:rounded-xl">
+    class={`cosy:absolute cosy:inset-0 cosy:w-full cosy:h-full ${rounded !== 'none' ? `cosy:rounded-${rounded}` : ''}`}>
     {
       isImageBackground && (
         <Image
           src={background as ImageMetadata}
           alt="页面背景"
-          class="cosy:w-full cosy:h-full cosy:object-cover cosy:rounded-xl"
+          class={`cosy:w-full cosy:h-full cosy:object-cover ${rounded !== 'none' ? `cosy:rounded-${rounded}` : ''}`}
         />
       )
     }

@@ -1,0 +1,233 @@
+---
+title: 'ApiTester'
+folder: false
+order: 4
+badge: 'beta'
+---
+
+import { ApiTester, CodeExample } from '@coffic/cosy-ui';
+import { ApiTesterPackage } from '@/components/api-tester/index.ts';
+
+# {frontmatter.title}
+
+## Introduction
+
+The ApiTester component is a comprehensive API testing tool that provides a testing interface for multiple API endpoints. It supports parameter configuration, quick testing, request sending, and result display, making it an ideal tool for developing and debugging API interfaces.
+
+Component Features:
+
+- Supports multiple HTTP methods (GET, POST, PUT, DELETE, PATCH)
+- Supports various parameter types (text, number, select, checkbox, radio, etc.)
+- Supports parameter validation (required, min, max, regex pattern, etc.)
+- Supports quick testing with preset parameter combinations
+- Supports custom request header configuration
+- Displays detailed response information and response time
+- Comprehensive error handling and user feedback
+
+## Examples
+
+<ApiTesterPackage.Example />
+
+## Props
+
+### endpoints
+List of API endpoint configurations, each containing name, method, path, description, parameters, and other information.
+<ApiTesterPackage.Endpoints />
+
+### title
+Component title, displayed at the top of the page.
+<ApiTesterPackage.Title />
+
+### description
+Component description, used to explain the purpose and scope of API testing.
+<ApiTesterPackage.Description />
+
+### showHeaders
+Whether to display the request header configuration area. When set to true, users can customize request headers.
+<ApiTesterPackage.ShowHeaders />
+
+### defaultHeaders
+Default request header configuration, which can preset common authentication information, etc.
+<ApiTesterPackage.DefaultHeaders />
+
+### showResponseTime
+Whether to display response time. When set to true, request duration will be shown in the results.
+<ApiTesterPackage.ShowResponseTime />
+
+### showRequestDetails
+Whether to display request details. When set to true, complete request URL and other information will be shown.
+<ApiTesterPackage.ShowRequestDetails />
+
+### class
+Custom CSS class name for overriding default styles.
+<ApiTesterPackage.CustomStyle />
+
+## Endpoint Configuration
+
+Each API endpoint supports the following configuration options:
+
+### name
+Endpoint name, displayed in the card title.
+
+### method
+HTTP request method, supports GET, POST, PUT, DELETE, PATCH.
+
+### path
+API endpoint path, can be a relative path or absolute URL.
+
+### description
+Endpoint description, used to explain the purpose of the API.
+
+### params
+Request parameter configuration, supports various input types and validation rules.
+
+### quickTests
+Quick test configuration, preset common parameter combinations.
+
+## Parameter Types
+
+### text
+Text input box, supports arbitrary text content.
+
+### number
+Number input box, supports numeric input and range validation.
+
+### select
+Dropdown selector, choose value from preset options.
+
+### textarea
+Multi-line text input box, suitable for long text content.
+
+### checkbox
+Checkbox, suitable for boolean parameters.
+
+### radio
+Radio button, choose one value from multiple options.
+
+## Quick Testing
+
+The quick testing feature allows users to quickly fill forms through preset parameter combinations, improving testing efficiency. Each quick test contains:
+
+- label: Display name
+- values: Parameter value object
+- description: Description information (optional)
+
+## Usage Examples
+
+### Basic Usage
+
+```astro
+<ApiTester 
+  endpoints={[
+    {
+      name: 'Get User Info',
+      method: 'GET',
+      path: '/api/users/1',
+      description: 'Get user detailed information by user ID'
+    }
+  ]} 
+/>
+```
+
+### API with Parameters
+
+```astro
+<ApiTester 
+  endpoints={[
+    {
+      name: 'Create User',
+      method: 'POST',
+      path: '/api/users',
+      description: 'Create a new user',
+      params: [
+        {
+          name: 'username',
+          placeholder: 'Please enter username',
+          type: 'text',
+          required: true
+        },
+        {
+          name: 'email',
+          placeholder: 'Please enter email',
+          type: 'text',
+          required: true,
+          validation: {
+            pattern: '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$',
+            message: 'Please enter a valid email address'
+          }
+        }
+      ]
+    }
+  ]} 
+/>
+```
+
+### API with Quick Tests
+
+```astro
+<ApiTester 
+  endpoints={[
+    {
+      name: 'User Login',
+      method: 'POST',
+      path: '/api/auth/login',
+      description: 'User authentication login',
+      params: [
+        {
+          name: 'username',
+          placeholder: 'Username',
+          type: 'text',
+          required: true
+        },
+        {
+          name: 'password',
+          placeholder: 'Password',
+          type: 'text',
+          required: true
+        }
+      ],
+      quickTests: [
+        {
+          label: 'Test Account',
+          values: {
+            username: 'testuser',
+            password: 'testpass'
+          },
+          description: 'Quick login with test account'
+        }
+      ]
+    }
+  ]} 
+/>
+```
+
+### With Request Header Configuration
+
+```astro
+<ApiTester 
+  endpoints={endpoints}
+  showHeaders={true}
+  defaultHeaders={{
+    'Authorization': 'Bearer your-token-here',
+    'X-API-Version': 'v1'
+  }}
+  showResponseTime={true}
+  showRequestDetails={true}
+/>
+```
+
+## Important Notes
+
+1. **CORS Issues**: If the API being tested is not on the same domain as the current page, you may encounter cross-origin restrictions
+2. **HTTPS Requirements**: Modern browsers require HTTPS pages to only request HTTPS APIs
+3. **Parameter Validation**: It's recommended to add validation rules for important parameters to improve testing accuracy
+4. **Error Handling**: The component automatically handles network errors and response parsing errors
+5. **Security**: Don't store sensitive information like real passwords in quick tests
+
+## Best Practices
+
+1. **Parameter Naming**: Use clear parameter names for easy understanding and maintenance
+2. **Validation Rules**: Add appropriate validation for required parameters and format-sensitive parameters
+3. **Quick Tests**: Preset common testing scenarios to improve development efficiency
+4. **Error Messages**: Provide meaningful error prompts to help users quickly locate problems
+5. **Response Handling**: Adjust display methods based on the actual response format of the API

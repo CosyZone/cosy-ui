@@ -1,0 +1,22 @@
+---
+import { ApiTester } from '@coffic/cosy-ui';
+
+const endpointsWithHeaders = [
+  {
+    name: '获取用户列表',
+    method: 'GET',
+    path: '/api/users',
+    description: '获取用户列表，支持分页和筛选',
+  },
+];
+---
+
+<ApiTester
+  endpoints={endpointsWithHeaders}
+  title="请求头配置示例"
+  showHeaders={true}
+  defaultHeaders={{
+    Authorization: 'Bearer your-token-here',
+    'X-API-Version': 'v1',
+  }}
+/>

@@ -1,0 +1,15 @@
+---
+/**
+ * @component ApiTesterEndpointsContainer
+ * @description API测试组件端点配置示例容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ApiTesterEndpoints from './ApiTesterEndpoints.astro';
+import ApiTesterEndpointsSourceCode from './ApiTesterEndpoints.astro?raw';
+---
+
+<CodeContainer titles={['端点配置']} codes={[ApiTesterEndpointsSourceCode]}>
+  <div id="tab-1">
+    <ApiTesterEndpoints />
+  </div>
+</CodeContainer>
