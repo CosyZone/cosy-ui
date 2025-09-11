@@ -5,6 +5,7 @@ import WithEventsContainer from './WithEventsContainer.astro';
 import WithToolbarContainer from './WithToolbarContainer.astro';
 import WithSidebarContainer from './WithSidebarContainer.astro';
 import CustomHeightContainer from './CustomHeightContainer.astro';
+import CustomWidthContainer from './CustomWidth.astro';
 import BgTypesContainer from './BgTypesContainer.astro';
 
 // 导出 MacWindow 组件包
@@ -16,6 +17,7 @@ export const MacWindowPackage = {
         WithToolbar: WithToolbarContainer,
         WithSidebar: WithSidebarContainer,
         CustomHeight: CustomHeightContainer,
+        CustomWidth: CustomWidthContainer,
         BgTypes: BgTypesContainer,
     }
 };

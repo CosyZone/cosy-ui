@@ -1,0 +1,17 @@
+---
+/**
+ * @component MacWindow.CustomWidth Vue Container
+ *
+ * @description
+ * 展示 MacWindow Vue 组件的 width 参数用法，支持不同的宽度设置。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import CustomWidth from './CustomWidth.vue';
+import CustomWidthSource from './CustomWidth.vue?raw';
+---
+
+<CodeContainer codes={[CustomWidthSource]} titles={['不同宽度设置']}>
+  <div id="tab-1">
+    <CustomWidth client:load />
+  </div>
+</CodeContainer>
