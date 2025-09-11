@@ -13,6 +13,7 @@
  */
 
 import Image from '../image/Image.astro';
+import Heading from '../heading/Heading.astro';
 import type { ImageSource } from '../image/image.ts';
 
 export interface Props {
@@ -39,10 +40,13 @@ const {
   style={`background: ${background};`}>
   <!-- 文字内容 -->
   <div class="cosy:text-center cosy:mb-4 cosy:mt-8 cosy:min-h-[7rem]">
-    <h2
-      class={`cosy:text-lg cosy:lg:text-xl cosy:font-light cosy:mb-2 ${textColor === 'white' ? 'cosy:text-white' : 'cosy:text-gray-900'}`}>
+    <Heading
+      level={4}
+      align="center"
+      weight="light"
+      class={`cosy:mb-2 ${textColor === 'white' ? 'cosy:text-white' : 'cosy:text-gray-900'}`}>
       {title}
-    </h2>
+    </Heading>
     <p
       class={`cosy:text-2xl cosy:lg:text-3xl cosy:font-thin cosy:leading-tight ${textColor === 'white' ? 'cosy:text-white' : 'cosy:text-gray-900'}`}>
       {description}
