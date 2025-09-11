@@ -38,7 +38,7 @@ const {
   class={`cosy:flex-shrink-0 cosy:relative cosy:h-[32rem] cosy:w-96 cosy:flex cosy:flex-col cosy:justify-center cosy:items-center cosy:px-6 cosy:rounded-2xl cosy:cursor-pointer cosy:transition-all cosy:duration-300 cosy:ease-in-out cosy:hover:scale-105 cosy:hover:shadow-2xl ${className}`}
   style={`background: ${background};`}>
   <!-- 文字内容 -->
-  <div class="cosy:text-center cosy:mb-4 cosy:mt-8">
+  <div class="cosy:text-center cosy:mb-4 cosy:mt-8 cosy:min-h-[7rem]">
     <h2
       class={`cosy:text-lg cosy:lg:text-xl cosy:font-light cosy:mb-2 ${textColor === 'white' ? 'cosy:text-white' : 'cosy:text-gray-900'}`}>
       {title}
@@ -52,8 +52,8 @@ const {
   <!-- 图片内容 -->
   {
     image && (
-      <div class="cosy:flex cosy:justify-center cosy:items-center cosy:flex-1 cosy:min-h-0">
-        <div class="cosy:relative cosy:w-full cosy:h-full cosy:max-w-sm cosy:max-h-80 cosy:rounded-2xl cosy:overflow-hidden cosy:shadow-2xl">
+      <div class="cosy:flex cosy:justify-center cosy:items-center cosy:h-[20rem] cosy:w-full">
+        <div class="cosy:relative cosy:w-full cosy:h-full cosy:max-w-sm">
           <Image
             src={image}
             alt={title}

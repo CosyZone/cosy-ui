@@ -460,36 +460,19 @@ const featureShowcaseData = [
     padding: 'none',
   }}>
   <!-- Hero Section - 苹果风格大标题 -->
-  <div
-    style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden;">
-    <div
-      style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('https://picsum.photos/1920/1080?random=1') center/cover; opacity: 0.1;">
-    </div>
-    <Container width="xl" class="cosy:relative cosy:z-10">
-      <div style="text-align: center; max-width: 800px; margin: 0 auto;">
-        <Text
-          size="xl"
-          class="cosy:text-base-content/60 cosy:mb-4 cosy:font-light">
-          {data.heroTitle}
-        </Text>
-        <Heading level={1} size="4xl" weight="thin" class="cosy:leading-tight">
-          {data.heroSubtitle}
-        </Heading>
-        <Text size="lg" weight="light">
-          {data.heroDescription}
-        </Text>
-        <div
-          style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-          <Button variant="primary" size="lg" class="cosy:px-8 cosy:py-4">
-            {data.buyNow}
-          </Button>
-          <Button variant="outline" size="lg" class="cosy:px-8 cosy:py-4">
-            {data.watchDemo}
-          </Button>
-        </div>
-      </div>
-    </Container>
-  </div>
+  <Hero
+    title={data.heroSubtitle}
+    description={`${data.heroTitle} · ${data.heroDescription}`}
+    align="center"
+    backgroundImage="https://picsum.photos/1920/1080?random=1"
+    backgroundOverlay="dark"
+    overlayOpacity={0.2}
+    imagePosition="right"
+    links={[
+      { text: data.buyNow, href: '#', variant: 'primary' },
+      { text: data.watchDemo, href: '#', variant: 'secondary' },
+    ]}
+  />
 
   <!-- Stats Section - 极简数据展示 -->
   <Container width="xl" padding="xl" margin="xl" background="base-200">
