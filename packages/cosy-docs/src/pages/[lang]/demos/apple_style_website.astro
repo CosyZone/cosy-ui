@@ -25,6 +25,7 @@ import {
   StatsDisplay,
   ProductShowcase,
   FeatureShowcase,
+  TeamMembers,
   getExampleImage,
   getProductImage,
   getAvatarImage,
@@ -207,41 +208,41 @@ const features = [
 const teamMembers = [
   {
     name: currentLocale === 'zh-cn' ? '李明' : 'Li Ming',
-    position: currentLocale === 'zh-cn' ? '首席设计师' : 'Chief Designer',
-    description:
+    role: currentLocale === 'zh-cn' ? '首席设计师' : 'Chief Designer',
+    bio:
       currentLocale === 'zh-cn'
         ? '前苹果设计师，专注极简美学'
         : 'Former Apple designer, focused on minimalist aesthetics',
     avatar: getAvatarImage({ width: 200, height: 200, tag: 'li-ming' }),
     socialLinks: [
-      { platform: 'linkedin', url: '#' },
-      { platform: 'twitter', url: '#' },
+      { platform: 'linkedin' as const, url: '#' },
+      { platform: 'twitter' as const, url: '#' },
     ],
   },
   {
     name: currentLocale === 'zh-cn' ? '王雅' : 'Wang Ya',
-    position: currentLocale === 'zh-cn' ? '产品总监' : 'Product Director',
-    description:
+    role: currentLocale === 'zh-cn' ? '产品总监' : 'Product Director',
+    bio:
       currentLocale === 'zh-cn'
         ? '用户体验专家，追求完美细节'
         : 'UX expert, pursuing perfect details',
     avatar: getAvatarImage({ width: 200, height: 200, tag: 'wang-ya' }),
     socialLinks: [
-      { platform: 'github', url: '#' },
-      { platform: 'linkedin', url: '#' },
+      { platform: 'github' as const, url: '#' },
+      { platform: 'linkedin' as const, url: '#' },
     ],
   },
   {
     name: currentLocale === 'zh-cn' ? '张伟' : 'Zhang Wei',
-    position: currentLocale === 'zh-cn' ? '技术总监' : 'CTO',
-    description:
+    role: currentLocale === 'zh-cn' ? '技术总监' : 'CTO',
+    bio:
       currentLocale === 'zh-cn'
         ? '技术极客，让复杂变简单'
         : 'Tech geek, making complex simple',
     avatar: getAvatarImage({ width: 200, height: 200, tag: 'zhang-wei' }),
     socialLinks: [
-      { platform: 'github', url: '#' },
-      { platform: 'twitter', url: '#' },
+      { platform: 'github' as const, url: '#' },
+      { platform: 'twitter' as const, url: '#' },
     ],
   },
 ];
@@ -471,15 +472,10 @@ const featureShowcaseData = [
           class="cosy:text-base-content/60 cosy:mb-4 cosy:font-light">
           {data.heroTitle}
         </Text>
-        <Heading
-          level={1}
-          size="4xl"
-          class="cosy:mb-6 cosy:font-thin cosy:leading-tight">
+        <Heading level={1} size="4xl" weight="thin" class="cosy:leading-tight">
           {data.heroSubtitle}
         </Heading>
-        <Text
-          size="lg"
-          class="cosy:text-base-content/70 cosy:mb-12 cosy:font-light">
+        <Text size="lg" weight="light">
           {data.heroDescription}
         </Text>
         <div
@@ -527,7 +523,7 @@ const featureShowcaseData = [
   <!-- Features Section - 特性展示 -->
   <Container width="xl" padding="xl" margin="lg" background="base-100">
     <div style="text-align: center; margin-bottom: 4rem;">
-      <Heading level={2} size="3xl" class="cosy:mb-6 cosy:font-thin">
+      <Heading level={2} size="3xl" margin="lg" weight="thin">
         {data.featuresTitle}
       </Heading>
     </div>
@@ -559,50 +555,11 @@ const featureShowcaseData = [
   <!-- Team Section - 团队介绍 -->
   <Container width="full" padding="xl" margin="lg" background="base-200">
     <Container width="xl">
-      <Heading level={2} size="3xl" class="cosy:mb-6 cosy:font-thin">
+      <Heading level={2} size="3xl" margin="lg" weight="thin">
         {data.teamTitle}
       </Heading>
 
-      <div
-        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
-        {
-          teamMembers.map((member) => (
-            <div style="text-align: center; padding: 2rem;">
-              <div style="margin-bottom: 2rem;">
-                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden; margin: 0 auto; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);">
-                  <Image
-                    src={member.avatar}
-                    alt={member.name}
-                    width={200}
-                    height={200}
-                    class="cosy:w-full cosy:h-full cosy:object-cover"
-                  />
-                </div>
-              </div>
-              <Heading level={3} size="xl" class="cosy:mb-2 cosy:font-thin">
-                {member.name}
-              </Heading>
-              <Text class="cosy:text-primary cosy:font-light cosy:mb-4">
-                {member.position}
-              </Text>
-              <Text class="cosy:text-base-content/70 cosy:font-light cosy:mb-6">
-                {member.description}
-              </Text>
-              <div style="display: flex; justify-content: center; gap: 1rem;">
-                {member.socialLinks.map((link) => (
-                  <a href={link.url} target="_blank" rel="noopener noreferrer">
-                    <SocialIcon
-                      platform={link.platform}
-                      size="24px"
-                      class="cosy:text-base-content/60 hover:cosy:text-primary cosy:transition-colors"
-                    />
-                  </a>
-                ))}
-              </div>
-            </div>
-          ))
-        }
-      </div>
+      <TeamMembers members={teamMembers} columns={3} />
     </Container>
   </Container>
 
@@ -614,7 +571,7 @@ const featureShowcaseData = [
     margin="lg"
     background="base-100">
     <div style="text-align: center; margin-bottom: 4rem;">
-      <Heading level={2} size="3xl" class="cosy:mb-6 cosy:font-thin">
+      <Heading level={2} size="3xl" margin="lg" weight="thin">
         {data.contactTitle}
       </Heading>
       <Text size="lg" class="cosy:text-base-content/70 cosy:font-light">
