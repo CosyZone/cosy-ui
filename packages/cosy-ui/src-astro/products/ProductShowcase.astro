@@ -126,16 +126,16 @@ const {
 } = Astro.props;
 
 // 默认背景色数组，用于交替显示
-const defaultBackgrounds = ['#f8fafc', '#ffffff'];
+const defaultBackgroundClasses = ['cosy:bg-base-200', 'cosy:bg-base-100'];
 ---
 
 <div class={className}>
   {
     products.map((product, index) => {
-      // 计算当前产品的背景色
-      const currentBackgroundColor =
-        backgroundColor ||
-        defaultBackgrounds[index % defaultBackgrounds.length];
+      // 计算当前产品的背景
+      const currentBackgroundClass = !backgroundColor
+        ? defaultBackgroundClasses[index % defaultBackgroundClasses.length]
+        : undefined;
 
       // 计算布局对齐方式（左右交替）
       const align = index % 2 === 0 ? 'left' : 'right';
@@ -144,7 +144,8 @@ const defaultBackgrounds = ['#f8fafc', '#ffffff'];
         <ProductShowcaseItem
           {...product}
           align={align}
-          backgroundColor={currentBackgroundColor}
+          backgroundClass={currentBackgroundClass}
+          backgroundColor={backgroundColor}
           buyNowText={buyNowText}
           learnMoreText={learnMoreText}
           newLabelText={newLabelText}
