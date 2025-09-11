@@ -6,53 +6,34 @@
  * 展示 MacWindow 组件的 width 参数用法，支持不同的宽度设置。
  */
 import { MacWindow, PlaceHolder, CodeContainer } from '@coffic/cosy-ui';
-import CustomWidthSource from './CustomWidth.astro?raw';
+import WidthSmall from './WidthSmall.astro';
+import WidthMedium from './WidthMedium.astro';
+import WidthLarge from './WidthLarge.astro';
+import WidthFull from './WidthFull.astro';
+import WidthSmallSource from './WidthSmall.astro?raw';
+import WidthMediumSource from './WidthMedium.astro?raw';
+import WidthLargeSource from './WidthLarge.astro?raw';
+import WidthFullSource from './WidthFull.astro?raw';
 ---
 
-<CodeContainer codes={[CustomWidthSource]} titles={['不同宽度设置']}>
+<CodeContainer
+  codes={[
+    WidthSmallSource,
+    WidthMediumSource,
+    WidthLargeSource,
+    WidthFullSource,
+  ]}
+  titles={['小宽度 (sm)', '中等宽度 (md)', '大宽度 (lg)', '全宽 (full)']}>
   <div id="tab-1">
-    <div class="cosy:space-y-4">
-      <!-- 小宽度 -->
-      <div>
-        <h4 class="cosy:text-sm cosy:font-medium cosy:mb-2">小宽度 (sm)</h4>
-        <MacWindow title="小窗口" width="sm" height="h-48">
-          <PlaceHolder width="full" height="lg" padding="md">
-            小宽度窗口内容
-          </PlaceHolder>
-        </MacWindow>
-      </div>
-
-      <!-- 中等宽度 -->
-      <div>
-        <h4 class="cosy:text-sm cosy:font-medium cosy:mb-2">
-          中等宽度 (md) - 默认
-        </h4>
-        <MacWindow title="中等窗口" width="md" height="h-48">
-          <PlaceHolder width="full" height="lg" padding="md">
-            中等宽度窗口内容
-          </PlaceHolder>
-        </MacWindow>
-      </div>
-
-      <!-- 大宽度 -->
-      <div>
-        <h4 class="cosy:text-sm cosy:font-medium cosy:mb-2">大宽度 (lg)</h4>
-        <MacWindow title="大窗口" width="lg" height="h-48">
-          <PlaceHolder width="full" height="lg" padding="md">
-            大宽度窗口内容
-          </PlaceHolder>
-        </MacWindow>
-      </div>
-
-      <!-- 全宽 -->
-      <div>
-        <h4 class="cosy:text-sm cosy:font-medium cosy:mb-2">全宽 (full)</h4>
-        <MacWindow title="全宽窗口" width="full" height="h-48">
-          <PlaceHolder width="full" height="lg" padding="md">
-            全宽窗口内容
-          </PlaceHolder>
-        </MacWindow>
-      </div>
-    </div>
+    <WidthSmall />
+  </div>
+  <div id="tab-2">
+    <WidthMedium />
+  </div>
+  <div id="tab-3">
+    <WidthLarge />
+  </div>
+  <div id="tab-4">
+    <WidthFull />
   </div>
 </CodeContainer>
