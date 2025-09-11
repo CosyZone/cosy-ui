@@ -418,16 +418,10 @@ const teamMembers = [
 
   <!-- Team Section -->
   <Container width="xl" padding="lg" margin="lg" background="base-100">
-    <div class="cosy:text-center cosy:mb-16">
-      <Heading level={2}>{data.teamTitle}</Heading>
-      <Text size="lg" class="cosy:text-base-content/80">
-        {
-          currentLocale === 'zh-cn'
-            ? '认识我们的核心团队'
-            : 'Meet Our Core Team'
-        }
-      </Text>
-    </div>
+    <Heading level={2}>{data.teamTitle}</Heading>
+    <Text size="lg" color="secondary">
+      {currentLocale === 'zh-cn' ? '认识我们的核心团队' : 'Meet Our Core Team'}
+    </Text>
 
     <Grid cols={{ base: 1, md: 3 }} gap="lg">
       {

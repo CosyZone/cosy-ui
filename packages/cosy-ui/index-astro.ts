@@ -50,6 +50,7 @@ export * from './src-astro/sidebar';
 export * from './src-astro/smart-bg';
 export * from './src-astro/speak';
 export * from './src-astro/stack';
+export * from './src-astro/stats-display';
 export * from './src-astro/picture-book';
 export * from './src-astro/team-member';
 export * from './src-astro/text';

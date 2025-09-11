@@ -1,0 +1,133 @@
+---
+title: 'StatsDisplay'
+folder: false
+order: 21
+tags:
+- astro
+- stats
+- display
+- data
+---
+
+import { StatsDisplay } from '@coffic/cosy-ui';
+import { StatsDisplayPackage } from '@/components/stats-display/index';
+
+# {frontmatter.title}
+
+## 简介
+
+StatsDisplay 组件用于展示统计数据，采用极简设计风格。适合在首页、关于我们页面或产品介绍页面中展示关键数据指标。组件支持多种布局模式和自定义样式，能够完美融入各种设计风格。
+
+组件特性：
+
+- 极简美学设计，大数字、细字重、简洁布局
+- 支持多种字体大小和字重选项
+- 灵活的颜色定制，支持全局和单项颜色设置
+- 响应式设计，自动适配不同屏幕尺寸
+- 多种对齐方式和间距选项
+- 支持紧凑模式，适应不同空间需求
+
+## 案例
+
+<StatsDisplayPackage.Example />
+
+## Props
+
+### align
+
+对齐方式，支持 `left`、`center`、`right`。
+
+<StatsDisplayPackage.Align />
+
+### class
+
+自定义CSS类，可用于覆盖默认样式。
+
+<StatsDisplayPackage.Class />
+
+### columns
+
+列数设置，控制每行显示的统计项目数量。
+
+<StatsDisplayPackage.Columns />
+
+### compact
+
+是否使用紧凑模式，减少间距和字体大小。
+
+<StatsDisplayPackage.CompactMode />
+
+### gap
+
+项目间距，支持 `sm`、`md`、`lg`、`xl`、`2xl`、`3xl`。
+
+<StatsDisplayPackage.Gap />
+
+### labelColor
+
+标签颜色，支持十六进制颜色值。
+
+<StatsDisplayPackage.LabelColor />
+
+### labelWeight
+
+标签字重，支持 `thin`、`light`、`normal`、`medium`、`semibold`、`bold`。
+
+<StatsDisplayPackage.LabelWeight />
+
+### stats
+
+统计数据数组，每个项目包含 `value`（数值）和 `label`（标签）。
+
+<StatsDisplayPackage.StatsArray />
+
+### valueColor
+
+数值颜色，支持十六进制颜色值。
+
+<StatsDisplayPackage.ValueColor />
+
+### valueSize
+
+数值字体大小，支持从 `xs` 到 `6xl` 的完整字体大小。
+
+<StatsDisplayPackage.ValueSize />
+
+### valueWeight
+
+数值字重，支持 `thin`、`light`、`normal`、`medium`、`semibold`、`bold`。
+
+<StatsDisplayPackage.ValueWeight />
+
+## 使用场景
+
+### 企业官网首页
+
+在企业官网的首页展示公司关键数据，如成立年限、服务客户数、完成项目数等。
+
+### 产品介绍页面
+
+在产品介绍页面展示产品的关键指标，如下载量、用户数、评分等。
+
+### 关于我们页面
+
+在关于我们页面展示团队规模、经验年限、获得奖项等数据。
+
+### 仪表板页面
+
+在仪表板页面展示各种统计数据和关键指标。
+
+## 最佳实践
+
+1. **保持简洁**：避免在一个组件中展示过多数据，建议不超过6个项目
+2. **统一风格**：在同一页面中使用统一的颜色和字体风格
+3. **响应式考虑**：在不同屏幕尺寸下测试显示效果
+4. **数据准确性**：确保展示的数据准确且及时更新
+5. **视觉层次**：通过字体大小和颜色建立清晰的视觉层次
+
+## 注意事项
+
+- 数值建议使用简洁的格式，如 "10K+"、"99%" 等
+- 标签文字应简洁明了，避免过长
+- 在移动端使用时，建议减少列数或使用紧凑模式
+- 颜色选择应符合整体设计风格和品牌色彩

@@ -1,0 +1,25 @@
+---
+/**
+ * @component StatsDisplayStatsArrayContainer
+ * @description StatsDisplay stats 属性示例容器组件
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import StatsDisplayBasicStats from './StatsDisplayBasicStats.astro';
+import StatsDisplayColorfulStats from './StatsDisplayColorfulStats.astro';
+import StatsDisplayBasicStatsSourceCode from './StatsDisplayBasicStats.astro?raw';
+import StatsDisplayColorfulStatsSourceCode from './StatsDisplayColorfulStats.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    StatsDisplayBasicStatsSourceCode,
+    StatsDisplayColorfulStatsSourceCode,
+  ]}
+  titles={['基础数据', '自定义颜色']}>
+  <div id="tab-1">
+    <StatsDisplayBasicStats />
+  </div>
+  <div id="tab-2">
+    <StatsDisplayColorfulStats />
+  </div>
+</CodeContainer>

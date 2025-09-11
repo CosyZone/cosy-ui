@@ -1,0 +1,21 @@
+---
+/**
+ * @component StatsDisplayCustomStyleExample
+ * @description StatsDisplay 自定义样式示例
+ */
+import { StatsDisplay } from '@coffic/cosy-ui';
+
+const customStats = [
+  { value: '10+', label: '年经验' },
+  { value: '500+', label: '客户' },
+  { value: '1000+', label: '项目' },
+];
+---
+
+<StatsDisplay
+  stats={customStats}
+  valueSize="2xl"
+  valueColor="#10b981"
+  labelColor="#6b7280"
+  class="cosy:border-2 cosy:border-primary cosy:bg-primary/5 cosy:rounded-lg cosy:p-6"
+/>
