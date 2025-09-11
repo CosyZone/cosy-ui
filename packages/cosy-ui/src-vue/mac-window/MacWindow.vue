@@ -21,7 +21,7 @@ import type { BackgroundColor } from '../container/backgrounds';
  *
  * @props
  * @prop {String} [height='h-96'] - 窗口高度
- * @prop {String} [width='md'] - 窗口宽度，支持 Container 组件的 width 属性值：none、xs、sm、md、lg、xl、full
+ * @prop {String} [width='md'] - 窗口宽度，支持值：xs、sm、md、lg、xl、full
  * @prop {String} [title=''] - 窗口标题
  * @prop {Boolean} [withShadow=true] - 是否显示阴影效果
  * @prop {Array} [tabs=[]] - 标签页字符串数组，如 ['标签1', '标签2', '标签3']
@@ -44,7 +44,7 @@ import type { BackgroundColor } from '../container/backgrounds';
 
 interface Props {
   height?: string;
-  width?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  width?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
   title?: string;
   withShadow?: boolean;
   tabs?: string[];

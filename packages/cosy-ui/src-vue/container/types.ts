@@ -49,10 +49,10 @@ export interface IContainerProps {
     padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
 
     /**
-     * 容器尺寸
-     * @default "md"
+     * （推荐）容器宽度（与 Astro 版本保持一致）
+     * 与 size 等价；如同时传入，优先使用 width
      */
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+    width?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 
     /**
      * 圆角大小
