@@ -24,6 +24,7 @@ import {
   Container,
   StatsDisplay,
   ProductShowcase,
+  FeatureShowcase,
   getExampleImage,
   getProductImage,
   getAvatarImage,
@@ -244,6 +245,68 @@ const teamMembers = [
     ],
   },
 ];
+
+// 特性展示数据（苹果风格）
+const featureShowcaseData = [
+  {
+    title:
+      currentLocale === 'zh-cn'
+        ? '性能和电池续航'
+        : 'Performance and Battery Life',
+    description:
+      currentLocale === 'zh-cn' ? '跑得快,跑得久。' : 'Runs fast, lasts long.',
+    background: 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%)',
+    image: getProductImage({
+      width: 400,
+      height: 300,
+      tag: 'performance-laptop',
+      provider: 'picsum',
+    }),
+    textColor: 'white',
+  },
+  {
+    title: currentLocale === 'zh-cn' ? 'Mac 和 iPhone' : 'Mac and iPhone',
+    description: currentLocale === 'zh-cn' ? '梦幻好队友。' : 'Dream team.',
+    background: '#a7f3d0',
+    image: getProductImage({
+      width: 400,
+      height: 300,
+      tag: 'mac-iphone-integration',
+      provider: 'picsum',
+    }),
+    textColor: 'black',
+  },
+  {
+    title: currentLocale === 'zh-cn' ? '兼容性' : 'Compatibility',
+    description:
+      currentLocale === 'zh-cn'
+        ? '各种常用 App, Mac 都能跑。'
+        : 'All common Apps, Mac can run them.',
+    background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+    image: getProductImage({
+      width: 400,
+      height: 300,
+      tag: 'app-icons',
+      provider: 'picsum',
+    }),
+    textColor: 'white',
+  },
+  {
+    title: currentLocale === 'zh-cn' ? '隐私和安全' : 'Privacy and Security',
+    description:
+      currentLocale === 'zh-cn'
+        ? '你的私事, 只关你的事。'
+        : 'Your private matters, only concern you.',
+    background: 'linear-gradient(135deg, #ef4444 0%, #7c3aed 100%)',
+    image: getProductImage({
+      width: 400,
+      height: 300,
+      tag: 'security-lock',
+      provider: 'picsum',
+    }),
+    textColor: 'white',
+  },
+];
 ---
 
 <AppLayout
@@ -332,7 +395,7 @@ const teamMembers = [
   </div>
 
   <!-- Stats Section - 极简数据展示 -->
-  <Container width="xl" padding="xl" margin="xl" background="base-100">
+  <Container width="xl" padding="xl" margin="xl" background="base-200">
     <StatsDisplay
       stats={statsData}
       valueSize="3xl"
@@ -343,6 +406,11 @@ const teamMembers = [
       gap="3xl"
       align="center"
     />
+  </Container>
+
+  <!-- Feature Showcase Section - 苹果风格特性展示 -->
+  <Container width="xl" padding="none" margin="lg">
+    <FeatureShowcase features={featureShowcaseData} />
   </Container>
 
   <!-- Products Section - 大图展示 -->

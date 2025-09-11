@@ -1,0 +1,169 @@
+---
+import Button from '../button/Button.astro';
+import FeatureCard from './FeatureCard.astro';
+import { ChevronLeftIcon, ChevronRightIcon } from '../icons';
+
+/**
+ * @component FeatureShowcase
+ * @description 苹果风格的特性展示组件，横向滑动显示多个特性卡片
+ * @example
+ * <FeatureShowcase
+ *   features={[
+ *     {
+ *       title: "性能和电池续航",
+ *       description: "跑得快,跑得久。",
+ *       background: "linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%)",
+ *       image: "https://example.com/image.jpg",
+ *       textColor: "white"
+ *     }
+ *   ]}
+ * />
+ */
+
+export interface Props {
+  features: Array<{
+    title: string;
+    description: string;
+    background: string;
+    image?: string;
+    textColor?: string;
+  }>;
+  class?: string;
+}
+
+const { features, class: className } = Astro.props;
+---
+
+<div class={`cosy:relative cosy:overflow-hidden ${className || ''}`}>
+  <!-- 特性卡片容器 -->
+  <div
+    class="cosy:flex cosy:gap-4 cosy:transition-transform cosy:duration-500 cosy:py-8 cosy:px-2"
+    id="feature-cards">
+    {
+      features.map((feature, index) => (
+        <FeatureCard
+          title={feature.title}
+          description={feature.description}
+          background={feature.background}
+          image={feature.image}
+          textColor={feature.textColor}
+        />
+      ))
+    }
+  </div>
+
+  <!-- 导航按钮 - 在下一行 -->
+  <div class="cosy:flex cosy:justify-end cosy:gap-2 cosy:my-4">
+    <Button
+      id="prev-btn"
+      variant="neutral"
+      shape="circle"
+      size="lg"
+      aria-label="上一个">
+      <ChevronLeftIcon size="20px" />
+    </Button>
+    <Button
+      id="next-btn"
+      variant="neutral"
+      shape="circle"
+      size="lg"
+      aria-label="下一个">
+      <ChevronRightIcon size="20px" />
+    </Button>
+  </div>
+</div>
+
+<script define:vars={{ totalFeatures: features.length }}>
+  // 特性展示滑动逻辑
+  let currentIndex = 0;
+  const cardsContainer = document.getElementById('feature-cards');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+
+  function updatePosition() {
+    if (cardsContainer) {
+      // 每个卡片固定宽度384px (w-96)
+      const cardWidth = 384;
+      cardsContainer.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+    }
+  }
+
+  function updateButtonStates() {
+    if (prevBtn && nextBtn) {
+      // 计算当前可见的卡片数量
+      const containerWidth =
+        cardsContainer?.parentElement?.offsetWidth || window.innerWidth;
+      const cardWidth = 384; // 卡片宽度 (w-96)
+      const gap = 16; // 卡片间距
+      const visibleCards = Math.floor(
+        (containerWidth + gap) / (cardWidth + gap)
+      );
+      const maxIndex = Math.max(0, totalFeatures - visibleCards);
+
+      // 禁用/启用上一个按钮
+      prevBtn.disabled = currentIndex === 0;
+      if (currentIndex === 0) {
+        prevBtn.classList.add('cosy:opacity-50', 'cosy:cursor-not-allowed');
+        prevBtn.classList.remove('cosy:hover:bg-gray-300');
+      } else {
+        prevBtn.classList.remove('cosy:opacity-50', 'cosy:cursor-not-allowed');
+        prevBtn.classList.add('cosy:hover:bg-gray-300');
+      }
+
+      // 禁用/启用下一个按钮 - 当最后一个卡片可见时禁用
+      nextBtn.disabled = currentIndex >= maxIndex;
+      if (currentIndex >= maxIndex) {
+        nextBtn.classList.add('cosy:opacity-50', 'cosy:cursor-not-allowed');
+        nextBtn.classList.remove('cosy:hover:bg-gray-300');
+      } else {
+        nextBtn.classList.remove('cosy:opacity-50', 'cosy:cursor-not-allowed');
+        nextBtn.classList.add('cosy:hover:bg-gray-300');
+      }
+    }
+  }
+
+  function goToPrev() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updatePosition();
+      updateButtonStates();
+    }
+  }
+
+  function goToNext() {
+    // 计算当前可见的卡片数量
+    const containerWidth =
+      cardsContainer?.parentElement?.offsetWidth || window.innerWidth;
+    const cardWidth = 384; // 卡片宽度 (w-96)
+    const gap = 16; // 卡片间距
+    const visibleCards = Math.floor((containerWidth + gap) / (cardWidth + gap));
+    const maxIndex = Math.max(0, totalFeatures - visibleCards);
+
+    if (currentIndex < maxIndex) {
+      currentIndex++;
+      updatePosition();
+      updateButtonStates();
+    }
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', goToPrev);
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', goToNext);
+  }
+
+  // 键盘导航
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') {
+      goToPrev();
+    } else if (e.key === 'ArrowRight') {
+      goToNext();
+    }
+  });
+
+  // 初始化位置和按钮状态
+  updatePosition();
+  updateButtonStates();
+</script>
