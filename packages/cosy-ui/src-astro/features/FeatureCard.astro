@@ -12,11 +12,14 @@
  * />
  */
 
+import Image from '../image/Image.astro';
+import type { ImageSource } from '../image/image.ts';
+
 export interface Props {
   title: string;
   description: string;
   background: string;
-  image?: string;
+  image?: ImageSource;
   textColor?: string;
   class?: string;
 }
@@ -51,10 +54,12 @@ const {
     image && (
       <div class="cosy:flex cosy:justify-center cosy:items-center cosy:flex-1 cosy:min-h-0">
         <div class="cosy:relative cosy:w-full cosy:h-full cosy:max-w-sm cosy:max-h-80 cosy:rounded-2xl cosy:overflow-hidden cosy:shadow-2xl">
-          <img
+          <Image
             src={image}
             alt={title}
-            class="cosy:w-full cosy:h-full cosy:object-cover"
+            rounded="2xl"
+            shadow="xl"
+            objectFit="cover"
           />
         </div>
       </div>

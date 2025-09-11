@@ -1,0 +1,174 @@
+---
+import {
+  AppLayout,
+  Container,
+  Grid,
+  Image,
+  Heading,
+  Text,
+  Button,
+  Badge,
+  getLandscapeImage,
+} from '@coffic/cosy-ui';
+import { configApp } from '@/config/config.app';
+import * as astroI18n from 'astro:i18n';
+
+// locale
+const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
+const t = (zh: string, en: string) => (currentLocale === 'zh-cn' ? zh : en);
+
+export const getStaticPaths = async () => {
+  return [{ params: { lang: 'zh-cn' } }, { params: { lang: 'en' } }];
+};
+
+// 数据：工厂照片区块
+interface BlockItem {
+  title: string;
+  description: string;
+  image: string;
+  tag?: string;
+}
+
+const blocks: BlockItem[] = [
+  {
+    title: t('自动化生产线', 'Automated Production Line'),
+    description: t(
+      '核心工位实现自动化上下料与在线质检，稳定高效。',
+      'Key stations are automated with in-line QC for stability and efficiency.'
+    ),
+    image: getLandscapeImage({ width: 1200, height: 675, tag: 'factory-line' }),
+    tag: 'AUTO',
+  },
+  {
+    title: t('品控实验室', 'Quality Lab'),
+    description: t(
+      '全流程检测项目覆盖来料/制程/出货，AQL 1.0 标准。',
+      'Full-process inspections covering IQC/Process/OQC, AQL 1.0 standard.'
+    ),
+    image: getLandscapeImage({ width: 1200, height: 675, tag: 'factory-lab' }),
+    tag: 'QA',
+  },
+  {
+    title: t('仓储与发货', 'Warehouse & Shipping'),
+    description: t(
+      '先进先出与条码追溯，日均出库 2,000+ 件。',
+      'FIFO with barcode traceability, 2,000+ items shipped daily.'
+    ),
+    image: getLandscapeImage({
+      width: 1200,
+      height: 675,
+      tag: 'factory-warehouse',
+    }),
+    tag: 'WHS',
+  },
+  {
+    title: t('厂区外景', 'Factory Exterior'),
+    description: t(
+      '绿化园区与标准化道路，优化参观动线与物流通道。',
+      'Green campus with standardized roads for visit flow and logistics.'
+    ),
+    image: getLandscapeImage({
+      width: 1200,
+      height: 675,
+      tag: 'factory-exterior',
+    }),
+  },
+];
+---
+
+<AppLayout
+  debug={false}
+  metaConfig={{
+    title: t('工厂照片展示', 'Factory Showcase'),
+    description: t(
+      '一张或多张工厂照片，配合简洁文案展示实力。',
+      'Factory photos with concise copy to build trust.'
+    ),
+    keywords: t(
+      '工厂,生产线,仓储,实验室,外景',
+      'factory, production line, warehouse, lab, exterior'
+    ),
+    author: 'Cosy UI',
+    robots: 'index, follow',
+  }}
+  sidebarConfig={{ sidebarItems: [] }}
+  showHeader={true}
+  showFooter={true}
+  showSidebar={false}
+  headerConfig={{
+    logoHref: configApp.homeLink,
+    navItems: configApp.getNavItems(currentLocale),
+    astroI18n: astroI18n,
+  }}
+  footerConfig={{
+    siteName: 'Cosy UI',
+    homeLink: configApp.homeLink,
+    slogan: t('更快构建现代网站', 'Build modern sites faster'),
+    company: 'Cosy UI',
+    copyright: `© 2025 Cosy UI`,
+    inspirationalSlogan: t(
+      '打造优雅、可复用的界面',
+      'Craft elegant, reusable UIs'
+    ),
+  }}
+  mainContentConfig={{ verticalPadding: 'lg' }}>
+  <Container width="xl" padding="lg">
+    <Heading level={1} margin="lg" weight="semibold">
+      {t('工厂照片展示', 'Factory Showcase')}
+    </Heading>
+    <Text margin="md">
+      {
+        t(
+          '以下为工厂核心区域的实拍照片与简要说明。',
+          'Below are real shots of core factory areas with brief notes.'
+        )
+      }
+    </Text>
+  </Container>
+
+  {
+    blocks.map((block, i) => (
+      <Container
+        width="full"
+        padding="xl"
+        background={i % 2 === 0 ? 'base-100' : 'base-200'}>
+        <Container width="xl" padding="lg">
+          <Grid cols={{ base: 1, md: 2 }} gap="lg">
+            {i % 2 === 0 ? (
+              <>
+                <div>
+                  <Image src={block.image} alt={block.title} rounded="lg" />
+                </div>
+                <div>
+                  {block.tag && <Badge variant="secondary">{block.tag}</Badge>}
+                  <Heading level={2} margin="sm" weight="semibold">
+                    {block.title}
+                  </Heading>
+                  <Text margin="sm">{block.description}</Text>
+                  <Button variant="primary">
+                    {t('预约参观', 'Book a Visit')}
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div>
+                  <Heading level={2} margin="sm" weight="semibold">
+                    {block.title}
+                  </Heading>
+                  <Text margin="sm">{block.description}</Text>
+                  <Button variant="primary">
+                    {t('预约参观', 'Book a Visit')}
+                  </Button>
+                </div>
+                <div>
+                  <Image src={block.image} alt={block.title} rounded="lg" />
+                </div>
+              </>
+            )}
+          </Grid>
+        </Container>
+      </Container>
+    ))
+  }
+</AppLayout>

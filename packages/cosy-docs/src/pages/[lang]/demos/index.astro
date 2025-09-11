@@ -91,6 +91,17 @@ export const getStaticPaths = async () => {
         productUrl: LinkUtil.createUrl(`${currentLocale}/demos/apple_products`),
       },
       {
+        name: '工厂照片展示',
+        image: getExampleImage({
+          width: 100,
+          height: 100,
+        }),
+        description: '苹果风格的工厂图片与文字展示区块',
+        productUrl: LinkUtil.createUrl(
+          `${currentLocale}/demos/factory_showcase`
+        ),
+      },
+      {
         name: '电商产品页面',
         image: getExampleImage({
           width: 100,

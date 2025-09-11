@@ -173,7 +173,7 @@
  * @prop {string} [items] - flex项目水平对齐方式，可选值：start、end、center、baseline、stretch，仅在启用flex布局时生效
  * @prop {string} [justify] - flex项目垂直对齐方式，可选值：start、end、center、between、around、evenly，仅在启用flex布局时生效
  * @prop {string} [margin='none'] - 外边距大小，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl
- * @prop {string} [padding='md'] - 内边距大小，可选值：none、sm、md、lg、xl
+ * @prop {string} [padding='md'] - 内边距大小，可选值：none、sm、md、lg、xl、2xl、3xl、4xl
  * @prop {string} [width='md'] - 容器宽度，可选值：xs、sm、md、lg、xl、full，控制容器的最大宽度
  * @prop {string} [rounded='none'] - 圆角大小，可选值：none、sm、md、lg、xl、full
  * @prop {...HTMLAttributes<'div'>} [rest] - 其他HTML div标签属性
@@ -292,7 +292,7 @@ interface Props extends HTMLAttributes<'div'> {
    * 内边距大小
    * @default "md"
    */
-  padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+  padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 
   /**
    * 容器宽度，不设置则不设置宽度
@@ -360,6 +360,9 @@ const paddingClasses = {
   md: 'cosy:p-4',
   lg: 'cosy:p-6',
   xl: 'cosy:p-8',
+  '2xl': 'cosy:p-10',
+  '3xl': 'cosy:p-12',
+  '4xl': 'cosy:p-16',
 } as const;
 
 const roundedClasses = {

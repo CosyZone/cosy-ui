@@ -14,7 +14,7 @@ import { allBackgroundClasses } from './backgrounds';
  * @props {('none'|'xs'|'sm'|'md'|'lg'|'xl')} [gap='none'] - flex项目间距
  * @props {('start'|'end'|'center'|'baseline'|'stretch')} [items] - flex项目水平对齐方式
  * @props {('start'|'end'|'center'|'between'|'around'|'evenly')} [justify] - flex项目垂直对齐方式
- * @props {('none'|'sm'|'md'|'lg'|'xl')} [padding='md'] - 内边距大小
+ * @props {('none'|'sm'|'md'|'lg'|'xl'|'2xl'|'3xl'|'4xl')} [padding='md'] - 内边距大小
  * @props {('xs'|'sm'|'md'|'lg'|'xl'|'full')} [size='md'] - 容器尺寸
  * @props {('none'|'sm'|'md'|'lg'|'xl'|'full')} [rounded='none'] - 圆角大小
  * @props {string} [background] - 预设的语义化背景色，使用 Tailwind v4 语法（如 bg-primary/50）
@@ -48,6 +48,9 @@ const paddingClasses = {
   md: 'cosy:p-4',
   lg: 'cosy:p-6',
   xl: 'cosy:p-8',
+  '2xl': 'cosy:p-10',
+  '3xl': 'cosy:p-12',
+  '4xl': 'cosy:p-16',
 } as const;
 
 const roundedClasses = {
