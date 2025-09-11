@@ -2,6 +2,7 @@
 import Button from '../button/Button.astro';
 import FeatureCard from './FeatureCard.astro';
 import { ChevronLeftIcon, ChevronRightIcon } from '../icons';
+import type { ImageSource } from '../image/image.ts';
 
 /**
  * @component FeatureShowcase
@@ -25,7 +26,7 @@ export interface Props {
     title: string;
     description: string;
     background: string;
-    image?: string;
+    image?: ImageSource;
     textColor?: string;
   }>;
   class?: string;
