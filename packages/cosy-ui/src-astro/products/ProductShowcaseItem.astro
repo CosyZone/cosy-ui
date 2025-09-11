@@ -101,6 +101,11 @@ export interface Props {
    */
   backgroundColor?: string;
   /**
+   * 背景类（推荐）
+   * 传入 daisyUI 背景类名，如 cosy:bg-base-200
+   */
+  backgroundClass?: string;
+  /**
    * 购买按钮文本
    */
   buyNowText?: string;
@@ -133,7 +138,8 @@ const {
   price,
   isNew = false,
   align = 'left',
-  backgroundColor = '#ffffff',
+  backgroundColor,
+  backgroundClass,
   buyNowText = '立即购买',
   learnMoreText = '了解更多',
   newLabelText = '新品',
@@ -149,8 +155,8 @@ const contentDirection = isRightAlign ? 'direction: ltr;' : '';
 ---
 
 <div
-  style={`background: ${backgroundColor}; padding: 6rem 0;`}
-  class={className}>
+  style={`padding: 6rem 0;${!backgroundClass && backgroundColor ? ` background: ${backgroundColor};` : ''}`}
+  class={`${backgroundClass ?? 'cosy:bg-base-100'} ${className}`}>
   <Container width="xl">
     <div
       style={`display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; ${gridDirection}`}>
