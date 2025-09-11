@@ -32,10 +32,10 @@ const {
 ---
 
 <div
-  class={`cosy:flex-shrink-0 cosy:relative cosy:h-[48rem] cosy:w-96 cosy:flex cosy:flex-col cosy:justify-center cosy:items-center cosy:px-6 cosy:rounded-2xl cosy:cursor-pointer cosy:transition-all cosy:duration-300 cosy:ease-in-out cosy:hover:scale-105 cosy:hover:shadow-2xl ${className}`}
+  class={`cosy:flex-shrink-0 cosy:relative cosy:h-[32rem] cosy:w-96 cosy:flex cosy:flex-col cosy:justify-center cosy:items-center cosy:px-6 cosy:rounded-2xl cosy:cursor-pointer cosy:transition-all cosy:duration-300 cosy:ease-in-out cosy:hover:scale-105 cosy:hover:shadow-2xl ${className}`}
   style={`background: ${background};`}>
   <!-- 文字内容 -->
-  <div class="cosy:text-center cosy:mb-4">
+  <div class="cosy:text-center cosy:mb-4 cosy:mt-8">
     <h2
       class={`cosy:text-lg cosy:lg:text-xl cosy:font-light cosy:mb-2 ${textColor === 'white' ? 'cosy:text-white' : 'cosy:text-gray-900'}`}>
       {title}
@@ -60,11 +60,4 @@ const {
       </div>
     )
   }
-
-  <!-- 右下角加号按钮 -->
-  <button
-    class="cosy:absolute cosy:bottom-6 cosy:right-6 cosy:w-12 cosy:h-12 cosy:bg-black cosy:bg-opacity-20 cosy:rounded-full cosy:flex cosy:items-center cosy:justify-center cosy:text-white cosy:text-xl cosy:font-light cosy:hover:bg-opacity-30 cosy:transition-all cosy:duration-200"
-    aria-label="了解更多">
-    +
-  </button>
 </div>
