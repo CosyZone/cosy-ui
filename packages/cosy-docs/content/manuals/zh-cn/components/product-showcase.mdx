@@ -1,0 +1,121 @@
+---
+title: 'ProductShowcase'
+folder: false
+order: 16
+tags:
+- astro
+- product
+- showcase
+- apple-style
+- display
+---
+
+import { ProductShowcase } from '@coffic/cosy-ui';
+import { ProductShowcasePackage } from '@/components/product-showcase/index';
+
+# {frontmatter.title}
+
+## 简介
+
+ProductShowcase 组件是 ProductShowcaseItem 的容器组件，用于展示多个产品的详细信息。采用苹果风格的大图展示设计，支持左右交替布局，提供优雅的产品展示体验。适用于产品展示页面、产品详情页等场景。
+
+组件特性：
+
+- 大图展示 - 突出产品图片，采用高质量大图展示
+- 交替布局 - 自动左右交替布局，增加视觉层次
+- 信息层次 - 清晰的信息层次：标签、标题、描述、价格、按钮
+- 苹果风格 - 采用苹果官网的简洁、优雅设计风格
+- 响应式设计 - 在不同设备上都能良好展示
+
+## 案例
+
+<ProductShowcasePackage.Example />
+
+## Props
+
+### backgroundColor
+
+背景色设置，支持任意CSS颜色值，会应用到所有产品项。
+
+<ProductShowcasePackage.BackgroundColor />
+
+### buyNowText
+
+购买按钮文本，默认为"立即购买"。
+
+<ProductShowcasePackage.BuyNowText />
+
+### class
+
+自定义CSS类，可用于覆盖默认样式。
+
+<ProductShowcasePackage.Class />
+
+### learnMoreText
+
+了解更多按钮文本，默认为"了解更多"。
+
+<ProductShowcasePackage.LearnMoreText />
+
+### newLabelText
+
+新品标签文本，默认为"新品"。
+
+<ProductShowcasePackage.NewLabelText />
+
+### onBuyNow
+
+购买按钮点击事件回调函数。
+
+<ProductShowcasePackage.OnBuyNow />
+
+### onLearnMore
+
+了解更多按钮点击事件回调函数。
+
+<ProductShowcasePackage.OnLearnMore />
+
+### products
+
+产品数据数组，每个产品包含以下属性：
+
+- `name`: 产品名称
+- `description`: 产品描述
+- `image`: 产品图片
+- `price`: 产品价格
+- `isNew`: 是否为新品（可选）
+
+<ProductShowcasePackage.Products />
+
+## 使用场景
+
+- 产品展示页面
+- 产品详情页
+- 苹果风格的企业官网
+- 产品介绍页面
+- 电商产品展示
+
+## 设计理念
+
+ProductShowcase 组件采用苹果官网的设计理念：
+
+1. **大图展示** - 突出产品图片，让用户直观了解产品外观
+2. **交替布局** - 左右交替布局增加视觉层次，避免单调
+3. **信息层次** - 清晰的信息层次：新品标签 → 产品标题 → 描述 → 价格 → 操作按钮
+4. **简洁优雅** - 采用极简设计，突出产品本身
+5. **响应式** - 在不同设备上都能提供良好的用户体验
+
+## 最佳实践
+
+1. **图片质量** - 使用高质量的产品图片，建议尺寸为 800x600 或更高
+2. **描述简洁** - 产品描述应简洁明了，突出核心卖点
+3. **价格清晰** - 价格显示应清晰醒目，使用合适的字体大小
+4. **按钮文案** - 按钮文案应明确表达操作意图
+5. **新品标签** - 合理使用新品标签，突出新产品
+
+## 注意事项
+
+- 组件会自动为每个产品项应用左右交替布局
+- 背景色会应用到所有产品项，如需单独设置请使用 ProductShowcaseItem
+- 图片建议使用高分辨率，以确保在大图展示时效果良好
+- 组件内部使用 Container 组件，确保内容不会过宽

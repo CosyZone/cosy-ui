@@ -23,6 +23,7 @@ import {
   SmartIcon,
   Container,
   StatsDisplay,
+  ProductShowcase,
   getExampleImage,
   getProductImage,
   getAvatarImage,
@@ -344,75 +345,14 @@ const teamMembers = [
     />
   </Container>
 
-  <!-- About Section - 简洁介绍 -->
-  <Container width="xl" padding="xl" margin="lg" background="base-200">
-    <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-      <Heading level={2} size="3xl" class="cosy:mb-6 cosy:font-thin">
-        {data.aboutTitle}
-      </Heading>
-      <Text
-        size="lg"
-        class="cosy:text-base-content/70 cosy:font-light cosy:leading-relaxed">
-        {data.aboutContent}
-      </Text>
-    </div>
-  </Container>
-
   <!-- Products Section - 大图展示 -->
   <Container width="full" padding="none" margin="lg">
-    {
-      products.map((product, index) => (
-        <div
-          style={`background: ${index % 2 === 0 ? '#f8fafc' : '#ffffff'}; padding: 6rem 0;`}>
-          <Container width="xl">
-            <div
-              style={`display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; ${index % 2 === 1 ? 'direction: rtl;' : ''}`}>
-              <div style={index % 2 === 1 ? 'direction: ltr;' : ''}>
-                <div style="margin-bottom: 1rem;">
-                  {product.isNew && (
-                    <Badge variant="primary" class="cosy:mb-4">
-                      {currentLocale === 'zh-cn' ? '新品' : 'New'}
-                    </Badge>
-                  )}
-                </div>
-                <Heading level={2} size="4xl" class="cosy:mb-4 cosy:font-thin">
-                  {product.name}
-                </Heading>
-                <Text
-                  size="xl"
-                  class="cosy:text-base-content/70 cosy:mb-6 cosy:font-light">
-                  {product.description}
-                </Text>
-                <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem;">
-                  <Text size="2xl" class="cosy:font-thin">
-                    {product.price}
-                  </Text>
-                </div>
-                <div style="display: flex; gap: 1rem;">
-                  <Button variant="primary" size="lg">
-                    {data.buyNow}
-                  </Button>
-                  <Button variant="outline" size="lg">
-                    {data.learnMore}
-                  </Button>
-                </div>
-              </div>
-              <div>
-                <div style="width: 100%; height: auto; border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); overflow: hidden;">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    width={800}
-                    height={600}
-                    class="cosy:w-full cosy:h-auto"
-                  />
-                </div>
-              </div>
-            </div>
-          </Container>
-        </div>
-      ))
-    }
+    <ProductShowcase
+      products={products}
+      buyNowText={data.buyNow}
+      learnMoreText={data.learnMore}
+      newLabelText={currentLocale === 'zh-cn' ? '新品' : 'New'}
+    />
   </Container>
 
   <!-- Features Section - 特性展示 -->
@@ -448,53 +388,53 @@ const teamMembers = [
   </Container>
 
   <!-- Team Section - 团队介绍 -->
-  <Container width="xl" padding="xl" margin="lg" background="base-200">
-    <div style="text-align: center; margin-bottom: 4rem;">
+  <Container width="full" padding="xl" margin="lg" background="base-200">
+    <Container width="xl">
       <Heading level={2} size="3xl" class="cosy:mb-6 cosy:font-thin">
         {data.teamTitle}
       </Heading>
-    </div>
 
-    <div
-      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
-      {
-        teamMembers.map((member) => (
-          <div style="text-align: center; padding: 2rem;">
-            <div style="margin-bottom: 2rem;">
-              <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden; margin: 0 auto; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);">
-                <Image
-                  src={member.avatar}
-                  alt={member.name}
-                  width={200}
-                  height={200}
-                  class="cosy:w-full cosy:h-full cosy:object-cover"
-                />
+      <div
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
+        {
+          teamMembers.map((member) => (
+            <div style="text-align: center; padding: 2rem;">
+              <div style="margin-bottom: 2rem;">
+                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden; margin: 0 auto; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);">
+                  <Image
+                    src={member.avatar}
+                    alt={member.name}
+                    width={200}
+                    height={200}
+                    class="cosy:w-full cosy:h-full cosy:object-cover"
+                  />
+                </div>
+              </div>
+              <Heading level={3} size="xl" class="cosy:mb-2 cosy:font-thin">
+                {member.name}
+              </Heading>
+              <Text class="cosy:text-primary cosy:font-light cosy:mb-4">
+                {member.position}
+              </Text>
+              <Text class="cosy:text-base-content/70 cosy:font-light cosy:mb-6">
+                {member.description}
+              </Text>
+              <div style="display: flex; justify-content: center; gap: 1rem;">
+                {member.socialLinks.map((link) => (
+                  <a href={link.url} target="_blank" rel="noopener noreferrer">
+                    <SocialIcon
+                      platform={link.platform}
+                      size="24px"
+                      class="cosy:text-base-content/60 hover:cosy:text-primary cosy:transition-colors"
+                    />
+                  </a>
+                ))}
               </div>
             </div>
-            <Heading level={3} size="xl" class="cosy:mb-2 cosy:font-thin">
-              {member.name}
-            </Heading>
-            <Text class="cosy:text-primary cosy:font-light cosy:mb-4">
-              {member.position}
-            </Text>
-            <Text class="cosy:text-base-content/70 cosy:font-light cosy:mb-6">
-              {member.description}
-            </Text>
-            <div style="display: flex; justify-content: center; gap: 1rem;">
-              {member.socialLinks.map((link) => (
-                <a href={link.url} target="_blank" rel="noopener noreferrer">
-                  <SocialIcon
-                    platform={link.platform}
-                    size="24px"
-                    class="cosy:text-base-content/60 hover:cosy:text-primary cosy:transition-colors"
-                  />
-                </a>
-              ))}
-            </div>
-          </div>
-        ))
-      }
-    </div>
+          ))
+        }
+      </div>
+    </Container>
   </Container>
 
   <!-- Contact Section - 联系信息 -->
@@ -594,5 +534,27 @@ const teamMembers = [
     </div>
   </Container>
 
-  <PlaceHolder height="5xl" />
+  <!-- About Section - 简洁介绍 -->
+  <Container width="full" padding="xl" margin="lg" background="base-200">
+    <Container width="xl">
+      <Heading level={2} size="3xl" class="cosy:mb-6 cosy:font-thin">
+        {data.aboutTitle}
+      </Heading>
+      <Text
+        size="lg"
+        class="cosy:text-base-content/70 cosy:font-light cosy:leading-relaxed">
+        {data.aboutContent}
+      </Text>
+    </Container>
+  </Container>
+
+  <PlaceHolder height="md" />
+
+  <Container width="full" padding="xl" margin="lg" contentCentered>
+    <Button variant="primary" size="lg">
+      {data.watchDemo}
+    </Button>
+  </Container>
+
+  <PlaceHolder height="md" />
 </AppLayout>
