@@ -1,0 +1,821 @@
+---
+/**
+ * @page E-commerce Product Demo
+ *
+ * @description
+ * 电商产品购买展示页面，采用现代化电商设计风格
+ * 特点：产品展示、购买流程、用户评价、推荐商品
+ */
+
+import {
+  AppLayout,
+  Hero,
+  Card,
+  Grid,
+  Button,
+  Text,
+  Heading,
+  Image,
+  Badge,
+  Contact,
+  TeamMember,
+  SocialIcon,
+  SmartIcon,
+  Container,
+  StatsDisplay,
+  ProductShowcase,
+  FeatureShowcase,
+  TeamMembers,
+  Review,
+  Reviews,
+  getExampleImage,
+  getProductImage,
+  getAvatarImage,
+  PlaceHolder,
+} from '@coffic/cosy-ui';
+import { configApp } from '@/config/config.app';
+import * as astroI18n from 'astro:i18n';
+
+// 从 URL 获取当前语言
+const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
+
+export const getStaticPaths = async () => {
+  return [
+    {
+      params: { lang: 'zh-cn' },
+    },
+    {
+      params: { lang: 'en' },
+    },
+  ];
+};
+
+// 类型定义
+interface ProductVariant {
+  name: string;
+  value: string;
+  price?: number;
+  inStock: boolean;
+}
+
+interface RelatedProduct {
+  id: string;
+  name: string;
+  price: number;
+  originalPrice?: number;
+  image: string;
+  rating: number;
+  reviews: number;
+  isNew?: boolean;
+  discount?: number;
+}
+
+// 电商产品数据
+const ecommerceData: Record<string, any> = {
+  'zh-cn': {
+    productName: '智能无线耳机 Pro Max',
+    brand: 'TechSound',
+    tagline: '专业音质，无线自由',
+    description:
+      '采用最新蓝牙5.3技术，提供卓越音质体验，支持主动降噪，续航长达30小时。',
+    price: 1299,
+    originalPrice: 1599,
+    discount: 19,
+    rating: 4.8,
+    reviewCount: 1247,
+    inStock: true,
+    stockCount: 23,
+    // 产品变体
+    variants: {
+      color: [
+        { name: '经典黑', value: 'black', inStock: true },
+        { name: '珍珠白', value: 'white', inStock: true },
+        { name: '深海蓝', value: 'blue', inStock: false },
+        { name: '玫瑰金', value: 'gold', inStock: true },
+      ],
+      storage: [
+        { name: '标准版', value: 'standard', price: 1299, inStock: true },
+        { name: '专业版', value: 'pro', price: 1599, inStock: true },
+        { name: '旗舰版', value: 'max', price: 1899, inStock: false },
+      ],
+    },
+    // 产品特性
+    features: [
+      {
+        title: '主动降噪',
+        description: '智能识别环境噪音，提供纯净音质体验',
+        icon: 'noise-cancellation',
+      },
+      {
+        title: '30小时续航',
+        description: '单次充电可使用8小时，配合充电盒可达30小时',
+        icon: 'battery',
+      },
+      {
+        title: '无线充电',
+        description: '支持Qi无线充电，随放随充更便捷',
+        icon: 'wireless-charging',
+      },
+      {
+        title: '防水防汗',
+        description: 'IPX7级防水，运动时也能安心使用',
+        icon: 'waterproof',
+      },
+    ],
+    // 产品规格
+    specifications: [
+      { name: '蓝牙版本', value: '5.3' },
+      { name: '驱动单元', value: '10mm动圈单元' },
+      { name: '频响范围', value: '20Hz - 20kHz' },
+      { name: '阻抗', value: '32Ω' },
+      { name: '电池容量', value: '耳机55mAh，充电盒500mAh' },
+      { name: '充电时间', value: '1.5小时（耳机），2小时（充电盒）' },
+      { name: '重量', value: '耳机5.4g，充电盒45g' },
+      { name: '防水等级', value: 'IPX7' },
+    ],
+    // 用户评价
+    reviews: [
+      {
+        id: '1',
+        userName: '张先生',
+        rating: 5,
+        comment: '音质非常棒，降噪效果很好，戴着很舒服，续航也很给力！',
+        date: '2024-01-15',
+        verified: true,
+        avatar: 'https://picsum.photos/100/100?random=user1',
+      },
+      {
+        id: '2',
+        userName: '李女士',
+        rating: 5,
+        comment: '外观设计很时尚，音质清晰，降噪功能很实用，推荐购买！',
+        date: '2024-01-10',
+        verified: true,
+        avatar: 'https://picsum.photos/100/100?random=user2',
+      },
+      {
+        id: '3',
+        userName: '王先生',
+        rating: 4,
+        comment: '整体不错，就是价格有点贵，不过音质确实值这个价。',
+        date: '2024-01-08',
+        verified: false,
+        avatar: 'https://picsum.photos/100/100?random=user3',
+      },
+    ],
+    // 相关产品
+    relatedProducts: [
+      {
+        id: '1',
+        name: '智能无线耳机 标准版',
+        price: 899,
+        originalPrice: 1099,
+        image: getProductImage({
+          width: 300,
+          height: 300,
+          tag: 'earbuds-standard',
+          provider: 'picsum',
+        }),
+        rating: 4.6,
+        reviews: 892,
+        discount: 18,
+      },
+      {
+        id: '2',
+        name: '无线充电底座',
+        price: 199,
+        image: getProductImage({
+          width: 300,
+          height: 300,
+          tag: 'wireless-charger',
+          provider: 'picsum',
+        }),
+        rating: 4.4,
+        reviews: 156,
+      },
+      {
+        id: '3',
+        name: '耳机保护套',
+        price: 59,
+        image: getProductImage({
+          width: 300,
+          height: 300,
+          tag: 'earbuds-case',
+          provider: 'picsum',
+        }),
+        rating: 4.7,
+        reviews: 234,
+        isNew: true,
+      },
+      {
+        id: '4',
+        name: '智能无线耳机 旗舰版',
+        price: 1899,
+        image: getProductImage({
+          width: 300,
+          height: 300,
+          tag: 'earbuds-flagship',
+          provider: 'picsum',
+        }),
+        rating: 4.9,
+        reviews: 567,
+      },
+    ],
+    // 购买按钮文本
+    addToCart: '加入购物车',
+    buyNow: '立即购买',
+    addToWishlist: '加入心愿单',
+    share: '分享',
+    // 配送信息
+    shipping: {
+      free: '免费配送',
+      express: '次日达',
+      return: '7天无理由退货',
+    },
+  },
+  en: {
+    productName: 'Smart Wireless Earbuds Pro Max',
+    brand: 'TechSound',
+    tagline: 'Professional Sound, Wireless Freedom',
+    description:
+      'Featuring the latest Bluetooth 5.3 technology, delivering exceptional sound quality with active noise cancellation and up to 30 hours of battery life.',
+    price: 199,
+    originalPrice: 249,
+    discount: 20,
+    rating: 4.8,
+    reviewCount: 1247,
+    inStock: true,
+    stockCount: 23,
+    // 产品变体
+    variants: {
+      color: [
+        { name: 'Classic Black', value: 'black', inStock: true },
+        { name: 'Pearl White', value: 'white', inStock: true },
+        { name: 'Deep Blue', value: 'blue', inStock: false },
+        { name: 'Rose Gold', value: 'gold', inStock: true },
+      ],
+      storage: [
+        { name: 'Standard', value: 'standard', price: 199, inStock: true },
+        { name: 'Pro', value: 'pro', price: 249, inStock: true },
+        { name: 'Max', value: 'max', price: 299, inStock: false },
+      ],
+    },
+    // 产品特性
+    features: [
+      {
+        title: 'Active Noise Cancellation',
+        description:
+          'Intelligent environmental noise recognition for pure sound experience',
+        icon: 'noise-cancellation',
+      },
+      {
+        title: '30-Hour Battery',
+        description:
+          '8 hours on single charge, up to 30 hours with charging case',
+        icon: 'battery',
+      },
+      {
+        title: 'Wireless Charging',
+        description: 'Qi wireless charging support for convenient charging',
+        icon: 'wireless-charging',
+      },
+      {
+        title: 'Water Resistant',
+        description: 'IPX7 waterproof rating, safe for sports use',
+        icon: 'waterproof',
+      },
+    ],
+    // 产品规格
+    specifications: [
+      { name: 'Bluetooth Version', value: '5.3' },
+      { name: 'Driver Unit', value: '10mm Dynamic Driver' },
+      { name: 'Frequency Response', value: '20Hz - 20kHz' },
+      { name: 'Impedance', value: '32Ω' },
+      { name: 'Battery Capacity', value: 'Earbuds 55mAh, Case 500mAh' },
+      { name: 'Charging Time', value: '1.5h (Earbuds), 2h (Case)' },
+      { name: 'Weight', value: 'Earbuds 5.4g, Case 45g' },
+      { name: 'Water Resistance', value: 'IPX7' },
+    ],
+    // 用户评价
+    reviews: [
+      {
+        id: '1',
+        userName: 'John Smith',
+        rating: 5,
+        comment:
+          'Amazing sound quality, great noise cancellation, very comfortable, excellent battery life!',
+        date: '2024-01-15',
+        verified: true,
+        avatar: 'https://picsum.photos/100/100?random=user4',
+      },
+      {
+        id: '2',
+        userName: 'Sarah Johnson',
+        rating: 5,
+        comment:
+          'Beautiful design, clear sound, noise cancellation is very useful, highly recommended!',
+        date: '2024-01-10',
+        verified: true,
+        avatar: 'https://picsum.photos/100/100?random=user5',
+      },
+      {
+        id: '3',
+        userName: 'Mike Wilson',
+        rating: 4,
+        comment:
+          'Overall good, but a bit expensive. However, the sound quality is worth the price.',
+        date: '2024-01-08',
+        verified: false,
+        avatar: 'https://picsum.photos/100/100?random=user6',
+      },
+    ],
+    // 相关产品
+    relatedProducts: [
+      {
+        id: '1',
+        name: 'Smart Wireless Earbuds Standard',
+        price: 139,
+        originalPrice: 169,
+        image: getProductImage({
+          width: 300,
+          height: 300,
+          tag: 'earbuds-standard',
+          provider: 'picsum',
+        }),
+        rating: 4.6,
+        reviews: 892,
+        discount: 18,
+      },
+      {
+        id: '2',
+        name: 'Wireless Charging Dock',
+        price: 29,
+        image: getProductImage({
+          width: 300,
+          height: 300,
+          tag: 'wireless-charger',
+          provider: 'picsum',
+        }),
+        rating: 4.4,
+        reviews: 156,
+      },
+      {
+        id: '3',
+        name: 'Earbuds Protection Case',
+        price: 9,
+        image: getProductImage({
+          width: 300,
+          height: 300,
+          tag: 'earbuds-case',
+          provider: 'picsum',
+        }),
+        rating: 4.7,
+        reviews: 234,
+        isNew: true,
+      },
+      {
+        id: '4',
+        name: 'Smart Wireless Earbuds Flagship',
+        price: 299,
+        image: getProductImage({
+          width: 300,
+          height: 300,
+          tag: 'earbuds-flagship',
+          provider: 'picsum',
+        }),
+        rating: 4.9,
+        reviews: 567,
+      },
+    ],
+    // 购买按钮文本
+    addToCart: 'Add to Cart',
+    buyNow: 'Buy Now',
+    addToWishlist: 'Add to Wishlist',
+    share: 'Share',
+    // 配送信息
+    shipping: {
+      free: 'Free Shipping',
+      express: 'Next Day Delivery',
+      return: '7-Day Return Policy',
+    },
+  },
+};
+
+const data = ecommerceData[currentLocale] || ecommerceData['zh-cn'];
+---
+
+<AppLayout
+  debug={false}
+  metaConfig={{
+    title: data.productName,
+    description: data.description,
+    keywords:
+      currentLocale === 'zh-cn'
+        ? '无线耳机,蓝牙耳机,降噪耳机,智能耳机'
+        : 'wireless earbuds, bluetooth headphones, noise cancellation, smart earbuds',
+    author: data.brand,
+    robots: 'index, follow',
+  }}
+  sidebarConfig={{
+    sidebarItems: [],
+    debug: false,
+  }}
+  showHeader={true}
+  showFooter={true}
+  showSidebar={false}
+  footerConfig={{
+    siteName: data.brand,
+    homeLink: configApp.homeLink,
+    slogan: data.tagline,
+    company: data.brand,
+    copyright: `© 2025 ${data.brand}`,
+    inspirationalSlogan: data.tagline,
+    products: [
+      { name: 'Earbuds', href: '#' },
+      { name: 'Headphones', href: '#' },
+      { name: 'Speakers', href: '#' },
+      { name: 'Accessories', href: '#' },
+    ],
+    aboutLink: '#',
+    contactLink: '#',
+    termsLink: '#',
+    privacyLink: '#',
+    historyLink: '#',
+    techStackLink: '#',
+  }}
+  headerConfig={{
+    logoHref: configApp.homeLink,
+    navItems: configApp.getNavItems(currentLocale),
+    astroI18n: astroI18n,
+  }}
+  mainContentConfig={{
+    verticalPadding: 'none',
+    size: 'full',
+    padding: 'none',
+  }}>
+  <!-- Product Hero Section - 产品主展示 -->
+  <Container width="xl" padding="xl" margin="lg" background="base-100">
+    <Grid cols={{ base: 1, lg: 2 }} gap="xl">
+      <!-- 产品图片 -->
+      <div>
+        <div
+          style="position: relative; background: #f8fafc; border-radius: 1rem; padding: 2rem; text-align: center;">
+          <Image
+            src={getProductImage({
+              width: 600,
+              height: 600,
+              tag: 'wireless-earbuds-pro-max',
+              provider: 'picsum',
+            })}
+            alt={data.productName}
+            width={600}
+            height={600}
+            class="cosy:w-full cosy:max-w-md cosy:mx-auto"
+          />
+          {
+            data.discount > 0 && (
+              <Badge
+                variant="error"
+                class="cosy:absolute cosy:top-4 cosy:left-4 cosy:text-lg cosy:px-3 cosy:py-1">
+                -{data.discount}%
+              </Badge>
+            )
+          }
+        </div>
+      </div>
+
+      <!-- 产品信息 -->
+      <div>
+        <div class="cosy:mb-4">
+          <Text size="sm" class="cosy:text-primary cosy:font-medium">
+            {data.brand}
+          </Text>
+        </div>
+
+        <Heading level={1} size="3xl" class="cosy:mb-4 cosy:font-bold">
+          {data.productName}
+        </Heading>
+
+        <Text size="lg" class="cosy:text-base-content/70 cosy:mb-6">
+          {data.description}
+        </Text>
+
+        <!-- 评分和评价 -->
+        <div class="cosy:mb-6">
+          <div
+            style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+            <div style="display: flex; gap: 0.25rem;">
+              {
+                Array.from({ length: 5 }, (_, i) => (
+                  <SmartIcon
+                    name="star"
+                    size="20px"
+                    class={
+                      i < Math.floor(data.rating)
+                        ? 'cosy:text-warning'
+                        : 'cosy:text-base-300'
+                    }
+                  />
+                ))
+              }
+            </div>
+            <Text class="cosy:font-medium">{data.rating}</Text>
+            <Text class="cosy:text-base-content/60"
+              >({data.reviewCount}
+              {currentLocale === 'zh-cn' ? '评价' : 'reviews'})</Text
+            >
+          </div>
+        </div>
+
+        <!-- 价格 -->
+        <div class="cosy:mb-6">
+          <div
+            style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+            <Text size="3xl" class="cosy:font-bold cosy:text-primary">
+              ¥{data.price}
+            </Text>
+            {
+              data.originalPrice && (
+                <Text
+                  size="lg"
+                  class="cosy:text-base-content/60 cosy:line-through">
+                  ¥{data.originalPrice}
+                </Text>
+              )
+            }
+          </div>
+          {
+            data.discount > 0 && (
+              <Text size="sm" class="cosy:text-success cosy:font-medium">
+                {currentLocale === 'zh-cn' ? '节省' : 'Save'} ¥
+                {data.originalPrice - data.price}
+              </Text>
+            )
+          }
+        </div>
+
+        <!-- 库存状态 -->
+        <div class="cosy:mb-6">
+          {
+            data.inStock ? (
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <SmartIcon
+                  name="check-circle"
+                  size="20px"
+                  class="cosy:text-success"
+                />
+                <Text class="cosy:text-success cosy:font-medium">
+                  {currentLocale === 'zh-cn' ? '有库存' : 'In Stock'} (
+                  {data.stockCount} {currentLocale === 'zh-cn' ? '件' : 'items'}
+                  )
+                </Text>
+              </div>
+            ) : (
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <SmartIcon
+                  name="x-circle"
+                  size="20px"
+                  class="cosy:text-error"
+                />
+                <Text class="cosy:text-error cosy:font-medium">
+                  {currentLocale === 'zh-cn' ? '缺货' : 'Out of Stock'}
+                </Text>
+              </div>
+            )
+          }
+        </div>
+
+        <!-- 产品变体选择 -->
+        <div class="cosy:mb-6">
+          <!-- 颜色选择 -->
+          <div class="cosy:mb-4">
+            <Text class="cosy:font-semibold cosy:mb-2">
+              {currentLocale === 'zh-cn' ? '颜色' : 'Color'}
+            </Text>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              {
+                data.variants.color.map((color: ProductVariant) => (
+                  <button
+                    style="padding: 0.5rem 1rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; background: white; cursor: pointer; opacity: color.inStock ? 1 : 0.5;"
+                    disabled={!color.inStock}>
+                    {color.name}
+                  </button>
+                ))
+              }
+            </div>
+          </div>
+
+          <!-- 版本选择 -->
+          <div class="cosy:mb-4">
+            <Text class="cosy:font-semibold cosy:mb-2">
+              {currentLocale === 'zh-cn' ? '版本' : 'Version'}
+            </Text>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              {
+                data.variants.storage.map((storage: ProductVariant) => (
+                  <button
+                    style="padding: 0.5rem 1rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; background: white; cursor: pointer; opacity: storage.inStock ? 1 : 0.5;"
+                    disabled={!storage.inStock}>
+                    {storage.name} - ¥{storage.price}
+                  </button>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- 购买按钮 -->
+        <div class="cosy:mb-6">
+          <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+            <Button
+              variant="primary"
+              size="lg"
+              class="cosy:flex-1 cosy:py-4"
+              disabled={!data.inStock}>
+              {data.buyNow}
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              class="cosy:px-6"
+              disabled={!data.inStock}>
+              {data.addToCart}
+            </Button>
+          </div>
+          <div style="display: flex; gap: 1rem; justify-content: center;">
+            <Button variant="ghost" size="sm">
+              <SmartIcon name="heart" size="16px" class="cosy:mr-2" />
+              {data.addToWishlist}
+            </Button>
+            <Button variant="ghost" size="sm">
+              <SmartIcon name="share" size="16px" class="cosy:mr-2" />
+              {data.share}
+            </Button>
+          </div>
+        </div>
+
+        <!-- 配送信息 -->
+        <Card class="cosy:p-4 cosy:bg-base-200">
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <SmartIcon name="truck" size="16px" class="cosy:text-success" />
+              <Text size="sm" class="cosy:font-medium"
+                >{data.shipping.free}</Text
+              >
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <SmartIcon name="clock" size="16px" class="cosy:text-info" />
+              <Text size="sm" class="cosy:font-medium"
+                >{data.shipping.express}</Text
+              >
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <SmartIcon name="refresh" size="16px" class="cosy:text-warning" />
+              <Text size="sm" class="cosy:font-medium"
+                >{data.shipping.return}</Text
+              >
+            </div>
+          </div>
+        </Card>
+      </div>
+    </Grid>
+  </Container>
+
+  <!-- Product Features Section - 产品特性 -->
+  <Container width="xl" padding="xl" margin="lg" background="base-200">
+    <div style="text-align: center; margin-bottom: 4rem;">
+      <Heading level={2} size="3xl" margin="lg" weight="thin">
+        {currentLocale === 'zh-cn' ? '产品特性' : 'Product Features'}
+      </Heading>
+    </div>
+
+    <Grid cols={{ base: 1, md: 2, lg: 4 }} gap="lg">
+      {
+        data.features.map((feature: any) => (
+          <Card class="cosy:p-6 cosy:text-center">
+            <div style="margin-bottom: 1.5rem;">
+              <SmartIcon
+                name={feature.icon}
+                size="48px"
+                class="cosy:text-primary"
+              />
+            </div>
+            <Heading level={3} size="lg" class="cosy:mb-3 cosy:font-semibold">
+              {feature.title}
+            </Heading>
+            <Text class="cosy:text-base-content/70">{feature.description}</Text>
+          </Card>
+        ))
+      }
+    </Grid>
+  </Container>
+
+  <!-- Specifications Section - 技术规格 -->
+  <Container width="xl" padding="xl" margin="lg" background="base-100">
+    <div style="text-align: center; margin-bottom: 4rem;">
+      <Heading level={2} size="3xl" margin="lg" weight="thin">
+        {currentLocale === 'zh-cn' ? '技术规格' : 'Specifications'}
+      </Heading>
+    </div>
+
+    <Grid cols={{ base: 1, md: 2 }} gap="lg">
+      {
+        data.specifications.map((spec: { name: string; value: string }) => (
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid #e5e7eb;">
+            <Text class="cosy:font-medium">{spec.name}</Text>
+            <Text class="cosy:text-base-content/70">{spec.value}</Text>
+          </div>
+        ))
+      }
+    </Grid>
+  </Container>
+
+  <!-- Reviews Section - 用户评价 -->
+  <Container width="xl" padding="xl" margin="lg" background="base-200">
+    <Reviews
+      reviews={data.reviews}
+      title={currentLocale === 'zh-cn' ? '用户评价' : 'Customer Reviews'}
+      showStats={true}
+      layout="grid"
+      columns={{ base: 1, md: 1, lg: 3 }}
+    />
+  </Container>
+
+  <!-- Related Products Section - 相关产品 -->
+  <Container width="xl" padding="xl" margin="lg" background="base-100">
+    <div style="text-align: center; margin-bottom: 4rem;">
+      <Heading level={2} size="3xl" margin="lg" weight="thin">
+        {currentLocale === 'zh-cn' ? '相关产品' : 'Related Products'}
+      </Heading>
+    </div>
+
+    <Grid cols={{ base: 1, sm: 2, lg: 4 }} gap="lg">
+      {
+        data.relatedProducts.map((product: RelatedProduct) => (
+          <Card class="cosy:overflow-hidden cosy:hover:shadow-lg cosy:transition-shadow">
+            <div style="position: relative;">
+              <Image
+                src={product.image}
+                alt={product.name}
+                width={300}
+                height={300}
+                class="cosy:w-full cosy:h-48 cosy:object-cover"
+              />
+              {product.isNew && (
+                <Badge
+                  variant="primary"
+                  class="cosy:absolute cosy:top-2 cosy:left-2">
+                  {currentLocale === 'zh-cn' ? '新品' : 'New'}
+                </Badge>
+              )}
+              {product.discount && (
+                <Badge
+                  variant="error"
+                  class="cosy:absolute cosy:top-2 cosy:right-2">
+                  -{product.discount}%
+                </Badge>
+              )}
+            </div>
+            <div class="cosy:p-4">
+              <Heading level={4} size="md" class="cosy:mb-2 cosy:font-semibold">
+                {product.name}
+              </Heading>
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <div style="display: flex; gap: 0.25rem;">
+                  {Array.from({ length: 5 }, (_, i) => (
+                    <SmartIcon
+                      name="star"
+                      size="14px"
+                      class={
+                        i < Math.floor(product.rating)
+                          ? 'cosy:text-warning'
+                          : 'cosy:text-base-300'
+                      }
+                    />
+                  ))}
+                </div>
+                <Text size="sm" class="cosy:text-base-content/60">
+                  {product.rating} ({product.reviews})
+                </Text>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <Text size="lg" class="cosy:font-bold cosy:text-primary">
+                  ¥{product.price}
+                </Text>
+                {product.originalPrice && (
+                  <Text
+                    size="sm"
+                    class="cosy:text-base-content/60 cosy:line-through">
+                    ¥{product.originalPrice}
+                  </Text>
+                )}
+              </div>
+            </div>
+          </Card>
+        ))
+      }
+    </Grid>
+  </Container>
+
+  <PlaceHolder height="md" />
+</AppLayout>

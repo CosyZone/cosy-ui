@@ -70,6 +70,28 @@ export const getStaticPaths = async () => {
           `${currentLocale}/demos/apple_style_website`
         ),
       },
+      {
+        name: '汽车零部件展示',
+        image: getExampleImage({
+          width: 100,
+          height: 100,
+        }),
+        description: '现代化汽车零部件企业产品展示页面',
+        productUrl: LinkUtil.createUrl(
+          `${currentLocale}/demos/auto_parts_showcase`
+        ),
+      },
+      {
+        name: '电商产品页面',
+        image: getExampleImage({
+          width: 100,
+          height: 100,
+        }),
+        description: '现代化电商产品购买展示页面',
+        productUrl: LinkUtil.createUrl(
+          `${currentLocale}/demos/ecommerce_product`
+        ),
+      },
     ]}
   />
 </DemoLayout>
