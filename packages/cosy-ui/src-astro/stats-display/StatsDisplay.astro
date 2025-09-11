@@ -1,0 +1,201 @@
+---
+/**
+ * @component StatsDisplay
+ *
+ * @description
+ * StatsDisplay 组件用于展示统计数据，采用极简设计风格。
+ * 适合在首页、关于我们页面或产品介绍页面中展示关键数据指标。
+ * 支持多种布局模式和自定义样式。
+ *
+ * StatsDisplay component for showcasing statistical data with minimalist design.
+ * Perfect for displaying key metrics on homepages, about pages, or product introduction pages.
+ * Supports multiple layout modes and custom styling options.
+ *
+ * @design
+ * 设计理念 / Design Principles:
+ * 1. 极简美学 - 大数字、细字重、简洁布局 / Minimalist Aesthetics - Large numbers, thin font weights, clean layouts
+ * 2. 视觉层次 - 通过字体大小和颜色建立清晰层次 / Visual Hierarchy - Clear hierarchy through font sizes and colors
+ * 3. 响应式设计 - 自适应不同屏幕尺寸 / Responsive Design - Adapts to different screen sizes
+ * 4. 可定制性 - 支持多种样式和布局选项 / Customizability - Multiple styling and layout options
+ *
+ * @usage
+ * 基本用法 / Basic Usage:
+ * ```astro
+ * <StatsDisplay
+ *   stats={[
+ *     { value: "10+", label: "年经验" },
+ *     { value: "500+", label: "客户" },
+ *     { value: "1000+", label: "项目" }
+ *   ]}
+ * />
+ * ```
+ *
+ * 自定义样式 / Custom Styling:
+ * ```astro
+ * <StatsDisplay
+ *   stats={[
+ *     { value: "10M+", label: "用户", color: "blue" },
+ *     { value: "20+", label: "奖项", color: "success" }
+ *   ]}
+ *   valueSize="4xl"
+ *   valueColor="primary"
+ *   labelColor="gray"
+ * />
+ * ```
+ *
+ * 预设颜色使用 / Using Preset Colors:
+ * ```astro
+ * <StatsDisplay
+ *   stats={[
+ *     { value: "99%", label: "满意度", color: "success" },
+ *     { value: "24/7", label: "支持", color: "info" }
+ *   ]}
+ *   valueColor="primary"
+ *   labelColor="secondary"
+ * />
+ * ```
+ *
+ * 紧凑模式 / Compact Mode:
+ * ```astro
+ * <StatsDisplay
+ *   stats={stats}
+ *   compact
+ *   columns={2}
+ * />
+ * ```
+ *
+ * @props
+ * @param {Array<{value: string, label: string, color?: string|PresetColor}>} stats - 统计数据数组 / Statistical data array
+ * @param {string} [class] - 自定义CSS类 / Custom CSS class
+ * @param {boolean} [compact] - 是否使用紧凑模式 / Whether to use compact mode
+ * @param {number} [columns] - 列数（响应式）/ Number of columns (responsive)
+ * @param {string} [valueSize] - 数值字体大小 / Font size for values
+ * @param {string|PresetColor} [valueColor] - 数值颜色（支持预设颜色）/ Color for values (supports preset colors)
+ * @param {string|PresetColor} [labelColor] - 标签颜色（支持预设颜色）/ Color for labels (supports preset colors)
+ * @param {string} [valueWeight] - 数值字重 / Font weight for values
+ * @param {string} [labelWeight] - 标签字重 / Font weight for labels
+ * @param {string} [gap] - 项目间距 / Spacing between items
+ * @param {string} [align] - 对齐方式 / Alignment option
+ *
+ * @presetColors
+ * 预设颜色选项 / Preset color options:
+ * - primary: 主色调 (#3b82f6)
+ * - secondary: 次要色调 (#6b7280)
+ * - success: 成功色 (#10b981)
+ * - warning: 警告色 (#f59e0b)
+ * - error: 错误色 (#ef4444)
+ * - info: 信息色 (#06b6d4)
+ * - blue: 蓝色 (#3b82f6)
+ * - green: 绿色 (#10b981)
+ * - yellow: 黄色 (#f59e0b)
+ * - red: 红色 (#ef4444)
+ * - purple: 紫色 (#8b5cf6)
+ * - pink: 粉色 (#ec4899)
+ * - indigo: 靛蓝 (#6366f1)
+ * - gray: 灰色 (#6b7280)
+ */
+
+import '../../style.ts';
+import Text from '../text/Text.astro';
+import type { PresetColor, StatItem } from './types';
+
+// 预设颜色映射 / Preset color mapping
+const PRESET_COLORS: Record<PresetColor, string> = {
+  primary: '#3b82f6',
+  secondary: '#6b7280',
+  success: '#10b981',
+  warning: '#f59e0b',
+  error: '#ef4444',
+  info: '#06b6d4',
+  blue: '#3b82f6',
+  green: '#10b981',
+  yellow: '#f59e0b',
+  red: '#ef4444',
+  purple: '#8b5cf6',
+  pink: '#ec4899',
+  indigo: '#6366f1',
+  gray: '#6b7280',
+};
+
+// 颜色解析函数 / Color resolution function
+const resolveColor = (
+  color: string | PresetColor | undefined,
+  defaultColor: string
+): string => {
+  if (!color) return defaultColor;
+  return PRESET_COLORS[color as PresetColor] || color;
+};
+
+const {
+  stats = [],
+  class: className = '',
+  compact = false,
+  columns = 4,
+  valueSize = '3xl',
+  valueColor = 'primary',
+  labelColor = 'gray',
+  valueWeight = 'thin',
+  labelWeight = 'light',
+  gap = 'lg',
+  align = 'center',
+} = Astro.props;
+
+// 构建容器样式类
+const containerClasses = [
+  'cosy:grid',
+  `cosy:grid-cols-${columns}`,
+  `cosy:gap-${gap}`,
+  `cosy:text-${align}`,
+  compact ? 'cosy:gap-md' : '',
+  className,
+]
+  .filter(Boolean)
+  .join(' ');
+
+// 构建数值样式
+const getValueStyle = (item: StatItem) => {
+  return [
+    `cosy:text-${valueSize}`,
+    `cosy:font-${valueWeight}`,
+    'cosy:mb-2',
+    'cosy:leading-none',
+  ].join(' ');
+};
+
+// 构建标签样式
+const getLabelStyle = () =>
+  [`cosy:text-${labelWeight}`, 'cosy:leading-relaxed'].join(' ');
+
+// 获取数值颜色样式
+const getValueColorStyle = (item: StatItem): string => {
+  const customColor = item.color
+    ? resolveColor(item.color, '#3b82f6')
+    : resolveColor(valueColor, '#3b82f6');
+  return `color: ${customColor};`;
+};
+
+// 获取标签颜色样式
+const getLabelColorStyle = (item: StatItem): string => {
+  // 如果单个项目有自定义颜色，优先使用项目颜色
+  // 否则使用全局 labelColor 设置
+  const customColor = item.color
+    ? resolveColor(item.color, '#6b7280')
+    : resolveColor(labelColor, '#6b7280');
+  return `color: ${customColor};`;
+};
+---
+
+<div class={containerClasses}>
+  {
+    stats.map((stat: StatItem) => (
+      <div class="cosy:flex cosy:flex-col cosy:items-center">
+        <div class={getValueStyle(stat)} style={getValueColorStyle(stat)}>
+          {stat.value}
+        </div>
+        <Text class={getLabelStyle()} style={getLabelColorStyle(stat)}>
+          {stat.label}
+        </Text>
+      </div>
+    ))
+  }
+</div>

@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ProductShowcaseItemClassDefault from './ProductShowcaseItemClassDefault.astro';
+import ProductShowcaseItemClassCustom from './ProductShowcaseItemClassCustom.astro';
+import sourceDefault from './ProductShowcaseItemClassDefault.astro?raw';
+import sourceCustom from './ProductShowcaseItemClassCustom.astro?raw';
+---
+
+<CodeContainer
+  codes={[sourceDefault, sourceCustom]}
+  titles={['默认', '自定义样式']}>
+  <div id="tab-1">
+    <ProductShowcaseItemClassDefault />
+  </div>
+  <div id="tab-2">
+    <ProductShowcaseItemClassCustom />
+  </div>
+</CodeContainer>

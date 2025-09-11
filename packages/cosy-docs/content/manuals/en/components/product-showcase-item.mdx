@@ -1,0 +1,157 @@
+---
+title: 'ProductShowcaseItem'
+folder: false
+order: 16
+tags:
+- astro
+- product
+- showcase
+- item
+- apple-style
+- display
+---
+
+import { ProductShowcaseItem } from '@coffic/cosy-ui';
+import { ProductShowcaseItemPackage } from '@/components/product-showcase-item/index';
+
+# {frontmatter.title}
+
+## Introduction
+
+The ProductShowcaseItem component is designed to display detailed information about a single product using an Apple-style large image display design. It supports alternating left-right layouts, new product labels, price display, and action buttons. Perfect for product detail pages, product showcase pages, and similar scenarios.
+
+Component Features:
+
+- Large Image Display - Highlights product images with high-quality large image presentation
+- Alternating Layout - Supports left-right alternating layout for enhanced visual hierarchy
+- Information Hierarchy - Clear information structure: labels, titles, descriptions, prices, buttons
+- Apple Style - Adopts Apple's clean and elegant design philosophy
+- Responsive Design - Excellent display across different devices
+
+## Examples
+
+<ProductShowcaseItemPackage.Example />
+
+## Props
+
+### align
+
+Layout alignment, supports `left` (left-aligned, default) and `right` (right-aligned).
+
+<ProductShowcaseItemPackage.Align />
+
+### backgroundColor
+
+Background color setting, supports any CSS color value, defaults to white.
+
+<ProductShowcaseItemPackage.BackgroundColor />
+
+### buyNowText
+
+Buy now button text, defaults to "立即购买" (Buy Now).
+
+<ProductShowcaseItemPackage.BuyNowText />
+
+### class
+
+Custom CSS class for overriding default styles.
+
+<ProductShowcaseItemPackage.Class />
+
+### description
+
+Product description, required property.
+
+<ProductShowcaseItemPackage.Description />
+
+### image
+
+Product image, required property. Supports ImageSource type.
+
+<ProductShowcaseItemPackage.Image />
+
+### isNew
+
+Whether it's a new product, optional property, defaults to false.
+
+<ProductShowcaseItemPackage.IsNew />
+
+### learnMoreText
+
+Learn more button text, defaults to "了解更多" (Learn More).
+
+<ProductShowcaseItemPackage.LearnMoreText />
+
+### name
+
+Product name, required property.
+
+<ProductShowcaseItemPackage.Name />
+
+### newLabelText
+
+New product label text, defaults to "新品" (New).
+
+<ProductShowcaseItemPackage.NewLabelText />
+
+### onBuyNow
+
+Buy now button click event callback function.
+
+<ProductShowcaseItemPackage.OnBuyNow />
+
+### onLearnMore
+
+Learn more button click event callback function.
+
+<ProductShowcaseItemPackage.OnLearnMore />
+
+### price
+
+Product price, required property.
+
+<ProductShowcaseItemPackage.Price />
+
+## Use Cases
+
+- Single product detail display
+- Individual products in product showcase pages
+- Apple-style product introductions
+- Product comparison pages
+- Featured product highlights
+
+## Design Philosophy
+
+The ProductShowcaseItem component follows Apple's design philosophy:
+
+1. **Large Image Display** - Highlights product images for intuitive user understanding
+2. **Information Hierarchy** - Clear information structure: new product label → product title → description → price → action buttons
+3. **Clean and Elegant** - Minimalist design that highlights the product itself
+4. **User-Friendly Interaction** - Provides clear action buttons to guide user behavior
+5. **Visual Balance** - Achieves visual balance through left-right layout
+
+## Best Practices
+
+1. **Image Quality** - Use high-quality product images, recommended size 800x600 or higher
+2. **Concise Descriptions** - Product descriptions should be concise and highlight key selling points
+3. **Clear Pricing** - Price display should be clear and prominent with appropriate font size
+4. **Button Copy** - Button text should clearly express the intended action
+5. **New Product Labels** - Use new product labels appropriately to highlight new products
+
+## Layout Description
+
+The component uses a two-column grid layout:
+
+- **Left Column**: Product information (label, title, description, price, buttons)
+- **Right Column**: Product image
+
+When `align="right"`, the layout is reversed:
+- **Left Column**: Product image
+- **Right Column**: Product information
+
+## Notes
+
+- Images should be high resolution to ensure good display in large image showcase
+- The component uses Container internally to ensure content doesn't become too wide
+- Background color is applied to the entire component area
+- Button click events need to be handled by yourself; the component only provides callback interfaces

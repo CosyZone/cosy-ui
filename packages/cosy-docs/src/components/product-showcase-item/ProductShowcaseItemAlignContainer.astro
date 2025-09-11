@@ -1,0 +1,16 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ProductShowcaseItemAlignLeft from './ProductShowcaseItemAlignLeft.astro';
+import ProductShowcaseItemAlignRight from './ProductShowcaseItemAlignRight.astro';
+import sourceLeft from './ProductShowcaseItemAlignLeft.astro?raw';
+import sourceRight from './ProductShowcaseItemAlignRight.astro?raw';
+---
+
+<CodeContainer codes={[sourceLeft, sourceRight]} titles={['左对齐', '右对齐']}>
+  <div id="tab-1">
+    <ProductShowcaseItemAlignLeft />
+  </div>
+  <div id="tab-2">
+    <ProductShowcaseItemAlignRight />
+  </div>
+</CodeContainer>

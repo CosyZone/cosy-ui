@@ -14,14 +14,14 @@
  * </MacWindow>
  * ```
  *
- * 带背景色：
+ * 带背景色和宽度：
  * ```astro
- * <MacWindow title="代码编辑器" bgType="primary/10">
+ * <MacWindow title="代码编辑器" bgType="primary/10" width="lg">
  *   <div>窗口内容</div>
  * </MacWindow>
  * ```
  *
- * 带标签页：
+ * 带标签页和宽度：
  * ```astro
  * <MacWindow
  *   title="设置"
@@ -29,6 +29,7 @@
  *   defaultTab="外观"
  *   id="settings-window"
  *   bgType="accent/10"
+ *   width="xl"
  * >
  *   <div id="tab-通用">通用设置内容</div>
  *   <div id="tab-外观">外观设置内容</div>
@@ -38,7 +39,7 @@
  *
  * 带工具栏和状态栏：
  * ```astro
- * <MacWindow title="文件浏览器" bgType="success/10">
+ * <MacWindow title="文件浏览器" bgType="success/10" width="full">
  *   <div slot="toolbar">
  *     <button class="cosy:btn cosy:btn-ghost cosy:btn-sm">
  *       <SearchIcon class="cosy:w-4 cosy:h-4" />
@@ -61,6 +62,7 @@
  *
  * @props
  * @prop {String} [height='h-96'] - 窗口高度
+ * @prop {String} [width='md'] - 窗口宽度，支持 Container 组件的 width 属性值：none、xs、sm、md、lg、xl、full
  * @prop {String} [title=''] - 窗口标题
  * @prop {Boolean} [withShadow=true] - 是否显示阴影效果
  * @prop {Array} [tabs=[]] - 标签页字符串数组，如 ['标签1', '标签2', '标签3']
@@ -82,6 +84,7 @@ import type { BackgroundColor } from '../container/backgrounds';
 
 export interface Props {
   height?: string;
+  width?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
   title?: string;
   withShadow?: boolean;
   tabs?: string[];
@@ -92,6 +95,7 @@ export interface Props {
 
 const {
   height = 'h-96',
+  width = 'md',
   title = '',
   withShadow = true,
   tabs = [],
@@ -120,6 +124,7 @@ const windowId = id || `mac-window-${Math.random().toString(36).substr(2, 9)}`;
   background={bgType}
   padding="none"
   centered={true}
+  width={width}
   aria-label="MacWindow-Container"
   class={`cosy:flex cosy:relative cosy:rounded-2xl cosy:overflow-hidden ${height} ${withShadow ? 'cosy:shadow-lg' : ''}`}
   data-window-id={windowId}>

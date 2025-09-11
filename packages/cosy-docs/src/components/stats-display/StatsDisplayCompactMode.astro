@@ -1,0 +1,26 @@
+---
+/**
+ * @component StatsDisplayCompactMode
+ * @description StatsDisplay 紧凑模式示例（compact=true）
+ */
+import { StatsDisplay } from '@coffic/cosy-ui';
+
+const compactStats = [
+  { value: '100%', label: '开源' },
+  { value: 'MIT', label: '协议' },
+  { value: '2025', label: '版本' },
+];
+---
+
+<StatsDisplay
+  stats={compactStats}
+  compact={true}
+  columns={3}
+  valueSize="2xl"
+  valueColor="#10b981"
+  labelColor="#6b7280"
+  valueWeight="semibold"
+  labelWeight="normal"
+  gap="lg"
+  align="center"
+/>

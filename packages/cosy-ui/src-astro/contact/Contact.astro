@@ -5,6 +5,7 @@
  * @description
  * Contact 组件用于展示企业或个人的联系信息，支持多种联系方式（邮件、电话、地址）和社交媒体链接。
  * 组件设计简洁专业，适合在企业网站的联系页面、页脚或关于我们页面中使用。
+ * 现在基于 Card 组件重构，提供更好的动画效果和一致性。
  *
  * @usage
  * 基本用法：
@@ -66,6 +67,7 @@
  */
 
 import '../../style.ts';
+import Card from '../card/Card.astro';
 import {
   FacebookIcon,
   GithubIcon,
@@ -107,25 +109,21 @@ const {
   website,
 } = Astro.props;
 
-// 构建联系信息容器样式
-const contactClasses = [
-  'cosy:card',
-  'cosy:w-full',
-  'cosy:bg-base-100',
+// 构建自定义样式类（用于覆盖Card组件的默认样式）
+const customClasses = [
   'cosy:shadow-lg',
-  compact ? 'cosy:card-compact' : '',
+  'hover:cosy:shadow-xl',
+  'hover:cosy:bg-base-200',
   className,
 ]
   .filter(Boolean)
   .join(' ');
 
-// 内容区域的padding
-const contentPadding = compact ? 'cosy:p-4' : 'cosy:p-6';
-
 // 联系信息项的样式
 const contactItemClass =
-  'cosy:flex cosy:items-center cosy:gap-3 cosy:mb-4 last:cosy:mb-0';
-const iconClass = 'cosy:w-5 cosy:h-5 cosy:text-primary cosy:flex-shrink-0';
+  'cosy:flex cosy:items-center cosy:gap-3 cosy:mb-4 last:cosy:mb-0 cosy:transition-all cosy:duration-200 cosy:ease-in-out hover:cosy:bg-base-200/50 hover:cosy:rounded-lg hover:cosy:p-2 hover:cosy:-mx-2';
+const iconClass =
+  'cosy:w-5 cosy:h-5 cosy:text-primary cosy:flex-shrink-0 cosy:transition-all cosy:duration-200 hover:cosy:scale-110 hover:cosy:text-primary/80';
 const linkClass =
   'cosy:link cosy:link-hover cosy:text-base-content cosy:no-underline hover:cosy:text-primary cosy:transition-colors';
 
@@ -136,186 +134,171 @@ const socialLinkClass =
   'cosy:btn cosy:btn-ghost cosy:btn-circle cosy:btn-sm cosy:text-base-content hover:cosy:text-primary hover:cosy:bg-primary/10';
 ---
 
-<div class={contactClasses}>
-  <div class={`cosy:card-body ${contentPadding}`}>
+<Card
+  title={title}
+  subtitle={description}
+  compact={compact}
+  class={customClasses}>
+  <div class="cosy:space-y-0">
     {
-      title && (
-        <h2 class="cosy:card-title cosy:text-2xl cosy:font-bold cosy:mb-2">
-          {title}
-        </h2>
-      )
-    }
-
-    {
-      description && (
-        <p class="cosy:text-base-content/70 cosy:mb-6">{description}</p>
-      )
-    }
-
-    <div class="cosy:space-y-0">
-      {
-        address && (
-          <div class={contactItemClass}>
-            <MapPinIcon class={iconClass} />
-            <span class="cosy:text-base-content">{address}</span>
-          </div>
-        )
-      }
-
-      {
-        email && (
-          <div class={contactItemClass}>
-            <MailIcon class={iconClass} />
-            <a href={`mailto:${email}`} class={linkClass}>
-              {email}
-            </a>
-          </div>
-        )
-      }
-
-      {
-        facebook && (
-          <div class={contactItemClass}>
-            <FacebookIcon class={iconClass} />
-            <a
-              href={facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              class={linkClass}>
-              Facebook
-            </a>
-          </div>
-        )
-      }
-
-      {
-        github && (
-          <div class={contactItemClass}>
-            <GithubIcon class={iconClass} />
-            <a
-              href={github}
-              target="_blank"
-              rel="noopener noreferrer"
-              class={linkClass}>
-              GitHub
-            </a>
-          </div>
-        )
-      }
-
-      {
-        linkedin && (
-          <div class={contactItemClass}>
-            <LinkedinIcon class={iconClass} />
-            <a
-              href={linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              class={linkClass}>
-              LinkedIn
-            </a>
-          </div>
-        )
-      }
-
-      {
-        phone && (
-          <div class={contactItemClass}>
-            <PhoneIcon class={iconClass} />
-            <a href={`tel:${phone}`} class={linkClass}>
-              {phone}
-            </a>
-          </div>
-        )
-      }
-
-      {
-        twitter && (
-          <div class={contactItemClass}>
-            <TwitterIcon class={iconClass} />
-            <a
-              href={twitter}
-              target="_blank"
-              rel="noopener noreferrer"
-              class={linkClass}>
-              Twitter
-            </a>
-          </div>
-        )
-      }
-
-      {
-        website && (
-          <div class={contactItemClass}>
-            <WebsiteIcon class={iconClass} />
-            <a
-              href={website}
-              target="_blank"
-              rel="noopener noreferrer"
-              class={linkClass}>
-              {website.replace(/^https?:\/\//, '')}
-            </a>
-          </div>
-        )
-      }
-    </div>
-
-    {
-      Astro.slots.has('default') && (
-        <div class="cosy:mt-4">
-          <slot />
+      address && (
+        <div class={contactItemClass}>
+          <MapPinIcon class={iconClass} />
+          <span class="cosy:text-base-content">{address}</span>
         </div>
       )
     }
 
     {
-      (github || twitter || facebook || linkedin) && (
-        <div class={socialLinksClass}>
-          {github && (
-            <a
-              href={github}
-              target="_blank"
-              rel="noopener noreferrer"
-              class={socialLinkClass}
-              title="GitHub">
-              <GithubIcon class="cosy:w-5 cosy:h-5" />
-            </a>
-          )}
+      email && (
+        <div class={contactItemClass}>
+          <MailIcon class={iconClass} />
+          <a href={`mailto:${email}`} class={linkClass}>
+            {email}
+          </a>
+        </div>
+      )
+    }
 
-          {twitter && (
-            <a
-              href={twitter}
-              target="_blank"
-              rel="noopener noreferrer"
-              class={socialLinkClass}
-              title="Twitter">
-              <TwitterIcon class="cosy:w-5 cosy:h-5" />
-            </a>
-          )}
+    {
+      facebook && (
+        <div class={contactItemClass}>
+          <FacebookIcon class={iconClass} />
+          <a
+            href={facebook}
+            target="_blank"
+            rel="noopener noreferrer"
+            class={linkClass}>
+            Facebook
+          </a>
+        </div>
+      )
+    }
 
-          {facebook && (
-            <a
-              href={facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              class={socialLinkClass}
-              title="Facebook">
-              <FacebookIcon class="cosy:w-5 cosy:h-5" />
-            </a>
-          )}
+    {
+      github && (
+        <div class={contactItemClass}>
+          <GithubIcon class={iconClass} />
+          <a
+            href={github}
+            target="_blank"
+            rel="noopener noreferrer"
+            class={linkClass}>
+            GitHub
+          </a>
+        </div>
+      )
+    }
 
-          {linkedin && (
-            <a
-              href={linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              class={socialLinkClass}
-              title="LinkedIn">
-              <LinkedinIcon class="cosy:w-5 cosy:h-5" />
-            </a>
-          )}
+    {
+      linkedin && (
+        <div class={contactItemClass}>
+          <LinkedinIcon class={iconClass} />
+          <a
+            href={linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            class={linkClass}>
+            LinkedIn
+          </a>
+        </div>
+      )
+    }
+
+    {
+      phone && (
+        <div class={contactItemClass}>
+          <PhoneIcon class={iconClass} />
+          <a href={`tel:${phone}`} class={linkClass}>
+            {phone}
+          </a>
+        </div>
+      )
+    }
+
+    {
+      twitter && (
+        <div class={contactItemClass}>
+          <TwitterIcon class={iconClass} />
+          <a
+            href={twitter}
+            target="_blank"
+            rel="noopener noreferrer"
+            class={linkClass}>
+            Twitter
+          </a>
+        </div>
+      )
+    }
+
+    {
+      website && (
+        <div class={contactItemClass}>
+          <WebsiteIcon class={iconClass} />
+          <a
+            href={website}
+            target="_blank"
+            rel="noopener noreferrer"
+            class={linkClass}>
+            {website.replace(/^https?:\/\//, '')}
+          </a>
         </div>
       )
     }
   </div>
-</div>
+
+  {
+    Astro.slots.has('default') && (
+      <div class="cosy:mt-4">
+        <slot />
+      </div>
+    )
+  }
+
+  {
+    (github || twitter || facebook || linkedin) && (
+      <div class={socialLinksClass}>
+        {github && (
+          <a
+            href={github}
+            target="_blank"
+            rel="noopener noreferrer"
+            class={socialLinkClass}
+            aria-label="GitHub">
+            <GithubIcon class="cosy:w-4 cosy:h-4" />
+          </a>
+        )}
+        {twitter && (
+          <a
+            href={twitter}
+            target="_blank"
+            rel="noopener noreferrer"
+            class={socialLinkClass}
+            aria-label="Twitter">
+            <TwitterIcon class="cosy:w-4 cosy:h-4" />
+          </a>
+        )}
+        {facebook && (
+          <a
+            href={facebook}
+            target="_blank"
+            rel="noopener noreferrer"
+            class={socialLinkClass}
+            aria-label="Facebook">
+            <FacebookIcon class="cosy:w-4 cosy:h-4" />
+          </a>
+        )}
+        {linkedin && (
+          <a
+            href={linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            class={socialLinkClass}
+            aria-label="LinkedIn">
+            <LinkedinIcon class="cosy:w-4 cosy:h-4" />
+          </a>
+        )}
+      </div>
+    )
+  }
+</Card>

@@ -23,11 +23,13 @@ import type { IHeadingProps } from './types';
  * 1. 层次清晰 - 通过不同级别的标题建立内容的视觉层次结构
  * 2. 一致性 - 确保整个应用中标题样式的一致性
  * 3. 可定制性 - 支持多种配置选项，适应不同场景需求
- * 4. 无障碍性 - 遵循语义化HTML标准，确保屏幕阅读器可以正确解析内容结构
- * 5. 链接支持 - 标题可以作为链接使用，提供更好的导航体验
+ * 4. 字体控制 - 提供精细的字体粗细控制，满足不同设计需求
+ * 5. 无障碍性 - 遵循语义化HTML标准，确保屏幕阅读器可以正确解析内容结构
+ * 6. 链接支持 - 标题可以作为链接使用，提供更好的导航体验
  *
  * 视觉特点：
  * - 字体大小和粗细随级别变化
+ * - 支持自定义字体粗细（thin 到 black 共8个级别）
  * - 可选的下划线或底部边框
  * - 可定制的颜色和间距
  * - 响应式设计，在不同屏幕尺寸下保持良好的可读性
@@ -76,6 +78,18 @@ import type { IHeadingProps } from './types';
  * <Heading :level="3" background="primary" color="white">主要背景色标题</Heading>
  * ```
  *
+ * 字体粗细支持：
+ * ```vue
+ * <Heading :level="2" weight="thin">细体标题</Heading>
+ * <Heading :level="2" weight="light">轻体标题</Heading>
+ * <Heading :level="2" weight="normal">正常标题</Heading>
+ * <Heading :level="2" weight="medium">中等标题</Heading>
+ * <Heading :level="2" weight="semibold">半粗体标题</Heading>
+ * <Heading :level="2" weight="bold">粗体标题</Heading>
+ * <Heading :level="2" weight="extrabold">特粗体标题</Heading>
+ * <Heading :level="2" weight="black">超粗体标题</Heading>
+ * ```
+ *
  * @props
  * @prop {'left'|'center'|'right'} [align='left'] - 文本对齐方式
  * @prop {boolean} [anchor=false] - 是否显示锚点链接图标
@@ -89,6 +103,7 @@ import type { IHeadingProps } from './types';
  * @prop {'none'|'sm'|'md'|'lg'|'xl'} [margin='md'] - 上下外边距大小
  * @prop {'none'|'sm'|'md'|'lg'|'xl'} [padding='none'] - 内边距大小（仅在设置背景色时生效）
  * @prop {boolean} [underline=false] - 是否显示下划线
+ * @prop {'thin'|'light'|'normal'|'medium'|'semibold'|'bold'|'extrabold'|'black'} [weight] - 字体粗细，不指定时根据标题级别使用默认粗细（h1: bold, h2-h3: semibold, h4-h6: medium）
  *
  * @slots
  * @slot default - 标题内容
@@ -115,19 +130,58 @@ const props = withDefaults(defineProps<Props>(), {
   margin: 'md',
   padding: 'none',
   underline: false,
+  weight: undefined,
 });
 
-// 根据级别和颜色设置样式
-const headingClass = computed(() => {
+// 字体粗细映射
+const weightClassMap = {
+  thin: 'cosy:font-thin',
+  light: 'cosy:font-light',
+  normal: 'cosy:font-normal',
+  medium: 'cosy:font-medium',
+  semibold: 'cosy:font-semibold',
+  bold: 'cosy:font-bold',
+  extrabold: 'cosy:font-extrabold',
+  black: 'cosy:font-black',
+};
+
+// 根据级别设置基础样式（不包含字体粗细）
+const baseHeadingClass = computed(() => {
   const levelMap = {
-    1: 'cosy:text-4xl cosy:font-bold',
-    2: 'cosy:text-3xl cosy:font-semibold',
-    3: 'cosy:text-2xl cosy:font-semibold',
-    4: 'cosy:text-xl cosy:font-medium',
-    5: 'cosy:text-lg cosy:font-medium',
-    6: 'cosy:text-base cosy:font-medium',
+    1: 'cosy:text-4xl',
+    2: 'cosy:text-3xl',
+    3: 'cosy:text-2xl',
+    4: 'cosy:text-xl',
+    5: 'cosy:text-lg',
+    6: 'cosy:text-base',
   };
   return levelMap[props.level as keyof typeof levelMap] || levelMap[2];
+});
+
+// 默认字体粗细（当未指定 weight 时使用）
+const defaultWeightClass = computed(() => {
+  const defaultMap = {
+    1: 'cosy:font-bold',
+    2: 'cosy:font-semibold',
+    3: 'cosy:font-semibold',
+    4: 'cosy:font-medium',
+    5: 'cosy:font-medium',
+    6: 'cosy:font-medium',
+  };
+  return defaultMap[props.level as keyof typeof defaultMap] || defaultMap[2];
+});
+
+// 字体粗细样式
+const weightClass = computed(() => {
+  if (props.weight && props.weight in weightClassMap) {
+    return weightClassMap[props.weight as keyof typeof weightClassMap];
+  }
+  return defaultWeightClass.value;
+});
+
+// 组合标题样式类
+const headingClass = computed(() => {
+  return `${baseHeadingClass.value} ${weightClass.value}`;
 });
 
 const colorClass = computed(() => {

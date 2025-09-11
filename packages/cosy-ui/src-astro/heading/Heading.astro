@@ -65,6 +65,14 @@
  * <Heading level={3} background="primary" color="white">主要背景色标题</Heading>
  * ```
  *
+ * 字体粗细支持：
+ * ```astro
+ * <Heading level={2} weight="thin">细体标题</Heading>
+ * <Heading level={2} weight="light">轻体标题</Heading>
+ * <Heading level={2} weight="bold">粗体标题</Heading>
+ * <Heading level={2} weight="black">超粗体标题</Heading>
+ * ```
+ *
  * @props
  * @prop {'left'|'center'|'right'} [align='left'] - 文本对齐方式
  * @prop {boolean} [anchor=false] - 是否显示锚点链接图标
@@ -78,6 +86,7 @@
  * @prop {'none'|'sm'|'md'|'lg'|'xl'} [margin='md'] - 上下外边距大小
  * @prop {'none'|'sm'|'md'|'lg'|'xl'} [padding='none'] - 内边距大小（仅在设置背景色时生效）
  * @prop {boolean} [underline=false] - 是否显示下划线
+ * @prop {'thin'|'light'|'normal'|'medium'|'semibold'|'bold'|'extrabold'|'black'} [weight] - 字体粗细，不指定时使用默认粗细
  *
  * @slots
  * @slot default - 标题内容
@@ -122,6 +131,15 @@ interface IHeadingProps {
   margin?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
   padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
   underline?: boolean;
+  weight?:
+    | 'thin'
+    | 'light'
+    | 'normal'
+    | 'medium'
+    | 'semibold'
+    | 'bold'
+    | 'extrabold'
+    | 'black';
 }
 
 const {
@@ -137,17 +155,47 @@ const {
   margin = 'md',
   padding = 'none',
   underline = false,
+  weight,
 } = Astro.props;
 
-// 根据级别和颜色设置样式
-const headingClass = {
-  1: 'cosy:text-4xl cosy:font-bold',
-  2: 'cosy:text-3xl cosy:font-semibold',
-  3: 'cosy:text-2xl cosy:font-semibold',
-  4: 'cosy:text-xl cosy:font-medium',
-  5: 'cosy:text-lg cosy:font-medium',
-  6: 'cosy:text-base cosy:font-medium',
+// 字体粗细映射
+const weightClass = {
+  thin: 'cosy:font-thin',
+  light: 'cosy:font-light',
+  normal: 'cosy:font-normal',
+  medium: 'cosy:font-medium',
+  semibold: 'cosy:font-semibold',
+  bold: 'cosy:font-bold',
+  extrabold: 'cosy:font-extrabold',
+  black: 'cosy:font-black',
+};
+
+// 根据级别设置基础样式（不包含字体粗细）
+const baseHeadingClass = {
+  1: 'cosy:text-4xl',
+  2: 'cosy:text-3xl',
+  3: 'cosy:text-2xl',
+  4: 'cosy:text-xl',
+  5: 'cosy:text-lg',
+  6: 'cosy:text-base',
 }[(level ?? 2) as 1 | 2 | 3 | 4 | 5 | 6];
+
+// 默认字体粗细（当未指定 weight 时使用）
+const defaultWeightClass = {
+  1: 'cosy:font-bold',
+  2: 'cosy:font-semibold',
+  3: 'cosy:font-semibold',
+  4: 'cosy:font-medium',
+  5: 'cosy:font-medium',
+  6: 'cosy:font-medium',
+}[(level ?? 2) as 1 | 2 | 3 | 4 | 5 | 6];
+
+// 组合样式类
+const weightClassValue =
+  weight && weight in weightClass
+    ? weightClass[weight as keyof typeof weightClass]
+    : defaultWeightClass;
+const headingClass = `${baseHeadingClass} ${weightClassValue}`;
 
 const colorClass = {
   default: '',

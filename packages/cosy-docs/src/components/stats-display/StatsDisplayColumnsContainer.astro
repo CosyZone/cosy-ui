@@ -1,0 +1,31 @@
+---
+/**
+ * @component StatsDisplayColumnsContainer
+ * @description StatsDisplay columns 属性示例容器组件
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import StatsDisplayColumns2 from './StatsDisplayColumns2.astro';
+import StatsDisplayColumns3 from './StatsDisplayColumns3.astro';
+import StatsDisplayColumns4 from './StatsDisplayColumns4.astro';
+import StatsDisplayColumns2SourceCode from './StatsDisplayColumns2.astro?raw';
+import StatsDisplayColumns3SourceCode from './StatsDisplayColumns3.astro?raw';
+import StatsDisplayColumns4SourceCode from './StatsDisplayColumns4.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    StatsDisplayColumns2SourceCode,
+    StatsDisplayColumns3SourceCode,
+    StatsDisplayColumns4SourceCode,
+  ]}
+  titles={['2', '3', '4']}>
+  <div id="tab-1">
+    <StatsDisplayColumns2 />
+  </div>
+  <div id="tab-2">
+    <StatsDisplayColumns3 />
+  </div>
+  <div id="tab-3">
+    <StatsDisplayColumns4 />
+  </div>
+</CodeContainer>

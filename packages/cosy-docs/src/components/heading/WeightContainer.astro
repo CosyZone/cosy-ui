@@ -1,0 +1,70 @@
+---
+/**
+ * @component HeadingWeightContainer
+ * @description Heading 组件 weight 属性示例容器，展示不同字体粗细的标题。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import WeightThin from './WeightThin.astro';
+import WeightLight from './WeightLight.astro';
+import WeightNormal from './WeightNormal.astro';
+import WeightMedium from './WeightMedium.astro';
+import WeightSemibold from './WeightSemibold.astro';
+import WeightBold from './WeightBold.astro';
+import WeightExtrabold from './WeightExtrabold.astro';
+import WeightBlack from './WeightBlack.astro';
+import WeightThinSource from './WeightThin.astro?raw';
+import WeightLightSource from './WeightLight.astro?raw';
+import WeightNormalSource from './WeightNormal.astro?raw';
+import WeightMediumSource from './WeightMedium.astro?raw';
+import WeightSemiboldSource from './WeightSemibold.astro?raw';
+import WeightBoldSource from './WeightBold.astro?raw';
+import WeightExtraboldSource from './WeightExtrabold.astro?raw';
+import WeightBlackSource from './WeightBlack.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    WeightThinSource,
+    WeightLightSource,
+    WeightNormalSource,
+    WeightMediumSource,
+    WeightSemiboldSource,
+    WeightBoldSource,
+    WeightExtraboldSource,
+    WeightBlackSource,
+  ]}
+  titles={[
+    '细体',
+    '轻体',
+    '正常',
+    '中等',
+    '半粗体',
+    '粗体',
+    '特粗体',
+    '超粗体',
+  ]}>
+  <div id="tab-1">
+    <WeightThin />
+  </div>
+  <div id="tab-2">
+    <WeightLight />
+  </div>
+  <div id="tab-3">
+    <WeightNormal />
+  </div>
+  <div id="tab-4">
+    <WeightMedium />
+  </div>
+  <div id="tab-5">
+    <WeightSemibold />
+  </div>
+  <div id="tab-6">
+    <WeightBold />
+  </div>
+  <div id="tab-7">
+    <WeightExtrabold />
+  </div>
+  <div id="tab-8">
+    <WeightBlack />
+  </div>
+</CodeContainer>

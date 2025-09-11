@@ -44,6 +44,13 @@
  * </Container>
  * ```
  *
+ * 内容居中的容器：
+ * ```astro
+ * <Container contentCentered>
+ *   <Button>居中显示的按钮</Button>
+ * </Container>
+ * ```
+ *
  * 带背景色的容器：
  * ```astro
  * <Container background="primary/10">
@@ -157,6 +164,7 @@
  * @prop {boolean} [border=false] - 是否显示边框，启用后会在容器周围添加边框
  * @prop {boolean|string} [contentBorder=false] - 是否给内容比例盒加边框（仅在 fit 模式下生效）。可设置为 true（使用默认黑色边框）或具体的颜色值（如 "primary/50"、"success"、"gray-300" 等）
  * @prop {boolean} [centered=true] - 是否居中显示，设置为false时容器将靠左对齐
+ * @prop {boolean} [contentCentered=false] - 是否让内部内容居中显示，启用后会在容器内使用flex布局居中内容
  * @prop {string} [class] - 自定义CSS类名，用于添加额外的样式
  * @prop {string} [fit='none'] - 内容适配模式：none（默认）、contain（保持比例，尽量占满且不溢出）、cover（保持比例，铺满并可能裁剪）
  * @prop {string} [flex] - flex布局方向，可选值：row、col、row-reverse、col-reverse，不设置则不启用flex布局
@@ -212,6 +220,12 @@ interface Props extends HTMLAttributes<'div'> {
    * @default true
    */
   centered?: boolean;
+
+  /**
+   * 是否让内部内容居中显示
+   * @default false
+   */
+  contentCentered?: boolean;
 
   /**
    * 自定义类名
@@ -299,6 +313,7 @@ const {
   padding = 'md',
   margin = 'none',
   centered = true,
+  contentCentered = false,
   border = false,
   fit = 'none',
   contentBorder = false,
@@ -439,6 +454,7 @@ const containerClasses = [
     ? 'cosy:overflow-hidden cosy:min-w-0 cosy:max-w-full'
     : '',
   centered ? 'cosy:mx-auto' : '',
+  contentCentered ? 'cosy:flex cosy:justify-center cosy:items-center' : '',
   widthClasses[width],
   paddingClasses[padding],
   marginClasses[margin],

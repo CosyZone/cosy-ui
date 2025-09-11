@@ -22,5 +22,14 @@ export interface IHeadingProps {
     margin?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
     padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
     underline?: boolean;
+    weight?:
+    | 'thin'
+    | 'light'
+    | 'normal'
+    | 'medium'
+    | 'semibold'
+    | 'bold'
+    | 'extrabold'
+    | 'black';
 }
 

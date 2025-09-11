@@ -1,0 +1,133 @@
+---
+title: 'StatsDisplay'
+folder: false
+order: 21
+tags:
+- astro
+- stats
+- display
+- data
+---
+
+import { StatsDisplay } from '@coffic/cosy-ui';
+import { StatsDisplayPackage } from '@/components/stats-display/index';
+
+# {frontmatter.title}
+
+## Introduction
+
+The StatsDisplay component is designed for showcasing statistical data with a minimalist design approach. It's perfect for displaying key metrics on homepages, about pages, or product introduction pages. The component supports multiple layout modes and custom styling options, seamlessly integrating into various design styles.
+
+Component Features:
+
+- Minimalist aesthetic design with large numbers, thin font weights, and clean layouts
+- Support for multiple font sizes and weight options
+- Flexible color customization with global and individual color settings
+- Responsive design that automatically adapts to different screen sizes
+- Multiple alignment options and spacing configurations
+- Compact mode support for different space requirements
+
+## Examples
+
+<StatsDisplayPackage.Example />
+
+## Props
+
+### align
+
+Alignment option, supporting `left`, `center`, `right`.
+
+<StatsDisplayPackage.Align />
+
+### class
+
+Custom CSS class for overriding default styles.
+
+<StatsDisplayPackage.Class />
+
+### columns
+
+Number of columns to control how many statistical items are displayed per row.
+
+<StatsDisplayPackage.Columns />
+
+### compact
+
+Whether to use compact mode, reducing spacing and font sizes.
+
+<StatsDisplayPackage.CompactMode />
+
+### gap
+
+Spacing between items, supporting `sm`, `md`, `lg`, `xl`, `2xl`, `3xl`.
+
+<StatsDisplayPackage.Gap />
+
+### labelColor
+
+Color for labels, supporting hexadecimal color values.
+
+<StatsDisplayPackage.LabelColor />
+
+### labelWeight
+
+Font weight for labels, supporting `thin`, `light`, `normal`, `medium`, `semibold`, `bold`.
+
+<StatsDisplayPackage.LabelWeight />
+
+### stats
+
+Array of statistical data, where each item contains `value` (numeric value) and `label` (description).
+
+<StatsDisplayPackage.StatsArray />
+
+### valueColor
+
+Color for values, supporting hexadecimal color values.
+
+<StatsDisplayPackage.ValueColor />
+
+### valueSize
+
+Font size for values, supporting the complete range from `xs` to `6xl`.
+
+<StatsDisplayPackage.ValueSize />
+
+### valueWeight
+
+Font weight for values, supporting `thin`, `light`, `normal`, `medium`, `semibold`, `bold`.
+
+<StatsDisplayPackage.ValueWeight />
+
+## Use Cases
+
+### Corporate Website Homepage
+
+Display key company data on corporate website homepages, such as years in business, number of clients served, completed projects, etc.
+
+### Product Introduction Pages
+
+Showcase key product metrics on product introduction pages, such as download counts, user numbers, ratings, etc.
+
+### About Us Pages
+
+Display team size, years of experience, awards received, and other data on about us pages.
+
+### Dashboard Pages
+
+Showcase various statistical data and key metrics on dashboard pages.
+
+## Best Practices
+
+1. **Keep it Simple**: Avoid displaying too many data points in one component; recommend no more than 6 items
+2. **Consistent Styling**: Use unified colors and font styles across the same page
+3. **Responsive Considerations**: Test display effects on different screen sizes
+4. **Data Accuracy**: Ensure displayed data is accurate and up-to-date
+5. **Visual Hierarchy**: Establish clear visual hierarchy through font sizes and colors
+
+## Notes
+
+- Values should use concise formats like "10K+", "99%", etc.
+- Label text should be concise and clear, avoiding excessive length
+- When using on mobile devices, consider reducing column count or using compact mode
+- Color choices should align with overall design style and brand colors

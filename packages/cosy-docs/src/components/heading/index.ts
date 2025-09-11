@@ -10,6 +10,7 @@ import LevelContainer from './LevelContainer.astro';
 import MarginContainer from './MarginContainer.astro';
 import PaddingContainer from './PaddingContainer.astro';
 import UnderlineContainer from './UnderlineContainer.astro';
+import WeightContainer from './WeightContainer.astro';
 
 export const ComponentPackage = {
     ComponentContainers: {
@@ -25,5 +26,6 @@ export const ComponentPackage = {
         Margin: MarginContainer,
         Padding: PaddingContainer,
         Underline: UnderlineContainer,
+        Weight: WeightContainer,
     },
 }; 

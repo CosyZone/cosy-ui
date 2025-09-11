@@ -1,0 +1,164 @@
+---
+import Button from '../button/Button.astro';
+import FeatureCard from './FeatureCard.astro';
+import { ChevronLeftIcon, ChevronRightIcon } from '../icons';
+
+/**
+ * @component FeatureShowcase
+ * @description 苹果风格的特性展示组件，横向滑动显示多个特性卡片
+ * @example
+ * <FeatureShowcase
+ *   features={[
+ *     {
+ *       title: "性能和电池续航",
+ *       description: "跑得快,跑得久。",
+ *       background: "linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%)",
+ *       image: "https://example.com/image.jpg",
+ *       textColor: "white"
+ *     }
+ *   ]}
+ * />
+ */
+
+export interface Props {
+  features: Array<{
+    title: string;
+    description: string;
+    background: string;
+    image?: string;
+    textColor?: string;
+  }>;
+  class?: string;
+}
+
+const { features, class: className } = Astro.props;
+---
+
+<div class={`cosy:relative ${className || ''}`}>
+  <!-- 特性卡片容器 - 使用原生滚动 -->
+  <div
+    class="cosy:flex cosy:gap-4 cosy:py-16 cosy:px-4 cosy:overflow-x-auto cosy:scroll-smooth"
+    id="feature-cards"
+    style="scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none;">
+    {
+      features.map((feature, index) => (
+        <FeatureCard
+          title={feature.title}
+          description={feature.description}
+          background={feature.background}
+          image={feature.image}
+          textColor={feature.textColor}
+        />
+      ))
+    }
+  </div>
+
+  <!-- 导航按钮 - 在下一行 -->
+  <div class="cosy:flex cosy:justify-end cosy:gap-2 cosy:my-4">
+    <Button
+      id="prev-btn"
+      variant="neutral"
+      shape="circle"
+      size="lg"
+      aria-label="向左滚动">
+      <ChevronLeftIcon size="20px" />
+    </Button>
+    <Button
+      id="next-btn"
+      variant="neutral"
+      shape="circle"
+      size="lg"
+      aria-label="向右滚动">
+      <ChevronRightIcon size="20px" />
+    </Button>
+  </div>
+</div>
+
+<script>
+  // 特性展示滚动逻辑 - 使用原生滚动
+  const cardsContainer = document.getElementById('feature-cards');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+
+  // 滚动距离（一个卡片的宽度 + 间距）
+  const SCROLL_DISTANCE = 400; // 384px + 16px gap
+
+  function updateButtonStates() {
+    if (prevBtn && nextBtn && cardsContainer) {
+      const { scrollLeft, scrollWidth, clientWidth } = cardsContainer;
+
+      // 更新上一个按钮状态
+      const isAtStart = scrollLeft <= 0;
+      (prevBtn as HTMLButtonElement).disabled = isAtStart;
+      if (isAtStart) {
+        prevBtn.classList.add('cosy:opacity-50', 'cosy:cursor-not-allowed');
+        prevBtn.classList.remove('cosy:hover:bg-gray-300');
+      } else {
+        prevBtn.classList.remove('cosy:opacity-50', 'cosy:cursor-not-allowed');
+        prevBtn.classList.add('cosy:hover:bg-gray-300');
+      }
+
+      // 更新下一个按钮状态
+      const isAtEnd = scrollLeft >= scrollWidth - clientWidth - 1; // 1px 容差
+      (nextBtn as HTMLButtonElement).disabled = isAtEnd;
+      if (isAtEnd) {
+        nextBtn.classList.add('cosy:opacity-50', 'cosy:cursor-not-allowed');
+        nextBtn.classList.remove('cosy:hover:bg-gray-300');
+      } else {
+        nextBtn.classList.remove('cosy:opacity-50', 'cosy:cursor-not-allowed');
+        nextBtn.classList.add('cosy:hover:bg-gray-300');
+      }
+    }
+  }
+
+  function scrollLeft() {
+    if (cardsContainer) {
+      cardsContainer.scrollBy({
+        left: -SCROLL_DISTANCE,
+        behavior: 'smooth',
+      });
+    }
+  }
+
+  function scrollRight() {
+    if (cardsContainer) {
+      cardsContainer.scrollBy({
+        left: SCROLL_DISTANCE,
+        behavior: 'smooth',
+      });
+    }
+  }
+
+  // 按钮事件监听
+  if (prevBtn) {
+    prevBtn.addEventListener('click', scrollLeft);
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', scrollRight);
+  }
+
+  // 键盘导航
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') {
+      scrollLeft();
+    } else if (e.key === 'ArrowRight') {
+      scrollRight();
+    }
+  });
+
+  // 监听滚动事件，更新按钮状态
+  if (cardsContainer) {
+    cardsContainer.addEventListener('scroll', updateButtonStates);
+  }
+
+  // 初始化按钮状态
+  updateButtonStates();
+</script>
+
+<style>
+  /* 隐藏滚动条 */
+  #feature-cards::-webkit-scrollbar {
+    display: none;
+  }
+</style>

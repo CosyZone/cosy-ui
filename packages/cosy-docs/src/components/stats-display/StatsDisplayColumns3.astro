@@ -1,0 +1,24 @@
+---
+/**
+ * @component StatsDisplayColumns3
+ * @description StatsDisplay columns={3} 示例
+ */
+import { StatsDisplay } from '@coffic/cosy-ui';
+
+const columnsStats = [
+  { value: '10+', label: '年经验' },
+  { value: '500+', label: '客户' },
+  { value: '1000+', label: '项目' },
+  { value: '50+', label: '专家' },
+];
+---
+
+<StatsDisplay
+  stats={columnsStats}
+  columns={3}
+  valueSize="2xl"
+  valueColor="#10b981"
+  labelColor="#6b7280"
+  gap="xl"
+  align="center"
+/>

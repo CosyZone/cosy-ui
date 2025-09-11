@@ -1,0 +1,11 @@
+<template>
+  <MacWindow title="全宽窗口" width="full" height="h-48">
+    <PlaceHolder width="full" height="lg" padding="md">
+      全宽窗口内容
+    </PlaceHolder>
+  </MacWindow>
+</template>
+
+<script setup lang="ts">
+import { MacWindow, PlaceHolder } from '@coffic/cosy-ui/vue';
+</script>

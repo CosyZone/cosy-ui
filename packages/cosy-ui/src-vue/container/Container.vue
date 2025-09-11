@@ -20,98 +20,100 @@ import { allBackgroundClasses } from './backgrounds';
  * @props {string} [background] - 预设的语义化背景色，使用 Tailwind v4 语法（如 bg-primary/50）
  */
 
-interface Props extends IContainerProps { }
+interface Props extends IContainerProps {}
 
 const props = withDefaults(defineProps<Props>(), {
-    size: 'md',
-    padding: 'md',
-    centered: true,
-    border: false,
-    gap: 'none',
-    rounded: 'none',
-    class: '',
+  padding: 'md',
+  centered: true,
+  border: false,
+  gap: 'none',
+  rounded: 'none',
+  class: '',
 });
 
 // 静态类名映射
 const sizeClasses = {
-    xs: 'cosy:max-w-xs',
-    sm: 'cosy:max-w-sm',
-    md: 'cosy:max-w-2xl',
-    lg: 'cosy:max-w-4xl',
-    xl: 'cosy:max-w-6xl',
-    full: 'cosy:w-full',
+  none: '',
+  xs: 'cosy:max-w-xs',
+  sm: 'cosy:max-w-sm',
+  md: 'cosy:max-w-2xl',
+  lg: 'cosy:max-w-4xl',
+  xl: 'cosy:max-w-6xl',
+  full: 'cosy:w-full',
 } as const;
 
 const paddingClasses = {
-    none: 'cosy:p-0',
-    sm: 'cosy:p-2',
-    md: 'cosy:p-4',
-    lg: 'cosy:p-6',
-    xl: 'cosy:p-8',
+  none: 'cosy:p-0',
+  sm: 'cosy:p-2',
+  md: 'cosy:p-4',
+  lg: 'cosy:p-6',
+  xl: 'cosy:p-8',
 } as const;
 
 const roundedClasses = {
-    none: '',
-    sm: 'cosy:rounded-sm',
-    md: 'cosy:rounded-md',
-    lg: 'cosy:rounded-lg',
-    xl: 'cosy:rounded-xl',
-    full: 'cosy:rounded-full',
+  none: '',
+  sm: 'cosy:rounded-sm',
+  md: 'cosy:rounded-md',
+  lg: 'cosy:rounded-lg',
+  xl: 'cosy:rounded-xl',
+  full: 'cosy:rounded-full',
 } as const;
 
 const flexClasses = {
-    row: 'cosy:flex cosy:flex-row',
-    col: 'cosy:flex cosy:flex-col',
-    'row-reverse': 'cosy:flex cosy:flex-row-reverse',
-    'col-reverse': 'cosy:flex cosy:flex-col-reverse',
+  row: 'cosy:flex cosy:flex-row',
+  col: 'cosy:flex cosy:flex-col',
+  'row-reverse': 'cosy:flex cosy:flex-row-reverse',
+  'col-reverse': 'cosy:flex cosy:flex-col-reverse',
 } as const;
 
 const gapClasses = {
-    none: 'cosy:gap-0',
-    xs: 'cosy:gap-1',
-    sm: 'cosy:gap-2',
-    md: 'cosy:gap-4',
-    lg: 'cosy:gap-6',
-    xl: 'cosy:gap-8',
+  none: 'cosy:gap-0',
+  xs: 'cosy:gap-1',
+  sm: 'cosy:gap-2',
+  md: 'cosy:gap-4',
+  lg: 'cosy:gap-6',
+  xl: 'cosy:gap-8',
 } as const;
 
 const itemsClasses = {
-    start: 'cosy:items-start',
-    end: 'cosy:items-end',
-    center: 'cosy:items-center',
-    baseline: 'cosy:items-baseline',
-    stretch: 'cosy:items-stretch',
+  start: 'cosy:items-start',
+  end: 'cosy:items-end',
+  center: 'cosy:items-center',
+  baseline: 'cosy:items-baseline',
+  stretch: 'cosy:items-stretch',
 } as const;
 
 const justifyClasses = {
-    start: 'cosy:justify-start',
-    end: 'cosy:justify-end',
-    center: 'cosy:justify-center',
-    between: 'cosy:justify-between',
-    around: 'cosy:justify-around',
-    evenly: 'cosy:justify-evenly',
+  start: 'cosy:justify-start',
+  end: 'cosy:justify-end',
+  center: 'cosy:justify-center',
+  between: 'cosy:justify-between',
+  around: 'cosy:justify-around',
+  evenly: 'cosy:justify-evenly',
 } as const;
 
 // 构建CSS类名
+const resolvedSize = computed(() => props.width ?? 'md');
+
 const containerClasses = computed(() => [
-    'cosy:w-full',
-    props.centered ? 'cosy:mx-auto' : '',
-    sizeClasses[props.size],
-    paddingClasses[props.padding],
-    roundedClasses[props.rounded],
-    props.border ? 'cosy:border' : '',
-    props.flex ? flexClasses[props.flex] : '',
-    props.flex ? gapClasses[props.gap] : '',
-    props.items && props.flex ? itemsClasses[props.items] : '',
-    props.justify && props.flex ? justifyClasses[props.justify] : '',
-    // 处理背景色 - 使用预定义的完整类名
-    props.background ? allBackgroundClasses[props.background] : '',
-    props.class,
+  'cosy:w-full',
+  props.centered ? 'cosy:mx-auto' : '',
+  sizeClasses[resolvedSize.value],
+  paddingClasses[props.padding],
+  roundedClasses[props.rounded],
+  props.border ? 'cosy:border' : '',
+  props.flex ? flexClasses[props.flex] : '',
+  props.flex ? gapClasses[props.gap] : '',
+  props.items && props.flex ? itemsClasses[props.items] : '',
+  props.justify && props.flex ? justifyClasses[props.justify] : '',
+  // 处理背景色 - 使用预定义的完整类名
+  props.background ? allBackgroundClasses[props.background] : '',
+  props.class,
 ]);
 </script>
 
 <template>
-    <section :class="containerClasses" container>
-        <slot />
-    </section>
+  <section :class="containerClasses" container>
+    <slot />
+  </section>
 </template>

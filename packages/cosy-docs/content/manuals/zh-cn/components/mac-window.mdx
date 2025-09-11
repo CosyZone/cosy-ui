@@ -42,11 +42,6 @@ MacWindow 组件模拟 macOS 风格的应用窗口，包含标题栏、工具栏
 
 <MacWindowPackage.Containers.CustomHeight />
 
-### tabs
-标签页配置，支持多个标签页切换。
-
-<MacWindowPackage.Containers.WithTabs />
-
 ### onClose
 窗口关闭事件回调函数。
 
@@ -62,17 +57,27 @@ MacWindow 组件模拟 macOS 风格的应用窗口，包含标题栏、工具栏
 
 <MacWindowPackage.Containers.WithEvents />
 
+### tabs
+标签页配置，支持多个标签页切换。
+
+<MacWindowPackage.Containers.WithTabs />
+
+### width
+窗口宽度，支持 Container 组件的 width 属性值：none、xs、sm、md、lg、xl、full。
+
+<MacWindowPackage.Containers.CustomWidth />
+
 ## Slots
 
-### toolbar
-工具栏插槽，用于放置工具栏按钮和功能。
-
-<MacWindowPackage.Containers.WithToolbar />
+### default
+默认插槽，用于放置窗口的主要内容。
 
 ### sidebar
 侧边栏插槽，用于创建文件浏览器风格的布局。
 
 <MacWindowPackage.Containers.WithSidebar />
 
-### default
-默认插槽，用于放置窗口的主要内容。 
+### toolbar
+工具栏插槽，用于放置工具栏按钮和功能。
+
+<MacWindowPackage.Containers.WithToolbar /> 

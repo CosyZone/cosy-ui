@@ -1,0 +1,686 @@
+---
+/**
+ * @page Apple Style Enterprise Website Demo
+ *
+ * @description
+ * 苹果官网风格的企业官网演示页面，展示简洁、优雅、大图展示的设计风格
+ * 特点：极简设计、大图展示、优雅动画、简洁布局
+ */
+
+import {
+  AppLayout,
+  Hero,
+  Card,
+  Grid,
+  Button,
+  Text,
+  Heading,
+  Image,
+  Badge,
+  Contact,
+  TeamMember,
+  SocialIcon,
+  SmartIcon,
+  Container,
+  StatsDisplay,
+  ProductShowcase,
+  FeatureShowcase,
+  TeamMembers,
+  getExampleImage,
+  getProductImage,
+  getAvatarImage,
+  PlaceHolder,
+} from '@coffic/cosy-ui';
+import { configApp } from '@/config/config.app';
+import HeroImage from '@/assets/hero.png';
+
+// 从 URL 获取当前语言
+const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
+
+export const getStaticPaths = async () => {
+  return [
+    {
+      params: { lang: 'zh-cn' },
+    },
+    {
+      params: { lang: 'en' },
+    },
+  ];
+};
+
+// 苹果风格企业数据
+const appleStyleData: Record<string, any> = {
+  'zh-cn': {
+    companyName: '极简科技',
+    slogan: '简约而不简单',
+    description: '我们专注于创造极致简约的产品体验，让科技回归本质。',
+    heroTitle: '重新定义',
+    heroSubtitle: '科技产品',
+    heroDescription: '极简设计，极致体验',
+    aboutTitle: '关于我们',
+    aboutContent:
+      '我们相信，最好的设计是看不见的设计。通过极简的界面和直观的交互，我们让复杂的技术变得简单易用。',
+    productsTitle: '产品系列',
+    featuresTitle: '核心特性',
+    teamTitle: '设计团队',
+    contactTitle: '联系我们',
+    learnMore: '了解更多',
+    buyNow: '立即购买',
+    watchDemo: '观看演示',
+    yearsExperience: '10年经验',
+    productsLaunched: '50+产品',
+    usersWorldwide: '1000万+用户',
+    designAwards: '20+奖项',
+  },
+  en: {
+    companyName: 'Minimal Tech',
+    slogan: 'Simple, Not Simple',
+    description:
+      'We focus on creating minimalist product experiences that bring technology back to its essence.',
+    heroTitle: 'Redefining',
+    heroSubtitle: 'Tech Products',
+    heroDescription: 'Minimal Design, Maximum Impact',
+    aboutTitle: 'About Us',
+    aboutContent:
+      'We believe the best design is invisible design. Through minimalist interfaces and intuitive interactions, we make complex technology simple and accessible.',
+    productsTitle: 'Product Line',
+    featuresTitle: 'Core Features',
+    teamTitle: 'Design Team',
+    contactTitle: 'Contact Us',
+    learnMore: 'Learn More',
+    buyNow: 'Buy Now',
+    watchDemo: 'Watch Demo',
+    yearsExperience: '10 Years',
+    productsLaunched: '50+ Products',
+    usersWorldwide: '10M+ Users',
+    designAwards: '20+ Awards',
+  },
+};
+
+const data = appleStyleData[currentLocale] || appleStyleData['zh-cn'];
+
+// 统计数据
+const statsData = [
+  {
+    value: '10+',
+    label: data.yearsExperience,
+  },
+  {
+    value: '50+',
+    label: data.productsLaunched,
+  },
+  {
+    value: '10M+',
+    label: data.usersWorldwide,
+  },
+  {
+    value: '20+',
+    label: data.designAwards,
+  },
+];
+
+// 产品数据（苹果风格）
+const products = [
+  {
+    name: currentLocale === 'zh-cn' ? '极简手机' : 'Minimal Phone',
+    description:
+      currentLocale === 'zh-cn'
+        ? '纯净体验，回归本质'
+        : 'Pure experience, back to essence',
+    image: getProductImage({
+      width: 800,
+      height: 600,
+      tag: 'minimal-phone',
+      provider: 'picsum',
+    }),
+    price: currentLocale === 'zh-cn' ? '¥6,999' : '$999',
+    isNew: true,
+  },
+  {
+    name: currentLocale === 'zh-cn' ? '智能手表' : 'Smart Watch',
+    description:
+      currentLocale === 'zh-cn'
+        ? '健康生活，简约开始'
+        : 'Healthy living, simply started',
+    image: getProductImage({
+      width: 800,
+      height: 600,
+      tag: 'smart-watch',
+      provider: 'picsum',
+    }),
+    price: currentLocale === 'zh-cn' ? '¥2,999' : '$399',
+    isNew: false,
+  },
+  {
+    name: currentLocale === 'zh-cn' ? '无线耳机' : 'Wireless Earbuds',
+    description:
+      currentLocale === 'zh-cn'
+        ? '纯净音质，无感佩戴'
+        : 'Pure sound, seamless wear',
+    image: getProductImage({
+      width: 800,
+      height: 600,
+      tag: 'wireless-earbuds',
+      provider: 'picsum',
+    }),
+    price: currentLocale === 'zh-cn' ? '¥1,299' : '$179',
+    isNew: false,
+  },
+];
+
+// 特性数据
+const features = [
+  {
+    title: currentLocale === 'zh-cn' ? '极简设计' : 'Minimal Design',
+    description:
+      currentLocale === 'zh-cn'
+        ? '去除一切不必要的元素，专注核心功能'
+        : 'Remove all unnecessary elements, focus on core functionality',
+    icon: 'design',
+  },
+  {
+    title: currentLocale === 'zh-cn' ? '无缝体验' : 'Seamless Experience',
+    description:
+      currentLocale === 'zh-cn'
+        ? '流畅的交互，自然的操作'
+        : 'Smooth interactions, natural operations',
+    icon: 'touch',
+  },
+  {
+    title: currentLocale === 'zh-cn' ? '智能科技' : 'Smart Technology',
+    description:
+      currentLocale === 'zh-cn'
+        ? 'AI 驱动的个性化体验'
+        : 'AI-driven personalized experience',
+    icon: 'ai',
+  },
+  {
+    title: currentLocale === 'zh-cn' ? '环保理念' : 'Eco-Friendly',
+    description:
+      currentLocale === 'zh-cn'
+        ? '可持续材料，环保包装'
+        : 'Sustainable materials, eco-friendly packaging',
+    icon: 'leaf',
+  },
+];
+
+// 团队成员数据
+const teamMembers = [
+  {
+    name: currentLocale === 'zh-cn' ? '李明' : 'Li Ming',
+    role: currentLocale === 'zh-cn' ? '首席设计师' : 'Chief Designer',
+    bio:
+      currentLocale === 'zh-cn'
+        ? '前苹果设计师，专注极简美学'
+        : 'Former Apple designer, focused on minimalist aesthetics',
+    avatar: getAvatarImage({ width: 200, height: 200, tag: 'li-ming' }),
+    socialLinks: [
+      { platform: 'linkedin' as const, url: '#' },
+      { platform: 'twitter' as const, url: '#' },
+    ],
+  },
+  {
+    name: currentLocale === 'zh-cn' ? '王雅' : 'Wang Ya',
+    role: currentLocale === 'zh-cn' ? '产品总监' : 'Product Director',
+    bio:
+      currentLocale === 'zh-cn'
+        ? '用户体验专家，追求完美细节'
+        : 'UX expert, pursuing perfect details',
+    avatar: getAvatarImage({ width: 200, height: 200, tag: 'wang-ya' }),
+    socialLinks: [
+      { platform: 'github' as const, url: '#' },
+      { platform: 'linkedin' as const, url: '#' },
+    ],
+  },
+  {
+    name: currentLocale === 'zh-cn' ? '张伟' : 'Zhang Wei',
+    role: currentLocale === 'zh-cn' ? '技术总监' : 'CTO',
+    bio:
+      currentLocale === 'zh-cn'
+        ? '技术极客，让复杂变简单'
+        : 'Tech geek, making complex simple',
+    avatar: getAvatarImage({ width: 200, height: 200, tag: 'zhang-wei' }),
+    socialLinks: [
+      { platform: 'github' as const, url: '#' },
+      { platform: 'twitter' as const, url: '#' },
+    ],
+  },
+];
+
+// 特性展示数据（苹果风格）
+const featureShowcaseData = [
+  {
+    title:
+      currentLocale === 'zh-cn'
+        ? '性能和电池续航'
+        : 'Performance and Battery Life',
+    description:
+      currentLocale === 'zh-cn' ? '跑得快,跑得久。' : 'Runs fast, lasts long.',
+    background: 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%)',
+    image: getProductImage({
+      width: 400,
+      height: 300,
+      tag: 'performance-laptop',
+      provider: 'picsum',
+    }),
+    textColor: 'white',
+  },
+  {
+    title: currentLocale === 'zh-cn' ? 'Mac 和 iPhone' : 'Mac and iPhone',
+    description: currentLocale === 'zh-cn' ? '梦幻好队友。' : 'Dream team.',
+    background: '#a7f3d0',
+    image: getProductImage({
+      width: 400,
+      height: 300,
+      tag: 'mac-iphone-integration',
+      provider: 'picsum',
+    }),
+    textColor: 'black',
+  },
+  {
+    title: currentLocale === 'zh-cn' ? '兼容性' : 'Compatibility',
+    description:
+      currentLocale === 'zh-cn'
+        ? '各种常用 App, Mac 都能跑。'
+        : 'All common Apps, Mac can run them.',
+    background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+    image: getProductImage({
+      width: 400,
+      height: 300,
+      tag: 'app-icons',
+      provider: 'picsum',
+    }),
+    textColor: 'white',
+  },
+  {
+    title: currentLocale === 'zh-cn' ? '隐私和安全' : 'Privacy and Security',
+    description:
+      currentLocale === 'zh-cn'
+        ? '你的私事, 只关你的事。'
+        : 'Your private matters, only concern you.',
+    background: 'linear-gradient(135deg, #ef4444 0%, #7c3aed 100%)',
+    image: getProductImage({
+      width: 400,
+      height: 300,
+      tag: 'security-lock',
+      provider: 'picsum',
+    }),
+    textColor: 'white',
+  },
+  {
+    title: currentLocale === 'zh-cn' ? '创新设计' : 'Innovative Design',
+    description:
+      currentLocale === 'zh-cn'
+        ? '每一处细节, 都经过精心设计。'
+        : 'Every detail is carefully designed.',
+    background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+    image: getProductImage({
+      width: 400,
+      height: 300,
+      tag: 'design-aesthetics',
+      provider: 'picsum',
+    }),
+    textColor: 'white',
+  },
+  {
+    title: currentLocale === 'zh-cn' ? '环保理念' : 'Environmental Care',
+    description:
+      currentLocale === 'zh-cn'
+        ? '为地球, 做正确的事。'
+        : 'For the planet, do the right thing.',
+    background: '#10b981',
+    image: getProductImage({
+      width: 400,
+      height: 300,
+      tag: 'environmental-sustainability',
+      provider: 'picsum',
+    }),
+    textColor: 'white',
+  },
+  {
+    title: currentLocale === 'zh-cn' ? '专业创作' : 'Professional Creation',
+    description:
+      currentLocale === 'zh-cn'
+        ? '让创意, 无界限。'
+        : 'Let creativity know no bounds.',
+    background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
+    image: getProductImage({
+      width: 400,
+      height: 300,
+      tag: 'creative-professional',
+      provider: 'picsum',
+    }),
+    textColor: 'white',
+  },
+  {
+    title: currentLocale === 'zh-cn' ? '智能助手' : 'Smart Assistant',
+    description:
+      currentLocale === 'zh-cn'
+        ? 'AI 让一切更简单。'
+        : 'AI makes everything simpler.',
+    background: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
+    image: getProductImage({
+      width: 400,
+      height: 300,
+      tag: 'ai-assistant',
+      provider: 'picsum',
+    }),
+    textColor: 'white',
+  },
+  {
+    title: currentLocale === 'zh-cn' ? '无缝体验' : 'Seamless Experience',
+    description:
+      currentLocale === 'zh-cn'
+        ? '设备间, 无缝切换。'
+        : 'Seamless switching between devices.',
+    background: '#f3f4f6',
+    image: getProductImage({
+      width: 400,
+      height: 300,
+      tag: 'seamless-ecosystem',
+      provider: 'picsum',
+    }),
+    textColor: 'black',
+  },
+  {
+    title: currentLocale === 'zh-cn' ? '极致音效' : 'Premium Audio',
+    description:
+      currentLocale === 'zh-cn' ? '听见, 每一个音符。' : 'Hear every note.',
+    background: 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)',
+    image: getProductImage({
+      width: 400,
+      height: 300,
+      tag: 'audio-quality',
+      provider: 'picsum',
+    }),
+    textColor: 'white',
+  },
+  {
+    title: currentLocale === 'zh-cn' ? '未来科技' : 'Future Technology',
+    description:
+      currentLocale === 'zh-cn' ? '今天, 就是未来。' : 'Today is the future.',
+    background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+    image: getProductImage({
+      width: 400,
+      height: 300,
+      tag: 'future-tech',
+      provider: 'picsum',
+    }),
+    textColor: 'white',
+  },
+];
+---
+
+<AppLayout
+  debug={false}
+  metaConfig={{
+    title: data.companyName,
+    description: data.description,
+    keywords:
+      currentLocale === 'zh-cn'
+        ? '极简设计,科技产品,用户体验,简约美学'
+        : 'minimal design, tech products, user experience, minimalist aesthetics',
+    author: data.companyName,
+    robots: 'index, follow',
+  }}
+  sidebarConfig={{
+    sidebarItems: [],
+    debug: false,
+  }}
+  showHeader={true}
+  showFooter={true}
+  showSidebar={false}
+  footerConfig={{
+    siteName: data.companyName,
+    homeLink: configApp.homeLink,
+    slogan: data.slogan,
+    company: data.companyName,
+    copyright: `© 2025 ${data.companyName}`,
+    inspirationalSlogan: data.slogan,
+    products: [
+      { name: 'Cisum', href: 'https://coffic.cn/cisum' },
+      { name: 'JuiceEditor', href: 'https://coffic.cn/juice_editor' },
+      { name: 'GitOK', href: 'https://coffic.cn/gitok' },
+      { name: 'Cosy UI', href: 'https://github.com/cosyzone/cosy-ui' },
+    ],
+    aboutLink: 'https://coffic.cn/en/meta/about',
+    contactLink: 'https://coffic.cn/en/meta/contact',
+    termsLink: 'https://coffic.cn/en/meta/terms',
+    privacyLink: 'https://coffic.cn/en/meta/privacy',
+    historyLink: 'https://coffic.cn/en/meta/out-story',
+    techStackLink: 'https://coffic.cn/en/meta/tech-stack',
+  }}
+  headerConfig={{
+    logoHref: configApp.homeLink,
+    navItems: configApp.getNavItems(currentLocale),
+  }}
+  mainContentConfig={{
+    verticalPadding: 'none',
+    size: 'full',
+    padding: 'none',
+  }}>
+  <!-- Hero Section - 苹果风格大标题 -->
+  <div
+    style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden;">
+    <div
+      style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('https://picsum.photos/1920/1080?random=1') center/cover; opacity: 0.1;">
+    </div>
+    <Container width="xl" class="cosy:relative cosy:z-10">
+      <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+        <Text
+          size="xl"
+          class="cosy:text-base-content/60 cosy:mb-4 cosy:font-light">
+          {data.heroTitle}
+        </Text>
+        <Heading level={1} size="4xl" weight="thin" class="cosy:leading-tight">
+          {data.heroSubtitle}
+        </Heading>
+        <Text size="lg" weight="light">
+          {data.heroDescription}
+        </Text>
+        <div
+          style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <Button variant="primary" size="lg" class="cosy:px-8 cosy:py-4">
+            {data.buyNow}
+          </Button>
+          <Button variant="outline" size="lg" class="cosy:px-8 cosy:py-4">
+            {data.watchDemo}
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </div>
+
+  <!-- Stats Section - 极简数据展示 -->
+  <Container width="xl" padding="xl" margin="xl" background="base-200">
+    <StatsDisplay
+      stats={statsData}
+      valueSize="3xl"
+      valueColor="#3b82f6"
+      labelColor="#6b7280"
+      valueWeight="thin"
+      labelWeight="light"
+      gap="3xl"
+      align="center"
+    />
+  </Container>
+
+  <!-- Feature Showcase Section - 苹果风格特性展示 -->
+  <Container width="xl" padding="none" margin="lg">
+    <FeatureShowcase features={featureShowcaseData} />
+  </Container>
+
+  <!-- Products Section - 大图展示 -->
+  <Container width="full" padding="none" margin="lg">
+    <ProductShowcase
+      products={products}
+      buyNowText={data.buyNow}
+      learnMoreText={data.learnMore}
+      newLabelText={currentLocale === 'zh-cn' ? '新品' : 'New'}
+    />
+  </Container>
+
+  <!-- Features Section - 特性展示 -->
+  <Container width="xl" padding="xl" margin="lg" background="base-100">
+    <div style="text-align: center; margin-bottom: 4rem;">
+      <Heading level={2} size="3xl" margin="lg" weight="thin">
+        {data.featuresTitle}
+      </Heading>
+    </div>
+
+    <div
+      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem;">
+      {
+        features.map((feature) => (
+          <div style="text-align: center; padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <SmartIcon
+                name={feature.icon}
+                size="64px"
+                class="cosy:text-primary"
+              />
+            </div>
+            <Heading level={3} size="xl" class="cosy:mb-4 cosy:font-thin">
+              {feature.title}
+            </Heading>
+            <Text class="cosy:text-base-content/70 cosy:font-light">
+              {feature.description}
+            </Text>
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+
+  <!-- Team Section - 团队介绍 -->
+  <Container width="full" padding="xl" margin="lg" background="base-200">
+    <Container width="xl">
+      <Heading level={2} size="3xl" margin="lg" weight="thin">
+        {data.teamTitle}
+      </Heading>
+
+      <TeamMembers members={teamMembers} columns={3} />
+    </Container>
+  </Container>
+
+  <!-- Contact Section - 联系信息 -->
+  <Container
+    id="contact"
+    width="xl"
+    padding="xl"
+    margin="lg"
+    background="base-100">
+    <div style="text-align: center; margin-bottom: 4rem;">
+      <Heading level={2} size="3xl" margin="lg" weight="thin">
+        {data.contactTitle}
+      </Heading>
+      <Text size="lg" class="cosy:text-base-content/70 cosy:font-light">
+        {
+          currentLocale === 'zh-cn'
+            ? '让我们一起创造更美好的未来'
+            : "Let's create a better future together"
+        }
+      </Text>
+    </div>
+
+    <div
+      style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
+      <!-- 联系信息 -->
+      <Contact
+        title={currentLocale === 'zh-cn' ? '联系信息' : 'Contact Information'}
+        description={currentLocale === 'zh-cn'
+          ? '我们很乐意听到您的想法'
+          : "We'd love to hear from you"}
+        email="hello@minimaltech.com"
+        phone="+86 400-888-9999"
+        address={currentLocale === 'zh-cn'
+          ? '上海市浦东新区科技园区'
+          : 'Tech Park, Pudong New Area, Shanghai'}
+        website="https://minimaltech.com"
+        github="https://github.com/minimaltech"
+        twitter="https://twitter.com/minimaltech"
+        linkedin="https://linkedin.com/company/minimaltech"
+      />
+
+      <!-- 联系表单 -->
+      <Card
+        title={currentLocale === 'zh-cn' ? '发送消息' : 'Send Message'}
+        class="cosy:p-8">
+        <form style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <div>
+            <label
+              style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">
+              {currentLocale === 'zh-cn' ? '姓名' : 'Name'} *
+            </label>
+            <input
+              type="text"
+              required
+              style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem;"
+              placeholder={currentLocale === 'zh-cn'
+                ? '请输入您的姓名'
+                : 'Enter your name'}
+            />
+          </div>
+          <div>
+            <label
+              style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">
+              {currentLocale === 'zh-cn' ? '邮箱' : 'Email'} *
+            </label>
+            <input
+              type="email"
+              required
+              style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem;"
+              placeholder={currentLocale === 'zh-cn'
+                ? '请输入您的邮箱'
+                : 'Enter your email'}
+            />
+          </div>
+          <div>
+            <label
+              style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">
+              {currentLocale === 'zh-cn' ? '消息' : 'Message'} *
+            </label>
+            <textarea
+              required
+              rows={4}
+              style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem; resize: vertical;"
+              placeholder={currentLocale === 'zh-cn'
+                ? '请输入您的消息'
+                : 'Enter your message'}></textarea>
+          </div>
+          <Button
+            type="submit"
+            variant="primary"
+            size="lg"
+            class="cosy:w-full cosy:mt-4">
+            {currentLocale === 'zh-cn' ? '发送消息' : 'Send Message'}
+          </Button>
+        </form>
+      </Card>
+    </div>
+  </Container>
+
+  <!-- About Section - 简洁介绍 -->
+  <Container width="full" padding="xl" margin="lg" background="base-200">
+    <Container width="xl">
+      <Heading level={2} size="3xl" class="cosy:mb-6 cosy:font-thin">
+        {data.aboutTitle}
+      </Heading>
+      <Text
+        size="lg"
+        class="cosy:text-base-content/70 cosy:font-light cosy:leading-relaxed">
+        {data.aboutContent}
+      </Text>
+    </Container>
+  </Container>
+
+  <PlaceHolder height="md" />
+
+  <Container width="full" padding="xl" margin="lg" contentCentered>
+    <Button variant="primary" size="lg">
+      {data.watchDemo}
+    </Button>
+  </Container>
+
+  <PlaceHolder height="md" />
+</AppLayout>

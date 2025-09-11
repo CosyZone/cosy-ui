@@ -1,0 +1,70 @@
+---
+/**
+ * @component HeadingWeightContainer
+ * @description Heading 组件 weight 属性示例容器，展示不同字体粗细的标题。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import WeightThin from './WeightThin.vue';
+import WeightLight from './WeightLight.vue';
+import WeightNormal from './WeightNormal.vue';
+import WeightMedium from './WeightMedium.vue';
+import WeightSemibold from './WeightSemibold.vue';
+import WeightBold from './WeightBold.vue';
+import WeightExtrabold from './WeightExtrabold.vue';
+import WeightBlack from './WeightBlack.vue';
+import WeightThinSource from './WeightThin.vue?raw';
+import WeightLightSource from './WeightLight.vue?raw';
+import WeightNormalSource from './WeightNormal.vue?raw';
+import WeightMediumSource from './WeightMedium.vue?raw';
+import WeightSemiboldSource from './WeightSemibold.vue?raw';
+import WeightBoldSource from './WeightBold.vue?raw';
+import WeightExtraboldSource from './WeightExtrabold.vue?raw';
+import WeightBlackSource from './WeightBlack.vue?raw';
+---
+
+<CodeContainer
+  codes={[
+    WeightThinSource,
+    WeightLightSource,
+    WeightNormalSource,
+    WeightMediumSource,
+    WeightSemiboldSource,
+    WeightBoldSource,
+    WeightExtraboldSource,
+    WeightBlackSource,
+  ]}
+  titles={[
+    '细体',
+    '轻体',
+    '正常',
+    '中等',
+    '半粗体',
+    '粗体',
+    '特粗体',
+    '超粗体',
+  ]}>
+  <div id="tab-1">
+    <WeightThin client:load />
+  </div>
+  <div id="tab-2">
+    <WeightLight client:load />
+  </div>
+  <div id="tab-3">
+    <WeightNormal client:load />
+  </div>
+  <div id="tab-4">
+    <WeightMedium client:load />
+  </div>
+  <div id="tab-5">
+    <WeightSemibold client:load />
+  </div>
+  <div id="tab-6">
+    <WeightBold client:load />
+  </div>
+  <div id="tab-7">
+    <WeightExtrabold client:load />
+  </div>
+  <div id="tab-8">
+    <WeightBlack client:load />
+  </div>
+</CodeContainer>

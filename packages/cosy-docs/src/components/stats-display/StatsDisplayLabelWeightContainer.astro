@@ -1,0 +1,31 @@
+---
+/**
+ * @component StatsDisplayLabelWeightContainer
+ * @description StatsDisplay labelWeight 属性示例容器组件
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import StatsDisplayLabelWeightLight from './StatsDisplayLabelWeightLight.astro';
+import StatsDisplayLabelWeightNormal from './StatsDisplayLabelWeightNormal.astro';
+import StatsDisplayLabelWeightBold from './StatsDisplayLabelWeightBold.astro';
+import StatsDisplayLabelWeightLightSourceCode from './StatsDisplayLabelWeightLight.astro?raw';
+import StatsDisplayLabelWeightNormalSourceCode from './StatsDisplayLabelWeightNormal.astro?raw';
+import StatsDisplayLabelWeightBoldSourceCode from './StatsDisplayLabelWeightBold.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    StatsDisplayLabelWeightLightSourceCode,
+    StatsDisplayLabelWeightNormalSourceCode,
+    StatsDisplayLabelWeightBoldSourceCode,
+  ]}
+  titles={['light', 'normal', 'bold']}>
+  <div id="tab-1">
+    <StatsDisplayLabelWeightLight />
+  </div>
+  <div id="tab-2">
+    <StatsDisplayLabelWeightNormal />
+  </div>
+  <div id="tab-3">
+    <StatsDisplayLabelWeightBold />
+  </div>
+</CodeContainer>

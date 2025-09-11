@@ -1,0 +1,20 @@
+---
+/**
+ * @component StatsDisplayColorfulStats
+ * @description StatsDisplay 带自定义颜色的数据示例
+ */
+import { StatsDisplay } from '@coffic/cosy-ui';
+
+const colorfulStats = [
+  { value: '10M+', label: '用户', color: 'blue' },
+  { value: '20+', label: '奖项', color: 'success' },
+  { value: '99%', label: '满意度', color: 'warning' },
+];
+---
+
+<StatsDisplay
+  stats={colorfulStats}
+  valueSize="2xl"
+  labelColor="#6b7280"
+  align="center"
+/>

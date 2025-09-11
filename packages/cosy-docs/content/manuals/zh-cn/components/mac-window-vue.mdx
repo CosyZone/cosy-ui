@@ -43,11 +43,6 @@ MacWindow Vue 组件是 MacWindow 组件的 Vue 版本，提供相同的 macOS �
 
 <MacWindowVuePackage.Containers.CustomHeight />
 
-### tabs
-标签页配置，支持多个标签页切换。
-
-<MacWindowVuePackage.Containers.WithTabs />
-
 ### onClose
 窗口关闭事件回调函数。
 
@@ -63,17 +58,27 @@ MacWindow Vue 组件是 MacWindow 组件的 Vue 版本，提供相同的 macOS �
 
 <MacWindowVuePackage.Containers.WithEvents />
 
+### tabs
+标签页配置，支持多个标签页切换。
+
+<MacWindowVuePackage.Containers.WithTabs />
+
+### width
+窗口宽度，支持 Container 组件的 width 属性值：none、xs、sm、md、lg、xl、full。
+
+<MacWindowVuePackage.Containers.CustomWidth />
+
 ## Slots
 
-### toolbar
-工具栏插槽，用于放置工具栏按钮和功能。
-
-<MacWindowVuePackage.Containers.WithToolbar />
+### default
+默认插槽，用于放置窗口的主要内容。
 
 ### sidebar
 侧边栏插槽，用于创建文件浏览器风格的布局。
 
 <MacWindowVuePackage.Containers.WithSidebar />
 
-### default
-默认插槽，用于放置窗口的主要内容。
+### toolbar
+工具栏插槽，用于放置工具栏按钮和功能。
+
+<MacWindowVuePackage.Containers.WithToolbar />

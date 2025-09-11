@@ -1,0 +1,31 @@
+---
+/**
+ * @component StatsDisplayGapContainer
+ * @description StatsDisplay gap 属性示例容器组件
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import StatsDisplayGapSm from './StatsDisplayGapSm.astro';
+import StatsDisplayGapLg from './StatsDisplayGapLg.astro';
+import StatsDisplayGap3xl from './StatsDisplayGap3xl.astro';
+import StatsDisplayGapSmSourceCode from './StatsDisplayGapSm.astro?raw';
+import StatsDisplayGapLgSourceCode from './StatsDisplayGapLg.astro?raw';
+import StatsDisplayGap3xlSourceCode from './StatsDisplayGap3xl.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    StatsDisplayGapSmSourceCode,
+    StatsDisplayGapLgSourceCode,
+    StatsDisplayGap3xlSourceCode,
+  ]}
+  titles={['sm', 'lg', '3xl']}>
+  <div id="tab-1">
+    <StatsDisplayGapSm />
+  </div>
+  <div id="tab-2">
+    <StatsDisplayGapLg />
+  </div>
+  <div id="tab-3">
+    <StatsDisplayGap3xl />
+  </div>
+</CodeContainer>
