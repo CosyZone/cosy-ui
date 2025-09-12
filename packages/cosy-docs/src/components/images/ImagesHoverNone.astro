@@ -1,0 +1,32 @@
+---
+/**
+ * @component ImagesHoverNone
+ * @description Images 组件无悬停效果示例
+ */
+import { Images, getProductImage } from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'hover-none-1' }),
+    alt: '图片 1',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'hover-none-2' }),
+    alt: '图片 2',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'hover-none-3' }),
+    alt: '图片 3',
+  },
+];
+---
+
+<Images
+  images={images}
+  layout="grid"
+  columns={3}
+  hover="none"
+  gap="sm"
+  rounded="md"
+  shadow="sm"
+/>

@@ -1,0 +1,29 @@
+---
+/**
+ * @component ImagesShadowContainer
+ * @description Images 组件 shadow 属性示例容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ImagesShadowNone from './ImagesShadowNone.astro';
+import ImagesShadowSmall from './ImagesShadowSmall.astro';
+import ImagesShadowMedium from './ImagesShadowMedium.astro';
+import ImagesShadowLarge from './ImagesShadowLarge.astro';
+import ImagesShadowNoneSourceCode from './ImagesShadowNone.astro?raw';
+import ImagesShadowSmallSourceCode from './ImagesShadowSmall.astro?raw';
+import ImagesShadowMediumSourceCode from './ImagesShadowMedium.astro?raw';
+import ImagesShadowLargeSourceCode from './ImagesShadowLarge.astro?raw';
+---
+
+<CodeContainer
+  titles={['无阴影', '小阴影', '中等阴影', '大阴影']}
+  codes={[
+    ImagesShadowNoneSourceCode,
+    ImagesShadowSmallSourceCode,
+    ImagesShadowMediumSourceCode,
+    ImagesShadowLargeSourceCode,
+  ]}>
+  <div id="tab-1"><ImagesShadowNone /></div>
+  <div id="tab-2"><ImagesShadowSmall /></div>
+  <div id="tab-3"><ImagesShadowMedium /></div>
+  <div id="tab-4"><ImagesShadowLarge /></div>
+</CodeContainer>

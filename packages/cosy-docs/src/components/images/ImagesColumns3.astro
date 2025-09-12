@@ -1,0 +1,43 @@
+---
+/**
+ * @component ImagesColumns3
+ * @description Images 组件 3列布局示例
+ */
+import { Images, getProductImage } from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'col3-1' }),
+    alt: '图片 1',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'col3-2' }),
+    alt: '图片 2',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'col3-3' }),
+    alt: '图片 3',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'col3-4' }),
+    alt: '图片 4',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'col3-5' }),
+    alt: '图片 5',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'col3-6' }),
+    alt: '图片 6',
+  },
+];
+---
+
+<Images
+  images={images}
+  layout="grid"
+  columns={3}
+  gap="md"
+  rounded="md"
+  shadow="sm"
+/>

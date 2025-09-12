@@ -1,0 +1,35 @@
+---
+/**
+ * @component ImagesColumns2
+ * @description Images 组件 2列布局示例
+ */
+import { Images, getProductImage } from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'col2-1' }),
+    alt: '图片 1',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'col2-2' }),
+    alt: '图片 2',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'col2-3' }),
+    alt: '图片 3',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'col2-4' }),
+    alt: '图片 4',
+  },
+];
+---
+
+<Images
+  images={images}
+  layout="grid"
+  columns={2}
+  gap="md"
+  rounded="md"
+  shadow="sm"
+/>

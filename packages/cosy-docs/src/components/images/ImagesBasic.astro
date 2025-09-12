@@ -1,0 +1,55 @@
+---
+/**
+ * @component ImagesBasic
+ * @description Images 组件基础用法示例
+ */
+import {
+  Images,
+  getProductImage,
+  getLandscapeImage,
+  getAvatarImage,
+} from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 400, height: 300, tag: 'product1' }),
+    alt: '产品图片 1',
+    caption: '精美产品展示',
+  },
+  {
+    src: getLandscapeImage({ width: 400, height: 300, tag: 'nature1' }),
+    alt: '自然风景 1',
+    caption: '自然风光',
+  },
+  {
+    src: getAvatarImage({ width: 400, height: 300, tag: 'portrait1' }),
+    alt: '人物肖像 1',
+    caption: '人物肖像',
+  },
+  {
+    src: getProductImage({ width: 400, height: 300, tag: 'product2' }),
+    alt: '产品图片 2',
+    caption: '产品细节',
+  },
+  {
+    src: getLandscapeImage({ width: 400, height: 300, tag: 'nature2' }),
+    alt: '自然风景 2',
+    caption: '城市景观',
+  },
+  {
+    src: getAvatarImage({ width: 400, height: 300, tag: 'portrait2' }),
+    alt: '人物肖像 2',
+    caption: '专业形象',
+  },
+];
+---
+
+<Images
+  images={images}
+  layout="grid"
+  columns={3}
+  gap="md"
+  rounded="lg"
+  shadow="md"
+  hover="scale"
+/>

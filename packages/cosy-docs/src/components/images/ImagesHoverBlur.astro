@@ -1,0 +1,32 @@
+---
+/**
+ * @component ImagesHoverBlur
+ * @description Images 组件模糊悬停效果示例
+ */
+import { Images, getProductImage } from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'hover-blur-1' }),
+    alt: '图片 1',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'hover-blur-2' }),
+    alt: '图片 2',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'hover-blur-3' }),
+    alt: '图片 3',
+  },
+];
+---
+
+<Images
+  images={images}
+  layout="grid"
+  columns={3}
+  hover="blur"
+  gap="sm"
+  rounded="md"
+  shadow="sm"
+/>
