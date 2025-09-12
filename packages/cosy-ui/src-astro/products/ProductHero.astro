@@ -22,7 +22,7 @@
  *   name="极简手机"
  *   description="纯净体验，回归本质"
  *   image="/images/products/phone.jpg"
- *   price="¥6,999"
+ *   highlight="¥6,999"
  *   labels={["新品"]}
  * />
  * ```
@@ -33,7 +33,7 @@
  *   name="智能手表"
  *   description="健康生活，简约开始"
  *   image="/images/products/watch.jpg"
- *   price="¥2,999"
+ *   highlight="¥2,999"
  *   labels={["热卖", "直降 500"]}
  *   align="right"
  * />
@@ -45,7 +45,7 @@
  *   name="无线耳机"
  *   description="纯净音质，无感佩戴"
  *   image="/images/products/earbuds.jpg"
- *   price="¥1,299"
+ *   highlight="¥1,299"
  *   background="gradient-sky"
  * />
  * ```
@@ -56,7 +56,7 @@
  *   name="极简手机"
  *   description="纯净体验，回归本质"
  *   image="/images/products/phone.jpg"
- *   price="¥6,999">
+ *   highlight="¥6,999">
  *   <div slot="actions" style="display:flex; gap:1rem;">
  *     <a href="#buy" class="btn btn-primary">立即购买</a>
  *     <a href="#learn" class="btn btn-outline">了解更多</a>
@@ -104,16 +104,16 @@ export interface Props {
    */
   name: string;
   /**
-   * 产品价格
+   * 高亮文案（价格、宣传语等）
    */
-  price: string;
+  highlight?: string;
 }
 
 const {
   name,
   description,
   image,
-  price,
+  highlight,
   labels = [],
   align = 'left',
   background,
@@ -159,13 +159,16 @@ const contentDirection = isRightAlign ? 'direction: ltr;' : '';
           {description}
         </Text>
 
-        <!-- 价格 -->
-        <div
-          style="display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem;">
-          <Text size="2xl" class="cosy:font-thin">
-            {price}
-          </Text>
-        </div>
+        <!-- 高亮文案（价格/标语等） -->
+        {
+          highlight && (
+            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem;">
+              <Text size="2xl" class="cosy:font-thin">
+                {highlight}
+              </Text>
+            </div>
+          )
+        }
 
         <!-- 自定义操作区插槽 -->
         <div style="display: flex; gap: 1rem;">
