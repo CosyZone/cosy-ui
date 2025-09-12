@@ -44,7 +44,7 @@
  * ```astro
  * <ProductHero
  *   products={products}
- *   background="gradient-sky"
+ *   backgrounds={["gradient-sky", "primary/10"]}
  *   buyNowText="立即购买"
  *   learnMoreText="了解更多"
  * />
@@ -85,11 +85,11 @@ export interface Props {
    */
   products: ProductItem[];
   /**
-   * 背景色类型
+   * 背景色类型数组
    * 使用预定义的背景色类型，如 'primary', 'base-200', 'gradient-sky' 等
-   * 会应用到所有产品项
+   * 组件会循环使用这些背景色，如果只有一个背景色则所有产品项都使用该背景色
    */
-  background?: BackgroundColor;
+  backgrounds?: BackgroundColor[];
   /**
    * 购买按钮文本
    */
@@ -118,7 +118,7 @@ export interface Props {
 
 const {
   products,
-  background,
+  backgrounds,
   buyNowText = '立即购买',
   learnMoreText = '了解更多',
   newLabelText = '新品',
@@ -135,8 +135,12 @@ const defaultBackgrounds: BackgroundColor[] = ['base-200', 'base-100'];
   {
     products.map((product, index) => {
       // 计算当前产品的背景
+      const availableBackgrounds =
+        backgrounds && backgrounds.length > 0
+          ? backgrounds
+          : defaultBackgrounds;
       const currentBackground =
-        background || defaultBackgrounds[index % defaultBackgrounds.length];
+        availableBackgrounds[index % availableBackgrounds.length];
 
       // 计算布局对齐方式（左右交替）
       const align = index % 2 === 0 ? 'left' : 'right';

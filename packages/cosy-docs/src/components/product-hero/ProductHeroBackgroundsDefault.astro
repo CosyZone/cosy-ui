@@ -27,12 +27,36 @@ const products = [
     price: '¥2,999',
     isNew: false,
   },
+  {
+    name: '无线耳机',
+    description: '纯净音质，无感佩戴',
+    image: getProductImage({
+      width: 800,
+      height: 600,
+      tag: 'wireless-earbuds',
+      provider: 'picsum',
+    }),
+    price: '¥1,299',
+    isNew: true,
+  },
+  {
+    name: '平板电脑',
+    description: '轻薄便携，性能强劲',
+    image: getProductImage({
+      width: 800,
+      height: 600,
+      tag: 'tablet',
+      provider: 'picsum',
+    }),
+    price: '¥4,999',
+    isNew: false,
+  },
 ];
 ---
 
 <ProductHero
   products={products}
-  background="primary/10"
+  backgrounds={['base-100', 'base-200']}
   buyNowText="立即购买"
   learnMoreText="了解更多"
   newLabelText="新品"
