@@ -1,24 +1,22 @@
 ---
-import { ProductHeroItem, getProductImage } from '@coffic/cosy-ui';
+import {
+  ProductHeroItem,
+  getProductImage,
+  CodeContainer,
+} from '@coffic/cosy-ui';
+import ProductHeroItemIsNewTrue from './ProductHeroItemIsNewTrue.astro';
+import ProductHeroItemIsNewFalse from './ProductHeroItemIsNewFalse.astro';
+import sourceTrue from './ProductHeroItemIsNewTrue.astro?raw';
+import sourceFalse from './ProductHeroItemIsNewFalse.astro?raw';
 ---
 
-<div class="cosy:space-y-4">
-  <div>
-    <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-2">新品标签</h3>
-    <ProductHeroItem
-      name="极简手机"
-      description="纯净体验，回归本质"
-      image={getProductImage({
-        width: 800,
-        height: 600,
-        tag: 'minimal-phone',
-        provider: 'picsum',
-      })}
-      price="¥6,999"
-      isNew={true}
-      buyNowText="立即购买"
-      learnMoreText="了解更多"
-      newLabelText="新品"
-    />
+<CodeContainer
+  codes={[sourceTrue, sourceFalse]}
+  titles={['显示新品标签', '隐藏新品标签']}>
+  <div id="tab-1">
+    <ProductHeroItemIsNewTrue />
   </div>
-</div>
+  <div id="tab-2">
+    <ProductHeroItemIsNewFalse />
+  </div>
+</CodeContainer>

@@ -1,30 +1,22 @@
 ---
-import { ProductHeroItem, getProductImage } from '@coffic/cosy-ui';
-
-const handleBuyNow = () => {
-  console.log('购买产品: 极简手机');
-  alert('正在购买 极简手机，价格：¥6,999');
-};
+import {
+  ProductHeroItem,
+  getProductImage,
+  CodeContainer,
+} from '@coffic/cosy-ui';
+import ProductHeroItemOnBuyNowDefault from './ProductHeroItemOnBuyNowDefault.astro';
+import ProductHeroItemOnBuyNowCustom from './ProductHeroItemOnBuyNowCustom.astro';
+import sourceDefault from './ProductHeroItemOnBuyNowDefault.astro?raw';
+import sourceCustom from './ProductHeroItemOnBuyNowCustom.astro?raw';
 ---
 
-<div class="cosy:space-y-4">
-  <div>
-    <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-2">购买按钮点击事件</h3>
-    <ProductHeroItem
-      name="极简手机"
-      description="纯净体验，回归本质"
-      image={getProductImage({
-        width: 800,
-        height: 600,
-        tag: 'minimal-phone',
-        provider: 'picsum',
-      })}
-      price="¥6,999"
-      isNew={true}
-      buyNowText="立即购买"
-      learnMoreText="了解更多"
-      newLabelText="新品"
-      onBuyNow={handleBuyNow}
-    />
+<CodeContainer
+  codes={[sourceDefault, sourceCustom]}
+  titles={['默认行为', '自定义事件']}>
+  <div id="tab-1">
+    <ProductHeroItemOnBuyNowDefault />
   </div>
-</div>
+  <div id="tab-2">
+    <ProductHeroItemOnBuyNowCustom />
+  </div>
+</CodeContainer>

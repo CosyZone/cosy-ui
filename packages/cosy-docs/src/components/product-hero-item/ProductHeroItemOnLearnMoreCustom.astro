@@ -1,5 +1,10 @@
 ---
 import { ProductHeroItem, getProductImage } from '@coffic/cosy-ui';
+
+const handleLearnMore = () => {
+  console.log('了解更多产品: 极简手机');
+  alert('正在查看 极简手机 的详细信息');
+};
 ---
 
 <ProductHeroItem
@@ -13,8 +18,8 @@ import { ProductHeroItem, getProductImage } from '@coffic/cosy-ui';
   })}
   price="¥6,999"
   isNew={true}
-  align="right"
   buyNowText="立即购买"
   learnMoreText="了解更多"
   newLabelText="新品"
+  onLearnMore={handleLearnMore}
 />
