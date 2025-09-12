@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ProductHeroProductsSingle from './ProductHeroProductsSingle.astro';
+import ProductHeroProductsMultiple from './ProductHeroProductsMultiple.astro';
+import sourceSingle from './ProductHeroProductsSingle.astro?raw';
+import sourceMultiple from './ProductHeroProductsMultiple.astro?raw';
+---
+
+<CodeContainer
+  codes={[sourceSingle, sourceMultiple]}
+  titles={['单个产品', '多个产品']}>
+  <div id="tab-1">
+    <ProductHeroProductsSingle />
+  </div>
+  <div id="tab-2">
+    <ProductHeroProductsMultiple />
+  </div>
+</CodeContainer>

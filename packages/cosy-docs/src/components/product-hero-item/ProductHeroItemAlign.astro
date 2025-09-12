@@ -1,0 +1,49 @@
+---
+import { ProductHeroItem, getProductImage } from '@coffic/cosy-ui';
+---
+
+<div class="cosy:space-y-4">
+  <div>
+    <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-2">布局对齐方式</h3>
+    <div class="cosy:space-y-8">
+      <div>
+        <h4 class="cosy:text-md cosy:font-medium cosy:mb-2">左对齐（默认）</h4>
+        <ProductHeroItem
+          name="极简手机"
+          description="纯净体验，回归本质"
+          image={getProductImage({
+            width: 800,
+            height: 600,
+            tag: 'minimal-phone',
+            provider: 'picsum',
+          })}
+          price="¥6,999"
+          isNew={true}
+          align="left"
+          buyNowText="立即购买"
+          learnMoreText="了解更多"
+          newLabelText="新品"
+        />
+      </div>
+      <div>
+        <h4 class="cosy:text-md cosy:font-medium cosy:mb-2">右对齐</h4>
+        <ProductHeroItem
+          name="极简手机"
+          description="纯净体验，回归本质"
+          image={getProductImage({
+            width: 800,
+            height: 600,
+            tag: 'minimal-phone',
+            provider: 'picsum',
+          })}
+          price="¥6,999"
+          isNew={true}
+          align="right"
+          buyNowText="立即购买"
+          learnMoreText="了解更多"
+          newLabelText="新品"
+        />
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+---
+import { ProductHeroItem, getProductImage } from '@coffic/cosy-ui';
+---
+
+<div class="cosy:space-y-4">
+  <div>
+    <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-2">自定义样式类</h3>
+    <ProductHeroItem
+      name="极简手机"
+      description="纯净体验，回归本质"
+      image={getProductImage({
+        width: 800,
+        height: 600,
+        tag: 'minimal-phone',
+        provider: 'picsum',
+      })}
+      price="¥6,999"
+      isNew={true}
+      buyNowText="立即购买"
+      learnMoreText="了解更多"
+      newLabelText="新品"
+      class="cosy:border-2 cosy:border-primary cosy:rounded-lg"
+    />
+  </div>
+</div>
