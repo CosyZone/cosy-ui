@@ -1,0 +1,53 @@
+---
+title: Image3
+description: A component that displays three images with the center image upright and side images tilted
+order: 9.3
+---
+
+import { Image3Package } from '@/components/image3';
+
+# Image3
+
+A component that displays three images with the center image upright and side images tilted, creating a dynamic visual effect.
+
+## Case
+
+<Image3Package.Case />
+
+## Props
+
+### class
+
+Custom CSS class name for adding additional styles.
+
+### images
+
+Image data array, must contain three images, each containing src, alt and other properties.
+
+### rounded
+
+Image border radius, optional values: none, sm, md, lg, xl, 2xl, 3xl, full.
+
+### shadow
+
+Image shadow, optional values: none, sm, md, lg, xl.
+
+<Image3Package.Shadow />
+
+### spacing
+
+Image spacing, optional values: sm, md, lg.
+
+<Image3Package.Spacing />
+
+### tiltAngle
+
+Tilt angle, controls the tilt degree of side images, in degrees.
+
+<Image3Package.TiltAngle />
+
+## Error Handling
+
+When the number of images passed is not exactly 3, the component will display an error view to prompt the user.
+
+<Image3Package.Error />

@@ -1,0 +1,29 @@
+---
+/**
+ * @component Image3ErrorView
+ * @description Image3 组件的错误视图，当图片数量不正确时显示
+ */
+export interface Image3ErrorViewProps {
+  imagesCount: number;
+  class?: string;
+}
+
+const { imagesCount, class: className = '' } =
+  Astro.props as Image3ErrorViewProps;
+---
+
+<div
+  class={`flex items-center justify-center p-8 border-2 border-dashed border-red-300 rounded-lg bg-red-50 ${className}`}>
+  <div class="text-center">
+    <div class="text-red-500 text-6xl mb-4">⚠️</div>
+    <h3 class="text-lg font-semibold text-red-700 mb-2">图片数量错误</h3>
+    <p class="text-red-600 mb-4">
+      Image3 组件需要 exactly 3 张图片，当前提供了 {imagesCount} 张图片
+    </p>
+    <div class="text-sm text-red-500 bg-red-100 p-3 rounded">
+      <code class="font-mono">
+        &lt;Image3 images={['图片1', '图片2', '图片3']} /&gt;
+      </code>
+    </div>
+  </div>
+</div>

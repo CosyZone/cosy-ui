@@ -1,0 +1,34 @@
+---
+/**
+ * @component Image3Shadows
+ * @description Image3 组件不同阴影示例
+ */
+import { Image3, getProductImage } from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 200, height: 300, tag: 'shadow-none-left' }),
+    alt: '左侧图片',
+    width: 200,
+    height: 300,
+  },
+  {
+    src: getProductImage({
+      width: 250,
+      height: 350,
+      tag: 'shadow-none-center',
+    }),
+    alt: '中间图片',
+    width: 250,
+    height: 350,
+  },
+  {
+    src: getProductImage({ width: 200, height: 300, tag: 'shadow-none-right' }),
+    alt: '右侧图片',
+    width: 200,
+    height: 300,
+  },
+];
+---
+
+<Image3 images={images} shadow="none" />
