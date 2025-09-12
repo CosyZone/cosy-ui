@@ -2,90 +2,178 @@
 title: 'Image'
 folder: false
 order: 9.4
+tags: ['astro', 'image']
 ---
 
 import { ComponentPackage } from '@/components/image/index';
+import ImageBasic from '@/components/image/ImageBasic.astro';
 
 # {frontmatter.title}
 
-Image 组件是一个增强的图片组件，提供了丰富的功能，包括懒加载、加载状态指示、错误处理、以及各种视觉效果。
+## 简介
 
-## alt
+Image 组件是一个智能图片组件，根据图片源类型自动选择合适的处理方式。对于本地图片使用 LocalImage 组件（基于 Astro Image 优化），对于远程图片使用 RemoteImage 组件（包含加载状态和错误处理）。
+
+### 特性
+
+- **智能分发** - 根据图片类型自动选择最佳处理方式
+- **统一接口** - 提供一致的 API，隐藏内部实现差异
+- **性能优化** - 本地图片自动优化，远程图片提供加载反馈
+- **用户体验** - 统一的视觉效果和交互体验
+- **丰富功能** - 支持懒加载、加载状态指示、错误处理、各种视觉效果
+
+## 案例
+
+<ImageBasic />
+
+## Props
+
+### alt
+
 图片的替代文本，用于无障碍访问和图片加载失败时的显示。
+
 <ComponentPackage.Error />
 
-## border
+### border
+
 图片的边框样式，支持多种边框粗细。
+
 <ComponentPackage.Border />
 
-## class
+### class
+
 自定义 CSS 类名，用于覆盖默认样式。
+
 <ComponentPackage.RoundedShadow />
 
-## height
+### height
+
 图片的高度，单位为像素。
+
 <ComponentPackage.Height />
 
-## hover
+### hover
+
 图片的悬停效果，支持缩放、亮度调整和模糊效果。
+
 <ComponentPackage.Hover />
 
-## lazy
+### lazy
+
 是否启用图片懒加载，默认为 true。
+
 <ComponentPackage.Lazy />
 
-## loading
+### loading
+
 图片的加载方式，支持 lazy 和 eager。
+
 <ComponentPackage.Loading />
 
-## loadingIndicator
+### loadingIndicator
+
 加载指示器类型，支持脉冲、旋转器、进度条和骨架屏。
+
 <ComponentPackage.LoadingIndicator />
 
-## mask
+### mask
+
 图片的遮罩形状，支持多种几何形状。
+
 <ComponentPackage.Mask />
 
-## model
+### model
+
 使用模型信息，显示在图片右上角的信息面板中。
+
 <ComponentPackage.Model />
 
-## objectFit
+### objectFit
+
 图片的填充方式，控制图片如何适应容器。
+
 <ComponentPackage.ObjectFit />
 
-## objectPosition
+### objectPosition
+
 图片的位置，控制图片在容器中的对齐方式。
+
 <ComponentPackage.ObjectPosition />
 
-## prompt
+### prompt
+
 生成提示词，显示在图片右上角的信息面板中。
+
 <ComponentPackage.Prompt />
 
-## rounded
+### rounded
+
 图片的圆角大小，提供多种圆角选项。
+
 <ComponentPackage.Rounded />
 
-## shadow
+### shadow
+
 图片的阴影效果，增强视觉层次感。
+
 <ComponentPackage.Shadow />
 
-## showError
+### showError
+
 是否显示加载失败的错误图，默认为 true。
+
 <ComponentPackage.ShowError />
 
-## showPlaceholder
+### showPlaceholder
+
 是否显示加载中的占位图，默认为 true。
+
 <ComponentPackage.ShowPlaceholder />
 
-## src
+### showPromptPanel
+
+是否展示生成信息面板（prompt/model），默认为 true。
+
+<ComponentPackage.Prompt />
+
+### src
+
 图片源，可以是本地图片或远程URL。
+
 <ComponentPackage.Src />
 
-## transition
+### tooltip
+
+图片的提示文本，鼠标悬停时显示。
+
+<ComponentPackage.Tooltip />
+
+### tooltipColor
+
+提示框的颜色主题。
+
+<ComponentPackage.TooltipColor />
+
+### tooltipOpen
+
+是否强制显示提示框，默认为 false。
+
+<ComponentPackage.TooltipOpen />
+
+### tooltipPlacement
+
+提示框的位置，默认为 top。
+
+<ComponentPackage.TooltipPlacement />
+
+### transition
+
 图片的过渡动画效果，支持淡入、滑动和缩放。
+
 <ComponentPackage.Transition />
 
-## width
+### width
+
 图片的宽度，单位为像素。
+
 <ComponentPackage.Width />

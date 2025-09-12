@@ -2,90 +2,178 @@
 title: 'Image'
 folder: false
 order: 9.4
+tags: ['astro', 'image']
 ---
 
 import { ComponentPackage } from '@/components/image/index';
+import ImageBasic from '@/components/image/ImageBasic.astro';
 
 # {frontmatter.title}
 
-The Image component is an enhanced image component that provides rich features including lazy loading, loading state indicators, error handling, and various visual effects.
+## Introduction
 
-## alt
+The Image component is an intelligent image component that automatically selects the appropriate processing method based on the image source type. For local images, it uses the LocalImage component (based on Astro Image optimization), and for remote images, it uses the RemoteImage component (with loading states and error handling).
+
+### Features
+
+- **Smart Distribution** - Automatically selects the best processing method based on image type
+- **Unified Interface** - Provides consistent API, hiding internal implementation differences
+- **Performance Optimization** - Automatic optimization for local images, loading feedback for remote images
+- **User Experience** - Unified visual effects and interaction experience
+- **Rich Features** - Supports lazy loading, loading state indicators, error handling, various visual effects
+
+## Examples
+
+<ImageBasic />
+
+## Props
+
+### alt
+
 Alternative text for the image, used for accessibility and display when image loading fails.
+
 <ComponentPackage.Error />
 
-## border
+### border
+
 Border style of the image, supporting various border thicknesses.
+
 <ComponentPackage.Border />
 
-## class
+### class
+
 Custom CSS class name for overriding default styles.
+
 <ComponentPackage.RoundedShadow />
 
-## height
+### height
+
 Height of the image in pixels.
+
 <ComponentPackage.Height />
 
-## hover
+### hover
+
 Hover effects for the image, supporting scale, brightness adjustment, and blur effects.
+
 <ComponentPackage.Hover />
 
-## lazy
+### lazy
+
 Whether to enable lazy loading for the image, defaults to true.
+
 <ComponentPackage.Lazy />
 
-## loading
+### loading
+
 Loading method for the image, supporting lazy and eager.
+
 <ComponentPackage.Loading />
 
-## loadingIndicator
+### loadingIndicator
+
 Type of loading indicator, supporting pulse, spinner, progress bar, and skeleton screen.
+
 <ComponentPackage.LoadingIndicator />
 
-## mask
+### mask
+
 Mask shape of the image, supporting various geometric shapes.
+
 <ComponentPackage.Mask />
 
-## model
+### model
+
 Model information, displayed in the info panel at the top-right corner of the image.
+
 <ComponentPackage.Model />
 
-## objectFit
+### objectFit
+
 Fill mode of the image, controlling how the image adapts to the container.
+
 <ComponentPackage.ObjectFit />
 
-## objectPosition
+### objectPosition
+
 Position of the image, controlling the alignment of the image within the container.
+
 <ComponentPackage.ObjectPosition />
 
-## prompt
+### prompt
+
 Generation prompt, displayed in the info panel at the top-right corner of the image.
+
 <ComponentPackage.Prompt />
 
-## rounded
+### rounded
+
 Border radius size of the image, providing multiple rounded corner options.
+
 <ComponentPackage.Rounded />
 
-## shadow
+### shadow
+
 Shadow effects for the image, enhancing visual hierarchy.
+
 <ComponentPackage.Shadow />
 
-## showError
+### showError
+
 Whether to show error image when loading fails, defaults to true.
+
 <ComponentPackage.ShowError />
 
-## showPlaceholder
+### showPlaceholder
+
 Whether to show placeholder during loading, defaults to true.
+
 <ComponentPackage.ShowPlaceholder />
 
-## src
+### showPromptPanel
+
+Whether to show the generation info panel (prompt/model), defaults to true.
+
+<ComponentPackage.Prompt />
+
+### src
+
 Image source, can be a local image or remote URL.
+
 <ComponentPackage.Src />
 
-## transition
+### tooltip
+
+Tooltip text for the image, displayed when hovering over the image.
+
+<ComponentPackage.Tooltip />
+
+### tooltipColor
+
+Color theme of the tooltip.
+
+<ComponentPackage.TooltipColor />
+
+### tooltipOpen
+
+Whether to force show the tooltip, defaults to false.
+
+<ComponentPackage.TooltipOpen />
+
+### tooltipPlacement
+
+Position of the tooltip, defaults to top.
+
+<ComponentPackage.TooltipPlacement />
+
+### transition
+
 Transition animation effects for the image, supporting fade, slide, and zoom.
+
 <ComponentPackage.Transition />
 
-## width
+### width
+
 Width of the image in pixels.
+
 <ComponentPackage.Width />
