@@ -150,68 +150,70 @@ const contentDirection = isRightAlign ? 'direction: ltr;' : '';
 ---
 
 <Container
-  width="xl"
+  width="full"
   background={background || 'base-100'}
-  style="padding: 6rem 0;"
+  padding="xl"
   class={className}>
-  <div
-    style={`display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; ${gridDirection}`}>
-    <!-- 内容区域 -->
-    <div style={contentDirection}>
-      <!-- 新品标签 -->
-      {
-        isNew && (
-          <div style="margin-bottom: 1rem;">
-            <Badge variant="primary" class="cosy:mb-4">
-              {newLabelText}
-            </Badge>
-          </div>
-        )
-      }
+  <Container width="xl">
+    <div
+      style={`display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; ${gridDirection}`}>
+      <!-- 内容区域 -->
+      <div style={contentDirection}>
+        <!-- 新品标签 -->
+        {
+          isNew && (
+            <div style="margin-bottom: 1rem;">
+              <Badge variant="primary" class="cosy:mb-4">
+                {newLabelText}
+              </Badge>
+            </div>
+          )
+        }
 
-      <!-- 产品标题 -->
-      <Heading level={2} size="4xl" class="cosy:mb-4 cosy:font-thin">
-        {name}
-      </Heading>
+        <!-- 产品标题 -->
+        <Heading level={2} size="4xl" class="cosy:mb-4 cosy:font-thin">
+          {name}
+        </Heading>
 
-      <!-- 产品描述 -->
-      <Text
-        size="xl"
-        class="cosy:text-base-content/70 cosy:mb-6 cosy:font-light">
-        {description}
-      </Text>
-
-      <!-- 价格 -->
-      <div
-        style="display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem;">
-        <Text size="2xl" class="cosy:font-thin">
-          {price}
+        <!-- 产品描述 -->
+        <Text
+          size="xl"
+          class="cosy:text-base-content/70 cosy:mb-6 cosy:font-light">
+          {description}
         </Text>
+
+        <!-- 价格 -->
+        <div
+          style="display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem;">
+          <Text size="2xl" class="cosy:font-thin">
+            {price}
+          </Text>
+        </div>
+
+        <!-- 操作按钮 -->
+        <div style="display: flex; gap: 1rem;">
+          <Button variant="primary" size="lg" onclick={onBuyNow}>
+            {buyNowText}
+          </Button>
+          <Button variant="outline" size="lg" onclick={onLearnMore}>
+            {learnMoreText}
+          </Button>
+        </div>
       </div>
 
-      <!-- 操作按钮 -->
-      <div style="display: flex; gap: 1rem;">
-        <Button variant="primary" size="lg" onclick={onBuyNow}>
-          {buyNowText}
-        </Button>
-        <Button variant="outline" size="lg" onclick={onLearnMore}>
-          {learnMoreText}
-        </Button>
+      <!-- 图片区域 -->
+      <div>
+        <div
+          style="width: 100%; height: auto; border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); overflow: hidden;">
+          <Image
+            src={image}
+            alt={name}
+            width={800}
+            height={600}
+            class="cosy:w-full cosy:h-auto"
+          />
+        </div>
       </div>
     </div>
-
-    <!-- 图片区域 -->
-    <div>
-      <div
-        style="width: 100%; height: auto; border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); overflow: hidden;">
-        <Image
-          src={image}
-          alt={name}
-          width={800}
-          height={600}
-          class="cosy:w-full cosy:h-auto"
-        />
-      </div>
-    </div>
-  </div>
+  </Container>
 </Container>
