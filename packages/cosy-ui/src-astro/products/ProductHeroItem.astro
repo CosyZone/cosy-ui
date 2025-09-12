@@ -24,8 +24,6 @@
  *   image="/images/products/phone.jpg"
  *   price="¥6,999"
  *   isNew={true}
- *   buyNowText="立即购买"
- *   learnMoreText="了解更多"
  * />
  * ```
  *
@@ -38,8 +36,6 @@
  *   price="¥2,999"
  *   isNew={false}
  *   align="right"
- *   buyNowText="立即购买"
- *   learnMoreText="了解更多"
  * />
  * ```
  *
@@ -51,20 +47,25 @@
  *   image="/images/products/earbuds.jpg"
  *   price="¥1,299"
  *   background="gradient-sky"
- *   buyNowText="立即购买"
- *   learnMoreText="了解更多"
  * />
+ * ```
+ *
+ * 自定义操作区（使用 actions 插槽）：
+ * ```astro
+ * <ProductHeroItem
+ *   name="极简手机"
+ *   description="纯净体验，回归本质"
+ *   image="/images/products/phone.jpg"
+ *   price="¥6,999">
+ *   <div slot="actions" style="display:flex; gap:1rem;">
+ *     <a href="#buy" class="btn btn-primary">立即购买</a>
+ *     <a href="#learn" class="btn btn-outline">了解更多</a>
+ *   </div>
+ * </ProductHeroItem>
  * ```
  */
 
-import {
-  Badge,
-  Button,
-  Heading,
-  Text,
-  Image,
-  Container,
-} from '../../index-astro';
+import { Badge, Heading, Text, Image, Container } from '../../index-astro';
 import '../../style.ts';
 import type { ImageSource } from '../image/image.ts';
 import type { BackgroundColor } from '../../src/common/backgrounds';
@@ -102,25 +103,9 @@ export interface Props {
    */
   background?: BackgroundColor;
   /**
-   * 购买按钮文本
-   */
-  buyNowText?: string;
-  /**
-   * 了解更多按钮文本
-   */
-  learnMoreText?: string;
-  /**
    * 新品标签文本
    */
   newLabelText?: string;
-  /**
-   * 购买按钮点击事件
-   */
-  onBuyNow?: () => void;
-  /**
-   * 了解更多按钮点击事件
-   */
-  onLearnMore?: () => void;
   /**
    * 自定义类名
    */
@@ -135,11 +120,7 @@ const {
   isNew = false,
   align = 'left',
   background,
-  buyNowText = '立即购买',
-  learnMoreText = '了解更多',
   newLabelText = '新品',
-  onBuyNow,
-  onLearnMore,
   class: className = '',
 } = Astro.props;
 
@@ -190,14 +171,9 @@ const contentDirection = isRightAlign ? 'direction: ltr;' : '';
           </Text>
         </div>
 
-        <!-- 操作按钮 -->
+        <!-- 自定义操作区插槽 -->
         <div style="display: flex; gap: 1rem;">
-          <Button variant="primary" size="lg" onclick={onBuyNow}>
-            {buyNowText}
-          </Button>
-          <Button variant="outline" size="lg" onclick={onLearnMore}>
-            {learnMoreText}
-          </Button>
+          <slot name="actions" />
         </div>
       </div>
 

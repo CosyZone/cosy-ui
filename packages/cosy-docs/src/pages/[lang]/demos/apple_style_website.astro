@@ -23,7 +23,7 @@ import {
   SmartIcon,
   Container,
   StatsDisplay,
-  ProductHero,
+  ProductHeroItem,
   FeatureShowcase,
   TeamMembers,
   getExampleImage,
@@ -495,12 +495,24 @@ const featureShowcaseData = [
 
   <!-- Products Section - 大图展示 -->
   <Container width="full" padding="none" margin="lg">
-    <ProductHero
-      products={products}
-      buyNowText={data.buyNow}
-      learnMoreText={data.learnMore}
-      newLabelText={currentLocale === 'zh-cn' ? '新品' : 'New'}
-    />
+    {
+      products.map((product, index) => (
+        <ProductHeroItem
+          {...product}
+          align={index % 2 === 0 ? 'left' : 'right'}
+          background={index % 2 === 0 ? 'base-200' : 'base-100'}
+          newLabelText={currentLocale === 'zh-cn' ? '新品' : 'New'}>
+          <div slot="actions" style="display:flex; gap:1rem;">
+            <Button variant="primary" size="lg">
+              {data.buyNow}
+            </Button>
+            <Button variant="outline" size="lg">
+              {data.learnMore}
+            </Button>
+          </div>
+        </ProductHeroItem>
+      ))
+    }
   </Container>
 
   <!-- Features Section - 特性展示 -->
