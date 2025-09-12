@@ -44,7 +44,7 @@
  * ```astro
  * <ProductHero
  *   products={products}
- *   backgroundColor="#f8fafc"
+ *   background="gradient-sky"
  *   buyNowText="立即购买"
  *   learnMoreText="了解更多"
  * />
@@ -64,12 +64,13 @@
 import { ProductHeroItem } from '../../index-astro';
 import '../../style.ts';
 import type { Props as ProductHeroItemProps } from './ProductHeroItem.astro';
+import type { BackgroundColor } from '../../src/common/backgrounds';
 
 // 定义产品项类型
 type ProductItem = Omit<
   ProductHeroItemProps,
   | 'align'
-  | 'backgroundColor'
+  | 'background'
   | 'buyNowText'
   | 'learnMoreText'
   | 'newLabelText'
@@ -84,10 +85,11 @@ export interface Props {
    */
   products: ProductItem[];
   /**
-   * 背景色
-   * 支持任意CSS颜色值，会应用到所有产品项
+   * 背景色类型
+   * 使用预定义的背景色类型，如 'primary', 'base-200', 'gradient-sky' 等
+   * 会应用到所有产品项
    */
-  backgroundColor?: string;
+  background?: BackgroundColor;
   /**
    * 购买按钮文本
    */
@@ -116,7 +118,7 @@ export interface Props {
 
 const {
   products,
-  backgroundColor,
+  background,
   buyNowText = '立即购买',
   learnMoreText = '了解更多',
   newLabelText = '新品',
@@ -126,16 +128,15 @@ const {
 } = Astro.props;
 
 // 默认背景色数组，用于交替显示
-const defaultBackgroundClasses = ['cosy:bg-base-200', 'cosy:bg-base-100'];
+const defaultBackgrounds: BackgroundColor[] = ['base-200', 'base-100'];
 ---
 
 <div class={className}>
   {
     products.map((product, index) => {
       // 计算当前产品的背景
-      const currentBackgroundClass = !backgroundColor
-        ? defaultBackgroundClasses[index % defaultBackgroundClasses.length]
-        : undefined;
+      const currentBackground =
+        background || defaultBackgrounds[index % defaultBackgrounds.length];
 
       // 计算布局对齐方式（左右交替）
       const align = index % 2 === 0 ? 'left' : 'right';
@@ -144,8 +145,7 @@ const defaultBackgroundClasses = ['cosy:bg-base-200', 'cosy:bg-base-100'];
         <ProductHeroItem
           {...product}
           align={align}
-          backgroundClass={currentBackgroundClass}
-          backgroundColor={backgroundColor}
+          background={currentBackground}
           buyNowText={buyNowText}
           learnMoreText={learnMoreText}
           newLabelText={newLabelText}

@@ -1,0 +1,27 @@
+---
+import {
+  ProductHeroItem,
+  getProductImage,
+  CodeContainer,
+} from '@coffic/cosy-ui';
+import ProductHeroItemBackgroundDefault from './ProductHeroItemBackgroundDefault.astro';
+import ProductHeroItemBackgroundBlue from './ProductHeroItemBackgroundBlue.astro';
+import ProductHeroItemBackgroundGray from './ProductHeroItemBackgroundGray.astro';
+import sourceDefault from './ProductHeroItemBackgroundDefault.astro?raw';
+import sourceBlue from './ProductHeroItemBackgroundBlue.astro?raw';
+import sourceGray from './ProductHeroItemBackgroundGray.astro?raw';
+---
+
+<CodeContainer
+  codes={[sourceDefault, sourceBlue, sourceGray]}
+  titles={['默认背景', '蓝色背景', '灰色背景']}>
+  <div id="tab-1">
+    <ProductHeroItemBackgroundDefault />
+  </div>
+  <div id="tab-2">
+    <ProductHeroItemBackgroundBlue />
+  </div>
+  <div id="tab-3">
+    <ProductHeroItemBackgroundGray />
+  </div>
+</CodeContainer>

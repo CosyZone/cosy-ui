@@ -5,7 +5,7 @@ import ProductHeroItemImageContainer from './ProductHeroItemImageContainer.astro
 import ProductHeroItemPriceContainer from './ProductHeroItemPriceContainer.astro';
 import ProductHeroItemIsNewContainer from './ProductHeroItemIsNewContainer.astro';
 import ProductHeroItemAlignContainer from './ProductHeroItemAlignContainer.astro';
-import ProductHeroItemBackgroundColorContainer from './ProductHeroItemBackgroundColorContainer.astro';
+import ProductHeroItemBackgroundContainer from './ProductHeroItemBackgroundContainer.astro';
 import ProductHeroItemBuyNowTextContainer from './ProductHeroItemBuyNowTextContainer.astro';
 import ProductHeroItemLearnMoreTextContainer from './ProductHeroItemLearnMoreTextContainer.astro';
 import ProductHeroItemNewLabelTextContainer from './ProductHeroItemNewLabelTextContainer.astro';
@@ -21,7 +21,7 @@ export const ProductHeroItemPackage = {
     Price: ProductHeroItemPriceContainer,
     IsNew: ProductHeroItemIsNewContainer,
     Align: ProductHeroItemAlignContainer,
-    BackgroundColor: ProductHeroItemBackgroundColorContainer,
+    Background: ProductHeroItemBackgroundContainer,
     BuyNowText: ProductHeroItemBuyNowTextContainer,
     LearnMoreText: ProductHeroItemLearnMoreTextContainer,
     NewLabelText: ProductHeroItemNewLabelTextContainer,

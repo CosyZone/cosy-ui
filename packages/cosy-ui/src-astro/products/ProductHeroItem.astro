@@ -50,7 +50,7 @@
  *   description="纯净音质，无感佩戴"
  *   image="/images/products/earbuds.jpg"
  *   price="¥1,299"
- *   backgroundColor="#f8fafc"
+ *   background="gradient-sky"
  *   buyNowText="立即购买"
  *   learnMoreText="了解更多"
  * />
@@ -67,6 +67,7 @@ import {
 } from '../../index-astro';
 import '../../style.ts';
 import type { ImageSource } from '../image/image.ts';
+import type { BackgroundColor } from '../../src/common/backgrounds';
 
 export interface Props {
   /**
@@ -96,15 +97,10 @@ export interface Props {
    */
   align?: 'left' | 'right';
   /**
-   * 背景色
-   * 支持任意CSS颜色值
+   * 背景色类型
+   * 使用预定义的背景色类型，如 'primary', 'base-200', 'gradient-sky' 等
    */
-  backgroundColor?: string;
-  /**
-   * 背景类（推荐）
-   * 传入 daisyUI 背景类名，如 cosy:bg-base-200
-   */
-  backgroundClass?: string;
+  background?: BackgroundColor;
   /**
    * 购买按钮文本
    */
@@ -138,8 +134,7 @@ const {
   price,
   isNew = false,
   align = 'left',
-  backgroundColor,
-  backgroundClass,
+  background,
   buyNowText = '立即购买',
   learnMoreText = '了解更多',
   newLabelText = '新品',
@@ -154,70 +149,69 @@ const gridDirection = isRightAlign ? 'direction: rtl;' : '';
 const contentDirection = isRightAlign ? 'direction: ltr;' : '';
 ---
 
-<div
-  ignore-heading
-  style={`padding: 6rem 0;${!backgroundClass && backgroundColor ? ` background: ${backgroundColor};` : ''}`}
-  class={`${backgroundClass ?? 'cosy:bg-base-100'} ${className}`}>
-  <Container width="xl">
-    <div
-      style={`display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; ${gridDirection}`}>
-      <!-- 内容区域 -->
-      <div style={contentDirection}>
-        <!-- 新品标签 -->
-        {
-          isNew && (
-            <div style="margin-bottom: 1rem;">
-              <Badge variant="primary" class="cosy:mb-4">
-                {newLabelText}
-              </Badge>
-            </div>
-          )
-        }
+<Container
+  width="xl"
+  background={background || 'base-100'}
+  style="padding: 6rem 0;"
+  class={className}>
+  <div
+    style={`display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; ${gridDirection}`}>
+    <!-- 内容区域 -->
+    <div style={contentDirection}>
+      <!-- 新品标签 -->
+      {
+        isNew && (
+          <div style="margin-bottom: 1rem;">
+            <Badge variant="primary" class="cosy:mb-4">
+              {newLabelText}
+            </Badge>
+          </div>
+        )
+      }
 
-        <!-- 产品标题 -->
-        <Heading level={2} size="4xl" class="cosy:mb-4 cosy:font-thin">
-          {name}
-        </Heading>
+      <!-- 产品标题 -->
+      <Heading level={2} size="4xl" class="cosy:mb-4 cosy:font-thin">
+        {name}
+      </Heading>
 
-        <!-- 产品描述 -->
-        <Text
-          size="xl"
-          class="cosy:text-base-content/70 cosy:mb-6 cosy:font-light">
-          {description}
+      <!-- 产品描述 -->
+      <Text
+        size="xl"
+        class="cosy:text-base-content/70 cosy:mb-6 cosy:font-light">
+        {description}
+      </Text>
+
+      <!-- 价格 -->
+      <div
+        style="display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem;">
+        <Text size="2xl" class="cosy:font-thin">
+          {price}
         </Text>
-
-        <!-- 价格 -->
-        <div
-          style="display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem;">
-          <Text size="2xl" class="cosy:font-thin">
-            {price}
-          </Text>
-        </div>
-
-        <!-- 操作按钮 -->
-        <div style="display: flex; gap: 1rem;">
-          <Button variant="primary" size="lg" onclick={onBuyNow}>
-            {buyNowText}
-          </Button>
-          <Button variant="outline" size="lg" onclick={onLearnMore}>
-            {learnMoreText}
-          </Button>
-        </div>
       </div>
 
-      <!-- 图片区域 -->
-      <div>
-        <div
-          style="width: 100%; height: auto; border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); overflow: hidden;">
-          <Image
-            src={image}
-            alt={name}
-            width={800}
-            height={600}
-            class="cosy:w-full cosy:h-auto"
-          />
-        </div>
+      <!-- 操作按钮 -->
+      <div style="display: flex; gap: 1rem;">
+        <Button variant="primary" size="lg" onclick={onBuyNow}>
+          {buyNowText}
+        </Button>
+        <Button variant="outline" size="lg" onclick={onLearnMore}>
+          {learnMoreText}
+        </Button>
       </div>
     </div>
-  </Container>
-</div>
+
+    <!-- 图片区域 -->
+    <div>
+      <div
+        style="width: 100%; height: auto; border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); overflow: hidden;">
+        <Image
+          src={image}
+          alt={name}
+          width={800}
+          height={600}
+          class="cosy:w-full cosy:h-auto"
+        />
+      </div>
+    </div>
+  </div>
+</Container>
