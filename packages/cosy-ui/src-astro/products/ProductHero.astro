@@ -4,7 +4,7 @@
  *
  * @description
  * ProductHero 组件用于展示单个产品的详细信息，采用苹果风格的大图展示设计。
- * 支持左右交替布局、新品标签、价格显示和操作按钮。
+ * 支持左右交替布局、标签数组、价格显示和操作按钮。
  * 适用于产品详情页、产品展示页面等场景。
  *
  * @design
@@ -23,7 +23,7 @@
  *   description="纯净体验，回归本质"
  *   image="/images/products/phone.jpg"
  *   price="¥6,999"
- *   isNew={true}
+ *   labels={["新品"]}
  * />
  * ```
  *
@@ -34,7 +34,7 @@
  *   description="健康生活，简约开始"
  *   image="/images/products/watch.jpg"
  *   price="¥2,999"
- *   isNew={false}
+ *   labels={["热卖", "直降 500"]}
  *   align="right"
  * />
  * ```
@@ -70,27 +70,8 @@ import '../../style.ts';
 import type { ImageSource } from '../image/image.ts';
 import type { BackgroundColor } from '../../src/common/backgrounds';
 
+// Props 按字母顺序（A-Z）
 export interface Props {
-  /**
-   * 产品名称
-   */
-  name: string;
-  /**
-   * 产品描述
-   */
-  description: string;
-  /**
-   * 产品图片
-   */
-  image: ImageSource;
-  /**
-   * 产品价格
-   */
-  price: string;
-  /**
-   * 是否为新品
-   */
-  isNew?: boolean;
   /**
    * 布局对齐方式
    * - left: 左对齐（默认）
@@ -103,13 +84,29 @@ export interface Props {
    */
   background?: BackgroundColor;
   /**
-   * 新品标签文本
-   */
-  newLabelText?: string;
-  /**
    * 自定义类名
    */
   class?: string;
+  /**
+   * 产品描述
+   */
+  description: string;
+  /**
+   * 产品图片
+   */
+  image: ImageSource;
+  /**
+   * 标签文案列表。可传多个，如 ["限时优惠", "热销"]
+   */
+  labels?: string[];
+  /**
+   * 产品名称
+   */
+  name: string;
+  /**
+   * 产品价格
+   */
+  price: string;
 }
 
 const {
@@ -117,10 +114,9 @@ const {
   description,
   image,
   price,
-  isNew = false,
+  labels = [],
   align = 'left',
   background,
-  newLabelText = '新品',
   class: className = '',
 } = Astro.props;
 
@@ -140,13 +136,13 @@ const contentDirection = isRightAlign ? 'direction: ltr;' : '';
       style={`display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; ${gridDirection}`}>
       <!-- 内容区域 -->
       <div style={contentDirection}>
-        <!-- 新品标签 -->
+        <!-- 标签列表 -->
         {
-          isNew && (
-            <div style="margin-bottom: 1rem;">
-              <Badge variant="primary" class="cosy:mb-4">
-                {newLabelText}
-              </Badge>
+          labels && labels.length > 0 && (
+            <div class="cosy:flex cosy:flex-wrap cosy:gap-2 cosy:mb-4">
+              {labels.map((label) => (
+                <Badge variant="primary">{label}</Badge>
+              ))}
             </div>
           )
         }

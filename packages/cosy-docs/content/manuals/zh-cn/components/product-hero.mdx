@@ -18,7 +18,7 @@ import { ProductHeroPackage } from '@/components/product-hero/index';
 
 ## 简介
 
-ProductHero 组件用于展示单个产品的详细信息，采用苹果风格的大图展示设计。支持左右交替布局、新品标签、价格显示和操作按钮。适用于产品详情页、产品展示页面等场景。
+ProductHero 组件用于展示单个产品的详细信息，采用苹果风格的大图展示设计。支持左右交替布局、标签数组、价格显示和操作按钮。适用于产品详情页、产品展示页面等场景。
 
 组件特性：
 
@@ -64,23 +64,17 @@ ProductHero 组件用于展示单个产品的详细信息，采用苹果风格�
 
 <ProductHeroPackage.Image />
 
-### isNew
+### labels
 
-是否为新品，可选属性，默认为 false。
+标签数组，传入一个或多个字符串作为标签。
 
-<ProductHeroPackage.IsNew />
+<ProductHeroPackage.Labels />
 
 ### name
 
 产品名称，必填属性。
 
 <ProductHeroPackage.Name />
-
-### newLabelText
-
-新品标签文本，默认为"新品"。
-
-<ProductHeroPackage.NewLabelText />
 
 ### price
 

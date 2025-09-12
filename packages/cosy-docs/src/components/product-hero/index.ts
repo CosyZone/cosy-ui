@@ -12,6 +12,7 @@ import ProductHeroNewLabelTextContainer from './ProductHeroNewLabelTextContainer
 import ProductHeroOnBuyNowContainer from './ProductHeroOnBuyNowContainer.astro';
 import ProductHeroOnLearnMoreContainer from './ProductHeroOnLearnMoreContainer.astro';
 import ProductHeroClassContainer from './ProductHeroClassContainer.astro';
+import ProductHeroLabelsContainer from './ProductHeroLabelsContainer.astro';
 
 export const ProductHeroPackage = {
     Example: ProductHeroExampleContainer,
@@ -19,13 +20,10 @@ export const ProductHeroPackage = {
     Description: ProductHeroDescriptionContainer,
     Image: ProductHeroImageContainer,
     Price: ProductHeroPriceContainer,
-    IsNew: ProductHeroIsNewContainer,
+    // IsNew 已废弃
     Align: ProductHeroAlignContainer,
     Background: ProductHeroBackgroundContainer,
-    BuyNowText: ProductHeroBuyNowTextContainer,
-    LearnMoreText: ProductHeroLearnMoreTextContainer,
-    NewLabelText: ProductHeroNewLabelTextContainer,
-    OnBuyNow: ProductHeroOnBuyNowContainer,
-    OnLearnMore: ProductHeroOnLearnMoreContainer,
+    // 以下已废弃：BuyNowText, LearnMoreText, NewLabelText, OnBuyNow, OnLearnMore
+    Labels: ProductHeroLabelsContainer,
     Class: ProductHeroClassContainer,
 };

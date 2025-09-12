@@ -18,7 +18,7 @@ import { ProductHeroPackage } from '@/components/product-hero/index';
 
 ## Introduction
 
-The ProductHero component is designed to display detailed information about a single product using an Apple-style large image display design. It supports alternating left-right layouts, new product labels, price display, and action buttons. Perfect for product detail pages, product showcase pages, and similar scenarios.
+The ProductHero component is designed to display detailed information about a single product using an Apple-style large image display design. It supports alternating left-right layouts, label arrays, price display, and action buttons. Perfect for product detail pages, product showcase pages, and similar scenarios.
 
 Component Features:
 
@@ -64,23 +64,17 @@ Product image, required property. Supports ImageSource type.
 
 <ProductHeroPackage.Image />
 
-### isNew
+### labels
 
-Whether it's a new product, optional property, defaults to false.
+Array of label strings. Pass one or multiple strings as tags.
 
-<ProductHeroPackage.IsNew />
+<ProductHeroPackage.Labels />
 
 ### name
 
 Product name, required property.
 
 <ProductHeroPackage.Name />
-
-### newLabelText
-
-New product label text, defaults to "新品" (New).
-
-<ProductHeroPackage.NewLabelText />
 
 ### price
 
