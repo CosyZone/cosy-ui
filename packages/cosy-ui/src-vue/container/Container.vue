@@ -48,7 +48,7 @@ const containerClasses = computed(() => [
   props.centered ? 'cosy:mx-auto' : '',
   widthClasses[resolvedSize.value],
   paddingClasses[props.padding],
-  roundedClasses[props.rounded],
+  roundedClasses[props.rounded as keyof typeof roundedClasses],
   props.border ? 'cosy:border' : '',
   props.flex ? flexClasses[props.flex] : '',
   props.flex ? gapClasses[props.gap] : '',

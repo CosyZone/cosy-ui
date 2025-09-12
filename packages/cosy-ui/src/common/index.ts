@@ -22,4 +22,5 @@ export * from './padding';
 export * from './margin';
 
 // 外观相关（类型和类名映射）
-export * from './appearance';
+export * from './rounded';
+export * from './fitmode';
