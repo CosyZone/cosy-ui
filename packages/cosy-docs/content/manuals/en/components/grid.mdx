@@ -2,28 +2,72 @@
 title: 'Grid'
 folder: false
 order: 7.1
+tags:
+- astro
+- grid
 ---
 
-import { GridPackage } from '@/components/grid/index.ts';
+import { Grid } from '@coffic/cosy-ui';
+import { GridPackage } from '@/components/grid/index';
 
 # {frontmatter.title}
 
-## Basic Usage
+## Introduction
 
-<GridPackage.GridContainers.Basic />
+The Grid component is a flexible grid layout component for creating responsive multi-column layouts. It encapsulates common CSS Grid functionality and provides a simple interface to control grid columns and spacing.
 
-## Responsive Layout
+Component features:
 
-<GridPackage.GridContainers.Responsive />
+- Supports fixed and responsive column configurations
+- Provides multiple spacing options (row gap, column gap, overall gap)
+- Supports vertical margin settings
+- Optional border display
+- Responsive design, adapts to different screen sizes
 
-## Custom Spacing
+## Examples
 
-<GridPackage.GridContainers.CustomGap />
+<GridPackage.GridExamples.Basic />
 
-## Vertical Margin
+## Props
+
+### border
+
+Whether to display a border.
+
+<GridPackage.GridContainers.Border />
+
+### class
+
+Custom CSS class that can be used to override default styles.
+
+<GridPackage.GridContainers.CustomStyle />
+
+### colGap
+
+Column gap, defaults to the same as gap.
+
+<GridPackage.GridContainers.ColGap />
+
+### cols
+
+Number of grid columns, can be a fixed value or responsive object.
+
+<GridPackage.GridContainers.Cols />
+
+### gap
+
+Grid spacing, options: none, xs, sm, md, lg, xl.
+
+<GridPackage.GridContainers.Gap />
+
+### marginY
+
+Vertical margin, options: none, xs, sm, md, lg, xl.
 
 <GridPackage.GridContainers.MarginY />
 
-## Border
+### rowGap
 
-<GridPackage.GridContainers.Border />
+Row gap, defaults to the same as gap.
+
+<GridPackage.GridContainers.RowGap />

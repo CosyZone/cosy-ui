@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import GridWithMarginY from './GridWithMarginY.astro';
+import GridWithoutMarginY from './GridWithoutMarginY.astro';
+import GridWithMarginYSourceCode from './GridWithMarginY.astro?raw';
+import GridWithoutMarginYSourceCode from './GridWithoutMarginY.astro?raw';
+---
+
+<CodeContainer
+  codes={[GridWithMarginYSourceCode, GridWithoutMarginYSourceCode]}
+  titles={['有垂直外边距', '无垂直外边距']}>
+  <div id="tab-1">
+    <GridWithMarginY />
+  </div>
+  <div id="tab-2">
+    <GridWithoutMarginY />
+  </div>
+</CodeContainer>

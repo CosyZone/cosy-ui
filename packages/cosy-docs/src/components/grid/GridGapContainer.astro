@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import GridGapSmall from './GridGapSmall.astro';
+import GridGapLarge from './GridGapLarge.astro';
+import GridGapSmallSourceCode from './GridGapSmall.astro?raw';
+import GridGapLargeSourceCode from './GridGapLarge.astro?raw';
+---
+
+<CodeContainer
+  codes={[GridGapSmallSourceCode, GridGapLargeSourceCode]}
+  titles={['小间距', '大间距']}>
+  <div id="tab-1">
+    <GridGapSmall />
+  </div>
+  <div id="tab-2">
+    <GridGapLarge />
+  </div>
+</CodeContainer>
