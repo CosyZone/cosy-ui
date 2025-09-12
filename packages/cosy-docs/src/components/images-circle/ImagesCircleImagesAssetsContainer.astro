@@ -1,0 +1,15 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+
+// 源码导入
+import ImagesAssetsSourceCode from './ImagesAssets.astro?raw';
+
+// 组件导入
+import ImagesAssets from './ImagesAssets.astro';
+---
+
+<CodeContainer codes={[ImagesAssetsSourceCode]} titles={['ImageMetadata 对象']}>
+  <div id="tab-1">
+    <ImagesAssets />
+  </div>
+</CodeContainer>

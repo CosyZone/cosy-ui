@@ -2,26 +2,21 @@
 import { CodeContainer } from '@coffic/cosy-ui';
 
 // 源码导入
-import Images3SourceCode from './Images3.astro?raw';
-import Images5SourceCode from './Images5.astro?raw';
-import Images7SourceCode from './Images7.astro?raw';
+import ImagesStringUrlSourceCode from './ImagesStringUrl.astro?raw';
+import ImagesAssetsSourceCode from './ImagesAssets.astro?raw';
 
 // 组件导入
-import Images3 from './Images3.astro';
-import Images5 from './Images5.astro';
-import Images7 from './Images7.astro';
+import ImagesStringUrl from './ImagesStringUrl.astro';
+import ImagesAssets from './ImagesAssets.astro';
 ---
 
 <CodeContainer
-  codes={[Images3SourceCode, Images5SourceCode, Images7SourceCode]}
-  titles={['3张图片', '5张图片', '7张图片']}>
+  codes={[ImagesStringUrlSourceCode, ImagesAssetsSourceCode]}
+  titles={['字符串 URL', 'ImageMetadata 对象']}>
   <div id="tab-1">
-    <Images3 />
+    <ImagesStringUrl />
   </div>
   <div id="tab-2">
-    <Images5 />
-  </div>
-  <div id="tab-3">
-    <Images7 />
+    <ImagesAssets />
   </div>
 </CodeContainer>
