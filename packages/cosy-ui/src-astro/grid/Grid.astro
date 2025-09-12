@@ -59,7 +59,17 @@
  * </Grid>
  * ```
  *
+ * 自定义背景色：
+ * ```astro
+ * <Grid cols={3} gap="md" background="primary/10">
+ *   <div>第一列</div>
+ *   <div>第二列</div>
+ *   <div>第三列</div>
+ * </Grid>
+ * ```
+ *
  * @props
+ * @prop {BackgroundColor} [background] - 背景色类型，支持所有预设背景色和透明度变体
  * @prop {number | Object} [cols=1] - 网格列数，可以是固定值或响应式对象
  * @prop {string} [gap="md"] - 网格间距，可选值：none, xs, sm, md, lg, xl
  * @prop {string} [rowGap] - 行间距，默认与 gap 相同
@@ -72,6 +82,10 @@
 
 // 导入样式
 import '../../style.ts';
+import {
+  getBackgroundClass,
+  type BackgroundColor,
+} from '../../src/common/backgrounds';
 
 import type { GridProps } from './types';
 
@@ -90,6 +104,7 @@ type ResponsiveValue<T> =
 type Props = GridProps;
 
 const {
+  background,
   cols = 1,
   gap = 'md',
   rowGap,
@@ -420,6 +435,9 @@ const marginYClasses: Record<GapSize, string> = {
   xl: 'cosy:my-12',
 };
 
+// 获取背景色类名
+const backgroundClass = getBackgroundClass(background as BackgroundColor);
+
 // 构建最终类名
 const gridClasses = [
   'cosy:grid',
@@ -432,6 +450,7 @@ const gridClasses = [
   colGap ? colGapClasses[colGap as GapSize] : null,
   marginY ? marginYClasses[marginY as GapSize] : null,
   border ? 'cosy:border cosy:rounded-lg' : null,
+  backgroundClass,
   className,
 ]
   .filter(Boolean)

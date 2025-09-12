@@ -1,4 +1,5 @@
 import type { HTMLAttributes } from 'astro/types';
+import type { BackgroundColor } from '../../src/common/backgrounds';
 
 type GapSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type Breakpoint = 'base' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
@@ -15,6 +16,11 @@ type ResponsiveValue<T> =
     };
 
 export interface GridProps extends HTMLAttributes<'div'> {
+    /**
+     * 背景色类型，支持所有预设背景色和透明度变体
+     */
+    background?: BackgroundColor;
+
     /**
      * 网格列数，可以是固定值或响应式对象
      * @default 1

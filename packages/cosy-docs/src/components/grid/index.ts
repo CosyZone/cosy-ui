@@ -1,5 +1,6 @@
 import GridBasic from './GridBasic.astro';
 import GridBasicContainer from './GridBasicContainer.astro';
+import GridBackgroundContainer from './GridBackgroundContainer.astro';
 import GridBorderContainer from './GridBorderContainer.astro';
 import GridColGapContainer from './GridColGapContainer.astro';
 import GridColsContainer from './GridColsContainer.astro';
@@ -13,6 +14,7 @@ export const GridPackage = {
         Basic: GridBasic,
     },
     GridContainers: {
+        Background: GridBackgroundContainer,
         Border: GridBorderContainer,
         ColGap: GridColGapContainer,
         Cols: GridColsContainer,

@@ -1,0 +1,59 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import GridBackgroundDefault from './GridBackgroundDefault.astro';
+import GridBackgroundPrimary from './GridBackgroundPrimary.astro';
+import GridBackgroundPrimaryOpacity from './GridBackgroundPrimaryOpacity.astro';
+import GridBackgroundAccent from './GridBackgroundAccent.astro';
+import GridBackgroundSuccess from './GridBackgroundSuccess.astro';
+import GridBackgroundWarning from './GridBackgroundWarning.astro';
+import GridBackgroundError from './GridBackgroundError.astro';
+import GridBackgroundDefaultSourceCode from './GridBackgroundDefault.astro?raw';
+import GridBackgroundPrimarySourceCode from './GridBackgroundPrimary.astro?raw';
+import GridBackgroundPrimaryOpacitySourceCode from './GridBackgroundPrimaryOpacity.astro?raw';
+import GridBackgroundAccentSourceCode from './GridBackgroundAccent.astro?raw';
+import GridBackgroundSuccessSourceCode from './GridBackgroundSuccess.astro?raw';
+import GridBackgroundWarningSourceCode from './GridBackgroundWarning.astro?raw';
+import GridBackgroundErrorSourceCode from './GridBackgroundError.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    GridBackgroundDefaultSourceCode,
+    GridBackgroundPrimarySourceCode,
+    GridBackgroundPrimaryOpacitySourceCode,
+    GridBackgroundAccentSourceCode,
+    GridBackgroundSuccessSourceCode,
+    GridBackgroundWarningSourceCode,
+    GridBackgroundErrorSourceCode,
+  ]}
+  titles={[
+    '默认背景',
+    '主色调背景',
+    '主色调半透明',
+    '强调色背景',
+    '成功色背景',
+    '警告色背景',
+    '错误色背景',
+  ]}>
+  <div id="tab-1">
+    <GridBackgroundDefault />
+  </div>
+  <div id="tab-2">
+    <GridBackgroundPrimary />
+  </div>
+  <div id="tab-3">
+    <GridBackgroundPrimaryOpacity />
+  </div>
+  <div id="tab-4">
+    <GridBackgroundAccent />
+  </div>
+  <div id="tab-5">
+    <GridBackgroundSuccess />
+  </div>
+  <div id="tab-6">
+    <GridBackgroundWarning />
+  </div>
+  <div id="tab-7">
+    <GridBackgroundError />
+  </div>
+</CodeContainer>
