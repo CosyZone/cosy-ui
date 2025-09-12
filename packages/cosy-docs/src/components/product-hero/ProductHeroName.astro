@@ -1,0 +1,22 @@
+---
+import {
+  ProductHero,
+  getProductImage,
+  CodeContainer,
+} from '@coffic/cosy-ui';
+import ProductHeroNameDefault from './ProductHeroNameDefault.astro';
+import ProductHeroNameCustom from './ProductHeroNameCustom.astro';
+import sourceDefault from './ProductHeroNameDefault.astro?raw';
+import sourceCustom from './ProductHeroNameCustom.astro?raw';
+---
+
+<CodeContainer
+  codes={[sourceDefault, sourceCustom]}
+  titles={['默认名称', '自定义名称']}>
+  <div id="tab-1">
+    <ProductHeroNameDefault />
+  </div>
+  <div id="tab-2">
+    <ProductHeroNameCustom />
+  </div>
+</CodeContainer>

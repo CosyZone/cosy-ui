@@ -1,0 +1,22 @@
+---
+import {
+  ProductHero,
+  getProductImage,
+  CodeContainer,
+} from '@coffic/cosy-ui';
+import ProductHeroOnLearnMoreDefault from './ProductHeroOnLearnMoreDefault.astro';
+import ProductHeroOnLearnMoreCustom from './ProductHeroOnLearnMoreCustom.astro';
+import sourceDefault from './ProductHeroOnLearnMoreDefault.astro?raw';
+import sourceCustom from './ProductHeroOnLearnMoreCustom.astro?raw';
+---
+
+<CodeContainer
+  codes={[sourceDefault, sourceCustom]}
+  titles={['默认行为', '自定义事件']}>
+  <div id="tab-1">
+    <ProductHeroOnLearnMoreDefault />
+  </div>
+  <div id="tab-2">
+    <ProductHeroOnLearnMoreCustom />
+  </div>
+</CodeContainer>
