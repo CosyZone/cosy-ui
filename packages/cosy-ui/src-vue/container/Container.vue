@@ -3,6 +3,15 @@ import '../../style';
 import { computed } from 'vue';
 import type { IContainerProps } from './types';
 import { allBackgroundClasses } from '../../src/common/backgrounds';
+import {
+  widthClasses,
+  flexClasses,
+  gapClasses,
+  itemsClasses,
+  justifyClasses,
+  roundedClasses,
+} from '../../src/common';
+import { paddingClasses } from '../../src/common/padding';
 
 /**
  * @component Container
@@ -31,77 +40,13 @@ const props = withDefaults(defineProps<Props>(), {
   class: '',
 });
 
-// 静态类名映射
-const sizeClasses = {
-  none: '',
-  xs: 'cosy:max-w-xs',
-  sm: 'cosy:max-w-sm',
-  md: 'cosy:max-w-2xl',
-  lg: 'cosy:max-w-4xl',
-  xl: 'cosy:max-w-6xl',
-  full: 'cosy:w-full',
-} as const;
-
-const paddingClasses = {
-  none: 'cosy:p-0',
-  sm: 'cosy:p-2',
-  md: 'cosy:p-4',
-  lg: 'cosy:p-6',
-  xl: 'cosy:p-8',
-  '2xl': 'cosy:p-10',
-  '3xl': 'cosy:p-12',
-  '4xl': 'cosy:p-16',
-} as const;
-
-const roundedClasses = {
-  none: '',
-  sm: 'cosy:rounded-sm',
-  md: 'cosy:rounded-md',
-  lg: 'cosy:rounded-lg',
-  xl: 'cosy:rounded-xl',
-  full: 'cosy:rounded-full',
-} as const;
-
-const flexClasses = {
-  row: 'cosy:flex cosy:flex-row',
-  col: 'cosy:flex cosy:flex-col',
-  'row-reverse': 'cosy:flex cosy:flex-row-reverse',
-  'col-reverse': 'cosy:flex cosy:flex-col-reverse',
-} as const;
-
-const gapClasses = {
-  none: 'cosy:gap-0',
-  xs: 'cosy:gap-1',
-  sm: 'cosy:gap-2',
-  md: 'cosy:gap-4',
-  lg: 'cosy:gap-6',
-  xl: 'cosy:gap-8',
-} as const;
-
-const itemsClasses = {
-  start: 'cosy:items-start',
-  end: 'cosy:items-end',
-  center: 'cosy:items-center',
-  baseline: 'cosy:items-baseline',
-  stretch: 'cosy:items-stretch',
-} as const;
-
-const justifyClasses = {
-  start: 'cosy:justify-start',
-  end: 'cosy:justify-end',
-  center: 'cosy:justify-center',
-  between: 'cosy:justify-between',
-  around: 'cosy:justify-around',
-  evenly: 'cosy:justify-evenly',
-} as const;
-
 // 构建CSS类名
 const resolvedSize = computed(() => props.width ?? 'md');
 
 const containerClasses = computed(() => [
   'cosy:w-full',
   props.centered ? 'cosy:mx-auto' : '',
-  sizeClasses[resolvedSize.value],
+  widthClasses[resolvedSize.value],
   paddingClasses[props.padding],
   roundedClasses[props.rounded],
   props.border ? 'cosy:border' : '',

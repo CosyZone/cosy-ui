@@ -5,3 +5,21 @@
 
 // 背景色相关
 export * from './backgrounds';
+
+// 尺寸相关（类型和类名映射）
+export * from './size';
+
+// 高度相关（类型和类名映射）
+export * from './height';
+
+// 布局相关（类型和类名映射）
+export * from './layout';
+
+// 内边距相关（类型和类名映射）
+export * from './padding';
+
+// 外边距相关（类型和类名映射）
+export * from './margin';
+
+// 外观相关（类型和类名映射）
+export * from './appearance';
