@@ -1,0 +1,73 @@
+---
+title: ImagesCircle
+description: A component that arranges multiple images in a circle with 3D effects and dynamic interactions
+folder: false
+order: 9.1
+---
+
+import { ImagesCirclePackage } from '@/components/images-circle';
+
+# ImagesCircle
+
+## Introduction
+
+3D perspective image display component that simulates images moving toward the viewer from a distance. The center image "moves fastest" and appears largest and closest, while side images "move slower" and appear smaller and farther, creating a strong sense of spatial depth.
+
+Component features:
+
+- Realistic 3D perspective effects simulating depth space
+- Center image largest and clearest, side images gradually smaller and blurred
+- Smart 3D position calculation algorithm
+- Support for multiple images in 3D arrangement (odd numbers only)
+- Subtle rotation and opacity changes enhance depth perception
+- Responsive design with mobile performance optimization
+
+**Important Note:** The component only accepts an odd number of images (minimum 3) to ensure a clear center image. If an even number of images is provided, the component will display an error message.
+
+## Examples
+
+<ImagesCirclePackage.Example />
+
+## Props
+
+### background
+
+Background color setting.
+
+<ImagesCirclePackage.BackgroundContainer />
+
+### class
+
+Custom CSS class name for overriding default styles.
+
+<ImagesCirclePackage.ClassContainer />
+
+### images
+
+Array of images arranged from left to right, with the center position automatically becoming the focal point, displayed largest and clearest. **Must provide an odd number of images (minimum 3)**.
+
+<ImagesCirclePackage.ImagesContainer />
+
+### rounded
+
+Image border radius, from no radius to fully circular.
+
+<ImagesCirclePackage.RoundedContainer />
+
+### shadow
+
+Image shadow effect, enhancing depth and layering.
+
+<ImagesCirclePackage.ShadowContainer />
+
+### size
+
+Component size, affecting image dimensions and overall circle size.
+
+<ImagesCirclePackage.SizeContainer />
+
+### spacing
+
+Circle size (distance from images to center), controlling how tightly images are distributed.
+
+<ImagesCirclePackage.SpacingContainer />

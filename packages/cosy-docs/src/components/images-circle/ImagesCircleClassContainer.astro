@@ -1,0 +1,31 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+
+// 源码导入
+import ClassDefaultSourceCode from './ClassDefault.astro?raw';
+import ClassBorderSourceCode from './ClassBorder.astro?raw';
+import ClassGradientSourceCode from './ClassGradient.astro?raw';
+
+// 组件导入
+import ClassDefault from './ClassDefault.astro';
+import ClassBorder from './ClassBorder.astro';
+import ClassGradient from './ClassGradient.astro';
+---
+
+<CodeContainer
+  codes={[
+    ClassDefaultSourceCode,
+    ClassBorderSourceCode,
+    ClassGradientSourceCode,
+  ]}
+  titles={['默认', '边框样式', '渐变背景']}>
+  <div id="tab-1">
+    <ClassDefault />
+  </div>
+  <div id="tab-2">
+    <ClassBorder />
+  </div>
+  <div id="tab-3">
+    <ClassGradient />
+  </div>
+</CodeContainer>

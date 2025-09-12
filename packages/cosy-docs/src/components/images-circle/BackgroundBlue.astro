@@ -1,0 +1,26 @@
+---
+import { ImagesCircle, getProductImage } from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'bg-blue-1' }),
+    alt: '图片 1',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'bg-blue-2' }),
+    alt: '图片 2',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'bg-blue-3' }),
+    alt: '图片 3',
+  },
+];
+---
+
+<ImagesCircle
+  images={images}
+  size="sm"
+  spacing="sm"
+  background="info/20"
+  class="cosy:p-8 cosy:rounded-xl"
+/>

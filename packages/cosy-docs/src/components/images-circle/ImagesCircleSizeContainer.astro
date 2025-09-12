@@ -1,0 +1,37 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+
+// 源码导入
+import SizeSmSourceCode from './SizeSm.astro?raw';
+import SizeMdSourceCode from './SizeMd.astro?raw';
+import SizeLgSourceCode from './SizeLg.astro?raw';
+import SizeXlSourceCode from './SizeXl.astro?raw';
+
+// 组件导入
+import SizeSm from './SizeSm.astro';
+import SizeMd from './SizeMd.astro';
+import SizeLg from './SizeLg.astro';
+import SizeXl from './SizeXl.astro';
+---
+
+<CodeContainer
+  codes={[
+    SizeSmSourceCode,
+    SizeMdSourceCode,
+    SizeLgSourceCode,
+    SizeXlSourceCode,
+  ]}
+  titles={['sm', 'md', 'lg', 'xl']}>
+  <div id="tab-1">
+    <SizeSm />
+  </div>
+  <div id="tab-2">
+    <SizeMd />
+  </div>
+  <div id="tab-3">
+    <SizeLg />
+  </div>
+  <div id="tab-4">
+    <SizeXl />
+  </div>
+</CodeContainer>

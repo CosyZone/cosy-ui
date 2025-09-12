@@ -30,6 +30,7 @@ export * from './src-astro/icons';
 export * from './src-astro/image';
 export * from './src-astro/image3';
 export * from './src-astro/images';
+export * from './src-astro/images-circle';
 export * from './src-astro/install-tabs';
 export * from './src-astro/language-switcher';
 export * from './src-astro/layout-app';

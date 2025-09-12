@@ -1,0 +1,22 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+
+// 源码导入
+import SpacingSmSourceCode from './SpacingSm.astro?raw';
+import SpacingXlSourceCode from './SpacingXl.astro?raw';
+
+// 组件导入
+import SpacingSm from './SpacingSm.astro';
+import SpacingXl from './SpacingXl.astro';
+---
+
+<CodeContainer
+  codes={[SpacingSmSourceCode, SpacingXlSourceCode]}
+  titles={['sm', 'xl']}>
+  <div id="tab-1">
+    <SpacingSm />
+  </div>
+  <div id="tab-2">
+    <SpacingXl />
+  </div>
+</CodeContainer>
