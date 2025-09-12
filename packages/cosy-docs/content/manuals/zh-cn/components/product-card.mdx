@@ -3,10 +3,12 @@ title: 'ProductCard'
 description: 'ProductCard 组件用于展示产品信息，包括产品名称、图片、描述、App Store链接和产品官网链接'
 folder: false
 order: 16.4
+tags: ['astro', 'product-card']
 ---
 
 import { ProductCard } from '@coffic/cosy-ui';
 import { ProductCardPackage } from '@/components/product-card';
+import ProductCardBasic from '@/components/product-card/ProductCardBasic.astro';
 
 # {frontmatter.title}
 
@@ -14,68 +16,106 @@ import { ProductCardPackage } from '@/components/product-card';
 
 ProductCard 组件用于展示产品信息，包括产品名称、图片、描述、App Store链接和产品官网链接。组件采用卡片式设计，支持悬停效果，并提供链接到产品相关页面的功能。
 
+### 特性
+
+- **多种尺寸** - 支持 xs、sm、md、lg、xl 五种预设尺寸
+- **灵活布局** - 支持水平和垂直按钮布局
+- **等高卡片** - 在网格布局中确保所有卡片高度一致
+- **丰富链接** - 支持产品官网、App Store 和 GitHub 链接
+- **自定义样式** - 支持自定义阴影、描述行数等样式
+
 ## 案例
 
-<ProductCardPackage.ComponentContainers.Basic />
+<ProductCardBasic />
 
 ## Props
 
 ### appStoreUrl
+
 App Store 链接地址，用于跳转到 App Store 应用页面。
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.AppStoreUrl />
 
 ### buttonLayout
+
 按钮布局方向，支持水平（row）和垂直（column）两种布局方式。
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.ButtonLayout />
 
 ### class
+
 自定义 CSS 类名，用于覆盖默认样式。
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.Class />
 
 ### description
+
 产品描述文本，支持多行显示。
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.Description />
 
 ### descriptionLines
+
 描述文本的最大显示行数，超出部分会被截断。
+
 <ProductCardPackage.ComponentContainers.DescriptionLines />
 
 ### equalHeight
+
 是否启用等高卡片，在网格布局中确保所有卡片高度一致。
+
 <ProductCardPackage.ComponentContainers.EqualHeight />
 
 ### githubButtonText
+
 GitHub 按钮的显示文本。
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.GithubButtonText />
 
 ### githubUrl
+
 GitHub 仓库链接地址。
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.GithubUrl />
 
 ### image
+
 产品图片，支持多种图片源格式。
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.Image />
 
 ### name
+
 产品名称，必填属性。
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.Name />
 
 ### primaryButtonText
+
 主按钮（产品官网按钮）的显示文本。
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.PrimaryButtonText />
 
 ### productUrl
+
 产品官网链接地址。
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.ProductUrl />
 
 ### secondaryButtonText
+
 次按钮（App Store 按钮）的显示文本。
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.SecondaryButtonText />
 
 ### shadow
+
 卡片阴影样式，提供 none、sm、md、lg、xl 五种样式选择。
+
 <ProductCardPackage.ComponentContainers.Shadow />
 
 ### size
+
 卡片尺寸，支持 xs、sm、md、lg、xl 五种预设尺寸。
-<ProductCardPackage.ComponentContainers.Sizes /> 
+
+<ProductCardPackage.ComponentContainers.Size /> 

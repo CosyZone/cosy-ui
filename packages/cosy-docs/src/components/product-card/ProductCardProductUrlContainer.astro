@@ -1,0 +1,21 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ProductCardProductUrl from './ProductCardProductUrl.astro';
+import ProductCardProductUrlWith from './ProductCardProductUrlWith.astro';
+import ProductCardProductUrlSourceCode from './ProductCardProductUrl.astro?raw';
+import ProductCardProductUrlWithSourceCode from './ProductCardProductUrlWith.astro?raw';
+---
+
+<CodeContainer
+  titles={['无产品链接', '包含产品链接']}
+  codes={[
+    ProductCardProductUrlSourceCode,
+    ProductCardProductUrlWithSourceCode,
+  ]}>
+  <div id="tab-1">
+    <ProductCardProductUrl />
+  </div>
+  <div id="tab-2">
+    <ProductCardProductUrlWith />
+  </div>
+</CodeContainer>

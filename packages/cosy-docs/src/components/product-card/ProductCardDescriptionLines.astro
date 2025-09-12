@@ -1,12 +1,12 @@
 ---
-import { ProductCard, getExampleImage } from '@coffic/cosy-ui';
+import { ProductCard, getProductImage } from '@coffic/cosy-ui';
 ---
 
 <div class="cosy:grid cosy:grid-cols-2 cosy:gap-4">
   <ProductCard
     size="md"
     name="默认行数限制"
-    image={getExampleImage({ width: 300, height: 200 })}
+    image={getProductImage({ width: 300, height: 200, tag: 'product-default' })}
     description="默认情况下，描述文本会根据卡片尺寸自动限制行数。例如中等尺寸(md)卡片默认显示3行文本。这段文本很长，但只会显示前几行，其余部分会被截断。"
     productUrl="https://example.com/product3"
   />
@@ -14,7 +14,7 @@ import { ProductCard, getExampleImage } from '@coffic/cosy-ui';
     size="md"
     descriptionLines={2}
     name="自定义行数限制"
-    image={getExampleImage({ width: 300, height: 200 })}
+    image={getProductImage({ width: 300, height: 200, tag: 'product-custom' })}
     description="通过设置descriptionLines=2，可以将描述文本限制为最多显示2行。这段文本很长，但只会显示2行，其余部分会被截断。"
     productUrl="https://example.com/product4"
   />

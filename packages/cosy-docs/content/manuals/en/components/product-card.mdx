@@ -3,10 +3,12 @@ title: 'ProductCard'
 description: 'ProductCard component is used to display product information, including product name, image, description, App Store link, and product website link'
 folder: false
 order: 16
+tags: ['astro', 'product-card']
 ---
 
 import { ProductCard } from '@coffic/cosy-ui';
 import { ProductCardPackage } from '@/components/product-card';
+import ProductCardBasic from '@/components/product-card/ProductCardBasic.astro';
 
 # {frontmatter.title}
 
@@ -14,68 +16,106 @@ import { ProductCardPackage } from '@/components/product-card';
 
 The ProductCard component is used to display product information, including product name, image, description, App Store link, and product website link. The component features a card design with hover effects and provides links to product-related pages.
 
+### Features
+
+- **Multiple Sizes** - Supports xs, sm, md, lg, xl five preset sizes
+- **Flexible Layout** - Supports horizontal and vertical button layouts
+- **Equal Height** - Ensures consistent height for all cards in grid layouts
+- **Rich Links** - Supports product website, App Store, and GitHub links
+- **Custom Styling** - Supports custom shadows, description lines, and other styles
+
 ## Examples
 
-<ProductCardPackage.ComponentContainers.Basic />
+<ProductCardBasic />
 
 ## Props
 
 ### appStoreUrl
+
 App Store link URL for redirecting to the App Store application page.
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.AppStoreUrl />
 
 ### buttonLayout
+
 Button layout direction, supporting horizontal (row) and vertical (column) layouts.
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.ButtonLayout />
 
 ### class
+
 Custom CSS class name for overriding default styles.
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.Class />
 
 ### description
+
 Product description text, supporting multi-line display.
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.Description />
 
 ### descriptionLines
+
 Maximum display lines for description text, with overflow content being truncated.
+
 <ProductCardPackage.ComponentContainers.DescriptionLines />
 
 ### equalHeight
+
 Whether to enable equal height cards, ensuring consistent height for all cards in grid layouts.
+
 <ProductCardPackage.ComponentContainers.EqualHeight />
 
 ### githubButtonText
+
 Display text for the GitHub button.
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.GithubButtonText />
 
 ### githubUrl
+
 GitHub repository link URL.
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.GithubUrl />
 
 ### image
+
 Product image, supporting multiple image source formats.
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.Image />
 
 ### name
+
 Product name, required property.
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.Name />
 
 ### primaryButtonText
+
 Display text for the primary button (product website button).
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.PrimaryButtonText />
 
 ### productUrl
+
 Product website link URL.
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.ProductUrl />
 
 ### secondaryButtonText
+
 Display text for the secondary button (App Store button).
-<ProductCardPackage.ComponentContainers.Basic />
+
+<ProductCardPackage.ComponentContainers.SecondaryButtonText />
 
 ### shadow
+
 Card shadow style, providing five style options: none, sm, md, lg, xl.
+
 <ProductCardPackage.ComponentContainers.Shadow />
 
 ### size
+
 Card size, supporting five preset sizes: xs, sm, md, lg, xl.
-<ProductCardPackage.ComponentContainers.Sizes /> 
+
+<ProductCardPackage.ComponentContainers.Size /> 

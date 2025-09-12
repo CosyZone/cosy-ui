@@ -1,0 +1,21 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ProductCardButtonLayout from './ProductCardButtonLayout.astro';
+import ProductCardButtonLayoutColumn from './ProductCardButtonLayoutColumn.astro';
+import ProductCardButtonLayoutSourceCode from './ProductCardButtonLayout.astro?raw';
+import ProductCardButtonLayoutColumnSourceCode from './ProductCardButtonLayoutColumn.astro?raw';
+---
+
+<CodeContainer
+  titles={['水平布局 (row)', '垂直布局 (column)']}
+  codes={[
+    ProductCardButtonLayoutSourceCode,
+    ProductCardButtonLayoutColumnSourceCode,
+  ]}>
+  <div id="tab-1">
+    <ProductCardButtonLayout />
+  </div>
+  <div id="tab-2">
+    <ProductCardButtonLayoutColumn />
+  </div>
+</CodeContainer>

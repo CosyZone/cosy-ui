@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ProductCardClass from './ProductCardClass.astro';
+import ProductCardClassCustom from './ProductCardClassCustom.astro';
+import ProductCardClassSourceCode from './ProductCardClass.astro?raw';
+import ProductCardClassCustomSourceCode from './ProductCardClassCustom.astro?raw';
+---
+
+<CodeContainer
+  titles={['默认样式', '自定义样式']}
+  codes={[ProductCardClassSourceCode, ProductCardClassCustomSourceCode]}>
+  <div id="tab-1">
+    <ProductCardClass />
+  </div>
+  <div id="tab-2">
+    <ProductCardClassCustom />
+  </div>
+</CodeContainer>

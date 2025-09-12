@@ -1,0 +1,21 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ProductCardDescription from './ProductCardDescription.astro';
+import ProductCardDescriptionLong from './ProductCardDescriptionLong.astro';
+import ProductCardDescriptionSourceCode from './ProductCardDescription.astro?raw';
+import ProductCardDescriptionLongSourceCode from './ProductCardDescriptionLong.astro?raw';
+---
+
+<CodeContainer
+  titles={['简短描述', '详细描述']}
+  codes={[
+    ProductCardDescriptionSourceCode,
+    ProductCardDescriptionLongSourceCode,
+  ]}>
+  <div id="tab-1">
+    <ProductCardDescription />
+  </div>
+  <div id="tab-2">
+    <ProductCardDescriptionLong />
+  </div>
+</CodeContainer>
