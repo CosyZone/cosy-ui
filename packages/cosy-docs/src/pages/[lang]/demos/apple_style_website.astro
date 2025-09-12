@@ -11,28 +11,21 @@ import {
   AppLayout,
   Hero,
   Card,
-  Grid,
   Button,
   Text,
   Heading,
-  Image,
-  Badge,
   Contact,
-  TeamMember,
-  SocialIcon,
   SmartIcon,
   Container,
   StatsDisplay,
-  ProductHeroItem,
+  ProductHero,
   FeatureShowcase,
   TeamMembers,
-  getExampleImage,
   getProductImage,
   getAvatarImage,
   PlaceHolder,
 } from '@coffic/cosy-ui';
 import { configApp } from '@/config/config.app';
-import HeroImage from '@/assets/hero.png';
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
@@ -497,7 +490,7 @@ const featureShowcaseData = [
   <Container width="full" padding="none" margin="lg">
     {
       products.map((product, index) => (
-        <ProductHeroItem
+        <ProductHero
           {...product}
           align={index % 2 === 0 ? 'left' : 'right'}
           background={index % 2 === 0 ? 'base-200' : 'base-100'}
@@ -510,7 +503,7 @@ const featureShowcaseData = [
               {data.learnMore}
             </Button>
           </div>
-        </ProductHeroItem>
+        </ProductHero>
       ))
     }
   </Container>
