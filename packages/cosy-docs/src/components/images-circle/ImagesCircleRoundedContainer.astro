@@ -1,0 +1,22 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+
+// 源码导入
+import RoundedNoneSourceCode from './RoundedNone.astro?raw';
+import RoundedFullSourceCode from './RoundedFull.astro?raw';
+
+// 组件导入
+import RoundedNone from './RoundedNone.astro';
+import RoundedFull from './RoundedFull.astro';
+---
+
+<CodeContainer
+  codes={[RoundedNoneSourceCode, RoundedFullSourceCode]}
+  titles={['none', 'full']}>
+  <div id="tab-1">
+    <RoundedNone />
+  </div>
+  <div id="tab-2">
+    <RoundedFull />
+  </div>
+</CodeContainer>

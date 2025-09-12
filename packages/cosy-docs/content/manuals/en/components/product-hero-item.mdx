@@ -1,0 +1,115 @@
+---
+title: 'ProductHeroItem'
+folder: false
+order: 16.5
+tags:
+- astro
+- product
+- showcase
+- item
+- apple-style
+- display
+---
+
+import { ProductHeroItem } from '@coffic/cosy-ui';
+import { ProductHeroItemPackage } from '@/components/product-hero-item/index';
+
+# {frontmatter.title}
+
+## Introduction
+
+The ProductHeroItem component is designed to display detailed information about a single product using an Apple-style large image display design. It supports alternating left-right layouts, new product labels, price display, and action buttons. Perfect for product detail pages, product showcase pages, and similar scenarios.
+
+Component Features:
+
+- Large Image Display - Highlights product images with high-quality large image presentation
+- Alternating Layout - Supports left-right alternating layout for enhanced visual hierarchy
+- Information Hierarchy - Clear information structure: labels, titles, descriptions, prices, buttons
+- Apple Style - Adopts Apple's clean and elegant design philosophy
+- Responsive Design - Excellent display across different devices
+
+## Examples
+
+<ProductHeroItemPackage.Example />
+
+## Props
+
+### align
+
+Layout alignment, supports `left` (left-aligned, default) and `right` (right-aligned).
+
+<ProductHeroItemPackage.Align />
+
+### background
+
+Background color type, uses predefined background color types such as 'primary', 'base-200', 'gradient-sky', etc., defaults to 'base-100'.
+
+<ProductHeroItemPackage.Background />
+
+### buyNowText
+
+Buy now button text, defaults to "立即购买" (Buy Now).
+
+<ProductHeroItemPackage.BuyNowText />
+
+### class
+
+Custom CSS class for overriding default styles.
+
+<ProductHeroItemPackage.Class />
+
+### description
+
+Product description, required property.
+
+<ProductHeroItemPackage.Description />
+
+### image
+
+Product image, required property. Supports ImageSource type.
+
+<ProductHeroItemPackage.Image />
+
+### isNew
+
+Whether it's a new product, optional property, defaults to false.
+
+<ProductHeroItemPackage.IsNew />
+
+### learnMoreText
+
+Learn more button text, defaults to "了解更多" (Learn More).
+
+<ProductHeroItemPackage.LearnMoreText />
+
+### name
+
+Product name, required property.
+
+<ProductHeroItemPackage.Name />
+
+### newLabelText
+
+New product label text, defaults to "新品" (New).
+
+<ProductHeroItemPackage.NewLabelText />
+
+### onBuyNow
+
+Buy now button click event callback function.
+
+<ProductHeroItemPackage.OnBuyNow />
+
+### onLearnMore
+
+Learn more button click event callback function.
+
+<ProductHeroItemPackage.OnLearnMore />
+
+### price
+
+Product price, required property.
+
+<ProductHeroItemPackage.Price />
+
+

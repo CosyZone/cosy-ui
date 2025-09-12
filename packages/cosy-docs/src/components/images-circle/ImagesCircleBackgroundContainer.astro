@@ -1,0 +1,31 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+
+// 源码导入
+import BackgroundNoneSourceCode from './BackgroundNone.astro?raw';
+import BackgroundBlueSourceCode from './BackgroundBlue.astro?raw';
+import BackgroundPurpleSourceCode from './BackgroundPurple.astro?raw';
+
+// 组件导入
+import BackgroundNone from './BackgroundNone.astro';
+import BackgroundBlue from './BackgroundBlue.astro';
+import BackgroundPurple from './BackgroundPurple.astro';
+---
+
+<CodeContainer
+  codes={[
+    BackgroundNoneSourceCode,
+    BackgroundBlueSourceCode,
+    BackgroundPurpleSourceCode,
+  ]}
+  titles={['none', 'info/20', 'accent/20']}>
+  <div id="tab-1">
+    <BackgroundNone />
+  </div>
+  <div id="tab-2">
+    <BackgroundBlue />
+  </div>
+  <div id="tab-3">
+    <BackgroundPurple />
+  </div>
+</CodeContainer>

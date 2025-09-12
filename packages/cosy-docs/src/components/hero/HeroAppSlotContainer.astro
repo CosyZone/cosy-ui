@@ -1,0 +1,12 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import HeroWithAppSlot from './HeroWithAppSlot.astro';
+// @ts-ignore
+import HeroWithAppSlotSourceCode from './HeroWithAppSlot.astro?raw';
+---
+
+<CodeContainer titles={['app slot']} codes={[HeroWithAppSlotSourceCode]}>
+  <div id="tab-1">
+    <HeroWithAppSlot />
+  </div>
+</CodeContainer>

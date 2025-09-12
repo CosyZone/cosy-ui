@@ -1,0 +1,16 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ProductHeroItemIsNewTrue from './ProductHeroItemIsNewTrue.astro';
+import ProductHeroItemIsNewFalse from './ProductHeroItemIsNewFalse.astro';
+import sourceTrue from './ProductHeroItemIsNewTrue.astro?raw';
+import sourceFalse from './ProductHeroItemIsNewFalse.astro?raw';
+---
+
+<CodeContainer codes={[sourceTrue, sourceFalse]} titles={['是新品', '非新品']}>
+  <div id="tab-1">
+    <ProductHeroItemIsNewTrue />
+  </div>
+  <div id="tab-2">
+    <ProductHeroItemIsNewFalse />
+  </div>
+</CodeContainer>

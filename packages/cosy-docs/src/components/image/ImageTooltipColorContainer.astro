@@ -1,0 +1,37 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ImageTooltipPrimary from './ImageTooltipPrimary.astro';
+// @ts-ignore
+import ImageTooltipPrimarySourceCode from './ImageTooltipPrimary.astro?raw';
+import ImageTooltipSuccess from './ImageTooltipSuccess.astro';
+// @ts-ignore
+import ImageTooltipSuccessSourceCode from './ImageTooltipSuccess.astro?raw';
+import ImageTooltipWarning from './ImageTooltipWarning.astro';
+// @ts-ignore
+import ImageTooltipWarningSourceCode from './ImageTooltipWarning.astro?raw';
+import ImageTooltipError from './ImageTooltipError.astro';
+// @ts-ignore
+import ImageTooltipErrorSourceCode from './ImageTooltipError.astro?raw';
+---
+
+<CodeContainer
+  titles={['primary', 'success', 'warning', 'error']}
+  codes={[
+    ImageTooltipPrimarySourceCode,
+    ImageTooltipSuccessSourceCode,
+    ImageTooltipWarningSourceCode,
+    ImageTooltipErrorSourceCode,
+  ]}>
+  <div id="tab-1">
+    <ImageTooltipPrimary />
+  </div>
+  <div id="tab-2">
+    <ImageTooltipSuccess />
+  </div>
+  <div id="tab-3">
+    <ImageTooltipWarning />
+  </div>
+  <div id="tab-4">
+    <ImageTooltipError />
+  </div>
+</CodeContainer>

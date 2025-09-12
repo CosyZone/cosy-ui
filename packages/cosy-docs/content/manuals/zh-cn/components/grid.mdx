@@ -1,29 +1,79 @@
 ---
 title: 'Grid'
 folder: false
-order: 10
+order: 7.1
+tags:
+- astro
+- grid
 ---
 
-import { GridPackage } from '@/components/grid/index.ts';
+import { Grid } from '@coffic/cosy-ui';
+import { GridPackage } from '@/components/grid/index';
 
 # {frontmatter.title}
 
-## 基础用法
+## 简介
 
-<GridPackage.GridContainers.Basic />
+Grid 组件是一个灵活的网格布局组件，用于创建响应式的多列布局。它封装了 CSS Grid 的常用功能，提供简单易用的接口来控制网格的列数和间距。
 
-## 响应式布局
+组件特性：
 
-<GridPackage.GridContainers.Responsive />
+- 支持固定列数和响应式列数配置
+- 提供多种间距选项（行间距、列间距、整体间距）
+- 支持垂直外边距设置
+- 可选的边框显示
+- 响应式设计，适配不同屏幕尺寸
 
-## 自定义间距
+## 案例
 
-<GridPackage.GridContainers.CustomGap />
+<GridPackage.GridExamples.Basic />
 
-## 垂直外边距
+## Props
+
+### background
+
+背景色类型，支持所有预设背景色和透明度变体。
+
+<GridPackage.GridContainers.Background />
+
+### border
+
+是否显示边框。
+
+<GridPackage.GridContainers.Border />
+
+### class
+
+自定义CSS类，可用于覆盖默认样式。
+
+<GridPackage.GridContainers.CustomStyle />
+
+### colGap
+
+列间距，默认与 gap 相同。
+
+<GridPackage.GridContainers.ColGap />
+
+### cols
+
+网格列数，可以是固定值或响应式对象。
+
+<GridPackage.GridContainers.Cols />
+
+### gap
+
+网格间距，可选值：none, xs, sm, md, lg, xl。
+
+<GridPackage.GridContainers.Gap />
+
+### marginY
+
+垂直外边距，可选值：none, xs, sm, md, lg, xl。
 
 <GridPackage.GridContainers.MarginY />
 
-## 边框
+### rowGap
 
-<GridPackage.GridContainers.Border />
+行间距，默认与 gap 相同。
+
+<GridPackage.GridContainers.RowGap />

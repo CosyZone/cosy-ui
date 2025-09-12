@@ -1,0 +1,18 @@
+---
+import { Review, CodeContainer } from '@coffic/cosy-ui';
+import DefaultStyleExampleSourceCode from './DefaultStyleExample.astro?raw';
+import CustomStyleExampleSourceCode from './CustomStyleExample.astro?raw';
+import DefaultStyleExample from './DefaultStyleExample.astro';
+import CustomStyleExample from './CustomStyleExample.astro';
+---
+
+<CodeContainer
+  codes={[DefaultStyleExampleSourceCode, CustomStyleExampleSourceCode]}
+  titles={['默认样式', '自定义样式']}>
+  <div id="tab-1">
+    <DefaultStyleExample />
+  </div>
+  <div id="tab-2">
+    <CustomStyleExample />
+  </div>
+</CodeContainer>

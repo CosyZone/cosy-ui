@@ -1,0 +1,33 @@
+---
+import { ImagesCircle, getProductImage } from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 300, height: 300, tag: 'watch-main' }),
+    alt: '主要产品',
+    caption: 'Apple Watch Series 9',
+  },
+  {
+    src: getProductImage({ width: 250, height: 250, tag: 'watch-band-1' }),
+    alt: '配件 1',
+    caption: 'Sport Band',
+  },
+  {
+    src: getProductImage({ width: 250, height: 250, tag: 'watch-band-2' }),
+    alt: '配件 2',
+    caption: 'Braided Loop',
+  },
+  {
+    src: getProductImage({ width: 250, height: 250, tag: 'watch-band-3' }),
+    alt: '配件 3',
+    caption: 'Leather Link',
+  },
+  {
+    src: getProductImage({ width: 250, height: 250, tag: 'watch-band-4' }),
+    alt: '配件 4',
+    caption: 'Milanese Loop',
+  },
+];
+---
+
+<ImagesCircle images={images} size="md" shadow="lg" rounded="xl" spacing="xl" />

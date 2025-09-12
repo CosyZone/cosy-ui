@@ -1,15 +1,26 @@
-import BasicContainer from './BasicContainer.astro';
-import ResponsiveContainer from './ResponsiveContainer.astro';
-import CustomGapContainer from './CustomGapContainer.astro';
-import MarginYContainer from './MarginYContainer.astro';
-import BorderContainer from './BorderContainer.astro';
+import GridBasic from './GridBasic.astro';
+import GridBasicContainer from './GridBasicContainer.astro';
+import GridBackgroundContainer from './GridBackgroundContainer.astro';
+import GridBorderContainer from './GridBorderContainer.astro';
+import GridColGapContainer from './GridColGapContainer.astro';
+import GridColsContainer from './GridColsContainer.astro';
+import GridCustomStyleContainer from './GridCustomStyleContainer.astro';
+import GridGapContainer from './GridGapContainer.astro';
+import GridMarginYContainer from './GridMarginYContainer.astro';
+import GridRowGapContainer from './GridRowGapContainer.astro';
 
 export const GridPackage = {
+    GridExamples: {
+        Basic: GridBasic,
+    },
     GridContainers: {
-        Basic: BasicContainer,
-        Responsive: ResponsiveContainer,
-        CustomGap: CustomGapContainer,
-        MarginY: MarginYContainer,
-        Border: BorderContainer,
+        Background: GridBackgroundContainer,
+        Border: GridBorderContainer,
+        ColGap: GridColGapContainer,
+        Cols: GridColsContainer,
+        CustomStyle: GridCustomStyleContainer,
+        Gap: GridGapContainer,
+        MarginY: GridMarginYContainer,
+        RowGap: GridRowGapContainer,
     },
 }; 

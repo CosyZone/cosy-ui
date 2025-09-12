@@ -1,0 +1,44 @@
+---
+/**
+ * @component ImagesGap
+ * @description Images 组件间距控制示例
+ */
+import { Images, getProductImage } from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 150, height: 150, tag: 'gap1' }),
+    alt: '间距图片 1',
+  },
+  {
+    src: getProductImage({ width: 150, height: 150, tag: 'gap2' }),
+    alt: '间距图片 2',
+  },
+  {
+    src: getProductImage({ width: 150, height: 150, tag: 'gap3' }),
+    alt: '间距图片 3',
+  },
+];
+---
+
+<div style="display: flex; flex-direction: column; gap: 2rem;">
+  <div>
+    <h4 style="margin: 0 0 1rem 0; color: #374151;">无间距</h4>
+    <Images images={images} layout="grid" columns={3} gap="none" />
+  </div>
+
+  <div>
+    <h4 style="margin: 0 0 1rem 0; color: #374151;">小间距</h4>
+    <Images images={images} layout="grid" columns={3} gap="xs" />
+  </div>
+
+  <div>
+    <h4 style="margin: 0 0 1rem 0; color: #374151;">中等间距</h4>
+    <Images images={images} layout="grid" columns={3} gap="md" />
+  </div>
+
+  <div>
+    <h4 style="margin: 0 0 1rem 0; color: #374151;">大间距</h4>
+    <Images images={images} layout="grid" columns={3} gap="xl" />
+  </div>
+</div>

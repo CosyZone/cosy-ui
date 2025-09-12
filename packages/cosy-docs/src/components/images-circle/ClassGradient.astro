@@ -1,0 +1,25 @@
+---
+import { ImagesCircle, getProductImage } from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'class-gradient-1' }),
+    alt: '图片 1',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'class-gradient-2' }),
+    alt: '图片 2',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'class-gradient-3' }),
+    alt: '图片 3',
+  },
+];
+---
+
+<ImagesCircle
+  images={images}
+  size="sm"
+  spacing="sm"
+  class="cosy:bg-gradient-to-r cosy:from-purple-400 cosy:via-pink-500 cosy:to-red-500 cosy:p-8 cosy:rounded-full"
+/>

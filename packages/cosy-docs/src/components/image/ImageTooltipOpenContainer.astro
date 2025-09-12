@@ -1,0 +1,20 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ImageTooltipBasic from './ImageTooltipBasic.astro';
+// @ts-ignore
+import ImageTooltipBasicSourceCode from './ImageTooltipBasic.astro?raw';
+import ImageTooltipOpen from './ImageTooltipOpen.astro';
+// @ts-ignore
+import ImageTooltipOpenSourceCode from './ImageTooltipOpen.astro?raw';
+---
+
+<CodeContainer
+  titles={['false', 'true']}
+  codes={[ImageTooltipBasicSourceCode, ImageTooltipOpenSourceCode]}>
+  <div id="tab-1">
+    <ImageTooltipBasic />
+  </div>
+  <div id="tab-2">
+    <ImageTooltipOpen />
+  </div>
+</CodeContainer>

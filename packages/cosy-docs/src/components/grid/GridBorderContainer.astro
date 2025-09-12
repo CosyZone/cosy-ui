@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import GridWithBorder from './GridWithBorder.astro';
+import GridWithoutBorder from './GridWithoutBorder.astro';
+import GridWithBorderSourceCode from './GridWithBorder.astro?raw';
+import GridWithoutBorderSourceCode from './GridWithoutBorder.astro?raw';
+---
+
+<CodeContainer
+  codes={[GridWithBorderSourceCode, GridWithoutBorderSourceCode]}
+  titles={['显示边框', '不显示边框']}>
+  <div id="tab-1">
+    <GridWithBorder />
+  </div>
+  <div id="tab-2">
+    <GridWithoutBorder />
+  </div>
+</CodeContainer>

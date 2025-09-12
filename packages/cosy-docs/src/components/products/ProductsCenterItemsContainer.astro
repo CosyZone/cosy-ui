@@ -1,0 +1,12 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ProductsCenterItems from './ProductsCenterItems.astro';
+// @ts-ignore
+import ProductsCenterItemsSourceCode from './ProductsCenterItems.astro?raw';
+---
+
+<CodeContainer titles={['true']} codes={[ProductsCenterItemsSourceCode]}>
+  <div id="tab-1">
+    <ProductsCenterItems />
+  </div>
+</CodeContainer>

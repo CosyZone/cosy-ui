@@ -1,0 +1,31 @@
+---
+/**
+ * @component ImagesRoundedMedium
+ * @description Images 组件中等圆角示例
+ */
+import { Images, getProductImage } from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'rounded-md-1' }),
+    alt: '图片 1',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'rounded-md-2' }),
+    alt: '图片 2',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'rounded-md-3' }),
+    alt: '图片 3',
+  },
+];
+---
+
+<Images
+  images={images}
+  layout="grid"
+  columns={3}
+  rounded="md"
+  gap="sm"
+  shadow="sm"
+/>

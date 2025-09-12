@@ -1,0 +1,23 @@
+---
+import { Hero } from '@coffic/cosy-ui';
+---
+
+<Hero
+  title="带自定义内容的 Hero"
+  description="使用 app slot 可以添加自定义内容，如交互式演示、图表等。"
+  links={[{ text: '查看文档', href: '/docs' }]}>
+  <div
+    slot="app"
+    style="background: white; padding: 2rem; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+    <h3 style="margin: 0 0 1rem 0; color: #1f2937; font-size: 1.25rem;">
+      交互式演示
+    </h3>
+    <p style="margin: 0 0 1rem 0; color: #6b7280;">
+      这是一个自定义的演示区域，可以放置任何内容。
+    </p>
+    <button
+      style="background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 0.375rem; border: none; cursor: pointer;">
+      开始演示
+    </button>
+  </div>
+</Hero>

@@ -1,0 +1,15 @@
+---
+import { ProductCard, getProductImage } from '@coffic/cosy-ui';
+---
+
+<div class="cosy:space-y-4">
+  <div>
+    <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-2">产品名称示例</h3>
+    <ProductCard
+      name="产品名称展示"
+      image={getProductImage({ width: 300, height: 200, tag: 'product-name' })}
+      description="展示产品名称的使用方式，这是必填属性。"
+      productUrl="https://example.com/product"
+    />
+  </div>
+</div>

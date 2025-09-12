@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ProductCardGithubUrl from './ProductCardGithubUrl.astro';
+import ProductCardGithubUrlWith from './ProductCardGithubUrlWith.astro';
+import ProductCardGithubUrlSourceCode from './ProductCardGithubUrl.astro?raw';
+import ProductCardGithubUrlWithSourceCode from './ProductCardGithubUrlWith.astro?raw';
+---
+
+<CodeContainer
+  titles={['无 GitHub 链接', '包含 GitHub 链接']}
+  codes={[ProductCardGithubUrlSourceCode, ProductCardGithubUrlWithSourceCode]}>
+  <div id="tab-1">
+    <ProductCardGithubUrl />
+  </div>
+  <div id="tab-2">
+    <ProductCardGithubUrlWith />
+  </div>
+</CodeContainer>

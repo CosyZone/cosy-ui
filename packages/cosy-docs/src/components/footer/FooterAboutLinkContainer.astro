@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import FooterWithAboutLink from './FooterWithAboutLink.astro';
+import FooterWithoutAboutLink from './FooterWithoutAboutLink.astro';
+import FooterWithAboutLinkSourceCode from './FooterWithAboutLink.astro?raw';
+import FooterWithoutAboutLinkSourceCode from './FooterWithoutAboutLink.astro?raw';
+---
+
+<CodeContainer
+  titles={['有关于链接', '无关于链接']}
+  codes={[FooterWithAboutLinkSourceCode, FooterWithoutAboutLinkSourceCode]}>
+  <div id="tab-1">
+    <FooterWithAboutLink />
+  </div>
+  <div id="tab-2">
+    <FooterWithoutAboutLink />
+  </div>
+</CodeContainer>

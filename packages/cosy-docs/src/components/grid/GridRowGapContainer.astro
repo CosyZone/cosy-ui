@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import GridWithRowGap from './GridWithRowGap.astro';
+import GridWithoutRowGap from './GridWithoutRowGap.astro';
+import GridWithRowGapSourceCode from './GridWithRowGap.astro?raw';
+import GridWithoutRowGapSourceCode from './GridWithoutRowGap.astro?raw';
+---
+
+<CodeContainer
+  codes={[GridWithRowGapSourceCode, GridWithoutRowGapSourceCode]}
+  titles={['自定义行间距', '默认行间距']}>
+  <div id="tab-1">
+    <GridWithRowGap />
+  </div>
+  <div id="tab-2">
+    <GridWithoutRowGap />
+  </div>
+</CodeContainer>

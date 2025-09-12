@@ -18,6 +18,7 @@ import ContainerRoundedContainer from './ContainerRoundedContainer.astro';
 import ContainerWidthsContainer from './ContainerWidthsContainer.astro';
 import ContainerFitContainer from './ContainerFitContainer.astro';
 import ContainerContentBorderContainer from './ContainerContentBorderContainer.astro';
+import ContainerSlotContainer from './ContainerSlotContainer.astro';
 
 export const ContainerPackage = {
     Examples: {
@@ -41,5 +42,6 @@ export const ContainerPackage = {
         Widths: ContainerWidthsContainer,
         Fit: ContainerFitContainer,
         ContentBorder: ContainerContentBorderContainer,
+        Slot: ContainerSlotContainer,
     },
 }; 

@@ -1,50 +1,100 @@
 ---
 title: 'Hero'
 folder: false
-order: 12
+order: 8.4
+tags:
+- astro
+- hero
 ---
 
-import {
-    Hero,
-    getExampleImage,
-    getLandscapeImage,
-} from '@coffic/cosy-ui';
+import { Hero } from '@coffic/cosy-ui';
 import { HeroPackage } from '@/components/hero/index';
 
 # {frontmatter.title}
 
-## Basic Usage
+## Introduction
 
-The simplest Hero area display, containing title, description, and call-to-action button
+The Hero component is a full-screen display area, typically used for the homepage or top of important pages. It provides an eye-catching visual area that can contain titles, descriptions, images, and call-to-action buttons.
 
-<HeroPackage.Basic />
+Component features:
 
-## Alignment
+- Supports multiple content alignment options (left, center, right)
+- Provides rich background styles (solid colors, gradients, background images)
+- Supports image display with different positioning options
+- Provides multiple overlay effects to improve text readability
+- Supports custom content slots
+- Responsive design, adapts to different screen sizes
 
-The Hero component supports left-aligned, centered, and right-aligned content
+## Examples
 
-<HeroPackage.Align />
+<HeroPackage.HeroExamples.Basic />
 
-## Usage with Images
+## Props
 
-Make the Hero area more vibrant by adding images. Images can be positioned in different locations.
+### align
 
-<HeroPackage.WithImage />
+Content alignment, supports left-aligned, centered, and right-aligned content.
 
-## Background Styles
+<HeroPackage.HeroContainers.Align />
 
-The Hero component supports a variety of background styles, including solid colors and rich gradients.
+### background
 
-<HeroPackage.Background />
+Background color type, supports all preset background colors and opacity variants, as well as gradient backgrounds.
 
-## Background Images
+<HeroPackage.HeroContainers.Background />
 
-Adding background images can make the Hero area more attractive. Different overlay effects can also be added.
+### backgroundImage
 
-<HeroPackage.BackgroundImage />
+Background image URL, adding background images can make the Hero area more attractive.
 
-## Usage with Custom Content
+<HeroPackage.HeroContainers.BackgroundImage />
 
-Add custom content through slots to achieve richer display effects
+### backgroundOverlay
 
-<HeroPackage.WithButton />
+Overlay on background images, can add different overlay effects to improve text readability.
+
+<HeroPackage.HeroContainers.BackgroundOverlay />
+
+### description
+
+Description text below the title, used to provide more detailed information.
+
+<HeroPackage.HeroContainers.Description />
+
+### image
+
+Optional image configuration, adding images makes the Hero area more vibrant.
+
+<HeroPackage.HeroContainers.Image />
+
+### imagePosition
+
+Image position, images can be positioned in different locations (right, left, top, bottom).
+
+<HeroPackage.HeroContainers.ImagePosition />
+
+### links
+
+Array of link buttons, used to guide users to take the next action.
+
+<HeroPackage.HeroContainers.Links />
+
+### overlayOpacity
+
+Overlay opacity, used to control the transparency of background overlays.
+
+<HeroPackage.HeroContainers.OverlayOpacity />
+
+### title
+
+Main title of the Hero area, used to attract user attention and convey core information.
+
+<HeroPackage.HeroContainers.Title />
+
+## Slots
+
+### app
+
+Custom content slot for adding interactive demos, charts, or other custom content to the Hero area.
+
+<HeroPackage.HeroContainers.App />

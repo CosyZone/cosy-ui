@@ -1,39 +1,94 @@
 ---
 title: 'Products'
 folder: false
-order: 20
+order: 16.7
+tags: ['astro', 'products']
 ---
 
 import { ComponentPackage } from '@/components/products/index';
+import ProductsBasic from '@/components/products/ProductsBasic.astro';
 
 # {frontmatter.title}
 
-Products 组件是 ProductCard 的容器集合，用于展示多个产品卡片。支持网格和列表两种布局模式，并提供多种配置选项以适应不同场景需求。
+## 简介
 
-## 基础用法
+Products 组件是 ProductCard 的容器集合，用于展示多个产品卡片。组件会自动根据父容器大小调整布局，确保在任何视口大小下都能整齐排列产品卡片。支持网格和列表两种布局模式，并提供多种配置选项以适应不同场景需求。
 
-<ComponentPackage.ComponentContainers.Basic />
+### 特性
 
-## 网格布局
+- **响应式布局** - 自动适应父容器大小，在不同设备上呈现最佳效果
+- **灵活配置** - 提供多种布局选项、间距设置和对齐方式
+- **统一展示** - 确保所有产品卡片视觉一致，提供等高选项
+- **性能优化** - 支持懒加载和分页显示大量产品
 
-<ComponentPackage.ComponentContainers.Grid />
+## 案例
 
-## 列表布局
+<ProductsBasic />
 
-<ComponentPackage.ComponentContainers.List />
+## Props
 
-## 自定义卡片尺寸和间距
+### cardSize
 
-<ComponentPackage.ComponentContainers.Custom />
+卡片尺寸，应用于所有 ProductCard。
 
-## 显示容器边框
+<ComponentPackage.ComponentContainers.CardSize />
 
-<ComponentPackage.ComponentContainers.WithBorder />
+### centerItems
 
-## 设置上下外边距
+是否居中显示，控制网格布局中所有卡片是否居中显示。
 
-<ComponentPackage.ComponentContainers.WithMargin />
+<ComponentPackage.ComponentContainers.CenterItems />
 
-## 居中显示
+### class
 
-<ComponentPackage.ComponentContainers.SingleColumn />
+自定义类名，用于添加额外的样式。
+
+<ComponentPackage.ComponentContainers.CustomClass />
+
+### columns
+
+列数配置，可以为固定数字或响应式对象。
+
+<ComponentPackage.ComponentContainers.Columns />
+
+### descriptionLines
+
+描述文本的最大行数，应用于所有 ProductCard。
+
+<ComponentPackage.ComponentContainers.DescriptionLines />
+
+### equalHeight
+
+是否启用等高卡片，确保所有卡片高度一致。
+
+<ComponentPackage.ComponentContainers.EqualHeight />
+
+### gap
+
+卡片间距，控制产品卡片之间的间距大小。
+
+<ComponentPackage.ComponentContainers.Gap />
+
+### layout
+
+布局类型，支持网格和列表两种布局模式。
+
+<ComponentPackage.ComponentContainers.Layout />
+
+### margin
+
+上下外边距，控制 Products 组件整体的上下外边距。
+
+<ComponentPackage.ComponentContainers.Margin />
+
+### products
+
+产品数据数组，包含所有要展示的产品信息。
+
+<ComponentPackage.ComponentContainers.Products />
+
+### showBorder
+
+是否显示容器边框，控制 Products 组件整体容器的边框显示。
+
+<ComponentPackage.ComponentContainers.ShowBorder />

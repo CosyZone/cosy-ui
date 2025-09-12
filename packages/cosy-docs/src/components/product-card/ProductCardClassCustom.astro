@@ -1,0 +1,11 @@
+---
+import { ProductCard, getProductImage } from '@coffic/cosy-ui';
+---
+
+<ProductCard
+  name="自定义样式产品"
+  image={getProductImage({ width: 300, height: 200, tag: 'custom-class' })}
+  description="使用自定义类名添加额外样式的产品卡片。"
+  productUrl="https://example.com/product"
+  class="cosy:border-2 cosy:border-primary cosy:bg-primary/10"
+/>

@@ -1,0 +1,31 @@
+---
+/**
+ * @component ImagesShadowLarge
+ * @description Images 组件大阴影示例
+ */
+import { Images, getProductImage } from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'shadow-lg-1' }),
+    alt: '图片 1',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'shadow-lg-2' }),
+    alt: '图片 2',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'shadow-lg-3' }),
+    alt: '图片 3',
+  },
+];
+---
+
+<Images
+  images={images}
+  layout="grid"
+  columns={3}
+  shadow="xl"
+  gap="sm"
+  rounded="md"
+/>

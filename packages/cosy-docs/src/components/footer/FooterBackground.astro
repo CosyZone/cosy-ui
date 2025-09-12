@@ -1,0 +1,59 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import FooterBackgroundDefault from './FooterBackgroundDefault.astro';
+import FooterBackgroundPrimary from './FooterBackgroundPrimary.astro';
+import FooterBackgroundPrimaryOpacity from './FooterBackgroundPrimaryOpacity.astro';
+import FooterBackgroundAccent from './FooterBackgroundAccent.astro';
+import FooterBackgroundSuccess from './FooterBackgroundSuccess.astro';
+import FooterBackgroundWarning from './FooterBackgroundWarning.astro';
+import FooterBackgroundError from './FooterBackgroundError.astro';
+import FooterBackgroundDefaultSource from './FooterBackgroundDefault.astro?raw';
+import FooterBackgroundPrimarySource from './FooterBackgroundPrimary.astro?raw';
+import FooterBackgroundPrimaryOpacitySource from './FooterBackgroundPrimaryOpacity.astro?raw';
+import FooterBackgroundAccentSource from './FooterBackgroundAccent.astro?raw';
+import FooterBackgroundSuccessSource from './FooterBackgroundSuccess.astro?raw';
+import FooterBackgroundWarningSource from './FooterBackgroundWarning.astro?raw';
+import FooterBackgroundErrorSource from './FooterBackgroundError.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    FooterBackgroundDefaultSource,
+    FooterBackgroundPrimarySource,
+    FooterBackgroundPrimaryOpacitySource,
+    FooterBackgroundAccentSource,
+    FooterBackgroundSuccessSource,
+    FooterBackgroundWarningSource,
+    FooterBackgroundErrorSource,
+  ]}
+  titles={[
+    '默认背景',
+    '主要背景',
+    '主要背景+透明度',
+    '强调背景',
+    '成功背景',
+    '警告背景',
+    '错误背景',
+  ]}>
+  <div id="tab-1">
+    <FooterBackgroundDefault />
+  </div>
+  <div id="tab-2">
+    <FooterBackgroundPrimary />
+  </div>
+  <div id="tab-3">
+    <FooterBackgroundPrimaryOpacity />
+  </div>
+  <div id="tab-4">
+    <FooterBackgroundAccent />
+  </div>
+  <div id="tab-5">
+    <FooterBackgroundSuccess />
+  </div>
+  <div id="tab-6">
+    <FooterBackgroundWarning />
+  </div>
+  <div id="tab-7">
+    <FooterBackgroundError />
+  </div>
+</CodeContainer>

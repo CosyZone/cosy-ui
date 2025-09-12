@@ -7,14 +7,18 @@ import { CodeContainer } from '@coffic/cosy-ui';
 import PlaceHolderBackgroundBase from './PlaceHolderBackgroundBase.astro';
 import PlaceHolderBackgroundTheme from './PlaceHolderBackgroundTheme.astro';
 import PlaceHolderBackgroundStatus from './PlaceHolderBackgroundStatus.astro';
-import sourceBase from './PlaceHolderBackgroundBase.astro?raw';
-import sourceTheme from './PlaceHolderBackgroundTheme.astro?raw';
-import sourceStatus from './PlaceHolderBackgroundStatus.astro?raw';
+import PlaceHolderBackgroundBaseSourceCode from './PlaceHolderBackgroundBase.astro?raw';
+import PlaceHolderBackgroundThemeSourceCode from './PlaceHolderBackgroundTheme.astro?raw';
+import PlaceHolderBackgroundStatusSourceCode from './PlaceHolderBackgroundStatus.astro?raw';
 ---
 
 <CodeContainer
   titles={['基础背景色', '主题背景色', '状态背景色']}
-  codes={[sourceBase, sourceTheme, sourceStatus]}>
+  codes={[
+    PlaceHolderBackgroundBaseSourceCode,
+    PlaceHolderBackgroundThemeSourceCode,
+    PlaceHolderBackgroundStatusSourceCode,
+  ]}>
   <div id="tab-1"><PlaceHolderBackgroundBase /></div>
   <div id="tab-2"><PlaceHolderBackgroundTheme /></div>
   <div id="tab-3"><PlaceHolderBackgroundStatus /></div>

@@ -27,6 +27,7 @@ import PlaceHolderPaddingContainer from './PlaceHolderPaddingContainer.astro';
 import PlaceHolderSizesContainer from './PlaceHolderSizesContainer.astro';
 import PlaceHolderBackgroundsContainer from './PlaceHolderBackgroundsContainer.astro';
 import PlaceHolderBasicContainer from './PlaceHolderBasicContainer.astro';
+import PlaceHolderSlots from './PlaceHolderSlots.astro';
 import Cases from './Cases.astro';
 import MultiplePlaceholders from './MultiplePlaceholders.astro';
 
@@ -37,6 +38,7 @@ export const PlaceHolderPackage = {
     Sizes: PlaceHolderSizesContainer,
     Padding: PlaceHolderPaddingContainer,
     Backgrounds: PlaceHolderBackgroundsContainer,
+    Slots: PlaceHolderSlots,
     BasicSimple: PlaceHolderBasicSimple,
     BasicBackground: PlaceHolderBasicBackground,
     BasicTheme: PlaceHolderBasicTheme,

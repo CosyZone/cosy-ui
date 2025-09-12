@@ -1,0 +1,18 @@
+---
+import { ProductHero, getProductImage, CodeContainer } from '@coffic/cosy-ui';
+import ProductHeroNewLabelTextDefault from './ProductHeroNewLabelTextDefault.astro';
+import ProductHeroNewLabelTextCustom from './ProductHeroNewLabelTextCustom.astro';
+import sourceDefault from './ProductHeroNewLabelTextDefault.astro?raw';
+import sourceCustom from './ProductHeroNewLabelTextCustom.astro?raw';
+---
+
+<CodeContainer
+  codes={[sourceDefault, sourceCustom]}
+  titles={['默认文本', '自定义文本']}>
+  <div id="tab-1">
+    <ProductHeroNewLabelTextDefault />
+  </div>
+  <div id="tab-2">
+    <ProductHeroNewLabelTextCustom />
+  </div>
+</CodeContainer>

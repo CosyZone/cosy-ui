@@ -28,6 +28,9 @@ export * from './src-astro/heading';
 export * from './src-astro/hero';
 export * from './src-astro/icons';
 export * from './src-astro/image';
+export * from './src-astro/image3';
+export * from './src-astro/images';
+export * from './src-astro/images-circle';
 export * from './src-astro/install-tabs';
 export * from './src-astro/language-switcher';
 export * from './src-astro/layout-app';
@@ -68,12 +71,15 @@ export * from './src-astro/types/article';
 export * from './src-astro/types/footer';
 export * from './src-astro/types/header';
 export * from './src-astro/types/heading';
-export * from './src-astro/types/hero';
+export * from './src-astro/hero/hero';
 export * from './src-astro/types/main';
 export * from './src-astro/types/nav';
 export * from './src-astro/types/product';
 export * from './src-astro/types/sidebar';
 export * from './src-astro/types/static-path';
+
+// 通用工具和配置 (按字母顺序)
+export * from './src/common';
 
 // 工具类型 (按字母顺序)
 export type { ImageProvider, ImageOptions } from './src/utils/image';

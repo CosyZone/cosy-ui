@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import FooterWithBlogLink from './FooterWithBlogLink.astro';
+import FooterWithoutBlogLink from './FooterWithoutBlogLink.astro';
+import FooterWithBlogLinkSourceCode from './FooterWithBlogLink.astro?raw';
+import FooterWithoutBlogLinkSourceCode from './FooterWithoutBlogLink.astro?raw';
+---
+
+<CodeContainer
+  titles={['有博客链接', '无博客链接']}
+  codes={[FooterWithBlogLinkSourceCode, FooterWithoutBlogLinkSourceCode]}>
+  <div id="tab-1">
+    <FooterWithBlogLink />
+  </div>
+  <div id="tab-2">
+    <FooterWithoutBlogLink />
+  </div>
+</CodeContainer>

@@ -1,0 +1,113 @@
+---
+/**
+ * @component Image3
+ * @description 展示三张图片的组件，中间图片直立，两侧图片倾斜
+ * @example
+ * <Image3
+ *   images={[
+ *     { src: 'image1.jpg', alt: '图片1' },
+ *     { src: 'image2.jpg', alt: '图片2' },
+ *     { src: 'image3.jpg', alt: '图片3' }
+ *   ]}
+ *   spacing="md"
+ * />
+ */
+import type { IImage3Props } from './types';
+import Image3ErrorView from './Image3ErrorView.astro';
+import { Container } from '../container';
+
+const {
+  images,
+  class: className = '',
+  spacing = 'md',
+  shadow = 'xl',
+  rounded = 'lg',
+  background,
+} = Astro.props as IImage3Props;
+
+// 验证图片数量
+const isValidImages = images && Array.isArray(images) && images.length === 3;
+
+// 间距映射
+const spacingMap = {
+  sm: 'gap-4',
+  md: 'gap-6',
+  lg: 'gap-8',
+};
+
+// 阴影映射
+const shadowMap = {
+  none: '',
+  sm: 'cosy:shadow-sm',
+  md: 'cosy:shadow-md',
+  lg: 'cosy:shadow-lg',
+  xl: 'cosy:shadow-xl',
+};
+
+// 圆角映射
+const roundedMap = {
+  none: 'cosy:rounded-none',
+  sm: 'cosy:rounded-sm',
+  md: 'cosy:rounded-md',
+  lg: 'cosy:rounded-lg',
+  xl: 'cosy:rounded-xl',
+  '2xl': 'cosy:rounded-2xl',
+  '3xl': 'cosy:rounded-3xl',
+  full: 'cosy:rounded-full',
+};
+
+const imageClass =
+  `cosy:object-cover cosy:transition-transform cosy:duration-300 hover:cosy:scale-105 ${shadowMap[shadow]} ${roundedMap[rounded]}`.trim();
+---
+
+{isValidImages ? (
+    <Container
+      class={`${className}`}
+      style="transform-style: preserve-3d;"
+      flex="row"
+      items="center"
+      justify="center"
+      gap={spacing}
+      background={background}>
+      <!-- 左侧图片 - 向内倾斜 -->
+      <div class="cosy:relative cosy:z-10 cosy:scale-x-90 cosy:origin-center cosy:-rotate-y-15 cosy:rotate-x-5 cosy:rotate-z-0">
+        <img
+          src={images[0].src}
+          alt={images[0].alt}
+          width={images[0].width || 250}
+          height={images[0].height || 350}
+          loading={images[0].loading || 'lazy'}
+          class={imageClass}
+        />
+      </div>
+
+      <!-- 中间图片 - 突出 -->
+      <div class="cosy:relative cosy:z-20 cosy:translate-z-30 cosy:scale-100">
+        <img
+          src={images[1].src}
+          alt={images[1].alt}
+          width={images[1].width || 250}
+          height={images[1].height || 350}
+          loading={images[1].loading || 'lazy'}
+          class={imageClass}
+        />
+      </div>
+
+      <!-- 右侧图片 - 向内倾斜 -->
+      <div class="cosy:relative cosy:z-10 cosy:scale-x-90 cosy:origin-center cosy:rotate-y-15 cosy:rotate-x-5 cosy:rotate-z-0">
+        <img
+          src={images[2].src}
+          alt={images[2].alt}
+          width={images[2].width || 200}
+          height={images[2].height || 350}
+          loading={images[2].loading || 'lazy'}
+          class={imageClass}
+        />
+      </div>
+    </Container>
+) : (
+  <Image3ErrorView
+    imagesCount={images ? images.length : 0}
+    class={className}
+  />
+)}

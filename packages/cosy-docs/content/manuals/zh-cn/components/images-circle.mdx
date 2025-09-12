@@ -1,0 +1,73 @@
+---
+title: ImagesCircle 圆圈图片
+description: 将多张图片排列成圆圈的组件，具有立体感和动态效果
+folder: false
+order: 9.1
+---
+
+import { ImagesCirclePackage } from '@/components/images-circle';
+
+# ImagesCircle 圆圈图片
+
+## 简介
+
+3D透视图片展示组件，模拟图片从远处走向观者的立体效果。中间的图片"走得最快"因此显得最大最近，两侧的图片"走得较慢"因此显得较小较远，营造出强烈的空间层次感。
+
+组件特性：
+
+- 真实的3D透视效果，模拟深度空间
+- 中心图片最大最清晰，侧边图片渐小渐模糊
+- 智能的3D位置计算算法
+- 支持多张图片的立体排列（仅限奇数个图片）
+- 轻微的旋转和透明度变化增强立体感
+- 响应式设计，移动端优化性能
+
+**重要提示：** 组件只接受奇数个图片（至少 3 张），以确保有明确的中心图片。如果提供偶数个图片，组件将显示错误信息。
+
+## 案例
+
+<ImagesCirclePackage.Example />
+
+## Props
+
+### background
+
+背景颜色设置。
+
+<ImagesCirclePackage.BackgroundContainer />
+
+### class
+
+自定义 CSS 类名，用于覆盖默认样式。
+
+<ImagesCirclePackage.ClassContainer />
+
+### images
+
+图片数组，按顺序从左到右排列，中间位置的图片会自动成为焦点，显示最大最清晰。**必须提供奇数个图片（至少 3 张）**。
+
+<ImagesCirclePackage.ImagesContainer />
+
+### rounded
+
+图片圆角大小，从无圆角到完全圆形。
+
+<ImagesCirclePackage.RoundedContainer />
+
+### shadow
+
+图片阴影效果，增强立体感和层次感。
+
+<ImagesCirclePackage.ShadowContainer />
+
+### size
+
+组件大小，影响图片尺寸和整体圆圈大小。
+
+<ImagesCirclePackage.SizeContainer />
+
+### spacing
+
+圆圈大小（图片到中心的距离），控制图片分布的紧密程度。
+
+<ImagesCirclePackage.SpacingContainer />

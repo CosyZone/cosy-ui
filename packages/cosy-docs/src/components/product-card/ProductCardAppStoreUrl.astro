@@ -1,0 +1,14 @@
+---
+import { ProductCard, getProductImage } from '@coffic/cosy-ui';
+import ProductCardAppStoreUrlSourceCode from './ProductCardAppStoreUrl.astro?raw';
+---
+
+<ProductCard
+  name="App Store 产品"
+  image={getProductImage({ width: 300, height: 200, tag: 'appstore-product' })}
+  description="这是一个包含 App Store 链接的产品卡片示例。"
+  productUrl="https://example.com/product"
+  appStoreUrl="https://apps.apple.com/app/example-app"
+  primaryButtonText="访问官网"
+  secondaryButtonText="App Store"
+/>

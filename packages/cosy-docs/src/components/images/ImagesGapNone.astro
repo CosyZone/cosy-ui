@@ -1,0 +1,31 @@
+---
+/**
+ * @component ImagesGapNone
+ * @description Images 组件无间距示例
+ */
+import { Images, getProductImage } from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 150, height: 150, tag: 'gap-none-1' }),
+    alt: '图片 1',
+  },
+  {
+    src: getProductImage({ width: 150, height: 150, tag: 'gap-none-2' }),
+    alt: '图片 2',
+  },
+  {
+    src: getProductImage({ width: 150, height: 150, tag: 'gap-none-3' }),
+    alt: '图片 3',
+  },
+];
+---
+
+<Images
+  images={images}
+  layout="grid"
+  columns={3}
+  gap="none"
+  rounded="md"
+  shadow="sm"
+/>

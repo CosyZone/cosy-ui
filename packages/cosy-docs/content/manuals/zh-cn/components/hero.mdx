@@ -1,14 +1,13 @@
 ---
 title: 'Hero'
 folder: false
-order: 12
+order: 8.4
+tags:
+- astro
+- hero
 ---
 
-import {
-    Hero,
-    getExampleImage,
-    getLandscapeImage,
-} from '@coffic/cosy-ui';
+import { Hero } from '@coffic/cosy-ui';
 import { HeroPackage } from '@/components/hero/index';
 
 # {frontmatter.title}
@@ -17,62 +16,85 @@ import { HeroPackage } from '@/components/hero/index';
 
 Hero 组件是一个全屏的展示区域，通常用于网站的首页或重要页面的顶部。它提供了一个引人注目的视觉区域，可以包含标题、描述、图片和行动按钮。
 
-## align
+组件特性：
+
+- 支持多种内容对齐方式（左对齐、居中、右对齐）
+- 提供丰富的背景样式（纯色、渐变色、背景图片）
+- 支持图片展示，可设置不同位置
+- 提供多种遮罩效果，改善文本可读性
+- 支持自定义内容插槽
+- 响应式设计，适配不同屏幕尺寸
+
+## 案例
+
+<HeroPackage.HeroExamples.Basic />
+
+## Props
+
+### align
 
 内容对齐方式，支持左对齐、居中和右对齐。
 
-<HeroPackage.Align />
+<HeroPackage.HeroContainers.Align />
 
-## background
+### background
 
-背景样式，支持多种背景样式，包括纯色和丰富的渐变色。
+背景色类型，支持所有预设背景色和透明度变体，以及渐变色背景。
 
-<HeroPackage.Background />
+<HeroPackage.HeroContainers.Background />
 
-## backgroundImage
+### backgroundImage
 
 背景图片的URL，添加背景图片可以使Hero区域更加吸引人。
 
-<HeroPackage.BackgroundImage />
+<HeroPackage.HeroContainers.BackgroundImage />
 
-## backgroundOverlay
+### backgroundOverlay
 
 背景图片上的遮罩，可以添加不同的遮罩效果来改善文本可读性。
 
-<HeroPackage.BackgroundImage />
+<HeroPackage.HeroContainers.BackgroundOverlay />
 
-## description
+### description
 
 标题下方的描述文本，用于提供更详细的信息说明。
 
-<HeroPackage.Basic />
+<HeroPackage.HeroContainers.Description />
 
-## image
+### image
 
 可选的图片配置，通过添加图片使Hero区域更加生动。
 
-<HeroPackage.WithImage />
+<HeroPackage.HeroContainers.Image />
 
-## imagePosition
+### imagePosition
 
 图片位置，图片可以设置在不同位置（右侧、左侧、顶部、底部）。
 
-<HeroPackage.WithImage />
+<HeroPackage.HeroContainers.ImagePosition />
 
-## links
+### links
 
 链接按钮数组，用于引导用户进行下一步操作。
 
-<HeroPackage.WithButton />
+<HeroPackage.HeroContainers.Links />
 
-## overlayOpacity
+### overlayOpacity
 
 遮罩的不透明度，用于控制背景遮罩的透明度。
 
-<HeroPackage.BackgroundImage />
+<HeroPackage.HeroContainers.OverlayOpacity />
 
-## title
+### title
 
 Hero 区域的主标题，用于吸引用户注意并传达核心信息。
 
-<HeroPackage.Basic />
+<HeroPackage.HeroContainers.Title />
+
+## Slots
+
+### app
+
+自定义内容插槽，用于在 Hero 区域中添加交互式演示、图表或其他自定义内容。
+
+<HeroPackage.HeroContainers.App />

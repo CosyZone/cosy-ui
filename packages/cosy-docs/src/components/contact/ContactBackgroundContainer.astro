@@ -1,0 +1,59 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContactBackgroundDefault from './ContactBackgroundDefault.astro';
+import ContactBackgroundPrimary from './ContactBackgroundPrimary.astro';
+import ContactBackgroundPrimaryOpacity from './ContactBackgroundPrimaryOpacity.astro';
+import ContactBackgroundAccent from './ContactBackgroundAccent.astro';
+import ContactBackgroundSuccess from './ContactBackgroundSuccess.astro';
+import ContactBackgroundWarning from './ContactBackgroundWarning.astro';
+import ContactBackgroundError from './ContactBackgroundError.astro';
+import ContactBackgroundDefaultSourceCode from './ContactBackgroundDefault.astro?raw';
+import ContactBackgroundPrimarySourceCode from './ContactBackgroundPrimary.astro?raw';
+import ContactBackgroundPrimaryOpacitySourceCode from './ContactBackgroundPrimaryOpacity.astro?raw';
+import ContactBackgroundAccentSourceCode from './ContactBackgroundAccent.astro?raw';
+import ContactBackgroundSuccessSourceCode from './ContactBackgroundSuccess.astro?raw';
+import ContactBackgroundWarningSourceCode from './ContactBackgroundWarning.astro?raw';
+import ContactBackgroundErrorSourceCode from './ContactBackgroundError.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    ContactBackgroundDefaultSourceCode,
+    ContactBackgroundPrimarySourceCode,
+    ContactBackgroundPrimaryOpacitySourceCode,
+    ContactBackgroundAccentSourceCode,
+    ContactBackgroundSuccessSourceCode,
+    ContactBackgroundWarningSourceCode,
+    ContactBackgroundErrorSourceCode,
+  ]}
+  titles={[
+    '默认背景',
+    '主色调背景',
+    '主色调半透明',
+    '强调色背景',
+    '成功色背景',
+    '警告色背景',
+    '错误色背景',
+  ]}>
+  <div id="tab-1">
+    <ContactBackgroundDefault />
+  </div>
+  <div id="tab-2">
+    <ContactBackgroundPrimary />
+  </div>
+  <div id="tab-3">
+    <ContactBackgroundPrimaryOpacity />
+  </div>
+  <div id="tab-4">
+    <ContactBackgroundAccent />
+  </div>
+  <div id="tab-5">
+    <ContactBackgroundSuccess />
+  </div>
+  <div id="tab-6">
+    <ContactBackgroundWarning />
+  </div>
+  <div id="tab-7">
+    <ContactBackgroundError />
+  </div>
+</CodeContainer>

@@ -1,0 +1,20 @@
+---
+import {
+  ProductHeroItem,
+  getProductImage,
+  CodeContainer,
+} from '@coffic/cosy-ui';
+import ProductHeroItemAlignLeft from './ProductHeroItemAlignLeft.astro';
+import ProductHeroItemAlignRight from './ProductHeroItemAlignRight.astro';
+import sourceLeft from './ProductHeroItemAlignLeft.astro?raw';
+import sourceRight from './ProductHeroItemAlignRight.astro?raw';
+---
+
+<CodeContainer codes={[sourceLeft, sourceRight]} titles={['左对齐', '右对齐']}>
+  <div id="tab-1">
+    <ProductHeroItemAlignLeft />
+  </div>
+  <div id="tab-2">
+    <ProductHeroItemAlignRight />
+  </div>
+</CodeContainer>

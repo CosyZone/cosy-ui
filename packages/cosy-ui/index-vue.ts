@@ -1,6 +1,7 @@
 // 导出组件，按照字母排序
 export * from './src-vue/alert-dialog/index';
 export * from './src-vue/alert/index';
+export * from './src-vue/avatar/index';
 export * from './src-vue/badge/index';
 export * from './src-vue/banner-box/index';
 export * from './src-vue/badge/index';
@@ -12,6 +13,7 @@ export * from './src-vue/container/index';
 export * from './src-vue/counter/index';
 export * from './src-vue/confirm-dialog/index';
 export * from './src-vue/buttons/index';
+export * from './src-vue/grid/index';
 export * from './src-vue/icons/index';
 export * from './src-vue/link/index';
 export * from './src-vue/placeholder/index';
@@ -20,10 +22,17 @@ export * from './src-vue/social-icon/index';
 export * from './src-vue/key-catcher/index';
 export * from './src-vue/list/index';
 export * from './src-vue/progress/index';
+export * from './src-vue/review/index';
 export * from './src-vue/status-bar/index';
+export * from './src-vue/text/index';
 export * from './src-vue/tool-bar/index';
 export * from './src-vue/mac-window/index';
 export * from './src-vue/apple-phone/index';
+
+// ===== 通用工具和配置 =====
+
+// 通用背景色配置 - 适用于所有组件
+export * from './src/common';
 
 // ===== 工具函数 =====
 

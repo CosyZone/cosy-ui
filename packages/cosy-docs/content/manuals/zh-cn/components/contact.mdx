@@ -1,7 +1,7 @@
 ---
 title: 'Contact'
 folder: false
-order: 6
+order: 3.7
 ---
 
 import { Contact } from '@coffic/cosy-ui';
@@ -22,78 +22,60 @@ Contact组件用于展示企业或个人的联系信息，支持多种联系方�
 - 支持自定义标题和描述
 - 美观的图标设计，清晰易识别
 
-## address
+## 案例
 
+<ContactPackage.ContactExamples.Basic />
+
+## Props
+
+### address
 地址信息。
+<ContactPackage.ContactContainers.Address />
 
-```astro
-<Contact address="123 Business St, City, State 12345" />
-```
+### background
+背景色类型，支持所有预设背景色和透明度变体。
+<ContactPackage.ContactContainers.Background />
 
-## class
-
+### class
 自定义CSS类，可用于覆盖默认样式。
-
 <ContactPackage.ContactContainers.CustomStyle />
 
-## compact
-
+### compact
 是否使用紧凑模式。
-
 <ContactPackage.ContactContainers.Compact />
 
-## description
-
+### description
 联系信息描述。
-
 <ContactPackage.ContactContainers.WithTitle />
 
-## email
-
+### email
 电子邮件地址。
+<ContactPackage.ContactContainers.Email />
 
-<ContactPackage.ContactContainers.Basic />
-
-## facebook
-
+### facebook
 Facebook链接。
-
 <ContactPackage.ContactContainers.Social />
 
-## github
-
+### github
 GitHub链接。
-
 <ContactPackage.ContactContainers.Social />
 
-## linkedin
-
+### linkedin
 LinkedIn链接。
-
 <ContactPackage.ContactContainers.Social />
 
-## phone
-
+### phone
 电话号码。
+<ContactPackage.ContactContainers.Phone />
 
-<ContactPackage.ContactContainers.Basic />
-
-## title
-
+### title
 联系信息标题。
-
 <ContactPackage.ContactContainers.WithTitle />
 
-## twitter
-
+### twitter
 Twitter链接。
-
 <ContactPackage.ContactContainers.Social />
 
-## website
-
+### website
 网站链接。
-
-```astro
-<Contact website="https://example.com" />
-```
+<ContactPackage.ContactContainers.Website />

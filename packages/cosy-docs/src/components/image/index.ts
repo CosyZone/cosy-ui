@@ -22,6 +22,10 @@ import ImageShowPlaceholderContainer from './ImageShowPlaceholderContainer.astro
 import ImageMaskContainer from './ImageMaskContainer.astro';
 import ImageSrcContainer from './ImageSrcContainer.astro';
 import ImageTooltipContainer from './ImageTooltipContainer.astro';
+import ImageTooltipColorContainer from './ImageTooltipColorContainer.astro';
+import ImageTooltipOpenContainer from './ImageTooltipOpenContainer.astro';
+import ImageTooltipPlacementContainer from './ImageTooltipPlacementContainer.astro';
+import ImageShowPromptPanelContainer from './ImageShowPromptPanelContainer.astro';
 import ImageTransitionContainer from './ImageTransitionContainer.astro';
 import ImageWidthContainer from './ImageWidthContainer.astro';
 
@@ -49,6 +53,10 @@ export const ComponentPackage = {
     Mask: ImageMaskContainer,
     Src: ImageSrcContainer,
     Tooltip: ImageTooltipContainer,
+    TooltipColor: ImageTooltipColorContainer,
+    TooltipOpen: ImageTooltipOpenContainer,
+    TooltipPlacement: ImageTooltipPlacementContainer,
+    ShowPromptPanel: ImageShowPromptPanelContainer,
     Transition: ImageTransitionContainer,
     Width: ImageWidthContainer,
 }; 

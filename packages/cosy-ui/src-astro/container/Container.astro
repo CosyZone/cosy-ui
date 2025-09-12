@@ -181,8 +181,31 @@
 
 import type { HTMLAttributes } from 'astro/types';
 import '../../style.ts';
-import type { BackgroundColor } from './backgrounds';
-import { getBackgroundClass } from './backgrounds';
+import type { BackgroundColor } from '../../src/common/backgrounds';
+import { getBackgroundClass } from '../../src/common/backgrounds';
+import type { Size } from '../../src/common/size';
+import type { HeightSize } from '../../src/common/height';
+import type {
+  FlexDirection,
+  GapSize,
+  FlexAlign,
+  FlexJustify,
+} from '../../src/common/layout';
+import type { PaddingSize } from '../../src/common/padding';
+import type { MarginSize } from '../../src/common/margin';
+import type { RoundedSize } from '../../src/common/rounded';
+import type { FitMode } from '../../src/common/fitmode';
+import {
+  widthClasses,
+  flexClasses,
+  gapClasses,
+  itemsClasses,
+  justifyClasses,
+  roundedClasses,
+} from '../../src/common';
+import { paddingClasses } from '../../src/common/padding';
+import { marginClasses } from '../../src/common/margin';
+import { heightClasses } from '../../src/common/height';
 import type { ContentBorderColor } from './contentBorderColors';
 import { getContentBorderClass } from './contentBorderColors';
 import { validateContainerProps } from './validateProps';
@@ -208,7 +231,7 @@ interface Props extends HTMLAttributes<'div'> {
   /**
    * 内容适配模式：none（默认）、contain（保持比例，尽量占满且不溢出）、cover（保持比例，铺满并可能裁剪）
    */
-  fit?: 'none' | 'contain' | 'cover';
+  fit?: FitMode;
 
   /**
    * 是否给内容比例盒加边框（仅在 fit 模式下生效）
@@ -235,75 +258,51 @@ interface Props extends HTMLAttributes<'div'> {
   /**
    * flex布局方向，不设置则不启用flex布局
    */
-  flex?: 'row' | 'col' | 'row-reverse' | 'col-reverse';
+  flex?: FlexDirection;
 
   /**
    * flex项目间距
    * @default "none"
    */
-  gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  gap?: GapSize;
 
   /**
    * 容器高度，不设置则不设置高度
    */
-  height?:
-    | 'none'
-    | 'xs'
-    | 'sm'
-    | 'md'
-    | 'lg'
-    | 'xl'
-    | '2xl'
-    | '3xl'
-    | '4xl'
-    | '5xl'
-    | '6xl'
-    | 'screen'
-    | 'auto';
+  height?: HeightSize;
 
   /**
    * flex项目水平对齐方式
    */
-  items?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+  items?: FlexAlign;
 
   /**
    * flex项目垂直对齐方式
    */
-  justify?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
+  justify?: FlexJustify;
 
   /**
    * 外边距大小
    * @default "none"
    */
-  margin?:
-    | 'none'
-    | 'xs'
-    | 'sm'
-    | 'md'
-    | 'lg'
-    | 'xl'
-    | '2xl'
-    | '3xl'
-    | '4xl'
-    | '5xl'
-    | '6xl';
+  margin?: MarginSize;
 
   /**
    * 内边距大小
    * @default "md"
    */
-  padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
+  padding?: PaddingSize;
 
   /**
    * 容器宽度，不设置则不设置宽度
    */
-  width?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  width?: Size;
 
   /**
    * 圆角大小
    * @default "none"
    */
-  rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  rounded?: RoundedSize;
 }
 
 const {
@@ -342,100 +341,6 @@ const {
   resolvedFit,
   suggestFallbackMinHeight,
 } = validateContainerProps(rawProps);
-
-// 静态类名映射
-const widthClasses = {
-  none: '',
-  xs: 'cosy:max-w-xs',
-  sm: 'cosy:max-w-sm',
-  md: 'cosy:max-w-2xl',
-  lg: 'cosy:max-w-4xl',
-  xl: 'cosy:max-w-6xl',
-  full: 'cosy:w-full',
-} as const;
-
-const paddingClasses = {
-  none: 'cosy:p-0',
-  sm: 'cosy:p-2',
-  md: 'cosy:p-4',
-  lg: 'cosy:p-6',
-  xl: 'cosy:p-8',
-  '2xl': 'cosy:p-10',
-  '3xl': 'cosy:p-12',
-  '4xl': 'cosy:p-16',
-} as const;
-
-const roundedClasses = {
-  none: '',
-  sm: 'cosy:rounded-sm',
-  md: 'cosy:rounded-md',
-  lg: 'cosy:rounded-lg',
-  xl: 'cosy:rounded-xl',
-  full: 'cosy:rounded-full',
-} as const;
-
-const marginClasses = {
-  none: '',
-  xs: 'cosy:my-1',
-  sm: 'cosy:my-2',
-  md: 'cosy:my-4',
-  lg: 'cosy:my-6',
-  xl: 'cosy:my-8',
-  '2xl': 'cosy:my-12',
-  '3xl': 'cosy:my-16',
-  '4xl': 'cosy:my-20',
-  '5xl': 'cosy:my-24',
-  '6xl': 'cosy:my-32',
-} as const;
-
-const flexClasses = {
-  row: 'cosy:flex cosy:flex-row',
-  col: 'cosy:flex cosy:flex-col',
-  'row-reverse': 'cosy:flex cosy:flex-row-reverse',
-  'col-reverse': 'cosy:flex cosy:flex-col-reverse',
-} as const;
-
-const gapClasses = {
-  none: 'cosy:gap-0',
-  xs: 'cosy:gap-1',
-  sm: 'cosy:gap-2',
-  md: 'cosy:gap-4',
-  lg: 'cosy:gap-6',
-  xl: 'cosy:gap-8',
-} as const;
-
-const itemsClasses = {
-  start: 'cosy:items-start',
-  end: 'cosy:items-end',
-  center: 'cosy:items-center',
-  baseline: 'cosy:items-baseline',
-  stretch: 'cosy:items-stretch',
-} as const;
-
-const justifyClasses = {
-  start: 'cosy:justify-start',
-  end: 'cosy:justify-end',
-  center: 'cosy:justify-center',
-  between: 'cosy:justify-between',
-  around: 'cosy:justify-around',
-  evenly: 'cosy:justify-evenly',
-} as const;
-
-const heightClasses = {
-  none: '',
-  xs: 'cosy:h-16',
-  sm: 'cosy:h-24',
-  md: 'cosy:h-32',
-  lg: 'cosy:h-40',
-  xl: 'cosy:h-48',
-  '2xl': 'cosy:h-56',
-  '3xl': 'cosy:h-64',
-  '4xl': 'cosy:h-72',
-  '5xl': 'cosy:h-80',
-  '6xl': 'cosy:h-96',
-  screen: 'cosy:h-screen',
-  auto: 'cosy:h-auto',
-} as const;
 
 const effectiveFit = resolvedFit ?? fit;
 const fitEnabled = effectiveFit !== 'none' && typeof aspectRatio === 'number';

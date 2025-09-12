@@ -1,9 +1,18 @@
 ---
 import { CodeContainer } from '@coffic/cosy-ui';
 import ProductCardShadow from './ProductCardShadow.astro';
-import code from './ProductCardShadow.astro?raw';
+import ProductCardShadowNone from './ProductCardShadowNone.astro';
+import ProductCardShadowSourceCode from './ProductCardShadow.astro?raw';
+import ProductCardShadowNoneSourceCode from './ProductCardShadowNone.astro?raw';
 ---
 
-<CodeContainer codes={[code]}>
-  <ProductCardShadow />
+<CodeContainer
+  titles={['大阴影 (lg)', '无阴影 (none)']}
+  codes={[ProductCardShadowSourceCode, ProductCardShadowNoneSourceCode]}>
+  <div id="tab-1">
+    <ProductCardShadow />
+  </div>
+  <div id="tab-2">
+    <ProductCardShadowNone />
+  </div>
 </CodeContainer>

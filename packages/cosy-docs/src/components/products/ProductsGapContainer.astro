@@ -1,0 +1,12 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ProductsGap from './ProductsGap.astro';
+// @ts-ignore
+import ProductsGapSourceCode from './ProductsGap.astro?raw';
+---
+
+<CodeContainer titles={['lg']} codes={[ProductsGapSourceCode]}>
+  <div id="tab-1">
+    <ProductsGap />
+  </div>
+</CodeContainer>

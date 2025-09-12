@@ -1,7 +1,9 @@
+import type { BackgroundColor } from '../../src/common/backgrounds';
+
 export interface IHeadingProps {
     align?: 'left' | 'center' | 'right';
     anchor?: boolean;
-    background?: string;
+    background?: BackgroundColor;
     color?:
     | 'default'
     | 'primary'

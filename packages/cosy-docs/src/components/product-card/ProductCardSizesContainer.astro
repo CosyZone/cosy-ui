@@ -1,9 +1,39 @@
 ---
 import { CodeContainer } from '@coffic/cosy-ui';
 import ProductCardSizes from './ProductCardSizes.astro';
-import code from './ProductCardSizes.astro?raw';
+import ProductCardSizesSm from './ProductCardSizesSm.astro';
+import ProductCardSizesMd from './ProductCardSizesMd.astro';
+import ProductCardSizesLg from './ProductCardSizesLg.astro';
+import ProductCardSizesXl from './ProductCardSizesXl.astro';
+import ProductCardSizesSourceCode from './ProductCardSizes.astro?raw';
+import ProductCardSizesSmSourceCode from './ProductCardSizesSm.astro?raw';
+import ProductCardSizesMdSourceCode from './ProductCardSizesMd.astro?raw';
+import ProductCardSizesLgSourceCode from './ProductCardSizesLg.astro?raw';
+import ProductCardSizesXlSourceCode from './ProductCardSizesXl.astro?raw';
 ---
 
-<CodeContainer codes={[code]}>
-  <ProductCardSizes />
+<CodeContainer
+  titles={['xs', 'sm', 'md', 'lg', 'xl']}
+  codes={[
+    ProductCardSizesSourceCode,
+    ProductCardSizesSmSourceCode,
+    ProductCardSizesMdSourceCode,
+    ProductCardSizesLgSourceCode,
+    ProductCardSizesXlSourceCode,
+  ]}>
+  <div id="tab-1">
+    <ProductCardSizes />
+  </div>
+  <div id="tab-2">
+    <ProductCardSizesSm />
+  </div>
+  <div id="tab-3">
+    <ProductCardSizesMd />
+  </div>
+  <div id="tab-4">
+    <ProductCardSizesLg />
+  </div>
+  <div id="tab-5">
+    <ProductCardSizesXl />
+  </div>
 </CodeContainer>

@@ -1,0 +1,31 @@
+---
+/**
+ * @component ImagesRoundedFull
+ * @description Images 组件圆形示例
+ */
+import { Images, getProductImage } from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'rounded-full-1' }),
+    alt: '图片 1',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'rounded-full-2' }),
+    alt: '图片 2',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200, tag: 'rounded-full-3' }),
+    alt: '图片 3',
+  },
+];
+---
+
+<Images
+  images={images}
+  layout="grid"
+  columns={3}
+  rounded="full"
+  gap="sm"
+  shadow="sm"
+/>

@@ -1,0 +1,53 @@
+---
+title: Image3
+description: 展示三张图片的组件，中间图片直立，两侧图片倾斜
+order: 9.3
+---
+
+import { Image3Package } from '@/components/image3';
+
+# Image3
+
+展示三张图片的组件，中间图片直立，两侧图片倾斜，创造动态的视觉效果。
+
+## 案例
+
+<Image3Package.Case />
+
+## Props
+
+### background
+
+设置容器的背景色，详细用法参考 `Container` 组件。
+
+<Image3Package.Background />
+
+### class
+
+自定义 CSS 类名，用于添加额外的样式。
+
+### images
+
+图片数据数组，必须包含三张图片，每张图片包含 src、alt 等属性。
+
+### rounded
+
+图片圆角，可选值：none、sm、md、lg、xl、2xl、3xl、full。
+
+### shadow
+
+图片阴影，可选值：none、sm、md、lg、xl。
+
+<Image3Package.Shadow />
+
+### spacing
+
+图片间距，可选值：sm、md、lg。
+
+<Image3Package.Spacing />
+
+## 错误处理
+
+当传递的图片数量不是3张时，组件会显示错误视图提示用户。
+
+<Image3Package.Error />

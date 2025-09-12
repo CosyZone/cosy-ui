@@ -1,0 +1,25 @@
+---
+/**
+ * @component ImagesImagesContainer
+ * @description Images 组件 images 属性示例容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ImagesImagesBasic from './ImagesImagesBasic.astro';
+import ImagesImagesWithCaption from './ImagesImagesWithCaption.astro';
+import ImagesImagesWithSize from './ImagesImagesWithSize.astro';
+import ImagesImagesBasicSourceCode from './ImagesImagesBasic.astro?raw';
+import ImagesImagesWithCaptionSourceCode from './ImagesImagesWithCaption.astro?raw';
+import ImagesImagesWithSizeSourceCode from './ImagesImagesWithSize.astro?raw';
+---
+
+<CodeContainer
+  titles={['基础用法', '带标题', '带尺寸']}
+  codes={[
+    ImagesImagesBasicSourceCode,
+    ImagesImagesWithCaptionSourceCode,
+    ImagesImagesWithSizeSourceCode,
+  ]}>
+  <div id="tab-1"><ImagesImagesBasic /></div>
+  <div id="tab-2"><ImagesImagesWithCaption /></div>
+  <div id="tab-3"><ImagesImagesWithSize /></div>
+</CodeContainer>

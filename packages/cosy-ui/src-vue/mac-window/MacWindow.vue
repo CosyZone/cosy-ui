@@ -3,7 +3,7 @@ import '../../style';
 import AlertDialog from '../alert-dialog/AlertDialog.vue';
 import Container from '../container/Container.vue';
 import { ref, computed } from 'vue';
-import type { BackgroundColor } from '../container/backgrounds';
+import type { BackgroundColor } from '../../src/common/backgrounds';
 
 /**
  * @component MacWindow
@@ -14,7 +14,7 @@ import type { BackgroundColor } from '../container/backgrounds';
  *
  * @usage
  * 基本用法：<MacWindow title="代码编辑器"><div>窗口内容</div></MacWindow>
- * 带背景色和宽度：<MacWindow title="代码编辑器" bgType="blue" width="lg"><div>窗口内容</div></MacWindow>
+ * 带背景色和宽度：<MacWindow title="代码编辑器" bgType="primary/10" width="lg"><div>窗口内容</div></MacWindow>
  * 带标签页：支持 tabs 属性配置多个标签页，使用 defaultTab 设置默认标签
  * 带自定义事件处理：支持 onCloseWindow、onMinimizeWindow、onMaximizeWindow、onTabClick 事件回调
  * 带工具栏和状态栏：支持 toolbar 和 status 插槽
@@ -26,7 +26,7 @@ import type { BackgroundColor } from '../container/backgrounds';
  * @prop {Boolean} [withShadow=true] - 是否显示阴影效果
  * @prop {Array} [tabs=[]] - 标签页字符串数组，如 ['标签1', '标签2', '标签3']
  * @prop {String} [defaultTab=''] - 默认选中的标签页
- * @prop {String} [bgType='default'] - 背景色类型，可选值：default, light, dark, blue, green, purple, orange, red
+ * @prop {BackgroundColor} [bgType='base-100'] - 背景色类型，支持所有预设背景色和透明度变体，如：base-100、primary、secondary、accent、neutral、info、success、warning、error，以及透明度变体如 primary/10、secondary/20 等。使用通用的背景色系统。
  * @prop {Function} [onCloseWindow=null] - 关闭窗口时调用的函数
  * @prop {Function} [onMinimizeWindow=null] - 最小化窗口时调用的函数
  * @prop {Function} [onMaximizeWindow=null] - 最大化窗口时调用的函数

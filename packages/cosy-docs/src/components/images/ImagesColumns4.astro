@@ -1,0 +1,51 @@
+---
+/**
+ * @component ImagesColumns4
+ * @description Images 组件 4列布局示例
+ */
+import { Images, getProductImage } from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 150, height: 150, tag: 'col4-1' }),
+    alt: '图片 1',
+  },
+  {
+    src: getProductImage({ width: 150, height: 150, tag: 'col4-2' }),
+    alt: '图片 2',
+  },
+  {
+    src: getProductImage({ width: 150, height: 150, tag: 'col4-3' }),
+    alt: '图片 3',
+  },
+  {
+    src: getProductImage({ width: 150, height: 150, tag: 'col4-4' }),
+    alt: '图片 4',
+  },
+  {
+    src: getProductImage({ width: 150, height: 150, tag: 'col4-5' }),
+    alt: '图片 5',
+  },
+  {
+    src: getProductImage({ width: 150, height: 150, tag: 'col4-6' }),
+    alt: '图片 6',
+  },
+  {
+    src: getProductImage({ width: 150, height: 150, tag: 'col4-7' }),
+    alt: '图片 7',
+  },
+  {
+    src: getProductImage({ width: 150, height: 150, tag: 'col4-8' }),
+    alt: '图片 8',
+  },
+];
+---
+
+<Images
+  images={images}
+  layout="grid"
+  columns={4}
+  gap="sm"
+  rounded="md"
+  shadow="sm"
+/>

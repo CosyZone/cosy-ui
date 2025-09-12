@@ -1,0 +1,22 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+
+// 源码导入
+import ShadowNoneSourceCode from './ShadowNone.astro?raw';
+import ShadowXlSourceCode from './ShadowXl.astro?raw';
+
+// 组件导入
+import ShadowNone from './ShadowNone.astro';
+import ShadowXl from './ShadowXl.astro';
+---
+
+<CodeContainer
+  codes={[ShadowNoneSourceCode, ShadowXlSourceCode]}
+  titles={['none', 'xl']}>
+  <div id="tab-1">
+    <ShadowNone />
+  </div>
+  <div id="tab-2">
+    <ShadowXl />
+  </div>
+</CodeContainer>

@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import FooterWithCareersLink from './FooterWithCareersLink.astro';
+import FooterWithoutCareersLink from './FooterWithoutCareersLink.astro';
+import FooterWithCareersLinkSourceCode from './FooterWithCareersLink.astro?raw';
+import FooterWithoutCareersLinkSourceCode from './FooterWithoutCareersLink.astro?raw';
+---
+
+<CodeContainer
+  titles={['有职业链接', '无职业链接']}
+  codes={[FooterWithCareersLinkSourceCode, FooterWithoutCareersLinkSourceCode]}>
+  <div id="tab-1">
+    <FooterWithCareersLink />
+  </div>
+  <div id="tab-2">
+    <FooterWithoutCareersLink />
+  </div>
+</CodeContainer>

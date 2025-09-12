@@ -1,0 +1,21 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ProductCardPrimaryButtonText from './ProductCardPrimaryButtonText.astro';
+import ProductCardPrimaryButtonTextCustom from './ProductCardPrimaryButtonTextCustom.astro';
+import ProductCardPrimaryButtonTextSourceCode from './ProductCardPrimaryButtonText.astro?raw';
+import ProductCardPrimaryButtonTextCustomSourceCode from './ProductCardPrimaryButtonTextCustom.astro?raw';
+---
+
+<CodeContainer
+  titles={['默认按钮文本', '自定义按钮文本']}
+  codes={[
+    ProductCardPrimaryButtonTextSourceCode,
+    ProductCardPrimaryButtonTextCustomSourceCode,
+  ]}>
+  <div id="tab-1">
+    <ProductCardPrimaryButtonText />
+  </div>
+  <div id="tab-2">
+    <ProductCardPrimaryButtonTextCustom />
+  </div>
+</CodeContainer>

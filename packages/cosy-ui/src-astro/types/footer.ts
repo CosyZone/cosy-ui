@@ -1,4 +1,5 @@
 import type { ILogo, IProduct } from './product';
+import type { BackgroundColor } from '../../src/common/backgrounds';
 
 export interface IFooterProps {
     /**
@@ -30,6 +31,12 @@ export interface IFooterProps {
      * 版权信息
      */
     copyright: string;
+
+    /**
+     * 背景色类型，支持所有预设背景色和透明度变体
+     * @default "base-200"
+     */
+    background?: BackgroundColor;
 
     /**
      * 调试模式
