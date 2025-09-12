@@ -2,7 +2,7 @@
 import '../../style';
 import { computed } from 'vue';
 import type { IContainerProps } from './types';
-import { allBackgroundClasses } from './backgrounds';
+import { allBackgroundClasses } from '../../src/common/backgrounds';
 
 /**
  * @component Container
@@ -110,7 +110,11 @@ const containerClasses = computed(() => [
   props.items && props.flex ? itemsClasses[props.items] : '',
   props.justify && props.flex ? justifyClasses[props.justify] : '',
   // 处理背景色 - 使用预定义的完整类名
-  props.background ? allBackgroundClasses[props.background] : '',
+  props.background
+    ? allBackgroundClasses[
+        props.background as keyof typeof allBackgroundClasses
+      ]
+    : '',
   props.class,
 ]);
 </script>

@@ -75,6 +75,9 @@ export * from './src-astro/types/product';
 export * from './src-astro/types/sidebar';
 export * from './src-astro/types/static-path';
 
+// 通用工具和配置 (按字母顺序)
+export * from './src/common';
+
 // 工具类型 (按字母顺序)
 export type { ImageProvider, ImageOptions } from './src/utils/image';
 export * from './src/utils/i18n';

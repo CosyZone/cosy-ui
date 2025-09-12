@@ -1,4 +1,4 @@
-import type { BackgroundColor } from './backgrounds';
+import type { BackgroundColor } from '../../src/common/backgrounds';
 
 /**
  * Container 组件的属性接口

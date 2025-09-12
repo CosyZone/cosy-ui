@@ -29,6 +29,11 @@ export * from './src-vue/tool-bar/index';
 export * from './src-vue/mac-window/index';
 export * from './src-vue/apple-phone/index';
 
+// ===== 通用工具和配置 =====
+
+// 通用背景色配置 - 适用于所有组件
+export * from './src/common';
+
 // ===== 工具函数 =====
 
 // 图片工具函数 - 用于生成示例图片
