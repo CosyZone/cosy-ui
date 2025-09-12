@@ -7,6 +7,7 @@ import ProductHeroAlignContainer from './ProductHeroAlignContainer.astro';
 import ProductHeroBackgroundContainer from './ProductHeroBackgroundContainer.astro';
 import ProductHeroClassContainer from './ProductHeroClassContainer.astro';
 import ProductHeroLabelsContainer from './ProductHeroLabelsContainer.astro';
+import ProductHeroActionsContainer from './ProductHeroActionsContainer.astro';
 
 export const ProductHeroPackage = {
     Example: ProductHeroExampleContainer,
@@ -17,5 +18,6 @@ export const ProductHeroPackage = {
     Align: ProductHeroAlignContainer,
     Background: ProductHeroBackgroundContainer,
     Labels: ProductHeroLabelsContainer,
+    Actions: ProductHeroActionsContainer,
     Class: ProductHeroClassContainer,
 };
