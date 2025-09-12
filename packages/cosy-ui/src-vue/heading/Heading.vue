@@ -9,6 +9,10 @@
 import { computed } from 'vue';
 import HeadingAnchor from './HeadingAnchor.vue';
 import type { IHeadingProps } from './types';
+import {
+  getBackgroundClass,
+  type BackgroundColor,
+} from '../../src/common/backgrounds';
 
 /**
  * @component Heading
@@ -76,6 +80,7 @@ import type { IHeadingProps } from './types';
  * ```vue
  * <Heading :level="3" background="base-300" padding="sm">带背景色的标题</Heading>
  * <Heading :level="3" background="primary" color="white">主要背景色标题</Heading>
+ * <Heading :level="3" background="primary/50" padding="sm">半透明背景色标题</Heading>
  * ```
  *
  * 字体粗细支持：
@@ -93,7 +98,7 @@ import type { IHeadingProps } from './types';
  * @props
  * @prop {'left'|'center'|'right'} [align='left'] - 文本对齐方式
  * @prop {boolean} [anchor=false] - 是否显示锚点链接图标
- * @prop {string} [background] - 背景色类名，如 'base-300', 'primary', 'secondary'
+ * @prop {BackgroundColor} [background] - 背景色类型，支持所有预设背景色和透明度变体
  * @prop {'default'|'primary'|'secondary'|'accent'|'muted'|'info'|'success'|'warning'|'error'|'base-content'|'neutral-content'} [color='default'] - 标题颜色
  * @prop {string} [class] - 自定义 CSS 类名
  * @prop {boolean} [external=false] - 是否为外部链接，影响链接的打开方式
@@ -229,25 +234,9 @@ const marginClass = computed(() => {
   return marginMap[props.margin as keyof typeof marginMap] || marginMap.md;
 });
 
-// 背景色样式映射
-const backgroundClassMap = {
-  'base-100': 'cosy:bg-base-100 cosy:dark:bg-base-100',
-  'base-200': 'cosy:bg-base-200 cosy:dark:bg-base-200',
-  'base-300': 'cosy:bg-base-300 cosy:dark:bg-base-300',
-  primary: 'cosy:bg-primary cosy:dark:bg-primary',
-  secondary: 'cosy:bg-secondary cosy:dark:bg-secondary',
-  accent: 'cosy:bg-accent cosy:dark:bg-accent',
-  info: 'cosy:bg-info cosy:dark:bg-info',
-  success: 'cosy:bg-success cosy:dark:bg-success',
-  warning: 'cosy:bg-warning cosy:dark:bg-warning',
-  error: 'cosy:bg-error cosy:dark:bg-error',
-} as const;
-
+// 使用通用背景色函数
 const backgroundClass = computed(() => {
-  return props.background
-    ? backgroundClassMap[props.background as keyof typeof backgroundClassMap] ||
-        ''
-    : '';
+  return getBackgroundClass(props.background);
 });
 
 // 内边距样式映射
