@@ -49,6 +49,10 @@
  */
 import '../../style.ts';
 import {
+  getBackgroundClass,
+  type BackgroundColor,
+} from '../../src/common/backgrounds';
+import {
   Article,
   TableOfContents,
   type IMainContentProps,
@@ -96,21 +100,12 @@ function getVerticalPaddingClasses(padding: string) {
   return ''; // 对于自定义padding，使用内联样式
 }
 
-// 获取背景颜色的Tailwind类
-function getBgColorClasses(color: string | undefined) {
-  if (!color) return '';
-  if (color === 'primary') return 'cosy:bg-primary';
-  if (color === 'secondary') return 'cosy:bg-secondary';
-  if (color === 'tertiary') return 'cosy:bg-accent';
-  if (color === 'light') return 'cosy:bg-base-100';
-  if (color === 'dark') return 'cosy:bg-base-300';
-  return ''; // 对于自定义颜色，使用内联样式
-}
+// 使用通用背景色函数
 
 const verticalPaddingClass = getVerticalPaddingClasses(
   verticalPadding as string
 );
-const bgColorClass = getBgColorClasses(backgroundColor);
+const bgColorClass = getBackgroundClass(backgroundColor as BackgroundColor);
 
 // 构建自定义样式
 const customStyle = [];

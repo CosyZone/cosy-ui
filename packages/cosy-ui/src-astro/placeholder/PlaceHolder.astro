@@ -9,7 +9,7 @@
  * </PlaceHolder>
  * ```
  * @props
- * @prop {string} [background] - 背景色类名，可选值：base-100、base-200、base-300、primary、secondary、accent、info、success、warning、error
+ * @prop {BackgroundColor} [background] - 背景色类型，支持所有预设背景色和透明度变体
  * @prop {string} [class] - 自定义 CSS 类名，用于添加额外的样式
  * @prop {string} [height='md'] - 高度尺寸，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl、full
  * @prop {string} [padding='none'] - 内边距大小，可选值：none、xs、sm、md、lg、xl
@@ -19,9 +19,13 @@
  */
 import '../../style.ts';
 import type { PlaceHolderProps } from './types';
+import {
+  getBackgroundClass,
+  type BackgroundColor,
+} from '../../src/common/backgrounds';
 
 interface Props extends PlaceHolderProps {
-  background?: string;
+  background?: BackgroundColor;
   class?: string;
   height?:
     | 'none'
@@ -102,27 +106,12 @@ const paddingClassMap = {
   xl: 'cosy:p-8',
 } as const;
 
-// 背景色样式映射
-const backgroundClassMap = {
-  'base-100': 'cosy:bg-base-100',
-  'base-200': 'cosy:bg-base-200',
-  'base-300': 'cosy:bg-base-300',
-  primary: 'cosy:bg-primary',
-  secondary: 'cosy:bg-secondary',
-  accent: 'cosy:bg-accent',
-  info: 'cosy:bg-info',
-  success: 'cosy:bg-success',
-  warning: 'cosy:bg-warning',
-  error: 'cosy:bg-error',
-} as const;
-
+// 使用通用背景色函数
 const widthClass = widthClassMap[width as keyof typeof widthClassMap] || '';
 const heightClass = heightClassMap[height as keyof typeof heightClassMap] || '';
 const paddingClass =
   paddingClassMap[padding as keyof typeof paddingClassMap] || '';
-const backgroundClass = background
-  ? backgroundClassMap[background as keyof typeof backgroundClassMap] || ''
-  : '';
+const backgroundClass = getBackgroundClass(background);
 
 const combinedClass =
   `placeholder ${widthClass} ${heightClass} ${paddingClass} ${backgroundClass} ${className}`.trim();
