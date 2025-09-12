@@ -82,6 +82,23 @@
  * />
  * ```
  *
+ * 自定义背景色：
+ * ```astro
+ * <ProductCard
+ *   background="primary"
+ *   name="主色背景产品"
+ *   image="/images/products/product1.jpg"
+ *   description="使用主色背景的产品卡片"
+ * />
+ *
+ * <ProductCard
+ *   background="gradient-sunset"
+ *   name="渐变背景产品"
+ *   image="/images/products/product2.jpg"
+ *   description="使用日落渐变背景的产品卡片"
+ * />
+ * ```
+ *
 
  */
 
@@ -94,6 +111,10 @@ import {
 } from '../../index-astro';
 import '../../style.ts';
 import type { ImageSource } from '../image/image.ts';
+import {
+  getBackgroundClass,
+  type BackgroundColor,
+} from '../../src/common/backgrounds';
 
 type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
@@ -172,6 +193,11 @@ export interface Props {
    * - xl: 超大阴影
    */
   shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+  /**
+   * 卡片背景色
+   * 支持基础颜色、透明度变体和渐变背景
+   */
+  background?: BackgroundColor;
 }
 
 const {
@@ -190,6 +216,7 @@ const {
   descriptionLines,
   class: className = '',
   shadow = 'md',
+  background,
 } = Astro.props;
 
 // 尺寸样式映射
@@ -323,7 +350,8 @@ const buttonsContainerClass =
 
 <div
   class:list={[
-    'cosy:card cosy:bg-base-200 cosy:transition-shadow cosy:duration-300',
+    'cosy:card cosy:transition-shadow cosy:duration-300',
+    background ? getBackgroundClass(background) : 'cosy:bg-base-200',
     shadowStyles[shadow],
     currentSize.card,
     equalHeight && currentSize.cardHeight,

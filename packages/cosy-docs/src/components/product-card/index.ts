@@ -32,10 +32,13 @@ import ProductCardProductUrl from './ProductCardProductUrl.astro';
 import ProductCardProductUrlContainer from './ProductCardProductUrlContainer.astro';
 import ProductCardSecondaryButtonText from './ProductCardSecondaryButtonText.astro';
 import ProductCardSecondaryButtonTextContainer from './ProductCardSecondaryButtonTextContainer.astro';
+import ProductCardBackground from './ProductCardBackground.astro';
+import ProductCardBackgroundContainer from './ProductCardBackgroundContainer.astro';
 
 export const ProductCardPackage = {
     ComponentContainers: {
         AppStoreUrl: ProductCardAppStoreUrlContainer,
+        Background: ProductCardBackgroundContainer,
         Basic: ProductCardBasicContainer,
         ButtonLayout: ProductCardButtonLayoutContainer,
         Class: ProductCardClassContainer,
@@ -54,6 +57,7 @@ export const ProductCardPackage = {
     },
     ComponentExamples: {
         AppStoreUrl: ProductCardAppStoreUrl,
+        Background: ProductCardBackground,
         Basic: ProductCardBasic,
         ButtonLayout: ProductCardButtonLayout,
         Class: ProductCardClass,
