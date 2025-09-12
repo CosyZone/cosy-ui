@@ -1,0 +1,14 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ProductsCustomClass from './ProductsCustomClass.astro';
+// @ts-ignore
+import ProductsCustomClassSourceCode from './ProductsCustomClass.astro?raw';
+---
+
+<CodeContainer
+  titles={['custom class']}
+  codes={[ProductsCustomClassSourceCode]}>
+  <div id="tab-1">
+    <ProductsCustomClass />
+  </div>
+</CodeContainer>

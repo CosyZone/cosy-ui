@@ -1,0 +1,21 @@
+---
+import { Products } from '@coffic/cosy-ui';
+import { getProductImage } from '@coffic/cosy-ui';
+
+const products = [
+  {
+    name: '产品1',
+    image: getProductImage({ width: 400, height: 300, tag: 'product1' }),
+    description: '这是产品1的描述',
+    productUrl: 'https://product1.com',
+  },
+  {
+    name: '产品2',
+    image: getProductImage({ width: 400, height: 300, tag: 'product2' }),
+    description: '这是产品2的描述',
+    appStoreUrl: 'https://apps.apple.com/app/product2',
+  },
+];
+---
+
+<Products products={products} centerItems={true} />

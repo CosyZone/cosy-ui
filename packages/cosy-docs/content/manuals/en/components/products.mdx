@@ -2,38 +2,93 @@
 title: 'Products'
 folder: false
 order: 16.7
+tags: ['astro', 'products']
 ---
 
 import { ComponentPackage } from '@/components/products/index';
+import ProductsBasic from '@/components/products/ProductsBasic.astro';
 
 # {frontmatter.title}
 
-The Products component is a container for ProductCard, used to display multiple product cards. It supports both grid and list layouts, and provides various configuration options to suit different scenarios.
+## Introduction
 
-## Basic Usage
+The Products component is a container for ProductCard, used to display multiple product cards. The component automatically adjusts its layout based on the parent container size, ensuring that product cards are neatly arranged at any viewport size. It supports both grid and list layouts, and provides various configuration options to suit different scenarios.
 
-<ComponentPackage.ComponentContainers.Basic />
+### Features
 
-## Grid Layout
+- **Responsive Layout** - Automatically adapts to parent container size for optimal display on different devices
+- **Flexible Configuration** - Provides multiple layout options, spacing settings, and alignment methods
+- **Unified Display** - Ensures visual consistency of all product cards with equal height options
+- **Performance Optimization** - Supports lazy loading and pagination for displaying large numbers of products
 
-<ComponentPackage.ComponentContainers.Grid />
+## Examples
 
-## List Layout
+<ProductsBasic />
 
-<ComponentPackage.ComponentContainers.List />
+## Props
 
-## Custom Card Size and Spacing
+### cardSize
 
-<ComponentPackage.ComponentContainers.Custom />
+Card size, applied to all ProductCard components.
 
-## Show Container Border
+<ComponentPackage.ComponentContainers.CardSize />
 
-<ComponentPackage.ComponentContainers.WithBorder />
+### centerItems
 
-## Set Vertical Margin
+Whether to center items, controls whether all cards in grid layout are centered.
 
-<ComponentPackage.ComponentContainers.WithMargin />
+<ComponentPackage.ComponentContainers.CenterItems />
 
-## Center Items
+### class
 
-<ComponentPackage.ComponentContainers.SingleColumn />
+Custom class name for adding additional styles.
+
+<ComponentPackage.ComponentContainers.CustomClass />
+
+### columns
+
+Column configuration, can be a fixed number or responsive object.
+
+<ComponentPackage.ComponentContainers.Columns />
+
+### descriptionLines
+
+Maximum number of lines for description text, applied to all ProductCard components.
+
+<ComponentPackage.ComponentContainers.DescriptionLines />
+
+### equalHeight
+
+Whether to enable equal height cards, ensuring all cards have consistent height.
+
+<ComponentPackage.ComponentContainers.EqualHeight />
+
+### gap
+
+Card spacing, controls the spacing between product cards.
+
+<ComponentPackage.ComponentContainers.Gap />
+
+### layout
+
+Layout type, supports both grid and list layout modes.
+
+<ComponentPackage.ComponentContainers.Layout />
+
+### margin
+
+Vertical margin, controls the top and bottom margin of the Products component.
+
+<ComponentPackage.ComponentContainers.Margin />
+
+### products
+
+Product data array, containing all product information to be displayed.
+
+<ComponentPackage.ComponentContainers.Products />
+
+### showBorder
+
+Whether to show container border, controls the border display of the Products component container.
+
+<ComponentPackage.ComponentContainers.ShowBorder />
