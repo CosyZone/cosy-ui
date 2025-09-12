@@ -56,7 +56,19 @@
  * </Card>
  * ```
  *
+ * 自定义背景色：
+ * ```astro
+ * <Card
+ *   title="特色卡片"
+ *   subtitle="使用自定义背景色"
+ *   background="primary/10"
+ * >
+ *   卡片内容
+ * </Card>
+ * ```
+ *
  * @props
+ * @prop {BackgroundColor} [background] - 背景色类型，支持所有预设背景色和透明度变体
  * @prop {string} [class] - 自定义CSS类，可用于覆盖默认样式
  * @prop {boolean} [compact] - 是否使用紧凑模式
  * @prop {string} [href] - 如果提供，卡片将变成可点击的链接
@@ -69,11 +81,17 @@
  */
 
 import '../../style.ts';
+import {
+  getBackgroundClass,
+  type BackgroundColor,
+} from '../../src/common/backgrounds';
 
 /**
  * Card 组件的 Props 接口
  */
 export interface CardProps {
+  /** 背景色类型，支持所有预设背景色和透明度变体 */
+  background?: BackgroundColor;
   /** 自定义CSS类，可用于覆盖默认样式 */
   class?: string;
   /** 是否使用紧凑模式 */
@@ -89,6 +107,7 @@ export interface CardProps {
 }
 
 const {
+  background,
   class: className = '',
   compact,
   href,
@@ -97,11 +116,14 @@ const {
   title,
 } = Astro.props;
 
+// 获取背景色类名
+const backgroundClass = getBackgroundClass(background as BackgroundColor);
+
 // 构建卡片样式类
 const cardClasses = [
   'cosy:card',
   'cosy:w-full',
-  'cosy:bg-base-100',
+  backgroundClass || 'cosy:bg-base-100',
   'cosy:shadow-xl',
   'cosy:hover:shadow-2xl',
   'cosy:transition-all',

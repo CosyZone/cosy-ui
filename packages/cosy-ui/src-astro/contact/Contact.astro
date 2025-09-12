@@ -48,8 +48,21 @@
  * />
  * ```
  *
+ * 自定义背景色：
+ * ```astro
+ * <Contact
+ *   title="联系我们"
+ *   description="欢迎随时与我们取得联系"
+ *   email="contact@company.com"
+ *   phone="+1 (555) 123-4567"
+ *   background="primary/10"
+ * />
+ * ```
+ *
+ *
  * @props
  * @param {string} [address] - 地址信息
+ * @param {BackgroundColor} [background] - 背景色类型，支持所有预设背景色和透明度变体
  * @param {string} [class] - 自定义CSS类，可用于覆盖默认样式
  * @param {boolean} [compact] - 是否使用紧凑模式
  * @param {string} [description] - 联系信息描述
@@ -68,6 +81,7 @@
 
 import '../../style.ts';
 import Card from '../card/Card.astro';
+import { type BackgroundColor } from '../../src/common/backgrounds';
 import {
   FacebookIcon,
   GithubIcon,
@@ -79,8 +93,9 @@ import {
   WebsiteIcon,
 } from '../icons';
 
-interface Props {
+export interface ContactProps {
   address?: string;
+  background?: BackgroundColor;
   class?: string;
   compact?: boolean;
   description?: string;
@@ -96,6 +111,7 @@ interface Props {
 
 const {
   address,
+  background,
   class: className = '',
   compact,
   description,
@@ -107,7 +123,7 @@ const {
   title,
   twitter,
   website,
-} = Astro.props;
+} = Astro.props as ContactProps;
 
 // 构建自定义样式类（用于覆盖Card组件的默认样式）
 const customClasses = [
@@ -138,6 +154,7 @@ const socialLinkClass =
   title={title}
   subtitle={description}
   compact={compact}
+  background={background}
   class={customClasses}>
   <div class="cosy:space-y-0">
     {

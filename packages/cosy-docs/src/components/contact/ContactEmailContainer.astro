@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContactWithEmail from './ContactWithEmail.astro';
+import ContactWithoutEmail from './ContactWithoutEmail.astro';
+import ContactWithEmailSourceCode from './ContactWithEmail.astro?raw';
+import ContactWithoutEmailSourceCode from './ContactWithoutEmail.astro?raw';
+---
+
+<CodeContainer
+  titles={['有邮箱', '无邮箱']}
+  codes={[ContactWithEmailSourceCode, ContactWithoutEmailSourceCode]}>
+  <div id="tab-1">
+    <ContactWithEmail />
+  </div>
+  <div id="tab-2">
+    <ContactWithoutEmail />
+  </div>
+</CodeContainer>
