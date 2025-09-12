@@ -6,6 +6,7 @@ import FooterWithNavigation from './FooterWithNavigation.astro';
 import FooterWithProducts from './FooterWithProducts.astro';
 import FooterWithSocial from './FooterWithSocial.astro';
 import FooterWithFriendlyLinks from './FooterWithFriendlyLinks.astro';
+import FooterBackground from './FooterBackground.astro';
 
 // Footer 容器组件
 import FooterBasicContainer from './FooterBasicContainer.astro';
@@ -16,6 +17,11 @@ import FooterWithNavigationContainer from './FooterWithNavigationContainer.astro
 import FooterWithProductsContainer from './FooterWithProductsContainer.astro';
 import FooterWithSocialContainer from './FooterWithSocialContainer.astro';
 import FooterWithFriendlyLinksContainer from './FooterWithFriendlyLinksContainer.astro';
+import FooterBackgroundContainer from './FooterBackgroundContainer.astro';
+import FooterAboutLinkContainer from './FooterAboutLinkContainer.astro';
+import FooterBlogLinkContainer from './FooterBlogLinkContainer.astro';
+import FooterCareersLinkContainer from './FooterCareersLinkContainer.astro';
+import FooterContactLinkContainer from './FooterContactLinkContainer.astro';
 
 export const FooterPackage = {
     FooterContainers: {
@@ -27,6 +33,11 @@ export const FooterPackage = {
         WithProducts: FooterWithProductsContainer,
         WithSocial: FooterWithSocialContainer,
         WithFriendlyLinks: FooterWithFriendlyLinksContainer,
+        Background: FooterBackgroundContainer,
+        AboutLink: FooterAboutLinkContainer,
+        BlogLink: FooterBlogLinkContainer,
+        CareersLink: FooterCareersLinkContainer,
+        ContactLink: FooterContactLinkContainer,
     },
     FooterExamples: {
         Basic: FooterBasic,
@@ -36,5 +47,6 @@ export const FooterPackage = {
         WithProducts: FooterWithProducts,
         WithSocial: FooterWithSocial,
         WithFriendlyLinks: FooterWithFriendlyLinks,
+        Background: FooterBackground,
     },
 }; 

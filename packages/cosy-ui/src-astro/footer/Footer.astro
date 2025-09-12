@@ -131,6 +131,18 @@
  * />
  * ```
  *
+ * 自定义背景色：
+ * ```astro
+ * <Footer
+ *   siteName="我的网站"
+ *   homeLink="/"
+ *   slogan="简单而强大"
+ *   company="我的公司"
+ *   copyright="保留所有权利"
+ *   background="primary/10"
+ * />
+ * ```
+ *
  * @props
  * @prop {string} siteName - 网站名称
  * @prop {string} homeLink - 首页链接
@@ -138,6 +150,7 @@
  * @prop {string} company - 公司名称
  * @prop {string} copyright - 版权信息
  * @prop {string} inspirationalSlogan - 鼓舞人心的标语，显示在横幅中
+ * @prop {BackgroundColor} [background='base-200'] - 背景色类型，支持所有预设背景色和透明度变体
  * @prop {string} [icp] - ICP备案号（中国网站需要）
  * @prop {string} [icpLink] - ICP备案链接（可选）
  * @prop {Object} [logo] - 网站Logo对象，包含src和alt属性
@@ -174,6 +187,10 @@ import {
   createTextGetter,
   Container,
 } from '../../index-astro';
+import {
+  getBackgroundClass,
+  type BackgroundColor,
+} from '../../src/common/backgrounds';
 import FooterSection from './FooterSection.astro';
 import FooterBrand from './FooterBrand.astro';
 import '../../style.ts';
@@ -206,6 +223,7 @@ const {
   faqLink,
   mediaLink,
   techStackLink,
+  background = 'base-200',
   debug = false,
 } = Astro.props as IFooterProps;
 
@@ -218,6 +236,9 @@ const currentYear = new Date().getFullYear();
 
 // 处理社交链接
 const processedSocialLinks = socialLinks.map((url) => processSocialLink(url));
+
+// 获取背景色类名
+const backgroundClass = getBackgroundClass(background as BackgroundColor);
 
 // 调试模式的样式类
 const debugClasses = debug
@@ -237,7 +258,8 @@ const debugClasses = debug
 
 <footer
   class:list={[
-    'cosy:footer cosy:flex cosy:flex-col cosy:z-50 cosy:sm:footer-horizontal cosy:bg-base-200 cosy:text-base-content cosy:p-10',
+    'cosy:footer cosy:flex cosy:flex-col cosy:z-50 cosy:sm:footer-horizontal cosy:text-base-content cosy:p-10',
+    backgroundClass,
     debugClasses.footer,
   ]}>
   <div
