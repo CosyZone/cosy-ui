@@ -1,4 +1,7 @@
-export interface Image3Item {
+import type { BackgroundColor } from '../../src/common/backgrounds';
+
+
+export interface IImage3Item {
     src: string;
     alt: string;
     width?: number;
@@ -6,10 +9,10 @@ export interface Image3Item {
     loading?: 'lazy' | 'eager';
 }
 
-export interface Image3Props {
-    images: [Image3Item, Image3Item, Image3Item];
+export interface IImage3Props {
+    images: [IImage3Item, IImage3Item, IImage3Item];
+    background?: BackgroundColor;
     class?: string;
-    tiltAngle?: number;
     spacing?: 'sm' | 'md' | 'lg';
     shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
     rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';

@@ -9,22 +9,21 @@
  *     { src: 'image2.jpg', alt: '图片2' },
  *     { src: 'image3.jpg', alt: '图片3' }
  *   ]}
- *   tiltAngle={15}
  *   spacing="md"
  * />
  */
-import type { Image3Props } from './image3-types';
+import type { IImage3Props } from './types';
 import Image3ErrorView from './Image3ErrorView.astro';
 import { Container } from '../container';
 
 const {
   images,
   class: className = '',
-  tiltAngle = 15,
   spacing = 'md',
-  shadow = 'md',
+  shadow = 'xl',
   rounded = 'lg',
-} = Astro.props as Image3Props;
+  background,
+} = Astro.props as IImage3Props;
 
 // 验证图片数量
 const isValidImages = images && Array.isArray(images) && images.length === 3;
@@ -39,47 +38,51 @@ const spacingMap = {
 // 阴影映射
 const shadowMap = {
   none: '',
-  sm: 'shadow-sm',
-  md: 'shadow-md',
-  lg: 'shadow-lg',
-  xl: 'shadow-xl',
+  sm: 'cosy:shadow-sm',
+  md: 'cosy:shadow-md',
+  lg: 'cosy:shadow-lg',
+  xl: 'cosy:shadow-xl',
 };
 
 // 圆角映射
 const roundedMap = {
-  none: 'rounded-none',
-  sm: 'rounded-sm',
-  md: 'rounded-md',
-  lg: 'rounded-lg',
-  xl: 'rounded-xl',
-  '2xl': 'rounded-2xl',
-  '3xl': 'rounded-3xl',
-  full: 'rounded-full',
+  none: 'cosy:rounded-none',
+  sm: 'cosy:rounded-sm',
+  md: 'cosy:rounded-md',
+  lg: 'cosy:rounded-lg',
+  xl: 'cosy:rounded-xl',
+  '2xl': 'cosy:rounded-2xl',
+  '3xl': 'cosy:rounded-3xl',
+  full: 'cosy:rounded-full',
 };
 
-// Container 已经处理了 flex 布局，内部只需要简单的 fle
 const imageClass =
-  `object-cover transition-transform duration-300 hover:scale-105 ${shadowMap[shadow]} ${roundedMap[rounded]}`.trim();
+  `cosy:object-cover cosy:transition-transform cosy:duration-300 hover:cosy:scale-105 ${shadowMap[shadow]} ${roundedMap[rounded]}`.trim();
 ---
 
 {isValidImages ? (
-  <Container class={className} flex="row" items="center" justify="center" gap={spacing}>
-      <!-- 左侧图片 - 向右倾斜 -->
-      <div
-        class="relative z-10"
-        style={`transform: rotate(${tiltAngle}deg); transform-origin: center;`}>
+    <Container
+      class={`${className}`}
+      style="transform-style: preserve-3d;"
+      flex="row"
+      items="center"
+      justify="center"
+      gap={spacing}
+      background={background}>
+      <!-- 左侧图片 - 向内倾斜 -->
+      <div class="cosy:relative cosy:z-10 cosy:scale-x-90 cosy:origin-center cosy:-rotate-y-15 cosy:rotate-x-5 cosy:rotate-z-0">
         <img
           src={images[0].src}
           alt={images[0].alt}
-          width={images[0].width || 200}
-          height={images[0].height || 300}
+          width={images[0].width || 250}
+          height={images[0].height || 350}
           loading={images[0].loading || 'lazy'}
           class={imageClass}
         />
       </div>
 
-      <!-- 中间图片 - 直立 -->
-      <div class="relative z-20">
+      <!-- 中间图片 - 突出 -->
+      <div class="cosy:relative cosy:z-20 cosy:translate-z-30 cosy:scale-100">
         <img
           src={images[1].src}
           alt={images[1].alt}
@@ -90,23 +93,21 @@ const imageClass =
         />
       </div>
 
-      <!-- 右侧图片 - 向左倾斜 -->
-      <div
-        class="relative z-10"
-        style={`transform: rotate(-${tiltAngle}deg); transform-origin: center;`}>
+      <!-- 右侧图片 - 向内倾斜 -->
+      <div class="cosy:relative cosy:z-10 cosy:scale-x-90 cosy:origin-center cosy:rotate-y-15 cosy:rotate-x-5 cosy:rotate-z-0">
         <img
           src={images[2].src}
           alt={images[2].alt}
           width={images[2].width || 200}
-          height={images[2].height || 300}
+          height={images[2].height || 350}
           loading={images[2].loading || 'lazy'}
           class={imageClass}
         />
       </div>
-  </Container>
+    </Container>
 ) : (
-  <Image3ErrorView 
-    imagesCount={images ? images.length : 0} 
-    class={className} 
+  <Image3ErrorView
+    imagesCount={images ? images.length : 0}
+    class={className}
   />
 )}
