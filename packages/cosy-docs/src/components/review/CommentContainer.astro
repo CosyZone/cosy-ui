@@ -1,0 +1,18 @@
+---
+import { Review, CodeContainer } from '@coffic/cosy-ui';
+import ShortCommentExampleSourceCode from './ShortCommentExample.astro?raw';
+import LongCommentExampleSourceCode from './LongCommentExample.astro?raw';
+import ShortCommentExample from './ShortCommentExample.astro';
+import LongCommentExample from './LongCommentExample.astro';
+---
+
+<CodeContainer
+  codes={[ShortCommentExampleSourceCode, LongCommentExampleSourceCode]}
+  titles={['短评论', '长评论']}>
+  <div id="tab-1">
+    <ShortCommentExample />
+  </div>
+  <div id="tab-2">
+    <LongCommentExample />
+  </div>
+</CodeContainer>

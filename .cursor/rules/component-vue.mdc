@@ -4,7 +4,7 @@ alwaysApply: false
 ---
 # Vue 组件规范
 
-**如果这个规则被应用，则在输出中说明：!! 我注意到了项目的Vue 组件规范**
+如果这个规则被应用，则在输出中说明：!! 我注意到了项目的Vue 组件规范
 
 ## Vue 组件文件结构
 
@@ -12,6 +12,36 @@ alwaysApply: false
 - 使用 `<script setup lang="ts">` 语法
 - 类型定义和逻辑放在 script 部分的最上方
 - **组件文档注释放在 script 部分的开头**
+
+## Vue 组件导入规范
+
+- **禁止使用绝对路径导入**
+- 必须使用相对路径导入其他 Vue 组件
+- 禁止从 `@coffic/cosy-ui` 导入组件（该包提供的是 Astro 组件）
+- 遇到模块解析问题时，应停止并让用户查看解决
+
+### 正确示例
+
+```vue
+<script setup lang="ts">
+import { computed } from 'vue';
+import Text from '../text/Text.vue';
+import Badge from '../badge/Badge.vue';
+import Card from '../card/Card.vue';
+</script>
+```
+
+### 错误示例
+
+```vue
+<script setup lang="ts">
+// ❌ 禁止使用绝对路径
+import Text from '/Users/.../Text.vue';
+
+// ❌ 禁止从 @coffic/cosy-ui 导入
+import { Text } from '@coffic/cosy-ui';
+</script>
+```
 
 ### 正确示例
 

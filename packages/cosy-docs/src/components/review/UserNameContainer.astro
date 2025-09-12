@@ -1,0 +1,18 @@
+---
+import { Review, CodeContainer } from '@coffic/cosy-ui';
+import ChineseNameExampleSourceCode from './ChineseNameExample.astro?raw';
+import EnglishNameExampleSourceCode from './EnglishNameExample.astro?raw';
+import ChineseNameExample from './ChineseNameExample.astro';
+import EnglishNameExample from './EnglishNameExample.astro';
+---
+
+<CodeContainer
+  codes={[ChineseNameExampleSourceCode, EnglishNameExampleSourceCode]}
+  titles={['中文名', '英文名']}>
+  <div id="tab-1">
+    <ChineseNameExample />
+  </div>
+  <div id="tab-2">
+    <EnglishNameExample />
+  </div>
+</CodeContainer>

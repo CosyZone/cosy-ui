@@ -1,0 +1,27 @@
+---
+import { Review, CodeContainer } from '@coffic/cosy-ui';
+import Rating1ExampleSourceCode from './Rating1Example.astro?raw';
+import Rating3ExampleSourceCode from './Rating3Example.astro?raw';
+import Rating5ExampleSourceCode from './Rating5Example.astro?raw';
+import Rating1Example from './Rating1Example.astro';
+import Rating3Example from './Rating3Example.astro';
+import Rating5Example from './Rating5Example.astro';
+---
+
+<CodeContainer
+  codes={[
+    Rating1ExampleSourceCode,
+    Rating3ExampleSourceCode,
+    Rating5ExampleSourceCode,
+  ]}
+  titles={['1星', '3星', '5星']}>
+  <div id="tab-1">
+    <Rating1Example />
+  </div>
+  <div id="tab-2">
+    <Rating3Example />
+  </div>
+  <div id="tab-3">
+    <Rating5Example />
+  </div>
+</CodeContainer>

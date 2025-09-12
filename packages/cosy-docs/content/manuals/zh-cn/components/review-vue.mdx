@@ -1,0 +1,68 @@
+---
+title: Review 评价组件 (Vue)
+description: 用于展示用户评价的 Vue 组件，支持评分、评论内容、用户信息和认证状态
+badge: 'Vue'
+tags:
+  - Vue
+order: 16
+---
+
+import { ComponentPackage } from '@/components/review/index.ts';
+
+# Review 评价组件 (Vue)
+
+用于展示用户评价的 Vue 组件，支持评分、评论内容、用户信息和认证状态。适用于电商产品页面、服务评价、内容评论等场景。
+
+## 设计理念
+
+- **信息层次清晰** - 评分、用户信息、评论内容分层展示
+- **信任感建立** - 通过认证标识和真实用户信息建立信任
+- **视觉友好** - 合理的间距和排版，易于阅读
+- **灵活配置** - 支持多种展示模式和自定义样式
+
+## 案例
+
+<ComponentPackage.ComponentContainers.BasicUsageVue />
+
+## Props
+
+### avatar
+用户头像URL，支持图片链接。当未提供时，组件会显示用户名称的首字母作为默认头像。
+
+<ComponentPackage.ComponentContainers.AvatarContainer />
+
+### class
+自定义CSS类名，用于覆盖默认样式。
+
+<ComponentPackage.ComponentContainers.ClassContainer />
+
+### comment
+评论内容，支持短评论和长评论的展示。
+
+<ComponentPackage.ComponentContainers.CommentContainer />
+
+### date
+评价日期，支持字符串格式的日期。组件会自动格式化显示。
+
+<ComponentPackage.ComponentContainers.DateContainer />
+
+### rating
+评分，取值范围为1-5，支持整数和小数。组件会显示对应的星级评分。
+
+<ComponentPackage.ComponentContainers.RatingContainer />
+
+### userName
+用户名称，支持中文和英文名称的显示。
+
+<ComponentPackage.ComponentContainers.UserNameContainer />
+
+### verified
+是否认证用户，设置为true时会显示认证标识。
+
+<ComponentPackage.ComponentContainers.VerifiedContainer />
+
+## Slots
+
+| 插槽名 | 描述 |
+|--------|------|
+| `default` | 默认插槽，用于自定义内容 |
