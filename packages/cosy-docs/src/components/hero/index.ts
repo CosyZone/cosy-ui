@@ -10,6 +10,7 @@ import BackgroundImageContainer from './BackgroundImageContainer.astro';
 import BasicContainer from './BasicContainer.astro';
 import WithButtonContainer from './WithButtonContainer.astro';
 import WithImageContainer from './WithImageContainer.astro';
+import HeroAppSlotContainer from './HeroAppSlotContainer.astro';
 
 export const HeroPackage = {
     HeroExamples: {
@@ -26,6 +27,7 @@ export const HeroPackage = {
         Links: WithButtonContainer,
         OverlayOpacity: BackgroundImageContainer,
         Title: BasicContainer,
+        App: HeroAppSlotContainer,
     },
     // 保持向后兼容
     Basic: BasicContainer,
