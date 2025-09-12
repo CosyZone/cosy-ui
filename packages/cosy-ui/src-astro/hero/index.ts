@@ -7,4 +7,4 @@ export type {
     AlignType,
     ImagePositionType,
     BackgroundOverlayType,
-} from '../types/hero';
+} from './hero';

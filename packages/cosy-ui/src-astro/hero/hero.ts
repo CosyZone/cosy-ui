@@ -2,6 +2,7 @@
  * Hero 组件相关类型定义
  */
 import type { ImageSource } from 'src-astro/image';
+import type { BackgroundColor } from '../../src/common/backgrounds';
 
 /**
  * 链接接口
@@ -29,31 +30,9 @@ export interface ImageConfig {
 }
 
 /**
- * 背景类型
+ * 背景类型（使用通用的 BackgroundColor 类型）
  */
-export type BackgroundType =
-    | 'gradient'
-    | 'plain'
-    | 'gradient-primary'
-    | 'gradient-secondary'
-    | 'gradient-accent'
-    | 'gradient-success'
-    | 'gradient-warning'
-    | 'gradient-info'
-    | 'gradient-sky'
-    | 'gradient-sunset'
-    | 'gradient-forest'
-    | 'gradient-ocean'
-    | 'gradient-mountain'
-    | 'gradient-flower'
-    | 'gradient-watermelon'
-    | 'gradient-lemon'
-    | 'gradient-grape'
-    | 'gradient-blueberry'
-    | 'gradient-mango'
-    | 'gradient-kiwi'
-    | 'gradient-pitaya'
-    | 'gradient-banana';
+export type BackgroundType = BackgroundColor;
 
 /**
  * 对齐方式类型

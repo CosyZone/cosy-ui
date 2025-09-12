@@ -1,8 +1,38 @@
 ---
 import { CodeContainer } from '@coffic/cosy-ui';
+// 基础背景色
 import PlainBackground from './PlainBackground.astro';
 // @ts-ignore
 import PlainBackgroundSourceCode from './PlainBackground.astro?raw';
+import HeroBackgroundPrimary from './HeroBackgroundPrimary.astro';
+// @ts-ignore
+import HeroBackgroundPrimarySourceCode from './HeroBackgroundPrimary.astro?raw';
+import HeroBackgroundSecondary from './HeroBackgroundSecondary.astro';
+// @ts-ignore
+import HeroBackgroundSecondarySourceCode from './HeroBackgroundSecondary.astro?raw';
+import HeroBackgroundAccent from './HeroBackgroundAccent.astro';
+// @ts-ignore
+import HeroBackgroundAccentSourceCode from './HeroBackgroundAccent.astro?raw';
+import HeroBackgroundSuccess from './HeroBackgroundSuccess.astro';
+// @ts-ignore
+import HeroBackgroundSuccessSourceCode from './HeroBackgroundSuccess.astro?raw';
+import HeroBackgroundWarning from './HeroBackgroundWarning.astro';
+// @ts-ignore
+import HeroBackgroundWarningSourceCode from './HeroBackgroundWarning.astro?raw';
+import HeroBackgroundError from './HeroBackgroundError.astro';
+// @ts-ignore
+import HeroBackgroundErrorSourceCode from './HeroBackgroundError.astro?raw';
+// 透明度背景色
+import HeroBackgroundPrimaryOpacity from './HeroBackgroundPrimaryOpacity.astro';
+// @ts-ignore
+import HeroBackgroundPrimaryOpacitySourceCode from './HeroBackgroundPrimaryOpacity.astro?raw';
+import HeroBackgroundSuccessOpacity from './HeroBackgroundSuccessOpacity.astro';
+// @ts-ignore
+import HeroBackgroundSuccessOpacitySourceCode from './HeroBackgroundSuccessOpacity.astro?raw';
+import HeroBackgroundAccentOpacity from './HeroBackgroundAccentOpacity.astro';
+// @ts-ignore
+import HeroBackgroundAccentOpacitySourceCode from './HeroBackgroundAccentOpacity.astro?raw';
+// 渐变色背景
 import GradientBackground from './GradientBackground.astro';
 // @ts-ignore
 import GradientBackgroundSourceCode from './GradientBackground.astro?raw';
@@ -53,6 +83,15 @@ import BananaBackgroundSourceCode from './BananaBackground.astro?raw';
 <CodeContainer
   titles={[
     '纯色背景',
+    '主色背景',
+    '次要色背景',
+    '强调色背景',
+    '成功色背景',
+    '警告色背景',
+    '错误色背景',
+    '主色透明度',
+    '成功色透明度',
+    '强调色透明度',
     '主色渐变',
     '天空渐变',
     '日落渐变',
@@ -71,6 +110,15 @@ import BananaBackgroundSourceCode from './BananaBackground.astro?raw';
   ]}
   codes={[
     PlainBackgroundSourceCode,
+    HeroBackgroundPrimarySourceCode,
+    HeroBackgroundSecondarySourceCode,
+    HeroBackgroundAccentSourceCode,
+    HeroBackgroundSuccessSourceCode,
+    HeroBackgroundWarningSourceCode,
+    HeroBackgroundErrorSourceCode,
+    HeroBackgroundPrimaryOpacitySourceCode,
+    HeroBackgroundSuccessOpacitySourceCode,
+    HeroBackgroundAccentOpacitySourceCode,
     GradientBackgroundSourceCode,
     SkyBackgroundSourceCode,
     SunsetBackgroundSourceCode,
@@ -91,48 +139,75 @@ import BananaBackgroundSourceCode from './BananaBackground.astro?raw';
     <PlainBackground />
   </div>
   <div id="tab-2">
-    <GradientBackground />
+    <HeroBackgroundPrimary />
   </div>
   <div id="tab-3">
-    <SkyBackground />
+    <HeroBackgroundSecondary />
   </div>
   <div id="tab-4">
-    <SunsetBackground />
+    <HeroBackgroundAccent />
   </div>
   <div id="tab-5">
-    <ForestBackground />
+    <HeroBackgroundSuccess />
   </div>
   <div id="tab-6">
-    <OceanBackground />
+    <HeroBackgroundWarning />
   </div>
   <div id="tab-7">
-    <MountainBackground />
+    <HeroBackgroundError />
   </div>
   <div id="tab-8">
-    <FlowerBackground />
+    <HeroBackgroundPrimaryOpacity />
   </div>
   <div id="tab-9">
-    <WatermelonBackground />
+    <HeroBackgroundSuccessOpacity />
   </div>
   <div id="tab-10">
-    <LemonBackground />
+    <HeroBackgroundAccentOpacity />
   </div>
   <div id="tab-11">
-    <GrapeBackground />
+    <GradientBackground />
   </div>
   <div id="tab-12">
-    <BlueberryBackground />
+    <SkyBackground />
   </div>
   <div id="tab-13">
-    <MangoBackground />
+    <SunsetBackground />
   </div>
   <div id="tab-14">
-    <KiwiBackground />
+    <ForestBackground />
   </div>
   <div id="tab-15">
-    <PitayaBackground />
+    <OceanBackground />
   </div>
   <div id="tab-16">
+    <MountainBackground />
+  </div>
+  <div id="tab-17">
+    <FlowerBackground />
+  </div>
+  <div id="tab-18">
+    <WatermelonBackground />
+  </div>
+  <div id="tab-19">
+    <LemonBackground />
+  </div>
+  <div id="tab-20">
+    <GrapeBackground />
+  </div>
+  <div id="tab-21">
+    <BlueberryBackground />
+  </div>
+  <div id="tab-22">
+    <MangoBackground />
+  </div>
+  <div id="tab-23">
+    <KiwiBackground />
+  </div>
+  <div id="tab-24">
+    <PitayaBackground />
+  </div>
+  <div id="tab-25">
     <BananaBackground />
   </div>
 </CodeContainer>

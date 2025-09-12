@@ -136,10 +136,36 @@ export const backgroundWithOpacityClasses = {
     'info/90': 'cosy:bg-info/90',
 } as const;
 
+// 渐变色背景类名映射
+export const gradientBackgroundClasses = {
+    gradient: 'cosy:bg-gradient-to-br cosy:from-primary/10 cosy:to-secondary/20',
+    'gradient-primary': 'cosy:bg-gradient-to-br cosy:from-primary-400 cosy:to-primary-700',
+    'gradient-secondary': 'cosy:bg-gradient-to-br cosy:from-secondary-400 cosy:to-secondary-700',
+    'gradient-accent': 'cosy:bg-gradient-to-br cosy:from-accent-400 cosy:to-accent-700',
+    'gradient-success': 'cosy:bg-gradient-to-br cosy:from-success-400 cosy:to-success-700',
+    'gradient-warning': 'cosy:bg-gradient-to-br cosy:from-warning-400 cosy:to-warning-700',
+    'gradient-info': 'cosy:bg-gradient-to-br cosy:from-info-400 cosy:to-info-700',
+    'gradient-sky': 'cosy:bg-gradient-to-br cosy:from-sky-400 cosy:to-indigo-500',
+    'gradient-sunset': 'cosy:bg-gradient-to-br cosy:from-orange-400 cosy:via-pink-500 cosy:to-red-500',
+    'gradient-forest': 'cosy:bg-gradient-to-br cosy:from-green-700 cosy:to-lime-300',
+    'gradient-ocean': 'cosy:bg-gradient-to-br cosy:from-cyan-400 cosy:to-blue-700',
+    'gradient-mountain': 'cosy:bg-gradient-to-br cosy:from-gray-400 cosy:to-blue-900',
+    'gradient-flower': 'cosy:bg-gradient-to-br cosy:from-pink-300 cosy:via-purple-400 cosy:to-fuchsia-500',
+    'gradient-watermelon': 'cosy:bg-gradient-to-br cosy:from-green-300 cosy:via-pink-400 cosy:to-red-500',
+    'gradient-lemon': 'cosy:bg-gradient-to-br cosy:from-yellow-200 cosy:via-yellow-400 cosy:to-yellow-600',
+    'gradient-grape': 'cosy:bg-gradient-to-br cosy:from-purple-400 cosy:via-indigo-500 cosy:to-purple-700',
+    'gradient-blueberry': 'cosy:bg-gradient-to-br cosy:from-blue-400 cosy:via-blue-600 cosy:to-indigo-700',
+    'gradient-mango': 'cosy:bg-gradient-to-br cosy:from-yellow-300 cosy:via-orange-400 cosy:to-orange-600',
+    'gradient-kiwi': 'cosy:bg-gradient-to-br cosy:from-lime-200 cosy:via-green-400 cosy:to-green-700',
+    'gradient-pitaya': 'cosy:bg-gradient-to-br cosy:from-pink-200 cosy:via-fuchsia-400 cosy:to-lime-300',
+    'gradient-banana': 'cosy:bg-gradient-to-br cosy:from-yellow-100 cosy:via-yellow-300 cosy:to-yellow-500',
+} as const;
+
 // 合并所有背景色类名
 export const allBackgroundClasses = {
     ...baseBackgroundClasses,
     ...backgroundWithOpacityClasses,
+    ...gradientBackgroundClasses,
 } as const;
 
 // 背景色类型
