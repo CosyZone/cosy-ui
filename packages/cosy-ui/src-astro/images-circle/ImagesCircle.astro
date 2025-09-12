@@ -149,7 +149,6 @@ const positions3D = get3DPositions(imageCount);
     style={`width: ${currentSize.container}px; height: ${currentSize.container}px; perspective: 1000px;`}
   >
     <div 
-      class="images-circle-3d"
       style={`width: ${currentSize.container}px; height: ${currentSize.container}px; transform-style: preserve-3d;`}
     >
       <!-- 所有图片按3D位置排列 -->
@@ -198,14 +197,6 @@ const positions3D = get3DPositions(imageCount);
 )}
 
 <style>
-  .images-circle-3d {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform-style: preserve-3d;
-  }
-
   .image-3d {
     position: absolute;
     transform-style: preserve-3d;
@@ -273,24 +264,6 @@ const positions3D = get3DPositions(imageCount);
     opacity: 1;
   }
 
-  /* 3D 场景的环境光效果 */
-  .images-circle-3d::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(
-      ellipse at center,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(255, 255, 255, 0.05) 50%,
-      transparent 100%
-    );
-    pointer-events: none;
-    z-index: -1;
-  }
-
   /* 添加一些动态光影效果 */
   .center-image .img-3d::after {
     content: '';
@@ -321,10 +294,6 @@ const positions3D = get3DPositions(imageCount);
     }
 
     /* 在移动设备上减少3D效果以提升性能 */
-    .images-circle-3d {
-      perspective: 500px;
-    }
-    
     .image-3d {
       transition: all 0.3s ease;
     }
