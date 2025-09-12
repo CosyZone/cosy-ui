@@ -6,19 +6,18 @@
  * ```astro
  * <ImagesCircle
  *   images={[
- *     { src: 'image1.jpg', alt: '图片1' },
- *     { src: 'image2.jpg', alt: '图片2' },
- *     { src: 'image3.jpg', alt: '图片3' },
- *     { src: 'image4.jpg', alt: '图片4' }
+ *     'image1.jpg',
+ *     'image2.jpg', 
+ *     'image3.jpg',
+ *     'image4.jpg'
  *   ]}
  *   size="md"
- *   style="apple"
  * />
  * ```
  * @props
  * @prop {BackgroundColor} [background] - 背景颜色
  * @prop {string} [class] - 自定义 CSS 类名
- * @prop {IImagesCircleItem[]} images - 图片数组，第一张为中心主图，其余环绕显示
+ * @prop {ImageSource[]} images - 图片源数组，可以是字符串URL或ImageMetadata对象，第一张为中心主图，其余环绕显示
  * @prop {string} [rounded='lg'] - 图片圆角，可选值：none、sm、md、lg、xl、2xl、3xl、full
  * @prop {string} [shadow='lg'] - 图片阴影，可选值：none、sm、md、lg、xl
  * @prop {string} [size='md'] - 组件大小，可选值：sm、md、lg、xl
@@ -154,7 +153,7 @@ const positions3D = get3DPositions(imageCount);
       style={`width: ${currentSize.container}px; height: ${currentSize.container}px; transform-style: preserve-3d;`}
     >
       <!-- 所有图片按3D位置排列 -->
-      {images.map((image, index) => {
+      {images.map((imageSrc, index) => {
         const position = positions3D[index];
         if (!position) return null;
         
@@ -178,19 +177,14 @@ const positions3D = get3DPositions(imageCount);
             `}
           >
             <img
-              src={image.src}
-              alt={image.alt}
-              width={image.width || imageSize}
-              height={image.height || imageSize}
-              loading={image.loading || 'lazy'}
+              src={typeof imageSrc === 'string' ? imageSrc : imageSrc.src}
+              alt={`图片 ${index + 1}`}
+              width={imageSize}
+              height={imageSize}
+              loading="lazy"
               class={`img-3d ${shadowClass} ${roundedClass}`}
               style={`width: ${imageSize}px; height: ${imageSize}px;`}
             />
-            {image.caption && (
-              <div class="image-caption">
-                <p>{image.caption}</p>
-              </div>
-            )}
           </div>
         );
       })}

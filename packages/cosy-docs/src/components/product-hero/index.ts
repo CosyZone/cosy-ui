@@ -1,21 +1,23 @@
 import ProductHeroExampleContainer from './ProductHeroExampleContainer.astro';
-import ProductHeroProductsContainer from './ProductHeroProductsContainer.astro';
-import ProductHeroBackgroundsContainer from './ProductHeroBackgroundsContainer.astro';
-import ProductHeroBuyNowTextContainer from './ProductHeroBuyNowTextContainer.astro';
-import ProductHeroLearnMoreTextContainer from './ProductHeroLearnMoreTextContainer.astro';
-import ProductHeroNewLabelTextContainer from './ProductHeroNewLabelTextContainer.astro';
-import ProductHeroOnBuyNowContainer from './ProductHeroOnBuyNowContainer.astro';
-import ProductHeroOnLearnMoreContainer from './ProductHeroOnLearnMoreContainer.astro';
+import ProductHeroNameContainer from './ProductHeroNameContainer.astro';
+import ProductHeroDescriptionContainer from './ProductHeroDescriptionContainer.astro';
+import ProductHeroImageContainer from './ProductHeroImageContainer.astro';
+import ProductHeroHighlightContainer from './ProductHeroHighlightContainer.astro';
+import ProductHeroAlignContainer from './ProductHeroAlignContainer.astro';
+import ProductHeroBackgroundContainer from './ProductHeroBackgroundContainer.astro';
 import ProductHeroClassContainer from './ProductHeroClassContainer.astro';
+import ProductHeroLabelsContainer from './ProductHeroLabelsContainer.astro';
+import ProductHeroActionsContainer from './ProductHeroActionsContainer.astro';
 
 export const ProductHeroPackage = {
     Example: ProductHeroExampleContainer,
-    Products: ProductHeroProductsContainer,
-    Backgrounds: ProductHeroBackgroundsContainer,
-    BuyNowText: ProductHeroBuyNowTextContainer,
-    LearnMoreText: ProductHeroLearnMoreTextContainer,
-    NewLabelText: ProductHeroNewLabelTextContainer,
-    OnBuyNow: ProductHeroOnBuyNowContainer,
-    OnLearnMore: ProductHeroOnLearnMoreContainer,
+    Name: ProductHeroNameContainer,
+    Description: ProductHeroDescriptionContainer,
+    Image: ProductHeroImageContainer,
+    Highlight: ProductHeroHighlightContainer,
+    Align: ProductHeroAlignContainer,
+    Background: ProductHeroBackgroundContainer,
+    Labels: ProductHeroLabelsContainer,
+    Actions: ProductHeroActionsContainer,
     Class: ProductHeroClassContainer,
 };

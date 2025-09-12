@@ -1,11 +1,12 @@
 ---
 title: 'ProductHero'
 folder: false
-order: 16.6
+order: 16.5
 tags:
 - astro
 - product
 - showcase
+- item
 - apple-style
 - display
 ---
@@ -17,12 +18,12 @@ import { ProductHeroPackage } from '@/components/product-hero/index';
 
 ## Introduction
 
-The ProductHero component is a container component for ProductHeroItem, designed to display detailed information about multiple products. It features an Apple-style large image display design with alternating left-right layouts, providing an elegant product showcase experience. Perfect for product showcase pages, product detail pages, and similar scenarios.
+The ProductHero component is designed to display detailed information about a single product using an Apple-style large image display design. It supports alternating left-right layouts, label arrays, price display, and action buttons. Perfect for product detail pages, product showcase pages, and similar scenarios.
 
 Component Features:
 
 - Large Image Display - Highlights product images with high-quality large image presentation
-- Alternating Layout - Automatic left-right alternating layout for enhanced visual hierarchy
+- Alternating Layout - Supports left-right alternating layout for enhanced visual hierarchy
 - Information Hierarchy - Clear information structure: labels, titles, descriptions, prices, buttons
 - Apple Style - Adopts Apple's clean and elegant design philosophy
 - Responsive Design - Excellent display across different devices
@@ -33,17 +34,17 @@ Component Features:
 
 ## Props
 
-### backgrounds
+### align
 
-Background color type array, uses predefined background color types such as 'primary', 'base-200', 'gradient-sky', etc. The component will cycle through these background colors, if only one background color is provided, all product items will use that background color.
+Layout alignment, supports `left` (left-aligned, default) and `right` (right-aligned).
 
-<ProductHeroPackage.Backgrounds />
+<ProductHeroPackage.Align />
 
-### buyNowText
+### background
 
-Buy now button text, defaults to "立即购买" (Buy Now).
+Background color type, uses predefined background color types such as 'primary', 'base-200', 'gradient-sky', etc., defaults to 'base-100'.
 
-<ProductHeroPackage.BuyNowText />
+<ProductHeroPackage.Background />
 
 ### class
 
@@ -51,39 +52,42 @@ Custom CSS class for overriding default styles.
 
 <ProductHeroPackage.Class />
 
-### learnMoreText
+### description
 
-Learn more button text, defaults to "了解更多" (Learn More).
+Product description, required property.
 
-<ProductHeroPackage.LearnMoreText />
+<ProductHeroPackage.Description />
 
-### newLabelText
+### image
 
-New product label text, defaults to "新品" (New).
+Product image, required property. Supports ImageSource type.
 
-<ProductHeroPackage.NewLabelText />
+<ProductHeroPackage.Image />
 
-### onBuyNow
+### labels
 
-Buy now button click event callback function.
+Array of label strings. Pass one or multiple strings as tags.
 
-<ProductHeroPackage.OnBuyNow />
+<ProductHeroPackage.Labels />
 
-### onLearnMore
+### name
 
-Learn more button click event callback function.
+Product name, required property.
 
-<ProductHeroPackage.OnLearnMore />
+<ProductHeroPackage.Name />
 
-### products
+### highlight
 
-Array of product data, each product contains the following properties:
+Highlighted text (e.g., price or slogan). Optional; the row is hidden when omitted.
 
-- `name`: Product name
-- `description`: Product description
-- `image`: Product image
-- `price`: Product price
-- `isNew`: Whether it's a new product (optional)
+<ProductHeroPackage.Highlight />
 
-<ProductHeroPackage.Products />
+## Slots
+
+### actions
+
+Custom action area (e.g., button group) rendered below the description and image.
+
+<ProductHeroPackage.Actions />
+
 

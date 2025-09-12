@@ -1,23 +1,7 @@
 ---
-import { CodeContainer } from '@coffic/cosy-ui';
-import ProductHeroNewLabelTextDefault from './ProductHeroNewLabelTextDefault.astro';
-import ProductHeroNewLabelTextCustom from './ProductHeroNewLabelTextCustom.astro';
-import ProductHeroNewLabelTextEnglish from './ProductHeroNewLabelTextEnglish.astro';
-import sourceDefault from './ProductHeroNewLabelTextDefault.astro?raw';
-import sourceCustom from './ProductHeroNewLabelTextCustom.astro?raw';
-import sourceEnglish from './ProductHeroNewLabelTextEnglish.astro?raw';
+import ProductHeroNewLabelText from './ProductHeroNewLabelText.astro';
 ---
 
-<CodeContainer
-  codes={[sourceDefault, sourceCustom, sourceEnglish]}
-  titles={['默认', '自定义', '英文']}>
-  <div id="tab-1">
-    <ProductHeroNewLabelTextDefault />
-  </div>
-  <div id="tab-2">
-    <ProductHeroNewLabelTextCustom />
-  </div>
-  <div id="tab-3">
-    <ProductHeroNewLabelTextEnglish />
-  </div>
-</CodeContainer>
+<div style="display: flex; flex-direction: column; gap: 1rem;">
+  <ProductHeroNewLabelText />
+</div>

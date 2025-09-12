@@ -2,6 +2,8 @@ import ImagesCircleExample from './ImagesCircleExample.astro';
 import ImagesCircleBackgroundContainer from './ImagesCircleBackgroundContainer.astro';
 import ImagesCircleClassContainer from './ImagesCircleClassContainer.astro';
 import ImagesCircleImagesContainer from './ImagesCircleImagesContainer.astro';
+import ImagesCircleImagesUrlContainer from './ImagesCircleImagesUrlContainer.astro';
+import ImagesCircleImagesAssetsContainer from './ImagesCircleImagesAssetsContainer.astro';
 import ImagesCircleRoundedContainer from './ImagesCircleRoundedContainer.astro';
 import ImagesCircleShadowContainer from './ImagesCircleShadowContainer.astro';
 import ImagesCircleSizeContainer from './ImagesCircleSizeContainer.astro';
@@ -12,6 +14,8 @@ export const ImagesCirclePackage = {
     BackgroundContainer: ImagesCircleBackgroundContainer,
     ClassContainer: ImagesCircleClassContainer,
     ImagesContainer: ImagesCircleImagesContainer,
+    ImagesUrlContainer: ImagesCircleImagesUrlContainer,
+    ImagesAssetsContainer: ImagesCircleImagesAssetsContainer,
     RoundedContainer: ImagesCircleRoundedContainer,
     ShadowContainer: ImagesCircleShadowContainer,
     SizeContainer: ImagesCircleSizeContainer,

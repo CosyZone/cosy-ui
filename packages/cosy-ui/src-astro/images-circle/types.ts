@@ -1,16 +1,8 @@
 import type { BackgroundColor } from '../../src/common/backgrounds';
-
-export interface IImagesCircleItem {
-    src: string;
-    alt: string;
-    width?: number;
-    height?: number;
-    loading?: 'lazy' | 'eager';
-    caption?: string;
-}
+import type { ImageSource } from '../image/image';
 
 export interface IImagesCircleProps {
-    images: IImagesCircleItem[];
+    images: ImageSource[];
     background?: BackgroundColor;
     class?: string;
     size?: 'sm' | 'md' | 'lg' | 'xl';
