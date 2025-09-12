@@ -1,0 +1,23 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import HeroAlignLeft from './HeroAlignLeft.astro';
+import HeroAlignCenter from './HeroAlignCenter.astro';
+import HeroAlignRight from './HeroAlignRight.astro';
+import HeroAlignLeftSourceCode from './HeroAlignLeft.astro?raw';
+import HeroAlignCenterSourceCode from './HeroAlignCenter.astro?raw';
+import HeroAlignRightSourceCode from './HeroAlignRight.astro?raw';
+---
+
+<CodeContainer
+  codes={[HeroAlignLeftSourceCode, HeroAlignCenterSourceCode, HeroAlignRightSourceCode]}
+  titles={['左对齐', '居中对齐', '右对齐']}>
+  <div id="tab-1">
+    <HeroAlignLeft />
+  </div>
+  <div id="tab-2">
+    <HeroAlignCenter />
+  </div>
+  <div id="tab-3">
+    <HeroAlignRight />
+  </div>
+</CodeContainer>
