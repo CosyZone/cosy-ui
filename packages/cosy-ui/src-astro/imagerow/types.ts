@@ -5,13 +5,14 @@ import type { GapSize } from '../../src/common/layout';
 import type { ShadowSize } from '../../src/common/shadow';
 import type { HoverEffect } from '../../src/common/hover';
 import type { Size } from '../../src/common/size';
+import type { ImageSource } from '../image/image';
 
 /**
  * 图片项接口
  */
-export interface ImageItem {
-    /** 图片源地址 */
-    src: string;
+export interface IImageItem {
+    /** 图片源，支持本地图片和远程URL */
+    src: ImageSource;
     /** 图片替代文本 */
     alt: string;
     /** 图片宽度 */
@@ -29,7 +30,7 @@ export interface ImageItem {
  */
 export interface ImageRowProps {
     /** 图片数组 */
-    images: ImageItem[];
+    images: IImageItem[];
     /** 图片间距 */
     gap?: GapSize;
     /** 图片圆角 */
@@ -50,12 +51,8 @@ export interface ImageRowProps {
     width?: Size;
     /** 容器圆角 */
     containerRounded?: RoundedSize;
-    /** 是否显示左右导航箭头 */
-    showArrows?: boolean;
-    /** 是否显示底部点指示器 */
-    showDots?: boolean;
-    /** 箭头按钮样式变体 */
-    arrowVariant?: 'ghost' | 'outline' | 'primary' | 'secondary';
+    /** 是否显示左右导航按钮 */
+    showNavigation?: boolean;
     /** 自定义 CSS 类名 */
     class?: string;
 }

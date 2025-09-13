@@ -3,4 +3,4 @@
  */
 
 export { default as ImageRow } from './ImageRow.astro';
-export type { ImageItem, ImageRowProps } from './types';
+export type { IImageItem, ImageRowProps } from './types';

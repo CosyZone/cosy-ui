@@ -7,7 +7,7 @@
  * <ImageRow
  *   images={[
  *     { src: '/image1.jpg', alt: '图片1' },
- *     { src: '/image2.jpg', alt: '图片2' }
+ *     { src: 'https://example.com/image2.jpg', alt: '图片2' }
  *   ]}
  *   gap="md"
  *   background="primary/10"
@@ -19,12 +19,10 @@
  * @prop {boolean} [border=false] - 是否显示边框
  * @prop {string} [class] - 自定义 CSS 类名
  * @prop {string} [containerRounded='none'] - 容器圆角，可选值：none、sm、md、lg、xl、2xl、3xl、full
- * @prop {string} [arrowVariant='ghost'] - 箭头按钮样式变体，可选值：ghost、outline、primary、secondary
- * @prop {boolean} [showArrows=false] - 是否显示左右导航箭头
- * @prop {boolean} [showDots=true] - 是否显示底部点指示器
+ * @prop {boolean} [showNavigation=true] - 是否显示左右导航按钮
  * @prop {string} [gap='md'] - 图片间距，可选值：none、xs、sm、md、lg、xl
  * @prop {string} [hover='scale'] - 悬停效果，可选值：none、scale、brightness、blur
- * @prop {ImageItem[]} images - 图片数组
+ * @prop {IImageItem[]} images - 图片数组
  * @prop {string} [margin='none'] - 外边距大小，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl
  * @prop {string} [padding='md'] - 内边距大小，可选值：none、sm、md、lg、xl、2xl、3xl、4xl
  * @prop {string} [rounded='md'] - 图片圆角，可选值：none、sm、md、lg、xl、2xl、3xl、full
@@ -34,7 +32,7 @@
  * @slot default - 图片内容
  */
 import '../../style.ts';
-import type { ImageItem } from './types';
+import type { IImageItem } from './types';
 import type {
   BackgroundColor,
   Size,
@@ -52,12 +50,12 @@ import {
   hoverClasses,
 } from '../../src/common';
 import Container from '../container/Container.astro';
-import ImageRowArrowLeft from './ImageRowArrowLeft.astro';
-import ImageRowArrowRight from './ImageRowArrowRight.astro';
-import ImageRowDots from './ImageRowDots.astro';
+import Image from '../image/Image.astro';
+import ChevronLeftIcon from '../icons/ChevronLeftIcon.astro';
+import ChevronRightIcon from '../icons/ChevronRightIcon.astro';
 
 interface Props {
-  images: ImageItem[];
+  images: IImageItem[];
   gap?: GapSize;
   rounded?: RoundedSize;
   shadow?: ShadowSize;
@@ -68,9 +66,7 @@ interface Props {
   border?: boolean;
   width?: Size;
   containerRounded?: RoundedSize;
-  showArrows?: boolean;
-  showDots?: boolean;
-  arrowVariant?: 'ghost' | 'outline' | 'primary' | 'secondary';
+  showNavigation?: boolean;
   class?: string;
 }
 
@@ -86,9 +82,7 @@ const {
   border = false,
   width = 'md',
   containerRounded = 'none',
-  showArrows = false,
-  showDots = true,
-  arrowVariant = 'ghost',
+  showNavigation = true,
   class: className = '',
 } = Astro.props;
 
@@ -106,14 +100,10 @@ const getContainerClass = () => {
   return `${baseClass} ${gapClassValue} ${customClass}`.trim();
 };
 
-// 生成图片类名
+// 生成图片容器类名
 const getImageClass = (index: number) => {
   const baseClass = 'image-row-item';
-  const roundedClassValue = roundedClass;
-  const shadowClassValue = shadowClass;
-  const hoverClassValue = hoverClass;
-
-  return `${baseClass} ${roundedClassValue} ${shadowClassValue} ${hoverClassValue}`.trim();
+  return baseClass;
 };
 ---
 
@@ -126,19 +116,33 @@ const getImageClass = (index: number) => {
   rounded={containerRounded}
   class={className}>
   <div class="image-row-wrapper">
-    {showArrows && <ImageRowArrowLeft variant={arrowVariant} />}
+    {
+      showNavigation && images.length > 1 && (
+        <button
+          class="image-row-nav-btn image-row-nav-prev"
+          onclick="window.scrollImageRow(this, 'prev')"
+          aria-label="上一张图片"
+          disabled>
+          <ChevronLeftIcon size="20px" />
+        </button>
+      )
+    }
 
     <div class={getContainerClass()}>
       {
         images.map((image, index) => (
           <div class={getImageClass(index)}>
-            <img
+            <Image
               src={image.src}
               alt={image.alt}
               width={image.width}
               height={image.height}
               loading={image.loading || 'lazy'}
-              class="cosy:w-full cosy:h-full cosy:object-cover"
+              rounded={rounded}
+              shadow={shadow}
+              hover={hover}
+              objectFit="cover"
+              class="cosy:w-full cosy:h-full"
             />
             {image.caption && (
               <div class="image-row-caption">
@@ -152,17 +156,24 @@ const getImageClass = (index: number) => {
       }
     </div>
 
-    {showArrows && <ImageRowArrowRight variant={arrowVariant} />}
+    {
+      showNavigation && images.length > 1 && (
+        <button
+          class="image-row-nav-btn image-row-nav-next"
+          onclick="window.scrollImageRow(this, 'next')"
+          aria-label="下一张图片">
+          <ChevronRightIcon size="20px" />
+        </button>
+      )
+    }
   </div>
-
-  {showDots && <ImageRowDots totalImages={images.length} />}
 </Container>
 
 <style>
   .image-row-wrapper {
-    position: relative;
     display: flex;
     align-items: center;
+    gap: 12px;
   }
 
   .image-row-container {
@@ -201,26 +212,34 @@ const getImageClass = (index: number) => {
     margin: 0 !important;
   }
 
-  /* 箭头按钮样式 */
-  .image-row-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    opacity: 0.8;
-    transition: opacity 0.2s ease;
+  /* 导航按钮样式 */
+  .image-row-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
   }
 
-  .image-row-arrow:hover {
-    opacity: 1;
+  .image-row-nav-btn:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 1);
+    color: rgba(0, 0, 0, 0.9);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
-  .image-row-arrow-left {
-    left: 8px;
-  }
-
-  .image-row-arrow-right {
-    right: 8px;
+  .image-row-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
   }
 
   /* 响应式设计 */
@@ -230,8 +249,13 @@ const getImageClass = (index: number) => {
       height: 120px;
     }
 
-    .image-row-arrow {
-      display: none;
+    .image-row-nav-btn {
+      width: 36px;
+      height: 36px;
+    }
+
+    .image-row-wrapper {
+      gap: 8px;
     }
   }
 
@@ -240,6 +264,15 @@ const getImageClass = (index: number) => {
       width: 120px;
       height: 100px;
     }
+
+    .image-row-nav-btn {
+      width: 32px;
+      height: 32px;
+    }
+
+    .image-row-wrapper {
+      gap: 6px;
+    }
   }
 </style>
 
@@ -247,123 +280,115 @@ const getImageClass = (index: number) => {
   // 声明全局函数类型
   declare global {
     interface Window {
-      scrollImageRow: (button: HTMLElement, direction: string) => void;
+      scrollImageRow: (button: HTMLElement, direction: 'prev' | 'next') => void;
     }
   }
 
-  // 滚动图片行的函数
-  window.scrollImageRow = function (button: HTMLElement, direction: string) {
-    const wrapper = button.closest('.image-row-wrapper') as HTMLElement;
+  // 左右导航功能
+  window.scrollImageRow = function (
+    button: HTMLElement,
+    direction: 'prev' | 'next'
+  ) {
+    // 从导航按钮向上查找，找到包含 .image-row-container 的容器
+    const wrapper = button.parentElement;
     const container = wrapper?.querySelector(
       '.image-row-container'
     ) as HTMLElement;
 
-    if (!container) return;
+    if (!container || !wrapper) return;
 
-    const scrollAmount = 200; // 每次滚动的距离
-    const currentScroll = container.scrollLeft;
+    const imageWidth = 200; // 图片宽度
+    const currentScrollLeft = container.scrollLeft;
+    const maxScrollLeft = container.scrollWidth - container.clientWidth;
 
-    if (direction === 'left') {
-      container.scrollTo({
-        left: currentScroll - scrollAmount,
-        behavior: 'smooth',
-      });
-    } else if (direction === 'right') {
-      container.scrollTo({
-        left: currentScroll + scrollAmount,
-        behavior: 'smooth',
-      });
+    let newScrollLeft = currentScrollLeft;
+
+    if (direction === 'prev') {
+      newScrollLeft = Math.max(0, currentScrollLeft - imageWidth);
+    } else {
+      newScrollLeft = Math.min(maxScrollLeft, currentScrollLeft + imageWidth);
     }
+
+    container.scrollTo({
+      left: newScrollLeft,
+      behavior: 'smooth',
+    });
+
+    // 更新按钮状态
+    setTimeout(() => {
+      updateNavigationButtons(wrapper as HTMLElement);
+    }, 300);
   };
 
-  // 初始化单个图片行的箭头功能
-  function initImageRowArrows(wrapper: HTMLElement) {
+  // 更新导航按钮状态
+  function updateNavigationButtons(wrapper: HTMLElement) {
     const container = wrapper.querySelector(
       '.image-row-container'
     ) as HTMLElement;
-    const leftArrow = wrapper.querySelector(
-      '.image-row-arrow-left'
-    ) as HTMLElement;
-    const rightArrow = wrapper.querySelector(
-      '.image-row-arrow-right'
-    ) as HTMLElement;
-    const dotsContainer = wrapper.parentElement?.querySelector(
-      '.image-row-dots'
+    const prevBtn = wrapper.querySelector(
+      '.image-row-nav-prev'
+    ) as HTMLButtonElement;
+    const nextBtn = wrapper.querySelector(
+      '.image-row-nav-next'
+    ) as HTMLButtonElement;
+
+    if (!container || !prevBtn || !nextBtn) return;
+
+    const currentScrollLeft = container.scrollLeft;
+    const maxScrollLeft = container.scrollWidth - container.clientWidth;
+
+    // 更新前一个按钮状态
+    prevBtn.disabled = currentScrollLeft <= 0;
+
+    // 更新下一个按钮状态
+    nextBtn.disabled = currentScrollLeft >= maxScrollLeft - 1; // -1 为了处理浮点数精度问题
+  }
+
+  // 初始化单个图片行的导航功能
+  function initImageRowNavigation(wrapper: HTMLElement) {
+    const container = wrapper.querySelector(
+      '.image-row-container'
     ) as HTMLElement;
 
     if (!container) return;
 
-    // 检查是否需要显示箭头
-    function updateArrowVisibility() {
-      if (!leftArrow || !rightArrow) return;
-
-      const isScrollable = container.scrollWidth > container.clientWidth;
-      const isAtStart = container.scrollLeft <= 0;
-      const isAtEnd =
-        container.scrollLeft >=
-        container.scrollWidth - container.clientWidth - 1;
-
-      // 只有在可滚动时才显示箭头
-      if (isScrollable) {
-        leftArrow.style.display = isAtStart ? 'none' : 'block';
-        rightArrow.style.display = isAtEnd ? 'none' : 'block';
-      } else {
-        leftArrow.style.display = 'none';
-        rightArrow.style.display = 'none';
-      }
-    }
-
-    // 更新点指示器状态
-    function updateDotsVisibility() {
-      if (!dotsContainer) return;
-
-      const dots = dotsContainer.querySelectorAll('.image-row-dot');
-      const imageWidth = 200; // 图片宽度 + 间距
-      const currentIndex = Math.round(container.scrollLeft / imageWidth);
-
-      dots.forEach((dot, index) => {
-        if (index === currentIndex) {
-          dot.classList.add('active');
-        } else {
-          dot.classList.remove('active');
-        }
-      });
-    }
-
-    // 监听滚动事件
+    // 监听滚动事件，更新按钮状态
     container.addEventListener('scroll', () => {
-      updateArrowVisibility();
-      updateDotsVisibility();
+      updateNavigationButtons(wrapper);
     });
 
     // 监听窗口大小变化
     window.addEventListener('resize', () => {
-      updateArrowVisibility();
-      updateDotsVisibility();
+      setTimeout(() => {
+        updateNavigationButtons(wrapper);
+      }, 100);
     });
 
     // 初始检查
-    updateArrowVisibility();
-    updateDotsVisibility();
+    setTimeout(() => {
+      updateNavigationButtons(wrapper);
+    }, 100);
   }
 
-  // 初始化所有图片行
-  function initAllImageRows() {
+  // 初始化所有图片行导航
+  function initAllImageRowNavigations() {
     const imageRows = document.querySelectorAll('.image-row-wrapper');
-    imageRows.forEach((wrapper) => initImageRowArrows(wrapper as HTMLElement));
+    imageRows.forEach((wrapper) =>
+      initImageRowNavigation(wrapper as HTMLElement)
+    );
   }
 
   // 页面加载完成后初始化
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initAllImageRows);
+    document.addEventListener('DOMContentLoaded', initAllImageRowNavigations);
   } else {
-    initAllImageRows();
+    initAllImageRowNavigations();
   }
 
-  // 监听 Astro 路由变化（如果使用客户端路由）
-  document.addEventListener('astro:page-load', initAllImageRows);
+  // 监听 Astro 路由变化
+  document.addEventListener('astro:page-load', initAllImageRowNavigations);
 
-  // 监听 DOM 变化（MutationObserver 作为备用方案）
+  // 监听 DOM 变化
   const observer = new MutationObserver((mutations) => {
     let shouldReinit = false;
     mutations.forEach((mutation) => {
@@ -383,12 +408,10 @@ const getImageClass = (index: number) => {
     });
 
     if (shouldReinit) {
-      // 延迟执行，确保 DOM 完全更新
-      setTimeout(initAllImageRows, 100);
+      setTimeout(initAllImageRowNavigations, 100);
     }
   });
 
-  // 开始观察整个文档的变化
   observer.observe(document.body, {
     childList: true,
     subtree: true,
