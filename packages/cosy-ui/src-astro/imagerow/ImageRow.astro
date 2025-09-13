@@ -19,6 +19,8 @@
  * @prop {boolean} [border=false] - 是否显示边框
  * @prop {string} [class] - 自定义 CSS 类名
  * @prop {string} [containerRounded='none'] - 容器圆角，可选值：none、sm、md、lg、xl、2xl、3xl、full
+ * @prop {string} [arrowVariant='ghost'] - 箭头按钮样式变体，可选值：ghost、outline、primary、secondary
+ * @prop {boolean} [showArrows=false] - 是否显示左右导航箭头
  * @prop {string} [gap='md'] - 图片间距，可选值：none、xs、sm、md、lg、xl
  * @prop {string} [hover='scale'] - 悬停效果，可选值：none、scale、brightness、blur
  * @prop {ImageItem[]} images - 图片数组
@@ -49,6 +51,8 @@ import {
   hoverClasses,
 } from '../../src/common';
 import Container from '../container/Container.astro';
+import ImageRowArrowLeft from './ImageRowArrowLeft.astro';
+import ImageRowArrowRight from './ImageRowArrowRight.astro';
 
 interface Props {
   images: ImageItem[];
@@ -62,6 +66,8 @@ interface Props {
   border?: boolean;
   width?: Size;
   containerRounded?: RoundedSize;
+  showArrows?: boolean;
+  arrowVariant?: 'ghost' | 'outline' | 'primary' | 'secondary';
   class?: string;
 }
 
@@ -77,6 +83,8 @@ const {
   border = false,
   width = 'md',
   containerRounded = 'none',
+  showArrows = false,
+  arrowVariant = 'ghost',
   class: className = '',
 } = Astro.props;
 
@@ -113,38 +121,51 @@ const getImageClass = (index: number) => {
   width={width}
   rounded={containerRounded}
   class={className}>
-  <div class={getContainerClass()}>
-    {
-      images.map((image, index) => (
-        <div class={getImageClass(index)}>
-          <img
-            src={image.src}
-            alt={image.alt}
-            width={image.width}
-            height={image.height}
-            loading={image.loading || 'lazy'}
-            class="cosy:w-full cosy:h-full cosy:object-cover"
-          />
-          {image.caption && (
-            <div class="image-row-caption">
-              <p class="cosy:text-sm cosy:text-gray-600 cosy:mt-2 cosy:text-center">
-                {image.caption}
-              </p>
-            </div>
-          )}
-        </div>
-      ))
-    }
+  <div class="image-row-wrapper">
+    {showArrows && <ImageRowArrowLeft variant={arrowVariant} />}
+
+    <div class={getContainerClass()}>
+      {
+        images.map((image, index) => (
+          <div class={getImageClass(index)}>
+            <img
+              src={image.src}
+              alt={image.alt}
+              width={image.width}
+              height={image.height}
+              loading={image.loading || 'lazy'}
+              class="cosy:w-full cosy:h-full cosy:object-cover"
+            />
+            {image.caption && (
+              <div class="image-row-caption">
+                <p class="cosy:text-sm cosy:text-gray-600 cosy:mt-2 cosy:text-center">
+                  {image.caption}
+                </p>
+              </div>
+            )}
+          </div>
+        ))
+      }
+    </div>
+
+    {showArrows && <ImageRowArrowRight variant={arrowVariant} />}
   </div>
 </Container>
 
 <style>
+  .image-row-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
   .image-row-container {
     display: flex;
     align-items: center;
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    flex: 1;
   }
 
   .image-row-container::-webkit-scrollbar {
@@ -174,11 +195,37 @@ const getImageClass = (index: number) => {
     margin: 0 !important;
   }
 
+  /* 箭头按钮样式 */
+  .image-row-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+  }
+
+  .image-row-arrow:hover {
+    opacity: 1;
+  }
+
+  .image-row-arrow-left {
+    left: 8px;
+  }
+
+  .image-row-arrow-right {
+    right: 8px;
+  }
+
   /* 响应式设计 */
   @media (max-width: 768px) {
     .image-row-item {
       width: 150px;
       height: 120px;
+    }
+
+    .image-row-arrow {
+      display: none;
     }
   }
 
@@ -189,3 +236,126 @@ const getImageClass = (index: number) => {
     }
   }
 </style>
+
+<script>
+  // 声明全局函数类型
+  declare global {
+    interface Window {
+      scrollImageRow: (button: HTMLElement, direction: string) => void;
+    }
+  }
+
+  // 滚动图片行的函数
+  window.scrollImageRow = function (button: HTMLElement, direction: string) {
+    const wrapper = button.closest('.image-row-wrapper') as HTMLElement;
+    const container = wrapper?.querySelector(
+      '.image-row-container'
+    ) as HTMLElement;
+
+    if (!container) return;
+
+    const scrollAmount = 200; // 每次滚动的距离
+    const currentScroll = container.scrollLeft;
+
+    if (direction === 'left') {
+      container.scrollTo({
+        left: currentScroll - scrollAmount,
+        behavior: 'smooth',
+      });
+    } else if (direction === 'right') {
+      container.scrollTo({
+        left: currentScroll + scrollAmount,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  // 初始化单个图片行的箭头功能
+  function initImageRowArrows(wrapper: HTMLElement) {
+    const container = wrapper.querySelector(
+      '.image-row-container'
+    ) as HTMLElement;
+    const leftArrow = wrapper.querySelector(
+      '.image-row-arrow-left'
+    ) as HTMLElement;
+    const rightArrow = wrapper.querySelector(
+      '.image-row-arrow-right'
+    ) as HTMLElement;
+
+    if (!container || !leftArrow || !rightArrow) return;
+
+    // 检查是否需要显示箭头
+    function updateArrowVisibility() {
+      const isScrollable = container.scrollWidth > container.clientWidth;
+      const isAtStart = container.scrollLeft <= 0;
+      const isAtEnd =
+        container.scrollLeft >=
+        container.scrollWidth - container.clientWidth - 1;
+
+      // 只有在可滚动时才显示箭头
+      if (isScrollable) {
+        leftArrow.style.display = isAtStart ? 'none' : 'block';
+        rightArrow.style.display = isAtEnd ? 'none' : 'block';
+      } else {
+        leftArrow.style.display = 'none';
+        rightArrow.style.display = 'none';
+      }
+    }
+
+    // 监听滚动事件
+    container.addEventListener('scroll', updateArrowVisibility);
+
+    // 监听窗口大小变化
+    window.addEventListener('resize', updateArrowVisibility);
+
+    // 初始检查
+    updateArrowVisibility();
+  }
+
+  // 初始化所有图片行
+  function initAllImageRows() {
+    const imageRows = document.querySelectorAll('.image-row-wrapper');
+    imageRows.forEach((wrapper) => initImageRowArrows(wrapper as HTMLElement));
+  }
+
+  // 页面加载完成后初始化
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAllImageRows);
+  } else {
+    initAllImageRows();
+  }
+
+  // 监听 Astro 路由变化（如果使用客户端路由）
+  document.addEventListener('astro:page-load', initAllImageRows);
+
+  // 监听 DOM 变化（MutationObserver 作为备用方案）
+  const observer = new MutationObserver((mutations) => {
+    let shouldReinit = false;
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'childList') {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            const element = node as Element;
+            if (
+              element.querySelector?.('.image-row-wrapper') ||
+              element.classList?.contains('image-row-wrapper')
+            ) {
+              shouldReinit = true;
+            }
+          }
+        });
+      }
+    });
+
+    if (shouldReinit) {
+      // 延迟执行，确保 DOM 完全更新
+      setTimeout(initAllImageRows, 100);
+    }
+  });
+
+  // 开始观察整个文档的变化
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
+</script>

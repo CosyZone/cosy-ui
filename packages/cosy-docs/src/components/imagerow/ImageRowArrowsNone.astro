@@ -1,0 +1,43 @@
+---
+/**
+ * @component ImageRowArrowsNone
+ * @description ImageRow 组件无箭头示例
+ */
+import { ImageRow, getProductImage } from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 200, height: 200 }),
+    alt: '图片 1',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200 }),
+    alt: '图片 2',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200 }),
+    alt: '图片 3',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200 }),
+    alt: '图片 4',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200 }),
+    alt: '图片 5',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200 }),
+    alt: '图片 6',
+  },
+];
+---
+
+<ImageRow
+  images={images}
+  showArrows={false}
+  gap="sm"
+  shadow="sm"
+  background="base-200/20"
+  padding="md"
+/>

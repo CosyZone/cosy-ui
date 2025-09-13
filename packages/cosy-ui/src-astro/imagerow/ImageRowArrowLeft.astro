@@ -1,0 +1,24 @@
+---
+/**
+ * @component ImageRowArrowLeft
+ * @description ImageRow 组件左箭头按钮
+ */
+import Button from '../button/Button.astro';
+import ChevronLeftIcon from '../icons/ChevronLeftIcon.astro';
+
+interface Props {
+  variant?: 'ghost' | 'outline' | 'primary' | 'secondary';
+  class?: string;
+}
+
+const { variant = 'ghost', class: className = '' } = Astro.props;
+---
+
+<Button
+  variant={variant}
+  shape="circle"
+  size="sm"
+  class={`image-row-arrow image-row-arrow-left ${className}`}
+  onClick="window.scrollImageRow(this, 'left')">
+  <ChevronLeftIcon slot="icon-left" size="16px" />
+</Button>

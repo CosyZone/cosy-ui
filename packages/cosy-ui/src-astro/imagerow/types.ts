@@ -50,6 +50,10 @@ export interface ImageRowProps {
     width?: Size;
     /** 容器圆角 */
     containerRounded?: RoundedSize;
+    /** 是否显示左右导航箭头 */
+    showArrows?: boolean;
+    /** 箭头按钮样式变体 */
+    arrowVariant?: 'ghost' | 'outline' | 'primary' | 'secondary';
     /** 自定义 CSS 类名 */
     class?: string;
 }
