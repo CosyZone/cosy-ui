@@ -107,6 +107,34 @@
  * />
  * ```
  *
+ * 毛玻璃效果（推荐用于复杂背景）：
+ * ```astro
+ * <Hero
+ *   title="产品展示"
+ *   description="查看我们的最新产品。"
+ *   backgroundImage="/images/complex-bg.jpg"
+ *   glassmorphism={true}
+ *   textBackground="glass"
+ *   links={[
+ *     { text: "立即购买", href: "/buy" }
+ *   ]}
+ * />
+ * ```
+ *
+ * 实心背景毛玻璃效果：
+ * ```astro
+ * <Hero
+ *   title="产品展示"
+ *   description="查看我们的最新产品。"
+ *   backgroundImage="/images/hero-bg.jpg"
+ *   glassmorphism={true}
+ *   textBackground="solid"
+ *   links={[
+ *     { text: "立即购买", href: "/buy" }
+ *   ]}
+ * />
+ * ```
+ *
  * 带背景图片的用法（导入资源）：
  * ```astro
  * ---
@@ -180,6 +208,8 @@
  * @prop {string} links[].href - 链接按钮的目标地址
  * @prop {string} links[].variant - 链接按钮的变体，可选值："primary", "secondary", "accent", "info", "success", "warning", "error"
  * @prop {number} [overlayOpacity=0.7] - 遮罩的不透明度，可选值：0-1之间的数字
+ * @prop {boolean} [glassmorphism=true] - 是否启用毛玻璃效果，为文字区域添加半透明背景
+ * @prop {string} [textBackground="glass"] - 文字区域背景类型，可选值："none", "glass", "solid", "gradient"
  * @prop {string} title - Hero 区域的主标题
  */
 
@@ -203,6 +233,8 @@ const {
   backgroundImage,
   backgroundOverlay = 'none',
   overlayOpacity = 0.7,
+  glassmorphism = true,
+  textBackground = 'glass',
 } = Astro.props as HeroProps;
 
 // 确保不透明度在0-1之间
@@ -276,26 +308,68 @@ const overlayStyle =
             }
           : {};
 
+// 文字容器背景样式
+const getTextBackgroundClasses = () => {
+  if (!glassmorphism || textBackground === 'none') return '';
+
+  const baseClasses = [
+    'cosy:backdrop-blur-md',
+    'cosy:rounded-2xl',
+    'cosy:p-8',
+    'cosy:mx-auto',
+    'cosy:max-w-4xl',
+  ];
+
+  switch (textBackground) {
+    case 'glass':
+      return [
+        ...baseClasses,
+        'cosy:bg-white/10',
+        'cosy:border',
+        'cosy:border-white/20',
+      ].join(' ');
+    case 'solid':
+      return [...baseClasses, 'cosy:bg-white/90', 'cosy:shadow-xl'].join(' ');
+    case 'gradient':
+      return [
+        ...baseClasses,
+        'cosy:bg-gradient-to-br',
+        'cosy:from-white/20',
+        'cosy:to-white/10',
+        'cosy:border',
+        'cosy:border-white/30',
+      ].join(' ');
+    default:
+      return baseClasses.join(' ');
+  }
+};
+
 const titleClasses = [
   'cosy:text-5xl',
   'cosy:font-bold',
   'cosy:mb-4',
   'cosy:sm:text-6xl',
   'cosy:lg:text-7xl',
-  backgroundImage &&
-  (backgroundOverlay === 'dark' || backgroundOverlay === 'gradient')
-    ? 'cosy:text-white'
-    : 'cosy:text-primary',
+  // 当有毛玻璃效果时，文字颜色根据背景类型调整
+  glassmorphism && textBackground === 'solid'
+    ? 'cosy:text-primary'
+    : backgroundImage &&
+        (backgroundOverlay === 'dark' || backgroundOverlay === 'gradient')
+      ? 'cosy:text-white'
+      : 'cosy:text-primary',
 ].join(' ');
 
 const descriptionClasses = [
   'cosy:text-xl cosy:prose',
   'cosy:max-w-3xl',
   'cosy:mb-8',
-  backgroundImage &&
-  (backgroundOverlay === 'dark' || backgroundOverlay === 'gradient')
-    ? 'cosy:opacity-90'
-    : 'cosy:opacity-80',
+  // 当有毛玻璃效果时，描述文字颜色根据背景类型调整
+  glassmorphism && textBackground === 'solid'
+    ? 'cosy:text-gray-700'
+    : backgroundImage &&
+        (backgroundOverlay === 'dark' || backgroundOverlay === 'gradient')
+      ? 'cosy:text-white cosy:opacity-90'
+      : 'cosy:opacity-80',
 ].join(' ');
 
 const imageClasses = [
@@ -385,30 +459,55 @@ const contentOrder = {
         (align === 'center' ? 'cosy:text-center cosy:items-center' : '') +
         (align === 'left' ? 'cosy:text-left cosy:items-start' : '') +
         (align === 'right' ? 'cosy:text-right cosy:items-end' : '')}>
-      <h2 class={titleClasses}>{title}</h2>
-      <p class={descriptionClasses}>{description}</p>
-
       {
-        Astro.slots.has('app') && (
-          <div class={appContainerClasses}>
-            <slot name="app" />
+        glassmorphism ? (
+          <div class={getTextBackgroundClasses()}>
+            <h2 class={titleClasses}>{title}</h2>
+            <p class={descriptionClasses}>{description}</p>
+
+            {Astro.slots.has('app') && (
+              <div class={appContainerClasses}>
+                <slot name="app" />
+              </div>
+            )}
+
+            <div class={linksContainerClasses}>
+              {links.map((link: IHeroLink) => (
+                <Button
+                  href={link.href}
+                  target={link.target}
+                  variant={link.variant}
+                  size="lg">
+                  {link.text}
+                </Button>
+              ))}
+            </div>
           </div>
+        ) : (
+          <>
+            <h2 class={titleClasses}>{title}</h2>
+            <p class={descriptionClasses}>{description}</p>
+
+            {Astro.slots.has('app') && (
+              <div class={appContainerClasses}>
+                <slot name="app" />
+              </div>
+            )}
+
+            <div class={linksContainerClasses}>
+              {links.map((link: IHeroLink) => (
+                <Button
+                  href={link.href}
+                  target={link.target}
+                  variant={link.variant}
+                  size="lg">
+                  {link.text}
+                </Button>
+              ))}
+            </div>
+          </>
         )
       }
-
-      <div class={linksContainerClasses}>
-        {
-          links.map((link: IHeroLink) => (
-            <Button
-              href={link.href}
-              target={link.target}
-              variant={link.variant}
-              size="lg">
-              {link.text}
-            </Button>
-          ))
-        }
-      </div>
     </div>
   </div>
 </div>

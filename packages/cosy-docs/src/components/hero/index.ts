@@ -11,6 +11,8 @@ import BasicContainer from './BasicContainer.astro';
 import WithButtonContainer from './WithButtonContainer.astro';
 import WithImageContainer from './WithImageContainer.astro';
 import HeroAppSlotContainer from './HeroAppSlotContainer.astro';
+import GlassmorphismContainer from './GlassmorphismContainer.astro';
+import TextBackgroundContainer from './TextBackgroundContainer.astro';
 
 export const HeroPackage = {
     HeroExamples: {
@@ -22,10 +24,12 @@ export const HeroPackage = {
         BackgroundImage: BackgroundImageContainer,
         BackgroundOverlay: BackgroundImageContainer,
         Description: BasicContainer,
+        Glassmorphism: GlassmorphismContainer,
         Image: WithImageContainer,
         ImagePosition: WithImageContainer,
         Links: WithButtonContainer,
         OverlayOpacity: BackgroundImageContainer,
+        TextBackground: TextBackgroundContainer,
         Title: BasicContainer,
         App: HeroAppSlotContainer,
     },

@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import GlassmorphismFalse from './GlassmorphismFalse.astro';
+import GlassmorphismTrue from './GlassmorphismTrue.astro';
+import GlassmorphismFalseSourceCode from './GlassmorphismFalse.astro?raw';
+import GlassmorphismTrueSourceCode from './GlassmorphismTrue.astro?raw';
+---
+
+<CodeContainer
+  titles={['false', 'true']}
+  codes={[GlassmorphismFalseSourceCode, GlassmorphismTrueSourceCode]}>
+  <div id="tab-1">
+    <GlassmorphismFalse />
+  </div>
+  <div id="tab-2">
+    <GlassmorphismTrue />
+  </div>
+</CodeContainer>

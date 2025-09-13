@@ -62,5 +62,7 @@ export interface HeroProps {
     imagePosition?: ImagePositionType;
     links: IHeroLink[];
     overlayOpacity?: number;
+    glassmorphism?: boolean;
+    textBackground?: 'none' | 'glass' | 'solid' | 'gradient';
     title: string;
 }

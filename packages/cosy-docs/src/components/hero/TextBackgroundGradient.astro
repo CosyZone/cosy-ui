@@ -1,0 +1,20 @@
+---
+import { Hero } from '@coffic/cosy-ui';
+import { getLandscapeImage } from '@coffic/cosy-ui';
+---
+
+<Hero
+  title="产品展示"
+  description="查看我们的最新产品，体验卓越的品质和服务。"
+  backgroundImage={getLandscapeImage({
+    width: 1920,
+    height: 1080,
+    tag: 'hero-bg',
+  })}
+  glassmorphism={true}
+  textBackground="gradient"
+  links={[
+    { text: '立即购买', href: '/buy', variant: 'primary' },
+    { text: '了解更多', href: '/about', variant: 'secondary' },
+  ]}
+/>
