@@ -4,7 +4,7 @@
  */
 
 // 圆角类型
-export type RoundedSize = 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+export type RoundedSize = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';
 
 // 圆角类名映射
 export const roundedClasses: Record<RoundedSize, string> = {
@@ -13,5 +13,7 @@ export const roundedClasses: Record<RoundedSize, string> = {
     md: 'cosy:rounded-md',
     lg: 'cosy:rounded-lg',
     xl: 'cosy:rounded-xl',
+    '2xl': 'cosy:rounded-2xl',
+    '3xl': 'cosy:rounded-3xl',
     full: 'cosy:rounded-full',
 } as const;

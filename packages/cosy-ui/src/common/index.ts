@@ -23,4 +23,6 @@ export * from './margin';
 
 // 外观相关（类型和类名映射）
 export * from './rounded';
+export * from './shadow';
+export * from './hover';
 export * from './fitmode';

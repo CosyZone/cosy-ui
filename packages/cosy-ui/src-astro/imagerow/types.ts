@@ -1,3 +1,11 @@
+import type { PaddingSize } from '../../src/common/padding';
+import type { MarginSize } from '../../src/common/margin';
+import type { RoundedSize } from '../../src/common/rounded';
+import type { GapSize } from '../../src/common/layout';
+import type { ShadowSize } from '../../src/common/shadow';
+import type { HoverEffect } from '../../src/common/hover';
+import type { Size } from '../../src/common/size';
+
 /**
  * 图片项接口
  */
@@ -23,23 +31,23 @@ export interface ImageRowProps {
     /** 图片数组 */
     images: ImageItem[];
     /** 图片间距 */
-    gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    gap?: GapSize;
     /** 图片圆角 */
-    rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';
+    rounded?: RoundedSize;
     /** 图片阴影 */
-    shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+    shadow?: ShadowSize;
     /** 悬停效果 */
-    hover?: 'none' | 'scale' | 'brightness' | 'blur';
+    hover?: HoverEffect;
     /** 背景色类型，支持所有 Tailwind 背景色和透明度变体 */
     background?: string;
     /** 内边距大小 */
-    padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
+    padding?: PaddingSize;
     /** 外边距大小 */
-    margin?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl';
+    margin?: MarginSize;
     /** 是否显示边框 */
     border?: boolean;
     /** 容器宽度 */
-    width?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+    width?: Size;
     /** 自定义 CSS 类名 */
     class?: string;
 }

@@ -29,19 +29,31 @@
  * @slot default - 图片内容
  */
 import '../../style.ts';
-import type { ImageItem, ImageRowProps } from './types';
-import type { BackgroundColor } from '../../src/common/backgrounds';
-import type { Size } from '../../src/common/size';
-import type { PaddingSize } from '../../src/common/padding';
-import type { MarginSize } from '../../src/common/margin';
+import type { ImageItem } from './types';
+import type {
+  BackgroundColor,
+  Size,
+  PaddingSize,
+  MarginSize,
+  RoundedSize,
+  GapSize,
+  ShadowSize,
+  HoverEffect,
+} from '../../src/common';
+import {
+  gapClasses,
+  roundedClasses,
+  shadowClasses,
+  hoverClasses,
+} from '../../src/common';
 import Container from '../container/Container.astro';
 
 interface Props {
   images: ImageItem[];
-  gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';
-  shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-  hover?: 'none' | 'scale' | 'brightness' | 'blur';
+  gap?: GapSize;
+  rounded?: RoundedSize;
+  shadow?: ShadowSize;
+  hover?: HoverEffect;
   background?: BackgroundColor;
   padding?: PaddingSize;
   margin?: MarginSize;
@@ -64,51 +76,10 @@ const {
   class: className = '',
 } = Astro.props;
 
-// 间距样式映射
-const gapClassMap = {
-  none: '',
-  xs: 'cosy:gap-1',
-  sm: 'cosy:gap-2',
-  md: 'cosy:gap-4',
-  lg: 'cosy:gap-6',
-  xl: 'cosy:gap-8',
-} as const;
-
-// 圆角样式映射
-const roundedClassMap = {
-  none: '',
-  sm: 'cosy:rounded-sm',
-  md: 'cosy:rounded-md',
-  lg: 'cosy:rounded-lg',
-  xl: 'cosy:rounded-xl',
-  '2xl': 'cosy:rounded-2xl',
-  '3xl': 'cosy:rounded-3xl',
-  full: 'cosy:rounded-full',
-} as const;
-
-// 阴影样式映射
-const shadowClassMap = {
-  none: '',
-  sm: 'cosy:shadow-sm',
-  md: 'cosy:shadow-md',
-  lg: 'cosy:shadow-lg',
-  xl: 'cosy:shadow-xl',
-  '2xl': 'cosy:shadow-2xl',
-} as const;
-
-// 悬停效果样式映射
-const hoverClassMap = {
-  none: '',
-  scale: 'cosy:hover:scale-105 cosy:transition-transform cosy:duration-300',
-  brightness: 'cosy:hover:brightness-110 cosy:transition-all cosy:duration-300',
-  blur: 'cosy:hover:blur-sm cosy:transition-all cosy:duration-300',
-} as const;
-
-const gapClass = gapClassMap[gap as keyof typeof gapClassMap] || '';
-const roundedClass =
-  roundedClassMap[rounded as keyof typeof roundedClassMap] || '';
-const shadowClass = shadowClassMap[shadow as keyof typeof shadowClassMap] || '';
-const hoverClass = hoverClassMap[hover as keyof typeof hoverClassMap] || '';
+const gapClass = gapClasses[gap] || '';
+const roundedClass = roundedClasses[rounded] || '';
+const shadowClass = shadowClasses[shadow] || '';
+const hoverClass = hoverClasses[hover] || '';
 
 // 生成容器类名
 const getContainerClass = () => {
