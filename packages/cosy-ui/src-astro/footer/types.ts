@@ -26,6 +26,8 @@ export interface FooterSectionProps {
     }>;
 }
 
+import type { ImageSource } from '../image/image';
+
 export interface FooterBrandProps {
     siteName: string;
     homeLink: string;
@@ -39,5 +41,6 @@ export interface FooterBrandProps {
         platform: string;
         name: string;
     }>;
+    wechatQR?: ImageSource;
     debug?: boolean;
 } 

@@ -38,6 +38,7 @@ import '../../style.ts';
 import GithubIcon from '../icons/GithubIcon.astro';
 import TwitterIcon from '../icons/TwitterIcon.astro';
 import LinkedinIcon from '../icons/LinkedinIcon.astro';
+import WechatIcon from '../icons/WechatIcon.astro';
 
 interface Props {
   /**
@@ -83,6 +84,8 @@ const getIconComponent = (platform: string) => {
       return TwitterIcon;
     case 'linkedin':
       return LinkedinIcon;
+    case 'wechat':
+      return WechatIcon;
     // 其他平台图标可以在这里添加
     default:
       return GithubIcon; // 默认使用 GitHub 图标

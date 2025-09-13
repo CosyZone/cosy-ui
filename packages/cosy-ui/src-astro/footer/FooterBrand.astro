@@ -54,6 +54,7 @@ const {
   slogan,
   logo,
   socialLinks = [],
+  wechatQR,
   debug = false,
 } = Astro.props as FooterBrandProps;
 
@@ -89,24 +90,40 @@ const debugClasses = debug
   </Link>
 
   {/* 社交媒体链接 */}
-  {
-    socialLinks.length > 0 && (
-      <div class="cosy:flex cosy:justify-center cosy:gap-2 cosy:mt-4">
-        {socialLinks.map((link) => (
-          <Link
-            href={link.url}
-            btn
-            circle
-            ghost
-            size="sm"
-            color="info"
-            external
-            rel="noopener noreferrer"
-            aria-label={link.name}>
-            <SocialIcon platform={link.platform} />
-          </Link>
-        ))}
-      </div>
-    )
-  }
+  <div class="cosy:flex cosy:justify-center cosy:gap-2 cosy:mt-4">
+    {/* 普通社交媒体链接 */}
+    {
+      socialLinks.map((link) => (
+        <Link
+          href={link.url}
+          btn
+          circle
+          ghost
+          size="sm"
+          color="info"
+          external
+          rel="noopener noreferrer"
+          aria-label={link.name}>
+          <SocialIcon platform={link.platform} />
+        </Link>
+      ))
+    }
+
+    {/* 微信二维码 */}
+    {
+      wechatQR && (
+        <Link
+          href="#"
+          btn
+          circle
+          ghost
+          size="sm"
+          color="info"
+          hoverImage={wechatQR}
+          hoverImageAlt="微信二维码">
+          <SocialIcon platform="wechat" />
+        </Link>
+      )
+    }
+  </div>
 </aside>

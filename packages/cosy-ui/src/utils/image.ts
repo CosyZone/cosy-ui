@@ -126,3 +126,17 @@ export function getLandscapeImage(options: Partial<ImageOptions> = {}): string {
         ...options,
     });
 }
+
+/**
+ * 获取二维码示例图片
+ * @param options 可选的图片选项配置
+ */
+export function getQRCodeImage(options: Partial<ImageOptions> = {}): string {
+    return getExampleImage({
+        width: options.width || 200,
+        height: options.height || 200,
+        provider: options.provider || 'placeholder',
+        tag: options.tag || 'QR Code',
+        ...options,
+    });
+}
