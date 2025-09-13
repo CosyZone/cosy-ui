@@ -21,6 +21,7 @@
  * @prop {string} [containerRounded='none'] - 容器圆角，可选值：none、sm、md、lg、xl、2xl、3xl、full
  * @prop {string} [arrowVariant='ghost'] - 箭头按钮样式变体，可选值：ghost、outline、primary、secondary
  * @prop {boolean} [showArrows=false] - 是否显示左右导航箭头
+ * @prop {boolean} [showDots=true] - 是否显示底部点指示器
  * @prop {string} [gap='md'] - 图片间距，可选值：none、xs、sm、md、lg、xl
  * @prop {string} [hover='scale'] - 悬停效果，可选值：none、scale、brightness、blur
  * @prop {ImageItem[]} images - 图片数组
@@ -53,6 +54,7 @@ import {
 import Container from '../container/Container.astro';
 import ImageRowArrowLeft from './ImageRowArrowLeft.astro';
 import ImageRowArrowRight from './ImageRowArrowRight.astro';
+import ImageRowDots from './ImageRowDots.astro';
 
 interface Props {
   images: ImageItem[];
@@ -67,6 +69,7 @@ interface Props {
   width?: Size;
   containerRounded?: RoundedSize;
   showArrows?: boolean;
+  showDots?: boolean;
   arrowVariant?: 'ghost' | 'outline' | 'primary' | 'secondary';
   class?: string;
 }
@@ -84,6 +87,7 @@ const {
   width = 'md',
   containerRounded = 'none',
   showArrows = false,
+  showDots = true,
   arrowVariant = 'ghost',
   class: className = '',
 } = Astro.props;
@@ -150,6 +154,8 @@ const getImageClass = (index: number) => {
 
     {showArrows && <ImageRowArrowRight variant={arrowVariant} />}
   </div>
+
+  {showDots && <ImageRowDots totalImages={images.length} />}
 </Container>
 
 <style>
@@ -281,11 +287,16 @@ const getImageClass = (index: number) => {
     const rightArrow = wrapper.querySelector(
       '.image-row-arrow-right'
     ) as HTMLElement;
+    const dotsContainer = wrapper.parentElement?.querySelector(
+      '.image-row-dots'
+    ) as HTMLElement;
 
-    if (!container || !leftArrow || !rightArrow) return;
+    if (!container) return;
 
     // 检查是否需要显示箭头
     function updateArrowVisibility() {
+      if (!leftArrow || !rightArrow) return;
+
       const isScrollable = container.scrollWidth > container.clientWidth;
       const isAtStart = container.scrollLeft <= 0;
       const isAtEnd =
@@ -302,14 +313,38 @@ const getImageClass = (index: number) => {
       }
     }
 
+    // 更新点指示器状态
+    function updateDotsVisibility() {
+      if (!dotsContainer) return;
+
+      const dots = dotsContainer.querySelectorAll('.image-row-dot');
+      const imageWidth = 200; // 图片宽度 + 间距
+      const currentIndex = Math.round(container.scrollLeft / imageWidth);
+
+      dots.forEach((dot, index) => {
+        if (index === currentIndex) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+
     // 监听滚动事件
-    container.addEventListener('scroll', updateArrowVisibility);
+    container.addEventListener('scroll', () => {
+      updateArrowVisibility();
+      updateDotsVisibility();
+    });
 
     // 监听窗口大小变化
-    window.addEventListener('resize', updateArrowVisibility);
+    window.addEventListener('resize', () => {
+      updateArrowVisibility();
+      updateDotsVisibility();
+    });
 
     // 初始检查
     updateArrowVisibility();
+    updateDotsVisibility();
   }
 
   // 初始化所有图片行

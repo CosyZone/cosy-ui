@@ -52,6 +52,8 @@ export interface ImageRowProps {
     containerRounded?: RoundedSize;
     /** 是否显示左右导航箭头 */
     showArrows?: boolean;
+    /** 是否显示底部点指示器 */
+    showDots?: boolean;
     /** 箭头按钮样式变体 */
     arrowVariant?: 'ghost' | 'outline' | 'primary' | 'secondary';
     /** 自定义 CSS 类名 */
