@@ -1,0 +1,69 @@
+---
+title: 'FeatureCard'
+folder: false
+order: 6.2
+tags:
+- astro
+- feature
+- card
+- display
+---
+
+import { FeatureCard } from '@coffic/cosy-ui';
+import { FeatureCardPackage } from '@/components/feature-card/index';
+
+# {frontmatter.title}
+
+## 简介
+
+FeatureCard 组件是一个特性卡片组件，用于展示单个特性信息。它采用简洁的设计风格，支持自定义背景、图片和文字颜色，适用于特性展示、功能说明等场景。
+
+组件特性：
+
+- 简洁设计 - 采用极简的设计风格，突出内容
+- 自定义背景 - 支持渐变背景和纯色背景
+- 图片支持 - 可选的特性图片展示
+- 文字颜色 - 支持白色和深色文字
+- 悬停效果 - 提供缩放和阴影的悬停动画
+
+## 案例
+
+<FeatureCardPackage.FeatureCardExamples.Basic />
+
+## Props
+
+### background
+
+背景样式，支持CSS字符串格式，如渐变色或纯色。
+
+<FeatureCardPackage.FeatureCardContainers.Background />
+
+### class
+
+自定义CSS类名，用于覆盖默认样式。
+
+<FeatureCardPackage.FeatureCardContainers.Class />
+
+### description
+
+特性描述文本，必填属性。
+
+<FeatureCardPackage.FeatureCardContainers.Description />
+
+### image
+
+可选的特性图片，支持 ImageSource 类型。
+
+<FeatureCardPackage.FeatureCardContainers.Image />
+
+### textColor
+
+文字颜色，可选值："white" | "dark"，默认为 "dark"。
+
+<FeatureCardPackage.FeatureCardContainers.TextColor />
+
+### title
+
+特性标题，必填属性。
+
+<FeatureCardPackage.FeatureCardContainers.Title />

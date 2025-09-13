@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import TitleShort from './TitleShort.astro';
+import TitleLong from './TitleLong.astro';
+import TitleShortSourceCode from './TitleShort.astro?raw';
+import TitleLongSourceCode from './TitleLong.astro?raw';
+---
+
+<CodeContainer
+  titles={['简短标题', '详细标题']}
+  codes={[TitleShortSourceCode, TitleLongSourceCode]}>
+  <div id="tab-1">
+    <TitleShort />
+  </div>
+  <div id="tab-2">
+    <TitleLong />
+  </div>
+</CodeContainer>

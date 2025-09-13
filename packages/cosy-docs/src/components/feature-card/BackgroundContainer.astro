@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import BackgroundGradient from './BackgroundGradient.astro';
+import BackgroundSolid from './BackgroundSolid.astro';
+import BackgroundGradientSourceCode from './BackgroundGradient.astro?raw';
+import BackgroundSolidSourceCode from './BackgroundSolid.astro?raw';
+---
+
+<CodeContainer
+  titles={['渐变背景', '纯色背景']}
+  codes={[BackgroundGradientSourceCode, BackgroundSolidSourceCode]}>
+  <div id="tab-1">
+    <BackgroundGradient />
+  </div>
+  <div id="tab-2">
+    <BackgroundSolid />
+  </div>
+</CodeContainer>

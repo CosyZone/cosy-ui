@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import TextColorWhite from './TextColorWhite.astro';
+import TextColorDark from './TextColorDark.astro';
+import TextColorWhiteSourceCode from './TextColorWhite.astro?raw';
+import TextColorDarkSourceCode from './TextColorDark.astro?raw';
+---
+
+<CodeContainer
+  titles={['白色文字', '深色文字']}
+  codes={[TextColorWhiteSourceCode, TextColorDarkSourceCode]}>
+  <div id="tab-1">
+    <TextColorWhite />
+  </div>
+  <div id="tab-2">
+    <TextColorDark />
+  </div>
+</CodeContainer>

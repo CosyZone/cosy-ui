@@ -1,0 +1,33 @@
+---
+import { FeatureCarousel } from '@coffic/cosy-ui';
+import { getProductImage } from '@coffic/cosy-ui';
+---
+
+<FeatureCarousel
+  features={[
+    {
+      title: '创新设计',
+      description: '每一处细节, 都经过精心设计。',
+      background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+      image: getProductImage({
+        width: 400,
+        height: 300,
+        tag: 'design-aesthetics',
+        provider: 'picsum',
+      }),
+      textColor: 'white',
+    },
+    {
+      title: '隐私和安全',
+      description: '你的私事, 只关你的事。',
+      background: 'linear-gradient(135deg, #ef4444 0%, #7c3aed 100%)',
+      image: getProductImage({
+        width: 400,
+        height: 300,
+        tag: 'security-lock',
+        provider: 'picsum',
+      }),
+      textColor: 'white',
+    },
+  ]}
+/>

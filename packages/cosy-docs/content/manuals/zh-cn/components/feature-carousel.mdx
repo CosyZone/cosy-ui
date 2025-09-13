@@ -1,0 +1,45 @@
+---
+title: 'FeatureCarousel'
+folder: false
+order: 6.1
+tags:
+- astro
+- feature
+- carousel
+- showcase
+---
+
+import { FeatureCarousel } from '@coffic/cosy-ui';
+import { FeatureCarouselPackage } from '@/components/feature-carousel/index';
+
+# {frontmatter.title}
+
+## 简介
+
+FeatureCarousel 组件是一个特性轮播组件，用于横向滑动展示多个特性卡片。它提供了流畅的滚动体验和导航控制，适用于产品特性展示、功能亮点介绍等场景。
+
+组件特性：
+
+- 横向滚动展示 - 支持水平滚动浏览多个特性卡片
+- 导航控制 - 提供左右导航按钮和键盘控制
+- 响应式设计 - 适配不同屏幕尺寸
+- 流畅动画 - 平滑的滚动和悬停效果
+- 自定义样式 - 支持自定义背景和文字颜色
+
+## 案例
+
+<FeatureCarouselPackage.FeatureCarouselExamples.Basic />
+
+## Props
+
+### class
+
+自定义CSS类名，用于覆盖默认样式。
+
+<FeatureCarouselPackage.FeatureCarouselContainers.Class />
+
+### features
+
+特性数据数组，每个特性包含标题、描述、背景等信息。
+
+<FeatureCarouselPackage.FeatureCarouselContainers.Features />

@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ClassDefault from './ClassDefault.astro';
+import ClassCustom from './ClassCustom.astro';
+import ClassDefaultSourceCode from './ClassDefault.astro?raw';
+import ClassCustomSourceCode from './ClassCustom.astro?raw';
+---
+
+<CodeContainer
+  titles={['默认', '自定义']}
+  codes={[ClassDefaultSourceCode, ClassCustomSourceCode]}>
+  <div id="tab-1">
+    <ClassDefault />
+  </div>
+  <div id="tab-2">
+    <ClassCustom />
+  </div>
+</CodeContainer>

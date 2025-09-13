@@ -1,0 +1,69 @@
+---
+title: 'FeatureCard'
+folder: false
+order: 6.2
+tags:
+- astro
+- feature
+- card
+- display
+---
+
+import { FeatureCard } from '@coffic/cosy-ui';
+import { FeatureCardPackage } from '@/components/feature-card/index';
+
+# {frontmatter.title}
+
+## Introduction
+
+The FeatureCard component is a feature card component for displaying individual feature information. It adopts a clean design style, supports custom backgrounds, images, and text colors, perfect for feature showcases, functionality descriptions, and similar scenarios.
+
+Component features:
+
+- Clean Design - Adopts minimalist design style to highlight content
+- Custom Background - Supports gradient backgrounds and solid colors
+- Image Support - Optional feature image display
+- Text Color - Supports white and dark text colors
+- Hover Effects - Provides scaling and shadow hover animations
+
+## Examples
+
+<FeatureCardPackage.FeatureCardExamples.Basic />
+
+## Props
+
+### background
+
+Background style, supports CSS string format, such as gradients or solid colors.
+
+<FeatureCardPackage.FeatureCardContainers.Background />
+
+### class
+
+Custom CSS class name for overriding default styles.
+
+<FeatureCardPackage.FeatureCardContainers.Class />
+
+### description
+
+Feature description text, required property.
+
+<FeatureCardPackage.FeatureCardContainers.Description />
+
+### image
+
+Optional feature image, supports ImageSource type.
+
+<FeatureCardPackage.FeatureCardContainers.Image />
+
+### textColor
+
+Text color, optional values: "white" | "dark", defaults to "dark".
+
+<FeatureCardPackage.FeatureCardContainers.TextColor />
+
+### title
+
+Feature title, required property.
+
+<FeatureCardPackage.FeatureCardContainers.Title />

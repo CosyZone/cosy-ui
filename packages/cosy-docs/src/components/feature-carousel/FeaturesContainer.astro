@@ -1,0 +1,23 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import FeaturesBasic from './FeaturesBasic.astro';
+import FeaturesWithImages from './FeaturesWithImages.astro';
+import FeaturesGradient from './FeaturesGradient.astro';
+import FeaturesBasicSourceCode from './FeaturesBasic.astro?raw';
+import FeaturesWithImagesSourceCode from './FeaturesWithImages.astro?raw';
+import FeaturesGradientSourceCode from './FeaturesGradient.astro?raw';
+---
+
+<CodeContainer
+  titles={['基础用法', '带图片', '渐变背景']}
+  codes={[FeaturesBasicSourceCode, FeaturesWithImagesSourceCode, FeaturesGradientSourceCode]}>
+  <div id="tab-1">
+    <FeaturesBasic />
+  </div>
+  <div id="tab-2">
+    <FeaturesWithImages />
+  </div>
+  <div id="tab-3">
+    <FeaturesGradient />
+  </div>
+</CodeContainer>

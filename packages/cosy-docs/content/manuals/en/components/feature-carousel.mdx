@@ -1,0 +1,45 @@
+---
+title: 'FeatureCarousel'
+folder: false
+order: 6.1
+tags:
+- astro
+- feature
+- carousel
+- showcase
+---
+
+import { FeatureCarousel } from '@coffic/cosy-ui';
+import { FeatureCarouselPackage } from '@/components/feature-carousel/index';
+
+# {frontmatter.title}
+
+## Introduction
+
+The FeatureCarousel component is a feature carousel component for horizontally scrolling through multiple feature cards. It provides smooth scrolling experience and navigation controls, perfect for product feature showcases, functionality highlights, and similar scenarios.
+
+Component features:
+
+- Horizontal Scroll Display - Supports horizontal scrolling to browse multiple feature cards
+- Navigation Controls - Provides left/right navigation buttons and keyboard controls
+- Responsive Design - Adapts to different screen sizes
+- Smooth Animations - Smooth scrolling and hover effects
+- Custom Styling - Supports custom backgrounds and text colors
+
+## Examples
+
+<FeatureCarouselPackage.FeatureCarouselExamples.Basic />
+
+## Props
+
+### class
+
+Custom CSS class name for overriding default styles.
+
+<FeatureCarouselPackage.FeatureCarouselContainers.Class />
+
+### features
+
+Array of feature data, each feature contains title, description, background, and other information.
+
+<FeatureCarouselPackage.FeatureCarouselContainers.Features />
