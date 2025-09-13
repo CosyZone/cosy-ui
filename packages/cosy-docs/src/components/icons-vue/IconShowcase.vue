@@ -56,7 +56,9 @@ import {
     ViewIcon,
     WalletIcon,
     WarningIcon,
+    WechatIcon,
     WebsiteIcon,
+    WhatsappIcon,
     XCircleIcon
 } from '@coffic/cosy-ui/vue';
 
@@ -123,7 +125,9 @@ const icons = [
     { component: ViewIcon, name: 'View', color: '#06b6d4' },
     { component: WalletIcon, name: 'Wallet', color: '#10b981' },
     { component: WarningIcon, name: 'Warning', color: '#f59e0b' },
+    { component: WechatIcon, name: 'Wechat', color: '#07C160' },
     { component: WebsiteIcon, name: 'Website', color: '#06b6d4' },
+    { component: WhatsappIcon, name: 'Whatsapp', color: '#25D366' },
     { component: XCircleIcon, name: 'XCircle', color: '#ef4444' }
 ];
 </script>
