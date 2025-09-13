@@ -1,0 +1,29 @@
+---
+/**
+ * @component ImageRowRoundedContainer
+ * @description ImageRow 组件 rounded 属性示例容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ImageRowRoundedNone from './ImageRowRoundedNone.astro';
+import ImageRowRoundedMedium from './ImageRowRoundedMedium.astro';
+import ImageRowRoundedLarge from './ImageRowRoundedLarge.astro';
+import ImageRowRoundedFull from './ImageRowRoundedFull.astro';
+import ImageRowRoundedNoneSourceCode from './ImageRowRoundedNone.astro?raw';
+import ImageRowRoundedMediumSourceCode from './ImageRowRoundedMedium.astro?raw';
+import ImageRowRoundedLargeSourceCode from './ImageRowRoundedLarge.astro?raw';
+import ImageRowRoundedFullSourceCode from './ImageRowRoundedFull.astro?raw';
+---
+
+<CodeContainer
+  titles={['无圆角', '中等圆角', '大圆角', '圆形']}
+  codes={[
+    ImageRowRoundedNoneSourceCode,
+    ImageRowRoundedMediumSourceCode,
+    ImageRowRoundedLargeSourceCode,
+    ImageRowRoundedFullSourceCode,
+  ]}>
+  <div id="tab-1"><ImageRowRoundedNone /></div>
+  <div id="tab-2"><ImageRowRoundedMedium /></div>
+  <div id="tab-3"><ImageRowRoundedLarge /></div>
+  <div id="tab-4"><ImageRowRoundedFull /></div>
+</CodeContainer>

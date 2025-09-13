@@ -1,0 +1,38 @@
+---
+/**
+ * @component ImageRowImagesWithSize
+ * @description ImageRow 组件 images 属性带尺寸示例
+ */
+import {
+  ImageRow,
+  getProductImage,
+  getLandscapeImage,
+  getAvatarImage,
+} from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 200, height: 200 }),
+    alt: '产品图片 1',
+    width: 200,
+    height: 200,
+    loading: 'lazy' as const,
+  },
+  {
+    src: getLandscapeImage({ width: 200, height: 200 }),
+    alt: '自然风景 1',
+    width: 200,
+    height: 200,
+    loading: 'lazy' as const,
+  },
+  {
+    src: getAvatarImage({ width: 200, height: 200 }),
+    alt: '人物肖像 1',
+    width: 200,
+    height: 200,
+    loading: 'eager' as const,
+  },
+];
+---
+
+<ImageRow images={images} gap="sm" rounded="md" shadow="sm" />

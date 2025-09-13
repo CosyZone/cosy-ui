@@ -1,0 +1,29 @@
+---
+/**
+ * @component ImageRowMarginNone
+ * @description ImageRow 组件无外边距示例
+ */
+import {
+  ImageRow,
+  getProductImage,
+  getLandscapeImage,
+  getAvatarImage,
+} from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 150, height: 100 }),
+    alt: '无外边距图片 1',
+  },
+  {
+    src: getLandscapeImage({ width: 150, height: 100 }),
+    alt: '无外边距图片 2',
+  },
+  {
+    src: getAvatarImage({ width: 150, height: 100 }),
+    alt: '无外边距图片 3',
+  },
+];
+---
+
+<ImageRow images={images} margin="none" background="primary/50" padding="md" />

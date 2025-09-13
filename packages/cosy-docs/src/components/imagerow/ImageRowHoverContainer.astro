@@ -1,0 +1,29 @@
+---
+/**
+ * @component ImageRowHoverContainer
+ * @description ImageRow 组件 hover 属性示例容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ImageRowHoverNone from './ImageRowHoverNone.astro';
+import ImageRowHoverScale from './ImageRowHoverScale.astro';
+import ImageRowHoverBrightness from './ImageRowHoverBrightness.astro';
+import ImageRowHoverBlur from './ImageRowHoverBlur.astro';
+import ImageRowHoverNoneSourceCode from './ImageRowHoverNone.astro?raw';
+import ImageRowHoverScaleSourceCode from './ImageRowHoverScale.astro?raw';
+import ImageRowHoverBrightnessSourceCode from './ImageRowHoverBrightness.astro?raw';
+import ImageRowHoverBlurSourceCode from './ImageRowHoverBlur.astro?raw';
+---
+
+<CodeContainer
+  titles={['无效果', '缩放效果', '亮度效果', '模糊效果']}
+  codes={[
+    ImageRowHoverNoneSourceCode,
+    ImageRowHoverScaleSourceCode,
+    ImageRowHoverBrightnessSourceCode,
+    ImageRowHoverBlurSourceCode,
+  ]}>
+  <div id="tab-1"><ImageRowHoverNone /></div>
+  <div id="tab-2"><ImageRowHoverScale /></div>
+  <div id="tab-3"><ImageRowHoverBrightness /></div>
+  <div id="tab-4"><ImageRowHoverBlur /></div>
+</CodeContainer>

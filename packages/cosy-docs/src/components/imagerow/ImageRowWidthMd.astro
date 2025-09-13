@@ -1,0 +1,29 @@
+---
+/**
+ * @component ImageRowWidthMd
+ * @description ImageRow 组件中等宽度示例
+ */
+import {
+  ImageRow,
+  getProductImage,
+  getLandscapeImage,
+  getAvatarImage,
+} from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 150, height: 100 }),
+    alt: '中等宽度图片 1',
+  },
+  {
+    src: getLandscapeImage({ width: 150, height: 100 }),
+    alt: '中等宽度图片 2',
+  },
+  {
+    src: getAvatarImage({ width: 150, height: 100 }),
+    alt: '中等宽度图片 3',
+  },
+];
+---
+
+<ImageRow images={images} width="md" background="primary/50" padding="md" />

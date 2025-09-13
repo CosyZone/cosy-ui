@@ -1,0 +1,51 @@
+---
+/**
+ * @component ImageRowHover
+ * @description ImageRow 组件悬停效果示例
+ */
+import { ImageRow, getProductImage } from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 200, height: 200 }),
+    alt: '悬停图片 1',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200 }),
+    alt: '悬停图片 2',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200 }),
+    alt: '悬停图片 3',
+  },
+];
+---
+
+<div style="display: flex; flex-direction: column; gap: 2rem;">
+  <div>
+    <h4 style="margin: 0 0 1rem 0; color: #374151;">无悬停效果</h4>
+    <ImageRow images={images} hover="none" gap="sm" />
+  </div>
+
+  <div>
+    <h4 style="margin: 0 0 1rem 0; color: #374151;">缩放效果</h4>
+    <ImageRow
+      images={images}
+      hover="scale"
+      gap="sm"
+    />
+  </div>
+
+  <div>
+    <h4 style="margin: 0 0 1rem 0; color: #374151;">亮度效果</h4>
+    <ImageRow
+      images={images}
+      gap="sm"
+    />
+  </div>
+
+  <div>
+    <h4 style="margin: 0 0 1rem 0; color: #374151;">模糊效果</h4>
+    <ImageRow images={images} hover="blur" gap="sm" />
+  </div>
+</div>

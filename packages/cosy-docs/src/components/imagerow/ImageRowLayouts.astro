@@ -1,0 +1,29 @@
+---
+/**
+ * @component ImageRowLayouts
+ * @description ImageRow 组件不同布局示例
+ */
+import { ImageRow, CodeContainer } from '@coffic/cosy-ui';
+import ImageRowGrid from './ImageRowGrid.astro';
+import ImageRowMasonry from './ImageRowMasonry.astro';
+import ImageRowCarousel from './ImageRowCarousel.astro';
+import ImageRowStack from './ImageRowStack.astro';
+import ImageRowGridSourceCode from './ImageRowGrid.astro?raw';
+import ImageRowMasonrySourceCode from './ImageRowMasonry.astro?raw';
+import ImageRowCarouselSourceCode from './ImageRowCarousel.astro?raw';
+import ImageRowStackSourceCode from './ImageRowStack.astro?raw';
+---
+
+<CodeContainer
+  titles={['网格布局', '瀑布流布局', '轮播布局', '堆叠布局']}
+  codes={[
+    ImageRowGridSourceCode,
+    ImageRowMasonrySourceCode,
+    ImageRowCarouselSourceCode,
+    ImageRowStackSourceCode,
+  ]}>
+  <div id="tab-1"><ImageRowGrid /></div>
+  <div id="tab-2"><ImageRowMasonry /></div>
+  <div id="tab-3"><ImageRowCarousel /></div>
+  <div id="tab-4"><ImageRowStack /></div>
+</CodeContainer>

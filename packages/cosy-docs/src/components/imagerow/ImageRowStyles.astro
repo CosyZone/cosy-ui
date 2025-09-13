@@ -1,0 +1,29 @@
+---
+/**
+ * @component ImageRowStyles
+ * @description ImageRow 组件样式示例
+ */
+import { ImageRow, CodeContainer } from '@coffic/cosy-ui';
+import ImageRowRounded from './ImageRowRounded.astro';
+import ImageRowShadow from './ImageRowShadow.astro';
+import ImageRowHover from './ImageRowHover.astro';
+import ImageRowGap from './ImageRowGap.astro';
+import ImageRowRoundedSourceCode from './ImageRowRounded.astro?raw';
+import ImageRowShadowSourceCode from './ImageRowShadow.astro?raw';
+import ImageRowHoverSourceCode from './ImageRowHover.astro?raw';
+import ImageRowGapSourceCode from './ImageRowGap.astro?raw';
+---
+
+<CodeContainer
+  titles={['圆角样式', '阴影效果', '悬停效果', '间距控制']}
+  codes={[
+    ImageRowRoundedSourceCode,
+    ImageRowShadowSourceCode,
+    ImageRowHoverSourceCode,
+    ImageRowGapSourceCode,
+  ]}>
+  <div id="tab-1"><ImageRowRounded /></div>
+  <div id="tab-2"><ImageRowShadow /></div>
+  <div id="tab-3"><ImageRowHover /></div>
+  <div id="tab-4"><ImageRowGap /></div>
+</CodeContainer>

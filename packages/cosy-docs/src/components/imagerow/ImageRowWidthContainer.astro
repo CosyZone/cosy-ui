@@ -1,0 +1,37 @@
+---
+/**
+ * @component ImageRowWidthContainer
+ * @description ImageRow 组件容器宽度示例容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ImageRowWidthSm from './ImageRowWidthSm.astro';
+import ImageRowWidthMd from './ImageRowWidthMd.astro';
+import ImageRowWidthLg from './ImageRowWidthLg.astro';
+import ImageRowWidthFull from './ImageRowWidthFull.astro';
+import ImageRowWidthSmSourceCode from './ImageRowWidthSm.astro?raw';
+import ImageRowWidthMdSourceCode from './ImageRowWidthMd.astro?raw';
+import ImageRowWidthLgSourceCode from './ImageRowWidthLg.astro?raw';
+import ImageRowWidthFullSourceCode from './ImageRowWidthFull.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    ImageRowWidthSmSourceCode,
+    ImageRowWidthMdSourceCode,
+    ImageRowWidthLgSourceCode,
+    ImageRowWidthFullSourceCode,
+  ]}
+  titles={['小宽度', '中等宽度', '大宽度', '全宽度']}>
+  <div id="tab-1">
+    <ImageRowWidthSm />
+  </div>
+  <div id="tab-2">
+    <ImageRowWidthMd />
+  </div>
+  <div id="tab-3">
+    <ImageRowWidthLg />
+  </div>
+  <div id="tab-4">
+    <ImageRowWidthFull />
+  </div>
+</CodeContainer>

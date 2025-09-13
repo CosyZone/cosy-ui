@@ -1,0 +1,39 @@
+---
+/**
+ * @component ImageRowStack
+ * @description ImageRow 组件堆叠布局示例
+ */
+import {
+  ImageRow,
+  getProductImage,
+  getLandscapeImage,
+  getAvatarImage,
+} from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 600, height: 200, tags: [stack1] }),
+    alt: '堆叠图片 1',
+    caption: '产品展示横幅',
+  },
+  {
+    src: getLandscapeImage({ width: 600, height: 200, tags: [stack2] }),
+    alt: '堆叠图片 2',
+    caption: '自然风光横幅',
+  },
+  {
+    src: getAvatarImage({ width: 600, height: 200, tags: [stack3] }),
+    alt: '堆叠图片 3',
+    caption: '人物肖像横幅',
+  },
+];
+---
+
+<ImageRow
+  images={images}
+  layout="stack"
+  gap="md"
+  rounded="lg"
+  shadow="md"
+  hover="brightness"
+/>

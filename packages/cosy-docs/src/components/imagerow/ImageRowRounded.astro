@@ -1,0 +1,44 @@
+---
+/**
+ * @component ImageRowRounded
+ * @description ImageRow 组件圆角样式示例
+ */
+import { ImageRow, getProductImage } from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 200, height: 200 }),
+    alt: '圆角图片 1',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200 }),
+    alt: '圆角图片 2',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200 }),
+    alt: '圆角图片 3',
+  },
+];
+---
+
+<div style="display: flex; flex-direction: column; gap: 2rem;">
+  <div>
+    <h4 style="margin: 0 0 1rem 0; color: #374151;">无圆角</h4>
+    <ImageRow images={images} rounded="none" gap="sm" />
+  </div>
+
+  <div>
+    <h4 style="margin: 0 0 1rem 0; color: #374151;">中等圆角</h4>
+    <ImageRow images={images} rounded="md" gap="sm" />
+  </div>
+
+  <div>
+    <h4 style="margin: 0 0 1rem 0; color: #374151;">大圆角</h4>
+    <ImageRow images={images} rounded="xl" gap="sm" />
+  </div>
+
+  <div>
+    <h4 style="margin: 0 0 1rem 0; color: #374151;">圆形</h4>
+    <ImageRow images={images} rounded="full" gap="sm" />
+  </div>
+</div>

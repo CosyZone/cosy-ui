@@ -1,0 +1,22 @@
+---
+/**
+ * @component ImageRowBorderContainer
+ * @description ImageRow 组件边框示例容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ImageRowBorderTrue from './ImageRowBorderTrue.astro';
+import ImageRowBorderFalse from './ImageRowBorderFalse.astro';
+import ImageRowBorderTrueSourceCode from './ImageRowBorderTrue.astro?raw';
+import ImageRowBorderFalseSourceCode from './ImageRowBorderFalse.astro?raw';
+---
+
+<CodeContainer
+  codes={[ImageRowBorderTrueSourceCode, ImageRowBorderFalseSourceCode]}
+  titles={['有边框', '无边框']}>
+  <div id="tab-1">
+    <ImageRowBorderTrue />
+  </div>
+  <div id="tab-2">
+    <ImageRowBorderFalse />
+  </div>
+</CodeContainer>

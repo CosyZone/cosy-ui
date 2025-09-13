@@ -1,0 +1,24 @@
+---
+/**
+ * @component ImageRowGapSmall
+ * @description ImageRow 组件小间距示例
+ */
+import { ImageRow, getProductImage } from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 150, height: 150 }),
+    alt: '图片 1',
+  },
+  {
+    src: getProductImage({ width: 150, height: 150 }),
+    alt: '图片 2',
+  },
+  {
+    src: getProductImage({ width: 150, height: 150 }),
+    alt: '图片 3',
+  },
+];
+---
+
+<ImageRow images={images} gap="xs" rounded="md" shadow="sm" />

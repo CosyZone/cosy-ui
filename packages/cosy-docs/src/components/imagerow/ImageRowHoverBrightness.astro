@@ -1,0 +1,44 @@
+---
+/**
+ * @component ImageRowHoverBrightness
+ * @description ImageRow 组件亮度悬停效果示例
+ */
+import { ImageRow, getProductImage } from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({
+      width: 200,
+      height: 200,
+      tag: 'hover-brightness-1',
+    }),
+    alt: '图片 1',
+  },
+  {
+    src: getProductImage({
+      width: 200,
+      height: 200,
+      tag: 'hover-brightness-2',
+    }),
+    alt: '图片 2',
+  },
+  {
+    src: getProductImage({
+      width: 200,
+      height: 200,
+      tag: 'hover-brightness-3',
+    }),
+    alt: '图片 3',
+  },
+];
+---
+
+<ImageRow
+  images={images}
+  layout="grid"
+  columns={3}
+  hover="brightness"
+  gap="sm"
+  rounded="md"
+  shadow="sm"
+/>

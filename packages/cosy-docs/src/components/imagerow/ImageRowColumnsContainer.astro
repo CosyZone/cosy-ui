@@ -1,0 +1,25 @@
+---
+/**
+ * @component ImageRowColumnsContainer
+ * @description ImageRow 组件 columns 属性示例容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ImageRowColumns2 from './ImageRowColumns2.astro';
+import ImageRowColumns3 from './ImageRowColumns3.astro';
+import ImageRowColumns4 from './ImageRowColumns4.astro';
+import ImageRowColumns2SourceCode from './ImageRowColumns2.astro?raw';
+import ImageRowColumns3SourceCode from './ImageRowColumns3.astro?raw';
+import ImageRowColumns4SourceCode from './ImageRowColumns4.astro?raw';
+---
+
+<CodeContainer
+  titles={['2列', '3列', '4列']}
+  codes={[
+    ImageRowColumns2SourceCode,
+    ImageRowColumns3SourceCode,
+    ImageRowColumns4SourceCode,
+  ]}>
+  <div id="tab-1"><ImageRowColumns2 /></div>
+  <div id="tab-2"><ImageRowColumns3 /></div>
+  <div id="tab-3"><ImageRowColumns4 /></div>
+</CodeContainer>

@@ -1,0 +1,186 @@
+---
+/**
+ * @component ImageRow
+ * @description 图片行组件，用于展示一行图片，简洁高效
+ * @usage
+ * ```astro
+ * <ImageRow
+ *   images={[
+ *     { src: '/image1.jpg', alt: '图片1' },
+ *     { src: '/image2.jpg', alt: '图片2' }
+ *   ]}
+ *   gap="md"
+ * />
+ * ```
+ * @props
+ * @prop {ImageItem[]} images - 图片数组
+ * @prop {string} [gap='md'] - 图片间距，可选值：none、xs、sm、md、lg、xl
+ * @prop {string} [rounded='md'] - 图片圆角，可选值：none、sm、md、lg、xl、2xl、3xl、full
+ * @prop {string} [shadow='md'] - 图片阴影，可选值：none、sm、md、lg、xl、2xl
+ * @prop {string} [hover='scale'] - 悬停效果，可选值：none、scale、brightness、blur
+ * @prop {string} [class] - 自定义 CSS 类名
+ * @slots
+ * @slot default - 图片内容
+ */
+import '../../style.ts';
+import type { ImageItem, ImageRowProps } from './types';
+
+interface Props extends ImageRowProps {
+  images: ImageItem[];
+  gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';
+  shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  hover?: 'none' | 'scale' | 'brightness' | 'blur';
+  class?: string;
+}
+
+const {
+  images,
+  gap = 'md',
+  rounded = 'md',
+  shadow = 'md',
+  hover = 'scale',
+  class: className = '',
+} = Astro.props;
+
+// 间距样式映射
+const gapClassMap = {
+  none: '',
+  xs: 'cosy:gap-1',
+  sm: 'cosy:gap-2',
+  md: 'cosy:gap-4',
+  lg: 'cosy:gap-6',
+  xl: 'cosy:gap-8',
+} as const;
+
+// 圆角样式映射
+const roundedClassMap = {
+  none: '',
+  sm: 'cosy:rounded-sm',
+  md: 'cosy:rounded-md',
+  lg: 'cosy:rounded-lg',
+  xl: 'cosy:rounded-xl',
+  '2xl': 'cosy:rounded-2xl',
+  '3xl': 'cosy:rounded-3xl',
+  full: 'cosy:rounded-full',
+} as const;
+
+// 阴影样式映射
+const shadowClassMap = {
+  none: '',
+  sm: 'cosy:shadow-sm',
+  md: 'cosy:shadow-md',
+  lg: 'cosy:shadow-lg',
+  xl: 'cosy:shadow-xl',
+  '2xl': 'cosy:shadow-2xl',
+} as const;
+
+// 悬停效果样式映射
+const hoverClassMap = {
+  none: '',
+  scale: 'cosy:hover:scale-105 cosy:transition-transform cosy:duration-300',
+  brightness: 'cosy:hover:brightness-110 cosy:transition-all cosy:duration-300',
+  blur: 'cosy:hover:blur-sm cosy:transition-all cosy:duration-300',
+} as const;
+
+const gapClass = gapClassMap[gap as keyof typeof gapClassMap] || '';
+const roundedClass =
+  roundedClassMap[rounded as keyof typeof roundedClassMap] || '';
+const shadowClass = shadowClassMap[shadow as keyof typeof shadowClassMap] || '';
+const hoverClass = hoverClassMap[hover as keyof typeof hoverClassMap] || '';
+
+// 生成容器类名
+const getContainerClass = () => {
+  const baseClass = 'image-row-container';
+  const gapClassValue = gapClass;
+  const customClass = className;
+
+  return `${baseClass} ${gapClassValue} ${customClass}`.trim();
+};
+
+// 生成图片类名
+const getImageClass = (index: number) => {
+  const baseClass = 'image-row-item';
+  const roundedClassValue = roundedClass;
+  const shadowClassValue = shadowClass;
+  const hoverClassValue = hoverClass;
+
+  return `${baseClass} ${roundedClassValue} ${shadowClassValue} ${hoverClassValue}`.trim();
+};
+---
+
+<div class={getContainerClass()}>
+  {
+    images.map((image, index) => (
+      <div class={getImageClass(index)}>
+        <img
+          src={image.src}
+          alt={image.alt}
+          width={image.width}
+          height={image.height}
+          loading={image.loading || 'lazy'}
+          class="cosy:w-full cosy:h-full cosy:object-cover"
+        />
+        {image.caption && (
+          <div class="image-row-caption">
+            <p class="cosy:text-sm cosy:text-gray-600 cosy:mt-2 cosy:text-center">
+              {image.caption}
+            </p>
+          </div>
+        )}
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .image-row-container {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .image-row-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .image-row-item {
+    position: relative;
+    overflow: hidden;
+    flex: 0 0 auto;
+    width: 200px;
+    height: 150px;
+  }
+
+  .image-row-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    padding: 0.5rem;
+    color: white;
+  }
+
+  .image-row-caption p {
+    color: white !important;
+    margin: 0 !important;
+  }
+
+  /* 响应式设计 */
+  @media (max-width: 768px) {
+    .image-row-item {
+      width: 150px;
+      height: 120px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .image-row-item {
+      width: 120px;
+      height: 100px;
+    }
+  }
+</style>

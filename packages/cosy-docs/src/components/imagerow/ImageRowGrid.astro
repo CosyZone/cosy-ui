@@ -1,0 +1,44 @@
+---
+/**
+ * @component ImageRowGrid
+ * @description ImageRow 组件网格布局示例
+ */
+import {
+  ImageRow,
+  getProductImage,
+  getLandscapeImage,
+  getAvatarImage,
+} from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 300, height: 300 }),
+    alt: '网格图片 1',
+    caption: '产品展示',
+  },
+  {
+    src: getLandscapeImage({ width: 300, height: 300 }),
+    alt: '网格图片 2',
+    caption: '自然风光',
+  },
+  {
+    src: getAvatarImage({ width: 300, height: 300 }),
+    alt: '网格图片 3',
+    caption: '人物肖像',
+  },
+  {
+    src: getProductImage({ width: 300, height: 300 }),
+    alt: '网格图片 4',
+    caption: '产品细节',
+  },
+];
+---
+
+<ImageRow
+  images={images}
+  columns={2}
+  gap="md"
+  rounded="lg"
+  shadow="md"
+  hover="scale"
+/>

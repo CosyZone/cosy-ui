@@ -1,0 +1,29 @@
+---
+/**
+ * @component ImageRowBackgroundSuccess
+ * @description ImageRow 组件成功色背景示例
+ */
+import {
+  ImageRow,
+  getProductImage,
+  getLandscapeImage,
+  getAvatarImage,
+} from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 150, height: 100 }),
+    alt: '成功色背景图片 1',
+  },
+  {
+    src: getLandscapeImage({ width: 150, height: 100 }),
+    alt: '成功色背景图片 2',
+  },
+  {
+    src: getAvatarImage({ width: 150, height: 100 }),
+    alt: '成功色背景图片 3',
+  },
+];
+---
+
+<ImageRow images={images} background="success/20" padding="md" />

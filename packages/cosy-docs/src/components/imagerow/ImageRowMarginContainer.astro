@@ -1,0 +1,37 @@
+---
+/**
+ * @component ImageRowMarginContainer
+ * @description ImageRow 组件外边距示例容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ImageRowMarginNone from './ImageRowMarginNone.astro';
+import ImageRowMarginSm from './ImageRowMarginSm.astro';
+import ImageRowMarginMd from './ImageRowMarginMd.astro';
+import ImageRowMarginLg from './ImageRowMarginLg.astro';
+import ImageRowMarginNoneSourceCode from './ImageRowMarginNone.astro?raw';
+import ImageRowMarginSmSourceCode from './ImageRowMarginSm.astro?raw';
+import ImageRowMarginMdSourceCode from './ImageRowMarginMd.astro?raw';
+import ImageRowMarginLgSourceCode from './ImageRowMarginLg.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    ImageRowMarginNoneSourceCode,
+    ImageRowMarginSmSourceCode,
+    ImageRowMarginMdSourceCode,
+    ImageRowMarginLgSourceCode,
+  ]}
+  titles={['无外边距', '小外边距', '中等外边距', '大外边距']}>
+  <div id="tab-1">
+    <ImageRowMarginNone />
+  </div>
+  <div id="tab-2">
+    <ImageRowMarginSm />
+  </div>
+  <div id="tab-3">
+    <ImageRowMarginMd />
+  </div>
+  <div id="tab-4">
+    <ImageRowMarginLg />
+  </div>
+</CodeContainer>

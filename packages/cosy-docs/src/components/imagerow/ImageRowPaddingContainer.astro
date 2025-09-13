@@ -1,0 +1,37 @@
+---
+/**
+ * @component ImageRowPaddingContainer
+ * @description ImageRow 组件内边距示例容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ImageRowPaddingNone from './ImageRowPaddingNone.astro';
+import ImageRowPaddingSm from './ImageRowPaddingSm.astro';
+import ImageRowPaddingMd from './ImageRowPaddingMd.astro';
+import ImageRowPaddingLg from './ImageRowPaddingLg.astro';
+import ImageRowPaddingNoneSourceCode from './ImageRowPaddingNone.astro?raw';
+import ImageRowPaddingSmSourceCode from './ImageRowPaddingSm.astro?raw';
+import ImageRowPaddingMdSourceCode from './ImageRowPaddingMd.astro?raw';
+import ImageRowPaddingLgSourceCode from './ImageRowPaddingLg.astro?raw';
+---
+
+<CodeContainer
+  codes={[
+    ImageRowPaddingNoneSourceCode,
+    ImageRowPaddingSmSourceCode,
+    ImageRowPaddingMdSourceCode,
+    ImageRowPaddingLgSourceCode,
+  ]}
+  titles={['无内边距', '小内边距', '中等内边距', '大内边距']}>
+  <div id="tab-1">
+    <ImageRowPaddingNone />
+  </div>
+  <div id="tab-2">
+    <ImageRowPaddingSm />
+  </div>
+  <div id="tab-3">
+    <ImageRowPaddingMd />
+  </div>
+  <div id="tab-4">
+    <ImageRowPaddingLg />
+  </div>
+</CodeContainer>
