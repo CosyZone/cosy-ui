@@ -19,7 +19,7 @@ import {
   Container,
   StatsDisplay,
   ProductHero,
-  FeatureShowcase,
+  FeatureCarousel,
   TeamMembers,
   getProductImage,
   getAvatarImage,
@@ -126,8 +126,8 @@ const products = [
       tag: 'minimal-phone',
       provider: 'picsum',
     }),
-    price: currentLocale === 'zh-cn' ? '¥6,999' : '$999',
-    isNew: true,
+    highlight: currentLocale === 'zh-cn' ? '¥6,999' : '$999',
+    labels: [currentLocale === 'zh-cn' ? '新品' : 'New'],
   },
   {
     name: currentLocale === 'zh-cn' ? '智能手表' : 'Smart Watch',
@@ -141,8 +141,8 @@ const products = [
       tag: 'smart-watch',
       provider: 'picsum',
     }),
-    price: currentLocale === 'zh-cn' ? '¥2,999' : '$399',
-    isNew: false,
+    highlight: currentLocale === 'zh-cn' ? '¥2,999' : '$399',
+    labels: [],
   },
   {
     name: currentLocale === 'zh-cn' ? '无线耳机' : 'Wireless Earbuds',
@@ -156,8 +156,8 @@ const products = [
       tag: 'wireless-earbuds',
       provider: 'picsum',
     }),
-    price: currentLocale === 'zh-cn' ? '¥1,299' : '$179',
-    isNew: false,
+    highlight: currentLocale === 'zh-cn' ? '¥1,299' : '$179',
+    labels: [],
   },
 ];
 
@@ -483,7 +483,7 @@ const featureShowcaseData = [
 
   <!-- Feature Showcase Section - 苹果风格特性展示 -->
   <Container width="xl" padding="none" margin="lg">
-    <FeatureShowcase features={featureShowcaseData} />
+    <FeatureCarousel features={featureShowcaseData} />
   </Container>
 
   <!-- Products Section - 大图展示 -->
@@ -491,10 +491,13 @@ const featureShowcaseData = [
     {
       products.map((product, index) => (
         <ProductHero
-          {...product}
+          name={product.name}
+          description={product.description}
+          image={product.image}
+          highlight={product.highlight}
+          labels={product.labels}
           align={index % 2 === 0 ? 'left' : 'right'}
-          background={index % 2 === 0 ? 'base-200' : 'base-100'}
-          newLabelText={currentLocale === 'zh-cn' ? '新品' : 'New'}>
+          background={index % 2 === 0 ? 'base-200' : 'base-100'}>
           <div slot="actions" style="display:flex; gap:1rem;">
             <Button variant="primary" size="lg">
               {data.buyNow}

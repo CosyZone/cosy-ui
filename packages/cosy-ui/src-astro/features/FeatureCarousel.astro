@@ -5,10 +5,10 @@ import { ChevronLeftIcon, ChevronRightIcon } from '../icons';
 import type { ImageSource } from '../image/image.ts';
 
 /**
- * @component FeatureShowcase
- * @description 苹果风格的特性展示组件，横向滑动显示多个特性卡片
+ * @component FeatureCarousel
+ * @description 特性轮播组件，横向滑动显示多个特性卡片
  * @example
- * <FeatureShowcase
+ * <FeatureCarousel
  *   features={[
  *     {
  *       title: "性能和电池续航",
@@ -76,7 +76,7 @@ const { features, class: className } = Astro.props;
 </div>
 
 <script>
-  // 特性展示滚动逻辑 - 使用原生滚动
+  // 特性轮播滚动逻辑 - 使用原生滚动
   const cardsContainer = document.getElementById('feature-cards');
   const prevBtn = document.getElementById('prev-btn');
   const nextBtn = document.getElementById('next-btn');
