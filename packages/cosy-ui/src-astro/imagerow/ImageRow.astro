@@ -19,7 +19,7 @@
  * @prop {boolean} [border=false] - 是否显示边框
  * @prop {string} [class] - 自定义 CSS 类名
  * @prop {string} [containerRounded='none'] - 容器圆角，可选值：none、sm、md、lg、xl、2xl、3xl、full
- * @prop {boolean} [showDots=true] - 是否显示底部点指示器
+ * @prop {boolean} [showNavigation=true] - 是否显示左右导航按钮
  * @prop {string} [gap='md'] - 图片间距，可选值：none、xs、sm、md、lg、xl
  * @prop {string} [hover='scale'] - 悬停效果，可选值：none、scale、brightness、blur
  * @prop {IImageItem[]} images - 图片数组
@@ -51,7 +51,8 @@ import {
 } from '../../src/common';
 import Container from '../container/Container.astro';
 import Image from '../image/Image.astro';
-import ImageRowDots from './ImageRowDots.astro';
+import ChevronLeftIcon from '../icons/ChevronLeftIcon.astro';
+import ChevronRightIcon from '../icons/ChevronRightIcon.astro';
 
 interface Props {
   images: IImageItem[];
@@ -65,7 +66,7 @@ interface Props {
   border?: boolean;
   width?: Size;
   containerRounded?: RoundedSize;
-  showDots?: boolean;
+  showNavigation?: boolean;
   class?: string;
 }
 
@@ -81,7 +82,7 @@ const {
   border = false,
   width = 'md',
   containerRounded = 'none',
-  showDots = true,
+  showNavigation = true,
   class: className = '',
 } = Astro.props;
 
@@ -115,6 +116,18 @@ const getImageClass = (index: number) => {
   rounded={containerRounded}
   class={className}>
   <div class="image-row-wrapper">
+    {
+      showNavigation && images.length > 1 && (
+        <button
+          class="image-row-nav-btn image-row-nav-prev"
+          onclick="window.scrollImageRow(this, 'prev')"
+          aria-label="上一张图片"
+          disabled>
+          <ChevronLeftIcon size="20px" />
+        </button>
+      )
+    }
+
     <div class={getContainerClass()}>
       {
         images.map((image, index) => (
@@ -142,16 +155,25 @@ const getImageClass = (index: number) => {
         ))
       }
     </div>
-  </div>
 
-  {showDots && <ImageRowDots totalImages={images.length} />}
+    {
+      showNavigation && images.length > 1 && (
+        <button
+          class="image-row-nav-btn image-row-nav-next"
+          onclick="window.scrollImageRow(this, 'next')"
+          aria-label="下一张图片">
+          <ChevronRightIcon size="20px" />
+        </button>
+      )
+    }
+  </div>
 </Container>
 
 <style>
   .image-row-wrapper {
-    position: relative;
     display: flex;
     align-items: center;
+    gap: 12px;
   }
 
   .image-row-container {
@@ -190,11 +212,50 @@ const getImageClass = (index: number) => {
     margin: 0 !important;
   }
 
+  /* 导航按钮样式 */
+  .image-row-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+  }
+
+  .image-row-nav-btn:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 1);
+    color: rgba(0, 0, 0, 0.9);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .image-row-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+  }
+
   /* 响应式设计 */
   @media (max-width: 768px) {
     .image-row-item {
       width: 150px;
       height: 120px;
+    }
+
+    .image-row-nav-btn {
+      width: 36px;
+      height: 36px;
+    }
+
+    .image-row-wrapper {
+      gap: 8px;
     }
   }
 
@@ -203,69 +264,131 @@ const getImageClass = (index: number) => {
       width: 120px;
       height: 100px;
     }
+
+    .image-row-nav-btn {
+      width: 32px;
+      height: 32px;
+    }
+
+    .image-row-wrapper {
+      gap: 6px;
+    }
   }
 </style>
 
 <script>
-  // 初始化单个图片行的点指示器功能
-  function initImageRowDots(wrapper: HTMLElement) {
+  // 声明全局函数类型
+  declare global {
+    interface Window {
+      scrollImageRow: (button: HTMLElement, direction: 'prev' | 'next') => void;
+    }
+  }
+
+  // 左右导航功能
+  window.scrollImageRow = function (
+    button: HTMLElement,
+    direction: 'prev' | 'next'
+  ) {
+    // 从导航按钮向上查找，找到包含 .image-row-container 的容器
+    const wrapper = button.parentElement;
+    const container = wrapper?.querySelector(
+      '.image-row-container'
+    ) as HTMLElement;
+
+    if (!container || !wrapper) return;
+
+    const imageWidth = 200; // 图片宽度
+    const currentScrollLeft = container.scrollLeft;
+    const maxScrollLeft = container.scrollWidth - container.clientWidth;
+
+    let newScrollLeft = currentScrollLeft;
+
+    if (direction === 'prev') {
+      newScrollLeft = Math.max(0, currentScrollLeft - imageWidth);
+    } else {
+      newScrollLeft = Math.min(maxScrollLeft, currentScrollLeft + imageWidth);
+    }
+
+    container.scrollTo({
+      left: newScrollLeft,
+      behavior: 'smooth',
+    });
+
+    // 更新按钮状态
+    setTimeout(() => {
+      updateNavigationButtons(wrapper as HTMLElement);
+    }, 300);
+  };
+
+  // 更新导航按钮状态
+  function updateNavigationButtons(wrapper: HTMLElement) {
     const container = wrapper.querySelector(
       '.image-row-container'
     ) as HTMLElement;
-    const dotsContainer = wrapper.parentElement?.querySelector(
-      '.image-row-dots'
+    const prevBtn = wrapper.querySelector(
+      '.image-row-nav-prev'
+    ) as HTMLButtonElement;
+    const nextBtn = wrapper.querySelector(
+      '.image-row-nav-next'
+    ) as HTMLButtonElement;
+
+    if (!container || !prevBtn || !nextBtn) return;
+
+    const currentScrollLeft = container.scrollLeft;
+    const maxScrollLeft = container.scrollWidth - container.clientWidth;
+
+    // 更新前一个按钮状态
+    prevBtn.disabled = currentScrollLeft <= 0;
+
+    // 更新下一个按钮状态
+    nextBtn.disabled = currentScrollLeft >= maxScrollLeft - 1; // -1 为了处理浮点数精度问题
+  }
+
+  // 初始化单个图片行的导航功能
+  function initImageRowNavigation(wrapper: HTMLElement) {
+    const container = wrapper.querySelector(
+      '.image-row-container'
     ) as HTMLElement;
 
     if (!container) return;
 
-    // 更新点指示器状态
-    function updateDotsVisibility() {
-      if (!dotsContainer) return;
-
-      const dots = dotsContainer.querySelectorAll('.image-row-dot');
-      const imageWidth = 200; // 图片宽度 + 间距
-      const currentIndex = Math.round(container.scrollLeft / imageWidth);
-
-      dots.forEach((dot, index) => {
-        if (index === currentIndex) {
-          dot.classList.add('active');
-        } else {
-          dot.classList.remove('active');
-        }
-      });
-    }
-
-    // 监听滚动事件
+    // 监听滚动事件，更新按钮状态
     container.addEventListener('scroll', () => {
-      updateDotsVisibility();
+      updateNavigationButtons(wrapper);
     });
 
     // 监听窗口大小变化
     window.addEventListener('resize', () => {
-      updateDotsVisibility();
+      setTimeout(() => {
+        updateNavigationButtons(wrapper);
+      }, 100);
     });
 
     // 初始检查
-    updateDotsVisibility();
+    setTimeout(() => {
+      updateNavigationButtons(wrapper);
+    }, 100);
   }
 
-  // 初始化所有图片行
-  function initAllImageRows() {
+  // 初始化所有图片行导航
+  function initAllImageRowNavigations() {
     const imageRows = document.querySelectorAll('.image-row-wrapper');
-    imageRows.forEach((wrapper) => initImageRowDots(wrapper as HTMLElement));
+    imageRows.forEach((wrapper) =>
+      initImageRowNavigation(wrapper as HTMLElement)
+    );
   }
 
   // 页面加载完成后初始化
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initAllImageRows);
+    document.addEventListener('DOMContentLoaded', initAllImageRowNavigations);
   } else {
-    initAllImageRows();
+    initAllImageRowNavigations();
   }
 
-  // 监听 Astro 路由变化（如果使用客户端路由）
-  document.addEventListener('astro:page-load', initAllImageRows);
+  // 监听 Astro 路由变化
+  document.addEventListener('astro:page-load', initAllImageRowNavigations);
 
-  // 监听 DOM 变化（MutationObserver 作为备用方案）
+  // 监听 DOM 变化
   const observer = new MutationObserver((mutations) => {
     let shouldReinit = false;
     mutations.forEach((mutation) => {
@@ -285,12 +408,10 @@ const getImageClass = (index: number) => {
     });
 
     if (shouldReinit) {
-      // 延迟执行，确保 DOM 完全更新
-      setTimeout(initAllImageRows, 100);
+      setTimeout(initAllImageRowNavigations, 100);
     }
   });
 
-  // 开始观察整个文档的变化
   observer.observe(document.body, {
     childList: true,
     subtree: true,

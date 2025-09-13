@@ -5,7 +5,7 @@ import ImageRowImagesContainer from './ImageRowImagesContainer.astro';
 import ImageRowGapContainer from './ImageRowGapContainer.astro';
 import ImageRowRoundedContainer from './ImageRowRoundedContainer.astro';
 import ImageRowContainerRoundedContainer from './ImageRowContainerRoundedContainer.astro';
-import ImageRowDotsContainer from './ImageRowDotsContainer.astro';
+import ImageRowNavigationContainer from './ImageRowNavigationContainer.astro';
 import ImageRowShadowContainer from './ImageRowShadowContainer.astro';
 import ImageRowHoverContainer from './ImageRowHoverContainer.astro';
 import ImageRowBackgroundContainer from './ImageRowBackgroundContainer.astro';
@@ -21,7 +21,7 @@ export const ImageRowPackage = {
     Gap: ImageRowGapContainer,
     Rounded: ImageRowRoundedContainer,
     ContainerRounded: ImageRowContainerRoundedContainer,
-    Dots: ImageRowDotsContainer,
+    Navigation: ImageRowNavigationContainer,
     Shadow: ImageRowShadowContainer,
     Hover: ImageRowHoverContainer,
     Styles: ImageRowStyles,

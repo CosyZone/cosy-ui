@@ -51,8 +51,8 @@ export interface ImageRowProps {
     width?: Size;
     /** 容器圆角 */
     containerRounded?: RoundedSize;
-    /** 是否显示底部点指示器 */
-    showDots?: boolean;
+    /** 是否显示左右导航按钮 */
+    showNavigation?: boolean;
     /** 自定义 CSS 类名 */
     class?: string;
 }
