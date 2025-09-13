@@ -1,0 +1,27 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import HoverImageBasic from './HoverImageBasic.astro';
+import HoverImageWithIcon from './HoverImageWithIcon.astro';
+import HoverImageButton from './HoverImageButton.astro';
+import HoverImageBasicSourceCode from './HoverImageBasic.astro?raw';
+import HoverImageWithIconSourceCode from './HoverImageWithIcon.astro?raw';
+import HoverImageButtonSourceCode from './HoverImageButton.astro?raw';
+---
+
+<CodeContainer
+  titles={['基本用法', '带图标', '按钮样式']}
+  codes={[
+    HoverImageBasicSourceCode,
+    HoverImageWithIconSourceCode,
+    HoverImageButtonSourceCode,
+  ]}>
+  <div id="tab-1">
+    <HoverImageBasic />
+  </div>
+  <div id="tab-2">
+    <HoverImageWithIcon />
+  </div>
+  <div id="tab-3">
+    <HoverImageButton />
+  </div>
+</CodeContainer>
