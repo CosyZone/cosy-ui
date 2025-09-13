@@ -1,0 +1,31 @@
+---
+/**
+ * @component ImageRowContainerRoundedXl
+ * @description ImageRow 组件超大容器圆角示例
+ */
+import { ImageRow, getProductImage } from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 200, height: 200 }),
+    alt: '图片 1',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200 }),
+    alt: '图片 2',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200 }),
+    alt: '图片 3',
+  },
+];
+---
+
+<ImageRow
+  images={images}
+  containerRounded="xl"
+  gap="sm"
+  shadow="sm"
+  background="error/20"
+  padding="md"
+/>

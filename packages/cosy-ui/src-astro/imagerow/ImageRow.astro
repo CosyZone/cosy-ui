@@ -11,20 +11,22 @@
  *   ]}
  *   gap="md"
  *   background="primary/10"
+ *   containerRounded="lg"
  * />
  * ```
  * @props
- * @prop {ImageItem[]} images - 图片数组
+ * @prop {string} [background] - 背景色类型，支持所有 Tailwind 背景色和透明度变体
+ * @prop {boolean} [border=false] - 是否显示边框
+ * @prop {string} [class] - 自定义 CSS 类名
+ * @prop {string} [containerRounded='none'] - 容器圆角，可选值：none、sm、md、lg、xl、2xl、3xl、full
  * @prop {string} [gap='md'] - 图片间距，可选值：none、xs、sm、md、lg、xl
+ * @prop {string} [hover='scale'] - 悬停效果，可选值：none、scale、brightness、blur
+ * @prop {ImageItem[]} images - 图片数组
+ * @prop {string} [margin='none'] - 外边距大小，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl
+ * @prop {string} [padding='md'] - 内边距大小，可选值：none、sm、md、lg、xl、2xl、3xl、4xl
  * @prop {string} [rounded='md'] - 图片圆角，可选值：none、sm、md、lg、xl、2xl、3xl、full
  * @prop {string} [shadow='md'] - 图片阴影，可选值：none、sm、md、lg、xl、2xl
- * @prop {string} [hover='scale'] - 悬停效果，可选值：none、scale、brightness、blur
- * @prop {string} [background] - 背景色类型，支持所有 Tailwind 背景色和透明度变体
- * @prop {string} [padding='md'] - 内边距大小，可选值：none、sm、md、lg、xl、2xl、3xl、4xl
- * @prop {string} [margin='none'] - 外边距大小，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl
- * @prop {boolean} [border=false] - 是否显示边框
  * @prop {string} [width='md'] - 容器宽度，可选值：xs、sm、md、lg、xl、full
- * @prop {string} [class] - 自定义 CSS 类名
  * @slots
  * @slot default - 图片内容
  */
@@ -59,6 +61,7 @@ interface Props {
   margin?: MarginSize;
   border?: boolean;
   width?: Size;
+  containerRounded?: RoundedSize;
   class?: string;
 }
 
@@ -73,6 +76,7 @@ const {
   margin = 'none',
   border = false,
   width = 'md',
+  containerRounded = 'none',
   class: className = '',
 } = Astro.props;
 
@@ -107,6 +111,7 @@ const getImageClass = (index: number) => {
   margin={margin}
   border={border}
   width={width}
+  rounded={containerRounded}
   class={className}>
   <div class={getContainerClass()}>
     {

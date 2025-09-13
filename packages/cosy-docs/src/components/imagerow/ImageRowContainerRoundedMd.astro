@@ -1,0 +1,31 @@
+---
+/**
+ * @component ImageRowContainerRoundedMd
+ * @description ImageRow 组件中等容器圆角示例
+ */
+import { ImageRow, getProductImage } from '@coffic/cosy-ui';
+
+const images = [
+  {
+    src: getProductImage({ width: 200, height: 200 }),
+    alt: '图片 1',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200 }),
+    alt: '图片 2',
+  },
+  {
+    src: getProductImage({ width: 200, height: 200 }),
+    alt: '图片 3',
+  },
+];
+---
+
+<ImageRow
+  images={images}
+  containerRounded="md"
+  gap="sm"
+  shadow="sm"
+  background="success/20"
+  padding="md"
+/>

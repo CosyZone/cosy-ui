@@ -48,6 +48,8 @@ export interface ImageRowProps {
     border?: boolean;
     /** 容器宽度 */
     width?: Size;
+    /** 容器圆角 */
+    containerRounded?: RoundedSize;
     /** 自定义 CSS 类名 */
     class?: string;
 }

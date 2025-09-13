@@ -1,0 +1,33 @@
+---
+/**
+ * @component ImageRowContainerRoundedContainer
+ * @description ImageRow 组件 containerRounded 属性示例容器
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ImageRowContainerRoundedNone from './ImageRowContainerRoundedNone.astro';
+import ImageRowContainerRoundedSm from './ImageRowContainerRoundedSm.astro';
+import ImageRowContainerRoundedMd from './ImageRowContainerRoundedMd.astro';
+import ImageRowContainerRoundedLg from './ImageRowContainerRoundedLg.astro';
+import ImageRowContainerRoundedXl from './ImageRowContainerRoundedXl.astro';
+import ImageRowContainerRoundedNoneSourceCode from './ImageRowContainerRoundedNone.astro?raw';
+import ImageRowContainerRoundedSmSourceCode from './ImageRowContainerRoundedSm.astro?raw';
+import ImageRowContainerRoundedMdSourceCode from './ImageRowContainerRoundedMd.astro?raw';
+import ImageRowContainerRoundedLgSourceCode from './ImageRowContainerRoundedLg.astro?raw';
+import ImageRowContainerRoundedXlSourceCode from './ImageRowContainerRoundedXl.astro?raw';
+---
+
+<CodeContainer
+  titles={['无圆角', '小圆角', '中等圆角', '大圆角', '超大圆角']}
+  codes={[
+    ImageRowContainerRoundedNoneSourceCode,
+    ImageRowContainerRoundedSmSourceCode,
+    ImageRowContainerRoundedMdSourceCode,
+    ImageRowContainerRoundedLgSourceCode,
+    ImageRowContainerRoundedXlSourceCode,
+  ]}>
+  <div id="tab-1"><ImageRowContainerRoundedNone /></div>
+  <div id="tab-2"><ImageRowContainerRoundedSm /></div>
+  <div id="tab-3"><ImageRowContainerRoundedMd /></div>
+  <div id="tab-4"><ImageRowContainerRoundedLg /></div>
+  <div id="tab-5"><ImageRowContainerRoundedXl /></div>
+</CodeContainer>
