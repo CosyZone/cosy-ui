@@ -146,7 +146,7 @@ const handleTabClick = (tab: string) => {
 </script>
 
 <template>
-    <Container :background="bgType" :width="width" :class="windowClasses" aria-label="MacWindow">
+    <Container :background="bgType" padding="none" :width="width" :class="windowClasses" aria-label="MacWindow">
         <!-- 窗口控制按钮 -->
         <div :class="headerClasses">
             <div class="cosy:flex cosy:items-center cosy:space-x-2">
