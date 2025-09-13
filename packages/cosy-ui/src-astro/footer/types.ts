@@ -42,5 +42,6 @@ export interface FooterBrandProps {
         name: string;
     }>;
     wechatQR?: ImageSource;
+    whatsappQR?: ImageSource;
     debug?: boolean;
 } 

@@ -149,4 +149,9 @@ export interface IFooterProps {
      * 微信二维码
      */
     wechatQR?: ImageSource;
+
+    /**
+     * WhatsApp 二维码
+     */
+    whatsappQR?: ImageSource;
 }

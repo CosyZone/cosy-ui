@@ -19,6 +19,8 @@
  * <SocialIcon platform="github" />
  * <SocialIcon platform="twitter" />
  * <SocialIcon platform="linkedin" />
+ * <SocialIcon platform="wechat" />
+ * <SocialIcon platform="whatsapp" />
  * ```
  *
  * 自定义大小和颜色：
@@ -39,6 +41,7 @@ import GithubIcon from '../icons/GithubIcon.astro';
 import TwitterIcon from '../icons/TwitterIcon.astro';
 import LinkedinIcon from '../icons/LinkedinIcon.astro';
 import WechatIcon from '../icons/WechatIcon.astro';
+import WhatsappIcon from '../icons/WhatsappIcon.astro';
 
 interface Props {
   /**
@@ -86,6 +89,8 @@ const getIconComponent = (platform: string) => {
       return LinkedinIcon;
     case 'wechat':
       return WechatIcon;
+    case 'whatsapp':
+      return WhatsappIcon;
     // 其他平台图标可以在这里添加
     default:
       return GithubIcon; // 默认使用 GitHub 图标

@@ -189,6 +189,7 @@
  * @prop {string} [privacyLink] - "隐私政策"页面链接
  * @prop {Array<string>} [socialLinks=[]] - 社交媒体链接数组
  * @prop {ImageSource} [wechatQR] - 微信二维码图片源，支持本地图片或远程URL
+ * @prop {ImageSource} [whatsappQR] - WhatsApp 二维码图片源，支持本地图片或远程URL
  * @prop {string} [teamLink] - "团队介绍"页面链接
  * @prop {string} [careersLink] - "加入我们"页面链接
  * @prop {string} [newsLink] - "新闻动态"页面链接
@@ -243,6 +244,7 @@ const {
   privacyLink,
   socialLinks = [],
   wechatQR,
+  whatsappQR,
   teamLink,
   careersLink,
   newsLink,
@@ -304,6 +306,7 @@ const debugClasses = debug
       logo={logo}
       socialLinks={processedSocialLinks}
       wechatQR={wechatQR}
+      whatsappQR={whatsappQR}
       debug={debug}
     />
 

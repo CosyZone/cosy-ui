@@ -55,6 +55,7 @@ const {
   logo,
   socialLinks = [],
   wechatQR,
+  whatsappQR,
   debug = false,
 } = Astro.props as FooterBrandProps;
 
@@ -122,6 +123,23 @@ const debugClasses = debug
           hoverImage={wechatQR}
           hoverImageAlt="微信二维码">
           <SocialIcon platform="wechat" />
+        </Link>
+      )
+    }
+
+    {/* WhatsApp 二维码 */}
+    {
+      whatsappQR && (
+        <Link
+          href="#"
+          btn
+          circle
+          ghost
+          size="sm"
+          color="info"
+          hoverImage={whatsappQR}
+          hoverImageAlt="WhatsApp 二维码">
+          <SocialIcon platform="whatsapp" />
         </Link>
       )
     }
