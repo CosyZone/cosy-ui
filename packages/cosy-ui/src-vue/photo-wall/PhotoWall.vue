@@ -73,7 +73,7 @@ const photoWallClasses = computed(() => {
         'cosy:grid',
         'cosy:grid-cols-12',
         'cosy:auto-rows-[minmax(0,1fr)]', // 使用 minmax 确保行高可以收缩
-        'cosy:gap-4', // 固定间距
+        getGapClasses(props.gap), // 使用动态间距
         'cosy:justify-items-stretch', // 让卡片填满网格区域
         'cosy:items-stretch',
         props.class,
