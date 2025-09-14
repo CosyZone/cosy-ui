@@ -26,6 +26,7 @@
  */
 
 import { Button, SunCloudyIcon } from '../../index-astro';
+import { themes } from '../../src/common/themes';
 import ThemeItem from './ThemeItem.astro';
 import '../../style.ts';
 
@@ -37,17 +38,6 @@ interface Props {
 }
 
 const { class: className } = Astro.props;
-
-const themes = [
-  { id: 'default', name: 'Default' },
-  { id: 'light', name: 'Light' },
-  { id: 'dark', name: 'Dark' },
-  { id: 'corporate', name: 'Corporate' },
-  { id: 'lemonade', name: 'Lemonade' },
-  { id: 'nord', name: 'Nord' },
-  { id: 'business', name: 'Business' },
-  { id: 'luxury', name: 'Luxury' },
-];
 ---
 
 <!-- 主题切换按钮 -->
