@@ -73,6 +73,7 @@ const {
   favicon,
   'class:list': classList,
   background = 'base-100',
+  theme = 'default' as const,
 } = Astro.props;
 
 // 处理类名
@@ -86,7 +87,7 @@ let bodyClasses = [
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} data-theme={theme}>
   <head>
     <meta charset="UTF-8" />
     {
