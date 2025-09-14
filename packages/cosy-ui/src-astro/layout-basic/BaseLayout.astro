@@ -52,6 +52,10 @@
 import '../../style.ts';
 import { type IMetaProps } from './meta';
 import { ClientRouter } from 'astro:transitions';
+import {
+  getBackgroundClass,
+  type BackgroundColor,
+} from '../../src/common/backgrounds';
 
 export interface Props extends IMetaProps {}
 
@@ -67,25 +71,14 @@ const {
   class: className,
   favicon,
   'class:list': classList,
-  background = 'default',
+  background = 'base-100',
 } = Astro.props;
 
-// 处理背景色 class
-const bgClassMap: Record<string, string> = {
-  default: 'cosy:bg-base-100',
-  white: 'cosy:bg-white',
-  gray: 'cosy:bg-gray-100',
-  dark: 'cosy:bg-gray-900',
-  'gradient-blue': 'cosy:bg-gradient-to-br cosy:from-blue-400 cosy:to-blue-600',
-  'gradient-pink': 'cosy:bg-gradient-to-br cosy:from-pink-400 cosy:to-pink-600',
-  'gradient-green':
-    'cosy:bg-gradient-to-br cosy:from-green-400 cosy:to-green-600',
-};
-
 // 处理类名
+const backgroundClass = getBackgroundClass(background as BackgroundColor);
 let bodyClasses = [
   debug ? 'cosy:border cosy:border-red-500' : className || '',
-  bgClassMap[background] || '',
+  backgroundClass,
 ]
   .filter(Boolean)
   .join(' ');

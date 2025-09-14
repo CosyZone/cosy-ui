@@ -1,4 +1,5 @@
 import type { ImageMetadata } from 'astro';
+import type { BackgroundColor } from '../../src/common/backgrounds';
 
 export interface IMetaProps {
     title: string;
@@ -62,10 +63,10 @@ export interface IMetaProps {
     debug?: boolean;
 
     /**
-     * 预设背景色，可选值：'default' | 'white' | 'gray' | 'dark' | 'gradient-blue' | 'gradient-pink' | 'gradient-green'
-     * @default 'default'
+     * 预设背景色，使用通用背景色配置
+     * @default 'base-100'
      */
-    background?: 'default' | 'white' | 'gray' | 'dark' | 'gradient-blue' | 'gradient-pink' | 'gradient-green';
+    background?: BackgroundColor;
 
 
     /** 最小显示时间（毫秒），默认300ms，确保用户能看到加载状态 */
