@@ -1,0 +1,44 @@
+---
+import { AppLayout } from '@coffic/cosy-ui';
+import {
+  defaultSidebarItems,
+  defaultMetaConfig,
+  defaultHeaderConfig,
+  defaultFooterConfig,
+  defaultMainContentConfig,
+} from './shared-config.ts';
+
+const metaConfig = {
+  ...defaultMetaConfig,
+  title: '类名列表示例',
+  description: '展示如何通过 class:list 属性添加多个类名',
+  keywords: 'AppLayout, 类名列表, class:list',
+};
+
+const classList = [
+  'cosy:border-2',
+  'cosy:border-accent',
+  'cosy:rounded-xl',
+  'cosy:shadow-lg',
+];
+---
+
+<AppLayout
+  metaConfig={metaConfig}
+  sidebarConfig={{
+    sidebarItems: defaultSidebarItems,
+  }}
+  headerConfig={defaultHeaderConfig}
+  footerConfig={defaultFooterConfig}
+  mainContentConfig={defaultMainContentConfig}
+  class:list={classList}>
+  <div class="cosy:p-6">
+    <h1 class="cosy:text-2xl cosy:font-bold cosy:mb-4">类名列表示例</h1>
+    <p class="cosy:text-gray-600">
+      这个示例展示了如何通过 class:list 属性为 AppLayout 组件添加多个类名。
+    </p>
+    <p class="cosy:text-gray-600 cosy:mt-2">
+      可以看到整个布局容器添加了边框、圆角和阴影样式。
+    </p>
+  </div>
+</AppLayout>

@@ -4,6 +4,8 @@
  * @description 应用布局组件，适用于页面布局，包含头部导航、侧边栏导航和目录
  * @usage 用于创建包含头部、侧边栏、主内容区和页脚的完整页面布局
  * @props
+ * @prop {any} [class:list] - 类名列表
+ * @prop {string} [class] - 自定义CSS类名
  * @prop {boolean} [debug=false] - 是否启用调试模式，显示各个部分的边框
  * @prop {Object} [footerConfig] - 页脚配置，包含站点信息、社交媒体链接等
  * @prop {Object} [headerConfig] - 头部配置，传递给AppHeader组件
@@ -14,8 +16,6 @@
  * @prop {boolean} [showHeader=true] - 是否显示头部
  * @prop {boolean} [showSidebar=true] - 是否显示侧边栏
  * @prop {Object} [sidebarConfig] - 侧边栏配置，包含导航项等
- * @prop {string} [class] - 自定义CSS类名
- * @prop {any} [class:list] - 类名列表
  * @prop {...HTMLAttributes<'div'>} [rest] - 其他HTML div标签属性
  * @slots
  * @slot default - 主内容区域

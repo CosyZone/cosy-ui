@@ -1,0 +1,65 @@
+---
+import { AppLayout } from '@coffic/cosy-ui';
+import {
+  defaultSidebarItems,
+  defaultMetaConfig,
+  defaultHeaderConfig,
+  defaultFooterConfig,
+  defaultMainContentConfig,
+} from './shared-config.ts';
+
+const metaConfig = {
+  ...defaultMetaConfig,
+  title: '搜索模态框插槽示例',
+  description: '展示如何使用 modal-search 插槽添加搜索功能',
+  keywords: 'AppLayout, modal-search, 搜索插槽',
+};
+---
+
+<AppLayout
+  metaConfig={metaConfig}
+  sidebarConfig={{
+    sidebarItems: defaultSidebarItems,
+  }}
+  headerConfig={defaultHeaderConfig}
+  footerConfig={defaultFooterConfig}
+  mainContentConfig={defaultMainContentConfig}>
+  <div slot="modal-search" class="cosy:space-y-4">
+    <div class="cosy:form-control">
+      <input
+        type="text"
+        placeholder="搜索文档..."
+        class="cosy:input cosy:input-bordered cosy:w-full"
+      />
+    </div>
+    <div class="cosy:flex cosy:gap-2">
+      <button class="cosy:btn cosy:btn-primary cosy:btn-sm">搜索</button>
+      <button class="cosy:btn cosy:btn-ghost cosy:btn-sm">清除</button>
+    </div>
+    <div class="cosy:divider"></div>
+    <div class="cosy:space-y-2">
+      <h3 class="cosy:font-semibold cosy:text-sm">热门搜索</h3>
+      <div class="cosy:flex cosy:flex-wrap cosy:gap-2">
+        <span class="cosy:badge cosy:badge-outline cosy:badge-sm">Button</span>
+        <span class="cosy:badge cosy:badge-outline cosy:badge-sm">Card</span>
+        <span class="cosy:badge cosy:badge-outline cosy:badge-sm">Layout</span>
+        <span class="cosy:badge cosy:badge-outline cosy:badge-sm">Form</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cosy:p-6">
+    <h1 class="cosy:text-2xl cosy:font-bold cosy:mb-4">搜索模态框插槽</h1>
+    <p class="cosy:text-gray-600">
+      这个示例展示了如何使用 modal-search 插槽添加搜索功能。
+    </p>
+    <p class="cosy:text-gray-600 cosy:mt-2">
+      当提供此插槽时，导航栏会自动显示搜索按钮，点击后打开搜索模态框。
+    </p>
+    <div class="cosy:mt-4 cosy:p-4 cosy:bg-blue-50 cosy:rounded-lg">
+      <p class="cosy:text-sm cosy:text-blue-700">
+        <strong>提示：</strong>点击导航栏右侧的搜索图标可以打开搜索模态框。
+      </p>
+    </div>
+  </div>
+</AppLayout>

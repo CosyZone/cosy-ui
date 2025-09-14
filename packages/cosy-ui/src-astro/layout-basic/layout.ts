@@ -6,22 +6,25 @@ import type { ISidebarProps } from '../types/sidebar';
 
 export interface IAppLayoutProps {
     /**
-     * 是否显示侧边栏
-     * @default true
+     * 类名列表
      */
-    showSidebar?: boolean;
+    'class:list'?: any;
 
     /**
-     * 是否显示页眉
-     * @default true
+     * 页面类名
      */
-    showHeader?: boolean;
+    class?: string;
 
     /**
-     * 是否显示页脚
-     * @default true
+     * 调试模式，显示各个部分的边框
+     * @default false
      */
-    showFooter?: boolean;
+    debug?: boolean;
+
+    /**
+     * 页脚相关配置
+     */
+    footerConfig: IFooterProps;
 
     /**
      * 自定义头部内容
@@ -34,9 +37,9 @@ export interface IAppLayoutProps {
     headerConfig: IHeaderProps;
 
     /**
-     * 侧边栏配置
+     * 加载中界面延迟显示的时间
      */
-    sidebarConfig: ISidebarProps;
+    loadingDelay?: number;
 
     /**
      * 主内容配置
@@ -44,33 +47,30 @@ export interface IAppLayoutProps {
     mainContentConfig: IMainContentProps;
 
     /**
-     * 页面类名
-     */
-    class?: string;
-
-    /**
-     * 类名列表
-     */
-    'class:list'?: any;
-
-    /**
-     * 调试模式，显示各个部分的边框
-     * @default false
-     */
-    debug?: boolean;
-
-    /**
      * 元数据配置
      */
     metaConfig: IMetaProps;
 
     /**
-     * 页脚相关配置
+     * 是否显示页脚
+     * @default true
      */
-    footerConfig: IFooterProps;
+    showFooter?: boolean;
 
     /**
-     * 加载中界面延迟显示的时间
+     * 是否显示页眉
+     * @default true
      */
-    loadingDelay?: number;
+    showHeader?: boolean;
+
+    /**
+     * 是否显示侧边栏
+     * @default true
+     */
+    showSidebar?: boolean;
+
+    /**
+     * 侧边栏配置
+     */
+    sidebarConfig: ISidebarProps;
 }

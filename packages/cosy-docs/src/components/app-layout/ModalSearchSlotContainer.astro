@@ -1,0 +1,14 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ModalSearchSlot from './ModalSearchSlot.astro';
+import ModalSearchSlotSourceCode from './ModalSearchSlot.astro?raw';
+---
+
+<CodeContainer
+  titles={['搜索模态框']}
+  descriptions={['展示如何使用 modal-search 插槽添加搜索功能']}
+  codes={[ModalSearchSlotSourceCode]}>
+  <div id="tab-1">
+    <ModalSearchSlot />
+  </div>
+</CodeContainer>

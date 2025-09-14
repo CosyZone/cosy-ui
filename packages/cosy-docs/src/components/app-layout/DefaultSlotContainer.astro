@@ -1,0 +1,14 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import DefaultSlot from './DefaultSlot.astro';
+import DefaultSlotSourceCode from './DefaultSlot.astro?raw';
+---
+
+<CodeContainer
+  titles={['默认插槽']}
+  descriptions={['展示如何使用默认插槽放置主要内容']}
+  codes={[DefaultSlotSourceCode]}>
+  <div id="tab-1">
+    <DefaultSlot />
+  </div>
+</CodeContainer>

@@ -1,0 +1,59 @@
+---
+import { AppLayout } from '@coffic/cosy-ui';
+import {
+  defaultSidebarItems,
+  defaultMetaConfig,
+  defaultHeaderConfig,
+  defaultFooterConfig,
+  defaultMainContentConfig,
+} from './shared-config.ts';
+
+const metaConfig = {
+  ...defaultMetaConfig,
+  title: '默认插槽示例',
+  description: '展示如何使用默认插槽放置主要内容',
+  keywords: 'AppLayout, 默认插槽, default slot',
+};
+---
+
+<AppLayout
+  metaConfig={metaConfig}
+  sidebarConfig={{
+    sidebarItems: defaultSidebarItems,
+  }}
+  headerConfig={defaultHeaderConfig}
+  footerConfig={defaultFooterConfig}
+  mainContentConfig={defaultMainContentConfig}>
+  <div class="cosy:p-6">
+    <h1 class="cosy:text-3xl cosy:font-bold cosy:mb-6">默认插槽示例</h1>
+    <div class="cosy:space-y-4">
+      <p class="cosy:text-lg cosy:text-gray-700">
+        这是通过默认插槽放置的主要内容。
+      </p>
+      <div class="cosy:bg-gray-100 cosy:p-4 cosy:rounded-lg">
+        <h2 class="cosy:text-xl cosy:font-semibold cosy:mb-2">内容区域</h2>
+        <p class="cosy:text-gray-600">
+          你可以在这里放置任何内容，包括文本、图片、组件等。
+        </p>
+      </div>
+      <div class="cosy:grid cosy:grid-cols-2 cosy:gap-4 cosy:mt-6">
+        <div class="cosy:bg-blue-50 cosy:p-4 cosy:rounded-lg">
+          <h3 class="cosy:font-semibold cosy:mb-2">功能特性</h3>
+          <ul class="cosy:text-sm cosy:space-y-1">
+            <li>• 响应式布局</li>
+            <li>• 侧边栏导航</li>
+            <li>• 头部导航</li>
+          </ul>
+        </div>
+        <div class="cosy:bg-green-50 cosy:p-4 cosy:rounded-lg">
+          <h3 class="cosy:font-semibold cosy:mb-2">使用场景</h3>
+          <ul class="cosy:text-sm cosy:space-y-1">
+            <li>• 文档站点</li>
+            <li>• 博客系统</li>
+            <li>• 知识库</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</AppLayout>
