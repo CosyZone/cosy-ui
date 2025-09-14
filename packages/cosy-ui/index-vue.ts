@@ -22,6 +22,7 @@ export * from './src-vue/social-icon/index';
 export * from './src-vue/key-catcher/index';
 export * from './src-vue/list/index';
 export * from './src-vue/progress/index';
+export * from './src-vue/photo-wall/index';
 export * from './src-vue/review/index';
 export * from './src-vue/status-bar/index';
 export * from './src-vue/text/index';

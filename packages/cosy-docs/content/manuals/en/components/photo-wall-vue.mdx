@@ -1,0 +1,92 @@
+---
+title: 'PhotoWall'
+description: 'Vue version of PhotoWall component'
+badge: 'Vue'
+tags:
+  - Vue
+order: 16.1
+---
+
+import { PhotoWall } from '@coffic/cosy-ui';
+import { PhotoWallVuePackage } from '@/components/photo-wall-vue/index';
+
+# {frontmatter.title}
+
+## Introduction
+
+The PhotoWall component is used to create photo wall layouts with multiple layout modes and interactive effects. It can display images, gradient backgrounds, text content, etc., creating rich visual effects.
+
+Component Features:
+
+- Irregular layout design that creates dynamic visual hierarchy
+- Supports multiple card sizes and shapes
+- Supports gradient backgrounds and text content
+- Supports hover and click effects
+- Responsive design that adapts to different screen sizes
+- Supports custom styles and animations
+
+## Example
+
+<PhotoWallVuePackage.Basic />
+
+## Props
+
+### photos
+
+Photo card data array, containing image information, titles, styles, etc.
+
+<PhotoWallVuePackage.Basic />
+
+### width
+
+Container width, supports multiple preset sizes.
+
+<PhotoWallVuePackage.Basic />
+
+### padding
+
+Container padding, supports none, sm, md, lg, xl, 2xl, 3xl, 4xl eight padding options.
+
+<PhotoWallVuePackage.PaddingContainer />
+
+### gap
+
+Card spacing, supports none, xs, sm, md, lg, xl six spacing options.
+
+<PhotoWallVuePackage.GapContainer />
+
+### rounded
+
+Card border radius, supports none, sm, md, lg, xl, 2xl, 3xl, full eight radius options.
+
+<PhotoWallVuePackage.RoundedContainer />
+
+### background
+
+Container background color, supports multiple preset semantic background colors.
+
+<PhotoWallVuePackage.BackgroundContainer />
+
+### border
+
+Whether to show border, when set to true, shows container border.
+
+<PhotoWallVuePackage.Basic />
+
+### hover
+
+Whether to enable hover effects, when set to true, shows hover animations.
+
+<PhotoWallVuePackage.HoverContainer />
+
+### clickable
+
+Whether to enable click effects, when set to true, cards are clickable.
+
+<PhotoWallVuePackage.ClickableContainer />
+
+### centered
+
+Whether to center display, when set to true, container is centered.
+
+<PhotoWallVuePackage.Basic />

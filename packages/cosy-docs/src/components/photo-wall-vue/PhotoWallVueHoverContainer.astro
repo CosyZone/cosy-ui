@@ -1,0 +1,22 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+
+// 源码导入
+import TrueExampleSourceCode from './PhotoWallVueHoverTrue.vue?raw';
+import FalseExampleSourceCode from './PhotoWallVueHoverFalse.vue?raw';
+
+// 组件导入
+import TrueExample from './PhotoWallVueHoverTrue.vue';
+import FalseExample from './PhotoWallVueHoverFalse.vue';
+---
+
+<CodeContainer
+  codes={[TrueExampleSourceCode, FalseExampleSourceCode]}
+  titles={['true', 'false']}>
+  <div id="tab-1">
+    <TrueExample />
+  </div>
+  <div id="tab-2">
+    <FalseExample />
+  </div>
+</CodeContainer>

@@ -1,0 +1,92 @@
+---
+title: 'PhotoWall'
+description: 'Vue 版本的照片墙组件'
+badge: 'Vue'
+tags:
+  - Vue
+order: 16.1
+---
+
+import { PhotoWall } from '@coffic/cosy-ui';
+import { PhotoWallVuePackage } from '@/components/photo-wall-vue/index';
+
+# {frontmatter.title}
+
+## 简介
+
+PhotoWall 组件用于创建照片墙布局，支持多种布局模式和交互效果。可以展示图片、渐变背景、文字内容等，创造出丰富的视觉效果。
+
+组件特性：
+
+- 采用不规则布局设计，创建动态的视觉层次
+- 支持多种卡片尺寸和形状
+- 支持渐变背景和文字内容
+- 支持悬停和点击效果
+- 响应式设计，适配不同屏幕尺寸
+- 支持自定义样式和动画
+
+## 案例
+
+<PhotoWallVuePackage.Basic />
+
+## Props
+
+### photos
+
+照片卡片数据数组，包含图片信息、标题、样式等。
+
+<PhotoWallVuePackage.Basic />
+
+### width
+
+容器宽度，支持多种预设尺寸。
+
+<PhotoWallVuePackage.Basic />
+
+### padding
+
+容器内边距，支持 none、sm、md、lg、xl、2xl、3xl、4xl 八种内边距。
+
+<PhotoWallVuePackage.PaddingContainer />
+
+### gap
+
+卡片间距，支持 none、xs、sm、md、lg、xl 六种间距。
+
+<PhotoWallVuePackage.GapContainer />
+
+### rounded
+
+卡片圆角大小，支持 none、sm、md、lg、xl、2xl、3xl、full 八种圆角。
+
+<PhotoWallVuePackage.RoundedContainer />
+
+### background
+
+容器背景色，支持多种预设的语义化背景色。
+
+<PhotoWallVuePackage.BackgroundContainer />
+
+### border
+
+是否显示边框，设置为 true 时显示容器边框。
+
+<PhotoWallVuePackage.Basic />
+
+### hover
+
+是否启用悬停效果，设置为 true 时显示悬停动画。
+
+<PhotoWallVuePackage.HoverContainer />
+
+### clickable
+
+是否启用点击效果，设置为 true 时卡片可点击。
+
+<PhotoWallVuePackage.ClickableContainer />
+
+### centered
+
+是否居中显示，设置为 true 时容器居中显示。
+
+<PhotoWallVuePackage.Basic />
