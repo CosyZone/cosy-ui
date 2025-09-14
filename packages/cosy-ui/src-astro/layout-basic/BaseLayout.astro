@@ -63,6 +63,7 @@ const {
   title,
   description = '',
   keywords = '',
+  author = '',
   lang = 'zh-CN',
   viewport = true,
   customStyles = '',
@@ -96,8 +97,9 @@ let bodyClasses = [
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     {keywords && <meta name="keywords" content={keywords} />}
-    <meta name="generator" content={Astro.generator} />
+    {author && <meta name="author" content={author} />}
     {favicon && <link rel="icon" type={favicon.format} href={favicon.src} />}
+    <meta name="generator" content={Astro.generator} />
 
     <ClientRouter />
 
