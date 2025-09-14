@@ -1,0 +1,49 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+
+// 源码导入
+import NoneSourceCode from './PhotoWallGapNone.astro?raw';
+import XsSourceCode from './PhotoWallGapXs.astro?raw';
+import SmSourceCode from './PhotoWallGapSm.astro?raw';
+import MdSourceCode from './PhotoWallGapMd.astro?raw';
+import LgSourceCode from './PhotoWallGapLg.astro?raw';
+import XlSourceCode from './PhotoWallGapXl.astro?raw';
+
+// 组件导入
+import NoneExample from './PhotoWallGapNone.astro';
+import XsExample from './PhotoWallGapXs.astro';
+import SmExample from './PhotoWallGapSm.astro';
+import MdExample from './PhotoWallGapMd.astro';
+import LgExample from './PhotoWallGapLg.astro';
+import XlExample from './PhotoWallGapXl.astro';
+---
+
+<CodeContainer
+  codes={[
+    NoneSourceCode,
+    XsSourceCode,
+    SmSourceCode,
+    MdSourceCode,
+    LgSourceCode,
+    XlSourceCode,
+  ]}
+  titles={['none', 'xs', 'sm', 'md', 'lg', 'xl']}>
+  <div id="tab-1">
+    <NoneExample />
+  </div>
+  <div id="tab-2">
+    <XsExample />
+  </div>
+  <div id="tab-3">
+    <SmExample />
+  </div>
+  <div id="tab-4">
+    <MdExample />
+  </div>
+  <div id="tab-5">
+    <LgExample />
+  </div>
+  <div id="tab-6">
+    <XlExample />
+  </div>
+</CodeContainer>

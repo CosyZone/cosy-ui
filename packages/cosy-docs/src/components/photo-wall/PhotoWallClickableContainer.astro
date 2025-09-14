@@ -1,0 +1,22 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+
+// 源码导入
+import FalseSourceCode from './PhotoWallClickableFalse.astro?raw';
+import TrueSourceCode from './PhotoWallClickableTrue.astro?raw';
+
+// 组件导入
+import FalseExample from './PhotoWallClickableFalse.astro';
+import TrueExample from './PhotoWallClickableTrue.astro';
+---
+
+<CodeContainer
+  codes={[FalseSourceCode, TrueSourceCode]}
+  titles={['false', 'true']}>
+  <div id="tab-1">
+    <FalseExample />
+  </div>
+  <div id="tab-2">
+    <TrueExample />
+  </div>
+</CodeContainer>

@@ -1,0 +1,105 @@
+---
+title: 'PhotoWall'
+description: 'Astro 版本的照片墙组件'
+badge: 'Astro'
+tags:
+  - Astro
+order: 16.1
+---
+
+import { PhotoWall } from '@coffic/cosy-ui';
+import { PhotoWallPackage } from '@/components/photo-wall/index.ts';
+
+# {frontmatter.title}
+
+## 简介
+
+PhotoWall 组件用于创建照片墙布局，支持多种布局模式和交互效果。可以展示图片、渐变背景、文字内容等，创造出丰富的视觉效果。
+
+组件特性：
+
+- 采用不规则布局设计，创建动态的视觉层次
+- 所有图片强制显示为正方形，确保最佳展示效果
+- 支持多种卡片尺寸（xs、sm、md、lg、xl）
+- 支持渐变背景和文字内容
+- 支持悬停和点击效果
+- 响应式设计，适配不同屏幕尺寸
+- 支持自定义样式和动画
+
+## 案例
+
+<PhotoWallPackage.Basic />
+
+## Props
+
+### background
+
+容器背景色，支持多种预设的语义化背景色。
+
+<PhotoWallPackage.BackgroundContainer />
+
+### border
+
+是否显示边框，设置为 true 时显示容器边框。
+
+<PhotoWallPackage.Basic />
+
+### centered
+
+是否居中显示，设置为 true 时容器居中显示。
+
+<PhotoWallPackage.Basic />
+
+### clickable
+
+是否启用点击效果，设置为 true 时卡片可点击。
+
+<PhotoWallPackage.ClickableContainer />
+
+### gap
+
+卡片间距，支持 none、xs、sm、md、lg、xl 六种间距。
+
+<PhotoWallPackage.GapContainer />
+
+### hover
+
+是否启用悬停效果，设置为 true 时显示悬停动画。
+
+<PhotoWallPackage.HoverContainer />
+
+### padding
+
+容器内边距，支持 none、sm、md、lg、xl、2xl、3xl、4xl 八种内边距。
+
+<PhotoWallPackage.PaddingContainer />
+
+### photos
+
+照片卡片数据数组，包含图片信息、标题、样式等。
+
+<PhotoWallPackage.Basic />
+
+### rounded
+
+卡片圆角大小，支持 none、sm、md、lg、xl、2xl、3xl、full 八种圆角。
+
+<PhotoWallPackage.RoundedContainer />
+
+### subtitle
+
+中心副标题，与 title 配合使用，显示在标题下方。
+
+<PhotoWallPackage.SubtitleContainer />
+
+### title
+
+中心标题，在图片墙中心显示标题文字，带有遮罩效果确保可读性。
+
+<PhotoWallPackage.TitleContainer />
+
+### width
+
+容器宽度，支持多种预设尺寸。
+
+<PhotoWallPackage.WidthContainer />

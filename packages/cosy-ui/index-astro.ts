@@ -47,6 +47,7 @@ export * from './src-astro/main';
 export * from './src-astro/modal';
 export * from './src-astro/module';
 export * from './src-astro/nav-section';
+export * from './src-astro/photo-wall';
 export * from './src-astro/picture-book';
 export * from './src-astro/placeholder';
 export * from './src-astro/products';
