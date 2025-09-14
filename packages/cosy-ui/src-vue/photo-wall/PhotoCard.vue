@@ -41,33 +41,22 @@ const props = withDefaults(defineProps<IPhotoCardProps>(), {
     rounded: 'md',
 });
 
-// 获取尺寸类名
+// 获取尺寸类名 - 在网格布局中不需要固定尺寸
 const getSizeClasses = (size: string = 'md') => {
-    const sizeMap = {
-        xs: 'cosy:w-16 cosy:h-16',
-        sm: 'cosy:w-24 cosy:h-24',
-        md: 'cosy:w-32 cosy:h-32',
-        lg: 'cosy:w-40 cosy:h-40',
-        xl: 'cosy:w-48 cosy:h-48',
-    };
-    return sizeMap[size as keyof typeof sizeMap] || sizeMap.md;
+    // 在 CSS Grid 布局中，尺寸由网格区域决定，不需要固定尺寸
+    return '';
 };
 
-// 获取形状类名
+// 获取形状类名 - 强制所有卡片为正方形
 const getShapeClasses = (shape: string = 'square') => {
-    const shapeMap = {
-        square: '',
-        rectangle: 'cosy:w-48 cosy:h-32',
-        wide: 'cosy:w-64 cosy:h-32',
-        tall: 'cosy:w-32 cosy:h-48',
-    };
-    return shapeMap[shape as keyof typeof shapeMap] || '';
+    // 忽略用户提供的形状，强制使用正方形
+    return '';
 };
 
 // 获取样式类名
 const getStyleClasses = (style: string = 'default') => {
     const styleMap = {
-        default: 'cosy:bg-base-100',
+        default: '', // 不设置背景色，让图片完全填满
         gradient: 'cosy:bg-gradient-to-br',
         image: 'cosy:bg-cover cosy:bg-center',
         text: 'cosy:bg-base-100 cosy:flex cosy:flex-col cosy:items-center cosy:justify-center',
@@ -82,15 +71,17 @@ const cardClasses = computed(() => {
         'cosy:overflow-hidden',
         'cosy:border',
         'cosy:border-base-300',
-        'cosy:shadow-sm',
-        getSizeClasses(props.card.size),
-        getShapeClasses(props.card.shape),
+        'cosy:shadow-lg', // 增强阴影效果
+        'cosy:rounded-xl', // 更圆润的圆角
+        'cosy:w-full', // 填满网格区域
+        'cosy:h-full', // 填满网格区域
+        'cosy:aspect-square', // 强制正方形宽高比
+        'cosy:min-h-0', // 确保高度可以收缩
         getStyleClasses(props.card.style),
-        roundedClasses[props.rounded],
     ];
 
     if (props.hover) {
-        baseClasses.push('cosy:transition-all cosy:duration-300 cosy:cursor-pointer');
+        baseClasses.push('cosy:transition-all cosy:duration-300 cosy:cursor-pointer cosy:hover:scale-105 cosy:hover:shadow-xl');
     }
 
     if (props.clickable) {
@@ -138,11 +129,12 @@ const textStyle = computed(() => {
 </script>
 
 <template>
-    <div :class="[cardClasses, hoverClasses, props.class]"
+    <div :class="[cardClasses, hoverClasses, props.class, 'not-prose']"
         :style="[backgroundStyle, props.card.style === 'image' ? { backgroundImage: `url(${card.src})` } : {}]">
         <!-- 图片模式 -->
         <img v-if="card.style === 'default' && card.src" :src="card.src" :alt="card.alt || card.title || '照片'"
-            class="cosy:w-full cosy:h-full cosy:object-cover" />
+            class="cosy:absolute cosy:inset-0 cosy:w-full cosy:h-full cosy:object-cover"
+            style="object-position: center center; object-fit: cover; top: 0; left: 0; right: 0; bottom: 0;" />
 
         <!-- 文字模式 -->
         <div v-else-if="card.style === 'text'" class="cosy:p-4 cosy:text-center" :style="textStyle">
@@ -167,7 +159,7 @@ const textStyle = computed(() => {
 
         <!-- 悬停遮罩 -->
         <div v-if="hover"
-            class="cosy:absolute cosy:inset-0 cosy:bg-black/20 cosy:opacity-0 cosy:group-hover:opacity-100 cosy:transition-opacity cosy:duration-300 cosy:flex cosy:items-center cosy:justify-center">
+            class="cosy:absolute cosy:inset-0 cosy:bg-black/20 cosy:opacity-0 cosy:group-hover:opacity-100 cosy:transition-opacity cosy:duration-300 cosy:flex cosy:items-center cosy:justify-center cosy:rounded-xl">
             <span class="cosy:text-white cosy:text-sm cosy:font-medium">
                 点击查看
             </span>

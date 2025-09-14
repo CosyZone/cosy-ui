@@ -9,8 +9,8 @@ import type { Size } from '../../src/common/size';
 // 照片卡片尺寸类型
 export type PhotoCardSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
-// 照片卡片形状类型
-export type PhotoCardShape = 'square' | 'rectangle' | 'wide' | 'tall';
+// 照片卡片形状类型 - 已废弃，现在强制使用正方形
+export type PhotoCardShape = 'square';
 
 // 照片卡片样式类型
 export type PhotoCardStyle = 'default' | 'gradient' | 'image' | 'text';
@@ -24,6 +24,7 @@ export interface PhotoCardData {
     title?: string;
     subtitle?: string;
     size?: PhotoCardSize;
+    /** 卡片形状 - 已废弃，现在强制使用正方形 */
     shape?: PhotoCardShape;
     style?: PhotoCardStyle;
     gradient?: string;

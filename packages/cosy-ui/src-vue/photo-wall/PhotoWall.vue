@@ -72,29 +72,40 @@ const photoWallClasses = computed(() => {
     const baseClasses = [
         'cosy:grid',
         'cosy:grid-cols-12',
-        'cosy:auto-rows-min',
-        getGapClasses(props.gap),
+        'cosy:auto-rows-[minmax(0,1fr)]', // 使用 minmax 确保行高可以收缩
+        'cosy:gap-4', // 固定间距
+        'cosy:justify-items-stretch', // 让卡片填满网格区域
+        'cosy:items-stretch',
         props.class,
     ];
 
     return baseClasses.join(' ');
 });
 
-// 获取卡片网格区域
-const getCardGridArea = (index: number, card: PhotoCardData) => {
-    // 根据卡片尺寸和位置计算网格区域
-    const size = card.size || 'md';
-    const row = Math.floor(index / 6) + 1;
-    const col = (index % 6) + 1;
+// 简单的不重叠布局算法 - 强制所有卡片为正方形
+const getCardLayout = (index: number, card: PhotoCardData) => {
+    // 强制所有卡片使用相同的正方形尺寸
+    const colSpan = 3; // 每个卡片占用3列
+    const rowSpan = 3; // 每个卡片占用3行，确保正方形
 
-    // 根据尺寸确定跨度和位置
-    if (size === 'lg') {
-        return `${row} / ${col} / ${row + 2} / ${col + 4}`;
-    } else if (size === 'md') {
-        return `${row} / ${col} / ${row + 1} / ${col + 3}`;
-    } else {
-        return `${row} / ${col} / ${row + 1} / ${col + 2}`;
-    }
+    // 使用简单的网格布局，确保不重叠
+    // 每行最多4个卡片，每个卡片占用3列空间
+    const itemsPerRow = 4;
+    const currentRow = Math.floor(index / itemsPerRow);
+    const currentCol = index % itemsPerRow;
+
+    // 计算起始位置 - 每个卡片占用3列空间，行间距为3
+    const colStart = currentCol * 3 + 1;
+    const rowStart = currentRow * 3 + 1;
+
+    // 确保不超出网格边界
+    const finalColStart = Math.min(colStart, 13 - colSpan);
+
+    return {
+        gridArea: `${rowStart} / ${finalColStart} / ${rowStart + rowSpan} / ${finalColStart + colSpan}`,
+        colSpan,
+        rowSpan
+    };
 };
 
 // 组件挂载后重新计算布局
@@ -109,9 +120,7 @@ onMounted(async () => {
         :rounded="rounded" :style="props.style">
         <div ref="containerRef" :class="photoWallClasses">
             <PhotoCard v-for="(photo, index) in photos" :key="photo.id" :card="photo" :hover="hover"
-                :clickable="clickable" :rounded="rounded"
-                :class="`cosy:col-span-${photo.size === 'lg' ? '4' : photo.size === 'md' ? '3' : '2'} cosy:row-span-${photo.size === 'lg' ? '2' : '1'}`"
-                :style="{ gridArea: getCardGridArea(index, photo) }" />
+                :clickable="clickable" :rounded="rounded" :style="{ gridArea: getCardLayout(index, photo).gridArea }" />
         </div>
     </Container>
 </template>
