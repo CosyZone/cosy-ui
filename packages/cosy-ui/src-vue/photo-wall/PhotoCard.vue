@@ -41,17 +41,6 @@ const props = withDefaults(defineProps<IPhotoCardProps>(), {
     rounded: 'md',
 });
 
-// 获取尺寸类名 - 在网格布局中不需要固定尺寸
-const getSizeClasses = (size: string = 'md') => {
-    // 在 CSS Grid 布局中，尺寸由网格区域决定，不需要固定尺寸
-    return '';
-};
-
-// 获取形状类名 - 强制所有卡片为正方形
-const getShapeClasses = (shape: string = 'square') => {
-    // 忽略用户提供的形状，强制使用正方形
-    return '';
-};
 
 // 获取样式类名
 const getStyleClasses = (style: string = 'default') => {
@@ -72,7 +61,7 @@ const cardClasses = computed(() => {
         'cosy:border',
         'cosy:border-base-300',
         'cosy:shadow-lg', // 增强阴影效果
-        'cosy:rounded-xl', // 更圆润的圆角
+        roundedClasses[props.rounded || 'md'], // 动态圆角
         'cosy:w-full', // 填满网格区域
         'cosy:h-full', // 填满网格区域
         'cosy:aspect-square', // 强制正方形宽高比
@@ -159,7 +148,7 @@ const textStyle = computed(() => {
 
         <!-- 悬停遮罩 -->
         <div v-if="hover"
-            class="cosy:absolute cosy:inset-0 cosy:bg-black/20 cosy:opacity-0 cosy:group-hover:opacity-100 cosy:transition-opacity cosy:duration-300 cosy:flex cosy:items-center cosy:justify-center cosy:rounded-xl">
+            :class="['cosy:absolute', 'cosy:inset-0', 'cosy:bg-black/20', 'cosy:opacity-0', 'cosy:group-hover:opacity-100', 'cosy:transition-opacity', 'cosy:duration-300', 'cosy:flex', 'cosy:items-center', 'cosy:justify-center', roundedClasses[props.rounded || 'md']]">
             <span class="cosy:text-white cosy:text-sm cosy:font-medium">
                 点击查看
             </span>
