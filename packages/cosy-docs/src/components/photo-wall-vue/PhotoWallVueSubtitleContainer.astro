@@ -1,0 +1,31 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+
+// 源码导入
+import ShortExampleSourceCode from './PhotoWallVueSubtitleShort.vue?raw';
+import MediumExampleSourceCode from './PhotoWallVueSubtitleMedium.vue?raw';
+import LongExampleSourceCode from './PhotoWallVueSubtitleLong.vue?raw';
+
+// 组件导入
+import ShortExample from './PhotoWallVueSubtitleShort.vue';
+import MediumExample from './PhotoWallVueSubtitleMedium.vue';
+import LongExample from './PhotoWallVueSubtitleLong.vue';
+---
+
+<CodeContainer
+  codes={[
+    ShortExampleSourceCode,
+    MediumExampleSourceCode,
+    LongExampleSourceCode,
+  ]}
+  titles={['短副标题', '中等副标题', '长副标题']}>
+  <div id="tab-1">
+    <ShortExample />
+  </div>
+  <div id="tab-2">
+    <MediumExample />
+  </div>
+  <div id="tab-3">
+    <LongExample />
+  </div>
+</CodeContainer>

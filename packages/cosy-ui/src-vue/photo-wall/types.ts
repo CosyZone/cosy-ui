@@ -56,6 +56,10 @@ export interface IPhotoWallProps {
     border?: boolean;
     /** 是否居中显示 */
     centered?: boolean;
+    /** 中心标题 */
+    title?: string;
+    /** 中心副标题 */
+    subtitle?: string;
     /** 自定义类名 */
     class?: string;
     /** 自定义样式 */

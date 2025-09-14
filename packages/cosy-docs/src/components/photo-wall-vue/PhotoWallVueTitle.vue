@@ -4,5 +4,5 @@ import { photoWallPhotos } from './example-data';
 </script>
 
 <template>
-    <PhotoWall :photos="photoWallPhotos" background="info/10" title="精彩的回忆" subtitle="记录每一个美好瞬间" padding="2xl" />
+    <PhotoWall :photos="photoWallPhotos" title="新爱好歌，自动找上你。" subtitle="发现你的音乐世界" gap="sm" rounded="lg" />
 </template>
