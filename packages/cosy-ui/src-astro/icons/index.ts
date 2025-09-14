@@ -56,5 +56,7 @@ export { default as UsersIcon } from './UsersIcon.astro';
 export { default as ViewIcon } from './ViewIcon.astro';
 export { default as WalletIcon } from './WalletIcon.astro';
 export { default as WarningIcon } from './WarningIcon.astro';
+export { default as WechatIcon } from './WechatIcon.astro';
 export { default as WebsiteIcon } from './WebsiteIcon.astro';
+export { default as WhatsappIcon } from './WhatsappIcon.astro';
 export { default as XCircle } from './XCircle.astro';

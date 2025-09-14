@@ -22,6 +22,8 @@ import FooterAboutLinkContainer from './FooterAboutLinkContainer.astro';
 import FooterBlogLinkContainer from './FooterBlogLinkContainer.astro';
 import FooterCareersLinkContainer from './FooterCareersLinkContainer.astro';
 import FooterContactLinkContainer from './FooterContactLinkContainer.astro';
+import FooterWithWechatQRContainer from './FooterWithWechatQRContainer.astro';
+import FooterQRContainer from './FooterQRContainer.astro';
 
 export const FooterPackage = {
     FooterContainers: {
@@ -38,6 +40,8 @@ export const FooterPackage = {
         BlogLink: FooterBlogLinkContainer,
         CareersLink: FooterCareersLinkContainer,
         ContactLink: FooterContactLinkContainer,
+        WithWechatQR: FooterWithWechatQRContainer,
+        QR: FooterQRContainer,
     },
     FooterExamples: {
         Basic: FooterBasic,

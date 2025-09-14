@@ -1,0 +1,37 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+
+// 源码导入
+import NoneExampleSourceCode from './PhotoWallVuePaddingNone.vue?raw';
+import SmExampleSourceCode from './PhotoWallVuePaddingSm.vue?raw';
+import MdExampleSourceCode from './PhotoWallVuePaddingMd.vue?raw';
+import LgExampleSourceCode from './PhotoWallVuePaddingLg.vue?raw';
+import XlExampleSourceCode from './PhotoWallVuePaddingXl.vue?raw';
+
+// 组件导入
+import NoneExample from './PhotoWallVuePaddingNone.vue';
+import SmExample from './PhotoWallVuePaddingSm.vue';
+import MdExample from './PhotoWallVuePaddingMd.vue';
+import LgExample from './PhotoWallVuePaddingLg.vue';
+import XlExample from './PhotoWallVuePaddingXl.vue';
+---
+
+<CodeContainer
+  codes={[NoneExampleSourceCode, SmExampleSourceCode, MdExampleSourceCode, LgExampleSourceCode, XlExampleSourceCode]}
+  titles={['none', 'sm', 'md', 'lg', 'xl']}>
+  <div id="tab-1">
+    <NoneExample />
+  </div>
+  <div id="tab-2">
+    <SmExample />
+  </div>
+  <div id="tab-3">
+    <MdExample />
+  </div>
+  <div id="tab-4">
+    <LgExample />
+  </div>
+  <div id="tab-5">
+    <XlExample />
+  </div>
+</CodeContainer>

@@ -1,0 +1,61 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+
+// 源码导入
+import NoneSourceCode from './PhotoWallRoundedNone.astro?raw';
+import SmSourceCode from './PhotoWallRoundedSm.astro?raw';
+import MdSourceCode from './PhotoWallRoundedMd.astro?raw';
+import LgSourceCode from './PhotoWallRoundedLg.astro?raw';
+import XlSourceCode from './PhotoWallRoundedXl.astro?raw';
+import Xl2SourceCode from './PhotoWallRounded2xl.astro?raw';
+import Xl3SourceCode from './PhotoWallRounded3xl.astro?raw';
+import FullSourceCode from './PhotoWallRoundedFull.astro?raw';
+
+// 组件导入
+import NoneExample from './PhotoWallRoundedNone.astro';
+import SmExample from './PhotoWallRoundedSm.astro';
+import MdExample from './PhotoWallRoundedMd.astro';
+import LgExample from './PhotoWallRoundedLg.astro';
+import XlExample from './PhotoWallRoundedXl.astro';
+import Xl2Example from './PhotoWallRounded2xl.astro';
+import Xl3Example from './PhotoWallRounded3xl.astro';
+import FullExample from './PhotoWallRoundedFull.astro';
+---
+
+<CodeContainer
+  codes={[
+    NoneSourceCode,
+    SmSourceCode,
+    MdSourceCode,
+    LgSourceCode,
+    XlSourceCode,
+    Xl2SourceCode,
+    Xl3SourceCode,
+    FullSourceCode,
+  ]}
+  titles={['none', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', 'full']}>
+  <div id="tab-1">
+    <NoneExample />
+  </div>
+  <div id="tab-2">
+    <SmExample />
+  </div>
+  <div id="tab-3">
+    <MdExample />
+  </div>
+  <div id="tab-4">
+    <LgExample />
+  </div>
+  <div id="tab-5">
+    <XlExample />
+  </div>
+  <div id="tab-6">
+    <Xl2Example />
+  </div>
+  <div id="tab-7">
+    <Xl3Example />
+  </div>
+  <div id="tab-8">
+    <FullExample />
+  </div>
+</CodeContainer>

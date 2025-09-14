@@ -1,0 +1,49 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+
+// 源码导入
+import NoneExampleSourceCode from './PhotoWallVueGapNone.vue?raw';
+import XsExampleSourceCode from './PhotoWallVueGapXs.vue?raw';
+import SmExampleSourceCode from './PhotoWallVueGapSm.vue?raw';
+import MdExampleSourceCode from './PhotoWallVueGapMd.vue?raw';
+import LgExampleSourceCode from './PhotoWallVueGapLg.vue?raw';
+import XlExampleSourceCode from './PhotoWallVueGapXl.vue?raw';
+
+// 组件导入
+import NoneExample from './PhotoWallVueGapNone.vue';
+import XsExample from './PhotoWallVueGapXs.vue';
+import SmExample from './PhotoWallVueGapSm.vue';
+import MdExample from './PhotoWallVueGapMd.vue';
+import LgExample from './PhotoWallVueGapLg.vue';
+import XlExample from './PhotoWallVueGapXl.vue';
+---
+
+<CodeContainer
+  codes={[
+    NoneExampleSourceCode,
+    XsExampleSourceCode,
+    SmExampleSourceCode,
+    MdExampleSourceCode,
+    LgExampleSourceCode,
+    XlExampleSourceCode,
+  ]}
+  titles={['none', 'xs', 'sm', 'md', 'lg', 'xl']}>
+  <div id="tab-1">
+    <NoneExample />
+  </div>
+  <div id="tab-2">
+    <XsExample />
+  </div>
+  <div id="tab-3">
+    <SmExample />
+  </div>
+  <div id="tab-4">
+    <MdExample />
+  </div>
+  <div id="tab-5">
+    <LgExample />
+  </div>
+  <div id="tab-6">
+    <XlExample />
+  </div>
+</CodeContainer>

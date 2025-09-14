@@ -1,5 +1,6 @@
 import type { ILogo, IProduct } from './product';
 import type { BackgroundColor } from '../../src/common/backgrounds';
+import type { ImageSource } from '../image/image';
 
 export interface IFooterProps {
     /**
@@ -143,4 +144,14 @@ export interface IFooterProps {
      * 条款链接
      */
     termsLink?: string;
+
+    /**
+     * 微信二维码
+     */
+    wechatQR?: ImageSource;
+
+    /**
+     * WhatsApp 二维码
+     */
+    whatsappQR?: ImageSource;
 }

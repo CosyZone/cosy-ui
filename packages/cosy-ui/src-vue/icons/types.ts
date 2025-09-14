@@ -94,5 +94,7 @@ export type IconName =
     | 'view'
     | 'wallet'
     | 'warning'
+    | 'wechat'
     | 'website'
+    | 'whatsapp'
     | 'xCircle'; 

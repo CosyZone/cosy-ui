@@ -1,0 +1,43 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+
+// 源码导入
+import BasicSourceCode from './PhotoWallBasic.astro?raw';
+import InfoSourceCode from './PhotoWallBackgroundInfo.astro?raw';
+import SuccessSourceCode from './PhotoWallBackgroundSuccess.astro?raw';
+import WarningSourceCode from './PhotoWallBackgroundWarning.astro?raw';
+import ErrorSourceCode from './PhotoWallBackgroundError.astro?raw';
+
+// 组件导入
+import BasicExample from './PhotoWallBasic.astro';
+import InfoExample from './PhotoWallBackgroundInfo.astro';
+import SuccessExample from './PhotoWallBackgroundSuccess.astro';
+import WarningExample from './PhotoWallBackgroundWarning.astro';
+import ErrorExample from './PhotoWallBackgroundError.astro';
+---
+
+<CodeContainer
+  codes={[
+    BasicSourceCode,
+    InfoSourceCode,
+    SuccessSourceCode,
+    WarningSourceCode,
+    ErrorSourceCode,
+  ]}
+  titles={['默认', 'info/10', 'success/10', 'warning/10', 'error/10']}>
+  <div id="tab-1">
+    <BasicExample />
+  </div>
+  <div id="tab-2">
+    <InfoExample />
+  </div>
+  <div id="tab-3">
+    <SuccessExample />
+  </div>
+  <div id="tab-4">
+    <WarningExample />
+  </div>
+  <div id="tab-5">
+    <ErrorExample />
+  </div>
+</CodeContainer>

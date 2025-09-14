@@ -20,6 +20,7 @@ import NavigationTypeContainer from './NavigationTypeContainer.astro';
 import DebugContainer from './DebugContainer.astro';
 import CustomClassContainer from './CustomClassContainer.astro';
 import ClassListContainer from './ClassListContainer.astro';
+import HoverImageContainer from './HoverImageContainer.astro';
 import RestContainer from './RestContainer.astro';
 
 export const LinkPackage = {
@@ -38,6 +39,7 @@ export const LinkPackage = {
     External: ExternalContainer,
     FullWidth: FullWidthContainer,
     Ghost: GhostContainer,
+    HoverImage: HoverImageContainer,
     Icons: LinkIconsContainer,
     NavigationType: NavigationTypeContainer,
     NoUnderline: NoUnderlineContainer,

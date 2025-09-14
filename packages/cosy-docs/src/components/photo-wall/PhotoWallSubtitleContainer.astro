@@ -1,0 +1,27 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+
+// 源码导入
+import ShortSourceCode from './PhotoWallSubtitleShort.astro?raw';
+import MediumSourceCode from './PhotoWallSubtitleMedium.astro?raw';
+import LongSourceCode from './PhotoWallSubtitleLong.astro?raw';
+
+// 组件导入
+import ShortExample from './PhotoWallSubtitleShort.astro';
+import MediumExample from './PhotoWallSubtitleMedium.astro';
+import LongExample from './PhotoWallSubtitleLong.astro';
+---
+
+<CodeContainer
+  codes={[ShortSourceCode, MediumSourceCode, LongSourceCode]}
+  titles={['短副标题', '中等副标题', '长副标题']}>
+  <div id="tab-1">
+    <ShortExample />
+  </div>
+  <div id="tab-2">
+    <MediumExample />
+  </div>
+  <div id="tab-3">
+    <LongExample />
+  </div>
+</CodeContainer>

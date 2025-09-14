@@ -1,0 +1,27 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import FooterWithWechatQR from './FooterWithWechatQR.astro';
+import FooterWithWhatsappQR from './FooterWithWhatsappQR.astro';
+import FooterWithBothQR from './FooterWithBothQR.astro';
+import FooterWithWechatQRSourceCode from './FooterWithWechatQR.astro?raw';
+import FooterWithWhatsappQRSourceCode from './FooterWithWhatsappQR.astro?raw';
+import FooterWithBothQRSourceCode from './FooterWithBothQR.astro?raw';
+---
+
+<CodeContainer
+  titles={['微信二维码', 'WhatsApp 二维码', '同时支持两种二维码']}
+  codes={[
+    FooterWithWechatQRSourceCode,
+    FooterWithWhatsappQRSourceCode,
+    FooterWithBothQRSourceCode,
+  ]}>
+  <div id="tab-1">
+    <FooterWithWechatQR />
+  </div>
+  <div id="tab-2">
+    <FooterWithWhatsappQR />
+  </div>
+  <div id="tab-3">
+    <FooterWithBothQR />
+  </div>
+</CodeContainer>

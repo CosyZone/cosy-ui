@@ -55,7 +55,9 @@ export { default as UsersIcon } from './UsersIcon.vue';
 export { default as ViewIcon } from './ViewIcon.vue';
 export { default as WalletIcon } from './WalletIcon.vue';
 export { default as WarningIcon } from './WarningIcon.vue';
+export { default as WechatIcon } from './WechatIcon.vue';
 export { default as WebsiteIcon } from './WebsiteIcon.vue';
+export { default as WhatsappIcon } from './WhatsappIcon.vue';
 export { default as XCircleIcon } from './XCircleIcon.vue';
 
 // 类型导出
