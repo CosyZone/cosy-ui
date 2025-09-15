@@ -46,8 +46,10 @@
  */
 
 import '../../style.ts';
+import type { BackgroundColor } from '../../src/common';
+import { getBackgroundClass } from '../../src/common';
 
-interface Props {
+interface IProps {
   /**
    * 动画效果类型，可选值：
    * - 'none': 无动画
@@ -61,30 +63,7 @@ interface Props {
   /**
    * 背景颜色，默认为primary
    */
-  bgColor?:
-    | 'primary'
-    | 'secondary'
-    | 'accent'
-    | 'info'
-    | 'success'
-    | 'warning'
-    | 'error'
-    // 大自然灵感渐变
-    | 'gradient-sky'
-    | 'gradient-sunset'
-    | 'gradient-forest'
-    | 'gradient-ocean'
-    | 'gradient-mountain'
-    | 'gradient-flower'
-    // 水果灵感渐变
-    | 'gradient-watermelon'
-    | 'gradient-lemon'
-    | 'gradient-grape'
-    | 'gradient-blueberry'
-    | 'gradient-mango'
-    | 'gradient-kiwi'
-    | 'gradient-pitaya'
-    | 'gradient-banana';
+  bgColor?: BackgroundColor;
 
   /**
    * 自定义CSS类，可用于覆盖默认样式
@@ -108,7 +87,7 @@ const {
   bgColor = 'primary',
   textColor = '',
   animation = 'both',
-} = Astro.props;
+} = Astro.props as IProps;
 
 // 根据背景色自动设置文本颜色
 const getTextColorClass = () => {
@@ -121,43 +100,7 @@ const getTextColorClass = () => {
     : 'cosy:text-gray-800';
 };
 
-// 渐变色背景映射
-const gradientBgClassMap = {
-  'gradient-sky': 'cosy:bg-gradient-to-r cosy:from-sky-400 cosy:to-indigo-500',
-  'gradient-watermelon':
-    'cosy:bg-gradient-to-r cosy:from-green-300 cosy:via-pink-400 cosy:to-red-500',
-  'gradient-lemon':
-    'cosy:bg-gradient-to-r cosy:from-yellow-200 cosy:via-yellow-400 cosy:to-yellow-600',
-  'gradient-grape':
-    'cosy:bg-gradient-to-r cosy:from-purple-400 cosy:via-indigo-500 cosy:to-purple-700',
-  'gradient-mango':
-    'cosy:bg-gradient-to-r cosy:from-yellow-300 cosy:via-orange-400 cosy:to-orange-600',
-  'gradient-forest':
-    'cosy:bg-gradient-to-r cosy:from-green-700 cosy:to-lime-300',
-  'gradient-ocean': 'cosy:bg-gradient-to-r cosy:from-cyan-400 cosy:to-blue-700',
-  'gradient-sunset':
-    'cosy:bg-gradient-to-r cosy:from-orange-400 cosy:via-pink-500 cosy:to-red-500',
-  'gradient-flower':
-    'cosy:bg-gradient-to-r cosy:from-pink-300 cosy:via-purple-400 cosy:to-fuchsia-500',
-  'gradient-pitaya':
-    'cosy:bg-gradient-to-r cosy:from-pink-200 cosy:via-fuchsia-400 cosy:to-lime-300',
-  'gradient-banana':
-    'cosy:bg-gradient-to-r cosy:from-yellow-100 cosy:via-yellow-300 cosy:to-yellow-500',
-  'gradient-blueberry':
-    'cosy:bg-gradient-to-r cosy:from-blue-400 cosy:via-blue-600 cosy:to-indigo-700',
-  'gradient-kiwi':
-    'cosy:bg-gradient-to-r cosy:from-lime-200 cosy:via-green-400 cosy:to-green-700',
-};
-
-const isGradient =
-  typeof bgColor === 'string' && bgColor.startsWith('gradient-');
-let bgClass = '';
-if (isGradient) {
-  bgClass =
-    gradientBgClassMap[bgColor as keyof typeof gradientBgClassMap] ?? '';
-} else {
-  bgClass = `cosy:bg-${bgColor}`;
-}
+const bgClass = getBackgroundClass(bgColor as BackgroundColor);
 const bannerClasses = [
   'cosy:w-full',
   'cosy:py-8',
