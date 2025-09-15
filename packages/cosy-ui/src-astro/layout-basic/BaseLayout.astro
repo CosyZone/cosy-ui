@@ -66,10 +66,16 @@ import {
   type BackgroundColor,
 } from '../../src/common/backgrounds';
 import BaseLayoutHtml from './BaseLayoutHtml.astro';
+import type { ThemeId } from '../../src/common/themes';
 
 export interface Props extends IMetaProps {
   /** 是否只渲染 body 部分，用于文档展示等场景 */
   bodyOnly?: boolean;
+  /**
+   * 主题设置
+   * @default 'default'
+   */
+  theme?: ThemeId;
 }
 
 const {
@@ -83,7 +89,7 @@ const {
   head,
   favicon,
   background = 'base-100',
-  theme = 'default' as const,
+  theme = 'default',
   bodyOnly = false,
 } = Astro.props;
 

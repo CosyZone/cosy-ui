@@ -71,10 +71,4 @@ export interface IMetaProps {
 
     /** 最小显示时间（毫秒），默认300ms，确保用户能看到加载状态 */
     loadingMinDisplayTime?: number;
-
-    /**
-     * 主题设置，使用通用主题配置
-     * @default 'default'
-     */
-    theme?: ThemeId;
 }

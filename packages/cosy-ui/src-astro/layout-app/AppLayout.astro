@@ -267,6 +267,7 @@ const {
   metaConfig,
   loadingDelay = 100,
   bodyOnly = false,
+  theme,
 }: Props = Astro.props;
 
 const containerMinHeightClass = getContainerMinHeightClass(
@@ -281,7 +282,7 @@ const sidebarHeightClass = getSidebarHeightClass(
 );
 ---
 
-<BaseLayout {...metaConfig} bodyOnly={bodyOnly}>
+<BaseLayout {...metaConfig} bodyOnly={bodyOnly} theme={theme}>
   {
     showHeader && (
       <AppHeader

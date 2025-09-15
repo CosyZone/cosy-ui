@@ -3,6 +3,7 @@ import type { IHeaderProps } from '../types/header';
 import type { IMainContentProps } from '../types/main';
 import type { IMetaProps } from '../../src/common/meta';
 import type { ISidebarProps } from '../../src/common/sidebar';
+import type { ThemeId } from '../../src/common/themes';
 
 export interface IAppLayoutProps {
     /**
@@ -20,6 +21,12 @@ export interface IAppLayoutProps {
      * @default false
      */
     bodyOnly?: boolean;
+
+    /**
+     * 主题设置
+     * @default 'default'
+     */
+    theme?: ThemeId;
 
     /**
      * 页脚相关配置
