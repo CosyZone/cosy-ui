@@ -39,13 +39,15 @@ import {
   hoverClasses,
   transitionClasses,
   type ObjectFitType,
-  type RoundedType,
-  type MaskType,
-  type ShadowType,
-  type BorderType,
   type HoverType,
   type TransitionType,
 } from './utils';
+import type {
+  MaskType,
+  ShadowSize,
+  BorderSize,
+  RoundedSize,
+} from '../../src/common';
 
 interface Props {
   /**
@@ -56,7 +58,7 @@ interface Props {
    * 图片的边框样式
    * @default "none"
    */
-  border?: BorderType;
+  border?: BorderSize;
   /**
    * 自定义类名
    */
@@ -84,7 +86,7 @@ interface Props {
    * 图片的圆角大小
    * @default "none"
    */
-  rounded?: RoundedType;
+  rounded?: RoundedSize;
   /**
    * 图片的遮罩形状
    * @default "none"
@@ -94,7 +96,7 @@ interface Props {
    * 图片的阴影效果
    * @default "none"
    */
-  shadow?: ShadowType;
+  shadow?: ShadowSize;
   /**
    * 本地图片元数据
    */

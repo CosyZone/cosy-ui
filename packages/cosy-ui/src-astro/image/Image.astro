@@ -16,7 +16,7 @@
  *
  * @props
  * - alt: string - 图片的替代文本，用于无障碍访问和图片加载失败时的显示
- * - border?: 'none' | 'sm' | 'md' | 'lg' | 'xl' - 图片的边框样式，支持多种边框粗细
+ * - border?: BorderSize - 图片的边框样式，支持多种边框粗细
  * - class?: string - 自定义 CSS 类名，用于覆盖默认样式
  * - height?: number - 图片的高度，单位为像素
  * - hover?: 'none' | 'scale' | 'brightness' | 'blur' - 图片的悬停效果，支持缩放、亮度调整和模糊效果
@@ -25,9 +25,9 @@
  * - loadingIndicator?: 'pulse' | 'spinner' | 'progress' | 'skeleton' - 加载指示器类型，支持脉冲、旋转器、进度条和骨架屏（仅对远程图片有效）
  * - objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down' - 图片的填充方式，控制图片如何适应容器
  * - objectPosition?: string - 图片的位置，控制图片在容器中的对齐方式
- * - rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full' - 图片的圆角大小，提供多种圆角选项
- * - mask?: 'circle' | 'decagon' | 'diamond' | 'heart' | 'hexagon' | 'hexagon-2' | 'none' | 'pentagon' | 'square' | 'squircle' | 'star' | 'star-2' | 'triangle' | 'triangle-2' | 'triangle-3' | 'triangle-4' - 图片的遮罩形状，支持多种几何形状
- * - shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' - 图片的阴影效果，增强视觉层次感
+ * - rounded?: RoundedSize - 图片的圆角大小，提供多种圆角选项
+ * - mask?: MaskType - 图片的遮罩形状，支持多种几何形状
+ * - shadow?: ShadowSize - 图片的阴影效果，增强视觉层次感
  * - showError?: boolean - 是否显示加载失败的错误图，默认为 true（仅对远程图片有效）
  * - showPlaceholder?: boolean - 是否显示加载中的占位图，默认为 true（仅对远程图片有效）
  * - src: ImageSource - 图片源，可以是本地图片或远程URL
@@ -68,10 +68,15 @@
 
 import type { ImageMetadata } from 'astro';
 import '../../style.ts';
+import type {
+  RoundedSize,
+  MaskType,
+  ShadowSize,
+  BorderSize,
+} from '../../src/common';
 import type { ImageSource } from './image.ts';
 import LocalImage from './LocalImage.astro';
 import RemoteImage from './RemoteImage.astro';
-import type { BorderType } from './utils';
 import ImagePromptPanel from './ImagePromptPanel.astro';
 
 export interface Props {
@@ -83,7 +88,7 @@ export interface Props {
    * 图片的边框样式
    * @default "none"
    */
-  border?: BorderType;
+  border?: BorderSize;
   /**
    * 自定义类名
    */
@@ -126,33 +131,17 @@ export interface Props {
    * 图片的圆角大小
    * @default "none"
    */
-  rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';
+  rounded?: RoundedSize;
   /**
    * 图片的遮罩形状
    * @default "none"
    */
-  mask?:
-    | 'circle'
-    | 'decagon'
-    | 'diamond'
-    | 'heart'
-    | 'hexagon'
-    | 'hexagon-2'
-    | 'none'
-    | 'pentagon'
-    | 'square'
-    | 'squircle'
-    | 'star'
-    | 'star-2'
-    | 'triangle'
-    | 'triangle-2'
-    | 'triangle-3'
-    | 'triangle-4';
+  mask?: MaskType;
   /**
    * 图片的阴影效果
    * @default "none"
    */
-  shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  shadow?: ShadowSize;
   /**
    * 是否显示加载失败的错误图
    * @default true

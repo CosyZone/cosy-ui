@@ -4,12 +4,8 @@
  * @description 图片加载占位图组件
  */
 
-import {
-  roundedClasses,
-  maskClasses,
-  type RoundedType,
-  type MaskType,
-} from './utils';
+import { roundedClasses, maskClasses } from './utils';
+import type { MaskType, RoundedSize } from '../../src/common';
 
 interface Props {
   /**
@@ -27,7 +23,7 @@ interface Props {
   /**
    * 圆角大小
    */
-  rounded?: RoundedType;
+  rounded?: RoundedSize;
   /**
    * 遮罩形状
    */

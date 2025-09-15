@@ -26,6 +26,8 @@ export * from './rounded';
 export * from './shadow';
 export * from './hover';
 export * from './fitmode';
+export * from './mask';
+export * from './border';
 
 // 主题相关
 export * from './themes';
