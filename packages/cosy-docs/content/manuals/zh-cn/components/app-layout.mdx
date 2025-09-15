@@ -31,39 +31,46 @@ AppLayout 组件适用于页面布局，提供一个包含侧边栏导航、头�
 
 ### loadingDelay
 
-加载中界面延迟显示的时间（毫秒）。
-
-<AppLayoutPackage.LoadingDelay />
+加载中界面延迟显示的时间（毫秒），用于避免闪烁（默认 100）。
 
 ### mainContentConfig
 
-主内容区域配置。
+主内容区域配置：
 
-<AppLayoutPackage.MainContentConfig />
+- padding：内边距
+- verticalPadding：垂直内边距
+- fullWidth：是否全宽
 
 ### metaConfig
 
-元数据配置，包含页面标题、描述等。
+元数据配置：
 
-<AppLayoutPackage.MetaConfig />
+- title：页面标题
+- description：页面描述
+- keywords：页面关键词
+- author：作者
+- robots：爬虫策略
+- favicon：站点图标
+- basePath：基础路径（用于二级目录部署）
+- siteName：站点名称
+- lang：页面语言（默认 zh-CN）
+- viewport：是否包含 viewport 元标签（默认 true）
+- customStyles：自定义样式（注入到 head）
+- head：自定义头部内容（HTML）
+- background：预设背景色
+- theme：主题 ID
 
 ### showFooter
 
-是否显示页脚。
-
-<AppLayoutPackage.ShowFooter />
+是否显示页脚（true/false）。
 
 ### showHeader
 
-是否显示头部。
-
-<AppLayoutPackage.ShowHeader />
+是否显示头部（true/false）。
 
 ### showSidebar
 
-是否显示侧边栏。
-
-<AppLayoutPackage.ShowSidebar />
+是否显示侧边栏（true/false）。
 
 ### sidebarConfig
 
