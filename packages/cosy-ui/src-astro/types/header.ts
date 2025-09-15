@@ -1,6 +1,6 @@
 import type { INavItem } from './nav';
 import type { ImageMetadata } from 'astro';
-import type { BackgroundColor } from '../../src/common';
+import type { BackgroundColor, HeightSize } from '../../src/common';
 
 export interface IHeaderProps {
     /**
@@ -21,9 +21,9 @@ export interface IHeaderProps {
 
     /**
      * 导航栏高度
-     * @default "md"
+     * @default 'md'
      */
-    height?: '3xs' | '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    height?: HeightSize;
 
     /**
      * Logo图片元数据

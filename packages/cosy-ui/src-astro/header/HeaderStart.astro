@@ -31,11 +31,12 @@
 import { type INavItem } from '../../index-astro';
 import NavItems from './NavItems.astro';
 import LogoLink from './LogoLink.astro';
+import type { HeightSize } from '../../src/common/height';
 
 export interface Props {
   logo: string | ImageMetadata;
   logoHref: string;
-  height: '3xs' | '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  height: HeightSize;
   navPosition: string;
   navItems: INavItem[];
   activeLink: string;

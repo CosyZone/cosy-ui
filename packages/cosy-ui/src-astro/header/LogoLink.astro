@@ -25,25 +25,21 @@
  * - debug - 是否启用调试模式
  */
 import { Image, Link } from '../../index-astro';
+import type { HeightSize } from '../../src/common';
+import type { ImageMetadata } from 'astro';
 
 export interface Props {
   src: string | ImageMetadata;
   href?: string;
   alt?: string;
-  size?: '3xs' | '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  debug?: boolean;
+  size?: HeightSize;
 }
 
-const {
-  src,
-  href = '/',
-  alt = 'logo',
-  size = 'md',
-  debug = false,
-} = Astro.props;
+const { src, href = '/', alt = 'logo', size = 'md' } = Astro.props;
 
 // 设置logo大小
-const logoSizeClasses = {
+const logoSizeClasses: Record<HeightSize, string> = {
+  none: 'cosy:w-0 cosy:h-0',
   '3xs': 'cosy:w-3 cosy:h-3',
   '2xs': 'cosy:w-4 cosy:h-4',
   xs: 'cosy:w-5 cosy:h-5',
@@ -51,12 +47,21 @@ const logoSizeClasses = {
   md: 'cosy:w-8 cosy:h-8',
   lg: 'cosy:w-10 cosy:h-10',
   xl: 'cosy:w-12 cosy:h-12',
+  '2xl': 'cosy:w-16 cosy:h-16',
+  '3xl': 'cosy:w-20 cosy:h-20',
+  '4xl': 'cosy:w-24 cosy:h-24',
+  '5xl': 'cosy:w-28 cosy:h-28',
+  '6xl': 'cosy:w-32 cosy:h-32',
+  full: 'cosy:w-full cosy:h-full',
+  screen: 'cosy:w-screen cosy:h-screen',
+  auto: 'cosy:w-auto cosy:h-auto',
 };
 
-const logoSizeClass = logoSizeClasses[size];
+const logoSizeClass = logoSizeClasses[size as keyof typeof logoSizeClasses];
 
 // 设置链接高度
-const linkHeightClasses = {
+const linkHeightClasses: Record<HeightSize, string> = {
+  none: 'cosy:py-0',
   '3xs': 'cosy:py-0',
   '2xs': 'cosy:py-0',
   xs: 'cosy:py-0',
@@ -64,15 +69,23 @@ const linkHeightClasses = {
   md: 'cosy:py-1',
   lg: 'cosy:py-2',
   xl: 'cosy:py-3',
+  '2xl': 'cosy:py-4',
+  '3xl': 'cosy:py-5',
+  '4xl': 'cosy:py-6',
+  '5xl': 'cosy:py-8',
+  '6xl': 'cosy:py-10',
+  full: 'cosy:py-1',
+  screen: 'cosy:py-1',
+  auto: 'cosy:py-1',
 };
 
-const linkHeightClass = linkHeightClasses[size];
+const linkHeightClass =
+  linkHeightClasses[size as keyof typeof linkHeightClasses];
 ---
 
 <Link
   transition:persist
   animation="none"
-  debug={debug}
   href={href}
   class:list={['cosy:btn cosy:btn-ghost', linkHeightClass]}>
   <Image

@@ -18,6 +18,7 @@ export * from './layout';
 // 内边距相关（类型和类名映射）
 export * from './padding';
 export * from './padding-axis';
+export * from './width';
 
 // 外边距相关（类型和类名映射）
 export * from './margin';

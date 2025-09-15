@@ -61,7 +61,7 @@ import MobileNav from './MobileNav.astro';
 export interface Props extends IHeaderProps {}
 
 const {
-  height = 'md',
+  height = '3xs',
   logo = Logo,
   logoHref = LinkUtil.getBaseUrl(),
   navItems = [],
@@ -79,16 +79,24 @@ const {
 // 根据高度设置样式（使用 common 中的 heightClasses）
 const headerHeightClass = heightClasses[height as unknown as HeightSize] || '';
 const linkHeightClasses = {
-  '3xs': 'cosy:py-0',
-  '2xs': 'cosy:py-0',
+  none: 'cosy:py-0',
   xs: 'cosy:py-0',
   sm: 'cosy:py-1',
   md: 'cosy:py-1',
   lg: 'cosy:py-2',
   xl: 'cosy:py-3',
+  '2xl': 'cosy:py-4',
+  '3xl': 'cosy:py-5',
+  '4xl': 'cosy:py-6',
+  '5xl': 'cosy:py-8',
+  '6xl': 'cosy:py-10',
+  full: 'cosy:py-1',
+  screen: 'cosy:py-1',
+  auto: 'cosy:py-1',
 };
 
-const linkHeightClass = linkHeightClasses[height];
+const linkHeightClass =
+  linkHeightClasses[height as keyof typeof linkHeightClasses];
 
 // 检查 i18n 是否启用，通过 Astro.currentLocale 来判断
 let isI18nEnabled = Astro.currentLocale !== undefined;
