@@ -1,0 +1,14 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import Class from './Class.astro';
+import ClassSourceCode from './Class.astro?raw';
+---
+
+<CodeContainer
+  titles={['自定义样式']}
+  descriptions={['通过 class 属性为 AppLayout 组件添加自定义样式']}
+  codes={[ClassSourceCode]}>
+  <div id="tab-1">
+    <Class />
+  </div>
+</CodeContainer>

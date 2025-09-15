@@ -1,0 +1,14 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ClassList from './ClassList.astro';
+import ClassListSourceCode from './ClassList.astro?raw';
+---
+
+<CodeContainer
+  titles={['类名列表']}
+  descriptions={['通过 class:list 属性为 AppLayout 组件添加多个类名']}
+  codes={[ClassListSourceCode]}>
+  <div id="tab-1">
+    <ClassList />
+  </div>
+</CodeContainer>

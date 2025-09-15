@@ -1,7 +1,7 @@
 ---
 title: 'App Layout'
 folder: false
-order: 1.6
+order: 1.1
 ---
 
 import { AppLayout } from '@coffic/cosy-ui';
@@ -13,70 +13,112 @@ import { AppLayoutPackage } from '@/components/app-layout/index.ts';
 
 The AppLayout component is designed for page layouts, providing a complete layout framework that includes sidebar navigation, header, main content area, and footer. It's particularly suitable for documentation sites, blogs, knowledge bases, and other scenarios that require navigation and content display.
 
-
-## Basic Usage
-
-The simplest way to use the application layout:
+## Example
 
 <AppLayoutPackage.Basic />
 
-## debug
+## Props
+
+### class:list
+
+Class name list.
+
+<AppLayoutPackage.ClassList />
+
+### class
+
+Custom CSS class name.
+
+<AppLayoutPackage.Class />
+
+### debug
 
 Whether to enable debug mode, showing borders for each section.
 
 <AppLayoutPackage.Debug />
 
-## footerConfig
+### footerConfig
 
 Footer configuration, including site information, social media links, etc.
 
 <AppLayoutPackage.FooterConfig />
 
-## headerConfig
+### headerConfig
 
 Header configuration, passed to the AppHeader component.
 
 <AppLayoutPackage.HeaderConfig />
 
-## loadingDelay
+### loadingDelay
 
 The delay time (in milliseconds) for displaying the loading interface.
 
 <AppLayoutPackage.LoadingDelay />
 
-## mainContentConfig
+### mainContentConfig
 
 Main content area configuration.
 
 <AppLayoutPackage.MainContentConfig />
 
-## metaConfig
+### metaConfig
 
 Metadata configuration, including page title, description, etc.
 
 <AppLayoutPackage.MetaConfig />
 
-## showFooter
+### showFooter
 
 Whether to show the footer.
 
 <AppLayoutPackage.ShowFooter />
 
-## showHeader
+### showHeader
 
 Whether to show the header.
 
 <AppLayoutPackage.ShowHeader />
 
-## showSidebar
+### showSidebar
 
 Whether to show the sidebar.
 
 <AppLayoutPackage.ShowSidebar />
 
-## sidebarConfig
+### sidebarConfig
 
 Sidebar configuration, including navigation items, etc.
 
 <AppLayoutPackage.SidebarConfig />
 
+## Slots
+
+### default
+
+Main content area for placing the main content of the page.
+
+<AppLayoutPackage.DefaultSlot />
+
+### navbar-start
+
+Content for the start position of the navigation bar, passed to the AppHeader component.
+
+<AppLayoutPackage.NavbarStartSlot />
+
+### navbar-center
+
+Content for the center position of the navigation bar, passed to the AppHeader component.
+
+<AppLayoutPackage.NavbarCenterSlot />
+
+### navbar-end
+
+Content for the end position of the navigation bar, passed to the AppHeader component.
+
+<AppLayoutPackage.NavbarEndSlot />
+
+### modal-search
+
+Search modal content, when this slot is provided, a search button will be displayed, passed to the AppHeader component.
+
+<AppLayoutPackage.ModalSearchSlot />

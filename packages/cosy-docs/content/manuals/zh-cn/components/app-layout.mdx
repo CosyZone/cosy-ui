@@ -1,7 +1,7 @@
 ---
 title: 'App Layout'
 folder: false
-order: 1.6
+order: 1.1
 hidden: false
 tags: ['layout']
 ---
@@ -15,68 +15,112 @@ import { AppLayoutPackage } from '@/components/app-layout/index.ts';
 
 AppLayout 组件适用于页面布局，提供一个包含侧边栏导航、头部、主内容区和页脚的完整布局框架。特别适合文档站点、博客、知识库等需要导航和内容展示的场景。
 
-## 基础用法
-
-最简单的应用布局使用方式：
+## 案例
 
 <AppLayoutPackage.Basic />
 
-## debug
+## Props
+
+### class:list
+
+类名列表。
+
+<AppLayoutPackage.ClassList />
+
+### class
+
+自定义CSS类名。
+
+<AppLayoutPackage.Class />
+
+### debug
 
 是否启用调试模式，显示各个部分的边框。
 
 <AppLayoutPackage.Debug />
 
-## footerConfig
+### footerConfig
 
 页脚配置，包含站点信息、社交媒体链接等。
 
 <AppLayoutPackage.FooterConfig />
 
-## headerConfig
+### headerConfig
 
 头部配置，传递给AppHeader组件。
 
 <AppLayoutPackage.HeaderConfig />
 
-## loadingDelay
+### loadingDelay
 
 加载中界面延迟显示的时间（毫秒）。
 
 <AppLayoutPackage.LoadingDelay />
 
-## mainContentConfig
+### mainContentConfig
 
 主内容区域配置。
 
 <AppLayoutPackage.MainContentConfig />
 
-## metaConfig
+### metaConfig
 
 元数据配置，包含页面标题、描述等。
 
 <AppLayoutPackage.MetaConfig />
 
-## showFooter
+### showFooter
 
 是否显示页脚。
 
 <AppLayoutPackage.ShowFooter />
 
-## showHeader
+### showHeader
 
 是否显示头部。
 
 <AppLayoutPackage.ShowHeader />
 
-## showSidebar
+### showSidebar
 
 是否显示侧边栏。
 
 <AppLayoutPackage.ShowSidebar />
 
-## sidebarConfig
+### sidebarConfig
 
 侧边栏配置，包含导航项等。
 
 <AppLayoutPackage.SidebarConfig />
+
+## Slots
+
+### default
+
+主内容区域，用于放置页面的主要内容。
+
+<AppLayoutPackage.DefaultSlot />
+
+### navbar-start
+
+导航栏开始位置的内容，传递给AppHeader组件。
+
+<AppLayoutPackage.NavbarStartSlot />
+
+### navbar-center
+
+导航栏中间位置的内容，传递给AppHeader组件。
+
+<AppLayoutPackage.NavbarCenterSlot />
+
+### navbar-end
+
+导航栏结束位置的内容，传递给AppHeader组件。
+
+<AppLayoutPackage.NavbarEndSlot />
+
+### modal-search
+
+搜索模态框内容，当提供此slot时会显示搜索按钮，传递给AppHeader组件。
+
+<AppLayoutPackage.ModalSearchSlot />

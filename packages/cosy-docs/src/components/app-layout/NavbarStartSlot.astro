@@ -1,0 +1,44 @@
+---
+import { AppLayout } from '@coffic/cosy-ui';
+import {
+  defaultSidebarItems,
+  defaultMetaConfig,
+  defaultHeaderConfig,
+  defaultFooterConfig,
+  defaultMainContentConfig,
+} from './shared-config.ts';
+
+const metaConfig = {
+  ...defaultMetaConfig,
+  title: '导航栏开始位置插槽示例',
+  description: '展示如何使用 navbar-start 插槽自定义导航栏开始位置的内容',
+  keywords: 'AppLayout, navbar-start, 插槽',
+};
+---
+
+<AppLayout
+  metaConfig={metaConfig}
+  sidebarConfig={{
+    sidebarItems: defaultSidebarItems,
+  }}
+  headerConfig={defaultHeaderConfig}
+  footerConfig={defaultFooterConfig}
+  mainContentConfig={defaultMainContentConfig}>
+  <div slot="navbar-start" class="cosy:flex cosy:items-center cosy:gap-2">
+    <div
+      class="cosy:w-8 cosy:h-8 cosy:bg-primary cosy:rounded-lg cosy:flex cosy:items-center cosy:justify-center">
+      <span class="cosy:text-white cosy:font-bold">C</span>
+    </div>
+    <h1 class="cosy:text-xl cosy:font-bold cosy:text-primary">Cosy UI</h1>
+  </div>
+
+  <div class="cosy:p-6">
+    <h1 class="cosy:text-2xl cosy:font-bold cosy:mb-4">导航栏开始位置插槽</h1>
+    <p class="cosy:text-gray-600">
+      这个示例展示了如何使用 navbar-start 插槽在导航栏开始位置添加自定义内容。
+    </p>
+    <p class="cosy:text-gray-600 cosy:mt-2">
+      可以看到导航栏左侧显示了自定义的 Logo 和标题。
+    </p>
+  </div>
+</AppLayout>
