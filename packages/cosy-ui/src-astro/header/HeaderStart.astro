@@ -16,7 +16,6 @@
  *   navItems={navItems}
  *   activeLink={activeLink}
  *   linkHeightClass={linkHeightClass}
- *   debug={debug}
  * />
  * ```
  *
@@ -28,7 +27,6 @@
  * - navItems - 导航项数组
  * - activeLink - 当前激活的链接
  * - linkHeightClass - 链接高度类名
- * - debug - 是否启用调试模式
  */
 import { type INavItem } from '../../index-astro';
 import NavItems from './NavItems.astro';
@@ -42,7 +40,6 @@ export interface Props {
   navItems: INavItem[];
   activeLink: string;
   linkHeightClass: string;
-  debug: boolean;
 }
 
 const {
@@ -53,7 +50,6 @@ const {
   navItems,
   activeLink,
   linkHeightClass,
-  debug,
 } = Astro.props;
 ---
 
@@ -61,7 +57,7 @@ const {
   {
     navPosition === 'start' ? (
       <div class="cosy:flex cosy:items-center cosy:gap-4">
-        <LogoLink src={logo} href={logoHref} size={height} debug={debug} />
+        <LogoLink src={logo} href={logoHref} size={height} />
         <div class="cosy:hidden cosy:lg:flex">
           <NavItems
             navItems={navItems}
@@ -71,7 +67,7 @@ const {
         </div>
       </div>
     ) : (
-      <LogoLink src={logo} href={logoHref} size={height} debug={debug} />
+      <LogoLink src={logo} href={logoHref} size={height} />
     )
   }
   <slot />
