@@ -6,7 +6,6 @@
  * @props
  * @prop {any} [class:list] - 类名列表
  * @prop {string} [class] - 自定义CSS类名
- * @prop {boolean} [debug=false] - 是否启用调试模式，显示各个部分的边框
  * @prop {Object} [footerConfig] - 页脚配置，包含站点信息、社交媒体链接等
  * @prop {Object} [headerConfig] - 头部配置，传递给AppHeader组件
  * @prop {number} [loadingDelay=100] - 加载中界面延迟显示的时间（毫秒）
@@ -164,7 +163,6 @@
  *   sidebarConfig={{
  *     sidebarItems: sidebarItems
  *   }}
- *   debug={true}
  * >
  *   <h1>文档内容</h1>
  *   <p>这是文档的主要内容</p>
@@ -266,12 +264,12 @@ const {
   showSidebar = true,
   class: className,
   'class:list': classList,
-  debug = false,
   mainContentConfig,
   footerConfig,
   headerConfig,
   metaConfig,
   loadingDelay = 100,
+  bodyOnly = false,
   ...rest
 }: Props = Astro.props;
 
@@ -287,12 +285,11 @@ const sidebarHeightClass = getSidebarHeightClass(
 );
 ---
 
-<BaseLayout {...metaConfig} debug={debug}>
+<BaseLayout {...metaConfig} bodyOnly={bodyOnly}>
   {
     showHeader && (
       <AppHeader
         headerConfig={headerConfig}
-        debug={debug}
         showSidebar={showSidebar}
         showSearch={Astro.slots.has('modal-search')}>
         <slot name="navbar-start" slot="navbar-start" />

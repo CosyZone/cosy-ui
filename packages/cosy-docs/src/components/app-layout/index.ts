@@ -1,10 +1,7 @@
 import BasicContainer from './BasicContainer.astro';
 import ClassContainer from './ClassContainer.astro';
 import ClassListContainer from './ClassListContainer.astro';
-import DebugContainer from './DebugContainer.astro';
 import DefaultSlotContainer from './DefaultSlotContainer.astro';
-import FooterConfigContainer from './FooterConfigContainer.astro';
-import HeaderConfigContainer from './HeaderConfigContainer.astro';
 import LoadingDelayContainer from './LoadingDelayContainer.astro';
 import MainContentConfigContainer from './MainContentConfigContainer.astro';
 import MetaConfigContainer from './MetaConfigContainer.astro';
@@ -24,10 +21,7 @@ export const AppLayoutPackage = {
     BasicContainer: BasicContainer,
     Class: ClassContainer,
     ClassList: ClassListContainer,
-    Debug: DebugContainer,
     DefaultSlot: DefaultSlotContainer,
-    FooterConfig: FooterConfigContainer,
-    HeaderConfig: HeaderConfigContainer,
     LoadingDelay: LoadingDelayContainer,
     MainContentConfig: MainContentConfigContainer,
     MetaConfig: MetaConfigContainer,

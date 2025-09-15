@@ -1,0 +1,24 @@
+---
+/**
+ * @component BaseLayoutBodyElement
+ * @description BaseLayout 的 body 元素子组件，用于正常模式
+ * @internal 仅内部使用，不对外导出
+ */
+
+export interface Props {
+  /** body 的 CSS 类名 */
+  bodyClasses?: string;
+  /** 类名列表 */
+  classList?: any;
+}
+
+const { bodyClasses = '', classList } = Astro.props;
+
+const bodyClassList = [bodyClasses, classList, 'min-h-screen']
+  .filter(Boolean)
+  .join(' ');
+---
+
+<body class:list={bodyClassList}>
+  <slot />
+</body>

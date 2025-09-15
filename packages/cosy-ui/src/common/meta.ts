@@ -1,6 +1,6 @@
 import type { ImageMetadata } from 'astro';
-import type { BackgroundColor } from '../../src/common/backgrounds';
-import type { ThemeId } from '../../src/common/themes';
+import type { BackgroundColor } from './backgrounds';
+import type { ThemeId } from './themes';
 
 export interface IMetaProps {
     title: string;
@@ -68,7 +68,6 @@ export interface IMetaProps {
      * @default 'base-100'
      */
     background?: BackgroundColor;
-
 
     /** 最小显示时间（毫秒），默认300ms，确保用户能看到加载状态 */
     loadingMinDisplayTime?: number;

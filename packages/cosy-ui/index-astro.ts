@@ -77,7 +77,7 @@ export * from './src-astro/hero/hero';
 export * from './src-astro/types/main';
 export * from './src-astro/types/nav';
 export * from './src-astro/types/product';
-export * from './src-astro/types/sidebar';
+export * from './src/common/sidebar';
 export * from './src-astro/types/static-path';
 
 // 通用工具和配置 (按字母顺序)

@@ -1,0 +1,70 @@
+---
+/**
+ * @component BaseLayoutHead
+ * @description BaseLayout 的头部子组件，处理 HTML head 部分
+ * @internal 仅内部使用，不对外导出
+ */
+
+import { ClientRouter } from 'astro:transitions';
+
+export interface Props {
+  /** 页面标题 */
+  title: string;
+  /** 页面描述 */
+  description?: string;
+  /** 页面关键词 */
+  keywords?: string;
+  /** 页面作者 */
+  author?: string;
+  /** 页面语言 */
+  lang?: string;
+  /** 是否包含 viewport meta 标签 */
+  viewport?: boolean;
+  /** 自定义样式 */
+  customStyles?: string;
+  /** 自定义头部内容 */
+  head?: any;
+  /** 网站图标 */
+  favicon?: {
+    src: string;
+    format: string;
+  };
+}
+
+const {
+  title,
+  description = '',
+  keywords = '',
+  author = '',
+  lang = 'zh-CN',
+  viewport = true,
+  customStyles = '',
+  head,
+  favicon,
+} = Astro.props;
+---
+
+<head>
+  <meta charset="UTF-8" />
+  {
+    viewport && (
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    )
+  }
+  <title>{title}</title>
+  {description && <meta name="description" content={description} />}
+  {keywords && <meta name="keywords" content={keywords} />}
+  {author && <meta name="author" content={author} />}
+  {favicon && <link rel="icon" type={favicon.format} href={favicon.src} />}
+  <meta name="generator" content={Astro.generator} />
+
+  <ClientRouter />
+
+  <!-- 自定义样式 -->
+  {customStyles && <style set:html={customStyles} />}
+
+  <!-- 自定义头部内容 -->
+  {head && <div set:html={head} />}
+
+  <slot name="head" />
+</head>
