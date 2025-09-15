@@ -24,12 +24,14 @@ const sidebarItems: ISidebarItem[] = [
 ---
 
 <AppLayout
+  bodyOnly={true}
   metaConfig={{
     title: '应用布局示例',
     description: '这是一个应用布局的示例页面',
     keywords: '布局,示例,应用布局',
     author: 'CofficLab',
     robots: 'noindex,nofollow',
+    background: 'primary/20',
   }}
   sidebarConfig={{
     sidebarItems: sidebarItems,
@@ -50,8 +52,9 @@ const sidebarItems: ISidebarItem[] = [
   mainContentConfig={{
     padding: 'md',
     verticalPadding: '4xl',
-  }}>
-  <Container size="lg">
+  }}
+  bodyOnly={true}>
+  <Container width="lg">
     <Heading level={1} margin="none">欢迎使用应用布局</Heading>
     <p>这是一个包含侧边栏、头部和页脚的完整布局示例。</p>
     <p>应用布局适合用于文档站点、管理后台等场景。</p>

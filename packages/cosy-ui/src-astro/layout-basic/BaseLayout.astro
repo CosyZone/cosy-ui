@@ -47,17 +47,36 @@
  *   <p>页面内容</p>
  * </BaseLayout>
  * ```
+ *
+ * 只渲染 body 部分（用于文档展示）：
+ * ```astro
+ * <BaseLayout
+ *   title="页面标题"
+ *   bodyOnly={true}
+ * >
+ *   <p>页面内容</p>
+ * </BaseLayout>
+ * ```
  */
 
 import '../../style.ts';
-import { type IMetaProps } from './meta';
-import { ClientRouter } from 'astro:transitions';
+import { type IMetaProps } from '../../src/common/meta';
 import {
   getBackgroundClass,
   type BackgroundColor,
 } from '../../src/common/backgrounds';
+import BaseLayoutHtml from './BaseLayoutHtml.astro';
+import type { ThemeId } from '../../src/common/themes';
 
-export interface Props extends IMetaProps {}
+export interface Props extends IMetaProps {
+  /** 是否只渲染 body 部分，用于文档展示等场景 */
+  bodyOnly?: boolean;
+  /**
+   * 主题设置
+   * @default 'default'
+   */
+  theme?: ThemeId;
+}
 
 const {
   title,
@@ -68,51 +87,30 @@ const {
   viewport = true,
   customStyles = '',
   head,
-  debug = true,
-  class: className,
   favicon,
-  'class:list': classList,
   background = 'base-100',
-  theme = 'default' as const,
+  theme = 'default',
+  bodyOnly = false,
 } = Astro.props;
 
 // 处理类名
 const backgroundClass = getBackgroundClass(background as BackgroundColor);
-let bodyClasses = [
-  debug ? 'cosy:border cosy:border-red-500' : className || '',
-  backgroundClass,
-]
-  .filter(Boolean)
-  .join(' ');
+let bodyClasses = [backgroundClass].filter(Boolean).join(' ');
 ---
 
-<!doctype html>
-<html lang={lang} data-theme={theme}>
-  <head>
-    <meta charset="UTF-8" />
-    {
-      viewport && (
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      )
-    }
-    <title>{title}</title>
-    {description && <meta name="description" content={description} />}
-    {keywords && <meta name="keywords" content={keywords} />}
-    {author && <meta name="author" content={author} />}
-    {favicon && <link rel="icon" type={favicon.format} href={favicon.src} />}
-    <meta name="generator" content={Astro.generator} />
-
-    <ClientRouter />
-
-    <!-- 自定义样式 -->
-    {customStyles && <style set:html={customStyles} />}
-
-    <!-- 自定义头部内容 -->
-    {head && <div set:html={head} />}
-
-    <slot name="head" />
-  </head>
-  <body class:list={[bodyClasses, classList, 'min-h-screen']}>
-    <slot />
-  </body>
-</html>
+<BaseLayoutHtml
+  title={title}
+  description={description}
+  keywords={keywords}
+  author={author}
+  lang={lang}
+  theme={theme}
+  viewport={viewport}
+  customStyles={customStyles}
+  head={head}
+  favicon={favicon}
+  bodyClasses={bodyClasses}
+  bodyOnly={bodyOnly}>
+  <slot name="head" />
+  <slot />
+</BaseLayoutHtml>

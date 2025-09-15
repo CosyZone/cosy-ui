@@ -1,8 +1,9 @@
 import type { IFooterProps } from '../types/footer';
 import type { IHeaderProps } from '../types/header';
 import type { IMainContentProps } from '../types/main';
-import type { IMetaProps } from './meta';
-import type { ISidebarProps } from '../types/sidebar';
+import type { IMetaProps } from '../../src/common/meta';
+import type { ISidebarProps } from '../../src/common/sidebar';
+import type { ThemeId } from '../../src/common/themes';
 
 export interface IAppLayoutProps {
     /**
@@ -16,10 +17,16 @@ export interface IAppLayoutProps {
     class?: string;
 
     /**
-     * 调试模式，显示各个部分的边框
+     * 是否只渲染 body 部分，用于文档展示等场景
      * @default false
      */
-    debug?: boolean;
+    bodyOnly?: boolean;
+
+    /**
+     * 主题设置
+     * @default 'default'
+     */
+    theme?: ThemeId;
 
     /**
      * 页脚相关配置

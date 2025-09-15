@@ -3,5 +3,6 @@
  */
 
 import AppLayout from './AppLayout.astro';
+import AppHeader from './AppHeader.astro';
 
-export { AppLayout };
+export { AppLayout, AppHeader };

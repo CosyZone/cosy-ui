@@ -17,6 +17,7 @@ export const defaultMetaConfig = {
 
 export const defaultHeaderConfig = {
     logoHref: "/",
+    sticky: false,
     navItems: []
 };
 

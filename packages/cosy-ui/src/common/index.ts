@@ -17,6 +17,8 @@ export * from './layout';
 
 // 内边距相关（类型和类名映射）
 export * from './padding';
+export * from './padding-axis';
+export * from './width';
 
 // 外边距相关（类型和类名映射）
 export * from './margin';
@@ -26,6 +28,20 @@ export * from './rounded';
 export * from './shadow';
 export * from './hover';
 export * from './fitmode';
+export * from './mask';
+export * from './border';
 
 // 主题相关
 export * from './themes';
+
+// Loading 相关
+export * from './loading';
+
+// 布局工具函数
+export * from './layout-utils';
+
+// 侧边栏相关
+export * from './sidebar';
+
+// Meta 相关
+export * from './meta';

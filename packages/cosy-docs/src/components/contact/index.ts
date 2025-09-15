@@ -21,6 +21,9 @@ import ContactEmailContainer from './ContactEmailContainer.astro';
 import ContactPhoneContainer from './ContactPhoneContainer.astro';
 import ContactWebsiteContainer from './ContactWebsiteContainer.astro';
 import ContactBackgroundContainer from './ContactBackgroundContainer.astro';
+import ContactWechatQRContainer from './ContactWechatQRContainer.astro';
+import ContactWhatsappQRContainer from './ContactWhatsappQRContainer.astro';
+import ContactWithBothQR from './ContactWithBothQR.astro';
 
 export const ContactPackage = {
     ContactContainers: {
@@ -34,6 +37,8 @@ export const ContactPackage = {
         Email: ContactEmailContainer,
         Phone: ContactPhoneContainer,
         Website: ContactWebsiteContainer,
+        WechatQR: ContactWechatQRContainer,
+        WhatsappQR: ContactWhatsappQRContainer,
     },
     ContactExamples: {
         Basic: ContactBasic,
@@ -49,5 +54,6 @@ export const ContactPackage = {
         WithoutPhone: ContactWithoutPhone,
         WithWebsite: ContactWithWebsite,
         WithoutWebsite: ContactWithoutWebsite,
+        WithBothQR: ContactWithBothQR,
     },
 }; 

@@ -1,0 +1,27 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import NavPositionStart from './NavPositionStart.astro';
+import NavPositionCenter from './NavPositionCenter.astro';
+import NavPositionEnd from './NavPositionEnd.astro';
+import NavPositionStartSourceCode from './NavPositionStart.astro?raw';
+import NavPositionCenterSourceCode from './NavPositionCenter.astro?raw';
+import NavPositionEndSourceCode from './NavPositionEnd.astro?raw';
+---
+
+<CodeContainer
+  titles={['start', 'center', 'end']}
+  codes={[
+    NavPositionStartSourceCode,
+    NavPositionCenterSourceCode,
+    NavPositionEndSourceCode,
+  ]}>
+  <div id="tab-1">
+    <NavPositionStart />
+  </div>
+  <div id="tab-2">
+    <NavPositionCenter />
+  </div>
+  <div id="tab-3">
+    <NavPositionEnd />
+  </div>
+</CodeContainer>

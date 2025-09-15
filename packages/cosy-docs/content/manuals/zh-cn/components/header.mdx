@@ -2,36 +2,48 @@
 title: 'Header'
 folder: false
 order: 8.1
+hidden: false
 ---
 
-import { ComponentPackage } from '@/components/header/index';
+import { Header } from '@coffic/cosy-ui';
+import { HeaderPackage } from '@/components/header/index.ts';
 
 # {frontmatter.title}
 
-Header 组件是一个用于网站顶部导航的布局组件，提供了 logo、导航菜单、语言切换等功能。
+## 简介
+Header 组件用于网站顶部导航，提供 logo、导航菜单、主题切换与多语言能力。
 
-## 基础用法
+## 案例
+<HeaderPackage.Basic />
 
-<ComponentPackage.ComponentContainers.Basic />
+## Props
 
-## 带导航菜单
+### background
+自定义 `Header` 的背景色。
+<HeaderPackage.Background />
 
-<ComponentPackage.ComponentContainers.WithNavigation />
+### height
+控制 Header 高度。 
+<HeaderPackage.HeightContainer />
 
-## 不显示语言切换
+### navPosition
+导航区域位置。 
+<HeaderPackage.NavPositionContainer />
 
-当不传递 `astroI18n` 参数时，Header 组件将不会显示语言切换功能。
+### sticky
+是否固定在页面顶部。 
+<HeaderPackage.StickyContainer />
 
-<ComponentPackage.ComponentContainers.WithoutI18n />
+## Slots
 
-## 自定义左侧内容
+### navbar-start
+放置左侧内容（如徽标、返回）。
+<HeaderPackage.NavbarStartSlotContainer />
 
-<ComponentPackage.ComponentContainers.CustomNavbarStart />
+### navbar-center
+放置中间内容（如主导航）。
+<HeaderPackage.NavbarCenterSlotContainer />
 
-## 自定义中间内容
-
-<ComponentPackage.ComponentContainers.CustomNavbarCenter />
-
-## 自定义右侧内容
-
-<ComponentPackage.ComponentContainers.CustomNavbarEnd />
+### navbar-end
+放置右侧内容（如主题切换、登录）。
+<HeaderPackage.NavbarEndSlotContainer />

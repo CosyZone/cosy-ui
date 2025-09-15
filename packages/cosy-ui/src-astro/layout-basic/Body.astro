@@ -1,0 +1,33 @@
+---
+/**
+ * @component BaseLayoutBody
+ * @description BaseLayout 的主体子组件，处理 HTML body 部分
+ * @internal 仅内部使用，不对外导出
+ */
+
+import BaseLayoutBodyDiv from './BodyDiv.astro';
+import BaseLayoutBodyElement from './BodyElement.astro';
+
+export interface Props {
+  /** body 的 CSS 类名 */
+  bodyClasses?: string;
+  /** 类名列表 */
+  classList?: any;
+  /** 是否只渲染 body 部分 */
+  bodyOnly?: boolean;
+}
+
+const { bodyClasses = '', classList, bodyOnly = false } = Astro.props;
+---
+
+{
+  bodyOnly ? (
+    <BaseLayoutBodyDiv bodyClasses={bodyClasses} classList={classList}>
+      <slot />
+    </BaseLayoutBodyDiv>
+  ) : (
+    <BaseLayoutBodyElement bodyClasses={bodyClasses} classList={classList}>
+      <slot />
+    </BaseLayoutBodyElement>
+  )
+}

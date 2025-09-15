@@ -1,5 +1,5 @@
 ---
-import { AppLayout, Heading, Alert, ListItem } from '@coffic/cosy-ui';
+import { Sidebar, Heading } from '@coffic/cosy-ui';
 import type { ISidebarItem } from '@coffic/cosy-ui';
 
 const sidebarItems: ISidebarItem[] = [
@@ -35,52 +35,4 @@ const sidebarItems: ISidebarItem[] = [
 ];
 ---
 
-<AppLayout
-  metaConfig={{
-    title: '侧边栏配置示例',
-    description: '展示AppLayout的侧边栏配置功能',
-    keywords: '侧边栏,配置,导航,菜单',
-    author: 'Designer',
-    robots: 'noindex,nofollow',
-  }}
-  sidebarConfig={{
-    sidebarItems: sidebarItems,
-  }}
-  headerConfig={{
-    height: 'md',
-    sticky: false,
-  }}
-  footerConfig={{
-    siteName: '侧边栏配置示例',
-    homeLink: '/',
-    slogan: '侧边栏配置展示',
-    company: 'Sidebar Demo',
-    copyright: '2024 侧边栏配置示例',
-    inspirationalSlogan: '让导航更加清晰',
-  }}
-  mainContentConfig={{
-    padding: 'md',
-  }}>
-  <div style="padding: 1rem;">
-    <Heading level={1} margin="none"> 侧边栏配置示例 </Heading>
-    <p style="margin-bottom: 0.5rem;">
-      这个示例展示了如何配置侧边栏的导航结构。
-    </p>
-    <Alert type="warning" title="配置的侧边栏结构" marginY="md">
-      <ul style="list-style-type: disc; margin-left: 1rem;">
-        <ListItem>侧边栏配置：包含3个主要分组</ListItem>
-        <ListItem>嵌套菜单：支持多级导航</ListItem>
-        <ListItem>响应式设计：移动端自动隐藏</ListItem>
-      </ul>
-    </Alert>
-    <div style="margin-top: 2rem;">
-      <Heading level={2} margin="sm"> 导航结构建议 </Heading>
-      <ul style="list-style-type: disc; margin-left: 1rem;">
-        <ListItem>层次清晰：不超过3层嵌套</ListItem>
-        <ListItem>分类明确：相关内容归类</ListItem>
-        <ListItem>命名一致：使用统一的命名规范</ListItem>
-        <ListItem>链接有效：确保所有链接可访问</ListItem>
-      </ul>
-    </div>
-  </div>
-</AppLayout>
+<Sidebar sidebarItems={sidebarItems} />

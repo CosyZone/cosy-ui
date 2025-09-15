@@ -54,6 +54,7 @@ export * from './src-astro/products';
 export * from './src-astro/register';
 export * from './src-astro/review';
 export * from './src-astro/sidebar';
+export * from './src-astro/skeleton';
 export * from './src-astro/smart-bg';
 export * from './src-astro/smart-icon';
 export * from './src-astro/social-icon';
@@ -62,7 +63,6 @@ export * from './src-astro/stack';
 export * from './src-astro/stats-display';
 export * from './src-astro/team-member';
 export * from './src-astro/text';
-export * from './src-astro/theme-switcher';
 export * from './src-astro/toc';
 export * from './src-astro/toast';
 
@@ -76,7 +76,7 @@ export * from './src-astro/hero/hero';
 export * from './src-astro/types/main';
 export * from './src-astro/types/nav';
 export * from './src-astro/types/product';
-export * from './src-astro/types/sidebar';
+export * from './src/common/sidebar';
 export * from './src-astro/types/static-path';
 
 // 通用工具和配置 (按字母顺序)

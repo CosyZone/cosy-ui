@@ -1,0 +1,52 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import PrimarySourceCode from './background/Primary.astro?raw';
+import SecondarySourceCode from './background/Secondary.astro?raw';
+import AccentSourceCode from './background/Accent.astro?raw';
+import BaseSourceCode from './background/Base.astro?raw';
+import PrimaryWithOpacitySourceCode from './background/PrimaryWithOpacity.astro?raw';
+import BaseWithOpacitySourceCode from './background/BaseWithOpacity.astro?raw';
+import Primary from './background/Primary.astro';
+import Secondary from './background/Secondary.astro';
+import Accent from './background/Accent.astro';
+import Base from './background/Base.astro';
+import PrimaryWithOpacity from './background/PrimaryWithOpacity.astro';
+import BaseWithOpacity from './background/BaseWithOpacity.astro';
+---
+
+<CodeContainer
+  codes={[
+    PrimarySourceCode,
+    SecondarySourceCode,
+    AccentSourceCode,
+    BaseSourceCode,
+    PrimaryWithOpacitySourceCode,
+    BaseWithOpacitySourceCode,
+  ]}
+  titles={[
+    'primary',
+    'secondary',
+    'accent',
+    'base-100',
+    'primary/50',
+    'base-300/80',
+  ]}>
+  <div id="tab-1">
+    <Primary />
+  </div>
+  <div id="tab-2">
+    <Secondary />
+  </div>
+  <div id="tab-3">
+    <Accent />
+  </div>
+  <div id="tab-4">
+    <Base />
+  </div>
+  <div id="tab-5">
+    <PrimaryWithOpacity />
+  </div>
+  <div id="tab-6">
+    <BaseWithOpacity />
+  </div>
+</CodeContainer>

@@ -19,77 +19,75 @@ The AppLayout component is designed for page layouts, providing a complete layou
 
 ## Props
 
-### class:list
-
-Class name list.
-
-<AppLayoutPackage.ClassList />
-
-### class
-
-Custom CSS class name.
-
-<AppLayoutPackage.Class />
-
-### debug
-
-Whether to enable debug mode, showing borders for each section.
-
-<AppLayoutPackage.Debug />
-
 ### footerConfig
 
-Footer configuration, including site information, social media links, etc.
-
-<AppLayoutPackage.FooterConfig />
+Footer configuration, including site information, social media links, etc. For detailed configuration options, please refer to the [Footer component documentation](/en/manuals/components/footer).
 
 ### headerConfig
 
-Header configuration, passed to the AppHeader component.
-
-<AppLayoutPackage.HeaderConfig />
+Header configuration, passed to the AppHeader component. For detailed configuration options, please refer to the [Header component documentation](/en/manuals/components/header).
 
 ### loadingDelay
 
-The delay time (in milliseconds) for displaying the loading interface.
-
-<AppLayoutPackage.LoadingDelay />
+The delay time (ms) for displaying the loading interface to avoid flicker (default 100).
 
 ### mainContentConfig
 
-Main content area configuration.
+Main content area configuration:
 
-<AppLayoutPackage.MainContentConfig />
+- padding: content padding
+- verticalPadding: vertical padding
+- fullWidth: full-width content
 
 ### metaConfig
 
-Metadata configuration, including page title, description, etc.
+Metadata configuration:
 
-<AppLayoutPackage.MetaConfig />
+- title: page title
+- description: page description
+- keywords: page keywords
+- author: author
+- robots: robots policy
+- favicon: site icon
+- basePath: base path (for subdirectory deployments)
+- siteName: site name
+- lang: page language (default zh-CN)
+- viewport: include viewport meta (default true)
+- customStyles: custom styles injected into head
+- head: custom head HTML
+- background: preset background color
 
 ### showFooter
 
-Whether to show the footer.
-
-<AppLayoutPackage.ShowFooter />
+Whether to show the footer (true/false).
 
 ### showHeader
 
-Whether to show the header.
-
-<AppLayoutPackage.ShowHeader />
+Whether to show the header (true/false).
 
 ### showSidebar
 
-Whether to show the sidebar.
-
-<AppLayoutPackage.ShowSidebar />
+Whether to show the sidebar (true/false).
 
 ### sidebarConfig
 
 Sidebar configuration, including navigation items, etc.
 
 <AppLayoutPackage.SidebarConfig />
+
+### theme
+
+Sets the theme for the layout. Supported themes include:
+
+- `light`
+- `dark`
+- `corporate`
+- `lemonade`
+- `nord`
+- `business`
+- `luxury`
+
+The default value is `default`.
 
 ## Slots
 

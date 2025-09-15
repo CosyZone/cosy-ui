@@ -1,7 +1,13 @@
 import type { INavItem } from './nav';
-import type { ImageMetadata } from 'astro';
+import type { BackgroundColor, HeightSize } from '../../src/common';
+import type { ImageSource } from 'index-astro';
 
 export interface IHeaderProps {
+    /**
+     * 自定义背景色
+     */
+    background?: BackgroundColor;
+
     /**
      * 侧边栏是否默认展开
      * @default false
@@ -15,14 +21,14 @@ export interface IHeaderProps {
 
     /**
      * 导航栏高度
-     * @default "md"
+     * @default 'md'
      */
-    height?: '3xs' | '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    height?: HeightSize;
 
     /**
      * Logo图片元数据
      */
-    logo?: ImageMetadata;
+    logo?: ImageSource;
 
     /**
      * Logo 链接地址

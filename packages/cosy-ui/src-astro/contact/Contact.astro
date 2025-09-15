@@ -59,6 +59,30 @@
  * />
  * ```
  *
+ * 添加微信和 WhatsApp 二维码：
+ * ```astro
+ * <Contact
+ *   title="联系我们"
+ *   description="欢迎随时与我们取得联系"
+ *   email="contact@company.com"
+ *   phone="+1 (555) 123-4567"
+ *   wechatQR="/images/wechat-qr.png"
+ *   whatsappQR="/images/whatsapp-qr.png"
+ * />
+ * ```
+ *
+ * 使用本地图片作为二维码：
+ * ```astro
+ * import wechatQR from '/images/wechat-qr.png';
+ * import whatsappQR from '/images/whatsapp-qr.png';
+ * <Contact
+ *   title="联系我们"
+ *   email="contact@company.com"
+ *   wechatQR={wechatQR}
+ *   whatsappQR={whatsappQR}
+ * />
+ * ```
+ *
  *
  * @props
  * @param {string} [address] - 地址信息
@@ -74,6 +98,8 @@
  * @param {string} [title] - 联系信息标题
  * @param {string} [twitter] - Twitter链接
  * @param {string} [website] - 网站链接
+ * @param {ImageSource} [wechatQR] - 微信二维码图片源，支持本地图片或远程URL
+ * @param {ImageSource} [whatsappQR] - WhatsApp 二维码图片源，支持本地图片或远程URL
  *
  * @slots
  * @slot default - 额外的联系信息内容
@@ -81,6 +107,7 @@
 
 import '../../style.ts';
 import Card from '../card/Card.astro';
+import Link from '../link/Link.astro';
 import { type BackgroundColor } from '../../src/common/backgrounds';
 import {
   FacebookIcon,
@@ -91,6 +118,8 @@ import {
   PhoneIcon,
   TwitterIcon,
   WebsiteIcon,
+  WechatIcon,
+  WhatsappIcon,
 } from '../icons';
 
 export interface ContactProps {
@@ -107,6 +136,8 @@ export interface ContactProps {
   title?: string;
   twitter?: string;
   website?: string;
+  wechatQR?: any; // ImageSource 类型
+  whatsappQR?: any; // ImageSource 类型
 }
 
 const {
@@ -123,6 +154,8 @@ const {
   title,
   twitter,
   website,
+  wechatQR,
+  whatsappQR,
 } = Astro.props as ContactProps;
 
 // 构建自定义样式类（用于覆盖Card组件的默认样式）
@@ -140,8 +173,6 @@ const contactItemClass =
   'cosy:flex cosy:items-center cosy:gap-3 cosy:mb-4 last:cosy:mb-0 cosy:transition-all cosy:duration-200 cosy:ease-in-out hover:cosy:bg-base-200/50 hover:cosy:rounded-lg hover:cosy:p-2 hover:cosy:-mx-2';
 const iconClass =
   'cosy:w-5 cosy:h-5 cosy:text-primary cosy:flex-shrink-0 cosy:transition-all cosy:duration-200 hover:cosy:scale-110 hover:cosy:text-primary/80';
-const linkClass =
-  'cosy:link cosy:link-hover cosy:text-base-content cosy:no-underline hover:cosy:text-primary cosy:transition-colors';
 
 // 社交媒体链接样式
 const socialLinksClass =
@@ -170,9 +201,9 @@ const socialLinkClass =
       email && (
         <div class={contactItemClass}>
           <MailIcon class={iconClass} />
-          <a href={`mailto:${email}`} class={linkClass}>
+          <Link href={`mailto:${email}`} variant="text" noUnderline={false}>
             {email}
-          </a>
+          </Link>
         </div>
       )
     }
@@ -181,13 +212,9 @@ const socialLinkClass =
       facebook && (
         <div class={contactItemClass}>
           <FacebookIcon class={iconClass} />
-          <a
-            href={facebook}
-            target="_blank"
-            rel="noopener noreferrer"
-            class={linkClass}>
+          <Link href={facebook} external variant="text" noUnderline={false}>
             Facebook
-          </a>
+          </Link>
         </div>
       )
     }
@@ -196,13 +223,9 @@ const socialLinkClass =
       github && (
         <div class={contactItemClass}>
           <GithubIcon class={iconClass} />
-          <a
-            href={github}
-            target="_blank"
-            rel="noopener noreferrer"
-            class={linkClass}>
+          <Link href={github} external variant="text" noUnderline={false}>
             GitHub
-          </a>
+          </Link>
         </div>
       )
     }
@@ -211,13 +234,9 @@ const socialLinkClass =
       linkedin && (
         <div class={contactItemClass}>
           <LinkedinIcon class={iconClass} />
-          <a
-            href={linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            class={linkClass}>
+          <Link href={linkedin} external variant="text" noUnderline={false}>
             LinkedIn
-          </a>
+          </Link>
         </div>
       )
     }
@@ -226,9 +245,9 @@ const socialLinkClass =
       phone && (
         <div class={contactItemClass}>
           <PhoneIcon class={iconClass} />
-          <a href={`tel:${phone}`} class={linkClass}>
+          <Link href={`tel:${phone}`} variant="text" noUnderline={false}>
             {phone}
-          </a>
+          </Link>
         </div>
       )
     }
@@ -237,13 +256,9 @@ const socialLinkClass =
       twitter && (
         <div class={contactItemClass}>
           <TwitterIcon class={iconClass} />
-          <a
-            href={twitter}
-            target="_blank"
-            rel="noopener noreferrer"
-            class={linkClass}>
+          <Link href={twitter} external variant="text" noUnderline={false}>
             Twitter
-          </a>
+          </Link>
         </div>
       )
     }
@@ -252,13 +267,9 @@ const socialLinkClass =
       website && (
         <div class={contactItemClass}>
           <WebsiteIcon class={iconClass} />
-          <a
-            href={website}
-            target="_blank"
-            rel="noopener noreferrer"
-            class={linkClass}>
+          <Link href={website} external variant="text" noUnderline={false}>
             {website.replace(/^https?:\/\//, '')}
-          </a>
+          </Link>
         </div>
       )
     }
@@ -273,47 +284,81 @@ const socialLinkClass =
   }
 
   {
-    (github || twitter || facebook || linkedin) && (
+    (github || twitter || facebook || linkedin || wechatQR || whatsappQR) && (
       <div class={socialLinksClass}>
         {github && (
-          <a
+          <Link
             href={github}
-            target="_blank"
-            rel="noopener noreferrer"
+            external
+            btn
+            circle
+            size="sm"
             class={socialLinkClass}
             aria-label="GitHub">
-            <GithubIcon class="cosy:w-4 cosy:h-4" />
-          </a>
+            <GithubIcon />
+          </Link>
         )}
         {twitter && (
-          <a
+          <Link
             href={twitter}
-            target="_blank"
-            rel="noopener noreferrer"
+            external
+            btn
+            circle
+            size="sm"
             class={socialLinkClass}
             aria-label="Twitter">
-            <TwitterIcon class="cosy:w-4 cosy:h-4" />
-          </a>
+            <TwitterIcon />
+          </Link>
         )}
         {facebook && (
-          <a
+          <Link
             href={facebook}
-            target="_blank"
-            rel="noopener noreferrer"
+            external
+            btn
+            circle
+            size="sm"
             class={socialLinkClass}
             aria-label="Facebook">
-            <FacebookIcon class="cosy:w-4 cosy:h-4" />
-          </a>
+            <FacebookIcon />
+          </Link>
         )}
         {linkedin && (
-          <a
+          <Link
             href={linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
+            external
+            btn
+            circle
+            size="sm"
             class={socialLinkClass}
             aria-label="LinkedIn">
-            <LinkedinIcon class="cosy:w-4 cosy:h-4" />
-          </a>
+            <LinkedinIcon />
+          </Link>
+        )}
+        {wechatQR && (
+          <Link
+            href="#"
+            btn
+            circle
+            size="sm"
+            class={socialLinkClass}
+            hoverImage={wechatQR}
+            hoverImageAlt="微信二维码"
+            aria-label="微信">
+            <WechatIcon />
+          </Link>
+        )}
+        {whatsappQR && (
+          <Link
+            href="#"
+            btn
+            circle
+            size="sm"
+            class={socialLinkClass}
+            hoverImage={whatsappQR}
+            hoverImageAlt="WhatsApp 二维码"
+            aria-label="WhatsApp">
+            <WhatsappIcon />
+          </Link>
         )}
       </div>
     )

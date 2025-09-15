@@ -42,23 +42,31 @@ import {
   type INavItem,
   Modal,
 } from '../../index-astro';
+import { heightClasses, type HeightSize } from '../../src/common/height';
+import {
+  paddingXClasses,
+  paddingYClasses,
+} from '../../src/common/padding-axis';
+import { roundedClasses, type RoundedSize } from '../../src/common/rounded';
+import {
+  getBackgroundClass,
+  type BackgroundColor,
+} from '../../src/common/backgrounds';
 import Logo from '../../src/assets/cosy-logo.png';
 import HeaderStart from './HeaderStart.astro';
 import HeaderCenter from './HeaderCenter.astro';
 import HeaderEnd from './HeaderEnd.astro';
 import MobileNav from './MobileNav.astro';
 
-export interface Props extends IHeaderProps {
-  debug?: boolean;
-}
+export interface Props extends IHeaderProps {}
 
 const {
-  height = 'md',
+  height = '3xs',
   logo = Logo,
   logoHref = LinkUtil.getBaseUrl(),
   navItems = [],
   sticky = true,
-  debug = false,
+  background = 'base-300/90',
   rounded = 'none',
   paddingHorizontal = 'none',
   paddingVertical = 'none',
@@ -68,29 +76,27 @@ const {
   astroI18n,
 } = Astro.props;
 
-// 根据高度设置样式
-const headerHeightClasses = {
-  '3xs': 'cosy:h-4',
-  '2xs': 'cosy:h-6',
-  xs: 'cosy:h-8',
-  sm: 'cosy:h-10',
-  md: 'cosy:h-12',
-  lg: 'cosy:h-16',
-  xl: 'cosy:h-20',
-};
-
-const headerHeightClass = headerHeightClasses[height];
+// 根据高度设置样式（使用 common 中的 heightClasses）
+const headerHeightClass = heightClasses[height as unknown as HeightSize] || '';
 const linkHeightClasses = {
-  '3xs': 'cosy:py-0',
-  '2xs': 'cosy:py-0',
+  none: 'cosy:py-0',
   xs: 'cosy:py-0',
   sm: 'cosy:py-1',
   md: 'cosy:py-1',
   lg: 'cosy:py-2',
   xl: 'cosy:py-3',
+  '2xl': 'cosy:py-4',
+  '3xl': 'cosy:py-5',
+  '4xl': 'cosy:py-6',
+  '5xl': 'cosy:py-8',
+  '6xl': 'cosy:py-10',
+  full: 'cosy:py-1',
+  screen: 'cosy:py-1',
+  auto: 'cosy:py-1',
 };
 
-const linkHeightClass = linkHeightClasses[height];
+const linkHeightClass =
+  linkHeightClasses[height as keyof typeof linkHeightClasses];
 
 // 检查 i18n 是否启用，通过 Astro.currentLocale 来判断
 let isI18nEnabled = Astro.currentLocale !== undefined;
@@ -100,56 +106,44 @@ const activeLink = LinkUtil.getActiveLink(
   currentPath,
   navItems.map((item: INavItem) => item.href)
 );
+
+// 计算 header 外层与内部容器类名
+const backgroundClass = getBackgroundClass(background as BackgroundColor);
+const headerPaddingX = paddingHorizontal
+  ? paddingXClasses[paddingHorizontal as keyof typeof paddingXClasses]
+  : '';
+const headerPaddingY = paddingVertical
+  ? paddingYClasses[paddingVertical as keyof typeof paddingYClasses]
+  : '';
+
+const headerClassList = [
+  'cosy:w-full cosy:z-50',
+  sticky ? 'cosy:fixed cosy:top-0' : '',
+  headerPaddingX,
+  headerPaddingY,
+]
+  .filter(Boolean)
+  .join(' ');
+
+const containerClassList = [
+  'cosy:text-base-content cosy:px-4 cosy:flex cosy:flex-grow cosy:backdrop-blur not-prose cosy:shadow-md',
+  backgroundClass,
+  rounded ? roundedClasses[rounded as RoundedSize] : '',
+  headerHeightClass,
+]
+  .filter(Boolean)
+  .join(' ');
 ---
 
-<header
-  class:list={[
-    'cosy:w-full cosy:z-50',
-    {
-      'cosy:fixed cosy:top-0': sticky,
-      'cosy:border cosy:bg-amber-300 cosy:border-dashed cosy:border-green-500':
-        debug,
-    },
-    {
-      'cosy:px-2': paddingHorizontal === 'sm',
-      'cosy:px-4': paddingHorizontal === 'md',
-      'cosy:px-6': paddingHorizontal === 'lg',
-      'cosy:px-8': paddingHorizontal === 'xl',
-      'cosy:px-12': paddingHorizontal === '2xl',
-      'cosy:px-16': paddingHorizontal === '3xl',
-    },
-    {
-      'cosy:py-2': paddingVertical === 'sm',
-      'cosy:py-4': paddingVertical === 'md',
-      'cosy:py-6': paddingVertical === 'lg',
-      'cosy:py-8': paddingVertical === 'xl',
-      'cosy:py-12': paddingVertical === '2xl',
-      'cosy:py-16': paddingVertical === '3xl',
-    },
-  ]}>
-  <div
-    class:list={[
-      'cosy:bg-base-300/90 cosy:text-base-content cosy:flex cosy:flex-grow cosy:backdrop-blur not-prose cosy:shadow-md',
-      {
-        'cosy:rounded-none': rounded === 'none',
-        'cosy:rounded-sm': rounded === 'sm',
-        'cosy:rounded-md': rounded === 'md',
-        'cosy:rounded-lg': rounded === 'lg',
-        'cosy:rounded-xl': rounded === 'xl',
-        'cosy:rounded-full': rounded === 'full',
-      },
-      headerHeightClass,
-      { 'cosy:border cosy:border-dashed cosy:border-red-500': debug },
-    ]}>
+<header class={headerClassList}>
+  <div class={containerClassList}>
     <HeaderStart
       logo={logo}
       logoHref={logoHref}
-      height={height}
       navPosition={navPosition}
       navItems={navItems}
       activeLink={activeLink}
-      linkHeightClass={linkHeightClass}
-      debug={debug}>
+      linkHeightClass={linkHeightClass}>
       <slot name="navbar-start" />
     </HeaderStart>
 
