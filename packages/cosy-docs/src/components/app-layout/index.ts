@@ -1,6 +1,4 @@
 import BasicContainer from './BasicContainer.astro';
-import ClassContainer from './ClassContainer.astro';
-import ClassListContainer from './ClassListContainer.astro';
 import DefaultSlotContainer from './DefaultSlotContainer.astro';
 import LoadingDelayContainer from './LoadingDelayContainer.astro';
 import MainContentConfigContainer from './MainContentConfigContainer.astro';
@@ -19,8 +17,6 @@ import Basic from './Basic.astro';
 export const AppLayoutPackage = {
     Basic: Basic,
     BasicContainer: BasicContainer,
-    Class: ClassContainer,
-    ClassList: ClassListContainer,
     DefaultSlot: DefaultSlotContainer,
     LoadingDelay: LoadingDelayContainer,
     MainContentConfig: MainContentConfigContainer,

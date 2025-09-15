@@ -4,8 +4,7 @@
  * @description 应用布局组件，适用于页面布局，包含头部导航、侧边栏导航和目录
  * @usage 用于创建包含头部、侧边栏、主内容区和页脚的完整页面布局
  * @props
- * @prop {any} [class:list] - 类名列表
- * @prop {string} [class] - 自定义CSS类名
+ *
  * @prop {Object} [footerConfig] - 页脚配置，包含站点信息、社交媒体链接等
  * @prop {Object} [headerConfig] - 头部配置，传递给AppHeader组件
  * @prop {number} [loadingDelay=100] - 加载中界面延迟显示的时间（毫秒）
@@ -262,15 +261,12 @@ const {
   showHeader = true,
   showFooter = true,
   showSidebar = true,
-  class: className,
-  'class:list': classList,
   mainContentConfig,
   footerConfig,
   headerConfig,
   metaConfig,
   loadingDelay = 100,
   bodyOnly = false,
-  ...rest
 }: Props = Astro.props;
 
 const containerMinHeightClass = getContainerMinHeightClass(

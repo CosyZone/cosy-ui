@@ -81,10 +81,7 @@ const {
   viewport = true,
   customStyles = '',
   head,
-  debug = true,
-  class: className,
   favicon,
-  'class:list': classList,
   background = 'base-100',
   theme = 'default' as const,
   bodyOnly = false,
@@ -92,12 +89,7 @@ const {
 
 // 处理类名
 const backgroundClass = getBackgroundClass(background as BackgroundColor);
-let bodyClasses = [
-  debug ? 'cosy:border cosy:border-red-500' : className || '',
-  backgroundClass,
-]
-  .filter(Boolean)
-  .join(' ');
+let bodyClasses = [backgroundClass].filter(Boolean).join(' ');
 ---
 
 <BaseLayoutHtml
@@ -112,7 +104,6 @@ let bodyClasses = [
   head={head}
   favicon={favicon}
   bodyClasses={bodyClasses}
-  classList={classList}
   bodyOnly={bodyOnly}>
   <slot name="head" />
   <slot />
