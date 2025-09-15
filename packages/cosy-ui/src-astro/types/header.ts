@@ -1,7 +1,13 @@
 import type { INavItem } from './nav';
 import type { ImageMetadata } from 'astro';
+import type { BackgroundColor } from '../../src/common';
 
 export interface IHeaderProps {
+    /**
+     * 自定义背景色
+     */
+    background?: BackgroundColor;
+
     /**
      * 侧边栏是否默认展开
      * @default false

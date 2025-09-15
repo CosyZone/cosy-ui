@@ -48,6 +48,10 @@ import {
   paddingYClasses,
 } from '../../src/common/padding-axis';
 import { roundedClasses, type RoundedSize } from '../../src/common/rounded';
+import {
+  getBackgroundClass,
+  type BackgroundColor,
+} from '../../src/common/backgrounds';
 import Logo from '../../src/assets/cosy-logo.png';
 import HeaderStart from './HeaderStart.astro';
 import HeaderCenter from './HeaderCenter.astro';
@@ -62,6 +66,7 @@ const {
   logoHref = LinkUtil.getBaseUrl(),
   navItems = [],
   sticky = true,
+  background = 'base-300/90',
   rounded = 'none',
   paddingHorizontal = 'none',
   paddingVertical = 'none',
@@ -95,6 +100,7 @@ const activeLink = LinkUtil.getActiveLink(
 );
 
 // 计算 header 外层与内部容器类名
+const backgroundClass = getBackgroundClass(background as BackgroundColor);
 const headerPaddingX = paddingHorizontal
   ? paddingXClasses[paddingHorizontal as keyof typeof paddingXClasses]
   : '';
@@ -112,7 +118,8 @@ const headerClassList = [
   .join(' ');
 
 const containerClassList = [
-  'cosy:bg-base-300/90 cosy:text-base-content cosy:flex cosy:flex-grow cosy:backdrop-blur not-prose cosy:shadow-md',
+  'cosy:text-base-content cosy:flex cosy:flex-grow cosy:backdrop-blur not-prose cosy:shadow-md',
+  backgroundClass,
   rounded ? roundedClasses[rounded as RoundedSize] : '',
   headerHeightClass,
 ]

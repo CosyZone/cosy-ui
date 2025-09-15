@@ -5,6 +5,10 @@ import StickyContainer from './StickyContainer.astro';
 import NavbarStartSlotContainer from './NavbarStartSlotContainer.astro';
 import NavbarCenterSlotContainer from './NavbarCenterSlotContainer.astro';
 import NavbarEndSlotContainer from './NavbarEndSlotContainer.astro';
+import NavPositionStart from './NavPositionStart.astro';
+import NavPositionCenter from './NavPositionCenter.astro';
+import NavPositionEnd from './NavPositionEnd.astro';
+import BackgroundContainer from './BackgroundContainer.astro';
 
 export const HeaderPackage = {
     Basic,
@@ -14,4 +18,8 @@ export const HeaderPackage = {
     NavbarStartSlotContainer,
     NavbarCenterSlotContainer,
     NavbarEndSlotContainer,
+    NavPositionStart: NavPositionStart,
+    NavPositionCenter: NavPositionCenter,
+    NavPositionEnd: NavPositionEnd,
+    Background: BackgroundContainer,
 }; 
