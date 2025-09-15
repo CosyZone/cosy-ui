@@ -1,0 +1,13 @@
+---
+import { CodeContainer, Header } from '@coffic/cosy-ui';
+const variants = ['true', 'false'] as const;
+---
+
+<CodeContainer titles={variants as any} codes={variants.map(() => '') as any}>
+  <div id="tab-1">
+    <Header sticky={false} />
+  </div>
+  <div id="tab-2">
+    <Header sticky={false} />
+  </div>
+</CodeContainer>

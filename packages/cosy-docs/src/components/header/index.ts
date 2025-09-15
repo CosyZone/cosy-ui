@@ -1,17 +1,17 @@
-import HeaderBasicContainer from './BasicContainer.astro';
-import HeaderCustomNavbarCenterContainer from './CustomNavbarCenterContainer.astro';
-import HeaderCustomNavbarEndContainer from './CustomNavbarEndContainer.astro';
-import HeaderCustomNavbarStartContainer from './CustomNavbarStartContainer.astro';
-import HeaderWithNavigationContainer from './WithNavigationContainer.astro';
-import HeaderWithoutI18nContainer from './WithoutI18nContainer.astro';
+import Basic from './Basic.astro';
+import HeightContainer from './HeightContainer.astro';
+import NavPositionContainer from './NavPositionContainer.astro';
+import StickyContainer from './StickyContainer.astro';
+import NavbarStartSlotContainer from './NavbarStartSlotContainer.astro';
+import NavbarCenterSlotContainer from './NavbarCenterSlotContainer.astro';
+import NavbarEndSlotContainer from './NavbarEndSlotContainer.astro';
 
-export const ComponentPackage = {
-    ComponentContainers: {
-        Basic: HeaderBasicContainer,
-        WithNavigation: HeaderWithNavigationContainer,
-        WithoutI18n: HeaderWithoutI18nContainer,
-        CustomNavbarStart: HeaderCustomNavbarStartContainer,
-        CustomNavbarCenter: HeaderCustomNavbarCenterContainer,
-        CustomNavbarEnd: HeaderCustomNavbarEndContainer,
-    }
+export const HeaderPackage = {
+    Basic,
+    HeightContainer,
+    NavPositionContainer,
+    StickyContainer,
+    NavbarStartSlotContainer,
+    NavbarCenterSlotContainer,
+    NavbarEndSlotContainer,
 }; 

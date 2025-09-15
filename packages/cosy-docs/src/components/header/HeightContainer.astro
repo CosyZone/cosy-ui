@@ -1,0 +1,14 @@
+---
+import { CodeContainer, Header } from '@coffic/cosy-ui';
+const heights = ['3xs', '2xs', 'xs', 'sm', 'md', 'lg', 'xl'] as const;
+---
+
+<CodeContainer titles={heights as any} codes={heights.map(() => '') as any}>
+  {
+    heights.map((h, i) => (
+      <div id={`tab-${i + 1}`}>
+        <Header height={h as any} sticky={false} />
+      </div>
+    ))
+  }
+</CodeContainer>

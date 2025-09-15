@@ -4,34 +4,41 @@ folder: false
 order: 8.1
 ---
 
-import { ComponentPackage } from '@/components/header/index';
+import { Header } from '@coffic/cosy-ui';
+import { HeaderPackage } from '@/components/header/index.ts';
 
 # {frontmatter.title}
 
-The Header component is a layout component for website top navigation, providing logo, navigation menu, language switching, and other functions.
+## Introduction
+The Header component provides the site top navigation with logo, menu, theme switcher, and i18n support.
 
-## Basic Usage
+## Example
+<HeaderPackage.Basic />
 
-<ComponentPackage.ComponentContainers.Basic />
+## Props
 
-## With Navigation Menu
+### height
+Controls the Header height.
+<HeaderPackage.HeightContainer />
 
-<ComponentPackage.ComponentContainers.WithNavigation />
+### navPosition
+Controls the navigation area position.
+<HeaderPackage.NavPositionContainer />
 
-## Without Language Switcher
+### sticky
+Whether to stick to the top of the page.
+<HeaderPackage.StickyContainer />
 
-When the `astroI18n` parameter is not passed, the Header component will not display the language switching functionality.
+## Slots
 
-<ComponentPackage.ComponentContainers.WithoutI18n />
+### navbar-start
+Content at the left side of the navbar.
+<HeaderPackage.NavbarStartSlotContainer />
 
-## Custom Left Content
+### navbar-center
+Content at the center of the navbar.
+<HeaderPackage.NavbarCenterSlotContainer />
 
-<ComponentPackage.ComponentContainers.CustomNavbarStart />
-
-## Custom Middle Content
-
-<ComponentPackage.ComponentContainers.CustomNavbarCenter />
-
-## Custom Right Content
-
-<ComponentPackage.ComponentContainers.CustomNavbarEnd />
+### navbar-end
+Content at the right side of the navbar.
+<HeaderPackage.NavbarEndSlotContainer />
