@@ -54,6 +54,7 @@ export * from './src-astro/products';
 export * from './src-astro/register';
 export * from './src-astro/review';
 export * from './src-astro/sidebar';
+export * from './src-astro/skeleton';
 export * from './src-astro/smart-bg';
 export * from './src-astro/smart-icon';
 export * from './src-astro/social-icon';

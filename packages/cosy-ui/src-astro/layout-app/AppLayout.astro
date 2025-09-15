@@ -247,9 +247,15 @@ import {
   Main,
   Sidebar,
   Modal,
+  Skeleton,
 } from '../../index-astro';
+import {
+  getContainerMinHeightClass,
+  getSidebarTopClass,
+  getSidebarHeightClass,
+  type HeaderHeight,
+} from '../../src/common/index';
 import AppHeader from './AppHeader.astro';
-import SkeletonLoader from './SkeletonLoader.astro';
 
 interface Props extends IAppLayoutProps {}
 
@@ -269,59 +275,16 @@ const {
   ...rest
 }: Props = Astro.props;
 
-// 动态计算Container最小高度
-function getContainerMinHeightClass(headerHeight: string = 'md') {
-  const heightValueMap = {
-    '3xs': 'cosy:min-h-[calc(100vh-1rem)]',
-    '2xs': 'cosy:min-h-[calc(100vh-1.5rem)]',
-    xs: 'cosy:min-h-[calc(100vh-2rem)]',
-    sm: 'cosy:min-h-[calc(100vh-2.5rem)]',
-    md: 'cosy:min-h-[calc(100vh-3rem)]',
-    lg: 'cosy:min-h-[calc(100vh-4rem)]',
-    xl: 'cosy:min-h-[calc(100vh-5rem)]',
-  };
-  return (
-    heightValueMap[headerHeight as keyof typeof heightValueMap] ||
-    'cosy:min-h-[calc(100vh-3rem)]'
-  );
-}
-
 const containerMinHeightClass = getContainerMinHeightClass(
-  headerConfig?.height
+  headerConfig?.height as HeaderHeight
 );
 
-// 计算Sidebar的top值和高度值
-function getSidebarTopClass(headerHeight: string = 'md') {
-  const topMap = {
-    '3xs': 'cosy:top-4',
-    '2xs': 'cosy:top-6',
-    xs: 'cosy:top-8',
-    sm: 'cosy:top-10',
-    md: 'cosy:top-12',
-    lg: 'cosy:top-16',
-    xl: 'cosy:top-20',
-  };
-  return topMap[headerHeight as keyof typeof topMap] || 'cosy:top-12';
-}
-
-function getSidebarHeightClass(headerHeight: string = 'md') {
-  const heightValueMap = {
-    '3xs': 'cosy:h-[calc(100vh-1rem)]',
-    '2xs': 'cosy:h-[calc(100vh-1.5rem)]',
-    xs: 'cosy:h-[calc(100vh-2rem)]',
-    sm: 'cosy:h-[calc(100vh-2.5rem)]',
-    md: 'cosy:h-[calc(100vh-3rem)]',
-    lg: 'cosy:h-[calc(100vh-4rem)]',
-    xl: 'cosy:h-[calc(100vh-5rem)]',
-  };
-  return (
-    heightValueMap[headerHeight as keyof typeof heightValueMap] ||
-    'cosy:h-[calc(100vh-3rem)]'
-  );
-}
-
-const sidebarTopClass = getSidebarTopClass(headerConfig?.height);
-const sidebarHeightClass = getSidebarHeightClass(headerConfig?.height);
+const sidebarTopClass = getSidebarTopClass(
+  headerConfig?.height as HeaderHeight
+);
+const sidebarHeightClass = getSidebarHeightClass(
+  headerConfig?.height as HeaderHeight
+);
 ---
 
 <BaseLayout {...metaConfig} debug={debug}>
@@ -360,13 +323,13 @@ const sidebarHeightClass = getSidebarHeightClass(headerConfig?.height);
 
     <!-- 主内容区域 -->
     <Main {...mainContentConfig} class="cosy:flex-1 cosy:min-w-xs">
-      <SkeletonLoader
+      <Skeleton
         showLoading={true}
         loadingSize="xl"
         loadingDelay={loadingDelay}
         skeletonClass="cosy:w-full cosy:h-screen cosy:flex cosy:items-center cosy:justify-center">
         <slot />
-      </SkeletonLoader>
+      </Skeleton>
     </Main>
   </Container>
 

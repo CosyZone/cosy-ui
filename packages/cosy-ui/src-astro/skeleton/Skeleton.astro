@@ -1,9 +1,9 @@
 ---
 /**
- * @component SkeletonLoader
+ * @component Skeleton
  *
  * @description
- * SkeletonLoader 组件是一个智能的骨架屏加载器，用于在页面加载或路由切换时显示骨架屏。
+ * Skeleton 组件是一个智能的骨架屏加载器，用于在页面加载或路由切换时显示骨架屏。
  * 它会监听 Astro 的页面过渡事件，在加载期间隐藏实际内容并显示骨架屏。
  * 支持在骨架屏背景上显示 loading 动画元素。
  *
@@ -18,31 +18,31 @@
  * @usage
  * 基本用法：
  * ```astro
- * <SkeletonLoader>
+ * <Skeleton>
  *   <div>实际内容</div>
- * </SkeletonLoader>
+ * </Skeleton>
  * ```
  *
  * 显示 loading 元素：
  * ```astro
- * <SkeletonLoader
+ * <Skeleton
  *   showLoading={true}
  *   loadingSize="lg"
  *   loadingType="ring"
  * >
  *   <div>实际内容</div>
- * </SkeletonLoader>
+ * </Skeleton>
  * ```
  *
  * 自定义骨架屏：
  * ```astro
- * <SkeletonLoader
+ * <Skeleton
  *   skeletonClass="cosy:bg-gray-200 cosy:animate-pulse"
  *   loadingDelay={500}
  *   showLoading={false}
  * >
  *   <div>实际内容</div>
- * </SkeletonLoader>
+ * </Skeleton>
  * ```
  *
  * @props
@@ -68,7 +68,7 @@ import {
   getLoadingClass,
   type LoadingType,
   type LoadingSize,
-} from './loading-classes';
+} from '../../src/common';
 
 export interface Props {
   /** 延迟显示时间（毫秒），默认1000ms */

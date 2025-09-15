@@ -1,9 +1,12 @@
 /**
- * Loading 类名工具函数
- * 用于根据 loading 类型和尺寸生成对应的 CSS 类名
+ * Loading 相关类型定义和类名映射
+ * 包含 loading 组件的类型定义和对应的 CSS 类名映射
  */
 
+// Loading 类型
 export type LoadingType = 'ring' | 'dots' | 'spinner' | 'bars' | 'infinity';
+
+// Loading 尺寸类型
 export type LoadingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 /**
@@ -52,4 +55,4 @@ export function getLoadingClass(type: LoadingType, size: LoadingSize): string {
     };
 
     return classMap[type][size];
-} 
+}

@@ -16,10 +16,12 @@ import ShowFooterContainer from './ShowFooterContainer.astro';
 import ShowHeaderContainer from './ShowHeaderContainer.astro';
 import ShowSidebarContainer from './ShowSidebarContainer.astro';
 import SidebarConfigContainer from './SidebarConfigContainer.astro';
+import Basic from './Basic.astro';
 
 // 导出 ComponentPackage 用于文档
 export const AppLayoutPackage = {
-    Basic: BasicContainer,
+    Basic: Basic,
+    BasicContainer: BasicContainer,
     Class: ClassContainer,
     ClassList: ClassListContainer,
     Debug: DebugContainer,
