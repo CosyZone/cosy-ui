@@ -1,6 +1,6 @@
 import type { INavItem } from './nav';
-import type { ImageMetadata } from 'astro';
 import type { BackgroundColor, HeightSize } from '../../src/common';
+import type { ImageSource } from 'index-astro';
 
 export interface IHeaderProps {
     /**
@@ -28,7 +28,7 @@ export interface IHeaderProps {
     /**
      * Logo图片元数据
      */
-    logo?: ImageMetadata;
+    logo?: ImageSource;
 
     /**
      * Logo 链接地址

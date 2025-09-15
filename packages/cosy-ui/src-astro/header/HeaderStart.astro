@@ -11,7 +11,6 @@
  * <HeaderStart
  *   logo={logo}
  *   logoHref={logoHref}
- *   height={height}
  *   navPosition={navPosition}
  *   navItems={navItems}
  *   activeLink={activeLink}
@@ -20,55 +19,44 @@
  * ```
  *
  * @props
- * - logo - logo 图片
+ * - logo - logo 图片元数据
  * - logoHref - logo 链接地址
- * - height - header 高度
  * - navPosition - 导航位置
  * - navItems - 导航项数组
  * - activeLink - 当前激活的链接
  * - linkHeightClass - 链接高度类名
  */
-import { type INavItem } from '../../index-astro';
+import { LogoLink, type INavItem } from '../../index-astro';
+import type { ImageSource } from 'index-astro';
 import NavItems from './NavItems.astro';
-import LogoLink from './LogoLink.astro';
-import type { HeightSize } from '../../src/common/height';
 
 export interface Props {
-  logo: string | ImageMetadata;
-  logoHref: string;
-  height: HeightSize;
-  navPosition: string;
+  logo: ImageSource;
+  logoHref?: string;
+  navPosition: 'start' | 'center' | 'end';
   navItems: INavItem[];
   activeLink: string;
   linkHeightClass: string;
 }
 
-const {
-  logo,
-  logoHref,
-  height,
-  navPosition,
-  navItems,
-  activeLink,
-  linkHeightClass,
-} = Astro.props;
+const { logo, logoHref, navPosition, navItems, activeLink, linkHeightClass } =
+  Astro.props;
 ---
 
-<div class="cosy:navbar-start cosy:pl-1" data-role="header-start">
+<div class="cosy:navbar-start">
+  <LogoLink src={logo} href={logoHref} />
+
+  <!-- 桌面端左侧导航 -->
   {
-    navPosition === 'start' ? (
-      <div class="cosy:flex cosy:items-center cosy:gap-4">
-        <LogoLink src={logo} href={logoHref} size={height} />
-        <div class="cosy:hidden cosy:lg:flex">
-          <NavItems
-            navItems={navItems}
-            activeLink={activeLink}
-            linkHeightClass={linkHeightClass}
-          />
-        </div>
+    navPosition === 'start' && (
+      <div class="cosy:hidden cosy:lg:flex">
+        <NavItems
+          navItems={navItems}
+          activeLink={activeLink}
+          linkHeightClass={linkHeightClass}
+          gap={2}
+        />
       </div>
-    ) : (
-      <LogoLink src={logo} href={logoHref} size={height} />
     )
   }
   <slot />
