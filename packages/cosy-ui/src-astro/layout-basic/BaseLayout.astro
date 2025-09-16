@@ -76,6 +76,11 @@ export interface Props extends IMetaProps {
    * @default 'default'
    */
   theme?: ThemeId;
+  /**
+   * 是否启用 Astro ClientRouter
+   * @default true
+   */
+  enableClientRouter?: boolean;
 }
 
 const {
@@ -91,6 +96,7 @@ const {
   background = 'base-100',
   theme = 'default',
   bodyOnly = false,
+  enableClientRouter = true,
 } = Astro.props;
 
 // 处理类名
@@ -110,7 +116,8 @@ let bodyClasses = [backgroundClass].filter(Boolean).join(' ');
   head={head}
   favicon={favicon}
   bodyClasses={bodyClasses}
-  bodyOnly={bodyOnly}>
+  bodyOnly={bodyOnly}
+  enableClientRouter={enableClientRouter}>
   <slot name="head" />
   <slot />
 </BaseLayoutHtml>

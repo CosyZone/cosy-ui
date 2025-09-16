@@ -29,6 +29,8 @@ export interface Props {
     src: string;
     format: string;
   };
+  /** 是否启用 Astro ClientRouter */
+  enableClientRouter?: boolean;
 }
 
 const {
@@ -41,6 +43,7 @@ const {
   customStyles = '',
   head,
   favicon,
+  enableClientRouter = true,
 } = Astro.props;
 ---
 
@@ -58,7 +61,7 @@ const {
   {favicon && <link rel="icon" type={favicon.format} href={favicon.src} />}
   <meta name="generator" content={Astro.generator} />
 
-  <ClientRouter />
+  {enableClientRouter && <ClientRouter />}
 
   <!-- 自定义样式 -->
   {customStyles && <style set:html={customStyles} />}

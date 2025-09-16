@@ -1,0 +1,22 @@
+---
+/**
+ * @component Banner.TextColor
+ * @description Banner textColor 多标签示例。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import BannerTextColorLight from './BannerTextColorLight.astro';
+import BannerTextColorDark from './BannerTextColorDark.astro';
+import BannerTextColorLightSourceCode from './BannerTextColorLight.astro?raw';
+import BannerTextColorDarkSourceCode from './BannerTextColorDark.astro?raw';
+---
+
+<CodeContainer
+  titles={['white on dark', 'gray-800 on light']}
+  codes={[BannerTextColorLightSourceCode, BannerTextColorDarkSourceCode]}>
+  <div id="tab-1">
+    <BannerTextColorLight />
+  </div>
+  <div id="tab-2">
+    <BannerTextColorDark />
+  </div>
+</CodeContainer>

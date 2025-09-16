@@ -5,11 +5,9 @@
  */
 import { CodeContainer } from '@coffic/cosy-ui';
 import CustomStyle from './CustomStyle.astro';
+import CustomStyleSourceCode from './CustomStyle.astro?raw';
 ---
 
-<CodeContainer
-  codes={[
-    `<Text class=\"cosy:bg-yellow-100 cosy:px-2 cosy:py-1 cosy:rounded\">自定义背景和圆角</Text>\n<Text class=\"cosy:text-red-500 cosy:underline\">自定义颜色和下划线</Text>`,
-  ]}>
+<CodeContainer codes={[CustomStyleSourceCode]}>
   <CustomStyle />
 </CodeContainer>

@@ -4,12 +4,30 @@
  * @description Text 组件字体粗细用法容器，带源码展示。
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import Weight from './Weight.astro';
+import WeightLight from './weight/WeightLight.astro';
+import WeightLightSourceCode from './weight/WeightLight.astro?raw';
+import WeightNormal from './weight/WeightNormal.astro';
+import WeightNormalSourceCode from './weight/WeightNormal.astro?raw';
+import WeightMedium from './weight/WeightMedium.astro';
+import WeightMediumSourceCode from './weight/WeightMedium.astro?raw';
+import WeightSemibold from './weight/WeightSemibold.astro';
+import WeightSemiboldSourceCode from './weight/WeightSemibold.astro?raw';
+import WeightBold from './weight/WeightBold.astro';
+import WeightBoldSourceCode from './weight/WeightBold.astro?raw';
 ---
 
 <CodeContainer
+  titles={['light', 'normal', 'medium', 'semibold', 'bold']}
   codes={[
-    `<Text weight=\"light\">细体文本</Text>\n<Text weight=\"normal\">常规文本</Text>\n<Text weight=\"medium\">中等粗文本</Text>\n<Text weight=\"semibold\">半粗体文本</Text>\n<Text weight=\"bold\">粗体文本</Text>`,
+    WeightLightSourceCode,
+    WeightNormalSourceCode,
+    WeightMediumSourceCode,
+    WeightSemiboldSourceCode,
+    WeightBoldSourceCode,
   ]}>
-  <Weight />
+  <div id="tab-1"><WeightLight /></div>
+  <div id="tab-2"><WeightNormal /></div>
+  <div id="tab-3"><WeightMedium /></div>
+  <div id="tab-4"><WeightSemibold /></div>
+  <div id="tab-5"><WeightBold /></div>
 </CodeContainer>

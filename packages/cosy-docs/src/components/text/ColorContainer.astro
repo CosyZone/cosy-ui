@@ -4,12 +4,26 @@
  * @description Text 组件颜色用法容器，带源码展示。
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import Color from './Color.astro';
+import ColorPrimary from './color/ColorPrimary.astro';
+import ColorPrimarySourceCode from './color/ColorPrimary.astro?raw';
+import ColorSecondary from './color/ColorSecondary.astro';
+import ColorSecondarySourceCode from './color/ColorSecondary.astro?raw';
+import ColorAccent from './color/ColorAccent.astro';
+import ColorAccentSourceCode from './color/ColorAccent.astro?raw';
+import ColorMuted from './color/ColorMuted.astro';
+import ColorMutedSourceCode from './color/ColorMuted.astro?raw';
 ---
 
 <CodeContainer
+  titles={['primary', 'secondary', 'accent', 'muted']}
   codes={[
-    `<Text color=\"primary\">主要颜色文本</Text>\n<Text color=\"secondary\">次要颜色文本</Text>\n<Text color=\"accent\">强调色文本</Text>\n<Text color=\"muted\">柔和色文本</Text>`,
+    ColorPrimarySourceCode,
+    ColorSecondarySourceCode,
+    ColorAccentSourceCode,
+    ColorMutedSourceCode,
   ]}>
-  <Color />
+  <div id="tab-1"><ColorPrimary /></div>
+  <div id="tab-2"><ColorSecondary /></div>
+  <div id="tab-3"><ColorAccent /></div>
+  <div id="tab-4"><ColorMuted /></div>
 </CodeContainer>

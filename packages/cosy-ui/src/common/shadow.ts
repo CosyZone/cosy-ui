@@ -15,3 +15,13 @@ export const shadowClasses: Record<ShadowSize, string> = {
     xl: 'cosy:shadow-xl',
     '2xl': 'cosy:shadow-2xl',
 } as const;
+
+// 悬停阴影类名映射
+export const hoverShadowClasses: Record<ShadowSize, string> = {
+    none: '',
+    sm: 'cosy:hover:shadow-sm',
+    md: 'cosy:hover:shadow-md',
+    lg: 'cosy:hover:shadow-lg',
+    xl: 'cosy:hover:shadow-xl',
+    '2xl': 'cosy:hover:shadow-2xl',
+} as const;

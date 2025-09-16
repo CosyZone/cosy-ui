@@ -41,10 +41,12 @@
  */
 
 import '../../style.ts';
-import { SocialIcon, Image, Link } from '../../index-astro';
 import type { ImageSource } from '../image/image.ts';
+import type { ShadowSize } from '../../src/common';
+import { shadowClasses, hoverShadowClasses } from '../../src/common';
+import { SocialIcon, Image, Link } from '../../index-astro';
 
-interface SocialLink {
+interface ISocialLink {
   /**
    * 社交媒体平台
    */
@@ -55,7 +57,7 @@ interface SocialLink {
   url: string;
 }
 
-export interface Props {
+export interface ITeamMemberProps {
   /**
    * 团队成员姓名
    */
@@ -75,7 +77,7 @@ export interface Props {
   /**
    * 社交媒体链接
    */
-  socialLinks?: SocialLink[];
+  socialLinks?: ISocialLink[];
   /**
    * 自定义类名
    */
@@ -84,13 +86,17 @@ export interface Props {
    * 卡片阴影强度
    * @default 'md'
    */
-  shadow?: 'sm' | 'md' | 'lg' | 'xl';
+  shadow?: ShadowSize;
   /**
    * 悬停时卡片阴影强度
    * @default 'lg'
    */
-  hoverShadow?: 'sm' | 'md' | 'lg' | 'xl';
+  hoverShadow?: ShadowSize;
 }
+
+// 为兼容旧用法，导出同义类型（不建议继续使用旧名）
+export type Props = ITeamMemberProps;
+export type SocialLink = ISocialLink;
 
 const {
   name,
@@ -103,21 +109,10 @@ const {
   hoverShadow = 'lg',
 } = Astro.props;
 
-const shadowMap = {
-  sm: 'cosy:shadow-sm',
-  md: 'cosy:shadow-md',
-  lg: 'cosy:shadow-lg',
-  xl: 'cosy:shadow-xl',
-};
-const hoverShadowMap = {
-  sm: 'cosy:hover:shadow-sm',
-  md: 'cosy:hover:shadow-md',
-  lg: 'cosy:hover:shadow-lg',
-  xl: 'cosy:hover:shadow-xl',
-};
-
-const shadowClass = shadowMap[shadow] || shadowMap['md'];
-const hoverShadowClass = hoverShadowMap[hoverShadow] || hoverShadowMap['lg'];
+const shadowClass = shadow ? shadowClasses[shadow] || '' : '';
+const hoverShadowClass = hoverShadow
+  ? hoverShadowClasses[hoverShadow] || hoverShadowClasses['lg']
+  : hoverShadowClasses['lg'];
 ---
 
 <div
@@ -152,7 +147,7 @@ const hoverShadowClass = hoverShadowMap[hoverShadow] || hoverShadowMap['lg'];
     {
       socialLinks && socialLinks.length > 0 && (
         <div class="cosy:flex cosy:gap-3 cosy:mt-auto">
-          {socialLinks.map((link: SocialLink) => (
+          {socialLinks.map((link: ISocialLink) => (
             <Link
               href={link.url}
               external

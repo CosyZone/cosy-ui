@@ -12,6 +12,14 @@ import Truncate from './Truncate.astro';
 import TruncateContainer from './TruncateContainer.astro';
 import CustomStyle from './CustomStyle.astro';
 import CustomStyleContainer from './CustomStyleContainer.astro';
+import As from './As.astro';
+import AsContainer from './AsContainer.astro';
+import Italic from './Italic.astro';
+import ItalicContainer from './ItalicContainer.astro';
+import Underline from './Underline.astro';
+import UnderlineContainer from './UnderlineContainer.astro';
+import Style from './Style.astro';
+import StyleContainer from './StyleContainer.astro';
 
 export const ComponentPackage = {
     ComponentContainers: {
@@ -22,5 +30,9 @@ export const ComponentPackage = {
         Align: AlignContainer,
         Truncate: TruncateContainer,
         CustomStyle: CustomStyleContainer,
+        As: AsContainer,
+        Italic: ItalicContainer,
+        Underline: UnderlineContainer,
+        Style: StyleContainer,
     },
 }; 

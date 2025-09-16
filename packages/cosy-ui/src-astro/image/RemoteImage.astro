@@ -33,7 +33,6 @@
 
 import '../../style.ts';
 import ImageTooltipWrapper from './TooltipWrapper.astro';
-import ImageContainer from './ImageContainer.astro';
 import ImagePlaceholder from './ImagePlaceholder.astro';
 import ImageError from './ImageError.astro';
 import {
@@ -285,31 +284,14 @@ const imgClasses = [
   initializeImageHandlers();
 </script>
 
-<ImageContainer>
-  {
-    tooltip ? (
-      <ImageTooltipWrapper
-        tooltip={tooltip}
-        tooltipPlacement={tooltipPlacement}
-        tooltipColor={tooltipColor}
-        tooltipOpen={tooltipOpen}>
-        <img
-          src={imageUrl}
-          alt={alt}
-          width={width}
-          height={height}
-          loading={loading}
-          class={imgClasses}
-          style={{ objectPosition }}
-          data-remote="true"
-          decoding="async"
-          data-loading="true"
-          data-src={imageUrl}
-        />
-      </ImageTooltipWrapper>
-    ) : (
+{
+  tooltip ? (
+    <ImageTooltipWrapper
+      tooltip={tooltip}
+      tooltipPlacement={tooltipPlacement}
+      tooltipColor={tooltipColor}
+      tooltipOpen={tooltipOpen}>
       <img
-        remote-image
         src={imageUrl}
         alt={alt}
         width={width}
@@ -322,21 +304,36 @@ const imgClasses = [
         data-loading="true"
         data-src={imageUrl}
       />
-    )
-  }
+    </ImageTooltipWrapper>
+  ) : (
+    <img
+      remote-image
+      src={imageUrl}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={loading}
+      class={imgClasses}
+      style={{ objectPosition }}
+      data-remote="true"
+      decoding="async"
+      data-loading="true"
+      data-src={imageUrl}
+    />
+  )
+}
 
-  {/* 加载占位图 */}
-  {
-    showPlaceholder && (
-      <ImagePlaceholder
-        isRemote={true}
-        loadingIndicator={loadingIndicator}
-        rounded={rounded}
-        mask={mask}
-      />
-    )
-  }
+{/* 加载占位图 */}
+{
+  showPlaceholder && (
+    <ImagePlaceholder
+      isRemote={true}
+      loadingIndicator={loadingIndicator}
+      rounded={rounded}
+      mask={mask}
+    />
+  )
+}
 
-  {/* 错误占位图 */}
-  {showError && <ImageError rounded={rounded} mask={mask} />}
-</ImageContainer>
+{/* 错误占位图 */}
+{showError && <ImageError rounded={rounded} mask={mask} />}

@@ -4,12 +4,15 @@
  * @description Text 组件文本截断用法容器，带源码展示。
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import Truncate from './Truncate.astro';
+import TruncateTrue from './truncate/TruncateTrue.astro';
+import TruncateTrueSourceCode from './truncate/TruncateTrue.astro?raw';
+import TruncateFalse from './truncate/TruncateFalse.astro';
+import TruncateFalseSourceCode from './truncate/TruncateFalse.astro?raw';
 ---
 
 <CodeContainer
-  codes={[
-    `<Text truncate>这是一段很长的文本，将会被截断并显示省略号，这是一段很长的文本，将会被截断并显示省略号，这是一段很长的文本，将会被截断并显示省略号...</Text>`,
-  ]}>
-  <Truncate />
+  titles={['true', 'false']}
+  codes={[TruncateTrueSourceCode, TruncateFalseSourceCode]}>
+  <div id="tab-1"><TruncateTrue /></div>
+  <div id="tab-2"><TruncateFalse /></div>
 </CodeContainer>
