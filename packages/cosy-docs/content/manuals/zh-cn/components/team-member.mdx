@@ -10,36 +10,38 @@ import { ComponentPackage } from '@/components/team-member/index.ts';
 
 ## 简介
 
-TeamMember 组件用于展示团队成员的详细信息，支持头像、姓名、职位、描述文本和社交媒体链接等内容的展示。
+TeamMember 组件用于展示团队成员信息，支持头像、姓名、职位、简介与社交媒体链接。
 
-组件特性：
-- 支持头像图片展示
-- 可显示姓名、职位和描述文本
-- 支持添加社交媒体链接
-- 提供多个样式自定义选项
-- 响应式设计，适配不同屏幕尺寸
-- 卡片阴影（shadow/hoverShadow）强度可自定义（如 cosy:shadow-md、cosy:shadow-lg 等）
+## Props
 
-## 基础用法
-
-最简单的团队成员信息展示：
-
+### avatar
+成员头像图片。
 <ComponentPackage.ComponentContainers.Basic />
 
-## 社交媒体链接
+### bio
+成员简介文字。
+<ComponentPackage.ComponentContainers.Basic />
 
-通过 socialLinks 属性添加社交媒体链接：
+### class
+自定义类名，覆盖默认样式。
+<ComponentPackage.ComponentContainers.CustomStyle />
 
-<ComponentPackage.ComponentContainers.WithSocial />
-
-## 阴影强度
-
-通过 shadow 和 hoverShadow 属性自定义阴影强度：
-
+### hoverShadow
+悬停时卡片阴影强度。
 <ComponentPackage.ComponentContainers.ShadowDemo />
 
-## 自定义样式
+### name
+成员姓名。
+<ComponentPackage.ComponentContainers.Basic />
 
-使用 class 属性自定义成员卡片样式。
+### role
+成员职位。
+<ComponentPackage.ComponentContainers.Basic />
 
-<ComponentPackage.ComponentContainers.CustomStyle />
+### shadow
+卡片阴影强度。
+<ComponentPackage.ComponentContainers.ShadowDemo />
+
+### socialLinks
+社交媒体链接列表。
+<ComponentPackage.ComponentContainers.WithSocial />

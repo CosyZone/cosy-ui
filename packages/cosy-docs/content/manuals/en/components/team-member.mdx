@@ -10,38 +10,38 @@ import { ComponentPackage } from '@/components/team-member/index.ts';
 
 ## Introduction
 
-The TeamMember component is used to display detailed information about team members, supporting the display of avatars, names, positions, description text, and social media links.
+The TeamMember component displays member info: avatar, name, role, bio and social links.
 
-Component features:
+## Props
 
-- Supports avatar image display
-- Can display name, position, and description text
-- Supports adding social media links
-- Provides multiple style customization options
-+ Card shadow (shadow/hoverShadow) intensity can be customized (e.g. cosy:shadow-md, cosy:shadow-lg, etc.)
-- Responsive design, adapts to different screen sizes
-- Can be used in combination to display a complete team
-
-## Basic Usage
-
-The simplest team member information display:
-
+### avatar
+Member avatar image.
 <ComponentPackage.ComponentContainers.Basic />
 
-## Social Media Links
+### bio
+Member biography text.
+<ComponentPackage.ComponentContainers.Basic />
 
-Add social media links through the socialLinks property:
+### class
+Custom CSS class.
+<ComponentPackage.ComponentContainers.CustomStyle />
 
-<ComponentPackage.ComponentContainers.WithSocial />
-
-## Shadow Intensity
-
-Customize the shadow intensity through the shadow and hoverShadow properties:
-
+### hoverShadow
+Card shadow intensity on hover.
 <ComponentPackage.ComponentContainers.ShadowDemo />
 
-## Custom Styling
+### name
+Member name.
+<ComponentPackage.ComponentContainers.Basic />
 
-Use the class property to customize the member card style.
+### role
+Member role.
+<ComponentPackage.ComponentContainers.Basic />
 
-<ComponentPackage.ComponentContainers.CustomStyle />
+### shadow
+Card shadow intensity.
+<ComponentPackage.ComponentContainers.ShadowDemo />
+
+### socialLinks
+Social media links list.
+<ComponentPackage.ComponentContainers.WithSocial />
