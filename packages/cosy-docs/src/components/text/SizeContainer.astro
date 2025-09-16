@@ -4,12 +4,30 @@
  * @description Text 组件大小用法容器，带源码展示。
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import Size from './Size.astro';
+import SizeXs from './size/SizeXs.astro';
+import SizeXsSourceCode from './size/SizeXs.astro?raw';
+import SizeSm from './size/SizeSm.astro';
+import SizeSmSourceCode from './size/SizeSm.astro?raw';
+import SizeMd from './size/SizeMd.astro';
+import SizeMdSourceCode from './size/SizeMd.astro?raw';
+import SizeLg from './size/SizeLg.astro';
+import SizeLgSourceCode from './size/SizeLg.astro?raw';
+import SizeXl from './size/SizeXl.astro';
+import SizeXlSourceCode from './size/SizeXl.astro?raw';
 ---
 
 <CodeContainer
+  titles={['xs', 'sm', 'md', 'lg', 'xl']}
   codes={[
-    `<Text size=\"xs\">超小文本</Text>\n<Text size=\"sm\">小文本</Text>\n<Text size=\"md\">中等文本</Text>\n<Text size=\"lg\">大文本</Text>\n<Text size=\"xl\">超大文本</Text>`,
+    SizeXsSourceCode,
+    SizeSmSourceCode,
+    SizeMdSourceCode,
+    SizeLgSourceCode,
+    SizeXlSourceCode,
   ]}>
-  <Size />
+  <div id="tab-1"><SizeXs /></div>
+  <div id="tab-2"><SizeSm /></div>
+  <div id="tab-3"><SizeMd /></div>
+  <div id="tab-4"><SizeLg /></div>
+  <div id="tab-5"><SizeXl /></div>
 </CodeContainer>

@@ -4,12 +4,26 @@
  * @description Text 组件对齐方式用法容器，带源码展示。
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import Align from './Align.astro';
+import AlignLeft from './align/AlignLeft.astro';
+import AlignLeftSourceCode from './align/AlignLeft.astro?raw';
+import AlignCenter from './align/AlignCenter.astro';
+import AlignCenterSourceCode from './align/AlignCenter.astro?raw';
+import AlignRight from './align/AlignRight.astro';
+import AlignRightSourceCode from './align/AlignRight.astro?raw';
+import AlignJustify from './align/AlignJustify.astro';
+import AlignJustifySourceCode from './align/AlignJustify.astro?raw';
 ---
 
 <CodeContainer
+  titles={['left', 'center', 'right', 'justify']}
   codes={[
-    `<Text align=\"left\">左对齐文本</Text>\n<Text align=\"center\">居中对齐文本</Text>\n<Text align=\"right\">右对齐文本</Text>\n<Text align=\"justify\">两端对齐文本</Text>`,
+    AlignLeftSourceCode,
+    AlignCenterSourceCode,
+    AlignRightSourceCode,
+    AlignJustifySourceCode,
   ]}>
-  <Align />
+  <div id="tab-1"><AlignLeft /></div>
+  <div id="tab-2"><AlignCenter /></div>
+  <div id="tab-3"><AlignRight /></div>
+  <div id="tab-4"><AlignJustify /></div>
 </CodeContainer>
