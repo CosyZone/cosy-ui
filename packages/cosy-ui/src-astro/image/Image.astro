@@ -264,7 +264,18 @@ const localProps = {
 };
 ---
 
-<div class={`cosy:relative not-prose cosy:w-full cosy:h-full cosy:block`}>
+<div
+  class="not-prose
+  cosy:relative
+  cosy:w-full
+  cosy:h-full
+  cosy:align-middle
+  cosy:mx-auto
+  cosy:my-auto
+  cosy:justify-center
+  cosy:flex
+  cosy:items-center"
+  data-image-container>
   {
     isLocalImage ? (
       <LocalImage {...localProps} />
