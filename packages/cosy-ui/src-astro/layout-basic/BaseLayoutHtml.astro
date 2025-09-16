@@ -35,6 +35,8 @@ export interface Props {
   classList?: any;
   /** 是否只渲染 body 部分 */
   bodyOnly?: boolean;
+  /** 是否启用 Astro ClientRouter */
+  enableClientRouter?: boolean;
 }
 
 const {
@@ -51,6 +53,7 @@ const {
   bodyClasses = '',
   classList,
   bodyOnly = false,
+  enableClientRouter = true,
 } = Astro.props;
 ---
 
@@ -73,7 +76,8 @@ const {
         viewport={viewport}
         customStyles={customStyles}
         head={head}
-        favicon={favicon}>
+        favicon={favicon}
+        enableClientRouter={enableClientRouter}>
         <slot name="head" />
       </BaseLayoutHead>
       <BaseLayoutBody
