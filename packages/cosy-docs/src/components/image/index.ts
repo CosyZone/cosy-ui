@@ -9,11 +9,8 @@ import ImageLoadingContainer from './ImageLoadingContainer.astro';
 import ImageLoadingIndicatorContainer from './ImageLoadingIndicatorContainer.astro';
 import ImageLoadingIndicatorSpinnerContainer from './ImageLoadingIndicatorSpinnerContainer.astro';
 import ImageLoadingIndicatorProgressContainer from './ImageLoadingIndicatorProgressContainer.astro';
-import ImageModelContainer from './ImageModelContainer.astro';
 import ImageObjectFitContainer from './ImageObjectFitContainer.astro';
 import ImageObjectPositionContainer from './ImageObjectPositionContainer.astro';
-import ImagePromptContainer from './ImagePromptContainer.astro';
-import ImagePromptModelContainer from './ImagePromptModelContainer.astro';
 import ImageRoundedContainer from './ImageRoundedContainer.astro';
 import ImageRoundedShadowContainer from './ImageRoundedShadowContainer.astro';
 import ImageShadowContainer from './ImageShadowContainer.astro';
@@ -25,7 +22,6 @@ import ImageTooltipContainer from './ImageTooltipContainer.astro';
 import ImageTooltipColorContainer from './ImageTooltipColorContainer.astro';
 import ImageTooltipOpenContainer from './ImageTooltipOpenContainer.astro';
 import ImageTooltipPlacementContainer from './ImageTooltipPlacementContainer.astro';
-import ImageShowPromptPanelContainer from './ImageShowPromptPanelContainer.astro';
 import ImageTransitionContainer from './ImageTransitionContainer.astro';
 import ImageWidthContainer from './ImageWidthContainer.astro';
 
@@ -40,11 +36,8 @@ export const ComponentPackage = {
     LoadingIndicator: ImageLoadingIndicatorContainer,
     LoadingIndicatorSpinner: ImageLoadingIndicatorSpinnerContainer,
     LoadingIndicatorProgress: ImageLoadingIndicatorProgressContainer,
-    Model: ImageModelContainer,
     ObjectFit: ImageObjectFitContainer,
     ObjectPosition: ImageObjectPositionContainer,
-    Prompt: ImagePromptContainer,
-    PromptModel: ImagePromptModelContainer,
     Rounded: ImageRoundedContainer,
     RoundedShadow: ImageRoundedShadowContainer,
     Shadow: ImageShadowContainer,
@@ -56,7 +49,6 @@ export const ComponentPackage = {
     TooltipColor: ImageTooltipColorContainer,
     TooltipOpen: ImageTooltipOpenContainer,
     TooltipPlacement: ImageTooltipPlacementContainer,
-    ShowPromptPanel: ImageShowPromptPanelContainer,
     Transition: ImageTransitionContainer,
     Width: ImageWidthContainer,
 }; 

@@ -77,7 +77,6 @@ import type {
 import type { ImageSource } from './image.ts';
 import LocalImage from './LocalImage.astro';
 import RemoteImage from './RemoteImage.astro';
-import ImagePromptPanel from './ImagePromptPanel.astro';
 
 export interface Props {
   /**
@@ -197,19 +196,6 @@ export interface Props {
    * @default "constrained"
    */
   layout?: string;
-  /**
-   * 生成提示词
-   */
-  prompt?: string;
-  /**
-   * 使用模型
-   */
-  model?: string;
-  /**
-   * 是否展示生成信息面板（prompt/model）
-   * @default true
-   */
-  showPromptPanel?: boolean;
 }
 
 const {
@@ -235,9 +221,6 @@ const {
   tooltipPlacement = 'top',
   tooltipColor = 'neutral',
   tooltipOpen = false,
-  prompt = '',
-  model = '',
-  showPromptPanel = true,
 } = Astro.props;
 
 // 判断是否为本地图片（ImageMetadata）
@@ -287,13 +270,6 @@ const localProps = {
       <LocalImage {...localProps} />
     ) : (
       <RemoteImage {...remoteProps} />
-    )
-  }
-
-  {/* 生成信息面板 */}
-  {
-    showPromptPanel !== false && (prompt || model) && (
-      <ImagePromptPanel prompt={prompt} model={model} />
     )
   }
 </div>
