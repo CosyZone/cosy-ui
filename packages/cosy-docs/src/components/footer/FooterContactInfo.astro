@@ -1,0 +1,48 @@
+---
+import { Footer } from '@coffic/cosy-ui';
+import Book from '@/assets/book.png';
+
+const contactInfo = {
+  address: '北京市朝阳区某某大厦 1001 室',
+  phone: '+86 138-0000-0000',
+  email: 'contact@example.com',
+  workingHours: '周一至周五 9:00-18:00',
+  other: [
+    { type: '微信', value: 'wechat_id', icon: 'message-circle' },
+    { type: 'QQ', value: '123456789', icon: 'users' },
+  ],
+};
+
+const socialLinks = [
+  { url: 'https://weibo.com', platform: 'weibo', name: '微博' },
+  { url: 'https://github.com', platform: 'github', name: 'GitHub' },
+  { url: 'https://twitter.com', platform: 'twitter', name: 'Twitter' },
+];
+---
+
+<Footer
+  siteName="CofficLab"
+  homeLink="/"
+  slogan="构建美好的数字体验"
+  company="CofficLab 科技有限公司"
+  copyright="© 2024 CofficLab. 保留所有权利"
+  inspirationalSlogan="让技术更简单，让体验更美好"
+  logo={Book}
+  aboutLink="/about"
+  contactLink="/contact"
+  teamLink="/team"
+  careersLink="/careers"
+  newsLink="/news"
+  historyLink="/history"
+  partnersLink="/partners"
+  blogLink="/blog"
+  faqLink="/faq"
+  mediaLink="/media"
+  techStackLink="/tech-stack"
+  termsLink="/terms"
+  privacyLink="/privacy"
+  contactInfo={contactInfo}
+  socialLinks={socialLinks}
+  icp="京ICP备12345678号"
+  icpLink="https://beian.miit.gov.cn"
+/>

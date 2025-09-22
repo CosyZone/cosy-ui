@@ -24,6 +24,7 @@ import FooterCareersLinkContainer from './FooterCareersLinkContainer.astro';
 import FooterContactLinkContainer from './FooterContactLinkContainer.astro';
 import FooterWithWechatQRContainer from './FooterWithWechatQRContainer.astro';
 import FooterQRContainer from './FooterQRContainer.astro';
+import FooterContactInfoContainer from './FooterContactInfoContainer.astro';
 
 export const FooterPackage = {
     FooterContainers: {
@@ -42,6 +43,7 @@ export const FooterPackage = {
         ContactLink: FooterContactLinkContainer,
         WithWechatQR: FooterWithWechatQRContainer,
         QR: FooterQRContainer,
+        ContactInfo: FooterContactInfoContainer,
     },
     FooterExamples: {
         Basic: FooterBasic,

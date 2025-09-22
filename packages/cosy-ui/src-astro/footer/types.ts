@@ -106,4 +106,23 @@ export interface IFooterProps {
     wechatQR?: ImageSource;
     /** WhatsApp 二维码 */
     whatsappQR?: ImageSource;
+    /** 联系方式信息 */
+    contactInfo?: IContactInfo;
+}
+
+export interface IContactInfo {
+    /** 地址 */
+    address?: string;
+    /** 电话 */
+    phone?: string;
+    /** 邮箱 */
+    email?: string;
+    /** 工作时间 */
+    workingHours?: string;
+    /** 其他联系方式 */
+    other?: Array<{
+        type: string;
+        value: string;
+        icon?: string;
+    }>;
 }

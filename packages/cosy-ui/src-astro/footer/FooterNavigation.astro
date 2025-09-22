@@ -10,7 +10,9 @@ import FooterSection from './FooterSection.astro';
 import FooterAboutNavigation from './FooterAboutNavigation.astro';
 import FooterResourcesNavigation from './FooterResourcesNavigation.astro';
 import FooterLegalNavigation from './FooterLegalNavigation.astro';
+import FooterContactInfo from './FooterContactInfo.astro';
 import type { IProduct } from '../types/product';
+import type { IContactInfo } from './types';
 
 export interface Props {
   /** 产品链接 */
@@ -43,6 +45,8 @@ export interface Props {
   termsLink?: string;
   /** 隐私链接 */
   privacyLink?: string;
+  /** 联系方式信息 */
+  contactInfo?: IContactInfo;
   /** 文本获取函数 */
   t: (key: string) => string;
   /** 调试模式 */
@@ -65,6 +69,7 @@ const {
   techStackLink,
   termsLink,
   privacyLink,
+  contactInfo,
   t,
   debug = false,
 } = Astro.props as Props;
@@ -130,4 +135,7 @@ const debugClasses = debug
     privacyLink={privacyLink}
     t={t}
   />
+
+  {/* 联系方式信息 */}
+  <FooterContactInfo contactInfo={contactInfo} t={t} />
 </Container>
