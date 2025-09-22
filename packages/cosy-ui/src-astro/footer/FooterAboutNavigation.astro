@@ -1,0 +1,42 @@
+---
+/**
+ * @component FooterAboutNavigation
+ * @description Footer 的关于导航子组件，包含关于我们、团队、职业、联系我们等链接
+ * @internal 供 FooterNavigation 内部使用
+ */
+
+import FooterSection from './FooterSection.astro';
+
+export interface Props {
+  /** 关于链接 */
+  aboutLink?: string;
+  /** 联系链接 */
+  contactLink?: string;
+  /** 团队链接 */
+  teamLink?: string;
+  /** 职业链接 */
+  careersLink?: string;
+  /** 文本获取函数 */
+  t: (key: string) => string;
+}
+
+const { aboutLink, contactLink, teamLink, careersLink, t } =
+  Astro.props as Props;
+
+// 检查是否有任何关于相关的链接
+const hasAboutLinks = aboutLink || contactLink || teamLink || careersLink;
+---
+
+{
+  hasAboutLinks && (
+    <FooterSection
+      title={t('about')}
+      links={[
+        { name: t('aboutUs'), href: aboutLink ?? '' },
+        { name: t('team'), href: teamLink ?? '' },
+        { name: t('careers'), href: careersLink ?? '' },
+        { name: t('contactUs'), href: contactLink ?? '' },
+      ].filter((link) => link.href)}
+    />
+  )
+}

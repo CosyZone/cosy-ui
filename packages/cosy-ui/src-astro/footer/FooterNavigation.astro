@@ -1,0 +1,141 @@
+---
+/**
+ * @component FooterNavigation
+ * @description Footer 的导航区域子组件，包含产品、友情链接、关于、资源、法律等导航
+ * @internal 供 Footer 内部使用
+ */
+
+import { Container } from '../../index-astro';
+import FooterSection from './FooterSection.astro';
+import FooterAboutNavigation from './FooterAboutNavigation.astro';
+import FooterResourcesNavigation from './FooterResourcesNavigation.astro';
+import FooterLegalNavigation from './FooterLegalNavigation.astro';
+import FooterContactInfo from './FooterContactInfo.astro';
+import type { IProduct } from '../types/product';
+import type { IContactInfo } from './types';
+
+export interface Props {
+  /** 产品链接 */
+  products?: IProduct[];
+  /** 友情链接 */
+  friendlyLinks?: IProduct[];
+  /** 关于链接 */
+  aboutLink?: string;
+  /** 联系链接 */
+  contactLink?: string;
+  /** 团队链接 */
+  teamLink?: string;
+  /** 职业链接 */
+  careersLink?: string;
+  /** 新闻链接 */
+  newsLink?: string;
+  /** 历史链接 */
+  historyLink?: string;
+  /** 合作伙伴链接 */
+  partnersLink?: string;
+  /** 博客链接 */
+  blogLink?: string;
+  /** 常见问题链接 */
+  faqLink?: string;
+  /** 媒体链接 */
+  mediaLink?: string;
+  /** 技术栈链接 */
+  techStackLink?: string;
+  /** 条款链接 */
+  termsLink?: string;
+  /** 隐私链接 */
+  privacyLink?: string;
+  /** 联系方式信息 */
+  contactInfo?: IContactInfo;
+  /** 文本获取函数 */
+  t: (key: string) => string;
+  /** 调试模式 */
+  debug?: boolean;
+}
+
+const {
+  products = [],
+  friendlyLinks = [],
+  aboutLink,
+  contactLink,
+  teamLink,
+  careersLink,
+  newsLink,
+  historyLink,
+  partnersLink,
+  blogLink,
+  faqLink,
+  mediaLink,
+  techStackLink,
+  termsLink,
+  privacyLink,
+  contactInfo,
+  t,
+  debug = false,
+} = Astro.props as Props;
+
+// 调试模式的样式类
+const debugClasses = debug
+  ? {
+      section: 'cosy:border-2 cosy:border-green-500',
+    }
+  : {
+      section: '',
+    };
+---
+
+<Container
+  flex="col"
+  gap="lg"
+  justify="center"
+  padding="none"
+  width="full"
+  class:list={[
+    'cosy:h-full cosy:mx-auto cosy:max-w-xl cosy:text-center cosy:items-center cosy:md:flex-row cosy:md:justify-between cosy:md:items-start',
+    debugClasses.section,
+  ]}>
+  {/* 产品导航 */}
+  {
+    products.length > 0 && (
+      <FooterSection title={t('products')} links={products} />
+    )
+  }
+
+  {/* 友情链接导航 */}
+  {
+    friendlyLinks.length > 0 && (
+      <FooterSection title={t('friendlyLinks')} links={friendlyLinks} />
+    )
+  }
+
+  {/* 关于导航 */}
+  <FooterAboutNavigation
+    aboutLink={aboutLink}
+    contactLink={contactLink}
+    teamLink={teamLink}
+    careersLink={careersLink}
+    t={t}
+  />
+
+  {/* 资源导航 */}
+  <FooterResourcesNavigation
+    newsLink={newsLink}
+    historyLink={historyLink}
+    partnersLink={partnersLink}
+    blogLink={blogLink}
+    faqLink={faqLink}
+    mediaLink={mediaLink}
+    techStackLink={techStackLink}
+    t={t}
+  />
+
+  {/* 法律导航 */}
+  <FooterLegalNavigation
+    termsLink={termsLink}
+    privacyLink={privacyLink}
+    t={t}
+  />
+
+  {/* 联系方式信息 */}
+  <FooterContactInfo contactInfo={contactInfo} t={t} />
+</Container>

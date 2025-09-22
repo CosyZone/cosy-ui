@@ -220,8 +220,8 @@ import {
   getBackgroundClass,
   type BackgroundColor,
 } from '../../src/common/backgrounds';
-import FooterSection from './FooterSection.astro';
 import FooterBrand from './FooterBrand.astro';
+import FooterNavigation from './FooterNavigation.astro';
 import '../../style.ts';
 import FooterCopyright from './FooterCopyright.astro';
 import FooterICP from './FooterICP.astro';
@@ -232,7 +232,6 @@ const {
   slogan,
   company,
   copyright,
-  inspirationalSlogan,
   icp,
   icpLink,
   logo,
@@ -255,6 +254,7 @@ const {
   mediaLink,
   techStackLink,
   background = 'base-200',
+  contactInfo,
   debug = false,
 } = Astro.props as IFooterProps;
 
@@ -312,76 +312,29 @@ const debugClasses = debug
     />
 
     {/* 导航区域 */}
-    <div
-      class:list={[
-        'cosy:flex cosy:h-full cosy:flex-col cosy:justify-center cosy:gap-8 cosy:mx-auto cosy:max-w-xl cosy:text-center cosy:items-center cosy:w-full cosy:md:flex-row cosy:md:justify-between cosy:md:items-start',
-        debugClasses.section,
-      ]}>
-      {/* 产品导航 */}
-      {
-        products.length > 0 && (
-          <FooterSection title={t('products')} links={products} />
-        )
-      }
-
-      {/* 友情链接导航 */}
-      {
-        friendlyLinks.length > 0 && (
-          <FooterSection title={t('friendlyLinks')} links={friendlyLinks} />
-        )
-      }
-
-      {/* 关于导航 */}
-      {
-        (aboutLink || contactLink || teamLink || careersLink) && (
-          <FooterSection
-            title={t('about')}
-            links={[
-              { name: t('aboutUs'), href: aboutLink ?? '' },
-              { name: t('team'), href: teamLink ?? '' },
-              { name: t('careers'), href: careersLink ?? '' },
-              { name: t('contactUs'), href: contactLink ?? '' },
-            ].filter((link) => link.href)}
-          />
-        )
-      }
-
-      {/* 资源导航 */}
-      {
-        (newsLink ||
-          historyLink ||
-          partnersLink ||
-          blogLink ||
-          faqLink ||
-          mediaLink ||
-          techStackLink) && (
-          <FooterSection
-            title={t('resources')}
-            links={[
-              { name: t('news'), href: newsLink ?? '' },
-              { name: t('blog'), href: blogLink ?? '' },
-              { name: t('faq'), href: faqLink ?? '' },
-              { name: t('history'), href: historyLink ?? '' },
-              { name: t('techStack'), href: techStackLink ?? '' },
-            ].filter((link) => link.href)}
-          />
-        )
-      }
-
-      {/* 法律导航 */}
-      {
-        (termsLink || privacyLink) && (
-          <FooterSection
-            title={t('legal')}
-            links={[
-              { name: t('terms'), href: termsLink ?? '' },
-              { name: t('privacy'), href: privacyLink ?? '' },
-            ].filter((link) => link.href)}
-          />
-        )
-      }
-    </div>
+    <FooterNavigation
+      products={products}
+      friendlyLinks={friendlyLinks}
+      aboutLink={aboutLink}
+      contactLink={contactLink}
+      teamLink={teamLink}
+      careersLink={careersLink}
+      newsLink={newsLink}
+      historyLink={historyLink}
+      partnersLink={partnersLink}
+      blogLink={blogLink}
+      faqLink={faqLink}
+      mediaLink={mediaLink}
+      techStackLink={techStackLink}
+      termsLink={termsLink}
+      privacyLink={privacyLink}
+      contactInfo={contactInfo}
+      t={t}
+      debug={debug}
+    />
   </div>
+
+  <hr class="cosy:border-base-content/20" />
 
   <div
     class="cosy:flex cosy:flex-col cosy:items-center cosy:justify-center cosy:w-full cosy:opacity-70 cosy:lg:flex-row cosy:gap-4">

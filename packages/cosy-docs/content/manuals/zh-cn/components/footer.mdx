@@ -38,7 +38,11 @@ Footer 组件用于创建网站的页脚部分，提供版权信息、导航链�
 <FooterPackage.FooterContainers.AboutLink />
 
 ### background
-页脚背景色，支持所有预设背景色和透明度变体。
+页脚背景色。支持以下所有预设背景（含透明度与渐变）：
+
+- 基础：primary、secondary、accent、neutral、base-100、base-200、base-300、success、warning、error、info
+- 透明度：上述基础色均支持 /10、/20、/30、/40、/50、/60、/70、/80、/90（如 primary/10）
+- 渐变：gradient、gradient-primary、gradient-secondary、gradient-accent、gradient-success、gradient-warning、gradient-info、gradient-sky、gradient-sunset、gradient-forest、gradient-ocean、gradient-mountain、gradient-flower、gradient-watermelon、gradient-lemon、gradient-grape、gradient-blueberry、gradient-mango、gradient-kiwi、gradient-pitaya、gradient-banana
 <FooterPackage.FooterContainers.Background />
 
 ### blogLink
@@ -52,6 +56,11 @@ Footer 组件用于创建网站的页脚部分，提供版权信息、导航链�
 ### company
 公司名称。
 <FooterPackage.FooterContainers.Basic />
+
+### contactInfo
+联系方式信息配置，包含地址、电话、邮箱、工作时间等详细信息。每个联系方式占一行，前方有小图标。
+
+<FooterPackage.FooterContainers.ContactInfo />
 
 ### contactLink
 联系我们页面链接。
@@ -98,7 +107,7 @@ ICP备案链接。
 <FooterPackage.FooterContainers.Basic />
 
 ### logo
-网站Logo对象，包含src和alt属性。
+网站 Logo 图片源（ImageSource）。推荐使用组件库图片工具方法（如 `getExampleImage`）生成。
 <FooterPackage.FooterContainers.WithLogo />
 
 ### mediaLink

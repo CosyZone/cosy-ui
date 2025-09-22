@@ -1,12 +1,10 @@
 ---
 /**
- * @component Footer.WithLogo
- *
- * @description
- * 展示带有Logo的页脚示例。
+ * @component Footer.WithLogoLocal
+ * @description 使用本地图片作为 Logo 的页脚示例
  */
 import { Footer } from '@coffic/cosy-ui';
-import { getExampleImage } from '@coffic/cosy-ui';
+import book from '@/assets/book.png';
 ---
 
 <Footer
@@ -16,10 +14,5 @@ import { getExampleImage } from '@coffic/cosy-ui';
   company="我的公司"
   copyright="保留所有权利"
   inspirationalSlogan="构建美好的数字体验"
-  logo={getExampleImage({
-    width: 100,
-    height: 100,
-    provider: 'robohash',
-    tag: 'logo',
-  })}
+  logo={book}
 />

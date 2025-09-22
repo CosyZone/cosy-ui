@@ -1,11 +1,18 @@
 ---
 import { CodeContainer } from '@coffic/cosy-ui';
 import FooterWithLogo from './FooterWithLogo.astro';
+import FooterWithLogoLocal from './FooterWithLogoLocal.astro';
 import FooterWithLogoSourceCode from './FooterWithLogo.astro?raw';
+import FooterWithLogoLocalSourceCode from './FooterWithLogoLocal.astro?raw';
 ---
 
-<CodeContainer titles={['带Logo的页脚']} codes={[FooterWithLogoSourceCode]}>
+<CodeContainer
+  titles={['远程/生成图片', '本地图片']}
+  codes={[FooterWithLogoSourceCode, FooterWithLogoLocalSourceCode]}>
   <div id="tab-1">
     <FooterWithLogo />
+  </div>
+  <div id="tab-2">
+    <FooterWithLogoLocal />
   </div>
 </CodeContainer>
