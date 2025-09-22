@@ -48,13 +48,19 @@ const {
 ---
 
 <Container
+  aria-label="Footer Navigation"
   flex="col"
   gap="lg"
   justify="center"
   padding="none"
   width="full"
   class:list={[
-    'cosy:h-full cosy:mx-auto cosy:text-center cosy:items-center cosy:md:flex-row cosy:md:justify-between cosy:md:items-start',
+    // 通用
+    'cosy:h-full cosy:mx-auto cosy:text-center ',
+    // 小屏幕
+    'cosy:flex-col cosy:justify-between cosy:items-center',
+    // 大屏幕
+    'cosy:md:flex-row cosy:md:justify-center cosy:md:items-start',
   ]}>
   {/* 产品导航 */}
   {
