@@ -11,12 +11,16 @@ import MarginContainer from './containers/MarginContainer.astro';
 import WidthContainer from './containers/WidthContainer.astro';
 import HeightContainer from './containers/HeightContainer.astro';
 import ClassContainer from './containers/ClassContainer.astro';
+import ImagesExample from './ImagesExample.astro';
+import ImagesContainer from './containers/ImagesContainer.astro';
 
 export const ScrollRowPackage = {
     Basic,
+    ImagesExample,
     WithScrollBy,
     Containers: {
         Example: ExampleContainer,
+        Images: ImagesContainer,
         ScrollBy: ScrollByContainer,
         ShowNavigation: ShowNavigationContainer,
         Gap: GapContainer,

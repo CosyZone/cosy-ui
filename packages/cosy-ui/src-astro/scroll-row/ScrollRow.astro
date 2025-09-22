@@ -127,6 +127,11 @@ const gapClass = gapClasses[gap] || '';
   /* 防止子项被 flex 布局压缩。注意 slotted 内容不参与样式作用域，需使用 :global */
   :global(.scroll-row-container > *) {
     flex: 0 0 auto;
+  }
+  :global(
+    .scroll-row-container
+      > :not(.hidden):not(.cosy\:hidden):not([data-cosy-image-preview])
+  ) {
     display: inline-block;
   }
 </style>
