@@ -37,6 +37,7 @@
  * - tooltipOpen?: boolean - 是否强制显示提示框，默认为 false
  * - transition?: 'none' | 'fade' | 'slide' | 'zoom' - 图片的过渡动画效果，支持淡入、滑动和缩放
  * - width?: number - 图片的宽度，单位为像素
+ * - preview?: boolean - 是否启用点击图片预览大图
  *
  * @usage
  * 基本用法（自动识别图片类型）：
@@ -77,6 +78,7 @@ import type {
 import type { ImageSource } from './image.ts';
 import LocalImage from './LocalImage.astro';
 import RemoteImage from './RemoteImage.astro';
+import Button from '../button/Button.astro';
 
 export interface Props {
   /**
@@ -192,6 +194,11 @@ export interface Props {
    */
   width?: number;
   /**
+   * 是否启用点击图片预览大图
+   * @default false
+   */
+  preview?: boolean;
+  /**
    * 图片的布局方式
    * @default "constrained"
    */
@@ -221,10 +228,16 @@ const {
   tooltipPlacement = 'top',
   tooltipColor = 'neutral',
   tooltipOpen = false,
+  preview = true,
 } = Astro.props;
 
 // 判断是否为本地图片（ImageMetadata）
 const isLocalImage = typeof imageSource !== 'string';
+const previewEnabled = !!preview;
+const previewId = `cosy-image-preview-${Math.random().toString(36).slice(2)}`;
+const previewSrc = isLocalImage
+  ? (imageSource as ImageMetadata).src
+  : (imageSource as string);
 
 // 构建通用属性对象
 const commonProps = {
@@ -265,16 +278,13 @@ const localProps = {
 ---
 
 <div
-  class="not-prose
-  cosy:relative
-  cosy:w-full
-  cosy:h-full
-  cosy:align-middle
-  cosy:mx-auto
-  cosy:my-auto
-  cosy:justify-center
-  cosy:flex
-  cosy:items-center"
+  class:list={[
+    'not-prose cosy:relative cosy:w-full cosy:h-full cosy:align-middle cosy:mx-auto cosy:my-auto cosy:justify-center cosy:flex cosy:items-center',
+    previewEnabled ? 'cosy:cursor-zoom-in' : '',
+  ]}
+  onclick={previewEnabled
+    ? `window.__cosyImagePreviewOpen('${previewId}')`
+    : undefined}
   data-image-container>
   {
     isLocalImage ? (
@@ -284,3 +294,60 @@ const localProps = {
     )
   }
 </div>
+
+{
+  previewEnabled && (
+    <div
+      id={previewId}
+      class="cosy:fixed cosy:inset-0 cosy:z-[999] cosy:bg-black/80 cosy:backdrop-blur-sm cosy:hidden cosy:p-4"
+      data-cosy-image-preview
+      onclick={`window.__cosyImagePreviewClose('${previewId}')`}>
+      <div class="cosy:relative cosy:w-full cosy:h-full cosy:flex cosy:items-center cosy:justify-center">
+        <img
+          src={previewSrc}
+          alt={alt}
+          class="cosy:max-h-[85vh] cosy:max-w-[92vw] cosy:w-auto cosy:h-auto cosy:rounded-lg cosy:shadow-2xl"
+          onclick="event.stopPropagation()"
+        />
+        <Button
+          shape="circle"
+          size="sm"
+          variant="ghost"
+          class="cosy:absolute cosy:top-8 cosy:right-4 cosy:text-white cosy:bg-white/10 hover:cosy:bg-white/20 cosy:border-0 cosy:shadow-none cosy:!min-h-0 cosy:h-9 cosy:w-9 cosy:p-0"
+          onclick={`event.stopPropagation(); window.__cosyImagePreviewClose('${previewId}')`}>
+          ✕
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+<script>
+  declare global {
+    interface Window {
+      __cosyImagePreviewOpen: (id: string) => void;
+      __cosyImagePreviewClose: (id: string) => void;
+    }
+  }
+
+  window.__cosyImagePreviewOpen = (id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.remove('cosy:hidden');
+    el.classList.add('cosy:flex');
+
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        window.__cosyImagePreviewClose(id);
+      }
+    };
+    document.addEventListener('keydown', onEsc, { once: true });
+  };
+
+  window.__cosyImagePreviewClose = (id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.remove('cosy:flex');
+    el.classList.add('cosy:hidden');
+  };
+</script>
