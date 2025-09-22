@@ -404,7 +404,6 @@ const data = ecommerceData[currentLocale] || ecommerceData['zh-cn'];
 ---
 
 <AppLayout
-  debug={false}
   metaConfig={{
     title: data.productName,
     description: data.description,
@@ -417,7 +416,6 @@ const data = ecommerceData[currentLocale] || ecommerceData['zh-cn'];
   }}
   sidebarConfig={{
     sidebarItems: [],
-    debug: false,
   }}
   showHeader={true}
   showFooter={true}
@@ -435,12 +433,18 @@ const data = ecommerceData[currentLocale] || ecommerceData['zh-cn'];
       { name: 'Speakers', href: '#' },
       { name: 'Accessories', href: '#' },
     ],
-    aboutLink: '#',
-    contactLink: '#',
-    termsLink: '#',
-    privacyLink: '#',
-    historyLink: '#',
-    techStackLink: '#',
+    aboutInfo: {
+      aboutLink: '#',
+      contactLink: '#',
+    },
+    legalInfo: {
+      termsLink: '#',
+      privacyLink: '#',
+    },
+    resourcesInfo: {
+      historyLink: '#',
+      techStackLink: '#',
+    },
   }}
   headerConfig={{
     logoHref: configApp.homeLink,

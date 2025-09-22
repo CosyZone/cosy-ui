@@ -25,7 +25,6 @@
  *     { url: "https://github.com/myusername", platform: "github", name: "GitHub" },
  *     { url: "https://twitter.com/myusername", platform: "twitter", name: "Twitter" }
  *   ]}
- *   debug={false}
  * />
  * ```
  *
@@ -35,7 +34,6 @@
  * @prop {string} slogan - 网站标语
  * @prop {Object} [logo] - 网站Logo对象，包含src和alt属性
  * @prop {Array<Object>} [socialLinks=[]] - 社交媒体链接数组，每个对象包含url、platform和name属性
- * @prop {boolean} [debug=false] - 调试模式
  *
  * @accessibility
  * - 使用语义化HTML结构
@@ -44,10 +42,10 @@
  * - 所有链接都有明确的文本描述
  */
 
-import { Heading, Link } from '../../index-astro';
-import Image from '../image/Image.astro';
+import { Heading } from '../../index-astro';
 import type { FooterBrandProps } from './types';
 import FooterSocialLinks from './FooterSocialLinks.astro';
+import FooterLogo from './FooterLogo.astro';
 import '../../style.ts';
 
 const {
@@ -58,46 +56,30 @@ const {
   socialLinks = [],
   wechatQR,
   whatsappQR,
-  debug = false,
 } = Astro.props as FooterBrandProps;
-
-// 调试模式的样式类
-const debugClasses = debug
-  ? {
-      aside: 'cosy:border-2 cosy:border-purple-500',
-    }
-  : {
-      aside: '',
-    };
 ---
 
-<aside class:list={['cosy:max-w-xs cosy:text-center', debugClasses.aside]}>
-  <Link href={homeLink} align="center" noUnderline block class="cosy:mb-4">
-    {
-      logo && (
-        <Image
-          src={logo as any}
-          alt={siteName}
-          width={48}
-          height={48}
-          rounded="none"
-          preview={false}
-          class="cosy:w-12 cosy:h-12 cosy:mask cosy:mask-squircle"
-        />
-      )
-    }
+<aside
+  class:list={[
+    // 小屏幕
+    'cosy:w-full cosy:text-center cosy:flex cosy:flex-col',
+    // 大屏幕
+    'cosy:md:max-w-md cosy:md:flex-row cosy:md:justify-center cosy:md:items-center',
+  ]}>
+  <FooterLogo siteName={siteName} homeLink={homeLink} logo={logo} />
+
+  <div class="cosy:w-full cosy:text-center cosy:flex cosy:flex-col">
     <div>
       <Heading level={3} align="center">
         {siteName}
       </Heading>
       <p class="cosy:text-base-content/70">{slogan}</p>
     </div>
-  </Link>
 
-  <FooterSocialLinks
-    socialLinks={socialLinks}
-    wechatQR={wechatQR}
-    whatsappQR={whatsappQR}
-    debug={debug}
-  />
+    <FooterSocialLinks
+      socialLinks={socialLinks}
+      wechatQR={wechatQR}
+      whatsappQR={whatsappQR}
+    />
+  </div>
 </aside>

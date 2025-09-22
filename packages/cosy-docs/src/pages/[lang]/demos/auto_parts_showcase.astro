@@ -395,7 +395,6 @@ const data = autoPartsData[currentLocale] || autoPartsData['zh-cn'];
 ---
 
 <AppLayout
-  debug={false}
   metaConfig={{
     title: data.companyName,
     description: data.description,
@@ -408,7 +407,6 @@ const data = autoPartsData[currentLocale] || autoPartsData['zh-cn'];
   }}
   sidebarConfig={{
     sidebarItems: [],
-    debug: false,
   }}
   showHeader={true}
   showFooter={true}
@@ -426,12 +424,18 @@ const data = autoPartsData[currentLocale] || autoPartsData['zh-cn'];
       { name: 'Suspension', href: '#' },
       { name: 'Electronics', href: '#' },
     ],
-    aboutLink: '#',
-    contactLink: '#',
-    termsLink: '#',
-    privacyLink: '#',
-    historyLink: '#',
-    techStackLink: '#',
+    aboutInfo: {
+      aboutLink: '#',
+      contactLink: '#',
+    },
+    legalInfo: {
+      termsLink: '#',
+      privacyLink: '#',
+    },
+    resourcesInfo: {
+      historyLink: '#',
+      techStackLink: '#',
+    },
   }}
   headerConfig={{
     logoHref: configApp.homeLink,

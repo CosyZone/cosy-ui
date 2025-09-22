@@ -15,16 +15,9 @@ export interface Props {
   wechatQR?: ImageSource;
   /** WhatsApp 二维码 */
   whatsappQR?: ImageSource;
-  /** 调试模式（预留） */
-  debug?: boolean;
 }
 
-const {
-  socialLinks = [],
-  wechatQR,
-  whatsappQR,
-  debug = false,
-} = Astro.props as Props;
+const { socialLinks = [], wechatQR, whatsappQR } = Astro.props as Props;
 ---
 
 <Container

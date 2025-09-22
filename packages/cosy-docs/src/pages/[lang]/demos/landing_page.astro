@@ -19,7 +19,6 @@ export const getStaticPaths = async () => {
 ---
 
 <AppLayout
-  debug={false}
   metaConfig={{
     title: '产品首页',
     description: 'Cosy UI - A beautiful Astro component library',
@@ -53,12 +52,18 @@ export const getStaticPaths = async () => {
       { name: 'GitOK', href: 'https://coffic.cn/gitok' },
       { name: 'Cosy UI', href: 'https://github.com/cosyzone/cosy-ui' },
     ],
-    aboutLink: 'https://coffic.cn/en/meta/about',
-    contactLink: 'https://coffic.cn/en/meta/contact',
-    termsLink: 'https://coffic.cn/en/meta/terms',
-    privacyLink: 'https://coffic.cn/en/meta/privacy',
-    historyLink: 'https://coffic.cn/en/meta/out-story',
-    techStackLink: 'https://coffic.cn/en/meta/tech-stack',
+    aboutInfo: {
+      aboutLink: 'https://coffic.cn/en/meta/about',
+      contactLink: 'https://coffic.cn/en/meta/contact',
+    },
+    legalInfo: {
+      termsLink: 'https://coffic.cn/en/meta/terms',
+      privacyLink: 'https://coffic.cn/en/meta/privacy',
+    },
+    resourcesInfo: {
+      historyLink: 'https://coffic.cn/en/meta/out-story',
+      techStackLink: 'https://coffic.cn/en/meta/tech-stack',
+    },
   }}
   headerConfig={{
     logoHref: configApp.homeLink,

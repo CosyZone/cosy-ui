@@ -6,20 +6,20 @@
  */
 
 import FooterSection from './FooterSection.astro';
+import type { ILegalInfo } from './types';
 
 export interface Props {
-  /** 条款链接 */
-  termsLink?: string;
-  /** 隐私链接 */
-  privacyLink?: string;
+  /** 法律信息 */
+  legalInfo?: ILegalInfo;
   /** 文本获取函数 */
   t: (key: string) => string;
 }
 
-const { termsLink, privacyLink, t } = Astro.props as Props;
+const { legalInfo, t } = Astro.props as Props;
 
 // 检查是否有任何法律相关的链接
-const hasLegalLinks = termsLink || privacyLink;
+const hasLegalLinks =
+  legalInfo && (legalInfo.termsLink || legalInfo.privacyLink);
 ---
 
 {
@@ -27,8 +27,8 @@ const hasLegalLinks = termsLink || privacyLink;
     <FooterSection
       title={t('legal')}
       links={[
-        { name: t('terms'), href: termsLink ?? '' },
-        { name: t('privacy'), href: privacyLink ?? '' },
+        { name: t('terms'), href: legalInfo?.termsLink ?? '' },
+        { name: t('privacy'), href: legalInfo?.privacyLink ?? '' },
       ].filter((link) => link.href)}
     />
   )
