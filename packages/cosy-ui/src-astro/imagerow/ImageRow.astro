@@ -51,6 +51,7 @@ import {
 } from '../../src/common';
 import Container from '../container/Container.astro';
 import Image from '../image/Image.astro';
+import Button from '../button/Button.astro';
 import ChevronLeftIcon from '../icons/ChevronLeftIcon.astro';
 import ChevronRightIcon from '../icons/ChevronRightIcon.astro';
 
@@ -118,13 +119,15 @@ const getImageClass = (index: number) => {
   <div class="image-row-wrapper">
     {
       showNavigation && images.length > 1 && (
-        <button
+        <Button
+          shape="circle"
+          size="sm"
+          variant="ghost"
           class="image-row-nav-btn image-row-nav-prev"
-          onclick="window.scrollImageRow(this, 'prev')"
-          aria-label="上一张图片"
+          onClick="window.scrollImageRow(this, 'prev')"
           disabled>
-          <ChevronLeftIcon size="20px" />
-        </button>
+          <ChevronLeftIcon size="20px" slot="icon-left" />
+        </Button>
       )
     }
 
@@ -158,12 +161,14 @@ const getImageClass = (index: number) => {
 
     {
       showNavigation && images.length > 1 && (
-        <button
+        <Button
+          shape="circle"
+          size="sm"
+          variant="ghost"
           class="image-row-nav-btn image-row-nav-next"
-          onclick="window.scrollImageRow(this, 'next')"
-          aria-label="下一张图片">
-          <ChevronRightIcon size="20px" />
-        </button>
+          onClick="window.scrollImageRow(this, 'next')">
+          <ChevronRightIcon size="20px" slot="icon-left" />
+        </Button>
       )
     }
   </div>
@@ -214,32 +219,23 @@ const getImageClass = (index: number) => {
 
   /* 导航按钮样式 */
   .image-row-nav-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border: none;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.9);
-    color: rgba(0, 0, 0, 0.7);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     flex-shrink: 0;
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    color: rgba(0, 0, 0, 0.7) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
   }
 
   .image-row-nav-btn:hover:not(:disabled) {
-    background-color: rgba(255, 255, 255, 1);
-    color: rgba(0, 0, 0, 0.9);
-    transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background-color: rgba(255, 255, 255, 1) !important;
+    color: rgba(0, 0, 0, 0.9) !important;
+    transform: scale(1.1) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
   }
 
   .image-row-nav-btn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-    transform: none;
+    opacity: 0.3 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
   }
 
   /* 响应式设计 */
@@ -247,11 +243,6 @@ const getImageClass = (index: number) => {
     .image-row-item {
       width: 150px;
       height: 120px;
-    }
-
-    .image-row-nav-btn {
-      width: 36px;
-      height: 36px;
     }
 
     .image-row-wrapper {
@@ -263,11 +254,6 @@ const getImageClass = (index: number) => {
     .image-row-item {
       width: 120px;
       height: 100px;
-    }
-
-    .image-row-nav-btn {
-      width: 32px;
-      height: 32px;
     }
 
     .image-row-wrapper {
