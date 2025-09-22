@@ -12,41 +12,26 @@ import FooterResourcesNavigation from './FooterResourcesNavigation.astro';
 import FooterLegalNavigation from './FooterLegalNavigation.astro';
 import FooterContactInfo from './FooterContactInfo.astro';
 import type { IProduct } from '../types/product';
-import type { IContactInfo } from './types';
+import type {
+  IContactInfo,
+  ILegalInfo,
+  IResourcesInfo,
+  IAboutInfo,
+} from './types';
 
 export interface Props {
   /** 产品链接 */
   products?: IProduct[];
   /** 友情链接 */
   friendlyLinks?: IProduct[];
-  /** 关于链接 */
-  aboutLink?: string;
-  /** 联系链接 */
-  contactLink?: string;
-  /** 团队链接 */
-  teamLink?: string;
-  /** 职业链接 */
-  careersLink?: string;
-  /** 新闻链接 */
-  newsLink?: string;
-  /** 历史链接 */
-  historyLink?: string;
-  /** 合作伙伴链接 */
-  partnersLink?: string;
-  /** 博客链接 */
-  blogLink?: string;
-  /** 常见问题链接 */
-  faqLink?: string;
-  /** 媒体链接 */
-  mediaLink?: string;
-  /** 技术栈链接 */
-  techStackLink?: string;
-  /** 条款链接 */
-  termsLink?: string;
-  /** 隐私链接 */
-  privacyLink?: string;
+  /** 关于信息 */
+  aboutInfo?: IAboutInfo;
+  /** 资源信息 */
+  resourcesInfo?: IResourcesInfo;
   /** 联系方式信息 */
   contactInfo?: IContactInfo;
+  /** 法律信息 */
+  legalInfo?: ILegalInfo;
   /** 文本获取函数 */
   t: (key: string) => string;
 }
@@ -54,20 +39,10 @@ export interface Props {
 const {
   products = [],
   friendlyLinks = [],
-  aboutLink,
-  contactLink,
-  teamLink,
-  careersLink,
-  newsLink,
-  historyLink,
-  partnersLink,
-  blogLink,
-  faqLink,
-  mediaLink,
-  techStackLink,
-  termsLink,
-  privacyLink,
+  aboutInfo,
+  resourcesInfo,
   contactInfo,
+  legalInfo,
   t,
 } = Astro.props as Props;
 ---
@@ -96,32 +71,13 @@ const {
   }
 
   {/* 关于导航 */}
-  <FooterAboutNavigation
-    aboutLink={aboutLink}
-    contactLink={contactLink}
-    teamLink={teamLink}
-    careersLink={careersLink}
-    t={t}
-  />
+  <FooterAboutNavigation aboutInfo={aboutInfo} t={t} />
 
   {/* 资源导航 */}
-  <FooterResourcesNavigation
-    newsLink={newsLink}
-    historyLink={historyLink}
-    partnersLink={partnersLink}
-    blogLink={blogLink}
-    faqLink={faqLink}
-    mediaLink={mediaLink}
-    techStackLink={techStackLink}
-    t={t}
-  />
+  <FooterResourcesNavigation resourcesInfo={resourcesInfo} t={t} />
 
   {/* 法律导航 */}
-  <FooterLegalNavigation
-    termsLink={termsLink}
-    privacyLink={privacyLink}
-    t={t}
-  />
+  <FooterLegalNavigation legalInfo={legalInfo} t={t} />
 
   {/* 联系方式信息 */}
   <FooterContactInfo contactInfo={contactInfo} t={t} />

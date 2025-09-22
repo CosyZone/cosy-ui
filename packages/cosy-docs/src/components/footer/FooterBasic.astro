@@ -29,6 +29,33 @@ const contactInfo = {
   qq: '123456789',
 };
 
+// 法律信息
+const legalInfo = {
+  termsLink: '/terms',
+  privacyLink: '/privacy',
+  icp: '京ICP备12345678号',
+  icpLink: 'https://beian.miit.gov.cn',
+};
+
+// 关于信息
+const aboutInfo = {
+  aboutLink: '/about',
+  contactLink: '/contact',
+  teamLink: '/team',
+  careersLink: '/careers',
+};
+
+// 资源信息
+const resourcesInfo = {
+  newsLink: '/news',
+  historyLink: '/history',
+  partnersLink: '/partners',
+  blogLink: '/blog',
+  faqLink: '/faq',
+  mediaLink: '/media',
+  techStackLink: '/tech-stack',
+};
+
 // 二维码图片
 const wechatQR = getLandscapeImage({
   width: 200,
@@ -59,14 +86,11 @@ const logo = getProductImage({
   inspirationalSlogan="让技术更简单，让体验更美好"
   logo={logo}
   background="base-200"
-  mediaLink="/media"
-  techStackLink="/tech-stack"
-  termsLink="/terms"
-  privacyLink="/privacy"
+  aboutInfo={aboutInfo}
   contactInfo={contactInfo}
   socialLinks={socialLinks}
   wechatQR={wechatQR}
   whatsappQR={whatsappQR}
-  icp="京ICP备12345678号"
-  icpLink="https://beian.miit.gov.cn"
+  legalInfo={legalInfo}
+  resourcesInfo={resourcesInfo}
 />
