@@ -1,0 +1,73 @@
+---
+title: 'ScrollRow'
+description: 'ScrollRow 是一个通用的横向可滚动容器，支持任意子内容与左右导航控制'
+folder: false
+order: 19.1
+---
+
+import { ScrollRow } from '@coffic/cosy-ui';
+import { ScrollRowPackage } from '@/components/scroll-row/index';
+
+# {frontmatter.title}
+
+## 简介
+
+ScrollRow 是一个通用的横向可滚动容器组件，不限定子内容类型，提供左右导航按钮、间距控制以及可访问性支持。
+
+## 案例
+
+<ScrollRowPackage.Basic />
+
+## Props
+
+### ariaLabel
+容器的语义化描述文本，用于可访问性（屏幕阅读器）。
+<ScrollRowPackage.Containers.Example />
+
+### background
+背景色，支持组件库预设的所有背景色与透明度变体。
+<ScrollRowPackage.Containers.Background />
+
+### class
+追加的自定义类名。
+<ScrollRowPackage.Containers.Example />
+
+### gap
+子元素间距，来自组件库的 Gap 预设尺寸。
+<ScrollRowPackage.Containers.Gap />
+
+### height
+容器高度，来自组件库的 Height 预设尺寸。
+<ScrollRowPackage.Containers.Example />
+
+### margin
+外边距，来自组件库的 Margin 预设尺寸。
+<ScrollRowPackage.Containers.Example />
+
+### padding
+内边距，来自组件库的 Padding 预设尺寸。
+<ScrollRowPackage.Containers.Example />
+
+### rounded
+容器圆角，来自组件库的 Rounded 预设尺寸。
+<ScrollRowPackage.Containers.Rounded />
+
+### scrollBy
+导航按钮滚动步长，可选值：`'item' | 'page' | number`。
+<ScrollRowPackage.Containers.ScrollBy />
+
+### showNavigation
+是否显示左右导航按钮，默认 `true`。
+<ScrollRowPackage.Containers.ShowNavigation />
+
+### width
+容器宽度，来自组件库的 Size 预设尺寸。
+<ScrollRowPackage.Containers.Example />
+
+## Slots
+
+### default
+
+放置任意需要横向排列和滚动的子内容。
+
+
