@@ -1,0 +1,35 @@
+---
+/**
+ * @component FooterLegalNavigation
+ * @description Footer 的法律导航子组件，包含服务条款、隐私政策等链接
+ * @internal 供 FooterNavigation 内部使用
+ */
+
+import FooterSection from './FooterSection.astro';
+
+export interface Props {
+  /** 条款链接 */
+  termsLink?: string;
+  /** 隐私链接 */
+  privacyLink?: string;
+  /** 文本获取函数 */
+  t: (key: string) => string;
+}
+
+const { termsLink, privacyLink, t } = Astro.props as Props;
+
+// 检查是否有任何法律相关的链接
+const hasLegalLinks = termsLink || privacyLink;
+---
+
+{
+  hasLegalLinks && (
+    <FooterSection
+      title={t('legal')}
+      links={[
+        { name: t('terms'), href: termsLink ?? '' },
+        { name: t('privacy'), href: privacyLink ?? '' },
+      ].filter((link) => link.href)}
+    />
+  )
+}
