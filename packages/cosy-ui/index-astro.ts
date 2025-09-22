@@ -69,7 +69,7 @@ export * from './src-astro/toast';
 // 类型定义 (按字母顺序)
 export * from './src-astro/types/api-test';
 export * from './src-astro/types/article';
-export * from './src-astro/types/footer';
+export * from './src-astro/footer/types';
 export * from './src-astro/types/header';
 export * from './src-astro/types/heading';
 export * from './src-astro/hero/hero';

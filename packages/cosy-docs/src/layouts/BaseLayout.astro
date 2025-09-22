@@ -1,10 +1,13 @@
 ---
 import { type ISidebarItem, AppLayout } from '@coffic/cosy-ui';
 import Favicon from '@/assets/favicon.png';
+import Logo from '@/assets/logo.png';
 import { configApp } from '@/config/config.app';
 import { configProducts } from '@/config/config.products';
 import * as astroI18n from 'astro:i18n';
 import Search from 'astro-pagefind/components/Search';
+import WechatQR from '@/assets/qrcode.png';
+import WhatsAppQR from '@/assets/qrcode.png';
 
 interface Props {
   title: string;
@@ -39,6 +42,7 @@ const currentLocale = Astro.currentLocale;
   }}
   footerConfig={{
     siteName: 'Cosy UI',
+    logo: Logo,
     homeLink: configApp.homeLink,
     slogan:
       currentLocale === 'zh-cn'
@@ -58,6 +62,8 @@ const currentLocale = Astro.currentLocale;
     privacyLink: 'https://coffic.cn/en/meta/privacy',
     historyLink: 'https://coffic.cn/en/meta/our-story',
     techStackLink: 'https://coffic.cn/en/meta/tech-stack',
+    wechatQR: WechatQR,
+    whatsappQR: WhatsAppQR,
   }}
   headerConfig={{
     logoHref: configApp.homeLink,

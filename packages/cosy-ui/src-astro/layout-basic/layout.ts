@@ -1,4 +1,4 @@
-import type { IFooterProps } from '../types/footer';
+import type { IFooterProps } from '../footer/types';
 import type { IHeaderProps } from '../types/header';
 import type { IMainContentProps } from '../types/main';
 import type { IMetaProps } from '../../src/common/meta';
