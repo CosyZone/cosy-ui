@@ -5,14 +5,115 @@
  * @description
  * 基础Footer组件示例，展示最简单的页脚用法。
  */
-import { Footer } from '@coffic/cosy-ui';
+import { Footer, getProductImage, getLandscapeImage } from '@coffic/cosy-ui';
+
+// 产品数据
+const products = [
+  {
+    name: 'CofficUI 组件库',
+    href: '/products/cosy-ui',
+    external: false,
+  },
+  {
+    name: 'CofficDocs 文档系统',
+    href: '/products/cosy-docs',
+    external: false,
+  },
+  {
+    name: 'CofficLab 设计系统',
+    href: '/products/design-system',
+    external: false,
+  },
+];
+
+// 友情链接数据
+const friendlyLinks = [
+  {
+    name: 'Vue.js 官方文档',
+    href: 'https://vuejs.org',
+    external: true,
+  },
+  {
+    name: 'Astro 官方文档',
+    href: 'https://astro.build',
+    external: true,
+  },
+  {
+    name: 'Tailwind CSS',
+    href: 'https://tailwindcss.com',
+    external: true,
+  },
+];
+
+// 社交媒体链接
+const socialLinks = [
+  'https://github.com/cofficlab',
+  'https://twitter.com/cofficlab',
+  'https://weibo.com/cofficlab',
+  'https://www.linkedin.com/company/cofficlab',
+];
+
+// 联系方式信息
+const contactInfo = {
+  address: '北京市朝阳区某某大厦 1001 室',
+  phone: '+86 138-0000-0000',
+  email: 'contact@cofficlab.com',
+  workingHours: '周一至周五 9:00-18:00',
+  wechat: 'cofficlab_wechat',
+  qq: '123456789',
+};
+
+// 二维码图片
+const wechatQR = getLandscapeImage({
+  width: 200,
+  height: 200,
+  tag: 'wechat-qr',
+});
+
+const whatsappQR = getLandscapeImage({
+  width: 200,
+  height: 200,
+  tag: 'whatsapp-qr',
+});
+
+// 公司 Logo
+const logo = getProductImage({
+  width: 120,
+  height: 40,
+  tag: 'cofficlab-logo',
+});
 ---
 
 <Footer
-  siteName="我的网站"
+  siteName="CofficLab"
   homeLink="/"
-  slogan="简单而强大"
-  company="我的公司"
-  copyright="保留所有权利"
-  inspirationalSlogan="构建美好的数字体验"
+  slogan="构建美好的数字体验"
+  company="CofficLab 科技有限公司"
+  copyright="© 2024 CofficLab. 保留所有权利"
+  inspirationalSlogan="让技术更简单，让体验更美好"
+  logo={logo}
+  background="base-200"
+  debug={false}
+  enableLogging={false}
+  products={products}
+  friendlyLinks={friendlyLinks}
+  aboutLink="/about"
+  contactLink="/contact"
+  teamLink="/team"
+  careersLink="/careers"
+  newsLink="/news"
+  historyLink="/history"
+  partnersLink="/partners"
+  blogLink="/blog"
+  faqLink="/faq"
+  mediaLink="/media"
+  techStackLink="/tech-stack"
+  termsLink="/terms"
+  privacyLink="/privacy"
+  contactInfo={contactInfo}
+  socialLinks={socialLinks}
+  wechatQR={wechatQR}
+  whatsappQR={whatsappQR}
+  icp="京ICP备12345678号"
+  icpLink="https://beian.miit.gov.cn"
 />
