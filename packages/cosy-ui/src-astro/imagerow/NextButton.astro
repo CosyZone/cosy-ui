@@ -1,0 +1,25 @@
+---
+/**
+ * @component NextButton
+ * @description ImageRow 内部右侧导航按钮
+ */
+import Button from '../button/Button.astro';
+import ChevronRightIcon from '../icons/ChevronRightIcon.astro';
+
+interface INextButtonProps {
+  disabled?: boolean;
+}
+
+const { disabled = false } = Astro.props as INextButtonProps;
+---
+
+<Button
+  shape="circle"
+  size="sm"
+  variant="ghost"
+  class="image-row-nav-btn image-row-nav-next"
+  onClick="window.scrollImageRow(this, 'next')"
+  disabled={disabled}>
+  <ChevronRightIcon size="20px" slot="icon-left" />
+  <span class="cosy:sr-only">下一张图片</span>
+</Button>
