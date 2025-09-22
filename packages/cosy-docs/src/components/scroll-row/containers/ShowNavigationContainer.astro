@@ -1,11 +1,18 @@
 ---
 import { CodeContainer } from '@coffic/cosy-ui';
-import BasicSource from '../Basic.astro?raw';
-import Basic from '../Basic.astro';
+import ShowNavigationTrueSourceCode from '../ShowNavigationTrue.astro?raw';
+import ShowNavigationFalseSourceCode from '../ShowNavigationFalse.astro?raw';
+import ShowNavigationTrue from '../ShowNavigationTrue.astro';
+import ShowNavigationFalse from '../ShowNavigationFalse.astro';
 ---
 
-<CodeContainer codes={[BasicSource]} titles={['showNavigation']}>
+<CodeContainer
+  codes={[ShowNavigationTrueSourceCode, ShowNavigationFalseSourceCode]}
+  titles={['true', 'false']}>
   <div id="tab-1">
-    <Basic />
+    <ShowNavigationTrue />
+  </div>
+  <div id="tab-2">
+    <ShowNavigationFalse />
   </div>
 </CodeContainer>

@@ -1,0 +1,23 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ClassNoneSourceCode from '../ClassNone.astro?raw';
+import ClassBorderSourceCode from '../ClassBorder.astro?raw';
+import ClassShadowSourceCode from '../ClassShadow.astro?raw';
+import ClassNone from '../ClassNone.astro';
+import ClassBorder from '../ClassBorder.astro';
+import ClassShadow from '../ClassShadow.astro';
+---
+
+<CodeContainer
+  codes={[ClassNoneSourceCode, ClassBorderSourceCode, ClassShadowSourceCode]}
+  titles={['none', 'border', 'shadow']}>
+  <div id="tab-1">
+    <ClassNone />
+  </div>
+  <div id="tab-2">
+    <ClassBorder />
+  </div>
+  <div id="tab-3">
+    <ClassShadow />
+  </div>
+</CodeContainer>

@@ -1,0 +1,58 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import PaddingNoneSourceCode from '../PaddingNone.astro?raw';
+import PaddingSmSourceCode from '../PaddingSm.astro?raw';
+import PaddingMdSourceCode from '../PaddingMd.astro?raw';
+import PaddingLgSourceCode from '../PaddingLg.astro?raw';
+import PaddingXlSourceCode from '../PaddingXl.astro?raw';
+import Padding2xlSourceCode from '../Padding2xl.astro?raw';
+import Padding3xlSourceCode from '../Padding3xl.astro?raw';
+import Padding4xlSourceCode from '../Padding4xl.astro?raw';
+
+import PaddingNone from '../PaddingNone.astro';
+import PaddingSm from '../PaddingSm.astro';
+import PaddingMd from '../PaddingMd.astro';
+import PaddingLg from '../PaddingLg.astro';
+import PaddingXl from '../PaddingXl.astro';
+import Padding2xl from '../Padding2xl.astro';
+import Padding3xl from '../Padding3xl.astro';
+import Padding4xl from '../Padding4xl.astro';
+---
+
+<CodeContainer
+  codes={[
+    PaddingNoneSourceCode,
+    PaddingSmSourceCode,
+    PaddingMdSourceCode,
+    PaddingLgSourceCode,
+    PaddingXlSourceCode,
+    Padding2xlSourceCode,
+    Padding3xlSourceCode,
+    Padding4xlSourceCode,
+  ]}
+  titles={['none', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl']}>
+  <div id="tab-1">
+    <PaddingNone />
+  </div>
+  <div id="tab-2">
+    <PaddingSm />
+  </div>
+  <div id="tab-3">
+    <PaddingMd />
+  </div>
+  <div id="tab-4">
+    <PaddingLg />
+  </div>
+  <div id="tab-5">
+    <PaddingXl />
+  </div>
+  <div id="tab-6">
+    <Padding2xl />
+  </div>
+  <div id="tab-7">
+    <Padding3xl />
+  </div>
+  <div id="tab-8">
+    <Padding4xl />
+  </div>
+</CodeContainer>

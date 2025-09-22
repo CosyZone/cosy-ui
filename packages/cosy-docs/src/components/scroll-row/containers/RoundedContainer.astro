@@ -1,11 +1,41 @@
 ---
 import { CodeContainer } from '@coffic/cosy-ui';
-import BasicSource from '../Basic.astro?raw';
-import Basic from '../Basic.astro';
+import RoundedNoneSourceCode from '../RoundedNone.astro?raw';
+import RoundedSmSourceCode from '../RoundedSm.astro?raw';
+import RoundedMdSourceCode from '../RoundedMd.astro?raw';
+import RoundedLgSourceCode from '../RoundedLg.astro?raw';
+import RoundedXlSourceCode from '../RoundedXl.astro?raw';
+import Rounded2xlSourceCode from '../Rounded2xl.astro?raw';
+import Rounded3xlSourceCode from '../Rounded3xl.astro?raw';
+import RoundedFullSourceCode from '../RoundedFull.astro?raw';
+import RoundedNone from '../RoundedNone.astro';
+import RoundedSm from '../RoundedSm.astro';
+import RoundedMd from '../RoundedMd.astro';
+import RoundedLg from '../RoundedLg.astro';
+import RoundedXl from '../RoundedXl.astro';
+import Rounded2xl from '../Rounded2xl.astro';
+import Rounded3xl from '../Rounded3xl.astro';
+import RoundedFull from '../RoundedFull.astro';
 ---
 
-<CodeContainer codes={[BasicSource]} titles={['rounded']}>
-  <div id="tab-1">
-    <Basic />
-  </div>
+<CodeContainer
+  codes={[
+    RoundedNoneSourceCode,
+    RoundedSmSourceCode,
+    RoundedMdSourceCode,
+    RoundedLgSourceCode,
+    RoundedXlSourceCode,
+    Rounded2xlSourceCode,
+    Rounded3xlSourceCode,
+    RoundedFullSourceCode,
+  ]}
+  titles={['none', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', 'full']}>
+  <div id="tab-1"><RoundedNone /></div>
+  <div id="tab-2"><RoundedSm /></div>
+  <div id="tab-3"><RoundedMd /></div>
+  <div id="tab-4"><RoundedLg /></div>
+  <div id="tab-5"><RoundedXl /></div>
+  <div id="tab-6"><Rounded2xl /></div>
+  <div id="tab-7"><Rounded3xl /></div>
+  <div id="tab-8"><RoundedFull /></div>
 </CodeContainer>

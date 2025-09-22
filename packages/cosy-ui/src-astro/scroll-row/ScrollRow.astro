@@ -11,7 +11,6 @@
  * </ScrollRow>
  * ```
  * @props
- * @prop {string} [ariaLabel] - 容器的语义描述
  * @prop {boolean} [showNavigation=true] - 是否显示左右导航按钮
  * @prop {('item'|'page'|number)} [scrollBy='item'] - 导航步长：按子项、按页面宽度或指定像素
  * @prop {import('../../src/common').BackgroundColor} [background] - 背景色
@@ -43,7 +42,6 @@ import type {
 import { gapClasses } from '../../src/common';
 
 interface Props {
-  ariaLabel?: string;
   showNavigation?: boolean;
   scrollBy?: 'item' | 'page' | number;
   background?: BackgroundColor;
@@ -57,7 +55,6 @@ interface Props {
 }
 
 const {
-  ariaLabel,
   showNavigation = true,
   scrollBy = 'item',
   background,
@@ -84,7 +81,6 @@ const gapClass = gapClasses[gap] || '';
   <div
     class="scroll-row-wrapper cosy:flex cosy:items-center cosy:gap-3 cosy:h-full max-[768px]:cosy:gap-2 max-[480px]:cosy:gap-1.5"
     role="region"
-    aria-label={ariaLabel}
     data-scroll-by={String(scrollBy)}>
     {
       showNavigation && (
