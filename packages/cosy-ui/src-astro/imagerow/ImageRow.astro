@@ -28,6 +28,7 @@
  * @prop {string} [rounded='md'] - 图片圆角，可选值：none、sm、md、lg、xl、2xl、3xl、full
  * @prop {string} [shadow='md'] - 图片阴影，可选值：none、sm、md、lg、xl、2xl
  * @prop {string} [width='md'] - 容器宽度，可选值：xs、sm、md、lg、xl、full
+ * @prop {string} [height='none'] - 图片高度，可选值：none、3xs、2xs、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl、screen、auto、full
  * @slots
  * @slot default - 图片内容
  */
@@ -42,6 +43,7 @@ import type {
   GapSize,
   ShadowSize,
   HoverEffect,
+  HeightSize,
 } from '../../src/common';
 import {
   gapClasses,
@@ -66,6 +68,7 @@ interface Props {
   margin?: MarginSize;
   border?: boolean;
   width?: Size;
+  height?: HeightSize;
   containerRounded?: RoundedSize;
   showNavigation?: boolean;
   class?: string;
@@ -82,6 +85,7 @@ const {
   margin = 'none',
   border = false,
   width = 'md',
+  height = 'none',
   containerRounded = 'none',
   showNavigation = true,
   class: className = '',
@@ -104,7 +108,7 @@ const getContainerClass = () => {
 // 生成图片容器类名
 const getImageClass = (index: number) => {
   const baseClass = 'image-row-item';
-  return baseClass;
+  return `${baseClass} cosy:h-full`.trim();
 };
 ---
 
@@ -114,6 +118,7 @@ const getImageClass = (index: number) => {
   margin={margin}
   border={border}
   width={width}
+  height={height}
   rounded={containerRounded}
   class={className}>
   <div class="image-row-wrapper">
@@ -179,6 +184,7 @@ const getImageClass = (index: number) => {
     display: flex;
     align-items: center;
     gap: 12px;
+    height: 100%;
   }
 
   .image-row-container {
@@ -188,6 +194,7 @@ const getImageClass = (index: number) => {
     scrollbar-width: none;
     -ms-overflow-style: none;
     flex: 1;
+    height: 100%;
   }
 
   .image-row-container::-webkit-scrollbar {
@@ -199,7 +206,7 @@ const getImageClass = (index: number) => {
     overflow: hidden;
     flex: 0 0 auto;
     width: 200px;
-    height: 150px;
+    height: 100%;
   }
 
   .image-row-caption {
@@ -242,7 +249,6 @@ const getImageClass = (index: number) => {
   @media (max-width: 768px) {
     .image-row-item {
       width: 150px;
-      height: 120px;
     }
 
     .image-row-wrapper {
@@ -253,7 +259,6 @@ const getImageClass = (index: number) => {
   @media (max-width: 480px) {
     .image-row-item {
       width: 120px;
-      height: 100px;
     }
 
     .image-row-wrapper {
