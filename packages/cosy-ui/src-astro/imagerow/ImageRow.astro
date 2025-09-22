@@ -28,6 +28,7 @@
  * @prop {string} [rounded='md'] - 图片圆角，可选值：none、sm、md、lg、xl、2xl、3xl、full
  * @prop {string} [shadow='md'] - 图片阴影，可选值：none、sm、md、lg、xl、2xl
  * @prop {string} [width='md'] - 容器宽度，可选值：xs、sm、md、lg、xl、full
+ * @prop {string} [height='none'] - 图片高度，可选值：none、3xs、2xs、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl、screen、auto、full
  * @slots
  * @slot default - 图片内容
  */
@@ -42,6 +43,7 @@ import type {
   GapSize,
   ShadowSize,
   HoverEffect,
+  HeightSize,
 } from '../../src/common';
 import {
   gapClasses,
@@ -50,9 +52,9 @@ import {
   hoverClasses,
 } from '../../src/common';
 import Container from '../container/Container.astro';
-import Image from '../image/Image.astro';
-import ChevronLeftIcon from '../icons/ChevronLeftIcon.astro';
-import ChevronRightIcon from '../icons/ChevronRightIcon.astro';
+import PrevButton from './PrevButton.astro';
+import NextButton from './NextButton.astro';
+import RowItem from './RowItem.astro';
 
 interface Props {
   images: IImageItem[];
@@ -65,6 +67,7 @@ interface Props {
   margin?: MarginSize;
   border?: boolean;
   width?: Size;
+  height?: HeightSize;
   containerRounded?: RoundedSize;
   showNavigation?: boolean;
   class?: string;
@@ -81,19 +84,18 @@ const {
   margin = 'none',
   border = false,
   width = 'md',
+  height = 'none',
   containerRounded = 'none',
   showNavigation = true,
   class: className = '',
 } = Astro.props;
 
 const gapClass = gapClasses[gap] || '';
-const roundedClass = roundedClasses[rounded] || '';
-const shadowClass = shadowClasses[shadow] || '';
-const hoverClass = hoverClasses[hover] || '';
 
-// 生成容器类名
+// 生成容器类名（滚动容器）
 const getContainerClass = () => {
-  const baseClass = 'image-row-container';
+  const baseClass =
+    'image-row-container cosy:flex cosy:items-center cosy:overflow-x-auto cosy:flex-1 cosy:h-full cosy:[scrollbar-width:none] cosy:[-ms-overflow-style:none]';
   const gapClassValue = gapClass;
   const customClass = className;
 
@@ -101,10 +103,6 @@ const getContainerClass = () => {
 };
 
 // 生成图片容器类名
-const getImageClass = (index: number) => {
-  const baseClass = 'image-row-item';
-  return baseClass;
-};
 ---
 
 <Container
@@ -113,166 +111,33 @@ const getImageClass = (index: number) => {
   margin={margin}
   border={border}
   width={width}
+  height={height}
   rounded={containerRounded}
   class={className}>
-  <div class="image-row-wrapper">
-    {
-      showNavigation && images.length > 1 && (
-        <button
-          class="image-row-nav-btn image-row-nav-prev"
-          onclick="window.scrollImageRow(this, 'prev')"
-          aria-label="上一张图片"
-          disabled>
-          <ChevronLeftIcon size="20px" />
-        </button>
-      )
-    }
+  <div
+    class="image-row-wrapper cosy:flex cosy:items-center cosy:gap-3 cosy:h-full max-[768px]:cosy:gap-2 max-[480px]:cosy:gap-1.5">
+    {showNavigation && images.length > 1 && <PrevButton disabled />}
 
     <div class={getContainerClass()}>
       {
-        images.map((image, index) => (
-          <div class={getImageClass(index)}>
-            <Image
-              src={image.src}
-              alt={image.alt}
-              width={image.width}
-              height={image.height}
-              loading={image.loading || 'lazy'}
-              rounded={rounded}
-              shadow={shadow}
-              hover={hover}
-              objectFit="cover"
-              class="cosy:w-full cosy:h-full"
-            />
-            {image.caption && (
-              <div class="image-row-caption">
-                <p class="cosy:text-sm cosy:text-gray-600 cosy:mt-2 cosy:text-center">
-                  {image.caption}
-                </p>
-              </div>
-            )}
-          </div>
+        images.map((image) => (
+          <RowItem
+            image={image}
+            rounded={rounded}
+            shadow={shadow}
+            hover={hover}
+          />
         ))
       }
     </div>
 
-    {
-      showNavigation && images.length > 1 && (
-        <button
-          class="image-row-nav-btn image-row-nav-next"
-          onclick="window.scrollImageRow(this, 'next')"
-          aria-label="下一张图片">
-          <ChevronRightIcon size="20px" />
-        </button>
-      )
-    }
+    {showNavigation && images.length > 1 && <NextButton />}
   </div>
 </Container>
 
 <style>
-  .image-row-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .image-row-container {
-    display: flex;
-    align-items: center;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    flex: 1;
-  }
-
   .image-row-container::-webkit-scrollbar {
     display: none;
-  }
-
-  .image-row-item {
-    position: relative;
-    overflow: hidden;
-    flex: 0 0 auto;
-    width: 200px;
-    height: 150px;
-  }
-
-  .image-row-caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-    padding: 0.5rem;
-    color: white;
-  }
-
-  .image-row-caption p {
-    color: white !important;
-    margin: 0 !important;
-  }
-
-  /* 导航按钮样式 */
-  .image-row-nav-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border: none;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.9);
-    color: rgba(0, 0, 0, 0.7);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    flex-shrink: 0;
-  }
-
-  .image-row-nav-btn:hover:not(:disabled) {
-    background-color: rgba(255, 255, 255, 1);
-    color: rgba(0, 0, 0, 0.9);
-    transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-
-  .image-row-nav-btn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-    transform: none;
-  }
-
-  /* 响应式设计 */
-  @media (max-width: 768px) {
-    .image-row-item {
-      width: 150px;
-      height: 120px;
-    }
-
-    .image-row-nav-btn {
-      width: 36px;
-      height: 36px;
-    }
-
-    .image-row-wrapper {
-      gap: 8px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .image-row-item {
-      width: 120px;
-      height: 100px;
-    }
-
-    .image-row-nav-btn {
-      width: 32px;
-      height: 32px;
-    }
-
-    .image-row-wrapper {
-      gap: 6px;
-    }
   }
 </style>
 
@@ -297,7 +162,11 @@ const getImageClass = (index: number) => {
 
     if (!container || !wrapper) return;
 
-    const imageWidth = 200; // 图片宽度
+    // 根据首个图片项的实际宽度作为滚动步长
+    const firstItem = container.querySelector(
+      '.image-row-item'
+    ) as HTMLElement | null;
+    const imageWidth = firstItem?.clientWidth || 200;
     const currentScrollLeft = container.scrollLeft;
     const maxScrollLeft = container.scrollWidth - container.clientWidth;
 

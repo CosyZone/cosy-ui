@@ -13,6 +13,7 @@ import ImageRowBorderContainer from './ImageRowBorderContainer.astro';
 import ImageRowMarginContainer from './ImageRowMarginContainer.astro';
 import ImageRowPaddingContainer from './ImageRowPaddingContainer.astro';
 import ImageRowWidthContainer from './ImageRowWidthContainer.astro';
+import ImageRowHeightContainer from './ImageRowHeightContainer.astro';
 
 export const ImageRowPackage = {
     Basic: ImageRowContainer,
@@ -30,4 +31,5 @@ export const ImageRowPackage = {
     Margin: ImageRowMarginContainer,
     Padding: ImageRowPaddingContainer,
     Width: ImageRowWidthContainer,
+    Height: ImageRowHeightContainer,
 };

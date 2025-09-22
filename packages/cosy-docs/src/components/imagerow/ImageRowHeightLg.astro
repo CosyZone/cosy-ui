@@ -1,0 +1,20 @@
+---
+/**
+ * @component ImageRowHeightLg
+ * @description ImageRow 高度 lg 示例
+ */
+import {
+  ImageRow,
+  getProductImage,
+  getLandscapeImage,
+  getAvatarImage,
+} from '@coffic/cosy-ui';
+
+const images = [
+  { src: getProductImage({ width: 200, height: 150 }), alt: '示例图片 1' },
+  { src: getLandscapeImage({ width: 200, height: 150 }), alt: '示例图片 2' },
+  { src: getAvatarImage({ width: 200, height: 150 }), alt: '示例图片 3' },
+];
+---
+
+<ImageRow images={images} height="lg" background="primary/10" padding="md" />
