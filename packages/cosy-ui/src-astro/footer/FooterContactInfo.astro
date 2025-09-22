@@ -33,7 +33,8 @@ const hasContactInfo =
     contactInfo.phone ||
     contactInfo.email ||
     contactInfo.workingHours ||
-    (contactInfo.other && contactInfo.other.length > 0));
+    contactInfo.wechat ||
+    contactInfo.qq);
 
 // 构建联系方式数据数组
 const contactItems: Array<{
@@ -74,26 +75,19 @@ if (contactInfo?.workingHours) {
   });
 }
 
-if (contactInfo?.other && contactInfo.other.length > 0) {
-  contactInfo.other.forEach((item) => {
-    // 根据类型设置对应的图标
-    let iconName = 'info';
-    if (
-      item.type.toLowerCase().includes('微信') ||
-      item.type.toLowerCase().includes('wechat')
-    ) {
-      iconName = 'wechat';
-    } else if (item.type.toLowerCase().includes('qq')) {
-      iconName = 'qq';
-    } else if (item.icon) {
-      iconName = item.icon;
-    }
+if (contactInfo?.wechat) {
+  contactItems.push({
+    name: `微信: ${contactInfo.wechat}`,
+    href: '',
+    icon: 'wechat',
+  });
+}
 
-    contactItems.push({
-      name: `${item.type}: ${item.value}`,
-      href: '',
-      icon: iconName,
-    });
+if (contactInfo?.qq) {
+  contactItems.push({
+    name: `QQ: ${contactInfo.qq}`,
+    href: '',
+    icon: 'qq',
   });
 }
 ---

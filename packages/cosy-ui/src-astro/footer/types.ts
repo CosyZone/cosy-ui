@@ -119,10 +119,8 @@ export interface IContactInfo {
     email?: string;
     /** 工作时间 */
     workingHours?: string;
-    /** 其他联系方式 */
-    other?: Array<{
-        type: string;
-        value: string;
-        icon?: string;
-    }>;
+    /** 微信号 */
+    wechat?: string;
+    /** QQ号 */
+    qq?: string;
 }
