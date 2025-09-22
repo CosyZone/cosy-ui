@@ -25,7 +25,6 @@
  *     { url: "https://github.com/myusername", platform: "github", name: "GitHub" },
  *     { url: "https://twitter.com/myusername", platform: "twitter", name: "Twitter" }
  *   ]}
- *   debug={false}
  * />
  * ```
  *
@@ -35,7 +34,6 @@
  * @prop {string} slogan - 网站标语
  * @prop {Object} [logo] - 网站Logo对象，包含src和alt属性
  * @prop {Array<Object>} [socialLinks=[]] - 社交媒体链接数组，每个对象包含url、platform和name属性
- * @prop {boolean} [debug=false] - 调试模式
  *
  * @accessibility
  * - 使用语义化HTML结构
@@ -58,20 +56,10 @@ const {
   socialLinks = [],
   wechatQR,
   whatsappQR,
-  debug = false,
 } = Astro.props as FooterBrandProps;
-
-// 调试模式的样式类
-const debugClasses = debug
-  ? {
-      aside: 'cosy:border-2 cosy:border-purple-500',
-    }
-  : {
-      aside: '',
-    };
 ---
 
-<aside class:list={['cosy:max-w-xs cosy:text-center', debugClasses.aside]}>
+<aside class="cosy:max-w-xs cosy:text-center">
   <Link href={homeLink} align="center" noUnderline block class="cosy:mb-4">
     {
       logo && (
@@ -98,6 +86,5 @@ const debugClasses = debug
     socialLinks={socialLinks}
     wechatQR={wechatQR}
     whatsappQR={whatsappQR}
-    debug={debug}
   />
 </aside>

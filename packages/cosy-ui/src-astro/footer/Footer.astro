@@ -154,7 +154,6 @@
  * <Footer
  *   siteName="我的网站"
  *   homeLink="/"
- *   enableLogging={true}
  * />
  * ```
  *
@@ -199,9 +198,7 @@
  * @prop {string} [faqLink] - "常见问题"页面链接
  * @prop {string} [mediaLink] - "媒体报道"页面链接
  * @prop {string} [techStackLink] - "技术栈"页面链接
- * @prop {boolean} [debug=false] - 调试模式
  * @prop {string} [lang] - 语言代码，默认自动检测
- * @prop {boolean} [enableLogging=false] - 是否启用日志输出
  *
  * @accessibility
  * - 使用语义化HTML结构，确保屏幕阅读器可以正确解析
@@ -254,7 +251,6 @@ const {
   techStackLink,
   background = 'base-200',
   contactInfo,
-  debug = false,
 } = Astro.props as IFooterProps;
 
 // 获取当前语言
@@ -269,21 +265,6 @@ const processedSocialLinks = socialLinks.map((url) => processSocialLink(url));
 
 // 获取背景色类名
 const backgroundClass = getBackgroundClass(background as BackgroundColor);
-
-// 调试模式的样式类
-const debugClasses = debug
-  ? {
-      footer: 'cosy:border-2 cosy:border-blue-500',
-      section: 'cosy:border-2 cosy:border-green-500',
-      nav: 'cosy:border-2 cosy:border-yellow-500',
-      aside: 'cosy:border-2 cosy:border-purple-500',
-    }
-  : {
-      footer: '',
-      section: '',
-      nav: '',
-      aside: '',
-    };
 ---
 
 <footer
@@ -291,12 +272,10 @@ const debugClasses = debug
   class:list={[
     'cosy:footer cosy:flex cosy:flex-col cosy:z-50 cosy:sm:footer-horizontal cosy:text-base-content cosy:p-10',
     backgroundClass,
-    debugClasses.footer,
   ]}>
   <div
     class:list={[
-      'cosy:flex cosy:flex-col cosy:md:h-56 cosy:gap-8 cosy:container cosy:mx-auto cosy:items-center cosy:w-full cosy:md:flex-row cosy:md:justify-between',
-      debugClasses.section,
+      'cosy:flex cosy:flex-col cosy:md:h-64 cosy:gap-8 cosy:container cosy:mx-auto cosy:items-center cosy:w-full cosy:md:flex-row cosy:md:justify-between',
     ]}>
     {/* 品牌区域 */}
     <FooterBrand
@@ -307,7 +286,6 @@ const debugClasses = debug
       socialLinks={processedSocialLinks}
       wechatQR={wechatQR}
       whatsappQR={whatsappQR}
-      debug={debug}
     />
 
     {/* 导航区域 */}
@@ -329,7 +307,6 @@ const debugClasses = debug
       privacyLink={privacyLink}
       contactInfo={contactInfo}
       t={t}
-      debug={debug}
     />
   </div>
 

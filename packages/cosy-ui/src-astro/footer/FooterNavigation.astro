@@ -49,8 +49,6 @@ export interface Props {
   contactInfo?: IContactInfo;
   /** 文本获取函数 */
   t: (key: string) => string;
-  /** 调试模式 */
-  debug?: boolean;
 }
 
 const {
@@ -71,17 +69,7 @@ const {
   privacyLink,
   contactInfo,
   t,
-  debug = false,
 } = Astro.props as Props;
-
-// 调试模式的样式类
-const debugClasses = debug
-  ? {
-      section: 'cosy:border-2 cosy:border-green-500',
-    }
-  : {
-      section: '',
-    };
 ---
 
 <Container
@@ -92,7 +80,6 @@ const debugClasses = debug
   width="full"
   class:list={[
     'cosy:h-full cosy:mx-auto cosy:text-center cosy:items-center cosy:md:flex-row cosy:md:justify-between cosy:md:items-start',
-    debugClasses.section,
   ]}>
   {/* 产品导航 */}
   {

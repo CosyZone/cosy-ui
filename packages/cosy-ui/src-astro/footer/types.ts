@@ -1,9 +1,6 @@
 export interface FooterICPProps {
     icp: string;
     icpLink?: string;
-    debugClasses?: {
-        icp?: string;
-    };
 }
 
 export interface FooterCopyrightProps {
@@ -11,10 +8,6 @@ export interface FooterCopyrightProps {
     copyright?: string;
     currentYear: number;
     t?: (key: string) => string;
-    debugClasses?: {
-        footer?: string;
-        aside?: string;
-    };
 }
 
 export interface FooterSectionProps {
@@ -42,7 +35,6 @@ export interface FooterBrandProps {
     }>;
     wechatQR?: ImageSource;
     whatsappQR?: ImageSource;
-    debug?: boolean;
 }
 
 export interface IFooterProps {
@@ -60,10 +52,6 @@ export interface IFooterProps {
     copyright: string;
     /** 背景色类型，支持所有预设背景色和透明度变体 */
     background?: BackgroundColor;
-    /** 调试模式 */
-    debug?: boolean;
-    /** 是否启用日志输出 @default false */
-    enableLogging?: boolean;
     /** 常见问题链接 */
     faqLink?: string;
     /** 友情链接 */
