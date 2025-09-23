@@ -6,10 +6,17 @@
 import { CodeContainer } from '@coffic/cosy-ui';
 import AlertWithTitle from './AlertWithTitle.astro';
 import WithTitleSourceCode from './AlertWithTitle.astro?raw';
+import AlertWithTitleBuilder from './AlertWithTitleBuilder.astro';
+import WithTitleBuilderSourceCode from './AlertWithTitleBuilder.astro?raw';
 ---
 
-<CodeContainer titles={['带标题']} codes={[WithTitleSourceCode]}>
+<CodeContainer
+  titles={['带标题', '修饰器写法']}
+  codes={[WithTitleSourceCode, WithTitleBuilderSourceCode]}>
   <div id="tab-1">
     <AlertWithTitle />
+  </div>
+  <div id="tab-2">
+    <AlertWithTitleBuilder />
   </div>
 </CodeContainer>

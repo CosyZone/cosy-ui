@@ -6,10 +6,17 @@
 import { CodeContainer } from '@coffic/cosy-ui';
 import AlertBasic from './AlertBasic.astro';
 import AlertBasicSourceCode from './AlertBasic.astro?raw';
+import AlertBuilder from './AlertBuilder.astro';
+import AlertBuilderSourceCode from './AlertBuilder.astro?raw';
 ---
 
-<CodeContainer titles={['基础用法']} codes={[AlertBasicSourceCode]}>
+<CodeContainer
+  titles={['基础用法', '修饰器写法']}
+  codes={[AlertBasicSourceCode, AlertBuilderSourceCode]}>
   <div id="tab-1">
     <AlertBasic />
+  </div>
+  <div id="tab-2">
+    <AlertBuilder />
   </div>
 </CodeContainer>
