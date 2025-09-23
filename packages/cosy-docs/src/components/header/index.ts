@@ -10,6 +10,7 @@ import NavPositionCenter from './NavPositionCenter.astro';
 import NavPositionEnd from './NavPositionEnd.astro';
 import BackgroundContainer from './BackgroundContainer.astro';
 import ShadowContainer from './ShadowContainer.astro';
+import TextColorContainer from './TextColorContainer.astro';
 
 export const HeaderPackage = {
     Basic,
@@ -24,4 +25,5 @@ export const HeaderPackage = {
     NavPositionEnd: NavPositionEnd,
     Background: BackgroundContainer,
     Shadow: ShadowContainer,
+    TextColor: TextColorContainer,
 }; 

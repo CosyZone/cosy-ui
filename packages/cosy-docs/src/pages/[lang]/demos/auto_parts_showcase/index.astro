@@ -18,16 +18,9 @@ import {
   Image,
   Badge,
   Contact,
-  TeamMember,
-  SocialIcon,
   SmartIcon,
   Container,
   StatsDisplay,
-  FeatureCarousel,
-  TeamMembers,
-  getExampleImage,
-  getProductImage,
-  getAvatarImage,
   PlaceHolder,
 } from '@coffic/cosy-ui';
 import { configApp } from '@/config/config.app';
@@ -422,6 +415,7 @@ const data = autoPartsData[currentLocale] || autoPartsData['zh-cn'];
     logoHref: configApp.homeLink,
     navItems: configApp.getNavItems(currentLocale),
     astroI18n: astroI18n,
+    shadow: 'none',
   }}
   mainContentConfig={{
     verticalPadding: 'none',

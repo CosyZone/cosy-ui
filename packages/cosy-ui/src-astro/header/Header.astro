@@ -50,6 +50,7 @@ import {
 } from '../../src/common/padding-axis';
 import { roundedClasses, type RoundedSize } from '../../src/common/rounded';
 import { shadowClasses, type ShadowSize } from '../../src/common/shadow';
+import { textColorClasses, type TextColor } from '../../src/common/textColors';
 import {
   getBackgroundClass,
   type BackgroundColor,
@@ -71,6 +72,7 @@ const {
   background = 'base-300/90',
   shadow = 'md',
   rounded = 'none',
+  textColor = 'base-content',
   paddingHorizontal = 'none',
   paddingVertical = 'none',
   navPosition = 'center',
@@ -129,11 +131,12 @@ const headerClassList = [
   .join(' ');
 
 const containerClassList = [
-  'cosy:text-base-content cosy:px-4 cosy:flex cosy:flex-grow cosy:backdrop-blur not-prose',
+  'cosy:px-4 cosy:flex cosy:flex-grow cosy:backdrop-blur not-prose',
   backgroundClass,
   rounded ? roundedClasses[rounded as RoundedSize] : '',
   headerHeightClass,
   shadowClasses[shadow as ShadowSize],
+  textColorClasses[textColor as TextColor] || '',
 ]
   .filter(Boolean)
   .join(' ');
