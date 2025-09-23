@@ -254,10 +254,12 @@ import {
 } from '../../src/common/index';
 import AppHeader from './AppHeader.astro';
 
-interface Props extends IAppLayoutProps {
+export interface IAppLayoutAllProps extends IAppLayoutProps {
   /** 是否启用 Astro ClientRouter */
   enableClientRouter?: boolean;
 }
+
+export type Props = IAppLayoutAllProps;
 
 const {
   sidebarConfig,
@@ -272,7 +274,7 @@ const {
   bodyOnly = false,
   theme,
   enableClientRouter = true,
-}: Props = Astro.props;
+}: Props = Astro.props as Props;
 
 const containerMinHeightClass = getContainerMinHeightClass(
   headerConfig?.height as HeaderHeight
