@@ -1,0 +1,251 @@
+---
+/**
+ * @component ScrollRow
+ * @description 通用横向可滚动容器。提供左右导航与可访问性，默认插槽可放置任意内容。
+ * @usage
+ * ```astro
+ * <ScrollRow showNavigation gap="md">
+ *   <!-- 任意子内容，如卡片、图片、徽章等 -->
+ *   <div class="cosy:w-48 cosy:h-24 cosy:bg-base-300 cosy:rounded-md" />
+ *   <div class="cosy:w-48 cosy:h-24 cosy:bg-base-300 cosy:rounded-md" />
+ * </ScrollRow>
+ * ```
+ * @props
+ * @prop {boolean} [showNavigation=true] - 是否显示左右导航按钮
+ * @prop {('item'|'page'|number)} [scrollBy='item'] - 导航步长：按子项、按页面宽度或指定像素
+ * @prop {import('../../src/common').BackgroundColor} [background] - 背景色
+ * @prop {import('../../src/common').PaddingSize} [padding='md'] - 内边距
+ * @prop {import('../../src/common').MarginSize} [margin='none'] - 外边距
+ * @prop {import('../../src/common').RoundedSize} [rounded='none'] - 容器圆角
+ * @prop {import('../../src/common').Size} [width='full'] - 容器宽度
+ * @prop {import('../../src/common').HeightSize} [height='none'] - 容器高度
+ * @prop {import('../../src/common').GapSize} [gap='md'] - 子元素间距
+ * @prop {string} [class] - 追加自定义类名
+ * @slots
+ * @slot default - 横向排列的任意内容
+ */
+
+import '../../style.ts';
+import Container from '../container/Container.astro';
+import { Button } from '../../index-astro';
+import ChevronLeftIcon from '../icons/ChevronLeftIcon.astro';
+import ChevronRightIcon from '../icons/ChevronRightIcon.astro';
+import type {
+  BackgroundColor,
+  PaddingSize,
+  MarginSize,
+  RoundedSize,
+  Size,
+  HeightSize,
+  GapSize,
+} from '../../src/common';
+import { gapClasses } from '../../src/common';
+
+interface Props {
+  showNavigation?: boolean;
+  scrollBy?: 'item' | 'page' | number;
+  background?: BackgroundColor;
+  padding?: PaddingSize;
+  margin?: MarginSize;
+  rounded?: RoundedSize;
+  width?: Size;
+  height?: HeightSize;
+  gap?: GapSize;
+  class?: string;
+}
+
+const {
+  showNavigation = true,
+  scrollBy = 'item',
+  background,
+  padding = 'md',
+  margin = 'none',
+  rounded = 'none',
+  width = 'full',
+  height = 'none',
+  gap = 'md',
+  class: className = '',
+} = Astro.props as Props;
+
+const gapClass = gapClasses[gap] || '';
+---
+
+<Container
+  background={background}
+  padding={padding}
+  margin={margin}
+  width={width}
+  height={height}
+  rounded={rounded}
+  class={className}>
+  <div
+    class="scroll-row-wrapper cosy:flex cosy:items-center cosy:gap-3 cosy:h-full max-[768px]:cosy:gap-2 max-[480px]:cosy:gap-1.5"
+    role="region"
+    data-scroll-by={String(scrollBy)}>
+    {
+      showNavigation && (
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          class="scroll-row-nav-prev"
+          aria-label="Previous"
+          disabled>
+          <ChevronLeftIcon />
+        </Button>
+      )
+    }
+
+    <div
+      class={`scroll-row-container cosy:flex cosy:items-center cosy:overflow-x-auto cosy:flex-1 cosy:h-full cosy:whitespace-nowrap cosy:[scrollbar-width:none] cosy:[-ms-overflow-style:none] ${gapClass}`.trim()}>
+      <slot />
+    </div>
+
+    {
+      showNavigation && (
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          class="scroll-row-nav-next"
+          aria-label="Next">
+          <ChevronRightIcon />
+        </Button>
+      )
+    }
+  </div>
+</Container>
+
+<style>
+  /* 允许作为 flex 子项时正确收缩，从而产生容器内横向溢出 */
+  .scroll-row-container {
+    min-width: 0;
+  }
+  .scroll-row-container::-webkit-scrollbar {
+    display: none;
+  }
+  /* 防止子项被 flex 布局压缩。注意 slotted 内容不参与样式作用域，需使用 :global */
+  :global(.scroll-row-container > *) {
+    flex: 0 0 auto;
+  }
+  :global(
+    .scroll-row-container
+      > :not(.hidden):not(.cosy\:hidden):not([data-cosy-image-preview])
+  ) {
+    display: inline-block;
+  }
+</style>
+
+<script>
+  declare global {
+    interface Window {
+      __cosy_scrollRowScroll: (
+        button: HTMLElement,
+        direction: 'prev' | 'next',
+        scrollBy: 'item' | 'page' | number
+      ) => void;
+    }
+  }
+
+  window.__cosy_scrollRowScroll = function (
+    button: HTMLElement,
+    direction: 'prev' | 'next',
+    scrollBy: 'item' | 'page' | number
+  ) {
+    const wrapper = button.closest('.scroll-row-wrapper') as HTMLElement | null;
+    const container = wrapper?.querySelector(
+      '.scroll-row-container'
+    ) as HTMLElement | null;
+    if (!container || !wrapper) return;
+
+    const currentScrollLeft = container.scrollLeft;
+    const maxScrollLeft = container.scrollWidth - container.clientWidth;
+
+    let step = 0;
+    if (typeof scrollBy === 'number') {
+      step = scrollBy;
+    } else if (scrollBy === 'page') {
+      step = container.clientWidth;
+    } else {
+      const firstItem = container.firstElementChild as HTMLElement | null;
+      step = firstItem?.clientWidth || 200;
+    }
+
+    let newScrollLeft = currentScrollLeft;
+    if (direction === 'prev') {
+      newScrollLeft = Math.max(0, currentScrollLeft - step);
+    } else {
+      newScrollLeft = Math.min(maxScrollLeft, currentScrollLeft + step);
+    }
+
+    container.scrollTo({ left: newScrollLeft, behavior: 'smooth' });
+
+    setTimeout(() => updateButtons(wrapper), 300);
+  };
+
+  function updateButtons(wrapper: HTMLElement) {
+    const container = wrapper.querySelector(
+      '.scroll-row-container'
+    ) as HTMLElement | null;
+    const prevBtn = wrapper.querySelector(
+      '.scroll-row-nav-prev'
+    ) as HTMLButtonElement | null;
+    const nextBtn = wrapper.querySelector(
+      '.scroll-row-nav-next'
+    ) as HTMLButtonElement | null;
+    if (!container || !prevBtn || !nextBtn) return;
+
+    const currentScrollLeft = container.scrollLeft;
+    const maxScrollLeft = container.scrollWidth - container.clientWidth;
+
+    prevBtn.disabled = currentScrollLeft <= 0;
+    nextBtn.disabled = currentScrollLeft >= maxScrollLeft - 1;
+  }
+
+  function parseScrollBy(wrapper: HTMLElement): 'item' | 'page' | number {
+    const raw = wrapper.getAttribute('data-scroll-by') || 'item';
+    if (raw === 'item' || raw === 'page') return raw;
+    const num = Number(raw);
+    return Number.isFinite(num) ? num : 'item';
+  }
+
+  function bind(wrapper: HTMLElement) {
+    const prevBtn = wrapper.querySelector(
+      '.scroll-row-nav-prev'
+    ) as HTMLButtonElement | null;
+    const nextBtn = wrapper.querySelector(
+      '.scroll-row-nav-next'
+    ) as HTMLButtonElement | null;
+    const container = wrapper.querySelector(
+      '.scroll-row-container'
+    ) as HTMLElement | null;
+    const sb = parseScrollBy(wrapper);
+    if (prevBtn)
+      prevBtn.onclick = () =>
+        window.__cosy_scrollRowScroll(prevBtn, 'prev', sb);
+    if (nextBtn)
+      nextBtn.onclick = () =>
+        window.__cosy_scrollRowScroll(nextBtn, 'next', sb);
+    if (container) {
+      container.addEventListener('scroll', () => updateButtons(wrapper));
+      window.addEventListener('resize', () =>
+        setTimeout(() => updateButtons(wrapper), 100)
+      );
+      setTimeout(() => updateButtons(wrapper), 100);
+    }
+  }
+
+  function initAll() {
+    document
+      .querySelectorAll('.scroll-row-wrapper')
+      .forEach((el) => bind(el as HTMLElement));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => initAll());
+  } else {
+    initAll();
+  }
+
+  document.addEventListener('astro:page-load', () => initAll());
+</script>

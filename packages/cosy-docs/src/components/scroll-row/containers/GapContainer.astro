@@ -1,0 +1,46 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import GapNoneSource from '../GapNone.astro?raw';
+import GapXsSource from '../GapXs.astro?raw';
+import GapSmSource from '../GapSm.astro?raw';
+import GapMdSource from '../GapMd.astro?raw';
+import GapLgSource from '../GapLg.astro?raw';
+import GapXlSource from '../GapXl.astro?raw';
+
+import GapNone from '../GapNone.astro';
+import GapXs from '../GapXs.astro';
+import GapSm from '../GapSm.astro';
+import GapMd from '../GapMd.astro';
+import GapLg from '../GapLg.astro';
+import GapXl from '../GapXl.astro';
+---
+
+<CodeContainer
+  codes={[
+    GapNoneSource,
+    GapXsSource,
+    GapSmSource,
+    GapMdSource,
+    GapLgSource,
+    GapXlSource,
+  ]}
+  titles={['none', 'xs', 'sm', 'md', 'lg', 'xl']}>
+  <div id="tab-1">
+    <GapNone />
+  </div>
+  <div id="tab-2">
+    <GapXs />
+  </div>
+  <div id="tab-3">
+    <GapSm />
+  </div>
+  <div id="tab-4">
+    <GapMd />
+  </div>
+  <div id="tab-5">
+    <GapLg />
+  </div>
+  <div id="tab-6">
+    <GapXl />
+  </div>
+</CodeContainer>

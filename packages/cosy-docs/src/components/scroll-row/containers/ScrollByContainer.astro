@@ -1,0 +1,27 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ScrollByItemSourceCode from '../ScrollByItem.astro?raw';
+import ScrollByPageSourceCode from '../ScrollByPage.astro?raw';
+import ScrollByNumberSourceCode from '../ScrollByNumber.astro?raw';
+import ScrollByItem from '../ScrollByItem.astro';
+import ScrollByPage from '../ScrollByPage.astro';
+import ScrollByNumber from '../ScrollByNumber.astro';
+---
+
+<CodeContainer
+  codes={[
+    ScrollByItemSourceCode,
+    ScrollByPageSourceCode,
+    ScrollByNumberSourceCode,
+  ]}
+  titles={['item', 'page', 'number']}>
+  <div id="tab-1">
+    <ScrollByItem />
+  </div>
+  <div id="tab-2">
+    <ScrollByPage />
+  </div>
+  <div id="tab-3">
+    <ScrollByNumber />
+  </div>
+</CodeContainer>
