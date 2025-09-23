@@ -6,10 +6,12 @@ import NavbarEndSlotContainer from './NavbarEndSlotContainer.astro';
 import NavbarStartSlotContainer from './NavbarStartSlotContainer.astro';
 import SidebarConfigContainer from './SidebarConfigContainer.astro';
 import Basic from './Basic.astro';
+import BasicBuilder from './BasicBuilder.astro';
 
 // 导出 ComponentPackage 用于文档
 export const AppLayoutPackage = {
     Basic: Basic,
+    BasicBuilder: BasicBuilder,
     BasicContainer: BasicContainer,
     DefaultSlot: DefaultSlotContainer,
     ModalSearchSlot: ModalSearchSlotContainer,

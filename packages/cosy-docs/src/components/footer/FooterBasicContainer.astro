@@ -2,10 +2,17 @@
 import { CodeContainer } from '@coffic/cosy-ui';
 import FooterBasic from './FooterBasic.astro';
 import FooterBasicSourceCode from './FooterBasic.astro?raw';
+import FooterBasicBuilder from './FooterBasicBuilder.astro';
+import FooterBasicBuilderSourceCode from './FooterBasicBuilder.astro?raw';
 ---
 
-<CodeContainer titles={['基础页脚']} codes={[FooterBasicSourceCode]}>
+<CodeContainer
+  titles={['基础页脚', '修饰器写法']}
+  codes={[FooterBasicSourceCode, FooterBasicBuilderSourceCode]}>
   <div id="tab-1">
     <FooterBasic />
+  </div>
+  <div id="tab-2">
+    <FooterBasicBuilder />
   </div>
 </CodeContainer>

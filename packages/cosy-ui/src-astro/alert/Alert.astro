@@ -73,7 +73,7 @@ import {
 } from '../../index-astro';
 import { marginClasses, type MarginSize } from '../../src/common/margin';
 
-export interface AlertProps {
+export interface IAlertProps {
   type?: 'info' | 'success' | 'warning' | 'error';
   title?: string;
   description?: string;
@@ -93,7 +93,7 @@ const {
   showIcon = true,
   variant = 'solid',
   marginY,
-} = Astro.props as AlertProps;
+} = Astro.props as IAlertProps;
 
 // 根据 marginY 值设置对应的 CSS 类
 const getMarginYClass = (marginY?: MarginSize) => {

@@ -1,9 +1,7 @@
-
-
 import ContainerAspectRatioContainer from './ContainerAspectRatioContainer.astro';
 import ContainerBackgroundContainer from './ContainerBackgroundContainer.astro';
 import ContainerBackgroundImageContainer from './ContainerBackgroundImageContainer.astro';
-import ContainerBasic from './ContainerBasic.astro';
+import ContainerBasicContainer from './ContainerBasicContainer.astro';
 import ContainerBorderContainer from './ContainerBorderContainer.astro';
 import ContainerCenteredContainer from './ContainerCenteredContainer.astro';
 import ContainerClassListContainer from './ContainerClassListContainer.astro';
@@ -23,7 +21,7 @@ import ContainerSlotContainer from './ContainerSlotContainer.astro';
 
 export const ContainerPackage = {
     Examples: {
-        Basic: ContainerBasic,
+        Basic: ContainerBasicContainer,
     },
     Containers: {
         AspectRatio: ContainerAspectRatioContainer,
