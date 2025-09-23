@@ -218,8 +218,6 @@ const lang = LanguageUtil.getCurrentLanguage(Astro);
 // 创建文本获取函数
 const t = createTextGetter(lang, 'footer');
 
-const currentYear = new Date().getFullYear();
-
 // 处理社交链接
 const processedSocialLinks = socialLinks.map((url) => processSocialLink(url));
 
@@ -264,7 +262,7 @@ const backgroundClass = getBackgroundClass(background as BackgroundColor);
 
   <div
     class="cosy:flex cosy:flex-col cosy:items-center cosy:justify-center cosy:w-full cosy:opacity-70 cosy:lg:flex-row cosy:gap-4">
-    <FooterCopyright company={company} currentYear={currentYear} t={t} />
+    <FooterCopyright company={company} />
 
     {
       legalInfo?.icp && (

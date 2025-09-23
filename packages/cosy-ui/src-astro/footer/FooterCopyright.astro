@@ -4,16 +4,38 @@
  * @description 页脚底部版权信息组件。
  * @props
  * @prop {string} company - 公司名称
- * @prop {number} currentYear - 当前年份
- * @prop {Function} t - 文本获取函数
+ * @prop {Function} t - 文本获取函数（已内部处理，无需传入）
  */
 
 import '../../style.ts';
+import { LanguageUtil, createTextGetter } from '../../index-astro';
 
-const { company, currentYear, t } = Astro.props;
+const { company } = Astro.props;
+const lang = LanguageUtil.getCurrentLanguage(Astro);
+const t = createTextGetter(lang, 'footer');
 ---
 
 <p class="cosy:text-sm cosy:text-center">
-  © {currentYear}
+  © <span id="cosy-footer-year">{new Date().getFullYear()}</span>
   {company} - {t && t('allRightsReserved')}
 </p>
+<script is:inline>
+  (function () {
+    try {
+      var el = document.getElementById('cosy-footer-year');
+      if (el) {
+        el.textContent = String(new Date().getFullYear());
+      }
+    } catch (e) {
+      /* no-op */
+    }
+  })();
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible') {
+      var el = document.getElementById('cosy-footer-year');
+      if (el) {
+        el.textContent = String(new Date().getFullYear());
+      }
+    }
+  });
+</script>

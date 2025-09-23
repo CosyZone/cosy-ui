@@ -5,8 +5,6 @@ export interface FooterICPProps {
 
 export interface FooterCopyrightProps {
     company: string;
-    currentYear: number;
-    t?: (key: string) => string;
 }
 
 export interface FooterSectionProps {
