@@ -6,12 +6,18 @@ import AccentSourceCode from './background/Accent.astro?raw';
 import BaseSourceCode from './background/Base.astro?raw';
 import PrimaryWithOpacitySourceCode from './background/PrimaryWithOpacity.astro?raw';
 import BaseWithOpacitySourceCode from './background/BaseWithOpacity.astro?raw';
+import TransparentSourceCode from './background/Transparent.astro?raw';
+import NoneSourceCode from './background/None.astro?raw';
+import NoneNoneSourceCode from './background/NoneShadowNone.astro?raw';
 import Primary from './background/Primary.astro';
 import Secondary from './background/Secondary.astro';
 import Accent from './background/Accent.astro';
 import Base from './background/Base.astro';
 import PrimaryWithOpacity from './background/PrimaryWithOpacity.astro';
 import BaseWithOpacity from './background/BaseWithOpacity.astro';
+import Transparent from './background/Transparent.astro';
+import None from './background/None.astro';
+import NoneShadowNone from './background/NoneShadowNone.astro';
 ---
 
 <CodeContainer
@@ -22,6 +28,9 @@ import BaseWithOpacity from './background/BaseWithOpacity.astro';
     BaseSourceCode,
     PrimaryWithOpacitySourceCode,
     BaseWithOpacitySourceCode,
+    TransparentSourceCode,
+    NoneSourceCode,
+    NoneNoneSourceCode,
   ]}
   titles={[
     'primary',
@@ -30,6 +39,9 @@ import BaseWithOpacity from './background/BaseWithOpacity.astro';
     'base-100',
     'primary/50',
     'base-300/80',
+    'transparent',
+    'none',
+    'none + shadow:none',
   ]}>
   <div id="tab-1">
     <Primary />
@@ -48,5 +60,14 @@ import BaseWithOpacity from './background/BaseWithOpacity.astro';
   </div>
   <div id="tab-6">
     <BaseWithOpacity />
+  </div>
+  <div id="tab-7">
+    <Transparent />
+  </div>
+  <div id="tab-8">
+    <None />
+  </div>
+  <div id="tab-9">
+    <NoneShadowNone />
   </div>
 </CodeContainer>

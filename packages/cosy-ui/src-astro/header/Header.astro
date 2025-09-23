@@ -34,6 +34,7 @@
  *
  * @props
  * - astroI18n - 完整的 astro:i18n 模块（启用语言切换时需要）
+ * - shadow - Header 阴影强度，可选值：none, sm, md, lg, xl, 2xl，默认 md
  * - gap - 导航项之间的间距，可选值：0, 1, 2, 3, 4, 6, 8, 10, 12，默认 2
  */
 import {
@@ -48,6 +49,7 @@ import {
   paddingYClasses,
 } from '../../src/common/padding-axis';
 import { roundedClasses, type RoundedSize } from '../../src/common/rounded';
+import { shadowClasses, type ShadowSize } from '../../src/common/shadow';
 import {
   getBackgroundClass,
   type BackgroundColor,
@@ -67,6 +69,7 @@ const {
   navItems = [],
   sticky = true,
   background = 'base-300/90',
+  shadow = 'md',
   rounded = 'none',
   paddingHorizontal = 'none',
   paddingVertical = 'none',
@@ -126,10 +129,11 @@ const headerClassList = [
   .join(' ');
 
 const containerClassList = [
-  'cosy:text-base-content cosy:px-4 cosy:flex cosy:flex-grow cosy:backdrop-blur not-prose cosy:shadow-md',
+  'cosy:text-base-content cosy:px-4 cosy:flex cosy:flex-grow cosy:backdrop-blur not-prose',
   backgroundClass,
   rounded ? roundedClasses[rounded as RoundedSize] : '',
   headerHeightClass,
+  shadowClasses[shadow as ShadowSize],
 ]
   .filter(Boolean)
   .join(' ');
