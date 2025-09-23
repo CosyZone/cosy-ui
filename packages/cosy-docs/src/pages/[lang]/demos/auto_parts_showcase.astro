@@ -1,10 +1,6 @@
 ---
 /**
  * @page Auto Parts Showcase Demo
- *
- * @description
- * 汽车零部件企业产品展示页面，采用现代化设计风格
- * 特点：专业展示、技术规格、应用场景、质量认证
  */
 
 import {
@@ -24,12 +20,12 @@ import {
   PlaceHolder,
 } from '@coffic/cosy-ui';
 import { configApp } from '@/config/config.app';
-import heroUrl from './images/hero.png?url';
-import product1Url from './images/product-1.jpg?url';
-import product2Url from './images/product-2.jpg?url';
-import product3Url from './images/product-3.jpg?url';
-import product4Url from './images/product-4.jpg?url';
-import wechatQrUrl from './images/wechat-qr.jpg?url';
+import heroUrl from '@/demos/auto_parts_showcase/images/hero.png?url';
+import product1Url from '@/demos/auto_parts_showcase/images/product-1.jpg?url';
+import product2Url from '@/demos/auto_parts_showcase/images/product-2.jpg?url';
+import product3Url from '@/demos/auto_parts_showcase/images/product-3.jpg?url';
+import product4Url from '@/demos/auto_parts_showcase/images/product-4.jpg?url';
+import wechatQrUrl from '@/demos/auto_parts_showcase/images/wechat-qr.jpg?url';
 import * as astroI18n from 'astro:i18n';
 
 // 从 URL 获取当前语言
@@ -37,12 +33,8 @@ const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
 
 export const getStaticPaths = async () => {
   return [
-    {
-      params: { lang: 'zh-cn' },
-    },
-    {
-      params: { lang: 'en' },
-    },
+    { params: { lang: 'zh-cn' } },
+    { params: { lang: 'en' } },
   ];
 };
 
@@ -70,7 +62,7 @@ interface Certification {
   logo: string;
 }
 
-// 汽车零部件展示数据
+// 汽车零部件展示数据（与 demos 相同）
 const autoPartsData: Record<string, any> = {
   'zh-cn': {
     companyName: '精工汽车零部件',
@@ -83,26 +75,10 @@ const autoPartsData: Record<string, any> = {
     contactUs: '联系我们',
     // 产品特性
     features: [
-      {
-        title: '精密制造',
-        description: '采用先进制造工艺，确保产品精度和质量',
-        icon: 'precision',
-      },
-      {
-        title: '质量认证',
-        description: '通过ISO 9001、IATF 16949等国际质量认证',
-        icon: 'certification',
-      },
-      {
-        title: '技术创新',
-        description: '持续投入研发，引领行业技术发展',
-        icon: 'innovation',
-      },
-      {
-        title: '全球服务',
-        description: '为全球客户提供专业的技术支持和服务',
-        icon: 'global',
-      },
+      { title: '精密制造', description: '采用先进制造工艺，确保产品精度和质量', icon: 'precision' },
+      { title: '质量认证', description: '通过ISO 9001、IATF 16949等国际质量认证', icon: 'certification' },
+      { title: '技术创新', description: '持续投入研发，引领行业技术发展', icon: 'innovation' },
+      { title: '全球服务', description: '为全球客户提供专业的技术支持和服务', icon: 'global' },
     ],
     // 产品系列
     products: [
@@ -169,45 +145,17 @@ const autoPartsData: Record<string, any> = {
     ],
     // 质量认证
     certifications: [
-      {
-        name: 'ISO 9001:2015',
-        description: '质量管理体系认证',
-        logo: 'iso-9001',
-      },
-      {
-        name: 'IATF 16949:2016',
-        description: '汽车行业质量管理体系',
-        logo: 'iatf-16949',
-      },
-      {
-        name: 'ISO 14001:2015',
-        description: '环境管理体系认证',
-        logo: 'iso-14001',
-      },
-      {
-        name: 'OHSAS 18001',
-        description: '职业健康安全管理体系',
-        logo: 'ohsas-18001',
-      },
+      { name: 'ISO 9001:2015', description: '质量管理体系认证', logo: 'iso-9001' },
+      { name: 'IATF 16949:2016', description: '汽车行业质量管理体系', logo: 'iatf-16949' },
+      { name: 'ISO 14001:2015', description: '环境管理体系认证', logo: 'iso-14001' },
+      { name: 'OHSAS 18001', description: '职业健康安全管理体系', logo: 'ohsas-18001' },
     ],
     // 统计数据
     stats: [
-      {
-        value: '20+',
-        label: '年制造经验',
-      },
-      {
-        value: '500+',
-        label: '产品种类',
-      },
-      {
-        value: '50+',
-        label: '合作客户',
-      },
-      {
-        value: '99.5%',
-        label: '产品合格率',
-      },
+      { value: '20+', label: '年制造经验' },
+      { value: '500+', label: '产品种类' },
+      { value: '50+', label: '合作客户' },
+      { value: '99.5%', label: '产品合格率' },
     ],
   },
   en: {
@@ -219,30 +167,12 @@ const autoPartsData: Record<string, any> = {
     heroDescription: 'Providing high-quality parts solutions for global automakers',
     learnMore: 'Learn More',
     contactUs: 'Contact Us',
-    // 产品特性
     features: [
-      {
-        title: 'Precision Manufacturing',
-        description: 'Advanced manufacturing processes ensure product precision and quality',
-        icon: 'precision',
-      },
-      {
-        title: 'Quality Certification',
-        description: 'Certified by ISO 9001, IATF 16949 and other international quality standards',
-        icon: 'certification',
-      },
-      {
-        title: 'Technical Innovation',
-        description: 'Continuous R&D investment, leading industry technology development',
-        icon: 'innovation',
-      },
-      {
-        title: 'Global Service',
-        description: 'Professional technical support and service for global customers',
-        icon: 'global',
-      },
+      { title: 'Precision Manufacturing', description: 'Advanced manufacturing processes ensure product precision and quality', icon: 'precision' },
+      { title: 'Quality Certification', description: 'Certified by ISO 9001, IATF 16949 and other international quality standards', icon: 'certification' },
+      { title: 'Technical Innovation', description: 'Continuous R&D investment, leading industry technology development', icon: 'innovation' },
+      { title: 'Global Service', description: 'Professional technical support and service for global customers', icon: 'global' },
     ],
-    // 产品系列
     products: [
       {
         name: 'Engine Components',
@@ -305,47 +235,17 @@ const autoPartsData: Record<string, any> = {
         isNew: true,
       },
     ],
-    // 质量认证
     certifications: [
-      {
-        name: 'ISO 9001:2015',
-        description: 'Quality Management System Certification',
-        logo: 'iso-9001',
-      },
-      {
-        name: 'IATF 16949:2016',
-        description: 'Automotive Quality Management System',
-        logo: 'iatf-16949',
-      },
-      {
-        name: 'ISO 14001:2015',
-        description: 'Environmental Management System Certification',
-        logo: 'iso-14001',
-      },
-      {
-        name: 'OHSAS 18001',
-        description: 'Occupational Health and Safety Management System',
-        logo: 'ohsas-18001',
-      },
+      { name: 'ISO 9001:2015', description: 'Quality Management System Certification', logo: 'iso-9001' },
+      { name: 'IATF 16949:2016', description: 'Automotive Quality Management System', logo: 'iatf-16949' },
+      { name: 'ISO 14001:2015', description: 'Environmental Management System Certification', logo: 'iso-14001' },
+      { name: 'OHSAS 18001', description: 'Occupational Health and Safety Management System', logo: 'ohsas-18001' },
     ],
-    // 统计数据
     stats: [
-      {
-        value: '20+',
-        label: 'Years Experience',
-      },
-      {
-        value: '500+',
-        label: 'Product Types',
-      },
-      {
-        value: '50+',
-        label: 'Partners',
-      },
-      {
-        value: '99.5%',
-        label: 'Quality Rate',
-      },
+      { value: '20+', label: 'Years Experience' },
+      { value: '500+', label: 'Product Types' },
+      { value: '50+', label: 'Partners' },
+      { value: '99.5%', label: 'Quality Rate' },
     ],
   },
 };
@@ -364,9 +264,7 @@ const data = autoPartsData[currentLocale] || autoPartsData['zh-cn'];
     author: data.companyName,
     robots: 'index, follow',
   }}
-  sidebarConfig={{
-    sidebarItems: [],
-  }}
+  sidebarConfig={{ sidebarItems: [] }}
   showHeader={true}
   showFooter={true}
   showSidebar={false}
@@ -383,27 +281,14 @@ const data = autoPartsData[currentLocale] || autoPartsData['zh-cn'];
       { name: currentLocale === 'zh-cn' ? '悬挂系统' : 'Suspension', href: '#' },
       { name: currentLocale === 'zh-cn' ? '电子系统' : 'Electronics', href: '#' },
     ],
-    aboutInfo: {
-      aboutLink: '#about',
-      contactLink: '#contact',
-      teamLink: '#team',
-      careersLink: '#careers',
-    },
+    aboutInfo: { aboutLink: '#about', contactLink: '#contact', teamLink: '#team', careersLink: '#careers' },
     legalInfo: {
       termsLink: '#terms',
       privacyLink: '#privacy',
       icp: currentLocale === 'zh-cn' ? '沪ICP备12345678号-1' : 'ICP 12345678-1',
       icpLink: 'https://beian.miit.gov.cn',
     },
-    resourcesInfo: {
-      newsLink: '#news',
-      historyLink: '#history',
-      partnersLink: '#partners',
-      blogLink: '#blog',
-      faqLink: '#faq',
-      mediaLink: '#media',
-      techStackLink: '#tech',
-    },
+    resourcesInfo: { newsLink: '#news', historyLink: '#history', partnersLink: '#partners', blogLink: '#blog', faqLink: '#faq', mediaLink: '#media', techStackLink: '#tech' },
     friendlyLinks: [
       { name: 'GitHub', href: 'https://github.com/CofficLab/cosy-ui', external: true },
       { name: 'CofficLab', href: 'https://cofficlab.com', external: true },
@@ -417,12 +302,7 @@ const data = autoPartsData[currentLocale] || autoPartsData['zh-cn'];
     astroI18n: astroI18n,
     shadow: 'none',
   }}
-  mainContentConfig={{
-    verticalPadding: 'none',
-    size: 'full',
-    padding: 'none',
-  }}>
-  
+  mainContentConfig={{ verticalPadding: 'none', size: 'full', padding: 'none' }}>
   <!-- Hero Section - 企业主展示 -->
   <Hero
     title={data.heroSubtitle}
@@ -436,16 +316,10 @@ const data = autoPartsData[currentLocale] || autoPartsData['zh-cn'];
     size="full"
     padding="xl">
     <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
-      <Button
-        variant="primary"
-        size="lg"
-        class="cosy:px-8 cosy:py-4 cosy:bg-white cosy:text-blue-600 cosy:hover:bg-gray-100">
+      <Button variant="primary" size="lg" class="cosy:px-8 cosy:py-4 cosy:bg-white cosy:text-blue-600 cosy:hover:bg-gray-100">
         {data.learnMore}
       </Button>
-      <Button
-        variant="outline"
-        size="lg"
-        class="cosy:px-8 cosy:py-4 cosy:border-white cosy:text-white cosy:hover:bg-white cosy:hover:text-blue-600">
+      <Button variant="outline" size="lg" class="cosy:px-8 cosy:py-4 cosy:border-white cosy:text-white cosy:hover:bg-white cosy:hover:text-blue-600">
         {data.contactUs}
       </Button>
     </div>
@@ -478,11 +352,7 @@ const data = autoPartsData[currentLocale] || autoPartsData['zh-cn'];
         data.features.map((feature: Feature) => (
           <Card class="cosy:p-6 cosy:text-center">
             <div style="margin-bottom: 2rem;">
-              <SmartIcon
-                name={feature.icon}
-                size="64px"
-                class="cosy:text-primary"
-              />
+              <SmartIcon name={feature.icon} size="64px" class="cosy:text-primary" />
             </div>
             <Heading level={3} size="xl" class="cosy:mb-4 cosy:font-medium">
               {feature.title}
@@ -509,39 +379,22 @@ const data = autoPartsData[currentLocale] || autoPartsData['zh-cn'];
         data.products.map((product: Product) => (
           <Card class="cosy:overflow-hidden cosy:hover:shadow-xl cosy:transition-shadow">
             <div style="position: relative;">
-              <Image
-                src={product.image}
-                alt={product.name}
-                width={600}
-                height={400}
-                class="cosy:w-full cosy:h-64 cosy:object-cover"
-              />
+              <Image src={product.image} alt={product.name} width={600} height={400} class="cosy:w-full cosy:h-64 cosy:object-cover" />
               {product.isNew && (
-                <Badge
-                  variant="primary"
-                  class="cosy:absolute cosy:top-4 cosy:right-4">
+                <Badge variant="primary" class="cosy:absolute cosy:top-4 cosy:right-4">
                   {currentLocale === 'zh-cn' ? '新品' : 'New'}
                 </Badge>
               )}
             </div>
             <div class="cosy:p-6">
               <div class="cosy:mb-2">
-                <Badge variant="secondary" class="cosy:mr-2">
-                  {product.category}
-                </Badge>
+                <Badge variant="secondary" class="cosy:mr-2">{product.category}</Badge>
               </div>
-              <Heading level={3} size="xl" class="cosy:mb-3 cosy:font-semibold">
-                {product.name}
-              </Heading>
-              <Text class="cosy:text-base-content/70 cosy:mb-4">
-                {product.description}
-              </Text>
-              
+              <Heading level={3} size="xl" class="cosy:mb-3 cosy:font-semibold">{product.name}</Heading>
+              <Text class="cosy:text-base-content/70 cosy:mb-4">{product.description}</Text>
               <!-- 技术规格 -->
               <div class="cosy:mb-4">
-                <Text size="sm" class="cosy:font-semibold cosy:mb-2">
-                  {currentLocale === 'zh-cn' ? '技术规格' : 'Specifications'}
-                </Text>
+                <Text size="sm" class="cosy:font-semibold cosy:mb-2">{currentLocale === 'zh-cn' ? '技术规格' : 'Specifications'}</Text>
                 <Grid cols={{ base: 1, sm: 2 }} gap="sm">
                   {product.specifications.slice(0, 4).map((spec: { name: string; value: string }) => (
                     <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.25rem 0;">
@@ -551,24 +404,18 @@ const data = autoPartsData[currentLocale] || autoPartsData['zh-cn'];
                   ))}
                 </Grid>
               </div>
-
               <!-- 应用领域 -->
               <div class="cosy:mb-4">
-                <Text size="sm" class="cosy:font-semibold cosy:mb-2">
-                  {currentLocale === 'zh-cn' ? '应用领域' : 'Applications'}
-                </Text>
+                <Text size="sm" class="cosy:font-semibold cosy:mb-2">{currentLocale === 'zh-cn' ? '应用领域' : 'Applications'}</Text>
                 <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
                   {product.applications.map((app: string) => (
                     <Badge variant="secondary" size="sm">{app}</Badge>
                   ))}
                 </div>
               </div>
-
               <!-- 质量认证 -->
               <div>
-                <Text size="sm" class="cosy:font-semibold cosy:mb-2">
-                  {currentLocale === 'zh-cn' ? '质量认证' : 'Certifications'}
-                </Text>
+                <Text size="sm" class="cosy:font-semibold cosy:mb-2">{currentLocale === 'zh-cn' ? '质量认证' : 'Certifications'}</Text>
                 <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
                   {product.certifications.map((cert: string) => (
                     <Badge variant="secondary" size="sm">{cert}</Badge>
@@ -585,11 +432,10 @@ const data = autoPartsData[currentLocale] || autoPartsData['zh-cn'];
   <!-- Certifications Section - 质量认证 -->
   <Container width="xl" padding="xl" margin="lg" background="base-200">
     <div style="text-align: center; margin-bottom: 4rem;">
-      <Heading level={2} size="3xl" margin="lg" weight="thin">
+      <Heading level={2} size="3xl" margin="lg" weight="薄">
         {currentLocale === 'zh-cn' ? '质量认证' : 'Quality Certifications'}
       </Heading>
     </div>
-
     <Grid cols={{ base: 1, md: 2, lg: 4 }} gap="lg">
       {
         data.certifications.map((cert: Certification) => (
@@ -597,12 +443,8 @@ const data = autoPartsData[currentLocale] || autoPartsData['zh-cn'];
             <div style="width: 80px; height: 80px; background: #f3f4f6; border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;">
               <SmartIcon name="certification" size="40px" class="cosy:text-primary" />
             </div>
-            <Heading level={4} size="lg" class="cosy:mb-2 cosy:font-semibold">
-              {cert.name}
-            </Heading>
-            <Text size="sm" class="cosy:text-base-content/70">
-              {cert.description}
-            </Text>
+            <Heading level={4} size="lg" class="cosy:mb-2 cosy:font-semibold">{cert.name}</Heading>
+            <Text size="sm" class="cosy:text-base-content/70">{cert.description}</Text>
           </Card>
         ))
       }
@@ -612,99 +454,40 @@ const data = autoPartsData[currentLocale] || autoPartsData['zh-cn'];
   <!-- Contact Section - 联系信息 -->
   <Container width="xl" padding="xl" margin="lg" background="base-100">
     <div style="text-align: center; margin-bottom: 4rem;">
-      <Heading level={2} size="3xl" margin="lg" weight="thin">
-        {currentLocale === 'zh-cn' ? '联系我们' : 'Contact Us'}
-      </Heading>
-      <Text size="lg" class="cosy:text-base-content/70 cosy:font-light">
-        {currentLocale === 'zh-cn' ? '专业团队为您提供技术支持和解决方案' : 'Professional team provides technical support and solutions'}
-      </Text>
+      <Heading level={2} size="3xl" margin="lg" weight="thin">{currentLocale === 'zh-cn' ? '联系我们' : 'Contact Us'}</Heading>
+      <Text size="lg" class="cosy:text-base-content/70 cosy:font-light">{currentLocale === 'zh-cn' ? '专业团队为您提供技术支持和解决方案' : 'Professional team provides technical support and solutions'}</Text>
     </div>
-
     <Grid cols={{ base: 1, lg: 2 }} gap="xl">
-      <!-- 联系信息 -->
       <Contact
         title={currentLocale === 'zh-cn' ? '联系信息' : 'Contact Information'}
-        description={currentLocale === 'zh-cn'
-          ? '我们很乐意听到您的需求'
-          : "We'd love to hear about your needs"}
+        description={currentLocale === 'zh-cn' ? '我们很乐意听到您的需求' : "We'd love to hear about your needs"}
         email="info@precisionautoparts.com"
         phone="+86 400-888-9999"
-        address={currentLocale === 'zh-cn'
-          ? '上海市浦东新区汽车产业园'
-          : 'Auto Industry Park, Pudong New Area, Shanghai'}
+        address={currentLocale === 'zh-cn' ? '上海市浦东新区汽车产业园' : 'Auto Industry Park, Pudong New Area, Shanghai'}
         website="https://precisionautoparts.com"
         github="https://github.com/precisionautoparts"
         twitter="https://twitter.com/precisionautoparts"
         linkedin="https://linkedin.com/company/precisionautoparts"
       />
-
-      <!-- 联系表单 -->
-      <Card
-        title={currentLocale === 'zh-cn' ? '发送询盘' : 'Send Inquiry'}
-        class="cosy:p-8">
+      <Card title={currentLocale === 'zh-cn' ? '发送询盘' : 'Send Inquiry'} class="cosy:p-8">
         <form style="display: flex; flex-direction: column; gap: 1.5rem;">
           <div>
-            <label
-              style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">
-              {currentLocale === 'zh-cn' ? '公司名称' : 'Company Name'} *
-            </label>
-            <input
-              type="text"
-              required
-              style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem;"
-              placeholder={currentLocale === 'zh-cn'
-                ? '请输入您的公司名称'
-                : 'Enter your company name'}
-            />
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">{currentLocale === 'zh-cn' ? '公司名称' : 'Company Name'} *</label>
+            <input type="text" required style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem;" placeholder={currentLocale === 'zh-cn' ? '请输入您的公司名称' : 'Enter your company name'} />
           </div>
           <div>
-            <label
-              style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">
-              {currentLocale === 'zh-cn' ? '联系人' : 'Contact Person'} *
-            </label>
-            <input
-              type="text"
-              required
-              style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem;"
-              placeholder={currentLocale === 'zh-cn'
-                ? '请输入联系人姓名'
-                : 'Enter contact person name'}
-            />
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">{currentLocale === 'zh-cn' ? '联系人' : 'Contact Person'} *</label>
+            <input type="text" required style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem;" placeholder={currentLocale === 'zh-cn' ? '请输入联系人姓名' : 'Enter contact person name'} />
           </div>
           <div>
-            <label
-              style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">
-              {currentLocale === 'zh-cn' ? '邮箱' : 'Email'} *
-            </label>
-            <input
-              type="email"
-              required
-              style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem;"
-              placeholder={currentLocale === 'zh-cn'
-                ? '请输入您的邮箱'
-                : 'Enter your email'}
-            />
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">{currentLocale === 'zh-cn' ? '邮箱' : 'Email'} *</label>
+            <input type="email" required style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem;" placeholder={currentLocale === 'zh-cn' ? '请输入您的邮箱' : 'Enter your email'} />
           </div>
           <div>
-            <label
-              style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">
-              {currentLocale === 'zh-cn' ? '产品需求' : 'Product Requirements'} *
-            </label>
-            <textarea
-              required
-              rows={4}
-              style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem; resize: vertical;"
-              placeholder={currentLocale === 'zh-cn'
-                ? '请描述您的产品需求'
-                : 'Describe your product requirements'}></textarea>
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">{currentLocale === 'zh-cn' ? '产品需求' : 'Product Requirements'} *</label>
+            <textarea required rows={4} style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem; resize: vertical;" placeholder={currentLocale === 'zh-cn' ? '请描述您的产品需求' : 'Describe your product requirements'}></textarea>
           </div>
-          <Button
-            type="submit"
-            variant="primary"
-            size="lg"
-            class="cosy:w-full cosy:mt-4">
-            {currentLocale === 'zh-cn' ? '发送询盘' : 'Send Inquiry'}
-          </Button>
+          <Button type="submit" variant="primary" size="lg" class="cosy:w-full cosy:mt-4">{currentLocale === 'zh-cn' ? '发送询盘' : 'Send Inquiry'}</Button>
         </form>
       </Card>
     </Grid>
@@ -712,3 +495,5 @@ const data = autoPartsData[currentLocale] || autoPartsData['zh-cn'];
 
   <PlaceHolder height="md" />
 </AppLayout>
+
+

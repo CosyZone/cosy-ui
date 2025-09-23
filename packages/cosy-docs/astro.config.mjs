@@ -4,31 +4,46 @@ import mdx from '@astrojs/mdx';
 import vue from '@astrojs/vue';
 import pagefind from 'astro-pagefind';
 
+import playformCompress from '@playform/compress';
+
 // https://astro.build/config
 export default defineConfig({
-    base: '/cosy-ui/',
-    srcDir: 'src',
-    outDir: 'dist',
+  base: '/cosy-ui/',
+  srcDir: 'src',
+  outDir: 'dist',
 
-    prefetch: {
-        enabled: false,
+  prefetch: {
+    enabled: false,
+  },
+
+  i18n: {
+    locales: ['zh-cn', 'en'],
+    defaultLocale: 'zh-cn',
+    routing: {
+      prefixDefaultLocale: true,
     },
+  },
 
-    i18n: {
-        locales: ['zh-cn', 'en'],
-        defaultLocale: 'zh-cn',
-        routing: {
-            prefixDefaultLocale: true,
+  vite: {
+    resolve: {
+      alias: {
+        '@': path.resolve('./src'),
+        '@demos': path.resolve('./src/demos'),
+      },
+    },
+  },
+
+  integrations: [
+    mdx(),
+    vue(),
+    pagefind(),
+    playformCompress({
+      HTML: {
+        'html-minifier-terser': {
+          removeAttributeQuotes: true,
+          removeComments: true,
         },
-    },
-
-    vite: {
-        resolve: {
-            alias: {
-                '@': path.resolve('./src'),
-            },
-        },
-    },
-
-    integrations: [mdx(), vue(), pagefind()],
+      },
+    }),
+  ],
 });
