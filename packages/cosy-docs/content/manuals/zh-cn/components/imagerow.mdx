@@ -63,7 +63,9 @@ ImageRow 组件用于展示一行图片，基于 Container 组件构建，支持
 
 ### images
 
-图片数组，每个图片项包含源地址、替代文本等信息。
+图片数组，每个图片项包含源地址、替代文本等信息。支持两种常见方式：
+- 直接传入字符串 URL（如 CDN 链接或站点内路径）
+- 使用 `import` 导入本地资源，再将导入结果赋值给 `images[i].src`
 
 <ImageRowPackage.Images />
 
