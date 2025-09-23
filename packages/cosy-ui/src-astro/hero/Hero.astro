@@ -216,11 +216,8 @@
 import '../../style.ts';
 import { Button, type ImageSource } from '../../index-astro';
 import { Image } from '../../index-astro';
-import {
-  getBackgroundClass,
-  type BackgroundColor,
-} from '../../src/common/backgrounds';
 import type { HeroProps, IHeroLink } from './hero.ts';
+import Container from '../container/Container.astro';
 
 const {
   title,
@@ -248,17 +245,12 @@ function getImageUrl(imageSource: ImageSource): string {
   return imageSource.src;
 }
 
-// 获取背景色类名
-const backgroundClass = getBackgroundClass(background as BackgroundColor);
-
-// 确定容器类
+// 确定容器类（背景与背景图交由 Container 处理）
 const containerClasses = [
   'cosy:hero',
   'cosy:min-h-screen',
   'cosy:w-full',
   'cosy:relative',
-  backgroundImage ? 'cosy:bg-cover cosy:bg-center' : '',
-  !backgroundImage ? backgroundClass : '',
 ].join(' ');
 
 // 确定内容布局类
@@ -418,11 +410,14 @@ const contentOrder = {
 };
 ---
 
-<div
+<Container
   class={containerClasses}
-  style={backgroundImage
-    ? `background-image: url(${getImageUrl(backgroundImage)})`
-    : {}}
+  background={background}
+  backgroundImage={backgroundImage}
+  height="screen"
+  width="full"
+  padding="none"
+  centered={false}
   ignore-heading>
   {
     backgroundImage && backgroundOverlay !== 'none' && (
@@ -510,4 +505,4 @@ const contentOrder = {
       }
     </div>
   </div>
-</div>
+</Container>

@@ -167,6 +167,11 @@ interface Props {
    * 图片的宽度
    */
   width?: number;
+  /**
+   * 图片的布局方式
+   * @default "constrained"
+   */
+  layout?: string;
 }
 
 const {
@@ -174,6 +179,7 @@ const {
   alt,
   width,
   height,
+  layout = 'constrained',
   loading = 'lazy',
   objectFit = 'cover',
   objectPosition = 'center',
@@ -203,6 +209,7 @@ const imgClasses = [
   borderClasses[border],
   hoverClasses[hover],
   transitionClasses[transition],
+  layout === 'fill' ? 'cosy:w-full cosy:h-full' : '',
   className,
 ]
   .filter(Boolean)
@@ -294,8 +301,8 @@ const imgClasses = [
       <img
         src={imageUrl}
         alt={alt}
-        width={width}
-        height={height}
+        width={layout === 'fill' ? undefined : width}
+        height={layout === 'fill' ? undefined : height}
         loading={loading}
         class={imgClasses}
         style={{ objectPosition }}
@@ -310,8 +317,8 @@ const imgClasses = [
       remote-image
       src={imageUrl}
       alt={alt}
-      width={width}
-      height={height}
+      width={layout === 'fill' ? undefined : width}
+      height={layout === 'fill' ? undefined : height}
       loading={loading}
       class={imgClasses}
       style={{ objectPosition }}
