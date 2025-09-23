@@ -5,7 +5,6 @@ export interface FooterICPProps {
 
 export interface FooterCopyrightProps {
     company: string;
-    copyright?: string;
     currentYear: number;
     t?: (key: string) => string;
 }
@@ -40,8 +39,6 @@ export interface FooterBrandProps {
 export interface IFooterProps {
     /** 公司名称 */
     company: string;
-    /** 版权信息 */
-    copyright: string;
     /** 背景色类型，支持所有预设背景色和透明度变体 */
     background?: BackgroundColor;
     /** 友情链接 */

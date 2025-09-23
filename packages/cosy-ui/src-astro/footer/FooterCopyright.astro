@@ -4,17 +4,16 @@
  * @description 页脚底部版权信息组件。
  * @props
  * @prop {string} company - 公司名称
- * @prop {string} copyright - 版权信息
  * @prop {number} currentYear - 当前年份
  * @prop {Function} t - 文本获取函数
  */
 
 import '../../style.ts';
 
-const { company, copyright, currentYear, t } = Astro.props;
+const { company, currentYear, t } = Astro.props;
 ---
 
 <p class="cosy:text-sm cosy:text-center">
   © {currentYear}
-  {company} - {copyright || (t && t('allRightsReserved'))}
+  {company} - {t && t('allRightsReserved')}
 </p>

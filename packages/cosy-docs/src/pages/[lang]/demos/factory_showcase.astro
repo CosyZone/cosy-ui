@@ -9,6 +9,7 @@ import {
   Button,
   Badge,
   getLandscapeImage,
+  getProductImage,
 } from '@coffic/cosy-ui';
 import { configApp } from '@/config/config.app';
 import * as astroI18n from 'astro:i18n';
@@ -77,7 +78,6 @@ const blocks: BlockItem[] = [
 ---
 
 <AppLayout
-  debug={false}
   metaConfig={{
     title: t('工厂照片展示', 'Factory Showcase'),
     description: t(
@@ -105,15 +105,93 @@ const blocks: BlockItem[] = [
     homeLink: configApp.homeLink,
     slogan: t('更快构建现代网站', 'Build modern sites faster'),
     company: 'Cosy UI',
-    copyright: `© 2025 Cosy UI`,
     inspirationalSlogan: t(
       '打造优雅、可复用的界面',
       'Craft elegant, reusable UIs'
     ),
+    background: 'base-200',
+    aboutInfo: {
+      aboutLink: configApp.homeLink + '#about',
+      contactLink: configApp.homeLink + '#contact',
+      teamLink: configApp.homeLink + '#team',
+      careersLink: configApp.homeLink + '#careers',
+    },
+    resourcesInfo: {
+      newsLink: configApp.homeLink + '#news',
+      historyLink: configApp.homeLink + '#history',
+      partnersLink: configApp.homeLink + '#partners',
+      blogLink: configApp.homeLink + '#blog',
+      faqLink: configApp.homeLink + '#faq',
+      mediaLink: configApp.homeLink + '#media',
+      techStackLink: configApp.homeLink + '#tech',
+    },
+    contactInfo: {
+      address: t(
+        '上海市浦东新区世纪大道 100 号',
+        '100 Century Ave, Pudong, Shanghai'
+      ),
+      phone: '+86 21 1234 5678',
+      email: 'hello@cosyui.dev',
+      workingHours: t('周一至周五 09:00-18:00', 'Mon-Fri 09:00-18:00'),
+      wechat: 'cosyui_official',
+      qq: '12345678',
+    },
+    legalInfo: {
+      termsLink: configApp.homeLink + '/terms',
+      privacyLink: configApp.homeLink + '/privacy',
+      icp: t('沪ICP备12345678号-1', 'ICP 12345678-1'),
+      icpLink: 'https://beian.miit.gov.cn',
+    },
+    products: [
+      {
+        name: t('组件库', 'Component Library'),
+        href: configApp.homeLink + '/components',
+      },
+      {
+        name: t('模板集', 'Templates'),
+        href: configApp.homeLink + '/templates',
+      },
+    ],
+    friendlyLinks: [
+      {
+        name: 'GitHub',
+        href: 'https://github.com/CofficLab/cosy-ui',
+        external: true,
+      },
+      { name: 'CofficLab', href: 'https://cofficlab.com', external: true },
+    ],
+    socialLinks: ['https://github.com/CofficLab', 'https://twitter.com'],
+    wechatQR: getProductImage({ width: 512, height: 512, tag: 'wechat-qr' }),
   }}
   mainContentConfig={{ verticalPadding: 'lg' }}>
-  <Container width="xl" padding="lg">
-    <Heading level={1} margin="lg" weight="semibold">
+  <Container
+    width="full"
+    padding="none"
+    height="3xl"
+    backgroundImage={getLandscapeImage({
+      width: 1920,
+      height: 960,
+      tag: 'factory-hero',
+    })}
+    contentCentered>
+    <div style="position:absolute; inset:0; "></div>
+    <Container width="xl" padding="lg" contentCentered flex="row" gap="lg">
+      <Heading level={1} margin="sm" weight="bold">
+        {t('智造工厂 · 真实可见', 'Smart Manufacturing · See It Real')}
+      </Heading>
+      <Text margin="sm">
+        {
+          t(
+            '以镜头记录效率与品质，让产线细节一览无余。',
+            'Capturing efficiency and quality, revealing production details at a glance.'
+          )
+        }
+      </Text>
+      <Button variant="primary">{t('预约参观', 'Book a Visit')}</Button>
+    </Container>
+  </Container>
+  <Container width="xl" padding="lg" contentCentered flex="col">
+    <Heading level={1} margin="lg" weight="semibold" align="center">
       {t('工厂照片展示', 'Factory Showcase')}
     </Heading>
     <Text margin="md">
