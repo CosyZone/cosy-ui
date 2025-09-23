@@ -97,13 +97,20 @@
  */
 
 import '../../style.ts';
+import { textColorClasses, type TextColor } from '../../src/common/textColors';
+import {
+  textWeightClasses,
+  type TextWeight,
+} from '../../src/common/textWeights';
+import { textSizeClasses, type TextSize } from '../../src/common/textSizes';
+import { textAlignClasses, type TextAlign } from '../../src/common/textAlign';
 
 export interface ITextProps {
   as?: string;
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  weight?: 'light' | 'normal' | 'medium' | 'semibold' | 'bold';
-  color?: 'default' | 'primary' | 'secondary' | 'accent' | 'muted';
-  align?: 'left' | 'center' | 'right' | 'justify';
+  size?: TextSize;
+  weight?: TextWeight;
+  color?: TextColor;
+  align?: TextAlign;
   italic?: boolean;
   underline?: boolean;
   truncate?: boolean;
@@ -127,44 +134,17 @@ const {
   style = '',
 } = Astro.props;
 
-// 根据大小设置样式
-const sizeClasses = {
-  xs: 'cosy:text-xs',
-  sm: 'cosy:text-sm',
-  md: 'cosy:text-base',
-  lg: 'cosy:text-lg',
-  xl: 'cosy:text-xl',
-};
-const sizeClass = sizeClasses[size as keyof typeof sizeClasses];
+// 根据大小设置样式（使用 common 映射）
+const sizeClass = textSizeClasses[(size as TextSize) ?? 'md'];
 
-// 根据粗细设置样式
-const weightClasses = {
-  light: 'cosy:font-light',
-  normal: 'cosy:font-normal',
-  medium: 'cosy:font-medium',
-  semibold: 'cosy:font-semibold',
-  bold: 'cosy:font-bold',
-};
-const weightClass = weightClasses[weight as keyof typeof weightClasses];
+// 根据粗细设置样式（使用 common 映射）
+const weightClass = textWeightClasses[(weight as TextWeight) ?? 'normal'];
 
-// 根据颜色设置样式
-const colorClasses = {
-  default: '',
-  primary: 'cosy:text-primary-600 cosy:dark:text-primary-400',
-  secondary: 'cosy:text-secondary-600 cosy:dark:text-secondary-400',
-  accent: 'cosy:text-accent-600 cosy:dark:text-accent-400',
-  muted: 'cosy:text-gray-600 cosy:dark:text-gray-400',
-};
-const colorClass = colorClasses[color as keyof typeof colorClasses];
+// 根据颜色设置样式（使用 common 映射）
+const colorClass = textColorClasses[(color as TextColor) ?? 'default'];
 
-// 根据对齐方式设置样式
-const alignClasses = {
-  left: 'cosy:text-left',
-  center: 'cosy:text-center',
-  right: 'cosy:text-right',
-  justify: 'cosy:text-justify',
-};
-const alignClass = alignClasses[align as keyof typeof alignClasses];
+// 根据对齐方式设置样式（使用 common 映射）
+const alignClass = textAlignClasses[(align as TextAlign) ?? 'left'];
 
 // 其他样式
 const italicClass = italic ? 'cosy:italic' : '';

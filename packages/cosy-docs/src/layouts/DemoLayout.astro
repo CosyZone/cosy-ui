@@ -8,6 +8,7 @@ interface Props {
   showTOC?: boolean;
   showSidebar?: boolean;
   sidebarItems?: ISidebarItem | null;
+  showDemoBanner?: boolean;
 }
 
 const {
@@ -15,6 +16,7 @@ const {
   showTOC = true,
   showSidebar = true,
   sidebarItems = null,
+  showDemoBanner = true,
 } = Astro.props;
 ---
 
@@ -23,7 +25,7 @@ const {
   showTOC={showTOC}
   showSidebar={showSidebar}
   sidebarItems={sidebarItems}>
-  <DemoBanner />
+  {showDemoBanner && <DemoBanner />}
 
   <slot />
 </BaseLayout>

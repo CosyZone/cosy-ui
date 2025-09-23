@@ -45,3 +45,9 @@ export * from './sidebar';
 
 // Meta 相关
 export * from './meta';
+
+// 文本
+export * from './textColors';
+export * from './textWeights';
+export * from './textSizes';
+export * from './textAlign';

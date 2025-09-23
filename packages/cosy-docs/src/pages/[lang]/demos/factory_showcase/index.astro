@@ -8,9 +8,14 @@ import {
   Text,
   Button,
   Badge,
-  getLandscapeImage,
-  getProductImage,
 } from '@coffic/cosy-ui';
+import heroUrl from './images/hero.jpg?url';
+import Hero from './Hero.astro';
+import lineUrl from './images/factory-line.jpg?url';
+import labUrl from './images/factory-lab.jpg?url';
+import warehouseUrl from './images/factory-warehouse.jpg?url';
+import exteriorUrl from './images/factory-exterior.jpg?url';
+import wechatQrUrl from './images/wechat-qr.jpg?url';
 import { configApp } from '@/config/config.app';
 import * as astroI18n from 'astro:i18n';
 
@@ -37,7 +42,7 @@ const blocks: BlockItem[] = [
       '核心工位实现自动化上下料与在线质检，稳定高效。',
       'Key stations are automated with in-line QC for stability and efficiency.'
     ),
-    image: getLandscapeImage({ width: 1200, height: 675, tag: 'factory-line' }),
+    image: lineUrl,
     tag: 'AUTO',
   },
   {
@@ -46,7 +51,7 @@ const blocks: BlockItem[] = [
       '全流程检测项目覆盖来料/制程/出货，AQL 1.0 标准。',
       'Full-process inspections covering IQC/Process/OQC, AQL 1.0 standard.'
     ),
-    image: getLandscapeImage({ width: 1200, height: 675, tag: 'factory-lab' }),
+    image: labUrl,
     tag: 'QA',
   },
   {
@@ -55,11 +60,7 @@ const blocks: BlockItem[] = [
       '先进先出与条码追溯，日均出库 2,000+ 件。',
       'FIFO with barcode traceability, 2,000+ items shipped daily.'
     ),
-    image: getLandscapeImage({
-      width: 1200,
-      height: 675,
-      tag: 'factory-warehouse',
-    }),
+    image: warehouseUrl,
     tag: 'WHS',
   },
   {
@@ -68,11 +69,7 @@ const blocks: BlockItem[] = [
       '绿化园区与标准化道路，优化参观动线与物流通道。',
       'Green campus with standardized roads for visit flow and logistics.'
     ),
-    image: getLandscapeImage({
-      width: 1200,
-      height: 675,
-      tag: 'factory-exterior',
-    }),
+    image: exteriorUrl,
   },
 ];
 ---
@@ -161,35 +158,10 @@ const blocks: BlockItem[] = [
       { name: 'CofficLab', href: 'https://cofficlab.com', external: true },
     ],
     socialLinks: ['https://github.com/CofficLab', 'https://twitter.com'],
-    wechatQR: getProductImage({ width: 512, height: 512, tag: 'wechat-qr' }),
+    wechatQR: wechatQrUrl,
   }}
   mainContentConfig={{ verticalPadding: 'lg' }}>
-  <Container
-    width="full"
-    padding="none"
-    height="3xl"
-    backgroundImage={getLandscapeImage({
-      width: 1920,
-      height: 960,
-      tag: 'factory-hero',
-    })}
-    contentCentered>
-    <div style="position:absolute; inset:0; "></div>
-    <Container width="xl" padding="lg" contentCentered flex="row" gap="lg">
-      <Heading level={1} margin="sm" weight="bold">
-        {t('智造工厂 · 真实可见', 'Smart Manufacturing · See It Real')}
-      </Heading>
-      <Text margin="sm">
-        {
-          t(
-            '以镜头记录效率与品质，让产线细节一览无余。',
-            'Capturing efficiency and quality, revealing production details at a glance.'
-          )
-        }
-      </Text>
-      <Button variant="primary">{t('预约参观', 'Book a Visit')}</Button>
-    </Container>
-  </Container>
+  <Hero />
   <Container width="xl" padding="lg" contentCentered flex="col">
     <Heading level={1} margin="lg" weight="semibold" align="center">
       {t('工厂照片展示', 'Factory Showcase')}

@@ -111,23 +111,19 @@ import {
   getBackgroundClass,
   type BackgroundColor,
 } from '../../src/common/backgrounds';
+import {
+  textWeightClasses,
+  type TextWeight,
+} from '../../src/common/textWeights';
+import { headingSizeClasses } from '../../src/common/textSizes';
+import { textAlignClasses, type TextAlign } from '../../src/common/textAlign';
+import { textColorClasses, type TextColor } from '../../src/common/textColors';
 
 interface IHeadingProps {
-  align?: 'left' | 'center' | 'right';
+  align?: Exclude<TextAlign, 'justify'>;
   anchor?: boolean;
   background?: BackgroundColor;
-  color?:
-    | 'default'
-    | 'primary'
-    | 'secondary'
-    | 'accent'
-    | 'muted'
-    | 'info'
-    | 'success'
-    | 'warning'
-    | 'error'
-    | 'base-content'
-    | 'neutral-content';
+  color?: TextColor;
   class?: string;
   external?: boolean;
   href?: string;
@@ -136,15 +132,7 @@ interface IHeadingProps {
   margin?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
   padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
   underline?: boolean;
-  weight?:
-    | 'thin'
-    | 'light'
-    | 'normal'
-    | 'medium'
-    | 'semibold'
-    | 'bold'
-    | 'extrabold'
-    | 'black';
+  weight?: TextWeight;
 }
 
 const {
@@ -163,27 +151,12 @@ const {
   weight,
 } = Astro.props;
 
-// 字体粗细映射
-const weightClass = {
-  thin: 'cosy:font-thin',
-  light: 'cosy:font-light',
-  normal: 'cosy:font-normal',
-  medium: 'cosy:font-medium',
-  semibold: 'cosy:font-semibold',
-  bold: 'cosy:font-bold',
-  extrabold: 'cosy:font-extrabold',
-  black: 'cosy:font-black',
-};
+// 字体粗细映射（使用 common）
+const weightClass = textWeightClasses;
 
 // 根据级别设置基础样式（不包含字体粗细）
-const baseHeadingClass = {
-  1: 'cosy:text-4xl',
-  2: 'cosy:text-3xl',
-  3: 'cosy:text-2xl',
-  4: 'cosy:text-xl',
-  5: 'cosy:text-lg',
-  6: 'cosy:text-base',
-}[(level ?? 2) as 1 | 2 | 3 | 4 | 5 | 6];
+const baseHeadingClass =
+  headingSizeClasses[(level ?? 2) as 1 | 2 | 3 | 4 | 5 | 6];
 
 // 默认字体粗细（当未指定 weight 时使用）
 const defaultWeightClass = {
@@ -202,38 +175,10 @@ const weightClassValue =
     : defaultWeightClass;
 const headingClass = `${baseHeadingClass} ${weightClassValue}`;
 
-const colorClass = {
-  default: '',
-  primary: 'cosy:text-primary cosy:dark:text-primary',
-  secondary: 'cosy:text-secondary cosy:dark:text-secondary',
-  accent: 'cosy:text-accent cosy:dark:text-accent',
-  muted: 'cosy:text-gray-600 cosy:dark:text-gray-400',
-  info: 'cosy:text-info cosy:dark:text-info',
-  success: 'cosy:text-success cosy:dark:text-success',
-  warning: 'cosy:text-warning cosy:dark:text-warning',
-  error: 'cosy:text-error cosy:dark:text-error',
-  'base-content': 'cosy:text-base-content cosy:dark:text-base-content',
-  'neutral-content': 'cosy:text-neutral-content cosy:dark:text-neutral-content',
-}[
-  (color ?? 'default') as
-    | 'default'
-    | 'primary'
-    | 'secondary'
-    | 'accent'
-    | 'muted'
-    | 'info'
-    | 'success'
-    | 'warning'
-    | 'error'
-    | 'base-content'
-    | 'neutral-content'
-];
+const colorClass = textColorClasses[(color as TextColor) ?? 'default'];
 
-const alignClass = {
-  left: 'cosy:text-left',
-  center: 'cosy:text-center',
-  right: 'cosy:text-right',
-}[(align ?? 'left') as 'left' | 'center' | 'right'];
+const alignClass =
+  textAlignClasses[(align ?? 'left') as 'left' | 'center' | 'right'];
 
 const underlineClass = underline
   ? 'cosy:border-b cosy:pb-2 cosy:border-gray-200 cosy:dark:border-gray-700'

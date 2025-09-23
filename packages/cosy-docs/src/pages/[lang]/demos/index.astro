@@ -1,6 +1,6 @@
 ---
 import DemoLayout from '@/layouts/DemoLayout.astro';
-import { Products, getExampleImage, LinkUtil } from '@coffic/cosy-ui';
+import { Products, getExampleImage, LinkUtil, Heading } from '@coffic/cosy-ui';
 
 const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
 
@@ -16,8 +16,14 @@ export const getStaticPaths = async () => {
 };
 ---
 
-<DemoLayout title="Cosy UI 组件库 - 示例" showSidebar={false} showTOC={false}>
-  <h1>Cosy UI 组件库 - 示例</h1>
+<DemoLayout
+  title="Cosy UI 组件库 - 示例"
+  showSidebar={false}
+  showTOC={false}
+  showDemoBanner={false}>
+  <Heading level={1} align="center" margin="lg">
+    Cosy UI 组件库 - 示例
+  </Heading>
 
   <Products
     products={[
