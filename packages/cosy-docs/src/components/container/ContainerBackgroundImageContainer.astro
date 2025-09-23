@@ -1,0 +1,21 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerBackgroundImageRemote from './ContainerBackgroundImageRemote.astro';
+import ContainerBackgroundImageLocal from './ContainerBackgroundImageLocal.astro';
+import ContainerBackgroundImageRemoteSourceCode from './ContainerBackgroundImageRemote.astro?raw';
+import ContainerBackgroundImageLocalSourceCode from './ContainerBackgroundImageLocal.astro?raw';
+---
+
+<CodeContainer
+  titles={['远程图片', '本地图片']}
+  codes={[
+    ContainerBackgroundImageRemoteSourceCode,
+    ContainerBackgroundImageLocalSourceCode,
+  ]}>
+  <div id="tab-1">
+    <ContainerBackgroundImageRemote />
+  </div>
+  <div id="tab-2">
+    <ContainerBackgroundImageLocal />
+  </div>
+</CodeContainer>
