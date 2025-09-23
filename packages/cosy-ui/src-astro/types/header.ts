@@ -1,5 +1,6 @@
 import type { INavItem } from './nav';
-import type { BackgroundColor, HeightSize } from '../../src/common';
+import type { BackgroundColor, HeightSize, TextColor } from '../../src/common';
+import type { ShadowSize } from '../../src/common/shadow';
 import type { ImageSource } from 'index-astro';
 
 export interface IHeaderProps {
@@ -7,6 +8,18 @@ export interface IHeaderProps {
      * 自定义背景色
      */
     background?: BackgroundColor;
+
+    /**
+     * 阴影强度
+     * @default 'md'
+     */
+    shadow?: ShadowSize;
+
+    /**
+     * 文本颜色
+     * @default 'base-content'
+     */
+    textColor?: TextColor;
 
     /**
      * 侧边栏是否默认展开

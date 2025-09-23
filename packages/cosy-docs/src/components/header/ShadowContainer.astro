@@ -1,0 +1,45 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import NoneSourceCode from './shadow/None.astro?raw';
+import SmSourceCode from './shadow/Sm.astro?raw';
+import MdSourceCode from './shadow/Md.astro?raw';
+import LgSourceCode from './shadow/Lg.astro?raw';
+import XlSourceCode from './shadow/Xl.astro?raw';
+import TwoXlSourceCode from './shadow/TwoXl.astro?raw';
+import None from './shadow/None.astro';
+import Sm from './shadow/Sm.astro';
+import Md from './shadow/Md.astro';
+import Lg from './shadow/Lg.astro';
+import Xl from './shadow/Xl.astro';
+import TwoXl from './shadow/TwoXl.astro';
+---
+
+<CodeContainer
+  codes={[
+    NoneSourceCode,
+    SmSourceCode,
+    MdSourceCode,
+    LgSourceCode,
+    XlSourceCode,
+    TwoXlSourceCode,
+  ]}
+  titles={['none', 'sm', 'md', 'lg', 'xl', '2xl']}>
+  <div id="tab-1">
+    <None />
+  </div>
+  <div id="tab-2">
+    <Sm />
+  </div>
+  <div id="tab-3">
+    <Md />
+  </div>
+  <div id="tab-4">
+    <Lg />
+  </div>
+  <div id="tab-5">
+    <Xl />
+  </div>
+  <div id="tab-6">
+    <TwoXl />
+  </div>
+</CodeContainer>

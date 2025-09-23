@@ -194,6 +194,11 @@ export interface Props {
    */
   width?: number;
   /**
+   * 作为背景层渲染（用于容器背景），使外层容器绝对定位铺满父级
+   * @default false
+   */
+  asBackground?: boolean;
+  /**
    * 是否启用点击图片预览大图
    * @default false
    */
@@ -211,6 +216,7 @@ const {
   width,
   height,
   layout = 'constrained',
+  asBackground = false,
   loading = 'lazy',
   objectFit = 'cover',
   objectPosition = 'center',
@@ -279,7 +285,10 @@ const localProps = {
 
 <div
   class:list={[
-    'not-prose cosy:relative cosy:w-full cosy:h-full cosy:align-middle cosy:mx-auto cosy:my-auto cosy:justify-center cosy:flex cosy:items-center',
+    'not-prose cosy:align-middle cosy:mx-auto cosy:my-auto cosy:justify-center cosy:flex cosy:items-center',
+    asBackground
+      ? 'cosy:absolute cosy:inset-0'
+      : 'cosy:relative cosy:w-full cosy:h-full',
     previewEnabled ? 'cosy:cursor-zoom-in' : '',
   ]}
   onclick={previewEnabled

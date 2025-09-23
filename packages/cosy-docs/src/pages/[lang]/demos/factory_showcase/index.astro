@@ -1,0 +1,224 @@
+---
+import {
+  AppLayout,
+  Container,
+  Grid,
+  Image,
+  Heading,
+  Text,
+  Button,
+  Badge,
+} from '@coffic/cosy-ui';
+import heroUrl from './images/hero.jpg?url';
+import Hero from './Hero.astro';
+import lineUrl from './images/factory-line.jpg?url';
+import labUrl from './images/factory-lab.jpg?url';
+import warehouseUrl from './images/factory-warehouse.jpg?url';
+import exteriorUrl from './images/factory-exterior.jpg?url';
+import wechatQrUrl from './images/wechat-qr.jpg?url';
+import { configApp } from '@/config/config.app';
+import * as astroI18n from 'astro:i18n';
+
+// locale
+const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
+const t = (zh: string, en: string) => (currentLocale === 'zh-cn' ? zh : en);
+
+export const getStaticPaths = async () => {
+  return [{ params: { lang: 'zh-cn' } }, { params: { lang: 'en' } }];
+};
+
+// 数据：工厂照片区块
+interface BlockItem {
+  title: string;
+  description: string;
+  image: string;
+  tag?: string;
+}
+
+const blocks: BlockItem[] = [
+  {
+    title: t('自动化生产线', 'Automated Production Line'),
+    description: t(
+      '核心工位实现自动化上下料与在线质检，稳定高效。',
+      'Key stations are automated with in-line QC for stability and efficiency.'
+    ),
+    image: lineUrl,
+    tag: 'AUTO',
+  },
+  {
+    title: t('品控实验室', 'Quality Lab'),
+    description: t(
+      '全流程检测项目覆盖来料/制程/出货，AQL 1.0 标准。',
+      'Full-process inspections covering IQC/Process/OQC, AQL 1.0 standard.'
+    ),
+    image: labUrl,
+    tag: 'QA',
+  },
+  {
+    title: t('仓储与发货', 'Warehouse & Shipping'),
+    description: t(
+      '先进先出与条码追溯，日均出库 2,000+ 件。',
+      'FIFO with barcode traceability, 2,000+ items shipped daily.'
+    ),
+    image: warehouseUrl,
+    tag: 'WHS',
+  },
+  {
+    title: t('厂区外景', 'Factory Exterior'),
+    description: t(
+      '绿化园区与标准化道路，优化参观动线与物流通道。',
+      'Green campus with standardized roads for visit flow and logistics.'
+    ),
+    image: exteriorUrl,
+  },
+];
+---
+
+<AppLayout
+  metaConfig={{
+    title: t('工厂照片展示', 'Factory Showcase'),
+    description: t(
+      '一张或多张工厂照片，配合简洁文案展示实力。',
+      'Factory photos with concise copy to build trust.'
+    ),
+    keywords: t(
+      '工厂,生产线,仓储,实验室,外景',
+      'factory, production line, warehouse, lab, exterior'
+    ),
+    author: 'Cosy UI',
+    robots: 'index, follow',
+  }}
+  sidebarConfig={{ sidebarItems: [] }}
+  showHeader={true}
+  showFooter={true}
+  showSidebar={false}
+  headerConfig={{
+    logoHref: configApp.homeLink,
+    navItems: configApp.getNavItems(currentLocale),
+    astroI18n: astroI18n,
+  }}
+  footerConfig={{
+    siteName: 'Cosy UI',
+    homeLink: configApp.homeLink,
+    slogan: t('更快构建现代网站', 'Build modern sites faster'),
+    company: 'Cosy UI',
+    inspirationalSlogan: t(
+      '打造优雅、可复用的界面',
+      'Craft elegant, reusable UIs'
+    ),
+    background: 'base-200',
+    aboutInfo: {
+      aboutLink: configApp.homeLink + '#about',
+      contactLink: configApp.homeLink + '#contact',
+      teamLink: configApp.homeLink + '#team',
+      careersLink: configApp.homeLink + '#careers',
+    },
+    resourcesInfo: {
+      newsLink: configApp.homeLink + '#news',
+      historyLink: configApp.homeLink + '#history',
+      partnersLink: configApp.homeLink + '#partners',
+      blogLink: configApp.homeLink + '#blog',
+      faqLink: configApp.homeLink + '#faq',
+      mediaLink: configApp.homeLink + '#media',
+      techStackLink: configApp.homeLink + '#tech',
+    },
+    contactInfo: {
+      address: t(
+        '上海市浦东新区世纪大道 100 号',
+        '100 Century Ave, Pudong, Shanghai'
+      ),
+      phone: '+86 21 1234 5678',
+      email: 'hello@cosyui.dev',
+      workingHours: t('周一至周五 09:00-18:00', 'Mon-Fri 09:00-18:00'),
+      wechat: 'cosyui_official',
+      qq: '12345678',
+    },
+    legalInfo: {
+      termsLink: configApp.homeLink + '/terms',
+      privacyLink: configApp.homeLink + '/privacy',
+      icp: t('沪ICP备12345678号-1', 'ICP 12345678-1'),
+      icpLink: 'https://beian.miit.gov.cn',
+    },
+    products: [
+      {
+        name: t('组件库', 'Component Library'),
+        href: configApp.homeLink + '/components',
+      },
+      {
+        name: t('模板集', 'Templates'),
+        href: configApp.homeLink + '/templates',
+      },
+    ],
+    friendlyLinks: [
+      {
+        name: 'GitHub',
+        href: 'https://github.com/CofficLab/cosy-ui',
+        external: true,
+      },
+      { name: 'CofficLab', href: 'https://cofficlab.com', external: true },
+    ],
+    socialLinks: ['https://github.com/CofficLab', 'https://twitter.com'],
+    wechatQR: wechatQrUrl,
+  }}
+  mainContentConfig={{ verticalPadding: 'lg' }}>
+  <Hero />
+  <Container width="xl" padding="lg" contentCentered flex="col">
+    <Heading level={1} margin="lg" weight="semibold" align="center">
+      {t('工厂照片展示', 'Factory Showcase')}
+    </Heading>
+    <Text margin="md">
+      {
+        t(
+          '以下为工厂核心区域的实拍照片与简要说明。',
+          'Below are real shots of core factory areas with brief notes.'
+        )
+      }
+    </Text>
+  </Container>
+
+  {
+    blocks.map((block, i) => (
+      <Container
+        width="full"
+        padding="xl"
+        background={i % 2 === 0 ? 'base-100' : 'base-200'}>
+        <Container width="xl" padding="lg">
+          <Grid cols={{ base: 1, md: 2 }} gap="lg">
+            {i % 2 === 0 ? (
+              <>
+                <div>
+                  <Image src={block.image} alt={block.title} rounded="lg" />
+                </div>
+                <div>
+                  {block.tag && <Badge variant="secondary">{block.tag}</Badge>}
+                  <Heading level={2} margin="sm" weight="semibold">
+                    {block.title}
+                  </Heading>
+                  <Text margin="sm">{block.description}</Text>
+                  <Button variant="primary">
+                    {t('预约参观', 'Book a Visit')}
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div>
+                  <Heading level={2} margin="sm" weight="semibold">
+                    {block.title}
+                  </Heading>
+                  <Text margin="sm">{block.description}</Text>
+                  <Button variant="primary">
+                    {t('预约参观', 'Book a Visit')}
+                  </Button>
+                </div>
+                <div>
+                  <Image src={block.image} alt={block.title} rounded="lg" />
+                </div>
+              </>
+            )}
+          </Grid>
+        </Container>
+      </Container>
+    ))
+  }
+</AppLayout>

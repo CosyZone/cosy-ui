@@ -17,6 +17,8 @@ export const baseBackgroundClasses = {
     warning: 'cosy:bg-warning',
     error: 'cosy:bg-error',
     info: 'cosy:bg-info',
+    transparent: 'cosy:bg-transparent',
+    none: '',
 } as const;
 
 // 透明度值
