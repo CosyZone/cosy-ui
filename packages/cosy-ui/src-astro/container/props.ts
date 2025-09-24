@@ -121,18 +121,9 @@ export interface IContainerPropsBuilder {
  *   const props = ContainerProps().width('md').padding('lg').build();
  */
 export function createContainerProps(initial: Partial<IContainerProps> = {}): IContainerPropsBuilder {
+    // 不在构建器中注入默认值，保留调用方显式设置的键。
+    // 默认值由 Container 组件自身在解构时提供，避免被误认为“用户显式设置”。
     let props: IContainerProps = {
-        width: 'md',
-        padding: 'md',
-        margin: 'none',
-        centered: true,
-        contentCentered: false,
-        border: false,
-        fit: 'none',
-        contentBorder: false,
-        gap: 'none',
-        rounded: 'none',
-        class: '',
         ...initial,
     } as any;
 

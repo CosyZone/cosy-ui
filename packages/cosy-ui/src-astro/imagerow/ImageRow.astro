@@ -45,16 +45,12 @@ import type {
   HoverEffect,
   HeightSize,
 } from '../../src/common';
-import {
-  gapClasses,
-  roundedClasses,
-  shadowClasses,
-  hoverClasses,
-} from '../../src/common';
+import { gapClasses } from '../../src/common';
 import Container from '../container/Container.astro';
 import PrevButton from './PrevButton.astro';
 import NextButton from './NextButton.astro';
 import RowItem from './RowItem.astro';
+import { ContainerProps } from '../container/props';
 
 interface Props {
   images: IImageItem[];
@@ -101,19 +97,19 @@ const getContainerClass = () => {
 
   return `${baseClass} ${gapClassValue} ${customClass}`.trim();
 };
-
-// 生成图片容器类名
+const containerProps = ContainerProps()
+  .background(background as BackgroundColor)
+  .padding(padding)
+  .margin(margin)
+  .border(border)
+  .width(width)
+  .height(height)
+  .rounded(containerRounded)
+  .class(className)
+  .build();
 ---
 
-<Container
-  background={background}
-  padding={padding}
-  margin={margin}
-  border={border}
-  width={width}
-  height={height}
-  rounded={containerRounded}
-  class={className}>
+<Container {...containerProps}>
   <div
     class="image-row-wrapper cosy:flex cosy:items-center cosy:gap-3 cosy:h-full max-[768px]:cosy:gap-2 max-[480px]:cosy:gap-1.5">
     {showNavigation && images.length > 1 && <PrevButton disabled />}
