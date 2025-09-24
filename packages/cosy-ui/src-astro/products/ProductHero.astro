@@ -65,10 +65,12 @@
  * ```
  */
 
-import { Badge, Heading, Text, Image, Container } from '../../index-astro';
+import { Container } from '../../index-astro';
 import '../../style.ts';
 import type { ImageSource } from '../image/image.ts';
 import type { BackgroundColor } from '../../src/common/backgrounds';
+import ProductHeroContent from './ProductHeroContent.astro';
+import ProductHeroImage from './ProductHeroImage.astro';
 
 // Props 按字母顺序（A-Z）
 export interface Props {
@@ -120,10 +122,8 @@ const {
   class: className = '',
 } = Astro.props;
 
-// 根据对齐方式决定布局方向
+// 根据对齐方式决定列顺序（Tailwind order 实现左右切换）
 const isRightAlign = align === 'right';
-const gridDirection = isRightAlign ? 'direction: rtl;' : '';
-const contentDirection = isRightAlign ? 'direction: ltr;' : '';
 ---
 
 <Container
@@ -133,61 +133,18 @@ const contentDirection = isRightAlign ? 'direction: ltr;' : '';
   class={className}>
   <Container width="xl">
     <div
-      style={`display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; ${gridDirection}`}>
-      <!-- 内容区域 -->
-      <div style={contentDirection}>
-        <!-- 标签列表 -->
-        {
-          labels && labels.length > 0 && (
-            <div class="cosy:flex cosy:flex-wrap cosy:gap-2 cosy:mb-4">
-              {labels.map((label) => (
-                <Badge variant="primary">{label}</Badge>
-              ))}
-            </div>
-          )
-        }
-
-        <!-- 产品标题 -->
-        <Heading level={2} size="4xl" class="cosy:mb-4 cosy:font-thin">
-          {name}
-        </Heading>
-
-        <!-- 产品描述 -->
-        <Text
-          size="xl"
-          class="cosy:text-base-content/70 cosy:mb-6 cosy:font-light">
-          {description}
-        </Text>
-
-        <!-- 高亮文案（价格/标语等） -->
-        {
-          highlight && (
-            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem;">
-              <Text size="2xl" class="cosy:font-thin">
-                {highlight}
-              </Text>
-            </div>
-          )
-        }
-
-        <!-- 自定义操作区插槽 -->
-        <div style="display: flex; gap: 1rem;">
+      class="cosy:grid cosy:grid-cols-1 cosy:md:grid-cols-2 cosy:gap-16 cosy:items-center">
+      <div class:list={[isRightAlign ? 'cosy:md:order-2' : 'cosy:md:order-1']}>
+        <ProductHeroContent
+          name={name}
+          description={description}
+          highlight={highlight}
+          labels={labels}>
           <slot name="actions" />
-        </div>
+        </ProductHeroContent>
       </div>
-
-      <!-- 图片区域 -->
-      <div>
-        <div
-          style="width: 100%; height: auto; border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); overflow: hidden;">
-          <Image
-            src={image}
-            alt={name}
-            width={800}
-            height={600}
-            class="cosy:w-full cosy:h-auto"
-          />
-        </div>
+      <div class:list={[isRightAlign ? 'cosy:md:order-1' : 'cosy:md:order-2']}>
+        <ProductHeroImage src={image} alt={name} />
       </div>
     </div>
   </Container>
