@@ -10,6 +10,7 @@ export * from './src-astro/button/index_astro';
 export * from './src-astro/card';
 export * from './src-astro/card-book';
 export * from './src-astro/card-course';
+export * from './src-astro/carousel';
 export * from './src-astro/code-block';
 export * from './src-astro/code-container';
 export * from './src-astro/code-example';
