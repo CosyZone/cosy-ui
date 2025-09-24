@@ -14,10 +14,10 @@ export interface Props {
 const { name, description, highlight, labels = [] } = Astro.props;
 ---
 
-<div class="cosy:text-center md:cosy:text-left">
+<div class="cosy:text-center cosy:md:text-left">
   {
     labels && labels.length > 0 && (
-      <div class="cosy:flex cosy:flex-wrap cosy:gap-2 cosy:mb-4 cosy:justify-center md:cosy:justify-start">
+      <div class="cosy:flex cosy:flex-wrap cosy:gap-2 cosy:mb-4 cosy:justify-center cosy:md:justify-start">
         {labels.map((label) => (
           <Badge variant="primary">{label}</Badge>
         ))}
@@ -35,7 +35,7 @@ const { name, description, highlight, labels = [] } = Astro.props;
 
   {
     highlight && (
-      <div class="cosy:flex cosy:gap-4 cosy:items-center cosy:mb-8 cosy:justify-center md:cosy:justify-start">
+      <div class="cosy:flex cosy:gap-4 cosy:items-center cosy:mb-8 cosy:justify-center cosy:md:justify-start">
         <Text size="2xl" weight="thin">
           {highlight}
         </Text>
@@ -43,7 +43,7 @@ const { name, description, highlight, labels = [] } = Astro.props;
     )
   }
 
-  <div class="cosy:flex cosy:gap-4 cosy:justify-center md:cosy:justify-start">
+  <div class="cosy:flex cosy:gap-4 cosy:justify-center cosy:md:justify-start">
     <slot />
   </div>
 </div>
