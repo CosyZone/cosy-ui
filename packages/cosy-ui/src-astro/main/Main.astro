@@ -57,6 +57,7 @@ import {
   TableOfContents,
   type IMainContentProps,
 } from '../../index-astro';
+import { paddingYClasses } from '../../src/common/padding-axis';
 
 export interface Props extends IMainContentProps {}
 
@@ -85,26 +86,11 @@ function getLayoutClasses(layout: string) {
 
 const layoutClass = getLayoutClasses(layout as string);
 
-// 获取垂直内边距的Tailwind类
-function getVerticalPaddingClasses(padding: string) {
-  if (padding === 'none') return 'cosy:py-0';
-  if (padding === 'xs') return 'cosy:py-1';
-  if (padding === 'sm') return 'cosy:py-2';
-  if (padding === 'md') return 'cosy:py-4';
-  if (padding === 'lg') return 'cosy:py-6';
-  if (padding === 'xl') return 'cosy:py-8';
-  if (padding === '2xl') return 'cosy:py-10';
-  if (padding === '3xl') return 'cosy:py-12';
-  if (padding === '4xl') return 'cosy:py-16';
-  if (padding === '5xl') return 'cosy:py-20';
-  return ''; // 对于自定义padding，使用内联样式
-}
-
 // 使用通用背景色函数
 
-const verticalPaddingClass = getVerticalPaddingClasses(
-  verticalPadding as string
-);
+const verticalPaddingClass = verticalPadding
+  ? paddingYClasses[verticalPadding as keyof typeof paddingYClasses] || ''
+  : '';
 const bgColorClass = getBackgroundClass(backgroundColor as BackgroundColor);
 
 // 构建自定义样式

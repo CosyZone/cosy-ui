@@ -1,4 +1,5 @@
 import type { BackgroundColor } from '../../src/common/backgrounds';
+import type { PaddingSize } from '../../src/common/padding';
 
 export interface IMainContentProps {
     /**
@@ -28,18 +29,7 @@ export interface IMainContentProps {
      * 垂直内边距
      * @default "md"
      */
-    verticalPadding?:
-    | 'none'
-    | 'xs'
-    | 'sm'
-    | 'md'
-    | 'lg'
-    | 'xl'
-    | '2xl'
-    | '3xl'
-    | '4xl'
-    | '5xl'
-    | string;
+    verticalPadding?: PaddingSize | string;
 
     /**
      * 是否居中显示内容
@@ -80,3 +70,5 @@ export interface IMainContentProps {
      */
     'class:list'?: any;
 }
+
+

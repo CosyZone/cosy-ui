@@ -74,7 +74,6 @@ export * from './src-astro/footer/types';
 export * from './src-astro/types/header';
 export * from './src-astro/types/heading';
 export * from './src-astro/hero/hero';
-export * from './src-astro/types/main';
 export * from './src-astro/types/nav';
 export * from './src-astro/types/product';
 export * from './src/common/sidebar';

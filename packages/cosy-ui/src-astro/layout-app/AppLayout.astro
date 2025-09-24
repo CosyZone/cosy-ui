@@ -245,6 +245,7 @@ import {
   Sidebar,
   Modal,
   Skeleton,
+  ContainerProps,
 } from '../../index-astro';
 import {
   getContainerMinHeightClass,
@@ -307,13 +308,15 @@ const sidebarHeightClass = getSidebarHeightClass(
   }
 
   <Container
-    flex="row"
-    gap="none"
-    padding="none"
-    width="full"
-    centered={true}
     aria-label="AppLayout-Container"
-    class={containerMinHeightClass}>
+    {...ContainerProps()
+      .flex('row')
+      .gap('none')
+      .padding('none')
+      .width('full')
+      .centered(true)
+      .class(containerMinHeightClass)
+      .build()}>
     <!-- 侧边栏容器 -->
     {
       showSidebar && (
