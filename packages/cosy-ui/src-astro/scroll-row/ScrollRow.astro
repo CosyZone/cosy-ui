@@ -27,9 +27,8 @@
 
 import '../../style.ts';
 import Container from '../container/Container.astro';
-import { Button } from '../../index-astro';
-import ChevronLeftIcon from '../icons/ChevronLeftIcon.astro';
-import ChevronRightIcon from '../icons/ChevronRightIcon.astro';
+import PrevButton from './PrevButton.astro';
+import NextButton from './NextButton.astro';
 import type {
   BackgroundColor,
   PaddingSize,
@@ -79,38 +78,36 @@ const gapClass = gapClasses[gap] || '';
   rounded={rounded}
   class={className}>
   <div
-    class="scroll-row-wrapper cosy:flex cosy:items-center cosy:gap-3 cosy:h-full max-[768px]:cosy:gap-2 max-[480px]:cosy:gap-1.5"
+    class="scroll-row-wrapper cosy:flex cosy:items-center cosy:h-full cosy:min-w-0 cosy:w-full cosy:gap-3 cosy:flex-col cosy:sm:gap-1.5 cosy:md:flex-row cosy:md:gap-2"
     role="region"
     data-scroll-by={String(scrollBy)}>
     {
       showNavigation && (
-        <Button
-          type="button"
-          variant="ghost"
-          size="sm"
-          class="scroll-row-nav-prev"
-          aria-label="Previous"
-          disabled>
-          <ChevronLeftIcon />
-        </Button>
+        <div class="cosy:hidden cosy:md:block">
+          <PrevButton disabled />
+        </div>
       )
     }
 
     <div
-      class={`scroll-row-container cosy:flex cosy:items-center cosy:overflow-x-auto cosy:flex-1 cosy:h-full cosy:whitespace-nowrap cosy:[scrollbar-width:none] cosy:[-ms-overflow-style:none] ${gapClass}`.trim()}>
+      class={`scroll-row-container cosy:flex cosy:items-center cosy:overflow-x-auto cosy:flex-1 cosy:h-full cosy:whitespace-nowrap cosy:min-w-0 cosy:w-full cosy:max-w-full cosy:[scrollbar-width:none] cosy:[-ms-overflow-style:none] ${gapClass}`.trim()}>
       <slot />
     </div>
 
     {
       showNavigation && (
-        <Button
-          type="button"
-          variant="ghost"
-          size="sm"
-          class="scroll-row-nav-next"
-          aria-label="Next">
-          <ChevronRightIcon />
-        </Button>
+        <div class="cosy:hidden cosy:md:block">
+          <NextButton />
+        </div>
+      )
+    }
+
+    {
+      showNavigation && (
+        <div class="cosy:flex cosy:md:hidden cosy:justify-center cosy:gap-3 cosy:mt-2">
+          <PrevButton disabled />
+          <NextButton />
+        </div>
       )
     }
   </div>
@@ -187,19 +184,23 @@ const gapClass = gapClasses[gap] || '';
     const container = wrapper.querySelector(
       '.scroll-row-container'
     ) as HTMLElement | null;
-    const prevBtn = wrapper.querySelector(
-      '.scroll-row-nav-prev'
-    ) as HTMLButtonElement | null;
-    const nextBtn = wrapper.querySelector(
-      '.scroll-row-nav-next'
-    ) as HTMLButtonElement | null;
-    if (!container || !prevBtn || !nextBtn) return;
+    if (!container) return;
 
     const currentScrollLeft = container.scrollLeft;
     const maxScrollLeft = container.scrollWidth - container.clientWidth;
 
-    prevBtn.disabled = currentScrollLeft <= 0;
-    nextBtn.disabled = currentScrollLeft >= maxScrollLeft - 1;
+    const prevBtns = wrapper.querySelectorAll(
+      '.scroll-row-nav-prev'
+    ) as NodeListOf<HTMLButtonElement>;
+    const nextBtns = wrapper.querySelectorAll(
+      '.scroll-row-nav-next'
+    ) as NodeListOf<HTMLButtonElement>;
+
+    const prevDisabled = currentScrollLeft <= 0;
+    const nextDisabled = currentScrollLeft >= maxScrollLeft - 1;
+
+    prevBtns.forEach((btn) => (btn.disabled = prevDisabled));
+    nextBtns.forEach((btn) => (btn.disabled = nextDisabled));
   }
 
   function parseScrollBy(wrapper: HTMLElement): 'item' | 'page' | number {
@@ -220,18 +221,41 @@ const gapClass = gapClasses[gap] || '';
       '.scroll-row-container'
     ) as HTMLElement | null;
     const sb = parseScrollBy(wrapper);
-    if (prevBtn)
-      prevBtn.onclick = () =>
-        window.__cosy_scrollRowScroll(prevBtn, 'prev', sb);
-    if (nextBtn)
-      nextBtn.onclick = () =>
-        window.__cosy_scrollRowScroll(nextBtn, 'next', sb);
+    // 支持多个按钮实例（顶部/底部）
+    wrapper.querySelectorAll('.scroll-row-nav-prev').forEach((btn) => {
+      (btn as HTMLButtonElement).onclick = () =>
+        window.__cosy_scrollRowScroll(btn as HTMLButtonElement, 'prev', sb);
+    });
+    wrapper.querySelectorAll('.scroll-row-nav-next').forEach((btn) => {
+      (btn as HTMLButtonElement).onclick = () =>
+        window.__cosy_scrollRowScroll(btn as HTMLButtonElement, 'next', sb);
+    });
     if (container) {
       container.addEventListener('scroll', () => updateButtons(wrapper));
       window.addEventListener('resize', () =>
         setTimeout(() => updateButtons(wrapper), 100)
       );
       setTimeout(() => updateButtons(wrapper), 100);
+
+      // 当容器尺寸变化（例如标签切换显示后计算出真实宽度）时，刷新按钮状态
+      try {
+        const ro = new ResizeObserver(() =>
+          setTimeout(() => updateButtons(wrapper), 50)
+        );
+        ro.observe(container);
+      } catch {}
+
+      // 当整个 wrapper 从不可见切换为可见（例如 Tab 切换）时，刷新按钮状态
+      try {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => updateButtons(wrapper), 100);
+            }
+          });
+        });
+        io.observe(wrapper);
+      } catch {}
     }
   }
 

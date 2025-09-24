@@ -5,7 +5,7 @@ import type { GapSize } from '../../src/common/layout';
 import type { ShadowSize } from '../../src/common/shadow';
 import type { HoverEffect } from '../../src/common/hover';
 import type { Size } from '../../src/common/size';
-import type { ImageSource } from '../image/image';
+import type { ImageSource } from '../image';
 
 /**
  * 图片项接口
