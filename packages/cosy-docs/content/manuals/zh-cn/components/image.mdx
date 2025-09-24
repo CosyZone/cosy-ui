@@ -14,6 +14,12 @@ import ImageBasic from '@/components/image/ImageBasic.astro';
 
 Image 组件是一个智能图片组件，根据图片源类型自动选择合适的处理方式。
 
+### 加载策略建议
+
+- 非关键图片优先使用 `loading="lazy"`，以降低首屏带宽压力；页面可见后它们仍会继续加载。
+- 仅对首屏关键图片使用 `loading="eager"`，它可能占用带宽并推迟 window `load` 完成（Safari 停止按钮可能更晚恢复）。
+- 为图片提供明确的 `width`/`height`（或固定容器尺寸），避免布局抖动；使用 `layout="fill"` 时请确保外层容器有确定尺寸。
+
 ## 案例
 
 <ImageBasic />

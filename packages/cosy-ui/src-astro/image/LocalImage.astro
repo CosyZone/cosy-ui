@@ -12,6 +12,7 @@
  * - class?: string - 自定义 CSS 类名
  * - height?: number - 图片的高度
  * - hover?: 'none' | 'scale' | 'brightness' | 'blur' - 悬停效果
+ * - loading?: 'lazy' | 'eager' - 加载方式
  * - objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down' - 填充方式
  * - objectPosition?: string - 图片位置
  * - rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full' - 圆角大小
@@ -67,6 +68,13 @@ interface Props {
    * 图片的高度
    */
   height?: number;
+  /**
+   * 图片的加载方式
+   * - lazy：延迟加载，接近视口时再请求，减轻首屏带宽占用；页面可见后仍可能继续加载
+   * - eager：尽快加载，适合首屏关键图片；可能占用带宽并推迟 window load 完成
+   * @default "lazy"
+   */
+  loading?: 'lazy' | 'eager';
   /**
    * 图片的悬停效果
    * @default "none"
@@ -149,6 +157,7 @@ const {
   alt,
   width,
   height,
+  loading = 'lazy',
   layout = 'constrained',
   objectFit = 'cover',
   objectPosition = 'center',
@@ -194,6 +203,7 @@ const imgClasses = [
         alt={alt}
         width={layout === 'fill' ? undefined : width}
         height={layout === 'fill' ? undefined : height}
+        loading={loading as any}
         class={imgClasses}
         layout={layout as any}
         style={{ objectPosition }}
@@ -206,6 +216,7 @@ const imgClasses = [
       alt={alt}
       width={layout === 'fill' ? undefined : width}
       height={layout === 'fill' ? undefined : height}
+      loading={loading as any}
       class={imgClasses}
       layout={layout as any}
       style={{ objectPosition }}

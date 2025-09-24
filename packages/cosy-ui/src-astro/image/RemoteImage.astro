@@ -84,6 +84,8 @@ interface Props {
   lazy?: boolean;
   /**
    * 图片的加载方式
+   * - lazy：延迟加载，接近视口时再请求，减少首屏带宽占用；页面可见后仍可能继续加载
+   * - eager：尽快加载，适合首屏关键图片；可能占用带宽并推迟 window load 完成
    * @default "lazy"
    */
   loading?: 'lazy' | 'eager';
@@ -304,6 +306,7 @@ const imgClasses = [
         width={layout === 'fill' ? undefined : width}
         height={layout === 'fill' ? undefined : height}
         loading={loading}
+        fetchpriority={loading === 'eager' ? 'high' : 'auto'}
         class={imgClasses}
         style={{ objectPosition }}
         data-remote="true"
@@ -320,6 +323,7 @@ const imgClasses = [
       width={layout === 'fill' ? undefined : width}
       height={layout === 'fill' ? undefined : height}
       loading={loading}
+      fetchpriority={loading === 'eager' ? 'high' : 'auto'}
       class={imgClasses}
       style={{ objectPosition }}
       data-remote="true"

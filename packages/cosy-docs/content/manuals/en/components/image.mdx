@@ -14,6 +14,12 @@ import ImageBasic from '@/components/image/ImageBasic.astro';
 
 The Image component is an intelligent image component that automatically selects the appropriate processing method based on the image source type. 
 
+### Loading Strategy Tips
+
+- Prefer `loading="lazy"` for non-critical images to reduce first-screen bandwidth usage. These images will still load after the page becomes visible.
+- Use `loading="eager"` only for above-the-fold, user-critical images. It may occupy bandwidth and defer the window `load` event (Safari may keep the Stop button longer).
+- Provide explicit `width`/`height` (or a fixed container size) to avoid layout shifts. When using `layout="fill"`, ensure the outer container has a deterministic size.
+
 ## Examples
 
 <ImageBasic />
