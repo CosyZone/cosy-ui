@@ -13,6 +13,8 @@ import { ImageRowPackage } from '@/components/imagerow/index';
 
 The ImageRow component is used to display a row of images in a clean and efficient way. Built on top of the Container component, it supports rich background configurations. It's specifically designed for horizontal image display scenarios, supporting rich styling effects and responsive design.
 
+Tip: For pages with many images, prefer lazy loading for non-critical items. Only mark above-the-fold, user-critical items as eager to avoid delaying the window `load` event.
+
 If you need more customization for the internal items (e.g. custom card content, complex hover interactions, async loading placeholders), please use the more general-purpose `ScrollRow` component and render each item via its slot.
 
 ## Cases
@@ -63,7 +65,9 @@ Hover effects, optional values: none, scale, brightness, blur.
 
 ### images
 
-Array of images, each containing source URL, alt text, and other information.
+Array of images. Each item includes source and alt text. Two common ways are supported:
+- Pass string URLs directly (CDN or site paths)
+- Import local assets via `import` and assign the imported value to `images[i].src` 
 
 <ImageRowPackage.Images />
 

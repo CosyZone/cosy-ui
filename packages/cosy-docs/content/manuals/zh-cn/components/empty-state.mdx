@@ -13,9 +13,7 @@ import { EmptyStatePackage } from '@/components/empty-state/index.ts';
 
 `EmptyState` 组件用于在页面或区块没有数据时提供清晰的视觉反馈，可以引导用户进行下一步操作。
 
-## 基础用法
-
-展示了组件的基础功能，包括基本用法、带图标的提示和包含操作按钮的引导。
+## 案例
 
 <EmptyStatePackage.ComponentContainers.Basic />
 
@@ -23,4 +21,24 @@ import { EmptyStatePackage } from '@/components/empty-state/index.ts';
 
 `EmptyState` 组件本身不包含复杂的样式，但可以轻松地放置在任何容器中，并继承父元素的文本颜色。
 
-<EmptyStatePackage.ComponentContainers.CustomStyle /> 
+<EmptyStatePackage.ComponentContainers.CustomStyle />
+
+## Props
+
+### description
+用于描述空状态的补充说明文本，显示在标题下方。
+<EmptyStatePackage.ComponentContainers.Description />
+
+### icon
+在标题上方显示的图标名称，支持库内图标映射。
+<EmptyStatePackage.ComponentContainers.Icon />
+
+### title
+空状态的主标题，用于明确当前状态与意图。
+<EmptyStatePackage.ComponentContainers.Title />
+
+## Slots
+
+### default
+用于放置操作按钮或引导操作的内容（例如“创建”“返回”等）。
+<EmptyStatePackage.ComponentContainers.Slots /> 

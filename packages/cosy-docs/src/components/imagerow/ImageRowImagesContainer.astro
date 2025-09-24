@@ -7,19 +7,23 @@ import { CodeContainer } from '@coffic/cosy-ui';
 import ImageRowImagesBasic from './ImageRowImagesBasic.astro';
 import ImageRowImagesWithCaption from './ImageRowImagesWithCaption.astro';
 import ImageRowImagesWithSize from './ImageRowImagesWithSize.astro';
+import ImageRowImagesLocalImport from './ImageRowImagesLocalImport.astro';
 import ImageRowImagesBasicSourceCode from './ImageRowImagesBasic.astro?raw';
 import ImageRowImagesWithCaptionSourceCode from './ImageRowImagesWithCaption.astro?raw';
 import ImageRowImagesWithSizeSourceCode from './ImageRowImagesWithSize.astro?raw';
+import ImageRowImagesLocalImportSourceCode from './ImageRowImagesLocalImport.astro?raw';
 ---
 
 <CodeContainer
-  titles={['基础用法', '带标题', '带尺寸']}
+  titles={['基础用法', '带标题', '带尺寸', '本地导入']}
   codes={[
     ImageRowImagesBasicSourceCode,
     ImageRowImagesWithCaptionSourceCode,
     ImageRowImagesWithSizeSourceCode,
+    ImageRowImagesLocalImportSourceCode,
   ]}>
   <div id="tab-1"><ImageRowImagesBasic /></div>
   <div id="tab-2"><ImageRowImagesWithCaption /></div>
   <div id="tab-3"><ImageRowImagesWithSize /></div>
+  <div id="tab-4"><ImageRowImagesLocalImport /></div>
 </CodeContainer>

@@ -8,14 +8,14 @@ import {
   Text,
   Button,
   Badge,
+  type ImageSource,
 } from '@coffic/cosy-ui';
-import heroUrl from './images/hero.jpg?url';
-import Hero from './Hero.astro';
-import lineUrl from './images/factory-line.jpg?url';
-import labUrl from './images/factory-lab.jpg?url';
-import warehouseUrl from './images/factory-warehouse.jpg?url';
-import exteriorUrl from './images/factory-exterior.jpg?url';
-import wechatQrUrl from './images/wechat-qr.jpg?url';
+import Hero from '@/demos/factory_showcase/Hero.astro';
+import lineUrl from '@/demos/factory_showcase/images/factory-line.jpg';
+import labUrl from '@/demos/factory_showcase/images/factory-lab.jpg';
+import warehouseUrl from '@/demos/factory_showcase/images/factory-warehouse.jpg';
+import exteriorUrl from '@/demos/factory_showcase/images/factory-exterior.jpg';
+import wechatQrUrl from '@/demos/factory_showcase/images/wechat-qr.jpg';
 import { configApp } from '@/config/config.app';
 import * as astroI18n from 'astro:i18n';
 
@@ -31,7 +31,7 @@ export const getStaticPaths = async () => {
 interface BlockItem {
   title: string;
   description: string;
-  image: string;
+  image: ImageSource;
   tag?: string;
 }
 

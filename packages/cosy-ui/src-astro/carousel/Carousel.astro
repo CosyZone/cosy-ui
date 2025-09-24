@@ -1,0 +1,56 @@
+---
+import '../../style.ts';
+import type { ICarouselProps } from './types';
+
+export interface Props extends ICarouselProps {}
+
+const {
+  items = [],
+  idPrefix = 'carousel',
+  navButtonClass = 'btn btn-circle',
+  showNav = true,
+  id,
+  class: className,
+  'class:list': classList,
+  ...rest
+} = Astro.props as Props;
+
+const slides = items.map((item, index) => ({
+  id: item.id ?? `${idPrefix}-slide-${index + 1}`,
+  src: item.src,
+  alt: item.alt ?? '',
+}));
+
+function getPrevIndex(current: number, total: number) {
+  return (current - 1 + total) % total;
+}
+
+function getNextIndex(current: number, total: number) {
+  return (current + 1) % total;
+}
+---
+
+<div id={id} class:list={['carousel w-full', className, classList]} {...rest}>
+  {
+    slides.map((slide, idx) => (
+      <div id={slide.id} class="carousel-item relative w-full">
+        <img src={slide.src} alt={slide.alt} class="w-full" />
+        {showNav && (
+          <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+            <a
+              href={`#${slides[getPrevIndex(idx, slides.length)].id}`}
+              class={navButtonClass}>
+              ❮
+            </a>
+            <a
+              href={`#${slides[getNextIndex(idx, slides.length)].id}`}
+              class={navButtonClass}>
+              ❯
+            </a>
+          </div>
+        )}
+      </div>
+    ))
+  }
+  <slot />
+</div>

@@ -11,13 +11,13 @@ import {
 } from '@coffic/cosy-ui';
 import { configApp } from '@/config/config.app';
 import * as astroI18n from 'astro:i18n';
-import iphoneUrl from './images/iphone.jpg?url';
-import macbookUrl from './images/macbook.jpg?url';
-import ipadUrl from './images/ipad.jpg?url';
-import watchUrl from './images/watch.jpg?url';
-import airpodsUrl from './images/airpods.jpg?url';
-import visionProUrl from './images/vision-pro.jpg?url';
-import wechatQrUrl from './images/wechat-qr.jpg?url';
+import iphoneUrl from '@/demos/apple_products/images/iphone.jpg?url';
+import macbookUrl from '@/demos/apple_products/images/macbook.jpg?url';
+import ipadUrl from '@/demos/apple_products/images/ipad.jpg?url';
+import watchUrl from '@/demos/apple_products/images/watch.jpg?url';
+import airpodsUrl from '@/demos/apple_products/images/airpods.jpg?url';
+import visionProUrl from '@/demos/apple_products/images/vision-pro.jpg?url';
+import wechatQrUrl from '@/demos/apple_products/images/wechat-qr.jpg?url';
 
 const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
 const t = (zh: string, en: string) => (currentLocale === 'zh-cn' ? zh : en);
@@ -114,17 +114,17 @@ export const getStaticPaths = async () => {
   sidebarConfig={{ sidebarItems: [] }}
   mainContentConfig={{ verticalPadding: '2xl' }}>
   <Container width="xl" padding="lg" centered={true}>
-    <Heading level={1} margin="lg">
-      {t('Apple 产品列表', 'Apple Products')}
-    </Heading>
-    <Text margin="md">
-      {
+    <Heading level={1} margin="lg"
+      >{t('Apple 产品列表', 'Apple Products')}</Heading
+    >
+    <Text margin="md"
+      >{
         t(
           '精选 Apple 设备与配件，一站式浏览与了解。',
           'Curated Apple devices and accessories for quick browsing and discovery.'
         )
-      }
-    </Text>
+      }</Text
+    >
 
     <Grid cols={{ base: 1, md: 2, lg: 3 }} gap="lg">
       {

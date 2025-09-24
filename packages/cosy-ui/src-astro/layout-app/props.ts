@@ -1,7 +1,7 @@
 import type { IAppLayoutAllProps } from './AppLayout.astro';
 import type { IFooterProps } from '../footer/types';
 import type { IHeaderProps } from '../types/header';
-import type { IMainContentProps } from '../types/main';
+import type { IMainContentProps } from '../main/types';
 import type { IMetaProps } from '../../src/common/meta';
 import type { ISidebarProps } from '../../src/common/sidebar';
 import type { ThemeId } from '../../src/common/themes';

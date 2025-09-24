@@ -13,6 +13,8 @@ import { ImageRowPackage } from '@/components/imagerow/index';
 
 ImageRow 组件用于展示一行图片，基于 Container 组件构建，支持丰富的背景配置。专门用于水平排列的图片展示场景，支持丰富的样式效果和响应式设计。
 
+提示：当页面包含大量图片时，请为非关键图片使用懒加载（lazy），仅对首屏关键项使用 eager，避免延迟页面 window `load` 完成时间。
+
 如果你需要对内部 item 的结构与交互做更多自定义（例如自定义卡片内容、复杂悬浮交互、异步加载占位等），建议使用更通用的 `ScrollRow` 组件，通过插槽自由渲染每个子项。
 
 ## 案例
@@ -63,7 +65,9 @@ ImageRow 组件用于展示一行图片，基于 Container 组件构建，支持
 
 ### images
 
-图片数组，每个图片项包含源地址、替代文本等信息。
+图片数组，每个图片项包含源地址、替代文本等信息。支持两种常见方式：
+- 直接传入字符串 URL（如 CDN 链接或站点内路径）
+- 使用 `import` 导入本地资源，再将导入结果赋值给 `images[i].src`
 
 <ImageRowPackage.Images />
 

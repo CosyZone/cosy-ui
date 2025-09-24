@@ -1,0 +1,38 @@
+---
+/**
+ * @component EmptyState Icon Container
+ * @description EmptyState 图标示例容器（多标签）
+ */
+
+import { CodeContainer } from '@coffic/cosy-ui';
+import IconUsers from './IconUsers.astro';
+import IconSearch from './IconSearch.astro';
+import IconWarning from './IconWarning.astro';
+import IconInfo from './IconInfo.astro';
+import IconUsersSourceCode from './IconUsers.astro?raw';
+import IconSearchSourceCode from './IconSearch.astro?raw';
+import IconWarningSourceCode from './IconWarning.astro?raw';
+import IconInfoSourceCode from './IconInfo.astro?raw';
+---
+
+<CodeContainer
+  titles={['UsersIcon', 'SearchIcon', 'WarningIcon', 'InfoIcon']}
+  codes={[
+    IconUsersSourceCode,
+    IconSearchSourceCode,
+    IconWarningSourceCode,
+    IconInfoSourceCode,
+  ]}>
+  <div id="tab-1">
+    <IconUsers />
+  </div>
+  <div id="tab-2">
+    <IconSearch />
+  </div>
+  <div id="tab-3">
+    <IconWarning />
+  </div>
+  <div id="tab-4">
+    <IconInfo />
+  </div>
+</CodeContainer>

@@ -45,16 +45,12 @@ import type {
   HoverEffect,
   HeightSize,
 } from '../../src/common';
-import {
-  gapClasses,
-  roundedClasses,
-  shadowClasses,
-  hoverClasses,
-} from '../../src/common';
+import { gapClasses } from '../../src/common';
 import Container from '../container/Container.astro';
 import PrevButton from './PrevButton.astro';
 import NextButton from './NextButton.astro';
 import RowItem from './RowItem.astro';
+import { ContainerProps } from '../container/props';
 
 interface Props {
   images: IImageItem[];
@@ -95,28 +91,47 @@ const gapClass = gapClasses[gap] || '';
 // 生成容器类名（滚动容器）
 const getContainerClass = () => {
   const baseClass =
-    'image-row-container cosy:flex cosy:items-center cosy:overflow-x-auto cosy:flex-1 cosy:h-full cosy:[scrollbar-width:none] cosy:[-ms-overflow-style:none]';
+    'image-row-container cosy:flex cosy:items-center cosy:overflow-x-auto cosy:flex-1 cosy:h-full cosy:min-w-0 cosy:w-full cosy:max-w-full cosy:[scrollbar-width:none] cosy:[-ms-overflow-style:none]';
   const gapClassValue = gapClass;
   const customClass = className;
 
   return `${baseClass} ${gapClassValue} ${customClass}`.trim();
 };
-
-// 生成图片容器类名
+const containerProps = ContainerProps()
+  .background(background as BackgroundColor)
+  .padding(padding)
+  .margin(margin)
+  .border(border)
+  .width(width)
+  .height(height)
+  .rounded(containerRounded)
+  .class(className)
+  .build();
 ---
 
-<Container
-  background={background}
-  padding={padding}
-  margin={margin}
-  border={border}
-  width={width}
-  height={height}
-  rounded={containerRounded}
-  class={className}>
+<Container {...containerProps}>
   <div
-    class="image-row-wrapper cosy:flex cosy:items-center cosy:gap-3 cosy:h-full max-[768px]:cosy:gap-2 max-[480px]:cosy:gap-1.5">
-    {showNavigation && images.length > 1 && <PrevButton disabled />}
+    class:list={[
+      'image-row-wrapper',
+      'cosy:flex',
+      'cosy:items-center',
+      'cosy:gap-3',
+      'cosy:h-full',
+      'cosy:min-w-0',
+      'cosy:w-full',
+      // 小屏幕
+      'cosy:flex-col cosy:sm:gap-1.5',
+      // 大屏幕
+      'cosy:md:flex-row cosy:md:gap-2',
+    ]}>
+    <!-- 左侧导航按钮（仅大屏展示；小屏隐藏） -->
+    {
+      showNavigation && images.length > 1 && (
+        <div class="cosy:hidden cosy:md:block">
+          <PrevButton disabled />
+        </div>
+      )
+    }
 
     <div class={getContainerClass()}>
       {
@@ -131,7 +146,24 @@ const getContainerClass = () => {
       }
     </div>
 
-    {showNavigation && images.length > 1 && <NextButton />}
+    <!-- 右侧导航按钮（仅大屏展示；小屏隐藏） -->
+    {
+      showNavigation && images.length > 1 && (
+        <div class="cosy:hidden cosy:md:block">
+          <NextButton />
+        </div>
+      )
+    }
+
+    <!-- 底部按钮组（仅小屏展示；大屏隐藏） -->
+    {
+      showNavigation && images.length > 1 && (
+        <div class="cosy:flex cosy:md:hidden cosy:flex-row cosy:gap-4">
+          <PrevButton disabled />
+          <NextButton />
+        </div>
+      )
+    }
   </div>
 </Container>
 
@@ -154,11 +186,11 @@ const getContainerClass = () => {
     button: HTMLElement,
     direction: 'prev' | 'next'
   ) {
-    // 从导航按钮向上查找，找到包含 .image-row-container 的容器
-    const wrapper = button.parentElement;
+    // 使用最近的祖先 .image-row-wrapper，兼容顶部/底部按钮容器结构
+    const wrapper = button.closest('.image-row-wrapper') as HTMLElement | null;
     const container = wrapper?.querySelector(
       '.image-row-container'
-    ) as HTMLElement;
+    ) as HTMLElement | null;
 
     if (!container || !wrapper) return;
 
@@ -183,7 +215,7 @@ const getContainerClass = () => {
       behavior: 'smooth',
     });
 
-    // 更新按钮状态
+    // 更新同一 wrapper 内所有按钮状态（顶部与底部）
     setTimeout(() => {
       updateNavigationButtons(wrapper as HTMLElement);
     }, 300);
@@ -193,24 +225,24 @@ const getContainerClass = () => {
   function updateNavigationButtons(wrapper: HTMLElement) {
     const container = wrapper.querySelector(
       '.image-row-container'
-    ) as HTMLElement;
-    const prevBtn = wrapper.querySelector(
-      '.image-row-nav-prev'
-    ) as HTMLButtonElement;
-    const nextBtn = wrapper.querySelector(
-      '.image-row-nav-next'
-    ) as HTMLButtonElement;
-
-    if (!container || !prevBtn || !nextBtn) return;
+    ) as HTMLElement | null;
+    if (!container) return;
 
     const currentScrollLeft = container.scrollLeft;
     const maxScrollLeft = container.scrollWidth - container.clientWidth;
 
-    // 更新前一个按钮状态
-    prevBtn.disabled = currentScrollLeft <= 0;
+    const prevBtns = wrapper.querySelectorAll(
+      '.image-row-nav-prev'
+    ) as NodeListOf<HTMLButtonElement>;
+    const nextBtns = wrapper.querySelectorAll(
+      '.image-row-nav-next'
+    ) as NodeListOf<HTMLButtonElement>;
 
-    // 更新下一个按钮状态
-    nextBtn.disabled = currentScrollLeft >= maxScrollLeft - 1; // -1 为了处理浮点数精度问题
+    const prevDisabled = currentScrollLeft <= 0;
+    const nextDisabled = currentScrollLeft >= maxScrollLeft - 1; // -1 处理浮点误差
+
+    prevBtns.forEach((btn) => (btn.disabled = prevDisabled));
+    nextBtns.forEach((btn) => (btn.disabled = nextDisabled));
   }
 
   // 初始化单个图片行的导航功能

@@ -13,9 +13,7 @@ import { EmptyStatePackage } from '@/components/empty-state/index.ts';
 
 The `EmptyState` component provides clear visual feedback when there is no data on a page or in a block, and it can guide users to the next action.
 
-## Basic Usage
-
-This section demonstrates the basic functionality of the component, including basic usage, tips with icons, and guidance with action buttons.
+## Examples
 
 <EmptyStatePackage.ComponentContainers.Basic />
 
@@ -23,4 +21,24 @@ This section demonstrates the basic functionality of the component, including ba
 
 The `EmptyState` component itself does not contain complex styles, but it can be easily placed in any container and will inherit the text color of the parent element.
 
-<EmptyStatePackage.ComponentContainers.CustomStyle /> 
+<EmptyStatePackage.ComponentContainers.CustomStyle />
+
+## Props
+
+### description
+Supplementary descriptive text for the empty state, displayed below the title.
+<EmptyStatePackage.ComponentContainers.Description />
+
+### icon
+The name of the icon displayed above the title, supporting the icons provided by the library.
+<EmptyStatePackage.ComponentContainers.Icon />
+
+### title
+The main title for the empty state, used to clarify the current state and intent.
+<EmptyStatePackage.ComponentContainers.Title />
+
+## Slots
+
+### default
+Used to place action buttons or guidance content (e.g., “Create”, “Back”).
+<EmptyStatePackage.ComponentContainers.Slots /> 

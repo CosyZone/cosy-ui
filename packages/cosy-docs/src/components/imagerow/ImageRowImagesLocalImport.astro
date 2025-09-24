@@ -1,0 +1,23 @@
+---
+import { ImageRow } from '@coffic/cosy-ui';
+import Image1 from '@/assets/book.png';
+import Image2 from '@/assets/hero.png';
+import Image3 from '@/assets/logo.png';
+
+const images = [
+  { src: Image1, alt: '本地图片 1' },
+  { src: Image2, alt: '本地图片 2' },
+  { src: Image3, alt: '本地图片 3' },
+];
+---
+
+<ImageRow
+  images={images}
+  gap="md"
+  rounded="md"
+  shadow="sm"
+  hover="scale"
+  background="base-200"
+  padding="lg"
+  width="lg"
+/>
