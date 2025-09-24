@@ -236,6 +236,26 @@ const gapClass = gapClasses[gap] || '';
         setTimeout(() => updateButtons(wrapper), 100)
       );
       setTimeout(() => updateButtons(wrapper), 100);
+
+      // 当容器尺寸变化（例如标签切换显示后计算出真实宽度）时，刷新按钮状态
+      try {
+        const ro = new ResizeObserver(() =>
+          setTimeout(() => updateButtons(wrapper), 50)
+        );
+        ro.observe(container);
+      } catch {}
+
+      // 当整个 wrapper 从不可见切换为可见（例如 Tab 切换）时，刷新按钮状态
+      try {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => updateButtons(wrapper), 100);
+            }
+          });
+        });
+        io.observe(wrapper);
+      } catch {}
     }
   }
 

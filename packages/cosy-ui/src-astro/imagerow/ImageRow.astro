@@ -269,6 +269,26 @@ const containerProps = ContainerProps()
     setTimeout(() => {
       updateNavigationButtons(wrapper);
     }, 100);
+
+    // 容器尺寸变化时（如图片加载完成、布局变更）刷新状态
+    try {
+      const ro = new ResizeObserver(() =>
+        setTimeout(() => updateNavigationButtons(wrapper), 50)
+      );
+      ro.observe(container);
+    } catch {}
+
+    // wrapper 从不可见切换为可见（如 Tab 切换）时刷新状态
+    try {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => updateNavigationButtons(wrapper), 100);
+          }
+        });
+      });
+      io.observe(wrapper);
+    } catch {}
   }
 
   // 初始化所有图片行导航
