@@ -1,0 +1,64 @@
+---
+title: 'BannerBox'
+description: 'Vue 版本的 BannerBox 组件'
+badge: 'Vue'
+tags:
+  - Vue
+order: 2.1
+---
+
+import { BannerBox } from '@coffic/cosy-ui';
+import * as BannerBoxVuePackage from '@/components/banner-box-vue/index';
+
+# {frontmatter.title}
+
+## 简介
+
+BannerBox 组件是一个可定制的横幅容器，支持自定义背景样式。可以直接用作容器，也可以通过传入标题、描述和特性列表来显示内容。适用于创建营销横幅、特性展示、社交媒体卡片等内容。
+
+组件特性：
+
+- 支持自定义背景样式（基础色、透明度、渐变色）
+- 支持标题和描述文字
+- 支持特性列表展示
+- 支持默认插槽内容
+- 响应式设计，适配不同屏幕尺寸
+- 使用 common 中的通用背景样式
+
+## 案例
+
+<BannerBoxVuePackage.BannerBoxVueBasicContainer />
+
+## Props
+
+### background
+
+背景样式，支持所有 common 中定义的背景色类型。
+
+<BannerBoxVuePackage.BannerBoxVueBackgroundsContainer />
+
+### title
+
+横幅标题，支持长标题自动换行。
+
+<BannerBoxVuePackage.BannerBoxVueTitleContainer />
+
+### description
+
+横幅描述，支持长描述自动换行。
+
+<BannerBoxVuePackage.BannerBoxVueDescriptionContainer />
+
+### features
+
+特性列表，每项包含 emoji、title 和可选的 link。
+
+<BannerBoxVuePackage.BannerBoxVueFeaturesContainer />
+
+## Slots
+
+### default
+
+横幅内容插槽，用于放置自定义内容。
+
+<BannerBoxVuePackage.BannerBoxVueBasicContainer />

@@ -1,0 +1,64 @@
+---
+title: 'BannerBox'
+description: 'Vue version of BannerBox component'
+badge: 'Vue'
+tags:
+  - Vue
+order: 2.1
+---
+
+import { BannerBox } from '@coffic/cosy-ui';
+import * as BannerBoxVuePackage from '@/components/banner-box-vue/index';
+
+# {frontmatter.title}
+
+## Introduction
+
+The BannerBox component is a customizable banner container that supports custom background styles. It can be used directly as a container or display content by passing in titles, descriptions, and feature lists. Suitable for creating marketing banners, feature showcases, social media cards, and other content.
+
+Component Features:
+
+- Supports custom background styles (base colors, opacity, gradients)
+- Supports title and description text
+- Supports feature list display
+- Supports default slot content
+- Responsive design that adapts to different screen sizes
+- Uses common background styles from the common directory
+
+## Example
+
+<BannerBoxVuePackage.BannerBoxVueBasicContainer />
+
+## Props
+
+### background
+
+Background style, supports all background color types defined in common.
+
+<BannerBoxVuePackage.BannerBoxVueBackgroundsContainer />
+
+### title
+
+Banner title, supports automatic line wrapping for long titles.
+
+<BannerBoxVuePackage.BannerBoxVueTitleContainer />
+
+### description
+
+Banner description, supports automatic line wrapping for long descriptions.
+
+<BannerBoxVuePackage.BannerBoxVueDescriptionContainer />
+
+### features
+
+Feature list, each item contains emoji, title and optional link.
+
+<BannerBoxVuePackage.BannerBoxVueFeaturesContainer />
+
+## Slots
+
+### default
+
+Banner content slot, used to place custom content.
+
+<BannerBoxVuePackage.BannerBoxVueBasicContainer />

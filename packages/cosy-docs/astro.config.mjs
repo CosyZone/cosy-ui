@@ -3,7 +3,6 @@ import path from 'path';
 import mdx from '@astrojs/mdx';
 import vue from '@astrojs/vue';
 import pagefind from 'astro-pagefind';
-
 import playformCompress from '@playform/compress';
 
 // https://astro.build/config

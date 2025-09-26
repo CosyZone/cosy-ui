@@ -154,6 +154,14 @@ const {
     initializeModal();
   });
 
+  // 非客户端路由场景（或首屏加载）下，确保初始化
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => initializeModal());
+  } else {
+    // 文档已就绪，直接初始化一次
+    initializeModal();
+  }
+
   // 页面卸载时清理事件监听器
   document.addEventListener('astro:before-preparation', () => {
     if (handleClick) {
