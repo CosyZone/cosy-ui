@@ -1,0 +1,27 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import BannerBoxVueDescriptionShortSourceCode from './BannerBoxVueDescriptionShort.vue?raw';
+import BannerBoxVueDescriptionLongSourceCode from './BannerBoxVueDescriptionLong.vue?raw';
+import BannerBoxVueDescriptionEmptySourceCode from './BannerBoxVueDescriptionEmpty.vue?raw';
+import BannerBoxVueDescriptionShort from './BannerBoxVueDescriptionShort.vue';
+import BannerBoxVueDescriptionLong from './BannerBoxVueDescriptionLong.vue';
+import BannerBoxVueDescriptionEmpty from './BannerBoxVueDescriptionEmpty.vue';
+---
+
+<CodeContainer
+  codes={[
+    BannerBoxVueDescriptionShortSourceCode,
+    BannerBoxVueDescriptionLongSourceCode,
+    BannerBoxVueDescriptionEmptySourceCode,
+  ]}
+  titles={['短描述', '长描述', '无描述']}>
+  <div id="tab-1">
+    <BannerBoxVueDescriptionShort />
+  </div>
+  <div id="tab-2">
+    <BannerBoxVueDescriptionLong />
+  </div>
+  <div id="tab-3">
+    <BannerBoxVueDescriptionEmpty />
+  </div>
+</CodeContainer>

@@ -1,0 +1,27 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import BannerBoxVueFeaturesBasicSourceCode from './BannerBoxVueFeaturesBasic.vue?raw';
+import BannerBoxVueFeaturesWithLinksSourceCode from './BannerBoxVueFeaturesWithLinks.vue?raw';
+import BannerBoxVueFeaturesEmptySourceCode from './BannerBoxVueFeaturesEmpty.vue?raw';
+import BannerBoxVueFeaturesBasic from './BannerBoxVueFeaturesBasic.vue';
+import BannerBoxVueFeaturesWithLinks from './BannerBoxVueFeaturesWithLinks.vue';
+import BannerBoxVueFeaturesEmpty from './BannerBoxVueFeaturesEmpty.vue';
+---
+
+<CodeContainer
+  codes={[
+    BannerBoxVueFeaturesBasicSourceCode,
+    BannerBoxVueFeaturesWithLinksSourceCode,
+    BannerBoxVueFeaturesEmptySourceCode,
+  ]}
+  titles={['基础特性', '带链接特性', '无特性']}>
+  <div id="tab-1">
+    <BannerBoxVueFeaturesBasic />
+  </div>
+  <div id="tab-2">
+    <BannerBoxVueFeaturesWithLinks />
+  </div>
+  <div id="tab-3">
+    <BannerBoxVueFeaturesEmpty />
+  </div>
+</CodeContainer>
