@@ -36,7 +36,32 @@ export interface IMainPropsBuilder {
      * 垂直内边距
      * @default 'md'
      */
-    verticalPadding(value: NonNullable<IMainContentProps['verticalPadding']>): IMainPropsBuilder;
+    py(value: NonNullable<IMainContentProps['py']>): IMainPropsBuilder;
+    /**
+     * 顶部内边距
+     * @default undefined
+     */
+    pt(value: NonNullable<IMainContentProps['pt']>): IMainPropsBuilder;
+    /**
+     * 底部内边距
+     * @default undefined
+     */
+    pb(value: NonNullable<IMainContentProps['pb']>): IMainPropsBuilder;
+    /**
+     * 左侧内边距
+     * @default undefined
+     */
+    pl(value: NonNullable<IMainContentProps['pl']>): IMainPropsBuilder;
+    /**
+     * 右侧内边距
+     * @default undefined
+     */
+    pr(value: NonNullable<IMainContentProps['pr']>): IMainPropsBuilder;
+    /**
+     * 水平内边距
+     * @default undefined
+     */
+    px(value: NonNullable<IMainContentProps['px']>): IMainPropsBuilder;
     /**
      * 容器大小
      * @default 'md'
@@ -64,7 +89,7 @@ export function createMainProps(initial: Partial<IMainContentProps> = {}): IMain
     let props: IMainContentProps = {
         size: 'md',
         padding: 'md',
-        verticalPadding: 'md',
+        py: 'md',
         centered: true,
         layout: 'column',
         isArticle: false,
@@ -80,7 +105,12 @@ export function createMainProps(initial: Partial<IMainContentProps> = {}): IMain
         isArticle(value = false) { props = { ...props, isArticle: value }; return api; },
         layout(value) { props = { ...props, layout: value }; return api; },
         padding(value) { props = { ...props, padding: value }; return api; },
-        verticalPadding(value) { props = { ...props, verticalPadding: value }; return api; },
+        py(value) { props = { ...props, py: value }; return api; },
+        pt(value) { props = { ...props, pt: value }; return api; },
+        pb(value) { props = { ...props, pb: value }; return api; },
+        pl(value) { props = { ...props, pl: value }; return api; },
+        pr(value) { props = { ...props, pr: value }; return api; },
+        px(value) { props = { ...props, px: value }; return api; },
         size(value) { props = { ...props, size: value }; return api; },
         backgroundColor(value) { props = { ...props, backgroundColor: value }; return api; },
         showTableOfContents(value = false) { props = { ...props, showTableOfContents: value }; return api; },
