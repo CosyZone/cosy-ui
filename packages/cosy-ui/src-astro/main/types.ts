@@ -29,7 +29,37 @@ export interface IMainContentProps {
      * 垂直内边距
      * @default "md"
      */
-    verticalPadding?: PaddingSize | string;
+    py?: PaddingSize | string;
+
+    /**
+     * 顶部内边距
+     * @default undefined
+     */
+    pt?: PaddingSize | string;
+
+    /**
+     * 底部内边距
+     * @default undefined
+     */
+    pb?: PaddingSize | string;
+
+    /**
+     * 左侧内边距
+     * @default undefined
+     */
+    pl?: PaddingSize | string;
+
+    /**
+     * 右侧内边距
+     * @default undefined
+     */
+    pr?: PaddingSize | string;
+
+    /**
+     * 水平内边距
+     * @default undefined
+     */
+    px?: PaddingSize | string;
 
     /**
      * 是否居中显示内容

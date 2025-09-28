@@ -1,0 +1,99 @@
+---
+/**
+ * @component MainError
+ *
+ * @description
+ * Main 组件通用错误提示组件
+ * 用于显示各种类型的错误信息，包括属性冲突、配置错误等
+ */
+
+export interface ErrorInfo {
+  /** 错误标题 */
+  title: string;
+  /** 错误描述 */
+  message: string;
+  /** 解决方案列表 */
+  solutions: string[];
+  /** 错误类型 */
+  type?: 'conflict' | 'invalid' | 'warning' | 'error';
+}
+
+export interface Props {
+  /**
+   * 是否显示错误提示
+   * @default false
+   */
+  show?: boolean;
+
+  /**
+   * 错误信息
+   */
+  error?: ErrorInfo;
+}
+
+const { show = false, error } = Astro.props;
+
+// 根据错误类型选择样式
+const getAlertClass = (type?: string) => {
+  switch (type) {
+    case 'warning':
+      return 'cosy:alert-warning';
+    case 'error':
+      return 'cosy:alert-error';
+    case 'invalid':
+      return 'cosy:alert-info';
+    default:
+      return 'cosy:alert-error';
+  }
+};
+
+// 根据错误类型选择图标
+const getIconPath = (type?: string) => {
+  switch (type) {
+    case 'warning':
+      return 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z';
+    case 'error':
+      return 'M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z';
+    case 'invalid':
+      return 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z';
+    default:
+      return 'M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z';
+  }
+};
+---
+
+{
+  show && error && (
+    <div class={`cosy:alert ${getAlertClass(error.type)} cosy:mb-4`}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="cosy:stroke-current cosy:shrink-0 cosy:h-6 cosy:w-6"
+        fill="none"
+        viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d={getIconPath(error.type)}
+        />
+      </svg>
+      <div>
+        <h3 class="cosy:font-bold">{error.title}</h3>
+        <div class="cosy:text-xs">
+          {error.message}
+          {error.solutions.length > 0 && (
+            <>
+              <br />
+              解决方案：
+              <ul class="cosy:mt-2 cosy:list-disc cosy:list-inside">
+                {error.solutions.map((solution) => (
+                  <li>{solution}</li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
