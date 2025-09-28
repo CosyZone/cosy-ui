@@ -8,20 +8,118 @@ import { ComponentPackage } from '@/components/main/index';
 
 # {frontmatter.title}
 
+## Introduction
+
 The Main component is the main content area of the page, using the Container component to provide a responsive layout. It is suitable as the main part of the page and automatically handles layout and padding for different screen sizes.
 
-## Basic Usage
+### Key Features
+
+- **Responsive Layout**: Automatically adjusts padding and width for different screen sizes
+- **Flexible Configuration**: Supports custom container sizes, padding, and background colors
+- **Layout Control**: Supports both row and column layout modes
+- **Article Mode**: Supports article layout with automatic table of contents generation
+- **Property Validation**: Automatically detects property conflicts and displays error messages
+
+## Examples
 
 <ComponentPackage.ComponentContainers.Basic />
 
-## Custom Container Size
+## Props
 
-<ComponentPackage.ComponentContainers.CustomSize />
+### backgroundColor
 
-## Custom Padding
+Set the background color, supporting theme colors or custom color values.
+
+<ComponentPackage.ComponentContainers.CustomBg />
+
+### centered
+
+Whether to center the content, defaults to `true`.
+
+<ComponentPackage.ComponentContainers.Basic />
+
+### class
+
+Custom CSS class name for overriding default styles.
+
+<ComponentPackage.ComponentContainers.Basic />
+
+### id
+
+HTML id attribute for uniquely identifying the element.
+
+<ComponentPackage.ComponentContainers.Basic />
+
+### isArticle
+
+Whether to use article layout mode. When set to `true`, enables article mode with table of contents generation.
+
+<ComponentPackage.ComponentContainers.Article />
+
+### layout
+
+Layout mode, supports `row` (horizontal layout) and `column` (vertical layout).
+
+<ComponentPackage.ComponentContainers.Layout />
+
+### padding
+
+Horizontal padding, set through the Container component's padding property.
 
 <ComponentPackage.ComponentContainers.CustomPadding />
 
-## Custom Background Color
+### pb
 
-<ComponentPackage.ComponentContainers.CustomBg />
+Bottom padding, takes priority over `py` property when in conflict.
+
+<ComponentPackage.ComponentContainers.PaddingAxis />
+
+### pl
+
+Left padding, takes priority over `px` property when in conflict.
+
+<ComponentPackage.ComponentContainers.PaddingAxis />
+
+### pr
+
+Right padding, takes priority over `px` property when in conflict.
+
+<ComponentPackage.ComponentContainers.PaddingAxis />
+
+### pt
+
+Top padding, takes priority over `py` property when in conflict.
+
+<ComponentPackage.ComponentContainers.PaddingAxis />
+
+### px
+
+Horizontal padding, takes priority over `pl`/`pr` properties when in conflict.
+
+<ComponentPackage.ComponentContainers.PaddingAxis />
+
+### py
+
+Vertical padding, takes priority over `pt`/`pb` properties when in conflict.
+
+<ComponentPackage.ComponentContainers.PaddingAxis />
+
+### showTableOfContents
+
+Whether to show the table of contents, only effective in article mode.
+
+<ComponentPackage.ComponentContainers.Article />
+
+### size
+
+Container size, controls the maximum width of the content area.
+
+<ComponentPackage.ComponentContainers.Size />
+
+## Slots
+
+### default
+
+The main content area of the Main component, can contain any HTML elements.
+
+<ComponentPackage.ComponentContainers.Basic />

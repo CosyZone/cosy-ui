@@ -1,5 +1,6 @@
 import type { BackgroundColor } from '../../src/common/backgrounds';
 import type { PaddingSize } from '../../src/common/padding';
+import type { BorderSize } from '../../src/common/border';
 
 export interface IMainContentProps {
     /**
@@ -84,6 +85,12 @@ export interface IMainContentProps {
      * @default undefined
      */
     backgroundColor?: BackgroundColor | string;
+
+    /**
+     * 边框尺寸
+     * @default undefined
+     */
+    border?: BorderSize;
 
     /**
      * HTML id 属性

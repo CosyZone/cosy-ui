@@ -1,0 +1,22 @@
+---
+/**
+ * @component MainLayoutContainer
+ * @description Main 组件布局方式演示容器，展示源码和效果
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import MainLayout from './MainLayout.astro';
+import MainLayoutColumn from './MainLayoutColumn.astro';
+import MainLayoutSource from './MainLayout.astro?raw';
+import MainLayoutColumnSource from './MainLayoutColumn.astro?raw';
+---
+
+<CodeContainer
+  codes={[MainLayoutSource, MainLayoutColumnSource]}
+  titles={['row', 'column']}>
+  <div id="tab-1">
+    <MainLayout />
+  </div>
+  <div id="tab-2">
+    <MainLayoutColumn />
+  </div>
+</CodeContainer>
