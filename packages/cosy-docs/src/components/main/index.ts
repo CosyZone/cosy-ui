@@ -7,6 +7,11 @@ import MainBgSecondary from './MainBgSecondary.astro';
 import MainBgAccent from './MainBgAccent.astro';
 import MainBgBase200 from './MainBgBase200.astro';
 import MainBgCustom from './MainBgCustom.astro';
+import MainBorder from './MainBorder.astro';
+import MainBorderNone from './MainBorderNone.astro';
+import MainBorderSm from './MainBorderSm.astro';
+import MainBorderLg from './MainBorderLg.astro';
+import MainBorderXl from './MainBorderXl.astro';
 import MainLayout from './MainLayout.astro';
 import MainLayoutColumn from './MainLayoutColumn.astro';
 import MainPaddingAxis from './MainPaddingAxis.astro';
@@ -23,6 +28,7 @@ import MainBasicContainer from './MainBasicContainer.astro';
 import MainCustomSizeContainer from './MainCustomSizeContainer.astro';
 import MainCustomPaddingContainer from './MainCustomPaddingContainer.astro';
 import MainCustomBgContainer from './MainCustomBgContainer.astro';
+import MainBorderContainer from './MainBorderContainer.astro';
 import MainLayoutContainer from './MainLayoutContainer.astro';
 import MainPaddingAxisContainer from './MainPaddingAxisContainer.astro';
 import MainSizeContainer from './MainSizeContainer.astro';
@@ -34,6 +40,7 @@ export const ComponentPackage = {
         CustomSize: MainCustomSizeContainer,
         CustomPadding: MainCustomPaddingContainer,
         CustomBg: MainCustomBgContainer,
+        Border: MainBorderContainer,
         Layout: MainLayoutContainer,
         PaddingAxis: MainPaddingAxisContainer,
         Size: MainSizeContainer,
@@ -44,6 +51,11 @@ export const ComponentPackage = {
         CustomSize: MainCustomSize,
         CustomPadding: MainCustomPadding,
         CustomBg: MainCustomBg,
+        Border: MainBorder,
+        BorderNone: MainBorderNone,
+        BorderSm: MainBorderSm,
+        BorderLg: MainBorderLg,
+        BorderXl: MainBorderXl,
         Layout: MainLayout,
         PaddingAxis: MainPaddingAxis,
         Size: MainSize,

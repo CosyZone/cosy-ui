@@ -69,6 +69,8 @@ export interface IMainPropsBuilder {
     size(value: NonNullable<IMainContentProps['size']>): IMainPropsBuilder;
     /** 背景颜色（支持 common 预设或自定义色值） */
     backgroundColor(value: NonNullable<IMainContentProps['backgroundColor']>): IMainPropsBuilder;
+    /** 边框尺寸 */
+    border(value: NonNullable<IMainContentProps['border']>): IMainPropsBuilder;
     /**
      * 是否显示目录（文章模式使用）
      * @default false
@@ -113,6 +115,7 @@ export function createMainProps(initial: Partial<IMainContentProps> = {}): IMain
         px(value) { props = { ...props, px: value }; return api; },
         size(value) { props = { ...props, size: value }; return api; },
         backgroundColor(value) { props = { ...props, backgroundColor: value }; return api; },
+        border(value) { props = { ...props, border: value }; return api; },
         showTableOfContents(value = false) { props = { ...props, showTableOfContents: value }; return api; },
         currentLocale(value) { props = { ...props, currentLocale: value }; return api; },
         build() { return props; },

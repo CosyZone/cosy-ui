@@ -85,10 +85,7 @@ import {
   getBackgroundClass,
   type BackgroundColor,
 } from '../../src/common/backgrounds';
-import {
-  borderClasses,
-  type BorderSize,
-} from '../../src/common/border';
+import { borderClasses, type BorderSize } from '../../src/common/border';
 import {
   Article,
   TableOfContents,
@@ -118,6 +115,7 @@ const {
   px,
   centered = true,
   backgroundColor,
+  border,
   layout = 'row',
   isArticle = false,
   id,
@@ -164,6 +162,9 @@ const paddingXClass = px
   : '';
 
 const bgColorClass = getBackgroundClass(backgroundColor as BackgroundColor);
+const borderClass = border
+  ? borderClasses[border as keyof typeof borderClasses] || ''
+  : '';
 
 // 检查 padding 属性冲突
 const paddingError = createPaddingConflictError(px, pl, pr, py, pt, pb);
@@ -224,6 +225,7 @@ const hasError = Boolean(paddingError);
     paddingRightClass,
     paddingXClass,
     bgColorClass,
+    borderClass,
     className,
     classList,
   ]}
