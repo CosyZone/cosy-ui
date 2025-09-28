@@ -26,21 +26,21 @@
  * - activeLink - 当前激活的链接
  * - linkHeightClass - 链接高度类名
  */
-import { LogoLink, type INavItem } from '../../index-astro';
-import type { ImageSource } from 'index-astro';
-import NavItems from './NavItems.astro';
+import { LogoLink, type INavItem } from "../../index-astro";
+import type { ImageSource } from "index-astro";
+import NavItems from "./NavItems.astro";
 
 export interface Props {
-  logo: ImageSource;
-  logoHref?: string;
-  navPosition: 'start' | 'center' | 'end';
-  navItems: INavItem[];
-  activeLink: string;
-  linkHeightClass: string;
+	logo: ImageSource;
+	logoHref?: string;
+	navPosition: "start" | "center" | "end";
+	navItems: INavItem[];
+	activeLink: string;
+	linkHeightClass: string;
 }
 
 const { logo, logoHref, navPosition, navItems, activeLink, linkHeightClass } =
-  Astro.props;
+	Astro.props;
 ---
 
 <div class="cosy:navbar-start">

@@ -1,1 +1,1 @@
-export { default as ToolBar } from './ToolBar.vue';
+export { default as ToolBar } from "./ToolBar.vue";

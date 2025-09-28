@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { AlertDialog } from '@coffic/cosy-ui/vue';
-import { ref } from 'vue';
+import { AlertDialog } from "@coffic/cosy-ui/vue";
+import { ref } from "vue";
 
 const showDialog = ref(false);
 </script>

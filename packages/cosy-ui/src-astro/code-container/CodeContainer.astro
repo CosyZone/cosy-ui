@@ -58,40 +58,40 @@
  * - 标签页切换时保持焦点状态，提升用户体验
  */
 
-import CodeToolbar from './CodeToolbar.astro';
-import Description from './Description.astro';
-import Preview from './Preview.astro';
-import { CodePanel } from '../../index-astro';
-import '../../style.ts';
+import CodeToolbar from "./CodeToolbar.astro";
+import Description from "./Description.astro";
+import Preview from "./Preview.astro";
+import { CodePanel } from "../../index-astro";
+import "../../style.ts";
 
 interface Props {
-  /**
-   * 每个示例对应的源代码
-   */
-  codes: string[];
+	/**
+	 * 每个示例对应的源代码
+	 */
+	codes: string[];
 
-  /**
-   * tab的描述文本
-   */
-  descriptions?: string[];
+	/**
+	 * tab的描述文本
+	 */
+	descriptions?: string[];
 
-  /**
-   * 是否重置内部样式
-   * @default true
-   */
-  resetStyles?: boolean;
+	/**
+	 * 是否重置内部样式
+	 * @default true
+	 */
+	resetStyles?: boolean;
 
-  /**
-   * tab的标题，如果不提供则使用"示例 1"这样的默认标题
-   */
-  titles?: string[];
+	/**
+	 * tab的标题，如果不提供则使用"示例 1"这样的默认标题
+	 */
+	titles?: string[];
 }
 
 const {
-  titles = [],
-  descriptions = [],
-  codes,
-  resetStyles = true,
+	titles = [],
+	descriptions = [],
+	codes,
+	resetStyles = true,
 } = Astro.props;
 ---
 

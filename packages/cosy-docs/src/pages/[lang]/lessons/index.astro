@@ -3,30 +3,30 @@
  * 这里定义了每个语言的课程列表页，并将其作为静态页面预渲染。
  */
 
-import DemoLayout from '@/layouts/DemoLayout.astro';
-import { Products } from '@coffic/cosy-ui';
-import { lessonRepo } from '@coffic/cosy-content';
-import { getExampleImage } from '@coffic/cosy-ui';
+import DemoLayout from "@/layouts/DemoLayout.astro";
+import { Products } from "@coffic/cosy-ui";
+import { lessonRepo } from "@coffic/cosy-content";
+import { getExampleImage } from "@coffic/cosy-ui";
 
 export async function getStaticPaths() {
-  return [
-    {
-      params: {
-        lang: '/zh-cn',
-      },
-    },
-    {
-      params: {
-        lang: '/en',
-      },
-    },
-  ];
+	return [
+		{
+			params: {
+				lang: "/zh-cn",
+			},
+		},
+		{
+			params: {
+				lang: "/en",
+			},
+		},
+	];
 }
 
 const { lang } = Astro.params;
 
 const lessons = await lessonRepo.allLessons(lang);
-const title = lang === 'zh-cn' ? '教程列表' : 'Build Your Own List';
+const title = lang === "zh-cn" ? "教程列表" : "Build Your Own List";
 ---
 
 <DemoLayout title={title} showTOC={false} showSidebar={false}>

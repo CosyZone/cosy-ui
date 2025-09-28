@@ -1,3 +1,1 @@
-export { default as ScrollRow } from './ScrollRow.astro';
-
-
+export { default as ScrollRow } from "./ScrollRow.astro";

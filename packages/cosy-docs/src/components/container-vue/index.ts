@@ -1,31 +1,31 @@
-import ContainerVueBackgroundContainer from './ContainerVueBackgroundContainer.astro';
-import ContainerVueBackgroundOpacityContainer from './ContainerVueBackgroundOpacityContainer.astro';
-import ContainerVueBasicContainer from './ContainerVueBasicContainer.astro';
-import ContainerVueBorderContainer from './ContainerVueBorderContainer.astro';
-import ContainerVueCenteredContainer from './ContainerVueCenteredContainer.astro';
-import ContainerVueCustomClassContainer from './ContainerVueCustomClassContainer.astro';
-import ContainerVueFlexContainer from './ContainerVueFlexContainer.astro';
-import ContainerVueGapContainer from './ContainerVueGapContainer.astro';
-import ContainerVueItemsContainer from './ContainerVueItemsContainer.astro';
-import ContainerVueJustifyContainer from './ContainerVueJustifyContainer.astro';
-import ContainerVuePaddingContainer from './ContainerVuePaddingContainer.astro';
-import ContainerVueRoundedContainer from './ContainerVueRoundedContainer.astro';
-import ContainerVueSizesContainer from './ContainerVueSizesContainer.astro';
-import ContainerVueSlotsContainer from './ContainerVueSlotsContainer.astro';
+import ContainerVueBackgroundContainer from "./ContainerVueBackgroundContainer.astro";
+import ContainerVueBackgroundOpacityContainer from "./ContainerVueBackgroundOpacityContainer.astro";
+import ContainerVueBasicContainer from "./ContainerVueBasicContainer.astro";
+import ContainerVueBorderContainer from "./ContainerVueBorderContainer.astro";
+import ContainerVueCenteredContainer from "./ContainerVueCenteredContainer.astro";
+import ContainerVueCustomClassContainer from "./ContainerVueCustomClassContainer.astro";
+import ContainerVueFlexContainer from "./ContainerVueFlexContainer.astro";
+import ContainerVueGapContainer from "./ContainerVueGapContainer.astro";
+import ContainerVueItemsContainer from "./ContainerVueItemsContainer.astro";
+import ContainerVueJustifyContainer from "./ContainerVueJustifyContainer.astro";
+import ContainerVuePaddingContainer from "./ContainerVuePaddingContainer.astro";
+import ContainerVueRoundedContainer from "./ContainerVueRoundedContainer.astro";
+import ContainerVueSizesContainer from "./ContainerVueSizesContainer.astro";
+import ContainerVueSlotsContainer from "./ContainerVueSlotsContainer.astro";
 
 export const ContainerVuePackage = {
-    Background: ContainerVueBackgroundContainer,
-    BackgroundOpacity: ContainerVueBackgroundOpacityContainer,
-    Basic: ContainerVueBasicContainer,
-    Border: ContainerVueBorderContainer,
-    Centered: ContainerVueCenteredContainer,
-    CustomClass: ContainerVueCustomClassContainer,
-    Flex: ContainerVueFlexContainer,
-    Gap: ContainerVueGapContainer,
-    Items: ContainerVueItemsContainer,
-    Justify: ContainerVueJustifyContainer,
-    Padding: ContainerVuePaddingContainer,
-    Rounded: ContainerVueRoundedContainer,
-    Sizes: ContainerVueSizesContainer,
-    Slots: ContainerVueSlotsContainer,
+	Background: ContainerVueBackgroundContainer,
+	BackgroundOpacity: ContainerVueBackgroundOpacityContainer,
+	Basic: ContainerVueBasicContainer,
+	Border: ContainerVueBorderContainer,
+	Centered: ContainerVueCenteredContainer,
+	CustomClass: ContainerVueCustomClassContainer,
+	Flex: ContainerVueFlexContainer,
+	Gap: ContainerVueGapContainer,
+	Items: ContainerVueItemsContainer,
+	Justify: ContainerVueJustifyContainer,
+	Padding: ContainerVuePaddingContainer,
+	Rounded: ContainerVueRoundedContainer,
+	Sizes: ContainerVueSizesContainer,
+	Slots: ContainerVueSlotsContainer,
 };

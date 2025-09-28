@@ -15,41 +15,51 @@
 @slot default - 徽章内容。
 -->
 <script setup lang="ts">
-import '../../style';
-import { computed } from 'vue';
+import "../../style";
+import { computed } from "vue";
 
 const props = defineProps({
-    variant: {
-        type: String,
-        default: undefined,
-        validator: (v: string) => ['primary', 'secondary', 'accent', 'ghost', 'info', 'success', 'warning', 'error'].includes(v)
-    },
-    size: {
-        type: String,
-        default: undefined,
-        validator: (v: string) => ['xs', 'sm', 'md', 'lg'].includes(v)
-    },
-    outline: Boolean,
-    class: String
+	variant: {
+		type: String,
+		default: undefined,
+		validator: (v: string) =>
+			[
+				"primary",
+				"secondary",
+				"accent",
+				"ghost",
+				"info",
+				"success",
+				"warning",
+				"error",
+			].includes(v),
+	},
+	size: {
+		type: String,
+		default: undefined,
+		validator: (v: string) => ["xs", "sm", "md", "lg"].includes(v),
+	},
+	outline: Boolean,
+	class: String,
 });
 
 const variantClass = computed(() => {
-    if (props.variant === 'primary') return 'cosy:badge-primary';
-    if (props.variant === 'secondary') return 'cosy:badge-secondary';
-    if (props.variant === 'accent') return 'cosy:badge-accent';
-    if (props.variant === 'ghost') return 'cosy:badge-ghost';
-    if (props.variant === 'info') return 'cosy:badge-info';
-    if (props.variant === 'success') return 'cosy:badge-success';
-    if (props.variant === 'warning') return 'cosy:badge-warning';
-    if (props.variant === 'error') return 'cosy:badge-error';
-    return '';
+	if (props.variant === "primary") return "cosy:badge-primary";
+	if (props.variant === "secondary") return "cosy:badge-secondary";
+	if (props.variant === "accent") return "cosy:badge-accent";
+	if (props.variant === "ghost") return "cosy:badge-ghost";
+	if (props.variant === "info") return "cosy:badge-info";
+	if (props.variant === "success") return "cosy:badge-success";
+	if (props.variant === "warning") return "cosy:badge-warning";
+	if (props.variant === "error") return "cosy:badge-error";
+	return "";
 });
 const sizeClass = computed(() => {
-    if (props.size === 'xs') return 'cosy:badge-xs';
-    if (props.size === 'sm') return 'cosy:badge-sm';
-    if (props.size === 'md') return 'cosy:badge-md';
-    if (props.size === 'lg') return 'cosy:badge-lg';
-    return '';
+	if (props.size === "xs") return "cosy:badge-xs";
+	if (props.size === "sm") return "cosy:badge-sm";
+	if (props.size === "md") return "cosy:badge-md";
+	if (props.size === "lg") return "cosy:badge-lg";
+	return "";
 });
 </script>
 

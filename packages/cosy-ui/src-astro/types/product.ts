@@ -1,10 +1,10 @@
 export interface ILogo {
-  src: string;
-  alt: string;
+	src: string;
+	alt: string;
 }
 
 export interface IProduct {
-  name: string;
-  href: string;
-  external?: boolean;
+	name: string;
+	href: string;
+	external?: boolean;
 }

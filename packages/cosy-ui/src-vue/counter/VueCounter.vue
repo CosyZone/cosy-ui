@@ -1,15 +1,15 @@
 <!-- 简单的Vue计数器组件 -->
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const count = ref(0);
 
 const increment = () => {
-  count.value++;
+	count.value++;
 };
 
 const decrement = () => {
-  count.value--;
+	count.value--;
 };
 </script>
 

@@ -45,90 +45,90 @@
  * - 动画遵循 prefers-reduced-motion 媒体查询，尊重用户的动画偏好设置
  */
 
-import '../../style.ts';
-import type { BackgroundColor } from '../../src/common';
-import { getBackgroundClass } from '../../src/common';
+import "../../style.ts";
+import type { BackgroundColor } from "../../src/common";
+import { getBackgroundClass } from "../../src/common";
 
 interface IProps {
-  /**
-   * 动画效果类型，可选值：
-   * - 'none': 无动画
-   * - 'fade': 仅淡入效果
-   * - 'slide': 仅上滑效果
-   * - 'both': 淡入和上滑效果
-   * 默认为'both'
-   */
-  animation?: 'none' | 'fade' | 'slide' | 'both';
+	/**
+	 * 动画效果类型，可选值：
+	 * - 'none': 无动画
+	 * - 'fade': 仅淡入效果
+	 * - 'slide': 仅上滑效果
+	 * - 'both': 淡入和上滑效果
+	 * 默认为'both'
+	 */
+	animation?: "none" | "fade" | "slide" | "both";
 
-  /**
-   * 背景颜色，默认为primary
-   */
-  bgColor?: BackgroundColor;
+	/**
+	 * 背景颜色，默认为primary
+	 */
+	bgColor?: BackgroundColor;
 
-  /**
-   * 自定义CSS类，可用于覆盖默认样式
-   */
-  class?: string;
+	/**
+	 * 自定义CSS类，可用于覆盖默认样式
+	 */
+	class?: string;
 
-  /**
-   * 自定义CSS样式，可用于覆盖默认样式
-   */
-  style?: string;
+	/**
+	 * 自定义CSS样式，可用于覆盖默认样式
+	 */
+	style?: string;
 
-  /**
-   * 文本颜色，默认根据背景色自动设置
-   */
-  textColor?: string;
+	/**
+	 * 文本颜色，默认根据背景色自动设置
+	 */
+	textColor?: string;
 }
 
 const {
-  class: className = '',
-  style = '',
-  bgColor = 'primary',
-  textColor = '',
-  animation = 'both',
+	class: className = "",
+	style = "",
+	bgColor = "primary",
+	textColor = "",
+	animation = "both",
 } = Astro.props as IProps;
 
 // 根据背景色自动设置文本颜色
 const getTextColorClass = () => {
-  if (textColor) return `cosy:text-${textColor}`;
+	if (textColor) return `cosy:text-${textColor}`;
 
-  // 对于深色背景，使用白色文本
-  const darkBgColors = ['primary', 'secondary', 'accent', 'error'];
-  return darkBgColors.includes(bgColor)
-    ? 'cosy:text-white'
-    : 'cosy:text-gray-800';
+	// 对于深色背景，使用白色文本
+	const darkBgColors = ["primary", "secondary", "accent", "error"];
+	return darkBgColors.includes(bgColor)
+		? "cosy:text-white"
+		: "cosy:text-gray-800";
 };
 
 const bgClass = getBackgroundClass(bgColor as BackgroundColor);
 const bannerClasses = [
-  'cosy:w-full',
-  'cosy:py-8',
-  'cosy:px-4',
-  'cosy:rounded-lg',
-  'cosy:text-center',
-  'cosy:text-2xl',
-  'cosy:md:text-3xl',
-  'cosy:font-bold',
-  'cosy:transition-all',
-  'cosy:duration-300',
-  'cosy:ease-in-out',
-  'cosy:backdrop-blur-sm',
-  'cosy:bg-opacity-90',
-  'cosy:shadow-md',
-  'cosy:hover:shadow-lg',
-  'cosy:hover:scale-[1.01]',
-  bgClass,
-  getTextColorClass(),
-  className,
-].join(' ');
+	"cosy:w-full",
+	"cosy:py-8",
+	"cosy:px-4",
+	"cosy:rounded-lg",
+	"cosy:text-center",
+	"cosy:text-2xl",
+	"cosy:md:text-3xl",
+	"cosy:font-bold",
+	"cosy:transition-all",
+	"cosy:duration-300",
+	"cosy:ease-in-out",
+	"cosy:backdrop-blur-sm",
+	"cosy:bg-opacity-90",
+	"cosy:shadow-md",
+	"cosy:hover:shadow-lg",
+	"cosy:hover:scale-[1.01]",
+	bgClass,
+	getTextColorClass(),
+	className,
+].join(" ");
 
 // 动画类
 const animationClasses = {
-  none: '',
-  fade: 'cosy:animate-fadeIn',
-  slide: 'cosy:animate-slideUp',
-  both: 'cosy:animate-fadeIn cosy:animate-slideUp',
+	none: "",
+	fade: "cosy:animate-fadeIn",
+	slide: "cosy:animate-slideUp",
+	both: "cosy:animate-fadeIn cosy:animate-slideUp",
 }[animation];
 ---
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from "vue";
 
 /**
  * @component MoreImagesIndicator
@@ -7,21 +7,21 @@ import { computed } from 'vue';
  */
 
 interface IMoreImagesIndicatorProps {
-  totalCount: number;
-  maxDisplay: number;
-  size: 'sm' | 'md' | 'lg';
+	totalCount: number;
+	maxDisplay: number;
+	size: "sm" | "md" | "lg";
 }
 
 const props = defineProps<IMoreImagesIndicatorProps>();
 
 // 获取尺寸类名
 const getSizeClasses = () => {
-  const sizeMap = {
-    sm: 'cosy:w-12 cosy:h-12',
-    md: 'cosy:w-16 cosy:h-16',
-    lg: 'cosy:w-24 cosy:h-24',
-  };
-  return sizeMap[props.size];
+	const sizeMap = {
+		sm: "cosy:w-12 cosy:h-12",
+		md: "cosy:w-16 cosy:h-16",
+		lg: "cosy:w-24 cosy:h-24",
+	};
+	return sizeMap[props.size];
 };
 
 // 计算超出数量

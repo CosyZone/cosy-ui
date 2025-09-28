@@ -6,17 +6,17 @@
  */
 
 export interface Props {
-  /** body 的 CSS 类名 */
-  bodyClasses?: string;
-  /** 类名列表 */
-  classList?: any;
+	/** body 的 CSS 类名 */
+	bodyClasses?: string;
+	/** 类名列表 */
+	classList?: any;
 }
 
-const { bodyClasses = '', classList } = Astro.props;
+const { bodyClasses = "", classList } = Astro.props;
 
-const bodyClassList = [bodyClasses, classList, 'min-h-screen']
-  .filter(Boolean)
-  .join(' ');
+const bodyClassList = [bodyClasses, classList, "min-h-screen"]
+	.filter(Boolean)
+	.join(" ");
 ---
 
 <body class:list={bodyClassList}>

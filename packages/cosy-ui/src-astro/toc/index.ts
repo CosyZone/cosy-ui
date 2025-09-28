@@ -1,3 +1,3 @@
-import TableOfContents from './TableOfContents.astro';
+import TableOfContents from "./TableOfContents.astro";
 
 export { TableOfContents };

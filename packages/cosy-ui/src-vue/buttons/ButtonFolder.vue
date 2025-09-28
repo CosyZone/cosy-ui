@@ -18,60 +18,60 @@ ButtonFolder 组件
 -->
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import { Button } from '@coffic/cosy-ui/vue';
-import { RiFolderOpenLine } from '@remixicon/vue';
+import { computed } from "vue";
+import { Button } from "@coffic/cosy-ui/vue";
+import { RiFolderOpenLine } from "@remixicon/vue";
 
 interface Props {
-  // 按钮颜色
-  color?:
-    | 'neutral'
-    | 'primary'
-    | 'secondary'
-    | 'accent'
-    | 'info'
-    | 'success'
-    | 'warning'
-    | 'error';
-  // 按钮样式
-  style?: 'outline' | 'dash' | 'soft' | 'ghost' | 'link';
-  // 按钮大小
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  // 按钮形状
-  shape?: 'square' | 'circle';
-  // 是否禁用
-  disabled?: boolean;
-  // 是否激活
-  active?: boolean;
-  // 提示文本
-  tooltip?: string;
+	// 按钮颜色
+	color?:
+		| "neutral"
+		| "primary"
+		| "secondary"
+		| "accent"
+		| "info"
+		| "success"
+		| "warning"
+		| "error";
+	// 按钮样式
+	style?: "outline" | "dash" | "soft" | "ghost" | "link";
+	// 按钮大小
+	size?: "xs" | "sm" | "md" | "lg" | "xl";
+	// 按钮形状
+	shape?: "square" | "circle";
+	// 是否禁用
+	disabled?: boolean;
+	// 是否激活
+	active?: boolean;
+	// 提示文本
+	tooltip?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  style: 'ghost',
-  size: 'md',
-  disabled: false,
-  active: false,
+	style: "ghost",
+	size: "md",
+	disabled: false,
+	active: false,
 });
 
 const emit = defineEmits<{
-  (e: 'click', event: MouseEvent): void;
+	(e: "click", event: MouseEvent): void;
 }>();
 
 // 处理点击事件
 const handleClick = (event: MouseEvent) => {
-  // 如果按钮已经处于禁用状态，不触发事件
-  if (props.disabled) return;
+	// 如果按钮已经处于禁用状态，不触发事件
+	if (props.disabled) return;
 
-  // 触发点击事件
-  emit('click', event);
+	// 触发点击事件
+	emit("click", event);
 };
 
 // 计算图标大小类名
 const iconSizeClass = computed(() => {
-  if (props.size === 'xs' || props.size === 'sm') return 'cosy:w-4 cosy:h-4';
-  if (props.size === 'lg' || props.size === 'xl') return 'cosy:w-6 cosy:h-6';
-  return 'cosy:w-5 cosy:h-5'; // 默认中等大小
+	if (props.size === "xs" || props.size === "sm") return "cosy:w-4 cosy:h-4";
+	if (props.size === "lg" || props.size === "xl") return "cosy:w-6 cosy:h-6";
+	return "cosy:w-5 cosy:h-5"; // 默认中等大小
 });
 </script>
 

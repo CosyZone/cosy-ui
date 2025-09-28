@@ -41,23 +41,23 @@
  * ```
  */
 
-import '../../style.ts';
-import { Header, Button, MenuIcon, SearchIcon } from '../../index-astro';
+import "../../style.ts";
+import { Header, Button, MenuIcon, SearchIcon } from "../../index-astro";
 
 interface Props {
-  headerConfig?: any;
-  debug?: boolean;
-  showSidebar?: boolean;
-  showSearch?: boolean;
-  [key: string]: any;
+	headerConfig?: any;
+	debug?: boolean;
+	showSidebar?: boolean;
+	showSearch?: boolean;
+	[key: string]: any;
 }
 
 const {
-  headerConfig = {},
-  debug = false,
-  showSidebar = true,
-  showSearch = true,
-  ...rest
+	headerConfig = {},
+	debug = false,
+	showSidebar = true,
+	showSearch = true,
+	...rest
 }: Props = Astro.props;
 ---
 

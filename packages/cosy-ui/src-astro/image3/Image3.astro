@@ -12,17 +12,17 @@
  *   spacing="md"
  * />
  */
-import type { IImage3Props } from './types';
-import Image3ErrorView from './Image3ErrorView.astro';
-import { Container } from '../container';
+import type { IImage3Props } from "./types";
+import Image3ErrorView from "./Image3ErrorView.astro";
+import { Container } from "../container";
 
 const {
-  images,
-  class: className = '',
-  spacing = 'md',
-  shadow = 'xl',
-  rounded = 'lg',
-  background,
+	images,
+	class: className = "",
+	spacing = "md",
+	shadow = "xl",
+	rounded = "lg",
+	background,
 } = Astro.props as IImage3Props;
 
 // 验证图片数量
@@ -30,34 +30,34 @@ const isValidImages = images && Array.isArray(images) && images.length === 3;
 
 // 间距映射
 const spacingMap = {
-  sm: 'gap-4',
-  md: 'gap-6',
-  lg: 'gap-8',
+	sm: "gap-4",
+	md: "gap-6",
+	lg: "gap-8",
 };
 
 // 阴影映射
 const shadowMap = {
-  none: '',
-  sm: 'cosy:shadow-sm',
-  md: 'cosy:shadow-md',
-  lg: 'cosy:shadow-lg',
-  xl: 'cosy:shadow-xl',
+	none: "",
+	sm: "cosy:shadow-sm",
+	md: "cosy:shadow-md",
+	lg: "cosy:shadow-lg",
+	xl: "cosy:shadow-xl",
 };
 
 // 圆角映射
 const roundedMap = {
-  none: 'cosy:rounded-none',
-  sm: 'cosy:rounded-sm',
-  md: 'cosy:rounded-md',
-  lg: 'cosy:rounded-lg',
-  xl: 'cosy:rounded-xl',
-  '2xl': 'cosy:rounded-2xl',
-  '3xl': 'cosy:rounded-3xl',
-  full: 'cosy:rounded-full',
+	none: "cosy:rounded-none",
+	sm: "cosy:rounded-sm",
+	md: "cosy:rounded-md",
+	lg: "cosy:rounded-lg",
+	xl: "cosy:rounded-xl",
+	"2xl": "cosy:rounded-2xl",
+	"3xl": "cosy:rounded-3xl",
+	full: "cosy:rounded-full",
 };
 
 const imageClass =
-  `cosy:object-cover cosy:transition-transform cosy:duration-300 hover:cosy:scale-105 ${shadowMap[shadow]} ${roundedMap[rounded]}`.trim();
+	`cosy:object-cover cosy:transition-transform cosy:duration-300 hover:cosy:scale-105 ${shadowMap[shadow]} ${roundedMap[rounded]}`.trim();
 ---
 
 {isValidImages ? (

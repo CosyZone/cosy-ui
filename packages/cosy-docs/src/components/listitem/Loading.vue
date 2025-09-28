@@ -3,5 +3,5 @@
 </template>
 
 <script setup>
-import { ListItem } from '@coffic/cosy-ui/vue';
+import { ListItem } from "@coffic/cosy-ui/vue";
 </script>

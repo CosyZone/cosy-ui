@@ -32,53 +32,53 @@
  * @slots
  * @slot default - 图片内容
  */
-import '../../style.ts';
-import type { IImageItem } from './types';
+import "../../style.ts";
+import type { IImageItem } from "./types";
 import type {
-  BackgroundColor,
-  Size,
-  PaddingSize,
-  MarginSize,
-  RoundedSize,
-  GapSize,
-  ShadowSize,
-  HoverEffect,
-  HeightSize,
-} from '../../src/common';
-import ScrollRow from '../scroll-row/ScrollRow.astro';
-import RowItem from './RowItem.astro';
+	BackgroundColor,
+	Size,
+	PaddingSize,
+	MarginSize,
+	RoundedSize,
+	GapSize,
+	ShadowSize,
+	HoverEffect,
+	HeightSize,
+} from "../../src/common";
+import ScrollRow from "../scroll-row/ScrollRow.astro";
+import RowItem from "./RowItem.astro";
 
 interface Props {
-  images: IImageItem[];
-  gap?: GapSize;
-  rounded?: RoundedSize;
-  shadow?: ShadowSize;
-  hover?: HoverEffect;
-  background?: BackgroundColor;
-  padding?: PaddingSize;
-  margin?: MarginSize;
-  border?: boolean;
-  width?: Size;
-  height?: HeightSize;
-  containerRounded?: RoundedSize;
-  showNavigation?: boolean;
-  class?: string;
+	images: IImageItem[];
+	gap?: GapSize;
+	rounded?: RoundedSize;
+	shadow?: ShadowSize;
+	hover?: HoverEffect;
+	background?: BackgroundColor;
+	padding?: PaddingSize;
+	margin?: MarginSize;
+	border?: boolean;
+	width?: Size;
+	height?: HeightSize;
+	containerRounded?: RoundedSize;
+	showNavigation?: boolean;
+	class?: string;
 }
 
 const {
-  images,
-  gap = 'md',
-  rounded = 'md',
-  shadow = 'md',
-  hover = 'scale',
-  background,
-  padding = 'md',
-  margin = 'none',
-  width = 'md',
-  height = 'none',
-  containerRounded = 'none',
-  showNavigation = true,
-  class: className = '',
+	images,
+	gap = "md",
+	rounded = "md",
+	shadow = "md",
+	hover = "scale",
+	background,
+	padding = "md",
+	margin = "none",
+	width = "md",
+	height = "none",
+	containerRounded = "none",
+	showNavigation = true,
+	class: className = "",
 } = Astro.props;
 ---
 

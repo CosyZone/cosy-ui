@@ -3,69 +3,69 @@
  * @component ApiTesterExample
  * @description API测试组件主要示例
  */
-import { ApiTester } from '@coffic/cosy-ui';
+import { ApiTester } from "@coffic/cosy-ui";
 
 const sampleEndpoints = [
-  {
-    name: '获取用户信息',
-    method: 'GET',
-    path: '/api/users/1',
-    description: '根据用户ID获取用户详细信息',
-  },
-  {
-    name: '创建用户',
-    method: 'POST',
-    path: '/api/users',
-    description: '创建新用户',
-    params: [
-      {
-        name: 'username',
-        placeholder: '请输入用户名',
-        type: 'text',
-        required: true,
-      },
-      {
-        name: 'email',
-        placeholder: '请输入邮箱',
-        type: 'text',
-        required: true,
-        validation: {
-          pattern: '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$',
-          message: '请输入有效的邮箱地址',
-        },
-      },
-    ],
-  },
-  {
-    name: '用户登录',
-    method: 'POST',
-    path: '/api/auth/login',
-    description: '用户登录认证',
-    params: [
-      {
-        name: 'username',
-        placeholder: '用户名',
-        type: 'text',
-        required: true,
-      },
-      {
-        name: 'password',
-        placeholder: '密码',
-        type: 'text',
-        required: true,
-      },
-    ],
-    quickTests: [
-      {
-        label: '测试账号',
-        values: {
-          username: 'testuser',
-          password: 'testpass',
-        },
-        description: '使用测试账号快速登录',
-      },
-    ],
-  },
+	{
+		name: "获取用户信息",
+		method: "GET",
+		path: "/api/users/1",
+		description: "根据用户ID获取用户详细信息",
+	},
+	{
+		name: "创建用户",
+		method: "POST",
+		path: "/api/users",
+		description: "创建新用户",
+		params: [
+			{
+				name: "username",
+				placeholder: "请输入用户名",
+				type: "text",
+				required: true,
+			},
+			{
+				name: "email",
+				placeholder: "请输入邮箱",
+				type: "text",
+				required: true,
+				validation: {
+					pattern: "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$",
+					message: "请输入有效的邮箱地址",
+				},
+			},
+		],
+	},
+	{
+		name: "用户登录",
+		method: "POST",
+		path: "/api/auth/login",
+		description: "用户登录认证",
+		params: [
+			{
+				name: "username",
+				placeholder: "用户名",
+				type: "text",
+				required: true,
+			},
+			{
+				name: "password",
+				placeholder: "密码",
+				type: "text",
+				required: true,
+			},
+		],
+		quickTests: [
+			{
+				label: "测试账号",
+				values: {
+					username: "testuser",
+					password: "testpass",
+				},
+				description: "使用测试账号快速登录",
+			},
+		],
+	},
 ];
 ---
 

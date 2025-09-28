@@ -7,7 +7,7 @@
  * <ImagesCircle
  *   images={[
  *     'image1.jpg',
- *     'image2.jpg', 
+ *     'image2.jpg',
  *     'image3.jpg',
  *     'image4.jpg'
  *   ]}
@@ -23,60 +23,64 @@
  * @prop {string} [size='md'] - 组件大小，可选值：sm、md、lg、xl
  * @prop {string} [spacing='md'] - 圆圈大小（图片间距），可选值：sm、md、lg、xl
  */
-import '../../style.ts';
-import type { IImagesCircleProps } from './types';
-import { Container } from '../container';
-import ImagesCircleErrorView from './ImagesCircleErrorView.astro';
+import "../../style.ts";
+import type { IImagesCircleProps } from "./types";
+import { Container } from "../container";
+import ImagesCircleErrorView from "./ImagesCircleErrorView.astro";
 
 const {
-  images,
-  class: className = '',
-  size = 'md',
-  shadow = 'lg',
-  rounded = 'lg',
-  spacing = 'md',
-  background,
+	images,
+	class: className = "",
+	size = "md",
+	shadow = "lg",
+	rounded = "lg",
+	spacing = "md",
+	background,
 } = Astro.props as IImagesCircleProps;
 
 // 验证图片数组
 const imageCount = images?.length || 0;
-const isValidImages = images && Array.isArray(images) && images.length >= 2 && images.length % 2 === 1;
+const isValidImages =
+	images &&
+	Array.isArray(images) &&
+	images.length >= 2 &&
+	images.length % 2 === 1;
 
 // 尺寸映射 - 3D透视的比例
 const sizeMap = {
-  sm: { center: 120, satellite: 60, container: 200 },
-  md: { center: 180, satellite: 90, container: 400 },
-  lg: { center: 240, satellite: 120, container: 600 },
-  xl: { center: 300, satellite: 150, container: 800 },
+	sm: { center: 120, satellite: 60, container: 200 },
+	md: { center: 180, satellite: 90, container: 400 },
+	lg: { center: 240, satellite: 120, container: 600 },
+	xl: { center: 300, satellite: 150, container: 800 },
 };
 
 // 间距映射（图片左右展开的范围）
 const spacingMap = {
-  sm: 180,
-  md: 250,
-  lg: 320,
-  xl: 400,
+	sm: 180,
+	md: 250,
+	lg: 320,
+	xl: 400,
 };
 
 // 阴影映射
 const shadowMap = {
-  none: '',
-  sm: 'cosy:shadow-sm',
-  md: 'cosy:shadow-md',
-  lg: 'cosy:shadow-lg',
-  xl: 'cosy:shadow-xl',
+	none: "",
+	sm: "cosy:shadow-sm",
+	md: "cosy:shadow-md",
+	lg: "cosy:shadow-lg",
+	xl: "cosy:shadow-xl",
 };
 
 // 圆角映射
 const roundedMap = {
-  none: 'cosy:rounded-none',
-  sm: 'cosy:rounded-sm',
-  md: 'cosy:rounded-md',
-  lg: 'cosy:rounded-lg',
-  xl: 'cosy:rounded-xl',
-  '2xl': 'cosy:rounded-2xl',
-  '3xl': 'cosy:rounded-3xl',
-  full: 'cosy:rounded-full',
+	none: "cosy:rounded-none",
+	sm: "cosy:rounded-sm",
+	md: "cosy:rounded-md",
+	lg: "cosy:rounded-lg",
+	xl: "cosy:rounded-xl",
+	"2xl": "cosy:rounded-2xl",
+	"3xl": "cosy:rounded-3xl",
+	full: "cosy:rounded-full",
 };
 
 const currentSize = sizeMap[size];
@@ -86,53 +90,54 @@ const roundedClass = roundedMap[rounded];
 
 // 计算3D透视位置 - 模拟图片从远处走向观者的效果
 const get3DPositions = (count: number) => {
-  if (count <= 1) return [];
-  
-  const positions = [];
-  const totalImages = count;
-  
-  // 创建一个弧形排列，模拟3D空间中的深度
-  for (let i = 0; i < totalImages; i++) {
-    // 计算在弧形中的位置 (-1 到 1)
-    const normalizedPosition = totalImages === 1 ? 0 : (i / (totalImages - 1)) * 2 - 1;
-    
-    // 计算3D透视效果
-    const distance = Math.abs(normalizedPosition); // 距离中心的距离 (0-1)
-    const depthFactor = 1 - distance * 0.7; // 深度因子，中心为1，边缘为0.3
-    
-    // 计算位置
-    const x = normalizedPosition * radius * (1 - distance * 0.1); // X轴位置，增加展开范围
-    const y = distance * distance * 20; // Y轴轻微下沉，减少下沉幅度
-    const z = -distance * 80; // Z轴深度，稍微减少深度差
-    
-    // 计算缩放（近大远小）
-    const scale = 0.7 + depthFactor * 0.5; // 0.7 到 1.2 之间，增大整体尺寸
-    
-    // 计算旋转（模拟3D旋转）
-    const rotateY = normalizedPosition * 20; // Y轴旋转，稍微减少旋转角度
-    const rotateX = distance * 8; // X轴轻微旋转，减少倾斜
-    
-    // 计算透明度（远处稍微透明）
-    const opacity = 0.75 + depthFactor * 0.25; // 0.75 到 1.0 之间，提高边缘图片可见度
-    
-    // 计算模糊（远处稍微模糊）
-    const blur = distance * 0.5; // 0 到 0.5px 模糊，减少模糊程度
-    
-    positions.push({
-      x,
-      y,
-      z,
-      scale,
-      rotateX,
-      rotateY,
-      opacity,
-      blur,
-      zIndex: Math.floor(depthFactor * 10), // 根据深度设置层级
-      isCenter: i === Math.floor(totalImages / 2), // 标记中心图片
-    });
-  }
-  
-  return positions;
+	if (count <= 1) return [];
+
+	const positions = [];
+	const totalImages = count;
+
+	// 创建一个弧形排列，模拟3D空间中的深度
+	for (let i = 0; i < totalImages; i++) {
+		// 计算在弧形中的位置 (-1 到 1)
+		const normalizedPosition =
+			totalImages === 1 ? 0 : (i / (totalImages - 1)) * 2 - 1;
+
+		// 计算3D透视效果
+		const distance = Math.abs(normalizedPosition); // 距离中心的距离 (0-1)
+		const depthFactor = 1 - distance * 0.7; // 深度因子，中心为1，边缘为0.3
+
+		// 计算位置
+		const x = normalizedPosition * radius * (1 - distance * 0.1); // X轴位置，增加展开范围
+		const y = distance * distance * 20; // Y轴轻微下沉，减少下沉幅度
+		const z = -distance * 80; // Z轴深度，稍微减少深度差
+
+		// 计算缩放（近大远小）
+		const scale = 0.7 + depthFactor * 0.5; // 0.7 到 1.2 之间，增大整体尺寸
+
+		// 计算旋转（模拟3D旋转）
+		const rotateY = normalizedPosition * 20; // Y轴旋转，稍微减少旋转角度
+		const rotateX = distance * 8; // X轴轻微旋转，减少倾斜
+
+		// 计算透明度（远处稍微透明）
+		const opacity = 0.75 + depthFactor * 0.25; // 0.75 到 1.0 之间，提高边缘图片可见度
+
+		// 计算模糊（远处稍微模糊）
+		const blur = distance * 0.5; // 0 到 0.5px 模糊，减少模糊程度
+
+		positions.push({
+			x,
+			y,
+			z,
+			scale,
+			rotateX,
+			rotateY,
+			opacity,
+			blur,
+			zIndex: Math.floor(depthFactor * 10), // 根据深度设置层级
+			isCenter: i === Math.floor(totalImages / 2), // 标记中心图片
+		});
+	}
+
+	return positions;
 };
 
 const positions3D = get3DPositions(imageCount);

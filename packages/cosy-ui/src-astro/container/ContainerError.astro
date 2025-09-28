@@ -1,13 +1,13 @@
 ---
-import '../../style.ts';
-import { Alert } from '../../index-astro';
+import "../../style.ts";
+import { Alert } from "../../index-astro";
 
 interface IContainerErrorProps {
-  messages: string[];
-  class?: string;
+	messages: string[];
+	class?: string;
 }
 
-const { messages, class: className = '' } = Astro.props as IContainerErrorProps;
+const { messages, class: className = "" } = Astro.props as IContainerErrorProps;
 ---
 
 <section

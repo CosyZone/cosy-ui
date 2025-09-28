@@ -11,36 +11,36 @@
 -->
 
 <script lang="ts">
-import '../../app.css';
-import { ref, defineComponent } from 'vue';
-import ConfirmDialog from './ConfirmDialog.vue';
+import "../../app.css";
+import { ref, defineComponent } from "vue";
+import ConfirmDialog from "./ConfirmDialog.vue";
 
 export default defineComponent({
-  name: 'ConfirmDialogCustomButtonsExample',
-  components: {
-    ConfirmDialog,
-  },
-  setup() {
-    const isShowDelete = ref(false);
-    const isShowSave = ref(false);
-    const result = ref('');
+	name: "ConfirmDialogCustomButtonsExample",
+	components: {
+		ConfirmDialog,
+	},
+	setup() {
+		const isShowDelete = ref(false);
+		const isShowSave = ref(false);
+		const result = ref("");
 
-    const handleConfirm = (action: string) => {
-      result.value = `用户已${action}`;
+		const handleConfirm = (action: string) => {
+			result.value = `用户已${action}`;
 
-      // 3秒后清除结果
-      setTimeout(() => {
-        result.value = '';
-      }, 3000);
-    };
+			// 3秒后清除结果
+			setTimeout(() => {
+				result.value = "";
+			}, 3000);
+		};
 
-    return {
-      isShowDelete,
-      isShowSave,
-      result,
-      handleConfirm,
-    };
-  },
+		return {
+			isShowDelete,
+			isShowSave,
+			result,
+			handleConfirm,
+		};
+	},
 });
 </script>
 

@@ -3,23 +3,23 @@
  * @component CodePanelThemeExampleContainer
  * @description CodePanel 组件主题展示容器，带源码展示，支持多标签切换。
  */
-import { CodeContainer } from '@coffic/cosy-ui';
-import ThemeDarkPlus from './ThemeDarkPlus.astro';
-import ThemeLightPlus from './ThemeLightPlus.astro';
-import ThemeGithubDark from './ThemeGithubDark.astro';
-import ThemeGithubLight from './ThemeGithubLight.astro';
-import ThemeDarkPlusSource from './ThemeDarkPlus.astro?raw';
-import ThemeLightPlusSource from './ThemeLightPlus.astro?raw';
-import ThemeGithubDarkSource from './ThemeGithubDark.astro?raw';
-import ThemeGithubLightSource from './ThemeGithubLight.astro?raw';
+import { CodeContainer } from "@coffic/cosy-ui";
+import ThemeDarkPlus from "./ThemeDarkPlus.astro";
+import ThemeLightPlus from "./ThemeLightPlus.astro";
+import ThemeGithubDark from "./ThemeGithubDark.astro";
+import ThemeGithubLight from "./ThemeGithubLight.astro";
+import ThemeDarkPlusSource from "./ThemeDarkPlus.astro?raw";
+import ThemeLightPlusSource from "./ThemeLightPlus.astro?raw";
+import ThemeGithubDarkSource from "./ThemeGithubDark.astro?raw";
+import ThemeGithubLightSource from "./ThemeGithubLight.astro?raw";
 
 const codes = [
-  ThemeDarkPlusSource,
-  ThemeLightPlusSource,
-  ThemeGithubDarkSource,
-  ThemeGithubLightSource,
+	ThemeDarkPlusSource,
+	ThemeLightPlusSource,
+	ThemeGithubDarkSource,
+	ThemeGithubLightSource,
 ];
-const titles = ['Dark Plus', 'Light Plus', 'GitHub Dark', 'GitHub Light'];
+const titles = ["Dark Plus", "Light Plus", "GitHub Dark", "GitHub Light"];
 ---
 
 <CodeContainer codes={codes} titles={titles}>

@@ -11,34 +11,34 @@ ConfirmDialog 组件的基础示例，展示最基本的确认对话框用法。
 -->
 
 <script lang="ts">
-import '../../app.css';
-import { ref, defineComponent } from 'vue';
-import ConfirmDialog from './ConfirmDialog.vue';
+import "../../app.css";
+import { ref, defineComponent } from "vue";
+import ConfirmDialog from "./ConfirmDialog.vue";
 
 export default defineComponent({
-  name: 'ConfirmDialogBasicExample',
-  components: {
-    ConfirmDialog,
-  },
-  setup() {
-    const isShow = ref(false);
-    const result = ref('');
+	name: "ConfirmDialogBasicExample",
+	components: {
+		ConfirmDialog,
+	},
+	setup() {
+		const isShow = ref(false);
+		const result = ref("");
 
-    const handleConfirm = () => {
-      result.value = '用户已确认操作';
+		const handleConfirm = () => {
+			result.value = "用户已确认操作";
 
-      // 3秒后清除结果
-      setTimeout(() => {
-        result.value = '';
-      }, 3000);
-    };
+			// 3秒后清除结果
+			setTimeout(() => {
+				result.value = "";
+			}, 3000);
+		};
 
-    return {
-      isShow,
-      result,
-      handleConfirm,
-    };
-  },
+		return {
+			isShow,
+			result,
+			handleConfirm,
+		};
+	},
 });
 </script>
 

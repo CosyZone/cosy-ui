@@ -26,30 +26,30 @@
  * ```
  */
 
-import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
-import '../../style.ts';
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import "../../style.ts";
 
 interface Props {
-  /**
-   * 模块标题
-   */
-  title: string;
-  /**
-   * 模块描述
-   */
-  description: string;
-  /**
-   * 模块图片
-   */
-  image: ImageMetadata;
-  /**
-   * 自定义类名
-   */
-  class?: string;
+	/**
+	 * 模块标题
+	 */
+	title: string;
+	/**
+	 * 模块描述
+	 */
+	description: string;
+	/**
+	 * 模块图片
+	 */
+	image: ImageMetadata;
+	/**
+	 * 自定义类名
+	 */
+	class?: string;
 }
 
-const { title, description, image, class: className = '' } = Astro.props;
+const { title, description, image, class: className = "" } = Astro.props;
 ---
 
 <div

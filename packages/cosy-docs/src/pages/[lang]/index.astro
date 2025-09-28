@@ -1,41 +1,41 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
+import BaseLayout from "@/layouts/BaseLayout.astro";
 import {
-  Banner,
-  Container,
-  Grid,
-  Hero,
-  LinkUtil,
-  TeamMember,
-  Products,
-  Heading,
-  PlaceHolder,
-  MacWindow,
-} from '@coffic/cosy-ui';
-import { MemberConfig } from '@/config/config.member';
+	Banner,
+	Container,
+	Grid,
+	Hero,
+	LinkUtil,
+	TeamMember,
+	Products,
+	Heading,
+	PlaceHolder,
+	MacWindow,
+} from "@coffic/cosy-ui";
+import { MemberConfig } from "@/config/config.member";
 
-const { lang = 'zh-cn' } = Astro.params;
+const { lang = "zh-cn" } = Astro.params;
 
-const title = 'Cosy UI';
+const title = "Cosy UI";
 
 const description =
-  lang === 'zh-cn'
-    ? '一个组件库，帮助你构建美好的用户界面'
-    : 'A library of components for building user interfaces';
+	lang === "zh-cn"
+		? "一个组件库，帮助你构建美好的用户界面"
+		: "A library of components for building user interfaces";
 
 export const getStaticPaths = async () => {
-  return [
-    {
-      params: { lang: 'zh-cn' },
-    },
-    {
-      params: { lang: 'en' },
-    },
-  ];
+	return [
+		{
+			params: { lang: "zh-cn" },
+		},
+		{
+			params: { lang: "en" },
+		},
+	];
 };
 
 interface Props {
-  lang: string;
+	lang: string;
 }
 ---
 

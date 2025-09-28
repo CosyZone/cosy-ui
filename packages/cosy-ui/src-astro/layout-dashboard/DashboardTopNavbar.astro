@@ -34,40 +34,40 @@
  * - userMenuItems?: UserMenuItem[] - 用户菜单项，默认包含个人资料、设置、退出登录，图标会自动匹配
  */
 
-import '../../style.ts';
-import AstroIcon from '../icons/AstroIcon.astro';
-import type { UserMenuItem } from './types';
-import { getUserMenuItemIcon } from './types';
+import "../../style.ts";
+import AstroIcon from "../icons/AstroIcon.astro";
+import type { UserMenuItem } from "./types";
+import { getUserMenuItemIcon } from "./types";
 
 export interface Props {
-  /**
-   * 页面标题，用于面包屑导航
-   */
-  title: string;
+	/**
+	 * 页面标题，用于面包屑导航
+	 */
+	title: string;
 
-  /**
-   * 用户名
-   */
-  userName?: string;
+	/**
+	 * 用户名
+	 */
+	userName?: string;
 
-  /**
-   * 用户头像
-   */
-  userAvatar?: string;
+	/**
+	 * 用户头像
+	 */
+	userAvatar?: string;
 
-  /**
-   * 用户菜单项
-   */
-  userMenuItems?: UserMenuItem[];
+	/**
+	 * 用户菜单项
+	 */
+	userMenuItems?: UserMenuItem[];
 }
 
 const { title, userName, userAvatar, userMenuItems } = Astro.props;
 
 // 默认用户菜单项
 const defaultUserMenuItems: UserMenuItem[] = [
-  { href: '/profile', text: '个人资料' }, // 自动匹配 user 图标
-  { href: '/settings', text: '设置' }, // 自动匹配 settings 图标
-  { href: '/logout', text: '退出登录' }, // 自动匹配 logout 图标
+	{ href: "/profile", text: "个人资料" }, // 自动匹配 user 图标
+	{ href: "/settings", text: "设置" }, // 自动匹配 settings 图标
+	{ href: "/logout", text: "退出登录" }, // 自动匹配 logout 图标
 ];
 
 const menuItems = userMenuItems || defaultUserMenuItems;

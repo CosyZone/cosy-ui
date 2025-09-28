@@ -46,55 +46,55 @@ BannerBox 组件是一个可定制的横幅容器，支持自定义背景样式�
 -->
 
 <script lang="ts">
-import { ref, defineComponent } from 'vue';
-import FeatureCard from './FeatureCard.vue';
-import type { BackgroundColor } from '../../src/common';
-import { allBackgroundClasses } from '../../src/common';
-import '../../style';
+import { ref, defineComponent } from "vue";
+import FeatureCard from "./FeatureCard.vue";
+import type { BackgroundColor } from "../../src/common";
+import { allBackgroundClasses } from "../../src/common";
+import "../../style";
 
 export interface IFeature {
-  emoji: string;
-  title: string;
-  link?: string;
+	emoji: string;
+	title: string;
+	link?: string;
 }
 
 export default defineComponent({
-  name: 'BannerBox',
-  components: {
-    FeatureCard,
-  },
-  props: {
-    background: {
-      type: String as () => BackgroundColor,
-      default: 'primary',
-    },
-    title: {
-      type: String,
-      default: '',
-    },
-    description: {
-      type: String,
-      default: '',
-    },
-    features: {
-      type: Array as () => IFeature[],
-      default: () => [],
-    },
-  },
-  setup(props) {
-    const componentRef = ref<HTMLElement | null>(null);
+	name: "BannerBox",
+	components: {
+		FeatureCard,
+	},
+	props: {
+		background: {
+			type: String as () => BackgroundColor,
+			default: "primary",
+		},
+		title: {
+			type: String,
+			default: "",
+		},
+		description: {
+			type: String,
+			default: "",
+		},
+		features: {
+			type: Array as () => IFeature[],
+			default: () => [],
+		},
+	},
+	setup(props) {
+		const componentRef = ref<HTMLElement | null>(null);
 
-    const getBackgroundClass = (): string => {
-      return (
-        allBackgroundClasses[props.background] || allBackgroundClasses.primary
-      );
-    };
+		const getBackgroundClass = (): string => {
+			return (
+				allBackgroundClasses[props.background] || allBackgroundClasses.primary
+			);
+		};
 
-    return {
-      componentRef,
-      getBackgroundClass,
-    };
-  },
+		return {
+			componentRef,
+			getBackgroundClass,
+		};
+	},
 });
 </script>
 

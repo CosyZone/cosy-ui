@@ -56,48 +56,48 @@
  */
 
 // 导入样式
-import '../../style.ts';
+import "../../style.ts";
 
-import Text from '../text/Text.astro';
-import Badge from '../badge/Badge.astro';
-import SmartIcon from '../smart-icon/SmartIcon.astro';
-import Card from '../card/Card.astro';
-import Avatar from '../avatar/Avatar.astro';
-import type { ReviewProps } from './types';
+import Text from "../text/Text.astro";
+import Badge from "../badge/Badge.astro";
+import SmartIcon from "../smart-icon/SmartIcon.astro";
+import Card from "../card/Card.astro";
+import Avatar from "../avatar/Avatar.astro";
+import type { ReviewProps } from "./types";
 
 type Props = ReviewProps;
 
 const {
-  userName,
-  rating,
-  comment,
-  date,
-  verified = false,
-  avatar,
-  class: className = '',
-  'class:list': classList,
-  ...rest
+	userName,
+	rating,
+	comment,
+	date,
+	verified = false,
+	avatar,
+	class: className = "",
+	"class:list": classList,
+	...rest
 } = Astro.props;
 
 // 生成星级评分
 const generateStars = (rating: number) => {
-  return Array.from({ length: 5 }, (_, i) => ({
-    filled: i < Math.floor(rating),
-    half: i === Math.floor(rating) && rating % 1 !== 0,
-  }));
+	return Array.from({ length: 5 }, (_, i) => ({
+		filled: i < Math.floor(rating),
+		half: i === Math.floor(rating) && rating % 1 !== 0,
+	}));
 };
 
 // 格式化日期
 const formatDate = (dateString: string) => {
-  try {
-    return new Date(dateString).toLocaleDateString('zh-CN', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    });
-  } catch {
-    return dateString;
-  }
+	try {
+		return new Date(dateString).toLocaleDateString("zh-CN", {
+			year: "numeric",
+			month: "2-digit",
+			day: "2-digit",
+		});
+	} catch {
+		return dateString;
+	}
 };
 ---
 

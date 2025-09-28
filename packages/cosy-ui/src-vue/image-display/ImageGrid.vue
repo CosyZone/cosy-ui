@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import ImageItem from './ImageItem.vue';
-import MoreImagesIndicator from './MoreImagesIndicator.vue';
+import { computed } from "vue";
+import ImageItem from "./ImageItem.vue";
+import MoreImagesIndicator from "./MoreImagesIndicator.vue";
 
 /**
  * @component ImageGrid
@@ -9,13 +9,13 @@ import MoreImagesIndicator from './MoreImagesIndicator.vue';
  */
 
 interface IImageGridProps {
-  images: string[];
-  size: 'sm' | 'md' | 'lg';
-  maxDisplay: number;
+	images: string[];
+	size: "sm" | "md" | "lg";
+	maxDisplay: number;
 }
 
 interface IImageGridEmits {
-  (e: 'imageClick', imageUrl: string): void;
+	(e: "imageClick", imageUrl: string): void;
 }
 
 const props = defineProps<IImageGridProps>();
@@ -23,17 +23,17 @@ const emit = defineEmits<IImageGridEmits>();
 
 // 计算显示的图片数量
 const displayImages = computed(() => {
-  return props.images.slice(0, props.maxDisplay);
+	return props.images.slice(0, props.maxDisplay);
 });
 
 // 是否有更多图片
 const hasMoreImages = computed(() => {
-  return props.images.length > props.maxDisplay;
+	return props.images.length > props.maxDisplay;
 });
 
 // 处理图片点击
 const handleImageClick = (imageUrl: string) => {
-  emit('imageClick', imageUrl);
+	emit("imageClick", imageUrl);
 };
 </script>
 

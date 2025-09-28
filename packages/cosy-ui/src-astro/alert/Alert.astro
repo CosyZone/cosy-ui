@@ -63,60 +63,60 @@
  * @slot action - 自定义操作按钮，显示在 alert 右侧，适合放置自定义按钮或其他操作
  */
 
-import '../../style.ts';
+import "../../style.ts";
 import {
-  InfoIcon,
-  SuccessIcon,
-  WarningIcon,
-  ErrorIcon,
-  CloseIcon,
-} from '../../index-astro';
-import { marginClasses, type MarginSize } from '../../src/common/margin';
+	InfoIcon,
+	SuccessIcon,
+	WarningIcon,
+	ErrorIcon,
+	CloseIcon,
+} from "../../index-astro";
+import { marginClasses, type MarginSize } from "../../src/common/margin";
 
 export interface IAlertProps {
-  type?: 'info' | 'success' | 'warning' | 'error';
-  title?: string;
-  description?: string;
-  class?: string;
-  closable?: boolean;
-  showIcon?: boolean;
-  variant?: 'solid' | 'outline' | 'dash' | 'soft';
-  marginY?: MarginSize;
+	type?: "info" | "success" | "warning" | "error";
+	title?: string;
+	description?: string;
+	class?: string;
+	closable?: boolean;
+	showIcon?: boolean;
+	variant?: "solid" | "outline" | "dash" | "soft";
+	marginY?: MarginSize;
 }
 
 const {
-  type = 'info',
-  title,
-  description,
-  class: className = '',
-  closable = true,
-  showIcon = true,
-  variant = 'solid',
-  marginY,
+	type = "info",
+	title,
+	description,
+	class: className = "",
+	closable = true,
+	showIcon = true,
+	variant = "solid",
+	marginY,
 } = Astro.props as IAlertProps;
 
 // 根据 marginY 值设置对应的 CSS 类
 const getMarginYClass = (marginY?: MarginSize) => {
-  return marginY ? marginClasses[marginY] : '';
+	return marginY ? marginClasses[marginY] : "";
 };
 
 // 组合样式
 const alertClass = [
-  `cosy:alert-${type}`,
-  variant !== 'solid' ? `cosy:alert-${variant}` : '',
-  'cosy:alert-horizontal',
-  getMarginYClass(marginY),
+	`cosy:alert-${type}`,
+	variant !== "solid" ? `cosy:alert-${variant}` : "",
+	"cosy:alert-horizontal",
+	getMarginYClass(marginY),
 ]
-  .filter(Boolean)
-  .join(' ');
+	.filter(Boolean)
+	.join(" ");
 
 // 根据类型设置图标组件
 const IconComponent = {
-  info: InfoIcon,
-  success: SuccessIcon,
-  warning: WarningIcon,
-  error: ErrorIcon,
-}[type as 'info' | 'success' | 'warning' | 'error'];
+	info: InfoIcon,
+	success: SuccessIcon,
+	warning: WarningIcon,
+	error: ErrorIcon,
+}[type as "info" | "success" | "warning" | "error"];
 ---
 
 <div

@@ -1,3 +1,3 @@
-import Heading from './Heading.astro';
+import Heading from "./Heading.astro";
 
 export { Heading };

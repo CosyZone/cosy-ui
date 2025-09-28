@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from "vue";
 
 /**
  * @component Grid
@@ -36,371 +36,371 @@ import { computed } from 'vue';
  * @prop {any} [class:list] - 类名列表
  */
 
-type GapSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type GapSize = "none" | "xs" | "sm" | "md" | "lg" | "xl";
 type ResponsiveValue<T> =
-  | T
-  | {
-      base?: T;
-      sm?: T;
-      md?: T;
-      lg?: T;
-      xl?: T;
-      '2xl'?: T;
-    };
+	| T
+	| {
+			base?: T;
+			sm?: T;
+			md?: T;
+			lg?: T;
+			xl?: T;
+			"2xl"?: T;
+	  };
 
 export interface IGridProps {
-  cols?: number | ResponsiveValue<number>;
-  gap?: GapSize;
-  rowGap?: GapSize;
-  colGap?: GapSize;
-  marginY?: GapSize;
-  border?: boolean;
-  class?: string;
-  'class:list'?: any;
+	cols?: number | ResponsiveValue<number>;
+	gap?: GapSize;
+	rowGap?: GapSize;
+	colGap?: GapSize;
+	marginY?: GapSize;
+	border?: boolean;
+	class?: string;
+	"class:list"?: any;
 }
 
 const props = withDefaults(defineProps<IGridProps>(), {
-  cols: 1,
-  gap: 'md',
-  border: false,
-  class: '',
+	cols: 1,
+	gap: "md",
+	border: false,
+	class: "",
 });
 
 // 处理响应式列数
 const getColsClasses = (cols: ResponsiveValue<number>) => {
-  // 单一数字
-  if (typeof cols === 'number') {
-    switch (cols) {
-      case 1:
-        return 'cosy:grid-cols-1';
-      case 2:
-        return 'cosy:grid-cols-2';
-      case 3:
-        return 'cosy:grid-cols-3';
-      case 4:
-        return 'cosy:grid-cols-4';
-      case 5:
-        return 'cosy:grid-cols-5';
-      case 6:
-        return 'cosy:grid-cols-6';
-      case 7:
-        return 'cosy:grid-cols-7';
-      case 8:
-        return 'cosy:grid-cols-8';
-      case 9:
-        return 'cosy:grid-cols-9';
-      case 10:
-        return 'cosy:grid-cols-10';
-      case 11:
-        return 'cosy:grid-cols-11';
-      case 12:
-        return 'cosy:grid-cols-12';
-      default:
-        return '';
-    }
-  }
-  // 响应式对象
-  const result: string[] = [];
-  const responsive = cols as any;
-  if (responsive.base) {
-    switch (responsive.base) {
-      case 1:
-        result.push('cosy:grid-cols-1');
-        break;
-      case 2:
-        result.push('cosy:grid-cols-2');
-        break;
-      case 3:
-        result.push('cosy:grid-cols-3');
-        break;
-      case 4:
-        result.push('cosy:grid-cols-4');
-        break;
-      case 5:
-        result.push('cosy:grid-cols-5');
-        break;
-      case 6:
-        result.push('cosy:grid-cols-6');
-        break;
-      case 7:
-        result.push('cosy:grid-cols-7');
-        break;
-      case 8:
-        result.push('cosy:grid-cols-8');
-        break;
-      case 9:
-        result.push('cosy:grid-cols-9');
-        break;
-      case 10:
-        result.push('cosy:grid-cols-10');
-        break;
-      case 11:
-        result.push('cosy:grid-cols-11');
-        break;
-      case 12:
-        result.push('cosy:grid-cols-12');
-        break;
-    }
-  }
-  if (responsive.sm) {
-    switch (responsive.sm) {
-      case 1:
-        result.push('cosy:sm:grid-cols-1');
-        break;
-      case 2:
-        result.push('cosy:sm:grid-cols-2');
-        break;
-      case 3:
-        result.push('cosy:sm:grid-cols-3');
-        break;
-      case 4:
-        result.push('cosy:sm:grid-cols-4');
-        break;
-      case 5:
-        result.push('cosy:sm:grid-cols-5');
-        break;
-      case 6:
-        result.push('cosy:sm:grid-cols-6');
-        break;
-      case 7:
-        result.push('cosy:sm:grid-cols-7');
-        break;
-      case 8:
-        result.push('cosy:sm:grid-cols-8');
-        break;
-      case 9:
-        result.push('cosy:sm:grid-cols-9');
-        break;
-      case 10:
-        result.push('cosy:sm:grid-cols-10');
-        break;
-      case 11:
-        result.push('cosy:sm:grid-cols-11');
-        break;
-      case 12:
-        result.push('cosy:sm:grid-cols-12');
-        break;
-    }
-  }
-  if (responsive.md) {
-    switch (responsive.md) {
-      case 1:
-        result.push('cosy:md:grid-cols-1');
-        break;
-      case 2:
-        result.push('cosy:md:grid-cols-2');
-        break;
-      case 3:
-        result.push('cosy:md:grid-cols-3');
-        break;
-      case 4:
-        result.push('cosy:md:grid-cols-4');
-        break;
-      case 5:
-        result.push('cosy:md:grid-cols-5');
-        break;
-      case 6:
-        result.push('cosy:md:grid-cols-6');
-        break;
-      case 7:
-        result.push('cosy:md:grid-cols-7');
-        break;
-      case 8:
-        result.push('cosy:md:grid-cols-8');
-        break;
-      case 9:
-        result.push('cosy:md:grid-cols-9');
-        break;
-      case 10:
-        result.push('cosy:md:grid-cols-10');
-        break;
-      case 11:
-        result.push('cosy:md:grid-cols-11');
-        break;
-      case 12:
-        result.push('cosy:md:grid-cols-12');
-        break;
-    }
-  }
-  if (responsive.lg) {
-    switch (responsive.lg) {
-      case 1:
-        result.push('cosy:lg:grid-cols-1');
-        break;
-      case 2:
-        result.push('cosy:lg:grid-cols-2');
-        break;
-      case 3:
-        result.push('cosy:lg:grid-cols-3');
-        break;
-      case 4:
-        result.push('cosy:lg:grid-cols-4');
-        break;
-      case 5:
-        result.push('cosy:lg:grid-cols-5');
-        break;
-      case 6:
-        result.push('cosy:lg:grid-cols-6');
-        break;
-      case 7:
-        result.push('cosy:lg:grid-cols-7');
-        break;
-      case 8:
-        result.push('cosy:lg:grid-cols-8');
-        break;
-      case 9:
-        result.push('cosy:lg:grid-cols-9');
-        break;
-      case 10:
-        result.push('cosy:lg:grid-cols-10');
-        break;
-      case 11:
-        result.push('cosy:lg:grid-cols-11');
-        break;
-      case 12:
-        result.push('cosy:lg:grid-cols-12');
-        break;
-    }
-  }
-  if (responsive.xl) {
-    switch (responsive.xl) {
-      case 1:
-        result.push('cosy:xl:grid-cols-1');
-        break;
-      case 2:
-        result.push('cosy:xl:grid-cols-2');
-        break;
-      case 3:
-        result.push('cosy:xl:grid-cols-3');
-        break;
-      case 4:
-        result.push('cosy:xl:grid-cols-4');
-        break;
-      case 5:
-        result.push('cosy:xl:grid-cols-5');
-        break;
-      case 6:
-        result.push('cosy:xl:grid-cols-6');
-        break;
-      case 7:
-        result.push('cosy:xl:grid-cols-7');
-        break;
-      case 8:
-        result.push('cosy:xl:grid-cols-8');
-        break;
-      case 9:
-        result.push('cosy:xl:grid-cols-9');
-        break;
-      case 10:
-        result.push('cosy:xl:grid-cols-10');
-        break;
-      case 11:
-        result.push('cosy:xl:grid-cols-11');
-        break;
-      case 12:
-        result.push('cosy:xl:grid-cols-12');
-        break;
-    }
-  }
-  if (responsive['2xl']) {
-    switch (responsive['2xl']) {
-      case 1:
-        result.push('cosy:2xl:grid-cols-1');
-        break;
-      case 2:
-        result.push('cosy:2xl:grid-cols-2');
-        break;
-      case 3:
-        result.push('cosy:2xl:grid-cols-3');
-        break;
-      case 4:
-        result.push('cosy:2xl:grid-cols-4');
-        break;
-      case 5:
-        result.push('cosy:2xl:grid-cols-5');
-        break;
-      case 6:
-        result.push('cosy:2xl:grid-cols-6');
-        break;
-      case 7:
-        result.push('cosy:2xl:grid-cols-7');
-        break;
-      case 8:
-        result.push('cosy:2xl:grid-cols-8');
-        break;
-      case 9:
-        result.push('cosy:2xl:grid-cols-9');
-        break;
-      case 10:
-        result.push('cosy:2xl:grid-cols-10');
-        break;
-      case 11:
-        result.push('cosy:2xl:grid-cols-11');
-        break;
-      case 12:
-        result.push('cosy:2xl:grid-cols-12');
-        break;
-    }
-  }
-  return result.join(' ');
+	// 单一数字
+	if (typeof cols === "number") {
+		switch (cols) {
+			case 1:
+				return "cosy:grid-cols-1";
+			case 2:
+				return "cosy:grid-cols-2";
+			case 3:
+				return "cosy:grid-cols-3";
+			case 4:
+				return "cosy:grid-cols-4";
+			case 5:
+				return "cosy:grid-cols-5";
+			case 6:
+				return "cosy:grid-cols-6";
+			case 7:
+				return "cosy:grid-cols-7";
+			case 8:
+				return "cosy:grid-cols-8";
+			case 9:
+				return "cosy:grid-cols-9";
+			case 10:
+				return "cosy:grid-cols-10";
+			case 11:
+				return "cosy:grid-cols-11";
+			case 12:
+				return "cosy:grid-cols-12";
+			default:
+				return "";
+		}
+	}
+	// 响应式对象
+	const result: string[] = [];
+	const responsive = cols as any;
+	if (responsive.base) {
+		switch (responsive.base) {
+			case 1:
+				result.push("cosy:grid-cols-1");
+				break;
+			case 2:
+				result.push("cosy:grid-cols-2");
+				break;
+			case 3:
+				result.push("cosy:grid-cols-3");
+				break;
+			case 4:
+				result.push("cosy:grid-cols-4");
+				break;
+			case 5:
+				result.push("cosy:grid-cols-5");
+				break;
+			case 6:
+				result.push("cosy:grid-cols-6");
+				break;
+			case 7:
+				result.push("cosy:grid-cols-7");
+				break;
+			case 8:
+				result.push("cosy:grid-cols-8");
+				break;
+			case 9:
+				result.push("cosy:grid-cols-9");
+				break;
+			case 10:
+				result.push("cosy:grid-cols-10");
+				break;
+			case 11:
+				result.push("cosy:grid-cols-11");
+				break;
+			case 12:
+				result.push("cosy:grid-cols-12");
+				break;
+		}
+	}
+	if (responsive.sm) {
+		switch (responsive.sm) {
+			case 1:
+				result.push("cosy:sm:grid-cols-1");
+				break;
+			case 2:
+				result.push("cosy:sm:grid-cols-2");
+				break;
+			case 3:
+				result.push("cosy:sm:grid-cols-3");
+				break;
+			case 4:
+				result.push("cosy:sm:grid-cols-4");
+				break;
+			case 5:
+				result.push("cosy:sm:grid-cols-5");
+				break;
+			case 6:
+				result.push("cosy:sm:grid-cols-6");
+				break;
+			case 7:
+				result.push("cosy:sm:grid-cols-7");
+				break;
+			case 8:
+				result.push("cosy:sm:grid-cols-8");
+				break;
+			case 9:
+				result.push("cosy:sm:grid-cols-9");
+				break;
+			case 10:
+				result.push("cosy:sm:grid-cols-10");
+				break;
+			case 11:
+				result.push("cosy:sm:grid-cols-11");
+				break;
+			case 12:
+				result.push("cosy:sm:grid-cols-12");
+				break;
+		}
+	}
+	if (responsive.md) {
+		switch (responsive.md) {
+			case 1:
+				result.push("cosy:md:grid-cols-1");
+				break;
+			case 2:
+				result.push("cosy:md:grid-cols-2");
+				break;
+			case 3:
+				result.push("cosy:md:grid-cols-3");
+				break;
+			case 4:
+				result.push("cosy:md:grid-cols-4");
+				break;
+			case 5:
+				result.push("cosy:md:grid-cols-5");
+				break;
+			case 6:
+				result.push("cosy:md:grid-cols-6");
+				break;
+			case 7:
+				result.push("cosy:md:grid-cols-7");
+				break;
+			case 8:
+				result.push("cosy:md:grid-cols-8");
+				break;
+			case 9:
+				result.push("cosy:md:grid-cols-9");
+				break;
+			case 10:
+				result.push("cosy:md:grid-cols-10");
+				break;
+			case 11:
+				result.push("cosy:md:grid-cols-11");
+				break;
+			case 12:
+				result.push("cosy:md:grid-cols-12");
+				break;
+		}
+	}
+	if (responsive.lg) {
+		switch (responsive.lg) {
+			case 1:
+				result.push("cosy:lg:grid-cols-1");
+				break;
+			case 2:
+				result.push("cosy:lg:grid-cols-2");
+				break;
+			case 3:
+				result.push("cosy:lg:grid-cols-3");
+				break;
+			case 4:
+				result.push("cosy:lg:grid-cols-4");
+				break;
+			case 5:
+				result.push("cosy:lg:grid-cols-5");
+				break;
+			case 6:
+				result.push("cosy:lg:grid-cols-6");
+				break;
+			case 7:
+				result.push("cosy:lg:grid-cols-7");
+				break;
+			case 8:
+				result.push("cosy:lg:grid-cols-8");
+				break;
+			case 9:
+				result.push("cosy:lg:grid-cols-9");
+				break;
+			case 10:
+				result.push("cosy:lg:grid-cols-10");
+				break;
+			case 11:
+				result.push("cosy:lg:grid-cols-11");
+				break;
+			case 12:
+				result.push("cosy:lg:grid-cols-12");
+				break;
+		}
+	}
+	if (responsive.xl) {
+		switch (responsive.xl) {
+			case 1:
+				result.push("cosy:xl:grid-cols-1");
+				break;
+			case 2:
+				result.push("cosy:xl:grid-cols-2");
+				break;
+			case 3:
+				result.push("cosy:xl:grid-cols-3");
+				break;
+			case 4:
+				result.push("cosy:xl:grid-cols-4");
+				break;
+			case 5:
+				result.push("cosy:xl:grid-cols-5");
+				break;
+			case 6:
+				result.push("cosy:xl:grid-cols-6");
+				break;
+			case 7:
+				result.push("cosy:xl:grid-cols-7");
+				break;
+			case 8:
+				result.push("cosy:xl:grid-cols-8");
+				break;
+			case 9:
+				result.push("cosy:xl:grid-cols-9");
+				break;
+			case 10:
+				result.push("cosy:xl:grid-cols-10");
+				break;
+			case 11:
+				result.push("cosy:xl:grid-cols-11");
+				break;
+			case 12:
+				result.push("cosy:xl:grid-cols-12");
+				break;
+		}
+	}
+	if (responsive["2xl"]) {
+		switch (responsive["2xl"]) {
+			case 1:
+				result.push("cosy:2xl:grid-cols-1");
+				break;
+			case 2:
+				result.push("cosy:2xl:grid-cols-2");
+				break;
+			case 3:
+				result.push("cosy:2xl:grid-cols-3");
+				break;
+			case 4:
+				result.push("cosy:2xl:grid-cols-4");
+				break;
+			case 5:
+				result.push("cosy:2xl:grid-cols-5");
+				break;
+			case 6:
+				result.push("cosy:2xl:grid-cols-6");
+				break;
+			case 7:
+				result.push("cosy:2xl:grid-cols-7");
+				break;
+			case 8:
+				result.push("cosy:2xl:grid-cols-8");
+				break;
+			case 9:
+				result.push("cosy:2xl:grid-cols-9");
+				break;
+			case 10:
+				result.push("cosy:2xl:grid-cols-10");
+				break;
+			case 11:
+				result.push("cosy:2xl:grid-cols-11");
+				break;
+			case 12:
+				result.push("cosy:2xl:grid-cols-12");
+				break;
+		}
+	}
+	return result.join(" ");
 };
 
 // 间距映射
 const gapClasses: Record<GapSize, string> = {
-  none: 'cosy:gap-0',
-  xs: 'cosy:gap-2',
-  sm: 'cosy:gap-4',
-  md: 'cosy:gap-6',
-  lg: 'cosy:gap-8',
-  xl: 'cosy:gap-12',
+	none: "cosy:gap-0",
+	xs: "cosy:gap-2",
+	sm: "cosy:gap-4",
+	md: "cosy:gap-6",
+	lg: "cosy:gap-8",
+	xl: "cosy:gap-12",
 };
 
 // 行间距映射
 const rowGapClasses: Record<GapSize, string> = {
-  none: 'cosy:row-gap-0',
-  xs: 'cosy:row-gap-2',
-  sm: 'cosy:row-gap-4',
-  md: 'cosy:row-gap-6',
-  lg: 'cosy:row-gap-8',
-  xl: 'cosy:row-gap-12',
+	none: "cosy:row-gap-0",
+	xs: "cosy:row-gap-2",
+	sm: "cosy:row-gap-4",
+	md: "cosy:row-gap-6",
+	lg: "cosy:row-gap-8",
+	xl: "cosy:row-gap-12",
 };
 
 // 列间距映射
 const colGapClasses: Record<GapSize, string> = {
-  none: 'cosy:col-gap-0',
-  xs: 'cosy:col-gap-2',
-  sm: 'cosy:col-gap-4',
-  md: 'cosy:col-gap-6',
-  lg: 'cosy:col-gap-8',
-  xl: 'cosy:col-gap-12',
+	none: "cosy:col-gap-0",
+	xs: "cosy:col-gap-2",
+	sm: "cosy:col-gap-4",
+	md: "cosy:col-gap-6",
+	lg: "cosy:col-gap-8",
+	xl: "cosy:col-gap-12",
 };
 
 // 垂直外边距映射
 const marginYClasses: Record<GapSize, string> = {
-  none: 'cosy:my-0',
-  xs: 'cosy:my-2',
-  sm: 'cosy:my-4',
-  md: 'cosy:my-6',
-  lg: 'cosy:my-8',
-  xl: 'cosy:my-12',
+	none: "cosy:my-0",
+	xs: "cosy:my-2",
+	sm: "cosy:my-4",
+	md: "cosy:my-6",
+	lg: "cosy:my-8",
+	xl: "cosy:my-12",
 };
 
 // 构建最终类名
 const gridClasses = computed(() => {
-  const classes = [
-    'cosy:grid',
-    getColsClasses(props.cols),
-    props.rowGap
-      ? rowGapClasses[props.rowGap]
-      : props.colGap
-        ? gapClasses[props.gap]
-        : gapClasses[props.gap],
-    props.colGap ? colGapClasses[props.colGap] : null,
-    props.marginY ? marginYClasses[props.marginY] : null,
-    props.border ? 'cosy:border cosy:rounded-lg' : null,
-    props.class,
-  ];
-  return classes.filter(Boolean).join(' ');
+	const classes = [
+		"cosy:grid",
+		getColsClasses(props.cols),
+		props.rowGap
+			? rowGapClasses[props.rowGap]
+			: props.colGap
+				? gapClasses[props.gap]
+				: gapClasses[props.gap],
+		props.colGap ? colGapClasses[props.colGap] : null,
+		props.marginY ? marginYClasses[props.marginY] : null,
+		props.border ? "cosy:border cosy:rounded-lg" : null,
+		props.class,
+	];
+	return classes.filter(Boolean).join(" ");
 });
 </script>
 

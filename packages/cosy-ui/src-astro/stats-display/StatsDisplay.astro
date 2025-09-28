@@ -95,93 +95,93 @@
  * - gray: 灰色 (#6b7280)
  */
 
-import '../../style.ts';
-import Text from '../text/Text.astro';
-import type { PresetColor, StatItem } from './types';
+import "../../style.ts";
+import Text from "../text/Text.astro";
+import type { PresetColor, StatItem } from "./types";
 
 // 预设颜色映射 / Preset color mapping
 const PRESET_COLORS: Record<PresetColor, string> = {
-  primary: '#3b82f6',
-  secondary: '#6b7280',
-  success: '#10b981',
-  warning: '#f59e0b',
-  error: '#ef4444',
-  info: '#06b6d4',
-  blue: '#3b82f6',
-  green: '#10b981',
-  yellow: '#f59e0b',
-  red: '#ef4444',
-  purple: '#8b5cf6',
-  pink: '#ec4899',
-  indigo: '#6366f1',
-  gray: '#6b7280',
+	primary: "#3b82f6",
+	secondary: "#6b7280",
+	success: "#10b981",
+	warning: "#f59e0b",
+	error: "#ef4444",
+	info: "#06b6d4",
+	blue: "#3b82f6",
+	green: "#10b981",
+	yellow: "#f59e0b",
+	red: "#ef4444",
+	purple: "#8b5cf6",
+	pink: "#ec4899",
+	indigo: "#6366f1",
+	gray: "#6b7280",
 };
 
 // 颜色解析函数 / Color resolution function
 const resolveColor = (
-  color: string | PresetColor | undefined,
-  defaultColor: string
+	color: string | PresetColor | undefined,
+	defaultColor: string,
 ): string => {
-  if (!color) return defaultColor;
-  return PRESET_COLORS[color as PresetColor] || color;
+	if (!color) return defaultColor;
+	return PRESET_COLORS[color as PresetColor] || color;
 };
 
 const {
-  stats = [],
-  class: className = '',
-  compact = false,
-  columns = 4,
-  valueSize = '3xl',
-  valueColor = 'primary',
-  labelColor = 'gray',
-  valueWeight = 'thin',
-  labelWeight = 'light',
-  gap = 'lg',
-  align = 'center',
+	stats = [],
+	class: className = "",
+	compact = false,
+	columns = 4,
+	valueSize = "3xl",
+	valueColor = "primary",
+	labelColor = "gray",
+	valueWeight = "thin",
+	labelWeight = "light",
+	gap = "lg",
+	align = "center",
 } = Astro.props;
 
 // 构建容器样式类
 const containerClasses = [
-  'cosy:grid',
-  `cosy:grid-cols-${columns}`,
-  `cosy:gap-${gap}`,
-  `cosy:text-${align}`,
-  compact ? 'cosy:gap-md' : '',
-  className,
+	"cosy:grid",
+	`cosy:grid-cols-${columns}`,
+	`cosy:gap-${gap}`,
+	`cosy:text-${align}`,
+	compact ? "cosy:gap-md" : "",
+	className,
 ]
-  .filter(Boolean)
-  .join(' ');
+	.filter(Boolean)
+	.join(" ");
 
 // 构建数值样式
 const getValueStyle = (item: StatItem) => {
-  return [
-    `cosy:text-${valueSize}`,
-    `cosy:font-${valueWeight}`,
-    'cosy:mb-2',
-    'cosy:leading-none',
-  ].join(' ');
+	return [
+		`cosy:text-${valueSize}`,
+		`cosy:font-${valueWeight}`,
+		"cosy:mb-2",
+		"cosy:leading-none",
+	].join(" ");
 };
 
 // 构建标签样式
 const getLabelStyle = () =>
-  [`cosy:text-${labelWeight}`, 'cosy:leading-relaxed'].join(' ');
+	[`cosy:text-${labelWeight}`, "cosy:leading-relaxed"].join(" ");
 
 // 获取数值颜色样式
 const getValueColorStyle = (item: StatItem): string => {
-  const customColor = item.color
-    ? resolveColor(item.color, '#3b82f6')
-    : resolveColor(valueColor, '#3b82f6');
-  return `color: ${customColor};`;
+	const customColor = item.color
+		? resolveColor(item.color, "#3b82f6")
+		: resolveColor(valueColor, "#3b82f6");
+	return `color: ${customColor};`;
 };
 
 // 获取标签颜色样式
 const getLabelColorStyle = (item: StatItem): string => {
-  // 如果单个项目有自定义颜色，优先使用项目颜色
-  // 否则使用全局 labelColor 设置
-  const customColor = item.color
-    ? resolveColor(item.color, '#6b7280')
-    : resolveColor(labelColor, '#6b7280');
-  return `color: ${customColor};`;
+	// 如果单个项目有自定义颜色，优先使用项目颜色
+	// 否则使用全局 labelColor 设置
+	const customColor = item.color
+		? resolveColor(item.color, "#6b7280")
+		: resolveColor(labelColor, "#6b7280");
+	return `color: ${customColor};`;
 };
 ---
 

@@ -1,6 +1,6 @@
-import BaseLayout from './BaseLayout.astro';
+import BaseLayout from "./BaseLayout.astro";
 
 export { BaseLayout };
 
-export type { IMetaProps } from '../../src/common/meta';
-export type { IAppLayoutProps } from './layout';
+export type { IMetaProps } from "../../src/common/meta";
+export type { IAppLayoutProps } from "./layout";

@@ -1,3 +1,3 @@
-import Module from './Module.astro';
+import Module from "./Module.astro";
 
 export { Module };

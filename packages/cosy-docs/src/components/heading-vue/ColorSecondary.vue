@@ -3,5 +3,5 @@
 </template>
 
 <script setup lang="ts">
-import { Heading } from '@coffic/cosy-ui/vue';
+import { Heading } from "@coffic/cosy-ui/vue";
 </script>

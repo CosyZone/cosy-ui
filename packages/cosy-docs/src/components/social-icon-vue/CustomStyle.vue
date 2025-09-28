@@ -10,5 +10,5 @@
 </template>
 
 <script setup lang="ts">
-import { SocialIcon } from '@coffic/cosy-ui/vue';
+import { SocialIcon } from "@coffic/cosy-ui/vue";
 </script>

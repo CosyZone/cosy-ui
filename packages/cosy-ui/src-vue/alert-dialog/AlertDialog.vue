@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import '../../style';
+import "../../style";
 
 /**
  * @component AlertDialog
@@ -13,41 +13,41 @@ import '../../style';
  * @emit {update:modelValue} - 当对话框关闭时触发，用于更新v-model绑定值
  */
 
-type MessageKey = 'confirm';
+type MessageKey = "confirm";
 
 interface Messages {
-    [key: string]: {
-        [key in MessageKey]: string;
-    };
+	[key: string]: {
+		[key in MessageKey]: string;
+	};
 }
 
 interface Props {
-    modelValue: boolean;
-    message: string;
-    lang?: 'zh-cn' | 'en';
-    class?: string;
+	modelValue: boolean;
+	message: string;
+	lang?: "zh-cn" | "en";
+	class?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    lang: 'zh-cn',
-    class: '',
+	lang: "zh-cn",
+	class: "",
 });
 
 const emit = defineEmits<{
-    'update:modelValue': [value: boolean];
+	"update:modelValue": [value: boolean];
 }>();
 
 // 多语言文本
 const t = (key: MessageKey) => {
-    const messages: Messages = {
-        'zh-cn': {
-            confirm: '确定',
-        },
-        en: {
-            confirm: 'OK',
-        },
-    };
-    return messages[props.lang][key];
+	const messages: Messages = {
+		"zh-cn": {
+			confirm: "确定",
+		},
+		en: {
+			confirm: "OK",
+		},
+	};
+	return messages[props.lang][key];
 };
 </script>
 

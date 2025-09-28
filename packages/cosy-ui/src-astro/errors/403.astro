@@ -34,16 +34,16 @@
  * @prop {string} [contactUrl] - 联系我们页面URL，如果提供将显示联系按钮
  */
 
-import '../../style.ts';
-import { LinkUtil } from '../../src/utils/link.ts';
+import "../../style.ts";
+import { LinkUtil } from "../../src/utils/link.ts";
 
 const baseUrl = LinkUtil.getBaseUrl();
 const path = Astro.url.pathname;
 
 interface Error403Props {
-  debugKVs?: Record<string, string>;
-  loginUrl?: string;
-  contactUrl?: string;
+	debugKVs?: Record<string, string>;
+	loginUrl?: string;
+	contactUrl?: string;
 }
 
 const { debugKVs = {}, loginUrl, contactUrl } = Astro.props as Error403Props;

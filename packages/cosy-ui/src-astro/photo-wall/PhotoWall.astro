@@ -21,22 +21,22 @@
  *
  * 自定义样式：
  * ```astro
- * <PhotoWall 
- *   photos={photos} 
- *   hover={true} 
- *   clickable={true} 
- *   gap="md" 
+ * <PhotoWall
+ *   photos={photos}
+ *   hover={true}
+ *   clickable={true}
+ *   gap="md"
  *   padding="lg"
- *   rounded="lg" 
+ *   rounded="lg"
  * />
  * ```
  *
  * 带中心标题：
  * ```astro
- * <PhotoWall 
- *   photos={photos} 
- *   title="我的相册" 
- *   subtitle="美好回忆" 
+ * <PhotoWall
+ *   photos={photos}
+ *   title="我的相册"
+ *   subtitle="美好回忆"
  * />
  * ```
  *
@@ -58,137 +58,144 @@
  */
 
 // 导入样式
-import '../../style.ts';
+import "../../style.ts";
 
 // 导入类型定义
-import type { PhotoCardData } from './types';
+import type { PhotoCardData } from "./types";
 
 // 导入 Container 组件
-import Container from '../container/Container.astro';
+import Container from "../container/Container.astro";
 
 // 导入 Container 相关类型
-import type { PaddingSize, RoundedSize } from '../../src/common';
-import type { BackgroundColor } from '../../src/common/backgrounds';
-import type { Size } from '../../src/common/size';
+import type { PaddingSize, RoundedSize } from "../../src/common";
+import type { BackgroundColor } from "../../src/common/backgrounds";
+import type { Size } from "../../src/common/size";
 
 interface Props {
-  photos: PhotoCardData[];
-  padding?: PaddingSize;
-  rounded?: RoundedSize;
-  gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  hover?: boolean;
-  clickable?: boolean;
-  width?: Size;
-  background?: BackgroundColor;
-  border?: boolean;
-  centered?: boolean;
-  title?: string;
-  subtitle?: string;
-  class?: string;
-  style?: string;
-  [key: string]: any;
+	photos: PhotoCardData[];
+	padding?: PaddingSize;
+	rounded?: RoundedSize;
+	gap?: "none" | "xs" | "sm" | "md" | "lg" | "xl";
+	hover?: boolean;
+	clickable?: boolean;
+	width?: Size;
+	background?: BackgroundColor;
+	border?: boolean;
+	centered?: boolean;
+	title?: string;
+	subtitle?: string;
+	class?: string;
+	style?: string;
+	[key: string]: any;
 }
 
 const {
-  photos,
-  padding = 'md',
-  rounded = 'md',
-  gap = 'md',
-  hover = true,
-  clickable = true,
-  width = 'full',
-  background,
-  border = false,
-  centered = true,
-  title,
-  subtitle,
-  class: className,
-  style: customStyle,
-  ...rest
+	photos,
+	padding = "md",
+	rounded = "md",
+	gap = "md",
+	hover = true,
+	clickable = true,
+	width = "full",
+	background,
+	border = false,
+	centered = true,
+	title,
+	subtitle,
+	class: className,
+	style: customStyle,
+	...rest
 } = Astro.props;
 
 // 计算照片墙的类名
 const getPhotoWallClasses = () => {
-  const classes = ['cosy:grid', 'cosy:grid-cols-12', 'cosy:auto-rows-[minmax(0,1fr)]', 'cosy:relative'];
-  
-  // Gap classes
-  const gapClasses = {
-    none: 'cosy:gap-0',
-    xs: 'cosy:gap-1',
-    sm: 'cosy:gap-2',
-    md: 'cosy:gap-4',
-    lg: 'cosy:gap-6',
-    xl: 'cosy:gap-8',
-  };
-  
-  if (gapClasses[gap]) {
-    classes.push(gapClasses[gap]);
-  }
-  
-  if (className) {
-    classes.push(className);
-  }
-  
-  return classes;
+	const classes = [
+		"cosy:grid",
+		"cosy:grid-cols-12",
+		"cosy:auto-rows-[minmax(0,1fr)]",
+		"cosy:relative",
+	];
+
+	// Gap classes
+	const gapClasses = {
+		none: "cosy:gap-0",
+		xs: "cosy:gap-1",
+		sm: "cosy:gap-2",
+		md: "cosy:gap-4",
+		lg: "cosy:gap-6",
+		xl: "cosy:gap-8",
+	};
+
+	if (gapClasses[gap]) {
+		classes.push(gapClasses[gap]);
+	}
+
+	if (className) {
+		classes.push(className);
+	}
+
+	return classes;
 };
 
 // 计算卡片布局
 const getCardLayout = (index: number, card: PhotoCardData) => {
-  const colSpan = 3; // 每个卡片占用3列
-  const rowSpan = 3; // 每个卡片占用3行，确保正方形
-  const itemsPerRow = 4;
-  const currentRow = Math.floor(index / itemsPerRow);
-  const currentCol = index % itemsPerRow;
-  const colStart = currentCol * 3 + 1;
-  const rowStart = currentRow * 3 + 1;
-  const finalColStart = Math.min(colStart, 13 - colSpan);
-  return {
-    gridArea: `${rowStart} / ${finalColStart} / ${rowStart + rowSpan} / ${finalColStart + colSpan}`,
-    colSpan,
-    rowSpan
-  };
+	const colSpan = 3; // 每个卡片占用3列
+	const rowSpan = 3; // 每个卡片占用3行，确保正方形
+	const itemsPerRow = 4;
+	const currentRow = Math.floor(index / itemsPerRow);
+	const currentCol = index % itemsPerRow;
+	const colStart = currentCol * 3 + 1;
+	const rowStart = currentRow * 3 + 1;
+	const finalColStart = Math.min(colStart, 13 - colSpan);
+	return {
+		gridArea: `${rowStart} / ${finalColStart} / ${rowStart + rowSpan} / ${finalColStart + colSpan}`,
+		colSpan,
+		rowSpan,
+	};
 };
 
 // 计算卡片类名
 const getCardClasses = (card: PhotoCardData) => {
-  const classes = [
-    'cosy:relative',
-    'cosy:overflow-hidden',
-    'cosy:aspect-square',
-    'cosy:bg-gray-100',
-    'cosy:flex',
-    'cosy:items-center',
-    'cosy:justify-center',
-    'cosy:group'
-  ];
-  
-  // Rounded classes
-  const roundedClasses = {
-    none: 'cosy:rounded-none',
-    sm: 'cosy:rounded-sm',
-    md: 'cosy:rounded-md',
-    lg: 'cosy:rounded-lg',
-    xl: 'cosy:rounded-xl',
-    '2xl': 'cosy:rounded-2xl',
-    '3xl': 'cosy:rounded-3xl',
-    full: 'cosy:rounded-full',
-  };
-  
-  if (roundedClasses[rounded]) {
-    classes.push(roundedClasses[rounded]);
-  }
-  
-  // Hover classes
-  if (hover) {
-    classes.push('cosy:transition-transform cosy:duration-300 hover:cosy:scale-105');
-  }
-  
-  // Clickable classes
-  if (clickable) {
-    classes.push('cosy:cursor-pointer');
-  }
-  
-  return classes;
+	const classes = [
+		"cosy:relative",
+		"cosy:overflow-hidden",
+		"cosy:aspect-square",
+		"cosy:bg-gray-100",
+		"cosy:flex",
+		"cosy:items-center",
+		"cosy:justify-center",
+		"cosy:group",
+	];
+
+	// Rounded classes
+	const roundedClasses = {
+		none: "cosy:rounded-none",
+		sm: "cosy:rounded-sm",
+		md: "cosy:rounded-md",
+		lg: "cosy:rounded-lg",
+		xl: "cosy:rounded-xl",
+		"2xl": "cosy:rounded-2xl",
+		"3xl": "cosy:rounded-3xl",
+		full: "cosy:rounded-full",
+	};
+
+	if (roundedClasses[rounded]) {
+		classes.push(roundedClasses[rounded]);
+	}
+
+	// Hover classes
+	if (hover) {
+		classes.push(
+			"cosy:transition-transform cosy:duration-300 hover:cosy:scale-105",
+		);
+	}
+
+	// Clickable classes
+	if (clickable) {
+		classes.push("cosy:cursor-pointer");
+	}
+
+	return classes;
 };
 
 const photoWallClasses = getPhotoWallClasses();

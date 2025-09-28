@@ -24,82 +24,82 @@
  * - title: string - 书名
  */
 
-import '../../style.ts';
-import type { ImageSource } from '../image/image.ts';
-import { Image, Button } from '../../index-astro';
-import { SmartBg } from '../smart-bg';
+import "../../style.ts";
+import type { ImageSource } from "../image/image.ts";
+import { Image, Button } from "../../index-astro";
+import { SmartBg } from "../smart-bg";
 
 interface ISizeStyle {
-  card: string;
-  figure: string;
-  image: { width: number; height: number };
-  title: string;
-  description: string;
-  padding: string;
-  imageHeight: string;
+	card: string;
+	figure: string;
+	image: { width: number; height: number };
+	title: string;
+	description: string;
+	padding: string;
+	imageHeight: string;
 }
 
-const sizeStyles: Record<'sm' | 'md' | 'lg', ISizeStyle> = {
-  sm: {
-    card: 'cosy:max-w-[220px]',
-    figure: 'cosy:p-3',
-    image: { width: 180, height: 260 },
-    title: 'cosy:text-base',
-    description: 'cosy:text-sm cosy:line-clamp-3',
-    padding: 'cosy:px-4 cosy:py-3',
-    imageHeight: 'cosy:h-[160px]',
-  },
-  md: {
-    card: 'cosy:max-w-[280px]',
-    figure: 'cosy:p-4',
-    image: { width: 240, height: 340 },
-    title: 'cosy:text-xl',
-    description: 'cosy:text-base cosy:line-clamp-3',
-    padding: 'cosy:px-5 cosy:py-4',
-    imageHeight: 'cosy:h-[200px]',
-  },
-  lg: {
-    card: 'cosy:max-w-[340px]',
-    figure: 'cosy:p-5',
-    image: { width: 300, height: 420 },
-    title: 'cosy:text-2xl',
-    description: 'cosy:text-lg cosy:line-clamp-4',
-    padding: 'cosy:px-6 cosy:py-5',
-    imageHeight: 'cosy:h-[240px]',
-  },
+const sizeStyles: Record<"sm" | "md" | "lg", ISizeStyle> = {
+	sm: {
+		card: "cosy:max-w-[220px]",
+		figure: "cosy:p-3",
+		image: { width: 180, height: 260 },
+		title: "cosy:text-base",
+		description: "cosy:text-sm cosy:line-clamp-3",
+		padding: "cosy:px-4 cosy:py-3",
+		imageHeight: "cosy:h-[160px]",
+	},
+	md: {
+		card: "cosy:max-w-[280px]",
+		figure: "cosy:p-4",
+		image: { width: 240, height: 340 },
+		title: "cosy:text-xl",
+		description: "cosy:text-base cosy:line-clamp-3",
+		padding: "cosy:px-5 cosy:py-4",
+		imageHeight: "cosy:h-[200px]",
+	},
+	lg: {
+		card: "cosy:max-w-[340px]",
+		figure: "cosy:p-5",
+		image: { width: 300, height: 420 },
+		title: "cosy:text-2xl",
+		description: "cosy:text-lg cosy:line-clamp-4",
+		padding: "cosy:px-6 cosy:py-5",
+		imageHeight: "cosy:h-[240px]",
+	},
 };
 
 const shadowStyles = {
-  none: 'cosy:shadow-none',
-  sm: 'cosy:shadow-sm cosy:hover:shadow-md',
-  md: 'cosy:shadow-md cosy:hover:shadow-lg',
-  lg: 'cosy:shadow-lg cosy:hover:shadow-xl',
-  xl: 'cosy:shadow-xl cosy:hover:shadow-2xl',
+	none: "cosy:shadow-none",
+	sm: "cosy:shadow-sm cosy:hover:shadow-md",
+	md: "cosy:shadow-md cosy:hover:shadow-lg",
+	lg: "cosy:shadow-lg cosy:hover:shadow-xl",
+	xl: "cosy:shadow-xl cosy:hover:shadow-2xl",
 };
 
 export interface ICardBookProps {
-  author?: string;
-  class?: string;
-  cover?: ImageSource;
-  description?: string;
-  href?: string;
-  shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
-  size?: 'sm' | 'md' | 'lg';
-  title: string;
+	author?: string;
+	class?: string;
+	cover?: ImageSource;
+	description?: string;
+	href?: string;
+	shadow?: "none" | "sm" | "md" | "lg" | "xl";
+	size?: "sm" | "md" | "lg";
+	title: string;
 }
 
 const {
-  title,
-  author = '',
-  cover,
-  description = '',
-  href,
-  size = 'md',
-  shadow = 'md',
-  class: className = '',
+	title,
+	author = "",
+	cover,
+	description = "",
+	href,
+	size = "md",
+	shadow = "md",
+	class: className = "",
 } = Astro.props as ICardBookProps;
 
-const currentSize = sizeStyles[size as 'sm' | 'md' | 'lg'];
+const currentSize = sizeStyles[size as "sm" | "md" | "lg"];
 ---
 
 <div

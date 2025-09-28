@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from "vue";
 
 /**
  * @component Avatar
@@ -40,39 +40,39 @@ import { computed } from 'vue';
  */
 
 export interface IAvatarProps {
-  userName: string;
-  avatar?: string;
-  size?: 'sm' | 'md' | 'lg' | 'xl';
-  class?: string;
-  'class:list'?: any;
+	userName: string;
+	avatar?: string;
+	size?: "sm" | "md" | "lg" | "xl";
+	class?: string;
+	"class:list"?: any;
 }
 
 const props = withDefaults(defineProps<IAvatarProps>(), {
-  size: 'md',
-  class: '',
+	size: "md",
+	class: "",
 });
 
 // 尺寸映射
 const sizeClasses = {
-  sm: 'cosy:w-8 cosy:h-8 cosy:text-sm',
-  md: 'cosy:w-12 cosy:h-12 cosy:text-lg',
-  lg: 'cosy:w-16 cosy:h-16 cosy:text-xl',
-  xl: 'cosy:w-20 cosy:h-20 cosy:text-2xl',
+	sm: "cosy:w-8 cosy:h-8 cosy:text-sm",
+	md: "cosy:w-12 cosy:h-12 cosy:text-lg",
+	lg: "cosy:w-16 cosy:h-16 cosy:text-xl",
+	xl: "cosy:w-20 cosy:h-20 cosy:text-2xl",
 };
 
 // 生成头像背景色
 const getAvatarColor = (userName: string) => {
-  const colors = [
-    'cosy:bg-primary',
-    'cosy:bg-secondary',
-    'cosy:bg-accent',
-    'cosy:bg-info',
-    'cosy:bg-success',
-    'cosy:bg-warning',
-    'cosy:bg-error',
-  ];
-  const index = userName.charCodeAt(0) % colors.length;
-  return colors[index];
+	const colors = [
+		"cosy:bg-primary",
+		"cosy:bg-secondary",
+		"cosy:bg-accent",
+		"cosy:bg-info",
+		"cosy:bg-success",
+		"cosy:bg-warning",
+		"cosy:bg-error",
+	];
+	const index = userName.charCodeAt(0) % colors.length;
+	return colors[index];
 };
 
 const sizeClass = computed(() => sizeClasses[props.size]);

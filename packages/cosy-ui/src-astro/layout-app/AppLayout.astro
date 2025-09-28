@@ -235,53 +235,53 @@
  * ```
  */
 
-import '../../style.ts';
+import "../../style.ts";
 import {
-  BaseLayout,
-  type IAppLayoutProps,
-  Footer,
-  Container,
-  Main,
-  Sidebar,
-  Modal,
-  Skeleton,
-  ContainerProps,
-} from '../../index-astro';
+	BaseLayout,
+	type IAppLayoutProps,
+	Footer,
+	Container,
+	Main,
+	Sidebar,
+	Modal,
+	Skeleton,
+	ContainerProps,
+} from "../../index-astro";
 import {
-  getContainerMinHeightClass,
-  getSidebarTopClass,
-  getSidebarHeightClass,
-  type HeaderHeight,
-} from '../../src/common/index';
-import AppHeader from './AppHeader.astro';
+	getContainerMinHeightClass,
+	getSidebarTopClass,
+	getSidebarHeightClass,
+	type HeaderHeight,
+} from "../../src/common/index";
+import AppHeader from "./AppHeader.astro";
 
 export interface IAppLayoutAllProps extends IAppLayoutProps {
-  /** 是否启用 Astro ClientRouter */
-  enableClientRouter?: boolean;
+	/** 是否启用 Astro ClientRouter */
+	enableClientRouter?: boolean;
 }
 
 export type Props = IAppLayoutAllProps;
 
 const {
-  sidebarConfig,
-  showHeader = true,
-  showFooter = true,
-  showSidebar = true,
-  mainContentConfig,
-  footerConfig,
-  headerConfig,
-  metaConfig,
-  loadingDelay = 100,
-  bodyOnly = false,
-  theme,
-  enableClientRouter = true,
+	sidebarConfig,
+	showHeader = true,
+	showFooter = true,
+	showSidebar = true,
+	mainContentConfig,
+	footerConfig,
+	headerConfig,
+	metaConfig,
+	loadingDelay = 100,
+	bodyOnly = false,
+	theme,
+	enableClientRouter = true,
 }: Props = Astro.props as Props;
 
 const sidebarTopClass = getSidebarTopClass(
-  headerConfig?.height as HeaderHeight
+	headerConfig?.height as HeaderHeight,
 );
 const sidebarHeightClass = getSidebarHeightClass(
-  headerConfig?.height as HeaderHeight
+	headerConfig?.height as HeaderHeight,
 );
 ---
 

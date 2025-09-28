@@ -27,50 +27,50 @@
  * - class - 自定义CSS类名
  */
 
-import { ChevronDownIcon, GlobeIcon, Link, ListItem } from '../../index-astro';
+import { ChevronDownIcon, GlobeIcon, Link, ListItem } from "../../index-astro";
 import {
-  checkSwitcherRenderState,
-  generateSwitcherLinks,
-  type SwitcherLink,
-} from './switcher_util';
-import '../../style.ts';
+	checkSwitcherRenderState,
+	generateSwitcherLinks,
+	type SwitcherLink,
+} from "./switcher_util";
+import "../../style.ts";
 
 interface Props {
-  /**
-   * 完整的 astro:i18n 模块
-   */
-  astroI18n?: any;
+	/**
+	 * 完整的 astro:i18n 模块
+	 */
+	astroI18n?: any;
 
-  /**
-   * 自定义类名
-   */
-  class?: string;
+	/**
+	 * 自定义类名
+	 */
+	class?: string;
 }
 
-const { astroI18n, class: className = '' } = Astro.props;
+const { astroI18n, class: className = "" } = Astro.props;
 
 // 检查渲染状态
 const renderState = checkSwitcherRenderState(Astro.currentLocale, astroI18n);
 
 // 输出警告信息
 if (renderState.warnings) {
-  renderState.warnings.forEach((warning) => console.warn(warning));
+	renderState.warnings.forEach((warning) => console.warn(warning));
 }
 
 let links: SwitcherLink[] = [];
 
 // 如果应该渲染，生成切换链接
 if (renderState.shouldRender && Astro.currentLocale) {
-  try {
-    links = generateSwitcherLinks(
-      astroI18n,
-      Astro.currentLocale,
-      Astro.url.pathname
-    );
-  } catch (error) {
-    // 如果生成链接失败，设置为不渲染
-    renderState.shouldRender = false;
-  }
+	try {
+		links = generateSwitcherLinks(
+			astroI18n,
+			Astro.currentLocale,
+			Astro.url.pathname,
+		);
+	} catch (error) {
+		// 如果生成链接失败，设置为不渲染
+		renderState.shouldRender = false;
+	}
 }
 ---
 

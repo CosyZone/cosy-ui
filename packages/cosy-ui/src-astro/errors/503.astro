@@ -39,26 +39,26 @@
  * @prop {string} [notificationUrl] - 通知订阅页面URL
  */
 
-import '../../style.ts';
-import { LinkUtil } from '../../src/utils/link.ts';
+import "../../style.ts";
+import { LinkUtil } from "../../src/utils/link.ts";
 
 const baseUrl = LinkUtil.getBaseUrl();
 const path = Astro.url.pathname;
 
 interface Error503Props {
-  debugKVs?: Record<string, string>;
-  maintenanceMode?: boolean;
-  estimatedRecovery?: string;
-  statusPageUrl?: string;
-  notificationUrl?: string;
+	debugKVs?: Record<string, string>;
+	maintenanceMode?: boolean;
+	estimatedRecovery?: string;
+	statusPageUrl?: string;
+	notificationUrl?: string;
 }
 
 const {
-  debugKVs = {},
-  maintenanceMode = false,
-  estimatedRecovery,
-  statusPageUrl,
-  notificationUrl,
+	debugKVs = {},
+	maintenanceMode = false,
+	estimatedRecovery,
+	statusPageUrl,
+	notificationUrl,
 } = Astro.props as Error503Props;
 ---
 

@@ -179,38 +179,38 @@
  * - 社交媒体图标包含屏幕阅读器专用的文本说明
  */
 
-import { processSocialLink } from '../../src/utils/social.ts';
+import { processSocialLink } from "../../src/utils/social.ts";
 import {
-  LanguageUtil,
-  type IFooterProps,
-  createTextGetter,
-} from '../../index-astro';
+	LanguageUtil,
+	type IFooterProps,
+	createTextGetter,
+} from "../../index-astro";
 import {
-  getBackgroundClass,
-  type BackgroundColor,
-} from '../../src/common/backgrounds';
-import FooterBrand from './FooterBrand.astro';
-import FooterNavigation from './FooterNavigation.astro';
-import '../../style.ts';
-import FooterCopyright from './FooterCopyright.astro';
-import FooterICP from './FooterICP.astro';
+	getBackgroundClass,
+	type BackgroundColor,
+} from "../../src/common/backgrounds";
+import FooterBrand from "./FooterBrand.astro";
+import FooterNavigation from "./FooterNavigation.astro";
+import "../../style.ts";
+import FooterCopyright from "./FooterCopyright.astro";
+import FooterICP from "./FooterICP.astro";
 
 const {
-  siteName,
-  homeLink,
-  slogan,
-  company,
-  logo,
-  products = [],
-  friendlyLinks = [],
-  socialLinks = [],
-  wechatQR,
-  whatsappQR,
-  background = 'base-200',
-  aboutInfo,
-  contactInfo,
-  legalInfo,
-  resourcesInfo,
+	siteName,
+	homeLink,
+	slogan,
+	company,
+	logo,
+	products = [],
+	friendlyLinks = [],
+	socialLinks = [],
+	wechatQR,
+	whatsappQR,
+	background = "base-200",
+	aboutInfo,
+	contactInfo,
+	legalInfo,
+	resourcesInfo,
 } = Astro.props as IFooterProps;
 
 export type Props = IFooterProps;
@@ -218,7 +218,7 @@ export type Props = IFooterProps;
 // 获取当前语言
 const lang = LanguageUtil.getCurrentLanguage(Astro);
 // 创建文本获取函数
-const t = createTextGetter(lang, 'footer');
+const t = createTextGetter(lang, "footer");
 
 // 处理社交链接
 const processedSocialLinks = socialLinks.map((url) => processSocialLink(url));

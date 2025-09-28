@@ -1,5 +1,5 @@
-import type { IconData } from '../iconData';
+import type { IconData } from "../iconData";
 
 export const chevronRight: IconData = {
-    path: 'M9 18l6-6-6-6',
+	path: "M9 18l6-6-6-6",
 };

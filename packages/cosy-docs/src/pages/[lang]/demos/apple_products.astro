@@ -1,29 +1,29 @@
 ---
 import {
-  AppLayout,
-  Container,
-  Grid,
-  Card,
-  Heading,
-  Text,
-  Button,
-  Badge,
-} from '@coffic/cosy-ui';
-import { configApp } from '@/config/config.app';
-import * as astroI18n from 'astro:i18n';
-import iphoneUrl from '@/demos/apple_products/images/iphone.jpg?url';
-import macbookUrl from '@/demos/apple_products/images/macbook.jpg?url';
-import ipadUrl from '@/demos/apple_products/images/ipad.jpg?url';
-import watchUrl from '@/demos/apple_products/images/watch.jpg?url';
-import airpodsUrl from '@/demos/apple_products/images/airpods.jpg?url';
-import visionProUrl from '@/demos/apple_products/images/vision-pro.jpg?url';
-import wechatQrUrl from '@/demos/apple_products/images/wechat-qr.jpg?url';
+	AppLayout,
+	Container,
+	Grid,
+	Card,
+	Heading,
+	Text,
+	Button,
+	Badge,
+} from "@coffic/cosy-ui";
+import { configApp } from "@/config/config.app";
+import * as astroI18n from "astro:i18n";
+import iphoneUrl from "@/demos/apple_products/images/iphone.jpg?url";
+import macbookUrl from "@/demos/apple_products/images/macbook.jpg?url";
+import ipadUrl from "@/demos/apple_products/images/ipad.jpg?url";
+import watchUrl from "@/demos/apple_products/images/watch.jpg?url";
+import airpodsUrl from "@/demos/apple_products/images/airpods.jpg?url";
+import visionProUrl from "@/demos/apple_products/images/vision-pro.jpg?url";
+import wechatQrUrl from "@/demos/apple_products/images/wechat-qr.jpg?url";
 
-const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
-const t = (zh: string, en: string) => (currentLocale === 'zh-cn' ? zh : en);
+const currentLocale = Astro.url.pathname.split("/")[2] || "zh-cn";
+const t = (zh: string, en: string) => (currentLocale === "zh-cn" ? zh : en);
 
 export const getStaticPaths = async () => {
-  return [{ params: { lang: 'zh-cn' } }, { params: { lang: 'en' } }];
+	return [{ params: { lang: "zh-cn" } }, { params: { lang: "en" } }];
 };
 ---
 

@@ -3,25 +3,25 @@
  * @component TeamMemberWithSocial
  * @description TeamMember 组件带社交媒体链接用法示例。
  */
-import { TeamMember } from '@coffic/cosy-ui';
-import { getExampleImage } from '@coffic/cosy-ui';
+import { TeamMember } from "@coffic/cosy-ui";
+import { getExampleImage } from "@coffic/cosy-ui";
 
 // 显式声明类型，避免类型不匹配
 interface SocialLink {
-  platform: 'github' | 'twitter' | 'linkedin' | 'website' | 'email';
-  url: string;
+	platform: "github" | "twitter" | "linkedin" | "website" | "email";
+	url: string;
 }
 
 const avatar = getExampleImage({
-  width: 200,
-  height: 200,
-  provider: 'robohash',
-  randomSeed: 'member2',
+	width: 200,
+	height: 200,
+	provider: "robohash",
+	randomSeed: "member2",
 });
 const socialLinks: SocialLink[] = [
-  { platform: 'github', url: 'https://github.com/lisi' },
-  { platform: 'twitter', url: 'https://twitter.com/lisi' },
-  { platform: 'linkedin', url: 'https://linkedin.com/in/lisi' },
+	{ platform: "github", url: "https://github.com/lisi" },
+	{ platform: "twitter", url: "https://twitter.com/lisi" },
+	{ platform: "linkedin", url: "https://linkedin.com/in/lisi" },
 ];
 ---
 

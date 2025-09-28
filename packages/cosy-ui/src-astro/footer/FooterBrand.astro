@@ -42,20 +42,20 @@
  * - 所有链接都有明确的文本描述
  */
 
-import { Heading } from '../../index-astro';
-import type { FooterBrandProps } from './types';
-import FooterSocialLinks from './FooterSocialLinks.astro';
-import FooterLogo from './FooterLogo.astro';
-import '../../style.ts';
+import { Heading } from "../../index-astro";
+import type { FooterBrandProps } from "./types";
+import FooterSocialLinks from "./FooterSocialLinks.astro";
+import FooterLogo from "./FooterLogo.astro";
+import "../../style.ts";
 
 const {
-  siteName,
-  homeLink,
-  slogan,
-  logo,
-  socialLinks = [],
-  wechatQR,
-  whatsappQR,
+	siteName,
+	homeLink,
+	slogan,
+	logo,
+	socialLinks = [],
+	wechatQR,
+	whatsappQR,
 } = Astro.props as FooterBrandProps;
 ---
 

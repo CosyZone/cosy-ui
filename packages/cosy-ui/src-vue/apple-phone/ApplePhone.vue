@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import '../../style';
-import { AlertDialog, Container } from '../../index-vue';
-import { ref } from 'vue';
-import type { BackgroundColor } from '../container/backgrounds';
-import iphoneFrame from './assets/iPhone 14 Pro - Deep Purple - Portrait.png';
-import StatusBarContent from './StatusBarContent.vue';
+import "../../style";
+import { AlertDialog, Container } from "../../index-vue";
+import { ref } from "vue";
+import type { BackgroundColor } from "../container/backgrounds";
+import iphoneFrame from "./assets/iPhone 14 Pro - Deep Purple - Portrait.png";
+import StatusBarContent from "./StatusBarContent.vue";
 
 /**
  * @component ApplePhone
@@ -13,7 +13,7 @@ import StatusBarContent from './StatusBarContent.vue';
  * @props
  * @prop {'sm'|'md'|'lg'|'xl'|'2xl'|'3xl'|'4xl'|'5xl'} [height='lg'] - 窗口高度选项
  * - sm: 256px (h-64)
- * - md: 320px (h-80) 
+ * - md: 320px (h-80)
  * - lg: 384px (h-96) - 默认值
  * - xl: 480px
  * - 2xl: 560px
@@ -30,23 +30,23 @@ import StatusBarContent from './StatusBarContent.vue';
  */
 
 // 类型定义
-type HeightOption = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl';
+type HeightOption = "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl";
 
 interface Props {
-    height?: HeightOption;
-    title?: string;
-    withShadow?: boolean;
-    showFrame?: boolean;
-    backgroundColor?: BackgroundColor;
+	height?: HeightOption;
+	title?: string;
+	withShadow?: boolean;
+	showFrame?: boolean;
+	backgroundColor?: BackgroundColor;
 }
 
 // Props 定义
 const props = withDefaults(defineProps<Props>(), {
-    height: 'lg',
-    title: '',
-    withShadow: true,
-    showFrame: true,
-    backgroundColor: undefined,
+	height: "lg",
+	title: "",
+	withShadow: true,
+	showFrame: true,
+	backgroundColor: undefined,
 });
 
 // iPhone边框图片-宽度
@@ -64,42 +64,42 @@ const mainContentWidthAspectRatio = 1179 / iphoneFrameWidth;
 const mainContentHeightAspectRatio = 2556 / iphoneFrameHeight;
 // 比例-状态栏高度
 const iphoneFrameStatusBarHeightAspectRatio =
-    iphoneFrameStatusBarHeight / iphoneFrameHeight;
+	iphoneFrameStatusBarHeight / iphoneFrameHeight;
 // 比例-状态栏离上边框的距离
 const iphoneFrameStatusBarTopAspectRatio =
-    iphoneFrameStatusBarTop / iphoneFrameHeight;
+	iphoneFrameStatusBarTop / iphoneFrameHeight;
 
 // 预定义的高度选项
 const heightClasses: Record<HeightOption, string> = {
-    sm: 'cosy:h-64', // 256px
-    md: 'cosy:h-80', // 320px
-    lg: 'cosy:h-96', // 384px
-    xl: 'cosy:h-[480px]', // 480px
-    '2xl': 'cosy:h-[560px]', // 560px
-    '3xl': 'cosy:h-[640px]', // 640px
-    '4xl': 'cosy:h-[720px]', // 720px
-    '5xl': 'cosy:h-[800px]', // 800px
+	sm: "cosy:h-64", // 256px
+	md: "cosy:h-80", // 320px
+	lg: "cosy:h-96", // 384px
+	xl: "cosy:h-[480px]", // 480px
+	"2xl": "cosy:h-[560px]", // 560px
+	"3xl": "cosy:h-[640px]", // 640px
+	"4xl": "cosy:h-[720px]", // 720px
+	"5xl": "cosy:h-[800px]", // 800px
 };
 
 // 响应式数据
 const showAlertDialog = ref(false);
-const alertMessage = ref('');
+const alertMessage = ref("");
 
 // 计算当前高度的缩放比例
 const getScaleRatio = () => {
-    const heightValues = {
-        sm: 256,
-        md: 320,
-        lg: 384,
-        xl: 480,
-        '2xl': 560,
-        '3xl': 640,
-        '4xl': 720,
-        '5xl': 800,
-    };
-    const currentHeight = heightValues[props.height];
-    // 基于特定高度计算缩放比例
-    return currentHeight / 500;
+	const heightValues = {
+		sm: 256,
+		md: 320,
+		lg: 384,
+		xl: 480,
+		"2xl": 560,
+		"3xl": 640,
+		"4xl": 720,
+		"5xl": 800,
+	};
+	const currentHeight = heightValues[props.height];
+	// 基于特定高度计算缩放比例
+	return currentHeight / 500;
 };
 
 // 计算属性

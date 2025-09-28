@@ -29,57 +29,57 @@
  * ```
  */
 
-import TeamMember from './TeamMember.astro';
-import '../../style.ts';
-import type { ImageSource } from '../image/image.ts';
+import TeamMember from "./TeamMember.astro";
+import "../../style.ts";
+import type { ImageSource } from "../image/image.ts";
 
 interface SocialLink {
-  platform: 'github' | 'twitter' | 'linkedin' | 'website' | 'email';
-  url: string;
+	platform: "github" | "twitter" | "linkedin" | "website" | "email";
+	url: string;
 }
 
 interface TeamMemberData {
-  name: string;
-  role: string;
-  avatar: ImageSource;
-  bio: string;
-  socialLinks?: SocialLink[];
+	name: string;
+	role: string;
+	avatar: ImageSource;
+	bio: string;
+	socialLinks?: SocialLink[];
 }
 
 interface Props {
-  /**
-   * 团队成员数据数组
-   */
-  members: TeamMemberData[];
-  /**
-   * 网格列数
-   * @default 3
-   */
-  columns?: 2 | 3 | 4;
-  /**
-   * 自定义类名
-   */
-  class?: string;
+	/**
+	 * 团队成员数据数组
+	 */
+	members: TeamMemberData[];
+	/**
+	 * 网格列数
+	 * @default 3
+	 */
+	columns?: 2 | 3 | 4;
+	/**
+	 * 自定义类名
+	 */
+	class?: string;
 }
 
-const { members, columns = 3, class: className = '' } = Astro.props;
+const { members, columns = 3, class: className = "" } = Astro.props;
 
 // 使用类型断言确保 columns 是有效的键
 const columnsValue = columns as 2 | 3 | 4;
 
 // 根据列数生成对应的类名
 const getGridClasses = (cols: 2 | 3 | 4) => {
-  const baseClass = 'cosy:grid-cols-1';
-  const mdClass = 'cosy:md:grid-cols-2';
+	const baseClass = "cosy:grid-cols-1";
+	const mdClass = "cosy:md:grid-cols-2";
 
-  let lgClass = 'cosy:lg:grid-cols-3';
-  if (cols === 2) {
-    lgClass = 'cosy:lg:grid-cols-2';
-  } else if (cols === 4) {
-    lgClass = 'cosy:lg:grid-cols-4';
-  }
+	let lgClass = "cosy:lg:grid-cols-3";
+	if (cols === 2) {
+		lgClass = "cosy:lg:grid-cols-2";
+	} else if (cols === 4) {
+		lgClass = "cosy:lg:grid-cols-4";
+	}
 
-  return [baseClass, mdClass, lgClass];
+	return [baseClass, mdClass, lgClass];
 };
 ---
 

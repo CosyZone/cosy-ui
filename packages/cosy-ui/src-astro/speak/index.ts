@@ -1,3 +1,3 @@
-import Speak from './Speak.astro';
+import Speak from "./Speak.astro";
 
 export { Speak };

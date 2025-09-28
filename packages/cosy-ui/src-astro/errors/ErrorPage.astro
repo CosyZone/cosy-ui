@@ -41,76 +41,76 @@
  * @prop {string} [estimatedRecovery] - 预期恢复时间 (用于503错误)
  */
 
-import '../../style.ts';
-import Error404 from './404.astro';
-import Error403 from './403.astro';
-import Error500 from './500.astro';
-import Error503 from './503.astro';
+import "../../style.ts";
+import Error404 from "./404.astro";
+import Error403 from "./403.astro";
+import Error500 from "./500.astro";
+import Error503 from "./503.astro";
 
 interface Props {
-  errorCode: number;
-  debugKVs?: Record<string, string>;
-  loginUrl?: string;
-  contactUrl?: string;
-  supportUrl?: string;
-  statusPageUrl?: string;
-  notificationUrl?: string;
-  maintenanceMode?: boolean;
-  estimatedRecovery?: string;
+	errorCode: number;
+	debugKVs?: Record<string, string>;
+	loginUrl?: string;
+	contactUrl?: string;
+	supportUrl?: string;
+	statusPageUrl?: string;
+	notificationUrl?: string;
+	maintenanceMode?: boolean;
+	estimatedRecovery?: string;
 }
 
 const {
-  errorCode,
-  debugKVs = {},
-  loginUrl,
-  contactUrl,
-  supportUrl,
-  statusPageUrl,
-  notificationUrl,
-  maintenanceMode = false,
-  estimatedRecovery,
+	errorCode,
+	debugKVs = {},
+	loginUrl,
+	contactUrl,
+	supportUrl,
+	statusPageUrl,
+	notificationUrl,
+	maintenanceMode = false,
+	estimatedRecovery,
 } = Astro.props;
 
 // 根据错误码选择对应的组件
 function getErrorComponent(code: number) {
-  switch (code) {
-    case 403:
-      return Error403;
-    case 404:
-      return Error404;
-    case 500:
-      return Error500;
-    case 503:
-      return Error503;
-    default:
-      return Error404; // 默认使用404页面
-  }
+	switch (code) {
+		case 403:
+			return Error403;
+		case 404:
+			return Error404;
+		case 500:
+			return Error500;
+		case 503:
+			return Error503;
+		default:
+			return Error404; // 默认使用404页面
+	}
 }
 
 const ErrorComponent = getErrorComponent(errorCode);
 
 // 根据错误码准备对应的props
 function getErrorProps(code: number) {
-  const baseProps = { debugKVs };
+	const baseProps = { debugKVs };
 
-  switch (code) {
-    case 403:
-      return { ...baseProps, loginUrl, contactUrl };
-    case 404:
-      return baseProps;
-    case 500:
-      return { ...baseProps, supportUrl, statusPageUrl };
-    case 503:
-      return {
-        ...baseProps,
-        maintenanceMode,
-        estimatedRecovery,
-        statusPageUrl,
-        notificationUrl,
-      };
-    default:
-      return baseProps;
-  }
+	switch (code) {
+		case 403:
+			return { ...baseProps, loginUrl, contactUrl };
+		case 404:
+			return baseProps;
+		case 500:
+			return { ...baseProps, supportUrl, statusPageUrl };
+		case 503:
+			return {
+				...baseProps,
+				maintenanceMode,
+				estimatedRecovery,
+				statusPageUrl,
+				notificationUrl,
+			};
+		default:
+			return baseProps;
+	}
 }
 
 const errorProps = getErrorProps(errorCode);

@@ -105,80 +105,80 @@
  * @slot default - 额外的联系信息内容
  */
 
-import '../../style.ts';
-import Card from '../card/Card.astro';
-import Link from '../link/Link.astro';
-import { type BackgroundColor } from '../../src/common/backgrounds';
+import "../../style.ts";
+import Card from "../card/Card.astro";
+import Link from "../link/Link.astro";
+import { type BackgroundColor } from "../../src/common/backgrounds";
 import {
-  FacebookIcon,
-  GithubIcon,
-  LinkedinIcon,
-  MailIcon,
-  MapPinIcon,
-  PhoneIcon,
-  TwitterIcon,
-  WebsiteIcon,
-  WechatIcon,
-  WhatsappIcon,
-} from '../icons';
+	FacebookIcon,
+	GithubIcon,
+	LinkedinIcon,
+	MailIcon,
+	MapPinIcon,
+	PhoneIcon,
+	TwitterIcon,
+	WebsiteIcon,
+	WechatIcon,
+	WhatsappIcon,
+} from "../icons";
 
 export interface ContactProps {
-  address?: string;
-  background?: BackgroundColor;
-  class?: string;
-  compact?: boolean;
-  description?: string;
-  email?: string;
-  facebook?: string;
-  github?: string;
-  linkedin?: string;
-  phone?: string;
-  title?: string;
-  twitter?: string;
-  website?: string;
-  wechatQR?: any; // ImageSource 类型
-  whatsappQR?: any; // ImageSource 类型
+	address?: string;
+	background?: BackgroundColor;
+	class?: string;
+	compact?: boolean;
+	description?: string;
+	email?: string;
+	facebook?: string;
+	github?: string;
+	linkedin?: string;
+	phone?: string;
+	title?: string;
+	twitter?: string;
+	website?: string;
+	wechatQR?: any; // ImageSource 类型
+	whatsappQR?: any; // ImageSource 类型
 }
 
 const {
-  address,
-  background,
-  class: className = '',
-  compact,
-  description,
-  email,
-  facebook,
-  github,
-  linkedin,
-  phone,
-  title,
-  twitter,
-  website,
-  wechatQR,
-  whatsappQR,
+	address,
+	background,
+	class: className = "",
+	compact,
+	description,
+	email,
+	facebook,
+	github,
+	linkedin,
+	phone,
+	title,
+	twitter,
+	website,
+	wechatQR,
+	whatsappQR,
 } = Astro.props as ContactProps;
 
 // 构建自定义样式类（用于覆盖Card组件的默认样式）
 const customClasses = [
-  'cosy:shadow-lg',
-  'hover:cosy:shadow-xl',
-  'hover:cosy:bg-base-200',
-  className,
+	"cosy:shadow-lg",
+	"hover:cosy:shadow-xl",
+	"hover:cosy:bg-base-200",
+	className,
 ]
-  .filter(Boolean)
-  .join(' ');
+	.filter(Boolean)
+	.join(" ");
 
 // 联系信息项的样式
 const contactItemClass =
-  'cosy:flex cosy:items-center cosy:gap-3 cosy:mb-4 last:cosy:mb-0 cosy:transition-all cosy:duration-200 cosy:ease-in-out hover:cosy:bg-base-200/50 hover:cosy:rounded-lg hover:cosy:p-2 hover:cosy:-mx-2';
+	"cosy:flex cosy:items-center cosy:gap-3 cosy:mb-4 last:cosy:mb-0 cosy:transition-all cosy:duration-200 cosy:ease-in-out hover:cosy:bg-base-200/50 hover:cosy:rounded-lg hover:cosy:p-2 hover:cosy:-mx-2";
 const iconClass =
-  'cosy:w-5 cosy:h-5 cosy:text-primary cosy:flex-shrink-0 cosy:transition-all cosy:duration-200 hover:cosy:scale-110 hover:cosy:text-primary/80';
+	"cosy:w-5 cosy:h-5 cosy:text-primary cosy:flex-shrink-0 cosy:transition-all cosy:duration-200 hover:cosy:scale-110 hover:cosy:text-primary/80";
 
 // 社交媒体链接样式
 const socialLinksClass =
-  'cosy:flex cosy:gap-4 cosy:mt-6 cosy:pt-4 cosy:border-t cosy:border-base-300';
+	"cosy:flex cosy:gap-4 cosy:mt-6 cosy:pt-4 cosy:border-t cosy:border-base-300";
 const socialLinkClass =
-  'cosy:btn cosy:btn-ghost cosy:btn-circle cosy:btn-sm cosy:text-base-content hover:cosy:text-primary hover:cosy:bg-primary/10';
+	"cosy:btn cosy:btn-ghost cosy:btn-circle cosy:btn-sm cosy:text-base-content hover:cosy:text-primary hover:cosy:bg-primary/10";
 ---
 
 <Card

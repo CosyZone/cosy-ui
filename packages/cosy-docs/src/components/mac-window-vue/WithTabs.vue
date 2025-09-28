@@ -19,15 +19,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { MacWindow } from '@coffic/cosy-ui/vue';
+import { ref } from "vue";
+import { MacWindow } from "@coffic/cosy-ui/vue";
 
 // 响应式状态
-const activeTab = ref('外观');
+const activeTab = ref("外观");
 
 // 处理标签点击事件
 const handleTabClick = (tab: string) => {
-  console.log('切换到标签:', tab);
-  activeTab.value = tab;
+	console.log("切换到标签:", tab);
+	activeTab.value = tab;
 };
 </script>

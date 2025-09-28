@@ -4,7 +4,7 @@
  * @returns 是否是GitHub仓库
  */
 export function isGitHubRepo(url: string): boolean {
-  return url.includes('github.com');
+	return url.includes("github.com");
 }
 
 /**
@@ -13,5 +13,5 @@ export function isGitHubRepo(url: string): boolean {
  * @returns 是否是GitLab仓库
  */
 export function isGitLabRepo(url: string): boolean {
-  return url.includes('gitlab.com');
+	return url.includes("gitlab.com");
 }

@@ -39,21 +39,21 @@
  * @prop {string} [class] - 自定义CSS类名
  */
 
-import Heading from '../heading/Heading.astro';
-import Grid from '../grid/Grid.astro';
-import ApiEndpointCard from './ApiEndpointCard.astro';
-import ApiTestScript from './ApiTestScript.astro';
-import type { IApiTesterProps, IApiEndpoint } from '../types/api-test';
+import Heading from "../heading/Heading.astro";
+import Grid from "../grid/Grid.astro";
+import ApiEndpointCard from "./ApiEndpointCard.astro";
+import ApiTestScript from "./ApiTestScript.astro";
+import type { IApiTesterProps, IApiEndpoint } from "../types/api-test";
 
 const {
-  endpoints,
-  title = 'API 测试',
-  description,
-  showHeaders = false,
-  defaultHeaders,
-  showResponseTime = true,
-  showRequestDetails = false,
-  class: className,
+	endpoints,
+	title = "API 测试",
+	description,
+	showHeaders = false,
+	defaultHeaders,
+	showResponseTime = true,
+	showRequestDetails = false,
+	class: className,
 } = Astro.props;
 ---
 

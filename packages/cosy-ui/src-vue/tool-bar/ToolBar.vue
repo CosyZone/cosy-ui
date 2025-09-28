@@ -40,39 +40,39 @@ ToolBar 组件
 -->
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import '../../style';
+import { computed } from "vue";
+import "../../style";
 
 interface Props {
-    // 工具栏变体
-    variant?: 'default' | 'compact'
-    // 是否显示下边框
-    bordered?: boolean
+	// 工具栏变体
+	variant?: "default" | "compact";
+	// 是否显示下边框
+	bordered?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    variant: 'default',
-    bordered: true
-})
+	variant: "default",
+	bordered: true,
+});
 
 // 计算工具栏类名
 const toolBarClass = computed(() => {
-    return [
-        'cosy:navbar',
-        'cosy:bg-base-200',
-        'cosy:text-base-content/70',
-        'cosy:text-sm',
-        'no-drag-region',
-        'cosy:transition-all',
-        'cosy:duration-200',
-        'cosy:rounded-box',
-        {
-            'cosy:min-h-12': props.variant === 'default',
-            'cosy:min-h-10': props.variant === 'compact',
-            'cosy:border-b cosy:border-base-300': props.bordered
-        }
-    ]
-})
+	return [
+		"cosy:navbar",
+		"cosy:bg-base-200",
+		"cosy:text-base-content/70",
+		"cosy:text-sm",
+		"no-drag-region",
+		"cosy:transition-all",
+		"cosy:duration-200",
+		"cosy:rounded-box",
+		{
+			"cosy:min-h-12": props.variant === "default",
+			"cosy:min-h-10": props.variant === "compact",
+			"cosy:border-b cosy:border-base-300": props.bordered,
+		},
+	];
+});
 </script>
 
 <template>

@@ -33,42 +33,42 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { ImageDisplay } from '@coffic/cosy-ui/vue';
+import { ref } from "vue";
+import { ImageDisplay } from "@coffic/cosy-ui/vue";
 import {
-  getExampleImage,
-  getAvatarImage,
-  getProductImage,
-} from '@coffic/cosy-ui/vue';
+	getExampleImage,
+	getAvatarImage,
+	getProductImage,
+} from "@coffic/cosy-ui/vue";
 
 // 使用稳定的图片URL，避免水合不匹配
 const sampleImages = [
-  getExampleImage({
-    width: 200,
-    height: 200,
-    provider: 'picsum',
-    randomSeed: 'stable1',
-  }),
-  getAvatarImage({ width: 200, height: 200, randomSeed: 'user1' }),
-  getProductImage({
-    width: 200,
-    height: 200,
-    tag: 'tech',
-    randomSeed: 'stable2',
-  }),
-  getExampleImage({
-    width: 200,
-    height: 200,
-    provider: 'picsum',
-    tag: 'nature',
-    randomSeed: 'stable3',
-  }),
+	getExampleImage({
+		width: 200,
+		height: 200,
+		provider: "picsum",
+		randomSeed: "stable1",
+	}),
+	getAvatarImage({ width: 200, height: 200, randomSeed: "user1" }),
+	getProductImage({
+		width: 200,
+		height: 200,
+		tag: "tech",
+		randomSeed: "stable2",
+	}),
+	getExampleImage({
+		width: 200,
+		height: 200,
+		provider: "picsum",
+		tag: "nature",
+		randomSeed: "stable3",
+	}),
 ];
 
 const clickedImages = ref<string[]>([]);
 
 const handleImageClick = (imageUrl: string) => {
-  console.log('点击了图片:', imageUrl);
-  clickedImages.value.push(imageUrl);
+	console.log("点击了图片:", imageUrl);
+	clickedImages.value.push(imageUrl);
 };
 </script>

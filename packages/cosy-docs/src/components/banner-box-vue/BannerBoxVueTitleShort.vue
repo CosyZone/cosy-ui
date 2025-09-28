@@ -7,5 +7,5 @@
 </template>
 
 <script setup lang="ts">
-import { BannerBox } from '@coffic/cosy-ui/vue';
+import { BannerBox } from "@coffic/cosy-ui/vue";
 </script>

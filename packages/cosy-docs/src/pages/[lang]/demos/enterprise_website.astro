@@ -1,215 +1,215 @@
 ---
 import {
-  AppLayout,
-  Hero,
-  Card,
-  Grid,
-  Button,
-  Text,
-  Heading,
-  Image,
-  Badge,
-  Contact,
-  TeamMember,
-  SocialIcon,
-  SmartIcon,
-  Container,
-  getExampleImage,
-  getProductImage,
-  getAvatarImage,
-  PlaceHolder,
-} from '@coffic/cosy-ui';
-import { configApp } from '@/config/config.app';
-import HeroImage from '@/assets/hero.png';
+	AppLayout,
+	Hero,
+	Card,
+	Grid,
+	Button,
+	Text,
+	Heading,
+	Image,
+	Badge,
+	Contact,
+	TeamMember,
+	SocialIcon,
+	SmartIcon,
+	Container,
+	getExampleImage,
+	getProductImage,
+	getAvatarImage,
+	PlaceHolder,
+} from "@coffic/cosy-ui";
+import { configApp } from "@/config/config.app";
+import HeroImage from "@/assets/hero.png";
 
 // 从 URL 获取当前语言
-const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
+const currentLocale = Astro.url.pathname.split("/")[2] || "zh-cn";
 
 export const getStaticPaths = async () => {
-  return [
-    {
-      params: { lang: 'zh-cn' },
-    },
-    {
-      params: { lang: 'en' },
-    },
-  ];
+	return [
+		{
+			params: { lang: "zh-cn" },
+		},
+		{
+			params: { lang: "en" },
+		},
+	];
 };
 
 // 企业数据
 const enterpriseData: Record<string, any> = {
-  'zh-cn': {
-    companyName: '创新科技有限公司',
-    slogan: '创新驱动未来，科技改变世界',
-    description:
-      '我们是一家专注于人工智能和云计算解决方案的科技公司，致力于为企业提供最先进的技术服务。',
-    aboutTitle: '关于我们',
-    aboutContent:
-      '自2015年成立以来，我们一直专注于人工智能、云计算和大数据技术的研发与应用。我们的团队由来自世界顶级科技公司的专家组成，拥有丰富的行业经验和深厚的技术积累。',
-    servicesTitle: '我们的服务',
-    productsTitle: '产品展示',
-    teamTitle: '核心团队',
-    contactTitle: '联系我们',
-    heroButton: '了解更多',
-    learnMore: '了解更多',
-    contactUs: '联系我们',
-    getStarted: '立即开始',
-    yearsExperience: '8年经验',
-    clientsServed: '500+客户',
-    projectsCompleted: '1000+项目',
-    teamMembers: '50+专家',
-  },
-  en: {
-    companyName: 'Innovation Tech Ltd.',
-    slogan: 'Innovation Drives Future, Technology Changes the World',
-    description:
-      'We are a technology company focused on AI and cloud computing solutions, committed to providing cutting-edge technology services for enterprises.',
-    aboutTitle: 'About Us',
-    aboutContent:
-      'Since our establishment in 2015, we have been focusing on the research and application of artificial intelligence, cloud computing, and big data technologies. Our team consists of experts from world-class technology companies with rich industry experience and deep technical expertise.',
-    servicesTitle: 'Our Services',
-    productsTitle: 'Products',
-    teamTitle: 'Core Team',
-    contactTitle: 'Contact Us',
-    heroButton: 'Learn More',
-    learnMore: 'Learn More',
-    contactUs: 'Contact Us',
-    getStarted: 'Get Started',
-    yearsExperience: '8 Years Experience',
-    clientsServed: '500+ Clients',
-    projectsCompleted: '1000+ Projects',
-    teamMembers: '50+ Experts',
-  },
+	"zh-cn": {
+		companyName: "创新科技有限公司",
+		slogan: "创新驱动未来，科技改变世界",
+		description:
+			"我们是一家专注于人工智能和云计算解决方案的科技公司，致力于为企业提供最先进的技术服务。",
+		aboutTitle: "关于我们",
+		aboutContent:
+			"自2015年成立以来，我们一直专注于人工智能、云计算和大数据技术的研发与应用。我们的团队由来自世界顶级科技公司的专家组成，拥有丰富的行业经验和深厚的技术积累。",
+		servicesTitle: "我们的服务",
+		productsTitle: "产品展示",
+		teamTitle: "核心团队",
+		contactTitle: "联系我们",
+		heroButton: "了解更多",
+		learnMore: "了解更多",
+		contactUs: "联系我们",
+		getStarted: "立即开始",
+		yearsExperience: "8年经验",
+		clientsServed: "500+客户",
+		projectsCompleted: "1000+项目",
+		teamMembers: "50+专家",
+	},
+	en: {
+		companyName: "Innovation Tech Ltd.",
+		slogan: "Innovation Drives Future, Technology Changes the World",
+		description:
+			"We are a technology company focused on AI and cloud computing solutions, committed to providing cutting-edge technology services for enterprises.",
+		aboutTitle: "About Us",
+		aboutContent:
+			"Since our establishment in 2015, we have been focusing on the research and application of artificial intelligence, cloud computing, and big data technologies. Our team consists of experts from world-class technology companies with rich industry experience and deep technical expertise.",
+		servicesTitle: "Our Services",
+		productsTitle: "Products",
+		teamTitle: "Core Team",
+		contactTitle: "Contact Us",
+		heroButton: "Learn More",
+		learnMore: "Learn More",
+		contactUs: "Contact Us",
+		getStarted: "Get Started",
+		yearsExperience: "8 Years Experience",
+		clientsServed: "500+ Clients",
+		projectsCompleted: "1000+ Projects",
+		teamMembers: "50+ Experts",
+	},
 };
 
-const data = enterpriseData[currentLocale] || enterpriseData['zh-cn'];
+const data = enterpriseData[currentLocale] || enterpriseData["zh-cn"];
 
 // 服务数据
 const services = [
-  {
-    title: currentLocale === 'zh-cn' ? '人工智能解决方案' : 'AI Solutions',
-    description:
-      currentLocale === 'zh-cn'
-        ? '为企业提供智能化的AI解决方案，提升业务效率'
-        : 'Provide intelligent AI solutions for enterprises to improve business efficiency',
-    icon: 'ai',
-  },
-  {
-    title: currentLocale === 'zh-cn' ? '云计算服务' : 'Cloud Computing',
-    description:
-      currentLocale === 'zh-cn'
-        ? '安全可靠的云基础设施和平台服务'
-        : 'Secure and reliable cloud infrastructure and platform services',
-    icon: 'server',
-  },
-  {
-    title: currentLocale === 'zh-cn' ? '大数据分析' : 'Big Data Analytics',
-    description:
-      currentLocale === 'zh-cn'
-        ? '深度挖掘数据价值，助力企业决策'
-        : 'Deep mining of data value to help enterprise decision-making',
-    icon: 'chart',
-  },
-  {
-    title:
-      currentLocale === 'zh-cn' ? '移动应用开发' : 'Mobile App Development',
-    description:
-      currentLocale === 'zh-cn'
-        ? '专业的移动端应用开发服务'
-        : 'Professional mobile application development services',
-    icon: 'appstore',
-  },
+	{
+		title: currentLocale === "zh-cn" ? "人工智能解决方案" : "AI Solutions",
+		description:
+			currentLocale === "zh-cn"
+				? "为企业提供智能化的AI解决方案，提升业务效率"
+				: "Provide intelligent AI solutions for enterprises to improve business efficiency",
+		icon: "ai",
+	},
+	{
+		title: currentLocale === "zh-cn" ? "云计算服务" : "Cloud Computing",
+		description:
+			currentLocale === "zh-cn"
+				? "安全可靠的云基础设施和平台服务"
+				: "Secure and reliable cloud infrastructure and platform services",
+		icon: "server",
+	},
+	{
+		title: currentLocale === "zh-cn" ? "大数据分析" : "Big Data Analytics",
+		description:
+			currentLocale === "zh-cn"
+				? "深度挖掘数据价值，助力企业决策"
+				: "Deep mining of data value to help enterprise decision-making",
+		icon: "chart",
+	},
+	{
+		title:
+			currentLocale === "zh-cn" ? "移动应用开发" : "Mobile App Development",
+		description:
+			currentLocale === "zh-cn"
+				? "专业的移动端应用开发服务"
+				: "Professional mobile application development services",
+		icon: "appstore",
+	},
 ];
 
 // 产品数据
 const products = [
-  {
-    name: currentLocale === 'zh-cn' ? '智能客服系统' : 'Smart Customer Service',
-    description:
-      currentLocale === 'zh-cn'
-        ? '基于AI的智能客服解决方案，24/7全天候服务'
-        : 'AI-based smart customer service solution with 24/7 service',
-    image: getProductImage({
-      width: 400,
-      height: 250,
-      tag: 'ai-customer-service',
-      provider: 'picsum',
-    }),
-    badge: currentLocale === 'zh-cn' ? '热门' : 'Popular',
-  },
-  {
-    name:
-      currentLocale === 'zh-cn' ? '企业云平台' : 'Enterprise Cloud Platform',
-    description:
-      currentLocale === 'zh-cn'
-        ? '一站式企业云服务平台，安全高效'
-        : 'One-stop enterprise cloud service platform, secure and efficient',
-    image: getProductImage({
-      width: 400,
-      height: 250,
-      tag: 'cloud-platform',
-      provider: 'picsum',
-    }),
-    badge: currentLocale === 'zh-cn' ? '推荐' : 'Recommended',
-  },
-  {
-    name:
-      currentLocale === 'zh-cn' ? '数据分析平台' : 'Data Analytics Platform',
-    description:
-      currentLocale === 'zh-cn'
-        ? '强大的数据分析工具，助力企业洞察'
-        : 'Powerful data analytics tools to help enterprise insights',
-    image: getProductImage({
-      width: 400,
-      height: 250,
-      tag: 'data-analytics',
-      provider: 'picsum',
-    }),
-    badge: currentLocale === 'zh-cn' ? '新品' : 'New',
-  },
+	{
+		name: currentLocale === "zh-cn" ? "智能客服系统" : "Smart Customer Service",
+		description:
+			currentLocale === "zh-cn"
+				? "基于AI的智能客服解决方案，24/7全天候服务"
+				: "AI-based smart customer service solution with 24/7 service",
+		image: getProductImage({
+			width: 400,
+			height: 250,
+			tag: "ai-customer-service",
+			provider: "picsum",
+		}),
+		badge: currentLocale === "zh-cn" ? "热门" : "Popular",
+	},
+	{
+		name:
+			currentLocale === "zh-cn" ? "企业云平台" : "Enterprise Cloud Platform",
+		description:
+			currentLocale === "zh-cn"
+				? "一站式企业云服务平台，安全高效"
+				: "One-stop enterprise cloud service platform, secure and efficient",
+		image: getProductImage({
+			width: 400,
+			height: 250,
+			tag: "cloud-platform",
+			provider: "picsum",
+		}),
+		badge: currentLocale === "zh-cn" ? "推荐" : "Recommended",
+	},
+	{
+		name:
+			currentLocale === "zh-cn" ? "数据分析平台" : "Data Analytics Platform",
+		description:
+			currentLocale === "zh-cn"
+				? "强大的数据分析工具，助力企业洞察"
+				: "Powerful data analytics tools to help enterprise insights",
+		image: getProductImage({
+			width: 400,
+			height: 250,
+			tag: "data-analytics",
+			provider: "picsum",
+		}),
+		badge: currentLocale === "zh-cn" ? "新品" : "New",
+	},
 ];
 
 // 团队成员数据
 const teamMembers = [
-  {
-    name: currentLocale === 'zh-cn' ? '张明' : 'Zhang Ming',
-    position: currentLocale === 'zh-cn' ? '首席执行官' : 'CEO',
-    description:
-      currentLocale === 'zh-cn'
-        ? '15年科技行业经验，前Google高级工程师'
-        : '15 years of tech industry experience, former Google senior engineer',
-    avatar: getAvatarImage({ width: 120, height: 120, tag: 'zhang-ming' }),
-    socialLinks: [
-      { platform: 'linkedin', url: '#' },
-      { platform: 'twitter', url: '#' },
-    ],
-  },
-  {
-    name: currentLocale === 'zh-cn' ? '李华' : 'Li Hua',
-    position: currentLocale === 'zh-cn' ? '技术总监' : 'CTO',
-    description:
-      currentLocale === 'zh-cn'
-        ? 'AI领域专家，斯坦福大学博士'
-        : 'AI expert, Stanford PhD',
-    avatar: getAvatarImage({ width: 120, height: 120, tag: 'li-hua' }),
-    socialLinks: [
-      { platform: 'github', url: '#' },
-      { platform: 'linkedin', url: '#' },
-    ],
-  },
-  {
-    name: currentLocale === 'zh-cn' ? '王芳' : 'Wang Fang',
-    position: currentLocale === 'zh-cn' ? '产品总监' : 'CPO',
-    description:
-      currentLocale === 'zh-cn'
-        ? '用户体验专家，前腾讯产品经理'
-        : 'UX expert, former Tencent product manager',
-    avatar: getAvatarImage({ width: 120, height: 120, tag: 'wang-fang' }),
-    socialLinks: [
-      { platform: 'twitter', url: '#' },
-      { platform: 'linkedin', url: '#' },
-    ],
-  },
+	{
+		name: currentLocale === "zh-cn" ? "张明" : "Zhang Ming",
+		position: currentLocale === "zh-cn" ? "首席执行官" : "CEO",
+		description:
+			currentLocale === "zh-cn"
+				? "15年科技行业经验，前Google高级工程师"
+				: "15 years of tech industry experience, former Google senior engineer",
+		avatar: getAvatarImage({ width: 120, height: 120, tag: "zhang-ming" }),
+		socialLinks: [
+			{ platform: "linkedin", url: "#" },
+			{ platform: "twitter", url: "#" },
+		],
+	},
+	{
+		name: currentLocale === "zh-cn" ? "李华" : "Li Hua",
+		position: currentLocale === "zh-cn" ? "技术总监" : "CTO",
+		description:
+			currentLocale === "zh-cn"
+				? "AI领域专家，斯坦福大学博士"
+				: "AI expert, Stanford PhD",
+		avatar: getAvatarImage({ width: 120, height: 120, tag: "li-hua" }),
+		socialLinks: [
+			{ platform: "github", url: "#" },
+			{ platform: "linkedin", url: "#" },
+		],
+	},
+	{
+		name: currentLocale === "zh-cn" ? "王芳" : "Wang Fang",
+		position: currentLocale === "zh-cn" ? "产品总监" : "CPO",
+		description:
+			currentLocale === "zh-cn"
+				? "用户体验专家，前腾讯产品经理"
+				: "UX expert, former Tencent product manager",
+		avatar: getAvatarImage({ width: 120, height: 120, tag: "wang-fang" }),
+		socialLinks: [
+			{ platform: "twitter", url: "#" },
+			{ platform: "linkedin", url: "#" },
+		],
+	},
 ];
 ---
 

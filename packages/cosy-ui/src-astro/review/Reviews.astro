@@ -52,47 +52,54 @@
  */
 
 // 导入样式
-import '../../style.ts';
+import "../../style.ts";
 
-import Text from '../text/Text.astro';
-import Heading from '../heading/Heading.astro';
-import Grid from '../grid/Grid.astro';
-import SmartIcon from '../smart-icon/SmartIcon.astro';
-import type { ReviewsProps, ReviewData } from './types';
-import Review from './Review.astro';
+import Text from "../text/Text.astro";
+import Heading from "../heading/Heading.astro";
+import Grid from "../grid/Grid.astro";
+import SmartIcon from "../smart-icon/SmartIcon.astro";
+import type { ReviewsProps, ReviewData } from "./types";
+import Review from "./Review.astro";
 
 type Props = ReviewsProps;
 
 const {
-  reviews,
-  title,
-  showStats = false,
-  layout = 'grid',
-  columns = { base: 1, md: 2, lg: 3 },
-  maxReviews,
-  class: className = '',
-  'class:list': classList,
-  ...rest
+	reviews,
+	title,
+	showStats = false,
+	layout = "grid",
+	columns = { base: 1, md: 2, lg: 3 },
+	maxReviews,
+	class: className = "",
+	"class:list": classList,
+	...rest
 } = Astro.props;
 
 // 计算统计信息
-const stats = showStats ? {
-  averageRating: reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length,
-  totalReviews: reviews.length,
-  ratingDistribution: Array.from({ length: 5 }, (_, i) => 
-    reviews.filter(review => Math.floor(review.rating) === i + 1).length
-  ),
-} : null;
+const stats = showStats
+	? {
+			averageRating:
+				reviews.reduce((sum, review) => sum + review.rating, 0) /
+				reviews.length,
+			totalReviews: reviews.length,
+			ratingDistribution: Array.from(
+				{ length: 5 },
+				(_, i) =>
+					reviews.filter((review) => Math.floor(review.rating) === i + 1)
+						.length,
+			),
+		}
+	: null;
 
 // 限制显示的评价数量
 const displayReviews = maxReviews ? reviews.slice(0, maxReviews) : reviews;
 
 // 生成星级评分
 const generateStars = (rating: number) => {
-  return Array.from({ length: 5 }, (_, i) => ({
-    filled: i < Math.floor(rating),
-    half: i === Math.floor(rating) && rating % 1 !== 0,
-  }));
+	return Array.from({ length: 5 }, (_, i) => ({
+		filled: i < Math.floor(rating),
+		half: i === Math.floor(rating) && rating % 1 !== 0,
+	}));
 };
 ---
 

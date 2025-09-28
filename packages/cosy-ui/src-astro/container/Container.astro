@@ -180,226 +180,226 @@
  * @prop {...HTMLAttributes<'div'>} [rest] - 其他HTML div标签属性
  */
 
-import type { HTMLAttributes } from 'astro/types';
-import type { ImageSource } from '../image';
-import Image from '../image/Image.astro';
-import '../../style.ts';
-import type { BackgroundColor } from '../../src/common/backgrounds';
-import { getBackgroundClass } from '../../src/common/backgrounds';
-import type { Size } from '../../src/common/size';
-import type { HeightSize } from '../../src/common/height';
+import type { HTMLAttributes } from "astro/types";
+import type { ImageSource } from "../image";
+import Image from "../image/Image.astro";
+import "../../style.ts";
+import type { BackgroundColor } from "../../src/common/backgrounds";
+import { getBackgroundClass } from "../../src/common/backgrounds";
+import type { Size } from "../../src/common/size";
+import type { HeightSize } from "../../src/common/height";
 import type {
-  FlexDirection,
-  GapSize,
-  FlexAlign,
-  FlexJustify,
-} from '../../src/common/layout';
-import type { PaddingSize } from '../../src/common/padding';
-import type { MarginSize } from '../../src/common/margin';
-import type { RoundedSize } from '../../src/common/rounded';
-import type { FitMode } from '../../src/common/fitmode';
+	FlexDirection,
+	GapSize,
+	FlexAlign,
+	FlexJustify,
+} from "../../src/common/layout";
+import type { PaddingSize } from "../../src/common/padding";
+import type { MarginSize } from "../../src/common/margin";
+import type { RoundedSize } from "../../src/common/rounded";
+import type { FitMode } from "../../src/common/fitmode";
 import {
-  widthClasses,
-  flexClasses,
-  gapClasses,
-  itemsClasses,
-  justifyClasses,
-  roundedClasses,
-} from '../../src/common';
-import { paddingClasses } from '../../src/common/padding';
-import { marginClasses } from '../../src/common/margin';
-import { heightClasses } from '../../src/common/height';
-import type { ContentBorderColor } from './contentBorderColors';
-import { getContentBorderClass } from './contentBorderColors';
-import { validateContainerProps } from './validateProps';
-import ContainerError from './ContainerError.astro';
+	widthClasses,
+	flexClasses,
+	gapClasses,
+	itemsClasses,
+	justifyClasses,
+	roundedClasses,
+} from "../../src/common";
+import { paddingClasses } from "../../src/common/padding";
+import { marginClasses } from "../../src/common/margin";
+import { heightClasses } from "../../src/common/height";
+import type { ContentBorderColor } from "./contentBorderColors";
+import { getContentBorderClass } from "./contentBorderColors";
+import { validateContainerProps } from "./validateProps";
+import ContainerError from "./ContainerError.astro";
 
-export interface IContainerProps extends HTMLAttributes<'div'> {
-  /**
-   * 宽高比（宽/高），设置后容器会保持这个比例
-   */
-  aspectRatio?: number;
+export interface IContainerProps extends HTMLAttributes<"div"> {
+	/**
+	 * 宽高比（宽/高），设置后容器会保持这个比例
+	 */
+	aspectRatio?: number;
 
-  /**
-   * 背景色类型
-   */
-  background?: BackgroundColor;
+	/**
+	 * 背景色类型
+	 */
+	background?: BackgroundColor;
 
-  /**
-   * 背景图片源（本地 ImageMetadata 或 远程 URL）。提供时会用图片铺底作为背景
-   */
-  backgroundImage?: ImageSource;
+	/**
+	 * 背景图片源（本地 ImageMetadata 或 远程 URL）。提供时会用图片铺底作为背景
+	 */
+	backgroundImage?: ImageSource;
 
-  /**
-   * 是否显示边框
-   * @default false
-   */
-  border?: boolean;
+	/**
+	 * 是否显示边框
+	 * @default false
+	 */
+	border?: boolean;
 
-  /**
-   * 内容适配模式：none（默认）、contain（保持比例，尽量占满且不溢出）、cover（保持比例，铺满并可能裁剪）
-   */
-  fit?: FitMode;
+	/**
+	 * 内容适配模式：none（默认）、contain（保持比例，尽量占满且不溢出）、cover（保持比例，铺满并可能裁剪）
+	 */
+	fit?: FitMode;
 
-  /**
-   * 是否给内容比例盒加边框（仅在 fit 模式下生效）
-   */
-  contentBorder?: boolean | ContentBorderColor;
+	/**
+	 * 是否给内容比例盒加边框（仅在 fit 模式下生效）
+	 */
+	contentBorder?: boolean | ContentBorderColor;
 
-  /**
-   * 是否居中显示
-   * @default true
-   */
-  centered?: boolean;
+	/**
+	 * 是否居中显示
+	 * @default true
+	 */
+	centered?: boolean;
 
-  /**
-   * 是否让内部内容居中显示
-   * @default false
-   */
-  contentCentered?: boolean;
+	/**
+	 * 是否让内部内容居中显示
+	 * @default false
+	 */
+	contentCentered?: boolean;
 
-  /**
-   * 自定义类名
-   */
-  class?: string;
+	/**
+	 * 自定义类名
+	 */
+	class?: string;
 
-  /**
-   * flex布局方向，不设置则不启用flex布局
-   */
-  flex?: FlexDirection;
+	/**
+	 * flex布局方向，不设置则不启用flex布局
+	 */
+	flex?: FlexDirection;
 
-  /**
-   * flex项目间距
-   * @default "none"
-   */
-  gap?: GapSize;
+	/**
+	 * flex项目间距
+	 * @default "none"
+	 */
+	gap?: GapSize;
 
-  /**
-   * 容器高度，不设置则不设置高度
-   */
-  height?: HeightSize;
+	/**
+	 * 容器高度，不设置则不设置高度
+	 */
+	height?: HeightSize;
 
-  /**
-   * flex项目水平对齐方式
-   */
-  items?: FlexAlign;
+	/**
+	 * flex项目水平对齐方式
+	 */
+	items?: FlexAlign;
 
-  /**
-   * flex项目垂直对齐方式
-   */
-  justify?: FlexJustify;
+	/**
+	 * flex项目垂直对齐方式
+	 */
+	justify?: FlexJustify;
 
-  /**
-   * 外边距大小
-   * @default "none"
-   */
-  margin?: MarginSize;
+	/**
+	 * 外边距大小
+	 * @default "none"
+	 */
+	margin?: MarginSize;
 
-  /**
-   * 内边距大小
-   * @default "md"
-   */
-  padding?: PaddingSize;
+	/**
+	 * 内边距大小
+	 * @default "md"
+	 */
+	padding?: PaddingSize;
 
-  /**
-   * 容器宽度，不设置则不设置宽度
-   */
-  width?: Size;
+	/**
+	 * 容器宽度，不设置则不设置宽度
+	 */
+	width?: Size;
 
-  /**
-   * 圆角大小
-   * @default "none"
-   */
-  rounded?: RoundedSize;
+	/**
+	 * 圆角大小
+	 * @default "none"
+	 */
+	rounded?: RoundedSize;
 }
 
 // 导出 Props 别名以提升 IDE 对组件使用方的属性提示
 export type Props = IContainerProps;
 
 const {
-  aspectRatio,
-  background,
-  backgroundImage,
-  width = 'md',
-  padding = 'md',
-  margin = 'none',
-  centered = true,
-  contentCentered = false,
-  border = false,
-  fit = 'none',
-  contentBorder = false,
-  flex,
-  gap = 'none',
-  items,
-  justify,
-  rounded = 'none',
-  class: className = '',
-  height,
-  ...rest
+	aspectRatio,
+	background,
+	backgroundImage,
+	width = "md",
+	padding = "md",
+	margin = "none",
+	centered = true,
+	contentCentered = false,
+	border = false,
+	fit = "none",
+	contentBorder = false,
+	flex,
+	gap = "none",
+	items,
+	justify,
+	rounded = "none",
+	class: className = "",
+	height,
+	...rest
 } = Astro.props as Props;
 
 // 处理 contentBorder 属性
 const hasContentBorder = !!contentBorder;
 const contentBorderClass =
-  typeof contentBorder === 'string'
-    ? getContentBorderClass(contentBorder)
-    : getContentBorderClass();
+	typeof contentBorder === "string"
+		? getContentBorderClass(contentBorder)
+		: getContentBorderClass();
 
 // 用户是否显式传入了冲突的尺寸相关配置
 const rawProps = Astro.props as Record<string, unknown>;
 const {
-  hasConflict: hasSizingConflict,
-  messages: validationMessages,
-  resolvedFit,
-  suggestFallbackMinHeight,
+	hasConflict: hasSizingConflict,
+	messages: validationMessages,
+	resolvedFit,
+	suggestFallbackMinHeight,
 } = validateContainerProps(rawProps);
 
 const effectiveFit = resolvedFit ?? fit;
-const fitEnabled = effectiveFit !== 'none' && typeof aspectRatio === 'number';
+const fitEnabled = effectiveFit !== "none" && typeof aspectRatio === "number";
 const isHeightDrivenAspect =
-  !fitEnabled &&
-  typeof aspectRatio === 'number' &&
-  !!height &&
-  height !== 'none';
-const hasExplicitHeight = !!height && height !== 'none';
-const hasDefaultSlot = (Astro as any)?.slots?.has?.('default') ?? false;
+	!fitEnabled &&
+	typeof aspectRatio === "number" &&
+	!!height &&
+	height !== "none";
+const hasExplicitHeight = !!height && height !== "none";
+const hasDefaultSlot = (Astro as any)?.slots?.has?.("default") ?? false;
 const filteredMessages = hasDefaultSlot
-  ? validationMessages.filter((m) => !m.includes('可见性风险'))
-  : validationMessages;
+	? validationMessages.filter((m) => !m.includes("可见性风险"))
+	: validationMessages;
 
 // 构建CSS类名
 const containerClasses = [
-  isHeightDrivenAspect ? 'cosy:w-auto' : 'cosy:w-full',
-  isHeightDrivenAspect
-    ? 'cosy:overflow-hidden cosy:min-w-0 cosy:max-w-full'
-    : '',
-  centered ? 'cosy:mx-auto' : '',
-  contentCentered ? 'cosy:flex cosy:justify-center cosy:items-center' : '',
-  widthClasses[width],
-  paddingClasses[padding],
-  marginClasses[margin],
-  roundedClasses[rounded],
-  getBackgroundClass(background),
-  backgroundImage ? 'cosy:relative cosy:overflow-hidden' : '',
-  border ? 'cosy:border' : '',
-  fitEnabled ? 'cosy:relative cosy:overflow-hidden' : '',
-  suggestFallbackMinHeight && !hasDefaultSlot ? 'cosy:min-h-32' : '',
-  flex ? flexClasses[flex] : '',
-  flex ? gapClasses[gap] : '',
-  items && flex ? itemsClasses[items] : '',
-  justify && flex ? justifyClasses[justify] : '',
-  height ? heightClasses[height] : '',
-  className,
+	isHeightDrivenAspect ? "cosy:w-auto" : "cosy:w-full",
+	isHeightDrivenAspect
+		? "cosy:overflow-hidden cosy:min-w-0 cosy:max-w-full"
+		: "",
+	centered ? "cosy:mx-auto" : "",
+	contentCentered ? "cosy:flex cosy:justify-center cosy:items-center" : "",
+	widthClasses[width],
+	paddingClasses[padding],
+	marginClasses[margin],
+	roundedClasses[rounded],
+	getBackgroundClass(background),
+	backgroundImage ? "cosy:relative cosy:overflow-hidden" : "",
+	border ? "cosy:border" : "",
+	fitEnabled ? "cosy:relative cosy:overflow-hidden" : "",
+	suggestFallbackMinHeight && !hasDefaultSlot ? "cosy:min-h-32" : "",
+	flex ? flexClasses[flex] : "",
+	flex ? gapClasses[gap] : "",
+	items && flex ? itemsClasses[items] : "",
+	justify && flex ? justifyClasses[justify] : "",
+	height ? heightClasses[height] : "",
+	className,
 ];
 
 // 构建内联样式
 const inlineStyles = fitEnabled
-  ? hasExplicitHeight
-    ? 'container-type: size;'
-    : 'container-type: inline-size;'
-  : aspectRatio
-    ? `aspect-ratio: ${aspectRatio};`
-    : '';
+	? hasExplicitHeight
+		? "container-type: size;"
+		: "container-type: inline-size;"
+	: aspectRatio
+		? `aspect-ratio: ${aspectRatio};`
+		: "";
 
 const hasError = hasSizingConflict || filteredMessages.length > 0;
 ---

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import '../../style';
+import "../../style";
 
 /**
  * @component ConfirmDialog
@@ -12,30 +12,30 @@ import '../../style';
  */
 
 defineProps({
-    cancelText: {
-        type: String,
-        default: '取消',
-    },
-    confirmText: {
-        type: String,
-        default: '确认',
-    },
-    message: {
-        type: String,
-        default: 'Are you sure you want to confirm this action?',
-    },
-    modelValue: Boolean,
-    title: {
-        type: String,
-        default: 'Confirm',
-    },
+	cancelText: {
+		type: String,
+		default: "取消",
+	},
+	confirmText: {
+		type: String,
+		default: "确认",
+	},
+	message: {
+		type: String,
+		default: "Are you sure you want to confirm this action?",
+	},
+	modelValue: Boolean,
+	title: {
+		type: String,
+		default: "Confirm",
+	},
 });
 
-const emit = defineEmits(['update:modelValue', 'confirm']);
+const emit = defineEmits(["update:modelValue", "confirm"]);
 
 const handleConfirm = () => {
-    emit('update:modelValue', false);
-    emit('confirm');
+	emit("update:modelValue", false);
+	emit("confirm");
 };
 </script>
 

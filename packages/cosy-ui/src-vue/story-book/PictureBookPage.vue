@@ -25,25 +25,18 @@
  * Provide：
  * - pictureBookLineHeightPx：Ref<number> 每行像素高度，供子组件（如 PictureBookTextBox）使用
  */
-import {
-    computed,
-    onMounted,
-    onBeforeUnmount,
-    ref,
-    watch,
-    provide,
-} from 'vue';
-import type { PropType } from 'vue';
+import { computed, onMounted, onBeforeUnmount, ref, watch, provide } from "vue";
+import type { PropType } from "vue";
 
 // 运行时 props 定义
 const props = defineProps({
-    /** 页面被分为的"行"数量（用于计算每行像素高度） */
-    lines: { type: Number, default: 35 },
+	/** 页面被分为的"行"数量（用于计算每行像素高度） */
+	lines: { type: Number, default: 35 },
 
-    /** 可选：页面宽高比（宽/高）。未提供时容器按宽度自适应；常见绘本为 3/4 或 2/3。 */
-    pageAspectRatio: { type: Number, default: 3 / 4 },
-    /** 是否显示用于排版参考的横线网格 */
-    showLines: { type: Boolean, default: true },
+	/** 可选：页面宽高比（宽/高）。未提供时容器按宽度自适应；常见绘本为 3/4 或 2/3。 */
+	pageAspectRatio: { type: Number, default: 3 / 4 },
+	/** 是否显示用于排版参考的横线网格 */
+	showLines: { type: Boolean, default: true },
 });
 
 // 默认使用中文
@@ -57,42 +50,42 @@ const lineHeightPx = ref<number>(0);
 
 // 重新计算行高，使内容等分为指定的行数
 function recomputeLineHeight() {
-    const container = containerRef.value;
-    if (!container || !props.lines || props.lines <= 0) return;
-    const height = container.clientHeight;
-    const next = height / props.lines;
-    // 防御极小值
-    lineHeightPx.value = Number.isFinite(next) && next > 0 ? next : 0;
+	const container = containerRef.value;
+	if (!container || !props.lines || props.lines <= 0) return;
+	const height = container.clientHeight;
+	const next = height / props.lines;
+	// 防御极小值
+	lineHeightPx.value = Number.isFinite(next) && next > 0 ? next : 0;
 }
 
 let resizeObserver: ResizeObserver | null = null;
 
 onMounted(() => {
-    recomputeLineHeight();
-    // 向子组件注入行高，便于子组件按 35 行对齐
-    provide('pictureBookLineHeightPx', lineHeightPx);
-    if (containerRef.value) {
-        resizeObserver = new ResizeObserver(() => {
-            recomputeLineHeight();
-        });
-        resizeObserver.observe(containerRef.value);
-    }
+	recomputeLineHeight();
+	// 向子组件注入行高，便于子组件按 35 行对齐
+	provide("pictureBookLineHeightPx", lineHeightPx);
+	if (containerRef.value) {
+		resizeObserver = new ResizeObserver(() => {
+			recomputeLineHeight();
+		});
+		resizeObserver.observe(containerRef.value);
+	}
 });
 
 onBeforeUnmount(() => {
-    if (resizeObserver && containerRef.value) {
-        resizeObserver.unobserve(containerRef.value);
-    }
-    resizeObserver = null;
+	if (resizeObserver && containerRef.value) {
+		resizeObserver.unobserve(containerRef.value);
+	}
+	resizeObserver = null;
 });
 
 watch(
-    () => props.lines,
-    () => recomputeLineHeight()
+	() => props.lines,
+	() => recomputeLineHeight(),
 );
 
 const ariaLabel = computed(() => {
-    return isZh.value ? '绘本页' : 'Picture book page';
+	return isZh.value ? "绘本页" : "Picture book page";
 });
 </script>
 
