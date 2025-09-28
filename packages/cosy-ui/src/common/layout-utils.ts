@@ -28,7 +28,7 @@ export function getContainerMinHeightClass(headerHeight: HeaderHeight = 'md'): s
 }
 
 /**
- * 计算Sidebar的top值
+ * 计算Sidebar的top值，防止被头部遮挡
  * @param headerHeight 头部高度
  * @returns CSS 类名字符串
  */
@@ -46,7 +46,7 @@ export function getSidebarTopClass(headerHeight: HeaderHeight = 'md'): string {
 }
 
 /**
- * 计算Sidebar的高度值
+ * 计算Sidebar的高度值，防止被头部遮挡
  * @param headerHeight 头部高度
  * @returns CSS 类名字符串
  */
@@ -60,8 +60,5 @@ export function getSidebarHeightClass(headerHeight: HeaderHeight = 'md'): string
         lg: 'cosy:h-[calc(100vh-4rem)]',
         xl: 'cosy:h-[calc(100vh-5rem)]',
     };
-    return (
-        heightValueMap[headerHeight] ||
-        'cosy:h-[calc(100vh-3rem)]'
-    );
+    return heightValueMap[headerHeight]
 }
