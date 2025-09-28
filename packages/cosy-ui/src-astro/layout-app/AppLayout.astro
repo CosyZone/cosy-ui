@@ -277,10 +277,6 @@ const {
   enableClientRouter = true,
 }: Props = Astro.props as Props;
 
-const containerMinHeightClass = getContainerMinHeightClass(
-  headerConfig?.height as HeaderHeight
-);
-
 const sidebarTopClass = getSidebarTopClass(
   headerConfig?.height as HeaderHeight
 );
@@ -315,21 +311,23 @@ const sidebarHeightClass = getSidebarHeightClass(
       .padding('none')
       .width('full')
       .centered(true)
-      .class(containerMinHeightClass)
       .build()}>
     <!-- 侧边栏容器 -->
     {
       showSidebar && (
-        <Sidebar
-          {...sidebarConfig}
-          topClass={sidebarTopClass}
-          heightClass={sidebarHeightClass}
-        />
+        <div
+          aria-label="AppLayout-Sidebar-Container"
+          class:list={['cosy:sticky', sidebarTopClass, sidebarHeightClass]}>
+          <Sidebar {...sidebarConfig} />
+        </div>
       )
     }
 
     <!-- 主内容区域 -->
-    <Main {...mainContentConfig} class="cosy:flex-1 cosy:min-w-xs">
+    <Main
+      aria-label="AppLayout-Main-Container"
+      {...mainContentConfig}
+      class="cosy:flex-1 cosy:min-w-xs">
       <Skeleton
         showLoading={true}
         loadingSize="xl"
@@ -343,7 +341,10 @@ const sidebarHeightClass = getSidebarHeightClass(
   <!-- Footer -->
   {
     showFooter && (
-      <Container width="full" padding="none">
+      <Container
+        aria-label="AppLayout-Footer-Container"
+        width="full"
+        padding="none">
         <Footer {...footerConfig} />
       </Container>
     )

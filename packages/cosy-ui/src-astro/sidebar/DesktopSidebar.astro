@@ -23,7 +23,6 @@
 
 import '../../style.ts';
 import { SidebarNav } from '../../index-astro';
-import { getMarginTopClass, getMarginBottomClass } from './utils.ts';
 import type { ISidebarProps } from '../../index-astro';
 
 export interface Props extends ISidebarProps {
@@ -37,41 +36,9 @@ export interface Props extends ISidebarProps {
    * @default false
    */
   debug?: boolean;
-
-  /**
-   * 顶部外边距
-   * @default 'none'
-   */
-  marginTop?: string;
-
-  /**
-   * 底部外边距
-   * @default 'none'
-   */
-  marginBottom?: string;
-
-  /**
-   * 顶部定位类名
-   * @default 'cosy:top-12'
-   */
-  topClass?: string;
-
-  /**
-   * 高度类名
-   * @default 'cosy:h-[calc(100vh-3rem)]'
-   */
-  heightClass?: string;
 }
 
-const {
-  sidebarItems,
-  class: className,
-  debug = false,
-  marginTop = 'none',
-  marginBottom = 'none',
-  topClass = 'cosy:top-12',
-  heightClass = 'cosy:h-[calc(100vh-3rem)]',
-} = Astro.props;
+const { sidebarItems, class: className, debug = false } = Astro.props;
 
 // 自动获取当前路径
 const currentPath = Astro.url.pathname;
@@ -83,16 +50,10 @@ const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 <aside
   data-desktop-sidebar
   data-current-path={currentPath}
-  data-margin-top={marginTop}
-  data-margin-bottom={marginBottom}
   class:list={[
     className,
     debugClass,
-    'cosy:hidden cosy:w-60 cosy:lg:block cosy:bg-base-200 cosy:px-4 cosy:overflow-y-auto cosy:sticky',
-    topClass,
-    heightClass,
-    getMarginTopClass(marginTop),
-    getMarginBottomClass(marginBottom),
+    'cosy:hidden cosy:w-60 cosy:lg:block cosy:bg-base-200 cosy:px-4 cosy:overflow-y-auto cosy:h-full',
   ]}>
   <SidebarNav
     sidebarItems={sidebarItems}
