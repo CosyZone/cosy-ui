@@ -80,57 +80,57 @@
  * </Main>
  * ```
  */
-import '../../style.ts';
+import "../../style.ts";
 import {
-    getBackgroundClass,
-    type BackgroundColor,
-} from '../../src/common/backgrounds';
-import { borderClasses, type BorderSize } from '../../src/common/border';
+	getBackgroundClass,
+	type BackgroundColor,
+} from "../../src/common/backgrounds";
+import { borderClasses, type BorderSize } from "../../src/common/border";
 import {
-    Article,
-    TableOfContents,
-    type IMainContentProps,
-} from '../../index-astro';
-import MainError from './MainError.astro';
-import { createPaddingConflictError } from './validate.ts';
+	Article,
+	TableOfContents,
+	type IMainContentProps,
+} from "../../index-astro";
+import MainError from "./MainError.astro";
+import { createPaddingConflictError } from "./validate.ts";
 import {
-    paddingYClasses,
-    paddingTopClasses,
-    paddingBottomClasses,
-    paddingLeftClasses,
-    paddingRightClasses,
-    paddingXClasses,
-} from '../../src/common/padding-axis';
+	paddingYClasses,
+	paddingTopClasses,
+	paddingBottomClasses,
+	paddingLeftClasses,
+	paddingRightClasses,
+	paddingXClasses,
+} from "../../src/common/padding-axis";
 
 export interface Props extends IMainContentProps {}
 
 const {
-    size = 'md',
-    padding = 'md',
-    py = 'md',
-    pt,
-    pb,
-    pl,
-    pr,
-    px,
-    centered = true,
-    backgroundColor,
-    border,
-    layout = 'row',
-    isArticle = false,
-    id,
-    showTableOfContents = false,
-    class: className,
-    'class:list': classList,
-    currentLocale,
-    ...rest
+	size = "md",
+	padding = "md",
+	py = "md",
+	pt,
+	pb,
+	pl,
+	pr,
+	px,
+	centered = true,
+	backgroundColor,
+	border,
+	layout = "row",
+	isArticle = false,
+	id,
+	showTableOfContents = false,
+	class: className,
+	"class:list": classList,
+	currentLocale,
+	...rest
 } = Astro.props;
 
 // 新增获取布局类的函数
 function getLayoutClasses(layout: string) {
-    if (layout === 'row') return 'cosy:flex cosy:flex-row';
-    if (layout === 'column') return 'cosy:flex cosy:flex-col';
-    return 'cosy:flex cosy:flex-col'; // 默认列布局
+	if (layout === "row") return "cosy:flex cosy:flex-row";
+	if (layout === "column") return "cosy:flex cosy:flex-col";
+	return "cosy:flex cosy:flex-col"; // 默认列布局
 }
 
 const layoutClass = getLayoutClasses(layout as string);
@@ -138,74 +138,74 @@ const layoutClass = getLayoutClasses(layout as string);
 // 使用通用背景色函数
 
 const pyClass = py
-    ? paddingYClasses[py as keyof typeof paddingYClasses] || ''
-    : '';
+	? paddingYClasses[py as keyof typeof paddingYClasses] || ""
+	: "";
 
 const paddingTopClass = pt
-    ? paddingTopClasses[pt as keyof typeof paddingTopClasses] || ''
-    : '';
+	? paddingTopClasses[pt as keyof typeof paddingTopClasses] || ""
+	: "";
 
 const paddingBottomClass = pb
-    ? paddingBottomClasses[pb as keyof typeof paddingBottomClasses] || ''
-    : '';
+	? paddingBottomClasses[pb as keyof typeof paddingBottomClasses] || ""
+	: "";
 
 const paddingLeftClass = pl
-    ? paddingLeftClasses[pl as keyof typeof paddingLeftClasses] || ''
-    : '';
+	? paddingLeftClasses[pl as keyof typeof paddingLeftClasses] || ""
+	: "";
 
 const paddingRightClass = pr
-    ? paddingRightClasses[pr as keyof typeof paddingRightClasses] || ''
-    : '';
+	? paddingRightClasses[pr as keyof typeof paddingRightClasses] || ""
+	: "";
 
 const paddingXClass = px
-    ? paddingXClasses[px as keyof typeof paddingXClasses] || ''
-    : '';
+	? paddingXClasses[px as keyof typeof paddingXClasses] || ""
+	: "";
 
 const bgColorClass = getBackgroundClass(backgroundColor as BackgroundColor);
 const borderClass = border
-    ? borderClasses[border as keyof typeof borderClasses] || ''
-    : '';
+	? borderClasses[border as keyof typeof borderClasses] || ""
+	: "";
 
 // 检查 padding 属性冲突
 const paddingError = createPaddingConflictError(px, pl, pr, py, pt, pb);
 
 if (paddingError) {
-    console.error(`Main 组件错误: ${paddingError.message}`);
+	console.error(`Main 组件错误: ${paddingError.message}`);
 }
 
 // 构建自定义样式
 const customStyle = [];
 
 // 只有当没有对应的Tailwind类时，才使用内联样式
-if (!pyClass && py && py !== 'none') {
-    customStyle.push(`padding-top: ${py}; padding-bottom: ${py};`);
+if (!pyClass && py && py !== "none") {
+	customStyle.push(`padding-top: ${py}; padding-bottom: ${py};`);
 }
 
-if (!paddingTopClass && pt && pt !== 'none') {
-    customStyle.push(`padding-top: ${pt};`);
+if (!paddingTopClass && pt && pt !== "none") {
+	customStyle.push(`padding-top: ${pt};`);
 }
 
-if (!paddingBottomClass && pb && pb !== 'none') {
-    customStyle.push(`padding-bottom: ${pb};`);
+if (!paddingBottomClass && pb && pb !== "none") {
+	customStyle.push(`padding-bottom: ${pb};`);
 }
 
-if (!paddingLeftClass && pl && pl !== 'none') {
-    customStyle.push(`padding-left: ${pl};`);
+if (!paddingLeftClass && pl && pl !== "none") {
+	customStyle.push(`padding-left: ${pl};`);
 }
 
-if (!paddingRightClass && pr && pr !== 'none') {
-    customStyle.push(`padding-right: ${pr};`);
+if (!paddingRightClass && pr && pr !== "none") {
+	customStyle.push(`padding-right: ${pr};`);
 }
 
-if (!paddingXClass && px && px !== 'none') {
-    customStyle.push(`padding-left: ${px}; padding-right: ${px};`);
+if (!paddingXClass && px && px !== "none") {
+	customStyle.push(`padding-left: ${px}; padding-right: ${px};`);
 }
 
 if (!bgColorClass && backgroundColor) {
-    customStyle.push(`background-color: ${backgroundColor};`);
+	customStyle.push(`background-color: ${backgroundColor};`);
 }
 
-const inlineStyle = customStyle.length > 0 ? customStyle.join(' ') : undefined;
+const inlineStyle = customStyle.length > 0 ? customStyle.join(" ") : undefined;
 
 // 检查是否有冲突，如果有则显示错误提示
 const hasError = Boolean(paddingError);
