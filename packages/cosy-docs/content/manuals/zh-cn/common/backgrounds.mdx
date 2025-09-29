@@ -4,6 +4,15 @@ folder: false
 order: 1.1
 ---
 
+import { Grid, PlaceHolder } from '@coffic/cosy-ui';
+import ThemeColorsShowcase from '@/components/backgrounds/ThemeColorsShowcase.astro';
+import BaseColorsShowcase from '@/components/backgrounds/BaseColorsShowcase.astro';
+import StatusColorsShowcase from '@/components/backgrounds/StatusColorsShowcase.astro';
+import OpacityShowcase from '@/components/backgrounds/OpacityShowcase.astro';
+import BasicGradientsShowcase from '@/components/backgrounds/BasicGradientsShowcase.astro';
+import ThemeGradientsShowcase from '@/components/backgrounds/ThemeGradientsShowcase.astro';
+import FruitGradientsShowcase from '@/components/backgrounds/FruitGradientsShowcase.astro';
+
 # {frontmatter.title}
 
 ## 简介
@@ -18,10 +27,14 @@ order: 1.1
 - `accent` - 强调色
 - `neutral` - 中性色
 
+<ThemeColorsShowcase />
+
 ### 基础色
 - `base-100` - 基础背景色（浅色）
 - `base-200` - 基础背景色（中等）
 - `base-300` - 基础背景色（深色）
+
+<BaseColorsShowcase />
 
 ### 状态色
 - `success` - 成功色
@@ -29,9 +42,26 @@ order: 1.1
 - `error` - 错误色
 - `info` - 信息色
 
+<StatusColorsShowcase />
+
 ### 特殊值
 - `transparent` - 透明背景
 - `none` - 无背景
+
+<Grid cols={{ base: 2, md: 2 }} gap="md" marginY="md">
+  <PlaceHolder width="full" height="lg" padding="md" background="transparent" class="cosy:border cosy:border-base-300 cosy:rounded-lg">
+    <div class="cosy:text-center">
+      <div class="cosy:text-sm cosy:font-medium cosy:text-base-content">透明</div>
+      <div class="cosy:text-xs cosy:text-base-content/60 cosy:mt-1">transparent</div>
+    </div>
+  </PlaceHolder>
+  <PlaceHolder width="full" height="lg" padding="md" background="none" class="cosy:border cosy:border-base-300 cosy:rounded-lg">
+    <div class="cosy:text-center">
+      <div class="cosy:text-sm cosy:font-medium cosy:text-base-content">无背景</div>
+      <div class="cosy:text-xs cosy:text-base-content/60 cosy:mt-1">none</div>
+    </div>
+  </PlaceHolder>
+</Grid>
 
 ## 透明度变体
 
@@ -48,10 +78,12 @@ order: 1.1
 - `80` - 80% 透明度
 - `90` - 90% 透明度
 
-### 示例
+### 透明度示例
 - `primary/20` - 主题色 20% 透明度
 - `success/10` - 成功色 10% 透明度
 - `error/30` - 错误色 30% 透明度
+
+<OpacityShowcase />
 
 ## 渐变色
 
@@ -61,10 +93,33 @@ order: 1.1
 - `gradient-secondary` - 辅助色渐变
 - `gradient-accent` - 强调色渐变
 
+<BasicGradientsShowcase />
+
 ### 状态渐变
 - `gradient-success` - 成功色渐变
 - `gradient-warning` - 警告色渐变
 - `gradient-info` - 信息色渐变
+
+<Grid cols={{ base: 2, md: 3 }} gap="md" marginY="md">
+  <PlaceHolder width="full" height="lg" padding="md" background="gradient-success" class="cosy:border cosy:border-base-300 cosy:rounded-lg">
+    <div class="cosy:text-center">
+      <div class="cosy:text-sm cosy:font-medium cosy:text-base-content">成功渐变</div>
+      <div class="cosy:text-xs cosy:text-base-content/60 cosy:mt-1">gradient-success</div>
+    </div>
+  </PlaceHolder>
+  <PlaceHolder width="full" height="lg" padding="md" background="gradient-warning" class="cosy:border cosy:border-base-300 cosy:rounded-lg">
+    <div class="cosy:text-center">
+      <div class="cosy:text-sm cosy:font-medium cosy:text-base-content">警告渐变</div>
+      <div class="cosy:text-xs cosy:text-base-content/60 cosy:mt-1">gradient-warning</div>
+    </div>
+  </PlaceHolder>
+  <PlaceHolder width="full" height="lg" padding="md" background="gradient-info" class="cosy:border cosy:border-base-300 cosy:rounded-lg">
+    <div class="cosy:text-center">
+      <div class="cosy:text-sm cosy:font-medium cosy:text-base-content">信息渐变</div>
+      <div class="cosy:text-xs cosy:text-base-content/60 cosy:mt-1">gradient-info</div>
+    </div>
+  </PlaceHolder>
+</Grid>
 
 ### 主题渐变
 - `gradient-sky` - 天空渐变
@@ -72,6 +127,8 @@ order: 1.1
 - `gradient-forest` - 森林渐变
 - `gradient-ocean` - 海洋渐变
 - `gradient-mountain` - 山峰渐变
+
+<ThemeGradientsShowcase />
 
 ### 水果渐变
 - `gradient-flower` - 花朵渐变
@@ -83,6 +140,8 @@ order: 1.1
 - `gradient-kiwi` - 奇异果渐变
 - `gradient-pitaya` - 火龙果渐变
 - `gradient-banana` - 香蕉渐变
+
+<FruitGradientsShowcase />
 
 ## 使用方法
 
@@ -135,6 +194,7 @@ const props = ContainerProps()
 2. **主题适配**：背景色会自动适配明暗主题
 3. **性能考虑**：渐变色比纯色消耗更多资源
 4. **一致性**：在整个应用中保持背景色使用的一致性
+
 
 ## 相关组件
 
