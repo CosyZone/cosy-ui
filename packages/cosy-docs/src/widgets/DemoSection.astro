@@ -7,43 +7,43 @@
  * 适用于展示代码示例、功能演示等场景
  */
 
-import { Container, Heading, type BackgroundColor } from '@coffic/cosy-ui';
+import { Container, Heading, type BackgroundColor } from "@coffic/cosy-ui";
 
 export interface Props {
-    /**
-     * 标题
-     */
-    title: string;
-    /**
-     * 描述
-     */
-    description: string;
-    /**
-     * 背景色类型
-     */
-    background?: BackgroundColor;
-    /**
-     * 布局对齐方式
-     */
-    align?: 'left' | 'right' | 'top' | 'bottom';
-    /**
-     * 自定义类名
-     */
-    class?: string;
+	/**
+	 * 标题
+	 */
+	title: string;
+	/**
+	 * 描述
+	 */
+	description: string;
+	/**
+	 * 背景色类型
+	 */
+	background?: BackgroundColor;
+	/**
+	 * 布局对齐方式
+	 */
+	align?: "left" | "right" | "top" | "bottom";
+	/**
+	 * 自定义类名
+	 */
+	class?: string;
 }
 
 const {
-    title,
-    description,
-    background = 'base-100',
-    align = 'left',
-    class: className = '',
+	title,
+	description,
+	background = "base-100",
+	align = "left",
+	class: className = "",
 } = Astro.props;
 
 // 根据对齐方式决定布局
-const isRightAlign = align === 'right';
-const isTopAlign = align === 'top';
-const isBottomAlign = align === 'bottom';
+const isRightAlign = align === "right";
+const isTopAlign = align === "top";
+const isBottomAlign = align === "bottom";
 const isVerticalLayout = isTopAlign || isBottomAlign;
 ---
 
