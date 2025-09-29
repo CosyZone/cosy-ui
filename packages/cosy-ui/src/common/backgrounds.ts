@@ -194,8 +194,7 @@ export const gradientBackgroundClasses = {
 // 图案背景类名映射（Pattern backgrounds）
 export const patternBackgroundClasses = {
     'dot-grid': 'cosy:bg-dot-grid',
-    'dot-grid-soft': 'cosy:bg-dot-grid-soft',
-    'dot-grid-lg': 'cosy:bg-dot-grid-lg',
+    'stripes': 'cosy:bg-stripes',
 } as const;
 
 // 合并所有背景色类名
