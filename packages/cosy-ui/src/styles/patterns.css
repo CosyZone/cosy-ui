@@ -1,51 +1,51 @@
 @layer utilities {
-  /* 斜向条纹背景：使用 CSS 变量控制角度、粗细、间距与透明度，::before 作为覆盖层 */
-  /* 变量（亮色默认） */
-  :root {
-    /* 条纹颜色（RGB，不含透明度）*/
-    --cosy-stripes-rgb: 0, 0, 0; /* 亮色：黑色 */
+	/* 斜向条纹背景：使用 CSS 变量控制角度、粗细、间距与透明度，::before 作为覆盖层 */
+	/* 变量（亮色默认） */
+	:root {
+		/* 条纹颜色（RGB，不含透明度）*/
+		--cosy-stripes-rgb: 0, 0, 0; /* 亮色：黑色 */
 
-    /* 条纹参数 */
-    --cosy-stripes-angle: 45deg; /* 条纹角度 */
-    --cosy-stripes-thickness: 1px; /* 每条条纹的粗细 */
-    --cosy-stripes-spacing: 12px; /* 条纹之间的间距（含透明段）*/
-    --cosy-stripes-alpha: 0.06; /* 透明度（亮色更淡）*/
-  }
+		/* 条纹参数 */
+		--cosy-stripes-angle: 45deg; /* 条纹角度 */
+		--cosy-stripes-thickness: 1px; /* 每条条纹的粗细 */
+		--cosy-stripes-spacing: 12px; /* 条纹之间的间距（含透明段）*/
+		--cosy-stripes-alpha: 0.06; /* 透明度（亮色更淡）*/
+	}
 
-  .cosy\:bg-stripes {
-    position: relative !important;
-    isolation: isolate !important;
-    background-color: #f3f4f6 !important;
-  }
+	.cosy\:bg-stripes {
+		position: relative !important;
+		isolation: isolate !important;
+		background-color: #f3f4f6 !important;
+	}
 
-  /* 基础（亮色） */
-  .cosy\:bg-stripes::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background-image: repeating-linear-gradient(
-      var(--cosy-stripes-angle),
-      rgba(var(--cosy-stripes-rgb), var(--cosy-stripes-alpha)) 0
-        var(--cosy-stripes-thickness),
-      transparent var(--cosy-stripes-thickness) var(--cosy-stripes-spacing)
-    );
-    background-position: 0 0;
-    background-repeat: repeat;
-  }
+	/* 基础（亮色） */
+	.cosy\:bg-stripes::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		pointer-events: none;
+		background-image: repeating-linear-gradient(
+			var(--cosy-stripes-angle),
+			rgba(var(--cosy-stripes-rgb), var(--cosy-stripes-alpha)) 0
+				var(--cosy-stripes-thickness),
+			transparent var(--cosy-stripes-thickness) var(--cosy-stripes-spacing)
+		);
+		background-position: 0 0;
+		background-repeat: repeat;
+	}
 
-  /* 暗色覆盖 */
-  @media (prefers-color-scheme: dark) {
-    .cosy\:bg-stripes {
-      background-color: #111111 !important;
-    }
-    /* 暗色：条纹颜色为白色，适当提高透明度 */
-    :root {
-      --cosy-stripes-rgb: 255, 255, 255;
-    }
-    .cosy\:bg-stripes {
-      --cosy-stripes-alpha: 0.1;
-    }
-  }
+	/* 暗色覆盖 */
+	@media (prefers-color-scheme: dark) {
+		.cosy\:bg-stripes {
+			background-color: #111111 !important;
+		}
+		/* 暗色：条纹颜色为白色，适当提高透明度 */
+		:root {
+			--cosy-stripes-rgb: 255, 255, 255;
+		}
+		.cosy\:bg-stripes {
+			--cosy-stripes-alpha: 0.1;
+		}
+	}
 }
