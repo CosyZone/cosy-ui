@@ -1,0 +1,147 @@
+---
+title: '背景色属性'
+folder: false
+order: 1.1
+---
+
+# {frontmatter.title}
+
+## 简介
+
+背景色属性是 Cosy UI 组件库中的通用属性，用于设置组件的背景颜色。支持基础背景色、透明度变体和渐变色等多种样式。
+
+## 基础背景色
+
+### 主题色
+- `primary` - 主题色
+- `secondary` - 辅助色
+- `accent` - 强调色
+- `neutral` - 中性色
+
+### 基础色
+- `base-100` - 基础背景色（浅色）
+- `base-200` - 基础背景色（中等）
+- `base-300` - 基础背景色（深色）
+
+### 状态色
+- `success` - 成功色
+- `warning` - 警告色
+- `error` - 错误色
+- `info` - 信息色
+
+### 特殊值
+- `transparent` - 透明背景
+- `none` - 无背景
+
+## 透明度变体
+
+每个基础背景色都支持透明度变体，格式为 `颜色/透明度`：
+
+### 透明度值
+- `10` - 10% 透明度
+- `20` - 20% 透明度
+- `30` - 30% 透明度
+- `40` - 40% 透明度
+- `50` - 50% 透明度
+- `60` - 60% 透明度
+- `70` - 70% 透明度
+- `80` - 80% 透明度
+- `90` - 90% 透明度
+
+### 示例
+- `primary/20` - 主题色 20% 透明度
+- `success/10` - 成功色 10% 透明度
+- `error/30` - 错误色 30% 透明度
+
+## 渐变色
+
+### 基础渐变
+- `gradient` - 默认渐变（主题色到辅助色）
+- `gradient-primary` - 主题色渐变
+- `gradient-secondary` - 辅助色渐变
+- `gradient-accent` - 强调色渐变
+
+### 状态渐变
+- `gradient-success` - 成功色渐变
+- `gradient-warning` - 警告色渐变
+- `gradient-info` - 信息色渐变
+
+### 主题渐变
+- `gradient-sky` - 天空渐变
+- `gradient-sunset` - 日落渐变
+- `gradient-forest` - 森林渐变
+- `gradient-ocean` - 海洋渐变
+- `gradient-mountain` - 山峰渐变
+
+### 水果渐变
+- `gradient-flower` - 花朵渐变
+- `gradient-watermelon` - 西瓜渐变
+- `gradient-lemon` - 柠檬渐变
+- `gradient-grape` - 葡萄渐变
+- `gradient-blueberry` - 蓝莓渐变
+- `gradient-mango` - 芒果渐变
+- `gradient-kiwi` - 奇异果渐变
+- `gradient-pitaya` - 火龙果渐变
+- `gradient-banana` - 香蕉渐变
+
+## 使用方法
+
+### 在组件中使用
+```astro
+<Container background="primary">
+  主题色背景
+</Container>
+
+<Container background="success/20">
+  成功色背景，20% 透明度
+</Container>
+
+<Container background="gradient-sky">
+  天空渐变背景
+</Container>
+```
+
+### 在构建器模式中使用
+```astro
+const props = ContainerProps()
+  .background("primary/20")
+  .build();
+
+<Container {...props}>
+  构建器模式设置背景
+</Container>
+```
+
+## 最佳实践
+
+### 1. 选择合适的背景色
+- **主要内容**：使用 `base-100` 或 `base-200`
+- **强调内容**：使用 `primary` 或 `accent`
+- **状态提示**：使用对应的状态色（`success`、`warning`、`error`、`info`）
+
+### 2. 透明度使用
+- **轻微强调**：使用 `10-20%` 透明度
+- **中等强调**：使用 `30-50%` 透明度
+- **强烈强调**：使用 `60-90%` 透明度
+
+### 3. 渐变使用
+- **装饰性背景**：使用主题渐变
+- **品牌展示**：使用品牌色渐变
+- **特殊效果**：使用水果渐变增加趣味性
+
+## 注意事项
+
+1. **可访问性**：确保背景色与文字颜色有足够的对比度
+2. **主题适配**：背景色会自动适配明暗主题
+3. **性能考虑**：渐变色比纯色消耗更多资源
+4. **一致性**：在整个应用中保持背景色使用的一致性
+
+## 相关组件
+
+以下组件支持背景色属性：
+- `Container` - 容器组件
+- `Card` - 卡片组件
+- `Button` - 按钮组件
+- `Alert` - 警告组件
+- `Badge` - 徽章组件
+- `Modal` - 模态框组件
