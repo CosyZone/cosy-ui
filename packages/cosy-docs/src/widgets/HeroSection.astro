@@ -1,0 +1,104 @@
+---
+/**
+ * @component HeroSection
+ *
+ * @description
+ * 首页 Hero 区域组件，包含标题、描述、按钮和团队成员展示
+ */
+
+import {
+    Banner,
+    Container,
+    Grid,
+    Hero,
+    LinkUtil,
+    TeamMember,
+    MacWindow,
+} from '@coffic/cosy-ui';
+import { MemberConfig } from '@/config/config.member';
+
+export interface Props {
+    /**
+     * 语言设置
+     */
+    lang: string;
+}
+
+const { lang } = Astro.props;
+
+const title = 'Cosy UI';
+
+const description =
+    lang === 'zh-cn'
+        ? '一个组件库，帮助你构建美好的用户界面'
+        : 'A library of components for building user interfaces';
+---
+
+<Hero
+    title={title}
+    description={description}
+    glassmorphism={false}
+    links={[
+        {
+            text: lang === 'zh-cn' ? '开始使用' : 'Get Started',
+            href: LinkUtil.createUrl(`/${lang}/manuals`),
+            variant: 'primary',
+        },
+        {
+            text: 'GitHub',
+            href: 'https://github.com/cosyzone/cosy-ui',
+            variant: 'secondary',
+            target: '_blank',
+        },
+    ]}>
+    <div slot="app">
+        <MacWindow
+            title="Cosy UI 组件库"
+            height="h-64"
+            bgType="primary"
+            width="xl">
+            <Container width="full" padding="sm">
+                <Grid
+                    marginY="lg"
+                    cols={{
+                        base: 1,
+                        sm: 2,
+                        md: 2,
+                        lg: 4,
+                        xl: 4,
+                    }}
+                    gap="xs">
+                    {
+                        MemberConfig.getMembers().map((member) => (
+                            <TeamMember
+                                name={member.title.get(lang)}
+                                role=""
+                                avatar={member.image ?? ''}
+                                bio={member.description.get(lang)}
+                                socialLinks={[
+                                    {
+                                        platform: 'github',
+                                        url: member.links.github,
+                                    },
+                                ]}
+                            />
+                        ))
+                    }
+                </Grid>
+
+                <Container
+                    width="lg"
+                    padding="none"
+                    style="margin-top: 1rem; margin-bottom: 1rem;">
+                    <Banner animation="slide" bgColor="gradient-forest">
+                        {
+                            lang === 'zh-cn'
+                                ? '创造更多精彩'
+                                : 'Create more magic'
+                        }
+                    </Banner>
+                </Container>
+            </Container>
+        </MacWindow>
+    </div>
+</Hero>

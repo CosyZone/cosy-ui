@@ -1,0 +1,104 @@
+---
+/**
+ * @component DesignPhilosophy
+ *
+ * @description
+ * 设计理念展示组件，使用 DemoSection 展示智能属性验证的特点
+ */
+
+import DemoSection from './DemoSection.astro';
+import {
+    Container,
+    Heading,
+    CodePanel,
+    ErrorIcon,
+    CheckCircle,
+} from '@coffic/cosy-ui';
+
+export interface Props {
+    /**
+     * 语言设置
+     */
+    lang: string;
+}
+
+const { lang } = Astro.props;
+const title = lang === 'zh-cn' ? '设计理念' : 'Design Philosophy';
+const description =
+    lang === 'zh-cn'
+        ? '让组件开发更加智能和可靠，告别静默覆盖的困扰'
+        : 'Making component development smarter and more reliable, goodbye to silent overrides';
+---
+
+<DemoSection
+    title={title}
+    description={description}
+    background="accent/20"
+    align="left">
+    <!-- 演示区域 -->
+    <Container slot="demo" flex="col" gap="lg">
+        <!-- 传统 HTML 示例 -->
+        <Container background="base-100" rounded="lg" padding="md" border>
+            <Heading level={4} margin="sm" color="base-content">
+                {lang === 'zh-cn' ? '传统 HTML' : 'Traditional HTML'}
+            </Heading>
+            <CodePanel
+                code={lang === 'zh-cn'
+                    ? `<div style="padding: 1rem; padding-left: 2rem;">
+  <!-- 冲突属性，但浏览器会正常渲染 -->
+  <!-- 最终效果：只有 padding-left 生效 -->
+</div>`
+                    : `<div style="padding: 1rem; padding-left: 2rem;">
+  <!-- Conflicting properties, but browser renders normally -->
+  <!-- Final result: only padding-left takes effect -->
+</div>`}
+                language="html"
+                theme="dark-plus"
+                showLineNumbers={false}
+            />
+            <Container margin="sm" flex="row" items="center" gap="sm">
+                <ErrorIcon size="20px" color="currentColor" />
+                {
+                    lang === 'zh-cn'
+                        ? '静默覆盖，难以调试'
+                        : 'Silent override, hard to debug'
+                }
+            </Container>
+        </Container>
+
+        <!-- Cosy UI 示例 -->
+        <Container background="base-100" rounded="lg" padding="md" border>
+            <Heading level={4} margin="sm" color="base-content">
+                {lang === 'zh-cn' ? 'Cosy UI' : 'Cosy UI'}
+            </Heading>
+            <CodePanel
+                code={lang === 'zh-cn'
+                    ? `<Main px="lg" pl="md" pr="md">
+  <!-- 智能检测到属性冲突 -->
+  <!-- 显示错误提示和解决方案 -->
+</Main>`
+                    : `<Main px="lg" pl="md" pr="md">
+  <!-- Smart conflict detection -->
+  <!-- Shows error message and solutions -->
+</Main>`}
+                language="astro"
+                theme="dark-plus"
+                showLineNumbers={false}
+            />
+            <Container
+                margin="sm"
+                flex="row"
+                items="center"
+                gap="sm"
+                class="cosy:text-sm"
+                color="success">
+                <CheckCircle size="20px" color="currentColor" />
+                {
+                    lang === 'zh-cn'
+                        ? '智能提示，开发友好'
+                        : 'Smart hints, developer-friendly'
+                }
+            </Container>
+        </Container>
+    </Container>
+</DemoSection>

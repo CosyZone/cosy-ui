@@ -1,149 +1,38 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import {
-	Banner,
-	Container,
-	Grid,
-	Hero,
-	LinkUtil,
-	TeamMember,
-	Products,
-	Heading,
-	PlaceHolder,
-	MacWindow,
-} from "@coffic/cosy-ui";
-import { MemberConfig } from "@/config/config.member";
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { PlaceHolder } from '@coffic/cosy-ui';
+import HeroSection from '@/widgets/HeroSection.astro';
+import DesignPhilosophy from '@/widgets/DesignPhilosophy.astro';
+import LiveDemo from '@/widgets/LiveDemo.astro';
+import Showcase from '@/widgets/Showcase.astro';
 
-const { lang = "zh-cn" } = Astro.params;
-
-const title = "Cosy UI";
-
-const description =
-	lang === "zh-cn"
-		? "一个组件库，帮助你构建美好的用户界面"
-		: "A library of components for building user interfaces";
+const { lang = 'zh-cn' } = Astro.params;
 
 export const getStaticPaths = async () => {
-	return [
-		{
-			params: { lang: "zh-cn" },
-		},
-		{
-			params: { lang: "en" },
-		},
-	];
+    return [
+        {
+            params: { lang: 'zh-cn' },
+        },
+        {
+            params: { lang: 'en' },
+        },
+    ];
 };
 
 interface Props {
-	lang: string;
+    lang: string;
 }
 ---
 
 <BaseLayout
-  title="Cosy UI 组件库"
-  showSidebar={false}
-  showTOC={false}
-  isArticle={false}
-  verticalPadding="none"
-  mainLayout="column">
-  <Hero
-    title={title}
-    description={description}
-    glassmorphism={false}
-    links={[
-      {
-        text: lang === 'zh-cn' ? '开始使用' : 'Get Started',
-        href: LinkUtil.createUrl(`/${lang}/manuals`),
-        variant: 'primary',
-      },
-      {
-        text: 'GitHub',
-        href: 'https://github.com/cosyzone/cosy-ui',
-        variant: 'secondary',
-        target: '_blank',
-      },
-    ]}>
-    <div slot="app">
-      <MacWindow
-        title="Cosy UI 组件库"
-        height="h-64"
-        bgType="primary"
-        width="xl">
-        <Container width="full" padding="sm">
-          <Grid
-            marginY="lg"
-            cols={{
-              base: 1,
-              sm: 2,
-              md: 2,
-              lg: 4,
-              xl: 4,
-            }}
-            gap="xs">
-            {
-              MemberConfig.getMembers().map((member) => (
-                <TeamMember
-                  name={member.title.get(lang)}
-                  role=""
-                  avatar={member.image ?? ''}
-                  bio={member.description.get(lang)}
-                  socialLinks={[
-                    {
-                      platform: 'github',
-                      url: member.links.github,
-                    },
-                  ]}
-                />
-              ))
-            }
-          </Grid>
-
-          <Container
-            width="lg"
-            padding="none"
-            style="margin-top: 1rem; margin-bottom: 1rem;">
-            <Banner animation="slide" bgColor="gradient-forest">
-              {lang === 'zh-cn' ? '创造更多精彩' : 'Create more magic'}
-            </Banner>
-          </Container>
-        </Container>
-      </MacWindow>
-    </div>
-  </Hero>
-
-  <Container>
-    <Heading level={2} align="center" margin="lg">
-      {lang === 'zh-cn' ? '使用案例' : 'Showcase'}
-    </Heading>
-    <Products
-      showBorder={false}
-      margin="xl"
-      products={[
-        {
-          name: lang === 'zh-cn' ? '快易知' : 'Kuaiyizhi',
-          description:
-            lang === 'zh-cn' ? '一个知识库网站' : 'A knowledge base website',
-          productUrl: 'https://kuaiyizhi.cn/zh-cn/courses',
-          image: 'https://github.com/buildmyown.png',
-        },
-        {
-          name: lang === 'zh-cn' ? 'Coffic Lab' : 'Coffic Lab',
-          description: lang === 'zh-cn' ? 'Coffic 工作室' : 'Coffic Studio',
-          productUrl: 'https://coffic.cn',
-          image: 'https://github.com/cofficlab.png',
-        },
-      ]}
-      columns={{
-        base: 1,
-        sm: 2,
-        md: 2,
-        lg: 2,
-        xl: 2,
-      }}
-      cardSize="md"
-      gap="md"
-    />
-  </Container>
-
-  <PlaceHolder width="full" height="6xl" />
+    title="Cosy UI 组件库"
+    showSidebar={false}
+    showTOC={false}
+    isArticle={false}
+    verticalPadding="none"
+    mainLayout="column">
+    <HeroSection lang={lang} />
+    <DesignPhilosophy lang={lang} />
+    <LiveDemo lang={lang} />
+    <Showcase lang={lang} />
 </BaseLayout>

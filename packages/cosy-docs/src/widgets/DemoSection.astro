@@ -1,0 +1,84 @@
+---
+/**
+ * @component DemoSection
+ *
+ * @description
+ * 演示区域组件，使用类似 ProductHero 的布局但展示实际的演示组件
+ * 适用于展示代码示例、功能演示等场景
+ */
+
+import { Container, Heading, type BackgroundColor } from '@coffic/cosy-ui';
+
+export interface Props {
+    /**
+     * 标题
+     */
+    title: string;
+    /**
+     * 描述
+     */
+    description: string;
+    /**
+     * 背景色类型
+     */
+    background?: BackgroundColor;
+    /**
+     * 布局对齐方式
+     */
+    align?: 'left' | 'right';
+    /**
+     * 自定义类名
+     */
+    class?: string;
+}
+
+const {
+    title,
+    description,
+    background = 'base-100',
+    align = 'left',
+    class: className = '',
+} = Astro.props;
+
+// 根据对齐方式决定列顺序
+const isRightAlign = align === 'right';
+---
+
+<Container width="full" background={background} padding="xl" class={className}>
+    <Container width="2xl" flex="row" gap="xl" items="center" justify="between">
+        <div
+            class="cosy:grid cosy:grid-cols-1 cosy:md:grid-cols-2 cosy:gap-16 cosy:items-center">
+            <!-- 内容区域 -->
+            <div
+                class:list={[
+                    isRightAlign ? 'cosy:md:order-2' : 'cosy:md:order-1',
+                ]}>
+                <div class="cosy:space-y-6">
+                    <!-- 标题 -->
+                    <Heading
+                        level={2}
+                        class="cosy:text-4xl cosy:font-bold cosy:leading-tight">
+                        {title}
+                    </Heading>
+
+                    <!-- 描述 -->
+                    <p
+                        class="cosy:text-lg cosy:text-base-content/80 cosy:leading-relaxed">
+                        {description}
+                    </p>
+                </div>
+            </div>
+
+            <!-- 演示区域 -->
+            <div
+                class:list={[
+                    isRightAlign ? 'cosy:md:order-1' : 'cosy:md:order-2',
+                ]}>
+                <div
+                    class="cosy:relative cosy:bg-base-200 cosy:rounded-2xl cosy:p-8 cosy:shadow-lg">
+                    <slot name="demo" />
+                </div>
+            </div>
+        </div>
+    </Container>
+</Container>
