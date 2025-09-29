@@ -4,7 +4,7 @@ folder: false
 order: 1.1
 ---
 
-import { Grid, PlaceHolder } from '@coffic/cosy-ui';
+import { Grid, PlaceHolder, Text } from '@coffic/cosy-ui';
 import ThemeColorsShowcase from '@/components/backgrounds/ThemeColorsShowcase.astro';
 import BaseColorsShowcase from '@/components/backgrounds/BaseColorsShowcase.astro';
 import StatusColorsShowcase from '@/components/backgrounds/StatusColorsShowcase.astro';
@@ -12,6 +12,8 @@ import OpacityShowcase from '@/components/backgrounds/OpacityShowcase.astro';
 import BasicGradientsShowcase from '@/components/backgrounds/BasicGradientsShowcase.astro';
 import ThemeGradientsShowcase from '@/components/backgrounds/ThemeGradientsShowcase.astro';
 import FruitGradientsShowcase from '@/components/backgrounds/FruitGradientsShowcase.astro';
+import SpecialValuesShowcase from '@/components/backgrounds/SpecialValuesShowcase.astro';
+import StatusGradientsShowcase from '@/components/backgrounds/StatusGradientsShowcase.astro';
 
 # {frontmatter.title}
 
@@ -48,20 +50,7 @@ import FruitGradientsShowcase from '@/components/backgrounds/FruitGradientsShowc
 - `transparent` - 透明背景
 - `none` - 无背景
 
-<Grid cols={{ base: 2, md: 2 }} gap="md" marginY="md">
-  <PlaceHolder width="full" height="lg" padding="md" background="transparent" class="cosy:border cosy:border-base-300 cosy:rounded-lg">
-    <div class="cosy:text-center">
-      <div class="cosy:text-sm cosy:font-medium cosy:text-base-content">透明</div>
-      <div class="cosy:text-xs cosy:text-base-content/60 cosy:mt-1">transparent</div>
-    </div>
-  </PlaceHolder>
-  <PlaceHolder width="full" height="lg" padding="md" background="none" class="cosy:border cosy:border-base-300 cosy:rounded-lg">
-    <div class="cosy:text-center">
-      <div class="cosy:text-sm cosy:font-medium cosy:text-base-content">无背景</div>
-      <div class="cosy:text-xs cosy:text-base-content/60 cosy:mt-1">none</div>
-    </div>
-  </PlaceHolder>
-</Grid>
+<SpecialValuesShowcase />
 
 ## 透明度变体
 
@@ -100,26 +89,7 @@ import FruitGradientsShowcase from '@/components/backgrounds/FruitGradientsShowc
 - `gradient-warning` - 警告色渐变
 - `gradient-info` - 信息色渐变
 
-<Grid cols={{ base: 2, md: 3 }} gap="md" marginY="md">
-  <PlaceHolder width="full" height="lg" padding="md" background="gradient-success" class="cosy:border cosy:border-base-300 cosy:rounded-lg">
-    <div class="cosy:text-center">
-      <div class="cosy:text-sm cosy:font-medium cosy:text-base-content">成功渐变</div>
-      <div class="cosy:text-xs cosy:text-base-content/60 cosy:mt-1">gradient-success</div>
-    </div>
-  </PlaceHolder>
-  <PlaceHolder width="full" height="lg" padding="md" background="gradient-warning" class="cosy:border cosy:border-base-300 cosy:rounded-lg">
-    <div class="cosy:text-center">
-      <div class="cosy:text-sm cosy:font-medium cosy:text-base-content">警告渐变</div>
-      <div class="cosy:text-xs cosy:text-base-content/60 cosy:mt-1">gradient-warning</div>
-    </div>
-  </PlaceHolder>
-  <PlaceHolder width="full" height="lg" padding="md" background="gradient-info" class="cosy:border cosy:border-base-300 cosy:rounded-lg">
-    <div class="cosy:text-center">
-      <div class="cosy:text-sm cosy:font-medium cosy:text-base-content">信息渐变</div>
-      <div class="cosy:text-xs cosy:text-base-content/60 cosy:mt-1">gradient-info</div>
-    </div>
-  </PlaceHolder>
-</Grid>
+<StatusGradientsShowcase />
 
 ### 主题渐变
 - `gradient-sky` - 天空渐变
@@ -171,29 +141,6 @@ const props = ContainerProps()
 </Container>
 ```
 
-## 最佳实践
-
-### 1. 选择合适的背景色
-- **主要内容**：使用 `base-100` 或 `base-200`
-- **强调内容**：使用 `primary` 或 `accent`
-- **状态提示**：使用对应的状态色（`success`、`warning`、`error`、`info`）
-
-### 2. 透明度使用
-- **轻微强调**：使用 `10-20%` 透明度
-- **中等强调**：使用 `30-50%` 透明度
-- **强烈强调**：使用 `60-90%` 透明度
-
-### 3. 渐变使用
-- **装饰性背景**：使用主题渐变
-- **品牌展示**：使用品牌色渐变
-- **特殊效果**：使用水果渐变增加趣味性
-
-## 注意事项
-
-1. **可访问性**：确保背景色与文字颜色有足够的对比度
-2. **主题适配**：背景色会自动适配明暗主题
-3. **性能考虑**：渐变色比纯色消耗更多资源
-4. **一致性**：在整个应用中保持背景色使用的一致性
 
 
 ## 相关组件

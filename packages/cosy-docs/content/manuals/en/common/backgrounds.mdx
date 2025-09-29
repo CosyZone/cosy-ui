@@ -4,8 +4,16 @@ folder: false
 order: 1.1
 ---
 
-import { Grid, PlaceHolder } from '@coffic/cosy-ui';
+import { Grid, PlaceHolder, Text } from '@coffic/cosy-ui';
 import ThemeColorsShowcaseEn from '@/components/backgrounds/ThemeColorsShowcaseEn.astro';
+import BaseColorsShowcase from '@/components/backgrounds/BaseColorsShowcase.astro';
+import StatusColorsShowcase from '@/components/backgrounds/StatusColorsShowcase.astro';
+import OpacityShowcase from '@/components/backgrounds/OpacityShowcase.astro';
+import BasicGradientsShowcase from '@/components/backgrounds/BasicGradientsShowcase.astro';
+import ThemeGradientsShowcase from '@/components/backgrounds/ThemeGradientsShowcase.astro';
+import FruitGradientsShowcase from '@/components/backgrounds/FruitGradientsShowcase.astro';
+import SpecialValuesShowcase from '@/components/backgrounds/SpecialValuesShowcase.astro';
+import StatusGradientsShowcase from '@/components/backgrounds/StatusGradientsShowcase.astro';
 
 # {frontmatter.title}
 
@@ -28,15 +36,21 @@ Background color properties are common properties in the Cosy UI component libra
 - `base-200` - Base background color (medium)
 - `base-300` - Base background color (dark)
 
+<BaseColorsShowcase />
+
 ### Status Colors
 - `success` - Success color
 - `warning` - Warning color
 - `error` - Error color
 - `info` - Info color
 
+<StatusColorsShowcase />
+
 ### Special Values
 - `transparent` - Transparent background
 - `none` - No background
+
+<SpecialValuesShowcase />
 
 ## Opacity Variants
 
@@ -58,6 +72,8 @@ Each basic background color supports opacity variants in the format `color/opaci
 - `success/10` - Success color with 10% opacity
 - `error/30` - Error color with 30% opacity
 
+<OpacityShowcase />
+
 ## Gradient Colors
 
 ### Basic Gradients
@@ -66,10 +82,14 @@ Each basic background color supports opacity variants in the format `color/opaci
 - `gradient-secondary` - Secondary color gradient
 - `gradient-accent` - Accent color gradient
 
+<BasicGradientsShowcase />
+
 ### Status Gradients
 - `gradient-success` - Success color gradient
 - `gradient-warning` - Warning color gradient
 - `gradient-info` - Info color gradient
+
+<StatusGradientsShowcase />
 
 ### Theme Gradients
 - `gradient-sky` - Sky gradient
@@ -77,6 +97,8 @@ Each basic background color supports opacity variants in the format `color/opaci
 - `gradient-forest` - Forest gradient
 - `gradient-ocean` - Ocean gradient
 - `gradient-mountain` - Mountain gradient
+
+<ThemeGradientsShowcase />
 
 ### Fruit Gradients
 - `gradient-flower` - Flower gradient
@@ -88,6 +110,8 @@ Each basic background color supports opacity variants in the format `color/opaci
 - `gradient-kiwi` - Kiwi gradient
 - `gradient-pitaya` - Pitaya gradient
 - `gradient-banana` - Banana gradient
+
+<FruitGradientsShowcase />
 
 ## Usage
 
@@ -117,29 +141,6 @@ const props = ContainerProps()
 </Container>
 ```
 
-## Best Practices
-
-### 1. Choose Appropriate Background Colors
-- **Main Content**: Use `base-100` or `base-200`
-- **Emphasized Content**: Use `primary` or `accent`
-- **Status Indicators**: Use corresponding status colors (`success`, `warning`, `error`, `info`)
-
-### 2. Opacity Usage
-- **Light Emphasis**: Use `10-20%` opacity
-- **Medium Emphasis**: Use `30-50%` opacity
-- **Strong Emphasis**: Use `60-90%` opacity
-
-### 3. Gradient Usage
-- **Decorative Backgrounds**: Use theme gradients
-- **Brand Showcase**: Use brand color gradients
-- **Special Effects**: Use fruit gradients for fun
-
-## Notes
-
-1. **Accessibility**: Ensure sufficient contrast between background and text colors
-2. **Theme Adaptation**: Background colors automatically adapt to light/dark themes
-3. **Performance**: Gradients consume more resources than solid colors
-4. **Consistency**: Maintain consistent background color usage throughout the application
 
 
 ## Related Components
