@@ -3,9 +3,8 @@ title: '边框属性'
 folder: false
 order: 1.2
 ---
-
 import { Grid, PlaceHolder, Text } from '@coffic/cosy-ui';
-import BorderShowcase from '@/components/borders/BorderShowcase.astro';
+import { BorderPackage } from '@/components/borders/index.ts';
 
 # {frontmatter.title}
 
@@ -22,7 +21,7 @@ import BorderShowcase from '@/components/borders/BorderShowcase.astro';
 - `lg` - 粗边框（4px）
 - `xl` - 超粗边框（8px）
 
-<BorderShowcase />
+<BorderPackage.BorderShowcase />
 
 ## 边框颜色
 
@@ -40,6 +39,8 @@ import BorderShowcase from '@/components/borders/BorderShowcase.astro';
 - `base-300` - 基础色边框（深色）
 - `transparent` - 透明边框
 - `none` - 无边框颜色
+
+<BorderPackage.BorderColorShowcase />
 
 ### 透明度变体
 每个颜色都支持透明度变体，格式为 `颜色/透明度`：
@@ -92,6 +93,8 @@ const props = ContainerProps()
   构建器模式设置边框
 </Container>
 ```
+
+
 
 ## 相关组件
 

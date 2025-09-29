@@ -5,7 +5,7 @@ order: 1.2
 ---
 
 import { Grid, PlaceHolder, Text } from '@coffic/cosy-ui';
-import BorderShowcase from '@/components/borders/BorderShowcase.astro';
+import { BorderPackage } from '@/components/borders/index.ts';
 
 # {frontmatter.title}
 
@@ -22,7 +22,7 @@ The border property is a common attribute in the Cosy UI component library, used
 - `lg` - Thick border (4px)
 - `xl` - Extra thick border (8px)
 
-<BorderShowcase />
+<BorderPackage.BorderShowcase />
 
 ## Border Colors
 
@@ -40,6 +40,8 @@ The border property is a common attribute in the Cosy UI component library, used
 - `base-300` - Base-300 color border
 - `transparent` - Transparent border
 - `none` - No border color
+
+<BorderPackage.BorderColorShowcase />
 
 ### Opacity Variants
 Each color supports opacity variants with the format `color/opacity`:
