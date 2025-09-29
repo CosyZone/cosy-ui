@@ -14,6 +14,7 @@ import ThemeGradientsShowcase from '@/components/backgrounds/ThemeGradientsShowc
 import FruitGradientsShowcase from '@/components/backgrounds/FruitGradientsShowcase.astro';
 import SpecialValuesShowcase from '@/components/backgrounds/SpecialValuesShowcase.astro';
 import StatusGradientsShowcase from '@/components/backgrounds/StatusGradientsShowcase.astro';
+import PatternShowcase from '@/components/backgrounds/PatternShowcase.astro';
 
 # {frontmatter.title}
 
@@ -113,6 +114,19 @@ import StatusGradientsShowcase from '@/components/backgrounds/StatusGradientsSho
 
 <FruitGradientsShowcase />
 
+## Pattern 背景
+
+- `dot-grid` - 点阵网格
+
+<PatternShowcase />
+
+示例：
+```astro
+<Container background="dot-grid" padding="lg">
+  点阵网格背景
+</Container>
+```
+
 ## 使用方法
 
 ### 在组件中使用
@@ -127,6 +141,10 @@ import StatusGradientsShowcase from '@/components/backgrounds/StatusGradientsSho
 
 <Container background="gradient-sky">
   天空渐变背景
+</Container>
+
+<Container background="dot-grid">
+  Pattern 背景（点阵网格）
 </Container>
 ```
 

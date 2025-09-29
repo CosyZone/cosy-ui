@@ -1,3 +1,5 @@
+import "./style.ts";
+
 // 基础组件和功能模块 (按字母顺序)
 export * from "./src-astro/alert";
 export * from "./src-astro/alert-dialog";

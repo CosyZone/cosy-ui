@@ -1,3 +1,5 @@
+import "./style.ts";
+
 // 导出组件，按照字母排序
 export * from "./src-vue/alert-dialog/index";
 export * from "./src-vue/alert/index";

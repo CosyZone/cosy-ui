@@ -14,6 +14,7 @@ import ThemeGradientsShowcase from '@/components/backgrounds/ThemeGradientsShowc
 import FruitGradientsShowcase from '@/components/backgrounds/FruitGradientsShowcase.astro';
 import SpecialValuesShowcase from '@/components/backgrounds/SpecialValuesShowcase.astro';
 import StatusGradientsShowcase from '@/components/backgrounds/StatusGradientsShowcase.astro';
+import PatternShowcaseEn from '@/components/backgrounds/PatternShowcaseEn.astro';
 
 # {frontmatter.title}
 
@@ -113,6 +114,21 @@ Each basic background color supports opacity variants in the format `color/opaci
 
 <FruitGradientsShowcase />
 
+## Pattern Backgrounds
+
+- `dot-grid` - Subtle dot grid (follows theme base-300 tone)
+- `dot-grid-soft` - Softer dot grid
+- `dot-grid-lg` - Larger spacing dot grid
+
+<PatternShowcaseEn />
+
+Example:
+```astro
+<Container background="dot-grid" padding="lg">
+  Dot grid pattern background
+</Container>
+```
+
 ## Usage
 
 ### In Components
@@ -127,6 +143,10 @@ Each basic background color supports opacity variants in the format `color/opaci
 
 <Container background="gradient-sky">
   Sky gradient background
+</Container>
+
+<Container background="dot-grid">
+  Pattern background (dot grid)
 </Container>
 ```
 
