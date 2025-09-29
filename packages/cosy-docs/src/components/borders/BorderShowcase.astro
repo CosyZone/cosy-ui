@@ -1,0 +1,33 @@
+---
+import { Container, Text } from '@coffic/cosy-ui';
+import type { BorderSize } from '@coffic/cosy-ui';
+
+const borderSizes: BorderSize[] = ['none', 'sm', 'md', 'lg', 'xl'];
+const borderLabels = {
+    none: '无边框',
+    sm: '细边框 (1px)',
+    md: '中等边框 (2px)',
+    lg: '粗边框 (4px)',
+    xl: '超粗边框 (8px)',
+};
+---
+
+<Container flex="col" gap="lg" padding="lg">
+    {
+        borderSizes.map((border) => (
+            <Container
+                key={border}
+                border={border}
+                padding="md"
+                background="base-100"
+                flex="row"
+                items="center"
+                gap="md">
+                <Text weight="medium">{borderLabels[border]}</Text>
+                <Text size="sm" color="base-content/60">
+                    border="{border}"
+                </Text>
+            </Container>
+        ))
+    }
+</Container>

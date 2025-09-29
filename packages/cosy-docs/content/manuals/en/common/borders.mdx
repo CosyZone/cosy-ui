@@ -1,0 +1,63 @@
+---
+title: 'Border Property'
+folder: false
+order: 1.2
+---
+
+import { Grid, PlaceHolder, Text } from '@coffic/cosy-ui';
+import BorderShowcase from '@/components/borders/BorderShowcase.astro';
+
+# {frontmatter.title}
+
+## Introduction
+
+The border property is a common attribute in the Cosy UI component library, used to set the border style of components. It supports multiple border sizes, providing unified visual hierarchy.
+
+## Border Sizes
+
+### Available Options
+- `none` - No border
+- `sm` - Thin border (1px)
+- `md` - Medium border (2px)
+- `lg` - Thick border (4px)
+- `xl` - Extra thick border (8px)
+
+<BorderShowcase />
+
+## Usage
+
+### In Components
+```astro
+<Container border="sm">
+  Thin border container
+</Container>
+
+<Container border="md">
+  Medium border container
+</Container>
+
+<Container border="lg">
+  Thick border container
+</Container>
+```
+
+### In Builder Pattern
+```astro
+const props = ContainerProps()
+  .border("md")
+  .build();
+
+<Container {...props}>
+  Builder pattern border setting
+</Container>
+```
+
+## Related Components
+
+The following components support the border property:
+- `Container` - Container component
+- `Card` - Card component
+- `Button` - Button component
+- `Alert` - Alert component
+- `Badge` - Badge component
+- `Modal` - Modal component
