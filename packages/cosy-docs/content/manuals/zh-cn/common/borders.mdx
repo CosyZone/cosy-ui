@@ -11,7 +11,7 @@ import BorderShowcase from '@/components/borders/BorderShowcase.astro';
 
 ## 简介
 
-边框属性是 Cosy UI 组件库中的通用属性，用于设置组件的边框样式。支持多种边框尺寸，提供统一的视觉层次。
+边框属性是 Cosy UI 组件库中的通用属性，用于设置组件的边框样式。支持多种边框尺寸和颜色，提供统一的视觉层次。
 
 ## 边框尺寸
 
@@ -23,6 +23,38 @@ import BorderShowcase from '@/components/borders/BorderShowcase.astro';
 - `xl` - 超粗边框（8px）
 
 <BorderShowcase />
+
+## 边框颜色
+
+### 可用颜色
+- `primary` - 主要色边框
+- `secondary` - 辅助色边框
+- `accent` - 强调色边框
+- `neutral` - 中性色边框
+- `success` - 成功色边框
+- `warning` - 警告色边框
+- `error` - 错误色边框
+- `info` - 信息色边框
+- `base-100` - 基础色边框（浅色）
+- `base-200` - 基础色边框（中等）
+- `base-300` - 基础色边框（深色）
+- `transparent` - 透明边框
+- `none` - 无边框颜色
+
+### 透明度变体
+每个颜色都支持透明度变体，格式为 `颜色/透明度`：
+
+- `primary/10` - 主要色 10% 透明度
+- `primary/20` - 主要色 20% 透明度
+- `primary/30` - 主要色 30% 透明度
+- `primary/40` - 主要色 40% 透明度
+- `primary/50` - 主要色 50% 透明度
+- `primary/60` - 主要色 60% 透明度
+- `primary/70` - 主要色 70% 透明度
+- `primary/80` - 主要色 80% 透明度
+- `primary/90` - 主要色 90% 透明度
+
+所有颜色都支持相同的透明度变体（secondary、accent、neutral、success、warning、error、info、base-100、base-200、base-300）。
 
 ## 使用方法
 
@@ -39,12 +71,21 @@ import BorderShowcase from '@/components/borders/BorderShowcase.astro';
 <Container border="lg">
   粗边框容器
 </Container>
+
+<Container border="md" borderColor="primary">
+  主要色边框
+</Container>
+
+<Container border="lg" borderColor="success/50">
+  半透明成功色边框
+</Container>
 ```
 
 ### 在构建器模式中使用
 ```astro
 const props = ContainerProps()
   .border("md")
+  .borderColor("primary")
   .build();
 
 <Container {...props}>

@@ -11,7 +11,7 @@ import BorderShowcase from '@/components/borders/BorderShowcase.astro';
 
 ## Introduction
 
-The border property is a common attribute in the Cosy UI component library, used to set the border style of components. It supports multiple border sizes, providing unified visual hierarchy.
+The border property is a common attribute in the Cosy UI component library, used to set the border style of components. It supports multiple border sizes and colors, providing unified visual hierarchy.
 
 ## Border Sizes
 
@@ -23,6 +23,38 @@ The border property is a common attribute in the Cosy UI component library, used
 - `xl` - Extra thick border (8px)
 
 <BorderShowcase />
+
+## Border Colors
+
+### Available Colors
+- `primary` - Primary color border
+- `secondary` - Secondary color border
+- `accent` - Accent color border
+- `neutral` - Neutral color border
+- `success` - Success color border
+- `warning` - Warning color border
+- `error` - Error color border
+- `info` - Info color border
+- `base-100` - Base-100 color border
+- `base-200` - Base-200 color border
+- `base-300` - Base-300 color border
+- `transparent` - Transparent border
+- `none` - No border color
+
+### Opacity Variants
+Each color supports opacity variants with the format `color/opacity`:
+
+- `primary/10` - Primary color with 10% opacity
+- `primary/20` - Primary color with 20% opacity
+- `primary/30` - Primary color with 30% opacity
+- `primary/40` - Primary color with 40% opacity
+- `primary/50` - Primary color with 50% opacity
+- `primary/60` - Primary color with 60% opacity
+- `primary/70` - Primary color with 70% opacity
+- `primary/80` - Primary color with 80% opacity
+- `primary/90` - Primary color with 90% opacity
+
+The same opacity variants are available for all colors (secondary, accent, neutral, success, warning, error, info, base-100, base-200, base-300).
 
 ## Usage
 
@@ -39,12 +71,21 @@ The border property is a common attribute in the Cosy UI component library, used
 <Container border="lg">
   Thick border container
 </Container>
+
+<Container border="md" borderColor="primary">
+  Primary color border
+</Container>
+
+<Container border="lg" borderColor="success/50">
+  Semi-transparent success border
+</Container>
 ```
 
 ### In Builder Pattern
 ```astro
 const props = ContainerProps()
   .border("md")
+  .borderColor("primary")
   .build();
 
 <Container {...props}>

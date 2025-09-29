@@ -65,6 +65,20 @@
  * </Container>
  * ```
  *
+ * 带彩色边框的容器：
+ * ```astro
+ * <Container border="lg" borderColor="primary">
+ *   <p>带有主要色边框的容器</p>
+ * </Container>
+ * ```
+ *
+ * 带透明度边框的容器：
+ * ```astro
+ * <Container border="md" borderColor="success/50">
+ *   <p>带有半透明成功色边框的容器</p>
+ * </Container>
+ * ```
+ *
  * 设置外边距：
  * ```astro
  * <Container margin="lg">
@@ -189,6 +203,7 @@
  * @prop {string} [background] - 背景色类型，支持所有 Tailwind 背景色和透明度变体，如：base-100、primary、secondary、accent、neutral、info、success、warning、error，以及透明度变体如 primary/10、secondary/20 等
  * @prop {ImageSource} [backgroundImage] - 背景图片源（本地 ImageMetadata 或 远程 URL）。提供时会用图片铺底作为背景
  * @prop {string} [border="none"] - 边框尺寸，可选值：none、sm、md、lg、xl
+ * @prop {string} [borderColor] - 边框颜色，支持所有预定义的颜色和透明度变体，如：primary、success、primary/50 等
  * @prop {boolean|string} [contentBorder=false] - 是否给内容比例盒加边框（仅在 fit 模式下生效）。可设置为 true（使用默认黑色边框）或具体的颜色值（如 "primary/50"、"success"、"gray-300" 等）
  * @prop {boolean} [centered=true] - 是否居中显示，设置为false时容器将靠左对齐
  * @prop {boolean} [contentCentered=false] - 是否让内部内容居中显示，启用后会在容器内使用flex布局居中内容
@@ -218,8 +233,8 @@ import Image from '../image/Image.astro';
 import '../../style.ts';
 import type { BackgroundColor } from '../../src/common/backgrounds';
 import { getBackgroundClass } from '../../src/common/backgrounds';
-import type { BorderSize } from '../../src/common/border';
-import { getBorderClass } from '../../src/common/border';
+import type { BorderSize, BorderColor } from '../../src/common/border';
+import { getBorderClass, getBorderColorClass } from '../../src/common/border';
 import type { Size } from '../../src/common/size';
 import type { HeightSize } from '../../src/common/height';
 import type {
@@ -278,6 +293,11 @@ export interface IContainerProps extends HTMLAttributes<'div'> {
      * @default "none"
      */
     border?: BorderSize;
+
+    /**
+     * 边框颜色，支持所有预定义的颜色和透明度变体
+     */
+    borderColor?: BorderColor;
 
     /**
      * 内容适配模式：none（默认）、contain（保持比例，尽量占满且不溢出）、cover（保持比例，铺满并可能裁剪）
@@ -405,6 +425,7 @@ const {
     centered = true,
     contentCentered = false,
     border = 'none',
+    borderColor,
     fit = 'none',
     contentBorder = false,
     flex,
@@ -499,6 +520,7 @@ const containerClasses = [
     getBackgroundClass(background),
     backgroundImage ? 'cosy:relative cosy:overflow-hidden' : '',
     getBorderClass(border),
+    getBorderColorClass(borderColor),
     fitEnabled ? 'cosy:relative cosy:overflow-hidden' : '',
     suggestFallbackMinHeight && !hasDefaultSlot ? 'cosy:min-h-32' : '',
     flex ? flexClasses[flex] : '',
