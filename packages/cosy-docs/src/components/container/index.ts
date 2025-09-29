@@ -18,6 +18,12 @@ import ContainerWidthsContainer from "./ContainerWidthsContainer.astro";
 import ContainerFitContainer from "./ContainerFitContainer.astro";
 import ContainerContentBorderContainer from "./ContainerContentBorderContainer.astro";
 import ContainerSlotContainer from "./ContainerSlotContainer.astro";
+import ContainerPaddingAxisContainer from "./ContainerPaddingAxisContainer.astro";
+import ContainerPaddingTopContainer from "./ContainerPaddingTopContainer.astro";
+import ContainerPaddingBottomContainer from "./ContainerPaddingBottomContainer.astro";
+import ContainerPaddingXContainer from "./ContainerPaddingXContainer.astro";
+import ContainerPaddingLeftContainer from "./ContainerPaddingLeftContainer.astro";
+import ContainerPaddingRightContainer from "./ContainerPaddingRightContainer.astro";
 
 export const ContainerPackage = {
 	Examples: {
@@ -38,6 +44,12 @@ export const ContainerPackage = {
 		Justify: ContainerJustifyContainer,
 		Margin: ContainerMarginContainer,
 		Padding: ContainerPaddingContainer,
+		PaddingAxis: ContainerPaddingAxisContainer,
+		PaddingTop: ContainerPaddingTopContainer,
+		PaddingBottom: ContainerPaddingBottomContainer,
+		PaddingX: ContainerPaddingXContainer,
+		PaddingLeft: ContainerPaddingLeftContainer,
+		PaddingRight: ContainerPaddingRightContainer,
 		Rounded: ContainerRoundedContainer,
 		Widths: ContainerWidthsContainer,
 		Fit: ContainerFitContainer,

@@ -72,6 +72,32 @@
  * </Container>
  * ```
  *
+ * 设置垂直内边距：
+ * ```astro
+ * <Container py="lg">
+ *   <p>带有大垂直内边距的容器</p>
+ * </Container>
+ * ```
+ *
+ * 设置水平内边距：
+ * ```astro
+ * <Container px="xl">
+ *   <p>带有大水平内边距的容器</p>
+ * </Container>
+ * ```
+ *
+ * 分别设置各边内边距：
+ * ```astro
+ * <Container pt="lg" pb="md" pl="sm" pr="xl">
+ *   <p>自定义各边内边距的容器</p>
+ * </Container>
+ * ```
+ *
+ * ⚠️ **注意**:
+ * - 不能同时使用 `px` 和 `pl`/`pr` 属性，因为它们都会设置水平内边距，会产生冲突
+ * - 不能同时使用 `py` 和 `pt`/`pb` 属性，因为它们都会设置垂直内边距，会产生冲突
+ * 如果同时提供这些冲突的属性，组件会显示错误提示。
+ *
  * 设置圆角：
  * ```astro
  * <Container rounded="lg">
@@ -175,6 +201,12 @@
  * @prop {string} [justify] - flex项目垂直对齐方式，可选值：start、end、center、between、around、evenly，仅在启用flex布局时生效
  * @prop {string} [margin='none'] - 外边距大小，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl
  * @prop {string} [padding='md'] - 内边距大小，可选值：none、sm、md、lg、xl、2xl、3xl、4xl
+ * @prop {string} [py] - 垂直内边距（上下），可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl
+ * @prop {string} [pt] - 顶部内边距，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl
+ * @prop {string} [pb] - 底部内边距，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl
+ * @prop {string} [px] - 水平内边距（左右），可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl
+ * @prop {string} [pl] - 左侧内边距，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl
+ * @prop {string} [pr] - 右侧内边距，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl
  * @prop {string} [width='md'] - 容器宽度，可选值：xs、sm、md、lg、xl、full，控制容器的最大宽度
  * @prop {string} [rounded='none'] - 圆角大小，可选值：none、sm、md、lg、xl、full
  * @prop {...HTMLAttributes<'div'>} [rest] - 其他HTML div标签属性
@@ -209,9 +241,18 @@ import {
 import { paddingClasses } from "../../src/common/padding";
 import { marginClasses } from "../../src/common/margin";
 import { heightClasses } from "../../src/common/height";
+import {
+	paddingYClasses,
+	paddingTopClasses,
+	paddingBottomClasses,
+	paddingLeftClasses,
+	paddingRightClasses,
+	paddingXClasses,
+} from "../../src/common/padding-axis";
 import type { ContentBorderColor } from "./contentBorderColors";
 import { getContentBorderClass } from "./contentBorderColors";
 import { validateContainerProps } from "./validateProps";
+import { createPaddingConflictError } from "./validatePadding";
 import ContainerError from "./ContainerError.astro";
 
 export interface IContainerProps extends HTMLAttributes<"div"> {
@@ -302,6 +343,36 @@ export interface IContainerProps extends HTMLAttributes<"div"> {
 	padding?: PaddingSize;
 
 	/**
+	 * 垂直内边距（上下）
+	 */
+	py?: PaddingSize;
+
+	/**
+	 * 顶部内边距
+	 */
+	pt?: PaddingSize;
+
+	/**
+	 * 底部内边距
+	 */
+	pb?: PaddingSize;
+
+	/**
+	 * 水平内边距（左右）
+	 */
+	px?: PaddingSize;
+
+	/**
+	 * 左侧内边距
+	 */
+	pl?: PaddingSize;
+
+	/**
+	 * 右侧内边距
+	 */
+	pr?: PaddingSize;
+
+	/**
 	 * 容器宽度，不设置则不设置宽度
 	 */
 	width?: Size;
@@ -322,6 +393,12 @@ const {
 	backgroundImage,
 	width = "md",
 	padding = "md",
+	py,
+	pt,
+	pb,
+	px,
+	pl,
+	pr,
 	margin = "none",
 	centered = true,
 	contentCentered = false,
@@ -344,6 +421,38 @@ const contentBorderClass =
 	typeof contentBorder === "string"
 		? getContentBorderClass(contentBorder)
 		: getContentBorderClass();
+
+// 检查 padding 属性冲突
+const paddingError = createPaddingConflictError(px, pl, pr, py, pt, pb);
+
+if (paddingError) {
+	console.error(`Container 组件错误: ${paddingError.message}`);
+}
+
+// 构建轴向内边距类名
+const pyClass = py
+	? paddingYClasses[py as keyof typeof paddingYClasses] || ""
+	: "";
+
+const paddingTopClass = pt
+	? paddingTopClasses[pt as keyof typeof paddingTopClasses] || ""
+	: "";
+
+const paddingBottomClass = pb
+	? paddingBottomClasses[pb as keyof typeof paddingBottomClasses] || ""
+	: "";
+
+const paddingLeftClass = pl
+	? paddingLeftClasses[pl as keyof typeof paddingLeftClasses] || ""
+	: "";
+
+const paddingRightClass = pr
+	? paddingRightClasses[pr as keyof typeof paddingRightClasses] || ""
+	: "";
+
+const paddingXClass = px
+	? paddingXClasses[px as keyof typeof paddingXClasses] || ""
+	: "";
 
 // 用户是否显式传入了冲突的尺寸相关配置
 const rawProps = Astro.props as Record<string, unknown>;
@@ -377,6 +486,12 @@ const containerClasses = [
 	contentCentered ? "cosy:flex cosy:justify-center cosy:items-center" : "",
 	widthClasses[width],
 	paddingClasses[padding],
+	pyClass,
+	paddingTopClass,
+	paddingBottomClass,
+	paddingLeftClass,
+	paddingRightClass,
+	paddingXClass,
 	marginClasses[margin],
 	roundedClasses[rounded],
 	getBackgroundClass(background),
@@ -401,72 +516,80 @@ const inlineStyles = fitEnabled
 		? `aspect-ratio: ${aspectRatio};`
 		: "";
 
-const hasError = hasSizingConflict || filteredMessages.length > 0;
+const hasError =
+	hasSizingConflict || filteredMessages.length > 0 || Boolean(paddingError);
 ---
 
-{hasError && <ContainerError messages={filteredMessages} />}
+{
+    hasError && (
+        <ContainerError
+            messages={filteredMessages}
+            paddingError={paddingError}
+        />
+    )
+}
 
 {
-  !hasError && (
-    <section class:list={[containerClasses]} style={inlineStyles} {...rest}>
-      {backgroundImage && (
-        <Image
-          src={backgroundImage}
-          alt=""
-          layout="fill"
-          objectFit="cover"
-          asBackground
-          class="cosy:-z-10 cosy:pointer-events-none"
-        />
-      )}
-      {fitEnabled ? (
-        hasExplicitHeight ? (
-          <div class="cosy:absolute cosy:inset-0 cosy:grid cosy:place-items-center">
-            <div
-              class:list={[
-                hasContentBorder
-                  ? `cosy:border ${contentBorderClass} ${roundedClasses[rounded]}`
-                  : '',
-              ]}
-              style={`aspect-ratio: ${aspectRatio}; width: ${effectiveFit === 'contain' ? `min(100cqw, calc(100cqh * ${aspectRatio}))` : `max(100cqw, calc(100cqh * ${aspectRatio}))`}; height: auto;`}>
-              <div class="cosy:relative cosy:w-full cosy:h-full">
+    !hasError && (
+        <section class:list={[containerClasses]} style={inlineStyles} {...rest}>
+            {backgroundImage && (
+                <Image
+                    src={backgroundImage}
+                    alt=""
+                    layout="fill"
+                    objectFit="cover"
+                    asBackground
+                    class="cosy:-z-10 cosy:pointer-events-none"
+                />
+            )}
+            {fitEnabled ? (
+                hasExplicitHeight ? (
+                    <div class="cosy:absolute cosy:inset-0 cosy:grid cosy:place-items-center">
+                        <div
+                            class:list={[
+                                hasContentBorder
+                                    ? `cosy:border ${contentBorderClass} ${roundedClasses[rounded]}`
+                                    : '',
+                            ]}
+                            style={`aspect-ratio: ${aspectRatio}; width: ${effectiveFit === 'contain' ? `min(100cqw, calc(100cqh * ${aspectRatio}))` : `max(100cqw, calc(100cqh * ${aspectRatio}))`}; height: auto;`}>
+                            <div class="cosy:relative cosy:w-full cosy:h-full">
+                                <slot />
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                    <div
+                        class:list={[
+                            'cosy:grid cosy:place-items-center',
+                            roundedClasses[rounded],
+                        ]}>
+                        <div
+                            class:list={[
+                                hasContentBorder
+                                    ? `cosy:border ${contentBorderClass} ${roundedClasses[rounded]}`
+                                    : '',
+                            ]}
+                            style={`aspect-ratio: ${aspectRatio}; width: 100%; height: auto;`}>
+                            <div
+                                class:list={[
+                                    'cosy:relative cosy:w-full cosy:h-full',
+                                    roundedClasses[rounded],
+                                ]}
+                                aria-label="container-content">
+                                <slot />
+                            </div>
+                        </div>
+                    </div>
+                )
+            ) : isHeightDrivenAspect ? (
+                <div class="cosy:relative cosy:w-full cosy:h-full">
+                    <div class="cosy:absolute cosy:inset-0">
+                        <slot />
+                    </div>
+                </div>
+            ) : (
                 <slot />
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div
-            class:list={[
-              'cosy:grid cosy:place-items-center',
-              roundedClasses[rounded],
-            ]}>
-            <div
-              class:list={[
-                hasContentBorder
-                  ? `cosy:border ${contentBorderClass} ${roundedClasses[rounded]}`
-                  : '',
-              ]}
-              style={`aspect-ratio: ${aspectRatio}; width: 100%; height: auto;`}>
-              <div
-                class:list={[
-                  'cosy:relative cosy:w-full cosy:h-full',
-                  roundedClasses[rounded],
-                ]}
-                aria-label="container-content">
-                <slot />
-              </div>
-            </div>
-          </div>
-        )
-      ) : isHeightDrivenAspect ? (
-        <div class="cosy:relative cosy:w-full cosy:h-full">
-          <div class="cosy:absolute cosy:inset-0">
-            <slot />
-          </div>
-        </div>
-      ) : (
-        <slot />
-      )}
-    </section>
-  )
+            )}
+        </section>
+    )
 }

@@ -86,6 +86,35 @@ flex 项目垂直对齐方式，可选值：start、end、center、between、aro
 内边距大小，可选值：none、sm、md、lg、xl。
 <ContainerPackage.Containers.Padding />
 
+### py
+垂直内边距（上下），可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl。
+<ContainerPackage.Containers.PaddingAxis />
+
+### pt
+顶部内边距，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl。
+<ContainerPackage.Containers.PaddingTop />
+
+### pb
+底部内边距，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl。
+<ContainerPackage.Containers.PaddingBottom />
+
+### px
+水平内边距（左右），可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl。
+<ContainerPackage.Containers.PaddingX />
+
+### pl
+左侧内边距，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl。
+<ContainerPackage.Containers.PaddingLeft />
+
+### pr
+右侧内边距，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl。
+<ContainerPackage.Containers.PaddingRight />
+
+⚠️ **注意**:
+- 不能同时使用 `px` 和 `pl`/`pr` 属性，因为它们都会设置水平内边距，会产生冲突
+- 不能同时使用 `py` 和 `pt`/`pb` 属性，因为它们都会设置垂直内边距，会产生冲突
+- 如果同时提供这些冲突的属性，组件会显示错误提示。
+
 ### rounded
 圆角大小，可选值：none、sm、md、lg、xl、full。
 <ContainerPackage.Containers.Rounded />
