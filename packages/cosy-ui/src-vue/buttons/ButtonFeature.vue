@@ -1,40 +1,40 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const props = defineProps({
-  title: {
-    type: String,
-    required: false,
-    default: 'Feature Button',
-  },
-  size: {
-    type: String,
-    default: 'w-64',
-    validator: (value: string) =>
-      ['w-64', 'w-32', 'w-16', 'w-12', 'w-8'].includes(value),
-  },
-  lang: {
-    type: String,
-    default: 'en',
-    validator: (value: string) => ['en', 'zh'].includes(value),
-  },
-  showTips: {
-    type: Boolean,
-    default: false,
-  },
+	title: {
+		type: String,
+		required: false,
+		default: "Feature Button",
+	},
+	size: {
+		type: String,
+		default: "w-64",
+		validator: (value: string) =>
+			["w-64", "w-32", "w-16", "w-12", "w-8"].includes(value),
+	},
+	lang: {
+		type: String,
+		default: "en",
+		validator: (value: string) => ["en", "zh"].includes(value),
+	},
+	showTips: {
+		type: Boolean,
+		default: false,
+	},
 });
 
 const isPopupVisible = ref(false);
 
 const showPopup = () => {
-  if (props.showTips) {
-    isPopupVisible.value = true;
-    setTimeout(hidePopup, 2000); // Auto-hide after 2 seconds
-  }
+	if (props.showTips) {
+		isPopupVisible.value = true;
+		setTimeout(hidePopup, 2000); // Auto-hide after 2 seconds
+	}
 };
 
 const hidePopup = () => {
-  isPopupVisible.value = false;
+	isPopupVisible.value = false;
 };
 </script>
 <template>

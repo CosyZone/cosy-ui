@@ -24,17 +24,17 @@
 
 <script setup lang="ts">
 withDefaults(
-  defineProps<{
-    loading?: boolean;
-    duration?: number;
-  }>(),
-  {
-    loading: false,
-    duration: undefined,
-  }
+	defineProps<{
+		loading?: boolean;
+		duration?: number;
+	}>(),
+	{
+		loading: false,
+		duration: undefined,
+	},
 );
 
-defineEmits(['click']);
+defineEmits(["click"]);
 </script>
 
 <style scoped>

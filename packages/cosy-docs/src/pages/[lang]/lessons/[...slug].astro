@@ -1,10 +1,10 @@
 ---
-import DemoLayout from '@/layouts/DemoLayout.astro';
-import { lessonRepo } from '@coffic/cosy-content';
-import { type RenderResult } from 'astro:content';
+import DemoLayout from "@/layouts/DemoLayout.astro";
+import { lessonRepo } from "@coffic/cosy-content";
+import { type RenderResult } from "astro:content";
 
 export async function getStaticPaths() {
-  return lessonRepo.getStaticPaths();
+	return lessonRepo.getStaticPaths();
 }
 
 /**
@@ -17,27 +17,27 @@ export async function getStaticPaths() {
 
 const { slug, lang } = Astro.params;
 if (!slug) {
-  return Astro.redirect('/lessons');
+	return Astro.redirect("/lessons");
 }
 
-let bookId = slug.split('/')[0];
-let id = '';
+let bookId = slug.split("/")[0];
+let id = "";
 
-if (slug.split('/').length === 1) {
-  id = `${bookId}/${lang}`;
+if (slug.split("/").length === 1) {
+	id = `${bookId}/${lang}`;
 } else {
-  id = `${bookId}/${lang}/${slug.replace(`${bookId}/`, '')}`;
+	id = `${bookId}/${lang}/${slug.replace(`${bookId}/`, "")}`;
 }
 
 const lesson = await lessonRepo.find(id);
-const title = lesson?.getTitle() || '没有找到课程';
+const title = lesson?.getTitle() || "没有找到课程";
 const sidebarItem = (await (await lesson?.getBook())?.toSidebarItem()) || null;
 
-let Content: RenderResult['Content'] | null = null;
+let Content: RenderResult["Content"] | null = null;
 
 if (lesson) {
-  const renderResult = await lesson.render();
-  Content = renderResult.Content;
+	const renderResult = await lesson.render();
+	Content = renderResult.Content;
 }
 ---
 

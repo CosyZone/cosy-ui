@@ -49,59 +49,59 @@ Alert 组件用于向用户显示重要的提示信息，支持多种类型的�
 -->
 
 <script setup lang="ts">
-import '../../style';
-import { computed } from 'vue';
-import { InfoIcon, SuccessIcon, WarningIcon, ErrorIcon } from '../icons/index';
-import { RiCloseLine } from '@remixicon/vue';
-import { marginClasses, type MarginSize } from '../../src/common/margin';
+import "../../style";
+import { computed } from "vue";
+import { InfoIcon, SuccessIcon, WarningIcon, ErrorIcon } from "../icons/index";
+import { RiCloseLine } from "@remixicon/vue";
+import { marginClasses, type MarginSize } from "../../src/common/margin";
 
 interface Props {
-  type?: 'info' | 'success' | 'warning' | 'error';
-  title?: string;
-  class?: string;
-  closable?: boolean;
-  marginY?: MarginSize;
+	type?: "info" | "success" | "warning" | "error";
+	title?: string;
+	class?: string;
+	closable?: boolean;
+	marginY?: MarginSize;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  type: 'info',
-  title: '',
-  class: '',
-  closable: true,
-  marginY: undefined,
+	type: "info",
+	title: "",
+	class: "",
+	closable: true,
+	marginY: undefined,
 });
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(["close"]);
 
 const handleClose = () => {
-  emit('close');
+	emit("close");
 };
 
 // 根据类型设置样式
 const alertClass = computed(() => {
-  const alertClasses = {
-    info: 'cosy:alert-info',
-    success: 'cosy:alert-success',
-    warning: 'cosy:alert-warning',
-    error: 'cosy:alert-error',
-  };
-  return alertClasses[props.type];
+	const alertClasses = {
+		info: "cosy:alert-info",
+		success: "cosy:alert-success",
+		warning: "cosy:alert-warning",
+		error: "cosy:alert-error",
+	};
+	return alertClasses[props.type];
 });
 
 // 根据类型设置图标组件
 const IconComponent = computed(() => {
-  const iconComponents = {
-    info: InfoIcon,
-    success: SuccessIcon,
-    warning: WarningIcon,
-    error: ErrorIcon,
-  };
-  return iconComponents[props.type];
+	const iconComponents = {
+		info: InfoIcon,
+		success: SuccessIcon,
+		warning: WarningIcon,
+		error: ErrorIcon,
+	};
+	return iconComponents[props.type];
 });
 
 // 根据 marginY 值设置对应的 CSS 类
 const marginYClass = computed(() => {
-  return props.marginY ? marginClasses[props.marginY] : '';
+	return props.marginY ? marginClasses[props.marginY] : "";
 });
 </script>
 

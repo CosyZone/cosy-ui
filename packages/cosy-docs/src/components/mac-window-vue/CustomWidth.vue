@@ -45,5 +45,5 @@
 </template>
 
 <script setup lang="ts">
-import { MacWindow, PlaceHolder } from '@coffic/cosy-ui/vue';
+import { MacWindow, PlaceHolder } from "@coffic/cosy-ui/vue";
 </script>

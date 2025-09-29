@@ -1,0 +1,56 @@
+---
+/**
+ * @component Showcase
+ *
+ * @description
+ * 使用案例展示组件，展示使用 Cosy UI 构建的项目
+ */
+
+import { Container, Products, Heading } from "@coffic/cosy-ui";
+
+export interface Props {
+	/**
+	 * 语言设置
+	 */
+	lang: string;
+}
+
+const { lang } = Astro.props;
+---
+
+<Container>
+    <Heading level={2} align="center" margin="lg">
+        {lang === 'zh-cn' ? '使用案例' : 'Showcase'}
+    </Heading>
+    <Products
+        showBorder={false}
+        margin="xl"
+        products={[
+            {
+                name: lang === 'zh-cn' ? '快易知' : 'Kuaiyizhi',
+                description:
+                    lang === 'zh-cn'
+                        ? '一个知识库网站'
+                        : 'A knowledge base website',
+                productUrl: 'https://kuaiyizhi.cn/zh-cn/courses',
+                image: 'https://github.com/buildmyown.png',
+            },
+            {
+                name: lang === 'zh-cn' ? 'Coffic Lab' : 'Coffic Lab',
+                description:
+                    lang === 'zh-cn' ? 'Coffic 工作室' : 'Coffic Studio',
+                productUrl: 'https://coffic.cn',
+                image: 'https://github.com/cofficlab.png',
+            },
+        ]}
+        columns={{
+            base: 1,
+            sm: 2,
+            md: 2,
+            lg: 2,
+            xl: 2,
+        }}
+        cardSize="md"
+        gap="md"
+    />
+</Container>

@@ -3,21 +3,21 @@
  * @component RowItem
  * @description ImageRow 内部单个图片项
  */
-import Image from '../image/Image.astro';
-import type { IImageItem } from './types';
+import Image from "../image/Image.astro";
+import type { IImageItem } from "./types";
 
 interface IRowItemProps {
-  image: IImageItem;
-  rounded?: import('../../src/common').RoundedSize;
-  shadow?: import('../../src/common').ShadowSize;
-  hover?: import('../../src/common').HoverEffect;
+	image: IImageItem;
+	rounded?: import("../../src/common").RoundedSize;
+	shadow?: import("../../src/common").ShadowSize;
+	hover?: import("../../src/common").HoverEffect;
 }
 
 const {
-  image,
-  rounded = 'md',
-  shadow = 'md',
-  hover = 'scale',
+	image,
+	rounded = "md",
+	shadow = "md",
+	hover = "scale",
 } = Astro.props as IRowItemProps;
 ---
 

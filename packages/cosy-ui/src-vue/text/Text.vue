@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from "vue";
 
 /**
  * @component Text
@@ -43,64 +43,64 @@ import { computed } from 'vue';
  */
 
 export interface ITextProps {
-  as?: string;
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  weight?: 'light' | 'normal' | 'medium' | 'semibold' | 'bold';
-  color?: 'default' | 'primary' | 'secondary' | 'accent' | 'muted';
-  align?: 'left' | 'center' | 'right' | 'justify';
-  italic?: boolean;
-  underline?: boolean;
-  truncate?: boolean;
-  class?: string;
-  style?: string;
+	as?: string;
+	size?: "xs" | "sm" | "md" | "lg" | "xl";
+	weight?: "light" | "normal" | "medium" | "semibold" | "bold";
+	color?: "default" | "primary" | "secondary" | "accent" | "muted";
+	align?: "left" | "center" | "right" | "justify";
+	italic?: boolean;
+	underline?: boolean;
+	truncate?: boolean;
+	class?: string;
+	style?: string;
 }
 
 const props = withDefaults(defineProps<ITextProps>(), {
-  as: 'p',
-  size: 'md',
-  weight: 'normal',
-  color: 'default',
-  align: 'left',
-  italic: false,
-  underline: false,
-  truncate: false,
-  class: '',
-  style: '',
+	as: "p",
+	size: "md",
+	weight: "normal",
+	color: "default",
+	align: "left",
+	italic: false,
+	underline: false,
+	truncate: false,
+	class: "",
+	style: "",
 });
 
 // 根据大小设置样式
 const sizeClasses = {
-  xs: 'cosy:text-xs',
-  sm: 'cosy:text-sm',
-  md: 'cosy:text-base',
-  lg: 'cosy:text-lg',
-  xl: 'cosy:text-xl',
+	xs: "cosy:text-xs",
+	sm: "cosy:text-sm",
+	md: "cosy:text-base",
+	lg: "cosy:text-lg",
+	xl: "cosy:text-xl",
 };
 
 // 根据粗细设置样式
 const weightClasses = {
-  light: 'cosy:font-light',
-  normal: 'cosy:font-normal',
-  medium: 'cosy:font-medium',
-  semibold: 'cosy:font-semibold',
-  bold: 'cosy:font-bold',
+	light: "cosy:font-light",
+	normal: "cosy:font-normal",
+	medium: "cosy:font-medium",
+	semibold: "cosy:font-semibold",
+	bold: "cosy:font-bold",
 };
 
 // 根据颜色设置样式
 const colorClasses = {
-  default: '',
-  primary: 'cosy:text-primary-600 cosy:dark:text-primary-400',
-  secondary: 'cosy:text-secondary-600 cosy:dark:text-secondary-400',
-  accent: 'cosy:text-accent-600 cosy:dark:text-accent-400',
-  muted: 'cosy:text-gray-600 cosy:dark:text-gray-400',
+	default: "",
+	primary: "cosy:text-primary-600 cosy:dark:text-primary-400",
+	secondary: "cosy:text-secondary-600 cosy:dark:text-secondary-400",
+	accent: "cosy:text-accent-600 cosy:dark:text-accent-400",
+	muted: "cosy:text-gray-600 cosy:dark:text-gray-400",
 };
 
 // 根据对齐方式设置样式
 const alignClasses = {
-  left: 'cosy:text-left',
-  center: 'cosy:text-center',
-  right: 'cosy:text-right',
-  justify: 'cosy:text-justify',
+	left: "cosy:text-left",
+	center: "cosy:text-center",
+	right: "cosy:text-right",
+	justify: "cosy:text-justify",
 };
 
 // 计算样式类
@@ -109,16 +109,16 @@ const sizeClass = computed(() => sizeClasses[props.size]);
 const weightClass = computed(() => weightClasses[props.weight]);
 const colorClass = computed(() => colorClasses[props.color]);
 const alignClass = computed(() => alignClasses[props.align]);
-const italicClass = computed(() => (props.italic ? 'cosy:italic' : ''));
+const italicClass = computed(() => (props.italic ? "cosy:italic" : ""));
 const underlineClass = computed(() =>
-  props.underline ? 'cosy:underline' : ''
+	props.underline ? "cosy:underline" : "",
 );
-const truncateClass = computed(() => (props.truncate ? 'cosy:truncate' : ''));
+const truncateClass = computed(() => (props.truncate ? "cosy:truncate" : ""));
 
 // 组合所有类名
 const combinedClass = computed(
-  () =>
-    `text ${sizeClass.value} ${weightClass.value} ${colorClass.value} ${alignClass.value} ${italicClass.value} ${underlineClass.value} ${truncateClass.value} ${props.class}`
+	() =>
+		`text ${sizeClass.value} ${weightClass.value} ${colorClass.value} ${alignClass.value} ${italicClass.value} ${underlineClass.value} ${truncateClass.value} ${props.class}`,
 );
 </script>
 

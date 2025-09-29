@@ -10,5 +10,5 @@
 </template>
 
 <script setup lang="ts">
-import { Review } from '@coffic/cosy-ui';
+import { Review } from "@coffic/cosy-ui";
 </script>

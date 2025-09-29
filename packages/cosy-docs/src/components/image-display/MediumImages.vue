@@ -10,47 +10,47 @@
 </template>
 
 <script setup lang="ts">
-import { ImageDisplay } from '@coffic/cosy-ui/vue';
+import { ImageDisplay } from "@coffic/cosy-ui/vue";
 import {
-  getExampleImage,
-  getAvatarImage,
-  getProductImage,
-} from '@coffic/cosy-ui/vue';
+	getExampleImage,
+	getAvatarImage,
+	getProductImage,
+} from "@coffic/cosy-ui/vue";
 
 // 使用稳定的图片URL，避免水合不匹配
 const mediumImages = [
-  getExampleImage({
-    width: 200,
-    height: 200,
-    provider: 'picsum',
-    randomSeed: 'stable1',
-  }),
-  getExampleImage({
-    width: 200,
-    height: 200,
-    provider: 'picsum',
-    tag: 'nature',
-    randomSeed: 'stable2',
-  }),
-  getAvatarImage({ width: 200, height: 200, randomSeed: 'user1' }),
-  getProductImage({
-    width: 200,
-    height: 200,
-    tag: 'tech',
-    randomSeed: 'stable3',
-  }),
-  getExampleImage({
-    width: 200,
-    height: 200,
-    provider: 'robohash',
-    randomSeed: 'robot1',
-  }),
-  getExampleImage({
-    width: 200,
-    height: 200,
-    provider: 'placeholder',
-    tag: 'Image 6',
-    randomSeed: 'stable4',
-  }),
+	getExampleImage({
+		width: 200,
+		height: 200,
+		provider: "picsum",
+		randomSeed: "stable1",
+	}),
+	getExampleImage({
+		width: 200,
+		height: 200,
+		provider: "picsum",
+		tag: "nature",
+		randomSeed: "stable2",
+	}),
+	getAvatarImage({ width: 200, height: 200, randomSeed: "user1" }),
+	getProductImage({
+		width: 200,
+		height: 200,
+		tag: "tech",
+		randomSeed: "stable3",
+	}),
+	getExampleImage({
+		width: 200,
+		height: 200,
+		provider: "robohash",
+		randomSeed: "robot1",
+	}),
+	getExampleImage({
+		width: 200,
+		height: 200,
+		provider: "placeholder",
+		tag: "Image 6",
+		randomSeed: "stable4",
+	}),
 ];
 </script>

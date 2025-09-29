@@ -4,16 +4,24 @@
  */
 
 // 圆角类型
-export type RoundedSize = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';
+export type RoundedSize =
+	| "none"
+	| "sm"
+	| "md"
+	| "lg"
+	| "xl"
+	| "2xl"
+	| "3xl"
+	| "full";
 
 // 圆角类名映射
 export const roundedClasses: Record<RoundedSize, string> = {
-    none: '',
-    sm: 'cosy:rounded-sm',
-    md: 'cosy:rounded-md',
-    lg: 'cosy:rounded-lg',
-    xl: 'cosy:rounded-xl',
-    '2xl': 'cosy:rounded-2xl',
-    '3xl': 'cosy:rounded-3xl',
-    full: 'cosy:rounded-full',
+	none: "",
+	sm: "cosy:rounded-sm",
+	md: "cosy:rounded-md",
+	lg: "cosy:rounded-lg",
+	xl: "cosy:rounded-xl",
+	"2xl": "cosy:rounded-2xl",
+	"3xl": "cosy:rounded-3xl",
+	full: "cosy:rounded-full",
 } as const;

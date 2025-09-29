@@ -49,41 +49,41 @@ StatusBar 组件
 -->
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import '../../style';
+import { computed } from "vue";
+import "../../style";
 
 interface Props {
-    // 状态栏变体
-    variant?: 'default' | 'compact'
-    // 是否显示上边框
-    bordered?: boolean
+	// 状态栏变体
+	variant?: "default" | "compact";
+	// 是否显示上边框
+	bordered?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    variant: 'default',
-    bordered: true
-})
+	variant: "default",
+	bordered: true,
+});
 
 // 计算状态栏类名
 const statusBarClass = computed(() => {
-    return [
-        'cosy:w-full cosy:h-full',
-        'cosy:flex',
-        'cosy:justify-between',
-        'cosy:items-center',
-        'cosy:bg-base-200',
-        'cosy:text-base-content/70',
-        'cosy:text-xs',
-        'no-drag-region',
-        'cosy:transition-all',
-        'cosy:duration-200',
-        {
-            'cosy:h-8': props.variant === 'default',
-            'cosy:h-6': props.variant === 'compact',
-            'cosy:border-t cosy:border-base-300': props.bordered
-        }
-    ]
-})
+	return [
+		"cosy:w-full cosy:h-full",
+		"cosy:flex",
+		"cosy:justify-between",
+		"cosy:items-center",
+		"cosy:bg-base-200",
+		"cosy:text-base-content/70",
+		"cosy:text-xs",
+		"no-drag-region",
+		"cosy:transition-all",
+		"cosy:duration-200",
+		{
+			"cosy:h-8": props.variant === "default",
+			"cosy:h-6": props.variant === "compact",
+			"cosy:border-t cosy:border-base-300": props.bordered,
+		},
+	];
+});
 </script>
 
 <template>

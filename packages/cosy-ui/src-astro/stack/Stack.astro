@@ -49,103 +49,103 @@
  */
 
 // 导入样式
-import '../../style.ts';
+import "../../style.ts";
 
 // 定义间距类型
-type GapSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type GapSize = "none" | "xs" | "sm" | "md" | "lg" | "xl";
 
 // 定义对齐方式类型
-type AlignType = 'start' | 'center' | 'end' | 'stretch';
+type AlignType = "start" | "center" | "end" | "stretch";
 
 // 定义分隔线颜色类型
-type DividerColor = 'gray' | 'light' | 'dark' | 'primary';
+type DividerColor = "gray" | "light" | "dark" | "primary";
 
 interface Props {
-  /**
-   * 元素间距
-   * @default "md"
-   */
-  gap?: GapSize;
+	/**
+	 * 元素间距
+	 * @default "md"
+	 */
+	gap?: GapSize;
 
-  /**
-   * 是否显示分隔线
-   * @default false
-   */
-  dividers?: boolean;
+	/**
+	 * 是否显示分隔线
+	 * @default false
+	 */
+	dividers?: boolean;
 
-  /**
-   * 分隔线颜色
-   * @default "gray"
-   */
-  dividerColor?: DividerColor;
+	/**
+	 * 分隔线颜色
+	 * @default "gray"
+	 */
+	dividerColor?: DividerColor;
 
-  /**
-   * 对齐方式
-   * @default "stretch"
-   */
-  align?: AlignType;
+	/**
+	 * 对齐方式
+	 * @default "stretch"
+	 */
+	align?: AlignType;
 
-  /**
-   * 自定义类名
-   */
-  class?: string;
+	/**
+	 * 自定义类名
+	 */
+	class?: string;
 
-  /**
-   * 类名列表
-   */
-  'class:list'?: any;
+	/**
+	 * 类名列表
+	 */
+	"class:list"?: any;
 
-  [key: string]: any;
+	[key: string]: any;
 }
 
 const {
-  gap = 'md',
-  dividers = false,
-  dividerColor = 'gray',
-  align = 'stretch',
-  class: className = '',
-  'class:list': classList,
-  ...rest
+	gap = "md",
+	dividers = false,
+	dividerColor = "gray",
+	align = "stretch",
+	class: className = "",
+	"class:list": classList,
+	...rest
 } = Astro.props;
 
 // 间距映射
 const gapClasses: Record<GapSize, string> = {
-  none: 'stack-gap-none',
-  xs: 'stack-gap-xs',
-  sm: 'stack-gap-sm',
-  md: 'stack-gap-md',
-  lg: 'stack-gap-lg',
-  xl: 'stack-gap-xl',
+	none: "stack-gap-none",
+	xs: "stack-gap-xs",
+	sm: "stack-gap-sm",
+	md: "stack-gap-md",
+	lg: "stack-gap-lg",
+	xl: "stack-gap-xl",
 };
 
 // 对齐方式映射
 const alignClasses: Record<AlignType, string> = {
-  start: 'stack-align-start',
-  center: 'stack-align-center',
-  end: 'stack-align-end',
-  stretch: 'stack-align-stretch',
+	start: "stack-align-start",
+	center: "stack-align-center",
+	end: "stack-align-end",
+	stretch: "stack-align-stretch",
 };
 
 // 分隔线颜色映射
 const dividerColorClasses: Record<DividerColor, string> = {
-  gray: 'stack-divider-gray',
-  light: 'stack-divider-light',
-  dark: 'stack-divider-dark',
-  primary: 'stack-divider-primary',
+	gray: "stack-divider-gray",
+	light: "stack-divider-light",
+	dark: "stack-divider-dark",
+	primary: "stack-divider-primary",
 };
 
 // 构建最终类名
 const stackClasses = [
-  'stack',
-  alignClasses[align as AlignType],
-  gapClasses[gap as GapSize],
-  dividers
-    ? `stack-divider ${dividerColorClasses[dividerColor as DividerColor]}`
-    : '',
-  className,
+	"stack",
+	alignClasses[align as AlignType],
+	gapClasses[gap as GapSize],
+	dividers
+		? `stack-divider ${dividerColorClasses[dividerColor as DividerColor]}`
+		: "",
+	className,
 ]
-  .filter(Boolean)
-  .join(' ');
+	.filter(Boolean)
+	.join(" ");
 ---
 
 <div class:list={[stackClasses, classList]} {...rest}>

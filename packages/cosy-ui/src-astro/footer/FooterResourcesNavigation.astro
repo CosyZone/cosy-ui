@@ -5,28 +5,28 @@
  * @internal 供 FooterNavigation 内部使用
  */
 
-import FooterSection from './FooterSection.astro';
-import type { IResourcesInfo } from './types';
+import FooterSection from "./FooterSection.astro";
+import type { IResourcesInfo } from "./types";
 
 export interface Props {
-  /** 资源信息 */
-  resourcesInfo?: IResourcesInfo;
-  /** 文本获取函数 */
-  t: (key: string) => string;
+	/** 资源信息 */
+	resourcesInfo?: IResourcesInfo;
+	/** 文本获取函数 */
+	t: (key: string) => string;
 }
 
 const { resourcesInfo, t } = Astro.props as Props;
 
 // 检查是否有任何资源相关的链接
 const hasResourceLinks =
-  resourcesInfo &&
-  (resourcesInfo.newsLink ||
-    resourcesInfo.historyLink ||
-    resourcesInfo.partnersLink ||
-    resourcesInfo.blogLink ||
-    resourcesInfo.faqLink ||
-    resourcesInfo.mediaLink ||
-    resourcesInfo.techStackLink);
+	resourcesInfo &&
+	(resourcesInfo.newsLink ||
+		resourcesInfo.historyLink ||
+		resourcesInfo.partnersLink ||
+		resourcesInfo.blogLink ||
+		resourcesInfo.faqLink ||
+		resourcesInfo.mediaLink ||
+		resourcesInfo.techStackLink);
 ---
 
 {

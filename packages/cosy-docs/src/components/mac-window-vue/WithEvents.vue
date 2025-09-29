@@ -33,43 +33,43 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { MacWindow } from '@coffic/cosy-ui/vue';
+import { ref } from "vue";
+import { MacWindow } from "@coffic/cosy-ui/vue";
 
 // 响应式状态 - 事件日志
 const eventLog = ref<string[]>([]);
 
 // 添加事件到日志
 const addEvent = (event: string) => {
-  const timestamp = new Date().toLocaleTimeString();
-  eventLog.value.unshift(`${timestamp} - ${event}`);
-  // 只保留最近5个事件
-  if (eventLog.value.length > 5) {
-    eventLog.value = eventLog.value.slice(0, 5);
-  }
+	const timestamp = new Date().toLocaleTimeString();
+	eventLog.value.unshift(`${timestamp} - ${event}`);
+	// 只保留最近5个事件
+	if (eventLog.value.length > 5) {
+		eventLog.value = eventLog.value.slice(0, 5);
+	}
 };
 
 // 处理标签点击事件
 const handleTabClick = (tab: string) => {
-  console.log('切换到标签:', tab);
-  addEvent(`切换到标签: ${tab}`);
+	console.log("切换到标签:", tab);
+	addEvent(`切换到标签: ${tab}`);
 };
 
 // 处理关闭窗口事件
 const handleCloseWindow = () => {
-  console.log('关闭窗口');
-  addEvent('关闭窗口');
+	console.log("关闭窗口");
+	addEvent("关闭窗口");
 };
 
 // 处理最小化窗口事件
 const handleMinimizeWindow = () => {
-  console.log('最小化窗口');
-  addEvent('最小化窗口');
+	console.log("最小化窗口");
+	addEvent("最小化窗口");
 };
 
 // 处理最大化窗口事件
 const handleMaximizeWindow = () => {
-  console.log('最大化窗口');
-  addEvent('最大化窗口');
+	console.log("最大化窗口");
+	addEvent("最大化窗口");
 };
 </script>

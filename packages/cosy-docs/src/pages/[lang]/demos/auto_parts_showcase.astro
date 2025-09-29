@@ -4,253 +4,333 @@
  */
 
 import {
-  AppLayout,
-  Hero,
-  Card,
-  Grid,
-  Button,
-  Text,
-  Heading,
-  Image,
-  Badge,
-  Contact,
-  SmartIcon,
-  Container,
-  StatsDisplay,
-  PlaceHolder,
-} from '@coffic/cosy-ui';
-import { configApp } from '@/config/config.app';
-import heroUrl from '@/demos/auto_parts_showcase/images/hero.png?url';
-import product1Url from '@/demos/auto_parts_showcase/images/product-1.jpg?url';
-import product2Url from '@/demos/auto_parts_showcase/images/product-2.jpg?url';
-import product3Url from '@/demos/auto_parts_showcase/images/product-3.jpg?url';
-import product4Url from '@/demos/auto_parts_showcase/images/product-4.jpg?url';
-import wechatQrUrl from '@/demos/auto_parts_showcase/images/wechat-qr.jpg?url';
-import * as astroI18n from 'astro:i18n';
+	AppLayout,
+	Hero,
+	Card,
+	Grid,
+	Button,
+	Text,
+	Heading,
+	Image,
+	Badge,
+	Contact,
+	SmartIcon,
+	Container,
+	StatsDisplay,
+	PlaceHolder,
+} from "@coffic/cosy-ui";
+import { configApp } from "@/config/config.app";
+import heroUrl from "@/demos/auto_parts_showcase/images/hero.png?url";
+import product1Url from "@/demos/auto_parts_showcase/images/product-1.jpg?url";
+import product2Url from "@/demos/auto_parts_showcase/images/product-2.jpg?url";
+import product3Url from "@/demos/auto_parts_showcase/images/product-3.jpg?url";
+import product4Url from "@/demos/auto_parts_showcase/images/product-4.jpg?url";
+import wechatQrUrl from "@/demos/auto_parts_showcase/images/wechat-qr.jpg?url";
+import * as astroI18n from "astro:i18n";
 
 // 从 URL 获取当前语言
-const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
+const currentLocale = Astro.url.pathname.split("/")[2] || "zh-cn";
 
 export const getStaticPaths = async () => {
-  return [
-    { params: { lang: 'zh-cn' } },
-    { params: { lang: 'en' } },
-  ];
+	return [{ params: { lang: "zh-cn" } }, { params: { lang: "en" } }];
 };
 
 // 类型定义
 interface Product {
-  name: string;
-  category: string;
-  description: string;
-  image: string;
-  specifications: Array<{ name: string; value: string }>;
-  applications: string[];
-  certifications: string[];
-  isNew?: boolean;
+	name: string;
+	category: string;
+	description: string;
+	image: string;
+	specifications: Array<{ name: string; value: string }>;
+	applications: string[];
+	certifications: string[];
+	isNew?: boolean;
 }
 
 interface Feature {
-  title: string;
-  description: string;
-  icon: string;
+	title: string;
+	description: string;
+	icon: string;
 }
 
 interface Certification {
-  name: string;
-  description: string;
-  logo: string;
+	name: string;
+	description: string;
+	logo: string;
 }
 
 // 汽车零部件展示数据（与 demos 相同）
 const autoPartsData: Record<string, any> = {
-  'zh-cn': {
-    companyName: '精工汽车零部件',
-    tagline: '精密制造，驱动未来',
-    description: '专业从事汽车零部件研发、生产和销售，为全球汽车制造商提供高质量解决方案。',
-    heroTitle: '精密制造',
-    heroSubtitle: '驱动未来',
-    heroDescription: '为全球汽车制造商提供高质量零部件解决方案',
-    learnMore: '了解更多',
-    contactUs: '联系我们',
-    // 产品特性
-    features: [
-      { title: '精密制造', description: '采用先进制造工艺，确保产品精度和质量', icon: 'precision' },
-      { title: '质量认证', description: '通过ISO 9001、IATF 16949等国际质量认证', icon: 'certification' },
-      { title: '技术创新', description: '持续投入研发，引领行业技术发展', icon: 'innovation' },
-      { title: '全球服务', description: '为全球客户提供专业的技术支持和服务', icon: 'global' },
-    ],
-    // 产品系列
-    products: [
-      {
-        name: '发动机零部件',
-        category: '动力系统',
-        description: '高性能发动机核心零部件，包括活塞、连杆、曲轴等',
-        image: product1Url,
-        specifications: [
-          { name: '材料', value: '高强度铝合金' },
-          { name: '精度', value: '±0.001mm' },
-          { name: '表面处理', value: '阳极氧化' },
-          { name: '工作温度', value: '-40°C ~ +150°C' },
-        ],
-        applications: ['乘用车', '商用车', '工程机械'],
-        certifications: ['ISO 9001', 'IATF 16949', 'TS 16949'],
-        isNew: true,
-      },
-      {
-        name: '制动系统',
-        category: '安全系统',
-        description: '高性能制动盘、制动片，确保行车安全',
-        image: product2Url,
-        specifications: [
-          { name: '材料', value: '铸铁/碳陶瓷' },
-          { name: '摩擦系数', value: '0.4-0.6' },
-          { name: '耐热性', value: '800°C' },
-          { name: '使用寿命', value: '10万公里' },
-        ],
-        applications: ['乘用车', '商用车', '摩托车'],
-        certifications: ['ECE R90', 'FMVSS 135', 'GB 5763'],
-        isNew: false,
-      },
-      {
-        name: '悬挂系统',
-        category: '底盘系统',
-        description: '精密悬挂零部件，提供舒适驾乘体验',
-        image: product3Url,
-        specifications: [
-          { name: '材料', value: '高强度钢' },
-          { name: '疲劳寿命', value: '100万次' },
-          { name: '防腐处理', value: '电泳涂装' },
-          { name: '工作载荷', value: '500-2000kg' },
-        ],
-        applications: ['乘用车', 'SUV', '商用车'],
-        certifications: ['ISO 9001', 'IATF 16949', 'VDA 6.3'],
-        isNew: false,
-      },
-      {
-        name: '电子系统',
-        category: '智能系统',
-        description: '汽车电子控制单元和传感器，智能化解决方案',
-        image: product4Url,
-        specifications: [
-          { name: '工作电压', value: '12V/24V' },
-          { name: '工作温度', value: '-40°C ~ +85°C' },
-          { name: '防护等级', value: 'IP67' },
-          { name: '通信协议', value: 'CAN/LIN' },
-        ],
-        applications: ['乘用车', '商用车', '新能源车'],
-        certifications: ['ISO 26262', 'AEC-Q100', 'EMC认证'],
-        isNew: true,
-      },
-    ],
-    // 质量认证
-    certifications: [
-      { name: 'ISO 9001:2015', description: '质量管理体系认证', logo: 'iso-9001' },
-      { name: 'IATF 16949:2016', description: '汽车行业质量管理体系', logo: 'iatf-16949' },
-      { name: 'ISO 14001:2015', description: '环境管理体系认证', logo: 'iso-14001' },
-      { name: 'OHSAS 18001', description: '职业健康安全管理体系', logo: 'ohsas-18001' },
-    ],
-    // 统计数据
-    stats: [
-      { value: '20+', label: '年制造经验' },
-      { value: '500+', label: '产品种类' },
-      { value: '50+', label: '合作客户' },
-      { value: '99.5%', label: '产品合格率' },
-    ],
-  },
-  en: {
-    companyName: 'Precision Auto Parts',
-    tagline: 'Precision Manufacturing, Driving the Future',
-    description: 'Professional automotive parts R&D, manufacturing and sales, providing high-quality solutions for global automakers.',
-    heroTitle: 'Precision Manufacturing',
-    heroSubtitle: 'Driving the Future',
-    heroDescription: 'Providing high-quality parts solutions for global automakers',
-    learnMore: 'Learn More',
-    contactUs: 'Contact Us',
-    features: [
-      { title: 'Precision Manufacturing', description: 'Advanced manufacturing processes ensure product precision and quality', icon: 'precision' },
-      { title: 'Quality Certification', description: 'Certified by ISO 9001, IATF 16949 and other international quality standards', icon: 'certification' },
-      { title: 'Technical Innovation', description: 'Continuous R&D investment, leading industry technology development', icon: 'innovation' },
-      { title: 'Global Service', description: 'Professional technical support and service for global customers', icon: 'global' },
-    ],
-    products: [
-      {
-        name: 'Engine Components',
-        category: 'Powertrain',
-        description: 'High-performance engine core components including pistons, connecting rods, crankshafts',
-        image: product1Url,
-        specifications: [
-          { name: 'Material', value: 'High-strength aluminum alloy' },
-          { name: 'Precision', value: '±0.001mm' },
-          { name: 'Surface Treatment', value: 'Anodizing' },
-          { name: 'Operating Temperature', value: '-40°C ~ +150°C' },
-        ],
-        applications: ['Passenger Cars', 'Commercial Vehicles', 'Construction Machinery'],
-        certifications: ['ISO 9001', 'IATF 16949', 'TS 16949'],
-        isNew: true,
-      },
-      {
-        name: 'Brake System',
-        category: 'Safety System',
-        description: 'High-performance brake discs and pads ensuring driving safety',
-        image: product2Url,
-        specifications: [
-          { name: 'Material', value: 'Cast Iron/Carbon Ceramic' },
-          { name: 'Friction Coefficient', value: '0.4-0.6' },
-          { name: 'Heat Resistance', value: '800°C' },
-          { name: 'Service Life', value: '100,000 km' },
-        ],
-        applications: ['Passenger Cars', 'Commercial Vehicles', 'Motorcycles'],
-        certifications: ['ECE R90', 'FMVSS 135', 'GB 5763'],
-        isNew: false,
-      },
-      {
-        name: 'Suspension System',
-        category: 'Chassis System',
-        description: 'Precision suspension components providing comfortable driving experience',
-        image: product3Url,
-        specifications: [
-          { name: 'Material', value: 'High-strength steel' },
-          { name: 'Fatigue Life', value: '1 million cycles' },
-          { name: 'Corrosion Protection', value: 'Electrophoretic coating' },
-          { name: 'Working Load', value: '500-2000kg' },
-        ],
-        applications: ['Passenger Cars', 'SUVs', 'Commercial Vehicles'],
-        certifications: ['ISO 9001', 'IATF 16949', 'VDA 6.3'],
-        isNew: false,
-      },
-      {
-        name: 'Electronic Systems',
-        category: 'Smart Systems',
-        description: 'Automotive electronic control units and sensors, intelligent solutions',
-        image: product4Url,
-        specifications: [
-          { name: 'Operating Voltage', value: '12V/24V' },
-          { name: 'Operating Temperature', value: '-40°C ~ +85°C' },
-          { name: 'Protection Rating', value: 'IP67' },
-          { name: 'Communication Protocol', value: 'CAN/LIN' },
-        ],
-        applications: ['Passenger Cars', 'Commercial Vehicles', 'New Energy Vehicles'],
-        certifications: ['ISO 26262', 'AEC-Q100', 'EMC Certification'],
-        isNew: true,
-      },
-    ],
-    certifications: [
-      { name: 'ISO 9001:2015', description: 'Quality Management System Certification', logo: 'iso-9001' },
-      { name: 'IATF 16949:2016', description: 'Automotive Quality Management System', logo: 'iatf-16949' },
-      { name: 'ISO 14001:2015', description: 'Environmental Management System Certification', logo: 'iso-14001' },
-      { name: 'OHSAS 18001', description: 'Occupational Health and Safety Management System', logo: 'ohsas-18001' },
-    ],
-    stats: [
-      { value: '20+', label: 'Years Experience' },
-      { value: '500+', label: 'Product Types' },
-      { value: '50+', label: 'Partners' },
-      { value: '99.5%', label: 'Quality Rate' },
-    ],
-  },
+	"zh-cn": {
+		companyName: "精工汽车零部件",
+		tagline: "精密制造，驱动未来",
+		description:
+			"专业从事汽车零部件研发、生产和销售，为全球汽车制造商提供高质量解决方案。",
+		heroTitle: "精密制造",
+		heroSubtitle: "驱动未来",
+		heroDescription: "为全球汽车制造商提供高质量零部件解决方案",
+		learnMore: "了解更多",
+		contactUs: "联系我们",
+		// 产品特性
+		features: [
+			{
+				title: "精密制造",
+				description: "采用先进制造工艺，确保产品精度和质量",
+				icon: "precision",
+			},
+			{
+				title: "质量认证",
+				description: "通过ISO 9001、IATF 16949等国际质量认证",
+				icon: "certification",
+			},
+			{
+				title: "技术创新",
+				description: "持续投入研发，引领行业技术发展",
+				icon: "innovation",
+			},
+			{
+				title: "全球服务",
+				description: "为全球客户提供专业的技术支持和服务",
+				icon: "global",
+			},
+		],
+		// 产品系列
+		products: [
+			{
+				name: "发动机零部件",
+				category: "动力系统",
+				description: "高性能发动机核心零部件，包括活塞、连杆、曲轴等",
+				image: product1Url,
+				specifications: [
+					{ name: "材料", value: "高强度铝合金" },
+					{ name: "精度", value: "±0.001mm" },
+					{ name: "表面处理", value: "阳极氧化" },
+					{ name: "工作温度", value: "-40°C ~ +150°C" },
+				],
+				applications: ["乘用车", "商用车", "工程机械"],
+				certifications: ["ISO 9001", "IATF 16949", "TS 16949"],
+				isNew: true,
+			},
+			{
+				name: "制动系统",
+				category: "安全系统",
+				description: "高性能制动盘、制动片，确保行车安全",
+				image: product2Url,
+				specifications: [
+					{ name: "材料", value: "铸铁/碳陶瓷" },
+					{ name: "摩擦系数", value: "0.4-0.6" },
+					{ name: "耐热性", value: "800°C" },
+					{ name: "使用寿命", value: "10万公里" },
+				],
+				applications: ["乘用车", "商用车", "摩托车"],
+				certifications: ["ECE R90", "FMVSS 135", "GB 5763"],
+				isNew: false,
+			},
+			{
+				name: "悬挂系统",
+				category: "底盘系统",
+				description: "精密悬挂零部件，提供舒适驾乘体验",
+				image: product3Url,
+				specifications: [
+					{ name: "材料", value: "高强度钢" },
+					{ name: "疲劳寿命", value: "100万次" },
+					{ name: "防腐处理", value: "电泳涂装" },
+					{ name: "工作载荷", value: "500-2000kg" },
+				],
+				applications: ["乘用车", "SUV", "商用车"],
+				certifications: ["ISO 9001", "IATF 16949", "VDA 6.3"],
+				isNew: false,
+			},
+			{
+				name: "电子系统",
+				category: "智能系统",
+				description: "汽车电子控制单元和传感器，智能化解决方案",
+				image: product4Url,
+				specifications: [
+					{ name: "工作电压", value: "12V/24V" },
+					{ name: "工作温度", value: "-40°C ~ +85°C" },
+					{ name: "防护等级", value: "IP67" },
+					{ name: "通信协议", value: "CAN/LIN" },
+				],
+				applications: ["乘用车", "商用车", "新能源车"],
+				certifications: ["ISO 26262", "AEC-Q100", "EMC认证"],
+				isNew: true,
+			},
+		],
+		// 质量认证
+		certifications: [
+			{
+				name: "ISO 9001:2015",
+				description: "质量管理体系认证",
+				logo: "iso-9001",
+			},
+			{
+				name: "IATF 16949:2016",
+				description: "汽车行业质量管理体系",
+				logo: "iatf-16949",
+			},
+			{
+				name: "ISO 14001:2015",
+				description: "环境管理体系认证",
+				logo: "iso-14001",
+			},
+			{
+				name: "OHSAS 18001",
+				description: "职业健康安全管理体系",
+				logo: "ohsas-18001",
+			},
+		],
+		// 统计数据
+		stats: [
+			{ value: "20+", label: "年制造经验" },
+			{ value: "500+", label: "产品种类" },
+			{ value: "50+", label: "合作客户" },
+			{ value: "99.5%", label: "产品合格率" },
+		],
+	},
+	en: {
+		companyName: "Precision Auto Parts",
+		tagline: "Precision Manufacturing, Driving the Future",
+		description:
+			"Professional automotive parts R&D, manufacturing and sales, providing high-quality solutions for global automakers.",
+		heroTitle: "Precision Manufacturing",
+		heroSubtitle: "Driving the Future",
+		heroDescription:
+			"Providing high-quality parts solutions for global automakers",
+		learnMore: "Learn More",
+		contactUs: "Contact Us",
+		features: [
+			{
+				title: "Precision Manufacturing",
+				description:
+					"Advanced manufacturing processes ensure product precision and quality",
+				icon: "precision",
+			},
+			{
+				title: "Quality Certification",
+				description:
+					"Certified by ISO 9001, IATF 16949 and other international quality standards",
+				icon: "certification",
+			},
+			{
+				title: "Technical Innovation",
+				description:
+					"Continuous R&D investment, leading industry technology development",
+				icon: "innovation",
+			},
+			{
+				title: "Global Service",
+				description:
+					"Professional technical support and service for global customers",
+				icon: "global",
+			},
+		],
+		products: [
+			{
+				name: "Engine Components",
+				category: "Powertrain",
+				description:
+					"High-performance engine core components including pistons, connecting rods, crankshafts",
+				image: product1Url,
+				specifications: [
+					{ name: "Material", value: "High-strength aluminum alloy" },
+					{ name: "Precision", value: "±0.001mm" },
+					{ name: "Surface Treatment", value: "Anodizing" },
+					{ name: "Operating Temperature", value: "-40°C ~ +150°C" },
+				],
+				applications: [
+					"Passenger Cars",
+					"Commercial Vehicles",
+					"Construction Machinery",
+				],
+				certifications: ["ISO 9001", "IATF 16949", "TS 16949"],
+				isNew: true,
+			},
+			{
+				name: "Brake System",
+				category: "Safety System",
+				description:
+					"High-performance brake discs and pads ensuring driving safety",
+				image: product2Url,
+				specifications: [
+					{ name: "Material", value: "Cast Iron/Carbon Ceramic" },
+					{ name: "Friction Coefficient", value: "0.4-0.6" },
+					{ name: "Heat Resistance", value: "800°C" },
+					{ name: "Service Life", value: "100,000 km" },
+				],
+				applications: ["Passenger Cars", "Commercial Vehicles", "Motorcycles"],
+				certifications: ["ECE R90", "FMVSS 135", "GB 5763"],
+				isNew: false,
+			},
+			{
+				name: "Suspension System",
+				category: "Chassis System",
+				description:
+					"Precision suspension components providing comfortable driving experience",
+				image: product3Url,
+				specifications: [
+					{ name: "Material", value: "High-strength steel" },
+					{ name: "Fatigue Life", value: "1 million cycles" },
+					{ name: "Corrosion Protection", value: "Electrophoretic coating" },
+					{ name: "Working Load", value: "500-2000kg" },
+				],
+				applications: ["Passenger Cars", "SUVs", "Commercial Vehicles"],
+				certifications: ["ISO 9001", "IATF 16949", "VDA 6.3"],
+				isNew: false,
+			},
+			{
+				name: "Electronic Systems",
+				category: "Smart Systems",
+				description:
+					"Automotive electronic control units and sensors, intelligent solutions",
+				image: product4Url,
+				specifications: [
+					{ name: "Operating Voltage", value: "12V/24V" },
+					{ name: "Operating Temperature", value: "-40°C ~ +85°C" },
+					{ name: "Protection Rating", value: "IP67" },
+					{ name: "Communication Protocol", value: "CAN/LIN" },
+				],
+				applications: [
+					"Passenger Cars",
+					"Commercial Vehicles",
+					"New Energy Vehicles",
+				],
+				certifications: ["ISO 26262", "AEC-Q100", "EMC Certification"],
+				isNew: true,
+			},
+		],
+		certifications: [
+			{
+				name: "ISO 9001:2015",
+				description: "Quality Management System Certification",
+				logo: "iso-9001",
+			},
+			{
+				name: "IATF 16949:2016",
+				description: "Automotive Quality Management System",
+				logo: "iatf-16949",
+			},
+			{
+				name: "ISO 14001:2015",
+				description: "Environmental Management System Certification",
+				logo: "iso-14001",
+			},
+			{
+				name: "OHSAS 18001",
+				description: "Occupational Health and Safety Management System",
+				logo: "ohsas-18001",
+			},
+		],
+		stats: [
+			{ value: "20+", label: "Years Experience" },
+			{ value: "500+", label: "Product Types" },
+			{ value: "50+", label: "Partners" },
+			{ value: "99.5%", label: "Quality Rate" },
+		],
+	},
 };
 
-const data = autoPartsData[currentLocale] || autoPartsData['zh-cn'];
+const data = autoPartsData[currentLocale] || autoPartsData["zh-cn"];
 ---
 
 <AppLayout
@@ -302,7 +382,7 @@ const data = autoPartsData[currentLocale] || autoPartsData['zh-cn'];
     astroI18n: astroI18n,
     shadow: 'none',
   }}
-  mainContentConfig={{ verticalPadding: 'none', size: 'full', padding: 'none' }}>
+  mainContentConfig={{ py: 'none', size: 'full', padding: 'none' }}>
   <!-- Hero Section - 企业主展示 -->
   <Hero
     title={data.heroSubtitle}

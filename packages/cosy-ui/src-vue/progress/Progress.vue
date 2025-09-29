@@ -30,37 +30,45 @@ Progress 组件
 -->
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import '../../style';
+import { computed } from "vue";
+import "../../style";
 
 interface Props {
-    // 当前进度值
-    value?: number
-    // 最大值
-    max?: number
-    // 颜色主题
-    color?: 'neutral' | 'primary' | 'secondary' | 'accent' | 'info' | 'success' | 'warning' | 'error'
+	// 当前进度值
+	value?: number;
+	// 最大值
+	max?: number;
+	// 颜色主题
+	color?:
+		| "neutral"
+		| "primary"
+		| "secondary"
+		| "accent"
+		| "info"
+		| "success"
+		| "warning"
+		| "error";
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    value: undefined,
-    max: 100,
-    color: 'neutral'
-})
+	value: undefined,
+	max: 100,
+	color: "neutral",
+});
 
 // 计算进度条的类名（不能用字符串拼接，需枚举所有可能）
 const progressClass = computed(() => {
-    const classes = ['cosy:progress', 'cosy:w-56']
-    if (props.color === 'primary') classes.push('cosy:progress-primary')
-    else if (props.color === 'secondary') classes.push('cosy:progress-secondary')
-    else if (props.color === 'accent') classes.push('cosy:progress-accent')
-    else if (props.color === 'info') classes.push('cosy:progress-info')
-    else if (props.color === 'success') classes.push('cosy:progress-success')
-    else if (props.color === 'warning') classes.push('cosy:progress-warning')
-    else if (props.color === 'error') classes.push('cosy:progress-error')
-    // neutral 不加变体类
-    return classes.join(' ')
-})
+	const classes = ["cosy:progress", "cosy:w-56"];
+	if (props.color === "primary") classes.push("cosy:progress-primary");
+	else if (props.color === "secondary") classes.push("cosy:progress-secondary");
+	else if (props.color === "accent") classes.push("cosy:progress-accent");
+	else if (props.color === "info") classes.push("cosy:progress-info");
+	else if (props.color === "success") classes.push("cosy:progress-success");
+	else if (props.color === "warning") classes.push("cosy:progress-warning");
+	else if (props.color === "error") classes.push("cosy:progress-error");
+	// neutral 不加变体类
+	return classes.join(" ");
+});
 </script>
 
 <template>

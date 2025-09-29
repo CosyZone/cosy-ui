@@ -119,60 +119,60 @@
  * @prop {any} [class:list] - 类名列表
  */
 
-import { computed } from 'vue';
-import Text from '../text/Text.vue';
-import Heading from '../heading/Heading.vue';
-import Grid from '../grid/Grid.vue';
-import SmartIcon from '../smart-icon/SmartIcon.vue';
-import type { ReviewsProps, ReviewData } from './types';
-import Review from './Review.vue';
+import { computed } from "vue";
+import Text from "../text/Text.vue";
+import Heading from "../heading/Heading.vue";
+import Grid from "../grid/Grid.vue";
+import SmartIcon from "../smart-icon/SmartIcon.vue";
+import type { ReviewsProps, ReviewData } from "./types";
+import Review from "./Review.vue";
 
 interface Props extends ReviewsProps {
-  class?: string;
-  'class:list'?: any;
+	class?: string;
+	"class:list"?: any;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  showStats: false,
-  layout: 'grid',
-  columns: () => ({ base: 1, md: 2, lg: 3 }),
-  class: '',
+	showStats: false,
+	layout: "grid",
+	columns: () => ({ base: 1, md: 2, lg: 3 }),
+	class: "",
 });
 
-const { class: className, 'class:list': classList } = props;
+const { class: className, "class:list": classList } = props;
 
 // 计算统计信息
 const stats = computed(() => {
-  if (!props.showStats) return null;
-  return {
-    averageRating:
-      props.reviews.reduce((sum, review) => sum + review.rating, 0) /
-      props.reviews.length,
-    totalReviews: props.reviews.length,
-    ratingDistribution: Array.from(
-      { length: 5 },
-      (_, i) =>
-        props.reviews.filter((review) => Math.floor(review.rating) === i + 1)
-          .length
-    ),
-  };
+	if (!props.showStats) return null;
+	return {
+		averageRating:
+			props.reviews.reduce((sum, review) => sum + review.rating, 0) /
+			props.reviews.length,
+		totalReviews: props.reviews.length,
+		ratingDistribution: Array.from(
+			{ length: 5 },
+			(_, i) =>
+				props.reviews.filter((review) => Math.floor(review.rating) === i + 1)
+					.length,
+		),
+	};
 });
 
 // 限制显示的评价数量
 const displayReviews = computed(() => {
-  return props.maxReviews
-    ? props.reviews.slice(0, props.maxReviews)
-    : props.reviews;
+	return props.maxReviews
+		? props.reviews.slice(0, props.maxReviews)
+		: props.reviews;
 });
 
 // 生成平均评分的星级
 const averageStarArray = computed(() => {
-  if (!stats.value) return [];
-  return Array.from({ length: 5 }, (_, i) => ({
-    filled: i < Math.floor(stats.value!.averageRating),
-    half:
-      i === Math.floor(stats.value!.averageRating) &&
-      stats.value!.averageRating % 1 !== 0,
-  }));
+	if (!stats.value) return [];
+	return Array.from({ length: 5 }, (_, i) => ({
+		filled: i < Math.floor(stats.value!.averageRating),
+		half:
+			i === Math.floor(stats.value!.averageRating) &&
+			stats.value!.averageRating % 1 !== 0,
+	}));
 });
 </script>

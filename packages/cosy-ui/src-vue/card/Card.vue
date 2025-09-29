@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from "vue";
 
 /**
  * @component Card
@@ -13,33 +13,41 @@ import { computed } from 'vue';
  */
 
 defineOptions({
-    name: 'Card',
+	name: "Card",
 });
 
 const props = defineProps({
-    class: String,
-    compact: Boolean,
-    href: String,
-    imageUrl: String,
-    subtitle: String,
-    title: { type: String, required: true },
+	class: String,
+	compact: Boolean,
+	href: String,
+	imageUrl: String,
+	subtitle: String,
+	title: { type: String, required: true },
 });
 
-const cardClasses = computed(() => [
-    'cosy:card',
-    'cosy:w-full',
-    'cosy:bg-base-100',
-    'cosy:shadow-xl',
-    'cosy:hover:shadow-2xl',
-    'cosy:transition-all',
-    'cosy:duration-300',
-    'cosy:ease-in-out',
-    props.compact ? 'cosy:card-compact' : '',
-    props.href ? 'cosy:cursor-pointer cosy:hover:scale-105 cosy:transform cosy:no-underline' : '',
-    props.class,
-].filter(Boolean).join(' '));
+const cardClasses = computed(() =>
+	[
+		"cosy:card",
+		"cosy:w-full",
+		"cosy:bg-base-100",
+		"cosy:shadow-xl",
+		"cosy:hover:shadow-2xl",
+		"cosy:transition-all",
+		"cosy:duration-300",
+		"cosy:ease-in-out",
+		props.compact ? "cosy:card-compact" : "",
+		props.href
+			? "cosy:cursor-pointer cosy:hover:scale-105 cosy:transform cosy:no-underline"
+			: "",
+		props.class,
+	]
+		.filter(Boolean)
+		.join(" "),
+);
 
-const contentPadding = computed(() => props.compact ? 'cosy:p-4' : 'cosy:p-6');
+const contentPadding = computed(() =>
+	props.compact ? "cosy:p-4" : "cosy:p-6",
+);
 </script>
 
 <template>

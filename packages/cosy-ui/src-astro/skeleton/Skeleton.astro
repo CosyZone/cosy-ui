@@ -63,32 +63,32 @@
  * - astro:after-swap - 路由切换后显示内容
  */
 
-import '../../style.ts';
+import "../../style.ts";
 import {
-  getLoadingClass,
-  type LoadingType,
-  type LoadingSize,
-} from '../../src/common';
+	getLoadingClass,
+	type LoadingType,
+	type LoadingSize,
+} from "../../src/common";
 
 export interface Props {
-  /** 延迟显示时间（毫秒），默认1000ms */
-  loadingDelay?: number;
-  /** 骨架屏的自定义 CSS 类名 */
-  skeletonClass?: string;
-  /** 是否显示 loading 元素，默认 false */
-  showLoading?: boolean;
-  /** loading 元素尺寸，默认 'md' */
-  loadingSize?: LoadingSize;
-  /** loading 类型，默认 'ring' */
-  loadingType?: LoadingType;
+	/** 延迟显示时间（毫秒），默认1000ms */
+	loadingDelay?: number;
+	/** 骨架屏的自定义 CSS 类名 */
+	skeletonClass?: string;
+	/** 是否显示 loading 元素，默认 false */
+	showLoading?: boolean;
+	/** loading 元素尺寸，默认 'md' */
+	loadingSize?: LoadingSize;
+	/** loading 类型，默认 'ring' */
+	loadingType?: LoadingType;
 }
 
 const {
-  loadingDelay = 1000,
-  skeletonClass = '',
-  showLoading = false,
-  loadingSize = 'md',
-  loadingType = 'ring',
+	loadingDelay = 1000,
+	skeletonClass = "",
+	showLoading = false,
+	loadingSize = "md",
+	loadingType = "ring",
 } = Astro.props;
 
 // 生成唯一的 ID

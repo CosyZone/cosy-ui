@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Alert } from '@coffic/cosy-ui/vue';
+import { Alert } from "@coffic/cosy-ui/vue";
 
 const handleAction = () => {
-    alert('执行了自定义操作');
+	alert("执行了自定义操作");
 };
 </script>
 

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import type { IPlaceHolderProps } from './types';
+import { computed } from "vue";
+import type { IPlaceHolderProps } from "./types";
 import {
-  getBackgroundClass,
-  type BackgroundColor,
-} from '../../src/common/backgrounds';
+	getBackgroundClass,
+	type BackgroundColor,
+} from "../../src/common/backgrounds";
 
 /**
  * @component PlaceHolder
@@ -28,64 +28,64 @@ import {
 interface Props extends IPlaceHolderProps {}
 
 const props = withDefaults(defineProps<Props>(), {
-  height: 'md',
-  padding: 'none',
-  width: 'md',
+	height: "md",
+	padding: "none",
+	width: "md",
 });
 
 // 宽度样式映射
 const widthClassMap = {
-  none: '',
-  xs: 'cosy:w-8',
-  sm: 'cosy:w-16',
-  md: 'cosy:w-24',
-  lg: 'cosy:w-32',
-  xl: 'cosy:w-40',
-  '2xl': 'cosy:w-48',
-  '3xl': 'cosy:w-56',
-  '4xl': 'cosy:w-64',
-  '5xl': 'cosy:w-72',
-  '6xl': 'cosy:w-80',
-  full: 'cosy:w-full',
+	none: "",
+	xs: "cosy:w-8",
+	sm: "cosy:w-16",
+	md: "cosy:w-24",
+	lg: "cosy:w-32",
+	xl: "cosy:w-40",
+	"2xl": "cosy:w-48",
+	"3xl": "cosy:w-56",
+	"4xl": "cosy:w-64",
+	"5xl": "cosy:w-72",
+	"6xl": "cosy:w-80",
+	full: "cosy:w-full",
 } as const;
 
 // 高度样式映射
 const heightClassMap = {
-  none: '',
-  xs: 'cosy:h-8',
-  sm: 'cosy:h-16',
-  md: 'cosy:h-24',
-  lg: 'cosy:h-32',
-  xl: 'cosy:h-40',
-  '2xl': 'cosy:h-48',
-  '3xl': 'cosy:h-56',
-  '4xl': 'cosy:h-64',
-  '5xl': 'cosy:h-72',
-  '6xl': 'cosy:h-80',
-  full: 'cosy:h-full',
+	none: "",
+	xs: "cosy:h-8",
+	sm: "cosy:h-16",
+	md: "cosy:h-24",
+	lg: "cosy:h-32",
+	xl: "cosy:h-40",
+	"2xl": "cosy:h-48",
+	"3xl": "cosy:h-56",
+	"4xl": "cosy:h-64",
+	"5xl": "cosy:h-72",
+	"6xl": "cosy:h-80",
+	full: "cosy:h-full",
 } as const;
 
 // 内边距样式映射
 const paddingClassMap = {
-  none: '',
-  xs: 'cosy:p-1',
-  sm: 'cosy:p-2',
-  md: 'cosy:p-4',
-  lg: 'cosy:p-6',
-  xl: 'cosy:p-8',
+	none: "",
+	xs: "cosy:p-1",
+	sm: "cosy:p-2",
+	md: "cosy:p-4",
+	lg: "cosy:p-6",
+	xl: "cosy:p-8",
 } as const;
 
 // 使用通用背景色函数
 const widthClass =
-  widthClassMap[props.width as keyof typeof widthClassMap] || '';
+	widthClassMap[props.width as keyof typeof widthClassMap] || "";
 const heightClass =
-  heightClassMap[props.height as keyof typeof heightClassMap] || '';
+	heightClassMap[props.height as keyof typeof heightClassMap] || "";
 const paddingClass =
-  paddingClassMap[props.padding as keyof typeof paddingClassMap] || '';
+	paddingClassMap[props.padding as keyof typeof paddingClassMap] || "";
 const backgroundClass = getBackgroundClass(props.background);
 
 const combinedClass = computed(() => {
-  return `placeholder ${widthClass} ${heightClass} ${paddingClass} ${backgroundClass} ${props.class || ''}`.trim();
+	return `placeholder ${widthClass} ${heightClass} ${paddingClass} ${backgroundClass} ${props.class || ""}`.trim();
 });
 </script>
 

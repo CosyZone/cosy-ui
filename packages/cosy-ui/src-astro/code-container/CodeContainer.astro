@@ -58,95 +58,99 @@
  * - 标签页切换时保持焦点状态，提升用户体验
  */
 
-import CodeToolbar from './CodeToolbar.astro';
-import Description from './Description.astro';
-import Preview from './Preview.astro';
-import { CodePanel } from '../../index-astro';
-import '../../style.ts';
+import CodeToolbar from "./CodeToolbar.astro";
+import Description from "./Description.astro";
+import Preview from "./Preview.astro";
+import { CodePanel, Container } from "../../index-astro";
+import "../../style.ts";
 
 interface Props {
-  /**
-   * 每个示例对应的源代码
-   */
-  codes: string[];
+	/**
+	 * 每个示例对应的源代码
+	 */
+	codes: string[];
 
-  /**
-   * tab的描述文本
-   */
-  descriptions?: string[];
+	/**
+	 * tab的描述文本
+	 */
+	descriptions?: string[];
 
-  /**
-   * 是否重置内部样式
-   * @default true
-   */
-  resetStyles?: boolean;
+	/**
+	 * 是否重置内部样式
+	 * @default true
+	 */
+	resetStyles?: boolean;
 
-  /**
-   * tab的标题，如果不提供则使用"示例 1"这样的默认标题
-   */
-  titles?: string[];
+	/**
+	 * tab的标题，如果不提供则使用"示例 1"这样的默认标题
+	 */
+	titles?: string[];
 }
 
 const {
-  titles = [],
-  descriptions = [],
-  codes,
-  resetStyles = true,
+	titles = [],
+	descriptions = [],
+	codes,
+	resetStyles = true,
 } = Astro.props;
 ---
 
 <div
-  data-role="code-container"
-  class="cosy:mb-8 cosy:card not-prose"
-  ignore-heading>
-  <CodeToolbar
-    titles={titles.length ? titles : codes.map((_, i) => `示例 ${i + 1}`)}
-    activeTab={0}
-    isCodeView={false}
-    code={codes[0]}
-  />
+    data-role="code-container"
+    class="cosy:mb-8 cosy:card not-prose"
+    ignore-heading>
+    <CodeToolbar
+        titles={titles.length ? titles : codes.map((_, i) => `示例 ${i + 1}`)}
+        activeTab={0}
+        isCodeView={false}
+        code={codes[0]}
+    />
 
-  {
-    codes.map((code, index) => (
-      <div
-        class={`cosy:example-container ${index === 0 ? 'cosy:block' : 'cosy:hidden'}`}
-        data-example={`tab-${index + 1}`}>
-        <Description text={descriptions[index]} />
-
-        <div class="cosy:relative cosy:p-4 cosy:bg-gradient-to-br cosy:from-primary/10 cosy:to-secondary/10 cosy:dark:from-primary/20 cosy:dark:to-secondary/20 cosy:rounded-b">
-          <Preview>
+    {
+        codes.map((code, index) => (
             <div
-              class={`cosy:code-preview-area ${resetStyles ? 'cosy:reset-styles' : ''}`}
-              data-preview-area={`tab-${index + 1}`}>
-              <slot />
-            </div>
-          </Preview>
+                class={`cosy:example-container ${index === 0 ? 'cosy:block' : 'cosy:hidden'}`}
+                data-example={`tab-${index + 1}`}>
+                <Description text={descriptions[index]} />
 
-          <div class="cosy:hidden cosy:code-example-panel" data-panel="code">
-            <CodePanel code={code} />
-          </div>
-        </div>
-      </div>
-    ))
-  }
+                <Container background="dot-grid" width="full">
+                    <div class="cosy:relative cosy:p-4 cosy:bg-gradient-to-br cosy:from-primary/10 cosy:to-secondary/10 cosy:dark:from-primary/20 cosy:dark:to-secondary/20 cosy:rounded-b">
+                        <Preview>
+                            <div
+                                class={`cosy:code-preview-area ${resetStyles ? 'cosy:reset-styles' : ''}`}
+                                data-preview-area={`tab-${index + 1}`}>
+                                <slot />
+                            </div>
+                        </Preview>
+
+                        <div
+                            class="cosy:hidden cosy:code-example-panel"
+                            data-panel="code">
+                            <CodePanel code={code} />
+                        </div>
+                    </div>
+                </Container>
+            </div>
+        ))
+    }
 </div>
 
 <script>
-  function initializeCodeContainer() {
-    // 初始化时隐藏除第一个以外的所有内容
-    document
-      .querySelectorAll('[data-role="code-container"]')
-      .forEach((container) => {
-        const contents = container.querySelectorAll('[id^="tab-"]');
-        contents.forEach((content, index) => {
-          if (index !== 0) {
-            content.classList.add('cosy:hidden');
-          }
-        });
-      });
-  }
+    function initializeCodeContainer() {
+        // 初始化时隐藏除第一个以外的所有内容
+        document
+            .querySelectorAll('[data-role="code-container"]')
+            .forEach((container) => {
+                const contents = container.querySelectorAll('[id^="tab-"]');
+                contents.forEach((content, index) => {
+                    if (index !== 0) {
+                        content.classList.add('cosy:hidden');
+                    }
+                });
+            });
+    }
 
-  document.addEventListener('astro:page-load', () => {
-    initializeCodeContainer();
-  });
+    document.addEventListener('astro:page-load', () => {
+        initializeCodeContainer();
+    });
 </script>

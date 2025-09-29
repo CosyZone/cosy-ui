@@ -1,0 +1,22 @@
+---
+/**
+ * @component MainArticleContainer
+ * @description Main 组件文章模式演示容器，展示源码和效果
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import MainArticle from "./MainArticle.astro";
+import MainNormal from "./MainNormal.astro";
+import MainArticleSource from "./MainArticle.astro?raw";
+import MainNormalSource from "./MainNormal.astro?raw";
+---
+
+<CodeContainer
+  codes={[MainArticleSource, MainNormalSource]}
+  titles={['文章模式', '普通模式']}>
+  <div id="tab-1">
+    <MainArticle />
+  </div>
+  <div id="tab-2">
+    <MainNormal />
+  </div>
+</CodeContainer>

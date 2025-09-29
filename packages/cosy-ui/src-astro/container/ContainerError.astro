@@ -1,21 +1,58 @@
 ---
-import '../../style.ts';
-import { Alert } from '../../index-astro';
+import "../../style.ts";
+import { Alert } from "../../index-astro";
 
 interface IContainerErrorProps {
-  messages: string[];
-  class?: string;
+	messages: string[];
+	paddingError?: {
+		title: string;
+		message: string;
+		solutions: string[];
+		type: string;
+	} | null;
+	class?: string;
 }
 
-const { messages, class: className = '' } = Astro.props as IContainerErrorProps;
+const {
+	messages,
+	paddingError,
+	class: className = "",
+} = Astro.props as IContainerErrorProps;
 ---
 
 <section
-  class={`cosy:w-full cosy:mx-auto ${className}`}
-  aria-label="container-error">
-  <Alert type="warning" variant="soft" closable={false}>
-    <ul class="cosy:list-disc cosy:pl-5 cosy:space-y-1">
-      {messages.map((m) => <li>{m}</li>)}
-    </ul>
-  </Alert>
+    class={`cosy:w-full cosy:mx-auto ${className}`}
+    aria-label="container-error">
+    {
+        paddingError ? (
+            <Alert type="warning" variant="soft" closable={false}>
+                <div class="cosy:space-y-2">
+                    <h3 class="cosy:font-semibold cosy:text-sm">
+                        {paddingError.title}
+                    </h3>
+                    <p class="cosy:text-sm">{paddingError.message}</p>
+                    {paddingError.solutions.length > 0 && (
+                        <div class="cosy:mt-2">
+                            <p class="cosy:text-sm cosy:font-medium cosy:mb-1">
+                                解决方案：
+                            </p>
+                            <ul class="cosy:list-disc cosy:pl-5 cosy:space-y-1">
+                                {paddingError.solutions.map((solution) => (
+                                    <li class="cosy:text-sm">{solution}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                </div>
+            </Alert>
+        ) : (
+            <Alert type="warning" variant="soft" closable={false}>
+                <ul class="cosy:list-disc cosy:pl-5 cosy:space-y-1">
+                    {messages.map((m) => (
+                        <li>{m}</li>
+                    ))}
+                </ul>
+            </Alert>
+        )
+    }
 </section>

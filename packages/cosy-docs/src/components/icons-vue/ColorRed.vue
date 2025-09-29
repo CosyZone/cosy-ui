@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { UserIcon } from '@coffic/cosy-ui/vue';
+import { UserIcon } from "@coffic/cosy-ui/vue";
 
 /**
  * @component ColorRed

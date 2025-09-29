@@ -6,19 +6,19 @@
  * @props {boolean} enableGradient - 是否启用渐变色，默认 false
  * @usage <SmartBg keyword="JavaScript" enableGradient>内容</SmartBg>
  */
-import { bgColorMap, bgGradientMap, mapKeywordToBgKey } from './bg-util';
+import { bgColorMap, bgGradientMap, mapKeywordToBgKey } from "./bg-util";
 
 const {
-  keyword = '',
-  class: className = '',
-  style = '',
-  enableGradient = false,
+	keyword = "",
+	class: className = "",
+	style = "",
+	enableGradient = false,
 } = Astro.props;
 
 const bgKey = mapKeywordToBgKey(keyword);
 const bgClass = enableGradient
-  ? bgGradientMap[bgKey] || bgGradientMap['neutral']
-  : bgColorMap[bgKey] || bgColorMap['neutral'];
+	? bgGradientMap[bgKey] || bgGradientMap["neutral"]
+	: bgColorMap[bgKey] || bgColorMap["neutral"];
 ---
 
 <div class={`${bgClass} ${className} cosy:h-full`} style={style}>

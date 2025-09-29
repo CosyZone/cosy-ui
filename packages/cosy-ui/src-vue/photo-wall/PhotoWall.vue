@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import '../../style';
-import { computed, ref, onMounted, nextTick } from 'vue';
-import PhotoCard from './PhotoCard.vue';
-import Container from '../container/Container.vue';
-import type { IPhotoWallProps, PhotoCardData } from './types';
+import "../../style";
+import { computed, ref, onMounted, nextTick } from "vue";
+import PhotoCard from "./PhotoCard.vue";
+import Container from "../container/Container.vue";
+import type { IPhotoWallProps, PhotoCardData } from "./types";
 
 /**
  * @component PhotoWall
@@ -27,30 +27,30 @@ import type { IPhotoWallProps, PhotoCardData } from './types';
  *
  * 自定义样式：
  * ```vue
- * <PhotoWall 
- *   :photos="photos" 
- *   :hover="true" 
- *   :clickable="true" 
- *   gap="md" 
+ * <PhotoWall
+ *   :photos="photos"
+ *   :hover="true"
+ *   :clickable="true"
+ *   gap="md"
  *   padding="lg"
- *   rounded="lg" 
+ *   rounded="lg"
  * />
  * ```
  */
 
 const props = withDefaults(defineProps<IPhotoWallProps>(), {
-    padding: 'md',
-    rounded: 'md',
-    gap: 'md',
-    hover: true,
-    clickable: true,
-    width: 'full',
-    background: undefined,
-    border: false,
-    centered: true,
-    title: undefined,
-    subtitle: undefined,
-    class: '',
+	padding: "md",
+	rounded: "md",
+	gap: "md",
+	hover: true,
+	clickable: true,
+	width: "full",
+	background: undefined,
+	border: false,
+	centered: true,
+	title: undefined,
+	subtitle: undefined,
+	class: "",
 });
 
 // 容器引用
@@ -58,62 +58,62 @@ const containerRef = ref<HTMLElement>();
 
 // 获取间距类名
 const getGapClasses = (gap: string) => {
-    const gapMap = {
-        none: '',
-        xs: 'cosy:gap-1',
-        sm: 'cosy:gap-2',
-        md: 'cosy:gap-4',
-        lg: 'cosy:gap-6',
-        xl: 'cosy:gap-8',
-    };
-    return gapMap[gap as keyof typeof gapMap] || gapMap.md;
+	const gapMap = {
+		none: "",
+		xs: "cosy:gap-1",
+		sm: "cosy:gap-2",
+		md: "cosy:gap-4",
+		lg: "cosy:gap-6",
+		xl: "cosy:gap-8",
+	};
+	return gapMap[gap as keyof typeof gapMap] || gapMap.md;
 };
 
 // 计算照片墙样式类名
 const photoWallClasses = computed(() => {
-    const baseClasses = [
-        'cosy:grid',
-        'cosy:grid-cols-12',
-        'cosy:auto-rows-[minmax(0,1fr)]', // 使用 minmax 确保行高可以收缩
-        getGapClasses(props.gap), // 使用动态间距
-        'cosy:justify-items-stretch', // 让卡片填满网格区域
-        'cosy:items-stretch',
-        props.class,
-    ];
+	const baseClasses = [
+		"cosy:grid",
+		"cosy:grid-cols-12",
+		"cosy:auto-rows-[minmax(0,1fr)]", // 使用 minmax 确保行高可以收缩
+		getGapClasses(props.gap), // 使用动态间距
+		"cosy:justify-items-stretch", // 让卡片填满网格区域
+		"cosy:items-stretch",
+		props.class,
+	];
 
-    return baseClasses.join(' ');
+	return baseClasses.join(" ");
 });
 
 // 简单的不重叠布局算法 - 强制所有卡片为正方形
 const getCardLayout = (index: number, card: PhotoCardData) => {
-    // 强制所有卡片使用相同的正方形尺寸
-    const colSpan = 3; // 每个卡片占用3列
-    const rowSpan = 3; // 每个卡片占用3行，确保正方形
+	// 强制所有卡片使用相同的正方形尺寸
+	const colSpan = 3; // 每个卡片占用3列
+	const rowSpan = 3; // 每个卡片占用3行，确保正方形
 
-    // 使用简单的网格布局，确保不重叠
-    // 每行最多4个卡片，每个卡片占用3列空间
-    const itemsPerRow = 4;
-    const currentRow = Math.floor(index / itemsPerRow);
-    const currentCol = index % itemsPerRow;
+	// 使用简单的网格布局，确保不重叠
+	// 每行最多4个卡片，每个卡片占用3列空间
+	const itemsPerRow = 4;
+	const currentRow = Math.floor(index / itemsPerRow);
+	const currentCol = index % itemsPerRow;
 
-    // 计算起始位置 - 每个卡片占用3列空间，行间距为3
-    const colStart = currentCol * 3 + 1;
-    const rowStart = currentRow * 3 + 1;
+	// 计算起始位置 - 每个卡片占用3列空间，行间距为3
+	const colStart = currentCol * 3 + 1;
+	const rowStart = currentRow * 3 + 1;
 
-    // 确保不超出网格边界
-    const finalColStart = Math.min(colStart, 13 - colSpan);
+	// 确保不超出网格边界
+	const finalColStart = Math.min(colStart, 13 - colSpan);
 
-    return {
-        gridArea: `${rowStart} / ${finalColStart} / ${rowStart + rowSpan} / ${finalColStart + colSpan}`,
-        colSpan,
-        rowSpan
-    };
+	return {
+		gridArea: `${rowStart} / ${finalColStart} / ${rowStart + rowSpan} / ${finalColStart + colSpan}`,
+		colSpan,
+		rowSpan,
+	};
 };
 
 // 组件挂载后重新计算布局
 onMounted(async () => {
-    await nextTick();
-    // 可以在这里添加更复杂的布局计算逻辑
+	await nextTick();
+	// 可以在这里添加更复杂的布局计算逻辑
 });
 </script>
 

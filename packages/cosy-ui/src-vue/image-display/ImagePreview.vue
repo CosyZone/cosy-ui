@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, watch, ref } from 'vue';
+import { onMounted, onUnmounted, watch, ref } from "vue";
 
 /**
  * @component ImagePreview
@@ -7,13 +7,13 @@ import { onMounted, onUnmounted, watch, ref } from 'vue';
  */
 
 interface IImagePreviewProps {
-  visible: boolean;
-  imageUrl: string;
-  showPreview: boolean;
+	visible: boolean;
+	imageUrl: string;
+	showPreview: boolean;
 }
 
 interface IImagePreviewEmits {
-  (e: 'close'): void;
+	(e: "close"): void;
 }
 
 const props = defineProps<IImagePreviewProps>();
@@ -24,98 +24,98 @@ const isClient = ref(false);
 
 // 键盘事件处理
 const handleKeyDown = (e: KeyboardEvent) => {
-  if (e.key === 'Escape') {
-    emit('close');
-  }
+	if (e.key === "Escape") {
+		emit("close");
+	}
 };
 
 // 点击背景关闭
 const handleBackgroundClick = (e: Event) => {
-  if (e.target === e.currentTarget) {
-    emit('close');
-  }
+	if (e.target === e.currentTarget) {
+		emit("close");
+	}
 };
 
 // 保存原始滚动状态
-let originalOverflow = '';
+let originalOverflow = "";
 let originalScrollTop = 0;
 let hasDisabledScroll = false;
 
 // 禁止背景滚动
 const disableScroll = () => {
-  if (!isClient.value) return;
+	if (!isClient.value) return;
 
-  try {
-    // 保存当前状态
-    originalOverflow = document.body.style.overflow;
-    originalScrollTop =
-      window.pageYOffset || document.documentElement.scrollTop;
+	try {
+		// 保存当前状态
+		originalOverflow = document.body.style.overflow;
+		originalScrollTop =
+			window.pageYOffset || document.documentElement.scrollTop;
 
-    // 禁用滚动
-    document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${originalScrollTop}px`;
-    document.body.style.width = '100%';
+		// 禁用滚动
+		document.body.style.overflow = "hidden";
+		document.body.style.position = "fixed";
+		document.body.style.top = `-${originalScrollTop}px`;
+		document.body.style.width = "100%";
 
-    hasDisabledScroll = true;
-  } catch (error) {
-    console.warn('Failed to disable scroll:', error);
-  }
+		hasDisabledScroll = true;
+	} catch (error) {
+		console.warn("Failed to disable scroll:", error);
+	}
 };
 
 // 恢复背景滚动
 const enableScroll = () => {
-  if (!isClient.value) return;
+	if (!isClient.value) return;
 
-  try {
-    if (hasDisabledScroll) {
-      // 恢复滚动
-      document.body.style.overflow = originalOverflow;
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
+	try {
+		if (hasDisabledScroll) {
+			// 恢复滚动
+			document.body.style.overflow = originalOverflow;
+			document.body.style.position = "";
+			document.body.style.top = "";
+			document.body.style.width = "";
 
-      // 恢复滚动位置
-      window.scrollTo(0, originalScrollTop);
+			// 恢复滚动位置
+			window.scrollTo(0, originalScrollTop);
 
-      hasDisabledScroll = false;
-    }
-  } catch (error) {
-    console.warn('Failed to enable scroll:', error);
-    // 如果恢复失败，强制重置为默认状态
-    document.body.style.overflow = '';
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.width = '';
-  }
+			hasDisabledScroll = false;
+		}
+	} catch (error) {
+		console.warn("Failed to enable scroll:", error);
+		// 如果恢复失败，强制重置为默认状态
+		document.body.style.overflow = "";
+		document.body.style.position = "";
+		document.body.style.top = "";
+		document.body.style.width = "";
+	}
 };
 
 // 生命周期钩子
 onMounted(() => {
-  isClient.value = true;
-  document.addEventListener('keydown', handleKeyDown);
+	isClient.value = true;
+	document.addEventListener("keydown", handleKeyDown);
 });
 
 onUnmounted(() => {
-  document.removeEventListener('keydown', handleKeyDown);
-  // 确保在组件销毁时恢复滚动
-  enableScroll();
+	document.removeEventListener("keydown", handleKeyDown);
+	// 确保在组件销毁时恢复滚动
+	enableScroll();
 });
 
 // 监听 visible 变化，控制滚动
 watch(
-  () => props.visible,
-  (newVisible: boolean) => {
-    if (newVisible) {
-      disableScroll();
-    } else {
-      // 延迟恢复滚动，确保过渡动画完成
-      setTimeout(() => {
-        enableScroll();
-      }, 200);
-    }
-  },
-  { immediate: true }
+	() => props.visible,
+	(newVisible: boolean) => {
+		if (newVisible) {
+			disableScroll();
+		} else {
+			// 延迟恢复滚动，确保过渡动画完成
+			setTimeout(() => {
+				enableScroll();
+			}, 200);
+		}
+	},
+	{ immediate: true },
 );
 </script>
 

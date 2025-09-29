@@ -8,20 +8,124 @@ import { ComponentPackage } from '@/components/main/index';
 
 # {frontmatter.title}
 
-Main 组件是页面的主要内容区域，使用 Container 组件提供响应式布局。适合作为页面主体，自动处理不同屏幕尺寸下的布局和内边距。
+## 简介
 
-## 基础用法
+Main 组件是页面的主要内容区域，使用 Container 组件提供响应式布局。它适合作为页面的主体部分，自动处理不同屏幕尺寸下的布局和内边距。
+
+### 主要特性
+
+- **响应式布局**：在不同屏幕尺寸下自动调整内边距和宽度
+- **灵活配置**：支持自定义容器尺寸、内边距和背景颜色
+- **布局控制**：支持行布局和列布局两种方式
+- **文章模式**：支持文章布局和自动目录生成
+- **属性验证**：自动检测属性冲突并显示错误提示
+
+## 案例
 
 <ComponentPackage.ComponentContainers.Basic />
 
-## 自定义容器尺寸
+## Props
 
-<ComponentPackage.ComponentContainers.CustomSize />
+### backgroundColor
 
-## 自定义内边距
+设置背景颜色，支持主题色或自定义颜色值。
+
+<ComponentPackage.ComponentContainers.CustomBg />
+
+### border
+
+设置边框尺寸，支持不同粗细的边框。
+
+<ComponentPackage.ComponentContainers.Border />
+
+### centered
+
+是否居中显示内容，默认为 `true`。
+
+<ComponentPackage.ComponentContainers.Basic />
+
+### class
+
+自定义 CSS 类名，用于覆盖默认样式。
+
+<ComponentPackage.ComponentContainers.Basic />
+
+### id
+
+HTML id 属性，用于唯一标识元素。
+
+<ComponentPackage.ComponentContainers.Basic />
+
+### isArticle
+
+是否为文章布局，设置为 `true` 时会启用文章模式并支持目录生成。
+
+<ComponentPackage.ComponentContainers.Article />
+
+### layout
+
+布局方式，支持 `row`（行布局）和 `column`（列布局）。
+
+<ComponentPackage.ComponentContainers.Layout />
+
+### padding
+
+水平内边距，通过 Container 组件的 padding 属性设置。
 
 <ComponentPackage.ComponentContainers.CustomPadding />
 
-## 自定义背景颜色
+### pb
 
-<ComponentPackage.ComponentContainers.CustomBg />
+底部内边距，与 `py` 属性冲突时优先使用此属性。
+
+<ComponentPackage.ComponentContainers.PaddingAxis />
+
+### pl
+
+左侧内边距，与 `px` 属性冲突时优先使用此属性。
+
+<ComponentPackage.ComponentContainers.PaddingAxis />
+
+### pr
+
+右侧内边距，与 `px` 属性冲突时优先使用此属性。
+
+<ComponentPackage.ComponentContainers.PaddingAxis />
+
+### pt
+
+顶部内边距，与 `py` 属性冲突时优先使用此属性。
+
+<ComponentPackage.ComponentContainers.PaddingAxis />
+
+### px
+
+水平内边距，与 `pl`/`pr` 属性冲突时优先使用此属性。
+
+<ComponentPackage.ComponentContainers.PaddingAxis />
+
+### py
+
+垂直内边距，与 `pt`/`pb` 属性冲突时优先使用此属性。
+
+<ComponentPackage.ComponentContainers.PaddingAxis />
+
+### showTableOfContents
+
+是否显示目录，仅在文章模式下有效。
+
+<ComponentPackage.ComponentContainers.Article />
+
+### size
+
+容器大小，控制内容区域的最大宽度。
+
+<ComponentPackage.ComponentContainers.Size />
+
+## Slots
+
+### default
+
+Main 组件的主要内容区域，可以包含任何 HTML 元素。
+
+<ComponentPackage.ComponentContainers.Basic />

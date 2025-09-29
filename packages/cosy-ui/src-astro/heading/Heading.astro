@@ -104,51 +104,51 @@
  * - Link (用于锚点链接)
  */
 
-import HeadingAnchor from './HeadingAnchor.astro';
-import Link from '../link/Link.astro';
-import '../../style.ts';
+import HeadingAnchor from "./HeadingAnchor.astro";
+import Link from "../link/Link.astro";
+import "../../style.ts";
 import {
-  getBackgroundClass,
-  type BackgroundColor,
-} from '../../src/common/backgrounds';
+	getBackgroundClass,
+	type BackgroundColor,
+} from "../../src/common/backgrounds";
 import {
-  textWeightClasses,
-  type TextWeight,
-} from '../../src/common/textWeights';
-import { headingSizeClasses } from '../../src/common/textSizes';
-import { textAlignClasses, type TextAlign } from '../../src/common/textAlign';
-import { textColorClasses, type TextColor } from '../../src/common/textColors';
+	textWeightClasses,
+	type TextWeight,
+} from "../../src/common/textWeights";
+import { headingSizeClasses } from "../../src/common/textSizes";
+import { textAlignClasses, type TextAlign } from "../../src/common/textAlign";
+import { textColorClasses, type TextColor } from "../../src/common/textColors";
 
 interface IHeadingProps {
-  align?: Exclude<TextAlign, 'justify'>;
-  anchor?: boolean;
-  background?: BackgroundColor;
-  color?: TextColor;
-  class?: string;
-  external?: boolean;
-  href?: string;
-  id?: string;
-  level?: 1 | 2 | 3 | 4 | 5 | 6;
-  margin?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
-  padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
-  underline?: boolean;
-  weight?: TextWeight;
+	align?: Exclude<TextAlign, "justify">;
+	anchor?: boolean;
+	background?: BackgroundColor;
+	color?: TextColor;
+	class?: string;
+	external?: boolean;
+	href?: string;
+	id?: string;
+	level?: 1 | 2 | 3 | 4 | 5 | 6;
+	margin?: "none" | "sm" | "md" | "lg" | "xl";
+	padding?: "none" | "sm" | "md" | "lg" | "xl";
+	underline?: boolean;
+	weight?: TextWeight;
 }
 
 const {
-  align = 'left',
-  anchor = false,
-  background,
-  color = 'default',
-  class: className = '',
-  external = false,
-  href,
-  id,
-  level = 2,
-  margin = 'md',
-  padding = 'none',
-  underline = false,
-  weight,
+	align = "left",
+	anchor = false,
+	background,
+	color = "default",
+	class: className = "",
+	external = false,
+	href,
+	id,
+	level = 2,
+	margin = "md",
+	padding = "none",
+	underline = false,
+	weight,
 } = Astro.props;
 
 // 字体粗细映射（使用 common）
@@ -156,63 +156,63 @@ const weightClass = textWeightClasses;
 
 // 根据级别设置基础样式（不包含字体粗细）
 const baseHeadingClass =
-  headingSizeClasses[(level ?? 2) as 1 | 2 | 3 | 4 | 5 | 6];
+	headingSizeClasses[(level ?? 2) as 1 | 2 | 3 | 4 | 5 | 6];
 
 // 默认字体粗细（当未指定 weight 时使用）
 const defaultWeightClass = {
-  1: 'cosy:font-bold',
-  2: 'cosy:font-semibold',
-  3: 'cosy:font-semibold',
-  4: 'cosy:font-medium',
-  5: 'cosy:font-medium',
-  6: 'cosy:font-medium',
+	1: "cosy:font-bold",
+	2: "cosy:font-semibold",
+	3: "cosy:font-semibold",
+	4: "cosy:font-medium",
+	5: "cosy:font-medium",
+	6: "cosy:font-medium",
 }[(level ?? 2) as 1 | 2 | 3 | 4 | 5 | 6];
 
 // 组合样式类
 const weightClassValue =
-  weight && weight in weightClass
-    ? weightClass[weight as keyof typeof weightClass]
-    : defaultWeightClass;
+	weight && weight in weightClass
+		? weightClass[weight as keyof typeof weightClass]
+		: defaultWeightClass;
 const headingClass = `${baseHeadingClass} ${weightClassValue}`;
 
-const colorClass = textColorClasses[(color as TextColor) ?? 'default'];
+const colorClass = textColorClasses[(color as TextColor) ?? "default"];
 
 const alignClass =
-  textAlignClasses[(align ?? 'left') as 'left' | 'center' | 'right'];
+	textAlignClasses[(align ?? "left") as "left" | "center" | "right"];
 
 const underlineClass = underline
-  ? 'cosy:border-b cosy:pb-2 cosy:border-gray-200 cosy:dark:border-gray-700'
-  : '';
+	? "cosy:border-b cosy:pb-2 cosy:border-gray-200 cosy:dark:border-gray-700"
+	: "";
 
 // 外边距样式
 const marginClass = {
-  none: '',
-  sm: 'cosy:my-2',
-  md: 'cosy:my-4',
-  lg: 'cosy:my-6',
-  xl: 'cosy:my-8',
-}[(margin ?? 'md') as 'none' | 'sm' | 'md' | 'lg' | 'xl'];
+	none: "",
+	sm: "cosy:my-2",
+	md: "cosy:my-4",
+	lg: "cosy:my-6",
+	xl: "cosy:my-8",
+}[(margin ?? "md") as "none" | "sm" | "md" | "lg" | "xl"];
 
 // 使用通用背景色函数
 const backgroundClass = getBackgroundClass(background);
 
 // 内边距样式映射
 const paddingClassMap = {
-  none: '',
-  sm: 'cosy:py-2',
-  md: 'cosy:py-4',
-  lg: 'cosy:py-6',
-  xl: 'cosy:py-8',
+	none: "",
+	sm: "cosy:py-2",
+	md: "cosy:py-4",
+	lg: "cosy:py-6",
+	xl: "cosy:py-8",
 } as const;
 
 const paddingClass =
-  paddingClassMap[padding as keyof typeof paddingClassMap] || '';
+	paddingClassMap[padding as keyof typeof paddingClassMap] || "";
 
 // 组合所有类名
 const combinedClass = `heading cosy:w-full ${headingClass} ${colorClass} ${alignClass} ${underlineClass} ${marginClass} ${backgroundClass} ${paddingClass} ${className}`;
 
 // 如果有链接，添加链接相关的样式
-const linkClass = href ? 'cosy:hover:opacity-80 cosy:transition-opacity' : '';
+const linkClass = href ? "cosy:hover:opacity-80 cosy:transition-opacity" : "";
 ---
 
 {

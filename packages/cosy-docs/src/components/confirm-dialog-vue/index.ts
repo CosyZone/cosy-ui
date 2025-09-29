@@ -1,7 +1,7 @@
-import ConfirmDialogVueBasicContainer from './ConfirmDialogVueBasicContainer.astro';
-import ConfirmDialogVueCustomButtonsContainer from './ConfirmDialogVueCustomButtonsContainer.astro';
+import ConfirmDialogVueBasicContainer from "./ConfirmDialogVueBasicContainer.astro";
+import ConfirmDialogVueCustomButtonsContainer from "./ConfirmDialogVueCustomButtonsContainer.astro";
 
 export const ConfirmDialogVuePackage = {
-    Basic: ConfirmDialogVueBasicContainer,
-    CustomButtons: ConfirmDialogVueCustomButtonsContainer,
+	Basic: ConfirmDialogVueBasicContainer,
+	CustomButtons: ConfirmDialogVueCustomButtonsContainer,
 };

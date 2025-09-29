@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { MacWindow } from '@coffic/cosy-ui/vue';
+import { MacWindow } from "@coffic/cosy-ui/vue";
 </script>
 
 <template>

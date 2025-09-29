@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import '../../style';
-import { computed } from 'vue';
-import type { IContainerProps } from './types';
-import { allBackgroundClasses } from '../../src/common/backgrounds';
+import "../../style";
+import { computed } from "vue";
+import type { IContainerProps } from "./types";
+import { allBackgroundClasses } from "../../src/common/backgrounds";
 import {
-  widthClasses,
-  flexClasses,
-  gapClasses,
-  itemsClasses,
-  justifyClasses,
-  roundedClasses,
-} from '../../src/common';
-import { paddingClasses } from '../../src/common/padding';
+	widthClasses,
+	flexClasses,
+	gapClasses,
+	itemsClasses,
+	justifyClasses,
+	roundedClasses,
+} from "../../src/common";
+import { paddingClasses } from "../../src/common/padding";
 
 /**
  * @component Container
@@ -32,35 +32,35 @@ import { paddingClasses } from '../../src/common/padding';
 interface Props extends IContainerProps {}
 
 const props = withDefaults(defineProps<Props>(), {
-  padding: 'md',
-  centered: true,
-  border: false,
-  gap: 'none',
-  rounded: 'none',
-  class: '',
+	padding: "md",
+	centered: true,
+	border: false,
+	gap: "none",
+	rounded: "none",
+	class: "",
 });
 
 // 构建CSS类名
-const resolvedSize = computed(() => props.width ?? 'md');
+const resolvedSize = computed(() => props.width ?? "md");
 
 const containerClasses = computed(() => [
-  'cosy:w-full',
-  props.centered ? 'cosy:mx-auto' : '',
-  widthClasses[resolvedSize.value],
-  paddingClasses[props.padding],
-  roundedClasses[props.rounded as keyof typeof roundedClasses],
-  props.border ? 'cosy:border' : '',
-  props.flex ? flexClasses[props.flex] : '',
-  props.flex ? gapClasses[props.gap] : '',
-  props.items && props.flex ? itemsClasses[props.items] : '',
-  props.justify && props.flex ? justifyClasses[props.justify] : '',
-  // 处理背景色 - 使用预定义的完整类名
-  props.background
-    ? allBackgroundClasses[
-        props.background as keyof typeof allBackgroundClasses
-      ]
-    : '',
-  props.class,
+	"cosy:w-full",
+	props.centered ? "cosy:mx-auto" : "",
+	widthClasses[resolvedSize.value],
+	paddingClasses[props.padding],
+	roundedClasses[props.rounded as keyof typeof roundedClasses],
+	props.border ? "cosy:border" : "",
+	props.flex ? flexClasses[props.flex] : "",
+	props.flex ? gapClasses[props.gap] : "",
+	props.items && props.flex ? itemsClasses[props.items] : "",
+	props.justify && props.flex ? justifyClasses[props.justify] : "",
+	// 处理背景色 - 使用预定义的完整类名
+	props.background
+		? allBackgroundClasses[
+				props.background as keyof typeof allBackgroundClasses
+			]
+		: "",
+	props.class,
 ]);
 </script>
 

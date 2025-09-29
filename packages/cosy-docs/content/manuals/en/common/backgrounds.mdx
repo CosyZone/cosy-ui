@@ -1,0 +1,177 @@
+---
+title: 'Background Color Properties'
+folder: false
+order: 1.1
+---
+
+import { Grid, PlaceHolder, Text } from '@coffic/cosy-ui';
+import ThemeColorsShowcaseEn from '@/components/backgrounds/ThemeColorsShowcaseEn.astro';
+import BaseColorsShowcase from '@/components/backgrounds/BaseColorsShowcase.astro';
+import StatusColorsShowcase from '@/components/backgrounds/StatusColorsShowcase.astro';
+import OpacityShowcase from '@/components/backgrounds/OpacityShowcase.astro';
+import BasicGradientsShowcase from '@/components/backgrounds/BasicGradientsShowcase.astro';
+import ThemeGradientsShowcase from '@/components/backgrounds/ThemeGradientsShowcase.astro';
+import FruitGradientsShowcase from '@/components/backgrounds/FruitGradientsShowcase.astro';
+import SpecialValuesShowcase from '@/components/backgrounds/SpecialValuesShowcase.astro';
+import StatusGradientsShowcase from '@/components/backgrounds/StatusGradientsShowcase.astro';
+import PatternShowcaseEn from '@/components/backgrounds/PatternShowcaseEn.astro';
+
+# {frontmatter.title}
+
+## Introduction
+
+Background color properties are common properties in the Cosy UI component library, used to set the background color of components. Supports basic background colors, opacity variants, and gradient colors.
+
+## Basic Background Colors
+
+### Theme Colors
+- `primary` - Primary color
+- `secondary` - Secondary color
+- `accent` - Accent color
+- `neutral` - Neutral color
+
+<ThemeColorsShowcaseEn />
+
+### Base Colors
+- `base-100` - Base background color (light)
+- `base-200` - Base background color (medium)
+- `base-300` - Base background color (dark)
+
+<BaseColorsShowcase />
+
+### Status Colors
+- `success` - Success color
+- `warning` - Warning color
+- `error` - Error color
+- `info` - Info color
+
+<StatusColorsShowcase />
+
+### Special Values
+- `transparent` - Transparent background
+- `none` - No background
+
+<SpecialValuesShowcase />
+
+## Opacity Variants
+
+Each basic background color supports opacity variants in the format `color/opacity`:
+
+### Opacity Values
+- `10` - 10% opacity
+- `20` - 20% opacity
+- `30` - 30% opacity
+- `40` - 40% opacity
+- `50` - 50% opacity
+- `60` - 60% opacity
+- `70` - 70% opacity
+- `80` - 80% opacity
+- `90` - 90% opacity
+
+### Examples
+- `primary/20` - Primary color with 20% opacity
+- `success/10` - Success color with 10% opacity
+- `error/30` - Error color with 30% opacity
+
+<OpacityShowcase />
+
+## Gradient Colors
+
+### Basic Gradients
+- `gradient` - Default gradient (primary to secondary)
+- `gradient-primary` - Primary color gradient
+- `gradient-secondary` - Secondary color gradient
+- `gradient-accent` - Accent color gradient
+
+<BasicGradientsShowcase />
+
+### Status Gradients
+- `gradient-success` - Success color gradient
+- `gradient-warning` - Warning color gradient
+- `gradient-info` - Info color gradient
+
+<StatusGradientsShowcase />
+
+### Theme Gradients
+- `gradient-sky` - Sky gradient
+- `gradient-sunset` - Sunset gradient
+- `gradient-forest` - Forest gradient
+- `gradient-ocean` - Ocean gradient
+- `gradient-mountain` - Mountain gradient
+
+<ThemeGradientsShowcase />
+
+### Fruit Gradients
+- `gradient-flower` - Flower gradient
+- `gradient-watermelon` - Watermelon gradient
+- `gradient-lemon` - Lemon gradient
+- `gradient-grape` - Grape gradient
+- `gradient-blueberry` - Blueberry gradient
+- `gradient-mango` - Mango gradient
+- `gradient-kiwi` - Kiwi gradient
+- `gradient-pitaya` - Pitaya gradient
+- `gradient-banana` - Banana gradient
+
+<FruitGradientsShowcase />
+
+## Pattern Backgrounds
+
+- `dot-grid` - Subtle dot grid
+- `stripes` - Diagonal stripes
+
+<PatternShowcaseEn />
+
+Example:
+```astro
+<Container background="dot-grid" padding="lg">
+  Dot grid pattern background
+</Container>
+
+<Container background="stripes" padding="lg">
+  Diagonal stripes background
+</Container>
+```
+
+## Usage
+
+### In Components
+```astro
+<Container background="primary">
+  Primary background
+</Container>
+
+<Container background="success/20">
+  Success background with 20% opacity
+</Container>
+
+<Container background="gradient-sky">
+  Sky gradient background
+</Container>
+
+<Container background="dot-grid">
+  Pattern background (dot grid)
+</Container>
+```
+
+### In Builder Pattern
+```astro
+const props = ContainerProps()
+  .background("primary/20")
+  .build();
+
+<Container {...props}>
+  Builder pattern background
+</Container>
+```
+
+
+
+## Related Components
+
+The following components support background color properties:
+- `Container` - Container component
+- `Card` - Card component
+- `Button` - Button component
+- `Alert` - Alert component
+- `Badge` - Badge component
+- `Modal` - Modal component

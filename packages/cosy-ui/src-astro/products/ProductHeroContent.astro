@@ -1,14 +1,14 @@
 ---
-import '../../style.ts';
-import { Badge, Heading, Text } from '../../index-astro';
+import "../../style.ts";
+import { Badge, Heading, Text } from "../../index-astro";
 
 export interface Props {
-  name: string;
-  description: string;
-  highlight?: string;
-  labels?: string[];
-  /** e.g. 'direction: ltr;' 或 'direction: rtl;' */
-  contentDirection?: string;
+	name: string;
+	description: string;
+	highlight?: string;
+	labels?: string[];
+	/** e.g. 'direction: ltr;' 或 'direction: rtl;' */
+	contentDirection?: string;
 }
 
 const { name, description, highlight, labels = [] } = Astro.props;

@@ -1,7 +1,7 @@
-import BasicContainer from './BasicContainer.astro';
+import BasicContainer from "./BasicContainer.astro";
 
 export const ComponentPackage = {
-    ComponentContainers: {
-        Basic: BasicContainer,
-    },
+	ComponentContainers: {
+		Basic: BasicContainer,
+	},
 };

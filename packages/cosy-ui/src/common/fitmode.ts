@@ -4,11 +4,11 @@
  */
 
 // 内容适配模式类型
-export type FitMode = 'none' | 'contain' | 'cover';
+export type FitMode = "none" | "contain" | "cover";
 
 // 内容适配模式类名映射
 export const fitModeClasses: Record<FitMode, string> = {
-    none: '',
-    contain: 'cosy:object-contain',
-    cover: 'cosy:object-cover',
+	none: "",
+	contain: "cosy:object-contain",
+	cover: "cosy:object-cover",
 } as const;

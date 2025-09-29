@@ -106,45 +106,45 @@
  * @prop {any} [class:list] - 类名列表
  */
 
-import { computed } from 'vue';
-import Text from '../text/Text.vue';
-import Badge from '../badge/Badge.vue';
-import SmartIcon from '../smart-icon/SmartIcon.vue';
-import Card from '../card/Card.vue';
-import Avatar from '../avatar/Avatar.vue';
-import type { ReviewProps } from './types';
+import { computed } from "vue";
+import Text from "../text/Text.vue";
+import Badge from "../badge/Badge.vue";
+import SmartIcon from "../smart-icon/SmartIcon.vue";
+import Card from "../card/Card.vue";
+import Avatar from "../avatar/Avatar.vue";
+import type { ReviewProps } from "./types";
 
 interface Props extends ReviewProps {
-  class?: string;
-  'class:list'?: any;
+	class?: string;
+	"class:list"?: any;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  verified: false,
-  class: '',
+	verified: false,
+	class: "",
 });
 
-const { class: className, 'class:list': classList } = props;
+const { class: className, "class:list": classList } = props;
 
 // 生成星级评分
 const starArray = computed(() => {
-  return Array.from({ length: 5 }, (_, i) => ({
-    filled: i < Math.floor(props.rating),
-    half: i === Math.floor(props.rating) && props.rating % 1 !== 0,
-  }));
+	return Array.from({ length: 5 }, (_, i) => ({
+		filled: i < Math.floor(props.rating),
+		half: i === Math.floor(props.rating) && props.rating % 1 !== 0,
+	}));
 });
 
 // 格式化日期
 const formattedDate = computed(() => {
-  if (!props.date) return '';
-  try {
-    return new Date(props.date).toLocaleDateString('zh-CN', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    });
-  } catch {
-    return props.date;
-  }
+	if (!props.date) return "";
+	try {
+		return new Date(props.date).toLocaleDateString("zh-CN", {
+			year: "numeric",
+			month: "2-digit",
+			day: "2-digit",
+		});
+	} catch {
+		return props.date;
+	}
 });
 </script>

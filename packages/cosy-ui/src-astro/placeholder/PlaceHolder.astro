@@ -4,12 +4,13 @@
  * @description 占位符组件，用于在布局中占用指定的空间，支持自定义宽度、高度、内边距和背景色
  * @usage
  * ```astro
- * <PlaceHolder width="md" height="lg" padding="md" background="base-200">
+ * <PlaceHolder width="md" height="lg" padding="md" background="base-200" border>
  *   <p>内容</p>
  * </PlaceHolder>
  * ```
  * @props
  * @prop {BackgroundColor} [background] - 背景色类型，支持所有预设背景色和透明度变体
+ * @prop {boolean} [border=false] - 是否显示边框
  * @prop {string} [class] - 自定义 CSS 类名，用于添加额外的样式
  * @prop {string} [height='md'] - 高度尺寸，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl、full
  * @prop {string} [padding='none'] - 内边距大小，可选值：none、xs、sm、md、lg、xl
@@ -17,115 +18,125 @@
  * @slots
  * @slot default - 占位符内容
  */
-import '../../style.ts';
-import type { PlaceHolderProps } from './types';
+import "../../style.ts";
+import type { PlaceHolderProps } from "./types";
 import {
-  getBackgroundClass,
-  type BackgroundColor,
-} from '../../src/common/backgrounds';
+	getBackgroundClass,
+	type BackgroundColor,
+} from "../../src/common/backgrounds";
 
 interface Props extends PlaceHolderProps {
-  background?: BackgroundColor;
-  class?: string;
-  height?:
-    | 'none'
-    | 'xs'
-    | 'sm'
-    | 'md'
-    | 'lg'
-    | 'xl'
-    | '2xl'
-    | '3xl'
-    | '4xl'
-    | '5xl'
-    | '6xl'
-    | 'full';
-  padding?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  width?:
-    | 'none'
-    | 'xs'
-    | 'sm'
-    | 'md'
-    | 'lg'
-    | 'xl'
-    | '2xl'
-    | '3xl'
-    | '4xl'
-    | '5xl'
-    | '6xl'
-    | 'full';
+	background?: BackgroundColor;
+	border?: boolean;
+	class?: string;
+	height?:
+		| "none"
+		| "xs"
+		| "sm"
+		| "md"
+		| "lg"
+		| "xl"
+		| "2xl"
+		| "3xl"
+		| "4xl"
+		| "5xl"
+		| "6xl"
+		| "full";
+	padding?: "none" | "xs" | "sm" | "md" | "lg" | "xl";
+	width?:
+		| "none"
+		| "xs"
+		| "sm"
+		| "md"
+		| "lg"
+		| "xl"
+		| "2xl"
+		| "3xl"
+		| "4xl"
+		| "5xl"
+		| "6xl"
+		| "full";
 }
 
 const {
-  background,
-  class: className = '',
-  height = 'md',
-  padding = 'none',
-  width = 'md',
+	background,
+	border = false,
+	class: className = "",
+	height = "md",
+	padding = "none",
+	width = "md",
 } = Astro.props;
 
 // 宽度样式映射
 const widthClassMap = {
-  none: '',
-  xs: 'cosy:w-8',
-  sm: 'cosy:w-16',
-  md: 'cosy:w-24',
-  lg: 'cosy:w-32',
-  xl: 'cosy:w-40',
-  '2xl': 'cosy:w-48',
-  '3xl': 'cosy:w-56',
-  '4xl': 'cosy:w-64',
-  '5xl': 'cosy:w-72',
-  '6xl': 'cosy:w-80',
-  full: 'cosy:w-full',
+	none: "",
+	xs: "cosy:w-8",
+	sm: "cosy:w-16",
+	md: "cosy:w-24",
+	lg: "cosy:w-32",
+	xl: "cosy:w-40",
+	"2xl": "cosy:w-48",
+	"3xl": "cosy:w-56",
+	"4xl": "cosy:w-64",
+	"5xl": "cosy:w-72",
+	"6xl": "cosy:w-80",
+	full: "cosy:w-full",
 } as const;
 
 // 高度样式映射
 const heightClassMap = {
-  none: '',
-  xs: 'cosy:h-8',
-  sm: 'cosy:h-16',
-  md: 'cosy:h-24',
-  lg: 'cosy:h-32',
-  xl: 'cosy:h-40',
-  '2xl': 'cosy:h-48',
-  '3xl': 'cosy:h-56',
-  '4xl': 'cosy:h-64',
-  '5xl': 'cosy:h-72',
-  '6xl': 'cosy:h-80',
-  full: 'cosy:h-full',
+	none: "",
+	xs: "cosy:h-8",
+	sm: "cosy:h-16",
+	md: "cosy:h-24",
+	lg: "cosy:h-32",
+	xl: "cosy:h-40",
+	"2xl": "cosy:h-48",
+	"3xl": "cosy:h-56",
+	"4xl": "cosy:h-64",
+	"5xl": "cosy:h-72",
+	"6xl": "cosy:h-80",
+	full: "cosy:h-full",
 } as const;
 
 // 内边距样式映射
 const paddingClassMap = {
-  none: '',
-  xs: 'cosy:p-1',
-  sm: 'cosy:p-2',
-  md: 'cosy:p-4',
-  lg: 'cosy:p-6',
-  xl: 'cosy:p-8',
+	none: "",
+	xs: "cosy:p-1",
+	sm: "cosy:p-2",
+	md: "cosy:p-4",
+	lg: "cosy:p-6",
+	xl: "cosy:p-8",
+} as const;
+
+// 边框样式映射
+const borderClassMap = {
+	true: "cosy:border cosy:border-base-300",
+	false: "",
 } as const;
 
 // 使用通用背景色函数
-const widthClass = widthClassMap[width as keyof typeof widthClassMap] || '';
-const heightClass = heightClassMap[height as keyof typeof heightClassMap] || '';
+const widthClass = widthClassMap[width as keyof typeof widthClassMap] || "";
+const heightClass = heightClassMap[height as keyof typeof heightClassMap] || "";
 const paddingClass =
-  paddingClassMap[padding as keyof typeof paddingClassMap] || '';
+	paddingClassMap[padding as keyof typeof paddingClassMap] || "";
 const backgroundClass = getBackgroundClass(background);
+const borderClass =
+	borderClassMap[String(border) as keyof typeof borderClassMap] || "";
 
 const combinedClass =
-  `placeholder ${widthClass} ${heightClass} ${paddingClass} ${backgroundClass} ${className}`.trim();
+	`placeholder ${widthClass} ${heightClass} ${paddingClass} ${backgroundClass} ${borderClass} ${className}`.trim();
 ---
 
 <div class={combinedClass}>
-  <slot />
+    <slot />
 </div>
 
 <style>
-  .placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.5rem;
-  }
+    .placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.5rem;
+    }
 </style>

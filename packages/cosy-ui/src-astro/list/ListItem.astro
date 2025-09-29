@@ -31,33 +31,33 @@
  * @slots
  * @slot default - 列表项的内容。
  */
-import '../../style.ts';
-import ListItemRing from './ListItemRing.astro';
-import ListItemIconLeft from './ListItemIconLeft.astro';
-import ListItemIconRight from './ListItemIconRight.astro';
-import ListItemBreath from './ListItemBreath.astro';
-import ListItemPulse from './ListItemPulse.astro';
-import ListItemGlow from './ListItemGlow.astro';
+import "../../style.ts";
+import ListItemRing from "./ListItemRing.astro";
+import ListItemIconLeft from "./ListItemIconLeft.astro";
+import ListItemIconRight from "./ListItemIconRight.astro";
+import ListItemBreath from "./ListItemBreath.astro";
+import ListItemPulse from "./ListItemPulse.astro";
+import ListItemGlow from "./ListItemGlow.astro";
 
 interface Props {
-  class?: string;
-  loading?: boolean;
-  duration?: number;
-  loadingAnimationType?:
-    | 'none'
-    | 'ring'
-    | 'icon-left'
-    | 'icon-right'
-    | 'breath'
-    | 'pulse'
-    | 'glow';
+	class?: string;
+	loading?: boolean;
+	duration?: number;
+	loadingAnimationType?:
+		| "none"
+		| "ring"
+		| "icon-left"
+		| "icon-right"
+		| "breath"
+		| "pulse"
+		| "glow";
 }
 
 const {
-  loading = false,
-  duration,
-  loadingAnimationType = 'none',
-  ...restProps
+	loading = false,
+	duration,
+	loadingAnimationType = "none",
+	...restProps
 } = Astro.props;
 ---
 

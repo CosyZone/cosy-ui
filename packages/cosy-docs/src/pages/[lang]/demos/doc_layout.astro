@@ -1,30 +1,30 @@
 ---
-import { AppLayout } from '@coffic/cosy-ui';
-import { configApp } from '@/config/config.app';
+import { AppLayout } from "@coffic/cosy-ui";
+import { configApp } from "@/config/config.app";
 
 interface Props {
-  title: string;
-  showTOC?: boolean;
-  showSidebar?: boolean;
+	title: string;
+	showTOC?: boolean;
+	showSidebar?: boolean;
 }
 
 const { title, showTOC = true } = Astro.props;
 
 // 从 URL 获取当前语言
-const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
+const currentLocale = Astro.url.pathname.split("/")[2] || "zh-cn";
 
 // 定义支持的语言
-const languages = ['zh-cn', 'en'];
+const languages = ["zh-cn", "en"];
 
 export const getStaticPaths = async () => {
-  return [
-    {
-      params: { lang: 'zh-cn' },
-    },
-    {
-      params: { lang: 'en' },
-    },
-  ];
+	return [
+		{
+			params: { lang: "zh-cn" },
+		},
+		{
+			params: { lang: "en" },
+		},
+	];
 };
 ---
 
@@ -78,7 +78,7 @@ export const getStaticPaths = async () => {
     debug: false,
   }}
   mainContentConfig={{
-    verticalPadding: '4xl',
+    py: '4xl',
     showTableOfContents: showTOC,
     isArticle: true,
   }}

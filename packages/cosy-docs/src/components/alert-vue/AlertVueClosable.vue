@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Alert } from '@coffic/cosy-ui/vue';
+import { Alert } from "@coffic/cosy-ui/vue";
 
 const handleClose = () => {
-    alert('关闭了');
+	alert("关闭了");
 };
 </script>
 

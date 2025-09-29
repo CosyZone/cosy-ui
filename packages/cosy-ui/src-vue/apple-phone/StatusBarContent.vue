@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { ref, onMounted, onUnmounted, computed } from "vue";
 import {
-    IPhoneSignalIcon,
-    IPhoneWifiIcon,
-    IPhoneBatteryIcon,
-} from '../icons/index';
-import '../../style';
+	IPhoneSignalIcon,
+	IPhoneWifiIcon,
+	IPhoneBatteryIcon,
+} from "../icons/index";
+import "../../style";
 
 /**
  * @component StatusBarContent
@@ -16,7 +16,7 @@ import '../../style';
  * ```vue
  * <StatusBarContent />
  * ```
- * 
+ *
  * 带缩放比例：
  * ```vue
  * <StatusBarContent :scaleRatio="1.5" />
@@ -29,53 +29,53 @@ import '../../style';
 
 // Props 定义
 interface Props {
-    scaleRatio?: number;
+	scaleRatio?: number;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    scaleRatio: 1,
+	scaleRatio: 1,
 });
 
 // 响应式数据
-const currentTime = ref('12:00');
+const currentTime = ref("12:00");
 
 // 更新时间的函数
 const updateTime = () => {
-    const now = new Date();
-    const hours = now.getHours().toString().padStart(2, '0');
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    currentTime.value = `${hours}:${minutes}`;
+	const now = new Date();
+	const hours = now.getHours().toString().padStart(2, "0");
+	const minutes = now.getMinutes().toString().padStart(2, "0");
+	currentTime.value = `${hours}:${minutes}`;
 };
 
 // 计算缩放后的字体大小
 const scaledFontSize = computed(() => {
-    const baseFontSize = 14; // 基础字体大小
-    return `${baseFontSize * props.scaleRatio}px`;
+	const baseFontSize = 14; // 基础字体大小
+	return `${baseFontSize * props.scaleRatio}px`;
 });
 
 // 计算缩放后的图标尺寸
 const scaledIconSize = computed(() => {
-    const baseIconSize = 15; // 基础图标宽度
-    return `${baseIconSize * props.scaleRatio}px`;
+	const baseIconSize = 15; // 基础图标宽度
+	return `${baseIconSize * props.scaleRatio}px`;
 });
 
 // 计算缩放后的图标高度
 const scaledIconHeight = computed(() => {
-    const baseIconSize = 15; // 基础图标高度
-    return `${baseIconSize * props.scaleRatio}px`;
+	const baseIconSize = 15; // 基础图标高度
+	return `${baseIconSize * props.scaleRatio}px`;
 });
 
 // 设置定时器更新时间
 let timeInterval: number;
 onMounted(() => {
-    updateTime();
-    timeInterval = window.setInterval(updateTime, 60000); // 每分钟更新一次
+	updateTime();
+	timeInterval = window.setInterval(updateTime, 60000); // 每分钟更新一次
 });
 
 onUnmounted(() => {
-    if (timeInterval) {
-        clearInterval(timeInterval);
-    }
+	if (timeInterval) {
+		clearInterval(timeInterval);
+	}
 });
 </script>
 

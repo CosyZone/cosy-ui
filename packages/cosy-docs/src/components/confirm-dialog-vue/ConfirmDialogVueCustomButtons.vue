@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { ConfirmDialog } from '@coffic/cosy-ui/vue';
+import { ref } from "vue";
+import { ConfirmDialog } from "@coffic/cosy-ui/vue";
 
 const showDialog = ref(false);
 
 const handleDelete = () => {
-    alert('项目已被删除！');
+	alert("项目已被删除！");
 };
 </script>
 

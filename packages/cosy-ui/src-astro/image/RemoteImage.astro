@@ -31,191 +31,191 @@
  * - width?: number - 图片的宽度
  */
 
-import '../../style.ts';
-import ImageTooltipWrapper from './TooltipWrapper.astro';
-import ImagePlaceholder from './ImagePlaceholder.astro';
-import ImageError from './ImageError.astro';
+import "../../style.ts";
+import ImageTooltipWrapper from "./TooltipWrapper.astro";
+import ImagePlaceholder from "./ImagePlaceholder.astro";
+import ImageError from "./ImageError.astro";
 import {
-  objectFitClasses,
-  roundedClasses,
-  maskClasses,
-  shadowClasses,
-  borderClasses,
-  hoverClasses,
-  transitionClasses,
-  type ObjectFitType,
-  type HoverType,
-  type TransitionType,
-} from './utils';
+	objectFitClasses,
+	roundedClasses,
+	maskClasses,
+	shadowClasses,
+	borderClasses,
+	hoverClasses,
+	transitionClasses,
+	type ObjectFitType,
+	type HoverType,
+	type TransitionType,
+} from "./utils";
 import type {
-  MaskType,
-  ShadowSize,
-  BorderSize,
-  RoundedSize,
-} from '../../src/common';
+	MaskType,
+	ShadowSize,
+	BorderSize,
+	RoundedSize,
+} from "../../src/common";
 
 interface Props {
-  /**
-   * 图片的替代文本
-   */
-  alt: string;
-  /**
-   * 图片的边框样式
-   * @default "none"
-   */
-  border?: BorderSize;
-  /**
-   * 自定义类名
-   */
-  class?: string;
-  /**
-   * 图片的高度
-   */
-  height?: number;
-  /**
-   * 图片的悬停效果
-   * @default "none"
-   */
-  hover?: HoverType;
-  /**
-   * 是否启用图片懒加载
-   * @default true
-   */
-  lazy?: boolean;
-  /**
-   * 图片的加载方式
-   * - lazy：延迟加载，接近视口时再请求，减少首屏带宽占用；页面可见后仍可能继续加载
-   * - eager：尽快加载，适合首屏关键图片；可能占用带宽并推迟 window load 完成
-   * @default "lazy"
-   */
-  loading?: 'lazy' | 'eager';
-  /**
-   * 加载指示器类型
-   * @default "skeleton"
-   */
-  loadingIndicator?: 'pulse' | 'spinner' | 'progress' | 'skeleton';
-  /**
-   * 图片的填充方式
-   * @default "cover"
-   */
-  objectFit?: ObjectFitType;
-  /**
-   * 图片的位置
-   * @default "center"
-   */
-  objectPosition?: string;
-  /**
-   * 图片的圆角大小
-   * @default "none"
-   */
-  rounded?: RoundedSize;
-  /**
-   * 图片的遮罩形状
-   * @default "none"
-   */
-  mask?: MaskType;
-  /**
-   * 图片的阴影效果
-   * @default "none"
-   */
-  shadow?: ShadowSize;
-  /**
-   * 是否显示加载失败的错误图
-   * @default true
-   */
-  showError?: boolean;
-  /**
-   * 是否显示加载中的占位图
-   * @default true
-   */
-  showPlaceholder?: boolean;
-  /**
-   * 远程图片 URL
-   */
-  src: string;
-  /**
-   * 图片的过渡动画
-   * @default "none"
-   */
-  transition?: TransitionType;
-  /**
-   * 图片的提示文本
-   */
-  tooltip?: string;
-  /**
-   * 提示框的位置
-   * @default "top"
-   */
-  tooltipPlacement?: 'top' | 'bottom' | 'left' | 'right';
-  /**
-   * 提示框的颜色主题
-   * @default "neutral"
-   */
-  tooltipColor?:
-    | 'neutral'
-    | 'primary'
-    | 'secondary'
-    | 'accent'
-    | 'info'
-    | 'success'
-    | 'warning'
-    | 'error';
-  /**
-   * 是否强制显示提示框
-   * @default false
-   */
-  tooltipOpen?: boolean;
-  /**
-   * 图片的宽度
-   */
-  width?: number;
-  /**
-   * 图片的布局方式
-   * @default "constrained"
-   */
-  layout?: string;
+	/**
+	 * 图片的替代文本
+	 */
+	alt: string;
+	/**
+	 * 图片的边框样式
+	 * @default "none"
+	 */
+	border?: BorderSize;
+	/**
+	 * 自定义类名
+	 */
+	class?: string;
+	/**
+	 * 图片的高度
+	 */
+	height?: number;
+	/**
+	 * 图片的悬停效果
+	 * @default "none"
+	 */
+	hover?: HoverType;
+	/**
+	 * 是否启用图片懒加载
+	 * @default true
+	 */
+	lazy?: boolean;
+	/**
+	 * 图片的加载方式
+	 * - lazy：延迟加载，接近视口时再请求，减少首屏带宽占用；页面可见后仍可能继续加载
+	 * - eager：尽快加载，适合首屏关键图片；可能占用带宽并推迟 window load 完成
+	 * @default "lazy"
+	 */
+	loading?: "lazy" | "eager";
+	/**
+	 * 加载指示器类型
+	 * @default "skeleton"
+	 */
+	loadingIndicator?: "pulse" | "spinner" | "progress" | "skeleton";
+	/**
+	 * 图片的填充方式
+	 * @default "cover"
+	 */
+	objectFit?: ObjectFitType;
+	/**
+	 * 图片的位置
+	 * @default "center"
+	 */
+	objectPosition?: string;
+	/**
+	 * 图片的圆角大小
+	 * @default "none"
+	 */
+	rounded?: RoundedSize;
+	/**
+	 * 图片的遮罩形状
+	 * @default "none"
+	 */
+	mask?: MaskType;
+	/**
+	 * 图片的阴影效果
+	 * @default "none"
+	 */
+	shadow?: ShadowSize;
+	/**
+	 * 是否显示加载失败的错误图
+	 * @default true
+	 */
+	showError?: boolean;
+	/**
+	 * 是否显示加载中的占位图
+	 * @default true
+	 */
+	showPlaceholder?: boolean;
+	/**
+	 * 远程图片 URL
+	 */
+	src: string;
+	/**
+	 * 图片的过渡动画
+	 * @default "none"
+	 */
+	transition?: TransitionType;
+	/**
+	 * 图片的提示文本
+	 */
+	tooltip?: string;
+	/**
+	 * 提示框的位置
+	 * @default "top"
+	 */
+	tooltipPlacement?: "top" | "bottom" | "left" | "right";
+	/**
+	 * 提示框的颜色主题
+	 * @default "neutral"
+	 */
+	tooltipColor?:
+		| "neutral"
+		| "primary"
+		| "secondary"
+		| "accent"
+		| "info"
+		| "success"
+		| "warning"
+		| "error";
+	/**
+	 * 是否强制显示提示框
+	 * @default false
+	 */
+	tooltipOpen?: boolean;
+	/**
+	 * 图片的宽度
+	 */
+	width?: number;
+	/**
+	 * 图片的布局方式
+	 * @default "constrained"
+	 */
+	layout?: string;
 }
 
 const {
-  src: imageUrl,
-  alt,
-  width,
-  height,
-  layout = 'constrained',
-  loading = 'lazy',
-  objectFit = 'cover',
-  objectPosition = 'center',
-  showPlaceholder = true,
-  showError = true,
-  class: className = '',
-  rounded = 'none',
-  mask = 'none',
-  shadow = 'none',
-  border = 'none',
-  hover = 'none',
-  transition = 'none',
-  loadingIndicator = 'skeleton',
-  tooltip,
-  tooltipPlacement = 'top',
-  tooltipColor = 'neutral',
-  tooltipOpen = false,
+	src: imageUrl,
+	alt,
+	width,
+	height,
+	layout = "constrained",
+	loading = "lazy",
+	objectFit = "cover",
+	objectPosition = "center",
+	showPlaceholder = true,
+	showError = true,
+	class: className = "",
+	rounded = "none",
+	mask = "none",
+	shadow = "none",
+	border = "none",
+	hover = "none",
+	transition = "none",
+	loadingIndicator = "skeleton",
+	tooltip,
+	tooltipPlacement = "top",
+	tooltipColor = "neutral",
+	tooltipOpen = false,
 } = Astro.props;
 
 // 构建图片类名
 const imgClasses = [
-  'cosy:object-center',
-  objectFitClasses[objectFit] || objectFitClasses['cover'],
-  roundedClasses[rounded],
-  maskClasses[mask],
-  shadowClasses[shadow],
-  borderClasses[border],
-  hoverClasses[hover],
-  transitionClasses[transition],
-  layout === 'fill' ? 'cosy:w-full cosy:h-full' : '',
-  className,
+	"cosy:object-center",
+	objectFitClasses[objectFit] || objectFitClasses["cover"],
+	roundedClasses[rounded],
+	maskClasses[mask],
+	shadowClasses[shadow],
+	borderClasses[border],
+	hoverClasses[hover],
+	transitionClasses[transition],
+	layout === "fill" ? "cosy:w-full cosy:h-full" : "",
+	className,
 ]
-  .filter(Boolean)
-  .join(' ');
+	.filter(Boolean)
+	.join(" ");
 ---
 
 <script is:inline>

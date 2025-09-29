@@ -50,24 +50,24 @@
  * @slot footer - 页脚自定义内容
  */
 
-import '../../style.ts';
+import "../../style.ts";
 
 export interface Props {
-  title?: string;
-  message?: string;
-  logo?: string;
-  confirmText?: string;
-  cancelText?: string;
-  customClass?: string;
+	title?: string;
+	message?: string;
+	logo?: string;
+	confirmText?: string;
+	cancelText?: string;
+	customClass?: string;
 }
 
 const {
-  title = '退出登录',
-  message = '您确定要退出当前账号吗？',
-  logo,
-  confirmText = '退出登录',
-  cancelText = '取消',
-  customClass = '',
+	title = "退出登录",
+	message = "您确定要退出当前账号吗？",
+	logo,
+	confirmText = "退出登录",
+	cancelText = "取消",
+	customClass = "",
 } = Astro.props;
 ---
 

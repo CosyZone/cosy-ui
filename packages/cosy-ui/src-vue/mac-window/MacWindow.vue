@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import '../../style';
-import AlertDialog from '../alert-dialog/AlertDialog.vue';
-import Container from '../container/Container.vue';
-import { ref, computed } from 'vue';
-import type { BackgroundColor } from '../../src/common/backgrounds';
+import "../../style";
+import AlertDialog from "../alert-dialog/AlertDialog.vue";
+import Container from "../container/Container.vue";
+import { ref, computed } from "vue";
+import type { BackgroundColor } from "../../src/common/backgrounds";
 
 /**
  * @component MacWindow
@@ -43,105 +43,105 @@ import type { BackgroundColor } from '../../src/common/backgrounds';
  */
 
 interface Props {
-    height?: string;
-    width?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
-    title?: string;
-    withShadow?: boolean;
-    tabs?: string[];
-    defaultTab?: string;
-    bgType?: BackgroundColor;
-    onCloseWindow?: () => void;
-    onMinimizeWindow?: () => void;
-    onMaximizeWindow?: () => void;
-    onTabClick?: (tab: string) => void;
+	height?: string;
+	width?: "xs" | "sm" | "md" | "lg" | "xl" | "full";
+	title?: string;
+	withShadow?: boolean;
+	tabs?: string[];
+	defaultTab?: string;
+	bgType?: BackgroundColor;
+	onCloseWindow?: () => void;
+	onMinimizeWindow?: () => void;
+	onMaximizeWindow?: () => void;
+	onTabClick?: (tab: string) => void;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    height: 'h-96',
-    width: 'md',
-    title: '',
-    withShadow: true,
-    tabs: () => [],
-    defaultTab: '',
-    bgType: 'base-100',
-    onCloseWindow: undefined,
-    onMinimizeWindow: undefined,
-    onMaximizeWindow: undefined,
-    onTabClick: undefined,
+	height: "h-96",
+	width: "md",
+	title: "",
+	withShadow: true,
+	tabs: () => [],
+	defaultTab: "",
+	bgType: "base-100",
+	onCloseWindow: undefined,
+	onMinimizeWindow: undefined,
+	onMaximizeWindow: undefined,
+	onTabClick: undefined,
 });
 
 const showAlertDialog = ref(false);
-const alertMessage = ref('');
+const alertMessage = ref("");
 const activeTab = ref(props.defaultTab);
 
 // 如果没有设置默认标签或默认标签不在tabs中，则选择第一个标签
 if (
-    (!activeTab.value || !props.tabs.includes(activeTab.value)) &&
-    props.tabs.length > 0
+	(!activeTab.value || !props.tabs.includes(activeTab.value)) &&
+	props.tabs.length > 0
 ) {
-    activeTab.value = props.tabs[0];
+	activeTab.value = props.tabs[0];
 }
 
 // 计算窗口样式类
 const windowClasses = computed(() =>
-    [
-        'cosy:flex cosy:relative cosy:rounded-2xl cosy:overflow-hidden',
-        props.height,
-        props.withShadow ? 'cosy:shadow-lg' : '',
-    ]
-        .filter(Boolean)
-        .join(' ')
+	[
+		"cosy:flex cosy:relative cosy:rounded-2xl cosy:overflow-hidden",
+		props.height,
+		props.withShadow ? "cosy:shadow-lg" : "",
+	]
+		.filter(Boolean)
+		.join(" "),
 );
 
 // 计算标题栏样式类
 const headerClasses = computed(() => [
-    'cosy:absolute cosy:top-0 cosy:left-0 cosy:right-0 cosy:flex cosy:items-center cosy:h-12 cosy:px-4 cosy:border-b cosy:border-base-300',
-    props.bgType === 'base-100' ||
-        props.bgType === 'base-200' ||
-        props.bgType === 'base-300'
-        ? 'cosy:bg-base-200'
-        : 'cosy:bg-base-100/80',
+	"cosy:absolute cosy:top-0 cosy:left-0 cosy:right-0 cosy:flex cosy:items-center cosy:h-12 cosy:px-4 cosy:border-b cosy:border-base-300",
+	props.bgType === "base-100" ||
+	props.bgType === "base-200" ||
+	props.bgType === "base-300"
+		? "cosy:bg-base-200"
+		: "cosy:bg-base-100/80",
 ]);
 
 // 计算状态栏样式类
 const statusBarClasses = computed(() => [
-    'cosy:h-6 cosy:border-t cosy:border-base-300 cosy:flex cosy:items-center cosy:justify-end cosy:px-4 cosy:text-sm',
-    props.bgType === 'base-100' ||
-        props.bgType === 'base-200' ||
-        props.bgType === 'base-300'
-        ? 'cosy:bg-base-200'
-        : 'cosy:bg-base-100/80',
+	"cosy:h-6 cosy:border-t cosy:border-base-300 cosy:flex cosy:items-center cosy:justify-end cosy:px-4 cosy:text-sm",
+	props.bgType === "base-100" ||
+	props.bgType === "base-200" ||
+	props.bgType === "base-300"
+		? "cosy:bg-base-200"
+		: "cosy:bg-base-100/80",
 ]);
 
 const handleCloseWindow = () => {
-    alertMessage.value = '关闭APP窗口（这是演示，不会真实操作）';
-    showAlertDialog.value = true;
-    if (props.onCloseWindow) {
-        props.onCloseWindow();
-    }
+	alertMessage.value = "关闭APP窗口（这是演示，不会真实操作）";
+	showAlertDialog.value = true;
+	if (props.onCloseWindow) {
+		props.onCloseWindow();
+	}
 };
 
 const handleMinimizeWindow = () => {
-    alertMessage.value = '最小化窗口（这是演示，不会真实操作）';
-    showAlertDialog.value = true;
-    if (props.onMinimizeWindow) {
-        props.onMinimizeWindow();
-    }
+	alertMessage.value = "最小化窗口（这是演示，不会真实操作）";
+	showAlertDialog.value = true;
+	if (props.onMinimizeWindow) {
+		props.onMinimizeWindow();
+	}
 };
 
 const handleMaximizeWindow = () => {
-    alertMessage.value = '最大化窗口（这是演示，不会真实操作）';
-    showAlertDialog.value = true;
-    if (props.onMaximizeWindow) {
-        props.onMaximizeWindow();
-    }
+	alertMessage.value = "最大化窗口（这是演示，不会真实操作）";
+	showAlertDialog.value = true;
+	if (props.onMaximizeWindow) {
+		props.onMaximizeWindow();
+	}
 };
 
 const handleTabClick = (tab: string) => {
-    activeTab.value = tab;
-    if (props.onTabClick) {
-        props.onTabClick(tab);
-    }
+	activeTab.value = tab;
+	if (props.onTabClick) {
+		props.onTabClick(tab);
+	}
 };
 </script>
 

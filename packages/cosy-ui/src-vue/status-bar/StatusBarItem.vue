@@ -37,57 +37,57 @@ StatusBarItem 组件
 -->
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import '../../style';
+import { computed } from "vue";
+import "../../style";
 
 interface Props {
-    // 是否可点击
-    clickable?: boolean
-    // 状态项变体
-    variant?: 'default' | 'primary' | 'success' | 'warning' | 'error'
-    // 是否激活状态
-    active?: boolean
+	// 是否可点击
+	clickable?: boolean;
+	// 状态项变体
+	variant?: "default" | "primary" | "success" | "warning" | "error";
+	// 是否激活状态
+	active?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    clickable: false,
-    variant: 'default',
-    active: false
-})
+	clickable: false,
+	variant: "default",
+	active: false,
+});
 
 const emit = defineEmits<{
-    (e: 'click', event: MouseEvent): void
-}>()
+	(e: "click", event: MouseEvent): void;
+}>();
 
 const handleClick = (event: MouseEvent) => {
-    if (props.clickable) {
-        emit('click', event)
-    }
-}
+	if (props.clickable) {
+		emit("click", event);
+	}
+};
 
 // 计算状态项类名
 const itemClass = computed(() => {
-    return [
-        'cosy:status-bar-item',
-        'cosy:h-full',
-        'cosy:flex',
-        'cosy:items-center',
-        'cosy:gap-1',
-        'cosy:px-2',
-        'cosy:text-xs',
-        'cosy:transition-all',
-        'cosy:duration-200',
-        {
-            'cosy:cursor-pointer cosy:hover:bg-base-300': props.clickable,
-            'cosy:cursor-default': !props.clickable,
-            'cosy:bg-base-300': props.active,
-            'cosy:text-primary': props.variant === 'primary',
-            'cosy:text-success': props.variant === 'success',
-            'cosy:text-warning': props.variant === 'warning',
-            'cosy:text-error': props.variant === 'error'
-        }
-    ]
-})
+	return [
+		"cosy:status-bar-item",
+		"cosy:h-full",
+		"cosy:flex",
+		"cosy:items-center",
+		"cosy:gap-1",
+		"cosy:px-2",
+		"cosy:text-xs",
+		"cosy:transition-all",
+		"cosy:duration-200",
+		{
+			"cosy:cursor-pointer cosy:hover:bg-base-300": props.clickable,
+			"cosy:cursor-default": !props.clickable,
+			"cosy:bg-base-300": props.active,
+			"cosy:text-primary": props.variant === "primary",
+			"cosy:text-success": props.variant === "success",
+			"cosy:text-warning": props.variant === "warning",
+			"cosy:text-error": props.variant === "error",
+		},
+	];
+});
 </script>
 
 <template>

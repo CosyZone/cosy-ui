@@ -65,31 +65,31 @@
 </template>
 
 <script setup lang="ts">
-import ListItemRing from './ListItemRing.vue';
-import ListItemIconLeft from './ListItemIconLeft.vue';
-import ListItemIconRight from './ListItemIconRight.vue';
-import ListItemBreath from './ListItemBreath.vue';
-import ListItemPulse from './ListItemPulse.vue';
-import ListItemGlow from './ListItemGlow.vue';
+import ListItemRing from "./ListItemRing.vue";
+import ListItemIconLeft from "./ListItemIconLeft.vue";
+import ListItemIconRight from "./ListItemIconRight.vue";
+import ListItemBreath from "./ListItemBreath.vue";
+import ListItemPulse from "./ListItemPulse.vue";
+import ListItemGlow from "./ListItemGlow.vue";
 
 withDefaults(
-  defineProps<{
-    loading?: boolean;
-    duration?: number;
-    animationType?:
-      | 'ring'
-      | 'icon-left'
-      | 'icon-right'
-      | 'breath'
-      | 'pulse'
-      | 'glow';
-  }>(),
-  {
-    loading: false,
-    duration: undefined,
-    animationType: 'ring',
-  }
+	defineProps<{
+		loading?: boolean;
+		duration?: number;
+		animationType?:
+			| "ring"
+			| "icon-left"
+			| "icon-right"
+			| "breath"
+			| "pulse"
+			| "glow";
+	}>(),
+	{
+		loading: false,
+		duration: undefined,
+		animationType: "ring",
+	},
 );
 
-defineEmits(['click']);
+defineEmits(["click"]);
 </script>

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { ConfirmDialog } from '@coffic/cosy-ui/vue';
+import { ref } from "vue";
+import { ConfirmDialog } from "@coffic/cosy-ui/vue";
 
 const showDialog = ref(false);
 
 const handleConfirm = () => {
-    alert('用户确认了操作！');
+	alert("用户确认了操作！");
 };
 </script>
 

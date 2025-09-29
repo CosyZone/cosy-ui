@@ -5,45 +5,45 @@
  * @internal 仅内部使用，不对外导出
  */
 
-import { ClientRouter } from 'astro:transitions';
+import { ClientRouter } from "astro:transitions";
 
 export interface Props {
-  /** 页面标题 */
-  title: string;
-  /** 页面描述 */
-  description?: string;
-  /** 页面关键词 */
-  keywords?: string;
-  /** 页面作者 */
-  author?: string;
-  /** 页面语言 */
-  lang?: string;
-  /** 是否包含 viewport meta 标签 */
-  viewport?: boolean;
-  /** 自定义样式 */
-  customStyles?: string;
-  /** 自定义头部内容 */
-  head?: any;
-  /** 网站图标 */
-  favicon?: {
-    src: string;
-    format: string;
-  };
-  /** 是否启用 Astro ClientRouter */
-  enableClientRouter?: boolean;
+	/** 页面标题 */
+	title: string;
+	/** 页面描述 */
+	description?: string;
+	/** 页面关键词 */
+	keywords?: string;
+	/** 页面作者 */
+	author?: string;
+	/** 页面语言 */
+	lang?: string;
+	/** 是否包含 viewport meta 标签 */
+	viewport?: boolean;
+	/** 自定义样式 */
+	customStyles?: string;
+	/** 自定义头部内容 */
+	head?: any;
+	/** 网站图标 */
+	favicon?: {
+		src: string;
+		format: string;
+	};
+	/** 是否启用 Astro ClientRouter */
+	enableClientRouter?: boolean;
 }
 
 const {
-  title,
-  description = '',
-  keywords = '',
-  author = '',
-  lang = 'zh-CN',
-  viewport = true,
-  customStyles = '',
-  head,
-  favicon,
-  enableClientRouter = true,
+	title,
+	description = "",
+	keywords = "",
+	author = "",
+	lang = "zh-CN",
+	viewport = true,
+	customStyles = "",
+	head,
+	favicon,
+	enableClientRouter = true,
 } = Astro.props;
 ---
 

@@ -49,54 +49,65 @@
  * - 支持键盘导航和屏幕阅读器
  * - 高对比度主题支持
  */
-import type { CodePanelProps } from './types';
-import '../../style.ts';
+import type { CodePanelProps } from "./types";
+import "../../style.ts";
 
 interface Props extends CodePanelProps {}
 
 const {
-  class: className = '',
-  code = '',
-  language = 'typescript',
-  showLineNumbers = false,
-  theme = 'dark-plus',
-  visible = true,
+	class: className = "",
+	code = "",
+	language = "typescript",
+	showLineNumbers = false,
+	theme = "dark-plus",
+	visible = true,
 } = Astro.props;
 
 // 优化 Shiki 加载 - 使用动态导入避免构建时创建多个实例
 let highlightedCode = code;
 try {
-  // 使用动态导入避免构建时的性能问题
-  const { createHighlighter } = await import('shiki');
+	// 使用动态导入避免构建时的性能问题
+	const { createHighlighter } = await import("shiki");
 
-  const highlighter = await createHighlighter({
-    themes: [theme],
-    langs: [language],
-  });
+	const highlighter = await createHighlighter({
+		themes: [theme],
+		langs: [language],
+	});
 
-  highlightedCode = highlighter.codeToHtml(code, {
-    lang: language,
-    theme: theme,
-    transformers: [],
-  });
+	highlightedCode = highlighter.codeToHtml(code, {
+		lang: language,
+		theme: theme,
+		transformers: [],
+	});
 
-  // 释放资源
-  highlighter.dispose?.();
+	// 释放资源
+	highlighter.dispose?.();
 } catch (error) {
-  console.warn(
-    'CodePanel: Shiki highlighting failed, falling back to plain text:',
-    error
-  );
-  // 降级到普通代码块
-  highlightedCode = `<pre><code>${code}</code></pre>`;
+	console.warn(
+		"CodePanel: Shiki highlighting failed, falling back to plain text:",
+		error,
+	);
+	// 降级到普通代码块
+	highlightedCode = `<pre><code>${code}</code></pre>`;
 }
 ---
 
 <div data-panel="code" role="region" aria-label="代码展示面板">
-  <!-- Shiki 渲染的代码 -->
-  <div
-    class="cosy:w-full not-prose cosy-shiki-container"
-    class:list={[className]}
-    set:html={highlightedCode}
-  />
+    <!-- Shiki 渲染的代码 -->
+    <div
+        class="cosy:w-full not-prose cosy-shiki-container cosy:overflow-x-auto cosy:bg-base-300 cosy:rounded-lg cosy:p-4"
+        class:list={[className]}
+        set:html={highlightedCode}
+        style="min-width: max-content;"
+    />
+    <style>
+        .cosy-shiki-container pre {
+            background: transparent !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        .cosy-shiki-container pre code {
+            background: transparent !important;
+        }
+    </style>
 </div>

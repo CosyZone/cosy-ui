@@ -1,39 +1,49 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import { Alert, Badge, Container, Error404, Grid, Heading, type ISidebarItem, Link, ListItem } from '@coffic/cosy-ui';
-import { manualRepo, ManualDoc } from '@coffic/cosy-content';
-import type { RenderResult } from 'astro:content';
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import {
+	Alert,
+	Badge,
+	Container,
+	Error404,
+	Grid,
+	Heading,
+	type ISidebarItem,
+	Link,
+	ListItem,
+} from "@coffic/cosy-ui";
+import { manualRepo, ManualDoc } from "@coffic/cosy-content";
+import type { RenderResult } from "astro:content";
 
 const { lang, slug } = Astro.params;
 const id = slug ? `${lang}/${slug}` : `${lang}`;
 const doc = await manualRepo.find(id);
-let title = '';
+let title = "";
 let tags: string[] = [];
 let renderResult: RenderResult | null = null;
 let sidebarItems: ISidebarItem | null = null;
-let courseDescription = '';
+let courseDescription = "";
 let childrenDocs: ManualDoc[] = [];
 let isBeta = false;
 
 if (doc) {
-  title = doc.getTitle();
-  renderResult = await doc.render();
-  tags = doc.getTags();
-    isBeta = doc.getBadge() === 'beta';
+	title = doc.getTitle();
+	renderResult = await doc.render();
+	tags = doc.getTags();
+	isBeta = doc.getBadge() === "beta";
 
-  // 获取顶级文档
-  const topDoc = await doc.getAncestor(1);
-  if (topDoc) {
-    sidebarItems = await topDoc.toSidebarItem();
-    courseDescription = doc.getDescription();
-    childrenDocs = await doc.getChildren();
-  }
+	// 获取顶级文档
+	const topDoc = await doc.getAncestor(1);
+	if (topDoc) {
+		sidebarItems = await topDoc.toSidebarItem();
+		courseDescription = doc.getDescription();
+		childrenDocs = await doc.getChildren();
+	}
 } else {
-  title = '404 Not Found';
+	title = "404 Not Found";
 }
 
 export const getStaticPaths = async () => {
-  return await manualRepo.getStaticPaths();
+	return await manualRepo.getStaticPaths();
 };
 ---
 

@@ -1,0 +1,195 @@
+---
+/**
+ * @component HeroSection
+ *
+ * @description
+ * 首页 Hero 区域组件，包含标题、描述、按钮和组件展示
+ */
+
+import { TeamMember } from "@coffic/cosy-ui";
+import { getExampleImage } from "@coffic/cosy-ui";
+import { StatsDisplay } from "@coffic/cosy-ui";
+import {
+	Banner,
+	Container,
+	Grid,
+	Hero,
+	Heading,
+	Button,
+	LinkUtil,
+	Text,
+	Card,
+	PlaceHolder,
+} from "@coffic/cosy-ui";
+import { Review } from "@coffic/cosy-ui";
+import { Products } from "@coffic/cosy-ui";
+import { getProductImage } from "@coffic/cosy-ui";
+
+const compactStats = [
+	{ value: "100%", label: "开源" },
+	{ value: "MIT", label: "协议" },
+	{ value: "2025", label: "版本" },
+];
+
+const products = [
+	{
+		name: "产品1",
+		image: getProductImage({ width: 400, height: 300, tag: "product1" }),
+		description: "这是产品1的描述",
+		productUrl: "https://product1.com",
+	},
+	{
+		name: "产品2",
+		image: getProductImage({ width: 400, height: 300, tag: "product2" }),
+		description: "这是产品2的描述",
+		appStoreUrl: "https://apps.apple.com/app/product2",
+	},
+];
+const avatar = getExampleImage({
+	width: 200,
+	height: 200,
+	provider: "robohash",
+	randomSeed: "member1",
+});
+
+export interface Props {
+	/**
+	 * 语言设置
+	 */
+	lang: string;
+}
+
+const { lang } = Astro.props;
+
+const description =
+	lang === "zh-cn"
+		? "一个组件库，帮助你构建美好的用户界面"
+		: "A library of components for building user interfaces";
+
+const mainTitle = "Cosy UI";
+---
+
+<Container
+    width="full"
+    padding="lg"
+    background="primary/10"
+    margin="none"
+    pt="5xl"
+    flex="col"
+    gap="lg">
+    <Container
+        width="2xl"
+        padding="lg"
+        rounded="lg"
+        flex="col"
+        gap="lg"
+        margin="none">
+        <!-- 第一行 - 顶部组件 -->
+        <Container
+            width="full"
+            padding="lg"
+            background="none"
+            rounded="lg"
+            flex="row"
+            gap="lg"
+            margin="none">
+            <!-- 左上角 - 统计展示 -->
+            <PlaceHolder
+                width="full"
+                height="md"
+                padding="md"
+                background="base-100"
+                border>
+                <Button href={LinkUtil.createUrl(`/${lang}/manuals`)}>
+                    {lang === 'zh-cn' ? '开始使用' : 'Get Started'}
+                </Button>
+            </PlaceHolder>
+
+            <!-- 右上角 - 徽章展示 -->
+
+            <PlaceHolder
+                width="full"
+                height="md"
+                padding="md"
+                background="base-100"
+                border>
+                <StatsDisplay
+                    stats={compactStats}
+                    compact={false}
+                    columns={3}
+                    valueSize="2xl"
+                    valueColor="#10b981"
+                    labelColor="#6b7280"
+                    valueWeight="semibold"
+                    labelWeight="normal"
+                    gap="lg"
+                    align="center"
+                />
+            </PlaceHolder>
+        </Container>
+
+        <!-- 第二行 - 主要内容区域 -->
+        <Container width="full" padding="lg" background="none">
+            <Card
+                width="xl"
+                padding="xl"
+                background="base-100"
+                shadow="xl"
+                style="text-align: center; border: 2px dashed #3b82f6; min-height: 400px; display: flex; flex-direction: column; justify-content: center;">
+                <Heading level={1} weight="bold" color="primary" align="center">
+                    {mainTitle}
+                </Heading>
+                <Text
+                    size="md"
+                    color="muted"
+                    align="center"
+                    style="margin-bottom: 2rem;">
+                    {description}
+                </Text>
+                <div
+                    style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
+                    <Button
+                        variant="primary"
+                        size="lg"
+                        href={LinkUtil.createUrl(`/${lang}/manuals`)}>
+                        {lang === 'zh-cn' ? '开始使用' : 'Get Started'}
+                    </Button>
+                    <Button
+                        variant="secondary"
+                        size="lg"
+                        href="https://github.com/cosyzone/cosy-ui"
+                        target="_blank">
+                        GitHub
+                    </Button>
+                </div>
+            </Card>
+        </Container>
+
+        <!-- 第三行 - 底部组件 -->
+        <Container
+            width="full"
+            padding="lg"
+            background="transparent"
+            gap="lg"
+            flex="row">
+            <!-- 左侧 -->
+            <Products products={products} cardSize="sm" columns={2} />
+
+            <!-- 中间 -->
+            <Review
+                userName="张先生"
+                rating={5}
+                comment="产品非常好用，质量很棒！推荐购买。"
+                date="2024-01-15"
+            />
+
+            <!-- 右侧 -->
+            <TeamMember
+                name="张三"
+                role="前端开发工程师"
+                avatar={avatar}
+                bio="拥有5年前端开发经验，专注于React和Vue生态系统。"
+            />
+        </Container>
+    </Container>
+</Container>

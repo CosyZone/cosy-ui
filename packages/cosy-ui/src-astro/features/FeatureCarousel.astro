@@ -1,8 +1,8 @@
 ---
-import Button from '../button/Button.astro';
-import FeatureCard from './FeatureCard.astro';
-import { ChevronLeftIcon, ChevronRightIcon } from '../icons';
-import type { ImageSource } from '../image';
+import Button from "../button/Button.astro";
+import FeatureCard from "./FeatureCard.astro";
+import { ChevronLeftIcon, ChevronRightIcon } from "../icons";
+import type { ImageSource } from "../image";
 
 /**
  * @component FeatureCarousel
@@ -22,14 +22,14 @@ import type { ImageSource } from '../image';
  */
 
 export interface Props {
-  features: Array<{
-    title: string;
-    description: string;
-    background: string;
-    image?: ImageSource;
-    textColor?: string;
-  }>;
-  class?: string;
+	features: Array<{
+		title: string;
+		description: string;
+		background: string;
+		image?: ImageSource;
+		textColor?: string;
+	}>;
+	class?: string;
 }
 
 const { features, class: className } = Astro.props;

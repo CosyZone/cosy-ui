@@ -16,7 +16,7 @@ Icon 组件是一个可重用的SVG图标组件，用于显示各种图标。
 </template>
 
 <script setup>
-import { Icon } from 'cosy-ui';
+import { Icon } from "cosy-ui";
 </script>
 ```
 

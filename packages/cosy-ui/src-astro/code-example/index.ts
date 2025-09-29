@@ -1,1 +1,1 @@
-export { default as CodeExample } from './CodeExample.astro';
+export { default as CodeExample } from "./CodeExample.astro";

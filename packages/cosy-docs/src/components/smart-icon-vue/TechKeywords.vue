@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SmartIcon } from '@coffic/cosy-ui/vue';
+import { SmartIcon } from "@coffic/cosy-ui/vue";
 </script>
 
 <template>

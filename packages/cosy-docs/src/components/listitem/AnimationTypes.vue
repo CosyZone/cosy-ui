@@ -45,5 +45,5 @@
  * @component ListItemAnimationTypesExample
  * @description 展示 ListItem 的所有动画效果类型
  */
-import { ListItem } from '@coffic/cosy-ui/vue';
+import { ListItem } from "@coffic/cosy-ui/vue";
 </script>

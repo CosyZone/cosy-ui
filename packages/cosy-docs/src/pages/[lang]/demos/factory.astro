@@ -1,76 +1,76 @@
 ---
 import {
-  AppLayout,
-  Container,
-  Grid,
-  Image,
-  Heading,
-  Text,
-  Button,
-  Badge,
-  type ImageSource,
-} from '@coffic/cosy-ui';
-import Hero from '@/demos/factory_showcase/Hero.astro';
-import lineUrl from '@/demos/factory_showcase/images/factory-line.jpg';
-import labUrl from '@/demos/factory_showcase/images/factory-lab.jpg';
-import warehouseUrl from '@/demos/factory_showcase/images/factory-warehouse.jpg';
-import exteriorUrl from '@/demos/factory_showcase/images/factory-exterior.jpg';
-import wechatQrUrl from '@/demos/factory_showcase/images/wechat-qr.jpg';
-import { configApp } from '@/config/config.app';
-import * as astroI18n from 'astro:i18n';
+	AppLayout,
+	Container,
+	Grid,
+	Image,
+	Heading,
+	Text,
+	Button,
+	Badge,
+	type ImageSource,
+} from "@coffic/cosy-ui";
+import Hero from "@/demos/factory_showcase/Hero.astro";
+import lineUrl from "@/demos/factory_showcase/images/factory-line.jpg";
+import labUrl from "@/demos/factory_showcase/images/factory-lab.jpg";
+import warehouseUrl from "@/demos/factory_showcase/images/factory-warehouse.jpg";
+import exteriorUrl from "@/demos/factory_showcase/images/factory-exterior.jpg";
+import wechatQrUrl from "@/demos/factory_showcase/images/wechat-qr.jpg";
+import { configApp } from "@/config/config.app";
+import * as astroI18n from "astro:i18n";
 
 // locale
-const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
-const t = (zh: string, en: string) => (currentLocale === 'zh-cn' ? zh : en);
+const currentLocale = Astro.url.pathname.split("/")[2] || "zh-cn";
+const t = (zh: string, en: string) => (currentLocale === "zh-cn" ? zh : en);
 
 export const getStaticPaths = async () => {
-  return [{ params: { lang: 'zh-cn' } }, { params: { lang: 'en' } }];
+	return [{ params: { lang: "zh-cn" } }, { params: { lang: "en" } }];
 };
 
 // 数据：工厂照片区块
 interface BlockItem {
-  title: string;
-  description: string;
-  image: ImageSource;
-  tag?: string;
+	title: string;
+	description: string;
+	image: ImageSource;
+	tag?: string;
 }
 
 const blocks: BlockItem[] = [
-  {
-    title: t('自动化生产线', 'Automated Production Line'),
-    description: t(
-      '核心工位实现自动化上下料与在线质检，稳定高效。',
-      'Key stations are automated with in-line QC for stability and efficiency.'
-    ),
-    image: lineUrl,
-    tag: 'AUTO',
-  },
-  {
-    title: t('品控实验室', 'Quality Lab'),
-    description: t(
-      '全流程检测项目覆盖来料/制程/出货，AQL 1.0 标准。',
-      'Full-process inspections covering IQC/Process/OQC, AQL 1.0 standard.'
-    ),
-    image: labUrl,
-    tag: 'QA',
-  },
-  {
-    title: t('仓储与发货', 'Warehouse & Shipping'),
-    description: t(
-      '先进先出与条码追溯，日均出库 2,000+ 件。',
-      'FIFO with barcode traceability, 2,000+ items shipped daily.'
-    ),
-    image: warehouseUrl,
-    tag: 'WHS',
-  },
-  {
-    title: t('厂区外景', 'Factory Exterior'),
-    description: t(
-      '绿化园区与标准化道路，优化参观动线与物流通道。',
-      'Green campus with standardized roads for visit flow and logistics.'
-    ),
-    image: exteriorUrl,
-  },
+	{
+		title: t("自动化生产线", "Automated Production Line"),
+		description: t(
+			"核心工位实现自动化上下料与在线质检，稳定高效。",
+			"Key stations are automated with in-line QC for stability and efficiency.",
+		),
+		image: lineUrl,
+		tag: "AUTO",
+	},
+	{
+		title: t("品控实验室", "Quality Lab"),
+		description: t(
+			"全流程检测项目覆盖来料/制程/出货，AQL 1.0 标准。",
+			"Full-process inspections covering IQC/Process/OQC, AQL 1.0 standard.",
+		),
+		image: labUrl,
+		tag: "QA",
+	},
+	{
+		title: t("仓储与发货", "Warehouse & Shipping"),
+		description: t(
+			"先进先出与条码追溯，日均出库 2,000+ 件。",
+			"FIFO with barcode traceability, 2,000+ items shipped daily.",
+		),
+		image: warehouseUrl,
+		tag: "WHS",
+	},
+	{
+		title: t("厂区外景", "Factory Exterior"),
+		description: t(
+			"绿化园区与标准化道路，优化参观动线与物流通道。",
+			"Green campus with standardized roads for visit flow and logistics.",
+		),
+		image: exteriorUrl,
+	},
 ];
 ---
 

@@ -20,13 +20,13 @@
  * - activeLink - 当前激活的链接
  * - linkHeightClass - 链接高度类名
  */
-import { type INavItem } from '../../index-astro';
-import NavItems from './NavItems.astro';
+import { type INavItem } from "../../index-astro";
+import NavItems from "./NavItems.astro";
 
 export interface Props {
-  navItems: INavItem[];
-  activeLink: string;
-  linkHeightClass: string;
+	navItems: INavItem[];
+	activeLink: string;
+	linkHeightClass: string;
 }
 
 const { navItems, activeLink, linkHeightClass } = Astro.props;

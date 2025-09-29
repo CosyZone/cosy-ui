@@ -27,33 +27,33 @@
 </template>
 
 <script setup lang="ts">
-import { ImageDisplay } from '@coffic/cosy-ui/vue';
+import { ImageDisplay } from "@coffic/cosy-ui/vue";
 import {
-  getExampleImage,
-  getAvatarImage,
-  getProductImage,
-} from '@coffic/cosy-ui/vue';
+	getExampleImage,
+	getAvatarImage,
+	getProductImage,
+} from "@coffic/cosy-ui/vue";
 
 const sampleImages = [
-  getExampleImage({
-    width: 200,
-    height: 200,
-    provider: 'picsum',
-    randomSeed: 'stable1',
-  }),
-  getAvatarImage({ width: 200, height: 200, randomSeed: 'user1' }),
-  getProductImage({ width: 200, height: 200, tag: 'tech' }),
-  getExampleImage({
-    width: 200,
-    height: 200,
-    provider: 'picsum',
-    tag: 'nature',
-    randomSeed: 'stable2',
-  }),
+	getExampleImage({
+		width: 200,
+		height: 200,
+		provider: "picsum",
+		randomSeed: "stable1",
+	}),
+	getAvatarImage({ width: 200, height: 200, randomSeed: "user1" }),
+	getProductImage({ width: 200, height: 200, tag: "tech" }),
+	getExampleImage({
+		width: 200,
+		height: 200,
+		provider: "picsum",
+		tag: "nature",
+		randomSeed: "stable2",
+	}),
 ];
 
 const handleImageClick = (imageUrl: string) => {
-  console.log('点击了图片:', imageUrl);
-  alert(`点击了图片: ${imageUrl}`);
+	console.log("点击了图片:", imageUrl);
+	alert(`点击了图片: ${imageUrl}`);
 };
 </script>

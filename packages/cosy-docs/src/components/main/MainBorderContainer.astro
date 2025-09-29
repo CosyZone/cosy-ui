@@ -1,0 +1,44 @@
+---
+/**
+ * @component MainBorderContainer
+ * @description Main 组件边框演示容器，展示源码和效果
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import MainBorderNone from "./MainBorderNone.astro";
+import MainBorderSm from "./MainBorderSm.astro";
+import MainBorder from "./MainBorder.astro";
+import MainBorderLg from "./MainBorderLg.astro";
+import MainBorderXl from "./MainBorderXl.astro";
+
+import MainBorderNoneSource from "./MainBorderNone.astro?raw";
+import MainBorderSmSource from "./MainBorderSm.astro?raw";
+import MainBorderSource from "./MainBorder.astro?raw";
+import MainBorderLgSource from "./MainBorderLg.astro?raw";
+import MainBorderXlSource from "./MainBorderXl.astro?raw";
+---
+
+<CodeContainer
+  codes={[
+    MainBorderNoneSource,
+    MainBorderSmSource,
+    MainBorderSource,
+    MainBorderLgSource,
+    MainBorderXlSource,
+  ]}
+  titles={['none', 'sm', 'md', 'lg', 'xl']}>
+  <div id="tab-1">
+    <MainBorderNone />
+  </div>
+  <div id="tab-2">
+    <MainBorderSm />
+  </div>
+  <div id="tab-3">
+    <MainBorder />
+  </div>
+  <div id="tab-4">
+    <MainBorderLg />
+  </div>
+  <div id="tab-5">
+    <MainBorderXl />
+  </div>
+</CodeContainer>

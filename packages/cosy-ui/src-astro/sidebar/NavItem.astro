@@ -5,38 +5,38 @@
  * 递归渲染导航项，支持无限层级
  */
 
-import { isPathMatch } from '../../src/utils/path.ts';
-import '../../style.ts';
-import type { ISidebarItem } from '../../src/common/sidebar';
+import { isPathMatch } from "../../src/utils/path.ts";
+import "../../style.ts";
+import type { ISidebarItem } from "../../src/common/sidebar";
 
 interface Props {
-  /**
-   * 导航项
-   */
-  item: ISidebarItem;
+	/**
+	 * 导航项
+	 */
+	item: ISidebarItem;
 
-  /**
-   * 当前路径
-   */
-  currentPath: string;
+	/**
+	 * 当前路径
+	 */
+	currentPath: string;
 
-  /**
-   * 嵌套层级
-   * @default 0
-   */
-  level?: number;
+	/**
+	 * 嵌套层级
+	 * @default 0
+	 */
+	level?: number;
 
-  /**
-   * 是否开启调试模式
-   */
-  debug?: boolean;
+	/**
+	 * 是否开启调试模式
+	 */
+	debug?: boolean;
 }
 
 const { item, currentPath, level = 0, debug = false } = Astro.props;
 
-const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
+const debugClass = debug ? "cosy:border cosy:border-red-500" : "";
 const isActive = isPathMatch(currentPath, item.href);
-const badgeSize = level === 0 ? 'cosy:badge-sm' : 'cosy:badge-xs';
+const badgeSize = level === 0 ? "cosy:badge-sm" : "cosy:badge-xs";
 ---
 
 <li class:list={[debugClass, level === 0 ? 'cosy:no-underline' : '']}>

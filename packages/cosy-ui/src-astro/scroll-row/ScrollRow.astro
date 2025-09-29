@@ -25,48 +25,48 @@
  * @slot default - 横向排列的任意内容
  */
 
-import '../../style.ts';
-import Container from '../container/Container.astro';
-import PrevButton from './PrevButton.astro';
-import NextButton from './NextButton.astro';
+import "../../style.ts";
+import Container from "../container/Container.astro";
+import PrevButton from "./PrevButton.astro";
+import NextButton from "./NextButton.astro";
 import type {
-  BackgroundColor,
-  PaddingSize,
-  MarginSize,
-  RoundedSize,
-  Size,
-  HeightSize,
-  GapSize,
-} from '../../src/common';
-import { gapClasses } from '../../src/common';
+	BackgroundColor,
+	PaddingSize,
+	MarginSize,
+	RoundedSize,
+	Size,
+	HeightSize,
+	GapSize,
+} from "../../src/common";
+import { gapClasses } from "../../src/common";
 
 interface Props {
-  showNavigation?: boolean;
-  scrollBy?: 'item' | 'page' | number;
-  background?: BackgroundColor;
-  padding?: PaddingSize;
-  margin?: MarginSize;
-  rounded?: RoundedSize;
-  width?: Size;
-  height?: HeightSize;
-  gap?: GapSize;
-  class?: string;
+	showNavigation?: boolean;
+	scrollBy?: "item" | "page" | number;
+	background?: BackgroundColor;
+	padding?: PaddingSize;
+	margin?: MarginSize;
+	rounded?: RoundedSize;
+	width?: Size;
+	height?: HeightSize;
+	gap?: GapSize;
+	class?: string;
 }
 
 const {
-  showNavigation = true,
-  scrollBy = 'item',
-  background,
-  padding = 'md',
-  margin = 'none',
-  rounded = 'none',
-  width = 'full',
-  height = 'none',
-  gap = 'md',
-  class: className = '',
+	showNavigation = true,
+	scrollBy = "item",
+	background,
+	padding = "md",
+	margin = "none",
+	rounded = "none",
+	width = "full",
+	height = "none",
+	gap = "md",
+	class: className = "",
 } = Astro.props as Props;
 
-const gapClass = gapClasses[gap] || '';
+const gapClass = gapClasses[gap] || "";
 ---
 
 <Container

@@ -34,22 +34,22 @@
  * @prop {string} [statusPageUrl] - 系统状态页面URL
  */
 
-import '../../style.ts';
-import { LinkUtil } from '../../src/utils/link.ts';
+import "../../style.ts";
+import { LinkUtil } from "../../src/utils/link.ts";
 
 const baseUrl = LinkUtil.getBaseUrl();
 const path = Astro.url.pathname;
 
 interface Error500Props {
-  debugKVs?: Record<string, string>;
-  supportUrl?: string;
-  statusPageUrl?: string;
+	debugKVs?: Record<string, string>;
+	supportUrl?: string;
+	statusPageUrl?: string;
 }
 
 const {
-  debugKVs = {},
-  supportUrl,
-  statusPageUrl,
+	debugKVs = {},
+	supportUrl,
+	statusPageUrl,
 } = Astro.props as Error500Props;
 ---
 

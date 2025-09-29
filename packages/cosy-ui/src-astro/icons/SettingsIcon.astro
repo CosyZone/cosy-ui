@@ -1,18 +1,18 @@
 ---
-import AstroIcon from './AstroIcon.astro';
+import AstroIcon from "./AstroIcon.astro";
 
 interface Props {
-  class?: string;
-  width?: string;
-  height?: string;
-  stroke?: string;
-  fill?: string;
-  size?: string;
-  color?: string;
-  strokeWidth?: string;
+	class?: string;
+	width?: string;
+	height?: string;
+	stroke?: string;
+	fill?: string;
+	size?: string;
+	color?: string;
+	strokeWidth?: string;
 }
 
-const { class: className, size = '24', color = 'currentColor' } = Astro.props;
+const { class: className, size = "24", color = "currentColor" } = Astro.props;
 ---
 
 <AstroIcon name="settings" size={size} color={color} class={className} />

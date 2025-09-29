@@ -32,33 +32,33 @@
  * @slot default - 无插槽内容，所有内容通过 message 属性传递
  */
 
-import '../../style.ts';
+import "../../style.ts";
 
 export interface Props {
-  message: string;
-  lang?: 'zh-cn' | 'en';
-  id?: string;
-  class?: string;
+	message: string;
+	lang?: "zh-cn" | "en";
+	id?: string;
+	class?: string;
 }
 
 const {
-  message,
-  lang = 'zh-cn',
-  id = 'alert-dialog',
-  class: className,
+	message,
+	lang = "zh-cn",
+	id = "alert-dialog",
+	class: className,
 } = Astro.props;
 
 // 多语言文本
-const t = (key: 'confirm') => {
-  const messages = {
-    'zh-cn': {
-      confirm: '确定',
-    },
-    en: {
-      confirm: 'OK',
-    },
-  };
-  return messages[lang][key];
+const t = (key: "confirm") => {
+	const messages = {
+		"zh-cn": {
+			confirm: "确定",
+		},
+		en: {
+			confirm: "OK",
+		},
+	};
+	return messages[lang][key];
 };
 ---
 

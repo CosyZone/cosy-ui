@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import '../../style';
-import { computed } from 'vue';
-import type { IPhotoCardProps, PhotoCardData } from './types';
-import { roundedClasses } from '../../src/common';
+import "../../style";
+import { computed } from "vue";
+import type { IPhotoCardProps, PhotoCardData } from "./types";
+import { roundedClasses } from "../../src/common";
 
 /**
  * @component PhotoCard
@@ -26,94 +26,95 @@ import { roundedClasses } from '../../src/common';
  *
  * 自定义样式：
  * ```vue
- * <PhotoCard 
- *   :card="cardData" 
- *   :hover="true" 
- *   :clickable="true" 
- *   rounded="lg" 
+ * <PhotoCard
+ *   :card="cardData"
+ *   :hover="true"
+ *   :clickable="true"
+ *   rounded="lg"
  * />
  * ```
  */
 
 const props = withDefaults(defineProps<IPhotoCardProps>(), {
-    hover: true,
-    clickable: true,
-    rounded: 'md',
+	hover: true,
+	clickable: true,
+	rounded: "md",
 });
 
-
 // 获取样式类名
-const getStyleClasses = (style: string = 'default') => {
-    const styleMap = {
-        default: '', // 不设置背景色，让图片完全填满
-        gradient: 'cosy:bg-gradient-to-br',
-        image: 'cosy:bg-cover cosy:bg-center',
-        text: 'cosy:bg-base-100 cosy:flex cosy:flex-col cosy:items-center cosy:justify-center',
-    };
-    return styleMap[style as keyof typeof styleMap] || styleMap.default;
+const getStyleClasses = (style: string = "default") => {
+	const styleMap = {
+		default: "", // 不设置背景色，让图片完全填满
+		gradient: "cosy:bg-gradient-to-br",
+		image: "cosy:bg-cover cosy:bg-center",
+		text: "cosy:bg-base-100 cosy:flex cosy:flex-col cosy:items-center cosy:justify-center",
+	};
+	return styleMap[style as keyof typeof styleMap] || styleMap.default;
 };
 
 // 计算卡片样式
 const cardClasses = computed(() => {
-    const baseClasses = [
-        'cosy:relative',
-        'cosy:overflow-hidden',
-        'cosy:border',
-        'cosy:border-base-300',
-        'cosy:shadow-lg', // 增强阴影效果
-        roundedClasses[props.rounded || 'md'], // 动态圆角
-        'cosy:w-full', // 填满网格区域
-        'cosy:h-full', // 填满网格区域
-        'cosy:aspect-square', // 强制正方形宽高比
-        'cosy:min-h-0', // 确保高度可以收缩
-        getStyleClasses(props.card.style),
-    ];
+	const baseClasses = [
+		"cosy:relative",
+		"cosy:overflow-hidden",
+		"cosy:border",
+		"cosy:border-base-300",
+		"cosy:shadow-lg", // 增强阴影效果
+		roundedClasses[props.rounded || "md"], // 动态圆角
+		"cosy:w-full", // 填满网格区域
+		"cosy:h-full", // 填满网格区域
+		"cosy:aspect-square", // 强制正方形宽高比
+		"cosy:min-h-0", // 确保高度可以收缩
+		getStyleClasses(props.card.style),
+	];
 
-    if (props.hover) {
-        baseClasses.push('cosy:transition-all cosy:duration-300 cosy:cursor-pointer cosy:hover:scale-105 cosy:hover:shadow-xl');
-    }
+	if (props.hover) {
+		baseClasses.push(
+			"cosy:transition-all cosy:duration-300 cosy:cursor-pointer cosy:hover:scale-105 cosy:hover:shadow-xl",
+		);
+	}
 
-    if (props.clickable) {
-        baseClasses.push('cosy:cursor-pointer');
-    }
+	if (props.clickable) {
+		baseClasses.push("cosy:cursor-pointer");
+	}
 
-    return baseClasses.join(' ');
+	return baseClasses.join(" ");
 });
 
 // 计算悬停效果类名
 const hoverClasses = computed(() => {
-    if (!props.hover) return '';
-    return 'cosy:group-hover:scale-105 cosy:group-hover:shadow-lg';
+	if (!props.hover) return "";
+	return "cosy:group-hover:scale-105 cosy:group-hover:shadow-lg";
 });
 
 // 计算背景样式
 const backgroundStyle = computed(() => {
-    if (props.card.style === 'gradient' && props.card.gradient) {
-        return {
-            background: props.card.gradient,
-        };
-    }
-    if (props.card.style === 'image' && props.card.src) {
-        return {
-            backgroundImage: `url(${props.card.src})`,
-        };
-    }
-    if (props.card.backgroundColor) {
-        return {
-            backgroundColor: props.card.backgroundColor,
-        };
-    }
-    return {};
+	if (props.card.style === "gradient" && props.card.gradient) {
+		return {
+			background: props.card.gradient,
+		};
+	}
+	if (props.card.style === "image" && props.card.src) {
+		return {
+			backgroundImage: `url(${props.card.src})`,
+		};
+	}
+	if (props.card.backgroundColor) {
+		return {
+			backgroundColor: props.card.backgroundColor,
+		};
+	}
+	return {};
 });
 
 // 计算文字颜色样式
 const textStyle = computed(() => {
-    if (props.card.textColor) {
-        return {
-            color: props.card.textColor,
-        };
-    }
-    return {};
+	if (props.card.textColor) {
+		return {
+			color: props.card.textColor,
+		};
+	}
+	return {};
 });
 </script>
 

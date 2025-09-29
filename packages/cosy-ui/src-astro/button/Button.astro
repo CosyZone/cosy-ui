@@ -75,143 +75,143 @@
  */
 
 // 导入样式
-import '../../style.ts';
+import "../../style.ts";
 
 interface Props {
-  block?: boolean;
-  class?: string;
-  disabled?: boolean;
-  formmethod?: string;
-  href?: string;
-  loading?: boolean;
-  onClick?: string;
-  shape?: 'circle' | 'square';
-  size?: 'lg' | 'md' | 'sm' | 'xs';
-  target?: '_self' | '_blank' | '_parent' | '_top';
-  type?: 'button' | 'submit' | 'reset';
-  variant?:
-    | 'primary'
-    | 'secondary'
-    | 'accent'
-    | 'info'
-    | 'success'
-    | 'warning'
-    | 'error'
-    | 'ghost'
-    | 'link'
-    | 'outline'
-    | 'neutral'
-    | 'gradient-sky'
-    | 'gradient-watermelon'
-    | 'gradient-lemon'
-    | 'gradient-grape'
-    | 'gradient-mango'
-    | 'gradient-forest'
-    | 'gradient-ocean'
-    | 'gradient-sunset'
-    | 'gradient-flower'
-    | 'gradient-pitaya'
-    | 'gradient-banana'
-    | 'gradient-blueberry'
-    | 'gradient-kiwi';
-  wide?: boolean;
-  [key: string]: any; // 允许任意自定义属性
+	block?: boolean;
+	class?: string;
+	disabled?: boolean;
+	formmethod?: string;
+	href?: string;
+	loading?: boolean;
+	onClick?: string;
+	shape?: "circle" | "square";
+	size?: "lg" | "md" | "sm" | "xs";
+	target?: "_self" | "_blank" | "_parent" | "_top";
+	type?: "button" | "submit" | "reset";
+	variant?:
+		| "primary"
+		| "secondary"
+		| "accent"
+		| "info"
+		| "success"
+		| "warning"
+		| "error"
+		| "ghost"
+		| "link"
+		| "outline"
+		| "neutral"
+		| "gradient-sky"
+		| "gradient-watermelon"
+		| "gradient-lemon"
+		| "gradient-grape"
+		| "gradient-mango"
+		| "gradient-forest"
+		| "gradient-ocean"
+		| "gradient-sunset"
+		| "gradient-flower"
+		| "gradient-pitaya"
+		| "gradient-banana"
+		| "gradient-blueberry"
+		| "gradient-kiwi";
+	wide?: boolean;
+	[key: string]: any; // 允许任意自定义属性
 }
 
 const {
-  block = false,
-  class: className,
-  disabled = false,
-  formmethod,
-  href,
-  loading = false,
-  onClick,
-  shape,
-  size = 'md',
-  target,
-  type = 'button',
-  variant = 'primary',
-  wide = false,
-  ...rest
+	block = false,
+	class: className,
+	disabled = false,
+	formmethod,
+	href,
+	loading = false,
+	onClick,
+	shape,
+	size = "md",
+	target,
+	type = "button",
+	variant = "primary",
+	wide = false,
+	...rest
 } = Astro.props;
 
 // 计算按钮的类名
 const getButtonClasses = () => {
-  const classes = ['cosy:btn'];
+	const classes = ["cosy:btn"];
 
-  // Variant classes
-  const variantClasses = {
-    primary: 'cosy:btn-primary',
-    secondary: 'cosy:btn-secondary',
-    accent: 'cosy:btn-accent',
-    info: 'cosy:btn-info',
-    success: 'cosy:btn-success',
-    warning: 'cosy:btn-warning',
-    error: 'cosy:btn-error',
-    ghost: 'cosy:btn-ghost',
-    link: 'cosy:btn-link',
-    outline: 'cosy:btn-outline',
-    neutral: 'cosy:btn-neutral',
-    'gradient-sky':
-      'cosy:bg-gradient-to-r cosy:from-sky-400 cosy:to-indigo-500 cosy:text-white hover:cosy:from-sky-500 hover:cosy:to-indigo-600',
-    'gradient-watermelon':
-      'cosy:bg-gradient-to-r cosy:from-green-300 cosy:via-pink-400 cosy:to-red-500 cosy:text-white hover:cosy:from-green-400 hover:cosy:to-red-600',
-    'gradient-lemon':
-      'cosy:bg-gradient-to-r cosy:from-yellow-200 cosy:via-yellow-400 cosy:to-yellow-600 cosy:text-gray-900 hover:cosy:from-yellow-300 hover:cosy:to-yellow-700',
-    'gradient-grape':
-      'cosy:bg-gradient-to-r cosy:from-purple-400 cosy:via-indigo-500 cosy:to-purple-700 cosy:text-white hover:cosy:from-purple-500 hover:cosy:to-purple-800',
-    'gradient-mango':
-      'cosy:bg-gradient-to-r cosy:from-yellow-300 cosy:via-orange-400 cosy:to-orange-600 cosy:text-white hover:cosy:from-yellow-400 hover:cosy:to-orange-700',
-    'gradient-forest':
-      'cosy:bg-gradient-to-r cosy:from-green-700 cosy:to-lime-300 cosy:text-white hover:cosy:from-green-800 hover:cosy:to-lime-400',
-    'gradient-ocean':
-      'cosy:bg-gradient-to-r cosy:from-cyan-400 cosy:to-blue-700 cosy:text-white hover:cosy:from-cyan-500 hover:cosy:to-blue-800',
-    'gradient-sunset':
-      'cosy:bg-gradient-to-r cosy:from-orange-400 cosy:via-pink-500 cosy:to-red-500 cosy:text-white hover:cosy:from-orange-500 hover:cosy:to-red-600',
-    'gradient-flower':
-      'cosy:bg-gradient-to-r cosy:from-pink-300 cosy:via-purple-400 cosy:to-fuchsia-500 cosy:text-white hover:cosy:from-pink-400 hover:cosy:to-fuchsia-600',
-    'gradient-pitaya':
-      'cosy:bg-gradient-to-r cosy:from-pink-200 cosy:via-fuchsia-400 cosy:to-lime-300 cosy:text-white hover:cosy:from-pink-300 hover:cosy:to-lime-400',
-    'gradient-banana':
-      'cosy:bg-gradient-to-r cosy:from-yellow-100 cosy:via-yellow-300 cosy:to-yellow-500 cosy:text-gray-900 hover:cosy:from-yellow-200 hover:cosy:to-yellow-600',
-    'gradient-blueberry':
-      'cosy:bg-gradient-to-r cosy:from-blue-400 cosy:via-blue-600 cosy:to-indigo-700 cosy:text-white hover:cosy:from-blue-500 hover:cosy:to-indigo-800',
-    'gradient-kiwi':
-      'cosy:bg-gradient-to-r cosy:from-lime-200 cosy:via-green-400 cosy:to-green-700 cosy:text-white hover:cosy:from-lime-300 hover:cosy:to-green-800',
-  };
+	// Variant classes
+	const variantClasses = {
+		primary: "cosy:btn-primary",
+		secondary: "cosy:btn-secondary",
+		accent: "cosy:btn-accent",
+		info: "cosy:btn-info",
+		success: "cosy:btn-success",
+		warning: "cosy:btn-warning",
+		error: "cosy:btn-error",
+		ghost: "cosy:btn-ghost",
+		link: "cosy:btn-link",
+		outline: "cosy:btn-outline",
+		neutral: "cosy:btn-neutral",
+		"gradient-sky":
+			"cosy:bg-gradient-to-r cosy:from-sky-400 cosy:to-indigo-500 cosy:text-white hover:cosy:from-sky-500 hover:cosy:to-indigo-600",
+		"gradient-watermelon":
+			"cosy:bg-gradient-to-r cosy:from-green-300 cosy:via-pink-400 cosy:to-red-500 cosy:text-white hover:cosy:from-green-400 hover:cosy:to-red-600",
+		"gradient-lemon":
+			"cosy:bg-gradient-to-r cosy:from-yellow-200 cosy:via-yellow-400 cosy:to-yellow-600 cosy:text-gray-900 hover:cosy:from-yellow-300 hover:cosy:to-yellow-700",
+		"gradient-grape":
+			"cosy:bg-gradient-to-r cosy:from-purple-400 cosy:via-indigo-500 cosy:to-purple-700 cosy:text-white hover:cosy:from-purple-500 hover:cosy:to-purple-800",
+		"gradient-mango":
+			"cosy:bg-gradient-to-r cosy:from-yellow-300 cosy:via-orange-400 cosy:to-orange-600 cosy:text-white hover:cosy:from-yellow-400 hover:cosy:to-orange-700",
+		"gradient-forest":
+			"cosy:bg-gradient-to-r cosy:from-green-700 cosy:to-lime-300 cosy:text-white hover:cosy:from-green-800 hover:cosy:to-lime-400",
+		"gradient-ocean":
+			"cosy:bg-gradient-to-r cosy:from-cyan-400 cosy:to-blue-700 cosy:text-white hover:cosy:from-cyan-500 hover:cosy:to-blue-800",
+		"gradient-sunset":
+			"cosy:bg-gradient-to-r cosy:from-orange-400 cosy:via-pink-500 cosy:to-red-500 cosy:text-white hover:cosy:from-orange-500 hover:cosy:to-red-600",
+		"gradient-flower":
+			"cosy:bg-gradient-to-r cosy:from-pink-300 cosy:via-purple-400 cosy:to-fuchsia-500 cosy:text-white hover:cosy:from-pink-400 hover:cosy:to-fuchsia-600",
+		"gradient-pitaya":
+			"cosy:bg-gradient-to-r cosy:from-pink-200 cosy:via-fuchsia-400 cosy:to-lime-300 cosy:text-white hover:cosy:from-pink-300 hover:cosy:to-lime-400",
+		"gradient-banana":
+			"cosy:bg-gradient-to-r cosy:from-yellow-100 cosy:via-yellow-300 cosy:to-yellow-500 cosy:text-gray-900 hover:cosy:from-yellow-200 hover:cosy:to-yellow-600",
+		"gradient-blueberry":
+			"cosy:bg-gradient-to-r cosy:from-blue-400 cosy:via-blue-600 cosy:to-indigo-700 cosy:text-white hover:cosy:from-blue-500 hover:cosy:to-indigo-800",
+		"gradient-kiwi":
+			"cosy:bg-gradient-to-r cosy:from-lime-200 cosy:via-green-400 cosy:to-green-700 cosy:text-white hover:cosy:from-lime-300 hover:cosy:to-green-800",
+	};
 
-  // Size classes
-  const sizeClasses = {
-    lg: 'cosy:btn-lg',
-    md: 'cosy:btn-md',
-    sm: 'cosy:btn-sm',
-    xs: 'cosy:btn-xs',
-  };
+	// Size classes
+	const sizeClasses = {
+		lg: "cosy:btn-lg",
+		md: "cosy:btn-md",
+		sm: "cosy:btn-sm",
+		xs: "cosy:btn-xs",
+	};
 
-  // Shape classes
-  const shapeClasses = {
-    circle: 'cosy:btn-circle',
-    square: 'cosy:btn-square',
-  };
+	// Shape classes
+	const shapeClasses = {
+		circle: "cosy:btn-circle",
+		square: "cosy:btn-square",
+	};
 
-  if (variantClasses[variant]) {
-    classes.push(variantClasses[variant]);
-  }
+	if (variantClasses[variant]) {
+		classes.push(variantClasses[variant]);
+	}
 
-  if (sizeClasses[size]) {
-    classes.push(sizeClasses[size]);
-  }
+	if (sizeClasses[size]) {
+		classes.push(sizeClasses[size]);
+	}
 
-  if (shape && shapeClasses[shape]) {
-    classes.push(shapeClasses[shape]);
-  }
+	if (shape && shapeClasses[shape]) {
+		classes.push(shapeClasses[shape]);
+	}
 
-  if (wide) classes.push('cosy:btn-wide');
-  if (block) classes.push('cosy:btn-block');
-  if (loading) classes.push('cosy:loading');
-  if (className) classes.push(className);
+	if (wide) classes.push("cosy:btn-wide");
+	if (block) classes.push("cosy:btn-block");
+	if (loading) classes.push("cosy:loading");
+	if (className) classes.push(className);
 
-  return classes;
+	return classes;
 };
 
 const buttonClasses = getButtonClasses();

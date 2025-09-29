@@ -1,1 +1,1 @@
-export { default as SmartBg } from './SmartBg.astro';
+export { default as SmartBg } from "./SmartBg.astro";

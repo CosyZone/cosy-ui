@@ -11,24 +11,24 @@ AlertDialog 组件的多语言示例，展示如何使用不同语言的对话�
 -->
 
 <script lang="ts">
-import '../../style';
-import { ref, defineComponent } from 'vue';
-import AlertDialog from './AlertDialog.vue';
+import "../../style";
+import { ref, defineComponent } from "vue";
+import AlertDialog from "./AlertDialog.vue";
 
 export default defineComponent({
-  name: 'AlertDialogMultilangExample',
-  components: {
-    AlertDialog,
-  },
-  setup() {
-    const isShowEn = ref(false);
-    const isShowJa = ref(false);
+	name: "AlertDialogMultilangExample",
+	components: {
+		AlertDialog,
+	},
+	setup() {
+		const isShowEn = ref(false);
+		const isShowJa = ref(false);
 
-    return {
-      isShowEn,
-      isShowJa,
-    };
-  },
+		return {
+			isShowEn,
+			isShowJa,
+		};
+	},
 });
 </script>
 

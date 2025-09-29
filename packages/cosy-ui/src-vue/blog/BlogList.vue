@@ -22,13 +22,13 @@ BlogList 组件用于展示博客文章列表，支持国际化，提供空状�
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { BlogList } from 'cosy-ui';
+import { ref } from "vue";
+import { BlogList } from "cosy-ui";
 
 const blogPosts = ref([
-  { id: '1', title: '文章标题', link: '/blog/post-1', tags: ['技术', 'Vue'] }
+	{ id: "1", title: "文章标题", link: "/blog/post-1", tags: ["技术", "Vue"] },
 ]);
-const currentLang = ref('zh');
+const currentLang = ref("zh");
 </script>
 ```
 

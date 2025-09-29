@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { LinkIcon } from '../icons';
+import { LinkIcon } from "../icons";
 
 /**
  * @component HeadingAnchor
@@ -25,12 +25,12 @@ import { LinkIcon } from '../icons';
  */
 
 interface Props {
-  id?: string;
-  show?: boolean;
+	id?: string;
+	show?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  show: false,
+	show: false,
 });
 </script>
 

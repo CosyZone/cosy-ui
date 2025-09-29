@@ -40,58 +40,58 @@
  * ```
  */
 
-import '../../style.ts';
-import type { ImageSource } from '../image/image.ts';
-import type { ShadowSize } from '../../src/common';
-import { shadowClasses, hoverShadowClasses } from '../../src/common';
-import { SocialIcon, Image, Link } from '../../index-astro';
+import "../../style.ts";
+import type { ImageSource } from "../image/image.ts";
+import type { ShadowSize } from "../../src/common";
+import { shadowClasses, hoverShadowClasses } from "../../src/common";
+import { SocialIcon, Image, Link } from "../../index-astro";
 
 interface ISocialLink {
-  /**
-   * 社交媒体平台
-   */
-  platform: 'github' | 'twitter' | 'linkedin' | 'website' | 'email';
-  /**
-   * 社交媒体链接URL
-   */
-  url: string;
+	/**
+	 * 社交媒体平台
+	 */
+	platform: "github" | "twitter" | "linkedin" | "website" | "email";
+	/**
+	 * 社交媒体链接URL
+	 */
+	url: string;
 }
 
 export interface ITeamMemberProps {
-  /**
-   * 团队成员姓名
-   */
-  name: string;
-  /**
-   * 团队成员职位
-   */
-  role: string;
-  /**
-   * 团队成员头像
-   */
-  avatar: ImageSource;
-  /**
-   * 团队成员简介
-   */
-  bio: string;
-  /**
-   * 社交媒体链接
-   */
-  socialLinks?: ISocialLink[];
-  /**
-   * 自定义类名
-   */
-  class?: string;
-  /**
-   * 卡片阴影强度
-   * @default 'md'
-   */
-  shadow?: ShadowSize;
-  /**
-   * 悬停时卡片阴影强度
-   * @default 'lg'
-   */
-  hoverShadow?: ShadowSize;
+	/**
+	 * 团队成员姓名
+	 */
+	name: string;
+	/**
+	 * 团队成员职位
+	 */
+	role: string;
+	/**
+	 * 团队成员头像
+	 */
+	avatar: ImageSource;
+	/**
+	 * 团队成员简介
+	 */
+	bio: string;
+	/**
+	 * 社交媒体链接
+	 */
+	socialLinks?: ISocialLink[];
+	/**
+	 * 自定义类名
+	 */
+	class?: string;
+	/**
+	 * 卡片阴影强度
+	 * @default 'md'
+	 */
+	shadow?: ShadowSize;
+	/**
+	 * 悬停时卡片阴影强度
+	 * @default 'lg'
+	 */
+	hoverShadow?: ShadowSize;
 }
 
 // 为兼容旧用法，导出同义类型（不建议继续使用旧名）
@@ -99,20 +99,20 @@ export type Props = ITeamMemberProps;
 export type SocialLink = ISocialLink;
 
 const {
-  name,
-  role,
-  avatar,
-  bio,
-  socialLinks,
-  class: className = '',
-  shadow = 'md',
-  hoverShadow = 'lg',
+	name,
+	role,
+	avatar,
+	bio,
+	socialLinks,
+	class: className = "",
+	shadow = "md",
+	hoverShadow = "lg",
 } = Astro.props;
 
-const shadowClass = shadow ? shadowClasses[shadow] || '' : '';
+const shadowClass = shadow ? shadowClasses[shadow] || "" : "";
 const hoverShadowClass = hoverShadow
-  ? hoverShadowClasses[hoverShadow] || hoverShadowClasses['lg']
-  : hoverShadowClasses['lg'];
+	? hoverShadowClasses[hoverShadow] || hoverShadowClasses["lg"]
+	: hoverShadowClasses["lg"];
 ---
 
 <div

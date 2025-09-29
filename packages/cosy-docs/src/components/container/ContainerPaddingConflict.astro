@@ -1,0 +1,16 @@
+---
+/**
+ * @component ContainerPaddingConflict
+ * @description Container 组件内边距冲突示例
+ */
+import { Container, PlaceHolder } from "@coffic/cosy-ui";
+---
+
+<Container py="lg" pt="md" px="xl" pl="sm" border="md" background="base-100">
+    <PlaceHolder width="full" height="md" padding="md" background="base-200">
+        <div>
+            <h3>内边距冲突示例</h3>
+            <p>这个示例展示了同时使用 py 和 pt，px 和 pl 会产生冲突</p>
+        </div>
+    </PlaceHolder>
+</Container>

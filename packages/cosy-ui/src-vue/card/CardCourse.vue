@@ -1,11 +1,11 @@
 <script setup lang="ts">
 defineOptions({
-    name: 'CardCourse',
+	name: "CardCourse",
 });
 
 const props = defineProps({
-    title: { type: String, required: true },
-    link: { type: String, required: true },
+	title: { type: String, required: true },
+	link: { type: String, required: true },
 });
 </script>
 

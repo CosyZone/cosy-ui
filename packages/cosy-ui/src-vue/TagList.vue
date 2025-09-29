@@ -13,11 +13,11 @@
 
 <script>
 export default {
-  props: {
-    tags: {
-      type: Array,
-      required: true,
-    },
-  },
+	props: {
+		tags: {
+			type: Array,
+			required: true,
+		},
+	},
 };
 </script>

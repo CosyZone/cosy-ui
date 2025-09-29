@@ -24,14 +24,14 @@
  * @prop {string} [class] - 自定义CSS类名
  */
 
-import Card from '../card/Card.astro';
-import Button from '../button/Button.astro';
-import Badge from '../badge/Badge.astro';
-import type { IApiEndpoint } from '../types/api-test';
+import Card from "../card/Card.astro";
+import Button from "../button/Button.astro";
+import Badge from "../badge/Badge.astro";
+import type { IApiEndpoint } from "../types/api-test";
 
 interface Props {
-  endpoint: IApiEndpoint;
-  class?: string;
+	endpoint: IApiEndpoint;
+	class?: string;
 }
 
 const { endpoint, class: className } = Astro.props;
@@ -43,54 +43,54 @@ const hasDescription = !!endpoint.description;
 
 // 获取HTTP方法对应的颜色
 const getMethodColor = (
-  method: string
+	method: string,
 ):
-  | 'success'
-  | 'primary'
-  | 'warning'
-  | 'error'
-  | 'info'
-  | 'secondary'
-  | 'accent'
-  | 'ghost' => {
-  const colors: Record<
-    string,
-    | 'success'
-    | 'primary'
-    | 'warning'
-    | 'error'
-    | 'info'
-    | 'secondary'
-    | 'accent'
-    | 'ghost'
-  > = {
-    GET: 'success',
-    POST: 'primary',
-    PUT: 'warning',
-    DELETE: 'error',
-    PATCH: 'info',
-  };
-  return colors[method] || 'neutral';
+	| "success"
+	| "primary"
+	| "warning"
+	| "error"
+	| "info"
+	| "secondary"
+	| "accent"
+	| "ghost" => {
+	const colors: Record<
+		string,
+		| "success"
+		| "primary"
+		| "warning"
+		| "error"
+		| "info"
+		| "secondary"
+		| "accent"
+		| "ghost"
+	> = {
+		GET: "success",
+		POST: "primary",
+		PUT: "warning",
+		DELETE: "error",
+		PATCH: "info",
+	};
+	return colors[method] || "neutral";
 };
 
 // 获取参数类型对应的输入元素
 const getInputElement = (param: any) => {
-  const baseAttrs = {
-    'data-param': param.name,
-    'data-endpoint': endpoint.path,
-    'data-required': param.required || false,
-    'data-validation': JSON.stringify(param.validation || {}),
-  };
+	const baseAttrs = {
+		"data-param": param.name,
+		"data-endpoint": endpoint.path,
+		"data-required": param.required || false,
+		"data-validation": JSON.stringify(param.validation || {}),
+	};
 
-  return {
-    type: param.type || 'text',
-    attrs: baseAttrs,
-    options: param.options || [],
-    defaultValue: param.defaultValue,
-    placeholder: param.placeholder,
-    required: param.required,
-    validation: param.validation,
-  };
+	return {
+		type: param.type || "text",
+		attrs: baseAttrs,
+		options: param.options || [],
+		defaultValue: param.defaultValue,
+		placeholder: param.placeholder,
+		required: param.required,
+		validation: param.validation,
+	};
 };
 ---
 

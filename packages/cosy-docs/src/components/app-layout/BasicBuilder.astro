@@ -1,49 +1,49 @@
 ---
-import { AppLayout, Container, Heading } from '@coffic/cosy-ui';
-import { AppLayoutProps } from '@coffic/cosy-ui';
-import * as astroI18n from 'astro:i18n';
-import type { ISidebarItem } from '@coffic/cosy-ui';
+import { AppLayout, Container, Heading } from "@coffic/cosy-ui";
+import { AppLayoutProps } from "@coffic/cosy-ui";
+import * as astroI18n from "astro:i18n";
+import type { ISidebarItem } from "@coffic/cosy-ui";
 
 const sidebarItems: ISidebarItem[] = [
-  {
-    text: '入门',
-    href: '/docs/getting-started',
-    items: [
-      { href: '/docs/getting-started', text: '快速开始' },
-      { href: '/docs/installation', text: '安装' },
-    ],
-  },
-  {
-    text: '组件',
-    href: '/docs/components',
-    items: [
-      { href: '/docs/components/button', text: 'Button 按钮' },
-      { href: '/docs/components/card', text: 'Card 卡片' },
-    ],
-  },
+	{
+		text: "入门",
+		href: "/docs/getting-started",
+		items: [
+			{ href: "/docs/getting-started", text: "快速开始" },
+			{ href: "/docs/installation", text: "安装" },
+		],
+	},
+	{
+		text: "组件",
+		href: "/docs/components",
+		items: [
+			{ href: "/docs/components/button", text: "Button 按钮" },
+			{ href: "/docs/components/card", text: "Card 卡片" },
+		],
+	},
 ];
 
 const layout = AppLayoutProps()
-  .bodyOnly(true)
-  .metaConfig({
-    title: '应用布局示例',
-    description: '这是一个应用布局的示例页面',
-    keywords: '布局,示例,应用布局',
-    author: 'CofficLab',
-    robots: 'noindex,nofollow',
-    background: 'primary/20',
-  })
-  .sidebarConfig({ sidebarItems })
-  .headerConfig({ height: 'md', sticky: false, astroI18n })
-  .footerConfig({
-    siteName: '我的文档站点',
-    homeLink: '/',
-    slogan: '简单而强大的组件库',
-    company: 'CofficLab',
-    inspirationalSlogan: '让开发更加愉悦',
-  })
-  .mainContentConfig({ padding: 'md', verticalPadding: '4xl' })
-  .build();
+	.bodyOnly(true)
+	.metaConfig({
+		title: "应用布局示例",
+		description: "这是一个应用布局的示例页面",
+		keywords: "布局,示例,应用布局",
+		author: "CofficLab",
+		robots: "noindex,nofollow",
+		background: "primary/20",
+	})
+	.sidebarConfig({ sidebarItems })
+	.headerConfig({ height: "md", sticky: false, astroI18n })
+	.footerConfig({
+		siteName: "我的文档站点",
+		homeLink: "/",
+		slogan: "简单而强大的组件库",
+		company: "CofficLab",
+		inspirationalSlogan: "让开发更加愉悦",
+	})
+	.mainContentConfig({ padding: "md", verticalPadding: "4xl" })
+	.build();
 ---
 
 <AppLayout {...layout}>
