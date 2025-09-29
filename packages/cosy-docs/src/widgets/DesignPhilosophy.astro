@@ -6,40 +6,40 @@
  * 设计理念展示组件，使用 DemoSection 展示智能属性验证的特点
  */
 
-import DemoSection from "./DemoSection.astro";
+import DemoSection from './DemoSection.astro';
 import {
-	Container,
-	Heading,
-	CodePanel,
-	ErrorIcon,
-	CheckCircle,
-	TeamMember,
-} from "@coffic/cosy-ui";
-import TeamMemberExample from "../components/team-member/TeamMemberExample.astro";
-import TeamMemberExampleSource from "../components/team-member/TeamMemberExample.astro?raw";
+    Container,
+    Heading,
+    CodePanel,
+    ErrorIcon,
+    CheckCircle,
+    TeamMember,
+} from '@coffic/cosy-ui';
+import TeamMemberExample from '../components/team-member/TeamMemberExample.astro';
+import TeamMemberExampleSource from '../components/team-member/TeamMemberExample.astro?raw';
 
 export interface Props {
-	/**
-	 * 语言设置
-	 */
-	lang: string;
+    /**
+     * 语言设置
+     */
+    lang: string;
 }
 
 const { lang } = Astro.props;
-const title = lang === "zh-cn" ? "设计理念" : "Design Philosophy";
+const title = lang === 'zh-cn' ? '设计理念' : 'Design Philosophy';
 const description =
-	lang === "zh-cn"
-		? "让用户专注于创造，快速写出界面"
-		: "Let users focus on creation and quickly build interfaces";
+    lang === 'zh-cn'
+        ? '让用户专注于创造，快速写出界面'
+        : 'Let users focus on creation and quickly build interfaces';
 ---
 
 <DemoSection
     title={title}
     description={description}
     background="accent/20"
-    align="left">
+    align="top">
     <!-- 演示区域 -->
-    <Container slot="demo" flex="col" gap="lg">
+    <Container slot="demo" flex="row" gap="lg" width="2xl">
         <!-- 代码示例 -->
         <Container background="none" rounded="lg" padding="none">
             <CodePanel
@@ -51,7 +51,7 @@ const description =
         </Container>
 
         <!-- 实际效果展示 -->
-        <Container margin="md" flex="row" justify="center">
+        <Container margin="md" flex="row" justify="center" width="2xl">
             <TeamMemberExample />
         </Container>
     </Container>
