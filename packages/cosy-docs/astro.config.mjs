@@ -9,7 +9,6 @@ import cloudflare from "@astrojs/cloudflare";
 // https://astro.build/config
 export default defineConfig({
     site: "https://ui.coffic.cn",
-    base: "./",
     srcDir: "src",
     outDir: "dist",
 
