@@ -23,11 +23,11 @@ export interface IContainerPropsBuilder {
 		value: NonNullable<IContainerProps["backgroundImage"]>,
 	): IContainerPropsBuilder;
 
-	/** 是否显示边框。
-	 * @param value 省略则为 true
+	/** 设置边框尺寸。
+	 * @param value 边框尺寸，可选值：none、sm、md、lg、xl
 	 * @returns IContainerPropsBuilder
 	 */
-	border(value?: boolean): IContainerPropsBuilder;
+	border(value: NonNullable<IContainerProps["border"]>): IContainerPropsBuilder;
 
 	/** 内容适配模式（none/contain/cover）。
 	 * @param value 适配模式
@@ -40,7 +40,7 @@ export interface IContainerPropsBuilder {
 	 * @returns IContainerPropsBuilder
 	 */
 	contentBorder(
-		value?: NonNullable<IContainerProps["contentBorder"]>,
+		value?: boolean | NonNullable<IContainerProps["contentBorder"]>,
 	): IContainerPropsBuilder;
 
 	/** 是否整体居中显示（容器居中）。
@@ -158,7 +158,7 @@ export function createContainerProps(
 			return api;
 		},
 		/** @inheritDoc IContainerPropsBuilder.border */
-		border(value = true) {
+		border(value) {
 			props = { ...props, border: value };
 			return api;
 		},
