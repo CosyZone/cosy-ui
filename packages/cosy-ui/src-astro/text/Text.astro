@@ -96,80 +96,70 @@
  * - 确保文本颜色与背景色的对比度符合WCAG标准
  */
 
-import "../../style.ts";
-import { textColorClasses, type TextColor } from "../../src/common/textColors";
+import '../../style.ts';
+import { textColorClasses, type TextColor } from '../../src/common/textColors';
 import {
-	textWeightClasses,
-	type TextWeight,
-} from "../../src/common/textWeights";
-import { textSizeClasses, type TextSize } from "../../src/common/textSizes";
-import { textAlignClasses, type TextAlign } from "../../src/common/textAlign";
-
-export interface ITextProps {
-	as?: string;
-	size?: TextSize;
-	weight?: TextWeight;
-	color?: TextColor;
-	align?: TextAlign;
-	italic?: boolean;
-	underline?: boolean;
-	truncate?: boolean;
-	class?: string;
-	style?: string;
-}
+    textWeightClasses,
+    type TextWeight,
+} from '../../src/common/textWeights';
+import { textSizeClasses, type TextSize } from '../../src/common/textSizes';
+import { textAlignClasses, type TextAlign } from '../../src/common/textAlign';
+import type { ITextProps, Props } from './props';
 
 // 兼容旧用法导出（建议使用 ITextProps）
-export type Props = ITextProps;
+export type { ITextProps, Props };
 
 const {
-	as: Element = "p",
-	size = "md",
-	weight = "normal",
-	color = "default",
-	align = "left",
-	italic = false,
-	underline = false,
-	truncate = false,
-	class: className = "",
-	style = "",
+    as: Element = 'p',
+    size = 'md',
+    weight = 'normal',
+    color = 'default',
+    align = 'left',
+    italic = false,
+    underline = false,
+    truncate = false,
+    class: className = '',
+    style = '',
 } = Astro.props;
 
 // 根据大小设置样式（使用 common 映射）
-const sizeClass = textSizeClasses[(size as TextSize) ?? "md"];
+const sizeClass = textSizeClasses[(size as TextSize) ?? 'md'];
 
 // 根据粗细设置样式（使用 common 映射）
-const weightClass = textWeightClasses[(weight as TextWeight) ?? "normal"];
+const weightClass = textWeightClasses[(weight as TextWeight) ?? 'normal'];
 
 // 根据颜色设置样式（使用 common 映射）
-const colorClass = textColorClasses[(color as TextColor) ?? "default"];
+const colorClass = textColorClasses[(color as TextColor) ?? 'default'];
 
 // 根据对齐方式设置样式（使用 common 映射）
-const alignClass = textAlignClasses[(align as TextAlign) ?? "left"];
+const alignClass = textAlignClasses[(align as TextAlign) ?? 'left'];
 
 // 其他样式
-const italicClass = italic ? "cosy:italic" : "";
-const underlineClass = underline ? "cosy:underline" : "";
-const truncateClass = truncate ? "cosy:truncate" : "";
+const italicClass = italic ? 'cosy:italic' : '';
+const underlineClass = underline ? 'cosy:underline' : '';
+const truncateClass = truncate ? 'cosy:truncate' : '';
 
 // 组合所有类名
 const combinedClass = `text ${sizeClass} ${weightClass} ${colorClass} ${alignClass} ${italicClass} ${underlineClass} ${truncateClass} ${className}`;
 ---
 
-<Element class={combinedClass} style={style}>
-  <slot />
-</Element>
+<Fragment
+    set:html={`<${Element} class="${combinedClass}"${style ? ` style="${style}"` : ''}>`}
+/>
+<slot />
+<Fragment set:html={`</${Element}>`} />
 
 <style>
-  .text {
-    margin-bottom: 1em;
-    line-height: 1.5;
-  }
+    .text {
+        margin-bottom: 1em;
+        line-height: 1.5;
+    }
 
-  /* 确保截断文本正常工作 */
-  .truncate {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-  }
+    /* 确保截断文本正常工作 */
+    .truncate {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
 </style>

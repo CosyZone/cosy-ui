@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import type { TextColor } from "../../src/common/textColors";
-import type { TextWeight } from "../../src/common/textWeights";
-import type { TextSize } from "../../src/common/textSizes";
-import type { TextAlign } from "../../src/common/textAlign";
 import { textColorClasses } from "../../src/common/textColors";
 import { textWeightClasses } from "../../src/common/textWeights";
 import { textSizeClasses } from "../../src/common/textSizes";
 import { textAlignClasses } from "../../src/common/textAlign";
+import type { ITextProps } from "./props";
+import { textDefaultProps } from "./props";
 
 /**
  * @component Text
@@ -93,31 +91,7 @@ import { textAlignClasses } from "../../src/common/textAlign";
  * @prop {string} [style] - 自定义内联样式
  */
 
-export interface ITextProps {
-	as?: string;
-	size?: TextSize;
-	weight?: TextWeight;
-	color?: TextColor;
-	align?: TextAlign;
-	italic?: boolean;
-	underline?: boolean;
-	truncate?: boolean;
-	class?: string;
-	style?: string;
-}
-
-const props = withDefaults(defineProps<ITextProps>(), {
-	as: "p",
-	size: "md",
-	weight: "normal",
-	color: "default",
-	align: "left",
-	italic: false,
-	underline: false,
-	truncate: false,
-	class: "",
-	style: "",
-});
+const props = withDefaults(defineProps<ITextProps>(), textDefaultProps);
 
 // 根据大小设置样式（使用 common 映射）
 const sizeClass = computed(() => textSizeClasses[props.size]);
@@ -138,8 +112,8 @@ const truncateClass = computed(() => (props.truncate ? "cosy:truncate" : ""));
 
 // 组合所有类名
 const combinedClass = computed(
-	() =>
-		`text ${sizeClass.value} ${weightClass.value} ${colorClass.value} ${alignClass.value} ${italicClass.value} ${underlineClass.value} ${truncateClass.value} ${props.class}`,
+  () =>
+    `text ${sizeClass.value} ${weightClass.value} ${colorClass.value} ${alignClass.value} ${italicClass.value} ${underlineClass.value} ${truncateClass.value} ${props.class}`,
 );
 </script>
 
