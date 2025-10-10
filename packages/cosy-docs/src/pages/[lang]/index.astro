@@ -1,27 +1,29 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import { PlaceHolder } from "@coffic/cosy-ui";
-import HeroSection from "@/widgets/HeroSection.astro";
-import DesignPhilosophy from "@/widgets/DesignPhilosophy.astro";
-import LiveDemo from "@/widgets/LiveDemo.astro";
-import BuilderPattern from "@/widgets/BuilderPattern.astro";
-import Showcase from "@/widgets/Showcase.astro";
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { PlaceHolder } from '@coffic/cosy-ui';
+import HeroSection from '@/widgets/HeroSection.astro';
+import DesignPhilosophy from '@/widgets/DesignPhilosophy.astro';
+import LiveDemo from '@/widgets/LiveDemo.astro';
+import BuilderPattern from '@/widgets/BuilderPattern.astro';
+import Showcase from '@/widgets/Showcase.astro';
 
-const { lang = "zh-cn" } = Astro.params;
+export const prerender = true;
+
+const { lang = 'zh-cn' } = Astro.params;
 
 export const getStaticPaths = async () => {
-	return [
-		{
-			params: { lang: "zh-cn" },
-		},
-		{
-			params: { lang: "en" },
-		},
-	];
+    return [
+        {
+            params: { lang: 'zh-cn' },
+        },
+        {
+            params: { lang: 'en' },
+        },
+    ];
 };
 
 interface Props {
-	lang: string;
+    lang: string;
 }
 ---
 

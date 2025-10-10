@@ -1,86 +1,77 @@
 {
-	"name": "@coffic/cosy-docs",
-	"description": "An astro component library",
-	"author": {
-		"name": "nookery",
-		"url": "https://github.com/nookery"
-	},
-	"repository": {
-		"url": "https://github.com/cosyzone/cosy-ui"
-	},
-	"license": "MIT",
-	"keywords": [
-		"astro-integration",
-		"astro-component",
-		"withastro",
-		"astro",
-		"cosy-ui"
-	],
-	"homepage": "https://cosyzone.github.io/cosy-ui/en/",
-	"publishConfig": {
-		"access": "public"
-	},
-	"sideEffects": false,
-	"main": "./dist/index.js",
-	"exports": {
-		".": "./dist/index.js"
-	},
-	"files": [
-		"dist",
-		"index.ts"
-	],
-	"scripts": {
-		"dev": "astro dev --host 0.0.0.0 --port 6688",
-		"preview": "astro preview --host 0.0.0.0 --port 4330 --outDir dist",
-		"build": "astro build"
-	},
-	"type": "module",
-	"peerDependencies": {
-		"astro": "^5.1.3"
-	},
-	"dependencies": {
-		"@astrojs/vue": "^5.1.0",
-		"@coffic/cosy-content": "^0.2.21",
-		"@coffic/cosy-ui": "workspace:*",
-		"@playform/compress": "^0.2.0",
-		"astro-integration-kit": "^0.18.0",
-		"astro-pagefind": "^1.8.3",
-		"fs-extra": "^11.3.0",
-		"html-to-image": "^1.11.13",
-		"vue": "^3.5.18"
-	},
-	"devDependencies": {
-		"@astrojs/check": "^0.9.4",
-		"@astrojs/mdx": "^4.3.3",
-		"@astrojs/ts-plugin": "^1.10.4",
-		"@eslint/js": "^9.32.0",
-		"@tailwindcss/typography": "^0.5.16",
-		"@tailwindcss/vite": "^4.1.11",
-		"@tsconfig/node22": "^22.0.2",
-		"@types/chai": "^5.2.2",
-		"@types/eslint": "^9.6.1",
-		"@types/fs-extra": "^11.0.4",
-		"@types/mocha": "^10.0.10",
-		"@types/node": "^22.17.0",
-		"@types/react": "^19.1.9",
-		"@typescript-eslint/eslint-plugin": "^8.38.0",
-		"@typescript-eslint/parser": "^8.38.0",
-		"astro": "^5.12.8",
-		"chai": "^4.5.0",
-		"daisyui": "^5.0.50",
-		"eslint": "^9.32.0",
-		"eslint-import-resolver-typescript": "^4.4.4",
-		"eslint-plugin-astro": "^1.3.1",
-		"globals": "^16.3.0",
-		"mocha": "^10.8.2",
-		"prettier": "^3.6.2",
-		"prettier-plugin-astro": "^0.14.1",
-		"rollup-plugin-copy": "^3.5.0",
-		"sharp": "^0.33.5",
-		"tailwindcss": "^4.1.11",
-		"tsx": "^4.20.3",
-		"typescript": "^5.9.2",
-		"typescript-eslint": "^8.38.0",
-		"vite": "^6.3.5"
-	}
+  "name": "@coffic/cosy-docs",
+  "description": "An astro component library",
+  "author": {
+    "name": "nookery",
+    "url": "https://github.com/nookery"
+  },
+  "repository": {
+    "url": "https://github.com/cosyzone/cosy-ui"
+  },
+  "license": "MIT",
+  "keywords": [
+    "astro-integration",
+    "astro-component",
+    "withastro",
+    "astro",
+    "cosy-ui"
+  ],
+  "homepage": "https://cosyzone.github.io/cosy-ui/en/",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "astro dev --host 0.0.0.0 --port 6688",
+    "preview": "astro preview --host 0.0.0.0 --port 4330 --outDir dist",
+    "build": "astro build",
+    "deploy:cloudflare": "wrangler deploy",
+    "preview:cloudflare": "wrangler dev ./dist/_worker.js/index.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "@astrojs/cloudflare": "^12.6.9",
+    "@astrojs/vue": "^5.1.1",
+    "@coffic/cosy-content": "^0.2.21",
+    "@coffic/cosy-ui": "workspace:*",
+    "@playform/compress": "^0.2.0",
+    "astro-integration-kit": "^0.18.0",
+    "astro-pagefind": "^1.8.3",
+    "fs-extra": "^11.3.0",
+    "html-to-image": "^1.11.13",
+    "vue": "^3.5.18"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.3.6",
+    "@astrojs/ts-plugin": "^1.10.4",
+    "@eslint/js": "^9.32.0",
+    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/vite": "^4.1.11",
+    "@tsconfig/node22": "^22.0.2",
+    "@types/chai": "^5.2.2",
+    "@types/eslint": "^9.6.1",
+    "@types/fs-extra": "^11.0.4",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.17.0",
+    "@types/react": "^19.1.9",
+    "@typescript-eslint/eslint-plugin": "^8.38.0",
+    "@typescript-eslint/parser": "^8.38.0",
+    "astro": "^5.14.1",
+    "chai": "^4.5.0",
+    "daisyui": "^5.0.50",
+    "eslint": "^9.32.0",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-astro": "^1.3.1",
+    "globals": "^16.3.0",
+    "mocha": "^10.8.2",
+    "prettier": "^3.6.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "rollup-plugin-copy": "^3.5.0",
+    "sharp": "^0.33.5",
+    "tailwindcss": "^4.1.11",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.38.0",
+    "vite": "^6.3.5"
+  }
 }
