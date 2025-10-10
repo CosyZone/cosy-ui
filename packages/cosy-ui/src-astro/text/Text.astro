@@ -97,20 +97,15 @@
  */
 
 import '../../style.ts';
-import { textColorClasses, type TextColor } from '../../src/common/textColors';
+import type { ITextProps } from './props';
+import { textDefaultProps } from './props';
 import {
-    textWeightClasses,
-    type TextWeight,
-} from '../../src/common/textWeights';
-import { textSizeClasses, type TextSize } from '../../src/common/textSizes';
-import { textAlignClasses, type TextAlign } from '../../src/common/textAlign';
-import type { ITextProps, Props } from './props';
-
-// 兼容旧用法导出（建议使用 ITextProps）
-export type { ITextProps, Props };
+    getTextCombinedClass,
+    getTextTagName,
+} from '../../src/components/text/textUtils';
 
 const {
-    as: Element = 'p',
+    as,
     size = 'md',
     weight = 'normal',
     color = 'default',
@@ -122,32 +117,30 @@ const {
     style = '',
 } = Astro.props;
 
-// 根据大小设置样式（使用 common 映射）
-const sizeClass = textSizeClasses[(size as TextSize) ?? 'md'];
+// 构造 props 对象以传递给共用函数
+const textProps: ITextProps = {
+    as,
+    size,
+    weight,
+    color,
+    align,
+    italic,
+    underline,
+    truncate,
+    class: className,
+    style,
+};
 
-// 根据粗细设置样式（使用 common 映射）
-const weightClass = textWeightClasses[(weight as TextWeight) ?? 'normal'];
-
-// 根据颜色设置样式（使用 common 映射）
-const colorClass = textColorClasses[(color as TextColor) ?? 'default'];
-
-// 根据对齐方式设置样式（使用 common 映射）
-const alignClass = textAlignClasses[(align as TextAlign) ?? 'left'];
-
-// 其他样式
-const italicClass = italic ? 'cosy:italic' : '';
-const underlineClass = underline ? 'cosy:underline' : '';
-const truncateClass = truncate ? 'cosy:truncate' : '';
-
-// 组合所有类名
-const combinedClass = `text ${sizeClass} ${weightClass} ${colorClass} ${alignClass} ${italicClass} ${underlineClass} ${truncateClass} ${className}`;
+// 使用共用的工具函数计算组合类名和标签名
+const combinedClass = getTextCombinedClass(textProps);
+const tagName = getTextTagName(as);
 ---
 
 <Fragment
-    set:html={`<${Element} class="${combinedClass}"${style ? ` style="${style}"` : ''}>`}
+    set:html={`<${tagName} class="${combinedClass}"${style ? ` style="${style}"` : ''}>`}
 />
 <slot />
-<Fragment set:html={`</${Element}>`} />
+<Fragment set:html={`</${tagName}>`} />
 
 <style>
     .text {

@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { textColorClasses } from "../../src/common/textColors";
-import { textWeightClasses } from "../../src/common/textWeights";
-import { textSizeClasses } from "../../src/common/textSizes";
-import { textAlignClasses } from "../../src/common/textAlign";
 import type { ITextProps } from "./props";
 import { textDefaultProps } from "./props";
+import { getTextCombinedClass, getTextTagName } from "../../src/components/text/textUtils";
 
 /**
  * @component Text
@@ -93,32 +90,13 @@ import { textDefaultProps } from "./props";
 
 const props = withDefaults(defineProps<ITextProps>(), textDefaultProps);
 
-// 根据大小设置样式（使用 common 映射）
-const sizeClass = computed(() => textSizeClasses[props.size]);
-
-// 根据粗细设置样式（使用 common 映射）
-const weightClass = computed(() => textWeightClasses[props.weight]);
-
-// 根据颜色设置样式（使用 common 映射）
-const colorClass = computed(() => textColorClasses[props.color]);
-
-// 根据对齐方式设置样式（使用 common 映射）
-const alignClass = computed(() => textAlignClasses[props.align]);
-
-// 其他样式
-const italicClass = computed(() => (props.italic ? "cosy:italic" : ""));
-const underlineClass = computed(() => (props.underline ? "cosy:underline" : ""));
-const truncateClass = computed(() => (props.truncate ? "cosy:truncate" : ""));
-
-// 组合所有类名
-const combinedClass = computed(
-  () =>
-    `text ${sizeClass.value} ${weightClass.value} ${colorClass.value} ${alignClass.value} ${italicClass.value} ${underlineClass.value} ${truncateClass.value} ${props.class}`,
-);
+// 使用共用的工具函数计算组合类名和标签名
+const combinedClass = computed(() => getTextCombinedClass(props));
+const tagName = computed(() => getTextTagName(props.as));
 </script>
 
 <template>
-  <component :is="props.as" :class="combinedClass" :style="style">
+  <component :is="tagName" :class="combinedClass" :style="style">
     <slot />
   </component>
 </template>
