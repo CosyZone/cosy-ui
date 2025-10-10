@@ -227,321 +227,185 @@
  * @prop {...HTMLAttributes<'div'>} [rest] - 其他HTML div标签属性
  */
 
-import type { HTMLAttributes } from "astro/types";
-import type { ImageSource } from "../image";
-import Image from "../image/Image.astro";
-import "../../style.ts";
-import type { BackgroundColor } from "../../src/common/backgrounds";
-import { getBackgroundClass } from "../../src/common/backgrounds";
-import type { BorderSize, BorderColor } from "../../src/common/border";
-import { getBorderClass, getBorderColorClass } from "../../src/common/border";
-import type { Size } from "../../src/common/size";
-import type { HeightSize } from "../../src/common/height";
+import type { HTMLAttributes } from 'astro/types';
+import type { ImageSource } from '../image';
+import Image from '../image/Image.astro';
+import '../../style.ts';
+import type { IContainerProps } from '../../src/components/container/containerProps';
+import { getBackgroundClass } from '../../src/common/backgrounds';
+import type { BorderSize, BorderColor } from '../../src/common/border';
+import { getBorderClass, getBorderColorClass } from '../../src/common/border';
+import type { Size } from '../../src/common/size';
+import type { HeightSize } from '../../src/common/height';
 import type {
-	FlexDirection,
-	GapSize,
-	FlexAlign,
-	FlexJustify,
-} from "../../src/common/layout";
-import type { PaddingSize } from "../../src/common/padding";
-import type { MarginSize } from "../../src/common/margin";
-import type { RoundedSize } from "../../src/common/rounded";
-import type { FitMode } from "../../src/common/fitmode";
+    FlexDirection,
+    GapSize,
+    FlexAlign,
+    FlexJustify,
+} from '../../src/common/layout';
+import type { PaddingSize } from '../../src/common/padding';
+import type { MarginSize } from '../../src/common/margin';
+import type { RoundedSize } from '../../src/common/rounded';
+import type { FitMode } from '../../src/common/fitmode';
 import {
-	widthClasses,
-	flexClasses,
-	gapClasses,
-	itemsClasses,
-	justifyClasses,
-	roundedClasses,
-} from "../../src/common";
-import { paddingClasses } from "../../src/common/padding";
-import { marginClasses } from "../../src/common/margin";
-import { heightClasses } from "../../src/common/height";
+    widthClasses,
+    flexClasses,
+    gapClasses,
+    itemsClasses,
+    justifyClasses,
+    roundedClasses,
+} from '../../src/common';
+import { paddingClasses } from '../../src/common/padding';
+import { marginClasses } from '../../src/common/margin';
+import { heightClasses } from '../../src/common/height';
 import {
-	paddingYClasses,
-	paddingTopClasses,
-	paddingBottomClasses,
-	paddingLeftClasses,
-	paddingRightClasses,
-	paddingXClasses,
-} from "../../src/common/padding-axis";
-import type { ContentBorderColor } from "./contentBorderColors";
-import { getContentBorderClass } from "./contentBorderColors";
-import { validateContainerProps } from "./validateProps";
-import { createPaddingConflictError } from "./validatePadding";
-import ContainerError from "./ContainerError.astro";
-
-export interface IContainerProps extends HTMLAttributes<"div"> {
-	/**
-	 * 宽高比（宽/高），设置后容器会保持这个比例
-	 */
-	aspectRatio?: number;
-
-	/**
-	 * 背景色类型
-	 */
-	background?: BackgroundColor;
-
-	/**
-	 * 背景图片源（本地 ImageMetadata 或 远程 URL）。提供时会用图片铺底作为背景
-	 */
-	backgroundImage?: ImageSource;
-
-	/**
-	 * 边框尺寸
-	 * @default "none"
-	 */
-	border?: BorderSize;
-
-	/**
-	 * 边框颜色，支持所有预定义的颜色和透明度变体
-	 */
-	borderColor?: BorderColor;
-
-	/**
-	 * 内容适配模式：none（默认）、contain（保持比例，尽量占满且不溢出）、cover（保持比例，铺满并可能裁剪）
-	 */
-	fit?: FitMode;
-
-	/**
-	 * 是否给内容比例盒加边框（仅在 fit 模式下生效）
-	 */
-	contentBorder?: boolean | ContentBorderColor;
-
-	/**
-	 * 是否居中显示
-	 * @default true
-	 */
-	centered?: boolean;
-
-	/**
-	 * 是否让内部内容居中显示
-	 * @default false
-	 */
-	contentCentered?: boolean;
-
-	/**
-	 * 自定义类名
-	 */
-	class?: string;
-
-	/**
-	 * flex布局方向，不设置则不启用flex布局
-	 */
-	flex?: FlexDirection;
-
-	/**
-	 * flex项目间距
-	 * @default "none"
-	 */
-	gap?: GapSize;
-
-	/**
-	 * 容器高度，不设置则不设置高度
-	 */
-	height?: HeightSize;
-
-	/**
-	 * flex项目水平对齐方式
-	 */
-	items?: FlexAlign;
-
-	/**
-	 * flex项目垂直对齐方式
-	 */
-	justify?: FlexJustify;
-
-	/**
-	 * 外边距大小
-	 * @default "none"
-	 */
-	margin?: MarginSize;
-
-	/**
-	 * 内边距大小
-	 * @default "md"
-	 */
-	padding?: PaddingSize;
-
-	/**
-	 * 垂直内边距（上下）
-	 */
-	py?: PaddingSize;
-
-	/**
-	 * 顶部内边距
-	 */
-	pt?: PaddingSize;
-
-	/**
-	 * 底部内边距
-	 */
-	pb?: PaddingSize;
-
-	/**
-	 * 水平内边距（左右）
-	 */
-	px?: PaddingSize;
-
-	/**
-	 * 左侧内边距
-	 */
-	pl?: PaddingSize;
-
-	/**
-	 * 右侧内边距
-	 */
-	pr?: PaddingSize;
-
-	/**
-	 * 容器宽度，不设置则不设置宽度
-	 */
-	width?: Size;
-
-	/**
-	 * 圆角大小
-	 * @default "none"
-	 */
-	rounded?: RoundedSize;
-}
+    paddingYClasses,
+    paddingTopClasses,
+    paddingBottomClasses,
+    paddingLeftClasses,
+    paddingRightClasses,
+    paddingXClasses,
+} from '../../src/common/padding-axis';
+import type { ContentBorderColor } from './contentBorderColors';
+import { getContentBorderClass } from './contentBorderColors';
+import { validateContainerProps } from './validateProps';
+import { createPaddingConflictError } from './validatePadding';
+import { getContainerCombinedClasses } from '../../src/components/container/containerUtils';
+import ContainerError from './ContainerError.astro';
 
 // 导出 Props 别名以提升 IDE 对组件使用方的属性提示
 export type Props = IContainerProps;
 
 const {
-	aspectRatio,
-	background,
-	backgroundImage,
-	width = "md",
-	padding = "md",
-	py,
-	pt,
-	pb,
-	px,
-	pl,
-	pr,
-	margin = "none",
-	centered = true,
-	contentCentered = false,
-	border = "none",
-	borderColor,
-	fit = "none",
-	contentBorder = false,
-	flex,
-	gap = "none",
-	items,
-	justify,
-	rounded = "none",
-	class: className = "",
-	height,
-	...rest
+    aspectRatio,
+    background,
+    backgroundImage,
+    width = 'md',
+    padding = 'md',
+    py,
+    pt,
+    pb,
+    px,
+    pl,
+    pr,
+    margin = 'none',
+    centered = true,
+    contentCentered = false,
+    border = 'none',
+    borderColor,
+    fit = 'none',
+    contentBorder = false,
+    flex,
+    gap = 'none',
+    items,
+    justify,
+    rounded = 'none',
+    class: className = '',
+    height,
+    ...rest
 } = Astro.props as Props;
 
 // 处理 contentBorder 属性
 const hasContentBorder = !!contentBorder;
 const contentBorderClass =
-	typeof contentBorder === "string"
-		? getContentBorderClass(contentBorder)
-		: getContentBorderClass();
+    typeof contentBorder === 'string'
+        ? getContentBorderClass(contentBorder)
+        : getContentBorderClass();
 
 // 检查 padding 属性冲突
 const paddingError = createPaddingConflictError(px, pl, pr, py, pt, pb);
 
 if (paddingError) {
-	console.error(`Container 组件错误: ${paddingError.message}`);
+    console.error(`Container 组件错误: ${paddingError.message}`);
 }
 
 // 构建轴向内边距类名
 const pyClass = py
-	? paddingYClasses[py as keyof typeof paddingYClasses] || ""
-	: "";
+    ? paddingYClasses[py as keyof typeof paddingYClasses] || ''
+    : '';
 
 const paddingTopClass = pt
-	? paddingTopClasses[pt as keyof typeof paddingTopClasses] || ""
-	: "";
+    ? paddingTopClasses[pt as keyof typeof paddingTopClasses] || ''
+    : '';
 
 const paddingBottomClass = pb
-	? paddingBottomClasses[pb as keyof typeof paddingBottomClasses] || ""
-	: "";
+    ? paddingBottomClasses[pb as keyof typeof paddingBottomClasses] || ''
+    : '';
 
 const paddingLeftClass = pl
-	? paddingLeftClasses[pl as keyof typeof paddingLeftClasses] || ""
-	: "";
+    ? paddingLeftClasses[pl as keyof typeof paddingLeftClasses] || ''
+    : '';
 
 const paddingRightClass = pr
-	? paddingRightClasses[pr as keyof typeof paddingRightClasses] || ""
-	: "";
+    ? paddingRightClasses[pr as keyof typeof paddingRightClasses] || ''
+    : '';
 
 const paddingXClass = px
-	? paddingXClasses[px as keyof typeof paddingXClasses] || ""
-	: "";
+    ? paddingXClasses[px as keyof typeof paddingXClasses] || ''
+    : '';
 
 // 用户是否显式传入了冲突的尺寸相关配置
 const rawProps = Astro.props as Record<string, unknown>;
 const {
-	hasConflict: hasSizingConflict,
-	messages: validationMessages,
-	resolvedFit,
-	suggestFallbackMinHeight,
+    hasConflict: hasSizingConflict,
+    messages: validationMessages,
+    resolvedFit,
+    suggestFallbackMinHeight,
 } = validateContainerProps(rawProps);
 
 const effectiveFit = resolvedFit ?? fit;
-const fitEnabled = effectiveFit !== "none" && typeof aspectRatio === "number";
+const fitEnabled = effectiveFit !== 'none' && typeof aspectRatio === 'number';
 const isHeightDrivenAspect =
-	!fitEnabled &&
-	typeof aspectRatio === "number" &&
-	!!height &&
-	height !== "none";
-const hasExplicitHeight = !!height && height !== "none";
-const hasDefaultSlot = (Astro as any)?.slots?.has?.("default") ?? false;
+    !fitEnabled &&
+    typeof aspectRatio === 'number' &&
+    !!height &&
+    height !== 'none';
+const hasExplicitHeight = !!height && height !== 'none';
+const hasDefaultSlot = (Astro as any)?.slots?.has?.('default') ?? false;
 const filteredMessages = hasDefaultSlot
-	? validationMessages.filter((m) => !m.includes("可见性风险"))
-	: validationMessages;
+    ? validationMessages.filter((m) => !m.includes('可见性风险'))
+    : validationMessages;
 
-// 构建CSS类名
-const containerClasses = [
-	isHeightDrivenAspect ? "cosy:w-auto" : "cosy:w-full",
-	isHeightDrivenAspect
-		? "cosy:overflow-hidden cosy:min-w-0 cosy:max-w-full"
-		: "",
-	centered ? "cosy:mx-auto" : "",
-	contentCentered ? "cosy:flex cosy:justify-center cosy:items-center" : "",
-	widthClasses[width],
-	paddingClasses[padding],
-	pyClass,
-	paddingTopClass,
-	paddingBottomClass,
-	paddingLeftClass,
-	paddingRightClass,
-	paddingXClass,
-	marginClasses[margin],
-	roundedClasses[rounded],
-	getBackgroundClass(background),
-	backgroundImage ? "cosy:relative cosy:overflow-hidden" : "",
-	getBorderClass(border),
-	getBorderColorClass(borderColor),
-	fitEnabled ? "cosy:relative cosy:overflow-hidden" : "",
-	suggestFallbackMinHeight && !hasDefaultSlot ? "cosy:min-h-32" : "",
-	flex ? flexClasses[flex] : "",
-	flex ? gapClasses[gap] : "",
-	items && flex ? itemsClasses[items] : "",
-	justify && flex ? justifyClasses[justify] : "",
-	height ? heightClasses[height] : "",
-	className,
-];
+// 使用共用的工具函数计算组合类名
+const containerClasses = getContainerCombinedClasses({
+    aspectRatio,
+    background,
+    backgroundImage,
+    width,
+    padding,
+    py,
+    pt,
+    pb,
+    px,
+    pl,
+    pr,
+    margin,
+    centered,
+    contentCentered,
+    border,
+    borderColor,
+    fit,
+    contentBorder,
+    flex,
+    gap,
+    items,
+    justify,
+    rounded,
+    class: className,
+    height,
+});
 
 // 构建内联样式
 const inlineStyles = fitEnabled
-	? hasExplicitHeight
-		? "container-type: size;"
-		: "container-type: inline-size;"
-	: aspectRatio
-		? `aspect-ratio: ${aspectRatio};`
-		: "";
+    ? hasExplicitHeight
+        ? 'container-type: size;'
+        : 'container-type: inline-size;'
+    : aspectRatio
+      ? `aspect-ratio: ${aspectRatio};`
+      : '';
 
 const hasError =
-	hasSizingConflict || filteredMessages.length > 0 || Boolean(paddingError);
+    hasSizingConflict || filteredMessages.length > 0 || Boolean(paddingError);
 ---
 
 {

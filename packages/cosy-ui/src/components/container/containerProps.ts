@@ -1,4 +1,157 @@
-import type { IContainerProps } from "./Container.astro";
+import type { HTMLAttributes } from "astro/types";
+import type { ImageMetadata } from "astro";
+import type { BackgroundColor } from "../../common/backgrounds";
+import type { BorderSize, BorderColor } from "../../common/border";
+import type { Size } from "../../common/size";
+import type { HeightSize } from "../../common/height";
+import type {
+	FlexDirection,
+	GapSize,
+	FlexAlign,
+	FlexJustify,
+} from "../../common/layout";
+import type { PaddingSize } from "../../common/padding";
+import type { MarginSize } from "../../common/margin";
+import type { RoundedSize } from "../../common/rounded";
+import type { FitMode } from "../../common/fitmode";
+import type { ContentBorderColor } from "../../../src-astro/container/contentBorderColors";
+
+// 定义 ImageSource 类型
+type ImageSource = ImageMetadata | string;
+
+export interface IContainerProps extends HTMLAttributes<"div"> {
+	/**
+	 * 宽高比（宽/高），设置后容器会保持这个比例
+	 */
+	aspectRatio?: number;
+
+	/**
+	 * 背景色类型
+	 */
+	background?: BackgroundColor;
+
+	/**
+	 * 背景图片源（本地 ImageMetadata 或 远程 URL）。提供时会用图片铺底作为背景
+	 */
+	backgroundImage?: ImageSource;
+
+	/**
+	 * 边框尺寸
+	 * @default "none"
+	 */
+	border?: BorderSize;
+
+	/**
+	 * 边框颜色，支持所有预定义的颜色和透明度变体
+	 */
+	borderColor?: BorderColor;
+
+	/**
+	 * 内容适配模式：none（默认）、contain（保持比例，尽量占满且不溢出）、cover（保持比例，铺满并可能裁剪）
+	 */
+	fit?: FitMode;
+
+	/**
+	 * 是否给内容比例盒加边框（仅在 fit 模式下生效）
+	 */
+	contentBorder?: boolean | ContentBorderColor;
+
+	/**
+	 * 是否居中显示
+	 * @default true
+	 */
+	centered?: boolean;
+
+	/**
+	 * 是否让内部内容居中显示
+	 * @default false
+	 */
+	contentCentered?: boolean;
+
+	/**
+	 * 自定义类名
+	 */
+	class?: string;
+
+	/**
+	 * flex布局方向，不设置则不启用flex布局
+	 */
+	flex?: FlexDirection;
+
+	/**
+	 * flex项目间距
+	 * @default "none"
+	 */
+	gap?: GapSize;
+
+	/**
+	 * 容器高度，不设置则不设置高度
+	 */
+	height?: HeightSize;
+
+	/**
+	 * flex项目水平对齐方式
+	 */
+	items?: FlexAlign;
+
+	/**
+	 * flex项目垂直对齐方式
+	 */
+	justify?: FlexJustify;
+
+	/**
+	 * 外边距大小
+	 * @default "none"
+	 */
+	margin?: MarginSize;
+
+	/**
+	 * 内边距大小
+	 * @default "md"
+	 */
+	padding?: PaddingSize;
+
+	/**
+	 * 垂直内边距（上下）
+	 */
+	py?: PaddingSize;
+
+	/**
+	 * 顶部内边距
+	 */
+	pt?: PaddingSize;
+
+	/**
+	 * 底部内边距
+	 */
+	pb?: PaddingSize;
+
+	/**
+	 * 水平内边距（左右）
+	 */
+	px?: PaddingSize;
+
+	/**
+	 * 左侧内边距
+	 */
+	pl?: PaddingSize;
+
+	/**
+	 * 右侧内边距
+	 */
+	pr?: PaddingSize;
+
+	/**
+	 * 容器宽度，不设置则不设置宽度
+	 */
+	width?: Size;
+
+	/**
+	 * 圆角大小
+	 * @default "none"
+	 */
+	rounded?: RoundedSize;
+}
 
 export interface IContainerPropsBuilder {
 	/** 设置宽高比（宽/高）。

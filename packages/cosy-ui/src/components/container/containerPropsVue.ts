@@ -1,17 +1,14 @@
-import type { BackgroundColor } from "../../src/common/backgrounds";
-import type { Size } from "../../src/common/size";
+import type { BackgroundColor } from "../../../src/common/backgrounds";
+import type { Size } from "../../../src/common/size";
 import type {
     FlexDirection,
     GapSize,
     FlexAlign,
     FlexJustify,
-} from "../../src/common/layout";
-import type { PaddingSize } from "../../src/common/padding";
-import type { RoundedSize } from "../../src/common/rounded";
+} from "../../../src/common/layout";
+import type { PaddingSize } from "../../../src/common/padding";
+import type { RoundedSize } from "../../../src/common/rounded";
 
-/**
- * Container 组件的属性接口
- */
 export interface IContainerProps {
     /**
      * 是否显示边框

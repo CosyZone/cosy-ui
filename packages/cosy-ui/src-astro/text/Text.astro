@@ -5,19 +5,6 @@
  * @description
  * Text 组件用于创建各种文本元素，提供一致的排版样式和灵活的定制选项。
  *
- * @design
- * 设计理念：
- * 1. 一致性 - 确保整个应用中文本样式的一致性
- * 2. 可读性 - 优化文本的可读性和舒适度
- * 3. 可定制性 - 支持多种配置选项，适应不同场景需求
- * 4. 无障碍性 - 遵循语义化HTML标准，确保屏幕阅读器可以正确解析内容
- *
- * 视觉特点：
- * - 不同的字体大小和行高
- * - 可选的字体粗细和样式
- * - 可定制的颜色和对齐方式
- * - 支持截断和省略号
- *
  * @usage
  * 基本用法：
  * ```astro
@@ -98,7 +85,6 @@
 
 import '../../style.ts';
 import type { ITextProps } from './props';
-import { textDefaultProps } from './props';
 import {
     getTextCombinedClass,
     getTextTagName,
