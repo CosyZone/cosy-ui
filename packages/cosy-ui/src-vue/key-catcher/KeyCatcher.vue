@@ -31,91 +31,85 @@ KeyCatcher 组件用于全局捕获键盘按键事件，并可通过自定义事
 -->
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
-import "../../style";
+  import { ref, onMounted, onUnmounted } from 'vue';
+  import '../../style';
 
-const lastKey = ref<string | null>(null);
-let timer: ReturnType<typeof setTimeout> | null = null;
+  const lastKey = ref<string | null>(null);
+  let timer: ReturnType<typeof setTimeout> | null = null;
 
-const props = defineProps<{ showKey?: boolean }>();
-const emit = defineEmits<{ (e: "globalKey", key: string): void }>();
+  const props = defineProps<{ showKey?: boolean }>();
+  const emit = defineEmits<{ (e: 'globalKey', key: string): void }>();
 
-const handleKeydown = (event: KeyboardEvent) => {
-	const tag = (event.target as HTMLElement)?.tagName?.toLowerCase();
-	const isEditable =
-		tag === "input" ||
-		tag === "textarea" ||
-		(event.target as HTMLElement)?.isContentEditable;
-	if (
-		event.key.length === 1 ||
-		[
-			"Enter",
-			"Escape",
-			"Backspace",
-			"Tab",
-			"Shift",
-			"Control",
-			"Alt",
-			"Meta",
-			"ArrowUp",
-			"ArrowDown",
-			"ArrowLeft",
-			"ArrowRight",
-			"CapsLock",
-			"Delete",
-			"Home",
-			"End",
-			"PageUp",
-			"PageDown",
-		].includes(event.key)
-	) {
-		// 只在不是输入框、textarea、contenteditable 时发事件
-		if (/^[a-zA-Z]$/.test(event.key) && !isEditable) {
-			emit("globalKey", event.key);
-		}
-		// 展示按键（如果允许）
-		if (props.showKey) {
-			let key = event.key;
-			if (key === " ") key = "Space";
-			lastKey.value = key;
-			if (timer) clearTimeout(timer);
-			timer = setTimeout(() => {
-				lastKey.value = null;
-			}, 3000);
-		}
-	}
-};
+  const handleKeydown = (event: KeyboardEvent) => {
+    if (
+      event.key.length === 1 ||
+      [
+        'Enter',
+        'Escape',
+        'Backspace',
+        'Tab',
+        'Shift',
+        'Control',
+        'Alt',
+        'Meta',
+        'ArrowUp',
+        'ArrowDown',
+        'ArrowLeft',
+        'ArrowRight',
+        'CapsLock',
+        'Delete',
+        'Home',
+        'End',
+        'PageUp',
+        'PageDown',
+      ].includes(event.key)
+    ) {
+      emit('globalKey', event.key);
 
-onMounted(() => {
-	window.addEventListener("keydown", handleKeydown);
-});
+      // 展示按键（如果允许）
+      if (props.showKey) {
+        let key = event.key;
+        if (key === ' ') key = 'Space';
+        lastKey.value = key;
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+          lastKey.value = null;
+        }, 3000);
+      }
+    }
+  };
 
-onUnmounted(() => {
-	window.removeEventListener("keydown", handleKeydown);
-	if (timer) clearTimeout(timer);
-});
+  onMounted(() => {
+    window.addEventListener('keydown', handleKeydown);
+  });
+
+  onUnmounted(() => {
+    window.removeEventListener('keydown', handleKeydown);
+    if (timer) clearTimeout(timer);
+  });
 </script>
 
 <template>
-    <Transition name="key-fade">
-        <div v-if="props.showKey && lastKey"
-            class="cosy:fixed cosy:bottom-4 cosy:right-4 cosy:bg-accent cosy:shadow-lg cosy:rounded cosy:px-6 cosy:py-3 cosy:z-50 cosy:text-xl cosy:font-bold cosy:text-gray-800 cosy:select-none cosy:pointer-events-none cosy:border cosy:border-gray-200 cosy:backdrop-blur-sm">
-            <span class="cosy:text-blue-600">{{ lastKey }}</span>
-        </div>
-    </Transition>
+  <Transition name="key-fade">
+    <div
+      v-if="props.showKey && lastKey"
+      class="cosy:fixed cosy:bottom-4 cosy:right-4 cosy:bg-accent cosy:shadow-lg cosy:rounded cosy:px-6 cosy:py-3 cosy:z-50 cosy:text-xl cosy:font-bold cosy:text-gray-800 cosy:select-none cosy:pointer-events-none cosy:border cosy:border-gray-200 cosy:backdrop-blur-sm">
+      <span class="cosy:text-blue-600">{{ lastKey }}</span>
+    </div>
+  </Transition>
 </template>
 
 <style scoped>
-.key-fade-enter-active,
-.key-fade-leave-active {
+  .key-fade-enter-active,
+  .key-fade-leave-active {
     transition:
-        opacity 0.2s,
-        transform 0.2s;
-}
+      opacity 0.2s,
+      transform 0.2s;
+  }
 
-.key-fade-enter-from,
-.key-fade-leave-to {
+  .key-fade-enter-from,
+  .key-fade-leave-to {
     opacity: 0;
     transform: translateY(20px);
-}
+  }
 </style>
