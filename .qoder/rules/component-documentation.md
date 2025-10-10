@@ -1,0 +1,96 @@
+---
+alwaysApply: true
+---
+
+# 组件文档规范
+
+如果这个规则被应用，则在输出中说明：!! 我注意到了项目的组件文档规范
+
+## Props 注释排序
+
+- `@props` 必须按字母顺序（A-Z）排列
+- 文档必须按照 `@props` 的顺序编写
+- 每个属性使用多标签展示多种用法
+
+## 文档标题规范
+
+- **介绍某个 prop 的标题必须使用 props 的名字**
+- 每个 props 的标题后跟对应的**Astro容器组件**
+
+## 中英文同步
+
+修改文档时，要保持中文文档、英文文档内容一致。
+
+## 示例聚焦规范（强制）
+
+- 每个标题（某个 props）下的 CodeContainer 只能聚焦该 props 的展示
+- 不得在该 props 的章节混入与之无关的示例（如在 `author` 章节展示 `size` 的多标签）
+- 如需展示其他 props，请在其对应的二级标题中分别创建独立的 CodeContainer
+- CodeContainer 的 `titles` 应与该 props 的取值或场景一一对应（例如 `border`：`['true', 'false']`）
+- 为了上下文完整，可使用与主题无关的 props 作为最小必要支撑，但不得成为展示重点（例如仅为排版补充的 `class`/`shadow` 等）
+
+## Order 属性设置策略
+
+- **每个 mdx 文档顶部都有 order 属性，用于控制文档在导航中的排序**
+- **order 值必须严格按照字母在字母表中的顺序排列**
+- **核心规则**：
+  - A 开头的文档：order 值必须是 1.x（如 1.1, 1.2, 1.3...）
+  - B 开头的文档：order 值必须是 2.x（如 2.1, 2.2, 2.3...）
+  - C 开头的文档：order 值必须是 3.x（如 3.1, 3.2, 3.3...）
+  - 以此类推，按照字母在字母表中的顺序
+
+**设置方法**：
+
+1. 确定文档首字母在字母表中的位置（A=1, B=2, C=3...）
+2. 使用该数字作为 order 值的整数部分
+3. 同字母开头的文档使用小数部分区分（如 1.1, 1.2, 1.3）
+4. 按字母顺序排列同字母开头的文档
+
+**示例**：
+
+- `alert.mdx` → order: 1.1（A 开头，第一个）
+- `api-tester.mdx` → order: 1.2（A 开头，第二个）
+- `badge.mdx` → order: 2.1（B 开头，第一个）
+- `button.mdx` → order: 2.2（B 开头，第二个）
+- `card.mdx` → order: 3.1（C 开头，第一个）
+
+**中英文文档同步**：
+
+- **中文文档和对应的英文文档必须使用相同的 order 值**
+- 例如：`alert.mdx` (中文) 和 `alert.mdx` (英文) 都应该是 order: 1.1
+- 例如：`badge-vue.mdx` (中文) 和 `badge-vue.mdx` (英文) 都应该是 order: 2.2
+
+## 文档内容
+
+- 除非特殊说明，禁止随意添加文档内容
+
+**正确示例**：
+
+```markdown
+# Button
+
+## 简介
+Button 组件用于触发一个即时操作...
+
+## 案例
+<这里放置一个案例，让用户立刻看到这个组件的样子，禁止包裹 CodeContainer>
+<ButtonPackage.Example />
+
+## Props
+
+### block
+是否为块级显示，设置为 true 时按钮占满容器宽度。
+<ButtonPackage.BlockContainer />
+
+### class
+自定义 CSS 类名，用于覆盖默认样式。
+<ButtonPackage.CustomStyleContainer />
+
+### disabled
+是否禁用按钮，设置为 true 时按钮不可点击。
+<ButtonPackage.StatesContainer />
+
+## Slots
+
+### ...
+```
