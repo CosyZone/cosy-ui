@@ -1,5 +1,5 @@
 import Container from "./Container.vue";
-import type { IContainerProps } from "../../src/components/container/containerProps";
+import type { IContainerProps } from "./containerProps";
 import type { BackgroundColor } from "../../src/common/backgrounds";
 
 export { default as Container } from "./Container.vue";
