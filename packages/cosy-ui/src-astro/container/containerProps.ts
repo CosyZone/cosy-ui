@@ -1,34 +1,114 @@
 import type { HTMLAttributes } from "astro/types";
 import type { ImageMetadata } from "astro";
-import type { BackgroundColor } from "../../common/backgrounds";
-import type { BorderSize, BorderColor } from "../../common/border";
-import type { Size } from "../../common/size";
-import type { HeightSize } from "../../common/height";
+import type { BackgroundColor } from "../../src/common/backgrounds";
+import type { BorderSize, BorderColor } from "../../src/common/border";
+import type { Size } from "../../src/common/size";
+import type { HeightSize } from "../../src/common/height";
 import type {
 	FlexDirection,
 	GapSize,
 	FlexAlign,
 	FlexJustify,
-} from "../../common/layout";
-import type { PaddingSize } from "../../common/padding";
-import type { MarginSize } from "../../common/margin";
-import type { RoundedSize } from "../../common/rounded";
-import type { FitMode } from "../../common/fitmode";
-import type { ContentBorderColor } from "../../../src-astro/container/contentBorderColors";
+} from "../../src/common/layout";
+import type { PaddingSize } from "../../src/common/padding";
+import type { MarginSize } from "../../src/common/margin";
+import type { RoundedSize } from "../../src/common/rounded";
+import type { FitMode } from "../../src/common/fitmode";
+import type { ContentBorderColor } from "./contentBorderColors";
+import type { IContainerPropsBase } from "../../src/components/container/containerPropsBase";
 
 // 定义 ImageSource 类型
 type ImageSource = ImageMetadata | string;
 
-export interface IContainerProps extends HTMLAttributes<"div"> {
+/**
+ * Container 组件的 Astro 版本属性接口（继承基础接口并扩展 Astro 特定属性）
+ */
+export interface IContainerProps extends IContainerPropsBase, HTMLAttributes<"div"> {
 	/**
 	 * 宽高比（宽/高），设置后容器会保持这个比例
 	 */
 	aspectRatio?: number;
 
 	/**
-	 * 背景色类型
+	 * 背景图片源（本地 ImageMetadata 或 远程 URL）。提供时会用图片铺底作为背景
 	 */
-	background?: BackgroundColor;
+	backgroundImage?: ImageSource;
+
+	/**
+	 * 边框尺寸
+	 * @default "none"
+	 */
+	border?: BorderSize;
+
+	/**
+	 * 边框颜色，支持所有预定义的颜色和透明度变体
+	 */
+	borderColor?: BorderColor;
+
+	/**
+	 * 内容适配模式：none（默认）、contain（保持比例，尽量占满且不溢出）、cover（保持比例，铺满并可能裁剪）
+	 */
+	fit?: FitMode;
+
+	/**
+	 * 是否给内容比例盒加边框（仅在 fit 模式下生效）
+	 */
+	contentBorder?: boolean | ContentBorderColor;
+
+	/**
+	 * 是否让内部内容居中显示
+	 * @default false
+	 */
+	contentCentered?: boolean;
+
+	/**
+	 * 容器高度，不设置则不设置高度
+	 */
+	height?: HeightSize;
+
+	/**
+	 * 外边距大小
+	 * @default "none"
+	 */
+	margin?: MarginSize;
+
+	/**
+	 * 垂直内边距（上下）
+	 */
+	py?: PaddingSize;
+
+	/**
+	 * 顶部内边距
+	 */
+	pt?: PaddingSize;
+
+	/**
+	 * 底部内边距
+	 */
+	pb?: PaddingSize;
+
+	/**
+	 * 水平内边距（左右）
+	 */
+	px?: PaddingSize;
+
+	/**
+	 * 左侧内边距
+	 */
+	pl?: PaddingSize;
+
+	/**
+	 * 右侧内边距
+	 */
+	pr?: PaddingSize;
+}
+
+// 为了解决 class 属性冲突，我们重新定义所有属性
+export interface IContainerProps extends Omit<IContainerPropsBase, 'class'>, HTMLAttributes<"div"> {
+	/**
+	 * 宽高比（宽/高），设置后容器会保持这个比例
+	 */
+	aspectRatio?: number;
 
 	/**
 	 * 背景图片源（本地 ImageMetadata 或 远程 URL）。提供时会用图片铺底作为背景
@@ -142,7 +222,8 @@ export interface IContainerProps extends HTMLAttributes<"div"> {
 	pr?: PaddingSize;
 
 	/**
-	 * 容器宽度，不设置则不设置宽度
+	 * （推荐）容器宽度（与 Astro 版本保持一致）
+	 * 与 size 等价；如同时传入，优先使用 width
 	 */
 	width?: Size;
 
@@ -151,6 +232,13 @@ export interface IContainerProps extends HTMLAttributes<"div"> {
 	 * @default "none"
 	 */
 	rounded?: RoundedSize;
+
+	/**
+	 * 预设的语义化背景色，支持 DaisyUI 主题系统
+	 * 包含透明度设置，使用 Tailwind v4 语法：bg-color/opacity
+	 * @default undefined
+	 */
+	background?: BackgroundColor;
 }
 
 export interface IContainerPropsBuilder {

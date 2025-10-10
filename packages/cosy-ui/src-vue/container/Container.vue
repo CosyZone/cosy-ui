@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import "../../style";
 import { computed } from "vue";
-import type { IContainerProps } from "../../src/components/container/containerPropsVue";
-import { getContainerCombinedClassesVue } from "../../src/components/container/containerUtils";
+import type { IContainerProps } from "./containerProps";
+import { getContainerCombinedClassesVue } from "./containerUtils";
 import { allBackgroundClasses } from "../../src/common/backgrounds";
 import {
 	widthClasses,

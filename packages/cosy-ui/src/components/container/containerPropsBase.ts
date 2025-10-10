@@ -9,13 +9,10 @@ import type {
 import type { PaddingSize } from "../../../src/common/padding";
 import type { RoundedSize } from "../../../src/common/rounded";
 
-export interface IContainerProps {
-    /**
-     * 是否显示边框
-     * @default false
-     */
-    border?: boolean;
-
+/**
+ * Container 组件的基础属性接口（与框架无关）
+ */
+export interface IContainerPropsBase {
     /**
      * 是否居中显示
      * @default true

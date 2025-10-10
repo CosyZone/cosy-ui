@@ -231,7 +231,7 @@ import type { HTMLAttributes } from 'astro/types';
 import type { ImageSource } from '../image';
 import Image from '../image/Image.astro';
 import '../../style.ts';
-import type { IContainerProps } from '../../src/components/container/containerProps';
+import type { IContainerProps } from './containerProps';
 import { getBackgroundClass } from '../../src/common/backgrounds';
 import type { BorderSize, BorderColor } from '../../src/common/border';
 import { getBorderClass, getBorderColorClass } from '../../src/common/border';
@@ -270,7 +270,7 @@ import type { ContentBorderColor } from './contentBorderColors';
 import { getContentBorderClass } from './contentBorderColors';
 import { validateContainerProps } from './validateProps';
 import { createPaddingConflictError } from './validatePadding';
-import { getContainerCombinedClasses } from '../../src/components/container/containerUtils';
+import { getContainerCombinedClasses } from './containerUtils';
 import ContainerError from './ContainerError.astro';
 
 // 导出 Props 别名以提升 IDE 对组件使用方的属性提示
