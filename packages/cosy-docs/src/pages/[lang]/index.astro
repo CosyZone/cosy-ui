@@ -11,12 +11,6 @@ export const prerender = true;
 
 const { lang = 'zh-cn' } = Astro.params;
 
-// 检测是否在 GitHub Pages 上运行，如果是则重定向到新域名
-if (Astro.url.hostname.includes('github.io')) {
-    const newUrl = `https://ui.coffic.cn/${lang}`;
-    Astro.response.redirect(newUrl, 301);
-}
-
 export const getStaticPaths = async () => {
     return [
         {
@@ -46,3 +40,10 @@ interface Props {
     <BuilderPattern lang={lang} />
     <Showcase lang={lang} />
 </BaseLayout>
+
+<script is:inline>
+    if (window.location.hostname.includes('github.io')) {
+        const newUrl = `https://ui.coffic.cn/${window.location.pathname.split('/').filter(Boolean).join('/')}`;
+        window.location.replace(newUrl);
+    }
+</script>
