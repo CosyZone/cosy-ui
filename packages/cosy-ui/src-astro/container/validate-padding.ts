@@ -1,11 +1,4 @@
 /**
- * Container 组件内边距属性验证工具
- *
- * @description
- * 包含 Container 组件内边距属性冲突检测和验证逻辑
- */
-
-/**
  * Padding 属性冲突检测结果
  */
 export interface PaddingConflictResult {

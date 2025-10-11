@@ -1,6 +1,5 @@
 import type { IContainerProps } from "./props";
 
-
 export interface IContainerPropsBuilder {
     /** 设置宽高比（宽/高）。
      * @param value 宽高比（宽/高），如 16/9、4/3、1

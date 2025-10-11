@@ -1,4 +1,9 @@
 import type { IContainerProps } from "./props";
+import { paddingClasses } from "../../src/common/padding";
+import { marginClasses } from "../../src/common/margin";
+import { heightClasses } from "../../src/common/height";
+import { getBackgroundClass } from "../../src/common/backgrounds";
+import { getBorderClass, getBorderColorClass } from "../../src/common/border";
 import {
     widthClasses,
     flexClasses,
@@ -7,9 +12,6 @@ import {
     justifyClasses,
     roundedClasses,
 } from "../../src/common";
-import { paddingClasses } from "../../src/common/padding";
-import { marginClasses } from "../../src/common/margin";
-import { heightClasses } from "../../src/common/height";
 import {
     paddingYClasses,
     paddingTopClasses,
@@ -18,8 +20,6 @@ import {
     paddingRightClasses,
     paddingXClasses,
 } from "../../src/common/padding-axis";
-import { getBackgroundClass } from "../../src/common/backgrounds";
-import { getBorderClass, getBorderColorClass } from "../../src/common/border";
 
 /**
  * 计算 Container 组件的组合类名

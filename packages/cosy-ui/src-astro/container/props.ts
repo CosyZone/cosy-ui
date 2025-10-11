@@ -1,5 +1,4 @@
 import type { HTMLAttributes } from "astro/types";
-import type { ImageMetadata } from "astro";
 import type { FitMode } from "../../src/common/fitmode";
 import type { ContentBorderColor } from "../../src/components/container/contentBorderColors";
 import type { IContainerPropsBase } from "../../src/components/container/containerPropsBase";
