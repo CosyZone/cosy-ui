@@ -228,6 +228,7 @@ import { validateContainerProps } from './validate-props.ts';
 import { createPaddingConflictError } from './validate-padding.ts';
 import { getContainerCombinedClasses } from './util-class.ts';
 import ContainerError from './ContainerError.astro';
+import ContainerContent from './ContainerContent.astro';
 
 // 导出 Props 别名以提升 IDE 对组件使用方的属性提示
 export type Props = IContainerProps;
@@ -349,65 +350,30 @@ const hasError =
 
 {
     !hasError && (
-        <section class:list={[containerClasses]} style={inlineStyles} {...rest}>
-            {backgroundImage && (
-                <Image
-                    src={backgroundImage}
-                    alt=""
-                    layout="fill"
-                    objectFit="cover"
-                    asBackground
-                    class="cosy:-z-10 cosy:pointer-events-none"
-                />
-            )}
-            {fitEnabled ? (
-                hasExplicitHeight ? (
-                    <div class="cosy:absolute cosy:inset-0 cosy:grid cosy:place-items-center">
-                        <div
-                            class:list={[
-                                hasContentBorder
-                                    ? `cosy:border ${contentBorderClass} ${roundedClasses[rounded]}`
-                                    : '',
-                            ]}
-                            style={`aspect-ratio: ${aspectRatio}; width: ${effectiveFit === 'contain' ? `min(100cqw, calc(100cqh * ${aspectRatio}))` : `max(100cqw, calc(100cqh * ${aspectRatio}))`}; height: auto;`}>
-                            <div class="cosy:relative cosy:w-full cosy:h-full">
-                                <slot />
-                            </div>
-                        </div>
-                    </div>
-                ) : (
-                    <div
-                        class:list={[
-                            'cosy:grid cosy:place-items-center',
-                            roundedClasses[rounded],
-                        ]}>
-                        <div
-                            class:list={[
-                                hasContentBorder
-                                    ? `cosy:border ${contentBorderClass} ${roundedClasses[rounded]}`
-                                    : '',
-                            ]}
-                            style={`aspect-ratio: ${aspectRatio}; width: 100%; height: auto;`}>
-                            <div
-                                class:list={[
-                                    'cosy:relative cosy:w-full cosy:h-full',
-                                    roundedClasses[rounded],
-                                ]}
-                                aria-label="container-content">
-                                <slot />
-                            </div>
-                        </div>
-                    </div>
-                )
-            ) : isHeightDrivenAspect ? (
-                <div class="cosy:relative cosy:w-full cosy:h-full">
-                    <div class="cosy:absolute cosy:inset-0">
-                        <slot />
-                    </div>
-                </div>
-            ) : (
-                <slot />
-            )}
-        </section>
+        <ContainerContent
+            {...rest}
+            aspectRatio={aspectRatio}
+            backgroundImage={backgroundImage}
+            contentBorder={contentBorder}
+            centered={centered}
+            contentCentered={contentCentered}
+            border={border}
+            borderColor={borderColor}
+            fit={fit}
+            flex={flex}
+            gap={gap}
+            items={items}
+            justify={justify}
+            rounded={rounded}
+            height={height}
+            hasContentBorder={hasContentBorder}
+            contentBorderClass={contentBorderClass}
+            containerClasses={containerClasses}
+            inlineStyles={inlineStyles}
+            effectiveFit={effectiveFit}
+            hasExplicitHeight={hasExplicitHeight}
+            isHeightDrivenAspect={isHeightDrivenAspect}>
+            <slot />
+        </ContainerContent>
     )
 }
