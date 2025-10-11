@@ -219,16 +219,14 @@
  * @prop {...HTMLAttributes<'div'>} [rest] - 其他HTML div标签属性
  */
 
-import Image from '../image/Image.astro';
 import '../../style.ts';
 import type { IContainerProps } from './props.ts';
-import { roundedClasses } from '../../src/common';
 import { getContentBorderClass } from '../../src/components/container/contentBorderColors.ts';
 import { validateContainerProps } from './validate-props.ts';
 import { createPaddingConflictError } from './validate-padding.ts';
 import { getContainerCombinedClasses } from './util-class.ts';
 import ContainerError from './ContainerError.astro';
-import ContainerContent from './ContainerContent.astro';
+import ContainerBox from './ContainerBox.astro';
 
 // 导出 Props 别名以提升 IDE 对组件使用方的属性提示
 export type Props = IContainerProps;
@@ -350,7 +348,7 @@ const hasError =
 
 {
     !hasError && (
-        <ContainerContent
+        <ContainerBox
             {...rest}
             aspectRatio={aspectRatio}
             backgroundImage={backgroundImage}
@@ -374,6 +372,6 @@ const hasError =
             hasExplicitHeight={hasExplicitHeight}
             isHeightDrivenAspect={isHeightDrivenAspect}>
             <slot />
-        </ContainerContent>
+        </ContainerBox>
     )
 }

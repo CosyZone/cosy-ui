@@ -1,10 +1,8 @@
 ---
-import Image from '../image/Image.astro';
+import ContainerBg from './ContainerBg.astro';
 import '../../style.ts';
 import type { IContainerProps } from './props.ts';
 import { roundedClasses } from '../../src/common';
-import { getContentBorderClass } from '../../src/components/container/contentBorderColors.ts';
-import { getContainerCombinedClasses } from './util-class.ts';
 
 // 导出 Props 别名以提升 IDE 对组件使用方的属性提示
 export type Props = IContainerProps & {
@@ -48,18 +46,9 @@ const fitEnabled = effectiveFit !== 'none' && typeof aspectRatio === 'number';
 ---
 
 <section class:list={[containerClasses]} style={inlineStyles} {...rest}>
-    {
-        backgroundImage && (
-            <Image
-                src={backgroundImage}
-                alt=""
-                layout="fill"
-                objectFit="cover"
-                asBackground
-                class="cosy:-z-10 cosy:pointer-events-none"
-            />
-        )
-    }
+    <!-- 最底层的背景图片 -->
+    <ContainerBg backgroundImage={backgroundImage} />
+
     {
         fitEnabled ? (
             hasExplicitHeight ? (
