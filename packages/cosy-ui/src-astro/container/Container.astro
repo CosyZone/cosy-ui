@@ -222,8 +222,7 @@
 import '../../style.ts';
 import type { IContainerProps } from './props.ts';
 import { getContentBorderClass } from '../../src/components/container/contentBorderColors.ts';
-import { validateContainerProps } from './validate-props.ts';
-import { createPaddingConflictError } from './validate-padding.ts';
+import { validateContainer } from './validate.ts';
 import { getContainerCombinedClasses } from './util-class.ts';
 import ContainerError from './ContainerError.astro';
 import ContainerBox from './ContainerBox.astro';
@@ -267,34 +266,17 @@ const contentBorderClass =
         ? getContentBorderClass(contentBorder)
         : getContentBorderClass();
 
-// 检查 padding 属性冲突
-const paddingError = createPaddingConflictError(px, pl, pr, py, pt, pb);
-
-if (paddingError) {
-    console.error(`Container 组件错误: ${paddingError.message}`);
-}
-
-// 用户是否显式传入了冲突的尺寸相关配置
+// 校验所有配置
 const rawProps = Astro.props as Record<string, unknown>;
-const {
-    hasConflict: hasSizingConflict,
-    messages: validationMessages,
-    resolvedFit,
-} = validateContainerProps(rawProps);
+const messages = validateContainer(rawProps);
 
-const effectiveFit = resolvedFit ?? fit;
-const fitEnabled = effectiveFit !== 'none' && typeof aspectRatio === 'number';
+const fitEnabled = fit !== 'none' && typeof aspectRatio === 'number';
 const isHeightDrivenAspect =
     !fitEnabled &&
     typeof aspectRatio === 'number' &&
     !!height &&
     height !== 'none';
 const hasExplicitHeight = !!height && height !== 'none';
-const hasDefaultSlot = (Astro as any)?.slots?.has?.('default') ?? false;
-const filteredMessages = hasDefaultSlot
-    ? validationMessages.filter((m) => !m.includes('可见性风险'))
-    : validationMessages;
-
 // 使用共用的工具函数计算组合类名
 const containerClasses = getContainerCombinedClasses({
     aspectRatio,
@@ -333,18 +315,10 @@ const inlineStyles = fitEnabled
       ? `aspect-ratio: ${aspectRatio};`
       : '';
 
-const hasError =
-    hasSizingConflict || filteredMessages.length > 0 || Boolean(paddingError);
+const hasError = messages.length > 0;
 ---
 
-{
-    hasError && (
-        <ContainerError
-            messages={filteredMessages}
-            paddingError={paddingError}
-        />
-    )
-}
+{hasError && <ContainerError messages={messages} />}
 
 {
     !hasError && (
@@ -368,7 +342,6 @@ const hasError =
             contentBorderClass={contentBorderClass}
             containerClasses={containerClasses}
             inlineStyles={inlineStyles}
-            effectiveFit={effectiveFit}
             hasExplicitHeight={hasExplicitHeight}
             isHeightDrivenAspect={isHeightDrivenAspect}>
             <slot />

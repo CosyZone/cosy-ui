@@ -10,7 +10,6 @@ export type Props = IContainerProps & {
     contentBorderClass: string;
     containerClasses: string | string[] | undefined;
     inlineStyles: string;
-    effectiveFit: string;
     hasExplicitHeight: boolean;
     isHeightDrivenAspect: boolean;
     aspectRatio?: number;
@@ -36,13 +35,12 @@ const {
     contentBorderClass,
     containerClasses,
     inlineStyles,
-    effectiveFit,
     hasExplicitHeight,
     isHeightDrivenAspect,
     ...rest
 } = Astro.props as Props;
 
-const fitEnabled = effectiveFit !== 'none' && typeof aspectRatio === 'number';
+const fitEnabled = fit !== 'none' && typeof aspectRatio === 'number';
 ---
 
 <section class:list={[containerClasses]} style={inlineStyles} {...rest}>
@@ -59,7 +57,7 @@ const fitEnabled = effectiveFit !== 'none' && typeof aspectRatio === 'number';
                                 ? `cosy:border ${contentBorderClass} ${roundedClasses[rounded]}`
                                 : '',
                         ]}
-                        style={`aspect-ratio: ${aspectRatio}; width: ${effectiveFit === 'contain' ? `min(100cqw, calc(100cqh * ${aspectRatio}))` : `max(100cqw, calc(100cqh * ${aspectRatio}))`}; height: auto;`}>
+                        style={`aspect-ratio: ${aspectRatio}; width: ${fit === 'contain' ? `min(100cqw, calc(100cqh * ${aspectRatio}))` : `max(100cqw, calc(100cqh * ${aspectRatio}))`}; height: auto;`}>
                         <div class="cosy:relative cosy:w-full cosy:h-full">
                             <slot />
                         </div>
