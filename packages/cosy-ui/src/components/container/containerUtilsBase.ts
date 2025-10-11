@@ -9,7 +9,6 @@ import {
 } from "../../../src/common";
 import { paddingClasses } from "../../../src/common/padding";
 import { getBackgroundClass } from "../../../src/common/backgrounds";
-import { getBorderClass } from "../../../src/common/border";
 
 /**
  * 计算 Container 组件的组合类名（用于基础接口）

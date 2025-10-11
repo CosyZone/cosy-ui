@@ -7,14 +7,6 @@
  * 它提供了多种尺寸和内边距选项，适用于各种布局需求。
  * 当提供 aspectRatio 属性时，容器会保持指定的宽高比。
  *
- * @design
- * 设计理念：
- * 1. 内容约束 - 限制内容宽度，提高可读性和视觉美感
- * 2. 响应式设计 - 在不同屏幕尺寸下自动调整内边距
- * 3. 灵活配置 - 支持多种尺寸和内边距选项
- * 4. 简单易用 - 提供直观的API，易于集成到各种页面布局中
- * 5. 比例保持 - 支持设置固定的宽高比，确保内容始终保持指定比例
- *
  * @usage
  * 基本用法：
  * ```astro
@@ -227,50 +219,14 @@
  * @prop {...HTMLAttributes<'div'>} [rest] - 其他HTML div标签属性
  */
 
-import type { HTMLAttributes } from 'astro/types';
-import type { ImageSource } from '../image';
 import Image from '../image/Image.astro';
 import '../../style.ts';
-import type { IContainerProps } from './containerProps';
-import { getBackgroundClass } from '../../src/common/backgrounds';
-import type { BorderSize, BorderColor } from '../../src/common/border';
-import { getBorderClass, getBorderColorClass } from '../../src/common/border';
-import type { Size } from '../../src/common/size';
-import type { HeightSize } from '../../src/common/height';
-import type {
-    FlexDirection,
-    GapSize,
-    FlexAlign,
-    FlexJustify,
-} from '../../src/common/layout';
-import type { PaddingSize } from '../../src/common/padding';
-import type { MarginSize } from '../../src/common/margin';
-import type { RoundedSize } from '../../src/common/rounded';
-import type { FitMode } from '../../src/common/fitmode';
-import {
-    widthClasses,
-    flexClasses,
-    gapClasses,
-    itemsClasses,
-    justifyClasses,
-    roundedClasses,
-} from '../../src/common';
-import { paddingClasses } from '../../src/common/padding';
-import { marginClasses } from '../../src/common/margin';
-import { heightClasses } from '../../src/common/height';
-import {
-    paddingYClasses,
-    paddingTopClasses,
-    paddingBottomClasses,
-    paddingLeftClasses,
-    paddingRightClasses,
-    paddingXClasses,
-} from '../../src/common/padding-axis';
-import type { ContentBorderColor } from './contentBorderColors';
-import { getContentBorderClass } from './contentBorderColors';
-import { validateContainerProps } from './validateProps';
-import { createPaddingConflictError } from './validatePadding';
-import { getContainerCombinedClasses } from './containerUtils';
+import type { IContainerProps } from './props.ts';
+import { roundedClasses } from '../../src/common';
+import { getContentBorderClass } from '../../src/components/container/contentBorderColors.ts';
+import { validateContainerProps } from './validate-props.ts';
+import { createPaddingConflictError } from './validate-padding.ts';
+import { getContainerCombinedClasses } from './util-class.ts';
 import ContainerError from './ContainerError.astro';
 
 // 导出 Props 别名以提升 IDE 对组件使用方的属性提示
@@ -319,38 +275,12 @@ if (paddingError) {
     console.error(`Container 组件错误: ${paddingError.message}`);
 }
 
-// 构建轴向内边距类名
-const pyClass = py
-    ? paddingYClasses[py as keyof typeof paddingYClasses] || ''
-    : '';
-
-const paddingTopClass = pt
-    ? paddingTopClasses[pt as keyof typeof paddingTopClasses] || ''
-    : '';
-
-const paddingBottomClass = pb
-    ? paddingBottomClasses[pb as keyof typeof paddingBottomClasses] || ''
-    : '';
-
-const paddingLeftClass = pl
-    ? paddingLeftClasses[pl as keyof typeof paddingLeftClasses] || ''
-    : '';
-
-const paddingRightClass = pr
-    ? paddingRightClasses[pr as keyof typeof paddingRightClasses] || ''
-    : '';
-
-const paddingXClass = px
-    ? paddingXClasses[px as keyof typeof paddingXClasses] || ''
-    : '';
-
 // 用户是否显式传入了冲突的尺寸相关配置
 const rawProps = Astro.props as Record<string, unknown>;
 const {
     hasConflict: hasSizingConflict,
     messages: validationMessages,
     resolvedFit,
-    suggestFallbackMinHeight,
 } = validateContainerProps(rawProps);
 
 const effectiveFit = resolvedFit ?? fit;

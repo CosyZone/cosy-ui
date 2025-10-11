@@ -1,5 +1,4 @@
-import type { IContainerProps } from "./containerProps";
-import { getBaseContainerClasses } from "../../src/components/container/containerUtilsBase";
+import type { IContainerProps } from "./props";
 import {
     widthClasses,
     flexClasses,
@@ -23,7 +22,7 @@ import { getBackgroundClass } from "../../src/common/backgrounds";
 import { getBorderClass, getBorderColorClass } from "../../src/common/border";
 
 /**
- * 计算 Container 组件的组合类名（用于 Astro 版本）
+ * 计算 Container 组件的组合类名
  * @param props Container 组件的 props
  * @returns 组合后的类名数组
  */

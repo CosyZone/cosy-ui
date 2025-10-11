@@ -51,12 +51,12 @@
 import '../../style.ts';
 import Container from '../container/Container.astro';
 import type { BackgroundColor } from '../../src/common/backgrounds';
-import type { ContentBorderColor } from '../container/contentBorderColors';
+import type { ContentBorderColor } from '../../src/components/container/contentBorderColors.ts';
 import type { ImageMetadata } from 'astro';
 import Image from '../image/Image.astro';
 import type { RoundedSize } from '../../src/common/rounded';
 import { roundedClasses } from '../../src/common/rounded';
-import { ContainerProps } from '../container/containerProps';
+import { ContainerProps } from '../container/props.ts';
 
 export interface IPictureBookPageProps {
     background?: BackgroundColor | ImageMetadata;
