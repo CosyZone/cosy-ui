@@ -1,16 +1,37 @@
 ---
 /**
- * @component ContainerVue Border Container
- * @description ContainerVue 边框容器组件
+ * @component ContainerVueBorderContainer
+ * @description Container Vue 组件边框示例容器
  */
-
 import { CodeContainer } from "@coffic/cosy-ui";
-import ContainerVueBorder from "./ContainerVueBorder.vue";
-import ContainerVueBorderCode from "./ContainerVueBorder.vue?raw";
+import ContainerVueBorderNone from "./ContainerVueBorderNone.vue";
+import ContainerVueBorderSm from "./ContainerVueBorderSm.vue";
+import ContainerVueBorderMd from "./ContainerVueBorderMd.vue";
+import ContainerVueBorderLg from "./ContainerVueBorderLg.vue";
+import ContainerVueBorderXl from "./ContainerVueBorderXl.vue";
+import sourceNone from "./ContainerVueBorderNone.vue?raw";
+import sourceSm from "./ContainerVueBorderSm.vue?raw";
+import sourceMd from "./ContainerVueBorderMd.vue?raw";
+import sourceLg from "./ContainerVueBorderLg.vue?raw";
+import sourceXl from "./ContainerVueBorderXl.vue?raw";
 ---
 
-<CodeContainer titles={['带边框']} codes={[ContainerVueBorderCode]}>
-  <div id="tab-1">
-    <ContainerVueBorder client:load />
-  </div>
+<CodeContainer
+    codes={[sourceNone, sourceSm, sourceMd, sourceLg, sourceXl]}
+    titles={['none', 'sm', 'md', 'lg', 'xl']}>
+    <div id="tab-1">
+        <ContainerVueBorderNone client:load />
+    </div>
+    <div id="tab-2">
+        <ContainerVueBorderSm client:load />
+    </div>
+    <div id="tab-3">
+        <ContainerVueBorderMd client:load />
+    </div>
+    <div id="tab-4">
+        <ContainerVueBorderLg client:load />
+    </div>
+    <div id="tab-5">
+        <ContainerVueBorderXl client:load />
+    </div>
 </CodeContainer>

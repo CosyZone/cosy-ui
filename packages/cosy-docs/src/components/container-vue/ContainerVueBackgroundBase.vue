@@ -1,6 +1,6 @@
 <template>
-  <Container rounded="md" background="accent/10">
-    <p>中等圆角</p>
+  <Container background="base-100" padding="md" border="sm" rounded="md">
+    <p>基础背景色 base-100</p>
   </Container>
 </template>
 

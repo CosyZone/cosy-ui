@@ -1,14 +1,14 @@
 <template>
   <Container
-    width="md"
     flex="row"
-    gap="sm"
+    items="center"
+    justify="center"
+    gap="md"
+    class="cosy:h-24 cosy:bg-base-200"
     border="sm"
     rounded="md"
     background="accent/30">
-    <div class="cosy:bg-primary">项目 1</div>
-    <div class="cosy:bg-secondary">项目 2</div>
-    <div class="cosy:bg-accent">项目 3</div>
+    <div class="cosy:bg-primary cosy:p-2">居中项目</div>
   </Container>
 </template>
 

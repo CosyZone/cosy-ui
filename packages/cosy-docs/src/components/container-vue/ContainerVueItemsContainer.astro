@@ -1,44 +1,43 @@
 ---
 /**
- * @component ContainerVue Items Container
- * @description ContainerVue Items 对齐容器组件
+ * @component ContainerVueItemsContainer
+ * @description Container Vue 组件对齐方式示例容器
  */
-
 import { CodeContainer } from "@coffic/cosy-ui";
 import ContainerVueItemsStart from "./ContainerVueItemsStart.vue";
-import ContainerVueItemsEnd from "./ContainerVueItemsEnd.vue";
 import ContainerVueItemsCenter from "./ContainerVueItemsCenter.vue";
-import ContainerVueItemsBaseline from "./ContainerVueItemsBaseline.vue";
+import ContainerVueItemsEnd from "./ContainerVueItemsEnd.vue";
 import ContainerVueItemsStretch from "./ContainerVueItemsStretch.vue";
-import ContainerVueItemsStartCode from "./ContainerVueItemsStart.vue?raw";
-import ContainerVueItemsEndCode from "./ContainerVueItemsEnd.vue?raw";
-import ContainerVueItemsCenterCode from "./ContainerVueItemsCenter.vue?raw";
-import ContainerVueItemsBaselineCode from "./ContainerVueItemsBaseline.vue?raw";
-import ContainerVueItemsStretchCode from "./ContainerVueItemsStretch.vue?raw";
+import ContainerVueItemsBaseline from "./ContainerVueItemsBaseline.vue";
+import sourceStart from "./ContainerVueItemsStart.vue?raw";
+import sourceCenter from "./ContainerVueItemsCenter.vue?raw";
+import sourceEnd from "./ContainerVueItemsEnd.vue?raw";
+import sourceStretch from "./ContainerVueItemsStretch.vue?raw";
+import sourceBaseline from "./ContainerVueItemsBaseline.vue?raw";
 ---
 
 <CodeContainer
-  titles={['start', 'end', 'center', 'baseline', 'stretch']}
-  codes={[
-    ContainerVueItemsStartCode,
-    ContainerVueItemsEndCode,
-    ContainerVueItemsCenterCode,
-    ContainerVueItemsBaselineCode,
-    ContainerVueItemsStretchCode,
-  ]}>
-  <div id="tab-1">
-    <ContainerVueItemsStart client:load />
-  </div>
-  <div id="tab-2">
-    <ContainerVueItemsEnd client:load />
-  </div>
-  <div id="tab-3">
-    <ContainerVueItemsCenter client:load />
-  </div>
-  <div id="tab-4">
-    <ContainerVueItemsBaseline client:load />
-  </div>
-  <div id="tab-5">
-    <ContainerVueItemsStretch client:load />
-  </div>
+    codes={[
+        sourceStart,
+        sourceCenter,
+        sourceEnd,
+        sourceStretch,
+        sourceBaseline,
+    ]}
+    titles={['start', 'center', 'end', 'stretch', 'baseline']}>
+    <div id="tab-1">
+        <ContainerVueItemsStart client:load />
+    </div>
+    <div id="tab-2">
+        <ContainerVueItemsCenter client:load />
+    </div>
+    <div id="tab-3">
+        <ContainerVueItemsEnd client:load />
+    </div>
+    <div id="tab-4">
+        <ContainerVueItemsStretch client:load />
+    </div>
+    <div id="tab-5">
+        <ContainerVueItemsBaseline client:load />
+    </div>
 </CodeContainer>

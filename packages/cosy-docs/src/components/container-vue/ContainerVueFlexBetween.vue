@@ -1,6 +1,7 @@
 <template>
   <Container
-    flex="col"
+    flex="row"
+    justify="between"
     gap="md"
     class="cosy:bg-base-200"
     border="sm"
