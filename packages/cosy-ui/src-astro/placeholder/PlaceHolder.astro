@@ -24,6 +24,12 @@ import {
 	getBackgroundClass,
 	type BackgroundColor,
 } from "../../src/common/backgrounds";
+import {
+	placeholderWidthClasses,
+	placeholderHeightClasses,
+	placeholderPaddingClasses,
+	placeholderBorderClasses,
+} from "../../src/components/placeholder/placeholderClasses";
 
 interface Props extends PlaceHolderProps {
 	background?: BackgroundColor;
@@ -67,62 +73,21 @@ const {
 	width = "md",
 } = Astro.props;
 
-// 宽度样式映射
-const widthClassMap = {
-	none: "",
-	xs: "cosy:w-8",
-	sm: "cosy:w-16",
-	md: "cosy:w-24",
-	lg: "cosy:w-32",
-	xl: "cosy:w-40",
-	"2xl": "cosy:w-48",
-	"3xl": "cosy:w-56",
-	"4xl": "cosy:w-64",
-	"5xl": "cosy:w-72",
-	"6xl": "cosy:w-80",
-	full: "cosy:w-full",
-} as const;
-
-// 高度样式映射
-const heightClassMap = {
-	none: "",
-	xs: "cosy:h-8",
-	sm: "cosy:h-16",
-	md: "cosy:h-24",
-	lg: "cosy:h-32",
-	xl: "cosy:h-40",
-	"2xl": "cosy:h-48",
-	"3xl": "cosy:h-56",
-	"4xl": "cosy:h-64",
-	"5xl": "cosy:h-72",
-	"6xl": "cosy:h-80",
-	full: "cosy:h-full",
-} as const;
-
-// 内边距样式映射
-const paddingClassMap = {
-	none: "",
-	xs: "cosy:p-1",
-	sm: "cosy:p-2",
-	md: "cosy:p-4",
-	lg: "cosy:p-6",
-	xl: "cosy:p-8",
-} as const;
-
-// 边框样式映射
-const borderClassMap = {
-	true: "cosy:border cosy:border-base-300",
-	false: "",
-} as const;
-
-// 使用通用背景色函数
-const widthClass = widthClassMap[width as keyof typeof widthClassMap] || "";
-const heightClass = heightClassMap[height as keyof typeof heightClassMap] || "";
+// 使用通用类名映射
+const widthClass =
+	placeholderWidthClasses[width as keyof typeof placeholderWidthClasses] || "";
+const heightClass =
+	placeholderHeightClasses[height as keyof typeof placeholderHeightClasses] ||
+	"";
 const paddingClass =
-	paddingClassMap[padding as keyof typeof paddingClassMap] || "";
+	placeholderPaddingClasses[
+		padding as keyof typeof placeholderPaddingClasses
+	] || "";
 const backgroundClass = getBackgroundClass(background);
 const borderClass =
-	borderClassMap[String(border) as keyof typeof borderClassMap] || "";
+	placeholderBorderClasses[
+		String(border) as keyof typeof placeholderBorderClasses
+	] || "";
 
 const combinedClass =
 	`placeholder ${widthClass} ${heightClass} ${paddingClass} ${backgroundClass} ${borderClass} ${className}`.trim();

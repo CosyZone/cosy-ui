@@ -1,7 +1,3 @@
 export { default as PlaceHolder } from "./PlaceHolder.astro";
-export type {
-	PlaceHolderProps,
-	PlaceHolderWidth,
-	PlaceHolderHeight,
-	PlaceHolderPadding,
-} from "./types";
+export type { PlaceHolderProps } from "./types";
+export type { IPlaceholderPropsBase } from "../../src/components/placeholder/placeholderPropsBase";

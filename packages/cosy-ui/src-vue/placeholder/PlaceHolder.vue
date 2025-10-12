@@ -5,6 +5,11 @@ import {
 	getBackgroundClass,
 	type BackgroundColor,
 } from "../../src/common/backgrounds";
+import {
+	placeholderWidthClasses,
+	placeholderHeightClasses,
+	placeholderPaddingClasses,
+} from "../../src/components/placeholder/placeholderClasses";
 
 /**
  * @component PlaceHolder
@@ -25,67 +30,37 @@ import {
  * @slot default - 占位符内容
  */
 
-interface Props extends IPlaceHolderProps {}
+interface Props extends IPlaceHolderProps {
+	border?: boolean;
+}
 
 const props = withDefaults(defineProps<Props>(), {
 	height: "md",
 	padding: "none",
 	width: "md",
+	border: false,
 });
 
-// 宽度样式映射
-const widthClassMap = {
-	none: "",
-	xs: "cosy:w-8",
-	sm: "cosy:w-16",
-	md: "cosy:w-24",
-	lg: "cosy:w-32",
-	xl: "cosy:w-40",
-	"2xl": "cosy:w-48",
-	"3xl": "cosy:w-56",
-	"4xl": "cosy:w-64",
-	"5xl": "cosy:w-72",
-	"6xl": "cosy:w-80",
-	full: "cosy:w-full",
-} as const;
-
-// 高度样式映射
-const heightClassMap = {
-	none: "",
-	xs: "cosy:h-8",
-	sm: "cosy:h-16",
-	md: "cosy:h-24",
-	lg: "cosy:h-32",
-	xl: "cosy:h-40",
-	"2xl": "cosy:h-48",
-	"3xl": "cosy:h-56",
-	"4xl": "cosy:h-64",
-	"5xl": "cosy:h-72",
-	"6xl": "cosy:h-80",
-	full: "cosy:h-full",
-} as const;
-
-// 内边距样式映射
-const paddingClassMap = {
-	none: "",
-	xs: "cosy:p-1",
-	sm: "cosy:p-2",
-	md: "cosy:p-4",
-	lg: "cosy:p-6",
-	xl: "cosy:p-8",
-} as const;
-
-// 使用通用背景色函数
+// 使用通用类名映射
 const widthClass =
-	widthClassMap[props.width as keyof typeof widthClassMap] || "";
+	placeholderWidthClasses[
+		props.width as keyof typeof placeholderWidthClasses
+	] || "";
 const heightClass =
-	heightClassMap[props.height as keyof typeof heightClassMap] || "";
+	placeholderHeightClasses[
+		props.height as keyof typeof placeholderHeightClasses
+	] || "";
 const paddingClass =
-	paddingClassMap[props.padding as keyof typeof paddingClassMap] || "";
+	placeholderPaddingClasses[
+		props.padding as keyof typeof placeholderPaddingClasses
+	] || "";
 const backgroundClass = getBackgroundClass(props.background);
 
+// 边框类名映射
+const borderClass = props.border ? "cosy:border cosy:border-base-300" : "";
+
 const combinedClass = computed(() => {
-	return `placeholder ${widthClass} ${heightClass} ${paddingClass} ${backgroundClass} ${props.class || ""}`.trim();
+	return `placeholder ${widthClass} ${heightClass} ${paddingClass} ${backgroundClass} ${borderClass} ${props.class || ""}`.trim();
 });
 </script>
 
