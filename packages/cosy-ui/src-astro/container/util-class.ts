@@ -1,24 +1,12 @@
 import type { IContainerProps } from "./props";
-import { paddingClasses } from "../../src/common/padding";
-import { marginClasses } from "../../src/common/margin";
-import { heightClasses } from "../../src/common/height";
-import { getBackgroundClass } from "../../src/common/backgrounds";
-import {
-	widthClasses,
-	flexClasses,
-	gapClasses,
-	itemsClasses,
-	justifyClasses,
-	roundedClasses,
-} from "../../src/common";
-import {
-	paddingYClasses,
-	paddingTopClasses,
-	paddingBottomClasses,
-	paddingLeftClasses,
-	paddingRightClasses,
-	paddingXClasses,
-} from "../../src/common/padding-axis";
+import { getContainerBorderClasses } from "./util-class-border";
+import { getContainerPaddingClasses } from "./util-class-padding";
+import { getContainerMarginClass } from "./util-class-margin";
+import { getContainerHeightClass } from "./util-class-height";
+import { getContainerBackgroundClass } from "./util-class-background";
+import { getContainerRoundedClass } from "./util-class-rounded";
+import { getContainerFlexClasses } from "./util-class-flex";
+import { getContainerWidthClass } from "./util-class-width";
 
 /**
  * 计算 Container 组件的组合类名
@@ -46,54 +34,55 @@ export function getContainerCombinedClasses(props: IContainerProps): string[] {
 		class: className = "",
 		centered = true,
 		contentCentered = false,
+		border = "none",
+		borderColor,
 	} = props;
 
-	// 构建轴向内边距类名
-	const pyClass = py
-		? paddingYClasses[py as keyof typeof paddingYClasses] || ""
-		: "";
+	// 构建padding类名
+	const paddingClassesArray = getContainerPaddingClasses(
+		padding,
+		py,
+		pt,
+		pb,
+		px,
+		pl,
+		pr,
+	);
 
-	const paddingTopClass = pt
-		? paddingTopClasses[pt as keyof typeof paddingTopClasses] || ""
-		: "";
+	// 构建margin类名
+	const marginClass = getContainerMarginClass(margin);
 
-	const paddingBottomClass = pb
-		? paddingBottomClasses[pb as keyof typeof paddingBottomClasses] || ""
-		: "";
+	// 构建height类名
+	const heightClass = getContainerHeightClass(height);
 
-	const paddingLeftClass = pl
-		? paddingLeftClasses[pl as keyof typeof paddingLeftClasses] || ""
-		: "";
+	// 构建background类名
+	const backgroundClass = getContainerBackgroundClass(background);
 
-	const paddingRightClass = pr
-		? paddingRightClasses[pr as keyof typeof paddingRightClasses] || ""
-		: "";
+	// 构建rounded类名
+	const roundedClass = getContainerRoundedClass(rounded);
 
-	const paddingXClass = px
-		? paddingXClasses[px as keyof typeof paddingXClasses] || ""
-		: "";
+	// 构建width类名
+	const widthClass = getContainerWidthClass(width);
+
+	// 构建flex类名
+	const flexClassesArray = getContainerFlexClasses(flex, gap, items, justify);
+
+	// 构建边框类名
+	const borderClasses = getContainerBorderClasses(border, borderColor);
 
 	// 构建CSS类名
 	return [
 		"cosy:w-full",
 		centered ? "cosy:mx-auto" : "",
 		contentCentered ? "cosy:flex cosy:justify-center cosy:items-center" : "",
-		widthClasses[width],
-		paddingClasses[padding],
-		pyClass,
-		paddingTopClass,
-		paddingBottomClass,
-		paddingLeftClass,
-		paddingRightClass,
-		paddingXClass,
-		marginClasses[margin],
-		roundedClasses[rounded],
-		getBackgroundClass(background),
-		flex ? flexClasses[flex] : "",
-		flex ? gapClasses[gap] : "",
-		items && flex ? itemsClasses[items] : "",
-		justify && flex ? justifyClasses[justify] : "",
-		height ? heightClasses[height] : "",
+		widthClass,
+		...paddingClassesArray,
+		marginClass,
+		roundedClass,
+		backgroundClass,
+		...borderClasses,
+		...flexClassesArray,
+		heightClass,
 		className,
 	];
 }

@@ -10,6 +10,7 @@ import type {
 import type { PaddingSize } from "../../../src/common/padding";
 import type { MarginSize } from "../../../src/common/margin";
 import type { RoundedSize } from "../../../src/common/rounded";
+import type { BorderSize, BorderColor } from "../../../src/common/border";
 
 /**
  * Container 组件的基础属性接口（与框架无关）
@@ -110,4 +111,16 @@ export interface IContainerPropsBase {
 	 * @default undefined
 	 */
 	background?: BackgroundColor;
+
+	/**
+	 * 边框尺寸
+	 * @default "none"
+	 */
+	border?: BorderSize;
+
+	/**
+	 * 边框颜色
+	 * @default undefined
+	 */
+	borderColor?: BorderColor;
 }
