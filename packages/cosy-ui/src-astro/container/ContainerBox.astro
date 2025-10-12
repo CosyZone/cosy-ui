@@ -1,66 +1,66 @@
 ---
-import ContainerBg from './ContainerBg.astro';
-import AspectRatioBox from './AspectRatioBox.astro';
-import HeightDrivenAspect from './HeightDrivenAspect.astro';
-import '../../style.ts';
-import type { IContainerProps } from './props.ts';
+import ContainerBg from "./ContainerBg.astro";
+import AspectRatioBox from "./AspectRatioBox.astro";
+import HeightDrivenAspect from "./HeightDrivenAspect.astro";
+import "../../style.ts";
+import type { IContainerProps } from "./props.ts";
 
 // 导出 Props 别名以提升 IDE 对组件使用方的属性提示
 export type Props = IContainerProps & {
-    hasContentBorder: boolean;
-    contentBorderClass: string;
-    containerClasses: string | string[] | undefined;
-    hasExplicitHeight: boolean;
-    isHeightDrivenAspect: boolean;
-    aspectRatio?: number;
-    rounded: string;
-    centered?: boolean;
-    contentCentered?: boolean;
-    border?: string;
-    borderColor?: string;
-    fit?: string;
-    flex?: string;
-    gap?: string;
-    items?: string;
-    justify?: string;
-    height?: string;
-    backgroundImage?: any;
-    contentBorder?: boolean | string;
+	hasContentBorder: boolean;
+	contentBorderClass: string;
+	containerClasses: string | string[] | undefined;
+	hasExplicitHeight: boolean;
+	isHeightDrivenAspect: boolean;
+	aspectRatio?: number;
+	rounded: string;
+	centered?: boolean;
+	contentCentered?: boolean;
+	border?: string;
+	borderColor?: string;
+	fit?: string;
+	flex?: string;
+	gap?: string;
+	items?: string;
+	justify?: string;
+	height?: string;
+	backgroundImage?: any;
+	contentBorder?: boolean | string;
 };
 
 const {
-    aspectRatio,
-    backgroundImage,
-    fit = 'none',
-    rounded = 'none',
-    height,
-    hasContentBorder,
-    contentBorderClass,
-    containerClasses,
-    hasExplicitHeight,
-    isHeightDrivenAspect,
-    centered,
-    contentCentered,
-    border,
-    borderColor,
-    flex,
-    gap,
-    items,
-    justify,
-    contentBorder,
-    ...rest
+	aspectRatio,
+	backgroundImage,
+	fit = "none",
+	rounded = "none",
+	height,
+	hasContentBorder,
+	contentBorderClass,
+	containerClasses,
+	hasExplicitHeight,
+	isHeightDrivenAspect,
+	centered,
+	contentCentered,
+	border,
+	borderColor,
+	flex,
+	gap,
+	items,
+	justify,
+	contentBorder,
+	...rest
 } = Astro.props as Props;
 
-const fitEnabled = fit !== 'none' && typeof aspectRatio === 'number';
+const fitEnabled = fit !== "none" && typeof aspectRatio === "number";
 
 // 构建内联样式
 const computedInlineStyles = fitEnabled
-    ? hasExplicitHeight
-        ? 'container-type: size;'
-        : 'container-type: inline-size;'
-    : aspectRatio
-      ? `aspect-ratio: ${aspectRatio};`
-      : '';
+	? hasExplicitHeight
+		? "container-type: size;"
+		: "container-type: inline-size;"
+	: aspectRatio
+		? `aspect-ratio: ${aspectRatio};`
+		: "";
 ---
 
 <section class:list={[containerClasses]} style={computedInlineStyles} {...rest}>

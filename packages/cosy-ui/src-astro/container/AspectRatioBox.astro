@@ -1,6 +1,14 @@
 ---
+/**
+ * AspectRatioBox 组件
+ *
+ * 根据 hasExplicitHeight 属性决定使用哪种宽高比处理方式：
+ * - ExplicitHeightAspectRatioBox: 处理有明确高度的情况
+ * - DefaultAspectRatioBox: 处理默认情况
+ */
 import type { RoundedSize } from "../../src/common/rounded";
-import { roundedClasses } from "../../src/common";
+import ExplicitHeightAspectRatioBox from "./ExplicitHeightAspectRatioBox.astro";
+import DefaultAspectRatioBox from "./DefaultAspectRatioBox.astro";
 
 export interface Props {
 	aspectRatio: number;
@@ -23,41 +31,19 @@ const {
 
 {
     hasExplicitHeight ? (
-        <div class="cosy:absolute cosy:inset-0 cosy:grid cosy:place-items-center">
-            <div
-                class:list={[
-                    hasContentBorder
-                        ? `cosy:border ${contentBorderClass} ${roundedClasses[rounded]}`
-                        : '',
-                ]}
-                style={`aspect-ratio: ${aspectRatio}; width: ${fit === 'contain' ? `min(100cqw, calc(100cqh * ${aspectRatio}))` : `max(100cqw, calc(100cqh * ${aspectRatio}))`}; height: auto;`}>
-                <div class="cosy:relative cosy:w-full cosy:h-full">
-                    <slot />
-                </div>
-            </div>
-        </div>
+        <ExplicitHeightAspectRatioBox
+            aspectRatio={aspectRatio}
+            fit={fit}
+            hasContentBorder={hasContentBorder}
+            contentBorderClass={contentBorderClass}
+            rounded={rounded}
+        />
     ) : (
-        <div
-            class:list={[
-                'cosy:grid cosy:place-items-center',
-                roundedClasses[rounded],
-            ]}>
-            <div
-                class:list={[
-                    hasContentBorder
-                        ? `cosy:border ${contentBorderClass} ${roundedClasses[rounded]}`
-                        : '',
-                ]}
-                style={`aspect-ratio: ${aspectRatio}; width: 100%; height: auto;`}>
-                <div
-                    class:list={[
-                        'cosy:relative cosy:w-full cosy:h-full',
-                        roundedClasses[rounded],
-                    ]}
-                    aria-label="container-content">
-                    <slot />
-                </div>
-            </div>
-        </div>
+        <DefaultAspectRatioBox
+            aspectRatio={aspectRatio}
+            hasContentBorder={hasContentBorder}
+            contentBorderClass={contentBorderClass}
+            rounded={rounded}
+        />
     )
 }
