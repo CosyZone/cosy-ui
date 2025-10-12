@@ -20,7 +20,7 @@
  * @prop {string} [height] - 容器高度，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl、screen、auto，none表示不设置高度
  * @prop {string} [items] - flex项目水平对齐方式，可选值：start、end、center、baseline、stretch，仅在启用flex布局时生效
  * @prop {string} [justify] - flex项目垂直对齐方式，可选值：start、end、center、between、around、evenly，仅在启用flex布局时生效
- * @prop {string} [margin='none'] - 外边距大小，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl
+ * @prop {string} [margin='none'] - 外边距大小，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl
  * @prop {string} [padding='md'] - 内边距大小，可选值：none、sm、md、lg、xl、2xl、3xl、4xl
  * @prop {string} [py] - 垂直内边距（上下），可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl
  * @prop {string} [pt] - 顶部内边距，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl
@@ -39,32 +39,9 @@ import { validateContainer } from "./validate.ts";
 import ContainerError from "./ContainerError.astro";
 import ContainerBox from "./ContainerBox.astro";
 
-export type Props = IContainerProps;
-const {
-	aspectRatio,
-	background,
-	backgroundImage,
-	width = "md",
-	padding = "md",
-	py,
-	pt,
-	pb,
-	px,
-	pl,
-	pr,
-	margin = "none",
-	centered = true,
-	contentCentered = false,
-	fit = "none",
-	flex,
-	gap = "none",
-	items,
-	justify,
-	rounded = "none",
-	class: className = "",
-	height,
-	...rest
-} = Astro.props as Props;
+export interface Props extends IContainerProps {}
+
+const props = Astro.props as Props;
 
 // 校验所有配置
 const messages = validateContainer(Astro.props as Record<string, unknown>);
@@ -75,30 +52,7 @@ const hasError = messages.length > 0;
 
 {
     !hasError && (
-        <ContainerBox
-            {...rest}
-            aspectRatio={aspectRatio}
-            background={background}
-            backgroundImage={backgroundImage}
-            width={width}
-            padding={padding}
-            py={py}
-            pt={pt}
-            pb={pb}
-            px={px}
-            pl={pl}
-            pr={pr}
-            margin={margin}
-            centered={centered}
-            contentCentered={contentCentered}
-            fit={fit}
-            flex={flex}
-            gap={gap}
-            items={items}
-            justify={justify}
-            rounded={rounded}
-            class={className}
-            height={height}>
+        <ContainerBox {...props}>
             <slot />
         </ContainerBox>
     )
