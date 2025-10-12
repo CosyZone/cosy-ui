@@ -17,7 +17,6 @@ import ContainerPaddingContainer from "./ContainerPaddingContainer.astro";
 import ContainerRoundedContainer from "./ContainerRoundedContainer.astro";
 import ContainerWidthsContainer from "./ContainerWidthsContainer.astro";
 import ContainerFitContainer from "./ContainerFitContainer.astro";
-import ContainerContentBorderContainer from "./ContainerContentBorderContainer.astro";
 import ContainerSlotContainer from "./ContainerSlotContainer.astro";
 import ContainerPaddingAxisContainer from "./ContainerPaddingAxisContainer.astro";
 import ContainerPaddingTopContainer from "./ContainerPaddingTopContainer.astro";
@@ -55,7 +54,6 @@ export const ContainerPackage = {
 		Rounded: ContainerRoundedContainer,
 		Widths: ContainerWidthsContainer,
 		Fit: ContainerFitContainer,
-		ContentBorder: ContainerContentBorderContainer,
 		Slot: ContainerSlotContainer,
 	},
 };
