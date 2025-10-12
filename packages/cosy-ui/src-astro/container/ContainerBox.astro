@@ -1,8 +1,9 @@
 ---
 import ContainerBg from './ContainerBg.astro';
+import AspectRatioBox from './AspectRatioBox.astro';
+import HeightDrivenAspect from './HeightDrivenAspect.astro';
 import '../../style.ts';
 import type { IContainerProps } from './props.ts';
-import { roundedClasses } from '../../src/common';
 
 // 导出 Props 别名以提升 IDE 对组件使用方的属性提示
 export type Props = IContainerProps & {
@@ -47,54 +48,23 @@ const fitEnabled = fit !== 'none' && typeof aspectRatio === 'number';
     <!-- 最底层的背景图片 -->
     <ContainerBg backgroundImage={backgroundImage} />
 
+    <!-- 情况1: 当启用宽高比适配时，使用专门的宽高比组件处理 -->
     {
-        fitEnabled ? (
-            hasExplicitHeight ? (
-                <div class="cosy:absolute cosy:inset-0 cosy:grid cosy:place-items-center">
-                    <div
-                        class:list={[
-                            hasContentBorder
-                                ? `cosy:border ${contentBorderClass} ${roundedClasses[rounded]}`
-                                : '',
-                        ]}
-                        style={`aspect-ratio: ${aspectRatio}; width: ${fit === 'contain' ? `min(100cqw, calc(100cqh * ${aspectRatio}))` : `max(100cqw, calc(100cqh * ${aspectRatio}))`}; height: auto;`}>
-                        <div class="cosy:relative cosy:w-full cosy:h-full">
-                            <slot />
-                        </div>
-                    </div>
-                </div>
-            ) : (
-                <div
-                    class:list={[
-                        'cosy:grid cosy:place-items-center',
-                        roundedClasses[rounded],
-                    ]}>
-                    <div
-                        class:list={[
-                            hasContentBorder
-                                ? `cosy:border ${contentBorderClass} ${roundedClasses[rounded]}`
-                                : '',
-                        ]}
-                        style={`aspect-ratio: ${aspectRatio}; width: 100%; height: auto;`}>
-                        <div
-                            class:list={[
-                                'cosy:relative cosy:w-full cosy:h-full',
-                                roundedClasses[rounded],
-                            ]}
-                            aria-label="container-content">
-                            <slot />
-                        </div>
-                    </div>
-                </div>
-            )
-        ) : isHeightDrivenAspect ? (
-            <div class="cosy:relative cosy:w-full cosy:h-full">
-                <div class="cosy:absolute cosy:inset-0">
-                    <slot />
-                </div>
-            </div>
-        ) : (
-            <slot />
+        fitEnabled && (
+            <AspectRatioBox
+                aspectRatio={aspectRatio!}
+                fit={fit}
+                hasContentBorder={hasContentBorder}
+                contentBorderClass={contentBorderClass}
+                rounded={rounded}
+                hasExplicitHeight={hasExplicitHeight}
+            />
         )
     }
+
+    <!-- 情况2: 当未启用宽高比适配但需要高度驱动布局时，使用高度驱动组件 -->
+    {!fitEnabled && isHeightDrivenAspect && <HeightDrivenAspect />}
+
+    <!-- 情况3: 默认情况，直接渲染子元素 -->
+    {!fitEnabled && !isHeightDrivenAspect && <slot />}
 </section>

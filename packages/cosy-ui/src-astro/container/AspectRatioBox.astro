@@ -1,0 +1,63 @@
+---
+import type { RoundedSize } from '../../src/common/rounded';
+import { roundedClasses } from '../../src/common';
+
+export interface Props {
+    aspectRatio: number;
+    fit: 'contain' | 'cover';
+    hasContentBorder: boolean;
+    contentBorderClass: string;
+    rounded: RoundedSize;
+    hasExplicitHeight: boolean;
+}
+
+const {
+    aspectRatio,
+    fit,
+    hasContentBorder,
+    contentBorderClass,
+    rounded,
+    hasExplicitHeight,
+} = Astro.props as Props;
+---
+
+{
+    hasExplicitHeight ? (
+        <div class="cosy:absolute cosy:inset-0 cosy:grid cosy:place-items-center">
+            <div
+                class:list={[
+                    hasContentBorder
+                        ? `cosy:border ${contentBorderClass} ${roundedClasses[rounded]}`
+                        : '',
+                ]}
+                style={`aspect-ratio: ${aspectRatio}; width: ${fit === 'contain' ? `min(100cqw, calc(100cqh * ${aspectRatio}))` : `max(100cqw, calc(100cqh * ${aspectRatio}))`}; height: auto;`}>
+                <div class="cosy:relative cosy:w-full cosy:h-full">
+                    <slot />
+                </div>
+            </div>
+        </div>
+    ) : (
+        <div
+            class:list={[
+                'cosy:grid cosy:place-items-center',
+                roundedClasses[rounded],
+            ]}>
+            <div
+                class:list={[
+                    hasContentBorder
+                        ? `cosy:border ${contentBorderClass} ${roundedClasses[rounded]}`
+                        : '',
+                ]}
+                style={`aspect-ratio: ${aspectRatio}; width: 100%; height: auto;`}>
+                <div
+                    class:list={[
+                        'cosy:relative cosy:w-full cosy:h-full',
+                        roundedClasses[rounded],
+                    ]}
+                    aria-label="container-content">
+                    <slot />
+                </div>
+            </div>
+        </div>
+    )
+}
