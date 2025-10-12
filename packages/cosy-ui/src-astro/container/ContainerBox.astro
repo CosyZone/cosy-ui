@@ -1,87 +1,87 @@
 ---
-import ContainerBg from "./ContainerBg.astro";
-import AspectRatioBox from "./AspectRatioBox.astro";
-import HeightDrivenAspect from "./HeightDrivenAspect.astro";
-import "../../style.ts";
-import type { IContainerProps } from "./props.ts";
-import { getContainerCombinedClasses } from "./util-class.ts";
+import ContainerBg from './ContainerBg.astro';
+import AspectRatioBox from './AspectRatioBox.astro';
+import HeightDrivenAspect from './HeightDrivenAspect.astro';
+import '../../style.ts';
+import type { IContainerProps } from './props.ts';
+import { getContainerCombinedClasses } from './class.ts';
 
 // 导出 Props 别名以提升 IDE 对组件使用方的属性提示
 export type Props = IContainerProps;
 
 const {
-	aspectRatio,
-	backgroundImage,
-	background,
-	width = "md",
-	padding = "md",
-	py,
-	pt,
-	pb,
-	px,
-	pl,
-	pr,
-	margin = "none",
-	centered = true,
-	contentCentered = false,
-	fit = "none",
-	flex,
-	gap = "none",
-	items,
-	justify,
-	rounded = "none",
-	border = "none",
-	borderColor,
-	class: className = "",
-	height,
-	...rest
+    aspectRatio,
+    backgroundImage,
+    background,
+    width = 'md',
+    padding = 'md',
+    py,
+    pt,
+    pb,
+    px,
+    pl,
+    pr,
+    margin = 'none',
+    centered = true,
+    contentCentered = false,
+    fit = 'none',
+    flex,
+    gap = 'none',
+    items,
+    justify,
+    rounded = 'none',
+    border = 'none',
+    borderColor,
+    class: className = '',
+    height,
+    ...rest
 } = Astro.props as Props;
 
 // 计算组合类名
 const computedContainerClasses = getContainerCombinedClasses({
-	aspectRatio,
-	background,
-	backgroundImage,
-	width,
-	padding,
-	py,
-	pt,
-	pb,
-	px,
-	pl,
-	pr,
-	margin,
-	centered,
-	contentCentered,
-	fit,
-	flex,
-	gap,
-	items,
-	justify,
-	rounded,
-	border,
-	borderColor,
-	class: className,
-	height,
+    aspectRatio,
+    background,
+    backgroundImage,
+    width,
+    padding,
+    py,
+    pt,
+    pb,
+    px,
+    pl,
+    pr,
+    margin,
+    centered,
+    contentCentered,
+    fit,
+    flex,
+    gap,
+    items,
+    justify,
+    rounded,
+    border,
+    borderColor,
+    class: className,
+    height,
 });
 
 // 计算其他需要的属性
-const fitEnabled = fit !== "none" && typeof aspectRatio === "number";
+const fitEnabled = fit !== 'none' && typeof aspectRatio === 'number';
 const isHeightDrivenAspect =
-	!fitEnabled &&
-	typeof aspectRatio === "number" &&
-	!!height &&
-	height !== "none";
-const hasExplicitHeight = !!height && height !== "none";
+    !fitEnabled &&
+    typeof aspectRatio === 'number' &&
+    !!height &&
+    height !== 'none';
+const hasExplicitHeight = !!height && height !== 'none';
 
 // 构建内联样式
 const computedInlineStyles = fitEnabled
-	? hasExplicitHeight
-		? "container-type: size;"
-		: "container-type: inline-size;"
-	: aspectRatio
-		? `aspect-ratio: ${aspectRatio};`
-		: "";
+    ? hasExplicitHeight
+        ? 'container-type: size;'
+        : 'container-type: inline-size;'
+    : aspectRatio
+      ? `aspect-ratio: ${aspectRatio};`
+      : '';
 ---
 
 <section
