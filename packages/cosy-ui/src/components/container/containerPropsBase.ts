@@ -95,8 +95,7 @@ export interface IContainerPropsBase {
 	pr?: PaddingSize;
 
 	/**
-	 * （推荐）容器宽度（与 Astro 版本保持一致）
-	 * 与 size 等价；如同时传入，优先使用 width
+	 * 容器宽度
 	 */
 	width?: Size;
 
@@ -107,8 +106,7 @@ export interface IContainerPropsBase {
 	rounded?: RoundedSize;
 
 	/**
-	 * 预设的语义化背景色，支持 DaisyUI 主题系统
-	 * 包含透明度设置，使用 Tailwind v4 语法：bg-color/opacity
+	 * 背景色
 	 * @default undefined
 	 */
 	background?: BackgroundColor;
