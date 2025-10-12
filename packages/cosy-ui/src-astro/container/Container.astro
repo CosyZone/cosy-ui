@@ -265,8 +265,7 @@ const contentBorderClass =
 		: getContentBorderClass();
 
 // 校验所有配置
-const rawProps = Astro.props as Record<string, unknown>;
-const messages = validateContainer(rawProps);
+const messages = validateContainer(Astro.props as Record<string, unknown>);
 
 const fitEnabled = fit !== "none" && typeof aspectRatio === "number";
 const isHeightDrivenAspect =
@@ -275,7 +274,7 @@ const isHeightDrivenAspect =
 	!!height &&
 	height !== "none";
 const hasExplicitHeight = !!height && height !== "none";
-// 使用共用的工具函数计算组合类名
+// 计算组合类名
 const containerClasses = getContainerCombinedClasses({
 	aspectRatio,
 	background,
@@ -304,15 +303,7 @@ const containerClasses = getContainerCombinedClasses({
 	height,
 });
 
-// 构建内联样式
-const inlineStyles = fitEnabled
-	? hasExplicitHeight
-		? "container-type: size;"
-		: "container-type: inline-size;"
-	: aspectRatio
-		? `aspect-ratio: ${aspectRatio};`
-		: "";
-
+// 移除了内联样式的构建，将这部分逻辑移到 ContainerBox 中
 const hasError = messages.length > 0;
 ---
 
@@ -339,7 +330,6 @@ const hasError = messages.length > 0;
             hasContentBorder={hasContentBorder}
             contentBorderClass={contentBorderClass}
             containerClasses={containerClasses}
-            inlineStyles={inlineStyles}
             hasExplicitHeight={hasExplicitHeight}
             isHeightDrivenAspect={isHeightDrivenAspect}>
             <slot />
