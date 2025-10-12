@@ -7,159 +7,6 @@
  * 它提供了多种尺寸和内边距选项，适用于各种布局需求。
  * 当提供 aspectRatio 属性时，容器会保持指定的宽高比。
  *
- * @usage
- * 基本用法：
- * ```astro
- * <Container>
- *   <p>内容将被限制在一个合理的宽度内并居中显示</p>
- * </Container>
- * ```
- *
- * 自定义尺寸和内边距：
- * ```astro
- * <Container width="sm" padding="lg">
- *   <p>小宽度容器，大内边距</p>
- * </Container>
- * ```
- *
- * 全宽容器：
- * ```astro
- * <Container width="full" padding="none">
- *   <p>全宽容器，无内边距</p>
- * </Container>
- * ```
- *
- * 不居中的容器：
- * ```astro
- * <Container centered={false}>
- *   <p>不居中的容器，靠左对齐</p>
- * </Container>
- * ```
- *
- * 内容居中的容器：
- * ```astro
- * <Container contentCentered>
- *   <Button>居中显示的按钮</Button>
- * </Container>
- * ```
- *
- * 带背景色的容器：
- * ```astro
- * <Container background="primary/10">
- *   <p>带有主要背景色的容器</p>
- * </Container>
- * ```
- *
- * 设置外边距：
- * ```astro
- * <Container margin="lg">
- *   <p>带有大外边距的容器</p>
- * </Container>
- * ```
- *
- * 设置垂直内边距：
- * ```astro
- * <Container py="lg">
- *   <p>带有大垂直内边距的容器</p>
- * </Container>
- * ```
- *
- * 设置水平内边距：
- * ```astro
- * <Container px="xl">
- *   <p>带有大水平内边距的容器</p>
- * </Container>
- * ```
- *
- * 分别设置各边内边距：
- * ```astro
- * <Container pt="lg" pb="md" pl="sm" pr="xl">
- *   <p>自定义各边内边距的容器</p>
- * </Container>
- * ```
- *
- * ⚠️ **注意**:
- * - 不能同时使用 `px` 和 `pl`/`pr` 属性，因为它们都会设置水平内边距，会产生冲突
- * - 不能同时使用 `py` 和 `pt`/`pb` 属性，因为它们都会设置垂直内边距，会产生冲突
- * 如果同时提供这些冲突的属性，组件会显示错误提示。
- *
- * 设置圆角：
- * ```astro
- * <Container rounded="lg">
- *   <p>带有大圆角的容器</p>
- * </Container>
- * ```
- *
- * 设置固定高度：
- * ```astro
- * <Container height="lg">
- *   <p>固定高度的容器</p>
- * </Container>
- * ```
- *
- * 设置屏幕高度：
- * ```astro
- * <Container height="screen">
- *   <p>占满屏幕高度的容器</p>
- * </Container>
- * ```
- *
- * Flex布局容器（按行排列）：
- * ```astro
- * <Container flex="row" gap="md">
- *   <div>第一项</div>
- *   <div>第二项</div>
- * </Container>
- * ```
- *
- * Flex布局容器（按列排列）：
- * ```astro
- * <Container flex="col" gap="md" items="center" justify="between">
- *   <div>第一项</div>
- *   <div>第二项</div>
- * </Container>
- * ```
- *
- * 保持宽高比的容器：
- * ```astro
- * <Container aspectRatio={16/9}>
- *   <img src="image.jpg" alt="16:9 比例的图片" class="w-full h-full object-cover" />
- * </Container>
- * ```
- *
- * 按比例自适应（contain）：
- * ```astro
- * <Container fit="contain" aspectRatio={1/2} height="lg">
- *   <!-- 放入任何内容，容器内部会创建比例盒按 contain 规则自适应 → 永不溢出父容器 -->
- *   <YourContent />
- * </Container>
- * ```
- *
- * 按比例铺满（cover）：
- * ```astro
- * <Container fit="cover" aspectRatio={4/3} height="lg">
- *   <YourContent />
- * </Container>
- * ```
- *
- * 正方形容器：
- * ```astro
- * <Container aspectRatio={1} width="sm">
- *   <div class="w-full h-full bg-primary/10 flex items-center justify-center">
- *     正方形内容
- *   </div>
- * </Container>
- * ```
- *
- * 4:3 比例容器：
- * ```astro
- * <Container aspectRatio={4/3} background="primary/5">
- *   <div class="w-full h-full flex items-center justify-center">
- *     4:3 比例的内容区域
- *   </div>
- * </Container>
- * ```
- *
  * @props
  * @prop {number} [aspectRatio] - 宽高比（宽/高），设置后容器会保持这个比例，如 16/9、4/3、1 等
  * @prop {string} [background] - 背景色类型，支持所有 Tailwind 背景色和透明度变体，如：base-100、primary、secondary、accent、neutral、info、success、warning、error，以及透明度变体如 primary/10、secondary/20 等
@@ -189,7 +36,6 @@
 import "../../style.ts";
 import type { IContainerProps } from "./props.ts";
 import { validateContainer } from "./validate.ts";
-import { getContainerCombinedClasses } from "./util-class.ts";
 import ContainerError from "./ContainerError.astro";
 import ContainerBox from "./ContainerBox.astro";
 
@@ -222,39 +68,6 @@ const {
 
 // 校验所有配置
 const messages = validateContainer(Astro.props as Record<string, unknown>);
-
-const fitEnabled = fit !== "none" && typeof aspectRatio === "number";
-const isHeightDrivenAspect =
-	!fitEnabled &&
-	typeof aspectRatio === "number" &&
-	!!height &&
-	height !== "none";
-const hasExplicitHeight = !!height && height !== "none";
-// 计算组合类名
-const containerClasses = getContainerCombinedClasses({
-	aspectRatio,
-	background,
-	backgroundImage,
-	width,
-	padding,
-	py,
-	pt,
-	pb,
-	px,
-	pl,
-	pr,
-	margin,
-	centered,
-	contentCentered,
-	flex,
-	gap,
-	items,
-	justify,
-	rounded,
-	class: className,
-	height,
-});
-
 const hasError = messages.length > 0;
 ---
 
@@ -265,7 +78,17 @@ const hasError = messages.length > 0;
         <ContainerBox
             {...rest}
             aspectRatio={aspectRatio}
+            background={background}
             backgroundImage={backgroundImage}
+            width={width}
+            padding={padding}
+            py={py}
+            pt={pt}
+            pb={pb}
+            px={px}
+            pl={pl}
+            pr={pr}
+            margin={margin}
             centered={centered}
             contentCentered={contentCentered}
             fit={fit}
@@ -274,10 +97,8 @@ const hasError = messages.length > 0;
             items={items}
             justify={justify}
             rounded={rounded}
-            height={height}
-            containerClasses={containerClasses}
-            hasExplicitHeight={hasExplicitHeight}
-            isHeightDrivenAspect={isHeightDrivenAspect}>
+            class={className}
+            height={height}>
             <slot />
         </ContainerBox>
     )
