@@ -18,79 +18,29 @@
  * @slots
  * @slot default - 占位符内容
  */
-import "../../style.ts";
-import type { PlaceHolderProps } from "./types";
-import {
-	getBackgroundClass,
-	type BackgroundColor,
-} from "../../src/common/backgrounds";
-import {
-	placeholderWidthClasses,
-	placeholderHeightClasses,
-	placeholderPaddingClasses,
-	placeholderBorderClasses,
-} from "../../src/components/placeholder/placeholderClasses";
+import '../../style.ts';
+import type { PlaceHolderProps } from './types';
+import { getBasePlaceholderClasses } from '../../src/components/placeholder/class-all';
 
-interface Props extends PlaceHolderProps {
-	background?: BackgroundColor;
-	border?: boolean;
-	class?: string;
-	height?:
-		| "none"
-		| "xs"
-		| "sm"
-		| "md"
-		| "lg"
-		| "xl"
-		| "2xl"
-		| "3xl"
-		| "4xl"
-		| "5xl"
-		| "6xl"
-		| "full";
-	padding?: "none" | "xs" | "sm" | "md" | "lg" | "xl";
-	width?:
-		| "none"
-		| "xs"
-		| "sm"
-		| "md"
-		| "lg"
-		| "xl"
-		| "2xl"
-		| "3xl"
-		| "4xl"
-		| "5xl"
-		| "6xl"
-		| "full";
-}
+interface Props extends PlaceHolderProps {}
 
 const {
-	background,
-	border = false,
-	class: className = "",
-	height = "md",
-	padding = "none",
-	width = "md",
+    background,
+    border = false,
+    class: className = '',
+    height = 'md',
+    padding = 'none',
+    width = 'md',
 } = Astro.props;
 
-// 使用通用类名映射
-const widthClass =
-	placeholderWidthClasses[width as keyof typeof placeholderWidthClasses] || "";
-const heightClass =
-	placeholderHeightClasses[height as keyof typeof placeholderHeightClasses] ||
-	"";
-const paddingClass =
-	placeholderPaddingClasses[
-		padding as keyof typeof placeholderPaddingClasses
-	] || "";
-const backgroundClass = getBackgroundClass(background);
-const borderClass =
-	placeholderBorderClasses[
-		String(border) as keyof typeof placeholderBorderClasses
-	] || "";
-
-const combinedClass =
-	`placeholder ${widthClass} ${heightClass} ${paddingClass} ${backgroundClass} ${borderClass} ${className}`.trim();
+const combinedClass = getBasePlaceholderClasses({
+    background,
+    border,
+    class: className,
+    height,
+    padding,
+    width,
+});
 ---
 
 <div class={combinedClass}>

@@ -1,15 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import type { IPlaceHolderProps } from "./types";
-import {
-	getBackgroundClass,
-	type BackgroundColor,
-} from "../../src/common/backgrounds";
-import {
-	placeholderWidthClasses,
-	placeholderHeightClasses,
-	placeholderPaddingClasses,
-} from "../../src/components/placeholder/placeholderClasses";
+import { getBasePlaceholderClasses } from "../../src/components/placeholder/class-all";
 
 /**
  * @component PlaceHolder
@@ -30,9 +22,7 @@ import {
  * @slot default - 占位符内容
  */
 
-interface Props extends IPlaceHolderProps {
-	border?: boolean;
-}
+interface Props extends IPlaceHolderProps {}
 
 const props = withDefaults(defineProps<Props>(), {
 	height: "md",
@@ -41,26 +31,16 @@ const props = withDefaults(defineProps<Props>(), {
 	border: false,
 });
 
-// 使用通用类名映射
-const widthClass =
-	placeholderWidthClasses[
-		props.width as keyof typeof placeholderWidthClasses
-	] || "";
-const heightClass =
-	placeholderHeightClasses[
-		props.height as keyof typeof placeholderHeightClasses
-	] || "";
-const paddingClass =
-	placeholderPaddingClasses[
-		props.padding as keyof typeof placeholderPaddingClasses
-	] || "";
-const backgroundClass = getBackgroundClass(props.background);
-
-// 边框类名映射
-const borderClass = props.border ? "cosy:border cosy:border-base-300" : "";
-
+// 使用新的类名计算方式
 const combinedClass = computed(() => {
-	return `placeholder ${widthClass} ${heightClass} ${paddingClass} ${backgroundClass} ${borderClass} ${props.class || ""}`.trim();
+	return getBasePlaceholderClasses({
+		background: props.background,
+		border: props.border,
+		class: props.class,
+		height: props.height,
+		padding: props.padding,
+		width: props.width,
+	});
 });
 </script>
 
