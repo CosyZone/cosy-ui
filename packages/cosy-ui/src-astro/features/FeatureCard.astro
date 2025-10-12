@@ -12,26 +12,26 @@
  * />
  */
 
-import Image from '../image/Image.astro';
-import Heading from '../heading/Heading.astro';
-import type { ImageSource } from 'index-astro';
+import Image from "../image/Image.astro";
+import Heading from "../heading/Heading.astro";
+import type { ImageSource } from "index-astro";
 
 export interface Props {
-    title: string;
-    description: string;
-    background: string;
-    image?: ImageSource;
-    textColor?: string;
-    class?: string;
+	title: string;
+	description: string;
+	background: string;
+	image?: ImageSource;
+	textColor?: string;
+	class?: string;
 }
 
 const {
-    title,
-    description,
-    background,
-    image,
-    textColor = 'dark',
-    class: className = '',
+	title,
+	description,
+	background,
+	image,
+	textColor = "dark",
+	class: className = "",
 } = Astro.props;
 ---
 

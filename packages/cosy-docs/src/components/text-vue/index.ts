@@ -12,17 +12,17 @@ import TextVueStyleContainer from "./TextVueStyleContainer.astro";
 
 // Vue 版本的 Text 组件包
 export const ComponentPackage = {
-    ComponentContainers: {
-        Basic: TextVueBasicContainer,
-        Size: TextVueSizeContainer,
-        Weight: TextVueWeightContainer,
-        Color: TextVueColorContainer,
-        Align: TextVueAlignContainer,
-        Truncate: TextVueTruncateContainer,
-        CustomStyle: TextVueCustomStyleContainer,
-        As: TextVueAsContainer,
-        Italic: TextVueItalicContainer,
-        Underline: TextVueUnderlineContainer,
-        Style: TextVueStyleContainer,
-    },
+	ComponentContainers: {
+		Basic: TextVueBasicContainer,
+		Size: TextVueSizeContainer,
+		Weight: TextVueWeightContainer,
+		Color: TextVueColorContainer,
+		Align: TextVueAlignContainer,
+		Truncate: TextVueTruncateContainer,
+		CustomStyle: TextVueCustomStyleContainer,
+		As: TextVueAsContainer,
+		Italic: TextVueItalicContainer,
+		Underline: TextVueUnderlineContainer,
+		Style: TextVueStyleContainer,
+	},
 };

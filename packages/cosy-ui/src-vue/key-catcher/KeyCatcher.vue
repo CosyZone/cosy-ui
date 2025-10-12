@@ -31,62 +31,62 @@ KeyCatcher 组件用于全局捕获键盘按键事件，并可通过自定义事
 -->
 
 <script setup lang="ts">
-  import { ref, onMounted, onUnmounted } from 'vue';
-  import '../../style';
+import { ref, onMounted, onUnmounted } from "vue";
+import "../../style";
 
-  const lastKey = ref<string | null>(null);
-  let timer: ReturnType<typeof setTimeout> | null = null;
+const lastKey = ref<string | null>(null);
+let timer: ReturnType<typeof setTimeout> | null = null;
 
-  const props = defineProps<{ showKey?: boolean }>();
-  const emit = defineEmits<{ (e: 'globalKey', key: string): void }>();
+const props = defineProps<{ showKey?: boolean }>();
+const emit = defineEmits<{ (e: "globalKey", key: string): void }>();
 
-  const handleKeydown = (event: KeyboardEvent) => {
-    if (
-      event.key.length === 1 ||
-      [
-        'Enter',
-        'Escape',
-        'Backspace',
-        'Tab',
-        'Shift',
-        'Control',
-        'Alt',
-        'Meta',
-        'ArrowUp',
-        'ArrowDown',
-        'ArrowLeft',
-        'ArrowRight',
-        'CapsLock',
-        'Delete',
-        'Home',
-        'End',
-        'PageUp',
-        'PageDown',
-      ].includes(event.key)
-    ) {
-      emit('globalKey', event.key);
+const handleKeydown = (event: KeyboardEvent) => {
+	if (
+		event.key.length === 1 ||
+		[
+			"Enter",
+			"Escape",
+			"Backspace",
+			"Tab",
+			"Shift",
+			"Control",
+			"Alt",
+			"Meta",
+			"ArrowUp",
+			"ArrowDown",
+			"ArrowLeft",
+			"ArrowRight",
+			"CapsLock",
+			"Delete",
+			"Home",
+			"End",
+			"PageUp",
+			"PageDown",
+		].includes(event.key)
+	) {
+		emit("globalKey", event.key);
 
-      // 展示按键（如果允许）
-      if (props.showKey) {
-        let key = event.key;
-        if (key === ' ') key = 'Space';
-        lastKey.value = key;
-        if (timer) clearTimeout(timer);
-        timer = setTimeout(() => {
-          lastKey.value = null;
-        }, 3000);
-      }
-    }
-  };
+		// 展示按键（如果允许）
+		if (props.showKey) {
+			let key = event.key;
+			if (key === " ") key = "Space";
+			lastKey.value = key;
+			if (timer) clearTimeout(timer);
+			timer = setTimeout(() => {
+				lastKey.value = null;
+			}, 3000);
+		}
+	}
+};
 
-  onMounted(() => {
-    window.addEventListener('keydown', handleKeydown);
-  });
+onMounted(() => {
+	window.addEventListener("keydown", handleKeydown);
+});
 
-  onUnmounted(() => {
-    window.removeEventListener('keydown', handleKeydown);
-    if (timer) clearTimeout(timer);
-  });
+onUnmounted(() => {
+	window.removeEventListener("keydown", handleKeydown);
+	if (timer) clearTimeout(timer);
+});
 </script>
 
 <template>

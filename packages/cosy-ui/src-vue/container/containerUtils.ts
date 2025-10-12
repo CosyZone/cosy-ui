@@ -7,16 +7,16 @@ import { getBorderClass } from "../../src/common/border";
  * @param props Container 组件的 props
  * @returns 组合后的类名数组
  */
-export function getContainerCombinedClassesVue(props: IContainerProps): string[] {
-    const baseClasses = getBaseContainerClasses(props);
+export function getContainerCombinedClassesVue(
+	props: IContainerProps,
+): string[] {
+	const baseClasses = getBaseContainerClasses(props);
 
-    // 处理 Vue 版本特有的属性
-    const borderValue = props.border ? "md" : "none";
+	// 处理 Vue 版本特有的属性
+	const borderValue = props.border ? "md" : "none";
 
-    // 添加 Vue 版本特有的类名
-    const vueClasses = [
-        getBorderClass(borderValue),
-    ];
+	// 添加 Vue 版本特有的类名
+	const vueClasses = [getBorderClass(borderValue)];
 
-    return [...baseClasses, ...vueClasses];
+	return [...baseClasses, ...vueClasses];
 }
