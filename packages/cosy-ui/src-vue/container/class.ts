@@ -1,4 +1,4 @@
-import type { IContainerProps } from "./containerProps";
+import type { IContainerProps } from "./props";
 import { getBaseContainerClasses } from "../../src/components/container/class-all";
 
 /**
@@ -11,5 +11,5 @@ export function getContainerCombinedClassesVue(
 ): string[] {
 	const baseClasses = getBaseContainerClasses(props);
 
-	return [...baseClasses];
+	return baseClasses;
 }

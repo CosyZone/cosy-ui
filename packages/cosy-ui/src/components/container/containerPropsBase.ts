@@ -11,11 +11,17 @@ import type { PaddingSize } from "../../../src/common/padding";
 import type { MarginSize } from "../../../src/common/margin";
 import type { RoundedSize } from "../../../src/common/rounded";
 import type { BorderSize, BorderColor } from "../../../src/common/border";
+import type { FitMode } from "../../../src/common/fitmode";
 
 /**
  * Container 组件的基础属性接口（与框架无关）
  */
 export interface IContainerPropsBase {
+	/**
+	 * 宽高比（宽/高），设置后容器会保持这个比例
+	 */
+	aspectRatio?: number;
+
 	/**
 	 * 是否居中显示
 	 * @default true
@@ -28,9 +34,20 @@ export interface IContainerPropsBase {
 	class?: string;
 
 	/**
+	 * 是否让内部内容居中显示
+	 * @default false
+	 */
+	contentCentered?: boolean;
+
+	/**
 	 * flex布局方向，不设置则不启用flex布局
 	 */
 	flex?: FlexDirection;
+
+	/**
+	 * 内容适配模式：none（默认）、contain（保持比例，尽量占满且不溢出）、cover（保持比例，铺满并可能裁剪）
+	 */
+	fit?: FitMode;
 
 	/**
 	 * flex项目间距

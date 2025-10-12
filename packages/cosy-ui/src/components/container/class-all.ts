@@ -35,6 +35,7 @@ export function getBaseContainerClasses(props: IContainerPropsBase): string[] {
 		borderColor,
 		class: className = "",
 		centered = true,
+		contentCentered = false,
 	} = props;
 
 	// 构建padding类名
@@ -70,7 +71,7 @@ export function getBaseContainerClasses(props: IContainerPropsBase): string[] {
 	const borderClasses = getContainerBorderClasses(border, borderColor);
 
 	// 构建CSS类名
-	return [
+	const baseClasses = [
 		"cosy:w-full",
 		centered ? "cosy:mx-auto" : "",
 		widthClass,
@@ -83,4 +84,11 @@ export function getBaseContainerClasses(props: IContainerPropsBase): string[] {
 		heightClass,
 		className,
 	];
+
+	// 如果需要内容居中，添加相应的类名
+	if (contentCentered) {
+		baseClasses.splice(1, 0, "cosy:flex cosy:justify-center cosy:items-center");
+	}
+
+	return baseClasses;
 }
