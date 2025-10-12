@@ -1,0 +1,67 @@
+---
+title: 'PlaceHolder'
+description: 'Vue 版本的 PlaceHolder 组件'
+badge: 'Vue'
+tags:
+  - Vue
+order: 16.4
+---
+
+import { PlaceHolder } from '@coffic/cosy-ui/vue';
+import { PlaceholderVuePackage } from '@/components/placeholder-vue/index';
+
+# {frontmatter.title}
+
+## 简介
+
+PlaceHolder 组件用于在布局中占用指定的空间，类似于 SwiftUI 的 Spacer。可以独立设置组件的宽度和高度，支持不同的尺寸选项和背景色配置。
+
+## 案例
+
+### 基础用法
+
+<PlaceholderVuePackage.Cases />
+
+### 多占位符展示
+
+<PlaceholderVuePackage.MultiplePlaceholders />
+
+## Props
+
+### background
+
+背景色类名，可选值：base-100、base-200、base-300、primary、secondary、accent、info、success、warning、error。
+
+<PlaceholderVuePackage.Backgrounds />
+
+### class
+
+自定义 CSS 类名，用于添加额外的样式。
+
+<PlaceholderVuePackage.Class />
+
+### height
+
+高度尺寸，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl、full。
+
+<PlaceholderVuePackage.Sizes />
+
+### padding
+
+内边距大小，可选值：none、xs、sm、md、lg、xl。
+
+<PlaceholderVuePackage.Padding />
+
+### width
+
+宽度尺寸，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl、full。
+
+<PlaceholderVuePackage.Sizes />
+
+## Slots
+
+### default
+
+占位符内容，支持任意 HTML 元素。
+
+<PlaceholderVuePackage.Slots />

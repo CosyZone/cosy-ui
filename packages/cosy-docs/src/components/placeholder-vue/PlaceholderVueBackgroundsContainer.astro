@@ -1,0 +1,25 @@
+---
+/**
+ * @component PlaceholderVueBackgroundsContainer
+ * @description Vue 版本 Placeholder 组件背景色示例容器
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import PlaceholderVueBackgroundBase from "./PlaceholderVueBackgroundBase.vue";
+import PlaceholderVueBackgroundTheme from "./PlaceholderVueBackgroundTheme.vue";
+import PlaceholderVueBackgroundStatus from "./PlaceholderVueBackgroundStatus.vue";
+import PlaceholderVueBackgroundBaseSourceCode from "./PlaceholderVueBackgroundBase.vue?raw";
+import PlaceholderVueBackgroundThemeSourceCode from "./PlaceholderVueBackgroundTheme.vue?raw";
+import PlaceholderVueBackgroundStatusSourceCode from "./PlaceholderVueBackgroundStatus.vue?raw";
+---
+
+<CodeContainer
+    titles={['基础背景色', '主题背景色', '状态背景色']}
+    codes={[
+        PlaceholderVueBackgroundBaseSourceCode,
+        PlaceholderVueBackgroundThemeSourceCode,
+        PlaceholderVueBackgroundStatusSourceCode,
+    ]}>
+    <div id="tab-1"><PlaceholderVueBackgroundBase client:load /></div>
+    <div id="tab-2"><PlaceholderVueBackgroundTheme client:load /></div>
+    <div id="tab-3"><PlaceholderVueBackgroundStatus client:load /></div>
+</CodeContainer>
