@@ -186,73 +186,73 @@
  * @prop {...HTMLAttributes<'div'>} [rest] - 其他HTML div标签属性
  */
 
-import '../../style.ts';
-import type { IContainerProps } from './props.ts';
-import { validateContainer } from './validate.ts';
-import { getContainerCombinedClasses } from './util-class.ts';
-import ContainerError from './ContainerError.astro';
-import ContainerBox from './ContainerBox.astro';
+import "../../style.ts";
+import type { IContainerProps } from "./props.ts";
+import { validateContainer } from "./validate.ts";
+import { getContainerCombinedClasses } from "./util-class.ts";
+import ContainerError from "./ContainerError.astro";
+import ContainerBox from "./ContainerBox.astro";
 
 export type Props = IContainerProps;
 const {
-    aspectRatio,
-    background,
-    backgroundImage,
-    width = 'md',
-    padding = 'md',
-    py,
-    pt,
-    pb,
-    px,
-    pl,
-    pr,
-    margin = 'none',
-    centered = true,
-    contentCentered = false,
-    fit = 'none',
-    flex,
-    gap = 'none',
-    items,
-    justify,
-    rounded = 'none',
-    class: className = '',
-    height,
-    ...rest
+	aspectRatio,
+	background,
+	backgroundImage,
+	width = "md",
+	padding = "md",
+	py,
+	pt,
+	pb,
+	px,
+	pl,
+	pr,
+	margin = "none",
+	centered = true,
+	contentCentered = false,
+	fit = "none",
+	flex,
+	gap = "none",
+	items,
+	justify,
+	rounded = "none",
+	class: className = "",
+	height,
+	...rest
 } = Astro.props as Props;
 
 // 校验所有配置
 const messages = validateContainer(Astro.props as Record<string, unknown>);
 
-const fitEnabled = fit !== 'none' && typeof aspectRatio === 'number';
+const fitEnabled = fit !== "none" && typeof aspectRatio === "number";
 const isHeightDrivenAspect =
-    !fitEnabled &&
-    typeof aspectRatio === 'number' &&
-    !!height &&
-    height !== 'none';
-const hasExplicitHeight = !!height && height !== 'none';
+	!fitEnabled &&
+	typeof aspectRatio === "number" &&
+	!!height &&
+	height !== "none";
+const hasExplicitHeight = !!height && height !== "none";
 // 计算组合类名
 const containerClasses = getContainerCombinedClasses({
-    aspectRatio,
-    background,
-    backgroundImage,
-    width,
-    padding,
-    py,
-    pt,
-    pb,
-    px,
-    pl,
-    pr,
-    margin,
-    centered,
-    contentCentered,
-    flex,
-    gap,
-    items,
-    justify,
-    rounded,
-    class: className,
-    height,
+	aspectRatio,
+	background,
+	backgroundImage,
+	width,
+	padding,
+	py,
+	pt,
+	pb,
+	px,
+	pl,
+	pr,
+	margin,
+	centered,
+	contentCentered,
+	flex,
+	gap,
+	items,
+	justify,
+	rounded,
+	class: className,
+	height,
 });
 
 const hasError = messages.length > 0;

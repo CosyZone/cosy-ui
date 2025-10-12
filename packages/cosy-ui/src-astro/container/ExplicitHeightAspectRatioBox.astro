@@ -5,13 +5,13 @@
  * 用于处理具有明确高度的宽高比容器
  * 根据 fit 模式（contain/cover）计算合适的宽度
  */
-import type { RoundedSize } from '../../src/common/rounded';
-import { roundedClasses } from '../../src/common';
+import type { RoundedSize } from "../../src/common/rounded";
+import { roundedClasses } from "../../src/common";
 
 export interface Props {
-    aspectRatio: number;
-    fit: 'contain' | 'cover';
-    rounded: RoundedSize;
+	aspectRatio: number;
+	fit: "contain" | "cover";
+	rounded: RoundedSize;
 }
 
 const { aspectRatio, fit, rounded } = Astro.props as Props;

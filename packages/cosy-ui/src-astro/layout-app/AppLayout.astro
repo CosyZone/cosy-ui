@@ -245,7 +245,6 @@ import {
 	Sidebar,
 	Modal,
 	Skeleton,
-	ContainerProps,
 } from "../../index-astro";
 import {
 	getContainerMinHeightClass,
@@ -286,93 +285,95 @@ const sidebarHeightClass = getSidebarHeightClass(
 ---
 
 <BaseLayout
-  {...metaConfig}
-  bodyOnly={bodyOnly}
-  theme={theme}
-  enableClientRouter={enableClientRouter}>
-  {
-    showHeader && (
-      <AppHeader
-        headerConfig={headerConfig}
-        showSidebar={showSidebar}
-        showSearch={Astro.slots.has('modal-search')}>
-        <slot name="navbar-start" slot="navbar-start" />
-        <slot name="navbar-center" slot="navbar-center" />
-        <slot name="navbar-end" slot="navbar-end" />
-      </AppHeader>
-    )
-  }
-
-  <Container
-    aria-label="AppLayout-Container"
-    {...ContainerProps()
-      .flex('row')
-      .gap('none')
-      .padding('none')
-      .width('full')
-      .centered(true)
-      .class('cosy:min-h-screen')
-      .build()}>
-    <!-- 侧边栏容器 -->
+    {...metaConfig}
+    bodyOnly={bodyOnly}
+    theme={theme}
+    enableClientRouter={enableClientRouter}>
     {
-      showSidebar && (
-        <div
-          aria-label="AppLayout-Sidebar-Container"
-          class:list={['cosy:sticky', sidebarTopClass, sidebarHeightClass]}>
-          <Sidebar {...sidebarConfig} />
-        </div>
-      )
+        showHeader && (
+            <AppHeader
+                headerConfig={headerConfig}
+                showSidebar={showSidebar}
+                showSearch={Astro.slots.has('modal-search')}>
+                <slot name="navbar-start" slot="navbar-start" />
+                <slot name="navbar-center" slot="navbar-center" />
+                <slot name="navbar-end" slot="navbar-end" />
+            </AppHeader>
+        )
     }
 
-    <!-- 主内容区域 -->
-    <Main
-      aria-label="AppLayout-Main-Container"
-      {...mainContentConfig}
-      class="cosy:flex-1 cosy:min-w-xs">
-      <Skeleton
-        showLoading={true}
-        loadingSize="xl"
-        loadingDelay={loadingDelay}
-        skeletonClass="cosy:w-full cosy:h-screen cosy:flex cosy:items-center cosy:justify-center">
-        <slot />
-      </Skeleton>
-    </Main>
-  </Container>
-
-  <!-- Footer -->
-  {
-    showFooter && (
-      <Container
-        aria-label="AppLayout-Footer-Container"
+    <Container
+        aria-label="AppLayout-Container"
+        flex="row"
+        gap="none"
+        padding="none"
         width="full"
-        padding="none">
-        <Footer {...footerConfig} />
-      </Container>
-    )
-  }
+        centered={true}
+        class="cosy:min-h-screen">
+        <!-- 侧边栏容器 -->
+        {
+            showSidebar && (
+                <div
+                    aria-label="AppLayout-Sidebar-Container"
+                    class:list={[
+                        'cosy:sticky',
+                        sidebarTopClass,
+                        sidebarHeightClass,
+                    ]}>
+                    <Sidebar {...sidebarConfig} />
+                </div>
+            )
+        }
 
-  <!-- 搜索模态框 -->
-  {
-    Astro.slots.has('modal-search') && (
-      <Modal id="modalSearch" title="搜索">
-        <slot name="modal-search" />
-      </Modal>
-    )
-  }
+        <!-- 主内容区域 -->
+        <Main
+            aria-label="AppLayout-Main-Container"
+            {...mainContentConfig}
+            class="cosy:flex-1 cosy:min-w-xs">
+            <Skeleton
+                showLoading={true}
+                loadingSize="xl"
+                loadingDelay={loadingDelay}
+                skeletonClass="cosy:w-full cosy:h-screen cosy:flex cosy:items-center cosy:justify-center">
+                <slot />
+            </Skeleton>
+        </Main>
+    </Container>
 
-  <script>
-    // Handle sidebar toggle
-    const sidebarToggle = document.getElementById('sidebar-toggle');
-    const sidebar = document.getElementById('sidebar-mobile');
-    const sidebarOverlay = document.getElementById('sidebar-overlay');
-
-    function toggleSidebar() {
-      sidebar?.classList.toggle('cosy:hidden');
-      sidebarOverlay?.classList.toggle('cosy:hidden');
-      document.body.classList.toggle('cosy:overflow-hidden');
+    <!-- Footer -->
+    {
+        showFooter && (
+            <Container
+                aria-label="AppLayout-Footer-Container"
+                width="full"
+                padding="none">
+                <Footer {...footerConfig} />
+            </Container>
+        )
     }
 
-    sidebarToggle?.addEventListener('click', toggleSidebar);
-    sidebarOverlay?.addEventListener('click', toggleSidebar);
-  </script>
+    <!-- 搜索模态框 -->
+    {
+        Astro.slots.has('modal-search') && (
+            <Modal id="modalSearch" title="搜索">
+                <slot name="modal-search" />
+            </Modal>
+        )
+    }
+
+    <script>
+        // Handle sidebar toggle
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebar = document.getElementById('sidebar-mobile');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+        function toggleSidebar() {
+            sidebar?.classList.toggle('cosy:hidden');
+            sidebarOverlay?.classList.toggle('cosy:hidden');
+            document.body.classList.toggle('cosy:overflow-hidden');
+        }
+
+        sidebarToggle?.addEventListener('click', toggleSidebar);
+        sidebarOverlay?.addEventListener('click', toggleSidebar);
+    </script>
 </BaseLayout>

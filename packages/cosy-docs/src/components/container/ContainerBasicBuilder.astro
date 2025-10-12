@@ -1,13 +1,7 @@
 ---
-import { Container, Heading, ContainerProps } from "@coffic/cosy-ui";
-
-const props = ContainerProps()
-	.background("accent/40")
-	.rounded("md")
-	.class("not-prose")
-	.build();
+import { Container, Heading } from "@coffic/cosy-ui";
 ---
 
-<Container {...props} ignore-heading>
-  <Heading level={3}>这是一个基础的容器，内容被限制在合理宽度内。</Heading>
+<Container background="accent/40" rounded="md" class="not-prose" ignore-heading>
+    <Heading level={3}>这是一个基础的容器，内容被限制在合理宽度内。</Heading>
 </Container>

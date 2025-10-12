@@ -51,17 +51,15 @@
 import "../../style.ts";
 import Container from "../container/Container.astro";
 import type { BackgroundColor } from "../../src/common/backgrounds";
-import type { ContentBorderColor } from "../../src/components/container/contentBorderColors.ts";
 import type { ImageMetadata } from "astro";
 import Image from "../image/Image.astro";
 import type { RoundedSize } from "../../src/common/rounded";
 import { roundedClasses } from "../../src/common/rounded";
-import { ContainerProps } from "../container/props.ts";
 
 export interface IPictureBookPageProps {
 	background?: BackgroundColor | ImageMetadata;
 	pageAspectRatio?: number;
-	border?: boolean | ContentBorderColor;
+	border?: boolean;
 	rounded?: RoundedSize;
 }
 
@@ -79,29 +77,22 @@ const isImageBackground =
 
 // 圆角类名
 const roundedClass = roundedClasses[rounded] || "";
-
-const containerProps = ContainerProps()
-	.aspectRatio(pageAspectRatio)
-	.fit("contain")
-	.contentBorder(border)
-	.padding("none")
-	.margin("none")
-	.rounded(rounded)
-	.border("none")
-	.centered(true)
-	.class("cosy:relative cosy:overflow-hidden");
-
-if (isImageBackground) {
-	containerProps.backgroundImage(background as ImageMetadata);
-} else {
-	containerProps.background(background as BackgroundColor);
-}
 ---
 
 <Container
-    {...containerProps.build()}
-    aria-label="绘本页"
-    class="cosy:relative cosy:overflow-hidden">
+    aspectRatio={pageAspectRatio}
+    fit="contain"
+    padding="none"
+    margin="none"
+    rounded={rounded}
+    centered={true}
+    class="cosy:relative cosy:overflow-hidden"
+    backgroundImage={isImageBackground
+        ? (background as ImageMetadata)
+        : undefined}
+    background={!isImageBackground
+        ? (background as BackgroundColor)
+        : undefined}>
     <!-- 背景层：自动显示背景色或图片，填充比例内容区域 -->
     <div
         class={`cosy:absolute cosy:inset-0 cosy:w-full cosy:h-full ${roundedClass}`}>
