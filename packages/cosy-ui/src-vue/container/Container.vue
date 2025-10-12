@@ -2,7 +2,7 @@
 import "../../style";
 import { computed } from "vue";
 import type { IContainerProps } from "./containerProps";
-import { getContainerCombinedClassesVue } from "./containerUtils";
+import { getContainerCombinedClassesVue } from "./class";
 
 interface Props extends IContainerProps {}
 
