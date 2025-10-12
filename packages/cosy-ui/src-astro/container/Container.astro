@@ -50,27 +50,6 @@
  * </Container>
  * ```
  *
- * 带边框的容器：
- * ```astro
- * <Container border="md">
- *   <p>带有中等边框的容器</p>
- * </Container>
- * ```
- *
- * 带彩色边框的容器：
- * ```astro
- * <Container border="lg" borderColor="primary">
- *   <p>带有主要色边框的容器</p>
- * </Container>
- * ```
- *
- * 带透明度边框的容器：
- * ```astro
- * <Container border="md" borderColor="success/50">
- *   <p>带有半透明成功色边框的容器</p>
- * </Container>
- * ```
- *
  * 设置外边距：
  * ```astro
  * <Container margin="lg">
@@ -163,15 +142,6 @@
  * </Container>
  * ```
  *
- * 带内容边框的容器：
- * ```astro
- * <Container fit="contain" aspectRatio={16/9} contentBorder="primary/50">
- *   <div class="w-full h-full bg-primary/10 flex items-center justify-center">
- *     带主要色边框的内容区域
- *   </div>
- * </Container>
- * ```
- *
  * 正方形容器：
  * ```astro
  * <Container aspectRatio={1} width="sm">
@@ -183,7 +153,7 @@
  *
  * 4:3 比例容器：
  * ```astro
- * <Container aspectRatio={4/3} background="primary/5" border="sm">
+ * <Container aspectRatio={4/3} background="primary/5">
  *   <div class="w-full h-full flex items-center justify-center">
  *     4:3 比例的内容区域
  *   </div>
@@ -194,9 +164,6 @@
  * @prop {number} [aspectRatio] - 宽高比（宽/高），设置后容器会保持这个比例，如 16/9、4/3、1 等
  * @prop {string} [background] - 背景色类型，支持所有 Tailwind 背景色和透明度变体，如：base-100、primary、secondary、accent、neutral、info、success、warning、error，以及透明度变体如 primary/10、secondary/20 等
  * @prop {ImageSource} [backgroundImage] - 背景图片源（本地 ImageMetadata 或 远程 URL）。提供时会用图片铺底作为背景
- * @prop {string} [border="none"] - 边框尺寸，可选值：none、sm、md、lg、xl
- * @prop {string} [borderColor] - 边框颜色，支持所有预定义的颜色和透明度变体，如：primary、success、primary/50 等
- * @prop {boolean|string} [contentBorder=false] - 是否给内容比例盒加边框（仅在 fit 模式下生效）。可设置为 true（使用默认黑色边框）或具体的颜色值（如 "primary/50"、"success"、"gray-300" 等）
  * @prop {boolean} [centered=true] - 是否居中显示，设置为false时容器将靠左对齐
  * @prop {boolean} [contentCentered=false] - 是否让内部内容居中显示，启用后会在容器内使用flex布局居中内容
  * @prop {string} [class] - 自定义CSS类名，用于添加额外的样式
@@ -219,91 +186,75 @@
  * @prop {...HTMLAttributes<'div'>} [rest] - 其他HTML div标签属性
  */
 
-import "../../style.ts";
-import type { IContainerProps } from "./props.ts";
-import { getContentBorderClass } from "../../src/components/container/contentBorderColors.ts";
-import { validateContainer } from "./validate.ts";
-import { getContainerCombinedClasses } from "./util-class.ts";
-import ContainerError from "./ContainerError.astro";
-import ContainerBox from "./ContainerBox.astro";
+import '../../style.ts';
+import type { IContainerProps } from './props.ts';
+import { validateContainer } from './validate.ts';
+import { getContainerCombinedClasses } from './util-class.ts';
+import ContainerError from './ContainerError.astro';
+import ContainerBox from './ContainerBox.astro';
 
 export type Props = IContainerProps;
 const {
-	aspectRatio,
-	background,
-	backgroundImage,
-	width = "md",
-	padding = "md",
-	py,
-	pt,
-	pb,
-	px,
-	pl,
-	pr,
-	margin = "none",
-	centered = true,
-	contentCentered = false,
-	border = "none",
-	borderColor,
-	fit = "none",
-	contentBorder = false,
-	flex,
-	gap = "none",
-	items,
-	justify,
-	rounded = "none",
-	class: className = "",
-	height,
-	...rest
+    aspectRatio,
+    background,
+    backgroundImage,
+    width = 'md',
+    padding = 'md',
+    py,
+    pt,
+    pb,
+    px,
+    pl,
+    pr,
+    margin = 'none',
+    centered = true,
+    contentCentered = false,
+    fit = 'none',
+    flex,
+    gap = 'none',
+    items,
+    justify,
+    rounded = 'none',
+    class: className = '',
+    height,
+    ...rest
 } = Astro.props as Props;
-
-// 处理 contentBorder 属性
-const hasContentBorder = !!contentBorder;
-const contentBorderClass =
-	typeof contentBorder === "string"
-		? getContentBorderClass(contentBorder)
-		: getContentBorderClass();
 
 // 校验所有配置
 const messages = validateContainer(Astro.props as Record<string, unknown>);
 
-const fitEnabled = fit !== "none" && typeof aspectRatio === "number";
+const fitEnabled = fit !== 'none' && typeof aspectRatio === 'number';
 const isHeightDrivenAspect =
-	!fitEnabled &&
-	typeof aspectRatio === "number" &&
-	!!height &&
-	height !== "none";
-const hasExplicitHeight = !!height && height !== "none";
+    !fitEnabled &&
+    typeof aspectRatio === 'number' &&
+    !!height &&
+    height !== 'none';
+const hasExplicitHeight = !!height && height !== 'none';
 // 计算组合类名
 const containerClasses = getContainerCombinedClasses({
-	aspectRatio,
-	background,
-	backgroundImage,
-	width,
-	padding,
-	py,
-	pt,
-	pb,
-	px,
-	pl,
-	pr,
-	margin,
-	centered,
-	contentCentered,
-	border,
-	borderColor,
-	fit,
-	contentBorder,
-	flex,
-	gap,
-	items,
-	justify,
-	rounded,
-	class: className,
-	height,
+    aspectRatio,
+    background,
+    backgroundImage,
+    width,
+    padding,
+    py,
+    pt,
+    pb,
+    px,
+    pl,
+    pr,
+    margin,
+    centered,
+    contentCentered,
+    flex,
+    gap,
+    items,
+    justify,
+    rounded,
+    class: className,
+    height,
 });
 
-// 移除了内联样式的构建，将这部分逻辑移到 ContainerBox 中
 const hasError = messages.length > 0;
 ---
 
@@ -315,11 +266,8 @@ const hasError = messages.length > 0;
             {...rest}
             aspectRatio={aspectRatio}
             backgroundImage={backgroundImage}
-            contentBorder={contentBorder}
             centered={centered}
             contentCentered={contentCentered}
-            border={border}
-            borderColor={borderColor}
             fit={fit}
             flex={flex}
             gap={gap}
@@ -327,8 +275,6 @@ const hasError = messages.length > 0;
             justify={justify}
             rounded={rounded}
             height={height}
-            hasContentBorder={hasContentBorder}
-            contentBorderClass={contentBorderClass}
             containerClasses={containerClasses}
             hasExplicitHeight={hasExplicitHeight}
             isHeightDrivenAspect={isHeightDrivenAspect}>

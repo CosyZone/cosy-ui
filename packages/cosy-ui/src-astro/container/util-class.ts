@@ -3,7 +3,6 @@ import { paddingClasses } from "../../src/common/padding";
 import { marginClasses } from "../../src/common/margin";
 import { heightClasses } from "../../src/common/height";
 import { getBackgroundClass } from "../../src/common/backgrounds";
-import { getBorderClass, getBorderColorClass } from "../../src/common/border";
 import {
 	widthClasses,
 	flexClasses,
@@ -39,8 +38,6 @@ export function getContainerCombinedClasses(props: IContainerProps): string[] {
 		margin = "none",
 		rounded = "none",
 		background,
-		border = "none",
-		borderColor,
 		flex,
 		gap = "none",
 		items,
@@ -92,8 +89,6 @@ export function getContainerCombinedClasses(props: IContainerProps): string[] {
 		marginClasses[margin],
 		roundedClasses[rounded],
 		getBackgroundClass(background),
-		getBorderClass(border),
-		getBorderColorClass(borderColor),
 		flex ? flexClasses[flex] : "",
 		flex ? gapClasses[gap] : "",
 		items && flex ? itemsClasses[items] : "",

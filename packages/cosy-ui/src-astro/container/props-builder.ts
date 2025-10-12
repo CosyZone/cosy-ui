@@ -23,25 +23,11 @@ export interface IContainerPropsBuilder {
 		value: NonNullable<IContainerProps["backgroundImage"]>,
 	): IContainerPropsBuilder;
 
-	/** 设置边框尺寸。
-	 * @param value 边框尺寸，可选值：none、sm、md、lg、xl
-	 * @returns IContainerPropsBuilder
-	 */
-	border(value: NonNullable<IContainerProps["border"]>): IContainerPropsBuilder;
-
 	/** 内容适配模式（none/contain/cover）。
 	 * @param value 适配模式
 	 * @returns IContainerPropsBuilder
 	 */
 	fit(value: NonNullable<IContainerProps["fit"]>): IContainerPropsBuilder;
-
-	/** 内容比例盒是否显示边框或使用特定颜色。
-	 * @param value true/颜色键名，省略则为 true
-	 * @returns IContainerPropsBuilder
-	 */
-	contentBorder(
-		value?: boolean | NonNullable<IContainerProps["contentBorder"]>,
-	): IContainerPropsBuilder;
 
 	/** 是否整体居中显示（容器居中）。
 	 * @param value 省略则为 true
@@ -157,19 +143,9 @@ export function createContainerProps(
 			props = { ...props, backgroundImage: value };
 			return api;
 		},
-		/** @inheritDoc IContainerPropsBuilder.border */
-		border(value) {
-			props = { ...props, border: value };
-			return api;
-		},
 		/** @inheritDoc IContainerPropsBuilder.fit */
 		fit(value) {
 			props = { ...props, fit: value };
-			return api;
-		},
-		/** @inheritDoc IContainerPropsBuilder.contentBorder */
-		contentBorder(value = true) {
-			props = { ...props, contentBorder: value };
 			return api;
 		},
 		/** @inheritDoc IContainerPropsBuilder.centered */
