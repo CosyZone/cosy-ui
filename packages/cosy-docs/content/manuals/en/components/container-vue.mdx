@@ -32,6 +32,14 @@ Component Features:
 
 ## Props
 
+### aspectRatio
+
+Aspect ratio (width/height). When set, the container will maintain this ratio, such as 16/9, 4/3, 1, etc.
+
+⚠️ **Note**: Cannot set aspectRatio, width, and height at the same time. They can be combined in pairs, but not all three at once.
+
+<ContainerVuePackage.AspectRatio />
+
 ### background
 
 Base background color with theme system support. Provides preset semantic colors for different use cases.
@@ -76,6 +84,14 @@ Flex item spacing. Optional values: none, xs, sm, md, lg, xl. Only effective whe
 
 <ContainerVuePackage.Gap />
 
+### height
+
+Container height. Optional values: none, xs, sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl, 6xl, screen, auto. none means no height is set.
+
+⚠️ **Note**: Cannot set aspectRatio, width, and height at the same time. They can be combined in pairs, but not all three at once.
+
+<ContainerVuePackage.Height />
+
 ### items
 
 Flex item horizontal alignment. Optional values: start, end, center, baseline, stretch. Only effective when flex layout is enabled.
@@ -104,7 +120,15 @@ Border radius size. Optional values: none, sm, md, lg, xl, full.
 
 Container size. Optional values: xs, sm, md, lg, xl, full. Controls the maximum width of the container.
 
-<ContainerVuePackage.Sizes />
+⚠️ **Note**: Cannot set aspectRatio, width, and height at the same time. They can be combined in pairs, but not all three at once.
+
+<ContainerVuePackage.Size />
+
+## ⚠️ Property Conflict Example
+
+The following example shows what happens when you try to set aspectRatio, width, and height simultaneously:
+
+<ContainerVuePackage.Conflict />
 
 ## Slots
 
