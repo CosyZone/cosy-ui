@@ -1,0 +1,37 @@
+---
+/**
+ * @component AlertVueOutlineContainer
+ * @description 展示 AlertVue 组件 outline 描边风格的示例
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import AlertVueOutlineInfo from "./AlertVueOutlineInfo.vue";
+import AlertVueOutlineSuccess from "./AlertVueOutlineSuccess.vue";
+import AlertVueOutlineWarning from "./AlertVueOutlineWarning.vue";
+import AlertVueOutlineError from "./AlertVueOutlineError.vue";
+import AlertVueOutlineInfoCode from "./AlertVueOutlineInfo.vue?raw";
+import AlertVueOutlineSuccessCode from "./AlertVueOutlineSuccess.vue?raw";
+import AlertVueOutlineWarningCode from "./AlertVueOutlineWarning.vue?raw";
+import AlertVueOutlineErrorCode from "./AlertVueOutlineError.vue?raw";
+---
+
+<CodeContainer
+    codes={[
+        AlertVueOutlineInfoCode,
+        AlertVueOutlineSuccessCode,
+        AlertVueOutlineWarningCode,
+        AlertVueOutlineErrorCode,
+    ]}
+    titles={['Info', 'Success', 'Warning', 'Error']}>
+    <div id="tab-1">
+        <AlertVueOutlineInfo client:load />
+    </div>
+    <div id="tab-2">
+        <AlertVueOutlineSuccess client:load />
+    </div>
+    <div id="tab-3">
+        <AlertVueOutlineWarning client:load />
+    </div>
+    <div id="tab-4">
+        <AlertVueOutlineError client:load />
+    </div>
+</CodeContainer>

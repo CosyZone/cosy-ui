@@ -4,5 +4,5 @@
  * @returns 边框相关的类名
  */
 export function getPlaceholderBorderClass(border: boolean = false): string {
-    return border ? "cosy:border cosy:border-base-300" : "";
+	return border ? "cosy:border cosy:border-base-300" : "";
 }

@@ -6,6 +6,8 @@ import type { PaddingSize } from "../../../src/common/padding";
  * @param padding 内边距尺寸
  * @returns padding相关的类名
  */
-export function getPlaceholderPaddingClass(padding: PaddingSize = "none"): string {
-    return paddingClasses[padding] || "";
+export function getPlaceholderPaddingClass(
+	padding: PaddingSize = "none",
+): string {
+	return paddingClasses[padding] || "";
 }

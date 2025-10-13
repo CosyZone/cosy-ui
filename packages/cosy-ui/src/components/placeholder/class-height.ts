@@ -7,5 +7,5 @@ import type { HeightSize } from "../../../src/common/height";
  * @returns height相关的类名
  */
 export function getPlaceholderHeightClass(height: HeightSize = "md"): string {
-    return heightClasses[height] || "";
+	return heightClasses[height] || "";
 }

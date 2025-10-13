@@ -7,5 +7,5 @@ import type { Size } from "../../../src/common/size";
  * @returns width相关的类名
  */
 export function getPlaceholderWidthClass(width: Size = "md"): string {
-    return widthClasses[width] || "";
+	return widthClasses[width] || "";
 }

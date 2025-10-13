@@ -15,12 +15,23 @@ Alert 组件用于向用户显示重要的提示信息，支持多种类型的�
 <Alert type="success" title="操作成功">您的操作已成功完成</Alert>
 ```
 
+不显示图标：
+```vue
+<Alert type="warning" :show-icon="false">不显示图标的警告</Alert>
+```
+
+设置垂直外边距：
+```vue
+<Alert type="info" margin-y="md">带垂直外边距的提示</Alert>
+```
+
 组合使用：
 ```vue
 <Alert
   type="error"
   title="提交失败"
   class="my-custom-class"
+  margin-y="lg"
 >
   请检查表单并重新提交
 </Alert>
@@ -37,37 +48,39 @@ Alert 组件用于向用户显示重要的提示信息，支持多种类型的�
 ```
 
 @props
-@prop {('info'|'success'|'warning'|'error')} [type='info'] - 提示类型，影响颜色和图标
-@prop {string} [title] - 提示标题，可选
-@prop {string} [class] - 自定义 CSS 类名
-@prop {boolean} [closable] - 是否可关闭，默认可关闭
-@prop {MarginSize} [marginY] - 垂直外边距大小
+@prop {('info'|'success'|'warning'|'error')} [type='info'] - 提示类型，影响颜色和图标，支持 info、success、warning、error 四种类型
+@prop {string} [title] - 提示标题，可选，显示为粗体文本
+@prop {string} [description] - 描述文本，显示在标题下方，字体较小且透明度降低
+@prop {string} [class] - 自定义 CSS 类名，用于覆盖默认样式
+@prop {boolean} [closable=true] - 是否可关闭，设置为 false 时隐藏关闭按钮
+@prop {boolean} [showIcon=true] - 是否显示图标，设置为 false 时隐藏类型对应的图标
+@prop {('solid'|'outline'|'dash'|'soft')} [variant='solid'] - 样式变体，支持 solid（实心）、outline（描边）、dash（虚线）、soft（柔和）四种风格
+@prop {('xs'|'sm'|'md'|'lg'|'xl')} [marginY] - 垂直方向外边距大小，支持预设的尺寸值
 
 @slots
-@slot default - 提示内容
-@slot action - 自定义操作按钮，显示在 alert 右侧
+@slot default - 提示内容，主要文本内容
+@slot action - 自定义操作按钮，显示在 alert 右侧，适合放置自定义按钮或其他操作
 -->
 
 <script setup lang="ts">
 import "../../style";
 import { computed } from "vue";
+import type { IAlertProps } from "./props";
+import { getAlertCombinedClassesVue } from "./class";
 import { InfoIcon, SuccessIcon, WarningIcon, ErrorIcon } from "../icons/index";
 import { RiCloseLine } from "@remixicon/vue";
 import { marginClasses, type MarginSize } from "../../src/common/margin";
 
-interface Props {
-	type?: "info" | "success" | "warning" | "error";
-	title?: string;
-	class?: string;
-	closable?: boolean;
-	marginY?: MarginSize;
-}
+interface Props extends IAlertProps {}
 
 const props = withDefaults(defineProps<Props>(), {
 	type: "info",
 	title: "",
+	description: "",
 	class: "",
 	closable: true,
+	showIcon: true,
+	variant: "solid",
 	marginY: undefined,
 });
 
@@ -77,16 +90,8 @@ const handleClose = () => {
 	emit("close");
 };
 
-// 根据类型设置样式
-const alertClass = computed(() => {
-	const alertClasses = {
-		info: "cosy:alert-info",
-		success: "cosy:alert-success",
-		warning: "cosy:alert-warning",
-		error: "cosy:alert-error",
-	};
-	return alertClasses[props.type];
-});
+// 使用共用的工具函数计算组合类名
+const alertClasses = computed(() => getAlertCombinedClassesVue(props));
 
 // 根据类型设置图标组件
 const IconComponent = computed(() => {
@@ -98,42 +103,29 @@ const IconComponent = computed(() => {
 	};
 	return iconComponents[props.type];
 });
-
-// 根据 marginY 值设置对应的 CSS 类
-const marginYClass = computed(() => {
-	return props.marginY ? marginClasses[props.marginY] : "";
-});
 </script>
 
 <template>
-  <div
-    :class="[
-      'cosy:alert cosy:w-full cosy:flex',
-      alertClass,
-      marginYClass,
-      props.class,
-    ]"
-    role="alert"
-  >
+  <div :class="alertClasses" role="alert">
     <div
-      class="cosy:flex cosy:flex-row cosy:items-center cosy:gap-4 cosy:justify-between cosy:w-full"
-    >
+      class="cosy:flex cosy:flex-row cosy:items-center cosy:gap-4 cosy:justify-between cosy:w-full">
       <div class="cosy:flex cosy:items-center cosy:gap-4">
         <component
           :is="IconComponent"
-          class="cosy:btn cosy:btn-sm cosy:btn-ghost cosy:btn-circle"
-        />
+          v-if="showIcon"
+          class="cosy:btn cosy:btn-sm cosy:btn-ghost cosy:btn-circle" />
 
         <div
-          class="cosy:flex cosy:flex-col cosy:items-start cosy:h-full cosy:flex-1"
-        >
+          class="cosy:flex cosy:flex-col cosy:items-start cosy:h-full cosy:flex-1">
           <h3
             v-if="props.title"
             class="cosy:font-bold"
-            style="margin-top: 0 !important"
-          >
+            style="margin-top: 0 !important">
             {{ props.title }}
           </h3>
+          <div v-if="props.description" class="cosy:text-xs cosy:opacity-80">
+            {{ props.description }}
+          </div>
           <div v-if="props.title" class="cosy:text-xs">
             <slot />
           </div>
@@ -143,15 +135,13 @@ const marginYClass = computed(() => {
 
       <div
         class="cosy:flex cosy:flex-row cosy:items-center cosy:gap-2"
-        data-role="actions"
-      >
+        data-role="actions">
         <slot name="action" />
 
         <button
           v-if="props.closable"
           @click="handleClose"
-          class="cosy:btn cosy:btn-ghost cosy:btn-sm cosy:btn-circle"
-        >
+          class="cosy:btn cosy:btn-ghost cosy:btn-sm cosy:btn-circle">
           <RiCloseLine class="cosy:h-5 cosy:w-5" />
         </button>
       </div>

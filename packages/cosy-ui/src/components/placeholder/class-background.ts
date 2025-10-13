@@ -7,7 +7,7 @@ import type { BackgroundColor } from "../../../src/common/backgrounds";
  * @returns background相关的类名
  */
 export function getPlaceholderBackgroundClass(
-    background?: BackgroundColor,
+	background?: BackgroundColor,
 ): string {
-    return getBackgroundClass(background);
+	return getBackgroundClass(background);
 }
