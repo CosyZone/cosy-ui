@@ -6,6 +6,7 @@ import CardVueWithImageContainer from "./CardVueWithImageContainer.astro";
 import CardVueWithSubtitleContainer from "./CardVueWithSubtitleContainer.astro";
 import CardVueWithContentContainer from "./CardVueWithContentContainer.astro";
 import CardVueShadowContainer from "./CardVueShadowContainer.astro";
+import CardVueMutedContainer from "./CardVueMutedContainer.astro";
 
 export const CardVuePackage = {
 	Basic: CardVueBasicContainer,
@@ -16,4 +17,5 @@ export const CardVuePackage = {
 	WithSubtitle: CardVueWithSubtitleContainer,
 	WithContent: CardVueWithContentContainer,
 	Shadow: CardVueShadowContainer,
+	Muted: CardVueMutedContainer,
 };
