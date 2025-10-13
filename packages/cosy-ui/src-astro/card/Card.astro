@@ -73,6 +73,7 @@
  * @prop {boolean} [compact] - 是否使用紧凑模式
  * @prop {string} [href] - 如果提供，卡片将变成可点击的链接
  * @prop {ImageSource} [imageUrl] - 卡片顶部图片的URL或ImageMetadata
+ * @prop {boolean} [muted] - 是否使用柔和色样式（未激活状态）
  * @prop {string} [subtitle] - 卡片副标题或描述
  * @prop {string} title - 卡片标题
  *
@@ -84,55 +85,124 @@ import '../../style.ts';
 import type { ICardProps } from './props';
 import { getCardCombinedClasses, getCardPaddingClassVue } from './class';
 import Image from '../image/Image.astro';
+import Container from '../container/Container.astro';
 
-const props = Astro.props as ICardProps;
+// 从props中分离Container相关的属性和Card自身的属性
+const {
+    // Container属性
+    aspectRatio,
+    centered,
+    contentCentered,
+    flex,
+    fit,
+    gap,
+    height,
+    items,
+    justify,
+    margin,
+    muted,
+    padding,
+    py,
+    pt,
+    pb,
+    px,
+    pl,
+    pr,
+    width,
+    rounded,
+    background,
+    border,
+    borderColor,
+    // Card属性
+    class: className,
+    compact,
+    href,
+    imageUrl,
+    subtitle,
+    title,
+    ...restProps
+} = Astro.props as ICardProps;
 
-// 使用共用的工具函数计算组合类名
-const cardClasses = getCardCombinedClasses(props);
+// 使用共用的工具函数计算组合类名（不包括Container的类名）
+const cardClasses = getCardCombinedClasses({
+    class: className,
+    compact,
+    href,
+    imageUrl,
+    subtitle,
+    title,
+});
 
 // 内容区域的padding类
-const contentPadding = getCardPaddingClassVue(props.compact);
+const contentPadding = getCardPaddingClassVue(compact);
 
 // 如果是链接卡片，使用a标签，否则使用article标签
-const Tag = props.href ? 'a' : 'article';
+const Tag = href ? 'a' : 'article';
 ---
 
-<Tag
-    ignore-heading
-    class:list={cardClasses}
-    href={props.href}
-    {...props.href && { target: '_self' }}>
-    {
-        props.imageUrl && (
-            <figure class="not-prose cosy:m-0 cosy:p-0">
-                <Image
-                    src={props.imageUrl}
-                    alt={props.title}
-                    class="cosy:w-full cosy:h-48 cosy:object-cover cosy:rounded-t-lg"
-                />
-            </figure>
-        )
-    }
-
-    <div class={`cosy:card-body ${contentPadding}`}>
-        <h2 class="cosy:card-title cosy:text-xl cosy:font-bold">
-            {props.title}
-        </h2>
-
+<Container
+    aspectRatio={aspectRatio}
+    centered={centered}
+    contentCentered={contentCentered}
+    flex={flex}
+    fit={fit}
+    gap={gap}
+    height={height}
+    items={items}
+    justify={justify}
+    margin={margin}
+    muted={muted}
+    padding={padding}
+    py={py}
+    pt={pt}
+    pb={pb}
+    px={px}
+    pl={pl}
+    pr={pr}
+    width={width}
+    rounded={rounded}
+    background={background}
+    border={border}
+    borderColor={borderColor}
+    class={className}
+    {...restProps}>
+    <Tag
+        ignore-heading
+        class:list={cardClasses}
+        href={href}
+        {...href && { target: '_self' }}>
         {
-            props.subtitle && (
-                <p class="cosy:text-base-content/70 cosy:text-sm cosy:leading-relaxed">
-                    {props.subtitle}
-                </p>
+            imageUrl && (
+                <figure class="not-prose cosy:m-0 cosy:p-0">
+                    <Image
+                        src={imageUrl}
+                        alt={title}
+                        class="cosy:w-full cosy:h-48 cosy:object-cover cosy:rounded-t-lg"
+                    />
+                </figure>
             )
         }
 
-        {
-            Astro.slots.has('default') && (
-                <div class="cosy:mt-4">
-                    <slot />
-                </div>
-            )
-        }
-    </div>
-</Tag>
+        <div class={`cosy:card-body ${contentPadding}`}>
+            <h2 class="cosy:card-title cosy:text-xl cosy:font-bold">
+                {title}
+            </h2>
+
+            {
+                subtitle && (
+                    <p class="cosy:text-base-content/70 cosy:text-sm cosy:leading-relaxed">
+                        {subtitle}
+                    </p>
+                )
+            }
+
+            {
+                Astro.slots.has('default') && (
+                    <div class="cosy:mt-4">
+                        <slot />
+                    </div>
+                )
+            }
+        </div>
+    </Tag>
+</Container>

@@ -25,6 +25,11 @@ export interface ICardPropsBase {
     href?: string;
 
     /**
+     * 是否使用柔和色样式（未激活状态）
+     */
+    muted?: boolean;
+
+    /**
      * 卡片副标题或描述
      */
     subtitle?: string;
