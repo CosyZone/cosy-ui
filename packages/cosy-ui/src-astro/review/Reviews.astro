@@ -58,10 +58,8 @@ import Text from "../text/Text.astro";
 import Heading from "../heading/Heading.astro";
 import Grid from "../grid/Grid.astro";
 import SmartIcon from "../smart-icon/SmartIcon.astro";
-import type { ReviewsProps, ReviewData } from "./types";
+import type { IReviewsProps, IReviewData } from "./props";
 import Review from "./Review.astro";
-
-type Props = ReviewsProps;
 
 const {
 	reviews,
@@ -73,7 +71,7 @@ const {
 	class: className = "",
 	"class:list": classList,
 	...rest
-} = Astro.props;
+} = Astro.props as IReviewsProps;
 
 // 计算统计信息
 const stats = showStats
