@@ -5,13 +5,15 @@ import CardVueClickableContainer from "./CardVueClickableContainer.astro";
 import CardVueWithImageContainer from "./CardVueWithImageContainer.astro";
 import CardVueWithSubtitleContainer from "./CardVueWithSubtitleContainer.astro";
 import CardVueWithContentContainer from "./CardVueWithContentContainer.astro";
+import CardVueShadowContainer from "./CardVueShadowContainer.astro";
 
 export const CardVuePackage = {
-	Basic: CardVueBasicContainer,
-	CustomStyle: CardVueCustomStyleContainer,
-	Compact: CardVueCompactContainer,
-	Clickable: CardVueClickableContainer,
-	WithImage: CardVueWithImageContainer,
-	WithSubtitle: CardVueWithSubtitleContainer,
-	WithContent: CardVueWithContentContainer,
+    Basic: CardVueBasicContainer,
+    CustomStyle: CardVueCustomStyleContainer,
+    Compact: CardVueCompactContainer,
+    Clickable: CardVueClickableContainer,
+    WithImage: CardVueWithImageContainer,
+    WithSubtitle: CardVueWithSubtitleContainer,
+    WithContent: CardVueWithContentContainer,
+    Shadow: CardVueShadowContainer,
 };

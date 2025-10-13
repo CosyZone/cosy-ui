@@ -14,22 +14,24 @@ import ContainerVueAspectRatioContainer from "./ContainerVueAspectRatioContainer
 import ContainerVueHeightContainer from "./ContainerVueHeightContainer.astro";
 import ContainerVueSizeContainer from "./ContainerVueSizeContainer.astro";
 import ContainerVueMutedTestContainer from "./ContainerVueMutedTestContainer.astro";
+import ContainerVueShadowContainer from "./ContainerVueShadowContainer.astro";
 
 export const ContainerVuePackage = {
-	Basic: ContainerVueBasicContainer,
-	AspectRatio: ContainerVueAspectRatioContainer,
-	Background: ContainerVueBackgroundContainer,
-	Border: ContainerVueBorderContainer,
-	Centered: ContainerVueCenteredContainer,
-	CustomClass: ContainerVueCustomClassContainer,
-	Flex: ContainerVueFlexContainer,
-	Gap: ContainerVueGapContainer,
-	Height: ContainerVueHeightContainer,
-	Items: ContainerVueItemsContainer,
-	Justify: ContainerVueJustifyContainer,
-	Padding: ContainerVuePaddingContainer,
-	Rounded: ContainerVueRoundedContainer,
-	Size: ContainerVueSizeContainer,
-	Slots: ContainerVueSlotsContainer,
-	MutedTest: ContainerVueMutedTestContainer,
+    Basic: ContainerVueBasicContainer,
+    AspectRatio: ContainerVueAspectRatioContainer,
+    Background: ContainerVueBackgroundContainer,
+    Border: ContainerVueBorderContainer,
+    Centered: ContainerVueCenteredContainer,
+    CustomClass: ContainerVueCustomClassContainer,
+    Flex: ContainerVueFlexContainer,
+    Gap: ContainerVueGapContainer,
+    Height: ContainerVueHeightContainer,
+    Items: ContainerVueItemsContainer,
+    Justify: ContainerVueJustifyContainer,
+    Padding: ContainerVuePaddingContainer,
+    Rounded: ContainerVueRoundedContainer,
+    Size: ContainerVueSizeContainer,
+    Slots: ContainerVueSlotsContainer,
+    MutedTest: ContainerVueMutedTestContainer,
+    Shadow: ContainerVueShadowContainer,
 };
