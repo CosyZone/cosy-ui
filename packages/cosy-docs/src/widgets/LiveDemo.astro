@@ -6,22 +6,22 @@
  * 实际效果演示组件，使用 DemoSection 展示智能验证的实际效果
  */
 
-import DemoSection from './DemoSection.astro';
-import { Container, CodePanel, Main } from '@coffic/cosy-ui';
+import DemoSection from "./DemoSection.astro";
+import { Container, CodePanel, Main } from "@coffic/cosy-ui";
 
 export interface Props {
-    /**
-     * 语言设置
-     */
-    lang: string;
+	/**
+	 * 语言设置
+	 */
+	lang: string;
 }
 
 const { lang } = Astro.props;
-const title = lang === 'zh-cn' ? '实际效果演示' : 'Live Demo';
+const title = lang === "zh-cn" ? "实际效果演示" : "Live Demo";
 const description =
-    lang === 'zh-cn'
-        ? '直观展示智能验证的实际效果，让开发体验更加友好'
-        : 'Intuitive demonstration of smart validation effects for a better development experience';
+	lang === "zh-cn"
+		? "直观展示智能验证的实际效果，让开发体验更加友好"
+		: "Intuitive demonstration of smart validation effects for a better development experience";
 const sampleCode = `<Main px="lg" pl="md" pr="md">
     <p>Content</p>
 </Main>`;

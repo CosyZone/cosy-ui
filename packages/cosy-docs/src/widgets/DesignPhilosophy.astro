@@ -6,24 +6,24 @@
  * 设计理念展示组件，使用 DemoSection 展示智能属性验证的特点
  */
 
-import DemoSection from './DemoSection.astro';
-import { Container, CodePanel } from '@coffic/cosy-ui';
-import TeamMemberExample from '../components/team-member/TeamMemberExample.astro';
-import TeamMemberExampleSource from '../components/team-member/TeamMemberExample.astro?raw';
+import DemoSection from "./DemoSection.astro";
+import { Container, CodePanel } from "@coffic/cosy-ui";
+import TeamMemberExample from "../components/team-member/TeamMemberExample.astro";
+import TeamMemberExampleSource from "../components/team-member/TeamMemberExample.astro?raw";
 
 export interface Props {
-    /**
-     * 语言设置
-     */
-    lang: string;
+	/**
+	 * 语言设置
+	 */
+	lang: string;
 }
 
 const { lang } = Astro.props;
-const title = lang === 'zh-cn' ? '设计理念' : 'Design Philosophy';
+const title = lang === "zh-cn" ? "设计理念" : "Design Philosophy";
 const description =
-    lang === 'zh-cn'
-        ? '让用户专注于创造，快速写出界面'
-        : 'Let users focus on creation and quickly build interfaces';
+	lang === "zh-cn"
+		? "让用户专注于创造，快速写出界面"
+		: "Let users focus on creation and quickly build interfaces";
 ---
 
 <DemoSection
