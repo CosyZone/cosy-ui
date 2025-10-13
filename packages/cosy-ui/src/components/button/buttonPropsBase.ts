@@ -36,9 +36,9 @@ export interface IButtonPropsBase {
 	loading?: boolean;
 
 	/**
-	 * 点击事件处理函数，支持内联 JavaScript 代码
+	 * 点击事件处理函数
 	 */
-	onClick?: string;
+	onClick?: () => void;
 
 	/**
 	 * 按钮形状，支持 circle（圆形）和 square（方形）

@@ -17,7 +17,7 @@ import { getButtonCombinedClassesVue } from "./class";
  * @props {string} [type='button'] - 按钮类型，支持 button、submit、reset
  * @props {string} [href] - 链接地址，设置后按钮变为链接形式
  * @props {string} [target] - 链接目标，支持 _self、_blank、_parent、_top
- * @props {string} [onClick] - 点击事件处理函数，支持内联 JavaScript 代码
+ * @props {Function} [onClick] - 点击事件处理函数
  */
 
 const props = withDefaults(defineProps<IButtonProps>(), {
@@ -35,16 +35,9 @@ const buttonClasses = computed(() => getButtonCombinedClassesVue(props));
 
 // 处理点击事件
 const handleClick = (event: Event) => {
-	// 如果提供了 onClick 属性，则执行相应的 JavaScript 代码
-	if (props.onClick) {
-		// 注意：在实际应用中，直接执行字符串形式的 JavaScript 代码可能存在安全风险
-		// 这里为了保持与 Astro 版本的一致性而实现，但在生产环境中应谨慎使用
-		try {
-			// 创建一个函数并执行 onClick 字符串中的代码
-			new Function("event", props.onClick)(event);
-		} catch (error) {
-			console.error("Error executing onClick handler:", error);
-		}
+	// 如果提供了 onClick 属性，则执行相应的函数
+	if (props.onClick && typeof props.onClick === "function") {
+		props.onClick();
 	}
 };
 </script>
