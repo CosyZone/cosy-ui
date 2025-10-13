@@ -99,8 +99,7 @@ const mainTitle = "Cosy UI";
                 height="md"
                 padding="md"
                 background="base-100"
-                muted
-                border>
+                muted>
                 <Button href={LinkUtil.createUrl(`/${lang}/manuals`)}>
                     {lang === 'zh-cn' ? '开始使用' : 'Get Started'}
                 </Button>
@@ -113,8 +112,7 @@ const mainTitle = "Cosy UI";
                 height="md"
                 padding="md"
                 background="base-100"
-                muted
-                border>
+                muted>
                 <StatsDisplay
                     stats={compactStats}
                     compact={false}
@@ -131,41 +129,30 @@ const mainTitle = "Cosy UI";
         </Container>
 
         <!-- 第二行 - 主要内容区域 -->
-        <Container width="full" padding="lg" background="none">
-            <Card
-                width="xl"
-                padding="xl"
-                background="base-100"
-                shadow="xl"
-                style="text-align: center; border: 2px dashed #3b82f6; min-height: 400px; display: flex; flex-direction: column; justify-content: center;">
-                <Heading level={1} weight="bold" color="primary" align="center">
-                    {mainTitle}
-                </Heading>
-                <Text
-                    size="md"
-                    color="muted"
-                    align="center"
-                    style="margin-bottom: 2rem;">
-                    {description}
-                </Text>
-                <div
-                    style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
-                    <Button
-                        variant="primary"
-                        size="lg"
-                        href={LinkUtil.createUrl(`/${lang}/manuals`)}>
-                        {lang === 'zh-cn' ? '开始使用' : 'Get Started'}
-                    </Button>
-                    <Button
-                        variant="secondary"
-                        size="lg"
-                        href="https://github.com/cosyzone/cosy-ui"
-                        target="_blank">
-                        GitHub
-                    </Button>
-                </div>
-            </Card>
-        </Container>
+        <Card width="xl" padding="xl" background="base-100" shadow="xl">
+            <Heading level={1} weight="bold" color="primary" align="center">
+                {mainTitle}
+            </Heading>
+            <Text size="md" color="muted" align="center">
+                {description}
+            </Text>
+            <div
+                style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
+                <Button
+                    variant="primary"
+                    size="lg"
+                    href={LinkUtil.createUrl(`/${lang}/manuals`)}>
+                    {lang === 'zh-cn' ? '开始使用' : 'Get Started'}
+                </Button>
+                <Button
+                    variant="secondary"
+                    size="lg"
+                    href="https://github.com/cosyzone/cosy-ui"
+                    target="_blank">
+                    GitHub
+                </Button>
+            </div>
+        </Card>
 
         <!-- 第三行 - 底部组件 -->
         <Container

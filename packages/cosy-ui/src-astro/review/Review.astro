@@ -66,6 +66,7 @@ import Card from "../card/Card.astro";
 import Avatar from "../avatar/Avatar.astro";
 import type { IReviewProps } from "./props";
 
+// 从props中分离Card相关的属性和Review自身的属性
 const {
 	userName,
 	rating,
@@ -73,9 +74,32 @@ const {
 	date,
 	verified = false,
 	avatar,
-	muted = false,
 	class: className = "",
 	"class:list": classList,
+	// Card属性
+	aspectRatio,
+	centered,
+	contentCentered,
+	flex,
+	fit,
+	gap,
+	height,
+	items,
+	justify,
+	margin,
+	muted,
+	padding,
+	py,
+	pt,
+	pb,
+	px,
+	pl,
+	pr,
+	width,
+	rounded,
+	background,
+	border,
+	borderColor,
 	...rest
 } = Astro.props as IReviewProps;
 
@@ -99,12 +123,34 @@ const formatDate = (dateString: string) => {
 		return dateString;
 	}
 };
-
-const mutedClass = muted ? "review-muted" : "";
 ---
 
 <Card
-    class:list={['cosy:review', 'cosy:p-6', className, classList, mutedClass]}
+    aspectRatio={aspectRatio}
+    centered={centered}
+    contentCentered={contentCentered}
+    flex={flex}
+    fit={fit}
+    gap={gap}
+    height={height}
+    items={items}
+    justify={justify}
+    margin={margin}
+    muted={muted}
+    padding={padding}
+    py={py}
+    pt={pt}
+    pb={pb}
+    px={px}
+    pl={pl}
+    pr={pr}
+    width={width}
+    rounded={rounded}
+    background={background}
+    border={border}
+    borderColor={borderColor}
+    class={className}
+    class:list={['cosy:review', 'cosy:p-6', classList]}
     {...rest}>
     <!-- 用户信息 -->
     <div class="cosy:flex cosy:items-center cosy:gap-3 cosy:mb-3">
@@ -163,17 +209,3 @@ const mutedClass = muted ? "review-muted" : "";
         )
     }
 </Card>
-
-<style>
-    .review-muted {
-        opacity: 0.6;
-        pointer-events: none;
-    }
-
-    .review-muted * {
-        color: #9ca3af !important;
-        /* tailwind gray-400 */
-        fill: #9ca3af !important;
-        /* 对于 SVG 图标 */
-    }
-</style>

@@ -67,6 +67,17 @@
  * </Card>
  * ```
  *
+ * 自定义阴影：
+ * ```astro
+ * <Card
+ *   title="带阴影的卡片"
+ *   subtitle="使用自定义阴影效果"
+ *   shadow="2xl"
+ * >
+ *   卡片内容
+ * </Card>
+ * ```
+ *
  * @props
  * @prop {BackgroundColor} [background] - 背景色类型，支持所有预设背景色和透明度变体
  * @prop {string} [class] - 自定义CSS类，可用于覆盖默认样式
@@ -74,6 +85,7 @@
  * @prop {string} [href] - 如果提供，卡片将变成可点击的链接
  * @prop {ImageSource} [imageUrl] - 卡片顶部图片的URL或ImageMetadata
  * @prop {boolean} [muted] - 是否使用柔和色样式（未激活状态）
+ * @prop {ShadowSize} [shadow=xl] - 阴影大小
  * @prop {string} [subtitle] - 卡片副标题或描述
  * @prop {string} title - 卡片标题
  *
@@ -81,63 +93,64 @@
  * @slot default - 卡片的主要内容区域
  */
 
-import '../../style.ts';
-import type { ICardProps } from './props';
-import { getCardCombinedClasses, getCardPaddingClassVue } from './class';
-import Image from '../image/Image.astro';
-import Container from '../container/Container.astro';
+import "../../style.ts";
+import type { ICardProps } from "./props";
+import { getCardCombinedClasses, getCardPaddingClassVue } from "./class";
+import Image from "../image/Image.astro";
+import Container from "../container/Container.astro";
 
 // 从props中分离Container相关的属性和Card自身的属性
 const {
-    // Container属性
-    aspectRatio,
-    centered,
-    contentCentered,
-    flex,
-    fit,
-    gap,
-    height,
-    items,
-    justify,
-    margin,
-    muted,
-    padding,
-    py,
-    pt,
-    pb,
-    px,
-    pl,
-    pr,
-    width,
-    rounded,
-    background,
-    border,
-    borderColor,
-    // Card属性
-    class: className,
-    compact,
-    href,
-    imageUrl,
-    subtitle,
-    title,
-    ...restProps
+	// Container属性
+	aspectRatio,
+	centered,
+	contentCentered,
+	flex,
+	fit,
+	gap,
+	height,
+	items,
+	justify,
+	margin,
+	muted,
+	padding,
+	py,
+	pt,
+	pb,
+	px,
+	pl,
+	pr,
+	width,
+	rounded,
+	background,
+	border,
+	borderColor,
+	shadow,
+	// Card属性
+	class: className,
+	compact,
+	href,
+	imageUrl,
+	subtitle,
+	title,
+	...restProps
 } = Astro.props as ICardProps;
 
 // 使用共用的工具函数计算组合类名（不包括Container的类名）
 const cardClasses = getCardCombinedClasses({
-    class: className,
-    compact,
-    href,
-    imageUrl,
-    subtitle,
-    title,
+	class: className,
+	compact,
+	href,
+	imageUrl,
+	subtitle,
+	title,
 });
 
 // 内容区域的padding类
 const contentPadding = getCardPaddingClassVue(compact);
 
 // 如果是链接卡片，使用a标签，否则使用article标签
-const Tag = href ? 'a' : 'article';
+const Tag = href ? "a" : "article";
 ---
 
 <Container
@@ -164,6 +177,7 @@ const Tag = href ? 'a' : 'article';
     background={background}
     border={border}
     borderColor={borderColor}
+    shadow={shadow}
     class={className}
     {...restProps}>
     <Tag

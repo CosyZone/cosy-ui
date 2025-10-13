@@ -12,6 +12,7 @@ import type { MarginSize } from "../../../src/common/margin";
 import type { RoundedSize } from "../../../src/common/rounded";
 import type { BorderSize, BorderColor } from "../../../src/common/border";
 import type { FitMode } from "../../../src/common/fitmode";
+import type { ShadowSize } from "../../../src/common/shadow";
 
 /**
  * Container 组件的基础属性接口（与框架无关）
@@ -117,6 +118,12 @@ export interface IContainerPropsBase {
 	 * 右侧内边距
 	 */
 	pr?: PaddingSize;
+
+	/**
+	 * 阴影大小
+	 * @default "none"
+	 */
+	shadow?: ShadowSize;
 
 	/**
 	 * 容器宽度

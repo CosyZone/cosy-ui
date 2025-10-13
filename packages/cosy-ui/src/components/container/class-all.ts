@@ -8,6 +8,7 @@ import { getContainerRoundedClass } from "./class-rounded";
 import { getContainerFlexClasses } from "./class-flex";
 import { getContainerWidthClass } from "./class-width";
 import { getContainerMutedClass } from "./class-muted";
+import { getContainerShadowClass } from "./class-shadow";
 
 /**
  * 计算 Container 组件的组合类名（用于基础接口）
@@ -35,6 +36,7 @@ export function getBaseContainerClasses(props: IContainerPropsBase): string[] {
 		height,
 		border = "none",
 		borderColor,
+		shadow = "none",
 		class: className = "",
 		centered = true,
 		contentCentered = false,
@@ -75,6 +77,9 @@ export function getBaseContainerClasses(props: IContainerPropsBase): string[] {
 	// 构建边框类名
 	const borderClasses = getContainerBorderClasses(border, borderColor);
 
+	// 构建shadow类名
+	const shadowClass = getContainerShadowClass(shadow);
+
 	// 构建CSS类名
 	const baseClasses = [
 		"cosy:w-full",
@@ -85,6 +90,7 @@ export function getBaseContainerClasses(props: IContainerPropsBase): string[] {
 		mutedClass,
 		roundedClass,
 		backgroundClass,
+		shadowClass,
 		...borderClasses,
 		...flexClassesArray,
 		heightClass,

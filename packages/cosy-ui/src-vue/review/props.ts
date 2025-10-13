@@ -3,11 +3,23 @@ import type {
 	IReviewsPropsBase,
 	IReviewData,
 } from "../../src/components/review/reviewsPropsBase";
+import type { ICardProps } from "../card/props";
 
 /**
- * Review 组件的 Vue 版本属性接口（继承基础接口）
+ * Review 组件的 Vue 版本属性接口（继承基础接口和Card属性）
  */
-export interface IReviewProps extends IReviewPropsBase {
+export interface IReviewProps
+	extends IReviewPropsBase,
+		Omit<
+			ICardProps,
+			| keyof IReviewPropsBase
+			| "title"
+			| "subtitle"
+			| "imageUrl"
+			| "href"
+			| "compact"
+			| "shadow"
+		> {
 	/**
 	 * 自定义类名
 	 */

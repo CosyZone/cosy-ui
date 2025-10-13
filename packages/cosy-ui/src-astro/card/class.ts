@@ -1,5 +1,8 @@
 import type { ICardProps } from "./props";
-import { getBaseCardClasses, getCardPaddingClass } from "../../src/components/card/class-all";
+import {
+	getBaseCardClasses,
+	getCardPaddingClass,
+} from "../../src/components/card/class-all";
 
 /**
  * 计算 Card 组件的组合类名
@@ -7,9 +10,9 @@ import { getBaseCardClasses, getCardPaddingClass } from "../../src/components/ca
  * @returns 组合后的类名数组
  */
 export function getCardCombinedClasses(props: ICardProps): string[] {
-    const baseClasses = getBaseCardClasses(props);
+	const baseClasses = getBaseCardClasses(props);
 
-    return baseClasses;
+	return baseClasses;
 }
 
 /**
@@ -18,5 +21,5 @@ export function getCardCombinedClasses(props: ICardProps): string[] {
  * @returns padding 类名
  */
 export function getCardPaddingClassVue(compact?: boolean): string {
-    return getCardPaddingClass(compact);
+	return getCardPaddingClass(compact);
 }

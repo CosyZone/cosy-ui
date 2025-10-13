@@ -18,6 +18,7 @@ const props = withDefaults(defineProps<Props>(), {
 	gap: "none",
 	rounded: "none",
 	muted: false,
+	shadow: "none",
 	class: "",
 	contentCentered: false,
 	fit: "none",

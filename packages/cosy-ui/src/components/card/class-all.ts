@@ -7,34 +7,27 @@ import { getBackgroundClass } from "../../../src/common/backgrounds";
  * @returns 组合后的类名数组
  */
 export function getBaseCardClasses(props: ICardPropsBase): string[] {
-    const {
-        background,
-        class: className = "",
-        compact,
-        href,
-    } = props;
+	const { background, class: className = "", compact, href } = props;
 
-    // 获取背景色类名
-    const backgroundClass = getBackgroundClass(background);
+	// 获取背景色类名
+	const backgroundClass = getBackgroundClass(background);
 
-    // 构建卡片样式类
-    const cardClasses = [
-        "cosy:card",
-        "cosy:w-full",
-        backgroundClass || "cosy:bg-base-100",
-        "cosy:shadow-xl",
-        "cosy:hover:shadow-2xl",
-        "cosy:transition-all",
-        "cosy:duration-300",
-        "cosy:ease-in-out",
-        compact ? "cosy:card-compact" : "",
-        href
-            ? "cosy:cursor-pointer cosy:hover:scale-105 cosy:transform cosy:no-underline"
-            : "",
-        className,
-    ];
+	// 构建卡片样式类
+	const cardClasses = [
+		"cosy:card",
+		"cosy:w-full",
+		backgroundClass, // 不再提供默认背景色，避免与Container组件冲突
+		"cosy:transition-all",
+		"cosy:duration-300",
+		"cosy:ease-in-out",
+		compact ? "cosy:card-compact" : "",
+		href
+			? "cosy:cursor-pointer cosy:hover:scale-105 cosy:transform cosy:no-underline"
+			: "",
+		className,
+	];
 
-    return cardClasses.filter(Boolean);
+	return cardClasses.filter(Boolean);
 }
 
 /**
@@ -43,5 +36,5 @@ export function getBaseCardClasses(props: ICardPropsBase): string[] {
  * @returns padding 类名
  */
 export function getCardPaddingClass(compact?: boolean): string {
-    return compact ? "cosy:p-4" : "cosy:p-6";
+	return compact ? "cosy:p-4" : "cosy:p-6";
 }
