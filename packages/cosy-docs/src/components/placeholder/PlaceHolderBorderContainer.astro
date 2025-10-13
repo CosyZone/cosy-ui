@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import PlaceHolderNoBorderSourceCode from './PlaceHolderNoBorder.astro?raw';
+import PlaceHolderBorderSourceCode from './PlaceHolderBorder.astro?raw';
+import PlaceHolderNoBorder from './PlaceHolderNoBorder.astro';
+import PlaceHolderBorder from './PlaceHolderBorder.astro';
+---
+
+<CodeContainer
+    codes={[PlaceHolderNoBorderSourceCode, PlaceHolderBorderSourceCode]}
+    titles={['false', 'true']}>
+    <div id="tab-1">
+        <PlaceHolderNoBorder />
+    </div>
+    <div id="tab-2">
+        <PlaceHolderBorder />
+    </div>
+</CodeContainer>

@@ -13,33 +13,36 @@
  * @prop {boolean} [border=false] - 是否显示边框
  * @prop {string} [class] - 自定义 CSS 类名，用于添加额外的样式
  * @prop {string} [height='md'] - 高度尺寸，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl、full
+ * @prop {boolean} [muted=false] - 是否使用柔和色背景
  * @prop {string} [padding='none'] - 内边距大小，可选值：none、xs、sm、md、lg、xl
  * @prop {string} [width='md'] - 宽度尺寸，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl、full
  * @slots
  * @slot default - 占位符内容
  */
-import "../../style.ts";
-import type { PlaceHolderProps } from "./types";
-import { getBasePlaceholderClasses } from "../../src/components/placeholder/class-all";
+import '../../style.ts';
+import type { PlaceHolderProps } from './types';
+import { getBasePlaceholderClasses } from '../../src/components/placeholder/class-all';
 
 interface Props extends PlaceHolderProps {}
 
 const {
-	background,
-	border = false,
-	class: className = "",
-	height = "md",
-	padding = "none",
-	width = "md",
+    background,
+    border = false,
+    class: className = '',
+    height = 'md',
+    muted = false,
+    padding = 'none',
+    width = 'md',
 } = Astro.props;
 
 const combinedClass = getBasePlaceholderClasses({
-	background,
-	border,
-	class: className,
-	height,
-	padding,
-	width,
+    background,
+    border,
+    class: className,
+    height,
+    muted,
+    padding,
+    width,
 });
 ---
 
