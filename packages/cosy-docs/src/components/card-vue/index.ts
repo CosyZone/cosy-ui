@@ -8,12 +8,12 @@ import CardVueWithContentContainer from "./CardVueWithContentContainer.astro";
 import CardVueShadowContainer from "./CardVueShadowContainer.astro";
 
 export const CardVuePackage = {
-    Basic: CardVueBasicContainer,
-    CustomStyle: CardVueCustomStyleContainer,
-    Compact: CardVueCompactContainer,
-    Clickable: CardVueClickableContainer,
-    WithImage: CardVueWithImageContainer,
-    WithSubtitle: CardVueWithSubtitleContainer,
-    WithContent: CardVueWithContentContainer,
-    Shadow: CardVueShadowContainer,
+	Basic: CardVueBasicContainer,
+	CustomStyle: CardVueCustomStyleContainer,
+	Compact: CardVueCompactContainer,
+	Clickable: CardVueClickableContainer,
+	WithImage: CardVueWithImageContainer,
+	WithSubtitle: CardVueWithSubtitleContainer,
+	WithContent: CardVueWithContentContainer,
+	Shadow: CardVueShadowContainer,
 };

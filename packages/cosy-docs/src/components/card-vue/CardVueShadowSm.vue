@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-  import { Card } from '@coffic/cosy-ui/vue';
+import { Card } from "@coffic/cosy-ui/vue";
 </script>
