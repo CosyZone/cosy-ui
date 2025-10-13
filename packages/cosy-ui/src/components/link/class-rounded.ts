@@ -8,14 +8,14 @@ import type { RoundedSize } from "../../../src/common/rounded";
  * @returns 圆角类名
  */
 export function getLinkRoundedClass(
-    btn: boolean,
-    rounded: "none" | "sm" | "md" | "lg" | "xl" | "full",
+	btn: boolean,
+	rounded: "none" | "sm" | "md" | "lg" | "xl" | "full",
 ): string {
-    // 按钮风格下不处理圆角，由按钮类处理
-    if (btn) {
-        return "";
-    }
+	// 按钮风格下不处理圆角，由按钮类处理
+	if (btn) {
+		return "";
+	}
 
-    // 非按钮风格下使用圆角类
-    return roundedClasses[rounded as RoundedSize] || "";
+	// 非按钮风格下使用圆角类
+	return roundedClasses[rounded as RoundedSize] || "";
 }

@@ -18,6 +18,7 @@ import DateContainer from "./DateContainer.astro";
 import RatingContainer from "./RatingContainer.astro";
 import UserNameContainer from "./UserNameContainer.astro";
 import VerifiedContainer from "./VerifiedContainer.astro";
+import ReviewMutedContainer from "./ReviewMutedContainer.astro";
 
 // 导出组件
 export { BasicUsage, VerifiedUser, WithAvatar, CustomStyle };
@@ -30,6 +31,7 @@ export {
 	RatingContainer,
 	UserNameContainer,
 	VerifiedContainer,
+	ReviewMutedContainer,
 };
 
 // 组件包结构
@@ -50,5 +52,6 @@ export const ComponentPackage = {
 		RatingContainer,
 		UserNameContainer,
 		VerifiedContainer,
+		MutedContainer: ReviewMutedContainer,
 	},
 };

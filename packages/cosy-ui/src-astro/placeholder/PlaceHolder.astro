@@ -19,30 +19,30 @@
  * @slots
  * @slot default - 占位符内容
  */
-import '../../style.ts';
-import type { PlaceHolderProps } from './types';
-import { getBasePlaceholderClasses } from '../../src/components/placeholder/class-all';
+import "../../style.ts";
+import type { PlaceHolderProps } from "./types";
+import { getBasePlaceholderClasses } from "../../src/components/placeholder/class-all";
 
 interface Props extends PlaceHolderProps {}
 
 const {
-    background,
-    border = false,
-    class: className = '',
-    height = 'md',
-    muted = false,
-    padding = 'none',
-    width = 'md',
+	background,
+	border = false,
+	class: className = "",
+	height = "md",
+	muted = false,
+	padding = "none",
+	width = "md",
 } = Astro.props;
 
 const combinedClass = getBasePlaceholderClasses({
-    background,
-    border,
-    class: className,
-    height,
-    muted,
-    padding,
-    width,
+	background,
+	border,
+	class: className,
+	height,
+	muted,
+	padding,
+	width,
 });
 ---
 
@@ -56,5 +56,17 @@ const combinedClass = getBasePlaceholderClasses({
         align-items: center;
         justify-content: center;
         border-radius: 0.5rem;
+    }
+
+    .muted-content {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    .muted-content * {
+        color: #9ca3af !important;
+        /* tailwind gray-400 */
+        fill: #9ca3af !important;
+        /* 对于 SVG 图标 */
     }
 </style>

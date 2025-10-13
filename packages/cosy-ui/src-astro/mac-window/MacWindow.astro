@@ -77,33 +77,33 @@
  * @slot status - 状态栏内容，位于窗口底部
  */
 
-import '../../style';
-import { AlertDialog } from '../alert-dialog';
-import { Container } from '../container';
-import type { IMacWindowProps } from './props';
+import "../../style";
+import { AlertDialog } from "../alert-dialog";
+import { Container } from "../container";
+import type { IMacWindowProps } from "./props";
 
 const {
-    height = 'h-96',
-    width = 'md',
-    title = '',
-    withShadow = true,
-    tabs = [],
-    defaultTab = '',
-    id = '',
-    bgType = 'base-100',
+	height = "h-96",
+	width = "md",
+	title = "",
+	withShadow = true,
+	tabs = [],
+	defaultTab = "",
+	id = "",
+	bgType = "base-100",
 } = Astro.props as IMacWindowProps;
 
 // 获取背景色类名
-const headerBgClass = 'cosy:bg-base-200';
-const statusBgClass = 'cosy:bg-base-200/95';
+const headerBgClass = "cosy:bg-base-200";
+const statusBgClass = "cosy:bg-base-200/95";
 
 // 如果没有设置默认标签或默认标签不在tabs中，则选择第一个标签
 const activeTab =
-    defaultTab && tabs.includes(defaultTab)
-        ? defaultTab
-        : tabs.length > 0
-          ? tabs[0]
-          : '';
+	defaultTab && tabs.includes(defaultTab)
+		? defaultTab
+		: tabs.length > 0
+			? tabs[0]
+			: "";
 
 // 生成唯一的窗口ID
 const windowId = id || `mac-window-${Math.random().toString(36).substr(2, 9)}`;

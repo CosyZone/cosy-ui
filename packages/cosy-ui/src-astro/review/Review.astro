@@ -51,55 +51,61 @@
  * @prop {string} [date] - 评价日期
  * @prop {boolean} [verified] - 是否认证用户
  * @prop {string} [avatar] - 用户头像URL
+ * @prop {boolean} [muted] - 是否使用柔和色样式（未激活状态）
  * @prop {string} [class] - 自定义类名
  * @prop {any} [class:list] - 类名列表
  */
 
 // 导入样式
-import '../../style.ts';
+import "../../style.ts";
 
-import Text from '../text/Text.astro';
-import Badge from '../badge/Badge.astro';
-import SmartIcon from '../smart-icon/SmartIcon.astro';
-import Card from '../card/Card.astro';
-import Avatar from '../avatar/Avatar.astro';
-import type { IReviewProps } from './props';
+import Text from "../text/Text.astro";
+import Badge from "../badge/Badge.astro";
+import SmartIcon from "../smart-icon/SmartIcon.astro";
+import Card from "../card/Card.astro";
+import Avatar from "../avatar/Avatar.astro";
+import type { IReviewProps } from "./props";
 
 const {
-    userName,
-    rating,
-    comment,
-    date,
-    verified = false,
-    avatar,
-    class: className = '',
-    'class:list': classList,
-    ...rest
+	userName,
+	rating,
+	comment,
+	date,
+	verified = false,
+	avatar,
+	muted = false,
+	class: className = "",
+	"class:list": classList,
+	...rest
 } = Astro.props as IReviewProps;
 
 // 生成星级评分
 const generateStars = (rating: number) => {
-    return Array.from({ length: 5 }, (_, i) => ({
-        filled: i < Math.floor(rating),
-        half: i === Math.floor(rating) && rating % 1 !== 0,
-    }));
+	return Array.from({ length: 5 }, (_, i) => ({
+		filled: i < Math.floor(rating),
+		half: i === Math.floor(rating) && rating % 1 !== 0,
+	}));
 };
 
 // 格式化日期
 const formatDate = (dateString: string) => {
-    try {
-        return new Date(dateString).toLocaleDateString('zh-CN', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-        });
-    } catch {
-        return dateString;
-    }
+	try {
+		return new Date(dateString).toLocaleDateString("zh-CN", {
+			year: "numeric",
+			month: "2-digit",
+			day: "2-digit",
+		});
+	} catch {
+		return dateString;
+	}
 };
+
+const mutedClass = muted ? "review-muted" : "";
 ---
 
-<Card class:list={['cosy:review', 'cosy:p-6', className, classList]} {...rest}>
+<Card
+    class:list={['cosy:review', 'cosy:p-6', className, classList, mutedClass]}
+    {...rest}>
     <!-- 用户信息 -->
     <div class="cosy:flex cosy:items-center cosy:gap-3 cosy:mb-3">
         <!-- 用户头像 -->
@@ -157,3 +163,17 @@ const formatDate = (dateString: string) => {
         )
     }
 </Card>
+
+<style>
+    .review-muted {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    .review-muted * {
+        color: #9ca3af !important;
+        /* tailwind gray-400 */
+        fill: #9ca3af !important;
+        /* 对于 SVG 图标 */
+    }
+</style>

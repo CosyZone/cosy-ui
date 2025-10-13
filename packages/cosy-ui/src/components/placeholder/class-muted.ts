@@ -8,8 +8,8 @@
  * @returns 对应的类名
  */
 export function getPlaceholderMutedClass(muted?: boolean): string {
-    if (muted) {
-        return "cosy:bg-gray-100 cosy:dark:bg-gray-800";
-    }
-    return "";
+	if (muted) {
+		return "cosy:bg-gray-100 cosy:dark:bg-gray-800 muted-content";
+	}
+	return "";
 }

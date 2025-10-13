@@ -7,9 +7,9 @@ import { getBaseLinkClasses } from "../../src/components/link/class-all";
  * @returns 组合后的类名数组
  */
 export function getLinkCombinedClassesAstro(props: ILinkProps): string[] {
-    // 使用共享的基础类名计算函数
-    const baseClasses = getBaseLinkClasses(props);
+	// 使用共享的基础类名计算函数
+	const baseClasses = getBaseLinkClasses(props);
 
-    // 过滤掉空字符串
-    return baseClasses.filter(Boolean);
+	// 过滤掉空字符串
+	return baseClasses.filter(Boolean);
 }

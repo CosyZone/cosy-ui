@@ -8,33 +8,33 @@
  * @returns 修饰符类名数组
  */
 export function getLinkModifierClasses(
-    btn: boolean,
-    noUnderline: boolean,
-    fullWidth: boolean,
-    active: boolean,
-    debug: boolean,
+	btn: boolean,
+	noUnderline: boolean,
+	fullWidth: boolean,
+	active: boolean,
+	debug: boolean,
 ): string[] {
-    const classes: string[] = [];
+	const classes: string[] = [];
 
-    // 非按钮风格下的无下划线
-    if (!btn && noUnderline) {
-        classes.push("cosy:no-underline cosy:hover:no-underline");
-    }
+	// 非按钮风格下的无下划线
+	if (!btn && noUnderline) {
+		classes.push("cosy:no-underline cosy:hover:no-underline");
+	}
 
-    // 宽度100%
-    if (fullWidth && !btn) {
-        classes.push("cosy:w-full");
-    }
+	// 宽度100%
+	if (fullWidth && !btn) {
+		classes.push("cosy:w-full");
+	}
 
-    // Active state
-    if (active) {
-        classes.push("cosy:active");
-    }
+	// Active state
+	if (active) {
+		classes.push("cosy:active");
+	}
 
-    // 调试样式
-    if (debug) {
-        classes.push("cosy:border cosy:border-dashed cosy:border-red-500");
-    }
+	// 调试样式
+	if (debug) {
+		classes.push("cosy:border cosy:border-dashed cosy:border-red-500");
+	}
 
-    return classes;
+	return classes;
 }

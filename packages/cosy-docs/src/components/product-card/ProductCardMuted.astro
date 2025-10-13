@@ -1,0 +1,13 @@
+---
+import { ProductCard } from "@coffic/cosy-ui";
+import { getProductImage } from "@coffic/cosy-ui";
+---
+
+<ProductCard
+    name="静音产品卡片"
+    image={getProductImage({ width: 300, height: 200, tag: 'product-muted' })}
+    description="这是一个使用了 muted 属性的产品卡片，看起来处于未激活状态。"
+    productUrl="https://example.com"
+    appStoreUrl="https://apps.apple.com/app/example"
+    muted
+/>

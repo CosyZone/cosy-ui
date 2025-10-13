@@ -19,6 +19,7 @@ export * from "./src-vue/grid/index";
 export * from "./src-vue/icons/index";
 export * from "./src-vue/link/index";
 export * from "./src-vue/placeholder/index";
+export * from "./src-vue/products/index";
 export * from "./src-vue/smart-icon/index";
 export * from "./src-vue/social-icon/index";
 export * from "./src-vue/key-catcher/index";

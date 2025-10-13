@@ -6,67 +6,67 @@
  * 首页 Hero 区域组件，包含标题、描述、按钮和组件展示
  */
 
-import { TeamMember } from '@coffic/cosy-ui';
-import { getExampleImage } from '@coffic/cosy-ui';
-import { StatsDisplay } from '@coffic/cosy-ui';
+import { TeamMember } from "@coffic/cosy-ui";
+import { getExampleImage } from "@coffic/cosy-ui";
+import { StatsDisplay } from "@coffic/cosy-ui";
 import {
-    Banner,
-    Container,
-    Grid,
-    Hero,
-    Heading,
-    Button,
-    LinkUtil,
-    Text,
-    Card,
-    PlaceHolder,
-} from '@coffic/cosy-ui';
-import { Review } from '@coffic/cosy-ui';
-import { Products } from '@coffic/cosy-ui';
-import { getProductImage } from '@coffic/cosy-ui';
+	Banner,
+	Container,
+	Grid,
+	Hero,
+	Heading,
+	Button,
+	LinkUtil,
+	Text,
+	Card,
+	PlaceHolder,
+} from "@coffic/cosy-ui";
+import { Review } from "@coffic/cosy-ui";
+import { Products, ProductCard } from "@coffic/cosy-ui";
+import { getProductImage } from "@coffic/cosy-ui";
 
 const compactStats = [
-    { value: '100%', label: '开源' },
-    { value: 'MIT', label: '协议' },
-    { value: '2025', label: '版本' },
+	{ value: "100%", label: "开源" },
+	{ value: "MIT", label: "协议" },
+	{ value: "2025", label: "版本" },
 ];
 
 const products = [
-    {
-        name: '产品1',
-        image: getProductImage({ width: 400, height: 300, tag: 'product1' }),
-        description: '这是产品1的描述',
-        productUrl: 'https://product1.com',
-    },
-    {
-        name: '产品2',
-        image: getProductImage({ width: 400, height: 300, tag: 'product2' }),
-        description: '这是产品2的描述',
-        appStoreUrl: 'https://apps.apple.com/app/product2',
-    },
+	{
+		name: "产品1",
+		image: getProductImage({ width: 400, height: 300, tag: "product1" }),
+		description: "这是产品1的描述",
+		productUrl: "https://product1.com",
+	},
+	{
+		name: "产品2",
+		image: getProductImage({ width: 400, height: 300, tag: "product2" }),
+		description: "这是产品2的描述",
+		appStoreUrl: "https://apps.apple.com/app/product2",
+	},
 ];
 const avatar = getExampleImage({
-    width: 200,
-    height: 200,
-    provider: 'robohash',
-    randomSeed: 'member1',
+	width: 200,
+	height: 200,
+	provider: "robohash",
+	randomSeed: "member1",
 });
 
 export interface Props {
-    /**
-     * 语言设置
-     */
-    lang: string;
+	/**
+	 * 语言设置
+	 */
+	lang: string;
 }
 
 const { lang } = Astro.props;
 
 const description =
-    lang === 'zh-cn'
-        ? '一个组件库，帮助你构建美好的用户界面'
-        : 'A library of components for building user interfaces';
+	lang === "zh-cn"
+		? "一个组件库，帮助你构建美好的用户界面"
+		: "A library of components for building user interfaces";
 
-const mainTitle = 'Cosy UI';
+const mainTitle = "Cosy UI";
 ---
 
 <Container
@@ -99,6 +99,7 @@ const mainTitle = 'Cosy UI';
                 height="md"
                 padding="md"
                 background="base-100"
+                muted
                 border>
                 <Button href={LinkUtil.createUrl(`/${lang}/manuals`)}>
                     {lang === 'zh-cn' ? '开始使用' : 'Get Started'}
@@ -112,6 +113,7 @@ const mainTitle = 'Cosy UI';
                 height="md"
                 padding="md"
                 background="base-100"
+                muted
                 border>
                 <StatsDisplay
                     stats={compactStats}
@@ -173,10 +175,17 @@ const mainTitle = 'Cosy UI';
             gap="lg"
             flex="row">
             <!-- 左侧 -->
-            <Products products={products} cardSize="sm" columns={2} />
+            <div class="cosy:grid cosy:grid-cols-2 cosy:gap-4 cosy:w-full">
+                {
+                    products.map((product) => (
+                        <ProductCard {...product} size="sm" muted />
+                    ))
+                }
+            </div>
 
             <!-- 中间 -->
             <Review
+                muted
                 userName="张先生"
                 rating={5}
                 comment="产品非常好用，质量很棒！推荐购买。"
@@ -185,6 +194,7 @@ const mainTitle = 'Cosy UI';
 
             <!-- 右侧 -->
             <TeamMember
+                muted
                 name="张三"
                 role="前端开发工程师"
                 avatar={avatar}

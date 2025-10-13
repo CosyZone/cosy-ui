@@ -1,0 +1,17 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+
+// 源码导入（用于 codes 数组）
+import ProductCardVueAppStoreUrlSourceCode from './ProductCardVueAppStoreUrl.vue?raw';
+
+// 组件导入（用于实际渲染）
+import ProductCardVueAppStoreUrl from './ProductCardVueAppStoreUrl.vue';
+---
+
+<CodeContainer
+    codes={[ProductCardVueAppStoreUrlSourceCode]}
+    titles={['appStoreUrl']}>
+    <div id="tab-1">
+        <ProductCardVueAppStoreUrl client:load />
+    </div>
+</CodeContainer>

@@ -1,4 +1,7 @@
-import { getBackgroundClass, type BackgroundColor } from "../../../src/common/backgrounds";
+import {
+	getBackgroundClass,
+	type BackgroundColor,
+} from "../../../src/common/backgrounds";
 
 /**
  * 计算 Heading 组件的背景色相关类名
@@ -6,7 +9,7 @@ import { getBackgroundClass, type BackgroundColor } from "../../../src/common/ba
  * @returns 背景色相关的类名
  */
 export function getHeadingBackgroundClass(
-    background?: BackgroundColor,
+	background?: BackgroundColor,
 ): string {
-    return getBackgroundClass(background);
+	return getBackgroundClass(background);
 }

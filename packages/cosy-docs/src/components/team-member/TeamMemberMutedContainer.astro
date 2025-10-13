@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from "@coffic/cosy-ui";
+import TeamMemberNotMutedSourceCode from "./TeamMemberNotMuted.astro?raw";
+import TeamMemberMutedSourceCode from "./TeamMemberMuted.astro?raw";
+import TeamMemberNotMuted from "./TeamMemberNotMuted.astro";
+import TeamMemberMuted from "./TeamMemberMuted.astro";
+---
+
+<CodeContainer
+    codes={[TeamMemberNotMutedSourceCode, TeamMemberMutedSourceCode]}
+    titles={['false', 'true']}>
+    <div id="tab-1">
+        <TeamMemberNotMuted />
+    </div>
+    <div id="tab-2">
+        <TeamMemberMuted />
+    </div>
+</CodeContainer>

@@ -14,42 +14,42 @@ import { getHeadingUnderlineClass } from "./class-underline";
  * @returns 组合后的类名数组
  */
 export function getBaseHeadingClasses(props: IHeadingPropsBase): string[] {
-    const {
-        align = "left",
-        background,
-        color = "default",
-        class: className = "",
-        level = 2,
-        margin = "md",
-        padding = "none",
-        underline = false,
-        weight,
-    } = props;
+	const {
+		align = "left",
+		background,
+		color = "default",
+		class: className = "",
+		level = 2,
+		margin = "md",
+		padding = "none",
+		underline = false,
+		weight,
+	} = props;
 
-    // 构建各个部分的类名
-    const alignClass = getHeadingAlignClass(align);
-    const backgroundClass = getHeadingBackgroundClass(background);
-    const colorClass = getHeadingColorClass(color);
-    const marginClass = getHeadingMarginClass(margin);
-    const paddingClass = getHeadingPaddingClass(padding);
-    const sizeClass = getHeadingSizeClass(level);
-    const weightClass = getHeadingWeightClass(level, weight);
-    const underlineClass = getHeadingUnderlineClass(underline);
+	// 构建各个部分的类名
+	const alignClass = getHeadingAlignClass(align);
+	const backgroundClass = getHeadingBackgroundClass(background);
+	const colorClass = getHeadingColorClass(color);
+	const marginClass = getHeadingMarginClass(margin);
+	const paddingClass = getHeadingPaddingClass(padding);
+	const sizeClass = getHeadingSizeClass(level);
+	const weightClass = getHeadingWeightClass(level, weight);
+	const underlineClass = getHeadingUnderlineClass(underline);
 
-    // 组合所有类名
-    const baseClasses = [
-        "heading",
-        "cosy:w-full",
-        sizeClass,
-        weightClass,
-        colorClass,
-        alignClass,
-        underlineClass,
-        marginClass,
-        backgroundClass,
-        paddingClass,
-        className,
-    ];
+	// 组合所有类名
+	const baseClasses = [
+		"heading",
+		"cosy:w-full",
+		sizeClass,
+		weightClass,
+		colorClass,
+		alignClass,
+		underlineClass,
+		marginClass,
+		backgroundClass,
+		paddingClass,
+		className,
+	];
 
-    return baseClasses;
+	return baseClasses;
 }
