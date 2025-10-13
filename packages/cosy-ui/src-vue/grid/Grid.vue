@@ -31,10 +31,12 @@ import { computed } from "vue";
  * @prop {string} [rowGap] - 行间距，默认与 gap 相同
  * @prop {string} [colGap] - 列间距，默认与 gap 相同
  * @prop {string} [marginY] - 垂直外边距，可选值：none, xs, sm, md, lg, xl
- * @prop {boolean} [border] - 是否显示边框
+ * @prop {string} [border="none"] - 边框尺寸，可选值：none, sm, md, lg, xl
  * @prop {string} [class] - 自定义类名
  * @prop {any} [class:list] - 类名列表
  */
+
+import type { BorderSize } from "../../src/common/border";
 
 type GapSize = "none" | "xs" | "sm" | "md" | "lg" | "xl";
 type ResponsiveValue<T> =
@@ -54,7 +56,7 @@ export interface IGridProps {
 	rowGap?: GapSize;
 	colGap?: GapSize;
 	marginY?: GapSize;
-	border?: boolean;
+	border?: BorderSize;
 	class?: string;
 	"class:list"?: any;
 }
@@ -62,7 +64,7 @@ export interface IGridProps {
 const props = withDefaults(defineProps<IGridProps>(), {
 	cols: 1,
 	gap: "md",
-	border: false,
+	border: "none",
 	class: "",
 });
 
@@ -345,67 +347,89 @@ const getColsClasses = (cols: ResponsiveValue<number>) => {
 	return result.join(" ");
 };
 
-// 间距映射
-const gapClasses: Record<GapSize, string> = {
-	none: "cosy:gap-0",
-	xs: "cosy:gap-2",
-	sm: "cosy:gap-4",
-	md: "cosy:gap-6",
-	lg: "cosy:gap-8",
-	xl: "cosy:gap-12",
+// 获取间距类名
+const getGapClass = (gap: GapSize) => {
+	const gapMap = {
+		none: "",
+		xs: "cosy:gap-1",
+		sm: "cosy:gap-2",
+		md: "cosy:gap-4",
+		lg: "cosy:gap-6",
+		xl: "cosy:gap-8",
+	};
+	return gapMap[gap] || "";
 };
 
-// 行间距映射
-const rowGapClasses: Record<GapSize, string> = {
-	none: "cosy:row-gap-0",
-	xs: "cosy:row-gap-2",
-	sm: "cosy:row-gap-4",
-	md: "cosy:row-gap-6",
-	lg: "cosy:row-gap-8",
-	xl: "cosy:row-gap-12",
+// 获取行间距类名
+const getRowGapClass = (rowGap?: GapSize) => {
+	const rowGapMap = {
+		none: "cosy:row-gap-0",
+		xs: "cosy:row-gap-1",
+		sm: "cosy:row-gap-2",
+		md: "cosy:row-gap-4",
+		lg: "cosy:row-gap-6",
+		xl: "cosy:row-gap-8",
+	};
+	return rowGap ? rowGapMap[rowGap] || "" : "";
 };
 
-// 列间距映射
-const colGapClasses: Record<GapSize, string> = {
-	none: "cosy:col-gap-0",
-	xs: "cosy:col-gap-2",
-	sm: "cosy:col-gap-4",
-	md: "cosy:col-gap-6",
-	lg: "cosy:col-gap-8",
-	xl: "cosy:col-gap-12",
+// 获取列间距类名
+const getColGapClass = (colGap?: GapSize) => {
+	const colGapMap = {
+		none: "cosy:col-gap-0",
+		xs: "cosy:col-gap-1",
+		sm: "cosy:col-gap-2",
+		md: "cosy:col-gap-4",
+		lg: "cosy:col-gap-6",
+		xl: "cosy:col-gap-8",
+	};
+	return colGap ? colGapMap[colGap] || "" : "";
 };
 
-// 垂直外边距映射
-const marginYClasses: Record<GapSize, string> = {
-	none: "cosy:my-0",
-	xs: "cosy:my-2",
-	sm: "cosy:my-4",
-	md: "cosy:my-6",
-	lg: "cosy:my-8",
-	xl: "cosy:my-12",
+// 获取垂直外边距类名
+const getMarginYClass = (marginY?: GapSize) => {
+	const marginYMap = {
+		none: "cosy:my-0",
+		xs: "cosy:my-1",
+		sm: "cosy:my-2",
+		md: "cosy:my-4",
+		lg: "cosy:my-6",
+		xl: "cosy:my-8",
+	};
+	return marginY ? marginYMap[marginY] || "" : "";
 };
 
-// 构建最终类名
-const gridClasses = computed(() => {
+// 获取边框类名
+const getBorderClass = (border: BorderSize) => {
+	const borderMap = {
+		none: "",
+		sm: "cosy:border cosy:border-base-300",
+		md: "cosy:border-2 cosy:border-base-300",
+		lg: "cosy:border-4 cosy:border-base-300",
+		xl: "cosy:border-8 cosy:border-base-300",
+	};
+	return borderMap[border] || "";
+};
+
+// 计算组合类名
+const combinedClass = computed(() => {
 	const classes = [
 		"cosy:grid",
 		getColsClasses(props.cols),
-		props.rowGap
-			? rowGapClasses[props.rowGap]
-			: props.colGap
-				? gapClasses[props.gap]
-				: gapClasses[props.gap],
-		props.colGap ? colGapClasses[props.colGap] : null,
-		props.marginY ? marginYClasses[props.marginY] : null,
-		props.border ? "cosy:border cosy:rounded-lg" : null,
+		getGapClass(props.gap),
+		getRowGapClass(props.rowGap),
+		getColGapClass(props.colGap),
+		getMarginYClass(props.marginY),
+		getBorderClass(props.border),
 		props.class,
-	];
-	return classes.filter(Boolean).join(" ");
+	].filter(Boolean);
+
+	return classes.join(" ");
 });
 </script>
 
 <template>
-  <div :class="[gridClasses, props['class:list']]" v-bind="$attrs">
+  <div :class="combinedClass" v-bind="$attrs">
     <slot />
   </div>
 </template>

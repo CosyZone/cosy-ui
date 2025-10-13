@@ -14,7 +14,7 @@ import { getBasePlaceholderClasses } from "../../src/components/placeholder/clas
  * ```
  * @props
  * @prop {BackgroundColor} [background] - 背景色类型，支持所有预设背景色和透明度变体
- * @prop {boolean} [border=false] - 是否显示边框
+ * @prop {string} [border="none"] - 边框尺寸，可选值：none, sm, md, lg, xl
  * @prop {string} [class] - 自定义 CSS 类名，用于添加额外的样式
  * @prop {string} [height='md'] - 高度尺寸，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl、full
  * @prop {boolean} [muted=false] - 是否使用柔和色背景
@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<Props>(), {
 	height: "md",
 	padding: "none",
 	width: "md",
-	border: false,
+	border: "none",
 	muted: false,
 });
 

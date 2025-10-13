@@ -34,14 +34,15 @@ const {
 	borderColor,
 	class: className = "",
 	height,
+	muted,
 	...rest
 } = Astro.props as Props;
 
 // 计算组合类名
 const computedContainerClasses = getContainerCombinedClasses({
 	aspectRatio,
-	background,
 	backgroundImage,
+	background,
 	width,
 	padding,
 	py,
@@ -63,6 +64,7 @@ const computedContainerClasses = getContainerCombinedClasses({
 	borderColor,
 	class: className,
 	height,
+	muted,
 });
 
 // 计算其他需要的属性
@@ -85,7 +87,7 @@ const computedInlineStyles = fitEnabled
 ---
 
 <section
-    class:list={[computedContainerClasses]}
+    class:list={computedContainerClasses}
     style={computedInlineStyles}
     {...rest}>
     <!-- 最底层的背景图片 -->

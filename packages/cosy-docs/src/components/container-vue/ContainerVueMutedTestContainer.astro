@@ -1,0 +1,18 @@
+---
+/**
+ * @component ContainerVue Muted Test Container
+ * @description ContainerVue 组件 muted 属性测试容器组件
+ */
+
+import { CodeContainer } from "@coffic/cosy-ui";
+import ContainerVueMutedTest from "./ContainerVueMutedTest.vue";
+import ContainerVueMutedTestSourceCode from "./ContainerVueMutedTest.vue?raw";
+---
+
+<CodeContainer
+    codes={[ContainerVueMutedTestSourceCode]}
+    titles={['muted-test']}>
+    <div id="tab-1">
+        <ContainerVueMutedTest client:load />
+    </div>
+</CodeContainer>

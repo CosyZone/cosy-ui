@@ -5,6 +5,7 @@
 import type { PaddingSize, RoundedSize } from "../../src/common";
 import type { BackgroundColor } from "../../src/common/backgrounds";
 import type { Size } from "../../src/common/size";
+import type { BorderSize } from "../../src/common/border";
 
 // 照片卡片尺寸类型
 export type PhotoCardSize = "xs" | "sm" | "md" | "lg" | "xl";
@@ -51,8 +52,8 @@ export interface IPhotoWallProps {
 	width?: Size;
 	/** 容器背景色 */
 	background?: BackgroundColor;
-	/** 是否显示边框 */
-	border?: boolean;
+	/** 边框尺寸 */
+	border?: BorderSize;
 	/** 是否居中显示 */
 	centered?: boolean;
 	/** 中心标题 */

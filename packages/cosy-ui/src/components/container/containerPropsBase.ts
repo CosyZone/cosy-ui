@@ -77,6 +77,12 @@ export interface IContainerPropsBase {
 	margin?: MarginSize;
 
 	/**
+	 * 是否使用柔和色样式（未激活状态）
+	 * @default false
+	 */
+	muted?: boolean;
+
+	/**
 	 * 内边距大小
 	 * @default "md"
 	 */

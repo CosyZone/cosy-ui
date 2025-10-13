@@ -46,7 +46,7 @@ const props = withDefaults(defineProps<IPhotoWallProps>(), {
 	clickable: true,
 	width: "full",
 	background: undefined,
-	border: false,
+	border: "none",
 	centered: true,
 	title: undefined,
 	subtitle: undefined,
@@ -118,31 +118,49 @@ onMounted(async () => {
 </script>
 
 <template>
-    <Container :width="width" :background="background" :border="border" :centered="centered" :padding="padding"
-        :rounded="rounded" :style="props.style" ignore-heading>
-        <div ref="containerRef" :class="photoWallClasses" class="cosy:relative">
-            <PhotoCard v-for="(photo, index) in photos" :key="photo.id" :card="photo" :hover="hover"
-                :clickable="clickable" :rounded="rounded" :style="{ gridArea: getCardLayout(index, photo).gridArea }" />
+  <Container
+    :width="width"
+    :background="background"
+    :border="border"
+    :centered="centered"
+    :padding="padding"
+    :rounded="rounded"
+    :style="props.style"
+    ignore-heading>
+    <div ref="containerRef" :class="photoWallClasses" class="cosy:relative">
+      <PhotoCard
+        v-for="(photo, index) in photos"
+        :key="photo.id"
+        :card="photo"
+        :hover="hover"
+        :clickable="clickable"
+        :rounded="rounded"
+        :style="{ gridArea: getCardLayout(index, photo).gridArea }" />
 
-            <!-- 中心标题区域 -->
-            <div v-if="title"
-                class="cosy:absolute cosy:inset-0 cosy:flex cosy:items-center cosy:justify-center cosy:pointer-events-none">
-                <!-- 标题内容容器 -->
-                <div class="cosy:relative cosy:text-center cosy:z-10 cosy:px-6 cosy:py-4">
-                    <!-- 遮罩层 - 只覆盖文字区域 -->
-                    <div class="cosy:absolute cosy:inset-0 cosy:bg-white/80 cosy:backdrop-blur-sm cosy:rounded-2xl">
-                    </div>
-                    <!-- 标题内容 -->
-                    <div class="cosy:relative cosy:z-10">
-                        <h2 class="cosy:text-4xl cosy:font-bold cosy:text-gray-900 cosy:mb-2 cosy:leading-tight">
-                            {{ title }}
-                        </h2>
-                        <p v-if="subtitle" class="cosy:text-lg cosy:text-gray-600 cosy:font-medium">
-                            {{ subtitle }}
-                        </p>
-                    </div>
-                </div>
-            </div>
+      <!-- 中心标题区域 -->
+      <div
+        v-if="title"
+        class="cosy:absolute cosy:inset-0 cosy:flex cosy:items-center cosy:justify-center cosy:pointer-events-none">
+        <!-- 标题内容容器 -->
+        <div
+          class="cosy:relative cosy:text-center cosy:z-10 cosy:px-6 cosy:py-4">
+          <!-- 遮罩层 - 只覆盖文字区域 -->
+          <div
+            class="cosy:absolute cosy:inset-0 cosy:bg-white/80 cosy:backdrop-blur-sm cosy:rounded-2xl"></div>
+          <!-- 标题内容 -->
+          <div class="cosy:relative cosy:z-10">
+            <h2
+              class="cosy:text-4xl cosy:font-bold cosy:text-gray-900 cosy:mb-2 cosy:leading-tight">
+              {{ title }}
+            </h2>
+            <p
+              v-if="subtitle"
+              class="cosy:text-lg cosy:text-gray-600 cosy:font-medium">
+              {{ subtitle }}
+            </p>
+          </div>
         </div>
-    </Container>
+      </div>
+    </div>
+  </Container>
 </template>

@@ -26,5 +26,5 @@
 </template>
 
 <script setup lang="ts">
-  import { Review } from '@coffic/cosy-ui/vue';
+import { Review } from "@coffic/cosy-ui/vue";
 </script>

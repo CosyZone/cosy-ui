@@ -2,6 +2,7 @@ import type { BackgroundColor } from "../../../src/common/backgrounds";
 import type { Size } from "../../../src/common/size";
 import type { PaddingSize } from "../../../src/common/padding";
 import type { HeightSize } from "../../../src/common/height";
+import type { BorderSize } from "../../../src/common/border";
 
 /**
  * Placeholder 组件的基础属性接口（与框架无关）
@@ -13,9 +14,9 @@ export interface IPlaceholderPropsBase {
 	background?: BackgroundColor;
 
 	/**
-	 * 是否显示边框
+	 * 边框尺寸
 	 */
-	border?: boolean;
+	border?: BorderSize;
 
 	/**
 	 * 自定义类名

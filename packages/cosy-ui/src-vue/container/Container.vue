@@ -17,6 +17,7 @@ const props = withDefaults(defineProps<Props>(), {
 	border: "none",
 	gap: "none",
 	rounded: "none",
+	muted: false,
 	class: "",
 	contentCentered: false,
 	fit: "none",
@@ -69,34 +70,31 @@ const aspectRatioFit = computed(() => {
 <template>
   <!-- 显示错误信息 -->
   <ContainerError v-if="hasError" :messages="validationMessages" />
-  
+
   <!-- 正常渲染容器 -->
-  <section 
+  <section
     v-else
-    :class="containerClasses" 
+    :class="containerClasses"
     :style="computedInlineStyles"
-    class="cosy:relative"
-  >
+    class="cosy:relative">
     <!-- 最底层的背景图片 -->
     <ContainerBg :background-image="backgroundImage" />
-    
+
     <!-- 当启用宽高比适配时，使用专门的宽高比组件处理 -->
     <AspectRatioBox
       v-if="fitEnabled"
       :aspect-ratio="aspectRatio!"
       :fit="aspectRatioFit"
       :rounded="rounded"
-      :has-explicit-height="hasExplicitHeight"
-    />
-    
+      :has-explicit-height="hasExplicitHeight" />
+
     <!-- 当未启用宽高比适配但需要高度驱动布局时，使用高度驱动组件 -->
-    <div 
-      v-else-if="isHeightDrivenAspect" 
-      class="cosy:absolute cosy:inset-0 cosy:grid cosy:place-items-center"
-    >
+    <div
+      v-else-if="isHeightDrivenAspect"
+      class="cosy:absolute cosy:inset-0 cosy:grid cosy:place-items-center">
       <slot />
     </div>
-    
+
     <!-- 默认情况，直接渲染子元素 -->
     <slot v-else />
   </section>

@@ -19,7 +19,7 @@ export function getBasePlaceholderClasses(
 		height = "md",
 		padding = "none",
 		background,
-		border = false,
+		border = "none",
 		muted = false,
 		class: className = "",
 	} = props;

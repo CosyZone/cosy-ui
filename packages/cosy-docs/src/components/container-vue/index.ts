@@ -13,6 +13,7 @@ import ContainerVueSlotsContainer from "./ContainerVueSlotsContainer.astro";
 import ContainerVueAspectRatioContainer from "./ContainerVueAspectRatioContainer.astro";
 import ContainerVueHeightContainer from "./ContainerVueHeightContainer.astro";
 import ContainerVueSizeContainer from "./ContainerVueSizeContainer.astro";
+import ContainerVueMutedTestContainer from "./ContainerVueMutedTestContainer.astro";
 
 export const ContainerVuePackage = {
 	Basic: ContainerVueBasicContainer,
@@ -30,4 +31,5 @@ export const ContainerVuePackage = {
 	Rounded: ContainerVueRoundedContainer,
 	Size: ContainerVueSizeContainer,
 	Slots: ContainerVueSlotsContainer,
+	MutedTest: ContainerVueMutedTestContainer,
 };
