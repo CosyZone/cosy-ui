@@ -72,7 +72,7 @@
  * @prop {string} [class] - 自定义CSS类，可用于覆盖默认样式
  * @prop {boolean} [compact] - 是否使用紧凑模式
  * @prop {string} [href] - 如果提供，卡片将变成可点击的链接
- * @prop {string} [imageUrl] - 卡片顶部图片的URL
+ * @prop {ImageSource} [imageUrl] - 卡片顶部图片的URL或ImageMetadata
  * @prop {string} [subtitle] - 卡片副标题或描述
  * @prop {string} title - 卡片标题
  *
@@ -80,107 +80,59 @@
  * @slot default - 卡片的主要内容区域
  */
 
-import "../../style.ts";
-import {
-	getBackgroundClass,
-	type BackgroundColor,
-} from "../../src/common/backgrounds";
+import '../../style.ts';
+import type { ICardProps } from './props';
+import { getCardCombinedClasses, getCardPaddingClassVue } from './class';
+import Image from '../image/Image.astro';
 
-/**
- * Card 组件的 Props 接口
- */
-export interface CardProps {
-	/** 背景色类型，支持所有预设背景色和透明度变体 */
-	background?: BackgroundColor;
-	/** 自定义CSS类，可用于覆盖默认样式 */
-	class?: string;
-	/** 是否使用紧凑模式 */
-	compact?: boolean;
-	/** 如果提供，卡片将变成可点击的链接 */
-	href?: string;
-	/** 卡片顶部图片的URL */
-	imageUrl?: string;
-	/** 卡片副标题或描述 */
-	subtitle?: string;
-	/** 卡片标题 */
-	title: string;
-}
+const props = Astro.props as ICardProps;
 
-const {
-	background,
-	class: className = "",
-	compact,
-	href,
-	imageUrl,
-	subtitle,
-	title,
-} = Astro.props;
-
-// 获取背景色类名
-const backgroundClass = getBackgroundClass(background as BackgroundColor);
-
-// 构建卡片样式类
-const cardClasses = [
-	"cosy:card",
-	"cosy:w-full",
-	backgroundClass || "cosy:bg-base-100",
-	"cosy:shadow-xl",
-	"cosy:hover:shadow-2xl",
-	"cosy:transition-all",
-	"cosy:duration-300",
-	"cosy:ease-in-out",
-	compact ? "cosy:card-compact" : "",
-	href
-		? "cosy:cursor-pointer cosy:hover:scale-105 cosy:transform cosy:no-underline"
-		: "",
-	className,
-]
-	.filter(Boolean)
-	.join(" ");
+// 使用共用的工具函数计算组合类名
+const cardClasses = getCardCombinedClasses(props);
 
 // 内容区域的padding类
-const contentPadding = compact ? "cosy:p-4" : "cosy:p-6";
+const contentPadding = getCardPaddingClassVue(props.compact);
 
 // 如果是链接卡片，使用a标签，否则使用article标签
-const Tag = href ? "a" : "article";
+const Tag = props.href ? 'a' : 'article';
 ---
 
 <Tag
-  ignore-heading
-  class={cardClasses}
-  href={href}
-  {...href && { target: '_self' }}>
-  {
-    imageUrl && (
-      <figure class="not-prose cosy:m-0 cosy:p-0">
-        <img
-          src={imageUrl}
-          alt={title}
-          class="cosy:w-full cosy:h-48 cosy:object-cover cosy:rounded-t-lg"
-        />
-      </figure>
-    )
-  }
-
-  <div class={`cosy:card-body ${contentPadding}`}>
-    <h2 class="cosy:card-title cosy:text-xl cosy:font-bold">
-      {title}
-    </h2>
-
+    ignore-heading
+    class:list={cardClasses}
+    href={props.href}
+    {...props.href && { target: '_self' }}>
     {
-      subtitle && (
-        <p class="cosy:text-base-content/70 cosy:text-sm cosy:leading-relaxed">
-          {subtitle}
-        </p>
-      )
+        props.imageUrl && (
+            <figure class="not-prose cosy:m-0 cosy:p-0">
+                <Image
+                    src={props.imageUrl}
+                    alt={props.title}
+                    class="cosy:w-full cosy:h-48 cosy:object-cover cosy:rounded-t-lg"
+                />
+            </figure>
+        )
     }
 
-    {
-      Astro.slots.has('default') && (
-        <div class="cosy:mt-4">
-          <slot />
-        </div>
-      )
-    }
-  </div>
+    <div class={`cosy:card-body ${contentPadding}`}>
+        <h2 class="cosy:card-title cosy:text-xl cosy:font-bold">
+            {props.title}
+        </h2>
+
+        {
+            props.subtitle && (
+                <p class="cosy:text-base-content/70 cosy:text-sm cosy:leading-relaxed">
+                    {props.subtitle}
+                </p>
+            )
+        }
+
+        {
+            Astro.slots.has('default') && (
+                <div class="cosy:mt-4">
+                    <slot />
+                </div>
+            )
+        }
+    </div>
 </Tag>
