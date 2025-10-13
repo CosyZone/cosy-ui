@@ -19,39 +19,42 @@ import RatingContainer from "./RatingContainer.astro";
 import UserNameContainer from "./UserNameContainer.astro";
 import VerifiedContainer from "./VerifiedContainer.astro";
 import ReviewMutedContainer from "./ReviewMutedContainer.astro";
+import ReviewMutedTestContainer from "./ReviewMutedTestContainer.astro";
 
 // 导出组件
 export { BasicUsage, VerifiedUser, WithAvatar, CustomStyle };
 export { BasicUsageVue, VerifiedUserVue, WithAvatarVue, CustomStyleVue };
 export {
-	AvatarContainer,
-	ClassContainer,
-	CommentContainer,
-	DateContainer,
-	RatingContainer,
-	UserNameContainer,
-	VerifiedContainer,
-	ReviewMutedContainer,
+    AvatarContainer,
+    ClassContainer,
+    CommentContainer,
+    DateContainer,
+    RatingContainer,
+    UserNameContainer,
+    VerifiedContainer,
+    ReviewMutedContainer,
+    ReviewMutedTestContainer,
 };
 
 // 组件包结构
 export const ComponentPackage = {
-	ComponentContainers: {
-		BasicUsage,
-		VerifiedUser,
-		WithAvatar,
-		CustomStyle,
-		BasicUsageVue,
-		VerifiedUserVue,
-		WithAvatarVue,
-		CustomStyleVue,
-		AvatarContainer,
-		ClassContainer,
-		CommentContainer,
-		DateContainer,
-		RatingContainer,
-		UserNameContainer,
-		VerifiedContainer,
-		MutedContainer: ReviewMutedContainer,
-	},
+    ComponentContainers: {
+        BasicUsage,
+        VerifiedUser,
+        WithAvatar,
+        CustomStyle,
+        BasicUsageVue,
+        VerifiedUserVue,
+        WithAvatarVue,
+        CustomStyleVue,
+        AvatarContainer,
+        ClassContainer,
+        CommentContainer,
+        DateContainer,
+        RatingContainer,
+        UserNameContainer,
+        VerifiedContainer,
+        MutedContainer: ReviewMutedContainer,
+        MutedTestContainer: ReviewMutedTestContainer,
+    },
 };
