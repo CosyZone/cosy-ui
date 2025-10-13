@@ -4,12 +4,34 @@
  * @description Button 尺寸示例容器组件
  */
 import { CodeContainer } from "@coffic/cosy-ui";
-import ButtonSizes from "./ButtonSizes.astro";
-import ButtonSizesSourceCode from "./ButtonSizes.astro?raw";
+import ButtonSizeXs from "./ButtonSizeXs.astro";
+import ButtonSizeSm from "./ButtonSizeSm.astro";
+import ButtonSizeMd from "./ButtonSizeMd.astro";
+import ButtonSizeLg from "./ButtonSizeLg.astro";
+import ButtonSizeXsSourceCode from "./ButtonSizeXs.astro?raw";
+import ButtonSizeSmSourceCode from "./ButtonSizeSm.astro?raw";
+import ButtonSizeMdSourceCode from "./ButtonSizeMd.astro?raw";
+import ButtonSizeLgSourceCode from "./ButtonSizeLg.astro?raw";
 ---
 
-<CodeContainer codes={[ButtonSizesSourceCode]} titles={['尺寸']}>
-  <div id="tab-1">
-    <ButtonSizes />
-  </div>
+<CodeContainer
+    codes={[
+        ButtonSizeXsSourceCode,
+        ButtonSizeSmSourceCode,
+        ButtonSizeMdSourceCode,
+        ButtonSizeLgSourceCode,
+    ]}
+    titles={['超小 (xs)', '小型 (sm)', '中型 (md)', '大型 (lg)']}>
+    <div id="tab-1">
+        <ButtonSizeXs />
+    </div>
+    <div id="tab-2">
+        <ButtonSizeSm />
+    </div>
+    <div id="tab-3">
+        <ButtonSizeMd />
+    </div>
+    <div id="tab-4">
+        <ButtonSizeLg />
+    </div>
 </CodeContainer>

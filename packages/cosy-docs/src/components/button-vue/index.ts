@@ -6,6 +6,9 @@ import ButtonVueStatesContainer from "./ButtonVueStatesContainer.astro";
 import ButtonVueWithIconsContainer from "./ButtonVueWithIconsContainer.astro";
 import ButtonVueWidthContainer from "./ButtonVueWidthContainer.astro";
 import ButtonVueLinkContainer from "./ButtonVueLinkContainer.astro";
+import ButtonVueSlotDefaultContainer from "./ButtonVueSlotDefaultContainer.astro";
+import ButtonVueTypesContainer from "./ButtonVueTypesContainer.astro";
+import ButtonVueFormmethodContainer from "./ButtonVueFormmethodContainer.astro";
 
 export const ButtonVuePackage = {
 	Basic: ButtonVueBasicContainer,
@@ -16,4 +19,7 @@ export const ButtonVuePackage = {
 	WithIcons: ButtonVueWithIconsContainer,
 	Width: ButtonVueWidthContainer,
 	Link: ButtonVueLinkContainer,
+	SlotDefault: ButtonVueSlotDefaultContainer,
+	Types: ButtonVueTypesContainer,
+	Formmethod: ButtonVueFormmethodContainer,
 };

@@ -7,7 +7,7 @@ import { getBaseBadgeClasses } from "../../src/components/badge/class-all";
  * @returns 组合后的类名数组
  */
 export function getBadgeCombinedClasses(props: IBadgeProps): string[] {
-    const baseClasses = getBaseBadgeClasses(props);
+	const baseClasses = getBaseBadgeClasses(props);
 
-    return baseClasses;
+	return baseClasses;
 }

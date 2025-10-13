@@ -4,5 +4,5 @@
  * @returns 描边类名
  */
 export function getBadgeOutlineClass(outline?: boolean): string {
-    return outline ? "cosy:badge-outline" : "";
+	return outline ? "cosy:badge-outline" : "";
 }

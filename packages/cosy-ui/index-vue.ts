@@ -14,7 +14,7 @@ export * from "./src-vue/card/index";
 export * from "./src-vue/container/index";
 export * from "./src-vue/counter/index";
 export * from "./src-vue/confirm-dialog/index";
-export * from "./src-vue/buttons/index";
+export * from "./src-vue/button/index";
 export * from "./src-vue/grid/index";
 export * from "./src-vue/icons/index";
 export * from "./src-vue/link/index";

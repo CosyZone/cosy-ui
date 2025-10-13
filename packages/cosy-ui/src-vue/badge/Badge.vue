@@ -15,17 +15,17 @@
 @slot default - 徽章内容。
 -->
 <script setup lang="ts">
-  import '../../style';
-  import { computed } from 'vue';
-  import type { IBadgeProps } from './props';
-  import { getBadgeCombinedClassesVue } from './class';
+import "../../style";
+import { computed } from "vue";
+import type { IBadgeProps } from "./props";
+import { getBadgeCombinedClassesVue } from "./class";
 
-  const props = withDefaults(defineProps<IBadgeProps>(), {
-    outline: false,
-  });
+const props = withDefaults(defineProps<IBadgeProps>(), {
+	outline: false,
+});
 
-  // 使用共用的工具函数计算组合类名
-  const badgeClasses = computed(() => getBadgeCombinedClassesVue(props));
+// 使用共用的工具函数计算组合类名
+const badgeClasses = computed(() => getBadgeCombinedClassesVue(props));
 </script>
 
 <template>

@@ -1,0 +1,31 @@
+---
+/**
+ * @component ButtonVueTypesContainer
+ * @description Vue 版本 Button 类型示例容器组件
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import ButtonVueTypeButtonSourceCode from "./ButtonVueTypeButton.vue?raw";
+import ButtonVueTypeSubmitSourceCode from "./ButtonVueTypeSubmit.vue?raw";
+import ButtonVueTypeResetSourceCode from "./ButtonVueTypeReset.vue?raw";
+import ButtonVueTypeButton from "./ButtonVueTypeButton.vue";
+import ButtonVueTypeSubmit from "./ButtonVueTypeSubmit.vue";
+import ButtonVueTypeReset from "./ButtonVueTypeReset.vue";
+---
+
+<CodeContainer
+    codes={[
+        ButtonVueTypeButtonSourceCode,
+        ButtonVueTypeSubmitSourceCode,
+        ButtonVueTypeResetSourceCode,
+    ]}
+    titles={['button', 'submit', 'reset']}>
+    <div id="tab-1">
+        <ButtonVueTypeButton />
+    </div>
+    <div id="tab-2">
+        <ButtonVueTypeSubmit />
+    </div>
+    <div id="tab-3">
+        <ButtonVueTypeReset />
+    </div>
+</CodeContainer>

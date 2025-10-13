@@ -1,0 +1,25 @@
+---
+/**
+ * @component ButtonFormmethodContainer
+ * @description Button formmethod 属性示例容器组件
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import ButtonFormmethodDefault from "./ButtonFormmethodDefault.astro";
+import ButtonFormmethodDialog from "./ButtonFormmethodDialog.astro";
+import ButtonFormmethodDefaultSourceCode from "./ButtonFormmethodDefault.astro?raw";
+import ButtonFormmethodDialogSourceCode from "./ButtonFormmethodDialog.astro?raw";
+---
+
+<CodeContainer
+    codes={[
+        ButtonFormmethodDefaultSourceCode,
+        ButtonFormmethodDialogSourceCode,
+    ]}
+    titles={['默认方法', '对话框方法']}>
+    <div id="tab-1">
+        <ButtonFormmethodDefault />
+    </div>
+    <div id="tab-2">
+        <ButtonFormmethodDialog />
+    </div>
+</CodeContainer>

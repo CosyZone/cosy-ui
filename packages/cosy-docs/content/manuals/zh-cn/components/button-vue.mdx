@@ -4,7 +4,7 @@ description: 'Vue 版本的 Button 组件'
 badge: 'Vue'
 tags:
   - Vue
-order: 2.5
+order: 2.4
 ---
 
 import { Button } from '@coffic/cosy-ui';
@@ -39,11 +39,23 @@ Button 组件用于触发一个即时操作，如表单提交、打开对话框�
 
 <ButtonVuePackage.Width />
 
+### class
+
+自定义 CSS 类名，用于覆盖默认样式。
+
+<ButtonVuePackage.Basic />
+
 ### disabled
 
 是否禁用按钮，设置为 true 时按钮不可点击。
 
 <ButtonVuePackage.States />
+
+### formmethod
+
+表单提交方法，支持 dialog 等特殊值。
+
+<ButtonVuePackage.Formmethod />
 
 ### href
 
@@ -56,6 +68,12 @@ Button 组件用于触发一个即时操作，如表单提交、打开对话框�
 是否显示加载状态，设置为 true 时显示加载动画。
 
 <ButtonVuePackage.States />
+
+### onClick
+
+点击事件处理函数，支持内联 JavaScript 代码。
+
+<ButtonVuePackage.Basic />
 
 ### shape
 
@@ -79,7 +97,7 @@ Button 组件用于触发一个即时操作，如表单提交、打开对话框�
 
 按钮类型，支持 button、submit、reset。
 
-<ButtonVuePackage.Basic />
+<ButtonVuePackage.Types />
 
 ### variant
 
@@ -99,7 +117,7 @@ Button 组件用于触发一个即时操作，如表单提交、打开对话框�
 
 按钮内容插槽，用于放置按钮文本内容。
 
-<ButtonVuePackage.Basic />
+<ButtonVuePackage.SlotDefault />
 
 ### icon-left
 

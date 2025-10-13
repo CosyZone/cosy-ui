@@ -3,7 +3,5 @@
  * @returns 基础类名数组
  */
 export function getBadgeBaseClasses(): string[] {
-    return [
-        "cosy:badge",
-    ];
+	return ["cosy:badge"];
 }
