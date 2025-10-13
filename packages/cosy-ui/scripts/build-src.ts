@@ -27,7 +27,7 @@ async function copySrcToDist(): Promise<void> {
 
 		await fs_extra.copy(srcDir, srcDistDir, { filter });
 
-		console.log("✅ 成功复制 src 源代码到 dist");
+		console.log("✅ 复制 src 源代码");
 	} catch (error) {
 		console.error("❌ 复制 src 源代码失败:", error);
 		process.exit(1);

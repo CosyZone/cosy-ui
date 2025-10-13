@@ -1,44 +1,24 @@
 ---
 /**
- * @component ContainerVue Flex Container
- * @description ContainerVue Flex 布局容器组件
+ * @component ContainerVueFlexContainer
+ * @description Container Vue 组件 Flex 布局多标签演示容器
  */
-
 import { CodeContainer } from "@coffic/cosy-ui";
-import ContainerVueFlexNone from "./ContainerVueFlexNone.vue";
 import ContainerVueFlexRow from "./ContainerVueFlexRow.vue";
 import ContainerVueFlexCol from "./ContainerVueFlexCol.vue";
-import ContainerVueFlexRowReverse from "./ContainerVueFlexRowReverse.vue";
-import ContainerVueFlexColReverse from "./ContainerVueFlexColReverse.vue";
-import ContainerVueFlexNoneCode from "./ContainerVueFlexNone.vue?raw";
-import ContainerVueFlexRowCode from "./ContainerVueFlexRow.vue?raw";
-import ContainerVueFlexColCode from "./ContainerVueFlexCol.vue?raw";
-import ContainerVueFlexRowReverseCode from "./ContainerVueFlexRowReverse.vue?raw";
-import ContainerVueFlexColReverseCode from "./ContainerVueFlexColReverse.vue?raw";
+import ContainerVueFlexCenter from "./ContainerVueFlexCenter.vue";
+import ContainerVueFlexBetween from "./ContainerVueFlexBetween.vue";
+import sourceRow from "./ContainerVueFlexRow.vue?raw";
+import sourceCol from "./ContainerVueFlexCol.vue?raw";
+import sourceCenter from "./ContainerVueFlexCenter.vue?raw";
+import sourceBetween from "./ContainerVueFlexBetween.vue?raw";
 ---
 
 <CodeContainer
-  titles={['undefined', 'row', 'col', 'row-reverse', 'col-reverse']}
-  codes={[
-    ContainerVueFlexNoneCode,
-    ContainerVueFlexRowCode,
-    ContainerVueFlexColCode,
-    ContainerVueFlexRowReverseCode,
-    ContainerVueFlexColReverseCode,
-  ]}>
-  <div id="tab-1">
-    <ContainerVueFlexNone client:load />
-  </div>
-  <div id="tab-2">
-    <ContainerVueFlexRow client:load />
-  </div>
-  <div id="tab-3">
-    <ContainerVueFlexCol client:load />
-  </div>
-  <div id="tab-4">
-    <ContainerVueFlexRowReverse client:load />
-  </div>
-  <div id="tab-5">
-    <ContainerVueFlexColReverse client:load />
-  </div>
+    titles={['行布局', '列布局', '居中对齐', '两端对齐']}
+    codes={[sourceRow, sourceCol, sourceCenter, sourceBetween]}>
+    <div id="tab-1"><ContainerVueFlexRow client:load /></div>
+    <div id="tab-2"><ContainerVueFlexCol client:load /></div>
+    <div id="tab-3"><ContainerVueFlexCenter client:load /></div>
+    <div id="tab-4"><ContainerVueFlexBetween client:load /></div>
 </CodeContainer>

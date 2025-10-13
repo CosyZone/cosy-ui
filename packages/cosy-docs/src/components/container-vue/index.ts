@@ -1,5 +1,4 @@
 import ContainerVueBackgroundContainer from "./ContainerVueBackgroundContainer.astro";
-import ContainerVueBackgroundOpacityContainer from "./ContainerVueBackgroundOpacityContainer.astro";
 import ContainerVueBasicContainer from "./ContainerVueBasicContainer.astro";
 import ContainerVueBorderContainer from "./ContainerVueBorderContainer.astro";
 import ContainerVueCenteredContainer from "./ContainerVueCenteredContainer.astro";
@@ -10,22 +9,29 @@ import ContainerVueItemsContainer from "./ContainerVueItemsContainer.astro";
 import ContainerVueJustifyContainer from "./ContainerVueJustifyContainer.astro";
 import ContainerVuePaddingContainer from "./ContainerVuePaddingContainer.astro";
 import ContainerVueRoundedContainer from "./ContainerVueRoundedContainer.astro";
-import ContainerVueSizesContainer from "./ContainerVueSizesContainer.astro";
 import ContainerVueSlotsContainer from "./ContainerVueSlotsContainer.astro";
+import ContainerVueAspectRatioContainer from "./ContainerVueAspectRatioContainer.astro";
+import ContainerVueHeightContainer from "./ContainerVueHeightContainer.astro";
+import ContainerVueSizeContainer from "./ContainerVueSizeContainer.astro";
+import ContainerVueMutedTestContainer from "./ContainerVueMutedTestContainer.astro";
+import ContainerVueShadowContainer from "./ContainerVueShadowContainer.astro";
 
 export const ContainerVuePackage = {
-	Background: ContainerVueBackgroundContainer,
-	BackgroundOpacity: ContainerVueBackgroundOpacityContainer,
 	Basic: ContainerVueBasicContainer,
+	AspectRatio: ContainerVueAspectRatioContainer,
+	Background: ContainerVueBackgroundContainer,
 	Border: ContainerVueBorderContainer,
 	Centered: ContainerVueCenteredContainer,
 	CustomClass: ContainerVueCustomClassContainer,
 	Flex: ContainerVueFlexContainer,
 	Gap: ContainerVueGapContainer,
+	Height: ContainerVueHeightContainer,
 	Items: ContainerVueItemsContainer,
 	Justify: ContainerVueJustifyContainer,
 	Padding: ContainerVuePaddingContainer,
 	Rounded: ContainerVueRoundedContainer,
-	Sizes: ContainerVueSizesContainer,
+	Size: ContainerVueSizeContainer,
 	Slots: ContainerVueSlotsContainer,
+	MutedTest: ContainerVueMutedTestContainer,
+	Shadow: ContainerVueShadowContainer,
 };

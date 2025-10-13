@@ -1,0 +1,9 @@
+<template>
+  <Container background="base-100" padding="md" border="sm" rounded="md">
+    <p>基础背景色 base-100</p>
+  </Container>
+</template>
+
+<script setup lang="ts">
+import { Container } from "@coffic/cosy-ui/vue";
+</script>

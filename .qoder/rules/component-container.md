@@ -1,0 +1,134 @@
+---
+alwaysApply: true
+---
+
+# 容器组件规范
+
+如果这个规则被应用，则在输出中说明：!! 我注意到了项目的容器组件规范
+
+## CodeContainer 使用规范
+
+- 使用 [CodeContainer](mdc:packages/cosy-ui/src-astro/code-container/CodeContainer.astro)
+- 使用 `?raw` 后缀导入源代码
+- 每个功能特性一个标签页
+- 提供 titles 数组
+- **每个标签页的 div 必须有对应的 id**：`id="tab-1"`, `id="tab-2"`, `id="tab-3"` 等
+- **属性的每个值都要至少有一个对应的标签**：确保组件属性的每个可能值都有对应的示例展示
+- **每个标签页仅包含一个核心组件实例**：一个标签页/示例文件只能渲染一次核心组件
+- **禁止在单个示例文件中渲染多个核心组件实例**：需要展示多个变体/对比时，应拆分为多个示例文件，并在容器组件中以多个标签页呈现
+
+## 源码命名规范
+
+- **源码变量名必须以 `SourceCode` 结尾**：如果组件名字叫做 `ABC`，那么对应的源码变量名就是 `ABCSourceCode`
+- **组件变量名与源码变量名保持一致的命名规则**：组件 `ABC` 对应源码 `ABCSourceCode`
+- **tab 内容必须与源码渲染结果一致**：tab 中直接使用示例组件，确保渲染结果与源码文件完全匹配
+
+## 正确示例
+
+```astro
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+
+// 源码导入（用于 codes 数组）
+import NoneExampleSourceCode from './NoneExample.astro?raw';
+import FadeExampleSourceCode from './FadeExample.astro?raw';
+import SlideExampleSourceCode from './SlideExample.astro?raw';
+import ZoomExampleSourceCode from './ZoomExample.astro?raw';
+
+// 组件导入（用于实际渲染）
+import NoneExample from './NoneExample.astro';
+import FadeExample from './FadeExample.astro';
+import SlideExample from './SlideExample.astro';
+import ZoomExample from './ZoomExample.astro';
+---
+
+<CodeContainer
+  codes={[NoneExampleSourceCode, FadeExampleSourceCode, SlideExampleSourceCode, ZoomExampleSourceCode]}
+  titles={['none', 'fade', 'slide', 'zoom']}>
+  <div id="tab-1">
+    <NoneExample />
+  </div>
+  <div id="tab-2">
+    <FadeExample />
+  </div>
+  <div id="tab-3">
+    <SlideExample />
+  </div>
+  <div id="tab-4">
+    <ZoomExample />
+  </div>
+</CodeContainer>
+```
+
+## 错误示例
+
+### 缺少 id 属性
+
+```astro
+<CodeContainer codes={[code1, code2]}>
+  <div>  <!-- 错误：缺少 id -->
+    <Component />
+  </div>
+  <div>  <!-- 错误：缺少 id -->
+    <Component variant="advanced" />
+  </div>
+</CodeContainer>
+```
+
+### 缺少属性值展示
+
+```astro
+<CodeContainer codes={[code1, code2]} titles={['none', 'fade']}>
+  <div id="tab-1">
+    <Component transition="none" />
+  </div>
+  <div id="tab-2">
+    <Component transition="fade" />
+  </div>
+  <!-- 错误：缺少 slide 和 zoom 值的展示 -->
+</CodeContainer>
+```
+
+### 源码命名不规范
+
+```astro
+---
+// 错误：源码变量名没有以 SourceCode 结尾
+import AvatarExample from './AvatarExample.astro?raw';
+import NoAvatarExample from './NoAvatarExample.astro?raw';
+---
+
+<CodeContainer
+  codes={[AvatarExample, NoAvatarExample]}  <!-- 错误：应该使用 SourceCode 结尾的变量名 -->
+  titles={['带头像', '无头像']}>
+  <div id="tab-1">
+    <AvatarExample />
+  </div>
+  <div id="tab-2">
+    <NoAvatarExample />
+  </div>
+</CodeContainer>
+```
+
+### tab 内容与源码不一致
+
+```astro
+---
+import AvatarExampleSourceCode from './AvatarExample.astro?raw';
+import AvatarExample from './AvatarExample.astro';
+---
+
+<CodeContainer
+  codes={[AvatarExampleSourceCode]}
+  titles={['带头像']}>
+  <div id="tab-1">
+    <!-- 错误：直接写组件代码，而不是使用示例组件 -->
+    <Review
+      userName="王先生"
+      rating={5}
+      comment="非常满意，超出预期！"
+      avatar="https://example.com/avatar.jpg"
+    />
+  </div>
+</CodeContainer>
+```

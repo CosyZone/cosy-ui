@@ -1,23 +1,20 @@
 ---
 /**
- * @component ContainerVue Centered Container
- * @description ContainerVue 居中容器组件
+ * @component ContainerVueCenteredContainer
+ * @description Container Vue 组件居中示例容器
  */
-
 import { CodeContainer } from "@coffic/cosy-ui";
-import ContainerVueCentered from "./ContainerVueCentered.vue";
-import ContainerVueCenteredLeft from "./ContainerVueCenteredLeft.vue";
-import ContainerVueCenteredCode from "./ContainerVueCentered.vue?raw";
-import ContainerVueCenteredLeftCode from "./ContainerVueCenteredLeft.vue?raw";
+import ContainerVueCenteredTrue from "./ContainerVueCenteredTrue.vue";
+import ContainerVueCenteredFalse from "./ContainerVueCenteredFalse.vue";
+import sourceTrue from "./ContainerVueCenteredTrue.vue?raw";
+import sourceFalse from "./ContainerVueCenteredFalse.vue?raw";
 ---
 
-<CodeContainer
-  titles={['true', 'false']}
-  codes={[ContainerVueCenteredCode, ContainerVueCenteredLeftCode]}>
-  <div id="tab-1">
-    <ContainerVueCentered client:load />
-  </div>
-  <div id="tab-2">
-    <ContainerVueCenteredLeft client:load />
-  </div>
+<CodeContainer codes={[sourceTrue, sourceFalse]} titles={['true', 'false']}>
+    <div id="tab-1">
+        <ContainerVueCenteredTrue client:load />
+    </div>
+    <div id="tab-2">
+        <ContainerVueCenteredFalse client:load />
+    </div>
 </CodeContainer>

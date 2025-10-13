@@ -1,29 +1,28 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import { PlaceHolder } from '@coffic/cosy-ui';
-import HeroSection from '@/widgets/HeroSection.astro';
-import DesignPhilosophy from '@/widgets/DesignPhilosophy.astro';
-import LiveDemo from '@/widgets/LiveDemo.astro';
-import BuilderPattern from '@/widgets/BuilderPattern.astro';
-import Showcase from '@/widgets/Showcase.astro';
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import HeroSection from "@/widgets/HeroSection.astro";
+import DesignPhilosophy from "@/widgets/DesignPhilosophy.astro";
+import LiveDemo from "@/widgets/LiveDemo.astro";
+import Showcase from "@/widgets/Showcase.astro";
+import { PlaceHolder } from "@coffic/cosy-ui";
 
 export const prerender = true;
 
-const { lang = 'zh-cn' } = Astro.params;
+const { lang = "zh-cn" } = Astro.params;
 
 export const getStaticPaths = async () => {
-    return [
-        {
-            params: { lang: 'zh-cn' },
-        },
-        {
-            params: { lang: 'en' },
-        },
-    ];
+	return [
+		{
+			params: { lang: "zh-cn" },
+		},
+		{
+			params: { lang: "en" },
+		},
+	];
 };
 
 interface Props {
-    lang: string;
+	lang: string;
 }
 ---
 
@@ -37,13 +36,14 @@ interface Props {
     <HeroSection lang={lang} />
     <DesignPhilosophy lang={lang} />
     <LiveDemo lang={lang} />
-    <BuilderPattern lang={lang} />
     <Showcase lang={lang} />
+
+    <PlaceHolder height="2xl" />
 </BaseLayout>
 
 <script is:inline>
     if (window.location.hostname.includes('github.io')) {
-        const newUrl = `https://ui.coffic.cn/${window.location.pathname.split('/').filter(Boolean).join('/')}`;
+        const newUrl = `https://ui.coffic.cn/en`;
         window.location.replace(newUrl);
     }
 </script>

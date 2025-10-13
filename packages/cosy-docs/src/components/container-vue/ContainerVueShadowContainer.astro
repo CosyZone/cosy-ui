@@ -1,0 +1,46 @@
+---
+import { CodeContainer } from "@coffic/cosy-ui";
+import ContainerVueShadowNoneSourceCode from "./ContainerVueShadowNone.vue?raw";
+import ContainerVueShadowSmSourceCode from "./ContainerVueShadowSm.vue?raw";
+import ContainerVueShadowMdSourceCode from "./ContainerVueShadowMd.vue?raw";
+import ContainerVueShadowLgSourceCode from "./ContainerVueShadowLg.vue?raw";
+import ContainerVueShadowXlSourceCode from "./ContainerVueShadowXl.vue?raw";
+import ContainerVueShadow2xlSourceCode from "./ContainerVueShadow2xl.vue?raw";
+
+import ContainerVueShadowNone from "./ContainerVueShadowNone.vue";
+import ContainerVueShadowSm from "./ContainerVueShadowSm.vue";
+import ContainerVueShadowMd from "./ContainerVueShadowMd.vue";
+import ContainerVueShadowLg from "./ContainerVueShadowLg.vue";
+import ContainerVueShadowXl from "./ContainerVueShadowXl.vue";
+import ContainerVueShadow2xl from "./ContainerVueShadow2xl.vue";
+---
+
+<CodeContainer
+    codes={[
+        ContainerVueShadowNoneSourceCode,
+        ContainerVueShadowSmSourceCode,
+        ContainerVueShadowMdSourceCode,
+        ContainerVueShadowLgSourceCode,
+        ContainerVueShadowXlSourceCode,
+        ContainerVueShadow2xlSourceCode,
+    ]}
+    titles={['none', 'sm', 'md', 'lg', 'xl', '2xl']}>
+    <div id="tab-1">
+        <ContainerVueShadowNone />
+    </div>
+    <div id="tab-2">
+        <ContainerVueShadowSm />
+    </div>
+    <div id="tab-3">
+        <ContainerVueShadowMd />
+    </div>
+    <div id="tab-4">
+        <ContainerVueShadowLg />
+    </div>
+    <div id="tab-5">
+        <ContainerVueShadowXl />
+    </div>
+    <div id="tab-6">
+        <ContainerVueShadow2xl />
+    </div>
+</CodeContainer>

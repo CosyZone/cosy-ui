@@ -17,60 +17,19 @@
 <script setup lang="ts">
 import "../../style";
 import { computed } from "vue";
+import type { IBadgeProps } from "./props";
+import { getBadgeCombinedClassesVue } from "./class";
 
-const props = defineProps({
-	variant: {
-		type: String,
-		default: undefined,
-		validator: (v: string) =>
-			[
-				"primary",
-				"secondary",
-				"accent",
-				"ghost",
-				"info",
-				"success",
-				"warning",
-				"error",
-			].includes(v),
-	},
-	size: {
-		type: String,
-		default: undefined,
-		validator: (v: string) => ["xs", "sm", "md", "lg"].includes(v),
-	},
-	outline: Boolean,
-	class: String,
+const props = withDefaults(defineProps<IBadgeProps>(), {
+	outline: false,
 });
 
-const variantClass = computed(() => {
-	if (props.variant === "primary") return "cosy:badge-primary";
-	if (props.variant === "secondary") return "cosy:badge-secondary";
-	if (props.variant === "accent") return "cosy:badge-accent";
-	if (props.variant === "ghost") return "cosy:badge-ghost";
-	if (props.variant === "info") return "cosy:badge-info";
-	if (props.variant === "success") return "cosy:badge-success";
-	if (props.variant === "warning") return "cosy:badge-warning";
-	if (props.variant === "error") return "cosy:badge-error";
-	return "";
-});
-const sizeClass = computed(() => {
-	if (props.size === "xs") return "cosy:badge-xs";
-	if (props.size === "sm") return "cosy:badge-sm";
-	if (props.size === "md") return "cosy:badge-md";
-	if (props.size === "lg") return "cosy:badge-lg";
-	return "";
-});
+// 使用共用的工具函数计算组合类名
+const badgeClasses = computed(() => getBadgeCombinedClassesVue(props));
 </script>
 
 <template>
-    <span :class="[
-        'cosy:badge',
-        variantClass,
-        sizeClass,
-        props.outline ? 'cosy:badge-outline' : '',
-        props.class
-    ]">
-        <slot />
-    </span>
+  <span :class="badgeClasses">
+    <slot />
+  </span>
 </template>

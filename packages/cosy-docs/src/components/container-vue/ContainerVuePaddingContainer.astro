@@ -1,44 +1,27 @@
 ---
 /**
- * @component ContainerVue Padding Container
- * @description ContainerVue 内边距容器组件
+ * @component ContainerVuePaddingContainer
+ * @description Container Vue 组件内边距多标签演示容器
  */
-
 import { CodeContainer } from "@coffic/cosy-ui";
 import ContainerVuePaddingNone from "./ContainerVuePaddingNone.vue";
 import ContainerVuePaddingSm from "./ContainerVuePaddingSm.vue";
 import ContainerVuePaddingMd from "./ContainerVuePaddingMd.vue";
 import ContainerVuePaddingLg from "./ContainerVuePaddingLg.vue";
 import ContainerVuePaddingXl from "./ContainerVuePaddingXl.vue";
-import ContainerVuePaddingNoneCode from "./ContainerVuePaddingNone.vue?raw";
-import ContainerVuePaddingSmCode from "./ContainerVuePaddingSm.vue?raw";
-import ContainerVuePaddingMdCode from "./ContainerVuePaddingMd.vue?raw";
-import ContainerVuePaddingLgCode from "./ContainerVuePaddingLg.vue?raw";
-import ContainerVuePaddingXlCode from "./ContainerVuePaddingXl.vue?raw";
+import sourceNone from "./ContainerVuePaddingNone.vue?raw";
+import sourceSm from "./ContainerVuePaddingSm.vue?raw";
+import sourceMd from "./ContainerVuePaddingMd.vue?raw";
+import sourceLg from "./ContainerVuePaddingLg.vue?raw";
+import sourceXl from "./ContainerVuePaddingXl.vue?raw";
 ---
 
 <CodeContainer
-  titles={['none', 'sm', 'md', 'lg', 'xl']}
-  codes={[
-    ContainerVuePaddingNoneCode,
-    ContainerVuePaddingSmCode,
-    ContainerVuePaddingMdCode,
-    ContainerVuePaddingLgCode,
-    ContainerVuePaddingXlCode,
-  ]}>
-  <div id="tab-1">
-    <ContainerVuePaddingNone client:load />
-  </div>
-  <div id="tab-2">
-    <ContainerVuePaddingSm client:load />
-  </div>
-  <div id="tab-3">
-    <ContainerVuePaddingMd client:load />
-  </div>
-  <div id="tab-4">
-    <ContainerVuePaddingLg client:load />
-  </div>
-  <div id="tab-5">
-    <ContainerVuePaddingXl client:load />
-  </div>
+    titles={['none', 'sm', 'md', 'lg', 'xl']}
+    codes={[sourceNone, sourceSm, sourceMd, sourceLg, sourceXl]}>
+    <div id="tab-1"><ContainerVuePaddingNone client:load /></div>
+    <div id="tab-2"><ContainerVuePaddingSm client:load /></div>
+    <div id="tab-3"><ContainerVuePaddingMd client:load /></div>
+    <div id="tab-4"><ContainerVuePaddingLg client:load /></div>
+    <div id="tab-5"><ContainerVuePaddingXl client:load /></div>
 </CodeContainer>

@@ -4,7 +4,7 @@ description: 'Vue version of Alert component'
 badge: 'Vue'
 tags:
   - Vue
-order: 1.4
+order: 1.1
 ---
 
 import { Alert } from '@coffic/cosy-ui';
@@ -45,6 +45,24 @@ Whether the alert can be closed, setting to false will hide the close button.
 
 <AlertVuePackage.Closable />
 
+### description
+
+Description text, displayed below the title, with smaller font size and reduced opacity.
+
+<AlertVuePackage.WithTitle />
+
+### marginY
+
+Vertical margin size, supports preset size values.
+
+<AlertVuePackage.MarginY />
+
+### showIcon
+
+Whether to display the icon, setting to false will hide the icon corresponding to the type.
+
+<AlertVuePackage.NoIcon />
+
 ### title
 
 Alert title, optional, displayed as bold text.
@@ -56,6 +74,12 @@ Alert title, optional, displayed as bold text.
 Alert type, affects colors and icons, supports info, success, warning, error four types.
 
 <AlertVuePackage.Types />
+
+### variant
+
+Style variant, supports solid (filled), outline (bordered), dash (dashed), soft (soft) four styles.
+
+<AlertVuePackage.Outline />
 
 ## Emits
 

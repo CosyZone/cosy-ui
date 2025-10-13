@@ -1,0 +1,15 @@
+---
+import { CodeContainer } from "@coffic/cosy-ui";
+
+// 源码导入（用于 codes 数组）
+import ProductCardVueImageSourceCode from "./ProductCardVueImage.vue?raw";
+
+// 组件导入（用于实际渲染）
+import ProductCardVueImage from "./ProductCardVueImage.vue";
+---
+
+<CodeContainer codes={[ProductCardVueImageSourceCode]} titles={['image']}>
+    <div id="tab-1">
+        <ProductCardVueImage client:load />
+    </div>
+</CodeContainer>

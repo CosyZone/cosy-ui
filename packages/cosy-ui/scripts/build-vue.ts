@@ -33,7 +33,7 @@ async function copySrcToDist(): Promise<void> {
 			path.join(distDir, "index-vue.ts"),
 		);
 
-		console.log("✅ 成功复制 vue 源码到 dist");
+		console.log("✅ 复制 vue 源代码");
 	} catch (error) {
 		console.error("❌ 复制 vue 源码失败:", error);
 		process.exit(1);

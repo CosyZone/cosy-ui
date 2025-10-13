@@ -1,0 +1,24 @@
+---
+import Image from "../image/Image.astro";
+import "../../style.ts";
+import type { ImageSource } from "../image/types.ts";
+
+export interface Props {
+	backgroundImage?: ImageSource;
+}
+
+const { backgroundImage } = Astro.props as Props;
+---
+
+{
+    backgroundImage && (
+        <Image
+            src={backgroundImage}
+            alt=""
+            layout="fill"
+            objectFit="cover"
+            asBackground
+            class="cosy:-z-10 cosy:pointer-events-none"
+        />
+    )
+}

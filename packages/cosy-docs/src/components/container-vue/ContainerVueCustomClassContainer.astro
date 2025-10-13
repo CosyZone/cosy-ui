@@ -1,16 +1,22 @@
 ---
 /**
- * @component ContainerVue Custom Class Container
- * @description ContainerVue 自定义类名容器组件
+ * @component ContainerVueCustomClassContainer
+ * @description Container Vue 组件自定义类名示例容器
  */
-
 import { CodeContainer } from "@coffic/cosy-ui";
-import ContainerVueCustomClass from "./ContainerVueCustomClass.vue";
-import ContainerVueCustomClassCode from "./ContainerVueCustomClass.vue?raw";
+import ContainerVueCustomClassBasic from "./ContainerVueCustomClassBasic.vue";
+import ContainerVueCustomClassAdvanced from "./ContainerVueCustomClassAdvanced.vue";
+import sourceBasic from "./ContainerVueCustomClassBasic.vue?raw";
+import sourceAdvanced from "./ContainerVueCustomClassAdvanced.vue?raw";
 ---
 
-<CodeContainer titles={['自定义样式']} codes={[ContainerVueCustomClassCode]}>
-  <div id="tab-1">
-    <ContainerVueCustomClass client:load />
-  </div>
+<CodeContainer
+    codes={[sourceBasic, sourceAdvanced]}
+    titles={['basic', 'advanced']}>
+    <div id="tab-1">
+        <ContainerVueCustomClassBasic client:load />
+    </div>
+    <div id="tab-2">
+        <ContainerVueCustomClassAdvanced client:load />
+    </div>
 </CodeContainer>

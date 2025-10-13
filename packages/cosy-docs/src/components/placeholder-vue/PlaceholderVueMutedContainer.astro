@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from "@coffic/cosy-ui";
+import PlaceholderVueNotMutedSource from "./PlaceholderVueNotMuted.vue?raw";
+import PlaceholderVueMutedSource from "./PlaceholderVueMuted.vue?raw";
+import PlaceholderVueNotMuted from "./PlaceholderVueNotMuted.vue";
+import PlaceholderVueMuted from "./PlaceholderVueMuted.vue";
+---
+
+<CodeContainer
+    codes={[PlaceholderVueNotMutedSource, PlaceholderVueMutedSource]}
+    titles={['false', 'true']}>
+    <div id="tab-1">
+        <PlaceholderVueNotMuted />
+    </div>
+    <div id="tab-2">
+        <PlaceholderVueMuted />
+    </div>
+</CodeContainer>

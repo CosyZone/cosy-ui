@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import type { IPlaceHolderProps } from "./types";
-import {
-	getBackgroundClass,
-	type BackgroundColor,
-} from "../../src/common/backgrounds";
+import { getBasePlaceholderClasses } from "../../src/components/placeholder/class-all";
 
 /**
  * @component PlaceHolder
@@ -17,8 +14,10 @@ import {
  * ```
  * @props
  * @prop {BackgroundColor} [background] - 背景色类型，支持所有预设背景色和透明度变体
+ * @prop {string} [border="none"] - 边框尺寸，可选值：none, sm, md, lg, xl
  * @prop {string} [class] - 自定义 CSS 类名，用于添加额外的样式
  * @prop {string} [height='md'] - 高度尺寸，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl、full
+ * @prop {boolean} [muted=false] - 是否使用柔和色背景
  * @prop {string} [padding='none'] - 内边距大小，可选值：none、xs、sm、md、lg、xl
  * @prop {string} [width='md'] - 宽度尺寸，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl、full
  * @slots
@@ -31,61 +30,21 @@ const props = withDefaults(defineProps<Props>(), {
 	height: "md",
 	padding: "none",
 	width: "md",
+	border: "none",
+	muted: false,
 });
 
-// 宽度样式映射
-const widthClassMap = {
-	none: "",
-	xs: "cosy:w-8",
-	sm: "cosy:w-16",
-	md: "cosy:w-24",
-	lg: "cosy:w-32",
-	xl: "cosy:w-40",
-	"2xl": "cosy:w-48",
-	"3xl": "cosy:w-56",
-	"4xl": "cosy:w-64",
-	"5xl": "cosy:w-72",
-	"6xl": "cosy:w-80",
-	full: "cosy:w-full",
-} as const;
-
-// 高度样式映射
-const heightClassMap = {
-	none: "",
-	xs: "cosy:h-8",
-	sm: "cosy:h-16",
-	md: "cosy:h-24",
-	lg: "cosy:h-32",
-	xl: "cosy:h-40",
-	"2xl": "cosy:h-48",
-	"3xl": "cosy:h-56",
-	"4xl": "cosy:h-64",
-	"5xl": "cosy:h-72",
-	"6xl": "cosy:h-80",
-	full: "cosy:h-full",
-} as const;
-
-// 内边距样式映射
-const paddingClassMap = {
-	none: "",
-	xs: "cosy:p-1",
-	sm: "cosy:p-2",
-	md: "cosy:p-4",
-	lg: "cosy:p-6",
-	xl: "cosy:p-8",
-} as const;
-
-// 使用通用背景色函数
-const widthClass =
-	widthClassMap[props.width as keyof typeof widthClassMap] || "";
-const heightClass =
-	heightClassMap[props.height as keyof typeof heightClassMap] || "";
-const paddingClass =
-	paddingClassMap[props.padding as keyof typeof paddingClassMap] || "";
-const backgroundClass = getBackgroundClass(props.background);
-
+// 使用新的类名计算方式
 const combinedClass = computed(() => {
-	return `placeholder ${widthClass} ${heightClass} ${paddingClass} ${backgroundClass} ${props.class || ""}`.trim();
+	return getBasePlaceholderClasses({
+		background: props.background,
+		border: props.border,
+		class: props.class,
+		height: props.height,
+		muted: props.muted,
+		padding: props.padding,
+		width: props.width,
+	});
 });
 </script>
 
@@ -96,10 +55,22 @@ const combinedClass = computed(() => {
 </template>
 
 <style scoped>
-.placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.5rem;
-}
+  .placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+  }
+
+  .muted-content {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .muted-content :deep(*) {
+    color: #9ca3af !important;
+    /* tailwind gray-400 */
+    fill: #9ca3af !important;
+    /* 对于 SVG 图标 */
+  }
 </style>

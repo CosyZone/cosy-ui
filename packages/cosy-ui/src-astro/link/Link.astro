@@ -118,154 +118,40 @@
 import "../../style.ts";
 import { ChevronLeftIcon, ChevronRightIcon, GithubIcon } from "../icons";
 import Image from "../image/Image.astro";
-import type { ImageSource } from "../image/image";
 // 导入所有图标组件
 import * as Icons from "../icons";
+import type { ILinkProps } from "./props";
+import { getLinkCombinedClassesAstro } from "./class";
 
-const {
-	href,
-	external = false,
-	block = false,
-	variant = "default",
-	animation = "none",
-	size = "md",
-	class: className = "",
-	"class:list": classList,
-	debug = false,
-	btn = false,
-	circle = false,
-	ghost = false,
-	noUnderline = true,
-	rounded = "none",
-	fullWidth = false,
-	color,
-	align,
-	active = false,
-	navigationType,
-	icon,
-	hoverImage,
-	hoverImageAlt,
-	...rest
-} = Astro.props;
+const props = Astro.props as ILinkProps;
 
 // 获取图标组件
-const IconComponent = icon ? (Icons as any)[icon] : null;
+const IconComponent = props.icon ? (Icons as any)[props.icon] : null;
 
-// 圆角类名映射
-const roundedClasses = {
-	none: "",
-	sm: "cosy:rounded-sm",
-	md: "cosy:rounded-md",
-	lg: "cosy:rounded-lg",
-	xl: "cosy:rounded-xl",
-	full: "cosy:rounded-full",
-} as const;
-
-// 圆角类型定义
-type RoundedType = keyof typeof roundedClasses;
-
-// 构建类名
-const classes = [
-	// 基础链接样式
-	"cosy:items-center cosy:cursor-pointer cosy:transition-all cosy:duration-200",
-
-	// 显示方式
-	block ? "cosy:flex cosy:w-full" : "cosy:inline-flex",
-
-	// 悬停图片功能需要相对定位和 group 类
-	hoverImage && "cosy:relative cosy:group",
-
-	// 图标和文字间距（当有图标时添加间距）
-	icon && "cosy:gap-2",
-
-	// 变体样式
-	variant === "primary" && "cosy:text-primary cosy:hover:text-primary-focus",
-	variant === "secondary" &&
-		"cosy:text-secondary cosy:hover:text-secondary-focus",
-	variant === "text",
-	variant === "cta" &&
-		"cosy:text-accent cosy:hover:text-accent-focus cosy:font-medium",
-	variant === "ghost" &&
-		"cosy:text-base-content cosy:hover:text-base-content/80",
-	variant === "default" &&
-		"cosy:text-base-content cosy:hover:text-base-content/90",
-	variant === "light" &&
-		"cosy:text-white cosy:hover:text-white/90 cosy:font-medium",
-	variant === "navigation" &&
-		"cosy:flex cosy:items-center cosy:gap-3 cosy:p-4 cosy:bg-base-100 cosy:border cosy:border-base-300 cosy:rounded-lg cosy:shadow-sm cosy:hover:shadow-md cosy:hover:border-base-400 cosy:transition-all cosy:duration-300 cosy:ease-in-out cosy:no-underline cosy:hover:no-underline cosy:font-medium cosy:text-base-content cosy:hover:text-base-content cosy:hover:-translate-y-1 cosy:hover:scale-[1.01] cosy:backdrop-blur-sm cosy:hover:backdrop-blur-md",
-	variant === "github" &&
-		"cosy:flex cosy:items-center cosy:gap-2 cosy:text-base-content cosy:hover:text-base-content/80 cosy:transition-colors cosy:duration-200 cosy:no-underline cosy:hover:no-underline cosy:font-medium",
-
-	// 尺寸样式
-	size === "sm" && "cosy:text-sm",
-	size === "md" && "cosy:text-base",
-	size === "lg" && "cosy:text-lg",
-
-	// 动画效果
-	animation === "hover-lift" &&
-		"cosy:hover:-translate-y-0.5 cosy:transition-transform",
-	animation === "hover-glow" &&
-		"cosy:hover:brightness-125 cosy:transition-[filter]",
-	animation === "hover-scale" &&
-		"cosy:hover:scale-105 cosy:transition-transform",
-
-	// Active state
-	active && "cosy:active",
-
-	// 按钮风格
-	btn && "cosy:btn",
-	btn && size === "sm" && "cosy:btn-sm",
-	btn && size === "lg" && "cosy:btn-lg",
-	btn && ghost && "cosy:btn-ghost",
-	btn && color && `cosy:btn-${color}`,
-	btn && fullWidth && "cosy:btn-block",
-	btn && circle && "cosy:btn-circle",
-	btn && rounded === "full" && "cosy:rounded-full",
-
-	// 非按钮风格下的圆角
-	!btn && roundedClasses[rounded as RoundedType],
-
-	// 非按钮风格下的无下划线
-	!btn && noUnderline && "cosy:no-underline cosy:hover:no-underline",
-
-	// 宽度100%
-	fullWidth && !btn && "cosy:w-full",
-
-	// 对齐
-	align === "center" && "cosy:justify-center cosy:text-center",
-	align === "right" && "cosy:justify-end cosy:text-right",
-	align === "left" && "cosy:justify-start cosy:text-left",
-
-	// 自定义类名
-	className,
-];
-
-// 调试样式
-if (debug) {
-	classes.push("cosy:border cosy:border-dashed cosy:border-red-500");
-}
+// 使用共用的工具函数计算组合类名
+const classes = getLinkCombinedClassesAstro(props);
 ---
 
 <a
-  href={href}
-  class:list={[classes, classList]}
-  {...external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
-  {...rest}>
-  {navigationType === 'previous' && <ChevronLeftIcon />}
-  {variant === 'github' && <GithubIcon />}
+  href={props.href}
+  class:list={[classes, props["class:list"]]}
+  {...props.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
+  {...Astro.props}>
+  {props.navigationType === 'previous' && <ChevronLeftIcon />}
+  {props.variant === 'github' && <GithubIcon />}
   {IconComponent && <IconComponent />}
   <slot />
-  {navigationType === 'next' && <ChevronRightIcon />}
+  {props.navigationType === 'next' && <ChevronRightIcon />}
 
   {/* 悬停图片显示 */}
-  {hoverImage && (
+  {props.hoverImage && (
     <div
       class="cosy:absolute cosy:bottom-full cosy:left-1/2 cosy:transform cosy:-translate-x-1/2 cosy:mb-2 cosy:opacity-0 cosy:group-hover:opacity-100 cosy:transition-opacity cosy:duration-300 cosy:z-50 cosy:min-w-56 cosy:pointer-events-none">
       <div
         class="cosy:bg-white cosy:rounded-lg cosy:shadow-lg cosy:p-3 cosy:border cosy:border-gray-200 cosy:min-w-56">
         <Image
-          src={hoverImage}
-          alt={hoverImageAlt || '悬停图片'}
+          src={props.hoverImage}
+          alt={props.hoverImageAlt || '悬停图片'}
           width={200}
           height={200}
           class="cosy:w-56 cosy:h-56"

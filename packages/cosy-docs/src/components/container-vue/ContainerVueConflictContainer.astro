@@ -1,0 +1,15 @@
+---
+/**
+ * @component ContainerVueConflictContainer
+ * @description Container Vue 组件冲突属性示例容器
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import ContainerVueConflict from "./ContainerVueConflict.vue";
+import source from "./ContainerVueConflict.vue?raw";
+---
+
+<CodeContainer codes={[source]} titles={['冲突示例']}>
+    <div id="tab-1">
+        <ContainerVueConflict client:load />
+    </div>
+</CodeContainer>

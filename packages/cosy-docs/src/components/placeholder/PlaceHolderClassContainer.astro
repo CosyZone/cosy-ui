@@ -1,0 +1,13 @@
+---
+/**
+ * @component PlaceHolderClassContainer
+ * @description PlaceHolder 组件 class 属性用法示例容器
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import PlaceHolderCustomClass from "./PlaceHolderCustomClass.astro";
+import sourceCustomClass from "./PlaceHolderCustomClass.astro?raw";
+---
+
+<CodeContainer titles={['自定义样式']} codes={[sourceCustomClass]}>
+    <div id="tab-1"><PlaceHolderCustomClass /></div>
+</CodeContainer>

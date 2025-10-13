@@ -1,7 +1,6 @@
 import type { HTMLAttributes } from "astro/types";
 
 export const iconNames = [
-	"SocialIcon",
 	"TwitterIcon",
 	"UserIcon",
 	"WarningIcon",

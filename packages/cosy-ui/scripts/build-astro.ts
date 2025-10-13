@@ -33,7 +33,7 @@ async function copySrcToDist(): Promise<void> {
 			path.join(distDir, "index-astro.ts"),
 		);
 
-		console.log("✅ 成功复制 Astro 源代码到 dist");
+		console.log("✅ 复制 Astro 源代码");
 	} catch (error) {
 		console.error("❌ 复制 Astro 源代码失败:", error);
 		process.exit(1);

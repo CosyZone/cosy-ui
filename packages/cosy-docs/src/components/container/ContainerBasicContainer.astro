@@ -1,22 +1,15 @@
 ---
 /**
  * @component ContainerBasicContainer
- * @description Container 基础用法示例容器（基础用法 + 修饰器写法）
+ * @description Container 基础用法示例容器（仅保留基础用法）
  */
 import { CodeContainer } from "@coffic/cosy-ui";
 import ContainerBasic from "./ContainerBasic.astro";
 import ContainerBasicSource from "./ContainerBasic.astro?raw";
-import ContainerBasicBuilder from "./ContainerBasicBuilder.astro";
-import ContainerBasicBuilderSource from "./ContainerBasicBuilder.astro?raw";
 ---
 
-<CodeContainer
-  titles={['基础用法', '修饰器写法']}
-  codes={[ContainerBasicSource, ContainerBasicBuilderSource]}>
-  <div id="tab-1">
-    <ContainerBasic />
-  </div>
-  <div id="tab-2">
-    <ContainerBasicBuilder />
-  </div>
+<CodeContainer titles={['基础用法']} codes={[ContainerBasicSource]}>
+    <div id="tab-1">
+        <ContainerBasic />
+    </div>
 </CodeContainer>

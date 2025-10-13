@@ -1,5 +1,6 @@
 import type { HTMLAttributes } from "astro/types";
 import type { BackgroundColor } from "../../src/common/backgrounds";
+import type { BorderSize } from "../../src/common/border";
 
 type GapSize = "none" | "xs" | "sm" | "md" | "lg" | "xl";
 type Breakpoint = "base" | "sm" | "md" | "lg" | "xl" | "2xl";
@@ -49,9 +50,9 @@ export interface GridProps extends HTMLAttributes<"div"> {
 	marginY?: GapSize;
 
 	/**
-	 * 是否显示边框
+	 * 边框尺寸
 	 */
-	border?: boolean;
+	border?: BorderSize;
 
 	/**
 	 * 自定义类名

@@ -5,8 +5,7 @@ folder: false
 order: 3.8
 ---
 
-import { Container, Alert } from '@coffic/cosy-ui';
-import { ContainerPackage } from '@/components/container';
+import { ComponentPackage } from '@/components/container';
 
 # {frontmatter.title}
 
@@ -16,120 +15,106 @@ The Container component is a basic layout container used to limit content width 
 
 ## Examples
 
-<ContainerPackage.Examples.Basic />
+<ComponentPackage.ComponentContainers.BasicUsage />
 
 ## Props
 
 ### aspectRatio
-Aspect ratio (width/height). When set, the container will maintain this ratio, such as 16/9, 4/3, 1, etc. When aspectRatio is set, the container will always maintain this ratio regardless of screen size changes.
-<ContainerPackage.Containers.AspectRatio />
+
+Aspect ratio (width/height), when set, the container will maintain this ratio, such as 16/9, 4/3, 1, etc.
+
+<ComponentPackage.ComponentContainers.AspectRatioContainer />
 
 ### background
-Background color type, supporting background colors and opacity variants, such as: base-100, primary, secondary, accent, neutral, info, success, warning, error, primary/10, secondary/20, etc.
-<ContainerPackage.Containers.Background />
 
-### backgroundImage
-Background image source, supports local ImageMetadata and remote URLs. When provided, it renders as a full-cover background layer. It can be combined with `background` color for better contrast.
-<ContainerPackage.Containers.BackgroundImage />
+Background color type, supports all Tailwind background colors and opacity variants, such as: base-100, primary, secondary, accent, neutral, info, success, warning, error, and opacity variants like primary/10, secondary/20, etc.
+
+<ComponentPackage.ComponentContainers.BackgroundContainer />
 
 ### border
-Border size. Optional values: none, sm, md, lg, xl.
-<ContainerPackage.Containers.Border />
 
-### borderColor
-Border color, supports all predefined colors and opacity variants, such as: primary, success, primary/50, etc.
-<ContainerPackage.Containers.BorderColor />
+Border size, optional values: none, sm, md, lg, xl.
+
+<ComponentPackage.ComponentContainers.BorderContainer />
 
 ### centered
-Whether to center the display. When set to false, the container will be left-aligned.
-<ContainerPackage.Containers.Centered />
+
+Whether to center display, when set to false, the container will be left-aligned.
 
 ### class
+
 Custom CSS class name for adding additional styles.
-<ContainerPackage.Containers.CustomClass />
 
-### contentBorder
+<ComponentPackage.ComponentContainers.ClassContainer />
 
-<Alert type="info" variant="soft" closable={false}>
-  Only effective when `fit` is `contain` or `cover`.
-</Alert>
+### contentCentered
 
-Whether to add a border to the proportional content area (the inner ratio box in fit mode).
-<ContainerPackage.Containers.ContentBorder />
+Whether to center the internal content, when enabled, flex layout will be used to center the content within the container.
 
 ### fit
-Content fitting mode. Options: `none` (default), `contain` (preserve ratio, fill as much as possible without overflow), `cover` (preserve ratio, fill and possibly crop). Must be used together with `aspectRatio`, and it is recommended that the parent container has an explicit height (e.g., `height="lg"`).
-<ContainerPackage.Containers.Fit />
+
+Content fit mode: none (default), contain (maintain aspect ratio, try to fill without overflow), cover (maintain aspect ratio, fill and may crop).
+
+<ComponentPackage.ComponentContainers.FitContainer />
 
 ### flex
-Flex layout direction. Optional values: row, col, row-reverse, col-reverse. If not set, flex layout is not enabled.
-<ContainerPackage.Containers.Flex />
+
+Flex layout direction, optional values: row, col, row-reverse, col-reverse. No flex layout when not set.
+
+<ComponentPackage.ComponentContainers.FlexContainer />
 
 ### gap
-Flex item spacing. Optional values: none, xs, sm, md, lg, xl. Only effective when flex layout is enabled.
-<ContainerPackage.Containers.Gap />
+
+Flex item spacing, optional values: none, xs, sm, md, lg, xl. Only effective when flex layout is enabled.
+
+<ComponentPackage.ComponentContainers.GapContainer />
 
 ### height
-Container height. Optional values: none, xs, sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl, 6xl, screen, auto. none means no height is set.
-<ContainerPackage.Containers.Height />
+
+Container height, optional values: none, xs, sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl, 6xl, screen, auto. None means no height setting.
+
+<ComponentPackage.ComponentContainers.HeightContainer />
 
 ### items
-Flex item horizontal alignment. Optional values: start, end, center, baseline, stretch. Only effective when flex layout is enabled.
-<ContainerPackage.Containers.Items />
+
+Flex item horizontal alignment, optional values: start, end, center, baseline, stretch. Only effective when flex layout is enabled.
 
 ### justify
-Flex item vertical alignment. Optional values: start, end, center, between, around, evenly. Only effective when flex layout is enabled.
-<ContainerPackage.Containers.Justify />
+
+Flex item vertical alignment, optional values: start, end, center, between, around, evenly. Only effective when flex layout is enabled.
 
 ### margin
-Outer margin size. Optional values: none, xs, sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl, 6xl.
-<ContainerPackage.Containers.Margin />
+
+Margin size, optional values: none, xs, sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl.
+
+<ComponentPackage.ComponentContainers.MarginContainer />
+
+### muted
+
+Whether to use muted style (inactive state). When set to true, the container will appear semi-transparent and disable interaction.
+
+<ComponentPackage.ComponentContainers.MutedContainer />
 
 ### padding
-Inner padding size. Optional values: none, sm, md, lg, xl.
-<ContainerPackage.Containers.Padding />
 
-### py
-Vertical padding (top and bottom). Optional values: none, xs, sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl.
-<ContainerPackage.Containers.PaddingAxis />
+Padding size, optional values: none, sm, md, lg, xl, 2xl, 3xl, 4xl.
 
-### pt
-Top padding. Optional values: none, xs, sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl.
-<ContainerPackage.Containers.PaddingTop />
-
-### pb
-Bottom padding. Optional values: none, xs, sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl.
-<ContainerPackage.Containers.PaddingBottom />
-
-### px
-Horizontal padding (left and right). Optional values: none, xs, sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl.
-<ContainerPackage.Containers.PaddingX />
-
-### pl
-Left padding. Optional values: none, xs, sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl.
-<ContainerPackage.Containers.PaddingLeft />
-
-### pr
-Right padding. Optional values: none, xs, sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl.
-<ContainerPackage.Containers.PaddingRight />
-
-⚠️ **Note**:
-- Cannot use `px` and `pl`/`pr` properties at the same time, as they both set horizontal padding and will cause conflicts
-- Cannot use `py` and `pt`/`pb` properties at the same time, as they both set vertical padding and will cause conflicts
-- If conflicting properties are provided simultaneously, the component will display an error message.
+<ComponentPackage.ComponentContainers.PaddingContainer />
 
 ### rounded
-Border radius size. Optional values: none, sm, md, lg, xl, full.
-<ContainerPackage.Containers.Rounded />
+
+Rounded corner size, optional values: none, sm, md, lg, xl, full.
+
+<ComponentPackage.ComponentContainers.RoundedContainer />
+
+### shadow
+
+Shadow size, optional values: none, sm, md, lg, xl, 2xl.
+
+<ComponentPackage.ComponentContainers.ShadowContainer />
 
 ### width
-Container width. Optional values: xs, sm, md, lg, xl, full. Controls the maximum width of the container.
-<ContainerPackage.Containers.Widths />
 
-## Slots
+Container width, optional values: xs, sm, md, lg, xl, full. Controls the maximum width of the container.
 
-### default
-
-Default content slot for placing any content inside the container.
-
-<ContainerPackage.Containers.Slot />
+<ComponentPackage.ComponentContainers.WidthContainer />

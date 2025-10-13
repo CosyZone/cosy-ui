@@ -48,7 +48,7 @@ export interface IPhotoWallProps {
 	/** 容器背景色 */
 	background?: BackgroundColor;
 	/** 是否显示边框 */
-	border?: boolean;
+	border?: BorderSize;
 	/** 是否居中显示 */
 	centered?: boolean;
 	/** 中心标题 */
@@ -62,6 +62,6 @@ export interface IPhotoWallProps {
 }
 
 // 导入通用类型
-import type { PaddingSize, RoundedSize } from "../../src/common";
+import type { PaddingSize, RoundedSize, BorderSize } from "../../src/common";
 import type { BackgroundColor } from "../../src/common/backgrounds";
 import type { Size } from "../../src/common/size";

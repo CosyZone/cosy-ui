@@ -110,7 +110,8 @@ import {
 	AppStoreIcon,
 } from "../../index-astro";
 import "../../style.ts";
-import type { ImageSource } from "../image/image.ts";
+import "./product-card.css";
+import type { ImageSource } from "../image/types.ts";
 import {
 	getBackgroundClass,
 	type BackgroundColor,
@@ -198,6 +199,10 @@ export interface Props {
 	 * 支持基础颜色、透明度变体和渐变背景
 	 */
 	background?: BackgroundColor;
+	/**
+	 * 是否使用柔和色背景
+	 */
+	muted?: boolean;
 }
 
 const {
@@ -217,6 +222,7 @@ const {
 	class: className = "",
 	shadow = "md",
 	background,
+	muted = false,
 } = Astro.props;
 
 // 尺寸样式映射
@@ -349,92 +355,96 @@ const buttonsContainerClass =
 ---
 
 <div
-  class:list={[
-    'cosy:card cosy:transition-shadow cosy:duration-300',
-    background ? getBackgroundClass(background) : 'cosy:bg-base-200',
-    shadowStyles[shadow],
-    currentSize.card,
-    equalHeight && currentSize.cardHeight,
-    'cosy:flex cosy:flex-col',
-    className,
-  ]}>
-  <figure
-    class:list={[currentSize.figure, equalHeight && currentSize.imageHeight]}>
-    <Image
-      src={image}
-      alt={`${name} product image`}
-      width={currentSize.image.width}
-      height={currentSize.image.height}
-      rounded="lg"
-      transition="fade"
-      hover="brightness"
-      class="cosy:w-full cosy:h-full cosy:object-cover"
-      loading="lazy"
-      showError={true}
-    />
-  </figure>
-  <div
     class:list={[
-      currentSize.padding,
-      'cosy:card-body',
-      'cosy:flex cosy:flex-col',
-      equalHeight && currentSize.bodyHeight,
+        'cosy:card cosy:transition-shadow cosy:duration-300',
+        background ? getBackgroundClass(background) : 'cosy:bg-base-200',
+        shadowStyles[shadow],
+        currentSize.card,
+        equalHeight && currentSize.cardHeight,
+        'cosy:flex cosy:flex-col',
+        muted && 'product-card-muted',
+        className,
     ]}>
-    <h2
-      class:list={[
-        'cosy:mb-2 cosy:font-bold cosy:card-title',
-        currentSize.title,
-      ]}>
-      {name}
-    </h2>
-    <p class:list={['cosy:mb-4', descriptionClass]}>{description}</p>
+    <figure
+        class:list={[
+            currentSize.figure,
+            equalHeight && currentSize.imageHeight,
+        ]}>
+        <Image
+            src={image}
+            alt={`${name} product image`}
+            width={currentSize.image.width}
+            height={currentSize.image.height}
+            rounded="lg"
+            transition="fade"
+            hover="brightness"
+            class="cosy:w-full cosy:h-full cosy:object-cover"
+            loading="lazy"
+            showError={true}
+        />
+    </figure>
+    <div
+        class:list={[
+            currentSize.padding,
+            'cosy:card-body',
+            'cosy:flex cosy:flex-col',
+            equalHeight && currentSize.bodyHeight,
+        ]}>
+        <h2
+            class:list={[
+                'cosy:mb-2 cosy:font-bold cosy:card-title',
+                currentSize.title,
+            ]}>
+            {name}
+        </h2>
+        <p class:list={['cosy:mb-4', descriptionClass]}>{description}</p>
 
-    <div class={buttonsContainerClass}>
-      {
-        productUrl && (
-          <Button
-            href={productUrl}
-            target="_blank"
-            variant="primary"
-            class:list={[buttonLayoutClass, currentSize.buttons]}
-            aria-label={`Visit ${name}'s website`}>
-            <span slot="icon-left">
-              <LinkIcon size="22px" />
-            </span>
-            {primaryButtonText}
-          </Button>
-        )
-      }
-      {
-        appStoreUrl && (
-          <Button
-            href={appStoreUrl}
-            target="_blank"
-            variant="secondary"
-            class:list={[buttonLayoutClass, currentSize.buttons]}
-            aria-label={`Download ${name} on App Store`}>
-            <span slot="icon-left">
-              <AppStoreIcon size="22px" />
-            </span>
-            {secondaryButtonText}
-          </Button>
-        )
-      }
-      {
-        githubUrl && (
-          <Button
-            href={githubUrl}
-            target="_blank"
-            variant="info"
-            class:list={[buttonLayoutClass, currentSize.buttons]}
-            aria-label={`View ${name}'s GitHub repository`}>
-            <span slot="icon-left">
-              <SocialIcon platform="github" size="22px" />
-            </span>
-            {githubButtonText}
-          </Button>
-        )
-      }
+        <div class={buttonsContainerClass}>
+            {
+                productUrl && (
+                    <Button
+                        href={productUrl}
+                        target="_blank"
+                        variant="primary"
+                        class:list={[buttonLayoutClass, currentSize.buttons]}
+                        aria-label={`Visit ${name}'s website`}>
+                        <span slot="icon-left">
+                            <LinkIcon size="22px" />
+                        </span>
+                        {primaryButtonText}
+                    </Button>
+                )
+            }
+            {
+                appStoreUrl && (
+                    <Button
+                        href={appStoreUrl}
+                        target="_blank"
+                        variant="secondary"
+                        class:list={[buttonLayoutClass, currentSize.buttons]}
+                        aria-label={`Download ${name} on App Store`}>
+                        <span slot="icon-left">
+                            <AppStoreIcon size="22px" />
+                        </span>
+                        {secondaryButtonText}
+                    </Button>
+                )
+            }
+            {
+                githubUrl && (
+                    <Button
+                        href={githubUrl}
+                        target="_blank"
+                        variant="info"
+                        class:list={[buttonLayoutClass, currentSize.buttons]}
+                        aria-label={`View ${name}'s GitHub repository`}>
+                        <span slot="icon-left">
+                            <SocialIcon platform="github" size="22px" />
+                        </span>
+                        {githubButtonText}
+                    </Button>
+                )
+            }
+        </div>
     </div>
-  </div>
 </div>

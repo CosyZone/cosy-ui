@@ -35,6 +35,10 @@ import ProductCardSecondaryButtonTextContainer from "./ProductCardSecondaryButto
 import ProductCardBackground from "./ProductCardBackground.astro";
 import ProductCardBackgroundContainer from "./ProductCardBackgroundContainer.astro";
 
+// 新增的 muted 组件
+import ProductCardMuted from "./ProductCardMuted.astro";
+import ProductCardMutedContainer from "./ProductCardMutedContainer.astro";
+
 export const ProductCardPackage = {
 	ComponentContainers: {
 		AppStoreUrl: ProductCardAppStoreUrlContainer,
@@ -54,6 +58,7 @@ export const ProductCardPackage = {
 		SecondaryButtonText: ProductCardSecondaryButtonTextContainer,
 		Shadow: ProductCardShadowContainer,
 		Size: ProductCardSizesContainer,
+		Muted: ProductCardMutedContainer,
 	},
 	ComponentExamples: {
 		AppStoreUrl: ProductCardAppStoreUrl,
@@ -73,5 +78,6 @@ export const ProductCardPackage = {
 		SecondaryButtonText: ProductCardSecondaryButtonText,
 		Shadow: ProductCardShadow,
 		Sizes: ProductCardSizes,
+		Muted: ProductCardMuted,
 	},
 };

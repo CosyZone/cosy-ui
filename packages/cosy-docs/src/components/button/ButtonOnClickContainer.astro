@@ -1,0 +1,22 @@
+---
+/**
+ * @component ButtonOnClickContainer
+ * @description Button onClick 属性示例容器组件
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import ButtonOnClickDefault from "./ButtonOnClickDefault.astro";
+import ButtonOnClickAlert from "./ButtonOnClickAlert.astro";
+import ButtonOnClickDefaultSourceCode from "./ButtonOnClickDefault.astro?raw";
+import ButtonOnClickAlertSourceCode from "./ButtonOnClickAlert.astro?raw";
+---
+
+<CodeContainer
+    codes={[ButtonOnClickDefaultSourceCode, ButtonOnClickAlertSourceCode]}
+    titles={['默认点击', '弹出提示']}>
+    <div id="tab-1">
+        <ButtonOnClickDefault />
+    </div>
+    <div id="tab-2">
+        <ButtonOnClickAlert />
+    </div>
+</CodeContainer>

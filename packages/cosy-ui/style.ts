@@ -2,3 +2,4 @@
 import "./app.css";
 import "./src/styles/dot-grid.css";
 import "./src/styles/patterns.css";
+import "./src/styles/container-muted.css";

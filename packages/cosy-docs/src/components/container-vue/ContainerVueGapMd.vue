@@ -1,16 +1,17 @@
-<script setup lang="ts">
-import { Container, Heading } from "@coffic/cosy-ui/vue";
-</script>
-
 <template>
-    <Container flex="row" gap="md">
-        <div
-            style="background-color: #f59e0b; color: white; padding: 0.5rem; border-radius: 0.375rem; text-align: center; flex: 1;">
-            项目1
-        </div>
-        <div
-            style="background-color: #8b5cf6; color: white; padding: 0.5rem; border-radius: 0.375rem; text-align: center; flex: 1;">
-            项目2
-        </div>
-    </Container>
+  <Container
+    width="md"
+    flex="row"
+    gap="md"
+    border="sm"
+    rounded="md"
+    background="accent/30">
+    <div class="cosy:bg-primary">项目 1</div>
+    <div class="cosy:bg-secondary">项目 2</div>
+    <div class="cosy:bg-accent">项目 3</div>
+  </Container>
 </template>
+
+<script setup lang="ts">
+import { Container } from "@coffic/cosy-ui/vue";
+</script>

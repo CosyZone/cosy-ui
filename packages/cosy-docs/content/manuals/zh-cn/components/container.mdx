@@ -5,8 +5,7 @@ folder: false
 order: 3.8
 ---
 
-import { Container, Alert } from '@coffic/cosy-ui';
-import { ContainerPackage } from '@/components/container';
+import { ComponentPackage } from '@/components/container';
 
 # {frontmatter.title}
 
@@ -16,121 +15,106 @@ Container 组件是一个基础的布局容器，用于限制内容宽度并居�
 
 ## 案例
 
-<ContainerPackage.Examples.Basic />
+<ComponentPackage.ComponentContainers.BasicUsage />
 
 ## Props
 
 ### aspectRatio
+
 宽高比（宽/高），设置后容器会保持这个比例，如 16/9、4/3、1 等。
-<ContainerPackage.Containers.AspectRatio />
+
+<ComponentPackage.ComponentContainers.AspectRatioContainer />
 
 ### background
-背景色类型，支持背景色和透明度变体，如：base-100、primary、secondary、accent、neutral、info、success、warning、error、primary/10、secondary/20 等。
-<ContainerPackage.Containers.Background />
 
-### backgroundImage
-背景图片源，支持本地 ImageMetadata 与远程 URL。提供时将作为铺底背景渲染，通常与 `background` 颜色同时使用以获得更好对比度。
-<ContainerPackage.Containers.BackgroundImage />
+背景色类型，支持所有 Tailwind 背景色和透明度变体，如：base-100、primary、secondary、accent、neutral、info、success、warning、error，以及透明度变体如 primary/10、secondary/20 等。
+
+<ComponentPackage.ComponentContainers.BackgroundContainer />
 
 ### border
-边框尺寸，可选值：none、sm、md、lg、xl。
-<ContainerPackage.Containers.Border />
 
-### borderColor
-边框颜色，支持所有预定义的颜色和透明度变体，如：primary、success、primary/50 等。
-<ContainerPackage.Containers.BorderColor />
+边框尺寸，可选值：none、sm、md、lg、xl。
+
+<ComponentPackage.ComponentContainers.BorderContainer />
 
 ### centered
+
 是否居中显示，设置为 false 时容器将靠左对齐。
-<ContainerPackage.Containers.Centered />
 
 ### class
+
 自定义 CSS 类名，用于添加额外的样式。
-<ContainerPackage.Containers.CustomClass />
 
-### contentBorder
+<ComponentPackage.ComponentContainers.ClassContainer />
 
-<Alert type="info" variant="soft" closable={false}>
-仅在 `fit` 为 `contain` 或 `cover` 时生效。
-</Alert>
+### contentCentered
 
-是否给比例内容区域（fit 模式下的内部比例盒）添加边框。
-
-<ContainerPackage.Containers.ContentBorder />
+是否让内部内容居中显示，启用后会在容器内使用 flex 布局居中内容。
 
 ### fit
-内容适配模式。可选值：`none`（默认）、`contain`（保持比例，尽量占满且不溢出）、`cover`（保持比例，铺满并可能裁剪）。需要与 `aspectRatio` 一起使用，且建议父容器具有明确高度（如 `height="lg"`）。
-<ContainerPackage.Containers.Fit />
+
+内容适配模式：none（默认）、contain（保持比例，尽量占满且不溢出）、cover（保持比例，铺满并可能裁剪）。
+
+<ComponentPackage.ComponentContainers.FitContainer />
 
 ### flex
+
 flex 布局方向，可选值：row、col、row-reverse、col-reverse，不设置则不启用 flex 布局。
-<ContainerPackage.Containers.Flex />
+
+<ComponentPackage.ComponentContainers.FlexContainer />
 
 ### gap
+
 flex 项目间距，可选值：none、xs、sm、md、lg、xl，仅在启用 flex 布局时生效。
-<ContainerPackage.Containers.Gap />
+
+<ComponentPackage.ComponentContainers.GapContainer />
 
 ### height
+
 容器高度，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl、screen、auto，none 表示不设置高度。
-<ContainerPackage.Containers.Height />
+
+<ComponentPackage.ComponentContainers.HeightContainer />
 
 ### items
+
 flex 项目水平对齐方式，可选值：start、end、center、baseline、stretch，仅在启用 flex 布局时生效。
-<ContainerPackage.Containers.Items />
 
 ### justify
+
 flex 项目垂直对齐方式，可选值：start、end、center、between、around、evenly，仅在启用 flex 布局时生效。
-<ContainerPackage.Containers.Justify />
 
 ### margin
-外边距大小，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl。
-<ContainerPackage.Containers.Margin />
+
+外边距大小，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl。
+
+<ComponentPackage.ComponentContainers.MarginContainer />
+
+### muted
+
+是否使用柔和色样式（未激活状态），设置为 true 时容器会呈现半透明效果并禁用交互。
+
+<ComponentPackage.ComponentContainers.MutedContainer />
 
 ### padding
-内边距大小，可选值：none、sm、md、lg、xl。
-<ContainerPackage.Containers.Padding />
 
-### py
-垂直内边距（上下），可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl。
-<ContainerPackage.Containers.PaddingAxis />
+内边距大小，可选值：none、sm、md、lg、xl、2xl、3xl、4xl。
 
-### pt
-顶部内边距，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl。
-<ContainerPackage.Containers.PaddingTop />
-
-### pb
-底部内边距，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl。
-<ContainerPackage.Containers.PaddingBottom />
-
-### px
-水平内边距（左右），可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl。
-<ContainerPackage.Containers.PaddingX />
-
-### pl
-左侧内边距，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl。
-<ContainerPackage.Containers.PaddingLeft />
-
-### pr
-右侧内边距，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl。
-<ContainerPackage.Containers.PaddingRight />
-
-⚠️ **注意**:
-- 不能同时使用 `px` 和 `pl`/`pr` 属性，因为它们都会设置水平内边距，会产生冲突
-- 不能同时使用 `py` 和 `pt`/`pb` 属性，因为它们都会设置垂直内边距，会产生冲突
-- 如果同时提供这些冲突的属性，组件会显示错误提示。
+<ComponentPackage.ComponentContainers.PaddingContainer />
 
 ### rounded
+
 圆角大小，可选值：none、sm、md、lg、xl、full。
-<ContainerPackage.Containers.Rounded />
+
+<ComponentPackage.ComponentContainers.RoundedContainer />
+
+### shadow
+
+阴影大小，可选值：none、sm、md、lg、xl、2xl。
+
+<ComponentPackage.ComponentContainers.ShadowContainer />
 
 ### width
+
 容器宽度，可选值：xs、sm、md、lg、xl、full，控制容器的最大宽度。
-<ContainerPackage.Containers.Widths />
 
-## Slots
-
-### default
-
-默认内容插槽，用于在容器中放置任何内容。
-
-<ContainerPackage.Containers.Slot />
+<ComponentPackage.ComponentContainers.WidthContainer />

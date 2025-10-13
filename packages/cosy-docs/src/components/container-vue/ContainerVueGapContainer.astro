@@ -1,50 +1,37 @@
 ---
 /**
- * @component ContainerVue Gap Container
- * @description ContainerVue Gap 间距容器组件
+ * @component ContainerVueGapContainer
+ * @description Container Vue 组件间距示例容器
  */
-
 import { CodeContainer } from "@coffic/cosy-ui";
 import ContainerVueGapNone from "./ContainerVueGapNone.vue";
-import ContainerVueGapXs from "./ContainerVueGapXs.vue";
 import ContainerVueGapSm from "./ContainerVueGapSm.vue";
 import ContainerVueGapMd from "./ContainerVueGapMd.vue";
 import ContainerVueGapLg from "./ContainerVueGapLg.vue";
 import ContainerVueGapXl from "./ContainerVueGapXl.vue";
-import ContainerVueGapNoneCode from "./ContainerVueGapNone.vue?raw";
-import ContainerVueGapXsCode from "./ContainerVueGapXs.vue?raw";
-import ContainerVueGapSmCode from "./ContainerVueGapSm.vue?raw";
-import ContainerVueGapMdCode from "./ContainerVueGapMd.vue?raw";
-import ContainerVueGapLgCode from "./ContainerVueGapLg.vue?raw";
-import ContainerVueGapXlCode from "./ContainerVueGapXl.vue?raw";
+import sourceNone from "./ContainerVueGapNone.vue?raw";
+import sourceSm from "./ContainerVueGapSm.vue?raw";
+import sourceMd from "./ContainerVueGapMd.vue?raw";
+import sourceLg from "./ContainerVueGapLg.vue?raw";
+import sourceXl from "./ContainerVueGapXl.vue?raw";
 ---
 
 <CodeContainer
-  titles={['none', 'xs', 'sm', 'md', 'lg', 'xl']}
-  codes={[
-    ContainerVueGapNoneCode,
-    ContainerVueGapXsCode,
-    ContainerVueGapSmCode,
-    ContainerVueGapMdCode,
-    ContainerVueGapLgCode,
-    ContainerVueGapXlCode,
-  ]}>
-  <div id="tab-1">
-    <ContainerVueGapNone client:load />
-  </div>
-  <div id="tab-2">
-    <ContainerVueGapXs client:load />
-  </div>
-  <div id="tab-3">
-    <ContainerVueGapSm client:load />
-  </div>
-  <div id="tab-4">
-    <ContainerVueGapMd client:load />
-  </div>
-  <div id="tab-5">
-    <ContainerVueGapLg client:load />
-  </div>
-  <div id="tab-6">
-    <ContainerVueGapXl client:load />
-  </div>
+    codes={[sourceNone, sourceSm, sourceMd, sourceLg, sourceXl]}
+    titles={['none', 'sm', 'md', 'lg', 'xl']}>
+    <div id="tab-1">
+        <ContainerVueGapNone client:load />
+    </div>
+    <div id="tab-2">
+        <ContainerVueGapSm client:load />
+    </div>
+    <div id="tab-3">
+        <ContainerVueGapMd client:load />
+    </div>
+    <div id="tab-4">
+        <ContainerVueGapLg client:load />
+    </div>
+    <div id="tab-5">
+        <ContainerVueGapXl client:load />
+    </div>
 </CodeContainer>

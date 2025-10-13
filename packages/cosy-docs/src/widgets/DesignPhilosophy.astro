@@ -7,14 +7,7 @@
  */
 
 import DemoSection from "./DemoSection.astro";
-import {
-	Container,
-	Heading,
-	CodePanel,
-	ErrorIcon,
-	CheckCircle,
-	TeamMember,
-} from "@coffic/cosy-ui";
+import { Container, CodePanel } from "@coffic/cosy-ui";
 import TeamMemberExample from "../components/team-member/TeamMemberExample.astro";
 import TeamMemberExampleSource from "../components/team-member/TeamMemberExample.astro?raw";
 
@@ -36,7 +29,7 @@ const description =
 <DemoSection
     title={title}
     description={description}
-    background="gradient-accent"
+    background="info/20"
     align="top">
     <!-- 演示区域 -->
     <Container slot="demo" flex="row" gap="lg" width="2xl">

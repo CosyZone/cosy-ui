@@ -1,0 +1,17 @@
+---
+/**
+ * @component Card.WithLocalImage
+ *
+ * @description
+ * 使用本地图片的Card组件示例，展示如何导入并使用本地图片资源。
+ */
+import { Card } from "@coffic/cosy-ui";
+import bookImage from "@/assets/book.png";
+---
+
+<Card
+    title="使用本地图片的卡片"
+    subtitle="这张卡片展示了如何使用本地图片资源"
+    imageUrl={bookImage}>
+    这是一个使用本地图片的卡片示例。通过直接导入图片文件，我们可以获得更好的类型安全和构建时优化。
+</Card>

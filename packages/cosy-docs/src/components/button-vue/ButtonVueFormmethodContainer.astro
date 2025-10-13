@@ -1,0 +1,25 @@
+---
+/**
+ * @component ButtonVueFormmethodContainer
+ * @description Vue 版本 Button formmethod 属性示例容器组件
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import ButtonVueFormmethodDefaultSourceCode from "./ButtonVueFormmethodDefault.vue?raw";
+import ButtonVueFormmethodDialogSourceCode from "./ButtonVueFormmethodDialog.vue?raw";
+import ButtonVueFormmethodDefault from "./ButtonVueFormmethodDefault.vue";
+import ButtonVueFormmethodDialog from "./ButtonVueFormmethodDialog.vue";
+---
+
+<CodeContainer
+    codes={[
+        ButtonVueFormmethodDefaultSourceCode,
+        ButtonVueFormmethodDialogSourceCode,
+    ]}
+    titles={['默认方法', '对话框方法']}>
+    <div id="tab-1">
+        <ButtonVueFormmethodDefault />
+    </div>
+    <div id="tab-2">
+        <ButtonVueFormmethodDialog />
+    </div>
+</CodeContainer>

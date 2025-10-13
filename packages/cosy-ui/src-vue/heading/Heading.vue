@@ -9,10 +9,7 @@
 import { computed } from "vue";
 import HeadingAnchor from "./HeadingAnchor.vue";
 import type { IHeadingProps } from "./types";
-import {
-	getBackgroundClass,
-	type BackgroundColor,
-} from "../../src/common/backgrounds";
+import { getHeadingCombinedClassesVue } from "./class";
 
 /**
  * @component Heading
@@ -138,124 +135,8 @@ const props = withDefaults(defineProps<Props>(), {
 	weight: undefined,
 });
 
-// 字体粗细映射
-const weightClassMap = {
-	thin: "cosy:font-thin",
-	light: "cosy:font-light",
-	normal: "cosy:font-normal",
-	medium: "cosy:font-medium",
-	semibold: "cosy:font-semibold",
-	bold: "cosy:font-bold",
-	extrabold: "cosy:font-extrabold",
-	black: "cosy:font-black",
-};
-
-// 根据级别设置基础样式（不包含字体粗细）
-const baseHeadingClass = computed(() => {
-	const levelMap = {
-		1: "cosy:text-4xl",
-		2: "cosy:text-3xl",
-		3: "cosy:text-2xl",
-		4: "cosy:text-xl",
-		5: "cosy:text-lg",
-		6: "cosy:text-base",
-	};
-	return levelMap[props.level as keyof typeof levelMap] || levelMap[2];
-});
-
-// 默认字体粗细（当未指定 weight 时使用）
-const defaultWeightClass = computed(() => {
-	const defaultMap = {
-		1: "cosy:font-bold",
-		2: "cosy:font-semibold",
-		3: "cosy:font-semibold",
-		4: "cosy:font-medium",
-		5: "cosy:font-medium",
-		6: "cosy:font-medium",
-	};
-	return defaultMap[props.level as keyof typeof defaultMap] || defaultMap[2];
-});
-
-// 字体粗细样式
-const weightClass = computed(() => {
-	if (props.weight && props.weight in weightClassMap) {
-		return weightClassMap[props.weight as keyof typeof weightClassMap];
-	}
-	return defaultWeightClass.value;
-});
-
-// 组合标题样式类
-const headingClass = computed(() => {
-	return `${baseHeadingClass.value} ${weightClass.value}`;
-});
-
-const colorClass = computed(() => {
-	const colorMap = {
-		default: "",
-		primary: "cosy:text-primary cosy:dark:text-primary",
-		secondary: "cosy:text-secondary cosy:dark:text-secondary",
-		accent: "cosy:text-accent cosy:dark:text-accent",
-		muted: "cosy:text-gray-600 cosy:dark:text-gray-400",
-		info: "cosy:text-info cosy:dark:text-info",
-		success: "cosy:text-success cosy:dark:text-success",
-		warning: "cosy:text-warning cosy:dark:text-warning",
-		error: "cosy:text-error cosy:dark:text-error",
-		"base-content": "cosy:text-base-content cosy:dark:text-base-content",
-		"neutral-content":
-			"cosy:text-neutral-content cosy:dark:text-neutral-content",
-	};
-	return colorMap[props.color as keyof typeof colorMap] || colorMap.default;
-});
-
-const alignClass = computed(() => {
-	const alignMap = {
-		left: "cosy:text-left",
-		center: "cosy:text-center",
-		right: "cosy:text-right",
-	};
-	return alignMap[props.align as keyof typeof alignMap] || alignMap.left;
-});
-
-const underlineClass = computed(() => {
-	return props.underline
-		? "cosy:border-b cosy:pb-2 cosy:border-gray-200 cosy:dark:border-gray-700"
-		: "";
-});
-
-// 外边距样式
-const marginClass = computed(() => {
-	const marginMap = {
-		none: "",
-		sm: "cosy:my-2",
-		md: "cosy:my-4",
-		lg: "cosy:my-6",
-		xl: "cosy:my-8",
-	};
-	return marginMap[props.margin as keyof typeof marginMap] || marginMap.md;
-});
-
-// 使用通用背景色函数
-const backgroundClass = computed(() => {
-	return getBackgroundClass(props.background);
-});
-
-// 内边距样式映射
-const paddingClassMap = {
-	none: "",
-	sm: "cosy:py-2",
-	md: "cosy:py-4",
-	lg: "cosy:py-6",
-	xl: "cosy:py-8",
-} as const;
-
-const paddingClass = computed(() => {
-	return paddingClassMap[props.padding as keyof typeof paddingClassMap] || "";
-});
-
-// 组合所有类名
-const combinedClass = computed(() => {
-	return `heading cosy:w-full ${headingClass.value} ${colorClass.value} ${alignClass.value} ${underlineClass.value} ${marginClass.value} ${backgroundClass.value} ${paddingClass.value} ${props.class || ""}`;
-});
+// 使用共用的工具函数计算组合类名
+const combinedClass = computed(() => getHeadingCombinedClassesVue(props));
 
 // 如果有链接，添加链接相关的样式
 const linkClass = computed(() => {
@@ -272,23 +153,23 @@ const headingTag = computed(() => {
 </script>
 
 <style scoped>
-.heading {
-  line-height: 1.2;
-  scroll-margin-top: 100px;
-}
+  .heading {
+    line-height: 1.2;
+    scroll-margin-top: 100px;
+  }
 
-.heading-anchor {
-  color: inherit;
-  text-decoration: none;
-  vertical-align: middle;
-}
+  .heading-anchor {
+    color: inherit;
+    text-decoration: none;
+    vertical-align: middle;
+  }
 
-/* 悬停效果 */
-.heading:hover .heading-anchor {
-  opacity: 0.7 !important;
-}
+  /* 悬停效果 */
+  .heading:hover .heading-anchor {
+    opacity: 0.7 !important;
+  }
 
-.heading-anchor:hover {
-  opacity: 1 !important;
-}
+  .heading-anchor:hover {
+    opacity: 1 !important;
+  }
 </style>

@@ -29,7 +29,6 @@ import type { IconName } from "./types";
 const { title, description, icon, ...rest } = Astro.props;
 
 const iconMap: Record<IconName, any> = {
-	SocialIcon: Icons.SocialIcon,
 	TwitterIcon: Icons.TwitterIcon,
 	UserIcon: Icons.UserIcon,
 	WarningIcon: Icons.WarningIcon,
@@ -85,16 +84,20 @@ const IconComponent =
 ---
 
 <div class="cosy:text-center cosy:py-16 cosy:px-6" {...rest}>
-  {IconComponent && <IconComponent class="cosy:mx-auto cosy:h-12 cosy:w-12" />}
-  {title && <h3 class="cosy:mt-2 cosy:text-2xl cosy:font-bold">{title}</h3>}
-  {
-    description && (
-      <p class="cosy:mt-1 cosy:text-sm cosy:text-base-content/80">
-        {description}
-      </p>
-    )
-  }
-  <div class="cosy:mt-6 cosy:flex cosy:justify-center cosy:gap-4">
-    <slot />
-  </div>
+    {
+        IconComponent && (
+            <IconComponent class="cosy:mx-auto cosy:h-12 cosy:w-12" />
+        )
+    }
+    {title && <h3 class="cosy:mt-2 cosy:text-2xl cosy:font-bold">{title}</h3>}
+    {
+        description && (
+            <p class="cosy:mt-1 cosy:text-sm cosy:text-base-content/80">
+                {description}
+            </p>
+        )
+    }
+    <div class="cosy:mt-6 cosy:flex cosy:justify-center cosy:gap-4">
+        <slot />
+    </div>
 </div>

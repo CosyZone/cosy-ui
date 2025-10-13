@@ -1,0 +1,25 @@
+<template>
+  <div class="cosy:p-4">
+    <h2 class="cosy:text-xl cosy:font-bold cosy:mb-4">Container Muted Test</h2>
+
+    <div class="cosy:mb-6">
+      <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-2">
+        Normal Container
+      </h3>
+      <Container width="md" padding="md" background="base-100">
+        <p>这是一个正常的容器。</p>
+      </Container>
+    </div>
+
+    <div class="cosy:mb-6">
+      <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-2">Muted Container</h3>
+      <Container width="md" padding="md" muted background="base-100">
+        <p>这是一个使用了 muted 属性的容器，看起来处于未激活状态。</p>
+      </Container>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { Container } from "@coffic/cosy-ui/vue";
+</script>

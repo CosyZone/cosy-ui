@@ -7,13 +7,7 @@
  */
 
 import DemoSection from "./DemoSection.astro";
-import {
-	Container,
-	Heading,
-	CodePanel,
-	ErrorIcon,
-	Main,
-} from "@coffic/cosy-ui";
+import { Container, CodePanel, Main } from "@coffic/cosy-ui";
 
 export interface Props {
 	/**
@@ -36,7 +30,7 @@ const sampleCode = `<Main px="lg" pl="md" pr="md">
 <DemoSection
     title={title}
     description={description}
-    background="gradient-warning"
+    background="warning/20"
     align="right">
     <!-- 演示区域 -->
     <Container slot="demo" flex="col" gap="lg" width="2xl" padding="md">

@@ -4,7 +4,7 @@ description: 'Vue version of Button component'
 badge: 'Vue'
 tags:
   - Vue
-order: 2.5
+order: 2.4
 ---
 
 import { Button } from '@coffic/cosy-ui';
@@ -39,11 +39,23 @@ Whether it's a block-level display, when set to true, the button fills the conta
 
 <ButtonVuePackage.Width />
 
+### class
+
+Custom CSS class name for overriding default styles.
+
+<ButtonVuePackage.Basic />
+
 ### disabled
 
 Whether the button is disabled, when set to true, the button cannot be clicked.
 
 <ButtonVuePackage.States />
+
+### formmethod
+
+Form submission method, supporting special values like dialog.
+
+<ButtonVuePackage.Formmethod />
 
 ### href
 
@@ -56,6 +68,12 @@ Link address, when set, the button becomes a link form.
 Whether to show loading state, when set to true, shows loading animation.
 
 <ButtonVuePackage.States />
+
+### onClick
+
+Click event handler function, supporting inline JavaScript code.
+
+<ButtonVuePackage.Basic />
 
 ### shape
 
@@ -79,7 +97,7 @@ Link target, supports _self, _blank, _parent, _top.
 
 Button type, supports button, submit, reset.
 
-<ButtonVuePackage.Basic />
+<ButtonVuePackage.Types />
 
 ### variant
 
@@ -99,7 +117,7 @@ Whether it's a wide button, when set to true, the button width increases.
 
 Button content slot, used to place button text content.
 
-<ButtonVuePackage.Basic />
+<ButtonVuePackage.SlotDefault />
 
 ### icon-left
 

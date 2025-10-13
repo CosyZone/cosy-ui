@@ -4,7 +4,7 @@ description: 'Vue 版本的 Alert 组件'
 badge: 'Vue'
 tags:
   - Vue
-order: 1.4
+order: 1.1
 ---
 
 import { Alert } from '@coffic/cosy-ui';
@@ -45,6 +45,24 @@ Alert 组件用于向用户显示重要的提示信息，支持多种类型的�
 
 <AlertVuePackage.Closable />
 
+### description
+
+描述文本，显示在标题下方，字体较小且透明度降低。
+
+<AlertVuePackage.WithTitle />
+
+### marginY
+
+垂直方向外边距大小，支持预设的尺寸值。
+
+<AlertVuePackage.MarginY />
+
+### showIcon
+
+是否显示图标，设置为 false 时隐藏类型对应的图标。
+
+<AlertVuePackage.NoIcon />
+
 ### title
 
 提示标题，可选，显示为粗体文本。
@@ -56,6 +74,12 @@ Alert 组件用于向用户显示重要的提示信息，支持多种类型的�
 提示类型，影响颜色和图标，支持 info、success、warning、error 四种类型。
 
 <AlertVuePackage.Types />
+
+### variant
+
+样式变体，支持 solid（实心）、outline（描边）、dash（虚线）、soft（柔和）四种风格。
+
+<AlertVuePackage.Outline />
 
 ## Emits
 

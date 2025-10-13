@@ -1,0 +1,17 @@
+---
+import { CodeContainer } from "@coffic/cosy-ui";
+
+// 源码导入（用于 codes 数组）
+import ProductCardVueGithubButtonTextSourceCode from "./ProductCardVueGithubButtonText.vue?raw";
+
+// 组件导入（用于实际渲染）
+import ProductCardVueGithubButtonText from "./ProductCardVueGithubButtonText.vue";
+---
+
+<CodeContainer
+    codes={[ProductCardVueGithubButtonTextSourceCode]}
+    titles={['githubButtonText']}>
+    <div id="tab-1">
+        <ProductCardVueGithubButtonText client:load />
+    </div>
+</CodeContainer>

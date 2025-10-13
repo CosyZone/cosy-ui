@@ -5,6 +5,7 @@ import type { GapSize } from "../../src/common/layout";
 import type { ShadowSize } from "../../src/common/shadow";
 import type { HoverEffect } from "../../src/common/hover";
 import type { Size } from "../../src/common/size";
+import type { BorderSize } from "../../src/common/border";
 import type { ImageSource } from "../image";
 
 /**
@@ -45,8 +46,8 @@ export interface ImageRowProps {
 	padding?: PaddingSize;
 	/** 外边距大小 */
 	margin?: MarginSize;
-	/** 是否显示边框 */
-	border?: boolean;
+	/** 边框尺寸 */
+	border?: BorderSize;
 	/** 容器宽度 */
 	width?: Size;
 	/** 容器圆角 */

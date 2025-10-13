@@ -1,0 +1,25 @@
+---
+/**
+ * @component ButtonSlotDefaultContainer
+ * @description Button Slots.default 属性示例容器组件
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import ButtonSlotDefaultSimple from "./ButtonSlotDefaultSimple.astro";
+import ButtonSlotDefaultWithHtml from "./ButtonSlotDefaultWithHtml.astro";
+import ButtonSlotDefaultSimpleSourceCode from "./ButtonSlotDefaultSimple.astro?raw";
+import ButtonSlotDefaultWithHtmlSourceCode from "./ButtonSlotDefaultWithHtml.astro?raw";
+---
+
+<CodeContainer
+    codes={[
+        ButtonSlotDefaultSimpleSourceCode,
+        ButtonSlotDefaultWithHtmlSourceCode,
+    ]}
+    titles={['简单文本', 'HTML内容']}>
+    <div id="tab-1">
+        <ButtonSlotDefaultSimple />
+    </div>
+    <div id="tab-2">
+        <ButtonSlotDefaultWithHtml />
+    </div>
+</CodeContainer>

@@ -1,71 +1,3 @@
-<template>
-  <div
-    :class="['cosy:reviews-container', className, classList]"
-    v-bind="$attrs"
-  >
-    <!-- 标题和统计信息 -->
-    <div v-if="title || showStats" class="cosy:mb-6">
-      <Heading v-if="title" :level="2" class="cosy:mb-4 cosy:font-semibold">
-        {{ title }}
-      </Heading>
-
-      <div
-        v-if="showStats && stats"
-        class="cosy:flex cosy:items-center cosy:gap-6 cosy:mb-4"
-      >
-        <!-- 总体评分 -->
-        <div class="cosy:flex cosy:items-center cosy:gap-2">
-          <Text size="3xl" class="cosy:font-bold cosy:text-primary">
-            {{ stats.averageRating.toFixed(1) }}
-          </Text>
-          <div class="cosy:flex cosy:items-center cosy:gap-1">
-            <SmartIcon
-              v-for="(star, index) in averageStarArray"
-              :key="index"
-              keyword="star"
-              size="20px"
-              :class="
-                star.filled || star.half
-                  ? 'cosy:text-warning'
-                  : 'cosy:text-base-300'
-              "
-            />
-          </div>
-          <Text class="cosy:text-base-content/60">
-            ({{ stats.totalReviews }} 评价)
-          </Text>
-        </div>
-      </div>
-    </div>
-
-    <!-- 评价列表 -->
-    <Grid v-if="layout === 'grid'" :cols="columns" gap="lg">
-      <Review
-        v-for="review in displayReviews"
-        :key="`${review.userName}-${review.date}`"
-        :userName="review.userName"
-        :rating="review.rating"
-        :comment="review.comment"
-        :date="review.date"
-        :verified="review.verified"
-        :avatar="review.avatar"
-      />
-    </Grid>
-    <div v-else class="cosy:space-y-4">
-      <Review
-        v-for="review in displayReviews"
-        :key="`${review.userName}-${review.date}`"
-        :userName="review.userName"
-        :rating="review.rating"
-        :comment="review.comment"
-        :date="review.date"
-        :verified="review.verified"
-        :avatar="review.avatar"
-      />
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 /**
  * @component Reviews
@@ -96,7 +28,7 @@
  * <Reviews
  *   :reviews="reviewsData"
  *   layout="grid"
- *   :columns="{ base: 1, md: 2, lg: 3 }"
+ *   :columns="{ base: 1, md: 2, lg: 3 }
  * />
  * ```
  *
@@ -124,10 +56,22 @@ import Text from "../text/Text.vue";
 import Heading from "../heading/Heading.vue";
 import Grid from "../grid/Grid.vue";
 import SmartIcon from "../smart-icon/SmartIcon.vue";
-import type { ReviewsProps, ReviewData } from "./types";
+import type { IReviewsProps, IReviewData } from "./props";
 import Review from "./Review.vue";
 
-interface Props extends ReviewsProps {
+// 定义与 Grid 组件相同的响应式值类型
+type ResponsiveValue<T> =
+	| T
+	| {
+			base?: T;
+			sm?: T;
+			md?: T;
+			lg?: T;
+			xl?: T;
+			"2xl"?: T;
+	  };
+
+interface Props extends IReviewsProps {
 	class?: string;
 	"class:list"?: any;
 }
@@ -174,5 +118,18 @@ const averageStarArray = computed(() => {
 			i === Math.floor(stats.value!.averageRating) &&
 			stats.value!.averageRating % 1 !== 0,
 	}));
+});
+
+// 为 Grid 组件计算列数，确保类型匹配
+const gridColumns = computed(() => {
+	const cols: ResponsiveValue<number> = {
+		base: props.columns?.base,
+		sm: props.columns?.sm,
+		md: props.columns?.md,
+		lg: props.columns?.lg,
+		xl: props.columns?.xl,
+		"2xl": props.columns?.["2xl"],
+	};
+	return cols;
 });
 </script>

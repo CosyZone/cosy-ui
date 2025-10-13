@@ -25,7 +25,7 @@
  */
 
 import "../../style.ts";
-import type { ImageSource } from "../image/image.ts";
+import type { ImageSource } from "../../index-astro";
 import { Image, Button } from "../../index-astro";
 import { SmartBg } from "../smart-bg";
 
@@ -103,72 +103,76 @@ const currentSize = sizeStyles[size as "sm" | "md" | "lg"];
 ---
 
 <div
-  ignore-heading
-  class:list={[
-    'cosy:card cosy:bg-base-200 cosy:transition-shadow cosy:duration-300 cosy:flex cosy:flex-col',
-    shadowStyles[shadow as 'none' | 'sm' | 'md' | 'lg' | 'xl'],
-    currentSize.card,
-    className,
-  ]}>
-  <figure class:list={[currentSize.figure, currentSize.imageHeight]}>
-    {
-      cover ? (
-        <Image
-          src={cover}
-          alt={`${title} cover`}
-          width={currentSize.image.width}
-          height={currentSize.image.height}
-          rounded="lg"
-          transition="fade"
-          hover="brightness"
-          class="cosy:w-full cosy:h-full cosy:object-cover"
-          loading="lazy"
-          showError={true}
-        />
-      ) : (
-        <SmartBg
-          keyword={title}
-          enableGradient
-          class="cosy:w-full cosy:h-full cosy:flex cosy:items-center cosy:justify-center cosy:rounded-lg">
-          <div class="cosy:text-base-content cosy:text-opacity-80 cosy:text-2xl cosy:font-semibold cosy:text-center cosy:px-3">
-            {title}
-          </div>
-        </SmartBg>
-      )
-    }
-  </figure>
-
-  <div
+    ignore-heading
     class:list={[
-      currentSize.padding,
-      'cosy:card-body cosy:flex cosy:flex-col',
+        'cosy:card cosy:bg-base-200 cosy:transition-shadow cosy:duration-300 cosy:flex cosy:flex-col',
+        shadowStyles[shadow as 'none' | 'sm' | 'md' | 'lg' | 'xl'],
+        currentSize.card,
+        className,
     ]}>
-    <h2
-      class:list={[
-        currentSize.title,
-        'cosy:card-title cosy:mb-2 cosy:font-bold',
-      ]}>
-      {title}
-    </h2>
-    {
-      author && (
-        <p class="cosy:text-sm cosy:text-base-content/70 cosy:mb-2">{author}</p>
-      )
-    }
-    {
-      description && (
-        <p class:list={[currentSize.description, 'cosy:mb-4']}>{description}</p>
-      )
-    }
+    <figure class:list={[currentSize.figure, currentSize.imageHeight]}>
+        {
+            cover ? (
+                <Image
+                    src={cover}
+                    alt={`${title} cover`}
+                    width={currentSize.image.width}
+                    height={currentSize.image.height}
+                    rounded="lg"
+                    transition="fade"
+                    hover="brightness"
+                    class="cosy:w-full cosy:h-full cosy:object-cover"
+                    loading="lazy"
+                    showError={true}
+                />
+            ) : (
+                <SmartBg
+                    keyword={title}
+                    enableGradient
+                    class="cosy:w-full cosy:h-full cosy:flex cosy:items-center cosy:justify-center cosy:rounded-lg">
+                    <div class="cosy:text-base-content cosy:text-opacity-80 cosy:text-2xl cosy:font-semibold cosy:text-center cosy:px-3">
+                        {title}
+                    </div>
+                </SmartBg>
+            )
+        }
+    </figure>
 
-    {
-      href && (
-        <div class="cosy:mt-auto">
-          <Button href={href} variant="primary">
-            查看详情
-          </Button>
-        </div>
-      )
-    }
-  </div>
+    <div
+        class:list={[
+            currentSize.padding,
+            'cosy:card-body cosy:flex cosy:flex-col',
+        ]}>
+        <h2
+            class:list={[
+                currentSize.title,
+                'cosy:card-title cosy:mb-2 cosy:font-bold',
+            ]}>
+            {title}
+        </h2>
+        {
+            author && (
+                <p class="cosy:text-sm cosy:text-base-content/70 cosy:mb-2">
+                    {author}
+                </p>
+            )
+        }
+        {
+            description && (
+                <p class:list={[currentSize.description, 'cosy:mb-4']}>
+                    {description}
+                </p>
+            )
+        }
+
+        {
+            href && (
+                <div class="cosy:mt-auto">
+                    <Button href={href} variant="primary">
+                        查看详情
+                    </Button>
+                </div>
+            )
+        }
+    </div>
 </div>

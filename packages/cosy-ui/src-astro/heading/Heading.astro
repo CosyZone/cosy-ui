@@ -7,21 +7,6 @@
  * 支持链接功能，当传入 href 属性时，标题会变成可点击的链接。
  * 组件保持语义化结构：即使作为链接使用时，仍然渲染正确的 h1-h6 标签。
  *
- * @design
- * 设计理念：
- * 1. 层次清晰 - 通过不同级别的标题建立内容的视觉层次结构
- * 2. 一致性 - 确保整个应用中标题样式的一致性
- * 3. 可定制性 - 支持多种配置选项，适应不同场景需求
- * 4. 无障碍性 - 遵循语义化HTML标准，确保屏幕阅读器可以正确解析内容结构
- * 5. 链接支持 - 标题可以作为链接使用，提供更好的导航体验
- *
- * 视觉特点：
- * - 字体大小和粗细随级别变化
- * - 可选的下划线或底部边框
- * - 可定制的颜色和间距
- * - 响应式设计，在不同屏幕尺寸下保持良好的可读性
- * - 链接状态下的悬停效果
- *
  * @usage
  * 基本用法：
  * ```astro
@@ -107,264 +92,170 @@
 import HeadingAnchor from "./HeadingAnchor.astro";
 import Link from "../link/Link.astro";
 import "../../style.ts";
-import {
-	getBackgroundClass,
-	type BackgroundColor,
-} from "../../src/common/backgrounds";
-import {
-	textWeightClasses,
-	type TextWeight,
-} from "../../src/common/textWeights";
-import { headingSizeClasses } from "../../src/common/textSizes";
-import { textAlignClasses, type TextAlign } from "../../src/common/textAlign";
-import { textColorClasses, type TextColor } from "../../src/common/textColors";
+import type { IHeadingProps } from "./props";
+import { getHeadingCombinedClassesAstro } from "./class";
 
-interface IHeadingProps {
-	align?: Exclude<TextAlign, "justify">;
-	anchor?: boolean;
-	background?: BackgroundColor;
-	color?: TextColor;
-	class?: string;
-	external?: boolean;
-	href?: string;
-	id?: string;
-	level?: 1 | 2 | 3 | 4 | 5 | 6;
-	margin?: "none" | "sm" | "md" | "lg" | "xl";
-	padding?: "none" | "sm" | "md" | "lg" | "xl";
-	underline?: boolean;
-	weight?: TextWeight;
-}
+const props = Astro.props as IHeadingProps;
 
-const {
-	align = "left",
-	anchor = false,
-	background,
-	color = "default",
-	class: className = "",
-	external = false,
-	href,
-	id,
-	level = 2,
-	margin = "md",
-	padding = "none",
-	underline = false,
-	weight,
-} = Astro.props;
-
-// 字体粗细映射（使用 common）
-const weightClass = textWeightClasses;
-
-// 根据级别设置基础样式（不包含字体粗细）
-const baseHeadingClass =
-	headingSizeClasses[(level ?? 2) as 1 | 2 | 3 | 4 | 5 | 6];
-
-// 默认字体粗细（当未指定 weight 时使用）
-const defaultWeightClass = {
-	1: "cosy:font-bold",
-	2: "cosy:font-semibold",
-	3: "cosy:font-semibold",
-	4: "cosy:font-medium",
-	5: "cosy:font-medium",
-	6: "cosy:font-medium",
-}[(level ?? 2) as 1 | 2 | 3 | 4 | 5 | 6];
-
-// 组合样式类
-const weightClassValue =
-	weight && weight in weightClass
-		? weightClass[weight as keyof typeof weightClass]
-		: defaultWeightClass;
-const headingClass = `${baseHeadingClass} ${weightClassValue}`;
-
-const colorClass = textColorClasses[(color as TextColor) ?? "default"];
-
-const alignClass =
-	textAlignClasses[(align ?? "left") as "left" | "center" | "right"];
-
-const underlineClass = underline
-	? "cosy:border-b cosy:pb-2 cosy:border-gray-200 cosy:dark:border-gray-700"
-	: "";
-
-// 外边距样式
-const marginClass = {
-	none: "",
-	sm: "cosy:my-2",
-	md: "cosy:my-4",
-	lg: "cosy:my-6",
-	xl: "cosy:my-8",
-}[(margin ?? "md") as "none" | "sm" | "md" | "lg" | "xl"];
-
-// 使用通用背景色函数
-const backgroundClass = getBackgroundClass(background);
-
-// 内边距样式映射
-const paddingClassMap = {
-	none: "",
-	sm: "cosy:py-2",
-	md: "cosy:py-4",
-	lg: "cosy:py-6",
-	xl: "cosy:py-8",
-} as const;
-
-const paddingClass =
-	paddingClassMap[padding as keyof typeof paddingClassMap] || "";
-
-// 组合所有类名
-const combinedClass = `heading cosy:w-full ${headingClass} ${colorClass} ${alignClass} ${underlineClass} ${marginClass} ${backgroundClass} ${paddingClass} ${className}`;
+// 使用共用的工具函数计算组合类名
+const combinedClass = getHeadingCombinedClassesAstro(props);
 
 // 如果有链接，添加链接相关的样式
-const linkClass = href ? "cosy:hover:opacity-80 cosy:transition-opacity" : "";
+const linkClass = props.href
+	? "cosy:hover:opacity-80 cosy:transition-opacity"
+	: "";
 ---
 
 {
-  level === 1 &&
-    (href ? (
-      <Link
-        href={href}
-        external={external}
-        class={`${linkClass}`}
-        noUnderline
-        fullWidth>
-        <h1 id={id} class={combinedClass}>
-          <slot />
-          <HeadingAnchor id={id} show={anchor} />
-        </h1>
-      </Link>
-    ) : (
-      <h1 id={id} class={combinedClass}>
-        <slot />
-        <HeadingAnchor id={id} show={anchor} />
-      </h1>
-    ))
+    props.level === 1 &&
+        (props.href ? (
+            <Link
+                href={props.href}
+                external={props.external}
+                class={`${linkClass}`}
+                noUnderline
+                fullWidth>
+                <h1 id={props.id} class={combinedClass}>
+                    <slot />
+                    <HeadingAnchor id={props.id} show={props.anchor} />
+                </h1>
+            </Link>
+        ) : (
+            <h1 id={props.id} class={combinedClass}>
+                <slot />
+                <HeadingAnchor id={props.id} show={props.anchor} />
+            </h1>
+        ))
 }
 
 {
-  level === 2 &&
-    (href ? (
-      <Link
-        href={href}
-        external={external}
-        class={`${linkClass}`}
-        noUnderline
-        fullWidth>
-        <h2 id={id} class={combinedClass}>
-          <slot />
-          <HeadingAnchor id={id} show={anchor} />
-        </h2>
-      </Link>
-    ) : (
-      <h2 id={id} class={combinedClass}>
-        <slot />
-        <HeadingAnchor id={id} show={anchor} />
-      </h2>
-    ))
+    props.level === 2 &&
+        (props.href ? (
+            <Link
+                href={props.href}
+                external={props.external}
+                class={`${linkClass}`}
+                noUnderline
+                fullWidth>
+                <h2 id={props.id} class={combinedClass}>
+                    <slot />
+                    <HeadingAnchor id={props.id} show={props.anchor} />
+                </h2>
+            </Link>
+        ) : (
+            <h2 id={props.id} class={combinedClass}>
+                <slot />
+                <HeadingAnchor id={props.id} show={props.anchor} />
+            </h2>
+        ))
 }
 
 {
-  level === 3 &&
-    (href ? (
-      <Link
-        href={href}
-        external={external}
-        class={`${linkClass}`}
-        noUnderline
-        fullWidth>
-        <h3 id={id} class={combinedClass}>
-          <slot />
-          <HeadingAnchor id={id} show={anchor} />
-        </h3>
-      </Link>
-    ) : (
-      <h3 id={id} class={combinedClass}>
-        <slot />
-        <HeadingAnchor id={id} show={anchor} />
-      </h3>
-    ))
+    props.level === 3 &&
+        (props.href ? (
+            <Link
+                href={props.href}
+                external={props.external}
+                class={`${linkClass}`}
+                noUnderline
+                fullWidth>
+                <h3 id={props.id} class={combinedClass}>
+                    <slot />
+                    <HeadingAnchor id={props.id} show={props.anchor} />
+                </h3>
+            </Link>
+        ) : (
+            <h3 id={props.id} class={combinedClass}>
+                <slot />
+                <HeadingAnchor id={props.id} show={props.anchor} />
+            </h3>
+        ))
 }
 
 {
-  level === 4 &&
-    (href ? (
-      <Link
-        href={href}
-        external={external}
-        class={`${linkClass}`}
-        noUnderline
-        fullWidth>
-        <h4 id={id} class={combinedClass}>
-          <slot />
-          <HeadingAnchor id={id} show={anchor} />
-        </h4>
-      </Link>
-    ) : (
-      <h4 id={id} class={combinedClass}>
-        <slot />
-        <HeadingAnchor id={id} show={anchor} />
-      </h4>
-    ))
+    props.level === 4 &&
+        (props.href ? (
+            <Link
+                href={props.href}
+                external={props.external}
+                class={`${linkClass}`}
+                noUnderline
+                fullWidth>
+                <h4 id={props.id} class={combinedClass}>
+                    <slot />
+                    <HeadingAnchor id={props.id} show={props.anchor} />
+                </h4>
+            </Link>
+        ) : (
+            <h4 id={props.id} class={combinedClass}>
+                <slot />
+                <HeadingAnchor id={props.id} show={props.anchor} />
+            </h4>
+        ))
 }
 
 {
-  level === 5 &&
-    (href ? (
-      <Link
-        href={href}
-        external={external}
-        class={`${linkClass}`}
-        noUnderline
-        fullWidth>
-        <h5 id={id} class={combinedClass}>
-          <slot />
-          <HeadingAnchor id={id} show={anchor} />
-        </h5>
-      </Link>
-    ) : (
-      <h5 id={id} class={combinedClass}>
-        <slot />
-        <HeadingAnchor id={id} show={anchor} />
-      </h5>
-    ))
+    props.level === 5 &&
+        (props.href ? (
+            <Link
+                href={props.href}
+                external={props.external}
+                class={`${linkClass}`}
+                noUnderline
+                fullWidth>
+                <h5 id={props.id} class={combinedClass}>
+                    <slot />
+                    <HeadingAnchor id={props.id} show={props.anchor} />
+                </h5>
+            </Link>
+        ) : (
+            <h5 id={props.id} class={combinedClass}>
+                <slot />
+                <HeadingAnchor id={props.id} show={props.anchor} />
+            </h5>
+        ))
 }
 
 {
-  level === 6 &&
-    (href ? (
-      <Link
-        href={href}
-        external={external}
-        class={`${linkClass}`}
-        noUnderline
-        fullWidth>
-        <h6 id={id} class={combinedClass}>
-          <slot />
-          <HeadingAnchor id={id} show={anchor} />
-        </h6>
-      </Link>
-    ) : (
-      <h6 id={id} class={combinedClass}>
-        <slot />
-        <HeadingAnchor id={id} show={anchor} />
-      </h6>
-    ))
+    props.level === 6 &&
+        (props.href ? (
+            <Link
+                href={props.href}
+                external={props.external}
+                class={`${linkClass}`}
+                noUnderline
+                fullWidth>
+                <h6 id={props.id} class={combinedClass}>
+                    <slot />
+                    <HeadingAnchor id={props.id} show={props.anchor} />
+                </h6>
+            </Link>
+        ) : (
+            <h6 id={props.id} class={combinedClass}>
+                <slot />
+                <HeadingAnchor id={props.id} show={props.anchor} />
+            </h6>
+        ))
 }
 
 <style>
-  .heading {
-    line-height: 1.2;
-    scroll-margin-top: 100px;
-  }
+    .heading {
+        line-height: 1.2;
+        scroll-margin-top: 100px;
+    }
 
-  .heading-anchor {
-    color: inherit;
-    text-decoration: none;
-    vertical-align: middle;
-  }
+    .heading-anchor {
+        color: inherit;
+        text-decoration: none;
+        vertical-align: middle;
+    }
 
-  /* 悬停效果 */
-  .heading:hover .heading-anchor {
-    opacity: 0.7 !important;
-  }
+    /* 悬停效果 */
+    .heading:hover .heading-anchor {
+        opacity: 0.7 !important;
+    }
 
-  .heading-anchor:hover {
-    opacity: 1 !important;
-  }
+    .heading-anchor:hover {
+        opacity: 1 !important;
+    }
 </style>

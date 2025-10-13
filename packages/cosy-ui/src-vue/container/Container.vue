@@ -1,71 +1,102 @@
 <script setup lang="ts">
 import "../../style";
 import { computed } from "vue";
-import type { IContainerProps } from "./types";
-import { allBackgroundClasses } from "../../src/common/backgrounds";
-import {
-	widthClasses,
-	flexClasses,
-	gapClasses,
-	itemsClasses,
-	justifyClasses,
-	roundedClasses,
-} from "../../src/common";
-import { paddingClasses } from "../../src/common/padding";
-
-/**
- * @component Container
- * @description Vue 版本的 Container 组件，是一个基础的布局容器，用于限制内容宽度并居中显示
- * @props {boolean} [border=false] - 是否显示边框
- * @props {boolean} [centered=true] - 是否居中显示
- * @props {string} [class=''] - 自定义类名
- * @props {('row'|'col'|'row-reverse'|'col-reverse')} [flex] - flex布局方向
- * @props {('none'|'xs'|'sm'|'md'|'lg'|'xl')} [gap='none'] - flex项目间距
- * @props {('start'|'end'|'center'|'baseline'|'stretch')} [items] - flex项目水平对齐方式
- * @props {('start'|'end'|'center'|'between'|'around'|'evenly')} [justify] - flex项目垂直对齐方式
- * @props {('none'|'sm'|'md'|'lg'|'xl'|'2xl'|'3xl'|'4xl')} [padding='md'] - 内边距大小
- * @props {('xs'|'sm'|'md'|'lg'|'xl'|'full')} [size='md'] - 容器尺寸
- * @props {('none'|'sm'|'md'|'lg'|'xl'|'full')} [rounded='none'] - 圆角大小
- * @props {string} [background] - 预设的语义化背景色，使用 Tailwind v4 语法（如 bg-primary/50）
- */
+import type { IContainerProps } from "./props";
+import { getContainerCombinedClassesVue } from "./class";
+import ContainerBg from "./ContainerBg.vue";
+import AspectRatioBox from "./AspectRatioBox.vue";
+import ContainerError from "./ContainerError.vue";
+import { validateContainer } from "./validate";
+import type { FitMode } from "../../src/common/fitmode";
 
 interface Props extends IContainerProps {}
 
 const props = withDefaults(defineProps<Props>(), {
 	padding: "md",
 	centered: true,
-	border: false,
+	border: "none",
 	gap: "none",
 	rounded: "none",
+	muted: false,
+	shadow: "none",
 	class: "",
+	contentCentered: false,
+	fit: "none",
 });
 
-// 构建CSS类名
-const resolvedSize = computed(() => props.width ?? "md");
+// 校验所有配置
+const validationMessages = computed(() => validateContainer(props));
+const hasError = computed(() => validationMessages.value.length > 0);
 
-const containerClasses = computed(() => [
-	"cosy:w-full",
-	props.centered ? "cosy:mx-auto" : "",
-	widthClasses[resolvedSize.value],
-	paddingClasses[props.padding],
-	roundedClasses[props.rounded as keyof typeof roundedClasses],
-	props.border ? "cosy:border" : "",
-	props.flex ? flexClasses[props.flex] : "",
-	props.flex ? gapClasses[props.gap] : "",
-	props.items && props.flex ? itemsClasses[props.items] : "",
-	props.justify && props.flex ? justifyClasses[props.justify] : "",
-	// 处理背景色 - 使用预定义的完整类名
-	props.background
-		? allBackgroundClasses[
-				props.background as keyof typeof allBackgroundClasses
-			]
-		: "",
-	props.class,
-]);
+// 使用共用的工具函数计算组合类名
+const containerClasses = computed(() => getContainerCombinedClassesVue(props));
+
+// 计算其他需要的属性
+const fitEnabled = computed(
+	() => props.fit !== "none" && typeof props.aspectRatio === "number",
+);
+const hasExplicitHeight = computed(
+	() => !!props.height && props.height !== "none",
+);
+const isHeightDrivenAspect = computed(
+	() =>
+		!fitEnabled.value &&
+		typeof props.aspectRatio === "number" &&
+		!!props.height &&
+		props.height !== "none",
+);
+
+// 构建内联样式
+const computedInlineStyles = computed(() => {
+	if (fitEnabled.value) {
+		return hasExplicitHeight.value
+			? "container-type: size;"
+			: "container-type: inline-size;";
+	}
+
+	if (props.aspectRatio && !isHeightDrivenAspect.value) {
+		return `aspect-ratio: ${props.aspectRatio};`;
+	}
+
+	return "";
+});
+
+// 用于传递给 AspectRatioBox 的 fit 属性，确保不为 "none"
+const aspectRatioFit = computed(() => {
+	if (props.fit === "none") return "contain"; // 默认值
+	return props.fit as Exclude<FitMode, "none">;
+});
 </script>
 
 <template>
-  <section :class="containerClasses" container>
-    <slot />
+  <!-- 显示错误信息 -->
+  <ContainerError v-if="hasError" :messages="validationMessages" />
+
+  <!-- 正常渲染容器 -->
+  <section
+    v-else
+    :class="containerClasses"
+    :style="computedInlineStyles"
+    class="cosy:relative">
+    <!-- 最底层的背景图片 -->
+    <ContainerBg :background-image="backgroundImage" />
+
+    <!-- 当启用宽高比适配时，使用专门的宽高比组件处理 -->
+    <AspectRatioBox
+      v-if="fitEnabled"
+      :aspect-ratio="aspectRatio!"
+      :fit="aspectRatioFit"
+      :rounded="rounded"
+      :has-explicit-height="hasExplicitHeight" />
+
+    <!-- 当未启用宽高比适配但需要高度驱动布局时，使用高度驱动组件 -->
+    <div
+      v-else-if="isHeightDrivenAspect"
+      class="cosy:absolute cosy:inset-0 cosy:grid cosy:place-items-center">
+      <slot />
+    </div>
+
+    <!-- 默认情况，直接渲染子元素 -->
+    <slot v-else />
   </section>
 </template>

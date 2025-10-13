@@ -1,0 +1,50 @@
+---
+import { CodeContainer } from "@coffic/cosy-ui";
+import { Container } from "@coffic/cosy-ui";
+
+// 源码导入（用于 codes 数组）
+import NoneExampleSourceCode from "./examples/ShadowNoneExample.astro?raw";
+import SmExampleSourceCode from "./examples/ShadowSmExample.astro?raw";
+import MdExampleSourceCode from "./examples/ShadowMdExample.astro?raw";
+import LgExampleSourceCode from "./examples/ShadowLgExample.astro?raw";
+import XlExampleSourceCode from "./examples/ShadowXlExample.astro?raw";
+import Shadow2xlExampleSourceCode from "./examples/Shadow2xlExample.astro?raw";
+
+// 组件导入（用于实际渲染）
+import NoneExample from "./examples/ShadowNoneExample.astro";
+import SmExample from "./examples/ShadowSmExample.astro";
+import MdExample from "./examples/ShadowMdExample.astro";
+import LgExample from "./examples/ShadowLgExample.astro";
+import XlExample from "./examples/ShadowXlExample.astro";
+import Shadow2xlExample from "./examples/Shadow2xlExample.astro";
+---
+
+<CodeContainer
+    codes={[
+        NoneExampleSourceCode,
+        SmExampleSourceCode,
+        MdExampleSourceCode,
+        LgExampleSourceCode,
+        XlExampleSourceCode,
+        Shadow2xlExampleSourceCode,
+    ]}
+    titles={['none', 'sm', 'md', 'lg', 'xl', '2xl']}>
+    <div id="tab-1">
+        <NoneExample />
+    </div>
+    <div id="tab-2">
+        <SmExample />
+    </div>
+    <div id="tab-3">
+        <MdExample />
+    </div>
+    <div id="tab-4">
+        <LgExample />
+    </div>
+    <div id="tab-5">
+        <XlExample />
+    </div>
+    <div id="tab-6">
+        <Shadow2xlExample />
+    </div>
+</CodeContainer>

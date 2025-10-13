@@ -1,0 +1,18 @@
+---
+import { CodeContainer } from "@coffic/cosy-ui";
+import PlaceholderVueNoBorderSource from "./PlaceholderVueNoBorder.vue?raw";
+import PlaceholderVueBorderSource from "./PlaceholderVueBorder.vue?raw";
+import PlaceholderVueNoBorder from "./PlaceholderVueNoBorder.vue";
+import PlaceholderVueBorder from "./PlaceholderVueBorder.vue";
+---
+
+<CodeContainer
+    codes={[PlaceholderVueNoBorderSource, PlaceholderVueBorderSource]}
+    titles={['false', 'true']}>
+    <div id="tab-1">
+        <PlaceholderVueNoBorder />
+    </div>
+    <div id="tab-2">
+        <PlaceholderVueBorder />
+    </div>
+</CodeContainer>

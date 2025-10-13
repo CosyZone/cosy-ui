@@ -51,17 +51,15 @@
 import "../../style.ts";
 import Container from "../container/Container.astro";
 import type { BackgroundColor } from "../../src/common/backgrounds";
-import type { ContentBorderColor } from "../container/contentBorderColors";
 import type { ImageMetadata } from "astro";
 import Image from "../image/Image.astro";
 import type { RoundedSize } from "../../src/common/rounded";
 import { roundedClasses } from "../../src/common/rounded";
-import { ContainerProps } from "../container/props";
 
 export interface IPictureBookPageProps {
 	background?: BackgroundColor | ImageMetadata;
 	pageAspectRatio?: number;
-	border?: boolean | ContentBorderColor;
+	border?: boolean;
 	rounded?: RoundedSize;
 }
 
@@ -79,52 +77,45 @@ const isImageBackground =
 
 // 圆角类名
 const roundedClass = roundedClasses[rounded] || "";
-
-const containerProps = ContainerProps()
-	.aspectRatio(pageAspectRatio)
-	.fit("contain")
-	.contentBorder(border)
-	.padding("none")
-	.margin("none")
-	.rounded(rounded)
-	.border(false)
-	.centered(true)
-	.class("cosy:relative cosy:overflow-hidden");
-
-if (isImageBackground) {
-	containerProps.backgroundImage(background as ImageMetadata);
-} else {
-	containerProps.background(background as BackgroundColor);
-}
 ---
 
 <Container
-  {...containerProps.build()}
-  aria-label="绘本页"
-  class="cosy:relative cosy:overflow-hidden">
-  <!-- 背景层：自动显示背景色或图片，填充比例内容区域 -->
-  <div
-    class={`cosy:absolute cosy:inset-0 cosy:w-full cosy:h-full ${roundedClass}`}>
-    {
-      isImageBackground && (
-        <Image
-          src={background as ImageMetadata}
-          alt="页面背景"
-          class={`cosy:w-full cosy:h-full cosy:object-cover ${roundedClass}`}
-        />
-      )
-    }
-  </div>
+    aspectRatio={pageAspectRatio}
+    fit="contain"
+    padding="none"
+    margin="none"
+    rounded={rounded}
+    centered={true}
+    class="cosy:relative cosy:overflow-hidden"
+    backgroundImage={isImageBackground
+        ? (background as ImageMetadata)
+        : undefined}
+    background={!isImageBackground
+        ? (background as BackgroundColor)
+        : undefined}>
+    <!-- 背景层：自动显示背景色或图片，填充比例内容区域 -->
+    <div
+        class={`cosy:absolute cosy:inset-0 cosy:w-full cosy:h-full ${roundedClass}`}>
+        {
+            isImageBackground && (
+                <Image
+                    src={background as ImageMetadata}
+                    alt="页面背景"
+                    class={`cosy:w-full cosy:h-full cosy:object-cover ${roundedClass}`}
+                />
+            )
+        }
+    </div>
 
-  <!-- 覆盖层：绝对定位区域，由使用者提供 -->
-  <div class="cosy:absolute cosy:inset-0">
-    <slot name="overlay" />
-  </div>
+    <!-- 覆盖层：绝对定位区域，由使用者提供 -->
+    <div class="cosy:absolute cosy:inset-0">
+        <slot name="overlay" />
+    </div>
 
-  <!-- 文字层：按行高对齐排版 -->
-  <div
-    class="cosy:relative cosy:h-full cosy:w-full cosy:whitespace-pre-wrap cosy:break-words cosy:text-gray-900"
-    style="line-height: 1.7; font-size: 18px; font-weight: 500;">
-    <slot />
-  </div>
+    <!-- 文字层：按行高对齐排版 -->
+    <div
+        class="cosy:relative cosy:h-full cosy:w-full cosy:whitespace-pre-wrap cosy:break-words cosy:text-gray-900"
+        style="line-height: 1.7; font-size: 18px; font-weight: 500;">
+        <slot />
+    </div>
 </Container>

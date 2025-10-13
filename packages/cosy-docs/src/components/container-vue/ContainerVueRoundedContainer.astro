@@ -1,4 +1,8 @@
 ---
+/**
+ * @component ContainerVueRoundedContainer
+ * @description Container Vue 组件圆角示例容器
+ */
 import { CodeContainer } from "@coffic/cosy-ui";
 import ContainerVueRoundedNone from "./ContainerVueRoundedNone.vue";
 import ContainerVueRoundedSm from "./ContainerVueRoundedSm.vue";
@@ -6,40 +10,33 @@ import ContainerVueRoundedMd from "./ContainerVueRoundedMd.vue";
 import ContainerVueRoundedLg from "./ContainerVueRoundedLg.vue";
 import ContainerVueRoundedXl from "./ContainerVueRoundedXl.vue";
 import ContainerVueRoundedFull from "./ContainerVueRoundedFull.vue";
-import ContainerVueRoundedNoneCode from "./ContainerVueRoundedNone.vue?raw";
-import ContainerVueRoundedSmCode from "./ContainerVueRoundedSm.vue?raw";
-import ContainerVueRoundedMdCode from "./ContainerVueRoundedMd.vue?raw";
-import ContainerVueRoundedLgCode from "./ContainerVueRoundedLg.vue?raw";
-import ContainerVueRoundedXlCode from "./ContainerVueRoundedXl.vue?raw";
-import ContainerVueRoundedFullCode from "./ContainerVueRoundedFull.vue?raw";
+import sourceNone from "./ContainerVueRoundedNone.vue?raw";
+import sourceSm from "./ContainerVueRoundedSm.vue?raw";
+import sourceMd from "./ContainerVueRoundedMd.vue?raw";
+import sourceLg from "./ContainerVueRoundedLg.vue?raw";
+import sourceXl from "./ContainerVueRoundedXl.vue?raw";
+import sourceFull from "./ContainerVueRoundedFull.vue?raw";
 ---
 
 <CodeContainer
-  codes={[
-    ContainerVueRoundedNoneCode,
-    ContainerVueRoundedSmCode,
-    ContainerVueRoundedMdCode,
-    ContainerVueRoundedLgCode,
-    ContainerVueRoundedXlCode,
-    ContainerVueRoundedFullCode,
-  ]}
-  titles={['none', 'sm', 'md', 'lg', 'xl', 'full']}>
-  <div id="tab-1">
-    <ContainerVueRoundedNone client:load />
-  </div>
-  <div id="tab-2">
-    <ContainerVueRoundedSm client:load />
-  </div>
-  <div id="tab-3">
-    <ContainerVueRoundedMd client:load />
-  </div>
-  <div id="tab-4">
-    <ContainerVueRoundedLg client:load />
-  </div>
-  <div id="tab-5">
-    <ContainerVueRoundedXl client:load />
-  </div>
-  <div id="tab-6">
-    <ContainerVueRoundedFull client:load />
-  </div>
+    codes={[sourceNone, sourceSm, sourceMd, sourceLg, sourceXl, sourceFull]}
+    titles={['none', 'sm', 'md', 'lg', 'xl', 'full']}>
+    <div id="tab-1">
+        <ContainerVueRoundedNone client:load />
+    </div>
+    <div id="tab-2">
+        <ContainerVueRoundedSm client:load />
+    </div>
+    <div id="tab-3">
+        <ContainerVueRoundedMd client:load />
+    </div>
+    <div id="tab-4">
+        <ContainerVueRoundedLg client:load />
+    </div>
+    <div id="tab-5">
+        <ContainerVueRoundedXl client:load />
+    </div>
+    <div id="tab-6">
+        <ContainerVueRoundedFull client:load />
+    </div>
 </CodeContainer>

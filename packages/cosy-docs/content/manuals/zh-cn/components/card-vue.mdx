@@ -4,7 +4,7 @@ description: 'Vue 版本的 Card 组件'
 badge: 'Vue'
 tags:
   - Vue
-order: 3.4
+order: 3.1
 ---
 
 import { Card } from '@coffic/cosy-ui/vue';
@@ -26,9 +26,21 @@ Card组件用于在页面中展示相关内容的容器，通常包含标题、�
 
 ## 案例
 
+### 基础卡片
+
+<CardVuePackage.Basic />
+
+### 多卡片展示
+
 <CardVuePackage.Basic />
 
 ## Props
+
+### background
+
+背景色类型，支持所有预设背景色和透明度变体。
+
+<CardVuePackage.Basic />
 
 ### class
 
@@ -50,9 +62,21 @@ Card组件用于在页面中展示相关内容的容器，通常包含标题、�
 
 ### imageUrl
 
-卡片顶部图片的URL。
+卡片顶部图片的URL（Vue版本只支持字符串类型）。
 
 <CardVuePackage.WithImage />
+
+### muted
+
+是否使用柔和色样式（未激活状态），设置为 true 时卡片会呈现半透明效果并禁用交互。
+
+<CardVuePackage.Muted />
+
+### shadow
+
+阴影大小，可选值：none、sm、md、lg、xl、2xl。
+
+<CardVuePackage.Shadow />
 
 ### subtitle
 
@@ -62,7 +86,7 @@ Card组件用于在页面中展示相关内容的容器，通常包含标题、�
 
 ### title
 
-卡片标题（必填）。
+卡片标题。
 
 <CardVuePackage.Basic />
 

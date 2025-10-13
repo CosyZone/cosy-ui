@@ -49,7 +49,7 @@
  * @prop {boolean} [clickable=true] - 是否启用点击效果，设置为 true 时卡片可点击
  * @prop {Size} [width='full'] - 容器宽度，支持多种预设尺寸
  * @prop {BackgroundColor} [background] - 容器背景色，支持多种预设的语义化背景色
- * @prop {boolean} [border=false] - 是否显示边框，设置为 true 时显示容器边框
+ * @prop {BorderSize} [border='none'] - 是否显示边框，设置为 true 时显示容器边框
  * @prop {boolean} [centered=true] - 是否居中显示，设置为 true 时容器居中显示
  * @prop {string} [title] - 中心标题，在图片墙中心显示标题文字，带有遮罩效果确保可读性
  * @prop {string} [subtitle] - 中心副标题，与 title 配合使用，显示在标题下方
@@ -61,34 +61,20 @@
 import "../../style.ts";
 
 // 导入类型定义
-import type { PhotoCardData } from "./types";
+import type {
+	PhotoCardData,
+	IPhotoWallProps,
+	PaddingSize,
+	RoundedSize,
+	BackgroundColor,
+	Size,
+	BorderSize,
+} from "./props";
 
 // 导入 Container 组件
 import Container from "../container/Container.astro";
 
-// 导入 Container 相关类型
-import type { PaddingSize, RoundedSize } from "../../src/common";
-import type { BackgroundColor } from "../../src/common/backgrounds";
-import type { Size } from "../../src/common/size";
-
-interface Props {
-	photos: PhotoCardData[];
-	padding?: PaddingSize;
-	rounded?: RoundedSize;
-	gap?: "none" | "xs" | "sm" | "md" | "lg" | "xl";
-	hover?: boolean;
-	clickable?: boolean;
-	width?: Size;
-	background?: BackgroundColor;
-	border?: boolean;
-	centered?: boolean;
-	title?: string;
-	subtitle?: string;
-	class?: string;
-	style?: string;
-	[key: string]: any;
-}
-
+// 从 Astro.props 中解构出属性
 const {
 	photos,
 	padding = "md",
@@ -98,14 +84,14 @@ const {
 	clickable = true,
 	width = "full",
 	background,
-	border = false,
+	border = "none",
 	centered = true,
 	title,
 	subtitle,
 	class: className,
 	style: customStyle,
 	...rest
-} = Astro.props;
+} = Astro.props as IPhotoWallProps & { class?: string; style?: string };
 
 // 计算照片墙的类名
 const getPhotoWallClasses = () => {
@@ -117,7 +103,7 @@ const getPhotoWallClasses = () => {
 	];
 
 	// Gap classes
-	const gapClasses = {
+	const gapClasses: Record<string, string> = {
 		none: "cosy:gap-0",
 		xs: "cosy:gap-1",
 		sm: "cosy:gap-2",
@@ -168,7 +154,7 @@ const getCardClasses = (card: PhotoCardData) => {
 	];
 
 	// Rounded classes
-	const roundedClasses = {
+	const roundedClasses: Record<string, string> = {
 		none: "cosy:rounded-none",
 		sm: "cosy:rounded-sm",
 		md: "cosy:rounded-md",

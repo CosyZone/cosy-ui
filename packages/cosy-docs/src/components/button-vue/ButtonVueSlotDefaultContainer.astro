@@ -1,0 +1,25 @@
+---
+/**
+ * @component ButtonVueSlotDefaultContainer
+ * @description Vue 版本 Button Slots.default 属性示例容器组件
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import ButtonVueSlotDefaultSimpleSourceCode from "./ButtonVueSlotDefaultSimple.vue?raw";
+import ButtonVueSlotDefaultWithHtmlSourceCode from "./ButtonVueSlotDefaultWithHtml.vue?raw";
+import ButtonVueSlotDefaultSimple from "./ButtonVueSlotDefaultSimple.vue";
+import ButtonVueSlotDefaultWithHtml from "./ButtonVueSlotDefaultWithHtml.vue";
+---
+
+<CodeContainer
+    codes={[
+        ButtonVueSlotDefaultSimpleSourceCode,
+        ButtonVueSlotDefaultWithHtmlSourceCode,
+    ]}
+    titles={['简单文本', 'HTML内容']}>
+    <div id="tab-1">
+        <ButtonVueSlotDefaultSimple />
+    </div>
+    <div id="tab-2">
+        <ButtonVueSlotDefaultWithHtml />
+    </div>
+</CodeContainer>

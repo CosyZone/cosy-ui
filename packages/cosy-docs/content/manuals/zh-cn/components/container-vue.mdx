@@ -16,100 +16,72 @@ import { ContainerVuePackage } from '@/components/container-vue/index';
 
 Container 组件是一个基础的布局容器，用于限制内容宽度并居中显示。它提供了多种尺寸和内边距选项，适用于各种布局需求。
 
-组件特性：
-
-- 内容宽度约束，提高可读性和视觉美感
-- 响应式设计，在不同屏幕尺寸下自动调整内边距
-- 灵活配置，支持多种尺寸和内边距选项
-- 简单易用的 API，易于集成到各种页面布局中
-- 支持 Flexbox 布局，可自定义对齐方式和间距
-- 语义化背景色支持，兼容主题系统
-- 背景色透明度支持，提供预设透明度值
-
 ## 案例
 
 <ContainerVuePackage.Basic />
 
 ## Props
 
+### aspectRatio
+宽高比（宽/高），设置后容器会保持这个比例，如 16/9、4/3、1 等。
+<ContainerVuePackage.AspectRatio />
+
 ### background
-
-基础背景色，支持主题系统。提供预设的语义化颜色，适用于不同使用场景。
-
-#### 基础背景色
-
+背景色类型，支持背景色和透明度变体，如：base-100、primary、secondary、accent、neutral、info、success、warning、error、primary/10、secondary/20 等。
 <ContainerVuePackage.Background />
 
-#### 背景色透明度
-
-背景色透明度，预设几个值供用户选择。使用 Tailwind v4 语法：`bg-color/opacity`（如 `bg-primary/50`）。
-
-<ContainerVuePackage.BackgroundOpacity />
-
 ### border
-
-是否显示边框。启用时，会在容器周围添加边框和圆角。
-
+边框尺寸，可选值：none、sm、md、lg、xl。
 <ContainerVuePackage.Border />
 
 ### centered
-
-是否居中显示。设置为 false 时，容器将左对齐。
-
+是否居中显示，设置为 false 时容器将靠左对齐。
 <ContainerVuePackage.Centered />
 
 ### class
-
-自定义 CSS 类名，用于添加额外样式。
-
+自定义 CSS 类名，用于添加额外的样式。
 <ContainerVuePackage.CustomClass />
 
 ### flex
-
-Flex 布局方向。可选值：row、col、row-reverse、col-reverse。不设置则不启用 flex 布局。
-
+flex 布局方向，可选值：row、col、row-reverse、col-reverse，不设置则不启用 flex 布局。
 <ContainerVuePackage.Flex />
 
 ### gap
-
-Flex 项目间距。可选值：none、xs、sm、md、lg、xl。仅在启用 flex 布局时有效。
-
+flex 项目间距，可选值：none、xs、sm、md、lg、xl，仅在启用 flex 布局时生效。
 <ContainerVuePackage.Gap />
 
+### height
+容器高度，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl、screen、auto，none 表示不设置高度。
+<ContainerVuePackage.Height />
+
 ### items
-
-Flex 项目水平对齐方式。可选值：start、end、center、baseline、stretch。仅在启用 flex 布局时有效。
-
+flex 项目水平对齐方式，可选值：start、end、center、baseline、stretch，仅在启用 flex 布局时生效。
 <ContainerVuePackage.Items />
 
 ### justify
-
-Flex 项目垂直对齐方式。可选值：start、end、center、between、around、evenly。仅在启用 flex 布局时有效。
-
+flex 项目垂直对齐方式，可选值：start、end、center、between、around、evenly，仅在启用 flex 布局时生效。
 <ContainerVuePackage.Justify />
 
 ### padding
-
-内边距大小。可选值：none、sm、md、lg、xl。
-
+内边距大小，可选值：none、sm、md、lg、xl。
 <ContainerVuePackage.Padding />
 
 ### rounded
-
-圆角大小。可选值：none、sm、md、lg、xl、full。
-
+圆角大小，可选值：none、sm、md、lg、xl、full。
 <ContainerVuePackage.Rounded />
 
+### shadow
+阴影大小，可选值：none、sm、md、lg、xl、2xl。
+<ContainerVuePackage.Shadow />
+
 ### size
-
-容器尺寸。可选值：xs、sm、md、lg、xl、full。控制容器的最大宽度。
-
-<ContainerVuePackage.Sizes />
+容器宽度，可选值：xs、sm、md、lg、xl、full，控制容器的最大宽度。
+<ContainerVuePackage.Size />
 
 ## Slots
 
 ### default
 
-默认内容插槽，用于在容器内放置任何内容。
+默认内容插槽，用于在容器中放置任何内容。
 
 <ContainerVuePackage.Slots />

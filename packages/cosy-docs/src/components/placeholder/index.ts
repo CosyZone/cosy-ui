@@ -26,8 +26,16 @@ import PlaceHolderSizesContainer from "./PlaceHolderSizesContainer.astro";
 import PlaceHolderBackgroundsContainer from "./PlaceHolderBackgroundsContainer.astro";
 import PlaceHolderBasicContainer from "./PlaceHolderBasicContainer.astro";
 import PlaceHolderSlots from "./PlaceHolderSlots.astro";
+import PlaceHolderCustomClass from "./PlaceHolderCustomClass.astro";
+import PlaceHolderClassContainer from "./PlaceHolderClassContainer.astro";
 import Cases from "./Cases.astro";
 import MultiplePlaceholders from "./MultiplePlaceholders.astro";
+import PlaceHolderMuted from "./PlaceHolderMuted.astro";
+import PlaceHolderNotMuted from "./PlaceHolderNotMuted.astro";
+import PlaceHolderMutedContainer from "./PlaceHolderMutedContainer.astro";
+import PlaceHolderBorder from "./PlaceHolderBorder.astro";
+import PlaceHolderNoBorder from "./PlaceHolderNoBorder.astro";
+import PlaceHolderBorderContainer from "./PlaceHolderBorderContainer.astro";
 
 export const PlaceHolderPackage = {
 	Cases,
@@ -37,9 +45,13 @@ export const PlaceHolderPackage = {
 	Padding: PlaceHolderPaddingContainer,
 	Backgrounds: PlaceHolderBackgroundsContainer,
 	Slots: PlaceHolderSlots,
+	Class: PlaceHolderClassContainer,
+	Border: PlaceHolderBorderContainer,
+	Muted: PlaceHolderMutedContainer,
 	BasicSimple: PlaceHolderBasicSimple,
 	BasicBackground: PlaceHolderBasicBackground,
 	BasicTheme: PlaceHolderBasicTheme,
+	CustomClass: PlaceHolderCustomClass,
 	SizeXs: PlaceHolderSizeXs,
 	SizeSm: PlaceHolderSizeSm,
 	SizeMd: PlaceHolderSizeMd,
@@ -60,4 +72,8 @@ export const PlaceHolderPackage = {
 	BackgroundBase: PlaceHolderBackgroundBase,
 	BackgroundTheme: PlaceHolderBackgroundTheme,
 	BackgroundStatus: PlaceHolderBackgroundStatus,
+	BorderExample: PlaceHolderBorder,
+	NoBorderExample: PlaceHolderNoBorder,
+	MutedExample: PlaceHolderMuted,
+	NotMutedExample: PlaceHolderNotMuted,
 };

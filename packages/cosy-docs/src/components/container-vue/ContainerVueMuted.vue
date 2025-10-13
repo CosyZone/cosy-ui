@@ -1,0 +1,9 @@
+<template>
+  <Container width="md" padding="md" muted background="base-100">
+    <p>这是一个使用了 muted 属性的容器，看起来处于未激活状态。</p>
+  </Container>
+</template>
+
+<script setup lang="ts">
+import { Container } from "@coffic/cosy-ui/vue";
+</script>

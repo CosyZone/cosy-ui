@@ -51,6 +51,7 @@
  * @prop {string} [date] - 评价日期
  * @prop {boolean} [verified] - 是否认证用户
  * @prop {string} [avatar] - 用户头像URL
+ * @prop {boolean} [muted] - 是否使用柔和色样式（未激活状态）
  * @prop {string} [class] - 自定义类名
  * @prop {any} [class:list] - 类名列表
  */
@@ -63,10 +64,9 @@ import Badge from "../badge/Badge.astro";
 import SmartIcon from "../smart-icon/SmartIcon.astro";
 import Card from "../card/Card.astro";
 import Avatar from "../avatar/Avatar.astro";
-import type { ReviewProps } from "./types";
+import type { IReviewProps } from "./props";
 
-type Props = ReviewProps;
-
+// 从props中分离Card相关的属性和Review自身的属性
 const {
 	userName,
 	rating,
@@ -76,8 +76,32 @@ const {
 	avatar,
 	class: className = "",
 	"class:list": classList,
+	// Card属性
+	aspectRatio,
+	centered,
+	contentCentered,
+	flex,
+	fit,
+	gap,
+	height,
+	items,
+	justify,
+	margin,
+	muted,
+	padding,
+	py,
+	pt,
+	pb,
+	px,
+	pl,
+	pr,
+	width,
+	rounded,
+	background,
+	border,
+	borderColor,
 	...rest
-} = Astro.props;
+} = Astro.props as IReviewProps;
 
 // 生成星级评分
 const generateStars = (rating: number) => {
@@ -101,59 +125,87 @@ const formatDate = (dateString: string) => {
 };
 ---
 
-<Card class:list={['cosy:review', 'cosy:p-6', className, classList]} {...rest}>
-  <!-- 用户信息 -->
-  <div class="cosy:flex cosy:items-center cosy:gap-3 cosy:mb-3">
-    <!-- 用户头像 -->
-    <Avatar userName={userName} avatar={avatar} size="md" />
+<Card
+    aspectRatio={aspectRatio}
+    centered={centered}
+    contentCentered={contentCentered}
+    flex={flex}
+    fit={fit}
+    gap={gap}
+    height={height}
+    items={items}
+    justify={justify}
+    margin={margin}
+    muted={muted}
+    padding={padding}
+    py={py}
+    pt={pt}
+    pb={pb}
+    px={px}
+    pl={pl}
+    pr={pr}
+    width={width}
+    rounded={rounded}
+    background={background}
+    border={border}
+    borderColor={borderColor}
+    class={className}
+    class:list={['cosy:review', 'cosy:p-6', classList]}
+    {...rest}>
+    <!-- 用户信息 -->
+    <div class="cosy:flex cosy:items-center cosy:gap-3 cosy:mb-3">
+        <!-- 用户头像 -->
+        <Avatar userName={userName} avatar={avatar} size="md" />
 
-    <!-- 用户名称和认证状态 -->
-    <div class="cosy:flex-1">
-      <div class="cosy:flex cosy:items-center cosy:gap-2 cosy:mb-1">
-        <Text class="cosy:font-medium cosy:text-base-content">{userName}</Text>
-        {
-          verified && (
-            <Badge variant="success" size="sm">
-              已认证
-            </Badge>
-          )
-        }
-      </div>
+        <!-- 用户名称和认证状态 -->
+        <div class="cosy:flex-1">
+            <div class="cosy:flex cosy:items-center cosy:gap-2 cosy:mb-1">
+                <Text class="cosy:font-medium cosy:text-base-content"
+                    >{userName}</Text
+                >
+                {
+                    verified && (
+                        <Badge variant="success" size="sm">
+                            已认证
+                        </Badge>
+                    )
+                }
+            </div>
+        </div>
     </div>
-  </div>
 
-  <!-- 评分 -->
-  <div class="cosy:flex cosy:items-center cosy:gap-1 cosy:mb-3">
-    {
-      generateStars(rating).map((star, index) => (
-        <SmartIcon
-          keyword={star.filled ? 'star' : star.half ? 'star' : 'star'}
-          size="16px"
-          class={
-            star.filled || star.half
-              ? 'cosy:text-warning'
-              : 'cosy:text-base-300'
-          }
-        />
-      ))
-    }
-  </div>
+    <!-- 评分 -->
+    <div class="cosy:flex cosy:items-center cosy:gap-1 cosy:mb-3">
+        {
+            generateStars(rating).map((star, index) => (
+                <SmartIcon
+                    keyword={star.filled ? 'star' : star.half ? 'star' : 'star'}
+                    size="16px"
+                    class={
+                        star.filled || star.half
+                            ? 'cosy:text-warning'
+                            : 'cosy:text-base-300'
+                    }
+                />
+            ))
+        }
+    </div>
 
-  <!-- 评论内容 -->
-  <div class="cosy:mb-3">
-    <Text class="cosy:text-base-content/80 cosy:leading-relaxed">
-      {comment}
-    </Text>
-  </div>
-
-  <!-- 评价日期 -->
-  {
-    date && (
-      <div>
-        <Text size="sm" class="cosy:text-base-content/50">
-          {formatDate(date)}
+    <!-- 评论内容 -->
+    <div class="cosy:mb-3">
+        <Text class="cosy:text-base-content/80 cosy:leading-relaxed">
+            {comment}
         </Text>
-      </div>
-    )
-  }
+    </div>
+
+    <!-- 评价日期 -->
+    {
+        date && (
+            <div>
+                <Text size="sm" class="cosy:text-base-content/50">
+                    {formatDate(date)}
+                </Text>
+            </div>
+        )
+    }
 </Card>

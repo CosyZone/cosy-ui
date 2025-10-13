@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import type { ITextProps } from "./props";
+import { textDefaultProps } from "./props";
+import {
+	getTextCombinedClass,
+	getTextTagName,
+} from "../../src/components/text/textUtils";
 
 /**
  * @component Text
@@ -29,6 +35,49 @@ import { computed } from "vue";
  * <Text size="xl">超大文本</Text>
  * ```
  *
+ * 不同颜色：
+ * ```vue
+ * <Text color="primary">主要颜色文本</Text>
+ * <Text color="secondary">次要颜色文本</Text>
+ * <Text color="accent">强调色文本</Text>
+ * <Text color="muted">柔和色文本</Text>
+ * ```
+ *
+ * 字体粗细：
+ * ```vue
+ * <Text weight="light">细体文本</Text>
+ * <Text weight="normal">常规文本</Text>
+ * <Text weight="medium">中等粗文本</Text>
+ * <Text weight="semibold">半粗体文本</Text>
+ * <Text weight="bold">粗体文本</Text>
+ * ```
+ *
+ * 文本对齐：
+ * ```vue
+ * <Text align="left">左对齐文本</Text>
+ * <Text align="center">居中对齐文本</Text>
+ * <Text align="right">右对齐文本</Text>
+ * <Text align="justify">两端对齐文本</Text>
+ * ```
+ *
+ * 文本截断：
+ * ```vue
+ * <Text truncate>这是一段很长的文本，将会被截断并显示省略号...</Text>
+ * ```
+ *
+ * 组合使用：
+ * ```vue
+ * <Text
+ *   size="lg"
+ *   color="primary"
+ *   weight="bold"
+ *   align="center"
+ *   class="my-4"
+ * >
+ *   这是一段重要的提示文本
+ * </Text>
+ * ```
+ *
  * @props
  * @prop {string} [as='p'] - 要渲染的HTML元素，如 'p', 'span', 'div' 等
  * @prop {'xs'|'sm'|'md'|'lg'|'xl'} [size='md'] - 文本大小
@@ -42,88 +91,15 @@ import { computed } from "vue";
  * @prop {string} [style] - 自定义内联样式
  */
 
-export interface ITextProps {
-	as?: string;
-	size?: "xs" | "sm" | "md" | "lg" | "xl";
-	weight?: "light" | "normal" | "medium" | "semibold" | "bold";
-	color?: "default" | "primary" | "secondary" | "accent" | "muted";
-	align?: "left" | "center" | "right" | "justify";
-	italic?: boolean;
-	underline?: boolean;
-	truncate?: boolean;
-	class?: string;
-	style?: string;
-}
+const props = withDefaults(defineProps<ITextProps>(), textDefaultProps);
 
-const props = withDefaults(defineProps<ITextProps>(), {
-	as: "p",
-	size: "md",
-	weight: "normal",
-	color: "default",
-	align: "left",
-	italic: false,
-	underline: false,
-	truncate: false,
-	class: "",
-	style: "",
-});
-
-// 根据大小设置样式
-const sizeClasses = {
-	xs: "cosy:text-xs",
-	sm: "cosy:text-sm",
-	md: "cosy:text-base",
-	lg: "cosy:text-lg",
-	xl: "cosy:text-xl",
-};
-
-// 根据粗细设置样式
-const weightClasses = {
-	light: "cosy:font-light",
-	normal: "cosy:font-normal",
-	medium: "cosy:font-medium",
-	semibold: "cosy:font-semibold",
-	bold: "cosy:font-bold",
-};
-
-// 根据颜色设置样式
-const colorClasses = {
-	default: "",
-	primary: "cosy:text-primary-600 cosy:dark:text-primary-400",
-	secondary: "cosy:text-secondary-600 cosy:dark:text-secondary-400",
-	accent: "cosy:text-accent-600 cosy:dark:text-accent-400",
-	muted: "cosy:text-gray-600 cosy:dark:text-gray-400",
-};
-
-// 根据对齐方式设置样式
-const alignClasses = {
-	left: "cosy:text-left",
-	center: "cosy:text-center",
-	right: "cosy:text-right",
-	justify: "cosy:text-justify",
-};
-
-// 计算样式类
-const element = computed(() => props.as);
-const sizeClass = computed(() => sizeClasses[props.size]);
-const weightClass = computed(() => weightClasses[props.weight]);
-const colorClass = computed(() => colorClasses[props.color]);
-const alignClass = computed(() => alignClasses[props.align]);
-const italicClass = computed(() => (props.italic ? "cosy:italic" : ""));
-const underlineClass = computed(() =>
-	props.underline ? "cosy:underline" : "",
-);
-const truncateClass = computed(() => (props.truncate ? "cosy:truncate" : ""));
-
-// 组合所有类名
-const combinedClass = computed(
-	() =>
-		`text ${sizeClass.value} ${weightClass.value} ${colorClass.value} ${alignClass.value} ${italicClass.value} ${underlineClass.value} ${truncateClass.value} ${props.class}`,
-);
+// 使用共用的工具函数计算组合类名和标签名
+const combinedClass = computed(() => getTextCombinedClass(props));
+const tagName = computed(() => getTextTagName(props.as));
 </script>
 
 <template>
-  <component :is="element" :class="combinedClass" :style="style">
+  <component :is="tagName" :class="combinedClass" :style="style">
     <slot />
   </component>
 </template>
