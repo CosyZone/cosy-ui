@@ -60,7 +60,7 @@
  * @prop {string} [formmethod] - 表单提交方法，支持 dialog 等特殊值
  * @prop {string} [href] - 链接地址，设置后按钮变为链接形式
  * @prop {boolean} [loading=false] - 是否显示加载状态，设置为 true 时显示加载动画
- * @prop {string} [onClick] - 点击事件处理函数，支持内联 JavaScript 代码
+ * @prop {Function} [onClick] - 点击事件处理函数
  * @prop {('circle'|'square')} [shape] - 按钮形状，支持 circle（圆形）和 square（方形）
  * @prop {('lg'|'md'|'sm'|'xs')} [size='md'] - 按钮尺寸，支持 lg、md、sm、xs 四种尺寸
  * @prop {string} [target] - 链接目标，支持 _self、_blank、_parent、_top
@@ -101,7 +101,7 @@ const {
 
 // 使用共用的工具函数计算基础类名
 const baseButtonClasses = getBaseButtonClasses({
-	variant: variant as any, // 注意：这里我们只传递基础变体，渐变变体在 Astro 版本中特殊处理
+	variant,
 	size,
 	shape,
 	wide,
@@ -110,45 +110,8 @@ const baseButtonClasses = getBaseButtonClasses({
 	class: className,
 });
 
-// 添加渐变变体的特殊处理（仅在 Astro 版本中支持）
-const gradientClasses = {
-	"gradient-sky":
-		"cosy:bg-gradient-to-r cosy:from-sky-400 cosy:to-indigo-500 cosy:text-white hover:cosy:from-sky-500 hover:cosy:to-indigo-600",
-	"gradient-watermelon":
-		"cosy:bg-gradient-to-r cosy:from-green-300 cosy:via-pink-400 cosy:to-red-500 cosy:text-white hover:cosy:from-green-400 hover:cosy:to-red-600",
-	"gradient-lemon":
-		"cosy:bg-gradient-to-r cosy:from-yellow-200 cosy:via-yellow-400 cosy:to-yellow-600 cosy:text-gray-900 hover:cosy:from-yellow-300 hover:cosy:to-yellow-700",
-	"gradient-grape":
-		"cosy:bg-gradient-to-r cosy:from-purple-400 cosy:via-indigo-500 cosy:to-purple-700 cosy:text-white hover:cosy:from-purple-500 hover:cosy:to-purple-800",
-	"gradient-mango":
-		"cosy:bg-gradient-to-r cosy:from-yellow-300 cosy:via-orange-400 cosy:to-orange-600 cosy:text-white hover:cosy:from-yellow-400 hover:cosy:to-orange-700",
-	"gradient-forest":
-		"cosy:bg-gradient-to-r cosy:from-green-700 cosy:to-lime-300 cosy:text-white hover:cosy:from-green-800 hover:cosy:to-lime-400",
-	"gradient-ocean":
-		"cosy:bg-gradient-to-r cosy:from-cyan-400 cosy:to-blue-700 cosy:text-white hover:cosy:from-cyan-500 hover:cosy:to-blue-800",
-	"gradient-sunset":
-		"cosy:bg-gradient-to-r cosy:from-orange-400 cosy:via-pink-500 cosy:to-red-500 cosy:text-white hover:cosy:from-orange-500 hover:cosy:to-red-600",
-	"gradient-flower":
-		"cosy:bg-gradient-to-r cosy:from-pink-300 cosy:via-purple-400 cosy:to-fuchsia-500 cosy:text-white hover:cosy:from-pink-400 hover:cosy:to-fuchsia-600",
-	"gradient-pitaya":
-		"cosy:bg-gradient-to-r cosy:from-pink-200 cosy:via-fuchsia-400 cosy:to-lime-300 cosy:text-white hover:cosy:from-pink-300 hover:cosy:to-lime-400",
-	"gradient-banana":
-		"cosy:bg-gradient-to-r cosy:from-yellow-100 cosy:via-yellow-300 cosy:to-yellow-500 cosy:text-gray-900 hover:cosy:from-yellow-200 hover:cosy:to-yellow-600",
-	"gradient-blueberry":
-		"cosy:bg-gradient-to-r cosy:from-blue-400 cosy:via-blue-600 cosy:to-indigo-700 cosy:text-white hover:cosy:from-blue-500 hover:cosy:to-indigo-800",
-	"gradient-kiwi":
-		"cosy:bg-gradient-to-r cosy:from-lime-200 cosy:via-green-400 cosy:to-green-700 cosy:text-white hover:cosy:from-lime-300 hover:cosy:to-green-800",
-};
-
 // 合并所有类名
-const buttonClasses = [
-	...baseButtonClasses,
-	variant && gradientClasses[variant as keyof typeof gradientClasses]
-		? gradientClasses[variant as keyof typeof gradientClasses]
-		: "",
-]
-	.filter(Boolean)
-	.join(" ");
+const buttonClasses = baseButtonClasses.filter(Boolean).join(" ");
 ---
 
 {
@@ -157,7 +120,9 @@ const buttonClasses = [
             href={href}
             class={buttonClasses}
             target={target}
-            onclick={onClick}
+            onclick={
+                onClick ? `${onClick.toString()}; return false;` : undefined
+            }
             data-variant={variant}
             {...rest}>
             <span class="cosy:flex cosy:items-center cosy:gap-2">
@@ -171,7 +136,9 @@ const buttonClasses = [
             type={formmethod === 'dialog' ? 'submit' : type}
             class={buttonClasses}
             disabled={disabled}
-            onclick={onClick}
+            onclick={
+                onClick ? `${onClick.toString()}; return false;` : undefined
+            }
             formmethod={formmethod}
             data-variant={variant}
             {...rest}>
