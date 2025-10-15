@@ -22,16 +22,16 @@
  * - href - 点击 logo 时跳转的链接地址
  * - alt - logo 的 alt 文本
  */
-import { Image, Link } from '../..';
-import type { ImageMetadata } from 'astro';
+import { Image, Link } from "../..";
+import type { ImageMetadata } from "astro";
 
 export interface Props {
-    src: string | ImageMetadata;
-    href?: string;
-    alt?: string;
+	src: string | ImageMetadata;
+	href?: string;
+	alt?: string;
 }
 
-const { src, href = '/', alt = 'logo' } = Astro.props;
+const { src, href = "/", alt = "logo" } = Astro.props;
 ---
 
 <Link

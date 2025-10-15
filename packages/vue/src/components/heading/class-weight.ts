@@ -1,7 +1,4 @@
-import {
-	textWeightClasses,
-	type TextWeight,
-} from "../../common/textWeights";
+import { textWeightClasses, type TextWeight } from "../../common/textWeights";
 
 /**
  * 计算 Heading 组件的字体粗细相关类名

@@ -7,10 +7,10 @@
  * @prop {string} icpLink - ICP备案链接（可选，默认为工信部备案查询网站）
  */
 
-import '../../style.ts';
-import { Link } from '../../index.ts';
+import "../../style.ts";
+import { Link } from "../../index.ts";
 
-const { icp, icpLink = 'https://beian.miit.gov.cn/' } = Astro.props;
+const { icp, icpLink = "https://beian.miit.gov.cn/" } = Astro.props;
 ---
 
 <Link href={icpLink} external variant="text" size="sm" noUnderline={true}>

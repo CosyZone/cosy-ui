@@ -21,16 +21,16 @@
  * ```
  */
 
-import '../../style.ts';
-import { SidebarNav, Modal } from '../../index.ts';
-import type { ISidebarProps } from '../../index.ts';
+import "../../style.ts";
+import { SidebarNav, Modal } from "../../index.ts";
+import type { ISidebarProps } from "../../index.ts";
 
 export interface Props extends ISidebarProps {
-    /**
-     * 是否开启调试模式，显示边框
-     * @default false
-     */
-    debug?: boolean;
+	/**
+	 * 是否开启调试模式，显示边框
+	 * @default false
+	 */
+	debug?: boolean;
 }
 
 const { sidebarItems, debug = false } = Astro.props;
@@ -38,12 +38,12 @@ const { sidebarItems, debug = false } = Astro.props;
 // 自动获取当前路径
 const currentPath = Astro.url.pathname;
 
-let title = '';
-let titleHref = '';
+let title = "";
+let titleHref = "";
 if (sidebarItems.length > 0) {
-    const sidebarMainItem = sidebarItems[0];
-    title = sidebarMainItem.text;
-    titleHref = sidebarMainItem.href;
+	const sidebarMainItem = sidebarItems[0];
+	title = sidebarMainItem.text;
+	titleHref = sidebarMainItem.href;
 }
 ---
 

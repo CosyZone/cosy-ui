@@ -5,45 +5,45 @@
  * @internal 供 Footer 内部使用
  */
 
-import { Container } from '../..';
-import FooterSection from './FooterSection.astro';
-import FooterAboutNavigation from './FooterAboutNavigation.astro';
-import FooterResourcesNavigation from './FooterResourcesNavigation.astro';
-import FooterLegalNavigation from './FooterLegalNavigation.astro';
-import FooterContactInfo from './FooterContactInfo.astro';
-import type { IProduct } from '../types/product';
+import { Container } from "../..";
+import FooterSection from "./FooterSection.astro";
+import FooterAboutNavigation from "./FooterAboutNavigation.astro";
+import FooterResourcesNavigation from "./FooterResourcesNavigation.astro";
+import FooterLegalNavigation from "./FooterLegalNavigation.astro";
+import FooterContactInfo from "./FooterContactInfo.astro";
+import type { IProduct } from "../types/product";
 import type {
-    IContactInfo,
-    ILegalInfo,
-    IResourcesInfo,
-    IAboutInfo,
-} from './types';
+	IContactInfo,
+	ILegalInfo,
+	IResourcesInfo,
+	IAboutInfo,
+} from "./types";
 
 export interface Props {
-    /** 产品链接 */
-    products?: IProduct[];
-    /** 友情链接 */
-    friendlyLinks?: IProduct[];
-    /** 关于信息 */
-    aboutInfo?: IAboutInfo;
-    /** 资源信息 */
-    resourcesInfo?: IResourcesInfo;
-    /** 联系方式信息 */
-    contactInfo?: IContactInfo;
-    /** 法律信息 */
-    legalInfo?: ILegalInfo;
-    /** 文本获取函数 */
-    t: (key: string) => string;
+	/** 产品链接 */
+	products?: IProduct[];
+	/** 友情链接 */
+	friendlyLinks?: IProduct[];
+	/** 关于信息 */
+	aboutInfo?: IAboutInfo;
+	/** 资源信息 */
+	resourcesInfo?: IResourcesInfo;
+	/** 联系方式信息 */
+	contactInfo?: IContactInfo;
+	/** 法律信息 */
+	legalInfo?: ILegalInfo;
+	/** 文本获取函数 */
+	t: (key: string) => string;
 }
 
 const {
-    products = [],
-    friendlyLinks = [],
-    aboutInfo,
-    resourcesInfo,
-    contactInfo,
-    legalInfo,
-    t,
+	products = [],
+	friendlyLinks = [],
+	aboutInfo,
+	resourcesInfo,
+	contactInfo,
+	legalInfo,
+	t,
 } = Astro.props as Props;
 ---
 

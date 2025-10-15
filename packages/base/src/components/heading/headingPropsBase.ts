@@ -29,17 +29,17 @@ export interface IHeadingPropsBase {
 	 * @default "default"
 	 */
 	color?:
-	| "default"
-	| "primary"
-	| "secondary"
-	| "accent"
-	| "muted"
-	| "info"
-	| "success"
-	| "warning"
-	| "error"
-	| "base-content"
-	| "neutral-content";
+		| "default"
+		| "primary"
+		| "secondary"
+		| "accent"
+		| "muted"
+		| "info"
+		| "success"
+		| "warning"
+		| "error"
+		| "base-content"
+		| "neutral-content";
 
 	/**
 	 * 自定义 CSS 类名

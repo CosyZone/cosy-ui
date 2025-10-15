@@ -7,12 +7,12 @@
  * @prop {Function} t - 文本获取函数（已内部处理，无需传入）
  */
 
-import '../../style.ts';
-import { LanguageUtil, createTextGetter } from '../../index.ts';
+import "../../style.ts";
+import { LanguageUtil, createTextGetter } from "../../index.ts";
 
 const { company } = Astro.props;
 const lang = LanguageUtil.getCurrentLanguage(Astro);
-const t = createTextGetter(lang, 'footer');
+const t = createTextGetter(lang, "footer");
 ---
 
 <p class="cosy:text-sm cosy:text-center">

@@ -7,7 +7,7 @@ import type { ImageSource } from "index";
  */
 export interface IContainerProps
 	extends Omit<IContainerPropsBase, "class">,
-	HTMLAttributes<"div"> {
+		HTMLAttributes<"div"> {
 	/**
 	 * 背景图片源（本地 ImageMetadata 或 远程 URL）。提供时会用图片铺底作为背景
 	 */

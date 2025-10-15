@@ -213,25 +213,25 @@
  * @prop {string} title - Hero 区域的主标题
  */
 
-import '../../style.ts';
-import { Button, type ImageSource } from '../../index.ts';
-import { Image } from '../../index.ts';
-import type { HeroProps, IHeroLink } from './hero.ts';
-import Container from '../container/Container.astro';
+import "../../style.ts";
+import { Button, type ImageSource } from "../../index.ts";
+import { Image } from "../../index.ts";
+import type { HeroProps, IHeroLink } from "./hero.ts";
+import Container from "../container/Container.astro";
 
 const {
-    title,
-    description,
-    image,
-    links = [],
-    background = 'gradient',
-    align = 'center',
-    imagePosition = 'right',
-    backgroundImage,
-    backgroundOverlay = 'none',
-    overlayOpacity = 0.7,
-    glassmorphism = true,
-    textBackground = 'glass',
+	title,
+	description,
+	image,
+	links = [],
+	background = "gradient",
+	align = "center",
+	imagePosition = "right",
+	backgroundImage,
+	backgroundOverlay = "none",
+	overlayOpacity = 0.7,
+	glassmorphism = true,
+	textBackground = "glass",
 } = Astro.props as HeroProps;
 
 // 确保不透明度在0-1之间
@@ -239,176 +239,174 @@ const safeOpacity = Math.max(0, Math.min(1, overlayOpacity));
 
 // 获取图片源的 URL
 function getImageUrl(imageSource: ImageSource): string {
-    if (typeof imageSource === 'string') {
-        return imageSource;
-    }
-    return imageSource.src;
+	if (typeof imageSource === "string") {
+		return imageSource;
+	}
+	return imageSource.src;
 }
 
 // 确定容器类（背景与背景图交由 Container 处理）
 const containerClasses = [
-    'cosy:hero',
-    'cosy:min-h-screen',
-    'cosy:w-full',
-    'cosy:relative',
-].join(' ');
+	"cosy:hero",
+	"cosy:min-h-screen",
+	"cosy:w-full",
+	"cosy:relative",
+].join(" ");
 
 // 确定内容布局类
 const contentClasses = [
-    'cosy:flex',
-    imagePosition === 'top' || imagePosition === 'bottom'
-        ? 'cosy:flex-col'
-        : 'cosy:flex-col cosy:lg:flex-row',
-    align === 'center' ? 'cosy:text-center cosy:items-center' : '',
-    align === 'left' ? 'cosy:text-left cosy:items-start' : '',
-    align === 'right' ? 'cosy:text-right cosy:items-end' : '',
-    'cosy:w-full',
-    'cosy:mx-auto',
-    'cosy:gap-10',
-    'cosy:lg:gap-16',
-    'cosy:z-10',
-    'cosy:relative',
-    'cosy:py-16',
-    'cosy:px-4',
-    'cosy:sm:px-6',
-    'cosy:lg:px-8',
-].join(' ');
+	"cosy:flex",
+	imagePosition === "top" || imagePosition === "bottom"
+		? "cosy:flex-col"
+		: "cosy:flex-col cosy:lg:flex-row",
+	align === "center" ? "cosy:text-center cosy:items-center" : "",
+	align === "left" ? "cosy:text-left cosy:items-start" : "",
+	align === "right" ? "cosy:text-right cosy:items-end" : "",
+	"cosy:w-full",
+	"cosy:mx-auto",
+	"cosy:gap-10",
+	"cosy:lg:gap-16",
+	"cosy:z-10",
+	"cosy:relative",
+	"cosy:py-16",
+	"cosy:px-4",
+	"cosy:sm:px-6",
+	"cosy:lg:px-8",
+].join(" ");
 
 // 确定背景遮罩类
 const overlayClasses = [
-    'cosy:absolute',
-    'cosy:inset-0',
-    'cosy:z-0',
-    'cosy:m-0',
-    'cosy:p-0',
-].join(' ');
+	"cosy:absolute",
+	"cosy:inset-0",
+	"cosy:z-0",
+	"cosy:m-0",
+	"cosy:p-0",
+].join(" ");
 
 // 创建遮罩样式对象，包括不透明度
 const overlayStyle =
-    backgroundOverlay === 'light'
-        ? { backgroundColor: `rgba(255, 255, 255, ${safeOpacity})` }
-        : backgroundOverlay === 'dark'
-          ? { backgroundColor: `rgba(0, 0, 0, ${safeOpacity})` }
-          : backgroundOverlay === 'primary'
-            ? {
-                  backgroundColor: `var(--color-primary-500, #4338ca)`,
-                  opacity: safeOpacity,
-              }
-            : backgroundOverlay === 'gradient'
-              ? {
-                    backgroundImage: `linear-gradient(135deg, var(--color-primary-500, #4338ca) ${safeOpacity * 100}%, var(--color-secondary-500, #0ea5e9) ${safeOpacity * 100}%)`,
-                }
-              : {};
+	backgroundOverlay === "light"
+		? { backgroundColor: `rgba(255, 255, 255, ${safeOpacity})` }
+		: backgroundOverlay === "dark"
+			? { backgroundColor: `rgba(0, 0, 0, ${safeOpacity})` }
+			: backgroundOverlay === "primary"
+				? {
+						backgroundColor: `var(--color-primary-500, #4338ca)`,
+						opacity: safeOpacity,
+					}
+				: backgroundOverlay === "gradient"
+					? {
+							backgroundImage: `linear-gradient(135deg, var(--color-primary-500, #4338ca) ${safeOpacity * 100}%, var(--color-secondary-500, #0ea5e9) ${safeOpacity * 100}%)`,
+						}
+					: {};
 
 // 文字容器背景样式
 const getTextBackgroundClasses = () => {
-    if (!glassmorphism || textBackground === 'none') return '';
+	if (!glassmorphism || textBackground === "none") return "";
 
-    const baseClasses = [
-        'cosy:backdrop-blur-md',
-        'cosy:rounded-2xl',
-        'cosy:p-8',
-        'cosy:mx-auto',
-        'cosy:max-w-4xl',
-    ];
+	const baseClasses = [
+		"cosy:backdrop-blur-md",
+		"cosy:rounded-2xl",
+		"cosy:p-8",
+		"cosy:mx-auto",
+		"cosy:max-w-4xl",
+	];
 
-    switch (textBackground) {
-        case 'glass':
-            return [
-                ...baseClasses,
-                'cosy:bg-white/10',
-                'cosy:border',
-                'cosy:border-white/20',
-            ].join(' ');
-        case 'solid':
-            return [...baseClasses, 'cosy:bg-white/90', 'cosy:shadow-xl'].join(
-                ' '
-            );
-        case 'gradient':
-            return [
-                ...baseClasses,
-                'cosy:bg-gradient-to-br',
-                'cosy:from-white/20',
-                'cosy:to-white/10',
-                'cosy:border',
-                'cosy:border-white/30',
-            ].join(' ');
-        default:
-            return baseClasses.join(' ');
-    }
+	switch (textBackground) {
+		case "glass":
+			return [
+				...baseClasses,
+				"cosy:bg-white/10",
+				"cosy:border",
+				"cosy:border-white/20",
+			].join(" ");
+		case "solid":
+			return [...baseClasses, "cosy:bg-white/90", "cosy:shadow-xl"].join(" ");
+		case "gradient":
+			return [
+				...baseClasses,
+				"cosy:bg-gradient-to-br",
+				"cosy:from-white/20",
+				"cosy:to-white/10",
+				"cosy:border",
+				"cosy:border-white/30",
+			].join(" ");
+		default:
+			return baseClasses.join(" ");
+	}
 };
 
 const titleClasses = [
-    'cosy:text-5xl',
-    'cosy:font-bold',
-    'cosy:mb-4',
-    'cosy:sm:text-6xl',
-    'cosy:lg:text-7xl',
-    // 当有毛玻璃效果时，文字颜色根据背景类型调整
-    glassmorphism && textBackground === 'solid'
-        ? 'cosy:text-primary'
-        : backgroundImage &&
-            (backgroundOverlay === 'dark' || backgroundOverlay === 'gradient')
-          ? 'cosy:text-white'
-          : 'cosy:text-primary',
-].join(' ');
+	"cosy:text-5xl",
+	"cosy:font-bold",
+	"cosy:mb-4",
+	"cosy:sm:text-6xl",
+	"cosy:lg:text-7xl",
+	// 当有毛玻璃效果时，文字颜色根据背景类型调整
+	glassmorphism && textBackground === "solid"
+		? "cosy:text-primary"
+		: backgroundImage &&
+				(backgroundOverlay === "dark" || backgroundOverlay === "gradient")
+			? "cosy:text-white"
+			: "cosy:text-primary",
+].join(" ");
 
 const descriptionClasses = [
-    'cosy:text-xl cosy:prose',
-    'cosy:max-w-3xl',
-    'cosy:mb-8',
-    // 当有毛玻璃效果时，描述文字颜色根据背景类型调整
-    glassmorphism && textBackground === 'solid'
-        ? 'cosy:text-gray-700'
-        : backgroundImage &&
-            (backgroundOverlay === 'dark' || backgroundOverlay === 'gradient')
-          ? 'cosy:text-white cosy:opacity-90'
-          : 'cosy:opacity-80',
-].join(' ');
+	"cosy:text-xl cosy:prose",
+	"cosy:max-w-3xl",
+	"cosy:mb-8",
+	// 当有毛玻璃效果时，描述文字颜色根据背景类型调整
+	glassmorphism && textBackground === "solid"
+		? "cosy:text-gray-700"
+		: backgroundImage &&
+				(backgroundOverlay === "dark" || backgroundOverlay === "gradient")
+			? "cosy:text-white cosy:opacity-90"
+			: "cosy:opacity-80",
+].join(" ");
 
 const imageClasses = [
-    'cosy:rounded-lg',
-    'cosy:shadow-2xl',
-    'cosy:transition-all',
-    'cosy:duration-300',
-    'cosy:hover:scale-105',
-    'cosy:hover:shadow-primary/20',
-    imagePosition === 'top' || imagePosition === 'bottom'
-        ? 'cosy:max-w-lg cosy:w-full'
-        : 'cosy:max-w-sm cosy:lg:max-w-md',
-].join(' ');
+	"cosy:rounded-lg",
+	"cosy:shadow-2xl",
+	"cosy:transition-all",
+	"cosy:duration-300",
+	"cosy:hover:scale-105",
+	"cosy:hover:shadow-primary/20",
+	imagePosition === "top" || imagePosition === "bottom"
+		? "cosy:max-w-lg cosy:w-full"
+		: "cosy:max-w-sm cosy:lg:max-w-md",
+].join(" ");
 
 const linksContainerClasses = [
-    'cosy:flex',
-    'cosy:flex-wrap',
-    'cosy:gap-4',
-    align === 'center' ? 'cosy:justify-center' : '',
-    align === 'left' ? 'cosy:justify-start' : '',
-    align === 'right' ? 'cosy:justify-end' : '',
-    'cosy:mt-4',
-].join(' ');
+	"cosy:flex",
+	"cosy:flex-wrap",
+	"cosy:gap-4",
+	align === "center" ? "cosy:justify-center" : "",
+	align === "left" ? "cosy:justify-start" : "",
+	align === "right" ? "cosy:justify-end" : "",
+	"cosy:mt-4",
+].join(" ");
 
 const appContainerClasses = [
-    'cosy:w-full',
-    'cosy:max-w-full',
-    'cosy:mx-auto',
-    'cosy:my-8',
-].join(' ');
+	"cosy:w-full",
+	"cosy:max-w-full",
+	"cosy:mx-auto",
+	"cosy:my-8",
+].join(" ");
 
 // 确定图片顺序
 const imageOrder = {
-    right: 'cosy:order-1 cosy:lg:order-2',
-    left: 'cosy:order-2 cosy:lg:order-1',
-    top: 'cosy:order-1',
-    bottom: 'cosy:order-3',
+	right: "cosy:order-1 cosy:lg:order-2",
+	left: "cosy:order-2 cosy:lg:order-1",
+	top: "cosy:order-1",
+	bottom: "cosy:order-3",
 };
 
 // 确定内容顺序
 const contentOrder = {
-    right: 'cosy:order-2 cosy:lg:order-1',
-    left: 'cosy:order-1 cosy:lg:order-2',
-    top: 'cosy:order-2',
-    bottom: 'cosy:order-1',
+	right: "cosy:order-2 cosy:lg:order-1",
+	left: "cosy:order-1 cosy:lg:order-2",
+	top: "cosy:order-2",
+	bottom: "cosy:order-1",
 };
 ---
 

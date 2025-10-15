@@ -1,1 +1,1 @@
-export * from "@coffic/cosy-ui-vue"
+export * from "@coffic/cosy-ui-vue";

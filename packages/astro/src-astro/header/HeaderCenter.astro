@@ -24,23 +24,23 @@
  * - linkHeightClass - 链接高度类名
  * - gap - 导航项之间的间距，可选值：0, 1, 2, 3, 4, 6, 8, 10, 12，默认 2
  */
-import { type INavItem } from '../..';
-import NavItems from './NavItems.astro';
+import { type INavItem } from "../..";
+import NavItems from "./NavItems.astro";
 
 export interface Props {
-    navPosition: string;
-    navItems: INavItem[];
-    activeLink: string;
-    linkHeightClass: string;
-    gap?: number;
+	navPosition: string;
+	navItems: INavItem[];
+	activeLink: string;
+	linkHeightClass: string;
+	gap?: number;
 }
 
 const {
-    navPosition,
-    navItems,
-    activeLink,
-    linkHeightClass,
-    gap = 2,
+	navPosition,
+	navItems,
+	activeLink,
+	linkHeightClass,
+	gap = 2,
 } = Astro.props;
 ---
 

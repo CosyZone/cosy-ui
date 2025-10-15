@@ -5,16 +5,16 @@
  * @internal 供 FooterBrand 等内部组件复用
  */
 
-import { Link, SocialIcon, Container } from '../..';
-import type { ImageSource } from '../image/image';
+import { Link, SocialIcon, Container } from "../..";
+import type { ImageSource } from "../image/image";
 
 export interface Props {
-    /** 社交媒体链接 */
-    socialLinks?: Array<{ url: string; platform: string; name: string }>;
-    /** 微信二维码 */
-    wechatQR?: ImageSource;
-    /** WhatsApp 二维码 */
-    whatsappQR?: ImageSource;
+	/** 社交媒体链接 */
+	socialLinks?: Array<{ url: string; platform: string; name: string }>;
+	/** 微信二维码 */
+	wechatQR?: ImageSource;
+	/** WhatsApp 二维码 */
+	whatsappQR?: ImageSource;
 }
 
 const { socialLinks = [], wechatQR, whatsappQR } = Astro.props as Props;

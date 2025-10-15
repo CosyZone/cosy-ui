@@ -1,1 +1,1 @@
-export * from "@coffic/cosy-ui-astro"
+export * from "@coffic/cosy-ui-astro";

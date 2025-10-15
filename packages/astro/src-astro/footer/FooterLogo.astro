@@ -5,16 +5,16 @@
  * @internal 供 FooterBrand 内部使用
  */
 
-import { Link, Image } from '../..';
-import type { ImageSource } from '../image/image';
+import { Link, Image } from "../..";
+import type { ImageSource } from "../image/image";
 
 export interface Props {
-    /** 网站名称 */
-    siteName: string;
-    /** 首页链接 */
-    homeLink: string;
-    /** Logo 图片源 */
-    logo?: ImageSource;
+	/** 网站名称 */
+	siteName: string;
+	/** 首页链接 */
+	homeLink: string;
+	/** Logo 图片源 */
+	logo?: ImageSource;
 }
 
 const { siteName, homeLink, logo } = Astro.props as Props;

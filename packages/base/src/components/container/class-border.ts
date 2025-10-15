@@ -1,7 +1,4 @@
-import {
-	getBorderClass,
-	getBorderColorClass,
-} from "../../common/border";
+import { getBorderClass, getBorderColorClass } from "../../common/border";
 import type { BorderSize, BorderColor } from "../../common/border";
 
 /**
