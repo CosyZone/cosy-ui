@@ -1,0 +1,150 @@
+<!--
+@component Alert
+
+@description
+Alert 组件用于向用户显示重要的提示信息，支持多种类型的提示样式和交互效果。
+
+@usage
+基本用法：
+```vue
+<Alert type="info">这是一条信息提示</Alert>
+```
+
+带标题：
+```vue
+<Alert type="success" title="操作成功">您的操作已成功完成</Alert>
+```
+
+不显示图标：
+```vue
+<Alert type="warning" :show-icon="false">不显示图标的警告</Alert>
+```
+
+设置垂直外边距：
+```vue
+<Alert type="info" margin-y="md">带垂直外边距的提示</Alert>
+```
+
+组合使用：
+```vue
+<Alert
+  type="error"
+  title="提交失败"
+  class="my-custom-class"
+  margin-y="lg"
+>
+  请检查表单并重新提交
+</Alert>
+```
+
+自定义操作按钮：
+```vue
+<Alert type="info">
+  这是带自定义操作的提示
+  <template #action>
+    <button @click="doSomething">操作</button>
+  </template>
+</Alert>
+```
+
+@props
+@prop {('info'|'success'|'warning'|'error')} [type='info'] - 提示类型，影响颜色和图标，支持 info、success、warning、error 四种类型
+@prop {string} [title] - 提示标题，可选，显示为粗体文本
+@prop {string} [description] - 描述文本，显示在标题下方，字体较小且透明度降低
+@prop {string} [class] - 自定义 CSS 类名，用于覆盖默认样式
+@prop {boolean} [closable=true] - 是否可关闭，设置为 false 时隐藏关闭按钮
+@prop {boolean} [showIcon=true] - 是否显示图标，设置为 false 时隐藏类型对应的图标
+@prop {('solid'|'outline'|'dash'|'soft')} [variant='solid'] - 样式变体，支持 solid（实心）、outline（描边）、dash（虚线）、soft（柔和）四种风格
+@prop {('xs'|'sm'|'md'|'lg'|'xl')} [marginY] - 垂直方向外边距大小，支持预设的尺寸值
+
+@slots
+@slot default - 提示内容，主要文本内容
+@slot action - 自定义操作按钮，显示在 alert 右侧，适合放置自定义按钮或其他操作
+-->
+
+<script setup lang="ts">
+import "../../style";
+import { computed } from "vue";
+import type { IAlertProps } from "./props";
+import { getAlertCombinedClassesVue } from "./class";
+import { InfoIcon, SuccessIcon, WarningIcon, ErrorIcon } from "../icons/index";
+import { RiCloseLine } from "@remixicon/vue";
+import { marginClasses, type MarginSize } from "../../src/common/margin";
+
+interface Props extends IAlertProps {}
+
+const props = withDefaults(defineProps<Props>(), {
+	type: "info",
+	title: "",
+	description: "",
+	class: "",
+	closable: true,
+	showIcon: true,
+	variant: "solid",
+	marginY: undefined,
+});
+
+const emit = defineEmits(["close"]);
+
+const handleClose = () => {
+	emit("close");
+};
+
+// 使用共用的工具函数计算组合类名
+const alertClasses = computed(() => getAlertCombinedClassesVue(props));
+
+// 根据类型设置图标组件
+const IconComponent = computed(() => {
+	const iconComponents = {
+		info: InfoIcon,
+		success: SuccessIcon,
+		warning: WarningIcon,
+		error: ErrorIcon,
+	};
+	return iconComponents[props.type];
+});
+</script>
+
+<template>
+  <div :class="alertClasses" role="alert">
+    <div
+      class="cosy:flex cosy:flex-row cosy:items-center cosy:gap-4 cosy:justify-between cosy:w-full">
+      <div class="cosy:flex cosy:items-center cosy:gap-4">
+        <component
+          :is="IconComponent"
+          v-if="showIcon"
+          class="cosy:btn cosy:btn-sm cosy:btn-ghost cosy:btn-circle" />
+
+        <div
+          class="cosy:flex cosy:flex-col cosy:items-start cosy:h-full cosy:flex-1">
+          <h3
+            v-if="props.title"
+            class="cosy:font-bold"
+            style="margin-top: 0 !important">
+            {{ props.title }}
+          </h3>
+          <div v-if="props.description" class="cosy:text-xs cosy:opacity-80">
+            {{ props.description }}
+          </div>
+          <div v-if="props.title" class="cosy:text-xs">
+            <slot />
+          </div>
+          <slot v-else />
+        </div>
+      </div>
+
+      <div
+        class="cosy:flex cosy:flex-row cosy:items-center cosy:gap-2"
+        data-role="actions">
+        <slot name="action" />
+
+        <button
+          v-if="props.closable"
+          @click="handleClose"
+          class="cosy:btn cosy:btn-ghost cosy:btn-sm cosy:btn-circle">
+          <RiCloseLine class="cosy:h-5 cosy:w-5" />
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
