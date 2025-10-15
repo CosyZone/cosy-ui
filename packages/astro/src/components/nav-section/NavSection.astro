@@ -1,0 +1,41 @@
+---
+/**
+ * @component NavSection
+ *
+ * @description
+ * NavSection 组件用于在页脚中创建一个导航部分。
+ *
+ * @props
+ * @prop {string} title - 导航部分的标题
+ * @prop {Array<Object>} links - 链接数组，每个对象包含name、href和可选的external属性
+ *
+ */
+
+import { Link } from '../../../dist';
+
+interface NavSectionProps {
+    title: string;
+    links: Array<{ name: string; href: string; external?: boolean }>;
+}
+
+const props = Astro.props as NavSectionProps;
+const { title, links } = props;
+---
+
+<nav
+    class="cosy:flex cosy:flex-col cosy:items-center cosy:gap-3 cosy:hover:bg-base-300 cosy:hover:shadow-lg cosy:p-4 cosy:rounded cosy:h-full! cosy:hover:scale-105 cosy:transition-transform cosy:duration-300">
+    <h6 class="cosy:footer-title">{title}</h6>
+    {
+        links.map((link) => (
+            <Link
+                href={link.href}
+                external={link.external}
+                size="sm"
+                block
+                animation="hover-lift"
+                centerText>
+                {link.name}
+            </Link>
+        ))
+    }
+</nav>

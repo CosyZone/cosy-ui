@@ -1,0 +1,54 @@
+---
+import '../../style.ts';
+import { Badge, Heading, Text } from '../../../index.ts';
+
+export interface Props {
+    name: string;
+    description: string;
+    highlight?: string;
+    labels?: string[];
+    /** e.g. 'direction: ltr;' 或 'direction: rtl;' */
+    contentDirection?: string;
+}
+
+const { name, description, highlight, labels = [] } = Astro.props;
+---
+
+<div class="cosy:text-center cosy:md:text-left">
+    {
+        labels && labels.length > 0 && (
+            <div class="cosy:flex cosy:flex-wrap cosy:gap-2 cosy:mb-4 cosy:justify-center cosy:md:justify-start">
+                {labels.map((label) => (
+                    <Badge variant="primary">{label}</Badge>
+                ))}
+            </div>
+        )
+    }
+
+    <Heading
+        level={2}
+        size="4xl"
+        weight="thin"
+        class="cosy:mb-4"
+        align="center">
+        {name}
+    </Heading>
+
+    <Text size="xl" align="center" weight="light">
+        {description}
+    </Text>
+
+    {
+        highlight && (
+            <div class="cosy:flex cosy:gap-4 cosy:items-center cosy:mb-8 cosy:justify-center cosy:md:justify-start">
+                <Text size="2xl" weight="thin">
+                    {highlight}
+                </Text>
+            </div>
+        )
+    }
+
+    <div class="cosy:flex cosy:gap-4 cosy:justify-center cosy:md:justify-start">
+        <slot />
+    </div>
+</div>

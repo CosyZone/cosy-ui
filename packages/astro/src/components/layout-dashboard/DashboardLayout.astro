@@ -1,0 +1,338 @@
+---
+/**
+ * @component DashboardLayout
+ *
+ * @description
+ * DashboardLayout 组件适用于管理后台的布局，包含侧边栏导航和顶部导航栏。
+ * 提供了完整的管理界面框架，包括响应式设计、暗色主题支持和内置 Toast 通知系统。
+ *
+ * @design
+ * 设计理念：
+ * 1. 清晰的信息层次 - 通过侧边栏和顶部导航提供明确的导航结构
+ * 2. 响应式布局 - 在不同设备上提供良好的用户体验
+ * 3. 可定制性 - 支持自定义导航项、系统名称和用户信息
+ * 4. 状态保持 - 记住用户的侧边栏折叠状态
+ * 5. 统一通知 - 内置 Toast 系统，提供一致的消息提示体验
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * ---
+ * import { DashboardLayout } from '@coffic/cosy-ui';
+ *
+ * const navItems = [
+ *   { href: "/dashboard", text: "仪表盘" },                    // 自动匹配 dashboard 图标
+ *   { href: "/dashboard/users", text: "用户管理" },             // 自动匹配 users 图标
+ *   { href: "/dashboard/settings", text: "系统设置" },          // 自动匹配 settings 图标
+ *   { href: "/dashboard/reports", icon: "chart", text: "报表" } // 手动指定图标
+ * ];
+ *
+ * const userMenuItems = [
+ *   { href: "/profile", text: "个人资料" },        // 自动匹配 user 图标
+ *   { href: "/settings", text: "设置" },          // 自动匹配 settings 图标
+ *   { href: "/logout", text: "退出登录" }          // 自动匹配 logout 图标
+ * ];
+ * ---
+ *
+ * <DashboardLayout
+ *   title="管理后台"
+ *   navItems={navItems}
+ *   userName="管理员"
+ *   userMenuItems={userMenuItems}
+ *   sidebarSize="lg"
+ * >
+ *   <h1>仪表盘内容</h1>
+ *   <p>这是仪表盘的主要内容</p>
+ * </DashboardLayout>
+ * ```
+ *
+ * 带有底部自定义内容的用法：
+ * ```astro
+ * <DashboardLayout
+ *   title="管理后台"
+ *   navItems={navItems}
+ *   userName="管理员"
+ * >
+ *   <h1>仪表盘内容</h1>
+ *   <p>这是仪表盘的主要内容</p>
+ *
+ *   <div slot="sidebar-footer" class="p-4">
+ *     <div class="flex items-center gap-3">
+ *       <div class="avatar">
+ *         <div class="w-10 rounded-full">
+ *           <img src="/avatar.jpg" alt="用户头像" />
+ *         </div>
+ *       </div>
+ *       <div>
+ *         <div class="font-semibold">张三</div>
+ *         <div class="text-sm opacity-70">产品经理</div>
+ *       </div>
+ *     </div>
+ *   </div>
+ * </DashboardLayout>
+ * ```
+ *
+ *
+ * Toast 使用示例：
+ * ```javascript
+ * // 成功消息
+ * showToast({
+ *   message: '保存成功！',
+ *   type: 'success'
+ * });
+ *
+ * // 错误消息
+ * showToast({
+ *   message: '网络连接失败',
+ *   type: 'error',
+ *   duration: 5000
+ * });
+ *
+ * // 警告消息
+ * showToast({
+ *   message: '请注意数据安全',
+ *   type: 'warning'
+ * });
+ *
+ * // 信息消息
+ * showToast({
+ *   message: '系统将在 5 分钟后维护',
+ *   type: 'info'
+ * });
+ *
+ * // 简化用法
+ * showToast('这是一条简单的消息');
+ * ```
+ *
+ * @props
+ * - title: string - 页面标题
+ * - description?: string - 页面描述
+ * - systemName?: string - 系统名称，默认为"管理系统"
+ * - navItems: NavItem[] - 导航项目
+ * - userName?: string - 用户名
+ * - userAvatar?: string - 用户头像
+ * - userMenuItems?: UserMenuItem[] - 用户菜单项，默认包含个人资料、设置、退出登录，图标会自动匹配
+ * - sidebarCollapsed?: boolean - 是否折叠侧边栏，默认为false
+ * - sidebarSize?: 'sm' | 'md' | 'lg' | 'xl' - 侧边栏尺寸，默认为"md"
+ * - head?: astroHTML.JSX.Element - 自定义头部内容
+ * - class?: string - 页面类名
+ * - class:list?: any - 类名列表
+ * - debug?: boolean - 调试模式，默认为false
+ *
+ * @slots
+ * - default - 主要内容区域
+ * - sidebar-footer - 侧边栏底部自定义内容，可用于展示用户信息、版权信息等
+ */
+
+import { BaseLayout } from '../../../index.ts';
+import DashboardSidebar from './DashboardSidebar.astro';
+import DashboardTopNavbar from './DashboardTopNavbar.astro';
+import { ToastContainer, ConfirmDialog } from '../../../index.ts';
+import '../../style.ts';
+import { type NavItem, type SidebarSize, type UserMenuItem } from './types.ts';
+
+export interface Props {
+    /**
+     * 页面标题
+     */
+    title: string;
+
+    /**
+     * 页面描述
+     */
+    description?: string;
+
+    /**
+     * 系统名称
+     * @default "管理系统"
+     */
+    systemName?: string;
+
+    /**
+     * 导航项目
+     */
+    navItems: NavItem[];
+
+    /**
+     * 用户名
+     */
+    userName?: string;
+
+    /**
+     * 用户头像
+     */
+    userAvatar?: string;
+
+    /**
+     * 用户菜单项
+     */
+    userMenuItems?: UserMenuItem[];
+
+    /**
+     * 是否折叠侧边栏
+     * @default false
+     */
+    sidebarCollapsed?: boolean;
+
+    /**
+     * 侧边栏尺寸
+     * @default "md"
+     */
+    sidebarSize?: SidebarSize;
+
+    /**
+     * 自定义头部内容
+     */
+    head?: astroHTML.JSX.Element;
+
+    /**
+     * 页面类名
+     */
+    class?: string;
+
+    /**
+     * 类名列表
+     */
+    'class:list'?: any;
+
+    /**
+     * 是否启用 Toast 功能
+     * @default true
+     */
+    enableToast?: boolean;
+
+    /**
+     * 是否启用确认对话框功能
+     * @default true
+     */
+    enableConfirmDialog?: boolean;
+
+    /**
+     * 调试模式
+     * @default false
+     */
+    debug?: boolean;
+
+    /**
+     * 主内容区 padding 尺寸
+     * @default 'md'
+     */
+    mainPadding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+}
+
+const {
+    title,
+    description,
+    systemName = '管理系统',
+    navItems,
+    userName,
+    userAvatar,
+    userMenuItems,
+    sidebarCollapsed = false,
+    sidebarSize = 'md',
+    enableToast = true,
+    enableConfirmDialog = true,
+    head,
+    class: className,
+    'class:list': classList,
+    debug = false,
+    mainPadding = 'md',
+    ...rest
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+
+const mainPaddingMap = {
+    none: '',
+    sm: 'cosy:p-2',
+    md: 'cosy:p-4',
+    lg: 'cosy:p-8',
+    xl: 'cosy:p-12',
+};
+---
+
+<BaseLayout
+    title={title}
+    description={description || ''}
+    head={head}
+    keywords=""
+    author=""
+    robots=""
+    debug={debug}
+    class:list={['cosy:min-h-screen cosy:bg-base-200', className, classList]}
+    {...rest}>
+    <div
+        class:list={['cosy:drawer', { 'cosy:drawer-open': !sidebarCollapsed }]}>
+        <input
+            id="dashboard-drawer"
+            type="checkbox"
+            class="cosy:drawer-toggle"
+        />
+
+        <!-- 侧边栏 -->
+        <div class="cosy:drawer-side">
+            <label
+                for="dashboard-drawer"
+                aria-label="close sidebar"
+                class="cosy:drawer-overlay"></label>
+            <DashboardSidebar
+                systemName={systemName}
+                navItems={navItems}
+                currentPath={currentPath}
+                size={sidebarSize}>
+                <slot name="sidebar-footer" slot="footer" />
+            </DashboardSidebar>
+        </div>
+
+        <!-- 主内容区 -->
+        <div class="cosy:drawer-content cosy:flex cosy:flex-col cosy:h-screen">
+            <!-- 顶部导航栏 -->
+            <DashboardTopNavbar
+                title={title}
+                userName={userName}
+                userAvatar={userAvatar}
+                userMenuItems={userMenuItems}
+            />
+
+            <!-- 页面内容 -->
+            <main
+                class:list={[
+                    'cosy:flex-1',
+                    'cosy:overflow-y-auto',
+                    mainPaddingMap[mainPadding],
+                    'cosy:bg-base-100',
+                ]}>
+                <slot />
+            </main>
+        </div>
+    </div>
+
+    <!-- Toast 容器 -->
+    {enableToast && <ToastContainer />}
+
+    {
+        enableConfirmDialog && (
+            <ConfirmDialog
+                id="dashboard-confirm"
+                title="确认操作"
+                message="您确定要执行此操作吗？"
+            />
+        )
+    }
+</BaseLayout>
+
+<script>
+    // 从本地存储恢复状态
+    document.addEventListener('DOMContentLoaded', () => {
+        const drawerToggle = document.getElementById(
+            'dashboard-drawer'
+        ) as HTMLInputElement;
+
+        if (drawerToggle) {
+            const savedState = localStorage.getItem('sidebarCollapsed');
+            if (savedState) {
+                drawerToggle.checked = savedState === 'true';
+            }
+        }
+    });
+</script>

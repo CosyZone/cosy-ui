@@ -8,43 +8,43 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, "..");
 
 async function copySrcToDist(): Promise<void> {
-	const srcDir = path.join(rootDir, "src-astro");
-	const distDir = path.join(rootDir, "dist");
-	const astroDistDir = path.join(distDir, "src-astro");
+    const srcDir = path.join(rootDir, "src");
+    const distDir = path.join(rootDir, "dist");
+    const astroDistDir = path.join(distDir, "src");
 
-	try {
-		if (!fs_extra.existsSync(srcDir)) {
-			throw new Error(`Source directory does not exist: ${srcDir}`);
-		}
+    try {
+        if (!fs_extra.existsSync(srcDir)) {
+            throw new Error(`Source directory does not exist: ${srcDir}`);
+        }
 
-		// 确保目标目录存在
-		await fs_extra.ensureDir(astroDistDir);
+        // 确保目标目录存在
+        await fs_extra.ensureDir(astroDistDir);
 
-		// 复制内容到 dist
-		const filter = async (src: string) => {
-			return !src.endsWith("app.css");
-		};
+        // 复制内容到 dist
+        const filter = async (src: string) => {
+            return !src.endsWith("app.css");
+        };
 
-		await fs_extra.copy(srcDir, astroDistDir, { filter });
+        await fs_extra.copy(srcDir, astroDistDir, { filter });
 
-		// 复制 index.ts 到 dist
-		await fs_extra.copy(
-			path.join(rootDir, "index.ts"),
-			path.join(distDir, "index.ts"),
-		);
+        // 复制 index.ts 到 dist
+        await fs_extra.copy(
+            path.join(rootDir, "index.ts"),
+            path.join(distDir, "index.ts"),
+        );
 
-		console.log("✅ 复制 Astro 源代码");
-	} catch (error) {
-		console.error("❌ 复制 Astro 源代码失败:", error);
-		process.exit(1);
-	}
+        console.log("✅ 复制 Astro 源代码");
+    } catch (error) {
+        console.error("❌ 复制 Astro 源代码失败:", error);
+        process.exit(1);
+    }
 }
 
 export async function buildAstro() {
-	try {
-		await copySrcToDist();
-	} catch (error) {
-		console.error("❌ 构建 Astro 失败:", error);
-		process.exit(1);
-	}
+    try {
+        await copySrcToDist();
+    } catch (error) {
+        console.error("❌ 构建 Astro 失败:", error);
+        process.exit(1);
+    }
 }

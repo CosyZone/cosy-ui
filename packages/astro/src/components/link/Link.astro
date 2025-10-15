@@ -1,0 +1,175 @@
+---
+/**
+ * @component Link
+ *
+ * @description
+ * Link 组件是一个增强的链接组件，提供了丰富的样式变体和动画效果。
+ * 它可以用于导航、按钮、行动号召等多种场景。
+ *
+ * @design
+ * 设计理念：
+ * 1. 灵活多变 - 提供多种样式变体，适应不同场景
+ * 2. 视觉反馈 - 通过悬停效果提供用户交互反馈
+ * 3. 一致性 - 保持与整体设计系统的一致性
+ * 4. 可访问性 - 确保链接可被键盘导航和屏幕阅读器识别
+ *
+ * @props
+ * @prop {string} [active=false] - 是否为激活状态
+ * @prop {string} [align] - 对齐方式：left、center、right
+ * @prop {string} [animation='none'] - 动画效果：none、hover-lift、hover-glow、hover-scale
+ * @prop {boolean} [block=false] - 是否为块级显示
+ * @prop {boolean} [btn=false] - 是否启用按钮风格
+ * @prop {boolean} [circle=false] - 是否为圆形按钮（需配合 btn 使用）
+ * @prop {string} [class] - 自定义 CSS 类名
+ * @prop {any} [class:list] - 类名列表
+ * @prop {string} [color] - 按钮颜色（需配合 btn 使用）：primary、secondary、accent、info、success、warning、error
+ * @prop {boolean} [debug=false] - 是否显示调试边框
+ * @prop {boolean} [external=false] - 是否为外部链接，自动新窗口打开
+ * @prop {boolean} [fullWidth=false] - 是否占满宽度
+ * @prop {boolean} [ghost=false] - 是否为幽灵按钮（需配合 btn 使用）
+ * @prop {string} href - 链接地址（必需）
+ * @prop {string} [icon] - 图标名称，支持所有可用的图标组件
+ * @prop {any} [hoverImage] - 悬停时显示的图片，支持 ImageSource 类型
+ * @prop {string} [hoverImageAlt] - 悬停图片的 alt 文本
+ * @prop {string} [navigationType] - 导航类型（需配合 navigation 变体使用）：previous、next
+ * @prop {boolean} [noUnderline=true] - 是否移除下划线
+ * @prop {string} [rounded='none'] - 圆角大小，可选值：none、sm、md、lg、xl、full
+ * @prop {string} [size='md'] - 尺寸大小：sm、md、lg
+ * @prop {string} [variant='default'] - 样式变体：default、primary、secondary、text、cta、ghost、light、navigation、github
+ * @prop {...HTMLAttributes<'a'>} [rest] - 其他 HTML <a> 标签属性
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Link href="/about">关于我们</Link>
+ * ```
+ *
+ * 外部链接：
+ * ```astro
+ * <Link href="https://example.com" external>访问外部网站</Link>
+ * ```
+ *
+ * 样式变体：
+ * ```astro
+ * <Link href="/signup" variant="primary">注册</Link>
+ * <Link href="/learn-more" variant="secondary">了解更多</Link>
+ * <Link href="/docs" variant="text">查看文档</Link>
+ * <Link href="/get-started" variant="cta">立即开始</Link>
+ * <Link href="/preview" variant="ghost">预览</Link>
+ * <Link href="/previous" variant="navigation" navigationType="previous">上一页</Link>
+ * <Link href="/next" variant="navigation" navigationType="next">下一页</Link>
+ * <Link href="https://github.com/user/repo" variant="github">GitHub 仓库</Link>
+ * ```
+ *
+ * 图标支持：
+ * ```astro
+ * <Link href="/home" icon="HomeIcon">首页</Link>
+ * <Link href="/settings" icon="SettingsIcon">设置</Link>
+ * <Link href="/search" icon="SearchIcon">搜索</Link>
+ * <Link href="/user" icon="UserIcon">用户</Link>
+ * <Link href="/mail" icon="MailIcon">邮件</Link>
+ * <Link href="/download" icon="DownloadIcon">下载</Link>
+ * ```
+ *
+ * 块级显示：
+ * ```astro
+ * <Link href="/contact" block>独占一行的链接</Link>
+ * <p>这是一段文字，其中包含一个<Link href="/inline">内联链接</Link>。</p>
+ * ```
+ *
+ * 动画效果：
+ * ```astro
+ * <Link href="/contact" animation="hover-lift">联系我们</Link>
+ * <Link href="/features" animation="hover-glow">功能特性</Link>
+ * <Link href="/pricing" animation="hover-scale">查看价格</Link>
+ * ```
+ *
+ * 尺寸变体：
+ * ```astro
+ * <Link href="/small" size="sm">小型链接</Link>
+ * <Link href="/medium" size="md">中型链接</Link>
+ * <Link href="/large" size="lg">大型链接</Link>
+ * ```
+ *
+ * 按钮风格：
+ * ```astro
+ * <Link href="/signup" btn>按钮链接</Link>
+ * <Link href="/ghost" btn ghost>幽灵按钮</Link>
+ * <Link href="/circle" btn circle>圆形按钮</Link>
+ * <Link href="/full" btn fullWidth>全宽按钮</Link>
+ * ```
+ *
+ * 圆角样式：
+ * ```astro
+ * <Link href="/rounded-sm" rounded="sm">小圆角链接</Link>
+ * <Link href="/rounded-md" rounded="md">中等圆角链接</Link>
+ * <Link href="/rounded-lg" rounded="lg">大圆角链接</Link>
+ * <Link href="/rounded-xl" rounded="xl">超大圆角链接</Link>
+ * <Link href="/rounded-full" rounded="full">完全圆角链接</Link>
+ * ```
+ *
+ * 悬停图片功能：
+ * ```astro
+ * <Link href="/wechat" hoverImage="/images/wechat-qr.png" hoverImageAlt="微信二维码">微信</Link>
+ * <Link href="/contact" hoverImage={qrImage} hoverImageAlt="联系二维码">联系我们</Link>
+ * ```
+ */
+
+import "../../style.ts";
+import { ChevronLeftIcon, ChevronRightIcon, GithubIcon } from "../icons/index.ts";
+import Image from "../image/Image.astro";
+// 导入所有图标组件
+import * as Icons from "../icons/index.ts";
+import type { ILinkProps } from "./props.ts";
+import { getLinkCombinedClassesAstro } from "./class.ts";
+
+const props = Astro.props as ILinkProps;
+
+// 获取图标组件
+const IconComponent = props.icon ? (Icons as any)[props.icon] : null;
+
+// 使用共用的工具函数计算组合类名
+const classes = getLinkCombinedClassesAstro(props);
+---
+
+<a
+  href={props.href}
+  class:list={[classes, props["class:list"]]}
+  {...props.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
+  {...Astro.props}>
+  {props.navigationType === 'previous' && <ChevronLeftIcon />}
+  {props.variant === 'github' && <GithubIcon />}
+  {IconComponent && <IconComponent />}
+  <slot />
+  {props.navigationType === 'next' && <ChevronRightIcon />}
+
+  {/* 悬停图片显示 */}
+  {props.hoverImage && (
+    <div
+      class="cosy:absolute cosy:bottom-full cosy:left-1/2 cosy:transform cosy:-translate-x-1/2 cosy:mb-2 cosy:opacity-0 cosy:group-hover:opacity-100 cosy:transition-opacity cosy:duration-300 cosy:z-50 cosy:min-w-56 cosy:pointer-events-none">
+      <div
+        class="cosy:bg-white cosy:rounded-lg cosy:shadow-lg cosy:p-3 cosy:border cosy:border-gray-200 cosy:min-w-56">
+        <Image
+          src={props.hoverImage}
+          alt={props.hoverImageAlt || '悬停图片'}
+          width={200}
+          height={200}
+          class="cosy:w-56 cosy:h-56"
+          objectFit="contain"
+          rounded="lg"
+          shadow="none"
+          border="none"
+          hover="none"
+          transition="none"
+          loading="eager"
+          showPlaceholder={false}
+          showError={true}
+        />
+      </div>
+      <!-- 小三角形指示器 -->
+      <div
+        class="cosy:absolute cosy:top-full cosy:left-1/2 cosy:transform cosy:-translate-x-1/2 cosy:w-0 cosy:h-0 cosy:border-l-4 cosy:border-r-4 cosy:border-t-4 cosy:border-l-transparent cosy:border-r-transparent cosy:border-t-white">
+      </div>
+    </div>
+  )}
+</a>

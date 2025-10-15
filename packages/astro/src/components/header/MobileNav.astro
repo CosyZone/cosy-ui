@@ -1,0 +1,44 @@
+---
+/**
+ * @component MobileNav
+ *
+ * @description
+ * MobileNav 组件是一个移动端导航菜单，用于在小屏幕设备上显示导航项。
+ * 这个组件通常与 Modal 组件配合使用，提供移动端的导航体验。
+ *
+ * @usage
+ * ```astro
+ * <MobileNav
+ *   navItems={navItems}
+ *   activeLink={activeLink}
+ *   linkHeightClass={linkHeightClass}
+ * />
+ * ```
+ *
+ * @props
+ * - navItems - 导航项数组
+ * - activeLink - 当前激活的链接
+ * - linkHeightClass - 链接高度类名
+ */
+import { type INavItem } from '../../../dist';
+import NavItems from './NavItems.astro';
+
+export interface Props {
+    navItems: INavItem[];
+    activeLink: string;
+    linkHeightClass: string;
+}
+
+const { navItems, activeLink, linkHeightClass } = Astro.props;
+---
+
+<div class="cosy:flex cosy:flex-col cosy:gap-2">
+    <nav class="cosy:flex cosy:flex-col cosy:gap-1">
+        <NavItems
+            navItems={navItems}
+            activeLink={activeLink}
+            linkHeightClass={linkHeightClass}
+            vertical={true}
+        />
+    </nav>
+</div>

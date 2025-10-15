@@ -1,0 +1,49 @@
+---
+/**
+ * Sidebar组件
+ *
+ * 用于文档页面的侧边栏导航，自动适配移动端和桌面端
+ *
+ * @example
+ * ```astro
+ * ---
+ * import Sidebar from './Sidebar.astro';
+ *
+ * const sidebarItems = [
+ *   { title: "入门", items: [
+ *     { href: "/docs/getting-started", text: "快速开始" },
+ *     { href: "/docs/installation", text: "安装" }
+ *   ]}
+ * ];
+ * ---
+ *
+ * <Sidebar sidebarItems={sidebarItems} />
+ * ```
+ */
+
+import '../../style.ts';
+import MobileSidebar from './MobileSidebar.astro';
+import DesktopSidebar from './DesktopSidebar.astro';
+import type { ISidebarProps } from '../../../index.ts';
+
+export interface Props extends ISidebarProps {
+    /**
+     * 自定义类名
+     */
+    class?: string;
+
+    /**
+     * 是否开启调试模式，显示边框
+     * @default false
+     */
+    debug?: boolean;
+}
+
+const { sidebarItems, class: className, debug = false } = Astro.props;
+---
+
+{/* 移动端侧边栏 */}
+<MobileSidebar sidebarItems={sidebarItems} debug={debug} />
+
+{/* 桌面端侧边栏 */}
+<DesktopSidebar sidebarItems={sidebarItems} class={className} debug={debug} />

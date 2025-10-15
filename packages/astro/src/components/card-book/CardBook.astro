@@ -1,0 +1,178 @@
+---
+/**
+ * @component CardBook
+ *
+ * @description
+ * 书籍卡片组件，用于展示一本书的信息。支持传入封面图；当未提供封面时，将根据标题自动生成合适的渐变背景作为占位。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <CardBook title="Clean Code" author="Robert C. Martin" />
+ * <CardBook title="你不知道的JavaScript" author="Kyle Simpson" href="/books/ydkjs" />
+ * <CardBook title="Refactoring" author="Martin Fowler" cover="https://example.com/cover.jpg" />
+ * ```
+ *
+ * @props
+ * - author?: string - 作者名称
+ * - class?: string - 自定义类名
+ * - cover?: ImageSource - 书籍封面图（本地或远程），若缺省则显示智能背景
+ * - description?: string - 书籍简介
+ * - href?: string - 点击跳转链接
+ * - shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl' - 卡片阴影样式，默认 'md'
+ * - size?: 'sm' | 'md' | 'lg' - 卡片尺寸，默认 'md'
+ * - title: string - 书名
+ */
+
+import '../../style.ts';
+import type { ImageSource } from '../../../index.ts';
+import { Image, Button } from '../../../index.ts';
+import { SmartBg } from '../smart-bg/index.ts';
+
+interface ISizeStyle {
+    card: string;
+    figure: string;
+    image: { width: number; height: number };
+    title: string;
+    description: string;
+    padding: string;
+    imageHeight: string;
+}
+
+const sizeStyles: Record<'sm' | 'md' | 'lg', ISizeStyle> = {
+    sm: {
+        card: 'cosy:max-w-[220px]',
+        figure: 'cosy:p-3',
+        image: { width: 180, height: 260 },
+        title: 'cosy:text-base',
+        description: 'cosy:text-sm cosy:line-clamp-3',
+        padding: 'cosy:px-4 cosy:py-3',
+        imageHeight: 'cosy:h-[160px]',
+    },
+    md: {
+        card: 'cosy:max-w-[280px]',
+        figure: 'cosy:p-4',
+        image: { width: 240, height: 340 },
+        title: 'cosy:text-xl',
+        description: 'cosy:text-base cosy:line-clamp-3',
+        padding: 'cosy:px-5 cosy:py-4',
+        imageHeight: 'cosy:h-[200px]',
+    },
+    lg: {
+        card: 'cosy:max-w-[340px]',
+        figure: 'cosy:p-5',
+        image: { width: 300, height: 420 },
+        title: 'cosy:text-2xl',
+        description: 'cosy:text-lg cosy:line-clamp-4',
+        padding: 'cosy:px-6 cosy:py-5',
+        imageHeight: 'cosy:h-[240px]',
+    },
+};
+
+const shadowStyles = {
+    none: 'cosy:shadow-none',
+    sm: 'cosy:shadow-sm cosy:hover:shadow-md',
+    md: 'cosy:shadow-md cosy:hover:shadow-lg',
+    lg: 'cosy:shadow-lg cosy:hover:shadow-xl',
+    xl: 'cosy:shadow-xl cosy:hover:shadow-2xl',
+};
+
+export interface ICardBookProps {
+    author?: string;
+    class?: string;
+    cover?: ImageSource;
+    description?: string;
+    href?: string;
+    shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+    size?: 'sm' | 'md' | 'lg';
+    title: string;
+}
+
+const {
+    title,
+    author = '',
+    cover,
+    description = '',
+    href,
+    size = 'md',
+    shadow = 'md',
+    class: className = '',
+} = Astro.props as ICardBookProps;
+
+const currentSize = sizeStyles[size as 'sm' | 'md' | 'lg'];
+---
+
+<div
+    ignore-heading
+    class:list={[
+        'cosy:card cosy:bg-base-200 cosy:transition-shadow cosy:duration-300 cosy:flex cosy:flex-col',
+        shadowStyles[shadow as 'none' | 'sm' | 'md' | 'lg' | 'xl'],
+        currentSize.card,
+        className,
+    ]}>
+    <figure class:list={[currentSize.figure, currentSize.imageHeight]}>
+        {
+            cover ? (
+                <Image
+                    src={cover}
+                    alt={`${title} cover`}
+                    width={currentSize.image.width}
+                    height={currentSize.image.height}
+                    rounded="lg"
+                    transition="fade"
+                    hover="brightness"
+                    class="cosy:w-full cosy:h-full cosy:object-cover"
+                    loading="lazy"
+                    showError={true}
+                />
+            ) : (
+                <SmartBg
+                    keyword={title}
+                    enableGradient
+                    class="cosy:w-full cosy:h-full cosy:flex cosy:items-center cosy:justify-center cosy:rounded-lg">
+                    <div class="cosy:text-base-content cosy:text-opacity-80 cosy:text-2xl cosy:font-semibold cosy:text-center cosy:px-3">
+                        {title}
+                    </div>
+                </SmartBg>
+            )
+        }
+    </figure>
+
+    <div
+        class:list={[
+            currentSize.padding,
+            'cosy:card-body cosy:flex cosy:flex-col',
+        ]}>
+        <h2
+            class:list={[
+                currentSize.title,
+                'cosy:card-title cosy:mb-2 cosy:font-bold',
+            ]}>
+            {title}
+        </h2>
+        {
+            author && (
+                <p class="cosy:text-sm cosy:text-base-content/70 cosy:mb-2">
+                    {author}
+                </p>
+            )
+        }
+        {
+            description && (
+                <p class:list={[currentSize.description, 'cosy:mb-4']}>
+                    {description}
+                </p>
+            )
+        }
+
+        {
+            href && (
+                <div class="cosy:mt-auto">
+                    <Button href={href} variant="primary">
+                        查看详情
+                    </Button>
+                </div>
+            )
+        }
+    </div>
+</div>

@@ -1,0 +1,144 @@
+---
+/**
+ * @component DashboardTopNavbar
+ *
+ * @description
+ * DashboardTopNavbar 组件提供仪表盘布局的顶部导航栏功能。
+ * 包含菜单切换按钮、面包屑导航、搜索框、通知和用户信息。
+ *
+ * @usage
+ * ```astro
+ * ---
+ * import { DashboardTopNavbar } from '@coffic/cosy-ui';
+ *
+ * const userMenuItems = [
+ *   { href: '/profile', text: '个人资料' },        // 自动匹配 user 图标
+ *   { href: '/settings', text: '设置' },          // 自动匹配 settings 图标
+ *   { href: '/logout', text: '退出登录' },         // 自动匹配 logout 图标
+ *   { href: '/help', text: '帮助中心', icon: 'help' } // 也可手动指定图标
+ * ];
+ * ---
+ *
+ * <DashboardTopNavbar
+ *   title="仪表盘"
+ *   userName="管理员"
+ *   userAvatar="/avatar.jpg"
+ *   userMenuItems={userMenuItems}
+ * />
+ * ```
+ *
+ * @props
+ * - title: string - 页面标题，用于面包屑导航
+ * - userName?: string - 用户名
+ * - userAvatar?: string - 用户头像
+ * - userMenuItems?: UserMenuItem[] - 用户菜单项，默认包含个人资料、设置、退出登录，图标会自动匹配
+ */
+
+import '../../style.ts';
+import AstroIcon from '../icons/AstroIcon.astro';
+import type { UserMenuItem } from './types.ts';
+import { getUserMenuItemIcon } from './types.ts';
+
+export interface Props {
+    /**
+     * 页面标题，用于面包屑导航
+     */
+    title: string;
+
+    /**
+     * 用户名
+     */
+    userName?: string;
+
+    /**
+     * 用户头像
+     */
+    userAvatar?: string;
+
+    /**
+     * 用户菜单项
+     */
+    userMenuItems?: UserMenuItem[];
+}
+
+const { title, userName, userAvatar, userMenuItems } = Astro.props;
+
+// 默认用户菜单项
+const defaultUserMenuItems: UserMenuItem[] = [
+    { href: '/profile', text: '个人资料' }, // 自动匹配 user 图标
+    { href: '/settings', text: '设置' }, // 自动匹配 settings 图标
+    { href: '/logout', text: '退出登录' }, // 自动匹配 logout 图标
+];
+
+const menuItems = userMenuItems || defaultUserMenuItems;
+---
+
+<div
+    class="cosy:navbar cosy:bg-base-100 cosy:shadow-2xl cosy:border-b cosy:border-base-300">
+    <div class="cosy:navbar-start">
+        <label
+            for="dashboard-drawer"
+            class="cosy:btn cosy:btn-square cosy:btn-ghost cosy:lg:hidden">
+            <AstroIcon name="menu" size="16px" color="currentColor" />
+        </label>
+
+        <div
+            class="cosy:text-base-content/70 cosy:flex cosy:items-center cosy:h-full cosy:text-lg cosy:font-medium cosy:px-4">
+            {title}
+        </div>
+    </div>
+
+    <div class="cosy:navbar-end cosy:gap-2">
+        <!-- 用户信息 -->
+        {
+            userName && (
+                <div class="cosy:dropdown cosy:dropdown-end">
+                    <div
+                        tabindex="0"
+                        role="button"
+                        class="cosy:btn cosy:btn-ghost cosy:gap-2">
+                        {userAvatar ? (
+                            <div class="cosy:avatar">
+                                <div class="cosy:w-8 cosy:rounded-full">
+                                    <img src={userAvatar} alt={userName} />
+                                </div>
+                            </div>
+                        ) : (
+                            <div class="cosy:avatar cosy:placeholder">
+                                <div class="cosy:bg-primary cosy:text-primary-content cosy:rounded-full cosy:w-8">
+                                    <span class="cosy:text-sm">
+                                        {userName.charAt(0)}
+                                    </span>
+                                </div>
+                            </div>
+                        )}
+                        <span class="cosy:hidden cosy:lg:block">
+                            {userName}
+                        </span>
+                    </div>
+                    <ul
+                        tabindex="0"
+                        class="cosy:dropdown-content cosy:menu cosy:p-2 cosy:shadow cosy:bg-base-100 cosy:rounded-box cosy:w-52">
+                        {menuItems.map((item) => {
+                            const iconName = getUserMenuItemIcon(item);
+                            return (
+                                <li>
+                                    <a
+                                        href={item.href}
+                                        class="cosy:no-underline cosy:flex cosy:items-center cosy:gap-2">
+                                        <AstroIcon
+                                            name={iconName}
+                                            size="16px"
+                                            color="currentColor"
+                                        />
+                                        {item.text}
+                                    </a>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </div>
+            )
+        }
+    </div>
+</div>

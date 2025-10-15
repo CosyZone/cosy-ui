@@ -1,74 +1,36 @@
 {
-	"name": "@coffic/cosy-ui-base",
-	"version": "0.9.68",
-	"author": {
-		"name": "nookery",
-		"url": "https://github.com/nookery"
-	},
-	"repository": {
-		"url": "https://github.com/CosyZone/cosy-ui"
-	},
-	"homepage": "https://ui.coffic.cn",
-	"publishConfig": {
-		"access": "public"
-	},
-	"sideEffects": false,
-	"main": "./dist/index.ts",
-	"module": "./dist/index.ts",
-	"types": "./dist/index.ts",
-	"exports": {
-		".": {
-			"import": "./dist/index.ts",
-			"types": "./dist/index.ts"
-		},
-		"./style": "./dist/style.ts"
-	},
-	"files": [
-		"dist",
-		"index.ts"
-	],
-	"scripts": {
-		"build": "vite build"
-	},
-	"type": "module",
-	"peerDependencies": {
-		"astro": "^5.1.3",
-		"vue": "^3.0.0"
-	},
-	"peerDependenciesMeta": {
-		"astro": {
-			"optional": true
-		},
-		"vue": {
-			"optional": true
-		}
-	},
-	"dependencies": {
-		"@remixicon/vue": "^4.6.0",
-		"fs-extra": "^11.3.0",
-		"html-to-image": "^1.11.13",
-		"shiki": "^3.9.1"
-	},
-	"devDependencies": {
-		"@tailwindcss/typography": "^0.5.16",
-		"@tailwindcss/vite": "^4.1.11",
-		"@tsconfig/node22": "^22.0.2",
-		"@types/chai": "^5.2.2",
-		"@types/fs-extra": "^11.0.4",
-		"@types/mocha": "^10.0.10",
-		"@types/node": "^22.17.0",
-		"chai": "^4.5.0",
-		"daisyui": "^5.0.50",
-		"globals": "^16.3.0",
-		"mocha": "^10.8.2",
-		"prettier": "^3.6.2",
-		"prettier-plugin-astro": "^0.14.1",
-		"rollup-plugin-copy": "^3.5.0",
-		"sharp": "^0.33.5",
-		"tailwindcss": "^4.1.11",
-		"tsx": "^4.20.3",
-		"typescript": "^5.9.2",
-		"typescript-eslint": "^8.38.0",
-		"vite": "^7.1.10"
-	}
+  "name": "@coffic/cosy-ui-base",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./style": "./dist/style.js"
+  },
+  "files": [
+    "dist",
+    "index.ts"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "clean": "rm -rf dist"
+  },
+  "type": "module",
+  "dependencies": {
+    "fs-extra": "^11.3.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/vite": "^4.1.11",
+    "@types/fs-extra": "^11.0.4",
+    "daisyui": "^5.0.50",
+    "rollup-plugin-copy": "^3.5.0",
+    "tailwindcss": "^4.1.11",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.10",
+    "vite-plugin-dts": "^4.5.4"
+  }
 }

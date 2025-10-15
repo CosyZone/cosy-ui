@@ -1,0 +1,105 @@
+---
+/**
+ * @component LanguageSwitcher
+ *
+ * @description
+ * LanguageSwitcher 组件提供一个语言切换下拉菜单，支持多语言网站的语言切换功能。
+ * 组件会自动处理 URL 路径，确保在切换语言时保留当前页面路径。
+ *
+ * @design
+ * 设计理念：
+ * 1. 简洁直观 - 清晰显示当前语言和可选语言
+ * 2. 无缝集成 - 自动处理 URL 路由，保持用户浏览上下文
+ * 3. 可定制性 - 支持自定义语言列表和当前语言设置
+ * 4. 一致的视觉风格 - 使用与整体设计系统一致的下拉菜单样式
+ *
+ * @usage
+ * 基本用法（需要用户传入 astro:i18n 模块）：
+ * ```astro
+ * ---
+ * import * as astroI18n from 'astro:i18n';
+ * ---
+ * <LanguageSwitcher astroI18n={astroI18n} />
+ * ```
+ *
+ * @props
+ * - astroI18n - 完整的 astro:i18n 模块
+ * - class - 自定义CSS类名
+ */
+
+import { ChevronDownIcon, GlobeIcon, Link, ListItem } from '../../../index.ts';
+import {
+    checkSwitcherRenderState,
+    generateSwitcherLinks,
+    type SwitcherLink,
+} from './switcher_util.ts';
+import '../../style.ts';
+
+interface Props {
+    /**
+     * 完整的 astro:i18n 模块
+     */
+    astroI18n?: any;
+
+    /**
+     * 自定义类名
+     */
+    class?: string;
+}
+
+const { astroI18n, class: className = '' } = Astro.props;
+
+// 检查渲染状态
+const renderState = checkSwitcherRenderState(Astro.currentLocale, astroI18n);
+
+// 输出警告信息
+if (renderState.warnings) {
+    renderState.warnings.forEach((warning) => console.warn(warning));
+}
+
+let links: SwitcherLink[] = [];
+
+// 如果应该渲染，生成切换链接
+if (renderState.shouldRender && Astro.currentLocale) {
+    try {
+        links = generateSwitcherLinks(
+            astroI18n,
+            Astro.currentLocale,
+            Astro.url.pathname
+        );
+    } catch (error) {
+        // 如果生成链接失败，设置为不渲染
+        renderState.shouldRender = false;
+    }
+}
+---
+
+{
+    renderState.shouldRender && (
+        <div class={`cosy:dropdown cosy:dropdown-end ${className}`}>
+            <div
+                tabindex="0"
+                role="button"
+                class:list={['cosy:btn cosy:btn-ghost']}>
+                <GlobeIcon size="16px" class="cosy:w-4 cosy:h-4 cosy:mr-1" />
+                <span class="cosy:mr-1 cosy:hidden cosy:sm:inline">
+                    {renderState.currentLanguageName}
+                </span>
+                <ChevronDownIcon size="16px" class="cosy:w-4 cosy:h-4" />
+            </div>
+            <ul
+                tabindex="0"
+                class="cosy:z-[1] cosy:bg-base-100 cosy:shadow cosy:p-2 cosy:rounded-box cosy:w-32 cosy:dropdown-content cosy:menu">
+                {links.map((link) => (
+                    <ListItem>
+                        <Link
+                            href={link.url}
+                            active={Astro.currentLocale === link.locale}>
+                            {link.name}
+                        </Link>
+                    </ListItem>
+                ))}
+            </ul>
+        </div>
+    )
+}

@@ -1,0 +1,19 @@
+---
+/**
+ * @component CardCourseButton
+ * @description 课程卡片按钮组件，使用组件库中的 Button 组件
+ */
+
+import { Button } from '../../../dist';
+
+interface Props {
+    href: string;
+    lang: string;
+}
+
+const { href, lang } = Astro.props;
+---
+
+<Button href={href} variant="primary" size="md">
+    {lang === 'en' ? 'Start Learning' : '开始学习'}
+</Button>
