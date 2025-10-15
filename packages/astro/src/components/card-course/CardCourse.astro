@@ -22,36 +22,36 @@
  * - lang: string - 语言（"en" 或 "zh"）
  */
 
-import '../../style.ts';
+import "@coffic/cosy-ui-base/style";
 import {
-    formatDisplayName,
-    getIconSizeClasses,
-    getContentPaddingClasses,
-} from './config.ts';
-import CardCourseIcon from './CardCourseIcon.astro';
-import CardCourseContent from './CardCourseContent.astro';
-import CardCourseButton from './CardCourseButton.astro';
-import { SmartBg } from '../smart-bg/index.ts';
-import type { PaddingSize } from './types.ts';
+	formatDisplayName,
+	getIconSizeClasses,
+	getContentPaddingClasses,
+} from "./config.ts";
+import CardCourseIcon from "./CardCourseIcon.astro";
+import CardCourseContent from "./CardCourseContent.astro";
+import CardCourseButton from "./CardCourseButton.astro";
+import { SmartBg } from "../smart-bg/index.ts";
+import type { PaddingSize } from "./types.ts";
 
 interface Props {
-    contentPadding?: PaddingSize;
-    courseName: string;
-    description?: string;
-    href: string;
-    iconSize?: 'sm' | 'md' | 'lg' | 'xl';
-    keywords?: string[];
-    lang: string;
+	contentPadding?: PaddingSize;
+	courseName: string;
+	description?: string;
+	href: string;
+	iconSize?: "sm" | "md" | "lg" | "xl";
+	keywords?: string[];
+	lang: string;
 }
 
 const {
-    contentPadding = 'lg',
-    courseName,
-    description = '',
-    href,
-    iconSize = 'md',
-    keywords = [],
-    lang,
+	contentPadding = "lg",
+	courseName,
+	description = "",
+	href,
+	iconSize = "md",
+	keywords = [],
+	lang,
 } = Astro.props;
 
 const displayName = formatDisplayName(courseName);

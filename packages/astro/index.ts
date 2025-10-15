@@ -1,4 +1,3 @@
-
 // 基础组件和功能模块 (按字母顺序)
 export * from "./src/components/alert/index.ts";
 export * from "./src/components/alert-dialog/index.ts";
@@ -82,3 +81,6 @@ export * from "./src/components/types/static-path.ts";
 
 // 图标组件
 export * from "./src/components/icons/index.ts";
+
+// 工具
+export * from "./src/utils/link.ts";

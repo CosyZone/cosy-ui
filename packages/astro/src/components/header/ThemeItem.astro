@@ -14,25 +14,25 @@
  * ```
  */
 
-import { Button, CheckIcon } from '../../../index.ts';
-import '../../style.ts';
+import { Button, CheckIcon } from "../../../index.ts";
+import "@coffic/cosy-ui-base/style";
 
 interface Props {
-    /**
-     * 主题名称
-     */
-    theme: string;
-    /**
-     * 显示的标签文本
-     */
-    label: string;
-    /**
-     * 自定义类名
-     */
-    class?: string;
+	/**
+	 * 主题名称
+	 */
+	theme: string;
+	/**
+	 * 显示的标签文本
+	 */
+	label: string;
+	/**
+	 * 自定义类名
+	 */
+	class?: string;
 }
 
-const { theme, label, class: className = '' } = Astro.props;
+const { theme, label, class: className = "" } = Astro.props;
 ---
 
 <Button

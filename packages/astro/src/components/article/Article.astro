@@ -104,7 +104,7 @@
  */
 
 // 导入样式
-import "../../style.ts";
+import "@coffic/cosy-ui-base/style";
 import type { IArticleProps } from "../types/article.ts";
 
 export interface Props extends IArticleProps {}
@@ -136,5 +136,5 @@ const baseClasses = [
 ---
 
 <article class:list={baseClasses} style={style}>
-  <slot />
+    <slot />
 </article>

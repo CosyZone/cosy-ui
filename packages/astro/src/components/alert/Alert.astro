@@ -63,37 +63,37 @@
  * @slot action - 自定义操作按钮，显示在 alert 右侧，适合放置自定义按钮或其他操作
  */
 
-import '../../style.ts';
-import type { IAlertProps } from './props.ts';
-import { getAlertCombinedClasses } from './class.ts';
+import "@coffic/cosy-ui-base/style";
+import type { IAlertProps } from "./props.ts";
+import { getAlertCombinedClasses } from "./class.ts";
 import {
-    InfoIcon,
-    SuccessIcon,
-    WarningIcon,
-    ErrorIcon,
-    CloseIcon,
-} from '../../../index.ts';
+	InfoIcon,
+	SuccessIcon,
+	WarningIcon,
+	ErrorIcon,
+	CloseIcon,
+} from "../../../index.ts";
 
 // 根据类型设置图标组件
 const getIconComponent = (type: string) => {
-    const iconComponents = {
-        info: InfoIcon,
-        success: SuccessIcon,
-        warning: WarningIcon,
-        error: ErrorIcon,
-    };
-    return iconComponents[type as keyof typeof iconComponents] || InfoIcon;
+	const iconComponents = {
+		info: InfoIcon,
+		success: SuccessIcon,
+		warning: WarningIcon,
+		error: ErrorIcon,
+	};
+	return iconComponents[type as keyof typeof iconComponents] || InfoIcon;
 };
 
 const props = Astro.props as IAlertProps;
 
 const {
-    type = 'info',
-    title,
-    description,
-    class: className = '',
-    closable = true,
-    showIcon = true,
+	type = "info",
+	title,
+	description,
+	class: className = "",
+	closable = true,
+	showIcon = true,
 } = props;
 
 // 获取图标组件
@@ -101,7 +101,7 @@ const IconComponent = getIconComponent(type);
 
 // 获取组合类名
 const alertClassArray = getAlertCombinedClasses(props);
-const alertClass = [...alertClassArray, className].filter(Boolean).join(' ');
+const alertClass = [...alertClassArray, className].filter(Boolean).join(" ");
 
 // 导出接口供外部使用
 export type { IAlertProps };

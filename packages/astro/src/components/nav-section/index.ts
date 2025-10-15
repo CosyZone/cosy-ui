@@ -7,5 +7,5 @@ export { NavSection, NavSectionBasic };
 
 // 导出示例源代码
 export const NavSectionExampleCodes = {
-    Basic: extractSimpleExample(BasicSourceCode, "NavSection"),
+	Basic: extractSimpleExample(BasicSourceCode, "NavSection"),
 };

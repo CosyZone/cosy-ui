@@ -1,4 +1,4 @@
-import { cosyLogger } from "../../src-astro/cosy";
+import { cosyLogger } from "../cosy";
 
 export class LinkUtil {
 	// 从 astro.config.ts 中获取基础路径

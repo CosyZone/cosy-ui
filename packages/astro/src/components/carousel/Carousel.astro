@@ -1,32 +1,32 @@
 ---
-import '../../style.ts';
-import type { ICarouselProps } from './types.ts';
+import "@coffic/cosy-ui-base/style";
+import type { ICarouselProps } from "./types.ts";
 
 export interface Props extends ICarouselProps {}
 
 const {
-    items = [],
-    idPrefix = 'carousel',
-    navButtonClass = 'btn btn-circle',
-    showNav = true,
-    id,
-    class: className,
-    'class:list': classList,
-    ...rest
+	items = [],
+	idPrefix = "carousel",
+	navButtonClass = "btn btn-circle",
+	showNav = true,
+	id,
+	class: className,
+	"class:list": classList,
+	...rest
 } = Astro.props as Props;
 
 const slides = items.map((item, index) => ({
-    id: item.id ?? `${idPrefix}-slide-${index + 1}`,
-    src: item.src,
-    alt: item.alt ?? '',
+	id: item.id ?? `${idPrefix}-slide-${index + 1}`,
+	src: item.src,
+	alt: item.alt ?? "",
 }));
 
 function getPrevIndex(current: number, total: number) {
-    return (current - 1 + total) % total;
+	return (current - 1 + total) % total;
 }
 
 function getNextIndex(current: number, total: number) {
-    return (current + 1) % total;
+	return (current + 1) % total;
 }
 ---
 

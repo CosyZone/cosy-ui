@@ -43,42 +43,42 @@
  */
 
 // 导入样式
-import '../../style.ts';
+import "@coffic/cosy-ui-base/style";
 
-import type { AvatarProps } from './types.ts';
+import type { AvatarProps } from "./types.ts";
 
 type Props = AvatarProps;
 
 const {
-    userName,
-    avatar,
-    size = 'md',
-    class: className = '',
-    'class:list': classList,
-    ...rest
+	userName,
+	avatar,
+	size = "md",
+	class: className = "",
+	"class:list": classList,
+	...rest
 } = Astro.props;
 
 // 尺寸映射
 const sizeClasses = {
-    sm: 'cosy:w-8 cosy:h-8 cosy:text-sm',
-    md: 'cosy:w-12 cosy:h-12 cosy:text-lg',
-    lg: 'cosy:w-16 cosy:h-16 cosy:text-xl',
-    xl: 'cosy:w-20 cosy:h-20 cosy:text-2xl',
+	sm: "cosy:w-8 cosy:h-8 cosy:text-sm",
+	md: "cosy:w-12 cosy:h-12 cosy:text-lg",
+	lg: "cosy:w-16 cosy:h-16 cosy:text-xl",
+	xl: "cosy:w-20 cosy:h-20 cosy:text-2xl",
 };
 
 // 生成头像背景色
 const getAvatarColor = (userName: string) => {
-    const colors = [
-        'cosy:bg-primary',
-        'cosy:bg-secondary',
-        'cosy:bg-accent',
-        'cosy:bg-info',
-        'cosy:bg-success',
-        'cosy:bg-warning',
-        'cosy:bg-error',
-    ];
-    const index = userName.charCodeAt(0) % colors.length;
-    return colors[index];
+	const colors = [
+		"cosy:bg-primary",
+		"cosy:bg-secondary",
+		"cosy:bg-accent",
+		"cosy:bg-info",
+		"cosy:bg-success",
+		"cosy:bg-warning",
+		"cosy:bg-error",
+	];
+	const index = userName.charCodeAt(0) % colors.length;
+	return colors[index];
 };
 
 const sizeClass = sizeClasses[size as keyof typeof sizeClasses];

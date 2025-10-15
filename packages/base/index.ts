@@ -3,26 +3,108 @@ export * from "./src/common/index.js";
 
 // ===== 工具函数 =====
 
-// 图片工具函数 - 用于生成示例图片
 export * from "./src/utils/image.js";
-
-// 主题管理工具 - 用于主题切换和状态管理
 export * from "./src/utils/theme.js";
-
-// 组件工具函数 - 用于代码提取和处理
 export * from "./src/utils/component.js";
-
-// 日志工具 - 用于调试和错误记录
 export * from "./src/utils/logger.js";
-
-// 链接工具 - 用于链接处理和验证
 export * from "./src/utils/link.js";
-
-// 社交工具 - 用于社交媒体相关功能
 export * from "./src/utils/social.js";
-
-// URL 工具 - 用于 URL 处理
 export * from "./src/utils/url.js";
-
-// 路径工具 - 用于路径处理
 export * from "./src/utils/path.js";
+
+// ===== 组件类名计算函数和属性定义 =====
+
+// Alert 组件
+export * from "./src/components/alert/alertPropsBase.js";
+export * from "./src/components/alert/class-all.js";
+export * from "./src/components/alert/class-base.js";
+export * from "./src/components/alert/class-margin.js";
+export * from "./src/components/alert/class-type.js";
+export * from "./src/components/alert/class-variant.js";
+
+// Badge 组件
+export * from "./src/components/badge/badgePropsBase.js";
+export * from "./src/components/badge/class-all.js";
+export * from "./src/components/badge/class-base.js";
+export * from "./src/components/badge/class-outline.js";
+export * from "./src/components/badge/class-size.js";
+export * from "./src/components/badge/class-variant.js";
+
+// Button 组件
+export * from "./src/components/button/buttonPropsBase.js";
+export * from "./src/components/button/class-all.js";
+export * from "./src/components/button/class-base.js";
+export * from "./src/components/button/class-gradient.js";
+export * from "./src/components/button/class-modifiers.js";
+export * from "./src/components/button/class-shape.js";
+export * from "./src/components/button/class-size.js";
+export * from "./src/components/button/class-variant.js";
+
+// Card 组件
+export * from "./src/components/card/cardPropsBase.js";
+export * from "./src/components/card/class-all.js";
+
+// Container 组件
+export * from "./src/components/container/containerPropsBase.js";
+export * from "./src/components/container/class-all.js";
+export * from "./src/components/container/class-background.js";
+export * from "./src/components/container/class-border.js";
+export * from "./src/components/container/class-flex.js";
+export * from "./src/components/container/class-height.js";
+export * from "./src/components/container/class-margin.js";
+export * from "./src/components/container/class-muted.js";
+export * from "./src/components/container/class-padding.js";
+export * from "./src/components/container/class-rounded.js";
+export * from "./src/components/container/class-shadow.js";
+export * from "./src/components/container/class-width.js";
+export * from "./src/components/container/validate.js";
+export * from "./src/components/container/validate-padding.js";
+export * from "./src/components/container/validate-sizing.js";
+
+// Heading 组件
+export * from "./src/components/heading/headingPropsBase.js";
+export * from "./src/components/heading/class-all.js";
+export * from "./src/components/heading/class-align.js";
+export * from "./src/components/heading/class-background.js";
+export * from "./src/components/heading/class-color.js";
+export * from "./src/components/heading/class-margin.js";
+export * from "./src/components/heading/class-padding.js";
+export * from "./src/components/heading/class-size.js";
+export * from "./src/components/heading/class-underline.js";
+export * from "./src/components/heading/class-weight.js";
+
+// Link 组件
+export * from "./src/components/link/linkPropsBase.js";
+export * from "./src/components/link/class-all.js";
+export * from "./src/components/link/class-align.js";
+export * from "./src/components/link/class-animation.js";
+export * from "./src/components/link/class-base.js";
+export * from "./src/components/link/class-modifiers.js";
+export * from "./src/components/link/class-rounded.js";
+export * from "./src/components/link/class-size.js";
+export * from "./src/components/link/class-variant.js";
+
+// MacWindow 组件
+export * from "./src/components/mac-window/macWindowPropsBase.js";
+
+// Placeholder 组件
+export * from "./src/components/placeholder/index.js";
+export * from "./src/components/placeholder/class-all.js";
+export * from "./src/components/placeholder/class-background.js";
+export * from "./src/components/placeholder/class-border.js";
+export * from "./src/components/placeholder/class-height.js";
+export * from "./src/components/placeholder/class-muted.js";
+export * from "./src/components/placeholder/class-padding.js";
+export * from "./src/components/placeholder/class-width.js";
+export * from "./src/components/placeholder/placeholderPropsBase.js";
+
+// Products 组件
+export * from "./src/components/products/class-muted.js";
+
+// Review 组件
+export * from "./src/components/review/reviewPropsBase.js";
+export * from "./src/components/review/reviewsPropsBase.js";
+
+// Text 组件
+export * from "./src/components/text/textProps.js";
+export * from "./src/components/text/textUtils.js";

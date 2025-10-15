@@ -75,43 +75,43 @@
  */
 
 // 导入样式
-import '../../style.ts';
-import type { IButtonProps } from './props.ts';
-import { getBaseButtonClasses } from '../../src/components/button/class-all';
+import "@coffic/cosy-ui-base/style";
+import type { IButtonProps } from "./props.ts";
+import { getBaseButtonClasses } from "@coffic/cosy-ui-base";
 
 // 从 Astro.props 获取属性
 const props = Astro.props as IButtonProps;
 
 const {
-    block = false,
-    class: className,
-    disabled = false,
-    formmethod,
-    href,
-    loading = false,
-    onClick,
-    shape,
-    size = 'md',
-    target,
-    type = 'button',
-    variant = 'primary',
-    wide = false,
-    ...rest
+	block = false,
+	class: className,
+	disabled = false,
+	formmethod,
+	href,
+	loading = false,
+	onClick,
+	shape,
+	size = "md",
+	target,
+	type = "button",
+	variant = "primary",
+	wide = false,
+	...rest
 } = props;
 
 // 使用共用的工具函数计算基础类名
 const baseButtonClasses = getBaseButtonClasses({
-    variant,
-    size,
-    shape,
-    wide,
-    block,
-    loading,
-    class: className,
+	variant,
+	size,
+	shape,
+	wide,
+	block,
+	loading,
+	class: className,
 });
 
 // 合并所有类名
-const buttonClasses = baseButtonClasses.filter(Boolean).join(' ');
+const buttonClasses = baseButtonClasses.filter(Boolean).join(" ");
 ---
 
 {

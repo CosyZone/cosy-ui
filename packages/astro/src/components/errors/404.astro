@@ -35,15 +35,15 @@
  * 无插槽，所有内容都通过props传递
  */
 
-import '../../style.ts';
-import { LinkUtil } from '../../utils/link.ts';
-import Button from '../button/Button.astro';
+import "@coffic/cosy-ui-base/style";
+import { LinkUtil } from "../../utils/link.ts";
+import Button from "../button/Button.astro";
 
 const baseUrl = LinkUtil.getBaseUrl();
 const path = Astro.url.pathname;
 
 interface Error404Props {
-    debugKVs?: Record<string, string>;
+	debugKVs?: Record<string, string>;
 }
 
 const { debugKVs = {} } = Astro.props as Error404Props;

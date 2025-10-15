@@ -124,130 +124,130 @@
  * - sidebar-footer - 侧边栏底部自定义内容，可用于展示用户信息、版权信息等
  */
 
-import { BaseLayout } from '../../../index.ts';
-import DashboardSidebar from './DashboardSidebar.astro';
-import DashboardTopNavbar from './DashboardTopNavbar.astro';
-import { ToastContainer, ConfirmDialog } from '../../../index.ts';
-import '../../style.ts';
-import { type NavItem, type SidebarSize, type UserMenuItem } from './types.ts';
+import { BaseLayout } from "../../../index.ts";
+import DashboardSidebar from "./DashboardSidebar.astro";
+import DashboardTopNavbar from "./DashboardTopNavbar.astro";
+import { ToastContainer, ConfirmDialog } from "../../../index.ts";
+import "@coffic/cosy-ui-base/style";
+import { type NavItem, type SidebarSize, type UserMenuItem } from "./types.ts";
 
 export interface Props {
-    /**
-     * 页面标题
-     */
-    title: string;
+	/**
+	 * 页面标题
+	 */
+	title: string;
 
-    /**
-     * 页面描述
-     */
-    description?: string;
+	/**
+	 * 页面描述
+	 */
+	description?: string;
 
-    /**
-     * 系统名称
-     * @default "管理系统"
-     */
-    systemName?: string;
+	/**
+	 * 系统名称
+	 * @default "管理系统"
+	 */
+	systemName?: string;
 
-    /**
-     * 导航项目
-     */
-    navItems: NavItem[];
+	/**
+	 * 导航项目
+	 */
+	navItems: NavItem[];
 
-    /**
-     * 用户名
-     */
-    userName?: string;
+	/**
+	 * 用户名
+	 */
+	userName?: string;
 
-    /**
-     * 用户头像
-     */
-    userAvatar?: string;
+	/**
+	 * 用户头像
+	 */
+	userAvatar?: string;
 
-    /**
-     * 用户菜单项
-     */
-    userMenuItems?: UserMenuItem[];
+	/**
+	 * 用户菜单项
+	 */
+	userMenuItems?: UserMenuItem[];
 
-    /**
-     * 是否折叠侧边栏
-     * @default false
-     */
-    sidebarCollapsed?: boolean;
+	/**
+	 * 是否折叠侧边栏
+	 * @default false
+	 */
+	sidebarCollapsed?: boolean;
 
-    /**
-     * 侧边栏尺寸
-     * @default "md"
-     */
-    sidebarSize?: SidebarSize;
+	/**
+	 * 侧边栏尺寸
+	 * @default "md"
+	 */
+	sidebarSize?: SidebarSize;
 
-    /**
-     * 自定义头部内容
-     */
-    head?: astroHTML.JSX.Element;
+	/**
+	 * 自定义头部内容
+	 */
+	head?: astroHTML.JSX.Element;
 
-    /**
-     * 页面类名
-     */
-    class?: string;
+	/**
+	 * 页面类名
+	 */
+	class?: string;
 
-    /**
-     * 类名列表
-     */
-    'class:list'?: any;
+	/**
+	 * 类名列表
+	 */
+	"class:list"?: any;
 
-    /**
-     * 是否启用 Toast 功能
-     * @default true
-     */
-    enableToast?: boolean;
+	/**
+	 * 是否启用 Toast 功能
+	 * @default true
+	 */
+	enableToast?: boolean;
 
-    /**
-     * 是否启用确认对话框功能
-     * @default true
-     */
-    enableConfirmDialog?: boolean;
+	/**
+	 * 是否启用确认对话框功能
+	 * @default true
+	 */
+	enableConfirmDialog?: boolean;
 
-    /**
-     * 调试模式
-     * @default false
-     */
-    debug?: boolean;
+	/**
+	 * 调试模式
+	 * @default false
+	 */
+	debug?: boolean;
 
-    /**
-     * 主内容区 padding 尺寸
-     * @default 'md'
-     */
-    mainPadding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+	/**
+	 * 主内容区 padding 尺寸
+	 * @default 'md'
+	 */
+	mainPadding?: "none" | "sm" | "md" | "lg" | "xl";
 }
 
 const {
-    title,
-    description,
-    systemName = '管理系统',
-    navItems,
-    userName,
-    userAvatar,
-    userMenuItems,
-    sidebarCollapsed = false,
-    sidebarSize = 'md',
-    enableToast = true,
-    enableConfirmDialog = true,
-    head,
-    class: className,
-    'class:list': classList,
-    debug = false,
-    mainPadding = 'md',
-    ...rest
+	title,
+	description,
+	systemName = "管理系统",
+	navItems,
+	userName,
+	userAvatar,
+	userMenuItems,
+	sidebarCollapsed = false,
+	sidebarSize = "md",
+	enableToast = true,
+	enableConfirmDialog = true,
+	head,
+	class: className,
+	"class:list": classList,
+	debug = false,
+	mainPadding = "md",
+	...rest
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
 
 const mainPaddingMap = {
-    none: '',
-    sm: 'cosy:p-2',
-    md: 'cosy:p-4',
-    lg: 'cosy:p-8',
-    xl: 'cosy:p-12',
+	none: "",
+	sm: "cosy:p-2",
+	md: "cosy:p-4",
+	lg: "cosy:p-8",
+	xl: "cosy:p-12",
 };
 ---
 

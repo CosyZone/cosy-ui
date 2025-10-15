@@ -7,5 +7,5 @@ export { Article, ArticleBasic };
 
 // 导出示例源代码
 export const ArticleExampleCodes = {
-    Basic: extractSimpleExample(BasicSourceCode, "Article"),
+	Basic: extractSimpleExample(BasicSourceCode, "Article"),
 };

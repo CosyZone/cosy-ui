@@ -51,39 +51,39 @@
  * ```
  */
 
-import '../../style.ts';
-import { Heading } from '../../../index.ts';
-import CloseButton from './CloseButton.astro';
+import "@coffic/cosy-ui-base/style";
+import { Heading } from "../../../index.ts";
+import CloseButton from "./CloseButton.astro";
 
 interface Props {
-    /**
-     * Modal 的唯一标识符
-     */
-    id: string;
-    /**
-     * 模态框的标题
-     */
-    title?: string;
-    /**
-     * 标题的链接地址，传入后标题会变成可点击的链接
-     */
-    titleHref?: string;
-    /**
-     * 标题链接是否为外部链接
-     */
-    titleExternal?: boolean;
-    /**
-     * 自定义类名
-     */
-    class?: string;
+	/**
+	 * Modal 的唯一标识符
+	 */
+	id: string;
+	/**
+	 * 模态框的标题
+	 */
+	title?: string;
+	/**
+	 * 标题的链接地址，传入后标题会变成可点击的链接
+	 */
+	titleHref?: string;
+	/**
+	 * 标题链接是否为外部链接
+	 */
+	titleExternal?: boolean;
+	/**
+	 * 自定义类名
+	 */
+	class?: string;
 }
 
 const {
-    id,
-    title = '',
-    titleHref,
-    titleExternal = false,
-    class: className = '',
+	id,
+	title = "",
+	titleHref,
+	titleExternal = false,
+	class: className = "",
 } = Astro.props;
 ---
 

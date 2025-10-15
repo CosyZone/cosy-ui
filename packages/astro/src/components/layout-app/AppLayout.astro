@@ -235,52 +235,52 @@
  * ```
  */
 
-import '../../style.ts';
+import "@coffic/cosy-ui-base/style";
 import {
-    BaseLayout,
-    type IAppLayoutProps,
-    Footer,
-    Container,
-    Main,
-    Sidebar,
-    Modal,
-    Skeleton,
-} from '../../../index.ts';
+	BaseLayout,
+	type IAppLayoutProps,
+	Footer,
+	Container,
+	Main,
+	Sidebar,
+	Modal,
+	Skeleton,
+} from "../../../index.ts";
 import {
-    getContainerMinHeightClass,
-    getSidebarTopClass,
-    getSidebarHeightClass,
-    type HeaderHeight,
-} from '../../src/common/index';
-import AppHeader from './AppHeader.astro';
+	getContainerMinHeightClass,
+	getSidebarTopClass,
+	getSidebarHeightClass,
+	type HeaderHeight,
+} from "@coffic/cosy-ui-base";
+import AppHeader from "./AppHeader.astro";
 
 export interface IAppLayoutAllProps extends IAppLayoutProps {
-    /** 是否启用 Astro ClientRouter */
-    enableClientRouter?: boolean;
+	/** 是否启用 Astro ClientRouter */
+	enableClientRouter?: boolean;
 }
 
 export type Props = IAppLayoutAllProps;
 
 const {
-    sidebarConfig,
-    showHeader = true,
-    showFooter = true,
-    showSidebar = true,
-    mainContentConfig,
-    footerConfig,
-    headerConfig,
-    metaConfig,
-    loadingDelay = 100,
-    bodyOnly = false,
-    theme,
-    enableClientRouter = true,
+	sidebarConfig,
+	showHeader = true,
+	showFooter = true,
+	showSidebar = true,
+	mainContentConfig,
+	footerConfig,
+	headerConfig,
+	metaConfig,
+	loadingDelay = 100,
+	bodyOnly = false,
+	theme,
+	enableClientRouter = true,
 }: Props = Astro.props as Props;
 
 const sidebarTopClass = getSidebarTopClass(
-    headerConfig?.height as HeaderHeight
+	headerConfig?.height as HeaderHeight,
 );
 const sidebarHeightClass = getSidebarHeightClass(
-    headerConfig?.height as HeaderHeight
+	headerConfig?.height as HeaderHeight,
 );
 ---
 

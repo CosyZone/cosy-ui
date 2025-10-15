@@ -26,69 +26,69 @@
  * - 自动生成标题 ID
  * - 排除特定标题（通过 ignore-heading 属性）
  */
-import '../../style.ts';
-import { createTextGetter } from '../../utils/i18n.ts';
-import { LanguageUtil } from '../../utils/language.ts';
+import "@coffic/cosy-ui-base/style";
+import { createTextGetter } from "../../utils/i18n.ts";
+import { LanguageUtil } from "../../utils/language.ts";
 
 interface Props {
-    /**
-     * 自定义 CSS 类名
-     */
-    class?: string;
-    /**
-     * 内容容器选择器，用于限制标题搜索范围
-     * @default "main"
-     */
-    containerSelector?: string;
-    /**
-     * 是否固定在右侧
-     * @default true
-     */
-    fixed?: boolean;
-    /**
-     * 语言设置
-     * @default 自动检测
-     */
-    lang?: string;
-    /**
-     * 最大深度
-     * @default 3
-     */
-    maxDepth?: number;
-    /**
-     * 显示目录所需的最少标题数量
-     * @default 2
-     */
-    minHeadings?: number;
-    /**
-     * 标题选择器
-     * @default "h2, h3"
-     */
-    selector?: string;
-    /**
-     * 目录标题文本
-     * @default 根据语言自动选择
-     */
-    title?: string;
+	/**
+	 * 自定义 CSS 类名
+	 */
+	class?: string;
+	/**
+	 * 内容容器选择器，用于限制标题搜索范围
+	 * @default "main"
+	 */
+	containerSelector?: string;
+	/**
+	 * 是否固定在右侧
+	 * @default true
+	 */
+	fixed?: boolean;
+	/**
+	 * 语言设置
+	 * @default 自动检测
+	 */
+	lang?: string;
+	/**
+	 * 最大深度
+	 * @default 3
+	 */
+	maxDepth?: number;
+	/**
+	 * 显示目录所需的最少标题数量
+	 * @default 2
+	 */
+	minHeadings?: number;
+	/**
+	 * 标题选择器
+	 * @default "h2, h3"
+	 */
+	selector?: string;
+	/**
+	 * 目录标题文本
+	 * @default 根据语言自动选择
+	 */
+	title?: string;
 }
 
 const {
-    class: className = '',
-    containerSelector = 'main',
-    fixed = true,
-    lang,
-    maxDepth = 3,
-    minHeadings = 2,
-    selector = 'h2, h3',
-    title,
+	class: className = "",
+	containerSelector = "main",
+	fixed = true,
+	lang,
+	maxDepth = 3,
+	minHeadings = 2,
+	selector = "h2, h3",
+	title,
 } = Astro.props;
 
 // 获取当前语言
 const langInfo = LanguageUtil.getCurrentLanguage(Astro);
 // 创建文本获取函数
-const t = createTextGetter(langInfo, 'tableOfContents');
+const t = createTextGetter(langInfo, "tableOfContents");
 // 获取标题文本，如果用户提供了标题则使用用户提供的标题
-const titleText = title || t('title');
+const titleText = title || t("title");
 
 // 生成唯一ID，确保多个TOC实例不会冲突
 const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;

@@ -45,9 +45,9 @@
  * - 动画遵循 prefers-reduced-motion 媒体查询，尊重用户的动画偏好设置
  */
 
-import "../../style.ts";
-import type { BackgroundColor } from "../../src/common";
-import { getBackgroundClass } from "../../src/common";
+import "@coffic/cosy-ui-base/style";
+import type { BackgroundColor } from "@coffic/cosy-ui-base";
+import { getBackgroundClass } from "@coffic/cosy-ui-base";
 
 interface IProps {
 	/**
@@ -133,41 +133,41 @@ const animationClasses = {
 ---
 
 <div class={`${bannerClasses} ${animationClasses}`} style={style}>
-  <slot />
+    <slot />
 </div>
 
 <style>
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
     }
-    to {
-      opacity: 1;
+
+    @keyframes slideUp {
+        from {
+            transform: translateY(20px);
+        }
+        to {
+            transform: translateY(0);
+        }
     }
-  }
 
-  @keyframes slideUp {
-    from {
-      transform: translateY(20px);
+    /* 动画类 */
+    .cosy\:animate-fadeIn {
+        animation: fadeIn 0.8s ease-in-out;
     }
-    to {
-      transform: translateY(0);
-    }
-  }
 
-  /* 动画类 */
-  .cosy\:animate-fadeIn {
-    animation: fadeIn 0.8s ease-in-out;
-  }
-
-  .cosy\:animate-slideUp {
-    animation: slideUp 0.5s ease-out;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .cosy\:animate-fadeIn,
     .cosy\:animate-slideUp {
-      animation: none;
+        animation: slideUp 0.5s ease-out;
     }
-  }
+
+    @media (prefers-reduced-motion: reduce) {
+        .cosy\:animate-fadeIn,
+        .cosy\:animate-slideUp {
+            animation: none;
+        }
+    }
 </style>

@@ -4,37 +4,37 @@
  * @description 图片错误占位图组件
  */
 
-import { AlertTriangle } from '../../../dist';
-import { roundedClasses, maskClasses } from './utils';
-import type { MaskType, RoundedSize } from '../../src/common';
+import { AlertTriangle } from "../../../dist";
+import { roundedClasses, maskClasses } from "./utils";
+import type { MaskType, RoundedSize } from "../../src/common";
 
 interface Props {
-    /**
-     * 错误占位图的CSS类名
-     */
-    class?: string;
-    /**
-     * 圆角大小
-     */
-    rounded?: RoundedSize;
-    /**
-     * 遮罩形状
-     */
-    mask?: MaskType;
+	/**
+	 * 错误占位图的CSS类名
+	 */
+	class?: string;
+	/**
+	 * 圆角大小
+	 */
+	rounded?: RoundedSize;
+	/**
+	 * 遮罩形状
+	 */
+	mask?: MaskType;
 }
 
-const { class: className = '', rounded = 'none', mask = 'none' } = Astro.props;
+const { class: className = "", rounded = "none", mask = "none" } = Astro.props;
 
 // 构建错误占位图类名
 const errorClasses = [
-    'cosy:absolute cosy:inset-0 cosy:flex cosy:items-center cosy:justify-center',
-    roundedClasses[rounded],
-    maskClasses[mask],
-    'cosy:bg-error cosy:bg-opacity-10',
-    className,
+	"cosy:absolute cosy:inset-0 cosy:flex cosy:items-center cosy:justify-center",
+	roundedClasses[rounded],
+	maskClasses[mask],
+	"cosy:bg-error cosy:bg-opacity-10",
+	className,
 ]
-    .filter(Boolean)
-    .join(' ');
+	.filter(Boolean)
+	.join(" ");
 ---
 
 <div class={errorClasses} data-error hidden>

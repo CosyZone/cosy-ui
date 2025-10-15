@@ -3,58 +3,58 @@
  * @component ListItemBreath
  * @description ListItem 背景呼吸动画子组件
  */
-import "../../style.ts";
+import "@coffic/cosy-ui-base/style";
 const { loading = false, duration } = Astro.props;
 ---
 
 <li
-  class:list={[
-    'cosy:mb-2 cosy:rounded-md cosy:bg-base-300 cosy:p-2 cosy:flex cosy:items-center cosy:gap-3 cosy:hover:bg-accent/10 cosy:relative cosy:overflow-hidden',
-    loading && !duration ? 'breath-anim' : '',
-  ]}
-  {...Astro.props}>
-  {
-    loading && duration && (
-      <div
-        class="cosy:absolute cosy:left-0 cosy:top-0 cosy:h-full cosy:bg-accent/40 cosy:z-0 loading-bar"
-        style={`animation-duration: ${duration}ms;`}
-      />
-    )
-  }
-  <div
-    class="cosy:relative cosy:z-10 cosy:w-full cosy:flex cosy:items-center cosy:gap-3">
-    <slot />
-  </div>
+    class:list={[
+        'cosy:mb-2 cosy:rounded-md cosy:bg-base-300 cosy:p-2 cosy:flex cosy:items-center cosy:gap-3 cosy:hover:bg-accent/10 cosy:relative cosy:overflow-hidden',
+        loading && !duration ? 'breath-anim' : '',
+    ]}
+    {...Astro.props}>
+    {
+        loading && duration && (
+            <div
+                class="cosy:absolute cosy:left-0 cosy:top-0 cosy:h-full cosy:bg-accent/40 cosy:z-0 loading-bar"
+                style={`animation-duration: ${duration}ms;`}
+            />
+        )
+    }
+    <div
+        class="cosy:relative cosy:z-10 cosy:w-full cosy:flex cosy:items-center cosy:gap-3">
+        <slot />
+    </div>
 </li>
 
 <style scoped>
-  /* 背景色呼吸动画 */
-  @keyframes breath {
-    0%,
-    100% {
-      background-color: rgb(55 65 81); /* base-300 等效颜色 */
+    /* 背景色呼吸动画 */
+    @keyframes breath {
+        0%,
+        100% {
+            background-color: rgb(55 65 81); /* base-300 等效颜色 */
+        }
+        50% {
+            background-color: rgb(139 92 246 / 0.3); /* accent 色彩 */
+        }
     }
-    50% {
-      background-color: rgb(139 92 246 / 0.3); /* accent 色彩 */
+    .breath-anim {
+        animation: breath 2s ease-in-out infinite;
+        background-color: rgb(55 65 81); /* 确保有初始背景色 */
     }
-  }
-  .breath-anim {
-    animation: breath 2s ease-in-out infinite;
-    background-color: rgb(55 65 81); /* 确保有初始背景色 */
-  }
 
-  /* 进度条动画 */
-  .loading-bar {
-    width: 0%;
-    height: 100%;
-    animation: loading-bar-anim linear forwards;
-  }
-  @keyframes loading-bar-anim {
-    0% {
-      width: 0%;
+    /* 进度条动画 */
+    .loading-bar {
+        width: 0%;
+        height: 100%;
+        animation: loading-bar-anim linear forwards;
     }
-    100% {
-      width: 100%;
+    @keyframes loading-bar-anim {
+        0% {
+            width: 0%;
+        }
+        100% {
+            width: 100%;
+        }
     }
-  }
 </style>

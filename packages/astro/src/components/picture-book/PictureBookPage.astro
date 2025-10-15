@@ -48,13 +48,13 @@
  * - default: 文字内容插槽，将按 `--pb-line` 行高进行排版
  */
 
-import "../../style.ts";
+import "@coffic/cosy-ui-base/style";
 import Container from "../container/Container.astro";
-import type { BackgroundColor } from "../../src/common/backgrounds";
+import type { BackgroundColor } from "@coffic/cosy-ui-base";
 import type { ImageMetadata } from "astro";
 import Image from "../image/Image.astro";
-import type { RoundedSize } from "../../src/common/rounded";
-import { roundedClasses } from "../../src/common/rounded";
+import type { RoundedSize } from "@coffic/cosy-ui-base";
+import { roundedClasses } from "@coffic/cosy-ui-base";
 
 export interface IPictureBookPageProps {
 	background?: BackgroundColor | ImageMetadata;

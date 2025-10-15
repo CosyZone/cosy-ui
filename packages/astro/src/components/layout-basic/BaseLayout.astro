@@ -59,46 +59,46 @@
  * ```
  */
 
-import '@coffic/cosy-ui-base/style';
-import { type IMetaProps } from '@coffic/cosy-ui-base';
-import { getBackgroundClass, type BackgroundColor } from '@coffic/cosy-ui-base';
-import BaseLayoutHtml from './BaseLayoutHtml.astro';
-import type { ThemeId } from '@coffic/cosy-ui-base';
+import "@coffic/cosy-ui-base/style";
+import { type IMetaProps } from "@coffic/cosy-ui-base";
+import { getBackgroundClass, type BackgroundColor } from "@coffic/cosy-ui-base";
+import BaseLayoutHtml from "./BaseLayoutHtml.astro";
+import type { ThemeId } from "@coffic/cosy-ui-base";
 
 export interface Props extends IMetaProps {
-    /** 是否只渲染 body 部分，用于文档展示等场景 */
-    bodyOnly?: boolean;
-    /**
-     * 主题设置
-     * @default 'default'
-     */
-    theme?: ThemeId;
-    /**
-     * 是否启用 Astro ClientRouter
-     * @default true
-     */
-    enableClientRouter?: boolean;
+	/** 是否只渲染 body 部分，用于文档展示等场景 */
+	bodyOnly?: boolean;
+	/**
+	 * 主题设置
+	 * @default 'default'
+	 */
+	theme?: ThemeId;
+	/**
+	 * 是否启用 Astro ClientRouter
+	 * @default true
+	 */
+	enableClientRouter?: boolean;
 }
 
 const {
-    title,
-    description = '',
-    keywords = '',
-    author = '',
-    lang = 'zh-CN',
-    viewport = true,
-    customStyles = '',
-    head,
-    favicon,
-    background = 'base-100',
-    theme = 'default',
-    bodyOnly = false,
-    enableClientRouter = true,
+	title,
+	description = "",
+	keywords = "",
+	author = "",
+	lang = "zh-CN",
+	viewport = true,
+	customStyles = "",
+	head,
+	favicon,
+	background = "base-100",
+	theme = "default",
+	bodyOnly = false,
+	enableClientRouter = true,
 } = Astro.props;
 
 // 处理类名
 const backgroundClass = getBackgroundClass(background as BackgroundColor);
-let bodyClasses = [backgroundClass].filter(Boolean).join(' ');
+let bodyClasses = [backgroundClass].filter(Boolean).join(" ");
 ---
 
 <BaseLayoutHtml

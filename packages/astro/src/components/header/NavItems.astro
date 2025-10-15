@@ -23,36 +23,36 @@
  * - vertical?: boolean - 是否垂直布局，默认 false
  * - gap?: number - 导航项之间的间距，可选值：0, 1, 2, 3, 4, 6, 8, 10, 12，默认 2
  */
-import '../../style.ts';
-import { type INavItem, Link, ListItem } from '../../../index.ts';
+import "@coffic/cosy-ui-base/style";
+import { type INavItem, Link, ListItem } from "../../../index.ts";
 
 interface Props {
-    navItems: INavItem[];
-    activeLink: string;
-    linkHeightClass: string;
-    vertical?: boolean;
-    gap?: number;
+	navItems: INavItem[];
+	activeLink: string;
+	linkHeightClass: string;
+	vertical?: boolean;
+	gap?: number;
 }
 
 const {
-    navItems,
-    activeLink,
-    linkHeightClass,
-    vertical = false,
-    gap = 2,
+	navItems,
+	activeLink,
+	linkHeightClass,
+	vertical = false,
+	gap = 2,
 } = Astro.props;
 
 // 预设的 gap 值映射
 const gapClasses = {
-    0: '',
-    1: 'cosy:gap-1',
-    2: 'cosy:gap-2',
-    3: 'cosy:gap-3',
-    4: 'cosy:gap-4',
-    6: 'cosy:gap-6',
-    8: 'cosy:gap-8',
-    10: 'cosy:gap-10',
-    12: 'cosy:gap-12',
+	0: "",
+	1: "cosy:gap-1",
+	2: "cosy:gap-2",
+	3: "cosy:gap-3",
+	4: "cosy:gap-4",
+	6: "cosy:gap-6",
+	8: "cosy:gap-8",
+	10: "cosy:gap-10",
+	12: "cosy:gap-12",
 } as const;
 
 // 获取对应的 gap 类名

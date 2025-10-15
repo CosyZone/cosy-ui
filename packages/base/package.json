@@ -1,36 +1,38 @@
 {
-  "name": "@coffic/cosy-ui-base",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./style": "./dist/style.js"
-  },
-  "files": [
-    "dist",
-    "index.ts"
-  ],
-  "scripts": {
-    "build": "vite build",
-    "clean": "rm -rf dist"
-  },
-  "type": "module",
-  "dependencies": {
-    "fs-extra": "^11.3.0"
-  },
-  "devDependencies": {
-    "@tailwindcss/typography": "^0.5.16",
-    "@tailwindcss/vite": "^4.1.11",
-    "@types/fs-extra": "^11.0.4",
-    "daisyui": "^5.0.50",
-    "rollup-plugin-copy": "^3.5.0",
-    "tailwindcss": "^4.1.11",
-    "typescript": "^5.9.2",
-    "vite": "^7.1.10",
-    "vite-plugin-dts": "^4.5.4"
-  }
+	"name": "@coffic/cosy-ui-base",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		},
+		"./style": "./dist/style.js",
+		"./assets/*": "./src/assets/*"
+	},
+	"files": [
+		"dist",
+		"src/assets",
+		"index.ts"
+	],
+	"scripts": {
+		"build": "vite build",
+		"clean": "rm -rf dist"
+	},
+	"type": "module",
+	"dependencies": {
+		"fs-extra": "^11.3.0"
+	},
+	"devDependencies": {
+		"@tailwindcss/typography": "^0.5.16",
+		"@tailwindcss/vite": "^4.1.11",
+		"@types/fs-extra": "^11.0.4",
+		"daisyui": "^5.0.50",
+		"rollup-plugin-copy": "^3.5.0",
+		"tailwindcss": "^4.1.11",
+		"typescript": "^5.9.2",
+		"vite": "^7.1.10",
+		"vite-plugin-dts": "^4.5.4"
+	}
 }

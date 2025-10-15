@@ -63,12 +63,12 @@
  * - astro:after-swap - 路由切换后显示内容
  */
 
-import "../../style.ts";
+import "@coffic/cosy-ui-base/style";
 import {
 	getLoadingClass,
 	type LoadingType,
 	type LoadingSize,
-} from "../../src/common";
+} from "@coffic/cosy-ui-base";
 
 export interface Props {
 	/** 延迟显示时间（毫秒），默认1000ms */
@@ -96,96 +96,96 @@ const loaderId = `skeleton-loader-${Math.random().toString(36).substr(2, 9)}`;
 ---
 
 <div id={loaderId} class="cosy:relative cosy:w-full">
-  <!-- 骨架屏 -->
-  <div
-    id={`${loaderId}-skeleton`}
-    style="display: none;"
-    class={`cosy:relative cosy:flex cosy:items-center cosy:justify-center cosy:min-h-[200px] ${skeletonClass}`}>
-    <!-- 骨架屏背景 -->
-    <div class="cosy:skeleton cosy:h-24 cosy:w-24 cosy:rounded-md"></div>
+    <!-- 骨架屏 -->
+    <div
+        id={`${loaderId}-skeleton`}
+        style="display: none;"
+        class={`cosy:relative cosy:flex cosy:items-center cosy:justify-center cosy:min-h-[200px] ${skeletonClass}`}>
+        <!-- 骨架屏背景 -->
+        <div class="cosy:skeleton cosy:h-24 cosy:w-24 cosy:rounded-md"></div>
 
-    <!-- Loading 前景元素 -->
-    {
-      showLoading && (
-        <div class="cosy:absolute cosy:inset-0 cosy:flex cosy:items-center cosy:justify-center">
-          <span class={getLoadingClass(loadingType, loadingSize)} />
-        </div>
-      )
-    }
-  </div>
+        <!-- Loading 前景元素 -->
+        {
+            showLoading && (
+                <div class="cosy:absolute cosy:inset-0 cosy:flex cosy:items-center cosy:justify-center">
+                    <span class={getLoadingClass(loadingType, loadingSize)} />
+                </div>
+            )
+        }
+    </div>
 
-  <!-- 实际内容 -->
-  <div
-    id={`${loaderId}-content`}
-    class="cosy:relative cosy:z-20"
-    style="opacity: 1; transition: opacity 0.3s ease-in-out;">
-    <slot />
-  </div>
+    <!-- 实际内容 -->
+    <div
+        id={`${loaderId}-content`}
+        class="cosy:relative cosy:z-20"
+        style="opacity: 1; transition: opacity 0.3s ease-in-out;">
+        <slot />
+    </div>
 </div>
 
 <script is:inline define:vars={{ loaderId, loadingDelay }}>
-  let showTimeout = null;
-  let hideTimeout = null;
-  let loaded = false;
+    let showTimeout = null;
+    let hideTimeout = null;
+    let loaded = false;
 
-  const getSkeletonElement = () => {
-    return document.getElementById(`${loaderId}-skeleton`);
-  };
+    const getSkeletonElement = () => {
+        return document.getElementById(`${loaderId}-skeleton`);
+    };
 
-  const getContentElement = () => {
-    return document.getElementById(`${loaderId}-content`);
-  };
+    const getContentElement = () => {
+        return document.getElementById(`${loaderId}-content`);
+    };
 
-  const showSkeleton = () => {
-    const skeleton = getSkeletonElement();
-    const content = getContentElement();
+    const showSkeleton = () => {
+        const skeleton = getSkeletonElement();
+        const content = getContentElement();
 
-    if (!skeleton || !content || loaded) return;
+        if (!skeleton || !content || loaded) return;
 
-    // 隐藏内容
-    content.style.opacity = '0';
-    // 显示骨架屏
-    skeleton.style.display = 'flex';
-  };
+        // 隐藏内容
+        content.style.opacity = '0';
+        // 显示骨架屏
+        skeleton.style.display = 'flex';
+    };
 
-  // 显示骨架屏的函数
-  const showLoader = () => {
-    if (loaded) return;
+    // 显示骨架屏的函数
+    const showLoader = () => {
+        if (loaded) return;
 
-    // 设置延迟显示
-    showTimeout = setTimeout(() => {
-      if (loaded) return;
-      showSkeleton();
-    }, loadingDelay);
-  };
+        // 设置延迟显示
+        showTimeout = setTimeout(() => {
+            if (loaded) return;
+            showSkeleton();
+        }, loadingDelay);
+    };
 
-  // 监听 Astro 页面过渡事件
-  document.addEventListener('astro:page-load', () => {
-    loaded = true;
-  });
+    // 监听 Astro 页面过渡事件
+    document.addEventListener('astro:page-load', () => {
+        loaded = true;
+    });
 
-  document.addEventListener('astro:before-preparation', () => {
-    loaded = false;
-    showLoader('astro:before-preparation');
-  });
+    document.addEventListener('astro:before-preparation', () => {
+        loaded = false;
+        showLoader('astro:before-preparation');
+    });
 
-  // 监听路由变化
-  document.addEventListener('astro:before-swap', () => {
-    loaded = false;
-    showLoader('astro:before-swap');
-  });
+    // 监听路由变化
+    document.addEventListener('astro:before-swap', () => {
+        loaded = false;
+        showLoader('astro:before-swap');
+    });
 
-  document.addEventListener('astro:after-swap', () => {
-    loaded = true;
-  });
+    document.addEventListener('astro:after-swap', () => {
+        loaded = true;
+    });
 
-  // 页面卸载时清理定时器
-  window.addEventListener('beforeunload', () => {
-    if (showTimeout) {
-      clearTimeout(showTimeout);
-    }
-    if (hideTimeout) {
-      clearTimeout(hideTimeout);
-    }
-  });
+    // 页面卸载时清理定时器
+    window.addEventListener('beforeunload', () => {
+        if (showTimeout) {
+            clearTimeout(showTimeout);
+        }
+        if (hideTimeout) {
+            clearTimeout(hideTimeout);
+        }
+    });
 </script>

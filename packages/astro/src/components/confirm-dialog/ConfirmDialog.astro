@@ -38,17 +38,17 @@
  * ```
  */
 
-import '../../style.ts';
-import type { ConfirmDialogProps } from './types.ts';
-import { getConfirmDialogStyle } from './types.ts';
+import "@coffic/cosy-ui-base/style";
+import type { ConfirmDialogProps } from "./types.ts";
+import { getConfirmDialogStyle } from "./types.ts";
 
 const {
-    id,
-    title = '确认操作',
-    message,
-    cancelText = '取消',
-    confirmText = '确认',
-    class: className = '',
+	id,
+	title = "确认操作",
+	message,
+	cancelText = "取消",
+	confirmText = "确认",
+	class: className = "",
 } = Astro.props as ConfirmDialogProps;
 
 const style = getConfirmDialogStyle();

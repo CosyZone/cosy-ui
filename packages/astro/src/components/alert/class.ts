@@ -1,5 +1,5 @@
 import type { IAlertProps } from "./props";
-import { getBaseAlertClasses } from "../../src/components/alert/class-all";
+import { getBaseAlertClasses } from "@coffic/cosy-ui-base";
 
 /**
  * 计算 Alert 组件的组合类名（Astro 版本）

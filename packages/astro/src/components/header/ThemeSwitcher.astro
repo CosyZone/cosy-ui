@@ -25,16 +25,16 @@
  * ```
  */
 
-import { Button, SunCloudyIcon } from '../../../index.ts';
-import { themes } from '../../src/common/themes';
-import ThemeItem from './ThemeItem.astro';
-import '../../style.ts';
+import { Button, SunCloudyIcon } from "../../../index.ts";
+import { themes } from "../../src/common/themes";
+import ThemeItem from "./ThemeItem.astro";
+import "@coffic/cosy-ui-base/style";
 
 interface Props {
-    /**
-     * 自定义类名
-     */
-    class?: string;
+	/**
+	 * 自定义类名
+	 */
+	class?: string;
 }
 
 const { class: className } = Astro.props;

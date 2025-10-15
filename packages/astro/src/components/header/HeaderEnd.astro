@@ -28,28 +28,28 @@
  * - isI18nEnabled - 是否启用国际化
  * - astroI18n - astro:i18n 模块
  */
-import { LanguageSwitcher, MenuIcon, type INavItem } from '../../../dist';
-import NavItems from './NavItems.astro';
-import ThemeSwitcher from './ThemeSwitcher.astro';
+import { LanguageSwitcher, MenuIcon, type INavItem } from "../../../index";
+import NavItems from "./NavItems.astro";
+import ThemeSwitcher from "./ThemeSwitcher.astro";
 
 export interface Props {
-    navPosition: string;
-    navItems: INavItem[];
-    activeLink: string;
-    linkHeightClass: string;
-    showThemeSwitcher: boolean;
-    isI18nEnabled: boolean;
-    astroI18n?: any;
+	navPosition: string;
+	navItems: INavItem[];
+	activeLink: string;
+	linkHeightClass: string;
+	showThemeSwitcher: boolean;
+	isI18nEnabled: boolean;
+	astroI18n?: any;
 }
 
 const {
-    navPosition,
-    navItems,
-    activeLink,
-    linkHeightClass,
-    showThemeSwitcher,
-    isI18nEnabled,
-    astroI18n,
+	navPosition,
+	navItems,
+	activeLink,
+	linkHeightClass,
+	showThemeSwitcher,
+	isI18nEnabled,
+	astroI18n,
 } = Astro.props;
 ---
 

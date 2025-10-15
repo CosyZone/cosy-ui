@@ -18,42 +18,42 @@
  * <InstallTabs packageName="eslint" managers={["npm","yarn"]} />
  * ```
  */
-import '../../style.ts';
-import ButtonCopyInstall from './ButtonCopyInstall.astro';
-import { CodePanel } from '../code-panel/index.ts';
+import "@coffic/cosy-ui-base/style";
+import ButtonCopyInstall from "./ButtonCopyInstall.astro";
+import { CodePanel } from "../code-panel/index.ts";
 
 interface Props {
-    /** 要安装的包名 */
-    packageName: string;
-    /** 支持的包管理器，默认['npm','pnpm','yarn'] */
-    managers?: string[];
-    /** 是否为开发依赖 */
-    dev?: boolean;
+	/** 要安装的包名 */
+	packageName: string;
+	/** 支持的包管理器，默认['npm','pnpm','yarn'] */
+	managers?: string[];
+	/** 是否为开发依赖 */
+	dev?: boolean;
 }
 
 const {
-    packageName,
-    managers = ['npm', 'pnpm', 'yarn'],
-    dev = false,
+	packageName,
+	managers = ["npm", "pnpm", "yarn"],
+	dev = false,
 } = Astro.props;
 
 const managerLabels: Record<string, string> = {
-    npm: 'npm',
-    pnpm: 'pnpm',
-    yarn: 'yarn',
+	npm: "npm",
+	pnpm: "pnpm",
+	yarn: "yarn",
 };
 
 function getCommand(manager: string, pkg: string, dev: boolean) {
-    switch (manager) {
-        case 'npm':
-            return `npm install${dev ? ' -D' : ''} ${pkg}`;
-        case 'pnpm':
-            return `pnpm add${dev ? ' -D' : ''} ${pkg}`;
-        case 'yarn':
-            return `yarn add${dev ? ' -D' : ''} ${pkg}`;
-        default:
-            return '';
-    }
+	switch (manager) {
+		case "npm":
+			return `npm install${dev ? " -D" : ""} ${pkg}`;
+		case "pnpm":
+			return `pnpm add${dev ? " -D" : ""} ${pkg}`;
+		case "yarn":
+			return `yarn add${dev ? " -D" : ""} ${pkg}`;
+		default:
+			return "";
+	}
 }
 
 const commands = managers.map((m) => getCommand(m, packageName, dev));

@@ -32,7 +32,7 @@
  * @slot default - 无插槽内容，所有内容通过 message 属性传递
  */
 
-import "../../style.ts";
+import "@coffic/cosy-ui-base/style";
 
 export interface Props {
 	message: string;
@@ -63,76 +63,85 @@ const t = (key: "confirm") => {
 ---
 
 <div
-  id={id}
-  class={`cosy:fixed cosy:inset-0 cosy:z-50 cosy:flex cosy:items-center cosy:justify-center cosy:opacity-0 cosy:pointer-events-none cosy:transition-opacity cosy:duration-200 cosy:ease-in-out ${className || ''}`}
-  data-alert-dialog>
-  <!-- 背景遮罩 -->
-  <div
-    class="cosy:absolute cosy:inset-0 cosy:bg-base-200/80 cosy:backdrop-blur-sm"
-    data-alert-dialog-backdrop>
-  </div>
-
-  <!-- 对话框 -->
-  <div
-    class="cosy:relative cosy:bg-base-100 cosy:rounded-xl cosy:shadow-lg cosy:w-[400px] cosy:transform cosy:transition-all">
-    <!-- 内容区域 -->
-    <div class="cosy:p-6">
-      <p class="cosy:text-base-content">
-        {message}
-      </p>
+    id={id}
+    class={`cosy:fixed cosy:inset-0 cosy:z-50 cosy:flex cosy:items-center cosy:justify-center cosy:opacity-0 cosy:pointer-events-none cosy:transition-opacity cosy:duration-200 cosy:ease-in-out ${className || ''}`}
+    data-alert-dialog>
+    <!-- 背景遮罩 -->
+    <div
+        class="cosy:absolute cosy:inset-0 cosy:bg-base-200/80 cosy:backdrop-blur-sm"
+        data-alert-dialog-backdrop>
     </div>
 
-    <!-- 按钮区域 -->
-    <div class="cosy:flex cosy:border-t cosy:border-base-300">
-      <button
-        class="cosy:btn cosy:btn-ghost cosy:flex-1 cosy:rounded-none cosy:rounded-b-xl"
-        data-alert-dialog-close>
-        {t('confirm')}
-      </button>
+    <!-- 对话框 -->
+    <div
+        class="cosy:relative cosy:bg-base-100 cosy:rounded-xl cosy:shadow-lg cosy:w-[400px] cosy:transform cosy:transition-all">
+        <!-- 内容区域 -->
+        <div class="cosy:p-6">
+            <p class="cosy:text-base-content">
+                {message}
+            </p>
+        </div>
+
+        <!-- 按钮区域 -->
+        <div class="cosy:flex cosy:border-t cosy:border-base-300">
+            <button
+                class="cosy:btn cosy:btn-ghost cosy:flex-1 cosy:rounded-none cosy:rounded-b-xl"
+                data-alert-dialog-close>
+                {t('confirm')}
+            </button>
+        </div>
     </div>
-  </div>
 </div>
 
 <script>
-  // 获取所有对话框元素
-  const dialogs = document.querySelectorAll('[data-alert-dialog]');
+    // 获取所有对话框元素
+    const dialogs = document.querySelectorAll('[data-alert-dialog]');
 
-  // 为每个对话框添加事件监听
-  dialogs.forEach((dialog) => {
-    const backdrop = dialog.querySelector('[data-alert-dialog-backdrop]');
-    const closeButton = dialog.querySelector('[data-alert-dialog-close]');
+    // 为每个对话框添加事件监听
+    dialogs.forEach((dialog) => {
+        const backdrop = dialog.querySelector('[data-alert-dialog-backdrop]');
+        const closeButton = dialog.querySelector('[data-alert-dialog-close]');
 
-    // 显示对话框
-    const showDialog = () => {
-      dialog.classList.remove('cosy:opacity-0', 'cosy:pointer-events-none');
-      dialog.classList.add('cosy:opacity-100', 'cosy:pointer-events-auto');
-    };
+        // 显示对话框
+        const showDialog = () => {
+            dialog.classList.remove(
+                'cosy:opacity-0',
+                'cosy:pointer-events-none'
+            );
+            dialog.classList.add(
+                'cosy:opacity-100',
+                'cosy:pointer-events-auto'
+            );
+        };
 
-    // 隐藏对话框
-    const hideDialog = () => {
-      dialog.classList.remove('cosy:opacity-100', 'cosy:pointer-events-auto');
-      dialog.classList.add('cosy:opacity-0', 'cosy:pointer-events-none');
-    };
+        // 隐藏对话框
+        const hideDialog = () => {
+            dialog.classList.remove(
+                'cosy:opacity-100',
+                'cosy:pointer-events-auto'
+            );
+            dialog.classList.add('cosy:opacity-0', 'cosy:pointer-events-none');
+        };
 
-    // 点击背景关闭
-    backdrop?.addEventListener('click', hideDialog);
+        // 点击背景关闭
+        backdrop?.addEventListener('click', hideDialog);
 
-    // 点击按钮关闭
-    closeButton?.addEventListener('click', hideDialog);
+        // 点击按钮关闭
+        closeButton?.addEventListener('click', hideDialog);
 
-    // 将显示方法暴露到全局，方便外部调用
-    (window as any).showAlertDialog = (dialogId: string) => {
-      const targetDialog = document.getElementById(dialogId);
-      if (targetDialog) {
-        targetDialog.classList.remove(
-          'cosy:opacity-0',
-          'cosy:pointer-events-none'
-        );
-        targetDialog.classList.add(
-          'cosy:opacity-100',
-          'cosy:pointer-events-auto'
-        );
-      }
-    };
-  });
+        // 将显示方法暴露到全局，方便外部调用
+        (window as any).showAlertDialog = (dialogId: string) => {
+            const targetDialog = document.getElementById(dialogId);
+            if (targetDialog) {
+                targetDialog.classList.remove(
+                    'cosy:opacity-0',
+                    'cosy:pointer-events-none'
+                );
+                targetDialog.classList.add(
+                    'cosy:opacity-100',
+                    'cosy:pointer-events-auto'
+                );
+            }
+        };
+    });
 </script>

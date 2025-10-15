@@ -44,43 +44,43 @@
  * - 提供适当的aria标签
  */
 
-import { SocialIcon, Image } from '../../../index.ts';
-import type { ImageSource } from '../image/index.ts';
-import '../../style.ts';
+import { SocialIcon, Image } from "../../../index.ts";
+import type { ImageSource } from "../image/index.ts";
+import "@coffic/cosy-ui-base/style";
 
 interface Props {
-    /**
-     * 微信二维码图片源，支持本地图片或远程URL
-     */
-    qrSrc: ImageSource;
+	/**
+	 * 微信二维码图片源，支持本地图片或远程URL
+	 */
+	qrSrc: ImageSource;
 
-    /**
-     * 微信图标大小
-     * @default "24px"
-     */
-    size?: string;
+	/**
+	 * 微信图标大小
+	 * @default "24px"
+	 */
+	size?: string;
 
-    /**
-     * 微信图标颜色
-     * @default "#07C160"
-     */
-    color?: string;
+	/**
+	 * 微信图标颜色
+	 * @default "#07C160"
+	 */
+	color?: string;
 
-    /**
-     * 自定义类名
-     */
-    class?: string;
+	/**
+	 * 自定义类名
+	 */
+	class?: string;
 }
 
 const {
-    qrSrc,
-    size = '24px',
-    color = '#07C160',
-    class: className = '',
+	qrSrc,
+	size = "24px",
+	color = "#07C160",
+	class: className = "",
 } = Astro.props;
 
 // 固定的 alt 文本
-const qrAlt = '微信二维码';
+const qrAlt = "微信二维码";
 ---
 
 <div class={`cosy:relative ${className}`}>

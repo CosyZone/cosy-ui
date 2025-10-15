@@ -7,5 +7,5 @@ export { Flex, FlexBasic };
 
 // 导出示例源代码
 export const FlexExampleCodes = {
-    Basic: extractSimpleExample(BasicSourceCode, "Flex"),
+	Basic: extractSimpleExample(BasicSourceCode, "Flex"),
 };
