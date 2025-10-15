@@ -38,7 +38,7 @@ const lastKey = ref<string | null>(null);
 let timer: ReturnType<typeof setTimeout> | null = null;
 
 const props = defineProps<{ showKey?: boolean }>();
-const emit = defineEmits<{ (e: "globalKey", key: string): void }>();
+const emit = defineEmits<(e: "globalKey", key: string) => void>();
 
 const handleKeydown = (event: KeyboardEvent) => {
 	if (

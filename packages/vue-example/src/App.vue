@@ -4,7 +4,6 @@ import {
 	Button,
 	Container,
 	Counter,
-	Heading,
 	ApplePhone,
 } from "@coffic/cosy-ui/vue";
 import {
@@ -31,7 +30,7 @@ import {
 </script>
 
 <template>
-    <Container border flex="col" gap="md">
+    <Container flex="col" gap="md">
         <ApplePhone height="sm" />
         <Button>Click me</Button>
 

@@ -12,9 +12,7 @@ interface IImagePreviewProps {
 	showPreview: boolean;
 }
 
-interface IImagePreviewEmits {
-	(e: "close"): void;
-}
+type IImagePreviewEmits = (e: "close") => void;
 
 const props = defineProps<IImagePreviewProps>();
 const emit = defineEmits<IImagePreviewEmits>();

@@ -60,7 +60,7 @@
  */
 
 import "../../style.ts";
-import { type IMetaProps } from "../../src/common/meta";
+import type { IMetaProps } from "../../src/common/meta";
 import {
 	getBackgroundClass,
 	type BackgroundColor,
@@ -101,7 +101,7 @@ const {
 
 // 处理类名
 const backgroundClass = getBackgroundClass(background as BackgroundColor);
-let bodyClasses = [backgroundClass].filter(Boolean).join(" ");
+const bodyClasses = [backgroundClass].filter(Boolean).join(" ");
 ---
 
 <BaseLayoutHtml

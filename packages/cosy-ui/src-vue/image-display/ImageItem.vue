@@ -12,9 +12,7 @@ interface IImageItemProps {
 	size: "sm" | "md" | "lg";
 }
 
-interface IImageItemEmits {
-	(e: "imageClick", imageUrl: string): void;
-}
+type IImageItemEmits = (e: "imageClick", imageUrl: string) => void;
 
 const props = defineProps<IImageItemProps>();
 const emit = defineEmits<IImageItemEmits>();

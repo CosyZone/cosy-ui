@@ -96,7 +96,7 @@ class DevExampleScript {
 			for (const { name, command } of buildCommands) {
 				this.log(`📦 构建 ${name}...`, "info");
 
-				const { stdout, stderr } = await execAsync(command, {
+				const { _stdout, stderr } = await execAsync(command, {
 					cwd: this.projectRoot,
 				});
 
@@ -121,7 +121,7 @@ class DevExampleScript {
 		this.log("🔨 开始构建 cosy-framework...", "info");
 
 		try {
-			const { stdout, stderr } = await execAsync("pnpm build:framework", {
+			const { _stdout, stderr } = await execAsync("pnpm build:framework", {
 				cwd: this.projectRoot,
 			});
 

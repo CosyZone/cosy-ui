@@ -1,7 +1,7 @@
 ---
 import DemoLayout from "@/layouts/DemoLayout.astro";
 import { lessonRepo } from "@coffic/cosy-content";
-import { type RenderResult } from "astro:content";
+import type { RenderResult } from "astro:content";
 
 export async function getStaticPaths() {
 	return lessonRepo.getStaticPaths();
@@ -20,7 +20,7 @@ if (!slug) {
 	return Astro.redirect("/lessons");
 }
 
-let bookId = slug.split("/")[0];
+const bookId = slug.split("/")[0];
 let id = "";
 
 if (slug.split("/").length === 1) {

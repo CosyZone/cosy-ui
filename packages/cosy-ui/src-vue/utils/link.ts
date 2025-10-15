@@ -32,7 +32,7 @@ export class LinkUtil {
 	}
 
 	static getHomeLink(lang: string): string {
-		return `${this.getBaseUrl}/${lang}`;
+		return `${LinkUtil.getBaseUrl}/${lang}`;
 	}
 
 	static getLessonsLink(lang: string): string {
@@ -62,10 +62,10 @@ export class LinkUtil {
 
 	static getLessonLink(lang: string, lessonId: string): string {
 		if (lessonId.endsWith(lang)) {
-			return `${this.getBaseUrl()}${lang}/lessons/${lessonId.replace(`${lang}`, "")}`;
+			return `${LinkUtil.getBaseUrl()}${lang}/lessons/${lessonId.replace(`${lang}`, "")}`;
 		} else {
 			const idWithoutLang = lessonId.replace(`${lang}/`, "");
-			return `${this.getBaseUrl()}${lang}/lessons/${idWithoutLang}`;
+			return `${LinkUtil.getBaseUrl()}${lang}/lessons/${idWithoutLang}`;
 		}
 	}
 
@@ -97,43 +97,43 @@ export class LinkUtil {
 	}
 
 	static getMetaLink(lang: string, slug: string): string {
-		return `/${this.normalizeLanguage(lang)}/meta/${slug}`;
+		return `/${LinkUtil.normalizeLanguage(lang)}/meta/${slug}`;
 	}
 
 	static getSigninLink(lang: string): string {
-		return `/${this.normalizeLanguage(lang)}/signin`;
+		return `/${LinkUtil.normalizeLanguage(lang)}/signin`;
 	}
 
 	static getAuthCallbackCookieLink(lang: string): string {
-		return `/${this.normalizeLanguage(lang)}/auth/callback_cookie`;
+		return `/${LinkUtil.normalizeLanguage(lang)}/auth/callback_cookie`;
 	}
 
 	static getAuthCallbackTokenLink(lang: string): string {
-		return `/${this.normalizeLanguage(lang)}/auth/callback_token`;
+		return `/${LinkUtil.normalizeLanguage(lang)}/auth/callback_token`;
 	}
 
 	static getAuthAccountLink(lang: string): string {
-		return `/${this.normalizeLanguage(lang)}/auth/account`;
+		return `/${LinkUtil.normalizeLanguage(lang)}/auth/account`;
 	}
 
 	static getDashboardUrl(lang: string): string {
-		return `/${this.normalizeLanguage(lang)}/auth/dashboard`;
+		return `/${LinkUtil.normalizeLanguage(lang)}/auth/dashboard`;
 	}
 
 	static getAuthErrorLink(lang: string): string {
-		return `/${this.normalizeLanguage(lang)}/auth/error`;
+		return `/${LinkUtil.normalizeLanguage(lang)}/auth/error`;
 	}
 
 	static getPrivacyLink(lang: string): string {
-		return this.getMetaLink(lang, "privacy");
+		return LinkUtil.getMetaLink(lang, "privacy");
 	}
 
 	static getTermsLink(lang: string): string {
-		return this.getMetaLink(lang, "terms");
+		return LinkUtil.getMetaLink(lang, "terms");
 	}
 
 	static getAboutLink(lang: string): string {
-		return this.getMetaLink(lang, "about");
+		return LinkUtil.getMetaLink(lang, "about");
 	}
 
 	/**
