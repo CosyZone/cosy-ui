@@ -120,8 +120,8 @@ const formattedDate = computed(() => {
     <div class="cosy:flex cosy:items-start cosy:gap-4">
       <Avatar
         v-if="avatar"
-        :src="avatar"
-        :alt="userName"
+        :avatar="avatar"
+        :userName="userName"
         size="md"
         class="cosy:flex-shrink-0" />
       <div class="cosy:flex-1">
