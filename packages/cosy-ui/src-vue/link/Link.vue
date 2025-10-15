@@ -21,6 +21,8 @@ import { getLinkCombinedClassesVue } from "./class";
  * @props {boolean} [fullWidth=false] - 是否占满宽度
  * @props {boolean} [ghost=false] - 是否为幽灵按钮（需配合 btn 使用）
  * @props {string} href - 链接地址（必需）
+ * @props {string} [hoverImage] - 悬停时显示的图片URL
+ * @props {string} [hoverImageAlt] - 悬停图片的替代文本
  * @props {string} [icon] - 图标名称，支持所有可用的图标组件
  * @props {string} [navigationType] - 导航类型（需配合 navigation 变体使用）：previous、next
  * @props {boolean} [noUnderline=true] - 是否移除下划线

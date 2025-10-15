@@ -10,16 +10,7 @@ import type { ICardProps } from "../card/props";
  */
 export interface IReviewProps
 	extends IReviewPropsBase,
-		Omit<
-			ICardProps,
-			| keyof IReviewPropsBase
-			| "title"
-			| "subtitle"
-			| "imageUrl"
-			| "href"
-			| "compact"
-			| "shadow"
-		> {
+		Omit<ICardProps, keyof IReviewPropsBase> {
 	/**
 	 * 自定义类名
 	 */

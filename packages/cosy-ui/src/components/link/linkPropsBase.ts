@@ -104,4 +104,6 @@ export interface ILinkPropsBase {
 	active?: boolean;
 	navigationType?: "previous" | "next";
 	icon?: LinkIconName;
+	hoverImage?: string;
+	hoverImageAlt?: string;
 }

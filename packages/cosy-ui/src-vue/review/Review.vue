@@ -52,6 +52,11 @@ const {
 	border,
 	borderColor,
 	shadow,
+	subtitle,
+	title,
+	imageUrl,
+	href,
+	compact,
 } = props;
 
 // 生成星级评分
@@ -104,6 +109,11 @@ const formattedDate = computed(() => {
       border,
       borderColor,
       shadow,
+      subtitle,
+      title,
+      imageUrl,
+      href,
+      compact,
     }"
     :class="className"
     :class:list="classList">
