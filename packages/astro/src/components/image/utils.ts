@@ -3,16 +3,16 @@
  */
 
 // 圆角类名映射（从 common 导入）
-export { roundedClasses, type RoundedSize } from "../../src/common/rounded";
+export { roundedClasses, type RoundedSize } from "@coffic/cosy-ui-base";
 
 // 边框类名映射（从 common 导入）
-export { borderClasses, type BorderSize } from "../../src/common/border";
+export { borderClasses, type BorderSize } from "@coffic/cosy-ui-base";
 
 // 遮罩类名映射（从 common 导入）
-export { maskClasses, type MaskType } from "../../src/common/mask";
+export { maskClasses, type MaskType } from "@coffic/cosy-ui-base";
 
 // 阴影类名映射（从 common 导入）
-export { shadowClasses, type ShadowSize } from "../../src/common/shadow";
+export { shadowClasses, type ShadowSize } from "@coffic/cosy-ui-base";
 
 // 对象填充方式类名映射
 export const objectFitClasses = {

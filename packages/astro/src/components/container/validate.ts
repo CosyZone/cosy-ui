@@ -1,3 +1,3 @@
-export { validateContainer } from "./validate";
-export { validatePaddingConflict } from "../../src/components/container/validate-padding";
-export { validateSizing } from "../../src/components/container/validate-sizing";
+export { validateContainer } from "@coffic/cosy-ui-base";
+export { validatePaddingConflict } from "@coffic/cosy-ui-base";
+export { validateSizing } from "@coffic/cosy-ui-base";

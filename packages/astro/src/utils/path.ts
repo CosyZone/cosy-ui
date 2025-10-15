@@ -1,4 +1,4 @@
-import { cosyLogger } from "../../src-astro/cosy";
+import { cosyLogger } from "../cosy";
 
 /**
  * 判断当前路径是否匹配目标路径

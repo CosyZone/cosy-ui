@@ -1,5 +1,5 @@
 ---
-import { iconData } from "../../src/assets/iconData";
+import { iconData } from "@coffic/cosy-ui-base/assets/iconData";
 
 interface Props {
 	/**
@@ -45,37 +45,37 @@ const isMultiPath = icon?.multiPath || false;
 ---
 
 {
-  icon &&
-    (iconType === 'fill' ? (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox={viewBox}
-        fill={color}
-        class={className}>
-        {isMultiPath ? (
-          icon.path
-            .split(/(?=M)/)
-            .filter((path) => path.trim().length > 0)
-            .map((path, index) => <path d={path.trim()} />)
+    icon &&
+        (iconType === 'fill' ? (
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={size}
+                height={size}
+                viewBox={viewBox}
+                fill={color}
+                class={className}>
+                {isMultiPath ? (
+                    icon.path
+                        .split(/(?=M)/)
+                        .filter((path) => path.trim().length > 0)
+                        .map((path, index) => <path d={path.trim()} />)
+                ) : (
+                    <path d={icon.path} />
+                )}
+            </svg>
         ) : (
-          <path d={icon.path} />
-        )}
-      </svg>
-    ) : (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox={viewBox}
-        fill="none"
-        stroke={color}
-        stroke-width={strokeWidth}
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class={className}>
-        <path d={icon.path} />
-      </svg>
-    ))
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={size}
+                height={size}
+                viewBox={viewBox}
+                fill="none"
+                stroke={color}
+                stroke-width={strokeWidth}
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class={className}>
+                <path d={icon.path} />
+            </svg>
+        ))
 }

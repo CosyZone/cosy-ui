@@ -1,5 +1,5 @@
 import type { IContainerProps } from "./props";
-import { getBaseContainerClasses } from "../../src/components/container/class-all";
+import { getBaseContainerClasses } from "@coffic/cosy-ui-base";
 
 /**
  * 计算 Container 组件的组合类名

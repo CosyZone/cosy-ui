@@ -1,4 +1,4 @@
-import type { IHeaderProps } from "../../../dist";
+import type { IHeaderProps } from "../../../index";
 
 export interface IHeaderPropsBuilder {
 	height(value: NonNullable<IHeaderProps["height"]>): IHeaderPropsBuilder;
