@@ -14,9 +14,7 @@ interface IImageGridProps {
 	maxDisplay: number;
 }
 
-interface IImageGridEmits {
-	(e: "imageClick", imageUrl: string): void;
-}
+type IImageGridEmits = (e: "imageClick", imageUrl: string) => void;
 
 const props = defineProps<IImageGridProps>();
 const emit = defineEmits<IImageGridEmits>();

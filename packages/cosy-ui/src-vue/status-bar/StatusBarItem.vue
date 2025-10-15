@@ -55,9 +55,7 @@ const props = withDefaults(defineProps<Props>(), {
 	active: false,
 });
 
-const emit = defineEmits<{
-	(e: "click", event: MouseEvent): void;
-}>();
+const emit = defineEmits<(e: "click", event: MouseEvent) => void>();
 
 const handleClick = (event: MouseEvent) => {
 	if (props.clickable) {

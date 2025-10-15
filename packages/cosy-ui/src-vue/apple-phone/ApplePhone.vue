@@ -2,7 +2,7 @@
 import "../../style";
 import { AlertDialog, Container } from "../../index-vue";
 import { ref } from "vue";
-import type { BackgroundColor } from "../container/backgrounds";
+import type { BackgroundColor } from "../../src/common/backgrounds";
 import iphoneFrame from "./assets/iPhone 14 Pro - Deep Purple - Portrait.png";
 import StatusBarContent from "./StatusBarContent.vue";
 
@@ -107,46 +107,64 @@ const iphoneFrameSrc = (iphoneFrame as any).src || iphoneFrame;
 </script>
 
 <template>
-    <div :class="['cosy:relative not-prose cosy:mx-auto', heightClasses[height]]" :style="{
-        aspectRatio: `${iphoneFrameWidth}/${iphoneFrameHeight}`,
-    }" apple-phone>
-        <!-- iPhone 边框 -->
-        <img v-if="showFrame"
-            style="max-width: 100%; max-height: 100%; position: absolute; top: 0; left: 0; z-index: 100;"
-            :src="iphoneFrameSrc" alt="iPhone frame" />
+  <div
+    :class="['cosy:relative not-prose cosy:mx-auto', heightClasses[height]]"
+    :style="{
+      aspectRatio: `${iphoneFrameWidth}/${iphoneFrameHeight}`,
+    }"
+    apple-phone>
+    <!-- iPhone 边框 -->
+    <img
+      v-if="showFrame"
+      style="
+        max-width: 100%;
+        max-height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+      "
+      :src="iphoneFrameSrc"
+      alt="iPhone frame" />
 
-        <!-- 顶部状态栏 -->
-        <div :style="{
-            position: 'absolute',
-            top: iphoneFrameStatusBarTopAspectRatio * 100 + '%',
-            height: iphoneFrameStatusBarHeightAspectRatio * 100 + '%',
-            width: mainContentWidthAspectRatio * 100 + '%',
-            left: '50%',
-            transform: 'translate(-50%, 0)',
-            paddingLeft: '5%',
-            paddingRight: '5%',
-            zIndex: 50,
-        }">
-            <StatusBarContent :scaleRatio="getScaleRatio()" />
-        </div>
-
-        <!-- 内容区域 -->
-        <div class="cosy:inset-0 cosy:h-full" :style="{
-            width: mainContentWidthAspectRatio * 100 + '%',
-            height: mainContentHeightAspectRatio * 100 + '%',
-            // 水平居中
-            left: '50%',
-            // 垂直居中
-            top: '50%',
-            transform: 'translate(-50%, -50%)',
-            position: 'absolute',
-            zIndex: 20,
-        }">
-            <Container rounded="lg" style="height: 100%;" :background="backgroundColor || 'accent/90'">
-                <slot />
-            </Container>
-        </div>
+    <!-- 顶部状态栏 -->
+    <div
+      :style="{
+        position: 'absolute',
+        top: iphoneFrameStatusBarTopAspectRatio * 100 + '%',
+        height: iphoneFrameStatusBarHeightAspectRatio * 100 + '%',
+        width: mainContentWidthAspectRatio * 100 + '%',
+        left: '50%',
+        transform: 'translate(-50%, 0)',
+        paddingLeft: '5%',
+        paddingRight: '5%',
+        zIndex: 50,
+      }">
+      <StatusBarContent :scaleRatio="getScaleRatio()" />
     </div>
 
-    <AlertDialog v-model="showAlertDialog" :message="alertMessage" />
+    <!-- 内容区域 -->
+    <div
+      class="cosy:inset-0 cosy:h-full"
+      :style="{
+        width: mainContentWidthAspectRatio * 100 + '%',
+        height: mainContentHeightAspectRatio * 100 + '%',
+        // 水平居中
+        left: '50%',
+        // 垂直居中
+        top: '50%',
+        transform: 'translate(-50%, -50%)',
+        position: 'absolute',
+        zIndex: 20,
+      }">
+      <Container
+        rounded="lg"
+        style="height: 100%"
+        :background="backgroundColor || 'accent/90'">
+        <slot />
+      </Container>
+    </div>
+  </div>
+
+  <AlertDialog v-model="showAlertDialog" :message="alertMessage" />
 </template>

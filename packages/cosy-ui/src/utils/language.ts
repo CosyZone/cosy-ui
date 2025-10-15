@@ -34,13 +34,13 @@ export class LanguageUtil {
 			return astroLang;
 		}
 		// 尝试从URL中获取语言
-		const urlLang = this.getLanguageFromURL(astro.url.pathname);
+		const urlLang = LanguageUtil.getLanguageFromURL(astro.url.pathname);
 		if (urlLang) {
 			return urlLang;
 		}
 
 		// 尝试从浏览器设置中获取语言
-		const browserLang = this.getLanguageFromBrowser();
+		const browserLang = LanguageUtil.getLanguageFromBrowser();
 		if (browserLang) {
 			return browserLang;
 		}

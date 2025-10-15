@@ -8,16 +8,15 @@ export function validateSizing(props: Record<string, unknown>): string[] {
 
 	// 检查属性是否被显式设置（不为 undefined 且不为默认值）
 	const isAspectRatioSet =
-		Object.prototype.hasOwnProperty.call(props, "aspectRatio") &&
-		props.aspectRatio !== undefined;
+		Object.hasOwn(props, "aspectRatio") && props.aspectRatio !== undefined;
 
 	const isHeightSet =
-		Object.prototype.hasOwnProperty.call(props, "height") &&
+		Object.hasOwn(props, "height") &&
 		props.height !== undefined &&
 		props.height !== "none";
 
 	const isWidthSet =
-		Object.prototype.hasOwnProperty.call(props, "width") &&
+		Object.hasOwn(props, "width") &&
 		props.width !== undefined &&
 		props.width !== "none";
 

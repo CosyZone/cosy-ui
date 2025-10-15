@@ -104,7 +104,7 @@ const linkHeightClass =
 	linkHeightClasses[height as keyof typeof linkHeightClasses];
 
 // 检查 i18n 是否启用，通过 Astro.currentLocale 来判断
-let isI18nEnabled = Astro.currentLocale !== undefined;
+const isI18nEnabled = Astro.currentLocale !== undefined;
 
 const currentPath = Astro.url.pathname;
 const activeLink = LinkUtil.getActiveLink(

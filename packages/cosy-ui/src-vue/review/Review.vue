@@ -52,6 +52,11 @@ const {
 	border,
 	borderColor,
 	shadow,
+	subtitle,
+	title,
+	imageUrl,
+	href,
+	compact,
 } = props;
 
 // 生成星级评分
@@ -104,14 +109,19 @@ const formattedDate = computed(() => {
       border,
       borderColor,
       shadow,
+      subtitle,
+      title,
+      imageUrl,
+      href,
+      compact,
     }"
     :class="className"
     :class:list="classList">
     <div class="cosy:flex cosy:items-start cosy:gap-4">
       <Avatar
         v-if="avatar"
-        :src="avatar"
-        :alt="userName"
+        :avatar="avatar"
+        :userName="userName"
         size="md"
         class="cosy:flex-shrink-0" />
       <div class="cosy:flex-1">

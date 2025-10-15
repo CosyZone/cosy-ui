@@ -4,35 +4,35 @@
  * @description CodePanel 组件多语言支持展示容器，带源码展示，支持多标签切换。
  */
 import { CodeContainer } from "@coffic/cosy-ui";
-import LanguageAstro from "./LanguageAstro.astro";
-import LanguageGo from "./LanguageGo.astro";
-import LanguageRust from "./LanguageRust.astro";
-import LanguageSQL from "./LanguageSQL.astro";
-import LanguageAstroSource from "./LanguageAstro.astro?raw";
-import LanguageGoSource from "./LanguageGo.astro?raw";
-import LanguageRustSource from "./LanguageRust.astro?raw";
-import LanguageSQLSource from "./LanguageSQL.astro?raw";
+import LanguageSupportAstro from "./LanguageSupportAstro.astro";
+import LanguageSupportGo from "./LanguageSupportGo.astro";
+import LanguageSupportRust from "./LanguageSupportRust.astro";
+import LanguageSupportSQL from "./LanguageSupportSQL.astro";
+import LanguageSupportAstroSource from "./LanguageSupportAstro.astro?raw";
+import LanguageSupportGoSource from "./LanguageSupportGo.astro?raw";
+import LanguageSupportRustSource from "./LanguageSupportRust.astro?raw";
+import LanguageSupportSQLSource from "./LanguageSupportSQL.astro?raw";
 
 const codes = [
-	LanguageAstroSource,
-	LanguageGoSource,
-	LanguageRustSource,
-	LanguageSQLSource,
+	LanguageSupportAstroSource,
+	LanguageSupportGoSource,
+	LanguageSupportRustSource,
+	LanguageSupportSQLSource,
 ];
 const titles = ["Astro", "Go", "Rust", "SQL"];
 ---
 
 <CodeContainer codes={codes} titles={titles}>
-  <div id="tab-1">
-    <LanguageAstro />
-  </div>
-  <div id="tab-2">
-    <LanguageGo />
-  </div>
-  <div id="tab-3">
-    <LanguageRust />
-  </div>
-  <div id="tab-4">
-    <LanguageSQL />
-  </div>
+    <div id="tab-1">
+        <LanguageSupportAstro title="Astro 示例" />
+    </div>
+    <div id="tab-2">
+        <LanguageSupportGo />
+    </div>
+    <div id="tab-3">
+        <LanguageSupportRust />
+    </div>
+    <div id="tab-4">
+        <LanguageSupportSQL />
+    </div>
 </CodeContainer>

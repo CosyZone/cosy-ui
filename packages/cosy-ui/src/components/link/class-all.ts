@@ -34,13 +34,11 @@ export function getBaseLinkClasses(props: ILinkPropsBase): string[] {
 		active = false,
 		navigationType,
 		icon,
-		hoverImage,
-		hoverImageAlt,
 		...rest
 	} = props;
 
 	// 构建基础类名
-	const baseClasses = getLinkBaseClasses(block, icon, hoverImage);
+	const baseClasses = getLinkBaseClasses(block, icon, rest["hoverImage"]);
 
 	// 构建变体类名
 	const variantClasses = getLinkVariantClasses(

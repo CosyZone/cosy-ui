@@ -5,6 +5,4 @@ export interface IImageDisplayProps {
 	maxDisplay?: number;
 }
 
-export interface IImageDisplayEmits {
-	(e: "imageClick", imageUrl: string): void;
-}
+export type IImageDisplayEmits = (e: "imageClick", imageUrl: string) => void;
