@@ -5,12 +5,12 @@
  * 用于处理默认情况下的宽高比容器
  * 宽度占满容器，高度根据宽高比自动计算
  */
-import type { RoundedSize } from '@coffic/cosy-ui-base';
-import { roundedClasses } from '@coffic/cosy-ui-base';
+import type { RoundedSize } from "@coffic/cosy-ui-base";
+import { roundedClasses } from "@coffic/cosy-ui-base";
 
 export interface Props {
-    aspectRatio: number;
-    rounded: RoundedSize;
+	aspectRatio: number;
+	rounded: RoundedSize;
 }
 
 const { aspectRatio, rounded } = Astro.props as Props;

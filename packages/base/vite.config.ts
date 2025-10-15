@@ -23,14 +23,8 @@ export default defineConfig({
 			fileName: (format, entryName) => `${entryName}.js`,
 		},
 		rollupOptions: {
-			external: ["@remixicon/vue", "fs-extra", "html-to-image", "shiki"],
 			output: {
-				assetFileNames: (assetInfo) => {
-					if (assetInfo.name === "style.css") {
-						return "cosy-ui-base.css";
-					}
-					return assetInfo.name || "asset";
-				},
+				assetFileNames: "app.css",
 			},
 		},
 		cssCodeSplit: false,

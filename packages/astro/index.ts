@@ -1,4 +1,4 @@
-export * from "@coffic/cosy-ui-base"
+export * from "@coffic/cosy-ui-base";
 
 // 基础组件和功能模块 (按字母顺序)
 export * from "./src/components/alert/index.ts";
