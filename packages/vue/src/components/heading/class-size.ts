@@ -1,4 +1,4 @@
-import { headingSizeClasses } from "../../../src/common/textSizes";
+import { headingSizeClasses } from "../../common/textSizes";
 
 /**
  * 计算 Heading 组件的尺寸相关类名

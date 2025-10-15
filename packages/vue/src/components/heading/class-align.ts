@@ -1,7 +1,7 @@
 import {
 	textAlignClasses,
 	type TextAlign,
-} from "../../../src/common/textAlign";
+} from "../../common/textAlign";
 
 /**
  * 计算 Heading 组件的文本对齐相关类名

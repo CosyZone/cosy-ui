@@ -1,5 +1,5 @@
-import { roundedClasses } from "../../../src/common/rounded";
-import type { RoundedSize } from "../../../src/common/rounded";
+import { roundedClasses } from "../../common/rounded";
+import type { RoundedSize } from "../../common/rounded";
 
 /**
  * 计算 Container 组件的rounded相关类名

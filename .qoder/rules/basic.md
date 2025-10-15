@@ -44,7 +44,7 @@ cosy-ui/                    # 单体仓库根目录
 │   │   ├── src-astro/      # Astro 组件源码
 │   │   ├── src-vue/        # Vue 组件源码
 │   │   └── dist/           # 构建输出目录
-│   └── cosy-docs/          # 组件库文档项目
+│   └── docs/          # 组件库文档项目
 │       └── content/      
 │           └── manuals/    # 中英文文档仓库
 └── scripts/                # 构建和工具脚本

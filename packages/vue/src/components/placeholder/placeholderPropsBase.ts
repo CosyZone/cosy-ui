@@ -1,8 +1,8 @@
-import type { BackgroundColor } from "../../../src/common/backgrounds";
-import type { Size } from "../../../src/common/size";
-import type { PaddingSize } from "../../../src/common/padding";
-import type { HeightSize } from "../../../src/common/height";
-import type { BorderSize } from "../../../src/common/border";
+import type { BackgroundColor } from "../../common/backgrounds";
+import type { Size } from "../../common/size";
+import type { PaddingSize } from "../../common/padding";
+import type { HeightSize } from "../../common/height";
+import type { BorderSize } from "../../common/border";
 
 /**
  * Placeholder 组件的基础属性接口（与框架无关）

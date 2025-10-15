@@ -1,18 +1,18 @@
-import type { BackgroundColor } from "../../../src/common/backgrounds";
-import type { Size } from "../../../src/common/size";
-import type { HeightSize } from "../../../src/common/height";
+import type { BackgroundColor } from "../../common/backgrounds";
+import type { Size } from "../../common/size";
+import type { HeightSize } from "../../common/height";
 import type {
 	FlexDirection,
 	GapSize,
 	FlexAlign,
 	FlexJustify,
-} from "../../../src/common/layout";
-import type { PaddingSize } from "../../../src/common/padding";
-import type { MarginSize } from "../../../src/common/margin";
-import type { RoundedSize } from "../../../src/common/rounded";
-import type { BorderSize, BorderColor } from "../../../src/common/border";
-import type { FitMode } from "../../../src/common/fitmode";
-import type { ShadowSize } from "../../../src/common/shadow";
+} from "../../common/layout";
+import type { PaddingSize } from "../../common/padding";
+import type { MarginSize } from "../../common/margin";
+import type { RoundedSize } from "../../common/rounded";
+import type { BorderSize, BorderColor } from "../../common/border";
+import type { FitMode } from "../../common/fitmode";
+import type { ShadowSize } from "../../common/shadow";
 
 /**
  * Container 组件的基础属性接口（与框架无关）

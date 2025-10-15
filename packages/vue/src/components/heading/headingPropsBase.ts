@@ -1,7 +1,7 @@
-import type { BackgroundColor } from "../../../src/common/backgrounds";
-import type { TextWeight } from "../../../src/common/textWeights";
-import type { TextAlign } from "../../../src/common/textAlign";
-import type { TextColor } from "../../../src/common/textColors";
+import type { BackgroundColor } from "../../common/backgrounds";
+import type { TextWeight } from "../../common/textWeights";
+import type { TextAlign } from "../../common/textAlign";
+import type { TextColor } from "../../common/textColors";
 
 /**
  * Heading 组件的基础属性接口（与框架无关）
@@ -29,17 +29,17 @@ export interface IHeadingPropsBase {
 	 * @default "default"
 	 */
 	color?:
-		| "default"
-		| "primary"
-		| "secondary"
-		| "accent"
-		| "muted"
-		| "info"
-		| "success"
-		| "warning"
-		| "error"
-		| "base-content"
-		| "neutral-content";
+	| "default"
+	| "primary"
+	| "secondary"
+	| "accent"
+	| "muted"
+	| "info"
+	| "success"
+	| "warning"
+	| "error"
+	| "base-content"
+	| "neutral-content";
 
 	/**
 	 * 自定义 CSS 类名

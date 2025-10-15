@@ -1,4 +1,4 @@
-import type { MarginSize } from "../../../src/common/margin";
+import type { MarginSize } from "../../common/margin";
 
 /**
  * Alert 组件的基础属性接口（与框架无关）

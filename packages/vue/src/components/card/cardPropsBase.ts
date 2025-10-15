@@ -1,5 +1,5 @@
-import type { BackgroundColor } from "../../../src/common/backgrounds";
-import type { ShadowSize } from "../../../src/common/shadow";
+import type { BackgroundColor } from "../../common/backgrounds";
+import type { ShadowSize } from "../../common/shadow";
 
 /**
  * Card 组件的基础属性接口（与框架无关）

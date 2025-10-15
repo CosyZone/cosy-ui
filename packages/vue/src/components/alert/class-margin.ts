@@ -1,5 +1,5 @@
-import { marginClasses } from "../../../src/common/margin";
-import type { MarginSize } from "../../../src/common/margin";
+import { marginClasses } from "../../common/margin";
+import type { MarginSize } from "../../common/margin";
 
 /**
  * 获取 Alert 组件的垂直外边距类名

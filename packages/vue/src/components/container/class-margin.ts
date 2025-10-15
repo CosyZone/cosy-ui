@@ -1,5 +1,5 @@
-import { marginClasses } from "../../../src/common/margin";
-import type { MarginSize } from "../../../src/common/margin";
+import { marginClasses } from "../../common/margin";
+import type { MarginSize } from "../../common/margin";
 
 /**
  * 计算 Container 组件的margin相关类名

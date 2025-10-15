@@ -1,7 +1,7 @@
 import {
 	textColorClasses,
 	type TextColor,
-} from "../../../src/common/textColors";
+} from "../../common/textColors";
 
 /**
  * 计算 Heading 组件的颜色相关类名

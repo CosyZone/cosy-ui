@@ -3,13 +3,13 @@ import {
 	gapClasses,
 	itemsClasses,
 	justifyClasses,
-} from "../../../src/common/layout";
+} from "../../common/layout";
 import type {
 	FlexDirection,
 	GapSize,
 	FlexAlign,
 	FlexJustify,
-} from "../../../src/common/layout";
+} from "../../common/layout";
 
 /**
  * 计算 Container 组件的flex相关类名

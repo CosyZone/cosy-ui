@@ -1,5 +1,5 @@
-import { getBackgroundClass } from "../../../src/common/backgrounds";
-import type { BackgroundColor } from "../../../src/common/backgrounds";
+import { getBackgroundClass } from "../../common/backgrounds";
+import type { BackgroundColor } from "../../common/backgrounds";
 
 /**
  * 计算 Container 组件的background相关类名

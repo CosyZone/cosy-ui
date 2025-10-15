@@ -1,5 +1,5 @@
-import type { BorderSize } from "../../../src/common/border";
-import { getBorderClass } from "../../../src/common/border";
+import type { BorderSize } from "../../common/border";
+import { getBorderClass } from "../../common/border";
 
 /**
  * 计算 Placeholder 组件的边框相关类名

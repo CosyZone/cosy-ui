@@ -1,8 +1,8 @@
 import {
 	getBorderClass,
 	getBorderColorClass,
-} from "../../../src/common/border";
-import type { BorderSize, BorderColor } from "../../../src/common/border";
+} from "../../common/border";
+import type { BorderSize, BorderColor } from "../../common/border";
 
 /**
  * 计算 Container 组件的边框相关类名

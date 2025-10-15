@@ -1,7 +1,7 @@
 import {
 	getBackgroundClass,
 	type BackgroundColor,
-} from "../../../src/common/backgrounds";
+} from "../../common/backgrounds";
 
 /**
  * 计算 Heading 组件的背景色相关类名

@@ -1,5 +1,5 @@
-import { widthClasses } from "../../../src/common/width";
-import type { Size } from "../../../src/common/size";
+import { widthClasses } from "../../common/width";
+import type { Size } from "../../common/size";
 
 /**
  * 计算 Placeholder 组件的width相关类名
