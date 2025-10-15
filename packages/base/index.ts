@@ -1,3 +1,5 @@
+import "app.css";
+
 // 通用背景色配置 - 适用于所有组件
 export * from "./src/common/index.js";
 
