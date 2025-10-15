@@ -1,0 +1,53 @@
+---
+/**
+ * @component LogoLink
+ *
+ * @description
+ * LogoLink 组件是一个用于显示网站 logo 的链接组件，通常用于 Header 组件中。
+ * 组件支持自定义 logo 图片、链接地址、大小等属性，并提供统一的样式和交互效果。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <LogoLink src="/logo.png" href="/" />
+ * ```
+ *
+ * 自定义大小：
+ * ```astro
+ * <LogoLink src="/logo.png" href="/" size="lg" />
+ * ```
+ *
+ * @props
+ * - src - logo 图片的路径
+ * - href - 点击 logo 时跳转的链接地址
+ * - alt - logo 的 alt 文本
+ */
+import { Image, Link } from '../..';
+import type { ImageMetadata } from 'astro';
+
+export interface Props {
+    src: string | ImageMetadata;
+    href?: string;
+    alt?: string;
+}
+
+const { src, href = '/', alt = 'logo' } = Astro.props;
+---
+
+<Link
+    transition:persist
+    animation="none"
+    href={href}
+    class="cosy:btn cosy:btn-ghost cosy:h-full cosy:p-1">
+    <Image
+        rounded="none"
+        showPlaceholder={false}
+        transition="fade"
+        lazy={true}
+        src={src}
+        alt={alt}
+        width={100}
+        height={100}
+        class="cosy:h-full cosy:w-auto"
+    />
+</Link>

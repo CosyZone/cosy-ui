@@ -1,0 +1,42 @@
+---
+/**
+ * @component FooterLogo
+ * @description Footer 的 Logo 子组件，用于显示网站 Logo
+ * @internal 供 FooterBrand 内部使用
+ */
+
+import { Link, Image } from '../..';
+import type { ImageSource } from '../image/image';
+
+export interface Props {
+    /** 网站名称 */
+    siteName: string;
+    /** 首页链接 */
+    homeLink: string;
+    /** Logo 图片源 */
+    logo?: ImageSource;
+}
+
+const { siteName, homeLink, logo } = Astro.props as Props;
+---
+
+{
+    logo && (
+        <Link
+            href={homeLink}
+            align="center"
+            noUnderline
+            block
+            class="cosy:mb-4">
+            <Image
+                src={logo as any}
+                alt={siteName}
+                width={48}
+                height={48}
+                rounded="none"
+                preview={false}
+                class="cosy:w-12 cosy:h-12 cosy:mask cosy:mask-squircle"
+            />
+        </Link>
+    )
+}

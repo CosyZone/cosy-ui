@@ -1,0 +1,33 @@
+---
+/**
+ * AspectRatioBox 组件
+ *
+ * 根据 hasExplicitHeight 属性决定使用哪种宽高比处理方式：
+ * - ExplicitHeightAspectRatioBox: 处理有明确高度的情况
+ * - DefaultAspectRatioBox: 处理默认情况
+ */
+import type { RoundedSize } from "../../src/common/rounded";
+import ExplicitHeightAspectRatioBox from "./ExplicitHeightAspectRatioBox.astro";
+import DefaultAspectRatioBox from "./DefaultAspectRatioBox.astro";
+
+export interface Props {
+	aspectRatio: number;
+	fit: "contain" | "cover";
+	rounded: RoundedSize;
+	hasExplicitHeight: boolean;
+}
+
+const { aspectRatio, fit, rounded, hasExplicitHeight } = Astro.props as Props;
+---
+
+{
+    hasExplicitHeight ? (
+        <ExplicitHeightAspectRatioBox
+            aspectRatio={aspectRatio}
+            fit={fit}
+            rounded={rounded}
+        />
+    ) : (
+        <DefaultAspectRatioBox aspectRatio={aspectRatio} rounded={rounded} />
+    )
+}

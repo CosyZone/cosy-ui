@@ -1,0 +1,161 @@
+---
+/**
+ * @component Alert
+ *
+ * @description
+ * Alert 组件用于向用户显示重要的提示信息，支持多种类型的提示样式和交互效果。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Alert type="info">这是一条信息提示</Alert>
+ * ```
+ *
+ * 带标题：
+ * ```astro
+ * <Alert type="success" title="操作成功">您的操作已成功完成</Alert>
+ * ```
+ *
+ * 不显示图标：
+ * ```astro
+ * <Alert type="warning" showIcon={false}>不显示图标的警告</Alert>
+ * ```
+ *
+ * 设置垂直外边距：
+ * ```astro
+ * <Alert type="info" marginY="md">带垂直外边距的提示</Alert>
+ * ```
+ *
+ * 组合使用：
+ * ```astro
+ * <Alert
+ *   type="error"
+ *   title="提交失败"
+ *   class="my-custom-class"
+ *   marginY="lg"
+ * >
+ *   请检查表单并重新提交
+ * </Alert>
+ * ```
+ *
+ * 自定义操作按钮：
+ * ```astro
+ * <Alert type="info">
+ *   这是带自定义操作的提示
+ *   <slot name="action">
+ *     <button>操作</button>
+ *   </slot>
+ * </Alert>
+ * ```
+ *
+ * @props
+ * @prop {string} [class] - 自定义 CSS 类名，用于覆盖默认样式
+ * @prop {boolean} [closable=true] - 是否可关闭，设置为 false 时隐藏关闭按钮
+ * @prop {string} [description] - 描述文本，显示在标题下方，字体较小且透明度降低
+ * @prop {('xs'|'sm'|'md'|'lg'|'xl')} [marginY] - 垂直方向外边距大小，支持预设的尺寸值
+ * @prop {boolean} [showIcon=true] - 是否显示图标，设置为 false 时隐藏类型对应的图标
+ * @prop {string} [title] - 提示标题，可选，显示为粗体文本
+ * @prop {('info'|'success'|'warning'|'error')} [type='info'] - 提示类型，影响颜色和图标，支持 info、success、warning、error 四种类型
+ * @prop {('solid'|'outline'|'dash'|'soft')} [variant='solid'] - 样式变体，支持 solid（实心）、outline（描边）、dash（虚线）、soft（柔和）四种风格
+ *
+ * @slots
+ * @slot default - 提示内容，主要文本内容
+ * @slot action - 自定义操作按钮，显示在 alert 右侧，适合放置自定义按钮或其他操作
+ */
+
+import "../../style.ts";
+import type { IAlertProps } from "./props";
+import { getAlertCombinedClasses } from "./class";
+import {
+	InfoIcon,
+	SuccessIcon,
+	WarningIcon,
+	ErrorIcon,
+	CloseIcon,
+} from "../../index.ts";
+import { marginClasses, type MarginSize } from "../../src/common/margin";
+
+// 根据类型设置图标组件
+const getIconComponent = (type: string) => {
+	const iconComponents = {
+		info: InfoIcon,
+		success: SuccessIcon,
+		warning: WarningIcon,
+		error: ErrorIcon,
+	};
+	return iconComponents[type as keyof typeof iconComponents] || InfoIcon;
+};
+
+const props = Astro.props as IAlertProps;
+
+const {
+	type = "info",
+	title,
+	description,
+	class: className = "",
+	closable = true,
+	showIcon = true,
+	variant = "solid",
+	marginY,
+} = props;
+
+// 获取图标组件
+const IconComponent = getIconComponent(type);
+
+// 获取组合类名
+const alertClassArray = getAlertCombinedClasses(props);
+const alertClass = [...alertClassArray, className].filter(Boolean).join(" ");
+
+// 导出接口供外部使用
+export type { IAlertProps };
+---
+
+<div class={alertClass} role="alert">
+    <div
+        class="cosy:flex cosy:flex-row cosy:items-center cosy:gap-4 cosy:justify-between cosy:w-full">
+        {
+            showIcon && (
+                <IconComponent class="cosy:btn cosy:btn-sm cosy:btn-ghost cosy:btn-circle" />
+            )
+        }
+        <div
+            class="cosy:flex cosy:flex-col cosy:items-start cosy:h-full cosy:flex-1">
+            {
+                title && (
+                    <h3 class="cosy:font-bold" style="margin-top: 0 !important">
+                        {title}
+                    </h3>
+                )
+            }
+            {
+                description && (
+                    <div class="cosy:text-xs cosy:opacity-80">
+                        {description}
+                    </div>
+                )
+            }
+            {
+                title && (
+                    <div class="cosy:text-xs">
+                        <slot />
+                    </div>
+                )
+            }
+            {!title && <slot />}
+        </div>
+        <div
+            class="cosy:flex cosy:flex-row cosy:items-center cosy:gap-2"
+            data-role="actions">
+            <slot name="action" />
+            {
+                closable && (
+                    <button
+                        class="cosy:ml-auto cosy:btn cosy:btn-ghost cosy:btn-sm cosy:btn-circle"
+                        onclick="this.parentElement.parentElement.style.display = 'none';">
+                        <CloseIcon class="cosy:h-5 cosy:w-5" />
+                    </button>
+                )
+            }
+        </div>
+    </div>
+</div>

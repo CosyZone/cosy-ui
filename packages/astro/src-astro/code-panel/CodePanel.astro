@@ -1,0 +1,113 @@
+---
+/**
+ * @component CodePanel
+ *
+ * @description
+ * 代码展示面板组件，支持语法高亮、多主题切换和行号显示。
+ * 基于 Shiki 提供高质量的代码高亮效果，与 VS Code 保持一致的渲染效果。
+ * 支持服务端渲染，无需客户端 JavaScript 即可展示代码高亮。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <CodePanel code="console.log('Hello, world!');" />
+ * ```
+ *
+ * 指定语言和主题：
+ * ```astro
+ * <CodePanel
+ *   code="const name = 'TypeScript';"
+ *   language="typescript"
+ *   theme="github-dark"
+ *   showLineNumbers={true}
+ * />
+ * ```
+ *
+ * 在切换面板中使用：
+ * ```astro
+ * <CodePanel
+ *   code={sourceCode}
+ *   language="astro"
+ *   visible={false}
+ * />
+ * ```
+ *
+ * @props
+ * @param {string} class - 自定义 CSS 类名，用于覆盖默认样式
+ * @param {string} code - 要显示的代码字符串
+ * @param {string} [language="typescript"] - 代码语言，用于语法高亮
+ * @param {boolean} [showLineNumbers=false] - 是否显示行号
+ * @param {string} [theme="dark-plus"] - 主题名称
+ * @param {boolean} [visible=true] - 是否显示在面板中
+ *
+ * @slots
+ * 此组件不包含插槽，通过 props 传入代码内容
+ *
+ * @accessibility
+ * - 使用语义化的 HTML 结构
+ * - 代码区域具有适当的 aria 标签
+ * - 支持键盘导航和屏幕阅读器
+ * - 高对比度主题支持
+ */
+import type { CodePanelProps } from "./types";
+import "../../style.ts";
+
+interface Props extends CodePanelProps {}
+
+const {
+	class: className = "",
+	code = "",
+	language = "typescript",
+	showLineNumbers = false,
+	theme = "dark-plus",
+	visible = true,
+} = Astro.props;
+
+// 优化 Shiki 加载 - 使用动态导入避免构建时创建多个实例
+let highlightedCode = code;
+try {
+	// 使用动态导入避免构建时的性能问题
+	const { createHighlighter } = await import("shiki");
+
+	const highlighter = await createHighlighter({
+		themes: [theme],
+		langs: [language],
+	});
+
+	highlightedCode = highlighter.codeToHtml(code, {
+		lang: language,
+		theme: theme,
+		transformers: [],
+	});
+
+	// 释放资源
+	highlighter.dispose?.();
+} catch (error) {
+	console.warn(
+		"CodePanel: Shiki highlighting failed, falling back to plain text:",
+		error,
+	);
+	// 降级到普通代码块
+	highlightedCode = `<pre><code>${code}</code></pre>`;
+}
+---
+
+<div data-panel="code" role="region" aria-label="代码展示面板">
+    <!-- Shiki 渲染的代码 -->
+    <div
+        class="cosy:w-full not-prose cosy-shiki-container cosy:overflow-x-auto cosy:bg-base-300 cosy:rounded-lg"
+        class:list={[className]}
+        set:html={highlightedCode}
+        style="min-width: max-content;"
+    />
+    <style>
+        .cosy-shiki-container pre {
+            background: transparent !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        .cosy-shiki-container pre code {
+            background: transparent !important;
+        }
+    </style>
+</div>

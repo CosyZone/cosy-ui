@@ -1,0 +1,28 @@
+---
+/**
+ * @component CloseButton
+ *
+ * @description
+ * 模态框的关闭按钮组件，用于关闭模态对话框。
+ * 使用 form method="dialog" 来关闭模态框。
+ *
+ * @usage
+ * ```astro
+ * <CloseButton />
+ * ```
+ */
+
+import '../../style.ts';
+import { Button } from '../../index.ts';
+---
+
+<form method="dialog">
+    <Button
+        variant="accent"
+        size="sm"
+        shape="circle"
+        formmethod="dialog"
+        class="cosy:modal-close-button">
+        ✕
+    </Button>
+</form>

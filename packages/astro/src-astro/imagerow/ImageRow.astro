@@ -1,0 +1,100 @@
+---
+/**
+ * @component ImageRow
+ * @description 图片行组件，用于展示一行图片，基于 Container 组件，支持丰富的背景配置
+ * @usage
+ * ```astro
+ * <ImageRow
+ *   images={[
+ *     { src: '/image1.jpg', alt: '图片1' },
+ *     { src: 'https://example.com/image2.jpg', alt: '图片2' }
+ *   ]}
+ *   gap="md"
+ *   background="primary/10"
+ *   containerRounded="lg"
+ * />
+ * ```
+ * @props
+ * @prop {string} [background] - 背景色类型，支持所有 Tailwind 背景色和透明度变体
+ * @prop {boolean} [border=false] - 是否显示边框
+ * @prop {string} [class] - 自定义 CSS 类名
+ * @prop {string} [containerRounded='none'] - 容器圆角，可选值：none、sm、md、lg、xl、2xl、3xl、full
+ * @prop {boolean} [showNavigation=true] - 是否显示左右导航按钮
+ * @prop {string} [gap='md'] - 图片间距，可选值：none、xs、sm、md、lg、xl
+ * @prop {string} [hover='scale'] - 悬停效果，可选值：none、scale、brightness、blur
+ * @prop {IImageItem[]} images - 图片数组
+ * @prop {string} [margin='none'] - 外边距大小，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl
+ * @prop {string} [padding='md'] - 内边距大小，可选值：none、sm、md、lg、xl、2xl、3xl、4xl
+ * @prop {string} [rounded='md'] - 图片圆角，可选值：none、sm、md、lg、xl、2xl、3xl、full
+ * @prop {string} [shadow='md'] - 图片阴影，可选值：none、sm、md、lg、xl、2xl
+ * @prop {string} [width='md'] - 容器宽度，可选值：xs、sm、md、lg、xl、full
+ * @prop {string} [height='none'] - 图片高度，可选值：none、3xs、2xs、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl、screen、auto、full
+ * @slots
+ * @slot default - 图片内容
+ */
+import "../../style.ts";
+import type { IImageItem } from "./types";
+import type {
+	BackgroundColor,
+	Size,
+	PaddingSize,
+	MarginSize,
+	RoundedSize,
+	GapSize,
+	ShadowSize,
+	HoverEffect,
+	HeightSize,
+} from "../../src/common";
+import ScrollRow from "../scroll-row/ScrollRow.astro";
+import RowItem from "./RowItem.astro";
+
+interface Props {
+	images: IImageItem[];
+	gap?: GapSize;
+	rounded?: RoundedSize;
+	shadow?: ShadowSize;
+	hover?: HoverEffect;
+	background?: BackgroundColor;
+	padding?: PaddingSize;
+	margin?: MarginSize;
+	border?: boolean;
+	width?: Size;
+	height?: HeightSize;
+	containerRounded?: RoundedSize;
+	showNavigation?: boolean;
+	class?: string;
+}
+
+const {
+	images,
+	gap = "md",
+	rounded = "md",
+	shadow = "md",
+	hover = "scale",
+	background,
+	padding = "md",
+	margin = "none",
+	width = "md",
+	height = "none",
+	containerRounded = "none",
+	showNavigation = true,
+	class: className = "",
+} = Astro.props;
+---
+
+<ScrollRow
+  background={background}
+  padding={padding}
+  margin={margin}
+  rounded={containerRounded}
+  width={width as any}
+  height={height as any}
+  gap={gap as any}
+  class={className}
+  showNavigation={showNavigation}>
+  {
+    images.map((image) => (
+      <RowItem image={image} rounded={rounded} shadow={shadow} hover={hover} />
+    ))
+  }
+</ScrollRow>

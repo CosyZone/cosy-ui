@@ -1,0 +1,57 @@
+@layer utilities {
+	/* 点阵背景：使用 CSS 变量控制尺寸/透明度，::before 作为覆盖层 */
+	/* 变量（亮色默认，仅保留基础 dot-grid） */
+	:root {
+		/* 点颜色（RGB，不含透明度）*/
+		--cosy-dot-rgb: 0, 0, 0; /* 亮色：黑色 */
+
+		/* dot-grid */
+		--cosy-dot-grid-radius: 1px;
+		--cosy-dot-grid-spacing: 8px;
+		--cosy-dot-grid-alpha: 0.08;
+	}
+	.cosy\:bg-dot-grid {
+		position: relative !important;
+		isolation: isolate !important;
+		background-color: #f3f4f6 !important;
+	}
+
+	/* 基础（亮色）
+   * 点尺寸已减半；透明度更轻以获得更柔和的效果。
+   * - dot-grid: 半径 1.5px，间距 10px，透明度 0.22（黑）
+   * - dot-grid-soft: 半径 1.25px，间距 11px，透明度 0.18（黑）
+   * - dot-grid-lg: 半径 1.5px，间距 13px，透明度 0.22（黑）
+   */
+	.cosy\:bg-dot-grid::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		pointer-events: none;
+		background-image: radial-gradient(
+			rgba(var(--cosy-dot-rgb), var(--cosy-dot-grid-alpha))
+				var(--cosy-dot-grid-radius),
+			transparent var(--cosy-dot-grid-radius)
+		);
+		background-size: var(--cosy-dot-grid-spacing) var(--cosy-dot-grid-spacing);
+		background-position: 0 0;
+		background-repeat: repeat;
+	}
+
+	/* 暗色覆盖（仅基础 dot-grid）
+   * 保持尺寸一致；通过变量降低白色点的不透明度以减弱对比。
+   * - dot-grid: 透明度 0.28（白）
+   */
+	@media (prefers-color-scheme: dark) {
+		.cosy\:bg-dot-grid {
+			background-color: #111111 !important;
+		}
+		/* 暗色：点颜色为白色，通过类上变量微调透明度 */
+		:root {
+			--cosy-dot-rgb: 255, 255, 255;
+		}
+		.cosy\:bg-dot-grid {
+			--cosy-dot-grid-alpha: 0.14;
+		}
+	}
+}

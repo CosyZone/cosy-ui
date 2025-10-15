@@ -1,0 +1,85 @@
+---
+/**
+ * @component FooterBrand
+ *
+ * @description
+ * FooterBrand 组件用于在页脚中显示品牌信息，包括网站 Logo、名称、标语和社交媒体链接。
+ * 这是一个内部子组件，专门用于 Footer 组件的品牌区域展示。
+ *
+ * @design
+ * 设计理念：
+ * 1. 品牌突出 - 清晰展示网站品牌标识和名称
+ * 2. 视觉层次 - 通过字体大小和间距建立清晰的信息层次
+ * 3. 响应式设计 - 在不同屏幕尺寸下保持良好的显示效果
+ * 4. 社交媒体整合 - 优雅地展示社交媒体链接
+ *
+ * @usage
+ * 内部使用示例：
+ * ```astro
+ * <FooterBrand
+ *   siteName="我的网站"
+ *   homeLink="/"
+ *   slogan="简单而强大"
+ *   logo={{ src: "/logo.png", alt: "网站Logo" }}
+ *   socialLinks={[
+ *     { url: "https://github.com/myusername", platform: "github", name: "GitHub" },
+ *     { url: "https://twitter.com/myusername", platform: "twitter", name: "Twitter" }
+ *   ]}
+ * />
+ * ```
+ *
+ * @props
+ * @prop {string} siteName - 网站名称
+ * @prop {string} homeLink - 首页链接
+ * @prop {string} slogan - 网站标语
+ * @prop {Object} [logo] - 网站Logo对象，包含src和alt属性
+ * @prop {Array<Object>} [socialLinks=[]] - 社交媒体链接数组，每个对象包含url、platform和name属性
+ *
+ * @accessibility
+ * - 使用语义化HTML结构
+ * - Logo图片包含alt属性
+ * - 社交媒体链接包含aria-label属性
+ * - 所有链接都有明确的文本描述
+ */
+
+import { Heading } from '../../index.ts';
+import type { FooterBrandProps } from './types';
+import FooterSocialLinks from './FooterSocialLinks.astro';
+import FooterLogo from './FooterLogo.astro';
+import '../../style.ts';
+
+const {
+    siteName,
+    homeLink,
+    slogan,
+    logo,
+    socialLinks = [],
+    wechatQR,
+    whatsappQR,
+} = Astro.props as FooterBrandProps;
+---
+
+<aside
+    class:list={[
+        // 小屏幕
+        'cosy:w-full cosy:text-center cosy:flex cosy:flex-col',
+        // 大屏幕
+        'cosy:md:max-w-md cosy:md:flex-row cosy:md:justify-center cosy:md:items-center',
+    ]}>
+    <FooterLogo siteName={siteName} homeLink={homeLink} logo={logo} />
+
+    <div class="cosy:w-full cosy:text-center cosy:flex cosy:flex-col">
+        <div>
+            <Heading level={3} align="center">
+                {siteName}
+            </Heading>
+            <p class="cosy:text-base-content/70">{slogan}</p>
+        </div>
+
+        <FooterSocialLinks
+            socialLinks={socialLinks}
+            wechatQR={wechatQR}
+            whatsappQR={whatsappQR}
+        />
+    </div>
+</aside>

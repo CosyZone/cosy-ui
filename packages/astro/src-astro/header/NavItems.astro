@@ -1,0 +1,82 @@
+---
+/**
+ * @component NavItems
+ *
+ * @description
+ * NavItems 组件用于渲染导航栏中的导航项目列表。
+ * 支持配置导航项之间的间距，提供预设的 gap 值。
+ *
+ * @usage
+ * ```astro
+ * <NavItems
+ *   navItems={navItems}
+ *   activeLink={activeLink}
+ *   linkHeightClass={linkHeightClass}
+ *   gap={2}
+ * />
+ * ```
+ *
+ * @props
+ * - navItems: INavItem[] - 导航项数组
+ * - activeLink: string - 当前激活的链接
+ * - linkHeightClass: string - 链接高度类名
+ * - vertical?: boolean - 是否垂直布局，默认 false
+ * - gap?: number - 导航项之间的间距，可选值：0, 1, 2, 3, 4, 6, 8, 10, 12，默认 2
+ */
+import '../../style.ts';
+import { type INavItem, Link, ListItem } from '../../index.ts';
+
+interface Props {
+    navItems: INavItem[];
+    activeLink: string;
+    linkHeightClass: string;
+    vertical?: boolean;
+    gap?: number;
+}
+
+const {
+    navItems,
+    activeLink,
+    linkHeightClass,
+    vertical = false,
+    gap = 2,
+} = Astro.props;
+
+// 预设的 gap 值映射
+const gapClasses = {
+    0: '',
+    1: 'cosy:gap-1',
+    2: 'cosy:gap-2',
+    3: 'cosy:gap-3',
+    4: 'cosy:gap-4',
+    6: 'cosy:gap-6',
+    8: 'cosy:gap-8',
+    10: 'cosy:gap-10',
+    12: 'cosy:gap-12',
+} as const;
+
+// 获取对应的 gap 类名
+const gapClass = gapClasses[gap as keyof typeof gapClasses] || gapClasses[2];
+---
+
+<ul
+    data-active-link={activeLink}
+    class:list={[
+        'cosy:px-1 cosy:menu cosy:w-full',
+        vertical ? 'cosy:menu-vertical' : 'cosy:menu-horizontal',
+        linkHeightClass,
+        gapClass,
+    ]}>
+    {
+        navItems.map((item) => (
+            <ListItem>
+                <Link
+                    variant={activeLink === item.href ? 'primary' : 'default'}
+                    href={item.href}
+                    class:list={[linkHeightClass]}>
+                    {item.title}
+                </Link>
+            </ListItem>
+        ))
+    }
+</ul>

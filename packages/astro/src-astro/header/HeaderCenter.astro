@@ -1,0 +1,59 @@
+---
+/**
+ * @component HeaderCenter
+ *
+ * @description
+ * HeaderCenter 组件负责渲染 Header 的中央区域，包括中央导航项。
+ * 这是一个内部组件，通常由 Header 组件使用。
+ *
+ * @usage
+ * ```astro
+ * <HeaderCenter
+ *   navPosition={navPosition}
+ *   navItems={navItems}
+ *   activeLink={activeLink}
+ *   linkHeightClass={linkHeightClass}
+ *   gap={2}
+ * />
+ * ```
+ *
+ * @props
+ * - navPosition - 导航位置
+ * - navItems - 导航项数组
+ * - activeLink - 当前激活的链接
+ * - linkHeightClass - 链接高度类名
+ * - gap - 导航项之间的间距，可选值：0, 1, 2, 3, 4, 6, 8, 10, 12，默认 2
+ */
+import { type INavItem } from '../..';
+import NavItems from './NavItems.astro';
+
+export interface Props {
+    navPosition: string;
+    navItems: INavItem[];
+    activeLink: string;
+    linkHeightClass: string;
+    gap?: number;
+}
+
+const {
+    navPosition,
+    navItems,
+    activeLink,
+    linkHeightClass,
+    gap = 2,
+} = Astro.props;
+---
+
+<div class="cosy:hidden cosy:lg:flex cosy:navbar-center">
+    {
+        navPosition === 'center' && (
+            <NavItems
+                navItems={navItems}
+                activeLink={activeLink}
+                linkHeightClass={linkHeightClass}
+                gap={gap}
+            />
+        )
+    }
+    <slot />
+</div>

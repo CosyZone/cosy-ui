@@ -1,0 +1,59 @@
+---
+/**
+ * @component Badge
+ *
+ * @description
+ * Badge 组件用于突出显示少量信息，如标签、状态或计数。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Badge>默认</Badge>
+ * <Badge variant="primary">Primary</Badge>
+ * ```
+ *
+ * 不同尺寸：
+ * ```astro
+ * <Badge size="xs">超小</Badge>
+ * <Badge size="sm">小</Badge>
+ * <Badge size="md">中</Badge>
+ * <Badge size="lg">大</Badge>
+ * ```
+ *
+ * 描边样式：
+ * ```astro
+ * <Badge outline>描边样式</Badge>
+ * <Badge variant="primary" outline>主要描边</Badge>
+ * ```
+ *
+ * @props
+ * @prop {string} [class] - 自定义 CSS 类名，用于覆盖默认样式
+ * @prop {boolean} [outline=false] - 徽章是否为描边样式，设置为 true 时显示为描边风格
+ * @prop {('xs'|'sm'|'md'|'lg')} [size] - 徽章的尺寸，支持 xs、sm、md、lg 四种尺寸
+ * @prop {('primary'|'secondary'|'accent'|'ghost'|'info'|'success'|'warning'|'error')} [variant] - 徽章的颜色变体，支持多种预设颜色主题
+ *
+ * @slots
+ * @slot default - 徽章内容，支持任意文本内容
+ */
+import "../../style.ts";
+import type { IBadgeProps } from "./props";
+import { getBaseBadgeClasses } from "../../src/components/badge/class-all";
+
+// 从 Astro.props 获取属性
+const props = Astro.props as IBadgeProps;
+
+const { variant, size, outline = false, class: className } = props;
+
+// 使用共用的工具函数计算组合类名
+const badgeClassArray = getBaseBadgeClasses({
+	variant,
+	size,
+	outline,
+	class: className,
+});
+const badgeClass = badgeClassArray.filter(Boolean).join(" ");
+---
+
+<div class={badgeClass}>
+    <slot />
+</div>

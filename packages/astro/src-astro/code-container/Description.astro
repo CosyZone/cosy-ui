@@ -1,0 +1,16 @@
+---
+interface Props {
+	text: string;
+}
+const { text = "" } = Astro.props;
+---
+
+{
+  text && (
+    <p
+      class="cosy:px-6 cosy:py-2 cosy:text-sm not-prose
+      cosy:bg-gradient-to-r cosy:from-info/50 cosy:to-info/90 ">
+      {text}
+    </p>
+  )
+}

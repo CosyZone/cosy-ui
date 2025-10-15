@@ -1,0 +1,70 @@
+---
+/**
+ * @component ImagePlaceholder
+ * @description 图片加载占位图组件
+ */
+
+import { roundedClasses, maskClasses } from "./utils";
+import type { MaskType, RoundedSize } from "../../src/common";
+
+interface Props {
+	/**
+	 * 占位图的CSS类名
+	 */
+	class?: string;
+	/**
+	 * 是否为远程图片
+	 */
+	isRemote?: boolean;
+	/**
+	 * 加载指示器类型
+	 */
+	loadingIndicator?: "pulse" | "spinner" | "progress" | "skeleton";
+	/**
+	 * 圆角大小
+	 */
+	rounded?: RoundedSize;
+	/**
+	 * 遮罩形状
+	 */
+	mask?: MaskType;
+}
+
+const {
+	class: className = "",
+	isRemote = false,
+	loadingIndicator = "skeleton",
+	rounded = "none",
+	mask = "none",
+} = Astro.props;
+
+// 构建占位图类名
+const placeholderClasses = [
+	"cosy:absolute cosy:inset-0",
+	roundedClasses[rounded],
+	maskClasses[mask],
+	loadingIndicator === "skeleton" || loadingIndicator === "pulse"
+		? "cosy:animate-pulse cosy:bg-base-300"
+		: "",
+	className,
+]
+	.filter(Boolean)
+	.join(" ");
+---
+
+<div class={placeholderClasses} data-placeholder>
+  {/* 远程图片加载指示器 */}
+  {
+    isRemote && loadingIndicator === 'spinner' && (
+      <div class="cosy:absolute cosy:inset-0 cosy:m-auto cosy:text-primary cosy:loading cosy:loading-spinner cosy:loading-lg" />
+    )
+  }
+
+  {
+    isRemote && loadingIndicator === 'progress' && (
+      <div class="cosy:right-0 cosy:bottom-0 cosy:left-0 cosy:absolute">
+        <progress class="cosy:w-full cosy:progress cosy:progress-primary" />
+      </div>
+    )
+  }
+</div>

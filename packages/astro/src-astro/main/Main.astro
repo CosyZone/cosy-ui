@@ -1,0 +1,243 @@
+---
+/**
+ * @component Main
+ *
+ * @description
+ * Main 组件是页面的主要内容区域，使用 Container 组件提供响应式布局。
+ * 它适合作为页面的主体部分，自动处理不同屏幕尺寸下的布局和内边距。
+ *
+ * @design
+ * 设计理念：
+ * 1. 结构清晰 - 明确表示页面的主要内容区域，提高语义化
+ * 2. 响应式布局 - 在不同屏幕尺寸下自动调整内边距和宽度
+ * 3. 灵活配置 - 支持自定义容器尺寸、内边距和背景颜色
+ * 4. 与容器集成 - 无缝集成 Container 组件，保持布局一致性
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * ---
+ * import { Main } from '@coffic/cosy-ui';
+ * ---
+ *
+ * <Main>
+ *   <h1>页面标题</h1>
+ *   <p>页面内容</p>
+ * </Main>
+ * ```
+ *
+ * 自定义容器尺寸：
+ * ```astro
+ * <Main size="lg">
+ *   <p>这是一个较宽的主内容区域</p>
+ * </Main>
+ * ```
+ *
+ * 自定义内边距：
+ * ```astro
+ * <Main py="lg" padding="xl">
+ *   <p>这个主内容区域有更大的内边距</p>
+ * </Main>
+ * ```
+ *
+ * 自定义顶部和底部内边距：
+ * ```astro
+ * <Main pt="lg" pb="xl">
+ *   <p>这个主内容区域有自定义的顶部和底部内边距</p>
+ * </Main>
+ * ```
+ *
+ * 自定义左侧和右侧内边距：
+ * ```astro
+ * <Main pl="md" pr="lg">
+ *   <p>这个主内容区域有自定义的左侧和右侧内边距</p>
+ * </Main>
+ * ```
+ *
+ * 自定义水平内边距：
+ * ```astro
+ * <Main px="xl">
+ *   <p>这个主内容区域有自定义的水平内边距</p>
+ * </Main>
+ * ```
+ *
+ * 组合使用所有内边距属性：
+ * ```astro
+ * <Main py="md" pt="lg" pb="xl" pl="md" pr="lg">
+ *   <p>这个主内容区域有完全自定义的内边距</p>
+ * </Main>
+ * ```
+ *
+ * ⚠️ **注意**:
+ * - 不能同时使用 `px` 和 `pl`/`pr` 属性，因为它们都会设置水平内边距，会产生冲突
+ * - 不能同时使用 `py` 和 `pt`/`pb` 属性，因为它们都会设置垂直内边距，会产生冲突
+ * 如果同时提供这些冲突的属性，组件会显示错误提示。
+ *
+ * 自定义背景颜色：
+ * ```astro
+ * <Main backgroundColor="primary">
+ *   <p>这个主内容区域有主题色背景</p>
+ * </Main>
+ * ```
+ */
+import '../../style.ts';
+import {
+    getBackgroundClass,
+    type BackgroundColor,
+} from '../../src/common/backgrounds';
+import { borderClasses, type BorderSize } from '../../src/common/border';
+import {
+    Article,
+    TableOfContents,
+    type IMainContentProps,
+} from '../../index.ts';
+import MainError from './MainError.astro';
+import { createPaddingConflictError } from './validate.ts';
+import {
+    paddingYClasses,
+    paddingTopClasses,
+    paddingBottomClasses,
+    paddingLeftClasses,
+    paddingRightClasses,
+    paddingXClasses,
+} from '../../src/common/padding-axis';
+
+export interface Props extends IMainContentProps {}
+
+const {
+    size = 'md',
+    padding = 'md',
+    py = 'md',
+    pt,
+    pb,
+    pl,
+    pr,
+    px,
+    centered = true,
+    backgroundColor,
+    border,
+    layout = 'row',
+    isArticle = false,
+    id,
+    showTableOfContents = false,
+    class: className,
+    'class:list': classList,
+    currentLocale,
+    ...rest
+} = Astro.props;
+
+// 新增获取布局类的函数
+function getLayoutClasses(layout: string) {
+    if (layout === 'row') return 'cosy:flex cosy:flex-row';
+    if (layout === 'column') return 'cosy:flex cosy:flex-col';
+    return 'cosy:flex cosy:flex-col'; // 默认列布局
+}
+
+const layoutClass = getLayoutClasses(layout as string);
+
+// 使用通用背景色函数
+
+const pyClass = py
+    ? paddingYClasses[py as keyof typeof paddingYClasses] || ''
+    : '';
+
+const paddingTopClass = pt
+    ? paddingTopClasses[pt as keyof typeof paddingTopClasses] || ''
+    : '';
+
+const paddingBottomClass = pb
+    ? paddingBottomClasses[pb as keyof typeof paddingBottomClasses] || ''
+    : '';
+
+const paddingLeftClass = pl
+    ? paddingLeftClasses[pl as keyof typeof paddingLeftClasses] || ''
+    : '';
+
+const paddingRightClass = pr
+    ? paddingRightClasses[pr as keyof typeof paddingRightClasses] || ''
+    : '';
+
+const paddingXClass = px
+    ? paddingXClasses[px as keyof typeof paddingXClasses] || ''
+    : '';
+
+const bgColorClass = getBackgroundClass(backgroundColor as BackgroundColor);
+const borderClass = border
+    ? borderClasses[border as keyof typeof borderClasses] || ''
+    : '';
+
+// 检查 padding 属性冲突
+const paddingError = createPaddingConflictError(px, pl, pr, py, pt, pb);
+
+// 构建自定义样式
+const customStyle = [];
+
+// 只有当没有对应的Tailwind类时，才使用内联样式
+if (!pyClass && py && py !== 'none') {
+    customStyle.push(`padding-top: ${py}; padding-bottom: ${py};`);
+}
+
+if (!paddingTopClass && pt && pt !== 'none') {
+    customStyle.push(`padding-top: ${pt};`);
+}
+
+if (!paddingBottomClass && pb && pb !== 'none') {
+    customStyle.push(`padding-bottom: ${pb};`);
+}
+
+if (!paddingLeftClass && pl && pl !== 'none') {
+    customStyle.push(`padding-left: ${pl};`);
+}
+
+if (!paddingRightClass && pr && pr !== 'none') {
+    customStyle.push(`padding-right: ${pr};`);
+}
+
+if (!paddingXClass && px && px !== 'none') {
+    customStyle.push(`padding-left: ${px}; padding-right: ${px};`);
+}
+
+if (!bgColorClass && backgroundColor) {
+    customStyle.push(`background-color: ${backgroundColor};`);
+}
+
+const inlineStyle = customStyle.length > 0 ? customStyle.join(' ') : undefined;
+
+// 检查是否有冲突，如果有则显示错误提示
+const hasError = Boolean(paddingError);
+---
+
+{
+    hasError ? (
+        <MainError show={hasError} error={paddingError || undefined} />
+    ) : (
+        <main
+            id={id}
+            class:list={[
+                'cosy:w-full',
+                layoutClass,
+                pyClass,
+                paddingTopClass,
+                paddingBottomClass,
+                paddingLeftClass,
+                paddingRightClass,
+                paddingXClass,
+                bgColorClass,
+                borderClass,
+                className,
+                classList,
+            ]}
+            style={inlineStyle}
+            {...rest}>
+            {isArticle ? (
+                <Article>
+                    <slot />
+                </Article>
+            ) : (
+                <slot />
+            )}
+
+            {showTableOfContents && <TableOfContents lang={currentLocale} />}
+        </main>
+    )
+}

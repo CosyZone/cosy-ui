@@ -1,0 +1,54 @@
+---
+import { CodeIcon } from "../icons/index";
+const { isCodeView = false } = Astro.props;
+---
+
+<button
+  role="switch"
+  class={`cosy:btn cosy:btn-ghost cosy:btn-sm ${isCodeView ? 'cosy:btn-primary' : ''}`}
+  aria-checked={isCodeView ? 'true' : 'false'}
+  aria-label="切换代码/预览"
+  data-toggle="code">
+  <span class="cosy:code-icon"><CodeIcon /></span>
+</button>
+
+<script>
+  function initializeCodeToggle() {
+    const codeToggles = document.querySelectorAll('[data-toggle="code"]');
+    codeToggles.forEach((toggle) => {
+      toggle.addEventListener('click', () => {
+        const container = toggle.closest('[data-role="code-container"]');
+        if (!container) {
+          console.error('CodeContainer: 无法找到父容器');
+          return;
+        }
+        const isChecked = toggle.getAttribute('aria-checked') === 'true';
+        toggle.setAttribute('aria-checked', !isChecked ? 'true' : 'false');
+        toggle.classList.toggle('cosy:btn-primary', !isChecked);
+        toggle.classList.toggle('cosy:btn-ghost', isChecked);
+        const activeExample = container.querySelector(
+          '.cosy\\:example-container:not(.cosy\\:hidden)'
+        );
+        if (!activeExample) {
+          console.error('CodeContainer: 无法找到活动示例');
+          return;
+        }
+        activeExample
+          .querySelectorAll('.cosy\\:code-example-panel')
+          .forEach((panel) => {
+            if (panel.getAttribute('data-panel') === 'code') {
+              panel.classList.toggle('cosy:hidden', isChecked);
+              panel.classList.toggle('cosy:block', !isChecked);
+            } else {
+              panel.classList.toggle('cosy:hidden', !isChecked);
+              panel.classList.toggle('cosy:block', isChecked);
+            }
+          });
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    initializeCodeToggle();
+  });
+</script>

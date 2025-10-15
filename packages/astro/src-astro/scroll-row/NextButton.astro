@@ -1,0 +1,20 @@
+---
+import { Button } from '../..';
+import ChevronRightIcon from '../icons/ChevronRightIcon.astro';
+
+interface INextButtonProps {
+    disabled?: boolean;
+}
+
+const { disabled = false } = Astro.props as INextButtonProps;
+---
+
+<Button
+    type="button"
+    variant="ghost"
+    size="sm"
+    class="scroll-row-nav-next"
+    aria-label="Next"
+    disabled={disabled}>
+    <ChevronRightIcon />
+</Button>

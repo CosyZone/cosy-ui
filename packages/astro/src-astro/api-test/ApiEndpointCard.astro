@@ -1,0 +1,254 @@
+---
+/**
+ * @component ApiEndpointCard
+ *
+ * @description
+ * ApiEndpointCard 组件用于显示单个API端点的测试界面，包括参数输入、快速测试和测试结果展示。
+ * 支持多种参数类型，提供直观的测试体验。
+ *
+ * @design
+ * 设计理念：
+ * 1. 清晰的信息层次 - 通过视觉分组和间距清晰展示API信息
+ * 2. 直观的参数输入 - 支持多种输入类型，提供验证和默认值
+ * 3. 便捷的快速测试 - 预设常用参数组合，提高测试效率
+ * 4. 详细的结果展示 - 清晰展示请求和响应信息
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <ApiEndpointCard endpoint={endpoint} />
+ * ```
+ *
+ * @props
+ * @prop {IApiEndpoint} endpoint - API端点配置信息
+ * @prop {string} [class] - 自定义CSS类名
+ */
+
+import Card from "../card/Card.astro";
+import Button from "../button/Button.astro";
+import Badge from "../badge/Badge.astro";
+import type { IApiEndpoint } from "../types/api-test";
+
+interface Props {
+	endpoint: IApiEndpoint;
+	class?: string;
+}
+
+const { endpoint, class: className } = Astro.props;
+
+// 预处理数据
+const hasParams = endpoint.params && endpoint.params.length > 0;
+const hasQuickTests = endpoint.quickTests && endpoint.quickTests.length > 0;
+const hasDescription = !!endpoint.description;
+
+// 获取HTTP方法对应的颜色
+const getMethodColor = (
+	method: string,
+):
+	| "success"
+	| "primary"
+	| "warning"
+	| "error"
+	| "info"
+	| "secondary"
+	| "accent"
+	| "ghost" => {
+	const colors: Record<
+		string,
+		| "success"
+		| "primary"
+		| "warning"
+		| "error"
+		| "info"
+		| "secondary"
+		| "accent"
+		| "ghost"
+	> = {
+		GET: "success",
+		POST: "primary",
+		PUT: "warning",
+		DELETE: "error",
+		PATCH: "info",
+	};
+	return colors[method] || "neutral";
+};
+
+// 获取参数类型对应的输入元素
+const getInputElement = (param: any) => {
+	const baseAttrs = {
+		"data-param": param.name,
+		"data-endpoint": endpoint.path,
+		"data-required": param.required || false,
+		"data-validation": JSON.stringify(param.validation || {}),
+	};
+
+	return {
+		type: param.type || "text",
+		attrs: baseAttrs,
+		options: param.options || [],
+		defaultValue: param.defaultValue,
+		placeholder: param.placeholder,
+		required: param.required,
+		validation: param.validation,
+	};
+};
+---
+
+<Card title={endpoint.name} class={className}>
+  <div class="space-y-4">
+    {/* HTTP方法和路径 */}
+    <div class="bg-base-200 p-3 rounded-lg flex items-center gap-2 flex-wrap">
+      <Badge variant={getMethodColor(endpoint.method)}>
+        {endpoint.method}
+      </Badge>
+      <code class="text-primary font-mono text-sm break-all">
+        {endpoint.path}
+      </code>
+    </div>
+
+    {/* 描述 */}
+    {
+      hasDescription && (
+        <p class="text-base-content/70">{endpoint.description}</p>
+      )
+    }
+
+    {/* 参数输入 */}
+    {
+      hasParams && (
+        <div class="space-y-3">
+          <p class="font-medium text-base-content">请求参数：</p>
+          {endpoint.params!.map((param) => {
+            const inputConfig = getInputElement(param);
+            return (
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text">
+                    {param.name}
+                    {param.required && <span class="text-error ml-1">*</span>}
+                  </span>
+                  {param.validation?.message && (
+                    <span class="label-text-alt text-warning">
+                      {param.validation.message}
+                    </span>
+                  )}
+                </label>
+
+                {inputConfig.type === 'select' ? (
+                  <select
+                    class="select select-bordered w-full"
+                    data-param={inputConfig.attrs['data-param']}
+                    data-endpoint={inputConfig.attrs['data-endpoint']}
+                    data-required={inputConfig.attrs['data-required']}
+                    data-validation={inputConfig.attrs['data-validation']}
+                    required={inputConfig.required}>
+                    <option value="">请选择</option>
+                    {inputConfig.options.map((option: string) => (
+                      <option
+                        value={option}
+                        selected={option === inputConfig.defaultValue}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                ) : inputConfig.type === 'textarea' ? (
+                  <textarea
+                    class="textarea textarea-bordered w-full"
+                    placeholder={inputConfig.placeholder}
+                    rows={3}
+                    data-param={inputConfig.attrs['data-param']}
+                    data-endpoint={inputConfig.attrs['data-endpoint']}
+                    data-required={inputConfig.attrs['data-required']}
+                    data-validation={inputConfig.attrs['data-validation']}
+                    required={inputConfig.required}>
+                    {inputConfig.defaultValue || ''}
+                  </textarea>
+                ) : inputConfig.type === 'checkbox' ? (
+                  <input
+                    type="checkbox"
+                    class="checkbox checkbox-primary"
+                    data-param={inputConfig.attrs['data-param']}
+                    data-endpoint={inputConfig.attrs['data-endpoint']}
+                    data-required={inputConfig.attrs['data-required']}
+                    data-validation={inputConfig.attrs['data-validation']}
+                    checked={inputConfig.defaultValue || false}
+                  />
+                ) : inputConfig.type === 'radio' ? (
+                  <div class="flex flex-wrap gap-3">
+                    {inputConfig.options.map((option: string) => (
+                      <label class="label cursor-pointer gap-2">
+                        <input
+                          type="radio"
+                          name={`${endpoint.path}-${param.name}`}
+                          class="radio radio-primary"
+                          value={option}
+                          data-param={inputConfig.attrs['data-param']}
+                          data-endpoint={inputConfig.attrs['data-endpoint']}
+                          data-required={inputConfig.attrs['data-required']}
+                          data-validation={inputConfig.attrs['data-validation']}
+                          checked={option === inputConfig.defaultValue}
+                        />
+                        <span class="label-text">{option}</span>
+                      </label>
+                    ))}
+                  </div>
+                ) : (
+                  <input
+                    type={inputConfig.type}
+                    placeholder={inputConfig.placeholder}
+                    class="input input-bordered w-full"
+                    data-param={inputConfig.attrs['data-param']}
+                    data-endpoint={inputConfig.attrs['data-endpoint']}
+                    data-required={inputConfig.attrs['data-required']}
+                    data-validation={inputConfig.attrs['data-validation']}
+                    required={inputConfig.required}
+                    value={inputConfig.defaultValue || ''}
+                    min={inputConfig.validation?.min}
+                    max={inputConfig.validation?.max}
+                    pattern={inputConfig.validation?.pattern}
+                  />
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )
+    }
+
+    {/* 快速测试 */}
+    {
+      hasQuickTests && (
+        <div>
+          <p class="text-sm text-base-content/70 mb-3">快速填充参数：</p>
+          <div class="flex flex-wrap gap-2">
+            {endpoint.quickTests!.map((quickTest, index) => (
+              <Button
+                variant="outline"
+                size="sm"
+                data-quick-test={JSON.stringify(quickTest.values)}
+                data-endpoint={endpoint.path}
+                title={quickTest.description}>
+                {quickTest.label}
+              </Button>
+            ))}
+          </div>
+        </div>
+      )
+    }
+
+    {/* 测试按钮 */}
+    <Button
+      variant="primary"
+      block
+      data-endpoint={endpoint.path}
+      data-method={endpoint.method}>
+      测试接口
+    </Button>
+
+    {/* 测试结果 */}
+    <div
+      class="hidden mt-4 p-4 bg-base-200 rounded-lg border-l-4 border-l-primary"
+      data-result={endpoint.path}>
+    </div>
+  </div>
+</Card>

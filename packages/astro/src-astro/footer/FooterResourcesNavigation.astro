@@ -1,0 +1,45 @@
+---
+/**
+ * @component FooterResourcesNavigation
+ * @description Footer 的资源导航子组件，包含新闻、博客、常见问题、历史、技术栈等链接
+ * @internal 供 FooterNavigation 内部使用
+ */
+
+import FooterSection from "./FooterSection.astro";
+import type { IResourcesInfo } from "./types";
+
+export interface Props {
+	/** 资源信息 */
+	resourcesInfo?: IResourcesInfo;
+	/** 文本获取函数 */
+	t: (key: string) => string;
+}
+
+const { resourcesInfo, t } = Astro.props as Props;
+
+// 检查是否有任何资源相关的链接
+const hasResourceLinks =
+	resourcesInfo &&
+	(resourcesInfo.newsLink ||
+		resourcesInfo.historyLink ||
+		resourcesInfo.partnersLink ||
+		resourcesInfo.blogLink ||
+		resourcesInfo.faqLink ||
+		resourcesInfo.mediaLink ||
+		resourcesInfo.techStackLink);
+---
+
+{
+  hasResourceLinks && (
+    <FooterSection
+      title={t('resources')}
+      links={[
+        { name: t('news'), href: resourcesInfo?.newsLink ?? '' },
+        { name: t('blog'), href: resourcesInfo?.blogLink ?? '' },
+        { name: t('faq'), href: resourcesInfo?.faqLink ?? '' },
+        { name: t('history'), href: resourcesInfo?.historyLink ?? '' },
+        { name: t('techStack'), href: resourcesInfo?.techStackLink ?? '' },
+      ].filter((link) => link.href)}
+    />
+  )
+}

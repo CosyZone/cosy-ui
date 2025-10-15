@@ -1,0 +1,191 @@
+---
+/**
+ * @component Skeleton
+ *
+ * @description
+ * Skeleton 组件是一个智能的骨架屏加载器，用于在页面加载或路由切换时显示骨架屏。
+ * 它会监听 Astro 的页面过渡事件，在加载期间隐藏实际内容并显示骨架屏。
+ * 支持在骨架屏背景上显示 loading 动画元素。
+ *
+ * @design
+ * 设计理念：
+ * 1. 用户体验优先 - 通过骨架屏提供视觉反馈，避免空白页面
+ * 2. 智能切换 - 自动在加载状态和内容状态之间切换
+ * 3. 可定制性 - 支持自定义骨架屏样式和布局
+ * 4. 性能优化 - 使用 CSS 动画，避免阻塞主线程
+ * 5. 视觉层次 - 骨架屏提供内容结构，loading 动画提供动态反馈
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Skeleton>
+ *   <div>实际内容</div>
+ * </Skeleton>
+ * ```
+ *
+ * 显示 loading 元素：
+ * ```astro
+ * <Skeleton
+ *   showLoading={true}
+ *   loadingSize="lg"
+ *   loadingType="ring"
+ * >
+ *   <div>实际内容</div>
+ * </Skeleton>
+ * ```
+ *
+ * 自定义骨架屏：
+ * ```astro
+ * <Skeleton
+ *   skeletonClass="cosy:bg-gray-200 cosy:animate-pulse"
+ *   loadingDelay={500}
+ *   showLoading={false}
+ * >
+ *   <div>实际内容</div>
+ * </Skeleton>
+ * ```
+ *
+ * @props
+ * - loadingDelay?: number - 延迟显示时间（毫秒），默认为 1000ms
+ * - skeletonClass?: string - 骨架屏的自定义 CSS 类名
+ * - showLoading?: boolean - 是否显示 loading 元素，默认为 false
+ * - loadingSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' - loading 元素尺寸，默认为 'md'
+ * - loadingType?: 'ring' | 'dots' | 'spinner' | 'bars' | 'infinity' - loading 类型，默认为 'ring'
+ *
+ * @slots
+ * - default - 实际内容，在加载完成后显示
+ *
+ * @events
+ * 组件会自动监听以下 Astro 事件：
+ * - astro:page-load - 页面加载完成时显示内容
+ * - astro:before-preparation - 页面准备前显示骨架屏
+ * - astro:before-swap - 路由切换前显示骨架屏
+ * - astro:after-swap - 路由切换后显示内容
+ */
+
+import "../../style.ts";
+import {
+	getLoadingClass,
+	type LoadingType,
+	type LoadingSize,
+} from "../../src/common";
+
+export interface Props {
+	/** 延迟显示时间（毫秒），默认1000ms */
+	loadingDelay?: number;
+	/** 骨架屏的自定义 CSS 类名 */
+	skeletonClass?: string;
+	/** 是否显示 loading 元素，默认 false */
+	showLoading?: boolean;
+	/** loading 元素尺寸，默认 'md' */
+	loadingSize?: LoadingSize;
+	/** loading 类型，默认 'ring' */
+	loadingType?: LoadingType;
+}
+
+const {
+	loadingDelay = 1000,
+	skeletonClass = "",
+	showLoading = false,
+	loadingSize = "md",
+	loadingType = "ring",
+} = Astro.props;
+
+// 生成唯一的 ID
+const loaderId = `skeleton-loader-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div id={loaderId} class="cosy:relative cosy:w-full">
+  <!-- 骨架屏 -->
+  <div
+    id={`${loaderId}-skeleton`}
+    style="display: none;"
+    class={`cosy:relative cosy:flex cosy:items-center cosy:justify-center cosy:min-h-[200px] ${skeletonClass}`}>
+    <!-- 骨架屏背景 -->
+    <div class="cosy:skeleton cosy:h-24 cosy:w-24 cosy:rounded-md"></div>
+
+    <!-- Loading 前景元素 -->
+    {
+      showLoading && (
+        <div class="cosy:absolute cosy:inset-0 cosy:flex cosy:items-center cosy:justify-center">
+          <span class={getLoadingClass(loadingType, loadingSize)} />
+        </div>
+      )
+    }
+  </div>
+
+  <!-- 实际内容 -->
+  <div
+    id={`${loaderId}-content`}
+    class="cosy:relative cosy:z-20"
+    style="opacity: 1; transition: opacity 0.3s ease-in-out;">
+    <slot />
+  </div>
+</div>
+
+<script is:inline define:vars={{ loaderId, loadingDelay }}>
+  let showTimeout = null;
+  let hideTimeout = null;
+  let loaded = false;
+
+  const getSkeletonElement = () => {
+    return document.getElementById(`${loaderId}-skeleton`);
+  };
+
+  const getContentElement = () => {
+    return document.getElementById(`${loaderId}-content`);
+  };
+
+  const showSkeleton = () => {
+    const skeleton = getSkeletonElement();
+    const content = getContentElement();
+
+    if (!skeleton || !content || loaded) return;
+
+    // 隐藏内容
+    content.style.opacity = '0';
+    // 显示骨架屏
+    skeleton.style.display = 'flex';
+  };
+
+  // 显示骨架屏的函数
+  const showLoader = () => {
+    if (loaded) return;
+
+    // 设置延迟显示
+    showTimeout = setTimeout(() => {
+      if (loaded) return;
+      showSkeleton();
+    }, loadingDelay);
+  };
+
+  // 监听 Astro 页面过渡事件
+  document.addEventListener('astro:page-load', () => {
+    loaded = true;
+  });
+
+  document.addEventListener('astro:before-preparation', () => {
+    loaded = false;
+    showLoader('astro:before-preparation');
+  });
+
+  // 监听路由变化
+  document.addEventListener('astro:before-swap', () => {
+    loaded = false;
+    showLoader('astro:before-swap');
+  });
+
+  document.addEventListener('astro:after-swap', () => {
+    loaded = true;
+  });
+
+  // 页面卸载时清理定时器
+  window.addEventListener('beforeunload', () => {
+    if (showTimeout) {
+      clearTimeout(showTimeout);
+    }
+    if (hideTimeout) {
+      clearTimeout(hideTimeout);
+    }
+  });
+</script>

@@ -1,0 +1,26 @@
+---
+/**
+ * @component SmartBg
+ * @description 根据关键词自动分配合适的背景色，支持中英文关键词，未匹配时使用默认色。可选启用渐变色。
+ * @props {string} keyword - 关键词
+ * @props {boolean} enableGradient - 是否启用渐变色，默认 false
+ * @usage <SmartBg keyword="JavaScript" enableGradient>内容</SmartBg>
+ */
+import { bgColorMap, bgGradientMap, mapKeywordToBgKey } from "./bg-util";
+
+const {
+	keyword = "",
+	class: className = "",
+	style = "",
+	enableGradient = false,
+} = Astro.props;
+
+const bgKey = mapKeywordToBgKey(keyword);
+const bgClass = enableGradient
+	? bgGradientMap[bgKey] || bgGradientMap["neutral"]
+	: bgColorMap[bgKey] || bgColorMap["neutral"];
+---
+
+<div class={`${bgClass} ${className} cosy:h-full`} style={style}>
+  <slot />
+</div>

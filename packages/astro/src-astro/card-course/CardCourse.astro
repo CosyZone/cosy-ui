@@ -1,0 +1,103 @@
+---
+/**
+ * @component CardCourse
+ *
+ * @description
+ * 课程卡片组件，用于展示课程信息，具有统一的设计风格。支持动态图标和渐变背景。
+ *
+ * @usage
+ * ```astro
+ * <CardCourse courseName="React 基础教程" lang="zh" href="/courses/react-basics" />
+ * <CardCourse courseName="Vue 进阶" lang="zh" href="/courses/vue" contentPadding="md" />
+ * <CardCourse courseName="AI 编程" keywords={["人工智能", "机器学习", "Python"]} lang="zh" href="/courses/ai" />
+ * ```
+ *
+ * @props
+ * - contentPadding?: "none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" - 内容区域内边距，默认为 "lg"
+ * - courseName: string - 课程标题
+ * - description?: string - 课程描述
+ * - href: string - 课程链接
+ * - iconSize?: "sm" | "md" | "lg" | "xl" - 图标尺寸，默认为 "md"
+ * - keywords?: string[] - 图标关键词数组，用于图标匹配
+ * - lang: string - 语言（"en" 或 "zh"）
+ */
+
+import "../../style.ts";
+import {
+	formatDisplayName,
+	getIconSizeClasses,
+	getContentPaddingClasses,
+} from "./config";
+import CardCourseIcon from "./CardCourseIcon.astro";
+import CardCourseContent from "./CardCourseContent.astro";
+import CardCourseButton from "./CardCourseButton.astro";
+import { SmartBg } from "../smart-bg";
+import type { PaddingSize } from "./types";
+
+interface Props {
+	contentPadding?: PaddingSize;
+	courseName: string;
+	description?: string;
+	href: string;
+	iconSize?: "sm" | "md" | "lg" | "xl";
+	keywords?: string[];
+	lang: string;
+}
+
+const {
+	contentPadding = "lg",
+	courseName,
+	description = "",
+	href,
+	iconSize = "md",
+	keywords = [],
+	lang,
+} = Astro.props;
+
+const displayName = formatDisplayName(courseName);
+const iconSizeClasses = getIconSizeClasses(iconSize);
+const contentPaddingClasses = getContentPaddingClasses(contentPadding);
+---
+
+<div
+  ignore-heading
+  class={`
+    cosy:card 
+    cosy:shadow-lg
+    cosy:hover:shadow-2xl 
+    cosy:hover:scale-105 
+    cosy:overflow-hidden
+    cosy:relative 
+    cosy:group 
+    cosy:cursor-pointer 
+    cosy:transform 
+    cosy:ease-in-out
+    cosy:transition-all
+    cosy:duration-300
+    cosy:border
+    cosy:border-base-content/30
+    cosy:backdrop-blur-sm`}>
+  <!-- 背景 -->
+  <SmartBg
+    keyword={courseName}
+    class={`cosy:relative cosy:z-10`}
+    enableGradient={true}>
+    <!-- 背景图标 -->
+    <CardCourseIcon
+      courseName={courseName}
+      keywords={keywords}
+      iconSizeClasses={iconSizeClasses}
+    />
+
+    <div
+      class={`cosy:card-body ${contentPaddingClasses} cosy:bg-base-100/30 cosy:relative cosy:z-10 cosy:h-full`}>
+      <!-- 内容区域 -->
+      <CardCourseContent displayName={displayName} description={description} />
+
+      <!-- 按钮区域 -->
+      <div class="cosy:card-actions cosy:justify-start cosy:mt-4">
+        <CardCourseButton href={href} lang={lang} />
+      </div>
+    </div>
+  </SmartBg>
+</div>

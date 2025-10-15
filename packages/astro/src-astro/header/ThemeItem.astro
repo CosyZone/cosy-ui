@@ -1,0 +1,85 @@
+---
+/**
+ * @component ThemeItem
+ *
+ * @description
+ * ThemeItem 组件用于主题切换菜单中的单个主题项。
+ * 它基于 Button 组件，提供了主题切换的交互功能。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <ThemeItem theme="light" label="浅色主题" />
+ * <ThemeItem theme="dark" label="深色主题" />
+ * ```
+ */
+
+import { Button, CheckIcon } from '../../index.ts';
+import '../../style.ts';
+
+interface Props {
+    /**
+     * 主题名称
+     */
+    theme: string;
+    /**
+     * 显示的标签文本
+     */
+    label: string;
+    /**
+     * 自定义类名
+     */
+    class?: string;
+}
+
+const { theme, label, class: className = '' } = Astro.props;
+---
+
+<Button
+    variant="ghost"
+    size="sm"
+    block
+    class={`cosy:text-left cosy:justify-start ${className} cosy:theme-item`}
+    data-theme-id={theme}>
+    <div
+        class="cosy:flex cosy:items-center cosy:flex-row cosy:justify-between cosy:w-full">
+        <span>{label}</span>
+        <CheckIcon
+            size="16px"
+            class="cosy:theme-check cosy:hidden cosy:text-primary cosy:ml-2"
+        />
+    </div>
+</Button>
+
+<script>
+    import { createThemeManager } from '../../src/utils/theme';
+
+    const themeManager = createThemeManager();
+
+    // 初始化主题切换按钮
+    function initThemeSwitcher() {
+        document.querySelectorAll('.cosy\\:theme-item').forEach((item) => {
+            item.addEventListener('click', () => {
+                const theme = item.getAttribute('data-theme-id');
+                if (theme) {
+                    themeManager.setTheme(theme);
+                }
+            });
+        });
+    }
+
+    // 初始加载时初始化
+    function initialize() {
+        themeManager.initialize();
+        initThemeSwitcher();
+    }
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', initialize);
+
+    // Astro view transitions 后重新初始化
+    document.addEventListener('astro:after-swap', initialize);
+
+    // 确保脚本加载后立即初始化
+    initialize();
+</script>

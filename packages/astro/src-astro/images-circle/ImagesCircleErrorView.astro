@@ -1,0 +1,31 @@
+---
+/**
+ * @component ImagesCircleErrorView
+ * @description ImagesCircle 组件的错误视图，当图片数据无效时显示
+ */
+
+interface Props {
+	imageCount: number;
+	class?: string;
+}
+
+const { imageCount, class: className = "" } = Astro.props;
+---
+
+<div
+  class={`cosy:flex cosy:items-center cosy:justify-center cosy:p-8 cosy:border-2 cosy:border-dashed cosy:border-gray-300 cosy:rounded-lg ${className}`}>
+  <div class="cosy:text-center cosy:text-gray-500">
+    <p class="cosy:text-lg cosy:font-medium">⚠️ 图片数据无效</p>
+    <p class="cosy:text-sm cosy:mt-2">
+      {
+        imageCount === 0
+          ? '请提供至少 3 张奇数个图片'
+          : imageCount < 2
+            ? `当前只有 ${imageCount} 张图片，需要至少 3 张`
+            : imageCount % 2 === 0
+              ? `当前有 ${imageCount} 张图片（偶数），需要奇数个图片才能有明确的中心图片`
+              : '图片数据格式不正确'
+      }
+    </p>
+  </div>
+</div>

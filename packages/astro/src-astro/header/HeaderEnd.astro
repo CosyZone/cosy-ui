@@ -1,0 +1,86 @@
+---
+/**
+ * @component HeaderEnd
+ *
+ * @description
+ * HeaderEnd 组件负责渲染 Header 的右侧区域，包括主题切换器、语言切换器和右侧导航项。
+ * 这是一个内部组件，通常由 Header 组件使用。
+ *
+ * @usage
+ * ```astro
+ * <HeaderEnd
+ *   navPosition={navPosition}
+ *   navItems={navItems}
+ *   activeLink={activeLink}
+ *   linkHeightClass={linkHeightClass}
+ *   showThemeSwitcher={showThemeSwitcher}
+ *   isI18nEnabled={isI18nEnabled}
+ *   astroI18n={astroI18n}
+ * />
+ * ```
+ *
+ * @props
+ * - navPosition - 导航位置
+ * - navItems - 导航项数组
+ * - activeLink - 当前激活的链接
+ * - linkHeightClass - 链接高度类名
+ * - showThemeSwitcher - 是否显示主题切换器
+ * - isI18nEnabled - 是否启用国际化
+ * - astroI18n - astro:i18n 模块
+ */
+import { LanguageSwitcher, MenuIcon, type INavItem } from '../..';
+import NavItems from './NavItems.astro';
+import ThemeSwitcher from './ThemeSwitcher.astro';
+
+export interface Props {
+    navPosition: string;
+    navItems: INavItem[];
+    activeLink: string;
+    linkHeightClass: string;
+    showThemeSwitcher: boolean;
+    isI18nEnabled: boolean;
+    astroI18n?: any;
+}
+
+const {
+    navPosition,
+    navItems,
+    activeLink,
+    linkHeightClass,
+    showThemeSwitcher,
+    isI18nEnabled,
+    astroI18n,
+} = Astro.props;
+---
+
+<div class="cosy:navbar-end cosy:pr-1">
+    {
+        navPosition === 'end' && (
+            <div class="cosy:hidden cosy:lg:flex">
+                <NavItems
+                    navItems={navItems}
+                    activeLink={activeLink}
+                    linkHeightClass={linkHeightClass}
+                    gap={4}
+                />
+            </div>
+        )
+    }
+
+    {showThemeSwitcher && <ThemeSwitcher />}
+    {isI18nEnabled && <LanguageSwitcher astroI18n={astroI18n} />}
+
+    <!-- 移动端汉堡菜单按钮 -->
+    {
+        navItems.length > 0 && (
+            <button
+                type="button"
+                class="cosy:btn cosy:btn-ghost cosy:btn-sm cosy:lg:hidden"
+                data-modal-target="mobile-nav">
+                <MenuIcon class="cosy:w-5 cosy:h-5" />
+            </button>
+        )
+    }
+
+    <slot />
+</div>

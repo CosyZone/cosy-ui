@@ -1,0 +1,20 @@
+---
+import { Button } from '../..';
+import ChevronLeftIcon from '../icons/ChevronLeftIcon.astro';
+
+interface IPrevButtonProps {
+    disabled?: boolean;
+}
+
+const { disabled = true } = Astro.props as IPrevButtonProps;
+---
+
+<Button
+    type="button"
+    variant="ghost"
+    size="sm"
+    class="scroll-row-nav-prev"
+    aria-label="Previous"
+    disabled={disabled}>
+    <ChevronLeftIcon />
+</Button>
