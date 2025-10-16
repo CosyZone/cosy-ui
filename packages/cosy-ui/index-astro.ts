@@ -47,6 +47,7 @@ export * from "./src-astro/loading-overlay";
 export * from "./src-astro/login";
 export * from "./src-astro/logout";
 export * from "./src-astro/mac-window";
+export * from "./src-astro/apple-phone";
 export * from "./src-astro/main";
 export * from "./src-astro/modal";
 export * from "./src-astro/module";

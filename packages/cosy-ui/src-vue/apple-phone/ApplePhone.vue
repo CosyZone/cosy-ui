@@ -3,7 +3,7 @@
   import { AlertDialog, Container } from '../../index-vue';
   import { ref } from 'vue';
   import type { BackgroundColor } from '../../src/common/backgrounds';
-  import iphoneFrame from './assets/iPhone 14 Pro - Deep Purple - Portrait.png';
+  import iphoneFrame from '../../src/components/apple-phone/assets/iPhone 14 Pro - Deep Purple - Portrait.png';
   import StatusBarContent from './StatusBarContent.vue';
 
   /**
@@ -29,16 +29,12 @@
    * @emits
    */
 
+  import type { IApplePhoneProps } from "./props";
+
   // 类型定义
   type HeightOption = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl';
 
-  interface Props {
-    height?: HeightOption;
-    title?: string;
-    withShadow?: boolean;
-    showFrame?: boolean;
-    backgroundColor?: BackgroundColor;
-  }
+  interface Props extends IApplePhoneProps {}
 
   // Props 定义
   const props = withDefaults(defineProps<Props>(), {
@@ -49,37 +45,19 @@
     backgroundColor: undefined,
   });
 
-  // iPhone边框图片-宽度
-  const iphoneFrameWidth = 1339;
-  // iPhone边框图片-高度
-  const iphoneFrameHeight = 2716;
-  // iPhone边框图片-状态栏离上边框的距离
-  const iphoneFrameStatusBarTop = 115;
-  // iPhone边框图片-状态栏高度
-  const iphoneFrameStatusBarHeight = 110;
-
-  // 比例-总宽度
-  const mainContentWidthAspectRatio = 1179 / iphoneFrameWidth;
-  // 比例-总高度
-  const mainContentHeightAspectRatio = 2556 / iphoneFrameHeight;
-  // 比例-状态栏高度
-  const iphoneFrameStatusBarHeightAspectRatio =
-    iphoneFrameStatusBarHeight / iphoneFrameHeight;
-  // 比例-状态栏离上边框的距离
-  const iphoneFrameStatusBarTopAspectRatio =
-    iphoneFrameStatusBarTop / iphoneFrameHeight;
-
-  // 预定义的高度选项
-  const heightClasses: Record<HeightOption, string> = {
-    sm: 'cosy:h-64', // 256px
-    md: 'cosy:h-80', // 320px
-    lg: 'cosy:h-96', // 384px
-    xl: 'cosy:h-[480px]', // 480px
-    '2xl': 'cosy:h-[560px]', // 560px
-    '3xl': 'cosy:h-[640px]', // 640px
-    '4xl': 'cosy:h-[720px]', // 720px
-    '5xl': 'cosy:h-[800px]', // 800px
-  };
+  import { 
+    IPHONE_FRAME_WIDTH,
+    IPHONE_FRAME_HEIGHT,
+    IPHONE_FRAME_STATUS_BAR_TOP,
+    IPHONE_FRAME_STATUS_BAR_HEIGHT,
+    MAIN_CONTENT_WIDTH_ASPECT_RATIO,
+    MAIN_CONTENT_HEIGHT_ASPECT_RATIO,
+    IPHONE_FRAME_STATUS_BAR_HEIGHT_ASPECT_RATIO,
+    IPHONE_FRAME_STATUS_BAR_TOP_ASPECT_RATIO,
+    HEIGHT_CLASSES,
+    HEIGHT_VALUES,
+    DEFAULT_HEIGHT
+  } from "../../src/components/apple-phone/constants";
 
   // 响应式数据
   const showAlertDialog = ref(false);
@@ -87,20 +65,13 @@
 
   // 计算当前高度的缩放比例
   const getScaleRatio = () => {
-    const heightValues = {
-      sm: 256,
-      md: 320,
-      lg: 384,
-      xl: 480,
-      '2xl': 560,
-      '3xl': 640,
-      '4xl': 720,
-      '5xl': 800,
-    };
-    const currentHeight = heightValues[props.height];
+    const currentHeight = HEIGHT_VALUES[props.height];
     // 基于特定高度计算缩放比例
     return currentHeight / 500;
   };
+
+  // 预定义的高度选项
+  const heightClasses: Record<HeightOption, string> = HEIGHT_CLASSES;
 
   // 计算属性
   const iphoneFrameSrc = (iphoneFrame as any).src || iphoneFrame;
@@ -108,9 +79,9 @@
 
 <template>
   <div
-    :class="['cosy:relative not-prose cosy:mx-auto', heightClasses[height]]"
+    :class="['cosy:relative not-prose cosy:mx-auto', HEIGHT_CLASSES[height]]"
     :style="{
-      aspectRatio: `${iphoneFrameWidth}/${iphoneFrameHeight}`,
+      aspectRatio: `${IPHONE_FRAME_WIDTH}/${IPHONE_FRAME_HEIGHT}`,
     }"
     apple-phone>
     <!-- iPhone 边框 -->
@@ -131,9 +102,9 @@
     <div
       :style="{
         position: 'absolute',
-        top: iphoneFrameStatusBarTopAspectRatio * 100 + '%',
-        height: iphoneFrameStatusBarHeightAspectRatio * 100 + '%',
-        width: mainContentWidthAspectRatio * 100 + '%',
+        top: IPHONE_FRAME_STATUS_BAR_TOP_ASPECT_RATIO * 100 + '%',
+        height: IPHONE_FRAME_STATUS_BAR_HEIGHT_ASPECT_RATIO * 100 + '%',
+        width: MAIN_CONTENT_WIDTH_ASPECT_RATIO * 100 + '%',
         left: '50%',
         transform: 'translate(-50%, 0)',
         paddingLeft: '5%',
@@ -147,8 +118,8 @@
     <div
       class="cosy:inset-0 cosy:h-full"
       :style="{
-        width: mainContentWidthAspectRatio * 100 + '%',
-        height: mainContentHeightAspectRatio * 100 + '%',
+        width: MAIN_CONTENT_WIDTH_ASPECT_RATIO * 100 + '%',
+        height: MAIN_CONTENT_HEIGHT_ASPECT_RATIO * 100 + '%',
         // 水平居中
         left: '50%',
         // 垂直居中

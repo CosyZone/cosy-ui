@@ -8,6 +8,12 @@ declare global {
 			[elemName: string]: any;
 		}
 	}
+
+	namespace JSX {
+		interface IntrinsicElements {
+			[elemName: string]: any;
+		}
+	}
 }
 
 declare module "*.vue?raw" {
