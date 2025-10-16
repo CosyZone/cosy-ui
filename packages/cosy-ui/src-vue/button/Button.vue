@@ -18,6 +18,7 @@ import { getButtonCombinedClassesVue } from "./class";
  * @props {string} [href] - 链接地址，设置后按钮变为链接形式
  * @props {string} [target] - 链接目标，支持 _self、_blank、_parent、_top
  * @props {Function} [onClick] - 点击事件处理函数
+ * @props {string|object} [class] - 自定义 CSS 类名，支持字符串或对象形式
  */
 
 const props = withDefaults(defineProps<IButtonProps>(), {

@@ -7,6 +7,23 @@ import { getButtonModifierClasses } from "./class-modifiers";
 import { getButtonGradientClass } from "./class-gradient";
 
 /**
+ * 将可能的对象形式的 class 转换为字符串
+ * @param className 类名，可以是字符串或对象
+ * @returns 字符串形式的类名
+ */
+function normalizeClass(className: string | object | undefined): string {
+	if (!className) return "";
+	if (typeof className === "string") return className;
+	if (typeof className === "object") {
+		return Object.entries(className)
+			.filter(([, value]) => value)
+			.map(([key]) => key)
+			.join(" ");
+	}
+	return "";
+}
+
+/**
  * 计算 Button 组件的组合类名（用于基础接口）
  * @param props Button 组件的基础 props
  * @returns 组合后的类名数组
@@ -21,6 +38,9 @@ export function getBaseButtonClasses(props: IButtonPropsBase): string[] {
 		loading,
 		class: className = "",
 	} = props;
+
+	// 规范化 class 属性
+	const normalizedClass = normalizeClass(className);
 
 	// 构建基础类名
 	const baseClasses = getButtonBaseClasses();
@@ -48,7 +68,7 @@ export function getBaseButtonClasses(props: IButtonPropsBase): string[] {
 		shapeClass,
 		...modifierClasses,
 		gradientClass,
-		className,
+		normalizedClass,
 	];
 
 	return classes;
