@@ -133,3 +133,72 @@ const gridColumns = computed(() => {
 	return cols;
 });
 </script>
+
+<template>
+  <div :class="['cosy:w-full', className]" :class:list="classList">
+    <!-- 标题 -->
+    <Heading v-if="title" level="h2" class="cosy:mb-6">
+      {{ title }}
+    </Heading>
+
+    <!-- 统计信息 -->
+    <div
+      v-if="stats"
+      class="cosy:flex cosy:flex-col md:cosy:flex-row md:cosy:items-center md:cosy:justify-between cosy:gap-6 cosy:mb-8">
+      <div class="cosy:flex cosy:items-center cosy:gap-4">
+        <Text variant="h1" class="cosy:text-5xl cosy:font-bold">
+          {{ stats.averageRating.toFixed(1) }}
+        </Text>
+        <div>
+          <div class="cosy:flex cosy:items-center cosy:gap-1">
+            <SmartIcon
+              v-for="(star, index) in averageStarArray"
+              :key="index"
+              :name="
+                star.filled ? 'star-filled' : star.half ? 'star-half' : 'star'
+              "
+              class="cosy:w-5 cosy:h-5 cosy:text-yellow-400" />
+          </div>
+          <Text variant="small" class="cosy:text-gray-500">
+            {{ stats.totalReviews }} 条评价
+          </Text>
+        </div>
+      </div>
+
+      <!-- 评分分布 -->
+      <div class="cosy:space-y-1">
+        <div
+          v-for="(count, index) in stats.ratingDistribution"
+          :key="index"
+          class="cosy:flex cosy:items-center cosy:gap-2">
+          <Text variant="small" class="cosy:w-8">{{ 5 - index }}星</Text>
+          <div class="cosy:flex-1 cosy:h-2 cosy:bg-gray-200 cosy:rounded-full">
+            <div
+              class="cosy:h-full cosy:bg-yellow-400 cosy:rounded-full"
+              :style="{
+                width:
+                  stats.totalReviews > 0
+                    ? (count / stats.totalReviews) * 100 + '%'
+                    : '0%',
+              }"></div>
+          </div>
+          <Text variant="small" class="cosy:w-8">{{ count }}</Text>
+        </div>
+      </div>
+    </div>
+
+    <!-- 评价列表 -->
+    <Grid v-if="layout === 'grid'" v-bind="gridColumns" class="cosy:gap-6">
+      <Review
+        v-for="(review, index) in displayReviews"
+        :key="index"
+        v-bind="review" />
+    </Grid>
+    <div v-else class="cosy:space-y-6">
+      <Review
+        v-for="(review, index) in displayReviews"
+        :key="index"
+        v-bind="review" />
+    </div>
+  </div>
+</template>

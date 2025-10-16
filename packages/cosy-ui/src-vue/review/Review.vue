@@ -46,12 +46,12 @@ const {
 	px,
 	pl,
 	pr,
+	shadow, // 添加 shadow 属性
 	width,
 	rounded,
 	background,
 	border,
 	borderColor,
-	shadow,
 	subtitle,
 	title,
 	imageUrl,
@@ -110,7 +110,7 @@ const formattedDate = computed(() => {
       borderColor,
       shadow,
       subtitle,
-      title,
+      title: userName, // 将 userName 作为 title 传递给 Card 组件
       imageUrl,
       href,
       compact,

@@ -11,7 +11,7 @@ export interface IButtonPropsBase {
 	/**
 	 * 自定义 CSS 类名，用于覆盖默认样式
 	 */
-	class?: string;
+	class?: string | { [key: string]: any };
 
 	/**
 	 * 是否禁用按钮，设置为 true 时按钮不可点击
