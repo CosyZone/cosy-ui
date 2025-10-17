@@ -47,36 +47,36 @@
  * @slot default - 主要内容区域
  */
 
-import '../../style';
-import { Container } from '../container';
-import { AlertDialog } from '../alert-dialog';
-import { Image } from '../image'; // 导入 Image 组件
-import type { BackgroundColor } from '../../src/common/backgrounds';
-import type { IApplePhonePropsBase } from '../../src/components/apple-phone/applePhonePropsBase';
-import StatusBarContent from './StatusBarContent.astro';
+import "../../style";
+import { Container } from "../container";
+import { AlertDialog } from "../alert-dialog";
+import { Image } from "../image"; // 导入 Image 组件
+import type { BackgroundColor } from "../../src/common/backgrounds";
+import type { IApplePhonePropsBase } from "../../src/components/apple-phone/applePhonePropsBase";
+import StatusBarContent from "./StatusBarContent.astro";
 import {
-    IPHONE_FRAME_WIDTH,
-    IPHONE_FRAME_HEIGHT,
-    IPHONE_FRAME_STATUS_BAR_TOP,
-    IPHONE_FRAME_STATUS_BAR_HEIGHT,
-    MAIN_CONTENT_WIDTH_ASPECT_RATIO,
-    MAIN_CONTENT_HEIGHT_ASPECT_RATIO,
-    IPHONE_FRAME_STATUS_BAR_HEIGHT_ASPECT_RATIO,
-    IPHONE_FRAME_STATUS_BAR_TOP_ASPECT_RATIO,
-    HEIGHT_CLASSES,
-    HEIGHT_VALUES,
-    DEFAULT_HEIGHT,
-} from '../../src/components/apple-phone/constants';
+	IPHONE_FRAME_WIDTH,
+	IPHONE_FRAME_HEIGHT,
+	IPHONE_FRAME_STATUS_BAR_TOP,
+	IPHONE_FRAME_STATUS_BAR_HEIGHT,
+	MAIN_CONTENT_WIDTH_ASPECT_RATIO,
+	MAIN_CONTENT_HEIGHT_ASPECT_RATIO,
+	IPHONE_FRAME_STATUS_BAR_HEIGHT_ASPECT_RATIO,
+	IPHONE_FRAME_STATUS_BAR_TOP_ASPECT_RATIO,
+	HEIGHT_CLASSES,
+	HEIGHT_VALUES,
+	DEFAULT_HEIGHT,
+} from "../../src/components/apple-phone/constants";
 
 // Props 定义 - 使用共享接口
 interface Props extends IApplePhonePropsBase {}
 
 const {
-    height = DEFAULT_HEIGHT,
-    title = '',
-    withShadow = true,
-    showFrame = true,
-    backgroundColor = undefined,
+	height = DEFAULT_HEIGHT,
+	title = "",
+	withShadow = true,
+	showFrame = true,
+	backgroundColor = undefined,
 } = Astro.props as Props;
 
 // 计算当前高度的缩放比例
