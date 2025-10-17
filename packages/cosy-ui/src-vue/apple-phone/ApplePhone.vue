@@ -65,9 +65,6 @@ const getScaleRatio = () => {
 	// 基于特定高度计算缩放比例
 	return currentHeight / 500;
 };
-
-// 预定义的高度选项
-const heightClasses: Record<HeightOption, string> = HEIGHT_CLASSES;
 </script>
 
 <template>
@@ -98,7 +95,7 @@ const heightClasses: Record<HeightOption, string> = HEIGHT_CLASSES;
 
     <!-- 内容区域 -->
     <div
-      class="cosy:inset-0 cosy:h-full"
+      class="cosy:inset-0 cosy:h-full cosy:flex cosy:flex-col"
       :style="{
         width: MAIN_CONTENT_WIDTH_ASPECT_RATIO * 100 + '%',
         height: MAIN_CONTENT_HEIGHT_ASPECT_RATIO * 100 + '%',
@@ -112,9 +109,11 @@ const heightClasses: Record<HeightOption, string> = HEIGHT_CLASSES;
       }">
       <Container
         rounded="lg"
-        style="height: 100%"
+        height="full"
         :background="backgroundColor || 'accent/90'">
-        <slot />
+        <div class="cosy:h-full cosy:overflow-y-auto cosy:overscroll-y-contain">
+          <slot />
+        </div>
       </Container>
     </div>
   </div>

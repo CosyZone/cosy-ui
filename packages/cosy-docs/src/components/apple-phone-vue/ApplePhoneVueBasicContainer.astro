@@ -7,10 +7,17 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import ApplePhoneVueBasic from "./ApplePhoneVueBasic.vue";
 import ApplePhoneVueBasicCode from "./ApplePhoneVueBasic.vue?raw";
+import ApplePhoneVueLongText from "./ApplePhoneVueLongText.vue";
+import ApplePhoneVueLongTextCode from "./ApplePhoneVueLongText.vue?raw";
 ---
 
-<CodeContainer titles={['基础用法']} codes={[ApplePhoneVueBasicCode]}>
-  <div id="tab-1">
-    <ApplePhoneVueBasic client:load />
-  </div>
+<CodeContainer
+    titles={['基础用法', '长文本内容']}
+    codes={[ApplePhoneVueBasicCode, ApplePhoneVueLongTextCode]}>
+    <div id="tab-1">
+        <ApplePhoneVueBasic client:load />
+    </div>
+    <div id="tab-2">
+        <ApplePhoneVueLongText client:load />
+    </div>
 </CodeContainer>

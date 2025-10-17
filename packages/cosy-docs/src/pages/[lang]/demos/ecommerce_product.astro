@@ -38,7 +38,7 @@ import user3Url from "@/demos/ecommerce_product/images/user-3.jpg?url";
 import wechatQrUrl from "@/demos/ecommerce_product/images/wechat-qr.jpg?url";
 
 // 从 URL 获取当前语言
-const currentLocale = Astro.url.pathname.split("/")[2] || "zh-cn";
+const currentLocale = Astro.params.lang;
 
 export const getStaticPaths = async () => {
 	return [{ params: { lang: "zh-cn" } }, { params: { lang: "en" } }];
@@ -87,7 +87,12 @@ const ecommerceData: Record<string, any> = {
 				{ name: "玫瑰金", value: "gold", inStock: true },
 			],
 			storage: [
-				{ name: "标准版", value: "standard", price: 1299, inStock: true },
+				{
+					name: "标准版",
+					value: "standard",
+					price: 1299,
+					inStock: true,
+				},
 				{ name: "专业版", value: "pro", price: 1599, inStock: true },
 				{ name: "旗舰版", value: "max", price: 1899, inStock: false },
 			],
@@ -194,7 +199,11 @@ const ecommerceData: Record<string, any> = {
 		buyNow: "立即购买",
 		addToWishlist: "加入心愿单",
 		share: "分享",
-		shipping: { free: "免费配送", express: "次日达", return: "7天无理由退货" },
+		shipping: {
+			free: "免费配送",
+			express: "次日达",
+			return: "7天无理由退货",
+		},
 	},
 	en: {
 		productName: "Smart Wireless Earbuds Pro Max",
@@ -217,7 +226,12 @@ const ecommerceData: Record<string, any> = {
 				{ name: "Rose Gold", value: "gold", inStock: true },
 			],
 			storage: [
-				{ name: "Standard", value: "standard", price: 199, inStock: true },
+				{
+					name: "Standard",
+					value: "standard",
+					price: 199,
+					inStock: true,
+				},
 				{ name: "Pro", value: "pro", price: 249, inStock: true },
 				{ name: "Max", value: "max", price: 299, inStock: false },
 			],
@@ -341,439 +355,509 @@ const data = ecommerceData[currentLocale] || ecommerceData["zh-cn"];
 ---
 
 <AppLayout
-  metaConfig={{
-    title: data.productName,
-    description: data.description,
-    keywords:
-      currentLocale === 'zh-cn'
-        ? '无线耳机,蓝牙耳机,降噪耳机,智能耳机'
-        : 'wireless earbuds, bluetooth headphones, noise cancellation, smart earbuds',
-    author: data.brand,
-    robots: 'index, follow',
-  }}
-  sidebarConfig={{ sidebarItems: [] }}
-  showHeader={true}
-  showFooter={true}
-  showSidebar={false}
-  footerConfig={{
-    siteName: data.brand,
-    homeLink: configApp.homeLink,
-    slogan: data.tagline,
-    company: data.brand,
-    inspirationalSlogan: data.tagline,
-    background: 'base-200',
-    products: [
-      { name: 'Earbuds', href: '#' },
-      { name: 'Headphones', href: '#' },
-      { name: 'Speakers', href: '#' },
-      { name: 'Accessories', href: '#' },
-    ],
-    aboutInfo: {
-      aboutLink: '#about',
-      contactLink: '#contact',
-      teamLink: '#team',
-      careersLink: '#careers',
-    },
-    legalInfo: {
-      termsLink: '#terms',
-      privacyLink: '#privacy',
-      icp: currentLocale === 'zh-cn' ? '沪ICP备12345678号-1' : 'ICP 12345678-1',
-      icpLink: 'https://beian.miit.gov.cn',
-    },
-    resourcesInfo: {
-      newsLink: '#news',
-      historyLink: '#history',
-      partnersLink: '#partners',
-      blogLink: '#blog',
-      faqLink: '#faq',
-      mediaLink: '#media',
-      techStackLink: '#tech',
-    },
-    friendlyLinks: [
-      {
-        name: 'GitHub',
-        href: 'https://github.com/CofficLab/cosy-ui',
-        external: true,
-      },
-      { name: 'CofficLab', href: 'https://cofficlab.com', external: true },
-    ],
-    socialLinks: ['https://github.com/CofficLab', 'https://twitter.com'],
-    wechatQR: wechatQrUrl,
-  }}
-  headerConfig={{
-    logoHref: configApp.homeLink,
-    navItems: configApp.getNavItems(currentLocale),
-    astroI18n: astroI18n,
-  }}
-  mainContentConfig={{
-    py: 'none',
-    size: 'full',
-    padding: 'none',
-  }}>
-  <!-- Product Hero Section - 产品主展示 -->
-  <Container width="xl" padding="xl" margin="lg" background="base-100">
-    <Grid cols={{ base: 1, lg: 2 }} gap="xl">
-      <!-- 产品图片 -->
-      <div>
-        <div
-          style="position: relative; background: #f8fafc; border-radius: 1rem; padding: 2rem; text-align: center;">
-          <Image
-            src={mainUrl}
-            alt={data.productName}
-            width={600}
-            height={600}
-            class="cosy:w-full cosy:max-w-md cosy:mx-auto"
-          />
-          {
-            data.discount > 0 && (
-              <Badge
-                variant="error"
-                class="cosy:absolute cosy:top-4 cosy:left-4 cosy:text-lg cosy:px-3 cosy:py-1">
-                -{data.discount}%
-              </Badge>
-            )
-          }
-        </div>
-      </div>
-
-      <!-- 产品信息 -->
-      <div>
-        <div class="cosy:mb-4">
-          <Text size="sm" class="cosy:text-primary cosy:font-medium"
-            >{data.brand}</Text
-          >
-        </div>
-
-        <Heading level={1} size="3xl" class="cosy:mb-4 cosy:font-bold"
-          >{data.productName}</Heading
-        >
-
-        <Text size="lg" class="cosy:text-base-content/70 cosy:mb-6"
-          >{data.description}</Text
-        >
-
-        <!-- 评分和评价 -->
-        <div class="cosy:mb-6">
-          <div
-            style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
-            <div style="display: flex; gap: 0.25rem;">
-              {
-                Array.from({ length: 5 }, (_, i) => (
-                  <SmartIcon
-                    name="star"
-                    size="20px"
-                    class={
-                      i < Math.floor(data.rating)
-                        ? 'cosy:text-warning'
-                        : 'cosy:text-base-300'
-                    }
-                  />
-                ))
-              }
-            </div>
-            <Text class="cosy:font-medium">{data.rating}</Text>
-            <Text class="cosy:text-base-content/60"
-              >({data.reviewCount}
-              {currentLocale === 'zh-cn' ? '评价' : 'reviews'})</Text
-            >
-          </div>
-        </div>
-
-        <!-- 价格 -->
-        <div class="cosy:mb-6">
-          <div
-            style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
-            <Text size="3xl" class="cosy:font-bold cosy:text-primary">
-              ¥{data.price}
-            </Text>
+    metaConfig={{
+        title: data.productName,
+        description: data.description,
+        keywords:
+            currentLocale === 'zh-cn'
+                ? '无线耳机,蓝牙耳机,降噪耳机,智能耳机'
+                : 'wireless earbuds, bluetooth headphones, noise cancellation, smart earbuds',
+        author: data.brand,
+        robots: 'index, follow',
+    }}
+    sidebarConfig={{ sidebarItems: [] }}
+    showHeader={true}
+    showFooter={true}
+    showSidebar={false}
+    footerConfig={{
+        siteName: data.brand,
+        homeLink: configApp.homeLink,
+        slogan: data.tagline,
+        company: data.brand,
+        inspirationalSlogan: data.tagline,
+        background: 'base-200',
+        products: [
+            { name: 'Earbuds', href: '#' },
+            { name: 'Headphones', href: '#' },
+            { name: 'Speakers', href: '#' },
+            { name: 'Accessories', href: '#' },
+        ],
+        aboutInfo: {
+            aboutLink: '#about',
+            contactLink: '#contact',
+            teamLink: '#team',
+            careersLink: '#careers',
+        },
+        legalInfo: {
+            termsLink: '#terms',
+            privacyLink: '#privacy',
+            icp:
+                currentLocale === 'zh-cn'
+                    ? '沪ICP备12345678号-1'
+                    : 'ICP 12345678-1',
+            icpLink: 'https://beian.miit.gov.cn',
+        },
+        resourcesInfo: {
+            newsLink: '#news',
+            historyLink: '#history',
+            partnersLink: '#partners',
+            blogLink: '#blog',
+            faqLink: '#faq',
+            mediaLink: '#media',
+            techStackLink: '#tech',
+        },
+        friendlyLinks: [
             {
-              data.originalPrice && (
-                <Text
-                  size="lg"
-                  class="cosy:text-base-content/60 cosy:line-through">
-                  ¥{data.originalPrice}
-                </Text>
-              )
-            }
-          </div>
-          {
-            data.discount > 0 && (
-              <Text size="sm" class="cosy:text-success cosy:font-medium">
-                {currentLocale === 'zh-cn' ? '节省' : 'Save'} ¥
-                {data.originalPrice - data.price}
-              </Text>
-            )
-          }
-        </div>
-
-        <!-- 库存状态 -->
-        <div class="cosy:mb-6">
-          {
-            data.inStock ? (
-              <div style="display: flex; align-items: center; gap: 0.5rem;">
-                <SmartIcon
-                  name="check-circle"
-                  size="20px"
-                  class="cosy:text-success"
-                />
-                <Text class="cosy:text-success cosy:font-medium">
-                  {currentLocale === 'zh-cn' ? '有库存' : 'In Stock'} (
-                  {data.stockCount} {currentLocale === 'zh-cn' ? '件' : 'items'}
-                  )
-                </Text>
-              </div>
-            ) : (
-              <div style="display: flex; align-items: center; gap: 0.5rem;">
-                <SmartIcon
-                  name="x-circle"
-                  size="20px"
-                  class="cosy:text-error"
-                />
-                <Text class="cosy:text-error cosy:font-medium">
-                  {currentLocale === 'zh-cn' ? '缺货' : 'Out of Stock'}
-                </Text>
-              </div>
-            )
-          }
-        </div>
-
-        <!-- 产品变体选择 -->
-        <div class="cosy:mb-6">
-          <!-- 颜色选择 -->
-          <div class="cosy:mb-4">
-            <Text class="cosy:font-semibold cosy:mb-2">
-              {currentLocale === 'zh-cn' ? '颜色' : 'Color'}
-            </Text>
-            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-              {
-                data.variants.color.map((color: ProductVariant) => (
-                  <button
-                    style="padding: 0.5rem 1rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; background: white; cursor: pointer; opacity: color.inStock ? 1 : 0.5;"
-                    disabled={!color.inStock}>
-                    {color.name}
-                  </button>
-                ))
-              }
-            </div>
-          </div>
-
-          <!-- 版本选择 -->
-          <div class="cosy:mb-4">
-            <Text class="cosy:font-semibold cosy:mb-2">
-              {currentLocale === 'zh-cn' ? '版本' : 'Version'}
-            </Text>
-            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-              {
-                data.variants.storage.map((storage: ProductVariant) => (
-                  <button
-                    style="padding: 0.5rem 1rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; background: white; cursor: pointer; opacity: storage.inStock ? 1 : 0.5;"
-                    disabled={!storage.inStock}>
-                    {storage.name} - ¥{storage.price}
-                  </button>
-                ))
-              }
-            </div>
-          </div>
-        </div>
-
-        <!-- 购买按钮 -->
-        <div class="cosy:mb-6">
-          <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
-            <Button
-              variant="primary"
-              size="lg"
-              class="cosy:flex-1 cosy:py-4"
-              disabled={!data.inStock}>
-              {data.buyNow}
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              class="cosy:px-6"
-              disabled={!data.inStock}>
-              {data.addToCart}
-            </Button>
-          </div>
-          <div style="display: flex; gap: 1rem; justify-content: center;">
-            <Button variant="ghost" size="sm">
-              <SmartIcon name="heart" size="16px" class="cosy:mr-2" />
-              {data.addToWishlist}
-            </Button>
-            <Button variant="ghost" size="sm">
-              <SmartIcon name="share" size="16px" class="cosy:mr-2" />
-              {data.share}
-            </Button>
-          </div>
-        </div>
-
-        <!-- 配送信息 -->
-        <Card class="cosy:p-4 cosy:bg-base-200">
-          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-            <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <SmartIcon name="truck" size="16px" class="cosy:text-success" />
-              <Text size="sm" class="cosy:font-medium"
-                >{data.shipping.free}</Text
-              >
-            </div>
-            <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <SmartIcon name="clock" size="16px" class="cosy:text-info" />
-              <Text size="sm" class="cosy:font-medium"
-                >{data.shipping.express}</Text
-              >
-            </div>
-            <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <SmartIcon name="refresh" size="16px" class="cosy:text-warning" />
-              <Text size="sm" class="cosy:font-medium"
-                >{data.shipping.return}</Text
-              >
-            </div>
-          </div>
-        </Card>
-      </div>
-    </Grid>
-  </Container>
-
-  <!-- Product Features Section - 产品特性 -->
-  <Container width="xl" padding="xl" margin="lg" background="base-200">
-    <div style="text-align: center; margin-bottom: 4rem;">
-      <Heading level={2} size="3xl" margin="lg" weight="thin">
-        {currentLocale === 'zh-cn' ? '产品特性' : 'Product Features'}
-      </Heading>
-    </div>
-
-    <Grid cols={{ base: 1, md: 2, lg: 4 }} gap="lg">
-      {
-        data.features.map((feature: any) => (
-          <Card class="cosy:p-6 cosy:text-center">
-            <div style="margin-bottom: 1.5rem;">
-              <SmartIcon
-                name={feature.icon}
-                size="48px"
-                class="cosy:text-primary"
-              />
-            </div>
-            <Heading level={3} size="lg" class="cosy:mb-3 cosy:font-semibold">
-              {feature.title}
-            </Heading>
-            <Text class="cosy:text-base-content/70">{feature.description}</Text>
-          </Card>
-        ))
-      }
-    </Grid>
-  </Container>
-
-  <!-- Specifications Section - 技术规格 -->
-  <Container width="xl" padding="xl" margin="lg" background="base-100">
-    <div style="text-align: center; margin-bottom: 4rem;">
-      <Heading level={2} size="3xl" margin="lg" weight="thin">
-        {currentLocale === 'zh-cn' ? '技术规格' : 'Specifications'}
-      </Heading>
-    </div>
-
-    <Grid cols={{ base: 1, md: 2 }} gap="lg">
-      {
-        data.specifications.map((spec: { name: string; value: string }) => (
-          <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid #e5e7eb;">
-            <Text class="cosy:font-medium">{spec.name}</Text>
-            <Text class="cosy:text-base-content/70">{spec.value}</Text>
-          </div>
-        ))
-      }
-    </Grid>
-  </Container>
-
-  <!-- Reviews Section - 用户评价 -->
-  <Container width="xl" padding="xl" margin="lg" background="base-200">
-    <Reviews
-      reviews={data.reviews}
-      title={currentLocale === 'zh-cn' ? '用户评价' : 'Customer Reviews'}
-      showStats={true}
-      layout="grid"
-      columns={{ base: 1, md: 1, lg: 3 }}
-    />
-  </Container>
-
-  <!-- Related Products Section - 相关产品 -->
-  <Container width="xl" padding="xl" margin="lg" background="base-100">
-    <div style="text-align: center; margin-bottom: 4rem;">
-      <Heading level={2} size="3xl" margin="lg" weight="thin">
-        {currentLocale === 'zh-cn' ? '相关产品' : 'Related Products'}
-      </Heading>
-    </div>
-
-    <Grid cols={{ base: 1, sm: 2, lg: 4 }} gap="lg">
-      {
-        data.relatedProducts.map((product: RelatedProduct, idx: number) => (
-          <Card class="cosy:overflow-hidden cosy:hover:shadow-lg cosy:transition-shadow">
-            <div style="position: relative;">
-              <Image
-                src={
-                  idx === 0
-                    ? related1Url
-                    : idx === 1
-                      ? related2Url
-                      : idx === 2
-                        ? related3Url
-                        : related4Url
-                }
-                alt={product.name}
-                width={300}
-                height={300}
-                class="cosy:w-full cosy:h-48 cosy:object-cover"
-              />
-              {product.isNew && (
-                <Badge
-                  variant="primary"
-                  class="cosy:absolute cosy:top-2 cosy:left-2">
-                  {currentLocale === 'zh-cn' ? '新品' : 'New'}
-                </Badge>
-              )}
-              {product.discount && (
-                <Badge
-                  variant="error"
-                  class="cosy:absolute cosy:top-2 cosy:right-2">
-                  -{product.discount}%
-                </Badge>
-              )}
-            </div>
-            <div class="cosy:p-4">
-              <Heading level={4} size="md" class="cosy:mb-2 cosy:font-semibold">
-                {product.name}
-              </Heading>
-              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                <div style="display: flex; gap: 0.25rem;">
-                  {Array.from({ length: 5 }, (_, i) => (
-                    <SmartIcon
-                      name="star"
-                      size="14px"
-                      class={
-                        i < Math.floor(product.rating)
-                          ? 'cosy:text-warning'
-                          : 'cosy:text-base-300'
-                      }
+                name: 'GitHub',
+                href: 'https://github.com/CofficLab/cosy-ui',
+                external: true,
+            },
+            {
+                name: 'CofficLab',
+                href: 'https://cofficlab.com',
+                external: true,
+            },
+        ],
+        socialLinks: ['https://github.com/CofficLab', 'https://twitter.com'],
+        wechatQR: wechatQrUrl,
+    }}
+    headerConfig={{
+        logoHref: configApp.homeLink,
+        navItems: configApp.getNavItems(currentLocale),
+        astroI18n: astroI18n,
+    }}
+    mainContentConfig={{
+        py: 'none',
+        size: 'full',
+        padding: 'none',
+    }}>
+    <!-- Product Hero Section - 产品主展示 -->
+    <Container width="xl" padding="xl" margin="lg" background="base-100">
+        <Grid cols={{ base: 1, lg: 2 }} gap="xl">
+            <!-- 产品图片 -->
+            <div>
+                <div
+                    style="position: relative; background: #f8fafc; border-radius: 1rem; padding: 2rem; text-align: center;">
+                    <Image
+                        src={mainUrl}
+                        alt={data.productName}
+                        width={600}
+                        height={600}
+                        class="cosy:w-full cosy:max-w-md cosy:mx-auto"
                     />
-                  ))}
+                    {
+                        data.discount > 0 && (
+                            <Badge
+                                variant="error"
+                                class="cosy:absolute cosy:top-4 cosy:left-4 cosy:text-lg cosy:px-3 cosy:py-1">
+                                -{data.discount}%
+                            </Badge>
+                        )
+                    }
                 </div>
-                <Text size="sm" class="cosy:text-base-content/60">
-                  {product.rating} ({product.reviews})
-                </Text>
-              </div>
-              <div style="display: flex; align-items: center; gap: 0.5rem;">
-                <Text size="lg" class="cosy:font-bold cosy:text-primary">
-                  ¥{product.price}
-                </Text>
-                {product.originalPrice && (
-                  <Text
-                    size="sm"
-                    class="cosy:text-base-content/60 cosy:line-through">
-                    ¥{product.originalPrice}
-                  </Text>
-                )}
-              </div>
             </div>
-          </Card>
-        ))
-      }
-    </Grid>
-  </Container>
+
+            <!-- 产品信息 -->
+            <div>
+                <div class="cosy:mb-4">
+                    <Text size="sm" class="cosy:text-primary cosy:font-medium"
+                        >{data.brand}</Text
+                    >
+                </div>
+
+                <Heading level={1} size="3xl" class="cosy:mb-4 cosy:font-bold"
+                    >{data.productName}</Heading
+                >
+
+                <Text size="lg" class="cosy:text-base-content/70 cosy:mb-6"
+                    >{data.description}</Text
+                >
+
+                <!-- 评分和评价 -->
+                <div class="cosy:mb-6">
+                    <div
+                        style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                        <div style="display: flex; gap: 0.25rem;">
+                            {
+                                Array.from({ length: 5 }, (_, i) => (
+                                    <SmartIcon
+                                        name="star"
+                                        size="20px"
+                                        class={
+                                            i < Math.floor(data.rating)
+                                                ? 'cosy:text-warning'
+                                                : 'cosy:text-base-300'
+                                        }
+                                    />
+                                ))
+                            }
+                        </div>
+                        <Text class="cosy:font-medium">{data.rating}</Text>
+                        <Text class="cosy:text-base-content/60"
+                            >({data.reviewCount}
+                            {
+                                currentLocale === 'zh-cn' ? '评价' : 'reviews'
+                            })</Text
+                        >
+                    </div>
+                </div>
+
+                <!-- 价格 -->
+                <div class="cosy:mb-6">
+                    <div
+                        style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                        <Text
+                            size="3xl"
+                            class="cosy:font-bold cosy:text-primary">
+                            ¥{data.price}
+                        </Text>
+                        {
+                            data.originalPrice && (
+                                <Text
+                                    size="lg"
+                                    class="cosy:text-base-content/60 cosy:line-through">
+                                    ¥{data.originalPrice}
+                                </Text>
+                            )
+                        }
+                    </div>
+                    {
+                        data.discount > 0 && (
+                            <Text
+                                size="sm"
+                                class="cosy:text-success cosy:font-medium">
+                                {currentLocale === 'zh-cn' ? '节省' : 'Save'} ¥
+                                {data.originalPrice - data.price}
+                            </Text>
+                        )
+                    }
+                </div>
+
+                <!-- 库存状态 -->
+                <div class="cosy:mb-6">
+                    {
+                        data.inStock ? (
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <SmartIcon
+                                    name="check-circle"
+                                    size="20px"
+                                    class="cosy:text-success"
+                                />
+                                <Text class="cosy:text-success cosy:font-medium">
+                                    {currentLocale === 'zh-cn'
+                                        ? '有库存'
+                                        : 'In Stock'}{' '}
+                                    ({data.stockCount}{' '}
+                                    {currentLocale === 'zh-cn' ? '件' : 'items'}
+                                    )
+                                </Text>
+                            </div>
+                        ) : (
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <SmartIcon
+                                    name="x-circle"
+                                    size="20px"
+                                    class="cosy:text-error"
+                                />
+                                <Text class="cosy:text-error cosy:font-medium">
+                                    {currentLocale === 'zh-cn'
+                                        ? '缺货'
+                                        : 'Out of Stock'}
+                                </Text>
+                            </div>
+                        )
+                    }
+                </div>
+
+                <!-- 产品变体选择 -->
+                <div class="cosy:mb-6">
+                    <!-- 颜色选择 -->
+                    <div class="cosy:mb-4">
+                        <Text class="cosy:font-semibold cosy:mb-2">
+                            {currentLocale === 'zh-cn' ? '颜色' : 'Color'}
+                        </Text>
+                        <div
+                            style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                            {
+                                data.variants.color.map(
+                                    (color: ProductVariant) => (
+                                        <button
+                                            style="padding: 0.5rem 1rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; background: white; cursor: pointer; opacity: color.inStock ? 1 : 0.5;"
+                                            disabled={!color.inStock}>
+                                            {color.name}
+                                        </button>
+                                    )
+                                )
+                            }
+                        </div>
+                    </div>
+
+                    <!-- 版本选择 -->
+                    <div class="cosy:mb-4">
+                        <Text class="cosy:font-semibold cosy:mb-2">
+                            {currentLocale === 'zh-cn' ? '版本' : 'Version'}
+                        </Text>
+                        <div
+                            style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                            {
+                                data.variants.storage.map(
+                                    (storage: ProductVariant) => (
+                                        <button
+                                            style="padding: 0.5rem 1rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; background: white; cursor: pointer; opacity: storage.inStock ? 1 : 0.5;"
+                                            disabled={!storage.inStock}>
+                                            {storage.name} - ¥{storage.price}
+                                        </button>
+                                    )
+                                )
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 购买按钮 -->
+                <div class="cosy:mb-6">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <Button
+                            variant="primary"
+                            size="lg"
+                            class="cosy:flex-1 cosy:py-4"
+                            disabled={!data.inStock}>
+                            {data.buyNow}
+                        </Button>
+                        <Button
+                            variant="outline"
+                            size="lg"
+                            class="cosy:px-6"
+                            disabled={!data.inStock}>
+                            {data.addToCart}
+                        </Button>
+                    </div>
+                    <div
+                        style="display: flex; gap: 1rem; justify-content: center;">
+                        <Button variant="ghost" size="sm">
+                            <SmartIcon
+                                name="heart"
+                                size="16px"
+                                class="cosy:mr-2"
+                            />
+                            {data.addToWishlist}
+                        </Button>
+                        <Button variant="ghost" size="sm">
+                            <SmartIcon
+                                name="share"
+                                size="16px"
+                                class="cosy:mr-2"
+                            />
+                            {data.share}
+                        </Button>
+                    </div>
+                </div>
+
+                <!-- 配送信息 -->
+                <Card class="cosy:p-4 cosy:bg-base-200">
+                    <div
+                        style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <div
+                            style="display: flex; align-items: center; gap: 0.5rem;">
+                            <SmartIcon
+                                name="truck"
+                                size="16px"
+                                class="cosy:text-success"
+                            />
+                            <Text size="sm" class="cosy:font-medium"
+                                >{data.shipping.free}</Text
+                            >
+                        </div>
+                        <div
+                            style="display: flex; align-items: center; gap: 0.5rem;">
+                            <SmartIcon
+                                name="clock"
+                                size="16px"
+                                class="cosy:text-info"
+                            />
+                            <Text size="sm" class="cosy:font-medium"
+                                >{data.shipping.express}</Text
+                            >
+                        </div>
+                        <div
+                            style="display: flex; align-items: center; gap: 0.5rem;">
+                            <SmartIcon
+                                name="refresh"
+                                size="16px"
+                                class="cosy:text-warning"
+                            />
+                            <Text size="sm" class="cosy:font-medium"
+                                >{data.shipping.return}</Text
+                            >
+                        </div>
+                    </div>
+                </Card>
+            </div>
+        </Grid>
+    </Container>
+
+    <!-- Product Features Section - 产品特性 -->
+    <Container width="xl" padding="xl" margin="lg" background="base-200">
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <Heading level={2} size="3xl" margin="lg" weight="thin">
+                {currentLocale === 'zh-cn' ? '产品特性' : 'Product Features'}
+            </Heading>
+        </div>
+
+        <Grid cols={{ base: 1, md: 2, lg: 4 }} gap="lg">
+            {
+                data.features.map((feature: any) => (
+                    <Card class="cosy:p-6 cosy:text-center">
+                        <div style="margin-bottom: 1.5rem;">
+                            <SmartIcon
+                                name={feature.icon}
+                                size="48px"
+                                class="cosy:text-primary"
+                            />
+                        </div>
+                        <Heading
+                            level={3}
+                            size="lg"
+                            class="cosy:mb-3 cosy:font-semibold">
+                            {feature.title}
+                        </Heading>
+                        <Text class="cosy:text-base-content/70">
+                            {feature.description}
+                        </Text>
+                    </Card>
+                ))
+            }
+        </Grid>
+    </Container>
+
+    <!-- Specifications Section - 技术规格 -->
+    <Container width="xl" padding="xl" margin="lg" background="base-100">
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <Heading level={2} size="3xl" margin="lg" weight="thin">
+                {currentLocale === 'zh-cn' ? '技术规格' : 'Specifications'}
+            </Heading>
+        </div>
+
+        <Grid cols={{ base: 1, md: 2 }} gap="lg">
+            {
+                data.specifications.map(
+                    (spec: { name: string; value: string }) => (
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid #e5e7eb;">
+                            <Text class="cosy:font-medium">{spec.name}</Text>
+                            <Text class="cosy:text-base-content/70">
+                                {spec.value}
+                            </Text>
+                        </div>
+                    )
+                )
+            }
+        </Grid>
+    </Container>
+
+    <!-- Reviews Section - 用户评价 -->
+    <Container width="xl" padding="xl" margin="lg" background="base-200">
+        <Reviews
+            reviews={data.reviews}
+            title={currentLocale === 'zh-cn' ? '用户评价' : 'Customer Reviews'}
+            showStats={true}
+            layout="grid"
+            columns={{ base: 1, md: 1, lg: 3 }}
+        />
+    </Container>
+
+    <!-- Related Products Section - 相关产品 -->
+    <Container width="xl" padding="xl" margin="lg" background="base-100">
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <Heading level={2} size="3xl" margin="lg" weight="thin">
+                {currentLocale === 'zh-cn' ? '相关产品' : 'Related Products'}
+            </Heading>
+        </div>
+
+        <Grid cols={{ base: 1, sm: 2, lg: 4 }} gap="lg">
+            {
+                data.relatedProducts.map(
+                    (product: RelatedProduct, idx: number) => (
+                        <Card class="cosy:overflow-hidden cosy:hover:shadow-lg cosy:transition-shadow">
+                            <div style="position: relative;">
+                                <Image
+                                    src={
+                                        idx === 0
+                                            ? related1Url
+                                            : idx === 1
+                                              ? related2Url
+                                              : idx === 2
+                                                ? related3Url
+                                                : related4Url
+                                    }
+                                    alt={product.name}
+                                    width={300}
+                                    height={300}
+                                    class="cosy:w-full cosy:h-48 cosy:object-cover"
+                                />
+                                {product.isNew && (
+                                    <Badge
+                                        variant="primary"
+                                        class="cosy:absolute cosy:top-2 cosy:left-2">
+                                        {currentLocale === 'zh-cn'
+                                            ? '新品'
+                                            : 'New'}
+                                    </Badge>
+                                )}
+                                {product.discount && (
+                                    <Badge
+                                        variant="error"
+                                        class="cosy:absolute cosy:top-2 cosy:right-2">
+                                        -{product.discount}%
+                                    </Badge>
+                                )}
+                            </div>
+                            <div class="cosy:p-4">
+                                <Heading
+                                    level={4}
+                                    size="md"
+                                    class="cosy:mb-2 cosy:font-semibold">
+                                    {product.name}
+                                </Heading>
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                    <div style="display: flex; gap: 0.25rem;">
+                                        {Array.from({ length: 5 }, (_, i) => (
+                                            <SmartIcon
+                                                name="star"
+                                                size="14px"
+                                                class={
+                                                    i <
+                                                    Math.floor(product.rating)
+                                                        ? 'cosy:text-warning'
+                                                        : 'cosy:text-base-300'
+                                                }
+                                            />
+                                        ))}
+                                    </div>
+                                    <Text
+                                        size="sm"
+                                        class="cosy:text-base-content/60">
+                                        {product.rating} ({product.reviews})
+                                    </Text>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <Text
+                                        size="lg"
+                                        class="cosy:font-bold cosy:text-primary">
+                                        ¥{product.price}
+                                    </Text>
+                                    {product.originalPrice && (
+                                        <Text
+                                            size="sm"
+                                            class="cosy:text-base-content/60 cosy:line-through">
+                                            ¥{product.originalPrice}
+                                        </Text>
+                                    )}
+                                </div>
+                            </div>
+                        </Card>
+                    )
+                )
+            }
+        </Grid>
+    </Container>
 </AppLayout>

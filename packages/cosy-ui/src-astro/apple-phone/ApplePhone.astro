@@ -100,13 +100,16 @@ const uniqueId = `apple-phone-${Math.random().toString(36).substr(2, 9)}`;
 
     <!-- 内容区域 -->
     <div
-        class="cosy:inset-0 cosy:h-full"
+        class="cosy:inset-0 cosy:h-full cosy:flex cosy:flex-col"
         style={`width: ${MAIN_CONTENT_WIDTH_ASPECT_RATIO * 100}%; height: ${MAIN_CONTENT_HEIGHT_ASPECT_RATIO * 100}%; left: 50%; top: 50%; transform: translate(-50%, -50%); position: absolute; z-index: 20;`}>
         <Container
             rounded="lg"
-            style="height: 100%"
+            height="full"
             background={backgroundColor || 'accent/90'}>
-            <slot />
+            <div
+                class="cosy:h-full cosy:overflow-y-auto cosy:overscroll-y-contain">
+                <slot />
+            </div>
         </Container>
     </div>
 </div>

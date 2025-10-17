@@ -23,7 +23,7 @@ import { configApp } from "@/config/config.app";
 import HeroImage from "@/assets/hero.png";
 
 // 从 URL 获取当前语言
-const currentLocale = Astro.url.pathname.split("/")[2] || "zh-cn";
+const currentLocale = Astro.params.lang;
 
 export const getStaticPaths = async () => {
 	return [
@@ -214,361 +214,395 @@ const teamMembers = [
 ---
 
 <AppLayout
-  metaConfig={{
-    title: data.companyName,
-    description: data.description,
-    keywords:
-      currentLocale === 'zh-cn'
-        ? '人工智能,云计算,大数据,企业服务'
-        : 'AI, cloud computing, big data, enterprise services',
-    author: data.companyName,
-    robots: 'index, follow',
-  }}
-  sidebarConfig={{
-    sidebarItems: [],
-  }}
-  showHeader={true}
-  showFooter={true}
-  showSidebar={false}
-  footerConfig={{
-    siteName: data.companyName,
-    homeLink: configApp.homeLink,
-    slogan: data.slogan,
-    company: data.companyName,
-    inspirationalSlogan: data.slogan,
-    products: [
-      { name: 'Cisum', href: 'https://coffic.cn/cisum' },
-      { name: 'JuiceEditor', href: 'https://coffic.cn/juice_editor' },
-      { name: 'GitOK', href: 'https://coffic.cn/gitok' },
-      { name: 'Cosy UI', href: 'https://github.com/cosyzone/cosy-ui' },
-    ],
-    aboutInfo: {
-      aboutLink: 'https://coffic.cn/en/meta/about',
-      contactLink: 'https://coffic.cn/en/meta/contact',
-    },
-    legalInfo: {
-      termsLink: 'https://coffic.cn/en/meta/terms',
-      privacyLink: 'https://coffic.cn/en/meta/privacy',
-    },
-    resourcesInfo: {
-      historyLink: 'https://coffic.cn/en/meta/out-story',
-      techStackLink: 'https://coffic.cn/en/meta/tech-stack',
-    },
-  }}
-  headerConfig={{
-    logoHref: configApp.homeLink,
-    navItems: configApp.getNavItems(currentLocale),
-  }}
-  mainContentConfig={{
-    py: 'none',
-    size: 'full',
-    padding: 'none',
-  }}>
-  <!-- Hero Section -->
-  <Hero
-    title={data.companyName}
-    backgroundOverlay="light"
-    overlayOpacity={0.4}
-    backgroundImage={HeroImage.src}
-    description={data.slogan}
-    links={[
-      {
-        text: data.heroButton,
-        href: '#about',
-        variant: 'primary',
-        size: 'lg',
-      },
-      {
-        text: data.contactUs,
-        href: '#contact',
-        variant: 'outline',
-        size: 'lg',
-      },
-    ]}
-  />
+    metaConfig={{
+        title: data.companyName,
+        description: data.description,
+        keywords:
+            currentLocale === 'zh-cn'
+                ? '人工智能,云计算,大数据,企业服务'
+                : 'AI, cloud computing, big data, enterprise services',
+        author: data.companyName,
+        robots: 'index, follow',
+    }}
+    sidebarConfig={{
+        sidebarItems: [],
+    }}
+    showHeader={true}
+    showFooter={true}
+    showSidebar={false}
+    footerConfig={{
+        siteName: data.companyName,
+        homeLink: configApp.homeLink,
+        slogan: data.slogan,
+        company: data.companyName,
+        inspirationalSlogan: data.slogan,
+        products: [
+            { name: 'Cisum', href: 'https://coffic.cn/cisum' },
+            { name: 'JuiceEditor', href: 'https://coffic.cn/juice_editor' },
+            { name: 'GitOK', href: 'https://coffic.cn/gitok' },
+            { name: 'Cosy UI', href: 'https://github.com/cosyzone/cosy-ui' },
+        ],
+        aboutInfo: {
+            aboutLink: 'https://coffic.cn/en/meta/about',
+            contactLink: 'https://coffic.cn/en/meta/contact',
+        },
+        legalInfo: {
+            termsLink: 'https://coffic.cn/en/meta/terms',
+            privacyLink: 'https://coffic.cn/en/meta/privacy',
+        },
+        resourcesInfo: {
+            historyLink: 'https://coffic.cn/en/meta/out-story',
+            techStackLink: 'https://coffic.cn/en/meta/tech-stack',
+        },
+    }}
+    headerConfig={{
+        logoHref: configApp.homeLink,
+        navItems: configApp.getNavItems(currentLocale),
+    }}
+    mainContentConfig={{
+        py: 'none',
+        size: 'full',
+        padding: 'none',
+    }}>
+    <!-- Hero Section -->
+    <Hero
+        title={data.companyName}
+        backgroundOverlay="light"
+        overlayOpacity={0.4}
+        backgroundImage={HeroImage.src}
+        description={data.slogan}
+        links={[
+            {
+                text: data.heroButton,
+                href: '#about',
+                variant: 'primary',
+                size: 'lg',
+            },
+            {
+                text: data.contactUs,
+                href: '#contact',
+                variant: 'outline',
+                size: 'lg',
+            },
+        ]}
+    />
 
-  <!-- Stats Section -->
-  <Container width="xl" padding="lg" margin="xl" background="base-100">
-    <Grid cols={{ base: 2, md: 4 }} gap="lg">
-      <div class="cosy:text-center">
-        <div class="cosy:text-4xl cosy:font-bold cosy:text-primary cosy:mb-2">
-          8+
-        </div>
-        <div class="cosy:text-lg cosy:text-base-content/70">
-          {data.yearsExperience}
-        </div>
-      </div>
-      <div class="cosy:text-center">
-        <div class="cosy:text-4xl cosy:font-bold cosy:text-primary cosy:mb-2">
-          500+
-        </div>
-        <div class="cosy:text-lg cosy:text-base-content/70">
-          {data.clientsServed}
-        </div>
-      </div>
-      <div class="cosy:text-center">
-        <div class="cosy:text-4xl cosy:font-bold cosy:text-primary cosy:mb-2">
-          1000+
-        </div>
-        <div class="cosy:text-lg cosy:text-base-content/70">
-          {data.projectsCompleted}
-        </div>
-      </div>
-      <div class="cosy:text-center">
-        <div class="cosy:text-4xl cosy:font-bold cosy:text-primary cosy:mb-2">
-          50+
-        </div>
-        <div class="cosy:text-lg cosy:text-base-content/70">
-          {data.teamMembers}
-        </div>
-      </div>
-    </Grid>
-  </Container>
-
-  <!-- About Section -->
-  <Container
-    id="about"
-    width="xl"
-    padding="lg"
-    margin="lg"
-    background="base-200">
-    <Heading level={2} class="cosy:mb-6">{data.aboutTitle}</Heading>
-    <Text size="lg" class="cosy:mb-8 cosy:text-base-content/80">
-      {data.aboutContent}
-    </Text>
-    <Button variant="primary" size="lg">
-      {data.learnMore}
-    </Button>
-  </Container>
-
-  <!-- Services Section -->
-  <Container width="xl" padding="lg" margin="lg" background="base-100">
-    <div class="cosy:text-center cosy:mb-16">
-      <Heading level={2} class="cosy:mb-4">{data.servicesTitle}</Heading>
-      <Text size="lg" class="cosy:text-base-content/80">
-        {
-          currentLocale === 'zh-cn'
-            ? '我们提供全方位的技术服务'
-            : 'We provide comprehensive technology services'
-        }
-      </Text>
-    </div>
-
-    <Grid cols={{ base: 1, md: 2, lg: 4 }} gap="lg">
-      {
-        services.map((service) => (
-          <Card class="cosy:text-center cosy:p-6 cosy:bg-base-200 cosy:border-0">
-            <div class="cosy:mb-4">
-              <SmartIcon
-                name={service.icon}
-                size="48px"
-                class="cosy:text-primary"
-              />
+    <!-- Stats Section -->
+    <Container width="xl" padding="lg" margin="xl" background="base-100">
+        <Grid cols={{ base: 2, md: 4 }} gap="lg">
+            <div class="cosy:text-center">
+                <div
+                    class="cosy:text-4xl cosy:font-bold cosy:text-primary cosy:mb-2">
+                    8+
+                </div>
+                <div class="cosy:text-lg cosy:text-base-content/70">
+                    {data.yearsExperience}
+                </div>
             </div>
-            <Heading level={3} size="lg" class="cosy:mb-3">
-              {service.title}
-            </Heading>
-            <Text class="cosy:text-base-content/70">{service.description}</Text>
-          </Card>
-        ))
-      }
-    </Grid>
-  </Container>
-
-  <!-- Products Section -->
-  <Container width="xl" padding="lg" margin="lg" background="base-200">
-    <div class="cosy:text-center cosy:mb-16">
-      <Heading level={2} class="cosy:mb-4">{data.productsTitle}</Heading>
-      <Text size="lg" class="cosy:text-base-content/80">
-        {currentLocale === 'zh-cn' ? '我们的核心产品' : 'Our Core Products'}
-      </Text>
-    </div>
-
-    <Grid cols={{ base: 1, md: 3 }} gap="lg">
-      {
-        products.map((product) => (
-          <Card class="cosy:overflow-hidden cosy:bg-base-100">
-            <div class="cosy:relative">
-              <Image
-                src={product.image}
-                alt={product.name}
-                width={400}
-                height={250}
-                class="cosy:w-full cosy:h-48 cosy:object-cover"
-              />
-              <Badge
-                variant="primary"
-                class="cosy:absolute cosy:top-4 cosy:right-4">
-                {product.badge}
-              </Badge>
+            <div class="cosy:text-center">
+                <div
+                    class="cosy:text-4xl cosy:font-bold cosy:text-primary cosy:mb-2">
+                    500+
+                </div>
+                <div class="cosy:text-lg cosy:text-base-content/70">
+                    {data.clientsServed}
+                </div>
             </div>
-            <div class="cosy:p-6">
-              <Heading level={3} size="lg" class="cosy:mb-3">
-                {product.name}
-              </Heading>
-              <Text class="cosy:mb-4 cosy:text-base-content/70">
-                {product.description}
-              </Text>
-              <Button variant="outline" size="sm" class="cosy:w-full">
-                {data.learnMore}
-              </Button>
+            <div class="cosy:text-center">
+                <div
+                    class="cosy:text-4xl cosy:font-bold cosy:text-primary cosy:mb-2">
+                    1000+
+                </div>
+                <div class="cosy:text-lg cosy:text-base-content/70">
+                    {data.projectsCompleted}
+                </div>
             </div>
-          </Card>
-        ))
-      }
-    </Grid>
-  </Container>
-
-  <!-- Team Section -->
-  <Container width="xl" padding="lg" margin="lg" background="base-100">
-    <Heading level={2}>{data.teamTitle}</Heading>
-    <Text size="lg" color="secondary">
-      {currentLocale === 'zh-cn' ? '认识我们的核心团队' : 'Meet Our Core Team'}
-    </Text>
-
-    <Grid cols={{ base: 1, md: 3 }} gap="lg">
-      {
-        teamMembers.map((member) => (
-          <Card class="cosy:text-center cosy:p-6 cosy:bg-base-200 cosy:border-0">
-            <div class="cosy:mb-4">
-              <Image
-                src={member.avatar}
-                alt={member.name}
-                width={120}
-                height={120}
-                class="cosy:w-30 cosy:h-30 cosy:rounded-full cosy:mx-auto cosy:object-cover"
-              />
+            <div class="cosy:text-center">
+                <div
+                    class="cosy:text-4xl cosy:font-bold cosy:text-primary cosy:mb-2">
+                    50+
+                </div>
+                <div class="cosy:text-lg cosy:text-base-content/70">
+                    {data.teamMembers}
+                </div>
             </div>
-            <Heading level={3} size="lg" class="cosy:mb-2">
-              {member.name}
-            </Heading>
-            <Text class="cosy:text-primary cosy:font-semibold cosy:mb-3">
-              {member.position}
-            </Text>
-            <Text class="cosy:mb-4 cosy:text-base-content/70">
-              {member.description}
-            </Text>
-            <div class="cosy:flex cosy:justify-center cosy:space-x-4">
-              {member.socialLinks.map((link) => (
-                <a href={link.url} target="_blank" rel="noopener noreferrer">
-                  <SocialIcon
-                    platform={link.platform}
-                    size="24px"
-                    class="cosy:text-base-content/60 hover:cosy:text-primary cosy:transition-colors"
-                  />
-                </a>
-              ))}
-            </div>
-          </Card>
-        ))
-      }
-    </Grid>
-  </Container>
-
-  <!-- Contact Section -->
-  <Container
-    id="contact"
-    width="xl"
-    padding="lg"
-    margin="lg"
-    background="base-200">
-    <div class="cosy:text-center cosy:mb-16">
-      <Heading level={2} class="cosy:mb-4">{data.contactTitle}</Heading>
-      <Text size="lg" class="cosy:text-base-content/80">
-        {
-          currentLocale === 'zh-cn'
-            ? '让我们一起创造未来'
-            : "Let's Create the Future Together"
-        }
-      </Text>
-    </div>
-
-    <Container width="lg">
-      <div class="cosy:grid cosy:grid-cols-1 cosy:lg:grid-cols-2 cosy:gap-12">
-        <!-- 联系信息 -->
-        <Contact
-          title={currentLocale === 'zh-cn' ? '联系信息' : 'Contact Information'}
-          description={currentLocale === 'zh-cn'
-            ? '我们很乐意听到您的想法和建议'
-            : "We'd love to hear your thoughts and suggestions"}
-          email="contact@innovationtech.com"
-          phone="+86 400-123-4567"
-          address={currentLocale === 'zh-cn'
-            ? '北京市朝阳区科技园区创新大厦'
-            : 'Innovation Building, Tech Park, Chaoyang District, Beijing'}
-          website="https://innovationtech.com"
-          github="https://github.com/innovationtech"
-          twitter="https://twitter.com/innovationtech"
-          linkedin="https://linkedin.com/company/innovationtech"
-        />
-
-        <!-- 联系表单 -->
-        <Card
-          title={currentLocale === 'zh-cn' ? '发送消息' : 'Send Message'}
-          class="cosy:p-8">
-          <form class="cosy:space-y-4">
-            <div>
-              <label class="cosy:block cosy:text-sm cosy:font-medium cosy:mb-2">
-                {currentLocale === 'zh-cn' ? '姓名' : 'Name'} *
-              </label>
-              <input
-                type="text"
-                required
-                class="cosy:input cosy:input-bordered cosy:w-full"
-                placeholder={currentLocale === 'zh-cn'
-                  ? '请输入您的姓名'
-                  : 'Enter your name'}
-              />
-            </div>
-            <div>
-              <label class="cosy:block cosy:text-sm cosy:font-medium cosy:mb-2">
-                {currentLocale === 'zh-cn' ? '邮箱' : 'Email'} *
-              </label>
-              <input
-                type="email"
-                required
-                class="cosy:input cosy:input-bordered cosy:w-full"
-                placeholder={currentLocale === 'zh-cn'
-                  ? '请输入您的邮箱'
-                  : 'Enter your email'}
-              />
-            </div>
-            <div>
-              <label class="cosy:block cosy:text-sm cosy:font-medium cosy:mb-2">
-                {currentLocale === 'zh-cn' ? '公司' : 'Company'}
-              </label>
-              <input
-                type="text"
-                class="cosy:input cosy:input-bordered cosy:w-full"
-                placeholder={currentLocale === 'zh-cn'
-                  ? '请输入您的公司名称'
-                  : 'Enter your company name'}
-              />
-            </div>
-            <div>
-              <label class="cosy:block cosy:text-sm cosy:font-medium cosy:mb-2">
-                {currentLocale === 'zh-cn' ? '消息' : 'Message'} *
-              </label>
-              <textarea
-                required
-                rows={4}
-                class="cosy:textarea cosy:textarea-bordered cosy:w-full"
-                placeholder={currentLocale === 'zh-cn'
-                  ? '请输入您的消息'
-                  : 'Enter your message'}></textarea>
-            </div>
-            <Button
-              type="submit"
-              variant="primary"
-              size="lg"
-              class="cosy:w-full">
-              {currentLocale === 'zh-cn' ? '发送消息' : 'Send Message'}
-            </Button>
-          </form>
-        </Card>
-      </div>
+        </Grid>
     </Container>
-  </Container>
 
-  <PlaceHolder height="5xl" />
+    <!-- About Section -->
+    <Container
+        id="about"
+        width="xl"
+        padding="lg"
+        margin="lg"
+        background="base-200">
+        <Heading level={2} class="cosy:mb-6">{data.aboutTitle}</Heading>
+        <Text size="lg" class="cosy:mb-8 cosy:text-base-content/80">
+            {data.aboutContent}
+        </Text>
+        <Button variant="primary" size="lg">
+            {data.learnMore}
+        </Button>
+    </Container>
+
+    <!-- Services Section -->
+    <Container width="xl" padding="lg" margin="lg" background="base-100">
+        <div class="cosy:text-center cosy:mb-16">
+            <Heading level={2} class="cosy:mb-4">{data.servicesTitle}</Heading>
+            <Text size="lg" class="cosy:text-base-content/80">
+                {
+                    currentLocale === 'zh-cn'
+                        ? '我们提供全方位的技术服务'
+                        : 'We provide comprehensive technology services'
+                }
+            </Text>
+        </div>
+
+        <Grid cols={{ base: 1, md: 2, lg: 4 }} gap="lg">
+            {
+                services.map((service) => (
+                    <Card class="cosy:text-center cosy:p-6 cosy:bg-base-200 cosy:border-0">
+                        <div class="cosy:mb-4">
+                            <SmartIcon
+                                name={service.icon}
+                                size="48px"
+                                class="cosy:text-primary"
+                            />
+                        </div>
+                        <Heading level={3} size="lg" class="cosy:mb-3">
+                            {service.title}
+                        </Heading>
+                        <Text class="cosy:text-base-content/70">
+                            {service.description}
+                        </Text>
+                    </Card>
+                ))
+            }
+        </Grid>
+    </Container>
+
+    <!-- Products Section -->
+    <Container width="xl" padding="lg" margin="lg" background="base-200">
+        <div class="cosy:text-center cosy:mb-16">
+            <Heading level={2} class="cosy:mb-4">{data.productsTitle}</Heading>
+            <Text size="lg" class="cosy:text-base-content/80">
+                {
+                    currentLocale === 'zh-cn'
+                        ? '我们的核心产品'
+                        : 'Our Core Products'
+                }
+            </Text>
+        </div>
+
+        <Grid cols={{ base: 1, md: 3 }} gap="lg">
+            {
+                products.map((product) => (
+                    <Card class="cosy:overflow-hidden cosy:bg-base-100">
+                        <div class="cosy:relative">
+                            <Image
+                                src={product.image}
+                                alt={product.name}
+                                width={400}
+                                height={250}
+                                class="cosy:w-full cosy:h-48 cosy:object-cover"
+                            />
+                            <Badge
+                                variant="primary"
+                                class="cosy:absolute cosy:top-4 cosy:right-4">
+                                {product.badge}
+                            </Badge>
+                        </div>
+                        <div class="cosy:p-6">
+                            <Heading level={3} size="lg" class="cosy:mb-3">
+                                {product.name}
+                            </Heading>
+                            <Text class="cosy:mb-4 cosy:text-base-content/70">
+                                {product.description}
+                            </Text>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                class="cosy:w-full">
+                                {data.learnMore}
+                            </Button>
+                        </div>
+                    </Card>
+                ))
+            }
+        </Grid>
+    </Container>
+
+    <!-- Team Section -->
+    <Container width="xl" padding="lg" margin="lg" background="base-100">
+        <Heading level={2}>{data.teamTitle}</Heading>
+        <Text size="lg" color="secondary">
+            {
+                currentLocale === 'zh-cn'
+                    ? '认识我们的核心团队'
+                    : 'Meet Our Core Team'
+            }
+        </Text>
+
+        <Grid cols={{ base: 1, md: 3 }} gap="lg">
+            {
+                teamMembers.map((member) => (
+                    <Card class="cosy:text-center cosy:p-6 cosy:bg-base-200 cosy:border-0">
+                        <div class="cosy:mb-4">
+                            <Image
+                                src={member.avatar}
+                                alt={member.name}
+                                width={120}
+                                height={120}
+                                class="cosy:w-30 cosy:h-30 cosy:rounded-full cosy:mx-auto cosy:object-cover"
+                            />
+                        </div>
+                        <Heading level={3} size="lg" class="cosy:mb-2">
+                            {member.name}
+                        </Heading>
+                        <Text class="cosy:text-primary cosy:font-semibold cosy:mb-3">
+                            {member.position}
+                        </Text>
+                        <Text class="cosy:mb-4 cosy:text-base-content/70">
+                            {member.description}
+                        </Text>
+                        <div class="cosy:flex cosy:justify-center cosy:space-x-4">
+                            {member.socialLinks.map((link) => (
+                                <a
+                                    href={link.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+                                    <SocialIcon
+                                        platform={link.platform}
+                                        size="24px"
+                                        class="cosy:text-base-content/60 hover:cosy:text-primary cosy:transition-colors"
+                                    />
+                                </a>
+                            ))}
+                        </div>
+                    </Card>
+                ))
+            }
+        </Grid>
+    </Container>
+
+    <!-- Contact Section -->
+    <Container
+        id="contact"
+        width="xl"
+        padding="lg"
+        margin="lg"
+        background="base-200">
+        <div class="cosy:text-center cosy:mb-16">
+            <Heading level={2} class="cosy:mb-4">{data.contactTitle}</Heading>
+            <Text size="lg" class="cosy:text-base-content/80">
+                {
+                    currentLocale === 'zh-cn'
+                        ? '让我们一起创造未来'
+                        : "Let's Create the Future Together"
+                }
+            </Text>
+        </div>
+
+        <Container width="lg">
+            <div
+                class="cosy:grid cosy:grid-cols-1 cosy:lg:grid-cols-2 cosy:gap-12">
+                <!-- 联系信息 -->
+                <Contact
+                    title={currentLocale === 'zh-cn'
+                        ? '联系信息'
+                        : 'Contact Information'}
+                    description={currentLocale === 'zh-cn'
+                        ? '我们很乐意听到您的想法和建议'
+                        : "We'd love to hear your thoughts and suggestions"}
+                    email="contact@innovationtech.com"
+                    phone="+86 400-123-4567"
+                    address={currentLocale === 'zh-cn'
+                        ? '北京市朝阳区科技园区创新大厦'
+                        : 'Innovation Building, Tech Park, Chaoyang District, Beijing'}
+                    website="https://innovationtech.com"
+                    github="https://github.com/innovationtech"
+                    twitter="https://twitter.com/innovationtech"
+                    linkedin="https://linkedin.com/company/innovationtech"
+                />
+
+                <!-- 联系表单 -->
+                <Card
+                    title={currentLocale === 'zh-cn'
+                        ? '发送消息'
+                        : 'Send Message'}
+                    class="cosy:p-8">
+                    <form class="cosy:space-y-4">
+                        <div>
+                            <label
+                                class="cosy:block cosy:text-sm cosy:font-medium cosy:mb-2">
+                                {currentLocale === 'zh-cn' ? '姓名' : 'Name'} *
+                            </label>
+                            <input
+                                type="text"
+                                required
+                                class="cosy:input cosy:input-bordered cosy:w-full"
+                                placeholder={currentLocale === 'zh-cn'
+                                    ? '请输入您的姓名'
+                                    : 'Enter your name'}
+                            />
+                        </div>
+                        <div>
+                            <label
+                                class="cosy:block cosy:text-sm cosy:font-medium cosy:mb-2">
+                                {currentLocale === 'zh-cn' ? '邮箱' : 'Email'} *
+                            </label>
+                            <input
+                                type="email"
+                                required
+                                class="cosy:input cosy:input-bordered cosy:w-full"
+                                placeholder={currentLocale === 'zh-cn'
+                                    ? '请输入您的邮箱'
+                                    : 'Enter your email'}
+                            />
+                        </div>
+                        <div>
+                            <label
+                                class="cosy:block cosy:text-sm cosy:font-medium cosy:mb-2">
+                                {currentLocale === 'zh-cn' ? '公司' : 'Company'}
+                            </label>
+                            <input
+                                type="text"
+                                class="cosy:input cosy:input-bordered cosy:w-full"
+                                placeholder={currentLocale === 'zh-cn'
+                                    ? '请输入您的公司名称'
+                                    : 'Enter your company name'}
+                            />
+                        </div>
+                        <div>
+                            <label
+                                class="cosy:block cosy:text-sm cosy:font-medium cosy:mb-2">
+                                {currentLocale === 'zh-cn' ? '消息' : 'Message'}
+                                *
+                            </label>
+                            <textarea
+                                required
+                                rows={4}
+                                class="cosy:textarea cosy:textarea-bordered cosy:w-full"
+                                placeholder={currentLocale === 'zh-cn'
+                                    ? '请输入您的消息'
+                                    : 'Enter your message'}></textarea>
+                        </div>
+                        <Button
+                            type="submit"
+                            variant="primary"
+                            size="lg"
+                            class="cosy:w-full">
+                            {
+                                currentLocale === 'zh-cn'
+                                    ? '发送消息'
+                                    : 'Send Message'
+                            }
+                        </Button>
+                    </form>
+                </Card>
+            </div>
+        </Container>
+    </Container>
+
+    <PlaceHolder height="5xl" />
 </AppLayout>

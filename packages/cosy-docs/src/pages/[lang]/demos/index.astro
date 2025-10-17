@@ -8,7 +8,7 @@ import factoryHeroUrl from "@/demos/factory_showcase/images/hero.png";
 import ecommerceMainUrl from "@/demos/ecommerce_product/images/main.jpg";
 import appleProductsIphoneUrl from "@/demos/apple_products/images/iphone.jpg";
 
-const currentLocale = Astro.url.pathname.split("/")[2] || "zh-cn";
+const currentLocale = Astro.params.lang;
 
 export const getStaticPaths = async () => {
 	return [
@@ -23,78 +23,95 @@ export const getStaticPaths = async () => {
 ---
 
 <DemoLayout
-  title="Cosy UI 组件库 - 示例"
-  showSidebar={false}
-  showTOC={false}
-  showDemoBanner={false}>
-  <Heading level={1} align="center" margin="lg">
-    Cosy UI 组件库 - 示例
-  </Heading>
+    title="Cosy UI 组件库 - 示例"
+    showSidebar={false}
+    showTOC={false}
+    showDemoBanner={false}>
+    <Heading level={1} align="center" margin="lg">
+        Cosy UI 组件库 - 示例
+    </Heading>
 
-  <Products
-    products={[
-      {
-        name: '文档布局',
-        image: getExampleImage({
-          width: 100,
-          height: 100,
-        }),
-        description: '适用于展示文档的场景',
-        productUrl: LinkUtil.createUrl(`${currentLocale}/demos/doc_layout`),
-      },
-      {
-        name: '网格布局',
-        image: getExampleImage({
-          width: 100,
-          height: 100,
-        }),
-        description: '展示灵活的网格布局系统',
-        productUrl: LinkUtil.createUrl(`${currentLocale}/demos/grid_layout`),
-      },
-      {
-        name: '企业官网',
-        image: enterpriseHeroUrl,
-        description: '基于组件库开发的企业官方网站演示',
-        productUrl: LinkUtil.createUrl(
-          `${currentLocale}/demos/enterprise_website`
-        ),
-      },
-      {
-        name: '苹果风格官网',
-        image: appleStyleHeroUrl,
-        description: '苹果官网风格的极简企业网站演示',
-        productUrl: LinkUtil.createUrl(
-          `${currentLocale}/demos/apple_style_website`
-        ),
-      },
-      {
-        name: '汽车零部件展示',
-        image: autoPartsHeroUrl,
-        description: '现代化汽车零部件企业产品展示页面',
-        productUrl: LinkUtil.createUrl(
-          `${currentLocale}/demos/auto_parts_showcase`
-        ),
-      },
-      {
-        name: 'Apple 产品列表',
-        image: appleProductsIphoneUrl,
-        description: '展示 Apple 设备与配件的产品卡片列表',
-        productUrl: LinkUtil.createUrl(`${currentLocale}/demos/apple_products`),
-      },
-      {
-        name: '工厂照片展示',
-        image: factoryHeroUrl,
-        description: '工厂图片与文字展示区块',
-        productUrl: LinkUtil.createUrl(`${currentLocale}/demos/factory`),
-      },
-      {
-        name: '电商产品页面',
-        image: ecommerceMainUrl,
-        description: '现代化电商产品购买展示页面',
-        productUrl: LinkUtil.createUrl(
-          `${currentLocale}/demos/ecommerce_product`
-        ),
-      },
-    ]}
-  />
+    <Products
+        products={[
+            {
+                name: '文档布局',
+                image: getExampleImage({
+                    width: 100,
+                    height: 100,
+                }),
+                description: '适用于展示文档的场景',
+                productUrl: LinkUtil.createUrl(
+                    `${currentLocale}/demos/doc_layout`
+                ),
+            },
+            {
+                name: '网格布局',
+                image: getExampleImage({
+                    width: 100,
+                    height: 100,
+                }),
+                description: '展示灵活的网格布局系统',
+                productUrl: LinkUtil.createUrl(
+                    `${currentLocale}/demos/grid_layout`
+                ),
+            },
+            {
+                name: '企业官网',
+                image: enterpriseHeroUrl,
+                description: '基于组件库开发的企业官方网站演示',
+                productUrl: LinkUtil.createUrl(
+                    `${currentLocale}/demos/enterprise_website`
+                ),
+            },
+            {
+                name: '苹果风格官网',
+                image: appleStyleHeroUrl,
+                description: '苹果官网风格的极简企业网站演示',
+                productUrl: LinkUtil.createUrl(
+                    `${currentLocale}/demos/apple_style_website`
+                ),
+            },
+            {
+                name: '汽车零部件展示',
+                image: autoPartsHeroUrl,
+                description: '现代化汽车零部件企业产品展示页面',
+                productUrl: LinkUtil.createUrl(
+                    `${currentLocale}/demos/auto_parts_showcase`
+                ),
+            },
+            {
+                name: 'Apple 产品列表',
+                image: appleProductsIphoneUrl,
+                description: '展示 Apple 设备与配件的产品卡片列表',
+                productUrl: LinkUtil.createUrl(
+                    `${currentLocale}/demos/apple_products`
+                ),
+            },
+            {
+                name: '工厂照片展示',
+                image: factoryHeroUrl,
+                description: '工厂图片与文字展示区块',
+                productUrl: LinkUtil.createUrl(
+                    `${currentLocale}/demos/factory`
+                ),
+            },
+            {
+                name: '电商产品页面',
+                image: ecommerceMainUrl,
+                description: '现代化电商产品购买展示页面',
+                productUrl: LinkUtil.createUrl(
+                    `${currentLocale}/demos/ecommerce_product`
+                ),
+            },
+            {
+                name: 'ApplePhone 组件',
+                image: getExampleImage({
+                    width: 100,
+                    height: 100,
+                }),
+                description: '模拟 iPhone 设备外观的组件演示',
+                productUrl: LinkUtil.createUrl(`${currentLocale}/demos/iPhone`),
+            },
+        ]}
+    />
 </DemoLayout>
