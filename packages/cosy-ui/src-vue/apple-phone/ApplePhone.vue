@@ -2,7 +2,6 @@
 import "../../style";
 import { AlertDialog, Container } from "../../index-vue";
 import { ref } from "vue";
-import type { BackgroundColor } from "../../src/common/backgrounds";
 import StatusBarContent from "./StatusBarContent.vue";
 import PhoneFrame from "./PhoneFrame.vue";
 
@@ -48,15 +47,12 @@ const props = withDefaults(defineProps<Props>(), {
 import {
 	IPHONE_FRAME_WIDTH,
 	IPHONE_FRAME_HEIGHT,
-	IPHONE_FRAME_STATUS_BAR_TOP,
-	IPHONE_FRAME_STATUS_BAR_HEIGHT,
 	MAIN_CONTENT_WIDTH_ASPECT_RATIO,
 	MAIN_CONTENT_HEIGHT_ASPECT_RATIO,
 	IPHONE_FRAME_STATUS_BAR_HEIGHT_ASPECT_RATIO,
 	IPHONE_FRAME_STATUS_BAR_TOP_ASPECT_RATIO,
 	HEIGHT_CLASSES,
 	HEIGHT_VALUES,
-	DEFAULT_HEIGHT,
 } from "../../src/components/apple-phone/constants";
 
 // 响应式数据

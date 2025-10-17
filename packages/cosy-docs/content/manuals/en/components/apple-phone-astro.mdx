@@ -1,0 +1,47 @@
+---
+title: ApplePhone
+folder: false
+order: 1.8
+badge: 'Astro'
+tags:
+  - Astro
+---
+
+import { ApplePhone } from '@coffic/cosy-ui';
+import { ApplePhonePackage } from '@/components/apple-phone/index.ts';
+
+# {frontmatter.title}
+
+The ApplePhone component simulates the appearance of an iPhone device, perfect for mobile UI prototyping.
+
+## Examples
+
+<ApplePhonePackage.Basic />
+
+## Props
+
+### backgroundColor
+Content area background color, equivalent to setting the background color for its internal Container. Supports preset semantic colors and opacity variants.
+<ApplePhonePackage.BackgroundColor />
+
+### height
+Window height, supporting multiple predefined size options.
+<ApplePhonePackage.Height />
+
+### showFrame
+Whether to show the iPhone frame, when set to false, only the content area is displayed.
+<ApplePhonePackage.ShowFrame />
+
+### title
+Window title, displayed as title text in the status bar.
+<ApplePhonePackage.Title />
+
+### withShadow
+Whether to show shadow effects, adding dimensionality to the iPhone window.
+<ApplePhonePackage.WithShadow />
+
+## Slots
+
+### default
+Main content area, used to place application interface content.
+<ApplePhonePackage.Slots />

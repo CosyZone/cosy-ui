@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import iphoneFrame from "../../src/components/apple-phone/assets/iPhone 14 Pro - Deep Purple - Portrait.png";
+import iphoneFrame from "../../src/components/apple-phone/assets/iPhone14ProDeepPurplePortrait.png";
 
 const iphoneFrameSrc = (iphoneFrame as any).src || iphoneFrame;
 </script>

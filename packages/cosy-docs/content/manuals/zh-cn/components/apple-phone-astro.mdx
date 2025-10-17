@@ -1,0 +1,47 @@
+---
+title: ApplePhone
+folder: false
+order: 1.8
+badge: 'Astro'
+tags:
+  - Astro
+---
+
+import { ApplePhone } from '@coffic/cosy-ui';
+import { ApplePhonePackage } from '@/components/apple-phone/index.ts';
+
+# {frontmatter.title}
+
+ApplePhone 组件用于模拟 iPhone 设备的外观，适合移动端界面原型展示。
+
+## 案例
+
+<ApplePhonePackage.Basic />
+
+## Props
+
+### backgroundColor
+内容区域背景色，等同于为其内部的 Container 设置背景色。支持预设的语义化颜色和透明度变体。
+<ApplePhonePackage.BackgroundColor />
+
+### height
+窗口高度，支持多种预定义尺寸选项。
+<ApplePhonePackage.Height />
+
+### showFrame
+是否显示 iPhone 边框，设置为 false 时只显示内容区域。
+<ApplePhonePackage.ShowFrame />
+
+### title
+窗口标题，显示在状态栏中的标题文本。
+<ApplePhonePackage.Title />
+
+### withShadow
+是否显示阴影效果，为 iPhone 窗口添加立体感。
+<ApplePhonePackage.WithShadow />
+
+## Slots
+
+### default
+主要内容区域，用于放置应用界面内容。
+<ApplePhonePackage.Slots />

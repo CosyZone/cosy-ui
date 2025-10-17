@@ -1,0 +1,21 @@
+---
+import { CodeContainer } from "@coffic/cosy-ui";
+import ApplePhoneShowFrameTrueSourceCode from "./ApplePhoneShowFrameTrue.astro?raw";
+import ApplePhoneShowFrameFalseSourceCode from "./ApplePhoneShowFrameFalse.astro?raw";
+import ApplePhoneShowFrameTrue from "./ApplePhoneShowFrameTrue.astro";
+import ApplePhoneShowFrameFalse from "./ApplePhoneShowFrameFalse.astro";
+---
+
+<CodeContainer
+    codes={[
+        ApplePhoneShowFrameTrueSourceCode,
+        ApplePhoneShowFrameFalseSourceCode,
+    ]}
+    titles={['true', 'false']}>
+    <div id="tab-1">
+        <ApplePhoneShowFrameTrue />
+    </div>
+    <div id="tab-2">
+        <ApplePhoneShowFrameFalse />
+    </div>
+</CodeContainer>
