@@ -2,10 +2,9 @@
 	"name": "@coffic/cosy-docs",
 	"scripts": {
 		"dev": "astro dev --host 0.0.0.0 --port 6688",
-		"preview": "astro preview --host 0.0.0.0 --port 4330 --outDir dist",
 		"build": "astro build",
 		"deploy:cloudflare": "wrangler deploy",
-		"preview:cloudflare": "wrangler dev ./dist/_worker.js/index.js"
+		"preview": "wrangler dev ./dist/_worker.js/index.js"
 	},
 	"type": "module",
 	"dependencies": {
