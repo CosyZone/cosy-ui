@@ -1,0 +1,97 @@
+---
+import { AppLayout } from '@coffic/cosy-ui';
+import { configApp } from '@/config/config.app';
+import IphoneDemo from '@/demos/apple-phone/IphoneDemo.vue';
+
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+
+// 从 URL 获取当前语言
+const currentLocale = Astro.params.lang;
+
+// 定义支持的语言
+const languages = ['zh-cn', 'en'];
+
+export const getStaticPaths = async () => {
+    return [
+        {
+            params: { lang: 'zh-cn' },
+        },
+        {
+            params: { lang: 'en' },
+        },
+    ];
+};
+---
+
+<AppLayout
+    theme="light"
+    showSidebar={false}
+    metaConfig={{
+        title: title,
+        description: 'Cosy UI - iPhone Component Demo (Vue Version)',
+        keywords: 'Cosy UI, iPhone, component demo, Vue',
+        author: 'CofficLab',
+        robots: 'index, follow',
+    }}
+    footerConfig={{
+        siteName: 'Cosy UI',
+        homeLink: configApp.homeLink,
+        slogan:
+            currentLocale === 'zh-cn'
+                ? '优雅、高效的 Astro 组件库'
+                : 'A beautiful Astro component library',
+        company: 'CofficLab',
+        inspirationalSlogan:
+            currentLocale === 'zh-cn'
+                ? '构建美好的用户界面'
+                : 'Build a beautiful user interface',
+        products: [
+            { name: 'Cisum', href: 'https://coffic.cn/cisum' },
+            { name: 'JuiceEditor', href: 'https://coffic.cn/juice_editor' },
+            { name: 'GitOK', href: 'https://coffic.cn/gitok' },
+            { name: 'Cosy UI', href: 'https://github.com/cosyzone/cosy-ui' },
+        ],
+        aboutInfo: {
+            aboutLink: 'https://coffic.cn/en/meta/about',
+            contactLink: 'https://coffic.cn/en/meta/contact',
+        },
+        legalInfo: {
+            termsLink: 'https://coffic.cn/en/meta/terms',
+            privacyLink: 'https://coffic.cn/en/meta/privacy',
+        },
+        resourcesInfo: {
+            historyLink: 'https://coffic.cn/en/meta/out-story',
+            techStackLink: 'https://coffic.cn/en/meta/tech-stack',
+        },
+    }}
+    headerConfig={{
+        logoHref: configApp.homeLink,
+        navItems: configApp.getNavItems(currentLocale || 'zh-cn'),
+    }}
+    sidebarConfig={{
+        sidebarItems: [],
+        debug: false,
+    }}
+    mainContentConfig={{
+        py: '4xl',
+        showTableOfContents: false,
+        isArticle: true,
+    }}
+    showHeader={true}>
+    <h1>iPhone 组件演示 (Vue 版本)</h1>
+
+    <h2>简介</h2>
+    <p>
+        iPhone 组件模拟 iPhone 设备的外观，包含状态栏、时间显示和设备边框。
+        适用于创建移动应用界面原型或展示移动端设计效果。这是 Vue 版本的实现。
+    </p>
+
+    <h2>演示</h2>
+    <div style="display: flex; justify-content: center; margin: 2rem 0;">
+        <IphoneDemo />
+    </div>
+</AppLayout>
