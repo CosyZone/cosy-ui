@@ -40,7 +40,7 @@ const props = withDefaults(defineProps<Props>(), {
 	height: "lg",
 	title: "",
 	withShadow: true,
-	showFrame: true,
+	showFrame: false,
 	backgroundColor: undefined,
 });
 
@@ -116,6 +116,9 @@ const getScaleRatio = () => {
         </div>
       </Container>
     </div>
+    
+    <!-- iPhone 边框 -->
+    <PhoneFrame v-if="showFrame" />
   </div>
 
   <AlertDialog v-model="showAlertDialog" :message="alertMessage" />

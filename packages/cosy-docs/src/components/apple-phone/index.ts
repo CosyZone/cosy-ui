@@ -5,6 +5,7 @@ import ApplePhoneShowFrameContainer from "./ApplePhoneShowFrameContainer.astro";
 import ApplePhoneTitleContainer from "./ApplePhoneTitleContainer.astro";
 import ApplePhoneWithShadowContainer from "./ApplePhoneWithShadowContainer.astro";
 import ApplePhoneSlotsContainer from "./ApplePhoneSlotsContainer.astro";
+import ApplePhoneExamplesContainer from "./ApplePhoneExamplesContainer.astro";
 
 export const ApplePhonePackage = {
 	Basic: ApplePhoneBasicContainer,
@@ -14,4 +15,5 @@ export const ApplePhonePackage = {
 	Title: ApplePhoneTitleContainer,
 	WithShadow: ApplePhoneWithShadowContainer,
 	Slots: ApplePhoneSlotsContainer,
+	Examples: ApplePhoneExamplesContainer,
 };

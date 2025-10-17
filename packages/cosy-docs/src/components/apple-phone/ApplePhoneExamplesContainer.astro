@@ -1,0 +1,27 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import ApplePhoneBasicSourceCode from './ApplePhoneBasic.astro?raw';
+import ApplePhoneBasic from './ApplePhoneBasic.astro';
+import ApplePhoneLongTextNoFrameSourceCode from './ApplePhoneLongTextNoFrame.astro?raw';
+import ApplePhoneLongTextNoFrame from './ApplePhoneLongTextNoFrame.astro';
+import ApplePhoneLongTextWithFrameSourceCode from './ApplePhoneLongTextWithFrame.astro?raw';
+import ApplePhoneLongTextWithFrame from './ApplePhoneLongTextWithFrame.astro';
+---
+
+<CodeContainer
+    codes={[
+        ApplePhoneBasicSourceCode,
+        ApplePhoneLongTextNoFrameSourceCode,
+        ApplePhoneLongTextWithFrameSourceCode,
+    ]}
+    titles={['基本用法', '长文本无边框', '长文本有边框']}>
+    <div id="tab-1">
+        <ApplePhoneBasic />
+    </div>
+    <div id="tab-2">
+        <ApplePhoneLongTextNoFrame />
+    </div>
+    <div id="tab-3">
+        <ApplePhoneLongTextWithFrame />
+    </div>
+</CodeContainer>

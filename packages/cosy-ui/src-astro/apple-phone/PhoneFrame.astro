@@ -4,8 +4,8 @@
  * @description ApplePhone 组件的内部边框组件，用于显示 iPhone 设备的边框
  */
 
-import { Image } from "../image";
-import iphoneFrame from "../../src/components/apple-phone/assets/iPhone14ProDeepPurplePortrait.png";
+import { Image } from '../image';
+import iphoneFrame from '../../src/components/apple-phone/assets/iPhone14ProDeepPurplePortrait.png';
 ---
 
 <div
@@ -15,7 +15,8 @@ import iphoneFrame from "../../src/components/apple-phone/assets/iPhone14ProDeep
 		position: absolute;
 		top: 0;
 		left: 0;
-		z-index: 100;
+		z-index: 10;
+        pointer-events: none;
 	">
     <Image src={iphoneFrame} alt="iPhone frame" />
 </div>
