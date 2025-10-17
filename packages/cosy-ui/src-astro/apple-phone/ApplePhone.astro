@@ -1,0 +1,141 @@
+---
+/**
+ * @component ApplePhone
+ *
+ * @description
+ * ApplePhone 组件模拟 iPhone 设备的外观，包含状态栏、时间显示和设备边框。
+ * 适用于创建移动应用界面原型或展示移动端设计效果。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <ApplePhone title="我的应用">
+ *   <div>应用内容</div>
+ * </ApplePhone>
+ * ```
+ *
+ * 自定义高度和背景色：
+ * ```astro
+ * <ApplePhone height="xl" backgroundColor="primary/10">
+ *   <div>应用内容</div>
+ * </ApplePhone>
+ * ```
+ *
+ * 不显示边框：
+ * ```astro
+ * <ApplePhone showFrame={false}>
+ *   <div>应用内容</div>
+ * </ApplePhone>
+ * ```
+ *
+ * @props
+ * @prop {'sm'|'md'|'lg'|'xl'|'2xl'|'3xl'|'4xl'|'5xl'} [height='lg'] - 窗口高度选项
+ * - sm: 256px (h-64)
+ * - md: 320px (h-80)
+ * - lg: 384px (h-96) - 默认值
+ * - xl: 480px
+ * - 2xl: 560px
+ * - 3xl: 640px
+ * - 4xl: 720px
+ * - 5xl: 800px
+ * @prop {String} [title=''] - 窗口标题
+ * @prop {Boolean} [withShadow=true] - 是否显示阴影效果
+ * @prop {Boolean} [showFrame=true] - 是否显示 iPhone 边框
+ * @prop {BackgroundColor} [backgroundColor=''] - 内容区域背景色，等同于为其内部的 Container 设置背景色
+ *
+ * @slots
+ * @slot default - 主要内容区域
+ */
+
+import "../../style";
+import { Container } from "../container";
+import { AlertDialog } from "../alert-dialog";
+import type { IApplePhonePropsBase } from "../../src/components/apple-phone/applePhonePropsBase";
+import StatusBarContent from "./StatusBarContent.astro";
+import PhoneFrame from "./PhoneFrame.astro";
+import {
+	IPHONE_FRAME_WIDTH,
+	IPHONE_FRAME_HEIGHT,
+	MAIN_CONTENT_WIDTH_ASPECT_RATIO,
+	MAIN_CONTENT_HEIGHT_ASPECT_RATIO,
+	IPHONE_FRAME_STATUS_BAR_HEIGHT_ASPECT_RATIO,
+	IPHONE_FRAME_STATUS_BAR_TOP_ASPECT_RATIO,
+	HEIGHT_CLASSES,
+	HEIGHT_VALUES,
+	DEFAULT_HEIGHT,
+} from "../../src/components/apple-phone/constants";
+
+// Props 定义 - 使用共享接口
+interface Props extends IApplePhonePropsBase {}
+
+const {
+	height = DEFAULT_HEIGHT,
+	title = "",
+	withShadow = true,
+	showFrame = true,
+	backgroundColor = undefined,
+} = Astro.props as Props;
+
+// 计算当前高度的缩放比例
+const currentHeight = HEIGHT_VALUES[height];
+const scaleRatio = currentHeight / 500;
+
+// 生成唯一的ID
+const uniqueId = `apple-phone-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div
+    class={`cosy:relative not-prose cosy:mx-auto ${HEIGHT_CLASSES[height]}`}
+    style={`aspect-ratio: ${IPHONE_FRAME_WIDTH}/${IPHONE_FRAME_HEIGHT};`}
+    apple-phone>
+    <!-- iPhone 边框 -->
+    {showFrame && <PhoneFrame />}
+
+    <!-- 顶部状态栏 -->
+    <div
+        style={`position: absolute; top: ${IPHONE_FRAME_STATUS_BAR_TOP_ASPECT_RATIO * 100}%; height: ${IPHONE_FRAME_STATUS_BAR_HEIGHT_ASPECT_RATIO * 100}%; width: ${MAIN_CONTENT_WIDTH_ASPECT_RATIO * 100}%; left: 50%; transform: translate(-50%, 0); padding-left: 5%; padding-right: 5%; z-index: 50;`}>
+        <!-- StatusBarContent 组件 -->
+        <StatusBarContent scaleRatio={scaleRatio} />
+    </div>
+
+    <!-- 内容区域 -->
+    <div
+        class="cosy:inset-0 cosy:h-full cosy:flex cosy:flex-col"
+        style={`width: ${MAIN_CONTENT_WIDTH_ASPECT_RATIO * 100}%; height: ${MAIN_CONTENT_HEIGHT_ASPECT_RATIO * 100}%; left: 50%; top: 50%; transform: translate(-50%, -50%); position: absolute; z-index: 20;`}>
+        <Container
+            rounded="lg"
+            height="full"
+            background={backgroundColor || 'accent/90'}>
+            <div
+                class="cosy:h-full cosy:overflow-y-auto cosy:overscroll-y-contain">
+                <slot />
+            </div>
+        </Container>
+    </div>
+</div>
+
+<AlertDialog id={`${uniqueId}-alert`} message="" />
+
+<script>
+    // 全局函数，用于处理状态栏时间更新
+    function updateTime() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        return `${hours}:${minutes}`;
+    }
+
+    // 更新时间显示
+    function updateStatusBarTime() {
+        const timeElements = document.querySelectorAll('.time-text');
+        timeElements.forEach((element) => {
+            (element as HTMLElement).textContent = updateTime();
+        });
+    }
+
+    // 初始化并设置定时器
+    document.addEventListener('DOMContentLoaded', () => {
+        updateStatusBarTime();
+        setInterval(updateStatusBarTime, 60000); // 每分钟更新一次
+    });
+</script>

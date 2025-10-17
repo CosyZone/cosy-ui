@@ -11,8 +11,7 @@
 		"dev:vue": "pnpm --filter vue-example dev",
 		"dev": "pnpm dev:docs",
 		"lint": "biome lint --write ./",
-		"preview:docs": "pnpm build:docs && pnpm --filter @coffic/cosy-ui-docs preview",
-		"preview:cloudflare": "pnpm build && wrangler pages dev ./dist",
+		"preview:docs": "pnpm --filter @coffic/cosy-docs preview",
 		"check": "pnpm --recursive run check",
 		"format": "biome format --write ./",
 		"deploy:docs:cloudflare": "pnpm --filter @coffic/cosy-docs deploy:cloudflare"
@@ -24,10 +23,10 @@
 		"@biomejs/biome": "2.2.4",
 		"@vitest/ui": "^3.2.4",
 		"jiti": "2.4.2",
-		"typescript": "^5.9.2",
-		"vite": "^7.1.6",
+		"typescript": "^5.9.3",
+		"vite": "^7.1.10",
 		"vitest": "^3.2.4",
-		"wrangler": "^4.40.2"
+		"wrangler": "^4.43.0"
 	},
 	"engines": {
 		"node": ">=18.0.0",

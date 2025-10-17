@@ -1,14 +1,13 @@
 ---
 import { AppLayout } from "@coffic/cosy-ui";
 import { configApp } from "@/config/config.app";
+import IphoneDemo from "@/demos/apple-phone/IphoneDemo.vue";
 
 interface Props {
 	title: string;
-	showTOC?: boolean;
-	showSidebar?: boolean;
 }
 
-const { title, showTOC = true } = Astro.props;
+const { title } = Astro.props;
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.params.lang;
@@ -29,12 +28,12 @@ export const getStaticPaths = async () => {
 ---
 
 <AppLayout
-    theme="dark"
+    theme="light"
     showSidebar={false}
     metaConfig={{
         title: title,
-        description: 'Cosy UI - A beautiful Astro component library',
-        keywords: 'Cosy UI, Astro, component library',
+        description: 'Cosy UI - iPhone Component Demo (Vue Version)',
+        keywords: 'Cosy UI, iPhone, component demo, Vue',
         author: 'CofficLab',
         robots: 'index, follow',
     }}
@@ -79,20 +78,20 @@ export const getStaticPaths = async () => {
     }}
     mainContentConfig={{
         py: '4xl',
-        showTableOfContents: showTOC,
+        showTableOfContents: false,
         isArticle: true,
     }}
     showHeader={true}>
-    <h1>文档布局</h1>
+    <h1>iPhone 组件演示 (Vue 版本)</h1>
 
     <h2>简介</h2>
-
     <p>
-        文档布局是Cosy
-        UI提供的一种布局方式，用于展示文档内容。它可以帮助用户更好地组织和展示文档，提高阅读体验。
+        iPhone 组件模拟 iPhone 设备的外观，包含状态栏、时间显示和设备边框。
+        适用于创建移动应用界面原型或展示移动端设计效果。这是 Vue 版本的实现。
     </p>
 
-    <h3>小标题</h3>
-
-    <p>段落</p>
+    <h2>演示</h2>
+    <div style="display: flex; justify-content: center; margin: 2rem 0;">
+        <IphoneDemo />
+    </div>
 </AppLayout>

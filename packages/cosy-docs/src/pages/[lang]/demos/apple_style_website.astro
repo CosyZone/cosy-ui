@@ -41,7 +41,7 @@ import avatar3Url from "@/demos/apple_style_website/images/avatar-3.jpg?url";
 import wechatQrUrl from "@/demos/apple_style_website/images/wechat-qr.jpg?url";
 
 // 从 URL 获取当前语言
-const currentLocale = Astro.url.pathname.split("/")[2] || "zh-cn";
+const currentLocale = Astro.params.lang;
 
 export const getStaticPaths = async () => {
 	return [{ params: { lang: "zh-cn" } }, { params: { lang: "en" } }];
@@ -178,363 +178,408 @@ const features = [
 ---
 
 <AppLayout
-  metaConfig={{
-    title: data.companyName,
-    description: data.description,
-    keywords:
-      currentLocale === 'zh-cn'
-        ? '极简设计,科技产品,用户体验,简约美学'
-        : 'minimal design, tech products, user experience, minimalist aesthetics',
-    author: data.companyName,
-    robots: 'index, follow',
-  }}
-  sidebarConfig={{ sidebarItems: [] }}
-  showHeader={true}
-  showFooter={true}
-  showSidebar={false}
-  footerConfig={{
-    siteName: data.companyName,
-    homeLink: configApp.homeLink,
-    slogan: data.slogan,
-    company: data.companyName,
-    inspirationalSlogan: data.slogan,
-    background: 'base-200',
-    products: [
-      { name: 'Cisum', href: 'https://coffic.cn/cisum' },
-      { name: 'JuiceEditor', href: 'https://coffic.cn/juice_editor' },
-      { name: 'GitOK', href: 'https://coffic.cn/gitok' },
-      { name: 'Cosy UI', href: 'https://github.com/cosyzone/cosy-ui' },
-    ],
-    aboutInfo: {
-      aboutLink: configApp.homeLink + '#about',
-      contactLink: configApp.homeLink + '#contact',
-      teamLink: configApp.homeLink + '#team',
-      careersLink: configApp.homeLink + '#careers',
-    },
-    legalInfo: {
-      termsLink: configApp.homeLink + '/terms',
-      privacyLink: configApp.homeLink + '/privacy',
-      icp: currentLocale === 'zh-cn' ? '沪ICP备12345678号-1' : 'ICP 12345678-1',
-      icpLink: 'https://beian.miit.gov.cn',
-    },
-    resourcesInfo: {
-      newsLink: configApp.homeLink + '#news',
-      historyLink: configApp.homeLink + '#history',
-      partnersLink: configApp.homeLink + '#partners',
-      blogLink: configApp.homeLink + '#blog',
-      faqLink: configApp.homeLink + '#faq',
-      mediaLink: configApp.homeLink + '#media',
-      techStackLink: configApp.homeLink + '#tech',
-    },
-    friendlyLinks: [
-      {
-        name: 'GitHub',
-        href: 'https://github.com/CofficLab/cosy-ui',
-        external: true,
-      },
-      { name: 'CofficLab', href: 'https://cofficlab.com', external: true },
-    ],
-    socialLinks: ['https://github.com/CofficLab', 'https://twitter.com'],
-    wechatQR: wechatQrUrl,
-  }}
-  headerConfig={{
-    logoHref: configApp.homeLink,
-    navItems: configApp.getNavItems(currentLocale),
-  }}
-  mainContentConfig={{
-    py: 'none',
-    size: 'full',
-    padding: 'none',
-  }}>
-  <Hero
-    title={data.heroSubtitle}
-    description={`${data.heroTitle} · ${data.heroDescription}`}
-    align="center"
-    backgroundImage={heroUrl}
-    backgroundOverlay="dark"
-    overlayOpacity={0.2}
-    imagePosition="right"
-    links={[
-      { text: data.buyNow, href: '#', variant: 'primary' },
-      { text: data.watchDemo, href: '#', variant: 'secondary' },
-    ]}
-  />
-
-  <Container width="xl" padding="xl" margin="xl" background="base-200">
-    <StatsDisplay
-      stats={statsData}
-      valueSize="3xl"
-      valueColor="#3b82f6"
-      labelColor="#6b7280"
-      valueWeight="thin"
-      labelWeight="light"
-      gap="3xl"
-      align="center"
-    />
-  </Container>
-
-  <Container width="xl" padding="none" margin="lg">
-    <FeatureCarousel
-      features={[
-        {
-          title:
+    metaConfig={{
+        title: data.companyName,
+        description: data.description,
+        keywords:
             currentLocale === 'zh-cn'
-              ? '性能和电池续航'
-              : 'Performance and Battery Life',
-          description:
-            currentLocale === 'zh-cn'
-              ? '跑得快,跑得久。'
-              : 'Runs fast, lasts long.',
-          background: 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%)',
-          image: feature1Url,
-          textColor: 'white',
+                ? '极简设计,科技产品,用户体验,简约美学'
+                : 'minimal design, tech products, user experience, minimalist aesthetics',
+        author: data.companyName,
+        robots: 'index, follow',
+    }}
+    sidebarConfig={{ sidebarItems: [] }}
+    showHeader={true}
+    showFooter={true}
+    showSidebar={false}
+    footerConfig={{
+        siteName: data.companyName,
+        homeLink: configApp.homeLink,
+        slogan: data.slogan,
+        company: data.companyName,
+        inspirationalSlogan: data.slogan,
+        background: 'base-200',
+        products: [
+            { name: 'Cisum', href: 'https://coffic.cn/cisum' },
+            { name: 'JuiceEditor', href: 'https://coffic.cn/juice_editor' },
+            { name: 'GitOK', href: 'https://coffic.cn/gitok' },
+            { name: 'Cosy UI', href: 'https://github.com/cosyzone/cosy-ui' },
+        ],
+        aboutInfo: {
+            aboutLink: configApp.homeLink + '#about',
+            contactLink: configApp.homeLink + '#contact',
+            teamLink: configApp.homeLink + '#team',
+            careersLink: configApp.homeLink + '#careers',
         },
-        {
-          title: currentLocale === 'zh-cn' ? 'Mac 和 iPhone' : 'Mac and iPhone',
-          description:
-            currentLocale === 'zh-cn' ? '梦幻好队友。' : 'Dream team.',
-          background: '#a7f3d0',
-          image: feature2Url,
-          textColor: 'black',
+        legalInfo: {
+            termsLink: configApp.homeLink + '/terms',
+            privacyLink: configApp.homeLink + '/privacy',
+            icp:
+                currentLocale === 'zh-cn'
+                    ? '沪ICP备12345678号-1'
+                    : 'ICP 12345678-1',
+            icpLink: 'https://beian.miit.gov.cn',
         },
-        {
-          title: currentLocale === 'zh-cn' ? '兼容性' : 'Compatibility',
-          description:
-            currentLocale === 'zh-cn'
-              ? '各种常用 App, Mac 都能跑。'
-              : 'All common Apps, Mac can run them.',
-          background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
-          image: feature3Url,
-          textColor: 'white',
+        resourcesInfo: {
+            newsLink: configApp.homeLink + '#news',
+            historyLink: configApp.homeLink + '#history',
+            partnersLink: configApp.homeLink + '#partners',
+            blogLink: configApp.homeLink + '#blog',
+            faqLink: configApp.homeLink + '#faq',
+            mediaLink: configApp.homeLink + '#media',
+            techStackLink: configApp.homeLink + '#tech',
         },
-        {
-          title:
-            currentLocale === 'zh-cn' ? '隐私和安全' : 'Privacy and Security',
-          description:
-            currentLocale === 'zh-cn'
-              ? '你的私事, 只关你的事。'
-              : 'Your private matters, only concern you.',
-          background: 'linear-gradient(135deg, #ef4444 0%, #7c3aed 100%)',
-          image: feature4Url,
-          textColor: 'white',
-        },
-        {
-          title: currentLocale === 'zh-cn' ? '创新设计' : 'Innovative Design',
-          description:
-            currentLocale === 'zh-cn'
-              ? '每一处细节, 都经过精心设计。'
-              : 'Every detail is carefully designed.',
-          background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
-          image: feature5Url,
-          textColor: 'white',
-        },
-        {
-          title: currentLocale === 'zh-cn' ? '环保理念' : 'Environmental Care',
-          description:
-            currentLocale === 'zh-cn'
-              ? '为地球, 做正确的事。'
-              : 'For the planet, do the right thing.',
-          background: '#10b981',
-          image: feature6Url,
-          textColor: 'white',
-        },
-        {
-          title:
-            currentLocale === 'zh-cn' ? '专业创作' : 'Professional Creation',
-          description:
-            currentLocale === 'zh-cn'
-              ? '让创意, 无界限。'
-              : 'Let creativity know no bounds.',
-          background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
-          image: feature7Url,
-          textColor: 'white',
-        },
-        {
-          title: currentLocale === 'zh-cn' ? '智能助手' : 'Smart Assistant',
-          description:
-            currentLocale === 'zh-cn'
-              ? 'AI 让一切更简单。'
-              : 'AI makes everything simpler.',
-          background: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
-          image: feature8Url,
-          textColor: 'white',
-        },
-        {
-          title: currentLocale === 'zh-cn' ? '无缝体验' : 'Seamless Experience',
-          description:
-            currentLocale === 'zh-cn'
-              ? '设备间, 无缝切换。'
-              : 'Seamless switching between devices.',
-          background: '#f3f4f6',
-          image: feature9Url,
-          textColor: 'black',
-        },
-      ]}
-    />
-  </Container>
-
-  <Container width="full" padding="none" margin="lg">
-    {
-      products.map((product, index) => (
-        <ProductHero
-          name={product.name}
-          description={product.description}
-          image={product.image}
-          highlight={product.highlight}
-          labels={product.labels}
-          align={index % 2 === 0 ? 'left' : 'right'}
-          background={index % 2 === 0 ? 'base-200' : 'base-100'}>
-          <div slot="actions" style="display:flex; gap:1rem;">
-            <Button variant="primary" size="lg">
-              {data.buyNow}
-            </Button>
-            <Button variant="outline" size="lg">
-              {data.learnMore}
-            </Button>
-          </div>
-        </ProductHero>
-      ))
-    }
-  </Container>
-
-  <Container width="xl" padding="xl" margin="lg" background="base-100">
-    <div style="text-align: center; margin-bottom: 4rem;">
-      <Heading level={2} size="3xl" margin="lg" weight="thin"
-        >{data.featuresTitle}</Heading
-      >
-    </div>
-    <div
-      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem;">
-      {
-        features.map((feature) => (
-          <div style="text-align: center; padding: 2rem;">
-            <div style="margin-bottom: 2rem;">
-              <SmartIcon
-                name={feature.icon}
-                size="64px"
-                class="cosy:text-primary"
-              />
-            </div>
-            <Heading level={3} size="xl" class="cosy:mb-4 cosy:font-thin">
-              {feature.title}
-            </Heading>
-            <Text class="cosy:text-base-content/70 cosy:font-light">
-              {feature.description}
-            </Text>
-          </div>
-        ))
-      }
-    </div>
-  </Container>
-
-  <Container width="full" padding="xl" margin="lg" background="base-200">
-    <Container width="xl">
-      <Heading level={2} size="3xl" margin="lg" weight="thin"
-        >{data.teamTitle}</Heading
-      >
-      <TeamMembers
-        members={[
-          {
-            name: 'A',
-            role: 'Designer',
-            avatar: avatar1Url,
-            bio: '',
-            socialLinks: [],
-          },
+        friendlyLinks: [
+            {
+                name: 'GitHub',
+                href: 'https://github.com/CofficLab/cosy-ui',
+                external: true,
+            },
+            {
+                name: 'CofficLab',
+                href: 'https://cofficlab.com',
+                external: true,
+            },
+        ],
+        socialLinks: ['https://github.com/CofficLab', 'https://twitter.com'],
+        wechatQR: wechatQrUrl,
+    }}
+    headerConfig={{
+        logoHref: configApp.homeLink,
+        navItems: configApp.getNavItems(currentLocale),
+    }}
+    mainContentConfig={{
+        py: 'none',
+        size: 'full',
+        padding: 'none',
+    }}>
+    <Hero
+        title={data.heroSubtitle}
+        description={`${data.heroTitle} · ${data.heroDescription}`}
+        align="center"
+        backgroundImage={heroUrl}
+        backgroundOverlay="dark"
+        overlayOpacity={0.2}
+        imagePosition="right"
+        links={[
+            { text: data.buyNow, href: '#', variant: 'primary' },
+            { text: data.watchDemo, href: '#', variant: 'secondary' },
         ]}
-        columns={3}
-      />
+    />
+
+    <Container width="xl" padding="xl" margin="xl" background="base-200">
+        <StatsDisplay
+            stats={statsData}
+            valueSize="3xl"
+            valueColor="#3b82f6"
+            labelColor="#6b7280"
+            valueWeight="thin"
+            labelWeight="light"
+            gap="3xl"
+            align="center"
+        />
     </Container>
-  </Container>
 
-  <Container
-    id="contact"
-    width="xl"
-    padding="xl"
-    margin="lg"
-    background="base-100">
-    <div style="text-align: center; margin-bottom: 4rem;">
-      <Heading level={2} size="3xl" margin="lg" weight="thin"
-        >{data.contactTitle}</Heading
-      >
-      <Text size="lg" class="cosy:text-base-content/70 cosy:font-light"
-        >{
-          currentLocale === 'zh-cn'
-            ? '让我们一起创造更美好的未来'
-            : "Let's create a better future together"
-        }</Text
-      >
-    </div>
-    <div
-      style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
-      <Contact
-        title={currentLocale === 'zh-cn' ? '联系信息' : 'Contact Information'}
-        description={currentLocale === 'zh-cn'
-          ? '我们很乐意听到您的想法'
-          : "We'd love to hear from you"}
-        email="hello@minimaltech.com"
-        phone="+86 400-888-9999"
-        address={currentLocale === 'zh-cn'
-          ? '上海市浦东新区科技园区'
-          : 'Tech Park, Pudong New Area, Shanghai'}
-        website="https://minimaltech.com"
-        github="https://github.com/minimaltech"
-        twitter="https://twitter.com/minimaltech"
-        linkedin="https://linkedin.com/company/minimaltech"
-      />
-      <Card
-        title={currentLocale === 'zh-cn' ? '发送消息' : 'Send Message'}
-        class="cosy:p-8">
-        <form style="display: flex; flex-direction: column; gap: 1.5rem;">
-          <div>
-            <label
-              style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;"
-              >{currentLocale === 'zh-cn' ? '姓名' : 'Name'} *</label
-            ><input
-              type="text"
-              required
-              style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem;"
-              placeholder={currentLocale === 'zh-cn'
-                ? '请输入您的姓名'
-                : 'Enter your name'}
-            />
-          </div>
-          <div>
-            <label
-              style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;"
-              >{currentLocale === 'zh-cn' ? '邮箱' : 'Email'} *</label
-            ><input
-              type="email"
-              required
-              style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem;"
-              placeholder={currentLocale === 'zh-cn'
-                ? '请输入您的邮箱'
-                : 'Enter your email'}
-            />
-          </div>
-          <div>
-            <label
-              style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;"
-              >{currentLocale === 'zh-cn' ? '消息' : 'Message'} *</label
-            ><textarea
-              required
-              rows={4}
-              style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem; resize: vertical;"
-              placeholder={currentLocale === 'zh-cn'
-                ? '请输入您的消息'
-                : 'Enter your message'}></textarea>
-          </div>
-          <Button
-            type="submit"
-            variant="primary"
-            size="lg"
-            class="cosy:w-full cosy:mt-4"
-            >{currentLocale === 'zh-cn' ? '发送消息' : 'Send Message'}</Button
-          >
-        </form>
-      </Card>
-    </div>
-  </Container>
+    <Container width="xl" padding="none" margin="lg">
+        <FeatureCarousel
+            features={[
+                {
+                    title:
+                        currentLocale === 'zh-cn'
+                            ? '性能和电池续航'
+                            : 'Performance and Battery Life',
+                    description:
+                        currentLocale === 'zh-cn'
+                            ? '跑得快,跑得久。'
+                            : 'Runs fast, lasts long.',
+                    background:
+                        'linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%)',
+                    image: feature1Url,
+                    textColor: 'white',
+                },
+                {
+                    title:
+                        currentLocale === 'zh-cn'
+                            ? 'Mac 和 iPhone'
+                            : 'Mac and iPhone',
+                    description:
+                        currentLocale === 'zh-cn'
+                            ? '梦幻好队友。'
+                            : 'Dream team.',
+                    background: '#a7f3d0',
+                    image: feature2Url,
+                    textColor: 'black',
+                },
+                {
+                    title:
+                        currentLocale === 'zh-cn' ? '兼容性' : 'Compatibility',
+                    description:
+                        currentLocale === 'zh-cn'
+                            ? '各种常用 App, Mac 都能跑。'
+                            : 'All common Apps, Mac can run them.',
+                    background:
+                        'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+                    image: feature3Url,
+                    textColor: 'white',
+                },
+                {
+                    title:
+                        currentLocale === 'zh-cn'
+                            ? '隐私和安全'
+                            : 'Privacy and Security',
+                    description:
+                        currentLocale === 'zh-cn'
+                            ? '你的私事, 只关你的事。'
+                            : 'Your private matters, only concern you.',
+                    background:
+                        'linear-gradient(135deg, #ef4444 0%, #7c3aed 100%)',
+                    image: feature4Url,
+                    textColor: 'white',
+                },
+                {
+                    title:
+                        currentLocale === 'zh-cn'
+                            ? '创新设计'
+                            : 'Innovative Design',
+                    description:
+                        currentLocale === 'zh-cn'
+                            ? '每一处细节, 都经过精心设计。'
+                            : 'Every detail is carefully designed.',
+                    background:
+                        'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+                    image: feature5Url,
+                    textColor: 'white',
+                },
+                {
+                    title:
+                        currentLocale === 'zh-cn'
+                            ? '环保理念'
+                            : 'Environmental Care',
+                    description:
+                        currentLocale === 'zh-cn'
+                            ? '为地球, 做正确的事。'
+                            : 'For the planet, do the right thing.',
+                    background: '#10b981',
+                    image: feature6Url,
+                    textColor: 'white',
+                },
+                {
+                    title:
+                        currentLocale === 'zh-cn'
+                            ? '专业创作'
+                            : 'Professional Creation',
+                    description:
+                        currentLocale === 'zh-cn'
+                            ? '让创意, 无界限。'
+                            : 'Let creativity know no bounds.',
+                    background:
+                        'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
+                    image: feature7Url,
+                    textColor: 'white',
+                },
+                {
+                    title:
+                        currentLocale === 'zh-cn'
+                            ? '智能助手'
+                            : 'Smart Assistant',
+                    description:
+                        currentLocale === 'zh-cn'
+                            ? 'AI 让一切更简单。'
+                            : 'AI makes everything simpler.',
+                    background:
+                        'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
+                    image: feature8Url,
+                    textColor: 'white',
+                },
+                {
+                    title:
+                        currentLocale === 'zh-cn'
+                            ? '无缝体验'
+                            : 'Seamless Experience',
+                    description:
+                        currentLocale === 'zh-cn'
+                            ? '设备间, 无缝切换。'
+                            : 'Seamless switching between devices.',
+                    background: '#f3f4f6',
+                    image: feature9Url,
+                    textColor: 'black',
+                },
+            ]}
+        />
+    </Container>
 
-  <PlaceHolder height="md" />
+    <Container width="full" padding="none" margin="lg">
+        {
+            products.map((product, index) => (
+                <ProductHero
+                    name={product.name}
+                    description={product.description}
+                    image={product.image}
+                    highlight={product.highlight}
+                    labels={product.labels}
+                    align={index % 2 === 0 ? 'left' : 'right'}
+                    background={index % 2 === 0 ? 'base-200' : 'base-100'}>
+                    <div slot="actions" style="display:flex; gap:1rem;">
+                        <Button variant="primary" size="lg">
+                            {data.buyNow}
+                        </Button>
+                        <Button variant="outline" size="lg">
+                            {data.learnMore}
+                        </Button>
+                    </div>
+                </ProductHero>
+            ))
+        }
+    </Container>
+
+    <Container width="xl" padding="xl" margin="lg" background="base-100">
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <Heading level={2} size="3xl" margin="lg" weight="thin"
+                >{data.featuresTitle}</Heading
+            >
+        </div>
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem;">
+            {
+                features.map((feature) => (
+                    <div style="text-align: center; padding: 2rem;">
+                        <div style="margin-bottom: 2rem;">
+                            <SmartIcon
+                                name={feature.icon}
+                                size="64px"
+                                class="cosy:text-primary"
+                            />
+                        </div>
+                        <Heading
+                            level={3}
+                            size="xl"
+                            class="cosy:mb-4 cosy:font-thin">
+                            {feature.title}
+                        </Heading>
+                        <Text class="cosy:text-base-content/70 cosy:font-light">
+                            {feature.description}
+                        </Text>
+                    </div>
+                ))
+            }
+        </div>
+    </Container>
+
+    <Container width="full" padding="xl" margin="lg" background="base-200">
+        <Container width="xl">
+            <Heading level={2} size="3xl" margin="lg" weight="thin"
+                >{data.teamTitle}</Heading
+            >
+            <TeamMembers
+                members={[
+                    {
+                        name: 'A',
+                        role: 'Designer',
+                        avatar: avatar1Url,
+                        bio: '',
+                        socialLinks: [],
+                    },
+                ]}
+                columns={3}
+            />
+        </Container>
+    </Container>
+
+    <Container
+        id="contact"
+        width="xl"
+        padding="xl"
+        margin="lg"
+        background="base-100">
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <Heading level={2} size="3xl" margin="lg" weight="thin"
+                >{data.contactTitle}</Heading
+            >
+            <Text size="lg" class="cosy:text-base-content/70 cosy:font-light"
+                >{
+                    currentLocale === 'zh-cn'
+                        ? '让我们一起创造更美好的未来'
+                        : "Let's create a better future together"
+                }</Text
+            >
+        </div>
+        <div
+            style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
+            <Contact
+                title={currentLocale === 'zh-cn'
+                    ? '联系信息'
+                    : 'Contact Information'}
+                description={currentLocale === 'zh-cn'
+                    ? '我们很乐意听到您的想法'
+                    : "We'd love to hear from you"}
+                email="hello@minimaltech.com"
+                phone="+86 400-888-9999"
+                address={currentLocale === 'zh-cn'
+                    ? '上海市浦东新区科技园区'
+                    : 'Tech Park, Pudong New Area, Shanghai'}
+                website="https://minimaltech.com"
+                github="https://github.com/minimaltech"
+                twitter="https://twitter.com/minimaltech"
+                linkedin="https://linkedin.com/company/minimaltech"
+            />
+            <Card
+                title={currentLocale === 'zh-cn' ? '发送消息' : 'Send Message'}
+                class="cosy:p-8">
+                <form
+                    style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div>
+                        <label
+                            style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;"
+                            >{currentLocale === 'zh-cn' ? '姓名' : 'Name'} *</label
+                        ><input
+                            type="text"
+                            required
+                            style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem;"
+                            placeholder={currentLocale === 'zh-cn'
+                                ? '请输入您的姓名'
+                                : 'Enter your name'}
+                        />
+                    </div>
+                    <div>
+                        <label
+                            style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;"
+                            >{currentLocale === 'zh-cn' ? '邮箱' : 'Email'} *</label
+                        ><input
+                            type="email"
+                            required
+                            style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem;"
+                            placeholder={currentLocale === 'zh-cn'
+                                ? '请输入您的邮箱'
+                                : 'Enter your email'}
+                        />
+                    </div>
+                    <div>
+                        <label
+                            style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;"
+                            >{currentLocale === 'zh-cn' ? '消息' : 'Message'} *</label
+                        ><textarea
+                            required
+                            rows={4}
+                            style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem; resize: vertical;"
+                            placeholder={currentLocale === 'zh-cn'
+                                ? '请输入您的消息'
+                                : 'Enter your message'}></textarea>
+                    </div>
+                    <Button
+                        type="submit"
+                        variant="primary"
+                        size="lg"
+                        class="cosy:w-full cosy:mt-4"
+                        >{
+                            currentLocale === 'zh-cn'
+                                ? '发送消息'
+                                : 'Send Message'
+                        }</Button
+                    >
+                </form>
+            </Card>
+        </div>
+    </Container>
+
+    <PlaceHolder height="md" />
 </AppLayout>

@@ -19,7 +19,7 @@ import airpodsUrl from "@/demos/apple_products/images/airpods.jpg?url";
 import visionProUrl from "@/demos/apple_products/images/vision-pro.jpg?url";
 import wechatQrUrl from "@/demos/apple_products/images/wechat-qr.jpg?url";
 
-const currentLocale = Astro.url.pathname.split("/")[2] || "zh-cn";
+const currentLocale = Astro.params.lang;
 const t = (zh: string, en: string) => (currentLocale === "zh-cn" ? zh : en);
 
 export const getStaticPaths = async () => {
@@ -28,170 +28,171 @@ export const getStaticPaths = async () => {
 ---
 
 <AppLayout
-  metaConfig={{
-    title: t('Apple 产品列表', 'Apple Products'),
-    description: t(
-      '精选 Apple 设备与配件，一站式浏览与了解。',
-      'Curated Apple devices and accessories for quick browsing and discovery.'
-    ),
-    keywords: t(
-      'iPhone, MacBook, iPad, Apple Watch, AirPods, Vision Pro',
-      'iPhone, MacBook, iPad, Apple Watch, AirPods, Vision Pro'
-    ),
-    author: 'Cosy UI',
-    robots: 'index, follow',
-  }}
-  showFooter={true}
-  showSidebar={false}
-  footerConfig={{
-    siteName: 'Cosy UI',
-    homeLink: configApp.homeLink,
-    slogan: t('更快构建现代网站', 'Build modern sites faster'),
-    company: 'Cosy UI',
-    inspirationalSlogan: t(
-      '打造优雅、可复用的界面',
-      'Craft elegant, reusable UIs'
-    ),
-    background: 'base-200',
-    aboutInfo: {
-      aboutLink: configApp.homeLink + '#about',
-      contactLink: configApp.homeLink + '#contact',
-      teamLink: configApp.homeLink + '#team',
-      careersLink: configApp.homeLink + '#careers',
-    },
-    resourcesInfo: {
-      newsLink: configApp.homeLink + '#news',
-      historyLink: configApp.homeLink + '#history',
-      partnersLink: configApp.homeLink + '#partners',
-      blogLink: configApp.homeLink + '#blog',
-      faqLink: configApp.homeLink + '#faq',
-      mediaLink: configApp.homeLink + '#media',
-      techStackLink: configApp.homeLink + '#tech',
-    },
-    contactInfo: {
-      address: t(
-        '上海市静安区南京西路 88 号',
-        '88 Nanjing West Rd, Jing’an, Shanghai'
-      ),
-      phone: '+86 21 0000 0000',
-      email: 'contact@cosyui.dev',
-      workingHours: t('周一至周五 09:00-18:00', 'Mon-Fri 09:00-18:00'),
-      wechat: 'cosyui_official',
-      qq: '87654321',
-    },
-    legalInfo: {
-      termsLink: configApp.homeLink + '/terms',
-      privacyLink: configApp.homeLink + '/privacy',
-      icp: t('沪ICP备12345678号-1', 'ICP 12345678-1'),
-      icpLink: 'https://beian.miit.gov.cn',
-    },
-    products: [
-      {
-        name: t('组件库', 'Component Library'),
-        href: configApp.homeLink + '/components',
-      },
-      {
-        name: t('模板集', 'Templates'),
-        href: configApp.homeLink + '/templates',
-      },
-    ],
-    friendlyLinks: [
-      {
-        name: 'GitHub',
-        href: 'https://github.com/CofficLab/cosy-ui',
-        external: true,
-      },
-      { name: 'CofficLab', href: 'https://cofficlab.com', external: true },
-    ],
-    socialLinks: ['https://github.com/CofficLab', 'https://twitter.com'],
-    wechatQR: wechatQrUrl,
-  }}
-  headerConfig={{
-    logoHref: configApp.homeLink,
-    navItems: configApp.getNavItems(currentLocale),
-    astroI18n: astroI18n,
-  }}
-  sidebarConfig={{ sidebarItems: [] }}
-  mainContentConfig={{ py: '2xl' }}>
-  <Container width="xl" padding="lg" centered={true}>
-    <Heading level={1} margin="lg"
-      >{t('Apple 产品列表', 'Apple Products')}</Heading
-    >
-    <Text margin="md"
-      >{
-        t(
-          '精选 Apple 设备与配件，一站式浏览与了解。',
-          'Curated Apple devices and accessories for quick browsing and discovery.'
-        )
-      }</Text
-    >
+    metaConfig={{
+        title: t('Apple 产品列表', 'Apple Products'),
+        description: t(
+            '精选 Apple 设备与配件，一站式浏览与了解。',
+            'Curated Apple devices and accessories for quick browsing and discovery.'
+        ),
+        keywords: t(
+            'iPhone, MacBook, iPad, Apple Watch, AirPods, Vision Pro',
+            'iPhone, MacBook, iPad, Apple Watch, AirPods, Vision Pro'
+        ),
+        author: 'Cosy UI',
+        robots: 'index, follow',
+    }}
+    showFooter={true}
+    showSidebar={false}
+    footerConfig={{
+        siteName: 'Cosy UI',
+        homeLink: configApp.homeLink,
+        slogan: t('更快构建现代网站', 'Build modern sites faster'),
+        company: 'Cosy UI',
+        inspirationalSlogan: t(
+            '打造优雅、可复用的界面',
+            'Craft elegant, reusable UIs'
+        ),
+        background: 'base-200',
+        aboutInfo: {
+            aboutLink: configApp.homeLink + '#about',
+            contactLink: configApp.homeLink + '#contact',
+            teamLink: configApp.homeLink + '#team',
+            careersLink: configApp.homeLink + '#careers',
+        },
+        resourcesInfo: {
+            newsLink: configApp.homeLink + '#news',
+            historyLink: configApp.homeLink + '#history',
+            partnersLink: configApp.homeLink + '#partners',
+            blogLink: configApp.homeLink + '#blog',
+            faqLink: configApp.homeLink + '#faq',
+            mediaLink: configApp.homeLink + '#media',
+            techStackLink: configApp.homeLink + '#tech',
+        },
+        contactInfo: {
+            address: t(
+                '上海市静安区南京西路 88 号',
+                '88 Nanjing West Rd, Jing’an, Shanghai'
+            ),
+            phone: '+86 21 0000 0000',
+            email: 'contact@cosyui.dev',
+            workingHours: t('周一至周五 09:00-18:00', 'Mon-Fri 09:00-18:00'),
+            wechat: 'cosyui_official',
+            qq: '87654321',
+        },
+        legalInfo: {
+            termsLink: configApp.homeLink + '/terms',
+            privacyLink: configApp.homeLink + '/privacy',
+            icp: t('沪ICP备12345678号-1', 'ICP 12345678-1'),
+            icpLink: 'https://beian.miit.gov.cn',
+        },
+        products: [
+            {
+                name: t('组件库', 'Component Library'),
+                href: configApp.homeLink + '/components',
+            },
+            {
+                name: t('模板集', 'Templates'),
+                href: configApp.homeLink + '/templates',
+            },
+        ],
+        friendlyLinks: [
+            {
+                name: 'GitHub',
+                href: 'https://github.com/CofficLab/cosy-ui',
+                external: true,
+            },
+            {
+                name: 'CofficLab',
+                href: 'https://cofficlab.com',
+                external: true,
+            },
+        ],
+        socialLinks: ['https://github.com/CofficLab', 'https://twitter.com'],
+        wechatQR: wechatQrUrl,
+    }}
+    headerConfig={{
+        logoHref: configApp.homeLink,
+        navItems: configApp.getNavItems(currentLocale),
+        astroI18n: astroI18n,
+    }}
+    sidebarConfig={{ sidebarItems: [] }}
+    mainContentConfig={{ py: '2xl' }}>
+    <Container width="xl" padding="lg" centered={true}>
+        <Heading level={1} margin="lg"
+            >{t('Apple 产品列表', 'Apple Products')}</Heading
+        >
+        <Text margin="md"
+            >{
+                t(
+                    '精选 Apple 设备与配件，一站式浏览与了解。',
+                    'Curated Apple devices and accessories for quick browsing and discovery.'
+                )
+            }</Text
+        >
 
-    <Grid cols={{ base: 1, md: 2, lg: 3 }} gap="lg">
-      {
-        [
-          {
-            nameZh: 'iPhone 15 Pro',
-            nameEn: 'iPhone 15 Pro',
-            tag: 'NEW',
-            img: iphoneUrl,
-            descZh: '钛金属机身，A17 Pro 芯片，顶级性能与影像系统。',
-            descEn:
-              'Titanium design. A17 Pro chip. Top-tier performance and camera.',
-          },
-          {
-            nameZh: 'MacBook Air (M2)',
-            nameEn: 'MacBook Air (M2)',
-            tag: 'HOT',
-            img: macbookUrl,
-            descZh: '轻薄便携，M2 芯片带来出色续航与性能。',
-            descEn:
-              'Ultra-thin and portable. M2 chip with great battery and performance.',
-          },
-          {
-            nameZh: 'iPad Pro',
-            nameEn: 'iPad Pro',
-            tag: 'PRO',
-            img: ipadUrl,
-            descZh: '高刷新率屏幕与强大处理器，生产力与创作利器。',
-            descEn:
-              'High refresh display and powerful processor, built for creation.',
-          },
-          {
-            nameZh: 'Apple Watch Ultra',
-            nameEn: 'Apple Watch Ultra',
-            tag: 'SPORT',
-            img: watchUrl,
-            descZh: '为极限运动而生，更耐用的外壳与更长续航。',
-            descEn: 'Built for extremes with rugged case and longer battery.',
-          },
-          {
-            nameZh: 'AirPods Pro',
-            nameEn: 'AirPods Pro',
-            tag: 'ANC',
-            img: airpodsUrl,
-            descZh: '主动降噪与通透模式，舒适佩戴体验。',
-            descEn:
-              'Active Noise Cancellation and Transparency mode, comfortable fit.',
-          },
-          {
-            nameZh: 'Vision Pro',
-            nameEn: 'Vision Pro',
-            tag: 'XR',
-            img: visionProUrl,
-            descZh: '空间计算设备，沉浸式体验与全新交互。',
-            descEn:
-              'Spatial computing device with immersive experiences and new interactions.',
-          },
-        ].map((p) => (
-          <Card
-            title={t(p.nameZh, p.nameEn)}
-            subtitle={t(p.descZh, p.descEn)}
-            imageUrl={p.img}>
-            <Badge variant="secondary">{p.tag}</Badge>
-            <Button variant="primary">{t('了解更多', 'Learn more')}</Button>
-          </Card>
-        ))
-      }
-    </Grid>
-  </Container>
+        <Grid cols={{ base: 1, md: 2, lg: 3 }} gap="lg">
+            {
+                [
+                    {
+                        nameZh: 'iPhone 15 Pro',
+                        nameEn: 'iPhone 15 Pro',
+                        tag: 'NEW',
+                        img: iphoneUrl,
+                        descZh: '钛金属机身，A17 Pro 芯片，顶级性能与影像系统。',
+                        descEn: 'Titanium design. A17 Pro chip. Top-tier performance and camera.',
+                    },
+                    {
+                        nameZh: 'MacBook Air (M2)',
+                        nameEn: 'MacBook Air (M2)',
+                        tag: 'HOT',
+                        img: macbookUrl,
+                        descZh: '轻薄便携，M2 芯片带来出色续航与性能。',
+                        descEn: 'Ultra-thin and portable. M2 chip with great battery and performance.',
+                    },
+                    {
+                        nameZh: 'iPad Pro',
+                        nameEn: 'iPad Pro',
+                        tag: 'PRO',
+                        img: ipadUrl,
+                        descZh: '高刷新率屏幕与强大处理器，生产力与创作利器。',
+                        descEn: 'High refresh display and powerful processor, built for creation.',
+                    },
+                    {
+                        nameZh: 'Apple Watch Ultra',
+                        nameEn: 'Apple Watch Ultra',
+                        tag: 'SPORT',
+                        img: watchUrl,
+                        descZh: '为极限运动而生，更耐用的外壳与更长续航。',
+                        descEn: 'Built for extremes with rugged case and longer battery.',
+                    },
+                    {
+                        nameZh: 'AirPods Pro',
+                        nameEn: 'AirPods Pro',
+                        tag: 'ANC',
+                        img: airpodsUrl,
+                        descZh: '主动降噪与通透模式，舒适佩戴体验。',
+                        descEn: 'Active Noise Cancellation and Transparency mode, comfortable fit.',
+                    },
+                    {
+                        nameZh: 'Vision Pro',
+                        nameEn: 'Vision Pro',
+                        tag: 'XR',
+                        img: visionProUrl,
+                        descZh: '空间计算设备，沉浸式体验与全新交互。',
+                        descEn: 'Spatial computing device with immersive experiences and new interactions.',
+                    },
+                ].map((p) => (
+                    <Card
+                        title={t(p.nameZh, p.nameEn)}
+                        subtitle={t(p.descZh, p.descEn)}
+                        imageUrl={p.img}>
+                        <Badge variant="secondary">{p.tag}</Badge>
+                        <Button variant="primary">
+                            {t('了解更多', 'Learn more')}
+                        </Button>
+                    </Card>
+                ))
+            }
+        </Grid>
+    </Container>
 </AppLayout>

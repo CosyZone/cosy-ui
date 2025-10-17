@@ -1,0 +1,94 @@
+---
+/**
+ * @component StatusBarContent
+ *
+ * @description
+ * StatusBarContent 组件显示 iPhone 状态栏的内容，包括时间、信号、WiFi 和电池图标。
+ * 组件会自动更新时间显示，并支持根据设备大小进行缩放。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <StatusBarContent />
+ * ```
+ *
+ * 带缩放比例：
+ * ```astro
+ * <StatusBarContent scaleRatio={1.5} />
+ * ```
+ *
+ * @props
+ * @prop {Number} [scaleRatio=1] - 缩放比例，用于根据设备大小调整文字和图标大小
+ *
+ * @slots
+ */
+
+import "../../style";
+import { IPhoneSignalIcon, IPhoneWifiIcon, IPhoneBatteryIcon } from "../icons";
+
+interface Props {
+	scaleRatio?: number;
+}
+
+const { scaleRatio = 1 } = Astro.props as Props;
+
+// 计算缩放后的字体大小
+const scaledFontSize = `${14 * scaleRatio}px`;
+
+// 计算缩放后的图标尺寸
+const scaledIconSize = `${15 * scaleRatio}px`;
+---
+
+<div class="cosy:flex cosy:items-center cosy:h-full cosy:justify-between">
+    <!-- 左侧时间 -->
+    <span
+        class="cosy:font-medium time-text"
+        style={`font-size: ${scaledFontSize}; line-height: 1; transition: font-size 0.2s ease;`}>
+        12:00
+    </span>
+
+    <!-- 右侧状态图标 -->
+    <div
+        class="cosy:flex cosy:flex-row cosy:items-center cosy:space-x-1 cosy:h-full">
+        <!-- 信号图标 -->
+        <div
+            class="cosy:flex cosy:items-center cosy:justify-center"
+            style={`width: ${scaledIconSize}; height: ${scaledIconSize}; min-width: 0; min-height: 0;`}>
+            <IPhoneSignalIcon class="status-icon" />
+        </div>
+
+        <!-- WiFi图标 -->
+        <div
+            class="cosy:flex cosy:items-center cosy:justify-center"
+            style={`width: ${scaledIconSize}; height: ${scaledIconSize}; min-width: 0; min-height: 0;`}>
+            <IPhoneWifiIcon class="status-icon" />
+        </div>
+
+        <!-- 电池图标 -->
+        <div
+            class="cosy:flex cosy:items-center cosy:justify-center"
+            style={`width: ${scaledIconSize}; height: ${scaledIconSize}; min-width: 0; min-height: 0;`}>
+            <IPhoneBatteryIcon class="battery-icon" />
+        </div>
+    </div>
+</div>
+
+<style>
+    /* 确保图标渲染更平滑 */
+    svg {
+        shape-rendering: geometricPrecision;
+    }
+
+    /* 状态图标通用样式 */
+    .status-icon,
+    .battery-icon {
+        color: #000000;
+        fill: currentColor;
+    }
+
+    .status-icon svg,
+    .battery-icon svg {
+        width: 100%;
+        height: 100%;
+    }
+</style>

@@ -29,7 +29,7 @@ import wechatQrUrl from "@/demos/auto_parts_showcase/images/wechat-qr.jpg?url";
 import * as astroI18n from "astro:i18n";
 
 // 从 URL 获取当前语言
-const currentLocale = Astro.url.pathname.split("/")[2] || "zh-cn";
+const currentLocale = Astro.params.lang;
 
 export const getStaticPaths = async () => {
 	return [{ params: { lang: "zh-cn" } }, { params: { lang: "en" } }];

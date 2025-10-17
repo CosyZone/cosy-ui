@@ -1,0 +1,27 @@
+---
+import { CodeContainer } from "@coffic/cosy-ui";
+import ApplePhoneBackgroundColorPrimarySourceCode from "./ApplePhoneBackgroundColorPrimary.astro?raw";
+import ApplePhoneBackgroundColorSuccessSourceCode from "./ApplePhoneBackgroundColorSuccess.astro?raw";
+import ApplePhoneBackgroundColorWarningSourceCode from "./ApplePhoneBackgroundColorWarning.astro?raw";
+import ApplePhoneBackgroundColorPrimary from "./ApplePhoneBackgroundColorPrimary.astro";
+import ApplePhoneBackgroundColorSuccess from "./ApplePhoneBackgroundColorSuccess.astro";
+import ApplePhoneBackgroundColorWarning from "./ApplePhoneBackgroundColorWarning.astro";
+---
+
+<CodeContainer
+    codes={[
+        ApplePhoneBackgroundColorPrimarySourceCode,
+        ApplePhoneBackgroundColorSuccessSourceCode,
+        ApplePhoneBackgroundColorWarningSourceCode,
+    ]}
+    titles={['primary/10', 'success/10', 'warning/10']}>
+    <div id="tab-1">
+        <ApplePhoneBackgroundColorPrimary />
+    </div>
+    <div id="tab-2">
+        <ApplePhoneBackgroundColorSuccess />
+    </div>
+    <div id="tab-3">
+        <ApplePhoneBackgroundColorWarning />
+    </div>
+</CodeContainer>
