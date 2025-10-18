@@ -40,7 +40,7 @@ const props = withDefaults(defineProps<Props>(), {
 	height: "lg",
 	title: "",
 	withShadow: true,
-	showFrame: false,
+	showFrame: true,
 	backgroundColor: undefined,
 });
 
