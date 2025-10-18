@@ -1,0 +1,22 @@
+---
+/**
+ * SocialLinks 组件用于显示社交媒体链接容器
+ */
+
+import "../../style.ts";
+import type { HTMLAttributes } from "astro/types";
+import { getSocialLinkClass } from "./class";
+
+export interface SocialLinksProps extends HTMLAttributes<"div"> {
+	// 可以添加额外的属性
+}
+
+const { class: className = "", ...rest } = Astro.props as SocialLinksProps;
+
+const socialLinksClass = getSocialLinkClass();
+const containerClass = `${socialLinksClass} ${className}`.trim();
+---
+
+<div class={containerClass} {...rest}>
+    <slot />
+</div>

@@ -107,8 +107,16 @@
 
 import "../../style.ts";
 import Card from "../card/Card.astro";
-import Link from "../link/Link.astro";
-import type { BackgroundColor } from "../../src/common/backgrounds";
+import ContactItem from "./ContactItem.astro";
+import SocialLink from "./SocialLink.astro";
+import SocialLinks from "./SocialLinks.astro";
+import type { ContactProps } from "./props";
+import {
+	getContactCombinedClasses,
+	getContactItemClass,
+	getIconClass,
+	getSocialLinkClass,
+} from "./class";
 import {
 	FacebookIcon,
 	GithubIcon,
@@ -122,28 +130,9 @@ import {
 	WhatsappIcon,
 } from "../icons";
 
-export interface ContactProps {
-	address?: string;
-	background?: BackgroundColor;
-	class?: string;
-	compact?: boolean;
-	description?: string;
-	email?: string;
-	facebook?: string;
-	github?: string;
-	linkedin?: string;
-	phone?: string;
-	title?: string;
-	twitter?: string;
-	website?: string;
-	wechatQR?: any; // ImageSource 类型
-	whatsappQR?: any; // ImageSource 类型
-}
-
 const {
 	address,
-	background,
-	class: className = "",
+	background = "base-100",
 	compact,
 	description,
 	email,
@@ -158,209 +147,191 @@ const {
 	whatsappQR,
 } = Astro.props as ContactProps;
 
-// 构建自定义样式类（用于覆盖Card组件的默认样式）
-const customClasses = [
-	"cosy:shadow-lg",
-	"hover:cosy:shadow-xl",
-	"hover:cosy:bg-base-200",
-	className,
-]
-	.filter(Boolean)
-	.join(" ");
-
-// 联系信息项的样式
-const contactItemClass =
-	"cosy:flex cosy:items-center cosy:gap-3 cosy:mb-4 last:cosy:mb-0 cosy:transition-all cosy:duration-200 cosy:ease-in-out hover:cosy:bg-base-200/50 hover:cosy:rounded-lg hover:cosy:p-2 hover:cosy:-mx-2";
-const iconClass =
-	"cosy:w-5 cosy:h-5 cosy:text-primary cosy:flex-shrink-0 cosy:transition-all cosy:duration-200 hover:cosy:scale-110 hover:cosy:text-primary/80";
-
-// 社交媒体链接样式
-const socialLinksClass =
-	"cosy:flex cosy:gap-4 cosy:mt-6 cosy:pt-4 cosy:border-t cosy:border-base-300";
-const socialLinkClass =
-	"cosy:btn cosy:btn-ghost cosy:btn-circle cosy:btn-sm cosy:text-base-content hover:cosy:text-primary hover:cosy:bg-primary/10";
+// 获取样式类
+const customClasses = getContactCombinedClasses(Astro.props as ContactProps);
+const contactItemClass = getContactItemClass();
+const iconClass = getIconClass();
+const socialLinkClass = getSocialLinkClass();
 ---
 
 <Card
-  title={title}
-  subtitle={description}
-  compact={compact}
-  background={background}
-  class={customClasses}>
-  <div class="cosy:space-y-0">
+    title={title}
+    subtitle={description}
+    compact={compact}
+    background={background}
+    padding="none"
+    class={customClasses}>
+    <div class="cosy:space-y-0">
+        {
+            address && (
+                <ContactItem
+                    icon={MapPinIcon}
+                    text={address}
+                    contactItemClass={contactItemClass}
+                    iconClass={iconClass}
+                />
+            )
+        }
+
+        {
+            email && (
+                <ContactItem
+                    icon={MailIcon}
+                    text={email}
+                    href={`mailto:${email}`}
+                    contactItemClass={contactItemClass}
+                    iconClass={iconClass}
+                />
+            )
+        }
+
+        {
+            facebook && (
+                <ContactItem
+                    icon={FacebookIcon}
+                    text="Facebook"
+                    href={facebook}
+                    isExternal
+                    contactItemClass={contactItemClass}
+                    iconClass={iconClass}
+                />
+            )
+        }
+
+        {
+            github && (
+                <ContactItem
+                    icon={GithubIcon}
+                    text="GitHub"
+                    href={github}
+                    isExternal
+                    contactItemClass={contactItemClass}
+                    iconClass={iconClass}
+                />
+            )
+        }
+
+        {
+            linkedin && (
+                <ContactItem
+                    icon={LinkedinIcon}
+                    text="LinkedIn"
+                    href={linkedin}
+                    isExternal
+                    contactItemClass={contactItemClass}
+                    iconClass={iconClass}
+                />
+            )
+        }
+
+        {
+            phone && (
+                <ContactItem
+                    icon={PhoneIcon}
+                    text={phone}
+                    href={`tel:${phone}`}
+                    contactItemClass={contactItemClass}
+                    iconClass={iconClass}
+                />
+            )
+        }
+
+        {
+            twitter && (
+                <ContactItem
+                    icon={TwitterIcon}
+                    text="Twitter"
+                    href={twitter}
+                    isExternal
+                    contactItemClass={contactItemClass}
+                    iconClass={iconClass}
+                />
+            )
+        }
+
+        {
+            website && (
+                <ContactItem
+                    icon={WebsiteIcon}
+                    text={website.replace(/^https?:\/\//, '')}
+                    href={website}
+                    isExternal
+                    contactItemClass={contactItemClass}
+                    iconClass={iconClass}
+                />
+            )
+        }
+    </div>
+
     {
-      address && (
-        <div class={contactItemClass}>
-          <MapPinIcon class={iconClass} />
-          <span class="cosy:text-base-content">{address}</span>
-        </div>
-      )
+        Astro.slots.has('default') && (
+            <div class="cosy:mt-4">
+                <slot />
+            </div>
+        )
     }
 
     {
-      email && (
-        <div class={contactItemClass}>
-          <MailIcon class={iconClass} />
-          <Link href={`mailto:${email}`} variant="text" noUnderline={false}>
-            {email}
-          </Link>
-        </div>
-      )
+        (github ||
+            twitter ||
+            facebook ||
+            linkedin ||
+            wechatQR ||
+            whatsappQR) && (
+            <SocialLinks>
+                {github && (
+                    <SocialLink
+                        icon={GithubIcon}
+                        href={github}
+                        ariaLabel="GitHub"
+                        socialLinkClass={socialLinkClass}
+                    />
+                )}
+                {twitter && (
+                    <SocialLink
+                        icon={TwitterIcon}
+                        href={twitter}
+                        ariaLabel="Twitter"
+                        socialLinkClass={socialLinkClass}
+                    />
+                )}
+                {facebook && (
+                    <SocialLink
+                        icon={FacebookIcon}
+                        href={facebook}
+                        ariaLabel="Facebook"
+                        socialLinkClass={socialLinkClass}
+                    />
+                )}
+                {linkedin && (
+                    <SocialLink
+                        icon={LinkedinIcon}
+                        href={linkedin}
+                        ariaLabel="LinkedIn"
+                        socialLinkClass={socialLinkClass}
+                    />
+                )}
+                {wechatQR && (
+                    <SocialLink
+                        icon={WechatIcon}
+                        href="#"
+                        ariaLabel="微信"
+                        hoverImage={wechatQR}
+                        hoverImageAlt="微信二维码"
+                        socialLinkClass={socialLinkClass}
+                    />
+                )}
+                {whatsappQR && (
+                    <SocialLink
+                        icon={WhatsappIcon}
+                        href="#"
+                        ariaLabel="WhatsApp"
+                        hoverImage={whatsappQR}
+                        hoverImageAlt="WhatsApp 二维码"
+                        socialLinkClass={socialLinkClass}
+                    />
+                )}
+            </SocialLinks>
+        )
     }
-
-    {
-      facebook && (
-        <div class={contactItemClass}>
-          <FacebookIcon class={iconClass} />
-          <Link href={facebook} external variant="text" noUnderline={false}>
-            Facebook
-          </Link>
-        </div>
-      )
-    }
-
-    {
-      github && (
-        <div class={contactItemClass}>
-          <GithubIcon class={iconClass} />
-          <Link href={github} external variant="text" noUnderline={false}>
-            GitHub
-          </Link>
-        </div>
-      )
-    }
-
-    {
-      linkedin && (
-        <div class={contactItemClass}>
-          <LinkedinIcon class={iconClass} />
-          <Link href={linkedin} external variant="text" noUnderline={false}>
-            LinkedIn
-          </Link>
-        </div>
-      )
-    }
-
-    {
-      phone && (
-        <div class={contactItemClass}>
-          <PhoneIcon class={iconClass} />
-          <Link href={`tel:${phone}`} variant="text" noUnderline={false}>
-            {phone}
-          </Link>
-        </div>
-      )
-    }
-
-    {
-      twitter && (
-        <div class={contactItemClass}>
-          <TwitterIcon class={iconClass} />
-          <Link href={twitter} external variant="text" noUnderline={false}>
-            Twitter
-          </Link>
-        </div>
-      )
-    }
-
-    {
-      website && (
-        <div class={contactItemClass}>
-          <WebsiteIcon class={iconClass} />
-          <Link href={website} external variant="text" noUnderline={false}>
-            {website.replace(/^https?:\/\//, '')}
-          </Link>
-        </div>
-      )
-    }
-  </div>
-
-  {
-    Astro.slots.has('default') && (
-      <div class="cosy:mt-4">
-        <slot />
-      </div>
-    )
-  }
-
-  {
-    (github || twitter || facebook || linkedin || wechatQR || whatsappQR) && (
-      <div class={socialLinksClass}>
-        {github && (
-          <Link
-            href={github}
-            external
-            btn
-            circle
-            size="sm"
-            class={socialLinkClass}
-            aria-label="GitHub">
-            <GithubIcon />
-          </Link>
-        )}
-        {twitter && (
-          <Link
-            href={twitter}
-            external
-            btn
-            circle
-            size="sm"
-            class={socialLinkClass}
-            aria-label="Twitter">
-            <TwitterIcon />
-          </Link>
-        )}
-        {facebook && (
-          <Link
-            href={facebook}
-            external
-            btn
-            circle
-            size="sm"
-            class={socialLinkClass}
-            aria-label="Facebook">
-            <FacebookIcon />
-          </Link>
-        )}
-        {linkedin && (
-          <Link
-            href={linkedin}
-            external
-            btn
-            circle
-            size="sm"
-            class={socialLinkClass}
-            aria-label="LinkedIn">
-            <LinkedinIcon />
-          </Link>
-        )}
-        {wechatQR && (
-          <Link
-            href="#"
-            btn
-            circle
-            size="sm"
-            class={socialLinkClass}
-            hoverImage={wechatQR}
-            hoverImageAlt="微信二维码"
-            aria-label="微信">
-            <WechatIcon />
-          </Link>
-        )}
-        {whatsappQR && (
-          <Link
-            href="#"
-            btn
-            circle
-            size="sm"
-            class={socialLinkClass}
-            hoverImage={whatsappQR}
-            hoverImageAlt="WhatsApp 二维码"
-            aria-label="WhatsApp">
-            <WhatsappIcon />
-          </Link>
-        )}
-      </div>
-    )
-  }
 </Card>
