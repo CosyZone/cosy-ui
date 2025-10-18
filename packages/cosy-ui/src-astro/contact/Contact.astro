@@ -142,7 +142,7 @@ const customClasses = getContactCombinedClasses(Astro.props as ContactProps);
     background={background}
     padding="none"
     class={customClasses}>
-    <div class="cosy:space-y-0">
+    <div class="cosy:space-y-0 cosy:flex cosy:flex-col">
         {address && <AddressItem address={address} />}
 
         {email && <EmailItem email={email} />}

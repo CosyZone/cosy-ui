@@ -36,11 +36,3 @@ export function getContactItemClass(): string {
 export function getIconClass(): string {
 	return "cosy:w-5 cosy:h-5 cosy:text-primary cosy:flex-shrink-0 cosy:transition-all cosy:duration-200 hover:cosy:scale-110 hover:cosy:text-primary/80";
 }
-
-/**
- * 获取社交媒体链接样式类
- * @returns 社交媒体链接样式类
- */
-export function getSocialLinkClass(): string {
-	return "cosy:btn cosy:btn-ghost cosy:btn-circle cosy:btn-sm cosy:text-base-content hover:cosy:text-primary hover:cosy:bg-primary/10";
-}

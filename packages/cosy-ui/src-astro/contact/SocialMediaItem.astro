@@ -5,7 +5,6 @@
 
 import "../../style.ts";
 import SocialLink from "./SocialLink.astro";
-import SocialLinks from "./SocialLinks.astro";
 import {
 	FacebookIcon,
 	GithubIcon,
@@ -14,8 +13,6 @@ import {
 	WechatIcon,
 	WhatsappIcon,
 } from "../icons";
-import { getSocialLinkClass } from "./class";
-import type { ContactProps } from "./props";
 
 export interface SocialMediaItemProps {
 	github?: string;
@@ -28,29 +25,17 @@ export interface SocialMediaItemProps {
 
 const { github, twitter, facebook, linkedin, wechatQR, whatsappQR } =
 	Astro.props as SocialMediaItemProps;
-
-const socialLinkClass = getSocialLinkClass();
 ---
 
-<SocialLinks>
+<div class="cosy:flex cosy:flex-row cosy:gap-2">
     {
         github && (
-            <SocialLink
-                icon={GithubIcon}
-                href={github}
-                ariaLabel="GitHub"
-                socialLinkClass={socialLinkClass}
-            />
+            <SocialLink icon={GithubIcon} href={github} ariaLabel="GitHub" />
         )
     }
     {
         twitter && (
-            <SocialLink
-                icon={TwitterIcon}
-                href={twitter}
-                ariaLabel="Twitter"
-                socialLinkClass={socialLinkClass}
-            />
+            <SocialLink icon={TwitterIcon} href={twitter} ariaLabel="Twitter" />
         )
     }
     {
@@ -59,7 +44,6 @@ const socialLinkClass = getSocialLinkClass();
                 icon={FacebookIcon}
                 href={facebook}
                 ariaLabel="Facebook"
-                socialLinkClass={socialLinkClass}
             />
         )
     }
@@ -69,7 +53,6 @@ const socialLinkClass = getSocialLinkClass();
                 icon={LinkedinIcon}
                 href={linkedin}
                 ariaLabel="LinkedIn"
-                socialLinkClass={socialLinkClass}
             />
         )
     }
@@ -81,7 +64,6 @@ const socialLinkClass = getSocialLinkClass();
                 ariaLabel="微信"
                 hoverImage={wechatQR}
                 hoverImageAlt="微信二维码"
-                socialLinkClass={socialLinkClass}
             />
         )
     }
@@ -93,8 +75,7 @@ const socialLinkClass = getSocialLinkClass();
                 ariaLabel="WhatsApp"
                 hoverImage={whatsappQR}
                 hoverImageAlt="WhatsApp 二维码"
-                socialLinkClass={socialLinkClass}
             />
         )
     }
-</SocialLinks>
+</div>
