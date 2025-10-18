@@ -1,0 +1,27 @@
+---
+/**
+ * EmailItem 组件用于显示邮箱信息
+ */
+
+import "../../style.ts";
+import ContactItem from "./ContactItem.astro";
+import { MailIcon } from "../icons";
+import { getContactItemClass, getIconClass } from "./class";
+
+export interface EmailItemProps {
+	email: string;
+}
+
+const { email } = Astro.props as EmailItemProps;
+
+const contactItemClass = getContactItemClass();
+const iconClass = getIconClass();
+---
+
+<ContactItem
+    icon={MailIcon}
+    text={email}
+    href={`mailto:${email}`}
+    contactItemClass={contactItemClass}
+    iconClass={iconClass}
+/>

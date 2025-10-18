@@ -107,28 +107,12 @@
 
 import "../../style.ts";
 import Card from "../card/Card.astro";
-import ContactItem from "./ContactItem.astro";
-import SocialLink from "./SocialLink.astro";
-import SocialLinks from "./SocialLinks.astro";
 import type { ContactProps } from "./props";
-import {
-	getContactCombinedClasses,
-	getContactItemClass,
-	getIconClass,
-	getSocialLinkClass,
-} from "./class";
-import {
-	FacebookIcon,
-	GithubIcon,
-	LinkedinIcon,
-	MailIcon,
-	MapPinIcon,
-	PhoneIcon,
-	TwitterIcon,
-	WebsiteIcon,
-	WechatIcon,
-	WhatsappIcon,
-} from "../icons";
+import { getContactCombinedClasses } from "./class";
+import AddressItem from "./AddressItem.astro";
+import EmailItem from "./EmailItem.astro";
+import PhoneItem from "./PhoneItem.astro";
+import SocialMediaItem from "./SocialMediaItem.astro";
 
 const {
 	address,
@@ -149,9 +133,6 @@ const {
 
 // 获取样式类
 const customClasses = getContactCombinedClasses(Astro.props as ContactProps);
-const contactItemClass = getContactItemClass();
-const iconClass = getIconClass();
-const socialLinkClass = getSocialLinkClass();
 ---
 
 <Card
@@ -162,105 +143,11 @@ const socialLinkClass = getSocialLinkClass();
     padding="none"
     class={customClasses}>
     <div class="cosy:space-y-0">
-        {
-            address && (
-                <ContactItem
-                    icon={MapPinIcon}
-                    text={address}
-                    contactItemClass={contactItemClass}
-                    iconClass={iconClass}
-                />
-            )
-        }
+        {address && <AddressItem address={address} />}
 
-        {
-            email && (
-                <ContactItem
-                    icon={MailIcon}
-                    text={email}
-                    href={`mailto:${email}`}
-                    contactItemClass={contactItemClass}
-                    iconClass={iconClass}
-                />
-            )
-        }
+        {email && <EmailItem email={email} />}
 
-        {
-            facebook && (
-                <ContactItem
-                    icon={FacebookIcon}
-                    text="Facebook"
-                    href={facebook}
-                    isExternal
-                    contactItemClass={contactItemClass}
-                    iconClass={iconClass}
-                />
-            )
-        }
-
-        {
-            github && (
-                <ContactItem
-                    icon={GithubIcon}
-                    text="GitHub"
-                    href={github}
-                    isExternal
-                    contactItemClass={contactItemClass}
-                    iconClass={iconClass}
-                />
-            )
-        }
-
-        {
-            linkedin && (
-                <ContactItem
-                    icon={LinkedinIcon}
-                    text="LinkedIn"
-                    href={linkedin}
-                    isExternal
-                    contactItemClass={contactItemClass}
-                    iconClass={iconClass}
-                />
-            )
-        }
-
-        {
-            phone && (
-                <ContactItem
-                    icon={PhoneIcon}
-                    text={phone}
-                    href={`tel:${phone}`}
-                    contactItemClass={contactItemClass}
-                    iconClass={iconClass}
-                />
-            )
-        }
-
-        {
-            twitter && (
-                <ContactItem
-                    icon={TwitterIcon}
-                    text="Twitter"
-                    href={twitter}
-                    isExternal
-                    contactItemClass={contactItemClass}
-                    iconClass={iconClass}
-                />
-            )
-        }
-
-        {
-            website && (
-                <ContactItem
-                    icon={WebsiteIcon}
-                    text={website.replace(/^https?:\/\//, '')}
-                    href={website}
-                    isExternal
-                    contactItemClass={contactItemClass}
-                    iconClass={iconClass}
-                />
-            )
-        }
+        {phone && <PhoneItem phone={phone} />}
     </div>
 
     {
@@ -278,60 +165,14 @@ const socialLinkClass = getSocialLinkClass();
             linkedin ||
             wechatQR ||
             whatsappQR) && (
-            <SocialLinks>
-                {github && (
-                    <SocialLink
-                        icon={GithubIcon}
-                        href={github}
-                        ariaLabel="GitHub"
-                        socialLinkClass={socialLinkClass}
-                    />
-                )}
-                {twitter && (
-                    <SocialLink
-                        icon={TwitterIcon}
-                        href={twitter}
-                        ariaLabel="Twitter"
-                        socialLinkClass={socialLinkClass}
-                    />
-                )}
-                {facebook && (
-                    <SocialLink
-                        icon={FacebookIcon}
-                        href={facebook}
-                        ariaLabel="Facebook"
-                        socialLinkClass={socialLinkClass}
-                    />
-                )}
-                {linkedin && (
-                    <SocialLink
-                        icon={LinkedinIcon}
-                        href={linkedin}
-                        ariaLabel="LinkedIn"
-                        socialLinkClass={socialLinkClass}
-                    />
-                )}
-                {wechatQR && (
-                    <SocialLink
-                        icon={WechatIcon}
-                        href="#"
-                        ariaLabel="微信"
-                        hoverImage={wechatQR}
-                        hoverImageAlt="微信二维码"
-                        socialLinkClass={socialLinkClass}
-                    />
-                )}
-                {whatsappQR && (
-                    <SocialLink
-                        icon={WhatsappIcon}
-                        href="#"
-                        ariaLabel="WhatsApp"
-                        hoverImage={whatsappQR}
-                        hoverImageAlt="WhatsApp 二维码"
-                        socialLinkClass={socialLinkClass}
-                    />
-                )}
-            </SocialLinks>
+            <SocialMediaItem
+                github={github}
+                twitter={twitter}
+                facebook={facebook}
+                linkedin={linkedin}
+                wechatQR={wechatQR}
+                whatsappQR={whatsappQR}
+            />
         )
     }
 </Card>

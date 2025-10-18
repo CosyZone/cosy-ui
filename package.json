@@ -9,7 +9,7 @@
 		"build:vue": "pnpm --filter vue-example build",
 		"dev:docs": "pnpm build:ui && pnpm --filter @coffic/cosy-docs dev",
 		"dev:vue": "pnpm --filter vue-example dev",
-		"dev": "pnpm dev:docs",
+		"dev": "pnpm format && pnpm dev:docs",
 		"lint": "biome lint --write ./",
 		"preview:docs": "pnpm --filter @coffic/cosy-docs preview",
 		"check": "pnpm --recursive run check",

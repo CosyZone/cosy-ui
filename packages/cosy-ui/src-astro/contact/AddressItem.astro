@@ -1,0 +1,26 @@
+---
+/**
+ * AddressItem 组件用于显示地址信息
+ */
+
+import "../../style.ts";
+import ContactItem from "./ContactItem.astro";
+import { MapPinIcon } from "../icons";
+import { getContactItemClass, getIconClass } from "./class";
+
+export interface AddressItemProps {
+	address: string;
+}
+
+const { address } = Astro.props as AddressItemProps;
+
+const contactItemClass = getContactItemClass();
+const iconClass = getIconClass();
+---
+
+<ContactItem
+    icon={MapPinIcon}
+    text={address}
+    contactItemClass={contactItemClass}
+    iconClass={iconClass}
+/>
