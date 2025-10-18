@@ -30,9 +30,6 @@ import PhoneFrame from "./PhoneFrame.vue";
 
 import type { IApplePhoneProps } from "./props";
 
-// 类型定义
-type HeightOption = "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl";
-
 interface Props extends IApplePhoneProps {}
 
 // Props 定义
