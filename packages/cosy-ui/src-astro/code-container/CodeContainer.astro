@@ -7,19 +7,6 @@
  * 支持样式重置模式。
  * 使用时只需在默认slot中传入内容，并为每个示例设置对应的id (tab-1, tab-2等)
  *
- * @design
- * 设计理念：
- * 1. 样式隔离 - 防止外部样式影响内部组件展示
- * 2. 代码预览 - 支持预览和代码视图切换
- * 3. 多标签页 - 支持多个示例的标签页展示
- * 4. 样式重置 - 重置内部样式，避免样式冲突
- *
- * 视觉特点：
- * - 卡片式设计：清晰的视觉层次
- * - 渐变背景：美观的预览区域
- * - 标签页切换：直观的示例切换
- * - 代码高亮：清晰的代码展示
- *
  * @usage
  * 基础用法：
  * ```astro
@@ -114,7 +101,7 @@ const {
                 <Description text={descriptions[index]} />
 
                 <Container background="dot-grid" width="full">
-                    <div class="cosy:relative cosy:p-4 cosy:bg-gradient-to-br cosy:from-primary/10 cosy:to-secondary/10 cosy:dark:from-primary/20 cosy:dark:to-secondary/20 cosy:rounded-b">
+                    <div class="cosy:relative cosy:p-4 cosy:rounded-b">
                         <Preview>
                             <div
                                 class={`cosy:code-preview-area ${resetStyles ? 'cosy:reset-styles' : ''}`}
