@@ -30,6 +30,7 @@ alwaysApply: true
 - **接口名称必须以大写字母 `I` 开头**
 - 使用 PascalCase 命名方式
 - 名称应清晰描述接口的用途
+- 每次修改后执行 `pnpm format` 来格式化代码
 
 ## 代码检查清单
 

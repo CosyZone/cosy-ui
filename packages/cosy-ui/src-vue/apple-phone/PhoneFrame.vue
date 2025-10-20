@@ -12,7 +12,8 @@ const iphoneFrameSrc = (iphoneFrame as any).src || iphoneFrame;
       position: absolute;
       top: 0;
       left: 0;
-      z-index: 100;
+      z-index: 10;
+      pointer-events: none;
     ">
     <img :src="iphoneFrameSrc" alt="iPhone frame" />
   </div>

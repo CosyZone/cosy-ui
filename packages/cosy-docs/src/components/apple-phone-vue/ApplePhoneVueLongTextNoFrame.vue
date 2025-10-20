@@ -1,5 +1,5 @@
 <template>
-  <ApplePhone title="长文本示例" :showFrame="false">
+  <ApplePhone title="长文本示例(无边框)" :showFrame="false">
     <div class="cosy:p-4 cosy:text-left">
       <h2 class="cosy:text-xl cosy:font-bold cosy:mb-4">长文本内容展示</h2>
       <p class="cosy:mb-3">

@@ -30,9 +30,6 @@ import PhoneFrame from "./PhoneFrame.vue";
 
 import type { IApplePhoneProps } from "./props";
 
-// 类型定义
-type HeightOption = "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl";
-
 interface Props extends IApplePhoneProps {}
 
 // Props 定义
@@ -105,17 +102,18 @@ const getScaleRatio = () => {
         top: '50%',
         transform: 'translate(-50%, -50%)',
         position: 'absolute',
-        zIndex: 20,
       }">
       <Container
         rounded="lg"
         height="full"
+        class="cosy:h-full cosy:overflow-y-auto cosy:overscroll-y-contain"
         :background="backgroundColor || 'accent/90'">
-        <div class="cosy:h-full cosy:overflow-y-auto cosy:overscroll-y-contain">
-          <slot />
-        </div>
+        <slot />
       </Container>
     </div>
+
+    <!-- iPhone 边框 -->
+    <PhoneFrame v-if="showFrame" />
   </div>
 
   <AlertDialog v-model="showAlertDialog" :message="alertMessage" />

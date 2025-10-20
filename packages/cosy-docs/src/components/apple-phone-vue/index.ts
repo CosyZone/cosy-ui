@@ -6,6 +6,7 @@ import ApplePhoneVueStatusBarButtonsContainer from "./ApplePhoneVueStatusBarButt
 import ApplePhoneVueTitleContainer from "./ApplePhoneVueTitleContainer.astro";
 import ApplePhoneVueWithShadowContainer from "./ApplePhoneVueWithShadowContainer.astro";
 import ApplePhoneVueSlotsContainer from "./ApplePhoneVueSlotsContainer.astro";
+import ApplePhoneVueExamplesContainer from "./ApplePhoneVueExamplesContainer.astro";
 
 export const ApplePhoneVuePackage = {
 	Basic: ApplePhoneVueBasicContainer,
@@ -16,4 +17,5 @@ export const ApplePhoneVuePackage = {
 	Title: ApplePhoneVueTitleContainer,
 	WithShadow: ApplePhoneVueWithShadowContainer,
 	Slots: ApplePhoneVueSlotsContainer,
+	Examples: ApplePhoneVueExamplesContainer,
 };

@@ -1,0 +1,27 @@
+---
+/**
+ * PhoneItem 组件用于显示电话信息
+ */
+
+import "../../style.ts";
+import ContactItem from "./ContactItem.astro";
+import { PhoneIcon } from "../icons";
+import { getContactItemClass, getIconClass } from "./class";
+
+export interface PhoneItemProps {
+	phone: string;
+}
+
+const { phone } = Astro.props as PhoneItemProps;
+
+const contactItemClass = getContactItemClass();
+const iconClass = getIconClass();
+---
+
+<ContactItem
+    icon={PhoneIcon}
+    text={phone}
+    href={`tel:${phone}`}
+    contactItemClass={contactItemClass}
+    iconClass={iconClass}
+/>

@@ -1,0 +1,71 @@
+<template>
+  <div>
+    <h2>Vue版本基础用法</h2>
+    <div style="display: flex; justify-content: center; margin: 2rem 0">
+      <ApplePhone height="xl">
+        <div style="padding: 20px; text-align: center">
+          <h3>欢迎使用 ApplePhone</h3>
+          <p>这是一个演示内容</p>
+        </div>
+      </ApplePhone>
+    </div>
+
+    <h2>Vue版本不同高度选项</h2>
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+        margin: 2rem 0;
+      ">
+      <ApplePhone height="lg">
+        <div style="padding: 15px; text-align: center">
+          <h4>默认高度</h4>
+          <p>lg (384px)</p>
+        </div>
+      </ApplePhone>
+
+      <ApplePhone height="xl">
+        <div style="padding: 15px; text-align: center">
+          <h4>加大高度</h4>
+          <p>xl (480px)</p>
+        </div>
+      </ApplePhone>
+    </div>
+
+    <h2>Vue版本不显示边框</h2>
+    <div style="display: flex; justify-content: center; margin: 2rem 0">
+      <ApplePhone height="xl" :showFrame="false">
+        <div style="padding: 20px; text-align: center">
+          <h3>无边框模式</h3>
+          <p>只显示内容区域</p>
+        </div>
+      </ApplePhone>
+    </div>
+
+    <h2>Vue版本长文本内容演示</h2>
+    <div style="display: flex; justify-content: center; margin: 2rem 0">
+      <ApplePhone height="xl">
+        <div style="padding: 20px">
+          <h3>长文本内容展示</h3>
+          <p>
+            这是一个展示长文本内容的示例。在这个示例中，我们将展示大量文本内容在
+            ApplePhone 组件中的渲染效果和滚动行为。
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+          <p>
+            这是最后一段文本内容，用于测试滚动效果和组件在大量文本内容下的表现。
+          </p>
+        </div>
+      </ApplePhone>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ApplePhone } from "@coffic/cosy-ui/vue";
+</script>

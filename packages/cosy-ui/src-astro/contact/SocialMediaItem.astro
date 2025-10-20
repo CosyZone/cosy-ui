@@ -1,0 +1,81 @@
+---
+/**
+ * SocialMediaItem 组件用于显示社交媒体链接
+ */
+
+import "../../style.ts";
+import SocialLink from "./SocialLink.astro";
+import {
+	FacebookIcon,
+	GithubIcon,
+	LinkedinIcon,
+	TwitterIcon,
+	WechatIcon,
+	WhatsappIcon,
+} from "../icons";
+
+export interface SocialMediaItemProps {
+	github?: string;
+	twitter?: string;
+	facebook?: string;
+	linkedin?: string;
+	wechatQR?: any;
+	whatsappQR?: any;
+}
+
+const { github, twitter, facebook, linkedin, wechatQR, whatsappQR } =
+	Astro.props as SocialMediaItemProps;
+---
+
+<div class="cosy:flex cosy:flex-row cosy:gap-2">
+    {
+        github && (
+            <SocialLink icon={GithubIcon} href={github} ariaLabel="GitHub" />
+        )
+    }
+    {
+        twitter && (
+            <SocialLink icon={TwitterIcon} href={twitter} ariaLabel="Twitter" />
+        )
+    }
+    {
+        facebook && (
+            <SocialLink
+                icon={FacebookIcon}
+                href={facebook}
+                ariaLabel="Facebook"
+            />
+        )
+    }
+    {
+        linkedin && (
+            <SocialLink
+                icon={LinkedinIcon}
+                href={linkedin}
+                ariaLabel="LinkedIn"
+            />
+        )
+    }
+    {
+        wechatQR && (
+            <SocialLink
+                icon={WechatIcon}
+                href="#"
+                ariaLabel="微信"
+                hoverImage={wechatQR}
+                hoverImageAlt="微信二维码"
+            />
+        )
+    }
+    {
+        whatsappQR && (
+            <SocialLink
+                icon={WhatsappIcon}
+                href="#"
+                ariaLabel="WhatsApp"
+                hoverImage={whatsappQR}
+                hoverImageAlt="WhatsApp 二维码"
+            />
+        )
+    }
+</div>

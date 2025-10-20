@@ -1,0 +1,45 @@
+---
+/**
+ * ContactItem 组件用于显示单个联系信息项
+ */
+
+import "../../style.ts";
+import Link from "../link/Link.astro";
+import type { HTMLAttributes } from "astro/types";
+
+export interface ContactItemProps extends HTMLAttributes<"div"> {
+	icon: any; // 图标组件
+	text: string;
+	href?: string;
+	isExternal?: boolean;
+	contactItemClass: string;
+	iconClass: string;
+}
+
+const {
+	icon: IconComponent,
+	text,
+	href,
+	isExternal = false,
+	contactItemClass,
+	iconClass,
+	...rest
+} = Astro.props as ContactItemProps;
+---
+
+<div class={contactItemClass} {...rest}>
+    <IconComponent class={iconClass} />
+    {
+        href ? (
+            <Link
+                href={href}
+                external={isExternal}
+                variant="text"
+                noUnderline={false}>
+                {text}
+            </Link>
+        ) : (
+            <span class="cosy:text-base-content">{text}</span>
+        )
+    }
+</div>

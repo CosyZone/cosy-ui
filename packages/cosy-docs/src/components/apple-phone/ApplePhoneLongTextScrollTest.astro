@@ -1,0 +1,49 @@
+---
+import { ApplePhone } from "@coffic/cosy-ui";
+---
+
+<div class="cosy:space-y-6">
+    <h2 class="cosy:text-2xl cosy:font-bold">ApplePhone 滚动测试</h2>
+
+    <div class="cosy:grid cosy:grid-cols-1 md:cosy:grid-cols-2 cosy:gap-6">
+        <!-- 无边框模式 -->
+        <div class="cosy:space-y-4">
+            <h3 class="cosy:text-xl cosy:font-semibold">无边框模式</h3>
+            <ApplePhone title="无边框模式" showFrame={false}>
+                <div class="cosy:p-4 cosy:text-left">
+                    <h4 class="cosy:text-lg cosy:font-bold cosy:mb-3">
+                        滚动测试内容
+                    </h4>
+                    {
+                        Array.from({ length: 20 }, (_, i) => (
+                            <p class="cosy:mb-2">
+                                这是第 {i + 1} 段文本内容，用于测试滚动效果。
+                            </p>
+                        ))
+                    }
+                    <p class="cosy:font-bold">这是最后一段内容</p>
+                </div>
+            </ApplePhone>
+        </div>
+
+        <!-- 有边框模式 -->
+        <div class="cosy:space-y-4">
+            <h3 class="cosy:text-xl cosy:font-semibold">有边框模式</h3>
+            <ApplePhone title="有边框模式" showFrame={true}>
+                <div class="cosy:p-4 cosy:text-left">
+                    <h4 class="cosy:text-lg cosy:font-bold cosy:mb-3">
+                        滚动测试内容
+                    </h4>
+                    {
+                        Array.from({ length: 20 }, (_, i) => (
+                            <p class="cosy:mb-2">
+                                这是第 {i + 1} 段文本内容，用于测试滚动效果。
+                            </p>
+                        ))
+                    }
+                    <p class="cosy:font-bold">这是最后一段内容</p>
+                </div>
+            </ApplePhone>
+        </div>
+    </div>
+</div>
