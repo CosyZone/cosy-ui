@@ -102,18 +102,16 @@ const getScaleRatio = () => {
         top: '50%',
         transform: 'translate(-50%, -50%)',
         position: 'absolute',
-        zIndex: 20,
       }">
       <Container
         rounded="lg"
         height="full"
+        class="cosy:h-full cosy:overflow-y-auto cosy:overscroll-y-contain"
         :background="backgroundColor || 'accent/90'">
-        <div class="cosy:h-full cosy:overflow-y-auto cosy:overscroll-y-contain">
-          <slot />
-        </div>
+        <slot />
       </Container>
     </div>
-    
+
     <!-- iPhone 边框 -->
     <PhoneFrame v-if="showFrame" />
   </div>
