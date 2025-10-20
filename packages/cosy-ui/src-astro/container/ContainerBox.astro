@@ -102,8 +102,9 @@ const computedInlineStyles = fitEnabled
                 aspectRatio={aspectRatio!}
                 fit={fit}
                 rounded={rounded}
-                hasExplicitHeight={hasExplicitHeight}
-            />
+                hasExplicitHeight={hasExplicitHeight}>
+                <slot />
+            </AspectRatioBox>
         )
     }
 

@@ -25,9 +25,12 @@ const { aspectRatio, fit, rounded, hasExplicitHeight } = Astro.props as Props;
         <ExplicitHeightAspectRatioBox
             aspectRatio={aspectRatio}
             fit={fit}
-            rounded={rounded}
-        />
+            rounded={rounded}>
+            <slot />
+        </ExplicitHeightAspectRatioBox>
     ) : (
-        <DefaultAspectRatioBox aspectRatio={aspectRatio} rounded={rounded} />
+        <DefaultAspectRatioBox aspectRatio={aspectRatio} rounded={rounded}>
+            <slot />
+        </DefaultAspectRatioBox>
     )
 }

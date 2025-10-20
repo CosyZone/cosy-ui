@@ -106,6 +106,7 @@ const getScaleRatio = () => {
       <Container
         rounded="lg"
         height="full"
+        padding="none"
         class="cosy:h-full cosy:overflow-y-auto cosy:overscroll-y-contain"
         :background="backgroundColor || 'accent/90'">
         <slot />
