@@ -70,6 +70,8 @@ interface Props extends IApplePhonePropsBase {}
 
 const {
 	height = DEFAULT_HEIGHT,
+	title = "",
+	withShadow = true,
 	showFrame = true,
 	backgroundColor = undefined,
 } = Astro.props as Props;
@@ -80,12 +82,19 @@ const scaleRatio = currentHeight / 500;
 
 // 生成唯一的ID
 const uniqueId = `apple-phone-${Math.random().toString(36).substr(2, 9)}`;
+
+// 响应式数据
+let showAlertDialog = false;
+let alertMessage = "";
 ---
 
 <div
     class={`cosy:relative not-prose cosy:mx-auto ${HEIGHT_CLASSES[height]}`}
     style={`aspect-ratio: ${IPHONE_FRAME_WIDTH}/${IPHONE_FRAME_HEIGHT};`}
     apple-phone>
+    <!-- iPhone 边框 -->
+    {showFrame && <PhoneFrame />}
+
     <!-- 顶部状态栏 -->
     <div
         style={`position: absolute; top: ${IPHONE_FRAME_STATUS_BAR_TOP_ASPECT_RATIO * 100}%; height: ${IPHONE_FRAME_STATUS_BAR_HEIGHT_ASPECT_RATIO * 100}%; width: ${MAIN_CONTENT_WIDTH_ASPECT_RATIO * 100}%; left: 50%; transform: translate(-50%, 0); padding-left: 5%; padding-right: 5%; z-index: 50;`}>
@@ -100,19 +109,14 @@ const uniqueId = `apple-phone-${Math.random().toString(36).substr(2, 9)}`;
         <Container
             rounded="lg"
             height="full"
+            class="cosy:h-full cosy:overflow-y-auto cosy:overscroll-y-contain"
             background={backgroundColor || 'accent/90'}>
-            <div
-                class="cosy:h-full cosy:overflow-y-auto cosy:overscroll-y-contain">
-                <slot />
-            </div>
+            <slot />
         </Container>
     </div>
-
-    <!-- iPhone 边框 -->
-    {showFrame && <PhoneFrame />}
 </div>
 
-<AlertDialog id={`${uniqueId}-alert`} message="" />
+<AlertDialog id={`${uniqueId}-alert`} message={alertMessage} />
 
 <script>
     // 全局函数，用于处理状态栏时间更新
