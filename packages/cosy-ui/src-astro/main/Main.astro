@@ -6,13 +6,6 @@
  * Main 组件是页面的主要内容区域，使用 Container 组件提供响应式布局。
  * 它适合作为页面的主体部分，自动处理不同屏幕尺寸下的布局和内边距。
  *
- * @design
- * 设计理念：
- * 1. 结构清晰 - 明确表示页面的主要内容区域，提高语义化
- * 2. 响应式布局 - 在不同屏幕尺寸下自动调整内边距和宽度
- * 3. 灵活配置 - 支持自定义容器尺寸、内边距和背景颜色
- * 4. 与容器集成 - 无缝集成 Container 组件，保持布局一致性
- *
  * @usage
  * 基本用法：
  * ```astro
@@ -85,7 +78,7 @@ import {
 	getBackgroundClass,
 	type BackgroundColor,
 } from "../../src/common/backgrounds";
-import { borderClasses, type BorderSize } from "../../src/common/border";
+import { borderClasses } from "../../src/common/border";
 import {
 	Article,
 	TableOfContents,
@@ -107,7 +100,7 @@ export interface Props extends IMainContentProps {}
 const {
 	size = "md",
 	padding = "md",
-	py = "md",
+	py = "none",
 	pt,
 	pb,
 	pl,

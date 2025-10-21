@@ -1,13 +1,13 @@
 ---
-import { AppLayout } from '@coffic/cosy-ui';
-import { configApp } from '../../../config/config.app';
-import ApplePhoneDemo from '@/demos/apple-phone/ApplePhoneDemo.astro';
-import ApplePhoneVueDemo from '@/demos/apple-phone/ApplePhoneVueDemo.vue';
+import { AppLayout } from "@coffic/cosy-ui";
+import { configApp } from "../../../config/config.app";
+import ApplePhoneDemo from "@/demos/apple-phone/ApplePhoneDemo.astro";
+import ApplePhoneVueDemo from "@/demos/apple-phone/ApplePhoneVueDemo.vue";
 
-import Logo from '@/assets/logo.png';
+import Logo from "@/assets/logo.png";
 
 interface Props {
-    title: string;
+	title: string;
 }
 
 const { title } = Astro.props;
@@ -16,17 +16,17 @@ const { title } = Astro.props;
 const currentLocale = Astro.params.lang;
 
 // 定义支持的语言
-const languages = ['zh-cn', 'en'];
+const languages = ["zh-cn", "en"];
 
 export const getStaticPaths = async () => {
-    return [
-        {
-            params: { lang: 'zh-cn' },
-        },
-        {
-            params: { lang: 'en' },
-        },
-    ];
+	return [
+		{
+			params: { lang: "zh-cn" },
+		},
+		{
+			params: { lang: "en" },
+		},
+	];
 };
 ---
 

@@ -36,6 +36,7 @@ import user1Url from "@/demos/ecommerce_product/images/user-1.jpg?url";
 import user2Url from "@/demos/ecommerce_product/images/user-2.jpg?url";
 import user3Url from "@/demos/ecommerce_product/images/user-3.jpg?url";
 import wechatQrUrl from "@/demos/ecommerce_product/images/wechat-qr.jpg?url";
+import Logo from "@/assets/logo.png";
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.params.lang;
@@ -370,6 +371,7 @@ const data = ecommerceData[currentLocale] || ecommerceData["zh-cn"];
     showFooter={true}
     showSidebar={false}
     footerConfig={{
+        logo: Logo,
         siteName: data.brand,
         homeLink: configApp.homeLink,
         slogan: data.tagline,
@@ -422,6 +424,7 @@ const data = ecommerceData[currentLocale] || ecommerceData["zh-cn"];
         wechatQR: wechatQrUrl,
     }}
     headerConfig={{
+        logo: Logo,
         logoHref: configApp.homeLink,
         navItems: configApp.getNavItems(currentLocale),
         astroI18n: astroI18n,
@@ -586,7 +589,7 @@ const data = ecommerceData[currentLocale] || ecommerceData["zh-cn"];
                                             disabled={!color.inStock}>
                                             {color.name}
                                         </button>
-                                    )
+                                    ),
                                 )
                             }
                         </div>
@@ -607,7 +610,7 @@ const data = ecommerceData[currentLocale] || ecommerceData["zh-cn"];
                                             disabled={!storage.inStock}>
                                             {storage.name} - ¥{storage.price}
                                         </button>
-                                    )
+                                    ),
                                 )
                             }
                         </div>
@@ -748,7 +751,7 @@ const data = ecommerceData[currentLocale] || ecommerceData["zh-cn"];
                                 {spec.value}
                             </Text>
                         </div>
-                    )
+                    ),
                 )
             }
         </Grid>
@@ -855,7 +858,7 @@ const data = ecommerceData[currentLocale] || ecommerceData["zh-cn"];
                                 </div>
                             </div>
                         </Card>
-                    )
+                    ),
                 )
             }
         </Grid>
