@@ -1,22 +1,22 @@
 ---
-import { configApp } from "@/config/config.app";
+import { configApp } from '@/config/config.app';
 import {
-	AppLayout,
-	Container,
-	Grid,
-	Heading,
-	PlaceHolder,
-} from "@coffic/cosy-ui";
+    AppLayout,
+    Container,
+    Grid,
+    Heading,
+    PlaceHolder,
+} from '@coffic/cosy-ui';
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.params.lang;
 
 export const getStaticPaths = async () => {
-	return [
-		{
-			params: { lang: "zh-cn" },
-		},
-	];
+    return [
+        {
+            params: { lang: 'zh-cn' },
+        },
+    ];
 };
 ---
 
@@ -70,7 +70,7 @@ export const getStaticPaths = async () => {
         navItems: configApp.getNavItems(currentLocale),
     }}
     mainContentConfig={{
-        verticalPadding: '4xl',
+        pt: '4xl',
         size: 'full',
         padding: 'xl',
     }}>

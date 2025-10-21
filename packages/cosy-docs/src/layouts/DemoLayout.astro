@@ -1,31 +1,31 @@
 ---
-import type { ISidebarItem } from "@coffic/cosy-ui";
-import BaseLayout from "./BaseLayout.astro";
-import DemoBanner from "./DemoBanner.astro";
+import type { ISidebarItem } from '@coffic/cosy-ui';
+import BaseLayout from './BaseLayout.astro';
+import DemoBanner from './DemoBanner.astro';
 
 interface Props {
-	title: string;
-	showTOC?: boolean;
-	showSidebar?: boolean;
-	sidebarItems?: ISidebarItem | null;
-	showDemoBanner?: boolean;
+    title: string;
+    showTOC?: boolean;
+    showSidebar?: boolean;
+    sidebarItems?: ISidebarItem | null;
+    showDemoBanner?: boolean;
 }
 
 const {
-	title,
-	showTOC = true,
-	showSidebar = true,
-	sidebarItems = null,
-	showDemoBanner = true,
+    title,
+    showTOC = true,
+    showSidebar = true,
+    sidebarItems = null,
+    showDemoBanner = true,
 } = Astro.props;
 ---
 
 <BaseLayout
-  title={title}
-  showTOC={showTOC}
-  showSidebar={showSidebar}
-  sidebarItems={sidebarItems}>
-  {showDemoBanner && <DemoBanner />}
+    title={title}
+    showTOC={showTOC}
+    showSidebar={showSidebar}
+    sidebarItems={sidebarItems}>
+    {showDemoBanner && <DemoBanner />}
 
-  <slot />
+    <slot />
 </BaseLayout>
