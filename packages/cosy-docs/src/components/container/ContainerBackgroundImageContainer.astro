@@ -2,20 +2,26 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import ContainerBackgroundImageRemote from "./ContainerBackgroundImageRemote.astro";
 import ContainerBackgroundImageLocal from "./ContainerBackgroundImageLocal.astro";
+import ContainerBackgroundImageStacked from "./ContainerBackgroundImageStacked.astro";
 import ContainerBackgroundImageRemoteSourceCode from "./ContainerBackgroundImageRemote.astro?raw";
 import ContainerBackgroundImageLocalSourceCode from "./ContainerBackgroundImageLocal.astro?raw";
+import ContainerBackgroundImageStackedSourceCode from "./ContainerBackgroundImageStacked.astro?raw";
 ---
 
 <CodeContainer
-  titles={['远程图片', '本地图片']}
-  codes={[
-    ContainerBackgroundImageRemoteSourceCode,
-    ContainerBackgroundImageLocalSourceCode,
-  ]}>
-  <div id="tab-1">
-    <ContainerBackgroundImageRemote />
-  </div>
-  <div id="tab-2">
-    <ContainerBackgroundImageLocal />
-  </div>
+    titles={['远程图片', '本地图片', '两个容器堆叠']}
+    codes={[
+        ContainerBackgroundImageRemoteSourceCode,
+        ContainerBackgroundImageLocalSourceCode,
+        ContainerBackgroundImageStackedSourceCode,
+    ]}>
+    <div id="tab-1">
+        <ContainerBackgroundImageRemote />
+    </div>
+    <div id="tab-2">
+        <ContainerBackgroundImageLocal />
+    </div>
+    <div id="tab-3">
+        <ContainerBackgroundImageStacked />
+    </div>
 </CodeContainer>

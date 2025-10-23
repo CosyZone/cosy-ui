@@ -26,7 +26,7 @@
 		content: "";
 		position: absolute;
 		inset: 0;
-		z-index: 0;
+		z-index: -50; /* 设置为-50，使其低于Container背景图片的z-index(-10) */
 		pointer-events: none;
 		background-image: radial-gradient(
 			rgba(var(--cosy-dot-rgb), var(--cosy-dot-grid-alpha))

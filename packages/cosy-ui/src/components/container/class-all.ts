@@ -94,6 +94,7 @@ export function getBaseContainerClasses(props: IContainerPropsBase): string[] {
 		...borderClasses,
 		...flexClassesArray,
 		heightClass,
+		"cosy:relative", // 为Container创建独立的定位上下文，确保背景图片正确显示
 		className,
 	];
 
