@@ -1,0 +1,32 @@
+---
+import { Container, PlaceHolder } from "@coffic/cosy-ui";
+import bg from "@/assets/factory.png";
+import bg2 from "@/assets/hero.png";
+---
+
+<div class="cosy:space-y-md">
+    <Container backgroundImage={bg} padding="md" rounded="md" width="full">
+        <PlaceHolder
+            width="full"
+            height="2xl"
+            padding="md"
+            background="accent/60">
+            第一个容器
+        </PlaceHolder>
+    </Container>
+
+    <Container
+        backgroundImage={bg2}
+        padding="md"
+        rounded="md"
+        width="full"
+        height="4xl">
+        <PlaceHolder
+            width="sm"
+            height="xl"
+            padding="md"
+            background="primary/60">
+            第二个容器
+        </PlaceHolder>
+    </Container>
+</div>
