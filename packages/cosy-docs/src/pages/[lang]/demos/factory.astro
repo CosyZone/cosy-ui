@@ -18,6 +18,7 @@ import exteriorUrl from "@/demos/factory_showcase/images/factory-exterior.jpg";
 import wechatQrUrl from "@/demos/factory_showcase/images/wechat-qr.jpg";
 import { configApp } from "@/config/config.app";
 import * as astroI18n from "astro:i18n";
+import Logo from "@/assets/logo.png";
 
 // locale
 const currentLocale = Astro.params.lang;
@@ -79,11 +80,11 @@ const blocks: BlockItem[] = [
         title: t('工厂照片展示', 'Factory Showcase'),
         description: t(
             '一张或多张工厂照片，配合简洁文案展示实力。',
-            'Factory photos with concise copy to build trust.'
+            'Factory photos with concise copy to build trust.',
         ),
         keywords: t(
             '工厂,生产线,仓储,实验室,外景',
-            'factory, production line, warehouse, lab, exterior'
+            'factory, production line, warehouse, lab, exterior',
         ),
         author: 'Cosy UI',
         robots: 'index, follow',
@@ -93,18 +94,20 @@ const blocks: BlockItem[] = [
     showFooter={true}
     showSidebar={false}
     headerConfig={{
+        logo: Logo,
         logoHref: configApp.homeLink,
         navItems: configApp.getNavItems(currentLocale),
         astroI18n: astroI18n,
     }}
     footerConfig={{
+        logo: Logo,
         siteName: 'Cosy UI',
         homeLink: configApp.homeLink,
         slogan: t('更快构建现代网站', 'Build modern sites faster'),
         company: 'Cosy UI',
         inspirationalSlogan: t(
             '打造优雅、可复用的界面',
-            'Craft elegant, reusable UIs'
+            'Craft elegant, reusable UIs',
         ),
         background: 'base-200',
         aboutInfo: {
@@ -125,7 +128,7 @@ const blocks: BlockItem[] = [
         contactInfo: {
             address: t(
                 '上海市浦东新区世纪大道 100 号',
-                '100 Century Ave, Pudong, Shanghai'
+                '100 Century Ave, Pudong, Shanghai',
             ),
             phone: '+86 21 1234 5678',
             email: 'hello@cosyui.dev',
@@ -164,7 +167,7 @@ const blocks: BlockItem[] = [
         socialLinks: ['https://github.com/CofficLab', 'https://twitter.com'],
         wechatQR: wechatQrUrl,
     }}
-    mainContentConfig={{ verticalPadding: 'lg' }}>
+    mainContentConfig={{ py: 'lg' }}>
     <Hero />
     <Container width="xl" padding="lg" contentCentered flex="col">
         <Heading level={1} margin="lg" weight="semibold" align="center">
@@ -174,7 +177,7 @@ const blocks: BlockItem[] = [
             {
                 t(
                     '以下为工厂核心区域的实拍照片与简要说明。',
-                    'Below are real shots of core factory areas with brief notes.'
+                    'Below are real shots of core factory areas with brief notes.',
                 )
             }
         </Text>

@@ -15,6 +15,7 @@ import CustomStyle from "./ContainerCustomClassContainer.astro";
 import ContainerMuted from "./ContainerMuted.astro";
 import ContainerMutedTest from "./ContainerMutedTest.astro";
 import ShadowContainer from "./ContainerShadowContainer.astro";
+import BackgroundImageContainer from "./ContainerBackgroundImageContainer.astro";
 
 // Props 容器组件
 import PaddingContainer from "./ContainerPaddingContainer.astro";
@@ -51,6 +52,7 @@ export {
 	ContainerMuted,
 	ContainerMutedTest,
 	ShadowContainer,
+	BackgroundImageContainer,
 };
 
 export {
@@ -102,5 +104,6 @@ export const ComponentPackage = {
 		MutedContainer: ContainerMutedContainer,
 		MutedTestContainer: ContainerMutedTestContainer,
 		ShadowContainer: ShadowContainerContainer,
+		BackgroundImageContainer,
 	},
 };

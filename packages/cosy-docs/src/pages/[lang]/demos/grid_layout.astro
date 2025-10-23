@@ -7,6 +7,7 @@ import {
 	Heading,
 	PlaceHolder,
 } from "@coffic/cosy-ui";
+import Logo from "@/assets/logo.png";
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.params.lang;
@@ -15,6 +16,9 @@ export const getStaticPaths = async () => {
 	return [
 		{
 			params: { lang: "zh-cn" },
+		},
+		{
+			params: { lang: "en" },
 		},
 	];
 };
@@ -35,6 +39,7 @@ export const getStaticPaths = async () => {
     showFooter={true}
     showSidebar={false}
     footerConfig={{
+        logo: Logo,
         siteName: 'Cosy UI',
         homeLink: configApp.homeLink,
         slogan:
@@ -66,11 +71,13 @@ export const getStaticPaths = async () => {
         },
     }}
     headerConfig={{
+        logo: Logo,
         logoHref: configApp.homeLink,
         navItems: configApp.getNavItems(currentLocale),
     }}
     mainContentConfig={{
-        verticalPadding: '4xl',
+        pt: '4xl',
+        py: 'none',
         size: 'full',
         padding: 'xl',
     }}>

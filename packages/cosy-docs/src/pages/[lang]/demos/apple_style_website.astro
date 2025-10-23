@@ -39,6 +39,7 @@ import avatar1Url from "@/demos/apple_style_website/images/avatar-1.jpg?url";
 import avatar2Url from "@/demos/apple_style_website/images/avatar-2.jpg?url";
 import avatar3Url from "@/demos/apple_style_website/images/avatar-3.jpg?url";
 import wechatQrUrl from "@/demos/apple_style_website/images/wechat-qr.jpg?url";
+import Logo from "@/assets/logo.png";
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.params.lang;
@@ -193,6 +194,7 @@ const features = [
     showFooter={true}
     showSidebar={false}
     footerConfig={{
+        logo: Logo,
         siteName: data.companyName,
         homeLink: configApp.homeLink,
         slogan: data.slogan,
@@ -245,6 +247,7 @@ const features = [
         wechatQR: wechatQrUrl,
     }}
     headerConfig={{
+        logo: Logo,
         logoHref: configApp.homeLink,
         navItems: configApp.getNavItems(currentLocale),
     }}

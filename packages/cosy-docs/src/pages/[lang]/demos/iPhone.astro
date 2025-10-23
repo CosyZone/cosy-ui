@@ -4,6 +4,8 @@ import { configApp } from "../../../config/config.app";
 import ApplePhoneDemo from "@/demos/apple-phone/ApplePhoneDemo.astro";
 import ApplePhoneVueDemo from "@/demos/apple-phone/ApplePhoneVueDemo.vue";
 
+import Logo from "@/assets/logo.png";
+
 interface Props {
 	title: string;
 }
@@ -39,6 +41,7 @@ export const getStaticPaths = async () => {
         robots: 'index, follow',
     }}
     footerConfig={{
+        logo: Logo,
         siteName: 'Cosy UI',
         homeLink: configApp.homeLink,
         slogan:
@@ -72,6 +75,7 @@ export const getStaticPaths = async () => {
     headerConfig={{
         logoHref: configApp.homeLink,
         navItems: configApp.getNavItems(currentLocale || 'zh-cn'),
+        logo: Logo,
     }}
     sidebarConfig={{
         sidebarItems: [],

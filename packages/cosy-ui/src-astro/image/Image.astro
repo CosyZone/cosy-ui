@@ -7,13 +7,6 @@
  * 对于本地图片使用 LocalImage 组件（基于 Astro Image 优化），
  * 对于远程图片使用 RemoteImage 组件（包含加载状态和错误处理）。
  *
- * @design
- * 设计理念：
- * 1. 智能分发 - 根据图片类型自动选择最佳处理方式
- * 2. 统一接口 - 提供一致的 API，隐藏内部实现差异
- * 3. 性能优化 - 本地图片自动优化，远程图片提供加载反馈
- * 4. 用户体验 - 统一的视觉效果和交互体验
- *
  * @props
  * - alt: string - 图片的替代文本，用于无障碍访问和图片加载失败时的显示
  * - border?: BorderSize - 图片的边框样式，支持多种边框粗细
@@ -284,79 +277,79 @@ const localProps = {
 ---
 
 <div
-  class:list={[
-    'not-prose cosy:align-middle cosy:mx-auto cosy:my-auto cosy:justify-center cosy:flex cosy:items-center',
-    asBackground
-      ? 'cosy:absolute cosy:inset-0'
-      : 'cosy:relative cosy:w-full cosy:h-full',
-    previewEnabled ? 'cosy:cursor-zoom-in' : '',
-  ]}
-  onclick={previewEnabled
-    ? `window.__cosyImagePreviewOpen('${previewId}')`
-    : undefined}
-  data-image-container>
-  {
-    isLocalImage ? (
-      <LocalImage {...localProps} />
-    ) : (
-      <RemoteImage {...remoteProps} />
-    )
-  }
+    class:list={[
+        'not-prose cosy:align-middle cosy:mx-auto cosy:my-auto cosy:justify-center cosy:flex cosy:items-center',
+        asBackground
+            ? 'cosy:absolute cosy:inset-0'
+            : 'cosy:relative cosy:w-full cosy:h-full',
+        previewEnabled ? 'cosy:cursor-zoom-in' : '',
+    ]}
+    onclick={previewEnabled
+        ? `window.__cosyImagePreviewOpen('${previewId}')`
+        : undefined}
+    data-image-container>
+    {
+        isLocalImage ? (
+            <LocalImage {...localProps} />
+        ) : (
+            <RemoteImage {...remoteProps} />
+        )
+    }
 </div>
 
 {
-  previewEnabled && (
-    <div
-      id={previewId}
-      class="cosy:fixed cosy:inset-0 cosy:z-[999] cosy:bg-black/80 cosy:backdrop-blur-sm cosy:hidden cosy:p-4"
-      data-cosy-image-preview
-      onclick={`window.__cosyImagePreviewClose('${previewId}')`}>
-      <div class="cosy:relative cosy:w-full cosy:h-full cosy:flex cosy:items-center cosy:justify-center">
-        <img
-          src={previewSrc}
-          alt={alt}
-          class="cosy:max-h-[85vh] cosy:max-w-[92vw] cosy:w-auto cosy:h-auto cosy:rounded-lg cosy:shadow-2xl"
-          onclick="event.stopPropagation()"
-        />
-        <Button
-          shape="circle"
-          size="sm"
-          variant="ghost"
-          class="cosy:absolute cosy:top-8 cosy:right-4 cosy:text-white cosy:bg-white/10 hover:cosy:bg-white/20 cosy:border-0 cosy:shadow-none cosy:!min-h-0 cosy:h-9 cosy:w-9 cosy:p-0"
-          onclick={`event.stopPropagation(); window.__cosyImagePreviewClose('${previewId}')`}>
-          ✕
-        </Button>
-      </div>
-    </div>
-  )
+    previewEnabled && (
+        <div
+            id={previewId}
+            class="cosy:fixed cosy:inset-0 cosy:z-[999] cosy:bg-black/80 cosy:backdrop-blur-sm cosy:hidden cosy:p-4"
+            data-cosy-image-preview
+            onclick={`window.__cosyImagePreviewClose('${previewId}')`}>
+            <div class="cosy:relative cosy:w-full cosy:h-full cosy:flex cosy:items-center cosy:justify-center">
+                <img
+                    src={previewSrc}
+                    alt={alt}
+                    class="cosy:max-h-[85vh] cosy:max-w-[92vw] cosy:w-auto cosy:h-auto cosy:rounded-lg cosy:shadow-2xl"
+                    onclick="event.stopPropagation()"
+                />
+                <Button
+                    shape="circle"
+                    size="sm"
+                    variant="ghost"
+                    class="cosy:absolute cosy:top-8 cosy:right-4 cosy:text-white cosy:bg-white/10 hover:cosy:bg-white/20 cosy:border-0 cosy:shadow-none cosy:!min-h-0 cosy:h-9 cosy:w-9 cosy:p-0"
+                    onclick={`event.stopPropagation(); window.__cosyImagePreviewClose('${previewId}')`}>
+                    ✕
+                </Button>
+            </div>
+        </div>
+    )
 }
 
 <script>
-  declare global {
-    interface Window {
-      __cosyImagePreviewOpen: (id: string) => void;
-      __cosyImagePreviewClose: (id: string) => void;
+    declare global {
+        interface Window {
+            __cosyImagePreviewOpen: (id: string) => void;
+            __cosyImagePreviewClose: (id: string) => void;
+        }
     }
-  }
 
-  window.__cosyImagePreviewOpen = (id: string) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.classList.remove('cosy:hidden');
-    el.classList.add('cosy:flex');
+    window.__cosyImagePreviewOpen = (id: string) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.remove('cosy:hidden');
+        el.classList.add('cosy:flex');
 
-    const onEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        window.__cosyImagePreviewClose(id);
-      }
+        const onEsc = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                window.__cosyImagePreviewClose(id);
+            }
+        };
+        document.addEventListener('keydown', onEsc, { once: true });
     };
-    document.addEventListener('keydown', onEsc, { once: true });
-  };
 
-  window.__cosyImagePreviewClose = (id: string) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.classList.remove('cosy:flex');
-    el.classList.add('cosy:hidden');
-  };
+    window.__cosyImagePreviewClose = (id: string) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.remove('cosy:flex');
+        el.classList.add('cosy:hidden');
+    };
 </script>

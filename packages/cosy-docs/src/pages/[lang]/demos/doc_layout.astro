@@ -1,6 +1,7 @@
 ---
 import { AppLayout } from "@coffic/cosy-ui";
 import { configApp } from "@/config/config.app";
+import Logo from "@/assets/logo.png";
 
 interface Props {
 	title: string;
@@ -39,6 +40,7 @@ export const getStaticPaths = async () => {
         robots: 'index, follow',
     }}
     footerConfig={{
+        logo: Logo,
         siteName: 'Cosy UI',
         homeLink: configApp.homeLink,
         slogan:
@@ -70,6 +72,7 @@ export const getStaticPaths = async () => {
         },
     }}
     headerConfig={{
+        logo: Logo,
         logoHref: configApp.homeLink,
         navItems: configApp.getNavItems(currentLocale || 'zh-cn'),
     }}

@@ -27,6 +27,7 @@ import product3Url from "@/demos/auto_parts_showcase/images/product-3.jpg?url";
 import product4Url from "@/demos/auto_parts_showcase/images/product-4.jpg?url";
 import wechatQrUrl from "@/demos/auto_parts_showcase/images/wechat-qr.jpg?url";
 import * as astroI18n from "astro:i18n";
+import Logo from "@/assets/logo.png";
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.params.lang;
@@ -349,6 +350,7 @@ const data = autoPartsData[currentLocale] || autoPartsData["zh-cn"];
   showFooter={true}
   showSidebar={false}
   footerConfig={{
+    logo: Logo,
     siteName: data.companyName,
     homeLink: configApp.homeLink,
     slogan: data.tagline,
@@ -377,6 +379,7 @@ const data = autoPartsData[currentLocale] || autoPartsData["zh-cn"];
     wechatQR: wechatQrUrl,
   }}
   headerConfig={{
+    logo: Logo,
     logoHref: configApp.homeLink,
     navItems: configApp.getNavItems(currentLocale),
     astroI18n: astroI18n,
@@ -575,5 +578,3 @@ const data = autoPartsData[currentLocale] || autoPartsData["zh-cn"];
 
   <PlaceHolder height="md" />
 </AppLayout>
-
-

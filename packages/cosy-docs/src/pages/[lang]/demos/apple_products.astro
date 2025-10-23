@@ -18,6 +18,7 @@ import watchUrl from "@/demos/apple_products/images/watch.jpg?url";
 import airpodsUrl from "@/demos/apple_products/images/airpods.jpg?url";
 import visionProUrl from "@/demos/apple_products/images/vision-pro.jpg?url";
 import wechatQrUrl from "@/demos/apple_products/images/wechat-qr.jpg?url";
+import Logo from "@/assets/logo.png";
 
 const currentLocale = Astro.params.lang;
 const t = (zh: string, en: string) => (currentLocale === "zh-cn" ? zh : en);
@@ -32,11 +33,11 @@ export const getStaticPaths = async () => {
         title: t('Apple 产品列表', 'Apple Products'),
         description: t(
             '精选 Apple 设备与配件，一站式浏览与了解。',
-            'Curated Apple devices and accessories for quick browsing and discovery.'
+            'Curated Apple devices and accessories for quick browsing and discovery.',
         ),
         keywords: t(
             'iPhone, MacBook, iPad, Apple Watch, AirPods, Vision Pro',
-            'iPhone, MacBook, iPad, Apple Watch, AirPods, Vision Pro'
+            'iPhone, MacBook, iPad, Apple Watch, AirPods, Vision Pro',
         ),
         author: 'Cosy UI',
         robots: 'index, follow',
@@ -44,13 +45,14 @@ export const getStaticPaths = async () => {
     showFooter={true}
     showSidebar={false}
     footerConfig={{
+        logo: Logo,
         siteName: 'Cosy UI',
         homeLink: configApp.homeLink,
         slogan: t('更快构建现代网站', 'Build modern sites faster'),
         company: 'Cosy UI',
         inspirationalSlogan: t(
             '打造优雅、可复用的界面',
-            'Craft elegant, reusable UIs'
+            'Craft elegant, reusable UIs',
         ),
         background: 'base-200',
         aboutInfo: {
@@ -71,7 +73,7 @@ export const getStaticPaths = async () => {
         contactInfo: {
             address: t(
                 '上海市静安区南京西路 88 号',
-                '88 Nanjing West Rd, Jing’an, Shanghai'
+                '88 Nanjing West Rd, Jing’an, Shanghai',
             ),
             phone: '+86 21 0000 0000',
             email: 'contact@cosyui.dev',
@@ -111,6 +113,7 @@ export const getStaticPaths = async () => {
         wechatQR: wechatQrUrl,
     }}
     headerConfig={{
+        logo: Logo,
         logoHref: configApp.homeLink,
         navItems: configApp.getNavItems(currentLocale),
         astroI18n: astroI18n,
@@ -125,7 +128,7 @@ export const getStaticPaths = async () => {
             >{
                 t(
                     '精选 Apple 设备与配件，一站式浏览与了解。',
-                    'Curated Apple devices and accessories for quick browsing and discovery.'
+                    'Curated Apple devices and accessories for quick browsing and discovery.',
                 )
             }</Text
         >
