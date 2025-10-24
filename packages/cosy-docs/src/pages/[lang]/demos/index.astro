@@ -1,24 +1,24 @@
 ---
-import DemoLayout from "@/layouts/DemoLayout.astro";
-import { Products, getExampleImage, LinkUtil, Heading } from "@coffic/cosy-ui";
-import enterpriseHeroUrl from "@/demos/enterprise_website/images/hero.jpg";
-import appleStyleHeroUrl from "@/demos/apple_style_website/images/hero.jpg";
-import autoPartsHeroUrl from "@/demos/auto_parts_showcase/images/hero.png";
-import factoryHeroUrl from "@/demos/factory_showcase/images/hero.png";
-import ecommerceMainUrl from "@/demos/ecommerce_product/images/main.jpg";
-import appleProductsIphoneUrl from "@/demos/apple_products/images/iphone.jpg";
+import DemoLayout from '@/layouts/DemoLayout.astro';
+import { Products, getExampleImage, LinkUtil, Heading } from '@coffic/cosy-ui';
+import enterpriseHeroUrl from '@/demos/enterprise_website/images/hero.jpg';
+import appleStyleHeroUrl from '@/demos/apple_style_website/images/hero.jpg';
+import autoPartsHeroUrl from '@/demos/auto_parts_showcase/images/hero.png';
+import factoryHeroUrl from '@/demos/factory_showcase/images/hero.png';
+import ecommerceMainUrl from '@/demos/ecommerce_product/images/main.jpg';
+import appleProductsIphoneUrl from '@/demos/apple_products/images/iphone.jpg';
 
 const currentLocale = Astro.params.lang;
 
 export const getStaticPaths = async () => {
-	return [
-		{
-			params: { lang: "zh-cn" },
-		},
-		{
-			params: { lang: "en" },
-		},
-	];
+    return [
+        {
+            params: { lang: 'zh-cn' },
+        },
+        {
+            params: { lang: 'en' },
+        },
+    ];
 };
 ---
 
@@ -34,6 +34,29 @@ export const getStaticPaths = async () => {
     <Products
         products={[
             {
+                name: '最少配置',
+                image: getExampleImage({
+                    width: 100,
+                    height: 100,
+                }),
+                description: 'AppLayout 最少配置使用示例，展示最简单的使用方式',
+                productUrl: LinkUtil.createUrl(
+                    `${currentLocale}/demos/minimal_app_layout`
+                ),
+            },
+            {
+                name: '最简单的 Header',
+                image: getExampleImage({
+                    width: 100,
+                    height: 100,
+                }),
+                description:
+                    'AppLayout + 最简单的 Header，不显示 logo 的极简配置',
+                productUrl: LinkUtil.createUrl(
+                    `${currentLocale}/demos/minimal_header`
+                ),
+            },
+            {
                 name: '自定义 Header',
                 image: getExampleImage({
                     width: 100,
@@ -42,6 +65,28 @@ export const getStaticPaths = async () => {
                 description: 'AppLayout 自定义全局 Header 功能演示',
                 productUrl: LinkUtil.createUrl(
                     `${currentLocale}/demos/custom_header`
+                ),
+            },
+            {
+                name: '自定义 Footer',
+                image: getExampleImage({
+                    width: 100,
+                    height: 100,
+                }),
+                description: 'AppLayout 自定义全局 Footer 功能演示',
+                productUrl: LinkUtil.createUrl(
+                    `${currentLocale}/demos/custom_footer`
+                ),
+            },
+            {
+                name: '自定义 Header & Footer',
+                image: getExampleImage({
+                    width: 100,
+                    height: 100,
+                }),
+                description: 'AppLayout 同时自定义 Header 和 Footer 的完整演示',
+                productUrl: LinkUtil.createUrl(
+                    `${currentLocale}/demos/custom_header_footer`
                 ),
             },
             {

@@ -31,7 +31,7 @@ import type { ImageSource } from "index-astro";
 import NavItems from "./NavItems.astro";
 
 export interface Props {
-	logo: ImageSource;
+	logo?: ImageSource;
 	logoHref?: string;
 	navPosition: "start" | "center" | "end";
 	navItems: INavItem[];
@@ -44,20 +44,20 @@ const { logo, logoHref, navPosition, navItems, activeLink, linkHeightClass } =
 ---
 
 <div class="cosy:navbar-start">
-  <LogoLink src={logo} href={logoHref} />
+    {logo && <LogoLink src={logo} href={logoHref} />}
 
-  <!-- 桌面端左侧导航 -->
-  {
-    navPosition === 'start' && (
-      <div class="cosy:hidden cosy:lg:flex">
-        <NavItems
-          navItems={navItems}
-          activeLink={activeLink}
-          linkHeightClass={linkHeightClass}
-          gap={2}
-        />
-      </div>
-    )
-  }
-  <slot />
+    <!-- 桌面端左侧导航 -->
+    {
+        navPosition === 'start' && (
+            <div class="cosy:hidden cosy:lg:flex">
+                <NavItems
+                    navItems={navItems}
+                    activeLink={activeLink}
+                    linkHeightClass={linkHeightClass}
+                    gap={2}
+                />
+            </div>
+        )
+    }
+    <slot />
 </div>

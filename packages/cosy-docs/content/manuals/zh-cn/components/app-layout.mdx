@@ -148,6 +148,62 @@ AppLayout 组件适用于页面布局，提供一个包含侧边栏导航、头�
 - 需要自行处理响应式布局和样式
 - z-index 建议设置为 40-50 之间
 
+### footer
+
+自定义全局 footer（优先级最高）。当提供此 slot 时，会替代内置的 Footer，并横跨整个页面宽度（不受侧边栏限制）。
+
+**💡 [查看在线演示](/zh-cn/demos/custom_footer)** - 体验完整的自定义 footer 功能
+
+**使用场景**：
+- 品牌定制：需要完全自定义的 footer 设计
+- 特殊交互：实现复杂的布局结构
+- 多列布局：需要在 footer 中实现多列内容
+- 第三方集成：集成第三方 footer 组件
+
+**示例**：
+
+```astro
+<AppLayout
+  metaConfig={{ title: "我的应用" }}
+  sidebarConfig={{ sidebarItems: [] }}
+>
+  <!-- 主内容 -->
+  <h1>页面内容</h1>
+
+  <!-- 自定义 footer，横跨整个页面宽度 -->
+  <footer slot="footer" class="cosy:bg-base-200 cosy:p-8">
+    <div class="cosy:container cosy:mx-auto">
+      <div class="cosy:grid cosy:grid-cols-1 cosy:md:grid-cols-3 cosy:gap-8">
+        <div>
+          <h3 class="cosy:font-bold cosy:text-lg cosy:mb-4">关于我们</h3>
+          <p class="cosy:text-sm">我们致力于提供最好的产品和服务</p>
+        </div>
+        <div>
+          <h3 class="cosy:font-bold cosy:text-lg cosy:mb-4">快速链接</h3>
+          <ul class="cosy:space-y-2">
+            <li><a href="/docs" class="cosy:link cosy:link-hover">文档</a></li>
+            <li><a href="/blog" class="cosy:link cosy:link-hover">博客</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="cosy:font-bold cosy:text-lg cosy:mb-4">联系方式</h3>
+          <p class="cosy:text-sm">email@example.com</p>
+        </div>
+      </div>
+      <div class="cosy:mt-8 cosy:pt-8 cosy:border-t cosy:text-center cosy:text-sm">
+        <p>&copy; 2025 我的公司. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</AppLayout>
+```
+
+**注意事项**：
+- 自定义 footer 的优先级最高，会覆盖 `showFooter` 和 `footerConfig` 配置
+- 建议使用容器（如 `cosy:container cosy:mx-auto`）来限制内容宽度
+- 需要自行处理响应式布局和样式
+- 与 header slot 保持一致的设计模式
+
 ### navbar-start
 
 导航栏开始位置的内容，传递给AppHeader组件。

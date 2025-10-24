@@ -1,0 +1,886 @@
+---
+import {
+	AppLayout,
+	Container,
+	Button,
+	Heading,
+	Card,
+	Image,
+} from "@coffic/cosy-ui";
+import Logo from "@/assets/logo.png";
+import { getMetaConfig } from "@/demos/metaConfig";
+
+// 从 URL 获取当前语言
+const currentLocale = Astro.params.lang || "zh-cn";
+
+// 启用预渲染
+export const prerender = true;
+
+// 定义支持的语言
+export const getStaticPaths = async () => {
+	return [
+		{
+			params: { lang: "zh-cn" },
+		},
+		{
+			params: { lang: "en" },
+		},
+	];
+};
+
+const isZhCn = currentLocale === "zh-cn";
+
+const title = isZhCn
+	? "自定义 Header & Footer 演示"
+	: "Custom Header & Footer Demo";
+const description = isZhCn
+	? "演示如何在 AppLayout 中同时使用自定义 Header 和 Footer"
+	: "Demonstration of using both custom header and footer in AppLayout";
+---
+
+<AppLayout
+    showSidebar={false}
+    showHeader={false}
+    showFooter={false}
+    metaConfig={getMetaConfig({
+        title: title,
+        description: description,
+        keywords: 'Cosy UI, AppLayout, Custom Header, Custom Footer',
+    })}>
+    <!-- 自定义 Header Slot -->
+    <header slot="header" class="custom-header">
+        <Container
+            padding="sm"
+            width="full"
+            flex="row"
+            gap="md"
+            class="header-container">
+            <!-- Logo 和品牌名 -->
+            <div class="logo-section">
+                <Image
+                    src={Logo}
+                    alt="Logo"
+                    width={36}
+                    height={36}
+                    rounded="lg"
+                    class="logo-image"
+                />
+                <div class="brand-info">
+                    <div class="brand-name">
+                        {isZhCn ? '完整品牌' : 'Complete Brand'}
+                    </div>
+                    <div class="brand-tagline">
+                        {isZhCn ? '全栈定制' : 'Full Customization'}
+                    </div>
+                </div>
+            </div>
+
+            <!-- 导航菜单 (桌面端) -->
+            <nav class="nav-menu">
+                <a href="#features" class="nav-link">
+                    {isZhCn ? '特性' : 'Features'}
+                </a>
+                <a href="#benefits" class="nav-link">
+                    {isZhCn ? '优势' : 'Benefits'}
+                </a>
+                <a
+                    href={`/${currentLocale}/manuals/components/app-layout`}
+                    class="nav-link">
+                    {isZhCn ? '文档' : 'Docs'}
+                </a>
+            </nav>
+
+            <!-- 操作按钮 -->
+            <div class="action-buttons">
+                <div class="desktop-only">
+                    <Button variant="ghost" size="sm">
+                        {isZhCn ? '登录' : 'Sign In'}
+                    </Button>
+                </div>
+                <Button variant="accent" size="sm">
+                    {isZhCn ? '开始使用' : 'Get Started'}
+                </Button>
+            </div>
+        </Container>
+    </header>
+
+    <!-- 主要内容 -->
+    <Container width="full" padding="none" flex="col" gap="xl">
+        <!-- Hero Section -->
+        <Container flex="col" gap="lg" margin="lg" class="hero-section">
+            <Heading
+                level={1}
+                align="center"
+                weight="bold"
+                margin="none"
+                class="hero-title">
+                {isZhCn ? '完整的自定义布局' : 'Complete Custom Layout'}
+            </Heading>
+            <p class="hero-description">
+                {
+                    isZhCn
+                        ? '这个页面展示了如何同时使用 AppLayout 的自定义 header 和 footer slot，创建完全自定义的页面布局。'
+                        : 'This page demonstrates how to use both custom header and footer slots of AppLayout to create a fully customized page layout.'
+                }
+            </p>
+            <div class="hero-buttons">
+                <Button
+                    variant="primary"
+                    size="lg"
+                    href={`/${currentLocale}/manuals/components/app-layout`}>
+                    {isZhCn ? '查看文档' : 'View Documentation'}
+                </Button>
+                <Button
+                    variant="outline"
+                    size="lg"
+                    href={`/${currentLocale}/demos`}>
+                    {isZhCn ? '返回示例' : 'Back to Demos'}
+                </Button>
+            </div>
+        </Container>
+
+        <!-- Features Section -->
+        <Container flex="col" gap="xl" margin="lg" id="features">
+            <Heading
+                level={2}
+                align="center"
+                weight="bold"
+                margin="none"
+                class="section-title">
+                {isZhCn ? '核心特性' : 'Core Features'}
+            </Heading>
+            <div class="features-grid">
+                <Card
+                    title={isZhCn ? '全局 Header' : 'Global Header'}
+                    subtitle={isZhCn
+                        ? '自定义 header 横跨整个页面宽度，提供品牌一致性。'
+                        : 'Custom header spans full page width for brand consistency.'}
+                    shadow="xl"
+                />
+
+                <Card
+                    title={isZhCn ? '全局 Footer' : 'Global Footer'}
+                    subtitle={isZhCn
+                        ? '自定义 footer 展示丰富的页脚信息和链接。'
+                        : 'Custom footer displays rich footer information and links.'}
+                    shadow="xl"
+                />
+
+                <Card
+                    title={isZhCn ? '完全控制' : 'Full Control'}
+                    subtitle={isZhCn
+                        ? '从头到尾完全控制页面外观和交互。'
+                        : 'Complete control over page appearance and interactions.'}
+                    shadow="xl"
+                />
+
+                <Card
+                    title={isZhCn ? '响应式设计' : 'Responsive Design'}
+                    subtitle={isZhCn
+                        ? '适配所有设备，从移动端到桌面端。'
+                        : 'Adapts to all devices, from mobile to desktop.'}
+                    shadow="xl"
+                />
+
+                <Card
+                    title={isZhCn ? '一致性' : 'Consistency'}
+                    subtitle={isZhCn
+                        ? 'Header 和 Footer 使用相同的设计模式。'
+                        : 'Header and Footer use the same design pattern.'}
+                    shadow="xl"
+                />
+
+                <Card
+                    title={isZhCn ? '灵活集成' : 'Flexible Integration'}
+                    subtitle={isZhCn
+                        ? '可以集成任何第三方组件和库。'
+                        : 'Can integrate any third-party components and libraries.'}
+                    shadow="xl"
+                />
+            </div>
+        </Container>
+
+        <!-- Benefits Section -->
+        <Container flex="col" gap="lg" margin="lg" id="benefits">
+            <Heading
+                level={2}
+                align="center"
+                weight="bold"
+                margin="none"
+                class="section-title">
+                {isZhCn ? '使用优势' : 'Benefits'}
+            </Heading>
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <span class="benefit-icon">✨</span>
+                    <div>
+                        <h3 class="benefit-title">
+                            {isZhCn ? '品牌一致性' : 'Brand Consistency'}
+                        </h3>
+                        <p class="benefit-text">
+                            {
+                                isZhCn
+                                    ? '在整个网站中保持统一的品牌形象和设计语言。'
+                                    : 'Maintain unified brand image and design language across the website.'
+                            }
+                        </p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <span class="benefit-icon">🎨</span>
+                    <div>
+                        <h3 class="benefit-title">
+                            {isZhCn ? '设计自由' : 'Design Freedom'}
+                        </h3>
+                        <p class="benefit-text">
+                            {
+                                isZhCn
+                                    ? '不受内置组件限制，实现任何设计创意。'
+                                    : 'Not limited by built-in components, implement any design ideas.'
+                            }
+                        </p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <span class="benefit-icon">⚡</span>
+                    <div>
+                        <h3 class="benefit-title">
+                            {isZhCn ? '快速开发' : 'Rapid Development'}
+                        </h3>
+                        <p class="benefit-text">
+                            {
+                                isZhCn
+                                    ? '基于 slot 模式，快速构建和迭代页面布局。'
+                                    : 'Based on slot pattern, quickly build and iterate page layouts.'
+                            }
+                        </p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <span class="benefit-icon">🔧</span>
+                    <div>
+                        <h3 class="benefit-title">
+                            {isZhCn ? '易于维护' : 'Easy Maintenance'}
+                        </h3>
+                        <p class="benefit-text">
+                            {
+                                isZhCn
+                                    ? '清晰的组件结构，便于团队协作和代码维护。'
+                                    : 'Clear component structure for team collaboration and code maintenance.'
+                            }
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </Container>
+
+        <!-- Learn More Section -->
+        <Container margin="lg" flex="col" gap="lg" class="learn-more-section">
+            <Heading
+                level={2}
+                align="center"
+                weight="bold"
+                margin="none"
+                class="section-title">
+                {isZhCn ? '了解更多' : 'Learn More'}
+            </Heading>
+            <p class="section-description">
+                {
+                    isZhCn
+                        ? '查看完整的 AppLayout 文档，了解更多关于自定义 header、footer 和其他功能的详细信息。'
+                        : 'Check out the complete AppLayout documentation to learn more about custom headers, footers, and other features.'
+                }
+            </p>
+            <div class="section-buttons">
+                <Button
+                    variant="primary"
+                    size="lg"
+                    href={`/${currentLocale}/manuals/components/app-layout`}>
+                    {isZhCn ? '查看文档' : 'View Documentation'}
+                </Button>
+                <Button
+                    variant="outline"
+                    size="lg"
+                    href={`/${currentLocale}/demos/custom_header`}>
+                    {isZhCn ? 'Header 演示' : 'Header Demo'}
+                </Button>
+                <Button
+                    variant="outline"
+                    size="lg"
+                    href={`/${currentLocale}/demos/custom_footer`}>
+                    {isZhCn ? 'Footer 演示' : 'Footer Demo'}
+                </Button>
+            </div>
+        </Container>
+    </Container>
+
+    <!-- 自定义 Footer Slot -->
+    <footer slot="footer" class="custom-footer">
+        <Container
+            padding="lg"
+            width="full"
+            flex="col"
+            gap="lg"
+            class="footer-container">
+            <!-- Footer 主要内容区 -->
+            <div class="footer-main">
+                <!-- 品牌信息 -->
+                <div class="footer-column">
+                    <div class="footer-brand">
+                        <Image
+                            src={Logo}
+                            alt="Logo"
+                            width={32}
+                            height={32}
+                            rounded="lg"
+                            class="footer-logo"
+                        />
+                        <h3 class="footer-brand-name">
+                            {isZhCn ? '完整品牌' : 'Complete Brand'}
+                        </h3>
+                    </div>
+                    <p class="footer-text">
+                        {
+                            isZhCn
+                                ? '提供完整的自定义布局解决方案，让您的网站独一无二。'
+                                : 'Providing complete custom layout solutions to make your website unique.'
+                        }
+                    </p>
+                </div>
+
+                <!-- 快速链接 -->
+                <div class="footer-column">
+                    <h3 class="footer-column-title">
+                        {isZhCn ? '快速链接' : 'Quick Links'}
+                    </h3>
+                    <ul class="footer-links">
+                        <li>
+                            <a
+                                href={`/${currentLocale}/manuals/components/app-layout`}
+                                class="footer-link">
+                                {isZhCn ? 'AppLayout 文档' : 'AppLayout Docs'}
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href={`/${currentLocale}/demos/custom_header`}
+                                class="footer-link">
+                                {isZhCn ? 'Header 演示' : 'Header Demo'}
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href={`/${currentLocale}/demos/custom_footer`}
+                                class="footer-link">
+                                {isZhCn ? 'Footer 演示' : 'Footer Demo'}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 资源 -->
+                <div class="footer-column">
+                    <h3 class="footer-column-title">
+                        {isZhCn ? '资源' : 'Resources'}
+                    </h3>
+                    <ul class="footer-links">
+                        <li>
+                            <a
+                                href="https://github.com/CosyZone/cosy-ui"
+                                class="footer-link"
+                                target="_blank">
+                                GitHub
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://github.com/CosyZone/cosy-ui/issues"
+                                class="footer-link"
+                                target="_blank">
+                                {isZhCn ? '问题反馈' : 'Issues'}
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href={`/${currentLocale}/demos`}
+                                class="footer-link">
+                                {isZhCn ? '更多示例' : 'More Demos'}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 联系方式 -->
+                <div class="footer-column">
+                    <h3 class="footer-column-title">
+                        {isZhCn ? '联系我们' : 'Contact Us'}
+                    </h3>
+                    <p class="footer-text">
+                        {isZhCn ? '邮箱：' : 'Email:'} hello@cosy-ui.com
+                    </p>
+                    <div class="footer-social">
+                        <a
+                            href="https://github.com/CosyZone/cosy-ui"
+                            class="social-link"
+                            target="_blank"
+                            aria-label="GitHub">
+                            <svg
+                                class="social-icon"
+                                fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                                ></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 分隔线 -->
+            <div class="footer-divider"></div>
+
+            <!-- Footer 底部 -->
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    &copy; {new Date().getFullYear()} Cosy UI. {
+                        isZhCn ? '保留所有权利。' : 'All rights reserved.'
+                    }
+                </p>
+            </div>
+        </Container>
+    </footer>
+</AppLayout>
+
+<style>
+    /* ===== Header Styles ===== */
+    .custom-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: linear-gradient(to right, #ec4899, #8b5cf6, #3b82f6);
+        color: white;
+        box-shadow:
+            0 10px 15px -3px rgba(0, 0, 0, 0.1),
+            0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        padding: 0.5rem 0;
+    }
+
+    .header-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: nowrap;
+    }
+
+    .logo-section {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.625rem;
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
+    .logo-image {
+        height: 2.25rem;
+        width: 2.25rem;
+        flex-shrink: 0;
+    }
+
+    .brand-info {
+        display: inline-flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
+    .brand-name {
+        font-size: 1rem;
+        line-height: 1.25;
+        white-space: nowrap;
+        color: white;
+        font-weight: bold;
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+    }
+
+    @media (min-width: 768px) {
+        .brand-name {
+            font-size: 1.25rem;
+        }
+    }
+
+    .brand-tagline {
+        font-size: 0.7rem;
+        opacity: 0.9;
+        margin: 0;
+        padding: 0;
+        white-space: nowrap;
+        display: none;
+    }
+
+    @media (min-width: 480px) {
+        .brand-tagline {
+            display: inline-block;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .brand-tagline {
+            font-size: 0.75rem;
+        }
+    }
+
+    .nav-menu {
+        display: none;
+        gap: 2rem;
+        flex-shrink: 0;
+    }
+
+    @media (min-width: 768px) {
+        .nav-menu {
+            display: flex;
+            gap: 1.5rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .nav-menu {
+            gap: 2rem;
+        }
+    }
+
+    .nav-link {
+        transition: all 0.3s ease;
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        position: relative;
+        padding: 0.25rem 0;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: white;
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover {
+        transform: translateY(-2px);
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+    }
+
+    .action-buttons {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-shrink: 0;
+    }
+
+    @media (min-width: 768px) {
+        .action-buttons {
+            gap: 0.75rem;
+        }
+    }
+
+    .desktop-only {
+        display: none;
+    }
+
+    @media (min-width: 768px) {
+        .desktop-only {
+            display: flex;
+        }
+    }
+
+    /* ===== Hero Section Styles ===== */
+    .hero-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    @media (min-width: 768px) {
+        .hero-title {
+            font-size: 3.75rem;
+        }
+    }
+
+    .hero-description {
+        max-width: 42rem;
+        font-size: 1.125rem;
+        color: #4b5563;
+        text-align: center;
+        margin: 0;
+    }
+
+    @media (min-width: 768px) {
+        .hero-description {
+            font-size: 1.25rem;
+        }
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    /* ===== Features Section Styles ===== */
+    .section-title {
+        font-size: 2.25rem;
+    }
+
+    .features-grid {
+        display: grid;
+        gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+        .features-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .features-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    /* ===== Benefits Section Styles ===== */
+    .benefits-list {
+        display: grid;
+        gap: 2rem;
+        max-width: 56rem;
+        margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+        .benefits-list {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    .benefit-item {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .benefit-icon {
+        font-size: 2rem;
+        flex-shrink: 0;
+    }
+
+    .benefit-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin: 0 0 0.5rem 0;
+        color: #1f2937;
+    }
+
+    .benefit-text {
+        font-size: 1rem;
+        color: #4b5563;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    /* ===== Learn More Section Styles ===== */
+    .learn-more-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .section-description {
+        max-width: 42rem;
+        font-size: 1.125rem;
+        color: #4b5563;
+        margin: 0;
+    }
+
+    .section-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    /* ===== Footer Styles ===== */
+    .custom-footer {
+        background: linear-gradient(
+            135deg,
+            #ec4899 0%,
+            #8b5cf6 50%,
+            #3b82f6 100%
+        );
+        color: white;
+        margin-top: auto;
+    }
+
+    .footer-container {
+        max-width: 1280px;
+        margin: 0 auto;
+    }
+
+    .footer-main {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 640px) {
+        .footer-main {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .footer-main {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    .footer-column {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .footer-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .footer-logo {
+        flex-shrink: 0;
+    }
+
+    .footer-brand-name {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin: 0;
+        color: white;
+    }
+
+    .footer-column-title {
+        font-size: 1.125rem;
+        font-weight: 700;
+        margin: 0;
+        padding: 0;
+        color: white;
+    }
+
+    .footer-text {
+        font-size: 0.875rem;
+        line-height: 1.5;
+        margin: 0;
+        opacity: 0.9;
+    }
+
+    .footer-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .footer-link {
+        color: white;
+        text-decoration: none;
+        font-size: 0.875rem;
+        opacity: 0.9;
+        transition: all 0.2s ease;
+        display: inline-block;
+    }
+
+    .footer-link:hover {
+        opacity: 1;
+        transform: translateX(4px);
+    }
+
+    .footer-social {
+        display: flex;
+        gap: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    .social-link {
+        color: white;
+        opacity: 0.8;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+    }
+
+    .social-link:hover {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    .social-icon {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    .footer-divider {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.2);
+        width: 100%;
+    }
+
+    .footer-bottom {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .footer-copyright {
+        font-size: 0.875rem;
+        margin: 0;
+        opacity: 0.8;
+    }
+
+    /* ===== Animations ===== */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .features-grid > *,
+    .benefit-item {
+        animation: fadeIn 0.6s ease-out;
+    }
+</style>

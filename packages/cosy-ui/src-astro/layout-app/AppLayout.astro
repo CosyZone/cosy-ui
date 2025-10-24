@@ -17,6 +17,7 @@
  * @prop {...HTMLAttributes<'div'>} [rest] - 其他HTML div标签属性
  * @slots
  * @slot default - 主内容区域
+ * @slot footer - 自定义全局footer（优先级最高，会覆盖内置Footer）
  * @slot header - 自定义全局header（优先级最高，会覆盖内置AppHeader）
  * @slot navbar-start - 导航栏开始位置的内容（传递给AppHeader）
  * @slot navbar-center - 导航栏中间位置的内容（传递给AppHeader）
@@ -262,6 +263,48 @@
  *   <p>自定义的 header 会横跨整个页面宽度，不受侧边栏限制</p>
  * </AppLayout>
  * ```
+ *
+ * 自定义Footer示例：
+ * ```astro
+ * <AppLayout
+ *   metaConfig={{
+ *     title: "文档标题",
+ *     description: "文档描述"
+ *   }}
+ *   sidebarConfig={{
+ *     sidebarItems: sidebarItems
+ *   }}
+ * >
+ *   <h1>文档内容</h1>
+ *   <p>这是文档的主要内容</p>
+ *
+ *   <!-- 使用自定义 footer slot，将横跨整个页面宽度 -->
+ *   <footer slot="footer" class="cosy:bg-base-200 cosy:p-8">
+ *     <div class="cosy:container cosy:mx-auto">
+ *       <div class="cosy:grid cosy:grid-cols-1 cosy:md:grid-cols-3 cosy:gap-8">
+ *         <div>
+ *           <h3 class="cosy:font-bold cosy:text-lg cosy:mb-4">关于我们</h3>
+ *           <p class="cosy:text-sm">我们致力于提供最好的产品和服务</p>
+ *         </div>
+ *         <div>
+ *           <h3 class="cosy:font-bold cosy:text-lg cosy:mb-4">快速链接</h3>
+ *           <ul class="cosy:space-y-2">
+ *             <li><a href="/docs" class="cosy:link cosy:link-hover">文档</a></li>
+ *             <li><a href="/blog" class="cosy:link cosy:link-hover">博客</a></li>
+ *           </ul>
+ *         </div>
+ *         <div>
+ *           <h3 class="cosy:font-bold cosy:text-lg cosy:mb-4">联系方式</h3>
+ *           <p class="cosy:text-sm">email@example.com</p>
+ *         </div>
+ *       </div>
+ *       <div class="cosy:mt-8 cosy:pt-8 cosy:border-t cosy:text-center cosy:text-sm">
+ *         <p>&copy; 2025 我的公司. All rights reserved.</p>
+ *       </div>
+ *     </div>
+ *   </footer>
+ * </AppLayout>
+ * ```
  */
 
 import "../../style.ts";
@@ -351,7 +394,7 @@ const sidebarHeightClass = getSidebarHeightClass(
                         sidebarTopClass,
                         sidebarHeightClass,
                     ]}>
-                    <Sidebar {...sidebarConfig} />
+                    <Sidebar {...(sidebarConfig as any)} />
                 </div>
             )
         }
@@ -373,14 +416,17 @@ const sidebarHeightClass = getSidebarHeightClass(
 
     <!-- Footer -->
     {
-        showFooter && (
+        // 优先级：自定义 footer slot > 内置 Footer > 不显示
+        Astro.slots.has('footer') ? (
+            <slot name="footer" />
+        ) : showFooter ? (
             <Container
                 aria-label="AppLayout-Footer-Container"
                 width="full"
                 padding="none">
                 <Footer {...footerConfig} />
             </Container>
-        )
+        ) : null
     }
 
     <!-- 搜索模态框 -->
