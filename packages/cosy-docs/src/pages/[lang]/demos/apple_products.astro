@@ -19,6 +19,7 @@ import airpodsUrl from '@/demos/apple_products/images/airpods.jpg?url';
 import visionProUrl from '@/demos/apple_products/images/vision-pro.jpg?url';
 import Logo from '@/assets/logo.png';
 import { getFooterConfig } from '@/demos/footerConfig';
+import { getMetaConfig } from '@/demos/metaConfig';
 
 const currentLocale = Astro.params.lang;
 const t = (zh: string, en: string) => (currentLocale === 'zh-cn' ? zh : en);
@@ -29,7 +30,7 @@ export const getStaticPaths = async () => {
 ---
 
 <AppLayout
-    metaConfig={{
+    metaConfig={getMetaConfig({
         title: t('Apple 产品列表', 'Apple Products'),
         description: t(
             '精选 Apple 设备与配件，一站式浏览与了解。',
@@ -39,9 +40,7 @@ export const getStaticPaths = async () => {
             'iPhone, MacBook, iPad, Apple Watch, AirPods, Vision Pro',
             'iPhone, MacBook, iPad, Apple Watch, AirPods, Vision Pro'
         ),
-        author: 'Cosy UI',
-        robots: 'index, follow',
-    }}
+    })}
     showFooter={true}
     showSidebar={false}
     footerConfig={getFooterConfig(currentLocale || 'zh-cn')}

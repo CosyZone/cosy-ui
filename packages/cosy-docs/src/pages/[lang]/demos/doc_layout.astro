@@ -3,6 +3,7 @@ import { AppLayout } from '@coffic/cosy-ui';
 import { configApp } from '@/config/config.app';
 import Logo from '@/assets/logo.png';
 import { getFooterConfig } from '@/demos/footerConfig';
+import { getMetaConfig } from '@/demos/metaConfig';
 
 interface Props {
     title: string;
@@ -30,13 +31,11 @@ export const getStaticPaths = async () => {
 <AppLayout
     theme="dark"
     showSidebar={false}
-    metaConfig={{
+    metaConfig={getMetaConfig({
         title: title,
         description: 'Cosy UI - A beautiful Astro component library',
         keywords: 'Cosy UI, Astro, component library',
-        author: 'CofficLab',
-        robots: 'index, follow',
-    }}
+    })}
     footerConfig={getFooterConfig(currentLocale || 'zh-cn')}
     headerConfig={{
         logo: Logo,

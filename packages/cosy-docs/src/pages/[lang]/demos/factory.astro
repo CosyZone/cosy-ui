@@ -19,6 +19,7 @@ import { configApp } from '@/config/config.app';
 import * as astroI18n from 'astro:i18n';
 import Logo from '@/assets/logo.png';
 import { getFooterConfig } from '@/demos/footerConfig';
+import { getMetaConfig } from '@/demos/metaConfig';
 
 // locale
 const currentLocale = Astro.params.lang;
@@ -76,7 +77,7 @@ const blocks: BlockItem[] = [
 ---
 
 <AppLayout
-    metaConfig={{
+    metaConfig={getMetaConfig({
         title: t('工厂照片展示', 'Factory Showcase'),
         description: t(
             '一张或多张工厂照片，配合简洁文案展示实力。',
@@ -86,9 +87,7 @@ const blocks: BlockItem[] = [
             '工厂,生产线,仓储,实验室,外景',
             'factory, production line, warehouse, lab, exterior'
         ),
-        author: 'Cosy UI',
-        robots: 'index, follow',
-    }}
+    })}
     sidebarConfig={{ sidebarItems: [] }}
     showHeader={true}
     showFooter={true}

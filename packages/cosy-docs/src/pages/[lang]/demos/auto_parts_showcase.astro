@@ -28,6 +28,7 @@ import product4Url from "@/demos/auto_parts_showcase/images/product-4.jpg?url";
 import * as astroI18n from "astro:i18n";
 import Logo from "@/assets/logo.png";
 import { getFooterConfig } from "@/demos/footerConfig";
+import { getMetaConfig } from "@/demos/metaConfig";
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.params.lang;
@@ -335,7 +336,7 @@ const data = autoPartsData[currentLocale] || autoPartsData["zh-cn"];
 ---
 
 <AppLayout
-  metaConfig={{
+  metaConfig={getMetaConfig({
     title: data.companyName,
     description: data.description,
     keywords:
@@ -343,8 +344,7 @@ const data = autoPartsData[currentLocale] || autoPartsData["zh-cn"];
         ? '汽车零部件,精密制造,发动机零部件,制动系统,悬挂系统'
         : 'auto parts, precision manufacturing, engine components, brake system, suspension',
     author: data.companyName,
-    robots: 'index, follow',
-  }}
+  })}
   sidebarConfig={{ sidebarItems: [] }}
   showHeader={true}
   showFooter={true}

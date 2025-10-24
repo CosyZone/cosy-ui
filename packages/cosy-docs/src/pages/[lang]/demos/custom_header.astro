@@ -9,6 +9,7 @@ import {
 } from '@coffic/cosy-ui';
 import Logo from '@/assets/logo.png';
 import { getFooterConfig } from '@/demos/footerConfig';
+import { getMetaConfig } from '@/demos/metaConfig';
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.params.lang || 'zh-cn';
@@ -35,16 +36,18 @@ const description = isZhCn
 
 <AppLayout
     showSidebar={false}
-    metaConfig={{
+    metaConfig={getMetaConfig({
         title: title,
         description: description,
         keywords: 'Cosy UI, AppLayout, Custom Header',
-        author: 'CofficLab',
-    }}
+    })}
     footerConfig={getFooterConfig(currentLocale)}
+    headerConfig={{
+        logo: Logo,
+    }}
+    sidebarConfig={{ sidebarItems: [] }}
     mainContentConfig={{
         py: '4xl',
-        fullWidth: false,
     }}>
     <!-- 自定义 Header Slot - 这是演示的核心 -->
     <header slot="header" class="custom-header">
@@ -104,7 +107,7 @@ const description = isZhCn
     </header>
 
     <!-- 主要内容 -->
-    <Container width="full" padding="none" flex="col" gap="4xl">
+    <Container width="full" padding="none" flex="col" gap="xl">
         <!-- Hero Section -->
         <Container flex="col" gap="lg" margin="lg" class="hero-section">
             <Heading

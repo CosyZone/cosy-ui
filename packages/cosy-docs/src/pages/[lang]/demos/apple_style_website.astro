@@ -40,6 +40,7 @@ import avatar2Url from '@/demos/apple_style_website/images/avatar-2.jpg?url';
 import avatar3Url from '@/demos/apple_style_website/images/avatar-3.jpg?url';
 import Logo from '@/assets/logo.png';
 import { getFooterConfig } from '@/demos/footerConfig';
+import { getMetaConfig } from '@/demos/metaConfig';
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.params.lang;
@@ -179,7 +180,7 @@ const features = [
 ---
 
 <AppLayout
-    metaConfig={{
+    metaConfig={getMetaConfig({
         title: data.companyName,
         description: data.description,
         keywords:
@@ -187,8 +188,7 @@ const features = [
                 ? '极简设计,科技产品,用户体验,简约美学'
                 : 'minimal design, tech products, user experience, minimalist aesthetics',
         author: data.companyName,
-        robots: 'index, follow',
-    }}
+    })}
     sidebarConfig={{ sidebarItems: [] }}
     showHeader={true}
     showFooter={true}

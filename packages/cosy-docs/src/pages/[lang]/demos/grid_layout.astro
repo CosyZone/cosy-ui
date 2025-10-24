@@ -9,6 +9,7 @@ import {
 } from '@coffic/cosy-ui';
 import Logo from '@/assets/logo.png';
 import { getFooterConfig } from '@/demos/footerConfig';
+import { getMetaConfig } from '@/demos/metaConfig';
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.params.lang;
@@ -26,13 +27,11 @@ export const getStaticPaths = async () => {
 ---
 
 <AppLayout
-    metaConfig={{
+    metaConfig={getMetaConfig({
         title: '网格布局演示',
         description: 'Cosy UI - A beautiful Astro component library',
         keywords: 'Cosy UI, Astro, component library, grid layout',
-        author: 'CofficLab',
-        robots: 'index, follow',
-    }}
+    })}
     sidebarConfig={{
         sidebarItems: [],
     }}
