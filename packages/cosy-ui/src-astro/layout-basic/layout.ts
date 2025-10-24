@@ -30,8 +30,9 @@ export interface IAppLayoutProps {
 
 	/**
 	 * 页脚相关配置
+	 * 当 showFooter=false 时可以不提供
 	 */
-	footerConfig: IFooterProps;
+	footerConfig?: IFooterProps;
 
 	/**
 	 * 自定义头部内容
@@ -39,9 +40,10 @@ export interface IAppLayoutProps {
 	head?: any;
 
 	/**
-	 * 自定义头部内容
+	 * 头部配置
+	 * 当使用自定义 header slot 或 showHeader=false 时可以不提供
 	 */
-	headerConfig: IHeaderProps;
+	headerConfig?: IHeaderProps;
 
 	/**
 	 * 加载中界面延迟显示的时间
@@ -50,8 +52,9 @@ export interface IAppLayoutProps {
 
 	/**
 	 * 主内容配置
+	 * 可选，使用默认值
 	 */
-	mainContentConfig: IMainContentProps;
+	mainContentConfig?: IMainContentProps;
 
 	/**
 	 * 元数据配置
@@ -78,6 +81,7 @@ export interface IAppLayoutProps {
 
 	/**
 	 * 侧边栏配置
+	 * 当 showSidebar=false 时可以不提供
 	 */
-	sidebarConfig: ISidebarProps;
+	sidebarConfig?: ISidebarProps;
 }

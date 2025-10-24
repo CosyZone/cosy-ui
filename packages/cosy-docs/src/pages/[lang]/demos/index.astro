@@ -1,24 +1,24 @@
 ---
-import DemoLayout from '@/layouts/DemoLayout.astro';
-import { Products, getExampleImage, LinkUtil, Heading } from '@coffic/cosy-ui';
-import enterpriseHeroUrl from '@/demos/enterprise_website/images/hero.jpg';
-import appleStyleHeroUrl from '@/demos/apple_style_website/images/hero.jpg';
-import autoPartsHeroUrl from '@/demos/auto_parts_showcase/images/hero.png';
-import factoryHeroUrl from '@/demos/factory_showcase/images/hero.png';
-import ecommerceMainUrl from '@/demos/ecommerce_product/images/main.jpg';
-import appleProductsIphoneUrl from '@/demos/apple_products/images/iphone.jpg';
+import DemoLayout from "@/layouts/DemoLayout.astro";
+import { Products, getExampleImage, LinkUtil, Heading } from "@coffic/cosy-ui";
+import enterpriseHeroUrl from "@/demos/enterprise_website/images/hero.jpg";
+import appleStyleHeroUrl from "@/demos/apple_style_website/images/hero.jpg";
+import autoPartsHeroUrl from "@/demos/auto_parts_showcase/images/hero.png";
+import factoryHeroUrl from "@/demos/factory_showcase/images/hero.png";
+import ecommerceMainUrl from "@/demos/ecommerce_product/images/main.jpg";
+import appleProductsIphoneUrl from "@/demos/apple_products/images/iphone.jpg";
 
 const currentLocale = Astro.params.lang;
 
 export const getStaticPaths = async () => {
-    return [
-        {
-            params: { lang: 'zh-cn' },
-        },
-        {
-            params: { lang: 'en' },
-        },
-    ];
+	return [
+		{
+			params: { lang: "zh-cn" },
+		},
+		{
+			params: { lang: "en" },
+		},
+	];
 };
 ---
 

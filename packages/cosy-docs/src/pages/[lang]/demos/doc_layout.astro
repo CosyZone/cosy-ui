@@ -1,14 +1,14 @@
 ---
-import { AppLayout } from '@coffic/cosy-ui';
-import { configApp } from '@/config/config.app';
-import Logo from '@/assets/logo.png';
-import { getFooterConfig } from '@/demos/footerConfig';
-import { getMetaConfig } from '@/demos/metaConfig';
+import { AppLayout } from "@coffic/cosy-ui";
+import { configApp } from "@/config/config.app";
+import Logo from "@/assets/logo.png";
+import { getFooterConfig } from "@/demos/footerConfig";
+import { getMetaConfig } from "@/demos/metaConfig";
 
 interface Props {
-    title: string;
-    showTOC?: boolean;
-    showSidebar?: boolean;
+	title: string;
+	showTOC?: boolean;
+	showSidebar?: boolean;
 }
 
 const { title, showTOC = true } = Astro.props;
@@ -17,14 +17,14 @@ const { title, showTOC = true } = Astro.props;
 const currentLocale = Astro.params.lang;
 
 export const getStaticPaths = async () => {
-    return [
-        {
-            params: { lang: 'zh-cn' },
-        },
-        {
-            params: { lang: 'en' },
-        },
-    ];
+	return [
+		{
+			params: { lang: "zh-cn" },
+		},
+		{
+			params: { lang: "en" },
+		},
+	];
 };
 ---
 
@@ -41,10 +41,6 @@ export const getStaticPaths = async () => {
         logo: Logo,
         logoHref: configApp.homeLink,
         navItems: configApp.getNavItems(currentLocale || 'zh-cn'),
-    }}
-    sidebarConfig={{
-        sidebarItems: [],
-        debug: false,
     }}
     mainContentConfig={{
         py: '4xl',

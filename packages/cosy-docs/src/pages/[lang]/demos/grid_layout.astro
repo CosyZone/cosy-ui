@@ -1,28 +1,28 @@
 ---
-import { configApp } from '@/config/config.app';
+import { configApp } from "@/config/config.app";
 import {
-    AppLayout,
-    Container,
-    Grid,
-    Heading,
-    PlaceHolder,
-} from '@coffic/cosy-ui';
-import Logo from '@/assets/logo.png';
-import { getFooterConfig } from '@/demos/footerConfig';
-import { getMetaConfig } from '@/demos/metaConfig';
+	AppLayout,
+	Container,
+	Grid,
+	Heading,
+	PlaceHolder,
+} from "@coffic/cosy-ui";
+import Logo from "@/assets/logo.png";
+import { getFooterConfig } from "@/demos/footerConfig";
+import { getMetaConfig } from "@/demos/metaConfig";
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.params.lang;
 
 export const getStaticPaths = async () => {
-    return [
-        {
-            params: { lang: 'zh-cn' },
-        },
-        {
-            params: { lang: 'en' },
-        },
-    ];
+	return [
+		{
+			params: { lang: "zh-cn" },
+		},
+		{
+			params: { lang: "en" },
+		},
+	];
 };
 ---
 
@@ -32,9 +32,6 @@ export const getStaticPaths = async () => {
         description: 'Cosy UI - A beautiful Astro component library',
         keywords: 'Cosy UI, Astro, component library, grid layout',
     })}
-    sidebarConfig={{
-        sidebarItems: [],
-    }}
     showHeader={true}
     showFooter={true}
     showSidebar={false}
