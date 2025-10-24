@@ -1,0 +1,407 @@
+---
+/**
+ * 自定义背景 Demo
+ *
+ * 展示 AppLayout 的 background slot 功能，用于创建自定义页面背景。
+ * 包括渐变背景、装饰元素等示例。
+ */
+import { AppLayout, Container, Heading } from "@coffic/cosy-ui";
+
+const currentLocale = Astro.params.lang || "zh-cn";
+
+export const getStaticPaths = async () => {
+	return [
+		{
+			params: { lang: "zh-cn" },
+		},
+		{
+			params: { lang: "en" },
+		},
+	];
+};
+
+export const prerender = true;
+
+const metaConfig = {
+	title:
+		currentLocale === "zh-cn" ? "自定义背景示例" : "Custom Background Example",
+	description:
+		currentLocale === "zh-cn"
+			? "展示 AppLayout 的 background slot 自定义背景功能"
+			: "Demonstrates AppLayout background slot for custom page backgrounds",
+	keywords: "AppLayout, background, gradient, custom",
+	author: "Cosy UI",
+	robots: "index, follow",
+};
+---
+
+<AppLayout
+    metaConfig={metaConfig}
+    showHeader={false}
+    showFooter={false}
+    showSidebar={false}>
+    <!-- 自定义背景层 - 渐变 + 装饰元素 -->
+    <div
+        slot="background"
+        style="position: fixed; inset: 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <!-- 装饰性模糊圆圈 -->
+        <div
+            style="position: absolute; top: 10%; left: 10%; width: 24rem; height: 24rem; background: rgba(255, 255, 255, 0.1); border-radius: 9999px; filter: blur(60px);">
+        </div>
+        <div
+            style="position: absolute; bottom: 10%; right: 10%; width: 32rem; height: 32rem; background: rgba(255, 255, 255, 0.1); border-radius: 9999px; filter: blur(80px);">
+        </div>
+        <div
+            style="position: absolute; top: 50%; left: 50%; width: 20rem; height: 20rem; background: rgba(255, 255, 255, 0.05); border-radius: 9999px; filter: blur(40px); transform: translate(-50%, -50%);">
+        </div>
+    </div>
+
+    <Container
+        padding="xl"
+        gap="xl"
+        flex="col"
+        style="min-height: 100vh; color: white;">
+        <Heading level={1} align="center" margin="lg" style="color: white;">
+            {
+                currentLocale === 'zh-cn'
+                    ? '🎨 自定义背景示例'
+                    : '🎨 Custom Background Example'
+            }
+        </Heading>
+
+        <Container
+            background="base-100/80"
+            padding="xl"
+            rounded="lg"
+            style="backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
+            <Heading level={2} margin="md">
+                {
+                    currentLocale === 'zh-cn'
+                        ? '✨ Background Slot 功能'
+                        : '✨ Background Slot Feature'
+                }
+            </Heading>
+            <Container padding="md" gap="md" flex="col">
+                <p>
+                    {
+                        currentLocale === 'zh-cn'
+                            ? 'AppLayout 现在支持 background slot，让您可以创建完全自定义的页面背景！'
+                            : 'AppLayout now supports background slot, allowing you to create fully customized page backgrounds!'
+                    }
+                </p>
+                <ul style="list-style: disc; padding-left: 2rem;">
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '渐变背景'
+                                : 'Gradient backgrounds'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '背景图片'
+                                : 'Background images'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '装饰元素'
+                                : 'Decorative elements'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? 'Canvas 动画'
+                                : 'Canvas animations'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '视频背景'
+                                : 'Video backgrounds'
+                        }
+                    </li>
+                </ul>
+            </Container>
+        </Container>
+
+        <Container
+            background="base-100/80"
+            padding="xl"
+            rounded="lg"
+            style="backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
+            <Heading level={2} margin="md">
+                {currentLocale === 'zh-cn' ? '💡 代码示例' : '💡 Code Example'}
+            </Heading>
+            <Container background="base-300" padding="md" rounded="md">
+                <pre
+                    style="overflow-x: auto; color: var(--color-base-content);"><code>{`<AppLayout
+  metaConfig={{ title: '我的应用' }}
+  showHeader={false}
+  showFooter={false}
+  showSidebar={false}>
+  
+  <!-- 自定义背景层 -->
+  <div slot="background" 
+       style="position: fixed; 
+              inset: 0; 
+              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    
+    <!-- 装饰元素 -->
+    <div style="position: absolute; 
+                top: 10%; 
+                left: 10%; 
+                width: 24rem; 
+                height: 24rem; 
+                background: rgba(255, 255, 255, 0.1); 
+                border-radius: 9999px; 
+                filter: blur(60px);">
+    </div>
+  </div>
+
+  <!-- 您的页面内容 -->
+  <h1>欢迎</h1>
+</AppLayout>`}</code></pre>
+            </Container>
+        </Container>
+
+        <Container
+            background="base-100/80"
+            padding="xl"
+            rounded="lg"
+            style="backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
+            <Heading level={2} margin="md">
+                {currentLocale === 'zh-cn' ? '🎯 关键特性' : '🎯 Key Features'}
+            </Heading>
+            <Container padding="md" gap="md" flex="col">
+                <ul style="list-style: disc; padding-left: 2rem;">
+                    <li>
+                        <strong
+                            >{
+                                currentLocale === 'zh-cn'
+                                    ? '固定定位'
+                                    : 'Fixed Positioning'
+                            }</strong
+                        >
+                        {
+                            currentLocale === 'zh-cn'
+                                ? ' - 背景固定在视口，不随内容滚动'
+                                : ' - Background fixed to viewport, does not scroll with content'
+                        }
+                    </li>
+                    <li>
+                        <strong
+                            >{
+                                currentLocale === 'zh-cn'
+                                    ? '最低 Z-index'
+                                    : 'Lowest Z-index'
+                            }</strong
+                        >
+                        {
+                            currentLocale === 'zh-cn'
+                                ? ' - 背景层在所有内容下方（z-index: 0）'
+                                : ' - Background layer below all content (z-index: 0)'
+                        }
+                    </li>
+                    <li>
+                        <strong
+                            >{
+                                currentLocale === 'zh-cn'
+                                    ? '指针事件穿透'
+                                    : 'Pointer Events Passthrough'
+                            }</strong
+                        >
+                        {
+                            currentLocale === 'zh-cn'
+                                ? ' - 默认 pointer-events: none，不影响交互'
+                                : ' - Default pointer-events: none, does not affect interactions'
+                        }
+                    </li>
+                    <li>
+                        <strong
+                            >{
+                                currentLocale === 'zh-cn'
+                                    ? '完全自定义'
+                                    : 'Fully Customizable'
+                            }</strong
+                        >
+                        {
+                            currentLocale === 'zh-cn'
+                                ? ' - 您可以使用任何 HTML/CSS/Canvas'
+                                : ' - You can use any HTML/CSS/Canvas'
+                        }
+                    </li>
+                </ul>
+            </Container>
+        </Container>
+
+        <Container
+            background="base-100/80"
+            padding="xl"
+            rounded="lg"
+            style="backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
+            <Heading level={2} margin="md">
+                {currentLocale === 'zh-cn' ? '🎨 使用场景' : '🎨 Use Cases'}
+            </Heading>
+            <Container padding="md" gap="md" flex="col">
+                <ul style="list-style: disc; padding-left: 2rem;">
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '营销着陆页 - 吸引眼球的渐变背景'
+                                : 'Marketing Landing Pages - Eye-catching gradient backgrounds'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '品牌网站 - 展示品牌色彩和风格'
+                                : 'Brand Websites - Showcase brand colors and style'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '作品集 - 创意背景展示个性'
+                                : 'Portfolios - Creative backgrounds to show personality'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '活动页面 - 节日主题背景'
+                                : 'Event Pages - Holiday-themed backgrounds'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '产品展示 - 配合产品调性的视觉效果'
+                                : 'Product Showcases - Visual effects matching product tone'
+                        }
+                    </li>
+                </ul>
+            </Container>
+        </Container>
+
+        <Container
+            background="base-100/80"
+            padding="xl"
+            rounded="lg"
+            style="backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
+            <Heading level={2} margin="md">
+                {
+                    currentLocale === 'zh-cn'
+                        ? '⚡ 性能提示'
+                        : '⚡ Performance Tips'
+                }
+            </Heading>
+            <Container padding="md" gap="md" flex="col">
+                <ul style="list-style: disc; padding-left: 2rem;">
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '使用 CSS 渐变优于图片（更快、更小）'
+                                : 'Use CSS gradients over images (faster, smaller)'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '如果使用背景图片，考虑压缩和懒加载'
+                                : 'If using background images, consider compression and lazy loading'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '模糊效果使用 backdrop-filter 而非多层元素'
+                                : 'Use backdrop-filter for blur instead of multiple layers'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? 'Canvas 动画使用 requestAnimationFrame'
+                                : 'Use requestAnimationFrame for Canvas animations'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '避免过度使用阴影和模糊（影响性能）'
+                                : 'Avoid excessive shadows and blurs (affects performance)'
+                        }
+                    </li>
+                </ul>
+            </Container>
+        </Container>
+
+        <Container
+            background="primary/80"
+            padding="xl"
+            rounded="lg"
+            style="backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
+            <Heading
+                level={2}
+                margin="md"
+                style="color: var(--color-primary-content);">
+                {currentLocale === 'zh-cn' ? '💡 更多示例' : '💡 More Examples'}
+            </Heading>
+            <Container
+                padding="md"
+                gap="md"
+                flex="col"
+                style="color: var(--color-primary-content);">
+                <p>
+                    {
+                        currentLocale === 'zh-cn'
+                            ? '您还可以实现：'
+                            : 'You can also implement:'
+                    }
+                </p>
+                <ul style="list-style: disc; padding-left: 2rem;">
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '背景图片 + 叠加层'
+                                : 'Background image + overlay'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '粒子动画背景'
+                                : 'Particle animation background'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '视频背景'
+                                : 'Video background'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '几何图案'
+                                : 'Geometric patterns'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '渐变动画'
+                                : 'Animated gradients'
+                        }
+                    </li>
+                </ul>
+            </Container>
+        </Container>
+    </Container>
+</AppLayout>

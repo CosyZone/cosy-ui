@@ -16,6 +16,7 @@
  * @prop {Object} [sidebarConfig] - 侧边栏配置，包含导航项等
  * @prop {...HTMLAttributes<'div'>} [rest] - 其他HTML div标签属性
  * @slots
+ * @slot background - 自定义背景层（最低层，用于渐变、图片等背景效果）
  * @slot default - 主内容区域
  * @slot footer - 自定义全局footer（优先级最高，会覆盖内置Footer）
  * @slot header - 自定义全局header（优先级最高，会覆盖内置AppHeader）
@@ -305,6 +306,29 @@
  *   </footer>
  * </AppLayout>
  * ```
+ *
+ * 自定义背景示例：
+ * ```astro
+ * <AppLayout
+ *   metaConfig={{
+ *     title: "文档标题",
+ *     description: "文档描述"
+ *   }}
+ *   sidebarConfig={{
+ *     sidebarItems: sidebarItems
+ *   }}
+ * >
+ *   <!-- 自定义背景层，渲染在最底层 -->
+ *   <div slot="background" class="cosy:fixed cosy:inset-0 cosy:bg-gradient-to-br cosy:from-blue-600 cosy:to-purple-800">
+ *     <!-- 装饰性模糊元素 -->
+ *     <div class="cosy:absolute cosy:top-10 cosy:left-10 cosy:w-96 cosy:h-96 cosy:bg-white/10 cosy:rounded-full cosy:blur-3xl"></div>
+ *     <div class="cosy:absolute cosy:bottom-10 cosy:right-10 cosy:w-96 cosy:h-96 cosy:bg-white/10 cosy:rounded-full cosy:blur-3xl"></div>
+ *   </div>
+ *
+ *   <h1>文档内容</h1>
+ *   <p>背景层会在所有内容下方渲染</p>
+ * </AppLayout>
+ * ```
  */
 
 import "../../style.ts";
@@ -360,6 +384,17 @@ const sidebarHeightClass = getSidebarHeightClass(
     bodyOnly={bodyOnly}
     theme={theme}
     enableClientRouter={enableClientRouter}>
+    <!-- 背景层（最底层，z-index: 0） -->
+    {
+        Astro.slots.has('background') && (
+            <div
+                aria-label="AppLayout-Background"
+                style="position: fixed; inset: 0; z-index: 0; pointer-events: none;">
+                <slot name="background" />
+            </div>
+        )
+    }
+
     {
         // 优先级：自定义 header slot > 内置 AppHeader > 不显示
         Astro.slots.has('header') ? (
@@ -383,7 +418,7 @@ const sidebarHeightClass = getSidebarHeightClass(
         padding="none"
         width="full"
         centered={true}
-        class="cosy:min-h-screen">
+        class="cosy:min-h-screen cosy:relative cosy:z-[1]">
         <!-- 侧边栏容器 -->
         {
             showSidebar && (

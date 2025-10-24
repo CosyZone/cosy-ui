@@ -98,6 +98,55 @@ The default value is `default`.
 
 ## Slots
 
+### background
+
+Custom background layer (lowest layer, z-index: 0). Used to create full-screen background effects such as gradients, images, decorative elements, etc. The background layer is fixed to the viewport and does not scroll with content.
+
+**💡 [View Live Demo](/en/demos/custom_background)** - Experience the complete custom background feature
+
+**Use Cases**:
+- Gradient Backgrounds: Create eye-catching gradient effects
+- Background Images: Add brand-related background images
+- Decorative Elements: Add blur circles, geometric patterns, etc.
+- Animated Backgrounds: Canvas animations, particle effects, etc.
+- Video Backgrounds: Full-screen video backgrounds
+
+**Example**:
+
+```astro
+<AppLayout
+  metaConfig={{ title: "My App" }}
+  showHeader={false}
+  showSidebar={false}
+>
+  <!-- Custom background layer -->
+  <div slot="background" class="cosy:fixed cosy:inset-0 cosy:bg-gradient-to-br cosy:from-blue-600 cosy:to-purple-800">
+    <!-- Decorative blur elements -->
+    <div class="cosy:absolute cosy:top-10 cosy:left-10 cosy:w-96 cosy:h-96 cosy:bg-white/10 cosy:rounded-full cosy:blur-3xl"></div>
+    <div class="cosy:absolute cosy:bottom-10 cosy:right-10 cosy:w-96 cosy:h-96 cosy:bg-white/10 cosy:rounded-full cosy:blur-3xl"></div>
+  </div>
+
+  <!-- Main content (requires proper background opacity) -->
+  <div class="cosy:bg-white/80 cosy:backdrop-blur cosy:p-8 cosy:rounded-lg">
+    <h1>Page Content</h1>
+    <p>Background layer renders below all content</p>
+  </div>
+</AppLayout>
+```
+
+**Technical Features**:
+- Fixed positioning (`position: fixed`), does not scroll with content
+- Lowest z-index (z-index: 0), below all content
+- Default `pointer-events: none`, does not affect user interactions
+- Fully customizable, supports any HTML/CSS/Canvas
+
+**Notes**:
+- Background layer covers the entire viewport (`inset: 0`)
+- Main content needs appropriate background color and opacity for readability
+- CSS gradients are preferred over images (better performance)
+- Avoid excessive shadows and blur effects (affects performance)
+- If interactive elements are needed, set `pointer-events: auto` in the background slot content
+
 ### default
 
 Main content area for placing the main content of the page.

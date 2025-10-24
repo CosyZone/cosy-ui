@@ -5,36 +5,36 @@
  * 此示例展示了使用 AppLayout 所需的最小配置。
  * 只需要提供基础的 metaConfig 即可使用。
  */
-import { AppLayout, Container, Heading, PlaceHolder } from '@coffic/cosy-ui';
+import { AppLayout, Container, Heading, PlaceHolder } from "@coffic/cosy-ui";
 
-const currentLocale = Astro.params.lang || 'zh-cn';
+const currentLocale = Astro.params.lang || "zh-cn";
 
 export const getStaticPaths = async () => {
-    return [
-        {
-            params: { lang: 'zh-cn' },
-        },
-        {
-            params: { lang: 'en' },
-        },
-    ];
+	return [
+		{
+			params: { lang: "zh-cn" },
+		},
+		{
+			params: { lang: "en" },
+		},
+	];
 };
 
 export const prerender = true;
 
 // 最少配置：只需要 metaConfig
 const metaConfig = {
-    title:
-        currentLocale === 'zh-cn'
-            ? '最少配置示例'
-            : 'Minimal Configuration Example',
-    description:
-        currentLocale === 'zh-cn'
-            ? '展示 AppLayout 的最少配置使用方法'
-            : 'Demonstrates minimal configuration for AppLayout',
-    keywords: 'AppLayout, minimal, configuration',
-    author: 'Cosy UI',
-    robots: 'index, follow',
+	title:
+		currentLocale === "zh-cn"
+			? "最少配置示例"
+			: "Minimal Configuration Example",
+	description:
+		currentLocale === "zh-cn"
+			? "展示 AppLayout 的最少配置使用方法"
+			: "Demonstrates minimal configuration for AppLayout",
+	keywords: "AppLayout, minimal, configuration",
+	author: "Cosy UI",
+	robots: "index, follow",
 };
 ---
 

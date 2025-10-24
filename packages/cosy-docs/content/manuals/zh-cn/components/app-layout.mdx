@@ -101,6 +101,55 @@ AppLayout 组件适用于页面布局，提供一个包含侧边栏导航、头�
 
 ## Slots
 
+### background
+
+自定义背景层（最低层，z-index: 0）。用于创建全屏背景效果，如渐变、图片、装饰元素等。背景层固定定位在视口，不随内容滚动。
+
+**💡 [查看在线演示](/zh-cn/demos/custom_background)** - 体验完整的自定义背景功能
+
+**使用场景**：
+- 渐变背景：创建吸引眼球的渐变效果
+- 背景图片：添加品牌相关的背景图片
+- 装饰元素：添加模糊圆圈、几何图案等装饰
+- 动画背景：Canvas 动画、粒子效果等
+- 视频背景：全屏视频背景
+
+**示例**：
+
+```astro
+<AppLayout
+  metaConfig={{ title: "我的应用" }}
+  showHeader={false}
+  showSidebar={false}
+>
+  <!-- 自定义背景层 -->
+  <div slot="background" class="cosy:fixed cosy:inset-0 cosy:bg-gradient-to-br cosy:from-blue-600 cosy:to-purple-800">
+    <!-- 装饰性模糊元素 -->
+    <div class="cosy:absolute cosy:top-10 cosy:left-10 cosy:w-96 cosy:h-96 cosy:bg-white/10 cosy:rounded-full cosy:blur-3xl"></div>
+    <div class="cosy:absolute cosy:bottom-10 cosy:right-10 cosy:w-96 cosy:h-96 cosy:bg-white/10 cosy:rounded-full cosy:blur-3xl"></div>
+  </div>
+
+  <!-- 主内容（需要自行处理背景透明度） -->
+  <div class="cosy:bg-white/80 cosy:backdrop-blur cosy:p-8 cosy:rounded-lg">
+    <h1>页面内容</h1>
+    <p>背景层会在所有内容下方渲染</p>
+  </div>
+</AppLayout>
+```
+
+**技术特性**：
+- 固定定位（`position: fixed`），不随内容滚动
+- 最低 z-index（z-index: 0），在所有内容下方
+- 默认 `pointer-events: none`，不影响用户交互
+- 完全自定义，支持任何 HTML/CSS/Canvas
+
+**注意事项**：
+- 背景层会覆盖整个视口（`inset: 0`）
+- 主内容需要适当的背景色和透明度以保持可读性
+- 使用 CSS 渐变优于图片（性能更好）
+- 避免过度使用阴影和模糊效果（影响性能）
+- 如果需要交互元素，需在 background slot 内容中设置 `pointer-events: auto`
+
 ### default
 
 主内容区域，用于放置页面的主要内容。
