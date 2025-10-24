@@ -38,8 +38,9 @@ import feature9Url from "@/demos/apple_style_website/images/feature-9.jpg?url";
 import avatar1Url from "@/demos/apple_style_website/images/avatar-1.jpg?url";
 import avatar2Url from "@/demos/apple_style_website/images/avatar-2.jpg?url";
 import avatar3Url from "@/demos/apple_style_website/images/avatar-3.jpg?url";
-import wechatQrUrl from "@/demos/apple_style_website/images/wechat-qr.jpg?url";
 import Logo from "@/assets/logo.png";
+import { getFooterConfig } from "@/demos/footerConfig";
+import { getMetaConfig } from "@/demos/metaConfig";
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.params.lang;
@@ -179,7 +180,7 @@ const features = [
 ---
 
 <AppLayout
-    metaConfig={{
+    metaConfig={getMetaConfig({
         title: data.companyName,
         description: data.description,
         keywords:
@@ -187,65 +188,11 @@ const features = [
                 ? '极简设计,科技产品,用户体验,简约美学'
                 : 'minimal design, tech products, user experience, minimalist aesthetics',
         author: data.companyName,
-        robots: 'index, follow',
-    }}
-    sidebarConfig={{ sidebarItems: [] }}
+    })}
     showHeader={true}
     showFooter={true}
     showSidebar={false}
-    footerConfig={{
-        logo: Logo,
-        siteName: data.companyName,
-        homeLink: configApp.homeLink,
-        slogan: data.slogan,
-        company: data.companyName,
-        inspirationalSlogan: data.slogan,
-        background: 'base-200',
-        products: [
-            { name: 'Cisum', href: 'https://coffic.cn/cisum' },
-            { name: 'JuiceEditor', href: 'https://coffic.cn/juice_editor' },
-            { name: 'GitOK', href: 'https://coffic.cn/gitok' },
-            { name: 'Cosy UI', href: 'https://github.com/cosyzone/cosy-ui' },
-        ],
-        aboutInfo: {
-            aboutLink: configApp.homeLink + '#about',
-            contactLink: configApp.homeLink + '#contact',
-            teamLink: configApp.homeLink + '#team',
-            careersLink: configApp.homeLink + '#careers',
-        },
-        legalInfo: {
-            termsLink: configApp.homeLink + '/terms',
-            privacyLink: configApp.homeLink + '/privacy',
-            icp:
-                currentLocale === 'zh-cn'
-                    ? '沪ICP备12345678号-1'
-                    : 'ICP 12345678-1',
-            icpLink: 'https://beian.miit.gov.cn',
-        },
-        resourcesInfo: {
-            newsLink: configApp.homeLink + '#news',
-            historyLink: configApp.homeLink + '#history',
-            partnersLink: configApp.homeLink + '#partners',
-            blogLink: configApp.homeLink + '#blog',
-            faqLink: configApp.homeLink + '#faq',
-            mediaLink: configApp.homeLink + '#media',
-            techStackLink: configApp.homeLink + '#tech',
-        },
-        friendlyLinks: [
-            {
-                name: 'GitHub',
-                href: 'https://github.com/CofficLab/cosy-ui',
-                external: true,
-            },
-            {
-                name: 'CofficLab',
-                href: 'https://cofficlab.com',
-                external: true,
-            },
-        ],
-        socialLinks: ['https://github.com/CofficLab', 'https://twitter.com'],
-        wechatQR: wechatQrUrl,
-    }}
+    footerConfig={getFooterConfig(currentLocale || 'zh-cn')}
     headerConfig={{
         logo: Logo,
         logoHref: configApp.homeLink,

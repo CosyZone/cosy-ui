@@ -3,7 +3,7 @@
 	"type": "module",
 	"scripts": {
 		"clean": "pnpm -r clean",
-		"build": "pnpm -r build",
+		"build": "pnpm format && pnpm -r build",
 		"build:ui": "pnpm --filter @coffic/cosy-ui build",
 		"build:docs": "pnpm build:ui && pnpm --filter @coffic/cosy-docs build",
 		"build:vue": "pnpm --filter vue-example build",

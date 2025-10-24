@@ -8,6 +8,8 @@ import {
 	PlaceHolder,
 } from "@coffic/cosy-ui";
 import Logo from "@/assets/logo.png";
+import { getFooterConfig } from "@/demos/footerConfig";
+import { getMetaConfig } from "@/demos/metaConfig";
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.params.lang;
@@ -25,51 +27,15 @@ export const getStaticPaths = async () => {
 ---
 
 <AppLayout
-    metaConfig={{
+    metaConfig={getMetaConfig({
         title: '网格布局演示',
         description: 'Cosy UI - A beautiful Astro component library',
         keywords: 'Cosy UI, Astro, component library, grid layout',
-        author: 'CofficLab',
-        robots: 'index, follow',
-    }}
-    sidebarConfig={{
-        sidebarItems: [],
-    }}
+    })}
     showHeader={true}
     showFooter={true}
     showSidebar={false}
-    footerConfig={{
-        logo: Logo,
-        siteName: 'Cosy UI',
-        homeLink: configApp.homeLink,
-        slogan:
-            currentLocale === 'zh-cn'
-                ? '优雅、高效的 Astro 组件库'
-                : 'A beautiful Astro component library',
-        company: 'CofficLab',
-        inspirationalSlogan:
-            currentLocale === 'zh-cn'
-                ? '构建美好的用户界面'
-                : 'Build a beautiful user interface',
-        products: [
-            { name: 'Cisum', href: 'https://coffic.cn/cisum' },
-            { name: 'JuiceEditor', href: 'https://coffic.cn/juice_editor' },
-            { name: 'GitOK', href: 'https://coffic.cn/gitok' },
-            { name: 'Cosy UI', href: 'https://github.com/cosyzone/cosy-ui' },
-        ],
-        aboutInfo: {
-            aboutLink: 'https://coffic.cn/en/meta/about',
-            contactLink: 'https://coffic.cn/en/meta/contact',
-        },
-        legalInfo: {
-            termsLink: 'https://coffic.cn/en/meta/terms',
-            privacyLink: 'https://coffic.cn/en/meta/privacy',
-        },
-        resourcesInfo: {
-            historyLink: 'https://coffic.cn/en/meta/out-story',
-            techStackLink: 'https://coffic.cn/en/meta/tech-stack',
-        },
-    }}
+    footerConfig={getFooterConfig(currentLocale || 'zh-cn')}
     headerConfig={{
         logo: Logo,
         logoHref: configApp.homeLink,

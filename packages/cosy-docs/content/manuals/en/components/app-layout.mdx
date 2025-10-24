@@ -104,6 +104,47 @@ Main content area for placing the main content of the page.
 
 <AppLayoutPackage.DefaultSlot />
 
+### header
+
+Custom global header (highest priority). When this slot is provided, it replaces the built-in AppHeader and spans the full page width (not constrained by the sidebar).
+
+**💡 [View Live Demo](/en/demos/custom_header)** - Experience the complete custom header feature
+
+**Use Cases**:
+- Brand Customization: Fully custom header design without AppHeader limitations
+- Special Interactions: Implement effects like transparent gradients, scroll-based changes, etc.
+- Complex Layouts: Special layout structures in the header
+- Third-party Integration: Integrate third-party header components
+
+**Example**:
+
+```astro
+<AppLayout
+  metaConfig={{ title: "My App" }}
+  sidebarConfig={{ sidebarItems: [] }}
+>
+  <!-- Custom header that spans full page width -->
+  <header slot="header" class="cosy:bg-primary cosy:text-white cosy:p-4">
+    <div class="cosy:container cosy:mx-auto cosy:flex cosy:items-center cosy:justify-between">
+      <h1 class="cosy:text-xl cosy:font-bold">My Brand</h1>
+      <nav class="cosy:flex cosy:gap-4">
+        <a href="/" class="cosy:hover:underline">Home</a>
+        <a href="/docs" class="cosy:hover:underline">Docs</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <h1>Page Content</h1>
+</AppLayout>
+```
+
+**Notes**:
+- Custom header has the highest priority and will override `showHeader` and `headerConfig` settings
+- Recommended to use container classes (e.g., `cosy:container cosy:mx-auto`) to constrain content width
+- Handle responsive layout and styling yourself
+- Recommended z-index range: 40-50
+
 ### navbar-start
 
 Content for the start position of the navigation bar, passed to the AppHeader component.

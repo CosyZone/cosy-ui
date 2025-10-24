@@ -17,8 +17,9 @@ import ipadUrl from "@/demos/apple_products/images/ipad.jpg?url";
 import watchUrl from "@/demos/apple_products/images/watch.jpg?url";
 import airpodsUrl from "@/demos/apple_products/images/airpods.jpg?url";
 import visionProUrl from "@/demos/apple_products/images/vision-pro.jpg?url";
-import wechatQrUrl from "@/demos/apple_products/images/wechat-qr.jpg?url";
 import Logo from "@/assets/logo.png";
+import { getFooterConfig } from "@/demos/footerConfig";
+import { getMetaConfig } from "@/demos/metaConfig";
 
 const currentLocale = Astro.params.lang;
 const t = (zh: string, en: string) => (currentLocale === "zh-cn" ? zh : en);
@@ -29,96 +30,26 @@ export const getStaticPaths = async () => {
 ---
 
 <AppLayout
-    metaConfig={{
+    metaConfig={getMetaConfig({
         title: t('Apple 产品列表', 'Apple Products'),
         description: t(
             '精选 Apple 设备与配件，一站式浏览与了解。',
-            'Curated Apple devices and accessories for quick browsing and discovery.',
+            'Curated Apple devices and accessories for quick browsing and discovery.'
         ),
         keywords: t(
             'iPhone, MacBook, iPad, Apple Watch, AirPods, Vision Pro',
-            'iPhone, MacBook, iPad, Apple Watch, AirPods, Vision Pro',
+            'iPhone, MacBook, iPad, Apple Watch, AirPods, Vision Pro'
         ),
-        author: 'Cosy UI',
-        robots: 'index, follow',
-    }}
+    })}
     showFooter={true}
     showSidebar={false}
-    footerConfig={{
-        logo: Logo,
-        siteName: 'Cosy UI',
-        homeLink: configApp.homeLink,
-        slogan: t('更快构建现代网站', 'Build modern sites faster'),
-        company: 'Cosy UI',
-        inspirationalSlogan: t(
-            '打造优雅、可复用的界面',
-            'Craft elegant, reusable UIs',
-        ),
-        background: 'base-200',
-        aboutInfo: {
-            aboutLink: configApp.homeLink + '#about',
-            contactLink: configApp.homeLink + '#contact',
-            teamLink: configApp.homeLink + '#team',
-            careersLink: configApp.homeLink + '#careers',
-        },
-        resourcesInfo: {
-            newsLink: configApp.homeLink + '#news',
-            historyLink: configApp.homeLink + '#history',
-            partnersLink: configApp.homeLink + '#partners',
-            blogLink: configApp.homeLink + '#blog',
-            faqLink: configApp.homeLink + '#faq',
-            mediaLink: configApp.homeLink + '#media',
-            techStackLink: configApp.homeLink + '#tech',
-        },
-        contactInfo: {
-            address: t(
-                '上海市静安区南京西路 88 号',
-                '88 Nanjing West Rd, Jing’an, Shanghai',
-            ),
-            phone: '+86 21 0000 0000',
-            email: 'contact@cosyui.dev',
-            workingHours: t('周一至周五 09:00-18:00', 'Mon-Fri 09:00-18:00'),
-            wechat: 'cosyui_official',
-            qq: '87654321',
-        },
-        legalInfo: {
-            termsLink: configApp.homeLink + '/terms',
-            privacyLink: configApp.homeLink + '/privacy',
-            icp: t('沪ICP备12345678号-1', 'ICP 12345678-1'),
-            icpLink: 'https://beian.miit.gov.cn',
-        },
-        products: [
-            {
-                name: t('组件库', 'Component Library'),
-                href: configApp.homeLink + '/components',
-            },
-            {
-                name: t('模板集', 'Templates'),
-                href: configApp.homeLink + '/templates',
-            },
-        ],
-        friendlyLinks: [
-            {
-                name: 'GitHub',
-                href: 'https://github.com/CofficLab/cosy-ui',
-                external: true,
-            },
-            {
-                name: 'CofficLab',
-                href: 'https://cofficlab.com',
-                external: true,
-            },
-        ],
-        socialLinks: ['https://github.com/CofficLab', 'https://twitter.com'],
-        wechatQR: wechatQrUrl,
-    }}
+    footerConfig={getFooterConfig(currentLocale || 'zh-cn')}
     headerConfig={{
         logo: Logo,
         logoHref: configApp.homeLink,
         navItems: configApp.getNavItems(currentLocale),
         astroI18n: astroI18n,
     }}
-    sidebarConfig={{ sidebarItems: [] }}
     mainContentConfig={{ py: '2xl' }}>
     <Container width="xl" padding="lg" centered={true}>
         <Heading level={1} margin="lg"
@@ -128,7 +59,7 @@ export const getStaticPaths = async () => {
             >{
                 t(
                     '精选 Apple 设备与配件，一站式浏览与了解。',
-                    'Curated Apple devices and accessories for quick browsing and discovery.',
+                    'Curated Apple devices and accessories for quick browsing and discovery.'
                 )
             }</Text
         >

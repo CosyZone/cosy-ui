@@ -35,8 +35,9 @@ import related4Url from "@/demos/ecommerce_product/images/related-4.jpg?url";
 import user1Url from "@/demos/ecommerce_product/images/user-1.jpg?url";
 import user2Url from "@/demos/ecommerce_product/images/user-2.jpg?url";
 import user3Url from "@/demos/ecommerce_product/images/user-3.jpg?url";
-import wechatQrUrl from "@/demos/ecommerce_product/images/wechat-qr.jpg?url";
 import Logo from "@/assets/logo.png";
+import { getFooterConfig } from "@/demos/footerConfig";
+import { getMetaConfig } from "@/demos/metaConfig";
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.params.lang;
@@ -356,7 +357,7 @@ const data = ecommerceData[currentLocale] || ecommerceData["zh-cn"];
 ---
 
 <AppLayout
-    metaConfig={{
+    metaConfig={getMetaConfig({
         title: data.productName,
         description: data.description,
         keywords:
@@ -364,65 +365,11 @@ const data = ecommerceData[currentLocale] || ecommerceData["zh-cn"];
                 ? '无线耳机,蓝牙耳机,降噪耳机,智能耳机'
                 : 'wireless earbuds, bluetooth headphones, noise cancellation, smart earbuds',
         author: data.brand,
-        robots: 'index, follow',
-    }}
-    sidebarConfig={{ sidebarItems: [] }}
+    })}
     showHeader={true}
     showFooter={true}
     showSidebar={false}
-    footerConfig={{
-        logo: Logo,
-        siteName: data.brand,
-        homeLink: configApp.homeLink,
-        slogan: data.tagline,
-        company: data.brand,
-        inspirationalSlogan: data.tagline,
-        background: 'base-200',
-        products: [
-            { name: 'Earbuds', href: '#' },
-            { name: 'Headphones', href: '#' },
-            { name: 'Speakers', href: '#' },
-            { name: 'Accessories', href: '#' },
-        ],
-        aboutInfo: {
-            aboutLink: '#about',
-            contactLink: '#contact',
-            teamLink: '#team',
-            careersLink: '#careers',
-        },
-        legalInfo: {
-            termsLink: '#terms',
-            privacyLink: '#privacy',
-            icp:
-                currentLocale === 'zh-cn'
-                    ? '沪ICP备12345678号-1'
-                    : 'ICP 12345678-1',
-            icpLink: 'https://beian.miit.gov.cn',
-        },
-        resourcesInfo: {
-            newsLink: '#news',
-            historyLink: '#history',
-            partnersLink: '#partners',
-            blogLink: '#blog',
-            faqLink: '#faq',
-            mediaLink: '#media',
-            techStackLink: '#tech',
-        },
-        friendlyLinks: [
-            {
-                name: 'GitHub',
-                href: 'https://github.com/CofficLab/cosy-ui',
-                external: true,
-            },
-            {
-                name: 'CofficLab',
-                href: 'https://cofficlab.com',
-                external: true,
-            },
-        ],
-        socialLinks: ['https://github.com/CofficLab', 'https://twitter.com'],
-        wechatQR: wechatQrUrl,
-    }}
+    footerConfig={getFooterConfig(currentLocale || 'zh-cn')}
     headerConfig={{
         logo: Logo,
         logoHref: configApp.homeLink,
@@ -589,7 +536,7 @@ const data = ecommerceData[currentLocale] || ecommerceData["zh-cn"];
                                             disabled={!color.inStock}>
                                             {color.name}
                                         </button>
-                                    ),
+                                    )
                                 )
                             }
                         </div>
@@ -610,7 +557,7 @@ const data = ecommerceData[currentLocale] || ecommerceData["zh-cn"];
                                             disabled={!storage.inStock}>
                                             {storage.name} - ¥{storage.price}
                                         </button>
-                                    ),
+                                    )
                                 )
                             }
                         </div>
@@ -751,7 +698,7 @@ const data = ecommerceData[currentLocale] || ecommerceData["zh-cn"];
                                 {spec.value}
                             </Text>
                         </div>
-                    ),
+                    )
                 )
             }
         </Grid>
@@ -858,7 +805,7 @@ const data = ecommerceData[currentLocale] || ecommerceData["zh-cn"];
                                 </div>
                             </div>
                         </Card>
-                    ),
+                    )
                 )
             }
         </Grid>

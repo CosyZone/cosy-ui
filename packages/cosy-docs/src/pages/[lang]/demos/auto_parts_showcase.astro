@@ -25,9 +25,10 @@ import product1Url from "@/demos/auto_parts_showcase/images/product-1.jpg?url";
 import product2Url from "@/demos/auto_parts_showcase/images/product-2.jpg?url";
 import product3Url from "@/demos/auto_parts_showcase/images/product-3.jpg?url";
 import product4Url from "@/demos/auto_parts_showcase/images/product-4.jpg?url";
-import wechatQrUrl from "@/demos/auto_parts_showcase/images/wechat-qr.jpg?url";
 import * as astroI18n from "astro:i18n";
 import Logo from "@/assets/logo.png";
+import { getFooterConfig } from "@/demos/footerConfig";
+import { getMetaConfig } from "@/demos/metaConfig";
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.params.lang;
@@ -335,7 +336,7 @@ const data = autoPartsData[currentLocale] || autoPartsData["zh-cn"];
 ---
 
 <AppLayout
-  metaConfig={{
+  metaConfig={getMetaConfig({
     title: data.companyName,
     description: data.description,
     keywords:
@@ -343,41 +344,11 @@ const data = autoPartsData[currentLocale] || autoPartsData["zh-cn"];
         ? '汽车零部件,精密制造,发动机零部件,制动系统,悬挂系统'
         : 'auto parts, precision manufacturing, engine components, brake system, suspension',
     author: data.companyName,
-    robots: 'index, follow',
-  }}
-  sidebarConfig={{ sidebarItems: [] }}
+  })}
   showHeader={true}
   showFooter={true}
   showSidebar={false}
-  footerConfig={{
-    logo: Logo,
-    siteName: data.companyName,
-    homeLink: configApp.homeLink,
-    slogan: data.tagline,
-    company: data.companyName,
-    inspirationalSlogan: data.tagline,
-    background: 'base-200',
-    products: [
-      { name: currentLocale === 'zh-cn' ? '发动机零部件' : 'Engine Parts', href: '#' },
-      { name: currentLocale === 'zh-cn' ? '制动系统' : 'Brake System', href: '#' },
-      { name: currentLocale === 'zh-cn' ? '悬挂系统' : 'Suspension', href: '#' },
-      { name: currentLocale === 'zh-cn' ? '电子系统' : 'Electronics', href: '#' },
-    ],
-    aboutInfo: { aboutLink: '#about', contactLink: '#contact', teamLink: '#team', careersLink: '#careers' },
-    legalInfo: {
-      termsLink: '#terms',
-      privacyLink: '#privacy',
-      icp: currentLocale === 'zh-cn' ? '沪ICP备12345678号-1' : 'ICP 12345678-1',
-      icpLink: 'https://beian.miit.gov.cn',
-    },
-    resourcesInfo: { newsLink: '#news', historyLink: '#history', partnersLink: '#partners', blogLink: '#blog', faqLink: '#faq', mediaLink: '#media', techStackLink: '#tech' },
-    friendlyLinks: [
-      { name: 'GitHub', href: 'https://github.com/CofficLab/cosy-ui', external: true },
-      { name: 'CofficLab', href: 'https://cofficlab.com', external: true },
-    ],
-    socialLinks: ['https://github.com/CofficLab', 'https://twitter.com'],
-    wechatQR: wechatQrUrl,
-  }}
+  footerConfig={getFooterConfig(currentLocale || 'zh-cn')}
   headerConfig={{
     logo: Logo,
     logoHref: configApp.homeLink,

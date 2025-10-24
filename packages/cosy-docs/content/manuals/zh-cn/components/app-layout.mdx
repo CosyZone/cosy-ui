@@ -107,6 +107,47 @@ AppLayout 组件适用于页面布局，提供一个包含侧边栏导航、头�
 
 <AppLayoutPackage.DefaultSlot />
 
+### header
+
+自定义全局 header（优先级最高）。当提供此 slot 时，会替代内置的 AppHeader，并横跨整个页面宽度（不受侧边栏限制）。
+
+**💡 [查看在线演示](/zh-cn/demos/custom_header)** - 体验完整的自定义 header 功能
+
+**使用场景**：
+- 品牌定制：需要完全自定义的 header 设计
+- 特殊交互：实现透明渐变、滚动变化等效果
+- 复杂布局：需要特殊的布局结构
+- 第三方集成：集成第三方 header 组件
+
+**示例**：
+
+```astro
+<AppLayout
+  metaConfig={{ title: "我的应用" }}
+  sidebarConfig={{ sidebarItems: [] }}
+>
+  <!-- 自定义 header，横跨整个页面宽度 -->
+  <header slot="header" class="cosy:bg-primary cosy:text-white cosy:p-4">
+    <div class="cosy:container cosy:mx-auto cosy:flex cosy:items-center cosy:justify-between">
+      <h1 class="cosy:text-xl cosy:font-bold">我的品牌</h1>
+      <nav class="cosy:flex cosy:gap-4">
+        <a href="/" class="cosy:hover:underline">首页</a>
+        <a href="/docs" class="cosy:hover:underline">文档</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 主内容 -->
+  <h1>页面内容</h1>
+</AppLayout>
+```
+
+**注意事项**：
+- 自定义 header 的优先级最高，会覆盖 `showHeader` 和 `headerConfig` 配置
+- 建议使用容器（如 `cosy:container cosy:mx-auto`）来限制内容宽度
+- 需要自行处理响应式布局和样式
+- z-index 建议设置为 40-50 之间
+
 ### navbar-start
 
 导航栏开始位置的内容，传递给AppHeader组件。
