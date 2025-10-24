@@ -1,0 +1,557 @@
+---
+import { AppLayout, Container, Button, Heading, Card } from '@coffic/cosy-ui';
+import { getMetaConfig } from '@/demos/metaConfig';
+
+// 从 URL 获取当前语言
+const currentLocale = Astro.params.lang || 'zh-cn';
+
+// 定义支持的语言
+export const getStaticPaths = async () => {
+    return [
+        {
+            params: { lang: 'zh-cn' },
+        },
+        {
+            params: { lang: 'en' },
+        },
+    ];
+};
+
+const isZhCn = currentLocale === 'zh-cn';
+
+const title = isZhCn ? '自定义 Footer 演示' : 'Custom Footer Demo';
+const description = isZhCn
+    ? '演示如何在 AppLayout 中使用自定义 Footer 功能'
+    : 'Demonstration of how to use custom footer in AppLayout';
+---
+
+<AppLayout
+    showSidebar={false}
+    showFooter={false}
+    metaConfig={getMetaConfig({
+        title: title,
+        description: description,
+        keywords: 'Cosy UI, AppLayout, Custom Footer',
+    })}>
+    <!-- 主要内容 -->
+    <Container width="full" padding="none" flex="col" gap="xl">
+        <!-- Hero Section -->
+        <Container flex="col" gap="lg" margin="lg" class="hero-section">
+            <Heading
+                level={1}
+                align="center"
+                weight="bold"
+                margin="none"
+                class="hero-title">
+                {isZhCn ? '自定义 Footer 演示' : 'Custom Footer Demo'}
+            </Heading>
+            <p class="hero-description">
+                {
+                    isZhCn
+                        ? '这个页面展示了如何使用 AppLayout 的自定义 footer slot 功能，创建完全自定义的全宽页面底部。'
+                        : 'This page demonstrates how to use the custom footer slot feature of AppLayout to create a fully customized full-width page footer.'
+                }
+            </p>
+            <div class="hero-buttons">
+                <Button
+                    variant="primary"
+                    size="lg"
+                    href={`/${currentLocale}/manuals/components/app-layout`}>
+                    {isZhCn ? '查看文档' : 'View Documentation'}
+                </Button>
+                <Button
+                    variant="outline"
+                    size="lg"
+                    href={`/${currentLocale}/demos`}>
+                    {isZhCn ? '返回示例' : 'Back to Demos'}
+                </Button>
+            </div>
+        </Container>
+
+        <!-- Features Section -->
+        <Container flex="col" gap="xl" margin="lg">
+            <Heading
+                level={2}
+                align="center"
+                weight="bold"
+                margin="none"
+                class="section-title">
+                {isZhCn ? '主要特性' : 'Key Features'}
+            </Heading>
+            <div class="features-grid">
+                <!-- 特性卡片 1 -->
+                <Card
+                    title={isZhCn ? '完全自定义' : 'Fully Customizable'}
+                    subtitle={isZhCn
+                        ? '使用自定义 footer slot，您可以实现任何设计，不受内置组件限制。'
+                        : 'With the custom footer slot, you can implement any design without being limited by built-in components.'}
+                    shadow="xl"
+                />
+
+                <!-- 特性卡片 2 -->
+                <Card
+                    title={isZhCn ? '全宽布局' : 'Full Width Layout'}
+                    subtitle={isZhCn
+                        ? '自定义 footer 横跨整个页面宽度，不受侧边栏限制。'
+                        : 'Custom footer spans the full page width, not constrained by the sidebar.'}
+                    shadow="xl"
+                />
+
+                <!-- 特性卡片 3 -->
+                <Card
+                    title={isZhCn ? '向后兼容' : 'Backward Compatible'}
+                    subtitle={isZhCn
+                        ? '完全向后兼容，不影响现有代码的使用。'
+                        : 'Fully backward compatible, does not affect existing code.'}
+                    shadow="xl"
+                />
+
+                <!-- 特性卡片 4 -->
+                <Card
+                    title={isZhCn ? '简单易用' : 'Easy to Use'}
+                    subtitle={isZhCn
+                        ? "只需添加 slot='footer' 属性，即可使用自定义 footer。"
+                        : "Just add the slot='footer' attribute to use a custom footer."}
+                    shadow="xl"
+                />
+
+                <!-- 特性卡片 5 -->
+                <Card
+                    title={isZhCn ? '优先级清晰' : 'Clear Priority'}
+                    subtitle={isZhCn
+                        ? '自定义 footer 优先级最高，会覆盖内置 Footer。'
+                        : 'Custom footer has the highest priority and overrides built-in Footer.'}
+                    shadow="xl"
+                />
+
+                <!-- 特性卡片 6 -->
+                <Card
+                    title={isZhCn ? '多列布局' : 'Multi-column Layout'}
+                    subtitle={isZhCn
+                        ? '轻松实现多列布局，展示更丰富的页脚内容。'
+                        : 'Easy to implement multi-column layout for richer footer content.'}
+                    shadow="xl"
+                />
+            </div>
+        </Container>
+
+        <!-- Documentation Link Section -->
+        <Container margin="lg" flex="col" gap="lg" class="learn-more-section">
+            <Heading
+                level={2}
+                align="center"
+                weight="bold"
+                margin="none"
+                class="section-title">
+                {isZhCn ? '了解更多' : 'Learn More'}
+            </Heading>
+            <p class="section-description">
+                {
+                    isZhCn
+                        ? '查看完整的 AppLayout 文档，了解更多关于自定义 footer 和其他功能的详细信息。'
+                        : 'Check out the complete AppLayout documentation to learn more about custom footers and other features.'
+                }
+            </p>
+            <div class="section-buttons">
+                <Button
+                    variant="primary"
+                    size="lg"
+                    href={`/${currentLocale}/manuals/components/app-layout`}>
+                    {isZhCn ? '查看文档' : 'View Documentation'}
+                </Button>
+                <Button
+                    variant="outline"
+                    size="lg"
+                    href="https://github.com/CosyZone/cosy-ui/issues/23"
+                    target="_blank">
+                    {isZhCn ? '查看 Issue #23' : 'View Issue #23'}
+                </Button>
+            </div>
+        </Container>
+
+        <!-- 向下滚动提示 -->
+        <Container flex="col" gap="md" margin="xl" class="scroll-hint">
+            <p class="hint-text">
+                {
+                    isZhCn
+                        ? '👇 向下滚动查看自定义 Footer'
+                        : '👇 Scroll down to see the custom footer'
+                }
+            </p>
+        </Container>
+    </Container>
+
+    <!-- 自定义 Footer Slot - 这是演示的核心 -->
+    <footer slot="footer" class="custom-footer">
+        <Container
+            padding="lg"
+            width="full"
+            flex="col"
+            gap="lg"
+            class="footer-container">
+            <!-- Footer 主要内容区 -->
+            <div class="footer-main">
+                <!-- 关于我们 -->
+                <div class="footer-column">
+                    <h3 class="footer-column-title">
+                        {isZhCn ? '关于我们' : 'About Us'}
+                    </h3>
+                    <p class="footer-text">
+                        {
+                            isZhCn
+                                ? 'Cosy UI 是一个现代化的 UI 组件库，致力于提供优雅、易用的组件解决方案。'
+                                : 'Cosy UI is a modern UI component library dedicated to providing elegant and easy-to-use component solutions.'
+                        }
+                    </p>
+                </div>
+
+                <!-- 快速链接 -->
+                <div class="footer-column">
+                    <h3 class="footer-column-title">
+                        {isZhCn ? '快速链接' : 'Quick Links'}
+                    </h3>
+                    <ul class="footer-links">
+                        <li>
+                            <a
+                                href={`/${currentLocale}/manuals/components/app-layout`}
+                                class="footer-link">
+                                {isZhCn ? '文档' : 'Documentation'}
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href={`/${currentLocale}/demos`}
+                                class="footer-link">
+                                {isZhCn ? '示例' : 'Examples'}
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://github.com/CosyZone/cosy-ui"
+                                class="footer-link"
+                                target="_blank">
+                                GitHub
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 资源 -->
+                <div class="footer-column">
+                    <h3 class="footer-column-title">
+                        {isZhCn ? '资源' : 'Resources'}
+                    </h3>
+                    <ul class="footer-links">
+                        <li>
+                            <a
+                                href="https://github.com/CosyZone/cosy-ui/issues"
+                                class="footer-link"
+                                target="_blank">
+                                {isZhCn ? '问题反馈' : 'Issue Tracker'}
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://github.com/CosyZone/cosy-ui/discussions"
+                                class="footer-link"
+                                target="_blank">
+                                {isZhCn ? '讨论区' : 'Discussions'}
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://github.com/CosyZone/cosy-ui/blob/main/CHANGELOG.md"
+                                class="footer-link"
+                                target="_blank">
+                                {isZhCn ? '更新日志' : 'Changelog'}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 联系方式 -->
+                <div class="footer-column">
+                    <h3 class="footer-column-title">
+                        {isZhCn ? '联系方式' : 'Contact'}
+                    </h3>
+                    <p class="footer-text">
+                        {isZhCn ? '邮箱：' : 'Email:'} hello@cosy-ui.com
+                    </p>
+                    <p class="footer-text">
+                        {isZhCn ? '位置：' : 'Location:'}
+                        {isZhCn ? '中国' : 'China'}
+                    </p>
+                </div>
+            </div>
+
+            <!-- 分隔线 -->
+            <div class="footer-divider"></div>
+
+            <!-- Footer 底部 -->
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    &copy; {new Date().getFullYear()} Cosy UI. {
+                        isZhCn ? '保留所有权利。' : 'All rights reserved.'
+                    }
+                </p>
+                <div class="footer-social">
+                    <a
+                        href="https://github.com/CosyZone/cosy-ui"
+                        class="social-link"
+                        target="_blank"
+                        aria-label="GitHub">
+                        <svg
+                            class="social-icon"
+                            fill="currentColor"
+                            viewBox="0 0 24 24">
+                            <path
+                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                            ></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </Container>
+    </footer>
+</AppLayout>
+
+<style>
+    /* ===== Hero Section Styles ===== */
+    .hero-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    @media (min-width: 768px) {
+        .hero-title {
+            font-size: 3.75rem;
+        }
+    }
+
+    .hero-description {
+        max-width: 42rem;
+        font-size: 1.25rem;
+        color: #4b5563;
+        text-align: center;
+        margin: 0;
+    }
+
+    @media (min-width: 768px) {
+        .hero-description {
+            font-size: 1.5rem;
+        }
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    /* ===== Features Section Styles ===== */
+    .section-title {
+        font-size: 2.25rem;
+    }
+
+    .features-grid {
+        display: grid;
+        gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+        .features-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .features-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    /* ===== Learn More Section Styles ===== */
+    .learn-more-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .section-description {
+        max-width: 42rem;
+        font-size: 1.125rem;
+        color: #4b5563;
+        margin: 0;
+    }
+
+    .section-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    /* ===== Scroll Hint Styles ===== */
+    .scroll-hint {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hint-text {
+        font-size: 1.25rem;
+        color: #6b7280;
+        margin: 0;
+        animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    /* ===== Footer Styles ===== */
+    .custom-footer {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        margin-top: auto;
+    }
+
+    .footer-container {
+        max-width: 1280px;
+        margin: 0 auto;
+    }
+
+    .footer-main {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 640px) {
+        .footer-main {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .footer-main {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    .footer-column {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .footer-column-title {
+        font-size: 1.125rem;
+        font-weight: 700;
+        margin: 0;
+        padding: 0;
+        color: white;
+    }
+
+    .footer-text {
+        font-size: 0.875rem;
+        line-height: 1.5;
+        margin: 0;
+        opacity: 0.9;
+    }
+
+    .footer-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .footer-link {
+        color: white;
+        text-decoration: none;
+        font-size: 0.875rem;
+        opacity: 0.9;
+        transition: all 0.2s ease;
+        display: inline-block;
+    }
+
+    .footer-link:hover {
+        opacity: 1;
+        transform: translateX(4px);
+    }
+
+    .footer-divider {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.2);
+        width: 100%;
+    }
+
+    .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .footer-copyright {
+        font-size: 0.875rem;
+        margin: 0;
+        opacity: 0.8;
+    }
+
+    .footer-social {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .social-link {
+        color: white;
+        opacity: 0.8;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+    }
+
+    .social-link:hover {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    .social-icon {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    /* ===== Animations ===== */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .features-grid > * {
+        animation: fadeIn 0.6s ease-out;
+    }
+</style>

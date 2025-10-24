@@ -145,6 +145,62 @@ Custom global header (highest priority). When this slot is provided, it replaces
 - Handle responsive layout and styling yourself
 - Recommended z-index range: 40-50
 
+### footer
+
+Custom global footer (highest priority). When this slot is provided, it replaces the built-in Footer and spans the full page width (not constrained by the sidebar).
+
+**💡 [View Live Demo](/en/demos/custom_footer)** - Experience the complete custom footer feature
+
+**Use Cases**:
+- Brand Customization: Fully custom footer design without Footer limitations
+- Special Interactions: Implement complex layout structures
+- Multi-column Layouts: Create multi-column content in the footer
+- Third-party Integration: Integrate third-party footer components
+
+**Example**:
+
+```astro
+<AppLayout
+  metaConfig={{ title: "My App" }}
+  sidebarConfig={{ sidebarItems: [] }}
+>
+  <!-- Main content -->
+  <h1>Page Content</h1>
+
+  <!-- Custom footer that spans full page width -->
+  <footer slot="footer" class="cosy:bg-base-200 cosy:p-8">
+    <div class="cosy:container cosy:mx-auto">
+      <div class="cosy:grid cosy:grid-cols-1 cosy:md:grid-cols-3 cosy:gap-8">
+        <div>
+          <h3 class="cosy:font-bold cosy:text-lg cosy:mb-4">About Us</h3>
+          <p class="cosy:text-sm">We are committed to providing the best products and services</p>
+        </div>
+        <div>
+          <h3 class="cosy:font-bold cosy:text-lg cosy:mb-4">Quick Links</h3>
+          <ul class="cosy:space-y-2">
+            <li><a href="/docs" class="cosy:link cosy:link-hover">Documentation</a></li>
+            <li><a href="/blog" class="cosy:link cosy:link-hover">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="cosy:font-bold cosy:text-lg cosy:mb-4">Contact</h3>
+          <p class="cosy:text-sm">email@example.com</p>
+        </div>
+      </div>
+      <div class="cosy:mt-8 cosy:pt-8 cosy:border-t cosy:text-center cosy:text-sm">
+        <p>&copy; 2025 My Company. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</AppLayout>
+```
+
+**Notes**:
+- Custom footer has the highest priority and will override `showFooter` and `footerConfig` settings
+- Recommended to use container classes (e.g., `cosy:container cosy:mx-auto`) to constrain content width
+- Handle responsive layout and styling yourself
+- Follows the same design pattern as the header slot
+
 ### navbar-start
 
 Content for the start position of the navigation bar, passed to the AppHeader component.
