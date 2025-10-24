@@ -1,0 +1,490 @@
+---
+import {
+    AppLayout,
+    Container,
+    Button,
+    Heading,
+    Card,
+    Image,
+} from '@coffic/cosy-ui';
+import Logo from '@/assets/logo.png';
+import { getFooterConfig } from '@/demos/footerConfig';
+
+// 从 URL 获取当前语言
+const currentLocale = Astro.params.lang || 'zh-cn';
+
+// 定义支持的语言
+export const getStaticPaths = async () => {
+    return [
+        {
+            params: { lang: 'zh-cn' },
+        },
+        {
+            params: { lang: 'en' },
+        },
+    ];
+};
+
+const isZhCn = currentLocale === 'zh-cn';
+
+const title = isZhCn ? '自定义 Header 演示' : 'Custom Header Demo';
+const description = isZhCn
+    ? '演示如何在 AppLayout 中使用自定义 Header 功能'
+    : 'Demonstration of how to use custom header in AppLayout';
+---
+
+<AppLayout
+    showSidebar={false}
+    metaConfig={{
+        title: title,
+        description: description,
+        keywords: 'Cosy UI, AppLayout, Custom Header',
+        author: 'CofficLab',
+    }}
+    footerConfig={getFooterConfig(currentLocale)}
+    mainContentConfig={{
+        py: '4xl',
+        fullWidth: false,
+    }}>
+    <!-- 自定义 Header Slot - 这是演示的核心 -->
+    <header slot="header" class="custom-header">
+        <Container
+            padding="sm"
+            width="full"
+            flex="row"
+            gap="md"
+            class="header-container">
+            <!-- Logo 和品牌名 -->
+            <div class="logo-section">
+                <Image
+                    src={Logo}
+                    alt="Logo"
+                    width={36}
+                    height={36}
+                    rounded="lg"
+                    class="logo-image"
+                />
+                <div class="brand-info">
+                    <div class="brand-name">
+                        {isZhCn ? '我的品牌' : 'My Brand'}
+                    </div>
+                    <div class="brand-tagline">
+                        {isZhCn ? '定制化设计' : 'Custom Design'}
+                    </div>
+                </div>
+            </div>
+
+            <!-- 导航菜单 (桌面端) -->
+            <nav class="nav-menu">
+                <a href="#features" class="nav-link">
+                    {isZhCn ? '特性' : 'Features'}
+                </a>
+                <a href="#docs" class="nav-link">
+                    {isZhCn ? '文档' : 'Docs'}
+                </a>
+                <a
+                    href={`/${currentLocale}/manuals/components/app-layout`}
+                    class="nav-link">
+                    {isZhCn ? '查看文档' : 'View Docs'}
+                </a>
+            </nav>
+
+            <!-- 操作按钮 -->
+            <div class="action-buttons">
+                <div class="desktop-only">
+                    <Button variant="ghost" size="sm">
+                        {isZhCn ? '登录' : 'Sign In'}
+                    </Button>
+                </div>
+                <Button variant="accent" size="sm">
+                    {isZhCn ? '开始使用' : 'Get Started'}
+                </Button>
+            </div>
+        </Container>
+    </header>
+
+    <!-- 主要内容 -->
+    <Container width="full" padding="none" flex="col" gap="4xl">
+        <!-- Hero Section -->
+        <Container flex="col" gap="lg" margin="lg" class="hero-section">
+            <Heading
+                level={1}
+                align="center"
+                weight="bold"
+                margin="none"
+                class="hero-title">
+                {isZhCn ? '自定义 Header 演示' : 'Custom Header Demo'}
+            </Heading>
+            <p class="hero-description">
+                {
+                    isZhCn
+                        ? '这个页面展示了如何使用 AppLayout 的自定义 header slot 功能，创建完全自定义的全宽页面头部。'
+                        : 'This page demonstrates how to use the custom header slot feature of AppLayout to create a fully customized full-width page header.'
+                }
+            </p>
+            <div class="hero-buttons">
+                <Button
+                    variant="primary"
+                    size="lg"
+                    href={`/${currentLocale}/manuals/components/app-layout`}>
+                    {isZhCn ? '查看文档' : 'View Documentation'}
+                </Button>
+                <Button
+                    variant="outline"
+                    size="lg"
+                    href={`/${currentLocale}/demos`}>
+                    {isZhCn ? '返回示例' : 'Back to Demos'}
+                </Button>
+            </div>
+        </Container>
+
+        <!-- Features Section -->
+        <Container flex="col" gap="xl" margin="lg">
+            <Heading
+                level={2}
+                align="center"
+                weight="bold"
+                margin="none"
+                class="section-title">
+                {isZhCn ? '主要特性' : 'Key Features'}
+            </Heading>
+            <div class="features-grid">
+                <!-- 特性卡片 1 -->
+                <Card
+                    title={isZhCn ? '完全自定义' : 'Fully Customizable'}
+                    subtitle={isZhCn
+                        ? '使用自定义 header slot，您可以实现任何设计，不受内置组件限制。'
+                        : 'With the custom header slot, you can implement any design without being limited by built-in components.'}
+                    shadow="xl"
+                />
+
+                <!-- 特性卡片 2 -->
+                <Card
+                    title={isZhCn ? '全宽布局' : 'Full Width Layout'}
+                    subtitle={isZhCn
+                        ? '自定义 header 横跨整个页面宽度，不受侧边栏限制。'
+                        : 'Custom header spans the full page width, not constrained by the sidebar.'}
+                    shadow="xl"
+                />
+
+                <!-- 特性卡片 3 -->
+                <Card
+                    title={isZhCn ? '向后兼容' : 'Backward Compatible'}
+                    subtitle={isZhCn
+                        ? '完全向后兼容，不影响现有代码的使用。'
+                        : 'Fully backward compatible, does not affect existing code.'}
+                    shadow="xl"
+                />
+
+                <!-- 特性卡片 4 -->
+                <Card
+                    title={isZhCn ? '简单易用' : 'Easy to Use'}
+                    subtitle={isZhCn
+                        ? "只需添加 slot='header' 属性，即可使用自定义 header。"
+                        : "Just add the slot='header' attribute to use a custom header."}
+                    shadow="xl"
+                />
+
+                <!-- 特性卡片 5 -->
+                <Card
+                    title={isZhCn ? '优先级清晰' : 'Clear Priority'}
+                    subtitle={isZhCn
+                        ? '自定义 header 优先级最高，会覆盖内置 AppHeader。'
+                        : 'Custom header has the highest priority and overrides built-in AppHeader.'}
+                    shadow="xl"
+                />
+
+                <!-- 特性卡片 6 -->
+                <Card
+                    title={isZhCn ? '响应式设计' : 'Responsive Design'}
+                    subtitle={isZhCn
+                        ? '可以轻松实现响应式布局，适配各种屏幕尺寸。'
+                        : 'Easy to implement responsive layout for all screen sizes.'}
+                    shadow="xl"
+                />
+            </div>
+        </Container>
+
+        <!-- Documentation Link Section -->
+        <Container margin="lg" flex="col" gap="lg" class="learn-more-section">
+            <Heading
+                level={2}
+                align="center"
+                weight="bold"
+                margin="none"
+                class="section-title">
+                {isZhCn ? '了解更多' : 'Learn More'}
+            </Heading>
+            <p class="section-description">
+                {
+                    isZhCn
+                        ? '查看完整的 AppLayout 文档，了解更多关于自定义 header 和其他功能的详细信息。'
+                        : 'Check out the complete AppLayout documentation to learn more about custom headers and other features.'
+                }
+            </p>
+            <div class="section-buttons">
+                <Button
+                    variant="primary"
+                    size="lg"
+                    href={`/${currentLocale}/manuals/components/app-layout`}>
+                    {isZhCn ? '查看文档' : 'View Documentation'}
+                </Button>
+                <Button
+                    variant="outline"
+                    size="lg"
+                    href="https://github.com/CosyZone/cosy-ui/issues/22"
+                    target="_blank">
+                    {isZhCn ? '查看 Issue #22' : 'View Issue #22'}
+                </Button>
+            </div>
+        </Container>
+    </Container>
+</AppLayout>
+
+<style>
+    /* ===== Header Styles ===== */
+    .custom-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: linear-gradient(to right, #06b6d4, #14b8a6, #2563eb);
+        color: white;
+        box-shadow:
+            0 10px 15px -3px rgba(0, 0, 0, 0.1),
+            0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        padding: 0.5rem 0; /* 减小上下内边距，让 header 更紧凑 */
+    }
+
+    .header-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem; /* 确保各部分之间有足够间距 */
+        flex-wrap: nowrap; /* 防止换行 */
+    }
+
+    .logo-section {
+        display: inline-flex; /* 改用 inline-flex 确保不换行 */
+        align-items: center;
+        gap: 0.625rem; /* 减小 logo 和文字之间的间距 */
+        flex-shrink: 0; /* 防止被压缩 */
+        white-space: nowrap; /* 整个区域都不换行 */
+    }
+
+    .logo-image {
+        height: 2.25rem; /* 稍微减小 logo 尺寸 */
+        width: 2.25rem;
+        flex-shrink: 0; /* 防止图片被压缩 */
+    }
+
+    .brand-info {
+        display: inline-flex; /* 改用 inline-flex */
+        flex-direction: column;
+        flex-shrink: 0; /* 防止被压缩 */
+        white-space: nowrap; /* 确保内容不换行 */
+    }
+
+    .brand-name {
+        font-size: 1rem; /* 移动端较小 */
+        line-height: 1.25;
+        white-space: nowrap; /* 防止文字换行 */
+        color: white;
+        font-weight: bold;
+        margin: 0;
+        padding: 0;
+        display: inline-block; /* 确保为行内块元素 */
+    }
+
+    @media (min-width: 768px) {
+        .brand-name {
+            font-size: 1.25rem; /* 桌面端恢复大小 */
+        }
+    }
+
+    .brand-tagline {
+        font-size: 0.7rem; /* 移动端较小 */
+        opacity: 0.9;
+        margin: 0;
+        padding: 0;
+        white-space: nowrap; /* 防止文字换行 */
+        display: none; /* 极小屏幕隐藏 */
+    }
+
+    @media (min-width: 480px) {
+        .brand-tagline {
+            display: inline-block; /* 稍大屏幕显示 */
+        }
+    }
+
+    @media (min-width: 768px) {
+        .brand-tagline {
+            font-size: 0.75rem; /* 桌面端恢复大小 */
+        }
+    }
+
+    .nav-menu {
+        display: none;
+        gap: 2rem; /* 增加导航项之间的间距 */
+        flex-shrink: 0; /* 防止导航被压缩 */
+    }
+
+    @media (min-width: 768px) {
+        .nav-menu {
+            display: flex;
+            gap: 1.5rem; /* 中等屏幕减小间距 */
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .nav-menu {
+            gap: 2rem; /* 大屏幕恢复间距 */
+        }
+    }
+
+    .nav-link {
+        transition: all 0.3s ease;
+        color: white;
+        text-decoration: none;
+        font-weight: 500; /* 增加字重 */
+        font-size: 0.95rem;
+        position: relative;
+        padding: 0.25rem 0;
+    }
+
+    /* 添加下划线动画效果 */
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: white;
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover {
+        transform: translateY(-2px);
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+    }
+
+    .action-buttons {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem; /* 移动端减小间距 */
+        flex-shrink: 0; /* 防止按钮被压缩 */
+    }
+
+    @media (min-width: 768px) {
+        .action-buttons {
+            gap: 0.75rem; /* 桌面端恢复间距 */
+        }
+    }
+
+    .desktop-only {
+        display: none;
+    }
+
+    @media (min-width: 768px) {
+        .desktop-only {
+            display: flex;
+        }
+    }
+
+    /* ===== Hero Section Styles ===== */
+    .hero-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    @media (min-width: 768px) {
+        .hero-title {
+            font-size: 3.75rem;
+        }
+    }
+
+    .hero-description {
+        max-width: 42rem;
+        font-size: 1.25rem;
+        color: #4b5563;
+        text-align: center;
+        margin: 0;
+    }
+
+    @media (min-width: 768px) {
+        .hero-description {
+            font-size: 1.5rem;
+        }
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 1rem;
+    }
+
+    /* ===== Features Section Styles ===== */
+    .section-title {
+        font-size: 2.25rem;
+    }
+
+    .features-grid {
+        display: grid;
+        gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+        .features-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .features-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    /* ===== Learn More Section Styles ===== */
+    .learn-more-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .section-description {
+        max-width: 42rem;
+        font-size: 1.125rem;
+        color: #4b5563;
+        margin: 0;
+    }
+
+    .section-buttons {
+        display: flex;
+        gap: 1rem;
+    }
+
+    /* ===== Animations ===== */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    section {
+        animation: fadeIn 0.6s ease-out;
+    }
+</style>
