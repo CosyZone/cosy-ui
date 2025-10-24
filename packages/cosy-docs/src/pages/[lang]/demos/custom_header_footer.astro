@@ -13,6 +13,9 @@ import { getMetaConfig } from '@/demos/metaConfig';
 // 从 URL 获取当前语言
 const currentLocale = Astro.params.lang || 'zh-cn';
 
+// 启用预渲染
+export const prerender = true;
+
 // 定义支持的语言
 export const getStaticPaths = async () => {
     return [

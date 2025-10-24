@@ -1,37 +1,40 @@
 ---
 import {
-	AppLayout,
-	Container,
-	Button,
-	Heading,
-	Card,
-	Image,
-} from "@coffic/cosy-ui";
-import Logo from "@/assets/logo.png";
-import { getFooterConfig } from "@/demos/footerConfig";
-import { getMetaConfig } from "@/demos/metaConfig";
+    AppLayout,
+    Container,
+    Button,
+    Heading,
+    Card,
+    Image,
+} from '@coffic/cosy-ui';
+import Logo from '@/assets/logo.png';
+import { getFooterConfig } from '@/demos/footerConfig';
+import { getMetaConfig } from '@/demos/metaConfig';
 
 // 从 URL 获取当前语言
-const currentLocale = Astro.params.lang || "zh-cn";
+const currentLocale = Astro.params.lang || 'zh-cn';
+
+// 启用预渲染
+export const prerender = true;
 
 // 定义支持的语言
 export const getStaticPaths = async () => {
-	return [
-		{
-			params: { lang: "zh-cn" },
-		},
-		{
-			params: { lang: "en" },
-		},
-	];
+    return [
+        {
+            params: { lang: 'zh-cn' },
+        },
+        {
+            params: { lang: 'en' },
+        },
+    ];
 };
 
-const isZhCn = currentLocale === "zh-cn";
+const isZhCn = currentLocale === 'zh-cn';
 
-const title = isZhCn ? "自定义 Header 演示" : "Custom Header Demo";
+const title = isZhCn ? '自定义 Header 演示' : 'Custom Header Demo';
 const description = isZhCn
-	? "演示如何在 AppLayout 中使用自定义 Header 功能"
-	: "Demonstration of how to use custom header in AppLayout";
+    ? '演示如何在 AppLayout 中使用自定义 Header 功能'
+    : 'Demonstration of how to use custom header in AppLayout';
 ---
 
 <AppLayout
