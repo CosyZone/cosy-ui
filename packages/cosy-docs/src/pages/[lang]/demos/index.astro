@@ -34,6 +34,29 @@ export const getStaticPaths = async () => {
     <Products
         products={[
             {
+                name: '最少配置',
+                image: getExampleImage({
+                    width: 100,
+                    height: 100,
+                }),
+                description: 'AppLayout 最少配置使用示例，展示最简单的使用方式',
+                productUrl: LinkUtil.createUrl(
+                    `${currentLocale}/demos/minimal_app_layout`
+                ),
+            },
+            {
+                name: '最简单的 Header',
+                image: getExampleImage({
+                    width: 100,
+                    height: 100,
+                }),
+                description:
+                    'AppLayout + 最简单的 Header，不显示 logo 的极简配置',
+                productUrl: LinkUtil.createUrl(
+                    `${currentLocale}/demos/minimal_header`
+                ),
+            },
+            {
                 name: '自定义 Header',
                 image: getExampleImage({
                     width: 100,

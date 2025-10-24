@@ -1,0 +1,496 @@
+---
+/**
+ * AppLayout + 最简单的 Header 示例
+ *
+ * 此示例展示了带有最简单 Header 的 AppLayout 配置。
+ * Header 不显示 logo，只保留基础功能。
+ */
+import { AppLayout, Container, Heading, PlaceHolder } from '@coffic/cosy-ui';
+
+const currentLocale = Astro.params.lang || 'zh-cn';
+
+export const getStaticPaths = async () => {
+    return [
+        {
+            params: { lang: 'zh-cn' },
+        },
+        {
+            params: { lang: 'en' },
+        },
+    ];
+};
+
+export const prerender = true;
+
+// 最简单的 Header 配置：不传递 logo
+const metaConfig = {
+    title:
+        currentLocale === 'zh-cn'
+            ? '最简单的 Header'
+            : 'Minimal Header Example',
+    description:
+        currentLocale === 'zh-cn'
+            ? '展示 AppLayout 带有最简单 Header 的配置'
+            : 'Demonstrates AppLayout with minimal header configuration',
+    keywords: 'AppLayout, minimal header, no logo',
+    author: 'Cosy UI',
+    robots: 'index, follow',
+};
+
+const headerConfig = {
+    // 不传递 logo，header 将不显示 logo
+    showThemeSwitcher: true,
+    sticky: true,
+    height: '3xs' as const,
+    background: 'base-300/90' as const,
+};
+---
+
+<AppLayout
+    metaConfig={metaConfig}
+    headerConfig={headerConfig}
+    showHeader={true}
+    showFooter={false}
+    showSidebar={false}>
+    <Container padding="xl" gap="lg" flex="col">
+        <Heading level={1} align="center" margin="lg">
+            {
+                currentLocale === 'zh-cn'
+                    ? '最简单的 Header'
+                    : 'Minimal Header Configuration'
+            }
+        </Heading>
+
+        <Container background="base-200" padding="lg" rounded="lg">
+            <Heading level={2} margin="md">
+                {currentLocale === 'zh-cn' ? '📦 配置说明' : '📦 Configuration'}
+            </Heading>
+            <Container padding="md" gap="md" flex="col">
+                <p>
+                    {
+                        currentLocale === 'zh-cn'
+                            ? '这是带有最简单 Header 的 AppLayout 配置。Header 的特点：'
+                            : 'This is AppLayout with minimal header configuration. Header features:'
+                    }
+                </p>
+                <ul style="list-style: disc; padding-left: 2rem;">
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '✅ 不显示 logo（未传递 logo 参数）'
+                                : '✅ No logo (logo parameter not provided)'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '✅ 保留主题切换器'
+                                : '✅ Theme switcher enabled'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '✅ 固定在页面顶部'
+                                : '✅ Sticky header'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '✅ 半透明背景'
+                                : '✅ Semi-transparent background'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '✅ 极简高度设置'
+                                : '✅ Minimal height setting'
+                        }
+                    </li>
+                </ul>
+            </Container>
+        </Container>
+
+        <Container background="base-200" padding="lg" rounded="lg">
+            <Heading level={2} margin="md">
+                {currentLocale === 'zh-cn' ? '💡 代码示例' : '💡 Code Example'}
+            </Heading>
+            <Container background="base-300" padding="md" rounded="md">
+                <pre
+                    style="overflow-x: auto;"><code>{`const headerConfig = {
+  // 不传递 logo，header 将不显示 logo
+  showThemeSwitcher: true,
+  sticky: true,
+  height: '3xs',
+  background: 'base-300/90',
+};
+
+<AppLayout
+  metaConfig={{
+    title: '页面标题',
+    description: '页面描述',
+    keywords: '关键词',
+    author: '作者',
+    robots: 'index, follow'
+  }}
+  headerConfig={headerConfig}
+  showHeader={true}
+  showFooter={false}
+  showSidebar={false}>
+  <!-- 您的页面内容 -->
+  <h1>页面内容</h1>
+</AppLayout>`}</code></pre>
+            </Container>
+        </Container>
+
+        <Container background="base-200" padding="lg" rounded="lg">
+            <Heading level={2} margin="md">
+                {
+                    currentLocale === 'zh-cn'
+                        ? '🎨 Header 配置选项'
+                        : '🎨 Header Configuration Options'
+                }
+            </Heading>
+            <Container padding="md" gap="md" flex="col">
+                <p>
+                    {
+                        currentLocale === 'zh-cn'
+                            ? 'Header 支持以下配置选项（全部可选）：'
+                            : 'Header supports the following configuration options (all optional):'
+                    }
+                </p>
+                <ul style="list-style: disc; padding-left: 2rem;">
+                    <li>
+                        <code
+                            style="background-color: var(--color-base-300); padding: 0.2rem 0.4rem; border-radius: 0.25rem;"
+                            >logo</code
+                        >
+                        {
+                            currentLocale === 'zh-cn'
+                                ? ' - Logo 图片（不传递则不显示）'
+                                : ' - Logo image (not displayed if not provided)'
+                        }
+                    </li>
+                    <li>
+                        <code
+                            style="background-color: var(--color-base-300); padding: 0.2rem 0.4rem; border-radius: 0.25rem;"
+                            >logoHref</code
+                        >
+                        {
+                            currentLocale === 'zh-cn'
+                                ? ' - Logo 链接地址'
+                                : ' - Logo link URL'
+                        }
+                    </li>
+                    <li>
+                        <code
+                            style="background-color: var(--color-base-300); padding: 0.2rem 0.4rem; border-radius: 0.25rem;"
+                            >navItems</code
+                        >
+                        {
+                            currentLocale === 'zh-cn'
+                                ? ' - 导航菜单项'
+                                : ' - Navigation menu items'
+                        }
+                    </li>
+                    <li>
+                        <code
+                            style="background-color: var(--color-base-300); padding: 0.2rem 0.4rem; border-radius: 0.25rem;"
+                            >showThemeSwitcher</code
+                        >
+                        {
+                            currentLocale === 'zh-cn'
+                                ? ' - 是否显示主题切换器（默认 true）'
+                                : ' - Show theme switcher (default: true)'
+                        }
+                    </li>
+                    <li>
+                        <code
+                            style="background-color: var(--color-base-300); padding: 0.2rem 0.4rem; border-radius: 0.25rem;"
+                            >sticky</code
+                        >
+                        {
+                            currentLocale === 'zh-cn'
+                                ? ' - 是否固定在顶部（默认 true）'
+                                : ' - Sticky header (default: true)'
+                        }
+                    </li>
+                    <li>
+                        <code
+                            style="background-color: var(--color-base-300); padding: 0.2rem 0.4rem; border-radius: 0.25rem;"
+                            >height</code
+                        >
+                        {
+                            currentLocale === 'zh-cn'
+                                ? ' - Header 高度'
+                                : ' - Header height'
+                        }
+                    </li>
+                    <li>
+                        <code
+                            style="background-color: var(--color-base-300); padding: 0.2rem 0.4rem; border-radius: 0.25rem;"
+                            >background</code
+                        >
+                        {
+                            currentLocale === 'zh-cn'
+                                ? ' - 背景色'
+                                : ' - Background color'
+                        }
+                    </li>
+                    <li>
+                        <code
+                            style="background-color: var(--color-base-300); padding: 0.2rem 0.4rem; border-radius: 0.25rem;"
+                            >shadow</code
+                        >
+                        {
+                            currentLocale === 'zh-cn'
+                                ? ' - 阴影大小'
+                                : ' - Shadow size'
+                        }
+                    </li>
+                </ul>
+            </Container>
+        </Container>
+
+        <Container background="primary" padding="lg" rounded="lg">
+            <Heading level={2} margin="md" color="primary">
+                {currentLocale === 'zh-cn' ? '✨ 特点' : '✨ Features'}
+            </Heading>
+            <Container padding="md" gap="md" flex="col">
+                <ul
+                    style="list-style: disc; padding-left: 2rem; color: var(--color-primary-content);">
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '极简设计，不显示 logo'
+                                : 'Minimalist design without logo'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '保留核心功能（主题切换）'
+                                : 'Core functionality retained (theme switcher)'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '固定在页面顶部，滚动时始终可见'
+                                : 'Sticky at top, always visible when scrolling'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '半透明背景，增强视觉效果'
+                                : 'Semi-transparent background for better visuals'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '响应式设计，适配各种屏幕'
+                                : 'Responsive design for all screen sizes'
+                        }
+                    </li>
+                </ul>
+            </Container>
+        </Container>
+
+        <Container background="base-200" padding="lg" rounded="lg">
+            <Heading level={2} margin="md">
+                {currentLocale === 'zh-cn' ? '🎯 使用场景' : '🎯 Use Cases'}
+            </Heading>
+            <Container padding="md" gap="md" flex="col">
+                <ul style="list-style: disc; padding-left: 2rem;">
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '个人博客或文章页面'
+                                : 'Personal blogs or article pages'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '工具型网站（无需品牌展示）'
+                                : 'Utility websites (no branding needed)'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '内部管理系统'
+                                : 'Internal management systems'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '极简主义风格网站'
+                                : 'Minimalist style websites'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '需要保留主题切换但不需要品牌标识的场景'
+                                : 'Scenarios needing theme switcher but no branding'
+                        }
+                    </li>
+                </ul>
+            </Container>
+        </Container>
+
+        <Container background="base-200" padding="lg" rounded="lg">
+            <Heading level={2} margin="md">
+                {
+                    currentLocale === 'zh-cn'
+                        ? '🚀 进阶配置'
+                        : '🚀 Advanced Configuration'
+                }
+            </Heading>
+            <Container padding="md" gap="md" flex="col">
+                <p>
+                    {
+                        currentLocale === 'zh-cn'
+                            ? '如果需要更多功能，可以添加：'
+                            : 'For more features, you can add:'
+                    }
+                </p>
+                <ul style="list-style: disc; padding-left: 2rem;">
+                    <li>
+                        <code
+                            style="background-color: var(--color-base-300); padding: 0.2rem 0.4rem; border-radius: 0.25rem;"
+                            >logo</code
+                        >
+                        {
+                            currentLocale === 'zh-cn'
+                                ? ' - 添加品牌 logo'
+                                : ' - Add brand logo'
+                        }
+                    </li>
+                    <li>
+                        <code
+                            style="background-color: var(--color-base-300); padding: 0.2rem 0.4rem; border-radius: 0.25rem;"
+                            >navItems</code
+                        >
+                        {
+                            currentLocale === 'zh-cn'
+                                ? ' - 添加导航菜单'
+                                : ' - Add navigation menu'
+                        }
+                    </li>
+                    <li>
+                        {currentLocale === 'zh-cn' ? '使用 ' : 'Use '}
+                        <code
+                            style="background-color: var(--color-base-300); padding: 0.2rem 0.4rem; border-radius: 0.25rem;"
+                            >navbar-start</code
+                        >,
+                        <code
+                            style="background-color: var(--color-base-300); padding: 0.2rem 0.4rem; border-radius: 0.25rem;"
+                            >navbar-center</code
+                        >,
+                        <code
+                            style="background-color: var(--color-base-300); padding: 0.2rem 0.4rem; border-radius: 0.25rem;"
+                            >navbar-end</code
+                        >
+                        {
+                            currentLocale === 'zh-cn'
+                                ? ' slots 自定义导航栏内容'
+                                : ' slots to customize navbar content'
+                        }
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '添加侧边栏（'
+                                : 'Add sidebar ('
+                        }
+                        <code
+                            style="background-color: var(--color-base-300); padding: 0.2rem 0.4rem; border-radius: 0.25rem;"
+                            >showSidebar={'{true}'}</code
+                        >
+                        {currentLocale === 'zh-cn' ? '）' : ')'}
+                    </li>
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '添加页脚（'
+                                : 'Add footer ('
+                        }
+                        <code
+                            style="background-color: var(--color-base-300); padding: 0.2rem 0.4rem; border-radius: 0.25rem;"
+                            >showFooter={'{true}'}</code
+                        >
+                        {currentLocale === 'zh-cn' ? '）' : ')'}
+                    </li>
+                </ul>
+            </Container>
+        </Container>
+
+        <Container padding="none" style="margin-top: 2rem;">
+            <PlaceHolder muted={true} height="2xl" padding="xl">
+                <p style="text-align: center;">
+                    {
+                        currentLocale === 'zh-cn'
+                            ? '您的主要内容区域'
+                            : 'Your main content area'
+                    }
+                </p>
+            </PlaceHolder>
+        </Container>
+
+        <Container background="accent" padding="lg" rounded="lg">
+            <Heading level={2} margin="md" color="accent">
+                {currentLocale === 'zh-cn' ? '💡 提示' : '💡 Tips'}
+            </Heading>
+            <Container padding="md" gap="md" flex="col">
+                <p style="color: var(--color-accent-content);">
+                    {
+                        currentLocale === 'zh-cn'
+                            ? '由于没有传递 logo 参数，Header 左侧区域将是空白的。如果您希望在左侧显示内容，可以：'
+                            : 'Since no logo parameter is provided, the header left area will be empty. If you want to display content on the left, you can:'
+                    }
+                </p>
+                <ul
+                    style="list-style: disc; padding-left: 2rem; color: var(--color-accent-content);">
+                    <li>
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '传递 logo 参数显示品牌标识'
+                                : 'Provide logo parameter to show branding'
+                        }
+                    </li>
+                    <li>
+                        {currentLocale === 'zh-cn' ? '使用 ' : 'Use '}
+                        <code
+                            style="background-color: var(--color-base-300); padding: 0.2rem 0.4rem; border-radius: 0.25rem;"
+                            >navbar-start</code
+                        >
+                        {
+                            currentLocale === 'zh-cn'
+                                ? ' slot 自定义左侧内容'
+                                : ' slot to customize left content'
+                        }
+                    </li>
+                    <li>
+                        {currentLocale === 'zh-cn' ? '设置 ' : 'Set '}
+                        <code
+                            style="background-color: var(--color-base-300); padding: 0.2rem 0.4rem; border-radius: 0.25rem;"
+                            >navPosition="start"</code
+                        >
+                        {
+                            currentLocale === 'zh-cn'
+                                ? ' 将导航项显示在左侧'
+                                : ' to display navigation items on the left'
+                        }
+                    </li>
+                </ul>
+            </Container>
+        </Container>
+    </Container>
+</AppLayout>

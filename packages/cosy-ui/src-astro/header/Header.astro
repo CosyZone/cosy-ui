@@ -55,7 +55,6 @@ import {
 	getBackgroundClass,
 	type BackgroundColor,
 } from "../../src/common/backgrounds";
-import Logo from "../../src/assets/cosy-logo.png";
 import HeaderStart from "./HeaderStart.astro";
 import HeaderCenter from "./HeaderCenter.astro";
 import HeaderEnd from "./HeaderEnd.astro";
@@ -65,7 +64,7 @@ export interface Props extends IHeaderProps {}
 
 const {
 	height = "3xs",
-	logo = Logo,
+	logo,
 	logoHref = LinkUtil.getBaseUrl(),
 	navItems = [],
 	sticky = true,
@@ -143,48 +142,48 @@ const containerClassList = [
 ---
 
 <header class={headerClassList}>
-  <div class={containerClassList}>
-    <HeaderStart
-      logo={logo}
-      logoHref={logoHref}
-      navPosition={navPosition}
-      navItems={navItems}
-      activeLink={activeLink}
-      linkHeightClass={linkHeightClass}>
-      <slot name="navbar-start" />
-    </HeaderStart>
+    <div class={containerClassList}>
+        <HeaderStart
+            logo={logo}
+            logoHref={logoHref}
+            navPosition={navPosition}
+            navItems={navItems}
+            activeLink={activeLink}
+            linkHeightClass={linkHeightClass}>
+            <slot name="navbar-start" />
+        </HeaderStart>
 
-    <HeaderCenter
-      navPosition={navPosition}
-      navItems={navItems}
-      activeLink={activeLink}
-      linkHeightClass={linkHeightClass}
-      gap={gap}>
-      <slot name="navbar-center" />
-    </HeaderCenter>
+        <HeaderCenter
+            navPosition={navPosition}
+            navItems={navItems}
+            activeLink={activeLink}
+            linkHeightClass={linkHeightClass}
+            gap={gap}>
+            <slot name="navbar-center" />
+        </HeaderCenter>
 
-    <HeaderEnd
-      navPosition={navPosition}
-      navItems={navItems}
-      activeLink={activeLink}
-      linkHeightClass={linkHeightClass}
-      showThemeSwitcher={showThemeSwitcher}
-      isI18nEnabled={isI18nEnabled}
-      astroI18n={astroI18n}>
-      <slot name="navbar-end" />
-    </HeaderEnd>
-  </div>
+        <HeaderEnd
+            navPosition={navPosition}
+            navItems={navItems}
+            activeLink={activeLink}
+            linkHeightClass={linkHeightClass}
+            showThemeSwitcher={showThemeSwitcher}
+            isI18nEnabled={isI18nEnabled}
+            astroI18n={astroI18n}>
+            <slot name="navbar-end" />
+        </HeaderEnd>
+    </div>
 </header>
 
 <!-- 移动端导航 Modal -->
 {
-  navItems.length > 0 && (
-    <Modal id="mobile-nav" title="导航菜单">
-      <MobileNav
-        navItems={navItems}
-        activeLink={activeLink}
-        linkHeightClass={linkHeightClass}
-      />
-    </Modal>
-  )
+    navItems.length > 0 && (
+        <Modal id="mobile-nav" title="导航菜单">
+            <MobileNav
+                navItems={navItems}
+                activeLink={activeLink}
+                linkHeightClass={linkHeightClass}
+            />
+        </Modal>
+    )
 }
