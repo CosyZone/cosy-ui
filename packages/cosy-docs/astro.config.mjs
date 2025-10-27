@@ -38,14 +38,14 @@ export default defineConfig({
 		mdx(),
 		vue(),
 		pagefind(),
-		playformCompress({
-			HTML: {
-				"html-minifier-terser": {
-					removeAttributeQuotes: true,
-					removeComments: true,
-				},
-			},
-		}),
+		// playformCompress({
+		// 	HTML: {
+		// 		"html-minifier-terser": {
+		// 			removeAttributeQuotes: true,
+		// 			removeComments: true,
+		// 		},
+		// 	},
+		// }),
 	],
 
 	adapter: cloudflare({

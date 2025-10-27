@@ -68,8 +68,12 @@ const scaledIconHeight = computed(() => {
 // 设置定时器更新时间
 let timeInterval: number;
 onMounted(() => {
-	updateTime();
-	timeInterval = window.setInterval(updateTime, 60000); // 每分钟更新一次
+	// 使用 requestAnimationFrame 确保在客户端渲染完成后再更新时间
+	// 这样可以避免 SSR hydration mismatch 问题
+	requestAnimationFrame(() => {
+		updateTime();
+		timeInterval = window.setInterval(updateTime, 60000); // 每分钟更新一次
+	});
 });
 
 onUnmounted(() => {
@@ -80,69 +84,78 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div class="cosy:flex cosy:items-center cosy:h-full cosy:justify-between">
-        <!-- 左侧时间 -->
-        <span class="cosy:font-medium time-text" :style="{ fontSize: scaledFontSize }">
-            {{ currentTime }}
-        </span>
+  <div class="cosy:flex cosy:items-center cosy:h-full cosy:justify-between">
+    <!-- 左侧时间 -->
+    <span
+      class="cosy:font-medium time-text"
+      :style="{ fontSize: scaledFontSize }">
+      {{ currentTime }}
+    </span>
 
-        <!-- 右侧状态图标 -->
-        <div class="cosy:flex cosy:flex-row cosy:items-center cosy:space-x-1 cosy:h-full">
-            <!-- 信号图标 -->
-            <div class="cosy:flex cosy:items-center cosy:justify-center" :style="{
-                width: scaledIconSize,
-                height: scaledIconHeight,
-                minWidth: 0,
-                minHeight: 0,
-            }">
-                <IPhoneSignalIcon class="status-icon" />
-            </div>
+    <!-- 右侧状态图标 -->
+    <div
+      class="cosy:flex cosy:flex-row cosy:items-center cosy:space-x-1 cosy:h-full">
+      <!-- 信号图标 -->
+      <div
+        class="cosy:flex cosy:items-center cosy:justify-center"
+        :style="{
+          width: scaledIconSize,
+          height: scaledIconHeight,
+          minWidth: 0,
+          minHeight: 0,
+        }">
+        <IPhoneSignalIcon class="status-icon" />
+      </div>
 
-            <!-- WiFi图标 -->
-            <div class="cosy:flex cosy:items-center cosy:justify-center" :style="{
-                width: scaledIconSize,
-                height: scaledIconHeight,
-                minWidth: 0,
-                minHeight: 0,
-            }">
-                <IPhoneWifiIcon class="status-icon" />
-            </div>
+      <!-- WiFi图标 -->
+      <div
+        class="cosy:flex cosy:items-center cosy:justify-center"
+        :style="{
+          width: scaledIconSize,
+          height: scaledIconHeight,
+          minWidth: 0,
+          minHeight: 0,
+        }">
+        <IPhoneWifiIcon class="status-icon" />
+      </div>
 
-            <!-- 电池图标 -->
-            <div class="cosy:flex cosy:items-center cosy:justify-center" :style="{
-                width: scaledIconSize,
-                height: scaledIconHeight,
-                minWidth: 0,
-                minHeight: 0,
-            }">
-                <IPhoneBatteryIcon class="battery-icon" />
-            </div>
-        </div>
+      <!-- 电池图标 -->
+      <div
+        class="cosy:flex cosy:items-center cosy:justify-center"
+        :style="{
+          width: scaledIconSize,
+          height: scaledIconHeight,
+          minWidth: 0,
+          minHeight: 0,
+        }">
+        <IPhoneBatteryIcon class="battery-icon" />
+      </div>
     </div>
+  </div>
 </template>
 
 <style scoped>
-/* 确保图标渲染更平滑 */
-svg {
+  /* 确保图标渲染更平滑 */
+  svg {
     shape-rendering: geometricPrecision;
-}
+  }
 
-/* 时间文字基础样式 */
-.time-text {
+  /* 时间文字基础样式 */
+  .time-text {
     line-height: 1;
     transition: font-size 0.2s ease;
-}
+  }
 
-/* 状态图标通用样式 */
-.status-icon,
-.battery-icon {
+  /* 状态图标通用样式 */
+  .status-icon,
+  .battery-icon {
     color: #000000;
     fill: currentColor;
-}
+  }
 
-.status-icon svg,
-.battery-icon svg {
+  .status-icon svg,
+  .battery-icon svg {
     width: 100%;
     height: 100%;
-}
+  }
 </style>
