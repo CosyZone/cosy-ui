@@ -1,40 +1,74 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import HeroSection from "@/widgets/HeroSection.astro";
-import DesignPhilosophy from "@/widgets/DesignPhilosophy.astro";
-import LiveDemo from "@/widgets/LiveDemo.astro";
-import Showcase from "@/widgets/Showcase.astro";
-import { PlaceHolder } from "@coffic/cosy-ui";
+/**
+ * @page HomePage
+ * @description Cosy UI 首页 - Apple 风格的现代化设计
+ */
+
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import HeroSection from '@/widgets/home/HeroSection.astro';
+import ComponentShowcase from '@/widgets/home/ComponentShowcase.astro';
+import FeatureHighlights from '@/widgets/home/FeatureHighlights.astro';
+import CodeShowcase from '@/widgets/home/CodeShowcase.astro';
+import AnimationDemo from '@/widgets/home/AnimationDemo.astro';
+import DeveloperExperience from '@/widgets/home/DeveloperExperience.astro';
+import UseCases from '@/widgets/home/UseCases.astro';
+import StatsSection from '@/widgets/home/StatsSection.astro';
+import FinalCTA from '@/widgets/home/FinalCTA.astro';
 
 export const prerender = true;
 
-const { lang = "zh-cn" } = Astro.params;
+const { lang = 'zh-cn' } = Astro.params;
 
 export const getStaticPaths = async () => {
-	return [
-		{
-			params: { lang: "zh-cn" },
-		},
-		{
-			params: { lang: "en" },
-		},
-	];
+    return [
+        {
+            params: { lang: 'zh-cn' },
+        },
+        {
+            params: { lang: 'en' },
+        },
+    ];
 };
+
+const title =
+    lang === 'zh-cn'
+        ? 'Cosy UI - 现代化组件库'
+        : 'Cosy UI - Modern Component Library';
 ---
 
 <BaseLayout
-    title="Cosy UI 组件库"
+    title={title}
     showSidebar={false}
     showTOC={false}
     isArticle={false}
     verticalPadding="none"
     mainLayout="column">
+    <!-- 1. Hero Section - 震撼开场 -->
     <HeroSection lang={lang} />
-    <DesignPhilosophy lang={lang} />
-    <LiveDemo lang={lang} />
-    <Showcase lang={lang} />
 
-    <PlaceHolder height="2xl" />
+    <!-- 2. Component Showcase - 组件展示 -->
+    <ComponentShowcase lang={lang} />
+
+    <!-- 3. Feature Highlights - 核心特性 -->
+    <FeatureHighlights lang={lang} />
+
+    <!-- 4. Code Showcase - 代码展示 -->
+    <CodeShowcase lang={lang} />
+
+    <!-- 5. Animation Demo - 动效展示 -->
+    <AnimationDemo lang={lang} />
+
+    <!-- 6. Developer Experience - 开发者体验 -->
+    <DeveloperExperience lang={lang} />
+
+    <!-- 7. Use Cases - 使用案例 -->
+    <UseCases lang={lang} />
+
+    <!-- 8. Stats Section - 数据统计 -->
+    <StatsSection lang={lang} />
+
+    <!-- 9. Final CTA - 行动号召 -->
+    <FinalCTA lang={lang} />
 </BaseLayout>
 
 <script is:inline>

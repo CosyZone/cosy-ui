@@ -1,0 +1,190 @@
+---
+/**
+ * @component ComponentShowcase
+ * @description 组件网格展示 - 展示核心组件的能力
+ */
+
+import {
+    Container,
+    Heading,
+    Grid,
+    MacWindow,
+    Button,
+    Card,
+    Alert,
+    Review,
+    TeamMember,
+    getAvatarImage,
+} from '@coffic/cosy-ui';
+
+export interface Props {
+    lang: string;
+}
+
+const { lang } = Astro.props;
+
+const title = lang === 'zh-cn' ? '激发灵感的组件' : 'Components that inspire';
+const subtitle =
+    lang === 'zh-cn'
+        ? '精心设计的组件库，满足你的各种需求'
+        : 'Carefully crafted components for all your needs';
+
+const avatar = getAvatarImage({ randomSeed: 'showcase-member' });
+---
+
+<Container width="full" padding="2xl" background="base-200" margin="none">
+    <Heading level={2} align="center" size="3xl" weight="bold" margin="lg">
+        {title}
+    </Heading>
+    <Heading
+        level={3}
+        align="center"
+        size="lg"
+        weight="normal"
+        color="muted"
+        margin="xl">
+        {subtitle}
+    </Heading>
+
+    <Container width="2xl" margin="xl">
+        <Grid cols={{ base: 1, sm: 2, lg: 3 }} gap="lg">
+            <!-- Button 展示 -->
+            <MacWindow
+                title={lang === 'zh-cn' ? '按钮组件' : 'Button'}
+                background="base-200"
+                padding="lg">
+                <Container flex="col" gap="md" padding="md" contentCentered>
+                    <Button variant="primary" size="md">Primary</Button>
+                    <Button variant="secondary" size="md">Secondary</Button>
+                    <Button variant="accent" size="md">Accent</Button>
+                </Container>
+            </MacWindow>
+
+            <!-- Card 展示 -->
+            <MacWindow
+                title={lang === 'zh-cn' ? '卡片组件' : 'Card'}
+                background="base-200"
+                padding="lg">
+                <Card
+                    width="full"
+                    padding="lg"
+                    shadow="md"
+                    rounded="lg"
+                    background="base-100">
+                    <Heading level={4} size="lg" margin="sm">
+                        {lang === 'zh-cn' ? '精美卡片' : 'Beautiful Card'}
+                    </Heading>
+                    <p class="card-description">
+                        {
+                            lang === 'zh-cn'
+                                ? '卡片组件让内容组织更清晰'
+                                : 'Card component makes content organization clearer'
+                        }
+                    </p>
+                </Card>
+            </MacWindow>
+
+            <!-- Alert 展示 -->
+            <MacWindow
+                title={lang === 'zh-cn' ? '提示组件' : 'Alert'}
+                background="base-200"
+                padding="lg">
+                <Container flex="col" gap="md" padding="md">
+                    <Alert type="success" closable={false}>
+                        {lang === 'zh-cn' ? '操作成功！' : 'Success!'}
+                    </Alert>
+                    <Alert type="info" closable={false}>
+                        {lang === 'zh-cn' ? '提示信息' : 'Info'}
+                    </Alert>
+                    <Alert type="warning" closable={false}>
+                        {lang === 'zh-cn' ? '警告' : 'Warning'}
+                    </Alert>
+                </Container>
+            </MacWindow>
+
+            <!-- Review 展示 -->
+            <MacWindow
+                title={lang === 'zh-cn' ? '评价组件' : 'Review'}
+                background="base-200"
+                padding="lg">
+                <Review
+                    userName={lang === 'zh-cn' ? '张先生' : 'John'}
+                    rating={5}
+                    comment={lang === 'zh-cn'
+                        ? '非常棒的组件库！'
+                        : 'Amazing component library!'}
+                    rounded="lg"
+                    background="base-100"
+                />
+            </MacWindow>
+
+            <!-- TeamMember 展示 -->
+            <MacWindow
+                title={lang === 'zh-cn' ? '团队成员' : 'Team Member'}
+                background="base-200"
+                padding="lg">
+                <TeamMember
+                    name={lang === 'zh-cn' ? '李明' : 'Alex'}
+                    role={lang === 'zh-cn'
+                        ? '前端工程师'
+                        : 'Frontend Developer'}
+                    avatar={avatar}
+                    bio={lang === 'zh-cn'
+                        ? '专注于现代化 Web 开发'
+                        : 'Focused on modern web development'}
+                />
+            </MacWindow>
+
+            <!-- Badge 展示 -->
+            <MacWindow
+                title={lang === 'zh-cn' ? '徽章组件' : 'Badge'}
+                background="base-200"
+                padding="lg">
+                <Container
+                    flex="row"
+                    gap="md"
+                    padding="lg"
+                    contentCentered
+                    class="badge-container">
+                    <Button variant="primary">
+                        {lang === 'zh-cn' ? '消息' : 'Messages'}
+                        <span class="badge badge-secondary">9+</span>
+                    </Button>
+                    <Button variant="secondary">
+                        {lang === 'zh-cn' ? '通知' : 'Notifications'}
+                        <span class="badge badge-accent">NEW</span>
+                    </Button>
+                </Container>
+            </MacWindow>
+        </Grid>
+    </Container>
+</Container>
+
+<style>
+    .card-description {
+        color: rgba(var(--bc) / 0.7);
+    }
+
+    .badge-container {
+        flex-wrap: wrap;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        margin-left: 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        border-radius: 0.375rem;
+    }
+
+    .badge-secondary {
+        background-color: rgba(var(--s) / 1);
+        color: rgba(var(--sc) / 1);
+    }
+
+    .badge-accent {
+        background-color: rgba(var(--a) / 1);
+        color: rgba(var(--ac) / 1);
+    }
+</style>

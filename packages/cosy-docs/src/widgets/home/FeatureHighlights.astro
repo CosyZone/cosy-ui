@@ -1,0 +1,120 @@
+---
+/**
+ * @component FeatureHighlights
+ * @description 核心特性展示 - 三栏布局突出核心优势
+ */
+
+import { Container, Heading, Text, Card } from '@coffic/cosy-ui';
+
+export interface Props {
+    lang: string;
+}
+
+const { lang } = Astro.props;
+
+const title = lang === 'zh-cn' ? '为什么选择 Cosy UI' : 'Why Choose Cosy UI';
+
+const features =
+    lang === 'zh-cn'
+        ? [
+              {
+                  icon: '🚀',
+                  title: '基于 Astro',
+                  description: '性能优异，零 JS 开销，让你的网站飞速加载',
+              },
+              {
+                  icon: '🎨',
+                  title: '60+ 组件',
+                  description: '开箱即用的精美组件，满足各种开发需求',
+              },
+              {
+                  icon: '📱',
+                  title: '响应式设计',
+                  description: '完美适配各种设备，从手机到桌面无缝体验',
+              },
+          ]
+        : [
+              {
+                  icon: '🚀',
+                  title: 'Built on Astro',
+                  description:
+                      'Exceptional performance, zero JS overhead, lightning-fast loading',
+              },
+              {
+                  icon: '🎨',
+                  title: '60+ Components',
+                  description:
+                      'Beautiful components ready to use, meeting all development needs',
+              },
+              {
+                  icon: '📱',
+                  title: 'Responsive Design',
+                  description:
+                      'Perfect adaptation to all devices, seamless experience from mobile to desktop',
+              },
+          ];
+---
+
+<Container width="full" padding="2xl" background="accent/10" margin="none">
+    <Heading level={2} align="center" size="3xl" weight="bold" margin="xl">
+        {title}
+    </Heading>
+
+    <Container width="2xl" margin="xl">
+        <div class="features-grid">
+            {
+                features.map((feature) => (
+                    <Card
+                        width="full"
+                        padding="xl"
+                        shadow="lg"
+                        rounded="xl"
+                        background="base-100"
+                        class="feature-card">
+                        <div class="feature-icon">{feature.icon}</div>
+                        <Heading
+                            level={3}
+                            align="center"
+                            size="xl"
+                            weight="bold"
+                            margin="sm">
+                            {feature.title}
+                        </Heading>
+                        <Text align="center" size="md" color="muted">
+                            {feature.description}
+                        </Text>
+                    </Card>
+                ))
+            }
+        </div>
+    </Container>
+</Container>
+
+<style>
+    .features-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+        .features-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    .feature-card {
+        transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    }
+
+    .feature-icon {
+        font-size: 3.75rem;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+</style>

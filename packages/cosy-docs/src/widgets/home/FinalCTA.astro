@@ -1,0 +1,70 @@
+---
+/**
+ * @component FinalCTA
+ * @description 最终行动号召 - 鼓励用户开始使用
+ */
+
+import { Container, Heading, Button } from '@coffic/cosy-ui';
+
+export interface Props {
+    lang: string;
+}
+
+const { lang } = Astro.props;
+
+const title = lang === 'zh-cn' ? '今天就开始构建' : 'Start Building Today';
+
+const subtitle =
+    lang === 'zh-cn'
+        ? '加入我们，使用 Cosy UI 打造下一个优秀项目'
+        : 'Join us and build your next amazing project with Cosy UI';
+
+const ctaStart = lang === 'zh-cn' ? '快速开始' : 'Get Started';
+const ctaGithub = 'GitHub';
+---
+
+<Container
+    width="full"
+    padding="3xl"
+    background="gradient"
+    margin="none"
+    contentCentered>
+    <Container width="2xl" padding="none" contentCentered>
+        <Heading level={2} align="center" size="4xl" weight="bold" margin="lg">
+            {title}
+        </Heading>
+        <Heading
+            level={3}
+            align="center"
+            size="xl"
+            weight="normal"
+            color="muted"
+            margin="xl">
+            {subtitle}
+        </Heading>
+
+        <Container
+            flex="row"
+            gap="lg"
+            padding="lg"
+            contentCentered
+            class="cta-buttons">
+            <Button variant="primary" size="xl" href={`/${lang}/manuals`}>
+                {ctaStart}
+            </Button>
+            <Button
+                variant="secondary"
+                size="xl"
+                href="https://github.com/cosyzone/cosy-ui"
+                target="_blank">
+                {ctaGithub}
+            </Button>
+        </Container>
+    </Container>
+</Container>
+
+<style>
+    .cta-buttons {
+        flex-wrap: wrap;
+    }
+</style>

@@ -1,32 +1,33 @@
 ---
-import { type ISidebarItem, AppLayout } from "@coffic/cosy-ui";
-import Favicon from "@/assets/favicon.png";
-import Logo from "@/assets/logo.png";
-import { configApp } from "@/config/config.app";
-import { configProducts } from "@/config/config.products";
-import * as astroI18n from "astro:i18n";
-import Search from "astro-pagefind/components/Search";
-import WechatQR from "@/assets/qrcode.png";
-import WhatsAppQR from "@/assets/qrcode.png";
+import { type ISidebarItem, AppLayout } from '@coffic/cosy-ui';
+import Favicon from '@/assets/favicon.png';
+import Logo from '@/assets/logo.png';
+import { configApp } from '@/config/config.app';
+import { configProducts } from '@/config/config.products';
+import * as astroI18n from 'astro:i18n';
+import Search from 'astro-pagefind/components/Search';
+import WechatQR from '@/assets/qrcode.png';
+import WhatsAppQR from '@/assets/qrcode.png';
+import CustomFooter from './CustomFooter.astro';
 
 interface Props {
-	title: string;
-	showTOC?: boolean;
-	showSidebar?: boolean;
-	sidebarItems?: ISidebarItem | null;
-	isArticle?: boolean;
-	verticalPadding?: string;
-	mainLayout?: "row" | "column";
+    title: string;
+    showTOC?: boolean;
+    showSidebar?: boolean;
+    sidebarItems?: ISidebarItem | null;
+    isArticle?: boolean;
+    verticalPadding?: string;
+    mainLayout?: 'row' | 'column';
 }
 
 const {
-	title,
-	showTOC = true,
-	showSidebar = true,
-	sidebarItems = null,
-	isArticle = true,
-	verticalPadding = "4xl",
-	mainLayout = "row",
+    title,
+    showTOC = true,
+    showSidebar = true,
+    sidebarItems = null,
+    isArticle = true,
+    verticalPadding = '4xl',
+    mainLayout = 'row',
 } = Astro.props;
 const currentLocale = Astro.currentLocale;
 ---
@@ -97,6 +98,9 @@ const currentLocale = Astro.currentLocale;
     showSidebar={showSidebar}
     loadingDelay={500}>
     <slot />
+
+    <!-- Custom Footer -->
+    <CustomFooter slot="footer" lang={currentLocale || 'zh-cn'} />
 
     <div slot="modal-search">
         <Search uiOptions={{ showImages: false }} />
