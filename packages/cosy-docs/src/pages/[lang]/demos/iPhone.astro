@@ -1,15 +1,15 @@
 ---
-import { AppLayout } from '@coffic/cosy-ui';
-import { configApp } from '@/config/config.app';
-import ApplePhoneDemo from '@/demos/apple-phone/ApplePhoneDemo.astro';
-import ApplePhoneVueDemo from '@/demos/apple-phone/ApplePhoneVueDemo.vue';
-import { getFooterConfig } from '@/demos/footerConfig';
-import { getMetaConfig } from '@/demos/metaConfig';
+import { AppLayout } from "@coffic/cosy-ui";
+import { configApp } from "@/config/config.app";
+import ApplePhoneDemo from "@/demos/apple-phone/ApplePhoneDemo.astro";
+import ApplePhoneVueDemo from "@/demos/apple-phone/ApplePhoneVueDemo.vue";
+import { getFooterConfig } from "@/demos/footerConfig";
+import { getMetaConfig } from "@/demos/metaConfig";
 
-import Logo from '@/assets/logo.png';
+import Logo from "@/assets/logo.png";
 
 interface Props {
-    title: string;
+	title: string;
 }
 
 const { title } = Astro.props;
@@ -18,14 +18,14 @@ const { title } = Astro.props;
 const currentLocale = Astro.params.lang;
 
 export const getStaticPaths = async () => {
-    return [
-        {
-            params: { lang: 'zh-cn' },
-        },
-        {
-            params: { lang: 'en' },
-        },
-    ];
+	return [
+		{
+			params: { lang: "zh-cn" },
+		},
+		{
+			params: { lang: "en" },
+		},
+	];
 };
 ---
 
