@@ -1,9 +1,14 @@
 /* Container muted 样式 */
 .container-muted {
-	opacity: 0.6;
-	pointer-events: none;
+	opacity: 0.5;
+	filter: blur(2px);
+	transform: scale(0.98);
+	transition: all 0.3s ease;
 }
 
-.container-muted * {
-	color: #9ca3af !important;
+/* Hover 时恢复正常 */
+.container-muted:hover {
+	opacity: 1;
+	filter: none;
+	transform: scale(1);
 }

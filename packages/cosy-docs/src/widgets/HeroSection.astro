@@ -96,7 +96,7 @@ const mainTitle = "Cosy UI";
                 height="md"
                 padding="md"
                 background="base-100"
-                muted>
+                muted={true}>
                 <Button href={LinkUtil.createUrl(`/${lang}/manuals`)}>
                     {lang === 'zh-cn' ? '开始使用' : 'Get Started'}
                 </Button>
@@ -109,7 +109,7 @@ const mainTitle = "Cosy UI";
                 height="md"
                 padding="md"
                 background="base-100"
-                muted>
+                muted={true}>
                 <StatsDisplay
                     stats={compactStats}
                     compact={false}
@@ -168,19 +168,21 @@ const mainTitle = "Cosy UI";
             gap="lg"
             flex="row">
             <!-- 左侧 -->
-            <div class="cosy:grid cosy:grid-cols-2 cosy:gap-4 cosy:w-full">
-                {
-                    products.map((product) => (
-                        <ProductCard {...product} size="sm" muted />
-                    ))
-                }
-            </div>
+            <Container width="full" padding="none" muted={true}>
+                <div class="cosy:grid cosy:grid-cols-2 cosy:gap-4 cosy:w-full">
+                    {
+                        products.map((product) => (
+                            <ProductCard {...product} size="sm" />
+                        ))
+                    }
+                </div>
+            </Container>
 
             <!-- 中间 -->
             <Review
                 rounded="lg"
                 background="info/30"
-                muted
+                muted={true}
                 userName="张先生"
                 rating={5}
                 comment="产品非常好用，质量很棒！推荐购买。"
@@ -189,7 +191,7 @@ const mainTitle = "Cosy UI";
 
             <!-- 右侧 -->
             <TeamMember
-                muted
+                muted={true}
                 name="张三"
                 role="前端开发工程师"
                 avatar={avatar}

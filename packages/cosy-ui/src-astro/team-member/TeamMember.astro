@@ -119,7 +119,7 @@ const shadowClass = shadow ? shadowClasses[shadow] || "" : "";
 const hoverShadowClass = hoverShadow
 	? hoverShadowClasses[hoverShadow] || hoverShadowClasses["lg"]
 	: hoverShadowClasses["lg"];
-const mutedClass = muted ? "muted-content" : "";
+const mutedClass = muted ? "container-muted" : "";
 ---
 
 <div
@@ -170,17 +170,3 @@ const mutedClass = muted ? "muted-content" : "";
         }
     </div>
 </div>
-
-<style>
-    .muted-content {
-        opacity: 0.6;
-        pointer-events: none;
-    }
-
-    .muted-content * {
-        color: #9ca3af !important;
-        /* tailwind gray-400 */
-        fill: #9ca3af !important;
-        /* 对于 SVG 图标 */
-    }
-</style>

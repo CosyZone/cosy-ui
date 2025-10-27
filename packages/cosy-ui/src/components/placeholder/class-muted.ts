@@ -9,7 +9,7 @@
  */
 export function getPlaceholderMutedClass(muted?: boolean): string {
 	if (muted) {
-		return "cosy:bg-gray-100 cosy:dark:bg-gray-800 muted-content";
+		return "cosy:bg-gray-100 cosy:dark:bg-gray-800 container-muted";
 	}
 	return "";
 }
