@@ -1,86 +1,86 @@
 <script setup lang="ts">
-  import { ref, onMounted, onUnmounted, computed } from 'vue';
-  import {
-    IPhoneSignalIcon,
-    IPhoneWifiIcon,
-    IPhoneBatteryIcon,
-  } from '../icons/index';
-  import '../../style';
+import { ref, onMounted, onUnmounted, computed } from "vue";
+import {
+	IPhoneSignalIcon,
+	IPhoneWifiIcon,
+	IPhoneBatteryIcon,
+} from "../icons/index";
+import "../../style";
 
-  /**
-   * @component StatusBarContent
-   * @description StatusBarContent 组件显示 iPhone 状态栏的内容，包括时间、信号、WiFi 和电池图标。
-   * 组件会自动更新时间显示，并支持根据设备大小进行缩放。
-   * @usage
-   * 基本用法：
-   * ```vue
-   * <StatusBarContent />
-   * ```
-   *
-   * 带缩放比例：
-   * ```vue
-   * <StatusBarContent :scaleRatio="1.5" />
-   * ```
-   * @props
-   * @prop {Number} [scaleRatio=1] - 缩放比例，用于根据设备大小调整文字和图标大小
-   * @slots
-   * @emits
-   */
+/**
+ * @component StatusBarContent
+ * @description StatusBarContent 组件显示 iPhone 状态栏的内容，包括时间、信号、WiFi 和电池图标。
+ * 组件会自动更新时间显示，并支持根据设备大小进行缩放。
+ * @usage
+ * 基本用法：
+ * ```vue
+ * <StatusBarContent />
+ * ```
+ *
+ * 带缩放比例：
+ * ```vue
+ * <StatusBarContent :scaleRatio="1.5" />
+ * ```
+ * @props
+ * @prop {Number} [scaleRatio=1] - 缩放比例，用于根据设备大小调整文字和图标大小
+ * @slots
+ * @emits
+ */
 
-  // Props 定义
-  interface Props {
-    scaleRatio?: number;
-  }
+// Props 定义
+interface Props {
+	scaleRatio?: number;
+}
 
-  const props = withDefaults(defineProps<Props>(), {
-    scaleRatio: 1,
-  });
+const props = withDefaults(defineProps<Props>(), {
+	scaleRatio: 1,
+});
 
-  // 响应式数据
-  const currentTime = ref('12:00');
+// 响应式数据
+const currentTime = ref("12:00");
 
-  // 更新时间的函数
-  const updateTime = () => {
-    const now = new Date();
-    const hours = now.getHours().toString().padStart(2, '0');
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    currentTime.value = `${hours}:${minutes}`;
-  };
+// 更新时间的函数
+const updateTime = () => {
+	const now = new Date();
+	const hours = now.getHours().toString().padStart(2, "0");
+	const minutes = now.getMinutes().toString().padStart(2, "0");
+	currentTime.value = `${hours}:${minutes}`;
+};
 
-  // 计算缩放后的字体大小
-  const scaledFontSize = computed(() => {
-    const baseFontSize = 14; // 基础字体大小
-    return `${baseFontSize * props.scaleRatio}px`;
-  });
+// 计算缩放后的字体大小
+const scaledFontSize = computed(() => {
+	const baseFontSize = 14; // 基础字体大小
+	return `${baseFontSize * props.scaleRatio}px`;
+});
 
-  // 计算缩放后的图标尺寸
-  const scaledIconSize = computed(() => {
-    const baseIconSize = 15; // 基础图标宽度
-    return `${baseIconSize * props.scaleRatio}px`;
-  });
+// 计算缩放后的图标尺寸
+const scaledIconSize = computed(() => {
+	const baseIconSize = 15; // 基础图标宽度
+	return `${baseIconSize * props.scaleRatio}px`;
+});
 
-  // 计算缩放后的图标高度
-  const scaledIconHeight = computed(() => {
-    const baseIconSize = 15; // 基础图标高度
-    return `${baseIconSize * props.scaleRatio}px`;
-  });
+// 计算缩放后的图标高度
+const scaledIconHeight = computed(() => {
+	const baseIconSize = 15; // 基础图标高度
+	return `${baseIconSize * props.scaleRatio}px`;
+});
 
-  // 设置定时器更新时间
-  let timeInterval: number;
-  onMounted(() => {
-    // 使用 requestAnimationFrame 确保在客户端渲染完成后再更新时间
-    // 这样可以避免 SSR hydration mismatch 问题
-    requestAnimationFrame(() => {
-      updateTime();
-      timeInterval = window.setInterval(updateTime, 60000); // 每分钟更新一次
-    });
-  });
+// 设置定时器更新时间
+let timeInterval: number;
+onMounted(() => {
+	// 使用 requestAnimationFrame 确保在客户端渲染完成后再更新时间
+	// 这样可以避免 SSR hydration mismatch 问题
+	requestAnimationFrame(() => {
+		updateTime();
+		timeInterval = window.setInterval(updateTime, 60000); // 每分钟更新一次
+	});
+});
 
-  onUnmounted(() => {
-    if (timeInterval) {
-      clearInterval(timeInterval);
-    }
-  });
+onUnmounted(() => {
+	if (timeInterval) {
+		clearInterval(timeInterval);
+	}
+});
 </script>
 
 <template>
