@@ -32,7 +32,7 @@ const subtitle =
 const avatar = getAvatarImage({ randomSeed: 'showcase-member' });
 ---
 
-<Container width="full" padding="2xl" background="base-200" margin="none">
+<Container width="full" padding="2xl" background="primary/10" margin="none">
     <Heading level={2} align="center" size="3xl" weight="bold" margin="lg">
         {title}
     </Heading>
@@ -64,24 +64,26 @@ const avatar = getAvatarImage({ randomSeed: 'showcase-member' });
             <MacWindow
                 title={lang === 'zh-cn' ? '卡片组件' : 'Card'}
                 background="base-200"
-                padding="lg">
-                <Card
-                    width="full"
-                    padding="lg"
-                    shadow="md"
-                    rounded="lg"
-                    background="base-100">
-                    <Heading level={4} size="lg" margin="sm">
-                        {lang === 'zh-cn' ? '精美卡片' : 'Beautiful Card'}
-                    </Heading>
-                    <p class="card-description">
-                        {
-                            lang === 'zh-cn'
-                                ? '卡片组件让内容组织更清晰'
-                                : 'Card component makes content organization clearer'
-                        }
-                    </p>
-                </Card>
+                padding="xl">
+                <Container flex="col" gap="md" padding="md">
+                    <Card
+                        width="full"
+                        padding="lg"
+                        shadow="md"
+                        rounded="lg"
+                        background="success/80">
+                        <Heading level={4} size="lg" margin="sm">
+                            {lang === 'zh-cn' ? '精美卡片' : 'Beautiful Card'}
+                        </Heading>
+                        <p class="card-description">
+                            {
+                                lang === 'zh-cn'
+                                    ? '卡片组件让内容组织更清晰'
+                                    : 'Card component makes content organization clearer'
+                            }
+                        </p>
+                    </Card>
+                </Container>
             </MacWindow>
 
             <!-- Alert 展示 -->
@@ -123,16 +125,18 @@ const avatar = getAvatarImage({ randomSeed: 'showcase-member' });
                 title={lang === 'zh-cn' ? '团队成员' : 'Team Member'}
                 background="base-200"
                 padding="lg">
-                <TeamMember
-                    name={lang === 'zh-cn' ? '李明' : 'Alex'}
-                    role={lang === 'zh-cn'
-                        ? '前端工程师'
-                        : 'Frontend Developer'}
-                    avatar={avatar}
-                    bio={lang === 'zh-cn'
-                        ? '专注于现代化 Web 开发'
-                        : 'Focused on modern web development'}
-                />
+                <Container padding="md" contentCentered>
+                    <TeamMember
+                        name={lang === 'zh-cn' ? '李明' : 'Alex'}
+                        role={lang === 'zh-cn'
+                            ? '前端工程师'
+                            : 'Frontend Developer'}
+                        avatar={avatar}
+                        bio={lang === 'zh-cn'
+                            ? '专注于现代化 Web 开发'
+                            : 'Focused on modern web development'}
+                    />
+                </Container>
             </MacWindow>
 
             <!-- Badge 展示 -->
