@@ -1,0 +1,215 @@
+---
+/**
+ * @component CustomFooter
+ * @description Apple 风格的现代化 Footer
+ */
+
+import { Container, Heading, Text } from '@coffic/cosy-ui';
+import Logo from '@/assets/logo.png';
+import { Image } from 'astro:assets';
+
+export interface Props {
+    lang: string;
+}
+
+const { lang } = Astro.props;
+
+const footerSections =
+    lang === 'zh-cn'
+        ? [
+              {
+                  title: '产品',
+                  links: [
+                      { label: '组件', href: `/${lang}/manuals/components` },
+                      { label: '文档', href: `/${lang}/manuals/guide` },
+                      { label: '示例', href: `/${lang}/demos` },
+                  ],
+              },
+              {
+                  title: '资源',
+                  links: [
+                      {
+                          label: 'GitHub',
+                          href: 'https://github.com/cosyzone/cosy-ui',
+                      },
+                      {
+                          label: 'npm',
+                          href: 'https://www.npmjs.com/package/@coffic/cosy-ui',
+                      },
+                      {
+                          label: '更新日志',
+                          href: 'https://github.com/cosyzone/cosy-ui/releases',
+                      },
+                  ],
+              },
+              {
+                  title: '关于',
+                  links: [
+                      { label: 'Coffic Lab', href: 'https://coffic.cn' },
+                      { label: '快易知', href: 'https://kuaiyizhi.cn' },
+                      {
+                          label: '联系我们',
+                          href: 'https://coffic.cn/en/meta/contact',
+                      },
+                  ],
+              },
+          ]
+        : [
+              {
+                  title: 'Product',
+                  links: [
+                      { label: 'Components', href: `/${lang}/manuals` },
+                      { label: 'Documentation', href: `/${lang}/manuals` },
+                      { label: 'Examples', href: `/${lang}/manuals` },
+                  ],
+              },
+              {
+                  title: 'Resources',
+                  links: [
+                      {
+                          label: 'GitHub',
+                          href: 'https://github.com/cosyzone/cosy-ui',
+                      },
+                      {
+                          label: 'npm',
+                          href: 'https://www.npmjs.com/package/@coffic/cosy-ui',
+                      },
+                      {
+                          label: 'Changelog',
+                          href: 'https://github.com/cosyzone/cosy-ui/releases',
+                      },
+                  ],
+              },
+              {
+                  title: 'About',
+                  links: [
+                      { label: 'Coffic Lab', href: 'https://coffic.cn' },
+                      { label: 'Kuaiyizhi', href: 'https://kuaiyizhi.cn' },
+                      {
+                          label: 'Contact',
+                          href: 'https://coffic.cn/en/meta/contact',
+                      },
+                  ],
+              },
+          ];
+---
+
+<footer class="cosy:bg-base-200 cosy:border-t cosy:border-base-300">
+    <Container width="2xl" padding="3xl" margin="none">
+        <!-- Main Footer Content -->
+        <div
+            class="cosy:grid cosy:grid-cols-1 cosy:md:grid-cols-2 cosy:lg:grid-cols-4 cosy:gap-12 cosy:mb-12">
+            <!-- Brand Section -->
+            <div class="cosy:col-span-1">
+                <a
+                    href={`/${lang}`}
+                    class="cosy:flex cosy:items-center cosy:gap-2 cosy:mb-4">
+                    <Image
+                        src={Logo}
+                        alt="Cosy UI Logo"
+                        width={40}
+                        height={40}
+                        class="cosy:w-10 cosy:h-10"
+                    />
+                    <span class="cosy:text-xl cosy:font-bold cosy:text-primary"
+                        >Cosy UI</span
+                    >
+                </a>
+                <Text size="sm" color="muted" class="cosy:mb-4">
+                    {
+                        lang === 'zh-cn'
+                            ? '优雅、高效的 Astro 组件库'
+                            : 'A beautiful Astro component library'
+                    }
+                </Text>
+
+                <!-- Social Links -->
+                <div class="cosy:flex cosy:gap-4">
+                    <a
+                        href="https://github.com/cosyzone/cosy-ui"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="cosy:text-base-content/70 cosy:hover:text-primary cosy:transition-colors"
+                        aria-label="GitHub">
+                        <svg
+                            class="cosy:w-5 cosy:h-5"
+                            fill="currentColor"
+                            viewBox="0 0 24 24">
+                            <path
+                                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"
+                            ></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Footer Links -->
+            {
+                footerSections.map((section) => (
+                    <div>
+                        <Heading
+                            level={4}
+                            size="sm"
+                            weight="semibold"
+                            margin="sm"
+                            class="cosy:mb-4">
+                            {section.title}
+                        </Heading>
+                        <ul class="cosy:space-y-3">
+                            {section.links.map((link) => (
+                                <li>
+                                    <a
+                                        href={link.href}
+                                        class="cosy:text-sm cosy:text-base-content/70 cosy:hover:text-primary cosy:transition-colors"
+                                        target={
+                                            link.href.startsWith('http')
+                                                ? '_blank'
+                                                : undefined
+                                        }
+                                        rel={
+                                            link.href.startsWith('http')
+                                                ? 'noopener noreferrer'
+                                                : undefined
+                                        }>
+                                        {link.label}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))
+            }
+        </div>
+
+        <!-- Bottom Bar -->
+        <div
+            class="cosy:pt-8 cosy:border-t cosy:border-base-300 cosy:flex cosy:flex-col cosy:md:flex-row cosy:justify-between cosy:items-center cosy:gap-4">
+            <Text size="sm" color="muted">
+                © {new Date().getFullYear()} CofficLab.
+                {lang === 'zh-cn' ? '保留所有权利' : 'All rights reserved'}.
+            </Text>
+
+            <div class="cosy:flex cosy:gap-6">
+                <a
+                    href="https://coffic.cn/en/meta/privacy"
+                    class="cosy:text-sm cosy:text-base-content/70 cosy:hover:text-primary cosy:transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    {lang === 'zh-cn' ? '隐私政策' : 'Privacy'}
+                </a>
+                <a
+                    href="https://coffic.cn/en/meta/terms"
+                    class="cosy:text-sm cosy:text-base-content/70 cosy:hover:text-primary cosy:transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    {lang === 'zh-cn' ? '使用条款' : 'Terms'}
+                </a>
+                <a
+                    href={lang === 'zh-cn' ? '/en' : '/zh-cn'}
+                    class="cosy:text-sm cosy:text-base-content/70 cosy:hover:text-primary cosy:transition-colors">
+                    {lang === 'zh-cn' ? 'English' : '中文'}
+                </a>
+            </div>
+        </div>
+    </Container>
+</footer>

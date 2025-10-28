@@ -1,0 +1,290 @@
+/* 渐变发光背景：使用 CSS 变量控制颜色/透明度，::before 和 ::after 作为覆盖层 */
+
+/* 变量（亮色默认） */
+:root {
+	/* gradient-glow */
+	--cosy-glow-primary-rgb: 99, 102, 241; /* 紫蓝色 */
+	--cosy-glow-secondary-rgb: 168, 85, 247; /* 紫色 */
+	--cosy-glow-accent-rgb: 244, 114, 182; /* 粉色 */
+	--cosy-glow-cyan-rgb: 6, 182, 212; /* 青色 */
+	--cosy-glow-emerald-rgb: 16, 185, 129; /* 翠绿色 */
+	--cosy-glow-orange-rgb: 251, 146, 60; /* 橙色 */
+	--cosy-glow-alpha: 0.15;
+	--cosy-glow-alpha-light: 0.08;
+	--cosy-glow-alpha-medium: 0.1;
+	--cosy-glow-alpha-strong: 0.2;
+}
+
+.cosy\:bg-gradient-glow {
+	position: relative !important;
+	isolation: isolate !important;
+	overflow: hidden !important;
+}
+
+/* 主渐变背景层 */
+.cosy\:bg-gradient-glow::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -11;
+	pointer-events: none;
+	background:
+		radial-gradient(
+			circle at 20% 80%,
+			rgba(var(--cosy-glow-primary-rgb), var(--cosy-glow-alpha-strong)) 0%,
+			transparent 50%
+		),
+		radial-gradient(
+			circle at 80% 20%,
+			rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha)) 0%,
+			transparent 50%
+		),
+		radial-gradient(
+			circle at 40% 40%,
+			rgba(var(--cosy-glow-accent-rgb), var(--cosy-glow-alpha-medium)) 0%,
+			transparent 50%
+		),
+		linear-gradient(
+			135deg,
+			rgba(var(--cosy-glow-primary-rgb), var(--cosy-glow-alpha-light)),
+			rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha-medium)) 25%,
+			rgba(var(--cosy-glow-cyan-rgb), var(--cosy-glow-alpha-light)) 50%,
+			rgba(var(--cosy-glow-emerald-rgb), var(--cosy-glow-alpha-medium)) 75%,
+			rgba(var(--cosy-glow-orange-rgb), var(--cosy-glow-alpha-light))
+		);
+	animation: gradientShift 120s ease-in-out infinite;
+}
+
+/* 渐变动画 - 极其平滑的色彩流动，几乎察觉不到变化 */
+@keyframes gradientShift {
+	0%,
+	100% {
+		background:
+			radial-gradient(
+				circle at 20% 80%,
+				rgba(var(--cosy-glow-primary-rgb), var(--cosy-glow-alpha-strong)) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 80% 20%,
+				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha)) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 40% 40%,
+				rgba(var(--cosy-glow-accent-rgb), var(--cosy-glow-alpha-medium)) 0%,
+				transparent 50%
+			),
+			linear-gradient(
+				135deg,
+				rgba(var(--cosy-glow-primary-rgb), var(--cosy-glow-alpha-light)),
+				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha-medium)) 25%,
+				rgba(var(--cosy-glow-cyan-rgb), var(--cosy-glow-alpha-light)) 50%,
+				rgba(var(--cosy-glow-emerald-rgb), var(--cosy-glow-alpha-medium)) 75%,
+				rgba(var(--cosy-glow-orange-rgb), var(--cosy-glow-alpha-light))
+			);
+	}
+	12.5% {
+		background:
+			radial-gradient(
+				circle at 22% 78%,
+				rgba(var(--cosy-glow-primary-rgb), var(--cosy-glow-alpha-strong)) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 78% 22%,
+				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha)) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 42% 42%,
+				rgba(var(--cosy-glow-accent-rgb), var(--cosy-glow-alpha-medium)) 0%,
+				transparent 50%
+			),
+			linear-gradient(
+				138deg,
+				rgba(var(--cosy-glow-primary-rgb), var(--cosy-glow-alpha-light)),
+				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha-medium)) 25%,
+				rgba(var(--cosy-glow-cyan-rgb), var(--cosy-glow-alpha-light)) 50%,
+				rgba(var(--cosy-glow-emerald-rgb), var(--cosy-glow-alpha-medium)) 75%,
+				rgba(var(--cosy-glow-orange-rgb), var(--cosy-glow-alpha-light))
+			);
+	}
+	25% {
+		background:
+			radial-gradient(
+				circle at 24% 76%,
+				rgba(var(--cosy-glow-primary-rgb), var(--cosy-glow-alpha-strong)) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 76% 24%,
+				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha)) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 44% 44%,
+				rgba(var(--cosy-glow-accent-rgb), var(--cosy-glow-alpha-medium)) 0%,
+				transparent 50%
+			),
+			linear-gradient(
+				141deg,
+				rgba(var(--cosy-glow-primary-rgb), var(--cosy-glow-alpha-light)),
+				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha-medium)) 25%,
+				rgba(var(--cosy-glow-cyan-rgb), var(--cosy-glow-alpha-light)) 50%,
+				rgba(var(--cosy-glow-emerald-rgb), var(--cosy-glow-alpha-medium)) 75%,
+				rgba(var(--cosy-glow-orange-rgb), var(--cosy-glow-alpha-light))
+			);
+	}
+	37.5% {
+		background:
+			radial-gradient(
+				circle at 26% 74%,
+				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha-strong)) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 74% 26%,
+				rgba(var(--cosy-glow-accent-rgb), var(--cosy-glow-alpha)) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 46% 46%,
+				rgba(var(--cosy-glow-cyan-rgb), var(--cosy-glow-alpha-medium)) 0%,
+				transparent 50%
+			),
+			linear-gradient(
+				144deg,
+				rgba(var(--cosy-glow-cyan-rgb), var(--cosy-glow-alpha-light)),
+				rgba(var(--cosy-glow-emerald-rgb), var(--cosy-glow-alpha-medium)) 25%,
+				rgba(var(--cosy-glow-primary-rgb), var(--cosy-glow-alpha-light)) 50%,
+				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha-medium)) 75%,
+				rgba(var(--cosy-glow-accent-rgb), var(--cosy-glow-alpha-light))
+			);
+	}
+	50% {
+		background:
+			radial-gradient(
+				circle at 28% 72%,
+				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha-strong)) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 72% 28%,
+				rgba(var(--cosy-glow-accent-rgb), var(--cosy-glow-alpha)) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 48% 48%,
+				rgba(var(--cosy-glow-cyan-rgb), var(--cosy-glow-alpha-medium)) 0%,
+				transparent 50%
+			),
+			linear-gradient(
+				147deg,
+				rgba(var(--cosy-glow-cyan-rgb), var(--cosy-glow-alpha-light)),
+				rgba(var(--cosy-glow-emerald-rgb), var(--cosy-glow-alpha-medium)) 25%,
+				rgba(var(--cosy-glow-primary-rgb), var(--cosy-glow-alpha-light)) 50%,
+				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha-medium)) 75%,
+				rgba(var(--cosy-glow-accent-rgb), var(--cosy-glow-alpha-light))
+			);
+	}
+	62.5% {
+		background:
+			radial-gradient(
+				circle at 26% 74%,
+				rgba(var(--cosy-glow-accent-rgb), var(--cosy-glow-alpha-strong)) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 74% 26%,
+				rgba(var(--cosy-glow-emerald-rgb), var(--cosy-glow-alpha)) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 46% 50%,
+				rgba(var(--cosy-glow-primary-rgb), var(--cosy-glow-alpha-medium)) 0%,
+				transparent 50%
+			),
+			linear-gradient(
+				144deg,
+				rgba(var(--cosy-glow-emerald-rgb), var(--cosy-glow-alpha-light)),
+				rgba(var(--cosy-glow-orange-rgb), var(--cosy-glow-alpha-medium)) 25%,
+				rgba(var(--cosy-glow-cyan-rgb), var(--cosy-glow-alpha-light)) 50%,
+				rgba(var(--cosy-glow-primary-rgb), var(--cosy-glow-alpha-medium)) 75%,
+				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha-light))
+			);
+	}
+	75% {
+		background:
+			radial-gradient(
+				circle at 24% 76%,
+				rgba(var(--cosy-glow-accent-rgb), var(--cosy-glow-alpha-strong)) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 76% 24%,
+				rgba(var(--cosy-glow-emerald-rgb), var(--cosy-glow-alpha)) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 44% 48%,
+				rgba(var(--cosy-glow-primary-rgb), var(--cosy-glow-alpha-medium)) 0%,
+				transparent 50%
+			),
+			linear-gradient(
+				141deg,
+				rgba(var(--cosy-glow-emerald-rgb), var(--cosy-glow-alpha-light)),
+				rgba(var(--cosy-glow-orange-rgb), var(--cosy-glow-alpha-medium)) 25%,
+				rgba(var(--cosy-glow-cyan-rgb), var(--cosy-glow-alpha-light)) 50%,
+				rgba(var(--cosy-glow-primary-rgb), var(--cosy-glow-alpha-medium)) 75%,
+				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha-light))
+			);
+	}
+	87.5% {
+		background:
+			radial-gradient(
+				circle at 22% 78%,
+				rgba(var(--cosy-glow-primary-rgb), var(--cosy-glow-alpha-strong)) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 78% 22%,
+				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha)) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 42% 44%,
+				rgba(var(--cosy-glow-accent-rgb), var(--cosy-glow-alpha-medium)) 0%,
+				transparent 50%
+			),
+			linear-gradient(
+				138deg,
+				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha-light)),
+				rgba(var(--cosy-glow-accent-rgb), var(--cosy-glow-alpha-medium)) 25%,
+				rgba(var(--cosy-glow-emerald-rgb), var(--cosy-glow-alpha-light)) 50%,
+				rgba(var(--cosy-glow-orange-rgb), var(--cosy-glow-alpha-medium)) 75%,
+				rgba(var(--cosy-glow-cyan-rgb), var(--cosy-glow-alpha-light))
+			);
+	}
+}
+
+/* 网格图案层 */
+.cosy\:bg-gradient-glow::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -5;
+	pointer-events: none;
+	background-image:
+		linear-gradient(rgba(99, 102, 241, 0.08) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(99, 102, 241, 0.08) 1px, transparent 1px);
+	background-size: 40px 40px;
+}
+
+/* 暗色模式调整 */
+[data-theme="dark"] .cosy\:bg-gradient-glow::after {
+	/* 网格图案在暗色模式下使用白色 */
+	background-image:
+		linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}

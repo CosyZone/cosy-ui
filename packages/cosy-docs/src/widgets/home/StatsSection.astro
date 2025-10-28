@@ -1,0 +1,70 @@
+---
+/**
+ * @component StatsSection
+ * @description 数据统计展示
+ */
+
+import { Container, Heading, StatsDisplay } from '@coffic/cosy-ui';
+
+export interface Props {
+    lang: string;
+}
+
+const { lang } = Astro.props;
+
+const title = lang === 'zh-cn' ? '数字说话' : 'Numbers Speak';
+
+const subtitle =
+    lang === 'zh-cn'
+        ? '强大的组件库，助力你的项目成功'
+        : 'Powerful component library to help your project succeed';
+
+const stats = [
+    {
+        value: '60+',
+        label: lang === 'zh-cn' ? '组件' : 'Components',
+    },
+    {
+        value: 'MIT',
+        label: lang === 'zh-cn' ? '开源协议' : 'Open Source',
+    },
+    {
+        value: '100%',
+        label: 'TypeScript',
+    },
+    {
+        value: '2025',
+        label: lang === 'zh-cn' ? '最新版本' : 'Latest',
+    },
+];
+---
+
+<Container width="full" padding="2xl" background="primary/10" margin="none">
+    <Heading level={2} align="center" size="3xl" weight="bold" margin="lg">
+        {title}
+    </Heading>
+    <Heading
+        level={3}
+        align="center"
+        size="lg"
+        weight="normal"
+        color="muted"
+        margin="xl">
+        {subtitle}
+    </Heading>
+
+    <Container width="2xl" margin="xl">
+        <StatsDisplay
+            stats={stats}
+            compact={false}
+            columns={4}
+            valueSize="3xl"
+            valueColor="#4338ca"
+            labelColor="#6b7280"
+            valueWeight="bold"
+            labelWeight="normal"
+            gap="xl"
+            align="center"
+        />
+    </Container>
+</Container>

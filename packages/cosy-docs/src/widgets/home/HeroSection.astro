@@ -1,0 +1,364 @@
+---
+/**
+ * @component HeroSection
+ * @description 首页震撼开场区域 - Apple 磁贴风格设计
+ */
+
+import {
+    Container,
+    Button,
+    Heading,
+    Card,
+    Alert,
+    Badge,
+    Avatar,
+} from '@coffic/cosy-ui';
+
+export interface Props {
+    lang: string;
+}
+
+const { lang } = Astro.props;
+
+// 多语言文本
+const title =
+    lang === 'zh-cn'
+        ? '构建美丽界面。快速高效。'
+        : 'Build Beautiful. Build Fast.';
+
+const description =
+    lang === 'zh-cn'
+        ? '基于 Astro 的现代化组件库，为你的项目提供 60+ 精美组件，开箱即用，性能卓越'
+        : 'Modern component library built on Astro. 60+ beautiful components, ready to use, exceptional performance';
+
+const ctaStart = lang === 'zh-cn' ? '快速开始' : 'Get Started';
+const ctaComponents = lang === 'zh-cn' ? '查看组件' : 'View Components';
+---
+
+<!-- Hero 区域 -->
+<Container width="full" padding="none" margin="none" class="hero-container">
+    <!-- 上方：文字内容 -->
+    <Container width="2xl" padding="2xl" margin="none" class="hero-content">
+        <div class="text-content">
+            <!-- 标题 -->
+            <div class="title-section">
+                <Heading
+                    level={1}
+                    size="5xl"
+                    weight="bold"
+                    class="gradient-title">
+                    {title}
+                </Heading>
+                <Heading
+                    level={2}
+                    size="xl"
+                    weight="normal"
+                    color="muted"
+                    margin="none"
+                    class="description">
+                    {description}
+                </Heading>
+            </div>
+
+            <!-- CTA 按钮 -->
+            <div class="cta-buttons">
+                <Button
+                    as="a"
+                    href={`/${lang}/manuals/guide`}
+                    variant="primary"
+                    size="lg"
+                    rounded="lg">
+                    {ctaStart}
+                </Button>
+                <Button
+                    as="a"
+                    href={`/${lang}/manuals/components`}
+                    variant="accent"
+                    size="lg"
+                    rounded="lg">
+                    {ctaComponents}
+                </Button>
+            </div>
+        </div>
+    </Container>
+
+    <!-- 下方：Bento Grid 组件展示 -->
+    <Container width="full" padding="xl" margin="none">
+        <div class="bento-grid">
+            <!-- 卡片示例 - 大块 -->
+            <div class="bento-item bento-large">
+                <Card
+                    padding="lg"
+                    shadow="lg"
+                    rounded="xl"
+                    background="base-100"
+                    class="card-full tile-hover">
+                    <Heading level={3} size="lg" margin="sm">
+                        {lang === 'zh-cn' ? '精美卡片' : 'Beautiful Cards'}
+                    </Heading>
+                    <Heading level={4} size="sm" color="muted" margin="none">
+                        {
+                            lang === 'zh-cn'
+                                ? '多种样式，灵活配置'
+                                : 'Multiple styles, flexible configuration'
+                        }
+                    </Heading>
+                </Card>
+            </div>
+
+            <!-- 按钮示例 - 中等大小，紫蓝色背景 -->
+            <div class="bento-item bento-medium card-primary">
+                <Card
+                    padding="lg"
+                    shadow="lg"
+                    rounded="xl"
+                    background="transparent"
+                    class="card-full">
+                    <Heading level={3} size="lg" margin="sm" class="text-white">
+                        {lang === 'zh-cn' ? '强大按钮' : 'Powerful Buttons'}
+                    </Heading>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <Button variant="error" size="sm" rounded="md">
+                            {lang === 'zh-cn' ? '点击' : 'Click'}
+                        </Button>
+                        <Button variant="info" size="sm" rounded="md">
+                            {lang === 'zh-cn' ? '操作' : 'Action'}
+                        </Button>
+                    </div>
+                </Card>
+            </div>
+
+            <!-- Alert 示例 - 小块 -->
+            <div class="bento-item bento-small">
+                <Alert
+                    variant="success"
+                    closable={false}
+                    rounded="lg"
+                    class="tile-hover">
+                    {lang === 'zh-cn' ? '操作成功！' : 'Success!'}
+                </Alert>
+            </div>
+
+            <!-- Badge 示例 - 小块，青绿色背景 -->
+            <div class="bento-item bento-small card-accent">
+                <Card
+                    padding="lg"
+                    shadow="lg"
+                    rounded="xl"
+                    background="transparent"
+                    class="card-full">
+                    <Badge variant="accent" size="sm">
+                        {lang === 'zh-cn' ? '新功能' : 'New'}
+                    </Badge>
+                    <Heading
+                        level={4}
+                        size="sm"
+                        margin="none"
+                        class="text-white">
+                        {lang === 'zh-cn' ? '徽章组件' : 'Badge Component'}
+                    </Heading>
+                </Card>
+            </div>
+
+            <!-- Avatar 示例 - 小块，粉红色背景 -->
+            <div class="bento-item bento-small card-secondary">
+                <Card
+                    padding="lg"
+                    shadow="lg"
+                    rounded="xl"
+                    background="transparent"
+                    class="card-full">
+                    <Avatar userName="User" size="lg" />
+                    <Heading
+                        level={4}
+                        size="sm"
+                        margin="none"
+                        class="text-white">
+                        {lang === 'zh-cn' ? '头像组件' : 'Avatar'}
+                    </Heading>
+                </Card>
+            </div>
+
+            <!-- 数字展示 - 小块，紫色背景 -->
+            <div class="bento-item bento-small card-info">
+                <Card
+                    padding="lg"
+                    shadow="lg"
+                    rounded="xl"
+                    background="transparent"
+                    class="card-full">
+                    <Heading
+                        level={4}
+                        size="3xl"
+                        margin="none"
+                        class="text-white">
+                        60+
+                    </Heading>
+                </Card>
+            </div>
+
+            <!-- 主题展示 - 中等大小，天蓝色背景 -->
+            <div class="bento-item bento-medium card-info-alt">
+                <Card
+                    padding="lg"
+                    shadow="lg"
+                    rounded="xl"
+                    background="transparent"
+                    class="card-full">
+                    <Heading
+                        level={4}
+                        size="sm"
+                        margin="none"
+                        class="text-white">
+                        {lang === 'zh-cn' ? '多主题' : 'Multi-theme'}
+                    </Heading>
+                </Card>
+            </div>
+        </div>
+    </Container>
+</Container>
+<style>
+    /* Hero 容器 */
+    .hero-container {
+        min-height: 100vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 内容区域 */
+    .hero-content {
+        flex-shrink: 0;
+        padding-top: 6rem;
+        padding-bottom: 3rem;
+    }
+
+    .text-content {
+        text-align: center;
+        max-width: 56rem;
+        margin: 0 auto;
+    }
+
+    .title-section {
+        margin-bottom: 2rem;
+    }
+
+    .gradient-title {
+        margin-bottom: 1rem;
+        line-height: 1.2;
+        background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .description {
+        font-size: 1.25rem;
+        line-height: 1.75;
+        opacity: 0.9;
+    }
+
+    /* CTA 按钮 */
+    .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+    }
+
+    /* Bento Grid 布局 */
+    .bento-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        max-width: 80rem;
+        margin: 0 auto;
+        grid-auto-flow: dense;
+    }
+
+    /* Bento 项目尺寸 */
+    .bento-large {
+        grid-column: span 2;
+        grid-row: span 1;
+    }
+
+    .bento-medium {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+
+    .bento-small {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+
+    /* 响应式调整 */
+    @media (max-width: 768px) {
+        .bento-large,
+        .bento-medium,
+        .bento-small {
+            grid-column: span 1;
+        }
+
+        .hero-content {
+            padding-top: 4rem;
+        }
+    }
+
+    /* Tile 悬停效果 */
+    .tile-hover {
+        transition: all 0.3s ease;
+    }
+
+    .tile-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    /* 卡片样式 - 占满整个网格项 */
+    .card-full {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 180px;
+    }
+
+    /* 彩色背景卡片 */
+    .card-primary {
+        background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+        border-radius: 1rem;
+        overflow: hidden;
+    }
+
+    .card-accent {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        border-radius: 1rem;
+        overflow: hidden;
+    }
+
+    .card-secondary {
+        background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+        border-radius: 1rem;
+        overflow: hidden;
+    }
+
+    .card-info {
+        background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
+        border-radius: 1rem;
+        overflow: hidden;
+    }
+
+    .card-info-alt {
+        background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+        border-radius: 1rem;
+        overflow: hidden;
+    }
+
+    .text-white {
+        color: white !important;
+    }
+</style>

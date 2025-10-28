@@ -195,6 +195,7 @@ export const gradientBackgroundClasses = {
 export const patternBackgroundClasses = {
 	"dot-grid": "cosy:bg-dot-grid",
 	stripes: "cosy:bg-stripes",
+	"gradient-glow": "cosy:bg-gradient-glow",
 } as const;
 
 // 合并所有背景色类名

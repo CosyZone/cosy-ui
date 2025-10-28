@@ -4,6 +4,7 @@ import type { IMainContentProps } from "../main/types";
 import type { IMetaProps } from "../../src/common/meta";
 import type { ISidebarProps } from "../../src/common/sidebar";
 import type { ThemeId } from "../../src/common/themes";
+import type { BackgroundColor } from "../../src/common/backgrounds";
 
 export interface IAppLayoutProps {
 	/**
@@ -15,6 +16,13 @@ export interface IAppLayoutProps {
 	 * 页面类名
 	 */
 	class?: string;
+
+	/**
+	 * 背景类型，支持 Container 组件的所有背景选项
+	 * 如：base-100、primary、secondary、accent、gradient-glow 等
+	 * @default undefined
+	 */
+	background?: BackgroundColor;
 
 	/**
 	 * 是否只渲染 body 部分，用于文档展示等场景

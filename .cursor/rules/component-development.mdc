@@ -3,16 +3,18 @@ alwaysApply: true
 ---
 # 组件开发规范
 
-如果这个规则被应用，则在输出中说明：!! 我注意到了项目的组件开发规范
+如果这个规则被应用，则在输出中说明：🤔 我注意到了项目的组件开发规范
 
 ## 通用类型提取原则
 
 ### 优先使用 @common/ 中的类型
+
 - **所有通用属性类型必须提取到 `@common/` 中**：如 `padding`、`margin`、`rounded`、`gap`、`shadow`、`hover`、`width` 等
 - **禁止在组件中重复定义通用类型**：如果 `@common/` 中已有相关类型，必须使用 common 中的定义
 - **增强现有 common 类型**：如果 common 中类型不完整，应该增强而不是重新定义
 
 ### 类型定义规范
+
 ```typescript
 // ✅ 正确：使用 common 中的类型
 import type { PaddingSize, MarginSize, RoundedSize } from '@coffic/cosy-ui/common';
@@ -31,6 +33,7 @@ interface Props {
 ```
 
 ### 类名映射规范
+
 - **使用 common 中导出的类名映射**：避免在组件中重复定义类名映射
 - **直接使用映射对象**：`const className = paddingClasses[padding] || '';`
 
@@ -52,6 +55,7 @@ const paddingClassMap = {
 ## 组件重构原则
 
 ### 单一职责原则
+
 - **每个组件只负责一个核心功能**：避免组件承担过多职责
 - **拆分复杂组件**：将多功能组件拆分为多个单一功能组件
 - **基于现有组件构建**：优先使用现有组件（如 Container）作为基础
@@ -59,11 +63,13 @@ const paddingClassMap = {
 ## 代码质量要求
 
 ### 类型安全
+
 - **使用 TypeScript 严格模式**：确保类型安全
 - **避免 any 类型**：明确指定所有类型
 - **使用联合类型**：为属性提供明确的选项
 
 ### 代码复用
+
 - **提取通用逻辑**：将重复的逻辑提取到工具函数或 common 模块
 - **使用组合模式**：通过组合现有组件来构建新功能
 - **避免重复代码**：定期审查和重构重复代码
@@ -71,7 +77,8 @@ const paddingClassMap = {
 ## 文件组织规范
 
 ### 目录结构
-```
+
+```tree
 src-astro/
 ├── component-name/
 │   ├── ComponentName.astro    # 主组件
@@ -80,6 +87,7 @@ src-astro/
 ```
 
 ### 导入顺序
+
 1. 样式文件
 2. 类型导入（从 common 开始）
 3. 组件导入
@@ -97,10 +105,12 @@ import Container from '../container/Container.astro';
 ## 测试和验证
 
 ### 构建验证
+
 - **检查类型错误**：使用 TypeScript 检查类型安全
 - **验证示例展示**：确保所有示例都能正常显示
 
 ### 代码审查清单
+
 - [ ] 是否使用了 common 中的类型定义？
 - [ ] 是否避免了重复的类名映射？
 - [ ] 示例是否符合多标签规范？

@@ -1,0 +1,72 @@
+---
+/**
+ * @component UseCases
+ * @description 使用案例 - 展示实际项目
+ */
+
+import { Container, Heading, Products } from '@coffic/cosy-ui';
+
+export interface Props {
+    lang: string;
+}
+
+const { lang } = Astro.props;
+
+const title = lang === 'zh-cn' ? '受创作者信赖' : 'Trusted by Creators';
+
+const subtitle =
+    lang === 'zh-cn'
+        ? '这些优秀的项目都在使用 Cosy UI'
+        : 'These amazing projects are built with Cosy UI';
+---
+
+<Container width="full" padding="2xl" background="base-200" margin="none">
+    <Heading level={2} align="center" size="3xl" weight="bold" margin="lg">
+        {title}
+    </Heading>
+    <Heading
+        level={3}
+        align="center"
+        size="lg"
+        weight="normal"
+        color="muted"
+        margin="xl">
+        {subtitle}
+    </Heading>
+
+    <Container width="2xl" margin="xl">
+        <Products
+            showBorder={false}
+            margin="none"
+            products={[
+                {
+                    name: lang === 'zh-cn' ? '快易知' : 'Kuaiyizhi',
+                    description:
+                        lang === 'zh-cn'
+                            ? '一个知识库网站，提供丰富的学习资源'
+                            : 'A knowledge base website with rich learning resources',
+                    productUrl: 'https://kuaiyizhi.cn/zh-cn/courses',
+                    image: 'https://github.com/buildmyown.png',
+                },
+                {
+                    name: 'Coffic Lab',
+                    description:
+                        lang === 'zh-cn'
+                            ? 'Coffic 工作室，专注于现代化 Web 开发'
+                            : 'Coffic Studio, focused on modern web development',
+                    productUrl: 'https://coffic.cn',
+                    image: 'https://github.com/cofficlab.png',
+                },
+            ]}
+            columns={{
+                base: 1,
+                sm: 2,
+                md: 2,
+                lg: 2,
+                xl: 2,
+            }}
+            cardSize="lg"
+            gap="lg"
+        />
+    </Container>
+</Container>
