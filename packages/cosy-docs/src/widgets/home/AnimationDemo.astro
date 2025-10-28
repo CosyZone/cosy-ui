@@ -227,15 +227,22 @@ const productImage = getProductImage({
         cursor: pointer;
         border: none;
         background: transparent;
-        color: rgba(var(--bc) / 0.7);
+        color: rgba(var(--bc) / 0.6);
+        position: relative;
+    }
+
+    .interaction-tab:hover:not(.active) {
+        background-color: rgba(var(--bc) / 0.05);
+        color: rgba(var(--bc) / 0.8);
     }
 
     .interaction-tab.active {
-        background-color: rgba(var(--b1) / 1);
-        color: rgba(var(--bc) / 1);
+        background-color: rgb(var(--b1));
+        color: rgb(var(--bc));
+        font-weight: 600;
         box-shadow:
-            0 1px 3px 0 rgb(0 0 0 / 0.1),
-            0 1px 2px -1px rgb(0 0 0 / 0.1);
+            0 2px 8px 0 rgb(0 0 0 / 0.1),
+            0 1px 3px -1px rgb(0 0 0 / 0.1);
     }
 
     /* Tab 内容 */
