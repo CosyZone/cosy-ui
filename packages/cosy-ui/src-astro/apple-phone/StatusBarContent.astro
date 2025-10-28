@@ -23,10 +23,11 @@
  * @slots
  */
 
-import { IPhoneSignalIcon, IPhoneWifiIcon, IPhoneBatteryIcon } from "../icons";
+import { IPhoneSignalIcon, IPhoneWifiIcon, IPhoneBatteryIcon } from '../icons';
+import { cn } from '../../src/class';
 
 interface Props {
-	scaleRatio?: number;
+    scaleRatio?: number;
 }
 
 const { scaleRatio = 1 } = Astro.props as Props;
@@ -36,36 +37,58 @@ const scaledFontSize = `${14 * scaleRatio}px`;
 
 // 计算缩放后的图标尺寸
 const scaledIconSize = `${15 * scaleRatio}px`;
+
+// 使用 classBuilder 构建各个部分的类名
+const containerClass = cn()
+    .flex('row')
+    .items('center')
+    .h('full')
+    .justify('between')
+    .build();
+
+const timeTextClass = cn().weight('medium').add('time-text').build();
+
+const iconsContainerClass = cn()
+    .flex('row')
+    .items('center')
+    .gap(1)
+    .h('full')
+    .build();
+
+const iconWrapperClass = cn()
+    .flex('row')
+    .items('center')
+    .justify('center')
+    .build();
 ---
 
-<div class="cosy:flex cosy:items-center cosy:h-full cosy:justify-between">
+<div class={containerClass}>
     <!-- 左侧时间 -->
     <span
-        class="cosy:font-medium time-text"
+        class={timeTextClass}
         style={`font-size: ${scaledFontSize}; line-height: 1; transition: font-size 0.2s ease;`}>
         12:00
     </span>
 
     <!-- 右侧状态图标 -->
-    <div
-        class="cosy:flex cosy:flex-row cosy:items-center cosy:space-x-1 cosy:h-full">
+    <div class={iconsContainerClass}>
         <!-- 信号图标 -->
         <div
-            class="cosy:flex cosy:items-center cosy:justify-center"
+            class={iconWrapperClass}
             style={`width: ${scaledIconSize}; height: ${scaledIconSize}; min-width: 0; min-height: 0;`}>
             <IPhoneSignalIcon class="status-icon" />
         </div>
 
         <!-- WiFi图标 -->
         <div
-            class="cosy:flex cosy:items-center cosy:justify-center"
+            class={iconWrapperClass}
             style={`width: ${scaledIconSize}; height: ${scaledIconSize}; min-width: 0; min-height: 0;`}>
             <IPhoneWifiIcon class="status-icon" />
         </div>
 
         <!-- 电池图标 -->
         <div
-            class="cosy:flex cosy:items-center cosy:justify-center"
+            class={iconWrapperClass}
             style={`width: ${scaledIconSize}; height: ${scaledIconSize}; min-width: 0; min-height: 0;`}>
             <IPhoneBatteryIcon class="battery-icon" />
         </div>

@@ -47,31 +47,32 @@
  * @slot default - 主要内容区域
  */
 
-import "../../style";
-import { Container } from "../container";
-import { AlertDialog } from "../alert-dialog";
-import type { IApplePhonePropsBase } from "../../src/components/apple-phone/applePhonePropsBase";
-import StatusBarContent from "./StatusBarContent.astro";
-import PhoneFrame from "./PhoneFrame.astro";
+import '../../style';
+import { Container } from '../container';
+import { AlertDialog } from '../alert-dialog';
+import type { IApplePhonePropsBase } from '../../src/components/apple-phone/applePhonePropsBase';
+import StatusBarContent from './StatusBarContent.astro';
+import PhoneFrame from './PhoneFrame.astro';
+import { cn } from '../../src/class';
 import {
-	IPHONE_FRAME_WIDTH,
-	IPHONE_FRAME_HEIGHT,
-	MAIN_CONTENT_WIDTH_ASPECT_RATIO,
-	MAIN_CONTENT_HEIGHT_ASPECT_RATIO,
-	IPHONE_FRAME_STATUS_BAR_HEIGHT_ASPECT_RATIO,
-	IPHONE_FRAME_STATUS_BAR_TOP_ASPECT_RATIO,
-	HEIGHT_CLASSES,
-	HEIGHT_VALUES,
-	DEFAULT_HEIGHT,
-} from "../../src/components/apple-phone/constants";
+    IPHONE_FRAME_WIDTH,
+    IPHONE_FRAME_HEIGHT,
+    MAIN_CONTENT_WIDTH_ASPECT_RATIO,
+    MAIN_CONTENT_HEIGHT_ASPECT_RATIO,
+    IPHONE_FRAME_STATUS_BAR_HEIGHT_ASPECT_RATIO,
+    IPHONE_FRAME_STATUS_BAR_TOP_ASPECT_RATIO,
+    HEIGHT_CLASSES,
+    HEIGHT_VALUES,
+    DEFAULT_HEIGHT,
+} from '../../src/components/apple-phone/constants';
 
 // Props 定义 - 使用共享接口
 interface Props extends IApplePhonePropsBase {}
 
 const {
-	height = DEFAULT_HEIGHT,
-	showFrame = true,
-	backgroundColor = undefined,
+    height = DEFAULT_HEIGHT,
+    showFrame = true,
+    backgroundColor = undefined,
 } = Astro.props as Props;
 
 // 计算当前高度的缩放比例
@@ -82,11 +83,31 @@ const scaleRatio = currentHeight / 500;
 const uniqueId = `apple-phone-${Math.random().toString(36).substr(2, 9)}`;
 
 // 响应式数据
-let alertMessage = "";
+let alertMessage = '';
+
+// 使用 classBuilder 构建各个部分的类名
+const phoneContainerClass = cn()
+    .relative()
+    .add('not-prose', 'cosy:mx-auto', HEIGHT_CLASSES[height])
+    .build();
+
+const statusBarClass = cn().absolute().w('full').add('cosy:z-50').build();
+
+const contentAreaClass = cn()
+    .absolute()
+    .add('cosy:inset-0')
+    .h('full')
+    .flex('col')
+    .build();
+
+const containerClass = cn()
+    .h('full')
+    .add('cosy:overflow-y-auto', 'cosy:overscroll-y-contain')
+    .build();
 ---
 
 <div
-    class={`cosy:relative not-prose cosy:mx-auto ${HEIGHT_CLASSES[height]}`}
+    class={phoneContainerClass}
     style={`aspect-ratio: ${IPHONE_FRAME_WIDTH}/${IPHONE_FRAME_HEIGHT};`}
     apple-phone>
     <!-- iPhone 边框 -->
@@ -94,20 +115,21 @@ let alertMessage = "";
 
     <!-- 顶部状态栏 -->
     <div
-        style={`position: absolute; top: ${IPHONE_FRAME_STATUS_BAR_TOP_ASPECT_RATIO * 100}%; height: ${IPHONE_FRAME_STATUS_BAR_HEIGHT_ASPECT_RATIO * 100}%; width: ${MAIN_CONTENT_WIDTH_ASPECT_RATIO * 100}%; left: 50%; transform: translate(-50%, 0); padding-left: 5%; padding-right: 5%; z-index: 50;`}>
+        class={statusBarClass}
+        style={`top: ${IPHONE_FRAME_STATUS_BAR_TOP_ASPECT_RATIO * 100}%; height: ${IPHONE_FRAME_STATUS_BAR_HEIGHT_ASPECT_RATIO * 100}%; width: ${MAIN_CONTENT_WIDTH_ASPECT_RATIO * 100}%; left: 50%; transform: translate(-50%, 0); padding-left: 5%; padding-right: 5%;`}>
         <!-- StatusBarContent 组件 -->
         <StatusBarContent scaleRatio={scaleRatio} />
     </div>
 
     <!-- 内容区域 -->
     <div
-        class="cosy:inset-0 cosy:h-full cosy:flex cosy:flex-col"
-        style={`width: ${MAIN_CONTENT_WIDTH_ASPECT_RATIO * 100}%; height: ${MAIN_CONTENT_HEIGHT_ASPECT_RATIO * 100}%; left: 50%; top: 50%; transform: translate(-50%, -50%); position: absolute;`}>
+        class={contentAreaClass}
+        style={`width: ${MAIN_CONTENT_WIDTH_ASPECT_RATIO * 100}%; height: ${MAIN_CONTENT_HEIGHT_ASPECT_RATIO * 100}%; left: 50%; top: 50%; transform: translate(-50%, -50%);`}>
         <Container
             rounded="lg"
             height="full"
             padding="none"
-            class="cosy:h-full cosy:overflow-y-auto cosy:overscroll-y-contain"
+            class={containerClass}
             background={backgroundColor || 'accent/90'}>
             <slot />
         </Container>
