@@ -383,10 +383,11 @@ class ClassBuilder {
 
 	/**
 	 * 构建最终的类名字符串
-	 * @returns 类名字符串
+	 * @returns 类名字符串（自动去重）
 	 */
 	build(): string {
-		return this.classes.filter(Boolean).join(" ");
+		// 使用 Set 去重，同时保持第一次出现的顺序
+		return Array.from(new Set(this.classes.filter(Boolean))).join(" ");
 	}
 
 	/**
