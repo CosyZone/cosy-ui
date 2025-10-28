@@ -3,6 +3,8 @@ import TeamMemberWithSocialContainer from "./TeamMemberWithSocialContainer.astro
 import TeamMemberCustomStyleContainer from "./TeamMemberCustomStyleContainer.astro";
 import TeamMemberShadowDemoContainer from "./TeamMemberShadowDemoContainer.astro";
 import TeamMemberMutedContainer from "./TeamMemberMutedContainer.astro";
+import TeamMemberBackgroundContainer from "./TeamMemberBackgroundContainer.astro";
+import TeamMemberRoundedContainer from "./TeamMemberRoundedContainer.astro";
 
 export const ComponentPackage = {
 	ComponentContainers: {
@@ -11,5 +13,7 @@ export const ComponentPackage = {
 		CustomStyle: TeamMemberCustomStyleContainer,
 		ShadowDemo: TeamMemberShadowDemoContainer,
 		Muted: TeamMemberMutedContainer,
+		Background: TeamMemberBackgroundContainer,
+		Rounded: TeamMemberRoundedContainer,
 	},
 };

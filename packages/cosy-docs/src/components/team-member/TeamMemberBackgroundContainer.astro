@@ -1,0 +1,37 @@
+---
+/**
+ * @component TeamMemberBackgroundContainer
+ * @description TeamMember background 多标签演示容器，展示源码和效果。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import TeamMemberBgBase100 from './TeamMemberBgBase100.astro';
+import TeamMemberBgBase100Source from './TeamMemberBgBase100.astro?raw';
+import TeamMemberBgPrimary from './TeamMemberBgPrimary.astro';
+import TeamMemberBgPrimarySource from './TeamMemberBgPrimary.astro?raw';
+import TeamMemberBgSuccess from './TeamMemberBgSuccess.astro';
+import TeamMemberBgSuccessSource from './TeamMemberBgSuccess.astro?raw';
+import TeamMemberBgAccent from './TeamMemberBgAccent.astro';
+import TeamMemberBgAccentSource from './TeamMemberBgAccent.astro?raw';
+---
+
+<CodeContainer
+    codes={[
+        TeamMemberBgBase100Source,
+        TeamMemberBgPrimarySource,
+        TeamMemberBgSuccessSource,
+        TeamMemberBgAccentSource,
+    ]}
+    titles={['base-100', 'primary/10', 'success/10', 'accent/10']}>
+    <div id="tab-1" class="cosy:max-w-xs cosy:mx-auto">
+        <TeamMemberBgBase100 />
+    </div>
+    <div id="tab-2" class="cosy:max-w-xs cosy:mx-auto">
+        <TeamMemberBgPrimary />
+    </div>
+    <div id="tab-3" class="cosy:max-w-xs cosy:mx-auto">
+        <TeamMemberBgSuccess />
+    </div>
+    <div id="tab-4" class="cosy:max-w-xs cosy:mx-auto">
+        <TeamMemberBgAccent />
+    </div>
+</CodeContainer>
