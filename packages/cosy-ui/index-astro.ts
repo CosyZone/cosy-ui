@@ -74,8 +74,8 @@ export * from "./src-astro/toast";
 // 类型定义 (按字母顺序)
 export * from "./src-astro/types/api-test";
 export * from "./src-astro/types/article";
-export * from "./src-astro/footer/types";
-export * from "./src-astro/types/header";
+export * from "./src/components/footer/types";
+export * from "./src/components/header/types";
 export * from "./src-astro/types/heading";
 export * from "./src-astro/hero/hero";
 export * from "./src-astro/types/nav";
@@ -85,9 +85,6 @@ export * from "./src-astro/types/static-path";
 
 // 通用工具和配置 (按字母顺序)
 export * from "./src/common";
-
-// Props Builders（内部工具，仅供 CosyUI 开发者使用）
-export { alertProps } from "./src/builders";
 
 // 工具类型 (按字母顺序)
 export type { ImageProvider, ImageOptions } from "./src/utils/image";

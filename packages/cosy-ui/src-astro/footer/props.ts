@@ -1,5 +1,5 @@
-import type { IFooterProps } from "./types";
-import type { ImageSource } from "../image/image";
+import type { IFooterProps } from "../../src/components/footer/types";
+import type { ImageSource } from "../image";
 
 export interface IFooterPropsBuilder {
 	/** 设置站点名称。

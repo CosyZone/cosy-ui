@@ -7,4 +7,9 @@ import AppHeader from "./AppHeader.astro";
 
 export { AppLayout, AppHeader };
 export type { IAppLayoutAllProps } from "./AppLayout.astro";
-export { AppLayoutProps } from "./props";
+
+// Props Builder（内部工具）
+export {
+	AppLayoutPropsBuilder,
+	appLayoutProps,
+} from "../../src/components/layout-app/AppLayoutPropsBuilder";

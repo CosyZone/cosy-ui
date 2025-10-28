@@ -16,9 +16,9 @@ export interface FooterSectionProps {
 	}>;
 }
 
-import type { ImageSource } from "../image/image";
-import type { BackgroundColor } from "../../src/common/backgrounds";
-import type { IProduct } from "../types/product";
+import type { ImageSource } from "../../../src-astro/image/types";
+import type { BackgroundColor } from "../../common/backgrounds";
+import type { IProduct } from "../../../src-astro/types/product";
 
 export interface FooterBrandProps {
 	siteName: string;

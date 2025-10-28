@@ -1,6 +1,6 @@
-import type { BackgroundColor } from "../../src/common/backgrounds";
-import type { PaddingSize } from "../../src/common/padding";
-import type { BorderSize } from "../../src/common/border";
+import type { BackgroundColor } from "../../common/backgrounds";
+import type { PaddingSize } from "../../common/padding";
+import type { BorderSize } from "../../common/border";
 
 export interface IMainContentProps {
 	/**

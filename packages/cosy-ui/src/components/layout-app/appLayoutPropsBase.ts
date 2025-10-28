@@ -1,12 +1,15 @@
-import type { IFooterProps } from "../../src/components/footer/types";
-import type { IHeaderProps } from "../../src/components/header/types";
-import type { IMainContentProps } from "../../src/components/main/types";
-import type { IMetaProps } from "../../src/common/meta";
-import type { ISidebarProps } from "../../src/common/sidebar";
-import type { ThemeId } from "../../src/common/themes";
-import type { BackgroundColor } from "../../src/common/backgrounds";
+import type { IFooterProps } from "../footer/types";
+import type { IHeaderProps } from "../header/types";
+import type { IMainContentProps } from "../main/types";
+import type { IMetaProps } from "../../../src/common/meta";
+import type { ISidebarProps } from "../../../src/common/sidebar";
+import type { ThemeId } from "../../../src/common/themes";
+import type { BackgroundColor } from "../../../src/common/backgrounds";
 
-export interface IAppLayoutProps {
+/**
+ * AppLayout 组件的基础属性接口（与框架无关）
+ */
+export interface IAppLayoutPropsBase {
 	/**
 	 * 类名列表
 	 */
@@ -67,7 +70,7 @@ export interface IAppLayoutProps {
 	/**
 	 * 元数据配置
 	 */
-	metaConfig: IMetaProps;
+	metaConfig?: IMetaProps;
 
 	/**
 	 * 是否显示页脚
@@ -92,4 +95,10 @@ export interface IAppLayoutProps {
 	 * 当 showSidebar=false 时可以不提供
 	 */
 	sidebarConfig?: ISidebarProps;
+
+	/**
+	 * 是否启用 Astro ClientRouter
+	 * @default true
+	 */
+	enableClientRouter?: boolean;
 }
