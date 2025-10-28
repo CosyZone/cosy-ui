@@ -6,3 +6,6 @@ export {
 	AlertPropsBuilder,
 	alertProps,
 } from "../../src/components/alert/AlertPropsBuilder";
+
+// Alert Factory（链式调用）
+export { AlertFactory } from "./AlertFactory";
