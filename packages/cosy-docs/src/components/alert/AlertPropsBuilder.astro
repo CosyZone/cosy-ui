@@ -1,0 +1,11 @@
+---
+/**
+ * @component AlertPropsBuilder
+ * @description 使用 alertProps() 构建器的 Alert 组件示例
+ */
+import { Alert, alertProps } from '@coffic/cosy-ui';
+---
+
+<Alert {...alertProps().info().closable(true).build()}>
+    这是一条使用 Props Builder 构建的信息提示
+</Alert>

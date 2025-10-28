@@ -1,7 +1,7 @@
-import type { INavItem } from "./nav";
-import type { BackgroundColor, HeightSize, TextColor } from "../../src/common";
-import type { ShadowSize } from "../../src/common/shadow";
-import type { ImageSource } from "index-astro";
+import type { INavItem } from "../../../src-astro/types/nav";
+import type { BackgroundColor, HeightSize, TextColor } from "../../common";
+import type { ShadowSize } from "../../common/shadow";
+import type { ImageSource } from "../../../src-astro/image/types";
 
 export interface IHeaderProps {
 	/**

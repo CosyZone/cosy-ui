@@ -5,37 +5,37 @@
  * @internal 供 FooterNavigation 内部使用
  */
 
-import FooterSection from "./FooterSection.astro";
-import type { IAboutInfo } from "./types";
+import FooterSection from './FooterSection.astro';
+import type { IAboutInfo } from '../../src/components/footer/types';
 
 export interface Props {
-	/** 关于信息 */
-	aboutInfo?: IAboutInfo;
-	/** 文本获取函数 */
-	t: (key: string) => string;
+    /** 关于信息 */
+    aboutInfo?: IAboutInfo;
+    /** 文本获取函数 */
+    t: (key: string) => string;
 }
 
 const { aboutInfo, t } = Astro.props as Props;
 
 // 检查是否有任何关于相关的链接
 const hasAboutLinks =
-	aboutInfo &&
-	(aboutInfo.aboutLink ||
-		aboutInfo.contactLink ||
-		aboutInfo.teamLink ||
-		aboutInfo.careersLink);
+    aboutInfo &&
+    (aboutInfo.aboutLink ||
+        aboutInfo.contactLink ||
+        aboutInfo.teamLink ||
+        aboutInfo.careersLink);
 ---
 
 {
-  hasAboutLinks && (
-    <FooterSection
-      title={t('about')}
-      links={[
-        { name: t('aboutUs'), href: aboutInfo?.aboutLink ?? '' },
-        { name: t('team'), href: aboutInfo?.teamLink ?? '' },
-        { name: t('careers'), href: aboutInfo?.careersLink ?? '' },
-        { name: t('contactUs'), href: aboutInfo?.contactLink ?? '' },
-      ].filter((link) => link.href)}
-    />
-  )
+    hasAboutLinks && (
+        <FooterSection
+            title={t('about')}
+            links={[
+                { name: t('aboutUs'), href: aboutInfo?.aboutLink ?? '' },
+                { name: t('team'), href: aboutInfo?.teamLink ?? '' },
+                { name: t('careers'), href: aboutInfo?.careersLink ?? '' },
+                { name: t('contactUs'), href: aboutInfo?.contactLink ?? '' },
+            ].filter((link) => link.href)}
+        />
+    )
 }

@@ -5,31 +5,31 @@
  * @internal 供 FooterNavigation 内部使用
  */
 
-import FooterSection from "./FooterSection.astro";
-import type { ILegalInfo } from "./types";
+import FooterSection from './FooterSection.astro';
+import type { ILegalInfo } from '../../src/components/footer/types';
 
 export interface Props {
-	/** 法律信息 */
-	legalInfo?: ILegalInfo;
-	/** 文本获取函数 */
-	t: (key: string) => string;
+    /** 法律信息 */
+    legalInfo?: ILegalInfo;
+    /** 文本获取函数 */
+    t: (key: string) => string;
 }
 
 const { legalInfo, t } = Astro.props as Props;
 
 // 检查是否有任何法律相关的链接
 const hasLegalLinks =
-	legalInfo && (legalInfo.termsLink || legalInfo.privacyLink);
+    legalInfo && (legalInfo.termsLink || legalInfo.privacyLink);
 ---
 
 {
-  hasLegalLinks && (
-    <FooterSection
-      title={t('legal')}
-      links={[
-        { name: t('terms'), href: legalInfo?.termsLink ?? '' },
-        { name: t('privacy'), href: legalInfo?.privacyLink ?? '' },
-      ].filter((link) => link.href)}
-    />
-  )
+    hasLegalLinks && (
+        <FooterSection
+            title={t('legal')}
+            links={[
+                { name: t('terms'), href: legalInfo?.termsLink ?? '' },
+                { name: t('privacy'), href: legalInfo?.privacyLink ?? '' },
+            ].filter((link) => link.href)}
+        />
+    )
 }

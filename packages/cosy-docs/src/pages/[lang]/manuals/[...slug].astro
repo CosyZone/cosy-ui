@@ -5,8 +5,6 @@ import {
 	Badge,
 	Container,
 	Error404,
-	Grid,
-	Heading,
 	type ISidebarItem,
 	Link,
 	ListItem,
@@ -60,7 +58,7 @@ export const getStaticPaths = async () => {
         )}
 
         {tags.length > 0 && (
-          <Container gap="md" flex="row" width='full' background='info/20' justify='start' border margin="md" rounded='md'>
+          <Container gap="md" flex="row" width='full' background='info/20' justify='start' margin="md" rounded='md'>
             {tags.map(tag => (
             <Badge variant="primary" size="sm">{tag}</Badge>
             ))}

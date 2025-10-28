@@ -1,22 +1,22 @@
 ---
-import { CodeContainer } from "@coffic/cosy-ui";
-import Basic from "./Basic.astro";
-import BasicSourceCode from "./Basic.astro?raw";
-import BasicBuilder from "./BasicBuilder.astro";
-import BasicBuilderSourceCode from "./BasicBuilder.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import Basic from './Basic.astro';
+import BasicSourceCode from './Basic.astro?raw';
+import BasicBuilder from './BasicBuilder.astro';
+import BasicBuilderSourceCode from './BasicBuilder.astro?raw';
 ---
 
 <CodeContainer
-  titles={['基础用法', '修饰器写法']}
-  descriptions={[
-    '最基本的应用布局使用方式，包含侧边栏、头部、主内容区和页脚',
-    '使用 AppLayoutProps() 链式构建配置，渲染结果一致',
-  ]}
-  codes={[BasicSourceCode, BasicBuilderSourceCode]}>
-  <div id="tab-1">
-    <Basic />
-  </div>
-  <div id="tab-2">
-    <BasicBuilder />
-  </div>
+    titles={['基础用法', '修饰器写法']}
+    descriptions={[
+        '最基本的应用布局使用方式，包含侧边栏、头部、主内容区和页脚',
+        '使用 appLayoutProps() 链式构建配置，渲染结果一致',
+    ]}
+    codes={[BasicSourceCode, BasicBuilderSourceCode]}>
+    <div id="tab-1">
+        <Basic />
+    </div>
+    <div id="tab-2">
+        <BasicBuilder />
+    </div>
 </CodeContainer>

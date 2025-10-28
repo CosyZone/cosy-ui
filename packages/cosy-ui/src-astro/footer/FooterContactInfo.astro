@@ -6,139 +6,139 @@
  */
 
 import {
-	Link,
-	MapPinIcon,
-	PhoneIcon,
-	MailIcon,
-	CalendarIcon,
-	InfoIcon,
-	WechatIcon,
-	MessageIcon,
-} from "../../index-astro";
-import type { IContactInfo } from "./types";
+    Link,
+    MapPinIcon,
+    PhoneIcon,
+    MailIcon,
+    CalendarIcon,
+    InfoIcon,
+    WechatIcon,
+    MessageIcon,
+} from '../../index-astro';
+import type { IContactInfo } from '../../src/components/footer/types';
 
 export interface Props {
-	/** 联系方式信息 */
-	contactInfo?: IContactInfo;
-	/** 文本获取函数 */
-	t: (key: string) => string;
+    /** 联系方式信息 */
+    contactInfo?: IContactInfo;
+    /** 文本获取函数 */
+    t: (key: string) => string;
 }
 
 const { contactInfo, t } = Astro.props as Props;
 
 // 检查是否有任何联系方式信息
 const hasContactInfo =
-	contactInfo &&
-	(contactInfo.address ||
-		contactInfo.phone ||
-		contactInfo.email ||
-		contactInfo.workingHours ||
-		contactInfo.wechat ||
-		contactInfo.qq);
+    contactInfo &&
+    (contactInfo.address ||
+        contactInfo.phone ||
+        contactInfo.email ||
+        contactInfo.workingHours ||
+        contactInfo.wechat ||
+        contactInfo.qq);
 
 // 构建联系方式数据数组
 const contactItems: Array<{
-	name: string;
-	href: string;
-	icon: string;
+    name: string;
+    href: string;
+    icon: string;
 }> = [];
 
 if (contactInfo?.address) {
-	contactItems.push({
-		name: contactInfo.address,
-		href: "",
-		icon: "map-pin",
-	});
+    contactItems.push({
+        name: contactInfo.address,
+        href: '',
+        icon: 'map-pin',
+    });
 }
 
 if (contactInfo?.phone) {
-	contactItems.push({
-		name: contactInfo.phone,
-		href: `tel:${contactInfo.phone}`,
-		icon: "phone",
-	});
+    contactItems.push({
+        name: contactInfo.phone,
+        href: `tel:${contactInfo.phone}`,
+        icon: 'phone',
+    });
 }
 
 if (contactInfo?.email) {
-	contactItems.push({
-		name: contactInfo.email,
-		href: `mailto:${contactInfo.email}`,
-		icon: "mail",
-	});
+    contactItems.push({
+        name: contactInfo.email,
+        href: `mailto:${contactInfo.email}`,
+        icon: 'mail',
+    });
 }
 
 if (contactInfo?.workingHours) {
-	contactItems.push({
-		name: contactInfo.workingHours,
-		href: "",
-		icon: "calendar",
-	});
+    contactItems.push({
+        name: contactInfo.workingHours,
+        href: '',
+        icon: 'calendar',
+    });
 }
 
 if (contactInfo?.wechat) {
-	contactItems.push({
-		name: `微信: ${contactInfo.wechat}`,
-		href: "",
-		icon: "wechat",
-	});
+    contactItems.push({
+        name: `微信: ${contactInfo.wechat}`,
+        href: '',
+        icon: 'wechat',
+    });
 }
 
 if (contactInfo?.qq) {
-	contactItems.push({
-		name: `QQ: ${contactInfo.qq}`,
-		href: "",
-		icon: "qq",
-	});
+    contactItems.push({
+        name: `QQ: ${contactInfo.qq}`,
+        href: '',
+        icon: 'qq',
+    });
 }
 ---
 
 {
-  hasContactInfo && (
-    <nav class="cosy:flex cosy:flex-col cosy:gap-2">
-      <h6 class="cosy:footer-title">{t('contact')}</h6>
-      <ul class="cosy:flex cosy:flex-col cosy:gap-2">
-        {contactItems.map((item) => (
-          <li class="cosy:list-none">
-            <div class="cosy:flex cosy:items-center cosy:gap-2">
-              {item.icon === 'map-pin' && (
-                <MapPinIcon class="cosy:w-4 cosy:h-4 cosy:flex-shrink-0" />
-              )}
-              {item.icon === 'phone' && (
-                <PhoneIcon class="cosy:w-4 cosy:h-4 cosy:flex-shrink-0" />
-              )}
-              {item.icon === 'mail' && (
-                <MailIcon class="cosy:w-4 cosy:h-4 cosy:flex-shrink-0" />
-              )}
-              {item.icon === 'calendar' && (
-                <CalendarIcon class="cosy:w-4 cosy:h-4 cosy:flex-shrink-0" />
-              )}
-              {item.icon === 'wechat' && (
-                <WechatIcon class="cosy:w-4 cosy:h-4 cosy:flex-shrink-0" />
-              )}
-              {item.icon === 'qq' && (
-                <MessageIcon class="cosy:w-4 cosy:h-4 cosy:flex-shrink-0" />
-              )}
-              {item.icon === 'info' && (
-                <InfoIcon class="cosy:w-4 cosy:h-4 cosy:flex-shrink-0" />
-              )}
-              {item.href ? (
-                <Link
-                  href={item.href}
-                  size="sm"
-                  ghost
-                  btn
-                  color="primary"
-                  target="_self"
-                  variant="text">
-                  {item.name}
-                </Link>
-              ) : (
-                <span class="cosy:opacity-50">{item.name}</span>
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  )
+    hasContactInfo && (
+        <nav class="cosy:flex cosy:flex-col cosy:gap-2">
+            <h6 class="cosy:footer-title">{t('contact')}</h6>
+            <ul class="cosy:flex cosy:flex-col cosy:gap-2">
+                {contactItems.map((item) => (
+                    <li class="cosy:list-none">
+                        <div class="cosy:flex cosy:items-center cosy:gap-2">
+                            {item.icon === 'map-pin' && (
+                                <MapPinIcon class="cosy:w-4 cosy:h-4 cosy:flex-shrink-0" />
+                            )}
+                            {item.icon === 'phone' && (
+                                <PhoneIcon class="cosy:w-4 cosy:h-4 cosy:flex-shrink-0" />
+                            )}
+                            {item.icon === 'mail' && (
+                                <MailIcon class="cosy:w-4 cosy:h-4 cosy:flex-shrink-0" />
+                            )}
+                            {item.icon === 'calendar' && (
+                                <CalendarIcon class="cosy:w-4 cosy:h-4 cosy:flex-shrink-0" />
+                            )}
+                            {item.icon === 'wechat' && (
+                                <WechatIcon class="cosy:w-4 cosy:h-4 cosy:flex-shrink-0" />
+                            )}
+                            {item.icon === 'qq' && (
+                                <MessageIcon class="cosy:w-4 cosy:h-4 cosy:flex-shrink-0" />
+                            )}
+                            {item.icon === 'info' && (
+                                <InfoIcon class="cosy:w-4 cosy:h-4 cosy:flex-shrink-0" />
+                            )}
+                            {item.href ? (
+                                <Link
+                                    href={item.href}
+                                    size="sm"
+                                    ghost
+                                    btn
+                                    color="primary"
+                                    target="_self"
+                                    variant="text">
+                                    {item.name}
+                                </Link>
+                            ) : (
+                                <span class="cosy:opacity-50">{item.name}</span>
+                            )}
+                        </div>
+                    </li>
+                ))}
+            </ul>
+        </nav>
+    )
 }

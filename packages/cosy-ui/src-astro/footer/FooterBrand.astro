@@ -42,44 +42,44 @@
  * - 所有链接都有明确的文本描述
  */
 
-import { Heading } from "../../index-astro";
-import type { FooterBrandProps } from "./types";
-import FooterSocialLinks from "./FooterSocialLinks.astro";
-import FooterLogo from "./FooterLogo.astro";
-import "../../style.ts";
+import { Heading } from '../../index-astro';
+import type { FooterBrandProps } from '../../src/components/footer/types';
+import FooterSocialLinks from './FooterSocialLinks.astro';
+import FooterLogo from './FooterLogo.astro';
+import '../../style.ts';
 
 const {
-	siteName,
-	homeLink,
-	slogan,
-	logo,
-	socialLinks = [],
-	wechatQR,
-	whatsappQR,
+    siteName,
+    homeLink,
+    slogan,
+    logo,
+    socialLinks = [],
+    wechatQR,
+    whatsappQR,
 } = Astro.props as FooterBrandProps;
 ---
 
 <aside
-  class:list={[
-    // 小屏幕
-    'cosy:w-full cosy:text-center cosy:flex cosy:flex-col',
-    // 大屏幕
-    'cosy:md:max-w-md cosy:md:flex-row cosy:md:justify-center cosy:md:items-center',
-  ]}>
-  <FooterLogo siteName={siteName} homeLink={homeLink} logo={logo} />
+    class:list={[
+        // 小屏幕
+        'cosy:w-full cosy:text-center cosy:flex cosy:flex-col',
+        // 大屏幕
+        'cosy:md:max-w-md cosy:md:flex-row cosy:md:justify-center cosy:md:items-center',
+    ]}>
+    <FooterLogo siteName={siteName} homeLink={homeLink} logo={logo} />
 
-  <div class="cosy:w-full cosy:text-center cosy:flex cosy:flex-col">
-    <div>
-      <Heading level={3} align="center">
-        {siteName}
-      </Heading>
-      <p class="cosy:text-base-content/70">{slogan}</p>
+    <div class="cosy:w-full cosy:text-center cosy:flex cosy:flex-col">
+        <div>
+            <Heading level={3} align="center">
+                {siteName}
+            </Heading>
+            <p class="cosy:text-base-content/70">{slogan}</p>
+        </div>
+
+        <FooterSocialLinks
+            socialLinks={socialLinks}
+            wechatQR={wechatQR}
+            whatsappQR={whatsappQR}
+        />
     </div>
-
-    <FooterSocialLinks
-      socialLinks={socialLinks}
-      wechatQR={wechatQR}
-      whatsappQR={whatsappQR}
-    />
-  </div>
 </aside>
