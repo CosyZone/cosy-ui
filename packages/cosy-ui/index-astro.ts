@@ -86,6 +86,9 @@ export * from "./src-astro/types/static-path";
 // 通用工具和配置 (按字母顺序)
 export * from "./src/common";
 
+// Props Builders（内部工具，仅供 CosyUI 开发者使用）
+export { alertProps } from "./src/builders";
+
 // 工具类型 (按字母顺序)
 export type { ImageProvider, ImageOptions } from "./src/utils/image";
 export * from "./src/utils/i18n";

@@ -63,79 +63,104 @@ Alert 组件用于向用户显示重要的提示信息，支持多种类型的�
 -->
 
 <script setup lang="ts">
-import "../../style";
-import { computed } from "vue";
-import type { IAlertProps } from "./props";
-import { getAlertCombinedClassesVue } from "./class";
-import { InfoIcon, SuccessIcon, WarningIcon, ErrorIcon } from "../icons/index";
-import { RiCloseLine } from "@remixicon/vue";
-import { marginClasses, type MarginSize } from "../../src/common/margin";
+  import '../../style';
+  import { computed } from 'vue';
+  import type { IAlertProps } from './props';
+  import { getAlertCombinedClassesVue } from './class';
+  import {
+    InfoIcon,
+    SuccessIcon,
+    WarningIcon,
+    ErrorIcon,
+  } from '../icons/index';
+  import { RiCloseLine } from '@remixicon/vue';
+  import { cn } from '../../src/class/classBuilder';
 
-interface Props extends IAlertProps {}
+  interface Props extends IAlertProps {}
 
-const props = withDefaults(defineProps<Props>(), {
-	type: "info",
-	title: "",
-	description: "",
-	class: "",
-	closable: true,
-	showIcon: true,
-	variant: "solid",
-	marginY: undefined,
-});
+  const props = withDefaults(defineProps<Props>(), {
+    type: 'info',
+    title: '',
+    description: '',
+    class: '',
+    closable: true,
+    showIcon: true,
+    variant: 'solid',
+    marginY: undefined,
+  });
 
-const emit = defineEmits(["close"]);
+  const emit = defineEmits(['close']);
 
-const handleClose = () => {
-	emit("close");
-};
+  const handleClose = () => {
+    emit('close');
+  };
 
-// 使用共用的工具函数计算组合类名
-const alertClasses = computed(() => getAlertCombinedClassesVue(props));
+  // 使用共用的工具函数计算组合类名
+  const alertClasses = computed(() => getAlertCombinedClassesVue(props));
 
-// 根据类型设置图标组件
-const IconComponent = computed(() => {
-	const iconComponents = {
-		info: InfoIcon,
-		success: SuccessIcon,
-		warning: WarningIcon,
-		error: ErrorIcon,
-	};
-	return iconComponents[props.type];
-});
+  // 根据类型设置图标组件
+  const IconComponent = computed(() => {
+    const iconComponents = {
+      info: InfoIcon,
+      success: SuccessIcon,
+      warning: WarningIcon,
+      error: ErrorIcon,
+    };
+    return iconComponents[props.type];
+  });
+
+  // 使用 classBuilder 构建类名
+  const containerClass = cn()
+    .flex('row')
+    .items('center')
+    .gap(4)
+    .justify('between')
+    .w('full')
+    .build();
+
+  const contentWrapperClass = cn().flex().items('center').gap(4).build();
+
+  const contentClass = cn()
+    .flex('col')
+    .items('start')
+    .h('full')
+    .add('cosy:flex-1')
+    .build();
+
+  const actionsClass = cn().flex('row').items('center').gap(2).build();
+
+  const descriptionClass = cn().text('xs').opacity(80).build();
+
+  const slotClass = cn().text('xs').build();
 </script>
 
 <template>
   <div :class="alertClasses" role="alert">
-    <div
-      class="cosy:flex cosy:flex-row cosy:items-center cosy:gap-4 cosy:justify-between cosy:w-full">
-      <div class="cosy:flex cosy:items-center cosy:gap-4">
+    <div :class="containerClass">
+      <div :class="contentWrapperClass">
         <component
           :is="IconComponent"
           v-if="showIcon"
           class="cosy:btn cosy:btn-sm cosy:btn-ghost cosy:btn-circle" />
 
-        <div
-          class="cosy:flex cosy:flex-col cosy:items-start cosy:h-full cosy:flex-1">
+        <div :class="contentClass">
           <h3
             v-if="props.title"
             class="cosy:font-bold"
             style="margin-top: 0 !important">
             {{ props.title }}
           </h3>
-          <div v-if="props.description" class="cosy:text-xs cosy:opacity-80">
+          <div v-if="props.description" :class="descriptionClass">
             {{ props.description }}
           </div>
-          <div v-if="props.title" class="cosy:text-xs">
+          <div v-if="props.title" :class="slotClass">
             <slot />
           </div>
           <slot v-else />
         </div>
       </div>
 
-      <div
-        class="cosy:flex cosy:flex-row cosy:items-center cosy:gap-2"
-        data-role="actions">
+      <div :class="actionsClass" data-role="actions">
         <slot name="action" />
 
         <button
