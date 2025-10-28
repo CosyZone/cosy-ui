@@ -63,37 +63,38 @@
  * @slot action - 自定义操作按钮，显示在 alert 右侧，适合放置自定义按钮或其他操作
  */
 
-import "../../style.ts";
-import type { IAlertProps } from "./props";
-import { getAlertCombinedClasses } from "./class";
+import '../../style.ts';
+import type { IAlertProps } from './props';
+import { getAlertCombinedClasses } from './class';
+import { cn } from '../../src/class';
 import {
-	InfoIcon,
-	SuccessIcon,
-	WarningIcon,
-	ErrorIcon,
-	CloseIcon,
-} from "../../index-astro";
+    InfoIcon,
+    SuccessIcon,
+    WarningIcon,
+    ErrorIcon,
+    CloseIcon,
+} from '../../index-astro';
 
 // 根据类型设置图标组件
 const getIconComponent = (type: string) => {
-	const iconComponents = {
-		info: InfoIcon,
-		success: SuccessIcon,
-		warning: WarningIcon,
-		error: ErrorIcon,
-	};
-	return iconComponents[type as keyof typeof iconComponents] || InfoIcon;
+    const iconComponents = {
+        info: InfoIcon,
+        success: SuccessIcon,
+        warning: WarningIcon,
+        error: ErrorIcon,
+    };
+    return iconComponents[type as keyof typeof iconComponents] || InfoIcon;
 };
 
 const props = Astro.props as IAlertProps;
 
 const {
-	type = "info",
-	title,
-	description,
-	class: className = "",
-	closable = true,
-	showIcon = true,
+    type = 'info',
+    title,
+    description,
+    class: className = '',
+    closable = true,
+    showIcon = true,
 } = props;
 
 // 获取图标组件
@@ -101,55 +102,67 @@ const IconComponent = getIconComponent(type);
 
 // 获取组合类名
 const alertClassArray = getAlertCombinedClasses(props);
-const alertClass = [...alertClassArray, className].filter(Boolean).join(" ");
+const alertClass = [...alertClassArray, className].filter(Boolean).join(' ');
+
+// 使用 classBuilder 构建各个部分的类名
+const containerClass = cn()
+    .flex('row')
+    .items('center')
+    .gap(4)
+    .justify('between')
+    .w('full')
+    .build();
+const contentClass = cn()
+    .flex('col')
+    .items('start')
+    .h('full')
+    .add('cosy:flex-1')
+    .build();
+const actionsClass = cn().flex('row').items('center').gap(2).build();
+const titleClass = cn().bold().build();
+const descriptionClass = cn().text('xs').opacity(80).build();
+const iconBtnClass = cn()
+    .add('cosy:btn', 'cosy:btn-ghost', 'cosy:btn-circle', 'cosy:btn-sm')
+    .build();
+const closeBtnClass = cn()
+    .auto()
+    .add('cosy:btn', 'cosy:btn-ghost', 'cosy:btn-circle', 'cosy:btn-sm')
+    .build();
+const iconClass = cn().h(5).w(5).build();
 
 // 导出接口供外部使用
 export type { IAlertProps };
 ---
 
 <div class={alertClass} role="alert">
-    <div
-        class="cosy:flex cosy:flex-row cosy:items-center cosy:gap-4 cosy:justify-between cosy:w-full">
-        {
-            showIcon && (
-                <IconComponent class="cosy:btn cosy:btn-sm cosy:btn-ghost cosy:btn-circle" />
-            )
-        }
-        <div
-            class="cosy:flex cosy:flex-col cosy:items-start cosy:h-full cosy:flex-1">
+    <div class={containerClass}>
+        {showIcon && <IconComponent class={iconBtnClass} />}
+        <div class={contentClass}>
             {
                 title && (
-                    <h3 class="cosy:font-bold" style="margin-top: 0 !important">
+                    <h3 class={titleClass} style="margin-top: 0 !important">
                         {title}
                     </h3>
                 )
             }
-            {
-                description && (
-                    <div class="cosy:text-xs cosy:opacity-80">
-                        {description}
-                    </div>
-                )
-            }
+            {description && <div class={descriptionClass}>{description}</div>}
             {
                 title && (
-                    <div class="cosy:text-xs">
+                    <div class={cn().text('xs').build()}>
                         <slot />
                     </div>
                 )
             }
             {!title && <slot />}
         </div>
-        <div
-            class="cosy:flex cosy:flex-row cosy:items-center cosy:gap-2"
-            data-role="actions">
+        <div class={actionsClass} data-role="actions">
             <slot name="action" />
             {
                 closable && (
                     <button
-                        class="cosy:ml-auto cosy:btn cosy:btn-ghost cosy:btn-sm cosy:btn-circle"
+                        class={closeBtnClass}
                         onclick="this.parentElement.parentElement.style.display = 'none';">
-                        <CloseIcon class="cosy:h-5 cosy:w-5" />
+                        <CloseIcon class={iconClass} />
                     </button>
                 )
             }

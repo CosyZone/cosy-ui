@@ -1,5 +1,5 @@
 import type { IAlertPropsBase } from "./alertPropsBase";
-import { getAlertBaseClasses } from "./class-base";
+import { cn } from "../../class";
 import { getAlertMarginClass } from "./class-margin";
 import { getAlertTypeClass } from "./class-type";
 import { getAlertVariantClass } from "./class-variant";
@@ -17,8 +17,12 @@ export function getBaseAlertClasses(props: IAlertPropsBase): string[] {
 		class: className = "",
 	} = props;
 
-	// 构建基础类名
-	const baseClasses = getAlertBaseClasses();
+	// 使用 classBuilder 构建基础类名
+	const baseClass = cn()
+		.add("cosy:alert", "not-prose")
+		.w("full")
+		.flex()
+		.build();
 
 	// 构建类型类名
 	const typeClass = getAlertTypeClass(type);
@@ -31,7 +35,7 @@ export function getBaseAlertClasses(props: IAlertPropsBase): string[] {
 
 	// 组合所有类名
 	const classes = [
-		...baseClasses,
+		baseClass,
 		typeClass,
 		variantClass,
 		"cosy:alert-horizontal",
