@@ -1,5 +1,9 @@
 ---
-import { type ISidebarItem, AppLayout } from '@coffic/cosy-ui';
+import {
+    type ISidebarItem,
+    type BackgroundColor,
+    AppLayout,
+} from '@coffic/cosy-ui';
 import Favicon from '@/assets/favicon.png';
 import Logo from '@/assets/logo.png';
 import { configApp } from '@/config/config.app';
@@ -18,6 +22,7 @@ interface Props {
     isArticle?: boolean;
     verticalPadding?: string;
     mainLayout?: 'row' | 'column';
+    background?: BackgroundColor;
 }
 
 const {
@@ -28,12 +33,14 @@ const {
     isArticle = true,
     verticalPadding = '4xl',
     mainLayout = 'row',
+    background,
 } = Astro.props;
 const currentLocale = Astro.currentLocale;
 ---
 
 <AppLayout
     enableClientRouter={true}
+    background={background}
     metaConfig={{
         title: title,
         description: 'Cosy UI - A beautiful Astro component library',

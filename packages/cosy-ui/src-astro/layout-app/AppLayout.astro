@@ -5,6 +5,7 @@
  * @usage 用于创建包含头部、侧边栏、主内容区和页脚的完整页面布局
  * @props
  *
+ * @prop {string} [background] - 背景类型，支持 Container 组件的所有背景选项（如：base-100、primary、gradient-glow 等）
  * @prop {Object} [footerConfig] - 页脚配置，包含站点信息、社交媒体链接等
  * @prop {Object} [headerConfig] - 头部配置，传递给AppHeader组件
  * @prop {number} [loadingDelay=100] - 加载中界面延迟显示的时间（毫秒）
@@ -16,7 +17,7 @@
  * @prop {Object} [sidebarConfig] - 侧边栏配置，包含导航项等
  * @prop {...HTMLAttributes<'div'>} [rest] - 其他HTML div标签属性
  * @slots
- * @slot background - 自定义背景层（最低层，用于渐变、图片等背景效果）
+ * @slot background - 自定义背景层（最低层，用于渐变、图片等背景效果，优先级高于 background 属性）
  * @slot default - 主内容区域
  * @slot footer - 自定义全局footer（优先级最高，会覆盖内置Footer）
  * @slot header - 自定义全局header（优先级最高，会覆盖内置AppHeader）
@@ -307,7 +308,30 @@
  * </AppLayout>
  * ```
  *
- * 自定义背景示例：
+ * 背景设置示例（使用 background 属性）：
+ * ```astro
+ * <AppLayout
+ *   metaConfig={{
+ *     title: "文档标题",
+ *     description: "文档描述"
+ *   }}
+ *   sidebarConfig={{
+ *     sidebarItems: sidebarItems
+ *   }}
+ *   background="gradient-glow"
+ * >
+ *   <h1>文档内容</h1>
+ *   <p>背景会覆盖整个页面</p>
+ * </AppLayout>
+ * ```
+ *
+ * 支持所有 Container 组件的背景选项：
+ * - 颜色背景：base-100、primary、secondary、accent、info、success、warning、error
+ * - 透明度变体：primary/10、secondary/20 等
+ * - 渐变背景：gradient-glow
+ * - 更多选项请参考 Container 组件文档
+ *
+ * 自定义背景示例（使用 slot，优先级更高）：
  * ```astro
  * <AppLayout
  *   metaConfig={{
@@ -331,51 +355,52 @@
  * ```
  */
 
-import "../../style.ts";
+import '../../style.ts';
 import {
-	BaseLayout,
-	type IAppLayoutProps,
-	Footer,
-	Container,
-	Main,
-	Sidebar,
-	Modal,
-	Skeleton,
-} from "../../index-astro";
+    BaseLayout,
+    type IAppLayoutProps,
+    Footer,
+    Container,
+    Main,
+    Sidebar,
+    Modal,
+    Skeleton,
+} from '../../index-astro';
 import {
-	getSidebarTopClass,
-	getSidebarHeightClass,
-	type HeaderHeight,
-} from "../../src/common/index";
-import AppHeader from "./AppHeader.astro";
+    getSidebarTopClass,
+    getSidebarHeightClass,
+    type HeaderHeight,
+} from '../../src/common/index';
+import AppHeader from './AppHeader.astro';
 
 export interface IAppLayoutAllProps extends IAppLayoutProps {
-	/** 是否启用 Astro ClientRouter */
-	enableClientRouter?: boolean;
+    /** 是否启用 Astro ClientRouter */
+    enableClientRouter?: boolean;
 }
 
 export type Props = IAppLayoutAllProps;
 
 const {
-	sidebarConfig,
-	showHeader = true,
-	showFooter = true,
-	showSidebar = true,
-	mainContentConfig,
-	footerConfig,
-	headerConfig,
-	metaConfig,
-	loadingDelay = 100,
-	bodyOnly = false,
-	theme,
-	enableClientRouter = true,
+    sidebarConfig,
+    showHeader = true,
+    showFooter = true,
+    showSidebar = true,
+    mainContentConfig,
+    footerConfig,
+    headerConfig,
+    metaConfig,
+    loadingDelay = 100,
+    bodyOnly = false,
+    theme,
+    background,
+    enableClientRouter = true,
 }: Props = Astro.props as Props;
 
 const sidebarTopClass = getSidebarTopClass(
-	headerConfig?.height as HeaderHeight,
+    headerConfig?.height as HeaderHeight
 );
 const sidebarHeightClass = getSidebarHeightClass(
-	headerConfig?.height as HeaderHeight,
+    headerConfig?.height as HeaderHeight
 );
 ---
 
@@ -384,7 +409,7 @@ const sidebarHeightClass = getSidebarHeightClass(
     bodyOnly={bodyOnly}
     theme={theme}
     enableClientRouter={enableClientRouter}>
-    <!-- 背景层（最底层，z-index: 0） -->
+    <!-- 背景层（最底层，z-index: 0），优先使用 slot -->
     {
         Astro.slots.has('background') && (
             <div
@@ -418,6 +443,7 @@ const sidebarHeightClass = getSidebarHeightClass(
         padding="none"
         width="full"
         centered={true}
+        background={Astro.slots.has('background') ? undefined : background}
         class="cosy:min-h-screen cosy:relative cosy:z-[1]">
         <!-- 侧边栏容器 -->
         {
