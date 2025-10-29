@@ -78,6 +78,67 @@ const marginYMap = {
 	auto: "cosy:my-auto",
 } as const;
 
+// 单侧外边距映射表
+const marginTopMap = {
+	0: "cosy:mt-0",
+	1: "cosy:mt-1",
+	2: "cosy:mt-2",
+	3: "cosy:mt-3",
+	4: "cosy:mt-4",
+	5: "cosy:mt-5",
+	6: "cosy:mt-6",
+	8: "cosy:mt-8",
+	10: "cosy:mt-10",
+	12: "cosy:mt-12",
+	16: "cosy:mt-16",
+	auto: "cosy:mt-auto",
+} as const;
+
+const marginBottomMap = {
+	0: "cosy:mb-0",
+	1: "cosy:mb-1",
+	2: "cosy:mb-2",
+	3: "cosy:mb-3",
+	4: "cosy:mb-4",
+	5: "cosy:mb-5",
+	6: "cosy:mb-6",
+	8: "cosy:mb-8",
+	10: "cosy:mb-10",
+	12: "cosy:mb-12",
+	16: "cosy:mb-16",
+	auto: "cosy:mb-auto",
+} as const;
+
+const marginLeftMap = {
+	0: "cosy:ml-0",
+	1: "cosy:ml-1",
+	2: "cosy:ml-2",
+	3: "cosy:ml-3",
+	4: "cosy:ml-4",
+	5: "cosy:ml-5",
+	6: "cosy:ml-6",
+	8: "cosy:ml-8",
+	10: "cosy:ml-10",
+	12: "cosy:ml-12",
+	16: "cosy:ml-16",
+	auto: "cosy:ml-auto",
+} as const;
+
+const marginRightMap = {
+	0: "cosy:mr-0",
+	1: "cosy:mr-1",
+	2: "cosy:mr-2",
+	3: "cosy:mr-3",
+	4: "cosy:mr-4",
+	5: "cosy:mr-5",
+	6: "cosy:mr-6",
+	8: "cosy:mr-8",
+	10: "cosy:mr-10",
+	12: "cosy:mr-12",
+	16: "cosy:mr-16",
+	auto: "cosy:mr-auto",
+} as const;
+
 const paddingXMap = {
 	0: "cosy:px-0",
 	1: "cosy:px-1",
@@ -198,6 +259,10 @@ export type PaddingSize = keyof typeof paddingMap;
 export type MarginSize = keyof typeof marginMap;
 export type MarginXSize = keyof typeof marginXMap;
 export type MarginYSize = keyof typeof marginYMap;
+export type MarginTopSize = keyof typeof marginTopMap;
+export type MarginBottomSize = keyof typeof marginBottomMap;
+export type MarginLeftSize = keyof typeof marginLeftMap;
+export type MarginRightSize = keyof typeof marginRightMap;
 export type PaddingXSize = keyof typeof paddingXMap;
 export type PaddingYSize = keyof typeof paddingYMap;
 export type PaddingTopSize = keyof typeof paddingTopMap;
@@ -252,6 +317,42 @@ export class SpacingBuilder {
 	 */
 	my(size: MarginYSize): this {
 		this.classes.push(marginYMap[size]);
+		return this;
+	}
+
+	/**
+	 * 设置顶部外边距
+	 * @param size 外边距大小
+	 */
+	mt(size: MarginTopSize): this {
+		this.classes.push(marginTopMap[size]);
+		return this;
+	}
+
+	/**
+	 * 设置底部外边距
+	 * @param size 外边距大小
+	 */
+	mb(size: MarginBottomSize): this {
+		this.classes.push(marginBottomMap[size]);
+		return this;
+	}
+
+	/**
+	 * 设置左侧外边距
+	 * @param size 外边距大小
+	 */
+	ml(size: MarginLeftSize): this {
+		this.classes.push(marginLeftMap[size]);
+		return this;
+	}
+
+	/**
+	 * 设置右侧外边距
+	 * @param size 外边距大小
+	 */
+	mr(size: MarginRightSize): this {
+		this.classes.push(marginRightMap[size]);
 		return this;
 	}
 

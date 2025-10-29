@@ -56,8 +56,8 @@ const {
 // 内容布局类
 const contentClass = cn()
     .flex(imagePosition === 'top' || imagePosition === 'bottom' ? 'col' : 'col')
+    .add('cosy:lg:flex-row')
     .add(
-        'cosy:lg:flex-row',
         align === 'center'
             ? 'cosy:text-center cosy:items-center'
             : align === 'left'
@@ -65,17 +65,14 @@ const contentClass = cn()
               : 'cosy:text-right cosy:items-end'
     )
     .w('full')
-    .add(
-        'cosy:mx-auto',
-        'cosy:gap-10',
-        'cosy:lg:gap-16',
-        'cosy:z-10',
-        'cosy:relative',
-        'cosy:py-16',
-        'cosy:px-4',
-        'cosy:sm:px-6',
-        'cosy:lg:px-8'
-    )
+    .mx('auto')
+    .gap(10)
+    .add('cosy:lg:gap-16')
+    .z(10)
+    .relative()
+    .py(16)
+    .px(4)
+    .add('cosy:sm:px-6', 'cosy:lg:px-8')
     .build();
 
 // 内容顺序类映射

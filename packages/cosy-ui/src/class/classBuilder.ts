@@ -54,6 +54,10 @@ import {
 	type MarginSize,
 	type MarginXSize,
 	type MarginYSize,
+	type MarginTopSize,
+	type MarginBottomSize,
+	type MarginLeftSize,
+	type MarginRightSize,
 	type PaddingXSize,
 	type PaddingYSize,
 	type PaddingTopSize,
@@ -232,6 +236,50 @@ class ClassBuilder {
 	my(size: MarginYSize): this {
 		const tempBuilder = new SpacingBuilder();
 		tempBuilder.my(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置顶部外边距
+	 * @param size 外边距大小
+	 */
+	mt(size: MarginTopSize): this {
+		const tempBuilder = new SpacingBuilder();
+		tempBuilder.mt(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置底部外边距
+	 * @param size 外边距大小
+	 */
+	mb(size: MarginBottomSize): this {
+		const tempBuilder = new SpacingBuilder();
+		tempBuilder.mb(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置左侧外边距
+	 * @param size 外边距大小
+	 */
+	ml(size: MarginLeftSize): this {
+		const tempBuilder = new SpacingBuilder();
+		tempBuilder.ml(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置右侧外边距
+	 * @param size 外边距大小
+	 */
+	mr(size: MarginRightSize): this {
+		const tempBuilder = new SpacingBuilder();
+		tempBuilder.mr(size);
 		this.classes.push(...tempBuilder.getClasses());
 		return this;
 	}

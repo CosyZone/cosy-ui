@@ -115,16 +115,16 @@ const descriptionClass = cn()
 // 链接容器样式
 const linksContainerClass = cn()
     .flex('row')
+    .add('cosy:flex-wrap')
+    .gap(4)
     .add(
-        'cosy:flex-wrap',
-        'cosy:gap-4',
         align === 'center'
             ? 'cosy:justify-center'
             : align === 'left'
               ? 'cosy:justify-start'
-              : 'cosy:justify-end',
-        'cosy:mt-4'
+              : 'cosy:justify-end'
     )
+    .mt(4)
     .build();
 
 // App 容器样式
@@ -132,7 +132,7 @@ const appContainerClass = cn()
     .w('full')
     .add('cosy:max-w-full')
     .mx('auto')
-    .add('cosy:my-8')
+    .my(8)
     .build();
 ---
 
