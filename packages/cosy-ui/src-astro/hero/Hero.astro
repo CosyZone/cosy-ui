@@ -216,6 +216,7 @@
 import '../../style.ts';
 import type { HeroProps } from './hero.ts';
 import Container from '../container/Container.astro';
+import { containerProps } from '../container/index';
 import HeroOverlay from './HeroOverlay.astro';
 import HeroContent from './HeroContent.astro';
 import { cn } from '../../src/class';
@@ -241,16 +242,21 @@ const containerClass = cn()
     .w('full')
     .relative()
     .build();
+
+// 使用 factory 方式构建 Container props
+const containerPropsObj = containerProps()
+    .background(background)
+    .height('screen')
+    .width('full')
+    .padding('none')
+    .centered(false)
+    .class(containerClass)
+    .build();
 ---
 
 <Container
-    class={containerClass}
-    background={background}
+    {...containerPropsObj}
     backgroundImage={backgroundImage}
-    height="screen"
-    width="full"
-    padding="none"
-    centered={false}
     ignore-heading>
     {
         backgroundImage && (

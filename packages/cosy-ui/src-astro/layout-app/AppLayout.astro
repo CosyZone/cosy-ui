@@ -361,10 +361,8 @@ import {
     type IAppLayoutProps,
     Footer,
     Container,
-    Main,
     Sidebar,
     Modal,
-    Skeleton,
 } from '../../index-astro';
 import {
     getSidebarTopClass,
@@ -372,6 +370,7 @@ import {
     type HeaderHeight,
 } from '../../src/common/index';
 import AppHeader from './AppHeader.astro';
+import AppLayoutMainContent from './AppLayoutMainContent.astro';
 
 export interface IAppLayoutAllProps extends IAppLayoutProps {
     /** 是否启用 Astro ClientRouter */
@@ -461,18 +460,11 @@ const sidebarHeightClass = getSidebarHeightClass(
         }
 
         <!-- 主内容区域 -->
-        <Main
-            aria-label="AppLayout-Main-Container"
-            {...mainContentConfig}
-            class="cosy:flex-1 cosy:min-w-xs">
-            <Skeleton
-                showLoading={true}
-                loadingSize="xl"
-                loadingDelay={loadingDelay}
-                skeletonClass="cosy:w-full cosy:h-screen cosy:flex cosy:items-center cosy:justify-center">
-                <slot />
-            </Skeleton>
-        </Main>
+        <AppLayoutMainContent
+            loadingDelay={loadingDelay}
+            mainContentConfig={mainContentConfig}>
+            <slot />
+        </AppLayoutMainContent>
     </Container>
 
     <!-- Footer -->
