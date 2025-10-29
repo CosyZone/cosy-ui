@@ -1,6 +1,7 @@
 ---
 import CodeToggleButton from './ButtonCodeToggle.astro';
 import CopyCodeButton from './ButtonCopyCode.astro';
+import { cn } from '../../src/class';
 
 interface Props {
     titles: string[];
@@ -15,13 +16,26 @@ const {
     isCodeView = false,
     code = '',
 } = Astro.props;
+
+// 使用 classBuilder 构建类名
+const toolbarClass = cn()
+    .flex('row')
+    .justify('between')
+    .items('center')
+    .add('cosy:bg-base-200', 'cosy:px-4', 'cosy:rounded-t')
+    .build();
+
+const tabsContainerClass = cn().flex('row').items('center').gap(4).build();
+
+const tablistClass = cn().add('cosy:tabs', 'cosy:tabs-box').build();
+
+const buttonsContainerClass = cn().flex('row').items('center').gap(2).build();
 ---
 
-<div
-    class="cosy:flex cosy:justify-between cosy:items-center cosy:bg-base-200 cosy:px-4 cosy:rounded-t">
+<div class={toolbarClass}>
     <!-- 标签 -->
-    <div class="cosy:flex cosy:items-center cosy:gap-4">
-        <div role="tablist" class="cosy:tabs cosy:tabs-box">
+    <div class={tabsContainerClass}>
+        <div role="tablist" class={tablistClass}>
             {
                 titles.map((title: string, index: number) => (
                     <button
@@ -35,7 +49,7 @@ const {
         </div>
     </div>
     <!-- 工具按钮 -->
-    <div class="cosy:flex cosy:items-center cosy:gap-2">
+    <div class={buttonsContainerClass}>
         <CodeToggleButton isCodeView={isCodeView} />
         <CopyCodeButton code={code} />
     </div>

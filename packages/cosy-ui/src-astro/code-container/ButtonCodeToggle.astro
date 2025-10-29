@@ -1,16 +1,19 @@
 ---
 import { CodeIcon } from '../icons/index';
+import Button from '../button/Button.astro';
+
 const { isCodeView = false } = Astro.props;
 ---
 
-<button
+<Button
     role="switch"
-    class={`cosy:btn cosy:btn-ghost cosy:btn-sm ${isCodeView ? 'cosy:btn-primary' : ''}`}
+    variant={isCodeView ? 'primary' : 'ghost'}
+    size="sm"
     aria-checked={isCodeView ? 'true' : 'false'}
     aria-label="切换代码/预览"
     data-toggle="code">
-    <span class="cosy:code-icon"><CodeIcon /></span>
-</button>
+    <CodeIcon />
+</Button>
 
 <script>
     function initializeCodeToggle() {

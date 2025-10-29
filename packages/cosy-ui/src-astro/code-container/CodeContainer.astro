@@ -57,7 +57,6 @@
  */
 
 import CodeToolbar from './CodeToolbar.astro';
-import Description from './Description.astro';
 import Preview from './Preview.astro';
 import { CodePanel, Container } from '../../index-astro';
 import '../../style.ts';
@@ -98,6 +97,9 @@ const {
     resetStyles = true,
     modeLabels = { basic: '传统写法', factory: 'Factory 写法' },
 } = Astro.props;
+
+// 导出 Props 类型供外部使用
+export type { Props };
 
 // 将 modeLabels 转为 JSON 字符串传递给客户端
 const modeLabelsJson = JSON.stringify(modeLabels);
