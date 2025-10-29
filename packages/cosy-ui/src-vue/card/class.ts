@@ -12,7 +12,7 @@ import {
 export function getCardCombinedClassesVue(props: ICardProps): string[] {
 	const baseClasses = getBaseCardClasses(props);
 
-	return baseClasses;
+	return [baseClasses];
 }
 
 /**

@@ -65,87 +65,93 @@
  * ```
  */
 
-import { Container } from "../../index-astro";
-import "../../style.ts";
-import type { ImageSource } from "../image/image.ts";
-import type { BackgroundColor } from "../../src/common/backgrounds";
-import ProductHeroContent from "./ProductHeroContent.astro";
-import ProductHeroImage from "./ProductHeroImage.astro";
+import { Container } from '../../index-astro';
+import '../../style.ts';
+import type { ImageSource } from '../image/types';
+import type { BackgroundColor } from '../../src/common/backgrounds';
+import ProductHeroContent from './ProductHeroContent.astro';
+import ProductHeroImage from './ProductHeroImage.astro';
 
 // Props 按字母顺序（A-Z）
 export interface Props {
-	/**
-	 * 布局对齐方式
-	 * - left: 左对齐（默认）
-	 * - right: 右对齐
-	 */
-	align?: "left" | "right";
-	/**
-	 * 背景色类型
-	 * 使用预定义的背景色类型，如 'primary', 'base-200', 'gradient-sky' 等
-	 */
-	background?: BackgroundColor;
-	/**
-	 * 自定义类名
-	 */
-	class?: string;
-	/**
-	 * 产品描述
-	 */
-	description: string;
-	/**
-	 * 产品图片
-	 */
-	image: ImageSource;
-	/**
-	 * 标签文案列表。可传多个，如 ["限时优惠", "热销"]
-	 */
-	labels?: string[];
-	/**
-	 * 产品名称
-	 */
-	name: string;
-	/**
-	 * 高亮文案（价格、宣传语等）
-	 */
-	highlight?: string;
+    /**
+     * 布局对齐方式
+     * - left: 左对齐（默认）
+     * - right: 右对齐
+     */
+    align?: 'left' | 'right';
+    /**
+     * 背景色类型
+     * 使用预定义的背景色类型，如 'primary', 'base-200', 'gradient-sky' 等
+     */
+    background?: BackgroundColor;
+    /**
+     * 自定义类名
+     */
+    class?: string;
+    /**
+     * 产品描述
+     */
+    description: string;
+    /**
+     * 产品图片
+     */
+    image: ImageSource;
+    /**
+     * 标签文案列表。可传多个，如 ["限时优惠", "热销"]
+     */
+    labels?: string[];
+    /**
+     * 产品名称
+     */
+    name: string;
+    /**
+     * 高亮文案（价格、宣传语等）
+     */
+    highlight?: string;
 }
 
 const {
-	name,
-	description,
-	image,
-	highlight,
-	labels = [],
-	align = "left",
-	background,
-	class: className = "",
+    name,
+    description,
+    image,
+    highlight,
+    labels = [],
+    align = 'left',
+    background,
+    class: className = '',
 } = Astro.props;
 
 // 根据对齐方式决定列顺序（Tailwind order 实现左右切换）
-const isRightAlign = align === "right";
+const isRightAlign = align === 'right';
 ---
 
 <Container
-  width="full"
-  background={background || 'base-100'}
-  padding="xl"
-  class={className}>
-  <Container width="xl">
-    <div
-      class="cosy:grid cosy:grid-cols-1 cosy:md:grid-cols-2 cosy:gap-16 cosy:items-center">
-      <div class:list={[isRightAlign ? 'cosy:md:order-2' : 'cosy:md:order-1']}>
-        <ProductHeroContent
-          name={name}
-          description={description}
-          highlight={highlight}
-          labels={labels}>
-          <slot name="actions" />
-        </ProductHeroContent>
-      </div>
-      <div class:list={[isRightAlign ? 'cosy:md:order-1' : 'cosy:md:order-2']}>
-        <ProductHeroImage src={image} alt={name} />
-      </div>
-    </div>
-  </Container>
+    width="full"
+    background={background || 'base-100'}
+    padding="xl"
+    class={className}>
+    <Container width="xl">
+        <div
+            class="cosy:grid cosy:grid-cols-1 cosy:md:grid-cols-2 cosy:gap-16 cosy:items-center">
+            <div
+                class:list={[
+                    isRightAlign ? 'cosy:md:order-2' : 'cosy:md:order-1',
+                ]}>
+                <ProductHeroContent
+                    name={name}
+                    description={description}
+                    highlight={highlight}
+                    labels={labels}>
+                    <slot name="actions" />
+                </ProductHeroContent>
+            </div>
+            <div
+                class:list={[
+                    isRightAlign ? 'cosy:md:order-1' : 'cosy:md:order-2',
+                ]}>
+                <ProductHeroImage src={image} alt={name} />
+            </div>
+        </div>
+    </Container>
 </Container>

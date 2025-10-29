@@ -8,8 +8,8 @@ import type { IContainerProps } from "../container/props";
  */
 export interface ICardProps
 	extends ICardPropsBase,
-		Omit<IContainerProps, "class" | "backgroundImage">,
-		HTMLAttributes<"article"> {
+		Omit<IContainerProps, "class" | "backgroundImage" | "title">,
+		Omit<HTMLAttributes<"article">, "title"> {
 	/**
 	 * 自定义类名
 	 */
