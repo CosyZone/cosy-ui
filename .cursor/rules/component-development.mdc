@@ -52,6 +52,42 @@ const paddingClassMap = {
 } as const;
 ```
 
+## ClassBuilder 使用规范
+
+### 优先使用 cn() classBuilder
+
+- **推荐使用 `cn()` 构建类名**：统一的类名构建方式，代码更清晰
+- **自动包含样式**：导入 `cn()` 时自动加载全局样式，无需单独导入
+- **链式调用**：支持链式调用，代码更优雅
+
+```typescript
+// ✅ 推荐：使用 cn() classBuilder
+import { cn } from '../../src/class';  // 自动包含全局样式
+
+const buttonClass = cn()
+    .add('cosy:btn')
+    .flex()
+    .items('center')
+    .gap(2)
+    .add(className || '')
+    .build();
+```
+
+```typescript
+// ❌ 不推荐：手动拼接类名
+import '../../style.ts';  // 需要手动导入
+
+const buttonClass = ['cosy:btn', 'cosy:flex', 'cosy:items-center', 'cosy:gap-2', className]
+    .filter(Boolean)
+    .join(' ');
+```
+
+### 何时不使用 cn()
+
+- 组件非常简单，只有一个固定的类名
+- 组件完全依赖外部传入的类名
+- 性能极其敏感的场景（虽然 cn() 已经很快了）
+
 ## 组件重构原则
 
 ### 单一职责原则
@@ -88,19 +124,25 @@ src-astro/
 
 ### 导入顺序
 
-1. 样式文件
+1. ClassBuilder 导入（自动包含样式，推荐使用）
 2. 类型导入（从 common 开始）
 3. 组件导入
 4. 工具函数导入
 
 ```typescript
-// ✅ 正确的导入顺序
-import '../../style.ts';
+// ✅ 正确的导入顺序（使用 cn() classBuilder）
+import { cn } from '../../src/class';  // 自动包含全局样式
 import type { ImageItem } from './types';
 import type { PaddingSize, MarginSize } from '@coffic/cosy-ui/common';
 import { paddingClasses, marginClasses } from '@coffic/cosy-ui/common';
 import Container from '../container/Container.astro';
 ```
+
+**注意**：
+
+- 使用 `cn()` classBuilder 的组件**不需要**单独导入 `import '../../style.ts';`
+- 样式会在导入 `cn` 时自动加载
+- 如果组件不使用 `cn()`，则仍需手动导入样式文件
 
 ## 测试和验证
 
