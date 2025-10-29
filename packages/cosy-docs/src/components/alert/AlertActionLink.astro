@@ -1,0 +1,24 @@
+---
+/**
+ * @component AlertActionLink
+ * @description 链接样式的自定义操作 Alert 示例
+ */
+import { Alert } from '@coffic/cosy-ui';
+---
+
+<Alert type="info" title="提示信息">
+    有新的文档更新可供查看。
+    <div slot="action">
+        <a
+            href="#"
+            style="
+                color: #3b82f6;
+                text-decoration: underline;
+                cursor: pointer;
+                font-size: 0.875rem;
+            "
+            onclick="event.preventDefault(); alert('查看更新')">
+            查看更新
+        </a>
+    </div>
+</Alert>

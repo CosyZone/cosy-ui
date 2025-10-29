@@ -1,0 +1,39 @@
+---
+/**
+ * @component AlertActionMultiple
+ * @description 多个操作按钮的 Alert 示例
+ */
+import { Alert } from '@coffic/cosy-ui';
+---
+
+<Alert type="warning" title="警告提示">
+    检测到系统需要更新，请及时处理。
+    <div slot="action" style="display: flex; gap: 0.5rem;">
+        <button
+            style="
+                background-color: #f59e0b;
+                color: white;
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 0.375rem;
+                cursor: pointer;
+                font-size: 0.875rem;
+            "
+            onclick="alert('立即更新')">
+            立即更新
+        </button>
+        <button
+            style="
+                background-color: transparent;
+                color: #f59e0b;
+                border: 1px solid #f59e0b;
+                padding: 0.5rem 1rem;
+                border-radius: 0.375rem;
+                cursor: pointer;
+                font-size: 0.875rem;
+            "
+            onclick="alert('稍后提醒')">
+            稍后提醒
+        </button>
+    </div>
+</Alert>

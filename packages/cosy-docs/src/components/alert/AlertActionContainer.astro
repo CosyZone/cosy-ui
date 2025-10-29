@@ -5,18 +5,39 @@
  */
 import { CodeContainer } from '@coffic/cosy-ui';
 import AlertAction from './AlertAction.astro';
+import AlertActionWithIcon from './AlertActionWithIcon.astro';
+import AlertActionMultiple from './AlertActionMultiple.astro';
+import AlertActionLink from './AlertActionLink.astro';
 import AlertActionFactory from './AlertActionFactory.astro';
 import AlertActionSourceCode from './AlertAction.astro?raw';
+import AlertActionWithIconSourceCode from './AlertActionWithIcon.astro?raw';
+import AlertActionMultipleSourceCode from './AlertActionMultiple.astro?raw';
+import AlertActionLinkSourceCode from './AlertActionLink.astro?raw';
 import AlertActionFactorySourceCode from './AlertActionFactory.astro?raw';
 ---
 
 <CodeContainer
-    codes={[AlertActionSourceCode, AlertActionFactorySourceCode]}
-    titles={['Basic', 'Factory']}>
-    <div id="tab-1">
+    codes={[
+        AlertActionSourceCode,
+        AlertActionWithIconSourceCode,
+        AlertActionMultipleSourceCode,
+        AlertActionLinkSourceCode,
+        AlertActionFactorySourceCode,
+    ]}
+    titles={['基础按钮', '带图标按钮', '多个按钮', '链接样式', 'Factory']}>
+    <div id="tab-1" data-label="basic">
         <AlertAction />
     </div>
-    <div id="tab-2">
+    <div id="tab-2" data-label="basic">
+        <AlertActionWithIcon />
+    </div>
+    <div id="tab-3" data-label="basic">
+        <AlertActionMultiple />
+    </div>
+    <div id="tab-4" data-label="basic">
+        <AlertActionLink />
+    </div>
+    <div id="tab-5" data-label="factory">
         <AlertActionFactory />
     </div>
 </CodeContainer>

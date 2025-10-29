@@ -1,54 +1,86 @@
 ---
-import { CodeIcon } from "../icons/index";
+import { CodeIcon } from '../icons/index';
 const { isCodeView = false } = Astro.props;
 ---
 
 <button
-  role="switch"
-  class={`cosy:btn cosy:btn-ghost cosy:btn-sm ${isCodeView ? 'cosy:btn-primary' : ''}`}
-  aria-checked={isCodeView ? 'true' : 'false'}
-  aria-label="切换代码/预览"
-  data-toggle="code">
-  <span class="cosy:code-icon"><CodeIcon /></span>
+    role="switch"
+    class={`cosy:btn cosy:btn-ghost cosy:btn-sm ${isCodeView ? 'cosy:btn-primary' : ''}`}
+    aria-checked={isCodeView ? 'true' : 'false'}
+    aria-label="切换代码/预览"
+    data-toggle="code">
+    <span class="cosy:code-icon"><CodeIcon /></span>
 </button>
 
 <script>
-  function initializeCodeToggle() {
-    const codeToggles = document.querySelectorAll('[data-toggle="code"]');
-    codeToggles.forEach((toggle) => {
-      toggle.addEventListener('click', () => {
-        const container = toggle.closest('[data-role="code-container"]');
-        if (!container) {
-          console.error('CodeContainer: 无法找到父容器');
-          return;
-        }
-        const isChecked = toggle.getAttribute('aria-checked') === 'true';
-        toggle.setAttribute('aria-checked', !isChecked ? 'true' : 'false');
-        toggle.classList.toggle('cosy:btn-primary', !isChecked);
-        toggle.classList.toggle('cosy:btn-ghost', isChecked);
-        const activeExample = container.querySelector(
-          '.cosy\\:example-container:not(.cosy\\:hidden)'
-        );
-        if (!activeExample) {
-          console.error('CodeContainer: 无法找到活动示例');
-          return;
-        }
-        activeExample
-          .querySelectorAll('.cosy\\:code-example-panel')
-          .forEach((panel) => {
-            if (panel.getAttribute('data-panel') === 'code') {
-              panel.classList.toggle('cosy:hidden', isChecked);
-              panel.classList.toggle('cosy:block', !isChecked);
-            } else {
-              panel.classList.toggle('cosy:hidden', !isChecked);
-              panel.classList.toggle('cosy:block', isChecked);
-            }
-          });
-      });
-    });
-  }
+    function initializeCodeToggle() {
+        const codeToggles = document.querySelectorAll('[data-toggle="code"]');
+        codeToggles.forEach((toggle) => {
+            toggle.addEventListener('click', () => {
+                const container = toggle.closest(
+                    '[data-role="code-container"]'
+                );
+                if (!container) {
+                    console.error('CodeContainer: 无法找到父容器');
+                    return;
+                }
+                const isChecked =
+                    toggle.getAttribute('aria-checked') === 'true';
+                const newState = !isChecked;
+                toggle.setAttribute(
+                    'aria-checked',
+                    newState ? 'true' : 'false'
+                );
+                toggle.classList.toggle('cosy:btn-primary', newState);
+                toggle.classList.toggle('cosy:btn-ghost', !newState);
 
-  document.addEventListener('astro:page-load', () => {
-    initializeCodeToggle();
-  });
+                // 获取当前激活的标签
+                const activeTab = container.querySelector(
+                    '[role="tab"].cosy\\:tab-active'
+                );
+                const activeTabId = activeTab
+                    ? activeTab.getAttribute('data-tab')
+                    : 'tab-1';
+
+                // 获取预览容器和代码面板容器
+                const previewContainer = container.querySelector(
+                    '[data-example="preview"]'
+                );
+                const codePanels = container.querySelectorAll(
+                    '.cosy\\:code-panel-container'
+                );
+
+                if (newState) {
+                    // 切换到代码视图
+                    if (previewContainer) {
+                        previewContainer.classList.add('cosy:hidden');
+                        previewContainer.classList.remove('cosy:block');
+                    }
+                    codePanels.forEach((panel) => {
+                        if (
+                            panel.getAttribute('data-code-panel') ===
+                            activeTabId
+                        ) {
+                            panel.classList.remove('cosy:hidden');
+                            panel.classList.add('cosy:block');
+                        }
+                    });
+                } else {
+                    // 切换到预览视图
+                    if (previewContainer) {
+                        previewContainer.classList.remove('cosy:hidden');
+                        previewContainer.classList.add('cosy:block');
+                    }
+                    codePanels.forEach((panel) => {
+                        panel.classList.add('cosy:hidden');
+                        panel.classList.remove('cosy:block');
+                    });
+                }
+            });
+        });
+    }
+
+    document.addEventListener('astro:page-load', () => {
+        initializeCodeToggle();
+    });
 </script>

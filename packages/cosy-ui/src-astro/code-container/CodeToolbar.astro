@@ -1,98 +1,113 @@
 ---
-import CodeToggleButton from "./ButtonCodeToggle.astro";
-import CopyCodeButton from "./ButtonCopyCode.astro";
+import CodeToggleButton from './ButtonCodeToggle.astro';
+import CopyCodeButton from './ButtonCopyCode.astro';
 
 interface Props {
-	titles: string[];
-	activeTab: number;
-	isCodeView: boolean;
-	code: string;
+    titles: string[];
+    activeTab: number;
+    isCodeView: boolean;
+    code: string;
 }
 
 const {
-	titles = [],
-	activeTab = 0,
-	isCodeView = false,
-	code = "",
+    titles = [],
+    activeTab = 0,
+    isCodeView = false,
+    code = '',
 } = Astro.props;
 ---
 
 <div
-  class="cosy:flex cosy:justify-between cosy:items-center cosy:bg-base-200 cosy:px-4 cosy:rounded-t">
-  <!-- 标签 -->
-  <div class="cosy:flex cosy:items-center cosy:gap-4">
-    <div role="tablist" class="cosy:tabs cosy:tabs-box">
-      {
-        titles.map((title: string, index: number) => (
-          <button
-            role="tab"
-            class={`cosy:tab ${index === activeTab ? 'cosy:tab-active' : ''}`}
-            data-tab={`tab-${index + 1}`}>
-            {title || `示例 ${index + 1}`}
-          </button>
-        ))
-      }
+    class="cosy:flex cosy:justify-between cosy:items-center cosy:bg-base-200 cosy:px-4 cosy:rounded-t">
+    <!-- 标签 -->
+    <div class="cosy:flex cosy:items-center cosy:gap-4">
+        <div role="tablist" class="cosy:tabs cosy:tabs-box">
+            {
+                titles.map((title: string, index: number) => (
+                    <button
+                        role="tab"
+                        class={`cosy:tab ${index === activeTab ? 'cosy:tab-active' : ''}`}
+                        data-tab={`tab-${index + 1}`}>
+                        {title || `示例 ${index + 1}`}
+                    </button>
+                ))
+            }
+        </div>
     </div>
-  </div>
-  <!-- 工具按钮 -->
-  <div class="cosy:flex cosy:items-center cosy:gap-2">
-    <CodeToggleButton isCodeView={isCodeView} />
-    <CopyCodeButton code={code} />
-  </div>
+    <!-- 工具按钮 -->
+    <div class="cosy:flex cosy:items-center cosy:gap-2">
+        <CodeToggleButton isCodeView={isCodeView} />
+        <CopyCodeButton code={code} />
+    </div>
 </div>
 
 <script>
-  function initializeTab() {
-    const exampleTabs = document.querySelectorAll(
-      '[role="tab"][data-tab^="tab-"]'
-    );
-    exampleTabs.forEach((tab) => {
-      tab.addEventListener('click', () => {
-        console.log('CodeContainer: 切换示例', tab.getAttribute('data-tab'));
-        const container = tab.closest('[data-role="code-container"]');
-        if (!container) return;
+    function initializeTab() {
+        const exampleTabs = document.querySelectorAll(
+            '[role="tab"][data-tab^="tab-"]'
+        );
+        exampleTabs.forEach((tab) => {
+            tab.addEventListener('click', () => {
+                console.log(
+                    'CodeContainer: 切换示例',
+                    tab.getAttribute('data-tab')
+                );
+                const container = tab.closest('[data-role="code-container"]');
+                if (!container) return;
 
-        // 更新标签状态
-        container
-          .querySelectorAll('[role="tab"][data-tab^="tab-"]')
-          .forEach((t) => {
-            t.classList.remove('cosy:tab-active');
-          });
-        tab.classList.add('cosy:tab-active');
+                // 更新标签状态
+                container
+                    .querySelectorAll('[role="tab"][data-tab^="tab-"]')
+                    .forEach((t) => {
+                        t.classList.remove('cosy:tab-active');
+                    });
+                tab.classList.add('cosy:tab-active');
 
-        // 获取当前标签对应的内容 id
-        const targetId = tab.getAttribute('data-tab');
-        if (!targetId) return;
+                // 获取当前标签对应的内容 id
+                const targetId = tab.getAttribute('data-tab');
+                if (!targetId) return;
 
-        // 切换示例容器
-        container
-          .querySelectorAll('.cosy\\:example-container')
-          .forEach((example) => {
-            if (example.getAttribute('data-example') === targetId) {
-              example.classList.remove('cosy:hidden');
-              example.classList.add('cosy:block');
-            } else {
-              example.classList.add('cosy:hidden');
-              example.classList.remove('cosy:block');
-            }
-          });
+                // 检查当前是否在代码视图
+                const codeToggle = container.querySelector(
+                    '[data-toggle="code"]'
+                );
+                const isCodeView =
+                    codeToggle?.getAttribute('aria-checked') === 'true';
 
-        // 更新对应内容的可见性
-        const allContent = container.querySelectorAll('[id^="tab-"]');
-        allContent.forEach((content) => {
-          if (content.id === targetId) {
-            content.classList.remove('cosy:hidden');
-            content.classList.add('cosy:block');
-          } else {
-            content.classList.add('cosy:hidden');
-            content.classList.remove('cosy:block');
-          }
+                // 如果在代码视图，切换代码面板容器
+                if (isCodeView) {
+                    container
+                        .querySelectorAll('.cosy\\:code-panel-container')
+                        .forEach((panel) => {
+                            if (
+                                panel.getAttribute('data-code-panel') ===
+                                targetId
+                            ) {
+                                panel.classList.remove('cosy:hidden');
+                                panel.classList.add('cosy:block');
+                            } else {
+                                panel.classList.add('cosy:hidden');
+                                panel.classList.remove('cosy:block');
+                            }
+                        });
+                }
+
+                // 更新对应内容的可见性（slot 内容）
+                const allContent = container.querySelectorAll('[id^="tab-"]');
+                allContent.forEach((content) => {
+                    if (content.id === targetId) {
+                        content.classList.remove('cosy:hidden');
+                        content.classList.add('cosy:block');
+                    } else {
+                        content.classList.add('cosy:hidden');
+                        content.classList.remove('cosy:block');
+                    }
+                });
+            });
         });
-      });
-    });
-  }
+    }
 
-  document.addEventListener('astro:page-load', () => {
-    initializeTab();
-  });
+    document.addEventListener('astro:page-load', () => {
+        initializeTab();
+    });
 </script>
