@@ -5,21 +5,27 @@
  * 用于处理具有明确高度的宽高比容器
  * 根据 fit 模式（contain/cover）计算合适的宽度
  */
-import type { RoundedSize } from "../../src/common/rounded";
+import type { RoundedSize } from '../../src/common/rounded';
+import { cn } from '../../src/class';
 
 export interface Props {
-	aspectRatio: number;
-	fit: "contain" | "cover";
-	rounded: RoundedSize;
+    aspectRatio: number;
+    fit: 'contain' | 'cover';
+    rounded: RoundedSize;
 }
 
 const { aspectRatio, fit, rounded } = Astro.props as Props;
+
+// 使用 class builder 构建各个部分的类名
+const outerClass = cn().absolute().inset(0).grid().placeItems('center').build();
+
+const innerClass = cn().relative().w('full').h('full').build();
 ---
 
-<div class="cosy:absolute cosy:inset-0 cosy:grid cosy:place-items-center">
+<div class={outerClass}>
     <div
         style={`aspect-ratio: ${aspectRatio}; width: ${fit === 'contain' ? `min(100cqw, calc(100cqh * ${aspectRatio}))` : `max(100cqw, calc(100cqh * ${aspectRatio}))`}; height: auto;`}>
-        <div class="cosy:relative cosy:w-full cosy:h-full">
+        <div class={innerClass}>
             <slot />
         </div>
     </div>

@@ -6,6 +6,7 @@
  *
  * @example
  * ```typescript
+ * // 基本用法
  * const className = cn()
  *   .flex('row')
  *   .items('center')
@@ -13,6 +14,29 @@
  *   .w('full')
  *   .build()
  * // 输出: "cosy:flex cosy:flex-row cosy:items-center cosy:gap-4 cosy:w-full"
+ *
+ * // 使用方向性间距方法
+ * const spacingClass = cn()
+ *   .mx('auto')  // 水平外边距
+ *   .my(4)       // 垂直外边距
+ *   .px(6)       // 水平内边距
+ *   .py(4)       // 垂直内边距
+ *   .build()
+ * // 输出: "cosy:mx-auto cosy:my-4 cosy:px-6 cosy:py-4"
+ *
+ * // 使用定位和 inset 方法
+ * const positionClass = cn()
+ *   .absolute()  // 绝对定位
+ *   .inset(0)    // 所有方向设为 0
+ *   .build()
+ * // 输出: "cosy:absolute cosy:inset-0"
+ *
+ * // 使用 z-index 和 pointer-events
+ * const layerClass = cn()
+ *   .z('-10')              // 负 z-index
+ *   .pointerEvents('none') // 禁用指针事件
+ *   .build()
+ * // 输出: "cosy:-z-10 cosy:pointer-events-none"
  * ```
  */
 
@@ -21,13 +45,25 @@ import {
 	type FlexDirection,
 	type ItemsAlign,
 	type JustifyAlign,
+	type PlaceItemsAlign,
 } from "./builders/LayoutBuilder";
 import {
 	SpacingBuilder,
 	type GapSize,
 	type PaddingSize,
 	type MarginSize,
+	type MarginXSize,
+	type MarginYSize,
+	type PaddingXSize,
+	type PaddingYSize,
+	type PaddingTopSize,
+	type PaddingBottomSize,
+	type PaddingLeftSize,
+	type PaddingRightSize,
+	type SpaceXSize,
+	type SpaceYSize,
 } from "./builders/SpacingBuilder";
+import { ListBuilder, type ListStyleType } from "./builders/ListBuilder";
 import {
 	SizeBuilder,
 	type WidthSize,
@@ -50,7 +86,14 @@ import {
 	type BgOpacityValue,
 	type TextOpacityValue,
 } from "./builders/OpacityBuilder";
-import { PositionBuilder } from "./builders/PositionBuilder";
+import {
+	PositionBuilder,
+	type InsetSize,
+	type InsetXSize,
+	type InsetYSize,
+	type ZIndexValue,
+	type PointerEventsValue,
+} from "./builders/PositionBuilder";
 
 class ClassBuilder {
 	// 统一的类名数组，保持调用顺序
@@ -63,6 +106,7 @@ class ClassBuilder {
 	private readonly textBuilder = new TextBuilder();
 	private readonly opacityBuilder = new OpacityBuilder();
 	private readonly positionBuilder = new PositionBuilder();
+	private readonly listBuilder = new ListBuilder();
 
 	constructor(initialClasses: string[] = []) {
 		this.classes = [...initialClasses];
@@ -114,6 +158,27 @@ class ClassBuilder {
 		return this;
 	}
 
+	/**
+	 * 添加 grid 布局
+	 */
+	grid(): this {
+		const tempBuilder = new LayoutBuilder();
+		tempBuilder.grid();
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置 place-items（同时设置 align-items 和 justify-items）
+	 * @param align 对齐方式
+	 */
+	placeItems(align: PlaceItemsAlign): this {
+		const tempBuilder = new LayoutBuilder();
+		tempBuilder.placeItems(align);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
 	// ========== 间距相关方法（委托给 SpacingBuilder） ==========
 
 	/**
@@ -145,6 +210,116 @@ class ClassBuilder {
 	margin(size: MarginSize): this {
 		const tempBuilder = new SpacingBuilder();
 		tempBuilder.margin(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置水平方向外边距（margin-left 和 margin-right）
+	 * @param size 外边距大小
+	 */
+	mx(size: MarginXSize): this {
+		const tempBuilder = new SpacingBuilder();
+		tempBuilder.mx(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置垂直方向外边距（margin-top 和 margin-bottom）
+	 * @param size 外边距大小
+	 */
+	my(size: MarginYSize): this {
+		const tempBuilder = new SpacingBuilder();
+		tempBuilder.my(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置水平方向内边距（padding-left 和 padding-right）
+	 * @param size 内边距大小
+	 */
+	px(size: PaddingXSize): this {
+		const tempBuilder = new SpacingBuilder();
+		tempBuilder.px(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置垂直方向内边距（padding-top 和 padding-bottom）
+	 * @param size 内边距大小
+	 */
+	py(size: PaddingYSize): this {
+		const tempBuilder = new SpacingBuilder();
+		tempBuilder.py(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置顶部内边距
+	 * @param size 内边距大小
+	 */
+	pt(size: PaddingTopSize): this {
+		const tempBuilder = new SpacingBuilder();
+		tempBuilder.pt(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置底部内边距
+	 * @param size 内边距大小
+	 */
+	pb(size: PaddingBottomSize): this {
+		const tempBuilder = new SpacingBuilder();
+		tempBuilder.pb(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置左侧内边距
+	 * @param size 内边距大小
+	 */
+	pl(size: PaddingLeftSize): this {
+		const tempBuilder = new SpacingBuilder();
+		tempBuilder.pl(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置右侧内边距
+	 * @param size 内边距大小
+	 */
+	pr(size: PaddingRightSize): this {
+		const tempBuilder = new SpacingBuilder();
+		tempBuilder.pr(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置水平方向子元素间距
+	 * @param size 间距大小
+	 */
+	spaceX(size: SpaceXSize): this {
+		const tempBuilder = new SpacingBuilder();
+		tempBuilder.spaceX(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置垂直方向子元素间距
+	 * @param size 间距大小
+	 */
+	spaceY(size: SpaceYSize): this {
+		const tempBuilder = new SpacingBuilder();
+		tempBuilder.spaceY(size);
 		this.classes.push(...tempBuilder.getClasses());
 		return this;
 	}
@@ -273,6 +448,19 @@ class ClassBuilder {
 		return this;
 	}
 
+	// ========== 列表相关方法（委托给 ListBuilder） ==========
+
+	/**
+	 * 设置列表样式类型
+	 * @param style 列表样式
+	 */
+	listStyle(style: ListStyleType): this {
+		const tempBuilder = new ListBuilder();
+		tempBuilder.listStyle(style);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
 	// ========== 透明度相关方法（委托给 OpacityBuilder） ==========
 
 	/**
@@ -366,6 +554,61 @@ class ClassBuilder {
 	fixed(): this {
 		const tempBuilder = new PositionBuilder();
 		tempBuilder.fixed();
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置 inset（top、right、bottom、left 同时设置）
+	 * @param size inset 值
+	 */
+	inset(size: InsetSize): this {
+		const tempBuilder = new PositionBuilder();
+		tempBuilder.inset(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置水平方向 inset（left 和 right）
+	 * @param size inset 值
+	 */
+	insetX(size: InsetXSize): this {
+		const tempBuilder = new PositionBuilder();
+		tempBuilder.insetX(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置垂直方向 inset（top 和 bottom）
+	 * @param size inset 值
+	 */
+	insetY(size: InsetYSize): this {
+		const tempBuilder = new PositionBuilder();
+		tempBuilder.insetY(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置 z-index 层级
+	 * @param value z-index 值
+	 */
+	z(value: ZIndexValue): this {
+		const tempBuilder = new PositionBuilder();
+		tempBuilder.z(value);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置 pointer-events 属性
+	 * @param value pointer-events 值
+	 */
+	pointerEvents(value: PointerEventsValue): this {
+		const tempBuilder = new PositionBuilder();
+		tempBuilder.pointerEvents(value);
 		this.classes.push(...tempBuilder.getClasses());
 		return this;
 	}

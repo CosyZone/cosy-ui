@@ -1,8 +1,14 @@
 ---
+import { cn } from '../../src/class';
+
+// 使用 class builder 构建各个部分的类名
+const outerClass = cn().relative().w('full').h('full').build();
+
+const innerClass = cn().absolute().inset(0).build();
 ---
 
-<div class="cosy:relative cosy:w-full cosy:h-full">
-    <div class="cosy:absolute cosy:inset-0">
+<div class={outerClass}>
+    <div class={innerClass}>
         <slot />
     </div>
 </div>

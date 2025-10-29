@@ -5,26 +5,35 @@
  * 用于处理默认情况下的宽高比容器
  * 宽度占满容器，高度根据宽高比自动计算
  */
-import type { RoundedSize } from "../../src/common/rounded";
-import { roundedClasses } from "../../src/common";
+import type { RoundedSize } from '../../src/common/rounded';
+import { roundedClasses } from '../../src/common';
+import { cn } from '../../src/class';
 
 export interface Props {
-	aspectRatio: number;
-	rounded: RoundedSize;
+    aspectRatio: number;
+    rounded: RoundedSize;
 }
 
 const { aspectRatio, rounded } = Astro.props as Props;
+
+// 使用 class builder 构建各个部分的类名
+const outerClass = cn()
+    .grid()
+    .placeItems('center')
+    .add(roundedClasses[rounded])
+    .build();
+
+const innerClass = cn()
+    .relative()
+    .w('full')
+    .h('full')
+    .add(roundedClasses[rounded])
+    .build();
 ---
 
-<div
-    class:list={['cosy:grid cosy:place-items-center', roundedClasses[rounded]]}>
+<div class={outerClass}>
     <div style={`aspect-ratio: ${aspectRatio}; width: 100%; height: auto;`}>
-        <div
-            class:list={[
-                'cosy:relative cosy:w-full cosy:h-full',
-                roundedClasses[rounded],
-            ]}
-            aria-label="container-content">
+        <div class={innerClass} aria-label="container-content">
             <slot />
         </div>
     </div>

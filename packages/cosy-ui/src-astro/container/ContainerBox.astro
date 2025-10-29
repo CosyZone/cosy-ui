@@ -4,6 +4,7 @@ import AspectRatioBox from './AspectRatioBox.astro';
 import HeightDrivenAspect from './HeightDrivenAspect.astro';
 import type { IContainerProps } from './props.ts';
 import { getContainerCombinedClasses } from './class.ts';
+import { cn } from '../../src/class';
 
 // 导出 Props 别名以提升 IDE 对组件使用方的属性提示
 export type Props = IContainerProps;
@@ -39,7 +40,7 @@ const {
 } = Astro.props as Props;
 
 // 计算组合类名
-const computedContainerClasses = getContainerCombinedClasses({
+const computedContainerClassesArray = getContainerCombinedClasses({
     aspectRatio,
     backgroundImage,
     background,
@@ -68,6 +69,11 @@ const computedContainerClasses = getContainerCombinedClasses({
     shadow,
 });
 
+// 使用 class builder 构建最终的类名
+const computedContainerClasses = cn()
+    .add(...computedContainerClassesArray)
+    .build();
+
 // 计算其他需要的属性
 const fitEnabled = fit !== 'none' && typeof aspectRatio === 'number';
 const isHeightDrivenAspect =
@@ -88,7 +94,7 @@ const computedInlineStyles = fitEnabled
 ---
 
 <section
-    class:list={computedContainerClasses}
+    class={computedContainerClasses}
     style={computedInlineStyles}
     {...rest}>
     <!-- 最底层的背景图片 -->
