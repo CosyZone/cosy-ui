@@ -1,33 +1,34 @@
 import type { ICardPropsBase } from "./cardPropsBase";
 import { getBackgroundClass } from "../../../src/common/backgrounds";
+import { cn } from "../../class";
 
 /**
  * 计算 Card 组件的组合类名（用于基础接口）
  * @param props Card 组件的基础 props
- * @returns 组合后的类名数组
+ * @returns 组合后的类名字符串
  */
-export function getBaseCardClasses(props: ICardPropsBase): string[] {
+export function getBaseCardClasses(props: ICardPropsBase): string {
 	const { background, class: className = "", compact, href } = props;
 
 	// 获取背景色类名
 	const backgroundClass = getBackgroundClass(background);
 
-	// 构建卡片样式类
-	const cardClasses = [
-		"cosy:card",
-		"cosy:w-full",
-		backgroundClass, // 不再提供默认背景色，避免与Container组件冲突
-		"cosy:transition-all",
-		"cosy:duration-300",
-		"cosy:ease-in-out",
-		compact ? "cosy:card-compact" : "",
-		href
-			? "cosy:cursor-pointer cosy:hover:scale-105 cosy:transform cosy:no-underline"
-			: "",
-		className,
-	];
+	// 使用 classBuilder 构建卡片样式类
+	const cardClass = cn()
+		.add("cosy:card")
+		.w("full")
+		.add(backgroundClass) // 不再提供默认背景色，避免与Container组件冲突
+		.add("cosy:transition-all", "cosy:duration-300", "cosy:ease-in-out")
+		.add(compact ? "cosy:card-compact" : "")
+		.add(
+			href
+				? "cosy:cursor-pointer cosy:hover:scale-105 cosy:transform cosy:no-underline"
+				: "",
+		)
+		.add(className)
+		.build();
 
-	return cardClasses.filter(Boolean);
+	return cardClass;
 }
 
 /**

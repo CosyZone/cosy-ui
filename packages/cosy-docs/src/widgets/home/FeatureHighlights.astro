@@ -21,16 +21,43 @@ const features =
                   icon: '🚀',
                   title: '基于 Astro',
                   description: '性能优异，零 JS 开销，让你的网站飞速加载',
+                  gradient: 'card-gradient-5',
               },
               {
                   icon: '🎨',
                   title: '60+ 组件',
                   description: '开箱即用的精美组件，满足各种开发需求',
+                  gradient: 'card-gradient-6',
               },
               {
                   icon: '📱',
                   title: '响应式设计',
                   description: '完美适配各种设备，从手机到桌面无缝体验',
+                  gradient: 'card-gradient-7',
+              },
+              {
+                  icon: '💡',
+                  title: '智能提示',
+                  description: '完整的 TypeScript 类型支持',
+                  gradient: 'card-gradient-1',
+              },
+              {
+                  icon: '⛓️',
+                  title: '流畅链式',
+                  description: '优雅的链式调用语法',
+                  gradient: 'card-gradient-2',
+              },
+              {
+                  icon: '🛡️',
+                  title: '类型安全',
+                  description: '编译时错误检查',
+                  gradient: 'card-gradient-3',
+              },
+              {
+                  icon: '✨',
+                  title: '极致体验',
+                  description: '统一的开发模式',
+                  gradient: 'card-gradient-4',
               },
           ]
         : [
@@ -39,18 +66,45 @@ const features =
                   title: 'Built on Astro',
                   description:
                       'Exceptional performance, zero JS overhead, lightning-fast loading',
+                  gradient: 'card-gradient-5',
               },
               {
                   icon: '🎨',
                   title: '60+ Components',
                   description:
                       'Beautiful components ready to use, meeting all development needs',
+                  gradient: 'card-gradient-6',
               },
               {
                   icon: '📱',
                   title: 'Responsive Design',
                   description:
                       'Perfect adaptation to all devices, seamless experience from mobile to desktop',
+                  gradient: 'card-gradient-7',
+              },
+              {
+                  icon: '💡',
+                  title: 'IntelliSense',
+                  description: 'Full TypeScript support',
+                  gradient: 'card-gradient-1',
+              },
+              {
+                  icon: '⛓️',
+                  title: 'Fluent API',
+                  description: 'Elegant chaining syntax',
+                  gradient: 'card-gradient-2',
+              },
+              {
+                  icon: '🛡️',
+                  title: 'Type Safe',
+                  description: 'Compile-time error checking',
+                  gradient: 'card-gradient-3',
+              },
+              {
+                  icon: '✨',
+                  title: 'Great DX',
+                  description: 'Unified development pattern',
+                  gradient: 'card-gradient-4',
               },
           ];
 ---
@@ -64,26 +118,32 @@ const features =
         <div class="features-grid">
             {
                 features.map((feature) => (
-                    <Card
-                        width="full"
-                        padding="xl"
-                        shadow="lg"
-                        rounded="xl"
-                        background="base-100"
-                        class="feature-card">
-                        <div class="feature-icon">{feature.icon}</div>
-                        <Heading
-                            level={3}
-                            align="center"
-                            size="xl"
-                            weight="bold"
-                            margin="sm">
-                            {feature.title}
-                        </Heading>
-                        <Text align="center" size="md" color="muted">
-                            {feature.description}
-                        </Text>
-                    </Card>
+                    <div class={`feature-card ${feature.gradient}`}>
+                        <Card
+                            width="full"
+                            padding="xl"
+                            shadow="lg"
+                            rounded="xl"
+                            background="transparent"
+                            class="feature-card-inner">
+                            <div class="feature-icon">{feature.icon}</div>
+                            <Heading
+                                level={3}
+                                align="center"
+                                size="xl"
+                                weight="bold"
+                                margin="sm"
+                                class="text-white">
+                                {feature.title}
+                            </Heading>
+                            <Text
+                                align="center"
+                                size="md"
+                                class="text-white-muted">
+                                {feature.description}
+                            </Text>
+                        </Card>
+                    </div>
                 ))
             }
         </div>
@@ -94,27 +154,83 @@ const features =
     .features-grid {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1.5rem;
     }
 
     @media (min-width: 768px) {
+        .features-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
         .features-grid {
             grid-template-columns: repeat(3, 1fr);
         }
     }
 
     .feature-card {
+        border-radius: 1rem;
+        overflow: hidden;
         transition: all 0.3s ease;
     }
 
     .feature-card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        transform: translateY(-6px) scale(1.02);
+    }
+
+    .feature-card-inner {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        min-height: 200px;
+        justify-content: center;
     }
 
     .feature-icon {
-        font-size: 3.75rem;
-        text-align: center;
+        font-size: 3rem;
         margin-bottom: 1rem;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+    }
+
+    /* Props Builder 渐变卡片 */
+    .card-gradient-1 {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .card-gradient-2 {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    .card-gradient-3 {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+
+    .card-gradient-4 {
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    }
+
+    /* 核心特性渐变卡片 */
+    .card-gradient-5 {
+        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    }
+
+    .card-gradient-6 {
+        background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+    }
+
+    .card-gradient-7 {
+        background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    }
+
+    .text-white {
+        color: white !important;
+    }
+
+    .text-white-muted {
+        color: rgba(255, 255, 255, 0.9) !important;
     }
 </style>

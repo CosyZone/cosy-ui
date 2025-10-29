@@ -1,0 +1,10 @@
+---
+import { AlertFactory } from '@coffic/cosy-ui';
+
+const alertElement = await AlertFactory.withType('info')
+    .withMarginY('sm')
+    .withTitle('小间距')
+    .build();
+---
+
+<Fragment set:html={alertElement} />

@@ -1,4 +1,5 @@
 import type { IHeadingPropsBase } from "./headingPropsBase";
+import { cn } from "../../class";
 import { getHeadingAlignClass } from "./class-align";
 import { getHeadingBackgroundClass } from "./class-background";
 import { getHeadingColorClass } from "./class-color";
@@ -11,9 +12,9 @@ import { getHeadingUnderlineClass } from "./class-underline";
 /**
  * 计算 Heading 组件的组合类名（用于基础接口）
  * @param props Heading 组件的基础 props
- * @returns 组合后的类名数组
+ * @returns 组合后的类名字符串
  */
-export function getBaseHeadingClasses(props: IHeadingPropsBase): string[] {
+export function getBaseHeadingClasses(props: IHeadingPropsBase): string {
 	const {
 		align = "left",
 		background,
@@ -36,20 +37,22 @@ export function getBaseHeadingClasses(props: IHeadingPropsBase): string[] {
 	const weightClass = getHeadingWeightClass(level, weight);
 	const underlineClass = getHeadingUnderlineClass(underline);
 
-	// 组合所有类名
-	const baseClasses = [
-		"heading",
-		"cosy:w-full",
-		sizeClass,
-		weightClass,
-		colorClass,
-		alignClass,
-		underlineClass,
-		marginClass,
-		backgroundClass,
-		paddingClass,
-		className,
-	];
+	// 使用 classBuilder 组合所有类名
+	const headingClass = cn()
+		.add("heading")
+		.w("full")
+		.add(
+			sizeClass,
+			weightClass,
+			colorClass,
+			alignClass,
+			underlineClass,
+			marginClass,
+			backgroundClass,
+			paddingClass,
+			className,
+		)
+		.build();
 
-	return baseClasses;
+	return headingClass;
 }

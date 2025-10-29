@@ -1,0 +1,10 @@
+---
+import { AlertFactory } from '@coffic/cosy-ui';
+
+const alertElement = await AlertFactory.withType('error')
+	.withVariant('dash')
+	.withTitle('Dash 错误')
+	.build();
+---
+
+<Fragment set:html={alertElement} />

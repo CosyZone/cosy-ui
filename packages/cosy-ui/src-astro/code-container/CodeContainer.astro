@@ -7,6 +7,8 @@
  * 支持样式重置模式。
  * 使用时只需在默认slot中传入内容，并为每个示例设置对应的id (tab-1, tab-2等)
  *
+ * 支持自动检测 label 属性来分组不同的写法（如 basic、factory 等）
+ *
  * @usage
  * 基础用法：
  * ```astro
@@ -20,13 +22,21 @@
  * </CodeContainer>
  * ```
  *
- * 自定义标题：
+ * 带 label 的用法（自动生成模式切换）：
  * ```astro
- * <CodeContainer
- *   titles={['基础用法', '高级用法']}
- *   codes={[code1, code2]}>
- *   <div id="tab-1">...</div>
- *   <div id="tab-2">...</div>
+ * <CodeContainer codes={[code1, code2, code3, code4]} titles={['Info', 'Success']}>
+ *   <div id="tab-1" data-label="传统写法">
+ *     <Alert type="info">Traditional Info</Alert>
+ *   </div>
+ *   <div id="tab-2" data-label="传统写法">
+ *     <Alert type="success">Traditional Success</Alert>
+ *   </div>
+ *   <div id="tab-3" data-label="现代写法">
+ *     <ModernAlert info />
+ *   </div>
+ *   <div id="tab-4" data-label="现代写法">
+ *     <ModernAlert success />
+ *   </div>
  * </CodeContainer>
  * ```
  *
@@ -37,7 +47,7 @@
  * @prop {string[]} [titles] - tab的标题数组，如果不提供则使用"示例 1"这样的默认标题
  *
  * @slots
- * @slot default - 代码示例内容，需要为每个示例设置对应的 id (tab-1, tab-2等)
+ * @slot default - 代码示例内容，需要为每个示例设置对应的 id (tab-1, tab-2等)，可选添加 data-label 属性来分组。data-label 的值会直接显示为模式切换按钮的文字
  *
  * @accessibility
  * - 支持键盘导航，可以使用 Tab 键在标签页间切换
@@ -45,47 +55,54 @@
  * - 标签页切换时保持焦点状态，提升用户体验
  */
 
-import CodeToolbar from "./CodeToolbar.astro";
-import Description from "./Description.astro";
-import Preview from "./Preview.astro";
-import { CodePanel, Container } from "../../index-astro";
-import "../../style.ts";
+import CodeToolbar from './toolbar/CodeToolbar.astro';
+import ModeSwitcher from './toolbar/ModeSwitcher.astro';
+import Preview from './components/Preview.astro';
+import CodePanelContainer from './components/CodePanelContainer.astro';
+import { cn } from '../../src/class';
+import '../../style.ts';
 
 interface Props {
-	/**
-	 * 每个示例对应的源代码
-	 */
-	codes: string[];
+    /**
+     * 每个示例对应的源代码
+     */
+    codes: string[];
 
-	/**
-	 * tab的描述文本
-	 */
-	descriptions?: string[];
+    /**
+     * tab的描述文本
+     */
+    descriptions?: string[];
 
-	/**
-	 * 是否重置内部样式
-	 * @default true
-	 */
-	resetStyles?: boolean;
+    /**
+     * 是否重置内部样式
+     * @default true
+     */
+    resetStyles?: boolean;
 
-	/**
-	 * tab的标题，如果不提供则使用"示例 1"这样的默认标题
-	 */
-	titles?: string[];
+    /**
+     * tab的标题，如果不提供则使用"示例 1"这样的默认标题
+     */
+    titles?: string[];
 }
 
 const {
-	titles = [],
-	descriptions = [],
-	codes,
-	resetStyles = true,
+    titles = [],
+    descriptions = [],
+    codes,
+    resetStyles = true,
 } = Astro.props;
+
+// 使用 classBuilder 构建容器类名
+const containerClass = cn().add('cosy:mb-8', 'cosy:card', 'not-prose').build();
+
+// 导出 Props 类型供外部使用
+export type { Props };
 ---
 
-<div
-    data-role="code-container"
-    class="cosy:mb-8 cosy:card not-prose"
-    ignore-heading>
+<div data-role="code-container" class={containerClass} ignore-heading>
+    <!-- 模式切换器 -->
+    <ModeSwitcher />
+
     <CodeToolbar
         titles={titles.length ? titles : codes.map((_, i) => `示例 ${i + 1}`)}
         activeTab={0}
@@ -93,51 +110,171 @@ const {
         code={codes[0]}
     />
 
+    <!-- 预览容器（只渲染一次 slot） -->
+    <Preview resetStyles={resetStyles}>
+        <slot />
+    </Preview>
+
+    <!-- 代码面板容器（为每个 code 创建，默认全部隐藏） -->
     {
         codes.map((code, index) => (
-            <div
-                class={`cosy:example-container ${index === 0 ? 'cosy:block' : 'cosy:hidden'}`}
-                data-example={`tab-${index + 1}`}>
-                <Description text={descriptions[index]} />
-
-                <Container background="dot-grid" width="full">
-                    <div class="cosy:relative cosy:p-4 cosy:rounded-b">
-                        <Preview>
-                            <div
-                                class={`cosy:code-preview-area ${resetStyles ? 'cosy:reset-styles' : ''}`}
-                                data-preview-area={`tab-${index + 1}`}>
-                                <slot />
-                            </div>
-                        </Preview>
-
-                        <div
-                            class="cosy:hidden cosy:code-example-panel"
-                            data-panel="code">
-                            <CodePanel code={code} />
-                        </div>
-                    </div>
-                </Container>
-            </div>
+            <CodePanelContainer code={code} tabId={`tab-${index + 1}`} />
         ))
     }
 </div>
 
-<script>
+<script is:inline>
     function initializeCodeContainer() {
-        // 初始化时隐藏除第一个以外的所有内容
         document
             .querySelectorAll('[data-role="code-container"]')
             .forEach((container) => {
-                const contents = container.querySelectorAll('[id^="tab-"]');
-                contents.forEach((content, index) => {
-                    if (index !== 0) {
-                        content.classList.add('cosy:hidden');
+                const contents = Array.from(
+                    container.querySelectorAll('[id^="tab-"]')
+                );
+
+                // 检查是否有任何 data-label
+                const hasLabels = contents.some((content) =>
+                    content.hasAttribute('data-label')
+                );
+
+                if (!hasLabels) {
+                    // 没有任何 label，使用传统的标签切换逻辑
+                    contents.forEach((content, index) => {
+                        if (index !== 0) {
+                            content.classList.add('cosy:hidden');
+                        }
+                    });
+                    return;
+                }
+
+                // 有 label，启用分组模式
+                setupLabelGroups(container, contents);
+            });
+    }
+
+    function setupLabelGroups(container, contents) {
+        // 不再自动为没有 data-label 的内容添加默认 label
+        // 让 ModeSwitcher 自己处理未分类的情况
+        // 这里保留函数是为了向后兼容，但不做任何操作
+    }
+
+    /**
+     * 监听 ModeSwitcher 触发的 mode-change 事件
+     * 并更新内容和标签页的显示
+     */
+    function handleModeChange(event) {
+        const { label: targetLabel, groups } = event.detail;
+        const container = event.target;
+
+        // 获取目标分组的内容
+        const targetGroupContents = groups[targetLabel] || [];
+        const firstTabId = targetGroupContents[0]?.id;
+
+        // 获取所有内容元素
+        const allContents = Array.from(
+            container.querySelectorAll('[id^="tab-"]')
+        );
+
+        // 切换内容可见性：只显示目标分组的第一个tab
+        allContents.forEach((content) => {
+            if (content.id === firstTabId) {
+                content.classList.remove('cosy:hidden');
+                content.classList.add('cosy:block');
+            } else {
+                content.classList.add('cosy:hidden');
+                content.classList.remove('cosy:block');
+            }
+        });
+
+        // 更新标签按钮的显示和状态
+        updateTabsForLabelGroup(container, targetLabel, groups);
+    }
+
+    /**
+     * 根据当前激活的模式更新标签按钮
+     */
+    function updateTabsForLabelGroup(container, label, groups) {
+        const groupContents = groups[label] || [];
+
+        // 获取所有标签按钮
+        const tabs = container.querySelectorAll(
+            '[role="tab"][data-tab^="tab-"]'
+        );
+
+        // 显示/隐藏标签按钮
+        tabs.forEach((tab) => {
+            const targetId = tab.getAttribute('data-tab');
+            const targetContent = groupContents.find((c) => c.id === targetId);
+
+            if (targetContent) {
+                tab.classList.remove('cosy:hidden');
+                tab.classList.add('cosy:block');
+            } else {
+                tab.classList.add('cosy:hidden');
+                tab.classList.remove('cosy:block');
+            }
+        });
+
+        // 激活第一个可见标签
+        if (groupContents.length > 0) {
+            const firstContent = groupContents[0];
+            const firstTab = container.querySelector(
+                `[data-tab="${firstContent.id}"]`
+            );
+            if (firstTab) {
+                tabs.forEach((t) => t.classList.remove('cosy:tab-active'));
+                firstTab.classList.add('cosy:tab-active');
+            }
+        }
+    }
+
+    /**
+     * 监听 TabList 触发的 tab-change 事件
+     * 并更新内容显示
+     */
+    function handleTabChange(event) {
+        const { targetId, isCodeView } = event.detail;
+        const container = event.target;
+
+        // 如果在代码视图，切换代码面板容器
+        if (isCodeView) {
+            container
+                .querySelectorAll('.cosy\\:code-panel-container')
+                .forEach((panel) => {
+                    if (panel.getAttribute('data-code-panel') === targetId) {
+                        panel.classList.remove('cosy:hidden');
+                        panel.classList.add('cosy:block');
+                    } else {
+                        panel.classList.add('cosy:hidden');
+                        panel.classList.remove('cosy:block');
                     }
                 });
-            });
+        }
+
+        // 更新对应内容的可见性（slot 内容）
+        const allContent = container.querySelectorAll('[id^="tab-"]');
+        allContent.forEach((content) => {
+            if (content.id === targetId) {
+                content.classList.remove('cosy:hidden');
+                content.classList.add('cosy:block');
+            } else {
+                content.classList.add('cosy:hidden');
+                content.classList.remove('cosy:block');
+            }
+        });
     }
 
     document.addEventListener('astro:page-load', () => {
         initializeCodeContainer();
+
+        // 监听事件
+        document
+            .querySelectorAll('[data-role="code-container"]')
+            .forEach((container) => {
+                // 监听 ModeSwitcher 触发的 mode-change 事件
+                container.addEventListener('mode-change', handleModeChange);
+                // 监听 TabList 触发的 tab-change 事件
+                container.addEventListener('tab-change', handleTabChange);
+            });
     });
 </script>

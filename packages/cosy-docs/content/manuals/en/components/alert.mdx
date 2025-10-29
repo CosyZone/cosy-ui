@@ -42,12 +42,6 @@ Whether the alert is closable. When set to false, the close button is hidden.
 
 <AlertPackage.Closable />
 
-### description
-
-Description text displayed below the title, with smaller font size and reduced opacity.
-
-<AlertPackage.WithTitle />
-
 ### marginY
 
 Vertical margin size, supporting preset size values.
@@ -62,7 +56,7 @@ Whether to display the icon. When set to false, the type-specific icon is hidden
 
 ### title
 
-Alert title, optional, displayed as bold text.
+Alert title, optional, displayed as bold text. After setting the title, you can add description text via the description property.
 
 <AlertPackage.WithTitle />
 
@@ -78,16 +72,14 @@ Style variant, supporting four styles: solid (filled), outline (bordered), dash 
 
 <AlertPackage.Outline />
 
-## Basic Usage
+<AlertPackage.Dash />
 
-The simplest way to display alert messages:
+<AlertPackage.Soft />
 
-<AlertPackage.Basic />
+## Slots
 
-## Custom Action Button
+### action
 
 You can use the `action` slot to add a custom action button on the right side of the Alert:
 
 <AlertPackage.Action />
-
-This slot is rendered on the right side of the Alert, suitable for custom buttons or other actions.

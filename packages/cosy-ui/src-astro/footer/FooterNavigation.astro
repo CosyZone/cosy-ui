@@ -6,6 +6,7 @@
  */
 
 import { Container } from '../../index-astro';
+import { cn } from '../../src/class';
 import FooterSection from './FooterSection.astro';
 import FooterAboutNavigation from './FooterAboutNavigation.astro';
 import FooterResourcesNavigation from './FooterResourcesNavigation.astro';
@@ -45,6 +46,14 @@ const {
     legalInfo,
     t,
 } = Astro.props as Props;
+
+// 使用 classBuilder 构建导航容器类名
+const navigationClass = cn()
+    .add('cosy:h-full', 'cosy:mx-auto', 'cosy:text-center')
+    .add('cosy:flex-col', 'cosy:justify-between')
+    .items('center')
+    .add('cosy:md:flex-row', 'cosy:md:justify-center', 'cosy:md:items-start')
+    .build();
 ---
 
 <Container
@@ -54,14 +63,7 @@ const {
     justify="center"
     padding="none"
     width="full"
-    class:list={[
-        // 通用
-        'cosy:h-full cosy:mx-auto cosy:text-center ',
-        // 小屏幕
-        'cosy:flex-col cosy:justify-between cosy:items-center',
-        // 大屏幕
-        'cosy:md:flex-row cosy:md:justify-center cosy:md:items-start',
-    ]}>
+    class={navigationClass}>
     {/* 产品导航 */}
     {
         products.length > 0 && (

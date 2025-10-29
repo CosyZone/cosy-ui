@@ -1,0 +1,11 @@
+---
+
+import { AlertFactory } from '@coffic/cosy-ui';
+
+const alertElement = await AlertFactory.withType('warning')
+    .withClosable(false)
+    .withTitle('不可关闭的警告')
+    .build();
+---
+
+<Fragment set:html={alertElement} />

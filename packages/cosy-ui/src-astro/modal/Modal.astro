@@ -51,122 +51,125 @@
  * ```
  */
 
-import "../../style.ts";
-import { Heading } from "../../index-astro";
-import CloseButton from "./CloseButton.astro";
+import { cn } from '../../src/class';
+import { Heading } from '../../index-astro';
+import CloseButton from './CloseButton.astro';
 
 interface Props {
-	/**
-	 * Modal 的唯一标识符
-	 */
-	id: string;
-	/**
-	 * 模态框的标题
-	 */
-	title?: string;
-	/**
-	 * 标题的链接地址，传入后标题会变成可点击的链接
-	 */
-	titleHref?: string;
-	/**
-	 * 标题链接是否为外部链接
-	 */
-	titleExternal?: boolean;
-	/**
-	 * 自定义类名
-	 */
-	class?: string;
+    /**
+     * Modal 的唯一标识符
+     */
+    id: string;
+    /**
+     * 模态框的标题
+     */
+    title?: string;
+    /**
+     * 标题的链接地址，传入后标题会变成可点击的链接
+     */
+    titleHref?: string;
+    /**
+     * 标题链接是否为外部链接
+     */
+    titleExternal?: boolean;
+    /**
+     * 自定义类名
+     */
+    class?: string;
 }
 
 const {
-	id,
-	title = "",
-	titleHref,
-	titleExternal = false,
-	class: className = "",
+    id,
+    title = '',
+    titleHref,
+    titleExternal = false,
+    class: className = '',
 } = Astro.props;
+
+// 使用 classBuilder 构建 modal-box 类名
+const modalBoxClass = cn().add('cosy:modal-box').add(className).build();
 ---
 
 <dialog id={id} class="cosy:modal">
-  <div class:list={['cosy:modal-box', className]}>
-    <div
-      class="cosy:flex cosy:justify-between cosy:items-center cosy:p-2 cosy:border-b-1 cosy:border-base-300 not-prose">
-      <Heading
-        level={4}
-        class="cosy:modal-title cosy:m-0"
-        href={titleHref}
-        external={titleExternal}>
-        {title}
-      </Heading>
-      <CloseButton class="cosy:absolute" />
-    </div>
+    <div class={modalBoxClass}>
+        <div
+            class="cosy:flex cosy:justify-between cosy:items-center cosy:p-2 cosy:border-b-1 cosy:border-base-300 not-prose">
+            <Heading
+                level={4}
+                class="cosy:modal-title cosy:m-0"
+                href={titleHref}
+                external={titleExternal}>
+                {title}
+            </Heading>
+            <CloseButton class="cosy:absolute" />
+        </div>
 
-    <div class="cosy:modal-content">
-      <slot />
-    </div>
+        <div class="cosy:modal-content">
+            <slot />
+        </div>
 
-    <div class="cosy:modal-action">
-      <slot name="actions" />
+        <div class="cosy:modal-action">
+            <slot name="actions" />
+        </div>
     </div>
-  </div>
 </dialog>
 
 <script is:inline define:vars={{ id }}>
-  let handleClick;
+    let handleClick;
 
-  function initializeModal() {
-    const modal = document.getElementById(id);
-    if (!modal) {
-      return;
+    function initializeModal() {
+        const modal = document.getElementById(id);
+        if (!modal) {
+            return;
+        }
+
+        // 移除之前的事件监听器（如果存在）
+        if (handleClick) {
+            document.removeEventListener('click', handleClick);
+        }
+
+        // 使用事件委托来处理动态加载的内容
+        handleClick = (event) => {
+            const target = event.target;
+            // 使用 closest() 查找最近的匹配元素，包括按钮内部的元素
+            const trigger = target.closest(`[data-modal-target="${id}"]`);
+            if (trigger) {
+                console.log('Modal: 触发模态框', id);
+                modal.showModal();
+
+                // 在modal显示后自动focus到第一个input元素
+                setTimeout(() => {
+                    const firstInput = modal.querySelector(
+                        'input, textarea, select, [contenteditable="true"]'
+                    );
+                    if (firstInput) {
+                        firstInput.focus();
+                    }
+                }, 100); // 延迟100ms确保modal完全显示
+            }
+        };
+
+        document.addEventListener('click', handleClick);
     }
 
-    // 移除之前的事件监听器（如果存在）
-    if (handleClick) {
-      document.removeEventListener('click', handleClick);
+    // Astro 页面切换时初始化
+    document.addEventListener('astro:page-load', () => {
+        initializeModal();
+    });
+
+    // 非客户端路由场景（或首屏加载）下，确保初始化
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => initializeModal());
+    } else {
+        // 文档已就绪，直接初始化一次
+        initializeModal();
     }
 
-    // 使用事件委托来处理动态加载的内容
-    handleClick = (event) => {
-      const target = event.target;
-      // 使用 closest() 查找最近的匹配元素，包括按钮内部的元素
-      const trigger = target.closest(`[data-modal-target="${id}"]`);
-      if (trigger) {
-        console.log('Modal: 触发模态框', id);
-        modal.showModal();
-
-        // 在modal显示后自动focus到第一个input元素
-        setTimeout(() => {
-          const firstInput = modal.querySelector(
-            'input, textarea, select, [contenteditable="true"]'
-          );
-          if (firstInput) {
-            firstInput.focus();
-          }
-        }, 100); // 延迟100ms确保modal完全显示
-      }
-    };
-
-    document.addEventListener('click', handleClick);
-  }
-
-  // Astro 页面切换时初始化
-  document.addEventListener('astro:page-load', () => {
-    initializeModal();
-  });
-
-  // 非客户端路由场景（或首屏加载）下，确保初始化
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => initializeModal());
-  } else {
-    // 文档已就绪，直接初始化一次
-    initializeModal();
-  }
-
-  // 页面卸载时清理事件监听器
-  document.addEventListener('astro:before-preparation', () => {
-    if (handleClick) {
-      document.removeEventListener('click', handleClick);
-      handleClick = null;
-    }
-  });
+    // 页面卸载时清理事件监听器
+    document.addEventListener('astro:before-preparation', () => {
+        if (handleClick) {
+            document.removeEventListener('click', handleClick);
+            handleClick = null;
+        }
+    });
 </script>

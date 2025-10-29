@@ -1,0 +1,120 @@
+---
+/**
+ * @component HeroContent
+ * @description Hero 组件的主要内容布局容器
+ *
+ * @props
+ * @prop {string} [align="center"] - 内容对齐方式
+ * @prop {string} [backgroundOverlay="none"] - 背景遮罩类型
+ * @prop {string} description - 描述文本
+ * @prop {boolean} [glassmorphism=true] - 是否启用毛玻璃效果
+ * @prop {boolean} [hasBackgroundImage=false] - 是否有背景图片
+ * @prop {Object} [image] - 图片配置
+ * @prop {string} [imagePosition="right"] - 图片位置
+ * @prop {Array<IHeroLink>} [links=[]] - 链接按钮数组
+ * @prop {string} [textBackground="glass"] - 文字区域背景类型
+ * @prop {string} title - 标题文本
+ */
+
+import HeroImage from './HeroImage.astro';
+import HeroTextContent from './HeroTextContent.astro';
+import type { IHeroLink } from './hero.ts';
+import type { ImageSource } from '../../index-astro';
+import { cn } from '../../src/class';
+
+interface ImageConfig {
+    src: ImageSource;
+    alt: string;
+}
+
+interface Props {
+    align?: 'center' | 'left' | 'right';
+    backgroundOverlay?: string;
+    description: string;
+    glassmorphism?: boolean;
+    hasBackgroundImage?: boolean;
+    image?: ImageConfig;
+    imagePosition?: 'right' | 'left' | 'top' | 'bottom';
+    links?: IHeroLink[];
+    textBackground?: 'none' | 'glass' | 'solid' | 'gradient';
+    title: string;
+}
+
+const {
+    align = 'center',
+    backgroundOverlay = 'none',
+    description,
+    glassmorphism = true,
+    hasBackgroundImage = false,
+    image,
+    imagePosition = 'right',
+    links = [],
+    textBackground = 'glass',
+    title,
+} = Astro.props as Props;
+
+// 内容布局类
+const contentClass = cn()
+    .flex(imagePosition === 'top' || imagePosition === 'bottom' ? 'col' : 'col')
+    .add('cosy:lg:flex-row')
+    .add(
+        align === 'center'
+            ? 'cosy:text-center cosy:items-center'
+            : align === 'left'
+              ? 'cosy:text-left cosy:items-start'
+              : 'cosy:text-right cosy:items-end'
+    )
+    .w('full')
+    .mx('auto')
+    .gap(10)
+    .add('cosy:lg:gap-16')
+    .z(10)
+    .relative()
+    .py(16)
+    .px(4)
+    .add('cosy:sm:px-6', 'cosy:lg:px-8')
+    .build();
+
+// 内容顺序类映射
+const contentOrderMap = {
+    right: 'cosy:order-2 cosy:lg:order-1',
+    left: 'cosy:order-1 cosy:lg:order-2',
+    top: 'cosy:order-2',
+    bottom: 'cosy:order-1',
+};
+
+const contentOrderClass = contentOrderMap[imagePosition];
+
+// 文本容器类
+const textContainerClass = cn()
+    .add(contentOrderClass)
+    .flex('col')
+    .w('full')
+    .add('not-prose', 'cosy:not-prose')
+    .add(
+        align === 'center'
+            ? 'cosy:text-center cosy:items-center'
+            : align === 'left'
+              ? 'cosy:text-left cosy:items-start'
+              : 'cosy:text-right cosy:items-end'
+    )
+    .build();
+---
+
+<div class={contentClass}>
+    {image && <HeroImage image={image} imagePosition={imagePosition} />}
+
+    <div class={textContainerClass}>
+        <HeroTextContent
+            title={title}
+            description={description}
+            links={links}
+            align={align}
+            glassmorphism={glassmorphism}
+            textBackground={textBackground}
+            hasBackgroundImage={hasBackgroundImage}
+            backgroundOverlay={backgroundOverlay}>
+            <slot name="app" slot="app" />
+        </HeroTextContent>
+    </div>
+</div>

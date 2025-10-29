@@ -1,0 +1,16 @@
+---
+import { AlertFactory } from '@coffic/cosy-ui';
+import AlertActionButtonWithIcon from './AlertActionButtonWithIcon.astro';
+
+const alertElement = await AlertFactory.create()
+    .success()
+    .withTitle('操作成功')
+    .withContent('你的操作已成功完成，可以进行下一步。')
+    .slotAction(AlertActionButtonWithIcon, {
+        text: '查看详情',
+        onClick: "alert('查看详情')",
+    })
+    .build();
+---
+
+<Fragment set:html={alertElement} />

@@ -3,35 +3,68 @@
  * @component AlertSoftContainer
  * @description 展示 Alert 组件 soft 柔和风格的示例
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import AlertSoftInfo from "./AlertSoftInfo.astro";
-import AlertSoftSuccess from "./AlertSoft.astro";
-import AlertSoftWarning from "./AlertSoftWarning.astro";
-import AlertSoftError from "./AlertSoftError.astro";
-import AlertSoftInfoSource from "./AlertSoftInfo.astro?raw";
-import AlertSoftSuccessSource from "./AlertSoft.astro?raw";
-import AlertSoftWarningSource from "./AlertSoftWarning.astro?raw";
-import AlertSoftErrorSource from "./AlertSoftError.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import AlertSoftInfo from './AlertSoftInfo.astro';
+import AlertSoftSuccess from './AlertSoft.astro';
+import AlertSoftWarning from './AlertSoftWarning.astro';
+import AlertSoftError from './AlertSoftError.astro';
+import AlertSoftInfoFactory from './AlertSoftInfoFactory.astro';
+import AlertSoftSuccessFactory from './AlertSoftSuccessFactory.astro';
+import AlertSoftWarningFactory from './AlertSoftWarningFactory.astro';
+import AlertSoftErrorFactory from './AlertSoftErrorFactory.astro';
+import AlertSoftInfoSource from './AlertSoftInfo.astro?raw';
+import AlertSoftSuccessSource from './AlertSoft.astro?raw';
+import AlertSoftWarningSource from './AlertSoftWarning.astro?raw';
+import AlertSoftErrorSource from './AlertSoftError.astro?raw';
+import AlertSoftInfoFactorySource from './AlertSoftInfoFactory.astro?raw';
+import AlertSoftSuccessFactorySource from './AlertSoftSuccessFactory.astro?raw';
+import AlertSoftWarningFactorySource from './AlertSoftWarningFactory.astro?raw';
+import AlertSoftErrorFactorySource from './AlertSoftErrorFactory.astro?raw';
 ---
 
 <CodeContainer
-  codes={[
-    AlertSoftInfoSource,
-    AlertSoftSuccessSource,
-    AlertSoftWarningSource,
-    AlertSoftErrorSource,
-  ]}
-  titles={['Info', 'Success', 'Warning', 'Error']}>
-  <div id="tab-1">
-    <AlertSoftInfo />
-  </div>
-  <div id="tab-2">
-    <AlertSoftSuccess />
-  </div>
-  <div id="tab-3">
-    <AlertSoftWarning />
-  </div>
-  <div id="tab-4">
-    <AlertSoftError />
-  </div>
+    codes={[
+        AlertSoftInfoSource,
+        AlertSoftSuccessSource,
+        AlertSoftWarningSource,
+        AlertSoftErrorSource,
+        AlertSoftInfoFactorySource,
+        AlertSoftSuccessFactorySource,
+        AlertSoftWarningFactorySource,
+        AlertSoftErrorFactorySource,
+    ]}
+    titles={[
+        'Info',
+        'Success',
+        'Warning',
+        'Error',
+        'Info Factory',
+        'Success Factory',
+        'Warning Factory',
+        'Error Factory',
+    ]}>
+    <div id="tab-1" data-label="传统写法">
+        <AlertSoftInfo />
+    </div>
+    <div id="tab-2" data-label="传统写法">
+        <AlertSoftSuccess />
+    </div>
+    <div id="tab-3" data-label="传统写法">
+        <AlertSoftWarning />
+    </div>
+    <div id="tab-4" data-label="传统写法">
+        <AlertSoftError />
+    </div>
+    <div id="tab-5" data-label="Factory 写法">
+        <AlertSoftInfoFactory />
+    </div>
+    <div id="tab-6" data-label="Factory 写法">
+        <AlertSoftSuccessFactory />
+    </div>
+    <div id="tab-7" data-label="Factory 写法">
+        <AlertSoftWarningFactory />
+    </div>
+    <div id="tab-8" data-label="Factory 写法">
+        <AlertSoftErrorFactory />
+    </div>
 </CodeContainer>

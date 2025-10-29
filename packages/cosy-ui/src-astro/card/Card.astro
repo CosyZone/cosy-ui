@@ -86,64 +86,64 @@
  * @slot default - 卡片的主要内容区域
  */
 
-import "../../style.ts";
-import type { ICardProps } from "./props";
-import { getCardCombinedClasses, getCardPaddingClassVue } from "./class";
-import Image from "../image/Image.astro";
-import Container from "../container/Container.astro";
+import '../../style.ts';
+import type { ICardProps } from './props';
+import { getCardCombinedClasses, getCardPaddingClassVue } from './class';
+import Image from '../image/Image.astro';
+import Container from '../container/Container.astro';
 
 // 从props中分离Container相关的属性和Card自身的属性
 const {
-	// Container属性
-	aspectRatio,
-	centered,
-	contentCentered,
-	flex,
-	fit,
-	gap,
-	height,
-	items,
-	justify,
-	margin,
-	muted,
-	padding,
-	py,
-	pt,
-	pb,
-	px,
-	pl,
-	pr,
-	width,
-	rounded,
-	background,
-	border,
-	borderColor,
-	shadow,
-	// Card属性
-	class: className,
-	compact,
-	href,
-	imageUrl,
-	subtitle,
-	title,
-	...restProps
+    // Container属性
+    aspectRatio,
+    centered,
+    contentCentered,
+    flex,
+    fit,
+    gap,
+    height,
+    items,
+    justify,
+    margin,
+    muted,
+    padding,
+    py,
+    pt,
+    pb,
+    px,
+    pl,
+    pr,
+    width,
+    rounded,
+    background,
+    border,
+    borderColor,
+    shadow,
+    // Card属性
+    class: className,
+    compact,
+    href,
+    imageUrl,
+    subtitle,
+    title,
+    ...restProps
 } = Astro.props as ICardProps;
 
 // 使用共用的工具函数计算组合类名（不包括Container的类名）
-const cardClasses = getCardCombinedClasses({
-	class: className,
-	compact,
-	href,
-	imageUrl,
-	subtitle,
-	title,
+const cardClass = getCardCombinedClasses({
+    class: className,
+    compact,
+    href,
+    imageUrl,
+    subtitle,
+    title,
 });
 
 // 内容区域的padding类
 const contentPadding = getCardPaddingClassVue(compact);
 
 // 如果是链接卡片，使用a标签，否则使用article标签
-const Tag = href ? "a" : "article";
+const Tag = href ? 'a' : 'article';
 ---
 
 <Container
@@ -175,7 +175,7 @@ const Tag = href ? "a" : "article";
     {...restProps}>
     <Tag
         ignore-heading
-        class:list={cardClasses}
+        class={cardClass}
         href={href}
         {...href && { target: '_self' }}>
         {

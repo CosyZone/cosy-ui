@@ -1,0 +1,48 @@
+---
+/**
+ * @component CodePanelContainer
+ * @description 代码面板容器组件
+ *
+ * 职责：
+ * - 渲染代码面板的完整结构
+ * - 提供背景样式（dot-grid）
+ * - 管理代码面板区域的内边距和定位
+ */
+import { cn } from '../../../src/class';
+import { Container, CodePanel } from '../../../index-astro';
+
+interface Props {
+    /**
+     * 源代码内容
+     */
+    code: string;
+
+    /**
+     * 标签页 ID
+     */
+    tabId: string;
+}
+
+const { code, tabId } = Astro.props;
+
+// 使用 classBuilder 构建类名
+const codePanelContainerClass = cn()
+    .add('cosy:code-panel-container', 'cosy:hidden')
+    .build();
+
+const innerContainerClass = cn()
+    .add('cosy:relative', 'cosy:p-4', 'cosy:rounded-b')
+    .build();
+
+const codeExamplePanelClass = cn().add('cosy:code-example-panel').build();
+---
+
+<div class={codePanelContainerClass} data-code-panel={tabId}>
+    <Container background="dot-grid" width="full">
+        <div class={innerContainerClass}>
+            <div class={codeExamplePanelClass} data-panel="code">
+                <CodePanel code={code} />
+            </div>
+        </div>
+    </Container>
+</div>

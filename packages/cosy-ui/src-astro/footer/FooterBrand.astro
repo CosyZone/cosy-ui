@@ -43,10 +43,10 @@
  */
 
 import { Heading } from '../../index-astro';
+import { cn } from '../../src/class';
 import type { FooterBrandProps } from '../../src/components/footer/types';
 import FooterSocialLinks from './FooterSocialLinks.astro';
 import FooterLogo from './FooterLogo.astro';
-import '../../style.ts';
 
 const {
     siteName,
@@ -57,15 +57,19 @@ const {
     wechatQR,
     whatsappQR,
 } = Astro.props as FooterBrandProps;
+
+// 使用 classBuilder 构建品牌容器类名
+const brandClass = cn()
+    .w('full')
+    .add('cosy:text-center')
+    .flex()
+    .add('cosy:flex-col')
+    .add('cosy:md:max-w-md', 'cosy:md:flex-row', 'cosy:md:justify-center')
+    .items('center')
+    .build();
 ---
 
-<aside
-    class:list={[
-        // 小屏幕
-        'cosy:w-full cosy:text-center cosy:flex cosy:flex-col',
-        // 大屏幕
-        'cosy:md:max-w-md cosy:md:flex-row cosy:md:justify-center cosy:md:items-center',
-    ]}>
+<aside class={brandClass}>
     <FooterLogo siteName={siteName} homeLink={homeLink} logo={logo} />
 
     <div class="cosy:w-full cosy:text-center cosy:flex cosy:flex-col">

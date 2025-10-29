@@ -179,38 +179,38 @@
  * - 社交媒体图标包含屏幕阅读器专用的文本说明
  */
 
-import { processSocialLink } from "../../src/utils/social.ts";
+import { processSocialLink } from '../../src/utils/social.ts';
 import {
-	LanguageUtil,
-	type IFooterProps,
-	createTextGetter,
-} from "../../index-astro";
+    LanguageUtil,
+    type IFooterProps,
+    createTextGetter,
+} from '../../index-astro';
 import {
-	getBackgroundClass,
-	type BackgroundColor,
-} from "../../src/common/backgrounds";
-import FooterBrand from "./FooterBrand.astro";
-import FooterNavigation from "./FooterNavigation.astro";
-import "../../style.ts";
-import FooterCopyright from "./FooterCopyright.astro";
-import FooterICP from "./FooterICP.astro";
+    getBackgroundClass,
+    type BackgroundColor,
+} from '../../src/common/backgrounds';
+import { cn } from '../../src/class';
+import FooterBrand from './FooterBrand.astro';
+import FooterNavigation from './FooterNavigation.astro';
+import FooterCopyright from './FooterCopyright.astro';
+import FooterICP from './FooterICP.astro';
 
 const {
-	siteName,
-	homeLink,
-	slogan,
-	company,
-	logo,
-	products = [],
-	friendlyLinks = [],
-	socialLinks = [],
-	wechatQR,
-	whatsappQR,
-	background = "base-200",
-	aboutInfo,
-	contactInfo,
-	legalInfo,
-	resourcesInfo,
+    siteName,
+    homeLink,
+    slogan,
+    company,
+    logo,
+    products = [],
+    friendlyLinks = [],
+    socialLinks = [],
+    wechatQR,
+    whatsappQR,
+    background = 'base-200',
+    aboutInfo,
+    contactInfo,
+    legalInfo,
+    resourcesInfo,
 } = Astro.props as IFooterProps;
 
 export type Props = IFooterProps;
@@ -218,58 +218,70 @@ export type Props = IFooterProps;
 // 获取当前语言
 const lang = LanguageUtil.getCurrentLanguage(Astro);
 // 创建文本获取函数
-const t = createTextGetter(lang, "footer");
+const t = createTextGetter(lang, 'footer');
 
 // 处理社交链接
 const processedSocialLinks = socialLinks.map((url) => processSocialLink(url));
 
 // 获取背景色类名
 const backgroundClass = getBackgroundClass(background as BackgroundColor);
+
+// 使用 classBuilder 构建 footer 类名
+const footerClass = cn()
+    .add('cosy:footer')
+    .flex()
+    .add('cosy:flex-col', 'cosy:z-50', 'cosy:sm:footer-horizontal')
+    .add('cosy:text-base-content', 'cosy:p-10')
+    .add(backgroundClass)
+    .build();
+
+// 使用 classBuilder 构建容器类名
+const containerClass = cn()
+    .flex()
+    .add('cosy:flex-col', 'cosy:md:h-64')
+    .gap(8)
+    .add('cosy:container', 'cosy:mx-auto')
+    .items('center')
+    .w('full')
+    .add('cosy:md:flex-row', 'cosy:md:justify-between')
+    .build();
 ---
 
-<footer
-  ignore-heading
-  class:list={[
-    'cosy:footer cosy:flex cosy:flex-col cosy:z-50 cosy:sm:footer-horizontal cosy:text-base-content cosy:p-10',
-    backgroundClass,
-  ]}>
-  <div
-    class:list={[
-      'cosy:flex cosy:flex-col cosy:md:h-64 cosy:gap-8 cosy:container cosy:mx-auto cosy:items-center cosy:w-full cosy:md:flex-row cosy:md:justify-between',
-    ]}>
-    {/* 品牌区域 */}
-    <FooterBrand
-      siteName={siteName}
-      homeLink={homeLink}
-      slogan={slogan}
-      logo={logo}
-      socialLinks={processedSocialLinks}
-      wechatQR={wechatQR}
-      whatsappQR={whatsappQR}
-    />
+<footer ignore-heading class={footerClass}>
+    <div class={containerClass}>
+        {/* 品牌区域 */}
+        <FooterBrand
+            siteName={siteName}
+            homeLink={homeLink}
+            slogan={slogan}
+            logo={logo}
+            socialLinks={processedSocialLinks}
+            wechatQR={wechatQR}
+            whatsappQR={whatsappQR}
+        />
 
-    {/* 导航区域 */}
-    <FooterNavigation
-      products={products}
-      friendlyLinks={friendlyLinks}
-      aboutInfo={aboutInfo}
-      resourcesInfo={resourcesInfo}
-      contactInfo={contactInfo}
-      legalInfo={legalInfo}
-      t={t}
-    />
-  </div>
+        {/* 导航区域 */}
+        <FooterNavigation
+            products={products}
+            friendlyLinks={friendlyLinks}
+            aboutInfo={aboutInfo}
+            resourcesInfo={resourcesInfo}
+            contactInfo={contactInfo}
+            legalInfo={legalInfo}
+            t={t}
+        />
+    </div>
 
-  <hr class="cosy:border-base-content/20 cosy:w-full" />
+    <hr class="cosy:border-base-content/20 cosy:w-full" />
 
-  <div
-    class="cosy:flex cosy:flex-col cosy:items-center cosy:justify-center cosy:w-full cosy:opacity-70 cosy:lg:flex-row cosy:gap-4">
-    <FooterCopyright company={company} />
+    <div
+        class="cosy:flex cosy:flex-col cosy:items-center cosy:justify-center cosy:w-full cosy:opacity-70 cosy:lg:flex-row cosy:gap-4">
+        <FooterCopyright company={company} />
 
-    {
-      legalInfo?.icp && (
-        <FooterICP icp={legalInfo.icp} icpLink={legalInfo.icpLink} />
-      )
-    }
-  </div>
+        {
+            legalInfo?.icp && (
+                <FooterICP icp={legalInfo.icp} icpLink={legalInfo.icpLink} />
+            )
+        }
+    </div>
 </footer>

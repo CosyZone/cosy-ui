@@ -1,0 +1,49 @@
+---
+/**
+ * @component CodeToolbar
+ * @description 代码容器工具栏组件
+ *
+ * 职责：
+ * - 渲染工具栏容器
+ * - 组合 TabList 和工具按钮
+ */
+import CodeToggleButton from './ButtonCodeToggle.astro';
+import CopyCodeButton from './ButtonCopyCode.astro';
+import TabList from './TabList.astro';
+import { cn } from '../../../src/class';
+
+interface Props {
+    titles: string[];
+    activeTab: number;
+    isCodeView: boolean;
+    code: string;
+}
+
+const {
+    titles = [],
+    activeTab = 0,
+    isCodeView = false,
+    code = '',
+} = Astro.props;
+
+// 使用 classBuilder 构建类名
+const toolbarClass = cn()
+    .flex('row')
+    .justify('between')
+    .items('center')
+    .add('cosy:bg-base-200', 'cosy:px-4', 'cosy:rounded-t')
+    .build();
+
+const buttonsContainerClass = cn().flex('row').items('center').gap(2).build();
+---
+
+<div class={toolbarClass}>
+    <!-- 标签列表 -->
+    <TabList titles={titles} activeTab={activeTab} />
+
+    <!-- 工具按钮 -->
+    <div class={buttonsContainerClass}>
+        <CodeToggleButton isCodeView={isCodeView} />
+        <CopyCodeButton code={code} />
+    </div>
+</div>

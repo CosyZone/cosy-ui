@@ -1,0 +1,187 @@
+---
+/**
+ * @component HeroTextContent
+ * @description Hero 组件的文本内容部分（标题、描述、链接）
+ *
+ * @props
+ * @prop {string} [align="center"] - 内容对齐方式
+ * @prop {string} description - 描述文本
+ * @prop {boolean} [glassmorphism=true] - 是否启用毛玻璃效果
+ * @prop {Array<IHeroLink>} [links=[]] - 链接按钮数组
+ * @prop {string} [textBackground="glass"] - 文字区域背景类型
+ * @prop {string} title - 标题文本
+ * @prop {boolean} [hasBackgroundImage=false] - 是否有背景图片
+ * @prop {string} [backgroundOverlay="none"] - 背景遮罩类型
+ */
+
+import { Button } from '../../index-astro';
+import type { IHeroLink } from './hero.ts';
+import { cn } from '../../src/class';
+
+interface Props {
+    align?: 'center' | 'left' | 'right';
+    description: string;
+    glassmorphism?: boolean;
+    links?: IHeroLink[];
+    textBackground?: 'none' | 'glass' | 'solid' | 'gradient';
+    title: string;
+    hasBackgroundImage?: boolean;
+    backgroundOverlay?: string;
+}
+
+const {
+    align = 'center',
+    description,
+    glassmorphism = true,
+    links = [],
+    textBackground = 'glass',
+    title,
+    hasBackgroundImage = false,
+    backgroundOverlay = 'none',
+} = Astro.props as Props;
+
+// 文字容器背景样式
+const getTextBackgroundClasses = () => {
+    if (!glassmorphism || textBackground === 'none') return '';
+
+    const baseClasses = [
+        'cosy:backdrop-blur-md',
+        'cosy:rounded-2xl',
+        'cosy:p-8',
+        'cosy:mx-auto',
+        'cosy:max-w-4xl',
+    ];
+
+    switch (textBackground) {
+        case 'glass':
+            return [
+                ...baseClasses,
+                'cosy:bg-white/10',
+                'cosy:border',
+                'cosy:border-white/20',
+            ].join(' ');
+        case 'solid':
+            return [...baseClasses, 'cosy:bg-white/90', 'cosy:shadow-xl'].join(
+                ' '
+            );
+        case 'gradient':
+            return [
+                ...baseClasses,
+                'cosy:bg-gradient-to-br',
+                'cosy:from-white/20',
+                'cosy:to-white/10',
+                'cosy:border',
+                'cosy:border-white/30',
+            ].join(' ');
+        default:
+            return baseClasses.join(' ');
+    }
+};
+
+// 标题样式
+const titleClass = cn()
+    .add(
+        'cosy:text-5xl',
+        'cosy:font-bold',
+        'cosy:mb-4',
+        'cosy:sm:text-6xl',
+        'cosy:lg:text-7xl'
+    )
+    .add(
+        glassmorphism && textBackground === 'solid'
+            ? 'cosy:text-primary'
+            : hasBackgroundImage &&
+                (backgroundOverlay === 'dark' ||
+                    backgroundOverlay === 'gradient')
+              ? 'cosy:text-white'
+              : 'cosy:text-primary'
+    )
+    .build();
+
+// 描述样式
+const descriptionClass = cn()
+    .add('cosy:text-xl', 'cosy:prose', 'cosy:max-w-3xl', 'cosy:mb-8')
+    .add(
+        glassmorphism && textBackground === 'solid'
+            ? 'cosy:text-gray-700'
+            : hasBackgroundImage &&
+                (backgroundOverlay === 'dark' ||
+                    backgroundOverlay === 'gradient')
+              ? 'cosy:text-white cosy:opacity-90'
+              : 'cosy:opacity-80'
+    )
+    .build();
+
+// 链接容器样式
+const linksContainerClass = cn()
+    .flex('row')
+    .add('cosy:flex-wrap')
+    .gap(4)
+    .add(
+        align === 'center'
+            ? 'cosy:justify-center'
+            : align === 'left'
+              ? 'cosy:justify-start'
+              : 'cosy:justify-end'
+    )
+    .mt(4)
+    .build();
+
+// App 容器样式
+const appContainerClass = cn()
+    .w('full')
+    .add('cosy:max-w-full')
+    .mx('auto')
+    .my(8)
+    .build();
+---
+
+{
+    glassmorphism ? (
+        <div class={getTextBackgroundClasses()}>
+            <h2 class={titleClass}>{title}</h2>
+            <p class={descriptionClass}>{description}</p>
+
+            {Astro.slots.has('app') && (
+                <div class={appContainerClass}>
+                    <slot name="app" />
+                </div>
+            )}
+
+            <div class={linksContainerClass}>
+                {links.map((link: IHeroLink) => (
+                    <Button
+                        href={link.href}
+                        target={link.target}
+                        variant={link.variant}
+                        size="lg">
+                        {link.text}
+                    </Button>
+                ))}
+            </div>
+        </div>
+    ) : (
+        <>
+            <h2 class={titleClass}>{title}</h2>
+            <p class={descriptionClass}>{description}</p>
+
+            {Astro.slots.has('app') && (
+                <div class={appContainerClass}>
+                    <slot name="app" />
+                </div>
+            )}
+
+            <div class={linksContainerClass}>
+                {links.map((link: IHeroLink) => (
+                    <Button
+                        href={link.href}
+                        target={link.target}
+                        variant={link.variant}
+                        size="lg">
+                        {link.text}
+                    </Button>
+                ))}
+            </div>
+        </>
+    )
+}

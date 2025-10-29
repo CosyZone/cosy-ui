@@ -1,4 +1,4 @@
-import type { IMainContentProps } from "./types";
+import type { IMainContentProps } from "../../src/components/main/types";
 
 /**
  * Main 组件 Props 构建器（修饰器/链式写法）

@@ -24,115 +24,116 @@
  * ```
  */
 
-import type { HTMLAttributes } from "astro/types";
+import type { HTMLAttributes } from 'astro/types';
+import { cn } from '../../src/class';
 
-type Direction = "row" | "row-reverse" | "column" | "column-reverse";
-type Justify = "start" | "end" | "center" | "between" | "around" | "evenly";
-type Align = "start" | "end" | "center" | "stretch" | "baseline";
-type Gap = "none" | "xs" | "sm" | "md" | "lg" | "xl";
+type Direction = 'row' | 'row-reverse' | 'column' | 'column-reverse';
+type Justify = 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
+type Align = 'start' | 'end' | 'center' | 'stretch' | 'baseline';
+type Gap = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
-interface Props extends HTMLAttributes<"div"> {
-	/**
-	 * 排列方向
-	 * @default "row"
-	 */
-	direction?: Direction;
+interface Props extends HTMLAttributes<'div'> {
+    /**
+     * 排列方向
+     * @default "row"
+     */
+    direction?: Direction;
 
-	/**
-	 * 水平对齐方式
-	 * @default "center"
-	 */
-	justify?: Justify;
+    /**
+     * 水平对齐方式
+     * @default "center"
+     */
+    justify?: Justify;
 
-	/**
-	 * 垂直对齐方式
-	 * @default "center"
-	 */
-	align?: Align;
+    /**
+     * 垂直对齐方式
+     * @default "center"
+     */
+    align?: Align;
 
-	/**
-	 * 是否允许换行
-	 * @default false
-	 */
-	wrap?: boolean;
+    /**
+     * 是否允许换行
+     * @default false
+     */
+    wrap?: boolean;
 
-	/**
-	 * 元素间距
-	 * @default "md"
-	 */
-	gap?: Gap;
+    /**
+     * 元素间距
+     * @default "md"
+     */
+    gap?: Gap;
 
-	/**
-	 * 自定义类名
-	 */
-	class?: string;
+    /**
+     * 自定义类名
+     */
+    class?: string;
 
-	/**
-	 * 类名列表
-	 */
-	"class:list"?: any;
+    /**
+     * 类名列表
+     */
+    'class:list'?: any;
 }
 
 const {
-	direction = "row",
-	justify = "center",
-	align = "center",
-	wrap = false,
-	gap = "md",
-	class: className = "",
-	"class:list": classList,
-	...rest
+    direction = 'row',
+    justify = 'center',
+    align = 'center',
+    wrap = false,
+    gap = 'md',
+    class: className = '',
+    'class:list': classList,
+    ...rest
 } = Astro.props;
 
 // 方向映射
 const directionClasses: Record<Direction, string> = {
-	row: "flex-row",
-	"row-reverse": "flex-row-reverse",
-	column: "flex-col",
-	"column-reverse": "flex-col-reverse",
+    row: 'flex-row',
+    'row-reverse': 'flex-row-reverse',
+    column: 'flex-col',
+    'column-reverse': 'flex-col-reverse',
 };
 
 // 水平对齐映射
 const justifyClasses: Record<Justify, string> = {
-	start: "justify-start",
-	end: "justify-end",
-	center: "justify-center",
-	between: "justify-between",
-	around: "justify-around",
-	evenly: "justify-evenly",
+    start: 'justify-start',
+    end: 'justify-end',
+    center: 'justify-center',
+    between: 'justify-between',
+    around: 'justify-around',
+    evenly: 'justify-evenly',
 };
 
 // 垂直对齐映射
 const alignClasses: Record<Align, string> = {
-	start: "items-start",
-	end: "items-end",
-	center: "items-center",
-	stretch: "items-stretch",
-	baseline: "items-baseline",
+    start: 'items-start',
+    end: 'items-end',
+    center: 'items-center',
+    stretch: 'items-stretch',
+    baseline: 'items-baseline',
 };
 
 // 间距映射
 const gapClasses: Record<Gap, string> = {
-	none: "gap-0",
-	xs: "gap-2",
-	sm: "gap-4",
-	md: "gap-6",
-	lg: "gap-8",
-	xl: "gap-12",
+    none: 'gap-0',
+    xs: 'gap-2',
+    sm: 'gap-4',
+    md: 'gap-6',
+    lg: 'gap-8',
+    xl: 'gap-12',
 };
 
-// 构建最终类名
-const flexClasses = [
-	"flex",
-	directionClasses[direction as Direction],
-	justifyClasses[justify as Justify],
-	alignClasses[align as Align],
-	wrap ? "flex-wrap" : "flex-nowrap",
-	gapClasses[gap as Gap],
-	className,
-].join(" ");
+// 使用 classBuilder 构建最终类名
+const flexClass = cn()
+    .flex()
+    .add(directionClasses[direction as Direction])
+    .add(justifyClasses[justify as Justify])
+    .add(alignClasses[align as Align])
+    .add(wrap ? 'flex-wrap' : 'flex-nowrap')
+    .add(gapClasses[gap as Gap])
+    .add(className)
+    .build();
 ---
 
-<div class:list={[flexClasses, classList]} {...rest}>
-  <slot />
+<div class={flexClass} {...rest}>
+    <slot />
 </div>

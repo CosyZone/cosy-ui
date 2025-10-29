@@ -1,0 +1,39 @@
+---
+/**
+ * @component Toast
+ * @description 提示气泡组件
+ *
+ * @props
+ * @prop {string} [message='操作成功'] - 提示消息内容
+ * @prop {string} [id='toast'] - Toast 元素的 ID
+ */
+
+interface Props {
+    message?: string;
+    id?: string;
+}
+
+const { message = '操作成功', id = 'toast' } = Astro.props;
+---
+
+<span
+    id={id}
+    style="
+    display: none;
+    position: absolute;
+    top: -2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #22c55e;
+    color: #fff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    pointer-events: none;
+    transition: opacity 0.2s;
+  "
+    >{message}</span
+>

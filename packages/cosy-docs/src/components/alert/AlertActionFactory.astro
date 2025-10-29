@@ -1,0 +1,16 @@
+---
+import { AlertFactory } from '@coffic/cosy-ui';
+import AlertActionButton from './AlertActionButton.astro';
+
+const alertElement = await AlertFactory.create()
+    .info()
+    .withTitle('自定义操作')
+    .withContent('你可以通过 action slot 在右侧自定义按钮。')
+    .slotAction(AlertActionButton, {
+        text: '自定义操作',
+        onClick: "alert('自定义操作')",
+    })
+    .build();
+---
+
+<Fragment set:html={alertElement} />

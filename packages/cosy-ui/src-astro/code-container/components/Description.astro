@@ -1,0 +1,23 @@
+---
+import { cn } from '../../../src/class';
+
+interface Props {
+    text: string;
+}
+const { text = '' } = Astro.props;
+
+// 使用 classBuilder 构建类名
+const descriptionClass = cn()
+    .text('sm')
+    .add(
+        'cosy:px-6',
+        'cosy:py-2',
+        'not-prose',
+        'cosy:bg-gradient-to-r',
+        'cosy:from-info/50',
+        'cosy:to-info/90'
+    )
+    .build();
+---
+
+{text && <p class={descriptionClass}>{text}</p>}

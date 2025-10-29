@@ -7,9 +7,6 @@ import { getBaseHeadingClasses } from "../../src/components/heading/class-all";
  * @returns 组合后的类名字符串
  */
 export function getHeadingCombinedClassesAstro(props: IHeadingProps): string {
-	// 使用共享的基础类名计算函数
-	const baseClasses = getBaseHeadingClasses(props);
-
-	// 过滤掉空字符串并用空格连接
-	return baseClasses.filter(Boolean).join(" ");
+	// 使用共享的基础类名计算函数（现在直接返回字符串）
+	return getBaseHeadingClasses(props);
 }

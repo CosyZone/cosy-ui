@@ -52,7 +52,7 @@
  * ```
  */
 
-import '../../style.ts';
+import { cn } from '../../src/class';
 import type { ImageSource } from '../image/types.ts';
 import type {
     ShadowSize,
@@ -148,6 +148,17 @@ const hoverShadowClass = hoverShadow
     ? hoverShadowClasses[hoverShadow] || hoverShadowClasses['lg']
     : hoverShadowClasses['lg'];
 const mutedClass = muted ? 'container-muted' : '';
+
+// 使用 classBuilder 构建卡片类名
+const cardClass = cn()
+    .add(
+        'cosy:card',
+        'cosy:bg-transparent',
+        'cosy:transition-shadow',
+        'cosy:duration-300'
+    )
+    .add(hoverShadowClass, mutedClass)
+    .build();
 ---
 
 <Container
@@ -156,14 +167,7 @@ const mutedClass = muted ? 'container-muted' : '';
     padding="none"
     shadow={shadow}
     class={className}>
-    <div
-        class:list={[
-            [
-                'cosy:card cosy:bg-transparent cosy:transition-shadow cosy:duration-300',
-                hoverShadowClass,
-                mutedClass,
-            ],
-        ]}>
+    <div class={cardClass}>
         <figure class="cosy:flex cosy:justify-center cosy:p-4">
             <Image
                 src={avatar}

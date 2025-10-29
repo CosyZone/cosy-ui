@@ -56,73 +56,75 @@
  * @prop {any} [class:list] - 类名列表
  */
 
-// 导入样式
-import "../../style.ts";
+import { cn } from '../../src/class';
 
-import Text from "../text/Text.astro";
-import Badge from "../badge/Badge.astro";
-import SmartIcon from "../smart-icon/SmartIcon.astro";
-import Card from "../card/Card.astro";
-import Avatar from "../avatar/Avatar.astro";
-import type { IReviewProps } from "./props";
+import Text from '../text/Text.astro';
+import Badge from '../badge/Badge.astro';
+import SmartIcon from '../smart-icon/SmartIcon.astro';
+import Card from '../card/Card.astro';
+import Avatar from '../avatar/Avatar.astro';
+import type { IReviewProps } from './props';
 
 // 从props中分离Card相关的属性和Review自身的属性
 const {
-	userName,
-	rating,
-	comment,
-	date,
-	verified = false,
-	avatar,
-	class: className = "",
-	"class:list": classList,
-	// Card属性
-	aspectRatio,
-	centered,
-	contentCentered,
-	flex,
-	fit,
-	gap,
-	height,
-	items,
-	justify,
-	margin,
-	muted,
-	padding,
-	py,
-	pt,
-	pb,
-	px,
-	pl,
-	pr,
-	width,
-	rounded,
-	background,
-	border,
-	borderColor,
-	...rest
+    userName,
+    rating,
+    comment,
+    date,
+    verified = false,
+    avatar,
+    class: className = '',
+    'class:list': classList,
+    // Card属性
+    aspectRatio,
+    centered,
+    contentCentered,
+    flex,
+    fit,
+    gap,
+    height,
+    items,
+    justify,
+    margin,
+    muted,
+    padding,
+    py,
+    pt,
+    pb,
+    px,
+    pl,
+    pr,
+    width,
+    rounded,
+    background,
+    border,
+    borderColor,
+    ...rest
 } = Astro.props as IReviewProps;
 
 // 生成星级评分
 const generateStars = (rating: number) => {
-	return Array.from({ length: 5 }, (_, i) => ({
-		filled: i < Math.floor(rating),
-		half: i === Math.floor(rating) && rating % 1 !== 0,
-	}));
+    return Array.from({ length: 5 }, (_, i) => ({
+        filled: i < Math.floor(rating),
+        half: i === Math.floor(rating) && rating % 1 !== 0,
+    }));
 };
 
 // 格式化日期
 const formatDate = (dateString: string) => {
-	try {
-		return new Date(dateString).toLocaleDateString("zh-CN", {
-			year: "numeric",
-			month: "2-digit",
-			day: "2-digit",
-		});
-	} catch {
-		return dateString;
-	}
+    try {
+        return new Date(dateString).toLocaleDateString('zh-CN', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+        });
+    } catch {
+        return dateString;
+    }
 };
+
+// 使用 classBuilder 构建 Review 类名
+const reviewClass = cn().add('cosy:review', 'cosy:p-6').add(className).build();
 ---
 
 <Card
@@ -149,8 +151,7 @@ const formatDate = (dateString: string) => {
     background={background}
     border={border}
     borderColor={borderColor}
-    class={className}
-    class:list={['cosy:review', 'cosy:p-6', classList]}
+    class={reviewClass}
     {...rest}>
     <!-- 用户信息 -->
     <div class="cosy:flex cosy:items-center cosy:gap-3 cosy:mb-3">

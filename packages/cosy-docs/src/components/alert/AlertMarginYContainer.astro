@@ -3,41 +3,82 @@
  * @component EAlertMarginYContainer
  * @description 展示 Alert 组件的垂直外边距功能的容器组件。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import AlertMarginYXs from "./AlertMarginYXs.astro";
-import AlertMarginYSm from "./AlertMarginYSm.astro";
-import AlertMarginYMd from "./AlertMarginYMd.astro";
-import AlertMarginYLg from "./AlertMarginYLg.astro";
-import AlertMarginYXl from "./AlertMarginYXl.astro";
-import AlertMarginYXsSource from "./AlertMarginYXs.astro?raw";
-import AlertMarginYSmSource from "./AlertMarginYSm.astro?raw";
-import AlertMarginYMdSource from "./AlertMarginYMd.astro?raw";
-import AlertMarginYLgSource from "./AlertMarginYLg.astro?raw";
-import AlertMarginYXlSource from "./AlertMarginYXl.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import AlertMarginYXs from './AlertMarginYXs.astro';
+import AlertMarginYSm from './AlertMarginYSm.astro';
+import AlertMarginYMd from './AlertMarginYMd.astro';
+import AlertMarginYLg from './AlertMarginYLg.astro';
+import AlertMarginYXl from './AlertMarginYXl.astro';
+import AlertMarginYXsFactory from './AlertMarginYXsFactory.astro';
+import AlertMarginYSmFactory from './AlertMarginYSmFactory.astro';
+import AlertMarginYMdFactory from './AlertMarginYMdFactory.astro';
+import AlertMarginYLgFactory from './AlertMarginYLgFactory.astro';
+import AlertMarginYXlFactory from './AlertMarginYXlFactory.astro';
+import AlertMarginYXsSource from './AlertMarginYXs.astro?raw';
+import AlertMarginYSmSource from './AlertMarginYSm.astro?raw';
+import AlertMarginYMdSource from './AlertMarginYMd.astro?raw';
+import AlertMarginYLgSource from './AlertMarginYLg.astro?raw';
+import AlertMarginYXlSource from './AlertMarginYXl.astro?raw';
+import AlertMarginYXsFactorySource from './AlertMarginYXsFactory.astro?raw';
+import AlertMarginYSmFactorySource from './AlertMarginYSmFactory.astro?raw';
+import AlertMarginYMdFactorySource from './AlertMarginYMdFactory.astro?raw';
+import AlertMarginYLgFactorySource from './AlertMarginYLgFactory.astro?raw';
+import AlertMarginYXlFactorySource from './AlertMarginYXlFactory.astro?raw';
 ---
 
 <CodeContainer
-  titles={['xs', 'sm', 'md', 'lg', 'xl']}
-  codes={[
-    AlertMarginYXsSource,
-    AlertMarginYSmSource,
-    AlertMarginYMdSource,
-    AlertMarginYLgSource,
-    AlertMarginYXlSource,
-  ]}>
-  <div id="tab-1">
-    <AlertMarginYXs />
-  </div>
-  <div id="tab-2">
-    <AlertMarginYSm />
-  </div>
-  <div id="tab-3">
-    <AlertMarginYMd />
-  </div>
-  <div id="tab-4">
-    <AlertMarginYLg />
-  </div>
-  <div id="tab-5">
-    <AlertMarginYXl />
-  </div>
+    titles={[
+        'xs',
+        'sm',
+        'md',
+        'lg',
+        'xl',
+        'xs Factory',
+        'sm Factory',
+        'md Factory',
+        'lg Factory',
+        'xl Factory',
+    ]}
+    codes={[
+        AlertMarginYXsSource,
+        AlertMarginYSmSource,
+        AlertMarginYMdSource,
+        AlertMarginYLgSource,
+        AlertMarginYXlSource,
+        AlertMarginYXsFactorySource,
+        AlertMarginYSmFactorySource,
+        AlertMarginYMdFactorySource,
+        AlertMarginYLgFactorySource,
+        AlertMarginYXlFactorySource,
+    ]}>
+    <div id="tab-1" data-label="传统写法">
+        <AlertMarginYXs />
+    </div>
+    <div id="tab-2" data-label="传统写法">
+        <AlertMarginYSm />
+    </div>
+    <div id="tab-3" data-label="传统写法">
+        <AlertMarginYMd />
+    </div>
+    <div id="tab-4" data-label="传统写法">
+        <AlertMarginYLg />
+    </div>
+    <div id="tab-5" data-label="传统写法">
+        <AlertMarginYXl />
+    </div>
+    <div id="tab-6" data-label="Factory 写法">
+        <AlertMarginYXsFactory />
+    </div>
+    <div id="tab-7" data-label="Factory 写法">
+        <AlertMarginYSmFactory />
+    </div>
+    <div id="tab-8" data-label="Factory 写法">
+        <AlertMarginYMdFactory />
+    </div>
+    <div id="tab-9" data-label="Factory 写法">
+        <AlertMarginYLgFactory />
+    </div>
+    <div id="tab-10" data-label="Factory 写法">
+        <AlertMarginYXlFactory />
+    </div>
 </CodeContainer>

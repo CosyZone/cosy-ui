@@ -1,12 +1,16 @@
 ---
 import Image from '../image/Image.astro';
 import type { ImageSource } from '../image/types.ts';
+import { cn } from '../../src/class';
 
 export interface Props {
     backgroundImage?: ImageSource;
 }
 
 const { backgroundImage } = Astro.props as Props;
+
+// 使用 class builder 构建背景图片类名
+const bgImageClass = cn().z('-10').pointerEvents('none').build();
 ---
 
 {
@@ -17,7 +21,7 @@ const { backgroundImage } = Astro.props as Props;
             layout="fill"
             objectFit="cover"
             asBackground
-            class="cosy:-z-10 cosy:pointer-events-none"
+            class={bgImageClass}
         />
     )
 }

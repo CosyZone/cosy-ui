@@ -1,0 +1,63 @@
+---
+/**
+ * @component AppLayoutMainContent
+ * @description AppLayout 的主内容区域组件，包含骨架屏加载和内容展示
+ *
+ * @props
+ * @prop {number} [loadingDelay=100] - 骨架屏加载延迟时间（毫秒）
+ * @prop {Object} [mainContentConfig] - 主内容区域配置，传递给Main组件
+ *
+ * @slots
+ * @slot default - 主内容
+ *
+ * @example
+ * ```astro
+ * <AppLayoutMainContent loadingDelay={100}>
+ *   <h1>页面内容</h1>
+ *   <p>这里是主要内容</p>
+ * </AppLayoutMainContent>
+ * ```
+ */
+
+import { Main, Skeleton } from '../../index-astro';
+import { cn } from '../../src/class';
+
+interface Props {
+    /**
+     * 骨架屏加载延迟时间（毫秒）
+     */
+    loadingDelay?: number;
+
+    /**
+     * 主内容区域配置
+     */
+    mainContentConfig?: Record<string, any>;
+}
+
+const { loadingDelay = 100, mainContentConfig = {} } = Astro.props as Props;
+
+// 主内容区域类
+const mainContentClass = cn().add('cosy:flex-1', 'cosy:min-w-xs').build();
+
+// 骨架屏类
+const skeletonClass = cn()
+    .w('full')
+    .add('cosy:h-screen')
+    .flex('row')
+    .items('center')
+    .justify('center')
+    .build();
+---
+
+<Main
+    aria-label="AppLayout-Main-Container"
+    {...mainContentConfig}
+    class:list={[mainContentClass]}>
+    <Skeleton
+        showLoading={true}
+        loadingSize="xl"
+        loadingDelay={loadingDelay}
+        skeletonClass={skeletonClass}>
+        <slot />
+    </Skeleton>
+</Main>

@@ -4,3 +4,4 @@ import "./src/styles/dot-grid.css";
 import "./src/styles/patterns.css";
 import "./src/styles/container-muted.css";
 import "./src/styles/gradient-glow.css";
+import "./src/styles/banner-animations.css";
