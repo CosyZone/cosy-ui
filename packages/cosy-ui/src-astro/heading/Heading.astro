@@ -89,21 +89,21 @@
  * - Link (用于锚点链接)
  */
 
-import HeadingAnchor from "./HeadingAnchor.astro";
-import Link from "../link/Link.astro";
-import "../../style.ts";
-import type { IHeadingProps } from "./props";
-import { getHeadingCombinedClassesAstro } from "./class";
+import HeadingAnchor from './HeadingAnchor.astro';
+import Link from '../link/Link.astro';
+import { cn } from '../../src/class';
+import type { IHeadingProps } from './props';
+import { getHeadingCombinedClassesAstro } from './class';
 
 const props = Astro.props as IHeadingProps;
 
 // 使用共用的工具函数计算组合类名
 const combinedClass = getHeadingCombinedClassesAstro(props);
 
-// 如果有链接，添加链接相关的样式
+// 使用 class builder 构建链接类名
 const linkClass = props.href
-	? "cosy:hover:opacity-80 cosy:transition-opacity"
-	: "";
+    ? cn().add('cosy:hover:opacity-80', 'cosy:transition-opacity').build()
+    : '';
 ---
 
 {

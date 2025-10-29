@@ -152,7 +152,7 @@ const containerClass = cn()
 
     // 更新时间显示
     function updateStatusBarTime() {
-        const timeElements = document.querySelectorAll('.time-text');
+        const timeElements = document.querySelectorAll('[data-time-text]');
         timeElements.forEach((element) => {
             (element as HTMLElement).textContent = updateTime();
         });

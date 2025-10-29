@@ -245,6 +245,17 @@ const containerClass = cn()
     .w('full')
     .add('cosy:md:flex-row', 'cosy:md:justify-between')
     .build();
+
+// 使用 classBuilder 构建分隔线类名
+const hrClass = cn().add('cosy:border-base-content/20', 'cosy:w-full').build();
+
+// 使用 classBuilder 构建底部区域类名
+const bottomClass = cn()
+    .flex()
+    .add('cosy:flex-col', 'cosy:items-center', 'cosy:justify-center')
+    .w('full')
+    .add('cosy:opacity-70', 'cosy:lg:flex-row', 'cosy:gap-4')
+    .build();
 ---
 
 <footer ignore-heading class={footerClass}>
@@ -272,10 +283,9 @@ const containerClass = cn()
         />
     </div>
 
-    <hr class="cosy:border-base-content/20 cosy:w-full" />
+    <hr class={hrClass} />
 
-    <div
-        class="cosy:flex cosy:flex-col cosy:items-center cosy:justify-center cosy:w-full cosy:opacity-70 cosy:lg:flex-row cosy:gap-4">
+    <div class={bottomClass}>
         <FooterCopyright company={company} />
 
         {

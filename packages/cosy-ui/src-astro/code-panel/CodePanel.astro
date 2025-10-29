@@ -50,7 +50,7 @@
  * - 高对比度主题支持
  */
 import type { CodePanelProps } from './types';
-import '../../style.ts';
+import { cn } from '../../src/class';
 
 interface Props extends CodePanelProps {}
 
@@ -83,13 +83,19 @@ try {
     // 降级到普通代码块
     highlightedCode = `<pre><code>${code}</code></pre>`;
 }
+
+// 使用 class builder 构建类名
+const containerClass = cn()
+    .add('cosy:w-full', 'not-prose', 'cosy-shiki-container')
+    .add('cosy:overflow-x-auto', 'cosy:bg-base-300', 'cosy:rounded-lg')
+    .add(className || '')
+    .build();
 ---
 
 <div data-panel="code" role="region" aria-label="代码展示面板">
     <!-- Shiki 渲染的代码 -->
     <div
-        class="cosy:w-full not-prose cosy-shiki-container cosy:overflow-x-auto cosy:bg-base-300 cosy:rounded-lg"
-        class:list={[className]}
+        class={containerClass}
         set:html={highlightedCode}
         style="min-width: max-content;"
     />

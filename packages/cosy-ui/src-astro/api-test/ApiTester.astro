@@ -39,73 +39,109 @@
  * @prop {string} [class] - 自定义CSS类名
  */
 
-import Heading from "../heading/Heading.astro";
-import Grid from "../grid/Grid.astro";
-import ApiEndpointCard from "./ApiEndpointCard.astro";
-import ApiTestScript from "./ApiTestScript.astro";
-import type { IApiTesterProps, IApiEndpoint } from "../types/api-test";
+import { cn } from '../../src/class';
+import Heading from '../heading/Heading.astro';
+import Grid from '../grid/Grid.astro';
+import ApiEndpointCard from './ApiEndpointCard.astro';
+import ApiTestScript from './ApiTestScript.astro';
+import type { IApiTesterProps, IApiEndpoint } from '../types/api-test';
 
 const {
-	endpoints,
-	title = "API 测试",
-	description,
-	showHeaders = false,
-	defaultHeaders,
-	showResponseTime = true,
-	showRequestDetails = false,
-	class: className,
+    endpoints,
+    title = 'API 测试',
+    description,
+    showHeaders = false,
+    defaultHeaders,
+    showResponseTime = true,
+    showRequestDetails = false,
+    class: className,
 } = Astro.props;
+
+// 使用 class builder 构建类名
+const containerClass = cn()
+    .add('space-y-8')
+    .add(className || '')
+    .build();
+
+const headerSectionClass = cn().add('text-center').build();
+
+const descriptionClass = cn()
+    .add(
+        'cosy:mt-2',
+        'cosy:text-base-content/70',
+        'cosy:max-w-2xl',
+        'cosy:mx-auto',
+    )
+    .build();
+
+const headersContainerClass = cn()
+    .add('cosy:bg-base-200')
+    .add('cosy:p-4')
+    .add('cosy:rounded-lg')
+    .build();
+
+const headersTitleClass = cn()
+    .add('cosy:text-lg', 'cosy:font-medium', 'cosy:mb-3')
+    .build();
+
+const headersGridClass = cn()
+    .add('cosy:grid', 'cosy:grid-cols-1', 'cosy:md:grid-cols-2', 'cosy:gap-3')
+    .build();
+
+const formControlClass = cn().add('form-control').build();
+
+const labelClass = cn().add('label').build();
+
+const labelTextClass = cn().add('label-text').build();
+
+const inputClass = cn().add('input', 'input-bordered', 'cosy:w-full').build();
 ---
 
-<div class={`space-y-8 ${className || ''}`}>
-  <div class="text-center">
-    <Heading level={1}>
-      {title}
-    </Heading>
-    {
-      description && (
-        <p class="mt-2 text-base-content/70 max-w-2xl mx-auto">{description}</p>
-      )
-    }
-  </div>
+<div class={containerClass}>
+    <div class={headerSectionClass}>
+        <Heading level={1}>
+            {title}
+        </Heading>
+        {description && <p class={descriptionClass}>{description}</p>}
+    </div>
 
-  {/* 请求头配置 */}
-  {
-    showHeaders && (
-      <div class="bg-base-200 p-4 rounded-lg">
-        <h3 class="text-lg font-medium mb-3">请求头配置</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {defaultHeaders &&
-            Object.entries(defaultHeaders).map(([key, value]) => (
-              <div class="form-control">
-                <label class="label">
-                  <span class="label-text">{key}</span>
-                </label>
-                <input
-                  type="text"
-                  class="input input-bordered w-full"
-                  value={value as string}
-                  data-header-key={key}
-                  data-header-value={value as string}
-                />
-              </div>
-            ))}
-        </div>
-      </div>
-    )
-  }
-
-  <Grid cols={{ base: 1, lg: Math.min(endpoints.length, 2) }}>
+    {/* 请求头配置 */}
     {
-      endpoints.map((endpoint: IApiEndpoint) => (
-        <ApiEndpointCard endpoint={endpoint} />
-      ))
+        showHeaders && (
+            <div class={headersContainerClass}>
+                <h3 class={headersTitleClass}>请求头配置</h3>
+                <div class={headersGridClass}>
+                    {defaultHeaders &&
+                        Object.entries(defaultHeaders).map(([key, value]) => (
+                            <div class={formControlClass}>
+                                <label class={labelClass}>
+                                    <span class={labelTextClass}>{key}</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    class={inputClass}
+                                    value={value as string}
+                                    data-header-key={key}
+                                    data-header-value={value as string}
+                                />
+                            </div>
+                        ))}
+                </div>
+            </div>
+        )
     }
-  </Grid>
+
+    <Grid cols={{ base: 1, lg: Math.min(endpoints.length, 2) }}>
+        {
+            endpoints.map((endpoint: IApiEndpoint) => (
+                <ApiEndpointCard endpoint={endpoint} />
+            ))
+        }
+    </Grid>
 </div>
 
 <ApiTestScript
-  showResponseTime={showResponseTime}
-  showRequestDetails={showRequestDetails}
-  defaultHeaders={defaultHeaders}
+    showResponseTime={showResponseTime}
+    showRequestDetails={showRequestDetails}
+    defaultHeaders={defaultHeaders}
 />

@@ -24,14 +24,15 @@
  * @prop {string} [class] - 自定义CSS类名
  */
 
-import Card from "../card/Card.astro";
-import Button from "../button/Button.astro";
-import Badge from "../badge/Badge.astro";
-import type { IApiEndpoint } from "../types/api-test";
+import Card from '../card/Card.astro';
+import Button from '../button/Button.astro';
+import Badge from '../badge/Badge.astro';
+import type { IApiEndpoint } from '../types/api-test';
+import { cn } from '../../src/class';
 
 interface Props {
-	endpoint: IApiEndpoint;
-	class?: string;
+    endpoint: IApiEndpoint;
+    class?: string;
 }
 
 const { endpoint, class: className } = Astro.props;
@@ -43,212 +44,353 @@ const hasDescription = !!endpoint.description;
 
 // 获取HTTP方法对应的颜色
 const getMethodColor = (
-	method: string,
+    method: string,
 ):
-	| "success"
-	| "primary"
-	| "warning"
-	| "error"
-	| "info"
-	| "secondary"
-	| "accent"
-	| "ghost" => {
-	const colors: Record<
-		string,
-		| "success"
-		| "primary"
-		| "warning"
-		| "error"
-		| "info"
-		| "secondary"
-		| "accent"
-		| "ghost"
-	> = {
-		GET: "success",
-		POST: "primary",
-		PUT: "warning",
-		DELETE: "error",
-		PATCH: "info",
-	};
-	return colors[method] || "neutral";
+    | 'success'
+    | 'primary'
+    | 'warning'
+    | 'error'
+    | 'info'
+    | 'secondary'
+    | 'accent'
+    | 'ghost' => {
+    const colors: Record<
+        string,
+        | 'success'
+        | 'primary'
+        | 'warning'
+        | 'error'
+        | 'info'
+        | 'secondary'
+        | 'accent'
+        | 'ghost'
+    > = {
+        GET: 'success',
+        POST: 'primary',
+        PUT: 'warning',
+        DELETE: 'error',
+        PATCH: 'info',
+    };
+    return colors[method] || 'neutral';
 };
 
 // 获取参数类型对应的输入元素
 const getInputElement = (param: any) => {
-	const baseAttrs = {
-		"data-param": param.name,
-		"data-endpoint": endpoint.path,
-		"data-required": param.required || false,
-		"data-validation": JSON.stringify(param.validation || {}),
-	};
+    const baseAttrs = {
+        'data-param': param.name,
+        'data-endpoint': endpoint.path,
+        'data-required': param.required || false,
+        'data-validation': JSON.stringify(param.validation || {}),
+    };
 
-	return {
-		type: param.type || "text",
-		attrs: baseAttrs,
-		options: param.options || [],
-		defaultValue: param.defaultValue,
-		placeholder: param.placeholder,
-		required: param.required,
-		validation: param.validation,
-	};
+    return {
+        type: param.type || 'text',
+        attrs: baseAttrs,
+        options: param.options || [],
+        defaultValue: param.defaultValue,
+        placeholder: param.placeholder,
+        required: param.required,
+        validation: param.validation,
+    };
 };
+
+// 使用 class builder 构建类名
+const containerClass = cn().add('space-y-4').build();
+
+const methodPathClass = cn()
+    .add('cosy:bg-base-200')
+    .add('cosy:p-3')
+    .add('cosy:rounded-lg')
+    .flex()
+    .items('center')
+    .gap(2)
+    .add('cosy:flex-wrap')
+    .build();
+
+const codeClass = cn()
+    .add(
+        'cosy:text-primary',
+        'cosy:font-mono',
+        'cosy:text-sm',
+        'cosy:break-all',
+    )
+    .build();
+
+const descriptionClass = cn().add('cosy:text-base-content/70').build();
+
+const paramsContainerClass = cn().add('space-y-3').build();
+
+const paramsTitleClass = cn()
+    .add('cosy:font-medium', 'cosy:text-base-content')
+    .build();
+
+const formControlClass = cn().add('form-control').build();
+
+const labelClass = cn().add('label').build();
+
+const labelTextClass = cn().add('label-text').build();
+
+const requiredClass = cn().add('cosy:text-error', 'cosy:ml-1').build();
+
+const labelTextAltClass = cn()
+    .add('label-text-alt', 'cosy:text-warning')
+    .build();
+
+const selectClass = cn()
+    .add('select', 'select-bordered', 'cosy:w-full')
+    .build();
+
+const textareaClass = cn()
+    .add('textarea', 'textarea-bordered', 'cosy:w-full')
+    .build();
+
+const checkboxClass = cn().add('checkbox', 'checkbox-primary').build();
+
+const radioContainerClass = cn().flex().add('cosy:flex-wrap').gap(3).build();
+
+const radioLabelClass = cn().add('label', 'cosy:cursor-pointer').gap(2).build();
+
+const radioClass = cn().add('radio', 'radio-primary').build();
+
+const quickTestsContainerClass = cn().build();
+
+const quickTestsTitleClass = cn()
+    .add('cosy:text-sm', 'cosy:text-base-content/70', 'cosy:mb-3')
+    .build();
+
+const quickTestsButtonsClass = cn().flex().add('cosy:flex-wrap').gap(2).build();
+
+const inputClass = cn().add('input', 'input-bordered', 'cosy:w-full').build();
+
+const resultClass = cn()
+    .add('hidden', 'cosy:mt-4')
+    .add('cosy:p-4')
+    .add('cosy:bg-base-200', 'cosy:rounded-lg')
+    .add('cosy:border-l-4', 'cosy:border-l-primary')
+    .build();
 ---
 
 <Card title={endpoint.name} class={className}>
-  <div class="space-y-4">
-    {/* HTTP方法和路径 */}
-    <div class="bg-base-200 p-3 rounded-lg flex items-center gap-2 flex-wrap">
-      <Badge variant={getMethodColor(endpoint.method)}>
-        {endpoint.method}
-      </Badge>
-      <code class="text-primary font-mono text-sm break-all">
-        {endpoint.path}
-      </code>
-    </div>
-
-    {/* 描述 */}
-    {
-      hasDescription && (
-        <p class="text-base-content/70">{endpoint.description}</p>
-      )
-    }
-
-    {/* 参数输入 */}
-    {
-      hasParams && (
-        <div class="space-y-3">
-          <p class="font-medium text-base-content">请求参数：</p>
-          {endpoint.params!.map((param) => {
-            const inputConfig = getInputElement(param);
-            return (
-              <div class="form-control">
-                <label class="label">
-                  <span class="label-text">
-                    {param.name}
-                    {param.required && <span class="text-error ml-1">*</span>}
-                  </span>
-                  {param.validation?.message && (
-                    <span class="label-text-alt text-warning">
-                      {param.validation.message}
-                    </span>
-                  )}
-                </label>
-
-                {inputConfig.type === 'select' ? (
-                  <select
-                    class="select select-bordered w-full"
-                    data-param={inputConfig.attrs['data-param']}
-                    data-endpoint={inputConfig.attrs['data-endpoint']}
-                    data-required={inputConfig.attrs['data-required']}
-                    data-validation={inputConfig.attrs['data-validation']}
-                    required={inputConfig.required}>
-                    <option value="">请选择</option>
-                    {inputConfig.options.map((option: string) => (
-                      <option
-                        value={option}
-                        selected={option === inputConfig.defaultValue}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                ) : inputConfig.type === 'textarea' ? (
-                  <textarea
-                    class="textarea textarea-bordered w-full"
-                    placeholder={inputConfig.placeholder}
-                    rows={3}
-                    data-param={inputConfig.attrs['data-param']}
-                    data-endpoint={inputConfig.attrs['data-endpoint']}
-                    data-required={inputConfig.attrs['data-required']}
-                    data-validation={inputConfig.attrs['data-validation']}
-                    required={inputConfig.required}>
-                    {inputConfig.defaultValue || ''}
-                  </textarea>
-                ) : inputConfig.type === 'checkbox' ? (
-                  <input
-                    type="checkbox"
-                    class="checkbox checkbox-primary"
-                    data-param={inputConfig.attrs['data-param']}
-                    data-endpoint={inputConfig.attrs['data-endpoint']}
-                    data-required={inputConfig.attrs['data-required']}
-                    data-validation={inputConfig.attrs['data-validation']}
-                    checked={inputConfig.defaultValue || false}
-                  />
-                ) : inputConfig.type === 'radio' ? (
-                  <div class="flex flex-wrap gap-3">
-                    {inputConfig.options.map((option: string) => (
-                      <label class="label cursor-pointer gap-2">
-                        <input
-                          type="radio"
-                          name={`${endpoint.path}-${param.name}`}
-                          class="radio radio-primary"
-                          value={option}
-                          data-param={inputConfig.attrs['data-param']}
-                          data-endpoint={inputConfig.attrs['data-endpoint']}
-                          data-required={inputConfig.attrs['data-required']}
-                          data-validation={inputConfig.attrs['data-validation']}
-                          checked={option === inputConfig.defaultValue}
-                        />
-                        <span class="label-text">{option}</span>
-                      </label>
-                    ))}
-                  </div>
-                ) : (
-                  <input
-                    type={inputConfig.type}
-                    placeholder={inputConfig.placeholder}
-                    class="input input-bordered w-full"
-                    data-param={inputConfig.attrs['data-param']}
-                    data-endpoint={inputConfig.attrs['data-endpoint']}
-                    data-required={inputConfig.attrs['data-required']}
-                    data-validation={inputConfig.attrs['data-validation']}
-                    required={inputConfig.required}
-                    value={inputConfig.defaultValue || ''}
-                    min={inputConfig.validation?.min}
-                    max={inputConfig.validation?.max}
-                    pattern={inputConfig.validation?.pattern}
-                  />
-                )}
-              </div>
-            );
-          })}
+    <div class={containerClass}>
+        {/* HTTP方法和路径 */}
+        <div class={methodPathClass}>
+            <Badge variant={getMethodColor(endpoint.method)}>
+                {endpoint.method}
+            </Badge>
+            <code class={codeClass}>
+                {endpoint.path}
+            </code>
         </div>
-      )
-    }
 
-    {/* 快速测试 */}
-    {
-      hasQuickTests && (
-        <div>
-          <p class="text-sm text-base-content/70 mb-3">快速填充参数：</p>
-          <div class="flex flex-wrap gap-2">
-            {endpoint.quickTests!.map((quickTest, index) => (
-              <Button
-                variant="outline"
-                size="sm"
-                data-quick-test={JSON.stringify(quickTest.values)}
-                data-endpoint={endpoint.path}
-                title={quickTest.description}>
-                {quickTest.label}
-              </Button>
-            ))}
-          </div>
-        </div>
-      )
-    }
+        {/* 描述 */}
+        {
+            hasDescription && (
+                <p class={descriptionClass}>{endpoint.description}</p>
+            )
+        }
 
-    {/* 测试按钮 */}
-    <Button
-      variant="primary"
-      block
-      data-endpoint={endpoint.path}
-      data-method={endpoint.method}>
-      测试接口
-    </Button>
+        {/* 参数输入 */}
+        {
+            hasParams && (
+                <div class={paramsContainerClass}>
+                    <p class={paramsTitleClass}>请求参数：</p>
+                    {endpoint.params!.map((param) => {
+                        const inputConfig = getInputElement(param);
+                        return (
+                            <div class={formControlClass}>
+                                <label class={labelClass}>
+                                    <span class={labelTextClass}>
+                                        {param.name}
+                                        {param.required && (
+                                            <span class={requiredClass}>*</span>
+                                        )}
+                                    </span>
+                                    {param.validation?.message && (
+                                        <span class={labelTextAltClass}>
+                                            {param.validation.message}
+                                        </span>
+                                    )}
+                                </label>
 
-    {/* 测试结果 */}
-    <div
-      class="hidden mt-4 p-4 bg-base-200 rounded-lg border-l-4 border-l-primary"
-      data-result={endpoint.path}>
+                                {inputConfig.type === 'select' ? (
+                                    <select
+                                        class={selectClass}
+                                        data-param={
+                                            inputConfig.attrs['data-param']
+                                        }
+                                        data-endpoint={
+                                            inputConfig.attrs['data-endpoint']
+                                        }
+                                        data-required={
+                                            inputConfig.attrs['data-required']
+                                        }
+                                        data-validation={
+                                            inputConfig.attrs['data-validation']
+                                        }
+                                        required={inputConfig.required}>
+                                        <option value="">请选择</option>
+                                        {inputConfig.options.map(
+                                            (option: string) => (
+                                                <option
+                                                    value={option}
+                                                    selected={
+                                                        option ===
+                                                        inputConfig.defaultValue
+                                                    }>
+                                                    {option}
+                                                </option>
+                                            ),
+                                        )}
+                                    </select>
+                                ) : inputConfig.type === 'textarea' ? (
+                                    <textarea
+                                        class={textareaClass}
+                                        placeholder={inputConfig.placeholder}
+                                        rows={3}
+                                        data-param={
+                                            inputConfig.attrs['data-param']
+                                        }
+                                        data-endpoint={
+                                            inputConfig.attrs['data-endpoint']
+                                        }
+                                        data-required={
+                                            inputConfig.attrs['data-required']
+                                        }
+                                        data-validation={
+                                            inputConfig.attrs['data-validation']
+                                        }
+                                        required={inputConfig.required}>
+                                        {inputConfig.defaultValue || ''}
+                                    </textarea>
+                                ) : inputConfig.type === 'checkbox' ? (
+                                    <input
+                                        type="checkbox"
+                                        class={checkboxClass}
+                                        data-param={
+                                            inputConfig.attrs['data-param']
+                                        }
+                                        data-endpoint={
+                                            inputConfig.attrs['data-endpoint']
+                                        }
+                                        data-required={
+                                            inputConfig.attrs['data-required']
+                                        }
+                                        data-validation={
+                                            inputConfig.attrs['data-validation']
+                                        }
+                                        checked={
+                                            inputConfig.defaultValue || false
+                                        }
+                                    />
+                                ) : inputConfig.type === 'radio' ? (
+                                    <div class={radioContainerClass}>
+                                        {inputConfig.options.map(
+                                            (option: string) => (
+                                                <label class={radioLabelClass}>
+                                                    <input
+                                                        type="radio"
+                                                        name={`${endpoint.path}-${param.name}`}
+                                                        class={radioClass}
+                                                        value={option}
+                                                        data-param={
+                                                            inputConfig.attrs[
+                                                                'data-param'
+                                                            ]
+                                                        }
+                                                        data-endpoint={
+                                                            inputConfig.attrs[
+                                                                'data-endpoint'
+                                                            ]
+                                                        }
+                                                        data-required={
+                                                            inputConfig.attrs[
+                                                                'data-required'
+                                                            ]
+                                                        }
+                                                        data-validation={
+                                                            inputConfig.attrs[
+                                                                'data-validation'
+                                                            ]
+                                                        }
+                                                        checked={
+                                                            option ===
+                                                            inputConfig.defaultValue
+                                                        }
+                                                    />
+                                                    <span
+                                                        class={labelTextClass}>
+                                                        {option}
+                                                    </span>
+                                                </label>
+                                            ),
+                                        )}
+                                    </div>
+                                ) : (
+                                    <input
+                                        type={inputConfig.type}
+                                        placeholder={inputConfig.placeholder}
+                                        class={inputClass}
+                                        data-param={
+                                            inputConfig.attrs['data-param']
+                                        }
+                                        data-endpoint={
+                                            inputConfig.attrs['data-endpoint']
+                                        }
+                                        data-required={
+                                            inputConfig.attrs['data-required']
+                                        }
+                                        data-validation={
+                                            inputConfig.attrs['data-validation']
+                                        }
+                                        required={inputConfig.required}
+                                        value={inputConfig.defaultValue || ''}
+                                        min={inputConfig.validation?.min}
+                                        max={inputConfig.validation?.max}
+                                        pattern={
+                                            inputConfig.validation?.pattern
+                                        }
+                                    />
+                                )}
+                            </div>
+                        );
+                    })}
+                </div>
+            )
+        }
+
+        {/* 快速测试 */}
+        {
+            hasQuickTests && (
+                <div class={quickTestsContainerClass}>
+                    <p class={quickTestsTitleClass}>快速填充参数：</p>
+                    <div class={quickTestsButtonsClass}>
+                        {endpoint.quickTests!.map((quickTest, index) => (
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                data-quick-test={JSON.stringify(
+                                    quickTest.values,
+                                )}
+                                data-endpoint={endpoint.path}
+                                title={quickTest.description}>
+                                {quickTest.label}
+                            </Button>
+                        ))}
+                    </div>
+                </div>
+            )
+        }
+
+        {/* 测试按钮 */}
+        <Button
+            variant="primary"
+            block
+            data-endpoint={endpoint.path}
+            data-method={endpoint.method}>
+            测试接口
+        </Button>
+
+        {/* 测试结果 */}
+        <div class={resultClass} data-result={endpoint.path}></div>
     </div>
-  </div>
 </Card>
