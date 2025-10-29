@@ -9,11 +9,17 @@ import AlertActionWithIcon from './AlertActionWithIcon.astro';
 import AlertActionMultiple from './AlertActionMultiple.astro';
 import AlertActionLink from './AlertActionLink.astro';
 import AlertActionFactory from './AlertActionFactory.astro';
+import AlertActionWithIconFactory from './AlertActionWithIconFactory.astro';
+import AlertActionMultipleFactory from './AlertActionMultipleFactory.astro';
+import AlertActionLinkFactory from './AlertActionLinkFactory.astro';
 import AlertActionSourceCode from './AlertAction.astro?raw';
 import AlertActionWithIconSourceCode from './AlertActionWithIcon.astro?raw';
 import AlertActionMultipleSourceCode from './AlertActionMultiple.astro?raw';
 import AlertActionLinkSourceCode from './AlertActionLink.astro?raw';
 import AlertActionFactorySourceCode from './AlertActionFactory.astro?raw';
+import AlertActionWithIconFactorySourceCode from './AlertActionWithIconFactory.astro?raw';
+import AlertActionMultipleFactorySourceCode from './AlertActionMultipleFactory.astro?raw';
+import AlertActionLinkFactorySourceCode from './AlertActionLinkFactory.astro?raw';
 ---
 
 <CodeContainer
@@ -23,8 +29,20 @@ import AlertActionFactorySourceCode from './AlertActionFactory.astro?raw';
         AlertActionMultipleSourceCode,
         AlertActionLinkSourceCode,
         AlertActionFactorySourceCode,
+        AlertActionWithIconFactorySourceCode,
+        AlertActionMultipleFactorySourceCode,
+        AlertActionLinkFactorySourceCode,
     ]}
-    titles={['基础按钮', '带图标按钮', '多个按钮', '链接样式', 'Factory']}>
+    titles={[
+        '基础按钮',
+        '带图标按钮',
+        '多个按钮',
+        '链接样式',
+        'Factory 基础',
+        'Factory 图标',
+        'Factory 多个',
+        'Factory 链接',
+    ]}>
     <div id="tab-1" data-label="basic">
         <AlertAction />
     </div>
@@ -39,5 +57,14 @@ import AlertActionFactorySourceCode from './AlertActionFactory.astro?raw';
     </div>
     <div id="tab-5" data-label="factory">
         <AlertActionFactory />
+    </div>
+    <div id="tab-6" data-label="factory">
+        <AlertActionWithIconFactory />
+    </div>
+    <div id="tab-7" data-label="factory">
+        <AlertActionMultipleFactory />
+    </div>
+    <div id="tab-8" data-label="factory">
+        <AlertActionLinkFactory />
     </div>
 </CodeContainer>

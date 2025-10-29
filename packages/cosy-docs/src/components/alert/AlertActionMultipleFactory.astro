@@ -1,0 +1,18 @@
+---
+import { AlertFactory } from '@coffic/cosy-ui';
+import AlertActionButtonMultiple from './AlertActionButtonMultiple.astro';
+
+const alertElement = await AlertFactory.create()
+    .warning()
+    .withTitle('警告提示')
+    .withContent('检测到系统需要更新，请及时处理。')
+    .slotAction(AlertActionButtonMultiple, {
+        primaryText: '立即更新',
+        primaryOnClick: "alert('立即更新')",
+        secondaryText: '稍后提醒',
+        secondaryOnClick: "alert('稍后提醒')",
+    })
+    .build();
+---
+
+<Fragment set:html={alertElement} />

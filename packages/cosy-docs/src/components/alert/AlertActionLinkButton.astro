@@ -1,0 +1,24 @@
+---
+/**
+ * @component AlertActionLinkButton
+ * @description 链接样式的操作按钮
+ */
+interface Props {
+    text: string;
+    onClick: string;
+}
+
+const { text, onClick } = Astro.props;
+---
+
+<a
+    href="#"
+    style="
+        color: #3b82f6;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 0.875rem;
+    "
+    onclick={`event.preventDefault(); ${onClick}`}>
+    {text}
+</a>
