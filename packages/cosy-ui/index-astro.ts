@@ -8,7 +8,7 @@ export * from "./src-astro/article";
 export * from "./src-astro/avatar";
 export * from "./src-astro/badge";
 export * from "./src-astro/banner";
-export * from "./src-astro/button/index.ts";
+export * from "./src-astro/button";
 export * from "./src-astro/card";
 export * from "./src-astro/card-book";
 export * from "./src-astro/card-course";
