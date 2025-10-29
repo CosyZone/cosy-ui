@@ -25,17 +25,17 @@
  * 带 label 的用法（自动生成模式切换）：
  * ```astro
  * <CodeContainer codes={[code1, code2, code3, code4]} titles={['Info', 'Success']}>
- *   <div id="tab-1" label="basic">
- *     <Alert type="info">Basic Info</Alert>
+ *   <div id="tab-1" data-label="传统写法">
+ *     <Alert type="info">Traditional Info</Alert>
  *   </div>
- *   <div id="tab-2" label="basic">
- *     <Alert type="success">Basic Success</Alert>
+ *   <div id="tab-2" data-label="传统写法">
+ *     <Alert type="success">Traditional Success</Alert>
  *   </div>
- *   <div id="tab-3" label="factory">
- *     <AlertFactory info />
+ *   <div id="tab-3" data-label="现代写法">
+ *     <ModernAlert info />
  *   </div>
- *   <div id="tab-4" label="factory">
- *     <AlertFactory success />
+ *   <div id="tab-4" data-label="现代写法">
+ *     <ModernAlert success />
  *   </div>
  * </CodeContainer>
  * ```
@@ -45,10 +45,9 @@
  * @prop {string[]} [descriptions] - tab的描述文本数组，用于为每个标签页添加说明文字
  * @prop {boolean} [resetStyles=true] - 是否重置内部样式，设置为 false 时保留原始样式
  * @prop {string[]} [titles] - tab的标题数组，如果不提供则使用"示例 1"这样的默认标题
- * @prop {Record<string, string>} [modeLabels] - 模式标签的显示名称，如 { basic: '传统写法', factory: 'Factory 写法' }
  *
  * @slots
- * @slot default - 代码示例内容，需要为每个示例设置对应的 id (tab-1, tab-2等)，可选添加 label 属性来分组
+ * @slot default - 代码示例内容，需要为每个示例设置对应的 id (tab-1, tab-2等)，可选添加 data-label 属性来分组。data-label 的值会直接显示为模式切换按钮的文字
  *
  * @accessibility
  * - 支持键盘导航，可以使用 Tab 键在标签页间切换
@@ -84,12 +83,6 @@ interface Props {
      * tab的标题，如果不提供则使用"示例 1"这样的默认标题
      */
     titles?: string[];
-
-    /**
-     * 模式标签的显示名称
-     * @example { basic: '传统写法', factory: 'Factory 写法' }
-     */
-    modeLabels?: Record<string, string>;
 }
 
 const {
@@ -97,7 +90,6 @@ const {
     descriptions = [],
     codes,
     resetStyles = true,
-    modeLabels = { basic: '传统写法', factory: 'Factory 写法' },
 } = Astro.props;
 
 // 使用 classBuilder 构建容器类名
@@ -109,7 +101,7 @@ export type { Props };
 
 <div data-role="code-container" class={containerClass} ignore-heading>
     <!-- 模式切换器 -->
-    <ModeSwitcher modeLabels={modeLabels} />
+    <ModeSwitcher />
 
     <CodeToolbar
         titles={titles.length ? titles : codes.map((_, i) => `示例 ${i + 1}`)}
@@ -161,23 +153,9 @@ export type { Props };
     }
 
     function setupLabelGroups(container, contents) {
-        // 自动为没有 data-label 的内容添加默认 label
-        // 第一个为 'basic'，第二个为 'factory'，其余为 '未分类'
-        let basicCount = 0;
-        let factoryCount = 0;
-
-        contents.forEach((content) => {
-            if (!content.hasAttribute('data-label')) {
-                if (basicCount === 0) {
-                    content.setAttribute('data-label', 'basic');
-                    basicCount++;
-                } else if (factoryCount === 0) {
-                    content.setAttribute('data-label', 'factory');
-                    factoryCount++;
-                }
-                // 如果已经有了 basic 和 factory，就不设置 label（保持未分类）
-            }
-        });
+        // 不再自动为没有 data-label 的内容添加默认 label
+        // 让 ModeSwitcher 自己处理未分类的情况
+        // 这里保留函数是为了向后兼容，但不做任何操作
     }
 
     /**

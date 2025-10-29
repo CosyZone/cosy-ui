@@ -1,31 +1,19 @@
 ---
 /**
  * @component ModeSwitcher
- * @description 模式切换器组件，用于在不同的代码写法之间切换（如 basic、factory）
+ * @description 模式切换器组件，用于在不同的代码写法之间切换
  *
  * 该组件会根据 CodeContainer 中检测到的 data-label 属性自动显示切换按钮。
+ * 按钮文字直接使用 data-label 的值。
  * 如果没有检测到多个不同的 label，则保持隐藏状态。
- *
- * @props
- * @prop {Record<string, string>} [modeLabels] - 模式标签的显示名称映射
  *
  * @example
  * ```astro
- * <ModeSwitcher modeLabels={{ basic: '传统写法', factory: 'Factory 写法' }} />
+ * <ModeSwitcher />
  * ```
  */
 
 import { cn } from '../../../src/class';
-
-interface Props {
-    modeLabels?: Record<string, string>;
-}
-
-const { modeLabels = { basic: '传统写法', factory: 'Factory 写法' } } =
-    Astro.props;
-
-// 将 modeLabels 转为 JSON 字符串传递给客户端
-const modeLabelsJson = JSON.stringify(modeLabels);
 
 // 使用 classBuilder 构建类名
 // 默认隐藏，在检测到多个 label 时由脚本显示并添加样式
@@ -52,7 +40,6 @@ const activeSwitcherClassStr = activeSwitcherClass;
 
 <div
     data-role="mode-switcher"
-    data-mode-labels={modeLabelsJson}
     data-active-classes={activeSwitcherClassStr}
     class={switcherClass}>
 </div>
@@ -115,18 +102,11 @@ const activeSwitcherClassStr = activeSwitcherClass;
                     });
                 }
 
-                // 获取 modeLabels 配置
-                const modeLabelsJson =
-                    modeSwitcher.getAttribute('data-mode-labels');
-                const modeLabels = modeLabelsJson
-                    ? JSON.parse(modeLabelsJson)
-                    : {};
-
                 // 创建分组切换按钮
                 groupOrder.forEach((label, index) => {
                     const button = document.createElement('button');
-                    // 使用 modeLabels 的映射，如果没有映射则使用原始 label
-                    button.textContent = modeLabels[label] || label;
+                    // 直接使用 data-label 的值作为按钮文字
+                    button.textContent = label;
                     button.setAttribute('data-label-group', label);
                     button.className = `cosy:btn cosy:btn-sm ${index === 0 ? 'cosy:btn-primary' : 'cosy:btn-ghost'}`;
 
