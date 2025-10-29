@@ -2,33 +2,48 @@
  * AlertFactory - Alert 组件的工厂类
  *
  * 提供链式调用的方式来创建 Alert 组件实例。
- * 支持静态方法和实例方法的链式调用。
+ * 支持静态方法和实例方法的链式调用，并封装了 Container API 的复杂性。
  *
  * @example
  * ```typescript
- * // 静态方法链式调用
- * const element = AlertFactory.withTitle('Hello World').build();
- *
- * // 实例方法链式调用
- * const element = AlertFactory.create()
+ * // 基础用法
+ * const html = await AlertFactory.create()
+ *   .info()
  *   .withTitle('操作成功')
- *   .withType('success')
- *   .withDescription('您的操作已完成')
+ *   .withContent('您的操作已完成')
+ *   .build();
+ *
+ * // 使用 slot
+ * const html = await AlertFactory.create()
+ *   .info()
+ *   .withTitle('自定义操作')
+ *   .withContent('你可以通过 action slot 在右侧自定义按钮。')
+ *   .slotAction(ActionButton, { text: '操作', onClick: 'alert("clicked")' })
  *   .build();
  *
  * // 在 Astro 组件中使用
- * <element />
+ * ---
+ * const alertElement = await AlertFactory.create().info().build();
+ * ---
+ * <Fragment set:html={alertElement} />
  * ```
  */
 
 import type { IAlertProps } from "./props";
 import { AlertPropsBuilder } from "../../src/components/alert/AlertPropsBuilder";
 
+interface SlotComponent {
+	component: any;
+	props?: Record<string, any>;
+}
+
 /**
  * Alert 组件工厂类
  */
 export class AlertFactory {
 	private builder: AlertPropsBuilder;
+	private content: string = "";
+	private slots: Record<string, SlotComponent | string> = {};
 
 	constructor(builder?: AlertPropsBuilder) {
 		this.builder = builder || new AlertPropsBuilder();
@@ -211,21 +226,60 @@ export class AlertFactory {
 	}
 
 	/**
-	 * 构建 Alert 组件实例
-	 * @returns Alert 组件实例
+	 * 设置默认内容（slot default）
+	 * @param content 内容文本
 	 */
-	async build(): Promise<any> {
+	withContent(content: string): AlertFactory {
+		this.content = content;
+		return this;
+	}
+
+	/**
+	 * 设置 action slot
+	 * @param component Astro 组件
+	 * @param props 组件 props
+	 */
+	slotAction(component: any, props?: Record<string, any>): AlertFactory {
+		this.slots.action = { component, props };
+		return this;
+	}
+
+	/**
+	 * 构建 Alert 组件实例
+	 * @returns Alert 组件 HTML 字符串
+	 */
+	async build(): Promise<string> {
 		const props = this.builder.build();
 
 		// 使用 Astro 容器 API 渲染组件
 		const { experimental_AstroContainer } = await import("astro/container");
 		const container = await experimental_AstroContainer.create();
 
+		// 渲染 slots
+		const renderedSlots: Record<string, string> = {};
+
+		for (const [key, slot] of Object.entries(this.slots)) {
+			if (typeof slot === "string") {
+				renderedSlots[key] = slot;
+			} else {
+				renderedSlots[key] = await container.renderToString(slot.component, {
+					props: slot.props || {},
+				});
+			}
+		}
+
 		// 导入 Alert 组件
 		const Alert = (await import("./Alert.astro")).default;
 
-		// 渲染为 HTML 字符串
-		const html = await container.renderToString(Alert, { props });
+		// 渲染为 HTML 字符串，传入 props 和 slots
+		const html = await container.renderToString(Alert, {
+			props,
+			slots: {
+				default: this.content,
+				...renderedSlots,
+			},
+		});
+
 		return html;
 	}
 

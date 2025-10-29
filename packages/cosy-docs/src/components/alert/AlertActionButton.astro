@@ -1,0 +1,26 @@
+---
+/**
+ * @component AlertActionButton
+ * @description Alert 组件的自定义操作按钮
+ */
+interface Props {
+    text?: string;
+    onClick?: string;
+}
+
+const { text = '自定义操作', onClick = "alert('自定义操作')" } = Astro.props;
+---
+
+<button
+    style="
+		background-color: #3b82f6;
+		color: white;
+		border: none;
+		padding: 0.5rem 1rem;
+		border-radius: 0.375rem;
+		cursor: pointer;
+		font-size: 0.875rem;
+	"
+    onclick={onClick}>
+    {text}
+</button>

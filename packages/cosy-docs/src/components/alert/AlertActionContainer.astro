@@ -3,13 +3,20 @@
  * @component AlertActionContainer
  * @description 自定义操作按钮 Alert 组件示例容器
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import AlertAction from "./AlertAction.astro";
-import AlertActionSourceCode from "./AlertAction.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import AlertAction from './AlertAction.astro';
+import AlertActionFactory from './AlertActionFactory.astro';
+import AlertActionSourceCode from './AlertAction.astro?raw';
+import AlertActionFactorySourceCode from './AlertActionFactory.astro?raw';
 ---
 
-<CodeContainer codes={[AlertActionSourceCode]} titles={['自定义操作按钮']}>
-  <div id="tab-1">
-    <AlertAction />
-  </div>
+<CodeContainer
+    codes={[AlertActionSourceCode, AlertActionFactorySourceCode]}
+    titles={['Basic', 'Factory']}>
+    <div id="tab-1">
+        <AlertAction />
+    </div>
+    <div id="tab-2">
+        <AlertActionFactory />
+    </div>
 </CodeContainer>
