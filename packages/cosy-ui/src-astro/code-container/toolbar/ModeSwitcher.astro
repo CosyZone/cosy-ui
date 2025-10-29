@@ -1,0 +1,201 @@
+---
+/**
+ * @component ModeSwitcher
+ * @description 模式切换器组件，用于在不同的代码写法之间切换（如 basic、factory）
+ *
+ * 该组件会根据 CodeContainer 中检测到的 data-label 属性自动显示切换按钮。
+ * 如果没有检测到多个不同的 label，则保持隐藏状态。
+ *
+ * @props
+ * @prop {Record<string, string>} [modeLabels] - 模式标签的显示名称映射
+ *
+ * @example
+ * ```astro
+ * <ModeSwitcher modeLabels={{ basic: '传统写法', factory: 'Factory 写法' }} />
+ * ```
+ */
+
+import { cn } from '../../../src/class';
+
+interface Props {
+    modeLabels?: Record<string, string>;
+}
+
+const { modeLabels = { basic: '传统写法', factory: 'Factory 写法' } } =
+    Astro.props;
+
+// 将 modeLabels 转为 JSON 字符串传递给客户端
+const modeLabelsJson = JSON.stringify(modeLabels);
+
+// 使用 classBuilder 构建类名
+// 默认隐藏，在检测到多个 label 时由脚本显示并添加样式
+const switcherClass = cn().add('cosy:hidden').build();
+
+// 激活状态的类名（由脚本动态添加）
+const activeSwitcherClass = cn()
+    .flex('row')
+    .justify('start')
+    .items('center')
+    .gap(2)
+    .add(
+        'cosy:bg-base-200',
+        'cosy:px-4',
+        'cosy:py-2',
+        'cosy:border-b',
+        'cosy:border-base-300'
+    )
+    .build();
+
+// 将激活状态的类名也传递给客户端
+const activeSwitcherClassStr = activeSwitcherClass;
+---
+
+<div
+    data-role="mode-switcher"
+    data-mode-labels={modeLabelsJson}
+    data-active-classes={activeSwitcherClassStr}
+    class={switcherClass}>
+</div>
+
+<script>
+    // @ts-nocheck
+    /**
+     * ModeSwitcher 组件的客户端逻辑
+     * 负责：
+     * 1. 检测 CodeContainer 中的 data-label 分组
+     * 2. 动态创建模式切换按钮
+     * 3. 处理模式切换事件
+     * 4. 触发自定义事件通知 CodeContainer 更新内容显示
+     */
+    function initializeModeSwitcher() {
+        document
+            .querySelectorAll('[data-role="mode-switcher"]')
+            .forEach((modeSwitcher) => {
+                const container = modeSwitcher.closest(
+                    '[data-role="code-container"]'
+                );
+                if (!container) return;
+
+                // 避免重复初始化
+                if (modeSwitcher.hasAttribute('data-initialized')) return;
+                modeSwitcher.setAttribute('data-initialized', 'true');
+
+                // 获取所有内容元素
+                const contents = Array.from(
+                    container.querySelectorAll('[id^="tab-"]')
+                );
+                if (contents.length === 0) return;
+
+                // 按 data-label 分组
+                const groups = {};
+                const groupOrder = [];
+                const UNCATEGORIZED = '未分类';
+
+                contents.forEach((content) => {
+                    const label =
+                        content.getAttribute('data-label') || UNCATEGORIZED;
+                    if (!groups[label]) {
+                        groups[label] = [];
+                        groupOrder.push(label);
+                    }
+                    groups[label].push(content);
+                });
+
+                // 如果只有一个分组，不显示切换按钮
+                if (groupOrder.length <= 1) return;
+
+                // 显示 ModeSwitcher 并应用激活状态的样式
+                modeSwitcher.classList.remove('cosy:hidden');
+                const activeClasses = modeSwitcher.getAttribute(
+                    'data-active-classes'
+                );
+                if (activeClasses) {
+                    activeClasses.split(' ').forEach((cls) => {
+                        if (cls.trim()) modeSwitcher.classList.add(cls.trim());
+                    });
+                }
+
+                // 获取 modeLabels 配置
+                const modeLabelsJson =
+                    modeSwitcher.getAttribute('data-mode-labels');
+                const modeLabels = modeLabelsJson
+                    ? JSON.parse(modeLabelsJson)
+                    : {};
+
+                // 创建分组切换按钮
+                groupOrder.forEach((label, index) => {
+                    const button = document.createElement('button');
+                    // 使用 modeLabels 的映射，如果没有映射则使用原始 label
+                    button.textContent = modeLabels[label] || label;
+                    button.setAttribute('data-label-group', label);
+                    button.className = `cosy:btn cosy:btn-sm ${index === 0 ? 'cosy:btn-primary' : 'cosy:btn-ghost'}`;
+
+                    button.addEventListener('click', () => {
+                        handleModeSwitchClick(modeSwitcher, label, groupOrder);
+                    });
+
+                    modeSwitcher.appendChild(button);
+                });
+
+                // 触发初始模式切换（显示第一个分组）
+                const firstLabel = groupOrder[0];
+                dispatchModeChangeEvent(container, firstLabel, groups);
+            });
+    }
+
+    /**
+     * 处理模式切换按钮点击
+     */
+    function handleModeSwitchClick(modeSwitcher, targetLabel, groupOrder) {
+        const container = modeSwitcher.closest('[data-role="code-container"]');
+        if (!container) return;
+
+        // 更新按钮状态
+        const buttons = modeSwitcher.querySelectorAll('[data-label-group]');
+        buttons.forEach((btn) => {
+            const btnLabel = btn.getAttribute('data-label-group');
+            if (btnLabel === targetLabel) {
+                btn.classList.remove('cosy:btn-ghost');
+                btn.classList.add('cosy:btn-primary');
+            } else {
+                btn.classList.add('cosy:btn-ghost');
+                btn.classList.remove('cosy:btn-primary');
+            }
+        });
+
+        // 重新收集分组信息
+        const contents = Array.from(container.querySelectorAll('[id^="tab-"]'));
+        const groups = {};
+        const UNCATEGORIZED = '未分类';
+
+        contents.forEach((content) => {
+            const label = content.getAttribute('data-label') || UNCATEGORIZED;
+            if (!groups[label]) {
+                groups[label] = [];
+            }
+            groups[label].push(content);
+        });
+
+        // 触发自定义事件，通知 CodeContainer 切换内容
+        dispatchModeChangeEvent(container, targetLabel, groups);
+    }
+
+    /**
+     * 触发模式切换事件
+     */
+    function dispatchModeChangeEvent(container, targetLabel, groups) {
+        const event = new CustomEvent('mode-change', {
+            detail: {
+                label: targetLabel,
+                groups: groups,
+            },
+            bubbles: true,
+        });
+        container.dispatchEvent(event);
+    }
+
+    // 初始化
+    document.addEventListener('astro:page-load', () => {
+        initializeModeSwitcher();
+    });
+</script>

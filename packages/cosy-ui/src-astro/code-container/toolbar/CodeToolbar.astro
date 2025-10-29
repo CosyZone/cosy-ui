@@ -1,6 +1,15 @@
 ---
+/**
+ * @component CodeToolbar
+ * @description 代码容器工具栏组件
+ *
+ * 职责：
+ * - 渲染工具栏容器
+ * - 组合 TabList 和工具按钮
+ */
 import CodeToggleButton from './ButtonCodeToggle.astro';
 import CopyCodeButton from './ButtonCopyCode.astro';
+import TabList from './TabList.astro';
 import { cn } from '../../../src/class';
 
 interface Props {
@@ -25,103 +34,16 @@ const toolbarClass = cn()
     .add('cosy:bg-base-200', 'cosy:px-4', 'cosy:rounded-t')
     .build();
 
-const tabsContainerClass = cn().flex('row').items('center').gap(4).build();
-
-const tablistClass = cn().add('cosy:tabs', 'cosy:tabs-box').build();
-
 const buttonsContainerClass = cn().flex('row').items('center').gap(2).build();
 ---
 
 <div class={toolbarClass}>
-    <!-- 标签 -->
-    <div class={tabsContainerClass}>
-        <div role="tablist" class={tablistClass}>
-            {
-                titles.map((title: string, index: number) => (
-                    <button
-                        role="tab"
-                        class={`cosy:tab ${index === activeTab ? 'cosy:tab-active' : ''}`}
-                        data-tab={`tab-${index + 1}`}>
-                        {title || `示例 ${index + 1}`}
-                    </button>
-                ))
-            }
-        </div>
-    </div>
+    <!-- 标签列表 -->
+    <TabList titles={titles} activeTab={activeTab} />
+
     <!-- 工具按钮 -->
     <div class={buttonsContainerClass}>
         <CodeToggleButton isCodeView={isCodeView} />
         <CopyCodeButton code={code} />
     </div>
 </div>
-
-<script>
-    function initializeTab() {
-        const exampleTabs = document.querySelectorAll(
-            '[role="tab"][data-tab^="tab-"]'
-        );
-        exampleTabs.forEach((tab) => {
-            tab.addEventListener('click', () => {
-                console.log(
-                    'CodeContainer: 切换示例',
-                    tab.getAttribute('data-tab')
-                );
-                const container = tab.closest('[data-role="code-container"]');
-                if (!container) return;
-
-                // 更新标签状态
-                container
-                    .querySelectorAll('[role="tab"][data-tab^="tab-"]')
-                    .forEach((t) => {
-                        t.classList.remove('cosy:tab-active');
-                    });
-                tab.classList.add('cosy:tab-active');
-
-                // 获取当前标签对应的内容 id
-                const targetId = tab.getAttribute('data-tab');
-                if (!targetId) return;
-
-                // 检查当前是否在代码视图
-                const codeToggle = container.querySelector(
-                    '[data-toggle="code"]'
-                );
-                const isCodeView =
-                    codeToggle?.getAttribute('aria-checked') === 'true';
-
-                // 如果在代码视图，切换代码面板容器
-                if (isCodeView) {
-                    container
-                        .querySelectorAll('.cosy\\:code-panel-container')
-                        .forEach((panel) => {
-                            if (
-                                panel.getAttribute('data-code-panel') ===
-                                targetId
-                            ) {
-                                panel.classList.remove('cosy:hidden');
-                                panel.classList.add('cosy:block');
-                            } else {
-                                panel.classList.add('cosy:hidden');
-                                panel.classList.remove('cosy:block');
-                            }
-                        });
-                }
-
-                // 更新对应内容的可见性（slot 内容）
-                const allContent = container.querySelectorAll('[id^="tab-"]');
-                allContent.forEach((content) => {
-                    if (content.id === targetId) {
-                        content.classList.remove('cosy:hidden');
-                        content.classList.add('cosy:block');
-                    } else {
-                        content.classList.add('cosy:hidden');
-                        content.classList.remove('cosy:block');
-                    }
-                });
-            });
-        });
-    }
-
-    document.addEventListener('astro:page-load', () => {
-        initializeTab();
-    });
-</script>

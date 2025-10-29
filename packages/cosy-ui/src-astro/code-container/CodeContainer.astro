@@ -57,8 +57,10 @@
  */
 
 import CodeToolbar from './toolbar/CodeToolbar.astro';
+import ModeSwitcher from './toolbar/ModeSwitcher.astro';
 import Preview from './components/Preview.astro';
-import { CodePanel, Container } from '../../index-astro';
+import CodePanelContainer from './components/CodePanelContainer.astro';
+import { cn } from '../../src/class';
 import '../../style.ts';
 
 interface Props {
@@ -98,20 +100,16 @@ const {
     modeLabels = { basic: '传统写法', factory: 'Factory 写法' },
 } = Astro.props;
 
+// 使用 classBuilder 构建容器类名
+const containerClass = cn().add('cosy:mb-8', 'cosy:card', 'not-prose').build();
+
 // 导出 Props 类型供外部使用
 export type { Props };
-
-// 将 modeLabels 转为 JSON 字符串传递给客户端
-const modeLabelsJson = JSON.stringify(modeLabels);
 ---
 
-<div
-    data-role="code-container"
-    data-mode-labels={modeLabelsJson}
-    class="cosy:mb-8 cosy:card not-prose"
-    ignore-heading>
-    <!-- 模式切换按钮容器（当检测到 label 时动态插入） -->
-    <div data-role="mode-switcher" class="cosy:hidden"></div>
+<div data-role="code-container" class={containerClass} ignore-heading>
+    <!-- 模式切换器 -->
+    <ModeSwitcher modeLabels={modeLabels} />
 
     <CodeToolbar
         titles={titles.length ? titles : codes.map((_, i) => `示例 ${i + 1}`)}
@@ -120,35 +118,15 @@ const modeLabelsJson = JSON.stringify(modeLabels);
         code={codes[0]}
     />
 
-    <!-- 统一的预览容器（只渲染一次 slot） -->
-    <div class="cosy:example-container cosy:block" data-example="preview">
-        <Container background="dot-grid" width="full">
-            <div class="cosy:relative cosy:p-4 cosy:rounded-b">
-                <Preview>
-                    <div
-                        class={`cosy:code-preview-area ${resetStyles ? 'cosy:reset-styles' : ''}`}
-                        data-preview-area="shared">
-                        <slot />
-                    </div>
-                </Preview>
-            </div>
-        </Container>
-    </div>
+    <!-- 预览容器（只渲染一次 slot） -->
+    <Preview resetStyles={resetStyles}>
+        <slot />
+    </Preview>
 
     <!-- 代码面板容器（为每个 code 创建，默认全部隐藏） -->
     {
         codes.map((code, index) => (
-            <div
-                class="cosy:code-panel-container cosy:hidden"
-                data-code-panel={`tab-${index + 1}`}>
-                <Container background="dot-grid" width="full">
-                    <div class="cosy:relative cosy:p-4 cosy:rounded-b">
-                        <div class="cosy:code-example-panel" data-panel="code">
-                            <CodePanel code={code} />
-                        </div>
-                    </div>
-                </Container>
-            </div>
+            <CodePanelContainer code={code} tabId={`tab-${index + 1}`} />
         ))
     }
 </div>
@@ -183,117 +161,44 @@ const modeLabelsJson = JSON.stringify(modeLabels);
     }
 
     function setupLabelGroups(container, contents) {
-        // 按 label 分组
-        const groups = {};
-        const groupOrder = [];
-        const UNCATEGORIZED = '未分类';
+        // 自动为没有 data-label 的内容添加默认 label
+        // 第一个为 'basic'，第二个为 'factory'，其余为 '未分类'
+        let basicCount = 0;
+        let factoryCount = 0;
 
         contents.forEach((content) => {
-            const label = content.getAttribute('data-label') || UNCATEGORIZED;
-            if (!groups[label]) {
-                groups[label] = [];
-                groupOrder.push(label);
-            }
-            groups[label].push(content);
-        });
-
-        // 如果只有一个分组，不显示切换按钮
-        if (groupOrder.length <= 1) {
-            contents.forEach((content, index) => {
-                if (index !== 0) {
-                    content.classList.add('cosy:hidden');
+            if (!content.hasAttribute('data-label')) {
+                if (basicCount === 0) {
+                    content.setAttribute('data-label', 'basic');
+                    basicCount++;
+                } else if (factoryCount === 0) {
+                    content.setAttribute('data-label', 'factory');
+                    factoryCount++;
                 }
-            });
-            return;
-        }
-
-        // 创建分组切换按钮
-        const modeSwitcher = container.querySelector(
-            '[data-role="mode-switcher"]'
-        );
-        if (!modeSwitcher) return;
-
-        // 检查是否已经初始化过
-        if (modeSwitcher.hasAttribute('data-initialized')) {
-            return;
-        }
-        modeSwitcher.setAttribute('data-initialized', 'true');
-
-        modeSwitcher.classList.remove('cosy:hidden');
-        modeSwitcher.classList.add(
-            'cosy:flex',
-            'cosy:justify-start',
-            'cosy:items-center',
-            'cosy:gap-2',
-            'cosy:bg-base-200',
-            'cosy:px-4',
-            'cosy:py-2',
-            'cosy:border-b',
-            'cosy:border-base-300'
-        );
-
-        groupOrder.forEach((label, index) => {
-            const button = document.createElement('button');
-            button.textContent = label;
-            button.setAttribute('data-label-group', label);
-            button.className = `cosy:btn cosy:btn-sm ${index === 0 ? 'cosy:btn-primary' : 'cosy:btn-ghost'}`;
-
-            button.addEventListener('click', () => {
-                switchLabelGroup(container, label, groupOrder, modeSwitcher);
-            });
-
-            modeSwitcher.appendChild(button);
-        });
-
-        // 初始化：只显示第一个分组的第一个tab内容
-        const firstLabel = groupOrder[0];
-        const firstGroupContents = groups[firstLabel] || [];
-        const firstTabId = firstGroupContents[0]?.id;
-
-        contents.forEach((content) => {
-            const contentLabel =
-                content.getAttribute('data-label') || UNCATEGORIZED;
-            // 只显示第一个分组的第一个tab
-            if (content.id === firstTabId) {
-                content.classList.remove('cosy:hidden');
-                content.classList.add('cosy:block');
-            } else {
-                content.classList.add('cosy:hidden');
-                content.classList.remove('cosy:block');
+                // 如果已经有了 basic 和 factory，就不设置 label（保持未分类）
             }
         });
-
-        // 更新标签按钮，只显示第一个分组的标签
-        updateTabsForLabelGroup(container, firstLabel, groups);
     }
 
-    function switchLabelGroup(
-        container,
-        targetLabel,
-        groupOrder,
-        modeSwitcher
-    ) {
-        const UNCATEGORIZED = '未分类';
+    /**
+     * 监听 ModeSwitcher 触发的 mode-change 事件
+     * 并更新内容和标签页的显示
+     */
+    function handleModeChange(event) {
+        const { label: targetLabel, groups } = event.detail;
+        const container = event.target;
 
-        // 收集所有内容
-        const contents = Array.from(container.querySelectorAll('[id^="tab-"]'));
-
-        // 按 label 重新分组
-        const groups = {};
-        contents.forEach((content) => {
-            const label = content.getAttribute('data-label') || UNCATEGORIZED;
-            if (!groups[label]) {
-                groups[label] = [];
-            }
-            groups[label].push(content);
-        });
-
-        // 切换内容可见性：只显示目标分组的第一个tab
+        // 获取目标分组的内容
         const targetGroupContents = groups[targetLabel] || [];
         const firstTabId = targetGroupContents[0]?.id;
 
-        contents.forEach((content) => {
-            // 只显示目标分组的第一个tab
+        // 获取所有内容元素
+        const allContents = Array.from(
+            container.querySelectorAll('[id^="tab-"]')
+        );
+
+        // 切换内容可见性：只显示目标分组的第一个tab
+        allContents.forEach((content) => {
             if (content.id === firstTabId) {
                 content.classList.remove('cosy:hidden');
                 content.classList.add('cosy:block');
@@ -303,25 +208,14 @@ const modeLabelsJson = JSON.stringify(modeLabels);
             }
         });
 
-        // 更新分组按钮状态
-        const buttons = modeSwitcher.querySelectorAll('[data-label-group]');
-        buttons.forEach((btn) => {
-            const btnLabel = btn.getAttribute('data-label-group');
-            if (btnLabel === targetLabel) {
-                btn.classList.remove('cosy:btn-ghost');
-                btn.classList.add('cosy:btn-primary');
-            } else {
-                btn.classList.add('cosy:btn-ghost');
-                btn.classList.remove('cosy:btn-primary');
-            }
-        });
-
-        // 更新标签按钮
+        // 更新标签按钮的显示和状态
         updateTabsForLabelGroup(container, targetLabel, groups);
     }
 
+    /**
+     * 根据当前激活的模式更新标签按钮
+     */
     function updateTabsForLabelGroup(container, label, groups) {
-        const UNCATEGORIZED = '未分类';
         const groupContents = groups[label] || [];
 
         // 获取所有标签按钮
@@ -356,181 +250,53 @@ const modeLabelsJson = JSON.stringify(modeLabels);
         }
     }
 
-    function setupModeSwitcher(container, contents, modeLabels) {
-        // 按 label 分组
-        const groups = {};
-        const groupOrder = [];
+    /**
+     * 监听 TabList 触发的 tab-change 事件
+     * 并更新内容显示
+     */
+    function handleTabChange(event) {
+        const { targetId, isCodeView } = event.detail;
+        const container = event.target;
 
-        contents.forEach((content) => {
-            const label = content.getAttribute('data-label');
-            if (label) {
-                if (!groups[label]) {
-                    groups[label] = [];
-                    groupOrder.push(label);
-                }
-                groups[label].push(content);
-            }
-        });
-
-        // 如果只有一个分组，不显示切换按钮
-        if (groupOrder.length <= 1) {
-            contents.forEach((content, index) => {
-                if (index !== 0) {
-                    content.classList.add('cosy:hidden');
-                }
-            });
-            return;
+        // 如果在代码视图，切换代码面板容器
+        if (isCodeView) {
+            container
+                .querySelectorAll('.cosy\\:code-panel-container')
+                .forEach((panel) => {
+                    if (panel.getAttribute('data-code-panel') === targetId) {
+                        panel.classList.remove('cosy:hidden');
+                        panel.classList.add('cosy:block');
+                    } else {
+                        panel.classList.add('cosy:hidden');
+                        panel.classList.remove('cosy:block');
+                    }
+                });
         }
 
-        // 创建模式切换按钮
-        const modeSwitcher = container.querySelector(
-            '[data-role="mode-switcher"]'
-        );
-        if (!modeSwitcher) return;
-
-        // 检查是否已经初始化过（防止重复创建按钮）
-        if (modeSwitcher.hasAttribute('data-initialized')) {
-            return;
-        }
-        modeSwitcher.setAttribute('data-initialized', 'true');
-
-        modeSwitcher.classList.remove('cosy:hidden');
-        modeSwitcher.classList.add(
-            'cosy:flex',
-            'cosy:justify-start',
-            'cosy:items-center',
-            'cosy:gap-2',
-            'cosy:bg-base-200',
-            'cosy:px-4',
-            'cosy:py-2',
-            'cosy:border-b',
-            'cosy:border-base-300'
-        );
-
-        groupOrder.forEach((label, index) => {
-            const button = document.createElement('button');
-            button.textContent = modeLabels[label] || label;
-            button.setAttribute('data-mode', label);
-            button.className = `cosy:btn cosy:btn-sm ${index === 0 ? 'cosy:btn-primary' : 'cosy:btn-ghost'}`;
-
-            button.addEventListener('click', () => {
-                switchMode(container, label, groupOrder, modeSwitcher);
-            });
-
-            modeSwitcher.appendChild(button);
-        });
-
-        // 初始化：只显示第一个分组的内容
-        const firstMode = groupOrder[0];
-        contents.forEach((content) => {
-            const contentLabel = content.getAttribute('data-label');
-            if (
-                contentLabel === firstMode &&
-                content === groups[firstMode][0]
-            ) {
+        // 更新对应内容的可见性（slot 内容）
+        const allContent = container.querySelectorAll('[id^="tab-"]');
+        allContent.forEach((content) => {
+            if (content.id === targetId) {
                 content.classList.remove('cosy:hidden');
                 content.classList.add('cosy:block');
             } else {
                 content.classList.add('cosy:hidden');
                 content.classList.remove('cosy:block');
-            }
-        });
-
-        // 更新标签按钮：只显示当前模式的标签
-        updateTabsForMode(container, firstMode, groups);
-    }
-
-    function switchMode(container, targetMode, allModes, modeSwitcher) {
-        // 更新模式按钮状态
-        const modeButtons = modeSwitcher.querySelectorAll('[data-mode]');
-        modeButtons.forEach((btn) => {
-            if (btn.getAttribute('data-mode') === targetMode) {
-                btn.classList.add('cosy:btn-primary');
-                btn.classList.remove('cosy:btn-ghost');
-            } else {
-                btn.classList.remove('cosy:btn-primary');
-                btn.classList.add('cosy:btn-ghost');
-            }
-        });
-
-        // 收集分组信息
-        const contents = Array.from(container.querySelectorAll('[id^="tab-"]'));
-        const groups = {};
-        contents.forEach((content) => {
-            const label = content.getAttribute('data-label');
-            if (label) {
-                if (!groups[label]) groups[label] = [];
-                groups[label].push(content);
-            }
-        });
-
-        // 切换内容
-        contents.forEach((content) => {
-            const contentLabel = content.getAttribute('data-label');
-            if (
-                contentLabel === targetMode &&
-                content === groups[targetMode][0]
-            ) {
-                content.classList.remove('cosy:hidden');
-                content.classList.add('cosy:block');
-            } else {
-                content.classList.add('cosy:hidden');
-                content.classList.remove('cosy:block');
-            }
-        });
-
-        // 切换代码面板容器
-        const codePanels = container.querySelectorAll(
-            '.cosy\\:code-panel-container'
-        );
-        const firstContentOfMode = groups[targetMode][0];
-        const firstIndex = contents.indexOf(firstContentOfMode);
-        codePanels.forEach((panel, index) => {
-            if (index === firstIndex) {
-                panel.classList.remove('cosy:hidden');
-                panel.classList.add('cosy:block');
-            } else {
-                panel.classList.add('cosy:hidden');
-                panel.classList.remove('cosy:block');
-            }
-        });
-
-        // 更新标签按钮
-        updateTabsForMode(container, targetMode, groups);
-    }
-
-    function updateTabsForMode(container, mode, groups) {
-        const allContents = Array.from(
-            container.querySelectorAll('[id^="tab-"]')
-        );
-        const modeContents = groups[mode] || [];
-        const tabButtons = container.querySelectorAll(
-            '[role="tab"][data-tab^="tab-"]'
-        );
-
-        tabButtons.forEach((tab) => {
-            const tabTarget = tab.getAttribute('data-tab');
-            const targetContent = allContents.find((c) => c.id === tabTarget);
-            const contentLabel = targetContent
-                ? targetContent.getAttribute('data-label')
-                : null;
-
-            if (contentLabel === mode) {
-                tab.classList.remove('cosy:hidden');
-                // 激活该模式的第一个标签
-                if (targetContent === modeContents[0]) {
-                    tab.classList.add('cosy:tab-active');
-                } else {
-                    tab.classList.remove('cosy:tab-active');
-                }
-            } else {
-                tab.classList.add('cosy:hidden');
-                tab.classList.remove('cosy:tab-active');
             }
         });
     }
 
     document.addEventListener('astro:page-load', () => {
         initializeCodeContainer();
+
+        // 监听事件
+        document
+            .querySelectorAll('[data-role="code-container"]')
+            .forEach((container) => {
+                // 监听 ModeSwitcher 触发的 mode-change 事件
+                container.addEventListener('mode-change', handleModeChange);
+                // 监听 TabList 触发的 tab-change 事件
+                container.addEventListener('tab-change', handleTabChange);
+            });
     });
 </script>

@@ -1,13 +1,54 @@
 ---
-// 预览组件，渲染slot内容
+/**
+ * @component Preview
+ * @description 预览面板组件
+ *
+ * 职责：
+ * - 渲染预览容器的完整结构
+ * - 提供背景样式（dot-grid）
+ * - 管理预览区域的内边距和定位
+ * - 支持样式重置模式
+ */
 import { cn } from '../../../src/class';
+import { Container } from '../../../index-astro';
+
+interface Props {
+    /**
+     * 是否重置内部样式
+     * @default true
+     */
+    resetStyles?: boolean;
+}
+
+const { resetStyles = true } = Astro.props;
 
 // 使用 classBuilder 构建类名
+const exampleContainerClass = cn()
+    .add('cosy:example-container', 'cosy:block')
+    .build();
+
+const innerContainerClass = cn()
+    .add('cosy:relative', 'cosy:p-4', 'cosy:rounded-b')
+    .build();
+
 const previewClass = cn().add('cosy:code-example-panel', 'cosy:block').build();
+
+const previewAreaClass = cn()
+    .add('cosy:code-preview-area')
+    .add(resetStyles ? 'cosy:reset-styles' : '')
+    .build();
 ---
 
-<div class={previewClass} data-panel="preview">
-    <slot />
+<div class={exampleContainerClass} data-example="preview">
+    <Container background="dot-grid" width="full">
+        <div class={innerContainerClass}>
+            <div class={previewClass} data-panel="preview">
+                <div class={previewAreaClass} data-preview-area="shared">
+                    <slot />
+                </div>
+            </div>
+        </div>
+    </Container>
 </div>
 
 <!-- 样式隔离和重置 -->

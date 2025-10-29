@@ -1,0 +1,115 @@
+---
+/**
+ * @component TabList
+ * @description 标签列表组件
+ *
+ * 职责：
+ * - 渲染标签列表
+ * - 处理标签点击事件
+ * - 管理标签激活状态
+ * - 触发 tab-change 事件通知容器更新内容
+ */
+import { cn } from '../../../src/class';
+
+interface Props {
+    titles: string[];
+    activeTab?: number;
+}
+
+const { titles = [], activeTab = 0 } = Astro.props;
+
+// 使用 classBuilder 构建类名
+const tabsContainerClass = cn().flex('row').items('center').gap(4).build();
+const tablistClass = cn().add('cosy:tabs', 'cosy:tabs-box').build();
+---
+
+<div class={tabsContainerClass}>
+    <div role="tablist" class={tablistClass} data-role="tab-list">
+        {
+            titles.map((title: string, index: number) => (
+                <button
+                    role="tab"
+                    class={`cosy:tab ${index === activeTab ? 'cosy:tab-active' : ''}`}
+                    data-tab={`tab-${index + 1}`}>
+                    {title || `示例 ${index + 1}`}
+                </button>
+            ))
+        }
+    </div>
+</div>
+
+<script>
+    // @ts-nocheck
+    /**
+     * TabList 组件的客户端逻辑
+     * 负责：
+     * 1. 处理标签点击事件
+     * 2. 更新标签激活状态
+     * 3. 触发 tab-change 自定义事件通知 CodeContainer
+     */
+    function initializeTabList() {
+        document
+            .querySelectorAll('[data-role="tab-list"]')
+            .forEach((tabList) => {
+                const container = tabList.closest(
+                    '[data-role="code-container"]'
+                );
+                if (!container) return;
+
+                // 避免重复初始化
+                if (tabList.hasAttribute('data-initialized')) return;
+                tabList.setAttribute('data-initialized', 'true');
+
+                // 获取所有标签按钮
+                const tabs = tabList.querySelectorAll(
+                    '[role="tab"][data-tab^="tab-"]'
+                );
+
+                tabs.forEach((tab) => {
+                    tab.addEventListener('click', () => {
+                        handleTabClick(tab, tabs, container);
+                    });
+                });
+            });
+    }
+
+    /**
+     * 处理标签点击
+     */
+    function handleTabClick(clickedTab, allTabs, container) {
+        // 更新标签激活状态
+        allTabs.forEach((tab) => {
+            tab.classList.remove('cosy:tab-active');
+        });
+        clickedTab.classList.add('cosy:tab-active');
+
+        // 获取目标 tab ID
+        const targetId = clickedTab.getAttribute('data-tab');
+        if (!targetId) return;
+
+        // 检查当前是否在代码视图
+        const codeToggle = container.querySelector('[data-toggle="code"]');
+        const isCodeView = codeToggle?.getAttribute('aria-checked') === 'true';
+
+        // 触发 tab-change 事件，通知 CodeContainer 更新内容
+        dispatchTabChangeEvent(container, targetId, isCodeView);
+    }
+
+    /**
+     * 触发标签切换事件
+     */
+    function dispatchTabChangeEvent(container, targetId, isCodeView) {
+        const event = new CustomEvent('tab-change', {
+            detail: {
+                targetId: targetId,
+                isCodeView: isCodeView,
+            },
+            bubbles: true,
+        });
+        container.dispatchEvent(event);
+    }
+
+    document.addEventListener('astro:page-load', () => {
+        initializeTabList();
+    });
+</script>
