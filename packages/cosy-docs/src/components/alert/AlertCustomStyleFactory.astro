@@ -1,0 +1,25 @@
+---
+/**
+ * @component Alert.CustomStyle.Factory
+ *
+ * @description
+ * 展示如何使用 AlertFactory 创建自定义样式的 Alert 组件。
+ */
+
+import { AlertFactory } from '@coffic/cosy-ui';
+
+const alertElement = await AlertFactory.withType('info')
+    .withClass('custom-alert')
+    .withTitle('自定义样式提示框')
+    .build();
+---
+
+<Fragment set:html={alertElement} />
+
+<style>
+    .custom-alert {
+        background-color: #f3e8ff;
+        color: #581c87;
+        border: 1px solid #c084fc;
+    }
+</style>

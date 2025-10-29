@@ -1,0 +1,17 @@
+---
+/**
+ * @component Alert.NotClosable.Factory
+ *
+ * @description
+ * 展示如何使用 AlertFactory 创建不可关闭的 Alert 组件。
+ */
+
+import { AlertFactory } from '@coffic/cosy-ui';
+
+const alertElement = await AlertFactory.withType('warning')
+    .withClosable(false)
+    .withTitle('不可关闭的警告')
+    .build();
+---
+
+<Fragment set:html={alertElement} />

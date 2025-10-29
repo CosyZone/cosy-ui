@@ -1,0 +1,10 @@
+---
+import { AlertFactory } from '@coffic/cosy-ui';
+
+const alertElement = await AlertFactory.withType('error')
+    .withShowIcon(false)
+    .withTitle('错误提示（无图标）')
+    .build();
+---
+
+<Fragment set:html={alertElement} />

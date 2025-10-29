@@ -1,0 +1,9 @@
+---
+import { AlertFactory } from '@coffic/cosy-ui';
+
+const alertElement = await AlertFactory.withType('warning')
+    .withTitle('警告提示')
+    .build();
+---
+
+<Fragment set:html={alertElement} />

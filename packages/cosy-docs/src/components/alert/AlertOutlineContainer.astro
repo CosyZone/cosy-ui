@@ -3,35 +3,68 @@
  * @component AlertOutlineContainer
  * @description 展示 Alert 组件 outline 描边风格的示例
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import AlertOutlineInfo from "./AlertOutline.astro";
-import AlertOutlineSuccess from "./AlertOutlineSuccess.astro";
-import AlertOutlineWarning from "./AlertOutlineWarning.astro";
-import AlertOutlineError from "./AlertOutlineError.astro";
-import AlertOutlineInfoSource from "./AlertOutline.astro?raw";
-import AlertOutlineSuccessSource from "./AlertOutlineSuccess.astro?raw";
-import AlertOutlineWarningSource from "./AlertOutlineWarning.astro?raw";
-import AlertOutlineErrorSource from "./AlertOutlineError.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import AlertOutlineInfo from './AlertOutline.astro';
+import AlertOutlineSuccess from './AlertOutlineSuccess.astro';
+import AlertOutlineWarning from './AlertOutlineWarning.astro';
+import AlertOutlineError from './AlertOutlineError.astro';
+import AlertOutlineInfoFactory from './AlertOutlineInfoFactory.astro';
+import AlertOutlineSuccessFactory from './AlertOutlineSuccessFactory.astro';
+import AlertOutlineWarningFactory from './AlertOutlineWarningFactory.astro';
+import AlertOutlineErrorFactory from './AlertOutlineErrorFactory.astro';
+import AlertOutlineInfoSource from './AlertOutline.astro?raw';
+import AlertOutlineSuccessSource from './AlertOutlineSuccess.astro?raw';
+import AlertOutlineWarningSource from './AlertOutlineWarning.astro?raw';
+import AlertOutlineErrorSource from './AlertOutlineError.astro?raw';
+import AlertOutlineInfoFactorySource from './AlertOutlineInfoFactory.astro?raw';
+import AlertOutlineSuccessFactorySource from './AlertOutlineSuccessFactory.astro?raw';
+import AlertOutlineWarningFactorySource from './AlertOutlineWarningFactory.astro?raw';
+import AlertOutlineErrorFactorySource from './AlertOutlineErrorFactory.astro?raw';
 ---
 
 <CodeContainer
-  codes={[
-    AlertOutlineInfoSource,
-    AlertOutlineSuccessSource,
-    AlertOutlineWarningSource,
-    AlertOutlineErrorSource,
-  ]}
-  titles={['Info', 'Success', 'Warning', 'Error']}>
-  <div id="tab-1">
-    <AlertOutlineInfo />
-  </div>
-  <div id="tab-2">
-    <AlertOutlineSuccess />
-  </div>
-  <div id="tab-3">
-    <AlertOutlineWarning />
-  </div>
-  <div id="tab-4">
-    <AlertOutlineError />
-  </div>
+    codes={[
+        AlertOutlineInfoSource,
+        AlertOutlineSuccessSource,
+        AlertOutlineWarningSource,
+        AlertOutlineErrorSource,
+        AlertOutlineInfoFactorySource,
+        AlertOutlineSuccessFactorySource,
+        AlertOutlineWarningFactorySource,
+        AlertOutlineErrorFactorySource,
+    ]}
+    titles={[
+        'Info',
+        'Success',
+        'Warning',
+        'Error',
+        'Info Factory',
+        'Success Factory',
+        'Warning Factory',
+        'Error Factory',
+    ]}>
+    <div id="tab-1">
+        <AlertOutlineInfo />
+    </div>
+    <div id="tab-2">
+        <AlertOutlineSuccess />
+    </div>
+    <div id="tab-3">
+        <AlertOutlineWarning />
+    </div>
+    <div id="tab-4">
+        <AlertOutlineError />
+    </div>
+    <div id="tab-5">
+        <AlertOutlineInfoFactory />
+    </div>
+    <div id="tab-6">
+        <AlertOutlineSuccessFactory />
+    </div>
+    <div id="tab-7">
+        <AlertOutlineWarningFactory />
+    </div>
+    <div id="tab-8">
+        <AlertOutlineErrorFactory />
+    </div>
 </CodeContainer>

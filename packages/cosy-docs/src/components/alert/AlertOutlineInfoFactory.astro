@@ -1,0 +1,10 @@
+---
+import { AlertFactory } from '@coffic/cosy-ui';
+
+const alertElement = await AlertFactory.withType('info')
+    .withVariant('outline')
+    .withTitle('Outline 信息')
+    .build();
+---
+
+<Fragment set:html={alertElement} />

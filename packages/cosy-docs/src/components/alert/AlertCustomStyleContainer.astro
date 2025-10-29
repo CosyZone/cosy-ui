@@ -3,13 +3,20 @@
  * @component AlertCustomStyleContainer
  * @description 自定义样式 Alert 组件示例容器
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import AlertCustomStyle from "./AlertCustomStyle.astro";
-import AlertCustomStyleSourceCode from "./AlertCustomStyle.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import AlertCustomStyle from './AlertCustomStyle.astro';
+import AlertCustomStyleSourceCode from './AlertCustomStyle.astro?raw';
+import AlertCustomStyleFactory from './AlertCustomStyleFactory.astro';
+import AlertCustomStyleFactorySourceCode from './AlertCustomStyleFactory.astro?raw';
 ---
 
-<CodeContainer titles={['自定义样式']} codes={[AlertCustomStyleSourceCode]}>
-  <div id="tab-1">
-    <AlertCustomStyle />
-  </div>
+<CodeContainer
+    titles={['基础用法', 'Factory']}
+    codes={[AlertCustomStyleSourceCode, AlertCustomStyleFactorySourceCode]}>
+    <div id="tab-1">
+        <AlertCustomStyle />
+    </div>
+    <div id="tab-2">
+        <AlertCustomStyleFactory />
+    </div>
 </CodeContainer>

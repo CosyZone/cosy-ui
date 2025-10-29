@@ -3,20 +3,40 @@
  * @component EAlertClosableContainer
  * @description Container to demonstrate closable and non-closable Alerts.
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import AlertBasic from "./AlertBasic.astro";
-import AlertNotClosable from "./AlertNotClosable.astro";
-import AlertBasicRaw from "./AlertBasic.astro?raw";
-import AlertNotClosableRaw from "./AlertNotClosable.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import AlertBasic from './AlertBasic.astro';
+import AlertNotClosable from './AlertNotClosable.astro';
+import AlertClosableFactory from './AlertClosableFactory.astro';
+import AlertNotClosableFactory from './AlertNotClosableFactory.astro';
+import AlertBasicRaw from './AlertBasic.astro?raw';
+import AlertNotClosableRaw from './AlertNotClosable.astro?raw';
+import AlertClosableFactoryRaw from './AlertClosableFactory.astro?raw';
+import AlertNotClosableFactoryRaw from './AlertNotClosableFactory.astro?raw';
 ---
 
 <CodeContainer
-  codes={[AlertBasicRaw, AlertNotClosableRaw]}
-  titles={['Closable', 'Not Closable']}>
-  <div id="tab-1">
-    <AlertBasic />
-  </div>
-  <div id="tab-2">
-    <AlertNotClosable />
-  </div>
+    codes={[
+        AlertBasicRaw,
+        AlertNotClosableRaw,
+        AlertClosableFactoryRaw,
+        AlertNotClosableFactoryRaw,
+    ]}
+    titles={[
+        'Closable',
+        'Not Closable',
+        'Closable Factory',
+        'Not Closable Factory',
+    ]}>
+    <div id="tab-1">
+        <AlertBasic />
+    </div>
+    <div id="tab-2">
+        <AlertNotClosable />
+    </div>
+    <div id="tab-3">
+        <AlertClosableFactory />
+    </div>
+    <div id="tab-4">
+        <AlertNotClosableFactory />
+    </div>
 </CodeContainer>
