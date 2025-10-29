@@ -53,6 +53,7 @@
 
 // 导入样式
 import "../../style.ts";
+import { cn } from "../../src/class";
 
 import Text from "../text/Text.astro";
 import Heading from "../heading/Heading.astro";
@@ -99,9 +100,15 @@ const generateStars = (rating: number) => {
 		half: i === Math.floor(rating) && rating % 1 !== 0,
 	}));
 };
+
+// 使用 classBuilder 构建容器类名
+const containerClass = cn()
+	.add('cosy:reviews-container')
+	.add(className)
+	.build();
 ---
 
-<div class:list={['cosy:reviews-container', className, classList]} {...rest}>
+<div class={containerClass} {...rest}>
   <!-- 标题和统计信息 -->
   {(title || showStats) && (
     <div class="cosy:mb-6">

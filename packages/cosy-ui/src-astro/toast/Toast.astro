@@ -48,32 +48,33 @@
  * - id: string - 唯一标识符
  */
 
-import "../../style.ts";
+import '../../style.ts';
+import { cn } from '../../src/class';
 import {
-	InfoIcon,
-	SuccessIcon,
-	WarningIcon,
-	ErrorIcon,
-	CloseIcon,
-} from "../../index-astro";
-import type { ToastType } from "./types";
-import { getToastStyle } from "./types";
+    InfoIcon,
+    SuccessIcon,
+    WarningIcon,
+    ErrorIcon,
+    CloseIcon,
+} from '../../index-astro';
+import type { ToastType } from './types';
+import { getToastStyle } from './types';
 
 export interface Props {
-	/**
-	 * 显示的消息内容
-	 */
-	message: string;
+    /**
+     * 显示的消息内容
+     */
+    message: string;
 
-	/**
-	 * 消息类型，影响样式和图标
-	 */
-	type: ToastType;
+    /**
+     * 消息类型，影响样式和图标
+     */
+    type: ToastType;
 
-	/**
-	 * 唯一标识符
-	 */
-	id: string;
+    /**
+     * 唯一标识符
+     */
+    id: string;
 }
 
 const { message, type, id } = Astro.props;
@@ -82,33 +83,40 @@ const style = getToastStyle(type);
 
 // 根据类型选择图标
 const IconComponent = {
-	info: InfoIcon,
-	success: SuccessIcon,
-	warning: WarningIcon,
-	error: ErrorIcon,
+    info: InfoIcon,
+    success: SuccessIcon,
+    warning: WarningIcon,
+    error: ErrorIcon,
 }[type];
+
+// 使用 classBuilder 构建 toast 类名
+const toastClass = cn()
+    .add('cosy:alert', 'cosy:shadow-lg')
+    .flex()
+    .items('center')
+    .gap(3)
+    .add('cosy:pr-2')
+    .add(
+        'cosy:transform',
+        'cosy:transition-all',
+        'cosy:duration-300',
+        'cosy:ease-in-out'
+    )
+    .add('cosy:translate-x-full', 'cosy:opacity-0')
+    .add('toast-enter:cosy:translate-x-0', 'toast-enter:cosy:opacity-100')
+    .add('toast-exit:cosy:translate-x-full', 'toast-exit:cosy:opacity-0')
+    .add(style.bg, style.border)
+    .build();
 ---
 
-<div
-  class:list={[
-    'cosy:alert cosy:shadow-lg cosy:flex cosy:items-center cosy:gap-3 cosy:pr-2',
-    'cosy:transform cosy:transition-all cosy:duration-300 cosy:ease-in-out',
-    'cosy:translate-x-full cosy:opacity-0',
-    'toast-enter:cosy:translate-x-0 toast-enter:cosy:opacity-100',
-    'toast-exit:cosy:translate-x-full toast-exit:cosy:opacity-0',
-    style.bg,
-    style.border,
-  ]}
-  data-toast-id={id}
-  role="alert"
-  aria-live="polite">
-  <IconComponent size="20px" />
-  <span class="cosy:flex-1 cosy:text-sm cosy:font-medium">{message}</span>
-  <button
-    class="cosy:btn cosy:btn-ghost cosy:btn-xs cosy:btn-circle cosy:opacity-70 hover:cosy:opacity-100"
-    onclick={`window.closeToast?.('${id}')`}
-    aria-label="关闭通知"
-    type="button">
-    <CloseIcon size="16px" />
-  </button>
+<div class={toastClass} data-toast-id={id} role="alert" aria-live="polite">
+    <IconComponent size="20px" />
+    <span class="cosy:flex-1 cosy:text-sm cosy:font-medium">{message}</span>
+    <button
+        class="cosy:btn cosy:btn-ghost cosy:btn-xs cosy:btn-circle cosy:opacity-70 hover:cosy:opacity-100"
+        onclick={`window.closeToast?.('${id}')`}
+        aria-label="关闭通知"
+        type="button">
+        <CloseIcon size="16px" />
+    </button>
 </div>

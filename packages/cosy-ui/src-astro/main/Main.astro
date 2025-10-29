@@ -196,32 +196,28 @@ const inlineStyle = customStyle.length > 0 ? customStyle.join(' ') : undefined;
 // 检查是否有冲突，如果有则显示错误提示
 const hasError = Boolean(paddingError);
 
-// 构建基础类
-const baseClass = cn().w('full').build();
+// 使用 classBuilder 构建完整的 main 类名
+const mainClass = cn()
+    .w('full')
+    .add(layoutClass)
+    .add(
+        pyClass,
+        paddingTopClass,
+        paddingBottomClass,
+        paddingLeftClass,
+        paddingRightClass,
+        paddingXClass
+    )
+    .add(bgColorClass, borderClass)
+    .add(className || '')
+    .build();
 ---
 
 {
     hasError ? (
         <MainError show={hasError} error={paddingError || undefined} />
     ) : (
-        <main
-            id={id}
-            class:list={[
-                baseClass,
-                layoutClass,
-                pyClass,
-                paddingTopClass,
-                paddingBottomClass,
-                paddingLeftClass,
-                paddingRightClass,
-                paddingXClass,
-                bgColorClass,
-                borderClass,
-                className,
-                classList,
-            ]}
-            style={inlineStyle}
-            {...rest}>
+        <main id={id} class={mainClass} style={inlineStyle} {...rest}>
             {isArticle ? (
                 <Article>
                     <slot />

@@ -7,12 +7,10 @@ import {
 /**
  * 计算 Card 组件的组合类名
  * @param props Card 组件的 props
- * @returns 组合后的类名数组
+ * @returns 组合后的类名字符串
  */
-export function getCardCombinedClasses(props: ICardProps): string[] {
-	const baseClasses = getBaseCardClasses(props);
-
-	return baseClasses;
+export function getCardCombinedClasses(props: ICardProps): string {
+	return getBaseCardClasses(props);
 }
 
 /**

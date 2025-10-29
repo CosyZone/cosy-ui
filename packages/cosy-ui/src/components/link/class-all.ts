@@ -1,4 +1,5 @@
 import type { ILinkPropsBase } from "./linkPropsBase";
+import { cn } from "../../class";
 import { getLinkBaseClasses } from "./class-base";
 import { getLinkVariantClasses } from "./class-variant";
 import { getLinkSizeClasses } from "./class-size";
@@ -10,9 +11,9 @@ import { getLinkAnimationClasses } from "./class-animation";
 /**
  * 计算 Link 组件的组合类名（用于基础接口）
  * @param props Link 组件的基础 props
- * @returns 组合后的类名数组
+ * @returns 组合后的类名字符串
  */
-export function getBaseLinkClasses(props: ILinkPropsBase): string[] {
+export function getBaseLinkClasses(props: ILinkPropsBase): string {
 	const {
 		href,
 		external = false,
@@ -72,17 +73,19 @@ export function getBaseLinkClasses(props: ILinkPropsBase): string[] {
 	// 构建动画类名
 	const animationClasses = getLinkAnimationClasses(animation);
 
-	// 组合所有类名
-	const classes = [
-		...baseClasses,
-		...variantClasses,
-		...sizeClasses,
-		roundedClass,
-		...modifierClasses,
-		alignClass,
-		...animationClasses,
-		className,
-	];
+	// 使用 classBuilder 组合所有类名
+	const linkClass = cn()
+		.add(
+			...baseClasses,
+			...variantClasses,
+			...sizeClasses,
+			roundedClass,
+			...modifierClasses,
+			alignClass,
+			...animationClasses,
+			className,
+		)
+		.build();
 
-	return classes;
+	return linkClass;
 }

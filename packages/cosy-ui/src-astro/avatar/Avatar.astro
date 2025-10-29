@@ -83,7 +83,7 @@ const avatarContainerClass = cn()
         'cosy:rounded-full',
         'cosy:overflow-hidden',
         'cosy:flex-shrink-0',
-        'cosy:bg-base-200',
+        'cosy:bg-base-200'
     )
     .flex('row')
     .items('center')
@@ -107,7 +107,7 @@ const avatarFallbackClass = cn()
     .build();
 ---
 
-<div class:list={[avatarContainerClass, classList]} {...rest}>
+<div class={avatarContainerClass} {...rest}>
     {
         avatar ? (
             <img

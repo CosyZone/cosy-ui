@@ -129,12 +129,12 @@ const props = Astro.props as ILinkProps;
 const IconComponent = props.icon ? (Icons as any)[props.icon] : null;
 
 // 使用共用的工具函数计算组合类名
-const classes = getLinkCombinedClassesAstro(props);
+const linkClass = getLinkCombinedClassesAstro(props);
 ---
 
 <a
   href={props.href}
-  class:list={[classes, props["class:list"]]}
+  class={linkClass}
   {...props.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
   {...Astro.props}>
   {props.navigationType === 'previous' && <ChevronLeftIcon />}

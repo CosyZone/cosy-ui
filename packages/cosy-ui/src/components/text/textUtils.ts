@@ -1,4 +1,5 @@
 import type { ITextProps } from "./textProps";
+import { cn } from "../../class";
 import { textColorClasses } from "../../common/textColors";
 import { textWeightClasses } from "../../common/textWeights";
 import { textSizeClasses } from "../../common/textSizes";
@@ -33,13 +34,17 @@ export function getTextCombinedClass(props: ITextProps): string {
 	// 根据对齐方式设置样式（使用 common 映射）
 	const alignClass = textAlignClasses[align ?? "left"];
 
-	// 其他样式
-	const italicClass = italic ? "cosy:italic" : "";
-	const underlineClass = underline ? "cosy:underline" : "";
-	const truncateClass = truncate ? "cosy:truncate" : "";
+	// 使用 classBuilder 组合所有类名
+	const textClass = cn()
+		.add("text")
+		.add(sizeClass, weightClass, colorClass, alignClass)
+		.add(italic ? "cosy:italic" : "")
+		.add(underline ? "cosy:underline" : "")
+		.add(truncate ? "cosy:truncate" : "")
+		.add(className)
+		.build();
 
-	// 组合所有类名
-	return `text ${sizeClass} ${weightClass} ${colorClass} ${alignClass} ${italicClass} ${underlineClass} ${truncateClass} ${className}`;
+	return textClass;
 }
 
 /**
