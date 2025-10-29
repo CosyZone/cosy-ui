@@ -1,0 +1,53 @@
+---
+/**
+ * @component HeroOverlay
+ * @description Hero 组件的背景遮罩层
+ *
+ * @props
+ * @prop {string} backgroundOverlay - 遮罩类型："none", "light", "dark", "primary", "gradient"
+ * @prop {number} overlayOpacity - 遮罩不透明度 (0-1)
+ */
+
+import { cn } from '../../src/class';
+
+interface Props {
+    backgroundOverlay: 'none' | 'light' | 'dark' | 'primary' | 'gradient';
+    overlayOpacity: number;
+}
+
+const { backgroundOverlay, overlayOpacity } = Astro.props as Props;
+
+// 确保不透明度在0-1之间
+const safeOpacity = Math.max(0, Math.min(1, overlayOpacity));
+
+// 遮罩层类名
+const overlayClass = cn()
+    .add('cosy:absolute')
+    .inset(0)
+    .z(0)
+    .add('cosy:m-0', 'cosy:p-0')
+    .build();
+
+// 创建遮罩样式对象
+const overlayStyle =
+    backgroundOverlay === 'light'
+        ? { backgroundColor: `rgba(255, 255, 255, ${safeOpacity})` }
+        : backgroundOverlay === 'dark'
+          ? { backgroundColor: `rgba(0, 0, 0, ${safeOpacity})` }
+          : backgroundOverlay === 'primary'
+            ? {
+                  backgroundColor: `var(--color-primary-500, #4338ca)`,
+                  opacity: safeOpacity,
+              }
+            : backgroundOverlay === 'gradient'
+              ? {
+                    backgroundImage: `linear-gradient(135deg, var(--color-primary-500, #4338ca) ${safeOpacity * 100}%, var(--color-secondary-500, #0ea5e9) ${safeOpacity * 100}%)`,
+                }
+              : {};
+---
+
+{
+    backgroundOverlay !== 'none' && (
+        <div class={overlayClass} style={overlayStyle} />
+    )
+}

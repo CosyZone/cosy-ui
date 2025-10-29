@@ -1,0 +1,75 @@
+---
+/**
+ * @component HeroImage
+ * @description Hero 组件的图片展示部分
+ *
+ * @props
+ * @prop {Object} image - 图片配置对象
+ * @prop {string | ImageMetadata} image.src - 图片源
+ * @prop {string} image.alt - 图片替代文本
+ * @prop {string} imagePosition - 图片位置："right", "left", "top", "bottom"
+ */
+
+import { Image } from '../../index-astro';
+import type { ImageSource } from '../../index-astro';
+import { cn } from '../../src/class';
+
+interface ImageConfig {
+    src: ImageSource;
+    alt: string;
+}
+
+interface Props {
+    image: ImageConfig;
+    imagePosition: 'right' | 'left' | 'top' | 'bottom';
+}
+
+const { image, imagePosition } = Astro.props as Props;
+
+// 图片样式类
+const imageClasses = cn()
+    .add(
+        'cosy:rounded-lg',
+        'cosy:shadow-2xl',
+        'cosy:transition-all',
+        'cosy:duration-300',
+        'cosy:hover:scale-105',
+        'cosy:hover:shadow-primary/20'
+    )
+    .add(
+        imagePosition === 'top' || imagePosition === 'bottom'
+            ? 'cosy:max-w-lg cosy:w-full'
+            : 'cosy:max-w-sm cosy:lg:max-w-md'
+    )
+    .build();
+
+// 图片容器顺序类
+const imageOrderMap = {
+    right: 'cosy:order-1 cosy:lg:order-2',
+    left: 'cosy:order-2 cosy:lg:order-1',
+    top: 'cosy:order-1',
+    bottom: 'cosy:order-3',
+};
+
+const imageOrderClass = imageOrderMap[imagePosition];
+---
+
+<div class={imageOrderClass}>
+    {
+        typeof image.src === 'string' ? (
+            <img class={imageClasses} src={image.src} alt={image.alt} />
+        ) : (
+            <Image
+                class={imageClasses}
+                src={image.src}
+                alt={image.alt}
+                width={
+                    typeof image.src !== 'string' ? image.src.width : undefined
+                }
+                height={
+                    typeof image.src !== 'string' ? image.src.height : undefined
+                }
+            />
+        )
+    }
+</div>
