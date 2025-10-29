@@ -65,7 +65,7 @@
 
 import '../../style.ts';
 import type { IAlertProps } from './props';
-import { getAlertCombinedClasses } from './class';
+import { AlertFacade } from '../../src/components/alert';
 import { cn } from '../../src/class';
 import {
     InfoIcon,
@@ -100,9 +100,8 @@ const {
 // 获取图标组件
 const IconComponent = getIconComponent(type);
 
-// 获取组合类名
-const alertClassArray = getAlertCombinedClasses(props);
-const alertClass = [...alertClassArray, className].filter(Boolean).join(' ');
+// 使用 Alert 门面获取类名
+const alertClass = AlertFacade.getClassString(props);
 
 // 使用 classBuilder 构建各个部分的类名
 const containerClass = cn()

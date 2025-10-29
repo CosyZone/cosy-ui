@@ -29,7 +29,7 @@
 
 import '../../style.ts';
 import type { IBannerPropsBase } from '../../src/components/banner/bannerPropsBase';
-import { renderBanner } from '../../src/components/banner/renderBanner';
+import { BannerFacade } from '../../src/components/banner';
 
 type IProps = IBannerPropsBase;
 
@@ -38,8 +38,8 @@ const props = Astro.props as IProps;
 // 渲染 slot 内容（Astro 特定操作）
 const slotContent = await Astro.slots.render('default');
 
-// 调用框架无关的 HTML 生成器
-const bannerHtml = renderBanner(props, slotContent);
+// 使用 Banner 门面渲染 HTML
+const bannerHtml = BannerFacade.render(props, slotContent);
 ---
 
 <Fragment set:html={bannerHtml} />

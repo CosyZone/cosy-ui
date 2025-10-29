@@ -37,7 +37,7 @@
  */
 import '../../style.ts';
 import type { IBadgeProps } from './props';
-import { renderBadge } from '../../src/components/badge/renderBadge';
+import { BadgeFacade } from '../../src/components/badge';
 
 // 从 Astro.props 获取属性
 const props = Astro.props as IBadgeProps;
@@ -45,8 +45,8 @@ const props = Astro.props as IBadgeProps;
 // 渲染 slot 内容（Astro 特定操作）
 const slotContent = await Astro.slots.render('default');
 
-// 调用框架无关的 HTML 生成器
-const badgeHtml = renderBadge(props, slotContent);
+// 使用 Badge 门面渲染 HTML
+const badgeHtml = BadgeFacade.render(props, slotContent);
 ---
 
 <Fragment set:html={badgeHtml} />
