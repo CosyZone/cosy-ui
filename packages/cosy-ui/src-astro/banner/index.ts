@@ -1,5 +1,4 @@
 import Banner from "./Banner.astro";
-import type { Props as BannerProps } from "./Banner.astro";
+export type { IBannerPropsBase } from "../../src/components/banner/bannerPropsBase";
 
 export { Banner };
-export type { BannerProps };
