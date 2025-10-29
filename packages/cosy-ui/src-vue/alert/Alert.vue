@@ -66,7 +66,7 @@ Alert 组件用于向用户显示重要的提示信息，支持多种类型的�
   import '../../style';
   import { computed } from 'vue';
   import type { IAlertProps } from './props';
-  import { getAlertCombinedClassesVue } from './class';
+  import { AlertFacade } from '../../src/components/alert';
   import {
     InfoIcon,
     SuccessIcon,
@@ -95,8 +95,8 @@ Alert 组件用于向用户显示重要的提示信息，支持多种类型的�
     emit('close');
   };
 
-  // 使用共用的工具函数计算组合类名
-  const alertClasses = computed(() => getAlertCombinedClassesVue(props));
+  // 使用 Alert 门面获取类名
+  const alertClasses = computed(() => AlertFacade.getClassString(props));
 
   // 根据类型设置图标组件
   const IconComponent = computed(() => {
