@@ -1,73 +1,29 @@
 ---
 
-
-
 /**
  * @component AlertNoIconContainer
  * @description 展示不显示图标的 Alert 组件示例
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import AlertNoIconWarning from './AlertNoIcon.astro';
-import AlertNoIconWarningSource from './AlertNoIcon.astro?raw';
-import AlertNoIconError from './AlertNoIconError.astro';
-import AlertNoIconErrorSource from './AlertNoIconError.astro?raw';
-import AlertNoIconErrorFactory from './AlertNoIconErrorFactory.astro';
-import AlertNoIconErrorFactorySource from './AlertNoIconErrorFactory.astro?raw';
-import AlertNoIconInfo from './AlertNoIconInfo.astro';
-import AlertNoIconInfoSource from './AlertNoIconInfo.astro?raw';
-import AlertNoIconInfoFactory from './AlertNoIconInfoFactory.astro';
-import AlertNoIconInfoFactorySource from './AlertNoIconInfoFactory.astro?raw';
-import AlertNoIconSuccess from './AlertNoIconSuccess.astro';
-import AlertNoIconSuccessSource from './AlertNoIconSuccess.astro?raw';
-import AlertNoIconSuccessFactory from './AlertNoIconSuccessFactory.astro';
-import AlertNoIconSuccessFactorySource from './AlertNoIconSuccessFactory.astro?raw';
-import AlertNoIconWarningFactory from './AlertNoIconWarningFactory.astro';
-import AlertNoIconWarningFactorySource from './AlertNoIconWarningFactory.astro?raw';
+import AlertNoIcon from './AlertNoIcon.astro';
+import AlertNoIconSource from './AlertNoIcon.astro?raw';
+import AlertNoIconVue from './AlertNoIconVue.vue';
+import AlertNoIconVueSource from './AlertNoIconVue.vue?raw';
 ---
 
 <CodeContainer
     codes={[
-        AlertNoIconInfoSource,
-        AlertNoIconSuccessSource,
-        AlertNoIconWarningSource,
-        AlertNoIconErrorSource,
-        AlertNoIconInfoFactorySource,
-        AlertNoIconSuccessFactorySource,
-        AlertNoIconWarningFactorySource,
-        AlertNoIconErrorFactorySource,
+        AlertNoIconSource,
+        AlertNoIconVueSource,
     ]}
     titles={[
-        'Info',
-        'Success',
-        'Warning',
-        'Error',
-        'Info Factory',
-        'Success Factory',
-        'Warning Factory',
-        'Error Factory',
+        '不显示图标',
+        '不显示图标',
     ]}>
-    <div id="tab-1" data-label="传统写法">
-        <AlertNoIconInfo />
+    <div id="tab-1" data-label="astro">
+        <AlertNoIcon />
     </div>
-    <div id="tab-2" data-label="传统写法">
-        <AlertNoIconSuccess />
-    </div>
-    <div id="tab-3" data-label="传统写法">
-        <AlertNoIconWarning />
-    </div>
-    <div id="tab-4" data-label="传统写法">
-        <AlertNoIconError />
-    </div>
-    <div id="tab-5" data-label="Factory 写法">
-        <AlertNoIconInfoFactory />
-    </div>
-    <div id="tab-6" data-label="Factory 写法">
-        <AlertNoIconSuccessFactory />
-    </div>
-    <div id="tab-7" data-label="Factory 写法">
-        <AlertNoIconWarningFactory />
-    </div>
-    <div id="tab-8" data-label="Factory 写法">
-        <AlertNoIconErrorFactory />
+    <div id="tab-2" data-label="vue">
+        <AlertNoIconVue client:load />
     </div>
 </CodeContainer>

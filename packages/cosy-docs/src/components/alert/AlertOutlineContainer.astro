@@ -1,73 +1,29 @@
 ---
 
-
-
 /**
  * @component AlertOutlineContainer
  * @description 展示 Alert 组件 outline 描边风格的示例
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import AlertOutlineInfo from './AlertOutline.astro';
-import AlertOutlineInfoSource from './AlertOutline.astro?raw';
-import AlertOutlineError from './AlertOutlineError.astro';
-import AlertOutlineErrorSource from './AlertOutlineError.astro?raw';
-import AlertOutlineErrorFactory from './AlertOutlineErrorFactory.astro';
-import AlertOutlineErrorFactorySource from './AlertOutlineErrorFactory.astro?raw';
-import AlertOutlineInfoFactory from './AlertOutlineInfoFactory.astro';
-import AlertOutlineInfoFactorySource from './AlertOutlineInfoFactory.astro?raw';
-import AlertOutlineSuccess from './AlertOutlineSuccess.astro';
-import AlertOutlineSuccessSource from './AlertOutlineSuccess.astro?raw';
-import AlertOutlineSuccessFactory from './AlertOutlineSuccessFactory.astro';
-import AlertOutlineSuccessFactorySource from './AlertOutlineSuccessFactory.astro?raw';
-import AlertOutlineWarning from './AlertOutlineWarning.astro';
-import AlertOutlineWarningSource from './AlertOutlineWarning.astro?raw';
-import AlertOutlineWarningFactory from './AlertOutlineWarningFactory.astro';
-import AlertOutlineWarningFactorySource from './AlertOutlineWarningFactory.astro?raw';
+import AlertOutline from './AlertOutline.astro';
+import AlertOutlineSource from './AlertOutline.astro?raw';
+import AlertOutlineVue from './AlertOutlineVue.vue';
+import AlertOutlineVueSource from './AlertOutlineVue.vue?raw';
 ---
 
 <CodeContainer
     codes={[
-        AlertOutlineInfoSource,
-        AlertOutlineSuccessSource,
-        AlertOutlineWarningSource,
-        AlertOutlineErrorSource,
-        AlertOutlineInfoFactorySource,
-        AlertOutlineSuccessFactorySource,
-        AlertOutlineWarningFactorySource,
-        AlertOutlineErrorFactorySource,
+        AlertOutlineSource,
+        AlertOutlineVueSource,
     ]}
     titles={[
-        'Info',
-        'Success',
-        'Warning',
-        'Error',
-        'Info Factory',
-        'Success Factory',
-        'Warning Factory',
-        'Error Factory',
+        'Outline 风格',
+        'Outline 风格',
     ]}>
-    <div id="tab-1" data-label="传统写法">
-        <AlertOutlineInfo />
+    <div id="tab-1" data-label="astro">
+        <AlertOutline />
     </div>
-    <div id="tab-2" data-label="传统写法">
-        <AlertOutlineSuccess />
-    </div>
-    <div id="tab-3" data-label="传统写法">
-        <AlertOutlineWarning />
-    </div>
-    <div id="tab-4" data-label="传统写法">
-        <AlertOutlineError />
-    </div>
-    <div id="tab-5" data-label="Factory 写法">
-        <AlertOutlineInfoFactory />
-    </div>
-    <div id="tab-6" data-label="Factory 写法">
-        <AlertOutlineSuccessFactory />
-    </div>
-    <div id="tab-7" data-label="Factory 写法">
-        <AlertOutlineWarningFactory />
-    </div>
-    <div id="tab-8" data-label="Factory 写法">
-        <AlertOutlineErrorFactory />
+    <div id="tab-2" data-label="vue">
+        <AlertOutlineVue client:load />
     </div>
 </CodeContainer>

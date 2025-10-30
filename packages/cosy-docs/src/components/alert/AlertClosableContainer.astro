@@ -1,45 +1,29 @@
 ---
 
-
-
 /**
- * @component EAlertClosableContainer
+ * @component AlertClosableContainer
  * @description Container to demonstrate closable and non-closable Alerts.
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import AlertBasic from './AlertBasic.astro';
-import AlertBasicRaw from './AlertBasic.astro?raw';
-import AlertClosableFactory from './AlertClosableFactory.astro';
-import AlertClosableFactoryRaw from './AlertClosableFactory.astro?raw';
 import AlertNotClosable from './AlertNotClosable.astro';
 import AlertNotClosableRaw from './AlertNotClosable.astro?raw';
-import AlertNotClosableFactory from './AlertNotClosableFactory.astro';
-import AlertNotClosableFactoryRaw from './AlertNotClosableFactory.astro?raw';
+import AlertNotClosableVue from './AlertNotClosableVue.vue';
+import AlertNotClosableVueRaw from './AlertNotClosableVue.vue?raw';
 ---
 
 <CodeContainer
     codes={[
-        AlertBasicRaw,
         AlertNotClosableRaw,
-        AlertClosableFactoryRaw,
-        AlertNotClosableFactoryRaw,
+        AlertNotClosableVueRaw,
     ]}
     titles={[
-        'Closable',
-        'Not Closable',
-        'Closable Factory',
-        'Not Closable Factory',
+        '不可关闭',
+        '不可关闭',
     ]}>
-    <div id="tab-1" data-label="传统写法">
-        <AlertBasic />
-    </div>
-    <div id="tab-2" data-label="传统写法">
+    <div id="tab-1" data-label="astro">
         <AlertNotClosable />
     </div>
-    <div id="tab-3" data-label="Factory 写法">
-        <AlertClosableFactory />
-    </div>
-    <div id="tab-4" data-label="Factory 写法">
-        <AlertNotClosableFactory />
+    <div id="tab-2" data-label="vue">
+        <AlertNotClosableVue client:load />
     </div>
 </CodeContainer>

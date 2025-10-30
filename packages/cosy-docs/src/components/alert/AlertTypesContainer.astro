@@ -1,7 +1,5 @@
 ---
 
-
-
 /**
  * @component Alert.Types
  *
@@ -10,74 +8,25 @@
  */
 
 import { CodeContainer } from '@coffic/cosy-ui';
-import AlertError from './AlertError.astro';
-import AlertErrorSourceCode from './AlertError.astro?raw';
-import AlertErrorFactory from './AlertErrorFactory.astro';
-import AlertErrorFactorySourceCode from './AlertErrorFactory.astro?raw';
-import AlertInfo from './AlertInfo.astro';
-import AlertInfoSourceCode from './AlertInfo.astro?raw';
-import AlertInfoFactory from './AlertInfoFactory.astro';
-import AlertInfoFactorySourceCode from './AlertInfoFactory.astro?raw';
-import AlertSuccess from './AlertSuccess.astro';
-import AlertSuccessSourceCode from './AlertSuccess.astro?raw';
-import AlertSuccessFactory from './AlertSuccessFactory.astro';
-import AlertSuccessFactorySourceCode from './AlertSuccessFactory.astro?raw';
-import AlertWarning from './AlertWarning.astro';
-import AlertWarningSourceCode from './AlertWarning.astro?raw';
-import AlertWarningFactory from './AlertWarningFactory.astro';
-import AlertWarningFactorySourceCode from './AlertWarningFactory.astro?raw';
+import AlertTypes from './AlertTypes.astro';
+import AlertTypesSourceCode from './AlertTypes.astro?raw';
+import AlertTypesVue from './AlertTypesVue.vue';
+import AlertTypesVueSourceCode from './AlertTypesVue.vue?raw';
 ---
 
 <CodeContainer
-    titles={[
-        'Info',
-        'Success',
-        'Warning',
-        'Error',
-        'Info Factory',
-        'Success Factory',
-        'Warning Factory',
-        'Error Factory',
-    ]}
     codes={[
-        AlertInfoSourceCode,
-        AlertSuccessSourceCode,
-        AlertWarningSourceCode,
-        AlertErrorSourceCode,
-        AlertInfoFactorySourceCode,
-        AlertSuccessFactorySourceCode,
-        AlertWarningFactorySourceCode,
-        AlertErrorFactorySourceCode,
+        AlertTypesSourceCode,
+        AlertTypesVueSourceCode,
+    ]}
+    titles={[
+        '提示类型',
+        '提示类型',
     ]}>
-    <div id="tab-1" data-label="传统写法">
-        <AlertInfo />
+    <div id="tab-1" data-label="astro">
+        <AlertTypes />
     </div>
-
-    <div id="tab-2" data-label="传统写法">
-        <AlertSuccess />
-    </div>
-
-    <div id="tab-3" data-label="传统写法">
-        <AlertWarning />
-    </div>
-
-    <div id="tab-4" data-label="传统写法">
-        <AlertError />
-    </div>
-
-    <div id="tab-5" data-label="Factory 写法">
-        <AlertInfoFactory />
-    </div>
-
-    <div id="tab-6" data-label="Factory 写法">
-        <AlertSuccessFactory />
-    </div>
-
-    <div id="tab-7" data-label="Factory 写法">
-        <AlertWarningFactory />
-    </div>
-
-    <div id="tab-8" data-label="Factory 写法">
-        <AlertErrorFactory />
+    <div id="tab-2" data-label="vue">
+        <AlertTypesVue client:load />
     </div>
 </CodeContainer>

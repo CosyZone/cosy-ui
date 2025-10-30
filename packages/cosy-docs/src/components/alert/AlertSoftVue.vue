@@ -1,0 +1,9 @@
+<script setup lang="ts">
+  import { Alert } from '@coffic/cosy-ui/vue';
+</script>
+
+<template>
+  <Alert type="success" variant="soft" title="Success Soft 风格">
+    这是 Success 类型的 Soft 柔和风格提示
+  </Alert>
+</template>

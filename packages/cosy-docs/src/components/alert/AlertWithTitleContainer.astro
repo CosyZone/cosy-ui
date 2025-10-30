@@ -1,7 +1,5 @@
 ---
 
-
-
 /**
  * @component AlertWithTitleContainer
  * @description 带标题的 Alert 组件示例容器
@@ -9,17 +7,23 @@
 import { CodeContainer } from '@coffic/cosy-ui';
 import AlertWithTitle from './AlertWithTitle.astro';
 import WithTitleSourceCode from './AlertWithTitle.astro?raw';
-import AlertWithTitleFactory from './AlertWithTitleFactory.astro';
-import WithTitleFactorySourceCode from './AlertWithTitleFactory.astro?raw';
+import AlertWithTitleVue from './AlertWithTitleVue.vue';
+import WithTitleVueSourceCode from './AlertWithTitleVue.vue?raw';
 ---
 
 <CodeContainer
-    titles={['基础用法', 'Factory']}
-    codes={[WithTitleSourceCode, WithTitleFactorySourceCode]}>
-    <div id="tab-1" data-label="传统写法">
+    codes={[
+        WithTitleSourceCode,
+        WithTitleVueSourceCode,
+    ]}
+    titles={[
+        '带标题',
+        '带标题',
+    ]}>
+    <div id="tab-1" data-label="astro">
         <AlertWithTitle />
     </div>
-    <div id="tab-2" data-label="Factory 写法">
-        <AlertWithTitleFactory />
+    <div id="tab-2" data-label="vue">
+        <AlertWithTitleVue client:load />
     </div>
 </CodeContainer>

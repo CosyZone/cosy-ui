@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component AlertActionContainer
  * @description 自定义操作按钮 Alert 组件示例容器
@@ -9,65 +6,23 @@
 import { CodeContainer } from '@coffic/cosy-ui';
 import AlertAction from './AlertAction.astro';
 import AlertActionSourceCode from './AlertAction.astro?raw';
-import AlertActionFactory from './AlertActionFactory.astro';
-import AlertActionFactorySourceCode from './AlertActionFactory.astro?raw';
-import AlertActionLink from './AlertActionLink.astro';
-import AlertActionLinkSourceCode from './AlertActionLink.astro?raw';
-import AlertActionLinkFactory from './AlertActionLinkFactory.astro';
-import AlertActionLinkFactorySourceCode from './AlertActionLinkFactory.astro?raw';
-import AlertActionMultiple from './AlertActionMultiple.astro';
-import AlertActionMultipleSourceCode from './AlertActionMultiple.astro?raw';
-import AlertActionMultipleFactory from './AlertActionMultipleFactory.astro';
-import AlertActionMultipleFactorySourceCode from './AlertActionMultipleFactory.astro?raw';
-import AlertActionWithIcon from './AlertActionWithIcon.astro';
-import AlertActionWithIconSourceCode from './AlertActionWithIcon.astro?raw';
-import AlertActionWithIconFactory from './AlertActionWithIconFactory.astro';
-import AlertActionWithIconFactorySourceCode from './AlertActionWithIconFactory.astro?raw';
+import AlertActionVue from './AlertActionVue.vue';
+import AlertActionVueSourceCode from './AlertActionVue.vue?raw';
 ---
 
 <CodeContainer
     codes={[
         AlertActionSourceCode,
-        AlertActionWithIconSourceCode,
-        AlertActionMultipleSourceCode,
-        AlertActionLinkSourceCode,
-        AlertActionFactorySourceCode,
-        AlertActionWithIconFactorySourceCode,
-        AlertActionMultipleFactorySourceCode,
-        AlertActionLinkFactorySourceCode,
+        AlertActionVueSourceCode,
     ]}
     titles={[
-        '基础按钮',
-        '带图标按钮',
-        '多个按钮',
-        '链接样式',
-        'Factory 基础',
-        'Factory 图标',
-        'Factory 多个',
-        'Factory 链接',
+        '自定义操作',
+        '自定义操作'
     ]}>
-    <div id="tab-1" data-label="传统写法">
+    <div id="tab-1" data-label="astro">
         <AlertAction />
     </div>
-    <div id="tab-2" data-label="传统写法">
-        <AlertActionWithIcon />
-    </div>
-    <div id="tab-3" data-label="传统写法">
-        <AlertActionMultiple />
-    </div>
-    <div id="tab-4" data-label="传统写法">
-        <AlertActionLink />
-    </div>
-    <div id="tab-5" data-label="Factory 写法">
-        <AlertActionFactory />
-    </div>
-    <div id="tab-6" data-label="Factory 写法">
-        <AlertActionWithIconFactory />
-    </div>
-    <div id="tab-7" data-label="Factory 写法">
-        <AlertActionMultipleFactory />
-    </div>
-    <div id="tab-8" data-label="Factory 写法">
-        <AlertActionLinkFactory />
+    <div id="tab-2" data-label="vue">
+        <AlertActionVue client:load />
     </div>
 </CodeContainer>

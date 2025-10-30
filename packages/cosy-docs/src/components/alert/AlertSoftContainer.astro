@@ -1,73 +1,29 @@
 ---
 
-
-
 /**
  * @component AlertSoftContainer
  * @description 展示 Alert 组件 soft 柔和风格的示例
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import AlertSoftSuccess from './AlertSoft.astro';
-import AlertSoftSuccessSource from './AlertSoft.astro?raw';
-import AlertSoftError from './AlertSoftError.astro';
-import AlertSoftErrorSource from './AlertSoftError.astro?raw';
-import AlertSoftErrorFactory from './AlertSoftErrorFactory.astro';
-import AlertSoftErrorFactorySource from './AlertSoftErrorFactory.astro?raw';
-import AlertSoftInfo from './AlertSoftInfo.astro';
-import AlertSoftInfoSource from './AlertSoftInfo.astro?raw';
-import AlertSoftInfoFactory from './AlertSoftInfoFactory.astro';
-import AlertSoftInfoFactorySource from './AlertSoftInfoFactory.astro?raw';
-import AlertSoftSuccessFactory from './AlertSoftSuccessFactory.astro';
-import AlertSoftSuccessFactorySource from './AlertSoftSuccessFactory.astro?raw';
-import AlertSoftWarning from './AlertSoftWarning.astro';
-import AlertSoftWarningSource from './AlertSoftWarning.astro?raw';
-import AlertSoftWarningFactory from './AlertSoftWarningFactory.astro';
-import AlertSoftWarningFactorySource from './AlertSoftWarningFactory.astro?raw';
+import AlertSoft from './AlertSoft.astro';
+import AlertSoftSource from './AlertSoft.astro?raw';
+import AlertSoftVue from './AlertSoftVue.vue';
+import AlertSoftVueSource from './AlertSoftVue.vue?raw';
 ---
 
 <CodeContainer
     codes={[
-        AlertSoftInfoSource,
-        AlertSoftSuccessSource,
-        AlertSoftWarningSource,
-        AlertSoftErrorSource,
-        AlertSoftInfoFactorySource,
-        AlertSoftSuccessFactorySource,
-        AlertSoftWarningFactorySource,
-        AlertSoftErrorFactorySource,
+        AlertSoftSource,
+        AlertSoftVueSource,
     ]}
     titles={[
-        'Info',
-        'Success',
-        'Warning',
-        'Error',
-        'Info Factory',
-        'Success Factory',
-        'Warning Factory',
-        'Error Factory',
+        'Soft 风格',
+        'Soft 风格',
     ]}>
-    <div id="tab-1" data-label="传统写法">
-        <AlertSoftInfo />
+    <div id="tab-1" data-label="astro">
+        <AlertSoft />
     </div>
-    <div id="tab-2" data-label="传统写法">
-        <AlertSoftSuccess />
-    </div>
-    <div id="tab-3" data-label="传统写法">
-        <AlertSoftWarning />
-    </div>
-    <div id="tab-4" data-label="传统写法">
-        <AlertSoftError />
-    </div>
-    <div id="tab-5" data-label="Factory 写法">
-        <AlertSoftInfoFactory />
-    </div>
-    <div id="tab-6" data-label="Factory 写法">
-        <AlertSoftSuccessFactory />
-    </div>
-    <div id="tab-7" data-label="Factory 写法">
-        <AlertSoftWarningFactory />
-    </div>
-    <div id="tab-8" data-label="Factory 写法">
-        <AlertSoftErrorFactory />
+    <div id="tab-2" data-label="vue">
+        <AlertSoftVue client:load />
     </div>
 </CodeContainer>
