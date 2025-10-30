@@ -1,8 +1,7 @@
 ---
-
-
-
 import { CodeContainer, Review } from "@coffic/cosy-ui";
+import ReviewVueVerifiedUser from "./ReviewVueVerifiedUser.vue";
+import ReviewVueVerifiedUserRaw from "./ReviewVueVerifiedUser.vue?raw";
 import UnverifiedExample from "./UnverifiedExample.astro";
 import UnverifiedExampleSourceCode from "./UnverifiedExample.astro?raw";
 import VerifiedExample from "./VerifiedExample.astro";
@@ -10,12 +9,15 @@ import VerifiedExampleSourceCode from "./VerifiedExample.astro?raw";
 ---
 
 <CodeContainer
-  codes={[VerifiedExampleSourceCode, UnverifiedExampleSourceCode]}
-  titles={['已认证', '未认证']}>
-  <div id="tab-1">
+  codes={[VerifiedExampleSourceCode, UnverifiedExampleSourceCode, ReviewVueVerifiedUserRaw]}
+  titles={['verified', 'unverified', 'verified']}>
+  <div id="tab-1" data-label="astro">
     <VerifiedExample />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <UnverifiedExample />
+  </div>
+  <div id="tab-3" data-label="vue">
+    <ReviewVueVerifiedUser />
   </div>
 </CodeContainer>
