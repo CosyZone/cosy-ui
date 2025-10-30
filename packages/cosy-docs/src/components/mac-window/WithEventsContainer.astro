@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component MacWindow.WithEventsContainer
  *
@@ -11,10 +8,15 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import WithEvents from "./WithEvents.astro";
 import WithEventsSourceCode from "./WithEvents.astro?raw";
+import WithEventsVue from "./WithEvents.vue";
+import WithEventsVueSourceCode from "./WithEvents.vue?raw";
 ---
 
-<CodeContainer codes={[WithEventsSourceCode]} titles={['事件处理']}>
-  <div id="tab-1">
+<CodeContainer codes={[WithEventsSourceCode, WithEventsVueSourceCode]} titles={['事件处理', '事件处理']}>
+  <div id="tab-1" data-label="astro">
     <WithEvents />
+  </div>
+  <div id="tab-2" data-label="vue">
+    <WithEventsVue />
   </div>
 </CodeContainer>

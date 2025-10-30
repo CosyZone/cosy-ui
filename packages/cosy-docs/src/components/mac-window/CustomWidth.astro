@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component MacWindow.CustomWidth
  *
@@ -11,12 +8,20 @@
 import { CodeContainer, MacWindow, PlaceHolder } from "@coffic/cosy-ui";
 import WidthFull from "./WidthFull.astro";
 import WidthFullSource from "./WidthFull.astro?raw";
+import WidthFullVue from "./WidthFull.vue";
+import WidthFullVueSource from "./WidthFull.vue?raw";
 import WidthLarge from "./WidthLarge.astro";
 import WidthLargeSource from "./WidthLarge.astro?raw";
+import WidthLargeVue from "./WidthLarge.vue";
+import WidthLargeVueSource from "./WidthLarge.vue?raw";
 import WidthMedium from "./WidthMedium.astro";
 import WidthMediumSource from "./WidthMedium.astro?raw";
+import WidthMediumVue from "./WidthMedium.vue";
+import WidthMediumVueSource from "./WidthMedium.vue?raw";
 import WidthSmall from "./WidthSmall.astro";
 import WidthSmallSource from "./WidthSmall.astro?raw";
+import WidthSmallVue from "./WidthSmall.vue";
+import WidthSmallVueSource from "./WidthSmall.vue?raw";
 ---
 
 <CodeContainer
@@ -25,18 +30,34 @@ import WidthSmallSource from "./WidthSmall.astro?raw";
     WidthMediumSource,
     WidthLargeSource,
     WidthFullSource,
+    WidthSmallVueSource,
+    WidthMediumVueSource,
+    WidthLargeVueSource,
+    WidthFullVueSource,
   ]}
-  titles={['小宽度 (sm)', '中等宽度 (md)', '大宽度 (lg)', '全宽 (full)']}>
-  <div id="tab-1">
+  titles={['sm', 'md', 'lg', 'full', 'sm', 'md', 'lg', 'full']}>
+  <div id="tab-1" data-label="astro">
     <WidthSmall />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <WidthMedium />
   </div>
-  <div id="tab-3">
+  <div id="tab-3" data-label="astro">
     <WidthLarge />
   </div>
-  <div id="tab-4">
+  <div id="tab-4" data-label="astro">
     <WidthFull />
+  </div>
+  <div id="tab-5" data-label="vue">
+    <WidthSmallVue />
+  </div>
+  <div id="tab-6" data-label="vue">
+    <WidthMediumVue />
+  </div>
+  <div id="tab-7" data-label="vue">
+    <WidthLargeVue />
+  </div>
+  <div id="tab-8" data-label="vue">
+    <WidthFullVue />
   </div>
 </CodeContainer>

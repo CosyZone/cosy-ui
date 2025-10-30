@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component MacWindow.CustomHeightContainer
  *
@@ -11,10 +8,15 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import CustomHeight from "./CustomHeight.astro";
 import CustomHeightSourceCode from "./CustomHeight.astro?raw";
+import CustomHeightVue from "./CustomHeight.vue";
+import CustomHeightVueSourceCode from "./CustomHeight.vue?raw";
 ---
 
-<CodeContainer codes={[CustomHeightSourceCode]} titles={['自定义高度']}>
-  <div id="tab-1">
+<CodeContainer codes={[CustomHeightSourceCode, CustomHeightVueSourceCode]} titles={['自定义高度', '自定义高度']}>
+  <div id="tab-1" data-label="astro">
     <CustomHeight />
+  </div>
+  <div id="tab-2" data-label="vue">
+    <CustomHeightVue />
   </div>
 </CodeContainer>

@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component MacWindow BgTypes Container
  * @description 展示 MacWindow 组件的不同背景色类型的容器组件
@@ -10,37 +7,64 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import AccentBg from "./AccentBg.astro";
 import AccentBgCode from "./AccentBg.astro?raw";
+import AccentBgVue from "./AccentBg.vue";
+import AccentBgVueCode from "./AccentBg.vue?raw";
 // 导入各个背景色示例
 import DefaultBg from "./DefaultBg.astro";
 // 导入对应的源码
 import DefaultBgCode from "./DefaultBg.astro?raw";
+import DefaultBgVue from "./DefaultBg.vue";
+import DefaultBgVueCode from "./DefaultBg.vue?raw";
 import ErrorBg from "./ErrorBg.astro";
 import ErrorBgCode from "./ErrorBg.astro?raw";
+import ErrorBgVue from "./ErrorBg.vue";
+import ErrorBgVueCode from "./ErrorBg.vue?raw";
 import InfoBg from "./InfoBg.astro";
 import InfoBgCode from "./InfoBg.astro?raw";
+import InfoBgVue from "./InfoBg.vue";
+import InfoBgVueCode from "./InfoBg.vue?raw";
 import NeutralBg from "./NeutralBg.astro";
 import NeutralBgCode from "./NeutralBg.astro?raw";
+import NeutralBgVue from "./NeutralBg.vue";
+import NeutralBgVueCode from "./NeutralBg.vue?raw";
 import PrimaryBg from "./PrimaryBg.astro";
 import PrimaryBgCode from "./PrimaryBg.astro?raw";
+import PrimaryBgVue from "./PrimaryBg.vue";
+import PrimaryBgVueCode from "./PrimaryBg.vue?raw";
 import SecondaryBg from "./SecondaryBg.astro";
 import SecondaryBgCode from "./SecondaryBg.astro?raw";
+import SecondaryBgVue from "./SecondaryBg.vue";
+import SecondaryBgVueCode from "./SecondaryBg.vue?raw";
 import SuccessBg from "./SuccessBg.astro";
 import SuccessBgCode from "./SuccessBg.astro?raw";
+import SuccessBgVue from "./SuccessBg.vue";
+import SuccessBgVueCode from "./SuccessBg.vue?raw";
 import WarningBg from "./WarningBg.astro";
 import WarningBgCode from "./WarningBg.astro?raw";
+import WarningBgVue from "./WarningBg.vue";
+import WarningBgVueCode from "./WarningBg.vue?raw";
 ---
 
 <CodeContainer
   titles={[
-    '默认背景',
-    '主要背景',
-    '次要背景',
-    '强调背景',
-    '中性背景',
-    '信息背景',
-    '成功背景',
-    '警告背景',
-    '错误背景',
+    'default',
+    'primary',
+    'secondary',
+    'accent',
+    'neutral',
+    'info',
+    'success',
+    'warning',
+    'error',
+    'default',
+    'primary',
+    'secondary',
+    'accent',
+    'neutral',
+    'info',
+    'success',
+    'warning',
+    'error',
   ]}
   codes={[
     DefaultBgCode,
@@ -52,32 +76,68 @@ import WarningBgCode from "./WarningBg.astro?raw";
     SuccessBgCode,
     WarningBgCode,
     ErrorBgCode,
+    DefaultBgVueCode,
+    PrimaryBgVueCode,
+    SecondaryBgVueCode,
+    AccentBgVueCode,
+    NeutralBgVueCode,
+    InfoBgVueCode,
+    SuccessBgVueCode,
+    WarningBgVueCode,
+    ErrorBgVueCode,
   ]}>
-  <div id="tab-1">
+  <div id="tab-1" data-label="astro">
     <DefaultBg />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <PrimaryBg />
   </div>
-  <div id="tab-3">
+  <div id="tab-3" data-label="astro">
     <SecondaryBg />
   </div>
-  <div id="tab-4">
+  <div id="tab-4" data-label="astro">
     <AccentBg />
   </div>
-  <div id="tab-5">
+  <div id="tab-5" data-label="astro">
     <NeutralBg />
   </div>
-  <div id="tab-6">
+  <div id="tab-6" data-label="astro">
     <InfoBg />
   </div>
-  <div id="tab-7">
+  <div id="tab-7" data-label="astro">
     <SuccessBg />
   </div>
-  <div id="tab-8">
+  <div id="tab-8" data-label="astro">
     <WarningBg />
   </div>
-  <div id="tab-9">
+  <div id="tab-9" data-label="astro">
     <ErrorBg />
+  </div>
+  <div id="tab-10" data-label="vue">
+    <DefaultBgVue />
+  </div>
+  <div id="tab-11" data-label="vue">
+    <PrimaryBgVue />
+  </div>
+  <div id="tab-12" data-label="vue">
+    <SecondaryBgVue />
+  </div>
+  <div id="tab-13" data-label="vue">
+    <AccentBgVue />
+  </div>
+  <div id="tab-14" data-label="vue">
+    <NeutralBgVue />
+  </div>
+  <div id="tab-15" data-label="vue">
+    <InfoBgVue />
+  </div>
+  <div id="tab-16" data-label="vue">
+    <SuccessBgVue />
+  </div>
+  <div id="tab-17" data-label="vue">
+    <WarningBgVue />
+  </div>
+  <div id="tab-18" data-label="vue">
+    <ErrorBgVue />
   </div>
 </CodeContainer>
