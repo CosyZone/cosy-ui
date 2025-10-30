@@ -1,20 +1,22 @@
 ---
 
-
-
-import { CodeContainer, UserIcon } from "@coffic/cosy-ui";
+import { CodeContainer } from "@coffic/cosy-ui";
+import ClassBackgroundVue from "./ClassBackground.vue";
+import ClassBackgroundVueRaw from "./ClassBackground.vue?raw";
+import ClassBasicVue from "./ClassBasic.vue";
+import ClassBasicVueRaw from "./ClassBasic.vue?raw";
+import ClassCustomAstro from "./examples/class-custom.astro";
 import code2 from "./examples/class-custom.astro?raw";
+import ClassDefaultAstro from "./examples/class-default.astro";
 import code1 from "./examples/class-default.astro?raw";
 ---
-
-<CodeContainer codes={[code1, code2]} titles={['默认样式', '自定义样式']}>
-  <div id="tab-1">
-    <UserIcon size="32px" />
+<CodeContainer codes={[code1, code2, ClassBasicVueRaw, ClassBackgroundVueRaw]} titles={["默认样式", "自定义样式", "默认样式", "自定义样式"]}>
+  <div id="tab-1" data-label="astro"><ClassDefaultAstro /></div>
+  <div id="tab-2" data-label="astro"><ClassCustomAstro /></div>
+  <div id="tab-3" data-label="vue">
+    <ClassBasicVue />
   </div>
-  <div id="tab-2">
-    <UserIcon
-      size="32px"
-      class="cosy:text-primary cosy:bg-base-200 cosy:p-2 cosy:rounded-lg"
-    />
+  <div id="tab-4" data-label="vue">
+    <ClassBackgroundVue />
   </div>
 </CodeContainer>

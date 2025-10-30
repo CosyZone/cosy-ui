@@ -1,17 +1,22 @@
 ---
 
-
-
-import { CodeContainer, UserIcon } from "@coffic/cosy-ui";
+import { CodeContainer } from "@coffic/cosy-ui";
+import ColorPurpleVue from "./ColorPurple.vue";
+import ColorPurpleVueRaw from "./ColorPurple.vue?raw";
+import ColorRedVue from "./ColorRed.vue";
+import ColorRedVueRaw from "./ColorRed.vue?raw";
+import ColorCustomAstro from "./examples/color-custom.astro";
 import code2 from "./examples/color-custom.astro?raw";
+import ColorDefaultAstro from "./examples/color-default.astro";
 import code1 from "./examples/color-default.astro?raw";
 ---
-
-<CodeContainer codes={[code1, code2]} titles={['默认颜色', '自定义颜色']}>
-  <div id="tab-1">
-    <UserIcon size="32px" />
+<CodeContainer codes={[code1, code2, ColorRedVueRaw, ColorPurpleVueRaw]} titles={["默认颜色", "自定义颜色", "红色", "紫色"]}>
+  <div id="tab-1" data-label="astro"><ColorDefaultAstro /></div>
+  <div id="tab-2" data-label="astro"><ColorCustomAstro /></div>
+  <div id="tab-3" data-label="vue">
+    <ColorRedVue />
   </div>
-  <div id="tab-2">
-    <UserIcon size="32px" color="#3b82f6" />
+  <div id="tab-4" data-label="vue">
+    <ColorPurpleVue />
   </div>
 </CodeContainer>

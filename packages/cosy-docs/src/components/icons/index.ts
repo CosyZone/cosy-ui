@@ -1,6 +1,6 @@
 import ClassContainer from "./ClassContainer.astro";
 import ColorContainer from "./ColorContainer.astro";
-import IconShowcase from "./IconShowcase.astro";
+import IconShowcase from "./IconShowcaseContainer.astro";
 import SizeContainer from "./SizeContainer.astro";
 import SmartIconContainer from "./SmartIconContainer.astro";
 import SocialIconContainer from "./SocialIconContainer.astro";

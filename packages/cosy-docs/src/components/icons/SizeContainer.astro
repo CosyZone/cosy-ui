@@ -1,23 +1,25 @@
 ---
-
-
-
-import { CodeContainer, UserIcon } from "@coffic/cosy-ui";
+import { CodeContainer } from "@coffic/cosy-ui";
+import SizeLargeAstro from "./examples/size-large.astro";
 import code3 from "./examples/size-large.astro?raw";
+import SizeMediumAstro from "./examples/size-medium.astro";
 import code2 from "./examples/size-medium.astro?raw";
+import SizeSmallAstro from "./examples/size-small.astro";
 import code1 from "./examples/size-small.astro?raw";
+import SizeLargeVue from "./SizeLarge.vue";
+import SizeLargeVueRaw from "./SizeLarge.vue?raw";
+import SizeMediumVue from "./SizeMedium.vue";
+import SizeMediumVueRaw from "./SizeMedium.vue?raw";
+import SizeSmallVue from "./SizeSmall.vue";
+import SizeSmallVueRaw from "./SizeSmall.vue?raw";
 ---
-
 <CodeContainer
-  codes={[code1, code2, code3]}
-  titles={['小尺寸', '中等尺寸', '大尺寸']}>
-  <div id="tab-1">
-    <UserIcon size="16px" />
-  </div>
-  <div id="tab-2">
-    <UserIcon size="32px" />
-  </div>
-  <div id="tab-3">
-    <UserIcon size="48px" />
-  </div>
+  codes={[code1, code2, code3, SizeSmallVueRaw, SizeMediumVueRaw, SizeLargeVueRaw]}
+  titles={["16px", "32px", "48px", "16px", "32px", "48px"]}>
+  <div id="tab-1" data-label="astro"><SizeSmallAstro /></div>
+  <div id="tab-2" data-label="astro"><SizeMediumAstro /></div>
+  <div id="tab-3" data-label="astro"><SizeLargeAstro /></div>
+  <div id="tab-4" data-label="vue"><SizeSmallVue /></div>
+  <div id="tab-5" data-label="vue"><SizeMediumVue /></div>
+  <div id="tab-6" data-label="vue"><SizeLargeVue /></div>
 </CodeContainer>
