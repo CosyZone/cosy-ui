@@ -155,6 +155,7 @@ const overlayClass = cn()
 </div>
 
 <script is:inline define:vars={{ overlayId, loadingDelay }}>
+    // @ts-nocheck - 变量通过 Astro 的 define:vars 在运行时注入
     let showTimeout = null;
     let hideTimeout = null;
     let displayStartTime = null;
@@ -213,6 +214,10 @@ const overlayClass = cn()
             return;
         }
 
+        // 计算已显示时间，确保至少显示 minDisplayTime
+        const displayedTime = displayStartTime ? Date.now() - displayStartTime : 0;
+        const remainingTime = Math.max(0, minDisplayTime - displayedTime);
+
         hideTimeout = setTimeout(() => {
             const overlay = document.getElementById(overlayId);
             if (!overlay) {
@@ -222,7 +227,7 @@ const overlayClass = cn()
             overlay.style.opacity = '0';
             overlay.style.pointerEvents = 'none';
             reset();
-        }, minDisplayTime);
+        }, remainingTime);
     };
 
     // 监听 Astro 页面过渡事件

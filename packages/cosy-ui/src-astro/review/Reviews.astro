@@ -1,20 +1,10 @@
 ---
-
-
-
 /**
  * @component Reviews
  *
  * @description
  * Reviews 组件用于展示多个用户评价，支持网格布局、评分统计和筛选功能。
  * 适用于产品评价页面、服务评价展示等场景。
- *
- * @design
- * 设计理念：
- * 1. 批量展示 - 高效展示多个评价，支持分页和筛选
- * 2. 统计信息 - 显示总体评分和评价分布
- * 3. 灵活布局 - 支持网格和列表两种布局模式
- * 4. 用户友好 - 提供排序和筛选功能
  *
  * @usage
  * 基本用法：
@@ -59,7 +49,7 @@ import Grid from "../grid/Grid.astro";
 import Heading from "../heading/Heading.astro";
 import SmartIcon from "../smart-icon/SmartIcon.astro";
 import Text from "../text/Text.astro";
-import type { IReviewData, IReviewsProps } from "./props";
+import type { IReviewsProps } from "./props";
 import Review from "./Review.astro";
 
 const {
@@ -126,7 +116,7 @@ const containerClass = cn()
               {stats.averageRating.toFixed(1)}
             </Text>
             <div class="cosy:flex cosy:items-center cosy:gap-1">
-              {generateStars(stats.averageRating).map((star, index) => (
+              {generateStars(stats.averageRating).map((star) => (
                 <SmartIcon
                   keyword={star.filled ? 'star' : star.half ? 'star' : 'star'}
                   size="20px"

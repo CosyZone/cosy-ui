@@ -291,6 +291,3 @@ export class AlertFactory {
 		return this.builder.build();
 	}
 }
-
-// 导入 Alert 组件类型
-import Alert from "./Alert.astro";

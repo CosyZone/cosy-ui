@@ -1,84 +1,81 @@
 ---
-
-
-
-import { iconData } from "../../src/assets/iconData";
+import { iconData } from '../../src/assets/iconData';
 
 interface Props {
-	/**
-	 * 图标名称，必须在iconData中存在
-	 */
-	name: string;
+    /**
+     * 图标名称，必须在iconData中存在
+     */
+    name: string;
 
-	/**
-	 * 图标的大小
-	 * @default "24px"
-	 */
-	size?: string;
+    /**
+     * 图标的大小
+     * @default "24px"
+     */
+    size?: string;
 
-	/**
-	 * 图标颜色
-	 * @default "currentColor"
-	 */
-	color?: string;
+    /**
+     * 图标颜色
+     * @default "currentColor"
+     */
+    color?: string;
 
-	/**
-	 * 描边宽度（仅用于stroke类型图标）
-	 * @default "2"
-	 */
-	strokeWidth?: string;
+    /**
+     * 描边宽度（仅用于stroke类型图标）
+     * @default "2"
+     */
+    strokeWidth?: string;
 
-	/**
-	 * 自定义类名
-	 */
-	class?: string;
+    /**
+     * 自定义类名
+     */
+    class?: string;
 }
 
 const {
-	name,
-	size = "24px",
-	color = "currentColor",
-	strokeWidth = "2",
-	class: className = "",
+    name,
+    size = '24px',
+    color = 'currentColor',
+    strokeWidth = '2',
+    class: className = '',
 } = Astro.props;
 const icon = iconData[name];
-const viewBox = icon?.viewBox || "0 0 24 24";
-const iconType = icon?.type || "stroke";
+const viewBox = icon?.viewBox || '0 0 24 24';
+const iconType = icon?.type || 'stroke';
 const isMultiPath = icon?.multiPath || false;
 ---
 
 {
-  icon &&
-    (iconType === 'fill' ? (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox={viewBox}
-        fill={color}
-        class={className}>
-        {isMultiPath ? (
-          icon.path
-            .split(/(?=M)/)
-            .filter((path) => path.trim().length > 0)
-            .map((path, index) => <path d={path.trim()} />)
+    icon &&
+        (iconType === 'fill' ? (
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={size}
+                height={size}
+                viewBox={viewBox}
+                fill={color}
+                class={className}>
+                {isMultiPath ? (
+                    icon.path
+                        .split(/(?=M)/)
+                        .filter((path) => path.trim().length > 0)
+                        .map((path) => <path d={path.trim()} />)
+                ) : (
+                    <path d={icon.path} />
+                )}
+            </svg>
         ) : (
-          <path d={icon.path} />
-        )}
-      </svg>
-    ) : (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox={viewBox}
-        fill="none"
-        stroke={color}
-        stroke-width={strokeWidth}
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class={className}>
-        <path d={icon.path} />
-      </svg>
-    ))
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={size}
+                height={size}
+                viewBox={viewBox}
+                fill="none"
+                stroke={color}
+                stroke-width={strokeWidth}
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class={className}>
+                <path d={icon.path} />
+            </svg>
+        ))
 }

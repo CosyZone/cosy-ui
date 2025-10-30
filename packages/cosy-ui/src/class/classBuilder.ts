@@ -103,15 +103,6 @@ class ClassBuilder {
 	// 统一的类名数组，保持调用顺序
 	private classes: string[] = [];
 
-	// 组合各个专门的 builder（用于复杂场景，但不直接使用它们的数组）
-	private readonly layoutBuilder = new LayoutBuilder();
-	private readonly spacingBuilder = new SpacingBuilder();
-	private readonly sizeBuilder = new SizeBuilder();
-	private readonly textBuilder = new TextBuilder();
-	private readonly opacityBuilder = new OpacityBuilder();
-	private readonly positionBuilder = new PositionBuilder();
-	private readonly listBuilder = new ListBuilder();
-
 	constructor(initialClasses: string[] = []) {
 		this.classes = [...initialClasses];
 	}

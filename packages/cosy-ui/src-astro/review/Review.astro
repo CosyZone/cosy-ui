@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component Review
  *
@@ -180,7 +177,7 @@ const reviewClass = cn().add('cosy:review', 'cosy:p-6').add(className).build();
     <!-- 评分 -->
     <div class="cosy:flex cosy:items-center cosy:gap-1 cosy:mb-3">
         {
-            generateStars(rating).map((star, index) => (
+            generateStars(rating).map((star) => (
                 <SmartIcon
                     keyword={star.filled ? 'star' : star.half ? 'star' : 'star'}
                     size="16px"

@@ -319,14 +319,14 @@ const containerClass = cn()
                     src={previewSrc}
                     alt={alt}
                     class="cosy:max-h-[85vh] cosy:max-w-[92vw] cosy:w-auto cosy:h-auto cosy:rounded-lg cosy:shadow-2xl"
-                    onclick="event.stopPropagation()"
+                    onclick="(e) => e.stopPropagation()"
                 />
                 <Button
                     shape="circle"
                     size="sm"
                     variant="ghost"
                     class="cosy:absolute cosy:top-8 cosy:right-4 cosy:text-white cosy:bg-white/10 hover:cosy:bg-white/20 cosy:border-0 cosy:shadow-none cosy:!min-h-0 cosy:h-9 cosy:w-9 cosy:p-0"
-                    onclick={`event.stopPropagation(); window.__cosyImagePreviewClose('${previewId}')`}>
+                    onclick={`(e) => { e.stopPropagation(); window.__cosyImagePreviewClose('${previewId}'); }`}>
                     ✕
                 </Button>
             </div>

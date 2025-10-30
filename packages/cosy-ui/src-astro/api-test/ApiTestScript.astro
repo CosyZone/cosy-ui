@@ -110,6 +110,7 @@ const loadingTextClass = cn().add('cosy:text-primary', 'cosy:italic').build();
 ---
 
 <script
+    is:inline
     define:vars={{
         showResponseTime,
         showRequestDetails,
@@ -131,6 +132,7 @@ const loadingTextClass = cn().add('cosy:text-primary', 'cosy:italic').build();
         loadingTextClass,
     }}
 >
+    // @ts-nocheck - 变量通过 Astro 的 define:vars 在运行时注入
     // 格式化响应显示
     function formatResponse(response, data, responseTime) {
         const statusColor = response.ok ? 'success' : 'error';

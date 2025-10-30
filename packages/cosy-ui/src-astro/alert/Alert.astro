@@ -68,41 +68,15 @@
  * @slot action - 自定义操作按钮，显示在 alert 右侧，适合放置自定义按钮或其他操作
  */
 
-import {
-    CloseIcon,
-    ErrorIcon,
-    InfoIcon,
-    SuccessIcon,
-    WarningIcon,
-} from '../../index-astro';
 import { cn } from '../../src/class';
 import { AlertFacade } from '../../src/components/alert';
 import type { IAlertProps } from './props';
 
-// 根据类型设置图标组件
-const getIconComponent = (type: string) => {
-    const iconComponents = {
-        info: InfoIcon,
-        success: SuccessIcon,
-        warning: WarningIcon,
-        error: ErrorIcon,
-    };
-    return iconComponents[type as keyof typeof iconComponents] || InfoIcon;
-};
-
 const props = Astro.props as IAlertProps;
 
 const {
-    type = 'info',
-    title,
-    description,
-    class: className = '',
-    closable = true,
     showIcon = true,
 } = props;
-
-// 获取图标组件
-const IconComponent = getIconComponent(type);
 
 // 渲染图标 HTML（如果需要）
 const iconBtnClass = cn()

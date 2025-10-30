@@ -1,6 +1,5 @@
 import type { ImageMetadata } from "astro";
 import type { BackgroundColor } from "./backgrounds";
-import type { ThemeId } from "./themes";
 
 export interface IMetaProps {
 	title: string;

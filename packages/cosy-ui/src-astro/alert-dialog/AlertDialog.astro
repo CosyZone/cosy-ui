@@ -134,18 +134,6 @@ const buttonClass = cn()
         const backdrop = dialog.querySelector('[data-alert-dialog-backdrop]');
         const closeButton = dialog.querySelector('[data-alert-dialog-close]');
 
-        // 显示对话框
-        const showDialog = () => {
-            dialog.classList.remove(
-                'cosy:opacity-0',
-                'cosy:pointer-events-none',
-            );
-            dialog.classList.add(
-                'cosy:opacity-100',
-                'cosy:pointer-events-auto',
-            );
-        };
-
         // 隐藏对话框
         const hideDialog = () => {
             dialog.classList.remove(

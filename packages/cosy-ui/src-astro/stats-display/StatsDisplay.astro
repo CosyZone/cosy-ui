@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component StatsDisplay
  *
@@ -155,7 +152,7 @@ const containerClasses = [
     .join(' ');
 
 // 构建数值样式
-const getValueStyle = (item: StatItem) => {
+const getValueStyle = () => {
     return [
         `cosy:text-${valueSize}`,
         `cosy:font-${valueWeight}`,
@@ -191,9 +188,7 @@ const getLabelColorStyle = (item: StatItem): string => {
     {
         stats.map((stat: StatItem) => (
             <div class="cosy:flex cosy:flex-col cosy:items-center">
-                <div
-                    class={getValueStyle(stat)}
-                    style={getValueColorStyle(stat)}>
+                <div class={getValueStyle()} style={getValueColorStyle(stat)}>
                     {stat.value}
                 </div>
                 <Text class={getLabelStyle()} style={getLabelColorStyle(stat)}>

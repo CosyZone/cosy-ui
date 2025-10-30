@@ -33,7 +33,7 @@ export function getLinkVariantClasses(
 		| undefined,
 	fullWidth: boolean,
 	circle: boolean,
-	navigationType: "previous" | "next" | undefined,
+	_navigationType: "previous" | "next" | undefined,
 ): string[] {
 	const classes: string[] = [];
 

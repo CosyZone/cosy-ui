@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component SocialIcon
  *
@@ -75,9 +72,6 @@ const {
     color = 'currentColor',
     class: className = '',
 } = Astro.props;
-
-// 获取平台名称的首字母大写版本，用于显示
-const platformName = platform.charAt(0).toUpperCase() + platform.slice(1);
 
 // 根据平台名称选择对应的图标组件
 const getIconComponent = (platform: string) => {

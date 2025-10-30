@@ -439,6 +439,3 @@ export class ContainerFactory {
 		return this.builder.build();
 	}
 }
-
-// 导入 Container 组件类型
-import Container from "./Container.astro";

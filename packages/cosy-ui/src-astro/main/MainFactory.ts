@@ -331,6 +331,3 @@ export class MainFactory {
 		return this.builder.build();
 	}
 }
-
-// 导入 Main 组件类型
-import Main from "./Main.astro";

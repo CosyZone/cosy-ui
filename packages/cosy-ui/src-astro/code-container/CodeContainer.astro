@@ -91,7 +91,6 @@ interface Props {
 
 const {
     titles = [],
-    descriptions = [],
     codes,
     resetStyles = true,
 } = Astro.props;
@@ -156,7 +155,7 @@ export type { Props };
             });
     }
 
-    function setupLabelGroups(container, contents) {
+    function setupLabelGroups(_container, _contents) {
         // 不再自动为没有 data-label 的内容添加默认 label
         // 让 ModeSwitcher 自己处理未分类的情况
         // 这里保留函数是为了向后兼容，但不做任何操作

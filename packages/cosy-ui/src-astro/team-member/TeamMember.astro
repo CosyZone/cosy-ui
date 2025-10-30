@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 /**
  * @component TeamMember
  *
@@ -64,7 +59,7 @@ import type {
     RoundedSize,
     ShadowSize,
 } from '../../src/common';
-import { hoverShadowClasses, shadowClasses } from '../../src/common';
+import { hoverShadowClasses } from '../../src/common';
 import type { ImageSource } from '../image/types';
 
 interface ISocialLink {
@@ -148,7 +143,6 @@ const {
     muted = false,
 } = Astro.props;
 
-const shadowClass = shadow ? shadowClasses[shadow] || '' : '';
 const hoverShadowClass = hoverShadow
     ? hoverShadowClasses[hoverShadow] || hoverShadowClasses['lg']
     : hoverShadowClasses['lg'];

@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 /**
  * @component ApiEndpointCard
  *
@@ -49,7 +44,7 @@ const hasDescription = !!endpoint.description;
 
 // 获取HTTP方法对应的颜色
 const getMethodColor = (
-    method: string,
+    method: string
 ):
     | 'success'
     | 'primary'
@@ -117,7 +112,7 @@ const codeClass = cn()
         'cosy:text-primary',
         'cosy:font-mono',
         'cosy:text-sm',
-        'cosy:break-all',
+        'cosy:break-all'
     )
     .build();
 
@@ -244,7 +239,7 @@ const resultClass = cn()
                                                     }>
                                                     {option}
                                                 </option>
-                                            ),
+                                            )
                                         )}
                                     </select>
                                 ) : inputConfig.type === 'textarea' ? (
@@ -327,7 +322,7 @@ const resultClass = cn()
                                                         {option}
                                                     </span>
                                                 </label>
-                                            ),
+                                            )
                                         )}
                                     </div>
                                 ) : (
@@ -369,12 +364,12 @@ const resultClass = cn()
                 <div class={quickTestsContainerClass}>
                     <p class={quickTestsTitleClass}>快速填充参数：</p>
                     <div class={quickTestsButtonsClass}>
-                        {endpoint.quickTests!.map((quickTest, index) => (
+                        {endpoint.quickTests!.map((quickTest) => (
                             <Button
                                 variant="outline"
                                 size="sm"
                                 data-quick-test={JSON.stringify(
-                                    quickTest.values,
+                                    quickTest.values
                                 )}
                                 data-endpoint={endpoint.path}
                                 title={quickTest.description}>

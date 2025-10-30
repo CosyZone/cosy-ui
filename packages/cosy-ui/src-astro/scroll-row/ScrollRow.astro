@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 /**
  * @component ScrollRow
  * @description 通用横向可滚动容器。提供左右导航与可访问性，默认插槽可放置任意内容。
@@ -219,12 +214,6 @@ const gapClass = gapClasses[gap] || '';
     }
 
     function bind(wrapper: HTMLElement) {
-        const prevBtn = wrapper.querySelector(
-            '.scroll-row-nav-prev'
-        ) as HTMLButtonElement | null;
-        const nextBtn = wrapper.querySelector(
-            '.scroll-row-nav-next'
-        ) as HTMLButtonElement | null;
         const container = wrapper.querySelector(
             '.scroll-row-container'
         ) as HTMLElement | null;

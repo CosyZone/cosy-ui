@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component PhotoWall
  *
@@ -60,21 +57,9 @@
  * @prop {string} [style] - 自定义样式，用于覆盖默认样式
  */
 
-// 导入样式
-;
-
-
-// 导入 Container 组件
 import Container from "../container/Container.astro";
-// 导入类型定义
 import type {
-	BackgroundColor,
-	BorderSize,
 	IPhotoWallProps,
-	PaddingSize,
-	PhotoCardData,
-	RoundedSize,
-	Size,
 } from "./props";
 
 // 从 Astro.props 中解构出属性
@@ -92,9 +77,7 @@ const {
 	title,
 	subtitle,
 	class: className,
-	style: customStyle,
-	...rest
-} = Astro.props as IPhotoWallProps & { class?: string; style?: string };
+	style: customStyle} = Astro.props as IPhotoWallProps & { class?: string; style?: string };
 
 // 计算照片墙的类名
 const getPhotoWallClasses = () => {
@@ -127,7 +110,7 @@ const getPhotoWallClasses = () => {
 };
 
 // 计算卡片布局
-const getCardLayout = (index: number, card: PhotoCardData) => {
+const getCardLayout = (index: number) => {
 	const colSpan = 3; // 每个卡片占用3列
 	const rowSpan = 3; // 每个卡片占用3行，确保正方形
 	const itemsPerRow = 4;
@@ -144,7 +127,7 @@ const getCardLayout = (index: number, card: PhotoCardData) => {
 };
 
 // 计算卡片类名
-const getCardClasses = (card: PhotoCardData) => {
+const getCardClasses = () => {
 	const classes = [
 		"cosy:relative",
 		"cosy:overflow-hidden",
@@ -202,8 +185,8 @@ const photoWallClasses = getPhotoWallClasses();
   ignore-heading>
   <div class:list={photoWallClasses}>
     {photos.map((photo, index) => {
-      const layout = getCardLayout(index, photo);
-      const cardClasses = getCardClasses(photo);
+      const layout = getCardLayout(index);
+      const cardClasses = getCardClasses();
       
       return (
         <div 

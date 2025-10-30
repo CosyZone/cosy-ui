@@ -1,6 +1,5 @@
 import type { BackgroundColor } from "../../../src/common/backgrounds";
 import type { TextAlign } from "../../../src/common/textAlign";
-import type { TextColor } from "../../../src/common/textColors";
 import type { TextWeight } from "../../../src/common/textWeights";
 
 /**
