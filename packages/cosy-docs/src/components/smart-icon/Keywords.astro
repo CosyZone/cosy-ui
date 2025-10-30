@@ -1,12 +1,11 @@
 ---
-
-
-
 import { CodeContainer, SmartIcon } from "@coffic/cosy-ui";
 import KeywordDocumentCode from "./examples/KeywordDocument.astro?raw";
 import KeywordSearchCode from "./examples/KeywordSearch.astro?raw";
 import KeywordSettingsCode from "./examples/KeywordSettings.astro?raw";
 import KeywordUserCode from "./examples/KeywordUser.astro?raw";
+import KeywordsVue from "./Keywords.vue";
+import KeywordsVueRaw from "./Keywords.vue?raw";
 ---
 
 <CodeContainer
@@ -15,18 +14,22 @@ import KeywordUserCode from "./examples/KeywordUser.astro?raw";
     KeywordSettingsCode,
     KeywordSearchCode,
     KeywordDocumentCode,
+    KeywordsVueRaw,
   ]}
-  titles={['用户', '设置', '搜索', '文档']}>
-  <div id="tab-1">
+  titles={['用户', '设置', '搜索', '文档', '基本用法']}>
+  <div id="tab-1" data-label="astro">
     <SmartIcon keyword="用户" size="24px" color="#8b5cf6" />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <SmartIcon keyword="设置" size="24px" color="#8b5cf6" />
   </div>
-  <div id="tab-3">
+  <div id="tab-3" data-label="astro">
     <SmartIcon keyword="搜索" size="24px" color="#8b5cf6" />
   </div>
-  <div id="tab-4">
+  <div id="tab-4" data-label="astro">
     <SmartIcon keyword="文档" size="24px" color="#8b5cf6" />
+  </div>
+  <div id="tab-5" data-label="vue">
+    <KeywordsVue client:load />
   </div>
 </CodeContainer>
