@@ -4,8 +4,7 @@
     :rating="4"
     comment="整体不错，服务态度很好，推荐购买。"
     date="2024-01-10"
-    :verified="true"
-    title="用户评价" />
+    :verified="true" />
 </template>
 
 <script setup lang="ts">

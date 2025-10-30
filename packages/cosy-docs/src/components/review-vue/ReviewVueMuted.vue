@@ -5,8 +5,7 @@
     comment="这个产品非常好用，质量很棒！"
     date="2024-01-15"
     :verified="true"
-    :muted="true"
-    title="用户评价" />
+    :muted="true" />
 </template>
 
 <script setup lang="ts">

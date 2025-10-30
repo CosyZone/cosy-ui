@@ -4,7 +4,6 @@
     :rating="4"
     comment="质量很好，包装精美，值得推荐。"
     date="2024-01-05"
-    title="用户评价"
     class="cosy:border-2 cosy:border-primary cosy:rounded-xl" />
 </template>
 

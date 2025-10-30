@@ -9,8 +9,7 @@
         :rating="4"
         comment="这个产品非常好用，质量很棒！"
         date="2024-01-15"
-        :verified="true"
-        title="用户评价" />
+        :verified="true" />
     </div>
 
     <div class="cosy:mb-6">
@@ -21,8 +20,7 @@
         comment="产品还行，但有一些小问题。"
         date="2024-01-20"
         :verified="true"
-        muted
-        title="用户评价" />
+        muted />
     </div>
   </div>
 </template>

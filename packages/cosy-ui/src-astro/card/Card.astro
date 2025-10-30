@@ -209,9 +209,11 @@ const Tag = href ? 'a' : 'article';
         }
 
         <div class={cardBodyClass}>
-            <h2 class={cardTitleClass}>
-                {title}
-            </h2>
+            {title && (
+                <h2 class={cardTitleClass}>
+                    {title}
+                </h2>
+            )}
 
             {subtitle && <p class={subtitleClass}>{subtitle}</p>}
 

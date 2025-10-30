@@ -46,17 +46,12 @@
     px,
     pl,
     pr,
-    shadow, // 添加 shadow 属性
+    shadow,
     width,
     rounded,
     background,
     border,
     borderColor,
-    subtitle,
-    title,
-    imageUrl,
-    href,
-    compact,
   } = props;
 
   // 生成星级评分
@@ -109,49 +104,49 @@
       border,
       borderColor,
       shadow,
-      subtitle,
-      title: title || userName || '用户评价', // 使用 title 属性，如果没有则使用 userName，最后使用默认值
-      imageUrl,
-      href,
-      compact,
     }"
-    :class="className"
+    :class="[className, 'cosy:review', 'cosy:p-6']"
     :class:list="classList">
-    <div class="cosy:flex cosy:items-start cosy:gap-4">
-      <Avatar
-        v-if="avatar"
-        :avatar="avatar"
-        :userName="userName"
-        size="md"
-        class="cosy:shrink-0" />
+    <!-- 用户信息 -->
+    <div class="cosy:flex cosy:items-center cosy:gap-3 cosy:mb-3">
+      <!-- 用户头像 -->
+      <Avatar :userName="userName" :avatar="avatar" size="md" />
+
+      <!-- 用户名称和认证状态 -->
       <div class="cosy:flex-1">
-        <div class="cosy:flex cosy:items-center cosy:justify-between">
-          <Text variant="h3" class="cosy:text-lg cosy:font-semibold">
+        <div class="cosy:flex cosy:items-center cosy:gap-2 cosy:mb-1">
+          <Text class="cosy:font-medium cosy:text-base-content">
             {{ userName }}
           </Text>
-          <Badge v-if="verified" variant="success" size="sm">
-            <SmartIcon name="check-circle" class="cosy:w-4 cosy:h-4" />
-            已认证
-          </Badge>
+          <Badge v-if="verified" variant="success" size="sm"> 已认证 </Badge>
         </div>
-        <div class="cosy:flex cosy:items-center cosy:mt-1">
-          <div class="cosy:flex cosy:space-x-1">
-            <SmartIcon
-              v-for="(star, index) in starArray"
-              :key="index"
-              :name="
-                star.filled ? 'star-filled' : star.half ? 'star-half' : 'star'
-              "
-              class="cosy:w-5 cosy:h-5 cosy:text-yellow-400" />
-          </div>
-          <Text variant="small" class="cosy:ml-2 cosy:text-gray-500">
-            {{ formattedDate }}
-          </Text>
-        </div>
-        <Text variant="p" class="cosy:mt-3">
-          {{ comment }}
-        </Text>
       </div>
+    </div>
+
+    <!-- 评分 -->
+    <div class="cosy:flex cosy:items-center cosy:gap-1 cosy:mb-3">
+      <SmartIcon
+        v-for="(star, index) in starArray"
+        :key="index"
+        keyword="star"
+        size="16px"
+        :class="
+          star.filled || star.half ? 'cosy:text-warning' : 'cosy:text-base-300'
+        " />
+    </div>
+
+    <!-- 评论内容 -->
+    <div class="cosy:mb-3">
+      <Text class="cosy:text-base-content/80 cosy:leading-relaxed">
+        {{ comment }}
+      </Text>
+    </div>
+
+    <!-- 评价日期 -->
+    <div v-if="date">
+      <Text size="sm" class="cosy:text-base-content/50">
+        {{ formattedDate }}
+      </Text>
     </div>
   </Card>
 </template>

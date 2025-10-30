@@ -8,7 +8,7 @@ import type { ImageSource } from "../image/types";
  */
 export interface ICardProps
 	extends ICardPropsBase,
-		Omit<IContainerProps, "class" | "backgroundImage" | "title">,
+		Omit<IContainerProps, "class" | "backgroundImage">,
 		Omit<HTMLAttributes<"article">, "title"> {
 	/**
 	 * 自定义类名
