@@ -172,7 +172,7 @@
         <figure class="not-prose cosy:m-0 cosy:p-0">
           <img
             :src="cardProps.imageUrl"
-            :alt="cardProps.title"
+            :alt="cardProps.title || ''"
             class="cosy:w-full cosy:h-48 cosy:object-cover cosy:rounded-t-lg" />
         </figure>
       </template>
