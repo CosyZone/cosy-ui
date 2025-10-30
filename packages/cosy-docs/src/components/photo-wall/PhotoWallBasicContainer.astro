@@ -1,0 +1,29 @@
+---
+/**
+ * @component PhotoWallBasicContainer
+ * @description 展示 PhotoWall 组件的基础用法，Astro/Vue 各一个标签。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import PhotoWallBasic from './PhotoWallBasic.astro';
+import PhotoWallBasicRaw from './PhotoWallBasic.astro?raw';
+import PhotoWallVueBasic from './PhotoWallVueBasic.vue';
+import PhotoWallVueBasicRaw from './PhotoWallVueBasic.vue?raw';
+---
+
+<CodeContainer
+    codes={[
+        PhotoWallBasicRaw,
+        PhotoWallVueBasicRaw
+    ]}
+    titles={[
+        '基础用法',
+        '基础用法'
+    ]}
+>
+    <div id="tab-1" data-label="astro">
+        <PhotoWallBasic />
+    </div>
+    <div id="tab-2" data-label="vue">
+        <PhotoWallVueBasic />
+    </div>
+</CodeContainer>

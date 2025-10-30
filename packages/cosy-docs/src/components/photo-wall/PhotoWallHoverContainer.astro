@@ -1,7 +1,4 @@
 ---
-
-
-
 import { CodeContainer } from "@coffic/cosy-ui";
 // 组件导入
 import FalseExample from "./PhotoWallHoverFalse.astro";
@@ -9,15 +6,26 @@ import FalseExample from "./PhotoWallHoverFalse.astro";
 import FalseSourceCode from "./PhotoWallHoverFalse.astro?raw";
 import TrueExample from "./PhotoWallHoverTrue.astro";
 import TrueSourceCode from "./PhotoWallHoverTrue.astro?raw";
+// Vue 组件导入
+import PhotoWallVueHoverFalse from "./PhotoWallVueHoverFalse.vue";
+import PhotoWallVueHoverFalseRaw from "./PhotoWallVueHoverFalse.vue?raw";
+import PhotoWallVueHoverTrue from "./PhotoWallVueHoverTrue.vue";
+import PhotoWallVueHoverTrueRaw from "./PhotoWallVueHoverTrue.vue?raw";
 ---
 
 <CodeContainer
-  codes={[FalseSourceCode, TrueSourceCode]}
-  titles={['false', 'true']}>
-  <div id="tab-1">
+  codes={[FalseSourceCode, TrueSourceCode, PhotoWallVueHoverFalseRaw, PhotoWallVueHoverTrueRaw]}
+  titles={['false', 'true', 'false', 'true']}>
+  <div id="tab-1" data-label="astro">
     <FalseExample />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <TrueExample />
+  </div>
+  <div id="tab-3" data-label="vue">
+    <PhotoWallVueHoverFalse />
+  </div>
+  <div id="tab-4" data-label="vue">
+    <PhotoWallVueHoverTrue />
   </div>
 </CodeContainer>

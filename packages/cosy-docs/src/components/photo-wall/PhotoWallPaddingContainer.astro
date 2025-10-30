@@ -1,14 +1,5 @@
 ---
-
-
-
 import { CodeContainer } from "@coffic/cosy-ui";
-import Xl2Example from "./PhotoWallPadding2xl.astro";
-import Xl2SourceCode from "./PhotoWallPadding2xl.astro?raw";
-import Xl3Example from "./PhotoWallPadding3xl.astro";
-import Xl3SourceCode from "./PhotoWallPadding3xl.astro?raw";
-import Xl4Example from "./PhotoWallPadding4xl.astro";
-import Xl4SourceCode from "./PhotoWallPadding4xl.astro?raw";
 import LgExample from "./PhotoWallPaddingLg.astro";
 import LgSourceCode from "./PhotoWallPaddingLg.astro?raw";
 import MdExample from "./PhotoWallPaddingMd.astro";
@@ -21,6 +12,17 @@ import SmExample from "./PhotoWallPaddingSm.astro";
 import SmSourceCode from "./PhotoWallPaddingSm.astro?raw";
 import XlExample from "./PhotoWallPaddingXl.astro";
 import XlSourceCode from "./PhotoWallPaddingXl.astro?raw";
+// Vue 组件导入
+import PhotoWallVuePaddingLg from "./PhotoWallVuePaddingLg.vue";
+import PhotoWallVuePaddingLgRaw from "./PhotoWallVuePaddingLg.vue?raw";
+import PhotoWallVuePaddingMd from "./PhotoWallVuePaddingMd.vue";
+import PhotoWallVuePaddingMdRaw from "./PhotoWallVuePaddingMd.vue?raw";
+import PhotoWallVuePaddingNone from "./PhotoWallVuePaddingNone.vue";
+import PhotoWallVuePaddingNoneRaw from "./PhotoWallVuePaddingNone.vue?raw";
+import PhotoWallVuePaddingSm from "./PhotoWallVuePaddingSm.vue";
+import PhotoWallVuePaddingSmRaw from "./PhotoWallVuePaddingSm.vue?raw";
+import PhotoWallVuePaddingXl from "./PhotoWallVuePaddingXl.vue";
+import PhotoWallVuePaddingXlRaw from "./PhotoWallVuePaddingXl.vue?raw";
 ---
 
 <CodeContainer
@@ -30,33 +32,41 @@ import XlSourceCode from "./PhotoWallPaddingXl.astro?raw";
     MdSourceCode,
     LgSourceCode,
     XlSourceCode,
-    Xl2SourceCode,
-    Xl3SourceCode,
-    Xl4SourceCode,
+    PhotoWallVuePaddingNoneRaw,
+    PhotoWallVuePaddingSmRaw,
+    PhotoWallVuePaddingMdRaw,
+    PhotoWallVuePaddingLgRaw,
+    PhotoWallVuePaddingXlRaw,
   ]}
-  titles={['none', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl']}>
-  <div id="tab-1">
+  titles={['none', 'sm', 'md', 'lg', 'xl', 'none', 'sm', 'md', 'lg', 'xl']}>
+  <div id="tab-1" data-label="astro">
     <NoneExample />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <SmExample />
   </div>
-  <div id="tab-3">
+  <div id="tab-3" data-label="astro">
     <MdExample />
   </div>
-  <div id="tab-4">
+  <div id="tab-4" data-label="astro">
     <LgExample />
   </div>
-  <div id="tab-5">
+  <div id="tab-5" data-label="astro">
     <XlExample />
   </div>
-  <div id="tab-6">
-    <Xl2Example />
+  <div id="tab-6" data-label="vue">
+    <PhotoWallVuePaddingNone />
   </div>
-  <div id="tab-7">
-    <Xl3Example />
+  <div id="tab-7" data-label="vue">
+    <PhotoWallVuePaddingSm />
   </div>
-  <div id="tab-8">
-    <Xl4Example />
+  <div id="tab-8" data-label="vue">
+    <PhotoWallVuePaddingMd />
+  </div>
+  <div id="tab-9" data-label="vue">
+    <PhotoWallVuePaddingLg />
+  </div>
+  <div id="tab-10" data-label="vue">
+    <PhotoWallVuePaddingXl />
   </div>
 </CodeContainer>
