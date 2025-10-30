@@ -1,30 +1,45 @@
 ---
-
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import ApplePhoneBasic from "./ApplePhoneBasic.astro";
-import ApplePhoneBasicSourceCode from "./ApplePhoneBasic.astro?raw";
-import ApplePhoneLongTextNoFrame from "./ApplePhoneLongTextNoFrame.astro";
-import ApplePhoneLongTextNoFrameSourceCode from "./ApplePhoneLongTextNoFrame.astro?raw";
-import ApplePhoneLongTextWithFrame from "./ApplePhoneLongTextWithFrame.astro";
-import ApplePhoneLongTextWithFrameSourceCode from "./ApplePhoneLongTextWithFrame.astro?raw";
+/**
+ * @component ApplePhoneExamplesContainer
+ * @description 展示 ApplePhone 组件的多种示例用法，Astro/Vue 各自独立标签展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ApplePhoneBasic from './ApplePhoneBasic.astro';
+import ApplePhoneBasicRaw from './ApplePhoneBasic.astro?raw';
+import ApplePhoneBasicVue from './ApplePhoneBasicVue.vue';
+import ApplePhoneBasicVueRaw from './ApplePhoneBasicVue.vue?raw';
+import ApplePhoneLongTextNoFrame from './ApplePhoneLongTextNoFrame.astro';
+import ApplePhoneLongTextNoFrameRaw from './ApplePhoneLongTextNoFrame.astro?raw';
+import ApplePhoneLongTextNoFrameVue from './ApplePhoneLongTextNoFrameVue.vue';
+import ApplePhoneLongTextNoFrameVueRaw from './ApplePhoneLongTextNoFrameVue.vue?raw';
+import ApplePhoneLongTextWithFrame from './ApplePhoneLongTextWithFrame.astro';
+import ApplePhoneLongTextWithFrameRaw from './ApplePhoneLongTextWithFrame.astro?raw';
+import ApplePhoneLongTextWithFrameVue from './ApplePhoneLongTextWithFrameVue.vue';
+import ApplePhoneLongTextWithFrameVueRaw from './ApplePhoneLongTextWithFrameVue.vue?raw';
 ---
 
 <CodeContainer
-    codes={[
-        ApplePhoneBasicSourceCode,
-        ApplePhoneLongTextNoFrameSourceCode,
-        ApplePhoneLongTextWithFrameSourceCode,
-    ]}
-    titles={['基本用法', '长文本无边框', '长文本有边框']}>
-    <div id="tab-1">
-        <ApplePhoneBasic />
-    </div>
-    <div id="tab-2">
-        <ApplePhoneLongTextNoFrame />
-    </div>
-    <div id="tab-3">
-        <ApplePhoneLongTextWithFrame />
-    </div>
+	codes={[
+		ApplePhoneBasicRaw,
+		ApplePhoneLongTextNoFrameRaw,
+		ApplePhoneLongTextWithFrameRaw,
+		ApplePhoneBasicVueRaw,
+		ApplePhoneLongTextNoFrameVueRaw,
+		ApplePhoneLongTextWithFrameVueRaw,
+	]}
+	titles={[
+		'基本用法',
+		'长文本无边框',
+		'长文本有边框',
+		'基本用法',
+		'长文本无边框',
+		'长文本有边框',
+	]}
+>
+	<div id="tab-1" data-label="astro"><ApplePhoneBasic /></div>
+	<div id="tab-2" data-label="astro"><ApplePhoneLongTextNoFrame /></div>
+	<div id="tab-3" data-label="astro"><ApplePhoneLongTextWithFrame /></div>
+	<div id="tab-4" data-label="vue"><ApplePhoneBasicVue /></div>
+	<div id="tab-5" data-label="vue"><ApplePhoneLongTextNoFrameVue /></div>
+	<div id="tab-6" data-label="vue"><ApplePhoneLongTextWithFrameVue /></div>
 </CodeContainer>

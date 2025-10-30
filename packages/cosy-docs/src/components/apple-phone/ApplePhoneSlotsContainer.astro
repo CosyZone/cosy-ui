@@ -1,21 +1,30 @@
 ---
-
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import ApplePhoneSlotsBasic from "./ApplePhoneSlotsBasic.astro";
-import ApplePhoneSlotsBasicSourceCode from "./ApplePhoneSlotsBasic.astro?raw";
-import ApplePhoneSlotsComplex from "./ApplePhoneSlotsComplex.astro";
-import ApplePhoneSlotsComplexSourceCode from "./ApplePhoneSlotsComplex.astro?raw";
+/**
+ * @component ApplePhoneSlotsContainer
+ * @description 展示 ApplePhone 组件的 default slot 两种用法，Astro/Vue 各自独立标签展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ApplePhoneSlotsBasic from './ApplePhoneSlotsBasic.astro';
+import ApplePhoneSlotsBasicRaw from './ApplePhoneSlotsBasic.astro?raw';
+import ApplePhoneSlotsBasicVue from './ApplePhoneSlotsBasicVue.vue';
+import ApplePhoneSlotsBasicVueRaw from './ApplePhoneSlotsBasicVue.vue?raw';
+import ApplePhoneSlotsComplex from './ApplePhoneSlotsComplex.astro';
+import ApplePhoneSlotsComplexRaw from './ApplePhoneSlotsComplex.astro?raw';
+import ApplePhoneSlotsComplexVue from './ApplePhoneSlotsComplexVue.vue';
+import ApplePhoneSlotsComplexVueRaw from './ApplePhoneSlotsComplexVue.vue?raw';
 ---
 
 <CodeContainer
-    codes={[ApplePhoneSlotsBasicSourceCode, ApplePhoneSlotsComplexSourceCode]}
-    titles={['基本内容', '复杂内容']}>
-    <div id="tab-1">
-        <ApplePhoneSlotsBasic />
-    </div>
-    <div id="tab-2">
-        <ApplePhoneSlotsComplex />
-    </div>
+	codes={[
+		ApplePhoneSlotsBasicRaw,
+		ApplePhoneSlotsComplexRaw,
+		ApplePhoneSlotsBasicVueRaw,
+		ApplePhoneSlotsComplexVueRaw,
+	]}
+	titles={['基本内容', '复杂内容', '基本内容', '复杂内容']}
+>
+	<div id="tab-1" data-label="astro"><ApplePhoneSlotsBasic /></div>
+	<div id="tab-2" data-label="astro"><ApplePhoneSlotsComplex /></div>
+	<div id="tab-3" data-label="vue"><ApplePhoneSlotsBasicVue /></div>
+	<div id="tab-4" data-label="vue"><ApplePhoneSlotsComplexVue /></div>
 </CodeContainer>

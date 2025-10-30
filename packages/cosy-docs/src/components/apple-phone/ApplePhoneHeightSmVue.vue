@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { ApplePhone, Heading } from "@coffic/cosy-ui/vue";
+import { ApplePhone, Heading } from '@coffic/cosy-ui/vue';
 </script>
-
 <template>
     <ApplePhone height="sm">
         <Heading :level="4">小尺寸</Heading>

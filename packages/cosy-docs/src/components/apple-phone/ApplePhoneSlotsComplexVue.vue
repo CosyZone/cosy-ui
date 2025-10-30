@@ -1,0 +1,20 @@
+<script setup lang="ts">
+import { ApplePhone } from '@coffic/cosy-ui/vue';
+</script>
+<template>
+  <ApplePhone title="复杂内容">
+    <div class="cosy:h-full cosy:flex cosy:flex-col">
+      <header class="cosy:p-4 cosy:bg-primary/10 cosy:text-center">
+        <h2 class="cosy:text-lg cosy:font-bold">应用头部</h2>
+      </header>
+      <main class="cosy:flex-1 cosy:p-4 cosy:overflow-auto">
+        <p>这是应用的主要内容区域。</p>
+        <p class="cosy:mt-2">可以放置任何复杂的 UI 组件。</p>
+      </main>
+      <footer class="cosy:p-2 cosy:bg-accent/10 cosy:text-center cosy:text-sm">
+        底部栏
+      </footer>
+    </div>
+  </ApplePhone>
+</template>
+
