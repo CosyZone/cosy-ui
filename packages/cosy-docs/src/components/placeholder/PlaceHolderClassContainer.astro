@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component PlaceHolderClassContainer
  * @description PlaceHolder 组件 class 属性用法示例容器
@@ -9,8 +6,12 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import PlaceHolderCustomClass from "./PlaceHolderCustomClass.astro";
 import sourceCustomClass from "./PlaceHolderCustomClass.astro?raw";
+// Vue 组件导入
+import PlaceholderVueClassExample from "./PlaceholderVueClassExample.vue";
+import PlaceholderVueClassExampleRaw from "./PlaceholderVueClassExample.vue?raw";
 ---
 
-<CodeContainer titles={['自定义样式']} codes={[sourceCustomClass]}>
-    <div id="tab-1"><PlaceHolderCustomClass /></div>
+<CodeContainer titles={['自定义样式', '自定义样式']} codes={[sourceCustomClass, PlaceholderVueClassExampleRaw]}>
+    <div id="tab-1" data-label="astro"><PlaceHolderCustomClass /></div>
+    <div id="tab-2" data-label="vue"><PlaceholderVueClassExample /></div>
 </CodeContainer>

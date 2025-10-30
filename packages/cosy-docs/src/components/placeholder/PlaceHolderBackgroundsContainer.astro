@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component PlaceHolderBackgroundsContainer
  * @description PlaceHolder 组件背景色示例容器
@@ -13,16 +10,29 @@ import PlaceHolderBackgroundStatus from "./PlaceHolderBackgroundStatus.astro";
 import PlaceHolderBackgroundStatusSourceCode from "./PlaceHolderBackgroundStatus.astro?raw";
 import PlaceHolderBackgroundTheme from "./PlaceHolderBackgroundTheme.astro";
 import PlaceHolderBackgroundThemeSourceCode from "./PlaceHolderBackgroundTheme.astro?raw";
+// Vue 组件导入
+import PlaceholderVueBackgroundBase from "./PlaceholderVueBackgroundBase.vue";
+import PlaceholderVueBackgroundBaseRaw from "./PlaceholderVueBackgroundBase.vue?raw";
+import PlaceholderVueBackgroundStatus from "./PlaceholderVueBackgroundStatus.vue";
+import PlaceholderVueBackgroundStatusRaw from "./PlaceholderVueBackgroundStatus.vue?raw";
+import PlaceholderVueBackgroundTheme from "./PlaceholderVueBackgroundTheme.vue";
+import PlaceholderVueBackgroundThemeRaw from "./PlaceholderVueBackgroundTheme.vue?raw";
 ---
 
 <CodeContainer
-  titles={['基础背景色', '主题背景色', '状态背景色']}
+  titles={['基础背景色', '主题背景色', '状态背景色', '基础背景色', '主题背景色', '状态背景色']}
   codes={[
     PlaceHolderBackgroundBaseSourceCode,
     PlaceHolderBackgroundThemeSourceCode,
     PlaceHolderBackgroundStatusSourceCode,
+    PlaceholderVueBackgroundBaseRaw,
+    PlaceholderVueBackgroundThemeRaw,
+    PlaceholderVueBackgroundStatusRaw,
   ]}>
-  <div id="tab-1"><PlaceHolderBackgroundBase /></div>
-  <div id="tab-2"><PlaceHolderBackgroundTheme /></div>
-  <div id="tab-3"><PlaceHolderBackgroundStatus /></div>
+  <div id="tab-1" data-label="astro"><PlaceHolderBackgroundBase /></div>
+  <div id="tab-2" data-label="astro"><PlaceHolderBackgroundTheme /></div>
+  <div id="tab-3" data-label="astro"><PlaceHolderBackgroundStatus /></div>
+  <div id="tab-4" data-label="vue"><PlaceholderVueBackgroundBase /></div>
+  <div id="tab-5" data-label="vue"><PlaceholderVueBackgroundTheme /></div>
+  <div id="tab-6" data-label="vue"><PlaceholderVueBackgroundStatus /></div>
 </CodeContainer>

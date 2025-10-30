@@ -14,14 +14,14 @@ import PhotoWallTitleContainer from "./PhotoWallTitleContainer.astro";
 import PhotoWallWidthContainer from "./PhotoWallWidthContainer.astro";
 
 export const PhotoWallPackage = {
-    Basic: PhotoWallBasicContainer,
-    BackgroundContainer: PhotoWallBackgroundContainer,
-    ClickableContainer: PhotoWallClickableContainer,
-    GapContainer: PhotoWallGapContainer,
-    HoverContainer: PhotoWallHoverContainer,
-    PaddingContainer: PhotoWallPaddingContainer,
-    RoundedContainer: PhotoWallRoundedContainer,
-    SubtitleContainer: PhotoWallSubtitleContainer,
-    TitleContainer: PhotoWallTitleContainer,
-    WidthContainer: PhotoWallWidthContainer,
+	Basic: PhotoWallBasicContainer,
+	BackgroundContainer: PhotoWallBackgroundContainer,
+	ClickableContainer: PhotoWallClickableContainer,
+	GapContainer: PhotoWallGapContainer,
+	HoverContainer: PhotoWallHoverContainer,
+	PaddingContainer: PhotoWallPaddingContainer,
+	RoundedContainer: PhotoWallRoundedContainer,
+	SubtitleContainer: PhotoWallSubtitleContainer,
+	TitleContainer: PhotoWallTitleContainer,
+	WidthContainer: PhotoWallWidthContainer,
 };

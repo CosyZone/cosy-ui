@@ -7,15 +7,26 @@ import PlaceHolderBorder from "./PlaceHolderBorder.astro";
 import PlaceHolderBorderSourceCode from "./PlaceHolderBorder.astro?raw";
 import PlaceHolderNoBorder from "./PlaceHolderNoBorder.astro";
 import PlaceHolderNoBorderSourceCode from "./PlaceHolderNoBorder.astro?raw";
+// Vue 组件导入
+import PlaceholderVueBorder from "./PlaceholderVueBorder.vue";
+import PlaceholderVueBorderRaw from "./PlaceholderVueBorder.vue?raw";
+import PlaceholderVueNoBorder from "./PlaceholderVueNoBorder.vue";
+import PlaceholderVueNoBorderRaw from "./PlaceholderVueNoBorder.vue?raw";
 ---
 
 <CodeContainer
-    codes={[PlaceHolderNoBorderSourceCode, PlaceHolderBorderSourceCode]}
-    titles={['false', 'true']}>
-    <div id="tab-1">
+    codes={[PlaceHolderNoBorderSourceCode, PlaceHolderBorderSourceCode, PlaceholderVueNoBorderRaw, PlaceholderVueBorderRaw]}
+    titles={['false', 'true', 'false', 'true']}>
+    <div id="tab-1" data-label="astro">
         <PlaceHolderNoBorder />
     </div>
-    <div id="tab-2">
+    <div id="tab-2" data-label="astro">
         <PlaceHolderBorder />
+    </div>
+    <div id="tab-3" data-label="vue">
+        <PlaceholderVueNoBorder />
+    </div>
+    <div id="tab-4" data-label="vue">
+        <PlaceholderVueBorder />
     </div>
 </CodeContainer>

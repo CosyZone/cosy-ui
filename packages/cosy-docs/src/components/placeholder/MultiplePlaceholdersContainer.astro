@@ -1,0 +1,30 @@
+---
+/**
+ * @component MultiplePlaceholdersContainer
+ * @description 展示 PlaceHolder 组件的多占位符示例，Astro/Vue 各一个标签。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+
+import MultiplePlaceholders from './MultiplePlaceholders.astro';
+import MultiplePlaceholdersRaw from './MultiplePlaceholders.astro?raw';
+import PlaceholderVueMultiplePlaceholders from './PlaceholderVueMultiplePlaceholders.vue';
+import PlaceholderVueMultiplePlaceholdersRaw from './PlaceholderVueMultiplePlaceholders.vue?raw';
+---
+
+<CodeContainer
+    codes={[
+        MultiplePlaceholdersRaw,
+        PlaceholderVueMultiplePlaceholdersRaw
+    ]}
+    titles={[
+        '多占位符',
+        '多占位符'
+    ]}
+>
+    <div id="tab-1" data-label="astro">
+        <MultiplePlaceholders />
+    </div>
+    <div id="tab-2" data-label="vue">
+        <PlaceholderVueMultiplePlaceholders />
+    </div>
+</CodeContainer>
