@@ -57,12 +57,12 @@ const paddingClassMap = {
 ### 优先使用 cn() classBuilder
 
 - **推荐使用 `cn()` 构建类名**：统一的类名构建方式，代码更清晰
-- **自动包含样式**：导入 `cn()` 时自动加载全局样式，无需单独导入
 - **链式调用**：支持链式调用，代码更优雅
+- **类型安全**：提供完整的 TypeScript 类型支持
 
 ```typescript
 // ✅ 推荐：使用 cn() classBuilder
-import { cn } from '../../src/class';  // 自动包含全局样式
+import { cn } from '../../src/class';
 
 const buttonClass = cn()
     .add('cosy:btn')
@@ -75,8 +75,6 @@ const buttonClass = cn()
 
 ```typescript
 // ❌ 不推荐：手动拼接类名
-import '../../style.ts';  // 需要手动导入
-
 const buttonClass = ['cosy:btn', 'cosy:flex', 'cosy:items-center', 'cosy:gap-2', className]
     .filter(Boolean)
     .join(' ');
@@ -124,25 +122,55 @@ src-astro/
 
 ### 导入顺序
 
-1. ClassBuilder 导入（自动包含样式，推荐使用）
-2. 类型导入（从 common 开始）
-3. 组件导入
-4. 工具函数导入
+1. 类型导入（从 common 开始）
+2. 组件导入
+3. 工具函数导入（如 ClassBuilder）
 
 ```typescript
-// ✅ 正确的导入顺序（使用 cn() classBuilder）
-import { cn } from '../../src/class';  // 自动包含全局样式
+// ✅ 正确的导入顺序
 import type { ImageItem } from './types';
 import type { PaddingSize, MarginSize } from '@coffic/cosy-ui/common';
 import { paddingClasses, marginClasses } from '@coffic/cosy-ui/common';
 import Container from '../container/Container.astro';
+import { cn } from '../../src/class';  // 如需使用 classBuilder
 ```
 
-**注意**：
+## 样式导入规范
 
-- 使用 `cn()` classBuilder 的组件**不需要**单独导入 `import '../../style.ts';`
-- 样式会在导入 `cn` 时自动加载
-- 如果组件不使用 `cn()`，则仍需手动导入样式文件
+### 统一样式管理
+
+- **样式已在入口文件统一导入**：所有样式在 `index-astro.ts` 和 `index-vue.ts` 中通过 `import "./style.ts"` 统一加载
+- **组件不需要单独导入样式**：无论是否使用 `cn()` classBuilder，组件都不需要导入样式文件
+- **自动样式加载**：用户导入任何组件时，样式会自动加载
+
+```typescript
+// ✅ 正确：组件不导入样式
+import type { Props } from './types';
+import { cn } from '../../src/class';
+
+// 直接使用，样式已在入口文件加载
+const buttonClass = cn()
+    .add('cosy:btn')
+    .build();
+```
+
+```typescript
+// ❌ 错误：不要在组件中导入样式
+import '../../style.ts';  // ❌ 禁止！样式已在入口统一导入
+```
+
+### 工作原理
+
+```typescript
+// index-astro.ts（入口文件）
+import "./style.ts";  // ← 样式在这里统一加载
+export * from "./src-astro/button";
+export * from "./src-astro/card";
+// ...
+
+// 用户代码
+import { Button } from '@coffic/cosy-ui';  // ✅ 样式自动加载
+```
 
 ## 测试和验证
 
