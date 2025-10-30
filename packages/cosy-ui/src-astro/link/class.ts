@@ -1,5 +1,5 @@
-import type { ILinkProps } from "./props";
 import { getBaseLinkClasses } from "../../src/components/link/class-all";
+import type { ILinkProps } from "./props";
 
 /**
  * 计算 Link 组件的 Astro 版本组合类名

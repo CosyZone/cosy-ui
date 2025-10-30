@@ -1,6 +1,6 @@
 import {
-	textWeightClasses,
 	type TextWeight,
+	textWeightClasses,
 } from "../../../src/common/textWeights";
 
 /**

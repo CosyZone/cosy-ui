@@ -32,8 +32,8 @@
  */
 
 import type { IMainContentProps } from "../../src/components/main/types";
-import { createMainProps } from "./props";
 import type { IMainPropsBuilder } from "./props";
+import { createMainProps } from "./props";
 
 interface SlotComponent {
 	component: any;

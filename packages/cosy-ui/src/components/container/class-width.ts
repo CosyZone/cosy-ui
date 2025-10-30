@@ -1,5 +1,5 @@
-import { widthClasses } from "../../../src/common/width";
 import type { WidthSize } from "../../../src/common/width";
+import { widthClasses } from "../../../src/common/width";
 
 /**
  * 计算 Container 组件的width相关类名

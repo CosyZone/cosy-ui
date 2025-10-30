@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { AlertDialog, Container } from "../../index-vue";
 import { ref } from "vue";
-import StatusBarContent from "./StatusBarContent.vue";
+import { AlertDialog, Container } from "../../index-vue";
 import PhoneFrame from "./PhoneFrame.vue";
+import StatusBarContent from "./StatusBarContent.vue";
 
 /**
  * @component ApplePhone
@@ -41,14 +41,14 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 import {
-	IPHONE_FRAME_WIDTH,
-	IPHONE_FRAME_HEIGHT,
-	MAIN_CONTENT_WIDTH_ASPECT_RATIO,
-	MAIN_CONTENT_HEIGHT_ASPECT_RATIO,
-	IPHONE_FRAME_STATUS_BAR_HEIGHT_ASPECT_RATIO,
-	IPHONE_FRAME_STATUS_BAR_TOP_ASPECT_RATIO,
 	HEIGHT_CLASSES,
 	HEIGHT_VALUES,
+	IPHONE_FRAME_HEIGHT,
+	IPHONE_FRAME_STATUS_BAR_HEIGHT_ASPECT_RATIO,
+	IPHONE_FRAME_STATUS_BAR_TOP_ASPECT_RATIO,
+	IPHONE_FRAME_WIDTH,
+	MAIN_CONTENT_HEIGHT_ASPECT_RATIO,
+	MAIN_CONTENT_WIDTH_ASPECT_RATIO,
 } from "../../src/components/apple-phone/constants";
 
 // 响应式数据

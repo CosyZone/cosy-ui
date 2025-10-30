@@ -62,6 +62,6 @@ export interface IPhotoWallProps {
 }
 
 // 导入通用类型
-import type { PaddingSize, RoundedSize, BorderSize } from "../../src/common";
+import type { BorderSize, PaddingSize, RoundedSize } from "../../src/common";
 import type { BackgroundColor } from "../../src/common/backgrounds";
 import type { Size } from "../../src/common/size";

@@ -41,63 +41,63 @@
  */
 
 import {
-	LayoutBuilder,
 	type FlexDirection,
 	type ItemsAlign,
 	type JustifyAlign,
+	LayoutBuilder,
 	type PlaceItemsAlign,
 } from "./builders/LayoutBuilder";
-import {
-	SpacingBuilder,
-	type GapSize,
-	type PaddingSize,
-	type MarginSize,
-	type MarginXSize,
-	type MarginYSize,
-	type MarginTopSize,
-	type MarginBottomSize,
-	type MarginLeftSize,
-	type MarginRightSize,
-	type PaddingXSize,
-	type PaddingYSize,
-	type PaddingTopSize,
-	type PaddingBottomSize,
-	type PaddingLeftSize,
-	type PaddingRightSize,
-	type SpaceXSize,
-	type SpaceYSize,
-} from "./builders/SpacingBuilder";
 import { ListBuilder, type ListStyleType } from "./builders/ListBuilder";
 import {
-	SizeBuilder,
-	type WidthSize,
-	type HeightSize,
-	type MinWidthSize,
-	type MinHeightSize,
-	type MaxWidthSize,
-	type MaxHeightSize,
-} from "./builders/SizeBuilder";
-import {
-	TextBuilder,
-	type TextSize,
-	type TextColor,
-	type TextAlign,
-	type FontWeight,
-} from "./builders/TextBuilder";
-import {
+	type BgOpacityValue,
 	OpacityBuilder,
 	type OpacityValue,
-	type BgOpacityValue,
 	type TextOpacityValue,
 } from "./builders/OpacityBuilder";
 import {
-	PositionBuilder,
 	type InsetSize,
 	type InsetXSize,
 	type InsetYSize,
-	type ZIndexValue,
 	type PointerEventsValue,
+	PositionBuilder,
+	type ZIndexValue,
 } from "./builders/PositionBuilder";
+import {
+	type HeightSize,
+	type MaxHeightSize,
+	type MaxWidthSize,
+	type MinHeightSize,
+	type MinWidthSize,
+	SizeBuilder,
+	type WidthSize,
+} from "./builders/SizeBuilder";
+import {
+	type GapSize,
+	type MarginBottomSize,
+	type MarginLeftSize,
+	type MarginRightSize,
+	type MarginSize,
+	type MarginTopSize,
+	type MarginXSize,
+	type MarginYSize,
+	type PaddingBottomSize,
+	type PaddingLeftSize,
+	type PaddingRightSize,
+	type PaddingSize,
+	type PaddingTopSize,
+	type PaddingXSize,
+	type PaddingYSize,
+	type SpaceXSize,
+	type SpaceYSize,
+	SpacingBuilder,
+} from "./builders/SpacingBuilder";
+import {
+	type FontWeight,
+	type TextAlign,
+	TextBuilder,
+	type TextColor,
+	type TextSize,
+} from "./builders/TextBuilder";
 
 class ClassBuilder {
 	// 统一的类名数组，保持调用顺序

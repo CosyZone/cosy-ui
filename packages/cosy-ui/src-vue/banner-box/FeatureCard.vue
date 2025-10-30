@@ -1,69 +1,69 @@
 <script setup lang="ts">
-import { computed, type Component } from "vue";
 import {
-	// 开发相关
-	RiGithubFill,
-	RiGitBranchLine,
-	RiTerminalBoxLine,
-	RiCommandLine,
-	RiCodeSSlashLine,
-	RiBracesLine,
-	RiDatabase2Line,
-	RiServerLine,
+	RiAppsLine,
+	RiArticleLine,
+	RiBarChartLine,
 	// 文档相关
 	RiBookOpenLine,
-	RiFileTextLine,
-	RiArticleLine,
-	RiDraftLine,
-	RiFileListLine,
-	// 媒体相关
-	RiImage2Line,
-	RiVideoLine,
-	RiMusic2Line,
-	RiPlayCircleLine,
-	RiMovieLine,
-	// 社交相关
-	RiUserLine,
-	RiTeamLine,
+	RiBracesLine,
+	RiBrainLine,
 	RiChat1Line,
-	RiMessage2Line,
-	RiShareLine,
-	// 工具相关
-	RiToolsLine,
-	RiSettings4Line,
-	RiDashboardLine,
-	RiAppsLine,
-	RiPlugLine,
-	// 安全相关
-	RiShieldLine,
-	RiLockLine,
-	RiKeyLine,
-	RiUserSettingsLine,
 	// 云服务相关
 	RiCloudLine,
-	RiUploadCloud2Line,
-	RiDownloadCloud2Line,
 	RiCloudOffLine,
-	// 设备相关
-	RiSmartphoneLine,
-	RiTabletLine,
+	RiCodeSSlashLine,
+	RiCommandLine,
 	RiComputerLine,
-	RiWifiLine,
+	RiCpuLine,
+	RiDashboardLine,
+	RiDatabase2Line,
+	RiDownloadCloud2Line,
+	RiDraftLine,
+	RiFileListLine,
+	RiFileTextLine,
+	RiGitBranchLine,
+	// 开发相关
+	RiGithubFill,
+	RiHeartLine,
+	// 媒体相关
+	RiImage2Line,
+	RiKeyLine,
+	RiLightbulbLine,
+	RiLineChartLine,
+	RiLockLine,
+	RiMessage2Line,
+	RiMovieLine,
+	RiMusic2Line,
 	// 数据相关
 	RiPieChartLine,
-	RiLineChartLine,
-	RiBarChartLine,
+	RiPlayCircleLine,
+	RiPlugLine,
 	// AI/机器学习相关
 	RiRobot2Line,
-	RiBrainLine,
-	RiCpuLine,
 	// 其他常用
 	RiRocketLine,
-	RiLightbulbLine,
+	RiServerLine,
+	RiSettings4Line,
+	RiShareLine,
+	// 安全相关
+	RiShieldLine,
+	// 设备相关
+	RiSmartphoneLine,
 	RiStarLine,
-	RiHeartLine,
+	RiTabletLine,
+	RiTeamLine,
+	RiTerminalBoxLine,
 	RiThumbUpLine,
+	// 工具相关
+	RiToolsLine,
+	RiUploadCloud2Line,
+	// 社交相关
+	RiUserLine,
+	RiUserSettingsLine,
+	RiVideoLine,
+	RiWifiLine,
 } from "@remixicon/vue";
+import { type Component, computed } from "vue";
 
 // 预设图标映射
 const presetIcons = {

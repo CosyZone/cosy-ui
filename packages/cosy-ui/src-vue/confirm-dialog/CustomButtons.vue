@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import "../../app.css";
-import { ref, defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import ConfirmDialog from "./ConfirmDialog.vue";
 
 export default defineComponent({

@@ -1,6 +1,6 @@
 import type { IBadgePropsBase } from "./badgePropsBase";
-import { renderBadge } from "./renderBadge";
 import { getBaseBadgeClasses } from "./class-all";
+import { renderBadge } from "./renderBadge";
 
 /**
  * Badge 门面对象 - 统一的 Badge 组件接口

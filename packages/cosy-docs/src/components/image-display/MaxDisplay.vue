@@ -33,13 +33,11 @@
 </template>
 
 <script setup lang="ts">
-import { ImageDisplay } from "@coffic/cosy-ui/vue";
-import {
-	getExampleImage,
+import { 
 	getAvatarImage,
-	getProductImage,
+	getExampleImage,
 	getLandscapeImage,
-} from "@coffic/cosy-ui/vue";
+	getProductImage,ImageDisplay, } from "@coffic/cosy-ui/vue";
 
 const sampleImages = [
 	getExampleImage({

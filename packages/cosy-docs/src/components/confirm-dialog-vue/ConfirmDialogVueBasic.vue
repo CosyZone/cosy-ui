@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import { ConfirmDialog } from "@coffic/cosy-ui/vue";
+import { ref } from "vue";
 
 const showDialog = ref(false);
 

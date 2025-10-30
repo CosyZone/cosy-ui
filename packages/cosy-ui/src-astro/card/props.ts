@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from "astro/types";
 import type { ICardPropsBase } from "../../src/components/card/cardPropsBase";
-import type { ImageSource } from "../image/types";
 import type { IContainerProps } from "../container/props";
+import type { ImageSource } from "../image/types";
 
 /**
  * Card 组件的 Astro 版本属性接口（继承基础接口和Container属性，并扩展 Astro 特定属性）

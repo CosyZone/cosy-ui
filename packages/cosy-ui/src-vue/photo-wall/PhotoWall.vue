@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, ref, onMounted, nextTick } from "vue";
-import PhotoCard from "./PhotoCard.vue";
+import { computed, nextTick, onMounted, ref } from "vue";
 import Container from "../container/Container.vue";
+import PhotoCard from "./PhotoCard.vue";
 import type { IPhotoWallProps, PhotoCardData } from "./types";
 
 /**

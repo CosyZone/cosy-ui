@@ -1,5 +1,5 @@
-import type { IHeadingProps } from "./types";
 import { getBaseHeadingClasses } from "../../src/components/heading/class-all";
+import type { IHeadingProps } from "./types";
 
 /**
  * 计算 Heading 组件的 Vue 版本组合类名

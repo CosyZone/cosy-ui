@@ -1,6 +1,6 @@
+import { cn } from "../../class";
 import type { IAlertPropsBase } from "./alertPropsBase";
 import { getBaseAlertClasses } from "./class-all";
-import { cn } from "../../class";
 
 /**
  * Alert 渲染选项

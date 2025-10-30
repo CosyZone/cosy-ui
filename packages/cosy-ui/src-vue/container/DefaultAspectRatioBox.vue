@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import type { RoundedSize } from "../../src/common/rounded";
 import { roundedClasses } from "../../src/common";
+import type { RoundedSize } from "../../src/common/rounded";
 
 interface Props {
 	aspectRatio: number;

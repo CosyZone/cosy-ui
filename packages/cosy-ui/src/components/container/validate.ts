@@ -1,5 +1,5 @@
-import { validateSizing } from "./validate-sizing";
 import { validatePaddingConflict } from "./validate-padding";
+import { validateSizing } from "./validate-sizing";
 
 /**
  * 校验 Container 组件配置

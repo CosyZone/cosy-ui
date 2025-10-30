@@ -1,4 +1,4 @@
-export { default as Main } from "./Main.astro";
 export type { IMainContentProps } from "../../src/components/main/types";
-export { MainProps, createMainProps } from "./props";
+export { default as Main } from "./Main.astro";
 export { MainFactory } from "./MainFactory";
+export { createMainProps, MainProps } from "./props";

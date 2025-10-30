@@ -1,12 +1,12 @@
-import ApiTesterExampleContainer from "./ApiTesterExampleContainer.astro";
-import ApiTesterEndpointsContainer from "./ApiTesterEndpointsContainer.astro";
-import ApiTesterTitleContainer from "./ApiTesterTitleContainer.astro";
-import ApiTesterDescriptionContainer from "./ApiTesterDescriptionContainer.astro";
-import ApiTesterShowHeadersContainer from "./ApiTesterShowHeadersContainer.astro";
-import ApiTesterDefaultHeadersContainer from "./ApiTesterDefaultHeadersContainer.astro";
-import ApiTesterShowResponseTimeContainer from "./ApiTesterShowResponseTimeContainer.astro";
-import ApiTesterShowRequestDetailsContainer from "./ApiTesterShowRequestDetailsContainer.astro";
 import ApiTesterCustomStyleContainer from "./ApiTesterCustomStyleContainer.astro";
+import ApiTesterDefaultHeadersContainer from "./ApiTesterDefaultHeadersContainer.astro";
+import ApiTesterDescriptionContainer from "./ApiTesterDescriptionContainer.astro";
+import ApiTesterEndpointsContainer from "./ApiTesterEndpointsContainer.astro";
+import ApiTesterExampleContainer from "./ApiTesterExampleContainer.astro";
+import ApiTesterShowHeadersContainer from "./ApiTesterShowHeadersContainer.astro";
+import ApiTesterShowRequestDetailsContainer from "./ApiTesterShowRequestDetailsContainer.astro";
+import ApiTesterShowResponseTimeContainer from "./ApiTesterShowResponseTimeContainer.astro";
+import ApiTesterTitleContainer from "./ApiTesterTitleContainer.astro";
 
 export const ApiTesterPackage = {
 	Example: ApiTesterExampleContainer,

@@ -1,4 +1,6 @@
 ---
+
+
 /**
  * @component Footer
  *
@@ -179,21 +181,21 @@
  * - 社交媒体图标包含屏幕阅读器专用的文本说明
  */
 
-import { processSocialLink } from '../../src/utils/social';
 import {
-    LanguageUtil,
-    type IFooterProps,
     createTextGetter,
+    type IFooterProps,
+    LanguageUtil,
 } from '../../index-astro';
-import {
-    getBackgroundClass,
-    type BackgroundColor,
-} from '../../src/common/backgrounds';
 import { cn } from '../../src/class';
+import {
+    type BackgroundColor,
+    getBackgroundClass,
+} from '../../src/common/backgrounds';
+import { processSocialLink } from '../../src/utils/social';
 import FooterBrand from './FooterBrand.astro';
-import FooterNavigation from './FooterNavigation.astro';
 import FooterCopyright from './FooterCopyright.astro';
 import FooterICP from './FooterICP.astro';
+import FooterNavigation from './FooterNavigation.astro';
 
 const {
     siteName,

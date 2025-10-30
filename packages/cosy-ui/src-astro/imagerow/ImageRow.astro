@@ -1,4 +1,18 @@
 ---
+
+import type {
+    BackgroundColor,
+    GapSize,
+    HeightSize,
+    HoverEffect,
+    MarginSize,
+    PaddingSize,
+    RoundedSize,
+    ShadowSize,
+    Size,
+} from '../../src/common';
+import ScrollRow from '../scroll-row/ScrollRow.astro';
+import RowItem from './RowItem.astro';
 /**
  * @component ImageRow
  * @description 图片行组件，用于展示一行图片，基于 Container 组件，支持丰富的背景配置
@@ -33,19 +47,6 @@
  * @slot default - 图片内容
  */
 import type { IImageItem } from './types';
-import type {
-    BackgroundColor,
-    Size,
-    PaddingSize,
-    MarginSize,
-    RoundedSize,
-    GapSize,
-    ShadowSize,
-    HoverEffect,
-    HeightSize,
-} from '../../src/common';
-import ScrollRow from '../scroll-row/ScrollRow.astro';
-import RowItem from './RowItem.astro';
 
 interface Props {
     images: IImageItem[];

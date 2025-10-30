@@ -1,6 +1,6 @@
 import {
-	textAlignClasses,
 	type TextAlign,
+	textAlignClasses,
 } from "../../../src/common/textAlign";
 
 /**

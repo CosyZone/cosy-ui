@@ -1,5 +1,5 @@
-import type { IHeadingProps } from "./props";
 import { getBaseHeadingClasses } from "../../src/components/heading/class-all";
+import type { IHeadingProps } from "./props";
 
 /**
  * 计算 Heading 组件的 Astro 版本组合类名

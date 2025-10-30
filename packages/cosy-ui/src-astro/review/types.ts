@@ -1,5 +1,5 @@
 export type {
+	IReviewData as ReviewData,
 	IReviewProps as ReviewProps,
 	IReviewsProps as ReviewsProps,
-	IReviewData as ReviewData,
 } from "./props";

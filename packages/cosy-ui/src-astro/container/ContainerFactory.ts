@@ -31,10 +31,10 @@
  * ```
  */
 
-import type { IContainerProps } from "./props";
-import { ContainerPropsBuilder } from "../../src/components/container/ContainerPropsBuilder";
 import type { BackgroundColor } from "../../src/common/backgrounds";
 import type { BorderColor } from "../../src/common/border";
+import { ContainerPropsBuilder } from "../../src/components/container/ContainerPropsBuilder";
+import type { IContainerProps } from "./props";
 
 interface SlotComponent {
 	component: any;

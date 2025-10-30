@@ -1,4 +1,6 @@
 ---
+
+
 /**
  * @component RemoteImage
  *
@@ -31,27 +33,27 @@
  * - width?: number - 图片的宽度
  */
 
-import ImageTooltipWrapper from './TooltipWrapper.astro';
-import ImagePlaceholder from './ImagePlaceholder.astro';
+import type {
+    BorderSize,
+    MaskType,
+    RoundedSize,
+    ShadowSize,
+} from '../../src/common';
 import ImageError from './ImageError.astro';
+import ImagePlaceholder from './ImagePlaceholder.astro';
+import ImageTooltipWrapper from './TooltipWrapper.astro';
 import {
+    borderClasses,
+    type HoverType,
+    hoverClasses,
+    maskClasses,
+    type ObjectFitType,
     objectFitClasses,
     roundedClasses,
-    maskClasses,
     shadowClasses,
-    borderClasses,
-    hoverClasses,
-    transitionClasses,
-    type ObjectFitType,
-    type HoverType,
     type TransitionType,
+    transitionClasses,
 } from './utils';
-import type {
-    MaskType,
-    ShadowSize,
-    BorderSize,
-    RoundedSize,
-} from '../../src/common';
 
 interface Props {
     /**

@@ -16,8 +16,8 @@
 -->
 <script setup lang="ts">
   import { computed } from 'vue';
-  import type { IBadgeProps } from './props';
   import { BadgeFacade } from '../../src/components/badge';
+  import type { IBadgeProps } from './props';
 
   const props = withDefaults(defineProps<IBadgeProps>(), {
     outline: false,

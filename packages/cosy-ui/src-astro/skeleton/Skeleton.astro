@@ -1,4 +1,5 @@
 ---
+
 /**
  * @component Skeleton
  *
@@ -65,8 +66,8 @@
 
 import {
     getLoadingClass,
-    type LoadingType,
     type LoadingSize,
+    type LoadingType,
 } from '../../src/common';
 
 export interface Props {
@@ -124,7 +125,7 @@ const loaderId = `skeleton-loader-${Math.random().toString(36).slice(2, 11)}`;
 
 <script is:inline define:vars={{ loaderId, loadingDelay }}>
     let showTimeout = null;
-    let hideTimeout = null;
+    const hideTimeout = null;
     let loaded = false;
 
     const getSkeletonElement = () => {

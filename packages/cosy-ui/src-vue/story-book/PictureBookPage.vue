@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { PropType } from "vue";
 /**
  * PictureBookPage
  *
@@ -25,8 +26,7 @@
  * Provide：
  * - pictureBookLineHeightPx：Ref<number> 每行像素高度，供子组件（如 PictureBookTextBox）使用
  */
-import { computed, onMounted, onBeforeUnmount, ref, watch, provide } from "vue";
-import type { PropType } from "vue";
+import { computed, onBeforeUnmount, onMounted, provide, ref, watch } from "vue";
 
 // 运行时 props 定义
 const props = defineProps({

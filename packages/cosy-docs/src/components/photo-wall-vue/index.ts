@@ -2,8 +2,8 @@
  * PhotoWall Vue 组件示例导出
  */
 
-import PhotoWallVueBasic from "./PhotoWallVueBasic.vue";
 import PhotoWallVueBackgroundContainer from "./PhotoWallVueBackgroundContainer.astro";
+import PhotoWallVueBasic from "./PhotoWallVueBasic.vue";
 import PhotoWallVueClickableContainer from "./PhotoWallVueClickableContainer.astro";
 import PhotoWallVueGapContainer from "./PhotoWallVueGapContainer.astro";
 import PhotoWallVueHoverContainer from "./PhotoWallVueHoverContainer.astro";

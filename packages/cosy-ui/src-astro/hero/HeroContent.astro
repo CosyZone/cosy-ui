@@ -1,4 +1,6 @@
 ---
+
+
 /**
  * @component HeroContent
  * @description Hero 组件的主要内容布局容器
@@ -16,11 +18,11 @@
  * @prop {string} title - 标题文本
  */
 
+import type { ImageSource } from '../../index-astro';
+import { cn } from '../../src/class';
 import HeroImage from './HeroImage.astro';
 import HeroTextContent from './HeroTextContent.astro';
 import type { IHeroLink } from './hero';
-import type { ImageSource } from '../../index-astro';
-import { cn } from '../../src/class';
 
 interface ImageConfig {
     src: ImageSource;

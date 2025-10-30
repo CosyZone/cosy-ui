@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from "astro/types";
-import type { IContainerPropsBase } from "../../src/components/container/containerPropsBase";
 import type { ImageSource } from "index-astro";
+import type { IContainerPropsBase } from "../../src/components/container/containerPropsBase";
 
 /**
  * Container 组件的 Astro 版本属性接口（继承基础接口并扩展 Astro 特定属性）

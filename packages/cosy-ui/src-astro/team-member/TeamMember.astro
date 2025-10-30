@@ -1,4 +1,6 @@
 ---
+
+
 /**
  * @component TeamMember
  *
@@ -52,15 +54,15 @@
  * ```
  */
 
+import { Container, Image, Link, SocialIcon } from '../../index-astro';
 import { cn } from '../../src/class';
-import type { ImageSource } from '../image/types';
 import type {
-    ShadowSize,
     BackgroundColor,
     RoundedSize,
+    ShadowSize,
 } from '../../src/common';
-import { shadowClasses, hoverShadowClasses } from '../../src/common';
-import { SocialIcon, Image, Link, Container } from '../../index-astro';
+import { hoverShadowClasses, shadowClasses } from '../../src/common';
+import type { ImageSource } from '../image/types';
 
 interface ISocialLink {
     /**

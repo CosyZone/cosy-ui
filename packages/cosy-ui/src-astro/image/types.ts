@@ -1,10 +1,10 @@
-import type {
-	RoundedSize,
-	MaskType,
-	ShadowSize,
-	BorderSize,
-} from "../../src/common";
 import type { ImageMetadata } from "astro";
+import type {
+	BorderSize,
+	MaskType,
+	RoundedSize,
+	ShadowSize,
+} from "../../src/common";
 export type ImageSource = string | ImageMetadata;
 
 export interface IImageProps {

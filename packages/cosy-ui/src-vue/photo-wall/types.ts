@@ -4,8 +4,8 @@
 
 import type { PaddingSize, RoundedSize } from "../../src/common";
 import type { BackgroundColor } from "../../src/common/backgrounds";
-import type { Size } from "../../src/common/size";
 import type { BorderSize } from "../../src/common/border";
+import type { Size } from "../../src/common/size";
 
 // 照片卡片尺寸类型
 export type PhotoCardSize = "xs" | "sm" | "md" | "lg" | "xl";

@@ -1,4 +1,6 @@
 ---
+
+
 /**
  * @component Container
  *
@@ -37,10 +39,10 @@
  * @prop {...HTMLAttributes<'div'>} [rest] - 其他HTML div标签属性
  */
 
+import ContainerBox from './ContainerBox.astro';
+import ContainerError from './ContainerError.astro';
 import type { IContainerProps } from './props';
 import { validateContainer } from './validate';
-import ContainerError from './ContainerError.astro';
-import ContainerBox from './ContainerBox.astro';
 
 export interface Props extends IContainerProps {}
 

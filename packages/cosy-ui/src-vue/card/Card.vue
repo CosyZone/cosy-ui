@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import type { ICardProps } from "./props";
-import { getCardCombinedClassesVue, getCardPaddingClassVue } from "./class";
 import Container from "../container/Container.vue";
+import { getCardCombinedClassesVue, getCardPaddingClassVue } from "./class";
+import type { ICardProps } from "./props";
 
 /**
  * @component Card

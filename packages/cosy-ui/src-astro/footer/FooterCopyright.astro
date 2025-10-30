@@ -1,4 +1,5 @@
 ---
+
 /**
  * @component FooterCopyright
  * @description 页脚底部版权信息组件。
@@ -7,7 +8,7 @@
  * @prop {Function} t - 文本获取函数（已内部处理，无需传入）
  */
 
-import { LanguageUtil, createTextGetter } from '../../index-astro';
+import { createTextGetter, LanguageUtil } from '../../index-astro';
 
 const { company } = Astro.props;
 const lang = LanguageUtil.getCurrentLanguage(Astro);
@@ -19,7 +20,7 @@ const t = createTextGetter(lang, 'footer');
     {company} - {t && t('allRightsReserved')}
 </p>
 <script is:inline>
-    (function () {
+    (() => {
         try {
             var el = document.getElementById('cosy-footer-year');
             if (el) {
@@ -29,7 +30,7 @@ const t = createTextGetter(lang, 'footer');
             /* no-op */
         }
     })();
-    document.addEventListener('visibilitychange', function () {
+    document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'visible') {
             var el = document.getElementById('cosy-footer-year');
             if (el) {

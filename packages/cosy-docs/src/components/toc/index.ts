@@ -1,6 +1,5 @@
-import TableOfContentsCustom from "./TableOfContentsCustom.astro";
-
 import TableOfContentsBasicContainer from "./TableOfContentsBasicContainer.astro";
+import TableOfContentsCustom from "./TableOfContentsCustom.astro";
 import TableOfContentsCustomContainer from "./TableOfContentsCustomContainer.astro";
 
 export const ComponentPackage = {

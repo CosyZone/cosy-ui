@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import type { IPhotoCardProps, PhotoCardData } from "./types";
 import { roundedClasses } from "../../src/common";
+import type { IPhotoCardProps, PhotoCardData } from "./types";
 
 /**
  * @component PhotoCard

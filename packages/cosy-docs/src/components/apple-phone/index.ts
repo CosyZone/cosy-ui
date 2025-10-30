@@ -1,11 +1,11 @@
-import ApplePhoneBasicContainer from "./ApplePhoneBasicContainer.astro";
 import ApplePhoneBackgroundColorContainer from "./ApplePhoneBackgroundColorContainer.astro";
+import ApplePhoneBasicContainer from "./ApplePhoneBasicContainer.astro";
+import ApplePhoneExamplesContainer from "./ApplePhoneExamplesContainer.astro";
 import ApplePhoneHeightContainer from "./ApplePhoneHeightContainer.astro";
 import ApplePhoneShowFrameContainer from "./ApplePhoneShowFrameContainer.astro";
+import ApplePhoneSlotsContainer from "./ApplePhoneSlotsContainer.astro";
 import ApplePhoneTitleContainer from "./ApplePhoneTitleContainer.astro";
 import ApplePhoneWithShadowContainer from "./ApplePhoneWithShadowContainer.astro";
-import ApplePhoneSlotsContainer from "./ApplePhoneSlotsContainer.astro";
-import ApplePhoneExamplesContainer from "./ApplePhoneExamplesContainer.astro";
 
 export const ApplePhonePackage = {
 	Basic: ApplePhoneBasicContainer,

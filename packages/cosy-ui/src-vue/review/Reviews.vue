@@ -52,11 +52,11 @@
  */
 
 import { computed } from "vue";
-import Text from "../text/Text.vue";
-import Heading from "../heading/Heading.vue";
 import Grid from "../grid/Grid.vue";
+import Heading from "../heading/Heading.vue";
 import SmartIcon from "../smart-icon/SmartIcon.vue";
-import type { IReviewsProps, IReviewData } from "./props";
+import Text from "../text/Text.vue";
+import type { IReviewData, IReviewsProps } from "./props";
 import Review from "./Review.vue";
 
 // 定义与 Grid 组件相同的响应式值类型

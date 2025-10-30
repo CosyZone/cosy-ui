@@ -7,9 +7,9 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
+import { getHeadingCombinedClassesVue } from "./class";
 import HeadingAnchor from "./HeadingAnchor.vue";
 import type { IHeadingProps } from "./types";
-import { getHeadingCombinedClassesVue } from "./class";
 
 /**
  * @component Heading

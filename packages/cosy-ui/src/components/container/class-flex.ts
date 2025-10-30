@@ -1,14 +1,14 @@
+import type {
+	FlexAlign,
+	FlexDirection,
+	FlexJustify,
+	GapSize,
+} from "../../../src/common/layout";
 import {
 	flexClasses,
 	gapClasses,
 	itemsClasses,
 	justifyClasses,
-} from "../../../src/common/layout";
-import type {
-	FlexDirection,
-	GapSize,
-	FlexAlign,
-	FlexJustify,
 } from "../../../src/common/layout";
 
 /**

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import type { IPlaceHolderProps } from "./types";
 import { getBasePlaceholderClasses } from "../../src/components/placeholder/class-all";
+import type { IPlaceHolderProps } from "./types";
 
 /**
  * @component PlaceHolder

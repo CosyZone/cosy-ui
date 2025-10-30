@@ -1,5 +1,5 @@
-import { paddingClasses } from "../../../src/common/padding";
 import type { PaddingSize } from "../../../src/common/padding";
+import { paddingClasses } from "../../../src/common/padding";
 
 /**
  * 计算 Placeholder 组件的padding相关类名

@@ -46,10 +46,10 @@ BannerBox 组件是一个可定制的横幅容器，支持自定义背景样式�
 -->
 
 <script lang="ts">
-import { ref, defineComponent } from "vue";
-import FeatureCard from "./FeatureCard.vue";
+import { defineComponent, ref } from "vue";
 import type { BackgroundColor } from "../../src/common";
 import { allBackgroundClasses } from "../../src/common";
+import FeatureCard from "./FeatureCard.vue";
 
 export interface IFeature {
 	emoji: string;

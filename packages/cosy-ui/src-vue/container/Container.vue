@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import type { IContainerProps } from "./props";
-import { getContainerCombinedClassesVue } from "./class";
-import ContainerBg from "./ContainerBg.vue";
-import AspectRatioBox from "./AspectRatioBox.vue";
-import ContainerError from "./ContainerError.vue";
-import { validateContainer } from "./validate";
 import type { FitMode } from "../../src/common/fitmode";
+import AspectRatioBox from "./AspectRatioBox.vue";
+import ContainerBg from "./ContainerBg.vue";
+import ContainerError from "./ContainerError.vue";
+import { getContainerCombinedClassesVue } from "./class";
+import type { IContainerProps } from "./props";
+import { validateContainer } from "./validate";
 
 interface Props extends IContainerProps {}
 

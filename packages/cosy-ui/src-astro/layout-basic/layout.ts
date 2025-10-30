@@ -1,10 +1,10 @@
-import type { IFooterProps } from "../../src/components/footer/types";
-import type { IHeaderProps } from "../../src/components/header/types";
-import type { IMainContentProps } from "../../src/components/main/types";
+import type { BackgroundColor } from "../../src/common/backgrounds";
 import type { IMetaProps } from "../../src/common/meta";
 import type { ISidebarProps } from "../../src/common/sidebar";
 import type { ThemeId } from "../../src/common/themes";
-import type { BackgroundColor } from "../../src/common/backgrounds";
+import type { IFooterProps } from "../../src/components/footer/types";
+import type { IHeaderProps } from "../../src/components/header/types";
+import type { IMainContentProps } from "../../src/components/main/types";
 
 export interface IAppLayoutProps {
 	/**

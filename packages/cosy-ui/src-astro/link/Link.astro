@@ -1,4 +1,5 @@
 ---
+
 /**
  * @component Link
  *
@@ -116,12 +117,13 @@
  */
 
 ;
-import { ChevronLeftIcon, ChevronRightIcon, GithubIcon } from "../icons";
-import Image from "../image/Image.astro";
+
 // 导入所有图标组件
 import * as Icons from "../icons";
-import type { ILinkProps } from "./props";
+import { ChevronLeftIcon, ChevronRightIcon, GithubIcon } from "../icons";
+import Image from "../image/Image.astro";
 import { getLinkCombinedClassesAstro } from "./class";
+import type { ILinkProps } from "./props";
 
 const props = Astro.props as ILinkProps;
 

@@ -1,7 +1,7 @@
-import BasicContainer from "./BasicContainer.astro";
-import ThemeExampleContainer from "./ThemeExampleContainer.astro";
-import LanguageSupportContainer from "./LanguageSupportContainer.astro";
 import Basic from "./Basic.astro";
+import BasicContainer from "./BasicContainer.astro";
+import LanguageSupportContainer from "./LanguageSupportContainer.astro";
+import ThemeExampleContainer from "./ThemeExampleContainer.astro";
 
 export const ComponentPackage = {
 	ComponentContainers: {

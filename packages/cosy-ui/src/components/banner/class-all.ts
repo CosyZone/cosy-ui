@@ -1,7 +1,7 @@
+import { cn } from "../../class";
+import { getBackgroundClass } from "../../common";
 import type { IBannerPropsBase } from "./bannerPropsBase";
 import { animationClasses } from "./class-animation";
-import { getBackgroundClass } from "../../common";
-import { cn } from "../../class";
 
 /**
  * 获取 Banner 的类名字符串

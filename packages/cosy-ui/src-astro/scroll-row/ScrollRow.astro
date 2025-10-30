@@ -1,4 +1,6 @@
 ---
+
+
 /**
  * @component ScrollRow
  * @description 通用横向可滚动容器。提供左右导航与可访问性，默认插槽可放置任意内容。
@@ -25,19 +27,19 @@
  * @slot default - 横向排列的任意内容
  */
 
-import Container from '../container/Container.astro';
-import PrevButton from './PrevButton.astro';
-import NextButton from './NextButton.astro';
 import type {
     BackgroundColor,
-    PaddingSize,
+    GapSize,
+    HeightSize,
     MarginSize,
+    PaddingSize,
     RoundedSize,
     Size,
-    HeightSize,
-    GapSize,
 } from '../../src/common';
 import { gapClasses } from '../../src/common';
+import Container from '../container/Container.astro';
+import NextButton from './NextButton.astro';
+import PrevButton from './PrevButton.astro';
 
 interface Props {
     showNavigation?: boolean;
@@ -145,11 +147,11 @@ const gapClass = gapClasses[gap] || '';
         }
     }
 
-    window.__cosy_scrollRowScroll = function (
+    window.__cosy_scrollRowScroll = (
         button: HTMLElement,
         direction: 'prev' | 'next',
         scrollBy: 'item' | 'page' | number
-    ) {
+    ) => {
         const wrapper = button.closest(
             '.scroll-row-wrapper'
         ) as HTMLElement | null;

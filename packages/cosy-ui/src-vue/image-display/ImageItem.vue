@@ -57,6 +57,7 @@ const handleImageError = (event: Event) => {
 
 // 在客户端挂载后设置状态
 import { onMounted } from "vue";
+
 onMounted(() => {
 	isClient.value = true;
 });

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import Text from "../text/Text.vue";
-import Badge from "../badge/Badge.vue";
-import SmartIcon from "../smart-icon/SmartIcon.vue";
-import Card from "../card/Card.vue";
 import Avatar from "../avatar/Avatar.vue";
+import Badge from "../badge/Badge.vue";
+import Card from "../card/Card.vue";
+import SmartIcon from "../smart-icon/SmartIcon.vue";
+import Text from "../text/Text.vue";
 import type { IReviewProps } from "./props";
 
 interface Props extends /* @vue-ignore */ IReviewProps {

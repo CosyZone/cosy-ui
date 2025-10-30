@@ -1,6 +1,6 @@
 import {
-	textColorClasses,
 	type TextColor,
+	textColorClasses,
 } from "../../../src/common/textColors";
 
 /**

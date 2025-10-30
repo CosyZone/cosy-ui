@@ -1,8 +1,8 @@
 import type { HTMLAttributes } from "astro/types";
 import type { IReviewPropsBase } from "../../src/components/review/reviewPropsBase";
 import type {
-	IReviewsPropsBase,
 	IReviewData,
+	IReviewsPropsBase,
 } from "../../src/components/review/reviewsPropsBase";
 import type { ICardProps } from "../card/props";
 

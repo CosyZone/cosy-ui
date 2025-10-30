@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import type { ITextProps } from "./props";
-import { textDefaultProps } from "./props";
 import {
 	getTextCombinedClass,
 	getTextTagName,
 } from "../../src/components/text/textUtils";
+import type { ITextProps } from "./props";
+import { textDefaultProps } from "./props";
 
 /**
  * @component Text

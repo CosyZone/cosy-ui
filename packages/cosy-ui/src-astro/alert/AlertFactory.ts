@@ -29,8 +29,8 @@
  * ```
  */
 
-import type { IAlertProps } from "./props";
 import { AlertPropsBuilder } from "../../src/components/alert/AlertPropsBuilder";
+import type { IAlertProps } from "./props";
 
 interface SlotComponent {
 	component: any;

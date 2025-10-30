@@ -1,19 +1,17 @@
 <script setup lang="ts">
 import {
 	Alert,
-	Button,
-	Container,
-	Counter,
-	ApplePhone,
-} from "@coffic/cosy-ui/vue";
-import {
 	AlertTriangleIcon,
+	ApplePhone,
+	Button,
 	CalendarIcon,
-	CheckIcon,
 	CheckCircleIcon,
+	CheckIcon,
 	ChevronDownIcon,
 	ClipboardIcon,
 	CloseIcon,
+	Container,
+	Counter,
 	ErrorIcon,
 	InboxArchiveIcon,
 	InfoCircleIcon,

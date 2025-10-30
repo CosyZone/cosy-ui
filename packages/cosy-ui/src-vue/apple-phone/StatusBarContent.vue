@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 import {
+	IPhoneBatteryIcon,
 	IPhoneSignalIcon,
 	IPhoneWifiIcon,
-	IPhoneBatteryIcon,
 } from "../icons/index";
 
 /**

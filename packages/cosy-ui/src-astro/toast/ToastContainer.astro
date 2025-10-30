@@ -1,4 +1,5 @@
 ---
+
 /**
  * @component ToastContainer
  *
@@ -46,14 +47,14 @@
 
 <script is:inline>
     // Toast 管理系统
-    (function () {
+    (() => {
         // 避免重复初始化
         if (window.toastSystem) {
             return;
         }
 
         let toastCounter = 0;
-        let activeToasts = new Map();
+        const activeToasts = new Map();
 
         // 默认配置
         const DEFAULT_CONFIG = {

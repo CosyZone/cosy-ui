@@ -1,10 +1,10 @@
 import type { IButtonPropsBase } from "./buttonPropsBase";
 import { getButtonBaseClasses } from "./class-base";
-import { getButtonVariantClass } from "./class-variant";
-import { getButtonSizeClass } from "./class-size";
-import { getButtonShapeClass } from "./class-shape";
-import { getButtonModifierClasses } from "./class-modifiers";
 import { getButtonGradientClass } from "./class-gradient";
+import { getButtonModifierClasses } from "./class-modifiers";
+import { getButtonShapeClass } from "./class-shape";
+import { getButtonSizeClass } from "./class-size";
+import { getButtonVariantClass } from "./class-variant";
 
 /**
  * 将可能的对象形式的 class 转换为字符串

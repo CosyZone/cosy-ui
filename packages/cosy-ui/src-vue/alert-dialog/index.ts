@@ -1,8 +1,8 @@
-import Basic from "./Basic.vue";
-import Multilang from "./Multilang.vue";
-import BasicSource from "./Basic.vue?raw";
-import MultilangSource from "./Multilang.vue?raw";
 import { extractSimpleExample } from "../../src/utils/component";
+import Basic from "./Basic.vue";
+import BasicSource from "./Basic.vue?raw";
+import Multilang from "./Multilang.vue";
+import MultilangSource from "./Multilang.vue?raw";
 
 // 导出主组件
 export { default as AlertDialog } from "./AlertDialog.vue";

@@ -2,17 +2,15 @@
  * 图片组件公共工具函数
  */
 
-// 圆角类名映射（从 common 导入）
-export { roundedClasses, type RoundedSize } from "../../src/common/rounded";
-
 // 边框类名映射（从 common 导入）
-export { borderClasses, type BorderSize } from "../../src/common/border";
-
+export { type BorderSize, borderClasses } from "../../src/common/border";
 // 遮罩类名映射（从 common 导入）
-export { maskClasses, type MaskType } from "../../src/common/mask";
+export { type MaskType, maskClasses } from "../../src/common/mask";
+// 圆角类名映射（从 common 导入）
+export { type RoundedSize, roundedClasses } from "../../src/common/rounded";
 
 // 阴影类名映射（从 common 导入）
-export { shadowClasses, type ShadowSize } from "../../src/common/shadow";
+export { type ShadowSize, shadowClasses } from "../../src/common/shadow";
 
 // 对象填充方式类名映射
 export const objectFitClasses = {

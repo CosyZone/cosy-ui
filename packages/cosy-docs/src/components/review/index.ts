@@ -1,25 +1,24 @@
 // Astro 示例组件
-import BasicUsage from "./BasicUsage.astro";
-import VerifiedUser from "./VerifiedUser.astro";
-import WithAvatar from "./WithAvatar.astro";
-import CustomStyle from "./CustomStyle.astro";
-
-// Vue 示例组件
-import BasicUsageVue from "./BasicUsageVue.vue";
-import VerifiedUserVue from "./VerifiedUserVue.vue";
-import WithAvatarVue from "./WithAvatarVue.vue";
-import CustomStyleVue from "./CustomStyleVue.vue";
 
 // Props 容器组件
 import AvatarContainer from "./AvatarContainer.astro";
+import BasicUsage from "./BasicUsage.astro";
+// Vue 示例组件
+import BasicUsageVue from "./BasicUsageVue.vue";
 import ClassContainer from "./ClassContainer.astro";
 import CommentContainer from "./CommentContainer.astro";
+import CustomStyle from "./CustomStyle.astro";
+import CustomStyleVue from "./CustomStyleVue.vue";
 import DateContainer from "./DateContainer.astro";
 import RatingContainer from "./RatingContainer.astro";
-import UserNameContainer from "./UserNameContainer.astro";
-import VerifiedContainer from "./VerifiedContainer.astro";
 import ReviewMutedContainer from "./ReviewMutedContainer.astro";
 import ReviewMutedTestContainer from "./ReviewMutedTestContainer.astro";
+import UserNameContainer from "./UserNameContainer.astro";
+import VerifiedContainer from "./VerifiedContainer.astro";
+import VerifiedUser from "./VerifiedUser.astro";
+import VerifiedUserVue from "./VerifiedUserVue.vue";
+import WithAvatar from "./WithAvatar.astro";
+import WithAvatarVue from "./WithAvatarVue.vue";
 
 // 导出组件
 export { BasicUsage, VerifiedUser, WithAvatar, CustomStyle };

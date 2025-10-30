@@ -1,5 +1,5 @@
-import type { IMacWindowPropsBase } from "../../src/components/mac-window/macWindowPropsBase";
 import type { BackgroundColor } from "../../src/common/backgrounds";
+import type { IMacWindowPropsBase } from "../../src/components/mac-window/macWindowPropsBase";
 
 /**
  * MacWindow 组件的 Vue 版本属性接口（继承基础接口）

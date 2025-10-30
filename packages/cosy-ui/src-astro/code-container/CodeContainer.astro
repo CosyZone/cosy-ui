@@ -1,4 +1,6 @@
 ---
+
+
 /**
  * @component CodeContainer
  *
@@ -55,11 +57,11 @@
  * - 标签页切换时保持焦点状态，提升用户体验
  */
 
+import { cn } from '../../src/class';
+import CodePanelContainer from './components/CodePanelContainer.astro';
+import Preview from './components/Preview.astro';
 import CodeToolbar from './toolbar/CodeToolbar.astro';
 import ModeSwitcher from './toolbar/ModeSwitcher.astro';
-import Preview from './components/Preview.astro';
-import CodePanelContainer from './components/CodePanelContainer.astro';
-import { cn } from '../../src/class';
 
 interface Props {
     /**

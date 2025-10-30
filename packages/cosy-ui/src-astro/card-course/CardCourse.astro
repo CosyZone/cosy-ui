@@ -1,4 +1,6 @@
 ---
+
+
 /**
  * @component CardCourse
  *
@@ -22,15 +24,15 @@
  * - lang: string - 语言（"en" 或 "zh"）
  */
 
+import { SmartBg } from '../smart-bg';
+import CardCourseButton from './CardCourseButton.astro';
+import CardCourseContent from './CardCourseContent.astro';
+import CardCourseIcon from './CardCourseIcon.astro';
 import {
     formatDisplayName,
-    getIconSizeClasses,
     getContentPaddingClasses,
+    getIconSizeClasses,
 } from './config';
-import CardCourseIcon from './CardCourseIcon.astro';
-import CardCourseContent from './CardCourseContent.astro';
-import CardCourseButton from './CardCourseButton.astro';
-import { SmartBg } from '../smart-bg';
 import type { PaddingSize } from './types';
 
 interface Props {

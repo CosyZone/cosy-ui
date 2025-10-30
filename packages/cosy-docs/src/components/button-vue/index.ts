@@ -1,16 +1,16 @@
 import ButtonVueBasicContainer from "./ButtonVueBasicContainer.astro";
-import ButtonVueSizesContainer from "./ButtonVueSizesContainer.astro";
-import ButtonVueVariantsContainer from "./ButtonVueVariantsContainer.astro";
-import ButtonVueShapesContainer from "./ButtonVueShapesContainer.astro";
-import ButtonVueStatesContainer from "./ButtonVueStatesContainer.astro";
-import ButtonVueWithIconsContainer from "./ButtonVueWithIconsContainer.astro";
-import ButtonVueWidthContainer from "./ButtonVueWidthContainer.astro";
-import ButtonVueLinkContainer from "./ButtonVueLinkContainer.astro";
-import ButtonVueSlotDefaultContainer from "./ButtonVueSlotDefaultContainer.astro";
-import ButtonVueTypesContainer from "./ButtonVueTypesContainer.astro";
 import ButtonVueFormmethodContainer from "./ButtonVueFormmethodContainer.astro";
-import ButtonVueOnClickContainer from "./ButtonVueOnClickContainer.astro";
 import ButtonVueGradientVariantsContainer from "./ButtonVueGradientVariantsContainer.astro";
+import ButtonVueLinkContainer from "./ButtonVueLinkContainer.astro";
+import ButtonVueOnClickContainer from "./ButtonVueOnClickContainer.astro";
+import ButtonVueShapesContainer from "./ButtonVueShapesContainer.astro";
+import ButtonVueSizesContainer from "./ButtonVueSizesContainer.astro";
+import ButtonVueSlotDefaultContainer from "./ButtonVueSlotDefaultContainer.astro";
+import ButtonVueStatesContainer from "./ButtonVueStatesContainer.astro";
+import ButtonVueTypesContainer from "./ButtonVueTypesContainer.astro";
+import ButtonVueVariantsContainer from "./ButtonVueVariantsContainer.astro";
+import ButtonVueWidthContainer from "./ButtonVueWidthContainer.astro";
+import ButtonVueWithIconsContainer from "./ButtonVueWithIconsContainer.astro";
 
 export const ButtonVuePackage = {
 	Basic: ButtonVueBasicContainer,

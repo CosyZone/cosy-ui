@@ -1,10 +1,10 @@
-import type { IPlaceholderPropsBase } from "./placeholderPropsBase";
-import { getPlaceholderWidthClass } from "./class-width";
-import { getPlaceholderHeightClass } from "./class-height";
-import { getPlaceholderPaddingClass } from "./class-padding";
 import { getPlaceholderBackgroundClass } from "./class-background";
 import { getPlaceholderBorderClass } from "./class-border";
+import { getPlaceholderHeightClass } from "./class-height";
 import { getPlaceholderMutedClass } from "./class-muted";
+import { getPlaceholderPaddingClass } from "./class-padding";
+import { getPlaceholderWidthClass } from "./class-width";
+import type { IPlaceholderPropsBase } from "./placeholderPropsBase";
 
 /**
  * 计算 Placeholder 组件的组合类名（用于基础接口）

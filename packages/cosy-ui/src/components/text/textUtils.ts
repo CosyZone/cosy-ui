@@ -1,9 +1,9 @@
-import type { ITextProps } from "./textProps";
 import { cn } from "../../class";
-import { textColorClasses } from "../../common/textColors";
-import { textWeightClasses } from "../../common/textWeights";
-import { textSizeClasses } from "../../common/textSizes";
 import { textAlignClasses } from "../../common/textAlign";
+import { textColorClasses } from "../../common/textColors";
+import { textSizeClasses } from "../../common/textSizes";
+import { textWeightClasses } from "../../common/textWeights";
+import type { ITextProps } from "./textProps";
 
 /**
  * 计算 Text 组件的组合类名

@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import {
-	SocialIcon,
-	ImageDisplay,
-	Button,
-	LinkIcon,
 	AppStoreIcon,
+	Button,
+	ImageDisplay,
+	LinkIcon,
+	SocialIcon,
 } from "../../index-vue";
 import {
-	getBackgroundClass,
 	type BackgroundColor,
+	getBackgroundClass,
 } from "../../src/common/backgrounds";
 import "./product-card.css";
 
