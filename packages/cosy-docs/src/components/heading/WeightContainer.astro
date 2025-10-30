@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component HeadingWeightContainer
  * @description Heading 组件 weight 属性示例容器，展示不同字体粗细的标题。
@@ -9,20 +6,36 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import WeightBlack from "./WeightBlack.astro";
 import WeightBlackSource from "./WeightBlack.astro?raw";
+import WeightBlackVue from "./WeightBlack.vue";
+import WeightBlackVueSource from "./WeightBlack.vue?raw";
 import WeightBold from "./WeightBold.astro";
 import WeightBoldSource from "./WeightBold.astro?raw";
+import WeightBoldVue from "./WeightBold.vue";
+import WeightBoldVueSource from "./WeightBold.vue?raw";
 import WeightExtrabold from "./WeightExtrabold.astro";
 import WeightExtraboldSource from "./WeightExtrabold.astro?raw";
+import WeightExtraboldVue from "./WeightExtrabold.vue";
+import WeightExtraboldVueSource from "./WeightExtrabold.vue?raw";
 import WeightLight from "./WeightLight.astro";
 import WeightLightSource from "./WeightLight.astro?raw";
+import WeightLightVue from "./WeightLight.vue";
+import WeightLightVueSource from "./WeightLight.vue?raw";
 import WeightMedium from "./WeightMedium.astro";
 import WeightMediumSource from "./WeightMedium.astro?raw";
+import WeightMediumVue from "./WeightMedium.vue";
+import WeightMediumVueSource from "./WeightMedium.vue?raw";
 import WeightNormal from "./WeightNormal.astro";
 import WeightNormalSource from "./WeightNormal.astro?raw";
+import WeightNormalVue from "./WeightNormal.vue";
+import WeightNormalVueSource from "./WeightNormal.vue?raw";
 import WeightSemibold from "./WeightSemibold.astro";
 import WeightSemiboldSource from "./WeightSemibold.astro?raw";
+import WeightSemiboldVue from "./WeightSemibold.vue";
+import WeightSemiboldVueSource from "./WeightSemibold.vue?raw";
 import WeightThin from "./WeightThin.astro";
 import WeightThinSource from "./WeightThin.astro?raw";
+import WeightThinVue from "./WeightThin.vue";
+import WeightThinVueSource from "./WeightThin.vue?raw";
 ---
 
 <CodeContainer
@@ -35,6 +48,14 @@ import WeightThinSource from "./WeightThin.astro?raw";
     WeightBoldSource,
     WeightExtraboldSource,
     WeightBlackSource,
+    WeightThinVueSource,
+    WeightLightVueSource,
+    WeightNormalVueSource,
+    WeightMediumVueSource,
+    WeightSemiboldVueSource,
+    WeightBoldVueSource,
+    WeightExtraboldVueSource,
+    WeightBlackVueSource,
   ]}
   titles={[
     '细体',
@@ -45,29 +66,61 @@ import WeightThinSource from "./WeightThin.astro?raw";
     '粗体',
     '特粗体',
     '超粗体',
+    '细体',
+    '轻体',
+    '正常',
+    '中等',
+    '半粗体',
+    '粗体',
+    '特粗体',
+    '超粗体',
   ]}>
-  <div id="tab-1">
+  <div id="tab-1" data-label="astro">
     <WeightThin />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <WeightLight />
   </div>
-  <div id="tab-3">
+  <div id="tab-3" data-label="astro">
     <WeightNormal />
   </div>
-  <div id="tab-4">
+  <div id="tab-4" data-label="astro">
     <WeightMedium />
   </div>
-  <div id="tab-5">
+  <div id="tab-5" data-label="astro">
     <WeightSemibold />
   </div>
-  <div id="tab-6">
+  <div id="tab-6" data-label="astro">
     <WeightBold />
   </div>
-  <div id="tab-7">
+  <div id="tab-7" data-label="astro">
     <WeightExtrabold />
   </div>
-  <div id="tab-8">
+  <div id="tab-8" data-label="astro">
     <WeightBlack />
+  </div>
+  <div id="tab-9" data-label="vue">
+    <WeightThinVue />
+  </div>
+  <div id="tab-10" data-label="vue">
+    <WeightLightVue />
+  </div>
+  <div id="tab-11" data-label="vue">
+    <WeightNormalVue />
+  </div>
+  <div id="tab-12" data-label="vue">
+    <WeightMediumVue />
+  </div>
+  <div id="tab-13" data-label="vue">
+    <WeightSemiboldVue />
+  </div>
+  <div id="tab-14" data-label="vue">
+    <WeightBoldVue />
+  </div>
+  <div id="tab-15" data-label="vue">
+    <WeightExtraboldVue />
+  </div>
+  <div id="tab-16" data-label="vue">
+    <WeightBlackVue />
   </div>
 </CodeContainer>

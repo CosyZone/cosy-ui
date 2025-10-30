@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component HeadingColorContainer
  * @description Heading 组件 color 属性示例容器，展示不同的颜色选项。
@@ -9,26 +6,48 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import ColorAccent from "./ColorAccent.astro";
 import ColorAccentSource from "./ColorAccent.astro?raw";
+import ColorAccentVue from "./ColorAccent.vue";
+import ColorAccentVueSource from "./ColorAccent.vue?raw";
 import ColorBaseContent from "./ColorBaseContent.astro";
 import ColorBaseContentSource from "./ColorBaseContent.astro?raw";
+import ColorBaseContentVue from "./ColorBaseContent.vue";
+import ColorBaseContentVueSource from "./ColorBaseContent.vue?raw";
 import ColorDefault from "./ColorDefault.astro";
 import ColorDefaultSource from "./ColorDefault.astro?raw";
+import ColorDefaultVue from "./ColorDefault.vue";
+import ColorDefaultVueSource from "./ColorDefault.vue?raw";
 import ColorError from "./ColorError.astro";
 import ColorErrorSource from "./ColorError.astro?raw";
+import ColorErrorVue from "./ColorError.vue";
+import ColorErrorVueSource from "./ColorError.vue?raw";
 import ColorInfo from "./ColorInfo.astro";
 import ColorInfoSource from "./ColorInfo.astro?raw";
+import ColorInfoVue from "./ColorInfo.vue";
+import ColorInfoVueSource from "./ColorInfo.vue?raw";
 import ColorMuted from "./ColorMuted.astro";
 import ColorMutedSource from "./ColorMuted.astro?raw";
+import ColorMutedVue from "./ColorMuted.vue";
+import ColorMutedVueSource from "./ColorMuted.vue?raw";
 import ColorNeutralContent from "./ColorNeutralContent.astro";
 import ColorNeutralContentSource from "./ColorNeutralContent.astro?raw";
+import ColorNeutralContentVue from "./ColorNeutralContent.vue";
+import ColorNeutralContentVueSource from "./ColorNeutralContent.vue?raw";
 import ColorPrimary from "./ColorPrimary.astro";
 import ColorPrimarySource from "./ColorPrimary.astro?raw";
+import ColorPrimaryVue from "./ColorPrimary.vue";
+import ColorPrimaryVueSource from "./ColorPrimary.vue?raw";
 import ColorSecondary from "./ColorSecondary.astro";
 import ColorSecondarySource from "./ColorSecondary.astro?raw";
+import ColorSecondaryVue from "./ColorSecondary.vue";
+import ColorSecondaryVueSource from "./ColorSecondary.vue?raw";
 import ColorSuccess from "./ColorSuccess.astro";
 import ColorSuccessSource from "./ColorSuccess.astro?raw";
+import ColorSuccessVue from "./ColorSuccess.vue";
+import ColorSuccessVueSource from "./ColorSuccess.vue?raw";
 import ColorWarning from "./ColorWarning.astro";
 import ColorWarningSource from "./ColorWarning.astro?raw";
+import ColorWarningVue from "./ColorWarning.vue";
+import ColorWarningVueSource from "./ColorWarning.vue?raw";
 ---
 
 <CodeContainer
@@ -44,6 +63,17 @@ import ColorWarningSource from "./ColorWarning.astro?raw";
     ColorErrorSource,
     ColorBaseContentSource,
     ColorNeutralContentSource,
+    ColorDefaultVueSource,
+    ColorPrimaryVueSource,
+    ColorSecondaryVueSource,
+    ColorAccentVueSource,
+    ColorMutedVueSource,
+    ColorInfoVueSource,
+    ColorSuccessVueSource,
+    ColorWarningVueSource,
+    ColorErrorVueSource,
+    ColorBaseContentVueSource,
+    ColorNeutralContentVueSource,
   ]}
   titles={[
     'default',
@@ -57,38 +87,82 @@ import ColorWarningSource from "./ColorWarning.astro?raw";
     'error',
     'base-content',
     'neutral-content',
+    'default',
+    'primary',
+    'secondary',
+    'accent',
+    'muted',
+    'info',
+    'success',
+    'warning',
+    'error',
+    'base-content',
+    'neutral-content',
   ]}>
-  <div id="tab-1">
+  <div id="tab-1" data-label="astro">
     <ColorDefault />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <ColorPrimary />
   </div>
-  <div id="tab-3">
+  <div id="tab-3" data-label="astro">
     <ColorSecondary />
   </div>
-  <div id="tab-4">
+  <div id="tab-4" data-label="astro">
     <ColorAccent />
   </div>
-  <div id="tab-5">
+  <div id="tab-5" data-label="astro">
     <ColorMuted />
   </div>
-  <div id="tab-6">
+  <div id="tab-6" data-label="astro">
     <ColorInfo />
   </div>
-  <div id="tab-7">
+  <div id="tab-7" data-label="astro">
     <ColorSuccess />
   </div>
-  <div id="tab-8">
+  <div id="tab-8" data-label="astro">
     <ColorWarning />
   </div>
-  <div id="tab-9">
+  <div id="tab-9" data-label="astro">
     <ColorError />
   </div>
-  <div id="tab-10">
+  <div id="tab-10" data-label="astro">
     <ColorBaseContent />
   </div>
-  <div id="tab-11">
+  <div id="tab-11" data-label="astro">
     <ColorNeutralContent />
+  </div>
+  <div id="tab-12" data-label="vue">
+    <ColorDefaultVue />
+  </div>
+  <div id="tab-13" data-label="vue">
+    <ColorPrimaryVue />
+  </div>
+  <div id="tab-14" data-label="vue">
+    <ColorSecondaryVue />
+  </div>
+  <div id="tab-15" data-label="vue">
+    <ColorAccentVue />
+  </div>
+  <div id="tab-16" data-label="vue">
+    <ColorMutedVue />
+  </div>
+  <div id="tab-17" data-label="vue">
+    <ColorInfoVue />
+  </div>
+  <div id="tab-18" data-label="vue">
+    <ColorSuccessVue />
+  </div>
+  <div id="tab-19" data-label="vue">
+    <ColorWarningVue />
+  </div>
+  <div id="tab-20" data-label="vue">
+    <ColorErrorVue />
+  </div>
+  <div id="tab-21" data-label="vue">
+    <ColorBaseContentVue />
+  </div>
+  <div id="tab-22" data-label="vue">
+    <ColorNeutralContentVue />
   </div>
 </CodeContainer>

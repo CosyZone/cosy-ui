@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component HeadingAlignContainer
  * @description Heading 组件 align 属性示例容器，展示不同的文本对齐方式。
@@ -9,22 +6,37 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import AlignCenter from "./AlignCenter.astro";
 import AlignCenterSource from "./AlignCenter.astro?raw";
+import AlignCenterVue from "./AlignCenter.vue";
+import AlignCenterVueSource from "./AlignCenter.vue?raw";
 import AlignLeft from "./AlignLeft.astro";
 import AlignLeftSource from "./AlignLeft.astro?raw";
+import AlignLeftVue from "./AlignLeft.vue";
+import AlignLeftVueSource from "./AlignLeft.vue?raw";
 import AlignRight from "./AlignRight.astro";
 import AlignRightSource from "./AlignRight.astro?raw";
+import AlignRightVue from "./AlignRight.vue";
+import AlignRightVueSource from "./AlignRight.vue?raw";
 ---
 
 <CodeContainer
-  codes={[AlignLeftSource, AlignCenterSource, AlignRightSource]}
-  titles={['左对齐', '居中对齐', '右对齐']}>
-  <div id="tab-1">
+  codes={[AlignLeftSource, AlignCenterSource, AlignRightSource, AlignLeftVueSource, AlignCenterVueSource, AlignRightVueSource]}
+  titles={['左对齐', '居中对齐', '右对齐', '左对齐', '居中对齐', '右对齐']}>
+  <div id="tab-1" data-label="astro">
     <AlignLeft />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <AlignCenter />
   </div>
-  <div id="tab-3">
+  <div id="tab-3" data-label="astro">
     <AlignRight />
+  </div>
+  <div id="tab-4" data-label="vue">
+    <AlignLeftVue />
+  </div>
+  <div id="tab-5" data-label="vue">
+    <AlignCenterVue />
+  </div>
+  <div id="tab-6" data-label="vue">
+    <AlignRightVue />
   </div>
 </CodeContainer>
