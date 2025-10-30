@@ -36,76 +36,75 @@
  * - default: 文本内容插槽
  */
 
-import "../../style.ts";
-import type { BackgroundColor } from "../../src/common/backgrounds";
-import { getBackgroundClass } from "../../src/common/backgrounds";
+import type { BackgroundColor } from '../../src/common/backgrounds';
+import { getBackgroundClass } from '../../src/common/backgrounds';
 
 export interface IPictureBookTextBoxProps {
-	top?: number;
-	left?: number;
-	right?: number;
-	bottom?: number;
-	width?: number;
-	heightPx?: number;
-	height?: number; // 百分比高度，建议与 width/top 等配合以实现同比缩放
-	zIndex?: number;
-	bg?: BackgroundColor;
-	backdropBlur?: number;
-	paddingPx?: number; // 固定像素内边距（不随容器缩放）
-	roundedPx?: number; // 固定像素圆角（不随容器缩放）
-	paddingCqw?: number; // 根据容器宽度同比缩放的内边距（单位 cqw）
-	roundedCqw?: number; // 根据容器宽度同比缩放的圆角（单位 cqw）
+    top?: number;
+    left?: number;
+    right?: number;
+    bottom?: number;
+    width?: number;
+    heightPx?: number;
+    height?: number; // 百分比高度，建议与 width/top 等配合以实现同比缩放
+    zIndex?: number;
+    bg?: BackgroundColor;
+    backdropBlur?: number;
+    paddingPx?: number; // 固定像素内边距（不随容器缩放）
+    roundedPx?: number; // 固定像素圆角（不随容器缩放）
+    paddingCqw?: number; // 根据容器宽度同比缩放的内边距（单位 cqw）
+    roundedCqw?: number; // 根据容器宽度同比缩放的圆角（单位 cqw）
 
-	fontScaleCqw?: number; // 基于容器宽度的字体缩放系数，默认 4（即 4cqw）
+    fontScaleCqw?: number; // 基于容器宽度的字体缩放系数，默认 4（即 4cqw）
 }
 
 const props = Astro.props as IPictureBookTextBoxProps;
 
-const pct = (v?: number) => (typeof v === "number" ? `${v}%` : undefined);
+const pct = (v?: number) => (typeof v === 'number' ? `${v}%` : undefined);
 
 // 使用通用背景色类名
 const bgClass = getBackgroundClass(props.bg);
 
 const paddingStyle = (() => {
-	if (typeof props.paddingCqw === "number")
-		return `padding: ${props.paddingCqw}cqw`;
-	if (typeof props.paddingPx === "number")
-		return `padding: ${props.paddingPx}px`;
-	return "padding: 0";
+    if (typeof props.paddingCqw === 'number')
+        return `padding: ${props.paddingCqw}cqw`;
+    if (typeof props.paddingPx === 'number')
+        return `padding: ${props.paddingPx}px`;
+    return 'padding: 0';
 })();
 
 const radiusStyle = (() => {
-	if (typeof props.roundedCqw === "number")
-		return `border-radius: ${props.roundedCqw}cqw`;
-	if (typeof props.roundedPx === "number")
-		return `border-radius: ${props.roundedPx}px`;
-	return "border-radius: 0";
+    if (typeof props.roundedCqw === 'number')
+        return `border-radius: ${props.roundedCqw}cqw`;
+    if (typeof props.roundedPx === 'number')
+        return `border-radius: ${props.roundedPx}px`;
+    return 'border-radius: 0';
 })();
 
 const styleList: string = [
-	"position: absolute",
-	`z-index: ${props.zIndex ?? 10}`,
-	paddingStyle,
-	radiusStyle,
-	typeof props.backdropBlur === "number" && props.backdropBlur > 0
-		? `backdrop-filter: blur(${props.backdropBlur}px)`
-		: "",
-	props.top !== undefined ? `top: ${pct(props.top)}` : "",
-	props.left !== undefined ? `left: ${pct(props.left)}` : "",
-	props.right !== undefined ? `right: ${pct(props.right)}` : "",
-	props.bottom !== undefined ? `bottom: ${pct(props.bottom)}` : "",
-	props.width !== undefined ? `width: ${pct(props.width)}` : "",
-	props.height !== undefined ? `height: ${pct(props.height)}` : "",
-	typeof props.heightPx === "number" ? `height: ${props.heightPx}px` : "",
-	// 让 cqw 单位可用，以父级容器宽度驱动字体同比缩放
-	"container-type: inline-size",
-	// 字体与容器宽度同比：默认 4cqw，可通过 fontScaleCqw 覆盖
-	`font-size: ${typeof props.fontScaleCqw === "number" ? `${props.fontScaleCqw}cqw` : "4cqw"}`,
+    'position: absolute',
+    `z-index: ${props.zIndex ?? 10}`,
+    paddingStyle,
+    radiusStyle,
+    typeof props.backdropBlur === 'number' && props.backdropBlur > 0
+        ? `backdrop-filter: blur(${props.backdropBlur}px)`
+        : '',
+    props.top !== undefined ? `top: ${pct(props.top)}` : '',
+    props.left !== undefined ? `left: ${pct(props.left)}` : '',
+    props.right !== undefined ? `right: ${pct(props.right)}` : '',
+    props.bottom !== undefined ? `bottom: ${pct(props.bottom)}` : '',
+    props.width !== undefined ? `width: ${pct(props.width)}` : '',
+    props.height !== undefined ? `height: ${pct(props.height)}` : '',
+    typeof props.heightPx === 'number' ? `height: ${props.heightPx}px` : '',
+    // 让 cqw 单位可用，以父级容器宽度驱动字体同比缩放
+    'container-type: inline-size',
+    // 字体与容器宽度同比：默认 4cqw，可通过 fontScaleCqw 覆盖
+    `font-size: ${typeof props.fontScaleCqw === 'number' ? `${props.fontScaleCqw}cqw` : '4cqw'}`,
 ]
-	.filter(Boolean)
-	.join("; ");
+    .filter(Boolean)
+    .join('; ');
 ---
 
 <div style={styleList} class={`cosy:pointer-events-auto not-prose ${bgClass}`}>
-  <slot />
+    <slot />
 </div>

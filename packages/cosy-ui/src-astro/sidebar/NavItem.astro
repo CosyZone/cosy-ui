@@ -5,96 +5,101 @@
  * 递归渲染导航项，支持无限层级
  */
 
-import { isPathMatch } from "../../src/utils/path.ts";
-import "../../style.ts";
-import type { ISidebarItem } from "../../src/common/sidebar";
+import { isPathMatch } from '../../src/utils/path.ts';
+import type { ISidebarItem } from '../../src/common/sidebar';
 
 interface Props {
-	/**
-	 * 导航项
-	 */
-	item: ISidebarItem;
+    /**
+     * 导航项
+     */
+    item: ISidebarItem;
 
-	/**
-	 * 当前路径
-	 */
-	currentPath: string;
+    /**
+     * 当前路径
+     */
+    currentPath: string;
 
-	/**
-	 * 嵌套层级
-	 * @default 0
-	 */
-	level?: number;
+    /**
+     * 嵌套层级
+     * @default 0
+     */
+    level?: number;
 
-	/**
-	 * 是否开启调试模式
-	 */
-	debug?: boolean;
+    /**
+     * 是否开启调试模式
+     */
+    debug?: boolean;
 }
 
 const { item, currentPath, level = 0, debug = false } = Astro.props;
 
-const debugClass = debug ? "cosy:border cosy:border-red-500" : "";
+const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 const isActive = isPathMatch(currentPath, item.href);
-const badgeSize = level === 0 ? "cosy:badge-sm" : "cosy:badge-xs";
+const badgeSize = level === 0 ? 'cosy:badge-sm' : 'cosy:badge-xs';
 ---
 
 <li class:list={[debugClass, level === 0 ? 'cosy:no-underline' : '']}>
-  <a
-    data-sidebar-item
-    data-current-path={currentPath}
-    data-href={item.href}
-    href={item.href}
-    class:list={[
-      'cosy:hover:bg-base-300',
-      level === 0 ? 'cosy:no-underline' : '',
-      { 'cosy:menu-active': isActive },
-      debugClass,
-    ]}>
-    {item.text}
+    <a
+        data-sidebar-item
+        data-current-path={currentPath}
+        data-href={item.href}
+        href={item.href}
+        class:list={[
+            'cosy:hover:bg-base-300',
+            level === 0 ? 'cosy:no-underline' : '',
+            { 'cosy:menu-active': isActive },
+            debugClass,
+        ]}>
+        {item.text}
+        {
+            item.badge !== undefined && item.badge !== null && (
+                <span class={`cosy:badge ${badgeSize} cosy:ml-2`}>
+                    {item.badge}
+                </span>
+            )
+        }
+    </a>
     {
-      item.badge !== undefined && item.badge !== null && (
-        <span class={`cosy:badge ${badgeSize} cosy:ml-2`}>{item.badge}</span>
-      )
+        item.items && item.items.length > 0 && (
+            <ul class:list={[debugClass]}>
+                {item.items.map((subitem) => (
+                    <Astro.self
+                        item={subitem}
+                        currentPath={currentPath}
+                        level={level + 1}
+                        debug={debug}
+                    />
+                ))}
+            </ul>
+        )
     }
-  </a>
-  {
-    item.items && item.items.length > 0 && (
-      <ul class:list={[debugClass]}>
-        {item.items.map((subitem) => (
-          <Astro.self
-            item={subitem}
-            currentPath={currentPath}
-            level={level + 1}
-            debug={debug}
-          />
-        ))}
-      </ul>
-    )
-  }
 </li>
 
 <script>
-  // 立即处理导航项点击，更新高亮状态
-  document.addEventListener('click', (event) => {
-    const target = event.target as HTMLElement;
-    const navItem = target.closest('[data-sidebar-item]') as HTMLAnchorElement;
+    // 立即处理导航项点击，更新高亮状态
+    document.addEventListener('click', (event) => {
+        const target = event.target as HTMLElement;
+        const navItem = target.closest(
+            '[data-sidebar-item]'
+        ) as HTMLAnchorElement;
 
-    if (navItem) {
-      // 立即移除所有导航项的高亮状态
-      const allNavItems = document.querySelectorAll('[data-sidebar-item]');
-      allNavItems.forEach((item) => {
-        item.classList.remove('cosy:menu-active');
-      });
+        if (navItem) {
+            // 立即移除所有导航项的高亮状态
+            const allNavItems = document.querySelectorAll(
+                '[data-sidebar-item]'
+            );
+            allNavItems.forEach((item) => {
+                item.classList.remove('cosy:menu-active');
+            });
 
-      // 立即为当前点击的导航项添加高亮状态
-      navItem.classList.add('cosy:menu-active');
+            // 立即为当前点击的导航项添加高亮状态
+            navItem.classList.add('cosy:menu-active');
 
-      // 可选：添加一个短暂的视觉反馈
-      navItem.style.transition = 'background-color 0.2s ease';
-      setTimeout(() => {
-        navItem.style.transition = '';
-      }, 200);
-    }
-  });
+            // 可选：添加一个短暂的视觉反馈
+            navItem.style.transition = 'background-color 0.2s ease';
+            setTimeout(() => {
+                navItem.style.transition = '';
+            }, 200);
+        }
+    });
 </script>

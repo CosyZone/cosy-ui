@@ -31,88 +31,87 @@
  * @slots
  * @slot default - 列表项的内容。
  */
-import "../../style.ts";
-import ListItemRing from "./ListItemRing.astro";
-import ListItemIconLeft from "./ListItemIconLeft.astro";
-import ListItemIconRight from "./ListItemIconRight.astro";
-import ListItemBreath from "./ListItemBreath.astro";
-import ListItemPulse from "./ListItemPulse.astro";
-import ListItemGlow from "./ListItemGlow.astro";
+import ListItemRing from './ListItemRing.astro';
+import ListItemIconLeft from './ListItemIconLeft.astro';
+import ListItemIconRight from './ListItemIconRight.astro';
+import ListItemBreath from './ListItemBreath.astro';
+import ListItemPulse from './ListItemPulse.astro';
+import ListItemGlow from './ListItemGlow.astro';
 
 interface Props {
-	class?: string;
-	loading?: boolean;
-	duration?: number;
-	loadingAnimationType?:
-		| "none"
-		| "ring"
-		| "icon-left"
-		| "icon-right"
-		| "breath"
-		| "pulse"
-		| "glow";
+    class?: string;
+    loading?: boolean;
+    duration?: number;
+    loadingAnimationType?:
+        | 'none'
+        | 'ring'
+        | 'icon-left'
+        | 'icon-right'
+        | 'breath'
+        | 'pulse'
+        | 'glow';
 }
 
 const {
-	loading = false,
-	duration,
-	loadingAnimationType = "none",
-	...restProps
+    loading = false,
+    duration,
+    loadingAnimationType = 'none',
+    ...restProps
 } = Astro.props;
 ---
 
 {
-  loadingAnimationType === 'none' && (
-    <li {...restProps}>
-      <slot />
-    </li>
-  )
+    loadingAnimationType === 'none' && (
+        <li {...restProps}>
+            <slot />
+        </li>
+    )
 }
 
 {
-  loadingAnimationType === 'ring' && (
-    <ListItemRing loading={loading} duration={duration} {...restProps}>
-      <slot />
-    </ListItemRing>
-  )
+    loadingAnimationType === 'ring' && (
+        <ListItemRing loading={loading} duration={duration} {...restProps}>
+            <slot />
+        </ListItemRing>
+    )
 }
 
 {
-  loadingAnimationType === 'icon-left' && (
-    <ListItemIconLeft loading={loading} duration={duration} {...restProps}>
-      <slot />
-    </ListItemIconLeft>
-  )
+    loadingAnimationType === 'icon-left' && (
+        <ListItemIconLeft loading={loading} duration={duration} {...restProps}>
+            <slot />
+        </ListItemIconLeft>
+    )
 }
 
 {
-  loadingAnimationType === 'icon-right' && (
-    <ListItemIconRight loading={loading} duration={duration} {...restProps}>
-      <slot />
-    </ListItemIconRight>
-  )
+    loadingAnimationType === 'icon-right' && (
+        <ListItemIconRight loading={loading} duration={duration} {...restProps}>
+            <slot />
+        </ListItemIconRight>
+    )
 }
 
 {
-  loadingAnimationType === 'breath' && (
-    <ListItemBreath loading={loading} duration={duration} {...restProps}>
-      <slot />
-    </ListItemBreath>
-  )
+    loadingAnimationType === 'breath' && (
+        <ListItemBreath loading={loading} duration={duration} {...restProps}>
+            <slot />
+        </ListItemBreath>
+    )
 }
 
 {
-  loadingAnimationType === 'pulse' && (
-    <ListItemPulse loading={loading} duration={duration} {...restProps}>
-      <slot />
-    </ListItemPulse>
-  )
+    loadingAnimationType === 'pulse' && (
+        <ListItemPulse loading={loading} duration={duration} {...restProps}>
+            <slot />
+        </ListItemPulse>
+    )
 }
 
 {
-  loadingAnimationType === 'glow' && (
-    <ListItemGlow loading={loading} duration={duration} {...restProps}>
-      <slot />
-    </ListItemGlow>
-  )
+    loadingAnimationType === 'glow' && (
+        <ListItemGlow loading={loading} duration={duration} {...restProps}>
+            <slot />
+        </ListItemGlow>
+    )
 }

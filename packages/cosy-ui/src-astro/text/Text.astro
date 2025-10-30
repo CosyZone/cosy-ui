@@ -83,38 +83,37 @@
  * - 确保文本颜色与背景色的对比度符合WCAG标准
  */
 
-import "../../style.ts";
-import type { ITextProps } from "./props";
+import type { ITextProps } from './props';
 import {
-	getTextCombinedClass,
-	getTextTagName,
-} from "../../src/components/text/textUtils";
+    getTextCombinedClass,
+    getTextTagName,
+} from '../../src/components/text/textUtils';
 
 const {
-	as,
-	size = "md",
-	weight = "normal",
-	color = "default",
-	align = "left",
-	italic = false,
-	underline = false,
-	truncate = false,
-	class: className = "",
-	style = "",
+    as,
+    size = 'md',
+    weight = 'normal',
+    color = 'default',
+    align = 'left',
+    italic = false,
+    underline = false,
+    truncate = false,
+    class: className = '',
+    style = '',
 } = Astro.props;
 
 // 构造 props 对象以传递给共用函数
 const textProps: ITextProps = {
-	as,
-	size,
-	weight,
-	color,
-	align,
-	italic,
-	underline,
-	truncate,
-	class: className,
-	style,
+    as,
+    size,
+    weight,
+    color,
+    align,
+    italic,
+    underline,
+    truncate,
+    class: className,
+    style,
 };
 
 // 使用共用的工具函数计算组合类名和标签名

@@ -3,13 +3,12 @@
  * AddressItem 组件用于显示地址信息
  */
 
-import "../../style.ts";
-import ContactItem from "./ContactItem.astro";
-import { MapPinIcon } from "../icons";
-import { getContactItemClass, getIconClass } from "./class";
+import ContactItem from './ContactItem.astro';
+import { MapPinIcon } from '../icons';
+import { getContactItemClass, getIconClass } from './class';
 
 export interface AddressItemProps {
-	address: string;
+    address: string;
 }
 
 const { address } = Astro.props as AddressItemProps;

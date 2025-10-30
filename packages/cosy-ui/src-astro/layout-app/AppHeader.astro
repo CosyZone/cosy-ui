@@ -41,55 +41,57 @@
  * ```
  */
 
-import "../../style.ts";
-import { Header, Button, MenuIcon, SearchIcon } from "../../index-astro";
+import { Header, Button, MenuIcon, SearchIcon } from '../../index-astro';
 
 interface Props {
-	headerConfig?: any;
-	debug?: boolean;
-	showSidebar?: boolean;
-	showSearch?: boolean;
-	[key: string]: any;
+    headerConfig?: any;
+    debug?: boolean;
+    showSidebar?: boolean;
+    showSearch?: boolean;
+    [key: string]: any;
 }
 
 const {
-	headerConfig = {},
-	debug = false,
-	showSidebar = true,
-	showSearch = true,
-	...rest
+    headerConfig = {},
+    debug = false,
+    showSidebar = true,
+    showSearch = true,
+    ...rest
 }: Props = Astro.props;
 ---
 
 <Header {...headerConfig} debug={debug}>
-  <div slot="navbar-start">
-    {/* 小屏幕显示侧边栏切换按钮 */}
-    {
-      showSidebar && (
-        <Button
-          class="cosy:lg:hidden"
-          data-modal-target="mobile-sidebar"
-          variant="ghost"
-          size="sm">
-          <MenuIcon size="20px" />
-        </Button>
-      )
-    }
-    <slot name="navbar-start" />
-  </div>
+    <div slot="navbar-start">
+        {/* 小屏幕显示侧边栏切换按钮 */}
+        {
+            showSidebar && (
+                <Button
+                    class="cosy:lg:hidden"
+                    data-modal-target="mobile-sidebar"
+                    variant="ghost"
+                    size="sm">
+                    <MenuIcon size="20px" />
+                </Button>
+            )
+        }
+        <slot name="navbar-start" />
+    </div>
 
-  <div slot="navbar-center">
-    <slot name="navbar-center" />
-  </div>
+    <div slot="navbar-center">
+        <slot name="navbar-center" />
+    </div>
 
-  <div slot="navbar-end">
-    {
-      showSearch && (
-        <Button data-modal-target="modalSearch" variant="ghost" size="sm">
-          <SearchIcon size="24px" />
-        </Button>
-      )
-    }
-    <slot name="navbar-end" />
-  </div>
+    <div slot="navbar-end">
+        {
+            showSearch && (
+                <Button
+                    data-modal-target="modalSearch"
+                    variant="ghost"
+                    size="sm">
+                    <SearchIcon size="24px" />
+                </Button>
+            )
+        }
+        <slot name="navbar-end" />
+    </div>
 </Header>

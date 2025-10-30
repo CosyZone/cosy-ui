@@ -5,78 +5,77 @@
  * 用于渲染侧边栏的导航内容，支持无限层级
  */
 
-import "../../style.ts";
-import NavItem from "./NavItem.astro";
-import type { ISidebarItem } from "../../src/common/sidebar";
-import { Heading } from "../../index-astro.ts";
+import NavItem from './NavItem.astro';
+import type { ISidebarItem } from '../../src/common/sidebar';
+import { Heading } from '../../index-astro.ts';
 
 interface Props {
-	/**
-	 * 侧边栏项目
-	 */
-	sidebarItems: ISidebarItem[];
+    /**
+     * 侧边栏项目
+     */
+    sidebarItems: ISidebarItem[];
 
-	/**
-	 * 当前路径
-	 */
-	currentPath: string;
+    /**
+     * 当前路径
+     */
+    currentPath: string;
 
-	/**
-	 * 是否开启调试模式，显示边框
-	 * @default false
-	 */
-	debug?: boolean;
+    /**
+     * 是否开启调试模式，显示边框
+     * @default false
+     */
+    debug?: boolean;
 
-	/**
-	 * 是否显示标题
-	 * @default true
-	 */
-	showHeading?: boolean;
+    /**
+     * 是否显示标题
+     * @default true
+     */
+    showHeading?: boolean;
 
-	/**
-	 * 自定义类名
-	 */
-	class?: string;
+    /**
+     * 自定义类名
+     */
+    class?: string;
 }
 
 const {
-	sidebarItems,
-	currentPath,
-	debug = false,
-	showHeading = true,
-	class: className,
+    sidebarItems,
+    currentPath,
+    debug = false,
+    showHeading = true,
+    class: className,
 } = Astro.props;
 
-const debugClass = debug ? "cosy:border cosy:border-red-500" : "";
+const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 ---
 
 <nav
-  data-sidebar-nav
-  data-current-path={currentPath}
-  class:list={['cosy:p-0', debugClass, className]}>
-  {
-    sidebarItems.map((section: ISidebarItem) => (
-      <div class:list={[debugClass]}>
-        {showHeading && (
-          <Heading level={5} align="center" href={section.href}>
-            {section.text}
-          </Heading>
-        )}
-        <ul
-          class:list={[
-            'cosy:menu cosy:rounded-box cosy:w-full cosy:no-underline',
-            debugClass,
-          ]}>
-          {section.items?.map((item: ISidebarItem) => (
-            <NavItem
-              item={item}
-              currentPath={currentPath}
-              level={0}
-              debug={debug}
-            />
-          ))}
-        </ul>
-      </div>
-    ))
-  }
+    data-sidebar-nav
+    data-current-path={currentPath}
+    class:list={['cosy:p-0', debugClass, className]}>
+    {
+        sidebarItems.map((section: ISidebarItem) => (
+            <div class:list={[debugClass]}>
+                {showHeading && (
+                    <Heading level={5} align="center" href={section.href}>
+                        {section.text}
+                    </Heading>
+                )}
+                <ul
+                    class:list={[
+                        'cosy:menu cosy:rounded-box cosy:w-full cosy:no-underline',
+                        debugClass,
+                    ]}>
+                    {section.items?.map((item: ISidebarItem) => (
+                        <NavItem
+                            item={item}
+                            currentPath={currentPath}
+                            level={0}
+                            debug={debug}
+                        />
+                    ))}
+                </ul>
+            </div>
+        ))
+    }
 </nav>

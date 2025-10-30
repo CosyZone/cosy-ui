@@ -105,30 +105,29 @@
  * @slot default - 额外的联系信息内容
  */
 
-import "../../style.ts";
-import Card from "../card/Card.astro";
-import type { ContactProps } from "./props";
-import { getContactCombinedClasses } from "./class";
-import AddressItem from "./AddressItem.astro";
-import EmailItem from "./EmailItem.astro";
-import PhoneItem from "./PhoneItem.astro";
-import SocialMediaItem from "./SocialMediaItem.astro";
+import Card from '../card/Card.astro';
+import type { ContactProps } from './props';
+import { getContactCombinedClasses } from './class';
+import AddressItem from './AddressItem.astro';
+import EmailItem from './EmailItem.astro';
+import PhoneItem from './PhoneItem.astro';
+import SocialMediaItem from './SocialMediaItem.astro';
 
 const {
-	address,
-	background = "base-100",
-	compact,
-	description,
-	email,
-	facebook,
-	github,
-	linkedin,
-	phone,
-	title,
-	twitter,
-	website,
-	wechatQR,
-	whatsappQR,
+    address,
+    background = 'base-100',
+    compact,
+    description,
+    email,
+    facebook,
+    github,
+    linkedin,
+    phone,
+    title,
+    twitter,
+    website,
+    wechatQR,
+    whatsappQR,
 } = Astro.props as ContactProps;
 
 // 获取样式类

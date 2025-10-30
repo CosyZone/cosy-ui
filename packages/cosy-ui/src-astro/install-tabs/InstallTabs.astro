@@ -18,157 +18,165 @@
  * <InstallTabs packageName="eslint" managers={["npm","yarn"]} />
  * ```
  */
-import "../../style.ts";
-import ButtonCopyInstall from "./ButtonCopyInstall.astro";
-import { CodePanel } from "../code-panel";
+import ButtonCopyInstall from './ButtonCopyInstall.astro';
+import { CodePanel } from '../code-panel';
 
 interface Props {
-	/** 要安装的包名 */
-	packageName: string;
-	/** 支持的包管理器，默认['npm','pnpm','yarn'] */
-	managers?: string[];
-	/** 是否为开发依赖 */
-	dev?: boolean;
+    /** 要安装的包名 */
+    packageName: string;
+    /** 支持的包管理器，默认['npm','pnpm','yarn'] */
+    managers?: string[];
+    /** 是否为开发依赖 */
+    dev?: boolean;
 }
 
 const {
-	packageName,
-	managers = ["npm", "pnpm", "yarn"],
-	dev = false,
+    packageName,
+    managers = ['npm', 'pnpm', 'yarn'],
+    dev = false,
 } = Astro.props;
 
 const managerLabels: Record<string, string> = {
-	npm: "npm",
-	pnpm: "pnpm",
-	yarn: "yarn",
+    npm: 'npm',
+    pnpm: 'pnpm',
+    yarn: 'yarn',
 };
 
 function getCommand(manager: string, pkg: string, dev: boolean) {
-	switch (manager) {
-		case "npm":
-			return `npm install${dev ? " -D" : ""} ${pkg}`;
-		case "pnpm":
-			return `pnpm add${dev ? " -D" : ""} ${pkg}`;
-		case "yarn":
-			return `yarn add${dev ? " -D" : ""} ${pkg}`;
-		default:
-			return "";
-	}
+    switch (manager) {
+        case 'npm':
+            return `npm install${dev ? ' -D' : ''} ${pkg}`;
+        case 'pnpm':
+            return `pnpm add${dev ? ' -D' : ''} ${pkg}`;
+        case 'yarn':
+            return `yarn add${dev ? ' -D' : ''} ${pkg}`;
+        default:
+            return '';
+    }
 }
 
 const commands = managers.map((m) => getCommand(m, packageName, dev));
 ---
 
 <div
-  class="cosy:mb-8 cosy:card cosy:p-0 cosy:overflow-hidden"
-  data-role="install-tabs">
-  <div
-    class="cosy:flex cosy:justify-between cosy:items-center cosy:bg-base-200 cosy:px-4 cosy:rounded-t">
-    <div class="cosy:flex cosy:items-center cosy:gap-4">
-      <div role="tablist" class="cosy:tabs cosy:tabs-box">
-        {
-          managers.map((manager, idx) => (
-            <button
-              role="tab"
-              class={`cosy:tab${idx === 0 ? ' cosy:tab-active' : ''}`}
-              data-tab={`tab-${idx + 1}`}
-              aria-selected={idx === 0 ? 'true' : 'false'}>
-              {managerLabels[manager] ?? manager}
-            </button>
-          ))
-        }
-      </div>
+    class="cosy:mb-8 cosy:card cosy:p-0 cosy:overflow-hidden"
+    data-role="install-tabs">
+    <div
+        class="cosy:flex cosy:justify-between cosy:items-center cosy:bg-base-200 cosy:px-4 cosy:rounded-t">
+        <div class="cosy:flex cosy:items-center cosy:gap-4">
+            <div role="tablist" class="cosy:tabs cosy:tabs-box">
+                {
+                    managers.map((manager, idx) => (
+                        <button
+                            role="tab"
+                            class={`cosy:tab${idx === 0 ? ' cosy:tab-active' : ''}`}
+                            data-tab={`tab-${idx + 1}`}
+                            aria-selected={idx === 0 ? 'true' : 'false'}>
+                            {managerLabels[manager] ?? manager}
+                        </button>
+                    ))
+                }
+            </div>
+        </div>
+        <div class="cosy:flex cosy:items-center cosy:gap-2">
+            {
+                commands.map((cmd, idx) => (
+                    <div
+                        class={`cosy:install-copy-container ${idx === 0 ? 'cosy:block' : 'cosy:hidden'}`}
+                        data-copy-container={`tab-${idx + 1}`}>
+                        <ButtonCopyInstall code={cmd} />
+                    </div>
+                ))
+            }
+        </div>
     </div>
-    <div class="cosy:flex cosy:items-center cosy:gap-2">
-      {
+    {
         commands.map((cmd, idx) => (
-          <div
-            class={`cosy:install-copy-container ${idx === 0 ? 'cosy:block' : 'cosy:hidden'}`}
-            data-copy-container={`tab-${idx + 1}`}>
-            <ButtonCopyInstall code={cmd} />
-          </div>
+            <div
+                class={`cosy:install-panel ${idx === 0 ? 'cosy:block' : 'cosy:hidden'}`}
+                data-panel={`tab-${idx + 1}`}>
+                <CodePanel code={cmd} language="bash" theme="dark-plus" />
+            </div>
         ))
-      }
-    </div>
-  </div>
-  {
-    commands.map((cmd, idx) => (
-      <div
-        class={`cosy:install-panel ${idx === 0 ? 'cosy:block' : 'cosy:hidden'}`}
-        data-panel={`tab-${idx + 1}`}>
-        <CodePanel code={cmd} language="bash" theme="dark-plus" />
-      </div>
-    ))
-  }
+    }
 </div>
 
 <script>
-  function initializeInstallTabs() {
-    console.log('InstallTabs: 初始化安装标签组件');
+    function initializeInstallTabs() {
+        console.log('InstallTabs: 初始化安装标签组件');
 
-    // 为所有InstallTabs容器添加事件委托
-    document
-      .querySelectorAll('[data-role="install-tabs"]')
-      .forEach((container) => {
-        // 防止重复绑定
-        if (container.hasAttribute('data-initialized')) return;
-        container.setAttribute('data-initialized', 'true');
+        // 为所有InstallTabs容器添加事件委托
+        document
+            .querySelectorAll('[data-role="install-tabs"]')
+            .forEach((container) => {
+                // 防止重复绑定
+                if (container.hasAttribute('data-initialized')) return;
+                container.setAttribute('data-initialized', 'true');
 
-        // 使用事件委托处理标签点击
-        container.addEventListener('click', (event) => {
-          const target = event.target as HTMLElement;
-          const tab = target.closest('[role="tab"][data-tab^="tab-"]');
+                // 使用事件委托处理标签点击
+                container.addEventListener('click', (event) => {
+                    const target = event.target as HTMLElement;
+                    const tab = target.closest(
+                        '[role="tab"][data-tab^="tab-"]'
+                    );
 
-          if (!tab) return;
+                    if (!tab) return;
 
-          console.log('InstallTabs: 切换标签', tab.getAttribute('data-tab'));
+                    console.log(
+                        'InstallTabs: 切换标签',
+                        tab.getAttribute('data-tab')
+                    );
 
-          const targetTab = tab.getAttribute('data-tab');
-          if (!targetTab) return;
+                    const targetTab = tab.getAttribute('data-tab');
+                    if (!targetTab) return;
 
-          // 更新标签状态
-          container
-            .querySelectorAll('[role="tab"][data-tab^="tab-"]')
-            .forEach((t) => {
-              t.classList.remove('cosy:tab-active');
-              t.setAttribute('aria-selected', 'false');
+                    // 更新标签状态
+                    container
+                        .querySelectorAll('[role="tab"][data-tab^="tab-"]')
+                        .forEach((t) => {
+                            t.classList.remove('cosy:tab-active');
+                            t.setAttribute('aria-selected', 'false');
+                        });
+                    tab.classList.add('cosy:tab-active');
+                    tab.setAttribute('aria-selected', 'true');
+
+                    // 切换面板显示
+                    container
+                        .querySelectorAll('.cosy\\:install-panel')
+                        .forEach((panel) => {
+                            if (
+                                panel.getAttribute('data-panel') === targetTab
+                            ) {
+                                panel.classList.remove('cosy:hidden');
+                                panel.classList.add('cosy:block');
+                            } else {
+                                panel.classList.add('cosy:hidden');
+                                panel.classList.remove('cosy:block');
+                            }
+                        });
+
+                    // 切换复制按钮显示
+                    container
+                        .querySelectorAll('.cosy\\:install-copy-container')
+                        .forEach((copyContainer) => {
+                            if (
+                                copyContainer.getAttribute(
+                                    'data-copy-container'
+                                ) === targetTab
+                            ) {
+                                copyContainer.classList.remove('cosy:hidden');
+                                copyContainer.classList.add('cosy:block');
+                            } else {
+                                copyContainer.classList.add('cosy:hidden');
+                                copyContainer.classList.remove('cosy:block');
+                            }
+                        });
+                });
             });
-          tab.classList.add('cosy:tab-active');
-          tab.setAttribute('aria-selected', 'true');
+    }
 
-          // 切换面板显示
-          container
-            .querySelectorAll('.cosy\\:install-panel')
-            .forEach((panel) => {
-              if (panel.getAttribute('data-panel') === targetTab) {
-                panel.classList.remove('cosy:hidden');
-                panel.classList.add('cosy:block');
-              } else {
-                panel.classList.add('cosy:hidden');
-                panel.classList.remove('cosy:block');
-              }
-            });
-
-          // 切换复制按钮显示
-          container
-            .querySelectorAll('.cosy\\:install-copy-container')
-            .forEach((copyContainer) => {
-              if (
-                copyContainer.getAttribute('data-copy-container') === targetTab
-              ) {
-                copyContainer.classList.remove('cosy:hidden');
-                copyContainer.classList.add('cosy:block');
-              } else {
-                copyContainer.classList.add('cosy:hidden');
-                copyContainer.classList.remove('cosy:block');
-              }
-            });
-        });
-      });
-  }
-
-  document.addEventListener('astro:page-load', () => {
-    console.log('InstallTabs: 页面加载完成，初始化安装标签组件');
-    initializeInstallTabs();
-  });
+    document.addEventListener('astro:page-load', () => {
+        console.log('InstallTabs: 页面加载完成，初始化安装标签组件');
+        initializeInstallTabs();
+    });
 </script>

@@ -50,68 +50,66 @@
  * @slot footer - 页脚自定义内容
  */
 
-import "../../style.ts";
-
 export interface Props {
-	title?: string;
-	message?: string;
-	logo?: string;
-	confirmText?: string;
-	cancelText?: string;
-	customClass?: string;
+    title?: string;
+    message?: string;
+    logo?: string;
+    confirmText?: string;
+    cancelText?: string;
+    customClass?: string;
 }
 
 const {
-	title = "退出登录",
-	message = "您确定要退出当前账号吗？",
-	logo,
-	confirmText = "退出登录",
-	cancelText = "取消",
-	customClass = "",
+    title = '退出登录',
+    message = '您确定要退出当前账号吗？',
+    logo,
+    confirmText = '退出登录',
+    cancelText = '取消',
+    customClass = '',
 } = Astro.props;
 ---
 
 <div
-  class={`cosy:min-h-screen cosy:flex cosy:items-center cosy:justify-center cosy:bg-base-200 cosy:py-12 cosy:px-4 cosy:sm:px-6 cosy:lg:px-8 ${customClass}`}>
-  <div
-    class="cosy:max-w-md cosy:w-full cosy:space-y-8 cosy:bg-base-100 cosy:p-8 cosy:rounded-lg cosy:shadow-xl">
-    <!-- 头部区域 -->
-    <div class="cosy:text-center">
-      <slot name="header">
-        {
-          logo && (
-            <img
-              class="cosy:mx-auto cosy:h-12 cosy:w-auto"
-              src={logo}
-              alt="Logo"
-            />
-          )
-        }
-        <h2
-          class="cosy:mt-6 cosy:text-3xl cosy:font-extrabold cosy:text-base-content">
-          {title}
-        </h2>
-        <p class="cosy:mt-2 cosy:text-sm cosy:text-base-content/60">
-          {message}
-        </p>
-      </slot>
-    </div>
+    class={`cosy:min-h-screen cosy:flex cosy:items-center cosy:justify-center cosy:bg-base-200 cosy:py-12 cosy:px-4 cosy:sm:px-6 cosy:lg:px-8 ${customClass}`}>
+    <div
+        class="cosy:max-w-md cosy:w-full cosy:space-y-8 cosy:bg-base-100 cosy:p-8 cosy:rounded-lg cosy:shadow-xl">
+        <!-- 头部区域 -->
+        <div class="cosy:text-center">
+            <slot name="header">
+                {
+                    logo && (
+                        <img
+                            class="cosy:mx-auto cosy:h-12 cosy:w-auto"
+                            src={logo}
+                            alt="Logo"
+                        />
+                    )
+                }
+                <h2
+                    class="cosy:mt-6 cosy:text-3xl cosy:font-extrabold cosy:text-base-content">
+                    {title}
+                </h2>
+                <p class="cosy:mt-2 cosy:text-sm cosy:text-base-content/60">
+                    {message}
+                </p>
+            </slot>
+        </div>
 
-    <!-- 按钮区域 -->
-    <div class="cosy:mt-8 cosy:space-y-4">
-      <button
-        type="button"
-        class="cosy:w-full cosy:flex cosy:justify-center cosy:py-2 cosy:px-4 cosy:border cosy:border-transparent cosy:text-sm cosy:font-medium cosy:rounded-md cosy:text-white cosy:bg-error cosy:hover:bg-error-focus focus:cosy:outline-none focus:cosy:ring-2 focus:cosy:ring-offset-2 focus:cosy:ring-error">
-        {confirmText}
-      </button>
-      <button
-        type="button"
-        class="cosy:w-full cosy:flex cosy:justify-center cosy:py-2 cosy:px-4 cosy:border cosy:border-base-300 cosy:text-sm cosy:font-medium cosy:rounded-md cosy:text-base-content cosy:bg-base-100 cosy:hover:bg-base-200 focus:cosy:outline-none focus:cosy:ring-2 focus:cosy:ring-offset-2 focus:cosy:ring-base-300">
-        {cancelText}
-      </button>
-    </div>
+        <!-- 按钮区域 -->
+        <div class="cosy:mt-8 cosy:space-y-4">
+            <button
+                type="button"
+                class="cosy:w-full cosy:flex cosy:justify-center cosy:py-2 cosy:px-4 cosy:border cosy:border-transparent cosy:text-sm cosy:font-medium cosy:rounded-md cosy:text-white cosy:bg-error cosy:hover:bg-error-focus focus:cosy:outline-none focus:cosy:ring-2 focus:cosy:ring-offset-2 focus:cosy:ring-error">
+                {confirmText}
+            </button>
+            <button
+                type="button"
+                class="cosy:w-full cosy:flex cosy:justify-center cosy:py-2 cosy:px-4 cosy:border cosy:border-base-300 cosy:text-sm cosy:font-medium cosy:rounded-md cosy:text-base-content cosy:bg-base-100 cosy:hover:bg-base-200 focus:cosy:outline-none focus:cosy:ring-2 focus:cosy:ring-offset-2 focus:cosy:ring-base-300">
+                {cancelText}
+            </button>
+        </div>
 
-    <!-- 页脚 -->
-    <slot name="footer" />
-  </div>
+        <!-- 页脚 -->
+        <slot name="footer" />
+    </div>
 </div>

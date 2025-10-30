@@ -35,44 +35,42 @@
  */
 
 // 导入样式
-import "../../style.ts";
-
-import GithubIcon from "../icons/GithubIcon.astro";
-import TwitterIcon from "../icons/TwitterIcon.astro";
-import LinkedinIcon from "../icons/LinkedinIcon.astro";
-import WechatIcon from "../icons/WechatIcon.astro";
-import WhatsappIcon from "../icons/WhatsappIcon.astro";
+import GithubIcon from '../icons/GithubIcon.astro';
+import TwitterIcon from '../icons/TwitterIcon.astro';
+import LinkedinIcon from '../icons/LinkedinIcon.astro';
+import WechatIcon from '../icons/WechatIcon.astro';
+import WhatsappIcon from '../icons/WhatsappIcon.astro';
 
 interface Props {
-	/**
-	 * 社交媒体平台名称
-	 * @default "default"
-	 */
-	platform: string;
+    /**
+     * 社交媒体平台名称
+     * @default "default"
+     */
+    platform: string;
 
-	/**
-	 * 图标的大小
-	 * @default "24px"
-	 */
-	size?: string;
+    /**
+     * 图标的大小
+     * @default "24px"
+     */
+    size?: string;
 
-	/**
-	 * 图标的颜色
-	 * @default "currentColor"
-	 */
-	color?: string;
+    /**
+     * 图标的颜色
+     * @default "currentColor"
+     */
+    color?: string;
 
-	/**
-	 * 自定义类名
-	 */
-	class?: string;
+    /**
+     * 自定义类名
+     */
+    class?: string;
 }
 
 const {
-	platform = "default",
-	size = "24px",
-	color = "currentColor",
-	class: className = "",
+    platform = 'default',
+    size = '24px',
+    color = 'currentColor',
+    class: className = '',
 } = Astro.props;
 
 // 获取平台名称的首字母大写版本，用于显示
@@ -80,21 +78,21 @@ const platformName = platform.charAt(0).toUpperCase() + platform.slice(1);
 
 // 根据平台名称选择对应的图标组件
 const getIconComponent = (platform: string) => {
-	switch (platform.toLowerCase()) {
-		case "github":
-			return GithubIcon;
-		case "twitter":
-			return TwitterIcon;
-		case "linkedin":
-			return LinkedinIcon;
-		case "wechat":
-			return WechatIcon;
-		case "whatsapp":
-			return WhatsappIcon;
-		// 其他平台图标可以在这里添加
-		default:
-			return GithubIcon; // 默认使用 GitHub 图标
-	}
+    switch (platform.toLowerCase()) {
+        case 'github':
+            return GithubIcon;
+        case 'twitter':
+            return TwitterIcon;
+        case 'linkedin':
+            return LinkedinIcon;
+        case 'wechat':
+            return WechatIcon;
+        case 'whatsapp':
+            return WhatsappIcon;
+        // 其他平台图标可以在这里添加
+        default:
+            return GithubIcon; // 默认使用 GitHub 图标
+    }
 };
 
 const IconComponent = getIconComponent(platform);

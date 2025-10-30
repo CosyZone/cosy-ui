@@ -3,13 +3,12 @@
  * EmailItem 组件用于显示邮箱信息
  */
 
-import "../../style.ts";
-import ContactItem from "./ContactItem.astro";
-import { MailIcon } from "../icons";
-import { getContactItemClass, getIconClass } from "./class";
+import ContactItem from './ContactItem.astro';
+import { MailIcon } from '../icons';
+import { getContactItemClass, getIconClass } from './class';
 
 export interface EmailItemProps {
-	email: string;
+    email: string;
 }
 
 const { email } = Astro.props as EmailItemProps;

@@ -14,72 +14,70 @@
  * ```
  */
 
-import { Button, CheckIcon } from "../../index-astro";
-import "../../style.ts";
-
+import { Button, CheckIcon } from '../../index-astro';
 interface Props {
-	/**
-	 * 主题名称
-	 */
-	theme: string;
-	/**
-	 * 显示的标签文本
-	 */
-	label: string;
-	/**
-	 * 自定义类名
-	 */
-	class?: string;
+    /**
+     * 主题名称
+     */
+    theme: string;
+    /**
+     * 显示的标签文本
+     */
+    label: string;
+    /**
+     * 自定义类名
+     */
+    class?: string;
 }
 
-const { theme, label, class: className = "" } = Astro.props;
+const { theme, label, class: className = '' } = Astro.props;
 ---
 
 <Button
-  variant="ghost"
-  size="sm"
-  block
-  class={`cosy:text-left cosy:justify-start ${className} cosy:theme-item`}
-  data-theme-id={theme}>
-  <div
-    class="cosy:flex cosy:items-center cosy:flex-row cosy:justify-between cosy:w-full">
-    <span>{label}</span>
-    <CheckIcon
-      size="16px"
-      class="cosy:theme-check cosy:hidden cosy:text-primary cosy:ml-2"
-    />
-  </div>
+    variant="ghost"
+    size="sm"
+    block
+    class={`cosy:text-left cosy:justify-start ${className} cosy:theme-item`}
+    data-theme-id={theme}>
+    <div
+        class="cosy:flex cosy:items-center cosy:flex-row cosy:justify-between cosy:w-full">
+        <span>{label}</span>
+        <CheckIcon
+            size="16px"
+            class="cosy:theme-check cosy:hidden cosy:text-primary cosy:ml-2"
+        />
+    </div>
 </Button>
 
 <script>
-  import { createThemeManager } from '../../src/utils/theme';
+    import { createThemeManager } from '../../src/utils/theme';
 
-  const themeManager = createThemeManager();
+    const themeManager = createThemeManager();
 
-  // 初始化主题切换按钮
-  function initThemeSwitcher() {
-    document.querySelectorAll('.cosy\\:theme-item').forEach((item) => {
-      item.addEventListener('click', () => {
-        const theme = item.getAttribute('data-theme-id');
-        if (theme) {
-          themeManager.setTheme(theme);
-        }
-      });
-    });
-  }
+    // 初始化主题切换按钮
+    function initThemeSwitcher() {
+        document.querySelectorAll('.cosy\\:theme-item').forEach((item) => {
+            item.addEventListener('click', () => {
+                const theme = item.getAttribute('data-theme-id');
+                if (theme) {
+                    themeManager.setTheme(theme);
+                }
+            });
+        });
+    }
 
-  // 初始加载时初始化
-  function initialize() {
-    themeManager.initialize();
-    initThemeSwitcher();
-  }
+    // 初始加载时初始化
+    function initialize() {
+        themeManager.initialize();
+        initThemeSwitcher();
+    }
 
-  // 初始化
-  document.addEventListener('DOMContentLoaded', initialize);
+    // 初始化
+    document.addEventListener('DOMContentLoaded', initialize);
 
-  // Astro view transitions 后重新初始化
-  document.addEventListener('astro:after-swap', initialize);
+    // Astro view transitions 后重新初始化
+    document.addEventListener('astro:after-swap', initialize);
 
-  // 确保脚本加载后立即初始化
-  initialize();
+    // 确保脚本加载后立即初始化
+    initialize();
 </script>

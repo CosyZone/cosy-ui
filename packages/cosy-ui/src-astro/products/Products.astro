@@ -86,184 +86,183 @@
  * ```
  */
 
-import { ProductCard } from "../../index-astro";
-import "../../style.ts";
-import type { Props as ProductCardProps } from "./ProductCard.astro";
+import { ProductCard } from '../../index-astro';
+import type { Props as ProductCardProps } from './ProductCard.astro';
 
 // 定义产品项类型
-type ProductItem = Omit<ProductCardProps, "class">;
+type ProductItem = Omit<ProductCardProps, 'class'>;
 
 // 定义响应式列数配置
 type ResponsiveColumns = {
-	base?: number; // 默认列数
-	sm?: number; // 小屏幕列数
-	md?: number; // 中等屏幕列数
-	lg?: number; // 大屏幕列数
-	xl?: number; // 超大屏幕列数
+    base?: number; // 默认列数
+    sm?: number; // 小屏幕列数
+    md?: number; // 中等屏幕列数
+    lg?: number; // 大屏幕列数
+    xl?: number; // 超大屏幕列数
 };
 
 // 定义间距大小
-type GapSize = "xs" | "sm" | "md" | "lg" | "xl";
+type GapSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 // 定义外边距大小
-type MarginSize = "none" | "xs" | "sm" | "md" | "lg" | "xl";
+type MarginSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 // 定义布局类型
-type LayoutType = "grid" | "list";
+type LayoutType = 'grid' | 'list';
 
 export interface Props {
-	/**
-	 * 产品数据数组
-	 */
-	products: ProductItem[];
-	/**
-	 * 布局类型
-	 * - grid: 网格布局（默认）
-	 * - list: 列表布局
-	 */
-	layout?: LayoutType;
-	/**
-	 * 列数配置
-	 * 可以为固定数字或响应式对象
-	 * 例如: { base: 1, sm: 2, md: 3, lg: 4 }
-	 */
-	columns?: number | ResponsiveColumns;
-	/**
-	 * 卡片尺寸
-	 * 应用于所有ProductCard
-	 */
-	cardSize?: ProductCardProps["size"];
-	/**
-	 * 卡片间距
-	 * - xs: 超小间距
-	 * - sm: 小间距
-	 * - md: 中等间距（默认）
-	 * - lg: 大间距
-	 * - xl: 超大间距
-	 */
-	gap?: GapSize;
-	/**
-	 * 是否启用等高卡片
-	 * 确保所有卡片高度一致
-	 */
-	equalHeight?: boolean;
-	/**
-	 * 描述文本的最大行数
-	 * 应用于所有ProductCard
-	 */
-	descriptionLines?: number;
-	/**
-	 * 是否显示容器边框
-	 * 控制Products组件整体容器的边框显示
-	 */
-	showBorder?: boolean;
-	/**
-	 * 上下外边距
-	 * - none: 无外边距
-	 * - xs: 超小外边距
-	 * - sm: 小外边距
-	 * - md: 中等外边距（默认）
-	 * - lg: 大外边距
-	 * - xl: 超大外边距
-	 */
-	margin?: MarginSize;
-	/**
-	 * 是否居中显示
-	 * 控制网格布局中所有卡片是否居中显示
-	 */
-	centerItems?: boolean;
-	/**
-	 * 自定义类名
-	 */
-	class?: string;
+    /**
+     * 产品数据数组
+     */
+    products: ProductItem[];
+    /**
+     * 布局类型
+     * - grid: 网格布局（默认）
+     * - list: 列表布局
+     */
+    layout?: LayoutType;
+    /**
+     * 列数配置
+     * 可以为固定数字或响应式对象
+     * 例如: { base: 1, sm: 2, md: 3, lg: 4 }
+     */
+    columns?: number | ResponsiveColumns;
+    /**
+     * 卡片尺寸
+     * 应用于所有ProductCard
+     */
+    cardSize?: ProductCardProps['size'];
+    /**
+     * 卡片间距
+     * - xs: 超小间距
+     * - sm: 小间距
+     * - md: 中等间距（默认）
+     * - lg: 大间距
+     * - xl: 超大间距
+     */
+    gap?: GapSize;
+    /**
+     * 是否启用等高卡片
+     * 确保所有卡片高度一致
+     */
+    equalHeight?: boolean;
+    /**
+     * 描述文本的最大行数
+     * 应用于所有ProductCard
+     */
+    descriptionLines?: number;
+    /**
+     * 是否显示容器边框
+     * 控制Products组件整体容器的边框显示
+     */
+    showBorder?: boolean;
+    /**
+     * 上下外边距
+     * - none: 无外边距
+     * - xs: 超小外边距
+     * - sm: 小外边距
+     * - md: 中等外边距（默认）
+     * - lg: 大外边距
+     * - xl: 超大外边距
+     */
+    margin?: MarginSize;
+    /**
+     * 是否居中显示
+     * 控制网格布局中所有卡片是否居中显示
+     */
+    centerItems?: boolean;
+    /**
+     * 自定义类名
+     */
+    class?: string;
 }
 
 const {
-	products,
-	layout = "grid",
-	columns = { base: 1, sm: 2, md: 3, lg: 4 },
-	cardSize = "md",
-	gap = "md",
-	equalHeight = true,
-	descriptionLines,
-	showBorder = false,
-	margin = "md",
-	centerItems = true,
-	class: className = "",
+    products,
+    layout = 'grid',
+    columns = { base: 1, sm: 2, md: 3, lg: 4 },
+    cardSize = 'md',
+    gap = 'md',
+    equalHeight = true,
+    descriptionLines,
+    showBorder = false,
+    margin = 'md',
+    centerItems = true,
+    class: className = '',
 } = Astro.props;
 
 // 间距映射
 const gapMap = {
-	xs: "cosy:gap-1",
-	sm: "cosy:gap-2",
-	md: "cosy:gap-4",
-	lg: "cosy:gap-6",
-	xl: "cosy:gap-8",
+    xs: 'cosy:gap-1',
+    sm: 'cosy:gap-2',
+    md: 'cosy:gap-4',
+    lg: 'cosy:gap-6',
+    xl: 'cosy:gap-8',
 };
 
 // 外边距映射
 const marginMap = {
-	none: "",
-	xs: "cosy:my-1",
-	sm: "cosy:my-2",
-	md: "cosy:my-4",
-	lg: "cosy:my-6",
-	xl: "cosy:my-8",
+    none: '',
+    xs: 'cosy:my-1',
+    sm: 'cosy:my-2',
+    md: 'cosy:my-4',
+    lg: 'cosy:my-6',
+    xl: 'cosy:my-8',
 };
 
 // 获取响应式列数类名
 const getColumnsClasses = () => {
-	if (typeof columns === "number") {
-		return `cosy:grid-cols-${columns}`;
-	}
+    if (typeof columns === 'number') {
+        return `cosy:grid-cols-${columns}`;
+    }
 
-	const { base = 1, sm, md, lg, xl } = columns;
-	const classes = [`cosy:grid-cols-${base}`];
+    const { base = 1, sm, md, lg, xl } = columns;
+    const classes = [`cosy:grid-cols-${base}`];
 
-	if (sm) classes.push(`cosy:sm:grid-cols-${sm}`);
-	if (md) classes.push(`cosy:md:grid-cols-${md}`);
-	if (lg) classes.push(`cosy:lg:grid-cols-${lg}`);
-	if (xl) classes.push(`cosy:xl:grid-cols-${xl}`);
+    if (sm) classes.push(`cosy:sm:grid-cols-${sm}`);
+    if (md) classes.push(`cosy:md:grid-cols-${md}`);
+    if (lg) classes.push(`cosy:lg:grid-cols-${lg}`);
+    if (xl) classes.push(`cosy:xl:grid-cols-${xl}`);
 
-	return classes.join(" ");
+    return classes.join(' ');
 };
 
 // 获取布局类名
 const getLayoutClasses = () => {
-	if (layout === "grid") {
-		const gridClasses = ["cosy:grid", getColumnsClasses()];
+    if (layout === 'grid') {
+        const gridClasses = ['cosy:grid', getColumnsClasses()];
 
-		// 如果启用居中，添加居中样式
-		if (centerItems) {
-			gridClasses.push("cosy:justify-items-center");
-		}
+        // 如果启用居中，添加居中样式
+        if (centerItems) {
+            gridClasses.push('cosy:justify-items-center');
+        }
 
-		return gridClasses;
-	} else {
-		return ["cosy:flex", "cosy:flex-col"];
-	}
+        return gridClasses;
+    } else {
+        return ['cosy:flex', 'cosy:flex-col'];
+    }
 };
 
 // 构建容器类名
 const containerClasses = [
-	...getLayoutClasses(),
-	gapMap[gap],
-	marginMap[margin],
-	"cosy:w-full",
-	showBorder && "cosy:border cosy:border-base-300 cosy:p-4 cosy:rounded-lg",
-	className,
+    ...getLayoutClasses(),
+    gapMap[gap],
+    marginMap[margin],
+    'cosy:w-full',
+    showBorder && 'cosy:border cosy:border-base-300 cosy:p-4 cosy:rounded-lg',
+    className,
 ];
 ---
 
 <div class:list={containerClasses}>
-  {
-    products.map((product) => (
-      <ProductCard
-        {...product}
-        size={cardSize}
-        equalHeight={equalHeight}
-        descriptionLines={descriptionLines}
-      />
-    ))
-  }
+    {
+        products.map((product) => (
+            <ProductCard
+                {...product}
+                size={cardSize}
+                equalHeight={equalHeight}
+                descriptionLines={descriptionLines}
+            />
+        ))
+    }
 </div>

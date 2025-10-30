@@ -3,29 +3,28 @@
  * SocialLink 组件用于显示单个社交媒体链接
  */
 
-import "../../style.ts";
-import Link from "../link/Link.astro";
-import type { HTMLAttributes } from "astro/types";
+import Link from '../link/Link.astro';
+import type { HTMLAttributes } from 'astro/types';
 
-export interface SocialLinkProps extends HTMLAttributes<"a"> {
-	icon: any; // 图标组件
-	href: string;
-	ariaLabel: string;
-	isExternal?: boolean;
-	hoverImage?: any;
-	hoverImageAlt?: string;
-	socialLinkClass: string;
+export interface SocialLinkProps extends HTMLAttributes<'a'> {
+    icon: any; // 图标组件
+    href: string;
+    ariaLabel: string;
+    isExternal?: boolean;
+    hoverImage?: any;
+    hoverImageAlt?: string;
+    socialLinkClass: string;
 }
 
 const {
-	icon: IconComponent,
-	href,
-	ariaLabel,
-	isExternal = true,
-	hoverImage,
-	hoverImageAlt,
-	socialLinkClass,
-	...rest
+    icon: IconComponent,
+    href,
+    ariaLabel,
+    isExternal = true,
+    hoverImage,
+    hoverImageAlt,
+    socialLinkClass,
+    ...rest
 } = Astro.props as SocialLinkProps;
 ---
 

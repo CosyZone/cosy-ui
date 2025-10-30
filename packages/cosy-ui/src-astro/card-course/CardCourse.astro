@@ -22,36 +22,35 @@
  * - lang: string - 语言（"en" 或 "zh"）
  */
 
-import "../../style.ts";
 import {
-	formatDisplayName,
-	getIconSizeClasses,
-	getContentPaddingClasses,
-} from "./config";
-import CardCourseIcon from "./CardCourseIcon.astro";
-import CardCourseContent from "./CardCourseContent.astro";
-import CardCourseButton from "./CardCourseButton.astro";
-import { SmartBg } from "../smart-bg";
-import type { PaddingSize } from "./types";
+    formatDisplayName,
+    getIconSizeClasses,
+    getContentPaddingClasses,
+} from './config';
+import CardCourseIcon from './CardCourseIcon.astro';
+import CardCourseContent from './CardCourseContent.astro';
+import CardCourseButton from './CardCourseButton.astro';
+import { SmartBg } from '../smart-bg';
+import type { PaddingSize } from './types';
 
 interface Props {
-	contentPadding?: PaddingSize;
-	courseName: string;
-	description?: string;
-	href: string;
-	iconSize?: "sm" | "md" | "lg" | "xl";
-	keywords?: string[];
-	lang: string;
+    contentPadding?: PaddingSize;
+    courseName: string;
+    description?: string;
+    href: string;
+    iconSize?: 'sm' | 'md' | 'lg' | 'xl';
+    keywords?: string[];
+    lang: string;
 }
 
 const {
-	contentPadding = "lg",
-	courseName,
-	description = "",
-	href,
-	iconSize = "md",
-	keywords = [],
-	lang,
+    contentPadding = 'lg',
+    courseName,
+    description = '',
+    href,
+    iconSize = 'md',
+    keywords = [],
+    lang,
 } = Astro.props;
 
 const displayName = formatDisplayName(courseName);
@@ -60,8 +59,8 @@ const contentPaddingClasses = getContentPaddingClasses(contentPadding);
 ---
 
 <div
-  ignore-heading
-  class={`
+    ignore-heading
+    class={`
     cosy:card 
     cosy:shadow-lg
     cosy:hover:shadow-2xl 
@@ -77,27 +76,30 @@ const contentPaddingClasses = getContentPaddingClasses(contentPadding);
     cosy:border
     cosy:border-base-content/30
     cosy:backdrop-blur-sm`}>
-  <!-- 背景 -->
-  <SmartBg
-    keyword={courseName}
-    class={`cosy:relative cosy:z-10`}
-    enableGradient={true}>
-    <!-- 背景图标 -->
-    <CardCourseIcon
-      courseName={courseName}
-      keywords={keywords}
-      iconSizeClasses={iconSizeClasses}
-    />
+    <!-- 背景 -->
+    <SmartBg
+        keyword={courseName}
+        class={`cosy:relative cosy:z-10`}
+        enableGradient={true}>
+        <!-- 背景图标 -->
+        <CardCourseIcon
+            courseName={courseName}
+            keywords={keywords}
+            iconSizeClasses={iconSizeClasses}
+        />
 
-    <div
-      class={`cosy:card-body ${contentPaddingClasses} cosy:bg-base-100/30 cosy:relative cosy:z-10 cosy:h-full`}>
-      <!-- 内容区域 -->
-      <CardCourseContent displayName={displayName} description={description} />
+        <div
+            class={`cosy:card-body ${contentPaddingClasses} cosy:bg-base-100/30 cosy:relative cosy:z-10 cosy:h-full`}>
+            <!-- 内容区域 -->
+            <CardCourseContent
+                displayName={displayName}
+                description={description}
+            />
 
-      <!-- 按钮区域 -->
-      <div class="cosy:card-actions cosy:justify-start cosy:mt-4">
-        <CardCourseButton href={href} lang={lang} />
-      </div>
-    </div>
-  </SmartBg>
+            <!-- 按钮区域 -->
+            <div class="cosy:card-actions cosy:justify-start cosy:mt-4">
+                <CardCourseButton href={href} lang={lang} />
+            </div>
+        </div>
+    </SmartBg>
 </div>

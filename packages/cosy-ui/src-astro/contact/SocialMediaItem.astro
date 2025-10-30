@@ -3,28 +3,27 @@
  * SocialMediaItem 组件用于显示社交媒体链接
  */
 
-import "../../style.ts";
-import SocialLink from "./SocialLink.astro";
+import SocialLink from './SocialLink.astro';
 import {
-	FacebookIcon,
-	GithubIcon,
-	LinkedinIcon,
-	TwitterIcon,
-	WechatIcon,
-	WhatsappIcon,
-} from "../icons";
+    FacebookIcon,
+    GithubIcon,
+    LinkedinIcon,
+    TwitterIcon,
+    WechatIcon,
+    WhatsappIcon,
+} from '../icons';
 
 export interface SocialMediaItemProps {
-	github?: string;
-	twitter?: string;
-	facebook?: string;
-	linkedin?: string;
-	wechatQR?: any;
-	whatsappQR?: any;
+    github?: string;
+    twitter?: string;
+    facebook?: string;
+    linkedin?: string;
+    wechatQR?: any;
+    whatsappQR?: any;
 }
 
 const { github, twitter, facebook, linkedin, wechatQR, whatsappQR } =
-	Astro.props as SocialMediaItemProps;
+    Astro.props as SocialMediaItemProps;
 ---
 
 <div class="cosy:flex cosy:flex-row cosy:gap-2">

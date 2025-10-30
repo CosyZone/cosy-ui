@@ -19,30 +19,29 @@
  * @slots
  * @slot default - 占位符内容
  */
-import "../../style.ts";
-import type { PlaceHolderProps } from "./types";
-import { getBasePlaceholderClasses } from "../../src/components/placeholder/class-all";
+import type { PlaceHolderProps } from './types';
+import { getBasePlaceholderClasses } from '../../src/components/placeholder/class-all';
 
 interface Props extends PlaceHolderProps {}
 
 const {
-	background,
-	border = "none",
-	class: className = "",
-	height = "md",
-	muted = false,
-	padding = "none",
-	width = "md",
+    background,
+    border = 'none',
+    class: className = '',
+    height = 'md',
+    muted = false,
+    padding = 'none',
+    width = 'md',
 } = Astro.props;
 
 const combinedClass = getBasePlaceholderClasses({
-	background,
-	border,
-	class: className,
-	height,
-	muted,
-	padding,
-	width,
+    background,
+    border,
+    class: className,
+    height,
+    muted,
+    padding,
+    width,
 });
 ---
 
