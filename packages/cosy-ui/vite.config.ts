@@ -1,48 +1,9 @@
 import { defineConfig } from "vite";
-import tailwindcss from "@tailwindcss/vite";
-import { createLogger } from "vite";
 
+/**
+ * Vite 配置文件（保留用于兼容性）
+ * 实际构建逻辑在 scripts/build.ts 中通过编程方式实现
+ */
 export default defineConfig({
-	plugins: [
-		tailwindcss(),
-		{
-			name: "post-build",
-			apply: "build",
-			closeBundle: {
-				order: "post",
-				async handler() {
-					const logger = createLogger(); // 直接使用已导入的logger
-
-					logger.info("✅ 构建完成，开始执行post-build脚本...");
-					try {
-						const { exec } = await import("child_process");
-						const { stdout, stderr } = await new Promise<{
-							stdout: string;
-							stderr: string;
-						}>((resolve, reject) => {
-							exec("tsx scripts/post-build.ts", (error, stdout, stderr) => {
-								if (error) reject(error);
-								resolve({ stdout, stderr });
-							});
-						});
-
-						if (stdout) logger.info(stdout);
-						if (stderr) console.warn(stderr);
-						logger.info("🎉 post-build脚本执行完成");
-					} catch (error) {
-						console.error("❌ post-build脚本执行失败:", error);
-					}
-				},
-			},
-		},
-	],
-	build: {
-		cssCodeSplit: false,
-		rollupOptions: {
-			input: "./style.ts",
-			output: {
-				assetFileNames: "app.css",
-			},
-		},
-	},
+	// 空配置，所有构建逻辑都在 scripts/build.ts 中
 });
