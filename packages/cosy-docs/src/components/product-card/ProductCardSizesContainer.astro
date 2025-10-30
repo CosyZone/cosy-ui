@@ -1,7 +1,4 @@
 ---
-
-
-
 import { CodeContainer } from "@coffic/cosy-ui";
 import ProductCardSizes from "./ProductCardSizes.astro";
 import ProductCardSizesSourceCode from "./ProductCardSizes.astro?raw";
@@ -13,30 +10,36 @@ import ProductCardSizesSm from "./ProductCardSizesSm.astro";
 import ProductCardSizesSmSourceCode from "./ProductCardSizesSm.astro?raw";
 import ProductCardSizesXl from "./ProductCardSizesXl.astro";
 import ProductCardSizesXlSourceCode from "./ProductCardSizesXl.astro?raw";
+import ProductCardVueSizes from "./ProductCardVueSizes.vue";
+import ProductCardVueSizesRaw from "./ProductCardVueSizes.vue?raw";
 ---
 
 <CodeContainer
-  titles={['xs', 'sm', 'md', 'lg', 'xl']}
+  titles={['xs', 'sm', 'md', 'lg', 'xl', 'xs']}
   codes={[
     ProductCardSizesSourceCode,
     ProductCardSizesSmSourceCode,
     ProductCardSizesMdSourceCode,
     ProductCardSizesLgSourceCode,
     ProductCardSizesXlSourceCode,
+    ProductCardVueSizesRaw,
   ]}>
-  <div id="tab-1">
+  <div id="tab-1" data-label="astro">
     <ProductCardSizes />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <ProductCardSizesSm />
   </div>
-  <div id="tab-3">
+  <div id="tab-3" data-label="astro">
     <ProductCardSizesMd />
   </div>
-  <div id="tab-4">
+  <div id="tab-4" data-label="astro">
     <ProductCardSizesLg />
   </div>
-  <div id="tab-5">
+  <div id="tab-5" data-label="astro">
     <ProductCardSizesXl />
+  </div>
+  <div id="tab-6" data-label="vue">
+    <ProductCardVueSizes />
   </div>
 </CodeContainer>
