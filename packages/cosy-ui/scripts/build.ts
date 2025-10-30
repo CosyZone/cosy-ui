@@ -1,9 +1,9 @@
-import tailwindcss from "@tailwindcss/vite";
 import { exec } from "node:child_process";
-import fs from "fs-extra";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
+import tailwindcss from "@tailwindcss/vite";
+import fs from "fs-extra";
 import { type InlineConfig, build as viteBuild } from "vite";
 
 const execAsync = promisify(exec);
@@ -68,12 +68,19 @@ async function copyComponents() {
  * 使用 tsc 编译纯 TS 代码（src/ 目录）
  * tsc 会完全保持目录结构：src/utils/image.ts → dist/src/utils/image.js
  */
-async function buildTypeScript() {
-	console.log("⚙️  开始编译 TypeScript 代码...");
+async function buildTypeScript(sourceMap: boolean = true) {
+	const configFile = sourceMap
+		? "tsconfig.build.json"
+		: "tsconfig.build.prod.json";
+	const mode = sourceMap
+		? "开发模式（包含 sourcemap）"
+		: "生产模式（不包含 sourcemap）";
+
+	console.log(`⚙️  开始编译 TypeScript 代码... (${mode})`);
 
 	try {
 		// 使用 tsc 编译，保持目录结构
-		await execAsync("tsc --project tsconfig.build.json");
+		await execAsync(`tsc --project ${configFile}`);
 		console.log("✅ TypeScript 编译完成");
 	} catch (error) {
 		console.error("❌ TypeScript 编译失败:", error);
@@ -110,9 +117,12 @@ async function buildCSS() {
 /**
  * 主构建函数
  */
-async function build() {
+async function build(sourceMap: boolean = true) {
 	const startTime = Date.now();
-	console.log("🚀 开始构建 cosy-ui...\n");
+	const mode = sourceMap
+		? "开发模式（包含 sourcemap）"
+		: "生产模式（不包含 sourcemap）";
+	console.log(`🚀 开始构建 cosy-ui... (${mode})\n`);
 
 	try {
 		// 1. 清空 dist 目录
@@ -121,7 +131,7 @@ async function build() {
 		console.log("✅ dist 目录已清空\n");
 
 		// 2. 并行执行：CSS 构建 + TS 编译
-		await Promise.all([buildCSS(), buildTypeScript()]);
+		await Promise.all([buildCSS(), buildTypeScript(sourceMap)]);
 
 		console.log();
 
@@ -136,5 +146,9 @@ async function build() {
 	}
 }
 
+// 获取命令行参数
+const args = process.argv.slice(2);
+const noSourceMap = args.includes("--no-sourcemap") || args.includes("--prod");
+
 // 执行构建
-build();
+build(!noSourceMap);
