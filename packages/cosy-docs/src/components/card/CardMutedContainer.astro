@@ -1,14 +1,16 @@
 ---
-
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import CardWithMuted from "./CardWithMuted.astro";
-import CardWithMutedSourceCode from "./CardWithMuted.astro?raw";
+/**
+ * @component CardMutedContainer
+ * @description 展示 Card 组件的 muted 属性用法，Astro/Vue 各自独立标签展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import CardWithMuted from './CardWithMuted.astro';
+import CardWithMutedRaw from './CardWithMuted.astro?raw';
+import CardWithMutedVue from './CardWithMutedVue.vue';
+import CardWithMutedVueRaw from './CardWithMutedVue.vue?raw';
 ---
 
-<CodeContainer codes={[CardWithMutedSourceCode]} titles={['muted属性']}>
-    <div id="tab-1">
-        <CardWithMuted />
-    </div>
+<CodeContainer codes={[CardWithMutedRaw, CardWithMutedVueRaw]} titles={['muted', 'muted']}>
+	<div id="tab-1" data-label="astro"><CardWithMuted /></div>
+	<div id="tab-2" data-label="vue"><CardWithMutedVue /></div>
 </CodeContainer>

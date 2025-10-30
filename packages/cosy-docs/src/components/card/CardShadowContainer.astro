@@ -1,51 +1,63 @@
 ---
 
-
-
-import { Card, CodeContainer } from "@coffic/cosy-ui";
-import Shadow2xlExample from "./examples/CardShadow2xlExample.astro";
-import Shadow2xlExampleSourceCode from "./examples/CardShadow2xlExample.astro?raw";
-import LgExample from "./examples/CardShadowLgExample.astro";
-import LgExampleSourceCode from "./examples/CardShadowLgExample.astro?raw";
-import MdExample from "./examples/CardShadowMdExample.astro";
-import MdExampleSourceCode from "./examples/CardShadowMdExample.astro?raw";
-
-// 组件导入（用于实际渲染）
-import NoneExample from "./examples/CardShadowNoneExample.astro";
-// 源码导入（用于 codes 数组）
-import NoneExampleSourceCode from "./examples/CardShadowNoneExample.astro?raw";
-import SmExample from "./examples/CardShadowSmExample.astro";
-import SmExampleSourceCode from "./examples/CardShadowSmExample.astro?raw";
-import XlExample from "./examples/CardShadowXlExample.astro";
-import XlExampleSourceCode from "./examples/CardShadowXlExample.astro?raw";
+/**
+ * @component CardShadowContainer
+ * @description 展示 Card 组件的 shadow 属性所有取值，Astro/Vue 各自独立标签展示。
+ */
+import { Card, CodeContainer } from '@coffic/cosy-ui';
+import Shadow2xlVue from './CardShadow2xlVue.vue';
+import Shadow2xlVueRaw from './CardShadow2xlVue.vue?raw';
+import LgVue from './CardShadowLgVue.vue';
+import LgVueRaw from './CardShadowLgVue.vue?raw';
+import MdVue from './CardShadowMdVue.vue';
+import MdVueRaw from './CardShadowMdVue.vue?raw';
+import NoneVue from './CardShadowNoneVue.vue';
+import NoneVueRaw from './CardShadowNoneVue.vue?raw';
+import SmVue from './CardShadowSmVue.vue';
+import SmVueRaw from './CardShadowSmVue.vue?raw';
+import XlVue from './CardShadowXlVue.vue';
+import XlVueRaw from './CardShadowXlVue.vue?raw';
+import Shadow2xlExample from './examples/CardShadow2xlExample.astro';
+import Shadow2xlExampleRaw from './examples/CardShadow2xlExample.astro?raw';
+import LgExample from './examples/CardShadowLgExample.astro';
+import LgExampleRaw from './examples/CardShadowLgExample.astro?raw';
+import MdExample from './examples/CardShadowMdExample.astro';
+import MdExampleRaw from './examples/CardShadowMdExample.astro?raw';
+import NoneExample from './examples/CardShadowNoneExample.astro';
+import NoneExampleRaw from './examples/CardShadowNoneExample.astro?raw';
+import SmExample from './examples/CardShadowSmExample.astro';
+import SmExampleRaw from './examples/CardShadowSmExample.astro?raw';
+import XlExample from './examples/CardShadowXlExample.astro';
+import XlExampleRaw from './examples/CardShadowXlExample.astro?raw';
 ---
 
 <CodeContainer
-    codes={[
-        NoneExampleSourceCode,
-        SmExampleSourceCode,
-        MdExampleSourceCode,
-        LgExampleSourceCode,
-        XlExampleSourceCode,
-        Shadow2xlExampleSourceCode,
-    ]}
-    titles={['none', 'sm', 'md', 'lg', 'xl', '2xl']}>
-    <div id="tab-1">
-        <NoneExample />
-    </div>
-    <div id="tab-2">
-        <SmExample />
-    </div>
-    <div id="tab-3">
-        <MdExample />
-    </div>
-    <div id="tab-4">
-        <LgExample />
-    </div>
-    <div id="tab-5">
-        <XlExample />
-    </div>
-    <div id="tab-6">
-        <Shadow2xlExample />
-    </div>
+	codes={[
+		NoneExampleRaw,
+		SmExampleRaw,
+		MdExampleRaw,
+		LgExampleRaw,
+		XlExampleRaw,
+		Shadow2xlExampleRaw,
+		NoneVueRaw,
+		SmVueRaw,
+		MdVueRaw,
+		LgVueRaw,
+		XlVueRaw,
+		Shadow2xlVueRaw,
+	]}
+	titles={['none', 'sm', 'md', 'lg', 'xl', '2xl', 'none', 'sm', 'md', 'lg', 'xl', '2xl']}
+>
+	<div id="tab-1" data-label="astro"><NoneExample /></div>
+	<div id="tab-2" data-label="astro"><SmExample /></div>
+	<div id="tab-3" data-label="astro"><MdExample /></div>
+	<div id="tab-4" data-label="astro"><LgExample /></div>
+	<div id="tab-5" data-label="astro"><XlExample /></div>
+	<div id="tab-6" data-label="astro"><Shadow2xlExample /></div>
+	<div id="tab-7" data-label="vue"><NoneVue /></div>
+	<div id="tab-8" data-label="vue"><SmVue /></div>
+	<div id="tab-9" data-label="vue"><MdVue /></div>
+	<div id="tab-10" data-label="vue"><LgVue /></div>
+	<div id="tab-11" data-label="vue"><XlVue /></div>
+	<div id="tab-12" data-label="vue"><Shadow2xlVue /></div>
 </CodeContainer>

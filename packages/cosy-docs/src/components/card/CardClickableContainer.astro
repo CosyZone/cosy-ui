@@ -1,30 +1,35 @@
 ---
 
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import CardClickable from "./CardClickable.astro";
-import CardClickableSourceCode from "./CardClickable.astro?raw";
-import CardClickable2 from "./CardClickable2.astro";
-import CardClickable2SourceCode from "./CardClickable2.astro?raw";
-import CardClickable3 from "./CardClickable3.astro";
-import CardClickable3SourceCode from "./CardClickable3.astro?raw";
+/**
+ * @component CardClickableContainer
+ * @description 展示 Card 组件的 href 属性用法，Astro/Vue 各自独立标签展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import CardClickable from './CardClickable.astro';
+import CardClickableRaw from './CardClickable.astro?raw';
+import CardClickable2 from './CardClickable2.astro';
+import CardClickable2Raw from './CardClickable2.astro?raw';
+import CardClickable3 from './CardClickable3.astro';
+import CardClickable3Raw from './CardClickable3.astro?raw';
+import CardClickableVue from './CardClickableVue.vue';
+import CardClickableVueRaw from './CardClickableVue.vue?raw';
 ---
 
 <CodeContainer
-  codes={[
-    CardClickableSourceCode,
-    CardClickable2SourceCode,
-    CardClickable3SourceCode,
-  ]}
-  titles={['基础链接', '图片链接', '紧凑链接']}>
-  <div id="tab-1">
-    <CardClickable />
-  </div>
-  <div id="tab-2">
-    <CardClickable2 />
-  </div>
-  <div id="tab-3">
-    <CardClickable3 />
-  </div>
+	codes={[
+		CardClickableRaw,
+		CardClickable2Raw,
+		CardClickable3Raw,
+		CardClickableVueRaw,
+		CardClickableVueRaw,
+		CardClickableVueRaw,
+	]}
+	titles={['基础链接', '图片链接', '紧凑链接', '基础链接', '图片链接', '紧凑链接']}
+>
+	<div id="tab-1" data-label="astro"><CardClickable /></div>
+	<div id="tab-2" data-label="astro"><CardClickable2 /></div>
+	<div id="tab-3" data-label="astro"><CardClickable3 /></div>
+	<div id="tab-4" data-label="vue"><CardClickableVue /></div>
+	<div id="tab-5" data-label="vue"><CardClickableVue /></div>
+	<div id="tab-6" data-label="vue"><CardClickableVue /></div>
 </CodeContainer>
