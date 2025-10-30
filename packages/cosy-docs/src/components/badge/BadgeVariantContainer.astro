@@ -1,76 +1,106 @@
 ---
 
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import BadgeVariant from "./BadgeVariant.astro";
-import BadgeVariantCode from "./BadgeVariant.astro?raw";
-import BadgeVariantAccent from "./BadgeVariantAccent.astro";
-import BadgeVariantAccentCode from "./BadgeVariantAccent.astro?raw";
-import BadgeVariantError from "./BadgeVariantError.astro";
-import BadgeVariantErrorCode from "./BadgeVariantError.astro?raw";
-import BadgeVariantGhost from "./BadgeVariantGhost.astro";
-import BadgeVariantGhostCode from "./BadgeVariantGhost.astro?raw";
-import BadgeVariantInfo from "./BadgeVariantInfo.astro";
-import BadgeVariantInfoCode from "./BadgeVariantInfo.astro?raw";
-import BadgeVariantPrimary from "./BadgeVariantPrimary.astro";
-import BadgeVariantPrimaryCode from "./BadgeVariantPrimary.astro?raw";
-import BadgeVariantSecondary from "./BadgeVariantSecondary.astro";
-import BadgeVariantSecondaryCode from "./BadgeVariantSecondary.astro?raw";
-import BadgeVariantSuccess from "./BadgeVariantSuccess.astro";
-import BadgeVariantSuccessCode from "./BadgeVariantSuccess.astro?raw";
-import BadgeVariantWarning from "./BadgeVariantWarning.astro";
-import BadgeVariantWarningCode from "./BadgeVariantWarning.astro?raw";
+/**
+ * @component BadgeVariantContainer
+ * @description 展示 Badge 组件的 variant 属性所有取值，Astro/Vue 各自独立标签展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import BadgeVariant from './BadgeVariant.astro';
+import BadgeVariantRaw from './BadgeVariant.astro?raw';
+import BadgeVariantAccent from './BadgeVariantAccent.astro';
+import BadgeVariantAccentRaw from './BadgeVariantAccent.astro?raw';
+import BadgeVariantAccentVue from './BadgeVariantAccentVue.vue';
+import BadgeVariantAccentVueRaw from './BadgeVariantAccentVue.vue?raw';
+import BadgeVariantError from './BadgeVariantError.astro';
+import BadgeVariantErrorRaw from './BadgeVariantError.astro?raw';
+import BadgeVariantErrorVue from './BadgeVariantErrorVue.vue';
+import BadgeVariantErrorVueRaw from './BadgeVariantErrorVue.vue?raw';
+import BadgeVariantGhost from './BadgeVariantGhost.astro';
+import BadgeVariantGhostRaw from './BadgeVariantGhost.astro?raw';
+import BadgeVariantGhostVue from './BadgeVariantGhostVue.vue';
+import BadgeVariantGhostVueRaw from './BadgeVariantGhostVue.vue?raw';
+import BadgeVariantInfo from './BadgeVariantInfo.astro';
+import BadgeVariantInfoRaw from './BadgeVariantInfo.astro?raw';
+import BadgeVariantInfoVue from './BadgeVariantInfoVue.vue';
+import BadgeVariantInfoVueRaw from './BadgeVariantInfoVue.vue?raw';
+import BadgeVariantPrimary from './BadgeVariantPrimary.astro';
+import BadgeVariantPrimaryRaw from './BadgeVariantPrimary.astro?raw';
+import BadgeVariantPrimaryVue from './BadgeVariantPrimaryVue.vue';
+import BadgeVariantPrimaryVueRaw from './BadgeVariantPrimaryVue.vue?raw';
+import BadgeVariantSecondary from './BadgeVariantSecondary.astro';
+import BadgeVariantSecondaryRaw from './BadgeVariantSecondary.astro?raw';
+import BadgeVariantSecondaryVue from './BadgeVariantSecondaryVue.vue';
+import BadgeVariantSecondaryVueRaw from './BadgeVariantSecondaryVue.vue?raw';
+import BadgeVariantSuccess from './BadgeVariantSuccess.astro';
+import BadgeVariantSuccessRaw from './BadgeVariantSuccess.astro?raw';
+import BadgeVariantSuccessVue from './BadgeVariantSuccessVue.vue';
+import BadgeVariantSuccessVueRaw from './BadgeVariantSuccessVue.vue?raw';
+import BadgeVariantVue from './BadgeVariantVue.vue';
+import BadgeVariantVueRaw from './BadgeVariantVue.vue?raw';
+import BadgeVariantWarning from './BadgeVariantWarning.astro';
+import BadgeVariantWarningRaw from './BadgeVariantWarning.astro?raw';
+import BadgeVariantWarningVue from './BadgeVariantWarningVue.vue';
+import BadgeVariantWarningVueRaw from './BadgeVariantWarningVue.vue?raw';
 ---
 
 <CodeContainer
-  codes={[
-    BadgeVariantCode,
-    BadgeVariantPrimaryCode,
-    BadgeVariantSecondaryCode,
-    BadgeVariantAccentCode,
-    BadgeVariantGhostCode,
-    BadgeVariantInfoCode,
-    BadgeVariantSuccessCode,
-    BadgeVariantWarningCode,
-    BadgeVariantErrorCode,
-  ]}
-  titles={[
-    'default',
-    'primary',
-    'secondary',
-    'accent',
-    'ghost',
-    'info',
-    'success',
-    'warning',
-    'error',
-  ]}>
-  <div id="tab-1">
-    <BadgeVariant />
-  </div>
-  <div id="tab-2">
-    <BadgeVariantPrimary />
-  </div>
-  <div id="tab-3">
-    <BadgeVariantSecondary />
-  </div>
-  <div id="tab-4">
-    <BadgeVariantAccent />
-  </div>
-  <div id="tab-5">
-    <BadgeVariantGhost />
-  </div>
-  <div id="tab-6">
-    <BadgeVariantInfo />
-  </div>
-  <div id="tab-7">
-    <BadgeVariantSuccess />
-  </div>
-  <div id="tab-8">
-    <BadgeVariantWarning />
-  </div>
-  <div id="tab-9">
-    <BadgeVariantError />
-  </div>
+	codes={[
+		BadgeVariantRaw,
+		BadgeVariantPrimaryRaw,
+		BadgeVariantSecondaryRaw,
+		BadgeVariantAccentRaw,
+		BadgeVariantGhostRaw,
+		BadgeVariantInfoRaw,
+		BadgeVariantSuccessRaw,
+		BadgeVariantWarningRaw,
+		BadgeVariantErrorRaw,
+		BadgeVariantVueRaw,
+		BadgeVariantPrimaryVueRaw,
+		BadgeVariantSecondaryVueRaw,
+		BadgeVariantAccentVueRaw,
+		BadgeVariantGhostVueRaw,
+		BadgeVariantInfoVueRaw,
+		BadgeVariantSuccessVueRaw,
+		BadgeVariantWarningVueRaw,
+		BadgeVariantErrorVueRaw,
+	]}
+	titles={[
+		'default',
+		'primary',
+		'secondary',
+		'accent',
+		'ghost',
+		'info',
+		'success',
+		'warning',
+		'error',
+		'default',
+		'primary',
+		'secondary',
+		'accent',
+		'ghost',
+		'info',
+		'success',
+		'warning',
+		'error',
+	]}
+>
+	<div id="tab-1" data-label="astro"><BadgeVariant /></div>
+	<div id="tab-2" data-label="astro"><BadgeVariantPrimary /></div>
+	<div id="tab-3" data-label="astro"><BadgeVariantSecondary /></div>
+	<div id="tab-4" data-label="astro"><BadgeVariantAccent /></div>
+	<div id="tab-5" data-label="astro"><BadgeVariantGhost /></div>
+	<div id="tab-6" data-label="astro"><BadgeVariantInfo /></div>
+	<div id="tab-7" data-label="astro"><BadgeVariantSuccess /></div>
+	<div id="tab-8" data-label="astro"><BadgeVariantWarning /></div>
+	<div id="tab-9" data-label="astro"><BadgeVariantError /></div>
+	<div id="tab-10" data-label="vue"><BadgeVariantVue /></div>
+	<div id="tab-11" data-label="vue"><BadgeVariantPrimaryVue /></div>
+	<div id="tab-12" data-label="vue"><BadgeVariantSecondaryVue /></div>
+	<div id="tab-13" data-label="vue"><BadgeVariantAccentVue /></div>
+	<div id="tab-14" data-label="vue"><BadgeVariantGhostVue /></div>
+	<div id="tab-15" data-label="vue"><BadgeVariantInfoVue /></div>
+	<div id="tab-16" data-label="vue"><BadgeVariantSuccessVue /></div>
+	<div id="tab-17" data-label="vue"><BadgeVariantWarningVue /></div>
+	<div id="tab-18" data-label="vue"><BadgeVariantErrorVue /></div>
 </CodeContainer>

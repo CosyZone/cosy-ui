@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { Badge } from "@coffic/cosy-ui/vue";
+import { Badge } from '@coffic/cosy-ui/vue';
 </script>
-
 <template>
     <Badge>默认样式</Badge>
 </template>

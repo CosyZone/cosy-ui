@@ -1,30 +1,38 @@
 ---
-
-
-
 /**
  * @component BadgeOutlineContainer
- * @description Badge 描边样式示例容器组件
+ * @description 展示 Badge 组件的 outline 属性示例，Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import BadgeOutline from "./BadgeOutline.astro";
-import BadgeOutlineCode from "./BadgeOutline.astro?raw";
-import BadgeOutlineAccent from "./BadgeOutlineAccent.astro";
-import BadgeOutlineAccentCode from "./BadgeOutlineAccent.astro?raw";
-import BadgeOutlineSecondary from "./BadgeOutlineSecondary.astro";
-import BadgeOutlineSecondaryCode from "./BadgeOutlineSecondary.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import BadgeOutline from './BadgeOutline.astro';
+import BadgeOutlineRaw from './BadgeOutline.astro?raw';
+import BadgeOutlineAccent from './BadgeOutlineAccent.astro';
+import BadgeOutlineAccentRaw from './BadgeOutlineAccent.astro?raw';
+import BadgeOutlineAccentVue from './BadgeOutlineAccentVue.vue';
+import BadgeOutlineAccentVueRaw from './BadgeOutlineAccentVue.vue?raw';
+import BadgeOutlineSecondary from './BadgeOutlineSecondary.astro';
+import BadgeOutlineSecondaryRaw from './BadgeOutlineSecondary.astro?raw';
+import BadgeOutlineSecondaryVue from './BadgeOutlineSecondaryVue.vue';
+import BadgeOutlineSecondaryVueRaw from './BadgeOutlineSecondaryVue.vue?raw';
+import BadgeOutlineVue from './BadgeOutlineVue.vue';
+import BadgeOutlineVueRaw from './BadgeOutlineVue.vue?raw';
 ---
 
 <CodeContainer
-  codes={[BadgeOutlineCode, BadgeOutlineSecondaryCode, BadgeOutlineAccentCode]}
-  titles={['primary', 'secondary', 'accent']}>
-  <div id="tab-1">
-    <BadgeOutline />
-  </div>
-  <div id="tab-2">
-    <BadgeOutlineSecondary />
-  </div>
-  <div id="tab-3">
-    <BadgeOutlineAccent />
-  </div>
+	codes={[
+		BadgeOutlineRaw,
+		BadgeOutlineSecondaryRaw,
+		BadgeOutlineAccentRaw,
+		BadgeOutlineVueRaw,
+		BadgeOutlineSecondaryVueRaw,
+		BadgeOutlineAccentVueRaw,
+	]}
+	titles={['primary', 'secondary', 'accent', 'primary', 'secondary', 'accent']}
+>
+	<div id="tab-1" data-label="astro"><BadgeOutline /></div>
+	<div id="tab-2" data-label="astro"><BadgeOutlineSecondary /></div>
+	<div id="tab-3" data-label="astro"><BadgeOutlineAccent /></div>
+	<div id="tab-4" data-label="vue"><BadgeOutlineVue /></div>
+	<div id="tab-5" data-label="vue"><BadgeOutlineSecondaryVue /></div>
+	<div id="tab-6" data-label="vue"><BadgeOutlineAccentVue /></div>
 </CodeContainer>
