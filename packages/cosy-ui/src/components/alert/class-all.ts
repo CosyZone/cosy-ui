@@ -1,5 +1,5 @@
-import type { IAlertPropsBase } from "./alertPropsBase";
 import { cn } from "../../class";
+import type { IAlertPropsBase } from "./alertPropsBase";
 import { getAlertMarginClass } from "./class-margin";
 import { getAlertTypeClass } from "./class-type";
 import { getAlertVariantClass } from "./class-variant";

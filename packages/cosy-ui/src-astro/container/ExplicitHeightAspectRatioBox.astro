@@ -1,4 +1,5 @@
 ---
+import { cn } from '../../src/class';
 /**
  * ExplicitHeightAspectRatioBox 组件
  *
@@ -6,7 +7,6 @@
  * 根据 fit 模式（contain/cover）计算合适的宽度
  */
 import type { RoundedSize } from '../../src/common/rounded';
-import { cn } from '../../src/class';
 
 export interface Props {
     aspectRatio: number;
@@ -14,7 +14,7 @@ export interface Props {
     rounded: RoundedSize;
 }
 
-const { aspectRatio, fit, rounded } = Astro.props as Props;
+const { aspectRatio, fit } = Astro.props as Props;
 
 // 使用 class builder 构建各个部分的类名
 const outerClass = cn().absolute().inset(0).grid().placeItems('center').build();

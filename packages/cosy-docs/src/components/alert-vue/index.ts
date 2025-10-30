@@ -1,14 +1,14 @@
-import AlertVueBasicContainer from "./AlertVueBasicContainer.astro";
-import AlertVueTypesContainer from "./AlertVueTypesContainer.astro";
-import AlertVueCustomStyleContainer from "./AlertVueCustomStyleContainer.astro";
-import AlertVueWithTitleContainer from "./AlertVueWithTitleContainer.astro";
-import AlertVueClosableContainer from "./AlertVueClosableContainer.astro";
 import AlertVueActionContainer from "./AlertVueActionContainer.astro";
+import AlertVueBasicContainer from "./AlertVueBasicContainer.astro";
+import AlertVueClosableContainer from "./AlertVueClosableContainer.astro";
+import AlertVueCustomStyleContainer from "./AlertVueCustomStyleContainer.astro";
+import AlertVueDashContainer from "./AlertVueDashContainer.astro";
 import AlertVueMarginYContainer from "./AlertVueMarginYContainer.astro";
 import AlertVueNoIconContainer from "./AlertVueNoIconContainer.astro";
 import AlertVueOutlineContainer from "./AlertVueOutlineContainer.astro";
-import AlertVueDashContainer from "./AlertVueDashContainer.astro";
 import AlertVueSoftContainer from "./AlertVueSoftContainer.astro";
+import AlertVueTypesContainer from "./AlertVueTypesContainer.astro";
+import AlertVueWithTitleContainer from "./AlertVueWithTitleContainer.astro";
 
 export const AlertVuePackage = {
 	Action: AlertVueActionContainer,

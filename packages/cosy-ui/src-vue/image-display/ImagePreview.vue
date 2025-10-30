@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, watch, ref } from "vue";
+import { onMounted, onUnmounted, ref, watch } from "vue";
 
 /**
  * @component ImagePreview

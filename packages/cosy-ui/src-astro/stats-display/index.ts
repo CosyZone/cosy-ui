@@ -1,10 +1,10 @@
 export { default as StatsDisplay } from "./StatsDisplay.astro";
 export type {
-	StatsDisplayProps,
-	StatItem,
-	PresetColor,
+	Alignment,
 	FontSize,
 	FontWeight,
+	PresetColor,
 	Spacing,
-	Alignment,
+	StatItem,
+	StatsDisplayProps,
 } from "./types";

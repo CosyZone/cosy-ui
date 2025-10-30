@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import "../../style";
 import Alert from "../alert/Alert.vue";
 
 interface Props {

@@ -2,8 +2,8 @@
  * PhotoWall Astro 组件示例导出
  */
 
-import PhotoWallBasic from "./PhotoWallBasic.astro";
 import PhotoWallBackgroundContainer from "./PhotoWallBackgroundContainer.astro";
+import PhotoWallBasic from "./PhotoWallBasic.astro";
 import PhotoWallClickableContainer from "./PhotoWallClickableContainer.astro";
 import PhotoWallGapContainer from "./PhotoWallGapContainer.astro";
 import PhotoWallHoverContainer from "./PhotoWallHoverContainer.astro";

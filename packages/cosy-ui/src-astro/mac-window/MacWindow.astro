@@ -1,4 +1,7 @@
 ---
+
+
+
 /**
  * @component MacWindow
  *
@@ -77,36 +80,115 @@
  * @slot status - 状态栏内容，位于窗口底部
  */
 
-import "../../style";
-import { AlertDialog } from "../alert-dialog";
-import { Container } from "../container";
-import type { IMacWindowProps } from "./props";
+import { cn } from '../../src/class';
+import { AlertDialog } from '../alert-dialog';
+import { Container } from '../container';
+import type { IMacWindowProps } from './props';
 
 const {
-	height = "h-96",
-	width = "md",
-	title = "",
-	withShadow = true,
-	tabs = [],
-	defaultTab = "",
-	id = "",
-	bgType = "base-100",
+    height = 'h-96',
+    width = 'md',
+    title = '',
+    withShadow = true,
+    tabs = [],
+    defaultTab = '',
+    id = '',
+    bgType = 'base-100',
 } = Astro.props as IMacWindowProps;
 
 // 获取背景色类名
-const headerBgClass = "cosy:bg-base-200";
-const statusBgClass = "cosy:bg-base-200/95";
+const headerBgClass = 'cosy:bg-base-200';
+const statusBgClass = 'cosy:bg-base-200/95';
 
 // 如果没有设置默认标签或默认标签不在tabs中，则选择第一个标签
 const activeTab =
-	defaultTab && tabs.includes(defaultTab)
-		? defaultTab
-		: tabs.length > 0
-			? tabs[0]
-			: "";
+    defaultTab && tabs.includes(defaultTab)
+        ? defaultTab
+        : tabs.length > 0
+          ? tabs[0]
+          : '';
 
 // 生成唯一的窗口ID
-const windowId = id || `mac-window-${Math.random().toString(36).substr(2, 9)}`;
+const windowId = id || `mac-window-${Math.random().toString(36).slice(2, 11)}`;
+
+// 构建类名
+const containerClass = cn()
+    .add('cosy:flex cosy:relative cosy:rounded-2xl cosy:overflow-hidden')
+    .add(height)
+    .add(withShadow ? 'cosy:shadow-lg' : '')
+    .build();
+
+const headerClass = cn()
+    .add('cosy:absolute cosy:top-0 cosy:left-0 cosy:right-0')
+    .flex()
+    .items('center')
+    .add('cosy:h-12 cosy:px-4 cosy:border-b cosy:border-base-300')
+    .add(headerBgClass)
+    .build();
+
+const buttonClass = cn()
+    .add('cosy:w-3 cosy:h-3 cosy:rounded-full cosy:cursor-pointer')
+    .add('hover:cosy:opacity-80 cosy:transition-opacity')
+    .build();
+
+const titleClass = cn()
+    .add('cosy:ml-6 cosy:text-sm cosy:font-medium cosy:text-base-content')
+    .build();
+
+const tabsContainerClass = cn()
+    .add('cosy:flex-1')
+    .flex()
+    .justify('center')
+    .build();
+
+const tabsWrapperClass = cn()
+    .add('cosy:inline-flex cosy:rounded-lg cosy:bg-base-300 cosy:p-1')
+    .build();
+
+const getTabButtonClass = (isActive: boolean) =>
+    cn()
+        .add(
+            'cosy:px-3 cosy:py-1 cosy:text-sm cosy:rounded-md cosy:transition-colors'
+        )
+        .add(
+            isActive
+                ? 'cosy:bg-base-100 cosy:text-base-content cosy:shadow'
+                : 'cosy:text-base-content/70 hover:cosy:text-base-content'
+        )
+        .build();
+
+const toolbarClass = cn()
+    .add('cosy:ml-auto')
+    .flex()
+    .items('center')
+    .add('cosy:space-x-2')
+    .build();
+
+const mainContentClass = cn()
+    .add('cosy:flex-1')
+    .flex()
+    .add('cosy:flex-col cosy:pt-12 cosy:h-full')
+    .build();
+
+const contentWrapperClass = cn()
+    .flex()
+    .add('cosy:flex-1 cosy:h-full cosy:overflow-hidden')
+    .build();
+
+const statusBarClass = cn()
+    .add('cosy:h-6 cosy:border-t cosy:border-base-300')
+    .flex()
+    .items('center')
+    .justify('end')
+    .add('cosy:px-4 cosy:text-sm')
+    .add(statusBgClass)
+    .build();
+
+const statusContentClass = cn()
+    .flex()
+    .items('center')
+    .add('cosy:space-x-2')
+    .build();
 ---
 
 <Container
@@ -115,42 +197,34 @@ const windowId = id || `mac-window-${Math.random().toString(36).substr(2, 9)}`;
     centered={true}
     width={width}
     aria-label="MacWindow-Container"
-    class={`cosy:flex cosy:relative cosy:rounded-2xl cosy:overflow-hidden ${height} ${withShadow ? 'cosy:shadow-lg' : ''}`}
+    class={containerClass}
     data-window-id={windowId}>
     <!-- 窗口控制按钮 -->
-    <div
-        class={`cosy:absolute cosy:top-0 cosy:left-0 cosy:right-0 cosy:flex cosy:items-center cosy:h-12 cosy:px-4 cosy:border-b cosy:border-base-300 ${headerBgClass}`}>
+    <div class={headerClass}>
         <div class="cosy:flex cosy:items-center cosy:space-x-2">
             <div
-                class="cosy:w-3 cosy:h-3 cosy:rounded-full cosy:bg-error cosy:cursor-pointer hover:cosy:opacity-80 cosy:transition-opacity"
+                class={cn().add(buttonClass).add('cosy:bg-error').build()}
                 onclick="handleCloseWindow('${windowId}')">
             </div>
             <div
-                class="cosy:w-3 cosy:h-3 cosy:rounded-full cosy:bg-warning cosy:cursor-pointer hover:cosy:opacity-80 cosy:transition-opacity"
+                class={cn().add(buttonClass).add('cosy:bg-warning').build()}
                 onclick="handleMinimizeWindow('${windowId}')">
             </div>
             <div
-                class="cosy:w-3 cosy:h-3 cosy:rounded-full cosy:bg-success cosy:cursor-pointer hover:cosy:opacity-80 cosy:transition-opacity"
+                class={cn().add(buttonClass).add('cosy:bg-success').build()}
                 onclick="handleMaximizeWindow('${windowId}')">
             </div>
         </div>
-        <div
-            class="cosy:ml-6 cosy:text-sm cosy:font-medium cosy:text-base-content">
-            {title}
-        </div>
+        <div class={titleClass}>{title}</div>
 
         <!-- 标签选择器 -->
         {
             tabs.length > 0 && (
-                <div class="cosy:flex-1 cosy:flex cosy:justify-center">
-                    <div class="cosy:inline-flex cosy:rounded-lg cosy:bg-base-300 cosy:p-1">
-                        {tabs.map((tab, index) => (
+                <div class={tabsContainerClass}>
+                    <div class={tabsWrapperClass}>
+                        {tabs.map((tab) => (
                             <button
-                                class={`cosy:px-3 cosy:py-1 cosy:text-sm cosy:rounded-md cosy:transition-colors ${
-                                    activeTab === tab
-                                        ? 'cosy:bg-base-100 cosy:text-base-content cosy:shadow'
-                                        : 'cosy:text-base-content/70 hover:cosy:text-base-content'
-                                }`}
+                                class={getTabButtonClass(activeTab === tab)}
                                 onclick={`handleTabClick('${windowId}', '${tab}')`}
                                 data-tab={tab}>
                                 {tab}
@@ -162,14 +236,14 @@ const windowId = id || `mac-window-${Math.random().toString(36).substr(2, 9)}`;
         }
 
         <!-- 工具栏插槽 -->
-        <div class="cosy:ml-auto cosy:flex cosy:items-center cosy:space-x-2">
+        <div class={toolbarClass}>
             <slot name="toolbar" />
         </div>
     </div>
 
     <!-- 主要内容区域 -->
-    <div class="cosy:flex-1 cosy:flex cosy:flex-col cosy:pt-12 cosy:h-full">
-        <div class="cosy:flex cosy:flex-1 cosy:h-full cosy:overflow-hidden">
+    <div class={mainContentClass}>
+        <div class={contentWrapperClass}>
             <!-- 左侧栏插槽 -->
             <slot name="sidebar" />
 
@@ -180,9 +254,8 @@ const windowId = id || `mac-window-${Math.random().toString(36).substr(2, 9)}`;
         <!-- 底部状态栏 -->
         {
             Astro.slots.status && (
-                <div
-                    class={`cosy:h-6 cosy:border-t cosy:border-base-300 cosy:flex cosy:items-center cosy:justify-end cosy:px-4 cosy:text-sm ${statusBgClass}`}>
-                    <div class="cosy:flex cosy:items-center cosy:space-x-2">
+                <div class={statusBarClass}>
+                    <div class={statusContentClass}>
                         <slot name="status" />
                     </div>
                 </div>

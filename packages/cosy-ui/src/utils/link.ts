@@ -24,7 +24,7 @@ export class LinkUtil {
 	 */
 	static normalizeLanguage(lang: string): string {
 		const normalizedLang = lang.toLowerCase().replace("zh-CN", "zh-cn");
-		if (normalizedLang.length == 0) {
+		if (normalizedLang.length === 0) {
 			console.error("lang is empty");
 			return "en";
 		}

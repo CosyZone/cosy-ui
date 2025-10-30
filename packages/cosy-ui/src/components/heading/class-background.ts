@@ -1,6 +1,6 @@
 import {
-	getBackgroundClass,
 	type BackgroundColor,
+	getBackgroundClass,
 } from "../../../src/common/backgrounds";
 
 /**

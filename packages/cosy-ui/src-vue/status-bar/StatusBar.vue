@@ -50,7 +50,6 @@ StatusBar 组件
 
 <script setup lang="ts">
 import { computed } from "vue";
-import "../../style";
 
 interface Props {
 	// 状态栏变体

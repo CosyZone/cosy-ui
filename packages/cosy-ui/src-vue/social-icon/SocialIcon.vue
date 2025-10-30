@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, h } from "vue";
-import GithubIcon from "../icons/GithubIcon.vue";
-import TwitterIcon from "../icons/TwitterIcon.vue";
-import LinkedinIcon from "../icons/LinkedinIcon.vue";
 import FacebookIcon from "../icons/FacebookIcon.vue";
+import GithubIcon from "../icons/GithubIcon.vue";
+import LinkedinIcon from "../icons/LinkedinIcon.vue";
+import TwitterIcon from "../icons/TwitterIcon.vue";
 
 interface Props {
 	/**

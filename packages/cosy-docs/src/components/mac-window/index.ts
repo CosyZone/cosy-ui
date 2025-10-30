@@ -1,12 +1,12 @@
 // Astro 容器组件
 import BasicContainer from "./BasicContainer.astro";
-import WithTabsContainer from "./WithTabsContainer.astro";
-import WithEventsContainer from "./WithEventsContainer.astro";
-import WithToolbarContainer from "./WithToolbarContainer.astro";
-import WithSidebarContainer from "./WithSidebarContainer.astro";
+import BgTypesContainer from "./BgTypesContainer.astro";
 import CustomHeightContainer from "./CustomHeightContainer.astro";
 import CustomWidthContainer from "./CustomWidth.astro";
-import BgTypesContainer from "./BgTypesContainer.astro";
+import WithEventsContainer from "./WithEventsContainer.astro";
+import WithSidebarContainer from "./WithSidebarContainer.astro";
+import WithTabsContainer from "./WithTabsContainer.astro";
+import WithToolbarContainer from "./WithToolbarContainer.astro";
 
 // 导出 MacWindow 组件包
 export const MacWindowPackage = {

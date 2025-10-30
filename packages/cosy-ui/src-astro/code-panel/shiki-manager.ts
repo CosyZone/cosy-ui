@@ -35,7 +35,19 @@ export async function getShikiHighlighter(
 
 			globalHighlighter = await createHighlighter({
 				themes: [theme],
-				langs: [language],
+				langs: [
+					language,
+					"bash",
+					"shell",
+					"typescript",
+					"javascript",
+					"astro",
+					"vue",
+					"html",
+					"css",
+					"json",
+					"markdown",
+				],
 			});
 
 			return globalHighlighter;

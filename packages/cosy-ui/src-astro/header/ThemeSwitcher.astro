@@ -1,17 +1,13 @@
 ---
+
+
+
 /**
  * @component ThemeSwitcher
  *
  * @description
  * ThemeSwitcher 组件提供一个主题切换下拉菜单，允许用户在多个预定义主题之间切换。
  * 组件会记住用户的主题选择，并在页面重新加载或访问网站的其他页面时保持该主题。
- *
- * @design
- * 设计理念：
- * 1. 简洁直观 - 使用图标按钮和下拉菜单提供清晰的交互方式
- * 2. 主题持久化 - 使用本地存储记住用户的主题选择
- * 3. 无缝集成 - 与 DaisyUI 主题系统无缝集成
- * 4. 广泛兼容 - 支持多种主题选项，适应不同的视觉偏好
  *
  * @usage
  * 基本用法：
@@ -25,16 +21,15 @@
  * ```
  */
 
-import { Button, SunCloudyIcon } from "../../index-astro";
-import { themes } from "../../src/common/themes";
-import ThemeItem from "./ThemeItem.astro";
-import "../../style.ts";
+import { Button, SunCloudyIcon } from '../../index-astro';
+import { themes } from '../../src/common/themes';
+import ThemeItem from './ThemeItem.astro';
 
 interface Props {
-	/**
-	 * 自定义类名
-	 */
-	class?: string;
+    /**
+     * 自定义类名
+     */
+    class?: string;
 }
 
 const { class: className } = Astro.props;
@@ -42,12 +37,16 @@ const { class: className } = Astro.props;
 
 <!-- 主题切换按钮 -->
 <div class:list={['cosy:dropdown-end cosy:dropdown', className]}>
-  <Button tabindex="0" variant="ghost">
-    <SunCloudyIcon size="16px" />
-  </Button>
-  <ul
-    tabindex={0}
-    class="cosy:dropdown-content cosy:ring-1 cosy:ring-base-300 cosy:bg-base-200 cosy:menu cosy:rounded-box cosy:z-[1] cosy:w-56 cosy:p-2 cosy:shadow-lg">
-    {themes.map((theme) => <ThemeItem theme={theme.id} label={theme.name} />)}
-  </ul>
+    <Button tabindex="0" variant="ghost">
+        <SunCloudyIcon size="16px" />
+    </Button>
+    <ul
+        tabindex={0}
+        class="cosy:dropdown-content cosy:ring-1 cosy:ring-base-300 cosy:bg-base-200 cosy:menu cosy:rounded-box cosy:z-[1] cosy:w-56 cosy:p-2 cosy:shadow-lg">
+        {
+            themes.map((theme) => (
+                <ThemeItem theme={theme.id} label={theme.name} />
+            ))
+        }
+    </ul>
 </div>

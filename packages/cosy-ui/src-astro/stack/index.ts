@@ -1,7 +1,7 @@
+import { extractSimpleExample } from "../../src/utils/component";
 import Stack from "./Stack.astro";
 import StackBasic from "./StackBasic.astro";
 import BasicSourceCode from "./StackBasic.astro?raw";
-import { extractSimpleExample } from "../../src/utils/component";
 
 export { Stack, StackBasic };
 

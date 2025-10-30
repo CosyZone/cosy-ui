@@ -1,17 +1,16 @@
 ---
+
+
+
+
+
 /**
  * @component TeamMembers
  *
  * @description
  * TeamMembers 组件用于展示团队成员列表，以网格布局呈现多个 TeamMember 组件。
  * 支持响应式布局，可以根据屏幕大小自动调整列数。
- *
- * @design
- * 设计理念：
- * 1. 一致性展示 - 以统一的卡片形式展示团队成员信息
- * 2. 响应式布局 - 在不同屏幕尺寸下自动调整列数
- * 3. 灵活配置 - 支持自定义列数和样式
- *
+ * 
  * @usage
  * 基本用法：
  * ```astro
@@ -29,9 +28,9 @@
  * ```
  */
 
-import TeamMember from './TeamMember.astro';
 import { cn } from '../../src/class';
-import type { ImageSource } from '../image/types.ts';
+import type { ImageSource } from '../image/types';
+import TeamMember from './TeamMember.astro';
 
 interface SocialLink {
     platform: 'github' | 'twitter' | 'linkedin' | 'website' | 'email';

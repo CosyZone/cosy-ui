@@ -6,13 +6,6 @@
  * TeamMember 组件用于展示单个团队成员的信息，包括姓名、职位、头像、简介和社交媒体链接。
  * 组件采用卡片式设计，支持悬停效果，并可以链接到成员的社交媒体账号。
  *
- * @design
- * 设计理念：
- * 1. 个人展示 - 突出展示团队成员的个人信息和形象
- * 2. 社交连接 - 提供社交媒体链接，方便与团队成员建立联系
- * 3. 视觉一致性 - 使用卡片组件确保与整体设计风格一致
- * 4. 交互反馈 - 悬停时提供视觉反馈，增强用户体验
- *
  * @usage
  * 基本用法：
  * ```astro
@@ -52,15 +45,15 @@
  * ```
  */
 
+import { Container, Image, Link, SocialIcon } from '../../index-astro';
 import { cn } from '../../src/class';
-import type { ImageSource } from '../image/types.ts';
 import type {
-    ShadowSize,
     BackgroundColor,
     RoundedSize,
+    ShadowSize,
 } from '../../src/common';
-import { shadowClasses, hoverShadowClasses } from '../../src/common';
-import { SocialIcon, Image, Link, Container } from '../../index-astro';
+import { hoverShadowClasses } from '../../src/common';
+import type { ImageSource } from '../image/types';
 
 interface ISocialLink {
     /**
@@ -143,7 +136,6 @@ const {
     muted = false,
 } = Astro.props;
 
-const shadowClass = shadow ? shadowClasses[shadow] || '' : '';
 const hoverShadowClass = hoverShadow
     ? hoverShadowClasses[hoverShadow] || hoverShadowClasses['lg']
     : hoverShadowClasses['lg'];

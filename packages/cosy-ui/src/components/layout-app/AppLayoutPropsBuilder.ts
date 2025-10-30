@@ -20,15 +20,15 @@
  * ```
  */
 
-import { PropsBuilder } from "../../utils/PropsBuilder";
-import type { IAppLayoutPropsBase } from "./appLayoutPropsBase";
-import type { IFooterProps } from "../footer/types";
-import type { IHeaderProps } from "../header/types";
-import type { IMainContentProps } from "../main/types";
+import type { BackgroundColor } from "../../../src/common/backgrounds";
 import type { IMetaProps } from "../../../src/common/meta";
 import type { ISidebarProps } from "../../../src/common/sidebar";
 import type { ThemeId } from "../../../src/common/themes";
-import type { BackgroundColor } from "../../../src/common/backgrounds";
+import { PropsBuilder } from "../../utils/PropsBuilder";
+import type { IFooterProps } from "../footer/types";
+import type { IHeaderProps } from "../header/types";
+import type { IMainContentProps } from "../main/types";
+import type { IAppLayoutPropsBase } from "./appLayoutPropsBase";
 
 export class AppLayoutPropsBuilder extends PropsBuilder<IAppLayoutPropsBase> {
 	// ========== 基础属性方法 ==========

@@ -14,7 +14,7 @@ import { ${name} } from '@cosy/index_vue'
 `;
 
 	// 从源码中提取导入语句（除了组件的导入和app.css）
-	if (scriptMatch && scriptMatch[1]) {
+	if (scriptMatch?.[1]) {
 		const importLines = scriptMatch[1]
 			.split("\n")
 			.filter(
@@ -25,7 +25,7 @@ import { ${name} } from '@cosy/index_vue'
 			);
 
 		if (importLines.length > 0) {
-			importSection += importLines.join("\n") + "\n";
+			importSection += `${importLines.join("\n")}\n`;
 		}
 	}
 
@@ -38,5 +38,5 @@ import { ${name} } from '@cosy/index_vue'
 		.replace(`./${name}.astro`, name)
 		.replace(`../${name}.astro`, name);
 
-	return importSection + "<template>" + templateContent + "</template>";
+	return `${importSection}<template>${templateContent}</template>`;
 }

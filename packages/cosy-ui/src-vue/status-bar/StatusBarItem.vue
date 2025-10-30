@@ -38,7 +38,6 @@ StatusBarItem 组件
 
 <script setup lang="ts">
 import { computed } from "vue";
-import "../../style";
 
 interface Props {
 	// 是否可点击

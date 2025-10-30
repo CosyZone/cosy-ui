@@ -1,17 +1,20 @@
 ---
+
+
+
+import * as astroI18n from 'astro:i18n';
 import {
-    type ISidebarItem,
-    type BackgroundColor,
     AppLayout,
+    type BackgroundColor,
+    type ISidebarItem,
 } from '@coffic/cosy-ui';
+import Search from 'astro-pagefind/components/Search';
 import Favicon from '@/assets/favicon.png';
 import Logo from '@/assets/logo.png';
-import { configApp } from '@/config/config.app';
-import { configProducts } from '@/config/config.products';
-import * as astroI18n from 'astro:i18n';
-import Search from 'astro-pagefind/components/Search';
 import WechatQR from '@/assets/qrcode.png';
 import WhatsAppQR from '@/assets/qrcode.png';
+import { configApp } from '@/config/config.app';
+import { configProducts } from '@/config/config.products';
 import CustomFooter from './CustomFooter.astro';
 
 interface Props {

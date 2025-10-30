@@ -10,9 +10,9 @@
 	--cosy-dot-grid-alpha: 0.08;
 }
 .cosy\:bg-dot-grid {
-	position: relative !important;
-	isolation: isolate !important;
-	background-color: #f3f4f6 !important;
+	position: relative;
+	isolation: isolate;
+	background-color: #f3f4f6;
 }
 
 /* 基础（亮色）
@@ -22,7 +22,7 @@
    * - dot-grid-lg: 半径 1.5px，间距 13px，透明度 0.22（黑）
    */
 .cosy\:bg-dot-grid::before {
-	content: "";
+	content: '';
 	position: absolute;
 	inset: 0;
 	z-index: -50; /* 设置为-50，使其低于Container背景图片的z-index(-10) */
@@ -43,7 +43,7 @@
    */
 @media (prefers-color-scheme: dark) {
 	.cosy\:bg-dot-grid {
-		background-color: #111111 !important;
+		background-color: #111111;
 	}
 	/* 暗色：点颜色为白色，通过类上变量微调透明度 */
 	:root {

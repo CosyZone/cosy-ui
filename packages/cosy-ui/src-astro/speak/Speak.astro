@@ -1,4 +1,7 @@
 ---
+
+
+
 /**
  * @component Speak
  *
@@ -18,56 +21,57 @@
  * ```
  */
 
-import { Image } from "astro:assets";
-import type { ImageMetadata } from "astro";
-import "../../style.ts";
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 
 interface Props {
-	/**
-	 * 说话者姓名
-	 */
-	speakerName: string;
-	/**
-	 * 说话者头衔
-	 */
-	speakerTitle: string;
-	/**
-	 * 说话者头像
-	 */
-	image: ImageMetadata;
-	/**
-	 * 说话内容
-	 */
-	words: string;
-	/**
-	 * 自定义类名
-	 */
-	class?: string;
+    /**
+     * 说话者姓名
+     */
+    speakerName: string;
+    /**
+     * 说话者头衔
+     */
+    speakerTitle: string;
+    /**
+     * 说话者头像
+     */
+    image: ImageMetadata;
+    /**
+     * 说话内容
+     */
+    words: string;
+    /**
+     * 自定义类名
+     */
+    class?: string;
 }
 
 const {
-	speakerName,
-	speakerTitle,
-	image,
-	words,
-	class: className = "",
+    speakerName,
+    speakerTitle,
+    image,
+    words,
+    class: className = '',
 } = Astro.props;
 ---
 
 <div
-  class={`cosy:flex cosy:flex-col cosy:items-center cosy:gap-4 cosy:p-6 cosy:bg-base-100 cosy:rounded-lg cosy:shadow-lg ${className}`}>
-  <Image
-    src={image}
-    alt={speakerName}
-    class="cosy:w-32 cosy:h-32 cosy:rounded-full cosy:object-cover"
-    width={128}
-    height={128}
-  />
-  <div class="cosy:text-center">
-    <h3 class="cosy:text-xl cosy:font-semibold cosy:text-base-content">
-      {speakerName}
-    </h3>
-    <p class="cosy:text-base-content/70">{speakerTitle}</p>
-  </div>
-  <p class="cosy:text-base-content/80 cosy:italic cosy:text-center">{words}</p>
+    class={`cosy:flex cosy:flex-col cosy:items-center cosy:gap-4 cosy:p-6 cosy:bg-base-100 cosy:rounded-lg cosy:shadow-lg ${className}`}>
+    <Image
+        src={image}
+        alt={speakerName}
+        class="cosy:w-32 cosy:h-32 cosy:rounded-full cosy:object-cover"
+        width={128}
+        height={128}
+    />
+    <div class="cosy:text-center">
+        <h3 class="cosy:text-xl cosy:font-semibold cosy:text-base-content">
+            {speakerName}
+        </h3>
+        <p class="cosy:text-base-content/70">{speakerTitle}</p>
+    </div>
+    <p class="cosy:text-base-content/80 cosy:italic cosy:text-center">
+        {words}
+    </p>
 </div>

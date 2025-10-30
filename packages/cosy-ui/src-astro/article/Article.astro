@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 /**
  * @component Article
  *
@@ -88,10 +93,8 @@
  * - 支持系统的暗黑模式设置
  */
 
-// 导入样式
-import '../../style.ts';
-import type { IArticleProps } from '../types/article.ts';
 import { cn } from '../../src/class';
+import type { IArticleProps } from '../types/article';
 
 export interface Props extends IArticleProps {}
 
@@ -114,7 +117,7 @@ const articleClass = cn()
         'cosy:m-0',
         'cosy:px-2',
         'cosy:lg:px-4',
-        'cosy:min-h-screen',
+        'cosy:min-h-screen'
     )
     .add('cosy:pb-96', widthClasses, className)
     .build();

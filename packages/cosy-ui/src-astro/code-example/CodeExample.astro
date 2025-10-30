@@ -1,4 +1,7 @@
 ---
+
+
+
 /**
  * @component CodeExample
  *
@@ -27,159 +30,166 @@
  * @slot default - 组件的实际渲染内容
  */
 
-import { ClipboardIcon, CheckIcon } from "../../index-astro";
-import "../../style.ts";
+import { CheckIcon, ClipboardIcon } from '../../index-astro';
 
 interface Props {
-	title?: string;
-	description?: string;
-	code: string;
+    title?: string;
+    description?: string;
+    code: string;
 }
 
 const { title, description, code } = Astro.props;
 ---
 
 <div data-role="code-example" class="cosy:mb-8 cosy:card" ignore-heading>
-  {
-    title && (
-      <h3 class="cosy:p-4 cosy:border-b cosy:border-base-300 cosy:card-title">
-        {title}
-      </h3>
-    )
-  }
-  {
-    description && (
-      <p class="cosy:px-4 cosy:pt-4 cosy:text-base-content/70">{description}</p>
-    )
-  }
+    {
+        title && (
+            <h3 class="cosy:p-4 cosy:border-b cosy:border-base-300 cosy:card-title">
+                {title}
+            </h3>
+        )
+    }
+    {
+        description && (
+            <p class="cosy:px-4 cosy:pt-4 cosy:text-base-content/70">
+                {description}
+            </p>
+        )
+    }
 
-  <div
-    class="cosy:flex cosy:justify-between cosy:items-center cosy:bg-base-200 cosy:px-4 cosy:rounded-t">
-    <div role="tablist" class="cosy:tabs cosy:tabs-box">
-      <button role="tab" class="cosy:tab cosy:tab-active" data-tab="preview"
-        >预览</button
-      >
-      <button role="tab" class="cosy:tab" data-tab="code">代码</button>
-    </div>
-    <div class="cosy:flex cosy:items-center cosy:gap-2">
-      <button
-        class="cosy:gap-2 cosy:btn cosy:btn-ghost cosy:btn-sm"
-        aria-label="复制代码">
-        <span class="cosy:copy-icon"><ClipboardIcon /></span>
-        <span class="cosy:hidden cosy:text-success cosy:check-icon"
-          ><CheckIcon /></span
-        >
-        <span class="cosy:copy-text">复制代码</span>
-      </button>
-    </div>
-  </div>
-
-  <div
-    class="cosy:relative cosy:p-4 cosy:bg-gradient-to-br cosy:from-red-100 cosy:to-green-300 cosy:rounded-b">
-    <div class="cosy:block cosy:code-example-panel" data-panel="preview">
-      <slot />
+    <div
+        class="cosy:flex cosy:justify-between cosy:items-center cosy:bg-base-200 cosy:px-4 cosy:rounded-t">
+        <div role="tablist" class="cosy:tabs cosy:tabs-box">
+            <button
+                role="tab"
+                class="cosy:tab cosy:tab-active"
+                data-tab="preview">预览</button
+            >
+            <button role="tab" class="cosy:tab" data-tab="code">代码</button>
+        </div>
+        <div class="cosy:flex cosy:items-center cosy:gap-2">
+            <button
+                class="cosy:gap-2 cosy:btn cosy:btn-ghost cosy:btn-sm"
+                aria-label="复制代码">
+                <span class="cosy:copy-icon"><ClipboardIcon /></span>
+                <span class="cosy:hidden cosy:text-success cosy:check-icon"
+                    ><CheckIcon /></span
+                >
+                <span class="cosy:copy-text">复制代码</span>
+            </button>
+        </div>
     </div>
 
-    <div class="cosy:hidden cosy:code-example-panel" data-panel="code">
-      <pre
-        class="cosy:overflow-x-auto"
-        style="margin:0"><code class="cosy:language-astro">{code}</code></pre>
+    <div
+        class="cosy:relative cosy:p-4 cosy:bg-gradient-to-br cosy:from-red-100 cosy:to-green-300 cosy:rounded-b">
+        <div class="cosy:block cosy:code-example-panel" data-panel="preview">
+            <slot />
+        </div>
+
+        <div class="cosy:hidden cosy:code-example-panel" data-panel="code">
+            <pre
+                class="cosy:overflow-x-auto"
+                style="margin:0"><code class="cosy:language-astro">{code}</code></pre>
+        </div>
     </div>
-  </div>
 </div>
 
 <script>
-  function initializeCodeExample() {
-    // 标签切换功能
-    const tabs = document.querySelectorAll('.cosy\\:tab');
+    function initializeCodeExample() {
+        // 标签切换功能
+        const tabs = document.querySelectorAll('.cosy\\:tab');
 
-    tabs.forEach((tab) => {
-      tab.addEventListener('click', () => {
-        // 获取当前标签组
-        const tabGroup = tab.closest('.cosy\\:tabs');
-        if (!tabGroup) return;
+        tabs.forEach((tab) => {
+            tab.addEventListener('click', () => {
+                // 获取当前标签组
+                const tabGroup = tab.closest('.cosy\\:tabs');
+                if (!tabGroup) return;
 
-        const codeExample = tab.closest('.cosy\\:card');
-        if (!codeExample) return;
+                const codeExample = tab.closest('.cosy\\:card');
+                if (!codeExample) return;
 
-        const contentContainer = codeExample.querySelector('.cosy\\:relative');
-        if (!contentContainer) return;
+                const contentContainer =
+                    codeExample.querySelector('.cosy\\:relative');
+                if (!contentContainer) return;
 
-        // 获取目标面板
-        const targetTab = tab.getAttribute('data-tab');
-        if (!targetTab) return;
+                // 获取目标面板
+                const targetTab = tab.getAttribute('data-tab');
+                if (!targetTab) return;
 
-        // 更新标签状态
-        tabGroup.querySelectorAll('.cosy\\:tab').forEach((t) => {
-          t.classList.remove('cosy:tab-active');
+                // 更新标签状态
+                tabGroup.querySelectorAll('.cosy\\:tab').forEach((t) => {
+                    t.classList.remove('cosy:tab-active');
+                });
+                tab.classList.add('cosy:tab-active');
+
+                // 更新面板状态
+                const panels =
+                    contentContainer.querySelectorAll('[data-panel]');
+                panels.forEach((panel) => {
+                    if (panel.getAttribute('data-panel') === targetTab) {
+                        panel.classList.remove('cosy:hidden');
+                        panel.classList.add('cosy:block');
+                    } else {
+                        panel.classList.add('cosy:hidden');
+                        panel.classList.remove('cosy:block');
+                    }
+                });
+            });
         });
-        tab.classList.add('cosy:tab-active');
 
-        // 更新面板状态
-        const panels = contentContainer.querySelectorAll('[data-panel]');
-        panels.forEach((panel) => {
-          if (panel.getAttribute('data-panel') === targetTab) {
-            panel.classList.remove('cosy:hidden');
-            panel.classList.add('cosy:block');
-          } else {
-            panel.classList.add('cosy:hidden');
-            panel.classList.remove('cosy:block');
-          }
+        // 复制代码功能
+        const copyButtons = document.querySelectorAll('.cosy\\:btn-ghost');
+
+        copyButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                const codeExample = button.closest('.cosy\\:card');
+                if (!codeExample) return;
+
+                const codePanel = codeExample.querySelector(
+                    '[data-panel="code"]'
+                );
+                if (!codePanel) return;
+
+                const codeElement = codePanel.querySelector('code');
+                if (!codeElement) return;
+
+                const code = codeElement.textContent || '';
+
+                // 复制到剪贴板
+                navigator.clipboard.writeText(code).then(() => {
+                    // 显示复制成功状态
+                    button.classList.add('cosy:btn-success');
+                    button
+                        .querySelector('.cosy\\:copy-icon')
+                        ?.classList.add('cosy:hidden');
+                    button
+                        .querySelector('.cosy\\:check-icon')
+                        ?.classList.remove('cosy:hidden');
+                    button
+                        .querySelector('.cosy\\:copy-text')
+                        ?.classList.add('cosy:text-success');
+
+                    // 3秒后恢复原状
+                    setTimeout(() => {
+                        button.classList.remove('cosy:btn-success');
+                        button
+                            .querySelector('.cosy\\:copy-icon')
+                            ?.classList.remove('cosy:hidden');
+                        button
+                            .querySelector('.cosy\\:check-icon')
+                            ?.classList.add('cosy:hidden');
+                        button
+                            .querySelector('.cosy\\:copy-text')
+                            ?.classList.remove('cosy:text-success');
+                    }, 3000);
+                });
+            });
         });
-      });
-    });
+    }
 
-    // 复制代码功能
-    const copyButtons = document.querySelectorAll('.cosy\\:btn-ghost');
+    // 初始化
+    initializeCodeExample();
 
-    copyButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const codeExample = button.closest('.cosy\\:card');
-        if (!codeExample) return;
-
-        const codePanel = codeExample.querySelector('[data-panel="code"]');
-        if (!codePanel) return;
-
-        const codeElement = codePanel.querySelector('code');
-        if (!codeElement) return;
-
-        const code = codeElement.textContent || '';
-
-        // 复制到剪贴板
-        navigator.clipboard.writeText(code).then(() => {
-          // 显示复制成功状态
-          button.classList.add('cosy:btn-success');
-          button
-            .querySelector('.cosy\\:copy-icon')
-            ?.classList.add('cosy:hidden');
-          button
-            .querySelector('.cosy\\:check-icon')
-            ?.classList.remove('cosy:hidden');
-          button
-            .querySelector('.cosy\\:copy-text')
-            ?.classList.add('cosy:text-success');
-
-          // 3秒后恢复原状
-          setTimeout(() => {
-            button.classList.remove('cosy:btn-success');
-            button
-              .querySelector('.cosy\\:copy-icon')
-              ?.classList.remove('cosy:hidden');
-            button
-              .querySelector('.cosy\\:check-icon')
-              ?.classList.add('cosy:hidden');
-            button
-              .querySelector('.cosy\\:copy-text')
-              ?.classList.remove('cosy:text-success');
-          }, 3000);
-        });
-      });
-    });
-  }
-
-  // 初始化
-  initializeCodeExample();
-
-  // Astro 页面切换时重新初始化
-  document.addEventListener('astro:page-load', initializeCodeExample);
+    // Astro 页面切换时重新初始化
+    document.addEventListener('astro:page-load', initializeCodeExample);
 </script>

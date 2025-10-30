@@ -1,5 +1,10 @@
 import type { BackgroundColor } from "../../src/common/backgrounds";
-import type { ImageSource } from "../image/image";
+import type { ImageSource } from "../image/types";
+
+export interface IImagesCircleItem {
+	src: ImageSource;
+	alt: string;
+}
 
 export interface IImagesCircleProps {
 	images: ImageSource[];

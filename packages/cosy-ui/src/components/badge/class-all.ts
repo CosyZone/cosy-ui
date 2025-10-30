@@ -1,8 +1,8 @@
 import type { IBadgePropsBase } from "./badgePropsBase";
 import { getBadgeBaseClasses } from "./class-base";
-import { getBadgeVariantClass } from "./class-variant";
-import { getBadgeSizeClass } from "./class-size";
 import { getBadgeOutlineClass } from "./class-outline";
+import { getBadgeSizeClass } from "./class-size";
+import { getBadgeVariantClass } from "./class-variant";
 
 /**
  * 计算 Badge 组件的组合类名（用于基础接口）

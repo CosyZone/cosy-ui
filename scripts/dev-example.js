@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import { spawn, exec } from "child_process";
-import { promisify } from "util";
-import path from "path";
-import fs from "fs";
+import { exec, spawn } from "node:child_process";
+import fs from "node:fs";
+import path from "node:path";
+import { promisify } from "node:util";
 
 const execAsync = promisify(exec);
 

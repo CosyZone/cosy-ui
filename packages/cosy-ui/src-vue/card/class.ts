@@ -1,8 +1,8 @@
-import type { ICardProps } from "./props";
 import {
 	getBaseCardClasses,
 	getCardPaddingClass,
 } from "../../src/components/card/class-all";
+import type { ICardProps } from "./props";
 
 /**
  * 计算 Card 组件的组合类名（用于 Vue 版本）
@@ -12,7 +12,7 @@ import {
 export function getCardCombinedClassesVue(props: ICardProps): string[] {
 	const baseClasses = getBaseCardClasses(props);
 
-	return baseClasses;
+	return [baseClasses];
 }
 
 /**

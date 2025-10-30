@@ -1,4 +1,3 @@
-import type { IHeadingPropsBase } from "./headingPropsBase";
 import { cn } from "../../class";
 import { getHeadingAlignClass } from "./class-align";
 import { getHeadingBackgroundClass } from "./class-background";
@@ -6,8 +5,9 @@ import { getHeadingColorClass } from "./class-color";
 import { getHeadingMarginClass } from "./class-margin";
 import { getHeadingPaddingClass } from "./class-padding";
 import { getHeadingSizeClass } from "./class-size";
-import { getHeadingWeightClass } from "./class-weight";
 import { getHeadingUnderlineClass } from "./class-underline";
+import { getHeadingWeightClass } from "./class-weight";
+import type { IHeadingPropsBase } from "./headingPropsBase";
 
 /**
  * 计算 Heading 组件的组合类名（用于基础接口）

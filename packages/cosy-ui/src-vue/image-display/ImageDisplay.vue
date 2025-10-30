@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import ImageGrid from "./ImageGrid.vue";
 import ImagePreview from "./ImagePreview.vue";
-import type { IImageDisplayProps, IImageDisplayEmits } from "./types";
+import type { IImageDisplayEmits, IImageDisplayProps } from "./types";
 
 /**
  * @component ImageDisplay

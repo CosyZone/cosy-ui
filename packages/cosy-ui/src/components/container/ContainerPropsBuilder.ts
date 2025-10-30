@@ -20,10 +20,10 @@
  * ```
  */
 
-import { PropsBuilder } from "../../utils/PropsBuilder";
-import type { IContainerPropsBase } from "./containerPropsBase";
 import type { BackgroundColor } from "../../common/backgrounds";
 import type { BorderColor } from "../../common/border";
+import { PropsBuilder } from "../../utils/PropsBuilder";
+import type { IContainerPropsBase } from "./containerPropsBase";
 
 export class ContainerPropsBuilder extends PropsBuilder<IContainerPropsBase> {
 	// ========== width 相关方法 ==========

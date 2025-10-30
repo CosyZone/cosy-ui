@@ -33,8 +33,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
 import { MacWindow } from "@coffic/cosy-ui/vue";
+import { ref } from "vue";
 
 // 响应式状态 - 事件日志
 const eventLog = ref<string[]>([]);

@@ -67,7 +67,7 @@ export const texts: Record<string, TextContent> = {
  * @returns 对应的文本内容
  */
 export function getText(lang: string, component: string, key: string): string {
-	return texts[lang]?.[component]?.[key] || texts["en"][component]?.[key] || "";
+	return texts[lang]?.[component]?.[key] || texts.en[component]?.[key] || "";
 }
 
 /**

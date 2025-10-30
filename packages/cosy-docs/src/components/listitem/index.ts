@@ -1,7 +1,7 @@
-import BasicContainer from "./BasicContainer.astro";
-import LoadingContainer from "./LoadingContainer.astro";
-import CustomDurationContainer from "./CustomDurationContainer.astro";
 import AnimationTypesContainer from "./AnimationTypesContainer.astro";
+import BasicContainer from "./BasicContainer.astro";
+import CustomDurationContainer from "./CustomDurationContainer.astro";
+import LoadingContainer from "./LoadingContainer.astro";
 
 export const ComponentPackage = {
 	ComponentContainers: {

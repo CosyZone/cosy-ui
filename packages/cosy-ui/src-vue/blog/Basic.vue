@@ -3,7 +3,6 @@
 </template>
 
 <script setup lang="ts">
-import "../../style";
 import { ref } from "vue";
 import BlogList from "./BlogList.vue";
 

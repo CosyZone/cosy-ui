@@ -29,8 +29,8 @@
  * ```
  */
 
-import type { IAlertProps } from "./props";
 import { AlertPropsBuilder } from "../../src/components/alert/AlertPropsBuilder";
+import type { IAlertProps } from "./props";
 
 interface SlotComponent {
 	component: any;
@@ -291,6 +291,3 @@ export class AlertFactory {
 		return this.builder.build();
 	}
 }
-
-// 导入 Alert 组件类型
-import Alert from "./Alert.astro";

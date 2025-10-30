@@ -12,12 +12,10 @@
 </template>
 
 <script setup lang="ts">
-import { ImageDisplay } from "@coffic/cosy-ui/vue";
-import {
-	getExampleImage,
+import { 
 	getAvatarImage,
-	getProductImage,
-} from "@coffic/cosy-ui/vue";
+	getExampleImage,
+	getProductImage,ImageDisplay, } from "@coffic/cosy-ui/vue";
 
 // 使用稳定的图片URL，避免水合不匹配
 const sampleImages = [

@@ -1,5 +1,5 @@
-import type { IContainerProps } from "./props";
 import { getBaseContainerClasses } from "../../src/components/container/class-all";
+import type { IContainerProps } from "./props";
 
 /**
  * 计算 Container 组件的组合类名（用于 Vue 版本）

@@ -1,5 +1,5 @@
-import type { IButtonProps } from "./props";
 import { getBaseButtonClasses } from "../../src/components/button/class-all";
+import type { IButtonProps } from "./props";
 
 /**
  * 将可能的对象形式的 class 转换为字符串

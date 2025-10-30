@@ -1,10 +1,10 @@
 export { default as Hero } from "./Hero.astro";
 export type {
+	AlignType,
+	BackgroundOverlayType,
+	BackgroundType,
 	HeroProps,
 	IHeroLink,
 	ImageConfig,
-	BackgroundType,
-	AlignType,
 	ImagePositionType,
-	BackgroundOverlayType,
 } from "./hero";

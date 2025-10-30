@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import "../../style";
-import type { IButtonProps } from "./props";
 import { getButtonCombinedClassesVue } from "./class";
+import type { IButtonProps } from "./props";
 
 /**
  * @component Button

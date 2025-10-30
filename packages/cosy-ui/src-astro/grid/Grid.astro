@@ -1,17 +1,13 @@
 ---
+
+
+
 /**
  * @component Grid
  *
  * @description
  * Grid 组件是一个灵活的网格布局组件，用于创建响应式的多列布局。
  * 它封装了 CSS Grid 的常用功能，提供简单易用的接口来控制网格的列数和间距。
- *
- * @design
- * 设计理念：
- * 1. 简单易用 - 通过简洁的 API 控制复杂的 Grid 布局
- * 2. 响应式优先 - 内置响应式断点，轻松创建适应不同屏幕尺寸的布局
- * 3. 灵活可配置 - 支持自定义列数和间距
- * 4. 语义化属性 - 使用直观的属性名称，降低学习成本
  *
  * @usage
  * 基本用法：
@@ -82,8 +78,8 @@
 
 import { cn } from '../../src/class';
 import {
-    getBackgroundClass,
     type BackgroundColor,
+    getBackgroundClass,
 } from '../../src/common/backgrounds';
 
 import type { GridProps } from './types';
@@ -394,44 +390,56 @@ const getColsClasses = (cols: ResponsiveValue<number>) => {
     return result.join(' ');
 };
 
-// 间距映射
-const gapClasses: Record<GapSize, string> = {
-    none: 'cosy:gap-0',
-    xs: 'cosy:gap-2',
-    sm: 'cosy:gap-4',
-    md: 'cosy:gap-6',
-    lg: 'cosy:gap-8',
-    xl: 'cosy:gap-12',
+// 间距映射 - 使用 class builder
+const getGapClass = (gap: GapSize) => {
+    const gapMap = {
+        none: cn().add('cosy:gap-0').build(),
+        xs: cn().add('cosy:gap-2').build(),
+        sm: cn().add('cosy:gap-4').build(),
+        md: cn().add('cosy:gap-6').build(),
+        lg: cn().add('cosy:gap-8').build(),
+        xl: cn().add('cosy:gap-12').build(),
+    };
+    return gapMap[gap];
 };
 
-// 行间距映射
-const rowGapClasses: Record<GapSize, string> = {
-    none: 'cosy:row-gap-0',
-    xs: 'cosy:row-gap-2',
-    sm: 'cosy:row-gap-4',
-    md: 'cosy:row-gap-6',
-    lg: 'cosy:row-gap-8',
-    xl: 'cosy:row-gap-12',
+// 行间距映射 - 使用 class builder
+const getRowGapClass = (gap: GapSize) => {
+    const rowGapMap = {
+        none: cn().add('cosy:row-gap-0').build(),
+        xs: cn().add('cosy:row-gap-2').build(),
+        sm: cn().add('cosy:row-gap-4').build(),
+        md: cn().add('cosy:row-gap-6').build(),
+        lg: cn().add('cosy:row-gap-8').build(),
+        xl: cn().add('cosy:row-gap-12').build(),
+    };
+    return rowGapMap[gap];
 };
 
-// 列间距映射
-const colGapClasses: Record<GapSize, string> = {
-    none: 'cosy:col-gap-0',
-    xs: 'cosy:col-gap-2',
-    sm: 'cosy:col-gap-4',
-    md: 'cosy:col-gap-6',
-    lg: 'cosy:col-gap-8',
-    xl: 'cosy:col-gap-12',
+// 列间距映射 - 使用 class builder
+const getColGapClass = (gap: GapSize) => {
+    const colGapMap = {
+        none: cn().add('cosy:col-gap-0').build(),
+        xs: cn().add('cosy:col-gap-2').build(),
+        sm: cn().add('cosy:col-gap-4').build(),
+        md: cn().add('cosy:col-gap-6').build(),
+        lg: cn().add('cosy:col-gap-8').build(),
+        xl: cn().add('cosy:col-gap-12').build(),
+    };
+    return colGapMap[gap];
 };
 
-// 垂直外边距映射
-const marginYClasses: Record<GapSize, string> = {
-    none: 'cosy:my-0',
-    xs: 'cosy:my-2',
-    sm: 'cosy:my-4',
-    md: 'cosy:my-6',
-    lg: 'cosy:my-8',
-    xl: 'cosy:my-12',
+// 垂直外边距映射 - 使用 class builder
+const getMarginYClass = (gap: GapSize) => {
+    const marginYMap = {
+        none: cn().add('cosy:my-0').build(),
+        xs: cn().add('cosy:my-2').build(),
+        sm: cn().add('cosy:my-4').build(),
+        md: cn().add('cosy:my-6').build(),
+        lg: cn().add('cosy:my-8').build(),
+        xl: cn().add('cosy:my-12').build(),
+    };
+    return marginYMap[gap];
 };
 
 // 获取背景色类名
@@ -443,13 +451,13 @@ const gridClass = cn()
     .add(getColsClasses(cols))
     .add(
         rowGap
-            ? rowGapClasses[rowGap as GapSize]
+            ? getRowGapClass(rowGap as GapSize)
             : colGap
-              ? gapClasses[gap as GapSize]
-              : gapClasses[gap as GapSize]
+              ? getGapClass(gap as GapSize)
+              : getGapClass(gap as GapSize),
     )
-    .add(colGap ? colGapClasses[colGap as GapSize] : '')
-    .add(marginY ? marginYClasses[marginY as GapSize] : '')
+    .add(colGap ? getColGapClass(colGap as GapSize) : '')
+    .add(marginY ? getMarginYClass(marginY as GapSize) : '')
     .add(border ? 'cosy:border cosy:rounded-lg' : '')
     .add(backgroundClass)
     .add(className)

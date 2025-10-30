@@ -1,12 +1,12 @@
-import type { ILinkPropsBase } from "./linkPropsBase";
 import { cn } from "../../class";
-import { getLinkBaseClasses } from "./class-base";
-import { getLinkVariantClasses } from "./class-variant";
-import { getLinkSizeClasses } from "./class-size";
-import { getLinkRoundedClass } from "./class-rounded";
-import { getLinkModifierClasses } from "./class-modifiers";
 import { getLinkAlignClass } from "./class-align";
 import { getLinkAnimationClasses } from "./class-animation";
+import { getLinkBaseClasses } from "./class-base";
+import { getLinkModifierClasses } from "./class-modifiers";
+import { getLinkRoundedClass } from "./class-rounded";
+import { getLinkSizeClasses } from "./class-size";
+import { getLinkVariantClasses } from "./class-variant";
+import type { ILinkPropsBase } from "./linkPropsBase";
 
 /**
  * 计算 Link 组件的组合类名（用于基础接口）
@@ -15,8 +15,8 @@ import { getLinkAnimationClasses } from "./class-animation";
  */
 export function getBaseLinkClasses(props: ILinkPropsBase): string {
 	const {
-		href,
-		external = false,
+		href: _href,
+		external: _external = false,
 		block = false,
 		variant = "default",
 		animation = "none",
@@ -39,7 +39,7 @@ export function getBaseLinkClasses(props: ILinkPropsBase): string {
 	} = props;
 
 	// 构建基础类名
-	const baseClasses = getLinkBaseClasses(block, icon, rest["hoverImage"]);
+	const baseClasses = getLinkBaseClasses(block, icon, rest.hoverImage);
 
 	// 构建变体类名
 	const variantClasses = getLinkVariantClasses(
@@ -84,6 +84,7 @@ export function getBaseLinkClasses(props: ILinkPropsBase): string {
 			alignClass,
 			...animationClasses,
 			className,
+			classList,
 		)
 		.build();
 

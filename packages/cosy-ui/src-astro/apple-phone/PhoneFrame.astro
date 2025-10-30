@@ -1,22 +1,26 @@
 ---
+
+
+
 /**
  * @component PhoneFrame
  * @description ApplePhone 组件的内部边框组件，用于显示 iPhone 设备的边框
  */
 
-import { Image } from "../image";
-import iphoneFrame from "../../src/components/apple-phone/assets/iPhone14ProDeepPurplePortrait.png";
+import { cn } from '../../src/class';
+import iphoneFrame from '../../src/components/apple-phone/assets/iPhone14ProDeepPurplePortrait.png';
+import { Image } from '../image';
+
+// 使用 class builder 构建类名
+const frameClass = cn()
+    .add('cosy:max-w-full', 'cosy:max-h-full')
+    .absolute()
+    .add('cosy:top-0', 'cosy:left-0')
+    .add('cosy:z-10')
+    .add('cosy:pointer-events-none')
+    .build();
 ---
 
-<div
-    style="
-		max-width: 100%;
-		max-height: 100%;
-		position: absolute;
-		top: 0;
-		left: 0;
-		z-index: 10;
-        pointer-events: none;
-	">
+<div class={frameClass}>
     <Image src={iphoneFrame} alt="iPhone frame" />
 </div>

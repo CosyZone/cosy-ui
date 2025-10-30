@@ -65,12 +65,12 @@
 </template>
 
 <script setup lang="ts">
-import ListItemRing from "./ListItemRing.vue";
+import ListItemBreath from "./ListItemBreath.vue";
+import ListItemGlow from "./ListItemGlow.vue";
 import ListItemIconLeft from "./ListItemIconLeft.vue";
 import ListItemIconRight from "./ListItemIconRight.vue";
-import ListItemBreath from "./ListItemBreath.vue";
 import ListItemPulse from "./ListItemPulse.vue";
-import ListItemGlow from "./ListItemGlow.vue";
+import ListItemRing from "./ListItemRing.vue";
 
 withDefaults(
 	defineProps<{

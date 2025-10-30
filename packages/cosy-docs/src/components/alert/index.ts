@@ -1,15 +1,15 @@
-import AlertBasicContainer from "./AlertBasicContainer.astro";
-import AlertWithTitleContainer from "./AlertWithTitleContainer.astro";
-import AlertCustomStyleContainer from "./AlertCustomStyleContainer.astro";
-import AlertTypesContainer from "./AlertTypesContainer.astro";
-import AlertClosableContainer from "./AlertClosableContainer.astro";
 import AlertActionContainer from "./AlertActionContainer.astro";
-import AlertOutlineContainer from "./AlertOutlineContainer.astro";
+import AlertBasicContainer from "./AlertBasicContainer.astro";
+import AlertClosableContainer from "./AlertClosableContainer.astro";
+import AlertCustomStyleContainer from "./AlertCustomStyleContainer.astro";
 import AlertDashContainer from "./AlertDashContainer.astro";
-import AlertSoftContainer from "./AlertSoftContainer.astro";
-import AlertNoIconContainer from "./AlertNoIconContainer.astro";
-import AlertMarginYContainer from "./AlertMarginYContainer.astro";
 import AlertFactory from "./AlertFactory.astro";
+import AlertMarginYContainer from "./AlertMarginYContainer.astro";
+import AlertNoIconContainer from "./AlertNoIconContainer.astro";
+import AlertOutlineContainer from "./AlertOutlineContainer.astro";
+import AlertSoftContainer from "./AlertSoftContainer.astro";
+import AlertTypesContainer from "./AlertTypesContainer.astro";
+import AlertWithTitleContainer from "./AlertWithTitleContainer.astro";
 
 export const AlertPackage = {
 	Action: AlertActionContainer,

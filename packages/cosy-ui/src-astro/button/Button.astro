@@ -1,24 +1,15 @@
 ---
+
+
+
+
+
 /**
  * @component Button
  *
  * @description
  * Button 组件用于触发一个即时操作，如表单提交、打开对话框等。
  * 支持多种样式变体、尺寸和状态，可以满足不同场景的需求。
- *
- * @design
- * 设计理念：
- * 1. 直观易用 - 通过视觉差异清晰传达按钮的重要性和功能
- * 2. 响应式交互 - 提供丰富的状态反馈，增强用户体验
- * 3. 可定制性 - 支持多种配置选项，适应不同场景需求
- * 4. 无障碍性 - 确保所有用户都能获得良好体验
- *
- * 视觉特点：
- * - 悬停效果：轻微上浮和阴影增强
- * - 点击效果：轻微下沉
- * - 加载状态：显示加载动画
- * - 多种颜色变体：适应不同场景和语义
- * - 多种尺寸：适应不同布局需求
  *
  * @usage
  * 基本用法：
@@ -74,11 +65,9 @@
  * @slot icon-right - 右侧图标，显示在按钮内容右侧
  */
 
-// 导入样式
-import '../../style.ts';
-import type { IButtonProps } from './props';
-import { getBaseButtonClasses } from '../../src/components/button/class-all';
 import { cn } from '../../src/class';
+import { getBaseButtonClasses } from '../../src/components/button/class-all';
+import type { IButtonProps } from './props';
 
 // 从 Astro.props 获取属性
 const props = Astro.props as IButtonProps;

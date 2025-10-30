@@ -6,13 +6,6 @@
  * Review 组件用于展示用户评价，支持评分、评论内容、用户信息和认证状态。
  * 适用于电商产品页面、服务评价、内容评论等场景。
  *
- * @design
- * 设计理念：
- * 1. 信息层次清晰 - 评分、用户信息、评论内容分层展示
- * 2. 信任感建立 - 通过认证标识和真实用户信息建立信任
- * 3. 视觉友好 - 合理的间距和排版，易于阅读
- * 4. 灵活配置 - 支持多种展示模式和自定义样式
- *
  * @usage
  * 基本用法：
  * ```astro
@@ -57,12 +50,11 @@
  */
 
 import { cn } from '../../src/class';
-
-import Text from '../text/Text.astro';
-import Badge from '../badge/Badge.astro';
-import SmartIcon from '../smart-icon/SmartIcon.astro';
-import Card from '../card/Card.astro';
 import Avatar from '../avatar/Avatar.astro';
+import Badge from '../badge/Badge.astro';
+import Card from '../card/Card.astro';
+import SmartIcon from '../smart-icon/SmartIcon.astro';
+import Text from '../text/Text.astro';
 import type { IReviewProps } from './props';
 
 // 从props中分离Card相关的属性和Review自身的属性
@@ -178,7 +170,7 @@ const reviewClass = cn().add('cosy:review', 'cosy:p-6').add(className).build();
     <!-- 评分 -->
     <div class="cosy:flex cosy:items-center cosy:gap-1 cosy:mb-3">
         {
-            generateStars(rating).map((star, index) => (
+            generateStars(rating).map((star) => (
                 <SmartIcon
                     keyword={star.filled ? 'star' : star.half ? 'star' : 'star'}
                     size="16px"

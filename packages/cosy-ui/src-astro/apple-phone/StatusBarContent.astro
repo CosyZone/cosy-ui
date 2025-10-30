@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 /**
  * @component StatusBarContent
  *
@@ -23,8 +28,8 @@
  * @slots
  */
 
-import { IPhoneSignalIcon, IPhoneWifiIcon, IPhoneBatteryIcon } from '../icons';
 import { cn } from '../../src/class';
+import { IPhoneBatteryIcon, IPhoneSignalIcon, IPhoneWifiIcon } from '../icons';
 
 interface Props {
     scaleRatio?: number;
@@ -46,7 +51,7 @@ const containerClass = cn()
     .justify('between')
     .build();
 
-const timeTextClass = cn().weight('medium').add('time-text').build();
+const timeTextClass = cn().weight('medium').build();
 
 const iconsContainerClass = cn()
     .flex('row')
@@ -60,12 +65,17 @@ const iconWrapperClass = cn()
     .items('center')
     .justify('center')
     .build();
+
+const statusIconClass = cn().add('status-icon').build();
+
+const batteryIconClass = cn().add('battery-icon').build();
 ---
 
 <div class={containerClass}>
     <!-- 左侧时间 -->
     <span
         class={timeTextClass}
+        data-time-text
         style={`font-size: ${scaledFontSize}; line-height: 1; transition: font-size 0.2s ease;`}>
         12:00
     </span>
@@ -76,21 +86,21 @@ const iconWrapperClass = cn()
         <div
             class={iconWrapperClass}
             style={`width: ${scaledIconSize}; height: ${scaledIconSize}; min-width: 0; min-height: 0;`}>
-            <IPhoneSignalIcon class="status-icon" />
+            <IPhoneSignalIcon class={statusIconClass} />
         </div>
 
         <!-- WiFi图标 -->
         <div
             class={iconWrapperClass}
             style={`width: ${scaledIconSize}; height: ${scaledIconSize}; min-width: 0; min-height: 0;`}>
-            <IPhoneWifiIcon class="status-icon" />
+            <IPhoneWifiIcon class={statusIconClass} />
         </div>
 
         <!-- 电池图标 -->
         <div
             class={iconWrapperClass}
             style={`width: ${scaledIconSize}; height: ${scaledIconSize}; min-width: 0; min-height: 0;`}>
-            <IPhoneBatteryIcon class="battery-icon" />
+            <IPhoneBatteryIcon class={batteryIconClass} />
         </div>
     </div>
 </div>

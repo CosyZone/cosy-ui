@@ -1,18 +1,13 @@
 ---
+
+
+
 /**
  * @component DashboardLayout
  *
  * @description
  * DashboardLayout 组件适用于管理后台的布局，包含侧边栏导航和顶部导航栏。
  * 提供了完整的管理界面框架，包括响应式设计、暗色主题支持和内置 Toast 通知系统。
- *
- * @design
- * 设计理念：
- * 1. 清晰的信息层次 - 通过侧边栏和顶部导航提供明确的导航结构
- * 2. 响应式布局 - 在不同设备上提供良好的用户体验
- * 3. 可定制性 - 支持自定义导航项、系统名称和用户信息
- * 4. 状态保持 - 记住用户的侧边栏折叠状态
- * 5. 统一通知 - 内置 Toast 系统，提供一致的消息提示体验
  *
  * @usage
  * 基本用法：
@@ -124,130 +119,129 @@
  * - sidebar-footer - 侧边栏底部自定义内容，可用于展示用户信息、版权信息等
  */
 
-import { BaseLayout } from "../../index-astro";
-import DashboardSidebar from "./DashboardSidebar.astro";
-import DashboardTopNavbar from "./DashboardTopNavbar.astro";
-import { ToastContainer, ConfirmDialog } from "../../index-astro";
-import "../../style.ts";
-import type { NavItem, SidebarSize, UserMenuItem } from "./types";
+import { BaseLayout } from '../../index-astro';
+import DashboardSidebar from './DashboardSidebar.astro';
+import DashboardTopNavbar from './DashboardTopNavbar.astro';
+import { ToastContainer, ConfirmDialog } from '../../index-astro';
+import type { NavItem, SidebarSize, UserMenuItem } from './types';
 
 export interface Props {
-	/**
-	 * 页面标题
-	 */
-	title: string;
+    /**
+     * 页面标题
+     */
+    title: string;
 
-	/**
-	 * 页面描述
-	 */
-	description?: string;
+    /**
+     * 页面描述
+     */
+    description?: string;
 
-	/**
-	 * 系统名称
-	 * @default "管理系统"
-	 */
-	systemName?: string;
+    /**
+     * 系统名称
+     * @default "管理系统"
+     */
+    systemName?: string;
 
-	/**
-	 * 导航项目
-	 */
-	navItems: NavItem[];
+    /**
+     * 导航项目
+     */
+    navItems: NavItem[];
 
-	/**
-	 * 用户名
-	 */
-	userName?: string;
+    /**
+     * 用户名
+     */
+    userName?: string;
 
-	/**
-	 * 用户头像
-	 */
-	userAvatar?: string;
+    /**
+     * 用户头像
+     */
+    userAvatar?: string;
 
-	/**
-	 * 用户菜单项
-	 */
-	userMenuItems?: UserMenuItem[];
+    /**
+     * 用户菜单项
+     */
+    userMenuItems?: UserMenuItem[];
 
-	/**
-	 * 是否折叠侧边栏
-	 * @default false
-	 */
-	sidebarCollapsed?: boolean;
+    /**
+     * 是否折叠侧边栏
+     * @default false
+     */
+    sidebarCollapsed?: boolean;
 
-	/**
-	 * 侧边栏尺寸
-	 * @default "md"
-	 */
-	sidebarSize?: SidebarSize;
+    /**
+     * 侧边栏尺寸
+     * @default "md"
+     */
+    sidebarSize?: SidebarSize;
 
-	/**
-	 * 自定义头部内容
-	 */
-	head?: astroHTML.JSX.Element;
+    /**
+     * 自定义头部内容
+     */
+    head?: astroHTML.JSX.Element;
 
-	/**
-	 * 页面类名
-	 */
-	class?: string;
+    /**
+     * 页面类名
+     */
+    class?: string;
 
-	/**
-	 * 类名列表
-	 */
-	"class:list"?: any;
+    /**
+     * 类名列表
+     */
+    'class:list'?: any;
 
-	/**
-	 * 是否启用 Toast 功能
-	 * @default true
-	 */
-	enableToast?: boolean;
+    /**
+     * 是否启用 Toast 功能
+     * @default true
+     */
+    enableToast?: boolean;
 
-	/**
-	 * 是否启用确认对话框功能
-	 * @default true
-	 */
-	enableConfirmDialog?: boolean;
+    /**
+     * 是否启用确认对话框功能
+     * @default true
+     */
+    enableConfirmDialog?: boolean;
 
-	/**
-	 * 调试模式
-	 * @default false
-	 */
-	debug?: boolean;
+    /**
+     * 调试模式
+     * @default false
+     */
+    debug?: boolean;
 
-	/**
-	 * 主内容区 padding 尺寸
-	 * @default 'md'
-	 */
-	mainPadding?: "none" | "sm" | "md" | "lg" | "xl";
+    /**
+     * 主内容区 padding 尺寸
+     * @default 'md'
+     */
+    mainPadding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
 const {
-	title,
-	description,
-	systemName = "管理系统",
-	navItems,
-	userName,
-	userAvatar,
-	userMenuItems,
-	sidebarCollapsed = false,
-	sidebarSize = "md",
-	enableToast = true,
-	enableConfirmDialog = true,
-	head,
-	class: className,
-	"class:list": classList,
-	debug = false,
-	mainPadding = "md",
-	...rest
+    title,
+    description,
+    systemName = '管理系统',
+    navItems,
+    userName,
+    userAvatar,
+    userMenuItems,
+    sidebarCollapsed = false,
+    sidebarSize = 'md',
+    enableToast = true,
+    enableConfirmDialog = true,
+    head,
+    class: className,
+    'class:list': classList,
+    debug = false,
+    mainPadding = 'md',
+    ...rest
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
 
 const mainPaddingMap = {
-	none: "",
-	sm: "cosy:p-2",
-	md: "cosy:p-4",
-	lg: "cosy:p-8",
-	xl: "cosy:p-12",
+    none: '',
+    sm: 'cosy:p-2',
+    md: 'cosy:p-4',
+    lg: 'cosy:p-8',
+    xl: 'cosy:p-12',
 };
 ---
 

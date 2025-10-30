@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import "../../style";
+import { computed, ref } from "vue";
 import AlertDialog from "../alert-dialog/AlertDialog.vue";
 import Container from "../container/Container.vue";
-import { ref, computed } from "vue";
 import type { IMacWindowProps } from "./props";
 
 const props = withDefaults(defineProps<IMacWindowProps>(), {

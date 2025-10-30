@@ -6,13 +6,6 @@
  * PhotoWall 组件用于展示照片墙，采用不规则布局设计，支持多种尺寸的照片卡片。
  * 组件会自动排列照片，创建视觉层次丰富的展示效果。
  *
- * @design
- * 设计理念：
- * 1. 不规则布局 - 通过不同尺寸的卡片创建动态的视觉层次
- * 2. 响应式设计 - 自适应不同屏幕尺寸
- * 3. 灵活配置 - 支持多种样式和交互选项
- * 4. 性能优化 - 高效的布局计算和渲染
- *
  * @usage
  * 基本用法：
  * ```astro
@@ -57,22 +50,10 @@
  * @prop {string} [style] - 自定义样式，用于覆盖默认样式
  */
 
-// 导入样式
-import "../../style.ts";
-
-// 导入类型定义
-import type {
-	PhotoCardData,
-	IPhotoWallProps,
-	PaddingSize,
-	RoundedSize,
-	BackgroundColor,
-	Size,
-	BorderSize,
-} from "./props";
-
-// 导入 Container 组件
 import Container from "../container/Container.astro";
+import type {
+	IPhotoWallProps,
+} from "./props";
 
 // 从 Astro.props 中解构出属性
 const {
@@ -89,9 +70,7 @@ const {
 	title,
 	subtitle,
 	class: className,
-	style: customStyle,
-	...rest
-} = Astro.props as IPhotoWallProps & { class?: string; style?: string };
+	style: customStyle} = Astro.props as IPhotoWallProps & { class?: string; style?: string };
 
 // 计算照片墙的类名
 const getPhotoWallClasses = () => {
@@ -124,7 +103,7 @@ const getPhotoWallClasses = () => {
 };
 
 // 计算卡片布局
-const getCardLayout = (index: number, card: PhotoCardData) => {
+const getCardLayout = (index: number) => {
 	const colSpan = 3; // 每个卡片占用3列
 	const rowSpan = 3; // 每个卡片占用3行，确保正方形
 	const itemsPerRow = 4;
@@ -141,7 +120,7 @@ const getCardLayout = (index: number, card: PhotoCardData) => {
 };
 
 // 计算卡片类名
-const getCardClasses = (card: PhotoCardData) => {
+const getCardClasses = () => {
 	const classes = [
 		"cosy:relative",
 		"cosy:overflow-hidden",
@@ -199,8 +178,8 @@ const photoWallClasses = getPhotoWallClasses();
   ignore-heading>
   <div class:list={photoWallClasses}>
     {photos.map((photo, index) => {
-      const layout = getCardLayout(index, photo);
-      const cardClasses = getCardClasses(photo);
+      const layout = getCardLayout(index);
+      const cardClasses = getCardClasses();
       
       return (
         <div 

@@ -1,10 +1,10 @@
-import { defineConfig } from "astro/config";
-import path from "path";
+import cloudflare from "@astrojs/cloudflare";
 import mdx from "@astrojs/mdx";
 import vue from "@astrojs/vue";
-import pagefind from "astro-pagefind";
 import playformCompress from "@playform/compress";
-import cloudflare from "@astrojs/cloudflare";
+import { defineConfig } from "astro/config";
+import pagefind from "astro-pagefind";
+import path from "node:path";
 
 // https://astro.build/config
 export default defineConfig({

@@ -1,9 +1,9 @@
 import CardCourseContainer from "./CardCourseContainer.astro";
 import CardCourseIconSizesContainer from "./CardCourseIconSizesContainer.astro";
-import CardCoursePaddingContainer from "./CardCoursePaddingContainer.astro";
 import CardCourseKeywordsContainer from "./CardCourseKeywordsContainer.astro";
-import SingleCourse from "./SingleCourse.astro";
+import CardCoursePaddingContainer from "./CardCoursePaddingContainer.astro";
 import MultipleCourses from "./MultipleCourses.astro";
+import SingleCourse from "./SingleCourse.astro";
 
 export const CardCoursePackage = {
 	SingleCourse,

@@ -1,10 +1,10 @@
 // FeatureCard 示例组件
-import FeatureCardBasic from "./FeatureCardBasic.astro";
 
 // FeatureCard 容器组件
 import BackgroundContainer from "./BackgroundContainer.astro";
 import ClassContainer from "./ClassContainer.astro";
 import DescriptionContainer from "./DescriptionContainer.astro";
+import FeatureCardBasic from "./FeatureCardBasic.astro";
 import ImageContainer from "./ImageContainer.astro";
 import TextColorContainer from "./TextColorContainer.astro";
 import TitleContainer from "./TitleContainer.astro";

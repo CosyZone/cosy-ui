@@ -1,4 +1,7 @@
 ---
+
+
+
 /**
  * @component Card
  *
@@ -86,11 +89,11 @@
  * @slot default - 卡片的主要内容区域
  */
 
-import '../../style.ts';
-import type { ICardProps } from './props';
-import { getCardCombinedClasses, getCardPaddingClassVue } from './class';
-import Image from '../image/Image.astro';
+import { cn } from '../../src/class';
 import Container from '../container/Container.astro';
+import Image from '../image/Image.astro';
+import { getCardCombinedClasses, getCardPaddingClassVue } from './class';
+import type { ICardProps } from './props';
 
 // 从props中分离Container相关的属性和Card自身的属性
 const {
@@ -142,6 +145,25 @@ const cardClass = getCardCombinedClasses({
 // 内容区域的padding类
 const contentPadding = getCardPaddingClassVue(compact);
 
+// 使用 class builder 构建类名
+const figureClass = cn().add('not-prose', 'cosy:m-0', 'cosy:p-0').build();
+
+const imageClass = cn()
+    .add('cosy:w-full', 'cosy:h-48', 'cosy:object-cover', 'cosy:rounded-t-lg')
+    .build();
+
+const cardBodyClass = cn().add('cosy:card-body').add(contentPadding).build();
+
+const cardTitleClass = cn()
+    .add('cosy:card-title', 'cosy:text-xl', 'cosy:font-bold')
+    .build();
+
+const subtitleClass = cn()
+    .add('cosy:text-base-content/70', 'cosy:text-sm', 'cosy:leading-relaxed')
+    .build();
+
+const contentClass = cn().add('cosy:mt-4').build();
+
 // 如果是链接卡片，使用a标签，否则使用article标签
 const Tag = href ? 'a' : 'article';
 ---
@@ -180,32 +202,22 @@ const Tag = href ? 'a' : 'article';
         {...href && { target: '_self' }}>
         {
             imageUrl && (
-                <figure class="not-prose cosy:m-0 cosy:p-0">
-                    <Image
-                        src={imageUrl}
-                        alt={title}
-                        class="cosy:w-full cosy:h-48 cosy:object-cover cosy:rounded-t-lg"
-                    />
+                <figure class={figureClass}>
+                    <Image src={imageUrl} alt={title} class={imageClass} />
                 </figure>
             )
         }
 
-        <div class={`cosy:card-body ${contentPadding}`}>
-            <h2 class="cosy:card-title cosy:text-xl cosy:font-bold">
+        <div class={cardBodyClass}>
+            <h2 class={cardTitleClass}>
                 {title}
             </h2>
 
-            {
-                subtitle && (
-                    <p class="cosy:text-base-content/70 cosy:text-sm cosy:leading-relaxed">
-                        {subtitle}
-                    </p>
-                )
-            }
+            {subtitle && <p class={subtitleClass}>{subtitle}</p>}
 
             {
                 Astro.slots.has('default') && (
-                    <div class="cosy:mt-4">
+                    <div class={contentClass}>
                         <slot />
                     </div>
                 )

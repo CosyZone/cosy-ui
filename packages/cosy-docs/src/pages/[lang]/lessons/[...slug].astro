@@ -1,7 +1,10 @@
 ---
-import DemoLayout from "@/layouts/DemoLayout.astro";
-import { lessonRepo } from "@coffic/cosy-content";
+
+
+
 import type { RenderResult } from "astro:content";
+import { lessonRepo } from "@coffic/cosy-content";
+import DemoLayout from "@/layouts/DemoLayout.astro";
 
 export async function getStaticPaths() {
 	return lessonRepo.getStaticPaths();

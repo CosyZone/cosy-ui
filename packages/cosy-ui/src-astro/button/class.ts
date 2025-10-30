@@ -1,5 +1,5 @@
-import type { IButtonProps } from "./props";
 import { getBaseButtonClasses } from "../../src/components/button/class-all";
+import type { IButtonProps } from "./props";
 
 /**
  * 计算 Button 组件的组合类名（Astro 版本）

@@ -1,6 +1,6 @@
 import type { IAlertPropsBase } from "./alertPropsBase";
 import { getBaseAlertClasses } from "./class-all";
-import { renderAlert, type IAlertRenderOptions } from "./renderAlert";
+import { type IAlertRenderOptions, renderAlert } from "./renderAlert";
 
 /**
  * Alert 门面对象 - 统一的 Alert 组件接口

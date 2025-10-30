@@ -3,7 +3,6 @@ import type { BackgroundColor } from "../../src/common/backgrounds";
 import type { BorderSize } from "../../src/common/border";
 
 type GapSize = "none" | "xs" | "sm" | "md" | "lg" | "xl";
-type Breakpoint = "base" | "sm" | "md" | "lg" | "xl" | "2xl";
 
 type ResponsiveValue<T> =
 	| T

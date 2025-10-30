@@ -1,17 +1,13 @@
 ---
+
+
+
 /**
  * @component Error500
  *
  * @description
  * 500服务器内部错误页面组件，用于显示服务器出现内部错误的提示信息。
  * 提供友好的错误说明和帮助用户解决问题的操作建议。
- *
- * @design
- * 设计理念：
- * 1. 问题说明 - 清楚地说明服务器出现了内部错误
- * 2. 用户安抚 - 让用户知道这不是他们的问题，是系统的问题
- * 3. 解决建议 - 提供刷新页面、稍后重试等建议
- * 4. 联系途径 - 提供联系技术支持的方式
  *
  * @usage
  * 基本用法：
@@ -34,132 +30,135 @@
  * @prop {string} [statusPageUrl] - 系统状态页面URL
  */
 
-import "../../style.ts";
-import { LinkUtil } from "../../src/utils/link.ts";
+import { LinkUtil } from '../../src/utils/link';
 
 const baseUrl = LinkUtil.getBaseUrl();
 const path = Astro.url.pathname;
 
 interface Error500Props {
-	debugKVs?: Record<string, string>;
-	supportUrl?: string;
-	statusPageUrl?: string;
+    debugKVs?: Record<string, string>;
+    supportUrl?: string;
+    statusPageUrl?: string;
 }
 
 const {
-	debugKVs = {},
-	supportUrl,
-	statusPageUrl,
+    debugKVs = {},
+    supportUrl,
+    statusPageUrl,
 } = Astro.props as Error500Props;
 ---
 
 <div
-  class="cosy:min-h-screen cosy:flex cosy:flex-col cosy:items-center cosy:justify-center cosy:bg-base-100 cosy:p-4">
-  <div class="cosy:max-w-md cosy:w-full cosy:text-center cosy:space-y-6">
-    <!-- 错误代码 -->
-    <div class="cosy:mb-8">
-      <h1
-        class="cosy:text-9xl cosy:font-bold cosy:text-error cosy:leading-none">
-        500
-      </h1>
-      <div
-        class="cosy:w-24 cosy:h-1 cosy:bg-error cosy:mx-auto cosy:mt-4 cosy:rounded-full">
-      </div>
+    class="cosy:min-h-screen cosy:flex cosy:flex-col cosy:items-center cosy:justify-center cosy:bg-base-100 cosy:p-4">
+    <div class="cosy:max-w-md cosy:w-full cosy:text-center cosy:space-y-6">
+        <!-- 错误代码 -->
+        <div class="cosy:mb-8">
+            <h1
+                class="cosy:text-9xl cosy:font-bold cosy:text-error cosy:leading-none">
+                500
+            </h1>
+            <div
+                class="cosy:w-24 cosy:h-1 cosy:bg-error cosy:mx-auto cosy:mt-4 cosy:rounded-full">
+            </div>
+        </div>
+
+        <!-- 错误信息 -->
+        <div class="cosy:space-y-4">
+            <h2 class="cosy:text-2xl cosy:font-semibold cosy:text-base-content">
+                服务器内部错误
+            </h2>
+            <p class="cosy:text-base-content/70 cosy:text-lg">
+                服务器遇到了一个内部错误，无法完成您的请求。
+            </p>
+        </div>
+
+        <!-- 路径信息 -->
+        <div
+            class="cosy:bg-base-200 cosy:rounded-lg cosy:p-4 cosy:text-sm cosy:text-base-content/60">
+            <p>
+                <span class="cosy:font-medium">路径：</span><code
+                    class="cosy:text-error">{path}</code
+                >
+            </p>
+        </div>
+
+        <!-- 调试信息 -->
+        {
+            Object.keys(debugKVs).length > 0 && (
+                <details class="cosy:bg-base-200 cosy:rounded-lg cosy:p-4 cosy:text-left">
+                    <summary class="cosy:cursor-pointer cosy:font-medium cosy:text-base-content">
+                        错误信息
+                    </summary>
+                    <div class="cosy:mt-3 cosy:space-y-2">
+                        {Object.entries(debugKVs).map(([key, value]) => (
+                            <div class="cosy:text-sm">
+                                <span class="cosy:font-medium cosy:text-base-content">
+                                    {key}:
+                                </span>
+                                <span class="cosy:text-base-content/70 cosy:ml-2">
+                                    {value}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                </details>
+            )
+        }
+
+        <!-- 建议信息 -->
+        <div
+            class="cosy:bg-info/10 cosy:border cosy:border-info/20 cosy:rounded-lg cosy:p-4">
+            <h3 class="cosy:font-medium cosy:text-base-content cosy:mb-2">
+                您可以尝试：
+            </h3>
+            <ul
+                class="cosy:text-sm cosy:text-base-content/70 cosy:space-y-1 cosy:text-left">
+                <li>• 刷新页面</li>
+                <li>• 几分钟后重试</li>
+                <li>• 检查您的网络连接</li>
+                <li>• 联系技术支持</li>
+            </ul>
+        </div>
+
+        <!-- 操作按钮 -->
+        <div class="cosy:space-y-3">
+            <button
+                onclick="window.location.reload()"
+                class="btn btn-primary cosy:w-full"
+                type="button">
+                刷新页面
+            </button>
+
+            <a
+                href={baseUrl}
+                class="btn btn-outline cosy:w-full cosy:no-underline">
+                返回首页
+            </a>
+
+            {
+                statusPageUrl && (
+                    <a
+                        href={statusPageUrl}
+                        class="btn btn-ghost cosy:w-full cosy:no-underline">
+                        查看系统状态
+                    </a>
+                )
+            }
+
+            {
+                supportUrl && (
+                    <a
+                        href={supportUrl}
+                        class="btn btn-ghost cosy:w-full cosy:no-underline">
+                        联系技术支持
+                    </a>
+                )
+            }
+        </div>
+
+        <!-- 帮助提示 -->
+        <div class="cosy:text-sm cosy:text-base-content/50 cosy:mt-8">
+            <p>如果问题持续存在，请联系我们的技术支持团队</p>
+        </div>
     </div>
-
-    <!-- 错误信息 -->
-    <div class="cosy:space-y-4">
-      <h2 class="cosy:text-2xl cosy:font-semibold cosy:text-base-content">
-        服务器内部错误
-      </h2>
-      <p class="cosy:text-base-content/70 cosy:text-lg">
-        服务器遇到了一个内部错误，无法完成您的请求。
-      </p>
-    </div>
-
-    <!-- 路径信息 -->
-    <div
-      class="cosy:bg-base-200 cosy:rounded-lg cosy:p-4 cosy:text-sm cosy:text-base-content/60">
-      <p>
-        <span class="cosy:font-medium">路径：</span><code
-          class="cosy:text-error">{path}</code
-        >
-      </p>
-    </div>
-
-    <!-- 调试信息 -->
-    {
-      Object.keys(debugKVs).length > 0 && (
-        <details class="cosy:bg-base-200 cosy:rounded-lg cosy:p-4 cosy:text-left">
-          <summary class="cosy:cursor-pointer cosy:font-medium cosy:text-base-content">
-            错误信息
-          </summary>
-          <div class="cosy:mt-3 cosy:space-y-2">
-            {Object.entries(debugKVs).map(([key, value]) => (
-              <div class="cosy:text-sm">
-                <span class="cosy:font-medium cosy:text-base-content">
-                  {key}:
-                </span>
-                <span class="cosy:text-base-content/70 cosy:ml-2">{value}</span>
-              </div>
-            ))}
-          </div>
-        </details>
-      )
-    }
-
-    <!-- 建议信息 -->
-    <div
-      class="cosy:bg-info/10 cosy:border cosy:border-info/20 cosy:rounded-lg cosy:p-4">
-      <h3 class="cosy:font-medium cosy:text-base-content cosy:mb-2">
-        您可以尝试：
-      </h3>
-      <ul
-        class="cosy:text-sm cosy:text-base-content/70 cosy:space-y-1 cosy:text-left">
-        <li>• 刷新页面</li>
-        <li>• 几分钟后重试</li>
-        <li>• 检查您的网络连接</li>
-        <li>• 联系技术支持</li>
-      </ul>
-    </div>
-
-    <!-- 操作按钮 -->
-    <div class="cosy:space-y-3">
-      <button
-        onclick="window.location.reload()"
-        class="btn btn-primary cosy:w-full"
-        type="button">
-        刷新页面
-      </button>
-
-      <a href={baseUrl} class="btn btn-outline cosy:w-full cosy:no-underline">
-        返回首页
-      </a>
-
-      {
-        statusPageUrl && (
-          <a
-            href={statusPageUrl}
-            class="btn btn-ghost cosy:w-full cosy:no-underline">
-            查看系统状态
-          </a>
-        )
-      }
-
-      {
-        supportUrl && (
-          <a
-            href={supportUrl}
-            class="btn btn-ghost cosy:w-full cosy:no-underline">
-            联系技术支持
-          </a>
-        )
-      }
-    </div>
-
-    <!-- 帮助提示 -->
-    <div class="cosy:text-sm cosy:text-base-content/50 cosy:mt-8">
-      <p>如果问题持续存在，请联系我们的技术支持团队</p>
-    </div>
-  </div>
 </div>

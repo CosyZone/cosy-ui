@@ -1,4 +1,20 @@
 ---
+
+
+
+import type {
+    BackgroundColor,
+    GapSize,
+    HeightSize,
+    HoverEffect,
+    MarginSize,
+    PaddingSize,
+    RoundedSize,
+    ShadowSize,
+    Size,
+} from '../../src/common';
+import ScrollRow from '../scroll-row/ScrollRow.astro';
+import RowItem from './RowItem.astro';
 /**
  * @component ImageRow
  * @description 图片行组件，用于展示一行图片，基于 Container 组件，支持丰富的背景配置
@@ -32,69 +48,60 @@
  * @slots
  * @slot default - 图片内容
  */
-import "../../style.ts";
-import type { IImageItem } from "./types";
-import type {
-	BackgroundColor,
-	Size,
-	PaddingSize,
-	MarginSize,
-	RoundedSize,
-	GapSize,
-	ShadowSize,
-	HoverEffect,
-	HeightSize,
-} from "../../src/common";
-import ScrollRow from "../scroll-row/ScrollRow.astro";
-import RowItem from "./RowItem.astro";
+import type { IImageItem } from './types';
 
 interface Props {
-	images: IImageItem[];
-	gap?: GapSize;
-	rounded?: RoundedSize;
-	shadow?: ShadowSize;
-	hover?: HoverEffect;
-	background?: BackgroundColor;
-	padding?: PaddingSize;
-	margin?: MarginSize;
-	border?: boolean;
-	width?: Size;
-	height?: HeightSize;
-	containerRounded?: RoundedSize;
-	showNavigation?: boolean;
-	class?: string;
+    images: IImageItem[];
+    gap?: GapSize;
+    rounded?: RoundedSize;
+    shadow?: ShadowSize;
+    hover?: HoverEffect;
+    background?: BackgroundColor;
+    padding?: PaddingSize;
+    margin?: MarginSize;
+    border?: boolean;
+    width?: Size;
+    height?: HeightSize;
+    containerRounded?: RoundedSize;
+    showNavigation?: boolean;
+    class?: string;
 }
 
 const {
-	images,
-	gap = "md",
-	rounded = "md",
-	shadow = "md",
-	hover = "scale",
-	background,
-	padding = "md",
-	margin = "none",
-	width = "md",
-	height = "none",
-	containerRounded = "none",
-	showNavigation = true,
-	class: className = "",
+    images,
+    gap = 'md',
+    rounded = 'md',
+    shadow = 'md',
+    hover = 'scale',
+    background,
+    padding = 'md',
+    margin = 'none',
+    width = 'md',
+    height = 'none',
+    containerRounded = 'none',
+    showNavigation = true,
+    class: className = '',
 } = Astro.props;
 ---
 
 <ScrollRow
-  background={background}
-  padding={padding}
-  margin={margin}
-  rounded={containerRounded}
-  width={width as any}
-  height={height as any}
-  gap={gap as any}
-  class={className}
-  showNavigation={showNavigation}>
-  {
-    images.map((image) => (
-      <RowItem image={image} rounded={rounded} shadow={shadow} hover={hover} />
-    ))
-  }
+    background={background}
+    padding={padding}
+    margin={margin}
+    rounded={containerRounded}
+    width={width as any}
+    height={height as any}
+    gap={gap as any}
+    class={className}
+    showNavigation={showNavigation}>
+    {
+        images.map((image) => (
+            <RowItem
+                image={image}
+                rounded={rounded}
+                shadow={shadow}
+                hover={hover}
+            />
+        ))
+    }
 </ScrollRow>

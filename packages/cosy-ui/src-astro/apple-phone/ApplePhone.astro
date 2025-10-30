@@ -1,4 +1,7 @@
 ---
+
+
+
 /**
  * @component ApplePhone
  *
@@ -47,24 +50,23 @@
  * @slot default - 主要内容区域
  */
 
-import '../../style';
-import { Container } from '../container';
-import { AlertDialog } from '../alert-dialog';
-import type { IApplePhonePropsBase } from '../../src/components/apple-phone/applePhonePropsBase';
-import StatusBarContent from './StatusBarContent.astro';
-import PhoneFrame from './PhoneFrame.astro';
 import { cn } from '../../src/class';
+import type { IApplePhonePropsBase } from '../../src/components/apple-phone/applePhonePropsBase';
 import {
-    IPHONE_FRAME_WIDTH,
-    IPHONE_FRAME_HEIGHT,
-    MAIN_CONTENT_WIDTH_ASPECT_RATIO,
-    MAIN_CONTENT_HEIGHT_ASPECT_RATIO,
-    IPHONE_FRAME_STATUS_BAR_HEIGHT_ASPECT_RATIO,
-    IPHONE_FRAME_STATUS_BAR_TOP_ASPECT_RATIO,
+    DEFAULT_HEIGHT,
     HEIGHT_CLASSES,
     HEIGHT_VALUES,
-    DEFAULT_HEIGHT,
+    IPHONE_FRAME_HEIGHT,
+    IPHONE_FRAME_STATUS_BAR_HEIGHT_ASPECT_RATIO,
+    IPHONE_FRAME_STATUS_BAR_TOP_ASPECT_RATIO,
+    IPHONE_FRAME_WIDTH,
+    MAIN_CONTENT_HEIGHT_ASPECT_RATIO,
+    MAIN_CONTENT_WIDTH_ASPECT_RATIO,
 } from '../../src/components/apple-phone/constants';
+import { AlertDialog } from '../alert-dialog';
+import { Container } from '../container';
+import PhoneFrame from './PhoneFrame.astro';
+import StatusBarContent from './StatusBarContent.astro';
 
 // Props 定义 - 使用共享接口
 interface Props extends IApplePhonePropsBase {}
@@ -80,10 +82,10 @@ const currentHeight = HEIGHT_VALUES[height];
 const scaleRatio = currentHeight / 500;
 
 // 生成唯一的ID
-const uniqueId = `apple-phone-${Math.random().toString(36).substr(2, 9)}`;
+const uniqueId = `apple-phone-${Math.random().toString(36).slice(2, 11)}`;
 
 // 响应式数据
-let alertMessage = '';
+const alertMessage = '';
 
 // 使用 classBuilder 构建各个部分的类名
 const phoneContainerClass = cn()
@@ -152,7 +154,7 @@ const containerClass = cn()
 
     // 更新时间显示
     function updateStatusBarTime() {
-        const timeElements = document.querySelectorAll('.time-text');
+        const timeElements = document.querySelectorAll('[data-time-text]');
         timeElements.forEach((element) => {
             (element as HTMLElement).textContent = updateTime();
         });

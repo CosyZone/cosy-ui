@@ -1,5 +1,5 @@
-import { shadowClasses, hoverShadowClasses } from "../../../src/common/shadow";
 import type { ShadowSize } from "../../../src/common/shadow";
+import { hoverShadowClasses, shadowClasses } from "../../../src/common/shadow";
 
 /**
  * 计算 Container 组件的shadow相关类名

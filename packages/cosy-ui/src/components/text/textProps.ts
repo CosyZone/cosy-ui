@@ -1,7 +1,7 @@
-import type { TextColor } from "../../common/textColors";
-import type { TextWeight } from "../../common/textWeights";
-import type { TextSize } from "../../common/textSizes";
 import type { TextAlign } from "../../common/textAlign";
+import type { TextColor } from "../../common/textColors";
+import type { TextSize } from "../../common/textSizes";
+import type { TextWeight } from "../../common/textWeights";
 
 export interface ITextProps {
 	as?: string;

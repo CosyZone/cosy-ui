@@ -1,10 +1,13 @@
 ---
-import ContainerBg from './ContainerBg.astro';
-import AspectRatioBox from './AspectRatioBox.astro';
-import HeightDrivenAspect from './HeightDrivenAspect.astro';
-import type { IContainerProps } from './props.ts';
-import { getContainerCombinedClasses } from './class.ts';
+
+
+
 import { cn } from '../../src/class';
+import AspectRatioBox from './AspectRatioBox.astro';
+import ContainerBg from './ContainerBg.astro';
+import { getContainerCombinedClasses } from './class';
+import HeightDrivenAspect from './HeightDrivenAspect.astro';
+import type { IContainerProps } from './props';
 
 // 导出 Props 别名以提升 IDE 对组件使用方的属性提示
 export type Props = IContainerProps;

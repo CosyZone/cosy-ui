@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 /**
  * @component Avatar
  *
@@ -35,8 +40,8 @@
  * @prop {any} [class:list] - 类名列表
  */
 
-import type { AvatarProps } from './types';
 import { cn } from '../../src/class';
+import type { AvatarProps } from './types';
 
 type Props = AvatarProps;
 
@@ -49,30 +54,33 @@ const {
     ...rest
 } = Astro.props;
 
-// 尺寸映射
-const sizeClasses = {
-    sm: 'cosy:w-8 cosy:h-8 cosy:text-sm',
-    md: 'cosy:w-12 cosy:h-12 cosy:text-lg',
-    lg: 'cosy:w-16 cosy:h-16 cosy:text-xl',
-    xl: 'cosy:w-20 cosy:h-20 cosy:text-2xl',
+// 尺寸映射 - 使用 class builder
+const getSizeClasses = (size: 'sm' | 'md' | 'lg' | 'xl') => {
+    const sizeMap = {
+        sm: cn().add('cosy:w-8', 'cosy:h-8', 'cosy:text-sm').build(),
+        md: cn().add('cosy:w-12', 'cosy:h-12', 'cosy:text-lg').build(),
+        lg: cn().add('cosy:w-16', 'cosy:h-16', 'cosy:text-xl').build(),
+        xl: cn().add('cosy:w-20', 'cosy:h-20', 'cosy:text-2xl').build(),
+    };
+    return sizeMap[size];
 };
 
-// 生成头像背景色
+// 生成头像背景色 - 使用 class builder
 const getAvatarColor = (userName: string) => {
     const colors = [
-        'cosy:bg-primary',
-        'cosy:bg-secondary',
-        'cosy:bg-accent',
-        'cosy:bg-info',
-        'cosy:bg-success',
-        'cosy:bg-warning',
-        'cosy:bg-error',
+        cn().add('cosy:bg-primary').build(),
+        cn().add('cosy:bg-secondary').build(),
+        cn().add('cosy:bg-accent').build(),
+        cn().add('cosy:bg-info').build(),
+        cn().add('cosy:bg-success').build(),
+        cn().add('cosy:bg-warning').build(),
+        cn().add('cosy:bg-error').build(),
     ];
     const index = userName.charCodeAt(0) % colors.length;
     return colors[index];
 };
 
-const sizeClass = sizeClasses[size as keyof typeof sizeClasses];
+const sizeClass = getSizeClasses(size as 'sm' | 'md' | 'lg' | 'xl');
 
 // 使用 classBuilder 构建各个部分的类名
 const avatarContainerClass = cn()
@@ -81,7 +89,7 @@ const avatarContainerClass = cn()
         'cosy:rounded-full',
         'cosy:overflow-hidden',
         'cosy:flex-shrink-0',
-        'cosy:bg-base-200'
+        'cosy:bg-base-200',
     )
     .flex('row')
     .items('center')

@@ -41,7 +41,6 @@ ToolBar 组件
 
 <script setup lang="ts">
 import { computed } from "vue";
-import "../../style";
 
 interface Props {
 	// 工具栏变体

@@ -3,7 +3,7 @@
 	"type": "module",
 	"scripts": {
 		"clean": "pnpm -r clean",
-		"build": "pnpm format && pnpm -r build",
+		"build": "pnpm lint && pnpm format && pnpm build:ui && pnpm build:docs",
 		"build:ui": "pnpm --filter @coffic/cosy-ui build",
 		"build:docs": "pnpm build:ui && pnpm --filter @coffic/cosy-docs build",
 		"build:vue": "pnpm --filter vue-example build",
@@ -20,23 +20,10 @@
 		"packages/*"
 	],
 	"devDependencies": {
-		"@biomejs/biome": "^2.3.1",
-		"@vitest/ui": "^3.2.4",
-		"jiti": "2.4.2",
-		"typescript": "^5.9.3",
-		"vite": "^7.1.12",
-		"vitest": "^3.2.4",
-		"wrangler": "^4.45.0"
+		"@biomejs/biome": "^2.3.2"
 	},
 	"engines": {
-		"node": ">=18.0.0",
-		"pnpm": ">=8.0.0"
-	},
-	"dependencies": {
-		"@astrojs/check": "^0.9.5",
-		"boxen": "^8.0.1",
-		"chalk": "^5.6.2",
-		"cli-table3": "^0.6.5",
-		"ora": "^8.2.0"
+		"node": ">=23.0.0",
+		"pnpm": ">=10.0.0"
 	}
 }

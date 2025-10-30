@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.3.1/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.3.2/schema.json",
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
@@ -15,7 +15,14 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"suspicious": {
+				"noExplicitAny": "off",
+				"useAdjacentOverloadSignatures": "off"
+			},
+			"complexity": {
+				"noStaticOnlyClass": "off"
+			}
 		}
 	},
 	"overrides": [
@@ -32,6 +39,26 @@
 			"linter": {
 				"enabled": false
 			}
+		},
+		{
+			"includes": ["**/*.vue"],
+			"formatter": {
+				"enabled": false
+			},
+			"linter": {
+				"enabled": false
+			},
+			"html": {
+				"formatter": {
+					"enabled": false
+				}
+			}
+		},
+		{
+			"includes": ["**/*.astro"],
+			"linter": {
+				"enabled": false
+			}
 		}
 	],
 	"javascript": {
@@ -40,9 +67,15 @@
 		}
 	},
 	"html": {
-		"experimentalFullSupportEnabled": true
+		"experimentalFullSupportEnabled": true,
+		"formatter": {
+			"indentScriptAndStyle": true
+		}
 	},
 	"css": {
+		"formatter": {
+			"quoteStyle": "single"
+		},
 		"parser": {
 			"tailwindDirectives": true
 		}

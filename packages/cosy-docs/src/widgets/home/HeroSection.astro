@@ -1,10 +1,13 @@
 ---
+
+
+
 /**
  * @component HeroSection
  * @description 首页震撼开场区域 - 展示 Factory 模式和 Props Builder
  */
 
-import { Container, Button, Heading, CodePanel, Card } from '@coffic/cosy-ui';
+import { Button, Card, CodePanel, Container, Heading } from '@coffic/cosy-ui';
 import AlertPropsBuilderExample from './AlertPropsBuilderExample.astro';
 import alertExampleSourceCode from './AlertPropsBuilderExample.astro?raw';
 
@@ -16,9 +19,7 @@ const { lang } = Astro.props;
 
 // 多语言文本
 const title =
-    lang === 'zh-cn'
-        ? '构建美丽界面。快速高效。'
-        : 'Build Beautiful. Build Fast.';
+    lang === 'zh-cn' ? '构建美好 编码快乐' : 'Build Beautiful. Build Fast.';
 
 const ctaStart = lang === 'zh-cn' ? '快速开始' : 'Get Started';
 const ctaComponents = lang === 'zh-cn' ? '查看组件' : 'View Components';

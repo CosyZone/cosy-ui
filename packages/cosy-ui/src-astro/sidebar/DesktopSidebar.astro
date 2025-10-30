@@ -1,4 +1,7 @@
 ---
+
+
+
 /**
  * DesktopSidebar组件
  *
@@ -21,21 +24,20 @@
  * ```
  */
 
-import "../../style.ts";
-import { SidebarNav } from "../../index-astro";
-import type { ISidebarProps } from "../../index-astro";
+import { SidebarNav } from '../../index-astro';
+import type { ISidebarProps } from '../../index-astro';
 
 export interface Props extends ISidebarProps {
-	/**
-	 * 自定义类名
-	 */
-	class?: string;
+    /**
+     * 自定义类名
+     */
+    class?: string;
 
-	/**
-	 * 是否开启调试模式，显示边框
-	 * @default false
-	 */
-	debug?: boolean;
+    /**
+     * 是否开启调试模式，显示边框
+     * @default false
+     */
+    debug?: boolean;
 }
 
 const { sidebarItems, class: className, debug = false } = Astro.props;
@@ -43,42 +45,42 @@ const { sidebarItems, class: className, debug = false } = Astro.props;
 // 自动获取当前路径
 const currentPath = Astro.url.pathname;
 
-const debugClass = debug ? "cosy:border cosy:border-red-500" : "";
+const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 ---
 
 {/* 桌面端侧边栏 */}
 <aside
-  data-desktop-sidebar
-  data-current-path={currentPath}
-  class:list={[
-    className,
-    debugClass,
-    'cosy:hidden cosy:w-60 cosy:lg:block cosy:bg-base-200 cosy:px-4 cosy:overflow-y-auto cosy:h-full',
-  ]}>
-  <SidebarNav
-    sidebarItems={sidebarItems}
-    currentPath={currentPath}
-    debug={debug}
-  />
+    data-desktop-sidebar
+    data-current-path={currentPath}
+    class:list={[
+        className,
+        debugClass,
+        'cosy:hidden cosy:w-60 cosy:lg:block cosy:bg-base-200 cosy:px-4 cosy:overflow-y-auto cosy:h-full',
+    ]}>
+    <SidebarNav
+        sidebarItems={sidebarItems}
+        currentPath={currentPath}
+        debug={debug}
+    />
 </aside>
 
 <script>
-  import { saveScrollPosition, restoreScrollPosition } from './utils.ts';
+    import { restoreScrollPosition, saveScrollPosition } from './utils';
 
-  // 处理桌面端侧边栏滚动位置保存和恢复
-  document.addEventListener('astro:before-preparation', () => {
-    // 保存桌面端滚动位置
-    const desktopContent = document.querySelector('[data-desktop-sidebar]');
-    if (desktopContent) {
-      saveScrollPosition(desktopContent, 'sidebarScrollPosition');
-    }
-  });
+    // 处理桌面端侧边栏滚动位置保存和恢复
+    document.addEventListener('astro:before-preparation', () => {
+        // 保存桌面端滚动位置
+        const desktopContent = document.querySelector('[data-desktop-sidebar]');
+        if (desktopContent) {
+            saveScrollPosition(desktopContent, 'sidebarScrollPosition');
+        }
+    });
 
-  document.addEventListener('astro:page-load', () => {
-    // 恢复桌面端滚动位置
-    const desktopContent = document.querySelector('[data-desktop-sidebar]');
-    if (desktopContent) {
-      restoreScrollPosition(desktopContent, 'sidebarScrollPosition');
-    }
-  });
+    document.addEventListener('astro:page-load', () => {
+        // 恢复桌面端滚动位置
+        const desktopContent = document.querySelector('[data-desktop-sidebar]');
+        if (desktopContent) {
+            restoreScrollPosition(desktopContent, 'sidebarScrollPosition');
+        }
+    });
 </script>

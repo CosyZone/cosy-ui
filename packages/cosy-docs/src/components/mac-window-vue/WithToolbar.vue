@@ -27,6 +27,5 @@
 </template>
 
 <script setup lang="ts">
-import { MacWindow } from "@coffic/cosy-ui/vue";
-import { SearchIcon, SettingsIcon, InfoIcon } from "@coffic/cosy-ui/vue";
+import { InfoIcon, MacWindow, SearchIcon, SettingsIcon } from "@coffic/cosy-ui/vue";
 </script>

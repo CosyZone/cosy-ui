@@ -1,15 +1,19 @@
 ---
+
+
+
+
+
 /**
  * PhoneItem 组件用于显示电话信息
  */
 
-import "../../style.ts";
-import ContactItem from "./ContactItem.astro";
-import { PhoneIcon } from "../icons";
-import { getContactItemClass, getIconClass } from "./class";
+import { PhoneIcon } from '../icons';
+import ContactItem from './ContactItem.astro';
+import { getContactItemClass, getIconClass } from './class';
 
 export interface PhoneItemProps {
-	phone: string;
+    phone: string;
 }
 
 const { phone } = Astro.props as PhoneItemProps;

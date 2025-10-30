@@ -1,4 +1,7 @@
 ---
+
+
+
 /**
  * @component ConfirmDialog
  *
@@ -38,107 +41,113 @@
  * ```
  */
 
-import "../../style.ts";
-import type { ConfirmDialogProps } from "./types";
-import { getConfirmDialogStyle } from "./types";
+import type { ConfirmDialogProps } from './types';
+import { getConfirmDialogStyle } from './types';
 
 const {
-	id,
-	title = "确认操作",
-	message,
-	cancelText = "取消",
-	confirmText = "确认",
-	class: className = "",
+    id,
+    title = '确认操作',
+    message,
+    cancelText = '取消',
+    confirmText = '确认',
+    class: className = '',
 } = Astro.props as ConfirmDialogProps;
 
 const style = getConfirmDialogStyle();
 ---
 
 <dialog id={id} class:list={['cosy:modal', 'cosy:modal-middle', className]}>
-  <div
-    class:list={[
-      'cosy:modal-box',
-      'cosy:p-6',
-      'cosy:max-w-sm',
-      'cosy:rounded-lg',
-      'cosy:shadow-lg',
-      style.bg,
-    ]}>
-    {
-      title && (
-        <h3 class:list={['cosy:text-lg', 'cosy:font-medium', style.text]}>
-          {title}
-        </h3>
-      )
-    }
-    <p class:list={['cosy:py-4', style.text]}>{message}</p>
+    <div
+        class:list={[
+            'cosy:modal-box',
+            'cosy:p-6',
+            'cosy:max-w-sm',
+            'cosy:rounded-lg',
+            'cosy:shadow-lg',
+            style.bg,
+        ]}>
+        {
+            title && (
+                <h3
+                    class:list={[
+                        'cosy:text-lg',
+                        'cosy:font-medium',
+                        style.text,
+                    ]}>
+                    {title}
+                </h3>
+            )
+        }
+        <p class:list={['cosy:py-4', style.text]}>{message}</p>
 
-    <div class:list={['cosy:modal-action', 'cosy:gap-2']}>
-      <form method="dialog" class="cosy:flex cosy:gap-2">
-        <button class:list={[style.cancelBtn]}>{cancelText}</button>
-        <button
-          class:list={[style.confirmBtn]}
-          onclick={`window.handleConfirmDialog?.('${id}')`}
-          type="submit">{confirmText}</button
-        >
-      </form>
+        <div class:list={['cosy:modal-action', 'cosy:gap-2']}>
+            <form method="dialog" class="cosy:flex cosy:gap-2">
+                <button class:list={[style.cancelBtn]}>{cancelText}</button>
+                <button
+                    class:list={[style.confirmBtn]}
+                    onclick={`window.handleConfirmDialog?.('${id}')`}
+                    type="submit">{confirmText}</button
+                >
+            </form>
+        </div>
     </div>
-  </div>
 
-  <form method="dialog" class="cosy:modal-backdrop">
-    <button>关闭</button>
-  </form>
+    <form method="dialog" class="cosy:modal-backdrop">
+        <button>关闭</button>
+    </form>
 </dialog>
 
 <script is:inline define:vars={{ id }}>
-  // 为了方便使用，我们提供一些辅助方法
-  function initializeConfirmDialog() {
-    const dialog = document.getElementById(id);
-    if (!dialog) {
-      console.log('ConfirmDialog: dialog is null', id);
-      return;
+    // 为了方便使用，我们提供一些辅助方法
+    function initializeConfirmDialog() {
+        const dialog = document.getElementById(id);
+        if (!dialog) {
+            console.log('ConfirmDialog: dialog is null', id);
+            return;
+        }
+
+        console.log('ConfirmDialog: 初始化确认对话框', id);
+
+        // 使用事件委托来处理动态加载的内容
+        document.addEventListener('click', (event) => {
+            const target = event.target;
+            // 使用 closest() 查找最近的匹配元素，包括按钮内部的元素
+            const trigger = target.closest(
+                `[data-confirm-dialog-target="${id}"]`
+            );
+            if (trigger) {
+                console.log('ConfirmDialog: 触发确认对话框', id);
+                dialog.showModal();
+            }
+        });
+
+        // 为已存在的按钮添加点击事件（向后兼容）
+        document
+            .querySelectorAll(`[data-confirm-dialog-target="${id}"]`)
+            .forEach((trigger) => {
+                trigger.addEventListener('click', () => {
+                    dialog.showModal();
+                });
+            });
+
+        // 全局处理确认事件的方法
+        if (!window.handleConfirmDialog) {
+            window.handleConfirmDialog = (dialogId) => {
+                // 触发自定义事件
+                const event = new CustomEvent('confirm-dialog-confirm', {
+                    detail: { dialogId },
+                });
+                document.dispatchEvent(event);
+            };
+        }
     }
 
-    console.log('ConfirmDialog: 初始化确认对话框', id);
+    // 初始加载时初始化
+    document.addEventListener('DOMContentLoaded', initializeConfirmDialog);
 
-    // 使用事件委托来处理动态加载的内容
-    document.addEventListener('click', (event) => {
-      const target = event.target;
-      // 使用 closest() 查找最近的匹配元素，包括按钮内部的元素
-      const trigger = target.closest(`[data-confirm-dialog-target="${id}"]`);
-      if (trigger) {
-        console.log('ConfirmDialog: 触发确认对话框', id);
-        dialog.showModal();
-      }
-    });
+    // Astro 页面切换时重新初始化
+    document.addEventListener('astro:page-load', initializeConfirmDialog);
 
-    // 为已存在的按钮添加点击事件（向后兼容）
-    document
-      .querySelectorAll(`[data-confirm-dialog-target="${id}"]`)
-      .forEach((trigger) => {
-        trigger.addEventListener('click', () => {
-          dialog.showModal();
-        });
-      });
-
-    // 全局处理确认事件的方法
-    if (!window.handleConfirmDialog) {
-      window.handleConfirmDialog = (dialogId) => {
-        // 触发自定义事件
-        const event = new CustomEvent('confirm-dialog-confirm', {
-          detail: { dialogId },
-        });
-        document.dispatchEvent(event);
-      };
-    }
-  }
-
-  // 初始加载时初始化
-  document.addEventListener('DOMContentLoaded', initializeConfirmDialog);
-
-  // Astro 页面切换时重新初始化
-  document.addEventListener('astro:page-load', initializeConfirmDialog);
-
-  // 确保脚本加载后立即初始化
-  initializeConfirmDialog();
+    // 确保脚本加载后立即初始化
+    initializeConfirmDialog();
 </script>

@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { ProductCard, getProductImage } from "@coffic/cosy-ui/vue";
+import { getProductImage, ProductCard } from "@coffic/cosy-ui/vue";
 import { ref } from "vue";
 
 const productUrl = ref("https://example.com");

@@ -1,8 +1,8 @@
-import type { ICardProps } from "./props";
 import {
 	getBaseCardClasses,
 	getCardPaddingClass,
 } from "../../src/components/card/class-all";
+import type { ICardProps } from "./props";
 
 /**
  * 计算 Card 组件的组合类名

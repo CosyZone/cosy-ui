@@ -1,9 +1,12 @@
 ---
-import { AppLayout, Container, Button, Heading, Card } from "@coffic/cosy-ui";
-import Logo from "@/assets/logo.png";
-import { getMetaConfig } from "@/demos/metaConfig";
-import { configApp } from "@/config/config.app";
+
+
+
 import * as astroI18n from "astro:i18n";
+import { AppLayout, Button, Card, Container, Heading } from "@coffic/cosy-ui";
+import Logo from "@/assets/logo.png";
+import { configApp } from "@/config/config.app";
+import { getMetaConfig } from "@/demos/metaConfig";
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.params.lang || "zh-cn";

@@ -1,6 +1,6 @@
-import type { ICardPropsBase } from "./cardPropsBase";
 import { getBackgroundClass } from "../../../src/common/backgrounds";
 import { cn } from "../../class";
+import type { ICardPropsBase } from "./cardPropsBase";
 
 /**
  * 计算 Card 组件的组合类名（用于基础接口）

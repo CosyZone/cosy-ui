@@ -32,8 +32,8 @@
  */
 
 import type { IMainContentProps } from "../../src/components/main/types";
-import { createMainProps } from "./props";
 import type { IMainPropsBuilder } from "./props";
+import { createMainProps } from "./props";
 
 interface SlotComponent {
 	component: any;
@@ -331,6 +331,3 @@ export class MainFactory {
 		return this.builder.build();
 	}
 }
-
-// 导入 Main 组件类型
-import Main from "./Main.astro";

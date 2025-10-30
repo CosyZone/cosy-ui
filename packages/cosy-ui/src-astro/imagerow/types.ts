@@ -1,11 +1,11 @@
-import type { PaddingSize } from "../../src/common/padding";
-import type { MarginSize } from "../../src/common/margin";
-import type { RoundedSize } from "../../src/common/rounded";
-import type { GapSize } from "../../src/common/layout";
-import type { ShadowSize } from "../../src/common/shadow";
-import type { HoverEffect } from "../../src/common/hover";
-import type { Size } from "../../src/common/size";
 import type { BorderSize } from "../../src/common/border";
+import type { HoverEffect } from "../../src/common/hover";
+import type { GapSize } from "../../src/common/layout";
+import type { MarginSize } from "../../src/common/margin";
+import type { PaddingSize } from "../../src/common/padding";
+import type { RoundedSize } from "../../src/common/rounded";
+import type { ShadowSize } from "../../src/common/shadow";
+import type { Size } from "../../src/common/size";
 import type { ImageSource } from "../image";
 
 /**

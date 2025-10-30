@@ -1,13 +1,13 @@
+import type { PaddingSize } from "../../../src/common/padding";
 import { paddingClasses } from "../../../src/common/padding";
 import {
-	paddingYClasses,
-	paddingTopClasses,
 	paddingBottomClasses,
 	paddingLeftClasses,
 	paddingRightClasses,
+	paddingTopClasses,
 	paddingXClasses,
+	paddingYClasses,
 } from "../../../src/common/padding-axis";
-import type { PaddingSize } from "../../../src/common/padding";
 
 /**
  * 计算 Container 组件的padding相关类名

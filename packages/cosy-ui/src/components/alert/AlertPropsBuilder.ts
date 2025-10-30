@@ -20,9 +20,9 @@
  * ```
  */
 
+import type { MarginSize } from "../../common/margin";
 import { PropsBuilder } from "../../utils/PropsBuilder";
 import type { IAlertPropsBase } from "./alertPropsBase";
-import type { MarginSize } from "../../common/margin";
 
 export class AlertPropsBuilder extends PropsBuilder<IAlertPropsBase> {
 	// ========== type 相关方法 ==========

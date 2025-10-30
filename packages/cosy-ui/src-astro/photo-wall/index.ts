@@ -4,9 +4,9 @@
 
 export { default as PhotoWall } from "./PhotoWall.astro";
 export type {
-	PhotoCardData,
 	IPhotoWallProps,
-	PhotoCardSize,
+	PhotoCardData,
 	PhotoCardShape,
+	PhotoCardSize,
 	PhotoCardStyle,
 } from "./types";

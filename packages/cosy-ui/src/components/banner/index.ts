@@ -1,6 +1,6 @@
 import type { IBannerPropsBase } from "./bannerPropsBase";
-import { renderBanner } from "./renderBanner";
 import { getBaseBannerClasses } from "./class-all";
+import { renderBanner } from "./renderBanner";
 
 /**
  * Banner 门面对象 - 统一的 Banner 组件接口

@@ -1,15 +1,15 @@
-import CardBookDescription from "./CardBookDescription.astro";
-import CardBookHref from "./CardBookHref.astro";
-import CardBookClass from "./CardBookClass.astro";
+import CardBookAuthorContainer from "./CardBookAuthorContainer.astro";
 import CardBookCases from "./CardBookCases.astro";
 import CardBookCasesGrid from "./CardBookCasesGrid.astro";
-import CardBookCoverContainer from "./CardBookCoverContainer.astro";
-import CardBookSizesContainer from "./CardBookSizesContainer.astro";
-import CardBookShadowContainer from "./CardBookShadowContainer.astro";
-import CardBookHrefContainer from "./CardBookHrefContainer.astro";
-import CardBookDescriptionContainer from "./CardBookDescriptionContainer.astro";
+import CardBookClass from "./CardBookClass.astro";
 import CardBookClassContainer from "./CardBookClassContainer.astro";
-import CardBookAuthorContainer from "./CardBookAuthorContainer.astro";
+import CardBookCoverContainer from "./CardBookCoverContainer.astro";
+import CardBookDescription from "./CardBookDescription.astro";
+import CardBookDescriptionContainer from "./CardBookDescriptionContainer.astro";
+import CardBookHref from "./CardBookHref.astro";
+import CardBookHrefContainer from "./CardBookHrefContainer.astro";
+import CardBookShadowContainer from "./CardBookShadowContainer.astro";
+import CardBookSizesContainer from "./CardBookSizesContainer.astro";
 import CardBookTitleContainer from "./CardBookTitleContainer.astro";
 
 export const CardBookPackage = {

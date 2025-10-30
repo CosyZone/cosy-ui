@@ -6,33 +6,27 @@
  * LanguageSwitcher 组件提供一个语言切换下拉菜单，支持多语言网站的语言切换功能。
  * 组件会自动处理 URL 路径，确保在切换语言时保留当前页面路径。
  *
- * @usage
- * 基本用法（需要用户传入 astro:i18n 模块）：
- * ```astro
- * ---
- * import * as astroI18n from 'astro:i18n';
- * ---
- * <LanguageSwitcher astroI18n={astroI18n} />
- * ```
- *
  * @props
  * - astroI18n - 完整的 astro:i18n 模块
  * - class - 自定义CSS类名
  */
 
-import { ChevronDownIcon, GlobeIcon, Link, ListItem } from '../../index-astro';
+import { ChevronDownIcon, GlobeIcon } from '../icons';
+import { Link } from '../link';
+import { ListItem } from '../list';
 import { cn } from '../../src/class';
 import {
     checkSwitcherRenderState,
     generateSwitcherLinks,
+    type IAstroI18n,
     type SwitcherLink,
-} from './switcher_util';
+} from './util';
 
 interface Props {
     /**
      * 完整的 astro:i18n 模块
      */
-    astroI18n?: any;
+    astroI18n?: IAstroI18n;
 
     /**
      * 自定义类名
@@ -47,13 +41,15 @@ const renderState = checkSwitcherRenderState(Astro.currentLocale, astroI18n);
 
 // 输出警告信息
 if (renderState.warnings) {
-    renderState.warnings.forEach((warning) => console.warn(warning));
+    renderState.warnings.forEach((warning) => {
+        console.warn(warning);
+    });
 }
 
 let links: SwitcherLink[] = [];
 
 // 如果应该渲染，生成切换链接
-if (renderState.shouldRender && Astro.currentLocale) {
+if (renderState.shouldRender && Astro.currentLocale && astroI18n) {
     try {
         links = generateSwitcherLinks(
             astroI18n,
@@ -66,23 +62,47 @@ if (renderState.shouldRender && Astro.currentLocale) {
     }
 }
 
-// 使用 classBuilder 构建按钮类名
-const buttonClass = cn().add('cosy:btn', 'cosy:btn-ghost').build();
+// 使用 classBuilder 构建类名
+const dropdownClass = cn()
+    .add('cosy:dropdown', 'cosy:dropdown-end')
+    .add(className || '')
+    .build();
+
+const buttonClass = cn()
+    .add('cosy:btn', 'cosy:btn-ghost')
+    .build();
+
+const iconClass = cn()
+    .add('cosy:w-4', 'cosy:h-4', 'cosy:mr-1')
+    .build();
+
+const spanClass = cn()
+    .add('cosy:mr-1', 'cosy:hidden', 'cosy:sm:inline')
+    .build();
+
+const chevronClass = cn()
+    .add('cosy:w-4', 'cosy:h-4')
+    .build();
+
+const ulClass = cn()
+    .add('cosy:z-1', 'cosy:bg-base-100', 'cosy:shadow', 'cosy:p-2')
+    .add('cosy:rounded-box', 'cosy:w-32', 'cosy:dropdown-content', 'cosy:menu')
+    .build();
 ---
 
 {
     renderState.shouldRender && (
-        <div class={`cosy:dropdown cosy:dropdown-end ${className}`}>
+        <div class={dropdownClass}>
             <div tabindex="0" role="button" class={buttonClass}>
-                <GlobeIcon size="16px" class="cosy:w-4 cosy:h-4 cosy:mr-1" />
-                <span class="cosy:mr-1 cosy:hidden cosy:sm:inline">
+                <GlobeIcon size="16px" class={iconClass} />
+                <span class={spanClass}>
                     {renderState.currentLanguageName}
                 </span>
-                <ChevronDownIcon size="16px" class="cosy:w-4 cosy:h-4" />
+                <ChevronDownIcon size="16px" class={chevronClass} />
             </div>
             <ul
                 tabindex="0"
-                class="cosy:z-[1] cosy:bg-base-100 cosy:shadow cosy:p-2 cosy:rounded-box cosy:w-32 cosy:dropdown-content cosy:menu">
+                class={ulClass}>
                 {links.map((link) => (
                     <ListItem>
                         <Link

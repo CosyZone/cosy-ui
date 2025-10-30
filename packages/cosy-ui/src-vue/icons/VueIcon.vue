@@ -28,7 +28,6 @@ import { Icon } from "cosy-ui";
 -->
 
 <script setup lang="ts">
-import '../../style.js';
 import { computed } from 'vue';
 import { iconData } from '../../src/assets/iconData';
 
