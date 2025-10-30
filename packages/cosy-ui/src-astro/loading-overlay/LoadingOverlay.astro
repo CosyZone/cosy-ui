@@ -1,50 +1,10 @@
 ---
-
-
-
 /**
  * @component LoadingOverlay
  *
  * @description
  * LoadingOverlay 组件是一个全屏加载遮罩层，用于在页面加载或路由切换时显示加载状态。
  * 它提供了多种加载动画类型，支持延迟显示和背景模糊效果，确保良好的用户体验。
- *
- * @usage
- * 基本用法：
- * ```astro
- * ---
- * import { LoadingOverlay } from '@coffic/cosy-ui';
- * ---
- *
- * <LoadingOverlay text="正在加载..." />
- * ```
- *
- * 自定义动画类型：
- * ```astro
- * <LoadingOverlay
- *   text="处理中..."
- *   spinnerType="spinner"
- *   loadingDelay={500}
- * />
- * ```
- *
- * 无背景遮罩：
- * ```astro
- * <LoadingOverlay
- *   text="加载中..."
- *   showBackdrop={false}
- *   class="cosy:bg-transparent"
- * />
- * ```
- *
- * 自定义样式：
- * ```astro
- * <LoadingOverlay
- *   text="请稍候..."
- *   spinnerType="pulse"
- *   class="cosy:bg-blue-500/20"
- * />
- * ```
  *
  * @props
  * - text?: string - 加载文本，默认为 "Loading..."

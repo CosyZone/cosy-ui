@@ -1,20 +1,10 @@
 ---
-
-
-
 /**
  * @component ApiTestScript
  *
  * @description
  * ApiTestScript 组件提供API测试的核心JavaScript逻辑，包括请求发送、响应处理和结果展示。
  * 支持多种HTTP方法、参数验证、请求头配置和详细的响应信息展示。
- *
- * @design
- * 设计理念：
- * 1. 健壮性 - 完善的错误处理和边界情况处理
- * 2. 可观测性 - 详细的日志记录和状态反馈
- * 3. 灵活性 - 支持多种请求配置和自定义选项
- * 4. 用户体验 - 清晰的加载状态和结果展示
  *
  * @usage
  * 基本用法：
@@ -336,7 +326,7 @@ const loadingTextClass = cn().add('cosy:text-primary', 'cosy:italic').build();
             let responseText = '';
             try {
                 responseText = await response.text();
-                let data;
+                let data = responseText;
                 try {
                     data = JSON.parse(responseText);
                 } catch {
