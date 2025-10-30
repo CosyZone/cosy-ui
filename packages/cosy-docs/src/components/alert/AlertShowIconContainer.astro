@@ -1,0 +1,23 @@
+---
+/**
+ * @component AlertShowIconContainer
+ * @description 演示 showIcon 属性为 true/false 下所有类型 Alert 组件的效果，Astro/Vue 双端。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import AlertShowIcon from './AlertShowIcon.astro';
+import AlertShowIconSource from './AlertShowIcon.astro?raw';
+import AlertShowIconVue from './AlertShowIconVue.vue';
+import AlertShowIconVueSource from './AlertShowIconVue.vue?raw';
+---
+
+<CodeContainer
+    codes={[AlertShowIconSource, AlertShowIconVueSource]}
+    titles={['showIcon (Astro)', 'showIcon (Vue)']}
+>
+    <div id="tab-1" data-label="astro">
+        <AlertShowIcon />
+    </div>
+    <div id="tab-2" data-label="vue">
+        <AlertShowIconVue client:load />
+    </div>
+</CodeContainer>

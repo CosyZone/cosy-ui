@@ -2,5 +2,5 @@
 import { Alert } from '@coffic/cosy-ui/vue';
 </script>
 <template>
-    <Alert type="success" variant="soft">这是 Soft 柔和风格的提示</Alert>
+    <Alert type="info" marginY="xs">marginY="xs" - 超小间距的提示信息</Alert>
 </template>

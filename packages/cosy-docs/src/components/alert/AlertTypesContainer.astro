@@ -1,32 +1,55 @@
 ---
 
 /**
- * @component Alert.Types
- *
- * @description
- * 展示Alert组件的所有类型：info、success、warning、error。
+ * @component AlertTypesContainer
+ * @description 展示 Alert 组件的 type 属性四种取值，Astro/Vue 各 info/success/warning/error 标签。
  */
-
 import { CodeContainer } from '@coffic/cosy-ui';
-import AlertTypes from './AlertTypes.astro';
-import AlertTypesSourceCode from './AlertTypes.astro?raw';
-import AlertTypesVue from './AlertTypesVue.vue';
-import AlertTypesVueSourceCode from './AlertTypesVue.vue?raw';
+import AlertTypeError from './AlertTypeError.astro';
+import AlertTypeErrorRaw from './AlertTypeError.astro?raw';
+import AlertTypeErrorVue from './AlertTypeErrorVue.vue';
+import AlertTypeErrorVueRaw from './AlertTypeErrorVue.vue?raw';
+import AlertTypeInfo from './AlertTypeInfo.astro';
+import AlertTypeInfoRaw from './AlertTypeInfo.astro?raw';
+import AlertTypeInfoVue from './AlertTypeInfoVue.vue';
+import AlertTypeInfoVueRaw from './AlertTypeInfoVue.vue?raw';
+import AlertTypeSuccess from './AlertTypeSuccess.astro';
+import AlertTypeSuccessRaw from './AlertTypeSuccess.astro?raw';
+import AlertTypeSuccessVue from './AlertTypeSuccessVue.vue';
+import AlertTypeSuccessVueRaw from './AlertTypeSuccessVue.vue?raw';
+import AlertTypeWarning from './AlertTypeWarning.astro';
+import AlertTypeWarningRaw from './AlertTypeWarning.astro?raw';
+import AlertTypeWarningVue from './AlertTypeWarningVue.vue';
+import AlertTypeWarningVueRaw from './AlertTypeWarningVue.vue?raw';
 ---
-
 <CodeContainer
-    codes={[
-        AlertTypesSourceCode,
-        AlertTypesVueSourceCode,
+    codes={[ 
+        AlertTypeInfoRaw,
+        AlertTypeSuccessRaw,
+        AlertTypeWarningRaw,
+        AlertTypeErrorRaw,
+        AlertTypeInfoVueRaw,
+        AlertTypeSuccessVueRaw,
+        AlertTypeWarningVueRaw,
+        AlertTypeErrorVueRaw
     ]}
-    titles={[
-        '提示类型',
-        '提示类型',
-    ]}>
-    <div id="tab-1" data-label="astro">
-        <AlertTypes />
-    </div>
-    <div id="tab-2" data-label="vue">
-        <AlertTypesVue client:load />
-    </div>
+    titles={[ 
+        'info',
+        'success',
+        'warning',
+        'error',
+        'info',
+        'success',
+        'warning',
+        'error'
+    ]}
+>
+    <div id="tab-1" data-label="astro"><AlertTypeInfo /></div>
+    <div id="tab-2" data-label="astro"><AlertTypeSuccess /></div>
+    <div id="tab-3" data-label="astro"><AlertTypeWarning /></div>
+    <div id="tab-4" data-label="astro"><AlertTypeError /></div>
+    <div id="tab-5" data-label="vue"><AlertTypeInfoVue /></div>
+    <div id="tab-6" data-label="vue"><AlertTypeSuccessVue /></div>
+    <div id="tab-7" data-label="vue"><AlertTypeWarningVue /></div>
+    <div id="tab-8" data-label="vue"><AlertTypeErrorVue /></div>
 </CodeContainer>

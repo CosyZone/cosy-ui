@@ -2,5 +2,5 @@
 import { Alert } from '@coffic/cosy-ui/vue';
 </script>
 <template>
-    <Alert type="success" variant="soft">这是 Soft 柔和风格的提示</Alert>
+    <Alert class="my-alert-class" type="info">自定义 class 的 Alert</Alert>
 </template>

@@ -2,28 +2,34 @@
 
 /**
  * @component AlertCustomStyleContainer
- * @description 自定义样式 Alert 组件示例容器
+ * @description 自定义样式 class 用法，两端每个取值分独立tab。
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import AlertCustomStyle from './AlertCustomStyle.astro';
-import AlertCustomStyleSourceCode from './AlertCustomStyle.astro?raw';
-import AlertCustomStyleVue from './AlertCustomStyleVue.vue';
-import AlertCustomStyleVueSourceCode from './AlertCustomStyleVue.vue?raw';
+import AlertWithCustomClass from './AlertWithCustomClass.astro';
+import AlertWithCustomClassRaw from './AlertWithCustomClass.astro?raw';
+import AlertWithCustomClassVue from './AlertWithCustomClassVue.vue';
+import AlertWithCustomClassVueRaw from './AlertWithCustomClassVue.vue?raw';
+import AlertWithoutCustomClass from './AlertWithoutCustomClass.astro';
+import AlertWithoutCustomClassRaw from './AlertWithoutCustomClass.astro?raw';
+import AlertWithoutCustomClassVue from './AlertWithoutCustomClassVue.vue';
+import AlertWithoutCustomClassVueRaw from './AlertWithoutCustomClassVue.vue?raw';
 ---
-
 <CodeContainer
     codes={[
-        AlertCustomStyleSourceCode,
-        AlertCustomStyleVueSourceCode,
+        AlertWithCustomClassRaw,
+        AlertWithoutCustomClassRaw,
+        AlertWithCustomClassVueRaw,
+        AlertWithoutCustomClassVueRaw
     ]}
     titles={[
-        '自定义样式',
-        '自定义样式'
-    ]}>
-    <div id="tab-1" data-label="astro">
-        <AlertCustomStyle />
-    </div>
-    <div id="tab-2" data-label="vue">
-        <AlertCustomStyleVue client:load />
-    </div>
+        'custom',
+        '未设置',
+        'custom',
+        '未设置'
+    ]}
+>
+    <div id="tab-1" data-label="astro"><AlertWithCustomClass /></div>
+    <div id="tab-2" data-label="astro"><AlertWithoutCustomClass /></div>
+    <div id="tab-3" data-label="vue"><AlertWithCustomClassVue /></div>
+    <div id="tab-4" data-label="vue"><AlertWithoutCustomClassVue /></div>
 </CodeContainer>

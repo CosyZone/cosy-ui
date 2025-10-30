@@ -2,5 +2,5 @@
 import { Alert } from '@coffic/cosy-ui/vue';
 </script>
 <template>
-    <Alert type="success" variant="soft">这是 Soft 柔和风格的提示</Alert>
+    <Alert type="info" :closable="true">可关闭的提示信息</Alert>
 </template>

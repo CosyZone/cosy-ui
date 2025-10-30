@@ -5,11 +5,24 @@ alwaysApply: true
 
 如果这个规则被应用，则在输出中说明：🤔 我注意到了项目的组件文档规范。
 
-我们的根本目的是展示组件的所有Props和Slots的用法，确保用户能够轻松理解和使用每个组件。
+## 核心目标
+
+我们的根本目的是**完整、清晰、规范地展示组件的所有 Props 和 Slots 的用法**，确保用户能够轻松理解和使用每个组件。
+
+## 核心原则
+
+1. **完整性原则**：每个 prop 的每个可能值都必须有独立示例
+2. **多平台原则**：每个示例必须同时提供 Astro 和 Vue 两个版本
+3. **标签化原则**：每个值、每个平台都必须是独立的标签页
+4. **标题规范原则**：标签标题必须直接显示对应的值，不包含属性名或其他描述
+5. **文件独立原则**：每个示例都必须有独立的 .astro 和 .vue 文件
+6. **一致性原则**：中英文文档必须保持完全一致的结构和内容
 
 以 Alert 组件为例，不管是新建还是更新组件的文档，都按照以下步骤严格执行。
 
-1. 最顶部的内容
+## 文档编写步骤
+
+### 1. 最顶部的内容
 
 ```mdx
 ---
@@ -20,7 +33,7 @@ order: 1.1
 ---
 ```
 
-Order 属性设置策略
+**Order 属性设置策略**
 
 - **每个 mdx 文档顶部都有 order 属性，用于控制文档在导航中的排序**
 - **order 值必须严格按照字母在字母表中的顺序排列**
@@ -30,11 +43,13 @@ Order 属性设置策略
   - C 开头的文档：order 值必须是 3.x（如 3.1, 3.2, 3.3...）
   - 以此类推，按照字母在字母表中的顺序
 
-2. 导入关键组件
+### 2. 导入关键组件
 
 ```ts
 import { ComponentPackage } from '@/components/alert/index';
 ```
+
+除此之外，禁止再导入其他组件。
 
 其中'@/components/alert/index' 组件导出文件内容必须是这样：
 
@@ -48,76 +63,147 @@ export const AlertPackage = {
 };
 ```
 
-其中某个组件容器文件内容必须是这样：
+#### Container 组件规范
 
-```ts
+Container 文件是连接文档和示例的桥梁，必须严格遵循以下规范：
+
+**命名规范**
+- 文件名：`[ComponentName][PropName]Container.astro`
+- 例如：`AlertTypesContainer.astro`、`AlertMarginYContainer.astro`
+
+**文件结构规范**
+
+```astro
 ---
 /**
- * @component AlertActionContainer
- * @description 自定义操作按钮 Alert 组件示例容器
+ * @component AlertTypesContainer
+ * @description 展示 Alert 组件的 type 属性四种取值，Astro/Vue 各 info/success/warning/error 标签。
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import AlertAction from './AlertAction.astro';
-import AlertActionVue from './AlertActionVue.astro';
-import AlertActionSourceCode from './AlertAction.astro?raw';
-import AlertActionVueSourceCode from './AlertActionVue.astro?raw';
+
+// 按字母顺序导入所有 Astro 示例及其源码
+import AlertTypeError from './AlertTypeError.astro';
+import AlertTypeErrorRaw from './AlertTypeError.astro?raw';
+import AlertTypeInfo from './AlertTypeInfo.astro';
+import AlertTypeInfoRaw from './AlertTypeInfo.astro?raw';
+import AlertTypeSuccess from './AlertTypeSuccess.astro';
+import AlertTypeSuccessRaw from './AlertTypeSuccess.astro?raw';
+import AlertTypeWarning from './AlertTypeWarning.astro';
+import AlertTypeWarningRaw from './AlertTypeWarning.astro?raw';
+
+// 按字母顺序导入所有 Vue 示例及其源码
+import AlertTypeErrorVue from './AlertTypeErrorVue.vue';
+import AlertTypeErrorVueRaw from './AlertTypeErrorVue.vue?raw';
+import AlertTypeInfoVue from './AlertTypeInfoVue.vue';
+import AlertTypeInfoVueRaw from './AlertTypeInfoVue.vue?raw';
+import AlertTypeSuccessVue from './AlertTypeSuccessVue.vue';
+import AlertTypeSuccessVueRaw from './AlertTypeSuccessVue.vue?raw';
+import AlertTypeWarningVue from './AlertTypeWarningVue.vue';
+import AlertTypeWarningVueRaw from './AlertTypeWarningVue.vue?raw';
 ---
 
 <CodeContainer
     codes={[
-        AlertActionSourceCode,
-        AlertActionVueSourceCode,
+        AlertTypeInfoRaw,
+        AlertTypeSuccessRaw,
+        AlertTypeWarningRaw,
+        AlertTypeErrorRaw,
+        AlertTypeInfoVueRaw,
+        AlertTypeSuccessVueRaw,
+        AlertTypeWarningVueRaw,
+        AlertTypeErrorVueRaw
     ]}
     titles={[
-        '基础按钮',
-        '基础按钮'
-    ]}>
-    <div id="tab-1" data-label="astro">
-        <AlertAction />
-    </div>
-    <div id="tab-2" data-label="vue">
-        <AlertActionVue />
-    </div>
+        'info',
+        'success',
+        'warning',
+        'error',
+        'info',
+        'success',
+        'warning',
+        'error'
+    ]}
+>
+    <div id="tab-1" data-label="astro"><AlertTypeInfo /></div>
+    <div id="tab-2" data-label="astro"><AlertTypeSuccess /></div>
+    <div id="tab-3" data-label="astro"><AlertTypeWarning /></div>
+    <div id="tab-4" data-label="astro"><AlertTypeError /></div>
+    <div id="tab-5" data-label="vue"><AlertTypeInfoVue /></div>
+    <div id="tab-6" data-label="vue"><AlertTypeSuccessVue /></div>
+    <div id="tab-7" data-label="vue"><AlertTypeWarningVue /></div>
+    <div id="tab-8" data-label="vue"><AlertTypeErrorVue /></div>
 </CodeContainer>
 ```
 
-其中`AlertAction`是向用户展示`Alert`组件的用法（Astro 版本）：
+**Container 关键规范**
 
+1. **导入顺序**：
+   - 先导入所有 Astro 示例（按字母顺序）
+   - 再导入所有 Vue 示例（按字母顺序）
+   - 每个示例都要导入源码（使用 `?raw`）
+
+2. **codes 数组**：
+   - 先列出所有 Astro 源码
+   - 再列出所有 Vue 源码
+   - 顺序与 tab 标签对应
+
+3. **titles 数组**：
+   - **标题必须直接是对应的值**
+   - 不包含属性名（❌ `type="info"` ✅ `info`）
+   - 不包含平台描述（❌ `info (Astro)` ✅ `info`）
+   - 不包含多余文字（❌ `信息类型` ✅ `info`）
+
+4. **tab 标签**：
+   - 使用 `<div id="tab-{n}" data-label="{platform}">` 格式
+   - `data-label` 只能是 `astro` 或 `vue`
+   - 先列出所有 Astro 标签，再列出所有 Vue 标签
+   - 每个平台的标签顺序必须与 codes/titles 对应
+
+#### 示例文件规范
+
+每个具体的示例文件必须独立创建，不能在一个文件中包含多个值的演示。
+
+**Astro 示例文件规范**
+
+命名：`[ComponentName][PropName][Value].astro`
+- 例如：`AlertTypeInfo.astro`、`AlertMarginYXS.astro`
+
+内容规范：
 ```astro
 ---
 import { Alert } from '@coffic/cosy-ui';
 ---
-
-<Alert type="info" title="自定义操作">
-    你可以通过 action slot 在右侧自定义按钮。
-    <div slot="action">
-        <button onclick="alert('自定义操作')">
-            自定义操作
-        </button>
-    </div>
-</Alert>
+<Alert type="info">这是一条信息提示</Alert>
 ```
 
-Vue 版本的示例 `AlertActionVue.vue` 内容类似：
+要求：
+- 只展示一个特定值的用法
+- 内容简洁明了
+- 不要在一个文件中用循环或条件展示多个值
 
+**Vue 示例文件规范**
+
+命名：`[ComponentName][PropName][Value]Vue.vue`
+- 例如：`AlertTypeInfoVue.vue`、`AlertMarginYXSVue.vue`
+
+内容规范：
 ```vue
 <script setup lang="ts">
 import { Alert } from '@coffic/cosy-ui/vue';
 </script>
-
 <template>
-  <Alert type="info" title="自定义操作">
-    你可以通过 action slot 在右侧自定义按钮。
-    <template #action>
-      <button @click="alert('自定义操作')">
-        自定义操作
-      </button>
-    </template>
-  </Alert>
+  <Alert type="info">这是一条信息提示</Alert>
 </template>
 ```
 
-3. 写标题
+要求：
+- 必须遵循项目的 Vue 组件规范
+- script 部分必须在 template 上方
+- 使用 `<script setup lang="ts">` 语法
+- 从 `@coffic/cosy-ui/vue` 导入组件
+- 只展示一个特定值的用法
+
+### 3. 写标题
 
 必须是这样：
 
@@ -125,7 +211,7 @@ import { Alert } from '@coffic/cosy-ui/vue';
 # {frontmatter.title}
 ```
 
-4. 介绍组件
+### 4. 介绍组件
 
 ```markdown
 ## 简介
@@ -133,7 +219,7 @@ import { Alert } from '@coffic/cosy-ui/vue';
 Alert 组件用于向用户显示重要的提示信息，支持多种类型的提示样式和交互效果。
 ```
 
-5. 案例
+### 5. 案例
 
 展示组件的基础用法。只写一个典型的Astro的例子即可。
 
@@ -153,7 +239,7 @@ import { Alert } from "@coffic/cosy-ui";
 <Alert type="info" closable> 这是一条可以关闭的信息提示 </Alert>
 ```
 
-6. 介绍Props
+### 6. 介绍 Props
 
 ```markdown
 ## Props
@@ -171,13 +257,128 @@ import { Alert } from "@coffic/cosy-ui";
 <ComponentPackage.Closable />
 ```
 
-注意：
+#### Props 文档规范要求
 
-- `@props` 必须按字母顺序（A-Z）排列
-- 每个Pros使用多标签展示多种用法
-- 介绍某个 prop 的标题必须使用 prop 的名字
+**必须遵守的规则**：
 
-7. 介绍Slots
+1. **Props 排序**：所有 props 必须按字母顺序（A-Z）排列
+2. **标题命名**：每个 prop 的标题必须使用 prop 的准确名字（与组件定义一致）
+3. **完整性**：确保每个 prop 的每个可能值都有对应的独立示例
+4. **Container 调用**：在 mdx 中只调用 `<ComponentPackage.XXX />`，不直接使用 CodeContainer
+
+#### 多值 Props 的完整示例
+
+假设某个 prop 叫做 `marginY`，有 5 个可能的值：`xs`、`sm`、`md`、`lg`、`xl`
+
+**步骤1**：为每个值创建独立的示例文件
+- `AlertMarginYXS.astro` / `AlertMarginYXSVue.vue`
+- `AlertMarginYSM.astro` / `AlertMarginYSMVue.vue`
+- `AlertMarginYMD.astro` / `AlertMarginYMDVue.vue`
+- `AlertMarginYLG.astro` / `AlertMarginYLGVue.vue`
+- `AlertMarginYXL.astro` / `AlertMarginYXLVue.vue`
+
+**步骤2**：创建 Container 文件（`AlertMarginYContainer.astro`）：
+
+```astro
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+// 导入所有 Astro 示例和源码（按字母顺序）
+import AlertMarginYLG from './AlertMarginYLG.astro';
+import AlertMarginYLGRaw from './AlertMarginYLG.astro?raw';
+import AlertMarginYMD from './AlertMarginYMD.astro';
+import AlertMarginYMDRaw from './AlertMarginYMD.astro?raw';
+import AlertMarginYSM from './AlertMarginYSM.astro';
+import AlertMarginYSMRaw from './AlertMarginYSM.astro?raw';
+import AlertMarginYXL from './AlertMarginYXL.astro';
+import AlertMarginYXLRaw from './AlertMarginYXL.astro?raw';
+import AlertMarginYXS from './AlertMarginYXS.astro';
+import AlertMarginYXSRaw from './AlertMarginYXS.astro?raw';
+// 导入所有 Vue 示例和源码（按字母顺序）
+import AlertMarginYLGVue from './AlertMarginYLGVue.vue';
+import AlertMarginYLGVueRaw from './AlertMarginYLGVue.vue?raw';
+import AlertMarginYMDVue from './AlertMarginYMDVue.vue';
+import AlertMarginYMDVueRaw from './AlertMarginYMDVue.vue?raw';
+import AlertMarginYSMVue from './AlertMarginYSMVue.vue';
+import AlertMarginYSMVueRaw from './AlertMarginYSMVue.vue?raw';
+import AlertMarginYXLVue from './AlertMarginYXLVue.vue';
+import AlertMarginYXLVueRaw from './AlertMarginYXLVue.vue?raw';
+import AlertMarginYXSVue from './AlertMarginYXSVue.vue';
+import AlertMarginYXSVueRaw from './AlertMarginYXSVue.vue?raw';
+---
+<CodeContainer
+    codes={[
+        AlertMarginYXSRaw,
+        AlertMarginYSMRaw,
+        AlertMarginYMDRaw,
+        AlertMarginYLGRaw,
+        AlertMarginYXLRaw,
+        AlertMarginYXSVueRaw,
+        AlertMarginYSMVueRaw,
+        AlertMarginYMDVueRaw,
+        AlertMarginYLGVueRaw,
+        AlertMarginYXLVueRaw
+    ]}
+    titles={[
+        'xs',
+        'sm',
+        'md',
+        'lg',
+        'xl',
+        'xs',
+        'sm',
+        'md',
+        'lg',
+        'xl'
+    ]}
+>
+    <div id="tab-1" data-label="astro"><AlertMarginYXS /></div>
+    <div id="tab-2" data-label="astro"><AlertMarginYSM /></div>
+    <div id="tab-3" data-label="astro"><AlertMarginYMD /></div>
+    <div id="tab-4" data-label="astro"><AlertMarginYLG /></div>
+    <div id="tab-5" data-label="astro"><AlertMarginYXL /></div>
+    <div id="tab-6" data-label="vue"><AlertMarginYXSVue /></div>
+    <div id="tab-7" data-label="vue"><AlertMarginYSMVue /></div>
+    <div id="tab-8" data-label="vue"><AlertMarginYMDVue /></div>
+    <div id="tab-9" data-label="vue"><AlertMarginYLGVue /></div>
+    <div id="tab-10" data-label="vue"><AlertMarginYXLVue /></div>
+</CodeContainer>
+```
+
+**步骤3**：在 index.ts 中注册：
+
+```ts
+import AlertMarginYContainer from "./AlertMarginYContainer.astro";
+
+export const AlertPackage = {
+    // ... 其他
+    MarginY: AlertMarginYContainer,
+};
+```
+
+**步骤4**：在 mdx 文档中使用：
+
+```markdown
+### marginY
+
+垂直方向外边距大小，支持预设的尺寸值。
+
+<AlertPackage.MarginY />
+```
+
+#### 标题规范的关键点
+
+**✅ 正确示例**：
+- `titles={['xs', 'sm', 'md', 'lg', 'xl', ...]}`
+- `titles={['true', 'false', 'true', 'false']}`
+- `titles={['info', 'success', 'warning', 'error', ...]}`
+
+**❌ 错误示例**：
+- `titles={['marginY="xs"', ...]}` - 不要包含属性名
+- `titles={['xs (Astro)', ...]}` - 不要包含平台描述
+- `titles={['超小间距', ...]}` - 不要用描述文字，必须是实际的值
+- `titles={['XS', ...]}` - 大小写必须与实际值一致
+
+### 7. 介绍Slots
 
 ```markdown
 ## Slots
@@ -189,4 +390,89 @@ import { Alert } from "@coffic/cosy-ui";
 <ComponentPackage.Action />
 ```
 
-8. 检查英文文档，必须和中文文档内容一致
+### 8. 检查英文文档
+
+必须和中文文档内容一致。
+
+### 9. 全面检查清单
+
+在提交文档前，必须按以下清单逐项检查：
+
+#### 文档完整性检查
+- [ ] 所有 props 都已列举（参考组件源码的 props 定义）
+- [ ] 每个 prop 的每个可能值都有独立示例文件
+- [ ] 每个 prop 都有对应的 Container 文件
+- [ ] 所有 slots 都已列举并有示例
+- [ ] 中英文文档内容完全一致
+
+#### Container 文件检查
+- [ ] 文件命名符合规范：`[ComponentName][PropName]Container.astro`
+- [ ] 导入按字母顺序排列（Astro 在前，Vue 在后）
+- [ ] codes 数组顺序正确（先 Astro，后 Vue）
+- [ ] titles 数组只包含值本身，不含属性名或平台描述
+- [ ] titles 大小写与实际值完全一致
+- [ ] tab 标签的 id 和 data-label 正确
+- [ ] 已在 index.ts 中注册
+
+#### 示例文件检查
+- [ ] 文件命名符合规范
+- [ ] Astro 文件：从 `@coffic/cosy-ui` 导入
+- [ ] Vue 文件：从 `@coffic/cosy-ui/vue` 导入
+- [ ] Vue 文件：script 在 template 上方
+- [ ] 每个文件只展示一个值的用法
+- [ ] 内容简洁明了，易于理解
+
+#### MDX 文档检查
+- [ ] frontmatter 完整（title、description、order）
+- [ ] order 值符合字母表顺序规则
+- [ ] 只导入 ComponentPackage，无其他导入
+- [ ] Props 按字母顺序排列
+- [ ] 每个 prop 都有清晰的描述
+- [ ] 每个 prop 的标题使用准确的 prop 名
+- [ ] 所有调用格式为 `<ComponentPackage.XXX />`
+
+#### 代码质量检查
+- [ ] 所有文件通过 linter 检查
+- [ ] 已执行 `pnpm format` 格式化代码
+- [ ] 无 TypeScript 类型错误
+- [ ] 英文文档与中文文档完全同步
+
+## 常见错误与解决方案
+
+### 错误1：标题包含属性名
+❌ `titles={['type="info"', ...]}`  
+✅ `titles={['info', ...]}`
+
+### 错误2：标题包含平台描述
+❌ `titles={['info (Astro)', ...]}`  
+✅ `titles={['info', ...]}`
+
+### 错误3：标题使用描述文字
+❌ `titles={['信息提示', ...]}`  
+✅ `titles={['info', ...]}`
+
+### 错误4：一个文件展示多个值
+❌ 在一个 Astro 文件中循环展示所有 type  
+✅ 每个 type 值有独立的 .astro 文件
+
+### 错误5：缺少某个平台的示例
+❌ 只有 Astro 示例，没有 Vue 示例  
+✅ 每个值都必须有 Astro 和 Vue 两个版本
+
+### 错误6：导入顺序混乱
+❌ Astro 和 Vue 导入混在一起  
+✅ 先所有 Astro（按字母序），再所有 Vue（按字母序）
+
+### 错误7：mdx 中直接使用 CodeContainer
+❌ 在 mdx 中 import CodeContainer  
+✅ 只调用 `<ComponentPackage.XXX />`
+
+## 最佳实践建议
+
+1. **先查看组件源码**：确认所有 props 和 slots 的定义
+2. **列出所有可能值**：为每个 prop 列出所有可能的值
+3. **创建文件清单**：列出所有需要创建的文件
+4. **批量创建文件**：使用工具批量创建示例文件
+5. **逐个检查**：创建完成后逐个检查是否符合规范
+6. **运行测试**：确保所有示例都能正常运行
+7. **格式化代码**：最后执行 `pnpm format`

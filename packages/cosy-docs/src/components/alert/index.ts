@@ -9,17 +9,21 @@ import AlertOutlineContainer from "./AlertOutlineContainer.astro";
 import AlertSoftContainer from "./AlertSoftContainer.astro";
 import AlertTypesContainer from "./AlertTypesContainer.astro";
 import AlertWithTitleContainer from "./AlertWithTitleContainer.astro";
+import AlertShowIconContainer from "./AlertShowIconContainer.astro";
+import AlertVariantContainer from "./AlertVariantContainer.astro";
 
 export const AlertPackage = {
-    Action: AlertActionContainer,
-    Basic: AlertBasicContainer,
-    Closable: AlertClosableContainer,
-    CustomStyle: AlertCustomStyleContainer,
-    Dash: AlertDashContainer,
-    MarginY: AlertMarginYContainer,
-    NoIcon: AlertNoIconContainer,
-    Outline: AlertOutlineContainer,
-    Soft: AlertSoftContainer,
-    Types: AlertTypesContainer,
-    WithTitle: AlertWithTitleContainer,
+	Action: AlertActionContainer,
+	Basic: AlertBasicContainer,
+	Closable: AlertClosableContainer,
+	CustomStyle: AlertCustomStyleContainer,
+	Dash: AlertDashContainer,
+	MarginY: AlertMarginYContainer,
+	NoIcon: AlertNoIconContainer,
+	Outline: AlertOutlineContainer,
+	ShowIcon: AlertShowIconContainer,
+	Soft: AlertSoftContainer,
+	Types: AlertTypesContainer,
+	Variant: AlertVariantContainer,
+	WithTitle: AlertWithTitleContainer,
 };

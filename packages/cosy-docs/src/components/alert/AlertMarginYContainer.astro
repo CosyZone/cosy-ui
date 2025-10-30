@@ -2,28 +2,64 @@
 
 /**
  * @component AlertMarginYContainer
- * @description 展示 Alert 组件的垂直外边距功能的容器组件。
+ * @description 展示 Alert 组件的 marginY 属性所有典型值，两端所有变体都单独标签演示
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import AlertMarginY from './AlertMarginY.astro';
-import AlertMarginYSource from './AlertMarginY.astro?raw';
-import AlertMarginYVue from './AlertMarginYVue.vue';
-import AlertMarginYVueSource from './AlertMarginYVue.vue?raw';
+import AlertMarginYLG from './AlertMarginYLG.astro';
+import AlertMarginYLGRaw from './AlertMarginYLG.astro?raw';
+import AlertMarginYLGVue from './AlertMarginYLGVue.vue';
+import AlertMarginYLGVueRaw from './AlertMarginYLGVue.vue?raw';
+import AlertMarginYMD from './AlertMarginYMD.astro';
+import AlertMarginYMDRaw from './AlertMarginYMD.astro?raw';
+import AlertMarginYMDVue from './AlertMarginYMDVue.vue';
+import AlertMarginYMDVueRaw from './AlertMarginYMDVue.vue?raw';
+import AlertMarginYSM from './AlertMarginYSM.astro';
+import AlertMarginYSMRaw from './AlertMarginYSM.astro?raw';
+import AlertMarginYSMVue from './AlertMarginYSMVue.vue';
+import AlertMarginYSMVueRaw from './AlertMarginYSMVue.vue?raw';
+import AlertMarginYXL from './AlertMarginYXL.astro';
+import AlertMarginYXLRaw from './AlertMarginYXL.astro?raw';
+import AlertMarginYXLVue from './AlertMarginYXLVue.vue';
+import AlertMarginYXLVueRaw from './AlertMarginYXLVue.vue?raw';
+import AlertMarginYXS from './AlertMarginYXS.astro';
+import AlertMarginYXSRaw from './AlertMarginYXS.astro?raw';
+import AlertMarginYXSVue from './AlertMarginYXSVue.vue';
+import AlertMarginYXSVueRaw from './AlertMarginYXSVue.vue?raw';
 ---
-
 <CodeContainer
-    codes={[
-        AlertMarginYSource,
-        AlertMarginYVueSource,
+    codes={[ 
+        AlertMarginYXSRaw,
+        AlertMarginYSMRaw,
+        AlertMarginYMDRaw,
+        AlertMarginYLGRaw,
+        AlertMarginYXLRaw,
+        AlertMarginYXSVueRaw,
+        AlertMarginYSMVueRaw,
+        AlertMarginYMDVueRaw,
+        AlertMarginYLGVueRaw,
+        AlertMarginYXLVueRaw
     ]}
-    titles={[
-        '垂直外边距',
-        '垂直外边距',
-    ]}>
-    <div id="tab-1" data-label="astro">
-        <AlertMarginY />
-    </div>
-    <div id="tab-2" data-label="vue">
-        <AlertMarginYVue client:load />
-    </div>
+    titles={[ 
+        'xs',
+        'sm',
+        'md',
+        'lg',
+        'xl',
+        'xs',
+        'sm',
+        'md',
+        'lg',
+        'xl'
+    ]}
+>
+    <div id="tab-1" data-label="astro"><AlertMarginYXS /></div>
+    <div id="tab-2" data-label="astro"><AlertMarginYSM /></div>
+    <div id="tab-3" data-label="astro"><AlertMarginYMD /></div>
+    <div id="tab-4" data-label="astro"><AlertMarginYLG /></div>
+    <div id="tab-5" data-label="astro"><AlertMarginYXL /></div>
+    <div id="tab-6" data-label="vue"><AlertMarginYXSVue /></div>
+    <div id="tab-7" data-label="vue"><AlertMarginYSMVue /></div>
+    <div id="tab-8" data-label="vue"><AlertMarginYMDVue /></div>
+    <div id="tab-9" data-label="vue"><AlertMarginYLGVue /></div>
+    <div id="tab-10" data-label="vue"><AlertMarginYXLVue /></div>
 </CodeContainer>

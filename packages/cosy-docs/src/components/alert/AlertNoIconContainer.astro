@@ -2,28 +2,34 @@
 
 /**
  * @component AlertNoIconContainer
- * @description 展示不显示图标的 Alert 组件示例
+ * @description 展示 showIcon 为 true/false 的两种情况，Astro/Vue 各自多标签分展示。
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import AlertNoIcon from './AlertNoIcon.astro';
-import AlertNoIconSource from './AlertNoIcon.astro?raw';
-import AlertNoIconVue from './AlertNoIconVue.vue';
-import AlertNoIconVueSource from './AlertNoIconVue.vue?raw';
+import AlertShowIconFalse from './AlertShowIconFalse.astro';
+import AlertShowIconFalseRaw from './AlertShowIconFalse.astro?raw';
+import AlertShowIconFalseVue from './AlertShowIconFalseVue.vue';
+import AlertShowIconFalseVueRaw from './AlertShowIconFalseVue.vue?raw';
+import AlertShowIconTrue from './AlertShowIconTrue.astro';
+import AlertShowIconTrueRaw from './AlertShowIconTrue.astro?raw';
+import AlertShowIconTrueVue from './AlertShowIconTrueVue.vue';
+import AlertShowIconTrueVueRaw from './AlertShowIconTrueVue.vue?raw';
 ---
-
 <CodeContainer
-    codes={[
-        AlertNoIconSource,
-        AlertNoIconVueSource,
+    codes={[ 
+        AlertShowIconTrueRaw,
+        AlertShowIconFalseRaw,
+        AlertShowIconTrueVueRaw,
+        AlertShowIconFalseVueRaw
     ]}
-    titles={[
-        '不显示图标',
-        '不显示图标',
-    ]}>
-    <div id="tab-1" data-label="astro">
-        <AlertNoIcon />
-    </div>
-    <div id="tab-2" data-label="vue">
-        <AlertNoIconVue client:load />
-    </div>
+    titles={[ 
+        'true',
+        'false',
+        'true',
+        'false'
+    ]}
+>
+    <div id="tab-1" data-label="astro"><AlertShowIconTrue /></div>
+    <div id="tab-2" data-label="astro"><AlertShowIconFalse /></div>
+    <div id="tab-3" data-label="vue"><AlertShowIconTrueVue /></div>
+    <div id="tab-4" data-label="vue"><AlertShowIconFalseVue /></div>
 </CodeContainer>
