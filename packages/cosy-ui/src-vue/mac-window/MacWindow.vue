@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import "../../style";
 import AlertDialog from "../alert-dialog/AlertDialog.vue";
 import Container from "../container/Container.vue";
 import { ref, computed } from "vue";

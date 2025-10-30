@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import "../../style";
 import type { ILinkProps } from "./props";
 import { getLinkCombinedClassesVue } from "./class";
 

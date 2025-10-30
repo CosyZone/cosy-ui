@@ -1,7 +1,2 @@
-// 为了让vite处理css文件，所以建立这个文件
+// Vite 构建入口，用于处理 CSS 文件
 import "./app.css";
-import "./src/styles/dot-grid.css";
-import "./src/styles/patterns.css";
-import "./src/styles/container-muted.css";
-import "./src/styles/gradient-glow.css";
-import "./src/styles/banner-animations.css";

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import "../../style";
 import { computed, ref, onMounted, nextTick } from "vue";
 import PhotoCard from "./PhotoCard.vue";
 import Container from "../container/Container.vue";

@@ -15,7 +15,6 @@
 @slot default - 徽章内容。
 -->
 <script setup lang="ts">
-  import '../../style';
   import { computed } from 'vue';
   import type { IBadgeProps } from './props';
   import { BadgeFacade } from '../../src/components/badge';

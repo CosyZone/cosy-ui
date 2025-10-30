@@ -5,7 +5,6 @@ import {
 	IPhoneWifiIcon,
 	IPhoneBatteryIcon,
 } from "../icons/index";
-import "../../style";
 
 /**
  * @component StatusBarContent

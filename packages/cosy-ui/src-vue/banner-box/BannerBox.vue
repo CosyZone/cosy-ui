@@ -50,7 +50,6 @@ import { ref, defineComponent } from "vue";
 import FeatureCard from "./FeatureCard.vue";
 import type { BackgroundColor } from "../../src/common";
 import { allBackgroundClasses } from "../../src/common";
-import "../../style";
 
 export interface IFeature {
 	emoji: string;

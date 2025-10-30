@@ -32,7 +32,6 @@ KeyCatcher 组件用于全局捕获键盘按键事件，并可通过自定义事
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
-import "../../style";
 
 const lastKey = ref<string | null>(null);
 let timer: ReturnType<typeof setTimeout> | null = null;

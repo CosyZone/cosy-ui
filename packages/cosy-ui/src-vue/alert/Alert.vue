@@ -63,7 +63,6 @@ Alert 组件用于向用户显示重要的提示信息，支持多种类型的�
 -->
 
 <script setup lang="ts">
-  import '../../style';
   import { computed } from 'vue';
   import type { IAlertProps } from './props';
   import { AlertFacade } from '../../src/components/alert';

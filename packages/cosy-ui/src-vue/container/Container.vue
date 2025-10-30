@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import "../../style";
 import { computed } from "vue";
 import type { IContainerProps } from "./props";
 import { getContainerCombinedClassesVue } from "./class";

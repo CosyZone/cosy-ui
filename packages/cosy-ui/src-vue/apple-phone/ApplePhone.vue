@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import "../../style";
 import { AlertDialog, Container } from "../../index-vue";
 import { ref } from "vue";
 import StatusBarContent from "./StatusBarContent.vue";
