@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component TextStyleContainer
  * @description Text style 属性容器，带源码展示。
@@ -9,10 +6,15 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import Style from "./Style.astro";
 import StyleSourceCode from "./Style.astro?raw";
+import TextVueStyle from "./TextVueStyle.vue";
+import TextVueStyleRaw from "./TextVueStyle.vue?raw";
 ---
 
-<CodeContainer codes={[StyleSourceCode]}>
-  <div id="tab-1">
+<CodeContainer codes={[StyleSourceCode, TextVueStyleRaw]} titles={['样式示例', '样式示例']}>
+  <div id="tab-1" data-label="astro">
     <Style />
+  </div>
+  <div id="tab-2" data-label="vue">
+    <TextVueStyle client:load />
   </div>
 </CodeContainer>

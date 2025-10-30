@@ -1,12 +1,12 @@
 ---
 
-
-
 /**
  * @component TextUnderlineContainer
  * @description Text underline 属性容器，带源码展示。
  */
 import { CodeContainer } from "@coffic/cosy-ui";
+import TextVueUnderline from "./TextVueUnderline.vue";
+import TextVueUnderlineRaw from "./TextVueUnderline.vue?raw";
 import UnderlineFalse from "./underline/UnderlineFalse.astro";
 import UnderlineFalseSourceCode from "./underline/UnderlineFalse.astro?raw";
 import UnderlineTrue from "./underline/UnderlineTrue.astro";
@@ -14,8 +14,9 @@ import UnderlineTrueSourceCode from "./underline/UnderlineTrue.astro?raw";
 ---
 
 <CodeContainer
-  titles={['true', 'false']}
-  codes={[UnderlineTrueSourceCode, UnderlineFalseSourceCode]}>
-  <div id="tab-1"><UnderlineTrue /></div>
-  <div id="tab-2"><UnderlineFalse /></div>
+  titles={['true', 'false', '下划线示例']}
+  codes={[UnderlineTrueSourceCode, UnderlineFalseSourceCode, TextVueUnderlineRaw]}>
+  <div id="tab-1" data-label="astro"><UnderlineTrue /></div>
+  <div id="tab-2" data-label="astro"><UnderlineFalse /></div>
+  <div id="tab-3" data-label="vue"><TextVueUnderline client:load /></div>
 </CodeContainer>

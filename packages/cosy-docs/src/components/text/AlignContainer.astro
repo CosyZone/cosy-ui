@@ -1,7 +1,5 @@
 ---
 
-
-
 /**
  * @component TextAlignContainer
  * @description Text 组件对齐方式用法容器，带源码展示。
@@ -15,18 +13,22 @@ import AlignLeft from "./align/AlignLeft.astro";
 import AlignLeftSourceCode from "./align/AlignLeft.astro?raw";
 import AlignRight from "./align/AlignRight.astro";
 import AlignRightSourceCode from "./align/AlignRight.astro?raw";
+import TextVueAlign from "./TextVueAlign.vue";
+import TextVueAlignRaw from "./TextVueAlign.vue?raw";
 ---
 
 <CodeContainer
-  titles={['left', 'center', 'right', 'justify']}
+  titles={['left', 'center', 'right', 'justify', '不同对齐']}
   codes={[
     AlignLeftSourceCode,
     AlignCenterSourceCode,
     AlignRightSourceCode,
     AlignJustifySourceCode,
+    TextVueAlignRaw,
   ]}>
-  <div id="tab-1"><AlignLeft /></div>
-  <div id="tab-2"><AlignCenter /></div>
-  <div id="tab-3"><AlignRight /></div>
-  <div id="tab-4"><AlignJustify /></div>
+  <div id="tab-1" data-label="astro"><AlignLeft /></div>
+  <div id="tab-2" data-label="astro"><AlignCenter /></div>
+  <div id="tab-3" data-label="astro"><AlignRight /></div>
+  <div id="tab-4" data-label="astro"><AlignJustify /></div>
+  <div id="tab-5" data-label="vue"><TextVueAlign client:load /></div>
 </CodeContainer>

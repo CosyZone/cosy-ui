@@ -1,7 +1,5 @@
 ---
 
-
-
 /**
  * @component TextItalicContainer
  * @description Text italic 属性容器，带源码展示。
@@ -11,11 +9,14 @@ import ItalicFalse from "./italic/ItalicFalse.astro";
 import ItalicFalseSourceCode from "./italic/ItalicFalse.astro?raw";
 import ItalicTrue from "./italic/ItalicTrue.astro";
 import ItalicTrueSourceCode from "./italic/ItalicTrue.astro?raw";
+import TextVueItalic from "./TextVueItalic.vue";
+import TextVueItalicRaw from "./TextVueItalic.vue?raw";
 ---
 
 <CodeContainer
-  titles={['true', 'false']}
-  codes={[ItalicTrueSourceCode, ItalicFalseSourceCode]}>
-  <div id="tab-1"><ItalicTrue /></div>
-  <div id="tab-2"><ItalicFalse /></div>
+  titles={['true', 'false', '斜体示例']}
+  codes={[ItalicTrueSourceCode, ItalicFalseSourceCode, TextVueItalicRaw]}>
+  <div id="tab-1" data-label="astro"><ItalicTrue /></div>
+  <div id="tab-2" data-label="astro"><ItalicFalse /></div>
+  <div id="tab-3" data-label="vue"><TextVueItalic client:load /></div>
 </CodeContainer>

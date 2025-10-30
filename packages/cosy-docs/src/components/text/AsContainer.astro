@@ -1,7 +1,5 @@
 ---
 
-
-
 /**
  * @component TextAsContainer
  * @description Text as 属性容器，带源码展示。
@@ -15,18 +13,22 @@ import AsLabel from "./as/AsLabel.astro";
 import AsLabelSourceCode from "./as/AsLabel.astro?raw";
 import AsSpan from "./as/AsSpan.astro";
 import AsSpanSourceCode from "./as/AsSpan.astro?raw";
+import TextVueAs from "./TextVueAs.vue";
+import TextVueAsRaw from "./TextVueAs.vue?raw";
 ---
 
 <CodeContainer
-  titles={['span', 'div', 'h1', 'label']}
+  titles={['span', 'div', 'h1', 'label', '不同元素']}
   codes={[
     AsSpanSourceCode,
     AsDivSourceCode,
     AsH1SourceCode,
     AsLabelSourceCode,
+    TextVueAsRaw,
   ]}>
-  <div id="tab-1"><AsSpan /></div>
-  <div id="tab-2"><AsDiv /></div>
-  <div id="tab-3"><AsH1 /></div>
-  <div id="tab-4"><AsLabel /></div>
+  <div id="tab-1" data-label="astro"><AsSpan /></div>
+  <div id="tab-2" data-label="astro"><AsDiv /></div>
+  <div id="tab-3" data-label="astro"><AsH1 /></div>
+  <div id="tab-4" data-label="astro"><AsLabel /></div>
+  <div id="tab-5" data-label="vue"><TextVueAs client:load /></div>
 </CodeContainer>
