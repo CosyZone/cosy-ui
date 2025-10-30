@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.3.1/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.3.2/schema.json",
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
@@ -40,9 +40,15 @@
 		}
 	},
 	"html": {
-		"experimentalFullSupportEnabled": true
+		"experimentalFullSupportEnabled": true,
+		"formatter": {
+			"indentScriptAndStyle": true
+		}
 	},
 	"css": {
+		"formatter": {
+			"quoteStyle": "single"
+		},
 		"parser": {
 			"tailwindDirectives": true
 		}

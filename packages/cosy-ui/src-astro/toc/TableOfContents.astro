@@ -76,7 +76,7 @@ const {
     class: className = '',
     containerSelector = 'main',
     fixed = true,
-    lang,
+    lang: _lang,
     maxDepth = 3,
     minHeadings = 2,
     selector = 'h2, h3',
@@ -180,7 +180,7 @@ const asideClass = cn()
             // 如果标题没有 ID 或 ID 为空，则生成一个
             if (!heading.id || heading.id.trim() === '') {
                 // 从标题文本生成 ID
-                let newId = generateIdFromText(heading.textContent || '');
+                const newId = generateIdFromText(heading.textContent || '');
 
                 // 确保 ID 唯一
                 let counter = 0;
@@ -324,8 +324,10 @@ const asideClass = cn()
 
         // 更新活动链接样式
         const tocLinks = document.querySelectorAll(`#${tocId} a`);
-        let activeLink = document.querySelector(`#${tocId} a.active-toc-link`);
-        let currentActiveId = activeLink
+        const activeLink = document.querySelector(
+            `#${tocId} a.active-toc-link`
+        );
+        const currentActiveId = activeLink
             ? activeLink.getAttribute('href').substring(1)
             : null;
 
@@ -402,7 +404,7 @@ const asideClass = cn()
     // 节流函数，限制函数调用频率
     function throttle(func, delay) {
         let lastCall = 0;
-        return function (...args) {
+        return (...args) => {
             const now = new Date().getTime();
             if (now - lastCall < delay) {
                 return;
