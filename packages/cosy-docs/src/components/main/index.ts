@@ -2,11 +2,6 @@ import MainArticle from "./MainArticle.astro";
 import MainArticleContainer from "./MainArticleContainer.astro";
 import MainBasic from "./MainBasic.astro";
 import MainBasicContainer from "./MainBasicContainer.astro";
-import MainBgAccent from "./MainBgAccent.astro";
-import MainBgBase200 from "./MainBgBase200.astro";
-import MainBgCustom from "./MainBgCustom.astro";
-import MainBgPrimary from "./MainBgPrimary.astro";
-import MainBgSecondary from "./MainBgSecondary.astro";
 import MainBorder from "./MainBorder.astro";
 import MainBorderContainer from "./MainBorderContainer.astro";
 import MainBorderLg from "./MainBorderLg.astro";
@@ -20,18 +15,11 @@ import MainCustomPaddingContainer from "./MainCustomPaddingContainer.astro";
 import MainCustomSize from "./MainCustomSize.astro";
 import MainCustomSizeContainer from "./MainCustomSizeContainer.astro";
 import MainLayout from "./MainLayout.astro";
-import MainLayoutColumn from "./MainLayoutColumn.astro";
 import MainLayoutContainer from "./MainLayoutContainer.astro";
-import MainNormal from "./MainNormal.astro";
 import MainPaddingAxis from "./MainPaddingAxis.astro";
 import MainPaddingAxisContainer from "./MainPaddingAxisContainer.astro";
-import MainPaddingIndividual from "./MainPaddingIndividual.astro";
 import MainSize from "./MainSize.astro";
 import MainSizeContainer from "./MainSizeContainer.astro";
-import MainSizeFull from "./MainSizeFull.astro";
-import MainSizeLg from "./MainSizeLg.astro";
-import MainSizeMd from "./MainSizeMd.astro";
-import MainSizeXl from "./MainSizeXl.astro";
 
 export const ComponentPackage = {
 	ComponentContainers: {

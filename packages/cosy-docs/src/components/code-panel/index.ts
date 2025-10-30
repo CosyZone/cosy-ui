@@ -1,4 +1,3 @@
-import Basic from "./Basic.astro";
 import BasicContainer from "./BasicContainer.astro";
 import LanguageSupportContainer from "./LanguageSupportContainer.astro";
 import ThemeExampleContainer from "./ThemeExampleContainer.astro";

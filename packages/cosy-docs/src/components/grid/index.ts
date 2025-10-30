@@ -1,6 +1,5 @@
 import GridBackgroundContainer from "./GridBackgroundContainer.astro";
 import GridBasic from "./GridBasic.astro";
-import GridBasicContainer from "./GridBasicContainer.astro";
 import GridBorderContainer from "./GridBorderContainer.astro";
 import GridColGapContainer from "./GridColGapContainer.astro";
 import GridColsContainer from "./GridColsContainer.astro";

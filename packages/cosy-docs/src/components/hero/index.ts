@@ -9,7 +9,6 @@ import GlassmorphismContainer from "./GlassmorphismContainer.astro";
 import HeroAlignContainer from "./HeroAlignContainer.astro";
 import HeroAppSlotContainer from "./HeroAppSlotContainer.astro";
 import HeroBasic from "./HeroBasic.astro";
-import HeroBasicContainer from "./HeroBasicContainer.astro";
 import TextBackgroundContainer from "./TextBackgroundContainer.astro";
 import WithButtonContainer from "./WithButtonContainer.astro";
 import WithImageContainer from "./WithImageContainer.astro";

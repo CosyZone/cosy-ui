@@ -21,7 +21,7 @@ export class Logger {
 		const MAX_LENGTH = 100;
 
 		const truncateString = (str: string): string => {
-			return str.length > MAX_LENGTH ? str.slice(0, MAX_LENGTH) + "..." : str;
+			return str.length > MAX_LENGTH ? `${str.slice(0, MAX_LENGTH)}...` : str;
 		};
 
 		const truncateObject = (obj: any): any => {
@@ -129,7 +129,7 @@ export class Logger {
 	}
 
 	array(title: string, arr: any[]) {
-		this.log("info", title + "\n" + this.formatArray(arr));
+		this.log("info", `${title}\n${this.formatArray(arr)}`);
 	}
 }
 

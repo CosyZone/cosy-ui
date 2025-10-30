@@ -4,7 +4,7 @@ import vue from "@astrojs/vue";
 import playformCompress from "@playform/compress";
 import { defineConfig } from "astro/config";
 import pagefind from "astro-pagefind";
-import path from "path";
+import path from "node:path";
 
 // https://astro.build/config
 export default defineConfig({

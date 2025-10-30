@@ -51,7 +51,7 @@ export class LangEntry {
 	 * const entry = new LangEntry().setEn('Hello');
 	 */
 	setEn(text: string): LangEntry {
-		this.translations["en"] = text;
+		this.translations.en = text;
 		return this;
 	}
 
@@ -64,7 +64,7 @@ export class LangEntry {
 	 * const entry = new LangEntry().setJa('こんにちは');
 	 */
 	setJa(text: string): LangEntry {
-		this.translations["ja"] = text;
+		this.translations.ja = text;
 		return this;
 	}
 
@@ -100,7 +100,7 @@ export class LangEntry {
 		} else {
 			// 默认至少设置中英文
 			this.translations["zh-cn"] = text;
-			this.translations["en"] = text;
+			this.translations.en = text;
 		}
 		return this;
 	}

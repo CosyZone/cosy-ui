@@ -15,8 +15,8 @@ import type { ILinkPropsBase } from "./linkPropsBase";
  */
 export function getBaseLinkClasses(props: ILinkPropsBase): string {
 	const {
-		href,
-		external = false,
+		href: _href,
+		external: _external = false,
 		block = false,
 		variant = "default",
 		animation = "none",
@@ -39,7 +39,7 @@ export function getBaseLinkClasses(props: ILinkPropsBase): string {
 	} = props;
 
 	// 构建基础类名
-	const baseClasses = getLinkBaseClasses(block, icon, rest["hoverImage"]);
+	const baseClasses = getLinkBaseClasses(block, icon, rest.hoverImage);
 
 	// 构建变体类名
 	const variantClasses = getLinkVariantClasses(
@@ -84,6 +84,7 @@ export function getBaseLinkClasses(props: ILinkPropsBase): string {
 			alignClass,
 			...animationClasses,
 			className,
+			classList,
 		)
 		.build();
 

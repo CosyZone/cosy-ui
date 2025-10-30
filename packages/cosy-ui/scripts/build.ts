@@ -1,9 +1,9 @@
 import tailwindcss from "@tailwindcss/vite";
-import { exec } from "child_process";
+import { exec } from "node:child_process";
 import fs from "fs-extra";
-import path from "path";
-import { fileURLToPath } from "url";
-import { promisify } from "util";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { promisify } from "node:util";
 import { type InlineConfig, build as viteBuild } from "vite";
 
 const execAsync = promisify(exec);

@@ -19,8 +19,8 @@ export function validateContainer(props: Record<string, unknown>): string[] {
 		props.pb as string,
 	);
 
-	if (paddingResult.hasConflict) {
-		messages.push(paddingResult.message!);
+	if (paddingResult.hasConflict && paddingResult.message) {
+		messages.push(paddingResult.message);
 	}
 
 	// 2. 尺寸相关校验
