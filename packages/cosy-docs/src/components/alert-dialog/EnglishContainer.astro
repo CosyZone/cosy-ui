@@ -1,19 +1,16 @@
 ---
-
-
-
 /**
- * @component AlertDialog English Container
- * @description AlertDialog 英文用法容器组件
+ * @component EnglishContainer
+ * @description 展示 AlertDialog 组件的英文语言设置，Astro/Vue 各自独立标签展示。
  */
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import English from "./English.astro";
-import EnglishSourceCode from "./English.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import English from './English.astro';
+import EnglishRaw from './English.astro?raw';
+import EnglishVue from './EnglishVue.vue';
+import EnglishVueRaw from './EnglishVue.vue?raw';
 ---
 
-<CodeContainer titles={['英文用法']} codes={[EnglishSourceCode]}>
-  <div id="tab-1">
-    <English />
-  </div>
+<CodeContainer codes={[EnglishRaw, EnglishVueRaw]} titles={['en', 'en']}>
+	<div id="tab-1" data-label="astro"><English /></div>
+	<div id="tab-2" data-label="vue"><EnglishVue /></div>
 </CodeContainer>

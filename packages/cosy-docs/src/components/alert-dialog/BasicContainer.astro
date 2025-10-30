@@ -1,19 +1,19 @@
 ---
-
-
-
 /**
- * @component AlertDialog Basic Container
- * @description AlertDialog 基础用法容器组件
+ * @component BasicContainer
+ * @description 展示 AlertDialog 组件的基本用法，Astro/Vue 各自独立标签展示。
  */
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import Basic from "./Basic.astro";
-import BasicSourceCode from "./Basic.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import Basic from './Basic.astro';
+import BasicRaw from './Basic.astro?raw';
+import BasicVue from './BasicVue.vue';
+import BasicVueRaw from './BasicVue.vue?raw';
 ---
 
-<CodeContainer titles={['基础用法']} codes={[BasicSourceCode]}>
-  <div id="tab-1">
-    <Basic />
-  </div>
+<CodeContainer
+	codes={[BasicRaw, BasicVueRaw]}
+	titles={['基本用法', '基本用法']}
+>
+	<div id="tab-1" data-label="astro"><Basic /></div>
+	<div id="tab-2" data-label="vue"><BasicVue /></div>
 </CodeContainer>
