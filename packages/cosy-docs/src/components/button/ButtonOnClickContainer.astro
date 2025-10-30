@@ -1,25 +1,30 @@
 ---
-
-
-
 /**
  * @component ButtonOnClickContainer
- * @description Button onClick 属性示例容器组件
+ * @description 展示 Button 组件的 onClick 属性用法，Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ButtonOnClickAlert from "./ButtonOnClickAlert.astro";
-import ButtonOnClickAlertSourceCode from "./ButtonOnClickAlert.astro?raw";
-import ButtonOnClickDefault from "./ButtonOnClickDefault.astro";
-import ButtonOnClickDefaultSourceCode from "./ButtonOnClickDefault.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonOnClickAlert from './ButtonOnClickAlert.astro';
+import ButtonOnClickAlertRaw from './ButtonOnClickAlert.astro?raw';
+import ButtonOnClickAlertVue from './ButtonOnClickAlertVue.vue';
+import ButtonOnClickAlertVueRaw from './ButtonOnClickAlertVue.vue?raw';
+import ButtonOnClickDefault from './ButtonOnClickDefault.astro';
+import ButtonOnClickDefaultRaw from './ButtonOnClickDefault.astro?raw';
+import ButtonOnClickVue from './ButtonOnClickVue.vue';
+import ButtonOnClickVueRaw from './ButtonOnClickVue.vue?raw';
 ---
 
 <CodeContainer
-    codes={[ButtonOnClickDefaultSourceCode, ButtonOnClickAlertSourceCode]}
-    titles={['默认点击', '弹出提示']}>
-    <div id="tab-1">
-        <ButtonOnClickDefault />
-    </div>
-    <div id="tab-2">
-        <ButtonOnClickAlert />
-    </div>
+	codes={[
+		ButtonOnClickDefaultRaw,
+		ButtonOnClickAlertRaw,
+		ButtonOnClickVueRaw,
+		ButtonOnClickAlertVueRaw,
+	]}
+	titles={['default', 'alert', 'default', 'alert']}
+>
+	<div id="tab-1" data-label="astro"><ButtonOnClickDefault /></div>
+	<div id="tab-2" data-label="astro"><ButtonOnClickAlert /></div>
+	<div id="tab-3" data-label="vue"><ButtonOnClickVue /></div>
+	<div id="tab-4" data-label="vue"><ButtonOnClickAlertVue /></div>
 </CodeContainer>

@@ -1,36 +1,38 @@
 ---
-
-
-
 /**
  * @component ButtonShapesContainer
- * @description Button 形状示例容器组件
+ * @description 展示 Button 组件的 shape 属性所有取值，Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ButtonShapeCircle from "./ButtonShapeCircle.astro";
-import ButtonShapeCircleSourceCode from "./ButtonShapeCircle.astro?raw";
-import ButtonShapeDefault from "./ButtonShapeDefault.astro";
-import ButtonShapeDefaultSourceCode from "./ButtonShapeDefault.astro?raw";
-import ButtonShapeSquare from "./ButtonShapeSquare.astro";
-import ButtonShapeSquareSourceCode from "./ButtonShapeSquare.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonShapeCircle from './ButtonShapeCircle.astro';
+import ButtonShapeCircleRaw from './ButtonShapeCircle.astro?raw';
+import ButtonShapeCircleVue from './ButtonShapeCircleVue.vue';
+import ButtonShapeCircleVueRaw from './ButtonShapeCircleVue.vue?raw';
+import ButtonShapeDefault from './ButtonShapeDefault.astro';
+import ButtonShapeDefaultRaw from './ButtonShapeDefault.astro?raw';
+import ButtonShapeDefaultVue from './ButtonShapeDefaultVue.vue';
+import ButtonShapeDefaultVueRaw from './ButtonShapeDefaultVue.vue?raw';
+import ButtonShapeSquare from './ButtonShapeSquare.astro';
+import ButtonShapeSquareRaw from './ButtonShapeSquare.astro?raw';
+import ButtonShapeSquareVue from './ButtonShapeSquareVue.vue';
+import ButtonShapeSquareVueRaw from './ButtonShapeSquareVue.vue?raw';
 ---
 
 <CodeContainer
-  titles={['圆形', '方形', '默认']}
-  codes={[
-    ButtonShapeCircleSourceCode,
-    ButtonShapeSquareSourceCode,
-    ButtonShapeDefaultSourceCode,
-  ]}>
-  <div id="tab-1">
-    <ButtonShapeCircle />
-  </div>
-
-  <div id="tab-2">
-    <ButtonShapeSquare />
-  </div>
-
-  <div id="tab-3">
-    <ButtonShapeDefault />
-  </div>
+	codes={[
+		ButtonShapeCircleRaw,
+		ButtonShapeDefaultRaw,
+		ButtonShapeSquareRaw,
+		ButtonShapeCircleVueRaw,
+		ButtonShapeDefaultVueRaw,
+		ButtonShapeSquareVueRaw,
+	]}
+	titles={['circle', 'default', 'square', 'circle', 'default', 'square']}
+>
+	<div id="tab-1" data-label="astro"><ButtonShapeCircle /></div>
+	<div id="tab-2" data-label="astro"><ButtonShapeDefault /></div>
+	<div id="tab-3" data-label="astro"><ButtonShapeSquare /></div>
+	<div id="tab-4" data-label="vue"><ButtonShapeCircleVue /></div>
+	<div id="tab-5" data-label="vue"><ButtonShapeDefaultVue /></div>
+	<div id="tab-6" data-label="vue"><ButtonShapeSquareVue /></div>
 </CodeContainer>

@@ -1,26 +1,30 @@
 ---
-
-
-
 /**
  * @component ButtonLinkContainer
- * @description Button 链接示例容器组件
+ * @description 展示 Button 组件的链接用法，Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ButtonLink from "./ButtonLink.astro";
-import ButtonLinkSourceCode from "./ButtonLink.astro?raw";
-import ButtonLinkExternal from "./ButtonLinkExternal.astro";
-import ButtonLinkExternalSourceCode from "./ButtonLinkExternal.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonLink from './ButtonLink.astro';
+import ButtonLinkRaw from './ButtonLink.astro?raw';
+import ButtonLinkExternal from './ButtonLinkExternal.astro';
+import ButtonLinkExternalRaw from './ButtonLinkExternal.astro?raw';
+import ButtonLinkExternalVue from './ButtonLinkExternalVue.vue';
+import ButtonLinkExternalVueRaw from './ButtonLinkExternalVue.vue?raw';
+import ButtonLinkInternalVue from './ButtonLinkInternalVue.vue';
+import ButtonLinkInternalVueRaw from './ButtonLinkInternalVue.vue?raw';
 ---
 
 <CodeContainer
-    titles={['基础链接', '外部链接']}
-    codes={[ButtonLinkSourceCode, ButtonLinkExternalSourceCode]}>
-    <div id="tab-1">
-        <ButtonLink />
-    </div>
-
-    <div id="tab-2">
-        <ButtonLinkExternal />
-    </div>
+	codes={[
+		ButtonLinkRaw,
+		ButtonLinkExternalRaw,
+		ButtonLinkInternalVueRaw,
+		ButtonLinkExternalVueRaw,
+	]}
+	titles={['基础链接', '外部链接', '基础链接', '外部链接']}
+>
+	<div id="tab-1" data-label="astro"><ButtonLink /></div>
+	<div id="tab-2" data-label="astro"><ButtonLinkExternal /></div>
+	<div id="tab-3" data-label="vue"><ButtonLinkInternalVue /></div>
+	<div id="tab-4" data-label="vue"><ButtonLinkExternalVue /></div>
 </CodeContainer>

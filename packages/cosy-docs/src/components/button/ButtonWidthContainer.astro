@@ -1,26 +1,26 @@
 ---
 
-
-
 /**
  * @component ButtonWidthContainer
- * @description Button 宽度示例容器组件
+ * @description 展示 Button 组件的 width 相关属性（wide/block），Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ButtonBlock from "./ButtonBlock.astro";
-import ButtonBlockSourceCode from "./ButtonBlock.astro?raw";
-import ButtonWide from "./ButtonWide.astro";
-import ButtonWideSourceCode from "./ButtonWide.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonBlock from './ButtonBlock.astro';
+import ButtonBlockRaw from './ButtonBlock.astro?raw';
+import ButtonWide from './ButtonWide.astro';
+import ButtonWideRaw from './ButtonWide.astro?raw';
+import ButtonBlockVue from './ButtonWidthBlockVue.vue';
+import ButtonBlockVueRaw from './ButtonWidthBlockVue.vue?raw';
+import ButtonWideVue from './ButtonWidthWideVue.vue';
+import ButtonWideVueRaw from './ButtonWidthWideVue.vue?raw';
 ---
 
 <CodeContainer
-  titles={['宽按钮', '块级按钮']}
-  codes={[ButtonWideSourceCode, ButtonBlockSourceCode]}>
-  <div id="tab-1">
-    <ButtonWide />
-  </div>
-
-  <div id="tab-2">
-    <ButtonBlock />
-  </div>
+	codes={[ButtonWideRaw, ButtonBlockRaw, ButtonWideVueRaw, ButtonBlockVueRaw]}
+	titles={['wide', 'block', 'wide', 'block']}
+>
+	<div id="tab-1" data-label="astro"><ButtonWide /></div>
+	<div id="tab-2" data-label="astro"><ButtonBlock /></div>
+	<div id="tab-3" data-label="vue"><ButtonWideVue /></div>
+	<div id="tab-4" data-label="vue"><ButtonBlockVue /></div>
 </CodeContainer>

@@ -1,18 +1,16 @@
 ---
-
-
-
 /**
  * @component ButtonBasicContainer
- * @description Button 基础用法示例容器组件
+ * @description 展示 Button 组件的基本用法，Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ButtonBasic from "./ButtonBasic.astro";
-import ButtonBasicSourceCode from "./ButtonBasic.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonBasic from './ButtonBasic.astro';
+import ButtonBasicRaw from './ButtonBasic.astro?raw';
+import ButtonBasicVue from './ButtonBasicVue.vue';
+import ButtonBasicVueRaw from './ButtonBasicVue.vue?raw';
 ---
 
-<CodeContainer codes={[ButtonBasicSourceCode]} titles={['Astro']}>
-    <div id="tab-1">
-        <ButtonBasic />
-    </div>
+<CodeContainer codes={[ButtonBasicRaw, ButtonBasicVueRaw]} titles={['基本用法', '基本用法']}>
+	<div id="tab-1" data-label="astro"><ButtonBasic /></div>
+	<div id="tab-2" data-label="vue"><ButtonBasicVue /></div>
 </CodeContainer>
