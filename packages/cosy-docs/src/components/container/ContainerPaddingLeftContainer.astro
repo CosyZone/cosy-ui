@@ -9,10 +9,15 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import ContainerPaddingLeft from "./ContainerPaddingLeft.astro";
 import ContainerPaddingLeftSource from "./ContainerPaddingLeft.astro?raw";
+import ContainerPaddingLeftVue from "./ContainerPaddingLeftVue.vue";
+import ContainerPaddingLeftVueSource from "./ContainerPaddingLeftVue.vue?raw";
 ---
 
-<CodeContainer codes={[ContainerPaddingLeftSource]} titles={['pl']}>
-    <div id="tab-1">
+<CodeContainer codes={[ContainerPaddingLeftSource, ContainerPaddingLeftVueSource]} titles={['pl', 'pl']}>
+    <div id="tab-1" data-label="astro">
         <ContainerPaddingLeft />
+    </div>
+    <div id="tab-2" data-label="vue">
+        <ContainerPaddingLeftVue />
     </div>
 </CodeContainer>

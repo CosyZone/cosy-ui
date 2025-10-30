@@ -1,48 +1,62 @@
 ---
-
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import ContainerRoundedFull from "./ContainerRoundedFull.astro";
-import ContainerRoundedFullCode from "./ContainerRoundedFull.astro?raw";
-import ContainerRoundedLg from "./ContainerRoundedLg.astro";
-import ContainerRoundedLgCode from "./ContainerRoundedLg.astro?raw";
-import ContainerRoundedMd from "./ContainerRoundedMd.astro";
-import ContainerRoundedMdCode from "./ContainerRoundedMd.astro?raw";
-import ContainerRoundedNone from "./ContainerRoundedNone.astro";
-import ContainerRoundedNoneCode from "./ContainerRoundedNone.astro?raw";
-import ContainerRoundedSm from "./ContainerRoundedSm.astro";
-import ContainerRoundedSmCode from "./ContainerRoundedSm.astro?raw";
-import ContainerRoundedXl from "./ContainerRoundedXl.astro";
-import ContainerRoundedXlCode from "./ContainerRoundedXl.astro?raw";
+/**
+ * @component ContainerRoundedContainer
+ * @description 展示 Container 组件的 rounded 属性所有取值，Astro/Vue 各自独立标签展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerRoundedFull from './ContainerRoundedFull.astro';
+import ContainerRoundedFullRaw from './ContainerRoundedFull.astro?raw';
+import ContainerRoundedFullVue from './ContainerRoundedFullVue.vue';
+import ContainerRoundedFullVueRaw from './ContainerRoundedFullVue.vue?raw';
+import ContainerRoundedLg from './ContainerRoundedLg.astro';
+import ContainerRoundedLgRaw from './ContainerRoundedLg.astro?raw';
+import ContainerRoundedLgVue from './ContainerRoundedLgVue.vue';
+import ContainerRoundedLgVueRaw from './ContainerRoundedLgVue.vue?raw';
+import ContainerRoundedMd from './ContainerRoundedMd.astro';
+import ContainerRoundedMdRaw from './ContainerRoundedMd.astro?raw';
+import ContainerRoundedMdVue from './ContainerRoundedMdVue.vue';
+import ContainerRoundedMdVueRaw from './ContainerRoundedMdVue.vue?raw';
+import ContainerRoundedNone from './ContainerRoundedNone.astro';
+import ContainerRoundedNoneRaw from './ContainerRoundedNone.astro?raw';
+import ContainerRoundedNoneVue from './ContainerRoundedNoneVue.vue';
+import ContainerRoundedNoneVueRaw from './ContainerRoundedNoneVue.vue?raw';
+import ContainerRoundedSm from './ContainerRoundedSm.astro';
+import ContainerRoundedSmRaw from './ContainerRoundedSm.astro?raw';
+import ContainerRoundedSmVue from './ContainerRoundedSmVue.vue';
+import ContainerRoundedSmVueRaw from './ContainerRoundedSmVue.vue?raw';
+import ContainerRoundedXl from './ContainerRoundedXl.astro';
+import ContainerRoundedXlRaw from './ContainerRoundedXl.astro?raw';
+import ContainerRoundedXlVue from './ContainerRoundedXlVue.vue';
+import ContainerRoundedXlVueRaw from './ContainerRoundedXlVue.vue?raw';
 ---
 
 <CodeContainer
-  codes={[
-    ContainerRoundedNoneCode,
-    ContainerRoundedSmCode,
-    ContainerRoundedMdCode,
-    ContainerRoundedLgCode,
-    ContainerRoundedXlCode,
-    ContainerRoundedFullCode,
-  ]}
-  titles={['none', 'sm', 'md', 'lg', 'xl', 'full']}>
-  <div id="tab-1">
-    <ContainerRoundedNone />
-  </div>
-  <div id="tab-2">
-    <ContainerRoundedSm />
-  </div>
-  <div id="tab-3">
-    <ContainerRoundedMd />
-  </div>
-  <div id="tab-4">
-    <ContainerRoundedLg />
-  </div>
-  <div id="tab-5">
-    <ContainerRoundedXl />
-  </div>
-  <div id="tab-6">
-    <ContainerRoundedFull />
-  </div>
+	codes={[
+		ContainerRoundedNoneRaw,
+		ContainerRoundedSmRaw,
+		ContainerRoundedMdRaw,
+		ContainerRoundedLgRaw,
+		ContainerRoundedXlRaw,
+		ContainerRoundedFullRaw,
+		ContainerRoundedNoneVueRaw,
+		ContainerRoundedSmVueRaw,
+		ContainerRoundedMdVueRaw,
+		ContainerRoundedLgVueRaw,
+		ContainerRoundedXlVueRaw,
+		ContainerRoundedFullVueRaw,
+	]}
+	titles={['none', 'sm', 'md', 'lg', 'xl', 'full', 'none', 'sm', 'md', 'lg', 'xl', 'full']}
+>
+	<div id="tab-1" data-label="astro"><ContainerRoundedNone /></div>
+	<div id="tab-2" data-label="astro"><ContainerRoundedSm /></div>
+	<div id="tab-3" data-label="astro"><ContainerRoundedMd /></div>
+	<div id="tab-4" data-label="astro"><ContainerRoundedLg /></div>
+	<div id="tab-5" data-label="astro"><ContainerRoundedXl /></div>
+	<div id="tab-6" data-label="astro"><ContainerRoundedFull /></div>
+	<div id="tab-7" data-label="vue"><ContainerRoundedNoneVue /></div>
+	<div id="tab-8" data-label="vue"><ContainerRoundedSmVue /></div>
+	<div id="tab-9" data-label="vue"><ContainerRoundedMdVue /></div>
+	<div id="tab-10" data-label="vue"><ContainerRoundedLgVue /></div>
+	<div id="tab-11" data-label="vue"><ContainerRoundedXlVue /></div>
+	<div id="tab-12" data-label="vue"><ContainerRoundedFullVue /></div>
 </CodeContainer>

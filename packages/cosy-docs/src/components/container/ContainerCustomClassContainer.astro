@@ -1,25 +1,30 @@
 ---
-
-
-
 /**
  * @component ContainerCustomClassContainer
- * @description Container 组件自定义类名示例容器
+ * @description 展示 Container 组件的 class 属性用法，Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ContainerCustomClassAdvanced from "./ContainerCustomClassAdvanced.astro";
-import sourceAdvanced from "./ContainerCustomClassAdvanced.astro?raw";
-import ContainerCustomClassBasic from "./ContainerCustomClassBasic.astro";
-import sourceBasic from "./ContainerCustomClassBasic.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerCustomClassAdvanced from './ContainerCustomClassAdvanced.astro';
+import ContainerCustomClassAdvancedRaw from './ContainerCustomClassAdvanced.astro?raw';
+import ContainerCustomClassAdvancedVue from './ContainerCustomClassAdvancedVue.vue';
+import ContainerCustomClassAdvancedVueRaw from './ContainerCustomClassAdvancedVue.vue?raw';
+import ContainerCustomClassBasic from './ContainerCustomClassBasic.astro';
+import ContainerCustomClassBasicRaw from './ContainerCustomClassBasic.astro?raw';
+import ContainerCustomClassBasicVue from './ContainerCustomClassBasicVue.vue';
+import ContainerCustomClassBasicVueRaw from './ContainerCustomClassBasicVue.vue?raw';
 ---
 
 <CodeContainer
-  codes={[sourceBasic, sourceAdvanced]}
-  titles={['basic', 'advanced']}>
-  <div id="tab-1">
-    <ContainerCustomClassBasic />
-  </div>
-  <div id="tab-2">
-    <ContainerCustomClassAdvanced />
-  </div>
+	codes={[
+		ContainerCustomClassBasicRaw,
+		ContainerCustomClassAdvancedRaw,
+		ContainerCustomClassBasicVueRaw,
+		ContainerCustomClassAdvancedVueRaw,
+	]}
+	titles={['basic', 'advanced', 'basic', 'advanced']}
+>
+	<div id="tab-1" data-label="astro"><ContainerCustomClassBasic /></div>
+	<div id="tab-2" data-label="astro"><ContainerCustomClassAdvanced /></div>
+	<div id="tab-3" data-label="vue"><ContainerCustomClassBasicVue /></div>
+	<div id="tab-4" data-label="vue"><ContainerCustomClassAdvancedVue /></div>
 </CodeContainer>

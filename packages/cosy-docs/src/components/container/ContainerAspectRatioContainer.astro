@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component ContainerAspectRatioContainer
  * @description Container 组件宽高比多标签演示容器
@@ -9,22 +6,43 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import ContainerAspectRatio1x1 from "./ContainerAspectRatio1x1.astro";
 import source1x1 from "./ContainerAspectRatio1x1.astro?raw";
+import ContainerAspectRatio1x1Vue from "./ContainerAspectRatio1x1Vue.vue";
+import source1x1Vue from "./ContainerAspectRatio1x1Vue.vue?raw";
 import ContainerAspectRatio3x2 from "./ContainerAspectRatio3x2.astro";
 import source3x2 from "./ContainerAspectRatio3x2.astro?raw";
+import ContainerAspectRatio3x2Vue from "./ContainerAspectRatio3x2Vue.vue";
+import source3x2Vue from "./ContainerAspectRatio3x2Vue.vue?raw";
 import ContainerAspectRatio4x3 from "./ContainerAspectRatio4x3.astro";
 import source4x3 from "./ContainerAspectRatio4x3.astro?raw";
+import ContainerAspectRatio4x3Vue from "./ContainerAspectRatio4x3Vue.vue";
+import source4x3Vue from "./ContainerAspectRatio4x3Vue.vue?raw";
 import ContainerAspectRatio16x9 from "./ContainerAspectRatio16x9.astro";
 import source16x9 from "./ContainerAspectRatio16x9.astro?raw";
+import ContainerAspectRatio16x9Vue from "./ContainerAspectRatio16x9Vue.vue";
+import source16x9Vue from "./ContainerAspectRatio16x9Vue.vue?raw";
 import ContainerAspectRatioConflict from "./ContainerAspectRatioConflict.astro";
 import sourceConflict from "./ContainerAspectRatioConflict.astro?raw";
+import ContainerAspectRatioConflictVue from "./ContainerAspectRatioConflictVue.vue";
+import sourceConflictVue from "./ContainerAspectRatioConflictVue.vue?raw";
 import ContainerAspectRatioWithHeight from "./ContainerAspectRatioWithHeight.astro";
 import sourceWithHeight from "./ContainerAspectRatioWithHeight.astro?raw";
+import ContainerAspectRatioWithHeightVue from "./ContainerAspectRatioWithHeightVue.vue";
+import sourceWithHeightVue from "./ContainerAspectRatioWithHeightVue.vue?raw";
 import ContainerAspectRatioWithWidth from "./ContainerAspectRatioWithWidth.astro";
 import sourceWithWidth from "./ContainerAspectRatioWithWidth.astro?raw";
+import ContainerAspectRatioWithWidthVue from "./ContainerAspectRatioWithWidthVue.vue";
+import sourceWithWidthVue from "./ContainerAspectRatioWithWidthVue.vue?raw";
 ---
 
 <CodeContainer
   titles={[
+    '16:9',
+    '4:3',
+    '1:1',
+    '3:2',
+    'aspectRatio + height',
+    'aspectRatio + width',
+    '冲突示例',
     '16:9',
     '4:3',
     '1:1',
@@ -41,12 +59,26 @@ import sourceWithWidth from "./ContainerAspectRatioWithWidth.astro?raw";
     sourceWithHeight,
     sourceWithWidth,
     sourceConflict,
+    source16x9Vue,
+    source4x3Vue,
+    source1x1Vue,
+    source3x2Vue,
+    sourceWithHeightVue,
+    sourceWithWidthVue,
+    sourceConflictVue,
   ]}>
-  <div id="tab-1"><ContainerAspectRatio16x9 /></div>
-  <div id="tab-2"><ContainerAspectRatio4x3 /></div>
-  <div id="tab-3"><ContainerAspectRatio1x1 /></div>
-  <div id="tab-4"><ContainerAspectRatio3x2 /></div>
-  <div id="tab-5"><ContainerAspectRatioWithHeight /></div>
-  <div id="tab-6"><ContainerAspectRatioWithWidth /></div>
-  <div id="tab-7"><ContainerAspectRatioConflict /></div>
+  <div id="tab-1" data-label="astro"><ContainerAspectRatio16x9 /></div>
+  <div id="tab-2" data-label="astro"><ContainerAspectRatio4x3 /></div>
+  <div id="tab-3" data-label="astro"><ContainerAspectRatio1x1 /></div>
+  <div id="tab-4" data-label="astro"><ContainerAspectRatio3x2 /></div>
+  <div id="tab-5" data-label="astro"><ContainerAspectRatioWithHeight /></div>
+  <div id="tab-6" data-label="astro"><ContainerAspectRatioWithWidth /></div>
+  <div id="tab-7" data-label="astro"><ContainerAspectRatioConflict /></div>
+  <div id="tab-8" data-label="vue"><ContainerAspectRatio16x9Vue /></div>
+  <div id="tab-9" data-label="vue"><ContainerAspectRatio4x3Vue /></div>
+  <div id="tab-10" data-label="vue"><ContainerAspectRatio1x1Vue /></div>
+  <div id="tab-11" data-label="vue"><ContainerAspectRatio3x2Vue /></div>
+  <div id="tab-12" data-label="vue"><ContainerAspectRatioWithHeightVue /></div>
+  <div id="tab-13" data-label="vue"><ContainerAspectRatioWithWidthVue /></div>
+  <div id="tab-14" data-label="vue"><ContainerAspectRatioConflictVue /></div>
 </CodeContainer>

@@ -1,21 +1,23 @@
 ---
-
-
-
 /**
  * @component ContainerFitContainer
- * @description Container 组件 fit 属性多标签示例容器
+ * @description 展示 Container 组件的 fit 属性所有取值，Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ContainerFitContain from "./ContainerFitContain.astro";
-import sourceContain from "./ContainerFitContain.astro?raw";
-import ContainerFitCover from "./ContainerFitCover.astro";
-import sourceCover from "./ContainerFitCover.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerFitContain from './ContainerFitContain.astro';
+import ContainerFitContainRaw from './ContainerFitContain.astro?raw';
+import ContainerFitCover from './ContainerFitCover.astro';
+import ContainerFitCoverRaw from './ContainerFitCover.astro?raw';
+import ContainerFitVue from './ContainerFitVue.vue';
+import ContainerFitVueRaw from './ContainerFitVue.vue?raw';
 ---
 
 <CodeContainer
-  codes={[sourceContain, sourceCover]}
-  titles={['contain', 'cover']}>
-  <div id="tab-1"><ContainerFitContain /></div>
-  <div id="tab-2"><ContainerFitCover /></div>
+	codes={[ContainerFitContainRaw, ContainerFitCoverRaw, ContainerFitVueRaw, ContainerFitVueRaw]}
+	titles={['contain', 'cover', 'contain', 'cover']}
+>
+	<div id="tab-1" data-label="astro"><ContainerFitContain /></div>
+	<div id="tab-2" data-label="astro"><ContainerFitCover /></div>
+	<div id="tab-3" data-label="vue"><ContainerFitVue /></div>
+	<div id="tab-4" data-label="vue"><ContainerFitVue /></div>
 </CodeContainer>

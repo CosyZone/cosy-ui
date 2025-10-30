@@ -1,53 +1,66 @@
 ---
 
-
-
 /**
- * @component Container Background Container
- * @description Container 背景色展示容器组件
+ * @component ContainerBackgroundContainer
+ * @description 展示 Container 组件的 background 属性用法，Astro/Vue 各自独立标签展示。
  */
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import ContainerBackgroundAccent from "./ContainerBackgroundAccent.astro";
-import ContainerBackgroundAccentSource from "./ContainerBackgroundAccent.astro?raw";
-import ContainerBackgroundBase from "./ContainerBackgroundBase.astro";
-import ContainerBackgroundBaseSource from "./ContainerBackgroundBase.astro?raw";
-import ContainerBackgroundPrimary from "./ContainerBackgroundPrimary.astro";
-import ContainerBackgroundPrimarySource from "./ContainerBackgroundPrimary.astro?raw";
-import ContainerBackgroundPrimary10 from "./ContainerBackgroundPrimary10.astro";
-import ContainerBackgroundPrimary10Source from "./ContainerBackgroundPrimary10.astro?raw";
-import ContainerBackgroundSuccess from "./ContainerBackgroundSuccess.astro";
-import ContainerBackgroundSuccessSource from "./ContainerBackgroundSuccess.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerBackgroundAccent from './ContainerBackgroundAccent.astro';
+import ContainerBackgroundAccentRaw from './ContainerBackgroundAccent.astro?raw';
+import ContainerBackgroundAccentVue from './ContainerBackgroundAccentVue.vue';
+import ContainerBackgroundAccentVueRaw from './ContainerBackgroundAccentVue.vue?raw';
+import ContainerBackgroundBase from './ContainerBackgroundBase.astro';
+import ContainerBackgroundBaseRaw from './ContainerBackgroundBase.astro?raw';
+import ContainerBackgroundBaseVue from './ContainerBackgroundBaseVue.vue';
+import ContainerBackgroundBaseVueRaw from './ContainerBackgroundBaseVue.vue?raw';
+import ContainerBackgroundPrimary from './ContainerBackgroundPrimary.astro';
+import ContainerBackgroundPrimaryRaw from './ContainerBackgroundPrimary.astro?raw';
+import ContainerBackgroundPrimary10 from './ContainerBackgroundPrimary10.astro';
+import ContainerBackgroundPrimary10Raw from './ContainerBackgroundPrimary10.astro?raw';
+import ContainerBackgroundPrimary10Vue from './ContainerBackgroundPrimary10Vue.vue';
+import ContainerBackgroundPrimary10VueRaw from './ContainerBackgroundPrimary10Vue.vue?raw';
+import ContainerBackgroundPrimaryVue from './ContainerBackgroundPrimaryVue.vue';
+import ContainerBackgroundPrimaryVueRaw from './ContainerBackgroundPrimaryVue.vue?raw';
+import ContainerBackgroundSuccess from './ContainerBackgroundSuccess.astro';
+import ContainerBackgroundSuccessRaw from './ContainerBackgroundSuccess.astro?raw';
+import ContainerBackgroundSuccessVue from './ContainerBackgroundSuccessVue.vue';
+import ContainerBackgroundSuccessVueRaw from './ContainerBackgroundSuccessVue.vue?raw';
 ---
 
 <CodeContainer
-  titles={[
-    '基础背景色',
-    '主要背景色',
-    '强调背景色',
-    '透明度背景色',
-    '成功背景色',
-  ]}
-  codes={[
-    ContainerBackgroundBaseSource,
-    ContainerBackgroundPrimarySource,
-    ContainerBackgroundAccentSource,
-    ContainerBackgroundPrimary10Source,
-    ContainerBackgroundSuccessSource,
-  ]}>
-  <div id="tab-1">
-    <ContainerBackgroundBase />
-  </div>
-  <div id="tab-2">
-    <ContainerBackgroundPrimary />
-  </div>
-  <div id="tab-3">
-    <ContainerBackgroundAccent />
-  </div>
-  <div id="tab-4">
-    <ContainerBackgroundPrimary10 />
-  </div>
-  <div id="tab-5">
-    <ContainerBackgroundSuccess />
-  </div>
+	codes={[
+		ContainerBackgroundBaseRaw,
+		ContainerBackgroundPrimaryRaw,
+		ContainerBackgroundAccentRaw,
+		ContainerBackgroundPrimary10Raw,
+		ContainerBackgroundSuccessRaw,
+		ContainerBackgroundBaseVueRaw,
+		ContainerBackgroundPrimaryVueRaw,
+		ContainerBackgroundAccentVueRaw,
+		ContainerBackgroundPrimary10VueRaw,
+		ContainerBackgroundSuccessVueRaw,
+	]}
+	titles={[
+		'base',
+		'primary',
+		'accent',
+		'primary/10',
+		'success',
+		'base',
+		'primary',
+		'accent',
+		'primary/10',
+		'success',
+	]}
+>
+	<div id="tab-1" data-label="astro"><ContainerBackgroundBase /></div>
+	<div id="tab-2" data-label="astro"><ContainerBackgroundPrimary /></div>
+	<div id="tab-3" data-label="astro"><ContainerBackgroundAccent /></div>
+	<div id="tab-4" data-label="astro"><ContainerBackgroundPrimary10 /></div>
+	<div id="tab-5" data-label="astro"><ContainerBackgroundSuccess /></div>
+	<div id="tab-6" data-label="vue"><ContainerBackgroundBaseVue /></div>
+	<div id="tab-7" data-label="vue"><ContainerBackgroundPrimaryVue /></div>
+	<div id="tab-8" data-label="vue"><ContainerBackgroundAccentVue /></div>
+	<div id="tab-9" data-label="vue"><ContainerBackgroundPrimary10Vue /></div>
+	<div id="tab-10" data-label="vue"><ContainerBackgroundSuccessVue /></div>
 </CodeContainer>

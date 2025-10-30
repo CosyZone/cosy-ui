@@ -1,40 +1,65 @@
 ---
-
-
-
 /**
  * @component ContainerItemsContainer
- * @description Container 组件对齐方式示例容器
+ * @description 展示 Container 组件的 items 属性所有取值，Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ContainerItemsBaseline from "./ContainerItemsBaseline.astro";
-import sourceBaseline from "./ContainerItemsBaseline.astro?raw";
-import ContainerItemsCenter from "./ContainerItemsCenter.astro";
-import sourceCenter from "./ContainerItemsCenter.astro?raw";
-import ContainerItemsEnd from "./ContainerItemsEnd.astro";
-import sourceEnd from "./ContainerItemsEnd.astro?raw";
-import ContainerItemsStart from "./ContainerItemsStart.astro";
-import sourceStart from "./ContainerItemsStart.astro?raw";
-import ContainerItemsStretch from "./ContainerItemsStretch.astro";
-import sourceStretch from "./ContainerItemsStretch.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerItemsBaseline from './ContainerItemsBaseline.astro';
+import ContainerItemsBaselineRaw from './ContainerItemsBaseline.astro?raw';
+import ContainerItemsBaselineVue from './ContainerItemsBaselineVue.vue';
+import ContainerItemsBaselineVueRaw from './ContainerItemsBaselineVue.vue?raw';
+import ContainerItemsCenter from './ContainerItemsCenter.astro';
+import ContainerItemsCenterRaw from './ContainerItemsCenter.astro?raw';
+import ContainerItemsCenterVue from './ContainerItemsCenterVue.vue';
+import ContainerItemsCenterVueRaw from './ContainerItemsCenterVue.vue?raw';
+import ContainerItemsEnd from './ContainerItemsEnd.astro';
+import ContainerItemsEndRaw from './ContainerItemsEnd.astro?raw';
+import ContainerItemsEndVue from './ContainerItemsEndVue.vue';
+import ContainerItemsEndVueRaw from './ContainerItemsEndVue.vue?raw';
+import ContainerItemsStart from './ContainerItemsStart.astro';
+import ContainerItemsStartRaw from './ContainerItemsStart.astro?raw';
+import ContainerItemsStartVue from './ContainerItemsStartVue.vue';
+import ContainerItemsStartVueRaw from './ContainerItemsStartVue.vue?raw';
+import ContainerItemsStretch from './ContainerItemsStretch.astro';
+import ContainerItemsStretchRaw from './ContainerItemsStretch.astro?raw';
+import ContainerItemsStretchVue from './ContainerItemsStretchVue.vue';
+import ContainerItemsStretchVueRaw from './ContainerItemsStretchVue.vue?raw';
 ---
 
 <CodeContainer
-  codes={[sourceStart, sourceCenter, sourceEnd, sourceStretch, sourceBaseline]}
-  titles={['start', 'center', 'end', 'stretch', 'baseline']}>
-  <div id="tab-1">
-    <ContainerItemsStart />
-  </div>
-  <div id="tab-2">
-    <ContainerItemsCenter />
-  </div>
-  <div id="tab-3">
-    <ContainerItemsEnd />
-  </div>
-  <div id="tab-4">
-    <ContainerItemsStretch />
-  </div>
-  <div id="tab-5">
-    <ContainerItemsBaseline />
-  </div>
+	codes={[
+		ContainerItemsStartRaw,
+		ContainerItemsCenterRaw,
+		ContainerItemsEndRaw,
+		ContainerItemsStretchRaw,
+		ContainerItemsBaselineRaw,
+		ContainerItemsStartVueRaw,
+		ContainerItemsCenterVueRaw,
+		ContainerItemsEndVueRaw,
+		ContainerItemsStretchVueRaw,
+		ContainerItemsBaselineVueRaw,
+	]}
+	titles={[
+		'start',
+		'center',
+		'end',
+		'stretch',
+		'baseline',
+		'start',
+		'center',
+		'end',
+		'stretch',
+		'baseline',
+	]}
+>
+	<div id="tab-1" data-label="astro"><ContainerItemsStart /></div>
+	<div id="tab-2" data-label="astro"><ContainerItemsCenter /></div>
+	<div id="tab-3" data-label="astro"><ContainerItemsEnd /></div>
+	<div id="tab-4" data-label="astro"><ContainerItemsStretch /></div>
+	<div id="tab-5" data-label="astro"><ContainerItemsBaseline /></div>
+	<div id="tab-6" data-label="vue"><ContainerItemsStartVue /></div>
+	<div id="tab-7" data-label="vue"><ContainerItemsCenterVue /></div>
+	<div id="tab-8" data-label="vue"><ContainerItemsEndVue /></div>
+	<div id="tab-9" data-label="vue"><ContainerItemsStretchVue /></div>
+	<div id="tab-10" data-label="vue"><ContainerItemsBaselineVue /></div>
 </CodeContainer>

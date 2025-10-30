@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component ContainerCenteredContainer
  * @description Container 组件居中示例容器
@@ -9,15 +6,25 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import ContainerCenteredFalse from "./ContainerCenteredFalse.astro";
 import sourceFalse from "./ContainerCenteredFalse.astro?raw";
+import ContainerCenteredFalseVue from "./ContainerCenteredFalseVue.vue";
+import sourceFalseVue from "./ContainerCenteredFalseVue.vue?raw";
 import ContainerCenteredTrue from "./ContainerCenteredTrue.astro";
 import sourceTrue from "./ContainerCenteredTrue.astro?raw";
+import ContainerCenteredTrueVue from "./ContainerCenteredTrueVue.vue";
+import sourceTrueVue from "./ContainerCenteredTrueVue.vue?raw";
 ---
 
-<CodeContainer codes={[sourceTrue, sourceFalse]} titles={['true', 'false']}>
-  <div id="tab-1">
+<CodeContainer codes={[sourceTrue, sourceFalse, sourceTrueVue, sourceFalseVue]} titles={['true', 'false', 'true', 'false']}>
+  <div id="tab-1" data-label="astro">
     <ContainerCenteredTrue />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <ContainerCenteredFalse />
+  </div>
+  <div id="tab-3" data-label="vue">
+    <ContainerCenteredTrueVue />
+  </div>
+  <div id="tab-4" data-label="vue">
+    <ContainerCenteredFalseVue />
   </div>
 </CodeContainer>

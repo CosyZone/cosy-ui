@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component ContainerClassListContainer
  * @description Container 组件类名列表示例容器
@@ -9,10 +6,15 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import ContainerClassList from "./ContainerClassList.astro";
 import sourceCode from "./ContainerClassList.astro?raw";
+import ContainerClassListVue from "./ContainerClassListVue.vue";
+import sourceCodeVue from "./ContainerClassListVue.vue?raw";
 ---
 
-<CodeContainer codes={[sourceCode]}>
-  <div id="tab-1">
+<CodeContainer codes={[sourceCode, sourceCodeVue]} titles={['Astro', 'Vue']}>
+  <div id="tab-1" data-label="astro">
     <ContainerClassList />
+  </div>
+  <div id="tab-2" data-label="vue">
+    <ContainerClassListVue />
   </div>
 </CodeContainer>
