@@ -1,7 +1,4 @@
 ---
-
-
-
 import { CodeContainer } from "@coffic/cosy-ui";
 import ErrorExample from "./PhotoWallBackgroundError.astro";
 import ErrorSourceCode from "./PhotoWallBackgroundError.astro?raw";
@@ -15,6 +12,15 @@ import WarningSourceCode from "./PhotoWallBackgroundWarning.astro?raw";
 import BasicExample from "./PhotoWallBasic.astro";
 // 源码导入
 import BasicSourceCode from "./PhotoWallBasic.astro?raw";
+// Vue 组件导入
+import PhotoWallVueBackgroundAccent from "./PhotoWallVueBackgroundAccent.vue";
+import PhotoWallVueBackgroundAccentRaw from "./PhotoWallVueBackgroundAccent.vue?raw";
+import PhotoWallVueBackgroundNone from "./PhotoWallVueBackgroundNone.vue";
+import PhotoWallVueBackgroundNoneRaw from "./PhotoWallVueBackgroundNone.vue?raw";
+import PhotoWallVueBackgroundPrimary from "./PhotoWallVueBackgroundPrimary.vue";
+import PhotoWallVueBackgroundPrimaryRaw from "./PhotoWallVueBackgroundPrimary.vue?raw";
+import PhotoWallVueBackgroundSecondary from "./PhotoWallVueBackgroundSecondary.vue";
+import PhotoWallVueBackgroundSecondaryRaw from "./PhotoWallVueBackgroundSecondary.vue?raw";
 ---
 
 <CodeContainer
@@ -24,21 +30,37 @@ import BasicSourceCode from "./PhotoWallBasic.astro?raw";
     SuccessSourceCode,
     WarningSourceCode,
     ErrorSourceCode,
+    PhotoWallVueBackgroundNoneRaw,
+    PhotoWallVueBackgroundPrimaryRaw,
+    PhotoWallVueBackgroundSecondaryRaw,
+    PhotoWallVueBackgroundAccentRaw,
   ]}
-  titles={['默认', 'info/10', 'success/10', 'warning/10', 'error/10']}>
-  <div id="tab-1">
+  titles={['info/10', 'info/10', 'success/10', 'warning/10', 'error/10', 'none', 'primary/10', 'secondary/10', 'accent/10']}>
+  <div id="tab-1" data-label="astro">
     <BasicExample />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <InfoExample />
   </div>
-  <div id="tab-3">
+  <div id="tab-3" data-label="astro">
     <SuccessExample />
   </div>
-  <div id="tab-4">
+  <div id="tab-4" data-label="astro">
     <WarningExample />
   </div>
-  <div id="tab-5">
+  <div id="tab-5" data-label="astro">
     <ErrorExample />
+  </div>
+  <div id="tab-6" data-label="vue">
+    <PhotoWallVueBackgroundNone />
+  </div>
+  <div id="tab-7" data-label="vue">
+    <PhotoWallVueBackgroundPrimary />
+  </div>
+  <div id="tab-8" data-label="vue">
+    <PhotoWallVueBackgroundSecondary />
+  </div>
+  <div id="tab-9" data-label="vue">
+    <PhotoWallVueBackgroundAccent />
   </div>
 </CodeContainer>

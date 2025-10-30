@@ -1,7 +1,4 @@
 ---
-
-
-
 import { CodeContainer } from "@coffic/cosy-ui";
 import Xl2Example from "./PhotoWallRounded2xl.astro";
 import Xl2SourceCode from "./PhotoWallRounded2xl.astro?raw";
@@ -21,6 +18,23 @@ import SmExample from "./PhotoWallRoundedSm.astro";
 import SmSourceCode from "./PhotoWallRoundedSm.astro?raw";
 import XlExample from "./PhotoWallRoundedXl.astro";
 import XlSourceCode from "./PhotoWallRoundedXl.astro?raw";
+// Vue 组件导入
+import PhotoWallVueRounded2xl from "./PhotoWallVueRounded2xl.vue";
+import PhotoWallVueRounded2xlRaw from "./PhotoWallVueRounded2xl.vue?raw";
+import PhotoWallVueRounded3xl from "./PhotoWallVueRounded3xl.vue";
+import PhotoWallVueRounded3xlRaw from "./PhotoWallVueRounded3xl.vue?raw";
+import PhotoWallVueRoundedFull from "./PhotoWallVueRoundedFull.vue";
+import PhotoWallVueRoundedFullRaw from "./PhotoWallVueRoundedFull.vue?raw";
+import PhotoWallVueRoundedLg from "./PhotoWallVueRoundedLg.vue";
+import PhotoWallVueRoundedLgRaw from "./PhotoWallVueRoundedLg.vue?raw";
+import PhotoWallVueRoundedMd from "./PhotoWallVueRoundedMd.vue";
+import PhotoWallVueRoundedMdRaw from "./PhotoWallVueRoundedMd.vue?raw";
+import PhotoWallVueRoundedNone from "./PhotoWallVueRoundedNone.vue";
+import PhotoWallVueRoundedNoneRaw from "./PhotoWallVueRoundedNone.vue?raw";
+import PhotoWallVueRoundedSm from "./PhotoWallVueRoundedSm.vue";
+import PhotoWallVueRoundedSmRaw from "./PhotoWallVueRoundedSm.vue?raw";
+import PhotoWallVueRoundedXl from "./PhotoWallVueRoundedXl.vue";
+import PhotoWallVueRoundedXlRaw from "./PhotoWallVueRoundedXl.vue?raw";
 ---
 
 <CodeContainer
@@ -33,30 +47,62 @@ import XlSourceCode from "./PhotoWallRoundedXl.astro?raw";
     Xl2SourceCode,
     Xl3SourceCode,
     FullSourceCode,
+    PhotoWallVueRoundedNoneRaw,
+    PhotoWallVueRoundedSmRaw,
+    PhotoWallVueRoundedMdRaw,
+    PhotoWallVueRoundedLgRaw,
+    PhotoWallVueRoundedXlRaw,
+    PhotoWallVueRounded2xlRaw,
+    PhotoWallVueRounded3xlRaw,
+    PhotoWallVueRoundedFullRaw,
   ]}
-  titles={['none', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', 'full']}>
-  <div id="tab-1">
+  titles={['none', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', 'full', 'none', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', 'full']}>
+  <div id="tab-1" data-label="astro">
     <NoneExample />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <SmExample />
   </div>
-  <div id="tab-3">
+  <div id="tab-3" data-label="astro">
     <MdExample />
   </div>
-  <div id="tab-4">
+  <div id="tab-4" data-label="astro">
     <LgExample />
   </div>
-  <div id="tab-5">
+  <div id="tab-5" data-label="astro">
     <XlExample />
   </div>
-  <div id="tab-6">
+  <div id="tab-6" data-label="astro">
     <Xl2Example />
   </div>
-  <div id="tab-7">
+  <div id="tab-7" data-label="astro">
     <Xl3Example />
   </div>
-  <div id="tab-8">
+  <div id="tab-8" data-label="astro">
     <FullExample />
+  </div>
+  <div id="tab-9" data-label="vue">
+    <PhotoWallVueRoundedNone />
+  </div>
+  <div id="tab-10" data-label="vue">
+    <PhotoWallVueRoundedSm />
+  </div>
+  <div id="tab-11" data-label="vue">
+    <PhotoWallVueRoundedMd />
+  </div>
+  <div id="tab-12" data-label="vue">
+    <PhotoWallVueRoundedLg />
+  </div>
+  <div id="tab-13" data-label="vue">
+    <PhotoWallVueRoundedXl />
+  </div>
+  <div id="tab-14" data-label="vue">
+    <PhotoWallVueRounded2xl />
+  </div>
+  <div id="tab-15" data-label="vue">
+    <PhotoWallVueRounded3xl />
+  </div>
+  <div id="tab-16" data-label="vue">
+    <PhotoWallVueRoundedFull />
   </div>
 </CodeContainer>

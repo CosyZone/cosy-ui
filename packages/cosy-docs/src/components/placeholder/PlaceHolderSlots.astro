@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component PlaceHolderSlots
  * @description PlaceHolder 组件 slot 使用示例
@@ -15,18 +12,35 @@ import PlaceHolderSlotImage from "./PlaceHolderSlotImage.astro";
 import PlaceHolderSlotImageSourceCode from "./PlaceHolderSlotImage.astro?raw";
 import PlaceHolderSlotText from "./PlaceHolderSlotText.astro";
 import PlaceHolderSlotTextSourceCode from "./PlaceHolderSlotText.astro?raw";
+// Vue 组件导入
+import PlaceholderVueSlotButton from "./PlaceholderVueSlotButton.vue";
+import PlaceholderVueSlotButtonRaw from "./PlaceholderVueSlotButton.vue?raw";
+import PlaceholderVueSlotComplex from "./PlaceholderVueSlotComplex.vue";
+import PlaceholderVueSlotComplexRaw from "./PlaceholderVueSlotComplex.vue?raw";
+import PlaceholderVueSlotImage from "./PlaceholderVueSlotImage.vue";
+import PlaceholderVueSlotImageRaw from "./PlaceholderVueSlotImage.vue?raw";
+import PlaceholderVueSlotText from "./PlaceholderVueSlotText.vue";
+import PlaceholderVueSlotTextRaw from "./PlaceholderVueSlotText.vue?raw";
 ---
 
 <CodeContainer
-  titles={['文本内容', '图片内容', '按钮内容', '复杂内容']}
+  titles={['文本内容', '图片内容', '按钮内容', '复杂内容', '文本内容', '图片内容', '按钮内容', '复杂内容']}
   codes={[
     PlaceHolderSlotTextSourceCode,
     PlaceHolderSlotImageSourceCode,
     PlaceHolderSlotButtonSourceCode,
     PlaceHolderSlotComplexSourceCode,
+    PlaceholderVueSlotTextRaw,
+    PlaceholderVueSlotImageRaw,
+    PlaceholderVueSlotButtonRaw,
+    PlaceholderVueSlotComplexRaw,
   ]}>
-  <div id="tab-1"><PlaceHolderSlotText /></div>
-  <div id="tab-2"><PlaceHolderSlotImage /></div>
-  <div id="tab-3"><PlaceHolderSlotButton /></div>
-  <div id="tab-4"><PlaceHolderSlotComplex /></div>
+  <div id="tab-1" data-label="astro"><PlaceHolderSlotText /></div>
+  <div id="tab-2" data-label="astro"><PlaceHolderSlotImage /></div>
+  <div id="tab-3" data-label="astro"><PlaceHolderSlotButton /></div>
+  <div id="tab-4" data-label="astro"><PlaceHolderSlotComplex /></div>
+  <div id="tab-5" data-label="vue"><PlaceholderVueSlotText /></div>
+  <div id="tab-6" data-label="vue"><PlaceholderVueSlotImage /></div>
+  <div id="tab-7" data-label="vue"><PlaceholderVueSlotButton /></div>
+  <div id="tab-8" data-label="vue"><PlaceholderVueSlotComplex /></div>
 </CodeContainer>

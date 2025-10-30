@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component MacWindow.WithToolbarContainer
  *
@@ -11,10 +8,15 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import WithToolbar from "./WithToolbar.astro";
 import WithToolbarSourceCode from "./WithToolbar.astro?raw";
+import WithToolbarVue from "./WithToolbar.vue";
+import WithToolbarVueSourceCode from "./WithToolbar.vue?raw";
 ---
 
-<CodeContainer codes={[WithToolbarSourceCode]} titles={['工具栏']}>
-  <div id="tab-1">
+<CodeContainer codes={[WithToolbarSourceCode, WithToolbarVueSourceCode]} titles={['工具栏', '工具栏']}>
+  <div id="tab-1" data-label="astro">
     <WithToolbar />
+  </div>
+  <div id="tab-2" data-label="vue">
+    <WithToolbarVue />
   </div>
 </CodeContainer>

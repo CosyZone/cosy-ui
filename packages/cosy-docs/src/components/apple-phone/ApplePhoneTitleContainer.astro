@@ -1,14 +1,30 @@
 ---
-
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import ApplePhoneTitle from "./ApplePhoneTitle.astro";
-import ApplePhoneTitleSourceCode from "./ApplePhoneTitle.astro?raw";
+/**
+ * @component ApplePhoneTitleContainer
+ * @description title 属性有值和无值两种情况，Astro/Vue 各两组。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ApplePhoneWithoutTitle from './ApplePhoneWithoutTitle.astro';
+import ApplePhoneWithoutTitleRaw from './ApplePhoneWithoutTitle.astro?raw';
+import ApplePhoneWithoutTitleVue from './ApplePhoneWithoutTitleVue.vue';
+import ApplePhoneWithoutTitleVueRaw from './ApplePhoneWithoutTitleVue.vue?raw';
+import ApplePhoneWithTitle from './ApplePhoneWithTitle.astro';
+import ApplePhoneWithTitleRaw from './ApplePhoneWithTitle.astro?raw';
+import ApplePhoneWithTitleVue from './ApplePhoneWithTitleVue.vue';
+import ApplePhoneWithTitleVueRaw from './ApplePhoneWithTitleVue.vue?raw';
 ---
 
-<CodeContainer codes={[ApplePhoneTitleSourceCode]} titles={['自定义标题']}>
-    <div id="tab-1">
-        <ApplePhoneTitle />
-    </div>
+<CodeContainer
+	codes={[
+		ApplePhoneWithTitleRaw,
+		ApplePhoneWithoutTitleRaw,
+		ApplePhoneWithTitleVueRaw,
+		ApplePhoneWithoutTitleVueRaw,
+	]}
+	titles={['有标题', '无标题', '有标题', '无标题']}
+>
+	<div id="tab-1" data-label="astro"><ApplePhoneWithTitle /></div>
+	<div id="tab-2" data-label="astro"><ApplePhoneWithoutTitle /></div>
+	<div id="tab-3" data-label="vue"><ApplePhoneWithTitleVue /></div>
+	<div id="tab-4" data-label="vue"><ApplePhoneWithoutTitleVue /></div>
 </CodeContainer>

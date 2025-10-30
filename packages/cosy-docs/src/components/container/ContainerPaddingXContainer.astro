@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component ContainerPaddingXContainer
  * @description Container 组件水平内边距演示容器，展示源码和效果
@@ -9,10 +6,15 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import ContainerPaddingX from "./ContainerPaddingX.astro";
 import ContainerPaddingXSource from "./ContainerPaddingX.astro?raw";
+import ContainerPaddingXVue from "./ContainerPaddingXVue.vue";
+import ContainerPaddingXVueSource from "./ContainerPaddingXVue.vue?raw";
 ---
 
-<CodeContainer codes={[ContainerPaddingXSource]} titles={['px']}>
-    <div id="tab-1">
+<CodeContainer codes={[ContainerPaddingXSource, ContainerPaddingXVueSource]} titles={['px', 'px']}>
+    <div id="tab-1" data-label="astro">
         <ContainerPaddingX />
+    </div>
+    <div id="tab-2" data-label="vue">
+        <ContainerPaddingXVue />
     </div>
 </CodeContainer>

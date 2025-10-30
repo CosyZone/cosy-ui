@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component Card
  *
@@ -203,15 +200,17 @@ const Tag = href ? 'a' : 'article';
         {
             imageUrl && (
                 <figure class={figureClass}>
-                    <Image src={imageUrl} alt={title} class={imageClass} />
+                    <Image src={imageUrl} alt={title || ''} class={imageClass} />
                 </figure>
             )
         }
 
         <div class={cardBodyClass}>
-            <h2 class={cardTitleClass}>
-                {title}
-            </h2>
+            {title && (
+                <h2 class={cardTitleClass}>
+                    {title}
+                </h2>
+            )}
 
             {subtitle && <p class={subtitleClass}>{subtitle}</p>}
 

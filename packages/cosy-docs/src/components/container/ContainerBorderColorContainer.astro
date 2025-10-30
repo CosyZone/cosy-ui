@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component ContainerBorderColorContainer
  * @description Container 组件边框颜色示例容器
@@ -9,27 +6,47 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import ContainerBorderColorCustom from "./ContainerBorderColorCustom.astro";
 import sourceCustom from "./ContainerBorderColorCustom.astro?raw";
+import ContainerBorderColorCustomVue from "./ContainerBorderColorCustomVue.vue";
+import sourceCustomVue from "./ContainerBorderColorCustomVue.vue?raw";
 import ContainerBorderColorOpacity from "./ContainerBorderColorOpacity.astro";
 import sourceOpacity from "./ContainerBorderColorOpacity.astro?raw";
+import ContainerBorderColorOpacityVue from "./ContainerBorderColorOpacityVue.vue";
+import sourceOpacityVue from "./ContainerBorderColorOpacityVue.vue?raw";
 import ContainerBorderColorPrimary from "./ContainerBorderColorPrimary.astro";
 import sourcePrimary from "./ContainerBorderColorPrimary.astro?raw";
+import ContainerBorderColorPrimaryVue from "./ContainerBorderColorPrimaryVue.vue";
+import sourcePrimaryVue from "./ContainerBorderColorPrimaryVue.vue?raw";
 import ContainerBorderColorSuccess from "./ContainerBorderColorSuccess.astro";
 import sourceSuccess from "./ContainerBorderColorSuccess.astro?raw";
+import ContainerBorderColorSuccessVue from "./ContainerBorderColorSuccessVue.vue";
+import sourceSuccessVue from "./ContainerBorderColorSuccessVue.vue?raw";
 ---
 
 <CodeContainer
-    codes={[sourcePrimary, sourceSuccess, sourceOpacity, sourceCustom]}
-    titles={['primary', 'success', 'primary/50', 'error']}>
-    <div id="tab-1">
+    codes={[sourcePrimary, sourceSuccess, sourceOpacity, sourceCustom, sourcePrimaryVue, sourceSuccessVue, sourceOpacityVue, sourceCustomVue]}
+    titles={['primary', 'success', 'primary/50', 'error', 'primary', 'success', 'primary/50', 'error']}>
+    <div id="tab-1" data-label="astro">
         <ContainerBorderColorPrimary />
     </div>
-    <div id="tab-2">
+    <div id="tab-2" data-label="astro">
         <ContainerBorderColorSuccess />
     </div>
-    <div id="tab-3">
+    <div id="tab-3" data-label="astro">
         <ContainerBorderColorOpacity />
     </div>
-    <div id="tab-4">
+    <div id="tab-4" data-label="astro">
         <ContainerBorderColorCustom />
+    </div>
+    <div id="tab-5" data-label="vue">
+        <ContainerBorderColorPrimaryVue />
+    </div>
+    <div id="tab-6" data-label="vue">
+        <ContainerBorderColorSuccessVue />
+    </div>
+    <div id="tab-7" data-label="vue">
+        <ContainerBorderColorOpacityVue />
+    </div>
+    <div id="tab-8" data-label="vue">
+        <ContainerBorderColorCustomVue />
     </div>
 </CodeContainer>

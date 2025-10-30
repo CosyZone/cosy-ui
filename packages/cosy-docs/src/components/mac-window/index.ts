@@ -1,4 +1,4 @@
-// Astro 容器组件
+// 容器组件（支持 Astro 和 Vue）
 import BasicContainer from "./BasicContainer.astro";
 import BgTypesContainer from "./BgTypesContainer.astro";
 import CustomHeightContainer from "./CustomHeightContainer.astro";

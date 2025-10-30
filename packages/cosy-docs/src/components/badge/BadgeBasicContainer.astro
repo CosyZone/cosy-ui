@@ -1,26 +1,39 @@
 ---
 
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import BadgeBasic from "./BadgeBasic.astro";
-import BadgeBasicCode from "./BadgeBasic.astro?raw";
-import BadgeOutline from "./BadgeOutline.astro";
-import BadgeOutlineCode from "./BadgeOutline.astro?raw";
-import BadgeSizes from "./BadgeSizes.astro";
-import BadgeSizesCode from "./BadgeSizes.astro?raw";
+/**
+ * @component BadgeBasicContainer
+ * @description 展示 Badge 组件的基本用法，Astro/Vue 各自独立标签展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import BadgeBasic from './BadgeBasic.astro';
+import BadgeBasicRaw from './BadgeBasic.astro?raw';
+import BadgeBasicVue from './BadgeBasicVue.vue';
+import BadgeBasicVueRaw from './BadgeBasicVue.vue?raw';
+import BadgeOutline from './BadgeOutline.astro';
+import BadgeOutlineRaw from './BadgeOutline.astro?raw';
+import BadgeOutlineVue from './BadgeOutlineVue.vue';
+import BadgeOutlineVueRaw from './BadgeOutlineVue.vue?raw';
+import BadgeSizeLgVue from './BadgeSizeLgVue.vue';
+import BadgeSizeLgVueRaw from './BadgeSizeLgVue.vue?raw';
+import BadgeSizes from './BadgeSizes.astro';
+import BadgeSizesRaw from './BadgeSizes.astro?raw';
 ---
 
 <CodeContainer
-  codes={[BadgeBasicCode, BadgeSizesCode, BadgeOutlineCode]}
-  titles={['基础用法', '尺寸', '描边']}>
-  <div id="tab-1">
-    <BadgeBasic />
-  </div>
-  <div id="tab-2">
-    <BadgeSizes />
-  </div>
-  <div id="tab-3">
-    <BadgeOutline />
-  </div>
+	codes={[
+		BadgeBasicRaw,
+		BadgeSizesRaw,
+		BadgeOutlineRaw,
+		BadgeBasicVueRaw,
+		BadgeSizeLgVueRaw,
+		BadgeOutlineVueRaw,
+	]}
+	titles={['基础用法', '尺寸', '描边', '基础用法', '尺寸', '描边']}
+>
+	<div id="tab-1" data-label="astro"><BadgeBasic /></div>
+	<div id="tab-2" data-label="astro"><BadgeSizes /></div>
+	<div id="tab-3" data-label="astro"><BadgeOutline /></div>
+	<div id="tab-4" data-label="vue"><BadgeBasicVue /></div>
+	<div id="tab-5" data-label="vue"><BadgeSizeLgVue /></div>
+	<div id="tab-6" data-label="vue"><BadgeOutlineVue /></div>
 </CodeContainer>

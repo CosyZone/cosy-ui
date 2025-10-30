@@ -1,30 +1,35 @@
 ---
 
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import CardCompact from "./CardCompact.astro";
-import CardCompactSourceCode from "./CardCompact.astro?raw";
-import CardCompact2 from "./CardCompact2.astro";
-import CardCompact2SourceCode from "./CardCompact2.astro?raw";
-import CardCompact3 from "./CardCompact3.astro";
-import CardCompact3SourceCode from "./CardCompact3.astro?raw";
+/**
+ * @component CardCompactContainer
+ * @description 展示 Card 组件的 compact 属性用法，Astro/Vue 各自独立标签展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import CardCompact from './CardCompact.astro';
+import CardCompactRaw from './CardCompact.astro?raw';
+import CardCompact2 from './CardCompact2.astro';
+import CardCompact2Raw from './CardCompact2.astro?raw';
+import CardCompact3 from './CardCompact3.astro';
+import CardCompact3Raw from './CardCompact3.astro?raw';
+import CardCompactVue from './CardCompactVue.vue';
+import CardCompactVueRaw from './CardCompactVue.vue?raw';
 ---
 
 <CodeContainer
-  codes={[
-    CardCompactSourceCode,
-    CardCompact2SourceCode,
-    CardCompact3SourceCode,
-  ]}
-  titles={['基础紧凑', '紧凑带图片', '紧凑链接']}>
-  <div id="tab-1">
-    <CardCompact />
-  </div>
-  <div id="tab-2">
-    <CardCompact2 />
-  </div>
-  <div id="tab-3">
-    <CardCompact3 />
-  </div>
+	codes={[
+		CardCompactRaw,
+		CardCompact2Raw,
+		CardCompact3Raw,
+		CardCompactVueRaw,
+		CardCompactVueRaw,
+		CardCompactVueRaw,
+	]}
+	titles={['基础紧凑', '紧凑带图片', '紧凑链接', '基础紧凑', '紧凑带图片', '紧凑链接']}
+>
+	<div id="tab-1" data-label="astro"><CardCompact /></div>
+	<div id="tab-2" data-label="astro"><CardCompact2 /></div>
+	<div id="tab-3" data-label="astro"><CardCompact3 /></div>
+	<div id="tab-4" data-label="vue"><CardCompactVue /></div>
+	<div id="tab-5" data-label="vue"><CardCompactVue /></div>
+	<div id="tab-6" data-label="vue"><CardCompactVue /></div>
 </CodeContainer>

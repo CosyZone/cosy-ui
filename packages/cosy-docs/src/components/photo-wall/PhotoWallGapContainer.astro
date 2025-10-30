@@ -1,7 +1,4 @@
 ---
-
-
-
 import { CodeContainer } from "@coffic/cosy-ui";
 import LgExample from "./PhotoWallGapLg.astro";
 import LgSourceCode from "./PhotoWallGapLg.astro?raw";
@@ -17,6 +14,19 @@ import XlExample from "./PhotoWallGapXl.astro";
 import XlSourceCode from "./PhotoWallGapXl.astro?raw";
 import XsExample from "./PhotoWallGapXs.astro";
 import XsSourceCode from "./PhotoWallGapXs.astro?raw";
+// Vue 组件导入
+import PhotoWallVueGapLg from "./PhotoWallVueGapLg.vue";
+import PhotoWallVueGapLgRaw from "./PhotoWallVueGapLg.vue?raw";
+import PhotoWallVueGapMd from "./PhotoWallVueGapMd.vue";
+import PhotoWallVueGapMdRaw from "./PhotoWallVueGapMd.vue?raw";
+import PhotoWallVueGapNone from "./PhotoWallVueGapNone.vue";
+import PhotoWallVueGapNoneRaw from "./PhotoWallVueGapNone.vue?raw";
+import PhotoWallVueGapSm from "./PhotoWallVueGapSm.vue";
+import PhotoWallVueGapSmRaw from "./PhotoWallVueGapSm.vue?raw";
+import PhotoWallVueGapXl from "./PhotoWallVueGapXl.vue";
+import PhotoWallVueGapXlRaw from "./PhotoWallVueGapXl.vue?raw";
+import PhotoWallVueGapXs from "./PhotoWallVueGapXs.vue";
+import PhotoWallVueGapXsRaw from "./PhotoWallVueGapXs.vue?raw";
 ---
 
 <CodeContainer
@@ -27,24 +37,48 @@ import XsSourceCode from "./PhotoWallGapXs.astro?raw";
     MdSourceCode,
     LgSourceCode,
     XlSourceCode,
+    PhotoWallVueGapNoneRaw,
+    PhotoWallVueGapXsRaw,
+    PhotoWallVueGapSmRaw,
+    PhotoWallVueGapMdRaw,
+    PhotoWallVueGapLgRaw,
+    PhotoWallVueGapXlRaw,
   ]}
-  titles={['none', 'xs', 'sm', 'md', 'lg', 'xl']}>
-  <div id="tab-1">
+  titles={['none', 'xs', 'sm', 'md', 'lg', 'xl', 'none', 'xs', 'sm', 'md', 'lg', 'xl']}>
+  <div id="tab-1" data-label="astro">
     <NoneExample />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <XsExample />
   </div>
-  <div id="tab-3">
+  <div id="tab-3" data-label="astro">
     <SmExample />
   </div>
-  <div id="tab-4">
+  <div id="tab-4" data-label="astro">
     <MdExample />
   </div>
-  <div id="tab-5">
+  <div id="tab-5" data-label="astro">
     <LgExample />
   </div>
-  <div id="tab-6">
+  <div id="tab-6" data-label="astro">
     <XlExample />
+  </div>
+  <div id="tab-7" data-label="vue">
+    <PhotoWallVueGapNone />
+  </div>
+  <div id="tab-8" data-label="vue">
+    <PhotoWallVueGapXs />
+  </div>
+  <div id="tab-9" data-label="vue">
+    <PhotoWallVueGapSm />
+  </div>
+  <div id="tab-10" data-label="vue">
+    <PhotoWallVueGapMd />
+  </div>
+  <div id="tab-11" data-label="vue">
+    <PhotoWallVueGapLg />
+  </div>
+  <div id="tab-12" data-label="vue">
+    <PhotoWallVueGapXl />
   </div>
 </CodeContainer>

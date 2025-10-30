@@ -1,0 +1,9 @@
+<script setup lang="ts">
+import { Card } from '@coffic/cosy-ui/vue';
+</script>
+<template>
+  <Card title="使用muted属性的卡片" subtitle="这张卡片使用了Container的muted功能" :muted="true">
+    这是一个使用了muted属性的卡片示例。muted属性可以让卡片显示为柔和的样式，适用于未激活或次要内容的展示。
+  </Card>
+</template>
+

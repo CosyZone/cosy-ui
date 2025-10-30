@@ -1,25 +1,35 @@
 ---
 
-
-
 /**
  * @component AlertWithTitleContainer
- * @description 带标题的 Alert 组件示例容器
+ * @description title 属性为空和有值两种情况，Astro/Vue 各两组。
  */
 import { CodeContainer } from '@coffic/cosy-ui';
+import AlertWithoutTitle from './AlertWithoutTitle.astro';
+import AlertWithoutTitleRaw from './AlertWithoutTitle.astro?raw';
+import AlertWithoutTitleVue from './AlertWithoutTitleVue.vue';
+import AlertWithoutTitleVueRaw from './AlertWithoutTitleVue.vue?raw';
 import AlertWithTitle from './AlertWithTitle.astro';
-import WithTitleSourceCode from './AlertWithTitle.astro?raw';
-import AlertWithTitleFactory from './AlertWithTitleFactory.astro';
-import WithTitleFactorySourceCode from './AlertWithTitleFactory.astro?raw';
+import AlertWithTitleRaw from './AlertWithTitle.astro?raw';
+import AlertWithTitleVue from './AlertWithTitleVue.vue';
+import AlertWithTitleVueRaw from './AlertWithTitleVue.vue?raw';
 ---
-
 <CodeContainer
-    titles={['基础用法', 'Factory']}
-    codes={[WithTitleSourceCode, WithTitleFactorySourceCode]}>
-    <div id="tab-1" data-label="传统写法">
-        <AlertWithTitle />
-    </div>
-    <div id="tab-2" data-label="Factory 写法">
-        <AlertWithTitleFactory />
-    </div>
+    codes={[
+        AlertWithTitleRaw,
+        AlertWithoutTitleRaw,
+        AlertWithTitleVueRaw,
+        AlertWithoutTitleVueRaw
+    ]}
+    titles={[
+        '有标题',
+        '无标题',
+        '有标题',
+        '无标题'
+    ]}
+>
+    <div id="tab-1" data-label="astro"><AlertWithTitle /></div>
+    <div id="tab-2" data-label="astro"><AlertWithoutTitle /></div>
+    <div id="tab-3" data-label="vue"><AlertWithTitleVue /></div>
+    <div id="tab-4" data-label="vue"><AlertWithoutTitleVue /></div>
 </CodeContainer>

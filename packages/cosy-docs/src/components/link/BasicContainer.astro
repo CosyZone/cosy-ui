@@ -1,32 +1,43 @@
 ---
-
-
-
 /**
  * @component LinkBasicContainer
  * @description Link组件基础示例的容器组件
  */
 
 import { CodeContainer } from "@coffic/cosy-ui";
+import BasicLinkVue from "./Basic.vue";
+import BasicLinkVueCode from "./Basic.vue?raw";
 import BasicLink from "./BasicLink.astro";
-// 导入对应的源码
 import BasicLinkCode from "./BasicLink.astro?raw";
+import ExternalLinkVue from "./External.vue";
+import ExternalLinkVueCode from "./External.vue?raw";
 import ExternalLink from "./ExternalLink.astro";
 import ExternalLinkCode from "./ExternalLink.astro?raw";
+import VariantsLinkVue from "./Variants.vue";
+import VariantsLinkVueCode from "./Variants.vue?raw";
 import VariantsLink from "./VariantsLink.astro";
 import VariantsLinkCode from "./VariantsLink.astro?raw";
 ---
 
 <CodeContainer
-  titles={['基础链接', '外部链接', '链接变体']}
-  codes={[BasicLinkCode, ExternalLinkCode, VariantsLinkCode]}>
-  <div id="tab-1">
+  titles={['基础链接', '外部链接', '链接变体', '基础链接', '外部链接', '链接变体']}
+  codes={[BasicLinkCode, ExternalLinkCode, VariantsLinkCode, BasicLinkVueCode, ExternalLinkVueCode, VariantsLinkVueCode]}>
+  <div id="tab-1" data-label="astro">
     <BasicLink />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <ExternalLink />
   </div>
-  <div id="tab-3">
+  <div id="tab-3" data-label="astro">
     <VariantsLink />
+  </div>
+  <div id="tab-4" data-label="vue">
+    <BasicLinkVue />
+  </div>
+  <div id="tab-5" data-label="vue">
+    <ExternalLinkVue />
+  </div>
+  <div id="tab-6" data-label="vue">
+    <VariantsLinkVue />
   </div>
 </CodeContainer>

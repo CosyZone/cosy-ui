@@ -1,15 +1,16 @@
 ---
-
-
-
 import { CodeContainer } from "@coffic/cosy-ui";
 import ContainerWithSlot from "./ContainerWithSlot.astro";
-// @ts-expect-error
 import ContainerWithSlotSourceCode from "./ContainerWithSlot.astro?raw";
+import ContainerWithSlotVue from "./ContainerWithSlotVue.vue";
+import ContainerWithSlotVueSourceCode from "./ContainerWithSlotVue.vue?raw";
 ---
 
-<CodeContainer titles={['default slot']} codes={[ContainerWithSlotSourceCode]}>
-  <div id="tab-1">
+<CodeContainer titles={['default slot', 'default slot']} codes={[ContainerWithSlotSourceCode, ContainerWithSlotVueSourceCode]}>
+  <div id="tab-1" data-label="astro">
     <ContainerWithSlot />
+  </div>
+  <div id="tab-2" data-label="vue">
+    <ContainerWithSlotVue />
   </div>
 </CodeContainer>

@@ -1,7 +1,5 @@
 ---
 
-
-
 /**
  * @component AlertBasicContainer
  * @description 基础 Alert 组件示例容器
@@ -9,26 +7,23 @@
 import { CodeContainer } from '@coffic/cosy-ui';
 import AlertBasic from './AlertBasic.astro';
 import AlertBasicSourceCode from './AlertBasic.astro?raw';
-import AlertFactory from './AlertFactory.astro';
-import AlertFactorySourceCode from './AlertFactory.astro?raw';
-import AlertPropsBuilder from './AlertPropsBuilder.astro';
-import AlertPropsBuilderSourceCode from './AlertPropsBuilder.astro?raw';
+import AlertBasicVue from './AlertBasicVue.vue';
+import AlertBasicVueSourceCode from './AlertBasicVue.vue?raw';
 ---
 
 <CodeContainer
-    titles={['基础用法', 'Props Builder', 'Factory']}
     codes={[
         AlertBasicSourceCode,
-        AlertPropsBuilderSourceCode,
-        AlertFactorySourceCode,
+        AlertBasicVueSourceCode,
+    ]}
+    titles={[
+        '基础用法',
+        '基础用法'
     ]}>
-    <div id="tab-1" data-label="传统写法">
+    <div id="tab-1" data-label="astro">
         <AlertBasic />
     </div>
-    <div id="tab-2" data-label="Props Builder">
-        <AlertPropsBuilder />
-    </div>
-    <div id="tab-3" data-label="Factory 写法">
-        <AlertFactory />
+    <div id="tab-2" data-label="vue">
+        <AlertBasicVue client:load />
     </div>
 </CodeContainer>

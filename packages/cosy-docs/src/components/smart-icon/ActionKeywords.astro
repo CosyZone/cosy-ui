@@ -1,25 +1,22 @@
 ---
-
-
-
 import { CodeContainer, SmartIcon } from "@coffic/cosy-ui";
-import ActionKeywordsExample from "./examples/ActionKeywords.astro";
+import ActionKeywordsVue from "./ActionKeywords.vue";
+import ActionKeywordsVueRaw from "./ActionKeywords.vue?raw";
 import ActionKeywordsCode from "./examples/ActionKeywords.astro?raw";
 ---
 
 <CodeContainer
-  codes={[ActionKeywordsCode]}
-  titles={['设置', '搜索', '编辑', '删除']}>
-  <div id="tab-1">
-    <SmartIcon keyword="设置" size="24px" color="#8b5cf6" />
+  codes={[ActionKeywordsCode, ActionKeywordsVueRaw]}
+  titles={['操作相关', '操作相关']}>
+  <div id="tab-1" data-label="astro">
+    <div style="display: flex; gap: 1rem; align-items: center;">
+      <SmartIcon keyword="设置" size="24px" color="#8b5cf6" />
+      <SmartIcon keyword="搜索" size="24px" color="#8b5cf6" />
+      <SmartIcon keyword="编辑" size="24px" color="#8b5cf6" />
+      <SmartIcon keyword="删除" size="24px" color="#8b5cf6" />
+    </div>
   </div>
-  <div id="tab-2">
-    <SmartIcon keyword="搜索" size="24px" color="#8b5cf6" />
-  </div>
-  <div id="tab-3">
-    <SmartIcon keyword="编辑" size="24px" color="#8b5cf6" />
-  </div>
-  <div id="tab-4">
-    <SmartIcon keyword="删除" size="24px" color="#8b5cf6" />
+  <div id="tab-2" data-label="vue">
+    <ActionKeywordsVue client:load />
   </div>
 </CodeContainer>

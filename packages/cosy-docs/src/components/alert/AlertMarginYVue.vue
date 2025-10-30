@@ -1,0 +1,13 @@
+<script setup lang="ts">
+  import { Alert } from '@coffic/cosy-ui/vue';
+</script>
+
+<template>
+  <div style="display: flex; flex-direction: column; gap: 1rem">
+    <Alert type="info" marginY="xs"> 超小间距的提示信息 </Alert>
+    <Alert type="success" marginY="sm"> 小间距的成功提示 </Alert>
+    <Alert type="warning" marginY="md"> 中等间距的警告提示 </Alert>
+    <Alert type="error" marginY="lg"> 大间距的错误提示 </Alert>
+    <Alert type="info" marginY="xl"> 超大间距的信息提示 </Alert>
+  </div>
+</template>

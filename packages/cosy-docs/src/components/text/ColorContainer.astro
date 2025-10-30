@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component TextColorContainer
  * @description Text 组件颜色用法容器，带源码展示。
@@ -15,18 +12,22 @@ import ColorPrimary from "./color/ColorPrimary.astro";
 import ColorPrimarySourceCode from "./color/ColorPrimary.astro?raw";
 import ColorSecondary from "./color/ColorSecondary.astro";
 import ColorSecondarySourceCode from "./color/ColorSecondary.astro?raw";
+import TextVueColor from "./TextVueColor.vue";
+import TextVueColorRaw from "./TextVueColor.vue?raw";
 ---
 
 <CodeContainer
-  titles={['primary', 'secondary', 'accent', 'muted']}
+  titles={['primary', 'secondary', 'accent', 'muted', '不同颜色']}
   codes={[
     ColorPrimarySourceCode,
     ColorSecondarySourceCode,
     ColorAccentSourceCode,
     ColorMutedSourceCode,
+    TextVueColorRaw,
   ]}>
-  <div id="tab-1"><ColorPrimary /></div>
-  <div id="tab-2"><ColorSecondary /></div>
-  <div id="tab-3"><ColorAccent /></div>
-  <div id="tab-4"><ColorMuted /></div>
+  <div id="tab-1" data-label="astro"><ColorPrimary /></div>
+  <div id="tab-2" data-label="astro"><ColorSecondary /></div>
+  <div id="tab-3" data-label="astro"><ColorAccent /></div>
+  <div id="tab-4" data-label="astro"><ColorMuted /></div>
+  <div id="tab-5" data-label="vue"><TextVueColor client:load /></div>
 </CodeContainer>

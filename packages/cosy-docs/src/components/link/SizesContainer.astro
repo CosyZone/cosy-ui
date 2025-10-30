@@ -1,8 +1,11 @@
 ---
-
-
-
 import { CodeContainer, Container, Link } from "@coffic/cosy-ui";
+import SizeLargeVue from "./LinkVueSizeLarge.vue";
+import SizeLargeVueCode from "./LinkVueSizeLarge.vue?raw";
+import SizeMediumVue from "./LinkVueSizeMedium.vue";
+import SizeMediumVueCode from "./LinkVueSizeMedium.vue?raw";
+import SizeSmallVue from "./LinkVueSizeSmall.vue";
+import SizeSmallVueCode from "./LinkVueSizeSmall.vue?raw";
 import SizeLarge from "./SizeLarge.astro";
 import SizeLargeCode from "./SizeLarge.astro?raw";
 import SizeMedium from "./SizeMedium.astro";
@@ -14,21 +17,36 @@ import SizeSmallCode from "./SizeSmall.astro?raw";
 ---
 
 <CodeContainer
-  titles={['小型链接', '中型链接', '大型链接']}
-  codes={[SizeSmallCode, SizeMediumCode, SizeLargeCode]}>
-  <div id="tab-1">
+  titles={['小型链接', '中型链接', '大型链接', '小型链接', '中型链接', '大型链接']}
+  codes={[SizeSmallCode, SizeMediumCode, SizeLargeCode, SizeSmallVueCode, SizeMediumVueCode, SizeLargeVueCode]}>
+  <div id="tab-1" data-label="astro">
     <Container flex="row" gap="sm" items="center">
       <SizeSmall />
     </Container>
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <Container flex="row" gap="sm" items="center">
       <SizeMedium />
     </Container>
   </div>
-  <div id="tab-3">
+  <div id="tab-3" data-label="astro">
     <Container flex="row" gap="sm" items="center">
       <SizeLarge />
+    </Container>
+  </div>
+  <div id="tab-4" data-label="vue">
+    <Container flex="row" gap="sm" items="center">
+      <SizeSmallVue />
+    </Container>
+  </div>
+  <div id="tab-5" data-label="vue">
+    <Container flex="row" gap="sm" items="center">
+      <SizeMediumVue />
+    </Container>
+  </div>
+  <div id="tab-6" data-label="vue">
+    <Container flex="row" gap="sm" items="center">
+      <SizeLargeVue />
     </Container>
   </div>
 </CodeContainer>

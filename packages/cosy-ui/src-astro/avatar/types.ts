@@ -1,22 +1,12 @@
 import type { HTMLAttributes } from "astro/types";
+import type { IAvatarPropsBase } from "../../src/components/avatar/avatarPropsBase";
 
-export interface AvatarProps extends HTMLAttributes<"div"> {
-	/**
-	 * 用户名称
-	 */
-	userName: string;
-
-	/**
-	 * 用户头像URL
-	 */
-	avatar?: string;
-
-	/**
-	 * 头像尺寸
-	 * @default 'md'
-	 */
-	size?: "sm" | "md" | "lg" | "xl";
-
+/**
+ * Avatar 组件的 Astro 版本属性接口（继承基础接口并扩展 Astro 特定属性）
+ */
+export interface AvatarProps
+	extends IAvatarPropsBase,
+		Omit<HTMLAttributes<"div">, keyof IAvatarPropsBase> {
 	/**
 	 * 自定义类名
 	 */

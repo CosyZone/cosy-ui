@@ -1,160 +1,256 @@
 ---
 
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import ButtonError from "./ButtonError.astro";
-import ButtonErrorSourceCode from "./ButtonError.astro?raw";
-import ButtonGhost from "./ButtonGhost.astro";
-import ButtonGhostSourceCode from "./ButtonGhost.astro?raw";
-import ButtonGradientBanana from "./ButtonGradientBanana.astro";
-import ButtonGradientBananaSourceCode from "./ButtonGradientBanana.astro?raw";
-import ButtonGradientBlueberry from "./ButtonGradientBlueberry.astro";
-import ButtonGradientBlueberrySourceCode from "./ButtonGradientBlueberry.astro?raw";
-import ButtonGradientFlower from "./ButtonGradientFlower.astro";
-import ButtonGradientFlowerSourceCode from "./ButtonGradientFlower.astro?raw";
-import ButtonGradientForest from "./ButtonGradientForest.astro";
-import ButtonGradientForestSourceCode from "./ButtonGradientForest.astro?raw";
-import ButtonGradientGrape from "./ButtonGradientGrape.astro";
-import ButtonGradientGrapeSourceCode from "./ButtonGradientGrape.astro?raw";
-import ButtonGradientKiwi from "./ButtonGradientKiwi.astro";
-import ButtonGradientKiwiSourceCode from "./ButtonGradientKiwi.astro?raw";
-import ButtonGradientLemon from "./ButtonGradientLemon.astro";
-import ButtonGradientLemonSourceCode from "./ButtonGradientLemon.astro?raw";
-import ButtonGradientMango from "./ButtonGradientMango.astro";
-import ButtonGradientMangoSourceCode from "./ButtonGradientMango.astro?raw";
-import ButtonGradientOcean from "./ButtonGradientOcean.astro";
-import ButtonGradientOceanSourceCode from "./ButtonGradientOcean.astro?raw";
-import ButtonGradientPitaya from "./ButtonGradientPitaya.astro";
-import ButtonGradientPitayaSourceCode from "./ButtonGradientPitaya.astro?raw";
-import ButtonGradientSky from "./ButtonGradientSky.astro";
-import ButtonGradientSkySourceCode from "./ButtonGradientSky.astro?raw";
-import ButtonGradientSunset from "./ButtonGradientSunset.astro";
-import ButtonGradientSunsetSourceCode from "./ButtonGradientSunset.astro?raw";
-import ButtonGradientWatermelon from "./ButtonGradientWatermelon.astro";
-import ButtonGradientWatermelonSourceCode from "./ButtonGradientWatermelon.astro?raw";
-import ButtonInfo from "./ButtonInfo.astro";
-import ButtonInfoSourceCode from "./ButtonInfo.astro?raw";
-import ButtonLink from "./ButtonLink.astro";
-import ButtonLinkSourceCode from "./ButtonLink.astro?raw";
-import ButtonNeutral from "./ButtonNeutral.astro";
-import ButtonNeutralSourceCode from "./ButtonNeutral.astro?raw";
-import ButtonOutline from "./ButtonOutline.astro";
-import ButtonOutlineSourceCode from "./ButtonOutline.astro?raw";
-import ButtonSuccess from "./ButtonSuccess.astro";
-import ButtonSuccessSourceCode from "./ButtonSuccess.astro?raw";
-import ButtonWarning from "./ButtonWarning.astro";
-import ButtonWarningSourceCode from "./ButtonWarning.astro?raw";
+/**
+ * @component ButtonVariantsContainer
+ * @description 展示 Button 组件的 variant 属性所有取值，Astro/Vue 各自独立标签展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonAccent from './ButtonAccent.astro';
+import ButtonAccentRaw from './ButtonAccent.astro?raw';
+import ButtonAccentVue from './ButtonAccentVue.vue';
+import ButtonAccentVueRaw from './ButtonAccentVue.vue?raw';
+import ButtonError from './ButtonError.astro';
+import ButtonErrorRaw from './ButtonError.astro?raw';
+import ButtonGhost from './ButtonGhost.astro';
+import ButtonGhostRaw from './ButtonGhost.astro?raw';
+import ButtonGhostVue from './ButtonGhostVue.vue';
+import ButtonGhostVueRaw from './ButtonGhostVue.vue?raw';
+import ButtonGradientBanana from './ButtonGradientBanana.astro';
+import ButtonGradientBananaRaw from './ButtonGradientBanana.astro?raw';
+import ButtonGradientBananaVue from './ButtonGradientBananaVue.vue';
+import ButtonGradientBananaVueRaw from './ButtonGradientBananaVue.vue?raw';
+import ButtonGradientBlueberry from './ButtonGradientBlueberry.astro';
+import ButtonGradientBlueberryRaw from './ButtonGradientBlueberry.astro?raw';
+import ButtonGradientBlueberryVue from './ButtonGradientBlueberryVue.vue';
+import ButtonGradientBlueberryVueRaw from './ButtonGradientBlueberryVue.vue?raw';
+import ButtonGradientFlower from './ButtonGradientFlower.astro';
+import ButtonGradientFlowerRaw from './ButtonGradientFlower.astro?raw';
+import ButtonGradientFlowerVue from './ButtonGradientFlowerVue.vue';
+import ButtonGradientFlowerVueRaw from './ButtonGradientFlowerVue.vue?raw';
+import ButtonGradientForest from './ButtonGradientForest.astro';
+import ButtonGradientForestRaw from './ButtonGradientForest.astro?raw';
+import ButtonGradientForestVue from './ButtonGradientForestVue.vue';
+import ButtonGradientForestVueRaw from './ButtonGradientForestVue.vue?raw';
+import ButtonGradientGrape from './ButtonGradientGrape.astro';
+import ButtonGradientGrapeRaw from './ButtonGradientGrape.astro?raw';
+import ButtonGradientGrapeVue from './ButtonGradientGrapeVue.vue';
+import ButtonGradientGrapeVueRaw from './ButtonGradientGrapeVue.vue?raw';
+import ButtonGradientKiwi from './ButtonGradientKiwi.astro';
+import ButtonGradientKiwiRaw from './ButtonGradientKiwi.astro?raw';
+import ButtonGradientKiwiVue from './ButtonGradientKiwiVue.vue';
+import ButtonGradientKiwiVueRaw from './ButtonGradientKiwiVue.vue?raw';
+import ButtonGradientLemon from './ButtonGradientLemon.astro';
+import ButtonGradientLemonRaw from './ButtonGradientLemon.astro?raw';
+import ButtonGradientLemonVue from './ButtonGradientLemonVue.vue';
+import ButtonGradientLemonVueRaw from './ButtonGradientLemonVue.vue?raw';
+import ButtonGradientMango from './ButtonGradientMango.astro';
+import ButtonGradientMangoRaw from './ButtonGradientMango.astro?raw';
+import ButtonGradientMangoVue from './ButtonGradientMangoVue.vue';
+import ButtonGradientMangoVueRaw from './ButtonGradientMangoVue.vue?raw';
+import ButtonGradientOcean from './ButtonGradientOcean.astro';
+import ButtonGradientOceanRaw from './ButtonGradientOcean.astro?raw';
+import ButtonGradientOceanVue from './ButtonGradientOceanVue.vue';
+import ButtonGradientOceanVueRaw from './ButtonGradientOceanVue.vue?raw';
+import ButtonGradientPitaya from './ButtonGradientPitaya.astro';
+import ButtonGradientPitayaRaw from './ButtonGradientPitaya.astro?raw';
+import ButtonGradientPitayaVue from './ButtonGradientPitayaVue.vue';
+import ButtonGradientPitayaVueRaw from './ButtonGradientPitayaVue.vue?raw';
+import ButtonGradientSky from './ButtonGradientSky.astro';
+import ButtonGradientSkyRaw from './ButtonGradientSky.astro?raw';
+import ButtonGradientSkyVue from './ButtonGradientSkyVue.vue';
+import ButtonGradientSkyVueRaw from './ButtonGradientSkyVue.vue?raw';
+import ButtonGradientSunset from './ButtonGradientSunset.astro';
+import ButtonGradientSunsetRaw from './ButtonGradientSunset.astro?raw';
+import ButtonGradientSunsetVue from './ButtonGradientSunsetVue.vue';
+import ButtonGradientSunsetVueRaw from './ButtonGradientSunsetVue.vue?raw';
+import ButtonGradientWatermelon from './ButtonGradientWatermelon.astro';
+import ButtonGradientWatermelonRaw from './ButtonGradientWatermelon.astro?raw';
+import ButtonGradientWatermelonVue from './ButtonGradientWatermelonVue.vue';
+import ButtonGradientWatermelonVueRaw from './ButtonGradientWatermelonVue.vue?raw';
+import ButtonInfo from './ButtonInfo.astro';
+import ButtonInfoRaw from './ButtonInfo.astro?raw';
+import ButtonLink from './ButtonLink.astro';
+import ButtonLinkRaw from './ButtonLink.astro?raw';
+import ButtonNeutral from './ButtonNeutral.astro';
+import ButtonNeutralRaw from './ButtonNeutral.astro?raw';
+import ButtonOutline from './ButtonOutline.astro';
+import ButtonOutlineRaw from './ButtonOutline.astro?raw';
+import ButtonPrimary from './ButtonPrimary.astro';
+import ButtonPrimaryRaw from './ButtonPrimary.astro?raw';
+import ButtonSecondary from './ButtonSecondary.astro';
+import ButtonSecondaryRaw from './ButtonSecondary.astro?raw';
+import ButtonSecondaryVue from './ButtonSecondaryVue.vue';
+import ButtonSecondaryVueRaw from './ButtonSecondaryVue.vue?raw';
+import ButtonSuccess from './ButtonSuccess.astro';
+import ButtonSuccessRaw from './ButtonSuccess.astro?raw';
+import ButtonErrorVue from './ButtonVariantErrorVue.vue';
+import ButtonErrorVueRaw from './ButtonVariantErrorVue.vue?raw';
+import ButtonInfoVue from './ButtonVariantInfoVue.vue';
+import ButtonInfoVueRaw from './ButtonVariantInfoVue.vue?raw';
+import ButtonLinkVue from './ButtonVariantLinkVue.vue';
+import ButtonLinkVueRaw from './ButtonVariantLinkVue.vue?raw';
+import ButtonNeutralVue from './ButtonVariantNeutralVue.vue';
+import ButtonNeutralVueRaw from './ButtonVariantNeutralVue.vue?raw';
+import ButtonOutlineVue from './ButtonVariantOutlineVue.vue';
+import ButtonOutlineVueRaw from './ButtonVariantOutlineVue.vue?raw';
+import ButtonPrimaryVue from './ButtonVariantPrimaryVue.vue';
+import ButtonPrimaryVueRaw from './ButtonVariantPrimaryVue.vue?raw';
+import ButtonSuccessVue from './ButtonVariantSuccessVue.vue';
+import ButtonSuccessVueRaw from './ButtonVariantSuccessVue.vue?raw';
+import ButtonWarningVue from './ButtonVariantWarningVue.vue';
+import ButtonWarningVueRaw from './ButtonVariantWarningVue.vue?raw';
+import ButtonWarning from './ButtonWarning.astro';
+import ButtonWarningRaw from './ButtonWarning.astro?raw';
 ---
 
 <CodeContainer
-  titles={[
-    'Info',
-    'Success',
-    'Warning',
-    'Error',
-    'Ghost',
-    'Link',
-    'Outline',
-    'Neutral',
-    '天空渐变',
-    '西瓜渐变',
-    '柠檬渐变',
-    '葡萄渐变',
-    '芒果渐变',
-    '森林渐变',
-    '海洋渐变',
-    '日落渐变',
-    '花瓣渐变',
-    '火龙果渐变',
-    '香蕉渐变',
-    '蓝莓渐变',
-    '奇异果渐变',
-  ]}
-  codes={[
-    ButtonInfoSourceCode,
-    ButtonSuccessSourceCode,
-    ButtonWarningSourceCode,
-    ButtonErrorSourceCode,
-    ButtonGhostSourceCode,
-    ButtonLinkSourceCode,
-    ButtonOutlineSourceCode,
-    ButtonNeutralSourceCode,
-    ButtonGradientSkySourceCode,
-    ButtonGradientWatermelonSourceCode,
-    ButtonGradientLemonSourceCode,
-    ButtonGradientGrapeSourceCode,
-    ButtonGradientMangoSourceCode,
-    ButtonGradientForestSourceCode,
-    ButtonGradientOceanSourceCode,
-    ButtonGradientSunsetSourceCode,
-    ButtonGradientFlowerSourceCode,
-    ButtonGradientPitayaSourceCode,
-    ButtonGradientBananaSourceCode,
-    ButtonGradientBlueberrySourceCode,
-    ButtonGradientKiwiSourceCode,
-  ]}>
-  <div id="tab-1">
-    <ButtonInfo />
-  </div>
-  <div id="tab-2">
-    <ButtonSuccess />
-  </div>
-  <div id="tab-3">
-    <ButtonWarning />
-  </div>
-  <div id="tab-4">
-    <ButtonError />
-  </div>
-  <div id="tab-5">
-    <ButtonGhost />
-  </div>
-  <div id="tab-6">
-    <ButtonLink />
-  </div>
-  <div id="tab-7">
-    <ButtonOutline />
-  </div>
-  <div id="tab-8">
-    <ButtonNeutral />
-  </div>
-  <div id="tab-9">
-    <ButtonGradientSky />
-  </div>
-  <div id="tab-10">
-    <ButtonGradientWatermelon />
-  </div>
-  <div id="tab-11">
-    <ButtonGradientLemon />
-  </div>
-  <div id="tab-12">
-    <ButtonGradientGrape />
-  </div>
-  <div id="tab-13">
-    <ButtonGradientMango />
-  </div>
-  <div id="tab-14">
-    <ButtonGradientForest />
-  </div>
-  <div id="tab-15">
-    <ButtonGradientOcean />
-  </div>
-  <div id="tab-16">
-    <ButtonGradientSunset />
-  </div>
-  <div id="tab-17">
-    <ButtonGradientFlower />
-  </div>
-  <div id="tab-18">
-    <ButtonGradientPitaya />
-  </div>
-  <div id="tab-19">
-    <ButtonGradientBanana />
-  </div>
-  <div id="tab-20">
-    <ButtonGradientBlueberry />
-  </div>
-  <div id="tab-21">
-    <ButtonGradientKiwi />
-  </div>
+	codes={[
+		ButtonPrimaryRaw,
+		ButtonSecondaryRaw,
+		ButtonAccentRaw,
+		ButtonInfoRaw,
+		ButtonSuccessRaw,
+		ButtonWarningRaw,
+		ButtonErrorRaw,
+		ButtonGhostRaw,
+		ButtonLinkRaw,
+		ButtonOutlineRaw,
+		ButtonNeutralRaw,
+		ButtonGradientSkyRaw,
+		ButtonGradientWatermelonRaw,
+		ButtonGradientLemonRaw,
+		ButtonGradientGrapeRaw,
+		ButtonGradientMangoRaw,
+		ButtonGradientForestRaw,
+		ButtonGradientOceanRaw,
+		ButtonGradientSunsetRaw,
+		ButtonGradientFlowerRaw,
+		ButtonGradientPitayaRaw,
+		ButtonGradientBananaRaw,
+		ButtonGradientBlueberryRaw,
+		ButtonGradientKiwiRaw,
+		ButtonPrimaryVueRaw,
+		ButtonSecondaryVueRaw,
+		ButtonAccentVueRaw,
+		ButtonInfoVueRaw,
+		ButtonSuccessVueRaw,
+		ButtonWarningVueRaw,
+		ButtonErrorVueRaw,
+		ButtonGhostVueRaw,
+		ButtonLinkVueRaw,
+		ButtonOutlineVueRaw,
+		ButtonNeutralVueRaw,
+		ButtonGradientSkyVueRaw,
+		ButtonGradientWatermelonVueRaw,
+		ButtonGradientLemonVueRaw,
+		ButtonGradientGrapeVueRaw,
+		ButtonGradientMangoVueRaw,
+		ButtonGradientForestVueRaw,
+		ButtonGradientOceanVueRaw,
+		ButtonGradientSunsetVueRaw,
+		ButtonGradientFlowerVueRaw,
+		ButtonGradientPitayaVueRaw,
+		ButtonGradientBananaVueRaw,
+		ButtonGradientBlueberryVueRaw,
+		ButtonGradientKiwiVueRaw,
+	]}
+	titles={[
+		'primary',
+		'secondary',
+		'accent',
+		'info',
+		'success',
+		'warning',
+		'error',
+		'ghost',
+		'link',
+		'outline',
+		'neutral',
+		'gradient-sky',
+		'gradient-watermelon',
+		'gradient-lemon',
+		'gradient-grape',
+		'gradient-mango',
+		'gradient-forest',
+		'gradient-ocean',
+		'gradient-sunset',
+		'gradient-flower',
+		'gradient-pitaya',
+		'gradient-banana',
+		'gradient-blueberry',
+		'gradient-kiwi',
+		'primary',
+		'secondary',
+		'accent',
+		'info',
+		'success',
+		'warning',
+		'error',
+		'ghost',
+		'link',
+		'outline',
+		'neutral',
+		'gradient-sky',
+		'gradient-watermelon',
+		'gradient-lemon',
+		'gradient-grape',
+		'gradient-mango',
+		'gradient-forest',
+		'gradient-ocean',
+		'gradient-sunset',
+		'gradient-flower',
+		'gradient-pitaya',
+		'gradient-banana',
+		'gradient-blueberry',
+		'gradient-kiwi',
+	]}
+>
+	<div id="tab-1" data-label="astro"><ButtonPrimary /></div>
+	<div id="tab-2" data-label="astro"><ButtonSecondary /></div>
+	<div id="tab-3" data-label="astro"><ButtonAccent /></div>
+	<div id="tab-4" data-label="astro"><ButtonInfo /></div>
+	<div id="tab-5" data-label="astro"><ButtonSuccess /></div>
+	<div id="tab-6" data-label="astro"><ButtonWarning /></div>
+	<div id="tab-7" data-label="astro"><ButtonError /></div>
+	<div id="tab-8" data-label="astro"><ButtonGhost /></div>
+	<div id="tab-9" data-label="astro"><ButtonLink /></div>
+	<div id="tab-10" data-label="astro"><ButtonOutline /></div>
+	<div id="tab-11" data-label="astro"><ButtonNeutral /></div>
+	<div id="tab-12" data-label="astro"><ButtonGradientSky /></div>
+	<div id="tab-13" data-label="astro"><ButtonGradientWatermelon /></div>
+	<div id="tab-14" data-label="astro"><ButtonGradientLemon /></div>
+	<div id="tab-15" data-label="astro"><ButtonGradientGrape /></div>
+	<div id="tab-16" data-label="astro"><ButtonGradientMango /></div>
+	<div id="tab-17" data-label="astro"><ButtonGradientForest /></div>
+	<div id="tab-18" data-label="astro"><ButtonGradientOcean /></div>
+	<div id="tab-19" data-label="astro"><ButtonGradientSunset /></div>
+	<div id="tab-20" data-label="astro"><ButtonGradientFlower /></div>
+	<div id="tab-21" data-label="astro"><ButtonGradientPitaya /></div>
+	<div id="tab-22" data-label="astro"><ButtonGradientBanana /></div>
+	<div id="tab-23" data-label="astro"><ButtonGradientBlueberry /></div>
+	<div id="tab-24" data-label="astro"><ButtonGradientKiwi /></div>
+	<div id="tab-25" data-label="vue"><ButtonPrimaryVue /></div>
+	<div id="tab-26" data-label="vue"><ButtonSecondaryVue /></div>
+	<div id="tab-27" data-label="vue"><ButtonAccentVue /></div>
+	<div id="tab-28" data-label="vue"><ButtonInfoVue /></div>
+	<div id="tab-29" data-label="vue"><ButtonSuccessVue /></div>
+	<div id="tab-30" data-label="vue"><ButtonWarningVue /></div>
+	<div id="tab-31" data-label="vue"><ButtonErrorVue /></div>
+	<div id="tab-32" data-label="vue"><ButtonGhostVue /></div>
+	<div id="tab-33" data-label="vue"><ButtonLinkVue /></div>
+	<div id="tab-34" data-label="vue"><ButtonOutlineVue /></div>
+	<div id="tab-35" data-label="vue"><ButtonNeutralVue /></div>
+	<div id="tab-36" data-label="vue"><ButtonGradientSkyVue /></div>
+	<div id="tab-37" data-label="vue"><ButtonGradientWatermelonVue /></div>
+	<div id="tab-38" data-label="vue"><ButtonGradientLemonVue /></div>
+	<div id="tab-39" data-label="vue"><ButtonGradientGrapeVue /></div>
+	<div id="tab-40" data-label="vue"><ButtonGradientMangoVue /></div>
+	<div id="tab-41" data-label="vue"><ButtonGradientForestVue /></div>
+	<div id="tab-42" data-label="vue"><ButtonGradientOceanVue /></div>
+	<div id="tab-43" data-label="vue"><ButtonGradientSunsetVue /></div>
+	<div id="tab-44" data-label="vue"><ButtonGradientFlowerVue /></div>
+	<div id="tab-45" data-label="vue"><ButtonGradientPitayaVue /></div>
+	<div id="tab-46" data-label="vue"><ButtonGradientBananaVue /></div>
+	<div id="tab-47" data-label="vue"><ButtonGradientBlueberryVue /></div>
+	<div id="tab-48" data-label="vue"><ButtonGradientKiwiVue /></div>
 </CodeContainer>

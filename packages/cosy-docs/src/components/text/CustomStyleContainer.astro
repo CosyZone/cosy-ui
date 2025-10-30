@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component TextCustomStyleContainer
  * @description Text 组件自定义样式用法容器，带源码展示。
@@ -9,8 +6,15 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import CustomStyle from "./CustomStyle.astro";
 import CustomStyleSourceCode from "./CustomStyle.astro?raw";
+import TextVueCustomStyle from "./TextVueCustomStyle.vue";
+import TextVueCustomStyleRaw from "./TextVueCustomStyle.vue?raw";
 ---
 
-<CodeContainer codes={[CustomStyleSourceCode]}>
-  <CustomStyle />
+<CodeContainer codes={[CustomStyleSourceCode, TextVueCustomStyleRaw]} titles={['自定义样式', '自定义样式']}>
+  <div id="tab-1" data-label="astro">
+    <CustomStyle />
+  </div>
+  <div id="tab-2" data-label="vue">
+    <TextVueCustomStyle client:load />
+  </div>
 </CodeContainer>

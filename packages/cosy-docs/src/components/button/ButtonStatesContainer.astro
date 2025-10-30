@@ -1,34 +1,39 @@
 ---
 
-
-
 /**
  * @component ButtonStatesContainer
- * @description Button 状态示例容器组件
+ * @description 展示 Button 组件的状态（normal/loading/disabled），Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ButtonDisabledState from "./ButtonDisabledState.astro";
-import ButtonDisabledStateSourceCode from "./ButtonDisabledState.astro?raw";
-import ButtonLoadingState from "./ButtonLoadingState.astro";
-import ButtonLoadingStateSourceCode from "./ButtonLoadingState.astro?raw";
-import ButtonNormalState from "./ButtonNormalState.astro";
-import ButtonNormalStateSourceCode from "./ButtonNormalState.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonDisabledState from './ButtonDisabledState.astro';
+import ButtonDisabledStateRaw from './ButtonDisabledState.astro?raw';
+import ButtonLoadingState from './ButtonLoadingState.astro';
+import ButtonLoadingStateRaw from './ButtonLoadingState.astro?raw';
+import ButtonNormalState from './ButtonNormalState.astro';
+import ButtonNormalStateRaw from './ButtonNormalState.astro?raw';
+import ButtonDisabledStateVue from './ButtonStateDisabledVue.vue';
+import ButtonDisabledStateVueRaw from './ButtonStateDisabledVue.vue?raw';
+import ButtonLoadingStateVue from './ButtonStateLoadingVue.vue';
+import ButtonLoadingStateVueRaw from './ButtonStateLoadingVue.vue?raw';
+import ButtonNormalStateVue from './ButtonStateNormalVue.vue';
+import ButtonNormalStateVueRaw from './ButtonStateNormalVue.vue?raw';
 ---
 
 <CodeContainer
-    codes={[
-        ButtonNormalStateSourceCode,
-        ButtonDisabledStateSourceCode,
-        ButtonLoadingStateSourceCode,
-    ]}
-    titles={['正常状态', '禁用状态', '加载状态']}>
-    <div id="tab-1">
-        <ButtonNormalState />
-    </div>
-    <div id="tab-2">
-        <ButtonDisabledState />
-    </div>
-    <div id="tab-3">
-        <ButtonLoadingState />
-    </div>
+	codes={[
+		ButtonNormalStateRaw,
+		ButtonDisabledStateRaw,
+		ButtonLoadingStateRaw,
+		ButtonNormalStateVueRaw,
+		ButtonDisabledStateVueRaw,
+		ButtonLoadingStateVueRaw,
+	]}
+	titles={['normal', 'disabled', 'loading', 'normal', 'disabled', 'loading']}
+>
+	<div id="tab-1" data-label="astro"><ButtonNormalState /></div>
+	<div id="tab-2" data-label="astro"><ButtonDisabledState /></div>
+	<div id="tab-3" data-label="astro"><ButtonLoadingState /></div>
+	<div id="tab-4" data-label="vue"><ButtonNormalStateVue /></div>
+	<div id="tab-5" data-label="vue"><ButtonDisabledStateVue /></div>
+	<div id="tab-6" data-label="vue"><ButtonLoadingStateVue /></div>
 </CodeContainer>

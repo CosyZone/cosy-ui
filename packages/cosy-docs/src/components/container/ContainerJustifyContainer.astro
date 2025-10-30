@@ -1,52 +1,75 @@
 ---
-
-
-
 /**
  * @component ContainerJustifyContainer
- * @description Container 组件垂直对齐示例容器
+ * @description 展示 Container 组件的 justify 属性所有取值，Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ContainerJustifyAround from "./ContainerJustifyAround.astro";
-import sourceAround from "./ContainerJustifyAround.astro?raw";
-import ContainerJustifyBetween from "./ContainerJustifyBetween.astro";
-import sourceBetween from "./ContainerJustifyBetween.astro?raw";
-import ContainerJustifyCenter from "./ContainerJustifyCenter.astro";
-import sourceCenter from "./ContainerJustifyCenter.astro?raw";
-import ContainerJustifyEnd from "./ContainerJustifyEnd.astro";
-import sourceEnd from "./ContainerJustifyEnd.astro?raw";
-import ContainerJustifyEvenly from "./ContainerJustifyEvenly.astro";
-import sourceEvenly from "./ContainerJustifyEvenly.astro?raw";
-import ContainerJustifyStart from "./ContainerJustifyStart.astro";
-import sourceStart from "./ContainerJustifyStart.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerJustifyAround from './ContainerJustifyAround.astro';
+import ContainerJustifyAroundRaw from './ContainerJustifyAround.astro?raw';
+import ContainerJustifyAroundVue from './ContainerJustifyAroundVue.vue';
+import ContainerJustifyAroundVueRaw from './ContainerJustifyAroundVue.vue?raw';
+import ContainerJustifyBetween from './ContainerJustifyBetween.astro';
+import ContainerJustifyBetweenRaw from './ContainerJustifyBetween.astro?raw';
+import ContainerJustifyBetweenVue from './ContainerJustifyBetweenVue.vue';
+import ContainerJustifyBetweenVueRaw from './ContainerJustifyBetweenVue.vue?raw';
+import ContainerJustifyCenter from './ContainerJustifyCenter.astro';
+import ContainerJustifyCenterRaw from './ContainerJustifyCenter.astro?raw';
+import ContainerJustifyCenterVue from './ContainerJustifyCenterVue.vue';
+import ContainerJustifyCenterVueRaw from './ContainerJustifyCenterVue.vue?raw';
+import ContainerJustifyEnd from './ContainerJustifyEnd.astro';
+import ContainerJustifyEndRaw from './ContainerJustifyEnd.astro?raw';
+import ContainerJustifyEndVue from './ContainerJustifyEndVue.vue';
+import ContainerJustifyEndVueRaw from './ContainerJustifyEndVue.vue?raw';
+import ContainerJustifyEvenly from './ContainerJustifyEvenly.astro';
+import ContainerJustifyEvenlyRaw from './ContainerJustifyEvenly.astro?raw';
+import ContainerJustifyEvenlyVue from './ContainerJustifyEvenlyVue.vue';
+import ContainerJustifyEvenlyVueRaw from './ContainerJustifyEvenlyVue.vue?raw';
+import ContainerJustifyStart from './ContainerJustifyStart.astro';
+import ContainerJustifyStartRaw from './ContainerJustifyStart.astro?raw';
+import ContainerJustifyStartVue from './ContainerJustifyStartVue.vue';
+import ContainerJustifyStartVueRaw from './ContainerJustifyStartVue.vue?raw';
 ---
 
 <CodeContainer
-  codes={[
-    sourceStart,
-    sourceCenter,
-    sourceEnd,
-    sourceBetween,
-    sourceAround,
-    sourceEvenly,
-  ]}
-  titles={['start', 'center', 'end', 'between', 'around', 'evenly']}>
-  <div id="tab-1">
-    <ContainerJustifyStart />
-  </div>
-  <div id="tab-2">
-    <ContainerJustifyCenter />
-  </div>
-  <div id="tab-3">
-    <ContainerJustifyEnd />
-  </div>
-  <div id="tab-4">
-    <ContainerJustifyBetween />
-  </div>
-  <div id="tab-5">
-    <ContainerJustifyAround />
-  </div>
-  <div id="tab-6">
-    <ContainerJustifyEvenly />
-  </div>
+	codes={[
+		ContainerJustifyStartRaw,
+		ContainerJustifyCenterRaw,
+		ContainerJustifyEndRaw,
+		ContainerJustifyBetweenRaw,
+		ContainerJustifyAroundRaw,
+		ContainerJustifyEvenlyRaw,
+		ContainerJustifyStartVueRaw,
+		ContainerJustifyCenterVueRaw,
+		ContainerJustifyEndVueRaw,
+		ContainerJustifyBetweenVueRaw,
+		ContainerJustifyAroundVueRaw,
+		ContainerJustifyEvenlyVueRaw,
+	]}
+	titles={[
+		'start',
+		'center',
+		'end',
+		'between',
+		'around',
+		'evenly',
+		'start',
+		'center',
+		'end',
+		'between',
+		'around',
+		'evenly',
+	]}
+>
+	<div id="tab-1" data-label="astro"><ContainerJustifyStart /></div>
+	<div id="tab-2" data-label="astro"><ContainerJustifyCenter /></div>
+	<div id="tab-3" data-label="astro"><ContainerJustifyEnd /></div>
+	<div id="tab-4" data-label="astro"><ContainerJustifyBetween /></div>
+	<div id="tab-5" data-label="astro"><ContainerJustifyAround /></div>
+	<div id="tab-6" data-label="astro"><ContainerJustifyEvenly /></div>
+	<div id="tab-7" data-label="vue"><ContainerJustifyStartVue /></div>
+	<div id="tab-8" data-label="vue"><ContainerJustifyCenterVue /></div>
+	<div id="tab-9" data-label="vue"><ContainerJustifyEndVue /></div>
+	<div id="tab-10" data-label="vue"><ContainerJustifyBetweenVue /></div>
+	<div id="tab-11" data-label="vue"><ContainerJustifyAroundVue /></div>
+	<div id="tab-12" data-label="vue"><ContainerJustifyEvenlyVue /></div>
 </CodeContainer>

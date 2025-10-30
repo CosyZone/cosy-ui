@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component ContainerPaddingAxisContainer
  * @description Container 组件轴向内边距演示容器，展示源码和效果
@@ -9,17 +6,27 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import ContainerPaddingAxis from "./ContainerPaddingAxis.astro";
 import ContainerPaddingAxisSource from "./ContainerPaddingAxis.astro?raw";
+import ContainerPaddingAxisVue from "./ContainerPaddingAxisVue.vue";
+import ContainerPaddingAxisVueSource from "./ContainerPaddingAxisVue.vue?raw";
 import ContainerPaddingIndividual from "./ContainerPaddingIndividual.astro";
 import ContainerPaddingIndividualSource from "./ContainerPaddingIndividual.astro?raw";
+import ContainerPaddingIndividualVue from "./ContainerPaddingIndividualVue.vue";
+import ContainerPaddingIndividualVueSource from "./ContainerPaddingIndividualVue.vue?raw";
 ---
 
 <CodeContainer
-    codes={[ContainerPaddingAxisSource, ContainerPaddingIndividualSource]}
-    titles={['py + px', 'pt + pb + pl + pr']}>
-    <div id="tab-1">
+    codes={[ContainerPaddingAxisSource, ContainerPaddingIndividualSource, ContainerPaddingAxisVueSource, ContainerPaddingIndividualVueSource]}
+    titles={['py + px', 'pt + pb + pl + pr', 'py + px', 'pt + pb + pl + pr']}>
+    <div id="tab-1" data-label="astro">
         <ContainerPaddingAxis />
     </div>
-    <div id="tab-2">
+    <div id="tab-2" data-label="astro">
         <ContainerPaddingIndividual />
+    </div>
+    <div id="tab-3" data-label="vue">
+        <ContainerPaddingAxisVue />
+    </div>
+    <div id="tab-4" data-label="vue">
+        <ContainerPaddingIndividualVue />
     </div>
 </CodeContainer>

@@ -1,15 +1,24 @@
 ---
-
-
-
 import { CodeContainer } from "@coffic/cosy-ui";
+// Vue 组件导入
+import PhotoWallVueWidthFull from "./PhotoWallVueWidthFull.vue";
+import PhotoWallVueWidthFullRaw from "./PhotoWallVueWidthFull.vue?raw";
+import PhotoWallVueWidthLg from "./PhotoWallVueWidthLg.vue";
+import PhotoWallVueWidthLgRaw from "./PhotoWallVueWidthLg.vue?raw";
+import PhotoWallVueWidthMd from "./PhotoWallVueWidthMd.vue";
+import PhotoWallVueWidthMdRaw from "./PhotoWallVueWidthMd.vue?raw";
+import PhotoWallVueWidthNone from "./PhotoWallVueWidthNone.vue";
+import PhotoWallVueWidthNoneRaw from "./PhotoWallVueWidthNone.vue?raw";
+import PhotoWallVueWidthSm from "./PhotoWallVueWidthSm.vue";
+import PhotoWallVueWidthSmRaw from "./PhotoWallVueWidthSm.vue?raw";
+import PhotoWallVueWidthXl from "./PhotoWallVueWidthXl.vue";
+import PhotoWallVueWidthXlRaw from "./PhotoWallVueWidthXl.vue?raw";
 import FullExample from "./PhotoWallWidthFull.astro";
 import FullSourceCode from "./PhotoWallWidthFull.astro?raw";
 import LgExample from "./PhotoWallWidthLg.astro";
 import LgSourceCode from "./PhotoWallWidthLg.astro?raw";
 import MdExample from "./PhotoWallWidthMd.astro";
 import MdSourceCode from "./PhotoWallWidthMd.astro?raw";
-
 // 组件导入
 import NoneExample from "./PhotoWallWidthNone.astro";
 // 源码导入
@@ -28,24 +37,48 @@ import XlSourceCode from "./PhotoWallWidthXl.astro?raw";
     LgSourceCode,
     XlSourceCode,
     FullSourceCode,
+    PhotoWallVueWidthNoneRaw,
+    PhotoWallVueWidthSmRaw,
+    PhotoWallVueWidthMdRaw,
+    PhotoWallVueWidthLgRaw,
+    PhotoWallVueWidthXlRaw,
+    PhotoWallVueWidthFullRaw,
   ]}
-  titles={['none', 'sm', 'md', 'lg', 'xl', 'full']}>
-  <div id="tab-1">
+  titles={['none', 'sm', 'md', 'lg', 'xl', 'full', 'none', 'sm', 'md', 'lg', 'xl', 'full']}>
+  <div id="tab-1" data-label="astro">
     <NoneExample />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <SmExample />
   </div>
-  <div id="tab-3">
+  <div id="tab-3" data-label="astro">
     <MdExample />
   </div>
-  <div id="tab-4">
+  <div id="tab-4" data-label="astro">
     <LgExample />
   </div>
-  <div id="tab-5">
+  <div id="tab-5" data-label="astro">
     <XlExample />
   </div>
-  <div id="tab-6">
+  <div id="tab-6" data-label="astro">
     <FullExample />
+  </div>
+  <div id="tab-7" data-label="vue">
+    <PhotoWallVueWidthNone />
+  </div>
+  <div id="tab-8" data-label="vue">
+    <PhotoWallVueWidthSm />
+  </div>
+  <div id="tab-9" data-label="vue">
+    <PhotoWallVueWidthMd />
+  </div>
+  <div id="tab-10" data-label="vue">
+    <PhotoWallVueWidthLg />
+  </div>
+  <div id="tab-11" data-label="vue">
+    <PhotoWallVueWidthXl />
+  </div>
+  <div id="tab-12" data-label="vue">
+    <PhotoWallVueWidthFull />
   </div>
 </CodeContainer>

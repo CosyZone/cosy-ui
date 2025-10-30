@@ -1,7 +1,4 @@
 ---
-
-
-
 import { CodeContainer } from "@coffic/cosy-ui";
 import LongExample from "./PhotoWallTitleLong.astro";
 import LongSourceCode from "./PhotoWallTitleLong.astro?raw";
@@ -11,18 +8,34 @@ import MediumSourceCode from "./PhotoWallTitleMedium.astro?raw";
 import ShortExample from "./PhotoWallTitleShort.astro";
 // 源码导入
 import ShortSourceCode from "./PhotoWallTitleShort.astro?raw";
+// Vue 组件导入
+import PhotoWallVueTitleLong from "./PhotoWallVueTitleLong.vue";
+import PhotoWallVueTitleLongRaw from "./PhotoWallVueTitleLong.vue?raw";
+import PhotoWallVueTitleMedium from "./PhotoWallVueTitleMedium.vue";
+import PhotoWallVueTitleMediumRaw from "./PhotoWallVueTitleMedium.vue?raw";
+import PhotoWallVueTitleShort from "./PhotoWallVueTitleShort.vue";
+import PhotoWallVueTitleShortRaw from "./PhotoWallVueTitleShort.vue?raw";
 ---
 
 <CodeContainer
-  codes={[ShortSourceCode, MediumSourceCode, LongSourceCode]}
-  titles={['短标题', '中等标题', '长标题']}>
-  <div id="tab-1">
+  codes={[ShortSourceCode, MediumSourceCode, LongSourceCode, PhotoWallVueTitleShortRaw, PhotoWallVueTitleMediumRaw, PhotoWallVueTitleLongRaw]}
+  titles={['短标题', '中等标题', '长标题', '短标题', '中等标题', '长标题']}>
+  <div id="tab-1" data-label="astro">
     <ShortExample />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <MediumExample />
   </div>
-  <div id="tab-3">
+  <div id="tab-3" data-label="astro">
     <LongExample />
+  </div>
+  <div id="tab-4" data-label="vue">
+    <PhotoWallVueTitleShort />
+  </div>
+  <div id="tab-5" data-label="vue">
+    <PhotoWallVueTitleMedium />
+  </div>
+  <div id="tab-6" data-label="vue">
+    <PhotoWallVueTitleLong />
   </div>
 </CodeContainer>

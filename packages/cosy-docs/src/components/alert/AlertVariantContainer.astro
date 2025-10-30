@@ -1,0 +1,55 @@
+---
+
+/**
+ * @component AlertVariantContainer
+ * @description 多风格 variant（solid/outline/dash/soft）展示所有类型的 Alert 组件。每种风格 Astro/Vue 各占一标签。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import AlertDash from './AlertDash.astro';
+import AlertDashSource from './AlertDash.astro?raw';
+import AlertDashVue from './AlertDashVue.vue';
+import AlertDashVueSource from './AlertDashVue.vue?raw';
+import AlertOutline from './AlertOutline.astro';
+import AlertOutlineSource from './AlertOutline.astro?raw';
+import AlertOutlineVue from './AlertOutlineVue.vue';
+import AlertOutlineVueSource from './AlertOutlineVue.vue?raw';
+import AlertSoft from './AlertSoft.astro';
+import AlertSoftSource from './AlertSoft.astro?raw';
+import AlertSoftVue from './AlertSoftVue.vue';
+import AlertSoftVueSource from './AlertSoftVue.vue?raw';
+import AlertSolid from './AlertSolid.astro';
+import AlertSolidSource from './AlertSolid.astro?raw';
+import AlertSolidVue from './AlertSolidVue.vue';
+import AlertSolidVueSource from './AlertSolidVue.vue?raw';
+---
+<CodeContainer
+    codes={[ 
+        AlertSolidSource,
+        AlertSolidVueSource,
+        AlertOutlineSource,
+        AlertOutlineVueSource,
+        AlertDashSource,
+        AlertDashVueSource,
+        AlertSoftSource,
+        AlertSoftVueSource,
+    ]}
+    titles={[ 
+        'solid',
+        'solid',
+        'outline',
+        'outline',
+        'dash',
+        'dash',
+        'soft',
+        'soft'
+    ]}
+>
+    <div id="tab-1" data-label="astro"><AlertSolid /></div>
+    <div id="tab-2" data-label="vue"><AlertSolidVue /></div>
+    <div id="tab-3" data-label="astro"><AlertOutline /></div>
+    <div id="tab-4" data-label="vue"><AlertOutlineVue /></div>
+    <div id="tab-5" data-label="astro"><AlertDash /></div>
+    <div id="tab-6" data-label="vue"><AlertDashVue /></div>
+    <div id="tab-7" data-label="astro"><AlertSoft /></div>
+    <div id="tab-8" data-label="vue"><AlertSoftVue /></div>
+</CodeContainer>

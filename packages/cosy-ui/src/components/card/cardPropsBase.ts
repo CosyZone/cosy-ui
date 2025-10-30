@@ -44,5 +44,5 @@ export interface ICardPropsBase {
 	/**
 	 * 卡片标题
 	 */
-	title: string;
+	title?: string;
 }

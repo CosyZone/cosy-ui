@@ -1,22 +1,21 @@
 ---
-
-
-
 import { CodeContainer, SmartIcon } from "@coffic/cosy-ui";
-import MultiKeywordsExample from "./examples/MultiKeywords.astro";
 import MultiKeywordsCode from "./examples/MultiKeywords.astro?raw";
+import MultiKeywordsVue from "./MultiKeywords.vue";
+import MultiKeywordsVueRaw from "./MultiKeywords.vue?raw";
 ---
 
 <CodeContainer
-  codes={[MultiKeywordsCode]}
-  titles={['用户 设置', '代码,编程,开发', '搜索 查找']}>
-  <div id="tab-1">
-    <SmartIcon keyword="用户 设置" size="32px" color="#8b5cf6" />
+  codes={[MultiKeywordsCode, MultiKeywordsVueRaw]}
+  titles={['多关键词', '多关键词']}>
+  <div id="tab-1" data-label="astro">
+    <div style="display: flex; gap: 1rem; align-items: center;">
+      <SmartIcon keyword="用户 设置" size="32px" color="#8b5cf6" />
+      <SmartIcon keyword="代码,编程,开发" size="32px" color="#8b5cf6" />
+      <SmartIcon keyword="搜索 查找" size="32px" color="#8b5cf6" />
+    </div>
   </div>
-  <div id="tab-2">
-    <SmartIcon keyword="代码,编程,开发" size="32px" color="#8b5cf6" />
-  </div>
-  <div id="tab-3">
-    <SmartIcon keyword="搜索 查找" size="32px" color="#8b5cf6" />
+  <div id="tab-2" data-label="vue">
+    <MultiKeywordsVue client:load />
   </div>
 </CodeContainer>

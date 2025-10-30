@@ -1,21 +1,28 @@
 ---
-
-
-
 import { CodeContainer } from "@coffic/cosy-ui";
 import ReviewMuted from "./ReviewMuted.astro";
 import ReviewMutedSourceCode from "./ReviewMuted.astro?raw";
 import ReviewNotMuted from "./ReviewNotMuted.astro";
 import ReviewNotMutedSourceCode from "./ReviewNotMuted.astro?raw";
+import ReviewVueMuted from "./ReviewVueMuted.vue";
+import ReviewVueMutedRaw from "./ReviewVueMuted.vue?raw";
+import ReviewVueNotMuted from "./ReviewVueNotMuted.vue";
+import ReviewVueNotMutedRaw from "./ReviewVueNotMuted.vue?raw";
 ---
 
 <CodeContainer
-    codes={[ReviewNotMutedSourceCode, ReviewMutedSourceCode]}
-    titles={['false', 'true']}>
-    <div id="tab-1">
+    codes={[ReviewNotMutedSourceCode, ReviewMutedSourceCode, ReviewVueNotMutedRaw, ReviewVueMutedRaw]}
+    titles={['false', 'true', 'false', 'true']}>
+    <div id="tab-1" data-label="astro">
         <ReviewNotMuted />
     </div>
-    <div id="tab-2">
+    <div id="tab-2" data-label="astro">
         <ReviewMuted />
+    </div>
+    <div id="tab-3" data-label="vue">
+        <ReviewVueNotMuted />
+    </div>
+    <div id="tab-4" data-label="vue">
+        <ReviewVueMuted />
     </div>
 </CodeContainer>

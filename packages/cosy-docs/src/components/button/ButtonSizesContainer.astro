@@ -1,40 +1,46 @@
 ---
-
-
-
 /**
  * @component ButtonSizesContainer
- * @description Button 尺寸示例容器组件
+ * @description 展示 Button 组件的 size 属性所有取值，Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ButtonSizeLg from "./ButtonSizeLg.astro";
-import ButtonSizeLgSourceCode from "./ButtonSizeLg.astro?raw";
-import ButtonSizeMd from "./ButtonSizeMd.astro";
-import ButtonSizeMdSourceCode from "./ButtonSizeMd.astro?raw";
-import ButtonSizeSm from "./ButtonSizeSm.astro";
-import ButtonSizeSmSourceCode from "./ButtonSizeSm.astro?raw";
-import ButtonSizeXs from "./ButtonSizeXs.astro";
-import ButtonSizeXsSourceCode from "./ButtonSizeXs.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonSizeLg from './ButtonSizeLg.astro';
+import ButtonSizeLgRaw from './ButtonSizeLg.astro?raw';
+import ButtonSizeLgVue from './ButtonSizeLgVue.vue';
+import ButtonSizeLgVueRaw from './ButtonSizeLgVue.vue?raw';
+import ButtonSizeMd from './ButtonSizeMd.astro';
+import ButtonSizeMdRaw from './ButtonSizeMd.astro?raw';
+import ButtonSizeMdVue from './ButtonSizeMdVue.vue';
+import ButtonSizeMdVueRaw from './ButtonSizeMdVue.vue?raw';
+import ButtonSizeSm from './ButtonSizeSm.astro';
+import ButtonSizeSmRaw from './ButtonSizeSm.astro?raw';
+import ButtonSizeSmVue from './ButtonSizeSmVue.vue';
+import ButtonSizeSmVueRaw from './ButtonSizeSmVue.vue?raw';
+import ButtonSizeXs from './ButtonSizeXs.astro';
+import ButtonSizeXsRaw from './ButtonSizeXs.astro?raw';
+import ButtonSizeXsVue from './ButtonSizeXsVue.vue';
+import ButtonSizeXsVueRaw from './ButtonSizeXsVue.vue?raw';
 ---
 
 <CodeContainer
-    codes={[
-        ButtonSizeXsSourceCode,
-        ButtonSizeSmSourceCode,
-        ButtonSizeMdSourceCode,
-        ButtonSizeLgSourceCode,
-    ]}
-    titles={['超小 (xs)', '小型 (sm)', '中型 (md)', '大型 (lg)']}>
-    <div id="tab-1">
-        <ButtonSizeXs />
-    </div>
-    <div id="tab-2">
-        <ButtonSizeSm />
-    </div>
-    <div id="tab-3">
-        <ButtonSizeMd />
-    </div>
-    <div id="tab-4">
-        <ButtonSizeLg />
-    </div>
+	codes={[
+		ButtonSizeXsRaw,
+		ButtonSizeSmRaw,
+		ButtonSizeMdRaw,
+		ButtonSizeLgRaw,
+		ButtonSizeXsVueRaw,
+		ButtonSizeSmVueRaw,
+		ButtonSizeMdVueRaw,
+		ButtonSizeLgVueRaw,
+	]}
+	titles={['xs', 'sm', 'md', 'lg', 'xs', 'sm', 'md', 'lg']}
+>
+	<div id="tab-1" data-label="astro"><ButtonSizeXs /></div>
+	<div id="tab-2" data-label="astro"><ButtonSizeSm /></div>
+	<div id="tab-3" data-label="astro"><ButtonSizeMd /></div>
+	<div id="tab-4" data-label="astro"><ButtonSizeLg /></div>
+	<div id="tab-5" data-label="vue"><ButtonSizeXsVue /></div>
+	<div id="tab-6" data-label="vue"><ButtonSizeSmVue /></div>
+	<div id="tab-7" data-label="vue"><ButtonSizeMdVue /></div>
+	<div id="tab-8" data-label="vue"><ButtonSizeLgVue /></div>
 </CodeContainer>

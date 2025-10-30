@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component MacWindow.WithSidebarContainer
  *
@@ -11,10 +8,15 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import WithSidebar from "./WithSidebar.astro";
 import WithSidebarSourceCode from "./WithSidebar.astro?raw";
+import WithSidebarVue from "./WithSidebar.vue";
+import WithSidebarVueSourceCode from "./WithSidebar.vue?raw";
 ---
 
-<CodeContainer codes={[WithSidebarSourceCode]} titles={['侧边栏']}>
-  <div id="tab-1">
+<CodeContainer codes={[WithSidebarSourceCode, WithSidebarVueSourceCode]} titles={['侧边栏', '侧边栏']}>
+  <div id="tab-1" data-label="astro">
     <WithSidebar />
+  </div>
+  <div id="tab-2" data-label="vue">
+    <WithSidebarVue />
   </div>
 </CodeContainer>

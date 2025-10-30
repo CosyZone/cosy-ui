@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component HeadingMarginContainer
  * @description Heading 组件 margin 属性示例容器，展示不同的外边距。
@@ -9,14 +6,24 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import MarginLarge from "./MarginLarge.astro";
 import MarginLargeSource from "./MarginLarge.astro?raw";
+import MarginLargeVue from "./MarginLarge.vue";
+import MarginLargeVueSource from "./MarginLarge.vue?raw";
 import MarginMedium from "./MarginMedium.astro";
 import MarginMediumSource from "./MarginMedium.astro?raw";
+import MarginMediumVue from "./MarginMedium.vue";
+import MarginMediumVueSource from "./MarginMedium.vue?raw";
 import MarginNone from "./MarginNone.astro";
 import MarginNoneSource from "./MarginNone.astro?raw";
+import MarginNoneVue from "./MarginNone.vue";
+import MarginNoneVueSource from "./MarginNone.vue?raw";
 import MarginSmall from "./MarginSmall.astro";
 import MarginSmallSource from "./MarginSmall.astro?raw";
+import MarginSmallVue from "./MarginSmall.vue";
+import MarginSmallVueSource from "./MarginSmall.vue?raw";
 import MarginXLarge from "./MarginXLarge.astro";
 import MarginXLargeSource from "./MarginXLarge.astro?raw";
+import MarginXLargeVue from "./MarginXLarge.vue";
+import MarginXLargeVueSource from "./MarginXLarge.vue?raw";
 ---
 
 <CodeContainer
@@ -26,21 +33,41 @@ import MarginXLargeSource from "./MarginXLarge.astro?raw";
     MarginMediumSource,
     MarginLargeSource,
     MarginXLargeSource,
+    MarginNoneVueSource,
+    MarginSmallVueSource,
+    MarginMediumVueSource,
+    MarginLargeVueSource,
+    MarginXLargeVueSource,
   ]}
-  titles={['无外边距', '小外边距', '中等外边距', '大外边距', '超大外边距']}>
-  <div id="tab-1">
+  titles={['无外边距', '小外边距', '中等外边距', '大外边距', '超大外边距', '无外边距', '小外边距', '中等外边距', '大外边距', '超大外边距']}>
+  <div id="tab-1" data-label="astro">
     <MarginNone />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <MarginSmall />
   </div>
-  <div id="tab-3">
+  <div id="tab-3" data-label="astro">
     <MarginMedium />
   </div>
-  <div id="tab-4">
+  <div id="tab-4" data-label="astro">
     <MarginLarge />
   </div>
-  <div id="tab-5">
+  <div id="tab-5" data-label="astro">
     <MarginXLarge />
+  </div>
+  <div id="tab-6" data-label="vue">
+    <MarginNoneVue />
+  </div>
+  <div id="tab-7" data-label="vue">
+    <MarginSmallVue />
+  </div>
+  <div id="tab-8" data-label="vue">
+    <MarginMediumVue />
+  </div>
+  <div id="tab-9" data-label="vue">
+    <MarginLargeVue />
+  </div>
+  <div id="tab-10" data-label="vue">
+    <MarginXLargeVue />
   </div>
 </CodeContainer>

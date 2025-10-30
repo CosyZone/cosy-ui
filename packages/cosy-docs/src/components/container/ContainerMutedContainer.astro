@@ -1,19 +1,16 @@
 ---
-
-
-
 /**
- * @component Container Muted Container
- * @description Container 组件 muted 属性容器组件
+ * @component ContainerMutedContainer
+ * @description 展示 Container 组件的 muted 属性用法，Astro/Vue 各自独立标签展示。
  */
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import ContainerMuted from "./ContainerMuted.astro";
-import ContainerMutedSourceCode from "./ContainerMuted.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerMuted from './ContainerMuted.astro';
+import ContainerMutedRaw from './ContainerMuted.astro?raw';
+import ContainerMutedVue from './ContainerMutedVue.vue';
+import ContainerMutedVueRaw from './ContainerMutedVue.vue?raw';
 ---
 
-<CodeContainer codes={[ContainerMutedSourceCode]} titles={['muted']}>
-    <div id="tab-1">
-        <ContainerMuted />
-    </div>
+<CodeContainer codes={[ContainerMutedRaw, ContainerMutedVueRaw]} titles={['muted', 'muted']}>
+	<div id="tab-1" data-label="astro"><ContainerMuted /></div>
+	<div id="tab-2" data-label="vue"><ContainerMutedVue /></div>
 </CodeContainer>

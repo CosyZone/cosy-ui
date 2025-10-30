@@ -1,0 +1,20 @@
+---
+import { CodeContainer } from "@coffic/cosy-ui";
+import IconShowcaseAstro from "./IconShowcase.astro";
+import IconShowcaseAstroRaw from "./IconShowcase.astro?raw";
+import IconShowcaseVue from "./IconShowcase.vue";
+import IconShowcaseVueRaw from "./IconShowcase.vue?raw";
+---
+
+<CodeContainer
+  codes={[IconShowcaseAstroRaw, IconShowcaseVueRaw]}
+  titles={['all', 'all']}>
+  <div id="tab-1" data-label="astro">
+    <IconShowcaseAstro />
+  </div>
+  <div id="tab-2" data-label="vue">
+    <IconShowcaseVue />
+  </div>
+</CodeContainer>
+
+

@@ -1,0 +1,30 @@
+---
+/**
+ * @component CasesContainer
+ * @description 展示 PlaceHolder 组件的基础案例，Astro/Vue 各一个标签。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+
+import Cases from './Cases.astro';
+import CasesRaw from './Cases.astro?raw';
+import PlaceholderVueCases from './PlaceholderVueCases.vue';
+import PlaceholderVueCasesRaw from './PlaceholderVueCases.vue?raw';
+---
+
+<CodeContainer
+    codes={[
+        CasesRaw,
+        PlaceholderVueCasesRaw
+    ]}
+    titles={[
+        '基础案例',
+        '基础案例'
+    ]}
+>
+    <div id="tab-1" data-label="astro">
+        <Cases />
+    </div>
+    <div id="tab-2" data-label="vue">
+        <PlaceholderVueCases />
+    </div>
+</CodeContainer>

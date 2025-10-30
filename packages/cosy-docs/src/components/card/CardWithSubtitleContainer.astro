@@ -1,30 +1,35 @@
 ---
 
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import CardWithSubtitle from "./CardWithSubtitle.astro";
-import CardWithSubtitleSourceCode from "./CardWithSubtitle.astro?raw";
-import CardWithSubtitle2 from "./CardWithSubtitle2.astro";
-import CardWithSubtitle2SourceCode from "./CardWithSubtitle2.astro?raw";
-import CardWithSubtitle3 from "./CardWithSubtitle3.astro";
-import CardWithSubtitle3SourceCode from "./CardWithSubtitle3.astro?raw";
+/**
+ * @component CardWithSubtitleContainer
+ * @description 展示 Card 组件的 subtitle 属性用法，Astro/Vue 各自独立标签展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import CardWithSubtitle from './CardWithSubtitle.astro';
+import CardWithSubtitleRaw from './CardWithSubtitle.astro?raw';
+import CardWithSubtitle2 from './CardWithSubtitle2.astro';
+import CardWithSubtitle2Raw from './CardWithSubtitle2.astro?raw';
+import CardWithSubtitle3 from './CardWithSubtitle3.astro';
+import CardWithSubtitle3Raw from './CardWithSubtitle3.astro?raw';
+import CardWithSubtitleVue from './CardWithSubtitleVue.vue';
+import CardWithSubtitleVueRaw from './CardWithSubtitleVue.vue?raw';
 ---
 
 <CodeContainer
-  codes={[
-    CardWithSubtitleSourceCode,
-    CardWithSubtitle2SourceCode,
-    CardWithSubtitle3SourceCode,
-  ]}
-  titles={['基础副标题', '副标题链接', '副标题紧凑']}>
-  <div id="tab-1">
-    <CardWithSubtitle />
-  </div>
-  <div id="tab-2">
-    <CardWithSubtitle2 />
-  </div>
-  <div id="tab-3">
-    <CardWithSubtitle3 />
-  </div>
+	codes={[
+		CardWithSubtitleRaw,
+		CardWithSubtitle2Raw,
+		CardWithSubtitle3Raw,
+		CardWithSubtitleVueRaw,
+		CardWithSubtitleVueRaw,
+		CardWithSubtitleVueRaw,
+	]}
+	titles={['基础副标题', '副标题链接', '副标题紧凑', '基础副标题', '副标题链接', '副标题紧凑']}
+>
+	<div id="tab-1" data-label="astro"><CardWithSubtitle /></div>
+	<div id="tab-2" data-label="astro"><CardWithSubtitle2 /></div>
+	<div id="tab-3" data-label="astro"><CardWithSubtitle3 /></div>
+	<div id="tab-4" data-label="vue"><CardWithSubtitleVue /></div>
+	<div id="tab-5" data-label="vue"><CardWithSubtitleVue /></div>
+	<div id="tab-6" data-label="vue"><CardWithSubtitleVue /></div>
 </CodeContainer>

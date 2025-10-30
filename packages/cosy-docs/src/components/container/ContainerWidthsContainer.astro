@@ -1,33 +1,63 @@
 ---
 
-
-
 /**
  * @component ContainerWidthsContainer
- * @description Container 组件宽度多标签演示容器
+ * @description 展示 Container 组件的 width 属性所有取值，Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ContainerWidthFull from "./ContainerWidthFull.astro";
-import sourceFull from "./ContainerWidthFull.astro?raw";
-import ContainerWidthLg from "./ContainerWidthLg.astro";
-import sourceLg from "./ContainerWidthLg.astro?raw";
-import ContainerWidthMd from "./ContainerWidthMd.astro";
-import sourceMd from "./ContainerWidthMd.astro?raw";
-import ContainerWidthSm from "./ContainerWidthSm.astro";
-import sourceSm from "./ContainerWidthSm.astro?raw";
-import ContainerWidthXl from "./ContainerWidthXl.astro";
-import sourceXl from "./ContainerWidthXl.astro?raw";
-import ContainerWidthXs from "./ContainerWidthXs.astro";
-import sourceXs from "./ContainerWidthXs.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerWidthFullVue from './ContainerSizeFullVue.vue';
+import ContainerWidthFullVueRaw from './ContainerSizeFullVue.vue?raw';
+import ContainerWidthLgVue from './ContainerSizeLgVue.vue';
+import ContainerWidthLgVueRaw from './ContainerSizeLgVue.vue?raw';
+import ContainerWidthMdVue from './ContainerSizeMdVue.vue';
+import ContainerWidthMdVueRaw from './ContainerSizeMdVue.vue?raw';
+import ContainerWidthSmVue from './ContainerSizeSmVue.vue';
+import ContainerWidthSmVueRaw from './ContainerSizeSmVue.vue?raw';
+import ContainerWidthXlVue from './ContainerSizeXlVue.vue';
+import ContainerWidthXlVueRaw from './ContainerSizeXlVue.vue?raw';
+import ContainerWidthXsVue from './ContainerSizeXsVue.vue';
+import ContainerWidthXsVueRaw from './ContainerSizeXsVue.vue?raw';
+import ContainerWidthFull from './ContainerWidthFull.astro';
+import ContainerWidthFullRaw from './ContainerWidthFull.astro?raw';
+import ContainerWidthLg from './ContainerWidthLg.astro';
+import ContainerWidthLgRaw from './ContainerWidthLg.astro?raw';
+import ContainerWidthMd from './ContainerWidthMd.astro';
+import ContainerWidthMdRaw from './ContainerWidthMd.astro?raw';
+import ContainerWidthSm from './ContainerWidthSm.astro';
+import ContainerWidthSmRaw from './ContainerWidthSm.astro?raw';
+import ContainerWidthXl from './ContainerWidthXl.astro';
+import ContainerWidthXlRaw from './ContainerWidthXl.astro?raw';
+import ContainerWidthXs from './ContainerWidthXs.astro';
+import ContainerWidthXsRaw from './ContainerWidthXs.astro?raw';
 ---
 
 <CodeContainer
-  titles={['xs', 'sm', 'md', 'lg', 'xl', 'full']}
-  codes={[sourceXs, sourceSm, sourceMd, sourceLg, sourceXl, sourceFull]}>
-  <div id="tab-1"><ContainerWidthXs /></div>
-  <div id="tab-2"><ContainerWidthSm /></div>
-  <div id="tab-3"><ContainerWidthMd /></div>
-  <div id="tab-4"><ContainerWidthLg /></div>
-  <div id="tab-5"><ContainerWidthXl /></div>
-  <div id="tab-6"><ContainerWidthFull /></div>
+	codes={[
+		ContainerWidthXsRaw,
+		ContainerWidthSmRaw,
+		ContainerWidthMdRaw,
+		ContainerWidthLgRaw,
+		ContainerWidthXlRaw,
+		ContainerWidthFullRaw,
+		ContainerWidthXsVueRaw,
+		ContainerWidthSmVueRaw,
+		ContainerWidthMdVueRaw,
+		ContainerWidthLgVueRaw,
+		ContainerWidthXlVueRaw,
+		ContainerWidthFullVueRaw,
+	]}
+	titles={['xs', 'sm', 'md', 'lg', 'xl', 'full', 'xs', 'sm', 'md', 'lg', 'xl', 'full']}
+>
+	<div id="tab-1" data-label="astro"><ContainerWidthXs /></div>
+	<div id="tab-2" data-label="astro"><ContainerWidthSm /></div>
+	<div id="tab-3" data-label="astro"><ContainerWidthMd /></div>
+	<div id="tab-4" data-label="astro"><ContainerWidthLg /></div>
+	<div id="tab-5" data-label="astro"><ContainerWidthXl /></div>
+	<div id="tab-6" data-label="astro"><ContainerWidthFull /></div>
+	<div id="tab-7" data-label="vue"><ContainerWidthXsVue /></div>
+	<div id="tab-8" data-label="vue"><ContainerWidthSmVue /></div>
+	<div id="tab-9" data-label="vue"><ContainerWidthMdVue /></div>
+	<div id="tab-10" data-label="vue"><ContainerWidthLgVue /></div>
+	<div id="tab-11" data-label="vue"><ContainerWidthXlVue /></div>
+	<div id="tab-12" data-label="vue"><ContainerWidthFullVue /></div>
 </CodeContainer>

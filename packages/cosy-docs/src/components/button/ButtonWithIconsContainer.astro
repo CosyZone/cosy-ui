@@ -1,36 +1,38 @@
 ---
-
-
-
 /**
  * @component ButtonWithIconsContainer
- * @description Button 图标示例容器组件
+ * @description 展示 Button 组件的图标插槽用法，Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ButtonIconBoth from "./ButtonIconBoth.astro";
-import ButtonIconBothSourceCode from "./ButtonIconBoth.astro?raw";
-import ButtonIconLeft from "./ButtonIconLeft.astro";
-import ButtonIconLeftSourceCode from "./ButtonIconLeft.astro?raw";
-import ButtonIconRight from "./ButtonIconRight.astro";
-import ButtonIconRightSourceCode from "./ButtonIconRight.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonIconBoth from './ButtonIconBoth.astro';
+import ButtonIconBothRaw from './ButtonIconBoth.astro?raw';
+import ButtonIconBothVue from './ButtonIconBothVue.vue';
+import ButtonIconBothVueRaw from './ButtonIconBothVue.vue?raw';
+import ButtonIconLeft from './ButtonIconLeft.astro';
+import ButtonIconLeftRaw from './ButtonIconLeft.astro?raw';
+import ButtonIconLeftVue from './ButtonIconLeftVue.vue';
+import ButtonIconLeftVueRaw from './ButtonIconLeftVue.vue?raw';
+import ButtonIconRight from './ButtonIconRight.astro';
+import ButtonIconRightRaw from './ButtonIconRight.astro?raw';
+import ButtonIconRightVue from './ButtonIconRightVue.vue';
+import ButtonIconRightVueRaw from './ButtonIconRightVue.vue?raw';
 ---
 
 <CodeContainer
-  titles={['左侧图标', '右侧图标', '两侧图标']}
-  codes={[
-    ButtonIconLeftSourceCode,
-    ButtonIconRightSourceCode,
-    ButtonIconBothSourceCode,
-  ]}>
-  <div id="tab-1">
-    <ButtonIconLeft />
-  </div>
-
-  <div id="tab-2">
-    <ButtonIconRight />
-  </div>
-
-  <div id="tab-3">
-    <ButtonIconBoth />
-  </div>
+	codes={[
+		ButtonIconLeftRaw,
+		ButtonIconRightRaw,
+		ButtonIconBothRaw,
+		ButtonIconLeftVueRaw,
+		ButtonIconRightVueRaw,
+		ButtonIconBothVueRaw,
+	]}
+	titles={['left', 'right', 'both', 'left', 'right', 'both']}
+>
+	<div id="tab-1" data-label="astro"><ButtonIconLeft /></div>
+	<div id="tab-2" data-label="astro"><ButtonIconRight /></div>
+	<div id="tab-3" data-label="astro"><ButtonIconBoth /></div>
+	<div id="tab-4" data-label="vue"><ButtonIconLeftVue /></div>
+	<div id="tab-5" data-label="vue"><ButtonIconRightVue /></div>
+	<div id="tab-6" data-label="vue"><ButtonIconBothVue /></div>
 </CodeContainer>

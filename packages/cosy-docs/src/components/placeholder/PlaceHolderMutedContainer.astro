@@ -1,21 +1,29 @@
 ---
-
-
-
 import { CodeContainer } from "@coffic/cosy-ui";
 import PlaceHolderMuted from "./PlaceHolderMuted.astro";
 import PlaceHolderMutedSourceCode from "./PlaceHolderMuted.astro?raw";
 import PlaceHolderNotMuted from "./PlaceHolderNotMuted.astro";
 import PlaceHolderNotMutedSourceCode from "./PlaceHolderNotMuted.astro?raw";
+// Vue 组件导入
+import PlaceholderVueMuted from "./PlaceholderVueMuted.vue";
+import PlaceholderVueMutedRaw from "./PlaceholderVueMuted.vue?raw";
+import PlaceholderVueNotMuted from "./PlaceholderVueNotMuted.vue";
+import PlaceholderVueNotMutedRaw from "./PlaceholderVueNotMuted.vue?raw";
 ---
 
 <CodeContainer
-    codes={[PlaceHolderNotMutedSourceCode, PlaceHolderMutedSourceCode]}
-    titles={['false', 'true']}>
-    <div id="tab-1">
+    codes={[PlaceHolderNotMutedSourceCode, PlaceHolderMutedSourceCode, PlaceholderVueNotMutedRaw, PlaceholderVueMutedRaw]}
+    titles={['false', 'true', 'false', 'true']}>
+    <div id="tab-1" data-label="astro">
         <PlaceHolderNotMuted />
     </div>
-    <div id="tab-2">
+    <div id="tab-2" data-label="astro">
         <PlaceHolderMuted />
+    </div>
+    <div id="tab-3" data-label="vue">
+        <PlaceholderVueNotMuted />
+    </div>
+    <div id="tab-4" data-label="vue">
+        <PlaceholderVueMuted />
     </div>
 </CodeContainer>

@@ -1,9 +1,8 @@
 ---
-
-
-
 import { CodeContainer } from "@coffic/cosy-ui";
 import ProductCardBasic from "./ProductCardBasic.astro";
+import ProductCardVueBasic from "./ProductCardVueBasic.vue";
+import ProductCardVueBasicRaw from "./ProductCardVueBasic.vue?raw";
 ---
 
 <CodeContainer
@@ -17,6 +16,13 @@ import ProductCardBasic from "./ProductCardBasic.astro";
   image="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500"
   href="/products/1"
 />`,
-  ]}>
-  <ProductCardBasic />
+    ProductCardVueBasicRaw,
+  ]}
+  titles={['基础用法', '基础用法']}>
+  <div id="tab-1" data-label="astro">
+    <ProductCardBasic />
+  </div>
+  <div id="tab-2" data-label="vue">
+    <ProductCardVueBasic />
+  </div>
 </CodeContainer>

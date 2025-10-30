@@ -1,40 +1,54 @@
 ---
-
-
-
 /**
  * @component ContainerGapContainer
- * @description Container 组件间距示例容器
+ * @description 展示 Container 组件的 gap 属性所有取值，Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ContainerGapLg from "./ContainerGapLg.astro";
-import sourceLg from "./ContainerGapLg.astro?raw";
-import ContainerGapMd from "./ContainerGapMd.astro";
-import sourceMd from "./ContainerGapMd.astro?raw";
-import ContainerGapNone from "./ContainerGapNone.astro";
-import sourceNone from "./ContainerGapNone.astro?raw";
-import ContainerGapSm from "./ContainerGapSm.astro";
-import sourceSm from "./ContainerGapSm.astro?raw";
-import ContainerGapXl from "./ContainerGapXl.astro";
-import sourceXl from "./ContainerGapXl.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerGapLg from './ContainerGapLg.astro';
+import ContainerGapLgRaw from './ContainerGapLg.astro?raw';
+import ContainerGapLgVue from './ContainerGapLgVue.vue';
+import ContainerGapLgVueRaw from './ContainerGapLgVue.vue?raw';
+import ContainerGapMd from './ContainerGapMd.astro';
+import ContainerGapMdRaw from './ContainerGapMd.astro?raw';
+import ContainerGapMdVue from './ContainerGapMdVue.vue';
+import ContainerGapMdVueRaw from './ContainerGapMdVue.vue?raw';
+import ContainerGapNone from './ContainerGapNone.astro';
+import ContainerGapNoneRaw from './ContainerGapNone.astro?raw';
+import ContainerGapNoneVue from './ContainerGapNoneVue.vue';
+import ContainerGapNoneVueRaw from './ContainerGapNoneVue.vue?raw';
+import ContainerGapSm from './ContainerGapSm.astro';
+import ContainerGapSmRaw from './ContainerGapSm.astro?raw';
+import ContainerGapSmVue from './ContainerGapSmVue.vue';
+import ContainerGapSmVueRaw from './ContainerGapSmVue.vue?raw';
+import ContainerGapXl from './ContainerGapXl.astro';
+import ContainerGapXlRaw from './ContainerGapXl.astro?raw';
+import ContainerGapXlVue from './ContainerGapXlVue.vue';
+import ContainerGapXlVueRaw from './ContainerGapXlVue.vue?raw';
 ---
 
 <CodeContainer
-  codes={[sourceNone, sourceSm, sourceMd, sourceLg, sourceXl]}
-  titles={['none', 'sm', 'md', 'lg', 'xl']}>
-  <div id="tab-1">
-    <ContainerGapNone />
-  </div>
-  <div id="tab-2">
-    <ContainerGapSm />
-  </div>
-  <div id="tab-3">
-    <ContainerGapMd />
-  </div>
-  <div id="tab-4">
-    <ContainerGapLg />
-  </div>
-  <div id="tab-5">
-    <ContainerGapXl />
-  </div>
+	codes={[
+		ContainerGapNoneRaw,
+		ContainerGapSmRaw,
+		ContainerGapMdRaw,
+		ContainerGapLgRaw,
+		ContainerGapXlRaw,
+		ContainerGapNoneVueRaw,
+		ContainerGapSmVueRaw,
+		ContainerGapMdVueRaw,
+		ContainerGapLgVueRaw,
+		ContainerGapXlVueRaw,
+	]}
+	titles={['none', 'sm', 'md', 'lg', 'xl', 'none', 'sm', 'md', 'lg', 'xl']}
+>
+	<div id="tab-1" data-label="astro"><ContainerGapNone /></div>
+	<div id="tab-2" data-label="astro"><ContainerGapSm /></div>
+	<div id="tab-3" data-label="astro"><ContainerGapMd /></div>
+	<div id="tab-4" data-label="astro"><ContainerGapLg /></div>
+	<div id="tab-5" data-label="astro"><ContainerGapXl /></div>
+	<div id="tab-6" data-label="vue"><ContainerGapNoneVue /></div>
+	<div id="tab-7" data-label="vue"><ContainerGapSmVue /></div>
+	<div id="tab-8" data-label="vue"><ContainerGapMdVue /></div>
+	<div id="tab-9" data-label="vue"><ContainerGapLgVue /></div>
+	<div id="tab-10" data-label="vue"><ContainerGapXlVue /></div>
 </CodeContainer>

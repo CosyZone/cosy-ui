@@ -1,9 +1,9 @@
 /**
- * PhotoWall Astro 组件示例导出
+ * PhotoWall 组件示例导出（支持 Astro 和 Vue）
  */
 
 import PhotoWallBackgroundContainer from "./PhotoWallBackgroundContainer.astro";
-import PhotoWallBasic from "./PhotoWallBasic.astro";
+import PhotoWallBasicContainer from "./PhotoWallBasicContainer.astro";
 import PhotoWallClickableContainer from "./PhotoWallClickableContainer.astro";
 import PhotoWallGapContainer from "./PhotoWallGapContainer.astro";
 import PhotoWallHoverContainer from "./PhotoWallHoverContainer.astro";
@@ -14,7 +14,7 @@ import PhotoWallTitleContainer from "./PhotoWallTitleContainer.astro";
 import PhotoWallWidthContainer from "./PhotoWallWidthContainer.astro";
 
 export const PhotoWallPackage = {
-	Basic: PhotoWallBasic,
+	Basic: PhotoWallBasicContainer,
 	BackgroundContainer: PhotoWallBackgroundContainer,
 	ClickableContainer: PhotoWallClickableContainer,
 	GapContainer: PhotoWallGapContainer,

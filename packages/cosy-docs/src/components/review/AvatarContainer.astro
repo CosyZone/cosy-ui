@@ -1,21 +1,23 @@
 ---
-
-
-
-import { CodeContainer, Review } from "@coffic/cosy-ui";
+import { CodeContainer } from "@coffic/cosy-ui";
 import AvatarExample from "./AvatarExample.astro";
 import AvatarExampleSourceCode from "./AvatarExample.astro?raw";
 import NoAvatarExample from "./NoAvatarExample.astro";
 import NoAvatarExampleSourceCode from "./NoAvatarExample.astro?raw";
+import ReviewVueWithAvatar from "./ReviewVueWithAvatar.vue";
+import ReviewVueWithAvatarRaw from "./ReviewVueWithAvatar.vue?raw";
 ---
 
 <CodeContainer
-  codes={[AvatarExampleSourceCode, NoAvatarExampleSourceCode]}
-  titles={['带头像', '无头像']}>
-  <div id="tab-1">
+  codes={[AvatarExampleSourceCode, NoAvatarExampleSourceCode, ReviewVueWithAvatarRaw]}
+  titles={['带头像', '无头像', '带头像']}>
+  <div id="tab-1" data-label="astro">
     <AvatarExample />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <NoAvatarExample />
+  </div>
+  <div id="tab-3" data-label="vue">
+    <ReviewVueWithAvatar />
   </div>
 </CodeContainer>

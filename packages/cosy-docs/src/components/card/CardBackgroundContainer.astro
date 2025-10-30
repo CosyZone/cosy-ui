@@ -1,62 +1,86 @@
 ---
 
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import CardBackgroundAccent from "./CardBackgroundAccent.astro";
-import CardBackgroundAccentSourceCode from "./CardBackgroundAccent.astro?raw";
-import CardBackgroundDefault from "./CardBackgroundDefault.astro";
-import CardBackgroundDefaultSourceCode from "./CardBackgroundDefault.astro?raw";
-import CardBackgroundError from "./CardBackgroundError.astro";
-import CardBackgroundErrorSourceCode from "./CardBackgroundError.astro?raw";
-import CardBackgroundPrimary from "./CardBackgroundPrimary.astro";
-import CardBackgroundPrimarySourceCode from "./CardBackgroundPrimary.astro?raw";
-import CardBackgroundPrimaryOpacity from "./CardBackgroundPrimaryOpacity.astro";
-import CardBackgroundPrimaryOpacitySourceCode from "./CardBackgroundPrimaryOpacity.astro?raw";
-import CardBackgroundSuccess from "./CardBackgroundSuccess.astro";
-import CardBackgroundSuccessSourceCode from "./CardBackgroundSuccess.astro?raw";
-import CardBackgroundWarning from "./CardBackgroundWarning.astro";
-import CardBackgroundWarningSourceCode from "./CardBackgroundWarning.astro?raw";
+/**
+ * @component CardBackgroundContainer
+ * @description 展示 Card 组件的 background 属性所有取值，Astro/Vue 各自独立标签展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import CardBackgroundAccent from './CardBackgroundAccent.astro';
+import CardBackgroundAccentRaw from './CardBackgroundAccent.astro?raw';
+import CardBackgroundAccentVue from './CardBackgroundAccentVue.vue';
+import CardBackgroundAccentVueRaw from './CardBackgroundAccentVue.vue?raw';
+import CardBackgroundDefault from './CardBackgroundDefault.astro';
+import CardBackgroundDefaultRaw from './CardBackgroundDefault.astro?raw';
+import CardBackgroundDefaultVue from './CardBackgroundDefaultVue.vue';
+import CardBackgroundDefaultVueRaw from './CardBackgroundDefaultVue.vue?raw';
+import CardBackgroundError from './CardBackgroundError.astro';
+import CardBackgroundErrorRaw from './CardBackgroundError.astro?raw';
+import CardBackgroundErrorVue from './CardBackgroundErrorVue.vue';
+import CardBackgroundErrorVueRaw from './CardBackgroundErrorVue.vue?raw';
+import CardBackgroundPrimary from './CardBackgroundPrimary.astro';
+import CardBackgroundPrimaryRaw from './CardBackgroundPrimary.astro?raw';
+import CardBackgroundPrimaryOpacity from './CardBackgroundPrimaryOpacity.astro';
+import CardBackgroundPrimaryOpacityRaw from './CardBackgroundPrimaryOpacity.astro?raw';
+import CardBackgroundPrimaryOpacityVue from './CardBackgroundPrimaryOpacityVue.vue';
+import CardBackgroundPrimaryOpacityVueRaw from './CardBackgroundPrimaryOpacityVue.vue?raw';
+import CardBackgroundPrimaryVue from './CardBackgroundPrimaryVue.vue';
+import CardBackgroundPrimaryVueRaw from './CardBackgroundPrimaryVue.vue?raw';
+import CardBackgroundSuccess from './CardBackgroundSuccess.astro';
+import CardBackgroundSuccessRaw from './CardBackgroundSuccess.astro?raw';
+import CardBackgroundSuccessVue from './CardBackgroundSuccessVue.vue';
+import CardBackgroundSuccessVueRaw from './CardBackgroundSuccessVue.vue?raw';
+import CardBackgroundWarning from './CardBackgroundWarning.astro';
+import CardBackgroundWarningRaw from './CardBackgroundWarning.astro?raw';
+import CardBackgroundWarningVue from './CardBackgroundWarningVue.vue';
+import CardBackgroundWarningVueRaw from './CardBackgroundWarningVue.vue?raw';
 ---
 
 <CodeContainer
-  codes={[
-    CardBackgroundDefaultSourceCode,
-    CardBackgroundPrimarySourceCode,
-    CardBackgroundPrimaryOpacitySourceCode,
-    CardBackgroundAccentSourceCode,
-    CardBackgroundSuccessSourceCode,
-    CardBackgroundWarningSourceCode,
-    CardBackgroundErrorSourceCode,
-  ]}
-  titles={[
-    '默认背景',
-    '主色调背景',
-    '主色调半透明',
-    '强调色背景',
-    '成功色背景',
-    '警告色背景',
-    '错误色背景',
-  ]}>
-  <div id="tab-1">
-    <CardBackgroundDefault />
-  </div>
-  <div id="tab-2">
-    <CardBackgroundPrimary />
-  </div>
-  <div id="tab-3">
-    <CardBackgroundPrimaryOpacity />
-  </div>
-  <div id="tab-4">
-    <CardBackgroundAccent />
-  </div>
-  <div id="tab-5">
-    <CardBackgroundSuccess />
-  </div>
-  <div id="tab-6">
-    <CardBackgroundWarning />
-  </div>
-  <div id="tab-7">
-    <CardBackgroundError />
-  </div>
+	codes={[
+		CardBackgroundDefaultRaw,
+		CardBackgroundPrimaryRaw,
+		CardBackgroundPrimaryOpacityRaw,
+		CardBackgroundAccentRaw,
+		CardBackgroundSuccessRaw,
+		CardBackgroundWarningRaw,
+		CardBackgroundErrorRaw,
+		CardBackgroundDefaultVueRaw,
+		CardBackgroundPrimaryVueRaw,
+		CardBackgroundPrimaryOpacityVueRaw,
+		CardBackgroundAccentVueRaw,
+		CardBackgroundSuccessVueRaw,
+		CardBackgroundWarningVueRaw,
+		CardBackgroundErrorVueRaw,
+	]}
+	titles={[
+		'default',
+		'primary',
+		'primary-opacity',
+		'accent',
+		'success',
+		'warning',
+		'error',
+		'default',
+		'primary',
+		'primary-opacity',
+		'accent',
+		'success',
+		'warning',
+		'error',
+	]}
+>
+	<div id="tab-1" data-label="astro"><CardBackgroundDefault /></div>
+	<div id="tab-2" data-label="astro"><CardBackgroundPrimary /></div>
+	<div id="tab-3" data-label="astro"><CardBackgroundPrimaryOpacity /></div>
+	<div id="tab-4" data-label="astro"><CardBackgroundAccent /></div>
+	<div id="tab-5" data-label="astro"><CardBackgroundSuccess /></div>
+	<div id="tab-6" data-label="astro"><CardBackgroundWarning /></div>
+	<div id="tab-7" data-label="astro"><CardBackgroundError /></div>
+	<div id="tab-8" data-label="vue"><CardBackgroundDefaultVue /></div>
+	<div id="tab-9" data-label="vue"><CardBackgroundPrimaryVue /></div>
+	<div id="tab-10" data-label="vue"><CardBackgroundPrimaryOpacityVue /></div>
+	<div id="tab-11" data-label="vue"><CardBackgroundAccentVue /></div>
+	<div id="tab-12" data-label="vue"><CardBackgroundSuccessVue /></div>
+	<div id="tab-13" data-label="vue"><CardBackgroundWarningVue /></div>
+	<div id="tab-14" data-label="vue"><CardBackgroundErrorVue /></div>
 </CodeContainer>

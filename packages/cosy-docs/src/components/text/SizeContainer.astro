@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component TextSizeContainer
  * @description Text 组件大小用法容器，带源码展示。
@@ -17,20 +14,24 @@ import SizeXl from "./size/SizeXl.astro";
 import SizeXlSourceCode from "./size/SizeXl.astro?raw";
 import SizeXs from "./size/SizeXs.astro";
 import SizeXsSourceCode from "./size/SizeXs.astro?raw";
+import TextVueSize from "./TextVueSize.vue";
+import TextVueSizeRaw from "./TextVueSize.vue?raw";
 ---
 
 <CodeContainer
-  titles={['xs', 'sm', 'md', 'lg', 'xl']}
+  titles={['xs', 'sm', 'md', 'lg', 'xl', '不同尺寸']}
   codes={[
     SizeXsSourceCode,
     SizeSmSourceCode,
     SizeMdSourceCode,
     SizeLgSourceCode,
     SizeXlSourceCode,
+    TextVueSizeRaw,
   ]}>
-  <div id="tab-1"><SizeXs /></div>
-  <div id="tab-2"><SizeSm /></div>
-  <div id="tab-3"><SizeMd /></div>
-  <div id="tab-4"><SizeLg /></div>
-  <div id="tab-5"><SizeXl /></div>
+  <div id="tab-1" data-label="astro"><SizeXs /></div>
+  <div id="tab-2" data-label="astro"><SizeSm /></div>
+  <div id="tab-3" data-label="astro"><SizeMd /></div>
+  <div id="tab-4" data-label="astro"><SizeLg /></div>
+  <div id="tab-5" data-label="astro"><SizeXl /></div>
+  <div id="tab-6" data-label="vue"><TextVueSize client:load /></div>
 </CodeContainer>

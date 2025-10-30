@@ -1,34 +1,38 @@
 ---
-
-
-
 /**
  * @component ButtonTypesContainer
- * @description Button 类型示例容器组件
+ * @description 展示 Button 组件的 type 属性所有取值，Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ButtonTypeButton from "./ButtonTypeButton.astro";
-import ButtonTypeButtonSourceCode from "./ButtonTypeButton.astro?raw";
-import ButtonTypeReset from "./ButtonTypeReset.astro";
-import ButtonTypeResetSourceCode from "./ButtonTypeReset.astro?raw";
-import ButtonTypeSubmit from "./ButtonTypeSubmit.astro";
-import ButtonTypeSubmitSourceCode from "./ButtonTypeSubmit.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonTypeButton from './ButtonTypeButton.astro';
+import ButtonTypeButtonRaw from './ButtonTypeButton.astro?raw';
+import ButtonTypeButtonVue from './ButtonTypeButtonVue.vue';
+import ButtonTypeButtonVueRaw from './ButtonTypeButtonVue.vue?raw';
+import ButtonTypeReset from './ButtonTypeReset.astro';
+import ButtonTypeResetRaw from './ButtonTypeReset.astro?raw';
+import ButtonTypeResetVue from './ButtonTypeResetVue.vue';
+import ButtonTypeResetVueRaw from './ButtonTypeResetVue.vue?raw';
+import ButtonTypeSubmit from './ButtonTypeSubmit.astro';
+import ButtonTypeSubmitRaw from './ButtonTypeSubmit.astro?raw';
+import ButtonTypeSubmitVue from './ButtonTypeSubmitVue.vue';
+import ButtonTypeSubmitVueRaw from './ButtonTypeSubmitVue.vue?raw';
 ---
 
 <CodeContainer
-    codes={[
-        ButtonTypeButtonSourceCode,
-        ButtonTypeSubmitSourceCode,
-        ButtonTypeResetSourceCode,
-    ]}
-    titles={['button', 'submit', 'reset']}>
-    <div id="tab-1">
-        <ButtonTypeButton />
-    </div>
-    <div id="tab-2">
-        <ButtonTypeSubmit />
-    </div>
-    <div id="tab-3">
-        <ButtonTypeReset />
-    </div>
+	codes={[
+		ButtonTypeButtonRaw,
+		ButtonTypeSubmitRaw,
+		ButtonTypeResetRaw,
+		ButtonTypeButtonVueRaw,
+		ButtonTypeSubmitVueRaw,
+		ButtonTypeResetVueRaw,
+	]}
+	titles={['button', 'submit', 'reset', 'button', 'submit', 'reset']}
+>
+	<div id="tab-1" data-label="astro"><ButtonTypeButton /></div>
+	<div id="tab-2" data-label="astro"><ButtonTypeSubmit /></div>
+	<div id="tab-3" data-label="astro"><ButtonTypeReset /></div>
+	<div id="tab-4" data-label="vue"><ButtonTypeButtonVue /></div>
+	<div id="tab-5" data-label="vue"><ButtonTypeSubmitVue /></div>
+	<div id="tab-6" data-label="vue"><ButtonTypeResetVue /></div>
 </CodeContainer>

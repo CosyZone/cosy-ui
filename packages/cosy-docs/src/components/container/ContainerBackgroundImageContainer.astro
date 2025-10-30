@@ -1,30 +1,45 @@
 ---
-
-
-
 import { CodeContainer } from "@coffic/cosy-ui";
 import ContainerBackgroundImageLocal from "./ContainerBackgroundImageLocal.astro";
 import ContainerBackgroundImageLocalSourceCode from "./ContainerBackgroundImageLocal.astro?raw";
+import ContainerBackgroundImageLocalVue from "./ContainerBackgroundImageLocalVue.vue";
+import ContainerBackgroundImageLocalVueSourceCode from "./ContainerBackgroundImageLocalVue.vue?raw";
 import ContainerBackgroundImageRemote from "./ContainerBackgroundImageRemote.astro";
 import ContainerBackgroundImageRemoteSourceCode from "./ContainerBackgroundImageRemote.astro?raw";
+import ContainerBackgroundImageRemoteVue from "./ContainerBackgroundImageRemoteVue.vue";
+import ContainerBackgroundImageRemoteVueSourceCode from "./ContainerBackgroundImageRemoteVue.vue?raw";
 import ContainerBackgroundImageStacked from "./ContainerBackgroundImageStacked.astro";
 import ContainerBackgroundImageStackedSourceCode from "./ContainerBackgroundImageStacked.astro?raw";
+import ContainerBackgroundImageStackedVue from "./ContainerBackgroundImageStackedVue.vue";
+import ContainerBackgroundImageStackedVueSourceCode from "./ContainerBackgroundImageStackedVue.vue?raw";
 ---
 
 <CodeContainer
-    titles={['远程图片', '本地图片', '两个容器堆叠']}
+    titles={['远程图片', '本地图片', '两个容器堆叠', '远程图片', '本地图片', '两个容器堆叠']}
     codes={[
         ContainerBackgroundImageRemoteSourceCode,
         ContainerBackgroundImageLocalSourceCode,
         ContainerBackgroundImageStackedSourceCode,
+        ContainerBackgroundImageRemoteVueSourceCode,
+        ContainerBackgroundImageLocalVueSourceCode,
+        ContainerBackgroundImageStackedVueSourceCode,
     ]}>
-    <div id="tab-1">
+    <div id="tab-1" data-label="astro">
         <ContainerBackgroundImageRemote />
     </div>
-    <div id="tab-2">
+    <div id="tab-2" data-label="astro">
         <ContainerBackgroundImageLocal />
     </div>
-    <div id="tab-3">
+    <div id="tab-3" data-label="astro">
         <ContainerBackgroundImageStacked />
+    </div>
+    <div id="tab-4" data-label="vue">
+        <ContainerBackgroundImageRemoteVue />
+    </div>
+    <div id="tab-5" data-label="vue">
+        <ContainerBackgroundImageLocalVue />
+    </div>
+    <div id="tab-6" data-label="vue">
+        <ContainerBackgroundImageStackedVue />
     </div>
 </CodeContainer>

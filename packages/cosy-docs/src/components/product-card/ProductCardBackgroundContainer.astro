@@ -1,7 +1,4 @@
 ---
-
-
-
 import { CodeContainer } from "@coffic/cosy-ui";
 import ProductCardBackground from "./ProductCardBackground.astro";
 import ProductCardBackgroundSourceCode from "./ProductCardBackground.astro?raw";
@@ -11,26 +8,32 @@ import ProductCardBackgroundOpacity from "./ProductCardBackgroundOpacity.astro";
 import ProductCardBackgroundOpacitySourceCode from "./ProductCardBackgroundOpacity.astro?raw";
 import ProductCardBackgroundPrimary from "./ProductCardBackgroundPrimary.astro";
 import ProductCardBackgroundPrimarySourceCode from "./ProductCardBackgroundPrimary.astro?raw";
+import ProductCardVueBackground from "./ProductCardVueBackground.vue";
+import ProductCardVueBackgroundRaw from "./ProductCardVueBackground.vue?raw";
 ---
 
 <CodeContainer
-  titles={['默认背景', '主色背景', '渐变背景', '透明度背景']}
+  titles={['默认', 'primary', 'gradient', 'opacity', '默认']}
   codes={[
     ProductCardBackgroundSourceCode,
     ProductCardBackgroundPrimarySourceCode,
     ProductCardBackgroundGradientSourceCode,
     ProductCardBackgroundOpacitySourceCode,
+    ProductCardVueBackgroundRaw,
   ]}>
-  <div id="tab-1">
+  <div id="tab-1" data-label="astro">
     <ProductCardBackground />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <ProductCardBackgroundPrimary />
   </div>
-  <div id="tab-3">
+  <div id="tab-3" data-label="astro">
     <ProductCardBackgroundGradient />
   </div>
-  <div id="tab-4">
+  <div id="tab-4" data-label="astro">
     <ProductCardBackgroundOpacity />
+  </div>
+  <div id="tab-5" data-label="vue">
+    <ProductCardVueBackground />
   </div>
 </CodeContainer>

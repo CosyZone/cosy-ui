@@ -1,14 +1,16 @@
 ---
-
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import CardBasic from "./CardBasic.astro";
-import CardBasicSourceCode from "./CardBasic.astro?raw";
+/**
+ * @component CardBasicContainer
+ * @description 展示 Card 组件的基本用法，Astro/Vue 各自独立标签展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import CardBasic from './CardBasic.astro';
+import CardBasicRaw from './CardBasic.astro?raw';
+import CardBasicVue from './CardBasicVue.vue';
+import CardBasicVueRaw from './CardBasicVue.vue?raw';
 ---
 
-<CodeContainer codes={[CardBasicSourceCode]}>
-  <div id="tab-1">
-    <CardBasic />
-  </div>
+<CodeContainer codes={[CardBasicRaw, CardBasicVueRaw]} titles={['基本用法', '基本用法']}>
+	<div id="tab-1" data-label="astro"><CardBasic /></div>
+	<div id="tab-2" data-label="vue"><CardBasicVue /></div>
 </CodeContainer>

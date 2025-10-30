@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component PlaceHolderPaddingContainer
  * @description PlaceHolder 组件内边距控制示例容器
@@ -19,10 +16,23 @@ import PlaceHolderPaddingXl from "./PlaceHolderPaddingXl.astro";
 import PlaceHolderPaddingXlSourceCode from "./PlaceHolderPaddingXl.astro?raw";
 import PlaceHolderPaddingXs from "./PlaceHolderPaddingXs.astro";
 import PlaceHolderPaddingXsSourceCode from "./PlaceHolderPaddingXs.astro?raw";
+// Vue 组件导入
+import PlaceholderVuePaddingLg from "./PlaceholderVuePaddingLg.vue";
+import PlaceholderVuePaddingLgRaw from "./PlaceholderVuePaddingLg.vue?raw";
+import PlaceholderVuePaddingMd from "./PlaceholderVuePaddingMd.vue";
+import PlaceholderVuePaddingMdRaw from "./PlaceholderVuePaddingMd.vue?raw";
+import PlaceholderVuePaddingNone from "./PlaceholderVuePaddingNone.vue";
+import PlaceholderVuePaddingNoneRaw from "./PlaceholderVuePaddingNone.vue?raw";
+import PlaceholderVuePaddingSm from "./PlaceholderVuePaddingSm.vue";
+import PlaceholderVuePaddingSmRaw from "./PlaceholderVuePaddingSm.vue?raw";
+import PlaceholderVuePaddingXl from "./PlaceholderVuePaddingXl.vue";
+import PlaceholderVuePaddingXlRaw from "./PlaceholderVuePaddingXl.vue?raw";
+import PlaceholderVuePaddingXs from "./PlaceholderVuePaddingXs.vue";
+import PlaceholderVuePaddingXsRaw from "./PlaceholderVuePaddingXs.vue?raw";
 ---
 
 <CodeContainer
-  titles={['none', 'xs', 'sm', 'md', 'lg', 'xl']}
+  titles={['none', 'xs', 'sm', 'md', 'lg', 'xl', 'none', 'xs', 'sm', 'md', 'lg', 'xl']}
   codes={[
     PlaceHolderPaddingNoneSourceCode,
     PlaceHolderPaddingXsSourceCode,
@@ -30,11 +40,23 @@ import PlaceHolderPaddingXsSourceCode from "./PlaceHolderPaddingXs.astro?raw";
     PlaceHolderPaddingMdSourceCode,
     PlaceHolderPaddingLgSourceCode,
     PlaceHolderPaddingXlSourceCode,
+    PlaceholderVuePaddingNoneRaw,
+    PlaceholderVuePaddingXsRaw,
+    PlaceholderVuePaddingSmRaw,
+    PlaceholderVuePaddingMdRaw,
+    PlaceholderVuePaddingLgRaw,
+    PlaceholderVuePaddingXlRaw,
   ]}>
-  <div id="tab-1"><PlaceHolderPaddingNone /></div>
-  <div id="tab-2"><PlaceHolderPaddingXs /></div>
-  <div id="tab-3"><PlaceHolderPaddingSm /></div>
-  <div id="tab-4"><PlaceHolderPaddingMd /></div>
-  <div id="tab-5"><PlaceHolderPaddingLg /></div>
-  <div id="tab-6"><PlaceHolderPaddingXl /></div>
+  <div id="tab-1" data-label="astro"><PlaceHolderPaddingNone /></div>
+  <div id="tab-2" data-label="astro"><PlaceHolderPaddingXs /></div>
+  <div id="tab-3" data-label="astro"><PlaceHolderPaddingSm /></div>
+  <div id="tab-4" data-label="astro"><PlaceHolderPaddingMd /></div>
+  <div id="tab-5" data-label="astro"><PlaceHolderPaddingLg /></div>
+  <div id="tab-6" data-label="astro"><PlaceHolderPaddingXl /></div>
+  <div id="tab-7" data-label="vue"><PlaceholderVuePaddingNone /></div>
+  <div id="tab-8" data-label="vue"><PlaceholderVuePaddingXs /></div>
+  <div id="tab-9" data-label="vue"><PlaceholderVuePaddingSm /></div>
+  <div id="tab-10" data-label="vue"><PlaceholderVuePaddingMd /></div>
+  <div id="tab-11" data-label="vue"><PlaceholderVuePaddingLg /></div>
+  <div id="tab-12" data-label="vue"><PlaceholderVuePaddingXl /></div>
 </CodeContainer>

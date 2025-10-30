@@ -1,42 +1,54 @@
 ---
-
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import ApplePhoneHeight2xl from "./ApplePhoneHeight2xl.astro";
-import ApplePhoneHeight2xlSourceCode from "./ApplePhoneHeight2xl.astro?raw";
-import ApplePhoneHeightLg from "./ApplePhoneHeightLg.astro";
-import ApplePhoneHeightLgSourceCode from "./ApplePhoneHeightLg.astro?raw";
-import ApplePhoneHeightMd from "./ApplePhoneHeightMd.astro";
-import ApplePhoneHeightMdSourceCode from "./ApplePhoneHeightMd.astro?raw";
-import ApplePhoneHeightSm from "./ApplePhoneHeightSm.astro";
-import ApplePhoneHeightSmSourceCode from "./ApplePhoneHeightSm.astro?raw";
-import ApplePhoneHeightXl from "./ApplePhoneHeightXl.astro";
-import ApplePhoneHeightXlSourceCode from "./ApplePhoneHeightXl.astro?raw";
+/**
+ * @component ApplePhoneHeightContainer
+ * @description 展示 ApplePhone 组件的 height 属性所有取值，Astro/Vue 各自独立标签展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ApplePhoneHeight2xl from './ApplePhoneHeight2xl.astro';
+import ApplePhoneHeight2xlRaw from './ApplePhoneHeight2xl.astro?raw';
+import ApplePhoneHeight2xlVue from './ApplePhoneHeight2xlVue.vue';
+import ApplePhoneHeight2xlVueRaw from './ApplePhoneHeight2xlVue.vue?raw';
+import ApplePhoneHeightLg from './ApplePhoneHeightLg.astro';
+import ApplePhoneHeightLgRaw from './ApplePhoneHeightLg.astro?raw';
+import ApplePhoneHeightLgVue from './ApplePhoneHeightLgVue.vue';
+import ApplePhoneHeightLgVueRaw from './ApplePhoneHeightLgVue.vue?raw';
+import ApplePhoneHeightMd from './ApplePhoneHeightMd.astro';
+import ApplePhoneHeightMdRaw from './ApplePhoneHeightMd.astro?raw';
+import ApplePhoneHeightMdVue from './ApplePhoneHeightMdVue.vue';
+import ApplePhoneHeightMdVueRaw from './ApplePhoneHeightMdVue.vue?raw';
+import ApplePhoneHeightSm from './ApplePhoneHeightSm.astro';
+import ApplePhoneHeightSmRaw from './ApplePhoneHeightSm.astro?raw';
+import ApplePhoneHeightSmVue from './ApplePhoneHeightSmVue.vue';
+import ApplePhoneHeightSmVueRaw from './ApplePhoneHeightSmVue.vue?raw';
+import ApplePhoneHeightXl from './ApplePhoneHeightXl.astro';
+import ApplePhoneHeightXlRaw from './ApplePhoneHeightXl.astro?raw';
+import ApplePhoneHeightXlVue from './ApplePhoneHeightXlVue.vue';
+import ApplePhoneHeightXlVueRaw from './ApplePhoneHeightXlVue.vue?raw';
 ---
 
 <CodeContainer
-    codes={[
-        ApplePhoneHeightSmSourceCode,
-        ApplePhoneHeightMdSourceCode,
-        ApplePhoneHeightLgSourceCode,
-        ApplePhoneHeightXlSourceCode,
-        ApplePhoneHeight2xlSourceCode,
-    ]}
-    titles={['sm', 'md', 'lg', 'xl', '2xl']}>
-    <div id="tab-1">
-        <ApplePhoneHeightSm />
-    </div>
-    <div id="tab-2">
-        <ApplePhoneHeightMd />
-    </div>
-    <div id="tab-3">
-        <ApplePhoneHeightLg />
-    </div>
-    <div id="tab-4">
-        <ApplePhoneHeightXl />
-    </div>
-    <div id="tab-5">
-        <ApplePhoneHeight2xl />
-    </div>
+	codes={[
+		ApplePhoneHeightSmRaw,
+		ApplePhoneHeightMdRaw,
+		ApplePhoneHeightLgRaw,
+		ApplePhoneHeightXlRaw,
+		ApplePhoneHeight2xlRaw,
+		ApplePhoneHeightSmVueRaw,
+		ApplePhoneHeightMdVueRaw,
+		ApplePhoneHeightLgVueRaw,
+		ApplePhoneHeightXlVueRaw,
+		ApplePhoneHeight2xlVueRaw,
+	]}
+	titles={['sm', 'md', 'lg', 'xl', '2xl', 'sm', 'md', 'lg', 'xl', '2xl']}
+>
+	<div id="tab-1" data-label="astro"><ApplePhoneHeightSm /></div>
+	<div id="tab-2" data-label="astro"><ApplePhoneHeightMd /></div>
+	<div id="tab-3" data-label="astro"><ApplePhoneHeightLg /></div>
+	<div id="tab-4" data-label="astro"><ApplePhoneHeightXl /></div>
+	<div id="tab-5" data-label="astro"><ApplePhoneHeight2xl /></div>
+	<div id="tab-6" data-label="vue"><ApplePhoneHeightSmVue /></div>
+	<div id="tab-7" data-label="vue"><ApplePhoneHeightMdVue /></div>
+	<div id="tab-8" data-label="vue"><ApplePhoneHeightLgVue /></div>
+	<div id="tab-9" data-label="vue"><ApplePhoneHeightXlVue /></div>
+	<div id="tab-10" data-label="vue"><ApplePhoneHeight2xlVue /></div>
 </CodeContainer>

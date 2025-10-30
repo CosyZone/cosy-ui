@@ -1,28 +1,30 @@
 ---
-
-
-
 /**
  * @component ButtonSlotDefaultContainer
- * @description Button Slots.default 属性示例容器组件
+ * @description 展示 Button 组件的 default slot 用法，Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ButtonSlotDefaultSimple from "./ButtonSlotDefaultSimple.astro";
-import ButtonSlotDefaultSimpleSourceCode from "./ButtonSlotDefaultSimple.astro?raw";
-import ButtonSlotDefaultWithHtml from "./ButtonSlotDefaultWithHtml.astro";
-import ButtonSlotDefaultWithHtmlSourceCode from "./ButtonSlotDefaultWithHtml.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonSlotDefaultSimple from './ButtonSlotDefaultSimple.astro';
+import ButtonSlotDefaultSimpleRaw from './ButtonSlotDefaultSimple.astro?raw';
+import ButtonSlotDefaultSimpleVue from './ButtonSlotDefaultSimpleVue.vue';
+import ButtonSlotDefaultSimpleVueRaw from './ButtonSlotDefaultSimpleVue.vue?raw';
+import ButtonSlotDefaultWithHtml from './ButtonSlotDefaultWithHtml.astro';
+import ButtonSlotDefaultWithHtmlRaw from './ButtonSlotDefaultWithHtml.astro?raw';
+import ButtonSlotDefaultWithHtmlVue from './ButtonSlotDefaultWithHtmlVue.vue';
+import ButtonSlotDefaultWithHtmlVueRaw from './ButtonSlotDefaultWithHtmlVue.vue?raw';
 ---
 
 <CodeContainer
-    codes={[
-        ButtonSlotDefaultSimpleSourceCode,
-        ButtonSlotDefaultWithHtmlSourceCode,
-    ]}
-    titles={['简单文本', 'HTML内容']}>
-    <div id="tab-1">
-        <ButtonSlotDefaultSimple />
-    </div>
-    <div id="tab-2">
-        <ButtonSlotDefaultWithHtml />
-    </div>
+	codes={[
+		ButtonSlotDefaultSimpleRaw,
+		ButtonSlotDefaultWithHtmlRaw,
+		ButtonSlotDefaultSimpleVueRaw,
+		ButtonSlotDefaultWithHtmlVueRaw,
+	]}
+	titles={['simple', 'withHtml', 'simple', 'withHtml']}
+>
+	<div id="tab-1" data-label="astro"><ButtonSlotDefaultSimple /></div>
+	<div id="tab-2" data-label="astro"><ButtonSlotDefaultWithHtml /></div>
+	<div id="tab-3" data-label="vue"><ButtonSlotDefaultSimpleVue /></div>
+	<div id="tab-4" data-label="vue"><ButtonSlotDefaultWithHtmlVue /></div>
 </CodeContainer>

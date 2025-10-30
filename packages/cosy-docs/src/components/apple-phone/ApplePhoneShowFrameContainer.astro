@@ -1,24 +1,30 @@
 ---
-
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import ApplePhoneShowFrameFalse from "./ApplePhoneShowFrameFalse.astro";
-import ApplePhoneShowFrameFalseSourceCode from "./ApplePhoneShowFrameFalse.astro?raw";
-import ApplePhoneShowFrameTrue from "./ApplePhoneShowFrameTrue.astro";
-import ApplePhoneShowFrameTrueSourceCode from "./ApplePhoneShowFrameTrue.astro?raw";
+/**
+ * @component ApplePhoneShowFrameContainer
+ * @description 展示 showFrame 为 true/false 的两种情况，Astro/Vue 各自多标签展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ApplePhoneShowFrameFalse from './ApplePhoneShowFrameFalse.astro';
+import ApplePhoneShowFrameFalseRaw from './ApplePhoneShowFrameFalse.astro?raw';
+import ApplePhoneShowFrameFalseVue from './ApplePhoneShowFrameFalseVue.vue';
+import ApplePhoneShowFrameFalseVueRaw from './ApplePhoneShowFrameFalseVue.vue?raw';
+import ApplePhoneShowFrameTrue from './ApplePhoneShowFrameTrue.astro';
+import ApplePhoneShowFrameTrueRaw from './ApplePhoneShowFrameTrue.astro?raw';
+import ApplePhoneShowFrameTrueVue from './ApplePhoneShowFrameTrueVue.vue';
+import ApplePhoneShowFrameTrueVueRaw from './ApplePhoneShowFrameTrueVue.vue?raw';
 ---
 
 <CodeContainer
-    codes={[
-        ApplePhoneShowFrameTrueSourceCode,
-        ApplePhoneShowFrameFalseSourceCode,
-    ]}
-    titles={['true', 'false']}>
-    <div id="tab-1">
-        <ApplePhoneShowFrameTrue />
-    </div>
-    <div id="tab-2">
-        <ApplePhoneShowFrameFalse />
-    </div>
+	codes={[
+		ApplePhoneShowFrameTrueRaw,
+		ApplePhoneShowFrameFalseRaw,
+		ApplePhoneShowFrameTrueVueRaw,
+		ApplePhoneShowFrameFalseVueRaw,
+	]}
+	titles={['true', 'false', 'true', 'false']}
+>
+	<div id="tab-1" data-label="astro"><ApplePhoneShowFrameTrue /></div>
+	<div id="tab-2" data-label="astro"><ApplePhoneShowFrameFalse /></div>
+	<div id="tab-3" data-label="vue"><ApplePhoneShowFrameTrueVue /></div>
+	<div id="tab-4" data-label="vue"><ApplePhoneShowFrameFalseVue /></div>
 </CodeContainer>

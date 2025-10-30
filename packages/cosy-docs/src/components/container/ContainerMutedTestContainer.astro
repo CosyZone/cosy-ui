@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component Container Muted Test Container
  * @description Container 组件 muted 属性测试容器组件
@@ -10,10 +7,15 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import ContainerMutedTest from "./ContainerMutedTest.astro";
 import ContainerMutedTestSourceCode from "./ContainerMutedTest.astro?raw";
+import ContainerMutedTestVue from "./ContainerMutedTestVue.vue";
+import ContainerMutedTestVueSourceCode from "./ContainerMutedTestVue.vue?raw";
 ---
 
-<CodeContainer codes={[ContainerMutedTestSourceCode]} titles={['muted-test']}>
-    <div id="tab-1">
+<CodeContainer codes={[ContainerMutedTestSourceCode, ContainerMutedTestVueSourceCode]} titles={['muted-test', 'muted-test']}>
+    <div id="tab-1" data-label="astro">
         <ContainerMutedTest />
+    </div>
+    <div id="tab-2" data-label="vue">
+        <ContainerMutedTestVue />
     </div>
 </CodeContainer>

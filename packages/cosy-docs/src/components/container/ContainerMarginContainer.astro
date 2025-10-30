@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component ContainerMarginContainer
  * @description Container 组件外边距多标签演示容器
@@ -9,30 +6,63 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import ContainerMargin2xl from "./ContainerMargin2xl.astro";
 import source2xl from "./ContainerMargin2xl.astro?raw";
+import ContainerMargin2xlVue from "./ContainerMargin2xlVue.vue";
+import source2xlVue from "./ContainerMargin2xlVue.vue?raw";
 import ContainerMargin3xl from "./ContainerMargin3xl.astro";
 import source3xl from "./ContainerMargin3xl.astro?raw";
+import ContainerMargin3xlVue from "./ContainerMargin3xlVue.vue";
+import source3xlVue from "./ContainerMargin3xlVue.vue?raw";
 import ContainerMargin4xl from "./ContainerMargin4xl.astro";
 import source4xl from "./ContainerMargin4xl.astro?raw";
+import ContainerMargin4xlVue from "./ContainerMargin4xlVue.vue";
+import source4xlVue from "./ContainerMargin4xlVue.vue?raw";
 import ContainerMargin5xl from "./ContainerMargin5xl.astro";
 import source5xl from "./ContainerMargin5xl.astro?raw";
+import ContainerMargin5xlVue from "./ContainerMargin5xlVue.vue";
+import source5xlVue from "./ContainerMargin5xlVue.vue?raw";
 import ContainerMargin6xl from "./ContainerMargin6xl.astro";
 import source6xl from "./ContainerMargin6xl.astro?raw";
+import ContainerMargin6xlVue from "./ContainerMargin6xlVue.vue";
+import source6xlVue from "./ContainerMargin6xlVue.vue?raw";
 import ContainerMarginLg from "./ContainerMarginLg.astro";
 import sourceLg from "./ContainerMarginLg.astro?raw";
+import ContainerMarginLgVue from "./ContainerMarginLgVue.vue";
+import sourceLgVue from "./ContainerMarginLgVue.vue?raw";
 import ContainerMarginMd from "./ContainerMarginMd.astro";
 import sourceMd from "./ContainerMarginMd.astro?raw";
+import ContainerMarginMdVue from "./ContainerMarginMdVue.vue";
+import sourceMdVue from "./ContainerMarginMdVue.vue?raw";
 import ContainerMarginNone from "./ContainerMarginNone.astro";
 import sourceNone from "./ContainerMarginNone.astro?raw";
+import ContainerMarginNoneVue from "./ContainerMarginNoneVue.vue";
+import sourceNoneVue from "./ContainerMarginNoneVue.vue?raw";
 import ContainerMarginSm from "./ContainerMarginSm.astro";
 import sourceSm from "./ContainerMarginSm.astro?raw";
+import ContainerMarginSmVue from "./ContainerMarginSmVue.vue";
+import sourceSmVue from "./ContainerMarginSmVue.vue?raw";
 import ContainerMarginXl from "./ContainerMarginXl.astro";
 import sourceXl from "./ContainerMarginXl.astro?raw";
+import ContainerMarginXlVue from "./ContainerMarginXlVue.vue";
+import sourceXlVue from "./ContainerMarginXlVue.vue?raw";
 import ContainerMarginXs from "./ContainerMarginXs.astro";
 import sourceXs from "./ContainerMarginXs.astro?raw";
+import ContainerMarginXsVue from "./ContainerMarginXsVue.vue";
+import sourceXsVue from "./ContainerMarginXsVue.vue?raw";
 ---
 
 <CodeContainer
   titles={[
+    'none',
+    'xs',
+    'sm',
+    'md',
+    'lg',
+    'xl',
+    '2xl',
+    '3xl',
+    '4xl',
+    '5xl',
+    '6xl',
     'none',
     'xs',
     'sm',
@@ -57,16 +87,38 @@ import sourceXs from "./ContainerMarginXs.astro?raw";
     source4xl,
     source5xl,
     source6xl,
+    sourceNoneVue,
+    sourceXsVue,
+    sourceSmVue,
+    sourceMdVue,
+    sourceLgVue,
+    sourceXlVue,
+    source2xlVue,
+    source3xlVue,
+    source4xlVue,
+    source5xlVue,
+    source6xlVue,
   ]}>
-  <div id="tab-1"><ContainerMarginNone /></div>
-  <div id="tab-2"><ContainerMarginXs /></div>
-  <div id="tab-3"><ContainerMarginSm /></div>
-  <div id="tab-4"><ContainerMarginMd /></div>
-  <div id="tab-5"><ContainerMarginLg /></div>
-  <div id="tab-6"><ContainerMarginXl /></div>
-  <div id="tab-7"><ContainerMargin2xl /></div>
-  <div id="tab-8"><ContainerMargin3xl /></div>
-  <div id="tab-9"><ContainerMargin4xl /></div>
-  <div id="tab-10"><ContainerMargin5xl /></div>
-  <div id="tab-11"><ContainerMargin6xl /></div>
+  <div id="tab-1" data-label="astro"><ContainerMarginNone /></div>
+  <div id="tab-2" data-label="astro"><ContainerMarginXs /></div>
+  <div id="tab-3" data-label="astro"><ContainerMarginSm /></div>
+  <div id="tab-4" data-label="astro"><ContainerMarginMd /></div>
+  <div id="tab-5" data-label="astro"><ContainerMarginLg /></div>
+  <div id="tab-6" data-label="astro"><ContainerMarginXl /></div>
+  <div id="tab-7" data-label="astro"><ContainerMargin2xl /></div>
+  <div id="tab-8" data-label="astro"><ContainerMargin3xl /></div>
+  <div id="tab-9" data-label="astro"><ContainerMargin4xl /></div>
+  <div id="tab-10" data-label="astro"><ContainerMargin5xl /></div>
+  <div id="tab-11" data-label="astro"><ContainerMargin6xl /></div>
+  <div id="tab-12" data-label="vue"><ContainerMarginNoneVue /></div>
+  <div id="tab-13" data-label="vue"><ContainerMarginXsVue /></div>
+  <div id="tab-14" data-label="vue"><ContainerMarginSmVue /></div>
+  <div id="tab-15" data-label="vue"><ContainerMarginMdVue /></div>
+  <div id="tab-16" data-label="vue"><ContainerMarginLgVue /></div>
+  <div id="tab-17" data-label="vue"><ContainerMarginXlVue /></div>
+  <div id="tab-18" data-label="vue"><ContainerMargin2xlVue /></div>
+  <div id="tab-19" data-label="vue"><ContainerMargin3xlVue /></div>
+  <div id="tab-20" data-label="vue"><ContainerMargin4xlVue /></div>
+  <div id="tab-21" data-label="vue"><ContainerMargin5xlVue /></div>
+  <div id="tab-22" data-label="vue"><ContainerMargin6xlVue /></div>
 </CodeContainer>

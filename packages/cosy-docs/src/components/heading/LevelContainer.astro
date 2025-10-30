@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component HeadingLevelContainer
  * @description Heading 组件 level 属性示例容器，展示不同级别的标题。
@@ -9,16 +6,28 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import Level1 from "./Level1.astro";
 import Level1Source from "./Level1.astro?raw";
+import Level1Vue from "./Level1.vue";
+import Level1VueSource from "./Level1.vue?raw";
 import Level2 from "./Level2.astro";
 import Level2Source from "./Level2.astro?raw";
+import Level2Vue from "./Level2.vue";
+import Level2VueSource from "./Level2.vue?raw";
 import Level3 from "./Level3.astro";
 import Level3Source from "./Level3.astro?raw";
+import Level3Vue from "./Level3.vue";
+import Level3VueSource from "./Level3.vue?raw";
 import Level4 from "./Level4.astro";
 import Level4Source from "./Level4.astro?raw";
+import Level4Vue from "./Level4.vue";
+import Level4VueSource from "./Level4.vue?raw";
 import Level5 from "./Level5.astro";
 import Level5Source from "./Level5.astro?raw";
+import Level5Vue from "./Level5.vue";
+import Level5VueSource from "./Level5.vue?raw";
 import Level6 from "./Level6.astro";
 import Level6Source from "./Level6.astro?raw";
+import Level6Vue from "./Level6.vue";
+import Level6VueSource from "./Level6.vue?raw";
 ---
 
 <CodeContainer
@@ -29,24 +38,48 @@ import Level6Source from "./Level6.astro?raw";
     Level4Source,
     Level5Source,
     Level6Source,
+    Level1VueSource,
+    Level2VueSource,
+    Level3VueSource,
+    Level4VueSource,
+    Level5VueSource,
+    Level6VueSource,
   ]}
-  titles={['一级', '二级', '三级', '四级', '五级', '六级']}>
-  <div id="tab-1">
+  titles={['一级', '二级', '三级', '四级', '五级', '六级', '一级', '二级', '三级', '四级', '五级', '六级']}>
+  <div id="tab-1" data-label="astro">
     <Level1 />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <Level2 />
   </div>
-  <div id="tab-3">
+  <div id="tab-3" data-label="astro">
     <Level3 />
   </div>
-  <div id="tab-4">
+  <div id="tab-4" data-label="astro">
     <Level4 />
   </div>
-  <div id="tab-5">
+  <div id="tab-5" data-label="astro">
     <Level5 />
   </div>
-  <div id="tab-6">
+  <div id="tab-6" data-label="astro">
     <Level6 />
+  </div>
+  <div id="tab-7" data-label="vue">
+    <Level1Vue />
+  </div>
+  <div id="tab-8" data-label="vue">
+    <Level2Vue />
+  </div>
+  <div id="tab-9" data-label="vue">
+    <Level3Vue />
+  </div>
+  <div id="tab-10" data-label="vue">
+    <Level4Vue />
+  </div>
+  <div id="tab-11" data-label="vue">
+    <Level5Vue />
+  </div>
+  <div id="tab-12" data-label="vue">
+    <Level6Vue />
   </div>
 </CodeContainer>

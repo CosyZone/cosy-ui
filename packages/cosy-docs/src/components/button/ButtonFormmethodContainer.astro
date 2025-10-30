@@ -1,28 +1,30 @@
 ---
-
-
-
 /**
  * @component ButtonFormmethodContainer
- * @description Button formmethod 属性示例容器组件
+ * @description 展示 Button 组件的 formmethod 属性用法，Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ButtonFormmethodDefault from "./ButtonFormmethodDefault.astro";
-import ButtonFormmethodDefaultSourceCode from "./ButtonFormmethodDefault.astro?raw";
-import ButtonFormmethodDialog from "./ButtonFormmethodDialog.astro";
-import ButtonFormmethodDialogSourceCode from "./ButtonFormmethodDialog.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonFormmethodDefault from './ButtonFormmethodDefault.astro';
+import ButtonFormmethodDefaultRaw from './ButtonFormmethodDefault.astro?raw';
+import ButtonFormmethodDefaultVue from './ButtonFormmethodDefaultVue.vue';
+import ButtonFormmethodDefaultVueRaw from './ButtonFormmethodDefaultVue.vue?raw';
+import ButtonFormmethodDialog from './ButtonFormmethodDialog.astro';
+import ButtonFormmethodDialogRaw from './ButtonFormmethodDialog.astro?raw';
+import ButtonFormmethodDialogVue from './ButtonFormmethodDialogVue.vue';
+import ButtonFormmethodDialogVueRaw from './ButtonFormmethodDialogVue.vue?raw';
 ---
 
 <CodeContainer
-    codes={[
-        ButtonFormmethodDefaultSourceCode,
-        ButtonFormmethodDialogSourceCode,
-    ]}
-    titles={['默认方法', '对话框方法']}>
-    <div id="tab-1">
-        <ButtonFormmethodDefault />
-    </div>
-    <div id="tab-2">
-        <ButtonFormmethodDialog />
-    </div>
+	codes={[
+		ButtonFormmethodDefaultRaw,
+		ButtonFormmethodDialogRaw,
+		ButtonFormmethodDefaultVueRaw,
+		ButtonFormmethodDialogVueRaw,
+	]}
+	titles={['default', 'dialog', 'default', 'dialog']}
+>
+	<div id="tab-1" data-label="astro"><ButtonFormmethodDefault /></div>
+	<div id="tab-2" data-label="astro"><ButtonFormmethodDialog /></div>
+	<div id="tab-3" data-label="vue"><ButtonFormmethodDefaultVue /></div>
+	<div id="tab-4" data-label="vue"><ButtonFormmethodDialogVue /></div>
 </CodeContainer>

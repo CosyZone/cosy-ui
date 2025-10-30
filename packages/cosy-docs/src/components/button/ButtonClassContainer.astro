@@ -1,25 +1,30 @@
 ---
-
-
-
 /**
  * @component ButtonClassContainer
- * @description Button class 属性示例容器组件
+ * @description 展示 Button 组件的 class 属性用法，Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ButtonClassCustom from "./ButtonClassCustom.astro";
-import ButtonClassCustomSourceCode from "./ButtonClassCustom.astro?raw";
-import ButtonClassDefault from "./ButtonClassDefault.astro";
-import ButtonClassDefaultSourceCode from "./ButtonClassDefault.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ButtonClassCustom from './ButtonClassCustom.astro';
+import ButtonClassCustomRaw from './ButtonClassCustom.astro?raw';
+import ButtonClassCustomVue from './ButtonClassCustomVue.vue';
+import ButtonClassCustomVueRaw from './ButtonClassCustomVue.vue?raw';
+import ButtonClassDefault from './ButtonClassDefault.astro';
+import ButtonClassDefaultRaw from './ButtonClassDefault.astro?raw';
+import ButtonClassDefaultVue from './ButtonClassDefaultVue.vue';
+import ButtonClassDefaultVueRaw from './ButtonClassDefaultVue.vue?raw';
 ---
 
 <CodeContainer
-    codes={[ButtonClassDefaultSourceCode, ButtonClassCustomSourceCode]}
-    titles={['默认样式', '自定义样式']}>
-    <div id="tab-1">
-        <ButtonClassDefault />
-    </div>
-    <div id="tab-2">
-        <ButtonClassCustom />
-    </div>
+	codes={[
+		ButtonClassDefaultRaw,
+		ButtonClassCustomRaw,
+		ButtonClassDefaultVueRaw,
+		ButtonClassCustomVueRaw,
+	]}
+	titles={['default', 'custom', 'default', 'custom']}
+>
+	<div id="tab-1" data-label="astro"><ButtonClassDefault /></div>
+	<div id="tab-2" data-label="astro"><ButtonClassCustom /></div>
+	<div id="tab-3" data-label="vue"><ButtonClassDefaultVue /></div>
+	<div id="tab-4" data-label="vue"><ButtonClassCustomVue /></div>
 </CodeContainer>

@@ -1,18 +1,16 @@
 ---
-
-
-
 /**
  * @component ContainerBasicContainer
- * @description Container 基础用法示例容器（仅保留基础用法）
+ * @description 展示 Container 组件的基本用法，Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ContainerBasic from "./ContainerBasic.astro";
-import ContainerBasicSource from "./ContainerBasic.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerBasic from './ContainerBasic.astro';
+import ContainerBasicRaw from './ContainerBasic.astro?raw';
+import ContainerBasicVue from './ContainerBasicVue.vue';
+import ContainerBasicVueRaw from './ContainerBasicVue.vue?raw';
 ---
 
-<CodeContainer titles={['基础用法']} codes={[ContainerBasicSource]}>
-    <div id="tab-1">
-        <ContainerBasic />
-    </div>
+<CodeContainer codes={[ContainerBasicRaw, ContainerBasicVueRaw]} titles={['基本用法', '基本用法']}>
+	<div id="tab-1" data-label="astro"><ContainerBasic /></div>
+	<div id="tab-2" data-label="vue"><ContainerBasicVue /></div>
 </CodeContainer>

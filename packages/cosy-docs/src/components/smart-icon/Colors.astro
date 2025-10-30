@@ -1,25 +1,22 @@
 ---
-
-
-
 import { CodeContainer, SmartIcon } from "@coffic/cosy-ui";
-import ColorsExample from "./examples/Colors.astro";
+import ColorsVue from "./Colors.vue";
+import ColorsVueRaw from "./Colors.vue?raw";
 import ColorsCode from "./examples/Colors.astro?raw";
 ---
 
 <CodeContainer
-  codes={[ColorsCode]}
-  titles={['#8b5cf6', '#3b82f6', '#10b981', '#f59e0b']}>
-  <div id="tab-1">
-    <SmartIcon keyword="用户" size="24px" color="#8b5cf6" />
+  codes={[ColorsCode, ColorsVueRaw]}
+  titles={['多种颜色', '多种颜色']}>
+  <div id="tab-1" data-label="astro">
+    <div style="display: flex; gap: 1rem; align-items: center;">
+      <SmartIcon keyword="用户" size="24px" color="#8b5cf6" />
+      <SmartIcon keyword="用户" size="24px" color="#3b82f6" />
+      <SmartIcon keyword="用户" size="24px" color="#10b981" />
+      <SmartIcon keyword="用户" size="24px" color="#f59e0b" />
+    </div>
   </div>
-  <div id="tab-2">
-    <SmartIcon keyword="用户" size="24px" color="#3b82f6" />
-  </div>
-  <div id="tab-3">
-    <SmartIcon keyword="用户" size="24px" color="#10b981" />
-  </div>
-  <div id="tab-4">
-    <SmartIcon keyword="用户" size="24px" color="#f59e0b" />
+  <div id="tab-2" data-label="vue">
+    <ColorsVue client:load />
   </div>
 </CodeContainer>

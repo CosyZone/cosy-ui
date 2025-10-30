@@ -1,87 +1,65 @@
 ---
 
-
-
 /**
- * @component EAlertMarginYContainer
- * @description 展示 Alert 组件的垂直外边距功能的容器组件。
+ * @component AlertMarginYContainer
+ * @description 展示 Alert 组件的 marginY 属性所有典型值，两端所有变体都单独标签演示
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import AlertMarginYLg from './AlertMarginYLg.astro';
-import AlertMarginYLgSource from './AlertMarginYLg.astro?raw';
-import AlertMarginYLgFactory from './AlertMarginYLgFactory.astro';
-import AlertMarginYLgFactorySource from './AlertMarginYLgFactory.astro?raw';
-import AlertMarginYMd from './AlertMarginYMd.astro';
-import AlertMarginYMdSource from './AlertMarginYMd.astro?raw';
-import AlertMarginYMdFactory from './AlertMarginYMdFactory.astro';
-import AlertMarginYMdFactorySource from './AlertMarginYMdFactory.astro?raw';
-import AlertMarginYSm from './AlertMarginYSm.astro';
-import AlertMarginYSmSource from './AlertMarginYSm.astro?raw';
-import AlertMarginYSmFactory from './AlertMarginYSmFactory.astro';
-import AlertMarginYSmFactorySource from './AlertMarginYSmFactory.astro?raw';
-import AlertMarginYXl from './AlertMarginYXl.astro';
-import AlertMarginYXlSource from './AlertMarginYXl.astro?raw';
-import AlertMarginYXlFactory from './AlertMarginYXlFactory.astro';
-import AlertMarginYXlFactorySource from './AlertMarginYXlFactory.astro?raw';
-import AlertMarginYXs from './AlertMarginYXs.astro';
-import AlertMarginYXsSource from './AlertMarginYXs.astro?raw';
-import AlertMarginYXsFactory from './AlertMarginYXsFactory.astro';
-import AlertMarginYXsFactorySource from './AlertMarginYXsFactory.astro?raw';
+import AlertMarginYLG from './AlertMarginYLG.astro';
+import AlertMarginYLGRaw from './AlertMarginYLG.astro?raw';
+import AlertMarginYLGVue from './AlertMarginYLGVue.vue';
+import AlertMarginYLGVueRaw from './AlertMarginYLGVue.vue?raw';
+import AlertMarginYMD from './AlertMarginYMD.astro';
+import AlertMarginYMDRaw from './AlertMarginYMD.astro?raw';
+import AlertMarginYMDVue from './AlertMarginYMDVue.vue';
+import AlertMarginYMDVueRaw from './AlertMarginYMDVue.vue?raw';
+import AlertMarginYSM from './AlertMarginYSM.astro';
+import AlertMarginYSMRaw from './AlertMarginYSM.astro?raw';
+import AlertMarginYSMVue from './AlertMarginYSMVue.vue';
+import AlertMarginYSMVueRaw from './AlertMarginYSMVue.vue?raw';
+import AlertMarginYXL from './AlertMarginYXL.astro';
+import AlertMarginYXLRaw from './AlertMarginYXL.astro?raw';
+import AlertMarginYXLVue from './AlertMarginYXLVue.vue';
+import AlertMarginYXLVueRaw from './AlertMarginYXLVue.vue?raw';
+import AlertMarginYXS from './AlertMarginYXS.astro';
+import AlertMarginYXSRaw from './AlertMarginYXS.astro?raw';
+import AlertMarginYXSVue from './AlertMarginYXSVue.vue';
+import AlertMarginYXSVueRaw from './AlertMarginYXSVue.vue?raw';
 ---
-
 <CodeContainer
-    titles={[
+    codes={[ 
+        AlertMarginYXSRaw,
+        AlertMarginYSMRaw,
+        AlertMarginYMDRaw,
+        AlertMarginYLGRaw,
+        AlertMarginYXLRaw,
+        AlertMarginYXSVueRaw,
+        AlertMarginYSMVueRaw,
+        AlertMarginYMDVueRaw,
+        AlertMarginYLGVueRaw,
+        AlertMarginYXLVueRaw
+    ]}
+    titles={[ 
         'xs',
         'sm',
         'md',
         'lg',
         'xl',
-        'xs Factory',
-        'sm Factory',
-        'md Factory',
-        'lg Factory',
-        'xl Factory',
+        'xs',
+        'sm',
+        'md',
+        'lg',
+        'xl'
     ]}
-    codes={[
-        AlertMarginYXsSource,
-        AlertMarginYSmSource,
-        AlertMarginYMdSource,
-        AlertMarginYLgSource,
-        AlertMarginYXlSource,
-        AlertMarginYXsFactorySource,
-        AlertMarginYSmFactorySource,
-        AlertMarginYMdFactorySource,
-        AlertMarginYLgFactorySource,
-        AlertMarginYXlFactorySource,
-    ]}>
-    <div id="tab-1" data-label="传统写法">
-        <AlertMarginYXs />
-    </div>
-    <div id="tab-2" data-label="传统写法">
-        <AlertMarginYSm />
-    </div>
-    <div id="tab-3" data-label="传统写法">
-        <AlertMarginYMd />
-    </div>
-    <div id="tab-4" data-label="传统写法">
-        <AlertMarginYLg />
-    </div>
-    <div id="tab-5" data-label="传统写法">
-        <AlertMarginYXl />
-    </div>
-    <div id="tab-6" data-label="Factory 写法">
-        <AlertMarginYXsFactory />
-    </div>
-    <div id="tab-7" data-label="Factory 写法">
-        <AlertMarginYSmFactory />
-    </div>
-    <div id="tab-8" data-label="Factory 写法">
-        <AlertMarginYMdFactory />
-    </div>
-    <div id="tab-9" data-label="Factory 写法">
-        <AlertMarginYLgFactory />
-    </div>
-    <div id="tab-10" data-label="Factory 写法">
-        <AlertMarginYXlFactory />
-    </div>
+>
+    <div id="tab-1" data-label="astro"><AlertMarginYXS /></div>
+    <div id="tab-2" data-label="astro"><AlertMarginYSM /></div>
+    <div id="tab-3" data-label="astro"><AlertMarginYMD /></div>
+    <div id="tab-4" data-label="astro"><AlertMarginYLG /></div>
+    <div id="tab-5" data-label="astro"><AlertMarginYXL /></div>
+    <div id="tab-6" data-label="vue"><AlertMarginYXSVue /></div>
+    <div id="tab-7" data-label="vue"><AlertMarginYSMVue /></div>
+    <div id="tab-8" data-label="vue"><AlertMarginYMDVue /></div>
+    <div id="tab-9" data-label="vue"><AlertMarginYLGVue /></div>
+    <div id="tab-10" data-label="vue"><AlertMarginYXLVue /></div>
 </CodeContainer>

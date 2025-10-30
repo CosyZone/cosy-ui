@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component MacWindow.BasicContainer
  *
@@ -11,10 +8,15 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import Basic from "./Basic.astro";
 import BasicSourceCode from "./Basic.astro?raw";
+import BasicVue from "./Basic.vue";
+import BasicVueSourceCode from "./Basic.vue?raw";
 ---
 
-<CodeContainer codes={[BasicSourceCode]} titles={['基础用法']}>
-  <div id="tab-1">
+<CodeContainer codes={[BasicSourceCode, BasicVueSourceCode]} titles={['基础用法', '基础用法']}>
+  <div id="tab-1" data-label="astro">
     <Basic />
+  </div>
+  <div id="tab-2" data-label="vue">
+    <BasicVue />
   </div>
 </CodeContainer>

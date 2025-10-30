@@ -1,21 +1,23 @@
 ---
-
-
-
 import { CodeContainer } from "@coffic/cosy-ui";
 import ProductCardGithubUrl from "./ProductCardGithubUrl.astro";
 import ProductCardGithubUrlSourceCode from "./ProductCardGithubUrl.astro?raw";
 import ProductCardGithubUrlWith from "./ProductCardGithubUrlWith.astro";
 import ProductCardGithubUrlWithSourceCode from "./ProductCardGithubUrlWith.astro?raw";
+import ProductCardVueGithubUrl from "./ProductCardVueGithubUrl.vue";
+import ProductCardVueGithubUrlRaw from "./ProductCardVueGithubUrl.vue?raw";
 ---
 
 <CodeContainer
-  titles={['无 GitHub 链接', '包含 GitHub 链接']}
-  codes={[ProductCardGithubUrlSourceCode, ProductCardGithubUrlWithSourceCode]}>
-  <div id="tab-1">
+  titles={['none', 'with', 'with']}
+  codes={[ProductCardGithubUrlSourceCode, ProductCardGithubUrlWithSourceCode, ProductCardVueGithubUrlRaw]}>
+  <div id="tab-1" data-label="astro">
     <ProductCardGithubUrl />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <ProductCardGithubUrlWith />
+  </div>
+  <div id="tab-3" data-label="vue">
+    <ProductCardVueGithubUrl />
   </div>
 </CodeContainer>

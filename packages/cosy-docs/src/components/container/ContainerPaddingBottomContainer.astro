@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component ContainerPaddingBottomContainer
  * @description Container 组件底部内边距演示容器，展示源码和效果
@@ -9,10 +6,15 @@
 import { CodeContainer } from "@coffic/cosy-ui";
 import ContainerPaddingBottom from "./ContainerPaddingBottom.astro";
 import ContainerPaddingBottomSource from "./ContainerPaddingBottom.astro?raw";
+import ContainerPaddingBottomVue from "./ContainerPaddingBottomVue.vue";
+import ContainerPaddingBottomVueSource from "./ContainerPaddingBottomVue.vue?raw";
 ---
 
-<CodeContainer codes={[ContainerPaddingBottomSource]} titles={['pb']}>
-    <div id="tab-1">
+<CodeContainer codes={[ContainerPaddingBottomSource, ContainerPaddingBottomVueSource]} titles={['pb', 'pb']}>
+    <div id="tab-1" data-label="astro">
         <ContainerPaddingBottom />
+    </div>
+    <div id="tab-2" data-label="vue">
+        <ContainerPaddingBottomVue />
     </div>
 </CodeContainer>

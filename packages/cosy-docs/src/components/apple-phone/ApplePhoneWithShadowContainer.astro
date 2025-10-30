@@ -1,14 +1,30 @@
 ---
-
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import ApplePhoneWithShadow from "./ApplePhoneWithShadow.astro";
-import ApplePhoneWithShadowSourceCode from "./ApplePhoneWithShadow.astro?raw";
+/**
+ * @component ApplePhoneWithShadowContainer
+ * @description withShadow 属性为 true/false 两种情况，Astro/Vue 各两组。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ApplePhoneWithShadowFalse from './ApplePhoneWithShadowFalse.astro';
+import ApplePhoneWithShadowFalseRaw from './ApplePhoneWithShadowFalse.astro?raw';
+import ApplePhoneWithShadowFalseVue from './ApplePhoneWithShadowFalseVue.vue';
+import ApplePhoneWithShadowFalseVueRaw from './ApplePhoneWithShadowFalseVue.vue?raw';
+import ApplePhoneWithShadowTrue from './ApplePhoneWithShadowTrue.astro';
+import ApplePhoneWithShadowTrueRaw from './ApplePhoneWithShadowTrue.astro?raw';
+import ApplePhoneWithShadowTrueVue from './ApplePhoneWithShadowTrueVue.vue';
+import ApplePhoneWithShadowTrueVueRaw from './ApplePhoneWithShadowTrueVue.vue?raw';
 ---
 
-<CodeContainer codes={[ApplePhoneWithShadowSourceCode]} titles={['带阴影']}>
-    <div id="tab-1">
-        <ApplePhoneWithShadow />
-    </div>
+<CodeContainer
+	codes={[
+		ApplePhoneWithShadowTrueRaw,
+		ApplePhoneWithShadowFalseRaw,
+		ApplePhoneWithShadowTrueVueRaw,
+		ApplePhoneWithShadowFalseVueRaw,
+	]}
+	titles={['true', 'false', 'true', 'false']}
+>
+	<div id="tab-1" data-label="astro"><ApplePhoneWithShadowTrue /></div>
+	<div id="tab-2" data-label="astro"><ApplePhoneWithShadowFalse /></div>
+	<div id="tab-3" data-label="vue"><ApplePhoneWithShadowTrueVue /></div>
+	<div id="tab-4" data-label="vue"><ApplePhoneWithShadowFalseVue /></div>
 </CodeContainer>

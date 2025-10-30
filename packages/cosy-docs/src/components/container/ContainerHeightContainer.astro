@@ -1,40 +1,53 @@
 ---
 
-
-
 /**
  * @component ContainerHeightContainer
- * @description Container 组件高度多标签演示容器
+ * @description 展示 Container 组件的 height 属性所有取值，Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ContainerHeight2xl from "./ContainerHeight2xl.astro";
-import source2xl from "./ContainerHeight2xl.astro?raw";
-import ContainerHeightAuto from "./ContainerHeightAuto.astro";
-import sourceAuto from "./ContainerHeightAuto.astro?raw";
-import ContainerHeightLg from "./ContainerHeightLg.astro";
-import sourceLg from "./ContainerHeightLg.astro?raw";
-import ContainerHeightMd from "./ContainerHeightMd.astro";
-import sourceMd from "./ContainerHeightMd.astro?raw";
-import ContainerHeightScreen from "./ContainerHeightScreen.astro";
-import sourceScreen from "./ContainerHeightScreen.astro?raw";
-import ContainerHeightXs from "./ContainerHeightXs.astro";
-import sourceXs from "./ContainerHeightXs.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerHeight2xl from './ContainerHeight2xl.astro';
+import ContainerHeight2xlRaw from './ContainerHeight2xl.astro?raw';
+import ContainerHeightAuto from './ContainerHeightAuto.astro';
+import ContainerHeightAutoRaw from './ContainerHeightAuto.astro?raw';
+import ContainerHeightLg from './ContainerHeightLg.astro';
+import ContainerHeightLgRaw from './ContainerHeightLg.astro?raw';
+import ContainerHeightMd from './ContainerHeightMd.astro';
+import ContainerHeightMdRaw from './ContainerHeightMd.astro?raw';
+import ContainerHeightScreen from './ContainerHeightScreen.astro';
+import ContainerHeightScreenRaw from './ContainerHeightScreen.astro?raw';
+import ContainerHeightVue from './ContainerHeightVue.vue';
+import ContainerHeightVueRaw from './ContainerHeightVue.vue?raw';
+import ContainerHeightXs from './ContainerHeightXs.astro';
+import ContainerHeightXsRaw from './ContainerHeightXs.astro?raw';
 ---
 
 <CodeContainer
-  titles={[
-    'xs (64px)',
-    'md (128px)',
-    'lg (160px)',
-    '2xl (224px)',
-    'screen (100vh)',
-    'auto',
-  ]}
-  codes={[sourceXs, sourceMd, sourceLg, source2xl, sourceScreen, sourceAuto]}>
-  <div id="tab-1"><ContainerHeightXs /></div>
-  <div id="tab-2"><ContainerHeightMd /></div>
-  <div id="tab-3"><ContainerHeightLg /></div>
-  <div id="tab-4"><ContainerHeight2xl /></div>
-  <div id="tab-5"><ContainerHeightScreen /></div>
-  <div id="tab-6"><ContainerHeightAuto /></div>
+	codes={[
+		ContainerHeightXsRaw,
+		ContainerHeightMdRaw,
+		ContainerHeightLgRaw,
+		ContainerHeight2xlRaw,
+		ContainerHeightScreenRaw,
+		ContainerHeightAutoRaw,
+		ContainerHeightVueRaw,
+		ContainerHeightVueRaw,
+		ContainerHeightVueRaw,
+		ContainerHeightVueRaw,
+		ContainerHeightVueRaw,
+		ContainerHeightVueRaw,
+	]}
+	titles={['xs', 'md', 'lg', '2xl', 'screen', 'auto', 'xs', 'md', 'lg', '2xl', 'screen', 'auto']}
+>
+	<div id="tab-1" data-label="astro"><ContainerHeightXs /></div>
+	<div id="tab-2" data-label="astro"><ContainerHeightMd /></div>
+	<div id="tab-3" data-label="astro"><ContainerHeightLg /></div>
+	<div id="tab-4" data-label="astro"><ContainerHeight2xl /></div>
+	<div id="tab-5" data-label="astro"><ContainerHeightScreen /></div>
+	<div id="tab-6" data-label="astro"><ContainerHeightAuto /></div>
+	<div id="tab-7" data-label="vue"><ContainerHeightVue /></div>
+	<div id="tab-8" data-label="vue"><ContainerHeightVue /></div>
+	<div id="tab-9" data-label="vue"><ContainerHeightVue /></div>
+	<div id="tab-10" data-label="vue"><ContainerHeightVue /></div>
+	<div id="tab-11" data-label="vue"><ContainerHeightVue /></div>
+	<div id="tab-12" data-label="vue"><ContainerHeightVue /></div>
 </CodeContainer>

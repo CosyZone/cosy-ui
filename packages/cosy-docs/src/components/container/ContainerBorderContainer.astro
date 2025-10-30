@@ -1,40 +1,54 @@
 ---
-
-
-
 /**
  * @component ContainerBorderContainer
- * @description Container 组件边框示例容器
+ * @description 展示 Container 组件的 border 属性所有取值，Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ContainerBorderLg from "./ContainerBorderLg.astro";
-import sourceLg from "./ContainerBorderLg.astro?raw";
-import ContainerBorderMd from "./ContainerBorderMd.astro";
-import sourceMd from "./ContainerBorderMd.astro?raw";
-import ContainerBorderNone from "./ContainerBorderNone.astro";
-import sourceNone from "./ContainerBorderNone.astro?raw";
-import ContainerBorderSm from "./ContainerBorderSm.astro";
-import sourceSm from "./ContainerBorderSm.astro?raw";
-import ContainerBorderXl from "./ContainerBorderXl.astro";
-import sourceXl from "./ContainerBorderXl.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerBorderLg from './ContainerBorderLg.astro';
+import ContainerBorderLgRaw from './ContainerBorderLg.astro?raw';
+import ContainerBorderLgVue from './ContainerBorderLgVue.vue';
+import ContainerBorderLgVueRaw from './ContainerBorderLgVue.vue?raw';
+import ContainerBorderMd from './ContainerBorderMd.astro';
+import ContainerBorderMdRaw from './ContainerBorderMd.astro?raw';
+import ContainerBorderMdVue from './ContainerBorderMdVue.vue';
+import ContainerBorderMdVueRaw from './ContainerBorderMdVue.vue?raw';
+import ContainerBorderNone from './ContainerBorderNone.astro';
+import ContainerBorderNoneRaw from './ContainerBorderNone.astro?raw';
+import ContainerBorderNoneVue from './ContainerBorderNoneVue.vue';
+import ContainerBorderNoneVueRaw from './ContainerBorderNoneVue.vue?raw';
+import ContainerBorderSm from './ContainerBorderSm.astro';
+import ContainerBorderSmRaw from './ContainerBorderSm.astro?raw';
+import ContainerBorderSmVue from './ContainerBorderSmVue.vue';
+import ContainerBorderSmVueRaw from './ContainerBorderSmVue.vue?raw';
+import ContainerBorderXl from './ContainerBorderXl.astro';
+import ContainerBorderXlRaw from './ContainerBorderXl.astro?raw';
+import ContainerBorderXlVue from './ContainerBorderXlVue.vue';
+import ContainerBorderXlVueRaw from './ContainerBorderXlVue.vue?raw';
 ---
 
 <CodeContainer
-    codes={[sourceNone, sourceSm, sourceMd, sourceLg, sourceXl]}
-    titles={['none', 'sm', 'md', 'lg', 'xl']}>
-    <div id="tab-1">
-        <ContainerBorderNone />
-    </div>
-    <div id="tab-2">
-        <ContainerBorderSm />
-    </div>
-    <div id="tab-3">
-        <ContainerBorderMd />
-    </div>
-    <div id="tab-4">
-        <ContainerBorderLg />
-    </div>
-    <div id="tab-5">
-        <ContainerBorderXl />
-    </div>
+	codes={[
+		ContainerBorderNoneRaw,
+		ContainerBorderSmRaw,
+		ContainerBorderMdRaw,
+		ContainerBorderLgRaw,
+		ContainerBorderXlRaw,
+		ContainerBorderNoneVueRaw,
+		ContainerBorderSmVueRaw,
+		ContainerBorderMdVueRaw,
+		ContainerBorderLgVueRaw,
+		ContainerBorderXlVueRaw,
+	]}
+	titles={['none', 'sm', 'md', 'lg', 'xl', 'none', 'sm', 'md', 'lg', 'xl']}
+>
+	<div id="tab-1" data-label="astro"><ContainerBorderNone /></div>
+	<div id="tab-2" data-label="astro"><ContainerBorderSm /></div>
+	<div id="tab-3" data-label="astro"><ContainerBorderMd /></div>
+	<div id="tab-4" data-label="astro"><ContainerBorderLg /></div>
+	<div id="tab-5" data-label="astro"><ContainerBorderXl /></div>
+	<div id="tab-6" data-label="vue"><ContainerBorderNoneVue /></div>
+	<div id="tab-7" data-label="vue"><ContainerBorderSmVue /></div>
+	<div id="tab-8" data-label="vue"><ContainerBorderMdVue /></div>
+	<div id="tab-9" data-label="vue"><ContainerBorderLgVue /></div>
+	<div id="tab-10" data-label="vue"><ContainerBorderXlVue /></div>
 </CodeContainer>

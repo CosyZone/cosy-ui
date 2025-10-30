@@ -1,27 +1,46 @@
 ---
-
-
-
 /**
  * @component ContainerFlexContainer
- * @description Container 组件 Flex 布局多标签演示容器
+ * @description 展示 Container 组件的 flex 属性用法，Astro/Vue 各自独立标签展示。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import ContainerFlexBetween from "./ContainerFlexBetween.astro";
-import sourceBetween from "./ContainerFlexBetween.astro?raw";
-import ContainerFlexCenter from "./ContainerFlexCenter.astro";
-import sourceCenter from "./ContainerFlexCenter.astro?raw";
-import ContainerFlexCol from "./ContainerFlexCol.astro";
-import sourceCol from "./ContainerFlexCol.astro?raw";
-import ContainerFlexRow from "./ContainerFlexRow.astro";
-import sourceRow from "./ContainerFlexRow.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+import ContainerFlexBetween from './ContainerFlexBetween.astro';
+import ContainerFlexBetweenRaw from './ContainerFlexBetween.astro?raw';
+import ContainerFlexBetweenVue from './ContainerFlexBetweenVue.vue';
+import ContainerFlexBetweenVueRaw from './ContainerFlexBetweenVue.vue?raw';
+import ContainerFlexCenter from './ContainerFlexCenter.astro';
+import ContainerFlexCenterRaw from './ContainerFlexCenter.astro?raw';
+import ContainerFlexCenterVue from './ContainerFlexCenterVue.vue';
+import ContainerFlexCenterVueRaw from './ContainerFlexCenterVue.vue?raw';
+import ContainerFlexCol from './ContainerFlexCol.astro';
+import ContainerFlexColRaw from './ContainerFlexCol.astro?raw';
+import ContainerFlexColVue from './ContainerFlexColVue.vue';
+import ContainerFlexColVueRaw from './ContainerFlexColVue.vue?raw';
+import ContainerFlexRow from './ContainerFlexRow.astro';
+import ContainerFlexRowRaw from './ContainerFlexRow.astro?raw';
+import ContainerFlexRowVue from './ContainerFlexRowVue.vue';
+import ContainerFlexRowVueRaw from './ContainerFlexRowVue.vue?raw';
 ---
 
 <CodeContainer
-  titles={['行布局', '列布局', '居中对齐', '两端对齐']}
-  codes={[sourceRow, sourceCol, sourceCenter, sourceBetween]}>
-  <div id="tab-1"><ContainerFlexRow /></div>
-  <div id="tab-2"><ContainerFlexCol /></div>
-  <div id="tab-3"><ContainerFlexCenter /></div>
-  <div id="tab-4"><ContainerFlexBetween /></div>
+	codes={[
+		ContainerFlexRowRaw,
+		ContainerFlexColRaw,
+		ContainerFlexCenterRaw,
+		ContainerFlexBetweenRaw,
+		ContainerFlexRowVueRaw,
+		ContainerFlexColVueRaw,
+		ContainerFlexCenterVueRaw,
+		ContainerFlexBetweenVueRaw,
+	]}
+	titles={['row', 'col', 'center', 'between', 'row', 'col', 'center', 'between']}
+>
+	<div id="tab-1" data-label="astro"><ContainerFlexRow /></div>
+	<div id="tab-2" data-label="astro"><ContainerFlexCol /></div>
+	<div id="tab-3" data-label="astro"><ContainerFlexCenter /></div>
+	<div id="tab-4" data-label="astro"><ContainerFlexBetween /></div>
+	<div id="tab-5" data-label="vue"><ContainerFlexRowVue /></div>
+	<div id="tab-6" data-label="vue"><ContainerFlexColVue /></div>
+	<div id="tab-7" data-label="vue"><ContainerFlexCenterVue /></div>
+	<div id="tab-8" data-label="vue"><ContainerFlexBetweenVue /></div>
 </CodeContainer>
