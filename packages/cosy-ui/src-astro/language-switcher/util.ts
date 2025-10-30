@@ -7,6 +7,14 @@ export interface SwitcherLink {
 }
 
 /**
+ * Astro i18n 模块类型定义
+ */
+export interface IAstroI18n {
+	getRelativeLocaleUrl: (locale: string, path: string) => string;
+	getRelativeLocaleUrlList: (slug: string) => string[];
+}
+
+/**
  * 获取基础 URL
  */
 export const getBaseUrl = (): string => {
@@ -28,7 +36,7 @@ export const getLocaleFromUrl = (url: string): string => {
  * @returns 语言切换链接数组
  */
 export const generateSwitcherLinks = (
-	astroI18n: any,
+	astroI18n: IAstroI18n,
 	currentLocale: string,
 	pathname: string,
 ): SwitcherLink[] => {
@@ -59,7 +67,7 @@ export const generateSwitcherLinks = (
  */
 export const checkSwitcherRenderState = (
 	currentLocale: string | undefined,
-	astroI18n: any,
+	astroI18n: IAstroI18n | undefined,
 ): {
 	shouldRender: boolean;
 	currentLanguageName?: string;

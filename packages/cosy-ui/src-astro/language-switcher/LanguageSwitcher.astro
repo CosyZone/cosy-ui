@@ -11,19 +11,22 @@
  * - class - 自定义CSS类名
  */
 
-import { ChevronDownIcon, GlobeIcon, Link, ListItem } from '../../index-astro';
+import { ChevronDownIcon, GlobeIcon } from '../icons';
+import { Link } from '../link';
+import { ListItem } from '../list';
 import { cn } from '../../src/class';
 import {
     checkSwitcherRenderState,
     generateSwitcherLinks,
+    type IAstroI18n,
     type SwitcherLink,
-} from './switcher_util';
+} from './util';
 
 interface Props {
     /**
      * 完整的 astro:i18n 模块
      */
-    astroI18n?: any;
+    astroI18n?: IAstroI18n;
 
     /**
      * 自定义类名
@@ -46,7 +49,7 @@ if (renderState.warnings) {
 let links: SwitcherLink[] = [];
 
 // 如果应该渲染，生成切换链接
-if (renderState.shouldRender && Astro.currentLocale) {
+if (renderState.shouldRender && Astro.currentLocale && astroI18n) {
     try {
         links = generateSwitcherLinks(
             astroI18n,
