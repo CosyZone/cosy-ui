@@ -81,9 +81,9 @@ import AlertActionVueSourceCode from './AlertActionVue.astro?raw';
 </CodeContainer>
 ```
 
-其中`AlertAction`是向用户展示`Alert`组件的用法，其内容是这样（Vue版本也类似）：
+其中`AlertAction`是向用户展示`Alert`组件的用法（Astro 版本）：
 
-```ts
+```astro
 ---
 import { Alert } from '@coffic/cosy-ui';
 ---
@@ -91,21 +91,30 @@ import { Alert } from '@coffic/cosy-ui';
 <Alert type="info" title="自定义操作">
     你可以通过 action slot 在右侧自定义按钮。
     <div slot="action">
-        <button
-            style="
-        background-color: #3b82f6;
-        color: white;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 0.375rem;
-        cursor: pointer;
-        font-size: 0.875rem;
-      "
-            onclick="alert('自定义操作')">
+        <button onclick="alert('自定义操作')">
             自定义操作
         </button>
     </div>
 </Alert>
+```
+
+Vue 版本的示例 `AlertActionVue.vue` 内容类似：
+
+```vue
+<script setup lang="ts">
+import { Alert } from '@coffic/cosy-ui/vue';
+</script>
+
+<template>
+  <Alert type="info" title="自定义操作">
+    你可以通过 action slot 在右侧自定义按钮。
+    <template #action>
+      <button @click="alert('自定义操作')">
+        自定义操作
+      </button>
+    </template>
+  </Alert>
+</template>
 ```
 
 3. 写标题
@@ -122,24 +131,26 @@ import { Alert } from '@coffic/cosy-ui';
 ## 简介
 
 Alert 组件用于向用户显示重要的提示信息，支持多种类型的提示样式和交互效果。
-
-组件特性：
-
-- 支持四种预设类型，每种类型有对应的图标和颜色
-- 可添加标题使提示更醒目
-- 支持自定义 class 覆盖默认样式
-- 响应式设计，适配不同屏幕尺寸
-- 可控制是否显示图标
-- 支持设置垂直方向外边距
-- 支持多种样式变体
 ```
 
 5. 案例
+
+展示组件的基础用法。只写一个典型的Astro的例子即可。
 
 ```markdown
 ## 案例
 
 <ComponentPackage.Basic />
+```
+
+其中 `ComponentPackage.Basic` 示例代码：
+
+```astro
+---
+import { Alert } from "@coffic/cosy-ui";
+---
+
+<Alert type="info" closable> 这是一条可以关闭的信息提示 </Alert>
 ```
 
 6. 介绍Props
