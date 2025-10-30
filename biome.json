@@ -32,6 +32,31 @@
 			"linter": {
 				"enabled": false
 			}
+		},
+		{
+			"includes": ["**/*.vue"],
+			"formatter": {
+				"enabled": false
+			},
+			"linter": {
+				"enabled": false
+			},
+			"html": {
+				"formatter": {
+					"enabled": false
+				}
+			}
+		},
+		{
+			"includes": ["**/*.astro"],
+			"linter": {
+				"rules": {
+					"correctness": {
+						"noUnusedImports": "off",
+						"noUnusedVariables": "off"
+					}
+				}
+			}
 		}
 	],
 	"javascript": {
