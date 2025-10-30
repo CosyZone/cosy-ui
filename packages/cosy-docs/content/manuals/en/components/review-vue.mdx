@@ -7,7 +7,7 @@ tags:
 order: 18.3
 ---
 
-import { ComponentPackage } from '@/components/review/index.ts';
+import { ReviewVuePackage } from '@/components/review-vue/index.ts';
 
 # Review Component (Vue)
 
@@ -22,49 +22,49 @@ Vue component for displaying user reviews with ratings, comments, user informati
 
 ## Examples
 
-<ComponentPackage.ComponentContainers.BasicUsageVue />
+<ReviewVuePackage.Basic />
 
 ## Props
 
 ### avatar
 User avatar URL, supports image links. When not provided, the component will display the first letter of the user name as the default avatar.
 
-<ComponentPackage.ComponentContainers.AvatarContainer />
+<ReviewVuePackage.WithAvatar />
 
 ### class
 Custom CSS class name for overriding default styles.
 
-<ComponentPackage.ComponentContainers.ClassContainer />
+<ReviewVuePackage.CustomStyle />
 
 ### comment
 Comment content, supports both short and long comment display.
 
-<ComponentPackage.ComponentContainers.CommentContainer />
+<ReviewVuePackage.Basic />
 
 ### date
 Review date, supports string format dates. The component will automatically format the display.
 
-<ComponentPackage.ComponentContainers.DateContainer />
+<ReviewVuePackage.Basic />
 
 ### muted
 Whether to use muted style (inactive state).
 
-<ComponentPackage.ComponentContainers.MutedContainer />
+<ReviewVuePackage.Muted />
 
 ### rating
 Rating, value range 1-5, supports integers and decimals. The component will display corresponding star ratings.
 
-<ComponentPackage.ComponentContainers.RatingContainer />
+<ReviewVuePackage.Basic />
 
 ### userName
 User name, supports both Chinese and English name display.
 
-<ComponentPackage.ComponentContainers.UserNameContainer />
+<ReviewVuePackage.Basic />
 
 ### verified
 Whether the user is verified, displays verification badge when set to true.
 
-<ComponentPackage.ComponentContainers.VerifiedContainer />
+<ReviewVuePackage.VerifiedUser />
 
 ## Slots
 

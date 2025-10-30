@@ -1,85 +1,85 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import Avatar from "../avatar/Avatar.vue";
-import Badge from "../badge/Badge.vue";
-import Card from "../card/Card.vue";
-import SmartIcon from "../smart-icon/SmartIcon.vue";
-import Text from "../text/Text.vue";
-import type { IReviewProps } from "./props";
+  import { computed } from 'vue';
+  import Avatar from '../avatar/Avatar.vue';
+  import Badge from '../badge/Badge.vue';
+  import Card from '../card/Card.vue';
+  import SmartIcon from '../smart-icon/SmartIcon.vue';
+  import Text from '../text/Text.vue';
+  import type { IReviewProps } from './props';
 
-interface Props extends /* @vue-ignore */ IReviewProps {
-	class?: string;
-	"class:list"?: any;
-}
+  interface Props extends /* @vue-ignore */ IReviewProps {
+    class?: string;
+    'class:list'?: any;
+  }
 
-const props = withDefaults(defineProps<Props>(), {
-	verified: false,
-	class: "",
-});
+  const props = withDefaults(defineProps<Props>(), {
+    verified: false,
+    class: '',
+  });
 
-// 从props中分离Card相关的属性和Review自身的属性
-const {
-	userName,
-	rating,
-	comment,
-	date,
-	verified,
-	avatar,
-	class: className,
-	"class:list": classList,
-	// Card属性
-	aspectRatio,
-	centered,
-	contentCentered,
-	flex,
-	fit,
-	gap,
-	height,
-	items,
-	justify,
-	margin,
-	muted,
-	padding,
-	py,
-	pt,
-	pb,
-	px,
-	pl,
-	pr,
-	shadow, // 添加 shadow 属性
-	width,
-	rounded,
-	background,
-	border,
-	borderColor,
-	subtitle,
-	title,
-	imageUrl,
-	href,
-	compact,
-} = props;
+  // 从props中分离Card相关的属性和Review自身的属性
+  const {
+    userName,
+    rating,
+    comment,
+    date,
+    verified,
+    avatar,
+    class: className,
+    'class:list': classList,
+    // Card属性
+    aspectRatio,
+    centered,
+    contentCentered,
+    flex,
+    fit,
+    gap,
+    height,
+    items,
+    justify,
+    margin,
+    muted,
+    padding,
+    py,
+    pt,
+    pb,
+    px,
+    pl,
+    pr,
+    shadow, // 添加 shadow 属性
+    width,
+    rounded,
+    background,
+    border,
+    borderColor,
+    subtitle,
+    title,
+    imageUrl,
+    href,
+    compact,
+  } = props;
 
-// 生成星级评分
-const starArray = computed(() => {
-	return Array.from({ length: 5 }, (_, i) => ({
-		filled: i < Math.floor(props.rating),
-		half: i === Math.floor(props.rating) && props.rating % 1 !== 0,
-	}));
-});
+  // 生成星级评分
+  const starArray = computed(() => {
+    return Array.from({ length: 5 }, (_, i) => ({
+      filled: i < Math.floor(props.rating),
+      half: i === Math.floor(props.rating) && props.rating % 1 !== 0,
+    }));
+  });
 
-// 格式化日期
-const formattedDate = computed(() => {
-	if (!props.date) return "";
-	try {
-		return new Date(props.date).toLocaleDateString("zh-CN", {
-			year: "numeric",
-			month: "2-digit",
-			day: "2-digit",
-		});
-	} catch {
-		return props.date;
-	}
-});
+  // 格式化日期
+  const formattedDate = computed(() => {
+    if (!props.date) return '';
+    try {
+      return new Date(props.date).toLocaleDateString('zh-CN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      });
+    } catch {
+      return props.date;
+    }
+  });
 </script>
 
 <template>
@@ -110,7 +110,7 @@ const formattedDate = computed(() => {
       borderColor,
       shadow,
       subtitle,
-      title: userName, // 将 userName 作为 title 传递给 Card 组件
+      title: title || userName || '用户评价', // 使用 title 属性，如果没有则使用 userName，最后使用默认值
       imageUrl,
       href,
       compact,
@@ -123,7 +123,7 @@ const formattedDate = computed(() => {
         :avatar="avatar"
         :userName="userName"
         size="md"
-        class="cosy:flex-shrink-0" />
+        class="cosy:shrink-0" />
       <div class="cosy:flex-1">
         <div class="cosy:flex cosy:items-center cosy:justify-between">
           <Text variant="h3" class="cosy:text-lg cosy:font-semibold">

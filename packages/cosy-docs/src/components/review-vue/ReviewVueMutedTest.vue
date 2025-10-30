@@ -5,26 +5,28 @@
     <div class="cosy:mb-6">
       <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-2">Normal Review</h3>
       <Review
-        user-name="张三"
+        userName="张三"
         :rating="4"
         comment="这个产品非常好用，质量很棒！"
         date="2024-01-15"
-        :verified="true" />
+        :verified="true"
+        title="用户评价" />
     </div>
 
     <div class="cosy:mb-6">
       <h3 class="cosy:text-lg cosy:font-semibold cosy:mb-2">Muted Review</h3>
       <Review
-        user-name="李四"
+        userName="李四"
         :rating="3"
         comment="产品还行，但有一些小问题。"
         date="2024-01-20"
         :verified="true"
-        muted />
+        muted
+        title="用户评价" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Review } from "@coffic/cosy-ui/vue";
+  import { Review } from '@coffic/cosy-ui/vue';
 </script>

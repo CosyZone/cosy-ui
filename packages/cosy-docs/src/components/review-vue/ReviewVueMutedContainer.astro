@@ -1,0 +1,21 @@
+---
+
+
+
+import { CodeContainer } from "@coffic/cosy-ui";
+import ReviewVueMuted from "./ReviewVueMuted.vue";
+import ReviewVueMutedSource from "./ReviewVueMuted.vue?raw";
+import ReviewVueNotMuted from "./ReviewVueNotMuted.vue";
+import ReviewVueNotMutedSource from "./ReviewVueNotMuted.vue?raw";
+---
+
+<CodeContainer
+    codes={[ReviewVueNotMutedSource, ReviewVueMutedSource]}
+    titles={['false', 'true']}>
+    <div id="tab-1">
+        <ReviewVueNotMuted client:load />
+    </div>
+    <div id="tab-2">
+        <ReviewVueMuted client:load />
+    </div>
+</CodeContainer>

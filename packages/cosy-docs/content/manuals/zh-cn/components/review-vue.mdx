@@ -7,7 +7,7 @@ tags:
 order: 18.3
 ---
 
-import { ComponentPackage } from '@/components/review/index.ts';
+import { ReviewVuePackage } from '@/components/review-vue/index.ts';
 
 # Review 评价组件 (Vue)
 
@@ -22,49 +22,49 @@ import { ComponentPackage } from '@/components/review/index.ts';
 
 ## 案例
 
-<ComponentPackage.ComponentContainers.BasicUsageVue />
+<ReviewVuePackage.Basic />
 
 ## Props
 
 ### avatar
 用户头像URL，支持图片链接。当未提供时，组件会显示用户名称的首字母作为默认头像。
 
-<ComponentPackage.ComponentContainers.AvatarContainer />
+<ReviewVuePackage.WithAvatar />
 
 ### class
 自定义CSS类名，用于覆盖默认样式。
 
-<ComponentPackage.ComponentContainers.ClassContainer />
+<ReviewVuePackage.CustomStyle />
 
 ### comment
 评论内容，支持短评论和长评论的展示。
 
-<ComponentPackage.ComponentContainers.CommentContainer />
+<ReviewVuePackage.Basic />
 
 ### date
 评价日期，支持字符串格式的日期。组件会自动格式化显示。
 
-<ComponentPackage.ComponentContainers.DateContainer />
+<ReviewVuePackage.Basic />
 
 ### muted
 是否使用柔和色样式（未激活状态）。
 
-<ComponentPackage.ComponentContainers.MutedContainer />
+<ReviewVuePackage.Muted />
 
 ### rating
 评分，取值范围为1-5，支持整数和小数。组件会显示对应的星级评分。
 
-<ComponentPackage.ComponentContainers.RatingContainer />
+<ReviewVuePackage.Basic />
 
 ### userName
 用户名称，支持中文和英文名称的显示。
 
-<ComponentPackage.ComponentContainers.UserNameContainer />
+<ReviewVuePackage.Basic />
 
 ### verified
 是否认证用户，设置为true时会显示认证标识。
 
-<ComponentPackage.ComponentContainers.VerifiedContainer />
+<ReviewVuePackage.VerifiedUser />
 
 ## Slots
 

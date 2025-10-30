@@ -1,0 +1,17 @@
+---
+
+/**
+ * @component ReviewVue Verified User Container
+ * @description ReviewVue 认证用户容器组件
+ */
+
+import { CodeContainer } from "@coffic/cosy-ui";
+import ReviewVueVerifiedUser from "./ReviewVueVerifiedUser.vue";
+import ReviewVueVerifiedUserCode from "./ReviewVueVerifiedUser.vue?raw";
+---
+
+<CodeContainer titles={['认证用户']} codes={[ReviewVueVerifiedUserCode]}>
+  <div id="tab-1">
+    <ReviewVueVerifiedUser client:load />
+  </div>
+</CodeContainer>
