@@ -1,21 +1,23 @@
 ---
-
-
-
 import { CodeContainer } from "@coffic/cosy-ui";
 import ProductCardClass from "./ProductCardClass.astro";
 import ProductCardClassSourceCode from "./ProductCardClass.astro?raw";
 import ProductCardClassCustom from "./ProductCardClassCustom.astro";
 import ProductCardClassCustomSourceCode from "./ProductCardClassCustom.astro?raw";
+import ProductCardVueClass from "./ProductCardVueClass.vue";
+import ProductCardVueClassRaw from "./ProductCardVueClass.vue?raw";
 ---
 
 <CodeContainer
-  titles={['默认样式', '自定义样式']}
-  codes={[ProductCardClassSourceCode, ProductCardClassCustomSourceCode]}>
-  <div id="tab-1">
+  titles={['默认样式', '自定义样式', '自定义样式']}
+  codes={[ProductCardClassSourceCode, ProductCardClassCustomSourceCode, ProductCardVueClassRaw]}>
+  <div id="tab-1" data-label="astro">
     <ProductCardClass />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <ProductCardClassCustom />
+  </div>
+  <div id="tab-3" data-label="vue">
+    <ProductCardVueClass />
   </div>
 </CodeContainer>

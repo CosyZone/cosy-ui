@@ -1,16 +1,18 @@
 ---
-
-
-
 import { CodeContainer } from "@coffic/cosy-ui";
 import ProductCardAppStoreUrl from "./ProductCardAppStoreUrl.astro";
 import ProductCardAppStoreUrlSourceCode from "./ProductCardAppStoreUrl.astro?raw";
+import ProductCardVueAppStoreUrl from "./ProductCardVueAppStoreUrl.vue";
+import ProductCardVueAppStoreUrlRaw from "./ProductCardVueAppStoreUrl.vue?raw";
 ---
 
 <CodeContainer
-  titles={['App Store 链接示例']}
-  codes={[ProductCardAppStoreUrlSourceCode]}>
-  <div id="tab-1">
+  titles={['appStoreUrl', 'appStoreUrl']}
+  codes={[ProductCardAppStoreUrlSourceCode, ProductCardVueAppStoreUrlRaw]}>
+  <div id="tab-1" data-label="astro">
     <ProductCardAppStoreUrl />
+  </div>
+  <div id="tab-2" data-label="vue">
+    <ProductCardVueAppStoreUrl />
   </div>
 </CodeContainer>

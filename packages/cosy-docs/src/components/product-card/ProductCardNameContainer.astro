@@ -1,14 +1,16 @@
 ---
-
-
-
 import { CodeContainer } from "@coffic/cosy-ui";
 import ProductCardName from "./ProductCardName.astro";
 import ProductCardNameSourceCode from "./ProductCardName.astro?raw";
+import ProductCardVueName from "./ProductCardVueName.vue";
+import ProductCardVueNameRaw from "./ProductCardVueName.vue?raw";
 ---
 
-<CodeContainer titles={['产品名称示例']} codes={[ProductCardNameSourceCode]}>
-  <div id="tab-1">
+<CodeContainer titles={['产品名称', '产品名称']} codes={[ProductCardNameSourceCode, ProductCardVueNameRaw]}>
+  <div id="tab-1" data-label="astro">
     <ProductCardName />
+  </div>
+  <div id="tab-2" data-label="vue">
+    <ProductCardVueName />
   </div>
 </CodeContainer>

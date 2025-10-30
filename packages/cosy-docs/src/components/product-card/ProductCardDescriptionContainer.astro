@@ -1,24 +1,27 @@
 ---
-
-
-
 import { CodeContainer } from "@coffic/cosy-ui";
 import ProductCardDescription from "./ProductCardDescription.astro";
 import ProductCardDescriptionSourceCode from "./ProductCardDescription.astro?raw";
 import ProductCardDescriptionLong from "./ProductCardDescriptionLong.astro";
 import ProductCardDescriptionLongSourceCode from "./ProductCardDescriptionLong.astro?raw";
+import ProductCardVueDescription from "./ProductCardVueDescription.vue";
+import ProductCardVueDescriptionRaw from "./ProductCardVueDescription.vue?raw";
 ---
 
 <CodeContainer
-  titles={['简短描述', '详细描述']}
+  titles={['简短描述', '详细描述', '简短描述']}
   codes={[
     ProductCardDescriptionSourceCode,
     ProductCardDescriptionLongSourceCode,
+    ProductCardVueDescriptionRaw,
   ]}>
-  <div id="tab-1">
+  <div id="tab-1" data-label="astro">
     <ProductCardDescription />
   </div>
-  <div id="tab-2">
+  <div id="tab-2" data-label="astro">
     <ProductCardDescriptionLong />
+  </div>
+  <div id="tab-3" data-label="vue">
+    <ProductCardVueDescription />
   </div>
 </CodeContainer>

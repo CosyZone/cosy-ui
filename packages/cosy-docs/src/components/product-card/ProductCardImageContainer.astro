@@ -1,14 +1,16 @@
 ---
-
-
-
 import { CodeContainer } from "@coffic/cosy-ui";
 import ProductCardImage from "./ProductCardImage.astro";
 import ProductCardImageSourceCode from "./ProductCardImage.astro?raw";
+import ProductCardVueImage from "./ProductCardVueImage.vue";
+import ProductCardVueImageRaw from "./ProductCardVueImage.vue?raw";
 ---
 
-<CodeContainer titles={['产品图片示例']} codes={[ProductCardImageSourceCode]}>
-  <div id="tab-1">
+<CodeContainer titles={['图片', '图片']} codes={[ProductCardImageSourceCode, ProductCardVueImageRaw]}>
+  <div id="tab-1" data-label="astro">
     <ProductCardImage />
+  </div>
+  <div id="tab-2" data-label="vue">
+    <ProductCardVueImage />
   </div>
 </CodeContainer>
