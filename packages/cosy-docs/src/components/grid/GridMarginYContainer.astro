@@ -1,21 +1,36 @@
 ---
 
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import GridWithMarginY from "./GridWithMarginY.astro";
-import GridWithMarginYSourceCode from "./GridWithMarginY.astro?raw";
-import GridWithoutMarginY from "./GridWithoutMarginY.astro";
-import GridWithoutMarginYSourceCode from "./GridWithoutMarginY.astro?raw";
+/**
+ * @component GridMarginYContainer
+ * @description 展示 Grid 组件的 marginY 属性不同取值，Astro/Vue 各 有/无 标签。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import GridWithMarginY from './GridWithMarginY.astro';
+import GridWithMarginYRaw from './GridWithMarginY.astro?raw';
+import GridWithMarginYVue from './GridWithMarginYVue.vue';
+import GridWithMarginYVueRaw from './GridWithMarginYVue.vue?raw';
+import GridWithoutMarginY from './GridWithoutMarginY.astro';
+import GridWithoutMarginYRaw from './GridWithoutMarginY.astro?raw';
+import GridWithoutMarginYVue from './GridWithoutMarginYVue.vue';
+import GridWithoutMarginYVueRaw from './GridWithoutMarginYVue.vue?raw';
 ---
 
 <CodeContainer
-  codes={[GridWithMarginYSourceCode, GridWithoutMarginYSourceCode]}
-  titles={['有垂直外边距', '无垂直外边距']}>
-  <div id="tab-1">
-    <GridWithMarginY />
-  </div>
-  <div id="tab-2">
-    <GridWithoutMarginY />
-  </div>
+    codes={[
+        GridWithMarginYRaw,
+        GridWithoutMarginYRaw,
+        GridWithMarginYVueRaw,
+        GridWithoutMarginYVueRaw,
+    ]}
+    titles={[
+        'lg',
+        '未设置',
+        'lg',
+        '未设置'
+    ]}
+>
+    <div id="tab-1" data-label="astro"><GridWithMarginY /></div>
+    <div id="tab-2" data-label="astro"><GridWithoutMarginY /></div>
+    <div id="tab-3" data-label="vue"><GridWithMarginYVue /></div>
+    <div id="tab-4" data-label="vue"><GridWithoutMarginYVue /></div>
 </CodeContainer>

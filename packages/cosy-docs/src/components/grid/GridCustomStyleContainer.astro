@@ -1,14 +1,25 @@
 ---
-
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import GridCustomStyle from "./GridCustomStyle.astro";
-import GridCustomStyleSourceCode from "./GridCustomStyle.astro?raw";
+/**
+ * @component GridCustomStyleContainer
+ * @description 展示 Grid 组件的自定义样式用法，Astro/Vue 各占一标签。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import GridCustomStyle from './GridCustomStyle.astro';
+import GridCustomStyleRaw from './GridCustomStyle.astro?raw';
+import GridCustomStyleVue from './GridCustomStyleVue.vue';
+import GridCustomStyleVueRaw from './GridCustomStyleVue.vue?raw';
 ---
 
-<CodeContainer codes={[GridCustomStyleSourceCode]} titles={['自定义样式']}>
-  <div id="tab-1">
-    <GridCustomStyle />
-  </div>
+<CodeContainer
+    codes={[
+        GridCustomStyleRaw,
+        GridCustomStyleVueRaw,
+    ]}
+    titles={[
+        '自定义样式',
+        '自定义样式'
+    ]}
+>
+    <div id="tab-1" data-label="astro"><GridCustomStyle /></div>
+    <div id="tab-2" data-label="vue"><GridCustomStyleVue /></div>
 </CodeContainer>

@@ -1,30 +1,45 @@
 ---
-
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import GridCols2 from "./GridCols2.astro";
-import GridCols2SourceCode from "./GridCols2.astro?raw";
-import GridCols4 from "./GridCols4.astro";
-import GridCols4SourceCode from "./GridCols4.astro?raw";
-import GridColsResponsive from "./GridColsResponsive.astro";
-import GridColsResponsiveSourceCode from "./GridColsResponsive.astro?raw";
+/**
+ * @component GridColsContainer
+ * @description 展示 Grid 组件的 cols 属性不同取值，Astro/Vue 各 2列/4列/响应式 标签。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import GridCols2 from './GridCols2.astro';
+import GridCols2Raw from './GridCols2.astro?raw';
+import GridCols2Vue from './GridCols2Vue.vue';
+import GridCols2VueRaw from './GridCols2Vue.vue?raw';
+import GridCols4 from './GridCols4.astro';
+import GridCols4Raw from './GridCols4.astro?raw';
+import GridCols4Vue from './GridCols4Vue.vue';
+import GridCols4VueRaw from './GridCols4Vue.vue?raw';
+import GridColsResponsive from './GridColsResponsive.astro';
+import GridColsResponsiveRaw from './GridColsResponsive.astro?raw';
+import GridColsResponsiveVue from './GridColsResponsiveVue.vue';
+import GridColsResponsiveVueRaw from './GridColsResponsiveVue.vue?raw';
 ---
 
 <CodeContainer
-  codes={[
-    GridCols2SourceCode,
-    GridCols4SourceCode,
-    GridColsResponsiveSourceCode,
-  ]}
-  titles={['2列布局', '4列布局', '响应式布局']}>
-  <div id="tab-1">
-    <GridCols2 />
-  </div>
-  <div id="tab-2">
-    <GridCols4 />
-  </div>
-  <div id="tab-3">
-    <GridColsResponsive />
-  </div>
+    codes={[
+        GridCols2Raw,
+        GridCols4Raw,
+        GridColsResponsiveRaw,
+        GridCols2VueRaw,
+        GridCols4VueRaw,
+        GridColsResponsiveVueRaw,
+    ]}
+    titles={[
+        '2',
+        '4',
+        'responsive',
+        '2',
+        '4',
+        'responsive'
+    ]}
+>
+    <div id="tab-1" data-label="astro"><GridCols2 /></div>
+    <div id="tab-2" data-label="astro"><GridCols4 /></div>
+    <div id="tab-3" data-label="astro"><GridColsResponsive /></div>
+    <div id="tab-4" data-label="vue"><GridCols2Vue /></div>
+    <div id="tab-5" data-label="vue"><GridCols4Vue /></div>
+    <div id="tab-6" data-label="vue"><GridColsResponsiveVue /></div>
 </CodeContainer>

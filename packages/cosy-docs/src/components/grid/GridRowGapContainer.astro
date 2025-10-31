@@ -1,21 +1,35 @@
 ---
-
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import GridWithoutRowGap from "./GridWithoutRowGap.astro";
-import GridWithoutRowGapSourceCode from "./GridWithoutRowGap.astro?raw";
-import GridWithRowGap from "./GridWithRowGap.astro";
-import GridWithRowGapSourceCode from "./GridWithRowGap.astro?raw";
+/**
+ * @component GridRowGapContainer
+ * @description 展示 Grid 组件的 rowGap 属性不同取值，Astro/Vue 各 有/无 标签。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import GridWithoutRowGap from './GridWithoutRowGap.astro';
+import GridWithoutRowGapRaw from './GridWithoutRowGap.astro?raw';
+import GridWithoutRowGapVue from './GridWithoutRowGapVue.vue';
+import GridWithoutRowGapVueRaw from './GridWithoutRowGapVue.vue?raw';
+import GridWithRowGap from './GridWithRowGap.astro';
+import GridWithRowGapRaw from './GridWithRowGap.astro?raw';
+import GridWithRowGapVue from './GridWithRowGapVue.vue';
+import GridWithRowGapVueRaw from './GridWithRowGapVue.vue?raw';
 ---
 
 <CodeContainer
-  codes={[GridWithRowGapSourceCode, GridWithoutRowGapSourceCode]}
-  titles={['自定义行间距', '默认行间距']}>
-  <div id="tab-1">
-    <GridWithRowGap />
-  </div>
-  <div id="tab-2">
-    <GridWithoutRowGap />
-  </div>
+    codes={[
+        GridWithRowGapRaw,
+        GridWithoutRowGapRaw,
+        GridWithRowGapVueRaw,
+        GridWithoutRowGapVueRaw,
+    ]}
+    titles={[
+        'lg',
+        '未设置',
+        'lg',
+        '未设置'
+    ]}
+>
+    <div id="tab-1" data-label="astro"><GridWithRowGap /></div>
+    <div id="tab-2" data-label="astro"><GridWithoutRowGap /></div>
+    <div id="tab-3" data-label="vue"><GridWithRowGapVue /></div>
+    <div id="tab-4" data-label="vue"><GridWithoutRowGapVue /></div>
 </CodeContainer>
