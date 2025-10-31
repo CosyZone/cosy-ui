@@ -102,18 +102,23 @@ const titleClass = cn()
     .build();
 
 // 描述样式
-const descriptionClass = cn()
-    .add('cosy:text-xl', 'cosy:prose', 'cosy:max-w-3xl', 'cosy:mb-8')
-    .add(
-        glassmorphism && textBackground === 'solid'
-            ? 'cosy:text-gray-700'
-            : hasBackgroundImage &&
-                (backgroundOverlay === 'dark' ||
-                    backgroundOverlay === 'gradient')
-              ? 'cosy:text-white cosy:opacity-90'
-              : 'cosy:opacity-80'
-    )
-    .build();
+const descriptionClassBuilder = cn()
+    .text('xl')
+    .add('cosy:prose', 'cosy:max-w-3xl') // 保留：prose 和响应式类名
+    .mb(8);
+
+if (glassmorphism && textBackground === 'solid') {
+    descriptionClassBuilder.add('cosy:text-gray-700'); // 保留：复杂颜色
+} else if (
+    hasBackgroundImage &&
+    (backgroundOverlay === 'dark' || backgroundOverlay === 'gradient')
+) {
+    descriptionClassBuilder.color('white').add('cosy:opacity-90'); // 保留：复杂透明度
+} else {
+    descriptionClassBuilder.add('cosy:opacity-80'); // 保留：复杂透明度
+}
+
+const descriptionClass = descriptionClassBuilder.build();
 
 // 链接容器样式
 const linksContainerClass = cn()

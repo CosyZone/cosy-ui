@@ -56,6 +56,23 @@ const lineHeightMap = {
 	loose: "cosy:leading-loose",
 } as const;
 
+// 文本装饰映射表
+const italicMap = {
+	italic: "cosy:italic",
+} as const;
+
+const underlineMap = {
+	underline: "cosy:underline",
+} as const;
+
+const noUnderlineMap = {
+	"no-underline": "cosy:no-underline",
+} as const;
+
+const truncateMap = {
+	truncate: "cosy:truncate",
+} as const;
+
 // 导出类型定义
 export type TextSize = keyof typeof textSizeMap;
 export type TextColor = keyof typeof textColorMap;
@@ -140,6 +157,38 @@ export class TextBuilder {
 	 */
 	leadingRelaxed(): this {
 		this.classes.push(lineHeightMap.relaxed);
+		return this;
+	}
+
+	/**
+	 * 设置文本为斜体
+	 */
+	italic(): this {
+		this.classes.push(italicMap.italic);
+		return this;
+	}
+
+	/**
+	 * 设置文本下划线
+	 */
+	underline(): this {
+		this.classes.push(underlineMap.underline);
+		return this;
+	}
+
+	/**
+	 * 移除文本下划线
+	 */
+	noUnderline(): this {
+		this.classes.push(noUnderlineMap["no-underline"]);
+		return this;
+	}
+
+	/**
+	 * 设置文本截断（显示省略号）
+	 */
+	truncate(): this {
+		this.classes.push(truncateMap.truncate);
 		return this;
 	}
 

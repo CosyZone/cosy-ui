@@ -32,23 +32,26 @@ export function getBaseBannerClasses(props: IBannerPropsBase): string {
 	// 构建完整的类名
 	const bannerClass = cn()
 		.w("full")
-		.add("cosy:py-8", "cosy:px-4", "cosy:rounded-lg", "cosy:text-center")
+		.py(8)
+		.px(4)
+		.rounded("lg")
+		.align("center")
 		.text("2xl")
-		.add("cosy:md:text-3xl")
+		.add("cosy:md:text-3xl") // 保留：响应式类名
 		.weight("bold")
+		.transitionAll()
+		.duration(300)
+		.easeInOut()
+		.backdropBlur("sm")
+		.bgOpacity(90)
+		.shadow("md")
 		.add(
-			"cosy:transition-all",
-			"cosy:duration-300",
-			"cosy:ease-in-out",
-			"cosy:backdrop-blur-sm",
-			"cosy:bg-opacity-90",
-			"cosy:shadow-md",
-			"cosy:hover:shadow-lg",
-			"cosy:hover:scale-[1.01]",
-			bgClass,
-			getTextColorClass(),
-			animationClass,
-			className,
+			"cosy:hover:shadow-lg", // 保留：伪类状态
+			"cosy:hover:scale-[1.01]", // 保留：伪类状态
+			bgClass, // 保留：动态类名
+			getTextColorClass(), // 保留：动态类名
+			animationClass, // 保留：动态类名
+			className, // 保留：用户自定义类名
 		)
 		.build();
 

@@ -87,9 +87,12 @@ try {
 
 // 使用 class builder 构建类名
 const containerClass = cn()
-    .add('cosy:w-full', 'not-prose', 'cosy-shiki-container')
-    .add('cosy:overflow-x-auto', 'cosy:bg-base-300', 'cosy:rounded-lg')
-    .add(className || '')
+    .w('full')
+    .add('not-prose', 'cosy-shiki-container') // 保留：自定义组件类名
+    .overflowX('auto')
+    .bg('base-300')
+    .rounded('lg')
+    .add(className || '') // 保留：用户自定义类名
     .build();
 ---
 

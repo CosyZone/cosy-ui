@@ -55,21 +55,26 @@ const {
 const overlayId = `loading-overlay`;
 
 // 使用 classBuilder 构建 overlay 类名
-const overlayClass = cn()
+const overlayBuilder = cn()
     .fixed()
     .inset(0)
-    .z(50)
-    .add(showBackdrop ? 'cosy:bg-black/50 cosy:backdrop-blur-sm' : '')
+    .z(50);
+
+if (showBackdrop) {
+    overlayBuilder.add('cosy:bg-black/50').backdropBlur('sm'); // 保留：复杂颜色
+}
+
+overlayBuilder
     .flex()
     .items('center')
     .justify('center')
-    .add(
-        'cosy:opacity-0',
-        'cosy:pointer-events-none',
-        'cosy:transition-opacity',
-        'cosy:duration-300'
-    )
-    .add(className || '')
+    .opacity0()
+    .pointerEvents('none')
+    .transition('opacity')
+    .duration(300);
+
+const overlayClass = overlayBuilder
+    .add(className || '') // 保留：用户自定义类名
     .build();
 ---
 

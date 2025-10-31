@@ -114,11 +114,7 @@ import {
     SizeBuilder,
     type WidthSize,
 } from "./builders/SizeBuilder";
-import {
-    SpaceBuilder,
-    type SpaceXSize,
-    type SpaceYSize,
-} from "./builders/SpaceBuilder";
+import type { SpaceXSize, SpaceYSize } from "./builders/SpaceBuilder";
 import {
     type GapSize,
     type MarginBottomSize,
@@ -154,10 +150,6 @@ import {
     type TranslateXValue,
     type TranslateYValue,
 } from "./builders/TransformBuilder";
-import {
-    ZIndexBuilder,
-    type ZIndexValue as ZIndexValueType,
-} from "./builders/ZIndexBuilder";
 
 class ClassBuilder {
     // 统一的类名数组，保持调用顺序
@@ -659,6 +651,46 @@ class ClassBuilder {
     leadingRelaxed(): this {
         const tempBuilder = new TextBuilder();
         tempBuilder.leadingRelaxed();
+        this.classes.push(...tempBuilder.getClasses());
+        return this;
+    }
+
+    /**
+     * 设置文本为斜体
+     */
+    italic(): this {
+        const tempBuilder = new TextBuilder();
+        tempBuilder.italic();
+        this.classes.push(...tempBuilder.getClasses());
+        return this;
+    }
+
+    /**
+     * 设置文本下划线
+     */
+    underline(): this {
+        const tempBuilder = new TextBuilder();
+        tempBuilder.underline();
+        this.classes.push(...tempBuilder.getClasses());
+        return this;
+    }
+
+    /**
+     * 移除文本下划线
+     */
+    noUnderline(): this {
+        const tempBuilder = new TextBuilder();
+        tempBuilder.noUnderline();
+        this.classes.push(...tempBuilder.getClasses());
+        return this;
+    }
+
+    /**
+     * 设置文本截断（显示省略号）
+     */
+    truncate(): this {
+        const tempBuilder = new TextBuilder();
+        tempBuilder.truncate();
         this.classes.push(...tempBuilder.getClasses());
         return this;
     }

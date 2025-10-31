@@ -107,7 +107,10 @@ const combinedClass = getHeadingCombinedClassesAstro(props);
 
 // 使用 class builder 构建链接类名
 const linkClass = props.href
-    ? cn().add('cosy:hover:opacity-80', 'cosy:transition-opacity').build()
+    ? cn()
+        .add('cosy:hover:opacity-80') // 保留：伪类状态
+        .transition('opacity')
+        .build()
     : '';
 ---
 

@@ -113,81 +113,113 @@ const windowId = id || `mac-window-${Math.random().toString(36).slice(2, 11)}`;
 
 // 构建类名
 const containerClass = cn()
-    .add('cosy:flex cosy:relative cosy:rounded-2xl cosy:overflow-hidden')
-    .add(height)
+    .flex()
+    .relative()
+    .rounded('2xl')
+    .overflowHidden()
+    .add(height) // 保留：动态类名
     .add(withShadow ? 'cosy:shadow-lg' : '')
     .build();
 
 const headerClass = cn()
-    .add('cosy:absolute cosy:top-0 cosy:left-0 cosy:right-0')
+    .absolute()
+    .top(0)
+    .left(0)
+    .right(0)
     .flex()
     .items('center')
-    .add('cosy:h-12 cosy:px-4 cosy:border-b cosy:border-base-300')
-    .add(headerBgClass)
+    .h(12)
+    .px(4)
+    .border()
+    .borderColor('base-300')
+    .add(headerBgClass) // 保留：动态类名
     .build();
 
 const buttonClass = cn()
-    .add('cosy:w-3 cosy:h-3 cosy:rounded-full cosy:cursor-pointer')
-    .add('hover:cosy:opacity-80 cosy:transition-opacity')
+    .w(3)
+    .h(3)
+    .rounded('full')
+    .cursorPointer()
+    .add('hover:cosy:opacity-80') // 保留：伪类状态
+    .transition('opacity')
     .build();
 
 const titleClass = cn()
-    .add('cosy:ml-6 cosy:text-sm cosy:font-medium cosy:text-base-content')
+    .ml(6)
+    .text('sm')
+    .medium()
+    .color('base-content')
     .build();
 
 const tabsContainerClass = cn()
-    .add('cosy:flex-1')
+    .flex1()
     .flex()
     .justify('center')
     .build();
 
 const tabsWrapperClass = cn()
-    .add('cosy:inline-flex cosy:rounded-lg cosy:bg-base-300 cosy:p-1')
+    .add('cosy:inline-flex') // 保留：inline-flex 暂不支持
+    .rounded('lg')
+    .bg('base-300')
+    .p(1)
     .build();
 
 const getTabButtonClass = (isActive: boolean) =>
     cn()
+        .px(3)
+        .py(1)
+        .text('sm')
+        .rounded('md')
+        .transition('colors')
         .add(
-            'cosy:px-3 cosy:py-1 cosy:text-sm cosy:rounded-md cosy:transition-colors'
+            isActive
+                ? 'cosy:bg-base-100 cosy:shadow' // 保留：复杂颜色和阴影
+                : 'hover:cosy:text-base-content' // 保留：伪类状态
         )
         .add(
             isActive
-                ? 'cosy:bg-base-100 cosy:text-base-content cosy:shadow'
-                : 'cosy:text-base-content/70 hover:cosy:text-base-content'
+                ? 'cosy:text-base-content' // 保留：动态颜色
+                : 'cosy:text-base-content/70' // 保留：复杂颜色
         )
         .build();
 
 const toolbarClass = cn()
-    .add('cosy:ml-auto')
+    .ml('auto')
     .flex()
     .items('center')
-    .add('cosy:space-x-2')
+    .spaceX(2)
     .build();
 
 const mainContentClass = cn()
-    .add('cosy:flex-1')
-    .flex()
-    .add('cosy:flex-col cosy:pt-12 cosy:h-full')
+    .flex1()
+    .flex('col')
+    .pt(12)
+    .h('full')
     .build();
 
 const contentWrapperClass = cn()
     .flex()
-    .add('cosy:flex-1 cosy:h-full cosy:overflow-hidden')
+    .flex1()
+    .h('full')
+    .overflowHidden()
     .build();
 
 const statusBarClass = cn()
-    .add('cosy:h-6 cosy:border-t cosy:border-base-300')
+    .h(6)
+    .add('cosy:border-t') // 保留：需要扩展 BorderBuilder 支持 border-t
+    .borderColor('base-300')
     .flex()
     .items('center')
     .justify('end')
-    .add('cosy:px-4 cosy:text-sm')
-    .add(statusBgClass)
+    .px(4)
+    .text('sm')
+    .add(statusBgClass) // 保留：动态类名
     .build();
 
 const statusContentClass = cn()
     .flex()
     .items('center')
-    .add('cosy:space-x-2')
+    .spaceX(2)
     .build();
 ---
 
@@ -203,15 +235,15 @@ const statusContentClass = cn()
     <div class={headerClass}>
         <div class="cosy:flex cosy:items-center cosy:space-x-2">
             <div
-                class={cn().add(buttonClass).add('cosy:bg-error').build()}
+                class={cn().add(buttonClass).bg('error').build()}
                 onclick="handleCloseWindow('${windowId}')">
             </div>
             <div
-                class={cn().add(buttonClass).add('cosy:bg-warning').build()}
+                class={cn().add(buttonClass).bg('warning').build()}
                 onclick="handleMinimizeWindow('${windowId}')">
             </div>
             <div
-                class={cn().add(buttonClass).add('cosy:bg-success').build()}
+                class={cn().add(buttonClass).bg('success').build()}
                 onclick="handleMaximizeWindow('${windowId}')">
             </div>
         </div>

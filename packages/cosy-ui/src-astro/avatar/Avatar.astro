@@ -60,8 +60,8 @@ const sizeClass = getAvatarSizeClass(size as 'sm' | 'md' | 'lg' | 'xl');
 const avatarContainerClass = cn()
     .add('cosy:avatar') // 保留：DaisyUI 组件类名
     .rounded('full')
-    .add('cosy:overflow-hidden') // 保留：需要扩展 OverflowBuilder
-    .add('cosy:shrink-0') // 保留：需要扩展 FlexBuilder
+    .overflowHidden()
+    .shrink0()
     .bg('base-200')
     .flex('row')
     .items('center')
@@ -79,8 +79,8 @@ const avatarFallbackClass = cn()
     .w('full')
     .h('full')
     .add(getAvatarColor(userName)) // 保留：动态颜色函数
-    .add('cosy:text-white') // 保留：需要扩展 TextBuilder 支持更多颜色
-    .add('cosy:font-semibold') // 保留：需要扩展 TextBuilder 支持更多字重
+    .color('white')
+    .semibold()
     .flex('row')
     .items('center')
     .justify('center')

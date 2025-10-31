@@ -47,7 +47,7 @@ export function renderAlert(
 		.flex("col")
 		.items("start")
 		.h("full")
-		.add("cosy:flex-1")
+		.flex1()
 		.build();
 
 	const actionsClass = cn().flex("row").items("center").gap(2).build();

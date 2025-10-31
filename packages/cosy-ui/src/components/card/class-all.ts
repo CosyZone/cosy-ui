@@ -14,18 +14,26 @@ export function getBaseCardClasses(props: ICardPropsBase): string {
 	const backgroundClass = getBackgroundClass(background);
 
 	// 使用 classBuilder 构建卡片样式类
-	const cardClass = cn()
-		.add("cosy:card")
+	const cardClassBuilder = cn()
+		.add("cosy:card") // 保留：DaisyUI 组件类名
 		.w("full")
-		.add(backgroundClass) // 不再提供默认背景色，避免与Container组件冲突
-		.add("cosy:transition-all", "cosy:duration-300", "cosy:ease-in-out")
-		.add(compact ? "cosy:card-compact" : "")
-		.add(
-			href
-				? "cosy:cursor-pointer cosy:hover:scale-105 cosy:transform cosy:no-underline"
-				: "",
-		)
-		.add(className)
+		.add(backgroundClass) // 保留：动态类名
+		.transitionAll()
+		.duration(300)
+		.easeInOut()
+		.add(compact ? "cosy:card-compact" : ""); // 保留：DaisyUI 组件类名
+
+	// 如果有链接，添加链接相关样式
+	if (href) {
+		cardClassBuilder
+			.cursorPointer()
+			.transform()
+			.noUnderline()
+			.add("cosy:hover:scale-105"); // 保留：伪类状态
+	}
+
+	const cardClass = cardClassBuilder
+		.add(className) // 保留：用户自定义类名
 		.build();
 
 	return cardClass;

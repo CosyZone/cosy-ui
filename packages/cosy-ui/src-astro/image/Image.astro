@@ -279,17 +279,26 @@ const localProps = {
 };
 
 // 使用 classBuilder 构建容器类名
-const containerClass = cn()
+const containerBuilder = cn()
     .add('not-prose')
     .flex()
     .items('center')
     .justify('center')
-    .add('cosy:align-middle', 'cosy:mx-auto', 'cosy:my-auto')
-    .add(asBackground ? 'cosy:absolute' : 'cosy:relative')
-    .add(asBackground ? '' : 'cosy:w-full', asBackground ? '' : 'cosy:h-full')
-    .inset(asBackground ? 0 : (undefined as any))
-    .add(previewEnabled ? 'cosy:cursor-zoom-in' : '')
-    .build();
+    .add('cosy:align-middle') // 保留：需要扩展对齐方法
+    .mx('auto')
+    .my('auto');
+
+if (asBackground) {
+    containerBuilder.absolute().inset(0);
+} else {
+    containerBuilder.relative().w('full').h('full');
+}
+
+if (previewEnabled) {
+    containerBuilder.cursorZoomIn();
+}
+
+const containerClass = containerBuilder.build();
 ---
 
 <div

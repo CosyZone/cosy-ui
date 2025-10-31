@@ -35,13 +35,23 @@ export function getTextCombinedClass(props: ITextProps): string {
 	const alignClass = textAlignClasses[align ?? "left"];
 
 	// 使用 classBuilder 组合所有类名
-	const textClass = cn()
-		.add("text")
-		.add(sizeClass, weightClass, colorClass, alignClass)
-		.add(italic ? "cosy:italic" : "")
-		.add(underline ? "cosy:underline" : "")
-		.add(truncate ? "cosy:truncate" : "")
-		.add(className)
+	const textClassBuilder = cn()
+		.add("text") // 保留：自定义组件类名
+		.add(sizeClass, weightClass, colorClass, alignClass); // 保留：动态类名
+
+	// 根据条件添加文本样式
+	if (italic) {
+		textClassBuilder.italic();
+	}
+	if (underline) {
+		textClassBuilder.underline();
+	}
+	if (truncate) {
+		textClassBuilder.truncate();
+	}
+
+	const textClass = textClassBuilder
+		.add(className) // 保留：用户自定义类名
 		.build();
 
 	return textClass;
