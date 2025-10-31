@@ -40,12 +40,15 @@ interface Props {
 const { loadingDelay = 100, mainContentConfig = {} } = Astro.props as Props;
 
 // 主内容区域类
-const mainContentClass = cn().add('cosy:flex-1', 'cosy:min-w-xs').build();
+const mainContentClass = cn()
+    .flex1()
+    .add('cosy:min-w-xs') // 保留：需要扩展 SizeBuilder 支持 min-w-xs
+    .build();
 
 // 骨架屏类
 const skeletonClass = cn()
     .w('full')
-    .add('cosy:h-screen')
+    .add('cosy:h-screen') // 保留：需要扩展 SizeBuilder 支持 h-screen
     .flex('row')
     .items('center')
     .justify('center')

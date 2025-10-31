@@ -1,7 +1,75 @@
 ---
+/**
+ * 语言自动检测和跳转页面
+ *
+ * 功能说明：
+ * 根据浏览器的 Accept-Language 头自动检测用户的首选语言，
+ * 然后自动跳转到对应语言的首页（/zh-cn/ 或 /en/）。
+ *
+ * Astro 配置要求（astro.config.mjs）：
+ *
+ * 1. 必须启用 i18n 配置：
+ *    i18n: {
+ *      locales: ['zh-cn', 'en'],
+ *      defaultLocale: 'en',
+ *      routing: {
+ *        prefixDefaultLocale: false,  // 必须为 false，允许根路径不被自动处理
+ *        redirectDefaultLocale: false, // 必须为 false，禁用自动重定向
+ *      },
+ *    }
+ *
+ * 2. 此页面必须使用 SSR 模式（export const prerender = false），
+ *    因为 Astro.preferredLocale 和 Astro.preferredLocaleList
+ *    只在服务端渲染模式下可用。
+ *
+ * 3. 如果使用 Cloudflare adapter，默认使用 hybrid 模式，
+ *    可以正常支持 SSR 功能。
+ *
+ * 工作原理：
+ * - Astro.preferredLocale: 自动匹配浏览器语言和配置的 locales
+ * - Astro.preferredLocaleList: 包含所有匹配的语言列表
+ * - 如果没有匹配，使用 defaultLocale
+ * - 最终通过 Astro.redirect() 跳转到对应语言的首页
+ */
 
+// 禁用预渲染，启用 SSR 以支持浏览器语言检测
+export const prerender = false;
 
+// 检测用户的首选语言
+const preferredLocale = Astro.preferredLocale;
+const preferredLocaleList = Astro.preferredLocaleList;
+const defaultLocale = 'en';
+const supportedLocales = ['zh-cn', 'en'];
 
-// astro要求放一个index.astro文件，否则会报错
-// https://docs.astro.build/zh-cn/guides/internationalization/#prefixdefaultlocale-true
+// 获取浏览器的 Accept-Language 头信息
+const acceptLanguage = Astro.request.headers.get('Accept-Language');
+
+console.log('==================== 语言检测开始 ====================');
+console.log('浏览器 Accept-Language 头:', acceptLanguage);
+console.log('Astro.preferredLocale:', preferredLocale);
+console.log('Astro.preferredLocaleList:', preferredLocaleList);
+console.log('支持的语言列表:', supportedLocales);
+console.log('默认语言:', defaultLocale);
+
+// 确定要跳转的语言
+let targetLocale = defaultLocale;
+
+if (preferredLocale && supportedLocales.includes(preferredLocale)) {
+  console.log(`✓ 找到完全匹配: ${preferredLocale}`);
+  targetLocale = preferredLocale;
+} else if (preferredLocaleList && preferredLocaleList.length > 0) {
+  // 如果没有完全匹配，尝试使用列表中的第一个
+  console.log(`! 没有完全匹配，使用列表中的第一个: ${preferredLocaleList[0]}`);
+  targetLocale = preferredLocaleList[0];
+} else {
+  console.log(`! 没有找到匹配的语言，使用默认语言: ${defaultLocale}`);
+}
+
+const redirectUrl = `/${targetLocale}/`;
+console.log(`→ 最终跳转语言: ${targetLocale}`);
+console.log(`→ 跳转 URL: ${redirectUrl}`);
+console.log('==================== 语言检测结束 ====================');
+
+// 自动跳转到检测到的语言首页
+return Astro.redirect(redirectUrl, 302);
 ---

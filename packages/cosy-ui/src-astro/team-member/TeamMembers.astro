@@ -84,13 +84,15 @@ const getGridClasses = (cols: 2 | 3 | 4) => {
 // 使用 classBuilder 构建容器和网格类名
 const containerClass = cn()
     .w('full')
-    .add('cosy:mx-auto', 'cosy:px-4')
-    .add(className)
+    .mx('auto')
+    .px(4)
+    .add(className) // 保留：用户自定义类名
     .build();
 
 const gridClass = cn()
-    .add('cosy:grid', 'cosy:gap-6')
-    .add(...getGridClasses(columnsValue))
+    .grid()
+    .gap(6)
+    .add(...getGridClasses(columnsValue)) // 保留：动态类名
     .build();
 ---
 

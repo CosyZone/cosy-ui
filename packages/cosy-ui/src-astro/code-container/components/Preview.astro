@@ -1,7 +1,4 @@
 ---
-
-
-
 import { Container } from '../../../index-astro';
 /**
  * @component Preview
@@ -14,6 +11,7 @@ import { Container } from '../../../index-astro';
  * - 支持样式重置模式
  */
 import { cn } from '../../../src/class';
+import ModeSwitcher from '../toolbar/ModeSwitcher.astro';
 
 interface Props {
     /**
@@ -27,18 +25,24 @@ const { resetStyles = true } = Astro.props;
 
 // 使用 classBuilder 构建类名
 const exampleContainerClass = cn()
-    .add('cosy:example-container', 'cosy:block')
+    .add('cosy:example-container') // 保留：自定义组件类名
+    .block()
     .build();
 
 const innerContainerClass = cn()
-    .add('cosy:relative', 'cosy:p-4', 'cosy:rounded-b')
+    .relative()
+    .p(4)
+    .roundedBottom()
     .build();
 
-const previewClass = cn().add('cosy:code-example-panel', 'cosy:block').build();
+const previewClass = cn()
+    .add('cosy:code-example-panel') // 保留：自定义组件类名
+    .block()
+    .build();
 
 const previewAreaClass = cn()
-    .add('cosy:code-preview-area')
-    .add(resetStyles ? 'cosy:reset-styles' : '')
+    .add('cosy:code-preview-area') // 保留：自定义组件类名
+    .add(resetStyles ? 'cosy:reset-styles' : '') // 保留：条件类名
     .build();
 ---
 
@@ -49,6 +53,10 @@ const previewAreaClass = cn()
                 <div class={previewAreaClass} data-preview-area="shared">
                     <slot />
                 </div>
+            </div>
+            <!-- 模式切换器 - 定位在右下角 -->
+            <div class="cosy:absolute cosy:bottom-2 cosy:right-2 cosy:z-10">
+                <ModeSwitcher />
             </div>
         </div>
     </Container>

@@ -116,7 +116,11 @@ const formatDate = (dateString: string) => {
 };
 
 // 使用 classBuilder 构建 Review 类名
-const reviewClass = cn().add('cosy:review', 'cosy:p-6').add(className).build();
+const reviewClass = cn()
+    .add('cosy:review') // 保留：自定义组件类名
+    .p(6)
+    .add(className) // 保留：用户自定义类名
+    .build();
 ---
 
 <Card

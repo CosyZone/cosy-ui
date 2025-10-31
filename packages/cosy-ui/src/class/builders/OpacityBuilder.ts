@@ -77,6 +77,22 @@ export class OpacityBuilder {
 	}
 
 	/**
+	 * 设置透明度为 0（完全透明）
+	 */
+	opacity0(): this {
+		this.classes.push(opacityMap[0]);
+		return this;
+	}
+
+	/**
+	 * 设置透明度为 100（完全不透明）
+	 */
+	opacity100(): this {
+		this.classes.push(opacityMap[100]);
+		return this;
+	}
+
+	/**
 	 * 设置背景透明度
 	 * @param value 透明度值
 	 */

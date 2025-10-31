@@ -143,23 +143,37 @@ const cardClass = getCardCombinedClasses({
 const contentPadding = getCardPaddingClassVue(compact);
 
 // 使用 class builder 构建类名
-const figureClass = cn().add('not-prose', 'cosy:m-0', 'cosy:p-0').build();
-
-const imageClass = cn()
-    .add('cosy:w-full', 'cosy:h-48', 'cosy:object-cover', 'cosy:rounded-t-lg')
+const figureClass = cn()
+    .add('not-prose') // 保留：Prose 相关类名
+    .m(0)
+    .p(0)
     .build();
 
-const cardBodyClass = cn().add('cosy:card-body').add(contentPadding).build();
+const imageClass = cn()
+    .w('full')
+    .h(48)
+    .objectCover()
+    .roundedTop('lg')
+    .build();
+
+const cardBodyClass = cn()
+    .add('cosy:card-body') // 保留：DaisyUI 组件类名
+    .add(contentPadding) // 保留：动态类名
+    .build();
 
 const cardTitleClass = cn()
-    .add('cosy:card-title', 'cosy:text-xl', 'cosy:font-bold')
+    .add('cosy:card-title') // 保留：DaisyUI 组件类名
+    .text('xl')
+    .bold()
     .build();
 
 const subtitleClass = cn()
-    .add('cosy:text-base-content/70', 'cosy:text-sm', 'cosy:leading-relaxed')
+    .add('cosy:text-base-content/70') // 保留：复杂颜色类名，需要扩展 TextBuilder
+    .text('sm')
+            .leadingRelaxed()
     .build();
 
-const contentClass = cn().add('cosy:mt-4').build();
+const contentClass = cn().mt(4).build();
 
 // 如果是链接卡片，使用a标签，否则使用article标签
 const Tag = href ? 'a' : 'article';

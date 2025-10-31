@@ -58,29 +58,29 @@ const sizeClass = getAvatarSizeClass(size as 'sm' | 'md' | 'lg' | 'xl');
 
 // 使用 classBuilder 构建各个部分的类名
 const avatarContainerClass = cn()
-    .add(
-        'cosy:avatar',
-        'cosy:rounded-full',
-        'cosy:overflow-hidden',
-        'cosy:shrink-0',
-        'cosy:bg-base-200',
-    )
+    .add('cosy:avatar') // 保留：DaisyUI 组件类名
+    .rounded('full')
+    .overflowHidden()
+    .shrink0()
+    .bg('base-200')
     .flex('row')
     .items('center')
     .justify('center')
-    .add(sizeClass, className)
+    .add(sizeClass, className) // 保留：动态类名
     .build();
 
 const avatarImageClass = cn()
     .w('full')
     .h('full')
-    .add('cosy:object-cover')
+    .objectCover()
     .build();
 
 const avatarFallbackClass = cn()
     .w('full')
     .h('full')
-    .add(getAvatarColor(userName), 'cosy:text-white', 'cosy:font-semibold')
+    .add(getAvatarColor(userName)) // 保留：动态颜色函数
+    .color('white')
+    .semibold()
     .flex('row')
     .items('center')
     .justify('center')

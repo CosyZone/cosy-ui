@@ -33,18 +33,23 @@ const { image, imagePosition } = Astro.props as Props;
 
 // 图片样式类
 const imageClasses = cn()
+    .rounded('lg')
+    .shadow('2xl')
+    .transitionAll()
+    .duration(300)
     .add(
-        'cosy:rounded-lg',
-        'cosy:shadow-2xl',
-        'cosy:transition-all',
-        'cosy:duration-300',
-        'cosy:hover:scale-105',
-        'cosy:hover:shadow-primary/20'
+        'cosy:hover:scale-105', // 保留：伪类状态
+        'cosy:hover:shadow-primary/20' // 保留：伪类状态和复杂阴影
     )
     .add(
         imagePosition === 'top' || imagePosition === 'bottom'
-            ? 'cosy:max-w-lg cosy:w-full'
-            : 'cosy:max-w-sm cosy:lg:max-w-md'
+            ? 'cosy:max-w-lg' // 保留：响应式类名
+            : 'cosy:max-w-sm cosy:lg:max-w-md' // 保留：响应式类名
+    )
+    .add(
+        imagePosition === 'top' || imagePosition === 'bottom'
+            ? 'cosy:w-full'
+            : ''
     )
     .build();
 

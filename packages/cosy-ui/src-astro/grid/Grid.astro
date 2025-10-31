@@ -393,12 +393,12 @@ const getColsClasses = (cols: ResponsiveValue<number>) => {
 // 间距映射 - 使用 class builder
 const getGapClass = (gap: GapSize) => {
     const gapMap = {
-        none: cn().add('cosy:gap-0').build(),
-        xs: cn().add('cosy:gap-2').build(),
-        sm: cn().add('cosy:gap-4').build(),
-        md: cn().add('cosy:gap-6').build(),
-        lg: cn().add('cosy:gap-8').build(),
-        xl: cn().add('cosy:gap-12').build(),
+        none: cn().gap(0).build(),
+        xs: cn().gap(2).build(),
+        sm: cn().gap(4).build(),
+        md: cn().gap(6).build(),
+        lg: cn().gap(8).build(),
+        xl: cn().gap(12).build(),
     };
     return gapMap[gap];
 };
@@ -432,12 +432,12 @@ const getColGapClass = (gap: GapSize) => {
 // 垂直外边距映射 - 使用 class builder
 const getMarginYClass = (gap: GapSize) => {
     const marginYMap = {
-        none: cn().add('cosy:my-0').build(),
-        xs: cn().add('cosy:my-2').build(),
-        sm: cn().add('cosy:my-4').build(),
-        md: cn().add('cosy:my-6').build(),
-        lg: cn().add('cosy:my-8').build(),
-        xl: cn().add('cosy:my-12').build(),
+        none: cn().my(0).build(),
+        xs: cn().my(2).build(),
+        sm: cn().my(4).build(),
+        md: cn().my(6).build(),
+        lg: cn().my(8).build(),
+        xl: cn().my(12).build(),
     };
     return marginYMap[gap];
 };
@@ -447,20 +447,23 @@ const backgroundClass = getBackgroundClass(background as BackgroundColor);
 
 // 使用 classBuilder 构建最终类名
 const gridClass = cn()
-    .add('cosy:grid')
-    .add(getColsClasses(cols))
+    .grid()
+    .add(getColsClasses(cols)) // 保留：动态类名
     .add(
         rowGap
-            ? getRowGapClass(rowGap as GapSize)
+            ? getRowGapClass(rowGap as GapSize) // 保留：row-gap 暂不支持
             : colGap
               ? getGapClass(gap as GapSize)
               : getGapClass(gap as GapSize),
     )
-    .add(colGap ? getColGapClass(colGap as GapSize) : '')
+    .add(colGap ? getColGapClass(colGap as GapSize) : '') // 保留：col-gap 暂不支持
     .add(marginY ? getMarginYClass(marginY as GapSize) : '')
-    .add(border ? 'cosy:border cosy:rounded-lg' : '')
-    .add(backgroundClass)
-    .add(className)
+    .add(border ? (() => {
+        const borderBuilder = cn().border().rounded('lg');
+        return borderBuilder.build();
+    })() : '')
+    .add(backgroundClass) // 保留：动态类名
+    .add(className) // 保留：用户自定义类名
     .build();
 ---
 

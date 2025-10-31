@@ -34,7 +34,9 @@ const toolbarClass = cn()
     .flex('row')
     .justify('between')
     .items('center')
-    .add('cosy:bg-base-200', 'cosy:px-4', 'cosy:rounded-t')
+    .bg('base-200')
+    .px(4)
+    .add('cosy:rounded-t') // 保留：需要扩展 BorderBuilder 支持 rounded-t
     .build();
 
 const buttonsContainerClass = cn().flex('row').items('center').gap(2).build();

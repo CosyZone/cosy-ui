@@ -25,10 +25,11 @@ const safeOpacity = Math.max(0, Math.min(1, overlayOpacity));
 
 // 遮罩层类名
 const overlayClass = cn()
-    .add('cosy:absolute')
+    .absolute()
     .inset(0)
     .z(0)
-    .add('cosy:m-0', 'cosy:p-0')
+    .m(0)
+    .p(0)
     .build();
 
 // 创建遮罩样式对象

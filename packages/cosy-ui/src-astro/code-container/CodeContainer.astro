@@ -64,7 +64,6 @@ import { cn } from '../../src/class';
 import CodePanelContainer from './components/CodePanelContainer.astro';
 import Preview from './components/Preview.astro';
 import CodeToolbar from './toolbar/CodeToolbar.astro';
-import ModeSwitcher from './toolbar/ModeSwitcher.astro';
 
 interface Props {
     /**
@@ -96,16 +95,17 @@ const {
 } = Astro.props;
 
 // 使用 classBuilder 构建容器类名
-const containerClass = cn().add('cosy:mb-8', 'cosy:card', 'not-prose').build();
+const containerClass = cn()
+    .mb(8)
+    .add('cosy:card') // 保留：DaisyUI 组件类名
+    .add('not-prose') // 保留：Prose 相关类名
+    .build();
 
 // 导出 Props 类型供外部使用
 export type { Props };
 ---
 
 <div data-role="code-container" class={containerClass} ignore-heading>
-    <!-- 模式切换器 -->
-    <ModeSwitcher />
-
     <CodeToolbar
         titles={titles.length ? titles : codes.map((_, i) => `示例 ${i + 1}`)}
         activeTab={0}
@@ -188,6 +188,29 @@ export type { Props };
                 content.classList.remove('cosy:block');
             }
         });
+
+        // 检查当前是否在代码视图模式
+        const previewContainer = container.querySelector(
+            '[data-example="preview"]'
+        );
+        const isCodeView =
+            previewContainer &&
+            previewContainer.classList.contains('cosy:hidden');
+
+        // 如果在代码视图模式，切换到新label的第一个tab的代码面板
+        if (isCodeView && firstTabId) {
+            container
+                .querySelectorAll('.cosy\\:code-panel-container')
+                .forEach((panel) => {
+                    if (panel.getAttribute('data-code-panel') === firstTabId) {
+                        panel.classList.remove('cosy:hidden');
+                        panel.classList.add('cosy:block');
+                    } else {
+                        panel.classList.add('cosy:hidden');
+                        panel.classList.remove('cosy:block');
+                    }
+                });
+        }
 
         // 更新标签按钮的显示和状态
         updateTabsForLabelGroup(container, targetLabel, groups);

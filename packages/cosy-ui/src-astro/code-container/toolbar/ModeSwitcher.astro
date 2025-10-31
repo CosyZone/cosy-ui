@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component ModeSwitcher
  * @description 模式切换器组件，用于在不同的代码写法之间切换
@@ -20,7 +17,7 @@ import { cn } from '../../../src/class';
 
 // 使用 classBuilder 构建类名
 // 默认隐藏，在检测到多个 label 时由脚本显示并添加样式
-const switcherClass = cn().add('cosy:hidden').build();
+const switcherClass = cn().hidden().build();
 
 // 激活状态的类名（由脚本动态添加）
 const activeSwitcherClass = cn()
@@ -28,13 +25,15 @@ const activeSwitcherClass = cn()
     .justify('start')
     .items('center')
     .gap(2)
-    .add(
-        'cosy:bg-base-200',
-        'cosy:px-4',
-        'cosy:py-2',
-        'cosy:border-b',
-        'cosy:border-base-300'
-    )
+    .bg('base-100')
+    .bgOpacity(90)
+    .backdropBlur('sm')
+    .px(3)
+    .py(2)
+    .rounded('lg')
+    .shadow('md')
+    .border()
+    .borderColor('base-300')
     .build();
 
 // 将激活状态的类名也传递给客户端
@@ -56,7 +55,49 @@ const activeSwitcherClassStr = activeSwitcherClass;
      * 2. 动态创建模式切换按钮
      * 3. 处理模式切换事件
      * 4. 触发自定义事件通知 CodeContainer 更新内容显示
+     * 5. 持久化用户的模式选择到 localStorage
      */
+
+    // localStorage 的 key，用于存储用户选择的模式
+    const MODE_PREFERENCE_KEY = 'cosy-ui-mode-preference';
+    
+    // 全局模式切换事件名称
+    const MODE_SYNC_EVENT = 'cosy-ui-mode-sync';
+
+    /**
+     * 获取用户保存的模式偏好
+     */
+    function getSavedModePreference() {
+        try {
+            return localStorage.getItem(MODE_PREFERENCE_KEY);
+        } catch (e) {
+            console.warn('无法读取 localStorage:', e);
+            return null;
+        }
+    }
+
+    /**
+     * 保存用户的模式偏好
+     */
+    function saveModePreference(mode) {
+        try {
+            localStorage.setItem(MODE_PREFERENCE_KEY, mode);
+        } catch (e) {
+            console.warn('无法写入 localStorage:', e);
+        }
+    }
+
+    /**
+     * 广播模式切换事件到页面上所有其他的 ModeSwitcher
+     */
+    function broadcastModeChange(mode) {
+        const event = new CustomEvent(MODE_SYNC_EVENT, {
+            detail: { mode },
+            bubbles: false
+        });
+        window.dispatchEvent(event);
+    }
+
     function initializeModeSwitcher() {
         document
             .querySelectorAll('[data-role="mode-switcher"]')
@@ -105,24 +146,59 @@ const activeSwitcherClassStr = activeSwitcherClass;
                     });
                 }
 
+                // 为预览区域添加底部 padding，为 ModeSwitcher 预留空间
+                const previewArea = container.querySelector('[data-preview-area="shared"]');
+                if (previewArea) {
+                    previewArea.classList.add('cosy:pb-16');
+                }
+
+                // 检查是否有保存的用户偏好
+                const savedPreference = getSavedModePreference();
+                let initialLabel = groupOrder[0]; // 默认使用第一个
+                
+                // 如果有保存的偏好，且当前容器支持该模式，则使用保存的偏好
+                if (savedPreference && groupOrder.includes(savedPreference)) {
+                    initialLabel = savedPreference;
+                }
+
                 // 创建分组切换按钮
                 groupOrder.forEach((label, index) => {
                     const button = document.createElement('button');
                     // 直接使用 data-label 的值作为按钮文字
                     button.textContent = label;
                     button.setAttribute('data-label-group', label);
-                    button.className = `cosy:btn cosy:btn-sm ${index === 0 ? 'cosy:btn-primary' : 'cosy:btn-ghost'}`;
+                    // 根据 initialLabel 设置初始激活状态
+                    const isActive = label === initialLabel;
+                    button.className = `cosy:btn cosy:btn-sm ${isActive ? 'cosy:btn-primary' : 'cosy:btn-ghost'}`;
 
                     button.addEventListener('click', () => {
+                        // 保存用户的选择
+                        saveModePreference(label);
+                        // 广播模式切换事件到其他 ModeSwitcher
+                        broadcastModeChange(label);
                         handleModeSwitchClick(modeSwitcher, label, groupOrder);
                     });
 
                     modeSwitcher.appendChild(button);
                 });
 
-                // 触发初始模式切换（显示第一个分组）
-                const firstLabel = groupOrder[0];
-                dispatchModeChangeEvent(container, firstLabel, groups);
+                // 触发初始模式切换（显示用户偏好的模式或第一个分组）
+                dispatchModeChangeEvent(container, initialLabel, groups);
+
+                // 监听来自其他 ModeSwitcher 的模式同步事件
+                window.addEventListener(MODE_SYNC_EVENT, (event) => {
+                    const { mode } = event.detail;
+                    
+                    // 如果当前容器支持这个模式，且当前不是这个模式，则切换
+                    if (groupOrder.includes(mode)) {
+                        const currentActiveLabel = modeSwitcher.querySelector('.cosy\\:btn-primary')?.getAttribute('data-label-group');
+                        
+                        // 只有当前模式与目标模式不同时才切换
+                        if (currentActiveLabel !== mode) {
+                            handleModeSwitchClick(modeSwitcher, mode, groupOrder);
+                        }
+                    }
+                });
             });
     }
 

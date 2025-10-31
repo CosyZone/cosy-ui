@@ -98,10 +98,12 @@ const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
 
 // 使用 classBuilder 构建 aside 类名
 const asideClass = cn()
-    .add('cosy:hidden', 'cosy:xl:block')
+    .hidden()
+    .add('cosy:xl:block') // 保留：响应式类名
     .w(64)
-    .add('cosy:pr-3', 'cosy:shrink-0')
-    .add(className)
+    .pr(3)
+    .shrink0()
+    .add(className) // 保留：用户自定义类名
     .build();
 ---
 

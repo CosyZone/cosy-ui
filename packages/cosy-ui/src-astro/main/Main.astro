@@ -1,102 +1,33 @@
 ---
 
-
-
+import {
+    Article,
+    type IMainContentProps,
+    TableOfContents,
+} from '../../index-astro';
+import { cn } from '../../src/class';
 /**
  * @component Main
  *
  * @description
  * Main 组件是页面的主要内容区域，使用 Container 组件提供响应式布局。
  * 它适合作为页面的主体部分，自动处理不同屏幕尺寸下的布局和内边距。
- *
- * @usage
- * 基本用法：
- * ```astro
- * ---
- * import { Main } from '@coffic/cosy-ui';
- * ---
- *
- * <Main>
- *   <h1>页面标题</h1>
- *   <p>页面内容</p>
- * </Main>
- * ```
- *
- * 自定义容器尺寸：
- * ```astro
- * <Main size="lg">
- *   <p>这是一个较宽的主内容区域</p>
- * </Main>
- * ```
- *
- * 自定义内边距：
- * ```astro
- * <Main py="lg" padding="xl">
- *   <p>这个主内容区域有更大的内边距</p>
- * </Main>
- * ```
- *
- * 自定义顶部和底部内边距：
- * ```astro
- * <Main pt="lg" pb="xl">
- *   <p>这个主内容区域有自定义的顶部和底部内边距</p>
- * </Main>
- * ```
- *
- * 自定义左侧和右侧内边距：
- * ```astro
- * <Main pl="md" pr="lg">
- *   <p>这个主内容区域有自定义的左侧和右侧内边距</p>
- * </Main>
- * ```
- *
- * 自定义水平内边距：
- * ```astro
- * <Main px="xl">
- *   <p>这个主内容区域有自定义的水平内边距</p>
- * </Main>
- * ```
- *
- * 组合使用所有内边距属性：
- * ```astro
- * <Main py="md" pt="lg" pb="xl" pl="md" pr="lg">
- *   <p>这个主内容区域有完全自定义的内边距</p>
- * </Main>
- * ```
- *
- * ⚠️ **注意**:
- * - 不能同时使用 `px` 和 `pl`/`pr` 属性，因为它们都会设置水平内边距，会产生冲突
- * - 不能同时使用 `py` 和 `pt`/`pb` 属性，因为它们都会设置垂直内边距，会产生冲突
- * 如果同时提供这些冲突的属性，组件会显示错误提示。
- *
- * 自定义背景颜色：
- * ```astro
- * <Main backgroundColor="primary">
- *   <p>这个主内容区域有主题色背景</p>
- * </Main>
- * ```
  */
 import {
-    getBackgroundClass,
     type BackgroundColor,
+    getBackgroundClass,
 } from '../../src/common/backgrounds';
 import { borderClasses } from '../../src/common/border';
 import {
-    Article,
-    TableOfContents,
-    type IMainContentProps,
-} from '../../index-astro';
-import MainError from './MainError.astro';
-import { createPaddingConflictError } from './validate';
-import {
-    paddingYClasses,
-    paddingTopClasses,
     paddingBottomClasses,
     paddingLeftClasses,
     paddingRightClasses,
+    paddingTopClasses,
     paddingXClasses,
+    paddingYClasses,
 } from '../../src/common/padding-axis';
-import { cn } from '../../src/class';
+import MainError from './MainError.astro';
+import { createPaddingConflictError } from './validate';
 
 export interface Props extends IMainContentProps {}
 
@@ -201,7 +132,7 @@ const hasError = Boolean(paddingError);
 // 使用 classBuilder 构建完整的 main 类名
 const mainClass = cn()
     .w('full')
-    .add(layoutClass)
+    .add(layoutClass) // 保留：动态样式
     .add(
         pyClass,
         paddingTopClass,
@@ -209,9 +140,9 @@ const mainClass = cn()
         paddingLeftClass,
         paddingRightClass,
         paddingXClass
-    )
-    .add(bgColorClass, borderClass)
-    .add(className || '')
+    ) // 保留：动态样式
+    .add(bgColorClass, borderClass) // 保留：动态样式
+    .add(className || '') // 保留：用户自定义类名
     .build();
 ---
 

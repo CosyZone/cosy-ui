@@ -87,21 +87,21 @@ const IconComponent = {
 
 // 使用 classBuilder 构建 toast 类名
 const toastClass = cn()
-    .add('cosy:alert', 'cosy:shadow-lg')
+    .add('cosy:alert') // 保留：DaisyUI 组件类名
+    .shadow('lg')
     .flex()
     .items('center')
     .gap(3)
-    .add('cosy:pr-2')
-    .add(
-        'cosy:transform',
-        'cosy:transition-all',
-        'cosy:duration-300',
-        'cosy:ease-in-out'
-    )
-    .add('cosy:translate-x-full', 'cosy:opacity-0')
-    .add('toast-enter:cosy:translate-x-0', 'toast-enter:cosy:opacity-100')
-    .add('toast-exit:cosy:translate-x-full', 'toast-exit:cosy:opacity-0')
-    .add(style.bg, style.border)
+    .pr(2)
+    .transform()
+    .transitionAll()
+    .duration(300)
+    .easeInOut()
+    .translateX('full')
+    .opacity0()
+    .add('toast-enter:cosy:translate-x-0', 'toast-enter:cosy:opacity-100') // 保留：伪类状态
+    .add('toast-exit:cosy:translate-x-full', 'toast-exit:cosy:opacity-0') // 保留：伪类状态
+    .add(style.bg, style.border) // 保留：动态样式
     .build();
 ---
 

@@ -61,10 +61,10 @@ const {
 // 内容布局类
 const contentClass = cn()
     .flex(imagePosition === 'top' || imagePosition === 'bottom' ? 'col' : 'col')
-    .add('cosy:lg:flex-row')
+    .add('cosy:lg:flex-row') // 保留：响应式类名
     .add(
         align === 'center'
-            ? 'cosy:text-center cosy:items-center'
+            ? 'cosy:text-center cosy:items-center' // 保留：动态对齐
             : align === 'left'
               ? 'cosy:text-left cosy:items-start'
               : 'cosy:text-right cosy:items-end'
@@ -72,12 +72,12 @@ const contentClass = cn()
     .w('full')
     .mx('auto')
     .gap(10)
-    .add('cosy:lg:gap-16')
+    .add('cosy:lg:gap-16') // 保留：响应式类名
     .z(10)
     .relative()
     .py(16)
     .px(4)
-    .add('cosy:sm:px-6', 'cosy:lg:px-8')
+    .add('cosy:sm:px-6', 'cosy:lg:px-8') // 保留：响应式类名
     .build();
 
 // 内容顺序类映射

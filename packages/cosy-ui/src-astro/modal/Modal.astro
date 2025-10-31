@@ -85,13 +85,16 @@ const {
 } = Astro.props;
 
 // 使用 classBuilder 构建 modal-box 类名
-const modalBoxClass = cn().add('cosy:modal-box').add(className).build();
+const modalBoxClass = cn()
+    .add('cosy:modal-box') // 保留：DaisyUI 组件类名
+    .add(className) // 保留：用户自定义类名
+    .build();
 ---
 
 <dialog id={id} class="cosy:modal">
     <div class={modalBoxClass}>
         <div
-            class="cosy:flex cosy:justify-between cosy:items-center cosy:p-2 cosy:border-b-1 cosy:border-base-300 not-prose">
+            class="cosy:flex cosy:justify-between cosy:items-center cosy:p-2 cosy:border-b cosy:border-base-300 not-prose">
             <Heading
                 level={4}
                 class="cosy:modal-title cosy:m-0"
