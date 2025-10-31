@@ -64,7 +64,6 @@ import { cn } from '../../src/class';
 import CodePanelContainer from './components/CodePanelContainer.astro';
 import Preview from './components/Preview.astro';
 import CodeToolbar from './toolbar/CodeToolbar.astro';
-import ModeSwitcher from './toolbar/ModeSwitcher.astro';
 
 interface Props {
     /**
@@ -103,9 +102,6 @@ export type { Props };
 ---
 
 <div data-role="code-container" class={containerClass} ignore-heading>
-    <!-- 模式切换器 -->
-    <ModeSwitcher />
-
     <CodeToolbar
         titles={titles.length ? titles : codes.map((_, i) => `示例 ${i + 1}`)}
         activeTab={0}

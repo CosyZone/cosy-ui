@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component ModeSwitcher
  * @description 模式切换器组件，用于在不同的代码写法之间切换
@@ -29,10 +26,14 @@ const activeSwitcherClass = cn()
     .items('center')
     .gap(2)
     .add(
-        'cosy:bg-base-200',
-        'cosy:px-4',
+        'cosy:bg-base-100',
+        'cosy:bg-opacity-90',
+        'cosy:backdrop-blur-sm',
+        'cosy:px-3',
         'cosy:py-2',
-        'cosy:border-b',
+        'cosy:rounded-lg',
+        'cosy:shadow-md',
+        'cosy:border',
         'cosy:border-base-300'
     )
     .build();
@@ -103,6 +104,12 @@ const activeSwitcherClassStr = activeSwitcherClass;
                     activeClasses.split(' ').forEach((cls) => {
                         if (cls.trim()) modeSwitcher.classList.add(cls.trim());
                     });
+                }
+
+                // 为预览区域添加底部 padding，为 ModeSwitcher 预留空间
+                const previewArea = container.querySelector('[data-preview-area="shared"]');
+                if (previewArea) {
+                    previewArea.classList.add('cosy:pb-16');
                 }
 
                 // 创建分组切换按钮

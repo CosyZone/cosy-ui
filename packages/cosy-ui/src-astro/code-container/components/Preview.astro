@@ -1,7 +1,4 @@
 ---
-
-
-
 import { Container } from '../../../index-astro';
 /**
  * @component Preview
@@ -14,6 +11,7 @@ import { Container } from '../../../index-astro';
  * - 支持样式重置模式
  */
 import { cn } from '../../../src/class';
+import ModeSwitcher from '../toolbar/ModeSwitcher.astro';
 
 interface Props {
     /**
@@ -49,6 +47,10 @@ const previewAreaClass = cn()
                 <div class={previewAreaClass} data-preview-area="shared">
                     <slot />
                 </div>
+            </div>
+            <!-- 模式切换器 - 定位在右下角 -->
+            <div class="cosy:absolute cosy:bottom-2 cosy:right-2 cosy:z-10">
+                <ModeSwitcher />
             </div>
         </div>
     </Container>
