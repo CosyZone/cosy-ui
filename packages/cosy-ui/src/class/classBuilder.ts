@@ -394,6 +394,17 @@ class ClassBuilder {
 	}
 
 	/**
+	 * 设置所有方向外边距
+	 * @param size 外边距大小
+	 */
+	m(size: MarginSize): this {
+		const tempBuilder = new SpacingBuilder();
+		tempBuilder.margin(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
 	 * 设置水平方向子元素间距
 	 * @param size 间距大小
 	 */
