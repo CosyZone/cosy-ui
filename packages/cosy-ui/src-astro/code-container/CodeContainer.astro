@@ -95,7 +95,11 @@ const {
 } = Astro.props;
 
 // 使用 classBuilder 构建容器类名
-const containerClass = cn().add('cosy:mb-8', 'cosy:card', 'not-prose').build();
+const containerClass = cn()
+    .mb(8)
+    .add('cosy:card') // 保留：DaisyUI 组件类名
+    .add('not-prose') // 保留：Prose 相关类名
+    .build();
 
 // 导出 Props 类型供外部使用
 export type { Props };

@@ -143,13 +143,11 @@ const mutedClass = muted ? 'container-muted' : '';
 
 // 使用 classBuilder 构建卡片类名
 const cardClass = cn()
-    .add(
-        'cosy:card',
-        'cosy:bg-transparent',
-        'cosy:transition-shadow',
-        'cosy:duration-300'
-    )
-    .add(hoverShadowClass, mutedClass)
+    .add('cosy:card') // 保留：DaisyUI 组件类名
+    .add('cosy:bg-transparent') // 保留：需要扩展 BackgroundBuilder 支持 transparent
+    .transition('shadow')
+    .duration(300)
+    .add(hoverShadowClass, mutedClass) // 保留：动态样式
     .build();
 ---
 

@@ -17,7 +17,7 @@ import { cn } from '../../../src/class';
 
 // 使用 classBuilder 构建类名
 // 默认隐藏，在检测到多个 label 时由脚本显示并添加样式
-const switcherClass = cn().add('cosy:hidden').build();
+const switcherClass = cn().hidden().build();
 
 // 激活状态的类名（由脚本动态添加）
 const activeSwitcherClass = cn()
@@ -25,17 +25,15 @@ const activeSwitcherClass = cn()
     .justify('start')
     .items('center')
     .gap(2)
-    .add(
-        'cosy:bg-base-100',
-        'cosy:bg-opacity-90',
-        'cosy:backdrop-blur-sm',
-        'cosy:px-3',
-        'cosy:py-2',
-        'cosy:rounded-lg',
-        'cosy:shadow-md',
-        'cosy:border',
-        'cosy:border-base-300'
-    )
+    .bg('base-100')
+    .bgOpacity(90)
+    .backdropBlur('sm')
+    .px(3)
+    .py(2)
+    .rounded('lg')
+    .shadow('md')
+    .border()
+    .borderColor('base-300')
     .build();
 
 // 将激活状态的类名也传递给客户端

@@ -294,6 +294,15 @@ export class SpacingBuilder {
 	}
 
 	/**
+	 * 设置内边距（简写）
+	 * @param size 内边距大小
+	 */
+	p(size: PaddingSize): this {
+		this.classes.push(paddingMap[size]);
+		return this;
+	}
+
+	/**
 	 * 设置外边距
 	 * @param size 外边距大小
 	 */

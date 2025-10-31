@@ -41,6 +41,28 @@
  */
 
 import {
+	BackgroundBuilder,
+	type BackgroundColor,
+} from "./builders/BackgroundBuilder";
+import {
+	BorderBuilder,
+	type BorderColor,
+	type BorderWidth,
+	type RoundedBottomSize,
+	type RoundedLeftSize,
+	type RoundedRightSize,
+	type RoundedSize,
+	type RoundedTopSize,
+} from "./builders/BorderBuilder";
+import { DisplayBuilder, type DisplayType } from "./builders/DisplayBuilder";
+import {
+	type BackdropBlurSize,
+	type BackdropBrightnessValue,
+	type BackdropSaturateValue,
+	type BlurSize,
+	FilterBuilder,
+} from "./builders/FilterBuilder";
+import {
 	type FlexDirection,
 	type ItemsAlign,
 	type JustifyAlign,
@@ -48,6 +70,11 @@ import {
 	type PlaceItemsAlign,
 } from "./builders/LayoutBuilder";
 import { ListBuilder, type ListStyleType } from "./builders/ListBuilder";
+import {
+	ObjectBuilder,
+	type ObjectFit,
+	type ObjectPosition,
+} from "./builders/ObjectBuilder";
 import {
 	type BgOpacityValue,
 	OpacityBuilder,
@@ -62,6 +89,11 @@ import {
 	PositionBuilder,
 	type ZIndexValue,
 } from "./builders/PositionBuilder";
+import {
+	ShadowBuilder,
+	type ShadowColor,
+	type ShadowSize,
+} from "./builders/ShadowBuilder";
 import {
 	type HeightSize,
 	type MaxHeightSize,
@@ -98,6 +130,15 @@ import {
 	type TextColor,
 	type TextSize,
 } from "./builders/TextBuilder";
+import {
+	type DurationValue,
+	type EaseType,
+	TransformBuilder,
+	type TransformType,
+	type TransitionType,
+	type TranslateXValue,
+	type TranslateYValue,
+} from "./builders/TransformBuilder";
 
 class ClassBuilder {
 	// 统一的类名数组，保持调用顺序
@@ -342,6 +383,17 @@ class ClassBuilder {
 	}
 
 	/**
+	 * 设置所有方向内边距
+	 * @param size 内边距大小
+	 */
+	p(size: PaddingSize): this {
+		const tempBuilder = new SpacingBuilder();
+		tempBuilder.p(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
 	 * 设置水平方向子元素间距
 	 * @param size 间距大小
 	 */
@@ -525,6 +577,26 @@ class ClassBuilder {
 	}
 
 	/**
+	 * 设置透明度为 0（完全透明）
+	 */
+	opacity0(): this {
+		const tempBuilder = new OpacityBuilder();
+		tempBuilder.opacity0();
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置透明度为 100（完全不透明）
+	 */
+	opacity100(): this {
+		const tempBuilder = new OpacityBuilder();
+		tempBuilder.opacity100();
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
 	 * 设置文本透明度
 	 * @param value 透明度值（0-100）
 	 */
@@ -648,6 +720,353 @@ class ClassBuilder {
 	pointerEvents(value: PointerEventsValue): this {
 		const tempBuilder = new PositionBuilder();
 		tempBuilder.pointerEvents(value);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	// ========== 背景相关方法（委托给 BackgroundBuilder） ==========
+
+	/**
+	 * 设置背景色
+	 * @param color 背景色值
+	 */
+	bg(color: BackgroundColor): this {
+		const tempBuilder = new BackgroundBuilder();
+		tempBuilder.bg(color);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	// ========== 边框相关方法（委托给 BorderBuilder） ==========
+
+	/**
+	 * 设置边框宽度
+	 * @param width 边框宽度值，不传参数则使用默认边框
+	 */
+	border(width?: BorderWidth): this {
+		const tempBuilder = new BorderBuilder();
+		tempBuilder.border(width);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置边框颜色
+	 * @param color 边框颜色值
+	 */
+	borderColor(color: BorderColor): this {
+		const tempBuilder = new BorderBuilder();
+		tempBuilder.borderColor(color);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置圆角
+	 * @param size 圆角大小，不传参数则使用默认圆角
+	 */
+	rounded(size?: RoundedSize): this {
+		const tempBuilder = new BorderBuilder();
+		tempBuilder.rounded(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置顶部圆角
+	 * @param size 圆角大小，不传参数则使用默认圆角
+	 */
+	roundedTop(size?: RoundedTopSize): this {
+		const tempBuilder = new BorderBuilder();
+		tempBuilder.roundedTop(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置底部圆角
+	 * @param size 圆角大小，不传参数则使用默认圆角
+	 */
+	roundedBottom(size?: RoundedBottomSize): this {
+		const tempBuilder = new BorderBuilder();
+		tempBuilder.roundedBottom(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置左侧圆角
+	 * @param size 圆角大小，不传参数则使用默认圆角
+	 */
+	roundedLeft(size?: RoundedLeftSize): this {
+		const tempBuilder = new BorderBuilder();
+		tempBuilder.roundedLeft(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置右侧圆角
+	 * @param size 圆角大小，不传参数则使用默认圆角
+	 */
+	roundedRight(size?: RoundedRightSize): this {
+		const tempBuilder = new BorderBuilder();
+		tempBuilder.roundedRight(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	// ========== 阴影相关方法（委托给 ShadowBuilder） ==========
+
+	/**
+	 * 设置阴影大小
+	 * @param size 阴影大小，不传参数则使用默认阴影
+	 */
+	shadow(size?: ShadowSize): this {
+		const tempBuilder = new ShadowBuilder();
+		tempBuilder.shadow(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置阴影颜色
+	 * @param color 阴影颜色值
+	 */
+	shadowColor(color: ShadowColor): this {
+		const tempBuilder = new ShadowBuilder();
+		tempBuilder.shadowColor(color);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	// ========== 显示相关方法（委托给 DisplayBuilder） ==========
+
+	/**
+	 * 设置显示类型
+	 * @param type 显示类型值
+	 */
+	display(type: DisplayType): this {
+		const tempBuilder = new DisplayBuilder();
+		tempBuilder.display(type);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置为块级元素
+	 */
+	block(): this {
+		const tempBuilder = new DisplayBuilder();
+		tempBuilder.block();
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置为行内块级元素
+	 */
+	inlineBlock(): this {
+		const tempBuilder = new DisplayBuilder();
+		tempBuilder.inlineBlock();
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置为网格显示
+	 */
+	displayGrid(): this {
+		const tempBuilder = new DisplayBuilder();
+		tempBuilder.grid();
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置为隐藏
+	 */
+	hidden(): this {
+		const tempBuilder = new DisplayBuilder();
+		tempBuilder.hidden();
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	// ========== 对象相关方法（委托给 ObjectBuilder） ==========
+
+	/**
+	 * 设置对象适配方式
+	 * @param fit 对象适配值
+	 */
+	objectFit(fit: ObjectFit): this {
+		const tempBuilder = new ObjectBuilder();
+		tempBuilder.objectFit(fit);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置对象覆盖
+	 */
+	objectCover(): this {
+		const tempBuilder = new ObjectBuilder();
+		tempBuilder.objectCover();
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置对象包含
+	 */
+	objectContain(): this {
+		const tempBuilder = new ObjectBuilder();
+		tempBuilder.objectContain();
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置对象位置
+	 * @param position 对象位置值
+	 */
+	objectPosition(position: ObjectPosition): this {
+		const tempBuilder = new ObjectBuilder();
+		tempBuilder.objectPosition(position);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	// ========== 变换相关方法（委托给 TransformBuilder） ==========
+
+	/**
+	 * 设置 transform
+	 * @param type transform 类型，不传参数则使用默认 transform
+	 */
+	transform(type?: TransformType): this {
+		const tempBuilder = new TransformBuilder();
+		tempBuilder.transform(type);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置 transition
+	 * @param type transition 类型，不传参数则使用默认 transition
+	 */
+	transition(type?: TransitionType): this {
+		const tempBuilder = new TransformBuilder();
+		tempBuilder.transition(type);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置 transition-all
+	 */
+	transitionAll(): this {
+		const tempBuilder = new TransformBuilder();
+		tempBuilder.transitionAll();
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置动画持续时间
+	 * @param value 持续时间值（毫秒）
+	 */
+	duration(value: DurationValue): this {
+		const tempBuilder = new TransformBuilder();
+		tempBuilder.duration(value);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置缓动函数
+	 * @param type 缓动类型
+	 */
+	ease(type: EaseType): this {
+		const tempBuilder = new TransformBuilder();
+		tempBuilder.ease(type);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置 ease-in-out
+	 */
+	easeInOut(): this {
+		const tempBuilder = new TransformBuilder();
+		tempBuilder.easeInOut();
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置 X 轴平移
+	 * @param value 平移值
+	 */
+	translateX(value: TranslateXValue): this {
+		const tempBuilder = new TransformBuilder();
+		tempBuilder.translateX(value);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置 Y 轴平移
+	 * @param value 平移值
+	 */
+	translateY(value: TranslateYValue): this {
+		const tempBuilder = new TransformBuilder();
+		tempBuilder.translateY(value);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	// ========== 滤镜相关方法（委托给 FilterBuilder） ==========
+
+	/**
+	 * 设置背景模糊
+	 * @param size 模糊大小，不传参数则使用默认模糊
+	 */
+	backdropBlur(size?: BackdropBlurSize): this {
+		const tempBuilder = new FilterBuilder();
+		tempBuilder.backdropBlur(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置模糊
+	 * @param size 模糊大小，不传参数则使用默认模糊
+	 */
+	blur(size?: BlurSize): this {
+		const tempBuilder = new FilterBuilder();
+		tempBuilder.blur(size);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置背景饱和度
+	 * @param value 饱和度值
+	 */
+	backdropSaturate(value: BackdropSaturateValue): this {
+		const tempBuilder = new FilterBuilder();
+		tempBuilder.backdropSaturate(value);
+		this.classes.push(...tempBuilder.getClasses());
+		return this;
+	}
+
+	/**
+	 * 设置背景亮度
+	 * @param value 亮度值
+	 */
+	backdropBrightness(value: BackdropBrightnessValue): this {
+		const tempBuilder = new FilterBuilder();
+		tempBuilder.backdropBrightness(value);
 		this.classes.push(...tempBuilder.getClasses());
 		return this;
 	}
