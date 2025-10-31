@@ -47,11 +47,21 @@ const fontWeightMap = {
 	black: "cosy:font-black",
 } as const;
 
+const lineHeightMap = {
+	none: "cosy:leading-none",
+	tight: "cosy:leading-tight",
+	snug: "cosy:leading-snug",
+	normal: "cosy:leading-normal",
+	relaxed: "cosy:leading-relaxed",
+	loose: "cosy:leading-loose",
+} as const;
+
 // 导出类型定义
 export type TextSize = keyof typeof textSizeMap;
 export type TextColor = keyof typeof textColorMap;
 export type TextAlign = keyof typeof textAlignMap;
 export type FontWeight = keyof typeof fontWeightMap;
+export type LineHeight = keyof typeof lineHeightMap;
 
 export class TextBuilder {
 	private classes: string[] = [];
@@ -97,6 +107,39 @@ export class TextBuilder {
 	 */
 	weight(weight: FontWeight): this {
 		this.classes.push(fontWeightMap[weight]);
+		return this;
+	}
+
+	/**
+	 * 设置字体粗细为 medium
+	 */
+	medium(): this {
+		this.classes.push(fontWeightMap.medium);
+		return this;
+	}
+
+	/**
+	 * 设置字体粗细为 semibold
+	 */
+	semibold(): this {
+		this.classes.push(fontWeightMap.semibold);
+		return this;
+	}
+
+	/**
+	 * 设置行高
+	 * @param height 行高值
+	 */
+	leading(height: LineHeight): this {
+		this.classes.push(lineHeightMap[height]);
+		return this;
+	}
+
+	/**
+	 * 设置行高为 relaxed
+	 */
+	leadingRelaxed(): this {
+		this.classes.push(lineHeightMap.relaxed);
 		return this;
 	}
 
