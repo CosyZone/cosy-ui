@@ -7,7 +7,6 @@ on:
 
 # 设置 GITHUB_TOKEN 的权限
 permissions:
-    contents: read
     pages: write
     id-token: write
 
@@ -15,30 +14,62 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-
-            - name: Setup Node
-              uses: actions/setup-node@v4
-              with:
-                  node-version: "23"
-
-            - name: Setup pnpm
-              uses: pnpm/action-setup@v2
-              with:
-                  version: 10
-                  run_install: false
-
-            - name: Install dependencies
-              run: pnpm install
-
-            - name: Build documentation site
-              run: pnpm build:docs
+            - name: Create redirect page
+              run: |
+                  mkdir -p dist
+                  cat > dist/index.html << 'EOF'
+                  <!DOCTYPE html>
+                  <html lang="zh-CN">
+                  <head>
+                      <meta charset="UTF-8">
+                      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                      <meta http-equiv="refresh" content="0; url=https://ui.coffic.cn">
+                      <title>Cosy UI Documentation - Redirecting...</title>
+                      <style>
+                          body {
+                              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+                              display: flex;
+                              justify-content: center;
+                              align-items: center;
+                              height: 100vh;
+                              margin: 0;
+                              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                              color: white;
+                          }
+                          .container {
+                              text-align: center;
+                          }
+                          h1 {
+                              font-size: 2rem;
+                              margin-bottom: 1rem;
+                          }
+                          p {
+                              font-size: 1.2rem;
+                              margin-bottom: 2rem;
+                          }
+                          a {
+                              color: white;
+                              text-decoration: underline;
+                          }
+                      </style>
+                  </head>
+                  <body>
+                      <div class="container">
+                          <h1>Cosy UI Documentation</h1>
+                          <p>正在跳转到新网站...</p>
+                          <p><a href="https://ui.coffic.cn">如果未自动跳转，请点击此处</a></p>
+                      </div>
+                      <script>
+                          window.location.href = 'https://ui.coffic.cn';
+                      </script>
+                  </body>
+                  </html>
+                  EOF
 
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v3
               with:
-                  path: packages/cosy-docs/dist
+                  path: dist
 
     deploy:
         # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
