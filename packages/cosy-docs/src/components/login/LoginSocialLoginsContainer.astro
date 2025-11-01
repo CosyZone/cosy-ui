@@ -1,0 +1,46 @@
+---
+
+/**
+ * @component LoginSocialLoginsContainer
+ * @description 展示 Login 组件的 socialLogins 属性三种取值，Astro/Vue 各 github/google/wechat 标签。
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import LoginSocialLoginsGithub from "./LoginSocialLoginsGithub.astro";
+import LoginSocialLoginsGithubRaw from "./LoginSocialLoginsGithub.astro?raw";
+import LoginSocialLoginsGithubVue from "./LoginSocialLoginsGithubVue.vue";
+import LoginSocialLoginsGithubVueRaw from "./LoginSocialLoginsGithubVue.vue?raw";
+import LoginSocialLoginsGoogle from "./LoginSocialLoginsGoogle.astro";
+import LoginSocialLoginsGoogleRaw from "./LoginSocialLoginsGoogle.astro?raw";
+import LoginSocialLoginsGoogleVue from "./LoginSocialLoginsGoogleVue.vue";
+import LoginSocialLoginsGoogleVueRaw from "./LoginSocialLoginsGoogleVue.vue?raw";
+import LoginSocialLoginsWechat from "./LoginSocialLoginsWechat.astro";
+import LoginSocialLoginsWechatRaw from "./LoginSocialLoginsWechat.astro?raw";
+import LoginSocialLoginsWechatVue from "./LoginSocialLoginsWechatVue.vue";
+import LoginSocialLoginsWechatVueRaw from "./LoginSocialLoginsWechatVue.vue?raw";
+---
+
+<CodeContainer
+    codes={[
+        LoginSocialLoginsGithubRaw,
+        LoginSocialLoginsGoogleRaw,
+        LoginSocialLoginsWechatRaw,
+        LoginSocialLoginsGithubVueRaw,
+        LoginSocialLoginsGoogleVueRaw,
+        LoginSocialLoginsWechatVueRaw,
+    ]}
+    titles={[
+        'github',
+        'google',
+        'wechat',
+        'github',
+        'google',
+        'wechat',
+    ]}>
+    <div id="tab-1" data-label="astro"><LoginSocialLoginsGithub /></div>
+    <div id="tab-2" data-label="astro"><LoginSocialLoginsGoogle /></div>
+    <div id="tab-3" data-label="astro"><LoginSocialLoginsWechat /></div>
+    <div id="tab-4" data-label="vue"><LoginSocialLoginsGithubVue /></div>
+    <div id="tab-5" data-label="vue"><LoginSocialLoginsGoogleVue /></div>
+    <div id="tab-6" data-label="vue"><LoginSocialLoginsWechatVue /></div>
+</CodeContainer>
+

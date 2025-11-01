@@ -1,0 +1,19 @@
+---
+/**
+ * @component LoginRememberMeTextContainer
+ * @description 展示 Login 组件的 rememberMeText 属性用法，Astro/Vue 各占一标签。
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import LoginRememberMeText from "./LoginRememberMeText.astro";
+import LoginRememberMeTextRaw from "./LoginRememberMeText.astro?raw";
+import LoginRememberMeTextVue from "./LoginRememberMeTextVue.vue";
+import LoginRememberMeTextVueRaw from "./LoginRememberMeTextVue.vue?raw";
+---
+
+<CodeContainer
+    codes={[LoginRememberMeTextRaw, LoginRememberMeTextVueRaw]}
+    titles={['rememberMeText', 'rememberMeText']}>
+    <div id="tab-1" data-label="astro"><LoginRememberMeText /></div>
+    <div id="tab-2" data-label="vue"><LoginRememberMeTextVue /></div>
+</CodeContainer>
+

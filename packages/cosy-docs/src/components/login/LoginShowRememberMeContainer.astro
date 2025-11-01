@@ -1,0 +1,31 @@
+---
+
+/**
+ * @component LoginShowRememberMeContainer
+ * @description 展示 Login 组件的 showRememberMe 属性用法，true/false 两种情况，Astro/Vue 各两组。
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import LoginShowRememberMe from "./LoginShowRememberMe.astro";
+import LoginShowRememberMeRaw from "./LoginShowRememberMe.astro?raw";
+import LoginShowRememberMeFalse from "./LoginShowRememberMeFalse.astro";
+import LoginShowRememberMeFalseRaw from "./LoginShowRememberMeFalse.astro?raw";
+import LoginShowRememberMeFalseVue from "./LoginShowRememberMeFalseVue.vue";
+import LoginShowRememberMeFalseVueRaw from "./LoginShowRememberMeFalseVue.vue?raw";
+import LoginShowRememberMeVue from "./LoginShowRememberMeVue.vue";
+import LoginShowRememberMeVueRaw from "./LoginShowRememberMeVue.vue?raw";
+---
+
+<CodeContainer
+    codes={[
+        LoginShowRememberMeRaw,
+        LoginShowRememberMeFalseRaw,
+        LoginShowRememberMeVueRaw,
+        LoginShowRememberMeFalseVueRaw,
+    ]}
+    titles={['true', 'false', 'true', 'false']}>
+    <div id="tab-1" data-label="astro"><LoginShowRememberMe /></div>
+    <div id="tab-2" data-label="astro"><LoginShowRememberMeFalse /></div>
+    <div id="tab-3" data-label="vue"><LoginShowRememberMeVue /></div>
+    <div id="tab-4" data-label="vue"><LoginShowRememberMeFalseVue /></div>
+</CodeContainer>
+

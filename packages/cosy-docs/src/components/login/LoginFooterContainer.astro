@@ -1,0 +1,19 @@
+---
+/**
+ * @component LoginFooterContainer
+ * @description 展示 Login 组件的 footer slot 用法，Astro/Vue 各占一标签。
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import LoginFooter from "./LoginFooter.astro";
+import LoginFooterRaw from "./LoginFooter.astro?raw";
+import LoginFooterVue from "./LoginFooterVue.vue";
+import LoginFooterVueRaw from "./LoginFooterVue.vue?raw";
+---
+
+<CodeContainer
+    codes={[LoginFooterRaw, LoginFooterVueRaw]}
+    titles={['footer', 'footer']}>
+    <div id="tab-1" data-label="astro"><LoginFooter /></div>
+    <div id="tab-2" data-label="vue"><LoginFooterVue /></div>
+</CodeContainer>
+

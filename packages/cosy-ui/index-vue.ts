@@ -22,6 +22,7 @@ export * from "./src-vue/image-display/index";
 export * from "./src-vue/key-catcher/index";
 export * from "./src-vue/link/index";
 export * from "./src-vue/list/index";
+export * from "./src-vue/login/index";
 export * from "./src-vue/mac-window/index";
 export * from "./src-vue/photo-wall/index";
 export * from "./src-vue/placeholder/index";

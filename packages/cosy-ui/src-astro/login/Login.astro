@@ -61,6 +61,8 @@
  * @slot socialButtons - 自定义社交登录按钮
  */
 
+import { cn } from '../../src/class';
+import { LoginFacade } from '../../src/components/login';
 import ChartIcon from '../icons/ChartIcon.astro';
 import GithubIcon from '../icons/GithubIcon.astro';
 
@@ -96,6 +98,23 @@ const {
     dividerText = '或',
 } = Astro.props;
 
+// 使用共用代码获取类名
+const classes = LoginFacade.getLoginClasses({
+    title,
+    subtitle,
+    logo,
+    socialLogins,
+    showRememberMe,
+    showForgotPassword,
+    customClass,
+    loginButtonText,
+    usernameLabel,
+    passwordLabel,
+    forgotPasswordText,
+    rememberMeText,
+    dividerText,
+});
+
 // 社交登录图标映射
 const socialIcons: Record<'github' | 'google' | 'wechat', any> = {
     github: GithubIcon,
@@ -103,37 +122,32 @@ const socialIcons: Record<'github' | 'google' | 'wechat', any> = {
     wechat: ChartIcon,
 };
 
-// 社交登录按钮样式映射
-const socialButtonStyles: Record<'github' | 'google' | 'wechat', string> = {
-    github: 'cosy:bg-gray-800 cosy:hover:bg-gray-900',
-    google: 'cosy:bg-red-500 cosy:hover:bg-red-600',
-    wechat: 'cosy:bg-green-500 cosy:hover:bg-green-600',
+// 获取社交登录按钮类名
+const getSocialButtonClass = (provider: 'github' | 'google' | 'wechat') => {
+    return LoginFacade.getSocialButtonClass(provider);
 };
 ---
 
-<div
-    class={`cosy:min-h-screen cosy:flex cosy:items-center cosy:justify-center cosy:bg-base-200 cosy:py-12 cosy:px-4 cosy:sm:px-6 cosy:lg:px-8 ${customClass}`}>
-    <div
-        class="cosy:max-w-md cosy:w-full cosy:space-y-8 cosy:bg-base-100 cosy:p-8 cosy:rounded-lg cosy:shadow-xl">
+<div class={cn().add(classes.container).add(customClass).build()}>
+    <div class={classes.card}>
         <!-- 头部区域 -->
-        <div class="cosy:text-center">
+        <div class={classes.header}>
             <slot name="header">
                 {
                     logo && (
                         <img
-                            class="cosy:mx-auto cosy:h-12 cosy:w-auto"
+                            class={classes.logo}
                             src={logo}
                             alt="Logo"
                         />
                     )
                 }
-                <h2
-                    class="cosy:mt-6 cosy:text-3xl cosy:font-extrabold cosy:text-base-content">
+                <h2 class={classes.title}>
                     {title}
                 </h2>
                 {
                     subtitle && (
-                        <p class="cosy:mt-2 cosy:text-sm cosy:text-base-content/60">
+                        <p class={classes.subtitle}>
                             {subtitle}
                         </p>
                     )
@@ -142,10 +156,10 @@ const socialButtonStyles: Record<'github' | 'google' | 'wechat', string> = {
         </div>
 
         <!-- 登录表单 -->
-        <form class="cosy:mt-8 cosy:space-y-6">
-            <div class="cosy:rounded-md cosy:shadow-sm cosy:-space-y-px">
+        <form class={classes.form}>
+            <div class={classes.inputGroup}>
                 <div>
-                    <label for="username" class="cosy:sr-only"
+                    <label for="username" class={cn().add('cosy:sr-only').build()}
                         >{usernameLabel}</label
                     >
                     <input
@@ -153,12 +167,12 @@ const socialButtonStyles: Record<'github' | 'google' | 'wechat', string> = {
                         name="username"
                         type="text"
                         required
-                        class="cosy:appearance-none cosy:rounded-none cosy:rounded-t-md cosy:relative cosy:block cosy:w-full cosy:px-3 cosy:py-2 cosy:border cosy:border-base-300 cosy:placeholder-base-content/40 cosy:text-base-content focus:cosy:z-10 focus:cosy:border-primary focus:cosy:outline-none focus:cosy:ring-1 focus:cosy:ring-primary"
+                        class={classes.usernameInput}
                         placeholder={usernameLabel}
                     />
                 </div>
                 <div>
-                    <label for="password" class="cosy:sr-only"
+                    <label for="password" class={cn().add('cosy:sr-only').build()}
                         >{passwordLabel}</label
                     >
                     <input
@@ -166,25 +180,25 @@ const socialButtonStyles: Record<'github' | 'google' | 'wechat', string> = {
                         name="password"
                         type="password"
                         required
-                        class="cosy:appearance-none cosy:rounded-none cosy:rounded-b-md cosy:relative cosy:block cosy:w-full cosy:px-3 cosy:py-2 cosy:border cosy:border-base-300 cosy:placeholder-base-content/40 cosy:text-base-content focus:cosy:z-10 focus:cosy:border-primary focus:cosy:outline-none focus:cosy:ring-1 focus:cosy:ring-primary"
+                        class={classes.passwordInput}
                         placeholder={passwordLabel}
                     />
                 </div>
             </div>
 
-            <div class="cosy:flex cosy:items-center cosy:justify-between">
+            <div class={classes.options}>
                 {
                     showRememberMe && (
-                        <div class="cosy:flex cosy:items-center">
+                        <div class={classes.rememberMe}>
                             <input
                                 id="remember-me"
                                 name="remember-me"
                                 type="checkbox"
-                                class="cosy:h-4 cosy:w-4 cosy:text-primary cosy:focus:ring-primary cosy:border-base-300 cosy:rounded"
+                                class={classes.checkbox}
                             />
                             <label
                                 for="remember-me"
-                                class="cosy:ml-2 cosy:block cosy:text-sm cosy:text-base-content">
+                                class={classes.rememberMeLabel}>
                                 {rememberMeText}
                             </label>
                         </div>
@@ -193,10 +207,10 @@ const socialButtonStyles: Record<'github' | 'google' | 'wechat', string> = {
 
                 {
                     showForgotPassword && (
-                        <div class="cosy:text-sm">
+                        <div class={classes.forgotPassword}>
                             <a
                                 href="#"
-                                class="cosy:font-medium cosy:text-primary cosy:hover:text-primary-focus">
+                                class={classes.forgotPasswordLink}>
                                 {forgotPasswordText}
                             </a>
                         </div>
@@ -207,7 +221,7 @@ const socialButtonStyles: Record<'github' | 'google' | 'wechat', string> = {
             <div>
                 <button
                     type="submit"
-                    class="cosy:group cosy:relative cosy:w-full cosy:flex cosy:justify-center cosy:py-2 cosy:px-4 cosy:border cosy:border-transparent cosy:text-sm cosy:font-medium cosy:rounded-md cosy:text-white cosy:bg-primary cosy:hover:bg-primary-focus focus:cosy:outline-none focus:cosy:ring-2 focus:cosy:ring-offset-2 focus:cosy:ring-primary">
+                    class={classes.submitButton}>
                     {loginButtonText}
                 </button>
             </div>
@@ -216,28 +230,32 @@ const socialButtonStyles: Record<'github' | 'google' | 'wechat', string> = {
         <!-- 社交登录 -->
         {
             socialLogins.length > 0 && (
-                <div class="cosy:mt-6">
-                    <div class="cosy:relative">
-                        <div class="cosy:absolute cosy:inset-0 cosy:flex cosy:items-center">
-                            <div class="cosy:w-full cosy:border-t cosy:border-base-300" />
+                <div class={classes.socialSection}>
+                    <div class={classes.divider}>
+                        <div class={classes.dividerLine}>
+                            <div class={classes.dividerBorder} />
                         </div>
-                        <div class="cosy:relative cosy:flex cosy:justify-center cosy:text-sm">
-                            <span class="cosy:px-2 cosy:bg-base-100 cosy:text-base-content/60">
+                        <div class={classes.dividerTextContainer}>
+                            <span class={classes.dividerText}>
                                 {dividerText}
                             </span>
                         </div>
                     </div>
 
                     <slot name="socialButtons">
-                        <div class="cosy:mt-6 cosy:grid cosy:grid-cols-{Math.min(socialLogins.length, 3)} cosy:gap-3">
+                        <div
+                            class={cn()
+                                .add(classes.socialButtons)
+                                .add(`cosy:grid-cols-${Math.min(socialLogins.length, 3)}`)
+                                .build()}>
                             {socialLogins.map((provider) => {
                                 const Icon = socialIcons[provider];
                                 return (
                                     <div>
                                         <a
                                             href="#"
-                                            class={`cosy:w-full cosy:inline-flex cosy:justify-center cosy:py-2 cosy:px-4 cosy:rounded-md cosy:shadow-sm cosy:text-sm cosy:font-medium cosy:text-white ${socialButtonStyles[provider]}`}>
-                                            <Icon class="cosy:w-5 cosy:h-5" />
+                                            class={getSocialButtonClass(provider)}>
+                                            <Icon class={cn().w(5).h(5).build()} />
                                         </a>
                                     </div>
                                 );

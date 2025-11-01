@@ -1,0 +1,19 @@
+---
+/**
+ * @component LoginLogoContainer
+ * @description 展示 Login 组件的 logo 属性用法，Astro/Vue 各占一标签。
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import LoginLogo from "./LoginLogo.astro";
+import LoginLogoRaw from "./LoginLogo.astro?raw";
+import LoginLogoVue from "./LoginLogoVue.vue";
+import LoginLogoVueRaw from "./LoginLogoVue.vue?raw";
+---
+
+<CodeContainer
+    codes={[LoginLogoRaw, LoginLogoVueRaw]}
+    titles={['logo', 'logo']}>
+    <div id="tab-1" data-label="astro"><LoginLogo /></div>
+    <div id="tab-2" data-label="vue"><LoginLogoVue /></div>
+</CodeContainer>
+

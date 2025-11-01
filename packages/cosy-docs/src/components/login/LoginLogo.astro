@@ -1,0 +1,17 @@
+---
+import { getAvatarImage, Login } from "@coffic/cosy-ui";
+
+const logoUrl = getAvatarImage({
+  width: 100,
+  height: 100,
+  provider: "robohash",
+  tag: "company-logo",
+});
+---
+
+<Login
+  title="欢迎回来"
+  subtitle="请登录以继续"
+  logo={logoUrl}
+/>
+

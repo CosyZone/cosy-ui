@@ -1,14 +1,18 @@
 ---
-
-
-
+/**
+ * @component LoginBasicContainer
+ * @description 基础登录表单示例，Astro/Vue 各占一标签。
+ */
 import { CodeContainer } from "@coffic/cosy-ui";
 import LoginBasic from "./LoginBasic.astro";
 import LoginBasicCode from "./LoginBasic.astro?raw";
+import LoginBasicVue from "./LoginBasicVue.vue";
+import LoginBasicVueCode from "./LoginBasicVue.vue?raw";
 ---
 
-<CodeContainer titles={['基础登录表单']} codes={[LoginBasicCode]}>
-  <div id="tab-1">
-    <LoginBasic />
-  </div>
+<CodeContainer
+    codes={[LoginBasicCode, LoginBasicVueCode]}
+    titles={['基础用法', '基础用法']}>
+    <div id="tab-1" data-label="astro"><LoginBasic /></div>
+    <div id="tab-2" data-label="vue"><LoginBasicVue /></div>
 </CodeContainer>

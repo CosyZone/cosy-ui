@@ -1,0 +1,19 @@
+---
+/**
+ * @component LoginLoginButtonTextContainer
+ * @description 展示 Login 组件的 loginButtonText 属性用法，Astro/Vue 各占一标签。
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import LoginLoginButtonText from "./LoginLoginButtonText.astro";
+import LoginLoginButtonTextRaw from "./LoginLoginButtonText.astro?raw";
+import LoginLoginButtonTextVue from "./LoginLoginButtonTextVue.vue";
+import LoginLoginButtonTextVueRaw from "./LoginLoginButtonTextVue.vue?raw";
+---
+
+<CodeContainer
+    codes={[LoginLoginButtonTextRaw, LoginLoginButtonTextVueRaw]}
+    titles={['loginButtonText', 'loginButtonText']}>
+    <div id="tab-1" data-label="astro"><LoginLoginButtonText /></div>
+    <div id="tab-2" data-label="vue"><LoginLoginButtonTextVue /></div>
+</CodeContainer>
+

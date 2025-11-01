@@ -1,0 +1,19 @@
+---
+/**
+ * @component LoginDividerTextContainer
+ * @description 展示 Login 组件的 dividerText 属性用法，Astro/Vue 各占一标签。
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import LoginDividerText from "./LoginDividerText.astro";
+import LoginDividerTextRaw from "./LoginDividerText.astro?raw";
+import LoginDividerTextVue from "./LoginDividerTextVue.vue";
+import LoginDividerTextVueRaw from "./LoginDividerTextVue.vue?raw";
+---
+
+<CodeContainer
+    codes={[LoginDividerTextRaw, LoginDividerTextVueRaw]}
+    titles={['dividerText', 'dividerText']}>
+    <div id="tab-1" data-label="astro"><LoginDividerText /></div>
+    <div id="tab-2" data-label="vue"><LoginDividerTextVue /></div>
+</CodeContainer>
+

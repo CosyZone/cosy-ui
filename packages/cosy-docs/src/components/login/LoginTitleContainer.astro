@@ -1,0 +1,19 @@
+---
+/**
+ * @component LoginTitleContainer
+ * @description 展示 Login 组件的 title 属性用法，Astro/Vue 各占一标签。
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import LoginTitle from "./LoginTitle.astro";
+import LoginTitleRaw from "./LoginTitle.astro?raw";
+import LoginTitleVue from "./LoginTitleVue.vue";
+import LoginTitleVueRaw from "./LoginTitleVue.vue?raw";
+---
+
+<CodeContainer
+    codes={[LoginTitleRaw, LoginTitleVueRaw]}
+    titles={['title', 'title']}>
+    <div id="tab-1" data-label="astro"><LoginTitle /></div>
+    <div id="tab-2" data-label="vue"><LoginTitleVue /></div>
+</CodeContainer>
+

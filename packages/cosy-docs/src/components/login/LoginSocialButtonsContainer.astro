@@ -1,0 +1,19 @@
+---
+/**
+ * @component LoginSocialButtonsContainer
+ * @description 展示 Login 组件的 socialButtons slot 用法，Astro/Vue 各占一标签。
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import LoginSocialButtons from "./LoginSocialButtons.astro";
+import LoginSocialButtonsRaw from "./LoginSocialButtons.astro?raw";
+import LoginSocialButtonsVue from "./LoginSocialButtonsVue.vue";
+import LoginSocialButtonsVueRaw from "./LoginSocialButtonsVue.vue?raw";
+---
+
+<CodeContainer
+    codes={[LoginSocialButtonsRaw, LoginSocialButtonsVueRaw]}
+    titles={['socialButtons', 'socialButtons']}>
+    <div id="tab-1" data-label="astro"><LoginSocialButtons /></div>
+    <div id="tab-2" data-label="vue"><LoginSocialButtonsVue /></div>
+</CodeContainer>
+
