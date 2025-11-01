@@ -61,6 +61,7 @@ const minWidthMap = {
 const minHeightMap = {
 	0: "cosy:min-h-0",
 	full: "cosy:min-h-full",
+	screen: "cosy:min-h-screen",
 	10: "cosy:min-h-10",
 	20: "cosy:min-h-20",
 	40: "cosy:min-h-40",
@@ -70,6 +71,11 @@ const minHeightMap = {
 const maxWidthMap = {
 	none: "cosy:max-w-none",
 	full: "cosy:max-w-full",
+	sm: "cosy:max-w-sm",
+	md: "cosy:max-w-md",
+	lg: "cosy:max-w-lg",
+	xl: "cosy:max-w-xl",
+	"2xl": "cosy:max-w-2xl",
 	20: "cosy:max-w-20",
 	40: "cosy:max-w-40",
 	60: "cosy:max-w-60",

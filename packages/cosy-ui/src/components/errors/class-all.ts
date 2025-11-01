@@ -34,7 +34,7 @@ export function getErrorPageClasses(color: ErrorCodeColor = "primary"): {
 	helpText: string;
 } {
 	const container = cn()
-		.add("cosy:min-h-screen")
+		.minH("screen")
 		.flex("col")
 		.items("center")
 		.justify("center")
@@ -42,17 +42,12 @@ export function getErrorPageClasses(color: ErrorCodeColor = "primary"): {
 		.p(4)
 		.build();
 
-	const content = cn()
-		.add("cosy:max-w-md")
-		.w("full")
-		.align("center")
-		.spaceY(6)
-		.build();
+	const content = cn().maxW("md").w("full").align("center").spaceY(6).build();
 
 	const errorCodeContainer = cn().mb(8).build();
 
 	const errorCodeTitle = cn()
-		.add("cosy:text-9xl")
+		.text("9xl")
 		.bold()
 		.color(color)
 		.leading("none")
@@ -72,20 +67,17 @@ export function getErrorPageClasses(color: ErrorCodeColor = "primary"): {
 	const errorMessageTitle = cn()
 		.text("2xl")
 		.weight("semibold")
-		.add("cosy:text-base-content")
+		.color("base-content")
 		.build();
 
-	const errorMessageText = cn()
-		.add("cosy:text-base-content/70")
-		.text("lg")
-		.build();
+	const errorMessageText = cn().text("lg").color("base-content/70").build();
 
 	const pathInfo = cn()
 		.bg("base-200")
 		.rounded("lg")
 		.p(4)
 		.text("sm")
-		.add("cosy:text-base-content/60")
+		.color("base-content/60")
 		.build();
 
 	const debugInfo = cn()
@@ -98,27 +90,20 @@ export function getErrorPageClasses(color: ErrorCodeColor = "primary"): {
 	const debugInfoSummary = cn()
 		.cursor("pointer")
 		.weight("medium")
-		.add("cosy:text-base-content")
+		.color("base-content")
 		.build();
 
 	const debugInfoContent = cn().mt(3).spaceY(2).build();
 
 	const debugInfoItem = cn().text("sm").build();
 
-	const debugInfoKey = cn()
-		.weight("medium")
-		.add("cosy:text-base-content")
-		.build();
+	const debugInfoKey = cn().weight("medium").color("base-content").build();
 
-	const debugInfoValue = cn().add("cosy:text-base-content/70").ml(2).build();
+	const debugInfoValue = cn().color("base-content/70").ml(2).build();
 
 	const actions = cn().spaceY(3).build();
 
-	const helpText = cn()
-		.text("sm")
-		.add("cosy:text-base-content/50")
-		.mt(8)
-		.build();
+	const helpText = cn().text("sm").color("base-content/50").mt(8).build();
 
 	return {
 		container,
@@ -169,13 +154,13 @@ export function getError500Classes(_props: IError500Props = {}) {
 
 	const suggestionTitle = cn()
 		.weight("medium")
-		.add("cosy:text-base-content")
+		.color("base-content")
 		.mb(2)
 		.build();
 
 	const suggestionList = cn()
 		.text("sm")
-		.add("cosy:text-base-content/70")
+		.color("base-content/70")
 		.spaceY(1)
 		.align("left")
 		.build();
@@ -202,7 +187,7 @@ export function getError503Classes(_props: IError503Props = {}) {
 
 	const recoveryTimeTitle = cn()
 		.weight("medium")
-		.add("cosy:text-base-content")
+		.color("base-content")
 		.mb(1)
 		.build();
 
@@ -216,13 +201,13 @@ export function getError503Classes(_props: IError503Props = {}) {
 
 	const suggestionTitle = cn()
 		.weight("medium")
-		.add("cosy:text-base-content")
+		.color("base-content")
 		.mb(2)
 		.build();
 
 	const suggestionList = cn()
 		.text("sm")
-		.add("cosy:text-base-content/70")
+		.color("base-content/70")
 		.spaceY(1)
 		.align("left")
 		.build();

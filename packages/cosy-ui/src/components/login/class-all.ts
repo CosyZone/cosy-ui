@@ -6,7 +6,7 @@ import type { ILoginPropsBase } from "./loginPropsBase";
  */
 export function getLoginClasses(_props: ILoginPropsBase = {}) {
 	const containerClass = cn()
-		.add("cosy:min-h-screen")
+		.minH("screen")
 		.flex()
 		.items("center")
 		.justify("center")
@@ -17,62 +17,65 @@ export function getLoginClasses(_props: ILoginPropsBase = {}) {
 		.build();
 
 	const cardClass = cn()
-		.add("cosy:max-w-md")
+		.maxW("md")
 		.w("full")
 		.spaceY(8)
 		.bg("base-100")
 		.p(8)
 		.rounded("lg")
-		.add("cosy:shadow-xl")
+		.shadow("xl")
 		.build();
 
 	const headerClass = cn().align("center").build();
 
-	const logoClass = cn().mx("auto").h(12).add("cosy:w-auto").build();
+	const logoClass = cn().mx("auto").h(12).w("auto").build();
 
 	const titleClass = cn()
 		.mt(6)
 		.text("3xl")
 		.weight("extrabold")
-		.add("cosy:text-base-content")
+		.color("base-content")
 		.build();
 
-	const subtitleClass = cn()
-		.mt(2)
-		.text("sm")
-		.add("cosy:text-base-content/60")
-		.build();
+	const subtitleClass = cn().mt(2).text("sm").color("base-content/60").build();
 
 	const formClass = cn().mt(8).spaceY(6).build();
 
 	const inputGroupClass = cn()
 		.rounded("md")
-		.add("cosy:shadow-sm cosy:-space-y-px")
+		.shadow("sm")
+		.add("cosy:-space-y-px")
 		.build();
 
 	const usernameInputClass = cn()
-		.add(
-			"cosy:appearance-none cosy:rounded-none cosy:rounded-t-md cosy:relative cosy:block cosy:w-full",
-		)
+		.add("cosy:appearance-none cosy:rounded-none cosy:rounded-t-md")
+		.relative()
+		.block()
+		.w("full")
 		.px(3)
 		.py(2)
 		.border()
 		.borderColor("base-300")
+		.add("cosy:placeholder-base-content/40")
+		.color("base-content")
 		.add(
-			"cosy:placeholder-base-content/40 cosy:text-base-content focus:cosy:z-10 focus:cosy:border-primary focus:cosy:outline-none focus:cosy:ring-1 focus:cosy:ring-primary",
+			"focus:cosy:z-10 focus:cosy:border-primary focus:cosy:outline-none focus:cosy:ring-1 focus:cosy:ring-primary",
 		)
 		.build();
 
 	const passwordInputClass = cn()
-		.add(
-			"cosy:appearance-none cosy:rounded-none cosy:rounded-b-md cosy:relative cosy:block cosy:w-full",
-		)
+		.add("cosy:appearance-none cosy:rounded-none cosy:rounded-b-md")
+		.relative()
+		.block()
+		.w("full")
 		.px(3)
 		.py(2)
 		.border()
 		.borderColor("base-300")
+		.add("cosy:placeholder-base-content/40")
+		.color("base-content")
 		.add(
-			"cosy:placeholder-base-content/40 cosy:text-base-content focus:cosy:z-10 focus:cosy:border-primary focus:cosy:outline-none focus:cosy:ring-1 focus:cosy:ring-primary",
+			"focus:cosy:z-10 focus:cosy:border-primary focus:cosy:outline-none focus:cosy:ring-1 focus:cosy:ring-primary",
 		)
 		.build();
 
@@ -94,7 +97,7 @@ export function getLoginClasses(_props: ILoginPropsBase = {}) {
 		.ml(2)
 		.block()
 		.text("sm")
-		.add("cosy:text-base-content")
+		.color("base-content")
 		.build();
 
 	const forgotPasswordClass = cn().text("sm").build();
@@ -106,7 +109,9 @@ export function getLoginClasses(_props: ILoginPropsBase = {}) {
 		.build();
 
 	const submitButtonClass = cn()
-		.add("cosy:group cosy:relative cosy:w-full")
+		.add("cosy:group")
+		.relative()
+		.w("full")
 		.flex()
 		.justify("center")
 		.py(2)
@@ -116,7 +121,7 @@ export function getLoginClasses(_props: ILoginPropsBase = {}) {
 		.text("sm")
 		.weight("medium")
 		.rounded("md")
-		.add("cosy:text-white")
+		.color("white")
 		.bg("primary")
 		.add(
 			"cosy:hover:bg-primary-focus focus:cosy:outline-none focus:cosy:ring-2 focus:cosy:ring-offset-2 focus:cosy:ring-primary",
@@ -128,7 +133,8 @@ export function getLoginClasses(_props: ILoginPropsBase = {}) {
 	const dividerClass = cn().relative().build();
 
 	const dividerLineClass = cn()
-		.add("cosy:absolute cosy:inset-0")
+		.absolute()
+		.inset(0)
 		.flex()
 		.items("center")
 		.build();
@@ -150,10 +156,10 @@ export function getLoginClasses(_props: ILoginPropsBase = {}) {
 	const dividerTextClass = cn()
 		.px(2)
 		.bg("base-100")
-		.add("cosy:text-base-content/60")
+		.color("base-content/60")
 		.build();
 
-	const socialButtonsClass = cn().mt(6).add("cosy:grid cosy:gap-3").build();
+	const socialButtonsClass = cn().mt(6).grid().gap(3).build();
 
 	return {
 		container: containerClass,
@@ -191,15 +197,15 @@ export function getSocialButtonClass(
 ): string {
 	const baseClass = cn()
 		.w("full")
-		.add("cosy:inline-flex")
+		.inline()
 		.justify("center")
 		.py(2)
 		.px(4)
 		.rounded("md")
-		.add("cosy:shadow-sm")
+		.shadow("sm")
 		.text("sm")
 		.weight("medium")
-		.add("cosy:text-white")
+		.color("white")
 		.build();
 
 	const providerClasses: Record<"github" | "google" | "wechat", string> = {
