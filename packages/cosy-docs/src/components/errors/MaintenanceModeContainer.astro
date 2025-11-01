@@ -1,0 +1,19 @@
+---
+/**
+ * @component ErrorPageMaintenanceModeContainer
+ * @description 展示 ErrorPage 组件的 maintenanceMode 属性用法，Astro/Vue 各占一标签。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+
+import ErrorPageMaintenanceMode from './ErrorPageMaintenanceMode.astro';
+import ErrorPageMaintenanceModeRaw from './ErrorPageMaintenanceMode.astro?raw';
+import ErrorPageMaintenanceModeVue from './ErrorPageMaintenanceModeVue.vue';
+import ErrorPageMaintenanceModeVueRaw from './ErrorPageMaintenanceModeVue.vue?raw';
+---
+
+<CodeContainer
+    codes={[ErrorPageMaintenanceModeRaw, ErrorPageMaintenanceModeVueRaw]}
+    titles={['maintenanceMode', 'maintenanceMode']}>
+    <div id="tab-1" data-label="astro"><ErrorPageMaintenanceMode /></div>
+    <div id="tab-2" data-label="vue"><ErrorPageMaintenanceModeVue /></div>
+</CodeContainer>

@@ -1,19 +1,74 @@
 ---
 title: 'Error Pages'
+description: '通用错误页面组件，根据错误码自动选择合适的错误页面，简化错误处理，提供统一的错误页面入口'
 folder: false
 order: 5.2
-badge: 'beta'
 ---
 
-import { ErrorPage } from '@coffic/cosy-ui';
-import { ComponentPackage } from '@/components/errors/index.ts';
+import { ErrorPagesPackage } from '@/components/errors/index';
 
 # {frontmatter.title}
 
 ## 简介
 
-错误页面组件集合，提供常见HTTP错误状态码的用户友好页面。通过统一的设计风格和清晰的信息传达，帮助用户理解错误原因并提供解决方案。
+通用错误页面组件，根据错误码自动选择合适的错误页面。简化错误处理，提供统一的错误页面入口。
 
-## 基础用法
+## 案例
 
-<ComponentPackage.ComponentContainers.Basic />
+<ErrorPagesPackage.Basic />
+
+## Props
+
+### errorCode
+
+HTTP 错误状态码，根据错误码自动选择合适的错误页面。支持 403、404、500、503 等状态码。
+
+<ErrorPagesPackage.ErrorCode />
+
+### debugKVs
+
+调试信息键值对，用于开发和调试时显示额外的错误信息。
+
+<ErrorPagesPackage.WithDebug />
+
+### loginUrl
+
+登录页面 URL，用于 403 错误时显示登录链接。
+
+<ErrorPagesPackage.WithLoginUrl />
+
+### contactUrl
+
+联系页面 URL，用于 403 错误时显示联系链接。
+
+<ErrorPagesPackage.WithContactUrl />
+
+### supportUrl
+
+技术支持页面 URL，用于 500 错误时显示技术支持链接。
+
+<ErrorPagesPackage.WithSupportUrl />
+
+### statusPageUrl
+
+系统状态页面 URL，用于 500 和 503 错误时显示系统状态链接。
+
+<ErrorPagesPackage.WithStatusPageUrl />
+
+### notificationUrl
+
+通知订阅页面 URL，用于 503 错误时显示通知订阅链接。
+
+<ErrorPagesPackage.WithNotificationUrl />
+
+### maintenanceMode
+
+是否为维护模式，用于 503 错误。设置为 true 时显示维护模式页面。
+
+<ErrorPagesPackage.MaintenanceMode />
+
+### estimatedRecovery
+
+预期恢复时间，用于 503 错误时显示预计恢复时间。
+
+<ErrorPagesPackage.WithEstimatedRecovery />

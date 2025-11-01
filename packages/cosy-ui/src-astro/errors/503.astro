@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component Error503
  *
@@ -35,6 +32,8 @@
  * @prop {string} [notificationUrl] - 通知订阅页面URL
  */
 
+import { cn } from '../../src/class';
+import { ErrorPageFacade } from '../../src/components/errors';
 import { LinkUtil } from '../../src/utils/link';
 
 const baseUrl = LinkUtil.getBaseUrl();
@@ -55,28 +54,34 @@ const {
     statusPageUrl,
     notificationUrl,
 } = Astro.props as Error503Props;
+
+// 使用共用代码获取类名
+const classes = ErrorPageFacade.getError503Classes({
+    debugKVs,
+    maintenanceMode,
+    estimatedRecovery,
+    statusPageUrl,
+    notificationUrl,
+});
 ---
 
-<div
-    class="cosy:min-h-screen cosy:flex cosy:flex-col cosy:items-center cosy:justify-center cosy:bg-base-100 cosy:p-4">
-    <div class="cosy:max-w-md cosy:w-full cosy:text-center cosy:space-y-6">
+<div class={classes.container}>
+    <div class={classes.content}>
         <!-- 错误代码 -->
-        <div class="cosy:mb-8">
-            <h1
-                class="cosy:text-9xl cosy:font-bold cosy:text-info cosy:leading-none">
+        <div class={classes.errorCodeContainer}>
+            <h1 class={classes.errorCodeTitle}>
                 503
             </h1>
-            <div
-                class="cosy:w-24 cosy:h-1 cosy:bg-info cosy:mx-auto cosy:mt-4 cosy:rounded-full">
+            <div class={classes.errorCodeLine}>
             </div>
         </div>
 
         <!-- 错误信息 -->
-        <div class="cosy:space-y-4">
-            <h2 class="cosy:text-2xl cosy:font-semibold cosy:text-base-content">
+        <div class={classes.errorMessageContainer}>
+            <h2 class={classes.errorMessageTitle}>
                 {maintenanceMode ? '系统维护中' : '服务不可用'}
             </h2>
-            <p class="cosy:text-base-content/70 cosy:text-lg">
+            <p class={classes.errorMessageText}>
                 {
                     maintenanceMode
                         ? '我们正在进行系统维护和升级，服务将很快恢复。'
@@ -88,11 +93,11 @@ const {
         <!-- 恢复时间 -->
         {
             estimatedRecovery && (
-                <div class="cosy:bg-success/10 cosy:border cosy:border-success/20 cosy:rounded-lg cosy:p-4">
-                    <h3 class="cosy:font-medium cosy:text-base-content cosy:mb-1">
+                <div class={classes.recoveryTime}>
+                    <h3 class={classes.recoveryTimeTitle}>
                         预期恢复时间
                     </h3>
-                    <p class="cosy:text-success cosy:font-mono">
+                    <p class={classes.recoveryTimeText}>
                         {estimatedRecovery}
                     </p>
                 </div>
@@ -100,11 +105,10 @@ const {
         }
 
         <!-- 路径信息 -->
-        <div
-            class="cosy:bg-base-200 cosy:rounded-lg cosy:p-4 cosy:text-sm cosy:text-base-content/60">
+        <div class={classes.pathInfo}>
             <p>
-                <span class="cosy:font-medium">路径：</span><code
-                    class="cosy:text-info">{path}</code
+                <span class={cn().weight('medium').build()}>路径：</span><code
+                    class={cn().color('info').build()}>{path}</code
                 >
             </p>
         </div>
@@ -112,17 +116,17 @@ const {
         <!-- 调试信息 -->
         {
             Object.keys(debugKVs).length > 0 && (
-                <details class="cosy:bg-base-200 cosy:rounded-lg cosy:p-4 cosy:text-left">
-                    <summary class="cosy:cursor-pointer cosy:font-medium cosy:text-base-content">
+                <details class={classes.debugInfo}>
+                    <summary class={classes.debugInfoSummary}>
                         维护信息
                     </summary>
-                    <div class="cosy:mt-3 cosy:space-y-2">
+                    <div class={classes.debugInfoContent}>
                         {Object.entries(debugKVs).map(([key, value]) => (
-                            <div class="cosy:text-sm">
-                                <span class="cosy:font-medium cosy:text-base-content">
+                            <div class={classes.debugInfoItem}>
+                                <span class={classes.debugInfoKey}>
                                     {key}:
                                 </span>
-                                <span class="cosy:text-base-content/70 cosy:ml-2">
+                                <span class={classes.debugInfoValue}>
                                     {value}
                                 </span>
                             </div>
@@ -133,13 +137,11 @@ const {
         }
 
         <!-- 建议信息 -->
-        <div
-            class="cosy:bg-warning/10 cosy:border cosy:border-warning/20 cosy:rounded-lg cosy:p-4">
-            <h3 class="cosy:font-medium cosy:text-base-content cosy:mb-2">
+        <div class={classes.suggestion}>
+            <h3 class={classes.suggestionTitle}>
                 在等待期间：
             </h3>
-            <ul
-                class="cosy:text-sm cosy:text-base-content/70 cosy:space-y-1 cosy:text-left">
+            <ul class={classes.suggestionList}>
                 <li>• 请耐心等待服务恢复</li>
                 <li>• 可以刷新页面查看最新状态</li>
                 <li>• 关注我们的状态页面获取更新</li>
@@ -148,10 +150,10 @@ const {
         </div>
 
         <!-- 操作按钮 -->
-        <div class="cosy:space-y-3">
+        <div class={classes.actions}>
             <button
                 onclick="window.location.reload()"
-                class="btn btn-primary cosy:w-full"
+                class={cn().add('cosy:btn cosy:btn-primary').w('full').build()}
                 type="button">
                 刷新页面
             </button>
@@ -160,7 +162,7 @@ const {
                 statusPageUrl && (
                     <a
                         href={statusPageUrl}
-                        class="btn btn-info cosy:w-full cosy:no-underline">
+                        class={cn().add('cosy:btn cosy:btn-info cosy:no-underline').w('full').build()}>
                         查看系统状态
                     </a>
                 )
@@ -170,7 +172,7 @@ const {
                 notificationUrl && (
                     <a
                         href={notificationUrl}
-                        class="btn btn-outline cosy:w-full cosy:no-underline">
+                        class={cn().add('cosy:btn cosy:btn-outline cosy:no-underline').w('full').build()}>
                         订阅恢复通知
                     </a>
                 )
@@ -178,13 +180,13 @@ const {
 
             <a
                 href={baseUrl}
-                class="btn btn-ghost cosy:w-full cosy:no-underline">
+                class={cn().add('cosy:btn cosy:btn-ghost cosy:no-underline').w('full').build()}>
                 返回首页
             </a>
         </div>
 
         <!-- 帮助提示 -->
-        <div class="cosy:text-sm cosy:text-base-content/50 cosy:mt-8">
+        <div class={classes.helpText}>
             <p>感谢您的耐心等待，我们正在努力恢复服务</p>
         </div>
     </div>
