@@ -25,10 +25,13 @@ import { computed } from "vue";
  * @prop {string} [colGap] - 列间距，默认与 gap 相同
  * @prop {string} [marginY] - 垂直外边距，可选值：none, xs, sm, md, lg, xl
  * @prop {string} [border="none"] - 边框尺寸，可选值：none, sm, md, lg, xl
+ * @prop {BackgroundColor} [background] - 背景色类型，支持所有预设背景色和透明度变体
  * @prop {string} [class] - 自定义类名
  * @prop {any} [class:list] - 类名列表
  */
 
+import type { BackgroundColor } from "../../src/common/backgrounds";
+import { getBackgroundClass } from "../../src/common/backgrounds";
 import type { BorderSize } from "../../src/common/border";
 
 type GapSize = "none" | "xs" | "sm" | "md" | "lg" | "xl";
@@ -44,6 +47,7 @@ type ResponsiveValue<T> =
 	  };
 
 export interface IGridProps {
+	background?: BackgroundColor;
 	cols?: number | ResponsiveValue<number>;
 	gap?: GapSize;
 	rowGap?: GapSize;
@@ -404,6 +408,9 @@ const getBorderClass = (border: BorderSize) => {
 	return borderMap[border] || "";
 };
 
+// 获取背景色类名
+const backgroundClass = getBackgroundClass(props.background);
+
 // 计算组合类名
 const combinedClass = computed(() => {
 	const classes = [
@@ -414,6 +421,7 @@ const combinedClass = computed(() => {
 		getColGapClass(props.colGap),
 		getMarginYClass(props.marginY),
 		getBorderClass(props.border),
+		backgroundClass,
 		props.class,
 	].filter(Boolean);
 

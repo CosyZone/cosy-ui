@@ -1,21 +1,35 @@
 ---
-
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import GridGapLarge from "./GridGapLarge.astro";
-import GridGapLargeSourceCode from "./GridGapLarge.astro?raw";
-import GridGapSmall from "./GridGapSmall.astro";
-import GridGapSmallSourceCode from "./GridGapSmall.astro?raw";
+/**
+ * @component GridGapContainer
+ * @description 展示 Grid 组件的 gap 属性不同取值，Astro/Vue 各 sm/lg 标签。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import GridGapLarge from './GridGapLarge.astro';
+import GridGapLargeRaw from './GridGapLarge.astro?raw';
+import GridGapLargeVue from './GridGapLargeVue.vue';
+import GridGapLargeVueRaw from './GridGapLargeVue.vue?raw';
+import GridGapSmall from './GridGapSmall.astro';
+import GridGapSmallRaw from './GridGapSmall.astro?raw';
+import GridGapSmallVue from './GridGapSmallVue.vue';
+import GridGapSmallVueRaw from './GridGapSmallVue.vue?raw';
 ---
 
 <CodeContainer
-  codes={[GridGapSmallSourceCode, GridGapLargeSourceCode]}
-  titles={['小间距', '大间距']}>
-  <div id="tab-1">
-    <GridGapSmall />
-  </div>
-  <div id="tab-2">
-    <GridGapLarge />
-  </div>
+    codes={[
+        GridGapSmallRaw,
+        GridGapLargeRaw,
+        GridGapSmallVueRaw,
+        GridGapLargeVueRaw,
+    ]}
+    titles={[
+        'sm',
+        'lg',
+        'sm',
+        'lg'
+    ]}
+>
+    <div id="tab-1" data-label="astro"><GridGapSmall /></div>
+    <div id="tab-2" data-label="astro"><GridGapLarge /></div>
+    <div id="tab-3" data-label="vue"><GridGapSmallVue /></div>
+    <div id="tab-4" data-label="vue"><GridGapLargeVue /></div>
 </CodeContainer>

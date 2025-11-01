@@ -32,7 +32,7 @@ jobs:
                   npm whoami
                   cd packages/cosy-ui
                   pnpm i
-                  pnpm build
+                  pnpm build:prod
                   npm publish --access public --no-git-checks
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,21 +1,36 @@
 ---
 
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import GridWithBorder from "./GridWithBorder.astro";
-import GridWithBorderSourceCode from "./GridWithBorder.astro?raw";
-import GridWithoutBorder from "./GridWithoutBorder.astro";
-import GridWithoutBorderSourceCode from "./GridWithoutBorder.astro?raw";
+/**
+ * @component GridBorderContainer
+ * @description 展示 Grid 组件的 border 属性不同取值，Astro/Vue 各 sm/none 标签。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import GridWithBorder from './GridWithBorder.astro';
+import GridWithBorderRaw from './GridWithBorder.astro?raw';
+import GridWithBorderVue from './GridWithBorderVue.vue';
+import GridWithBorderVueRaw from './GridWithBorderVue.vue?raw';
+import GridWithoutBorder from './GridWithoutBorder.astro';
+import GridWithoutBorderRaw from './GridWithoutBorder.astro?raw';
+import GridWithoutBorderVue from './GridWithoutBorderVue.vue';
+import GridWithoutBorderVueRaw from './GridWithoutBorderVue.vue?raw';
 ---
 
 <CodeContainer
-  codes={[GridWithBorderSourceCode, GridWithoutBorderSourceCode]}
-  titles={['显示边框', '不显示边框']}>
-  <div id="tab-1">
-    <GridWithBorder />
-  </div>
-  <div id="tab-2">
-    <GridWithoutBorder />
-  </div>
+    codes={[
+        GridWithBorderRaw,
+        GridWithoutBorderRaw,
+        GridWithBorderVueRaw,
+        GridWithoutBorderVueRaw,
+    ]}
+    titles={[
+        'sm',
+        'none',
+        'sm',
+        'none'
+    ]}
+>
+    <div id="tab-1" data-label="astro"><GridWithBorder /></div>
+    <div id="tab-2" data-label="astro"><GridWithoutBorder /></div>
+    <div id="tab-3" data-label="vue"><GridWithBorderVue /></div>
+    <div id="tab-4" data-label="vue"><GridWithoutBorderVue /></div>
 </CodeContainer>

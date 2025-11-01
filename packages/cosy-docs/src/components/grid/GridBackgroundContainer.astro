@@ -1,62 +1,85 @@
 ---
-
-
-
-import { CodeContainer } from "@coffic/cosy-ui";
-import GridBackgroundAccent from "./GridBackgroundAccent.astro";
-import GridBackgroundAccentSourceCode from "./GridBackgroundAccent.astro?raw";
-import GridBackgroundDefault from "./GridBackgroundDefault.astro";
-import GridBackgroundDefaultSourceCode from "./GridBackgroundDefault.astro?raw";
-import GridBackgroundError from "./GridBackgroundError.astro";
-import GridBackgroundErrorSourceCode from "./GridBackgroundError.astro?raw";
-import GridBackgroundPrimary from "./GridBackgroundPrimary.astro";
-import GridBackgroundPrimarySourceCode from "./GridBackgroundPrimary.astro?raw";
-import GridBackgroundPrimaryOpacity from "./GridBackgroundPrimaryOpacity.astro";
-import GridBackgroundPrimaryOpacitySourceCode from "./GridBackgroundPrimaryOpacity.astro?raw";
-import GridBackgroundSuccess from "./GridBackgroundSuccess.astro";
-import GridBackgroundSuccessSourceCode from "./GridBackgroundSuccess.astro?raw";
-import GridBackgroundWarning from "./GridBackgroundWarning.astro";
-import GridBackgroundWarningSourceCode from "./GridBackgroundWarning.astro?raw";
+/**
+ * @component GridBackgroundContainer
+ * @description 展示 Grid 组件的 background 属性不同取值，Astro/Vue 各背景色标签。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import GridBackgroundAccent from './GridBackgroundAccent.astro';
+import GridBackgroundAccentRaw from './GridBackgroundAccent.astro?raw';
+import GridBackgroundAccentVue from './GridBackgroundAccentVue.vue';
+import GridBackgroundAccentVueRaw from './GridBackgroundAccentVue.vue?raw';
+import GridBackgroundDefault from './GridBackgroundDefault.astro';
+import GridBackgroundDefaultRaw from './GridBackgroundDefault.astro?raw';
+import GridBackgroundDefaultVue from './GridBackgroundDefaultVue.vue';
+import GridBackgroundDefaultVueRaw from './GridBackgroundDefaultVue.vue?raw';
+import GridBackgroundError from './GridBackgroundError.astro';
+import GridBackgroundErrorRaw from './GridBackgroundError.astro?raw';
+import GridBackgroundErrorVue from './GridBackgroundErrorVue.vue';
+import GridBackgroundErrorVueRaw from './GridBackgroundErrorVue.vue?raw';
+import GridBackgroundPrimary from './GridBackgroundPrimary.astro';
+import GridBackgroundPrimaryRaw from './GridBackgroundPrimary.astro?raw';
+import GridBackgroundPrimaryOpacity from './GridBackgroundPrimaryOpacity.astro';
+import GridBackgroundPrimaryOpacityRaw from './GridBackgroundPrimaryOpacity.astro?raw';
+import GridBackgroundPrimaryOpacityVue from './GridBackgroundPrimaryOpacityVue.vue';
+import GridBackgroundPrimaryOpacityVueRaw from './GridBackgroundPrimaryOpacityVue.vue?raw';
+import GridBackgroundPrimaryVue from './GridBackgroundPrimaryVue.vue';
+import GridBackgroundPrimaryVueRaw from './GridBackgroundPrimaryVue.vue?raw';
+import GridBackgroundSuccess from './GridBackgroundSuccess.astro';
+import GridBackgroundSuccessRaw from './GridBackgroundSuccess.astro?raw';
+import GridBackgroundSuccessVue from './GridBackgroundSuccessVue.vue';
+import GridBackgroundSuccessVueRaw from './GridBackgroundSuccessVue.vue?raw';
+import GridBackgroundWarning from './GridBackgroundWarning.astro';
+import GridBackgroundWarningRaw from './GridBackgroundWarning.astro?raw';
+import GridBackgroundWarningVue from './GridBackgroundWarningVue.vue';
+import GridBackgroundWarningVueRaw from './GridBackgroundWarningVue.vue?raw';
 ---
 
 <CodeContainer
-  codes={[
-    GridBackgroundDefaultSourceCode,
-    GridBackgroundPrimarySourceCode,
-    GridBackgroundPrimaryOpacitySourceCode,
-    GridBackgroundAccentSourceCode,
-    GridBackgroundSuccessSourceCode,
-    GridBackgroundWarningSourceCode,
-    GridBackgroundErrorSourceCode,
-  ]}
-  titles={[
-    '默认背景',
-    '主色调背景',
-    '主色调半透明',
-    '强调色背景',
-    '成功色背景',
-    '警告色背景',
-    '错误色背景',
-  ]}>
-  <div id="tab-1">
-    <GridBackgroundDefault />
-  </div>
-  <div id="tab-2">
-    <GridBackgroundPrimary />
-  </div>
-  <div id="tab-3">
-    <GridBackgroundPrimaryOpacity />
-  </div>
-  <div id="tab-4">
-    <GridBackgroundAccent />
-  </div>
-  <div id="tab-5">
-    <GridBackgroundSuccess />
-  </div>
-  <div id="tab-6">
-    <GridBackgroundWarning />
-  </div>
-  <div id="tab-7">
-    <GridBackgroundError />
-  </div>
+    codes={[
+        GridBackgroundDefaultRaw,
+        GridBackgroundPrimaryRaw,
+        GridBackgroundPrimaryOpacityRaw,
+        GridBackgroundAccentRaw,
+        GridBackgroundSuccessRaw,
+        GridBackgroundWarningRaw,
+        GridBackgroundErrorRaw,
+        GridBackgroundDefaultVueRaw,
+        GridBackgroundPrimaryVueRaw,
+        GridBackgroundPrimaryOpacityVueRaw,
+        GridBackgroundAccentVueRaw,
+        GridBackgroundSuccessVueRaw,
+        GridBackgroundWarningVueRaw,
+        GridBackgroundErrorVueRaw,
+    ]}
+    titles={[
+        'default',
+        'primary',
+        'primary/20',
+        'accent',
+        'success',
+        'warning',
+        'error',
+        'default',
+        'primary',
+        'primary/20',
+        'accent',
+        'success',
+        'warning',
+        'error'
+    ]}
+>
+    <div id="tab-1" data-label="astro"><GridBackgroundDefault /></div>
+    <div id="tab-2" data-label="astro"><GridBackgroundPrimary /></div>
+    <div id="tab-3" data-label="astro"><GridBackgroundPrimaryOpacity /></div>
+    <div id="tab-4" data-label="astro"><GridBackgroundAccent /></div>
+    <div id="tab-5" data-label="astro"><GridBackgroundSuccess /></div>
+    <div id="tab-6" data-label="astro"><GridBackgroundWarning /></div>
+    <div id="tab-7" data-label="astro"><GridBackgroundError /></div>
+    <div id="tab-8" data-label="vue"><GridBackgroundDefaultVue /></div>
+    <div id="tab-9" data-label="vue"><GridBackgroundPrimaryVue /></div>
+    <div id="tab-10" data-label="vue"><GridBackgroundPrimaryOpacityVue /></div>
+    <div id="tab-11" data-label="vue"><GridBackgroundAccentVue /></div>
+    <div id="tab-12" data-label="vue"><GridBackgroundSuccessVue /></div>
+    <div id="tab-13" data-label="vue"><GridBackgroundWarningVue /></div>
+    <div id="tab-14" data-label="vue"><GridBackgroundErrorVue /></div>
 </CodeContainer>
