@@ -2,7 +2,6 @@
 title: Login Page
 folder: false
 order: 12.4
-badge: 'beta'
 ---
 
 import { LoginPackage } from '@/components/login';
@@ -25,53 +24,100 @@ You can customize the style and content of the login page through custom class n
 
 ## Props
 
-### Basic Properties
-- `title` (string, optional) - Login page title, defaults to "Login"
-- `subtitle` (string, optional) - Login page subtitle
-- `logo` (string, optional) - Path to the login page logo image
+### customClass
 
-### Feature Configuration
-- `socialLogins` (('github' | 'google' | 'wechat')[], optional) - List of social login methods
-- `showRememberMe` (boolean, optional) - Whether to show the "Remember me" option, defaults to false
-- `showForgotPassword` (boolean, optional) - Whether to show the "Forgot password" link, defaults to false
+Custom CSS class name for overriding default styles.
 
-### Text Customization
-- `loginButtonText` (string, optional) - Login button text, defaults to "Login"
-- `usernameLabel` (string, optional) - Username input field label, defaults to "Username"
-- `passwordLabel` (string, optional) - Password input field label, defaults to "Password"
-- `forgotPasswordText` (string, optional) - Forgot password link text, defaults to "Forgot password?"
-- `rememberMeText` (string, optional) - Remember me option text, defaults to "Remember me"
-- `dividerText` (string, optional) - Social login divider text, defaults to "or"
+<LoginPackage.LoginContainers.CustomClass />
 
-### Style Customization
-- `customClass` (string, optional) - Custom CSS class name
+### dividerText
+
+Social login divider text, defaults to "or".
+
+<LoginPackage.LoginContainers.DividerText />
+
+### forgotPasswordText
+
+Forgot password link text, defaults to "Forgot password?".
+
+<LoginPackage.LoginContainers.ForgotPasswordText />
+
+### loginButtonText
+
+Login button text, defaults to "Login".
+
+<LoginPackage.LoginContainers.LoginButtonText />
+
+### logo
+
+Path to the login page logo image.
+
+<LoginPackage.LoginContainers.Logo />
+
+### passwordLabel
+
+Password input field label, defaults to "Password".
+
+<LoginPackage.LoginContainers.PasswordLabel />
+
+### rememberMeText
+
+Remember me option text, defaults to "Remember me".
+
+<LoginPackage.LoginContainers.RememberMeText />
+
+### showForgotPassword
+
+Whether to show the "Forgot password" link, defaults to false.
+
+<LoginPackage.LoginContainers.ShowForgotPassword />
+
+### showRememberMe
+
+Whether to show the "Remember me" option, defaults to false.
+
+<LoginPackage.LoginContainers.ShowRememberMe />
+
+### socialLogins
+
+List of social login methods, supports github, google, wechat.
+
+<LoginPackage.LoginContainers.SocialLogins />
+
+### subtitle
+
+Login page subtitle.
+
+<LoginPackage.LoginContainers.Subtitle />
+
+### title
+
+Login page title, defaults to "Login".
+
+<LoginPackage.LoginContainers.Title />
+
+### usernameLabel
+
+Username input field label, defaults to "Username".
+
+<LoginPackage.LoginContainers.UsernameLabel />
 
 ## Slots
 
-The component provides the following slots for custom content:
+### footer
 
-- `header` - Custom header content
-- `footer` - Custom footer content
-- `socialButtons` - Custom social login buttons
+Custom content at the bottom of the login page through the `footer` slot:
 
-## Best Practices
+<LoginPackage.LoginContainers.Footer />
 
-1. **Security Considerations**
-   - Ensure HTTPS is used for data transmission
-   - Implement appropriate password strength validation
-   - Add login attempt limits
+### header
 
-2. **User Experience**
-   - Provide clear error messages
-   - Disable submit button during login process
-   - Support keyboard navigation and form auto-fill
+Custom content at the top of the login page through the `header` slot:
 
-3. **Responsive Design**
-   - Component supports responsive layout by default
-   - Automatically adjust input field sizes on mobile devices
-   - Ensure social login buttons are easy to click on various screen sizes
+<LoginPackage.LoginContainers.Header />
 
-4. **Customization Tips**
-   - Adjust color scheme according to brand guidelines
-   - Add brand logo
-   - Adjust social login options as needed 
+### socialButtons
+
+Custom social login buttons through the `socialButtons` slot:
+
+<LoginPackage.LoginContainers.SocialButtons />

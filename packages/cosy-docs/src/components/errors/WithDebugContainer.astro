@@ -1,0 +1,19 @@
+---
+/**
+ * @component ErrorPageWithDebugContainer
+ * @description 展示 ErrorPage 组件的 debugKVs 属性用法，Astro/Vue 各占一标签。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+
+import ErrorPageWithDebug from './ErrorPageWithDebug.astro';
+import ErrorPageWithDebugRaw from './ErrorPageWithDebug.astro?raw';
+import ErrorPageWithDebugVue from './ErrorPageWithDebugVue.vue';
+import ErrorPageWithDebugVueRaw from './ErrorPageWithDebugVue.vue?raw';
+---
+
+<CodeContainer
+    codes={[ErrorPageWithDebugRaw, ErrorPageWithDebugVueRaw]}
+    titles={['debugKVs', 'debugKVs']}>
+    <div id="tab-1" data-label="astro"><ErrorPageWithDebug /></div>
+    <div id="tab-2" data-label="vue"><ErrorPageWithDebugVue /></div>
+</CodeContainer>

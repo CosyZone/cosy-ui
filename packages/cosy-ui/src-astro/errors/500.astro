@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component Error500
  *
@@ -30,6 +27,8 @@
  * @prop {string} [statusPageUrl] - 系统状态页面URL
  */
 
+import { cn } from '../../src/class';
+import { ErrorPageFacade } from '../../src/components/errors';
 import { LinkUtil } from '../../src/utils/link';
 
 const baseUrl = LinkUtil.getBaseUrl();
@@ -46,38 +45,37 @@ const {
     supportUrl,
     statusPageUrl,
 } = Astro.props as Error500Props;
+
+// 使用共用代码获取类名
+const classes = ErrorPageFacade.getError500Classes({ debugKVs, supportUrl, statusPageUrl });
 ---
 
-<div
-    class="cosy:min-h-screen cosy:flex cosy:flex-col cosy:items-center cosy:justify-center cosy:bg-base-100 cosy:p-4">
-    <div class="cosy:max-w-md cosy:w-full cosy:text-center cosy:space-y-6">
+<div class={classes.container}>
+    <div class={classes.content}>
         <!-- 错误代码 -->
-        <div class="cosy:mb-8">
-            <h1
-                class="cosy:text-9xl cosy:font-bold cosy:text-error cosy:leading-none">
+        <div class={classes.errorCodeContainer}>
+            <h1 class={classes.errorCodeTitle}>
                 500
             </h1>
-            <div
-                class="cosy:w-24 cosy:h-1 cosy:bg-error cosy:mx-auto cosy:mt-4 cosy:rounded-full">
+            <div class={classes.errorCodeLine}>
             </div>
         </div>
 
         <!-- 错误信息 -->
-        <div class="cosy:space-y-4">
-            <h2 class="cosy:text-2xl cosy:font-semibold cosy:text-base-content">
+        <div class={classes.errorMessageContainer}>
+            <h2 class={classes.errorMessageTitle}>
                 服务器内部错误
             </h2>
-            <p class="cosy:text-base-content/70 cosy:text-lg">
+            <p class={classes.errorMessageText}>
                 服务器遇到了一个内部错误，无法完成您的请求。
             </p>
         </div>
 
         <!-- 路径信息 -->
-        <div
-            class="cosy:bg-base-200 cosy:rounded-lg cosy:p-4 cosy:text-sm cosy:text-base-content/60">
+        <div class={classes.pathInfo}>
             <p>
-                <span class="cosy:font-medium">路径：</span><code
-                    class="cosy:text-error">{path}</code
+                <span class={cn().weight('medium').build()}>路径：</span><code
+                    class={cn().color('error').build()}>{path}</code
                 >
             </p>
         </div>
@@ -85,17 +83,17 @@ const {
         <!-- 调试信息 -->
         {
             Object.keys(debugKVs).length > 0 && (
-                <details class="cosy:bg-base-200 cosy:rounded-lg cosy:p-4 cosy:text-left">
-                    <summary class="cosy:cursor-pointer cosy:font-medium cosy:text-base-content">
+                <details class={classes.debugInfo}>
+                    <summary class={classes.debugInfoSummary}>
                         错误信息
                     </summary>
-                    <div class="cosy:mt-3 cosy:space-y-2">
+                    <div class={classes.debugInfoContent}>
                         {Object.entries(debugKVs).map(([key, value]) => (
-                            <div class="cosy:text-sm">
-                                <span class="cosy:font-medium cosy:text-base-content">
+                            <div class={classes.debugInfoItem}>
+                                <span class={classes.debugInfoKey}>
                                     {key}:
                                 </span>
-                                <span class="cosy:text-base-content/70 cosy:ml-2">
+                                <span class={classes.debugInfoValue}>
                                     {value}
                                 </span>
                             </div>
@@ -106,13 +104,11 @@ const {
         }
 
         <!-- 建议信息 -->
-        <div
-            class="cosy:bg-info/10 cosy:border cosy:border-info/20 cosy:rounded-lg cosy:p-4">
-            <h3 class="cosy:font-medium cosy:text-base-content cosy:mb-2">
+        <div class={classes.suggestion}>
+            <h3 class={classes.suggestionTitle}>
                 您可以尝试：
             </h3>
-            <ul
-                class="cosy:text-sm cosy:text-base-content/70 cosy:space-y-1 cosy:text-left">
+            <ul class={classes.suggestionList}>
                 <li>• 刷新页面</li>
                 <li>• 几分钟后重试</li>
                 <li>• 检查您的网络连接</li>
@@ -121,17 +117,17 @@ const {
         </div>
 
         <!-- 操作按钮 -->
-        <div class="cosy:space-y-3">
+        <div class={classes.actions}>
             <button
                 onclick="window.location.reload()"
-                class="btn btn-primary cosy:w-full"
+                class={cn().add('cosy:btn cosy:btn-primary').w('full').build()}
                 type="button">
                 刷新页面
             </button>
 
             <a
                 href={baseUrl}
-                class="btn btn-outline cosy:w-full cosy:no-underline">
+                class={cn().add('cosy:btn cosy:btn-outline cosy:no-underline').w('full').build()}>
                 返回首页
             </a>
 
@@ -139,7 +135,7 @@ const {
                 statusPageUrl && (
                     <a
                         href={statusPageUrl}
-                        class="btn btn-ghost cosy:w-full cosy:no-underline">
+                        class={cn().add('cosy:btn cosy:btn-ghost cosy:no-underline').w('full').build()}>
                         查看系统状态
                     </a>
                 )
@@ -149,7 +145,7 @@ const {
                 supportUrl && (
                     <a
                         href={supportUrl}
-                        class="btn btn-ghost cosy:w-full cosy:no-underline">
+                        class={cn().add('cosy:btn cosy:btn-ghost cosy:no-underline').w('full').build()}>
                         联系技术支持
                     </a>
                 )
@@ -157,7 +153,7 @@ const {
         </div>
 
         <!-- 帮助提示 -->
-        <div class="cosy:text-sm cosy:text-base-content/50 cosy:mt-8">
+        <div class={classes.helpText}>
             <p>如果问题持续存在，请联系我们的技术支持团队</p>
         </div>
     </div>

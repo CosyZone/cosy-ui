@@ -1,0 +1,19 @@
+---
+/**
+ * @component LoginHeaderContainer
+ * @description 展示 Login 组件的 header slot 用法，Astro/Vue 各占一标签。
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import LoginHeader from "./LoginHeader.astro";
+import LoginHeaderRaw from "./LoginHeader.astro?raw";
+import LoginHeaderVue from "./LoginHeaderVue.vue";
+import LoginHeaderVueRaw from "./LoginHeaderVue.vue?raw";
+---
+
+<CodeContainer
+    codes={[LoginHeaderRaw, LoginHeaderVueRaw]}
+    titles={['header', 'header']}>
+    <div id="tab-1" data-label="astro"><LoginHeader /></div>
+    <div id="tab-2" data-label="vue"><LoginHeaderVue /></div>
+</CodeContainer>
+

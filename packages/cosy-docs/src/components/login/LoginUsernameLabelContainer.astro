@@ -1,0 +1,19 @@
+---
+/**
+ * @component LoginUsernameLabelContainer
+ * @description 展示 Login 组件的 usernameLabel 属性用法，Astro/Vue 各占一标签。
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import LoginUsernameLabel from "./LoginUsernameLabel.astro";
+import LoginUsernameLabelRaw from "./LoginUsernameLabel.astro?raw";
+import LoginUsernameLabelVue from "./LoginUsernameLabelVue.vue";
+import LoginUsernameLabelVueRaw from "./LoginUsernameLabelVue.vue?raw";
+---
+
+<CodeContainer
+    codes={[LoginUsernameLabelRaw, LoginUsernameLabelVueRaw]}
+    titles={['usernameLabel', 'usernameLabel']}>
+    <div id="tab-1" data-label="astro"><LoginUsernameLabel /></div>
+    <div id="tab-2" data-label="vue"><LoginUsernameLabelVue /></div>
+</CodeContainer>
+

@@ -13,6 +13,12 @@ const textSizeMap = {
 	xl: "cosy:text-xl",
 	"2xl": "cosy:text-2xl",
 	"3xl": "cosy:text-3xl",
+	"4xl": "cosy:text-4xl",
+	"5xl": "cosy:text-5xl",
+	"6xl": "cosy:text-6xl",
+	"7xl": "cosy:text-7xl",
+	"8xl": "cosy:text-8xl",
+	"9xl": "cosy:text-9xl",
 } as const;
 
 const textColorMap = {
@@ -26,7 +32,23 @@ const textColorMap = {
 	error: "cosy:text-error",
 	white: "cosy:text-white",
 	black: "cosy:text-black",
+	"base-content": "cosy:text-base-content",
 } as const;
+
+// 带透明度的文本颜色映射表
+const textColorWithOpacityMap = {
+	"base-content/40": "cosy:text-base-content/40",
+	"base-content/50": "cosy:text-base-content/50",
+	"base-content/60": "cosy:text-base-content/60",
+	"base-content/70": "cosy:text-base-content/70",
+	"base-content/80": "cosy:text-base-content/80",
+	"base-content/90": "cosy:text-base-content/90",
+} as const;
+
+// 合并的文本颜色类型
+export type TextColorWithOpacity =
+	| keyof typeof textColorMap
+	| keyof typeof textColorWithOpacityMap;
 
 const textAlignMap = {
 	left: "cosy:text-left",
@@ -102,10 +124,16 @@ export class TextBuilder {
 
 	/**
 	 * 设置文本颜色
-	 * @param color 颜色值
+	 * @param color 颜色值，支持带透明度（如 "base-content/60"）
 	 */
-	color(color: TextColor): this {
-		this.classes.push(textColorMap[color]);
+	color(color: TextColorWithOpacity): this {
+		if (color in textColorMap) {
+			this.classes.push(textColorMap[color as TextColor]);
+		} else if (color in textColorWithOpacityMap) {
+			this.classes.push(
+				textColorWithOpacityMap[color as keyof typeof textColorWithOpacityMap],
+			);
+		}
 		return this;
 	}
 

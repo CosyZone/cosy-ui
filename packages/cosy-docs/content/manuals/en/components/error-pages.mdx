@@ -1,19 +1,74 @@
 ---
 title: 'Error Pages'
+description: 'Generic error page component that automatically selects the appropriate error page based on the error code, simplifying error handling and providing a unified error page entry point'
 folder: false
 order: 5.2
-badge: 'beta'
 ---
 
-import { ErrorPage } from '@coffic/cosy-ui';
-import { ComponentPackage } from '@/components/errors/index.ts';
+import { ErrorPagesPackage } from '@/components/errors/index';
 
 # {frontmatter.title}
 
 ## Introduction
 
-Error page component collection providing user-friendly pages for common HTTP error status codes. Through unified design style and clear information communication, help users understand error causes and provide solutions.
+Generic error page component that automatically selects the appropriate error page based on the error code. Simplifies error handling and provides a unified error page entry point.
 
-## Basic Usage
+## Examples
 
-<ComponentPackage.ComponentContainers.Basic />
+<ErrorPagesPackage.Basic />
+
+## Props
+
+### errorCode
+
+HTTP error status code. Automatically selects the appropriate error page based on the error code. Supports status codes such as 403, 404, 500, and 503.
+
+<ErrorPagesPackage.ErrorCode />
+
+### debugKVs
+
+Debug information key-value pairs for displaying additional error information during development and debugging.
+
+<ErrorPagesPackage.WithDebug />
+
+### loginUrl
+
+Login page URL for displaying a login link in 403 errors.
+
+<ErrorPagesPackage.WithLoginUrl />
+
+### contactUrl
+
+Contact page URL for displaying a contact link in 403 errors.
+
+<ErrorPagesPackage.WithContactUrl />
+
+### supportUrl
+
+Support page URL for displaying a support link in 500 errors.
+
+<ErrorPagesPackage.WithSupportUrl />
+
+### statusPageUrl
+
+System status page URL for displaying a system status link in 500 and 503 errors.
+
+<ErrorPagesPackage.WithStatusPageUrl />
+
+### notificationUrl
+
+Notification subscription page URL for displaying a notification subscription link in 503 errors.
+
+<ErrorPagesPackage.WithNotificationUrl />
+
+### maintenanceMode
+
+Whether it is maintenance mode, used for 503 errors. When set to true, displays the maintenance mode page.
+
+<ErrorPagesPackage.MaintenanceMode />
+
+### estimatedRecovery
+
+Estimated recovery time, used for displaying the estimated recovery time in 503 errors.
+
+<ErrorPagesPackage.WithEstimatedRecovery />

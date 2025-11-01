@@ -1,0 +1,15 @@
+---
+import { ErrorPage } from '@coffic/cosy-ui';
+---
+
+<ErrorPage
+  errorCode={503}
+  maintenanceMode={true}
+  estimatedRecovery="2024-12-25 10:00"
+  statusPageUrl="https://status.example.com"
+  debugKVs={{
+    reason: '系统升级',
+    startTime: '2024-12-25 08:00',
+    version: 'v2.1.0',
+  }}
+/>

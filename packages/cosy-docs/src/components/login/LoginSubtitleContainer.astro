@@ -1,0 +1,19 @@
+---
+/**
+ * @component LoginSubtitleContainer
+ * @description 展示 Login 组件的 subtitle 属性用法，Astro/Vue 各占一标签。
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import LoginSubtitle from "./LoginSubtitle.astro";
+import LoginSubtitleRaw from "./LoginSubtitle.astro?raw";
+import LoginSubtitleVue from "./LoginSubtitleVue.vue";
+import LoginSubtitleVueRaw from "./LoginSubtitleVue.vue?raw";
+---
+
+<CodeContainer
+    codes={[LoginSubtitleRaw, LoginSubtitleVueRaw]}
+    titles={['subtitle', 'subtitle']}>
+    <div id="tab-1" data-label="astro"><LoginSubtitle /></div>
+    <div id="tab-2" data-label="vue"><LoginSubtitleVue /></div>
+</CodeContainer>
+

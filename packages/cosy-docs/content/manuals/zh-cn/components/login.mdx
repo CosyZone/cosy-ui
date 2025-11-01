@@ -2,7 +2,6 @@
 title: Login
 folder: false
 order: 12.4
-badge: beta
 ---
 
 import { LoginPackage } from '@/components/login/index.ts';
@@ -25,53 +24,100 @@ Login 组件用于创建灵活且功能丰富的登录页面，支持多种登�
 
 ## Props
 
-### 基础属性
-- `title` (string, 可选) - 登录页标题，默认为"登录"
-- `subtitle` (string, 可选) - 登录页副标题
-- `logo` (string, 可选) - 登录页Logo图片路径
+### customClass
 
-### 功能配置
-- `socialLogins` (('github' | 'google' | 'wechat')[], 可选) - 社交登录方式列表
-- `showRememberMe` (boolean, 可选) - 是否显示"记住我"选项，默认为 false
-- `showForgotPassword` (boolean, 可选) - 是否显示"忘记密码"链接，默认为 false
+自定义 CSS 类名，用于覆盖默认样式。
 
-### 文本自定义
-- `loginButtonText` (string, 可选) - 登录按钮文本，默认为"登录"
-- `usernameLabel` (string, 可选) - 用户名输入框标签，默认为"用户名"
-- `passwordLabel` (string, 可选) - 密码输入框标签，默认为"密码"
-- `forgotPasswordText` (string, 可选) - 忘记密码链接文本，默认为"忘记密码？"
-- `rememberMeText` (string, 可选) - 记住我选项文本，默认为"记住我"
-- `dividerText` (string, 可选) - 社交登录分隔符文本，默认为"或"
+<LoginPackage.LoginContainers.CustomClass />
 
-### 样式定制
-- `customClass` (string, 可选) - 自定义CSS类名
+### dividerText
 
-## 插槽
+社交登录分隔符文本，默认为"或"。
 
-组件提供了以下插槽用于自定义内容：
+<LoginPackage.LoginContainers.DividerText />
 
-- `header` - 页头自定义内容
-- `footer` - 页脚自定义内容
-- `socialButtons` - 自定义社交登录按钮
+### forgotPasswordText
 
-## 最佳实践
+忘记密码链接文本，默认为"忘记密码？"。
 
-1. **安全性考虑**
-   - 确保使用 HTTPS 进行数据传输
-   - 实现适当的密码强度验证
-   - 添加登录尝试次数限制
+<LoginPackage.LoginContainers.ForgotPasswordText />
 
-2. **用户体验**
-   - 提供清晰的错误提示
-   - 在登录过程中禁用提交按钮
-   - 支持键盘导航和表单自动填充
+### loginButtonText
 
-3. **响应式设计**
-   - 组件默认支持响应式布局
-   - 在移动设备上自动调整输入框大小
-   - 确保社交登录按钮在各种屏幕尺寸下都易于点击
+登录按钮文本，默认为"登录"。
 
-4. **自定义建议**
-   - 根据品牌调整配色方案
-   - 添加品牌Logo
-   - 根据需要调整社交登录选项 
+<LoginPackage.LoginContainers.LoginButtonText />
+
+### logo
+
+登录页Logo图片路径。
+
+<LoginPackage.LoginContainers.Logo />
+
+### passwordLabel
+
+密码输入框标签，默认为"密码"。
+
+<LoginPackage.LoginContainers.PasswordLabel />
+
+### rememberMeText
+
+记住我选项文本，默认为"记住我"。
+
+<LoginPackage.LoginContainers.RememberMeText />
+
+### showForgotPassword
+
+是否显示"忘记密码"链接，默认为 false。
+
+<LoginPackage.LoginContainers.ShowForgotPassword />
+
+### showRememberMe
+
+是否显示"记住我"选项，默认为 false。
+
+<LoginPackage.LoginContainers.ShowRememberMe />
+
+### socialLogins
+
+社交登录方式列表，支持 github、google、wechat。
+
+<LoginPackage.LoginContainers.SocialLogins />
+
+### subtitle
+
+登录页副标题。
+
+<LoginPackage.LoginContainers.Subtitle />
+
+### title
+
+登录页标题，默认为"登录"。
+
+<LoginPackage.LoginContainers.Title />
+
+### usernameLabel
+
+用户名输入框标签，默认为"用户名"。
+
+<LoginPackage.LoginContainers.UsernameLabel />
+
+## Slots
+
+### footer
+
+通过 `footer` slot 可以在登录页面底部自定义内容：
+
+<LoginPackage.LoginContainers.Footer />
+
+### header
+
+通过 `header` slot 可以在登录页面头部自定义内容：
+
+<LoginPackage.LoginContainers.Header />
+
+### socialButtons
+
+通过 `socialButtons` slot 可以自定义社交登录按钮：
+
+<LoginPackage.LoginContainers.SocialButtons />

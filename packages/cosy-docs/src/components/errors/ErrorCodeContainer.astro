@@ -1,0 +1,59 @@
+---
+
+/**
+ * @component ErrorPageErrorCodeContainer
+ * @description 展示 ErrorPage 组件的 errorCode 属性四种取值，Astro/Vue 各 403/404/500/503 标签。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+
+// 按字母顺序导入所有 Astro 示例及其源码
+import ErrorPage403 from './ErrorPage403.astro';
+import ErrorPage403Raw from './ErrorPage403.astro?raw';
+// 按字母顺序导入所有 Vue 示例及其源码
+import ErrorPage403Vue from './ErrorPage403Vue.vue';
+import ErrorPage403VueRaw from './ErrorPage403Vue.vue?raw';
+import ErrorPage500 from './ErrorPage500.astro';
+import ErrorPage500Raw from './ErrorPage500.astro?raw';
+import ErrorPage500Vue from './ErrorPage500Vue.vue';
+import ErrorPage500VueRaw from './ErrorPage500Vue.vue?raw';
+import ErrorPage503 from './ErrorPage503.astro';
+import ErrorPage503Raw from './ErrorPage503.astro?raw';
+import ErrorPage503Vue from './ErrorPage503Vue.vue';
+import ErrorPage503VueRaw from './ErrorPage503Vue.vue?raw';
+import ErrorPage404 from './ErrorPageBasic.astro';
+import ErrorPage404Raw from './ErrorPageBasic.astro?raw';
+import ErrorPage404Vue from './ErrorPageBasicVue.vue';
+import ErrorPage404VueRaw from './ErrorPageBasicVue.vue?raw';
+---
+
+<CodeContainer
+    codes={[
+        ErrorPage403Raw,
+        ErrorPage404Raw,
+        ErrorPage500Raw,
+        ErrorPage503Raw,
+        ErrorPage403VueRaw,
+        ErrorPage404VueRaw,
+        ErrorPage500VueRaw,
+        ErrorPage503VueRaw,
+    ]}
+    titles={[
+        '403',
+        '404',
+        '500',
+        '503',
+        '403',
+        '404',
+        '500',
+        '503',
+    ]}
+>
+    <div id="tab-1" data-label="astro"><ErrorPage403 /></div>
+    <div id="tab-2" data-label="astro"><ErrorPage404 /></div>
+    <div id="tab-3" data-label="astro"><ErrorPage500 /></div>
+    <div id="tab-4" data-label="astro"><ErrorPage503 /></div>
+    <div id="tab-5" data-label="vue"><ErrorPage403Vue /></div>
+    <div id="tab-6" data-label="vue"><ErrorPage404Vue /></div>
+    <div id="tab-7" data-label="vue"><ErrorPage500Vue /></div>
+    <div id="tab-8" data-label="vue"><ErrorPage503Vue /></div>
+</CodeContainer>

@@ -1,0 +1,19 @@
+---
+/**
+ * @component LoginCustomClassContainer
+ * @description 展示 Login 组件的 customClass 属性用法，Astro/Vue 各占一标签。
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import LoginCustomClass from "./LoginCustomClass.astro";
+import LoginCustomClassRaw from "./LoginCustomClass.astro?raw";
+import LoginCustomClassVue from "./LoginCustomClassVue.vue";
+import LoginCustomClassVueRaw from "./LoginCustomClassVue.vue?raw";
+---
+
+<CodeContainer
+    codes={[LoginCustomClassRaw, LoginCustomClassVueRaw]}
+    titles={['customClass', 'customClass']}>
+    <div id="tab-1" data-label="astro"><LoginCustomClass /></div>
+    <div id="tab-2" data-label="vue"><LoginCustomClassVue /></div>
+</CodeContainer>
+

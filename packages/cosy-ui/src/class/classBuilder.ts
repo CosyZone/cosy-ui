@@ -138,7 +138,7 @@ import {
 	type LineHeight,
 	type TextAlign,
 	TextBuilder,
-	type TextColor,
+	type TextColorWithOpacity,
 	type TextSize,
 } from "./builders/TextBuilder";
 import {
@@ -583,9 +583,9 @@ class ClassBuilder {
 
 	/**
 	 * 设置文本颜色
-	 * @param color 颜色值
+	 * @param color 颜色值，支持带透明度（如 "base-content/60"）
 	 */
-	color(color: TextColor): this {
+	color(color: TextColorWithOpacity): this {
 		const tempBuilder = new TextBuilder();
 		tempBuilder.color(color);
 		this.classes.push(...tempBuilder.getClasses());

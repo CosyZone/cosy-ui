@@ -1,0 +1,13 @@
+---
+import { ErrorPage } from '@coffic/cosy-ui';
+---
+
+<ErrorPage
+  errorCode={404}
+  debugKVs={{
+    reason: '页面不存在',
+    suggestedAction: '请检查URL拼写',
+    timestamp: new Date().toISOString(),
+    requestId: 'REQ_2024_001',
+  }}
+/>
