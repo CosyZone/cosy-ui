@@ -1,0 +1,116 @@
+---
+/**
+ * @component DesignPhilosophy
+ * @description 设计理念展示 - 简单开始，自由扩展
+ */
+
+import { Container, Heading, Text } from '@coffic/cosy-ui';
+
+export interface Props {
+    lang: string;
+}
+
+const { lang } = Astro.props;
+
+const title = lang === 'zh-cn' ? '设计理念' : 'Design Philosophy';
+const subtitle =
+    lang === 'zh-cn'
+        ? '简单开始，自由扩展'
+        : 'Start Simple. Grow Freely.';
+
+const philosophy =
+    lang === 'zh-cn'
+        ? [
+              {
+                  icon: '✨',
+                  title: '导入即用',
+                  description: '无需配置，导入即可使用，让开发更简单',
+              },
+              {
+                  icon: '🔧',
+                  title: '易于替换',
+                  description: '随时替换为自定义组件，实现更多可能性',
+              },
+              {
+                  icon: '🚀',
+                  title: '快速成型',
+                  description: '项目初期快速构建，未来灵活扩展',
+              },
+          ]
+        : [
+              {
+                  icon: '✨',
+                  title: 'Import & Use',
+                  description: 'No configuration needed. Import and start building.',
+              },
+              {
+                  icon: '🔧',
+                  title: 'Easy to Replace',
+                  description: 'Replace with custom components anytime for more flexibility',
+              },
+              {
+                  icon: '🚀',
+                  title: 'Build Fast',
+                  description: 'Start quickly, scale freely as your project grows',
+              },
+          ];
+---
+
+<Container width="full" padding="2xl" background="primary/10" margin="none">
+    <Heading level={2} align="center" size="3xl" weight="bold" margin="lg">
+        {title}
+    </Heading>
+    <Heading
+        level={3}
+        align="center"
+        size="lg"
+        weight="normal"
+        color="muted"
+        margin="xl">
+        {subtitle}
+    </Heading>
+
+    <Container width="2xl" margin="xl">
+        <div class="philosophy-grid">
+            {philosophy.map((item) => (
+                <div class="philosophy-item">
+                    <div class="philosophy-icon">{item.icon}</div>
+                    <Heading level={4} align="center" size="lg" weight="bold" margin="sm">
+                        {item.title}
+                    </Heading>
+                    <Text align="center" size="md" color="muted">
+                        {item.description}
+                    </Text>
+                </div>
+            ))}
+        </div>
+    </Container>
+</Container>
+
+<style>
+    .philosophy-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+        .philosophy-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    .philosophy-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 2rem 1.5rem;
+    }
+
+    .philosophy-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    }
+</style>
