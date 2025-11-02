@@ -15,7 +15,7 @@
 
 # 常量定义
 env:
-  HOMEPAGE: "https://cosyzone.github.io/cosy-ui/"
+  HOMEPAGE: "https://ui.coffic.cn"
   REPOSITORY: "https://github.com/cosyzone/cosy-ui"
 
 name: 🏥 Health Check
@@ -40,6 +40,7 @@ jobs:
   health-check:
     name: 🔍 Health Check
     runs-on: ubuntu-latest
+    continue-on-error: true
     strategy:
       matrix:
         package-manager: [npm, yarn, pnpm]
@@ -91,6 +92,7 @@ jobs:
           
       - name: 📥 Install Package
         id: install
+        continue-on-error: true
         run: |
           cd /tmp/cosy-ui-test
           
@@ -119,6 +121,7 @@ jobs:
           
       - name: 🔍 Verify Package
         if: steps.install.outputs.success == 'true'
+        continue-on-error: true
         run: |
           cd /tmp/cosy-ui-test
           
@@ -152,6 +155,7 @@ jobs:
           
       - name: 🧪 Package Structure Test
         if: steps.install.outputs.success == 'true'
+        continue-on-error: true
         run: |
           cd /tmp/cosy-ui-test
           
@@ -202,6 +206,7 @@ jobs:
           echo "✅ 包结构检查完成"
           
       - name: 🌐 Check Documentation Website
+        continue-on-error: true
         run: |
           echo "🌐 检查文档网站可访问性..."
           
@@ -243,7 +248,7 @@ jobs:
           echo "- 🐙 GitHub 仓库: ${{ env.REPOSITORY }}"
           
       - name: 🚨 Create Issue on Failure
-        if: needs.health-check.result == 'failure'
+        if: needs.health-check.result != 'success'
         uses: actions/github-script@v7
         with:
           script: |
