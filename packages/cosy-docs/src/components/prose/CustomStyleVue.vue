@@ -1,0 +1,63 @@
+<script setup lang="ts">
+import { Prose } from "@coffic/cosy-ui/vue";
+</script>
+
+<template>
+	<Prose class="cosy:max-w-none">
+		<h1>完整排版示例</h1>
+		<p class="lead">这是一个引导段落，通常用于文章开头的摘要内容。</p>
+
+		<h2>文本样式</h2>
+		<p>这段文字包含<strong>粗体</strong>、<em>斜体</em>、<code>行内代码</code>和<a href="#">链接</a>。</p>
+
+		<blockquote>
+			<p>这是一段引用内容，用于强调重要信息或引用他人的话。</p>
+		</blockquote>
+
+		<h3>代码块</h3>
+		<pre><code>{`function example() {
+  console.log("这是一个代码块示例");
+  return true;
+}`}</code></pre>
+
+		<h3>表格</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>姓名</th>
+					<th>职位</th>
+					<th>部门</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>张三</td>
+					<td>前端开发</td>
+					<td>技术部</td>
+				</tr>
+				<tr>
+					<td>李四</td>
+					<td>产品经理</td>
+					<td>产品部</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h3>列表</h3>
+		<ul>
+			<li>无序列表项一</li>
+			<li>无序列表项二
+				<ul>
+					<li>嵌套项一</li>
+					<li>嵌套项二</li>
+				</ul>
+			</li>
+			<li>无序列表项三</li>
+		</ul>
+
+		<hr />
+
+		<p>这是一段分隔线后的内容。</p>
+	</Prose>
+</template>
+

@@ -1,0 +1,20 @@
+---
+/**
+ * @component ProseCustomStyleContainer
+ * @description Prose 组件自定义样式示例容器，展示 Astro/Vue 两个版本
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import CustomStyle from "./CustomStyle.astro";
+import CustomStyleRaw from "./CustomStyle.astro?raw";
+import CustomStyleVue from "./CustomStyleVue.vue";
+import CustomStyleVueRaw from "./CustomStyleVue.vue?raw";
+---
+
+<CodeContainer
+	codes={[CustomStyleRaw, CustomStyleVueRaw]}
+	titles={["完整示例", "完整示例"]}
+>
+	<div id="tab-1" data-label="astro"><CustomStyle /></div>
+	<div id="tab-2" data-label="vue"><CustomStyleVue client:load /></div>
+</CodeContainer>
+

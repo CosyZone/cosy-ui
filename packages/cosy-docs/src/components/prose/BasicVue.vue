@@ -1,0 +1,28 @@
+<script setup lang="ts">
+import { Prose } from "@coffic/cosy-ui/vue";
+</script>
+
+<template>
+	<Prose>
+		<h1>主要标题</h1>
+		<p>这是一个段落，展示了 Prose 组件如何美化文本内容。Prose 组件会自动为包裹在内的 HTML 元素应用专业的排版样式。</p>
+
+		<h2>二级标题</h2>
+		<p>这是另一个段落，包含<strong>粗体文本</strong>和<em>斜体文本</em>，以及一个<a href="#">链接</a>。</p>
+
+		<h3>三级标题</h3>
+		<ul>
+			<li>无序列表项一</li>
+			<li>无序列表项二</li>
+			<li>无序列表项三</li>
+		</ul>
+
+		<h4>四级标题</h4>
+		<ol>
+			<li>有序列表项一</li>
+			<li>有序列表项二</li>
+			<li>有序列表项三</li>
+		</ol>
+	</Prose>
+</template>
+

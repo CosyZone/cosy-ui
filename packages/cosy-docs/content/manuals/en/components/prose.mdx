@@ -1,0 +1,54 @@
+---
+title: 'Prose'
+description: 'Prose component for wrapping content and applying beautiful typography styles, making articles, blogs, and other content more readable'
+folder: false
+order: 16.1
+---
+
+import { ComponentPackage } from '@/components/prose/index';
+
+# {frontmatter.title}
+
+## Introduction
+
+The Prose component is used to wrap content and apply beautiful typography styles. It uses a custom prose style system that automatically applies professional typography styles to content wrapped within it (such as headings, paragraphs, lists, code blocks, tables, etc.).
+
+## Examples
+
+<ComponentPackage.ComponentContainers.Basic />
+
+## Props
+
+### class
+
+Custom CSS class name for overriding default styles or adding new styles.
+
+<ComponentPackage.ComponentContainers.Class />
+
+### style
+
+Custom inline styles.
+
+<ComponentPackage.ComponentContainers.CustomStyle />
+
+## Supported HTML Elements
+
+The Prose component automatically applies professional typography styles to the following HTML elements:
+
+- **Headings**: h1, h2, h3, h4, h5, h6
+- **Text**: p, a, strong, em, del, ins, sup, sub, mark, small
+- **Lists**: ul, ol, li (supports multi-level nesting)
+- **Code**: code, pre, kbd, samp
+- **Quotes**: blockquote
+- **Separators**: hr
+- **Tables**: table, thead, tbody, tfoot, th, td
+- **Media**: img, video, figure, figcaption
+
+<ComponentPackage.ComponentContainers.CustomStyle />
+
+## Slots
+
+### default
+
+Content that needs typography styles applied. Can contain any HTML elements, and the Prose component will automatically apply appropriate typography styles to these elements.
+

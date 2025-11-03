@@ -1,0 +1,20 @@
+---
+/**
+ * @component ProseClassContainer
+ * @description Prose 组件自定义类名示例容器，展示 Astro/Vue 两个版本
+ */
+import { CodeContainer } from "@coffic/cosy-ui";
+import Class from "./Class.astro";
+import ClassRaw from "./Class.astro?raw";
+import ClassVue from "./ClassVue.vue";
+import ClassVueRaw from "./ClassVue.vue?raw";
+---
+
+<CodeContainer
+	codes={[ClassRaw, ClassVueRaw]}
+	titles={["自定义类名", "自定义类名"]}
+>
+	<div id="tab-1" data-label="astro"><Class /></div>
+	<div id="tab-2" data-label="vue"><ClassVue client:load /></div>
+</CodeContainer>
+

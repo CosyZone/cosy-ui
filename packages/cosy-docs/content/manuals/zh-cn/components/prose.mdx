@@ -1,0 +1,54 @@
+---
+title: 'Prose'
+description: 'Prose 组件用于包裹内容并应用良好的排版样式，使文章、博客等内容更易于阅读'
+folder: false
+order: 16.1
+---
+
+import { ComponentPackage } from '@/components/prose/index';
+
+# {frontmatter.title}
+
+## 简介
+
+Prose 组件用于包裹内容并应用良好的排版样式。它使用自定义的 prose 样式系统，为包裹在内的内容（如标题、段落、列表、代码块、表格等）自动应用专业的排版样式。
+
+## 案例
+
+<ComponentPackage.ComponentContainers.Basic />
+
+## Props
+
+### class
+
+自定义 CSS 类名，用于覆盖默认样式或添加新的样式。
+
+<ComponentPackage.ComponentContainers.Class />
+
+### style
+
+自定义内联样式。
+
+<ComponentPackage.ComponentContainers.CustomStyle />
+
+## 支持的 HTML 元素
+
+Prose 组件会自动为以下 HTML 元素应用专业的排版样式：
+
+- **标题**: h1, h2, h3, h4, h5, h6
+- **文本**: p, a, strong, em, del, ins, sup, sub, mark, small
+- **列表**: ul, ol, li（支持多层嵌套）
+- **代码**: code, pre, kbd, samp
+- **引用**: blockquote
+- **分隔**: hr
+- **表格**: table, thead, tbody, tfoot, th, td
+- **媒体**: img, video, figure, figcaption
+
+<ComponentPackage.ComponentContainers.CustomStyle />
+
+## Slots
+
+### default
+
+需要应用排版样式的内容。可以包含任何 HTML 元素，Prose 组件会自动为这些元素应用合适的排版样式。
+
