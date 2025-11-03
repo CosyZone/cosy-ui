@@ -1,0 +1,171 @@
+/* Prose 文本元素样式 - 标题、段落、链接、强调等 */
+
+/* 段落 */
+.prose :where(p):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(p):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	margin-top: 1.25em;
+	margin-bottom: 1.25em;
+}
+
+/* 引导段落 */
+.prose
+:where([class~='lead']):not(
+	:where([class~='not-prose'], [class~='not-prose'] *)
+),
+.cosy\:prose
+	:where([class~='lead']):not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	) {
+	font-size: 1.25em;
+	line-height: 1.6;
+	margin-top: 1.2em;
+	margin-bottom: 1.2em;
+}
+
+/* 标题样式 */
+.prose :where(h1):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(h1):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	font-size: 2.25em;
+	margin-top: 0;
+	margin-bottom: 0.8888889em;
+	line-height: 1.1111111;
+	font-weight: 800;
+}
+
+.prose :where(h2):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(h2):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	font-size: 1.5em;
+	margin-top: 2em;
+	margin-bottom: 1em;
+	line-height: 1.3333333;
+	font-weight: 700;
+}
+
+.prose :where(h3):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(h3):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	font-size: 1.25em;
+	margin-top: 1.6em;
+	margin-bottom: 0.6em;
+	line-height: 1.6;
+	font-weight: 600;
+}
+
+.prose :where(h4):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(h4):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	margin-top: 1.5em;
+	margin-bottom: 0.5em;
+	line-height: 1.5;
+	font-weight: 600;
+}
+
+.prose :where(h5):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(h5):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	margin-top: 1.5em;
+	margin-bottom: 0.5em;
+	line-height: 1.5;
+	font-weight: 600;
+	font-size: 0.875em;
+}
+
+.prose :where(h6):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(h6):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	margin-top: 1.5em;
+	margin-bottom: 0.5em;
+	line-height: 1.5;
+	font-weight: 600;
+	font-size: 0.875em;
+}
+
+/* 链接 */
+.prose :where(a):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(a):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	text-decoration: underline;
+	font-weight: 500;
+}
+
+.prose
+	:where(a):hover:not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(a):hover:not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	opacity: 0.8;
+}
+
+/* 强调文本 */
+.prose :where(strong):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(strong):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.prose :where(b):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(b):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	font-weight: 600;
+}
+
+/* 斜体 */
+.prose :where(em):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(em):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.prose :where(i):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(i):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	font-style: italic;
+}
+
+/* 删除线 */
+.prose :where(del):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(del):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	text-decoration: line-through;
+}
+
+/* 下划线/插入文本 */
+.prose :where(ins):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(ins):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	text-decoration: underline;
+}
+
+/* 上标 */
+.prose :where(sup):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(sup):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	top: -0.5em;
+	font-size: 0.75em;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+
+/* 下标 */
+.prose :where(sub):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(sub):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	bottom: -0.25em;
+	font-size: 0.75em;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+
+/* 标记/高亮 */
+.prose :where(mark):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(mark):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	background-color: #fef3c7;
+	padding: 0.125em 0.25em;
+	border-radius: 0.125rem;
+}
+
+/* 小号文字 */
+.prose :where(small):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(small):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	font-size: 0.875em;
+}

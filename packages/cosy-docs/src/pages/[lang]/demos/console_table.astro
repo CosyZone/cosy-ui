@@ -1,0 +1,99 @@
+---
+/**
+ * @page Console Table Demo
+ * @description 展示控制台数据表格的完整示例
+ */
+import * as astroI18n from "astro:i18n";
+import { AppLayout, Container, Heading } from "@coffic/cosy-ui";
+import Logo from "@/assets/logo.png";
+import { configApp } from "@/config/config.app";
+import DataTable from "@/demos/console_table/DataTable.astro";
+import { generateConsoleData } from "@/demos/console_table/data";
+import Pagination from "@/demos/console_table/Pagination.astro";
+import TableToolbar from "@/demos/console_table/TableToolbar.astro";
+import { getFooterConfig } from "@/demos/footerConfig";
+import { getMetaConfig } from "@/demos/metaConfig";
+
+const currentLocale = Astro.params.lang;
+const t = (zh: string, en: string) => (currentLocale === "zh-cn" ? zh : en);
+
+export const getStaticPaths = async () => {
+	return [{ params: { lang: "zh-cn" } }, { params: { lang: "en" } }];
+};
+
+// 生成数据
+const allData = generateConsoleData(150, currentLocale);
+const pageSize = 10;
+const displayData = allData.slice(0, pageSize);
+
+// 表格标签
+const tableLabels = {
+	id: t("ID", "ID"),
+	time: t("时间", "Time"),
+	operation: t("操作", "Operation"),
+	user: t("用户", "User"),
+	resource: t("资源", "Resource"),
+	status: t("状态", "Status"),
+	ipAddress: t("IP 地址", "IP Address"),
+	duration: t("耗时", "Duration"),
+	size: t("大小", "Size"),
+	actions: t("操作", "Actions"),
+	view: t("查看", "View"),
+	success: t("成功", "SUCCESS"),
+	error: t("失败", "ERROR"),
+	warning: t("警告", "WARNING"),
+	info: t("信息", "INFO"),
+};
+---
+
+<AppLayout
+	metaConfig={getMetaConfig({
+		title: t("控制台数据表格", "Console Data Table"),
+		description: t(
+			"展示控制台数据表格，常用于管理后台展示大量数据记录。",
+			"Console data table demo, commonly used in admin panels to display large amounts of data records."
+		),
+		keywords: t(
+			"表格, 数据表格, 控制台, 管理后台, 数据展示",
+			"table, data table, console, admin panel, data display"
+		),
+	})}
+	showFooter={true}
+	showSidebar={false}
+	footerConfig={getFooterConfig(currentLocale || "zh-cn")}
+	headerConfig={{
+		logo: Logo,
+		logoHref: configApp.homeLink,
+		navItems: configApp.getNavItems(currentLocale),
+		astroI18n: astroI18n,
+	}}
+	mainContentConfig={{ py: "2xl" }}>
+	<Container width="full" padding="lg" flex="col" contentCentered={true}>
+		<Heading level={1} margin="lg" centered={true} align="center">
+			{t("控制台数据表格", "Console Data Table")}
+		</Heading>
+
+		<TableToolbar
+			totalRecords={allData.length}
+			searchPlaceholder={t("搜索...", "Search...")}
+			filterLabel={t("筛选", "Filter")}
+			exportLabel={t("导出", "Export")}
+			totalLabel={t("共", "Total")}
+			recordsLabel={t("条记录", "records")}
+		/>
+
+		<DataTable data={displayData} locale={currentLocale} labels={tableLabels} />
+
+		<Pagination
+			currentPage={1}
+			totalPages={Math.ceil(allData.length / pageSize)}
+			pageSize={pageSize}
+			totalRecords={allData.length}
+			showingLabel={t("显示", "Showing")}
+			recordsLabel={t("条记录", "records")}
+			previousLabel={t("上一页", "Previous")}
+			nextLabel={t("下一页", "Next")}
+		/>
+	</Container>
+</AppLayout>
+

@@ -1,0 +1,152 @@
+/* Prose 表格样式 - 现代化设计 */
+
+/* 表格 */
+.prose :where(table):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(table):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	width: 100%;
+	table-layout: auto;
+	text-align: left;
+	margin-top: 2em;
+	margin-bottom: 2em;
+	font-size: 0.875em;
+	line-height: 1.7142857;
+	/* 现代化样式 */
+	border-collapse: separate;
+	border-spacing: 0;
+	border-radius: 0.5rem;
+	overflow: hidden;
+	box-shadow:
+		0 1px 3px 0 rgba(0, 0, 0, 0.1),
+		0 1px 2px -1px rgba(0, 0, 0, 0.1);
+	border: 1px solid rgba(0, 0, 0, 0.05);
+	background-color: #ffffff;
+}
+
+.prose :where(thead):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(thead):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	border-bottom-width: 2px;
+	border-bottom-color: var(--tw-prose-th-borders, #d1d5db);
+	background: linear-gradient(to bottom, #f9fafb 0%, #f3f4f6 100%);
+}
+
+.prose
+	:where(thead th):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(thead th):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	color: var(--tw-prose-headings, #111827);
+	font-weight: 600;
+	vertical-align: bottom;
+	padding: 0.75em 1em;
+	text-transform: uppercase;
+	font-size: 0.75em;
+	letter-spacing: 0.05em;
+	border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.prose
+	:where(thead th:last-child):not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	),
+.cosy\:prose
+	:where(thead th:last-child):not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	) {
+	border-right: none;
+}
+
+.prose
+	:where(tbody tr):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(tbody tr):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	border-bottom: 1px solid var(--tw-prose-td-borders, #e5e7eb);
+	transition: all 0.2s ease-in-out;
+}
+
+.prose
+	:where(tbody tr:last-child):not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	),
+.cosy\:prose
+	:where(tbody tr:last-child):not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	) {
+	border-bottom-width: 0;
+}
+
+/* Hover 效果 */
+.prose
+:where(tbody tr):hover:not(
+	:where([class~='not-prose'], [class~='not-prose'] *)
+),
+.cosy\:prose
+	:where(tbody tr):hover:not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	) {
+	background-color: #f9fafb;
+	transform: scale(1.01);
+	box-shadow:
+		0 2px 4px -1px rgba(0, 0, 0, 0.06),
+		0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* 斑马纹效果 */
+.prose
+:where(tbody tr:nth-child(even)):not(
+	:where([class~='not-prose'], [class~='not-prose'] *)
+),
+.cosy\:prose
+	:where(tbody tr:nth-child(even)):not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	) {
+	background-color: rgba(249, 250, 251, 0.5);
+}
+
+.prose
+	:where(tbody td):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(tbody td):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	vertical-align: middle;
+	padding: 0.75em 1em;
+	border-right: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.prose
+	:where(tbody td:last-child):not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	),
+.cosy\:prose
+	:where(tbody td:last-child):not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	) {
+	border-right: none;
+}
+
+.prose :where(tfoot):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(tfoot):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	border-top: 2px solid var(--tw-prose-th-borders, #d1d5db);
+	background: linear-gradient(to top, #f9fafb 0%, #f3f4f6 100%);
+	font-weight: 600;
+}
+
+.prose
+	:where(tfoot td):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(tfoot td):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	vertical-align: middle;
+	padding: 0.75em 1em;
+	border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.prose
+	:where(tfoot td:last-child):not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	),
+.cosy\:prose
+	:where(tfoot td:last-child):not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	) {
+	border-right: none;
+}

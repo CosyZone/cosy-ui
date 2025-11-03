@@ -1,0 +1,109 @@
+/* Prose 列表元素样式 - 无序列表、有序列表及嵌套 */
+
+/* 无序列表 */
+.prose :where(ul):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(ul):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	list-style-type: disc;
+	margin-top: 1.25em;
+	margin-bottom: 1.25em;
+	padding-left: 1.625em;
+}
+
+/* 有序列表 */
+.prose :where(ol):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(ol):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	list-style-type: decimal;
+	margin-top: 1.25em;
+	margin-bottom: 1.25em;
+	padding-left: 1.625em;
+}
+
+/* 列表项 */
+.prose :where(li):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(li):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+/* 列表项中的段落 */
+.prose :where(li p):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(li p):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	margin-top: 0.75em;
+	margin-bottom: 0.75em;
+}
+
+/* 嵌套列表 - 无序列表中的无序列表 */
+.prose :where(ul ul):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(ul ul):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	list-style-type: circle;
+	margin-top: 0.75em;
+	margin-bottom: 0.75em;
+}
+
+/* 嵌套列表 - 无序列表中的有序列表 */
+.prose :where(ul ol):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(ul ol):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	margin-top: 0.75em;
+	margin-bottom: 0.75em;
+}
+
+/* 嵌套列表 - 有序列表中的无序列表 */
+.prose :where(ol ul):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(ol ul):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	margin-top: 0.75em;
+	margin-bottom: 0.75em;
+}
+
+/* 嵌套列表 - 有序列表中的有序列表 */
+.prose :where(ol ol):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(ol ol):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	list-style-type: lower-alpha;
+	margin-top: 0.75em;
+	margin-bottom: 0.75em;
+}
+
+/* 第三层嵌套 */
+.prose
+:where(ul ul ul):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(ul ul ul):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	list-style-type: square;
+}
+
+.prose
+	:where(ol ol ol):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(ol ol ol):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	list-style-type: lower-roman;
+}
+
+/* 列表标记颜色 */
+.prose
+:where(ul > li)::marker:not(
+	:where([class~='not-prose'], [class~='not-prose'] *)
+),
+.cosy\:prose
+	:where(ul > li)::marker:not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	) {
+	color: var(--tw-prose-bullets, #d1d5db);
+}
+
+.prose
+	:where(ol > li)::marker:not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	),
+.cosy\:prose
+	:where(ol > li)::marker:not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	) {
+	color: var(--tw-prose-counters, #6b7280);
+}
