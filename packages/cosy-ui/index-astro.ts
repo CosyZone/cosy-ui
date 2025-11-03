@@ -74,6 +74,7 @@ export * from "./src-astro/photo-wall";
 export * from "./src-astro/picture-book";
 export * from "./src-astro/placeholder";
 export * from "./src-astro/products";
+export * from "./src-astro/prose";
 export * from "./src-astro/register";
 export * from "./src-astro/review";
 export * from "./src-astro/scroll-row";

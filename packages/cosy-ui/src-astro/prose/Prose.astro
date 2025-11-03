@@ -1,0 +1,57 @@
+---
+/**
+ * @component Prose
+ *
+ * @description
+ * Prose 组件用于包裹内容并应用良好的排版样式。它使用自定义的 prose 样式系统替代 Tailwind 的排版插件。
+ * 包裹在 Prose 组件内的内容（如标题、段落、列表、代码块、表格等）会自动应用专业的排版样式。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Prose>
+ *   <h1>标题</h1>
+ *   <p>段落内容</p>
+ *   <table>...</table>
+ * </Prose>
+ * ```
+ *
+ * 带自定义类名：
+ * ```astro
+ * <Prose class="my-custom-class">
+ *   <h2>子标题</h2>
+ *   <p>内容</p>
+ * </Prose>
+ * ```
+ *
+ * @props
+ * @prop {string} [class] - 自定义 CSS 类名，用于覆盖默认样式
+ * @prop {string} [style] - 自定义内联样式
+ *
+ * @slots
+ * @slot default - 需要应用排版样式的内容
+ *
+ * @accessibility
+ * - 使用语义化的 div 元素作为容器
+ * - 保持良好的颜色对比度
+ * - 支持暗黑模式
+ */
+import { cn } from '../../src/class';
+
+const {
+	class: className = '',
+	style = '',
+	...rest
+} = Astro.props;
+
+const proseClass = cn()
+	.add('cosy:prose')
+    .w('full')
+	.add(className)
+	.build();
+---
+
+<div class={proseClass} style={style} {...rest}>
+	<slot />
+</div>
+

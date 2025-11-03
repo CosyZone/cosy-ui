@@ -1,0 +1,43 @@
+---
+/**
+ * @component TableToolbar
+ * @description 表格工具栏 - 包含搜索、筛选、导出按钮
+ */
+import { Button } from "@coffic/cosy-ui";
+
+interface Props {
+	totalRecords: number;
+	searchPlaceholder: string;
+	filterLabel: string;
+	exportLabel: string;
+	totalLabel: string;
+	recordsLabel: string;
+}
+
+const {
+	totalRecords,
+	searchPlaceholder,
+	filterLabel,
+	exportLabel,
+	totalLabel,
+	recordsLabel,
+} = Astro.props;
+---
+
+<div
+	class="cosy:mb-6 cosy:flex cosy:flex-wrap cosy:gap-4 cosy:items-center cosy:justify-between"
+>
+	<div class="cosy:flex cosy:gap-4 cosy:flex-1 cosy:min-w-[300px]">
+		<input
+			type="text"
+			placeholder={searchPlaceholder}
+			class="cosy:input cosy:input-bordered cosy:input-sm cosy:flex-1 cosy:max-w-md cosy:w-full"
+		/>
+		<Button variant="primary">{filterLabel}</Button>
+		<Button variant="secondary">{exportLabel}</Button>
+	</div>
+	<div class="cosy:text-sm cosy:text-base-content/70">
+		{totalLabel} {totalRecords} {recordsLabel}
+	</div>
+</div>
+

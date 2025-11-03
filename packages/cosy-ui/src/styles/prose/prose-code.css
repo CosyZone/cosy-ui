@@ -1,0 +1,122 @@
+/* Prose 代码元素样式 - 行内代码、代码块等 */
+
+/* 行内代码 */
+.prose :where(code):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(code):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	font-size: 0.875em;
+	font-weight: 600;
+	font-family:
+		ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+		'Courier New', monospace;
+}
+
+/* 行内代码的样式装饰 */
+.prose
+:where(:not(pre) > code):not(
+	:where([class~='not-prose'], [class~='not-prose'] *)
+),
+.cosy\:prose
+	:where(:not(pre) > code):not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	) {
+	background-color: #f3f4f6;
+	padding: 0.2em 0.4em;
+	border-radius: 0.25rem;
+	font-weight: 400;
+}
+
+/* 在链接中的行内代码 */
+.prose :where(a code):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(a code):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	color: inherit;
+}
+
+/* 在标题中的代码 */
+.prose
+:where(h1 code):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(h1 code):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	font-size: 0.875em;
+}
+
+.prose
+	:where(h2 code):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(h2 code):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	font-size: 0.875em;
+}
+
+.prose
+	:where(h3 code):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(h3 code):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	font-size: 0.9em;
+}
+
+.prose
+	:where(h4 code):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(h4 code):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	font-size: 0.9em;
+}
+
+/* 代码块容器 */
+.prose :where(pre):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(pre):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	color: var(--tw-prose-pre-code, #e5e7eb);
+	background-color: var(--tw-prose-pre-bg, #1f2937);
+	overflow-x: auto;
+	font-weight: 400;
+	font-size: 0.875em;
+	line-height: 1.7142857;
+	margin-top: 1.7142857em;
+	margin-bottom: 1.7142857em;
+	border-radius: 0.375rem;
+	padding: 0.8571429em 1.1428571em;
+}
+
+/* 代码块中的代码 */
+.prose
+:where(pre code):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(pre code):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	background-color: transparent;
+	border-width: 0;
+	border-radius: 0;
+	padding: 0;
+	font-weight: inherit;
+	color: inherit;
+	font-size: inherit;
+	font-family: inherit;
+	line-height: inherit;
+}
+
+/* 键盘输入标签 */
+.prose :where(kbd):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(kbd):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	font-family:
+		ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+		'Courier New', monospace;
+	font-size: 0.875em;
+	font-weight: 600;
+	background-color: #f3f4f6;
+	padding: 0.2em 0.4em;
+	border-radius: 0.25rem;
+	box-shadow:
+		0 0 0 1px rgba(0, 0, 0, 0.1),
+		0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* 示例输出标签 */
+.prose :where(samp):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(samp):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	font-family:
+		ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+		'Courier New', monospace;
+	font-size: 0.875em;
+}

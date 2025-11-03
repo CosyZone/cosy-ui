@@ -28,6 +28,7 @@ export * from "./src-vue/photo-wall/index";
 export * from "./src-vue/placeholder/index";
 export * from "./src-vue/products/index";
 export * from "./src-vue/progress/index";
+export * from "./src-vue/prose/index";
 export * from "./src-vue/review/index";
 export * from "./src-vue/smart-icon/index";
 export * from "./src-vue/social-icon/index";

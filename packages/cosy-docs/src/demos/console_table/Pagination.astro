@@ -1,0 +1,60 @@
+---
+/**
+ * @component Pagination
+ * @description 分页组件
+ */
+import { Button } from "@coffic/cosy-ui";
+
+interface Props {
+	currentPage: number;
+	totalPages: number;
+	pageSize: number;
+	totalRecords: number;
+	showingLabel: string;
+	recordsLabel: string;
+	previousLabel: string;
+	nextLabel: string;
+}
+
+const {
+	currentPage = 1,
+	totalPages = 8,
+	pageSize = 10,
+	totalRecords,
+	showingLabel,
+	recordsLabel,
+	previousLabel,
+	nextLabel,
+} = Astro.props;
+
+const startRecord = (currentPage - 1) * pageSize + 1;
+const endRecord = Math.min(currentPage * pageSize, totalRecords);
+---
+
+<div
+	class="cosy:mt-6 cosy:flex cosy:items-center cosy:justify-between cosy:flex-wrap cosy:gap-4"
+>
+	<div class="cosy:text-sm cosy:text-base-content/70">
+		{showingLabel} {startRecord}-{endRecord} / {totalRecords} {recordsLabel}
+	</div>
+	<div class="cosy:flex cosy:gap-2">
+		<Button variant="ghost" size="sm" disabled={currentPage === 1}>
+			{previousLabel}
+		</Button>
+		<Button variant={currentPage === 1 ? "primary" : "ghost"} size="sm"
+			>1</Button
+		>
+		<Button variant={currentPage === 2 ? "primary" : "ghost"} size="sm"
+			>2</Button
+		>
+		<Button variant={currentPage === 3 ? "primary" : "ghost"} size="sm"
+			>3</Button
+		>
+		<Button variant="ghost" size="sm">...</Button>
+		<Button variant="ghost" size="sm">{totalPages}</Button>
+		<Button variant="ghost" size="sm" disabled={currentPage === totalPages}>
+			{nextLabel}
+		</Button>
+	</div>
+</div>
+
