@@ -33,8 +33,28 @@ interface Props {
 
 const { item, currentPath, level = 0, debug = false } = Astro.props;
 
+/**
+ * 检查是否有子导航项会被高亮
+ */
+function hasActiveChild(items: ISidebarItem[] | undefined, path: string): boolean {
+	if (!items || items.length === 0) {
+		return false;
+	}
+	return items.some((subItem) => {
+		// 如果子项本身匹配，返回 true
+		if (isPathMatch(path, subItem.href)) {
+			return true;
+		}
+		// 递归检查子项的子项
+		return hasActiveChild(subItem.items, path);
+	});
+}
+
 const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
-const isActive = isPathMatch(currentPath, item.href);
+const hasActiveChildItem = hasActiveChild(item.items, currentPath);
+// 如果当前项匹配，但没有子项高亮，则高亮当前项
+// 如果有子项高亮，则不高亮当前项（让子项高亮）
+const isActive = isPathMatch(currentPath, item.href) && !hasActiveChildItem;
 const badgeSize = level === 0 ? 'cosy:badge-sm' : 'cosy:badge-xs';
 ---
 

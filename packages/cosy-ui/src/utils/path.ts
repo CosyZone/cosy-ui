@@ -35,8 +35,16 @@ export function isPathMatch(currentPath: string, targetPath: string): boolean {
 		return true;
 	}
 
-	// 提取不带基础路径的部分进行比较
-	// 例如把 /cosy-ui/zh-cn/components/button 中提取 /zh-cn/components/button
+	// 检查当前路径是否以目标路径开头（前缀匹配）
+	// 例如：当前路径 /zh-cn/manuals/components/alert 应该匹配目标路径 /zh-cn/manuals/components
+	if (normalizedCurrentPath.startsWith(`${normalizedTargetPath}/`)) {
+		if (debug) {
+			cosyLogger.info(`${currentPath} 以 ${targetPath} 开头（前缀匹配）`);
+		}
+		return true;
+	}
+
+	// 提取路径段进行比较
 	const currentPathSegments = normalizedCurrentPath.split("/").filter(Boolean);
 	const targetPathSegments = normalizedTargetPath.split("/").filter(Boolean);
 
@@ -45,12 +53,9 @@ export function isPathMatch(currentPath: string, targetPath: string): boolean {
 		return false;
 	}
 
-	// 从后向前比较路径段
-	for (let i = 1; i <= targetPathSegments.length; i++) {
-		if (
-			currentPathSegments[currentPathSegments.length - i] !==
-			targetPathSegments[targetPathSegments.length - i]
-		) {
+	// 从前往后比较路径段（前缀匹配）
+	for (let i = 0; i < targetPathSegments.length; i++) {
+		if (currentPathSegments[i] !== targetPathSegments[i]) {
 			return false;
 		}
 	}
