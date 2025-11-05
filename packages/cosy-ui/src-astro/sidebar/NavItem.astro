@@ -29,9 +29,14 @@ interface Props {
      * 是否开启调试模式
      */
     debug?: boolean;
+
+    /**
+     * 同级兄弟节点列表（用于判断是否应该高亮）
+     */
+    siblings?: ISidebarItem[];
 }
 
-const { item, currentPath, level = 0, debug = false } = Astro.props;
+const { item, currentPath, level = 0, debug = false, siblings = [] } = Astro.props;
 
 /**
  * 检查是否有子导航项会被高亮
@@ -50,11 +55,44 @@ function hasActiveChild(items: ISidebarItem[] | undefined, path: string): boolea
 	});
 }
 
+/**
+ * 检查同级兄弟节点中是否有更长的匹配项
+ */
+function hasLongerSiblingMatch(
+	siblings: ISidebarItem[],
+	currentItem: ISidebarItem,
+	path: string,
+): boolean {
+	if (!siblings || siblings.length === 0) {
+		return false;
+	}
+	const currentHrefLength = currentItem.href.length;
+	return siblings.some((sibling) => {
+		// 跳过自己
+		if (sibling.href === currentItem.href) {
+			return false;
+		}
+		// 如果兄弟节点匹配路径，且链接更长，返回 true
+		if (
+			isPathMatch(path, sibling.href) &&
+			sibling.href.length > currentHrefLength
+		) {
+			return true;
+		}
+		return false;
+	});
+}
+
 const debugClass = debug ? 'cosy:border cosy:border-red-500' : '';
 const hasActiveChildItem = hasActiveChild(item.items, currentPath);
-// 如果当前项匹配，但没有子项高亮，则高亮当前项
+const hasLongerSibling = hasLongerSiblingMatch(siblings, item, currentPath);
+// 如果当前项匹配，但没有子项高亮，且没有更长的同级匹配项，则高亮当前项
 // 如果有子项高亮，则不高亮当前项（让子项高亮）
-const isActive = isPathMatch(currentPath, item.href) && !hasActiveChildItem;
+// 如果有更长的同级匹配项，则不高亮当前项（让更长的项高亮）
+const isActive =
+	isPathMatch(currentPath, item.href) &&
+	!hasActiveChildItem &&
+	!hasLongerSibling;
 const badgeSize = level === 0 ? 'cosy:badge-sm' : 'cosy:badge-xs';
 ---
 
@@ -88,6 +126,7 @@ const badgeSize = level === 0 ? 'cosy:badge-sm' : 'cosy:badge-xs';
                         currentPath={currentPath}
                         level={level + 1}
                         debug={debug}
+                        siblings={item.items}
                     />
                 ))}
             </ul>

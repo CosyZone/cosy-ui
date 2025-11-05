@@ -1,0 +1,93 @@
+---
+/**
+ * @page Console Home
+ * @description 控制台首页
+ */
+import * as astroI18n from "astro:i18n";
+import type { ISidebarItem } from "@coffic/cosy-ui";
+import { AppLayout, Container, Heading, PlaceHolder } from "@coffic/cosy-ui";
+import Logo from "@/assets/logo.png";
+import { configApp } from "@/config/config.app";
+import { getFooterConfig } from "@/demos/footerConfig";
+import { getMetaConfig } from "@/demos/metaConfig";
+
+const currentLocale = Astro.params.lang;
+const t = (zh: string, en: string) => (currentLocale === "zh-cn" ? zh : en);
+
+export const getStaticPaths = async () => {
+	return [{ params: { lang: "zh-cn" } }, { params: { lang: "en" } }];
+};
+
+const currentPath = Astro.url.pathname;
+
+// 侧边栏配置
+const sidebarItems: ISidebarItem[] = [
+	{
+		text: t("控制台", "Console"),
+		href: `/${currentLocale}/demos/console`,
+		items: [
+			{
+				text: t("首页", "Home"),
+				href: `/${currentLocale}/demos/console`,
+			},
+			{
+				text: t("数据管理", "Data Management"),
+				href: `/${currentLocale}/demos/console/table`,
+			},
+		],
+	},
+];
+---
+
+<AppLayout
+	metaConfig={getMetaConfig({
+		title: t("控制台首页", "Console Home"),
+		description: t(
+			"控制台首页，展示系统概览信息。",
+			"Console home page, displaying system overview information."
+		),
+		keywords: t(
+			"控制台, 首页, 概览, 管理后台",
+			"console, home, overview, admin panel"
+		),
+	})}
+	showFooter={true}
+	showSidebar={true}
+	sidebarConfig={{
+		sidebarItems: sidebarItems,
+	}}
+	footerConfig={getFooterConfig(currentLocale || "zh-cn")}
+	headerConfig={{
+		logo: Logo,
+		logoHref: configApp.homeLink,
+		navItems: configApp.getNavItems(currentLocale),
+		astroI18n: astroI18n,
+	}}
+	mainContentConfig={{ py: "2xl" }}>
+	<Container width="full" padding="lg" flex="col" contentCentered={true}>
+		<Heading level={1} margin="lg" centered={true} align="center">
+			{t("控制台首页", "Console Home")}
+		</Heading>
+
+		<Container width="full" margin="xl" padding="none">
+			<PlaceHolder
+				width="full"
+				height="lg"
+				padding="lg"
+				background="base-200">
+				<div style="text-align: center;">
+					<Heading level={2} margin="sm" align="center">
+						{t("欢迎", "Welcome")}
+					</Heading>
+					<p style="margin: 0; color: #6b7280; font-size: 0.875rem;">
+						{t(
+							"这是控制台首页，您可以在这里查看系统概览信息。",
+							"This is the console home page where you can view system overview information."
+						)}
+					</p>
+				</div>
+			</PlaceHolder>
+		</Container>
+	</Container>
+</AppLayout>
+

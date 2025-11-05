@@ -4,6 +4,7 @@
  * @description 展示控制台数据表格的完整示例
  */
 import * as astroI18n from "astro:i18n";
+import type { ISidebarItem } from "@coffic/cosy-ui";
 import { AppLayout, Container, Heading } from "@coffic/cosy-ui";
 import Logo from "@/assets/logo.png";
 import { configApp } from "@/config/config.app";
@@ -16,6 +17,26 @@ import { getMetaConfig } from "@/demos/metaConfig";
 
 const currentLocale = Astro.params.lang;
 const t = (zh: string, en: string) => (currentLocale === "zh-cn" ? zh : en);
+
+const currentPath = Astro.url.pathname;
+
+// 侧边栏配置
+const sidebarItems: ISidebarItem[] = [
+	{
+		text: t("控制台", "Console"),
+		href: `/${currentLocale}/demos/console`,
+		items: [
+			{
+				text: t("首页", "Home"),
+				href: `/${currentLocale}/demos/console`,
+			},
+			{
+				text: t("数据管理", "Data Management"),
+				href: `/${currentLocale}/demos/console/table`,
+			},
+		],
+	},
+];
 
 export const getStaticPaths = async () => {
 	return [{ params: { lang: "zh-cn" } }, { params: { lang: "en" } }];
@@ -59,7 +80,10 @@ const tableLabels = {
 		),
 	})}
 	showFooter={true}
-	showSidebar={false}
+	showSidebar={true}
+	sidebarConfig={{
+		sidebarItems: sidebarItems,
+	}}
 	footerConfig={getFooterConfig(currentLocale || "zh-cn")}
 	headerConfig={{
 		logo: Logo,
