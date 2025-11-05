@@ -43,13 +43,36 @@ export function createThemeManager(): ThemeManager {
 	}
 
 	/**
+	 * 获取实际应用的主题
+	 * 如果选择的是 "default"，则根据系统主题返回实际主题
+	 *
+	 * @param theme 用户选择的主题ID
+	 * @returns 实际应用的主题ID
+	 */
+	const getActualTheme = (theme: string): string => {
+		if (theme === "default") {
+			const systemTheme = detectSystemTheme();
+			return systemTheme === "dark" ? "dark" : "default";
+		}
+		return theme;
+	};
+
+	/**
 	 * 设置主题
 	 *
-	 * @param theme 主题ID
+	 * @param theme 主题ID（用户选择的主题，会保存到 localStorage）
 	 */
 	const setTheme = (theme: string) => {
-		document.documentElement.setAttribute("data-theme", theme);
+		// 保存用户选择的原始主题
 		localStorage.setItem("theme", theme);
+
+		// 获取实际应用的主题
+		const actualTheme = getActualTheme(theme);
+
+		// 应用实际主题
+		document.documentElement.setAttribute("data-theme", actualTheme);
+
+		// 更新 UI 显示（显示用户选择的主题，而不是实际主题）
 		updateActiveTheme(theme);
 	};
 
@@ -83,9 +106,8 @@ export function createThemeManager(): ThemeManager {
 			}
 		}
 
-		// 设置主题
-		document.documentElement.setAttribute("data-theme", savedTheme);
-		updateActiveTheme(savedTheme);
+		// 设置主题（会自动处理 default 主题的动态映射）
+		setTheme(savedTheme);
 
 		// 添加主题切换事件监听器
 		// 支持新旧两种类型的主题切换按钮
@@ -105,8 +127,13 @@ export function createThemeManager(): ThemeManager {
 		window
 			.matchMedia("(prefers-color-scheme: dark)")
 			.addEventListener("change", (e) => {
-				// 只有当用户没有手动设置过主题时，才跟随系统主题变化
-				if (!localStorage.getItem("theme")) {
+				const currentSavedTheme = localStorage.getItem("theme");
+
+				// 如果用户选择的是 "default" 主题，则跟随系统主题变化
+				if (currentSavedTheme === "default") {
+					setTheme("default"); // 重新设置，会根据系统主题自动映射
+				} else if (!currentSavedTheme) {
+					// 如果用户没有手动设置过主题，则跟随系统主题变化
 					setTheme(e.matches ? "dark" : "default");
 				}
 			});
