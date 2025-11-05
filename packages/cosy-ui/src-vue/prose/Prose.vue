@@ -33,7 +33,7 @@ const props = withDefaults(defineProps<IProseProps>(), {
 
 const proseClass = computed(() => {
 	return cn()
-		.add("cosy:prose")
+		.add("cosy:prose", "cosy:dark:prose-invert")
 		.add(props.class)
 		.build();
 });

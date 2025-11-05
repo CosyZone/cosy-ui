@@ -1,10 +1,13 @@
 /* Prose 暗黑模式样式 */
 
+/* 默认主题跟随系统主题 - 当 data-theme='default' 且系统是暗黑模式时生效 */
 @media (prefers-color-scheme: dark) {
-	.prose:where(.dark\:prose-invert, .dark\:prose-invert *):not(
+	[data-theme='default']
+		.prose:where(.dark\:prose-invert, .dark\:prose-invert *):not(
 			:where([class~='not-prose'], [class~='not-prose'] *)
 		),
-	.cosy\:prose:where(
+	[data-theme='default']
+		.cosy\:prose:where(
 			.cosy\:dark\:prose-invert,
 			.cosy\:dark\:prose-invert *
 		):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
@@ -26,75 +29,91 @@
 		--tw-prose-td-borders: #374151;
 	}
 
-	.prose.dark\:prose-invert,
-	.cosy\:prose.cosy\:dark\:prose-invert {
+	[data-theme='default'] .prose.dark\:prose-invert,
+	[data-theme='default'] .cosy\:prose.cosy\:dark\:prose-invert {
 		color: var(--tw-prose-body);
 	}
 
-	.prose.dark\:prose-invert
+	[data-theme='default']
+		.prose.dark\:prose-invert
 		:where(p):not(:where([class~='not-prose'], [class~='not-prose'] *)),
-	.cosy\:prose.cosy\:dark\:prose-invert
+	[data-theme='default']
+		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(p):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 		color: var(--tw-prose-body);
 	}
 
-	.prose.dark\:prose-invert
+	[data-theme='default']
+		.prose.dark\:prose-invert
 		:where([class~='lead']):not(
 			:where([class~='not-prose'], [class~='not-prose'] *)
 		),
-	.cosy\:prose.cosy\:dark\:prose-invert
+	[data-theme='default']
+		.cosy\:prose.cosy\:dark\:prose-invert
 		:where([class~='lead']):not(
 			:where([class~='not-prose'], [class~='not-prose'] *)
 		) {
 		color: var(--tw-prose-lead);
 	}
 
-	.prose.dark\:prose-invert
+	[data-theme='default']
+		.prose.dark\:prose-invert
 		:where(a):not(:where([class~='not-prose'], [class~='not-prose'] *)),
-	.cosy\:prose.cosy\:dark\:prose-invert
+	[data-theme='default']
+		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(a):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 		color: var(--tw-prose-links);
 	}
 
-	.prose.dark\:prose-invert
+	[data-theme='default']
+		.prose.dark\:prose-invert
 		:where(strong):not(:where([class~='not-prose'], [class~='not-prose'] *)),
-	.cosy\:prose.cosy\:dark\:prose-invert
+	[data-theme='default']
+		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(strong):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 		color: var(--tw-prose-bold);
 	}
 
-	.prose.dark\:prose-invert
+	[data-theme='default']
+		.prose.dark\:prose-invert
 		:where(h1, h2, h3, h4, h5, h6):not(
 			:where([class~='not-prose'], [class~='not-prose'] *)
 		),
-	.cosy\:prose.cosy\:dark\:prose-invert
+	[data-theme='default']
+		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(h1, h2, h3, h4, h5, h6):not(
 			:where([class~='not-prose'], [class~='not-prose'] *)
 		) {
 		color: var(--tw-prose-headings);
 	}
 
-	.prose.dark\:prose-invert
+	[data-theme='default']
+		.prose.dark\:prose-invert
 		:where(code):not(:where([class~='not-prose'], [class~='not-prose'] *)),
-	.cosy\:prose.cosy\:dark\:prose-invert
+	[data-theme='default']
+		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(code):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 		color: var(--tw-prose-code);
 	}
 
-	.prose.dark\:prose-invert
+	[data-theme='default']
+		.prose.dark\:prose-invert
 		:where(:not(pre) > code):not(
 			:where([class~='not-prose'], [class~='not-prose'] *)
 		),
-	.cosy\:prose.cosy\:dark\:prose-invert
+	[data-theme='default']
+		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(:not(pre) > code):not(
 			:where([class~='not-prose'], [class~='not-prose'] *)
 		) {
 		background-color: rgba(55, 65, 81, 0.5);
 	}
 
-	.prose.dark\:prose-invert
+	[data-theme='default']
+		.prose.dark\:prose-invert
 		:where(kbd):not(:where([class~='not-prose'], [class~='not-prose'] *)),
-	.cosy\:prose.cosy\:dark\:prose-invert
+	[data-theme='default']
+		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(kbd):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 		background-color: rgba(55, 65, 81, 0.5);
 		box-shadow:
@@ -102,11 +121,13 @@
 			0 1px 2px 0 rgba(0, 0, 0, 0.3);
 	}
 
-	.prose.dark\:prose-invert
+	[data-theme='default']
+		.prose.dark\:prose-invert
 		:where(blockquote):not(
 			:where([class~='not-prose'], [class~='not-prose'] *)
 		),
-	.cosy\:prose.cosy\:dark\:prose-invert
+	[data-theme='default']
+		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(blockquote):not(
 			:where([class~='not-prose'], [class~='not-prose'] *)
 		) {
@@ -114,78 +135,315 @@
 		border-left-color: var(--tw-prose-quote-borders);
 	}
 
-	.prose.dark\:prose-invert
+	[data-theme='default']
+		.prose.dark\:prose-invert
 		:where(hr):not(:where([class~='not-prose'], [class~='not-prose'] *)),
-	.cosy\:prose.cosy\:dark\:prose-invert
+	[data-theme='default']
+		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(hr):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 		border-color: var(--tw-prose-hr);
 	}
 
-	.prose.dark\:prose-invert
+	[data-theme='default']
+		.prose.dark\:prose-invert
 		:where(figcaption):not(
 			:where([class~='not-prose'], [class~='not-prose'] *)
 		),
-	.cosy\:prose.cosy\:dark\:prose-invert
+	[data-theme='default']
+		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(figcaption):not(
 			:where([class~='not-prose'], [class~='not-prose'] *)
 		) {
 		color: var(--tw-prose-captions);
 	}
 
-	.prose.dark\:prose-invert
+	[data-theme='default']
+		.prose.dark\:prose-invert
 		:where(thead):not(:where([class~='not-prose'], [class~='not-prose'] *)),
-	.cosy\:prose.cosy\:dark\:prose-invert
+	[data-theme='default']
+		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(thead):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 		border-bottom-color: var(--tw-prose-th-borders);
 	}
 
-	.prose.dark\:prose-invert
+	[data-theme='default']
+		.prose.dark\:prose-invert
 		:where(thead th):not(:where([class~='not-prose'], [class~='not-prose'] *)),
-	.cosy\:prose.cosy\:dark\:prose-invert
+	[data-theme='default']
+		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(thead th):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 		color: var(--tw-prose-headings);
 	}
 
-	.prose.dark\:prose-invert
+	[data-theme='default']
+		.prose.dark\:prose-invert
 		:where(tbody tr):not(:where([class~='not-prose'], [class~='not-prose'] *)),
-	.cosy\:prose.cosy\:dark\:prose-invert
+	[data-theme='default']
+		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(tbody tr):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 		border-bottom-color: var(--tw-prose-td-borders);
 	}
 
-	.prose.dark\:prose-invert
+	[data-theme='default']
+		.prose.dark\:prose-invert
 		:where(tfoot):not(:where([class~='not-prose'], [class~='not-prose'] *)),
-	.cosy\:prose.cosy\:dark\:prose-invert
+	[data-theme='default']
+		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(tfoot):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 		border-top-color: var(--tw-prose-th-borders);
 	}
 
-	.prose.dark\:prose-invert
+	[data-theme='default']
+		.prose.dark\:prose-invert
 		:where(mark):not(:where([class~='not-prose'], [class~='not-prose'] *)),
-	.cosy\:prose.cosy\:dark\:prose-invert
+	[data-theme='default']
+		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(mark):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 		background-color: rgba(251, 191, 36, 0.3);
 	}
 
-	.prose.dark\:prose-invert
+	[data-theme='default']
+		.prose.dark\:prose-invert
 		:where(ul > li)::marker:not(
 			:where([class~='not-prose'], [class~='not-prose'] *)
 		),
-	.cosy\:prose.cosy\:dark\:prose-invert
+	[data-theme='default']
+		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(ul > li)::marker:not(
 			:where([class~='not-prose'], [class~='not-prose'] *)
 		) {
 		color: var(--tw-prose-bullets);
 	}
 
-	.prose.dark\:prose-invert
+	[data-theme='default']
+		.prose.dark\:prose-invert
 		:where(ol > li)::marker:not(
 			:where([class~='not-prose'], [class~='not-prose'] *)
 		),
-	.cosy\:prose.cosy\:dark\:prose-invert
+	[data-theme='default']
+		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(ol > li)::marker:not(
 			:where([class~='not-prose'], [class~='not-prose'] *)
 		) {
 		color: var(--tw-prose-counters);
 	}
+}
+
+/* data-theme 暗黑模式支持 - 用户主动选择暗黑模式时生效 */
+[data-theme='dark']
+	.prose:where(.dark\:prose-invert, .dark\:prose-invert *):not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	),
+[data-theme='dark']
+	.cosy\:prose:where(
+		.cosy\:dark\:prose-invert,
+		.cosy\:dark\:prose-invert *
+	):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	--tw-prose-body: #d1d5db;
+	--tw-prose-headings: #f9fafb;
+	--tw-prose-lead: #9ca3af;
+	--tw-prose-links: #f9fafb;
+	--tw-prose-bold: #f9fafb;
+	--tw-prose-counters: #9ca3af;
+	--tw-prose-bullets: #4b5563;
+	--tw-prose-hr: #374151;
+	--tw-prose-quotes: #f3f4f6;
+	--tw-prose-quote-borders: #374151;
+	--tw-prose-captions: #9ca3af;
+	--tw-prose-code: #f9fafb;
+	--tw-prose-pre-code: #d1d5db;
+	--tw-prose-pre-bg: #1f2937;
+	--tw-prose-th-borders: #4b5563;
+	--tw-prose-td-borders: #374151;
+}
+
+[data-theme='dark'] .prose.dark\:prose-invert,
+[data-theme='dark'] .cosy\:prose.cosy\:dark\:prose-invert {
+	color: var(--tw-prose-body);
+}
+
+[data-theme='dark']
+	.prose.dark\:prose-invert
+	:where(p):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+[data-theme='dark']
+	.cosy\:prose.cosy\:dark\:prose-invert
+	:where(p):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	color: var(--tw-prose-body);
+}
+
+[data-theme='dark']
+	.prose.dark\:prose-invert
+	:where([class~='lead']):not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	),
+[data-theme='dark']
+	.cosy\:prose.cosy\:dark\:prose-invert
+	:where([class~='lead']):not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	) {
+	color: var(--tw-prose-lead);
+}
+
+[data-theme='dark']
+	.prose.dark\:prose-invert
+	:where(a):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+[data-theme='dark']
+	.cosy\:prose.cosy\:dark\:prose-invert
+	:where(a):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	color: var(--tw-prose-links);
+}
+
+[data-theme='dark']
+	.prose.dark\:prose-invert
+	:where(strong):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+[data-theme='dark']
+	.cosy\:prose.cosy\:dark\:prose-invert
+	:where(strong):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	color: var(--tw-prose-bold);
+}
+
+[data-theme='dark']
+	.prose.dark\:prose-invert
+	:where(h1, h2, h3, h4, h5, h6):not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	),
+[data-theme='dark']
+	.cosy\:prose.cosy\:dark\:prose-invert
+	:where(h1, h2, h3, h4, h5, h6):not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	) {
+	color: var(--tw-prose-headings);
+}
+
+[data-theme='dark']
+	.prose.dark\:prose-invert
+	:where(code):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+[data-theme='dark']
+	.cosy\:prose.cosy\:dark\:prose-invert
+	:where(code):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	color: var(--tw-prose-code);
+}
+
+[data-theme='dark']
+	.prose.dark\:prose-invert
+	:where(:not(pre) > code):not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	),
+[data-theme='dark']
+	.cosy\:prose.cosy\:dark\:prose-invert
+	:where(:not(pre) > code):not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	) {
+	background-color: rgba(55, 65, 81, 0.5);
+}
+
+[data-theme='dark']
+	.prose.dark\:prose-invert
+	:where(kbd):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+[data-theme='dark']
+	.cosy\:prose.cosy\:dark\:prose-invert
+	:where(kbd):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	background-color: rgba(55, 65, 81, 0.5);
+	box-shadow:
+		0 0 0 1px rgba(255, 255, 255, 0.1),
+		0 1px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='dark']
+	.prose.dark\:prose-invert
+	:where(blockquote):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+[data-theme='dark']
+	.cosy\:prose.cosy\:dark\:prose-invert
+	:where(blockquote):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	color: var(--tw-prose-quotes);
+	border-left-color: var(--tw-prose-quote-borders);
+}
+
+[data-theme='dark']
+	.prose.dark\:prose-invert
+	:where(hr):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+[data-theme='dark']
+	.cosy\:prose.cosy\:dark\:prose-invert
+	:where(hr):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	border-color: var(--tw-prose-hr);
+}
+
+[data-theme='dark']
+	.prose.dark\:prose-invert
+	:where(figcaption):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+[data-theme='dark']
+	.cosy\:prose.cosy\:dark\:prose-invert
+	:where(figcaption):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	color: var(--tw-prose-captions);
+}
+
+[data-theme='dark']
+	.prose.dark\:prose-invert
+	:where(thead):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+[data-theme='dark']
+	.cosy\:prose.cosy\:dark\:prose-invert
+	:where(thead):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	border-bottom-color: var(--tw-prose-th-borders);
+}
+
+[data-theme='dark']
+	.prose.dark\:prose-invert
+	:where(thead th):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+[data-theme='dark']
+	.cosy\:prose.cosy\:dark\:prose-invert
+	:where(thead th):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	color: var(--tw-prose-headings);
+}
+
+[data-theme='dark']
+	.prose.dark\:prose-invert
+	:where(tbody tr):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+[data-theme='dark']
+	.cosy\:prose.cosy\:dark\:prose-invert
+	:where(tbody tr):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	border-bottom-color: var(--tw-prose-td-borders);
+}
+
+[data-theme='dark']
+	.prose.dark\:prose-invert
+	:where(tfoot):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+[data-theme='dark']
+	.cosy\:prose.cosy\:dark\:prose-invert
+	:where(tfoot):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	border-top-color: var(--tw-prose-th-borders);
+}
+
+[data-theme='dark']
+	.prose.dark\:prose-invert
+	:where(mark):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+[data-theme='dark']
+	.cosy\:prose.cosy\:dark\:prose-invert
+	:where(mark):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	background-color: rgba(251, 191, 36, 0.3);
+}
+
+[data-theme='dark']
+	.prose.dark\:prose-invert
+	:where(ul > li)::marker:not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	),
+[data-theme='dark']
+	.cosy\:prose.cosy\:dark\:prose-invert
+	:where(ul > li)::marker:not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	) {
+	color: var(--tw-prose-bullets);
+}
+
+[data-theme='dark']
+	.prose.dark\:prose-invert
+	:where(ol > li)::marker:not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	),
+[data-theme='dark']
+	.cosy\:prose.cosy\:dark\:prose-invert
+	:where(ol > li)::marker:not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	) {
+	color: var(--tw-prose-counters);
 }
