@@ -7,8 +7,9 @@ import BackgroundBase100 from "./PictureBookPageBackgroundBase100.astro";
 import BackgroundBase100Code from "./PictureBookPageBackgroundBase100.astro?raw";
 import BackgroundImage from "./PictureBookPageBackgroundImage.astro";
 import BackgroundImageCode from "./PictureBookPageBackgroundImage.astro?raw";
+import BackgroundImageUrl from "./PictureBookPageBackgroundImageUrl.astro";
+import BackgroundImageUrlCode from "./PictureBookPageBackgroundImageUrl.astro?raw";
 import BackgroundNone from "./PictureBookPageBackgroundNone.astro";
-
 import BackgroundNoneCode from "./PictureBookPageBackgroundNone.astro?raw";
 import BackgroundPrimary from "./PictureBookPageBackgroundPrimary.astro";
 import BackgroundPrimaryCode from "./PictureBookPageBackgroundPrimary.astro?raw";
@@ -23,6 +24,7 @@ import BackgroundSecondaryCode from "./PictureBookPageBackgroundSecondary.astro?
     BackgroundPrimaryCode,
     BackgroundSecondaryCode,
     BackgroundImageCode,
+    BackgroundImageUrlCode,
   ]}
   titles={[
     '默认背景色',
@@ -30,6 +32,7 @@ import BackgroundSecondaryCode from "./PictureBookPageBackgroundSecondary.astro?
     'primary/20',
     'secondary/30',
     'SampleImage',
+    'web link image',
   ]}>
   <div id="tab-1" style="width: 30%;margin: 0 auto">
     <BackgroundNone />
@@ -45,5 +48,8 @@ import BackgroundSecondaryCode from "./PictureBookPageBackgroundSecondary.astro?
   </div>
   <div id="tab-5" style="width: 30%;margin: 0 auto">
     <BackgroundImage />
+  </div>
+  <div id="tab-6" style="width: 30%;margin: 0 auto">
+    <BackgroundImageUrl />
   </div>
 </CodeContainer>

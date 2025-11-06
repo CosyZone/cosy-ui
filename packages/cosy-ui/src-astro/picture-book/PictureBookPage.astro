@@ -6,39 +6,8 @@
  * 绘本页面容器：固定宽高比、背景/覆盖插槽。
  * 背景图片100%填充整个页面，无安全区域限制。
  *
- * @usage
- * 基本用法：
- * ```astro
- * <PictureBookPage pageAspectRatio={3/4}>
- *   <PictureBookTextBox slot="overlay" top={8} left={50} width={48}>
- *     正文内容……
- *   </PictureBookTextBox>
- * </PictureBookPage>
- * ```
- *
- * 带背景色的用法：
- * ```astro
- * <PictureBookPage background="base-100/80" pageAspectRatio={3/4}>
- *   <PictureBookTextBox slot="overlay" top={8} left={50} width={48}>
- *     正文内容……
- *   </PictureBookTextBox>
- * </PictureBookPage>
- * ```
- *
- * 带背景图片的用法：
- * ```astro
- * import bgImage from '@/assets/hero.png';
- * <PictureBookPage background={bgImage} pageAspectRatio={3/4}>
- *   <PictureBookTextBox slot="overlay" top={8} left={50} width={48}>
- *     正文内容……
- *   </PictureBookTextBox>
- * </PictureBookPage>
- * ```
- *
- *
- *
  * @props
- * - background?: BackgroundColor | ImageMetadata - 背景配置，支持背景色或图片。背景色如：base-100、primary/20、secondary/30 等；图片直接传递 ImageMetadata 对象
+ * - background?: BackgroundColor | ImageSource - 背景配置，支持背景色或图片。背景色如：base-100、primary/20、secondary/30 等；图片可以是本地 ImageMetadata 对象或网络图片 URL 字符串（以 http://、https:// 或 / 开头）
  * - pageAspectRatio?: number - 页面宽高比（宽/高），默认 3/4
  * - border?: boolean - 是否在比例内容区域显示边框（由容器控制），默认 true
  * - rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full' - 页面圆角大小，默认 'xl'
@@ -48,15 +17,15 @@
  * - default: 文字内容插槽，将按 `--pb-line` 行高进行排版
  */
 
-import type { ImageMetadata } from 'astro';
 import type { BackgroundColor } from '../../src/common/backgrounds';
 import type { RoundedSize } from '../../src/common/rounded';
 import { roundedClasses } from '../../src/common/rounded';
 import Container from '../container/Container.astro';
 import Image from '../image/Image.astro';
+import type { ImageSource } from '../image/types';
 
 export interface IPictureBookPageProps {
-    background?: BackgroundColor | ImageMetadata;
+    background?: BackgroundColor | ImageSource;
     pageAspectRatio?: number;
     border?: boolean;
     rounded?: RoundedSize;
@@ -69,9 +38,17 @@ const {
 } = Astro.props as IPictureBookPageProps;
 
 // 判断是否为图片类型
+// 如果是对象（ImageMetadata）或字符串 URL（以 http:// 或 https:// 开头），则为图片
+// 否则为背景色
 const isImageBackground =
-    (typeof background === 'object' || typeof background === 'function') &&
-    background !== null;
+    background !== undefined &&
+    background !== null &&
+    (typeof background === 'object' ||
+        typeof background === 'function' ||
+        (typeof background === 'string' &&
+            (background.startsWith('http://') ||
+                background.startsWith('https://') ||
+                background.startsWith('/'))));
 
 // 圆角类名
 const roundedClass = roundedClasses[rounded] || '';
@@ -85,19 +62,21 @@ const roundedClass = roundedClasses[rounded] || '';
     rounded={rounded}
     centered={true}
     class="cosy:relative cosy:overflow-hidden"
-    backgroundImage={isImageBackground
-        ? (background as ImageMetadata)
-        : undefined}
-    background={!isImageBackground
-        ? (background as BackgroundColor)
-        : undefined}>
+    backgroundImage={
+        isImageBackground ? (background as ImageSource) : undefined
+    }
+    background={
+        !isImageBackground && background
+            ? (background as BackgroundColor)
+            : undefined
+    }>
     <!-- 背景层：自动显示背景色或图片，填充比例内容区域 -->
     <div
         class={`cosy:absolute cosy:inset-0 cosy:w-full cosy:h-full ${roundedClass}`}>
         {
             isImageBackground && (
                 <Image
-                    src={background as ImageMetadata}
+                    src={background as ImageSource}
                     alt="页面背景"
                     class={`cosy:w-full cosy:h-full cosy:object-cover ${roundedClass}`}
                 />
@@ -112,7 +91,7 @@ const roundedClass = roundedClasses[rounded] || '';
 
     <!-- 文字层：按行高对齐排版 -->
     <div
-        class="cosy:relative cosy:h-full cosy:w-full cosy:whitespace-pre-wrap cosy:break-words cosy:text-gray-900"
+        class="cosy:relative cosy:h-full cosy:w-full cosy:whitespace-pre-wrap cosy:wrap-break-word cosy:text-gray-900"
         style="line-height: 1.7; font-size: 18px; font-weight: 500;">
         <slot />
     </div>
