@@ -20,7 +20,7 @@ export interface IThemeItem {
 
 // 预定义主题列表
 export const themes: IThemeItem[] = [
-	{ id: "default", name: "Default", isDefault: true },
+	{ id: "default", name: "跟随系统", isDefault: true },
 	{ id: "light", name: "Light" },
 	{ id: "dark", name: "Dark" },
 	{ id: "corporate", name: "Corporate" },

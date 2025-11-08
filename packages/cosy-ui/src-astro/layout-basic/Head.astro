@@ -65,6 +65,33 @@ const {
 
   {enableClientRouter && <ClientRouter />}
 
+  <!-- 主题初始化脚本：在页面渲染前根据系统主题设置 data-theme -->
+  <!-- 从 CSS 变量读取主题配置，实现单一数据源 -->
+  <script is:inline>
+    (function() {
+      // 从 CSS 变量读取主题配置
+      function getThemeConfig() {
+        const root = document.documentElement;
+        const defaultTheme = getComputedStyle(root).getPropertyValue('--theme-default').trim() || 'corporate';
+        const prefersDarkTheme = getComputedStyle(root).getPropertyValue('--theme-prefersdark').trim() || 'business';
+        return { defaultTheme, prefersDarkTheme };
+      }
+      
+      // 检查 localStorage 中是否有保存的主题
+      const savedTheme = localStorage.getItem('theme');
+      
+      // 如果没有保存的主题，或者保存的是 "default"，则根据系统主题设置
+      if (!savedTheme || savedTheme === 'default') {
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const { defaultTheme, prefersDarkTheme } = getThemeConfig();
+        document.documentElement.setAttribute('data-theme', isDark ? prefersDarkTheme : defaultTheme);
+      } else {
+        // 如果有保存的主题，直接使用
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+    })();
+  </script>
+
   <!-- 自定义样式 -->
   {customStyles && <style set:html={customStyles} />}
 

@@ -1,8 +1,14 @@
 @import 'tailwindcss' prefix(cosy);
 @plugin "daisyui" {
-  themes: light, corporate --default, dark, lemonade, nord, luxury,
+  themes: corporate --default, lemonade, nord, luxury,
     business --prefersdark;
   logs: false;
+}
+
+/* 主题配置变量 - 单一数据源 */
+:root {
+  --theme-default: corporate;
+  --theme-prefersdark: business;
 }
 
 /* 自定义样式 */
