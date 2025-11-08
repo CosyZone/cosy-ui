@@ -1,0 +1,135 @@
+---
+/**
+ * 网格渐变（Mesh Gradient）Demo
+ */
+import * as astroI18n from 'astro:i18n';
+import { AppLayout, Container, Heading, Text, Card } from '@coffic/cosy-ui';
+import Logo from '@/assets/logo.png';
+import { configApp } from '@/config/config.app';
+import { getFooterConfig } from '@/demos/footerConfig';
+import { getMetaConfig } from '@/demos/metaConfig';
+import { getSidebarItems } from './sidebarConfig';
+
+const currentLocale = Astro.params.lang || 'zh-cn';
+const t = (zh: string, en: string) => (currentLocale === 'zh-cn' ? zh : en);
+
+export const getStaticPaths = async () => {
+    return [{ params: { lang: 'zh-cn' } }, { params: { lang: 'en' } }];
+};
+
+export const prerender = true;
+---
+
+<AppLayout
+    metaConfig={getMetaConfig({
+        title: t('网格渐变示例', 'Mesh Gradient Example'),
+        description: t(
+            '展示网格渐变背景样式的使用方法和效果',
+            'Demonstrates mesh gradient background styles and effects',
+        ),
+        keywords: 'mesh gradient, background, demo',
+    })}
+    showFooter={true}
+    showSidebar={true}
+    sidebarConfig={{
+        sidebarItems: getSidebarItems(currentLocale),
+    }}
+    footerConfig={getFooterConfig(currentLocale || 'zh-cn')}
+    headerConfig={{
+        logo: Logo,
+        logoHref: configApp.homeLink,
+        navItems: configApp.getNavItems(currentLocale),
+        astroI18n: astroI18n,
+    }}
+    background="mesh-gradient"
+    mainContentConfig={{ py: '2xl' }}>
+    <Container width="full" padding="xl" margin="none">
+        <Container
+            width="4xl"
+            margin="none"
+            flex="col"
+            gap="sm"
+            class="cosy:mx-auto">
+            <Container background="mesh-gradient" padding="xl" rounded="lg">
+                <Text>
+                    {
+                        currentLocale === 'zh-cn'
+                            ? '这是网格渐变效果，通过多个径向渐变叠加，创造出柔和的色彩流动效果。'
+                            : 'This is the mesh gradient effect, creating soft color flow effects by overlaying multiple radial gradients.'
+                    }
+                </Text>
+            </Container>
+
+            <Container background="mesh-gradient" padding="xl" rounded="lg">
+                <Text>
+                    {
+                        currentLocale === 'zh-cn'
+                            ? '网格渐变带有轻微的呼吸动画，让背景更加生动有趣。'
+                            : 'Mesh gradient features subtle breathing animations, making the background more lively and interesting.'
+                    }
+                </Text>
+            </Container>
+
+            <Container background="mesh-gradient" padding="xl" rounded="lg">
+                <Text>
+                    {
+                        currentLocale === 'zh-cn'
+                            ? '以翠绿和青色为主色调，创造出清新自然的视觉效果。'
+                            : 'Main colors are emerald and cyan, creating a fresh and natural visual effect.'
+                    }
+                </Text>
+            </Container>
+
+            <Container flex="row" gap="md">
+                <Card
+                    background="mesh-gradient"
+                    padding="lg"
+                    rounded="lg"
+                    width="sm">
+                    <Heading level={3} size="lg" margin="sm">
+                        {t('卡片 1', 'Card 1')}
+                    </Heading>
+                    <Text size="sm" color="base-content/70">
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '在网格渐变背景上的卡片'
+                                : 'Card on mesh gradient background'
+                        }
+                    </Text>
+                </Card>
+                <Card
+                    background="mesh-gradient"
+                    padding="lg"
+                    rounded="lg"
+                    width="sm">
+                    <Heading level={3} size="lg" margin="sm">
+                        {t('卡片 2', 'Card 2')}
+                    </Heading>
+                    <Text size="sm" color="base-content/70">
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '网格渐变带有柔和的呼吸动画'
+                                : 'Mesh gradient with subtle breathing animation'
+                        }
+                    </Text>
+                </Card>
+                <Card
+                    background="mesh-gradient"
+                    padding="lg"
+                    rounded="lg"
+                    width="sm">
+                    <Heading level={3} size="lg" margin="sm">
+                        {t('卡片 3', 'Card 3')}
+                    </Heading>
+                    <Text size="sm" color="base-content/70">
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '以翠绿和青色为主色调'
+                                : 'Main colors are emerald and cyan'
+                        }
+                    </Text>
+                </Card>
+            </Container>
+        </Container>
+    </Container>
+</AppLayout>

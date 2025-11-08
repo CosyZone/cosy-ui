@@ -49,10 +49,41 @@
 
 /* 变体：更快的动画速度 */
 .cosy\:bg-animated-gradient-fast {
-	animation-duration: 8s;
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+	background: linear-gradient(
+		135deg,
+		rgba(var(--cosy-animated-primary-rgb), var(--cosy-animated-alpha-light)),
+		rgba(var(--cosy-animated-secondary-rgb), var(--cosy-animated-alpha)),
+		rgba(var(--cosy-animated-accent-rgb), var(--cosy-animated-alpha-light)),
+		rgba(var(--cosy-animated-teal-rgb), var(--cosy-animated-alpha))
+	);
+	background-size: 400% 400%;
+	animation: gradientFlow 8s ease infinite;
 }
 
 /* 变体：更慢的动画速度 */
 .cosy\:bg-animated-gradient-slow {
-	animation-duration: 25s;
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+	background: linear-gradient(
+		135deg,
+		rgba(var(--cosy-animated-primary-rgb), var(--cosy-animated-alpha-light)),
+		rgba(var(--cosy-animated-secondary-rgb), var(--cosy-animated-alpha)),
+		rgba(var(--cosy-animated-accent-rgb), var(--cosy-animated-alpha-light)),
+		rgba(var(--cosy-animated-teal-rgb), var(--cosy-animated-alpha))
+	);
+	background-size: 400% 400%;
+	animation: gradientFlow 25s ease infinite;
+}
+
+/* 暗色模式调整 - 变体 */
+@media (prefers-color-scheme: dark) {
+	.cosy\:bg-animated-gradient-fast,
+	.cosy\:bg-animated-gradient-slow {
+		--cosy-animated-alpha: 0.5;
+		--cosy-animated-alpha-light: 0.3;
+	}
 }

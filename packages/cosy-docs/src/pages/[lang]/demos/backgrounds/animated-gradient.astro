@@ -1,0 +1,141 @@
+---
+/**
+ * 动态渐变（Animated Gradient）Demo
+ */
+import * as astroI18n from 'astro:i18n';
+import { AppLayout, Container, Heading, Text, Card } from '@coffic/cosy-ui';
+import Logo from '@/assets/logo.png';
+import { configApp } from '@/config/config.app';
+import { getFooterConfig } from '@/demos/footerConfig';
+import { getMetaConfig } from '@/demos/metaConfig';
+import { getSidebarItems } from './sidebarConfig';
+
+const currentLocale = Astro.params.lang || 'zh-cn';
+const t = (zh: string, en: string) => (currentLocale === 'zh-cn' ? zh : en);
+
+export const getStaticPaths = async () => {
+    return [{ params: { lang: 'zh-cn' } }, { params: { lang: 'en' } }];
+};
+
+export const prerender = true;
+---
+
+<AppLayout
+    metaConfig={getMetaConfig({
+        title: t('动态渐变示例', 'Animated Gradient Example'),
+        description: t(
+            '展示动态渐变背景样式的使用方法和效果',
+            'Demonstrates animated gradient background styles and effects',
+        ),
+        keywords: 'animated gradient, background, demo',
+    })}
+    showFooter={true}
+    showSidebar={true}
+    sidebarConfig={{
+        sidebarItems: getSidebarItems(currentLocale),
+    }}
+    footerConfig={getFooterConfig(currentLocale || 'zh-cn')}
+    headerConfig={{
+        logo: Logo,
+        logoHref: configApp.homeLink,
+        navItems: configApp.getNavItems(currentLocale),
+        astroI18n: astroI18n,
+    }}
+    background="animated-gradient"
+    mainContentConfig={{ py: '2xl' }}>
+    <Container width="full" padding="xl" margin="none">
+        <Container
+            width="4xl"
+            margin="none"
+            flex="col"
+            gap="sm"
+            class="cosy:mx-auto">
+            <Container background="animated-gradient" padding="xl" rounded="lg">
+                <Text>
+                    {
+                        currentLocale === 'zh-cn'
+                            ? '这是标准速度的动态渐变效果，15秒循环的渐变流动。'
+                            : 'This is the normal speed animated gradient effect with a 15-second gradient flow cycle.'
+                    }
+                </Text>
+            </Container>
+
+            <Container
+                background="animated-gradient-fast"
+                padding="xl"
+                rounded="lg">
+                <Text>
+                    {
+                        currentLocale === 'zh-cn'
+                            ? '这是快速速度的动态渐变效果，8秒循环的快速流动。'
+                            : 'This is the fast speed animated gradient effect with an 8-second fast flow cycle.'
+                    }
+                </Text>
+            </Container>
+
+            <Container
+                background="animated-gradient-slow"
+                padding="xl"
+                rounded="lg">
+                <Text>
+                    {
+                        currentLocale === 'zh-cn'
+                            ? '这是慢速的动态渐变效果，25秒循环的缓慢流动。'
+                            : 'This is the slow speed animated gradient effect with a 25-second slow flow cycle.'
+                    }
+                </Text>
+            </Container>
+
+            <Container flex="row" gap="md">
+                <Card
+                    background="animated-gradient"
+                    padding="lg"
+                    rounded="lg"
+                    width="sm">
+                    <Heading level={3} size="lg" margin="sm">
+                        {t('标准速度', 'Normal Speed')}
+                    </Heading>
+                    <Text size="sm" color="base-content/70">
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '15秒循环的渐变流动'
+                                : '15-second gradient flow cycle'
+                        }
+                    </Text>
+                </Card>
+                <Card
+                    background="animated-gradient-fast"
+                    padding="lg"
+                    rounded="lg"
+                    width="sm">
+                    <Heading level={3} size="lg" margin="sm">
+                        {t('快速', 'Fast')}
+                    </Heading>
+                    <Text size="sm" color="base-content/70">
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '8秒循环的快速流动'
+                                : '8-second fast flow cycle'
+                        }
+                    </Text>
+                </Card>
+                <Card
+                    background="animated-gradient-slow"
+                    padding="lg"
+                    rounded="lg"
+                    width="sm">
+                    <Heading level={3} size="lg" margin="sm">
+                        {t('慢速', 'Slow')}
+                    </Heading>
+                    <Text size="sm" color="base-content/70">
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '25秒循环的缓慢流动'
+                                : '25-second slow flow cycle'
+                        }
+                    </Text>
+                </Card>
+            </Container>
+        </Container>
+    </Container>
+</AppLayout>

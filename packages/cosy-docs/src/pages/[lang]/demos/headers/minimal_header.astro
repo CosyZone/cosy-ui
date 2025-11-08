@@ -1,58 +1,63 @@
 ---
-
-
-
 /**
  * AppLayout + 最简单的 Header 示例
  *
  * 此示例展示了带有最简单 Header 的 AppLayout 配置。
  * Header 不显示 logo，只保留基础功能。
  */
-import { AppLayout, Container, Heading, PlaceHolder } from "@coffic/cosy-ui";
+import * as astroI18n from 'astro:i18n';
+import { AppLayout, Container, Heading, PlaceHolder } from '@coffic/cosy-ui';
+import Logo from '@/assets/logo.png';
+import { configApp } from '@/config/config.app';
+import { getFooterConfig } from '@/demos/footerConfig';
+import { getMetaConfig } from '@/demos/metaConfig';
+import { getSidebarItems } from './sidebarConfig';
 
-const currentLocale = Astro.params.lang || "zh-cn";
+const currentLocale = Astro.params.lang || 'zh-cn';
 
 export const getStaticPaths = async () => {
-	return [
-		{
-			params: { lang: "zh-cn" },
-		},
-		{
-			params: { lang: "en" },
-		},
-	];
+    return [
+        {
+            params: { lang: 'zh-cn' },
+        },
+        {
+            params: { lang: 'en' },
+        },
+    ];
 };
 
 export const prerender = true;
 
 // 最简单的 Header 配置：不传递 logo
-const metaConfig = {
-	title:
-		currentLocale === "zh-cn" ? "最简单的 Header" : "Minimal Header Example",
-	description:
-		currentLocale === "zh-cn"
-			? "展示 AppLayout 带有最简单 Header 的配置"
-			: "Demonstrates AppLayout with minimal header configuration",
-	keywords: "AppLayout, minimal header, no logo",
-	author: "Cosy UI",
-	robots: "index, follow",
-};
-
 const headerConfig = {
-	// 不传递 logo，header 将不显示 logo
-	showThemeSwitcher: true,
-	sticky: true,
-	height: "3xs" as const,
-	background: "base-300/90" as const,
+    // 不传递 logo，header 将不显示 logo
+    showThemeSwitcher: true,
+    sticky: true,
+    height: '3xs' as const,
+    background: 'base-300/90' as const,
 };
 ---
 
 <AppLayout
-    metaConfig={metaConfig}
+    metaConfig={getMetaConfig({
+        title:
+            currentLocale === 'zh-cn'
+                ? '最简单的 Header'
+                : 'Minimal Header Example',
+        description:
+            currentLocale === 'zh-cn'
+                ? '展示 AppLayout 带有最简单 Header 的配置'
+                : 'Demonstrates AppLayout with minimal header configuration',
+        keywords: 'AppLayout, minimal header, no logo',
+    })}
     headerConfig={headerConfig}
     showHeader={true}
-    showFooter={false}
-    showSidebar={false}>
+    showFooter={true}
+    showSidebar={true}
+    sidebarConfig={{
+        sidebarItems: getSidebarItems(currentLocale),
+    }}
+    footerConfig={getFooterConfig(currentLocale)}>
     <Container padding="xl" gap="lg" flex="col">
         <Heading level={1} align="center" margin="lg">
             {

@@ -1,53 +1,54 @@
 ---
-
-
-
+import * as astroI18n from 'astro:i18n';
 import {
-	AppLayout,
-	Button,
-	Card,
-	Container,
-	Heading,
-	Image,
-} from "@coffic/cosy-ui";
-import Logo from "@/assets/logo.png";
-import { getMetaConfig } from "@/demos/metaConfig";
+    AppLayout,
+    Button,
+    Card,
+    Container,
+    Heading,
+    Image,
+} from '@coffic/cosy-ui';
+import Logo from '@/assets/logo.png';
+import { configApp } from '@/config/config.app';
+import { getFooterConfig } from '@/demos/footerConfig';
+import { getMetaConfig } from '@/demos/metaConfig';
+import { getSidebarItems } from './sidebarConfig';
 
 // 从 URL 获取当前语言
-const currentLocale = Astro.params.lang || "zh-cn";
+const currentLocale = Astro.params.lang || 'zh-cn';
+const t = (zh: string, en: string) => (currentLocale === 'zh-cn' ? zh : en);
 
 // 启用预渲染
 export const prerender = true;
 
 // 定义支持的语言
 export const getStaticPaths = async () => {
-	return [
-		{
-			params: { lang: "zh-cn" },
-		},
-		{
-			params: { lang: "en" },
-		},
-	];
+    return [
+        {
+            params: { lang: 'zh-cn' },
+        },
+        {
+            params: { lang: 'en' },
+        },
+    ];
 };
 
-const isZhCn = currentLocale === "zh-cn";
-
-const title = isZhCn
-	? "自定义 Header & Footer 演示"
-	: "Custom Header & Footer Demo";
-const description = isZhCn
-	? "演示如何在 AppLayout 中同时使用自定义 Header 和 Footer"
-	: "Demonstration of using both custom header and footer in AppLayout";
+const isZhCn = currentLocale === 'zh-cn';
 ---
 
 <AppLayout
-    showSidebar={false}
+    showSidebar={true}
     showHeader={false}
     showFooter={false}
+    sidebarConfig={{
+        sidebarItems: getSidebarItems(currentLocale),
+    }}
     metaConfig={getMetaConfig({
-        title: title,
-        description: description,
+        title: t('自定义 Header & Footer 演示', 'Custom Header & Footer Demo'),
+        description: t(
+            '演示如何在 AppLayout 中同时使用自定义 Header 和 Footer',
+            'Demonstration of using both custom header and footer in AppLayout',
+        ),
         keywords: 'Cosy UI, AppLayout, Custom Header, Custom Footer',
     })}>
     <!-- 自定义 Header Slot -->
@@ -136,8 +137,8 @@ const description = isZhCn
                 <Button
                     variant="outline"
                     size="lg"
-                    href={`/${currentLocale}/demos`}>
-                    {isZhCn ? '返回示例' : 'Back to Demos'}
+                    href={`/${currentLocale}/demos/headers`}>
+                    {t('返回示例', 'Back to Demos')}
                 </Button>
             </div>
         </Container>
@@ -307,14 +308,14 @@ const description = isZhCn
                 <Button
                     variant="outline"
                     size="lg"
-                    href={`/${currentLocale}/demos/custom_header`}>
-                    {isZhCn ? 'Header 演示' : 'Header Demo'}
+                    href={`/${currentLocale}/demos/headers/custom_header`}>
+                    {t('Header 演示', 'Header Demo')}
                 </Button>
                 <Button
                     variant="outline"
                     size="lg"
-                    href={`/${currentLocale}/demos/custom_footer`}>
-                    {isZhCn ? 'Footer 演示' : 'Footer Demo'}
+                    href={`/${currentLocale}/demos/headers/custom_footer`}>
+                    {t('Footer 演示', 'Footer Demo')}
                 </Button>
             </div>
         </Container>
@@ -369,16 +370,16 @@ const description = isZhCn
                         </li>
                         <li>
                             <a
-                                href={`/${currentLocale}/demos/custom_header`}
+                                href={`/${currentLocale}/demos/headers/custom_header`}
                                 class="footer-link">
-                                {isZhCn ? 'Header 演示' : 'Header Demo'}
+                                {t('Header 演示', 'Header Demo')}
                             </a>
                         </li>
                         <li>
                             <a
-                                href={`/${currentLocale}/demos/custom_footer`}
+                                href={`/${currentLocale}/demos/headers/custom_footer`}
                                 class="footer-link">
-                                {isZhCn ? 'Footer 演示' : 'Footer Demo'}
+                                {t('Footer 演示', 'Footer Demo')}
                             </a>
                         </li>
                     </ul>

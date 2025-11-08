@@ -1,0 +1,63 @@
+---
+/**
+ * 文档布局（Document Layout）Demo
+ */
+import * as astroI18n from 'astro:i18n';
+import { AppLayout } from '@coffic/cosy-ui';
+import Logo from '@/assets/logo.png';
+import { configApp } from '@/config/config.app';
+import { getFooterConfig } from '@/demos/footerConfig';
+import { getMetaConfig } from '@/demos/metaConfig';
+import { getSidebarItems } from './sidebarConfig';
+
+const currentLocale = Astro.params.lang || 'zh-cn';
+const t = (zh: string, en: string) => (currentLocale === 'zh-cn' ? zh : en);
+
+export const getStaticPaths = async () => {
+    return [{ params: { lang: 'zh-cn' } }, { params: { lang: 'en' } }];
+};
+---
+
+<AppLayout
+    theme="dark"
+    showSidebar={true}
+    sidebarConfig={{
+        sidebarItems: getSidebarItems(currentLocale),
+    }}
+    metaConfig={getMetaConfig({
+        title: t('文档布局示例', 'Document Layout Example'),
+        description: t(
+            '展示文档布局的使用方法和效果',
+            'Demonstrates document layout usage and effects',
+        ),
+        keywords: 'document layout, layout, demo',
+    })}
+    footerConfig={getFooterConfig(currentLocale || 'zh-cn')}
+    headerConfig={{
+        logo: Logo,
+        logoHref: configApp.homeLink,
+        navItems: configApp.getNavItems(currentLocale || 'zh-cn'),
+        astroI18n: astroI18n,
+    }}
+    mainContentConfig={{
+        py: '4xl',
+        showTableOfContents: true,
+        isArticle: true,
+    }}
+    showHeader={true}>
+    <h1>{t('文档布局', 'Document Layout')}</h1>
+
+    <h2>{t('简介', 'Introduction')}</h2>
+
+    <p>
+        {
+            currentLocale === 'zh-cn'
+                ? '文档布局是Cosy UI提供的一种布局方式，用于展示文档内容。它可以帮助用户更好地组织和展示文档，提高阅读体验。'
+                : 'Document layout is a layout method provided by Cosy UI for displaying document content. It helps users better organize and display documents, improving the reading experience.'
+        }
+    </p>
+
+    <h3>{t('小标题', 'Subtitle')}</h3>
+
+    <p>{t('段落', 'Paragraph')}</p>
+</AppLayout>

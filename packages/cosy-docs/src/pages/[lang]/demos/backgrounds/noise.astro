@@ -1,0 +1,130 @@
+---
+/**
+ * 噪点纹理（Noise Texture）Demo
+ */
+import * as astroI18n from 'astro:i18n';
+import { AppLayout, Container, Heading, Text, Card } from '@coffic/cosy-ui';
+import Logo from '@/assets/logo.png';
+import { configApp } from '@/config/config.app';
+import { getFooterConfig } from '@/demos/footerConfig';
+import { getMetaConfig } from '@/demos/metaConfig';
+import { getSidebarItems } from './sidebarConfig';
+
+const currentLocale = Astro.params.lang || 'zh-cn';
+const t = (zh: string, en: string) => (currentLocale === 'zh-cn' ? zh : en);
+
+export const getStaticPaths = async () => {
+    return [{ params: { lang: 'zh-cn' } }, { params: { lang: 'en' } }];
+};
+
+export const prerender = true;
+---
+
+<AppLayout
+    metaConfig={getMetaConfig({
+        title: t('噪点纹理示例', 'Noise Texture Example'),
+        description: t(
+            '展示噪点纹理背景样式的使用方法和效果',
+            'Demonstrates noise texture background styles and effects',
+        ),
+        keywords: 'noise texture, background, demo',
+    })}
+    showFooter={true}
+    showSidebar={true}
+    sidebarConfig={{
+        sidebarItems: getSidebarItems(currentLocale),
+    }}
+    footerConfig={getFooterConfig(currentLocale || 'zh-cn')}
+    headerConfig={{
+        logo: Logo,
+        logoHref: configApp.homeLink,
+        navItems: configApp.getNavItems(currentLocale),
+        astroI18n: astroI18n,
+    }}
+    mainContentConfig={{ py: '2xl' }}>
+    <Container width="full" padding="xl" margin="none">
+        <Container
+            width="4xl"
+            margin="none"
+            flex="col"
+            gap="sm"
+            class="cosy:mx-auto">
+            <Container background="noise" padding="xl" rounded="lg">
+                <Text>
+                    {
+                        currentLocale === 'zh-cn'
+                            ? '这是基础的噪点纹理效果，为背景增加了微妙的质感。'
+                            : 'This is the basic noise texture effect, adding subtle texture to the background.'
+                    }
+                </Text>
+            </Container>
+
+            <Container background="noise-strong" padding="xl" rounded="lg">
+                <Text>
+                    {
+                        currentLocale === 'zh-cn'
+                            ? '这是更明显的噪点纹理效果，质感更加突出。'
+                            : 'This is a stronger noise texture effect with more prominent texture.'
+                    }
+                </Text>
+            </Container>
+
+            <Container background="noise-soft" padding="xl" rounded="lg">
+                <Text>
+                    {
+                        currentLocale === 'zh-cn'
+                            ? '这是更细腻的噪点纹理效果，质感更加微妙。'
+                            : 'This is a softer noise texture effect with more subtle texture.'
+                    }
+                </Text>
+            </Container>
+
+            <Container flex="row" gap="md">
+                <Card background="noise" padding="lg" rounded="lg" width="sm">
+                    <Heading level={3} size="lg" margin="sm">
+                        {t('卡片 1', 'Card 1')}
+                    </Heading>
+                    <Text size="sm" color="base-content/70">
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '使用基础噪点纹理的卡片'
+                                : 'Card with basic noise texture'
+                        }
+                    </Text>
+                </Card>
+                <Card
+                    background="noise-strong"
+                    padding="lg"
+                    rounded="lg"
+                    width="sm">
+                    <Heading level={3} size="lg" margin="sm">
+                        {t('卡片 2', 'Card 2')}
+                    </Heading>
+                    <Text size="sm" color="base-content/70">
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '使用明显噪点纹理的卡片'
+                                : 'Card with strong noise texture'
+                        }
+                    </Text>
+                </Card>
+                <Card
+                    background="noise-soft"
+                    padding="lg"
+                    rounded="lg"
+                    width="sm">
+                    <Heading level={3} size="lg" margin="sm">
+                        {t('卡片 3', 'Card 3')}
+                    </Heading>
+                    <Text size="sm" color="base-content/70">
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '使用细腻噪点纹理的卡片'
+                                : 'Card with soft noise texture'
+                        }
+                    </Text>
+                </Card>
+            </Container>
+        </Container>
+    </Container>
+</AppLayout>

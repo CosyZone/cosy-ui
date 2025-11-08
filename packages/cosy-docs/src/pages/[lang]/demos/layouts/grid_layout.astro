@@ -1,48 +1,50 @@
 ---
-
-
-
+/**
+ * 网格布局（Grid Layout）Demo
+ */
+import * as astroI18n from 'astro:i18n';
 import {
-	AppLayout,
-	Container,
-	Grid,
-	Heading,
-	PlaceHolder,
-} from "@coffic/cosy-ui";
-import Logo from "@/assets/logo.png";
-import { configApp } from "@/config/config.app";
-import { getFooterConfig } from "@/demos/footerConfig";
-import { getMetaConfig } from "@/demos/metaConfig";
+    AppLayout,
+    Container,
+    Grid,
+    Heading,
+    PlaceHolder,
+} from '@coffic/cosy-ui';
+import Logo from '@/assets/logo.png';
+import { configApp } from '@/config/config.app';
+import { getFooterConfig } from '@/demos/footerConfig';
+import { getMetaConfig } from '@/demos/metaConfig';
+import { getSidebarItems } from './sidebarConfig';
 
-// 从 URL 获取当前语言
-const currentLocale = Astro.params.lang;
+const currentLocale = Astro.params.lang || 'zh-cn';
+const t = (zh: string, en: string) => (currentLocale === 'zh-cn' ? zh : en);
 
 export const getStaticPaths = async () => {
-	return [
-		{
-			params: { lang: "zh-cn" },
-		},
-		{
-			params: { lang: "en" },
-		},
-	];
+    return [{ params: { lang: 'zh-cn' } }, { params: { lang: 'en' } }];
 };
 ---
 
 <AppLayout
     metaConfig={getMetaConfig({
-        title: '网格布局演示',
-        description: 'Cosy UI - A beautiful Astro component library',
-        keywords: 'Cosy UI, Astro, component library, grid layout',
+        title: t('网格布局演示', 'Grid Layout Demo'),
+        description: t(
+            '展示网格布局的使用方法和效果',
+            'Demonstrates grid layout usage and effects',
+        ),
+        keywords: 'grid layout, layout, demo',
     })}
     showHeader={true}
     showFooter={true}
-    showSidebar={false}
+    showSidebar={true}
+    sidebarConfig={{
+        sidebarItems: getSidebarItems(currentLocale),
+    }}
     footerConfig={getFooterConfig(currentLocale || 'zh-cn')}
     headerConfig={{
         logo: Logo,
         logoHref: configApp.homeLink,
         navItems: configApp.getNavItems(currentLocale),
+        astroI18n: astroI18n,
     }}
     mainContentConfig={{
         pt: '4xl',
@@ -51,11 +53,15 @@ export const getStaticPaths = async () => {
         padding: 'xl',
     }}>
     <Container width="xl" padding="xl" background="accent/10">
-        <Heading level={1} align="center" margin="xl">网格布局演示</Heading>
+        <Heading level={1} align="center" margin="xl">
+            {t('网格布局演示', 'Grid Layout Demo')}
+        </Heading>
 
         <!-- 基础网格布局 -->
         <Container padding="xl" background="accent/10">
-            <Heading level={2} align="center">基础网格布局</Heading>
+            <Heading level={2} align="center">
+                {t('基础网格布局', 'Basic Grid Layout')}
+            </Heading>
             <Grid cols={3} gap="md">
                 <PlaceHolder background="warning/30"> 1 </PlaceHolder>
                 <PlaceHolder background="warning/30"> 2 </PlaceHolder>
@@ -65,9 +71,9 @@ export const getStaticPaths = async () => {
 
         <!-- 响应式网格布局 -->
         <Container padding="xl" background="warning/10">
-            <Heading level={2} align="center" margin="xl"
-                >响应式网格布局</Heading
-            >
+            <Heading level={2} align="center" margin="xl">
+                {t('响应式网格布局', 'Responsive Grid Layout')}
+            </Heading>
             <Grid cols={{ base: 1, sm: 2, md: 3, lg: 4 }} gap="md">
                 <PlaceHolder background="warning/30"> 1 </PlaceHolder>
                 <PlaceHolder background="warning/30"> 2 </PlaceHolder>
