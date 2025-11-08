@@ -1,3 +1,5 @@
+import { THEME_DEFAULT, THEME_PREFERS_DARK } from "../config/themes.config";
+
 interface ThemeManager {
 	updateActiveTheme: (currentTheme: string) => void;
 	handleThemeClick: (this: HTMLElement) => void;
@@ -91,8 +93,8 @@ export function createThemeManager(
 	}
 
 	/**
-	 * 从 CSS 变量读取主题配置
-	 * 从 :root 的 CSS 变量中读取默认主题和暗黑主题名称
+	 * 从配置文件读取主题配置
+	 * 从 TypeScript 配置文件中读取默认主题和暗黑主题名称
 	 *
 	 * @returns 包含默认主题和暗黑主题名称的对象
 	 */
@@ -100,14 +102,11 @@ export function createThemeManager(
 		defaultTheme: string;
 		prefersDarkTheme: string;
 	} => {
-		const root = document.documentElement;
-		const defaultTheme =
-			getComputedStyle(root).getPropertyValue("--theme-default").trim() ||
-			"corporate";
-		const prefersDarkTheme =
-			getComputedStyle(root).getPropertyValue("--theme-prefersdark").trim() ||
-			"business";
-		return { defaultTheme, prefersDarkTheme };
+		// 从配置文件读取（编译时确定，无 SSR 问题）
+		return {
+			defaultTheme: THEME_DEFAULT,
+			prefersDarkTheme: THEME_PREFERS_DARK,
+		};
 	};
 
 	/**
