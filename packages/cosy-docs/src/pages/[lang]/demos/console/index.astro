@@ -8,8 +8,8 @@ import type { ISidebarItem } from "@coffic/cosy-ui";
 import { AppLayout, Container, Heading, PlaceHolder } from "@coffic/cosy-ui";
 import Logo from "@/assets/logo.png";
 import { configApp } from "@/config/config.app";
-import { getFooterConfig } from "@/demos/footerConfig";
-import { getMetaConfig } from "@/demos/metaConfig";
+import { getFooterConfig } from "../_footerConfig";
+import { getMetaConfig } from "../_metaConfig";
 
 const currentLocale = Astro.params.lang;
 const t = (zh: string, en: string) => (currentLocale === "zh-cn" ? zh : en);

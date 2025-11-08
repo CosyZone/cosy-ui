@@ -1,34 +1,31 @@
 ---
-
-
-
-import * as astroI18n from "astro:i18n";
+import * as astroI18n from 'astro:i18n';
 import {
-	AppLayout,
-	Badge,
-	Button,
-	Card,
-	Container,
-	Grid,
-	Heading,
-	Text,
-} from "@coffic/cosy-ui";
-import Logo from "@/assets/logo.png";
-import { configApp } from "@/config/config.app";
-import airpodsUrl from "@/demos/apple_products/images/airpods.jpg?url";
-import ipadUrl from "@/demos/apple_products/images/ipad.jpg?url";
-import iphoneUrl from "@/demos/apple_products/images/iphone.jpg?url";
-import macbookUrl from "@/demos/apple_products/images/macbook.jpg?url";
-import visionProUrl from "@/demos/apple_products/images/vision-pro.jpg?url";
-import watchUrl from "@/demos/apple_products/images/watch.jpg?url";
-import { getFooterConfig } from "@/demos/footerConfig";
-import { getMetaConfig } from "@/demos/metaConfig";
+    AppLayout,
+    Badge,
+    Button,
+    Card,
+    Container,
+    Grid,
+    Heading,
+    Text,
+} from '@coffic/cosy-ui';
+import Logo from '@/assets/logo.png';
+import { configApp } from '@/config/config.app';
+import airpodsUrl from './apple_products/images/airpods.jpg?url';
+import ipadUrl from './apple_products/images/ipad.jpg?url';
+import iphoneUrl from './apple_products/images/iphone.jpg?url';
+import macbookUrl from './apple_products/images/macbook.jpg?url';
+import visionProUrl from './apple_products/images/vision-pro.jpg?url';
+import watchUrl from './apple_products/images/watch.jpg?url';
+import { getFooterConfig } from './_footerConfig';
+import { getMetaConfig } from './_metaConfig';
 
 const currentLocale = Astro.params.lang;
-const t = (zh: string, en: string) => (currentLocale === "zh-cn" ? zh : en);
+const t = (zh: string, en: string) => (currentLocale === 'zh-cn' ? zh : en);
 
 export const getStaticPaths = async () => {
-	return [{ params: { lang: "zh-cn" } }, { params: { lang: "en" } }];
+    return [{ params: { lang: 'zh-cn' } }, { params: { lang: 'en' } }];
 };
 ---
 
@@ -37,11 +34,11 @@ export const getStaticPaths = async () => {
         title: t('Apple 产品列表', 'Apple Products'),
         description: t(
             '精选 Apple 设备与配件，一站式浏览与了解。',
-            'Curated Apple devices and accessories for quick browsing and discovery.'
+            'Curated Apple devices and accessories for quick browsing and discovery.',
         ),
         keywords: t(
             'iPhone, MacBook, iPad, Apple Watch, AirPods, Vision Pro',
-            'iPhone, MacBook, iPad, Apple Watch, AirPods, Vision Pro'
+            'iPhone, MacBook, iPad, Apple Watch, AirPods, Vision Pro',
         ),
     })}
     showFooter={true}
@@ -62,7 +59,7 @@ export const getStaticPaths = async () => {
             >{
                 t(
                     '精选 Apple 设备与配件，一站式浏览与了解。',
-                    'Curated Apple devices and accessories for quick browsing and discovery.'
+                    'Curated Apple devices and accessories for quick browsing and discovery.',
                 )
             }</Text
         >
