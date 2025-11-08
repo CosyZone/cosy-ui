@@ -8,11 +8,11 @@
  * 可用主题列表（不包括 "default"，因为它是特殊项）
  */
 export const THEME_LIST = [
+	"business",
 	"corporate",
 	"lemonade",
-	"nord",
 	"luxury",
-	"business",
+	"nord",
 ] as const;
 
 /**
