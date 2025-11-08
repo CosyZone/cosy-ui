@@ -196,6 +196,16 @@ export const patternBackgroundClasses = {
 	"dot-grid": "cosy:bg-dot-grid",
 	stripes: "cosy:bg-stripes",
 	"gradient-glow": "cosy:bg-gradient-glow",
+	glassmorphism: "cosy:bg-glassmorphism",
+	"glassmorphism-strong": "cosy:bg-glassmorphism-strong",
+	"glassmorphism-soft": "cosy:bg-glassmorphism-soft",
+	"mesh-gradient": "cosy:bg-mesh-gradient",
+	noise: "cosy:bg-noise",
+	"noise-strong": "cosy:bg-noise-strong",
+	"noise-soft": "cosy:bg-noise-soft",
+	"animated-gradient": "cosy:bg-animated-gradient",
+	"animated-gradient-fast": "cosy:bg-animated-gradient-fast",
+	"animated-gradient-slow": "cosy:bg-animated-gradient-slow",
 } as const;
 
 // 合并所有背景色类名

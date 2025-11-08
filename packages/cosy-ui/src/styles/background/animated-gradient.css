@@ -1,0 +1,58 @@
+/* 动态渐变（Animated Gradient）：流动的渐变背景，现代化视觉效果 */
+
+/* 变量（亮色默认） */
+:root {
+	/* animated-gradient - 以翠绿和青色为主色调 */
+	--cosy-animated-primary-rgb: 6, 182, 212; /* 青色 */
+	--cosy-animated-secondary-rgb: 16, 185, 129; /* 翠绿色 */
+	--cosy-animated-accent-rgb: 34, 211, 238; /* 浅青色 */
+	--cosy-animated-teal-rgb: 5, 150, 105; /* 深翠绿色 */
+	--cosy-animated-alpha: 0.6;
+	--cosy-animated-alpha-light: 0.4;
+}
+
+.cosy\:bg-animated-gradient {
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+	background: linear-gradient(
+		135deg,
+		rgba(var(--cosy-animated-primary-rgb), var(--cosy-animated-alpha-light)),
+		rgba(var(--cosy-animated-secondary-rgb), var(--cosy-animated-alpha)),
+		rgba(var(--cosy-animated-accent-rgb), var(--cosy-animated-alpha-light)),
+		rgba(var(--cosy-animated-teal-rgb), var(--cosy-animated-alpha))
+	);
+	background-size: 400% 400%;
+	animation: gradientFlow 15s ease infinite;
+}
+
+/* 渐变流动动画 */
+@keyframes gradientFlow {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+/* 暗色模式调整 */
+@media (prefers-color-scheme: dark) {
+	.cosy\:bg-animated-gradient {
+		--cosy-animated-alpha: 0.5;
+		--cosy-animated-alpha-light: 0.3;
+	}
+}
+
+/* 变体：更快的动画速度 */
+.cosy\:bg-animated-gradient-fast {
+	animation-duration: 8s;
+}
+
+/* 变体：更慢的动画速度 */
+.cosy\:bg-animated-gradient-slow {
+	animation-duration: 25s;
+}

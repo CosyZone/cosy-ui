@@ -1,0 +1,43 @@
+/* 噪点纹理（Noise Texture）：增加背景质感，现代化设计细节 */
+
+/* 变量（亮色默认） */
+:root {
+	/* 噪点参数 */
+	--cosy-noise-opacity: 0.03; /* 噪点透明度 */
+	--cosy-noise-size: 200px; /* 噪点图案尺寸 */
+}
+
+.cosy\:bg-noise {
+	position: relative;
+	isolation: isolate;
+}
+
+/* 噪点纹理层 */
+.cosy\:bg-noise::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	opacity: var(--cosy-noise-opacity);
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+	background-size: var(--cosy-noise-size) var(--cosy-noise-size);
+	background-repeat: repeat;
+}
+
+/* 暗色模式调整 */
+@media (prefers-color-scheme: dark) {
+	.cosy\:bg-noise::before {
+		--cosy-noise-opacity: 0.05;
+	}
+}
+
+/* 变体：更明显的噪点 */
+.cosy\:bg-noise-strong::before {
+	--cosy-noise-opacity: 0.06;
+}
+
+/* 变体：更细腻的噪点 */
+.cosy\:bg-noise-soft::before {
+	--cosy-noise-opacity: 0.015;
+}
