@@ -1,8 +1,4 @@
 ---
-
-
-
-import * as astroI18n from 'astro:i18n';
 import {
     AppLayout,
     type BackgroundColor,
@@ -89,8 +85,7 @@ const currentLocale = Astro.currentLocale;
         navItems: configApp.getNavItems(currentLocale || 'zh-cn'),
         navPosition: 'start',
         showThemeSwitcher: true,
-        astroI18n: astroI18n,
-        locales: ['en', 'zh-cn'],
+        locales: ['zh-cn', 'en'],
         logo: Logo,
     }}
     sidebarConfig={{
