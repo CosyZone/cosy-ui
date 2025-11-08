@@ -1,3 +1,5 @@
+import { THEME_DEFAULT, THEME_PREFERS_DARK } from "../config/themes.config";
+
 interface ThemeManager {
 	updateActiveTheme: (currentTheme: string) => void;
 	handleThemeClick: (this: HTMLElement) => void;
@@ -6,29 +8,59 @@ interface ThemeManager {
 	detectSystemTheme: () => string;
 }
 
+interface ThemeManagerOptions {
+	/** 主题选择器，支持多种格式 */
+	selectors?: {
+		/** 主题项选择器，用于查找所有主题项 */
+		items?: string;
+		/** 主题 ID 属性名，用于从元素获取主题名称 */
+		themeIdAttr?: string;
+		/** 旧式主题设置属性名（可选，用于向后兼容） */
+		themeSetAttr?: string;
+	};
+}
+
 /**
  * 创建主题管理器
  *
  * 提供主题切换、主题持久化存储和系统主题检测等功能
+ * 支持 Astro 和 Vue 两种使用模式
  *
+ * @param options 配置选项，用于自定义选择器
  * @returns ThemeManager 主题管理器对象
  */
-export function createThemeManager(): ThemeManager {
+export function createThemeManager(
+	options: ThemeManagerOptions = {},
+): ThemeManager {
+	// 默认配置：支持 Astro 模式（data-theme-id）和 Vue 模式（data-theme）
+	const {
+		selectors = {
+			items: "[data-theme-id], [data-theme], .cosy\\:theme-item",
+			themeIdAttr: "data-theme-id",
+			themeSetAttr: "data-set-theme",
+		},
+	} = options;
+
 	const getThemeItems = () =>
-		document.querySelectorAll<HTMLElement>(
-			"[data-theme-id], .cosy\\:theme-item",
-		);
+		document.querySelectorAll<HTMLElement>(selectors.items || "");
 
 	const updateActiveTheme = (currentTheme: string) => {
 		const themeItems = getThemeItems();
 		themeItems.forEach((item) => {
-			const themeId = item.getAttribute("data-theme-id");
+			// 获取主题 ID（只从主题项属性读取，不使用 data-theme，因为那是根元素的应用主题）
+			const themeId =
+				item.getAttribute(selectors.themeIdAttr || "data-theme-id") ||
+				item.getAttribute(selectors.themeSetAttr || "data-set-theme");
+			// 如果没有找到主题 ID，跳过该项
+			if (!themeId) {
+				return;
+			}
 			const isActive = themeId === currentTheme;
 
 			// 设置元素的 data-active 属性
 			item.setAttribute("data-active", String(isActive));
 
-			// 更新 CheckIcon 显示状态
+			// 更新 CheckIcon 显示状态（Astro 模式）
 			if (item.classList.contains("cosy:theme-item")) {
 				const checkmark = item.querySelector(".cosy\\:theme-check");
 				if (checkmark) {
@@ -41,27 +73,56 @@ export function createThemeManager(): ThemeManager {
 					}
 				}
 			}
+
+			// 旧式主题按钮的类切换行为（Vue 模式）
+			if (item.hasAttribute(selectors.themeSetAttr || "data-set-theme")) {
+				item.classList.toggle("cosy:bg-primary", isActive);
+				item.classList.toggle("cosy:text-primary-content", isActive);
+			}
 		});
 	};
 
 	function handleThemeClick(this: HTMLElement) {
-		const theme = this.getAttribute("data-theme-id");
+		// 获取主题（只从主题项属性读取，不使用 data-theme）
+		const theme =
+			this.getAttribute(selectors.themeIdAttr || "data-theme-id") ||
+			this.getAttribute(selectors.themeSetAttr || "data-set-theme");
 		if (theme) {
 			setTheme(theme);
 		}
 	}
 
 	/**
+	 * 从配置文件读取主题配置
+	 * 从 TypeScript 配置文件中读取默认主题和暗黑主题名称
+	 *
+	 * @returns 包含默认主题和暗黑主题名称的对象
+	 */
+	const getThemeConfig = (): {
+		defaultTheme: string;
+		prefersDarkTheme: string;
+	} => {
+		// 从配置文件读取（编译时确定，无 SSR 问题）
+		return {
+			defaultTheme: THEME_DEFAULT,
+			prefersDarkTheme: THEME_PREFERS_DARK,
+		};
+	};
+
+	/**
 	 * 获取实际应用的主题
 	 * 如果选择的是 "default"，则根据系统主题返回实际主题
+	 * 主题名称从 CSS 变量中读取，实现单一数据源
 	 *
 	 * @param theme 用户选择的主题ID
 	 * @returns 实际应用的主题ID
 	 */
 	const getActualTheme = (theme: string): string => {
-		if (theme === "default") {
+		if (theme === "default" || !theme) {
 			const systemTheme = detectSystemTheme();
-			return systemTheme === "dark" ? "dark" : "default";
+			const { defaultTheme, prefersDarkTheme } = getThemeConfig();
+			// 系统是暗黑模式时使用 prefersDarkTheme，否则使用 defaultTheme
+			return systemTheme === "dark" ? prefersDarkTheme : defaultTheme;
 		}
 		return theme;
 	};
@@ -99,29 +160,42 @@ export function createThemeManager(): ThemeManager {
 	/**
 	 * 初始化主题管理器
 	 *
-	 * 从本地存储中获取主题设置，如果没有则尝试使用系统主题，最后使用默认主题
+	 * 从本地存储中获取主题设置，如果没有则使用 "default"（会根据系统主题自动映射到 corporate 或 business）
 	 */
 	const initialize = () => {
 		// 从本地存储中获取主题
 		let savedTheme = localStorage.getItem("theme");
 
-		// 如果没有保存的主题，则尝试使用系统主题
+		// 如果没有保存的主题，则使用 "default"（会根据系统主题自动映射）
 		if (!savedTheme) {
-			const systemTheme = detectSystemTheme();
-			if (systemTheme === "dark") {
-				savedTheme = "dark";
-			} else {
-				savedTheme = "default"; // 默认使用默认主题
-			}
+			savedTheme = "default";
 		}
 
 		// 设置主题（会自动处理 default 主题的动态映射）
 		setTheme(savedTheme);
 
 		// 添加主题切换事件监听器
-		const themeItems = Array.from(
-			document.querySelectorAll<HTMLElement>("[data-theme-id]"),
-		);
+		// 支持多种选择器模式
+		const themeItems = [
+			...Array.from(
+				document.querySelectorAll<HTMLElement>(
+					selectors.themeIdAttr
+						? `[${selectors.themeIdAttr}]`
+						: "[data-theme-id]",
+				),
+			),
+			...Array.from(
+				document.querySelectorAll<HTMLElement>(
+					selectors.themeSetAttr
+						? `[${selectors.themeSetAttr}]`
+						: "[data-set-theme]",
+				),
+			),
+			...Array.from(
+				document.querySelectorAll<HTMLElement>(".cosy\\:theme-item"),
+			),
+			...Array.from(document.querySelectorAll<HTMLElement>("[data-theme]")),
+		];
 
 		themeItems.forEach((item) => {
 			item.removeEventListener("click", handleThemeClick);
@@ -131,15 +205,12 @@ export function createThemeManager(): ThemeManager {
 		// 监听系统主题变化
 		window
 			.matchMedia("(prefers-color-scheme: dark)")
-			.addEventListener("change", (e) => {
+			.addEventListener("change", (_e) => {
 				const currentSavedTheme = localStorage.getItem("theme");
 
 				// 如果用户选择的是 "default" 主题，则跟随系统主题变化
-				if (currentSavedTheme === "default") {
-					setTheme("default"); // 重新设置，会根据系统主题自动映射
-				} else if (!currentSavedTheme) {
-					// 如果用户没有手动设置过主题，则跟随系统主题变化
-					setTheme(e.matches ? "dark" : "default");
+				if (currentSavedTheme === "default" || !currentSavedTheme) {
+					setTheme("default"); // 重新设置，会根据系统主题自动映射到 corporate 或 business
 				}
 			});
 	};

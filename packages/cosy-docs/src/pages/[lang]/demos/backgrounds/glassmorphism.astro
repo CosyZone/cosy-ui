@@ -1,0 +1,141 @@
+---
+/**
+ * 玻璃态效果（Glassmorphism）Demo
+ */
+import * as astroI18n from 'astro:i18n';
+import { AppLayout, Container, Heading, Text, Card } from '@coffic/cosy-ui';
+import Logo from '@/assets/logo.png';
+import { configApp } from '@/config/config.app';
+import { getFooterConfig } from '@/demos/footerConfig';
+import { getMetaConfig } from '@/demos/metaConfig';
+import { getSidebarItems } from './sidebarConfig';
+
+const currentLocale = Astro.params.lang || 'zh-cn';
+const t = (zh: string, en: string) => (currentLocale === 'zh-cn' ? zh : en);
+
+export const getStaticPaths = async () => {
+    return [{ params: { lang: 'zh-cn' } }, { params: { lang: 'en' } }];
+};
+
+export const prerender = true;
+---
+
+<AppLayout
+    metaConfig={getMetaConfig({
+        title: t('玻璃态效果示例', 'Glassmorphism Example'),
+        description: t(
+            '展示玻璃态背景样式的使用方法和效果',
+            'Demonstrates glassmorphism background styles and effects',
+        ),
+        keywords: 'glassmorphism, background, demo',
+    })}
+    showFooter={true}
+    showSidebar={true}
+    sidebarConfig={{
+        sidebarItems: getSidebarItems(currentLocale),
+    }}
+    footerConfig={getFooterConfig(currentLocale || 'zh-cn')}
+    headerConfig={{
+        logo: Logo,
+        logoHref: configApp.homeLink,
+        navItems: configApp.getNavItems(currentLocale),
+        astroI18n: astroI18n,
+    }}
+    background="gradient-glow"
+    mainContentConfig={{ py: '2xl' }}>
+    <Container width="full" padding="xl" margin="none">
+        <Container
+            width="4xl"
+            margin="none"
+            flex="col"
+            gap="sm"
+            class="cosy:mx-auto">
+            <Container background="glassmorphism" padding="xl" rounded="lg">
+                <Text>
+                    {
+                        currentLocale === 'zh-cn'
+                            ? '这是基础的玻璃态效果，使用 backdrop-filter 实现毛玻璃效果。'
+                            : 'This is the basic glassmorphism effect, using backdrop-filter to achieve a frosted glass effect.'
+                    }
+                </Text>
+            </Container>
+
+            <Container
+                background="glassmorphism-strong"
+                padding="xl"
+                rounded="lg">
+                <Text>
+                    {
+                        currentLocale === 'zh-cn'
+                            ? '这是更强的玻璃态效果，模糊半径更大，背景更不透明。'
+                            : 'This is a stronger glassmorphism effect with a larger blur radius and more opaque background.'
+                    }
+                </Text>
+            </Container>
+
+            <Container
+                background="glassmorphism-soft"
+                padding="xl"
+                rounded="lg">
+                <Text>
+                    {
+                        currentLocale === 'zh-cn'
+                            ? '这是柔和的玻璃态效果，模糊半径较小，背景更透明。'
+                            : 'This is a soft glassmorphism effect with a smaller blur radius and more transparent background.'
+                    }
+                </Text>
+            </Container>
+
+            <Container flex="row" gap="md">
+                <Card
+                    background="glassmorphism"
+                    padding="lg"
+                    rounded="lg"
+                    width="sm">
+                    <Heading level={3} size="lg" margin="sm">
+                        {t('卡片 1', 'Card 1')}
+                    </Heading>
+                    <Text size="sm" color="base-content/70">
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '使用玻璃态效果的卡片'
+                                : 'Card with glassmorphism effect'
+                        }
+                    </Text>
+                </Card>
+                <Card
+                    background="glassmorphism-strong"
+                    padding="lg"
+                    rounded="lg"
+                    width="sm">
+                    <Heading level={3} size="lg" margin="sm">
+                        {t('卡片 2', 'Card 2')}
+                    </Heading>
+                    <Text size="sm" color="base-content/70">
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '使用强玻璃态效果的卡片'
+                                : 'Card with strong glassmorphism effect'
+                        }
+                    </Text>
+                </Card>
+                <Card
+                    background="glassmorphism-soft"
+                    padding="lg"
+                    rounded="lg"
+                    width="sm">
+                    <Heading level={3} size="lg" margin="sm">
+                        {t('卡片 3', 'Card 3')}
+                    </Heading>
+                    <Text size="sm" color="base-content/70">
+                        {
+                            currentLocale === 'zh-cn'
+                                ? '使用柔和玻璃态效果的卡片'
+                                : 'Card with soft glassmorphism effect'
+                        }
+                    </Text>
+                </Card>
+            </Container>
+        </Container>
+    </Container>
+</AppLayout>

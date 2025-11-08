@@ -2,13 +2,13 @@
 
 /* 变量（亮色默认） */
 :root {
-	/* gradient-glow */
-	--cosy-glow-primary-rgb: 99, 102, 241; /* 紫蓝色 */
-	--cosy-glow-secondary-rgb: 168, 85, 247; /* 紫色 */
-	--cosy-glow-accent-rgb: 244, 114, 182; /* 粉色 */
-	--cosy-glow-cyan-rgb: 6, 182, 212; /* 青色 */
-	--cosy-glow-emerald-rgb: 16, 185, 129; /* 翠绿色 */
-	--cosy-glow-orange-rgb: 251, 146, 60; /* 橙色 */
+	/* gradient-glow - 以翠绿和青色为主色调 */
+	--cosy-glow-primary-rgb: 6, 182, 212; /* 青色 */
+	--cosy-glow-secondary-rgb: 16, 185, 129; /* 翠绿色 */
+	--cosy-glow-accent-rgb: 34, 211, 238; /* 浅青色 */
+	--cosy-glow-cyan-rgb: 8, 145, 178; /* 深青色 */
+	--cosy-glow-emerald-rgb: 52, 211, 153; /* 浅翠绿色 */
+	--cosy-glow-teal-rgb: 5, 150, 105; /* 深翠绿色 */
 	--cosy-glow-alpha: 0.15;
 	--cosy-glow-alpha-light: 0.08;
 	--cosy-glow-alpha-medium: 0.1;
@@ -50,7 +50,7 @@
 			rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha-medium)) 25%,
 			rgba(var(--cosy-glow-cyan-rgb), var(--cosy-glow-alpha-light)) 50%,
 			rgba(var(--cosy-glow-emerald-rgb), var(--cosy-glow-alpha-medium)) 75%,
-			rgba(var(--cosy-glow-orange-rgb), var(--cosy-glow-alpha-light))
+			rgba(var(--cosy-glow-teal-rgb), var(--cosy-glow-alpha-light))
 		);
 	animation: gradientShift 120s ease-in-out infinite;
 }
@@ -81,7 +81,7 @@
 				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha-medium)) 25%,
 				rgba(var(--cosy-glow-cyan-rgb), var(--cosy-glow-alpha-light)) 50%,
 				rgba(var(--cosy-glow-emerald-rgb), var(--cosy-glow-alpha-medium)) 75%,
-				rgba(var(--cosy-glow-orange-rgb), var(--cosy-glow-alpha-light))
+				rgba(var(--cosy-glow-teal-rgb), var(--cosy-glow-alpha-light))
 			);
 	}
 	12.5% {
@@ -107,7 +107,7 @@
 				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha-medium)) 25%,
 				rgba(var(--cosy-glow-cyan-rgb), var(--cosy-glow-alpha-light)) 50%,
 				rgba(var(--cosy-glow-emerald-rgb), var(--cosy-glow-alpha-medium)) 75%,
-				rgba(var(--cosy-glow-orange-rgb), var(--cosy-glow-alpha-light))
+				rgba(var(--cosy-glow-teal-rgb), var(--cosy-glow-alpha-light))
 			);
 	}
 	25% {
@@ -133,19 +133,19 @@
 				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha-medium)) 25%,
 				rgba(var(--cosy-glow-cyan-rgb), var(--cosy-glow-alpha-light)) 50%,
 				rgba(var(--cosy-glow-emerald-rgb), var(--cosy-glow-alpha-medium)) 75%,
-				rgba(var(--cosy-glow-orange-rgb), var(--cosy-glow-alpha-light))
+				rgba(var(--cosy-glow-teal-rgb), var(--cosy-glow-alpha-light))
 			);
 	}
 	37.5% {
 		background:
 			radial-gradient(
 				circle at 26% 74%,
-				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha-strong)) 0%,
+				rgba(var(--cosy-glow-teal-rgb), var(--cosy-glow-alpha-strong)) 0%,
 				transparent 50%
 			),
 			radial-gradient(
 				circle at 74% 26%,
-				rgba(var(--cosy-glow-accent-rgb), var(--cosy-glow-alpha)) 0%,
+				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha)) 0%,
 				transparent 50%
 			),
 			radial-gradient(
@@ -176,7 +176,7 @@
 			),
 			radial-gradient(
 				circle at 48% 48%,
-				rgba(var(--cosy-glow-cyan-rgb), var(--cosy-glow-alpha-medium)) 0%,
+				rgba(var(--cosy-glow-primary-rgb), var(--cosy-glow-alpha-medium)) 0%,
 				transparent 50%
 			),
 			linear-gradient(
@@ -185,7 +185,7 @@
 				rgba(var(--cosy-glow-emerald-rgb), var(--cosy-glow-alpha-medium)) 25%,
 				rgba(var(--cosy-glow-primary-rgb), var(--cosy-glow-alpha-light)) 50%,
 				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha-medium)) 75%,
-				rgba(var(--cosy-glow-accent-rgb), var(--cosy-glow-alpha-light))
+				rgba(var(--cosy-glow-teal-rgb), var(--cosy-glow-alpha-light))
 			);
 	}
 	62.5% {
@@ -208,7 +208,7 @@
 			linear-gradient(
 				144deg,
 				rgba(var(--cosy-glow-emerald-rgb), var(--cosy-glow-alpha-light)),
-				rgba(var(--cosy-glow-orange-rgb), var(--cosy-glow-alpha-medium)) 25%,
+				rgba(var(--cosy-glow-teal-rgb), var(--cosy-glow-alpha-medium)) 25%,
 				rgba(var(--cosy-glow-cyan-rgb), var(--cosy-glow-alpha-light)) 50%,
 				rgba(var(--cosy-glow-primary-rgb), var(--cosy-glow-alpha-medium)) 75%,
 				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha-light))
@@ -234,7 +234,7 @@
 			linear-gradient(
 				141deg,
 				rgba(var(--cosy-glow-emerald-rgb), var(--cosy-glow-alpha-light)),
-				rgba(var(--cosy-glow-orange-rgb), var(--cosy-glow-alpha-medium)) 25%,
+				rgba(var(--cosy-glow-teal-rgb), var(--cosy-glow-alpha-medium)) 25%,
 				rgba(var(--cosy-glow-cyan-rgb), var(--cosy-glow-alpha-light)) 50%,
 				rgba(var(--cosy-glow-primary-rgb), var(--cosy-glow-alpha-medium)) 75%,
 				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha-light))
@@ -262,7 +262,7 @@
 				rgba(var(--cosy-glow-secondary-rgb), var(--cosy-glow-alpha-light)),
 				rgba(var(--cosy-glow-accent-rgb), var(--cosy-glow-alpha-medium)) 25%,
 				rgba(var(--cosy-glow-emerald-rgb), var(--cosy-glow-alpha-light)) 50%,
-				rgba(var(--cosy-glow-orange-rgb), var(--cosy-glow-alpha-medium)) 75%,
+				rgba(var(--cosy-glow-teal-rgb), var(--cosy-glow-alpha-medium)) 75%,
 				rgba(var(--cosy-glow-cyan-rgb), var(--cosy-glow-alpha-light))
 			);
 	}
@@ -276,8 +276,8 @@
 	z-index: -5;
 	pointer-events: none;
 	background-image:
-		linear-gradient(rgba(99, 102, 241, 0.08) 1px, transparent 1px),
-		linear-gradient(90deg, rgba(99, 102, 241, 0.08) 1px, transparent 1px);
+		linear-gradient(rgba(6, 182, 212, 0.08) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(6, 182, 212, 0.08) 1px, transparent 1px);
 	background-size: 40px 40px;
 }
 

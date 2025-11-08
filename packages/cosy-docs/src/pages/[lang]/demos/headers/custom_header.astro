@@ -1,4 +1,5 @@
 ---
+import * as astroI18n from 'astro:i18n';
 import {
 	AppLayout,
 	Button,
@@ -6,13 +7,16 @@ import {
 	Container,
 	Heading,
 	Image,
-} from "@coffic/cosy-ui";
-import Logo from "@/assets/logo.png";
-import { getFooterConfig } from "@/demos/footerConfig";
-import { getMetaConfig } from "@/demos/metaConfig";
+} from '@coffic/cosy-ui';
+import Logo from '@/assets/logo.png';
+import { configApp } from '@/config/config.app';
+import { getFooterConfig } from '@/demos/footerConfig';
+import { getMetaConfig } from '@/demos/metaConfig';
+import { getSidebarItems } from './sidebarConfig';
 
 // 从 URL 获取当前语言
-const currentLocale = Astro.params.lang || "zh-cn";
+const currentLocale = Astro.params.lang || 'zh-cn';
+const t = (zh: string, en: string) => (currentLocale === 'zh-cn' ? zh : en);
 
 // 启用预渲染
 export const prerender = true;
@@ -21,31 +25,33 @@ export const prerender = true;
 export const getStaticPaths = async () => {
 	return [
 		{
-			params: { lang: "zh-cn" },
+			params: { lang: 'zh-cn' },
 		},
 		{
-			params: { lang: "en" },
+			params: { lang: 'en' },
 		},
 	];
 };
 
-const isZhCn = currentLocale === "zh-cn";
-
-const title = isZhCn ? "自定义 Header 演示" : "Custom Header Demo";
-const description = isZhCn
-	? "演示如何在 AppLayout 中使用自定义 Header 功能"
-	: "Demonstration of how to use custom header in AppLayout";
+const isZhCn = currentLocale === 'zh-cn';
 ---
 
 <AppLayout
-    showSidebar={false}
-    showHeader={false}
-    metaConfig={getMetaConfig({
-        title: title,
-        description: description,
-        keywords: 'Cosy UI, AppLayout, Custom Header',
-    })}
-    footerConfig={getFooterConfig(currentLocale)}>
+	showSidebar={true}
+	showHeader={false}
+	showFooter={true}
+	sidebarConfig={{
+		sidebarItems: getSidebarItems(currentLocale),
+	}}
+	metaConfig={getMetaConfig({
+		title: t('自定义 Header 演示', 'Custom Header Demo'),
+		description: t(
+			'演示如何在 AppLayout 中使用自定义 Header 功能',
+			'Demonstration of how to use custom header in AppLayout',
+		),
+		keywords: 'Cosy UI, AppLayout, Custom Header',
+	})}
+	footerConfig={getFooterConfig(currentLocale)}>
     <!-- 自定义 Header Slot - 这是演示的核心 -->
     <header slot="header" class="custom-header">
         <Container
@@ -132,8 +138,8 @@ const description = isZhCn
                 <Button
                     variant="outline"
                     size="lg"
-                    href={`/${currentLocale}/demos`}>
-                    {isZhCn ? '返回示例' : 'Back to Demos'}
+                    href={`/${currentLocale}/demos/headers`}>
+                    {t('返回示例', 'Back to Demos')}
                 </Button>
             </div>
         </Container>

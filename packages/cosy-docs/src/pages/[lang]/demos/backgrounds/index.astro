@@ -1,0 +1,166 @@
+---
+/**
+ * @page Backgrounds Home
+ * @description 背景样式示例首页
+ */
+import * as astroI18n from "astro:i18n";
+import { AppLayout, Container, Heading, Text, PlaceHolder, Button } from "@coffic/cosy-ui";
+import Logo from "@/assets/logo.png";
+import { configApp } from "@/config/config.app";
+import { getFooterConfig } from "@/demos/footerConfig";
+import { getMetaConfig } from "@/demos/metaConfig";
+import { getSidebarItems } from "./sidebarConfig";
+
+const currentLocale = Astro.params.lang;
+const t = (zh: string, en: string) => (currentLocale === "zh-cn" ? zh : en);
+
+export const getStaticPaths = async () => {
+	return [{ params: { lang: "zh-cn" } }, { params: { lang: "en" } }];
+};
+---
+
+<AppLayout
+	metaConfig={getMetaConfig({
+		title: t("背景样式示例", "Background Styles Examples"),
+		description: t(
+			"展示各种现代化背景样式的使用方法和效果。",
+			"Demonstrates various modern background styles and their effects."
+		),
+		keywords: t(
+			"背景样式, 玻璃态, 网格渐变, 噪点纹理, 动态渐变",
+			"background styles, glassmorphism, mesh gradient, noise texture, animated gradient"
+		),
+	})}
+	showFooter={true}
+	showSidebar={true}
+	sidebarConfig={{
+		sidebarItems: getSidebarItems(currentLocale || "zh-cn"),
+	}}
+	footerConfig={getFooterConfig(currentLocale || "zh-cn")}
+	headerConfig={{
+		logo: Logo,
+		logoHref: configApp.homeLink,
+		navItems: configApp.getNavItems(currentLocale),
+		astroI18n: astroI18n,
+	}}
+	mainContentConfig={{ py: "2xl" }}>
+	<Container width="full" padding="lg" flex="col" contentCentered={true}>
+		<Heading level={1} margin="lg" centered={true} align="center">
+			{t("背景样式示例", "Background Styles Examples")}
+		</Heading>
+
+		<Text align="center" color="base-content/80" margin="md">
+			{currentLocale === "zh-cn"
+				? "探索各种现代化、流行的背景样式，包括玻璃态效果、网格渐变、噪点纹理和动态渐变等。"
+				: "Explore various modern and popular background styles, including glassmorphism, mesh gradient, noise texture, and animated gradient."}
+		</Text>
+
+		<Container width="full" margin="xl" padding="none" flex="col" gap="lg">
+			<Container
+				background="glassmorphism"
+				padding="xl"
+				rounded="lg"
+				width="full">
+				<Heading level={2} margin="sm">
+					{t("玻璃态效果", "Glassmorphism")}
+				</Heading>
+				<Text color="base-content/80" margin="sm">
+					{currentLocale === "zh-cn"
+						? "现代化的毛玻璃效果，通过 backdrop-filter 实现半透明背景。"
+						: "Modern frosted glass effect achieved through backdrop-filter with semi-transparent backgrounds."}
+				</Text>
+				<Button
+					variant="primary"
+					href={`/${currentLocale}/demos/backgrounds/glassmorphism`}
+					margin="md">
+					{t("查看示例", "View Example")}
+				</Button>
+			</Container>
+
+			<Container
+				background="mesh-gradient"
+				padding="xl"
+				rounded="lg"
+				width="full">
+				<Heading level={2} margin="sm">
+					{t("网格渐变", "Mesh Gradient")}
+				</Heading>
+				<Text color="base-content/80" margin="sm">
+					{currentLocale === "zh-cn"
+						? "多个径向渐变叠加，创造出柔和的色彩流动效果，带有轻微的呼吸动画。"
+						: "Multiple radial gradients overlaid to create soft color flow effects with subtle breathing animations."}
+				</Text>
+				<Button
+					variant="primary"
+					href={`/${currentLocale}/demos/backgrounds/mesh-gradient`}
+					margin="md">
+					{t("查看示例", "View Example")}
+				</Button>
+			</Container>
+
+			<Container
+				background="noise"
+				padding="xl"
+				rounded="lg"
+				width="full">
+				<Heading level={2} margin="sm">
+					{t("噪点纹理", "Noise Texture")}
+				</Heading>
+				<Text color="base-content/80" margin="sm">
+					{currentLocale === "zh-cn"
+						? "为背景增加质感和细节，让设计更加精致和现代化。"
+						: "Adds texture and detail to backgrounds, making designs more refined and modern."}
+				</Text>
+				<Button
+					variant="primary"
+					href={`/${currentLocale}/demos/backgrounds/noise`}
+					margin="md">
+					{t("查看示例", "View Example")}
+				</Button>
+			</Container>
+
+			<Container
+				background="animated-gradient"
+				padding="xl"
+				rounded="lg"
+				width="full">
+				<Heading level={2} margin="sm">
+					{t("动态渐变", "Animated Gradient")}
+				</Heading>
+				<Text color="base-content/80" margin="sm">
+					{currentLocale === "zh-cn"
+						? "流动的渐变背景，创造出动态的视觉效果，让页面更加生动有趣。"
+						: "Flowing gradient backgrounds that create dynamic visual effects, making pages more lively and interesting."}
+				</Text>
+				<Button
+					variant="primary"
+					href={`/${currentLocale}/demos/backgrounds/animated-gradient`}
+					margin="md">
+					{t("查看示例", "View Example")}
+				</Button>
+			</Container>
+
+			<Container
+				background="gradient-glow"
+				padding="xl"
+				rounded="lg"
+				width="full">
+				<Heading level={2} margin="sm">
+					{t("自定义背景", "Custom Background")}
+				</Heading>
+				<Text color="base-content/80" margin="sm">
+					{currentLocale === "zh-cn"
+						? "使用 AppLayout 的 background slot 创建完全自定义的页面背景，支持渐变、图片、装饰元素等。"
+						: "Use AppLayout's background slot to create fully customized page backgrounds, supporting gradients, images, decorative elements, and more."}
+				</Text>
+				<Button
+					variant="primary"
+					href={`/${currentLocale}/demos/backgrounds/custom_background`}
+					margin="md">
+					{t("查看示例", "View Example")}
+				</Button>
+			</Container>
+		</Container>
+	</Container>
+</AppLayout>
+

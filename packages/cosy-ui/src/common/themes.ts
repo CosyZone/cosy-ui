@@ -1,8 +1,11 @@
 /**
  * 通用主题配置
  * 包含所有可用的主题选项，使用 DaisyUI 主题系统
+ * 主题列表从配置文件读取，实现单一数据源
  * 适用于主题切换器、主题选择器等组件
  */
+
+import { THEME_LIST } from "../config/themes.config";
 
 // 主题项接口
 export interface IThemeItem {
@@ -18,17 +21,36 @@ export interface IThemeItem {
 	isDefault?: boolean;
 }
 
-// 预定义主题列表
-export const themes: IThemeItem[] = [
-	{ id: "default", name: "Default", isDefault: true },
-	{ id: "light", name: "Light" },
-	{ id: "dark", name: "Dark" },
-	{ id: "corporate", name: "Corporate" },
-	{ id: "lemonade", name: "Lemonade" },
-	{ id: "nord", name: "Nord" },
-	{ id: "business", name: "Business" },
-	{ id: "luxury", name: "Luxury" },
-];
+/**
+ * 将主题 ID 转换为显示名称
+ * 首字母大写，其余保持原样
+ *
+ * @param id 主题 ID
+ * @returns 显示名称
+ */
+function formatThemeName(id: string): string {
+	if (id.length === 0) return id;
+	return id.charAt(0).toUpperCase() + id.slice(1);
+}
+
+/**
+ * 获取主题列表
+ * 从配置文件读取，并添加 "default"（跟随系统）选项
+ *
+ * @returns 主题项数组
+ */
+function getThemes(): IThemeItem[] {
+	return [
+		{ id: "default", name: "跟随系统", isDefault: true },
+		...THEME_LIST.map((id) => ({
+			id,
+			name: formatThemeName(id),
+		})),
+	];
+}
+
+// 主题列表（从配置文件读取）
+export const themes: IThemeItem[] = getThemes();
 
 // 主题 ID 类型
 export type ThemeId = (typeof themes)[number]["id"];

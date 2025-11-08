@@ -1,16 +1,20 @@
 ---
-
-
-
 /**
  * 自定义背景 Demo
  *
  * 展示 AppLayout 的 background slot 功能，用于创建自定义页面背景。
  * 包括渐变背景、装饰元素等示例。
  */
+import * as astroI18n from "astro:i18n";
 import { AppLayout, Container, Heading } from "@coffic/cosy-ui";
+import Logo from "@/assets/logo.png";
+import { configApp } from "@/config/config.app";
+import { getFooterConfig } from "@/demos/footerConfig";
+import { getMetaConfig } from "@/demos/metaConfig";
+import { getSidebarItems } from "./sidebarConfig";
 
 const currentLocale = Astro.params.lang || "zh-cn";
+const t = (zh: string, en: string) => (currentLocale === "zh-cn" ? zh : en);
 
 export const getStaticPaths = async () => {
 	return [
@@ -24,25 +28,30 @@ export const getStaticPaths = async () => {
 };
 
 export const prerender = true;
-
-const metaConfig = {
-	title:
-		currentLocale === "zh-cn" ? "自定义背景示例" : "Custom Background Example",
-	description:
-		currentLocale === "zh-cn"
-			? "展示 AppLayout 的 background slot 自定义背景功能"
-			: "Demonstrates AppLayout background slot for custom page backgrounds",
-	keywords: "AppLayout, background, gradient, custom",
-	author: "Cosy UI",
-	robots: "index, follow",
-};
 ---
 
 <AppLayout
-    metaConfig={metaConfig}
-    showHeader={false}
-    showFooter={false}
-    showSidebar={false}>
+	metaConfig={getMetaConfig({
+		title: t("自定义背景示例", "Custom Background Example"),
+		description: t(
+			"展示 AppLayout 的 background slot 自定义背景功能",
+			"Demonstrates AppLayout background slot for custom page backgrounds"
+		),
+		keywords: "AppLayout, background, gradient, custom",
+	})}
+	showFooter={true}
+	showSidebar={true}
+	sidebarConfig={{
+		sidebarItems: getSidebarItems(currentLocale),
+	}}
+	footerConfig={getFooterConfig(currentLocale || "zh-cn")}
+	headerConfig={{
+		logo: Logo,
+		logoHref: configApp.homeLink,
+		navItems: configApp.getNavItems(currentLocale),
+		astroI18n: astroI18n,
+	}}
+	mainContentConfig={{ py: "2xl" }}>
     <!-- 自定义背景层 - 渐变 + 装饰元素 -->
     <div
         slot="background"
@@ -65,11 +74,7 @@ const metaConfig = {
         flex="col"
         style="min-height: 100vh; color: white;">
         <Heading level={1} align="center" margin="lg" style="color: white;">
-            {
-                currentLocale === 'zh-cn'
-                    ? '🎨 自定义背景示例'
-                    : '🎨 Custom Background Example'
-            }
+            {t("🎨 自定义背景示例", "🎨 Custom Background Example")}
         </Heading>
 
         <Container
@@ -78,11 +83,7 @@ const metaConfig = {
             rounded="lg"
             style="backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
             <Heading level={2} margin="md">
-                {
-                    currentLocale === 'zh-cn'
-                        ? '✨ Background Slot 功能'
-                        : '✨ Background Slot Feature'
-                }
+                {t("✨ Background Slot 功能", "✨ Background Slot Feature")}
             </Heading>
             <Container padding="md" gap="md" flex="col">
                 <p>
@@ -138,7 +139,7 @@ const metaConfig = {
             rounded="lg"
             style="backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
             <Heading level={2} margin="md">
-                {currentLocale === 'zh-cn' ? '💡 代码示例' : '💡 Code Example'}
+                {t("💡 代码示例", "💡 Code Example")}
             </Heading>
             <Container background="base-300" padding="md" rounded="md">
                 <pre
@@ -178,7 +179,7 @@ const metaConfig = {
             rounded="lg"
             style="backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
             <Heading level={2} margin="md">
-                {currentLocale === 'zh-cn' ? '🎯 关键特性' : '🎯 Key Features'}
+                {t("🎯 关键特性", "🎯 Key Features")}
             </Heading>
             <Container padding="md" gap="md" flex="col">
                 <ul style="list-style: disc; padding-left: 2rem;">
@@ -248,7 +249,7 @@ const metaConfig = {
             rounded="lg"
             style="backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
             <Heading level={2} margin="md">
-                {currentLocale === 'zh-cn' ? '🎨 使用场景' : '🎨 Use Cases'}
+                {t("🎨 使用场景", "🎨 Use Cases")}
             </Heading>
             <Container padding="md" gap="md" flex="col">
                 <ul style="list-style: disc; padding-left: 2rem;">
@@ -297,11 +298,7 @@ const metaConfig = {
             rounded="lg"
             style="backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
             <Heading level={2} margin="md">
-                {
-                    currentLocale === 'zh-cn'
-                        ? '⚡ 性能提示'
-                        : '⚡ Performance Tips'
-                }
+                {t("⚡ 性能提示", "⚡ Performance Tips")}
             </Heading>
             <Container padding="md" gap="md" flex="col">
                 <ul style="list-style: disc; padding-left: 2rem;">
@@ -353,7 +350,7 @@ const metaConfig = {
                 level={2}
                 margin="md"
                 style="color: var(--color-primary-content);">
-                {currentLocale === 'zh-cn' ? '💡 更多示例' : '💡 More Examples'}
+                {t("💡 更多示例", "💡 More Examples")}
             </Heading>
             <Container
                 padding="md"

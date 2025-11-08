@@ -1,10 +1,12 @@
 import { exec } from "node:child_process";
+import { writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 import tailwindcss from "@tailwindcss/vite";
 import fs from "fs-extra";
 import { type InlineConfig, build as viteBuild } from "vite";
+import { generateThemeCSS } from "./generate-theme-css";
 
 const execAsync = promisify(exec);
 
@@ -94,6 +96,15 @@ async function buildTypeScript(sourceMap: boolean = true) {
 async function buildCSS() {
 	console.log("🎨 开始构建样式文件...");
 
+	// 创建临时 style 文件，导入临时 CSS
+	const tempDir = path.resolve(rootDir, "temp");
+	// 确保 temp 目录存在
+	fs.ensureDirSync(tempDir);
+	const tempStylePath = path.resolve(tempDir, "style.ts");
+	const tempStyleContent =
+		'// 临时文件，用于构建时导入处理后的 CSS\nimport "./app.css";';
+	writeFileSync(tempStylePath, tempStyleContent, "utf-8");
+
 	const config: InlineConfig = {
 		root: rootDir,
 		plugins: [tailwindcss()],
@@ -101,7 +112,7 @@ async function buildCSS() {
 			emptyOutDir: false, // 不清空 dist，避免删除 tsup 生成的文件
 			cssCodeSplit: false,
 			rollupOptions: {
-				input: path.resolve(rootDir, "style.ts"),
+				input: tempStylePath,
 				output: {
 					assetFileNames: "app.css",
 				},
@@ -125,17 +136,22 @@ async function build(sourceMap: boolean = true) {
 	console.log(`🚀 开始构建 cosy-ui... (${mode})\n`);
 
 	try {
-		// 1. 清空 dist 目录
+		// 1. 生成临时主题 CSS（从 themes.config.ts 读取配置，不修改源码）
+		console.log("🎨 生成主题 CSS 配置...");
+		await generateThemeCSS();
+		console.log("✅ 主题 CSS 配置已生成\n");
+
+		// 2. 清空 dist 目录
 		console.log("🧹 清空 dist 目录...");
 		await fs.emptyDir(path.resolve(rootDir, "dist"));
 		console.log("✅ dist 目录已清空\n");
 
-		// 2. 并行执行：CSS 构建 + TS 编译
+		// 3. 并行执行：CSS 构建 + TS 编译
 		await Promise.all([buildCSS(), buildTypeScript(sourceMap)]);
 
 		console.log();
 
-		// 3. 复制组件源码（Astro/Vue）
+		// 4. 复制组件源码（Astro/Vue）
 		await copyComponents();
 
 		const elapsed = Date.now() - startTime;

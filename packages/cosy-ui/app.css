@@ -1,15 +1,19 @@
 @import 'tailwindcss' prefix(cosy);
+/* 以下配置从 themes.config.ts 自动生成，请勿手动修改 */
 @plugin "daisyui" {
-  themes: light --default, corporate, dark, lemonade, nord, luxury,
-    business --prefersdark;
+  themes: __THEMES_CONFIG__;
   logs: false;
 }
 
 /* 自定义样式 */
-@import './src/styles/dot-grid.css';
-@import './src/styles/patterns.css';
-@import './src/styles/container-muted.css';
-@import './src/styles/gradient-glow.css';
+@import './src/styles/background/dot-grid.css';
+@import './src/styles/background/patterns.css';
+@import './src/styles/background/container-muted.css';
+@import './src/styles/background/gradient-glow.css';
+@import './src/styles/background/glassmorphism.css';
+@import './src/styles/background/mesh-gradient.css';
+@import './src/styles/background/noise-texture.css';
+@import './src/styles/background/animated-gradient.css';
 @import './src/styles/banner-animations.css';
 @import './src/styles/prose.css';
 

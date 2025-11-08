@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component BaseLayoutHead
  * @description BaseLayout 的头部子组件，处理 HTML head 部分
@@ -9,6 +6,7 @@
  */
 
 import { ClientRouter } from "astro:transitions";
+import { THEME_DEFAULT, THEME_PREFERS_DARK } from "../../src/config/themes.config";
 
 export interface Props {
 	/** 页面标题 */
@@ -64,6 +62,24 @@ const {
   <meta name="generator" content={Astro.generator} />
 
   {enableClientRouter && <ClientRouter />}
+
+  <!-- 主题初始化脚本：在页面渲染前根据系统主题设置 data-theme -->
+  <!-- 从 TypeScript 配置文件读取主题配置，实现单一数据源 -->
+  <script is:inline define:vars={{ defaultTheme: THEME_DEFAULT, prefersDarkTheme: THEME_PREFERS_DARK }}>
+    (function() {
+      // 检查 localStorage 中是否有保存的主题
+      const savedTheme = localStorage.getItem('theme');
+      
+      // 如果没有保存的主题，或者保存的是 "default"，则根据系统主题设置
+      if (!savedTheme || savedTheme === 'default') {
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-theme', isDark ? prefersDarkTheme : defaultTheme);
+      } else {
+        // 如果有保存的主题，直接使用
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+    })();
+  </script>
 
   <!-- 自定义样式 -->
   {customStyles && <style set:html={customStyles} />}
