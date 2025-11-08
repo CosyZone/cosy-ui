@@ -17,8 +17,7 @@
  *   activeLink={activeLink}
  *   linkHeightClass={linkHeightClass}
  *   showThemeSwitcher={showThemeSwitcher}
- *   isI18nEnabled={isI18nEnabled}
- *   astroI18n={astroI18n}
+ *   locales={locales}
  * />
  * ```
  *
@@ -28,8 +27,7 @@
  * - activeLink - 当前激活的链接
  * - linkHeightClass - 链接高度类名
  * - showThemeSwitcher - 是否显示主题切换器
- * - isI18nEnabled - 是否启用国际化
- * - astroI18n - astro:i18n 模块
+ * - locales - 支持的语言列表（用于语言切换器）
  */
 import { type INavItem, LanguageSwitcher, MenuIcon } from "../../index-astro";
 import NavItems from "./NavItems.astro";
@@ -41,8 +39,7 @@ export interface Props {
 	activeLink: string;
 	linkHeightClass: string;
 	showThemeSwitcher: boolean;
-	isI18nEnabled: boolean;
-	astroI18n?: any;
+	locales?: string[];
 }
 
 const {
@@ -51,8 +48,7 @@ const {
 	activeLink,
 	linkHeightClass,
 	showThemeSwitcher,
-	isI18nEnabled,
-	astroI18n,
+	locales,
 } = Astro.props;
 ---
 
@@ -71,7 +67,7 @@ const {
   }
 
   {showThemeSwitcher && <ThemeSwitcher />}
-  {isI18nEnabled && <LanguageSwitcher astroI18n={astroI18n} />}
+  {locales && locales.length > 0 && <LanguageSwitcher locales={locales} />}
 
   <!-- 移动端汉堡菜单按钮 -->
   {

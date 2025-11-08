@@ -24,6 +24,7 @@ export interface IHeaderPropsBuilder {
 	showThemeSwitcher(value?: boolean): IHeaderPropsBuilder;
 	gap(value: NonNullable<IHeaderProps["gap"]>): IHeaderPropsBuilder;
 	astroI18n(value: any): IHeaderPropsBuilder;
+	locales(value: NonNullable<IHeaderProps["locales"]>): IHeaderPropsBuilder;
 	build(): IHeaderProps;
 }
 
@@ -105,6 +106,10 @@ export function createHeaderProps(
 		},
 		astroI18n(value) {
 			props = { ...props, astroI18n: value };
+			return api;
+		},
+		locales(value) {
+			props = { ...props, locales: value };
 			return api;
 		},
 		build() {
