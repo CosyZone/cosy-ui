@@ -43,6 +43,7 @@ export interface Props {
 	showThemeSwitcher: boolean;
 	isI18nEnabled: boolean;
 	astroI18n?: any;
+	locales?: string[];
 }
 
 const {
@@ -53,6 +54,7 @@ const {
 	showThemeSwitcher,
 	isI18nEnabled,
 	astroI18n,
+	locales,
 } = Astro.props;
 ---
 
@@ -71,7 +73,7 @@ const {
   }
 
   {showThemeSwitcher && <ThemeSwitcher />}
-  {isI18nEnabled && <LanguageSwitcher astroI18n={astroI18n} />}
+  {isI18nEnabled && <LanguageSwitcher astroI18n={astroI18n} locales={locales} />}
 
   <!-- 移动端汉堡菜单按钮 -->
   {

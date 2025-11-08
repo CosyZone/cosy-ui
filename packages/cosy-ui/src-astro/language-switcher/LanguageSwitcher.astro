@@ -1,6 +1,4 @@
 ---
-
-
 /**
  * @component LanguageSwitcher
  *
@@ -31,12 +29,18 @@ interface Props {
     astroI18n?: IAstroI18n;
 
     /**
+     * 支持的语言列表，如：['zh-cn', 'en']
+     * 如果不提供，将尝试从 astroI18n 模块中获取
+     */
+    locales?: string[];
+
+    /**
      * 自定义类名
      */
     class?: string;
 }
 
-const { astroI18n, class: className = '' } = Astro.props;
+const { astroI18n, locales, class: className = '' } = Astro.props;
 
 // 检查渲染状态
 const renderState = checkSwitcherRenderState(Astro.currentLocale, astroI18n);
@@ -56,7 +60,8 @@ if (renderState.shouldRender && Astro.currentLocale && astroI18n) {
         links = generateSwitcherLinks(
             astroI18n,
             Astro.currentLocale,
-            Astro.url.pathname
+            Astro.url.pathname,
+            locales
         );
     } catch (error) {
         // 如果生成链接失败，设置为不渲染

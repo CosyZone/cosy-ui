@@ -52,6 +52,7 @@ const {
 	showThemeSwitcher = true,
 	gap = 2,
 	astroI18n,
+	locales,
 } = Astro.props;
 
 // 根据高度设置样式（使用 common 中的 heightClasses）
@@ -143,7 +144,8 @@ const containerClassList = [
             linkHeightClass={linkHeightClass}
             showThemeSwitcher={showThemeSwitcher}
             isI18nEnabled={isI18nEnabled}
-            astroI18n={astroI18n}>
+            astroI18n={astroI18n}
+            locales={locales}>
             <slot name="navbar-end" />
         </HeaderEnd>
     </div>

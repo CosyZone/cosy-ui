@@ -33,6 +33,12 @@ export interface IHeaderProps {
 	astroI18n?: any;
 
 	/**
+	 * 支持的语言列表，如：['zh-cn', 'en']
+	 * 用于语言切换功能
+	 */
+	locales?: string[];
+
+	/**
 	 * 导航栏高度
 	 * @default 'md'
 	 */
