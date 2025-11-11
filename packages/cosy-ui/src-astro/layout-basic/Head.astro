@@ -5,87 +5,98 @@
  * @internal 仅内部使用，不对外导出
  */
 
-import { ClientRouter } from "astro:transitions";
-import { THEME_DEFAULT, THEME_PREFERS_DARK } from "../../src/config/themes.config";
+import { ClientRouter } from 'astro:transitions';
+import {
+    THEME_DEFAULT,
+    THEME_PREFERS_DARK,
+} from '../../src/config/themes.config';
 
 export interface Props {
-	/** 页面标题 */
-	title: string;
-	/** 页面描述 */
-	description?: string;
-	/** 页面关键词 */
-	keywords?: string;
-	/** 页面作者 */
-	author?: string;
-	/** 页面语言 */
-	lang?: string;
-	/** 是否包含 viewport meta 标签 */
-	viewport?: boolean;
-	/** 自定义样式 */
-	customStyles?: string;
-	/** 自定义头部内容 */
-	head?: any;
-	/** 网站图标 */
-	favicon?: {
-		src: string;
-		format: string;
-	};
-	/** 是否启用 Astro ClientRouter */
-	enableClientRouter?: boolean;
+    /** 页面标题 */
+    title: string;
+    /** 页面描述 */
+    description?: string;
+    /** 页面关键词 */
+    keywords?: string;
+    /** 页面作者 */
+    author?: string;
+    /** 页面语言 */
+    lang?: string;
+    /** 是否包含 viewport meta 标签 */
+    viewport?: boolean;
+    /** 自定义样式 */
+    customStyles?: string;
+    /** 网站图标 */
+    favicon?: {
+        src: string;
+        format: string;
+    };
+    /** 是否启用 Astro ClientRouter */
+    enableClientRouter?: boolean;
 }
 
 const {
-	title,
-	description = "",
-	keywords = "",
-	author = "",
-	viewport = true,
-	customStyles = "",
-	head,
-	favicon,
-	enableClientRouter = true,
+    title,
+    description = '',
+    keywords = '',
+    author = '',
+    viewport = true,
+    customStyles = '',
+    favicon,
+    enableClientRouter = true,
 } = Astro.props;
 ---
 
 <head>
-  <meta charset="UTF-8" />
-  {
-    viewport && (
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    )
-  }
-  <title>{title}</title>
-  {description && <meta name="description" content={description} />}
-  {keywords && <meta name="keywords" content={keywords} />}
-  {author && <meta name="author" content={author} />}
-  {favicon && <link rel="icon" type={favicon.format} href={favicon.src} />}
-  <meta name="generator" content={Astro.generator} />
+    <meta charset="UTF-8" />
+    {
+        viewport && (
+            <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1.0"
+            />
+        )
+    }
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    {keywords && <meta name="keywords" content={keywords} />}
+    {author && <meta name="author" content={author} />}
+    {favicon && <link rel="icon" type={favicon.format} href={favicon.src} />}
+    <meta name="generator" content={Astro.generator} />
 
-  {enableClientRouter && <ClientRouter />}
+    <slot name="head" />
 
-  <!-- 主题初始化脚本：在页面渲染前根据系统主题设置 data-theme -->
-  <!-- 从 TypeScript 配置文件读取主题配置，实现单一数据源 -->
-  <script is:inline define:vars={{ defaultTheme: THEME_DEFAULT, prefersDarkTheme: THEME_PREFERS_DARK }}>
-    (function() {
-      // 检查 localStorage 中是否有保存的主题
-      const savedTheme = localStorage.getItem('theme');
-      
-      // 如果没有保存的主题，或者保存的是 "default"，则根据系统主题设置
-      if (!savedTheme || savedTheme === 'default') {
-        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.setAttribute('data-theme', isDark ? prefersDarkTheme : defaultTheme);
-      } else {
-        // 如果有保存的主题，直接使用
-        document.documentElement.setAttribute('data-theme', savedTheme);
-      }
-    })();
-  </script>
+    {enableClientRouter && <ClientRouter />}
 
-  <!-- 自定义样式 -->
-  {customStyles && <style set:html={customStyles} />}
+    <!-- 主题初始化脚本：在页面渲染前根据系统主题设置 data-theme -->
+    <!-- 从 TypeScript 配置文件读取主题配置，实现单一数据源 -->
+    <script
+        is:inline
+        define:vars={{
+            defaultTheme: THEME_DEFAULT,
+            prefersDarkTheme: THEME_PREFERS_DARK,
+        }}
+    >
+        (function () {
+            // 检查 localStorage 中是否有保存的主题
+            const savedTheme = localStorage.getItem('theme');
 
-  <!-- 自定义头部内容 -->
-  {head && <div set:html={head} />}
+            // 如果没有保存的主题，或者保存的是 "default"，则根据系统主题设置
+            if (!savedTheme || savedTheme === 'default') {
+                const isDark = window.matchMedia(
+                    '(prefers-color-scheme: dark)'
+                ).matches;
+                document.documentElement.setAttribute(
+                    'data-theme',
+                    isDark ? prefersDarkTheme : defaultTheme
+                );
+            } else {
+                // 如果有保存的主题，直接使用
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            }
+        })();
+    </script>
 
-  <slot name="head" />
+    <!-- 自定义样式 -->
+    {customStyles && <style set:html={customStyles} />}
 </head>

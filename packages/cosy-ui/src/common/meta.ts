@@ -42,11 +42,6 @@ export interface IMetaProps {
 	customStyles?: string;
 
 	/**
-	 * 自定义头部内容
-	 */
-	head?: any;
-
-	/**
 	 * 页面类名
 	 */
 	class?: string;

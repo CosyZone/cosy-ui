@@ -7,9 +7,9 @@ import * as astroI18n from 'astro:i18n';
 import { AppLayout, Container, Heading, Text, Button } from '@coffic/cosy-ui';
 import Logo from '@/assets/logo.png';
 import { configApp } from '@/config/config.app';
-import { getFooterConfig } from '@/demos/footerConfig';
-import { getMetaConfig } from '@/demos/metaConfig';
-import { getSidebarItems } from './sidebarConfig';
+import { getFooterConfig } from '../_footerConfig';
+import { getMetaConfig } from '../_metaConfig';
+import { getSidebarItems } from './_sidebarConfig';
 
 const currentLocale = Astro.params.lang;
 const t = (zh: string, en: string) => (currentLocale === 'zh-cn' ? zh : en);

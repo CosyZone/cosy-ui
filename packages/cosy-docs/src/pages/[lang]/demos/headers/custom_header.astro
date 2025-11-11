@@ -1,18 +1,18 @@
 ---
 import * as astroI18n from 'astro:i18n';
 import {
-	AppLayout,
-	Button,
-	Card,
-	Container,
-	Heading,
-	Image,
+    AppLayout,
+    Button,
+    Card,
+    Container,
+    Heading,
+    Image,
 } from '@coffic/cosy-ui';
 import Logo from '@/assets/logo.png';
 import { configApp } from '@/config/config.app';
-import { getFooterConfig } from '@/demos/footerConfig';
-import { getMetaConfig } from '@/demos/metaConfig';
-import { getSidebarItems } from './sidebarConfig';
+import { getFooterConfig } from '../_footerConfig';
+import { getMetaConfig } from '../_metaConfig';
+import { getSidebarItems } from './_sidebarConfig';
 
 // 从 URL 获取当前语言
 const currentLocale = Astro.params.lang || 'zh-cn';
@@ -23,35 +23,35 @@ export const prerender = true;
 
 // 定义支持的语言
 export const getStaticPaths = async () => {
-	return [
-		{
-			params: { lang: 'zh-cn' },
-		},
-		{
-			params: { lang: 'en' },
-		},
-	];
+    return [
+        {
+            params: { lang: 'zh-cn' },
+        },
+        {
+            params: { lang: 'en' },
+        },
+    ];
 };
 
 const isZhCn = currentLocale === 'zh-cn';
 ---
 
 <AppLayout
-	showSidebar={true}
-	showHeader={false}
-	showFooter={true}
-	sidebarConfig={{
-		sidebarItems: getSidebarItems(currentLocale),
-	}}
-	metaConfig={getMetaConfig({
-		title: t('自定义 Header 演示', 'Custom Header Demo'),
-		description: t(
-			'演示如何在 AppLayout 中使用自定义 Header 功能',
-			'Demonstration of how to use custom header in AppLayout',
-		),
-		keywords: 'Cosy UI, AppLayout, Custom Header',
-	})}
-	footerConfig={getFooterConfig(currentLocale)}>
+    showSidebar={true}
+    showHeader={false}
+    showFooter={true}
+    sidebarConfig={{
+        sidebarItems: getSidebarItems(currentLocale),
+    }}
+    metaConfig={getMetaConfig({
+        title: t('自定义 Header 演示', 'Custom Header Demo'),
+        description: t(
+            '演示如何在 AppLayout 中使用自定义 Header 功能',
+            'Demonstration of how to use custom header in AppLayout',
+        ),
+        keywords: 'Cosy UI, AppLayout, Custom Header',
+    })}
+    footerConfig={getFooterConfig(currentLocale)}>
     <!-- 自定义 Header Slot - 这是演示的核心 -->
     <header slot="header" class="custom-header">
         <Container

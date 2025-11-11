@@ -407,6 +407,9 @@ const sidebarHeightClass = getSidebarHeightClass(
     bodyOnly={bodyOnly}
     theme={theme}
     enableClientRouter={enableClientRouter}>
+    <!-- 自定义头部内容 -->
+    <slot name="head" slot="head" />
+
     <!-- 背景层（最底层，z-index: 0），优先使用 slot -->
     {
         Astro.slots.has('background') && (
