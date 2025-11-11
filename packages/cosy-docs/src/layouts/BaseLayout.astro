@@ -104,7 +104,11 @@ const currentLocale = Astro.currentLocale;
     showFooter={true}
     showSidebar={showSidebar}
     loadingDelay={500}>
-    <slot />
+    <!-- 自定义头部内容 -->
+    <Fragment slot="head">
+        <meta name="powered-by" content="CofficLab" />
+        <meta name="license" content="MIT" />
+    </Fragment>
 
     <!-- Custom Footer -->
     <CustomFooter slot="footer" lang={currentLocale || 'zh-cn'} />
@@ -112,4 +116,6 @@ const currentLocale = Astro.currentLocale;
     <div slot="modal-search">
         <Search uiOptions={{ showImages: false }} />
     </div>
+
+    <slot />
 </AppLayout>
