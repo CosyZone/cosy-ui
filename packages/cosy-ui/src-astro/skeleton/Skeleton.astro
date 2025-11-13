@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component Skeleton
  *
@@ -89,7 +86,7 @@ const {
 const loaderId = `skeleton-loader-${Math.random().toString(36).slice(2, 11)}`;
 ---
 
-<div id={loaderId} class="cosy:relative cosy:w-full">
+<div id={loaderId} class="cosy:relative cosy:w-full cosy:h-full">
     <!-- 骨架屏 -->
     <div
         id={`${loaderId}-skeleton`}
@@ -111,7 +108,7 @@ const loaderId = `skeleton-loader-${Math.random().toString(36).slice(2, 11)}`;
     <!-- 实际内容 -->
     <div
         id={`${loaderId}-content`}
-        class="cosy:relative cosy:z-20"
+        class="cosy:relative cosy:z-20 cosy:h-full"
         style="opacity: 1; transition: opacity 0.3s ease-in-out;">
         <slot />
     </div>
