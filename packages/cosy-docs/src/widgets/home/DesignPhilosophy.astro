@@ -14,9 +14,7 @@ const { lang } = Astro.props;
 
 const title = lang === 'zh-cn' ? '设计理念' : 'Design Philosophy';
 const subtitle =
-    lang === 'zh-cn'
-        ? '简单开始，自由扩展'
-        : 'Start Simple. Grow Freely.';
+    lang === 'zh-cn' ? '简单开始，自由扩展' : 'Start Simple. Grow Freely.';
 
 const philosophy =
     lang === 'zh-cn'
@@ -41,22 +39,25 @@ const philosophy =
               {
                   icon: '✨',
                   title: 'Import & Use',
-                  description: 'No configuration needed. Import and start building.',
+                  description:
+                      'No configuration needed. Import and start building.',
               },
               {
                   icon: '🔧',
                   title: 'Easy to Replace',
-                  description: 'Replace with custom components anytime for more flexibility',
+                  description:
+                      'Replace with custom components anytime for more flexibility',
               },
               {
                   icon: '🚀',
                   title: 'Build Fast',
-                  description: 'Start quickly, scale freely as your project grows',
+                  description:
+                      'Start quickly, scale freely as your project grows',
               },
           ];
 ---
 
-<Container width="full" padding="2xl" background="primary/10" margin="none">
+<Container width="full" padding="2xl" background="primary/70" margin="none">
     <Heading level={2} align="center" size="3xl" weight="bold" margin="lg">
         {title}
     </Heading>
@@ -72,17 +73,24 @@ const philosophy =
 
     <Container width="2xl" margin="xl">
         <div class="philosophy-grid">
-            {philosophy.map((item) => (
-                <div class="philosophy-item">
-                    <div class="philosophy-icon">{item.icon}</div>
-                    <Heading level={4} align="center" size="lg" weight="bold" margin="sm">
-                        {item.title}
-                    </Heading>
-                    <Text align="center" size="md" color="muted">
-                        {item.description}
-                    </Text>
-                </div>
-            ))}
+            {
+                philosophy.map((item) => (
+                    <div class="philosophy-item">
+                        <div class="philosophy-icon">{item.icon}</div>
+                        <Heading
+                            level={4}
+                            align="center"
+                            size="lg"
+                            weight="bold"
+                            margin="sm">
+                            {item.title}
+                        </Heading>
+                        <Text align="center" size="md" color="muted">
+                            {item.description}
+                        </Text>
+                    </div>
+                ))
+            }
         </div>
     </Container>
 </Container>

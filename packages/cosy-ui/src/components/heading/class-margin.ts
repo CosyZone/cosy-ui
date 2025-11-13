@@ -13,5 +13,10 @@ export function getHeadingMarginClass(
 		lg: "cosy:my-6",
 		xl: "cosy:my-8",
 	};
+
+	if (margin === "none") {
+		return "";
+	}
+
 	return marginMap[margin] || marginMap.md;
 }
