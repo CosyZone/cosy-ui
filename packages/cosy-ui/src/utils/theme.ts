@@ -1,4 +1,8 @@
-import { THEME_DEFAULT, THEME_PREFERS_DARK } from "../config/themes.config";
+import {
+	THEME_DEFAULT,
+	THEME_PREFERS_DARK,
+	getThemeTone,
+} from "../config/themes.config";
 
 interface ThemeManager {
 	updateActiveTheme: (currentTheme: string) => void;
@@ -141,6 +145,10 @@ export function createThemeManager(
 
 		// 应用实际主题
 		document.documentElement.setAttribute("data-theme", actualTheme);
+
+		// 设置主题色调(用于prose-dark等样式判断)
+		const themeTone = getThemeTone(actualTheme);
+		document.documentElement.setAttribute("data-theme-tone", themeTone);
 
 		// 更新 UI 显示（显示用户选择的主题，而不是实际主题）
 		updateActiveTheme(theme);

@@ -3,118 +3,116 @@
  * @component DataTable
  * @description 控制台数据表格
  */
-import { Badge, Button, Prose } from "@coffic/cosy-ui";
-import type { ConsoleDataRow } from "./data";
+import { Badge, Button, Prose } from '@coffic/cosy-ui';
+import type { ConsoleDataRow } from './data';
 
 interface Props {
-	data: ConsoleDataRow[];
-	locale: string;
-	labels: {
-		id: string;
-		time: string;
-		operation: string;
-		user: string;
-		resource: string;
-		status: string;
-		ipAddress: string;
-		duration: string;
-		size: string;
-		actions: string;
-		view: string;
-		success: string;
-		error: string;
-		warning: string;
-		info: string;
-	};
+    data: ConsoleDataRow[];
+    locale: string;
+    labels: {
+        id: string;
+        time: string;
+        operation: string;
+        user: string;
+        resource: string;
+        status: string;
+        ipAddress: string;
+        duration: string;
+        size: string;
+        actions: string;
+        view: string;
+        success: string;
+        error: string;
+        warning: string;
+        info: string;
+    };
 }
 
 const { data, locale, labels } = Astro.props;
 ---
 
 <Prose class="cosy:max-w-none cosy:w-full">
-	<div class="cosy:overflow-x-auto">
-		<table>
-			<thead>
-				<tr>
-					<th>{labels.id}</th>
-					<th>{labels.time}</th>
-					<th>{labels.operation}</th>
-					<th>{labels.user}</th>
-					<th>{labels.resource}</th>
-					<th>{labels.status}</th>
-					<th>{labels.ipAddress}</th>
-					<th>{labels.duration}</th>
-					<th>{labels.size}</th>
-					<th>{labels.actions}</th>
-				</tr>
-			</thead>
-			<tbody>
-				{
-					data.map((row) => (
-						<tr>
-							<td>
-								<code class="cosy:text-xs cosy:bg-base-200 cosy:px-2 cosy:py-1 cosy:rounded">
-									{row.id}
-								</code>
-							</td>
-							<td class="cosy:text-sm">
-								{new Date(row.timestamp).toLocaleString(
-									locale === "zh-cn" ? "zh-CN" : "en-US"
-								)}
-							</td>
-							<td>
-								<Badge
-									variant={
-										row.operation === "DELETE"
-											? "error"
-											: row.operation === "CREATE"
-												? "success"
-												: "secondary"
-									}
-								>
-									{row.operation}
-								</Badge>
-							</td>
-							<td>{row.user}</td>
-							<td>{row.resource}</td>
-							<td>
-								<Badge
-									variant={
-										row.status === "success"
-											? "success"
-											: row.status === "error"
-												? "error"
-												: row.status === "warning"
-													? "warning"
-													: "info"
-									}
-								>
-									{row.status === "success"
-										? labels.success
-										: row.status === "error"
-											? labels.error
-											: row.status === "warning"
-												? labels.warning
-												: labels.info}
-								</Badge>
-							</td>
-							<td class="cosy:font-mono cosy:text-xs">{row.ip}</td>
-							<td class="cosy:text-sm">{row.duration}</td>
-							<td class="cosy:text-sm">{row.size}</td>
-							<td>
-								<Button
-									variant="ghost"
-									size="sm"
-									class="cosy:text-xs"
-								>
-									{labels.view}
-								</Button>
-							</td>
-						</tr>
-					))
-				}
-			</tbody>
-		</table>
-	</div>
+    <div class="cosy:overflow-x-auto">
+        <table>
+            <thead>
+                <tr>
+                    <th>{labels.id}</th>
+                    <th>{labels.time}</th>
+                    <th>{labels.operation}</th>
+                    <th>{labels.user}</th>
+                    <th>{labels.resource}</th>
+                    <th>{labels.status}</th>
+                    <th>{labels.ipAddress}</th>
+                    <th>{labels.duration}</th>
+                    <th>{labels.size}</th>
+                    <th>{labels.actions}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    data.map((row) => (
+                        <tr>
+                            <td>
+                                <code class="cosy:text-xs cosy:bg-base-200 cosy:px-2 cosy:py-1 cosy:rounded">
+                                    {row.id}
+                                </code>
+                            </td>
+                            <td class="cosy:text-sm">
+                                {new Date(row.timestamp).toLocaleString(
+                                    locale === 'zh-cn' ? 'zh-CN' : 'en-US',
+                                )}
+                            </td>
+                            <td>
+                                <Badge
+                                    variant={
+                                        row.operation === 'DELETE'
+                                            ? 'error'
+                                            : row.operation === 'CREATE'
+                                              ? 'success'
+                                              : 'secondary'
+                                    }>
+                                    {row.operation}
+                                </Badge>
+                            </td>
+                            <td>{row.user}</td>
+                            <td>{row.resource}</td>
+                            <td>
+                                <Badge
+                                    variant={
+                                        row.status === 'success'
+                                            ? 'success'
+                                            : row.status === 'error'
+                                              ? 'error'
+                                              : row.status === 'warning'
+                                                ? 'warning'
+                                                : 'info'
+                                    }>
+                                    {row.status === 'success'
+                                        ? labels.success
+                                        : row.status === 'error'
+                                          ? labels.error
+                                          : row.status === 'warning'
+                                            ? labels.warning
+                                            : labels.info}
+                                </Badge>
+                            </td>
+                            <td class="cosy:font-mono cosy:text-xs">
+                                {row.ip}
+                            </td>
+                            <td class="cosy:text-sm">{row.duration}</td>
+                            <td class="cosy:text-sm">{row.size}</td>
+                            <td>
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    class="cosy:text-xs">
+                                    {labels.view}
+                                </Button>
+                            </td>
+                        </tr>
+                    ))
+                }
+            </tbody>
+        </table>
+    </div>
 </Prose>
-

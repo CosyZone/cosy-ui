@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component ThemeItem
  *
@@ -70,18 +67,12 @@ const { theme, label, class: className = '' } = Astro.props;
         });
     }
 
-    // 初始加载时初始化
-    function initialize() {
-        themeManager.initialize();
-        initThemeSwitcher();
-    }
-
-    // 初始化
-    document.addEventListener('DOMContentLoaded', initialize);
+    // 初始化主题切换按钮
+    document.addEventListener('DOMContentLoaded', initThemeSwitcher);
 
     // Astro view transitions 后重新初始化
-    document.addEventListener('astro:after-swap', initialize);
+    document.addEventListener('astro:after-swap', initThemeSwitcher);
 
     // 确保脚本加载后立即初始化
-    initialize();
+    initThemeSwitcher();
 </script>

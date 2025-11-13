@@ -5,7 +5,7 @@
  */
 
 /**
- * 可用主题列表（不包括 "default"，因为它是特殊项）
+ * 可用主题列表(不包括 "default",因为它是特殊项)
  */
 export const THEME_LIST = [
 	"business",
@@ -16,7 +16,7 @@ export const THEME_LIST = [
 ] as const;
 
 /**
- * 默认主题（明亮模式）
+ * 默认主题(明亮模式)
  */
 export const THEME_DEFAULT = "corporate" as const;
 
@@ -24,6 +24,27 @@ export const THEME_DEFAULT = "corporate" as const;
  * 暗黑模式主题
  */
 export const THEME_PREFERS_DARK = "business" as const;
+
+/**
+ * 主题色调映射
+ * 定义每个主题是亮色(light)还是暗色(dark)
+ */
+export const THEME_TONE_MAP: Record<string, "light" | "dark"> = {
+	business: "dark",
+	corporate: "light",
+	lemonade: "light",
+	luxury: "dark",
+	nord: "dark",
+} as const;
+
+/**
+ * 获取主题的色调
+ * @param theme 主题名称
+ * @returns 'light' 或 'dark'
+ */
+export function getThemeTone(theme: string): "light" | "dark" {
+	return THEME_TONE_MAP[theme] || "light";
+}
 
 /**
  * 生成 DaisyUI themes 配置字符串

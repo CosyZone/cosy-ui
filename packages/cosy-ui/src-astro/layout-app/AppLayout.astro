@@ -395,10 +395,10 @@ const {
 }: Props = Astro.props as Props;
 
 const sidebarTopClass = getSidebarTopClass(
-    headerConfig?.height as HeaderHeight
+    headerConfig?.height as HeaderHeight,
 );
 const sidebarHeightClass = getSidebarHeightClass(
-    headerConfig?.height as HeaderHeight
+    headerConfig?.height as HeaderHeight,
 );
 ---
 
@@ -494,6 +494,24 @@ const sidebarHeightClass = getSidebarHeightClass(
     }
 
     <script>
+        import { createThemeManager } from '../../src/utils/theme';
+
+        const themeManager = createThemeManager();
+
+        // 初始化主题系统
+        function initializeTheme() {
+            themeManager.initialize();
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', initializeTheme);
+
+        // Astro view transitions 后重新初始化
+        document.addEventListener('astro:after-swap', initializeTheme);
+
+        // 确保脚本加载后立即初始化
+        initializeTheme();
+
         // Handle sidebar toggle
         const sidebarToggle = document.getElementById('sidebar-toggle');
         const sidebar = document.getElementById('sidebar-mobile');
