@@ -1,109 +1,147 @@
 ---
-
-
-
 /**
  * @component CardCourseContainer
- * @description CardCourse 课程卡片演示容器，展示 CardCourse 示例组件的多种用法。
+ * @description CardCourse 课程卡片演示容器，展示 CardCourse 示例组件的多种用法，Astro/Vue 各一个标签。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import CardCourseBasic from "./CardCourseBasic.astro";
-import CardCourseBasicSource from "./CardCourseBasic.astro?raw";
-import CardCourseCaddy from "./CardCourseCaddy.astro";
-import CardCourseCaddySource from "./CardCourseCaddy.astro?raw";
-import CardCourseEnglish from "./CardCourseEnglish.astro";
-import CardCourseEnglishSource from "./CardCourseEnglish.astro?raw";
-import CardCourseJava from "./CardCourseJava.astro";
-import CardCourseJavaSource from "./CardCourseJava.astro?raw";
-import CardCourseJavascript from "./CardCourseJavascript.astro";
-import CardCourseJavascriptSource from "./CardCourseJavascript.astro?raw";
-import CardCourseKong from "./CardCourseKong.astro";
-import CardCourseKongSource from "./CardCourseKong.astro?raw";
-import CardCourseLaravel from "./CardCourseLaravel.astro";
-import CardCourseLaravelSource from "./CardCourseLaravel.astro?raw";
-import CardCourseMath from "./CardCourseMath.astro";
-import CardCourseMathSource from "./CardCourseMath.astro?raw";
-import CardCoursePhp from "./CardCoursePhp.astro";
-import CardCoursePhpSource from "./CardCoursePhp.astro?raw";
-import CardCourseSwift from "./CardCourseSwift.astro";
-import CardCourseSwiftSource from "./CardCourseSwift.astro?raw";
-import CardCourseVue from "./CardCourseVue.astro";
-import CardCourseVueSource from "./CardCourseVue.astro?raw";
-import CardCourseWebsite from "./CardCourseWebsite.astro";
-import CardCourseWebsiteSource from "./CardCourseWebsite.astro?raw";
-import CardCourseWithDescription from "./CardCourseWithDescription.astro";
-import CardCourseWithDescriptionSource from "./CardCourseWithDescription.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+// 按字母顺序导入所有 Astro 示例及其源码
+import CardCourseBasic from './CardCourseBasic.astro';
+import CardCourseBasicSource from './CardCourseBasic.astro?raw';
+// 按字母顺序导入所有 Vue 示例及其源码
+import CardCourseBasicVue from './CardCourseBasicVue.vue';
+import CardCourseBasicVueRaw from './CardCourseBasicVue.vue?raw';
+import CardCourseCaddy from './CardCourseCaddy.astro';
+import CardCourseCaddySource from './CardCourseCaddy.astro?raw';
+import CardCourseCaddyVue from './CardCourseCaddyVue.vue';
+import CardCourseCaddyVueRaw from './CardCourseCaddyVue.vue?raw';
+import CardCourseEnglish from './CardCourseEnglish.astro';
+import CardCourseEnglishSource from './CardCourseEnglish.astro?raw';
+import CardCourseEnglishVue from './CardCourseEnglishVue.vue';
+import CardCourseEnglishVueRaw from './CardCourseEnglishVue.vue?raw';
+import CardCourseJava from './CardCourseJava.astro';
+import CardCourseJavaSource from './CardCourseJava.astro?raw';
+import CardCourseJavascript from './CardCourseJavascript.astro';
+import CardCourseJavascriptSource from './CardCourseJavascript.astro?raw';
+import CardCourseJavascriptVue from './CardCourseJavascriptVue.vue';
+import CardCourseJavascriptVueRaw from './CardCourseJavascriptVue.vue?raw';
+import CardCourseJavaVue from './CardCourseJavaVue.vue';
+import CardCourseJavaVueRaw from './CardCourseJavaVue.vue?raw';
+import CardCourseKong from './CardCourseKong.astro';
+import CardCourseKongSource from './CardCourseKong.astro?raw';
+import CardCourseKongVue from './CardCourseKongVue.vue';
+import CardCourseKongVueRaw from './CardCourseKongVue.vue?raw';
+import CardCourseLaravel from './CardCourseLaravel.astro';
+import CardCourseLaravelSource from './CardCourseLaravel.astro?raw';
+import CardCourseLaravelVue from './CardCourseLaravelVue.vue';
+import CardCourseLaravelVueRaw from './CardCourseLaravelVue.vue?raw';
+import CardCourseMath from './CardCourseMath.astro';
+import CardCourseMathSource from './CardCourseMath.astro?raw';
+import CardCourseMathVue from './CardCourseMathVue.vue';
+import CardCourseMathVueRaw from './CardCourseMathVue.vue?raw';
+import CardCoursePhp from './CardCoursePhp.astro';
+import CardCoursePhpSource from './CardCoursePhp.astro?raw';
+import CardCoursePhpVue from './CardCoursePhpVue.vue';
+import CardCoursePhpVueRaw from './CardCoursePhpVue.vue?raw';
+import CardCourseSwift from './CardCourseSwift.astro';
+import CardCourseSwiftSource from './CardCourseSwift.astro?raw';
+import CardCourseSwiftVue from './CardCourseSwiftVue.vue';
+import CardCourseSwiftVueRaw from './CardCourseSwiftVue.vue?raw';
+import CardCourseVue from './CardCourseVue.astro';
+import CardCourseVueSource from './CardCourseVue.astro?raw';
+import CardCourseVueVue from './CardCourseVueVue.vue';
+import CardCourseVueVueRaw from './CardCourseVueVue.vue?raw';
+import CardCourseWebsite from './CardCourseWebsite.astro';
+import CardCourseWebsiteSource from './CardCourseWebsite.astro?raw';
+import CardCourseWebsiteVue from './CardCourseWebsiteVue.vue';
+import CardCourseWebsiteVueRaw from './CardCourseWebsiteVue.vue?raw';
+import CardCourseWithDescription from './CardCourseWithDescription.astro';
+import CardCourseWithDescriptionSource from './CardCourseWithDescription.astro?raw';
+import CardCourseWithDescriptionVue from './CardCourseWithDescriptionVue.vue';
+import CardCourseWithDescriptionVueRaw from './CardCourseWithDescriptionVue.vue?raw';
 
 const codes = [
-	CardCourseBasicSource,
-	CardCourseWithDescriptionSource,
-	CardCourseEnglishSource,
-	CardCourseVueSource,
-	CardCoursePhpSource,
-	CardCourseJavascriptSource,
-	CardCourseJavaSource,
-	CardCourseWebsiteSource,
-	CardCourseMathSource,
-	CardCourseSwiftSource,
-	CardCourseCaddySource,
-	CardCourseKongSource,
-	CardCourseLaravelSource,
+    CardCourseBasicSource,
+    CardCourseWithDescriptionSource,
+    CardCourseEnglishSource,
+    CardCourseVueSource,
+    CardCoursePhpSource,
+    CardCourseJavascriptSource,
+    CardCourseJavaSource,
+    CardCourseWebsiteSource,
+    CardCourseMathSource,
+    CardCourseSwiftSource,
+    CardCourseCaddySource,
+    CardCourseKongSource,
+    CardCourseLaravelSource,
+    CardCourseBasicVueRaw,
+    CardCourseWithDescriptionVueRaw,
+    CardCourseEnglishVueRaw,
+    CardCourseVueVueRaw,
+    CardCoursePhpVueRaw,
+    CardCourseJavascriptVueRaw,
+    CardCourseJavaVueRaw,
+    CardCourseWebsiteVueRaw,
+    CardCourseMathVueRaw,
+    CardCourseSwiftVueRaw,
+    CardCourseCaddyVueRaw,
+    CardCourseKongVueRaw,
+    CardCourseLaravelVueRaw,
 ];
 const titles = [
-	"基础用法",
-	"带描述（中文）",
-	"英文课程卡片",
-	"Vue.js 课程",
-	"PHP 后端开发",
-	"JavaScript 进阶",
-	"Java 企业级开发",
-	"计算机网络基础",
-	"高等数学",
-	"Swift UI 开发",
-	"Caddy 服务器配置",
-	"Kong API 网关",
-	"Laravel 网站开发",
+    '基础用法',
+    '带描述（中文）',
+    '英文课程卡片',
+    'Vue.js 课程',
+    'PHP 后端开发',
+    'JavaScript 进阶',
+    'Java 企业级开发',
+    '计算机网络基础',
+    '高等数学',
+    'Swift UI 开发',
+    'Caddy 服务器配置',
+    'Kong API 网关',
+    'Laravel 网站开发',
+    '基础用法',
+    '带描述（中文）',
+    '英文课程卡片',
+    'Vue.js 课程',
+    'PHP 后端开发',
+    'JavaScript 进阶',
+    'Java 企业级开发',
+    '计算机网络基础',
+    '高等数学',
+    'Swift UI 开发',
+    'Caddy 服务器配置',
+    'Kong API 网关',
+    'Laravel 网站开发',
 ];
 ---
 
 <CodeContainer codes={codes} titles={titles}>
-  <div id="tab-1">
-    <CardCourseBasic />
-  </div>
-  <div id="tab-2">
-    <CardCourseWithDescription />
-  </div>
-  <div id="tab-3">
-    <CardCourseEnglish />
-  </div>
-  <div id="tab-4">
-    <CardCourseVue />
-  </div>
-  <div id="tab-5">
-    <CardCoursePhp />
-  </div>
-  <div id="tab-6">
-    <CardCourseJavascript />
-  </div>
-  <div id="tab-7">
-    <CardCourseJava />
-  </div>
-  <div id="tab-8">
-    <CardCourseWebsite />
-  </div>
-  <div id="tab-9">
-    <CardCourseMath />
-  </div>
-  <div id="tab-10">
-    <CardCourseSwift />
-  </div>
-  <div id="tab-11">
-    <CardCourseCaddy />
-  </div>
-  <div id="tab-12">
-    <CardCourseKong />
-  </div>
-  <div id="tab-13">
-    <CardCourseLaravel />
-  </div>
+    <div id="tab-1" data-label="astro"><CardCourseBasic /></div>
+    <div id="tab-2" data-label="astro"><CardCourseWithDescription /></div>
+    <div id="tab-3" data-label="astro"><CardCourseEnglish /></div>
+    <div id="tab-4" data-label="astro"><CardCourseVue /></div>
+    <div id="tab-5" data-label="astro"><CardCoursePhp /></div>
+    <div id="tab-6" data-label="astro"><CardCourseJavascript /></div>
+    <div id="tab-7" data-label="astro"><CardCourseJava /></div>
+    <div id="tab-8" data-label="astro"><CardCourseWebsite /></div>
+    <div id="tab-9" data-label="astro"><CardCourseMath /></div>
+    <div id="tab-10" data-label="astro"><CardCourseSwift /></div>
+    <div id="tab-11" data-label="astro"><CardCourseCaddy /></div>
+    <div id="tab-12" data-label="astro"><CardCourseKong /></div>
+    <div id="tab-13" data-label="astro"><CardCourseLaravel /></div>
+    <div id="tab-14" data-label="vue"><CardCourseBasicVue /></div>
+    <div id="tab-15" data-label="vue"><CardCourseWithDescriptionVue /></div>
+    <div id="tab-16" data-label="vue"><CardCourseEnglishVue /></div>
+    <div id="tab-17" data-label="vue"><CardCourseVueVue /></div>
+    <div id="tab-18" data-label="vue"><CardCoursePhpVue /></div>
+    <div id="tab-19" data-label="vue"><CardCourseJavascriptVue /></div>
+    <div id="tab-20" data-label="vue"><CardCourseJavaVue /></div>
+    <div id="tab-21" data-label="vue"><CardCourseWebsiteVue /></div>
+    <div id="tab-22" data-label="vue"><CardCourseMathVue /></div>
+    <div id="tab-23" data-label="vue"><CardCourseSwiftVue /></div>
+    <div id="tab-24" data-label="vue"><CardCourseCaddyVue /></div>
+    <div id="tab-25" data-label="vue"><CardCourseKongVue /></div>
+    <div id="tab-26" data-label="vue"><CardCourseLaravelVue /></div>
 </CodeContainer>

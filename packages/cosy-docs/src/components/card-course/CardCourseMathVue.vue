@@ -1,0 +1,13 @@
+<script setup lang="ts">
+import { CardCourse } from "@coffic/cosy-ui/vue";
+</script>
+
+<template>
+	<CardCourse
+		course-name="高等数学"
+		description="系统学习微积分、线性代数等高等数学核心内容。"
+		lang="zh"
+		href="/courses/higher-mathematics"
+	/>
+</template>
+
