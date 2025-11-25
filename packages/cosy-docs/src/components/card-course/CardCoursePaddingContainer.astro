@@ -1,57 +1,96 @@
 ---
-
-
-
 /**
  * @component CardCoursePaddingContainer
- * @description CardCourse 组件 contentPadding 属性演示容器，展示不同内边距效果。
+ * @description CardCourse 组件 contentPadding 属性演示容器，展示不同内边距效果，Astro/Vue 各 none/xs/sm/md/lg/xl/2xl/3xl 标签。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import CardCoursePadding2xl from "./CardCoursePadding2xl.astro";
-import CardCoursePadding2xlRaw from "./CardCoursePadding2xl.astro?raw";
-import CardCoursePadding3xl from "./CardCoursePadding3xl.astro";
-import CardCoursePadding3xlRaw from "./CardCoursePadding3xl.astro?raw";
-import CardCoursePaddingLg from "./CardCoursePaddingLg.astro";
-import CardCoursePaddingLgRaw from "./CardCoursePaddingLg.astro?raw";
-import CardCoursePaddingMd from "./CardCoursePaddingMd.astro";
-import CardCoursePaddingMdRaw from "./CardCoursePaddingMd.astro?raw";
-import CardCoursePaddingNone from "./CardCoursePaddingNone.astro";
-import CardCoursePaddingNoneRaw from "./CardCoursePaddingNone.astro?raw";
-import CardCoursePaddingSm from "./CardCoursePaddingSm.astro";
-import CardCoursePaddingSmRaw from "./CardCoursePaddingSm.astro?raw";
-import CardCoursePaddingXl from "./CardCoursePaddingXl.astro";
-import CardCoursePaddingXlRaw from "./CardCoursePaddingXl.astro?raw";
-import CardCoursePaddingXs from "./CardCoursePaddingXs.astro";
-import CardCoursePaddingXsRaw from "./CardCoursePaddingXs.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+// 按字母顺序导入所有 Astro 示例及其源码
+import CardCoursePadding2xl from './CardCoursePadding2xl.astro';
+import CardCoursePadding2xlRaw from './CardCoursePadding2xl.astro?raw';
+// 按字母顺序导入所有 Vue 示例及其源码
+import CardCoursePadding2xlVue from './CardCoursePadding2xlVue.vue';
+import CardCoursePadding2xlVueRaw from './CardCoursePadding2xlVue.vue?raw';
+import CardCoursePadding3xl from './CardCoursePadding3xl.astro';
+import CardCoursePadding3xlRaw from './CardCoursePadding3xl.astro?raw';
+import CardCoursePadding3xlVue from './CardCoursePadding3xlVue.vue';
+import CardCoursePadding3xlVueRaw from './CardCoursePadding3xlVue.vue?raw';
+import CardCoursePaddingLg from './CardCoursePaddingLg.astro';
+import CardCoursePaddingLgRaw from './CardCoursePaddingLg.astro?raw';
+import CardCoursePaddingLgVue from './CardCoursePaddingLgVue.vue';
+import CardCoursePaddingLgVueRaw from './CardCoursePaddingLgVue.vue?raw';
+import CardCoursePaddingMd from './CardCoursePaddingMd.astro';
+import CardCoursePaddingMdRaw from './CardCoursePaddingMd.astro?raw';
+import CardCoursePaddingMdVue from './CardCoursePaddingMdVue.vue';
+import CardCoursePaddingMdVueRaw from './CardCoursePaddingMdVue.vue?raw';
+import CardCoursePaddingNone from './CardCoursePaddingNone.astro';
+import CardCoursePaddingNoneRaw from './CardCoursePaddingNone.astro?raw';
+import CardCoursePaddingNoneVue from './CardCoursePaddingNoneVue.vue';
+import CardCoursePaddingNoneVueRaw from './CardCoursePaddingNoneVue.vue?raw';
+import CardCoursePaddingSm from './CardCoursePaddingSm.astro';
+import CardCoursePaddingSmRaw from './CardCoursePaddingSm.astro?raw';
+import CardCoursePaddingSmVue from './CardCoursePaddingSmVue.vue';
+import CardCoursePaddingSmVueRaw from './CardCoursePaddingSmVue.vue?raw';
+import CardCoursePaddingXl from './CardCoursePaddingXl.astro';
+import CardCoursePaddingXlRaw from './CardCoursePaddingXl.astro?raw';
+import CardCoursePaddingXlVue from './CardCoursePaddingXlVue.vue';
+import CardCoursePaddingXlVueRaw from './CardCoursePaddingXlVue.vue?raw';
+import CardCoursePaddingXs from './CardCoursePaddingXs.astro';
+import CardCoursePaddingXsRaw from './CardCoursePaddingXs.astro?raw';
+import CardCoursePaddingXsVue from './CardCoursePaddingXsVue.vue';
+import CardCoursePaddingXsVueRaw from './CardCoursePaddingXsVue.vue?raw';
 ---
 
 <CodeContainer
-  titles={[
-    '无内边距 (none)',
-    '极小 (xs)',
-    '小 (sm)',
-    '中 (md)',
-    '大 (lg)',
-    '超大 (xl)',
-    '2xl',
-    '3xl',
-  ]}
-  codes={[
-    CardCoursePaddingNoneRaw,
-    CardCoursePaddingXsRaw,
-    CardCoursePaddingSmRaw,
-    CardCoursePaddingMdRaw,
-    CardCoursePaddingLgRaw,
-    CardCoursePaddingXlRaw,
-    CardCoursePadding2xlRaw,
-    CardCoursePadding3xlRaw,
-  ]}>
-  <div id="tab-1"><CardCoursePaddingNone /></div>
-  <div id="tab-2"><CardCoursePaddingXs /></div>
-  <div id="tab-3"><CardCoursePaddingSm /></div>
-  <div id="tab-4"><CardCoursePaddingMd /></div>
-  <div id="tab-5"><CardCoursePaddingLg /></div>
-  <div id="tab-6"><CardCoursePaddingXl /></div>
-  <div id="tab-7"><CardCoursePadding2xl /></div>
-  <div id="tab-8"><CardCoursePadding3xl /></div>
+    codes={[
+        CardCoursePaddingNoneRaw,
+        CardCoursePaddingXsRaw,
+        CardCoursePaddingSmRaw,
+        CardCoursePaddingMdRaw,
+        CardCoursePaddingLgRaw,
+        CardCoursePaddingXlRaw,
+        CardCoursePadding2xlRaw,
+        CardCoursePadding3xlRaw,
+        CardCoursePaddingNoneVueRaw,
+        CardCoursePaddingXsVueRaw,
+        CardCoursePaddingSmVueRaw,
+        CardCoursePaddingMdVueRaw,
+        CardCoursePaddingLgVueRaw,
+        CardCoursePaddingXlVueRaw,
+        CardCoursePadding2xlVueRaw,
+        CardCoursePadding3xlVueRaw,
+    ]}
+    titles={[
+        'none',
+        'xs',
+        'sm',
+        'md',
+        'lg',
+        'xl',
+        '2xl',
+        '3xl',
+        'none',
+        'xs',
+        'sm',
+        'md',
+        'lg',
+        'xl',
+        '2xl',
+        '3xl',
+    ]}>
+    <div id="tab-1" data-label="astro"><CardCoursePaddingNone /></div>
+    <div id="tab-2" data-label="astro"><CardCoursePaddingXs /></div>
+    <div id="tab-3" data-label="astro"><CardCoursePaddingSm /></div>
+    <div id="tab-4" data-label="astro"><CardCoursePaddingMd /></div>
+    <div id="tab-5" data-label="astro"><CardCoursePaddingLg /></div>
+    <div id="tab-6" data-label="astro"><CardCoursePaddingXl /></div>
+    <div id="tab-7" data-label="astro"><CardCoursePadding2xl /></div>
+    <div id="tab-8" data-label="astro"><CardCoursePadding3xl /></div>
+    <div id="tab-9" data-label="vue"><CardCoursePaddingNoneVue /></div>
+    <div id="tab-10" data-label="vue"><CardCoursePaddingXsVue /></div>
+    <div id="tab-11" data-label="vue"><CardCoursePaddingSmVue /></div>
+    <div id="tab-12" data-label="vue"><CardCoursePaddingMdVue /></div>
+    <div id="tab-13" data-label="vue"><CardCoursePaddingLgVue /></div>
+    <div id="tab-14" data-label="vue"><CardCoursePaddingXlVue /></div>
+    <div id="tab-15" data-label="vue"><CardCoursePadding2xlVue /></div>
+    <div id="tab-16" data-label="vue"><CardCoursePadding3xlVue /></div>
 </CodeContainer>

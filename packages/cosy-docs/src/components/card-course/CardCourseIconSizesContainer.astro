@@ -1,40 +1,47 @@
 ---
-
-
-
 /**
  * @component CardCourseIconSizesContainer
- * @description CardCourse 组件图标尺寸展示容器，使用多标签展示不同尺寸。
+ * @description CardCourse 组件图标尺寸展示容器，Astro/Vue 各 sm/md/lg/xl 标签。
  */
-import { CodeContainer } from "@coffic/cosy-ui";
-import CardCourseIconSizeLg from "./CardCourseIconSizeLg.astro";
-import CardCourseIconSizeLgRaw from "./CardCourseIconSizeLg.astro?raw";
-import CardCourseIconSizeMd from "./CardCourseIconSizeMd.astro";
-import CardCourseIconSizeMdRaw from "./CardCourseIconSizeMd.astro?raw";
-import CardCourseIconSizeSm from "./CardCourseIconSizeSm.astro";
-import CardCourseIconSizeSmRaw from "./CardCourseIconSizeSm.astro?raw";
-import CardCourseIconSizeXl from "./CardCourseIconSizeXl.astro";
-import CardCourseIconSizeXlRaw from "./CardCourseIconSizeXl.astro?raw";
+import { CodeContainer } from '@coffic/cosy-ui';
+// 按字母顺序导入所有 Astro 示例及其源码
+import CardCourseIconSizeLg from './CardCourseIconSizeLg.astro';
+import CardCourseIconSizeLgRaw from './CardCourseIconSizeLg.astro?raw';
+// 按字母顺序导入所有 Vue 示例及其源码
+import CardCourseIconSizeLgVue from './CardCourseIconSizeLgVue.vue';
+import CardCourseIconSizeLgVueRaw from './CardCourseIconSizeLgVue.vue?raw';
+import CardCourseIconSizeMd from './CardCourseIconSizeMd.astro';
+import CardCourseIconSizeMdRaw from './CardCourseIconSizeMd.astro?raw';
+import CardCourseIconSizeMdVue from './CardCourseIconSizeMdVue.vue';
+import CardCourseIconSizeMdVueRaw from './CardCourseIconSizeMdVue.vue?raw';
+import CardCourseIconSizeSm from './CardCourseIconSizeSm.astro';
+import CardCourseIconSizeSmRaw from './CardCourseIconSizeSm.astro?raw';
+import CardCourseIconSizeSmVue from './CardCourseIconSizeSmVue.vue';
+import CardCourseIconSizeSmVueRaw from './CardCourseIconSizeSmVue.vue?raw';
+import CardCourseIconSizeXl from './CardCourseIconSizeXl.astro';
+import CardCourseIconSizeXlRaw from './CardCourseIconSizeXl.astro?raw';
+import CardCourseIconSizeXlVue from './CardCourseIconSizeXlVue.vue';
+import CardCourseIconSizeXlVueRaw from './CardCourseIconSizeXlVue.vue?raw';
 ---
 
 <CodeContainer
-  titles={['小尺寸 (sm)', '中等尺寸 (md)', '大尺寸 (lg)', '超大尺寸 (xl)']}
-  codes={[
-    CardCourseIconSizeSmRaw,
-    CardCourseIconSizeMdRaw,
-    CardCourseIconSizeLgRaw,
-    CardCourseIconSizeXlRaw,
-  ]}>
-  <div id="tab-1">
-    <CardCourseIconSizeSm />
-  </div>
-  <div id="tab-2">
-    <CardCourseIconSizeMd />
-  </div>
-  <div id="tab-3">
-    <CardCourseIconSizeLg />
-  </div>
-  <div id="tab-4">
-    <CardCourseIconSizeXl />
-  </div>
+    codes={[
+        CardCourseIconSizeSmRaw,
+        CardCourseIconSizeMdRaw,
+        CardCourseIconSizeLgRaw,
+        CardCourseIconSizeXlRaw,
+        CardCourseIconSizeSmVueRaw,
+        CardCourseIconSizeMdVueRaw,
+        CardCourseIconSizeLgVueRaw,
+        CardCourseIconSizeXlVueRaw,
+    ]}
+    titles={['sm', 'md', 'lg', 'xl', 'sm', 'md', 'lg', 'xl']}>
+    <div id="tab-1" data-label="astro"><CardCourseIconSizeSm /></div>
+    <div id="tab-2" data-label="astro"><CardCourseIconSizeMd /></div>
+    <div id="tab-3" data-label="astro"><CardCourseIconSizeLg /></div>
+    <div id="tab-4" data-label="astro"><CardCourseIconSizeXl /></div>
+    <div id="tab-5" data-label="vue"><CardCourseIconSizeSmVue /></div>
+    <div id="tab-6" data-label="vue"><CardCourseIconSizeMdVue /></div>
+    <div id="tab-7" data-label="vue"><CardCourseIconSizeLgVue /></div>
+    <div id="tab-8" data-label="vue"><CardCourseIconSizeXlVue /></div>
 </CodeContainer>
