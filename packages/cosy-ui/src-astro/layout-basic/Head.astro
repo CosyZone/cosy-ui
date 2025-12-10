@@ -66,7 +66,22 @@ const {
 
     <slot name="head" />
 
-    {enableClientRouter && <ClientRouter />}
+    {
+        enableClientRouter && (
+            <>
+                <ClientRouter />
+                <style is:global>
+                    [data-astro-transition-progress] {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        z-index: 9999;
+                    }
+                </style>
+            </>
+        )
+    }
 
     <!-- 主题初始化脚本：在页面渲染前根据系统主题设置 data-theme -->
     <!-- 从 TypeScript 配置文件读取主题配置，实现单一数据源 -->
