@@ -344,7 +344,7 @@
  *   }}
  * >
  *   <!-- 自定义背景层，渲染在最底层 -->
- *   <div slot="background" class="cosy:fixed cosy:inset-0 cosy:bg-gradient-to-br cosy:from-blue-600 cosy:to-purple-800">
+ *   <div slot="background" class="cosy:fixed cosy:inset-0 cosy:bg-linear-to-br cosy:from-blue-600 cosy:to-purple-800">
  *     <!-- 装饰性模糊元素 -->
  *     <div class="cosy:absolute cosy:top-10 cosy:left-10 cosy:w-96 cosy:h-96 cosy:bg-white/10 cosy:rounded-full cosy:blur-3xl"></div>
  *     <div class="cosy:absolute cosy:bottom-10 cosy:right-10 cosy:w-96 cosy:h-96 cosy:bg-white/10 cosy:rounded-full cosy:blur-3xl"></div>
@@ -415,7 +415,7 @@ const sidebarHeightClass = getSidebarHeightClass(
     {
         Astro.slots.has('background') && (
             <div
-                aria-label="AppLayout-Background"
+                aria-hidden="true"
                 style="position: fixed; inset: 0; z-index: 0; pointer-events: none;">
                 <slot name="background" />
             </div>
