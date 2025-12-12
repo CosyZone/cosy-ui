@@ -123,7 +123,7 @@ AppLayout 组件适用于页面布局，提供一个包含侧边栏导航、头�
   showSidebar={false}
 >
   <!-- 自定义背景层 -->
-  <div slot="background" class="cosy:fixed cosy:inset-0 cosy:bg-gradient-to-br cosy:from-blue-600 cosy:to-purple-800">
+  <div slot="background" class="cosy:fixed cosy:inset-0 cosy:bg-linear-to-br cosy:from-blue-600 cosy:to-purple-800">
     <!-- 装饰性模糊元素 -->
     <div class="cosy:absolute cosy:top-10 cosy:left-10 cosy:w-96 cosy:h-96 cosy:bg-white/10 cosy:rounded-full cosy:blur-3xl"></div>
     <div class="cosy:absolute cosy:bottom-10 cosy:right-10 cosy:w-96 cosy:h-96 cosy:bg-white/10 cosy:rounded-full cosy:blur-3xl"></div>
@@ -276,3 +276,28 @@ AppLayout 组件适用于页面布局，提供一个包含侧边栏导航、头�
 搜索模态框内容，当提供此slot时会显示搜索按钮，传递给AppHeader组件。
 
 <AppLayoutPackage.ModalSearchSlot />
+
+### sidebar
+
+自定义侧边栏内容（优先级最高）。当提供此 slot 时，会覆盖内置 Sidebar，与 `showSidebar` 和 `sidebarConfig` 配置无关，但仍继承粘性定位与高度约束。
+
+**使用场景**：
+- 完全自定义导航结构与样式
+- 内置侧边栏无法满足品牌或交互需求
+- 需要在侧边栏中放置统计、操作面板等特殊内容
+
+**示例**：
+
+```astro
+<AppLayout metaConfig={{ title: "自定义侧边栏" }}>
+  <div
+    slot="sidebar"
+    class="cosy:sticky cosy:top-16 cosy:h-[calc(100vh-6rem)] cosy:w-72 cosy:bg-base-200 cosy:p-4 cosy:rounded-xl cosy:shadow-lg">
+    <!-- 自定义导航或内容 -->
+  </div>
+
+  <h1 class="cosy:text-2xl cosy:font-bold cosy:p-6">页面内容</h1>
+</AppLayout>
+```
+
+<AppLayoutPackage.SidebarSlot />

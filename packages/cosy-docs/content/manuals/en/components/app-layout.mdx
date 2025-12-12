@@ -120,7 +120,7 @@ Custom background layer (lowest layer, z-index: 0). Used to create full-screen b
   showSidebar={false}
 >
   <!-- Custom background layer -->
-  <div slot="background" class="cosy:fixed cosy:inset-0 cosy:bg-gradient-to-br cosy:from-blue-600 cosy:to-purple-800">
+  <div slot="background" class="cosy:fixed cosy:inset-0 cosy:bg-linear-to-br cosy:from-blue-600 cosy:to-purple-800">
     <!-- Decorative blur elements -->
     <div class="cosy:absolute cosy:top-10 cosy:left-10 cosy:w-96 cosy:h-96 cosy:bg-white/10 cosy:rounded-full cosy:blur-3xl"></div>
     <div class="cosy:absolute cosy:bottom-10 cosy:right-10 cosy:w-96 cosy:h-96 cosy:bg-white/10 cosy:rounded-full cosy:blur-3xl"></div>
@@ -273,3 +273,28 @@ Content for the end position of the navigation bar, passed to the AppHeader comp
 Search modal content, when this slot is provided, a search button will be displayed, passed to the AppHeader component.
 
 <AppLayoutPackage.ModalSearchSlot />
+
+### sidebar
+
+Custom sidebar content (highest priority). When this slot is provided, it replaces the built-in Sidebar regardless of `showSidebar` or `sidebarConfig`, while keeping the sticky positioning and height constraints.
+
+**Use Cases**:
+- Fully customized navigation structure and styling
+- Brand or interaction requirements that the built-in Sidebar cannot meet
+- Place dashboards, actions, or other special content in the sidebar
+
+**Example**:
+
+```astro
+<AppLayout metaConfig={{ title: "Custom Sidebar" }}>
+  <div
+    slot="sidebar"
+    class="cosy:sticky cosy:top-16 cosy:h-[calc(100vh-6rem)] cosy:w-72 cosy:bg-base-200 cosy:p-4 cosy:rounded-xl cosy:shadow-lg">
+    <!-- Custom navigation or content -->
+  </div>
+
+  <h1 class="cosy:text-2xl cosy:font-bold cosy:p-6">Page Content</h1>
+</AppLayout>
+```
+
+<AppLayoutPackage.SidebarSlot />

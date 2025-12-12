@@ -25,6 +25,7 @@
  * @slot navbar-center - 导航栏中间位置的内容（传递给AppHeader）
  * @slot navbar-end - 导航栏结束位置的内容（传递给AppHeader）
  * @slot modal-search - 搜索模态框内容，当提供此slot时会显示搜索按钮（传递给AppHeader）
+ * @slot sidebar - 自定义侧边栏内容（优先级最高，会覆盖内置Sidebar）
  *
  * 布局效果：
  *
@@ -448,7 +449,17 @@ const sidebarHeightClass = getSidebarHeightClass(
         class="cosy:min-h-screen cosy:relative cosy:z-[1]">
         <!-- 侧边栏容器 -->
         {
-            showSidebar && (
+            Astro.slots.has('sidebar') ? (
+                <div
+                    aria-label="AppLayout-Sidebar-Container"
+                    class:list={[
+                        'cosy:sticky',
+                        sidebarTopClass,
+                        sidebarHeightClass,
+                    ]}>
+                    <slot name="sidebar" />
+                </div>
+            ) : showSidebar ? (
                 <div
                     aria-label="AppLayout-Sidebar-Container"
                     class:list={[
@@ -458,7 +469,7 @@ const sidebarHeightClass = getSidebarHeightClass(
                     ]}>
                     <Sidebar {...(sidebarConfig as any)} />
                 </div>
-            )
+            ) : null
         }
 
         <!-- 主内容区域 -->

@@ -1,0 +1,14 @@
+---
+import { CodeContainer } from '@coffic/cosy-ui';
+import SidebarSlot from './SidebarSlot.astro';
+import SidebarSlotSourceCode from './SidebarSlot.astro?raw';
+---
+
+<CodeContainer
+    titles={['自定义侧边栏']}
+    descriptions={['使用 sidebar 插槽替换内置侧边栏的示例']}
+    codes={[SidebarSlotSourceCode]}>
+    <div id="tab-1">
+        <SidebarSlot />
+    </div>
+</CodeContainer>
