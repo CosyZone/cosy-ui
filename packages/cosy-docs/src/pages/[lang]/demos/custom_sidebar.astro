@@ -1,0 +1,180 @@
+---
+/**
+ * 自定义 Sidebar 插槽示例
+ *
+ * 展示如何使用 AppLayout 的 sidebar 插槽覆盖内置侧边栏，
+ * 同时保留粘性定位与高度控制。
+ */
+import * as astroI18n from 'astro:i18n';
+import {
+    AppLayout,
+    Badge,
+    Button,
+    Card,
+    Container,
+    Heading,
+    Text,
+    ChevronRightIcon,
+} from '@coffic/cosy-ui';
+import Logo from '@/assets/logo.png';
+import { configApp } from '@/config/config.app';
+import { getFooterConfig } from './_footerConfig';
+import { getMetaConfig } from './_metaConfig';
+
+const currentLocale = Astro.params.lang || 'zh-cn';
+const t = (zh: string, en: string) => (currentLocale === 'zh-cn' ? zh : en);
+
+export const getStaticPaths = async () => {
+    return [{ params: { lang: 'zh-cn' } }, { params: { lang: 'en' } }];
+};
+---
+
+<AppLayout
+    metaConfig={getMetaConfig({
+        title: t('自定义侧边栏示例', 'Custom Sidebar Example'),
+        description: t(
+            '使用 sidebar 插槽替换内置侧边栏的完整示例。',
+            'Full example of replacing the built-in sidebar via the sidebar slot.',
+        ),
+        keywords: t(
+            'AppLayout, sidebar, 自定义侧边栏',
+            'AppLayout, sidebar, custom',
+        ),
+    })}
+    footerConfig={getFooterConfig(currentLocale)}
+    sidebarConfig={{
+        sidebarItems: [],
+    }}
+    headerConfig={{
+        logo: Logo,
+        logoHref: configApp.homeLink,
+        navItems: configApp.getNavItems(currentLocale),
+        astroI18n: astroI18n,
+    }}>
+    <div
+        slot="sidebar"
+        class="cosy:sticky cosy:top-16 cosy:h-[calc(100vh-6rem)] cosy:w-72 cosy:bg-base-200 cosy:p-4 cosy:rounded-xl cosy:shadow-lg cosy:space-y-4">
+        <div class="cosy:flex cosy:items-center cosy:justify-between">
+            <Heading level={4} margin="none">
+                {t('自定义侧边栏', 'Custom Sidebar')}
+            </Heading>
+            <Badge variant="primary" size="sm">
+                {t('自定义', 'Custom')}
+            </Badge>
+        </div>
+
+        <Card variant="ghost" padding="md" rounded="lg">
+            <Heading level={6} margin="xs">
+                {t('快速导航', 'Quick Nav')}
+            </Heading>
+            <Container padding="none" gap="sm" flex="col">
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    fullWidth={true}
+                    justify="start"
+                    gap="sm">
+                    <ChevronRightIcon size="18px" />
+                    {t('快速开始', 'Getting Started')}
+                </Button>
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    fullWidth={true}
+                    justify="start"
+                    gap="sm">
+                    <ChevronRightIcon size="18px" />
+                    {t('组件目录', 'Components')}
+                </Button>
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    fullWidth={true}
+                    justify="start"
+                    gap="sm">
+                    <ChevronRightIcon size="18px" />
+                    {t('模板示例', 'Templates')}
+                </Button>
+            </Container>
+        </Card>
+
+        <Card variant="soft" color="info" padding="md" rounded="lg">
+            <Heading level={6} margin="xs">
+                {t('提示', 'Tips')}
+            </Heading>
+            <Text size="sm" color="base-content/70">
+                {
+                    t(
+                        'sidebar 插槽优先级最高，可完全自定义导航结构与样式。',
+                        'The sidebar slot has the highest priority, letting you fully customize navigation and styling.',
+                    )
+                }
+            </Text>
+        </Card>
+    </div>
+
+    <Container padding="xl" gap="lg" flex="col">
+        <Heading level={1} margin="sm">
+            {t('自定义 Sidebar 插槽', 'Custom Sidebar Slot')}
+        </Heading>
+        <Text color="base-content/70">
+            {
+                t(
+                    '本示例展示了如何通过 sidebar 插槽替换内置侧边栏，并保留粘性定位和高度约束。',
+                    'This demo shows how to replace the built-in sidebar via the sidebar slot while keeping sticky positioning and height constraints.',
+                )
+            }
+        </Text>
+
+        <Card padding="lg" rounded="xl" shadow="lg" background="base-200">
+            <Heading level={3} margin="sm">
+                {t('关键要点', 'Key Points')}
+            </Heading>
+            <Container gap="sm" padding="none" flex="col">
+                <Text>
+                    • {
+                        t(
+                            '使用 slot="sidebar" 即可覆盖默认侧边栏。',
+                            'Use slot="sidebar" to override the default sidebar.',
+                        )
+                    }
+                </Text>
+                <Text>
+                    • {
+                        t(
+                            '容器仍沿用粘性与高度样式，保证良好滚动体验。',
+                            'Container keeps sticky and height styles for smooth scrolling.',
+                        )
+                    }
+                </Text>
+                <Text>
+                    • {
+                        t(
+                            '与 showSidebar、sidebarConfig 配置无关。',
+                            'Independent from showSidebar and sidebarConfig.',
+                        )
+                    }
+                </Text>
+            </Container>
+        </Card>
+
+        <Card padding="lg" rounded="xl" shadow="lg" background="base-200">
+            <Heading level={3} margin="sm">
+                {t('自定义内容示例', 'Custom Content Example')}
+            </Heading>
+            <Container padding="md" gap="md" flex="col">
+                <Text>
+                    {
+                        t(
+                            '侧边栏可以放置品牌导航、快捷按钮、统计信息等任意内容。',
+                            'The sidebar can host brand navigation, quick actions, metrics, and any custom content.',
+                        )
+                    }
+                </Text>
+                <Button variant="primary" size="md" width="fit">
+                    {t('了解更多', 'Learn More')}
+                </Button>
+            </Container>
+        </Card>
+    </Container>
+</AppLayout>

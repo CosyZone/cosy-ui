@@ -34,12 +34,12 @@ const { class: className } = Astro.props;
 
 <!-- 主题切换按钮 -->
 <div class:list={['cosy:dropdown-end cosy:dropdown', className]}>
-    <Button tabindex="0" variant="ghost">
+    <Button aria-label="切换主题" tabindex="0" variant="ghost">
         <SunCloudyIcon size="16px" />
     </Button>
     <ul
         tabindex={0}
-        class="cosy:dropdown-content cosy:ring-1 cosy:ring-base-300 cosy:bg-base-200 cosy:menu cosy:rounded-box cosy:z-[1] cosy:w-56 cosy:p-2 cosy:shadow-lg">
+        class="cosy:dropdown-content cosy:ring-1 cosy:ring-base-300 cosy:bg-base-200 cosy:menu cosy:rounded-box cosy:z-1 cosy:w-56 cosy:p-2 cosy:shadow-lg">
         {
             themes.map((theme) => (
                 <ThemeItem theme={theme.id} label={theme.name} />

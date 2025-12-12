@@ -1,0 +1,80 @@
+---
+import { AppLayout } from '@coffic/cosy-ui';
+import {
+    defaultFooterConfig,
+    defaultHeaderConfig,
+    defaultMainContentConfig,
+    defaultMetaConfig,
+    defaultSidebarItems,
+} from './shared-config.ts';
+
+const metaConfig = {
+    ...defaultMetaConfig,
+    title: '自定义侧边栏插槽示例',
+    description: '展示如何使用 sidebar 插槽替换内置侧边栏',
+    keywords: 'AppLayout, sidebar, 自定义侧边栏',
+};
+---
+
+<AppLayout
+    metaConfig={metaConfig}
+    sidebarConfig={{
+        sidebarItems: defaultSidebarItems,
+    }}
+    headerConfig={defaultHeaderConfig}
+    footerConfig={defaultFooterConfig}
+    mainContentConfig={defaultMainContentConfig}>
+    <div
+        slot="sidebar"
+        class="cosy:sticky cosy:top-16 cosy:h-[calc(100vh-6rem)] cosy:w-72 cosy:bg-base-200 cosy:p-4 cosy:rounded-xl cosy:shadow-lg cosy:space-y-4">
+        <div class="cosy:flex cosy:items-center cosy:justify-between">
+            <h3 class="cosy:text-lg cosy:font-semibold">自定义侧边栏</h3>
+            <span class="cosy:badge cosy:badge-primary cosy:badge-sm"
+                >自定义</span
+            >
+        </div>
+        <div class="cosy:space-y-2">
+            <button
+                class="cosy:btn cosy:btn-ghost cosy:w-full cosy:justify-start cosy:gap-2">
+                <span class="cosy:badge cosy:badge-sm cosy:badge-outline"
+                    >1</span
+                >
+                快速开始
+            </button>
+            <button
+                class="cosy:btn cosy:btn-ghost cosy:w-full cosy:justify-start cosy:gap-2">
+                <span class="cosy:badge cosy:badge-sm cosy:badge-outline"
+                    >2</span
+                >
+                组件目录
+            </button>
+            <button
+                class="cosy:btn cosy:btn-ghost cosy:w-full cosy:justify-start cosy:gap-2">
+                <span class="cosy:badge cosy:badge-sm cosy:badge-outline"
+                    >3</span
+                >
+                模板示例
+            </button>
+        </div>
+        <div
+            class="cosy:alert cosy:alert-info cosy:py-3 cosy:px-4 cosy:rounded-lg">
+            <div>
+                <h4 class="cosy:font-semibold cosy:text-sm">提示</h4>
+                <p class="cosy:text-xs cosy:text-gray-600">
+                    使用 sidebar 插槽可完全自定义导航结构与样式。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="cosy:p-6">
+        <h1 class="cosy:text-2xl cosy:font-bold cosy:mb-4">自定义侧边栏插槽</h1>
+        <p class="cosy:text-gray-600">
+            该示例使用 sidebar 插槽替换了内置侧边栏，保留了粘性布局和高度控制。
+        </p>
+        <p class="cosy:text-gray-600 cosy:mt-2">
+            slot 优先级最高，与 showSidebar 或 sidebarConfig
+            无关，完全由您掌控。
+        </p>
+    </div>
+</AppLayout>

@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component HeaderEnd
  *
@@ -29,57 +26,57 @@
  * - showThemeSwitcher - 是否显示主题切换器
  * - locales - 支持的语言列表（用于语言切换器）
  */
-import { type INavItem, LanguageSwitcher, MenuIcon } from "../../index-astro";
-import NavItems from "./NavItems.astro";
-import ThemeSwitcher from "./ThemeSwitcher.astro";
+import { type INavItem, LanguageSwitcher, MenuIcon } from '../../index-astro';
+import NavItems from './NavItems.astro';
+import ThemeSwitcher from './ThemeSwitcher.astro';
 
 export interface Props {
-	navPosition: string;
-	navItems: INavItem[];
-	activeLink: string;
-	linkHeightClass: string;
-	showThemeSwitcher: boolean;
-	locales?: string[];
+    navPosition: string;
+    navItems: INavItem[];
+    activeLink: string;
+    linkHeightClass: string;
+    showThemeSwitcher: boolean;
+    locales?: string[];
 }
 
 const {
-	navPosition,
-	navItems,
-	activeLink,
-	linkHeightClass,
-	showThemeSwitcher,
-	locales,
+    navPosition,
+    navItems,
+    activeLink,
+    linkHeightClass,
+    showThemeSwitcher,
+    locales,
 } = Astro.props;
 ---
 
 <div class="cosy:navbar-end cosy:pr-1">
-  {
-    navPosition === 'end' && (
-      <div class="cosy:hidden cosy:lg:flex">
-        <NavItems
-          navItems={navItems}
-          activeLink={activeLink}
-          linkHeightClass={linkHeightClass}
-          gap={4}
-        />
-      </div>
-    )
-  }
+    {
+        navPosition === 'end' && (
+            <div class="cosy:hidden cosy:lg:flex">
+                <NavItems
+                    navItems={navItems}
+                    activeLink={activeLink}
+                    linkHeightClass={linkHeightClass}
+                    gap={4}
+                />
+            </div>
+        )
+    }
 
-  {showThemeSwitcher && <ThemeSwitcher />}
-  {locales && locales.length > 0 && <LanguageSwitcher locales={locales} />}
+    {showThemeSwitcher && <ThemeSwitcher />}
+    {locales && locales.length > 0 && <LanguageSwitcher locales={locales} />}
 
-  <!-- 移动端汉堡菜单按钮 -->
-  {
-    navItems.length > 0 && (
-      <button
-        type="button"
-        class="cosy:btn cosy:btn-ghost cosy:btn-sm cosy:lg:hidden"
-        data-modal-target="mobile-nav">
-        <MenuIcon class="cosy:w-5 cosy:h-5" />
-      </button>
-    )
-  }
+    <!-- 移动端汉堡菜单按钮 -->
+    {
+        navItems.length > 0 && (
+            <button
+                type="button"
+                class="cosy:btn cosy:btn-ghost cosy:btn-sm cosy:lg:hidden"
+                data-modal-target="mobile-nav">
+                <MenuIcon class="cosy:w-5 cosy:h-5" />
+            </button>
+        )
+    }
 
-  <slot />
+    <slot />
 </div>

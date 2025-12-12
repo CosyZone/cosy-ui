@@ -7,6 +7,7 @@ import NavbarCenterSlotContainer from "./NavbarCenterSlotContainer.astro";
 import NavbarEndSlotContainer from "./NavbarEndSlotContainer.astro";
 import NavbarStartSlotContainer from "./NavbarStartSlotContainer.astro";
 import SidebarConfigContainer from "./SidebarConfigContainer.astro";
+import SidebarSlotContainer from "./SidebarSlotContainer.astro";
 
 // 导出 ComponentPackage 用于文档
 export const AppLayoutPackage = {
@@ -19,4 +20,5 @@ export const AppLayoutPackage = {
 	NavbarEndSlot: NavbarEndSlotContainer,
 	NavbarStartSlot: NavbarStartSlotContainer,
 	SidebarConfig: SidebarConfigContainer,
+	SidebarSlot: SidebarSlotContainer,
 };
