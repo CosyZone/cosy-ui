@@ -1,6 +1,23 @@
 name: 📦 Publish to npm
 
 on:
+    push:
+        branches:
+            - npm
+        
+    workflow_dispatch:
+        inputs:
+            force_publish:
+                description: '强制发布（忽略版本检查）'
+                required: false
+                default: false
+                type: boolean
+            version:
+                description: '指定版本号（留空则使用 package.json 中的版本）'
+                required: false
+                default: ''
+                type: string
+
     workflow_run:
         workflows:
             - "📦 Release Cosy UI"
@@ -25,14 +42,19 @@ jobs:
             - uses: actions/setup-node@v4
               with:
                   node-version: "23"
-                  registry-url: "https://registry.npmjs.org"
             - name: Setup PNPM
               uses: pnpm/action-setup@v2
               with:
                   version: 10
+            - name: Update npm to latest version
+              run: npm install -g npm@latest
             - name: Publish Package
               run: |
                   cd packages/cosy-ui
+                  echo "Current package version:"
+                  cat package.json | grep version
+                  echo "Current npm version:"
+                  npm view @coffic/cosy-ui version
                   pnpm i
                   pnpm build:prod
                   npm publish --access public --no-git-checks
