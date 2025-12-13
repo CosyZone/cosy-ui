@@ -129,6 +129,7 @@ const buttonContentClass = cn().flex('row').items('center').gap(2).build();
             }
             formmethod={formmethod}
             data-variant={variant}
+            aria-label={rest['aria-label'] || '按钮'}
             {...rest}>
             <span class={buttonContentClass}>
                 <slot name="icon-left" />
