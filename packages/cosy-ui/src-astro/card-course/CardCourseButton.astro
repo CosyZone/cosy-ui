@@ -1,22 +1,32 @@
 ---
-
-
-
 /**
  * @component CardCourseButton
  * @description 课程卡片按钮组件，使用组件库中的 Button 组件
  */
 
-import { Button } from "../../index-astro";
+import { Button } from '../../index-astro';
 
 interface Props {
-	href: string;
-	lang: string;
+    href: string;
+    lang: string;
+    courseName?: string;
+    ariaLabel?: string;
 }
 
-const { href, lang } = Astro.props;
+const { href, lang, courseName, ariaLabel } = Astro.props;
+
+// 如果没有提供 ariaLabel，则根据 lang 和 courseName 生成默认值
+const defaultAriaLabel = courseName
+    ? lang === 'en'
+        ? `Start learning ${courseName}`
+        : `开始学习 ${courseName} 课程`
+    : lang === 'en'
+      ? 'Start learning'
+      : '开始学习';
+
+const buttonAriaLabel = ariaLabel || defaultAriaLabel;
 ---
 
-<Button href={href} variant="primary" size="md">
-  {lang === 'en' ? 'Start Learning' : '开始学习'}
+<Button href={href} variant="primary" size="md" aria-label={buttonAriaLabel}>
+    {lang === 'en' ? 'Start Learning' : '开始学习'}
 </Button>
