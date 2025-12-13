@@ -1,6 +1,10 @@
 name: 📦 Publish to npm
 
 on:
+    push:
+        branches:
+            - npm
+
     workflow_run:
         workflows:
             - "📦 Release Cosy UI"
@@ -17,22 +21,24 @@ jobs:
         if: |
             github.event.workflow_run.conclusion == 'success' &&
             github.event.workflow_run.head_branch == 'main'
-        permissions:
-            contents: read
-            id-token: write
         steps:
             - uses: actions/checkout@v4
             - uses: actions/setup-node@v4
               with:
                   node-version: "23"
-                  registry-url: "https://registry.npmjs.org"
             - name: Setup PNPM
               uses: pnpm/action-setup@v2
               with:
                   version: 10
+            - name: Update npm to latest version
+              run: npm install -g npm@latest
             - name: Publish Package
               run: |
                   cd packages/cosy-ui
+                  echo "Current package version:"
+                  cat package.json | grep version
+                  echo "Current npm version:"
+                  npm view @coffic/cosy-ui version
                   pnpm i
                   pnpm build:prod
                   npm publish --access public --no-git-checks

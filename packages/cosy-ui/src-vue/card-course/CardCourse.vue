@@ -67,7 +67,7 @@ const contentPaddingClasses = computed(() =>
 
 				<!-- 按钮区域 -->
 				<div class="cosy:card-actions cosy:justify-start cosy:mt-4">
-					<CardCourseButton :href="props.href" :lang="props.lang" />
+					<CardCourseButton :href="props.href" :lang="props.lang" :courseName="props.courseName" />
 				</div>
 			</div>
 		</SmartBg>
