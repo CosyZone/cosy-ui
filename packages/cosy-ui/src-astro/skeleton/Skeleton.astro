@@ -137,6 +137,9 @@ const loaderId = `skeleton-loader-${Math.random().toString(36).slice(2, 11)}`;
         content.style.opacity = '0';
         // 显示骨架屏
         skeleton.style.display = 'flex';
+        // 滚动到页面顶部
+        // 如果不滚动到顶部，用户可能看不到
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     // 显示骨架屏的函数
