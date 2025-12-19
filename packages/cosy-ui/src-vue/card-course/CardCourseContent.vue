@@ -15,9 +15,8 @@ const props = defineProps<Props>();
 			{{ props.displayName }}
 		</h3>
 		<p
-			v-if="props.description"
-			class="cosy:text-sm cosy:mt-4 cosy:line-clamp-3 cosy:text-start cosy:transition-all cosy:duration-300 hover:cosy:opacity-80 cosy:transform hover:cosy:translate-x-1 cosy:group-hover:cosy:animate-pulse">
-			{{ props.description }}
+			class="cosy:text-sm cosy:mt-4 cosy:line-clamp-2 cosy:text-start cosy:transition-all cosy:duration-300 hover:cosy:opacity-80 cosy:transform hover:cosy:translate-x-1 cosy:group-hover:cosy:animate-pulse cosy:min-h-10">
+			{{ props.description || '' }}
 		</p>
 	</div>
 </template>

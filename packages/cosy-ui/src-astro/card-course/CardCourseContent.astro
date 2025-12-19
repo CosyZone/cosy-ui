@@ -22,11 +22,7 @@ const { displayName, description } = Astro.props;
     class="cosy:text-lg cosy:font-semibold cosy:truncate cosy:text-start cosy:transition-all cosy:duration-300 hover:cosy:scale-105 cosy:origin-left cosy:group-hover:cosy:animate-bounce">
     {displayName}
   </h3>
-  {
-    description && (
-      <p class="cosy:text-sm cosy:mt-4 cosy:line-clamp-3 cosy:text-start cosy:transition-all cosy:duration-300 hover:cosy:opacity-80 cosy:transform hover:cosy:translate-x-1 cosy:group-hover:cosy:animate-pulse">
-        {description}
-      </p>
-    )
-  }
+      <p class="cosy:text-sm cosy:mt-4 cosy:line-clamp-2 cosy:text-start cosy:transition-all cosy:duration-300 hover:cosy:opacity-80 cosy:transform hover:cosy:translate-x-1 cosy:group-hover:cosy:animate-pulse cosy:min-h-10">
+    {description || ''}
+  </p>
 </div>

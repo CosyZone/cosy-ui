@@ -1,31 +1,67 @@
 ---
 /**
  * @component CardCourseScaleEffectContainer
- * @description 展示 CardCourse 组件的 scaleEffect 属性两种取值，true/false 标签。
+ * @description 展示 CardCourse 组件的 scaleEffect 属性多种取值，95/100/105/110/115 标签。
  */
 import { CodeContainer } from '@coffic/cosy-ui';
-import CardCourseScaleEffectFalse from './CardCourseScaleEffectFalse.astro';
-import CardCourseScaleEffectFalseRaw from './CardCourseScaleEffectFalse.astro?raw';
-import CardCourseScaleEffectFalseVue from './CardCourseScaleEffectFalseVue.vue';
-import CardCourseScaleEffectFalseVueRaw from './CardCourseScaleEffectFalseVue.vue?raw';
+
 // 导入所有 Astro 示例及其源码
-import CardCourseScaleEffectTrue from './CardCourseScaleEffectTrue.astro';
-import CardCourseScaleEffectTrueRaw from './CardCourseScaleEffectTrue.astro?raw';
+import CardCourseScaleEffect95 from './CardCourseScaleEffect95.astro';
+import CardCourseScaleEffect95Raw from './CardCourseScaleEffect95.astro?raw';
 // 导入所有 Vue 示例及其源码
-import CardCourseScaleEffectTrueVue from './CardCourseScaleEffectTrueVue.vue';
-import CardCourseScaleEffectTrueVueRaw from './CardCourseScaleEffectTrueVue.vue?raw';
+import CardCourseScaleEffect95Vue from './CardCourseScaleEffect95Vue.vue';
+import CardCourseScaleEffect95VueRaw from './CardCourseScaleEffect95Vue.vue?raw';
+import CardCourseScaleEffect100 from './CardCourseScaleEffect100.astro';
+import CardCourseScaleEffect100Raw from './CardCourseScaleEffect100.astro?raw';
+import CardCourseScaleEffect100Vue from './CardCourseScaleEffect100Vue.vue';
+import CardCourseScaleEffect100VueRaw from './CardCourseScaleEffect100Vue.vue?raw';
+import CardCourseScaleEffect105 from './CardCourseScaleEffect105.astro';
+import CardCourseScaleEffect105Raw from './CardCourseScaleEffect105.astro?raw';
+import CardCourseScaleEffect105Vue from './CardCourseScaleEffect105Vue.vue';
+import CardCourseScaleEffect105VueRaw from './CardCourseScaleEffect105Vue.vue?raw';
+import CardCourseScaleEffect110 from './CardCourseScaleEffect110.astro';
+import CardCourseScaleEffect110Raw from './CardCourseScaleEffect110.astro?raw';
+import CardCourseScaleEffect110Vue from './CardCourseScaleEffect110Vue.vue';
+import CardCourseScaleEffect110VueRaw from './CardCourseScaleEffect110Vue.vue?raw';
+import CardCourseScaleEffect115 from './CardCourseScaleEffect115.astro';
+import CardCourseScaleEffect115Raw from './CardCourseScaleEffect115.astro?raw';
+import CardCourseScaleEffect115Vue from './CardCourseScaleEffect115Vue.vue';
+import CardCourseScaleEffect115VueRaw from './CardCourseScaleEffect115Vue.vue?raw';
 ---
 
 <CodeContainer
     codes={[
-        CardCourseScaleEffectTrueRaw,
-        CardCourseScaleEffectFalseRaw,
-        CardCourseScaleEffectTrueVueRaw,
-        CardCourseScaleEffectFalseVueRaw,
+        CardCourseScaleEffect95Raw,
+        CardCourseScaleEffect100Raw,
+        CardCourseScaleEffect105Raw,
+        CardCourseScaleEffect110Raw,
+        CardCourseScaleEffect115Raw,
+        CardCourseScaleEffect95VueRaw,
+        CardCourseScaleEffect100VueRaw,
+        CardCourseScaleEffect105VueRaw,
+        CardCourseScaleEffect110VueRaw,
+        CardCourseScaleEffect115VueRaw,
     ]}
-    titles={['true', 'false', 'true', 'false']}>
-    <div id="tab-1" data-label="astro"><CardCourseScaleEffectTrue /></div>
-    <div id="tab-2" data-label="astro"><CardCourseScaleEffectFalse /></div>
-    <div id="tab-3" data-label="vue"><CardCourseScaleEffectTrueVue /></div>
-    <div id="tab-4" data-label="vue"><CardCourseScaleEffectFalseVue /></div>
+    titles={[
+        '95',
+        '100',
+        '105',
+        '110',
+        '115',
+        '95',
+        '100',
+        '105',
+        '110',
+        '115',
+    ]}>
+    <div id="tab-1" data-label="astro"><CardCourseScaleEffect95 /></div>
+    <div id="tab-2" data-label="astro"><CardCourseScaleEffect100 /></div>
+    <div id="tab-3" data-label="astro"><CardCourseScaleEffect105 /></div>
+    <div id="tab-4" data-label="astro"><CardCourseScaleEffect110 /></div>
+    <div id="tab-5" data-label="astro"><CardCourseScaleEffect115 /></div>
+    <div id="tab-6" data-label="vue"><CardCourseScaleEffect95Vue /></div>
+    <div id="tab-7" data-label="vue"><CardCourseScaleEffect100Vue /></div>
+    <div id="tab-8" data-label="vue"><CardCourseScaleEffect105Vue /></div>
+    <div id="tab-9" data-label="vue"><CardCourseScaleEffect110Vue /></div>
+    <div id="tab-10" data-label="vue"><CardCourseScaleEffect115Vue /></div>
 </CodeContainer>

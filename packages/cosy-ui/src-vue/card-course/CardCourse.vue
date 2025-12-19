@@ -75,8 +75,8 @@ interface Props {
 	keywords?: string[];
 	/** 语言（"en" 或 "zh"） */
 	lang: string;
-	/** 是否启用悬停缩放效果，默认为 true */
-	scaleEffect?: boolean;
+	/** 悬停缩放效果比例（100表示无缩放），默认为 105 */
+	scaleEffect?: 95 | 100 | 105 | 110 | 115;
 	/** 阴影效果配置，默认为 "lg" */
 	shadowEffect?: boolean | "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "inner";
 }
@@ -87,7 +87,7 @@ const props = withDefaults(defineProps<Props>(), {
 	iconSize: "md",
 	keywords: () => [],
 	lang: "zh",
-	scaleEffect: true,
+	scaleEffect: 105,
 	shadowEffect: "lg",
 });
 
@@ -110,8 +110,19 @@ const getShadowClasses = (shadowEffect: boolean | 'none' | 'sm' | 'md' | 'lg' | 
 };
 
 // 获取缩放效果class
-const getScaleClasses = (scaleEffect: boolean): string => {
-	return scaleEffect ? 'cosy:hover:scale-105' : '';
+const getScaleClasses = (scaleEffect: 95 | 100 | 105 | 110 | 115): string => {
+	if (scaleEffect === 100) {
+		return '';
+	}
+
+	const scaleMap = {
+		95: 'cosy:hover:scale-95',
+		105: 'cosy:hover:scale-105',
+		110: 'cosy:hover:scale-110',
+		115: 'cosy:hover:scale-115',
+	};
+
+	return scaleMap[scaleEffect] || 'cosy:hover:scale-105';
 };
 
 const displayName = computed(() => formatDisplayName(props.courseName));
