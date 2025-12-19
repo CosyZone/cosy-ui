@@ -10,6 +10,17 @@
  * <CardCourse courseName="React 基础教程" lang="zh" href="/courses/react-basics" />
  * <CardCourse courseName="Vue 进阶" lang="zh" href="/courses/vue" contentPadding="md" />
  * <CardCourse courseName="AI 编程" keywords={["人工智能", "机器学习", "Python"]} lang="zh" href="/courses/ai" />
+ *
+ * <!-- 禁用缩放和阴影效果 -->
+ * <CardCourse courseName="Static Course" lang="zh" href="/courses/static" scaleEffect={false} shadowEffect="none" />
+ *
+ * <!-- 自定义阴影效果 -->
+ * <CardCourse courseName="Shadow Course" lang="zh" href="/courses/shadow" shadowEffect="2xl" />
+ *
+ * <!-- 自定义图标 -->
+ * <CardCourse courseName="Custom Course" lang="zh" href="/courses/custom">
+ *   <img slot="icon" src="/custom-icon.svg" alt="Custom Icon" class="w-16 h-16" />
+ * </CardCourse>
  * ```
  *
  * @props
@@ -20,6 +31,11 @@
  * - iconSize?: "sm" | "md" | "lg" | "xl" - 图标尺寸，默认为 "md"
  * - keywords?: string[] - 图标关键词数组，用于图标匹配
  * - lang: string - 语言（"en" 或 "zh"）
+ * - scaleEffect?: boolean - 是否启用悬停缩放效果，默认为 true
+ * - shadowEffect?: boolean | "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "inner" - 阴影效果配置，默认为 "lg"
+ *
+ * @slots
+ * - icon: 自定义图标区域，默认为智能图标
  */
 
 import { SmartBg } from '../smart-bg';
@@ -31,6 +47,32 @@ import {
     getContentPaddingClasses,
     getIconSizeClasses,
 } from './config';
+
+// 获取阴影效果class
+function getShadowClasses(
+    shadowEffect: boolean | 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'inner'
+): string {
+    if (shadowEffect === false || shadowEffect === 'none') {
+        return '';
+    }
+
+    const shadowMap = {
+        sm: 'cosy:shadow-sm cosy:hover:shadow-md',
+        md: 'cosy:shadow-md cosy:hover:shadow-lg',
+        lg: 'cosy:shadow-lg cosy:hover:shadow-2xl',
+        xl: 'cosy:shadow-xl cosy:hover:shadow-2xl',
+        '2xl': 'cosy:shadow-2xl cosy:hover:shadow-2xl',
+        inner: 'cosy:shadow-inner',
+    };
+
+    return shadowMap[shadowEffect as keyof typeof shadowMap] || shadowMap.lg;
+}
+
+// 获取缩放效果class
+function getScaleClasses(scaleEffect: boolean): string {
+    return scaleEffect ? 'cosy:hover:scale-105' : '';
+}
+
 import type { PaddingSize } from './types';
 
 interface Props {
@@ -41,6 +83,16 @@ interface Props {
     iconSize?: 'sm' | 'md' | 'lg' | 'xl';
     keywords?: string[];
     lang: string;
+    scaleEffect?: boolean;
+    shadowEffect?:
+        | boolean
+        | 'none'
+        | 'sm'
+        | 'md'
+        | 'lg'
+        | 'xl'
+        | '2xl'
+        | 'inner';
 }
 
 const {
@@ -51,25 +103,28 @@ const {
     iconSize = 'md',
     keywords = [],
     lang,
+    scaleEffect = true,
+    shadowEffect = 'lg',
 } = Astro.props;
 
 const displayName = formatDisplayName(courseName);
 const iconSizeClasses = getIconSizeClasses(iconSize);
 const contentPaddingClasses = getContentPaddingClasses(contentPadding);
+const shadowClasses = getShadowClasses(shadowEffect);
+const scaleClasses = getScaleClasses(scaleEffect);
 ---
 
 <div
     ignore-heading
     class={`
-    cosy:card 
-    cosy:shadow-lg
-    cosy:hover:shadow-2xl 
-    cosy:hover:scale-105 
+    cosy:card
+    ${shadowClasses}
+    ${scaleClasses}
     cosy:overflow-hidden
-    cosy:relative 
-    cosy:group 
-    cosy:cursor-pointer 
-    cosy:transform 
+    cosy:relative
+    cosy:group
+    cosy:cursor-pointer
+    cosy:transform
     cosy:ease-in-out
     cosy:transition-all
     cosy:duration-300
@@ -81,28 +136,42 @@ const contentPaddingClasses = getContentPaddingClasses(contentPadding);
         keyword={courseName}
         class={`cosy:relative cosy:z-10`}
         enableGradient={true}>
-        <!-- 背景图标 -->
-        <CardCourseIcon
-            courseName={courseName}
-            keywords={keywords}
-            iconSizeClasses={iconSizeClasses}
-        />
+        <!-- 网格背景 -->
+        <div
+            class="cosy:absolute cosy:inset-0 cosy:opacity-15"
+            style="background-image: linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px); background-size: 20px 20px;">
+        </div>
 
         <div
-            class={`cosy:card-body ${contentPaddingClasses} cosy:bg-base-100/30 cosy:relative cosy:z-10 cosy:h-full`}>
-            <!-- 内容区域 -->
-            <CardCourseContent
-                displayName={displayName}
-                description={description}
-            />
+            class={`cosy:card-body ${contentPaddingClasses} cosy:bg-base-100/30 cosy:relative cosy:z-10 cosy:h-full cosy:flex cosy:flex-row cosy:flex-nowrap cosy:items-center cosy:gap-6`}>
+            <!-- 左侧：图标 -->
+            <div class="cosy:shrink-0">
+                <slot name="icon">
+                    <CardCourseIcon
+                        courseName={courseName}
+                        keywords={keywords}
+                        iconSizeClasses={iconSizeClasses}
+                    />
+                </slot>
+            </div>
 
-            <!-- 按钮区域 -->
-            <div class="cosy:card-actions cosy:justify-start cosy:mt-4">
-                <CardCourseButton
-                    href={href}
-                    lang={lang}
-                    courseName={courseName}
+            <!-- 右侧：内容和按钮 -->
+            <div
+                class="cosy:flex-1 cosy:flex cosy:flex-col cosy:justify-center cosy:gap-4">
+                <!-- 内容区域 -->
+                <CardCourseContent
+                    displayName={displayName}
+                    description={description}
                 />
+
+                <!-- 按钮区域 -->
+                <div class="cosy:card-actions cosy:justify-end cosy:mt-2">
+                    <CardCourseButton
+                        href={href}
+                        lang={lang}
+                        courseName={courseName}
+                    />
+                </div>
             </div>
         </div>
     </SmartBg>

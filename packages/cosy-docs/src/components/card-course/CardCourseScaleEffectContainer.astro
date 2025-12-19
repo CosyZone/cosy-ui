@@ -1,0 +1,31 @@
+---
+/**
+ * @component CardCourseScaleEffectContainer
+ * @description 展示 CardCourse 组件的 scaleEffect 属性两种取值，true/false 标签。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import CardCourseScaleEffectFalse from './CardCourseScaleEffectFalse.astro';
+import CardCourseScaleEffectFalseRaw from './CardCourseScaleEffectFalse.astro?raw';
+import CardCourseScaleEffectFalseVue from './CardCourseScaleEffectFalseVue.vue';
+import CardCourseScaleEffectFalseVueRaw from './CardCourseScaleEffectFalseVue.vue?raw';
+// 导入所有 Astro 示例及其源码
+import CardCourseScaleEffectTrue from './CardCourseScaleEffectTrue.astro';
+import CardCourseScaleEffectTrueRaw from './CardCourseScaleEffectTrue.astro?raw';
+// 导入所有 Vue 示例及其源码
+import CardCourseScaleEffectTrueVue from './CardCourseScaleEffectTrueVue.vue';
+import CardCourseScaleEffectTrueVueRaw from './CardCourseScaleEffectTrueVue.vue?raw';
+---
+
+<CodeContainer
+    codes={[
+        CardCourseScaleEffectTrueRaw,
+        CardCourseScaleEffectFalseRaw,
+        CardCourseScaleEffectTrueVueRaw,
+        CardCourseScaleEffectFalseVueRaw,
+    ]}
+    titles={['true', 'false', 'true', 'false']}>
+    <div id="tab-1" data-label="astro"><CardCourseScaleEffectTrue /></div>
+    <div id="tab-2" data-label="astro"><CardCourseScaleEffectFalse /></div>
+    <div id="tab-3" data-label="vue"><CardCourseScaleEffectTrueVue /></div>
+    <div id="tab-4" data-label="vue"><CardCourseScaleEffectFalseVue /></div>
+</CodeContainer>
