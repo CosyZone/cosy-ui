@@ -68,6 +68,7 @@ export const AlertPackage = {
 Container 文件是连接文档和示例的桥梁，必须严格遵循以下规范：
 
 **命名规范**
+
 - 文件名：`[ComponentName][PropName]Container.astro`
 - 例如：`AlertTypesContainer.astro`、`AlertMarginYContainer.astro`
 
@@ -166,9 +167,11 @@ import AlertTypeWarningVueRaw from './AlertTypeWarningVue.vue?raw';
 **Astro 示例文件规范**
 
 命名：`[ComponentName][PropName][Value].astro`
+
 - 例如：`AlertTypeInfo.astro`、`AlertMarginYXS.astro`
 
 内容规范：
+
 ```astro
 ---
 import { Alert } from '@coffic/cosy-ui';
@@ -177,6 +180,7 @@ import { Alert } from '@coffic/cosy-ui';
 ```
 
 要求：
+
 - 只展示一个特定值的用法
 - 内容简洁明了
 - 不要在一个文件中用循环或条件展示多个值
@@ -184,9 +188,11 @@ import { Alert } from '@coffic/cosy-ui';
 **Vue 示例文件规范**
 
 命名：`[ComponentName][PropName][Value]Vue.vue`
+
 - 例如：`AlertTypeInfoVue.vue`、`AlertMarginYXSVue.vue`
 
 内容规范：
+
 ```vue
 <script setup lang="ts">
 import { Alert } from '@coffic/cosy-ui/vue';
@@ -197,6 +203,7 @@ import { Alert } from '@coffic/cosy-ui/vue';
 ```
 
 要求：
+
 - 必须遵循项目的 Vue 组件规范
 - script 部分必须在 template 上方
 - 使用 `<script setup lang="ts">` 语法
@@ -271,6 +278,7 @@ import { Alert } from "@coffic/cosy-ui";
 假设某个 prop 叫做 `marginY`，有 5 个可能的值：`xs`、`sm`、`md`、`lg`、`xl`
 
 **步骤1**：为每个值创建独立的示例文件
+
 - `AlertMarginYXS.astro` / `AlertMarginYXSVue.vue`
 - `AlertMarginYSM.astro` / `AlertMarginYSMVue.vue`
 - `AlertMarginYMD.astro` / `AlertMarginYMDVue.vue`
@@ -368,11 +376,13 @@ export const AlertPackage = {
 #### 标题规范的关键点
 
 **✅ 正确示例**：
+
 - `titles={['xs', 'sm', 'md', 'lg', 'xl', ...]}`
 - `titles={['true', 'false', 'true', 'false']}`
 - `titles={['info', 'success', 'warning', 'error', ...]}`
 
 **❌ 错误示例**：
+
 - `titles={['marginY="xs"', ...]}` - 不要包含属性名
 - `titles={['xs (Astro)', ...]}` - 不要包含平台描述
 - `titles={['超小间距', ...]}` - 不要用描述文字，必须是实际的值
@@ -399,6 +409,7 @@ export const AlertPackage = {
 在提交文档前，必须按以下清单逐项检查：
 
 #### 文档完整性检查
+
 - [ ] 所有 props 都已列举（参考组件源码的 props 定义）
 - [ ] 每个 prop 的每个可能值都有独立示例文件
 - [ ] 每个 prop 都有对应的 Container 文件
@@ -406,6 +417,7 @@ export const AlertPackage = {
 - [ ] 中英文文档内容完全一致
 
 #### Container 文件检查
+
 - [ ] 文件命名符合规范：`[ComponentName][PropName]Container.astro`
 - [ ] 导入按字母顺序排列（Astro 在前，Vue 在后）
 - [ ] codes 数组顺序正确（先 Astro，后 Vue）
@@ -415,6 +427,7 @@ export const AlertPackage = {
 - [ ] 已在 index.ts 中注册
 
 #### 示例文件检查
+
 - [ ] 文件命名符合规范
 - [ ] Astro 文件：从 `@coffic/cosy-ui` 导入
 - [ ] Vue 文件：从 `@coffic/cosy-ui/vue` 导入
@@ -423,6 +436,7 @@ export const AlertPackage = {
 - [ ] 内容简洁明了，易于理解
 
 #### MDX 文档检查
+
 - [ ] frontmatter 完整（title、description、order）
 - [ ] order 值符合字母表顺序规则
 - [ ] 只导入 ComponentPackage，无其他导入
@@ -432,6 +446,7 @@ export const AlertPackage = {
 - [ ] 所有调用格式为 `<ComponentPackage.XXX />`
 
 #### 代码质量检查
+
 - [ ] 所有文件通过 linter 检查
 - [ ] 已执行 `pnpm format` 格式化代码
 - [ ] 无 TypeScript 类型错误
@@ -440,30 +455,37 @@ export const AlertPackage = {
 ## 常见错误与解决方案
 
 ### 错误1：标题包含属性名
+
 ❌ `titles={['type="info"', ...]}`  
 ✅ `titles={['info', ...]}`
 
 ### 错误2：标题包含平台描述
+
 ❌ `titles={['info (Astro)', ...]}`  
 ✅ `titles={['info', ...]}`
 
 ### 错误3：标题使用描述文字
+
 ❌ `titles={['信息提示', ...]}`  
 ✅ `titles={['info', ...]}`
 
 ### 错误4：一个文件展示多个值
+
 ❌ 在一个 Astro 文件中循环展示所有 type  
 ✅ 每个 type 值有独立的 .astro 文件
 
 ### 错误5：缺少某个平台的示例
+
 ❌ 只有 Astro 示例，没有 Vue 示例  
 ✅ 每个值都必须有 Astro 和 Vue 两个版本
 
 ### 错误6：导入顺序混乱
+
 ❌ Astro 和 Vue 导入混在一起  
 ✅ 先所有 Astro（按字母序），再所有 Vue（按字母序）
 
 ### 错误7：mdx 中直接使用 CodeContainer
+
 ❌ 在 mdx 中 import CodeContainer  
 ✅ 只调用 `<ComponentPackage.XXX />`
 

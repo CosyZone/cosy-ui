@@ -1,0 +1,31 @@
+---
+/**
+ * @component CardCourseIconSlotContainer
+ * @description 展示 CardCourse 组件的 icon slot 用法，默认图标/自定义图标 标签。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import CardCourseIconSlotCustom from './CardCourseIconSlotCustom.astro';
+import CardCourseIconSlotCustomRaw from './CardCourseIconSlotCustom.astro?raw';
+import CardCourseIconSlotCustomVue from './CardCourseIconSlotCustomVue.vue';
+import CardCourseIconSlotCustomVueRaw from './CardCourseIconSlotCustomVue.vue?raw';
+// 导入所有 Astro 示例及其源码
+import CardCourseIconSlotDefault from './CardCourseIconSlotDefault.astro';
+import CardCourseIconSlotDefaultRaw from './CardCourseIconSlotDefault.astro?raw';
+// 导入所有 Vue 示例及其源码
+import CardCourseIconSlotDefaultVue from './CardCourseIconSlotDefaultVue.vue';
+import CardCourseIconSlotDefaultVueRaw from './CardCourseIconSlotDefaultVue.vue?raw';
+---
+
+<CodeContainer
+    codes={[
+        CardCourseIconSlotDefaultRaw,
+        CardCourseIconSlotCustomRaw,
+        CardCourseIconSlotDefaultVueRaw,
+        CardCourseIconSlotCustomVueRaw,
+    ]}
+    titles={['默认图标', '自定义图标', '默认图标', '自定义图标']}>
+    <div id="tab-1" data-label="astro"><CardCourseIconSlotDefault /></div>
+    <div id="tab-2" data-label="astro"><CardCourseIconSlotCustom /></div>
+    <div id="tab-3" data-label="vue"><CardCourseIconSlotDefaultVue /></div>
+    <div id="tab-4" data-label="vue"><CardCourseIconSlotCustomVue /></div>
+</CodeContainer>
