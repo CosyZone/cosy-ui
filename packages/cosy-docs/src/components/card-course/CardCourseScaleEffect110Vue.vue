@@ -3,5 +3,5 @@ import { CardCourse } from '@coffic/cosy-ui/vue';
 </script>
 
 <template>
-  <CardCourse courseName="React 基础教程" lang="zh" href="/courses/react-basics" :scale-effect="true" />
+  <CardCourse courseName="放大效果" lang="zh" href="/courses/scale-110" :scale-effect="110" />
 </template>
