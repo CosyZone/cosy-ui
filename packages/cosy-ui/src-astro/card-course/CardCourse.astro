@@ -157,13 +157,17 @@ const scaleClasses = getScaleClasses(scaleEffect);
             class={`cosy:card-body ${contentPaddingClasses} cosy:bg-base-100/30 cosy:relative cosy:z-10 cosy:h-full cosy:flex cosy:flex-row cosy:flex-nowrap cosy:items-center cosy:gap-6`}>
             <!-- 左侧：图标 -->
             <div class="cosy:shrink-0">
-                <slot name="icon">
-                    <CardCourseIcon
-                        courseName={courseName}
-                        keywords={keywords}
-                        iconSizeClasses={iconSizeClasses}
-                    />
-                </slot>
+                {
+                    Astro.slots.has('icon') ? (
+                        <slot name="icon" />
+                    ) : (
+                        <CardCourseIcon
+                            courseName={courseName}
+                            keywords={keywords}
+                            iconSizeClasses={iconSizeClasses}
+                        />
+                    )
+                }
             </div>
 
             <!-- 右侧：内容和按钮 -->
