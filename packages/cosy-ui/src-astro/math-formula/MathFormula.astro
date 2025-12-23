@@ -1,0 +1,463 @@
+---
+/**
+ * @component MathFormula
+ *
+ * @description
+ * MathFormula 公式展示组件用于在文档或页面中美观、统一地展示数学公式，支持标题、编号和说明。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <MathFormula title="换底公式" number="1" variant="gradient">
+ *   $$\log_a c = \frac{\log_b c}{\log_b a}$$
+ * </MathFormula>
+ * ```
+ *
+ * 带说明和符号表：
+ * ```astro
+ * <MathFormula title="换底公式" number="1">
+ *   $$\log_a c = \frac{\log_b c}{\log_b a}$$
+ *   <div slot="desc">
+ *     这是对数函数的重要性质之一。
+ *   </div>
+ *   <div slot="symbols">
+ *     | 符号 | 含义 |
+ *     | :--- | :--- |
+ *     | $\log_a$ | 以 a 为底的对数 |
+ *   </div>
+ * </MathFormula>
+ * ```
+ *
+ * @props
+ * @prop {string} [title] - 公式标题，可选
+ * @prop {string|number} [number] - 公式编号，可选
+ * @prop {('default'|'gradient'|'glass'|'neon'|'card'|'spotlight')} [variant='gradient'] - 视觉风格
+ * @prop {boolean} [symbolsCollapsed=true] - 符号说明是否默认折叠
+ * @prop {string} [class] - 自定义 CSS 类名，用于覆盖默认样式
+ *
+ * @slots
+ * @slot default - 公式内容（支持 LaTeX）
+ * @slot desc - 说明文字（可选）
+ * @slot symbols - 符号说明（可折叠，默认折叠）
+ * @slot details - 详细说明（可折叠，默认折叠）
+ */
+
+import { cn } from '../../src/class';
+import { ArrowDownSIcon, ArrowUpSIcon, FunctionIcon, InfoIcon } from '../icons';
+import type { IMathFormulaProps } from './props';
+
+const props = Astro.props as IMathFormulaProps;
+
+const {
+    title = '',
+    number = '',
+    variant = 'gradient',
+    symbolsCollapsed = true,
+    class: className = '',
+} = props;
+
+const hasHeader = title || number;
+const showDesc = Astro.slots.has('desc');
+const showSymbols = Astro.slots.has('symbols');
+const showDetails = Astro.slots.has('details');
+
+// 生成唯一 ID 用于多个实例
+const componentId = `math-formula-${Math.random().toString(36).substring(2, 9)}`;
+
+// 构建容器样式类
+const baseClasses = cn()
+    .add('cosy:my-6')
+    .add('cosy:p-4')
+    .add('cosy:rounded-lg')
+    .add('cosy:relative')
+    .add('cosy:transition-all')
+    .add('cosy:duration-300')
+    .build();
+
+// 变体样式映射
+const variantClassMap: Record<string, string> = {
+    default:
+        'cosy:bg-base-200/80 cosy:border-l-2 cosy:border-accent cosy:rounded-r-lg cosy:shadow cosy:hover:shadow-lg',
+    gradient:
+        'cosy:bg-linear-to-br cosy:from-accent/10 cosy:via-base-200/80 cosy:to-primary/10 cosy:border cosy:border-accent/30 cosy:shadow-inner cosy:hover:border-accent/50 cosy:backdrop-blur-sm',
+    glass: 'cosy:bg-base-100/40 cosy:backdrop-blur-md cosy:border cosy:border-base-300/50 cosy:shadow-xl cosy:hover:bg-base-100/50',
+    neon: 'cosy:bg-base-200/50 cosy:border-2 cosy:border-accent cosy:shadow-[0_0_15px_rgba(var(--a),0.3)] cosy:hover:shadow-[0_0_25px_rgba(var(--a),0.5)] cosy:backdrop-blur-sm',
+    card: 'cosy:bg-base-100 cosy:border-2 cosy:border-l-8 cosy:border-accent cosy:shadow-lg cosy:hover:shadow-2xl cosy:hover:-translate-y-1',
+    spotlight:
+        'cosy:bg-base-200/80 cosy:border cosy:border-accent/20 cosy:shadow-lg cosy:hover:shadow-xl cosy:overflow-hidden',
+};
+
+const containerClasses = cn()
+    .add(baseClasses)
+    .add(variantClassMap[variant] || variantClassMap.gradient)
+    .add(className)
+    .build();
+---
+
+<div
+    class={`formula-container ${containerClasses}`}
+    data-formula-id={componentId}
+    data-variant={variant}>
+    <!-- Spotlight 效果的光斑（仅在 spotlight variant 时显示） -->
+    {
+        variant === 'spotlight' && (
+            <div class="spotlight-effect cosy:absolute cosy:inset-0 cosy:pointer-events-none" />
+        )
+    }
+
+    <!-- 右上角 info 图标 -->
+    <div class="cosy:absolute cosy:top-2 cosy:right-2 cosy:z-10">
+        <button
+            class="formula-info-btn cosy:w-5 cosy:h-5 cosy:text-accent cosy:hover:text-accent-focus cosy:hover:scale-110 cosy:transition-all cosy:duration-200"
+            title="什么是公式？"
+            type="button"
+            data-formula-id={componentId}>
+            <InfoIcon class="cosy:w-4 cosy:h-4" />
+        </button>
+        <!-- 提示框 -->
+        <div
+            class="formula-tooltip cosy:absolute cosy:top-6 cosy:right-0 cosy:w-64 cosy:p-3 cosy:bg-base-100 cosy:border cosy:border-base-300 cosy:rounded-lg cosy:shadow-xl cosy:z-20 cosy:text-sm cosy:animate-fade-in cosy:hidden"
+            data-formula-id={componentId}>
+            <div class="cosy:flex cosy:items-start cosy:gap-2">
+                <InfoIcon
+                    class="cosy:w-4 cosy:h-4 cosy:text-accent cosy:mt-0.5 cosy:shrink-0"
+                />
+                <div class="cosy:text-base-content">
+                    <p class="cosy:font-medium cosy:mb-1 not-prose">数学公式</p>
+                    <p
+                        class="cosy:text-xs cosy:leading-relaxed not-prose cosy:opacity-70">
+                        公式是数学中表达数量关系、结构规律的符号表达式，是解决数学问题的重要工具。重要结论公式应熟练掌握和灵活应用。
+                    </p>
+                </div>
+            </div>
+            <!-- 小三角 -->
+            <div
+                class="cosy:absolute cosy:-top-1 cosy:right-3 cosy:w-2 cosy:h-2 cosy:bg-base-100 cosy:border-l cosy:border-t cosy:border-base-300 cosy:transform cosy:rotate-45">
+            </div>
+        </div>
+    </div>
+
+    {
+        hasHeader && (
+            <div
+                class={cn()
+                    .flex()
+                    .items('center')
+                    .mb(2)
+                    .relative()
+                    .z(1)
+                    .build()}>
+                <FunctionIcon
+                    class={`cosy:text-accent cosy:mr-2 cosy:text-lg ${
+                        variant === 'neon'
+                            ? 'cosy:drop-shadow-[0_0_8px_rgba(var(--a),0.8)]'
+                            : ''
+                    }`}
+                />
+                {title && (
+                    <span
+                        class={`cosy:font-bold cosy:text-base-content ${
+                            variant === 'neon'
+                                ? 'cosy:drop-shadow-[0_0_4px_rgba(var(--a),0.3)]'
+                                : ''
+                        }`}>
+                        {title}
+                    </span>
+                )}
+                {number && (
+                    <span
+                        class={`cosy:ml-2 cosy:text-xs cosy:text-base-content/70 cosy:px-2 cosy:py-0.5 cosy:rounded-full ${
+                            variant !== 'default'
+                                ? 'cosy:bg-accent/20'
+                                : 'cosy:bg-base-300'
+                        }`}>
+                        公式{number}
+                    </span>
+                )}
+            </div>
+        )
+    }
+
+    <div
+        class={cn()
+            .add('cosy:overflow-x-auto')
+            .text('lg')
+            .add('cosy:text-base-content', 'formula-block')
+            .relative()
+            .z(1)
+            .build()}>
+        <slot />
+    </div>
+
+    {
+        showDesc && (
+            <div
+                class={cn()
+                    .mt(2)
+                    .text('sm')
+                    .add(
+                        'cosy:text-base-content/70',
+                        'cosy:border-t',
+                        'cosy:border-base-content/10'
+                    )
+                    .pt(2)
+                    .relative()
+                    .z(1)
+                    .build()}>
+                <slot name="desc" />
+            </div>
+        )
+    }
+
+    <!-- 可折叠的符号说明 -->
+    {
+        showSymbols && (
+            <div
+                class={`cosy:mt-2 cosy:pt-3 cosy:border-t cosy:border-base-content/10 cosy:relative cosy:z-1 ${
+                    variant === 'default'
+                        ? 'cosy:border-t cosy:border-base-300'
+                        : 'cosy:border-t cosy:border-accent/20'
+                }`}>
+                <details class="group" open={!symbolsCollapsed}>
+                    <summary
+                        class={`cosy:cursor-pointer cosy:text-sm cosy:font-medium cosy:flex cosy:items-center cosy:gap-1 cosy:transition-colors ${
+                            variant === 'neon'
+                                ? 'cosy:text-accent cosy:hover:text-accent cosy:drop-shadow-[0_0_4px_rgba(var(--a),0.5)]'
+                                : 'cosy:text-accent cosy:hover:text-accent-focus'
+                        }`}>
+                        <InfoIcon class="cosy:w-4 cosy:h-4 group-open:cosy:rotate-180 cosy:transition-transform cosy:duration-200" />
+                        符号说明
+                    </summary>
+                    <div class="cosy:mt-2 cosy:text-sm cosy:text-base-content/70">
+                        <slot name="symbols" />
+                    </div>
+                </details>
+            </div>
+        )
+    }
+
+    <!-- 可折叠的详细说明 -->
+    {
+        showDetails && (
+            <div class="cosy:mt-2 cosy:border-t cosy:border-base-content/10 cosy:pt-2 cosy:relative cosy:z-1">
+                <div class="cosy:flex cosy:justify-end">
+                    <button
+                        class="formula-details-toggle cosy:flex cosy:items-center cosy:gap-2 cosy:text-sm cosy:font-medium cosy:text-accent cosy:hover:text-accent-focus cosy:transition-colors cosy:duration-200 group"
+                        type="button"
+                        data-formula-id={componentId}>
+                        <ArrowDownSIcon class="cosy:w-4 cosy:h-4 cosy:transition-transform cosy:duration-200 formula-details-icon-down" />
+                        <ArrowUpSIcon class="cosy:w-4 cosy:h-4 cosy:transition-transform cosy:duration-200 formula-details-icon-up cosy:hidden" />
+                    </button>
+                </div>
+                <div
+                    class="formula-details-content cosy:mt-2 cosy:text-sm cosy:text-base-content/80 cosy:animate-fade-in cosy:hidden"
+                    data-formula-id={componentId}>
+                    <slot name="details" />
+                </div>
+            </div>
+        )
+    }
+</div>
+
+<style>
+    .formula-block {
+        /* 让公式在小屏下可横向滚动 */
+        font-family: 'KaTeX_Main', 'Times New Roman', Times, serif;
+        word-break: break-word;
+    }
+
+    /* Spotlight 效果 */
+    .spotlight-effect {
+        background: radial-gradient(
+            circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            rgba(var(--a), 0.15) 0%,
+            transparent 50%
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .formula-container:hover .spotlight-effect {
+        opacity: 1;
+    }
+
+    /* 淡入动画 */
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fade-in 0.2s ease-out;
+    }
+
+    /* Neon 效果脉冲 */
+    @keyframes neon-pulse {
+        0%,
+        100% {
+            box-shadow: 0 0 15px rgba(var(--a), 0.3);
+        }
+        50% {
+            box-shadow: 0 0 25px rgba(var(--a), 0.5);
+        }
+    }
+</style>
+
+<script is:inline define:vars={{ componentId }}>
+    // 全局点击外部处理函数（使用事件委托，避免重复绑定）
+    let globalClickHandler = null;
+
+    function setupGlobalClickHandler() {
+        if (globalClickHandler) return; // 已经设置过
+
+        globalClickHandler = (event) => {
+            const target = event.target;
+            // 检查是否点击在 tooltip 或按钮外部
+            const allTooltips = document.querySelectorAll(
+                '.formula-tooltip:not(.cosy\\:hidden)'
+            );
+            allTooltips.forEach((tooltip) => {
+                const formulaId = tooltip.getAttribute('data-formula-id');
+                if (!formulaId) return;
+
+                const button = document.querySelector(
+                    `.formula-info-btn[data-formula-id="${formulaId}"]`
+                );
+                if (
+                    button &&
+                    !button.contains(target) &&
+                    !tooltip.contains(target)
+                ) {
+                    tooltip.classList.add('cosy:hidden');
+                }
+            });
+        };
+
+        document.addEventListener('click', globalClickHandler);
+    }
+
+    // 处理 tooltip 显示/隐藏
+    function initTooltip(formulaId) {
+        const button = document.querySelector(
+            `.formula-info-btn[data-formula-id="${formulaId}"]`
+        );
+        const tooltip = document.querySelector(
+            `.formula-tooltip[data-formula-id="${formulaId}"]`
+        );
+
+        if (!button || !tooltip) return;
+
+        // 检查是否已经初始化过
+        if (button.hasAttribute('data-tooltip-initialized')) return;
+
+        const toggleTooltip = () => {
+            const isVisible = !tooltip.classList.contains('cosy:hidden');
+            // 关闭所有其他 tooltip
+            document
+                .querySelectorAll('.formula-tooltip')
+                .forEach((t) => t.classList.add('cosy:hidden'));
+            if (!isVisible) {
+                tooltip.classList.remove('cosy:hidden');
+            }
+        };
+
+        button.addEventListener('click', toggleTooltip);
+        button.setAttribute('data-tooltip-initialized', 'true');
+    }
+
+    // 处理 details 折叠/展开
+    function initDetails(formulaId) {
+        const toggle = document.querySelector(
+            `.formula-details-toggle[data-formula-id="${formulaId}"]`
+        );
+        const content = document.querySelector(
+            `.formula-details-content[data-formula-id="${formulaId}"]`
+        );
+        const iconDown = toggle?.querySelector('.formula-details-icon-down');
+        const iconUp = toggle?.querySelector('.formula-details-icon-up');
+
+        if (!toggle || !content || !iconDown || !iconUp) return;
+
+        // 检查是否已经初始化过
+        if (toggle.hasAttribute('data-details-initialized')) return;
+
+        toggle.addEventListener('click', () => {
+            const isExpanded = !content.classList.contains('cosy:hidden');
+            if (isExpanded) {
+                content.classList.add('cosy:hidden');
+                // 切换图标：显示 down，隐藏 up
+                iconDown.classList.remove('cosy:hidden');
+                iconUp.classList.add('cosy:hidden');
+            } else {
+                content.classList.remove('cosy:hidden');
+                // 切换图标：隐藏 down，显示 up
+                iconDown.classList.add('cosy:hidden');
+                iconUp.classList.remove('cosy:hidden');
+            }
+        });
+
+        toggle.setAttribute('data-details-initialized', 'true');
+    }
+
+    // 处理 spotlight 鼠标跟踪效果
+    function initSpotlight(formulaId) {
+        const container = document.querySelector(
+            `.formula-container[data-formula-id="${formulaId}"][data-variant="spotlight"]`
+        );
+
+        if (!container) return;
+
+        // 检查是否已经初始化过
+        if (container.hasAttribute('data-spotlight-initialized')) return;
+
+        const handleMouseMove = (e) => {
+            const rect = container.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            container.style.setProperty('--mouse-x', `${x}%`);
+            container.style.setProperty('--mouse-y', `${y}%`);
+        };
+
+        container.addEventListener('mousemove', handleMouseMove);
+        // 初始化位置
+        container.style.setProperty('--mouse-x', '50%');
+        container.style.setProperty('--mouse-y', '50%');
+        container.setAttribute('data-spotlight-initialized', 'true');
+    }
+
+    // 初始化所有 MathFormula 组件
+    function initAllFormulas() {
+        // 设置全局点击处理（只需要设置一次）
+        setupGlobalClickHandler();
+
+        const containers = document.querySelectorAll(
+            '.formula-container[data-formula-id]'
+        );
+
+        containers.forEach((container) => {
+            const formulaId = container.getAttribute('data-formula-id');
+            if (!formulaId) return;
+
+            initTooltip(formulaId);
+            initDetails(formulaId);
+            initSpotlight(formulaId);
+        });
+    }
+
+    // 首次加载时初始化
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAllFormulas);
+    } else {
+        // 如果 DOM 已经加载完成，立即初始化
+        initAllFormulas();
+    }
+
+    // 客户端路由切换时重新初始化
+    document.addEventListener('astro:page-load', initAllFormulas);
+</script>

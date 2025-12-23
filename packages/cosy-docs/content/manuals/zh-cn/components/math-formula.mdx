@@ -1,0 +1,71 @@
+---
+title: 'MathFormula'
+description: 'MathFormula 公式展示组件，支持标题、编号、说明及多种视觉风格。'
+folder: false
+order: 13.4
+---
+
+import { ComponentPackage } from '@/components/math-formula/index';
+
+# {frontmatter.title}
+
+## 简介
+
+MathFormula 用于在文档或页面中美观、统一地展示数学公式，支持标题、编号、说明与符号表，内置多种视觉变体并适配主题与响应式。
+
+## 案例
+
+<ComponentPackage.Basic />
+
+## Props
+
+### class
+
+自定义 CSS 类名，用于覆盖或增强组件样式。
+
+<ComponentPackage.CustomClass />
+
+### number
+
+公式编号，支持字符串或数字。
+
+<ComponentPackage.Basic />
+
+### symbolsCollapsed
+
+符号说明是否默认折叠，默认值为 `true`。
+
+<ComponentPackage.SymbolsCollapsed />
+
+### title
+
+公式标题。
+
+<ComponentPackage.Basic />
+
+### variant
+
+视觉风格，可选值 `default`、`gradient`、`glass`、`neon`、`card`、`spotlight`。
+
+<ComponentPackage.Variant />
+
+## Slots
+
+### default
+
+公式内容（支持 LaTeX）。
+
+### desc
+
+说明文字。
+
+### symbols
+
+符号说明区域，可折叠。
+
+### details
+
+详细说明区域，可折叠。
+
+<ComponentPackage.Slots />
+

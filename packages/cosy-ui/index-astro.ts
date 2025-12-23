@@ -67,6 +67,7 @@ export * from "./src-astro/login";
 export * from "./src-astro/logout";
 export * from "./src-astro/mac-window";
 export * from "./src-astro/main";
+export * from "./src-astro/math-formula";
 export * from "./src-astro/modal";
 export * from "./src-astro/module";
 export * from "./src-astro/nav-section";

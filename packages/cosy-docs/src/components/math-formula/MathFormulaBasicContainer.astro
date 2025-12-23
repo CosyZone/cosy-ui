@@ -1,0 +1,19 @@
+---
+/**
+ * @component MathFormulaBasicContainer
+ * @description 基础示例：标题、编号与说明。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+
+import MathFormulaBasic from './MathFormulaBasic.astro';
+import MathFormulaBasicRaw from './MathFormulaBasic.astro?raw';
+import MathFormulaBasicVue from './MathFormulaBasicVue.vue';
+import MathFormulaBasicVueRaw from './MathFormulaBasicVue.vue?raw';
+---
+
+<CodeContainer
+    codes={[MathFormulaBasicRaw, MathFormulaBasicVueRaw]}
+    titles={['基础用法', '基础用法']}>
+    <div id="tab-1" data-label="astro"><MathFormulaBasic /></div>
+    <div id="tab-2" data-label="vue"><MathFormulaBasicVue client:load /></div>
+</CodeContainer>

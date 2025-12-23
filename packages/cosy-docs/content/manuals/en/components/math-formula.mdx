@@ -1,0 +1,71 @@
+---
+title: 'MathFormula'
+description: 'MathFormula displays math formulas with titles, numbering, descriptions, and multiple visual variants.'
+folder: false
+order: 13.4
+---
+
+import { ComponentPackage } from '@/components/math-formula/index';
+
+# {frontmatter.title}
+
+## Introduction
+
+MathFormula renders math expressions with consistent styling, supporting titles, numbering, descriptions, symbol notes, six visual variants, and responsive layouts with theme adaptation.
+
+## Example
+
+<ComponentPackage.Basic />
+
+## Props
+
+### class
+
+Custom CSS classes to extend or override the default styling.
+
+<ComponentPackage.CustomClass />
+
+### number
+
+Formula number, accepts string or number.
+
+<ComponentPackage.Basic />
+
+### symbolsCollapsed
+
+Whether the symbols panel is collapsed by default. Defaults to `true`.
+
+<ComponentPackage.SymbolsCollapsed />
+
+### title
+
+Formula title.
+
+<ComponentPackage.Basic />
+
+### variant
+
+Visual style. Options: `default`, `gradient`, `glass`, `neon`, `card`, `spotlight`.
+
+<ComponentPackage.Variant />
+
+## Slots
+
+### default
+
+Formula content (supports LaTeX).
+
+### desc
+
+Description text.
+
+### symbols
+
+Symbol notes area, collapsible.
+
+### details
+
+Details area, collapsible.
+
+<ComponentPackage.Slots />
+

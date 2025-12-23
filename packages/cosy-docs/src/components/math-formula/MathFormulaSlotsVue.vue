@@ -1,0 +1,42 @@
+<script setup lang="ts">
+import { MathFormula } from "@coffic/cosy-ui/vue";
+</script>
+
+<template>
+  <MathFormula
+    title="完整插槽"
+    number="2"
+    variant="card"
+    :symbols-collapsed="false"
+  >
+    {{"$$\\int_a^b f'(x) \\mathrm{d}x = f(b) - f(a)$$"}}
+
+    <div slot="desc">展示 desc、symbols 与 details 插槽的用法。</div>
+
+    <div slot="symbols">
+      <table>
+        <thead>
+          <tr>
+            <th>符号</th>
+            <th>含义</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ "\\( f'(x) \\)" }}</td>
+            <td>{{ "\\( f(x) \\) 的导数" }}</td>
+          </tr>
+          <tr>
+            <td>{{ "\\( a, b \\)" }}</td>
+            <td>积分上下限</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div slot="details">
+      使用牛顿-莱布尼茨公式，可以将定积分转换为原函数在区间端点的差值。
+    </div>
+  </MathFormula>
+</template>
+

@@ -1,0 +1,10 @@
+<script setup lang="ts">
+import { MathFormula } from "@coffic/cosy-ui/vue";
+</script>
+
+<template>
+  <MathFormula title="玻璃态" variant="glass">
+    $$\int_0^1 x^2 \, dx = \frac{1}{3}$$
+  </MathFormula>
+</template>
+
