@@ -1,19 +1,8 @@
 ---
-/**
- * @page HomePage
- * @description Cosy UI 首页 - Apple 风格的现代化设计
- */
-
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import AnimationDemo from '@/widgets/home/AnimationDemo.astro';
-import CodeShowcase from '@/widgets/home/CodeShowcase.astro';
-import ComponentShowcase from '@/widgets/home/ComponentShowcase.astro';
-import DesignPhilosophy from '@/widgets/home/DesignPhilosophy.astro';
-import DeveloperExperience from '@/widgets/home/DeveloperExperience.astro';
 import FeatureHighlights from '@/widgets/home/FeatureHighlights.astro';
 import FinalCTA from '@/widgets/home/FinalCTA.astro';
 import HeroSection from '@/widgets/home/HeroSection.astro';
-import StatsSection from '@/widgets/home/StatsSection.astro';
 import UseCases from '@/widgets/home/UseCases.astro';
 
 export const prerender = true;
@@ -44,32 +33,10 @@ const title =
     isArticle={false}
     verticalPadding="none"
     mainLayout="column"
-    background="gradient-glow">
-    <!-- Hero Section - 震撼开场 -->
+    background="none">
     <HeroSection lang={lang} />
-
-    <!-- Feature Highlights - 核心特性 -->
     <FeatureHighlights lang={lang} />
-
-    <!-- Design Philosophy - 设计理念 -->
-    <DesignPhilosophy lang={lang} />
-
-    <!-- Code Showcase - 代码展示 -->
-    <!-- <CodeShowcase lang={lang} /> -->
-
-    <!-- Animation Demo - 动效展示 -->
-    <!-- <AnimationDemo lang={lang} /> -->
-
-    <!-- Developer Experience - 开发者体验 -->
-    <!-- <DeveloperExperience lang={lang} /> -->
-
-    <!-- Use Cases - 使用案例 -->
     <UseCases lang={lang} />
-
-    <!-- Stats Section - 数据统计 -->
-    <!-- <StatsSection lang={lang} /> -->
-
-    <!-- Final CTA - 行动号召 -->
     <FinalCTA lang={lang} />
 </BaseLayout>
 

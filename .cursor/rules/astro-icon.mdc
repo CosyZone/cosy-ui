@@ -1,0 +1,88 @@
+# Astro Lucide 图标使用规范
+
+## Lucide 图标库使用
+
+在 Astro 组件中使用 Lucide 图标，必须使用 `lucide-astro` 包提供的组件方式。
+
+### ✅ 正确用法
+
+```astro
+---
+// 导入 Lucide 图标组件
+import { ArrowLeft, ArrowRight, Home, Search } from 'lucide-astro';
+---
+
+<!-- 使用图标组件 -->
+<ArrowLeft class="h-4 w-4" />
+<ArrowRight class="h-4 w-4 text-primary" />
+<Home size={16} />
+<Search class="w-5 h-5 hover:text-blue-500" />
+```
+
+### ❌ 错误用法
+
+```astro
+<!-- ❌ 避免使用字符串类名 -->
+<i class="lucide lucide-arrow-left"></i>
+<span class="lucide-arrow-left"></span>
+
+<!-- ❌ 避免使用其他图标库的字符串类名 -->
+<i class="ri-arrow-left-line"></i>
+<span class="fa fa-arrow-left"></span>
+```
+
+## 图标属性
+
+### 支持的属性
+
+- `class`: Tailwind CSS 类名（推荐）
+- `size`: 图标大小（数字，单位为像素）
+- `color`: 图标颜色（不推荐，建议使用 Tailwind 类）
+- 其他标准 HTML 属性
+
+### 推荐用法
+
+```astro
+<!-- ✅ 使用 Tailwind 类控制大小和颜色 -->
+<ArrowLeft class="h-4 w-4 text-gray-600 hover:text-blue-500" />
+
+<!-- ✅ 使用 size 属性 -->
+<Home size={20} class="text-primary" />
+
+<!-- ✅ 无障碍支持 -->
+<ArrowLeft class="h-4 w-4" aria-label="后退" />
+```
+
+## 图标命名约定
+
+- 使用 PascalCase 命名：`ArrowLeft`, `Home`, `Search`
+- 图标名称与 Lucide 官方文档保持一致
+- 优先选择语义化的图标名称
+
+## 性能优化
+
+- 只导入使用的图标，避免全量导入
+- 在组件顶部集中导入所有需要的图标
+
+```astro
+---
+// ✅ 推荐：只导入使用的图标
+import { ArrowLeft, ArrowRight } from 'lucide-astro';
+
+// ❌ 避免：全量导入（影响打包大小）
+import * as Icons from 'lucide-astro';
+---
+```
+
+## 检查清单
+
+创建或修改 Astro 组件时，请确保：
+
+- [ ] 使用 `lucide-astro` 包提供的图标组件
+- [ ] 图标通过 `import { IconName } from 'lucide-astro'` 方式导入
+- [ ] 避免使用 `<i class="lucide-icon-name"></i>` 字符串类名
+- [ ] 优先使用 Tailwind CSS 类控制图标样式
+- [ ] 为交互性图标添加适当的 hover 状态
+- [ ] 为装饰性图标添加 `aria-hidden="true"` 属性
+- [ ] 只导入实际使用的图标，避免不必要的包体积增加</contents>
+</xai:function_call />

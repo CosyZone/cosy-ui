@@ -1,0 +1,107 @@
+---
+import { Container, Heading } from '@coffic/cosy-ui';
+
+export interface Feature {
+    icon: any;
+    title: string;
+    description: string;
+    color?: string;
+}
+
+export interface Props {
+    title: string;
+    description: string;
+    features: Feature[];
+    lang?: string;
+}
+
+const { title, description, features, lang = 'zh-cn' } = Astro.props as Props;
+
+// 内置背景样式数组
+const backgroundStyles = [
+    'bg-linear-to-br from-primary/5 to-secondary/5',
+    'bg-linear-to-br from-secondary/5 to-accent/5',
+    'bg-linear-to-br from-accent/5 to-primary/5',
+    'bg-linear-to-tl from-primary/3 to-secondary/3',
+    'bg-linear-to-tr from-secondary/3 to-accent/3',
+    'bg-linear-to-bl from-primary/4 to-accent/4',
+    'bg-linear-to-tr from-accent/4 to-secondary/4',
+    'bg-linear-to-r from-primary/3 to-secondary/3',
+    'bg-linear-to-l from-secondary/3 to-accent/3',
+    'bg-linear-to-t from-accent/4 to-primary/4',
+    'bg-linear-to-b from-primary/4 to-accent/4',
+    'bg-linear-to-br from-primary/6 via-secondary/3 to-accent/6',
+    'bg-linear-to-bl from-secondary/6 via-accent/3 to-primary/6',
+    'bg-linear-to-tr from-accent/6 via-primary/3 to-secondary/6',
+    'bg-linear-to-tl from-primary/4 via-accent/2 to-secondary/4',
+    'bg-linear-to-r from-secondary/4 via-primary/2 to-accent/4',
+    'bg-linear-to-l from-accent/4 via-secondary/2 to-primary/4',
+    'bg-linear-to-t from-primary/4 via-accent/2 to-secondary/4',
+    'bg-linear-to-b from-secondary/4 via-primary/2 to-accent/4',
+];
+
+// 根据 title 哈希选择背景样式，确保相同 title 总是对应相同背景
+function hashString(str: string): number {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = (hash << 5) - hash + char;
+        hash = hash & hash; // 转换为32位整数
+    }
+    return Math.abs(hash);
+}
+
+const selectedBackground =
+    backgroundStyles[hashString(title) % backgroundStyles.length];
+---
+
+<section
+    class={`py-20 ${selectedBackground} backdrop-blur-sm border-t border-base-content/10`}>
+    <Container width="xl" padding="xl">
+        <div class="flex flex-col items-center gap-12">
+            <div class="w-full max-w-4xl space-y-8">
+                <div class="space-y-4 text-center">
+                    <Heading
+                        level={2}
+                        weight="bold"
+                        color="default"
+                        align="center">
+                        {title}
+                    </Heading>
+                    <p class="text-lg text-base-content/80">
+                        {description}
+                    </p>
+                </div>
+
+                <!-- CTA slot - 可以在标题和特性之间注入 CTA 按钮 -->
+                <div class="w-full flex justify-center">
+                    <slot name="cta" />
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {
+                        features.map((feature) => (
+                            <div class="flex items-center gap-3 p-4 bg-accent/10 rounded-lg shadow-inner">
+                                <feature.icon
+                                    class={`w-8 h-8 ${feature.color || 'text-primary'}`}
+                                />
+                                <div>
+                                    <h3 class="font-semibold text-base-content">
+                                        {feature.title}
+                                    </h3>
+                                    <p class="text-sm text-base-content/70">
+                                        {feature.description}
+                                    </p>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+
+            <div class="w-full flex justify-center">
+                <slot />
+            </div>
+        </div>
+    </Container>
+</section>

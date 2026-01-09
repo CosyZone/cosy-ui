@@ -6,6 +6,8 @@ import { defineConfig } from "astro/config";
 import pagefind from "astro-pagefind";
 import path from "node:path";
 
+import tailwindcss from "@tailwindcss/vite";
+
 // https://astro.build/config
 export default defineConfig({
 	site: "https://ui.coffic.cn",
@@ -32,6 +34,8 @@ export default defineConfig({
 				"@demos": path.resolve("./src/demos"),
 			},
 		},
+
+		plugins: [tailwindcss()],
 	},
 
 	integrations: [
