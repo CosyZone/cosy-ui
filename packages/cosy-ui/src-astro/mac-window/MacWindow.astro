@@ -1,7 +1,4 @@
 ---
-
-
-
 /**
  * @component MacWindow
  *
@@ -127,11 +124,10 @@ const headerClass = cn()
     .left(0)
     .right(0)
     .flex()
+    .roundedTop('2xl')
     .items('center')
     .h(12)
     .px(4)
-    .border()
-    .borderColor('base-300')
     .add(headerBgClass) // 保留：动态类名
     .build();
 
@@ -144,18 +140,9 @@ const buttonClass = cn()
     .transition('opacity')
     .build();
 
-const titleClass = cn()
-    .ml(6)
-    .text('sm')
-    .medium()
-    .color('base-content')
-    .build();
+const titleClass = cn().ml(6).text('sm').medium().color('base-content').build();
 
-const tabsContainerClass = cn()
-    .flex1()
-    .flex()
-    .justify('center')
-    .build();
+const tabsContainerClass = cn().flex1().flex().justify('center').build();
 
 const tabsWrapperClass = cn()
     .add('cosy:inline-flex') // 保留：inline-flex 暂不支持
@@ -183,19 +170,9 @@ const getTabButtonClass = (isActive: boolean) =>
         )
         .build();
 
-const toolbarClass = cn()
-    .ml('auto')
-    .flex()
-    .items('center')
-    .spaceX(2)
-    .build();
+const toolbarClass = cn().ml('auto').flex().items('center').spaceX(2).build();
 
-const mainContentClass = cn()
-    .flex1()
-    .flex('col')
-    .pt(12)
-    .h('full')
-    .build();
+const mainContentClass = cn().flex1().flex('col').pt(12).h('full').build();
 
 const contentWrapperClass = cn()
     .flex()
@@ -216,11 +193,7 @@ const statusBarClass = cn()
     .add(statusBgClass) // 保留：动态类名
     .build();
 
-const statusContentClass = cn()
-    .flex()
-    .items('center')
-    .spaceX(2)
-    .build();
+const statusContentClass = cn().flex().items('center').spaceX(2).build();
 ---
 
 <Container
@@ -232,7 +205,7 @@ const statusContentClass = cn()
     class={containerClass}
     data-window-id={windowId}>
     <!-- 窗口控制按钮 -->
-    <div class={headerClass}>
+    <div class={headerClass} aria-label="MacWindow-Header">
         <div class="cosy:flex cosy:items-center cosy:space-x-2">
             <div
                 class={cn().add(buttonClass).bg('error').build()}
