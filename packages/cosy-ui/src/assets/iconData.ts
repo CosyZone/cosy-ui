@@ -30,6 +30,8 @@ import * as icons from "./icons-data";
 export const iconData: Record<string, IconData> = {
 	alertTriangle: icons.alertTriangle,
 	appstore: icons.appstore,
+	arrowDownS: icons.arrowDownS,
+	arrowUpS: icons.arrowUpS,
 	calendar: icons.calendar,
 	chart: icons.chart,
 	check: icons.check,
@@ -47,6 +49,7 @@ export const iconData: Record<string, IconData> = {
 	edit: icons.edit,
 	facebook: icons.facebook,
 	folder: icons.folder,
+	function: icons.functionIcon,
 	github: icons.github,
 	globe: icons.globe,
 	heart: icons.heart,

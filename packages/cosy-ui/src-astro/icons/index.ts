@@ -3,6 +3,8 @@
 export { default as SmartIcon } from "../smart-icon/SmartIcon.astro";
 export { default as AlertTriangle } from "./AlertTriangle.astro";
 export { default as AppStoreIcon } from "./AppStoreIcon.astro";
+export { default as ArrowDownSIcon } from "./ArrowDownSIcon.astro";
+export { default as ArrowUpSIcon } from "./ArrowUpSIcon.astro";
 export { default as CalendarIcon } from "./CalendarIcon.astro";
 export { default as ChartIcon } from "./ChartIcon.astro";
 export { default as CheckCircle } from "./CheckCircle.astro";
@@ -21,6 +23,7 @@ export { default as EditIcon } from "./EditIcon.astro";
 export { default as ErrorIcon } from "./ErrorIcon.astro";
 export { default as FacebookIcon } from "./FacebookIcon.astro";
 export { default as FolderIcon } from "./FolderIcon.astro";
+export { default as FunctionIcon } from "./FunctionIcon.astro";
 export { default as GithubIcon } from "./GithubIcon.astro";
 export { default as GlobeIcon } from "./GlobeIcon.astro";
 export { default as HeartIcon } from "./HeartIcon.astro";

@@ -25,6 +25,7 @@ export * from "./src-vue/link/index";
 export * from "./src-vue/list/index";
 export * from "./src-vue/login/index";
 export * from "./src-vue/mac-window/index";
+export * from "./src-vue/math-formula";
 export * from "./src-vue/photo-wall/index";
 export * from "./src-vue/placeholder/index";
 export * from "./src-vue/products/index";

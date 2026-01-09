@@ -1,0 +1,36 @@
+---
+/**
+ * @component MathFormulaSymbolsCollapsedContainer
+ * @description 展示 symbolsCollapsed 为 true/false 的效果。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+
+import MathFormulaSymbolsCollapsedFalse from './MathFormulaSymbolsCollapsedFalse.astro';
+import MathFormulaSymbolsCollapsedFalseRaw from './MathFormulaSymbolsCollapsedFalse.astro?raw';
+import MathFormulaSymbolsCollapsedFalseVue from './MathFormulaSymbolsCollapsedFalseVue.vue';
+import MathFormulaSymbolsCollapsedFalseVueRaw from './MathFormulaSymbolsCollapsedFalseVue.vue?raw';
+import MathFormulaSymbolsCollapsedTrue from './MathFormulaSymbolsCollapsedTrue.astro';
+import MathFormulaSymbolsCollapsedTrueRaw from './MathFormulaSymbolsCollapsedTrue.astro?raw';
+import MathFormulaSymbolsCollapsedTrueVue from './MathFormulaSymbolsCollapsedTrueVue.vue';
+import MathFormulaSymbolsCollapsedTrueVueRaw from './MathFormulaSymbolsCollapsedTrueVue.vue?raw';
+---
+
+<CodeContainer
+    codes={[
+        MathFormulaSymbolsCollapsedTrueRaw,
+        MathFormulaSymbolsCollapsedFalseRaw,
+        MathFormulaSymbolsCollapsedTrueVueRaw,
+        MathFormulaSymbolsCollapsedFalseVueRaw,
+    ]}
+    titles={['true', 'false', 'true', 'false']}>
+    <div id="tab-1" data-label="astro"><MathFormulaSymbolsCollapsedTrue /></div>
+    <div id="tab-2" data-label="astro">
+        <MathFormulaSymbolsCollapsedFalse />
+    </div>
+    <div id="tab-3" data-label="vue">
+        <MathFormulaSymbolsCollapsedTrueVue client:load />
+    </div>
+    <div id="tab-4" data-label="vue">
+        <MathFormulaSymbolsCollapsedFalseVue client:load />
+    </div>
+</CodeContainer>

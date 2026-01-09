@@ -1,25 +1,22 @@
 ---
-
-
-
-import { Button, Container, Heading, Text } from "@coffic/cosy-ui";
-import heroUrl from "./images/hero2.png";
+import { Container, Heading } from '@coffic/cosy-ui';
+import heroUrl from '@/assets/factory-images/hero2.png';
 
 // locale helper (与页面保持一致)
-const currentLocale = Astro.url.pathname.split("/")[2] || "zh-cn";
-const t = (zh: string, en: string) => (currentLocale === "zh-cn" ? zh : en);
+const currentLocale = Astro.url.pathname.split('/')[2] || 'zh-cn';
+const t = (zh: string, en: string) => (currentLocale === 'zh-cn' ? zh : en);
 ---
 
 <Container
-  width="full"
-  padding="none"
-  height="5xl"
-  backgroundImage={heroUrl}
-  contentCentered>
-  <div style="position:absolute; inset:0; "></div>
-  <Container width="xl" padding="lg" contentCentered flex="row" gap="lg">
-    <Heading level={1} margin="sm" weight="bold">
-      {t('智造工厂 · 真实可见', 'Smart Manufacturing · See It Real')}
-    </Heading>
-  </Container>
+    width="full"
+    padding="none"
+    height="5xl"
+    backgroundImage={heroUrl}
+    contentCentered>
+    <div style="position:absolute; inset:0; "></div>
+    <Container width="xl" padding="lg" contentCentered flex="row" gap="lg">
+        <Heading level={1} margin="sm" weight="bold">
+            {t('智造工厂 · 真实可见', 'Smart Manufacturing · See It Real')}
+        </Heading>
+    </Container>
 </Container>

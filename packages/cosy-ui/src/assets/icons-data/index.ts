@@ -6,6 +6,8 @@
 // 导入所有图标数据
 export { alertTriangle } from "./alertTriangle";
 export { appstore } from "./appstore";
+export { arrowDownS } from "./arrowDownS";
+export { arrowUpS } from "./arrowUpS";
 export { calendar } from "./calendar";
 export { chart } from "./chart";
 export { check } from "./check";
@@ -23,6 +25,7 @@ export { download } from "./download";
 export { edit } from "./edit";
 export { facebook } from "./facebook";
 export { folder } from "./folder";
+export { functionIcon } from "./function";
 export { github } from "./github";
 export { globe } from "./globe";
 export { heart } from "./heart";

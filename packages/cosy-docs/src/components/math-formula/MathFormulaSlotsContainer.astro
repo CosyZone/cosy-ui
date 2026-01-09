@@ -1,0 +1,19 @@
+---
+/**
+ * @component MathFormulaSlotsContainer
+ * @description 展示 desc、symbols、details 插槽的用法。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+
+import MathFormulaSlots from './MathFormulaSlots.astro';
+import MathFormulaSlotsRaw from './MathFormulaSlots.astro?raw';
+import MathFormulaSlotsVue from './MathFormulaSlotsVue.vue';
+import MathFormulaSlotsVueRaw from './MathFormulaSlotsVue.vue?raw';
+---
+
+<CodeContainer
+    codes={[MathFormulaSlotsRaw, MathFormulaSlotsVueRaw]}
+    titles={['slots', 'slots']}>
+    <div id="tab-1" data-label="astro"><MathFormulaSlots /></div>
+    <div id="tab-2" data-label="vue"><MathFormulaSlotsVue client:load /></div>
+</CodeContainer>

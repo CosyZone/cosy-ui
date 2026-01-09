@@ -4,7 +4,9 @@
  * @description 最终行动号召 - 鼓励用户开始使用
  */
 
-import { Button, Container, Heading } from '@coffic/cosy-ui';
+import { Button, Heading, Image } from '@coffic/cosy-ui';
+import { Github, Play } from 'lucide-astro';
+import LaunchIllustration from '@/assets/Launch.svg';
 
 export interface Props {
     lang: string;
@@ -23,48 +25,49 @@ const ctaStart = lang === 'zh-cn' ? '快速开始' : 'Get Started';
 const ctaGithub = 'GitHub';
 ---
 
-<Container
-    width="full"
-    padding="3xl"
-    background="gradient"
-    margin="none"
-    contentCentered>
-    <Container width="2xl" padding="none" contentCentered>
-        <Heading level={2} align="center" size="4xl" weight="bold" margin="lg">
-            {title}
-        </Heading>
-        <Heading
-            level={3}
-            align="center"
-            size="xl"
-            weight="normal"
-            color="muted"
-            margin="xl">
-            {subtitle}
-        </Heading>
+<section
+    class="py-20 bg-linear-to-br from-primary/5 to-secondary/5 backdrop-blur-sm border-t border-base-content/10">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col lg:flex-row-reverse items-center gap-24">
+            <div class="lg:w-1/2 text-center lg:text-left space-y-6">
+                <Heading level={2} weight="bold" color="default">
+                    {title}
+                </Heading>
+                <p class="text-lg lg:text-xl text-base-content/80">
+                    {subtitle}
+                </p>
 
-        <Container
-            flex="row"
-            gap="lg"
-            padding="lg"
-            contentCentered
-            class="cta-buttons">
-            <Button variant="primary" size="xl" href={`/${lang}/manuals`}>
-                {ctaStart}
-            </Button>
-            <Button
-                variant="secondary"
-                size="xl"
-                href="https://github.com/cosyzone/cosy-ui"
-                target="_blank">
-                {ctaGithub}
-            </Button>
-        </Container>
-    </Container>
-</Container>
+                <div
+                    class="flex gap-4 flex-wrap justify-center lg:justify-start">
+                    <Button
+                        variant="primary"
+                        size="xl"
+                        href={`/${lang}/manuals`}>
+                        <span slot="icon-left">
+                            <Play size={20} />
+                        </span>
+                        {ctaStart}
+                    </Button>
+                    <Button
+                        variant="secondary"
+                        size="xl"
+                        href="https://github.com/cosyzone/cosy-ui"
+                        target="_blank">
+                        <span slot="icon-left">
+                            <Github size={20} />
+                        </span>
+                        {ctaGithub}
+                    </Button>
+                </div>
+            </div>
 
-<style>
-    .cta-buttons {
-        flex-wrap: wrap;
-    }
-</style>
+            <div class="lg:w-1/2 flex justify-center">
+                <Image
+                    src={LaunchIllustration}
+                    alt={lang === 'zh-cn' ? '启动插图' : 'Launch illustration'}
+                    class="max-w-lg w-full h-auto drop-shadow-lg"
+                />
+            </div>
+        </div>
+    </div>
+</section>

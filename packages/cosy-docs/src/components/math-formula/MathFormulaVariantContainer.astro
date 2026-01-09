@@ -1,0 +1,87 @@
+---
+/**
+ * @component MathFormulaVariantContainer
+ * @description 展示 MathFormula 的 variant 六种取值，Astro/Vue 均提供。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+
+import MathFormulaVariantCard from './MathFormulaVariantCard.astro';
+import MathFormulaVariantCardRaw from './MathFormulaVariantCard.astro?raw';
+import MathFormulaVariantCardVue from './MathFormulaVariantCardVue.vue';
+import MathFormulaVariantCardVueRaw from './MathFormulaVariantCardVue.vue?raw';
+import MathFormulaVariantDefault from './MathFormulaVariantDefault.astro';
+import MathFormulaVariantDefaultRaw from './MathFormulaVariantDefault.astro?raw';
+import MathFormulaVariantDefaultVue from './MathFormulaVariantDefaultVue.vue';
+import MathFormulaVariantDefaultVueRaw from './MathFormulaVariantDefaultVue.vue?raw';
+import MathFormulaVariantGlass from './MathFormulaVariantGlass.astro';
+import MathFormulaVariantGlassRaw from './MathFormulaVariantGlass.astro?raw';
+import MathFormulaVariantGlassVue from './MathFormulaVariantGlassVue.vue';
+import MathFormulaVariantGlassVueRaw from './MathFormulaVariantGlassVue.vue?raw';
+import MathFormulaVariantGradient from './MathFormulaVariantGradient.astro';
+import MathFormulaVariantGradientRaw from './MathFormulaVariantGradient.astro?raw';
+import MathFormulaVariantGradientVue from './MathFormulaVariantGradientVue.vue';
+import MathFormulaVariantGradientVueRaw from './MathFormulaVariantGradientVue.vue?raw';
+import MathFormulaVariantNeon from './MathFormulaVariantNeon.astro';
+import MathFormulaVariantNeonRaw from './MathFormulaVariantNeon.astro?raw';
+import MathFormulaVariantNeonVue from './MathFormulaVariantNeonVue.vue';
+import MathFormulaVariantNeonVueRaw from './MathFormulaVariantNeonVue.vue?raw';
+import MathFormulaVariantSpotlight from './MathFormulaVariantSpotlight.astro';
+import MathFormulaVariantSpotlightRaw from './MathFormulaVariantSpotlight.astro?raw';
+import MathFormulaVariantSpotlightVue from './MathFormulaVariantSpotlightVue.vue';
+import MathFormulaVariantSpotlightVueRaw from './MathFormulaVariantSpotlightVue.vue?raw';
+---
+
+<CodeContainer
+    codes={[
+        MathFormulaVariantCardRaw,
+        MathFormulaVariantDefaultRaw,
+        MathFormulaVariantGlassRaw,
+        MathFormulaVariantGradientRaw,
+        MathFormulaVariantNeonRaw,
+        MathFormulaVariantSpotlightRaw,
+        MathFormulaVariantCardVueRaw,
+        MathFormulaVariantDefaultVueRaw,
+        MathFormulaVariantGlassVueRaw,
+        MathFormulaVariantGradientVueRaw,
+        MathFormulaVariantNeonVueRaw,
+        MathFormulaVariantSpotlightVueRaw,
+    ]}
+    titles={[
+        'card',
+        'default',
+        'glass',
+        'gradient',
+        'neon',
+        'spotlight',
+        'card',
+        'default',
+        'glass',
+        'gradient',
+        'neon',
+        'spotlight',
+    ]}>
+    <div id="tab-1" data-label="astro"><MathFormulaVariantCard /></div>
+    <div id="tab-2" data-label="astro"><MathFormulaVariantDefault /></div>
+    <div id="tab-3" data-label="astro"><MathFormulaVariantGlass /></div>
+    <div id="tab-4" data-label="astro"><MathFormulaVariantGradient /></div>
+    <div id="tab-5" data-label="astro"><MathFormulaVariantNeon /></div>
+    <div id="tab-6" data-label="astro"><MathFormulaVariantSpotlight /></div>
+    <div id="tab-7" data-label="vue">
+        <MathFormulaVariantCardVue client:load />
+    </div>
+    <div id="tab-8" data-label="vue">
+        <MathFormulaVariantDefaultVue client:load />
+    </div>
+    <div id="tab-9" data-label="vue">
+        <MathFormulaVariantGlassVue client:load />
+    </div>
+    <div id="tab-10" data-label="vue">
+        <MathFormulaVariantGradientVue client:load />
+    </div>
+    <div id="tab-11" data-label="vue">
+        <MathFormulaVariantNeonVue client:load />
+    </div>
+    <div id="tab-12" data-label="vue">
+        <MathFormulaVariantSpotlightVue client:load />
+    </div>
+</CodeContainer>

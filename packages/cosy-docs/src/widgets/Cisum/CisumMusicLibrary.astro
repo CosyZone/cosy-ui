@@ -1,0 +1,87 @@
+---
+import ProductFeature, {
+  type Feature,
+} from '@/widgets/common/ProductFeature.astro';
+import CisumApp from './CisumApp.astro';
+import {
+  RiMusicLine,
+  RiCloudLine,
+  RiPlayListLine,
+  RiDownloadLine,
+  RiUploadLine,
+} from '@remixicon/vue';
+
+const { lang = 'zh-cn' } = Astro.props;
+
+const title =
+  lang === 'zh-cn'
+    ? '音乐仓库 - 随心随意'
+    : 'Music library - Simple and powerful';
+const description =
+  lang === 'zh-cn'
+    ? '强大的音乐管理功能，支持本地和云端音乐，随心组织您的音乐收藏'
+    : 'Powerful music management features, support local and cloud music, organize your music collection as you wish';
+
+const features: Feature[] = [
+  {
+    icon: RiMusicLine,
+    title: lang === 'zh-cn' ? '支持本地音乐' : 'Local music',
+    description:
+      lang === 'zh-cn'
+        ? '支持所有本地音乐文件格式'
+        : 'Support all local music file formats',
+    color: 'text-success',
+  },
+  {
+    icon: RiCloudLine,
+    title: lang === 'zh-cn' ? '支持 iCloud 云盘' : 'iCloud music',
+    description:
+      lang === 'zh-cn'
+        ? '无缝集成 iCloud 云端音乐'
+        : 'Seamlessly integrate iCloud cloud music',
+    color: 'text-info',
+  },
+  {
+    icon: RiPlayListLine,
+    title: lang === 'zh-cn' ? '支持播放列表' : 'Playlists',
+    description:
+      lang === 'zh-cn'
+        ? '创建和管理自定义播放列表'
+        : 'Create and manage custom playlists',
+    color: 'text-warning',
+  },
+  {
+    icon: RiDownloadLine,
+    title: lang === 'zh-cn' ? '支持导入' : 'Import',
+    description:
+      lang === 'zh-cn'
+        ? '轻松导入音乐文件和播放列表'
+        : 'Easily import music files and playlists',
+    color: 'text-accent',
+  },
+  {
+    icon: RiUploadLine,
+    title: lang === 'zh-cn' ? '支持导出' : 'Export',
+    description:
+      lang === 'zh-cn'
+        ? '导出播放列表和音乐数据'
+        : 'Export playlists and music data',
+    color: 'text-error',
+  },
+];
+---
+
+<ProductFeature
+  title={title}
+  description={description}
+  features={features}
+  lang={lang}>
+  <CisumApp
+    height="h-[18rem]"
+    showDBView={true}
+    songIndex={3}
+    lang={lang}
+    showPlayerView={false}
+    deviceType="mac"
+  />
+</ProductFeature>

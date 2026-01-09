@@ -1,0 +1,59 @@
+---
+import { MacWindow, ApplePhone } from '@coffic/cosy-ui';
+import CisumMainContent from './CisumMainContent.vue';
+
+export interface Props {
+    deviceType?: string;
+    height?: string;
+    lang?: string;
+    showDBView?: boolean;
+    showPlayerView?: boolean;
+    songIndex?: number;
+}
+
+const {
+    deviceType = 'mac',
+    height = 'h-[40rem]',
+    lang = 'zh',
+    showDBView = false,
+    showPlayerView = true,
+    songIndex = 0,
+} = Astro.props;
+---
+
+{
+  deviceType === 'mac' ? (
+    <MacWindow width="xl" height={height} title="Cisum Player">
+      <CisumMainContent
+        client:load
+        deviceType={deviceType}
+        showPlayerView={showPlayerView}
+        showDBView={showDBView}
+        songIndex={songIndex}
+        lang={lang}
+      />
+    </MacWindow>
+  ) : deviceType === 'iphone' ? (
+    <ApplePhone height="3xl" title="Cisum Player">
+      <CisumMainContent
+        client:load
+        deviceType={deviceType}
+        showPlayerView={showPlayerView}
+        showDBView={showDBView}
+        songIndex={songIndex}
+        lang={lang}
+      />
+    </ApplePhone>
+  ) : (
+    <MacWindow width="xl" height={height} title="Cisum Player">
+      <CisumMainContent
+        client:load
+        deviceType="mac"
+        showPlayerView={showPlayerView}
+        showDBView={showDBView}
+        songIndex={songIndex}
+        lang={lang}
+      />
+    </MacWindow>
+  )
+}

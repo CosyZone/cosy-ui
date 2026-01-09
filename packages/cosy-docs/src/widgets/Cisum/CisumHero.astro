@@ -1,0 +1,43 @@
+---
+import ProductHero from '@/widgets/common/ProductHero.astro';
+import CisumApp from './CisumApp.astro';
+
+interface Props {
+    lang: string;
+}
+
+const { lang = 'zh-cn' } = Astro.props as Props;
+---
+
+<ProductHero
+    title="Cisum"
+    description={lang === 'zh-cn'
+        ? '播放音乐，本该如此简单'
+        : 'Play music, it should be so simple'}
+    links={[
+        {
+            text: 'GitHub',
+            href: 'https://github.com/Cofficlab/Cisum_SwiftUI',
+            type: 'github',
+        },
+        {
+            text: 'macOS',
+            href: 'https://apps.apple.com/cn/app/cisum/id6466401036',
+            type: 'macos',
+        },
+        {
+            text: 'iOS',
+            href: 'https://apps.apple.com/cn/app/cisum/id6466401036',
+            type: 'ios',
+        },
+    ]}
+    lang={lang}>
+    <CisumApp
+        lang={lang}
+        height="h-[20rem]"
+        showPlayerView={true}
+        showDBView={false}
+        songIndex={0}
+        deviceType="mac"
+    />
+</ProductHero>
