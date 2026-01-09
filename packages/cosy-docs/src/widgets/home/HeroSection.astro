@@ -26,57 +26,6 @@ const { lang = 'zh-cn' } = Astro.props as Props;
 const ctaStart = lang === 'zh-cn' ? '快速开始' : 'Get Started';
 const ctaComponents = lang === 'zh-cn' ? '查看组件' : 'View Components';
 const avatar = getAvatarImage({ randomSeed: 'showcase-member' });
-
-const designPhilosophyFeatures =
-    lang === 'zh-cn'
-        ? [
-              {
-                  icon: Sparkles,
-                  title: '导入即用',
-                  description: '无需配置，导入即可使用，让开发更简单',
-              },
-              {
-                  icon: Wrench,
-                  title: '易于替换',
-                  description: '随时替换为自定义组件，实现更多可能性',
-              },
-              {
-                  icon: Code,
-                  title: '良好支持 TypeScript',
-                  description: '完整的类型定义和类型安全保证',
-              },
-              {
-                  icon: Rocket,
-                  title: '快速成型',
-                  description: '项目初期快速构建，未来灵活扩展',
-              },
-          ]
-        : [
-              {
-                  icon: Sparkles,
-                  title: 'Import & Use',
-                  description:
-                      'No configuration needed. Import and start building.',
-              },
-              {
-                  icon: Wrench,
-                  title: 'Easy to Replace',
-                  description:
-                      'Replace with custom components anytime for more flexibility',
-              },
-              {
-                  icon: Code,
-                  title: 'Excellent TypeScript Support',
-                  description:
-                      'Complete type definitions and type safety guarantees',
-              },
-              {
-                  icon: Rocket,
-                  title: 'Build Fast',
-                  description:
-                      'Start quickly, scale freely as your project grows',
-              },
-          ];
 ---
 
 <ProductFeature
@@ -87,7 +36,7 @@ const designPhilosophyFeatures =
         ? '构建美好 编码快乐'
         : 'Build Beautiful. Build Fast.'}
     lang={lang}
-    features={designPhilosophyFeatures}>
+    features={[]}>
     <!-- CTA 按钮 -->
     <div slot="cta" class="flex gap-4 flex-wrap justify-center">
         <Button

@@ -1,0 +1,52 @@
+---
+import ProductFeature, {
+  type Feature,
+} from '@/widgets/common/ProductFeature.astro';
+import CisumApp from './CisumApp.astro';
+import { RiCursorLine, RiLeafLine } from '@remixicon/vue';
+
+const { lang = 'zh-cn' } = Astro.props;
+
+const title =
+  lang === 'zh-cn' ? '播放音乐 - 简简单单' : 'Play music - Simple and easy';
+const description =
+  lang === 'zh-cn'
+    ? '让音乐播放变得前所未有的简单，没有复杂的设置和操作'
+    : 'Make music playback simpler than ever, no complicated settings and operations';
+
+const features: Feature[] = [
+  {
+    icon: RiCursorLine,
+    title: lang === 'zh-cn' ? '一键操作' : 'One-click operation',
+    description:
+      lang === 'zh-cn'
+        ? '点击即可播放，操作简单直观'
+        : 'Click to play, simple and intuitive operation',
+    color: 'text-primary',
+  },
+  {
+    icon: RiLeafLine,
+    title: lang === 'zh-cn' ? '没有负担' : 'No burden',
+    description:
+      lang === 'zh-cn'
+        ? '轻量级设计，不占用过多系统资源'
+        : 'Lightweight design, does not consume too much system resources',
+    color: 'text-secondary',
+  },
+];
+---
+
+<ProductFeature
+  title={title}
+  description={description}
+  features={features}
+  lang={lang}>
+  <CisumApp
+    height="h-[20rem]"
+    songIndex={1}
+    lang={lang}
+    showPlayerView={true}
+    showDBView={false}
+    deviceType="mac"
+  />
+</ProductFeature>

@@ -8,14 +8,19 @@ export interface Feature {
     color?: string;
 }
 
+export type Layout = 'vertical' | 'horizontal';
+
 export interface Props {
     title: string;
     description: string;
     features: Feature[];
     lang?: string;
+    layout?: Layout;
 }
 
-const { title, description, features, lang = 'zh-cn' } = Astro.props as Props;
+const { title, description, features, lang = 'zh-cn', layout = 'vertical' } = Astro.props as Props;
+
+const isHorizontal = layout === 'horizontal';
 
 // 内置背景样式数组
 const backgroundStyles = [
@@ -58,14 +63,28 @@ const selectedBackground =
 <section
     class={`py-20 ${selectedBackground} backdrop-blur-sm border-t border-base-content/10`}>
     <Container width="xl" padding="xl">
-        <div class="flex flex-col items-center gap-12">
-            <div class="w-full max-w-4xl space-y-8">
-                <div class="space-y-4 text-center">
+        <div
+            class={`flex gap-12 items-center ${
+                isHorizontal
+                    ? 'flex-col lg:flex-row'
+                    : 'flex-col items-center'
+            }`}>
+            <!-- 左侧：标题、描述、CTA 和特性 -->
+            <div
+                class={`space-y-8 ${
+                    isHorizontal
+                        ? 'flex-1 w-full'
+                        : 'w-full max-w-4xl'
+                }`}>
+                <div
+                    class={`space-y-4 ${
+                        isHorizontal ? 'text-left' : 'text-center'
+                    }`}>
                     <Heading
                         level={2}
                         weight="bold"
                         color="default"
-                        align="center">
+                        align={isHorizontal ? 'left' : 'center'}>
                         {title}
                     </Heading>
                     <p class="text-lg text-base-content/80">
@@ -73,33 +92,44 @@ const selectedBackground =
                     </p>
                 </div>
 
-                <!-- CTA slot - 可以在标题和特性之间注入 CTA 按钮 -->
-                <div class="w-full flex justify-center">
+                <!-- CTA slot -->
+                <div
+                    class={`w-full flex ${
+                        isHorizontal ? 'justify-start' : 'justify-center'
+                    }`}>
                     <slot name="cta" />
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {
-                        features.map((feature) => (
-                            <div class="flex items-center gap-3 p-4 bg-accent/10 rounded-lg shadow-inner">
-                                <feature.icon
-                                    class={`w-8 h-8 ${feature.color || 'text-primary'}`}
-                                />
-                                <div>
-                                    <h3 class="font-semibold text-base-content">
-                                        {feature.title}
-                                    </h3>
-                                    <p class="text-sm text-base-content/70">
-                                        {feature.description}
-                                    </p>
+                {features.length > 0 && (
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {
+                            features.map((feature) => (
+                                <div class="flex items-center gap-3 p-4 bg-accent/10 rounded-lg shadow-inner">
+                                    <feature.icon
+                                        class={`w-8 h-8 ${
+                                            feature.color || 'text-primary'
+                                        }`}
+                                    />
+                                    <div>
+                                        <h3 class="font-semibold text-base-content">
+                                            {feature.title}
+                                        </h3>
+                                        <p class="text-sm text-base-content/70">
+                                            {feature.description}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        ))
-                    }
-                </div>
+                            ))
+                        }
+                    </div>
+                )}
             </div>
 
-            <div class="w-full flex justify-center">
+            <!-- 右侧：默认 slot 内容 -->
+            <div
+                class={`w-full flex ${
+                    isHorizontal ? 'justify-end flex-1' : 'justify-center'
+                }`}>
                 <slot />
             </div>
         </div>

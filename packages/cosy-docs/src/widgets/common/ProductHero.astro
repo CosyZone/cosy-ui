@@ -1,0 +1,60 @@
+---
+/**
+ * @component ProductHero
+ * @description Product hero section component for showcasing products
+ */
+
+import { Container, Heading } from '@coffic/cosy-ui';
+
+export interface Link {
+    text: string;
+    href: string;
+    type: 'github' | 'macos' | 'ios' | 'web' | 'other';
+}
+
+export interface Props {
+    title: string;
+    description: string;
+    links: Link[];
+    lang: string;
+}
+
+const { title, description, links, lang } = Astro.props;
+---
+
+<section class="py-20 bg-gradient-to-b from-base-100 to-base-200">
+    <Container width="xl" padding="xl">
+        <div class="text-center max-w-3xl mx-auto">
+            <Heading
+                level={1}
+                weight="bold"
+                color="default"
+                align="center">
+                {title}
+            </Heading>
+            <p class="text-lg text-base-content/80 mt-6 mb-8">
+                {description}
+            </p>
+            <div class="flex gap-4 flex-wrap justify-center">
+                {links.map((link) => (
+                    <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class={`btn btn-lg ${
+                            link.type === 'github'
+                                ? 'btn-neutral'
+                                : link.type === 'macos' || link.type === 'ios'
+                                  ? 'btn-primary'
+                                  : 'btn-outline'
+                        }`}>
+                        {link.text}
+                    </a>
+                ))}
+            </div>
+        </div>
+        <div class="mt-12">
+            <slot />
+        </div>
+    </Container>
+</section>

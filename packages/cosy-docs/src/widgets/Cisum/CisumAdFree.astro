@@ -1,0 +1,85 @@
+---
+import ProductFeature, {
+  type Feature,
+} from '@/widgets/common/ProductFeature.astro';
+import CisumApp from './CisumApp.astro';
+import {
+  RiAdvertisementLine,
+  RiWindowLine,
+  RiUserLine,
+  RiLoginBoxLine,
+  RiQrCodeLine,
+} from '@remixicon/vue';
+
+const { lang = 'zh-cn' } = Astro.props;
+
+const title =
+  lang === 'zh-cn' ? '干扰全无 - 清新轻松' : 'Ad-free - Fresh and easy';
+const description =
+  lang === 'zh-cn'
+    ? '纯净的音乐体验，没有任何形式的干扰和打扰'
+    : 'Pure music experience, no form of interference or disturbance';
+
+const features: Feature[] = [
+  {
+    icon: RiAdvertisementLine,
+    title: lang === 'zh-cn' ? '无广告' : 'No ads',
+    description:
+      lang === 'zh-cn'
+        ? '完全免费，无任何广告插入'
+        : 'Completely free, no ads inserted',
+    color: 'text-error',
+  },
+  {
+    icon: RiWindowLine,
+    title: lang === 'zh-cn' ? '无弹窗' : 'No pop-ups',
+    description:
+      lang === 'zh-cn'
+        ? '不会弹出任何干扰窗口'
+        : 'No interfering pop-up windows',
+    color: 'text-warning',
+  },
+  {
+    icon: RiUserLine,
+    title: lang === 'zh-cn' ? '无注册' : 'No registration',
+    description:
+      lang === 'zh-cn'
+        ? '无需注册账号即可使用'
+        : 'No account registration required',
+    color: 'text-success',
+  },
+  {
+    icon: RiLoginBoxLine,
+    title: lang === 'zh-cn' ? '无登录' : 'No login',
+    description:
+      lang === 'zh-cn'
+        ? '无需登录即可享受音乐'
+        : 'Enjoy music without logging in',
+    color: 'text-info',
+  },
+  {
+    icon: RiQrCodeLine,
+    title: lang === 'zh-cn' ? '无扫码' : 'No scan code',
+    description:
+      lang === 'zh-cn'
+        ? '无需扫描二维码或其他复杂操作'
+        : 'No QR code scanning or other complex operations',
+    color: 'text-accent',
+  },
+];
+---
+
+<ProductFeature
+  title={title}
+  description={description}
+  features={features}
+  lang={lang}>
+  <CisumApp
+    height="h-[20rem]"
+    songIndex={2}
+    lang={lang}
+    showPlayerView={true}
+    showDBView={false}
+    deviceType="mac"
+  />
+</ProductFeature>

@@ -1,0 +1,50 @@
+---
+/**
+ * @component CisumIOSShowcase
+ * @description Cisum iOS 版本案例展示
+ */
+
+import { Button } from '@coffic/cosy-ui';
+import CisumApp from '@/widgets/Cisum/CisumApp.astro';
+import ProductFeature, {
+    type Feature,
+} from '@/widgets/common/ProductFeature.astro';
+
+export interface Props {
+    lang: string;
+}
+
+const { lang = 'zh-cn' } = Astro.props;
+
+const features: Feature[] = [];
+---
+
+<ProductFeature
+    layout="horizontal"
+    title="ApplePhone 组件"
+    description={lang === 'zh-cn'
+        ? '使用 ApplePhone 组件渲染 iOS APP 界面'
+        : 'Render iOS APP interface using ApplePhone component'}
+    lang={lang}
+    features={features}>
+    <!-- CTA 按钮 -->
+    <div slot="cta" class="flex gap-4 flex-wrap justify-center">
+        <Button
+            as="a"
+            href={`/${lang}/manuals/components/apple-phone`}
+            variant="primary"
+            size="lg"
+            rounded="lg">
+            {lang === 'zh-cn' ? '了解更多' : 'Learn more'}
+        </Button>
+    </div>
+
+    <CisumApp
+        deviceType="iphone"
+        height="h-[30rem]"
+        showPlayerView={true}
+        showDBView={true}
+        songIndex={0}
+        lang={lang}
+    />
+</ProductFeature>

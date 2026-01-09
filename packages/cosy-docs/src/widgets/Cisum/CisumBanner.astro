@@ -1,0 +1,46 @@
+---
+import { Container } from '@coffic/cosy-ui';
+import PodcastIllustration from '@assets/Podcast.svg';
+
+interface Props {
+    lang?: string;
+}
+
+const { lang = 'zh-cn' } = Astro.props;
+---
+
+<section
+  class="py-20 bg-linear-to-br from-primary/5 to-secondary/5 backdrop-blur-sm border-t border-base-content/10">
+  <Container width="xl" padding="xl">
+    <div class="flex flex-col lg:flex-row items-center gap-10">
+      <div class="lg:w-1/2 text-center lg:text-left space-y-6">
+        <h2 class="text-4xl font-bold text-base-content">
+          {lang === 'zh-cn' ? '音乐，本该如此简单' : 'Music, So Simple'}
+        </h2>
+        <div class="flex gap-4 flex-wrap justify-center lg:justify-start">
+          <a
+            target="_blank"
+            href="https://github.com/Cofficlab/Cisum_SwiftUI"
+            class="btn btn-primary btn-lg">
+            {lang === 'zh-cn' ? 'GitHub' : 'GitHub'}
+          </a>
+          <a
+            target="_blank"
+            href="https://apps.apple.com/cn/app/cisum/id6466401036"
+            class="btn btn-outline btn-lg">
+            {lang === 'zh-cn' ? '下载' : 'Download'}
+          </a>
+        </div>
+      </div>
+      <div class="lg:w-1/2 flex justify-center">
+        <img
+          src={PodcastIllustration.src}
+          alt={lang === 'zh-cn'
+            ? '音乐播放器插图'
+            : 'Music player illustration'}
+          class="max-w-xl h-96 w-auto object-contain"
+        />
+      </div>
+    </div>
+  </Container>
+</section>

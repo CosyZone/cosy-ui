@@ -1,0 +1,83 @@
+---
+import ProductFeature, {
+  type Feature,
+} from '@/widgets/common/ProductFeature.astro';
+import CisumApp from './CisumApp.astro';
+import {
+  RiRefreshLine,
+  RiSmartphoneLine,
+  RiComputerLine,
+} from '@remixicon/vue';
+
+const { lang = 'zh-cn' } = Astro.props;
+
+const title =
+  lang === 'zh-cn' ? '各个平台 - 尽享美好' : 'All platforms - Enjoy the beauty';
+const description =
+  lang === 'zh-cn'
+    ? '在多个设备和平台上无缝同步您的音乐体验'
+    : 'Seamlessly sync your music experience across multiple devices and platforms';
+
+const features: Feature[] = [
+  {
+    icon: RiRefreshLine,
+    title: lang === 'zh-cn' ? '多平台同步' : 'Multi-platform synchronization',
+    description:
+      lang === 'zh-cn'
+        ? '数据实时同步，无缝切换设备'
+        : 'Real-time data synchronization, seamless device switching',
+    color: 'text-success',
+  },
+  {
+    icon: RiSmartphoneLine,
+    title: lang === 'zh-cn' ? '支持 iOS' : 'iOS',
+    description:
+      lang === 'zh-cn'
+        ? '原生 iOS 体验，完美适配'
+        : 'Native iOS experience, perfectly adapted',
+    color: 'text-info',
+  },
+  {
+    icon: RiComputerLine,
+    title: lang === 'zh-cn' ? '支持 macOS' : 'macOS',
+    description:
+      lang === 'zh-cn'
+        ? '强大的桌面音乐管理体验'
+        : 'Powerful desktop music management experience',
+    color: 'text-warning',
+  },
+];
+---
+
+<ProductFeature
+  title={title}
+  description={description}
+  features={features}
+  lang={lang}>
+  <div
+    class="w-full flex flex-col md:flex-row gap-8 justify-center items-center">
+    <!-- macOS 版本 -->
+    <div class="w-full md:w-2/3">
+      <CisumApp
+        deviceType="mac"
+        height="h-[40rem]"
+        showDBView={true}
+        lang={lang}
+        showPlayerView={true}
+        songIndex={0}
+      />
+    </div>
+
+    <!-- iPhone 版本 -->
+    <div class="w-1/2 md:w-1/3">
+      <CisumApp
+        deviceType="iphone"
+        showDBView={true}
+        lang={lang}
+        showPlayerView={true}
+        songIndex={0}
+        height="h-[30rem]"
+      />
+    </div>
+  </div>
+</ProductFeature>

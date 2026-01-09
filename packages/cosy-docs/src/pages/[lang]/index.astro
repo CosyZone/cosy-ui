@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import CisumIOSShowcase from '@/widgets/home/CisumIOSShowcase.astro';
+import CisumMacShowcase from '@/widgets/home/CisumMacShowcase.astro';
 import FeatureHighlights from '@/widgets/home/FeatureHighlights.astro';
 import FinalCTA from '@/widgets/home/FinalCTA.astro';
 import HeroSection from '@/widgets/home/HeroSection.astro';
@@ -35,6 +37,8 @@ const title =
     mainLayout="column"
     background="none">
     <HeroSection lang={lang} />
+    <CisumMacShowcase lang={lang} />
+    <CisumIOSShowcase lang={lang} />
     <FeatureHighlights lang={lang} />
     <UseCases lang={lang} />
     <FinalCTA lang={lang} />

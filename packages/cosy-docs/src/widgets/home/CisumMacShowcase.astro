@@ -1,0 +1,50 @@
+---
+/**
+ * @component CisumMacShowcase
+ * @description Cisum macOS 版本案例展示
+ */
+
+import { Button } from '@coffic/cosy-ui';
+import { Code, Music2, Zap } from 'lucide-astro';
+import CisumApp from '@/widgets/Cisum/CisumApp.astro';
+import ProductFeature, {
+    type Feature,
+} from '@/widgets/common/ProductFeature.astro';
+
+export interface Props {
+    lang: string;
+}
+
+const { lang = 'zh-cn' } = Astro.props;
+
+const features: Feature[] = [];
+---
+
+<ProductFeature
+    title="MacWindow 组件"
+    description={lang === 'zh-cn'
+        ? '使用 MacWindow 组件渲染 macOS APP 界面'
+        : 'Render macOS APP interface using MacWindow component'}
+    lang={lang}
+    features={features}>
+    <!-- CTA 按钮 -->
+    <div slot="cta" class="flex gap-4 flex-wrap">
+        <Button
+            as="a"
+            href={`/${lang}/manuals/components/mac-window`}
+            variant="primary"
+            size="lg"
+            rounded="lg">
+            {lang === 'zh-cn' ? '了解更多' : 'Learn more'}
+        </Button>
+    </div>
+
+    <CisumApp
+        deviceType="mac"
+        height="h-[30rem]"
+        showPlayerView={true}
+        showDBView={true}
+        songIndex={0}
+        lang={lang}
+    />
+</ProductFeature>
