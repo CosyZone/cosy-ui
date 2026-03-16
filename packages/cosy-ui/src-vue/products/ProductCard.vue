@@ -62,6 +62,12 @@ interface Props {
 	 */
 	githubButtonText?: string;
 	/**
+	 * 语言设置，影响默认按钮文本
+	 * - zh-cn: 中文默认（访问官网）
+	 * - en: 英文默认（Visit Website）
+	 */
+	lang?: string;
+	/**
 	 * 按钮布局方向
 	 * - row: 水平布局（默认）
 	 * - column: 垂直布局
@@ -103,7 +109,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
 	size: "md",
-	primaryButtonText: "访问官网",
+	primaryButtonText: undefined,
 	secondaryButtonText: "App Store",
 	githubButtonText: "GitHub",
 	buttonLayout: "row",
@@ -117,6 +123,12 @@ const props = withDefaults(defineProps<Props>(), {
 	productUrl: undefined,
 	githubUrl: undefined,
 });
+
+const effectivePrimaryButtonText = computed(
+	() =>
+		props.primaryButtonText ??
+		(props.lang === "en" ? "Visit Website" : "访问官网"),
+);
 
 // 尺寸样式映射
 const sizeStyles = {
@@ -320,7 +332,7 @@ const description = computed(() => props.description);
           ">
           <LinkIcon class="cosy:w-4 cosy:h-4" />
           <a :href="productUrl" target="_blank" rel="noopener noreferrer">
-            {{ primaryButtonText }}
+            {{ effectivePrimaryButtonText }}
           </a>
         </Button>
 

@@ -165,6 +165,12 @@ export interface Props {
      */
     centerItems?: boolean;
     /**
+     * 语言设置，传递给 ProductCard 用于默认按钮文本
+     * - zh-cn: 中文（访问官网）
+     * - en: 英文（Visit Website）
+     */
+    lang?: string;
+    /**
      * 自定义类名
      */
     class?: string;
@@ -181,6 +187,7 @@ const {
     showBorder = false,
     margin = 'md',
     centerItems = true,
+    lang,
     class: className = '',
 } = Astro.props;
 
@@ -255,6 +262,7 @@ const containerClasses = [
                 size={cardSize}
                 equalHeight={equalHeight}
                 descriptionLines={descriptionLines}
+                lang={lang ?? product.lang}
             />
         ))
     }
