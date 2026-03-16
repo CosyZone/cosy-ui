@@ -156,6 +156,12 @@ export interface Props {
      */
     githubButtonText?: string;
     /**
+     * 语言设置，影响默认按钮文本
+     * - zh-cn: 中文默认（访问官网）
+     * - en: 英文默认（Visit Website）
+     */
+    lang?: string;
+    /**
      * 按钮布局方向
      * - row: 水平布局（默认）
      * - column: 垂直布局
@@ -203,7 +209,7 @@ const {
     productUrl,
     githubUrl,
     size = 'md',
-    primaryButtonText = '访问官网',
+    primaryButtonText,
     secondaryButtonText = 'App Store',
     githubButtonText = 'GitHub',
     buttonLayout = 'row',
@@ -213,7 +219,11 @@ const {
     shadow = 'md',
     background,
     muted = false,
+    lang,
 } = Astro.props;
+
+const effectivePrimaryButtonText =
+    primaryButtonText ?? (lang === 'en' ? 'Visit Website' : '访问官网');
 
 // 尺寸样式映射
 const sizeStyles = {
@@ -401,7 +411,7 @@ const buttonsContainerClass =
                         <span slot="icon-left">
                             <LinkIcon size="22px" />
                         </span>
-                        {primaryButtonText}
+                        {effectivePrimaryButtonText}
                     </Button>
                 )
             }
