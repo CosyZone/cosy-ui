@@ -36,22 +36,18 @@
  * - 保持良好的颜色对比度
  * - 支持暗黑模式
  */
+import './styles/prose.css';
 import { cn } from '../../src/class';
 
-const {
-	class: className = '',
-	style = '',
-	...rest
-} = Astro.props;
+const { class: className = '', style = '', ...rest } = Astro.props;
 
 const proseClass = cn()
-	.add('cosy:prose', 'cosy:dark:prose-invert')
-	.w('full')
-	.add(className)
-	.build();
+    .add('cosy:prose', 'cosy:dark:prose-invert')
+    .w('full')
+    .add(className)
+    .build();
 ---
 
 <div class={proseClass} style={style} {...rest}>
-	<slot />
+    <slot />
 </div>
-

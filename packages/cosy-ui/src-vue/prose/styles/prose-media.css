@@ -1,0 +1,46 @@
+/* Prose 媒体元素样式 - 图片、视频、图表 */
+
+/* 图片 */
+.prose :where(img):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(img):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	margin-top: 2em;
+	margin-bottom: 2em;
+	border-radius: 0.375rem;
+}
+
+/* 视频 */
+.prose :where(video):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(video):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	margin-top: 2em;
+	margin-bottom: 2em;
+	border-radius: 0.375rem;
+}
+
+/* 图表容器 */
+.prose :where(figure):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(figure):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
+
+.prose
+	:where(figure > *):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(figure > *):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+/* 图表说明 */
+.prose
+:where(figcaption):not(:where([class~='not-prose'], [class~='not-prose'] *)),
+.cosy\:prose
+	:where(figcaption):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	color: var(--tw-prose-captions, #6b7280);
+	font-size: 0.875em;
+	line-height: 1.4285714;
+	margin-top: 0.8571429em;
+}

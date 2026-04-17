@@ -45,3 +45,4 @@ const proseClass = computed(() => {
 	</div>
 </template>
 
+<style src="./styles/prose.css"></style>
