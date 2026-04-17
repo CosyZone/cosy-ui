@@ -1,9 +1,8 @@
 /* Prose 表格样式 - 现代化设计 */
 
 /* 表格 */
-.prose :where(table):not(:where([class~='not-prose'], [class~='not-prose'] *)),
 .cosy\:prose
-	:where(table):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+:where(table):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 	width: 100%;
 	table-layout: auto;
 	text-align: left;
@@ -23,7 +22,6 @@
 	background-color: #ffffff;
 }
 
-.prose :where(thead):not(:where([class~='not-prose'], [class~='not-prose'] *)),
 .cosy\:prose
 	:where(thead):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 	border-bottom-width: 2px;
@@ -56,8 +54,6 @@
 	border-right: none;
 }
 
-.prose
-	:where(tbody tr):not(:where([class~='not-prose'], [class~='not-prose'] *)),
 .cosy\:prose
 	:where(tbody tr):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 	border-bottom: 1px solid var(--tw-prose-td-borders, #e5e7eb);
@@ -76,14 +72,10 @@
 }
 
 /* Hover 效果 */
-.prose
+.cosy\:prose
 :where(tbody tr):hover:not(
 	:where([class~='not-prose'], [class~='not-prose'] *)
-),
-.cosy\:prose
-	:where(tbody tr):hover:not(
-		:where([class~='not-prose'], [class~='not-prose'] *)
-	) {
+) {
 	background-color: #f9fafb;
 	transform: scale(1.01);
 	box-shadow:
@@ -92,19 +84,13 @@
 }
 
 /* 斑马纹效果 */
-.prose
+.cosy\:prose
 :where(tbody tr:nth-child(even)):not(
 	:where([class~='not-prose'], [class~='not-prose'] *)
-),
-.cosy\:prose
-	:where(tbody tr:nth-child(even)):not(
-		:where([class~='not-prose'], [class~='not-prose'] *)
-	) {
+) {
 	background-color: rgba(249, 250, 251, 0.5);
 }
 
-.prose
-	:where(tbody td):not(:where([class~='not-prose'], [class~='not-prose'] *)),
 .cosy\:prose
 	:where(tbody td):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 	vertical-align: middle;
@@ -112,10 +98,6 @@
 	border-right: 1px solid rgba(0, 0, 0, 0.03);
 }
 
-.prose
-	:where(tbody td:last-child):not(
-		:where([class~='not-prose'], [class~='not-prose'] *)
-	),
 .cosy\:prose
 	:where(tbody td:last-child):not(
 		:where([class~='not-prose'], [class~='not-prose'] *)
@@ -123,7 +105,6 @@
 	border-right: none;
 }
 
-.prose :where(tfoot):not(:where([class~='not-prose'], [class~='not-prose'] *)),
 .cosy\:prose
 	:where(tfoot):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 	border-top: 2px solid var(--tw-prose-th-borders, #d1d5db);
@@ -131,8 +112,6 @@
 	font-weight: 600;
 }
 
-.prose
-	:where(tfoot td):not(:where([class~='not-prose'], [class~='not-prose'] *)),
 .cosy\:prose
 	:where(tfoot td):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 	vertical-align: middle;
@@ -140,10 +119,6 @@
 	border-right: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.prose
-	:where(tfoot td:last-child):not(
-		:where([class~='not-prose'], [class~='not-prose'] *)
-	),
 .cosy\:prose
 	:where(tfoot td:last-child):not(
 		:where([class~='not-prose'], [class~='not-prose'] *)
@@ -156,9 +131,6 @@
 /* 默认主题跟随系统主题 - 当 data-theme='default' 且系统是暗黑模式时生效 */
 @media (prefers-color-scheme: dark) {
 	[data-theme='default']
-		.prose.dark\:prose-invert
-		:where(table):not(:where([class~='not-prose'], [class~='not-prose'] *)),
-	[data-theme='default']
 		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(table):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 		background-color: #1f2937;
@@ -169,28 +141,17 @@
 	}
 
 	[data-theme='default']
-		.prose.dark\:prose-invert
-		:where(thead):not(:where([class~='not-prose'], [class~='not-prose'] *)),
-	[data-theme='default']
 		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(thead):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 		background: linear-gradient(to bottom, #374151 0%, #1f2937 100%);
 	}
 
 	[data-theme='default']
-		.prose.dark\:prose-invert
-		:where(thead th):not(:where([class~='not-prose'], [class~='not-prose'] *)),
-	[data-theme='default']
 		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(thead th):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 		border-right: 1px solid rgba(255, 255, 255, 0.1);
 	}
 
-	[data-theme='default']
-		.prose.dark\:prose-invert
-		:where(tbody tr):hover:not(
-			:where([class~='not-prose'], [class~='not-prose'] *)
-		),
 	[data-theme='default']
 		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(tbody tr):hover:not(
@@ -203,11 +164,6 @@
 	}
 
 	[data-theme='default']
-		.prose.dark\:prose-invert
-		:where(tbody tr:nth-child(even)):not(
-			:where([class~='not-prose'], [class~='not-prose'] *)
-		),
-	[data-theme='default']
 		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(tbody tr:nth-child(even)):not(
 			:where([class~='not-prose'], [class~='not-prose'] *)
@@ -216,26 +172,17 @@
 	}
 
 	[data-theme='default']
-		.prose.dark\:prose-invert
-		:where(tbody td):not(:where([class~='not-prose'], [class~='not-prose'] *)),
-	[data-theme='default']
 		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(tbody td):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 		border-right: 1px solid rgba(255, 255, 255, 0.05);
 	}
 
 	[data-theme='default']
-		.prose.dark\:prose-invert
-		:where(tfoot):not(:where([class~='not-prose'], [class~='not-prose'] *)),
-	[data-theme='default']
 		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(tfoot):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 		background: linear-gradient(to top, #374151 0%, #1f2937 100%);
 	}
 
-	[data-theme='default']
-		.prose.dark\:prose-invert
-		:where(tfoot td):not(:where([class~='not-prose'], [class~='not-prose'] *)),
 	[data-theme='default']
 		.cosy\:prose.cosy\:dark\:prose-invert
 		:where(tfoot td):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
@@ -244,9 +191,6 @@
 }
 
 /* 所有暗色主题的通用样式 - 通过 data-theme-tone='dark' 判断 */
-[data-theme-tone='dark']
-	.prose.dark\:prose-invert
-	:where(table):not(:where([class~='not-prose'], [class~='not-prose'] *)),
 [data-theme-tone='dark']
 	.cosy\:prose.cosy\:dark\:prose-invert
 	:where(table):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
@@ -258,28 +202,17 @@
 }
 
 [data-theme-tone='dark']
-	.prose.dark\:prose-invert
-	:where(thead):not(:where([class~='not-prose'], [class~='not-prose'] *)),
-[data-theme-tone='dark']
 	.cosy\:prose.cosy\:dark\:prose-invert
 	:where(thead):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 	background: linear-gradient(to bottom, #374151 0%, #1f2937 100%);
 }
 
 [data-theme-tone='dark']
-	.prose.dark\:prose-invert
-	:where(thead th):not(:where([class~='not-prose'], [class~='not-prose'] *)),
-[data-theme-tone='dark']
 	.cosy\:prose.cosy\:dark\:prose-invert
 	:where(thead th):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 	border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-[data-theme-tone='dark']
-	.prose.dark\:prose-invert
-	:where(tbody tr):hover:not(
-		:where([class~='not-prose'], [class~='not-prose'] *)
-	),
 [data-theme-tone='dark']
 	.cosy\:prose.cosy\:dark\:prose-invert
 	:where(tbody tr):hover:not(
@@ -292,11 +225,6 @@
 }
 
 [data-theme-tone='dark']
-	.prose.dark\:prose-invert
-	:where(tbody tr:nth-child(even)):not(
-		:where([class~='not-prose'], [class~='not-prose'] *)
-	),
-[data-theme-tone='dark']
 	.cosy\:prose.cosy\:dark\:prose-invert
 	:where(tbody tr:nth-child(even)):not(
 		:where([class~='not-prose'], [class~='not-prose'] *)
@@ -305,26 +233,17 @@
 }
 
 [data-theme-tone='dark']
-	.prose.dark\:prose-invert
-	:where(tbody td):not(:where([class~='not-prose'], [class~='not-prose'] *)),
-[data-theme-tone='dark']
 	.cosy\:prose.cosy\:dark\:prose-invert
 	:where(tbody td):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 	border-right: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 [data-theme-tone='dark']
-	.prose.dark\:prose-invert
-	:where(tfoot):not(:where([class~='not-prose'], [class~='not-prose'] *)),
-[data-theme-tone='dark']
 	.cosy\:prose.cosy\:dark\:prose-invert
 	:where(tfoot):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 	background: linear-gradient(to top, #374151 0%, #1f2937 100%);
 }
 
-[data-theme-tone='dark']
-	.prose.dark\:prose-invert
-	:where(tfoot td):not(:where([class~='not-prose'], [class~='not-prose'] *)),
 [data-theme-tone='dark']
 	.cosy\:prose.cosy\:dark\:prose-invert
 	:where(tfoot td):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
