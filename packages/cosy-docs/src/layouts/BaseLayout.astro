@@ -3,6 +3,7 @@ import {
     AppLayout,
     type BackgroundColor,
     type ISidebarItem,
+    Prose,
 } from '@coffic/cosy-ui';
 import Search from 'astro-pagefind/components/Search';
 import Favicon from '@/assets/favicon.png';
@@ -118,5 +119,7 @@ const currentLocale = Astro.currentLocale;
         <Search uiOptions={{ showImages: false }} />
     </div>
 
-    <slot />
+    <Prose>
+        <slot />
+    </Prose>
 </AppLayout>

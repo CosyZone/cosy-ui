@@ -19,8 +19,7 @@
  * @props
  * @prop {string} [class] - 自定义 CSS 类名，用于覆盖默认样式
  */
-import { computed } from "vue";
-import { cn } from "../../src/class";
+import "../../app.css";
 
 export interface IProseProps {
 	class?: string;
@@ -30,19 +29,13 @@ export interface IProseProps {
 const props = withDefaults(defineProps<IProseProps>(), {
 	class: "",
 });
-
-const proseClass = computed(() => {
-	return cn()
-		.add("cosy:prose", "cosy:dark:prose-invert")
-		.add(props.class)
-		.build();
-});
 </script>
 
 <template>
-	<div :class="proseClass" :style="style">
+	<div
+		class="cosy:prose cosy:dark:prose-invert cosy:w-full cosy:max-w-full cosy:min-w-full"
+		:style="props.style"
+	>
 		<slot />
 	</div>
 </template>
-
-<style src="./styles/prose.css"></style>
