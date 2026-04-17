@@ -42,7 +42,10 @@ const { class: className = '', style = '', ...rest } = Astro.props;
 ---
 
 <div
-    class="cosy:prose cosy:dark:prose-invert cosy:w-full cosy:max-w-full cosy:min-w-full"
+    class:list={[
+        'cosy:prose cosy:dark:prose-invert cosy:w-full cosy:max-w-full cosy:min-w-full',
+        className,
+    ]}
     style={style}
     {...rest}>
     <slot />

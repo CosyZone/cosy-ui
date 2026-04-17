@@ -33,7 +33,10 @@ const props = withDefaults(defineProps<IProseProps>(), {
 
 <template>
 	<div
-		class="cosy:prose cosy:dark:prose-invert cosy:w-full cosy:max-w-full cosy:min-w-full"
+		:class="[
+			'cosy:prose cosy:dark:prose-invert cosy:w-full cosy:max-w-full cosy:min-w-full',
+			props.class,
+		]"
 		:style="props.style"
 	>
 		<slot />
