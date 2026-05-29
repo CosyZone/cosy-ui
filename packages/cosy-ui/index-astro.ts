@@ -20,6 +20,7 @@ export * from "./src/utils/url";
 export * from "./src-astro/alert";
 export * from "./src-astro/alert-dialog";
 export * from "./src-astro/api-test";
+export * from "./src-astro/apple-pad";
 export * from "./src-astro/apple-phone";
 export * from "./src-astro/article";
 export * from "./src-astro/avatar";

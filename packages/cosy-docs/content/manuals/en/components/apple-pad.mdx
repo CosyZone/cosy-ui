@@ -1,0 +1,56 @@
+---
+title: ApplePad
+folder: false
+order: 1.75
+---
+
+import { ApplePadPackage } from '@/components/apple-pad/index.ts';
+
+# {frontmatter.title}
+
+The ApplePad component simulates the appearance of an iPad device, including a status bar, time display, and device frame.
+Perfect for tablet UI prototyping and showcasing tablet designs.
+
+## Examples
+
+<ApplePadPackage.Basic />
+
+## Props
+
+### backgroundColor
+
+Content area background color, equivalent to setting the background color for its internal Container. Supports preset semantic colors and opacity variants.
+
+<ApplePadPackage.BackgroundColor />
+
+### height
+
+Window height, supporting multiple predefined size options.
+
+<ApplePadPackage.Height />
+
+### showFrame
+
+Whether to show the iPad frame. When set to false, only the content area is displayed.
+
+<ApplePadPackage.ShowFrame />
+
+### title
+
+Window title, displayed as title text in the status bar.
+
+<ApplePadPackage.Title />
+
+### withShadow
+
+Whether to show shadow effects, adding dimensionality to the iPad window.
+
+<ApplePadPackage.WithShadow />
+
+## Slots
+
+### default
+
+Main content area, used to place application interface content.
+
+<ApplePadPackage.Slots />

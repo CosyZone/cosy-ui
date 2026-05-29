@@ -1,0 +1,15 @@
+<template>
+    <ApplePad height="sm">
+        <Container padding="lg" flex="col" gap="md" align="center">
+            <Badge variant="primary" size="lg">默认插槽内容</Badge>
+            <p class="cosy:text-sm">这里是通过默认插槽插入的自定义内容区域。</p>
+            <Container background="primary/10" padding="md" rounded="md">
+                <p class="cosy:text-xs">可以放置任何组件或内容</p>
+            </Container>
+        </Container>
+    </ApplePad>
+</template>
+
+<script setup lang="ts">
+import { ApplePad, Container, Badge } from '@coffic/cosy-ui/vue';
+</script>

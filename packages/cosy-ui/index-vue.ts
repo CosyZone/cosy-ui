@@ -3,6 +3,7 @@ import "./app.css";
 export * from "./src-vue/alert/index";
 // 导出组件，按照字母排序
 export * from "./src-vue/alert-dialog/index";
+export * from "./src-vue/apple-pad/index";
 export * from "./src-vue/apple-phone/index";
 export * from "./src-vue/avatar/index";
 export * from "./src-vue/badge/index";
