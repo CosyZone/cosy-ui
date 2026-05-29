@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ipadFrame from "../../src/components/apple-pad/assets/iPad Air 11\" - M2 - Purple - Portrait.png";
+import ipadFrame from "../../src/components/apple-pad/assets/iPadAir11-M2-Purple-Portrait.png";
 
 const ipadFrameSrc = (ipadFrame as any).src || ipadFrame;
 </script>
