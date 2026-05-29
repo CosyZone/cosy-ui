@@ -1,0 +1,30 @@
+---
+/**
+ * @component ApplePadSlotsContainer
+ * @description 展示 ApplePad 组件的 default slot 多种用法，Astro/Vue 各自独立标签展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ApplePadSlotsBasic from './ApplePadSlotsBasic.astro';
+import ApplePadSlotsBasicRaw from './ApplePadSlotsBasic.astro?raw';
+import ApplePadSlotsBasicVue from './ApplePadSlotsBasicVue.vue';
+import ApplePadSlotsBasicVueRaw from './ApplePadSlotsBasicVue.vue?raw';
+import ApplePadSlotsComplex from './ApplePadSlotsComplex.astro';
+import ApplePadSlotsComplexRaw from './ApplePadSlotsComplex.astro?raw';
+import ApplePadSlotsComplexVue from './ApplePadSlotsComplexVue.vue';
+import ApplePadSlotsComplexVueRaw from './ApplePadSlotsComplexVue.vue?raw';
+---
+
+<CodeContainer
+	codes={[
+		ApplePadSlotsBasicRaw,
+		ApplePadSlotsComplexRaw,
+		ApplePadSlotsBasicVueRaw,
+		ApplePadSlotsComplexVueRaw,
+	]}
+	titles={['基本内容', '复杂内容', '基本内容', '复杂内容']}
+>
+	<div id="tab-1" data-label="astro"><ApplePadSlotsBasic /></div>
+	<div id="tab-2" data-label="astro"><ApplePadSlotsComplex /></div>
+	<div id="tab-3" data-label="vue"><ApplePadSlotsBasicVue /></div>
+	<div id="tab-4" data-label="vue"><ApplePadSlotsComplexVue /></div>
+</CodeContainer>

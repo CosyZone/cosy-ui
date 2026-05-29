@@ -1,0 +1,35 @@
+---
+/**
+ * @component ApplePadShowFrameContainer
+ * @description 展示 ApplePad 组件的 showFrame 属性取值，Astro/Vue 各自独立标签展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ApplePadShowFrameTrue from './ApplePadShowFrameTrue.astro';
+import ApplePadShowFrameTrueRaw from './ApplePadShowFrameTrue.astro?raw';
+import ApplePadShowFrameTrueVue from './ApplePadShowFrameTrueVue.vue';
+import ApplePadShowFrameTrueVueRaw from './ApplePadShowFrameTrueVue.vue?raw';
+import ApplePadShowFrameFalse from './ApplePadShowFrameFalse.astro';
+import ApplePadShowFrameFalseRaw from './ApplePadShowFrameFalse.astro?raw';
+import ApplePadShowFrameFalseVue from './ApplePadShowFrameFalseVue.vue';
+import ApplePadShowFrameFalseVueRaw from './ApplePadShowFrameFalseVue.vue?raw';
+---
+
+<CodeContainer
+	codes={[
+		ApplePadShowFrameTrueRaw,
+		ApplePadShowFrameFalseRaw,
+		ApplePadShowFrameTrueVueRaw,
+		ApplePadShowFrameFalseVueRaw,
+	]}
+	titles={[
+		'showFrame={true}',
+		'showFrame={false}',
+		'showFrame={true}',
+		'showFrame={false}',
+	]}
+>
+	<div id="tab-1" data-label="astro"><ApplePadShowFrameTrue /></div>
+	<div id="tab-2" data-label="astro"><ApplePadShowFrameFalse /></div>
+	<div id="tab-3" data-label="vue"><ApplePadShowFrameTrueVue /></div>
+	<div id="tab-4" data-label="vue"><ApplePadShowFrameFalseVue /></div>
+</CodeContainer>

@@ -1,0 +1,23 @@
+---
+/**
+ * @component PadFrame
+ * @description ApplePad 组件的内部边框组件，用于显示 iPad 设备的边框
+ */
+
+import { cn } from '../../src/class';
+import ipadFrame from '../../src/components/apple-pad/assets/iPad Air 11" - M2 - Purple - Portrait.png';
+import { Image } from '../image';
+
+// 使用 class builder 构建类名
+const frameClass = cn()
+    .add('cosy:max-w-full', 'cosy:max-h-full')
+    .absolute()
+    .add('cosy:top-0', 'cosy:left-0')
+    .add('cosy:z-10')
+    .add('cosy:pointer-events-none')
+    .build();
+---
+
+<div class={frameClass}>
+    <Image src={ipadFrame} alt="iPad frame" />
+</div>

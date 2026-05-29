@@ -1,0 +1,45 @@
+---
+/**
+ * @component ApplePadExamplesContainer
+ * @description 展示 ApplePad 组件的多种示例用法，Astro/Vue 各自独立标签展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ApplePadBasic from './ApplePadBasic.astro';
+import ApplePadBasicRaw from './ApplePadBasic.astro?raw';
+import ApplePadBasicVue from './ApplePadBasicVue.vue';
+import ApplePadBasicVueRaw from './ApplePadBasicVue.vue?raw';
+import ApplePadLongTextNoFrame from './ApplePadLongTextNoFrame.astro';
+import ApplePadLongTextNoFrameRaw from './ApplePadLongTextNoFrame.astro?raw';
+import ApplePadLongTextNoFrameVue from './ApplePadLongTextNoFrameVue.vue';
+import ApplePadLongTextNoFrameVueRaw from './ApplePadLongTextNoFrameVue.vue?raw';
+import ApplePadLongTextWithFrame from './ApplePadLongTextWithFrame.astro';
+import ApplePadLongTextWithFrameRaw from './ApplePadLongTextWithFrame.astro?raw';
+import ApplePadLongTextWithFrameVue from './ApplePadLongTextWithFrameVue.vue';
+import ApplePadLongTextWithFrameVueRaw from './ApplePadLongTextWithFrameVue.vue?raw';
+---
+
+<CodeContainer
+	codes={[
+		ApplePadBasicRaw,
+		ApplePadLongTextNoFrameRaw,
+		ApplePadLongTextWithFrameRaw,
+		ApplePadBasicVueRaw,
+		ApplePadLongTextNoFrameVueRaw,
+		ApplePadLongTextWithFrameVueRaw,
+	]}
+	titles={[
+		'基本用法',
+		'长文本无边框',
+		'长文本有边框',
+		'基本用法',
+		'长文本无边框',
+		'长文本有边框',
+	]}
+>
+	<div id="tab-1" data-label="astro"><ApplePadBasic /></div>
+	<div id="tab-2" data-label="astro"><ApplePadLongTextNoFrame /></div>
+	<div id="tab-3" data-label="astro"><ApplePadLongTextWithFrame /></div>
+	<div id="tab-4" data-label="vue"><ApplePadBasicVue /></div>
+	<div id="tab-5" data-label="vue"><ApplePadLongTextNoFrameVue /></div>
+	<div id="tab-6" data-label="vue"><ApplePadLongTextWithFrameVue /></div>
+</CodeContainer>

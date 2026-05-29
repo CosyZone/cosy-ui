@@ -1,0 +1,45 @@
+---
+/**
+ * @component ApplePadBackgroundColorContainer
+ * @description 展示 ApplePad 组件的 backgroundColor 属性多种取值，Astro/Vue 各自独立标签展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ApplePadBackgroundColorPrimary from './ApplePadBackgroundColorPrimary.astro';
+import ApplePadBackgroundColorPrimaryRaw from './ApplePadBackgroundColorPrimary.astro?raw';
+import ApplePadBackgroundColorPrimaryVue from './ApplePadBackgroundColorPrimaryVue.vue';
+import ApplePadBackgroundColorPrimaryVueRaw from './ApplePadBackgroundColorPrimaryVue.vue?raw';
+import ApplePadBackgroundColorSuccess from './ApplePadBackgroundColorSuccess.astro';
+import ApplePadBackgroundColorSuccessRaw from './ApplePadBackgroundColorSuccess.astro?raw';
+import ApplePadBackgroundColorSuccessVue from './ApplePadBackgroundColorSuccessVue.vue';
+import ApplePadBackgroundColorSuccessVueRaw from './ApplePadBackgroundColorSuccessVue.vue?raw';
+import ApplePadBackgroundColorWarning from './ApplePadBackgroundColorWarning.astro';
+import ApplePadBackgroundColorWarningRaw from './ApplePadBackgroundColorWarning.astro?raw';
+import ApplePadBackgroundColorWarningVue from './ApplePadBackgroundColorWarningVue.vue';
+import ApplePadBackgroundColorWarningVueRaw from './ApplePadBackgroundColorWarningVue.vue?raw';
+---
+
+<CodeContainer
+	codes={[
+		ApplePadBackgroundColorPrimaryRaw,
+		ApplePadBackgroundColorSuccessRaw,
+		ApplePadBackgroundColorWarningRaw,
+		ApplePadBackgroundColorPrimaryVueRaw,
+		ApplePadBackgroundColorSuccessVueRaw,
+		ApplePadBackgroundColorWarningVueRaw,
+	]}
+	titles={[
+		'primary/10',
+		'success/10',
+		'warning/10',
+		'primary/10',
+		'success/10',
+		'warning/10',
+	]}
+>
+	<div id="tab-1" data-label="astro"><ApplePadBackgroundColorPrimary /></div>
+	<div id="tab-2" data-label="astro"><ApplePadBackgroundColorSuccess /></div>
+	<div id="tab-3" data-label="astro"><ApplePadBackgroundColorWarning /></div>
+	<div id="tab-4" data-label="vue"><ApplePadBackgroundColorPrimaryVue /></div>
+	<div id="tab-5" data-label="vue"><ApplePadBackgroundColorSuccessVue /></div>
+	<div id="tab-6" data-label="vue"><ApplePadBackgroundColorWarningVue /></div>
+</CodeContainer>

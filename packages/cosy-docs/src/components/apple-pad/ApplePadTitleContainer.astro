@@ -1,0 +1,30 @@
+---
+/**
+ * @component ApplePadTitleContainer
+ * @description title 属性有值和无值两种情况，Astro/Vue 各两组。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ApplePadTitle from './ApplePadTitle.astro';
+import ApplePadTitleRaw from './ApplePadTitle.astro?raw';
+import ApplePadTitleVue from './ApplePadTitleVue.vue';
+import ApplePadTitleVueRaw from './ApplePadTitleVue.vue?raw';
+import ApplePadWithoutTitle from './ApplePadWithoutTitle.astro';
+import ApplePadWithoutTitleRaw from './ApplePadWithoutTitle.astro?raw';
+import ApplePadWithoutTitleVue from './ApplePadWithoutTitleVue.vue';
+import ApplePadWithoutTitleVueRaw from './ApplePadWithoutTitleVue.vue?raw';
+---
+
+<CodeContainer
+	codes={[
+		ApplePadTitleRaw,
+		ApplePadWithoutTitleRaw,
+		ApplePadTitleVueRaw,
+		ApplePadWithoutTitleVueRaw,
+	]}
+	titles={['有标题', '无标题', '有标题', '无标题']}
+>
+	<div id="tab-1" data-label="astro"><ApplePadTitle /></div>
+	<div id="tab-2" data-label="astro"><ApplePadWithoutTitle /></div>
+	<div id="tab-3" data-label="vue"><ApplePadTitleVue /></div>
+	<div id="tab-4" data-label="vue"><ApplePadWithoutTitleVue /></div>
+</CodeContainer>

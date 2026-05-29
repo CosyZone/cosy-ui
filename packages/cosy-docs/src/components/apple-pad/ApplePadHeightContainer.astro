@@ -1,0 +1,65 @@
+---
+/**
+ * @component ApplePadHeightContainer
+ * @description 展示 ApplePad 组件的 height 属性多种取值，Astro/Vue 各自独立标签展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ApplePadHeightSm from './ApplePadHeightSm.astro';
+import ApplePadHeightSmRaw from './ApplePadHeightSm.astro?raw';
+import ApplePadHeightSmVue from './ApplePadHeightSmVue.vue';
+import ApplePadHeightSmVueRaw from './ApplePadHeightSmVue.vue?raw';
+import ApplePadHeightMd from './ApplePadHeightMd.astro';
+import ApplePadHeightMdRaw from './ApplePadHeightMd.astro?raw';
+import ApplePadHeightMdVue from './ApplePadHeightMdVue.vue';
+import ApplePadHeightMdVueRaw from './ApplePadHeightMdVue.vue?raw';
+import ApplePadHeightLg from './ApplePadHeightLg.astro';
+import ApplePadHeightLgRaw from './ApplePadHeightLg.astro?raw';
+import ApplePadHeightLgVue from './ApplePadHeightLgVue.vue';
+import ApplePadHeightLgVueRaw from './ApplePadHeightLgVue.vue?raw';
+import ApplePadHeightXl from './ApplePadHeightXl.astro';
+import ApplePadHeightXlRaw from './ApplePadHeightXl.astro?raw';
+import ApplePadHeightXlVue from './ApplePadHeightXlVue.vue';
+import ApplePadHeightXlVueRaw from './ApplePadHeightXlVue.vue?raw';
+import ApplePadHeight2xl from './ApplePadHeight2xl.astro';
+import ApplePadHeight2xlRaw from './ApplePadHeight2xl.astro?raw';
+import ApplePadHeight2xlVue from './ApplePadHeight2xlVue.vue';
+import ApplePadHeight2xlVueRaw from './ApplePadHeight2xlVue.vue?raw';
+---
+
+<CodeContainer
+	codes={[
+		ApplePadHeightSmRaw,
+		ApplePadHeightMdRaw,
+		ApplePadHeightLgRaw,
+		ApplePadHeightXlRaw,
+		ApplePadHeight2xlRaw,
+		ApplePadHeightSmVueRaw,
+		ApplePadHeightMdVueRaw,
+		ApplePadHeightLgVueRaw,
+		ApplePadHeightXlVueRaw,
+		ApplePadHeight2xlVueRaw,
+	]}
+	titles={[
+		'sm - 400px',
+		'md - 500px',
+		'lg - 600px（默认）',
+		'xl - 700px',
+		'2xl - 800px',
+		'sm - 400px',
+		'md - 500px',
+		'lg - 600px（默认）',
+		'xl - 700px',
+		'2xl - 800px',
+	]}
+>
+	<div id="tab-1" data-label="astro"><ApplePadHeightSm /></div>
+	<div id="tab-2" data-label="astro"><ApplePadHeightMd /></div>
+	<div id="tab-3" data-label="astro"><ApplePadHeightLg /></div>
+	<div id="tab-4" data-label="astro"><ApplePadHeightXl /></div>
+	<div id="tab-5" data-label="astro"><ApplePadHeight2xl /></div>
+	<div id="tab-6" data-label="vue"><ApplePadHeightSmVue /></div>
+	<div id="tab-7" data-label="vue"><ApplePadHeightMdVue /></div>
+	<div id="tab-8" data-label="vue"><ApplePadHeightLgVue /></div>
+	<div id="tab-9" data-label="vue"><ApplePadHeightXlVue /></div>
+	<div id="tab-10" data-label="vue"><ApplePadHeight2xlVue /></div>
+</CodeContainer>

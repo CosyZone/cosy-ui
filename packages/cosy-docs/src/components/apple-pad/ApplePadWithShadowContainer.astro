@@ -1,0 +1,35 @@
+---
+/**
+ * @component ApplePadWithShadowContainer
+ * @description 展示 ApplePad 组件的 withShadow 属性取值，Astro/Vue 各自独立标签展示。
+ */
+import { CodeContainer } from '@coffic/cosy-ui';
+import ApplePadWithShadowTrue from './ApplePadWithShadowTrue.astro';
+import ApplePadWithShadowTrueRaw from './ApplePadWithShadowTrue.astro?raw';
+import ApplePadWithShadowTrueVue from './ApplePadWithShadowTrueVue.vue';
+import ApplePadWithShadowTrueVueRaw from './ApplePadWithShadowTrueVue.vue?raw';
+import ApplePadWithShadowFalse from './ApplePadWithShadowFalse.astro';
+import ApplePadWithShadowFalseRaw from './ApplePadWithShadowFalse.astro?raw';
+import ApplePadWithShadowFalseVue from './ApplePadWithShadowFalseVue.vue';
+import ApplePadWithShadowFalseVueRaw from './ApplePadWithShadowFalseVue.vue?raw';
+---
+
+<CodeContainer
+	codes={[
+		ApplePadWithShadowTrueRaw,
+		ApplePadWithShadowFalseRaw,
+		ApplePadWithShadowTrueVueRaw,
+		ApplePadWithShadowFalseVueRaw,
+	]}
+	titles={[
+		'withShadow={true}',
+		'withShadow={false}',
+		'withShadow={true}',
+		'withShadow={false}',
+	]}
+>
+	<div id="tab-1" data-label="astro"><ApplePadWithShadowTrue /></div>
+	<div id="tab-2" data-label="astro"><ApplePadWithShadowFalse /></div>
+	<div id="tab-3" data-label="vue"><ApplePadWithShadowTrueVue /></div>
+	<div id="tab-4" data-label="vue"><ApplePadWithShadowFalseVue /></div>
+</CodeContainer>
