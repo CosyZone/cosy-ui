@@ -17,7 +17,8 @@ export * from "./src/utils/mac-window-bg";
 export * from "./src/utils/path";
 export * from "./src/utils/url";
 // 基础组件和功能模块 (按字母顺序)
-export * from "./src-astro/alert";
+export { default as Alert } from "./src-astro/Alert.astro";
+export type { AlertMarginSize, IAlertProps } from "./src-astro/Alert.astro";
 export * from "./src-astro/alert-dialog";
 export * from "./src-astro/api-test";
 export * from "./src-astro/apple-phone";

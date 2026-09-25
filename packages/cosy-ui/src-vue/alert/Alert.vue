@@ -55,7 +55,7 @@ Alert 组件用于向用户显示重要的提示信息，支持多种类型的�
 @prop {boolean} [closable=true] - 是否可关闭，设置为 false 时隐藏关闭按钮
 @prop {boolean} [showIcon=true] - 是否显示图标，设置为 false 时隐藏类型对应的图标
 @prop {('solid'|'outline'|'dash'|'soft')} [variant='solid'] - 样式变体，支持 solid（实心）、outline（描边）、dash（虚线）、soft（柔和）四种风格
-@prop {('xs'|'sm'|'md'|'lg'|'xl')} [marginY] - 垂直方向外边距大小，支持预设的尺寸值
+@prop {('none'|'xs'|'sm'|'md'|'lg'|'xl'|'2xl'|'3xl'|'4xl'|'5xl'|'6xl')} [marginY] - 垂直方向外边距大小，支持预设的尺寸值
 
 @slots
 @slot default - 提示内容，主要文本内容
@@ -65,8 +65,6 @@ Alert 组件用于向用户显示重要的提示信息，支持多种类型的�
 <script setup lang="ts">
   import { RiCloseLine } from '@remixicon/vue';
   import { computed } from 'vue';
-  import { cn } from '../../src/class/classBuilder';
-  import { AlertFacade } from '../../src/components/alert';
   import {
     ErrorIcon,
     InfoIcon,
@@ -94,8 +92,53 @@ Alert 组件用于向用户显示重要的提示信息，支持多种类型的�
     emit('close');
   };
 
-  // 使用 Alert 门面获取类名
-  const alertClasses = computed(() => AlertFacade.getClassString(props));
+  // 类型类名映射
+  const alertTypeClassMap: Record<string, string> = {
+    info: 'cosy-alert--info',
+    success: 'cosy-alert--success',
+    warning: 'cosy-alert--warning',
+    error: 'cosy-alert--error',
+  };
+
+  // 变体类名映射
+  const alertVariantClassMap: Record<string, string> = {
+    solid: 'cosy-alert--solid',
+    outline: 'cosy-alert--outline',
+    dash: 'cosy-alert--dash',
+    soft: 'cosy-alert--soft',
+  };
+
+  // 垂直外边距类名映射
+  const alertMarginClassMap: Record<string, string> = {
+    none: '',
+    xs: 'cosy-alert--my-xs',
+    sm: 'cosy-alert--my-sm',
+    md: 'cosy-alert--my-md',
+    lg: 'cosy-alert--my-lg',
+    xl: 'cosy-alert--my-xl',
+    '2xl': 'cosy-alert--my-2xl',
+    '3xl': 'cosy-alert--my-3xl',
+    '4xl': 'cosy-alert--my-4xl',
+    '5xl': 'cosy-alert--my-5xl',
+    '6xl': 'cosy-alert--my-6xl',
+  };
+
+  // 组合 Alert 容器类名（与 Alert.astro 渲染逻辑一致）
+  const alertClasses = computed(() => {
+    const typeClass = alertTypeClassMap[props.type] || alertTypeClassMap.info;
+    const variantClass =
+      alertVariantClassMap[props.variant] || alertVariantClassMap.solid;
+    const marginClass = props.marginY ? alertMarginClassMap[props.marginY] : '';
+    return [
+      'cosy-alert',
+      typeClass,
+      variantClass,
+      marginClass,
+      props.class,
+    ]
+      .filter(Boolean)
+      .join(' ');
+  });
 
   // 根据类型设置图标组件
   const IconComponent = computed(() => {
@@ -108,29 +151,14 @@ Alert 组件用于向用户显示重要的提示信息，支持多种类型的�
     return iconComponents[props.type];
   });
 
-  // 使用 classBuilder 构建类名
-  const containerClass = cn()
-    .flex('row')
-    .items('center')
-    .gap(4)
-    .justify('between')
-    .w('full')
-    .build();
-
-  const contentWrapperClass = cn().flex().items('center').gap(4).build();
-
-  const contentClass = cn()
-    .flex('col')
-    .items('start')
-    .h('full')
-    .add('cosy:flex-1')
-    .build();
-
-  const actionsClass = cn().flex('row').items('center').gap(2).build();
-
-  const descriptionClass = cn().text('xs').opacity(80).build();
-
-  const slotClass = cn().text('xs').build();
+  // 内部结构类名（原生 CSS，与 Alert.astro 一致）
+  const containerClass = 'cosy-alert__container';
+  const contentWrapperClass = 'cosy-alert__body';
+  const contentClass = 'cosy-alert__content';
+  const actionsClass = 'cosy-alert__actions';
+  const titleClass = 'cosy-alert__title';
+  const descriptionClass = 'cosy-alert__desc';
+  const slotClass = 'cosy-alert__content-text';
 </script>
 
 <template>
@@ -140,12 +168,12 @@ Alert 组件用于向用户显示重要的提示信息，支持多种类型的�
         <component
           :is="IconComponent"
           v-if="showIcon"
-          class="cosy:btn cosy:btn-sm cosy:btn-ghost cosy:btn-circle" />
+          class="cosy-alert__icon" />
 
         <div :class="contentClass">
           <h3
             v-if="props.title"
-            class="cosy:font-bold"
+            :class="titleClass"
             style="margin-top: 0 !important">
             {{ props.title }}
           </h3>
@@ -165,10 +193,137 @@ Alert 组件用于向用户显示重要的提示信息，支持多种类型的�
         <button
           v-if="props.closable"
           @click="handleClose"
-          class="cosy:btn cosy:btn-ghost cosy:btn-sm cosy:btn-circle">
-          <RiCloseLine class="cosy:h-5 cosy:w-5" />
+          class="cosy-alert__close">
+          <RiCloseLine class="cosy-alert__icon-svg" />
         </button>
       </div>
     </div>
   </div>
 </template>
+
+<style>
+  /* Alert - 原生 CSS 实现（与 Alert.astro 一致） */
+  .cosy-alert {
+    --cosy-alert-info: #2563eb;
+    --cosy-alert-success: #16a34a;
+    --cosy-alert-warning: #d97706;
+    --cosy-alert-error: #dc2626;
+    --cosy-alert-bg: var(--cosy-alert-info);
+
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #fff;
+    border: 1px solid transparent;
+    background: var(--cosy-alert-bg);
+  }
+
+  .cosy-alert--info { --cosy-alert-bg: var(--cosy-alert-info); }
+  .cosy-alert--success { --cosy-alert-bg: var(--cosy-alert-success); }
+  .cosy-alert--warning { --cosy-alert-bg: var(--cosy-alert-warning); }
+  .cosy-alert--error { --cosy-alert-bg: var(--cosy-alert-error); }
+
+  .cosy-alert--solid {
+    background: var(--cosy-alert-bg);
+    color: #fff;
+  }
+  .cosy-alert--outline {
+    background: transparent;
+    color: var(--cosy-alert-bg);
+    border-color: var(--cosy-alert-bg);
+  }
+  .cosy-alert--dash {
+    background: transparent;
+    color: var(--cosy-alert-bg);
+    border: 1px dashed var(--cosy-alert-bg);
+  }
+  .cosy-alert--soft {
+    background: color-mix(in srgb, var(--cosy-alert-bg) 10%, transparent);
+    color: var(--cosy-alert-bg);
+  }
+
+  .cosy-alert--my-xs { margin-top: 0.25rem; margin-bottom: 0.25rem; }
+  .cosy-alert--my-sm { margin-top: 0.5rem; margin-bottom: 0.5rem; }
+  .cosy-alert--my-md { margin-top: 1rem; margin-bottom: 1rem; }
+  .cosy-alert--my-lg { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+  .cosy-alert--my-xl { margin-top: 2rem; margin-bottom: 2rem; }
+  .cosy-alert--my-2xl { margin-top: 3rem; margin-bottom: 3rem; }
+  .cosy-alert--my-3xl { margin-top: 4rem; margin-bottom: 4rem; }
+  .cosy-alert--my-4xl { margin-top: 5rem; margin-bottom: 5rem; }
+  .cosy-alert--my-5xl { margin-top: 6rem; margin-bottom: 6rem; }
+  .cosy-alert--my-6xl { margin-top: 8rem; margin-bottom: 8rem; }
+
+  .cosy-alert__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    width: 100%;
+  }
+  .cosy-alert__body {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+  }
+  .cosy-alert__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1 1 auto;
+    gap: 0.25rem;
+  }
+  .cosy-alert__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+  .cosy-alert__title {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1em;
+  }
+  .cosy-alert__desc {
+    font-size: 0.75rem;
+    opacity: 0.8;
+  }
+  .cosy-alert__content-text {
+    font-size: 0.75rem;
+  }
+  .cosy-alert__icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+  }
+  .cosy-alert__icon-svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+  }
+  .cosy-alert__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: none;
+    border-radius: 9999px;
+    background: transparent;
+    color: currentColor;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+  .cosy-alert__close:hover {
+    background: color-mix(in srgb, currentColor 12%, transparent);
+  }
+  .cosy-alert__close .cosy-alert__icon-svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+</style>

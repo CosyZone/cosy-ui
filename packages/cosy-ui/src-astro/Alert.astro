@@ -1,0 +1,380 @@
+---
+/**
+ * @component Alert
+ *
+ * @description
+ * Alert 组件用于向用户显示重要的提示信息，支持多种类型的提示样式和交互效果。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Alert type="info">这是一条信息提示</Alert>
+ * ```
+ *
+ * 带标题：
+ * ```astro
+ * <Alert type="success" title="操作成功">您的操作已成功完成</Alert>
+ * ```
+ *
+ * 不显示图标：
+ * ```astro
+ * <Alert type="warning" showIcon={false}>不显示图标的警告</Alert>
+ * ```
+ *
+ * 设置垂直外边距：
+ * ```astro
+ * <Alert type="info" marginY="md">带垂直外边距的提示</Alert>
+ * ```
+ *
+ * 组合使用：
+ * ```astro
+ * <Alert
+ *   type="error"
+ *   title="提交失败"
+ *   class="my-custom-class"
+ *   marginY="lg"
+ * >
+ *   请检查表单并重新提交
+ * </Alert>
+ * ```
+ *
+ * 自定义操作按钮：
+ * ```astro
+ * <Alert type="info">
+ *   这是带自定义操作的提示
+ *   <slot name="action">
+ *     <button>操作</button>
+ *   </slot>
+ * </Alert>
+ * ```
+ *
+ * @props
+ * @prop {string} [class] - 自定义 CSS 类名，用于覆盖默认样式
+ * @prop {boolean} [closable=true] - 是否可关闭，设置为 false 时隐藏关闭按钮
+ * @prop {string} [description] - 描述文本，显示在标题下方，字体较小且透明度降低
+ * @prop {('none'|'xs'|'sm'|'md'|'lg'|'xl'|'2xl'|'3xl'|'4xl'|'5xl'|'6xl')} [marginY] - 垂直方向外边距大小，支持预设的尺寸值
+ * @prop {boolean} [showIcon=true] - 是否显示图标，设置为 false 时隐藏类型对应的图标
+ * @prop {string} [title] - 提示标题，可选，显示为粗体文本
+ * @prop {('info'|'success'|'warning'|'error')} [type='info'] - 提示类型，影响颜色和图标，支持 info、success、warning、error 四种类型
+ * @prop {('solid'|'outline'|'dash'|'soft')} [variant='solid'] - 样式变体，支持 solid（实心）、outline（描边）、dash（虚线）、soft（柔和）四种风格
+ *
+ * @slots
+ * @slot default - 提示内容，主要文本内容
+ * @slot action - 自定义操作按钮，显示在 alert 右侧，适合放置自定义按钮或其他操作
+ */
+
+import type { HTMLAttributes } from "astro/types";
+
+/**
+ * Alert 垂直外边距尺寸（组件自包含定义）
+ */
+export type AlertMarginSize =
+	"none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl";
+
+/**
+ * Alert 组件属性（组件自包含定义）
+ */
+export interface IAlertProps
+	extends Omit<
+		HTMLAttributes<"div">,
+		"type" | "title" | "description" | "class" | "closable" | "showIcon" | "variant" | "marginY"
+	> {
+	/**
+	 * 提示类型，影响颜色和图标
+	 * @default "info"
+	 */
+	type?: "info" | "success" | "warning" | "error";
+
+	/**
+	 * 提示标题，可选
+	 */
+	title?: string;
+
+	/**
+	 * 描述文本，显示在标题下方，字体较小且透明度降低
+	 */
+	description?: string;
+
+	/**
+	 * 自定义 CSS 类名，用于覆盖默认样式
+	 */
+	class?: string;
+
+	/**
+	 * 是否可关闭，设置为 false 时隐藏关闭按钮
+	 * @default true
+	 */
+	closable?: boolean;
+
+	/**
+	 * 是否显示图标，设置为 false 时隐藏类型对应的图标
+	 * @default true
+	 */
+	showIcon?: boolean;
+
+	/**
+	 * 样式变体，支持 solid（实心）、outline（描边）、dash（虚线）、soft（柔和）四种风格
+	 * @default "solid"
+	 */
+	variant?: "solid" | "outline" | "dash" | "soft";
+
+	/**
+	 * 垂直方向外边距大小，支持预设的尺寸值
+	 */
+	marginY?: AlertMarginSize;
+}
+
+/** 类型类名映射 */
+const alertTypeClassMap = {
+	info: "cosy-alert--info",
+	success: "cosy-alert--success",
+	warning: "cosy-alert--warning",
+	error: "cosy-alert--error",
+} as const;
+
+/** 变体类名映射 */
+const alertVariantClassMap = {
+	solid: "cosy-alert--solid",
+	outline: "cosy-alert--outline",
+	dash: "cosy-alert--dash",
+	soft: "cosy-alert--soft",
+} as const;
+
+/** 垂直外边距类名映射 */
+const alertMarginClassMap: Record<AlertMarginSize, string> = {
+	none: "",
+	xs: "cosy-alert--my-xs",
+	sm: "cosy-alert--my-sm",
+	md: "cosy-alert--my-md",
+	lg: "cosy-alert--my-lg",
+	xl: "cosy-alert--my-xl",
+	"2xl": "cosy-alert--my-2xl",
+	"3xl": "cosy-alert--my-3xl",
+	"4xl": "cosy-alert--my-4xl",
+	"5xl": "cosy-alert--my-5xl",
+	"6xl": "cosy-alert--my-6xl",
+} as const;
+
+/**
+ * 组合 Alert 容器类名
+ * @param props Alert 组件属性
+ * @returns 组合后的类名字符串
+ */
+function getAlertClasses(props: IAlertProps): string {
+	const { type = "info", variant = "solid", marginY, class: className = "" } = props;
+
+	return [
+		"cosy-alert",
+		alertTypeClassMap[type],
+		alertVariantClassMap[variant],
+		marginY ? alertMarginClassMap[marginY] : "",
+		className,
+	]
+		.filter(Boolean)
+		.join(" ");
+}
+
+/**
+ * 渲染 Alert 的完整 HTML 字符串（组件自包含）
+ * @param props Alert 组件属性
+ * @param options 渲染选项（包含已渲染的图标和 slot 内容）
+ * @returns 完整的 Alert HTML 字符串
+ */
+function renderAlert(
+	props: IAlertProps,
+	options: { iconHtml?: string; defaultSlotHtml: string; actionSlotHtml?: string },
+): string {
+	const { title, description, showIcon = true, closable = true } = props;
+
+	const { iconHtml = "", defaultSlotHtml, actionSlotHtml = "" } = options;
+
+	const alertClass = getAlertClasses(props);
+
+	// 构建 HTML
+	const iconSection = showIcon && iconHtml ? iconHtml : "";
+
+	const titleSection = title
+		? `<h3 class="cosy-alert__title" style="margin-top: 0 !important">${title}</h3>`
+		: "";
+
+	const descriptionSection = description
+		? `<div class="cosy-alert__desc">${description}</div>`
+		: "";
+
+	const contentSection = title
+		? `<div class="cosy-alert__content-text">${defaultSlotHtml}</div>`
+		: defaultSlotHtml;
+
+	const closeIcon = `<svg class="cosy-alert__icon-svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>`;
+
+	const closeButton = closable
+		? `<button class="cosy-alert__close" onclick="this.parentElement.parentElement.style.display = 'none';">${closeIcon}</button>`
+		: "";
+
+	return `
+<div class="${alertClass}" role="alert">
+  <div class="cosy-alert__container">
+    ${iconSection}
+    <div class="cosy-alert__content">
+      ${titleSection}
+      ${descriptionSection}
+      ${contentSection}
+    </div>
+    <div class="cosy-alert__actions" data-role="actions">
+      ${actionSlotHtml}
+      ${closeButton}
+    </div>
+  </div>
+</div>`.trim();
+}
+
+const props = Astro.props as IAlertProps;
+
+const {
+	showIcon = true,
+} = props;
+
+// 渲染图标 HTML（如果需要）
+const iconHtml = showIcon
+	? (await Astro.slots.render('icon')) ||
+	  `<div class="cosy-alert__icon"><svg class="cosy-alert__icon-svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>`
+	: undefined;
+
+// 渲染 slot 内容
+const defaultSlotHtml = await Astro.slots.render('default');
+const actionSlotHtml = await Astro.slots.render('action');
+
+// 渲染完整 HTML
+const alertHtml = renderAlert(props, {
+	iconHtml,
+	defaultSlotHtml,
+	actionSlotHtml,
+});
+---
+
+<Fragment set:html={alertHtml} />
+
+<style is:global>
+    /* Alert - 原生 CSS 实现 */
+    .cosy-alert {
+        --cosy-alert-info: #2563eb;
+        --cosy-alert-success: #16a34a;
+        --cosy-alert-warning: #d97706;
+        --cosy-alert-error: #dc2626;
+        --cosy-alert-bg: var(--cosy-alert-info);
+
+        box-sizing: border-box;
+        display: flex;
+        width: 100%;
+        padding: 1rem;
+        border-radius: 1rem;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        color: #fff;
+        border: 1px solid transparent;
+        background: var(--cosy-alert-bg);
+    }
+
+    /* 类型色 */
+    .cosy-alert--info { --cosy-alert-bg: var(--cosy-alert-info); }
+    .cosy-alert--success { --cosy-alert-bg: var(--cosy-alert-success); }
+    .cosy-alert--warning { --cosy-alert-bg: var(--cosy-alert-warning); }
+    .cosy-alert--error { --cosy-alert-bg: var(--cosy-alert-error); }
+
+    /* 变体 */
+    .cosy-alert--solid {
+        background: var(--cosy-alert-bg);
+        color: #fff;
+    }
+    .cosy-alert--outline {
+        background: transparent;
+        color: var(--cosy-alert-bg);
+        border-color: var(--cosy-alert-bg);
+    }
+    .cosy-alert--dash {
+        background: transparent;
+        color: var(--cosy-alert-bg);
+        border: 1px dashed var(--cosy-alert-bg);
+    }
+    .cosy-alert--soft {
+        background: color-mix(in srgb, var(--cosy-alert-bg) 10%, transparent);
+        color: var(--cosy-alert-bg);
+    }
+
+    /* 垂直外边距 */
+    .cosy-alert--my-xs { margin-top: 0.25rem; margin-bottom: 0.25rem; }
+    .cosy-alert--my-sm { margin-top: 0.5rem; margin-bottom: 0.5rem; }
+    .cosy-alert--my-md { margin-top: 1rem; margin-bottom: 1rem; }
+    .cosy-alert--my-lg { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+    .cosy-alert--my-xl { margin-top: 2rem; margin-bottom: 2rem; }
+    .cosy-alert--my-2xl { margin-top: 3rem; margin-bottom: 3rem; }
+    .cosy-alert--my-3xl { margin-top: 4rem; margin-bottom: 4rem; }
+    .cosy-alert--my-4xl { margin-top: 5rem; margin-bottom: 5rem; }
+    .cosy-alert--my-5xl { margin-top: 6rem; margin-bottom: 6rem; }
+    .cosy-alert--my-6xl { margin-top: 8rem; margin-bottom: 8rem; }
+
+    /* 内部结构 */
+    .cosy-alert__container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        width: 100%;
+    }
+    .cosy-alert__content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex: 1 1 auto;
+        gap: 0.25rem;
+    }
+    .cosy-alert__actions {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-shrink: 0;
+    }
+    .cosy-alert__title {
+        margin: 0;
+        font-weight: 700;
+        font-size: 1em;
+    }
+    .cosy-alert__desc {
+        font-size: 0.75rem;
+        opacity: 0.8;
+    }
+    .cosy-alert__content-text {
+        font-size: 0.75rem;
+    }
+    .cosy-alert__icon {
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+    }
+    .cosy-alert__icon-svg {
+        width: 1.25rem;
+        height: 1.25rem;
+        flex-shrink: 0;
+    }
+    .cosy-alert__close {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        padding: 0;
+        border: none;
+        border-radius: 9999px;
+        background: transparent;
+        color: currentColor;
+        cursor: pointer;
+        transition: background-color 0.15s ease;
+    }
+    .cosy-alert__close:hover {
+        background: color-mix(in srgb, currentColor 12%, transparent);
+    }
+    .cosy-alert__close .cosy-alert__icon-svg {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+</style>

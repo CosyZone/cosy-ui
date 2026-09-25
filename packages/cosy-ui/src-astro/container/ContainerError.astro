@@ -1,6 +1,6 @@
 ---
 
-import { Alert, AlertFactory } from '../../index-astro';
+import { Alert } from '../../index-astro';
 import { cn } from '../../src/class';
 
 interface Props {
@@ -15,16 +15,10 @@ const sectionClass = cn().w('full').mx('auto').build();
 const ulClass = cn().listStyle('disc').pl(5).spaceY(1).build();
 
 const liClass = cn().text('sm').build();
-
-// 使用 AlertFactory 构建 Alert props
-const alertProps = AlertFactory.warning()
-    .withVariant('soft')
-    .withClosable(false)
-    .buildProps();
 ---
 
 <section class={sectionClass} aria-label="container-error">
-    <Alert {...alertProps}>
+    <Alert type="warning" variant="soft" closable={false}>
         <ul class={ulClass}>
             {messages.map((message) => <li class={liClass}>{message}</li>)}
         </ul>
