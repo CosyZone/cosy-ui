@@ -1,0 +1,193 @@
+---
+/**
+ * @component AlertDialog
+ *
+ * @description
+ * AlertDialog 组件用于显示简单的确认对话框，支持国际化，带有淡入淡出动画效果。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <AlertDialog message="操作已完成" />
+ * ```
+ *
+ * 指定语言：
+ * ```astro
+ * <AlertDialog message="Operation completed" lang="en" />
+ * ```
+ *
+ * 组合使用：
+ * ```astro
+ * <button onclick="showAlertDialog('alert-dialog')">显示对话框</button>
+ * <AlertDialog message="确认要继续吗？" />
+ * ```
+ *
+ * @props
+ * @prop {string} [class] - 自定义 CSS 类名，用于覆盖默认样式
+ * @prop {string} [id='alert-dialog'] - 对话框的唯一标识符，用于通过 JavaScript 控制对话框的显示和隐藏
+ * @prop {('zh-cn'|'en')} [lang='zh-cn'] - 语言设置，影响按钮文本，支持中文和英文两种语言
+ * @prop {string} message - 对话框显示的消息内容，支持任意文本内容
+ *
+ * @slots
+ * @slot default - 无插槽内容，所有内容通过 message 属性传递
+ */
+
+export interface Props {
+    message: string;
+    lang?: 'zh-cn' | 'en';
+    id?: string;
+    class?: string;
+}
+
+const {
+    message,
+    lang = 'zh-cn',
+    id = 'alert-dialog',
+    class: className,
+} = Astro.props;
+
+// 多语言文本
+const t = (key: 'confirm') => {
+    const messages = {
+        'zh-cn': {
+            confirm: '确定',
+        },
+        en: {
+            confirm: 'OK',
+        },
+    };
+    return messages[lang][key];
+};
+---
+
+<div id={id} class={`cosy-alert-dialog${className ? ` ${className}` : ''}`} data-alert-dialog>
+    <!-- 背景遮罩 -->
+    <div class="cosy-alert-dialog__backdrop" data-alert-dialog-backdrop></div>
+
+    <!-- 对话框 -->
+    <div class="cosy-alert-dialog__content">
+        <!-- 内容区域 -->
+        <div class="cosy-alert-dialog__body">
+            <p class="cosy-alert-dialog__text">
+                {message}
+            </p>
+        </div>
+
+        <!-- 按钮区域 -->
+        <div class="cosy-alert-dialog__actions">
+            <button class="cosy-alert-dialog__button" data-alert-dialog-close>
+                {t('confirm')}
+            </button>
+        </div>
+    </div>
+</div>
+
+<style is:global>
+    /* AlertDialog - 原生 CSS 实现 */
+    .cosy-alert-dialog {
+        --cosy-alert-dialog-base-100: #ffffff;
+        --cosy-alert-dialog-base-200: #e9e9e9;
+        --cosy-alert-dialog-base-300: #d7d7d7;
+        --cosy-alert-dialog-content: #1d1d1d;
+
+        box-sizing: border-box;
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 200ms ease-in-out;
+    }
+
+    .cosy-alert-dialog--open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .cosy-alert-dialog__backdrop {
+        position: absolute;
+        inset: 0;
+        background: color-mix(in srgb, var(--cosy-alert-dialog-base-200) 80%, transparent);
+        backdrop-filter: blur(4px);
+    }
+
+    .cosy-alert-dialog__content {
+        position: relative;
+        width: 400px;
+        max-width: calc(100vw - 2rem);
+        background: var(--cosy-alert-dialog-base-100);
+        border-radius: 0.75rem;
+        box-shadow:
+            0 10px 15px -3px rgb(0 0 0 / 0.1),
+            0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+
+    .cosy-alert-dialog__body {
+        padding: 1.5rem;
+    }
+
+    .cosy-alert-dialog__text {
+        margin: 0;
+        color: var(--cosy-alert-dialog-content);
+        font-size: 0.875rem;
+        line-height: 1.5;
+    }
+
+    .cosy-alert-dialog__actions {
+        display: flex;
+        border-top: 1px solid var(--cosy-alert-dialog-base-300);
+    }
+
+    .cosy-alert-dialog__button {
+        flex: 1 1 0%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1rem;
+        border: none;
+        background: transparent;
+        color: var(--cosy-alert-dialog-content);
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        cursor: pointer;
+        border-radius: 0 0 0.75rem 0.75rem;
+        transition: background-color 0.15s ease;
+    }
+
+    .cosy-alert-dialog__button:hover {
+        background: color-mix(in srgb, currentColor 8%, transparent);
+    }
+</style>
+
+<script>
+    // 获取所有对话框元素
+    const dialogs = document.querySelectorAll('[data-alert-dialog]');
+
+    // 为每个对话框添加事件监听
+    dialogs.forEach((dialog) => {
+        const backdrop = dialog.querySelector('[data-alert-dialog-backdrop]');
+        const closeButton = dialog.querySelector('[data-alert-dialog-close]');
+
+        // 隐藏对话框
+        const hideDialog = () => {
+            dialog.classList.remove('cosy-alert-dialog--open');
+        };
+
+        // 点击背景关闭
+        backdrop?.addEventListener('click', hideDialog);
+
+        // 点击按钮关闭
+        closeButton?.addEventListener('click', hideDialog);
+
+        // 将显示方法暴露到全局，方便外部调用
+        (window as any).showAlertDialog = (dialogId: string) => {
+            const targetDialog = document.getElementById(dialogId);
+            if (targetDialog) {
+                targetDialog.classList.add('cosy-alert-dialog--open');
+            }
+        };
+    });
+</script>

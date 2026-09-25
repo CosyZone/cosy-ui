@@ -19,7 +19,7 @@ export * from "./src/utils/url";
 // 基础组件和功能模块 (按字母顺序)
 export { default as Alert } from "./src-astro/Alert.astro";
 export type { AlertMarginSize, IAlertProps } from "./src-astro/Alert.astro";
-export * from "./src-astro/alert-dialog";
+export { default as AlertDialog } from "./src-astro/AlertDialog.astro";
 export * from "./src-astro/api-test";
 export * from "./src-astro/apple-phone";
 export * from "./src-astro/article";
