@@ -33,7 +33,6 @@
 
 import type { BackgroundColor } from "../../src/common/backgrounds";
 import type { BorderColor } from "../../src/common/border";
-import { ContainerPropsBuilder } from "../../src/components/container/ContainerPropsBuilder";
 import type { IContainerProps } from "./props";
 
 interface SlotComponent {
@@ -45,13 +44,11 @@ interface SlotComponent {
  * Container 组件工厂类
  */
 export class ContainerFactory {
-	private builder: ContainerPropsBuilder;
+	private props: Partial<IContainerProps> = {};
 	private content: string = "";
 	private slots: Record<string, SlotComponent | string> = {};
 
-	constructor(builder?: ContainerPropsBuilder) {
-		this.builder = builder || new ContainerPropsBuilder();
-	}
+	constructor() {}
 
 	/**
 	 * 创建新的 ContainerFactory 实例
@@ -125,7 +122,7 @@ export class ContainerFactory {
 	 * @param value 宽度值
 	 */
 	width(value: "xs" | "sm" | "md" | "lg" | "xl" | "full"): ContainerFactory {
-		this.builder.width(value);
+		this.props = { ...this.props, width: value };
 		return this;
 	}
 
@@ -133,7 +130,7 @@ export class ContainerFactory {
 	 * 设置为超小宽度
 	 */
 	xs(): ContainerFactory {
-		this.builder.xs();
+		this.props = { ...this.props, width: "xs" };
 		return this;
 	}
 
@@ -141,7 +138,7 @@ export class ContainerFactory {
 	 * 设置为小宽度
 	 */
 	sm(): ContainerFactory {
-		this.builder.sm();
+		this.props = { ...this.props, width: "sm" };
 		return this;
 	}
 
@@ -149,7 +146,7 @@ export class ContainerFactory {
 	 * 设置为中等宽度
 	 */
 	md(): ContainerFactory {
-		this.builder.md();
+		this.props = { ...this.props, width: "md" };
 		return this;
 	}
 
@@ -157,7 +154,7 @@ export class ContainerFactory {
 	 * 设置为大宽度
 	 */
 	lg(): ContainerFactory {
-		this.builder.lg();
+		this.props = { ...this.props, width: "lg" };
 		return this;
 	}
 
@@ -165,7 +162,7 @@ export class ContainerFactory {
 	 * 设置为超大宽度
 	 */
 	xl(): ContainerFactory {
-		this.builder.xl();
+		this.props = { ...this.props, width: "xl" };
 		return this;
 	}
 
@@ -173,7 +170,7 @@ export class ContainerFactory {
 	 * 设置为全宽
 	 */
 	full(): ContainerFactory {
-		this.builder.full();
+		this.props = { ...this.props, width: "full" };
 		return this;
 	}
 
@@ -184,7 +181,7 @@ export class ContainerFactory {
 	padding(
 		value: "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl",
 	): ContainerFactory {
-		this.builder.padding(value);
+		this.props = { ...this.props, padding: value };
 		return this;
 	}
 
@@ -205,7 +202,7 @@ export class ContainerFactory {
 			| "4xl"
 			| "5xl",
 	): ContainerFactory {
-		this.builder.margin(value);
+		this.props = { ...this.props, margin: value };
 		return this;
 	}
 
@@ -216,7 +213,7 @@ export class ContainerFactory {
 	rounded(
 		value: "none" | "sm" | "md" | "lg" | "xl" | "full",
 	): ContainerFactory {
-		this.builder.rounded(value);
+		this.props = { ...this.props, rounded: value };
 		return this;
 	}
 
@@ -225,7 +222,7 @@ export class ContainerFactory {
 	 * @param value 阴影大小
 	 */
 	shadow(value: "none" | "sm" | "md" | "lg" | "xl" | "2xl"): ContainerFactory {
-		this.builder.shadow(value);
+		this.props = { ...this.props, shadow: value };
 		return this;
 	}
 
@@ -234,7 +231,7 @@ export class ContainerFactory {
 	 * @param value 是否居中
 	 */
 	centered(value: boolean = true): ContainerFactory {
-		this.builder.centered(value);
+		this.props = { ...this.props, centered: value };
 		return this;
 	}
 
@@ -243,7 +240,7 @@ export class ContainerFactory {
 	 * @param value 是否居中
 	 */
 	contentCentered(value: boolean = true): ContainerFactory {
-		this.builder.contentCentered(value);
+		this.props = { ...this.props, contentCentered: value };
 		return this;
 	}
 
@@ -252,7 +249,7 @@ export class ContainerFactory {
 	 * @param value flex 方向
 	 */
 	flex(value: "row" | "col" | "row-reverse" | "col-reverse"): ContainerFactory {
-		this.builder.flex(value);
+		this.props = { ...this.props, flex: value };
 		return this;
 	}
 
@@ -261,7 +258,7 @@ export class ContainerFactory {
 	 * @param value 间距大小
 	 */
 	gap(value: "none" | "xs" | "sm" | "md" | "lg" | "xl"): ContainerFactory {
-		this.builder.gap(value);
+		this.props = { ...this.props, gap: value };
 		return this;
 	}
 
@@ -272,7 +269,7 @@ export class ContainerFactory {
 	items(
 		value: "start" | "end" | "center" | "baseline" | "stretch",
 	): ContainerFactory {
-		this.builder.items(value);
+		this.props = { ...this.props, items: value };
 		return this;
 	}
 
@@ -283,7 +280,7 @@ export class ContainerFactory {
 	justify(
 		value: "start" | "end" | "center" | "between" | "around" | "evenly",
 	): ContainerFactory {
-		this.builder.justify(value);
+		this.props = { ...this.props, justify: value };
 		return this;
 	}
 
@@ -292,7 +289,7 @@ export class ContainerFactory {
 	 * @param value 宽高比值
 	 */
 	aspectRatio(value: number): ContainerFactory {
-		this.builder.aspectRatio(value);
+		this.props = { ...this.props, aspectRatio: value };
 		return this;
 	}
 
@@ -301,7 +298,7 @@ export class ContainerFactory {
 	 * @param value 适配模式
 	 */
 	fit(value: "none" | "contain" | "cover"): ContainerFactory {
-		this.builder.fit(value);
+		this.props = { ...this.props, fit: value };
 		return this;
 	}
 
@@ -310,7 +307,7 @@ export class ContainerFactory {
 	 * @param value 自定义类名
 	 */
 	withClass(value: string): ContainerFactory {
-		this.builder.class(value);
+		this.props = { ...this.props, class: value };
 		return this;
 	}
 
@@ -319,7 +316,7 @@ export class ContainerFactory {
 	 * @param value 背景色
 	 */
 	background(value: BackgroundColor): ContainerFactory {
-		this.builder.background(value);
+		this.props = { ...this.props, background: value };
 		return this;
 	}
 
@@ -343,7 +340,7 @@ export class ContainerFactory {
 			| "screen"
 			| "auto",
 	): ContainerFactory {
-		this.builder.height(value);
+		this.props = { ...this.props, height: value };
 		return this;
 	}
 
@@ -352,7 +349,7 @@ export class ContainerFactory {
 	 * @param value 是否使用
 	 */
 	muted(value: boolean = true): ContainerFactory {
-		this.builder.muted(value);
+		this.props = { ...this.props, muted: value };
 		return this;
 	}
 
@@ -361,7 +358,7 @@ export class ContainerFactory {
 	 * @param value 边框尺寸
 	 */
 	border(value: "none" | "sm" | "md" | "lg" | "xl"): ContainerFactory {
-		this.builder.border(value);
+		this.props = { ...this.props, border: value };
 		return this;
 	}
 
@@ -370,7 +367,7 @@ export class ContainerFactory {
 	 * @param value 边框颜色
 	 */
 	borderColor(value: BorderColor): ContainerFactory {
-		this.builder.borderColor(value);
+		this.props = { ...this.props, borderColor: value };
 		return this;
 	}
 
@@ -379,7 +376,7 @@ export class ContainerFactory {
 	 * @param props 属性对象
 	 */
 	withProps(props: Partial<IContainerProps>): ContainerFactory {
-		this.builder.merge(props);
+		this.props = { ...this.props, ...props };
 		return this;
 	}
 
@@ -397,7 +394,7 @@ export class ContainerFactory {
 	 * @returns Container 组件 HTML 字符串
 	 */
 	async build(): Promise<string> {
-		const props = this.builder.build();
+		const props = this.props;
 
 		// 使用 Astro 容器 API 渲染组件
 		const { experimental_AstroContainer } = await import("astro/container");
@@ -436,6 +433,6 @@ export class ContainerFactory {
 	 * @returns props 对象
 	 */
 	buildProps(): Partial<IContainerProps> {
-		return this.builder.build();
+		return this.props;
 	}
 }

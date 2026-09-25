@@ -5,4 +5,3 @@ export { default as HeaderStart } from "./HeaderStart.astro";
 export { default as LogoLink } from "./LogoLink.astro";
 export { default as MobileNav } from "./MobileNav.astro";
 export { default as NavItems } from "./NavItems.astro";
-export { HeaderProps } from "./props";

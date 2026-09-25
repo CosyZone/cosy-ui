@@ -1,5 +1,4 @@
 import Basic from "./Basic.astro";
-import BasicBuilder from "./BasicBuilder.astro";
 import BasicContainer from "./BasicContainer.astro";
 import DefaultSlotContainer from "./DefaultSlotContainer.astro";
 import ModalSearchSlotContainer from "./ModalSearchSlotContainer.astro";
@@ -12,7 +11,6 @@ import SidebarSlotContainer from "./SidebarSlotContainer.astro";
 // 导出 ComponentPackage 用于文档
 export const AppLayoutPackage = {
 	Basic: Basic,
-	BasicBuilder: BasicBuilder,
 	BasicContainer: BasicContainer,
 	DefaultSlot: DefaultSlotContainer,
 	ModalSearchSlot: ModalSearchSlotContainer,

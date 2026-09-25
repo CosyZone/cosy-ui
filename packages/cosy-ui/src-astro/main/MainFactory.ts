@@ -32,8 +32,6 @@
  */
 
 import type { IMainContentProps } from "../../src/components/main/types";
-import type { IMainPropsBuilder } from "./props";
-import { createMainProps } from "./props";
 
 interface SlotComponent {
 	component: any;
@@ -44,13 +42,19 @@ interface SlotComponent {
  * Main 组件工厂类
  */
 export class MainFactory {
-	private builder: IMainPropsBuilder;
+	private props: IMainContentProps = {
+		size: "md",
+		padding: "md",
+		py: "md",
+		centered: true,
+		layout: "column",
+		isArticle: false,
+		showTableOfContents: false,
+	} as IMainContentProps;
 	private content: string = "";
 	private slots: Record<string, SlotComponent | string> = {};
 
-	constructor(builder?: IMainPropsBuilder) {
-		this.builder = builder || createMainProps();
-	}
+	constructor() {}
 
 	/**
 	 * 创建新的 MainFactory 实例
@@ -91,7 +95,7 @@ export class MainFactory {
 	 * @param value 容器大小
 	 */
 	size(value: "xs" | "sm" | "md" | "lg" | "xl" | "full"): MainFactory {
-		this.builder.size(value);
+		this.props = { ...this.props, size: value };
 		return this;
 	}
 
@@ -100,7 +104,7 @@ export class MainFactory {
 	 * @param value 内边距大小
 	 */
 	padding(value: "none" | "sm" | "md" | "lg" | "xl"): MainFactory {
-		this.builder.padding(value);
+		this.props = { ...this.props, padding: value };
 		return this;
 	}
 
@@ -109,7 +113,7 @@ export class MainFactory {
 	 * @param value 垂直内边距大小
 	 */
 	py(value: string): MainFactory {
-		this.builder.py(value);
+		this.props = { ...this.props, py: value };
 		return this;
 	}
 
@@ -118,7 +122,7 @@ export class MainFactory {
 	 * @param value 顶部内边距大小
 	 */
 	pt(value: string): MainFactory {
-		this.builder.pt(value);
+		this.props = { ...this.props, pt: value };
 		return this;
 	}
 
@@ -127,7 +131,7 @@ export class MainFactory {
 	 * @param value 底部内边距大小
 	 */
 	pb(value: string): MainFactory {
-		this.builder.pb(value);
+		this.props = { ...this.props, pb: value };
 		return this;
 	}
 
@@ -136,7 +140,7 @@ export class MainFactory {
 	 * @param value 左侧内边距大小
 	 */
 	pl(value: string): MainFactory {
-		this.builder.pl(value);
+		this.props = { ...this.props, pl: value };
 		return this;
 	}
 
@@ -145,7 +149,7 @@ export class MainFactory {
 	 * @param value 右侧内边距大小
 	 */
 	pr(value: string): MainFactory {
-		this.builder.pr(value);
+		this.props = { ...this.props, pr: value };
 		return this;
 	}
 
@@ -154,7 +158,7 @@ export class MainFactory {
 	 * @param value 水平内边距大小
 	 */
 	px(value: string): MainFactory {
-		this.builder.px(value);
+		this.props = { ...this.props, px: value };
 		return this;
 	}
 
@@ -163,7 +167,7 @@ export class MainFactory {
 	 * @param value 是否居中
 	 */
 	centered(value = true): MainFactory {
-		this.builder.centered(value);
+		this.props = { ...this.props, centered: value };
 		return this;
 	}
 
@@ -172,7 +176,7 @@ export class MainFactory {
 	 * @param value 布局方式
 	 */
 	layout(value: "row" | "column"): MainFactory {
-		this.builder.layout(value);
+		this.props = { ...this.props, layout: value };
 		return this;
 	}
 
@@ -181,7 +185,7 @@ export class MainFactory {
 	 * @param value 是否为文章模式
 	 */
 	isArticle(value = true): MainFactory {
-		this.builder.isArticle(value);
+		this.props = { ...this.props, isArticle: value };
 		return this;
 	}
 
@@ -190,7 +194,7 @@ export class MainFactory {
 	 * @param value 是否显示目录
 	 */
 	showTableOfContents(value = true): MainFactory {
-		this.builder.showTableOfContents(value);
+		this.props = { ...this.props, showTableOfContents: value };
 		return this;
 	}
 
@@ -199,7 +203,7 @@ export class MainFactory {
 	 * @param value 背景颜色
 	 */
 	backgroundColor(value: string): MainFactory {
-		this.builder.backgroundColor(value);
+		this.props = { ...this.props, backgroundColor: value };
 		return this;
 	}
 
@@ -208,7 +212,7 @@ export class MainFactory {
 	 * @param value 边框尺寸
 	 */
 	border(value: "none" | "sm" | "md" | "lg" | "xl"): MainFactory {
-		this.builder.border(value);
+		this.props = { ...this.props, border: value };
 		return this;
 	}
 
@@ -217,7 +221,7 @@ export class MainFactory {
 	 * @param value 自定义类名
 	 */
 	withClass(value: string): MainFactory {
-		this.builder.class(value);
+		this.props = { ...this.props, class: value };
 		return this;
 	}
 
@@ -226,7 +230,7 @@ export class MainFactory {
 	 * @param value 类名列表
 	 */
 	withClassList(value: any): MainFactory {
-		this.builder.classList(value);
+		this.props = { ...this.props, "class:list": value };
 		return this;
 	}
 
@@ -235,7 +239,7 @@ export class MainFactory {
 	 * @param value HTML id 属性
 	 */
 	withId(value: string): MainFactory {
-		this.builder.id(value);
+		this.props = { ...this.props, id: value };
 		return this;
 	}
 
@@ -244,7 +248,7 @@ export class MainFactory {
 	 * @param value 语言代码
 	 */
 	withLocale(value: string): MainFactory {
-		this.builder.currentLocale(value);
+		this.props = { ...this.props, currentLocale: value };
 		return this;
 	}
 
@@ -253,14 +257,13 @@ export class MainFactory {
 	 * @param props 属性对象
 	 */
 	withProps(props: Partial<IMainContentProps>): MainFactory {
+		const merged = { ...this.props };
 		Object.entries(props).forEach(([key, value]) => {
 			if (value !== undefined) {
-				const method = key as keyof IMainPropsBuilder;
-				if (typeof this.builder[method] === "function") {
-					(this.builder[method] as any)(value);
-				}
+				(merged as Record<string, any>)[key] = value;
 			}
 		});
+		this.props = merged as IMainContentProps;
 		return this;
 	}
 
@@ -289,7 +292,7 @@ export class MainFactory {
 	 * @returns Main 组件 HTML 字符串
 	 */
 	async build(): Promise<string> {
-		const props = this.builder.build();
+		const props = this.props;
 
 		// 使用 Astro 容器 API 渲染组件
 		const { experimental_AstroContainer } = await import("astro/container");
@@ -328,6 +331,6 @@ export class MainFactory {
 	 * @returns props 对象
 	 */
 	buildProps(): IMainContentProps {
-		return this.builder.build();
+		return this.props;
 	}
 }
