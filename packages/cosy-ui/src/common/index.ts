@@ -10,6 +10,7 @@ export * from "./fitmode";
 // 高度相关（类型和类名映射）
 export * from "./height";
 export * from "./hover";
+export * from "./image-source";
 // 布局相关（类型和类名映射）
 export * from "./layout";
 // 布局工具函数

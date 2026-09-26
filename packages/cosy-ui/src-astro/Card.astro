@@ -1,0 +1,324 @@
+---
+/**
+ * @component Card
+ *
+ * @description
+ * Card 组件用于在页面中展示相关内容的容器，通常包含标题、描述和可选的图片。
+ * 组件设计简洁大方，具有平滑的动画效果和交互反馈，适合展示产品、文章或功能介绍等内容。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Card
+ *   title="卡片标题"
+ *   subtitle="卡片描述文本"
+ * >
+ *   卡片内容
+ * </Card>
+ * ```
+ *
+ * 带图片的卡片：
+ * ```astro
+ * <Card
+ *   title="产品名称"
+ *   subtitle="产品描述"
+ *   imageUrl="/path/to/image.jpg"
+ * >
+ *   其他产品信息
+ * </Card>
+ * ```
+ *
+ * 可点击的卡片（链接）：
+ * ```astro
+ * <Card
+ *   title="文章标题"
+ *   subtitle="文章摘要"
+ *   imageUrl="/path/to/image.jpg"
+ *   href="/articles/article-slug"
+ * />
+ * ```
+ *
+ * 紧凑模式：
+ * ```astro
+ * <Card
+ *   title="紧凑卡片"
+ *   subtitle="更小的内边距"
+ *   compact
+ * >
+ *   适合在空间有限的情况下使用
+ * </Card>
+ * ```
+ *
+ * 自定义背景色：
+ * ```astro
+ * <Card
+ *   title="特色卡片"
+ *   subtitle="使用自定义背景色"
+ *   background="primary/10"
+ * >
+ *   卡片内容
+ * </Card>
+ * ```
+ *
+ * 自定义阴影：
+ * ```astro
+ * <Card
+ *   title="带阴影的卡片"
+ *   subtitle="使用自定义阴影效果"
+ *   shadow="2xl"
+ * >
+ *   卡片内容
+ * </Card>
+ * ```
+ *
+ * @props
+ * @prop {BackgroundColor} [background] - 背景色类型，支持所有预设背景色和透明度变体
+ * @prop {string} [class] - 自定义CSS类，可用于覆盖默认样式
+ * @prop {boolean} [compact] - 是否使用紧凑模式
+ * @prop {string} [href] - 如果提供，卡片将变成可点击的链接
+ * @prop {ImageSource} [imageUrl] - 卡片顶部图片的URL或ImageMetadata
+ * @prop {boolean} [muted] - 是否使用柔和色样式（未激活状态）
+ * @prop {ShadowSize} [shadow=xl] - 阴影大小
+ * @prop {string} [subtitle] - 卡片副标题或描述
+ * @prop {string} title - 卡片标题
+ *
+ * @slots
+ * @slot default - 卡片的主要内容区域
+ */
+
+import type { HTMLAttributes } from "astro/types";
+import Container from "./Container.astro";
+import Image from "./Image.astro";
+import type { ImageSource } from "./Image.astro";
+import type { IContainerProps } from "./Container.astro";
+import type { BackgroundColor } from "../src/common/backgrounds";
+import type { ShadowSize } from "../src/common/shadow";
+
+/**
+ * Card 组件的基础属性接口（与框架无关，组件自包含定义）
+ */
+export interface ICardPropsBase {
+	/**
+	 * 背景色类型，支持所有预设背景色和透明度变体
+	 */
+	background?: BackgroundColor;
+
+	/**
+	 * 自定义CSS类，可用于覆盖默认样式
+	 */
+	class?: string;
+
+	/**
+	 * 是否使用紧凑模式
+	 */
+	compact?: boolean;
+
+	/**
+	 * 如果提供，卡片将变成可点击的链接
+	 */
+	href?: string;
+
+	/**
+	 * 是否使用柔和色样式（未激活状态）
+	 */
+	muted?: boolean;
+
+	/**
+	 * 阴影大小
+	 * @default "xl"
+	 */
+	shadow?: ShadowSize;
+
+	/**
+	 * 卡片副标题或描述
+	 */
+	subtitle?: string;
+
+	/**
+	 * 卡片标题
+	 */
+	title?: string;
+}
+
+/**
+ * Card 组件属性（组件自包含定义）
+ */
+export interface ICardProps
+	extends ICardPropsBase,
+		Omit<IContainerProps, "class" | "backgroundImage" | "title">,
+		Omit<HTMLAttributes<"article">, "title" | keyof ICardPropsBase> {
+	/**
+	 * 卡片顶部图片的URL或ImageMetadata
+	 */
+	imageUrl?: ImageSource;
+}
+
+const props = Astro.props as ICardProps;
+
+// 从 props 中分离 Container 相关属性和 Card 自身属性
+const {
+	// Container 属性
+	aspectRatio,
+	centered,
+	contentCentered,
+	flex,
+	fit,
+	gap,
+	height,
+	items,
+	justify,
+	margin,
+	muted,
+	padding,
+	py,
+	pt,
+	pb,
+	px,
+	pl,
+	pr,
+	width,
+	rounded,
+	background,
+	border,
+	borderColor,
+	shadow = "xl",
+	// Card 属性
+	class: className = "",
+	compact = false,
+	href,
+	imageUrl,
+	subtitle,
+	title,
+	...restProps
+} = props;
+
+// 如果是链接卡片，使用 a 标签，否则使用 article 标签
+const Tag = href ? "a" : "article";
+
+// 组合 Card 根元素（内部 article/a）的 BEM 类名
+const cardRootClass = [
+	"cosy-card",
+	compact ? "cosy-card--compact" : "",
+	href ? "cosy-card--clickable" : "",
+]
+	.filter(Boolean)
+	.join(" ");
+---
+
+<Container
+	aspectRatio={aspectRatio}
+	centered={centered}
+	contentCentered={contentCentered}
+	flex={flex}
+	fit={fit}
+	gap={gap}
+	height={height}
+	items={items}
+	justify={justify}
+	margin={margin}
+	muted={muted}
+	padding={padding}
+	py={py}
+	pt={pt}
+	pb={pb}
+	px={px}
+	pl={pl}
+	pr={pr}
+	width={width}
+	rounded={rounded}
+	background={background}
+	border={border}
+	borderColor={borderColor}
+	shadow={shadow}
+	class={className}
+	{...restProps}>
+	<Tag
+		ignore-heading
+		class={cardRootClass}
+		{...href && { href, target: "_self" }}>
+		{
+			imageUrl && (
+				<figure class="cosy-card__media">
+					<Image src={imageUrl} alt={title || ""} class="cosy-card__img" />
+				</figure>
+			)
+		}
+
+		<div class="cosy-card__body">
+			{title && <h2 class="cosy-card__title">{title}</h2>}
+
+			{subtitle && <p class="cosy-card__subtitle">{subtitle}</p>}
+
+			{
+				Astro.slots.has("default") && (
+					<div class="cosy-card__content">
+						<slot />
+					</div>
+				)
+			}
+		</div>
+	</Tag>
+</Container>
+
+<style is:global>
+	/* Card - 原生 CSS 实现（daisyui corporate 主题色） */
+	.cosy-card {
+		--cosy-card-base-content: #1d1d1d;
+
+		box-sizing: border-box;
+		display: block;
+		width: 100%;
+		transition: all 300ms ease-in-out;
+		color: var(--cosy-card-base-content);
+	}
+
+	/* 可点击（链接）卡片 */
+	.cosy-card--clickable {
+		cursor: pointer;
+		text-decoration: none;
+	}
+	.cosy-card--clickable:hover {
+		transform: scale(1.05);
+	}
+
+	/* 顶部图片区域 */
+	.cosy-card__media {
+		margin: 0;
+		padding: 0;
+	}
+	.cosy-card__img {
+		display: block;
+		width: 100%;
+		height: 12rem;
+		object-fit: cover;
+		border-top-left-radius: 0.5rem;
+		border-top-right-radius: 0.5rem;
+	}
+
+	/* 内容区 */
+	.cosy-card__body {
+		padding: 1.5rem;
+	}
+	.cosy-card--compact .cosy-card__body {
+		padding: 1rem;
+	}
+
+	.cosy-card__title {
+		margin: 0;
+		font-size: 1.25rem;
+		font-weight: 700;
+		line-height: 1.4;
+		color: var(--cosy-card-base-content);
+	}
+
+	.cosy-card__subtitle {
+		margin: 0.25rem 0 0;
+		font-size: 0.875rem;
+		line-height: 1.625;
+		color: color-mix(in srgb, var(--cosy-card-base-content) 70%, transparent);
+	}
+
+	.cosy-card__content {
+		margin-top: 1rem;
+	}
+</style>

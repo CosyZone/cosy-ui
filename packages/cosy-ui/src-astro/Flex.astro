@@ -1,0 +1,143 @@
+---
+/**
+ * @component Flex
+ *
+ * @description
+ * Flex 组件是一个灵活的弹性布局组件，用于创建各种排列和对齐方式的布局。
+ * 它封装了 CSS Flexbox 的常用功能，提供简单易用的接口来控制子元素的排列方式。
+ * 自包含实现：BEM 命名 + 原生 CSS。
+ *
+ * @usage
+ * ```astro
+ * <Flex>
+ *   <div>默认水平排列</div>
+ *   <div>居中对齐</div>
+ * </Flex>
+ * ```
+ *
+ * @props
+ * @prop {'row'|'row-reverse'|'column'|'column-reverse'} [direction='row'] - 排列方向
+ * @prop {'start'|'end'|'center'|'between'|'around'|'evenly'} [justify='center'] - 水平对齐方式
+ * @prop {'start'|'end'|'center'|'stretch'|'baseline'} [align='center'] - 垂直对齐方式
+ * @prop {boolean} [wrap=false] - 是否允许换行
+ * @prop {'none'|'xs'|'sm'|'md'|'lg'|'xl'} [gap='md'] - 元素间距
+ * @prop {string} [class] - 自定义类名
+ */
+
+import type { HTMLAttributes } from "astro/types";
+
+type Direction = "row" | "row-reverse" | "column" | "column-reverse";
+type Justify = "start" | "end" | "center" | "between" | "around" | "evenly";
+type Align = "start" | "end" | "center" | "stretch" | "baseline";
+type Gap = "none" | "xs" | "sm" | "md" | "lg" | "xl";
+
+export interface IFlexProps
+	extends Omit<HTMLAttributes<"div">, "class" | "direction" | "justify" | "align" | "wrap" | "gap"> {
+	direction?: Direction;
+	justify?: Justify;
+	align?: Align;
+	wrap?: boolean;
+	gap?: Gap;
+	class?: string;
+}
+
+const {
+	direction = "row",
+	justify = "center",
+	align = "center",
+	wrap = false,
+	gap = "md",
+	class: className = "",
+	...rest
+} = Astro.props as IFlexProps;
+
+const directionClassMap: Record<Direction, string> = {
+	row: "cosy-flex--row",
+	"row-reverse": "cosy-flex--row-reverse",
+	column: "cosy-flex--column",
+	"column-reverse": "cosy-flex--column-reverse",
+};
+
+const justifyClassMap: Record<Justify, string> = {
+	start: "cosy-flex--justify-start",
+	end: "cosy-flex--justify-end",
+	center: "cosy-flex--justify-center",
+	between: "cosy-flex--justify-between",
+	around: "cosy-flex--justify-around",
+	evenly: "cosy-flex--justify-evenly",
+};
+
+const alignClassMap: Record<Align, string> = {
+	start: "cosy-flex--items-start",
+	end: "cosy-flex--items-end",
+	center: "cosy-flex--items-center",
+	stretch: "cosy-flex--items-stretch",
+	baseline: "cosy-flex--items-baseline",
+};
+
+const gapClassMap: Record<Gap, string> = {
+	none: "cosy-flex--gap-none",
+	xs: "cosy-flex--gap-xs",
+	sm: "cosy-flex--gap-sm",
+	md: "cosy-flex--gap-md",
+	lg: "cosy-flex--gap-lg",
+	xl: "cosy-flex--gap-xl",
+};
+
+const flexClass = [
+	"cosy-flex",
+	directionClassMap[direction],
+	justifyClassMap[justify],
+	alignClassMap[align],
+	wrap ? "cosy-flex--wrap" : "cosy-flex--nowrap",
+	gapClassMap[gap],
+	className,
+]
+	.filter(Boolean)
+	.join(" ");
+---
+
+<div class={flexClass} {...rest}>
+	<slot />
+</div>
+
+<style is:global>
+    /* Flex - 原生 CSS 实现 */
+    .cosy-flex {
+        display: flex;
+        box-sizing: border-box;
+    }
+
+    /* 方向 */
+    .cosy-flex--row { flex-direction: row; }
+    .cosy-flex--row-reverse { flex-direction: row-reverse; }
+    .cosy-flex--column { flex-direction: column; }
+    .cosy-flex--column-reverse { flex-direction: column-reverse; }
+
+    /* 主轴对齐 */
+    .cosy-flex--justify-start { justify-content: flex-start; }
+    .cosy-flex--justify-end { justify-content: flex-end; }
+    .cosy-flex--justify-center { justify-content: center; }
+    .cosy-flex--justify-between { justify-content: space-between; }
+    .cosy-flex--justify-around { justify-content: space-around; }
+    .cosy-flex--justify-evenly { justify-content: space-evenly; }
+
+    /* 交叉轴对齐 */
+    .cosy-flex--items-start { align-items: flex-start; }
+    .cosy-flex--items-end { align-items: flex-end; }
+    .cosy-flex--items-center { align-items: center; }
+    .cosy-flex--items-stretch { align-items: stretch; }
+    .cosy-flex--items-baseline { align-items: baseline; }
+
+    /* 换行 */
+    .cosy-flex--wrap { flex-wrap: wrap; }
+    .cosy-flex--nowrap { flex-wrap: nowrap; }
+
+    /* 间距（spacing 1 = 0.25rem） */
+    .cosy-flex--gap-none { gap: 0; }
+    .cosy-flex--gap-xs { gap: 0.5rem; }
+    .cosy-flex--gap-sm { gap: 1rem; }
+    .cosy-flex--gap-md { gap: 1.5rem; }
+    .cosy-flex--gap-lg { gap: 2rem; }
+    .cosy-flex--gap-xl { gap: 3rem; }
+</style>

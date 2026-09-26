@@ -141,7 +141,8 @@ const sizeStyles = {
 		},
 		title: "cosy:text-sm",
 		description: "cosy:text-xs cosy:line-clamp-2",
-		buttons: "cosy:text-xs cosy:btn-xs",
+		buttons: "cosy:text-xs",
+		buttonSize: "xs",
 		padding: "cosy:px-3 cosy:py-2",
 		cardHeight: "cosy:h-[280px]",
 		imageHeight: "cosy:h-[100px]",
@@ -156,7 +157,8 @@ const sizeStyles = {
 		},
 		title: "cosy:text-base",
 		description: "cosy:text-sm cosy:line-clamp-3",
-		buttons: "cosy:text-sm cosy:btn-sm",
+		buttons: "cosy:text-sm",
+		buttonSize: "sm",
 		padding: "cosy:px-4 cosy:py-3",
 		cardHeight: "cosy:h-[360px]",
 		imageHeight: "cosy:h-[133px]",
@@ -172,6 +174,7 @@ const sizeStyles = {
 		title: "cosy:text-xl",
 		description: "cosy:text-base",
 		buttons: "",
+		buttonSize: "md",
 		padding: "cosy:px-6 cosy:py-4",
 		cardHeight: "cosy:h-[450px]",
 		imageHeight: "cosy:h-[200px]",
@@ -186,7 +189,8 @@ const sizeStyles = {
 		},
 		title: "cosy:text-2xl",
 		description: "cosy:text-lg",
-		buttons: "cosy:text-base cosy:btn-lg",
+		buttons: "cosy:text-base",
+		buttonSize: "lg",
 		padding: "cosy:px-7 cosy:py-5",
 		cardHeight: "cosy:h-[550px]",
 		imageHeight: "cosy:h-[253px]",
@@ -201,7 +205,8 @@ const sizeStyles = {
 		},
 		title: "cosy:text-3xl",
 		description: "cosy:text-xl",
-		buttons: "cosy:text-lg cosy:btn-lg",
+		buttons: "cosy:text-lg",
+		buttonSize: "lg",
 		padding: "cosy:px-8 cosy:py-6",
 		cardHeight: "cosy:h-[650px]",
 		imageHeight: "cosy:h-[320px]",
@@ -327,6 +332,7 @@ const description = computed(() => props.description);
       <div :class="buttonsContainerClass">
         <Button
           v-if="productUrl"
+          :size="currentSize.buttonSize"
           :class="
             [buttonLayoutClass, currentSize.buttons].filter(Boolean).join(' ')
           ">
@@ -338,6 +344,7 @@ const description = computed(() => props.description);
 
         <Button
           v-if="appStoreUrl"
+          :size="currentSize.buttonSize"
           variant="secondary"
           :class="
             [buttonLayoutClass, currentSize.buttons].filter(Boolean).join(' ')
@@ -350,6 +357,7 @@ const description = computed(() => props.description);
 
         <Button
           v-if="githubUrl"
+          :size="currentSize.buttonSize"
           variant="ghost"
           :class="
             [buttonLayoutClass, currentSize.buttons].filter(Boolean).join(' ')

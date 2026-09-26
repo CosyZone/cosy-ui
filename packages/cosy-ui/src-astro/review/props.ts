@@ -4,7 +4,7 @@ import type {
 	IReviewData,
 	IReviewsPropsBase,
 } from "../../src/components/review/reviewsPropsBase";
-import type { ICardProps } from "../card/props";
+import type { ICardProps } from "../Card.astro";
 
 /**
  * Review 组件的 Astro 版本属性接口（继承基础接口、Card属性并扩展 Astro 特定属性）

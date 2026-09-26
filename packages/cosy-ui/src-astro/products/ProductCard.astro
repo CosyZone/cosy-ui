@@ -105,7 +105,7 @@ import {
     type BackgroundColor,
     getBackgroundClass,
 } from '../../src/common/backgrounds';
-import type { ImageSource } from '../image/types';
+import type { ImageSource } from '../Image.astro';
 
 type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
@@ -236,7 +236,8 @@ const sizeStyles = {
         },
         title: 'cosy:text-sm',
         description: 'cosy:text-xs cosy:line-clamp-2',
-        buttons: 'cosy:text-xs cosy:btn-xs',
+        buttons: 'cosy:text-xs',
+        buttonSize: 'xs',
         padding: 'cosy:px-3 cosy:py-2',
         cardHeight: 'cosy:h-[280px]',
         imageHeight: 'cosy:h-[100px]',
@@ -251,7 +252,8 @@ const sizeStyles = {
         },
         title: 'cosy:text-base',
         description: 'cosy:text-sm cosy:line-clamp-3',
-        buttons: 'cosy:text-sm cosy:btn-sm',
+        buttons: 'cosy:text-sm',
+        buttonSize: 'sm',
         padding: 'cosy:px-4 cosy:py-3',
         cardHeight: 'cosy:h-[360px]',
         imageHeight: 'cosy:h-[133px]',
@@ -267,6 +269,7 @@ const sizeStyles = {
         title: 'cosy:text-xl',
         description: 'cosy:text-base',
         buttons: '',
+        buttonSize: 'md',
         padding: 'cosy:px-6 cosy:py-4',
         cardHeight: 'cosy:h-[450px]',
         imageHeight: 'cosy:h-[200px]',
@@ -281,7 +284,8 @@ const sizeStyles = {
         },
         title: 'cosy:text-2xl',
         description: 'cosy:text-lg',
-        buttons: 'cosy:text-base cosy:btn-lg',
+        buttons: 'cosy:text-base',
+        buttonSize: 'lg',
         padding: 'cosy:px-7 cosy:py-5',
         cardHeight: 'cosy:h-[550px]',
         imageHeight: 'cosy:h-[253px]',
@@ -296,7 +300,8 @@ const sizeStyles = {
         },
         title: 'cosy:text-3xl',
         description: 'cosy:text-xl',
-        buttons: 'cosy:text-lg cosy:btn-lg',
+        buttons: 'cosy:text-lg',
+        buttonSize: 'lg',
         padding: 'cosy:px-8 cosy:py-6',
         cardHeight: 'cosy:h-[650px]',
         imageHeight: 'cosy:h-[320px]',
@@ -407,6 +412,7 @@ const buttonsContainerClass =
                         target="_blank"
                         variant="primary"
                         class:list={[buttonLayoutClass, currentSize.buttons]}
+                        size={currentSize.buttonSize}
                         aria-label={`Visit ${name}'s website`}>
                         <span slot="icon-left">
                             <LinkIcon size="22px" />
@@ -422,6 +428,7 @@ const buttonsContainerClass =
                         target="_blank"
                         variant="secondary"
                         class:list={[buttonLayoutClass, currentSize.buttons]}
+                        size={currentSize.buttonSize}
                         aria-label={`Download ${name} on App Store`}>
                         <span slot="icon-left">
                             <AppStoreIcon size="22px" />
@@ -437,6 +444,7 @@ const buttonsContainerClass =
                         target="_blank"
                         variant="info"
                         class:list={[buttonLayoutClass, currentSize.buttons]}
+                        size={currentSize.buttonSize}
                         aria-label={`View ${name}'s GitHub repository`}>
                         <span slot="icon-left">
                             <SocialIcon platform="github" size="22px" />

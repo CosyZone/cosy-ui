@@ -1,0 +1,288 @@
+---
+/**
+ * @component LoadingOverlay
+ *
+ * @description
+ * LoadingOverlay 组件是一个全屏加载遮罩层，用于在页面加载或路由切换时显示加载状态。
+ * 它提供了多种加载动画类型，支持延迟显示和背景模糊效果，确保良好的用户体验。
+ *
+ * @props
+ * - text?: string - 加载文本，默认为 "Loading..."
+ * - class?: string - 自定义 CSS 类名
+ * - showSpinner?: boolean - 是否显示加载动画，默认为 true
+ * - spinnerType?: 'dots' | 'spinner' | 'pulse' - 加载动画类型，默认为 'dots'
+ * - loadingDelay?: number - 延迟显示时间（毫秒），默认为 1000ms
+ * - showBackdrop?: boolean - 是否显示背景模糊遮罩，默认为 true
+ *
+ * @slots
+ * 此组件没有插槽，所有内容通过 props 配置
+ */
+
+export interface Props {
+	/** 加载文本 */
+	text?: string;
+	/** 自定义 CSS 类名 */
+	class?: string;
+	/** 是否显示加载动画 */
+	showSpinner?: boolean;
+	/** 加载动画类型 */
+	spinnerType?: "dots" | "spinner" | "pulse";
+	/** 延迟显示时间（毫秒），默认1000ms */
+	loadingDelay?: number;
+	/** 是否显示背景模糊遮罩，默认true */
+	showBackdrop?: boolean;
+}
+
+const {
+	text = "Loading...",
+	class: className = "",
+	showSpinner = true,
+	spinnerType = "dots",
+	loadingDelay = 1000,
+	showBackdrop = true,
+} = Astro.props as Props;
+
+// 生成唯一的 ID
+const overlayId = `loading-overlay`;
+
+const overlayClass = [
+	"cosy-loading-overlay",
+	showBackdrop ? "cosy-loading-overlay--backdrop" : "",
+	className,
+].filter(Boolean).join(" ");
+---
+
+<div
+	id={overlayId}
+	transition:persist
+	class={overlayClass}
+	data-loading-overlay>
+	<div class="cosy-loading-overlay__card">
+		<div class="cosy-loading-overlay__inner">
+			{
+				showSpinner && (
+					<div class="cosy-loading-overlay__spinner">
+						{spinnerType === "dots" && (
+							<div class="cosy-loading-overlay__dots">
+								<span class="cosy-loading-overlay__dot" />
+								<span class="cosy-loading-overlay__dot" style="animation-delay: 0.1s;" />
+								<span class="cosy-loading-overlay__dot" style="animation-delay: 0.2s;" />
+							</div>
+						)}
+						{spinnerType === "spinner" && (
+							<div class="cosy-loading-overlay__ring" />
+						)}
+						{spinnerType === "pulse" && (
+							<div class="cosy-loading-overlay__pulse" />
+						)}
+					</div>
+				)
+			}
+			<p class="cosy-loading-overlay__text">{text}</p>
+		</div>
+	</div>
+</div>
+
+<style is:global>
+	/* LoadingOverlay - 原生 CSS 实现（daisyui corporate 主题色） */
+	.cosy-loading-overlay {
+		--cosy-lo-primary: #4b6bfb;
+		--cosy-lo-info: #2563eb;
+		--cosy-lo-accent: #67baa3;
+
+		position: fixed;
+		inset: 0;
+		z-index: 50;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.3s ease;
+	}
+	.cosy-loading-overlay--backdrop {
+		background: rgba(0, 0, 0, 0.5);
+		backdrop-filter: blur(8px);
+	}
+
+	.cosy-loading-overlay__card {
+		box-sizing: border-box;
+		background: var(--cosy-lo-accent);
+		border-radius: 0.5rem;
+		box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+		padding: 1.5rem;
+		max-width: 24rem;
+		width: 100%;
+		margin: 0 1rem;
+	}
+
+	.cosy-loading-overlay__inner {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.cosy-loading-overlay__spinner {
+		display: flex;
+		justify-content: center;
+	}
+
+	/* dots */
+	.cosy-loading-overlay__dots {
+		display: flex;
+		gap: 0.25rem;
+	}
+	.cosy-loading-overlay__dot {
+		width: 0.5rem;
+		height: 0.5rem;
+		border-radius: 9999px;
+		background: var(--cosy-lo-info);
+		animation: cosy-loading-overlay-bounce 1s infinite;
+	}
+
+	/* spinner ring */
+	.cosy-loading-overlay__ring {
+		width: 2rem;
+		height: 2rem;
+		border: 4px solid color-mix(in srgb, var(--cosy-lo-info) 20%, transparent);
+		border-top-color: var(--cosy-lo-info);
+		border-radius: 9999px;
+		animation: cosy-loading-overlay-spin 0.8s linear infinite;
+	}
+
+	/* pulse */
+	.cosy-loading-overlay__pulse {
+		width: 2rem;
+		height: 2rem;
+		border-radius: 9999px;
+		background: var(--cosy-lo-info);
+		animation: cosy-loading-overlay-pulse 1.5s ease-in-out infinite;
+	}
+
+	.cosy-loading-overlay__text {
+		margin: 0;
+		color: #374151;
+		text-align: center;
+		font-weight: 500;
+	}
+
+	@keyframes cosy-loading-overlay-bounce {
+		0%, 80%, 100% { transform: scale(0); }
+		40% { transform: scale(1); }
+	}
+	@keyframes cosy-loading-overlay-spin {
+		to { transform: rotate(360deg); }
+	}
+	@keyframes cosy-loading-overlay-pulse {
+		0%, 100% { opacity: 1; }
+		50% { opacity: 0.3; }
+	}
+</style>
+
+<script is:inline define:vars={{ overlayId, loadingDelay }}>
+	// @ts-nocheck - 变量通过 Astro 的 define:vars 在运行时注入
+	let showTimeout = null;
+	let hideTimeout = null;
+	let displayStartTime = null;
+	let loaded = false;
+	const minDisplayTime = 1000;
+
+	const reset = () => {
+		displayStartTime = null;
+	};
+
+	const isDomDisplayed = () => {
+		const overlay = document.getElementById(overlayId);
+		if (!overlay) {
+			return false;
+		}
+		return (
+			overlay.style.opacity === '1' &&
+			overlay.style.pointerEvents === 'auto'
+		);
+	};
+
+	// 显示加载弹出层的函数
+	const showOverlay = () => {
+		if (isDomDisplayed() || loaded) return;
+
+		// 设置延迟显示
+		showTimeout = setTimeout(() => {
+			const overlay = document.getElementById(overlayId);
+			if (!overlay) {
+				return;
+			}
+
+			if (loaded) {
+				return;
+			}
+
+			overlay.style.opacity = '1';
+			overlay.style.pointerEvents = 'auto';
+			displayStartTime = Date.now();
+		}, loadingDelay);
+	};
+
+	// 隐藏加载弹出层的函数
+	const hideOverlay = (reason) => {
+		// 清除显示延迟
+		if (showTimeout) {
+			clearTimeout(showTimeout);
+			showTimeout = null;
+		}
+
+		// 如果没有显示
+		if (!isDomDisplayed()) {
+			reset();
+			return;
+		}
+
+		// 计算已显示时间，确保至少显示 minDisplayTime
+		const displayedTime = displayStartTime ? Date.now() - displayStartTime : 0;
+		const remainingTime = Math.max(0, minDisplayTime - displayedTime);
+
+		hideTimeout = setTimeout(() => {
+			const overlay = document.getElementById(overlayId);
+			if (!overlay) {
+				return;
+			}
+
+			overlay.style.opacity = '0';
+			overlay.style.pointerEvents = 'none';
+			reset();
+		}, remainingTime);
+	};
+
+	// 监听 Astro 页面过渡事件
+	document.addEventListener('astro:page-load', () => {
+		loaded = true;
+		hideOverlay('astro:page-load');
+	});
+
+	document.addEventListener('astro:before-preparation', () => {
+		loaded = false;
+		showOverlay('astro:before-preparation');
+	});
+
+	// 监听路由变化
+	document.addEventListener('astro:before-swap', () => {
+		loaded = false;
+		showOverlay('astro:before-swap');
+	});
+
+	document.addEventListener('astro:after-swap', () => {
+		loaded = true;
+		hideOverlay('astro:after-swap');
+	});
+
+	// 页面卸载时清理定时器
+	window.addEventListener('beforeunload', () => {
+		if (showTimeout) {
+			clearTimeout(showTimeout);
+		}
+		if (hideTimeout) {
+			clearTimeout(hideTimeout);
+		}
+	});
+</script>

@@ -77,7 +77,7 @@ withDefaults(
 		loading?: boolean;
 		duration?: number;
 		animationType?:
-			| "ring"
+			"ring"
 			| "icon-left"
 			| "icon-right"
 			| "breath"

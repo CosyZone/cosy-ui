@@ -1,0 +1,294 @@
+---
+/**
+ * @component Heading
+ *
+ * @description
+ * Heading 组件用于创建各级标题，提供一致的排版样式和灵活的定制选项。
+ * 支持链接功能，当传入 href 属性时，标题会变成可点击的链接。
+ * 自包含实现：BEM 命名 + 原生 CSS，不依赖 cn() 与 cosy: 工具类。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Heading level={1}>这是一个一级标题</Heading>
+ * ```
+ *
+ * 链接标题：
+ * ```astro
+ * <Heading level={2} href="/about">关于我们</Heading>
+ * <Heading level={3} href="https://example.com" external>外部链接标题</Heading>
+ * ```
+ *
+ * 带锚点：
+ * ```astro
+ * <Heading level={2} id="section-1" anchor>带锚点的标题</Heading>
+ * ```
+ *
+ * @props
+ * @prop {'left'|'center'|'right'} [align='left'] - 文本对齐方式
+ * @prop {boolean} [anchor=false] - 是否显示锚点链接图标
+ * @prop {string} [background] - 背景色类型（支持预设色与 /透明度 变体及 gradient-*）
+ * @prop {'default'|'primary'|'secondary'|'accent'|'muted'|'info'|'success'|'warning'|'error'|'base-content'|'neutral-content'} [color='default'] - 标题颜色
+ * @prop {string} [class] - 自定义 CSS 类名
+ * @prop {boolean} [external=false] - 是否为外部链接
+ * @prop {string} [href] - 链接地址，传入后标题变为可点击链接
+ * @prop {string} [id] - 标题 ID，用于锚点链接
+ * @prop {1|2|3|4|5|6} [level=2] - 标题级别，对应 h1-h6
+ * @prop {'none'|'sm'|'md'|'lg'|'xl'} [margin='md'] - 上下外边距大小
+ * @prop {'none'|'sm'|'md'|'lg'|'xl'} [padding='none'] - 内边距大小（设置背景色时生效）
+ * @prop {boolean} [underline=false] - 是否显示下划线
+ * @prop {'thin'|'light'|'normal'|'medium'|'semibold'|'bold'|'extrabold'|'black'} [weight] - 字体粗细
+ *
+ * @slots
+ * @slot default - 标题内容
+ */
+
+export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
+export type HeadingWeight ="thin" | "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold" | "black";
+
+export interface IHeadingProps {
+	align?: "left" | "center" | "right";
+	anchor?: boolean;
+	background?: string;
+	color?:
+		"default"
+		| "primary"
+		| "secondary"
+		| "accent"
+		| "muted"
+		| "info"
+		| "success"
+		| "warning"
+		| "error"
+		| "base-content"
+		| "neutral-content";
+	class?: string;
+	external?: boolean;
+	href?: string;
+	id?: string;
+	level?: HeadingLevel;
+	margin?: "none" | "sm" | "md" | "lg" | "xl";
+	padding?: "none" | "sm" | "md" | "lg" | "xl";
+	underline?: boolean;
+	weight?: HeadingWeight;
+	[Key: string]: any;
+}
+
+const props = Astro.props as IHeadingProps;
+
+const {
+	align = "left",
+	anchor = false,
+	background,
+	color = "default",
+	class: className = "",
+	external = false,
+	href,
+	id,
+	level = 2,
+	margin = "md",
+	padding = "none",
+	underline = false,
+	weight,
+} = props;
+
+/* daisyui corporate 主题色板 */
+const palette: Record<string, string> = {
+	primary: "#4b6bfb",
+	secondary: "#7b92b2",
+	accent: "#67baa3",
+	neutral: "#181a2a",
+	"base-100": "#ffffff",
+	"base-200": "#e9e9e9",
+	"base-300": "#d7d7d7",
+	success: "#16a34a",
+	warning: "#d97706",
+	error: "#dc2626",
+	info: "#2563eb",
+};
+
+/** 将 background prop 解析为 CSS background 值 */
+function resolveBackground(bg?: string): string {
+	if (!bg || bg === "none" || bg === "transparent") return bg === "transparent" ? "transparent" : "";
+	// 渐变
+	const gradientMap: Record<string, string> = {
+		gradient: "linear-gradient(135deg, color-mix(in srgb, #4b6bfb 10%, transparent), color-mix(in srgb, #7b92b2 20%, transparent))",
+		"gradient-primary": "linear-gradient(135deg, color-mix(in srgb, #4b6bfb 40%, transparent), color-mix(in srgb, #4b6bfb 70%, transparent))",
+		"gradient-secondary": "linear-gradient(135deg, color-mix(in srgb, #7b92b2 40%, transparent), color-mix(in srgb, #7b92b2 70%, transparent))",
+		"gradient-accent": "linear-gradient(135deg, color-mix(in srgb, #67baa3 40%, transparent), color-mix(in srgb, #67baa3 70%, transparent))",
+		"gradient-success": "linear-gradient(135deg, color-mix(in srgb, #16a34a 40%, transparent), color-mix(in srgb, #16a34a 70%, transparent))",
+		"gradient-warning": "linear-gradient(135deg, color-mix(in srgb, #d97706 40%, transparent), color-mix(in srgb, #d97706 70%, transparent))",
+		"gradient-info": "linear-gradient(135deg, color-mix(in srgb, #2563eb 40%, transparent), color-mix(in srgb, #2563eb 70%, transparent))",
+	};
+	if (gradientMap[bg]) return gradientMap[bg];
+	// 颜色 / 颜色+透明度
+	const [base, opacity] = bg.split("/");
+	if (palette[base]) {
+		if (opacity) {
+			return `color-mix(in srgb, ${palette[base]} ${opacity}%, transparent)`;
+		}
+		return palette[base];
+	}
+	return "";
+}
+
+/* 默认字重：h1 bold，h2-h3 semibold，h4-h6 medium */
+const defaultWeightMap: Record<HeadingLevel, string> = {
+	1: "bold",
+	2: "semibold",
+	3: "semibold",
+	4: "medium",
+	5: "medium",
+	6: "medium",
+};
+
+const colorClassMap: Record<string, string> = {
+	default: "",
+	primary: "cosy-heading--color-primary",
+	secondary: "cosy-heading--color-secondary",
+	accent: "cosy-heading--color-accent",
+	muted: "cosy-heading--color-muted",
+	info: "cosy-heading--color-info",
+	success: "cosy-heading--color-success",
+	warning: "cosy-heading--color-warning",
+	error: "cosy-heading--color-error",
+	"base-content": "cosy-heading--color-base-content",
+	"neutral-content": "cosy-heading--color-neutral-content",
+};
+
+const headingClass = [
+	"cosy-heading",
+	`cosy-heading--h${level}`,
+	colorClassMap[color] || "",
+	`cosy-heading--align-${align}`,
+	`cosy-heading--my-${margin}`,
+	padding !== "none" ? `cosy-heading--py-${padding}` : "",
+	underline ? "cosy-heading--underline" : "",
+	`cosy-heading--weight-${weight || defaultWeightMap[level]}`,
+	className,
+]
+	.filter(Boolean)
+	.join(" ");
+
+/* 背景色内联变量 */
+const bgValue = resolveBackground(background);
+const headingStyle = bgValue ? `--cosy-heading-bg: ${bgValue};` : "";
+
+/* 渲染 slot 与锚点 */
+const slotHtml = await Astro.slots.render("default");
+const anchorHtml =
+	anchor && id
+		? `<a href="#${id}" class="cosy-heading__anchor" aria-label="链接到 ${id} 部分"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>`
+		: "";
+
+const idAttr = id ? ` id="${id}"` : "";
+const styleAttr = headingStyle ? ` style="${headingStyle}"` : "";
+const hTag = `<h${level}${idAttr} class="${headingClass}"${styleAttr}>${slotHtml}${anchorHtml}</h${level}>`;
+
+const headingHtml = href
+	? `<a href="${href}"${external ? ' target="_blank" rel="noopener noreferrer"' : ""} class="cosy-heading__link">${hTag}</a>`
+	: hTag;
+---
+
+<Fragment set:html={headingHtml} />
+
+<style is:global>
+    /* Heading - 原生 CSS 实现（daisyui corporate 主题色） */
+    .cosy-heading {
+        --cosy-heading-primary: #4b6bfb;
+        --cosy-heading-secondary: #7b92b2;
+        --cosy-heading-accent: #67baa3;
+        --cosy-heading-info: #2563eb;
+        --cosy-heading-success: #16a34a;
+        --cosy-heading-warning: #d97706;
+        --cosy-heading-error: #dc2626;
+        --cosy-heading-base-content: #1d1d1d;
+        --cosy-heading-neutral: #181a2a;
+
+        display: block;
+        width: 100%;
+        margin-top: 0;
+        margin-bottom: 0;
+        line-height: 1.2;
+        scroll-margin-top: 100px;
+        color: var(--cosy-heading-base-content);
+        background: var(--cosy-heading-bg, transparent);
+    }
+
+    /* 字号（level = h1..h6） */
+    .cosy-heading--h1 { font-size: 2.25rem; }
+    .cosy-heading--h2 { font-size: 1.875rem; }
+    .cosy-heading--h3 { font-size: 1.5rem; }
+    .cosy-heading--h4 { font-size: 1.25rem; }
+    .cosy-heading--h5 { font-size: 1.125rem; }
+    .cosy-heading--h6 { font-size: 1rem; }
+
+    /* 颜色 */
+    .cosy-heading--color-primary { color: var(--cosy-heading-primary); }
+    .cosy-heading--color-secondary { color: var(--cosy-heading-secondary); }
+    .cosy-heading--color-accent { color: var(--cosy-heading-accent); }
+    .cosy-heading--color-muted { color: var(--cosy-heading-secondary); }
+    .cosy-heading--color-info { color: var(--cosy-heading-info); }
+    .cosy-heading--color-success { color: var(--cosy-heading-success); }
+    .cosy-heading--color-warning { color: var(--cosy-heading-warning); }
+    .cosy-heading--color-error { color: var(--cosy-heading-error); }
+    .cosy-heading--color-base-content { color: var(--cosy-heading-base-content); }
+    .cosy-heading--color-neutral-content { color: var(--cosy-heading-neutral); }
+
+    /* 对齐 */
+    .cosy-heading--align-left { text-align: left; }
+    .cosy-heading--align-center { text-align: center; }
+    .cosy-heading--align-right { text-align: right; }
+
+    /* 字重 */
+    .cosy-heading--weight-thin { font-weight: 100; }
+    .cosy-heading--weight-light { font-weight: 300; }
+    .cosy-heading--weight-normal { font-weight: 400; }
+    .cosy-heading--weight-medium { font-weight: 500; }
+    .cosy-heading--weight-semibold { font-weight: 600; }
+    .cosy-heading--weight-bold { font-weight: 700; }
+    .cosy-heading--weight-extrabold { font-weight: 800; }
+    .cosy-heading--weight-black { font-weight: 900; }
+
+    /* 上下外边距（spacing 1 = 0.25rem） */
+    .cosy-heading--my-none { margin-top: 0; margin-bottom: 0; }
+    .cosy-heading--my-sm { margin-top: 0.5rem; margin-bottom: 0.5rem; }
+    .cosy-heading--my-md { margin-top: 1rem; margin-bottom: 1rem; }
+    .cosy-heading--my-lg { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+    .cosy-heading--my-xl { margin-top: 2rem; margin-bottom: 2rem; }
+
+    /* 上下内边距 */
+    .cosy-heading--py-none { padding-top: 0; padding-bottom: 0; }
+    .cosy-heading--py-sm { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+    .cosy-heading--py-md { padding-top: 1rem; padding-bottom: 1rem; }
+    .cosy-heading--py-lg { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+    .cosy-heading--py-xl { padding-top: 2rem; padding-bottom: 2rem; }
+
+    /* 下划线 */
+    .cosy-heading--underline {
+        border-bottom: 1px solid #e9e9e9;
+        padding-bottom: 0.5rem;
+    }
+
+    /* 链接包裹 */
+    .cosy-heading__link {
+        display: block;
+        width: 100%;
+        text-decoration: none;
+        transition: opacity 0.2s ease;
+    }
+    .cosy-heading__link:hover { opacity: 0.8; }
+
+    /* 锚点图标 */
+    .cosy-heading__anchor {
+        display: inline-block;
+        margin-left: 0.5rem;
+        color: inherit;
+        text-decoration: none;
+        vertical-align: middle;
+        opacity: 0;
+        transition: opacity 0.15s ease;
+    }
+    .cosy-heading:hover .cosy-heading__anchor { opacity: 0.7; }
+    .cosy-heading__anchor:hover { opacity: 1 !important; }
+</style>

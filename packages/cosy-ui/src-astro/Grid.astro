@@ -1,0 +1,294 @@
+---
+/**
+ * @component Grid
+ *
+ * @description
+ * Grid 组件是一个灵活的网格布局组件，用于创建响应式的多列布局。
+ * 自包含实现：BEM 命名 + 原生 CSS，不依赖 cn() 与 cosy: 工具类。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Grid cols={3} gap="md">
+ *   <div>第一列</div>
+ *   <div>第二列</div>
+ * </Grid>
+ * ```
+ *
+ * 响应式网格：
+ * ```astro
+ * <Grid cols={{base: 1, md: 2, lg: 3}} gap="lg">
+ *   <div>响应式网格</div>
+ * </Grid>
+ * ```
+ *
+ * @props
+ * @prop {string} [background] - 背景色类型
+ * @prop {number|object} [cols=1] - 网格列数，可为固定值或响应式对象 {base,sm,md,lg,xl,2xl}
+ * @prop {'none'|'xs'|'sm'|'md'|'lg'|'xl'} [gap='md'] - 网格间距
+ * @prop {'none'|'xs'|'sm'|'md'|'lg'|'xl'} [rowGap] - 行间距，默认与 gap 相同
+ * @prop {'none'|'xs'|'sm'|'md'|'lg'|'xl'} [colGap] - 列间距，默认与 gap 相同
+ * @prop {'none'|'xs'|'sm'|'md'|'lg'|'xl'} [marginY] - 垂直外边距
+ * @prop {boolean} [border=false] - 是否显示边框
+ * @prop {string} [class] - 自定义类名
+ */
+
+import type { HTMLAttributes } from "astro/types";
+
+type GapSize = "none" | "xs" | "sm" | "md" | "lg" | "xl";
+type ResponsiveValue<T> = T | {
+	base?: T; sm?: T; md?: T; lg?: T; xl?: T; "2xl"?: T;
+};
+
+export interface IGridProps
+	extends Omit<HTMLAttributes<"div">, "class" | "cols" | "gap" | "border" | "background"> {
+	background?: string;
+	cols?: ResponsiveValue<number>;
+	gap?: GapSize;
+	rowGap?: GapSize;
+	colGap?: GapSize;
+	marginY?: GapSize;
+	border?: boolean;
+	class?: string;
+}
+
+export type { IGridProps as GridProps };
+
+const {
+	background,
+	cols = 1,
+	gap = "md",
+	rowGap,
+	colGap,
+	marginY,
+	border = false,
+	class: className = "",
+	...rest
+} = Astro.props as IGridProps;
+
+/* 列数 → BEM 类名（静态字符串，便于原生 CSS 媒体查询） */
+const colsClass = (n: number, prefix = ""): string =>
+	n >= 1 && n <= 12 ? `cosy-grid--${prefix ? prefix + "-" : ""}cols-${n}` : "";
+
+function resolveCols(cols: ResponsiveValue<number>): string {
+	if (typeof cols === "number") return colsClass(cols);
+	const r = cols as any;
+	const out: string[] = [];
+	if (r.base) out.push(colsClass(r.base));
+	if (r.sm) out.push(colsClass(r.sm, "sm"));
+	if (r.md) out.push(colsClass(r.md, "md"));
+	if (r.lg) out.push(colsClass(r.lg, "lg"));
+	if (r.xl) out.push(colsClass(r.xl, "xl"));
+	if (r["2xl"]) out.push(colsClass(r["2xl"], "2xl"));
+	return out.filter(Boolean).join(" ");
+}
+
+const gapMap: Record<GapSize, string> = {
+	none: "cosy-grid--gap-none",
+	xs: "cosy-grid--gap-xs",
+	sm: "cosy-grid--gap-sm",
+	md: "cosy-grid--gap-md",
+	lg: "cosy-grid--gap-lg",
+	xl: "cosy-grid--gap-xl",
+};
+const rowGapMap: Record<GapSize, string> = {
+	none: "cosy-grid--row-gap-none",
+	xs: "cosy-grid--row-gap-xs",
+	sm: "cosy-grid--row-gap-sm",
+	md: "cosy-grid--row-gap-md",
+	lg: "cosy-grid--row-gap-lg",
+	xl: "cosy-grid--row-gap-xl",
+};
+const colGapMap: Record<GapSize, string> = {
+	none: "cosy-grid--col-gap-none",
+	xs: "cosy-grid--col-gap-xs",
+	sm: "cosy-grid--col-gap-sm",
+	md: "cosy-grid--col-gap-md",
+	lg: "cosy-grid--col-gap-lg",
+	xl: "cosy-grid--col-gap-xl",
+};
+const marginYMap: Record<GapSize, string> = {
+	none: "cosy-grid--my-none",
+	xs: "cosy-grid--my-xs",
+	sm: "cosy-grid--my-sm",
+	md: "cosy-grid--my-md",
+	lg: "cosy-grid--my-lg",
+	xl: "cosy-grid--my-xl",
+};
+
+/* 背景色解析 */
+const palette: Record<string, string> = {
+	primary: "#4b6bfb",
+	secondary: "#7b92b2",
+	accent: "#67baa3",
+	neutral: "#181a2a",
+	"base-100": "#ffffff",
+	"base-200": "#e9e9e9",
+	"base-300": "#d7d7d7",
+	success: "#16a34a",
+	warning: "#d97706",
+	error: "#dc2626",
+	info: "#2563eb",
+};
+function resolveBackground(bg?: string): string {
+	if (!bg || bg === "none") return "";
+	if (bg === "transparent") return "transparent";
+	const [base, opacity] = bg.split("/");
+	if (palette[base]) {
+		return opacity
+			? `color-mix(in srgb, ${palette[base]} ${opacity}%, transparent)`
+			: palette[base];
+	}
+	return "";
+}
+const bgValue = resolveBackground(background);
+const gridStyle = bgValue ? `--cosy-grid-bg: ${bgValue};` : "";
+
+const gridClass = [
+	"cosy-grid",
+	resolveCols(cols),
+	gapMap[gap],
+	rowGap ? rowGapMap[rowGap] : "",
+	colGap ? colGapMap[colGap] : "",
+	marginY ? marginYMap[marginY] : "",
+	border ? "cosy-grid--border" : "",
+	className,
+]
+	.filter(Boolean)
+	.join(" ");
+---
+
+<div class={gridClass} style={gridStyle} {...rest}>
+	<slot />
+</div>
+
+<style is:global>
+    /* Grid - 原生 CSS 实现 */
+    .cosy-grid {
+        display: grid;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        box-sizing: border-box;
+        background: var(--cosy-grid-bg, transparent);
+    }
+
+    /* 列数 */
+    .cosy-grid--cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+    .cosy-grid--cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cosy-grid--cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .cosy-grid--cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .cosy-grid--cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .cosy-grid--cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+    .cosy-grid--cols-7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+    .cosy-grid--cols-8 { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+    .cosy-grid--cols-9 { grid-template-columns: repeat(9, minmax(0, 1fr)); }
+    .cosy-grid--cols-10 { grid-template-columns: repeat(10, minmax(0, 1fr)); }
+    .cosy-grid--cols-11 { grid-template-columns: repeat(11, minmax(0, 1fr)); }
+    .cosy-grid--cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+
+    @media (min-width: 640px) {
+        .cosy-grid--sm-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        .cosy-grid--sm-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .cosy-grid--sm-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .cosy-grid--sm-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        .cosy-grid--sm-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+        .cosy-grid--sm-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+        .cosy-grid--sm-cols-7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+        .cosy-grid--sm-cols-8 { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+        .cosy-grid--sm-cols-9 { grid-template-columns: repeat(9, minmax(0, 1fr)); }
+        .cosy-grid--sm-cols-10 { grid-template-columns: repeat(10, minmax(0, 1fr)); }
+        .cosy-grid--sm-cols-11 { grid-template-columns: repeat(11, minmax(0, 1fr)); }
+        .cosy-grid--sm-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    }
+    @media (min-width: 768px) {
+        .cosy-grid--md-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        .cosy-grid--md-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .cosy-grid--md-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .cosy-grid--md-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        .cosy-grid--md-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+        .cosy-grid--md-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+        .cosy-grid--md-cols-7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+        .cosy-grid--md-cols-8 { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+        .cosy-grid--md-cols-9 { grid-template-columns: repeat(9, minmax(0, 1fr)); }
+        .cosy-grid--md-cols-10 { grid-template-columns: repeat(10, minmax(0, 1fr)); }
+        .cosy-grid--md-cols-11 { grid-template-columns: repeat(11, minmax(0, 1fr)); }
+        .cosy-grid--md-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    }
+    @media (min-width: 1024px) {
+        .cosy-grid--lg-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        .cosy-grid--lg-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .cosy-grid--lg-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .cosy-grid--lg-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        .cosy-grid--lg-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+        .cosy-grid--lg-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+        .cosy-grid--lg-cols-7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+        .cosy-grid--lg-cols-8 { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+        .cosy-grid--lg-cols-9 { grid-template-columns: repeat(9, minmax(0, 1fr)); }
+        .cosy-grid--lg-cols-10 { grid-template-columns: repeat(10, minmax(0, 1fr)); }
+        .cosy-grid--lg-cols-11 { grid-template-columns: repeat(11, minmax(0, 1fr)); }
+        .cosy-grid--lg-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    }
+    @media (min-width: 1280px) {
+        .cosy-grid--xl-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        .cosy-grid--xl-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .cosy-grid--xl-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .cosy-grid--xl-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        .cosy-grid--xl-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+        .cosy-grid--xl-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+        .cosy-grid--xl-cols-7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+        .cosy-grid--xl-cols-8 { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+        .cosy-grid--xl-cols-9 { grid-template-columns: repeat(9, minmax(0, 1fr)); }
+        .cosy-grid--xl-cols-10 { grid-template-columns: repeat(10, minmax(0, 1fr)); }
+        .cosy-grid--xl-cols-11 { grid-template-columns: repeat(11, minmax(0, 1fr)); }
+        .cosy-grid--xl-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    }
+    @media (min-width: 1536px) {
+        .cosy-grid--2xl-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        .cosy-grid--2xl-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .cosy-grid--2xl-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .cosy-grid--2xl-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        .cosy-grid--2xl-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+        .cosy-grid--2xl-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+        .cosy-grid--2xl-cols-7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+        .cosy-grid--2xl-cols-8 { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+        .cosy-grid--2xl-cols-9 { grid-template-columns: repeat(9, minmax(0, 1fr)); }
+        .cosy-grid--2xl-cols-10 { grid-template-columns: repeat(10, minmax(0, 1fr)); }
+        .cosy-grid--2xl-cols-11 { grid-template-columns: repeat(11, minmax(0, 1fr)); }
+        .cosy-grid--2xl-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    }
+
+    /* 间距（spacing 1 = 0.25rem） */
+    .cosy-grid--gap-none { gap: 0; }
+    .cosy-grid--gap-xs { gap: 0.5rem; }
+    .cosy-grid--gap-sm { gap: 1rem; }
+    .cosy-grid--gap-md { gap: 1.5rem; }
+    .cosy-grid--gap-lg { gap: 2rem; }
+    .cosy-grid--gap-xl { gap: 3rem; }
+
+    .cosy-grid--row-gap-none { row-gap: 0; }
+    .cosy-grid--row-gap-xs { row-gap: 0.5rem; }
+    .cosy-grid--row-gap-sm { row-gap: 1rem; }
+    .cosy-grid--row-gap-md { row-gap: 1.5rem; }
+    .cosy-grid--row-gap-lg { row-gap: 2rem; }
+    .cosy-grid--row-gap-xl { row-gap: 3rem; }
+
+    .cosy-grid--col-gap-none { column-gap: 0; }
+    .cosy-grid--col-gap-xs { column-gap: 0.5rem; }
+    .cosy-grid--col-gap-sm { column-gap: 1rem; }
+    .cosy-grid--col-gap-md { column-gap: 1.5rem; }
+    .cosy-grid--col-gap-lg { column-gap: 2rem; }
+    .cosy-grid--col-gap-xl { column-gap: 3rem; }
+
+    /* 垂直外边距 */
+    .cosy-grid--my-none { margin-top: 0; margin-bottom: 0; }
+    .cosy-grid--my-xs { margin-top: 0.5rem; margin-bottom: 0.5rem; }
+    .cosy-grid--my-sm { margin-top: 1rem; margin-bottom: 1rem; }
+    .cosy-grid--my-md { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+    .cosy-grid--my-lg { margin-top: 2rem; margin-bottom: 2rem; }
+    .cosy-grid--my-xl { margin-top: 3rem; margin-bottom: 3rem; }
+
+    /* 边框 */
+    .cosy-grid--border {
+        border: 1px solid #d7d7d7;
+        border-radius: 0.5rem;
+    }
+</style>

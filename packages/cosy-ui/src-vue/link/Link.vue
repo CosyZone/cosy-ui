@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { getLinkCombinedClassesVue } from "./class";
 import type { ILinkProps } from "./props";
 
 /**
@@ -49,8 +48,31 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const linkClasses = computed(() => {
-	// 使用共用的工具函数计算组合类名
-	return getLinkCombinedClassesVue(props);
+	const variantMap = {
+		default: 'cosy-link--variant-default',
+		primary: 'cosy-link--variant-primary',
+		secondary: 'cosy-link--variant-secondary',
+		text: 'cosy-link--variant-text',
+		cta: 'cosy-link--variant-cta',
+		ghost: 'cosy-link--variant-ghost',
+		light: 'cosy-link--variant-light',
+		navigation: 'cosy-link--variant-navigation',
+		github: 'cosy-link--variant-github',
+	};
+	const sizeMap = { sm: 'cosy-link--size-sm', md: 'cosy-link--size-md', lg: 'cosy-link--size-lg' };
+	const roundedMap = { none: '', sm: 'cosy-link--rounded-sm', md: 'cosy-link--rounded-md', lg: 'cosy-link--rounded-lg', xl: 'cosy-link--rounded-xl', full: 'cosy-link--rounded-full' };
+	const animMap = { none: '', 'hover-lift': 'cosy-link--anim-lift', 'hover-glow': 'cosy-link--anim-glow', 'hover-scale': 'cosy-link--anim-scale' };
+	return [
+		'cosy-link',
+		variantMap[props.variant] || '',
+		sizeMap[props.size] || '',
+		roundedMap[props.rounded] || '',
+		animMap[props.animation] || '',
+		props.btn ? 'cosy-link--btn' : '',
+		props.active ? 'cosy-link--active' : '',
+		props.block ? 'cosy-link--block' : '',
+		props.fullWidth ? 'cosy-link--full' : '',
+	].filter(Boolean).join(' ');
 });
 
 const linkAttributes = computed(() => {
@@ -80,3 +102,32 @@ const linkAttributes = computed(() => {
     <slot name="icon-right" />
   </a>
 </template>
+
+<style>
+  .cosy-link { --cosy-primary:#4b6bfb; --cosy-secondary:#7b92b2; --cosy-accent:#67baa3; --cosy-info:#2563eb; --cosy-success:#16a34a; --cosy-warning:#d97706; --cosy-error:#dc2626; --cosy-base-content:#1d1d1d; display:inline-flex; align-items:center; gap:.375rem; color:var(--cosy-primary); text-decoration:none; transition:opacity .2s, transform .2s, box-shadow .2s; }
+  .cosy-link--variant-default { color:var(--cosy-primary); }
+  .cosy-link--variant-primary { color:#fff; background:var(--cosy-primary); padding:.5rem 1rem; }
+  .cosy-link--variant-secondary { color:var(--cosy-base-content); background:var(--cosy-secondary); padding:.5rem 1rem; }
+  .cosy-link--variant-text { color:var(--cosy-base-content); }
+  .cosy-link--variant-cta { color:#fff; background:var(--cosy-accent); padding:.5rem 1rem; }
+  .cosy-link--variant-ghost { color:var(--cosy-primary); border:1px solid var(--cosy-primary); padding:.5rem 1rem; }
+  .cosy-link--variant-light { color:var(--cosy-base-content); background:#e9e9e9; padding:.5rem 1rem; }
+  .cosy-link--variant-navigation { color:var(--cosy-base-content); }
+  .cosy-link--variant-github { color:#fff; background:#181a2a; padding:.5rem 1rem; }
+  .cosy-link--size-sm { font-size:.875rem; }
+  .cosy-link--size-md { font-size:1rem; }
+  .cosy-link--size-lg { font-size:1.125rem; }
+  .cosy-link--rounded-sm { border-radius:.25rem; }
+  .cosy-link--rounded-md { border-radius:.5rem; }
+  .cosy-link--rounded-lg { border-radius:.75rem; }
+  .cosy-link--rounded-xl { border-radius:1rem; }
+  .cosy-link--rounded-full { border-radius:9999px; }
+  .cosy-link--anim-lift:hover { transform:translateY(-2px); }
+  .cosy-link--anim-glow:hover { box-shadow:0 0 12px rgba(75,107,251,.4); }
+  .cosy-link--anim-scale:hover { transform:scale(1.05); }
+  .cosy-link--btn { cursor:pointer; }
+  .cosy-link--active { font-weight:600; }
+  .cosy-link--block { display:flex; }
+  .cosy-link--full { width:100%; justify-content:center; }
+  .cosy-link:hover { opacity:.85; }
+</style>

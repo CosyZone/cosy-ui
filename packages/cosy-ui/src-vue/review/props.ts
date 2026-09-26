@@ -12,7 +12,7 @@ export interface IReviewProps
 	extends IReviewPropsBase,
 		Omit<
 			ICardProps,
-			| keyof IReviewPropsBase
+			keyof IReviewPropsBase
 			| "title"
 			| "subtitle"
 			| "imageUrl"

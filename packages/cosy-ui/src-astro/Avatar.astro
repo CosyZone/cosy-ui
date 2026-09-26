@@ -1,0 +1,191 @@
+---
+/**
+ * @component Avatar
+ *
+ * @description
+ * Avatar 组件用于显示用户头像，支持真实头像和默认头像生成。
+ * 当没有提供头像URL或头像加载失败时，自动生成带用户首字母的彩色圆形头像。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Avatar userName="张先生" />
+ * ```
+ *
+ * 带真实头像：
+ * ```astro
+ * <Avatar userName="李女士" avatar="https://example.com/avatar.jpg" />
+ * ```
+ *
+ * 不同尺寸：
+ * ```astro
+ * <Avatar userName="王先生" size="lg" />
+ * ```
+ *
+ * 自定义样式：
+ * ```astro
+ * <Avatar userName="赵先生" class="my-custom-class" />
+ * ```
+ *
+ * @props
+ * @prop {string} [userName] - 用户名称
+ * @prop {string} [avatar] - 用户头像URL
+ * @prop {'sm'|'md'|'lg'|'xl'} [size='md'] - 头像尺寸
+ * @prop {string} [class] - 自定义类名
+ */
+
+import type { HTMLAttributes } from "astro/types";
+
+/** 头像尺寸 */
+export type AvatarSize = "sm" | "md" | "lg" | "xl";
+
+/**
+ * Avatar 组件属性（组件自包含定义）
+ */
+export interface AvatarProps
+	extends Omit<HTMLAttributes<"div">, "class" | "userName" | "avatar" | "size"> {
+	/** 用户名称 */
+	userName?: string;
+
+	/** 用户头像 URL */
+	avatar?: string;
+
+	/** 头像尺寸
+	 * @default "md"
+	 */
+	size?: AvatarSize;
+
+	/** 自定义 CSS 类名，用于覆盖默认样式 */
+	class?: string;
+}
+
+/** 头像背景色数组（daisyui corporate 主题色） */
+const avatarColors = [
+	"cosy-avatar__fallback--c0", // primary
+	"cosy-avatar__fallback--c1", // secondary
+	"cosy-avatar__fallback--c2", // accent
+	"cosy-avatar__fallback--c3", // info
+	"cosy-avatar__fallback--c4", // success
+	"cosy-avatar__fallback--c5", // warning
+	"cosy-avatar__fallback--c6", // error
+] as const;
+
+/**
+ * 根据用户名生成稳定的背景色修饰类
+ * @param userName 用户名称
+ * @returns 背景色 BEM 修饰类
+ */
+function getAvatarColorClass(userName?: string): string {
+	if (!userName) return avatarColors[0];
+	const index = userName.charCodeAt(0) % avatarColors.length;
+	return avatarColors[index];
+}
+
+/**
+ * 获取用户名首字母（大写）
+ * @param userName 用户名称
+ * @returns 首字母或默认占位符
+ */
+function getAvatarInitial(userName?: string): string {
+	return userName ? userName.charAt(0).toUpperCase() : "?";
+}
+
+/** 尺寸修饰类映射 */
+const sizeClassMap: Record<AvatarSize, string> = {
+	sm: "cosy-avatar--sm",
+	md: "cosy-avatar--md",
+	lg: "cosy-avatar--lg",
+	xl: "cosy-avatar--xl",
+};
+
+const {
+	userName,
+	avatar,
+	size = "md",
+	class: className = "",
+	...rest
+} = Astro.props as AvatarProps;
+
+const sizeClass = sizeClassMap[size] ?? sizeClassMap.md;
+const fallbackColorClass = getAvatarColorClass(userName);
+const avatarInitial = getAvatarInitial(userName);
+
+const containerClass = ["cosy-avatar", sizeClass, className].filter(Boolean).join(" ");
+---
+
+<div class={containerClass} {...rest}>
+	{
+		avatar ? (
+			<img
+				src={avatar}
+				alt={userName}
+				class="cosy-avatar__image"
+				onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+			/>
+		) : null
+	}
+	<!-- 默认头像（首字母） -->
+	<div
+		class={`cosy-avatar__fallback ${fallbackColorClass}`}
+		style={avatar ? "display: none;" : "display: flex;"}>
+		{avatarInitial}
+	</div>
+</div>
+
+<style is:global>
+	/* Avatar - 原生 CSS 实现（daisyui corporate 主题色） */
+	.cosy-avatar {
+		--cosy-avatar-primary: #4b6bfb;
+		--cosy-avatar-secondary: #7b92b2;
+		--cosy-avatar-accent: #67baa3;
+		--cosy-avatar-info: #2563eb;
+		--cosy-avatar-success: #16a34a;
+		--cosy-avatar-warning: #d97706;
+		--cosy-avatar-error: #dc2626;
+		--cosy-avatar-base-200: #e9e9e9;
+
+		box-sizing: border-box;
+		position: relative;
+		display: flex;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+		width: 3rem;
+		height: 3rem;
+		overflow: hidden;
+		border-radius: 9999px;
+		background: var(--cosy-avatar-base-200);
+		font-weight: 600;
+	}
+
+	/* 尺寸 */
+	.cosy-avatar--sm { width: 2rem; height: 2rem; font-size: 0.875rem; }
+	.cosy-avatar--md { width: 3rem; height: 3rem; font-size: 1.125rem; }
+	.cosy-avatar--lg { width: 4rem; height: 4rem; font-size: 1.25rem; }
+	.cosy-avatar--xl { width: 5rem; height: 5rem; font-size: 1.5rem; }
+
+	/* 真实头像 */
+	.cosy-avatar__image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	/* 首字母兜底头像 */
+	.cosy-avatar__fallback {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #fff;
+	}
+
+	.cosy-avatar__fallback--c0 { background: var(--cosy-avatar-primary); }
+	.cosy-avatar__fallback--c1 { background: var(--cosy-avatar-secondary); }
+	.cosy-avatar__fallback--c2 { background: var(--cosy-avatar-accent); }
+	.cosy-avatar__fallback--c3 { background: var(--cosy-avatar-info); }
+	.cosy-avatar__fallback--c4 { background: var(--cosy-avatar-success); }
+	.cosy-avatar__fallback--c5 { background: var(--cosy-avatar-warning); }
+	.cosy-avatar__fallback--c6 { background: var(--cosy-avatar-error); }
+</style>

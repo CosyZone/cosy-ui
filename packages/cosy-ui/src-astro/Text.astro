@@ -1,0 +1,181 @@
+---
+/**
+ * @component Text
+ *
+ * @description
+ * Text 组件用于创建各种文本元素，提供一致的排版样式和灵活的定制选项。
+ * 自包含实现：BEM 命名 + 原生 CSS，不依赖 cn() 与 cosy: 工具类。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Text>这是一段普通文本</Text>
+ * ```
+ *
+ * 不同大小：
+ * ```astro
+ * <Text size="xs">超小文本</Text>
+ * <Text size="lg">大文本</Text>
+ * ```
+ *
+ * 不同颜色：
+ * ```astro
+ * <Text color="primary">主要颜色文本</Text>
+ * <Text color="muted">柔和色文本</Text>
+ * ```
+ *
+ * @props
+ * @prop {string} [as='p'] - 要渲染的 HTML 元素，如 'p'、'span'、'div' 等
+ * @prop {'xs'|'sm'|'md'|'lg'|'xl'} [size='md'] - 文本大小
+ * @prop {'thin'|'light'|'normal'|'medium'|'semibold'|'bold'|'extrabold'|'black'} [weight='normal'] - 字体粗细
+ * @prop {'default'|'primary'|'secondary'|'accent'|'muted'} [color='default'] - 文本颜色
+ * @prop {'left'|'center'|'right'|'justify'} [align='left'] - 文本对齐方式
+ * @prop {boolean} [italic=false] - 是否使用斜体
+ * @prop {boolean} [underline=false] - 是否添加下划线
+ * @prop {boolean} [truncate=false] - 是否截断文本并显示省略号
+ * @prop {string} [class] - 自定义 CSS 类名
+ * @prop {string} [style] - 自定义内联样式
+ *
+ * @slots
+ * @slot default - 文本内容
+ */
+
+export type TextSize = "xs" | "sm" | "md" | "lg" | "xl";
+export type TextWeight ="thin" | "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold" | "black";
+export type TextColor = "default" | "primary" | "secondary" | "accent" | "muted";
+export type TextAlign = "left" | "center" | "right" | "justify";
+
+export interface ITextProps {
+	as?: string;
+	size?: TextSize;
+	weight?: TextWeight;
+	color?: TextColor;
+	align?: TextAlign;
+	italic?: boolean;
+	underline?: boolean;
+	truncate?: boolean;
+	class?: string;
+	style?: string;
+}
+
+const {
+	as,
+	size = "md",
+	weight = "normal",
+	color = "default",
+	align = "left",
+	italic = false,
+	underline = false,
+	truncate = false,
+	class: className = "",
+	style = "",
+} = Astro.props as ITextProps;
+
+const sizeClassMap: Record<TextSize, string> = {
+	xs: "cosy-text--xs",
+	sm: "cosy-text--sm",
+	md: "cosy-text--md",
+	lg: "cosy-text--lg",
+	xl: "cosy-text--xl",
+};
+
+const weightClassMap: Record<TextWeight, string> = {
+	thin: "cosy-text--weight-thin",
+	light: "cosy-text--weight-light",
+	normal: "cosy-text--weight-normal",
+	medium: "cosy-text--weight-medium",
+	semibold: "cosy-text--weight-semibold",
+	bold: "cosy-text--weight-bold",
+	extrabold: "cosy-text--weight-extrabold",
+	black: "cosy-text--weight-black",
+};
+
+const colorClassMap: Record<TextColor, string> = {
+	default: "",
+	primary: "cosy-text--primary",
+	secondary: "cosy-text--secondary",
+	accent: "cosy-text--accent",
+	muted: "cosy-text--muted",
+};
+
+const alignClassMap: Record<TextAlign, string> = {
+	left: "cosy-text--left",
+	center: "cosy-text--center",
+	right: "cosy-text--right",
+	justify: "cosy-text--justify",
+};
+
+const tagName = as || "p";
+
+const textClass = [
+	"cosy-text",
+	sizeClassMap[size],
+	weightClassMap[weight],
+	colorClassMap[color],
+	alignClassMap[align],
+	italic ? "cosy-text--italic" : "",
+	underline ? "cosy-text--underline" : "",
+	truncate ? "cosy-text--truncate" : "",
+	className,
+]
+	.filter(Boolean)
+	.join(" ");
+---
+
+<Fragment set:html={`<${tagName} class="${textClass}"${style ? ` style="${style}"` : ""}>`} />
+<slot />
+<Fragment set:html={`</${tagName}>`} />
+
+<style is:global>
+    /* Text - 原生 CSS 实现（daisyui corporate 主题色） */
+    .cosy-text {
+        --cosy-text-primary: #4b6bfb;
+        --cosy-text-secondary: #7b92b2;
+        --cosy-text-accent: #67baa3;
+        --cosy-text-base-content: #1d1d1d;
+
+        margin-bottom: 1em;
+        line-height: 1.5;
+        color: var(--cosy-text-base-content);
+        font-weight: 400;
+    }
+
+    /* 尺寸 */
+    .cosy-text--xs { font-size: 0.75rem; }
+    .cosy-text--sm { font-size: 0.875rem; }
+    .cosy-text--md { font-size: 1rem; }
+    .cosy-text--lg { font-size: 1.125rem; }
+    .cosy-text--xl { font-size: 1.25rem; }
+
+    /* 字重 */
+    .cosy-text--weight-thin { font-weight: 100; }
+    .cosy-text--weight-light { font-weight: 300; }
+    .cosy-text--weight-normal { font-weight: 400; }
+    .cosy-text--weight-medium { font-weight: 500; }
+    .cosy-text--weight-semibold { font-weight: 600; }
+    .cosy-text--weight-bold { font-weight: 700; }
+    .cosy-text--weight-extrabold { font-weight: 800; }
+    .cosy-text--weight-black { font-weight: 900; }
+
+    /* 颜色 */
+    .cosy-text--primary { color: var(--cosy-text-primary); }
+    .cosy-text--secondary { color: var(--cosy-text-secondary); }
+    .cosy-text--accent { color: var(--cosy-text-accent); }
+    .cosy-text--muted { color: var(--cosy-text-secondary); opacity: 0.8; }
+
+    /* 对齐 */
+    .cosy-text--left { text-align: left; }
+    .cosy-text--center { text-align: center; }
+    .cosy-text--right { text-align: right; }
+    .cosy-text--justify { text-align: justify; }
+
+    /* 修饰 */
+    .cosy-text--italic { font-style: italic; }
+    .cosy-text--underline { text-decoration: underline; }
+    .cosy-text--truncate {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
+</style>

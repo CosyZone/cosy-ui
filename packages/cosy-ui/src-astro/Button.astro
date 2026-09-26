@@ -1,0 +1,534 @@
+---
+/**
+ * @component Button
+ *
+ * @description
+ * Button 组件用于触发一个即时操作，如表单提交、打开对话框等。
+ * 支持多种样式变体、尺寸和状态，可以满足不同场景的需求。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Button>默认按钮</Button>
+ * <Button variant="primary">主要按钮</Button>
+ * ```
+ *
+ * 不同尺寸：
+ * ```astro
+ * <Button size="sm">小型按钮</Button>
+ * <Button size="lg">大型按钮</Button>
+ * ```
+ *
+ * 状态变化：
+ * ```astro
+ * <Button disabled>禁用按钮</Button>
+ * <Button loading>加载中</Button>
+ * ```
+ *
+ * 带图标：
+ * ```astro
+ * <Button>
+ *   <span slot="icon-left">👈</span>
+ *   左侧图标
+ * </Button>
+ * ```
+ *
+ * 链接按钮：
+ * ```astro
+ * <Button href="https://example.com">跳转链接</Button>
+ * <Button href="https://example.com" target="_blank">新窗口打开</Button>
+ * ```
+ *
+ * @props
+ * @prop {boolean} [block=false] - 是否为块级显示，设置为 true 时按钮占满容器宽度
+ * @prop {string} [class] - 自定义 CSS 类名，用于覆盖默认样式
+ * @prop {boolean} [disabled=false] - 是否禁用按钮，设置为 true 时按钮不可点击
+ * @prop {string} [formmethod] - 表单提交方法，支持 dialog 等特殊值
+ * @prop {string} [href] - 链接地址，设置后按钮变为链接形式
+ * @prop {boolean} [loading=false] - 是否显示加载状态，设置为 true 时显示加载动画
+ * @prop {Function} [onClick] - 点击事件处理函数
+ * @prop {('circle'|'square')} [shape] - 按钮形状，支持 circle（圆形）和 square（方形）
+ * @prop {('lg'|'md'|'sm'|'xs')} [size='md'] - 按钮尺寸，支持 lg、md、sm、xs 四种尺寸
+ * @prop {string} [target] - 链接目标，支持 _self、_blank、_parent、_top
+ * @prop {('button'|'submit'|'reset')} [type='button'] - 按钮类型，支持 button、submit、reset
+ * @prop {('primary'|'secondary'|'accent'|'info'|'success'|'warning'|'error'|'ghost'|'link'|'outline'|'neutral'|'gradient-sky'|'gradient-watermelon'|'gradient-lemon'|'gradient-grape'|'gradient-mango'|'gradient-forest'|'gradient-ocean'|'gradient-sunset'|'gradient-flower'|'gradient-pitaya'|'gradient-banana'|'gradient-blueberry'|'gradient-kiwi')} [variant='primary'] - 按钮样式变体，支持多种预设样式和渐变效果
+ * @prop {boolean} [wide=false] - 是否为宽按钮，设置为 true 时按钮宽度增加
+ *
+ * @slots
+ * @slot default - 按钮内容，支持任意文本内容
+ * @slot icon-left - 左侧图标，显示在按钮内容左侧
+ * @slot icon-right - 右侧图标，显示在按钮内容右侧
+ */
+
+import type { HTMLAttributes } from "astro/types";
+
+/**
+ * Button 组件属性（组件自包含定义）
+ */
+export interface IButtonProps
+	extends Omit<
+		HTMLAttributes<"button">,
+		"type"
+		| "class"
+		| "block"
+		| "disabled"
+		| "formmethod"
+		| "href"
+		| "loading"
+		| "onClick"
+		| "shape"
+		| "size"
+		| "target"
+		| "variant"
+		| "wide"
+	> {
+	/** 是否为块级显示，占满容器宽度 @default false */
+	block?: boolean;
+	/** 自定义 CSS 类名，用于覆盖默认样式 */
+	class?: string;
+	/** 是否禁用按钮 @default false */
+	disabled?: boolean;
+	/** 表单提交方法，支持 dialog 等特殊值 */
+	formmethod?: string;
+	/** 链接地址，设置后按钮变为链接形式 */
+	href?: string;
+	/** 是否显示加载状态 @default false */
+	loading?: boolean;
+	/** 点击事件处理函数 */
+	onClick?: () => void;
+	/** 按钮形状，支持 circle（圆形）和 square（方形） */
+	shape?: "circle" | "square";
+	/** 按钮尺寸 @default "md" */
+	size?: "lg" | "md" | "sm" | "xs";
+	/** 链接目标 */
+	target?: "_self" | "_blank" | "_parent" | "_top";
+	/** 按钮类型 @default "button" */
+	type?: "button" | "submit" | "reset";
+	/** 按钮样式变体 @default "primary" */
+	variant?:
+		"primary"
+		| "secondary"
+		| "accent"
+		| "info"
+		| "success"
+		| "warning"
+		| "error"
+		| "ghost"
+		| "link"
+		| "outline"
+		| "neutral"
+		| "gradient-sky"
+		| "gradient-watermelon"
+		| "gradient-lemon"
+		| "gradient-grape"
+		| "gradient-mango"
+		| "gradient-forest"
+		| "gradient-ocean"
+		| "gradient-sunset"
+		| "gradient-flower"
+		| "gradient-pitaya"
+		| "gradient-banana"
+		| "gradient-blueberry"
+		| "gradient-kiwi";
+	/** 是否为宽按钮 @default false */
+	wide?: boolean;
+}
+
+/** 变体类名映射 */
+const variantClassMap: Record<string, string> = {
+	primary: "cosy-btn--primary",
+	secondary: "cosy-btn--secondary",
+	accent: "cosy-btn--accent",
+	info: "cosy-btn--info",
+	success: "cosy-btn--success",
+	warning: "cosy-btn--warning",
+	error: "cosy-btn--error",
+	ghost: "cosy-btn--ghost",
+	link: "cosy-btn--link",
+	outline: "cosy-btn--outline",
+	neutral: "cosy-btn--neutral",
+	"gradient-sky": "cosy-btn--gradient-sky",
+	"gradient-watermelon": "cosy-btn--gradient-watermelon",
+	"gradient-lemon": "cosy-btn--gradient-lemon",
+	"gradient-grape": "cosy-btn--gradient-grape",
+	"gradient-mango": "cosy-btn--gradient-mango",
+	"gradient-forest": "cosy-btn--gradient-forest",
+	"gradient-ocean": "cosy-btn--gradient-ocean",
+	"gradient-sunset": "cosy-btn--gradient-sunset",
+	"gradient-flower": "cosy-btn--gradient-flower",
+	"gradient-pitaya": "cosy-btn--gradient-pitaya",
+	"gradient-banana": "cosy-btn--gradient-banana",
+	"gradient-blueberry": "cosy-btn--gradient-blueberry",
+	"gradient-kiwi": "cosy-btn--gradient-kiwi",
+};
+
+/** 尺寸类名映射 */
+const sizeClassMap: Record<string, string> = {
+	xs: "cosy-btn--xs",
+	sm: "cosy-btn--sm",
+	md: "cosy-btn--md",
+	lg: "cosy-btn--lg",
+};
+
+/** 形状类名映射 */
+const shapeClassMap: Record<string, string> = {
+	circle: "cosy-btn--circle",
+	square: "cosy-btn--square",
+};
+
+/**
+ * 组合 Button 类名
+ */
+function getButtonClasses(props: IButtonProps): string {
+	const {
+		variant = "primary",
+		size = "md",
+		shape,
+		wide = false,
+		block = false,
+		loading = false,
+		disabled = false,
+		class: className = "",
+	} = props;
+
+	return [
+		"cosy-btn",
+		variantClassMap[variant] || "",
+		sizeClassMap[size] || sizeClassMap.md,
+		shape ? shapeClassMap[shape] || "" : "",
+		wide ? "cosy-btn--wide" : "",
+		block ? "cosy-btn--block" : "",
+		loading ? "cosy-btn--loading" : "",
+		disabled ? "cosy-btn--disabled" : "",
+		className,
+	]
+		.filter(Boolean)
+		.join(" ");
+}
+
+const props = Astro.props as IButtonProps;
+
+const {
+	block = false,
+	disabled = false,
+	formmethod,
+	href,
+	loading = false,
+	onClick,
+	size = "md",
+	target,
+	type = "button",
+	variant = "primary",
+	...rest
+} = props;
+
+const buttonClasses = getButtonClasses(props);
+
+const onClickAttr = onClick ? `${onClick.toString()}; return false;` : undefined;
+---
+
+{
+	href ? (
+		<a
+			href={href}
+			class={buttonClasses}
+			target={target}
+			onclick={onClickAttr}
+			data-variant={variant}
+			{...rest}>
+			<span class="cosy-btn__content">
+				<slot name="icon-left" />
+				<slot />
+				<slot name="icon-right" />
+			</span>
+		</a>
+	) : (
+		<button
+			type={formmethod === "dialog" ? "submit" : type}
+			class={buttonClasses}
+			disabled={disabled}
+			onclick={onClickAttr}
+			formmethod={formmethod}
+			data-variant={variant}
+			aria-label={rest["aria-label"] || "按钮"}
+			{...rest}>
+			<span class="cosy-btn__content">
+				<slot name="icon-left" />
+				<slot />
+				<slot name="icon-right" />
+			</span>
+		</button>
+	)
+}
+
+<style is:global>
+    /* Button - 原生 CSS 实现（daisyUI corporate 主题色） */
+    .cosy-btn {
+        --cosy-btn-primary: #4b6bfb;
+        --cosy-btn-secondary: #7b92b2;
+        --cosy-btn-accent: #67baa3;
+        --cosy-btn-neutral: #181a2a;
+        --cosy-btn-base-100: #ffffff;
+        --cosy-btn-base-200: #e9e9e9;
+        --cosy-btn-base-300: #d7d7d7;
+        --cosy-btn-base-content: #1d1d1d;
+        --cosy-btn-info: #2563eb;
+        --cosy-btn-success: #16a34a;
+        --cosy-btn-warning: #d97706;
+        --cosy-btn-error: #dc2626;
+
+        --cosy-btn-bg: transparent;
+        --cosy-btn-color: var(--cosy-btn-base-content);
+        --cosy-btn-border: transparent;
+
+        box-sizing: border-box;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 2.5rem;
+        padding: 0 1rem;
+        border: 1px solid var(--cosy-btn-border);
+        border-radius: 0.5rem;
+        background: var(--cosy-btn-bg);
+        color: var(--cosy-btn-color);
+        font-size: 0.875rem;
+        font-weight: 600;
+        line-height: 1;
+        text-decoration: none;
+        white-space: nowrap;
+        cursor: pointer;
+        user-select: none;
+        transition: background-color 0.2s ease, color 0.2s ease,
+            border-color 0.2s ease, opacity 0.2s ease, filter 0.2s ease;
+    }
+
+    .cosy-btn__content {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    /* 尺寸 */
+    .cosy-btn--xs { height: 1.5rem; padding: 0 0.5rem; font-size: 0.75rem; }
+    .cosy-btn--sm { height: 2rem; padding: 0 0.75rem; font-size: 0.875rem; }
+    .cosy-btn--md { height: 2.5rem; padding: 0 1rem; font-size: 0.875rem; }
+    .cosy-btn--lg { height: 3rem; padding: 0 1.25rem; font-size: 1.125rem; }
+
+    /* 形状 */
+    .cosy-btn--circle,
+    .cosy-btn--square { padding: 0; aspect-ratio: 1 / 1; }
+    .cosy-btn--circle { border-radius: 9999px; }
+
+    /* 宽 / 块级 */
+    .cosy-btn--wide { width: 16rem; }
+    .cosy-btn--block { width: 100%; }
+
+    /* 实心变体 */
+    .cosy-btn--primary {
+        --cosy-btn-bg: var(--cosy-btn-primary);
+        --cosy-btn-color: #fff;
+        --cosy-btn-border: var(--cosy-btn-primary);
+    }
+    .cosy-btn--secondary {
+        --cosy-btn-bg: var(--cosy-btn-secondary);
+        --cosy-btn-color: #fff;
+        --cosy-btn-border: var(--cosy-btn-secondary);
+    }
+    .cosy-btn--accent {
+        --cosy-btn-bg: var(--cosy-btn-accent);
+        --cosy-btn-color: var(--cosy-btn-base-content);
+        --cosy-btn-border: var(--cosy-btn-accent);
+    }
+    .cosy-btn--neutral {
+        --cosy-btn-bg: var(--cosy-btn-neutral);
+        --cosy-btn-color: #fff;
+        --cosy-btn-border: var(--cosy-btn-neutral);
+    }
+    .cosy-btn--info {
+        --cosy-btn-bg: var(--cosy-btn-info);
+        --cosy-btn-color: #fff;
+        --cosy-btn-border: var(--cosy-btn-info);
+    }
+    .cosy-btn--success {
+        --cosy-btn-bg: var(--cosy-btn-success);
+        --cosy-btn-color: #fff;
+        --cosy-btn-border: var(--cosy-btn-success);
+    }
+    .cosy-btn--warning {
+        --cosy-btn-bg: var(--cosy-btn-warning);
+        --cosy-btn-color: #fff;
+        --cosy-btn-border: var(--cosy-btn-warning);
+    }
+    .cosy-btn--error {
+        --cosy-btn-bg: var(--cosy-btn-error);
+        --cosy-btn-color: #fff;
+        --cosy-btn-border: var(--cosy-btn-error);
+    }
+
+    /* ghost / link / outline */
+    .cosy-btn--ghost {
+        --cosy-btn-bg: transparent;
+        --cosy-btn-border: transparent;
+        --cosy-btn-color: var(--cosy-btn-base-content);
+    }
+    .cosy-btn--ghost:hover {
+        background: color-mix(in srgb, currentColor 10%, transparent);
+    }
+    .cosy-btn--link {
+        --cosy-btn-bg: transparent;
+        --cosy-btn-border: transparent;
+        --cosy-btn-color: var(--cosy-btn-primary);
+        height: auto;
+        padding: 0;
+    }
+    .cosy-btn--link:hover { text-decoration: underline; }
+    .cosy-btn--outline {
+        --cosy-btn-bg: transparent;
+        --cosy-btn-border: currentColor;
+        --cosy-btn-color: var(--cosy-btn-base-content);
+    }
+    .cosy-btn--outline:hover {
+        background: color-mix(in srgb, currentColor 10%, transparent);
+    }
+
+    /* 实心变体 hover 加深 */
+    .cosy-btn--primary:hover,
+    .cosy-btn--secondary:hover,
+    .cosy-btn--accent:hover,
+    .cosy-btn--neutral:hover,
+    .cosy-btn--info:hover,
+    .cosy-btn--success:hover,
+    .cosy-btn--warning:hover,
+    .cosy-btn--error:hover {
+        filter: brightness(0.92);
+    }
+
+    /* 禁用 */
+    .cosy-btn--disabled,
+    .cosy-btn:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    /* 加载态旋转圈 */
+    .cosy-btn--loading::before {
+        content: "";
+        width: 1em;
+        height: 1em;
+        flex-shrink: 0;
+        border: 2px solid currentColor;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: cosy-btn-spin 0.7s linear infinite;
+    }
+    @keyframes cosy-btn-spin {
+        to { transform: rotate(360deg); }
+    }
+
+    /* 渐变变体（水平渐变） */
+    .cosy-btn--gradient-sky {
+        background: linear-gradient(to right, #38bdf8, #6366f1);
+        color: #fff;
+        border-color: transparent;
+    }
+    .cosy-btn--gradient-sky:hover {
+        background: linear-gradient(to right, #0ea5e9, #4f46e5);
+    }
+    .cosy-btn--gradient-watermelon {
+        background: linear-gradient(to right, #86efac, #f472b6, #ef4444);
+        color: #fff;
+        border-color: transparent;
+    }
+    .cosy-btn--gradient-watermelon:hover {
+        background: linear-gradient(to right, #4ade80, #f472b6, #dc2626);
+    }
+    .cosy-btn--gradient-lemon {
+        background: linear-gradient(to right, #fef08a, #facc15, #ca8a04);
+        color: #1d1d1d;
+        border-color: transparent;
+    }
+    .cosy-btn--gradient-lemon:hover {
+        background: linear-gradient(to right, #fde047, #facc15, #a16207);
+    }
+    .cosy-btn--gradient-grape {
+        background: linear-gradient(to right, #c084fc, #6366f1, #7e22ce);
+        color: #fff;
+        border-color: transparent;
+    }
+    .cosy-btn--gradient-grape:hover {
+        background: linear-gradient(to right, #a855f7, #6366f1, #6b21a8);
+    }
+    .cosy-btn--gradient-mango {
+        background: linear-gradient(to right, #fde047, #fb923c, #ea580c);
+        color: #fff;
+        border-color: transparent;
+    }
+    .cosy-btn--gradient-mango:hover {
+        background: linear-gradient(to right, #facc15, #fb923c, #c2410c);
+    }
+    .cosy-btn--gradient-forest {
+        background: linear-gradient(to right, #15803d, #bef264);
+        color: #fff;
+        border-color: transparent;
+    }
+    .cosy-btn--gradient-forest:hover {
+        background: linear-gradient(to right, #166534, #a3e635);
+    }
+    .cosy-btn--gradient-ocean {
+        background: linear-gradient(to right, #22d3ee, #1d4ed8);
+        color: #fff;
+        border-color: transparent;
+    }
+    .cosy-btn--gradient-ocean:hover {
+        background: linear-gradient(to right, #06b6d4, #1e40af);
+    }
+    .cosy-btn--gradient-sunset {
+        background: linear-gradient(to right, #fb923c, #ec4899, #ef4444);
+        color: #fff;
+        border-color: transparent;
+    }
+    .cosy-btn--gradient-sunset:hover {
+        background: linear-gradient(to right, #f97316, #ec4899, #dc2626);
+    }
+    .cosy-btn--gradient-flower {
+        background: linear-gradient(to right, #f9a8d4, #c084fc, #d946ef);
+        color: #fff;
+        border-color: transparent;
+    }
+    .cosy-btn--gradient-flower:hover {
+        background: linear-gradient(to right, #f472b6, #c084fc, #c026d3);
+    }
+    .cosy-btn--gradient-pitaya {
+        background: linear-gradient(to right, #fbcfe8, #e879f9, #bef264);
+        color: #fff;
+        border-color: transparent;
+    }
+    .cosy-btn--gradient-pitaya:hover {
+        background: linear-gradient(to right, #f9a8d4, #e879f9, #a3e635);
+    }
+    .cosy-btn--gradient-banana {
+        background: linear-gradient(to right, #fef9c3, #fde047, #eab308);
+        color: #1d1d1d;
+        border-color: transparent;
+    }
+    .cosy-btn--gradient-banana:hover {
+        background: linear-gradient(to right, #fef08a, #fde047, #ca8a04);
+    }
+    .cosy-btn--gradient-blueberry {
+        background: linear-gradient(to right, #60a5fa, #2563eb, #4338ca);
+        color: #fff;
+        border-color: transparent;
+    }
+    .cosy-btn--gradient-blueberry:hover {
+        background: linear-gradient(to right, #3b82f6, #2563eb, #3730a3);
+    }
+    .cosy-btn--gradient-kiwi {
+        background: linear-gradient(to right, #d9f99d, #4ade80, #15803d);
+        color: #fff;
+        border-color: transparent;
+    }
+    .cosy-btn--gradient-kiwi:hover {
+        background: linear-gradient(to right, #bef264, #4ade80, #166534);
+    }
+</style>

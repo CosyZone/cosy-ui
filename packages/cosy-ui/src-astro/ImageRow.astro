@@ -1,0 +1,190 @@
+---
+/**
+ * @component ImageRow
+ * @description 图片行组件，横向排列一组图片，支持间距、圆角、阴影、悬停效果与点击预览。
+ * @usage
+ * ```astro
+ * <ImageRow
+ *   images={[
+ *     { src: '/image1.jpg', alt: '图片1' },
+ *     { src: 'https://example.com/image2.jpg', alt: '图片2.jpg' }
+ *   ]}
+ *   gap="md"
+ *   background="primary/10"
+ *   containerRounded="lg"
+ * />
+ * ```
+ * @props
+ * @prop {IImageItem[]} images - 图片数组
+ * @prop {string} [gap='md'] - 图片间距：none、xs、sm、md、lg、xl
+ * @prop {string} [rounded='md'] - 图片圆角
+ * @prop {string} [shadow='md'] - 图片阴影
+ * @prop {string} [hover='scale'] - 悬停效果：none、scale、brightness、blur
+ * @prop {string} [background] - 容器背景色
+ * @prop {string} [padding='md'] - 容器内边距
+ * @prop {string} [margin='none'] - 容器外边距
+ * @prop {boolean} [border=false] - 是否显示边框
+ * @prop {string} [width='md'] - 容器宽度
+ * @prop {string} [height='none'] - 图片高度
+ * @prop {string} [containerRounded='none'] - 容器圆角
+ * @prop {boolean} [showNavigation=true] - 是否显示左右导航按钮
+ * @prop {string} [class] - 自定义 CSS 类名
+ */
+
+import Image from './Image.astro';
+import ScrollRow from './scroll-row/ScrollRow.astro';
+
+/* ---------- 自包含类型 ---------- */
+
+type GapSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type RoundedSize = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';
+type ShadowSize = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+type HoverEffect = 'none' | 'scale' | 'brightness' | 'blur';
+type PaddingSize =
+	'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl';
+type MarginSize =
+	'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl';
+type Size =
+	'none' | '3xs' | '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | 'full';
+type HeightSize = Size | 'screen' | 'auto';
+
+export interface IImageItem {
+	/** 图片源，支持本地图片元数据和远程 URL */
+	src: import('./Image.astro').ImageSource;
+	/** 图片替代文本 */
+	alt: string;
+	/** 图片宽度 */
+	width?: number;
+	/** 图片高度 */
+	height?: number;
+	/** 图片加载方式 */
+	loading?: 'lazy' | 'eager';
+	/** 图片标题（底部说明文字） */
+	caption?: string;
+}
+
+export interface ImageRowProps {
+	/** 图片数组 */
+	images: IImageItem[];
+	/** 图片间距
+	 * @default "md" */
+	gap?: GapSize;
+	/** 图片圆角
+	 * @default "md" */
+	rounded?: RoundedSize;
+	/** 图片阴影
+	 * @default "md" */
+	shadow?: ShadowSize;
+	/** 悬停效果
+	 * @default "scale" */
+	hover?: HoverEffect;
+	/** 容器背景色 */
+	background?: string;
+	/** 容器内边距
+	 * @default "md" */
+	padding?: PaddingSize;
+	/** 容器外边距
+	 * @default "none" */
+	margin?: MarginSize;
+	/** 是否显示边框 */
+	border?: boolean;
+	/** 容器宽度
+	 * @default "md" */
+	width?: Size;
+	/** 容器高度
+	 * @default "none" */
+	height?: HeightSize;
+	/** 容器圆角
+	 * @default "none" */
+	containerRounded?: RoundedSize;
+	/** 是否显示左右导航按钮
+	 * @default true */
+	showNavigation?: boolean;
+	/** 自定义 CSS 类名 */
+	class?: string;
+}
+
+const {
+	images,
+	gap = 'md',
+	rounded = 'md',
+	shadow = 'md',
+	hover = 'scale',
+	background,
+	padding = 'md',
+	margin = 'none',
+	width = 'md',
+	height = 'none',
+	containerRounded = 'none',
+	showNavigation = true,
+	class: className = '',
+} = Astro.props as ImageRowProps;
+
+const rootClass = ['cosy-image-row', className].filter(Boolean).join(' ');
+---
+
+<ScrollRow
+	background={background as any}
+	padding={padding}
+	margin={margin}
+	rounded={containerRounded}
+	width={width as any}
+	height={height as any}
+	gap={gap as any}
+	class={rootClass}
+	showNavigation={showNavigation}>
+	{
+		images.map((image) => (
+			<div class="cosy-image-row__item">
+				<Image
+					src={image.src}
+					alt={image.alt}
+					width={image.width}
+					height={image.height}
+					loading={image.loading || 'lazy'}
+					rounded={rounded}
+					shadow={shadow}
+					preview
+					hover={hover}
+					objectFit="cover"
+				/>
+				{
+					image.caption && (
+						<div class="cosy-image-row__caption">
+							<p>{image.caption}</p>
+						</div>
+					)
+				}
+			</div>
+		))
+	}
+</ScrollRow>
+
+<style is:global>
+	/* ImageRow - 原生 CSS 自包含实现 */
+	.cosy-image-row__item {
+		position: relative;
+		overflow: hidden;
+		flex: none;
+		height: 100%;
+		width: auto;
+		aspect-ratio: 1 / 1;
+	}
+
+	.cosy-image-row__caption {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		padding: 0.5rem;
+		background: linear-gradient(to top, rgb(0 0 0 / 0.7), transparent);
+	}
+
+	.cosy-image-row__caption p {
+		margin: 0;
+		font-size: 0.875rem;
+		line-height: 1.4;
+		color: #fff;
+		text-align: center;
+	}
+</style>

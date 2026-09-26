@@ -16,7 +16,7 @@ export interface FooterSectionProps {
 	}>;
 }
 
-import type { ImageSource } from "../../../src-astro/image/types";
+import type { ImageSource } from "../../common/image-source";
 import type { IProduct } from "../../../src-astro/types/product";
 import type { BackgroundColor } from "../../common/backgrounds";
 

@@ -54,7 +54,7 @@
 
   // 定义与 Grid 组件相同的响应式值类型
   type ResponsiveValue<T> =
-    | T
+    T
     | {
         base?: T;
         sm?: T;

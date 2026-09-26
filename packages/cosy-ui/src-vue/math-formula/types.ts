@@ -2,7 +2,7 @@
  * MathFormula Vue 版本的属性类型
  */
 export type MathFormulaVariant =
-	| "default"
+	"default"
 	| "gradient"
 	| "glass"
 	| "neon"

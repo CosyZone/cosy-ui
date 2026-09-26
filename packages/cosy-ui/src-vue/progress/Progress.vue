@@ -39,7 +39,7 @@ interface Props {
 	max?: number;
 	// 颜色主题
 	color?:
-		| "neutral"
+		"neutral"
 		| "primary"
 		| "secondary"
 		| "accent"

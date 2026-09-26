@@ -7,8 +7,7 @@
 
 <script setup lang="ts">
   import { computed } from 'vue';
-  import { getHeadingCombinedClassesVue } from './class';
-  import HeadingAnchor from './HeadingAnchor.vue';
+    import HeadingAnchor from './HeadingAnchor.vue';
   import type { IHeadingProps } from './types';
 
   /**
@@ -118,13 +117,27 @@
     weight: undefined,
   });
 
-  // 使用共用的工具函数计算组合类名
-  const combinedClass = computed(() => getHeadingCombinedClassesVue(props));
+  // BEM 类名计算（与 Heading.astro 一致）
+  const colorMap = { default:'', primary:'cosy-heading--color-primary', secondary:'cosy-heading--color-secondary', accent:'cosy-heading--color-accent', muted:'cosy-heading--color-muted', white:'cosy-heading--color-white' };
+  const alignMap = { left:'cosy-heading--align-left', center:'cosy-heading--align-center', right:'cosy-heading--align-right' };
+  const weightMap = { thin:'cosy-heading--weight-thin', light:'cosy-heading--weight-light', normal:'cosy-heading--weight-normal', medium:'cosy-heading--weight-medium', semibold:'cosy-heading--weight-semibold', bold:'cosy-heading--weight-bold', extrabold:'cosy-heading--weight-extrabold' };
+  const marginMap = { none:'cosy-heading--my-none', xs:'cosy-heading--my-xs', sm:'cosy-heading--my-sm', md:'cosy-heading--my-md', lg:'cosy-heading--my-lg', xl:'cosy-heading--my-xl' };
+  const paddingMap = { none:'cosy-heading--py-none', xs:'cosy-heading--py-xs', sm:'cosy-heading--py-sm', md:'cosy-heading--py-md', lg:'cosy-heading--py-lg', xl:'cosy-heading--py-xl' };
 
-  // 如果有链接，添加链接相关的样式
-  const linkClass = computed(() => {
-    return props.href ? 'cosy:hover:opacity-80 cosy:transition-opacity' : '';
-  });
+  const combinedClass = computed(() =>
+    [
+      'cosy-heading',
+      `cosy-heading--h${props.level}`,
+      colorMap[props.color] || '',
+      alignMap[props.align] || '',
+      weightMap[props.weight] || '',
+      marginMap[props.margin] || '',
+      paddingMap[props.padding] || '',
+      props.underline ? 'cosy-heading--underline' : '',
+    ].filter(Boolean).join(' '),
+  );
+
+  const linkClass = computed(() => props.href ? 'cosy-heading__link' : '');
 
   // 标题标签
   const headingTag = computed(() => {
@@ -135,24 +148,44 @@
   });
 </script>
 
-<style scoped>
-  .heading {
-    line-height: 1.2;
-    scroll-margin-top: 100px;
-  }
-
-  .heading-anchor {
-    color: inherit;
-    text-decoration: none;
-    vertical-align: middle;
-  }
-
-  /* 悬停效果 */
-  .heading:hover .heading-anchor {
-    opacity: 0.7 !important;
-  }
-
-  .heading-anchor:hover {
-    opacity: 1 !important;
-  }
+<style>
+  .cosy-heading { --cosy-heading-base-content:#1d1d1d; --cosy-heading-primary:#4b6bfb; --cosy-heading-secondary:#7b92b2; --cosy-heading-accent:#67baa3; line-height:1.2; scroll-margin-top:100px; color:var(--cosy-heading-base-content); }
+  .cosy-heading--h1 { font-size:2.25rem; font-weight:700; }
+  .cosy-heading--h2 { font-size:1.875rem; font-weight:600; }
+  .cosy-heading--h3 { font-size:1.5rem; font-weight:600; }
+  .cosy-heading--h4 { font-size:1.25rem; font-weight:500; }
+  .cosy-heading--h5 { font-size:1.125rem; font-weight:500; }
+  .cosy-heading--h6 { font-size:1rem; font-weight:500; }
+  .cosy-heading--color-primary { color:var(--cosy-heading-primary); }
+  .cosy-heading--color-secondary { color:var(--cosy-heading-secondary); }
+  .cosy-heading--color-accent { color:var(--cosy-heading-accent); }
+  .cosy-heading--color-muted { color:var(--cosy-heading-secondary); }
+  .cosy-heading--color-white { color:#fff; }
+  .cosy-heading--align-left { text-align:left; }
+  .cosy-heading--align-center { text-align:center; }
+  .cosy-heading--align-right { text-align:right; }
+  .cosy-heading--weight-thin { font-weight:100; }
+  .cosy-heading--weight-light { font-weight:300; }
+  .cosy-heading--weight-normal { font-weight:400; }
+  .cosy-heading--weight-medium { font-weight:500; }
+  .cosy-heading--weight-semibold { font-weight:600; }
+  .cosy-heading--weight-bold { font-weight:700; }
+  .cosy-heading--weight-extrabold { font-weight:800; }
+  .cosy-heading--my-none { margin-top:0; margin-bottom:0; }
+  .cosy-heading--my-xs { margin-top:.5rem; margin-bottom:.5rem; }
+  .cosy-heading--my-sm { margin-top:1rem; margin-bottom:1rem; }
+  .cosy-heading--my-md { margin-top:1.5rem; margin-bottom:1.5rem; }
+  .cosy-heading--my-lg { margin-top:2rem; margin-bottom:2rem; }
+  .cosy-heading--my-xl { margin-top:3rem; margin-bottom:3rem; }
+  .cosy-heading--py-none { padding-top:0; padding-bottom:0; }
+  .cosy-heading--py-xs { padding-top:.5rem; padding-bottom:.5rem; }
+  .cosy-heading--py-sm { padding-top:1rem; padding-bottom:1rem; }
+  .cosy-heading--py-md { padding-top:1.5rem; padding-bottom:1.5rem; }
+  .cosy-heading--py-lg { padding-top:2rem; padding-bottom:2rem; }
+  .cosy-heading--py-xl { padding-top:3rem; padding-bottom:3rem; }
+  .cosy-heading--underline { text-decoration:underline; }
+  .cosy-heading__anchor { color:inherit; text-decoration:none; vertical-align:middle; margin-left:.5rem; opacity:0; transition:opacity .2s; }
+  .cosy-heading:hover .cosy-heading__anchor { opacity:1; }
+  .cosy-heading__link { color:inherit; text-decoration:none; transition:opacity .2s; }
+  .cosy-heading__link:hover { opacity:.8; }
 </style>

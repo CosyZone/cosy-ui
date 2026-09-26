@@ -1,0 +1,120 @@
+---
+/**
+ * @component Stack
+ *
+ * @description
+ * Stack 组件是一个垂直堆叠布局组件，用于垂直排列元素并控制它们之间的间距。
+ * 它提供了灵活的间距控制、对齐方式和分隔线选项。
+ * 自包含实现：BEM 命名 + 原生 CSS。
+ *
+ * @usage
+ * ```astro
+ * <Stack gap="lg">
+ *   <div>大间距</div>
+ *   <div>垂直排列</div>
+ * </Stack>
+ * ```
+ *
+ * @props
+ * @prop {'none'|'xs'|'sm'|'md'|'lg'|'xl'} [gap='md'] - 元素间距
+ * @prop {boolean} [dividers=false] - 是否显示分隔线
+ * @prop {'gray'|'light'|'dark'|'primary'} [dividerColor='gray'] - 分隔线颜色
+ * @prop {'start'|'center'|'end'|'stretch'} [align='stretch'] - 对齐方式
+ * @prop {string} [class] - 自定义类名
+ */
+
+type GapSize = "none" | "xs" | "sm" | "md" | "lg" | "xl";
+type AlignType = "start" | "center" | "end" | "stretch";
+type DividerColor = "gray" | "light" | "dark" | "primary";
+
+export interface IStackProps {
+	gap?: GapSize;
+	dividers?: boolean;
+	dividerColor?: DividerColor;
+	align?: AlignType;
+	class?: string;
+	[Key: string]: any;
+}
+
+const {
+	gap = "md",
+	dividers = false,
+	dividerColor = "gray",
+	align = "stretch",
+	class: className = "",
+	...rest
+} = Astro.props as IStackProps;
+
+const gapClassMap: Record<GapSize, string> = {
+	none: "cosy-stack--gap-none",
+	xs: "cosy-stack--gap-xs",
+	sm: "cosy-stack--gap-sm",
+	md: "cosy-stack--gap-md",
+	lg: "cosy-stack--gap-lg",
+	xl: "cosy-stack--gap-xl",
+};
+
+const alignClassMap: Record<AlignType, string> = {
+	start: "cosy-stack--align-start",
+	center: "cosy-stack--align-center",
+	end: "cosy-stack--align-end",
+	stretch: "cosy-stack--align-stretch",
+};
+
+const dividerClassMap: Record<DividerColor, string> = {
+	gray: "cosy-stack--divider-gray",
+	light: "cosy-stack--divider-light",
+	dark: "cosy-stack--divider-dark",
+	primary: "cosy-stack--divider-primary",
+};
+
+const stackClass = [
+	"cosy-stack",
+	gapClassMap[gap],
+	alignClassMap[align],
+	dividers ? `cosy-stack--dividers ${dividerClassMap[dividerColor]}` : "",
+	className,
+]
+	.filter(Boolean)
+	.join(" ");
+---
+
+<div class={stackClass} {...rest}>
+	<slot />
+</div>
+
+<style is:global>
+    /* Stack - 原生 CSS 实现（daisyui corporate 主题色） */
+    .cosy-stack {
+        --cosy-stack-primary: #4b6bfb;
+        --cosy-stack-base-300: #d7d7d7;
+
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+    }
+
+    /* 间距（spacing 1 = 0.25rem） */
+    .cosy-stack--gap-none { gap: 0; }
+    .cosy-stack--gap-xs { gap: 0.5rem; }
+    .cosy-stack--gap-sm { gap: 1rem; }
+    .cosy-stack--gap-md { gap: 1.5rem; }
+    .cosy-stack--gap-lg { gap: 2rem; }
+    .cosy-stack--gap-xl { gap: 3rem; }
+
+    /* 对齐 */
+    .cosy-stack--align-start { align-items: flex-start; }
+    .cosy-stack--align-center { align-items: center; }
+    .cosy-stack--align-end { align-items: flex-end; }
+    .cosy-stack--align-stretch { align-items: stretch; }
+
+    /* 分隔线 */
+    .cosy-stack--dividers > * + * {
+        border-top: 1px solid var(--cosy-stack-divider-color, var(--cosy-stack-base-300));
+        padding-top: inherit;
+    }
+    .cosy-stack--divider-gray { --cosy-stack-divider-color: var(--cosy-stack-base-300); }
+    .cosy-stack--divider-light { --cosy-stack-divider-color: #e9e9e9; }
+    .cosy-stack--divider-dark { --cosy-stack-divider-color: #181a2a; }
+    .cosy-stack--divider-primary { --cosy-stack-divider-color: var(--cosy-stack-primary); }
+</style>

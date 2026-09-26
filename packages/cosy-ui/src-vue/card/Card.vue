@@ -1,7 +1,6 @@
 <script setup lang="ts">
   import { computed } from 'vue';
   import Container from '../container/Container.vue';
-  import { getCardCombinedClassesVue, getCardPaddingClassVue } from './class';
   import type { ICardProps } from './props';
 
   /**
@@ -28,10 +27,10 @@
     shadow: 'xl',
   });
 
-  // 从props中分离Container相关的属性和Card自身的属性
+  // 从 props 中分离 Container 相关的属性和 Card 自身的属性
   const containerProps = computed(() => {
     const {
-      // Container属性
+      // Container 属性
       aspectRatio,
       centered,
       contentCentered,
@@ -56,7 +55,7 @@
       border,
       borderColor,
       shadow,
-      // Card属性
+      // Card 属性
       class: className,
       compact,
       href,
@@ -96,101 +95,113 @@
     };
   });
 
-  // Card自身的属性
-  const cardProps = computed(() => {
-    const {
-      // Container属性
-      aspectRatio,
-      centered,
-      contentCentered,
-      flex,
-      fit,
-      gap,
-      height,
-      items,
-      justify,
-      margin,
-      muted,
-      padding,
-      py,
-      pt,
-      pb,
-      px,
-      pl,
-      pr,
-      width,
-      rounded,
-      background,
-      border,
-      borderColor,
-      shadow,
-      // Card属性
-      class: className,
-      compact,
-      href,
-      imageUrl,
-      subtitle,
-      title,
-      ...rest
-    } = props;
-
-    return {
-      class: className,
-      compact,
-      href,
-      imageUrl,
-      subtitle,
-      title,
-      ...rest,
-    };
-  });
-
-  // 使用共用的工具函数计算组合类名（不包括Container的类名）
+  // Card 根元素（内部 article/a）的 BEM 类名（与 Card.astro 一致）
   const cardClasses = computed(() =>
-    getCardCombinedClassesVue(cardProps.value)
-  );
-
-  // 内容区域的padding类
-  const contentPadding = computed(() =>
-    getCardPaddingClassVue(cardProps.value.compact)
+    [
+      'cosy-card',
+      props.compact ? 'cosy-card--compact' : '',
+      props.href ? 'cosy-card--clickable' : '',
+    ]
+      .filter(Boolean)
+      .join(' ')
   );
 
   // 链接的目标属性
   const linkTarget = computed(() =>
-    cardProps.value.href ? '_self' : undefined
+    props.href ? '_self' : undefined
   );
 </script>
 
 <template>
   <Container v-bind="containerProps">
     <component
-      :is="cardProps.href ? 'a' : 'article'"
-      :href="cardProps.href"
+      :is="props.href ? 'a' : 'article'"
+      :href="props.href"
       :target="linkTarget"
       :class="cardClasses">
-      <template v-if="cardProps.imageUrl">
-        <figure class="not-prose cosy:m-0 cosy:p-0">
+      <template v-if="props.imageUrl">
+        <figure class="cosy-card__media">
           <img
-            :src="cardProps.imageUrl"
-            :alt="cardProps.title || ''"
-            class="cosy:w-full cosy:h-48 cosy:object-cover cosy:rounded-t-lg" />
+            :src="props.imageUrl"
+            :alt="props.title || ''"
+            class="cosy-card__img" />
         </figure>
       </template>
-      <div :class="['cosy:card-body', contentPadding]">
+      <div class="cosy-card__body">
         <h2
-          v-if="cardProps.title"
-          class="cosy:card-title cosy:text-xl cosy:font-bold">
-          {{ cardProps.title }}
+          v-if="props.title"
+          class="cosy-card__title">
+          {{ props.title }}
         </h2>
         <p
-          v-if="cardProps.subtitle"
-          class="cosy:text-base-content/70 cosy:text-sm cosy:leading-relaxed">
-          {{ cardProps.subtitle }}
+          v-if="props.subtitle"
+          class="cosy-card__subtitle">
+          {{ props.subtitle }}
         </p>
-        <div v-if="$slots.default" class="cosy:mt-4">
+        <div v-if="$slots.default" class="cosy-card__content">
           <slot />
         </div>
       </div>
     </component>
   </Container>
 </template>
+
+<style>
+  /* Card - 原生 CSS 实现（与 Card.astro 一致，daisyui corporate 主题色） */
+  .cosy-card {
+    --cosy-card-base-content: #1d1d1d;
+
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    transition: all 300ms ease-in-out;
+    color: var(--cosy-card-base-content);
+  }
+
+  .cosy-card--clickable {
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .cosy-card--clickable:hover {
+    transform: scale(1.05);
+  }
+
+  .cosy-card__media {
+    margin: 0;
+    padding: 0;
+  }
+  .cosy-card__img {
+    display: block;
+    width: 100%;
+    height: 12rem;
+    object-fit: cover;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+  }
+
+  .cosy-card__body {
+    padding: 1.5rem;
+  }
+  .cosy-card--compact .cosy-card__body {
+    padding: 1rem;
+  }
+
+  .cosy-card__title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--cosy-card-base-content);
+  }
+
+  .cosy-card__subtitle {
+    margin: 0.25rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.625;
+    color: color-mix(in srgb, var(--cosy-card-base-content) 70%, transparent);
+  }
+
+  .cosy-card__content {
+    margin-top: 1rem;
+  }
+</style>

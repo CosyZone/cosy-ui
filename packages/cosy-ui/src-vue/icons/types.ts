@@ -37,7 +37,7 @@ export interface IIconData {
  * 图标名称类型，按字母顺序排序
  */
 export type IconName =
-	| "alertTriangle"
+	"alertTriangle"
 	| "appstore"
 	| "calendar"
 	| "chart"

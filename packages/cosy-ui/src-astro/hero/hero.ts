@@ -1,7 +1,7 @@
 /**
  * Hero 组件相关类型定义
  */
-import type { ImageSource } from "src-astro/image";
+import type { ImageSource } from "../Image.astro";
 import type { BackgroundColor } from "../../src/common/backgrounds";
 
 /**

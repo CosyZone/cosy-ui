@@ -1,0 +1,236 @@
+---
+/**
+ * @component ListItem
+ *
+ * @description
+ * ListItem 组件用于在列表中显示单个项目。它内置了多种加载动画效果，
+ * 可以通过 `loading` 属性控制加载状态，并通过 `loadingAnimationType` 切换动画样式。
+ * 自包含实现：BEM 命名 + 原生 CSS，合并了 breath/glow/pulse/ring/icon-left/icon-right 全部变体。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <ListItem>这是一个列表项</ListItem>
+ * ```
+ *
+ * 加载状态：
+ * ```astro
+ * <ListItem loading={true}>加载中的列表项</ListItem>
+ * <ListItem loading={true} loadingAnimationType="pulse">脉冲动画</ListItem>
+ * ```
+ *
+ * @props
+ * @prop {string} [class] - 自定义 CSS 类名
+ * @prop {boolean} [loading=false] - 是否显示加载动画
+ * @prop {number} [duration] - 动画持续时间（毫秒），传入后显示进度条
+ * @prop {'none'|'ring'|'icon-left'|'icon-right'|'breath'|'pulse'|'glow'} [loadingAnimationType='none'] - 加载动画类型
+ *
+ * @slots
+ * @slot default - 列表项的内容
+ */
+
+type LoadingAnimationType ="none" | "ring" | "icon-left" | "icon-right" | "breath" | "pulse" | "glow";
+
+export interface IListItemProps {
+	class?: string;
+	loading?: boolean;
+	duration?: number;
+	loadingAnimationType?: LoadingAnimationType;
+	[Key: string]: any;
+}
+
+const {
+	loading = false,
+	duration,
+	loadingAnimationType = "none",
+	class: className = "",
+	...rest
+} = Astro.props as IListItemProps;
+
+// 是否为带样式的变体（none 渲染为普通 li）
+const isStyled = loadingAnimationType !== "none";
+
+// 无限动画修饰类（loading 且无 duration 时启用）
+const infiniteAnimMap: Record<string, string> = {
+	breath: "cosy-list-item--breath-anim",
+	glow: "cosy-list-item--glow-anim",
+	pulse: "cosy-list-item--pulse-anim",
+	ring: "cosy-list-item--ring-anim",
+};
+
+const variantModifier =
+	loadingAnimationType === "none" ? "" : `cosy-list-item--${loadingAnimationType}`;
+
+const infiniteClass =
+	loading && !duration && loadingAnimationType in infiniteAnimMap
+		? infiniteAnimMap[loadingAnimationType]
+		: "";
+
+const listItemClass = isStyled
+	? ["cosy-list-item", variantModifier, infiniteClass, className]
+			.filter(Boolean)
+			.join(" ")
+	: className;
+
+// 是否显示前置 / 后置 loading 图标
+const showIconLeft = loading && !duration && loadingAnimationType === "icon-left";
+const showIconRight = loading && !duration && loadingAnimationType === "icon-right";
+// 是否显示进度条
+const showBar = loading && !!duration;
+---
+
+{
+	loadingAnimationType === "none" ? (
+		<li class={listItemClass} {...rest}>
+			<slot />
+		</li>
+	) : (
+		<li class={listItemClass} {...rest}>
+			{showBar && (
+				<div
+					class="cosy-list-item__loading-bar"
+					style={`animation-duration: ${duration}ms;`}
+				/>
+			)}
+			<div class="cosy-list-item__content">
+				{showIconLeft && <div class="cosy-list-item__spinner" />}
+				<slot />
+				{showIconRight && (
+					<div class="cosy-list-item__dots">
+						<span />
+						<span />
+						<span />
+					</div>
+				)}
+			</div>
+		</li>
+	)
+}
+
+<style is:global>
+    /* ListItem - 原生 CSS 实现（daisyui corporate 主题色） */
+    .cosy-list-item {
+        --cosy-list-accent: #67baa3;
+        --cosy-list-base-300: #d7d7d7;
+
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.5rem;
+        padding: 0.5rem;
+        border-radius: 0.375rem;
+        background: var(--cosy-list-base-300);
+    }
+    .cosy-list-item:hover {
+        background: color-mix(in srgb, var(--cosy-list-accent) 10%, var(--cosy-list-base-300));
+    }
+
+    .cosy-list-item__content {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        width: 100%;
+    }
+
+    /* 进度条 */
+    .cosy-list-item__loading-bar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 0;
+        height: 100%;
+        width: 0;
+        background: color-mix(in srgb, var(--cosy-list-accent) 40%, transparent);
+        animation: cosy-list-bar linear forwards;
+    }
+    @keyframes cosy-list-bar {
+        0% { width: 0; }
+        100% { width: 100%; }
+    }
+
+    /* 前置 spinner */
+    .cosy-list-item__spinner {
+        flex-shrink: 0;
+        width: 1rem;
+        height: 1rem;
+        border: 2px solid color-mix(in srgb, var(--cosy-list-accent) 30%, transparent);
+        border-top-color: var(--cosy-list-accent);
+        border-radius: 9999px;
+        animation: cosy-list-spin 0.8s linear infinite;
+    }
+    @keyframes cosy-list-spin {
+        to { transform: rotate(360deg); }
+    }
+
+    /* 后置 dots */
+    .cosy-list-item__dots {
+        flex-shrink: 0;
+        margin-left: auto;
+        display: inline-flex;
+        gap: 0.25rem;
+    }
+    .cosy-list-item__dots span {
+        width: 0.4rem;
+        height: 0.4rem;
+        border-radius: 9999px;
+        background: var(--cosy-list-accent);
+        animation: cosy-list-blink 1.4s ease-in-out infinite both;
+    }
+    .cosy-list-item__dots span:nth-child(1) { animation-delay: -0.32s; }
+    .cosy-list-item__dots span:nth-child(2) { animation-delay: -0.16s; }
+    @keyframes cosy-list-blink {
+        0%, 80%, 100% { opacity: 0.25; }
+        40% { opacity: 1; }
+    }
+
+    /* 呼吸背景动画 */
+    .cosy-list-item--breath-anim {
+        animation: cosy-list-breath 2s ease-in-out infinite;
+    }
+    @keyframes cosy-list-breath {
+        0%, 100% { background-color: var(--cosy-list-base-300); }
+        50% { background-color: color-mix(in srgb, var(--cosy-list-accent) 30%, var(--cosy-list-base-300)); }
+    }
+
+    /* 发光边框动画 */
+    .cosy-list-item--glow-anim {
+        border: 1px solid color-mix(in srgb, var(--cosy-list-accent) 30%, transparent);
+        animation: cosy-list-glow 2s ease-in-out infinite;
+    }
+    @keyframes cosy-list-glow {
+        0%, 100% {
+            border-color: color-mix(in srgb, var(--cosy-list-accent) 30%, transparent);
+            box-shadow: 0 0 5px color-mix(in srgb, var(--cosy-list-accent) 30%, transparent);
+        }
+        50% {
+            border-color: color-mix(in srgb, var(--cosy-list-accent) 80%, transparent);
+            box-shadow:
+                0 0 20px color-mix(in srgb, var(--cosy-list-accent) 60%, transparent),
+                0 0 30px color-mix(in srgb, var(--cosy-list-accent) 40%, transparent),
+                inset 0 0 10px color-mix(in srgb, var(--cosy-list-accent) 20%, transparent);
+        }
+    }
+
+    /* 整体脉冲动画 */
+    .cosy-list-item--pulse-anim {
+        animation: cosy-list-pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes cosy-list-pulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.01); opacity: 0.9; }
+    }
+
+    /* Ring 外环脉冲动画 */
+    .cosy-list-item--ring-anim {
+        box-shadow: 0 0 0 2px var(--cosy-list-accent);
+        animation: cosy-list-ring 1.5s ease-in-out infinite;
+    }
+    @keyframes cosy-list-ring {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+    }
+</style>

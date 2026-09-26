@@ -1,0 +1,795 @@
+---
+/**
+ * @component Image
+ *
+ * @description
+ * Image 组件是一个智能图片组件，根据图片源类型自动选择合适的处理方式。
+ * 对于本地图片（ImageMetadata）使用 Astro 内置的 astro:assets <Image> 进行优化，
+ * 对于远程图片 URL 直接渲染 <img>，并提供加载占位、错误回退、tooltip 与点击预览。
+ *
+ * @usage
+ * 基本用法（自动识别图片类型）：
+ * ```astro
+ * <Image src="/images/photo.jpg" alt="本地图片" />
+ * <Image src="https://example.com/image.jpg" alt="远程图片" />
+ * ```
+ *
+ * 带样式效果：
+ * ```astro
+ * <Image src="/images/photo.jpg" alt="一张照片" rounded="lg" shadow="md" hover="scale" />
+ * ```
+ *
+ * 远程图片带加载指示器：
+ * ```astro
+ * <Image src="https://example.com/large-image.jpg" alt="远程大图" loadingIndicator="progress" />
+ * ```
+ */
+
+import type { ImageSource } from '../src/common/image-source';
+
+/* ------------------------------------------------------------------ *
+ * 类型（组件自包含，与历史 API 保持一致）
+ * ------------------------------------------------------------------ */
+
+export type { ImageSource };
+
+export type RoundedSize = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';
+
+export type ShadowSize = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+
+export type BorderSize = 'none' | 'sm' | 'md' | 'lg' | 'xl';
+
+export type MaskType = 'none' | 'circle' | 'decagon' | 'diamond' | 'heart' | 'hexagon' | 'hexagon-2' | 'pentagon' | 'square' | 'squircle' | 'star' | 'star-2' | 'triangle' | 'triangle-2' | 'triangle-3' | 'triangle-4';
+
+export type ObjectFitType = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+
+export type HoverType = 'none' | 'scale' | 'brightness' | 'blur';
+
+export type TransitionType = 'none' | 'fade' | 'slide' | 'zoom';
+
+export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
+
+export type TooltipColor = 'neutral' | 'primary' | 'secondary' | 'accent' | 'info' | 'success' | 'warning' | 'error';
+
+/**
+ * Image 组件属性
+ */
+export interface Props {
+	/** 图片的替代文本 */
+	alt: string;
+	/** 图片源，可以是本地图片元数据或远程 URL */
+	src: ImageSource;
+	/** 自定义 CSS 类名（透传到 <img>） */
+	class?: string;
+	/** 图片宽度（px） */
+	width?: number;
+	/** 图片高度（px） */
+	height?: number;
+	/** Astro Image 布局方式
+	 * @default "constrained" */
+	layout?: string;
+	/** 作为背景层渲染，使容器绝对定位铺满父级
+	 * @default false */
+	asBackground?: boolean;
+	/** 是否启用图片懒加载（远程图片；与 loading 等价的兼容别名）
+	 * @default true */
+	lazy?: boolean;
+	/** 加载方式
+	 * @default "lazy" */
+	loading?: 'lazy' | 'eager';
+	/** 填充方式
+	 * @default "cover" */
+	objectFit?: ObjectFitType;
+	/** 图片在容器中的位置
+	 * @default "center" */
+	objectPosition?: string;
+	/** 圆角大小
+	 * @default "none" */
+	rounded?: RoundedSize;
+	/** 遮罩形状
+	 * @default "none" */
+	mask?: MaskType;
+	/** 阴影效果
+	 * @default "none" */
+	shadow?: ShadowSize;
+	/** 边框粗细
+	 * @default "none" */
+	border?: BorderSize;
+	/** 悬停效果
+	 * @default "none" */
+	hover?: HoverType;
+	/** 过渡动画
+	 * @default "none" */
+	transition?: TransitionType;
+	/** 加载指示器类型（仅远程图片）
+	 * @default "skeleton" */
+	loadingIndicator?: 'pulse' | 'spinner' | 'progress' | 'skeleton';
+	/** 是否显示加载占位图（仅远程图片）
+	 * @default true */
+	showPlaceholder?: boolean;
+	/** 是否显示错误回退图（仅远程图片）
+	 * @default true */
+	showError?: boolean;
+	/** 图片提示文本 */
+	tooltip?: string;
+	/** tooltip 位置
+	 * @default "top" */
+	tooltipPlacement?: TooltipPlacement;
+	/** tooltip 颜色主题
+	 * @default "neutral" */
+	tooltipColor?: TooltipColor;
+	/** 是否强制显示 tooltip
+	 * @default false */
+	tooltipOpen?: boolean;
+	/** 是否启用点击预览大图
+	 * @default false */
+	preview?: boolean;
+}
+
+/** 历史别名 */
+export type IImageProps = Props;
+
+/* ------------------------------------------------------------------ *
+ * BEM 修饰符映射（原生 CSS，不依赖 cn() 与 Tailwind 工具类前缀）
+ * ------------------------------------------------------------------ */
+
+const roundedMod: Record<RoundedSize, string> = {
+	none: '',
+	sm: 'cosy-image--rounded-sm',
+	md: 'cosy-image--rounded-md',
+	lg: 'cosy-image--rounded-lg',
+	xl: 'cosy-image--rounded-xl',
+	'2xl': 'cosy-image--rounded-2xl',
+	'3xl': 'cosy-image--rounded-3xl',
+	full: 'cosy-image--rounded-full',
+};
+
+const shadowMod: Record<ShadowSize, string> = {
+	none: '',
+	sm: 'cosy-image--shadow-sm',
+	md: 'cosy-image--shadow-md',
+	lg: 'cosy-image--shadow-lg',
+	xl: 'cosy-image--shadow-xl',
+	'2xl': 'cosy-image--shadow-2xl',
+};
+
+const borderMod: Record<BorderSize, string> = {
+	none: '',
+	sm: 'cosy-image--border-sm',
+	md: 'cosy-image--border-md',
+	lg: 'cosy-image--border-lg',
+	xl: 'cosy-image--border-xl',
+};
+
+const maskMod: Record<MaskType, string> = {
+	none: '',
+	circle: 'cosy-image--mask-circle',
+	decagon: 'cosy-image--mask-decagon',
+	diamond: 'cosy-image--mask-diamond',
+	heart: 'cosy-image--mask-heart',
+	hexagon: 'cosy-image--mask-hexagon',
+	'hexagon-2': 'cosy-image--mask-hexagon-2',
+	pentagon: 'cosy-image--mask-pentagon',
+	square: 'cosy-image--mask-square',
+	squircle: 'cosy-image--mask-squircle',
+	star: 'cosy-image--mask-star',
+	'star-2': 'cosy-image--mask-star-2',
+	triangle: 'cosy-image--mask-triangle',
+	'triangle-2': 'cosy-image--mask-triangle-2',
+	'triangle-3': 'cosy-image--mask-triangle-3',
+	'triangle-4': 'cosy-image--mask-triangle-4',
+};
+
+const fitMod: Record<ObjectFitType, string> = {
+	contain: 'cosy-image--fit-contain',
+	cover: 'cosy-image--fit-cover',
+	fill: 'cosy-image--fit-fill',
+	none: 'cosy-image--fit-none',
+	'scale-down': 'cosy-image--fit-scale-down',
+};
+
+const hoverMod: Record<HoverType, string> = {
+	none: '',
+	scale: 'cosy-image--hover-scale',
+	brightness: 'cosy-image--hover-brightness',
+	blur: 'cosy-image--hover-blur',
+};
+
+const transitionMod: Record<TransitionType, string> = {
+	none: '',
+	fade: 'cosy-image--transition-fade',
+	slide: 'cosy-image--transition-slide',
+	zoom: 'cosy-image--transition-zoom',
+};
+
+const tooltipPlacementMod: Record<TooltipPlacement, string> = {
+	top: 'cosy-image__tooltip--top',
+	bottom: 'cosy-image__tooltip--bottom',
+	left: 'cosy-image__tooltip--left',
+	right: 'cosy-image__tooltip--right',
+};
+
+const tooltipColorMod: Record<TooltipColor, string> = {
+	neutral: 'cosy-image__tooltip--neutral',
+	primary: 'cosy-image__tooltip--primary',
+	secondary: 'cosy-image__tooltip--secondary',
+	accent: 'cosy-image__tooltip--accent',
+	info: 'cosy-image__tooltip--info',
+	success: 'cosy-image__tooltip--success',
+	warning: 'cosy-image__tooltip--warning',
+	error: 'cosy-image__tooltip--error',
+};
+
+/* ------------------------------------------------------------------ *
+ * Props 解构
+ * ------------------------------------------------------------------ */
+
+const {
+	src: imageSource,
+	alt,
+	width,
+	height,
+	layout = 'constrained',
+	asBackground = false,
+	loading = 'lazy',
+	objectFit = 'cover',
+	objectPosition = 'center',
+	showPlaceholder = true,
+	showError = true,
+	class: className = '',
+	rounded = 'none',
+	mask = 'none',
+	shadow = 'none',
+	border = 'none',
+	hover = 'none',
+	transition = 'none',
+	loadingIndicator = 'skeleton',
+	tooltip,
+	tooltipPlacement = 'top',
+	tooltipColor = 'neutral',
+	tooltipOpen = false,
+	preview = false,
+} = Astro.props as Props;
+
+/** 是否为本地图片（ImageMetadata） */
+const isLocalImage = typeof imageSource !== 'string';
+const previewId = `cosy-image-preview-${Math.random().toString(36).slice(2)}`;
+const previewSrc = isLocalImage ? (imageSource as ImageMetadata).src : (imageSource as string);
+
+/** 根容器类名 */
+const rootClasses = [
+	'cosy-image',
+	asBackground ? 'cosy-image--fill' : '',
+	roundedMod[rounded],
+	shadowMod[shadow],
+	borderMod[border],
+	maskMod[mask],
+	fitMod[objectFit],
+	hoverMod[hover],
+	transitionMod[transition],
+	preview ? 'cosy-image--preview' : '',
+]
+	.filter(Boolean)
+	.join(' ');
+
+/** <img> 类名（透传用户 className） */
+const imgClasses = [
+	'cosy-image__img',
+	layout === 'fill' ? 'cosy-image__img--fill' : '',
+	className,
+]
+	.filter(Boolean)
+	.join(' ');
+
+/** tooltip 包装类名 */
+const tooltipClasses = [
+	'cosy-image__tooltip',
+	tooltip ? tooltipPlacementMod[tooltipPlacement] : '',
+	tooltip ? tooltipColorMod[tooltipColor] : '',
+	tooltip && tooltipOpen ? 'cosy-image__tooltip--open' : '',
+]
+	.filter(Boolean)
+	.join(' ');
+
+/** 占位图类名 */
+const placeholderClasses = ['cosy-image__placeholder', loadingIndicator === 'pulse' ? 'cosy-image__placeholder--pulse' : '']
+	.filter(Boolean)
+	.join(' ');
+---
+
+<div
+	class={rootClasses}
+	data-image-container
+	onclick={preview ? `window.__cosyImagePreviewOpen('${previewId}')` : undefined}>
+	{
+		tooltip ? (
+			<div class={tooltipClasses} {...(tooltip && { 'data-tip': tooltip })}>
+				{isLocalImage ? (
+					<img
+						src={(imageSource as ImageMetadata).src}
+						alt={alt}
+						width={layout === 'fill' ? undefined : width}
+						height={layout === 'fill' ? undefined : height}
+						loading={loading as any}
+						class={imgClasses}
+						style={{ objectPosition }}
+					/>
+				) : (
+					<img
+						src={imageSource as string}
+						alt={alt}
+						width={layout === 'fill' ? undefined : width}
+						height={layout === 'fill' ? undefined : height}
+						loading={loading}
+						fetchpriority={loading === 'eager' ? 'high' : 'auto'}
+						class={imgClasses}
+						style={{ objectPosition }}
+						data-remote="true"
+						decoding="async"
+						data-src={imageSource as string}
+					/>
+				)}
+			</div>
+		) : isLocalImage ? (
+			<img
+				src={(imageSource as ImageMetadata).src}
+				alt={alt}
+				width={layout === 'fill' ? undefined : width}
+				height={layout === 'fill' ? undefined : height}
+				loading={loading as any}
+				class={imgClasses}
+				style={{ objectPosition }}
+			/>
+		) : (
+			<img
+				src={imageSource as string}
+				alt={alt}
+				width={layout === 'fill' ? undefined : width}
+				height={layout === 'fill' ? undefined : height}
+				loading={loading}
+				fetchpriority={loading === 'eager' ? 'high' : 'auto'}
+				class={imgClasses}
+				style={{ objectPosition }}
+				data-remote="true"
+				decoding="async"
+				data-src={imageSource as string}
+			/>
+		)
+	}
+
+	{/* 远程图片：加载占位 */}
+	{
+		!isLocalImage && showPlaceholder && (
+			<div class={placeholderClasses} data-placeholder>
+				{loadingIndicator === 'spinner' && <div class="cosy-image__spinner" aria-hidden="true" />}
+				{loadingIndicator === 'progress' && (
+					<div class="cosy-image__progress">
+						<progress class="cosy-image__progress-bar" max="100" value="0" />
+					</div>
+				)}
+			</div>
+		)
+	}
+
+	{/* 远程图片：错误回退 */}
+	{
+		!isLocalImage && showError && (
+			<div class="cosy-image__error" data-error hidden>
+				<svg
+					class="cosy-image__error-icon"
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					stroke-width="2">
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+				</svg>
+			</div>
+		)
+	}
+</div>
+
+{/* 点击预览大图 */}
+{
+	preview && (
+		<div
+			id={previewId}
+			class="cosy-image__preview"
+			data-cosy-image-preview
+			onclick={`window.__cosyImagePreviewClose('${previewId}')`}>
+			<div class="cosy-image__preview-inner">
+				<img
+					src={previewSrc}
+					alt={alt}
+					class="cosy-image__preview-img"
+					onclick="(e) => e.stopPropagation()" />
+				<button
+					type="button"
+					class="cosy-image__preview-close"
+					aria-label="关闭预览"
+					onclick={`(e) => { e.stopPropagation(); window.__cosyImagePreviewClose('${previewId}'); }`}>
+					✕
+				</button>
+			</div>
+		</div>
+	)
+}
+
+<style is:global>
+	/* Image - 原生 CSS 自包含实现（daisyui corporate 主题色） */
+	.cosy-image {
+		/* corporate 主题色变量 */
+		--cosy-image-primary: #2563eb;
+		--cosy-image-secondary: #1e4cd8;
+		--cosy-image-accent: #6419e6;
+		--cosy-image-neutral: #2b3440;
+		--cosy-image-base-100: #ffffff;
+		--cosy-image-base-200: #ebecf0;
+		--cosy-image-base-300: #dddde3;
+		--cosy-image-info: #00b8d4;
+		--cosy-image-success: #00897b;
+		--cosy-image-warning: #f2c200;
+		--cosy-image-error: #e63d09;
+
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+		margin: auto;
+		box-sizing: border-box;
+		line-height: 0;
+	}
+
+	.cosy-image--fill {
+		position: absolute;
+		inset: 0;
+	}
+
+	.cosy-image--preview {
+		cursor: zoom-in;
+	}
+
+	/* ---------- <img> ---------- */
+	.cosy-image__img {
+		display: block;
+		max-width: 100%;
+		max-height: 100%;
+		height: auto;
+		margin: 0 auto;
+		background: var(--cosy-image-base-200);
+	}
+
+	.cosy-image__img--fill {
+		width: 100%;
+		height: 100%;
+	}
+
+	/* object-fit 由根修饰符驱动 */
+	.cosy-image--fit-contain .cosy-image__img { object-fit: contain; }
+	.cosy-image--fit-cover .cosy-image__img { object-fit: cover; }
+	.cosy-image--fit-fill .cosy-image__img { object-fit: fill; }
+	.cosy-image--fit-none .cosy-image__img { object-fit: none; }
+	.cosy-image--fit-scale-down .cosy-image__img { object-fit: scale-down; }
+
+	/* 圆角（img / 占位 / 错误统一） */
+	.cosy-image--rounded-sm .cosy-image__img,
+	.cosy-image--rounded-sm .cosy-image__placeholder,
+	.cosy-image--rounded-sm .cosy-image__error { border-radius: 0.125rem; }
+	.cosy-image--rounded-md .cosy-image__img,
+	.cosy-image--rounded-md .cosy-image__placeholder,
+	.cosy-image--rounded-md .cosy-image__error { border-radius: 0.375rem; }
+	.cosy-image--rounded-lg .cosy-image__img,
+	.cosy-image--rounded-lg .cosy-image__placeholder,
+	.cosy-image--rounded-lg .cosy-image__error { border-radius: 0.5rem; }
+	.cosy-image--rounded-xl .cosy-image__img,
+	.cosy-image--rounded-xl .cosy-image__placeholder,
+	.cosy-image--rounded-xl .cosy-image__error { border-radius: 0.75rem; }
+	.cosy-image--rounded-2xl .cosy-image__img,
+	.cosy-image--rounded-2xl .cosy-image__placeholder,
+	.cosy-image--rounded-2xl .cosy-image__error { border-radius: 1rem; }
+	.cosy-image--rounded-3xl .cosy-image__img,
+	.cosy-image--rounded-3xl .cosy-image__placeholder,
+	.cosy-image--rounded-3xl .cosy-image__error { border-radius: 1.5rem; }
+	.cosy-image--rounded-full .cosy-image__img,
+	.cosy-image--rounded-full .cosy-image__placeholder,
+	.cosy-image--rounded-full .cosy-image__error { border-radius: 9999px; }
+
+	/* 阴影 */
+	.cosy-image--shadow-sm .cosy-image__img { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
+	.cosy-image--shadow-md .cosy-image__img { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
+	.cosy-image--shadow-lg .cosy-image__img { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+	.cosy-image--shadow-xl .cosy-image__img { box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+	.cosy-image--shadow-2xl .cosy-image__img { box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }
+
+	/* 边框 */
+	.cosy-image--border-sm .cosy-image__img { border: 1px solid var(--cosy-image-base-300); box-sizing: border-box; }
+	.cosy-image--border-md .cosy-image__img { border: 2px solid var(--cosy-image-base-300); box-sizing: border-box; }
+	.cosy-image--border-lg .cosy-image__img { border: 4px solid var(--cosy-image-base-300); box-sizing: border-box; }
+	.cosy-image--border-xl .cosy-image__img { border: 8px solid var(--cosy-image-base-300); box-sizing: border-box; }
+
+	/* 遮罩（clip-path，覆盖常用几何形状） */
+	.cosy-image--mask-circle .cosy-image__img,
+	.cosy-image--mask-circle .cosy-image__placeholder { clip-path: circle(50% at 50% 50%); }
+	.cosy-image--mask-diamond .cosy-image__img,
+	.cosy-image--mask-diamond .cosy-image__placeholder { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+	.cosy-image--mask-hexagon .cosy-image__img,
+	.cosy-image--mask-hexagon .cosy-image__placeholder { clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%); }
+	.cosy-image--mask-pentagon .cosy-image__img,
+	.cosy-image--mask-pentagon .cosy-image__placeholder { clip-path: polygon(50% 0, 100% 38%, 82% 100%, 18% 100%, 0 38%); }
+	.cosy-image--mask-triangle .cosy-image__img,
+	.cosy-image--mask-triangle .cosy-image__placeholder { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+	.cosy-image--mask-star .cosy-image__img,
+	.cosy-image--mask-star .cosy-image__placeholder { clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+	.cosy-image--mask-heart .cosy-image__img,
+	.cosy-image--mask-heart .cosy-image__placeholder { clip-path: path('M12 21s-7-4.35-9.5-8.5C.5 9 2 5 6 5c2 0 3.5 1 6 3.5C14.5 6 16 5 18 5c4 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z'); }
+
+	/* 悬停效果 */
+	.cosy-image--hover-scale .cosy-image__img { transition: transform 0.3s ease; }
+	.cosy-image--hover-scale:hover .cosy-image__img { transform: scale(1.1); }
+	.cosy-image--hover-brightness .cosy-image__img { transition: filter 0.3s ease; }
+	.cosy-image--hover-brightness:hover .cosy-image__img { filter: brightness(1.1); }
+	.cosy-image--hover-blur .cosy-image__img { transition: filter 0.3s ease; }
+	.cosy-image--hover-blur:hover .cosy-image__img { filter: blur(2px); }
+
+	/* 过渡动画 */
+	.cosy-image--transition-fade .cosy-image__img { transition: opacity 0.3s ease; }
+	.cosy-image--transition-slide .cosy-image__img { transition: transform 0.3s ease; }
+	.cosy-image--transition-zoom .cosy-image__img { transition: all 0.3s ease; }
+
+	/* ---------- tooltip ---------- */
+	.cosy-image__tooltip {
+		position: relative;
+		display: inline-flex;
+		max-width: 100%;
+		line-height: 0;
+	}
+	.cosy-image__tooltip::after {
+		content: attr(data-tip);
+		position: absolute;
+		z-index: 10;
+		max-width: 16rem;
+		padding: 0.375rem 0.625rem;
+		border-radius: 0.375rem;
+		font-size: 0.75rem;
+		line-height: 1.25;
+		white-space: nowrap;
+		color: #fff;
+		background: var(--cosy-image-neutral);
+		box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.2s ease;
+	}
+	.cosy-image__tooltip::before {
+		content: '';
+		position: absolute;
+		z-index: 10;
+		border: 5px solid transparent;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.2s ease;
+	}
+	.cosy-image__tooltip:hover::after,
+	.cosy-image__tooltip:hover::before,
+	.cosy-image__tooltip--open::after,
+	.cosy-image__tooltip--open::before {
+		opacity: 1;
+	}
+	/* 位置 */
+	.cosy-image__tooltip--top::after { bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); }
+	.cosy-image__tooltip--top::before { bottom: 100%; left: 50%; transform: translateX(-50%); border-top-color: var(--cosy-image-neutral); }
+	.cosy-image__tooltip--bottom::after { top: calc(100% + 8px); left: 50%; transform: translateX(-50%); }
+	.cosy-image__tooltip--bottom::before { top: 100%; left: 50%; transform: translateX(-50%); border-bottom-color: var(--cosy-image-neutral); }
+	.cosy-image__tooltip--left::after { right: calc(100% + 8px); top: 50%; transform: translateY(-50%); }
+	.cosy-image__tooltip--left::before { right: 100%; top: 50%; transform: translateY(-50%); border-left-color: var(--cosy-image-neutral); }
+	.cosy-image__tooltip--right::after { left: calc(100% + 8px); top: 50%; transform: translateY(-50%); }
+	.cosy-image__tooltip--right::before { left: 100%; top: 50%; transform: translateY(-50%); border-right-color: var(--cosy-image-neutral); }
+	/* 颜色（箭头颜色跟随主题色） */
+	.cosy-image__tooltip--primary::after { background: var(--cosy-image-primary); }
+	.cosy-image__tooltip--primary--top::before, .cosy-image__tooltip--primary--bottom::before { border-top-color: var(--cosy-image-primary); border-bottom-color: var(--cosy-image-primary); }
+	.cosy-image__tooltip--secondary::after { background: var(--cosy-image-secondary); }
+	.cosy-image__tooltip--accent::after { background: var(--cosy-image-accent); }
+	.cosy-image__tooltip--info::after { background: var(--cosy-image-info); }
+	.cosy-image__tooltip--success::after { background: var(--cosy-image-success); }
+	.cosy-image__tooltip--warning::after { background: var(--cosy-image-warning); color: #fff; }
+	.cosy-image__tooltip--error::after { background: var(--cosy-image-error); }
+
+	/* ---------- 占位 / 错误 ---------- */
+	.cosy-image__placeholder {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: var(--cosy-image-base-300);
+		transition: opacity 0.3s ease;
+	}
+	.cosy-image__placeholder--pulse {
+		animation: cosy-image-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+	}
+	.cosy-image__placeholder--done {
+		opacity: 0;
+	}
+	@keyframes cosy-image-pulse {
+		0%, 100% { opacity: 1; }
+		50% { opacity: 0.5; }
+	}
+	.cosy-image__spinner {
+		width: 2rem;
+		height: 2rem;
+		border: 3px solid var(--cosy-image-base-200);
+		border-top-color: var(--cosy-image-primary);
+		border-radius: 9999px;
+		animation: cosy-image-spin 0.8s linear infinite;
+	}
+	@keyframes cosy-image-spin {
+		to { transform: rotate(360deg); }
+	}
+	.cosy-image__progress {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}
+	.cosy-image__progress-bar {
+		width: 100%;
+		height: 0.375rem;
+	}
+	.cosy-image__error {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: color-mix(in srgb, var(--cosy-image-error) 10%, transparent);
+		color: var(--cosy-image-error);
+	}
+	.cosy-image__error[hidden] {
+		display: none;
+	}
+	.cosy-image__error-icon {
+		width: 2rem;
+		height: 2rem;
+	}
+
+	/* ---------- 预览大图 ---------- */
+	.cosy-image__preview {
+		position: fixed;
+		inset: 0;
+		z-index: 999;
+		display: none;
+		align-items: center;
+		justify-content: center;
+		padding: 1rem;
+		background: rgb(0 0 0 / 0.8);
+		backdrop-filter: blur(4px);
+	}
+	.cosy-image__preview--open {
+		display: flex;
+	}
+	.cosy-image__preview-inner {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.cosy-image__preview-img {
+		max-height: 85vh;
+		max-width: 92vw;
+		width: auto;
+		height: auto;
+		border-radius: 0.5rem;
+		box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+	}
+	.cosy-image__preview-close {
+		position: absolute;
+		top: 2rem;
+		right: 1rem;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.25rem;
+		height: 2.25rem;
+		padding: 0;
+		border: none;
+		border-radius: 9999px;
+		background: rgb(255 255 255 / 0.1);
+		color: #fff;
+		font-size: 1.125rem;
+		cursor: pointer;
+		transition: background 0.15s ease;
+	}
+	.cosy-image__preview-close:hover {
+		background: rgb(255 255 255 / 0.2);
+	}
+</style>
+
+<script>
+	// @ts-nocheck
+	function findContainer(img) {
+		let el = img.parentElement;
+		while (el && !el.hasAttribute('data-image-container')) {
+			el = el.parentElement;
+		}
+		return el;
+	}
+
+	function handleImageLoad(img) {
+		const container = findContainer(img);
+		if (!container) return;
+		container.querySelectorAll('[data-placeholder]').forEach((el) => {
+			el.classList.add('cosy-image__placeholder--done');
+			setTimeout(() => el.remove(), 300);
+		});
+	}
+
+	function handleImageError(img) {
+		const container = findContainer(img);
+		if (!container) return;
+		const placeholder = container.querySelector('[data-placeholder]');
+		if (placeholder) placeholder.remove();
+		const errorEl = container.querySelector('[data-error]');
+		if (errorEl) errorEl.removeAttribute('hidden');
+	}
+
+	function simulateLoadingProgress(img) {
+		const container = findContainer(img);
+		const progressBar = container && container.querySelector('progress');
+		if (!progressBar) return;
+
+		let progress = 0;
+		const interval = setInterval(() => {
+			progress += Math.random() * 15;
+			if (progress >= 100 || img.complete) {
+				clearInterval(interval);
+				progress = 100;
+			}
+			progressBar.value = Math.min(progress, 100);
+		}, 200);
+
+		img.addEventListener('load', () => {
+			clearInterval(interval);
+			progressBar.value = 100;
+		});
+		img.addEventListener('error', () => clearInterval(interval));
+	}
+
+	function initializeImageHandlers() {
+		document.querySelectorAll('img[data-remote]').forEach((node) => {
+			const img = node;
+			if (img.complete) {
+				handleImageLoad(img);
+			} else {
+				img.addEventListener('load', () => handleImageLoad(img));
+				img.addEventListener('error', () => handleImageError(img));
+				simulateLoadingProgress(img);
+			}
+		});
+	}
+
+	window.__cosyImagePreviewOpen = (id) => {
+		const el = document.getElementById(id);
+		if (!el) return;
+		el.classList.add('cosy-image__preview--open');
+		const onEsc = (e) => {
+			if (e.key === 'Escape') window.__cosyImagePreviewClose(id);
+		};
+		document.addEventListener('keydown', onEsc, { once: true });
+	};
+
+	window.__cosyImagePreviewClose = (id) => {
+		const el = document.getElementById(id);
+		if (!el) return;
+		el.classList.remove('cosy-image__preview--open');
+	};
+
+	document.addEventListener('astro:page-load', initializeImageHandlers);
+	initializeImageHandlers();
+</script>

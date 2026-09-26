@@ -1,0 +1,787 @@
+---
+/**
+ * @component Container
+ *
+ * @description
+ * Container 组件是一个基础的布局容器，用于限制内容宽度并居中显示。
+ * 它提供了多种尺寸和内边距选项，适用于各种布局需求。
+ * 当提供 aspectRatio 属性时，容器会保持指定的宽高比。
+ *
+ * @props
+ * @prop {number} [aspectRatio] - 宽高比（宽/高），设置后容器会保持这个比例，如 16/9、4/3、1 等
+ * @prop {string} [background] - 背景色类型，支持：primary、secondary、accent、neutral、base-100、base-200、base-300、info、success、warning、error，以及透明度变体如 primary/10、secondary/20 等
+ * @prop {ImageSource} [backgroundImage] - 背景图片源（本地 ImageMetadata 或远程 URL）。提供时会用图片铺底作为背景
+ * @prop {string} [border] - 边框尺寸，可选值：none、sm、md、lg、xl
+ * @prop {string} [borderColor] - 边框颜色，支持所有预定义颜色和透明度变体，如 primary、success、primary/50 等
+ * @prop {boolean} [centered=true] - 是否居中显示，设置为 false 时容器将靠左对齐
+ * @prop {boolean} [contentCentered=false] - 是否让内部内容居中显示，启用后会在容器内使用 flex 布局居中内容
+ * @prop {string} [class] - 自定义 CSS 类名，用于添加额外的样式
+ * @prop {string} [fit='none'] - 内容适配模式：none（默认）、contain（保持比例，尽量占满且不溢出）、cover（保持比例，铺满并可能裁剪）
+ * @prop {string} [flex] - flex 布局方向，可选值：row、col、row-reverse、col-reverse，不设置则不启用 flex 布局
+ * @prop {string} [gap='none'] - flex 项目间距，可选值：none、xs、sm、md、lg、xl，仅在启用 flex 布局时生效
+ * @prop {string} [height] - 容器高度，可选值：none、3xs、2xs、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl、screen、auto、full
+ * @prop {string} [items] - flex 项目对齐方式，可选值：start、end、center、baseline、stretch
+ * @prop {string} [justify] - flex 项目分布方式，可选值：start、end、center、between、around、evenly
+ * @prop {string} [margin='none'] - 外边距大小，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl、6xl
+ * @prop {boolean} [muted=false] - 是否使用柔和色样式（未激活状态）
+ * @prop {string} [padding='md'] - 内边距大小，可选值：none、xs、sm、md、lg、xl、2xl、3xl、4xl、5xl
+ * @prop {string} [py] - 垂直内边距（上下）
+ * @prop {string} [pt] - 顶部内边距
+ * @prop {string} [pb] - 底部内边距
+ * @prop {string} [px] - 水平内边距（左右）
+ * @prop {string} [pl] - 左侧内边距
+ * @prop {string} [pr] - 右侧内边距
+ * @prop {string} [shadow='none'] - 阴影大小，可选值：none、sm、md、lg、xl、2xl
+ * @prop {string} [width='md'] - 容器宽度，可选值：xs、sm、md、lg、xl、2xl、3xl、4xl、full
+ * @prop {string} [rounded='none'] - 圆角大小，可选值：none、sm、md、lg、xl、2xl、3xl、full
+ * @prop {...HTMLAttributes<'div'>} [rest] - 其他 HTML div 标签属性
+ */
+
+import type { HTMLAttributes } from "astro/types";
+import Alert from "./Alert.astro";
+import Image from "./Image.astro";
+import type { ImageSource } from "./Image.astro";
+import type { BackgroundColor } from "../src/common/backgrounds";
+import type { BorderColor, BorderSize } from "../src/common/border";
+import type { FitMode } from "../src/common/fitmode";
+import type { HeightSize } from "../src/common/height";
+import type {
+	FlexAlign,
+	FlexDirection,
+	FlexJustify,
+	GapSize,
+} from "../src/common/layout";
+import type { MarginSize } from "../src/common/margin";
+import type { PaddingSize } from "../src/common/padding";
+import type { RoundedSize } from "../src/common/rounded";
+import type { ShadowSize } from "../src/common/shadow";
+import type { Size } from "../src/common/size";
+
+/**
+ * Container 组件属性（组件自包含定义）
+ */
+export interface IContainerProps
+	extends Omit<HTMLAttributes<"div">, "class"> {
+	/** 宽高比（宽/高） */
+	aspectRatio?: number;
+	/** 是否居中显示 @default true */
+	centered?: boolean;
+	/** 自定义类名 */
+	class?: string;
+	/** 是否让内部内容居中 @default false */
+	contentCentered?: boolean;
+	/** flex 布局方向 */
+	flex?: FlexDirection;
+	/** 内容适配模式 @default 'none' */
+	fit?: FitMode;
+	/** flex 间距 @default 'none' */
+	gap?: GapSize;
+	/** 容器高度 */
+	height?: HeightSize;
+	/** flex 项目对齐 */
+	items?: FlexAlign;
+	/** flex 项目分布 */
+	justify?: FlexJustify;
+	/** 外边距 @default 'none' */
+	margin?: MarginSize;
+	/** 柔和色样式 @default false */
+	muted?: boolean;
+	/** 内边距 @default 'md' */
+	padding?: PaddingSize;
+	py?: PaddingSize;
+	pt?: PaddingSize;
+	pb?: PaddingSize;
+	px?: PaddingSize;
+	pl?: PaddingSize;
+	pr?: PaddingSize;
+	/** 阴影 @default 'none' */
+	shadow?: ShadowSize;
+	/** 容器宽度 */
+	width?: Size;
+	/** 圆角 @default 'none' */
+	rounded?: RoundedSize;
+	/** 背景色 */
+	background?: BackgroundColor;
+	/** 边框尺寸 @default 'none' */
+	border?: BorderSize;
+	/** 边框颜色 */
+	borderColor?: BorderColor;
+	/** 背景图片源 */
+	backgroundImage?: ImageSource;
+}
+
+export interface Props extends IContainerProps {}
+
+/* ==================== 校验逻辑（内联） ==================== */
+
+interface PaddingConflictResult {
+	hasConflict: boolean;
+	message?: string;
+}
+
+function validatePaddingConflict(
+	px?: string,
+	pl?: string,
+	pr?: string,
+	py?: string,
+	pt?: string,
+	pb?: string,
+): PaddingConflictResult {
+	const hasPaddingX = px && px !== "none";
+	const hasPaddingLeft = pl && pl !== "none";
+	const hasPaddingRight = pr && pr !== "none";
+	const hasPaddingY = py && py !== "none";
+	const hasPaddingTop = pt && pt !== "none";
+	const hasPaddingBottom = pb && pb !== "none";
+
+	if (hasPaddingX && (hasPaddingLeft || hasPaddingRight)) {
+		return {
+			hasConflict: true,
+			message:
+				"不能同时使用 px 和 pl/pr 属性，因为它们都会设置水平内边距。请只使用其中一种方式。",
+		};
+	}
+	if (hasPaddingY && (hasPaddingTop || hasPaddingBottom)) {
+		return {
+			hasConflict: true,
+			message:
+				"不能同时使用 py 和 pt/pb 属性，因为它们都会设置垂直内边距。请只使用其中一种方式。",
+		};
+	}
+	return { hasConflict: false };
+}
+
+function validateSizing(props: Record<string, unknown>): string[] {
+	const messages: string[] = [];
+	const isAspectRatioSet =
+		Object.hasOwn(props, "aspectRatio") && props.aspectRatio !== undefined;
+	const isHeightSet =
+		Object.hasOwn(props, "height") &&
+		props.height !== undefined &&
+		props.height !== "none";
+	const isWidthSet =
+		Object.hasOwn(props, "width") &&
+		props.width !== undefined &&
+		props.width !== "none";
+
+	if (isAspectRatioSet && isHeightSet && isWidthSet) {
+		messages.push(
+			"不能同时设置 aspectRatio、width 与 height。可两两组合，但不能同时设置3个。",
+		);
+	}
+	const fit = props.fit as string;
+	if (fit && fit !== "none" && !isAspectRatioSet) {
+		messages.push("参数不完整：启用了 fit，但未设置 aspectRatio。");
+	}
+	return messages;
+}
+
+function validateContainer(props: Record<string, unknown>): string[] {
+	const messages: string[] = [];
+	const paddingResult = validatePaddingConflict(
+		props.px as string,
+		props.pl as string,
+		props.pr as string,
+		props.py as string,
+		props.pt as string,
+		props.pb as string,
+	);
+	if (paddingResult.hasConflict && paddingResult.message) {
+		messages.push(paddingResult.message);
+	}
+	messages.push(...validateSizing(props));
+	return messages;
+}
+
+/* ==================== BEM 类名映射 ==================== */
+
+/** 颜色 CSS 变量名映射 */
+const bgColorVarMap: Record<string, string> = {
+	primary: "--cosy-container-primary",
+	secondary: "--cosy-container-secondary",
+	accent: "--cosy-container-accent",
+	neutral: "--cosy-container-neutral",
+	"base-100": "--cosy-container-base-100",
+	"base-200": "--cosy-container-base-200",
+	"base-300": "--cosy-container-base-300",
+	success: "--cosy-container-success",
+	warning: "--cosy-container-warning",
+	error: "--cosy-container-error",
+	info: "--cosy-container-info",
+	transparent: "--cosy-container-transparent",
+};
+
+/** 解析背景色：返回 BEM 修饰类名与（可选）覆盖 CSS 变量的内联样式 */
+function resolveBackground(
+	background?: BackgroundColor,
+): { modifier: string; style: string } {
+	if (!background || background === "none") return { modifier: "", style: "" };
+	if (background === "transparent")
+		return { modifier: "cosy-container--bg-transparent", style: "" };
+	const idx = background.indexOf("/");
+	const name = idx >= 0 ? background.slice(0, idx) : background;
+	const op = idx >= 0 ? background.slice(idx + 1) : "";
+	const varName = bgColorVarMap[name];
+	if (!varName) return { modifier: "", style: "" };
+	const modifier = `cosy-container--bg-${name}`;
+	if (!op) return { modifier, style: "" };
+	return {
+		modifier,
+		style: `--cosy-container-bg: color-mix(in srgb, var(${varName}) ${op}%, transparent);`,
+	};
+}
+
+/** 解析边框颜色：返回 BEM 修饰类名与（可选）覆盖 CSS 变量的内联样式 */
+function resolveBorderColor(
+	borderColor?: BorderColor,
+): { modifier: string; style: string } {
+	if (!borderColor || borderColor === "none") return { modifier: "", style: "" };
+	if (borderColor === "transparent")
+		return { modifier: "cosy-container--border-color-transparent", style: "" };
+	const idx = borderColor.indexOf("/");
+	const name = idx >= 0 ? borderColor.slice(0, idx) : borderColor;
+	const op = idx >= 0 ? borderColor.slice(idx + 1) : "";
+	const varName = bgColorVarMap[name];
+	if (!varName) return { modifier: "", style: "" };
+	const modifier = `cosy-container--border-color-${name}`;
+	if (!op) return { modifier, style: "" };
+	return {
+		modifier,
+		style: `--cosy-container-border-color: color-mix(in srgb, var(${varName}) ${op}%, transparent);`,
+	};
+}
+
+const sizeToMod = (prefix: string) => (v?: string) =>
+	v && v !== "none" ? `cosy-container--${prefix}-${v}` : "";
+
+const widthMod = sizeToMod("width");
+const paddingMod = sizeToMod("padding");
+const pyMod = sizeToMod("py");
+const ptMod = sizeToMod("pt");
+const pbMod = sizeToMod("pb");
+const pxMod = sizeToMod("px");
+const plMod = sizeToMod("pl");
+const prMod = sizeToMod("pr");
+const marginMod = sizeToMod("margin");
+const heightMod = sizeToMod("height");
+const roundedMod = sizeToMod("rounded");
+const shadowMod = sizeToMod("shadow");
+const borderMod = sizeToMod("border");
+const gapMod = sizeToMod("gap");
+
+/**
+ * 组合 Container 根元素类名
+ */
+function getContainerClasses(props: IContainerProps): string {
+	const {
+		width = "md",
+		padding = "md",
+		py,
+		pt,
+		pb,
+		px,
+		pl,
+		pr,
+		margin = "none",
+		muted = false,
+		rounded = "none",
+		flex,
+		gap = "none",
+		items,
+		justify,
+		height,
+		border = "none",
+		borderColor,
+		shadow = "none",
+		class: className = "",
+		centered = true,
+		contentCentered = false,
+		background,
+	} = props;
+
+	const { modifier: bgMod } = resolveBackground(background);
+	const { modifier: bcMod } = resolveBorderColor(borderColor);
+
+	const classes = [
+		"cosy-container",
+		centered ? "cosy-container--centered" : "",
+		contentCentered ? "cosy-container--content-centered" : "",
+		widthMod(width),
+		paddingMod(padding),
+		pyMod(py),
+		ptMod(pt),
+		pbMod(pb),
+		pxMod(px),
+		plMod(pl),
+		prMod(pr),
+		marginMod(margin),
+		muted ? "cosy-container--muted" : "",
+		roundedMod(rounded),
+		bgMod,
+		shadowMod(shadow),
+		borderMod(border),
+		bcMod,
+		flex ? "cosy-container--flex" : "",
+		flex ? `cosy-container--flex-${flex}` : "",
+		flex ? gapMod(gap) : "",
+		flex && items ? `cosy-container--items-${items}` : "",
+		flex && justify ? `cosy-container--justify-${justify}` : "",
+		heightMod(height),
+		className,
+	];
+
+	return classes.filter(Boolean).join(" ");
+}
+
+/* ==================== 渲染 ==================== */
+
+const props = Astro.props as IContainerProps;
+
+const {
+	aspectRatio,
+	backgroundImage,
+	background,
+	width = "md",
+	padding = "md",
+	py,
+	pt,
+	pb,
+	px,
+	pl,
+	pr,
+	margin = "none",
+	centered = true,
+	contentCentered = false,
+	fit = "none",
+	flex,
+	gap = "none",
+	items,
+	justify,
+	rounded = "none",
+	border = "none",
+	borderColor,
+	class: className = "",
+	height,
+	muted,
+	shadow = "none",
+	...rest
+} = props;
+
+// 校验
+const messages = validateContainer(Astro.props as Record<string, unknown>);
+const hasError = messages.length > 0;
+
+// 根元素类名
+const rootClass = getContainerClasses(props);
+
+// 背景色 / 边框色内联变量（处理透明度变体）
+const { style: bgStyle } = resolveBackground(background);
+const { style: borderColorStyle } = resolveBorderColor(borderColor);
+const rootInlineVars = [bgStyle, borderColorStyle].filter(Boolean).join(" ");
+
+// 宽高比分支判断
+const fitEnabled = fit !== "none" && typeof aspectRatio === "number";
+const isHeightDrivenAspect =
+	!fitEnabled && typeof aspectRatio === "number" && !!height && height !== "none";
+const hasExplicitHeight = !!height && height !== "none";
+
+// 内联样式：container-type / aspect-ratio / CSS 变量
+const inlineStyleParts: string[] = [];
+if (rootInlineVars) inlineStyleParts.push(rootInlineVars);
+if (fitEnabled) {
+	inlineStyleParts.push(
+		hasExplicitHeight ? "container-type: size;" : "container-type: inline-size;",
+	);
+} else if (aspectRatio && !isHeightDrivenAspect) {
+	inlineStyleParts.push(`aspect-ratio: ${aspectRatio};`);
+}
+const rootStyle = inlineStyleParts.join(" ");
+
+// rounded 修饰类名（用于宽高比盒子内部）
+const roundedClassMod = rounded && rounded !== "none" ? `cosy-container--rounded-${rounded}` : "";
+
+// aspect ratio 内联宽度样式（fit 模式 + 显式高度）
+const fitWidthStyle =
+	fit === "contain"
+		? `min(100cqw, calc(100cqh * ${aspectRatio}))`
+		: `max(100cqw, calc(100cqh * ${aspectRatio}))`;
+---
+
+{
+	hasError && (
+		<section class="cosy-container__error" aria-label="container-error">
+			<Alert type="warning" variant="soft" closable={false}>
+				<ul class="cosy-container__error-list">
+					{messages.map((message) => <li>{message}</li>)}
+				</ul>
+			</Alert>
+		</section>
+	)
+}
+
+{
+	!hasError && (
+		<section class={rootClass} style={rootStyle || undefined} {...rest}>
+			<!-- 最底层背景图片 -->
+			{backgroundImage && (
+				<Image
+					src={backgroundImage}
+					alt=""
+					layout="fill"
+					objectFit="cover"
+					asBackground
+					class="cosy-container__bg"
+				/>
+			)}
+
+			<!-- 情况1: fit + aspectRatio：宽高比适配盒子 -->
+			{fitEnabled &&
+				(hasExplicitHeight ? (
+					<div class="cosy-container__aspect-abs">
+						<div
+							style={`aspect-ratio: ${aspectRatio}; width: ${fitWidthStyle}; height: auto;`}>
+							<div class="cosy-container__aspect-inner">
+								<slot />
+							</div>
+						</div>
+					</div>
+				) : (
+					<div class={`cosy-container__aspect-grid ${roundedClassMod}`.trim()}>
+						<div style={`aspect-ratio: ${aspectRatio}; width: 100%; height: auto;`}>
+							<div
+								class={`cosy-container__aspect-inner ${roundedClassMod}`.trim()}
+								aria-label="container-content">
+								<slot />
+							</div>
+						</div>
+					</div>
+				))}
+
+			<!-- 情况2: 高度驱动宽高比（无 fit） -->
+			{!fitEnabled && isHeightDrivenAspect && (
+				<div class="cosy-container__hd-outer">
+					<div class="cosy-container__hd-inner">
+						<slot />
+					</div>
+				</div>
+			)}
+
+			<!-- 情况3: 默认直接渲染子元素 -->
+			{!fitEnabled && !isHeightDrivenAspect && <slot />}
+		</section>
+	)
+}
+
+<style is:global>
+	/* Container - 原生 CSS 实现（daisyui corporate 主题色） */
+	.cosy-container {
+		--cosy-container-primary: #4b6bfb;
+		--cosy-container-secondary: #7b92b2;
+		--cosy-container-accent: #67baa3;
+		--cosy-container-neutral: #181a2a;
+		--cosy-container-base-100: #ffffff;
+		--cosy-container-base-200: #e9e9e9;
+		--cosy-container-base-300: #d7d7d7;
+		--cosy-container-base-content: #1d1d1d;
+		--cosy-container-info: #2563eb;
+		--cosy-container-success: #16a34a;
+		--cosy-container-warning: #d97706;
+		--cosy-container-error: #dc2626;
+		--cosy-container-transparent: transparent;
+
+		--cosy-container-bg: transparent;
+		--cosy-container-border-color: var(--cosy-container-base-300);
+
+		box-sizing: border-box;
+		position: relative;
+		width: 100%;
+		display: block;
+		border-style: solid;
+		border-width: 0;
+		border-color: var(--cosy-container-border-color);
+		background-color: var(--cosy-container-bg);
+		color: var(--cosy-container-base-content);
+	}
+
+	/* 居中 */
+	.cosy-container--centered {
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	/* 内容居中 */
+	.cosy-container--content-centered {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	/* 宽度（max-width） */
+	.cosy-container--width-xs { max-width: 20rem; }
+	.cosy-container--width-sm { max-width: 24rem; }
+	.cosy-container--width-md { max-width: 42rem; }
+	.cosy-container--width-lg { max-width: 56rem; }
+	.cosy-container--width-xl { max-width: 72rem; }
+	.cosy-container--width-2xl { max-width: 80rem; }
+	.cosy-container--width-3xl { max-width: 88rem; }
+	.cosy-container--width-4xl { max-width: 96rem; }
+	.cosy-container--width-full { max-width: 100%; width: 100%; }
+
+	/* 内边距（四边 shorthand） */
+	.cosy-container--padding-none { padding: 0; }
+	.cosy-container--padding-xs { padding: 0.25rem; }
+	.cosy-container--padding-sm { padding: 0.5rem; }
+	.cosy-container--padding-md { padding: 1rem; }
+	.cosy-container--padding-lg { padding: 1.5rem; }
+	.cosy-container--padding-xl { padding: 2rem; }
+	.cosy-container--padding-2xl { padding: 2.5rem; }
+	.cosy-container--padding-3xl { padding: 3rem; }
+	.cosy-container--padding-4xl { padding: 4rem; }
+	.cosy-container--padding-5xl { padding: 5rem; }
+
+	/* 轴向内边距（覆盖 shorthand） */
+	.cosy-container--py-none { padding-top: 0; padding-bottom: 0; }
+	.cosy-container--py-xs { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+	.cosy-container--py-sm { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+	.cosy-container--py-md { padding-top: 1rem; padding-bottom: 1rem; }
+	.cosy-container--py-lg { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+	.cosy-container--py-xl { padding-top: 2rem; padding-bottom: 2rem; }
+	.cosy-container--py-2xl { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+	.cosy-container--py-3xl { padding-top: 3rem; padding-bottom: 3rem; }
+	.cosy-container--py-4xl { padding-top: 4rem; padding-bottom: 4rem; }
+	.cosy-container--py-5xl { padding-top: 5rem; padding-bottom: 5rem; }
+
+	.cosy-container--pt-none { padding-top: 0; }
+	.cosy-container--pt-xs { padding-top: 0.25rem; }
+	.cosy-container--pt-sm { padding-top: 0.5rem; }
+	.cosy-container--pt-md { padding-top: 1rem; }
+	.cosy-container--pt-lg { padding-top: 1.5rem; }
+	.cosy-container--pt-xl { padding-top: 2rem; }
+	.cosy-container--pt-2xl { padding-top: 2.5rem; }
+	.cosy-container--pt-3xl { padding-top: 3rem; }
+	.cosy-container--pt-4xl { padding-top: 4rem; }
+	.cosy-container--pt-5xl { padding-top: 5rem; }
+
+	.cosy-container--pb-none { padding-bottom: 0; }
+	.cosy-container--pb-xs { padding-bottom: 0.25rem; }
+	.cosy-container--pb-sm { padding-bottom: 0.5rem; }
+	.cosy-container--pb-md { padding-bottom: 1rem; }
+	.cosy-container--pb-lg { padding-bottom: 1.5rem; }
+	.cosy-container--pb-xl { padding-bottom: 2rem; }
+	.cosy-container--pb-2xl { padding-bottom: 2.5rem; }
+	.cosy-container--pb-3xl { padding-bottom: 3rem; }
+	.cosy-container--pb-4xl { padding-bottom: 4rem; }
+	.cosy-container--pb-5xl { padding-bottom: 5rem; }
+
+	.cosy-container--px-none { padding-left: 0; padding-right: 0; }
+	.cosy-container--px-xs { padding-left: 0.25rem; padding-right: 0.25rem; }
+	.cosy-container--px-sm { padding-left: 0.5rem; padding-right: 0.5rem; }
+	.cosy-container--px-md { padding-left: 1rem; padding-right: 1rem; }
+	.cosy-container--px-lg { padding-left: 1.5rem; padding-right: 1.5rem; }
+	.cosy-container--px-xl { padding-left: 2rem; padding-right: 2rem; }
+	.cosy-container--px-2xl { padding-left: 2.5rem; padding-right: 2.5rem; }
+	.cosy-container--px-3xl { padding-left: 3rem; padding-right: 3rem; }
+	.cosy-container--px-4xl { padding-left: 4rem; padding-right: 4rem; }
+	.cosy-container--px-5xl { padding-left: 5rem; padding-right: 5rem; }
+
+	.cosy-container--pl-none { padding-left: 0; }
+	.cosy-container--pl-xs { padding-left: 0.25rem; }
+	.cosy-container--pl-sm { padding-left: 0.5rem; }
+	.cosy-container--pl-md { padding-left: 1rem; }
+	.cosy-container--pl-lg { padding-left: 1.5rem; }
+	.cosy-container--pl-xl { padding-left: 2rem; }
+	.cosy-container--pl-2xl { padding-left: 2.5rem; }
+	.cosy-container--pl-3xl { padding-left: 3rem; }
+	.cosy-container--pl-4xl { padding-left: 4rem; }
+	.cosy-container--pl-5xl { padding-left: 5rem; }
+
+	.cosy-container--pr-none { padding-right: 0; }
+	.cosy-container--pr-xs { padding-right: 0.25rem; }
+	.cosy-container--pr-sm { padding-right: 0.5rem; }
+	.cosy-container--pr-md { padding-right: 1rem; }
+	.cosy-container--pr-lg { padding-right: 1.5rem; }
+	.cosy-container--pr-xl { padding-right: 2rem; }
+	.cosy-container--pr-2xl { padding-right: 2.5rem; }
+	.cosy-container--pr-3xl { padding-right: 3rem; }
+	.cosy-container--pr-4xl { padding-right: 4rem; }
+	.cosy-container--pr-5xl { padding-right: 5rem; }
+
+	/* 外边距（垂直） */
+	.cosy-container--margin-xs { margin-top: 0.25rem; margin-bottom: 0.25rem; }
+	.cosy-container--margin-sm { margin-top: 0.5rem; margin-bottom: 0.5rem; }
+	.cosy-container--margin-md { margin-top: 1rem; margin-bottom: 1rem; }
+	.cosy-container--margin-lg { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+	.cosy-container--margin-xl { margin-top: 2rem; margin-bottom: 2rem; }
+	.cosy-container--margin-2xl { margin-top: 3rem; margin-bottom: 3rem; }
+	.cosy-container--margin-3xl { margin-top: 4rem; margin-bottom: 4rem; }
+	.cosy-container--margin-4xl { margin-top: 5rem; margin-bottom: 5rem; }
+	.cosy-container--margin-5xl { margin-top: 6rem; margin-bottom: 6rem; }
+	.cosy-container--margin-6xl { margin-top: 8rem; margin-bottom: 8rem; }
+
+	/* 高度 */
+	.cosy-container--height-3xs { height: 2.5rem; }
+	.cosy-container--height-2xs { height: 3rem; }
+	.cosy-container--height-xs { height: 4rem; }
+	.cosy-container--height-sm { height: 6rem; }
+	.cosy-container--height-md { height: 8rem; }
+	.cosy-container--height-lg { height: 10rem; }
+	.cosy-container--height-xl { height: 12rem; }
+	.cosy-container--height-2xl { height: 14rem; }
+	.cosy-container--height-3xl { height: 16rem; }
+	.cosy-container--height-4xl { height: 18rem; }
+	.cosy-container--height-5xl { height: 20rem; }
+	.cosy-container--height-6xl { height: 24rem; }
+	.cosy-container--height-screen { height: 100vh; }
+	.cosy-container--height-auto { height: auto; }
+	.cosy-container--height-full { height: 100%; }
+
+	/* 圆角 */
+	.cosy-container--rounded-sm { border-radius: 0.125rem; }
+	.cosy-container--rounded-md { border-radius: 0.375rem; }
+	.cosy-container--rounded-lg { border-radius: 0.5rem; }
+	.cosy-container--rounded-xl { border-radius: 0.75rem; }
+	.cosy-container--rounded-2xl { border-radius: 1rem; }
+	.cosy-container--rounded-3xl { border-radius: 1.5rem; }
+	.cosy-container--rounded-full { border-radius: 9999px; }
+
+	/* 阴影 */
+	.cosy-container--shadow-sm { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
+	.cosy-container--shadow-sm:hover { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
+	.cosy-container--shadow-md { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
+	.cosy-container--shadow-md:hover { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
+	.cosy-container--shadow-lg { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+	.cosy-container--shadow-lg:hover { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+	.cosy-container--shadow-xl { box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+	.cosy-container--shadow-xl:hover { box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+	.cosy-container--shadow-2xl { box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }
+	.cosy-container--shadow-2xl:hover { box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }
+
+	/* 边框 */
+	.cosy-container--border-sm { border-width: 1px; }
+	.cosy-container--border-md { border-width: 2px; }
+	.cosy-container--border-lg { border-width: 4px; }
+	.cosy-container--border-xl { border-width: 8px; }
+
+	/* 背景色 */
+	.cosy-container--bg-primary { --cosy-container-bg: var(--cosy-container-primary); }
+	.cosy-container--bg-secondary { --cosy-container-bg: var(--cosy-container-secondary); }
+	.cosy-container--bg-accent { --cosy-container-bg: var(--cosy-container-accent); }
+	.cosy-container--bg-neutral { --cosy-container-bg: var(--cosy-container-neutral); }
+	.cosy-container--bg-base-100 { --cosy-container-bg: var(--cosy-container-base-100); }
+	.cosy-container--bg-base-200 { --cosy-container-bg: var(--cosy-container-base-200); }
+	.cosy-container--bg-base-300 { --cosy-container-bg: var(--cosy-container-base-300); }
+	.cosy-container--bg-success { --cosy-container-bg: var(--cosy-container-success); }
+	.cosy-container--bg-warning { --cosy-container-bg: var(--cosy-container-warning); }
+	.cosy-container--bg-error { --cosy-container-bg: var(--cosy-container-error); }
+	.cosy-container--bg-info { --cosy-container-bg: var(--cosy-container-info); }
+	.cosy-container--bg-transparent { --cosy-container-bg: transparent; }
+
+	/* 边框颜色 */
+	.cosy-container--border-color-primary { --cosy-container-border-color: var(--cosy-container-primary); }
+	.cosy-container--border-color-secondary { --cosy-container-border-color: var(--cosy-container-secondary); }
+	.cosy-container--border-color-accent { --cosy-container-border-color: var(--cosy-container-accent); }
+	.cosy-container--border-color-neutral { --cosy-container-border-color: var(--cosy-container-neutral); }
+	.cosy-container--border-color-base-100 { --cosy-container-border-color: var(--cosy-container-base-100); }
+	.cosy-container--border-color-base-200 { --cosy-container-border-color: var(--cosy-container-base-200); }
+	.cosy-container--border-color-base-300 { --cosy-container-border-color: var(--cosy-container-base-300); }
+	.cosy-container--border-color-success { --cosy-container-border-color: var(--cosy-container-success); }
+	.cosy-container--border-color-warning { --cosy-container-border-color: var(--cosy-container-warning); }
+	.cosy-container--border-color-error { --cosy-container-border-color: var(--cosy-container-error); }
+	.cosy-container--border-color-info { --cosy-container-border-color: var(--cosy-container-info); }
+	.cosy-container--border-color-transparent { --cosy-container-border-color: transparent; }
+
+	/* Flex 布局 */
+	.cosy-container--flex { display: flex; }
+	.cosy-container--flex-row { flex-direction: row; }
+	.cosy-container--flex-col { flex-direction: column; }
+	.cosy-container--flex-row-reverse { flex-direction: row-reverse; }
+	.cosy-container--flex-col-reverse { flex-direction: column-reverse; }
+	.cosy-container--gap-none { gap: 0; }
+	.cosy-container--gap-xs { gap: 0.25rem; }
+	.cosy-container--gap-sm { gap: 0.5rem; }
+	.cosy-container--gap-md { gap: 1rem; }
+	.cosy-container--gap-lg { gap: 1.5rem; }
+	.cosy-container--gap-xl { gap: 2rem; }
+	.cosy-container--items-start { align-items: flex-start; }
+	.cosy-container--items-end { align-items: flex-end; }
+	.cosy-container--items-center { align-items: center; }
+	.cosy-container--items-baseline { align-items: baseline; }
+	.cosy-container--items-stretch { align-items: stretch; }
+	.cosy-container--justify-start { justify-content: flex-start; }
+	.cosy-container--justify-end { justify-content: flex-end; }
+	.cosy-container--justify-center { justify-content: center; }
+	.cosy-container--justify-between { justify-content: space-between; }
+	.cosy-container--justify-around { justify-content: space-around; }
+	.cosy-container--justify-evenly { justify-content: space-evenly; }
+
+	/* 柔和色（muted） */
+	.cosy-container--muted {
+		opacity: 0.5;
+		filter: blur(2px);
+		transform: scale(0.98);
+		transition: all 0.3s ease;
+	}
+	.cosy-container--muted:hover {
+		opacity: 1;
+		filter: none;
+		transform: scale(1);
+	}
+
+	/* 背景图片层 */
+	.cosy-container__bg {
+		position: absolute;
+		inset: 0;
+		z-index: -10;
+		pointer-events: none;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	/* 宽高比盒子（fit 模式，无显式高度） */
+	.cosy-container__aspect-grid {
+		display: grid;
+		place-items: center;
+	}
+	.cosy-container__aspect-inner {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+	/* 宽高比盒子（fit 模式，有显式高度，容器查询） */
+	.cosy-container__aspect-abs {
+		position: absolute;
+		inset: 0;
+		display: grid;
+		place-items: center;
+	}
+
+	/* 高度驱动宽高比（无 fit） */
+	.cosy-container__hd-outer {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+	.cosy-container__hd-inner {
+		position: absolute;
+		inset: 0;
+	}
+
+	/* 错误提示 */
+	.cosy-container__error {
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.cosy-container__error-list {
+		list-style: disc;
+		padding-left: 1.25rem;
+		margin: 0;
+	}
+	.cosy-container__error-list > li {
+		font-size: 0.875rem;
+		margin-top: 0.25rem;
+		margin-bottom: 0.25rem;
+	}
+</style>

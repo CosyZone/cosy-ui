@@ -1,7 +1,7 @@
 <template>
   <li
     :class="[
-      'cosy:mb-2 cosy:rounded-md cosy:bg-base-300 cosy:p-2 cosy:flex cosy:items-center cosy:gap-3 cosy:hover:bg-accent/10 cosy:relative cosy:overflow-hidden',
+      'cosy-list-item',
       loading && !duration ? 'breath-anim' : '',
     ]"
     @click="$emit('click')"

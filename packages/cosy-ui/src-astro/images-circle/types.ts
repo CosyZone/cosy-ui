@@ -1,5 +1,5 @@
 import type { BackgroundColor } from "../../src/common/backgrounds";
-import type { ImageSource } from "../image/types";
+import type { ImageSource } from "../Image.astro";
 
 export interface IImagesCircleItem {
 	src: ImageSource;

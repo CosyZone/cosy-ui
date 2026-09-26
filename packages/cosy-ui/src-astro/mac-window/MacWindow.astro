@@ -79,7 +79,7 @@
 
 import { cn } from '../../src/class';
 import AlertDialog from '../AlertDialog.astro';
-import { Container } from '../container';
+import Container from '../Container.astro';
 import type { IMacWindowProps } from './props';
 
 const {
@@ -110,12 +110,8 @@ const windowId = id || `mac-window-${Math.random().toString(36).slice(2, 11)}`;
 
 // 构建类名
 const containerClass = cn()
-    .flex()
-    .relative()
-    .rounded('2xl')
     .overflowHidden()
-    .add(height) // 保留：动态类名
-    .add(withShadow ? 'cosy:shadow-lg' : '')
+    .add(height) // 保留：动态高度类名（原始 Tailwind 类）
     .build();
 
 const headerClass = cn()
@@ -201,6 +197,9 @@ const statusContentClass = cn().flex().items('center').spaceX(2).build();
     padding="none"
     centered={true}
     width={width}
+    flex="row"
+    rounded="2xl"
+    shadow={withShadow ? "lg" : "none"}
     aria-label="MacWindow-Container"
     class={containerClass}
     data-window-id={windowId}>

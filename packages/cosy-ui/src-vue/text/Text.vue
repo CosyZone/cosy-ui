@@ -1,94 +1,69 @@
 <script setup lang="ts">
   import { computed } from 'vue';
-  import {
-    getTextCombinedClass,
-    getTextTagName,
-  } from '../../src/components/text/textUtils';
-  import type { ITextProps } from './props';
-  import { textDefaultProps } from './props';
 
   /**
    * @component Text
-   *
-   * @description
-   * Text 组件用于创建各种文本元素，提供一致的排版样式和灵活的定制选项。
-   *
-   * @usage
-   * 基本用法：
-   * ```vue
-   * <Text>这是一段普通文本</Text>
-   * ```
-   *
-   * 不同大小：
-   * ```vue
-   * <Text size="xs">超小文本</Text>
-   * <Text size="sm">小文本</Text>
-   * <Text size="md">中等文本</Text>
-   * <Text size="lg">大文本</Text>
-   * <Text size="xl">超大文本</Text>
-   * ```
-   *
-   * 不同颜色：
-   * ```vue
-   * <Text color="primary">主要颜色文本</Text>
-   * <Text color="secondary">次要颜色文本</Text>
-   * <Text color="accent">强调色文本</Text>
-   * <Text color="muted">柔和色文本</Text>
-   * ```
-   *
-   * 字体粗细：
-   * ```vue
-   * <Text weight="light">细体文本</Text>
-   * <Text weight="normal">常规文本</Text>
-   * <Text weight="medium">中等粗文本</Text>
-   * <Text weight="semibold">半粗体文本</Text>
-   * <Text weight="bold">粗体文本</Text>
-   * ```
-   *
-   * 文本对齐：
-   * ```vue
-   * <Text align="left">左对齐文本</Text>
-   * <Text align="center">居中对齐文本</Text>
-   * <Text align="right">右对齐文本</Text>
-   * <Text align="justify">两端对齐文本</Text>
-   * ```
-   *
-   * 文本截断：
-   * ```vue
-   * <Text truncate>这是一段很长的文本，将会被截断并显示省略号...</Text>
-   * ```
-   *
-   * 组合使用：
-   * ```vue
-   * <Text
-   *   size="lg"
-   *   color="primary"
-   *   weight="bold"
-   *   align="center"
-   *   class="my-4"
-   * >
-   *   这是一段重要的提示文本
-   * </Text>
-   * ```
-   *
-   * @props
-   * @prop {string} [as='p'] - 要渲染的HTML元素，如 'p', 'span', 'div' 等
-   * @prop {'xs'|'sm'|'md'|'lg'|'xl'} [size='md'] - 文本大小
-   * @prop {'light'|'normal'|'medium'|'semibold'|'bold'} [weight='normal'] - 字体粗细
-   * @prop {'default'|'primary'|'secondary'|'accent'|'muted'} [color='default'] - 文本颜色
-   * @prop {'left'|'center'|'right'|'justify'} [align='left'] - 文本对齐方式
-   * @prop {boolean} [italic=false] - 是否使用斜体
-   * @prop {boolean} [underline=false] - 是否添加下划线
-   * @prop {boolean} [truncate=false] - 是否截断文本并显示省略号
-   * @prop {string} [class] - 自定义 CSS 类名
-   * @prop {string} [style] - 自定义内联样式
+   * 自包含实现：BEM 命名 + 原生 CSS（与 Astro 端一致）。
    */
 
-  const props = withDefaults(defineProps<ITextProps>(), textDefaultProps);
+  interface ITextProps {
+    as?: string;
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    weight?: 'thin' | 'light' | 'normal' | 'medium' | 'semibold' | 'bold' | 'extrabold' | 'black';
+    color?: 'default' | 'primary' | 'secondary' | 'accent' | 'muted';
+    align?: 'left' | 'center' | 'right' | 'justify';
+    italic?: boolean;
+    underline?: boolean;
+    truncate?: boolean;
+    class?: string;
+    style?: string;
+  }
 
-  // 使用共用的工具函数计算组合类名和标签名
-  const combinedClass = computed(() => getTextCombinedClass(props));
-  const tagName = computed(() => getTextTagName(props.as));
+  const props = withDefaults(defineProps<ITextProps>(), {
+    as: 'p',
+    size: 'md',
+    weight: 'normal',
+    color: 'default',
+    align: 'left',
+    italic: false,
+    underline: false,
+    truncate: false,
+    class: '',
+    style: '',
+  });
+
+  const sizeMap: Record<string, string> = {
+    xs: 'cosy-text--xs', sm: 'cosy-text--sm', md: 'cosy-text--md',
+    lg: 'cosy-text--lg', xl: 'cosy-text--xl',
+  };
+  const weightMap: Record<string, string> = {
+    thin: 'cosy-text--weight-thin', light: 'cosy-text--weight-light', normal: 'cosy-text--weight-normal',
+    medium: 'cosy-text--weight-medium', semibold: 'cosy-text--weight-semibold', bold: 'cosy-text--weight-bold',
+    extrabold: 'cosy-text--weight-extrabold', black: 'cosy-text--weight-black',
+  };
+  const colorMap: Record<string, string> = {
+    default: '', primary: 'cosy-text--primary', secondary: 'cosy-text--secondary',
+    accent: 'cosy-text--accent', muted: 'cosy-text--muted',
+  };
+  const alignMap: Record<string, string> = {
+    left: 'cosy-text--left', center: 'cosy-text--center', right: 'cosy-text--right', justify: 'cosy-text--justify',
+  };
+
+  const combinedClass = computed(() =>
+    [
+      'cosy-text',
+      sizeMap[props.size] || '',
+      weightMap[props.weight] || '',
+      colorMap[props.color] || '',
+      alignMap[props.align] || '',
+      props.italic ? 'cosy-text--italic' : '',
+      props.underline ? 'cosy-text--underline' : '',
+      props.truncate ? 'cosy-text--truncate' : '',
+      props.class,
+    ].filter(Boolean).join(' '),
+  );
+
+  const tagName = computed(() => props.as || 'p');
 </script>
 
 <template>
@@ -97,14 +72,42 @@
   </component>
 </template>
 
-<style scoped>
-  .text {
+<style>
+  /* Text - 原生 CSS 实现（与 Text.astro 一致） */
+  .cosy-text {
+    --cosy-text-primary: #4b6bfb;
+    --cosy-text-secondary: #7b92b2;
+    --cosy-text-accent: #67baa3;
+    --cosy-text-base-content: #1d1d1d;
     margin-bottom: 1em;
     line-height: 1.5;
+    color: var(--cosy-text-base-content);
+    font-weight: 400;
   }
-
-  /* 确保截断文本正常工作 */
-  .truncate {
+  .cosy-text--xs { font-size: 0.75rem; }
+  .cosy-text--sm { font-size: 0.875rem; }
+  .cosy-text--md { font-size: 1rem; }
+  .cosy-text--lg { font-size: 1.125rem; }
+  .cosy-text--xl { font-size: 1.25rem; }
+  .cosy-text--weight-thin { font-weight: 100; }
+  .cosy-text--weight-light { font-weight: 300; }
+  .cosy-text--weight-normal { font-weight: 400; }
+  .cosy-text--weight-medium { font-weight: 500; }
+  .cosy-text--weight-semibold { font-weight: 600; }
+  .cosy-text--weight-bold { font-weight: 700; }
+  .cosy-text--weight-extrabold { font-weight: 800; }
+  .cosy-text--weight-black { font-weight: 900; }
+  .cosy-text--primary { color: var(--cosy-text-primary); }
+  .cosy-text--secondary { color: var(--cosy-text-secondary); }
+  .cosy-text--accent { color: var(--cosy-text-accent); }
+  .cosy-text--muted { color: var(--cosy-text-secondary); opacity: 0.8; }
+  .cosy-text--left { text-align: left; }
+  .cosy-text--center { text-align: center; }
+  .cosy-text--right { text-align: right; }
+  .cosy-text--justify { text-align: justify; }
+  .cosy-text--italic { font-style: italic; }
+  .cosy-text--underline { text-decoration: underline; }
+  .cosy-text--truncate {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
