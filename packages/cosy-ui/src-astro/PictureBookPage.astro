@@ -1,0 +1,138 @@
+---
+/**
+ * @component PictureBookPage
+ *
+ * @description
+ * 绘本页面容器：固定宽高比、背景/覆盖插槽。
+ * 背景图片 100% 填充整个页面，无安全区域限制。
+ *
+ * @props
+ * - background?: BackgroundColor | ImageSource - 背景配置，支持背景色或图片
+ * - pageAspectRatio?: number - 页面宽高比（宽/高），默认 3/4
+ * - border?: boolean - 是否显示边框（默认 true）
+ * - rounded?: 'none'|'sm'|'md'|'lg'|'xl'|'full' - 页面圆角，默认 'xl'
+ *
+ * @slots
+ * - overlay: 覆盖层插槽，相对页面绝对定位放置文本框/装饰
+ * - default: 文字内容插槽
+ */
+
+import type { BackgroundColor } from "../src/common/backgrounds";
+import Container from "./Container.astro";
+import Image from "./Image.astro";
+import type { ImageSource } from "./Image.astro";
+
+export interface IPictureBookPageProps {
+	background?: BackgroundColor | ImageSource;
+	pageAspectRatio?: number;
+	border?: boolean;
+	rounded?: "none" | "sm" | "md" | "lg" | "xl" | "full";
+}
+
+const {
+	background,
+	pageAspectRatio = 3 / 4,
+	rounded = "xl",
+} = Astro.props as IPictureBookPageProps;
+
+// 判断是否为图片背景
+const isImageBackground =
+	background !== undefined &&
+	background !== null &&
+	(typeof background === "object" ||
+		typeof background === "function" ||
+		(typeof background === "string" &&
+			(background.startsWith("http://") ||
+				background.startsWith("https://") ||
+				background.startsWith("/"))));
+
+// 圆角映射
+const roundedModMap = {
+	none: "cosy-pb-page--rounded-none",
+	sm: "cosy-pb-page--rounded-sm",
+	md: "cosy-pb-page--rounded-md",
+	lg: "cosy-pb-page--rounded-lg",
+	xl: "cosy-pb-page--rounded-xl",
+	full: "cosy-pb-page--rounded-full",
+} as const;
+
+const roundedMod = roundedModMap[rounded];
+---
+
+<Container
+	aspectRatio={pageAspectRatio}
+	fit="contain"
+	padding="none"
+	margin="none"
+	rounded={rounded}
+	centered={true}
+	class={`cosy-pb-page ${roundedMod}`.trim()}
+	backgroundImage={isImageBackground ? (background as ImageSource) : undefined}
+	background={!isImageBackground && background ? (background as BackgroundColor) : undefined}>
+	{/* 背景层 */}
+	<div class="cosy-pb-page__bg">
+		{
+			isImageBackground && (
+				<Image
+					src={background as ImageSource}
+					alt="页面背景"
+					class="cosy-pb-page__bg-img"
+				/>
+			)
+		}
+	</div>
+
+	{/* 覆盖层 */}
+	<div class="cosy-pb-page__overlay">
+		<slot name="overlay" />
+	</div>
+
+	{/* 文字层 */}
+	<div
+		class="cosy-pb-page__text"
+		style="line-height: 1.7; font-size: 18px; font-weight: 500;">
+		<slot />
+	</div>
+</Container>
+
+<style is:global>
+	/* PictureBookPage - 原生 CSS 实现 */
+	.cosy-pb-page {
+		position: relative;
+		overflow: hidden;
+	}
+
+	/* 圆角 */
+	.cosy-pb-page--rounded-none { border-radius: 0; }
+	.cosy-pb-page--rounded-sm { border-radius: 0.125rem; }
+	.cosy-pb-page--rounded-md { border-radius: 0.375rem; }
+	.cosy-pb-page--rounded-lg { border-radius: 0.5rem; }
+	.cosy-pb-page--rounded-xl { border-radius: 0.75rem; }
+	.cosy-pb-page--rounded-full { border-radius: 9999px; }
+
+	.cosy-pb-page__bg {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+	}
+	.cosy-pb-page__bg-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.cosy-pb-page__overlay {
+		position: absolute;
+		inset: 0;
+	}
+
+	.cosy-pb-page__text {
+		position: relative;
+		height: 100%;
+		width: 100%;
+		white-space: pre-wrap;
+		overflow-wrap: break-word;
+		color: #111827;
+	}
+</style>

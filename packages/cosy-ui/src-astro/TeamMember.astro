@@ -1,0 +1,171 @@
+---
+/**
+ * @component TeamMember
+ *
+ * @description
+ * TeamMember 组件用于展示单个团队成员的信息，包括姓名、职位、头像、简介和社交媒体链接。
+ * 组件采用卡片式设计，支持悬停效果，并可以链接到成员的社交媒体账号。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <TeamMember
+ *   name="张三"
+ *   role="前端开发工程师"
+ *   avatar="/images/avatars/jack.jpg"
+ *   bio="拥有5年前端开发经验。"
+ * />
+ * ```
+ *
+ * @props
+ * @prop {string} name - 团队成员姓名
+ * @prop {string} role - 团队成员职位
+ * @prop {ImageSource} avatar - 团队成员头像
+ * @prop {string} bio - 团队成员简介
+ * @prop {Array<{platform: string, url: string}>} [socialLinks] - 社交媒体链接
+ * @prop {string} [background='base-100'] - 背景色类型
+ * @prop {string} [rounded='lg'] - 圆角大小
+ * @prop {string} [class] - 自定义类名
+ * @prop {string} [shadow='md'] - 卡片阴影强度
+ * @prop {boolean} [muted=false] - 是否使用柔和色样式
+ */
+import Container from "./Container.astro";
+import Image from "./Image.astro";
+import Link from "./Link.astro";
+import SocialIcon from "./SocialIcon.astro";
+import type { ImageSource } from "./Image.astro";
+import type { BackgroundColor, RoundedSize, ShadowSize } from "../src/common";
+
+export interface TeamMemberSocialLink {
+	platform: "github" | "twitter" | "linkedin" | "website" | "email";
+	url: string;
+}
+
+export interface ITeamMemberProps {
+	name: string;
+	role: string;
+	avatar: ImageSource;
+	bio: string;
+	socialLinks?: TeamMemberSocialLink[];
+	background?: BackgroundColor;
+	rounded?: RoundedSize;
+	class?: string;
+	shadow?: ShadowSize;
+	muted?: boolean;
+}
+
+const {
+	name,
+	role,
+	avatar,
+	bio,
+	socialLinks,
+	background = "base-100",
+	rounded = "lg",
+	class: className = "",
+	shadow = "md",
+	muted = false,
+} = Astro.props as ITeamMemberProps;
+---
+
+<Container
+	background={background}
+	rounded={rounded}
+	padding="none"
+	shadow={shadow}
+	muted={muted}
+	class={className}>
+	<div class="cosy-team-member">
+		<figure class="cosy-team-member__figure">
+			<Image
+				src={avatar}
+				alt={`${name}'s avatar`}
+				width={192}
+				height={192}
+				rounded="xl"
+				transition="fade"
+				hover="brightness"
+				class="cosy-team-member__avatar"
+			/>
+		</figure>
+		<div class="cosy-team-member__body">
+			<h3 class="cosy-team-member__name">{name}</h3>
+			<p class="cosy-team-member__role">{role}</p>
+			<p class="cosy-team-member__bio">{bio}</p>
+
+			{
+				socialLinks && socialLinks.length > 0 && (
+					<div class="cosy-team-member__socials">
+						{socialLinks.map((link: TeamMemberSocialLink) => (
+							<Link
+								href={link.url}
+								external
+								variant="ghost"
+								class="cosy-team-member__social-link"
+								aria-label={`Visit ${name}'s ${link.platform} profile`}>
+								<SocialIcon platform={link.platform} />
+							</Link>
+						))}
+					</div>
+				)
+			}
+		</div>
+	</div>
+</Container>
+
+<style is:global>
+    /* TeamMember - 原生 CSS 实现（corporate 主题色） */
+    .cosy-team-member {
+        --cosy-team-member-content: #1d1d1d;
+        transition: box-shadow 300ms ease;
+    }
+    .cosy-team-member:hover {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    }
+    .cosy-team-member__figure {
+        display: flex;
+        justify-content: center;
+        padding: 1rem;
+        margin: 0;
+    }
+    .cosy-team-member__avatar {
+        object-fit: cover;
+        aspect-ratio: 1 / 1;
+    }
+    .cosy-team-member__body {
+        padding: 1rem 1.5rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .cosy-team-member__name {
+        margin: 0 0 0.25rem;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--cosy-team-member-content);
+    }
+    .cosy-team-member__role {
+        margin: 0 0 0.75rem;
+        font-size: 0.875rem;
+        color: color-mix(in srgb, var(--cosy-team-member-content) 70%, transparent);
+    }
+    .cosy-team-member__bio {
+        margin: 0 0 1rem;
+        font-size: 1rem;
+    }
+    .cosy-team-member__socials {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: auto;
+    }
+    .cosy-team-member__social-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem;
+        border-radius: 9999px;
+    }
+    .cosy-team-member__social-link:hover {
+        background: #e9e9e9;
+    }
+</style>

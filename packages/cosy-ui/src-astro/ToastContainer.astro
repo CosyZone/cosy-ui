@@ -1,0 +1,323 @@
+---
+/**
+ * @component ToastContainer
+ *
+ * @description
+ * ToastContainer 是 toast 消息的容器组件，负责管理多个 toast 的显示、动画和生命周期。
+ * 提供完整的 toast 管理系统，包括自动清理、事件监听和全局 API。
+ * 本组件为自包含单文件组件，使用 BEM 命名与原生 CSS，不依赖 cn()/tailwind/daisyUI。
+ *
+ * @usage
+ * 通常由 DashboardLayout 或其他布局组件自动包含：
+ * ```astro
+ * <ToastContainer />
+ * ```
+ *
+ * 提供的全局 API：
+ * ```javascript
+ * // 显示 toast
+ * const id = showToast('消息内容');
+ * const id = showToast({ message: '内容', type: 'success' });
+ *
+ * // 关闭特定 toast
+ * closeToast(id);
+ *
+ * // 清除所有 toast
+ * clearAllToasts();
+ * ```
+ */
+---
+
+<!-- Toast 容器 -->
+<div
+	id="toast-container"
+	class="cosy-toast-container"
+	aria-live="polite"
+	aria-label="通知消息区域">
+	<!-- Toast 项目将通过 JavaScript 动态添加 -->
+</div>
+
+<style is:global>
+	/* ToastContainer - 原生 CSS 实现（自包含） */
+	.cosy-toast-container {
+		position: fixed;
+		top: 1rem;
+		right: 1rem;
+		z-index: 50;
+		width: 20rem;
+		max-width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		pointer-events: none;
+	}
+
+	/* Toast 项（动态创建的元素同样使用以下样式） */
+	.cosy-toast {
+		--cosy-toast-color: #2563eb;
+
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		width: 100%;
+		padding: 0.75rem 0.5rem 0.75rem 1rem;
+		border-radius: 0.5rem;
+		font-size: 0.875rem;
+		line-height: 1.5;
+		color: #fff;
+		background: var(--cosy-toast-color);
+		border: 1px solid var(--cosy-toast-color);
+		box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+		pointer-events: auto;
+		transform: translateX(0);
+		opacity: 1;
+		transition:
+			transform 0.3s ease-in-out,
+			opacity 0.3s ease-in-out;
+	}
+
+	/* 类型色 */
+	.cosy-toast--info {
+		--cosy-toast-color: #2563eb;
+	}
+	.cosy-toast--success {
+		--cosy-toast-color: #16a34a;
+	}
+	.cosy-toast--warning {
+		--cosy-toast-color: #d97706;
+	}
+	.cosy-toast--error {
+		--cosy-toast-color: #dc2626;
+	}
+
+	/* 入场/退场起始态：从右侧滑入 */
+	.cosy-toast--enter {
+		transform: translateX(100%);
+		opacity: 0;
+	}
+
+	/* 内部结构 */
+	.cosy-toast__icon {
+		display: flex;
+		align-items: center;
+		flex-shrink: 0;
+		width: 1.25rem;
+		height: 1.25rem;
+	}
+	.cosy-toast__message {
+		flex: 1 1 auto;
+		min-width: 0;
+		font-weight: 500;
+	}
+	.cosy-toast__close {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.5rem;
+		height: 1.5rem;
+		padding: 0;
+		border: none;
+		border-radius: 9999px;
+		background: transparent;
+		color: #fff;
+		cursor: pointer;
+		flex-shrink: 0;
+		opacity: 0.7;
+		transition:
+			opacity 0.15s ease,
+			background-color 0.15s ease;
+	}
+	.cosy-toast__close:hover {
+		opacity: 1;
+		background: rgb(255 255 255 / 0.15);
+	}
+	.cosy-toast__close svg {
+		width: 1rem;
+		height: 1rem;
+	}
+</style>
+
+<script is:inline>
+	// Toast 管理系统
+	(() => {
+		// 避免重复初始化
+		if (window.toastSystem) {
+			return;
+		}
+
+		let toastCounter = 0;
+		const activeToasts = new Map();
+
+		// 默认配置
+		const DEFAULT_CONFIG = {
+			type: 'info',
+			duration: 3000,
+		};
+
+		// 创建 toast 元素
+		function createToastElement(config) {
+			const id = config.id || `toast-${++toastCounter}`;
+			const type = config.type || DEFAULT_CONFIG.type;
+			const message = config.message;
+
+			// 图标路径映射
+			const iconMap = {
+				info: 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+				success: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
+				warning:
+					'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z',
+				error: 'M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z',
+			};
+
+			const toastElement = document.createElement('div');
+			toastElement.className = `cosy-toast cosy-toast--${type} cosy-toast--enter`;
+
+			toastElement.setAttribute('data-toast-id', id);
+			toastElement.setAttribute('role', 'alert');
+			toastElement.setAttribute('aria-live', 'polite');
+
+			toastElement.innerHTML = `
+				<span class="cosy-toast__icon">
+					<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:1.25rem;height:1.25rem;">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${iconMap[type]}"></path>
+					</svg>
+				</span>
+				<span class="cosy-toast__message">${message}</span>
+				<button
+					class="cosy-toast__close"
+					onclick="window.closeToast?.('${id}')"
+					aria-label="关闭通知"
+					type="button"
+				>
+					<svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+					</svg>
+				</button>
+			`;
+
+			return { element: toastElement, id };
+		}
+
+		// 显示 toast
+		function showToast(config) {
+			if (typeof config === 'string') {
+				config = { message: config };
+			}
+
+			// 合并默认配置
+			config = { ...DEFAULT_CONFIG, ...config };
+
+			const container = document.getElementById('toast-container');
+			if (!container) {
+				console.warn('Toast container not found');
+				return '';
+			}
+
+			const { element, id } = createToastElement(config);
+			const duration = config.duration || DEFAULT_CONFIG.duration;
+
+			// 添加到容器
+			container.appendChild(element);
+
+			// 记录活跃的 toast
+			activeToasts.set(id, {
+				element,
+				timer: null,
+				config,
+			});
+
+			// 触发入场动画：移除起始态，过渡到可见态
+			requestAnimationFrame(() => {
+				element.classList.remove('cosy-toast--enter');
+			});
+
+			// 设置自动关闭
+			if (duration > 0) {
+				const timer = setTimeout(() => {
+					closeToast(id);
+				}, duration);
+
+				activeToasts.get(id).timer = timer;
+			}
+
+			return id;
+		}
+
+		// 关闭 toast
+		function closeToast(id) {
+			const toastData = activeToasts.get(id);
+			if (!toastData) return;
+
+			const { element, timer } = toastData;
+
+			// 清除定时器
+			if (timer) {
+				clearTimeout(timer);
+			}
+
+			// 触发退场动画：回到起始态（滑出）
+			element.classList.add('cosy-toast--enter');
+
+			// 动画结束后移除元素
+			setTimeout(() => {
+				if (element.parentNode) {
+					element.parentNode.removeChild(element);
+				}
+				activeToasts.delete(id);
+			}, 300);
+		}
+
+		// 关闭所有 toast
+		function clearAllToasts() {
+			activeToasts.forEach((_, id) => {
+				closeToast(id);
+			});
+		}
+
+		// 获取活跃的 toast 数量
+		function getActiveToastCount() {
+			return activeToasts.size;
+		}
+
+		// 获取所有活跃的 toast ID
+		function getActiveToastIds() {
+			return Array.from(activeToasts.keys());
+		}
+
+		// 创建 toast 系统对象
+		const toastSystem = {
+			show: showToast,
+			close: closeToast,
+			clearAll: clearAllToasts,
+			getActiveCount: getActiveToastCount,
+			getActiveIds: getActiveToastIds,
+		};
+
+		// 暴露到全局
+		window.showToast = showToast;
+		window.closeToast = closeToast;
+		window.clearAllToasts = clearAllToasts;
+		window.toastSystem = toastSystem;
+
+		// 监听自定义事件
+		document.addEventListener('show-toast', (event) => {
+			showToast(event.detail);
+		});
+
+		document.addEventListener('close-toast', (event) => {
+			closeToast(event.detail.id);
+		});
+
+		document.addEventListener('clear-all-toasts', () => {
+			clearAllToasts();
+		});
+
+		// 页面卸载时清理
+		window.addEventListener('beforeunload', () => {
+			clearAllToasts();
+		});
+
+		console.log('Toast system initialized');
+	})();
+</script>

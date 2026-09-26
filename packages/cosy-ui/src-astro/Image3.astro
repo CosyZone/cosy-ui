@@ -1,0 +1,250 @@
+---
+/**
+ * @component Image3
+ *
+ * @description
+ * Image3 组件展示三张图片，中间图片直立突出，两侧图片向内倾斜，营造 3D 层次感。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Image3
+ *   images={[
+ *     { src: 'image1.jpg', alt: '图片1' },
+ *     { src: 'image2.jpg', alt: '图片2' },
+ *     { src: 'image3.jpg', alt: '图片3' },
+ *   ]}
+ * />
+ * ```
+ *
+ * 自定义间距与阴影：
+ * ```astro
+ * <Image3 images={images} spacing="lg" shadow="xl" rounded="2xl" />
+ * ```
+ *
+ * @props
+ * @prop {[IImage3Item, IImage3Item, IImage3Item]} images - 恰好 3 张图片
+ * @prop {BackgroundColor} [background] - 容器背景色
+ * @prop {string} [class] - 自定义类名
+ * @prop {('sm'|'md'|'lg')} [spacing='md'] - 图片间距
+ * @prop {('none'|'sm'|'md'|'lg'|'xl')} [shadow='xl'] - 图片阴影
+ * @prop {('none'|'sm'|'md'|'lg'|'xl'|'2xl'|'3xl'|'full')} [rounded='lg'] - 图片圆角
+ */
+
+import Container from "./Container.astro";
+import type { BackgroundColor } from "../src/common/backgrounds";
+
+export interface IImage3Item {
+	src: string;
+	alt: string;
+	width?: number;
+	height?: number;
+	loading?: "lazy" | "eager";
+}
+
+export interface IImage3Props {
+	images: [IImage3Item, IImage3Item, IImage3Item];
+	background?: BackgroundColor;
+	class?: string;
+	spacing?: "sm" | "md" | "lg";
+	shadow?: "none" | "sm" | "md" | "lg" | "xl";
+	rounded?: "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full";
+}
+
+const {
+	images,
+	class: className = "",
+	spacing = "md",
+	shadow = "xl",
+	rounded = "lg",
+	background,
+} = Astro.props as IImage3Props;
+
+// 验证图片数量
+const isValidImages = images && Array.isArray(images) && images.length === 3;
+
+// 阴影映射 → BEM 修饰类
+const shadowModMap = {
+	none: "",
+	sm: "cosy-image3--shadow-sm",
+	md: "cosy-image3--shadow-md",
+	lg: "cosy-image3--shadow-lg",
+	xl: "cosy-image3--shadow-xl",
+};
+
+// 圆角映射 → BEM 修饰类
+const roundedModMap = {
+	none: "cosy-image3--rounded-none",
+	sm: "cosy-image3--rounded-sm",
+	md: "cosy-image3--rounded-md",
+	lg: "cosy-image3--rounded-lg",
+	xl: "cosy-image3--rounded-xl",
+	"2xl": "cosy-image3--rounded-2xl",
+	"3xl": "cosy-image3--rounded-3xl",
+	full: "cosy-image3--rounded-full",
+};
+
+const imageMods = [shadowModMap[shadow], roundedModMap[rounded]]
+	.filter(Boolean)
+	.join(" ");
+
+const spacingMod = spacing === "sm" ? "cosy-image3--gap-sm" : spacing === "lg" ? "cosy-image3--gap-lg" : "cosy-image3--gap-md";
+---
+
+{
+	isValidImages ? (
+		<Container
+			class={`cosy-image3 ${spacingMod} ${className}`.trim()}
+			style="transform-style: preserve-3d;"
+			flex="row"
+			items="center"
+			justify="center"
+			background={background}>
+			{/* 左侧图片 - 向内倾斜 */}
+			<div class="cosy-image3__side cosy-image3__side--left">
+				<img
+					src={images[0].src}
+					alt={images[0].alt}
+					width={images[0].width || 250}
+					height={images[0].height || 350}
+					loading={images[0].loading || "lazy"}
+					class={`cosy-image3__img ${imageMods}`.trim()}
+				/>
+			</div>
+
+			{/* 中间图片 - 突出 */}
+			<div class="cosy-image3__center">
+				<img
+					src={images[1].src}
+					alt={images[1].alt}
+					width={images[1].width || 250}
+					height={images[1].height || 350}
+					loading={images[1].loading || "lazy"}
+					class={`cosy-image3__img ${imageMods}`.trim()}
+				/>
+			</div>
+
+			{/* 右侧图片 - 向内倾斜 */}
+			<div class="cosy-image3__side cosy-image3__side--right">
+				<img
+					src={images[2].src}
+					alt={images[2].alt}
+					width={images[2].width || 200}
+					height={images[2].height || 350}
+					loading={images[2].loading || "lazy"}
+					class={`cosy-image3__img ${imageMods}`.trim()}
+				/>
+			</div>
+		</Container>
+	) : (
+		<div class={`cosy-image3__error ${className}`.trim()}>
+			<div class="cosy-image3__error-inner">
+				<div class="cosy-image3__error-icon">&#9888;&#65039;</div>
+				<h3 class="cosy-image3__error-title">图片数量错误</h3>
+				<p class="cosy-image3__error-desc">
+					Image3 组件需要恰好 3 张图片，当前提供了 {images ? images.length : 0} 张
+				</p>
+				<code class="cosy-image3__error-code">{'<Image3 images={[...]} />'}</code>
+			</div>
+		</div>
+	)
+}
+
+<style is:global>
+	/* Image3 - 原生 CSS 实现 */
+	.cosy-image3 {
+		transform-style: preserve-3d;
+	}
+
+	/* 间距 */
+	.cosy-image3--gap-sm > * + * {
+		margin-left: 0.5rem;
+	}
+	.cosy-image3--gap-md > * + * {
+		margin-left: 1rem;
+	}
+	.cosy-image3--gap-lg > * + * {
+		margin-left: 1.5rem;
+	}
+
+	.cosy-image3__img {
+		display: block;
+		object-fit: cover;
+		transition: transform 0.3s ease;
+	}
+
+	.cosy-image3__img:hover {
+		transform: scale(1.05);
+	}
+
+	/* 阴影 */
+	.cosy-image3--shadow-sm { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
+	.cosy-image3--shadow-md { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
+	.cosy-image3--shadow-lg { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+	.cosy-image3--shadow-xl { box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+
+	/* 圆角 */
+	.cosy-image3--rounded-none { border-radius: 0; }
+	.cosy-image3--rounded-sm { border-radius: 0.125rem; }
+	.cosy-image3--rounded-md { border-radius: 0.375rem; }
+	.cosy-image3--rounded-lg { border-radius: 0.5rem; }
+	.cosy-image3--rounded-xl { border-radius: 0.75rem; }
+	.cosy-image3--rounded-2xl { border-radius: 1rem; }
+	.cosy-image3--rounded-3xl { border-radius: 1.5rem; }
+	.cosy-image3--rounded-full { border-radius: 9999px; }
+
+	/* 3D 倾斜 */
+	.cosy-image3__side {
+		position: relative;
+		z-index: 10;
+		transform: scaleX(0.9);
+		transform-origin: center;
+	}
+	.cosy-image3__side--left {
+		transform: scaleX(0.9) rotateY(-15deg) rotateX(5deg);
+	}
+	.cosy-image3__side--right {
+		transform: scaleX(0.9) rotateY(15deg) rotateX(5deg);
+	}
+	.cosy-image3__center {
+		position: relative;
+		z-index: 20;
+		transform: translateZ(30px) scale(1);
+	}
+
+	/* 错误视图 */
+	.cosy-image3__error {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 2rem;
+		border: 2px dashed #fca5a5;
+		border-radius: 0.5rem;
+		background: #fef2f2;
+	}
+	.cosy-image3__error-inner {
+		text-align: center;
+	}
+	.cosy-image3__error-icon {
+		font-size: 3.75rem;
+		margin-bottom: 1rem;
+	}
+	.cosy-image3__error-title {
+		font-size: 1.125rem;
+		font-weight: 600;
+		color: #b91c1c;
+		margin: 0 0 0.5rem;
+	}
+	.cosy-image3__error-desc {
+		color: #dc2626;
+		margin: 0 0 1rem;
+	}
+	.cosy-image3__error-code {
+		font-size: 0.875rem;
+		color: #b91c1c;
+		background: #fee2e2;
+		padding: 0.75rem;
+		border-radius: 0.25rem;
+		font-family: monospace;
+	}
+</style>

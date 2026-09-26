@@ -1,0 +1,514 @@
+---
+/**
+ * @component Register
+ *
+ * @description
+ * Register 组件用于创建灵活且功能丰富的注册页面。支持多种注册方式、表单验证和自定义样式。
+ * 自包含原生 CSS 实现，基于 BEM 类名（cosy-register），不再依赖 cn()/tailwind/daisyUI。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Register title="创建账号" />
+ * ```
+ *
+ * 自定义注册方式：
+ * ```astro
+ * <Register
+ *   title="加入我们"
+ *   subtitle="创建你的账号"
+ *   socialLogins={['github', 'google']}
+ *   showTerms={true}
+ *   showPrivacy={true}
+ * />
+ * ```
+ *
+ * 完全自定义：
+ * ```astro
+ * <Register
+ *   title="企业注册"
+ *   subtitle="创建企业账号"
+ *   logo="/path/to/logo.png"
+ *   socialLogins={['github', 'google', 'wechat']}
+ *   showTerms={true}
+ *   showPrivacy={true}
+ *   customClass="my-register-page"
+ * >
+ *   <div slot="footer">
+ *     自定义页脚内容
+ *   </div>
+ * </Register>
+ * ```
+ *
+ * @props
+ * @prop {string} [title="注册"] - 注册页标题
+ * @prop {string} [subtitle] - 注册页副标题
+ * @prop {string} [logo] - 注册页Logo图片路径
+ * @prop {('github'|'google'|'wechat')[]} [socialLogins] - 社交账号注册方式列表
+ * @prop {boolean} [showTerms=true] - 是否显示服务条款选项
+ * @prop {boolean} [showPrivacy=true] - 是否显示隐私政策选项
+ * @prop {string} [customClass] - 自定义CSS类名
+ * @prop {string} [registerButtonText="注册"] - 注册按钮文本
+ * @prop {string} [usernameLabel="用户名"] - 用户名输入框标签
+ * @prop {string} [emailLabel="邮箱"] - 邮箱输入框标签
+ * @prop {string} [passwordLabel="密码"] - 密码输入框标签
+ * @prop {string} [confirmPasswordLabel="确认密码"] - 确认密码输入框标签
+ * @prop {string} [termsText="我已阅读并同意服务条款"] - 服务条款文本
+ * @prop {string} [privacyText="我已阅读并同意隐私政策"] - 隐私政策文本
+ * @prop {string} [dividerText="或"] - 社交注册分隔符文本
+ *
+ * @slots
+ * @slot header - 页头自定义内容
+ * @slot footer - 页脚自定义内容
+ * @slot socialButtons - 自定义社交注册按钮
+ */
+
+import ChartIcon from './ChartIcon.astro';
+import GithubIcon from './GithubIcon.astro';
+import WechatIcon from './WechatIcon.astro';
+
+export interface Props {
+    title?: string;
+    subtitle?: string;
+    logo?: string;
+    socialLogins?: ('github' | 'google' | 'wechat')[];
+    showTerms?: boolean;
+    showPrivacy?: boolean;
+    customClass?: string;
+    registerButtonText?: string;
+    usernameLabel?: string;
+    emailLabel?: string;
+    passwordLabel?: string;
+    confirmPasswordLabel?: string;
+    termsText?: string;
+    privacyText?: string;
+    dividerText?: string;
+}
+
+const {
+    title = '注册',
+    subtitle,
+    logo,
+    socialLogins = [],
+    showTerms = true,
+    showPrivacy = true,
+    customClass = '',
+    registerButtonText = '注册',
+    usernameLabel = '用户名',
+    emailLabel = '邮箱',
+    passwordLabel = '密码',
+    confirmPasswordLabel = '确认密码',
+    termsText = '我已阅读并同意服务条款',
+    privacyText = '我已阅读并同意隐私政策',
+    dividerText = '或',
+} = Astro.props;
+
+// 社交登录图标映射
+const socialIcons = {
+    github: GithubIcon,
+    google: ChartIcon,
+    wechat: WechatIcon,
+};
+
+// 社交登录按钮 provider 修饰符类名
+const socialBtnModifiers = {
+    github: 'cosy-register__social-btn--github',
+    google: 'cosy-register__social-btn--google',
+    wechat: 'cosy-register__social-btn--wechat',
+};
+
+// 社交按钮栅格列数修饰符（最多 3 列）
+const socialColsModifier = `cosy-register__social-buttons--cols-${Math.min(socialLogins.length, 3)}`;
+
+// 容器类名（BEM 根类 + customClass）
+const containerClass = ['cosy-register', customClass].filter(Boolean).join(' ');
+---
+
+<div class={containerClass}>
+    <div class="cosy-register__card">
+        <!-- 头部区域 -->
+        <div class="cosy-register__header">
+            <slot name="header">
+                {
+                    logo && (
+                        <img
+                            class="cosy-register__logo"
+                            src={logo}
+                            alt="Logo"
+                        />
+                    )
+                }
+                <h2 class="cosy-register__title">
+                    {title}
+                </h2>
+                {
+                    subtitle && (
+                        <p class="cosy-register__subtitle">
+                            {subtitle}
+                        </p>
+                    )
+                }
+            </slot>
+        </div>
+
+        <!-- 注册表单 -->
+        <form class="cosy-register__form">
+            <div class="cosy-register__input-group">
+                <div>
+                    <label for="username" class="cosy-register__visually-hidden"
+                        >{usernameLabel}</label
+                    >
+                    <input
+                        id="username"
+                        name="username"
+                        type="text"
+                        required
+                        class="cosy-register__input"
+                        placeholder={usernameLabel}
+                    />
+                </div>
+                <div>
+                    <label for="email" class="cosy-register__visually-hidden">{emailLabel}</label>
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        required
+                        class="cosy-register__input"
+                        placeholder={emailLabel}
+                    />
+                </div>
+                <div>
+                    <label for="password" class="cosy-register__visually-hidden"
+                        >{passwordLabel}</label
+                    >
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        required
+                        class="cosy-register__input"
+                        placeholder={passwordLabel}
+                    />
+                </div>
+                <div>
+                    <label for="confirm-password" class="cosy-register__visually-hidden"
+                        >{confirmPasswordLabel}</label
+                    >
+                    <input
+                        id="confirm-password"
+                        name="confirm-password"
+                        type="password"
+                        required
+                        class="cosy-register__input"
+                        placeholder={confirmPasswordLabel}
+                    />
+                </div>
+            </div>
+
+            <div class="cosy-register__options">
+                {
+                    showTerms && (
+                        <div class="cosy-register__checkbox-row">
+                            <input
+                                id="terms"
+                                name="terms"
+                                type="checkbox"
+                                required
+                                class="cosy-register__checkbox"
+                            />
+                            <label
+                                for="terms"
+                                class="cosy-register__checkbox-label">
+                                {termsText}
+                            </label>
+                        </div>
+                    )
+                }
+
+                {
+                    showPrivacy && (
+                        <div class="cosy-register__checkbox-row">
+                            <input
+                                id="privacy"
+                                name="privacy"
+                                type="checkbox"
+                                required
+                                class="cosy-register__checkbox"
+                            />
+                            <label
+                                for="privacy"
+                                class="cosy-register__checkbox-label">
+                                {privacyText}
+                            </label>
+                        </div>
+                    )
+                }
+            </div>
+
+            <div>
+                <button
+                    type="submit"
+                    class="cosy-register__submit-btn">
+                    {registerButtonText}
+                </button>
+            </div>
+        </form>
+
+        <!-- 社交注册 -->
+        {
+            socialLogins.length > 0 && (
+                <div class="cosy-register__social">
+                    <div class="cosy-register__divider">
+                        <span class="cosy-register__divider-line" />
+                        <span class="cosy-register__divider-text">{dividerText}</span>
+                        <span class="cosy-register__divider-line" />
+                    </div>
+
+                    <slot name="socialButtons">
+                        <div class={`cosy-register__social-buttons ${socialColsModifier}`}>
+                            {socialLogins.map((provider) => {
+                                const Icon = socialIcons[provider];
+                                return (
+                                    <a
+                                        href="#"
+                                        class={`cosy-register__social-btn ${socialBtnModifiers[provider]}`}>
+                                        <Icon class="cosy-register__social-btn-icon" />
+                                    </a>
+                                );
+                            })}
+                        </div>
+                    </slot>
+                </div>
+            )
+        }
+
+        <!-- 页脚 -->
+        <slot name="footer" />
+    </div>
+</div>
+
+<style is:global>
+    /* Register - 自包含原生 CSS 实现（BEM: cosy-register） */
+    .cosy-register {
+        --cosy-register-primary: #4b6bfb;
+        --cosy-register-primary-focus: #3a56d4;
+        --cosy-register-base-100: #ffffff;
+        --cosy-register-base-200: #e9e9e9;
+        --cosy-register-base-300: #d7d7d7;
+        --cosy-register-base-content: #1d1d1d;
+
+        box-sizing: border-box;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--cosy-register-base-200);
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+            "Helvetica Neue", Arial, sans-serif;
+        color: var(--cosy-register-base-content);
+    }
+    @media (min-width: 640px) {
+        .cosy-register { padding-left: 1.5rem; padding-right: 1.5rem; }
+    }
+    @media (min-width: 1024px) {
+        .cosy-register { padding-left: 2rem; padding-right: 2rem; }
+    }
+    .cosy-register *,
+    .cosy-register *::before,
+    .cosy-register *::after {
+        box-sizing: border-box;
+    }
+
+    /* 卡片 */
+    .cosy-register__card {
+        width: 100%;
+        max-width: 28rem;
+        background-color: var(--cosy-register-base-100);
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+            0 8px 10px -6px rgb(0 0 0 / 0.1);
+    }
+    .cosy-register__card > * + * { margin-top: 2rem; }
+
+    /* 头部 */
+    .cosy-register__header { text-align: center; }
+    .cosy-register__logo {
+        margin-left: auto;
+        margin-right: auto;
+        height: 3rem;
+        width: auto;
+    }
+    .cosy-register__title {
+        margin: 1.5rem 0 0;
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+        font-weight: 800;
+        color: var(--cosy-register-base-content);
+    }
+    .cosy-register__subtitle {
+        margin: 0.5rem 0 0;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        color: color-mix(in srgb, var(--cosy-register-base-content) 60%, transparent);
+    }
+
+    /* 表单 */
+    .cosy-register__form > * + * { margin-top: 1.5rem; }
+    .cosy-register__input-group {
+        border-radius: 0.375rem;
+        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    }
+    .cosy-register__input-group > div + div { margin-top: -1px; }
+    .cosy-register__input {
+        appearance: none;
+        position: relative;
+        display: block;
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        border: 1px solid var(--cosy-register-base-300);
+        color: var(--cosy-register-base-content);
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        border-radius: 0;
+    }
+    .cosy-register__input::placeholder {
+        color: color-mix(in srgb, var(--cosy-register-base-content) 40%, transparent);
+    }
+    .cosy-register__input-group > div:first-child .cosy-register__input {
+        border-top-left-radius: 0.375rem;
+        border-top-right-radius: 0.375rem;
+    }
+    .cosy-register__input-group > div:last-child .cosy-register__input {
+        border-bottom-left-radius: 0.375rem;
+        border-bottom-right-radius: 0.375rem;
+    }
+    .cosy-register__input:focus {
+        outline: none;
+        z-index: 10;
+        border-color: var(--cosy-register-primary);
+        box-shadow: 0 0 0 1px var(--cosy-register-primary);
+    }
+
+    /* 条款/隐私选项 */
+    .cosy-register__options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    .cosy-register__checkbox-row {
+        display: flex;
+        align-items: center;
+    }
+    .cosy-register__checkbox {
+        height: 1rem;
+        width: 1rem;
+        color: var(--cosy-register-primary);
+        border: 1px solid var(--cosy-register-base-300);
+        border-radius: 0.25rem;
+    }
+    .cosy-register__checkbox:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--cosy-register-primary);
+    }
+    .cosy-register__checkbox-label {
+        margin-left: 0.5rem;
+        display: block;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        color: var(--cosy-register-base-content);
+    }
+
+    /* 提交按钮 */
+    .cosy-register__submit-btn {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 0.5rem 1rem;
+        border: 1px solid transparent;
+        border-radius: 0.375rem;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        font-weight: 500;
+        color: #fff;
+        background-color: var(--cosy-register-primary);
+        cursor: pointer;
+        transition: background-color 0.15s ease;
+    }
+    .cosy-register__submit-btn:hover { background-color: var(--cosy-register-primary-focus); }
+    .cosy-register__submit-btn:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--cosy-register-primary);
+    }
+
+    /* 社交注册区 */
+    .cosy-register__social { margin-top: 1.5rem; }
+    .cosy-register__divider {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .cosy-register__divider-line {
+        flex: 1 1 0%;
+        border-top: 1px solid var(--cosy-register-base-300);
+    }
+    .cosy-register__divider-text {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        padding: 0 0.5rem;
+        background-color: var(--cosy-register-base-100);
+        color: color-mix(in srgb, var(--cosy-register-base-content) 60%, transparent);
+    }
+    .cosy-register__social-buttons {
+        margin-top: 1.5rem;
+        display: grid;
+        gap: 0.75rem;
+    }
+    .cosy-register__social-buttons--cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+    .cosy-register__social-buttons--cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cosy-register__social-buttons--cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .cosy-register__social-btn {
+        width: 100%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        border-radius: 0.375rem;
+        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        font-weight: 500;
+        color: #fff;
+        text-decoration: none;
+        transition: background-color 0.15s ease;
+    }
+    .cosy-register__social-btn-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+    .cosy-register__social-btn--github { background-color: #1f2937; }
+    .cosy-register__social-btn--github:hover { background-color: #111827; }
+    .cosy-register__social-btn--google { background-color: #ef4444; }
+    .cosy-register__social-btn--google:hover { background-color: #dc2626; }
+    .cosy-register__social-btn--wechat { background-color: #22c55e; }
+    .cosy-register__social-btn--wechat:hover { background-color: #16a34a; }
+
+    /* 屏幕阅读器专用 */
+    .cosy-register__visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+    }
+</style>

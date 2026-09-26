@@ -1,0 +1,263 @@
+---
+/**
+ * @component ImagesCircle
+ *
+ * @description
+ * ImagesCircle 是 3D 透视图片展示组件，模拟图片从远处走向观者的效果。
+ * 中间图片最近最大，两侧图片渐远渐小，需要传入奇数张图片（>=3）。
+ *
+ * @usage
+ * ```astro
+ * <ImagesCircle
+ *   images={['image1.jpg', 'image2.jpg', 'image3.jpg', 'image4.jpg', 'image5.jpg']}
+ *   size="md"
+ * />
+ * ```
+ *
+ * @props
+ * @prop {ImageSource[]} images - 图片源数组，第一张为中心主图，需为奇数张（>=3）
+ * @prop {BackgroundColor} [background] - 容器背景色
+ * @prop {string} [class] - 自定义类名
+ * @prop {('sm'|'md'|'lg'|'xl')} [size='md'] - 组件大小
+ * @prop {('none'|'sm'|'md'|'lg'|'xl')} [shadow='lg'] - 图片阴影
+ * @prop {('none'|'sm'|'md'|'lg'|'xl'|'2xl'|'3xl'|'full')} [rounded='lg'] - 图片圆角
+ * @prop {('sm'|'md'|'lg'|'xl')} [spacing='md'] - 圆圈大小（图片间距）
+ */
+
+import Container from "./Container.astro";
+import type { BackgroundColor } from "../src/common/backgrounds";
+import type { ImageSource } from "./Image.astro";
+
+export interface IImagesCircleProps {
+	images: ImageSource[];
+	background?: BackgroundColor;
+	class?: string;
+	size?: "sm" | "md" | "lg" | "xl";
+	shadow?: "none" | "sm" | "md" | "lg" | "xl";
+	rounded?: "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full";
+	spacing?: "sm" | "md" | "lg" | "xl";
+}
+
+const {
+	images,
+	class: className = "",
+	size = "md",
+	shadow = "lg",
+	rounded = "lg",
+	spacing = "md",
+	background,
+} = Astro.props as IImagesCircleProps;
+
+// 验证图片数组
+const imageCount = images?.length || 0;
+const isValidImages =
+	images && Array.isArray(images) && images.length >= 2 && images.length % 2 === 1;
+
+// 尺寸映射 - 3D 透视比例
+const sizeMap = {
+	sm: { center: 120, satellite: 60, container: 200 },
+	md: { center: 180, satellite: 90, container: 400 },
+	lg: { center: 240, satellite: 120, container: 600 },
+	xl: { center: 300, satellite: 150, container: 800 },
+} as const;
+
+// 间距映射
+const spacingMap = { sm: 180, md: 250, lg: 320, xl: 400 } as const;
+
+// 阴影/圆角 → BEM 修饰类
+const shadowModMap = {
+	none: "",
+	sm: "cosy-images-circle--shadow-sm",
+	md: "cosy-images-circle--shadow-md",
+	lg: "cosy-images-circle--shadow-lg",
+	xl: "cosy-images-circle--shadow-xl",
+};
+
+const roundedModMap = {
+	none: "cosy-images-circle--rounded-none",
+	sm: "cosy-images-circle--rounded-sm",
+	md: "cosy-images-circle--rounded-md",
+	lg: "cosy-images-circle--rounded-lg",
+	xl: "cosy-images-circle--rounded-xl",
+	"2xl": "cosy-images-circle--rounded-2xl",
+	"3xl": "cosy-images-circle--rounded-3xl",
+	full: "cosy-images-circle--rounded-full",
+};
+
+const currentSize = sizeMap[size];
+const radius = spacingMap[spacing];
+const shadowMod = shadowModMap[shadow];
+const roundedMod = roundedModMap[rounded];
+
+// 计算 3D 透视位置
+const get3DPositions = (count: number) => {
+	if (count <= 1) return [];
+	const positions: Array<{
+		x: number; y: number; z: number; scale: number;
+		rotateX: number; rotateY: number; opacity: number; blur: number;
+		zIndex: number; isCenter: boolean;
+	}> = [];
+	for (let i = 0; i < count; i++) {
+		const normalizedPosition = count === 1 ? 0 : (i / (count - 1)) * 2 - 1;
+		const distance = Math.abs(normalizedPosition);
+		const depthFactor = 1 - distance * 0.7;
+		const x = normalizedPosition * radius * (1 - distance * 0.1);
+		const y = distance * distance * 20;
+		const z = -distance * 80;
+		const scale = 0.7 + depthFactor * 0.5;
+		const rotateY = normalizedPosition * 20;
+		const rotateX = distance * 8;
+		const opacity = 0.75 + depthFactor * 0.25;
+		const blur = distance * 0.5;
+		positions.push({
+			x, y, z, scale, rotateX, rotateY, opacity, blur,
+			zIndex: Math.floor(depthFactor * 10),
+			isCenter: i === Math.floor(count / 2),
+		});
+	}
+	return positions;
+};
+
+const positions3D = get3DPositions(imageCount);
+
+// 错误提示文案
+const errorMessage =
+	imageCount === 0
+		? "请提供至少 3 张奇数个图片"
+		: imageCount < 2
+			? `当前只有 ${imageCount} 张图片，需要至少 3 张`
+			: imageCount % 2 === 0
+				? `当前有 ${imageCount} 张图片（偶数），需要奇数个图片才能有明确的中心图片`
+				: "图片数据格式不正确";
+---
+
+{
+	isValidImages ? (
+		<Container
+			aria-label="images-circle-container"
+			width="full"
+			class={`cosy-images-circle ${className}`.trim()}
+			background={background}
+			padding="none"
+			contentCentered
+			style={`width: ${currentSize.container}px; height: ${currentSize.container}px; perspective: 1000px;`}>
+			<div
+				class="cosy-images-circle__stage"
+				style={`width: ${currentSize.container}px; height: ${currentSize.container}px; transform-style: preserve-3d;`}>
+				{images.map((imageSrc, index) => {
+					const position = positions3D[index];
+					if (!position) return null;
+					const imageSize = currentSize.center * position.scale;
+					return (
+						<div
+							class={`cosy-images-circle__item ${position.isCenter ? "cosy-images-circle__item--center" : ""}`.trim()}
+							style={`
+								width: ${imageSize}px;
+								height: ${imageSize}px;
+								left: 50%;
+								top: 50%;
+								transform: translate(-50%, -50%)
+									translate3d(${position.x}px, ${position.y}px, ${position.z}px)
+									rotateX(${position.rotateX}deg)
+									rotateY(${position.rotateY}deg);
+								opacity: ${position.opacity};
+								z-index: ${position.zIndex};
+								filter: blur(${position.blur}px);
+							`}>
+							<img
+								src={typeof imageSrc === "string" ? imageSrc : imageSrc.src}
+								alt={`图片 ${index + 1}`}
+								width={imageSize}
+								height={imageSize}
+								loading="lazy"
+								class={`cosy-images-circle__img ${shadowMod} ${roundedMod}`.trim()}
+								style={`width: ${imageSize}px; height: ${imageSize}px;`}
+							/>
+						</div>
+					);
+				})}
+			</div>
+		</Container>
+	) : (
+		<div class={`cosy-images-circle__error ${className}`.trim()}>
+			<p class="cosy-images-circle__error-title">&#9888;&#65039; 图片数据无效</p>
+			<p class="cosy-images-circle__error-desc">{errorMessage}</p>
+		</div>
+	)
+}
+
+<style is:global>
+	/* ImagesCircle - 原生 CSS 实现 */
+	.cosy-images-circle {
+		position: relative;
+	}
+
+	.cosy-images-circle__stage {
+		position: relative;
+	}
+
+	.cosy-images-circle__item {
+		position: absolute;
+		transform-style: preserve-3d;
+		transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.cosy-images-circle__img {
+		display: block;
+		object-fit: cover;
+		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		backface-visibility: hidden;
+	}
+
+	.cosy-images-circle__item--center {
+		z-index: 100;
+	}
+	.cosy-images-circle__item--center .cosy-images-circle__img {
+		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+	}
+	.cosy-images-circle__item:not(.cosy-images-circle__item--center) .cosy-images-circle__img {
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+	}
+
+	.cosy-images-circle__img:hover {
+		filter: brightness(1.1) contrast(1.1);
+	}
+
+	/* 阴影 */
+	.cosy-images-circle--shadow-sm { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
+	.cosy-images-circle--shadow-md { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
+	.cosy-images-circle--shadow-lg { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+	.cosy-images-circle--shadow-xl { box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+
+	/* 圆角 */
+	.cosy-images-circle--rounded-none { border-radius: 0; }
+	.cosy-images-circle--rounded-sm { border-radius: 0.125rem; }
+	.cosy-images-circle--rounded-md { border-radius: 0.375rem; }
+	.cosy-images-circle--rounded-lg { border-radius: 0.5rem; }
+	.cosy-images-circle--rounded-xl { border-radius: 0.75rem; }
+	.cosy-images-circle--rounded-2xl { border-radius: 1rem; }
+	.cosy-images-circle--rounded-3xl { border-radius: 1.5rem; }
+	.cosy-images-circle--rounded-full { border-radius: 9999px; }
+
+	/* 错误视图 */
+	.cosy-images-circle__error {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 2rem;
+		border: 2px dashed #d7d7d7;
+		border-radius: 0.5rem;
+		text-align: center;
+		color: #6b7280;
+	}
+	.cosy-images-circle__error-title {
+		font-size: 1.125rem;
+		font-weight: 500;
+		margin: 0 0 0.5rem;
+	}
+	.cosy-images-circle__error-desc {
+		font-size: 0.875rem;
+		margin: 0;
+	}
+</style>

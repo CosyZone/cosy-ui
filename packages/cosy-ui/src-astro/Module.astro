@@ -1,0 +1,98 @@
+---
+/**
+ * @component Module
+ *
+ * @description
+ * Module 组件用于展示包含图片、标题和描述的内容模块。
+ * 适用于特性展示、产品介绍等场景。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Module
+ *   title="模块标题"
+ *   description="模块描述文本"
+ *   image={moduleImage}
+ * />
+ * ```
+ *
+ * @props
+ * @prop {string} title - 模块标题
+ * @prop {string} description - 模块描述
+ * @prop {ImageMetadata} image - 模块图片
+ * @prop {string} [class] - 自定义类名
+ */
+
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+/**
+ * Module 组件属性（组件自包含定义）
+ */
+export interface IModuleProps {
+    /** 模块标题 */
+    title: string;
+    /** 模块描述 */
+    description: string;
+    /** 模块图片 */
+    image: ImageMetadata;
+    /** 自定义类名 */
+    class?: string;
+}
+
+const { title, description, image, class: className = '' } = Astro.props as IModuleProps;
+---
+
+<div class:list={['cosy-module', className]}>
+    <div class="cosy-module__media">
+        <Image
+            src={image}
+            alt={title}
+            class="cosy-module__img"
+        />
+    </div>
+    <h3 class="cosy-module__title">{title}</h3>
+    <p class="cosy-module__desc">{description}</p>
+</div>
+
+<style is:global>
+    /* Module - 原生 CSS 实现（daisyui corporate 主题色） */
+    .cosy-module {
+        --cosy-module-base-content: #1d1d1d;
+
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        color: var(--cosy-module-base-content);
+    }
+
+    .cosy-module__media {
+        position: relative;
+        width: 12rem;
+        height: 12rem;
+    }
+    .cosy-module__img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .cosy-module__title {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+        line-height: 1.4;
+        text-align: center;
+    }
+
+    .cosy-module__desc {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.625;
+        text-align: center;
+        max-width: 24rem;
+        color: color-mix(in srgb, var(--cosy-module-base-content) 70%, transparent);
+    }
+</style>

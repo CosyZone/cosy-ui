@@ -1,0 +1,185 @@
+---
+/**
+ * @component StatsDisplay
+ *
+ * @description
+ * StatsDisplay 组件用于展示统计数据，采用极简设计风格。
+ * 适合在首页、关于我们页面或产品介绍页面中展示关键数据指标。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <StatsDisplay
+ *   stats={[
+ *     { value: "10+", label: "年经验" },
+ *     { value: "500+", label: "客户" }
+ *   ]}
+ * />
+ * ```
+ *
+ * 自定义样式：
+ * ```astro
+ * <StatsDisplay
+ *   stats={stats}
+ *   valueSize="4xl"
+ *   valueColor="primary"
+ *   labelColor="gray"
+ * />
+ * ```
+ *
+ * @props
+ * @param {Array<{value: string, label: string, color?: string}>} stats - 统计数据数组
+ * @param {string} [class] - 自定义CSS类
+ * @param {boolean} [compact] - 是否使用紧凑模式
+ * @param {number} [columns=4] - 列数
+ * @param {string} [valueSize='3xl'] - 数值字体大小
+ * @param {string} [valueColor='primary'] - 数值颜色
+ * @param {string} [labelColor='gray'] - 标签颜色
+ * @param {string} [valueWeight='thin'] - 数值字重
+ * @param {string} [labelWeight='light'] - 标签字重
+ * @param {string} [gap='lg'] - 项目间距
+ * @param {string} [align='center'] - 对齐方式
+ */
+
+export type StatsPresetColor =
+	| "primary" | "secondary" | "success" | "warning" | "error" | "info"
+	| "blue" | "green" | "yellow" | "red" | "purple" | "pink" | "indigo" | "gray";
+
+export type StatsFontSize = "xs" | "sm" | "base" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl";
+export type StatsFontWeight = "thin" | "light" | "normal" | "medium" | "semibold" | "bold";
+export type StatsSpacing = "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
+export type StatsAlignment = "left" | "center" | "right";
+
+export interface StatItem {
+	value: string;
+	label: string;
+	color?: string | StatsPresetColor;
+}
+
+export interface StatsDisplayProps {
+	stats: StatItem[];
+	class?: string;
+	compact?: boolean;
+	columns?: number;
+	valueSize?: StatsFontSize;
+	valueColor?: string | StatsPresetColor;
+	labelColor?: string | StatsPresetColor;
+	valueWeight?: StatsFontWeight;
+	labelWeight?: StatsFontWeight;
+	gap?: StatsSpacing;
+	align?: StatsAlignment;
+}
+
+const PRESET_COLORS: Record<StatsPresetColor, string> = {
+	primary: "#4b6bfb",
+	secondary: "#7b92b2",
+	success: "#16a34a",
+	warning: "#d97706",
+	error: "#dc2626",
+	info: "#2563eb",
+	blue: "#2563eb",
+	green: "#16a34a",
+	yellow: "#d97706",
+	red: "#dc2626",
+	purple: "#8b5cf6",
+	pink: "#ec4899",
+	indigo: "#4b6bfb",
+	gray: "#7b92b2",
+};
+
+const resolveColor = (color: string | StatsPresetColor | undefined, fallback: string): string => {
+	if (!color) return fallback;
+	return PRESET_COLORS[color as StatsPresetColor] || color;
+};
+
+const fontSizeMap: Record<StatsFontSize, string> = {
+	xs: "0.75rem", sm: "0.875rem", base: "1rem", lg: "1.125rem", xl: "1.25rem",
+	"2xl": "1.5rem", "3xl": "1.875rem", "4xl": "2.25rem", "5xl": "3rem", "6xl": "3.75rem",
+};
+
+const fontWeightMap: Record<StatsFontWeight, number> = {
+	thin: 100, light: 300, normal: 400, medium: 500, semibold: 600, bold: 700,
+};
+
+const gapMap: Record<StatsSpacing, string> = {
+	sm: "1rem", md: "1.5rem", lg: "2rem", xl: "3rem", "2xl": "4rem", "3xl": "5rem",
+};
+
+const alignMap: Record<StatsAlignment, string> = {
+	left: "flex-start", center: "center", right: "flex-end",
+};
+
+const {
+	stats = [],
+	class: className = "",
+	compact = false,
+	columns = 4,
+	valueSize = "3xl",
+	valueColor = "primary",
+	labelColor = "gray",
+	valueWeight = "thin",
+	labelWeight = "light",
+	gap = "lg",
+	align = "center",
+} = Astro.props as StatsDisplayProps;
+
+const containerClass = ["cosy-stats-display", compact ? "cosy-stats-display--compact" : "", className]
+	.filter(Boolean).join(" ");
+
+const containerStyle = [
+	`--cosy-stats-display-cols: ${columns}`,
+	`--cosy-stats-display-gap: ${gapMap[gap]}`,
+	`--cosy-stats-display-align: ${alignMap[align]}`,
+].join("; ");
+---
+
+<div class={containerClass} style={containerStyle}>
+	{
+		stats.map((stat: StatItem) => {
+			const valueColorResolved = resolveColor(stat.color || valueColor, "#4b6bfb");
+			const labelColorResolved = resolveColor(stat.color || labelColor, "#7b92b2");
+			return (
+				<div class="cosy-stats-display__item">
+					<div
+						class="cosy-stats-display__value"
+						style={`color: ${valueColorResolved}; font-size: ${fontSizeMap[valueSize]}; font-weight: ${fontWeightMap[valueWeight]};`}
+					>
+						{stat.value}
+					</div>
+					<div
+						class="cosy-stats-display__label"
+						style={`color: ${labelColorResolved}; font-weight: ${fontWeightMap[labelWeight]};`}
+					>
+						{stat.label}
+					</div>
+				</div>
+			);
+		})
+	}
+</div>
+
+<style is:global>
+    /* StatsDisplay - 原生 CSS 实现（corporate 主题色） */
+    .cosy-stats-display {
+        display: grid;
+        grid-template-columns: repeat(var(--cosy-stats-display-cols, 4), minmax(0, 1fr));
+        gap: var(--cosy-stats-display-gap, 2rem);
+        text-align: center;
+    }
+    .cosy-stats-display--compact {
+        gap: 1.5rem;
+    }
+    .cosy-stats-display__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .cosy-stats-display__value {
+        margin-bottom: 0.5rem;
+        line-height: 1;
+    }
+    .cosy-stats-display__label {
+        line-height: 1.625;
+        font-size: 0.875rem;
+    }
+</style>

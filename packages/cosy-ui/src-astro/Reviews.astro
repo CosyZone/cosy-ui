@@ -1,0 +1,152 @@
+---
+/**
+ * @component Reviews
+ *
+ * @description
+ * Reviews 组件用于展示多个用户评价，支持网格布局、评分统计。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Reviews reviews={reviewsData} title="用户评价" showStats={true} />
+ * ```
+ *
+ * @props
+ * @prop {ReviewData[]} reviews - 评价数据数组
+ * @prop {string} [title] - 标题
+ * @prop {boolean} [showStats=false] - 是否显示统计信息
+ * @prop {'grid'|'list'} [layout='grid'] - 布局模式
+ * @prop {number} [maxReviews] - 最大显示评价数
+ * @prop {string} [class] - 自定义类名
+ */
+import Heading from "./Heading.astro";
+import SmartIcon from "./SmartIcon.astro";
+import Text from "./Text.astro";
+import Review from "./Review.astro";
+import type { ReviewData } from "./Review.astro";
+
+export interface ReviewsProps {
+	reviews: ReviewData[];
+	title?: string;
+	showStats?: boolean;
+	layout?: "grid" | "list";
+	maxReviews?: number;
+	class?: string;
+}
+
+const {
+	reviews,
+	title,
+	showStats = false,
+	layout = "grid",
+	maxReviews,
+	class: className = "",
+} = Astro.props as ReviewsProps;
+
+const stats = showStats
+	? {
+			averageRating: reviews.reduce((sum, r) => sum + r.rating, 0) / (reviews.length || 1),
+			totalReviews: reviews.length,
+		}
+	: null;
+
+	const displayReviews = maxReviews ? reviews.slice(0, maxReviews) : reviews;
+
+	const containerClass = ["cosy-reviews", className].filter(Boolean).join(" ");
+
+	const averageStars = Array.from({ length: 5 }, (_, i) => ({
+		filled: i < Math.floor(stats?.averageRating ?? 0),
+	}));
+---
+
+<div class={containerClass}>
+	{(title || showStats) && (
+		<div class="cosy-reviews__header">
+			{title && (
+				<Heading level={2} class="cosy-reviews__title">{title}</Heading>
+			)}
+			{showStats && stats && (
+				<div class="cosy-reviews__stats">
+					<Text size="3xl" class="cosy-reviews__average">{stats.averageRating.toFixed(1)}</Text>
+					<div class="cosy-reviews__stars">
+						{averageStars.map((star) => (
+							<SmartIcon
+								keyword="star"
+								size="20px"
+								class={star.filled ? "cosy-reviews__star--filled" : "cosy-reviews__star"}
+							/>
+						))}
+					</div>
+					<Text class="cosy-reviews__count">({stats.totalReviews} 评价)</Text>
+				</div>
+			)}
+		</div>
+	)}
+
+	{
+		layout === "grid" ? (
+			<div class="cosy-reviews__grid">
+				{displayReviews.map((review) => (
+					<Review {...review} />
+				))}
+			</div>
+		) : (
+			<div class="cosy-reviews__list">
+				{displayReviews.map((review) => (
+					<Review {...review} />
+				))}
+			</div>
+		)
+	}
+</div>
+
+<style is:global>
+    /* Reviews - 原生 CSS 实现（corporate 主题色） */
+    .cosy-reviews {
+        --cosy-reviews-primary: #4b6bfb;
+        --cosy-reviews-content: #1d1d1d;
+    }
+    .cosy-reviews__header {
+        margin-bottom: 1.5rem;
+    }
+    .cosy-reviews__title {
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+    .cosy-reviews__stats {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    .cosy-reviews__average {
+        font-weight: 700;
+        color: var(--cosy-reviews-primary);
+    }
+    .cosy-reviews__stars {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+    .cosy-reviews__star { color: #d7d7d7; }
+    .cosy-reviews__star--filled { color: #d97706; }
+    .cosy-reviews__count {
+        color: color-mix(in srgb, var(--cosy-reviews-content) 60%, transparent);
+    }
+    .cosy-reviews__grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    @media (min-width: 768px) {
+        .cosy-reviews__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px) {
+        .cosy-reviews__grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .cosy-reviews__list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+</style>

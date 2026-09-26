@@ -1,0 +1,77 @@
+---
+/**
+ * @component TeamMembers
+ *
+ * @description
+ * TeamMembers 组件用于展示团队成员列表，以网格布局呈现多个 TeamMember 组件。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <TeamMembers members={teamData} />
+ * ```
+ *
+ * @props
+ * @prop {Array} members - 团队成员数据数组
+ * @prop {number} [columns=3] - 网格列数（2|3|4）
+ * @prop {string} [class] - 自定义类名
+ */
+import TeamMember from "./TeamMember.astro";
+import type { ITeamMemberProps } from "./TeamMember.astro";
+
+type MemberData = Omit<ITeamMemberProps, "class">;
+
+export interface TeamMembersProps {
+	members: MemberData[];
+	columns?: 2 | 3 | 4;
+	class?: string;
+}
+
+const { members, columns = 3, class: className = "" } = Astro.props as TeamMembersProps;
+
+const containerClass = ["cosy-team-members", `cosy-team-members--cols-${columns}`, className]
+	.filter(Boolean).join(" ");
+---
+
+<div class={containerClass}>
+	{
+		members.map((member: MemberData) => (
+			<div class="cosy-team-members__item">
+				<TeamMember {...member} />
+			</div>
+		))
+	}
+</div>
+
+<style is:global>
+    /* TeamMembers - 原生 CSS 实现（corporate 主题色） */
+    .cosy-team-members {
+        width: 100%;
+        max-width: 80rem;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+    .cosy-team-members > .cosy-team-members__item {
+        transition: transform 300ms ease;
+    }
+    .cosy-team-members > .cosy-team-members__item:hover {
+        transform: translateY(-0.25rem);
+    }
+
+    .cosy-team-members {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    @media (min-width: 768px) {
+        .cosy-team-members { grid-template-columns: repeat(2, 1fr); }
+    }
+    .cosy-team-members--cols-2 { }
+    .cosy-team-members--cols-3 { }
+    .cosy-team-members--cols-4 { }
+    @media (min-width: 1024px) {
+        .cosy-team-members--cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .cosy-team-members--cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .cosy-team-members--cols-4 { grid-template-columns: repeat(4, 1fr); }
+    }
+</style>

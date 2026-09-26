@@ -1,0 +1,97 @@
+---
+/**
+ * @component ProductHeroContent
+ * @description ProductHero 的文本内容区，包含标签、标题、描述、价格和操作按钮插槽
+ */
+
+import Badge from "./Badge.astro";
+import Heading from "./Heading.astro";
+import Text from "./Text.astro";
+
+export interface Props {
+	name: string;
+	description: string;
+	highlight?: string;
+	labels?: string[];
+	contentDirection?: string;
+}
+
+const { name, description, highlight, labels = [] } = Astro.props as Props;
+---
+
+<div class="cosy-product-hero__content">
+	{
+		labels && labels.length > 0 && (
+			<div class="cosy-product-hero__labels">
+				{labels.map((label) => (
+					<Badge variant="primary">{label}</Badge>
+				))}
+			</div>
+		)
+	}
+
+	<Heading level={2} size="4xl" weight="thin" class="cosy-product-hero__title" align="center">
+		{name}
+	</Heading>
+
+	<Text size="xl" align="center" weight="light">
+		{description}
+	</Text>
+
+	{
+		highlight && (
+			<div class="cosy-product-hero__highlight">
+				<Text size="2xl" weight="thin">
+					{highlight}
+				</Text>
+			</div>
+		)
+	}
+
+	<div class="cosy-product-hero__actions">
+		<slot />
+	</div>
+</div>
+
+<style is:global>
+	.cosy-product-hero__content {
+		text-align: center;
+	}
+	.cosy-product-hero__labels {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-bottom: 1rem;
+		justify-content: center;
+	}
+	.cosy-product-hero__title {
+		margin-bottom: 1rem;
+	}
+	.cosy-product-hero__highlight {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+		margin-bottom: 2rem;
+		justify-content: center;
+	}
+	.cosy-product-hero__actions {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+	}
+
+	@media (min-width: 768px) {
+		.cosy-product-hero__content {
+			text-align: left;
+		}
+		.cosy-product-hero__labels {
+			justify-content: flex-start;
+		}
+		.cosy-product-hero__highlight {
+			justify-content: flex-start;
+		}
+		.cosy-product-hero__actions {
+			justify-content: flex-start;
+		}
+	}
+</style>

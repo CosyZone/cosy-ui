@@ -1,0 +1,351 @@
+---
+/**
+ * @component ScrollRow
+ *
+ * @description
+ * ScrollRow 是通用横向可滚动容器，提供左右导航按钮与键盘/触摸可访问性。
+ * 默认插槽放置任意横向排列内容（卡片、图片、徽章等）。
+ *
+ * @usage
+ * ```astro
+ * <ScrollRow showNavigation gap="md">
+ *   <div class="my-card" />
+ *   <div class="my-card" />
+ * </ScrollRow>
+ * ```
+ *
+ * @props
+ * @prop {boolean} [showNavigation=true] - 是否显示左右导航按钮
+ * @prop {('item'|'page'|number)} [scrollBy='item'] - 导航步长：按子项、按页面宽度或指定像素
+ * @prop {BackgroundColor} [background] - 背景色
+ * @prop {string} [padding='md'] - 内边距
+ * @prop {string} [margin='none'] - 外边距
+ * @prop {string} [rounded='none'] - 容器圆角
+ * @prop {string} [width='full'] - 容器宽度
+ * @prop {string} [height='none'] - 容器高度
+ * @prop {string} [gap='md'] - 子元素间距
+ * @prop {string} [class] - 追加自定义类名
+ *
+ * @slots
+ * @slot default - 横向排列的任意内容
+ */
+
+import type {
+	BackgroundColor,
+	HeightSize,
+	MarginSize,
+	PaddingSize,
+	RoundedSize,
+	Size,
+} from "../src/common";
+import Container from "./Container.astro";
+import Button from "./Button.astro";
+import ChevronLeftIcon from "./ChevronLeftIcon.astro";
+import ChevronRightIcon from "./ChevronRightIcon.astro";
+
+export interface IScrollRowProps {
+	showNavigation?: boolean;
+	scrollBy?: "item" | "page" | number;
+	background?: BackgroundColor;
+	padding?: PaddingSize;
+	margin?: MarginSize;
+	rounded?: RoundedSize;
+	width?: Size;
+	height?: HeightSize;
+	gap?: "none" | "xs" | "sm" | "md" | "lg" | "xl";
+	class?: string;
+}
+
+const {
+	showNavigation = true,
+	scrollBy = "item",
+	background,
+	padding = "md",
+	margin = "none",
+	rounded = "none",
+	width = "full",
+	height = "none",
+	gap = "md",
+	class: className = "",
+} = Astro.props as IScrollRowProps;
+
+// Gap → BEM 修饰类
+const gapModMap = {
+	none: "cosy-scroll-row--gap-none",
+	xs: "cosy-scroll-row--gap-xs",
+	sm: "cosy-scroll-row--gap-sm",
+	md: "cosy-scroll-row--gap-md",
+	lg: "cosy-scroll-row--gap-lg",
+	xl: "cosy-scroll-row--gap-xl",
+} as const;
+const gapMod = gapModMap[gap];
+---
+
+<Container
+	background={background}
+	padding={padding}
+	margin={margin}
+	width={width}
+	height={height}
+	rounded={rounded}
+	class={className}>
+	<div
+		class={`cosy-scroll-row__wrapper ${gapMod}`.trim()}
+		role="region"
+		data-scroll-by={String(scrollBy)}>
+		{
+			showNavigation && (
+				<div class="cosy-scroll-row__nav-side cosy-scroll-row__nav-side--desktop">
+					<Button
+						type="button"
+						variant="ghost"
+						size="sm"
+						class="cosy-scroll-row__nav-btn cosy-scroll-row__nav-prev"
+						aria-label="Previous"
+						disabled>
+						<ChevronLeftIcon />
+					</Button>
+				</div>
+			)
+		}
+
+		<div class="cosy-scroll-row__container">
+			<slot />
+		</div>
+
+		{
+			showNavigation && (
+				<div class="cosy-scroll-row__nav-side cosy-scroll-row__nav-side--desktop">
+					<Button
+						type="button"
+						variant="ghost"
+						size="sm"
+						class="cosy-scroll-row__nav-btn cosy-scroll-row__nav-next"
+						aria-label="Next">
+						<ChevronRightIcon />
+					</Button>
+				</div>
+			)
+		}
+
+		{
+			showNavigation && (
+				<div class="cosy-scroll-row__nav-mobile">
+					<Button
+						type="button"
+						variant="ghost"
+						size="sm"
+						class="cosy-scroll-row__nav-btn cosy-scroll-row__nav-prev"
+						aria-label="Previous"
+						disabled>
+						<ChevronLeftIcon />
+					</Button>
+					<Button
+						type="button"
+						variant="ghost"
+						size="sm"
+						class="cosy-scroll-row__nav-btn cosy-scroll-row__nav-next"
+						aria-label="Next">
+						<ChevronRightIcon />
+					</Button>
+				</div>
+			)
+		}
+	</div>
+</Container>
+
+<style is:global>
+	/* ScrollRow - 原生 CSS 实现 */
+	.cosy-scroll-row__wrapper {
+		display: flex;
+		align-items: center;
+		height: 100%;
+		min-width: 0;
+		width: 100%;
+		flex-direction: column;
+	}
+
+	/* 间距 */
+	.cosy-scroll-row--gap-none { gap: 0; }
+	.cosy-scroll-row--gap-xs { gap: 0.25rem; }
+	.cosy-scroll-row--gap-sm { gap: 0.5rem; }
+	.cosy-scroll-row--gap-md { gap: 1rem; }
+	.cosy-scroll-row--gap-lg { gap: 1.5rem; }
+	.cosy-scroll-row--gap-xl { gap: 2rem; }
+
+	.cosy-scroll-row__container {
+		display: flex;
+		align-items: center;
+		overflow-x: auto;
+		flex: 1 1 0%;
+		height: 100%;
+		white-space: nowrap;
+		min-width: 0;
+		width: 100%;
+		max-width: 100%;
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+	.cosy-scroll-row__container::-webkit-scrollbar {
+		display: none;
+	}
+	.cosy-scroll-row__container > * {
+		flex: 0 0 auto;
+	}
+
+	/* 桌面端两侧按钮 */
+	.cosy-scroll-row__nav-side {
+		display: none;
+	}
+	/* 移动端底部按钮 */
+	.cosy-scroll-row__nav-mobile {
+		display: flex;
+		justify-content: center;
+		gap: 0.75rem;
+		margin-top: 0.5rem;
+	}
+
+	@media (min-width: 768px) {
+		.cosy-scroll-row__wrapper {
+			flex-direction: row;
+		}
+		.cosy-scroll-row__nav-side {
+			display: block;
+		}
+		.cosy-scroll-row__nav-mobile {
+			display: none;
+		}
+	}
+</style>
+
+<script>
+	declare global {
+		interface Window {
+			__cosy_scrollRowScroll: (
+				button: HTMLElement,
+				direction: "prev" | "next",
+				scrollBy: "item" | "page" | number
+			) => void;
+		}
+	}
+
+	window.__cosy_scrollRowScroll = (
+		button: HTMLElement,
+		direction: "prev" | "next",
+		scrollBy: "item" | "page" | number
+	) => {
+		const wrapper = button.closest(".cosy-scroll-row__wrapper") as HTMLElement | null;
+		const container = wrapper?.querySelector(
+			".cosy-scroll-row__container"
+		) as HTMLElement | null;
+		if (!container || !wrapper) return;
+
+		const currentScrollLeft = container.scrollLeft;
+		const maxScrollLeft = container.scrollWidth - container.clientWidth;
+
+		let step = 0;
+		if (typeof scrollBy === "number") {
+			step = scrollBy;
+		} else if (scrollBy === "page") {
+			step = container.clientWidth;
+		} else {
+			const firstItem = container.firstElementChild as HTMLElement | null;
+			step = firstItem?.clientWidth || 200;
+		}
+
+		let newScrollLeft = currentScrollLeft;
+		if (direction === "prev") {
+			newScrollLeft = Math.max(0, currentScrollLeft - step);
+		} else {
+			newScrollLeft = Math.min(maxScrollLeft, currentScrollLeft + step);
+		}
+
+		container.scrollTo({ left: newScrollLeft, behavior: "smooth" });
+
+		setTimeout(() => updateButtons(wrapper), 300);
+	};
+
+	function updateButtons(wrapper: HTMLElement) {
+		const container = wrapper.querySelector(
+			".cosy-scroll-row__container"
+		) as HTMLElement | null;
+		if (!container) return;
+
+		const currentScrollLeft = container.scrollLeft;
+		const maxScrollLeft = container.scrollWidth - container.clientWidth;
+
+		const prevBtns = wrapper.querySelectorAll(
+			".cosy-scroll-row__nav-prev"
+		) as NodeListOf<HTMLButtonElement>;
+		const nextBtns = wrapper.querySelectorAll(
+			".cosy-scroll-row__nav-next"
+		) as NodeListOf<HTMLButtonElement>;
+
+		const prevDisabled = currentScrollLeft <= 0;
+		const nextDisabled = currentScrollLeft >= maxScrollLeft - 1;
+
+		prevBtns.forEach((btn) => (btn.disabled = prevDisabled));
+		nextBtns.forEach((btn) => (btn.disabled = nextDisabled));
+	}
+
+	function parseScrollBy(wrapper: HTMLElement): "item" | "page" | number {
+		const raw = wrapper.getAttribute("data-scroll-by") || "item";
+		if (raw === "item" || raw === "page") return raw;
+		const num = Number(raw);
+		return Number.isFinite(num) ? num : "item";
+	}
+
+	function bind(wrapper: HTMLElement) {
+		const container = wrapper.querySelector(
+			".cosy-scroll-row__container"
+		) as HTMLElement | null;
+		const sb = parseScrollBy(wrapper);
+		wrapper.querySelectorAll(".cosy-scroll-row__nav-prev").forEach((btn) => {
+			(btn as HTMLButtonElement).onclick = () =>
+				window.__cosy_scrollRowScroll(btn as HTMLButtonElement, "prev", sb);
+		});
+		wrapper.querySelectorAll(".cosy-scroll-row__nav-next").forEach((btn) => {
+			(btn as HTMLButtonElement).onclick = () =>
+				window.__cosy_scrollRowScroll(btn as HTMLButtonElement, "next", sb);
+		});
+		if (container) {
+			container.addEventListener("scroll", () => updateButtons(wrapper));
+			window.addEventListener("resize", () =>
+				setTimeout(() => updateButtons(wrapper), 100)
+			);
+			setTimeout(() => updateButtons(wrapper), 100);
+
+			try {
+				const ro = new ResizeObserver(() =>
+					setTimeout(() => updateButtons(wrapper), 50)
+				);
+				ro.observe(container);
+			} catch {}
+
+			try {
+				const io = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							setTimeout(() => updateButtons(wrapper), 100);
+						}
+					});
+				});
+				io.observe(wrapper);
+			} catch {}
+		}
+	}
+
+	function initAll() {
+		document
+			.querySelectorAll(".cosy-scroll-row__wrapper")
+			.forEach((el) => bind(el as HTMLElement));
+	}
+
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", () => initAll());
+	} else {
+		initAll();
+	}
+
+	document.addEventListener("astro:page-load", () => initAll());
+</script>

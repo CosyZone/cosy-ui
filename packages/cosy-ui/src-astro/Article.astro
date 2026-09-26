@@ -1,0 +1,199 @@
+---
+/**
+ * @component Article
+ *
+ * @description
+ * Article 组件用于展示格式化的文章内容，提供了一套完整的排版样式，使文章内容更易于阅读和理解。
+ * 该组件适用于博客文章、文档页面、新闻内容等需要良好排版的场景。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Article>
+ *   <h1>文章标题</h1>
+ *   <p>这是一段文章内容...</p>
+ * </Article>
+ * ```
+ *
+ * 设置文章宽度：
+ * ```astro
+ * <Article width="narrow">
+ *   <h2>窄宽度文章</h2>
+ *   <p>这是一段文章内容...</p>
+ * </Article>
+ * ```
+ *
+ * @props
+ * @prop {string} [class] - 自定义 CSS 类名，会与组件内置的类名合并
+ * @prop {string} [width="medium"] - 文章宽度，可选值为 "narrow"(窄), "medium"(中等), "wide"(宽), "full"(全宽)
+ * @prop {string} [style] - 自定义 CSS 样式
+ *
+ * @slots
+ * @slot default - 文章内容，可以包含任何 HTML 元素
+ */
+
+export type ArticleWidth = "narrow" | "medium" | "wide" | "full";
+
+export interface IArticleProps {
+	class?: string;
+	width?: ArticleWidth;
+	style?: string;
+}
+
+const { class: className = "", width = "medium", style = "" } = Astro.props as IArticleProps;
+
+const widthClassMap: Record<ArticleWidth, string> = {
+	narrow: "cosy-article--narrow",
+	medium: "cosy-article--medium",
+	wide: "cosy-article--wide",
+	full: "cosy-article--full",
+};
+
+const articleClass = ["cosy-article", widthClassMap[width], className].filter(Boolean).join(" ");
+---
+
+<article class={articleClass} style={style}>
+	<slot />
+</article>
+
+<style is:global>
+    /* Article - 原生 CSS 排版（corporate 主题色） */
+    .cosy-article {
+        --cosy-article-content: #1d1d1d;
+        --cosy-article-muted: #6b7280;
+        --cosy-article-primary: #4b6bfb;
+        --cosy-article-base-200: #e9e9e9;
+
+        box-sizing: border-box;
+        display: block;
+        width: 100%;
+        max-width: none;
+        margin: 0 auto;
+        padding: 0 0.5rem 24rem;
+        min-height: 100vh;
+        color: var(--cosy-article-content);
+        line-height: 1.75;
+        font-size: 1rem;
+    }
+    @media (min-width: 1024px) {
+        .cosy-article {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    }
+
+    /* 宽度变体 */
+    .cosy-article--narrow { max-width: 42rem; }
+    .cosy-article--medium { max-width: 56rem; }
+    .cosy-article--wide { max-width: 72rem; }
+    .cosy-article--full { max-width: 100%; }
+
+    /* 标题 */
+    .cosy-article h1,
+    .cosy-article h2,
+    .cosy-article h3,
+    .cosy-article h4,
+    .cosy-article h5,
+    .cosy-article h6 {
+        margin: 2rem 0 1rem;
+        font-weight: 700;
+        line-height: 1.3;
+        color: var(--cosy-article-content);
+    }
+    .cosy-article h1 { font-size: 2.25rem; margin-top: 0; }
+    .cosy-article h2 { font-size: 1.875rem; border-bottom: 1px solid var(--cosy-article-base-200); padding-bottom: 0.5rem; }
+    .cosy-article h3 { font-size: 1.5rem; }
+    .cosy-article h4 { font-size: 1.25rem; }
+    .cosy-article h5 { font-size: 1.125rem; }
+    .cosy-article h6 { font-size: 1rem; color: var(--cosy-article-muted); }
+
+    /* 段落与文本 */
+    .cosy-article p {
+        margin: 1rem 0;
+    }
+    .cosy-article a {
+        color: var(--cosy-article-primary);
+        text-decoration: underline;
+    }
+    .cosy-article a:hover {
+        opacity: 0.8;
+    }
+    .cosy-article strong { font-weight: 700; }
+    .cosy-article em { font-style: italic; }
+
+    /* 列表 */
+    .cosy-article ul,
+    .cosy-article ol {
+        margin: 1rem 0;
+        padding-left: 1.5rem;
+    }
+    .cosy-article ul { list-style: disc; }
+    .cosy-article ol { list-style: decimal; }
+    .cosy-article li { margin: 0.25rem 0; }
+    .cosy-article li > ul,
+    .cosy-article li > ol { margin: 0.25rem 0; }
+
+    /* 引用块 */
+    .cosy-article blockquote {
+        margin: 1.5rem 0;
+        padding: 0.5rem 1.25rem;
+        border-left: 4px solid var(--cosy-article-primary);
+        background: color-mix(in srgb, var(--cosy-article-primary) 6%, transparent);
+        font-style: italic;
+        color: var(--cosy-article-muted);
+    }
+
+    /* 代码 */
+    .cosy-article code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 0.875em;
+        background: var(--cosy-article-base-200);
+        padding: 0.15em 0.35em;
+        border-radius: 0.25rem;
+    }
+    .cosy-article pre {
+        margin: 1.5rem 0;
+        padding: 1rem;
+        background: #181a2a;
+        color: #e5e7eb;
+        border-radius: 0.5rem;
+        overflow-x: auto;
+    }
+    .cosy-article pre code {
+        background: transparent;
+        padding: 0;
+        color: inherit;
+        font-size: 0.875rem;
+    }
+
+    /* 图片 */
+    .cosy-article img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.5rem;
+    }
+
+    /* 分隔线 */
+    .cosy-article hr {
+        margin: 2rem 0;
+        border: 0;
+        border-top: 1px solid var(--cosy-article-base-200);
+    }
+
+    /* 表格 */
+    .cosy-article table {
+        width: 100%;
+        margin: 1.5rem 0;
+        border-collapse: collapse;
+    }
+    .cosy-article th,
+    .cosy-article td {
+        padding: 0.5rem 0.75rem;
+        border: 1px solid var(--cosy-article-base-200);
+        text-align: left;
+    }
+    .cosy-article th {
+        background: var(--cosy-article-base-200);
+        font-weight: 700;
+    }
+</style>

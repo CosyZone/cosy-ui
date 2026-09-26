@@ -1,0 +1,166 @@
+---
+/**
+ * @component Review
+ *
+ * @description
+ * Review 组件用于展示用户评价，支持评分、评论内容、用户信息和认证状态。
+ * 适用于电商产品页面、服务评价、内容评论等场景。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Review
+ *   userName="张先生"
+ *   rating={5}
+ *   comment="产品非常好用，质量很棒！"
+ *   date="2024-01-15"
+ *   verified={true}
+ * />
+ * ```
+ *
+ * @props
+ * @prop {string} userName - 用户名称
+ * @prop {number} rating - 评分（1-5）
+ * @prop {string} comment - 评论内容
+ * @prop {string} [date] - 评价日期
+ * @prop {boolean} [verified=false] - 是否认证用户
+ * @prop {string} [avatar] - 用户头像URL
+ * @prop {boolean} [muted] - 是否使用柔和色样式
+ * @prop {string} [class] - 自定义类名
+ */
+import Avatar from "./Avatar.astro";
+import Badge from "./Badge.astro";
+import Card from "./Card.astro";
+import SmartIcon from "./SmartIcon.astro";
+import Text from "./Text.astro";
+
+export interface ReviewData {
+	userName: string;
+	rating: number;
+	comment: string;
+	date?: string;
+	verified?: boolean;
+	avatar?: string;
+}
+
+export interface ReviewProps extends ReviewData {
+	class?: string;
+	muted?: boolean;
+}
+
+const {
+	userName,
+	rating,
+	comment,
+	date,
+	verified = false,
+	avatar,
+	muted = false,
+	class: className = "",
+} = Astro.props as ReviewProps;
+
+const reviewClass = ["cosy-review", className].filter(Boolean).join(" ");
+
+const stars = Array.from({ length: 5 }, (_, i) => ({
+	filled: i < Math.floor(rating),
+	half: i === Math.floor(rating) && rating % 1 !== 0,
+}));
+
+const formatDate = (dateString: string) => {
+	try {
+		return new Date(dateString).toLocaleDateString("zh-CN", {
+			year: "numeric",
+			month: "2-digit",
+			day: "2-digit",
+		});
+	} catch {
+		return dateString;
+	}
+};
+---
+
+<Card class={reviewClass} padding="lg" muted={muted}>
+	<div class="cosy-review__header">
+		<Avatar userName={userName} avatar={avatar} size="md" />
+		<div class="cosy-review__user">
+			<div class="cosy-review__user-row">
+				<Text class="cosy-review__name">{userName}</Text>
+				{verified && (
+					<Badge variant="success" size="sm">已认证</Badge>
+				)}
+			</div>
+		</div>
+	</div>
+
+	<div class="cosy-review__stars">
+		{
+			stars.map((star) => (
+				<SmartIcon
+					keyword="star"
+					size="16px"
+					class={star.filled || star.half ? "cosy-review__star--filled" : "cosy-review__star"}
+				/>
+			))
+		}
+	</div>
+
+	<div class="cosy-review__comment">
+		<Text class="cosy-review__comment-text">{comment}</Text>
+	</div>
+
+	{
+		date && (
+			<div class="cosy-review__date">
+				<Text size="sm" class="cosy-review__date-text">{formatDate(date)}</Text>
+			</div>
+		)
+	}
+</Card>
+
+<style is:global>
+    /* Review - 原生 CSS 实现（corporate 主题色） */
+    .cosy-review {
+        --cosy-review-content: #1d1d1d;
+    }
+    .cosy-review__header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+    .cosy-review__user {
+        flex: 1 1 auto;
+    }
+    .cosy-review__user-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.25rem;
+    }
+    .cosy-review__name {
+        font-weight: 500;
+        color: var(--cosy-review-content);
+    }
+    .cosy-review__stars {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        margin-bottom: 0.75rem;
+    }
+    .cosy-review__star {
+        color: #d7d7d7;
+    }
+    .cosy-review__star--filled {
+        color: #d97706;
+    }
+    .cosy-review__comment {
+        margin-bottom: 0.75rem;
+    }
+    .cosy-review__comment-text {
+        color: color-mix(in srgb, var(--cosy-review-content) 80%, transparent);
+        line-height: 1.625;
+    }
+    .cosy-review__date-text {
+        color: color-mix(in srgb, var(--cosy-review-content) 50%, transparent);
+    }
+</style>

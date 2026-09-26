@@ -1,0 +1,157 @@
+---
+/**
+ * @component Prose
+ *
+ * @description
+ * Prose 组件用于包裹内容并应用良好的排版样式。它为包裹在内的内容
+ * （如标题、段落、列表、代码块、表格等）自动应用专业的排版样式。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Prose>
+ *   <h1>标题</h1>
+ *   <p>段落内容</p>
+ * </Prose>
+ * ```
+ *
+ * @props
+ * @prop {string} [class] - 自定义 CSS 类名，用于覆盖默认样式
+ * @prop {string} [style] - 自定义内联样式
+ *
+ * @slots
+ * @slot default - 需要应用排版样式的内容
+ */
+
+/**
+ * Prose 组件属性（组件自包含定义）
+ */
+export interface IProseProps {
+    /** 自定义 CSS 类名 */
+    class?: string;
+    /** 自定义内联样式 */
+    style?: string;
+}
+
+const { class: className = '', style = '', ...rest } = Astro.props as IProseProps & Record<string, any>;
+---
+
+<div
+    class:list={['cosy-prose', className]}
+    style={style}
+    {...rest}>
+    <slot />
+</div>
+
+<style is:global>
+    /* Prose - 原生 CSS 排版（daisyui corporate 主题色） */
+    .cosy-prose {
+        --cosy-prose-base-content: #1d1d1d;
+        --cosy-prose-base-200: #e9e9e9;
+        --cosy-prose-primary: #4b6bfb;
+        --cosy-prose-code-bg: #e9e9e9;
+
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
+        font-size: 1rem;
+        line-height: 1.75;
+        color: var(--cosy-prose-base-content);
+    }
+
+    .cosy-prose > *:first-child { margin-top: 0; }
+    .cosy-prose > *:last-child { margin-bottom: 0; }
+
+    .cosy-prose h1,
+    .cosy-prose h2,
+    .cosy-prose h3,
+    .cosy-prose h4,
+    .cosy-prose h5,
+    .cosy-prose h6 {
+        margin: 1.5em 0 0.5em;
+        font-weight: 700;
+        line-height: 1.3;
+        color: var(--cosy-prose-base-content);
+    }
+    .cosy-prose h1 { font-size: 2.25rem; }
+    .cosy-prose h2 { font-size: 1.875rem; }
+    .cosy-prose h3 { font-size: 1.5rem; }
+    .cosy-prose h4 { font-size: 1.25rem; }
+    .cosy-prose h5 { font-size: 1.125rem; }
+    .cosy-prose h6 { font-size: 1rem; }
+
+    .cosy-prose p {
+        margin: 0 0 1em;
+    }
+
+    .cosy-prose a {
+        color: var(--cosy-prose-primary);
+        text-decoration: underline;
+    }
+    .cosy-prose a:hover { opacity: 0.8; }
+
+    .cosy-prose ul,
+    .cosy-prose ol {
+        margin: 0 0 1em;
+        padding-left: 1.5rem;
+    }
+    .cosy-prose ul { list-style: disc; }
+    .cosy-prose ol { list-style: decimal; }
+    .cosy-prose li { margin: 0.25rem 0; }
+
+    .cosy-prose blockquote {
+        margin: 1.5em 0;
+        padding: 0.5em 1em;
+        border-left: 4px solid var(--cosy-prose-primary);
+        background: color-mix(in srgb, var(--cosy-prose-primary) 6%, transparent);
+        color: color-mix(in srgb, var(--cosy-prose-base-content) 80%, transparent);
+    }
+
+    .cosy-prose code {
+        padding: 0.15em 0.4em;
+        border-radius: 0.25rem;
+        font-size: 0.875em;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        background: var(--cosy-prose-code-bg);
+    }
+
+    .cosy-prose pre {
+        margin: 1.5em 0;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        overflow-x: auto;
+        background: var(--cosy-prose-code-bg);
+    }
+    .cosy-prose pre code {
+        padding: 0;
+        background: transparent;
+    }
+
+    .cosy-prose img {
+        max-width: 100%;
+        border-radius: 0.5rem;
+    }
+
+    .cosy-prose table {
+        width: 100%;
+        margin: 1.5em 0;
+        border-collapse: collapse;
+    }
+    .cosy-prose th,
+    .cosy-prose td {
+        padding: 0.5rem 0.75rem;
+        border: 1px solid var(--cosy-prose-base-200);
+        text-align: left;
+    }
+    .cosy-prose th {
+        font-weight: 600;
+        background: var(--cosy-prose-base-200);
+    }
+
+    .cosy-prose hr {
+        margin: 2em 0;
+        border: 0;
+        border-top: 1px solid var(--cosy-prose-base-200);
+    }
+</style>

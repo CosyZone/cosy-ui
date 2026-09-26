@@ -1,0 +1,210 @@
+---
+/**
+ * @component Main
+ *
+ * @description
+ * Main 组件是页面的主要内容区域，提供响应式布局和内边距控制。
+ * 支持文章模式和目录显示。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Main>页面内容</Main>
+ * ```
+ *
+ * 文章模式：
+ * ```astro
+ * <Main isArticle>文章内容</Main>
+ * ```
+ *
+ * @props
+ * @prop {'xs'|'sm'|'md'|'lg'|'xl'|'full'} [size='md'] - 容器大小
+ * @prop {'none'|'sm'|'md'|'lg'|'xl'} [padding='md'] - 内边距
+ * @prop {'row'|'column'} [layout='column'] - 布局方式
+ * @prop {string} [py] - 垂直内边距
+ * @prop {string} [pt] - 顶部内边距
+ * @prop {string} [pb] - 底部内边距
+ * @prop {string} [pl] - 左侧内边距
+ * @prop {string} [pr] - 右侧内边距
+ * @prop {string} [px] - 水平内边距
+ * @prop {boolean} [centered=true] - 是否居中
+ * @prop {boolean} [isArticle=false] - 是否为文章布局
+ * @prop {boolean} [showTableOfContents=false] - 是否显示目录
+ * @prop {string} [backgroundColor] - 背景颜色
+ * @prop {string} [border] - 边框尺寸
+ * @prop {string} [id] - HTML id
+ * @prop {string} [class] - 自定义类名
+ */
+
+import type { HTMLAttributes } from "astro/types";
+import Article from "./Article.astro";
+import TableOfContents from "./TableOfContents.astro";
+
+export interface IMainContentProps extends Omit<HTMLAttributes<"main">, "class"> {
+	size?: "xs" | "sm" | "md" | "lg" | "xl" | "full";
+	padding?: "none" | "sm" | "md" | "lg" | "xl";
+	layout?: "row" | "column";
+	currentLocale?: string;
+	py?: string;
+	pt?: string;
+	pb?: string;
+	pl?: string;
+	pr?: string;
+	px?: string;
+	centered?: boolean;
+	isArticle?: boolean;
+	showTableOfContents?: boolean;
+	backgroundColor?: string;
+	border?: string;
+	id?: string;
+	class?: string;
+}
+
+/** 内边距映射 */
+const paddingMap = {
+	none: "0",
+	sm: "0.5rem",
+	md: "1rem",
+	lg: "1.5rem",
+	xl: "2rem",
+} as const;
+
+/** 验证 padding 冲突 */
+function checkPaddingConflict(
+	px?: string,
+	pl?: string,
+	pr?: string,
+	py?: string,
+	pt?: string,
+	pb?: string,
+): string | null {
+	const hasPx = px && px !== "none";
+	const hasPl = pl && pl !== "none";
+	const hasPr = pr && pr !== "none";
+	const hasPy = py && py !== "none";
+	const hasPt = pt && pt !== "none";
+	const hasPb = pb && pb !== "none";
+
+	if (hasPx && (hasPl || hasPr)) {
+		return "不能同时使用 px 和 pl/pr 属性";
+	}
+	if (hasPy && (hasPt || hasPb)) {
+		return "不能同时使用 py 和 pt/pb 属性";
+	}
+	return null;
+}
+
+const {
+	padding = "md",
+	py = "none",
+	pt,
+	pb,
+	pl,
+	pr,
+	px,
+	centered = true,
+	backgroundColor,
+	border,
+	layout = "column",
+	isArticle = false,
+	id,
+	showTableOfContents = false,
+	class: className = "",
+	currentLocale,
+} = Astro.props as IMainContentProps;
+
+const paddingError = checkPaddingConflict(px, pl, pr, py, pt, pb);
+
+/** 解析 padding 值（支持预设或 CSS 长度） */
+function resolvePadding(value?: string): string {
+	if (!value || value === "none") return "0";
+	if (value in paddingMap) return paddingMap[value as keyof typeof paddingMap];
+	return value;
+}
+
+const paddingTop = pt ?? py ?? paddingMap[padding as keyof typeof paddingMap] ?? "1rem";
+const paddingBottom = pb ?? py ?? paddingMap[padding as keyof typeof paddingMap] ?? "1rem";
+const paddingLeft = pl ?? px ?? "0";
+const paddingRight = pr ?? px ?? "0";
+
+const mainClasses = [
+	"cosy-main",
+	layout === "row" ? "cosy-main--row" : "cosy-main--column",
+	centered ? "cosy-main--centered" : "",
+	className,
+]
+	.filter(Boolean)
+	.join(" ");
+
+const inlineStyle: Record<string, string> = {
+	paddingTop: resolvePadding(paddingTop),
+	paddingBottom: resolvePadding(paddingBottom),
+	paddingLeft: resolvePadding(paddingLeft),
+	paddingRight: resolvePadding(paddingRight),
+};
+
+if (backgroundColor) {
+	inlineStyle.backgroundColor = backgroundColor;
+}
+
+if (border && border !== "none") {
+	const borderWidth = border === "sm" ? "1px" : border === "md" ? "2px" : "4px";
+	inlineStyle.border = `${borderWidth} solid var(--cosy-main-border-color, #d7d7d7)`;
+}
+
+const defaultSlotHtml = await Astro.slots.render("default");
+---
+
+{
+	paddingError ? (
+		<div class="cosy-main__error">
+			<strong>Main 组件属性冲突：</strong>
+			{paddingError}。请只使用其中一种方式。
+		</div>
+	) : (
+		<main id={id} class={mainClasses} style={inlineStyle}>
+			{isArticle ? (
+				<Article set:html={defaultSlotHtml} />
+			) : (
+				<Fragment set:html={defaultSlotHtml} />
+			)}
+			{showTableOfContents && <TableOfContents lang={currentLocale} />}
+		</main>
+	)
+}
+
+<style is:global>
+	/* Main - 原生 CSS 实现 */
+	.cosy-main {
+		--cosy-main-border-color: #d7d7d7;
+
+		box-sizing: border-box;
+		width: 100%;
+		min-height: 100vh;
+	}
+
+	.cosy-main--row {
+		display: flex;
+		flex-direction: row;
+	}
+
+	.cosy-main--column {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.cosy-main--centered {
+		margin-left: auto;
+		margin-right: auto;
+		max-width: 80rem;
+	}
+
+	.cosy-main__error {
+		padding: 1rem;
+		margin: 1rem 0;
+		border-radius: 0.5rem;
+		background: #fef2f2;
+		color: #dc2626;
+		border: 1px solid #fecaca;
+	}
+</style>

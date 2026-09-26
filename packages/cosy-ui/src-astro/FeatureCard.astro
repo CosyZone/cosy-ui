@@ -1,0 +1,121 @@
+---
+/**
+ * @component FeatureCard
+ * @description 苹果风格的特性卡片组件，用于展示单个特性
+ * @example
+ * <FeatureCard
+ *   title="性能和电池续航"
+ *   description="跑得快,跑得久。"
+ *   background="linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%)"
+ *   image="https://example.com/image.jpg"
+ *   textColor="white"
+ * />
+ */
+import type { ImageSource } from "./Image.astro";
+import Image from "./Image.astro";
+
+export interface FeatureCardProps {
+	title: string;
+	description: string;
+	background: string;
+	image?: ImageSource;
+	textColor?: "white" | "dark";
+	class?: string;
+}
+
+const {
+	title,
+	description,
+	background,
+	image,
+	textColor = "dark",
+	class: className = "",
+} = Astro.props as FeatureCardProps;
+
+const cardClass = [
+	"cosy-feature-card",
+	textColor === "white" ? "cosy-feature-card--light-text" : "cosy-feature-card--dark-text",
+	className,
+].filter(Boolean).join(" ");
+---
+
+<div class={cardClass} style={`background: ${background};`}>
+	<div class="cosy-feature-card__text">
+		<h3 class="cosy-feature-card__title">{title}</h3>
+		<p class="cosy-feature-card__description">{description}</p>
+	</div>
+
+	{
+		image && (
+			<div class="cosy-feature-card__media">
+				<Image
+					src={image}
+					alt={title}
+					rounded="2xl"
+					shadow="xl"
+					objectFit="cover"
+					class="cosy-feature-card__img"
+				/>
+			</div>
+		)
+	}
+</div>
+
+<style is:global>
+    /* FeatureCard - 原生 CSS 实现（corporate 主题色） */
+    .cosy-feature-card {
+        box-sizing: border-box;
+        flex-shrink: 0;
+        position: relative;
+        height: 32rem;
+        width: 24rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1.5rem 1.5rem 1.5rem;
+        border-radius: 1rem;
+        cursor: pointer;
+        transition: all 300ms ease-in-out;
+    }
+    .cosy-feature-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    .cosy-feature-card--dark-text { color: #1d1d1d; }
+    .cosy-feature-card--light-text { color: #ffffff; }
+
+    .cosy-feature-card__text {
+        text-align: center;
+        margin-bottom: 1rem;
+        margin-top: 2rem;
+        min-height: 7rem;
+    }
+    .cosy-feature-card__title {
+        margin: 0 0 0.5rem;
+        font-size: 1.25rem;
+        font-weight: 300;
+    }
+    .cosy-feature-card__description {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 100;
+        line-height: 1.25;
+    }
+    @media (min-width: 1024px) {
+        .cosy-feature-card__description { font-size: 1.875rem; }
+    }
+
+    .cosy-feature-card__media {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 20rem;
+        width: 100%;
+    }
+    .cosy-feature-card__img {
+        width: 100%;
+        height: 100%;
+        max-width: 24rem;
+    }
+</style>

@@ -1,0 +1,399 @@
+---
+/**
+ * @component MacWindow
+ *
+ * @description
+ * MacWindow 组件模拟 macOS 风格的应用窗口，包含标题栏、红绿灯按钮、标签页和状态栏。
+ * 适用于创建模拟桌面应用界面或代码编辑器等场景。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <MacWindow title="代码编辑器">
+ *   <div>窗口内容</div>
+ * </MacWindow>
+ * ```
+ *
+ * 带背景色和宽度：
+ * ```astro
+ * <MacWindow title="代码编辑器" bgType="primary/10" width="lg">
+ *   <div>窗口内容</div>
+ * </MacWindow>
+ * ```
+ *
+ * 带标签页：
+ * ```astro
+ * <MacWindow title="设置" tabs={['通用','外观','高级']} defaultTab="外观" width="xl">
+ *   <div id="tab-通用">通用设置内容</div>
+ *   <div id="tab-外观">外观设置内容</div>
+ *   <div id="tab-高级">高级设置内容</div>
+ * </MacWindow>
+ * ```
+ *
+ * @props
+ * @prop {string} [height='24rem'] - 窗口高度（CSS 长度），默认 24rem（即 h-96）
+ * @prop {string} [width='md'] - 窗口宽度，支持：none、xs、sm、md、lg、xl、full
+ * @prop {string} [title=''] - 窗口标题
+ * @prop {boolean} [withShadow=true] - 是否显示阴影效果
+ * @prop {string[]} [tabs=[]] - 标签页字符串数组
+ * @prop {string} [defaultTab=''] - 默认选中的标签页
+ * @prop {string} [id=''] - 窗口唯一标识符
+ * @prop {BackgroundColor} [bgType='base-100'] - 背景色类型
+ *
+ * @slots
+ * @slot default - 窗口主要内容
+ * @slot sidebar - 侧边栏内容
+ * @slot toolbar - 工具栏内容，位于标题栏右侧
+ * @slot status - 状态栏内容，位于窗口底部
+ */
+
+import type { HTMLAttributes } from "astro/types";
+import type { BackgroundColor } from "../src/common/backgrounds";
+import AlertDialog from "./AlertDialog.astro";
+import Container from "./Container.astro";
+
+export type MacWindowWidth = "none" | "xs" | "sm" | "md" | "lg" | "xl" | "full";
+
+export interface IMacWindowProps
+	extends Omit<HTMLAttributes<"div">, "class"> {
+	height?: string;
+	width?: MacWindowWidth;
+	title?: string;
+	withShadow?: boolean;
+	tabs?: string[];
+	defaultTab?: string;
+	id?: string;
+	bgType?: BackgroundColor;
+	class?: string;
+}
+
+const {
+	height = "24rem",
+	width = "md",
+	title = "",
+	withShadow = true,
+	tabs = [],
+	defaultTab = "",
+	id = "",
+	bgType = "base-100",
+} = Astro.props as IMacWindowProps;
+
+// 如果没有设置默认标签或默认标签不在 tabs 中，则选择第一个标签
+const activeTab =
+	defaultTab && tabs.includes(defaultTab)
+		? defaultTab
+		: tabs.length > 0
+			? tabs[0]
+			: "";
+
+// 生成唯一窗口 ID
+const windowId = id || `mac-window-${Math.random().toString(36).slice(2, 11)}`;
+
+const hasStatusSlot = !!Astro.slots.status;
+---
+
+<Container
+	background={bgType}
+	padding="none"
+	centered={true}
+	width={width}
+	flex="row"
+	rounded="2xl"
+	shadow={withShadow ? "lg" : "none"}
+	class="cosy-mac-window"
+	style={`height: ${height};`}
+	data-window-id={windowId}>
+	{/* 标题栏 */}
+	<div class="cosy-mac-window__header">
+		<div class="cosy-mac-window__traffic">
+			<div
+				class="cosy-mac-window__dot cosy-mac-window__dot--close"
+				onclick={`handleCloseWindow('${windowId}')`}>
+			</div>
+			<div
+				class="cosy-mac-window__dot cosy-mac-window__dot--minimize"
+				onclick={`handleMinimizeWindow('${windowId}')`}>
+			</div>
+			<div
+				class="cosy-mac-window__dot cosy-mac-window__dot--maximize"
+				onclick={`handleMaximizeWindow('${windowId}')`}>
+			</div>
+		</div>
+
+		<div class="cosy-mac-window__title">{title}</div>
+
+		{/* 标签选择器 */}
+		{
+			tabs.length > 0 && (
+				<div class="cosy-mac-window__tabs">
+					<div class="cosy-mac-window__tabs-wrapper">
+						{tabs.map((tab) => (
+							<button
+								class={`cosy-mac-window__tab ${activeTab === tab ? "cosy-mac-window__tab--active" : ""}`.trim()}
+								onclick={`handleTabClick('${windowId}', '${tab}')`}
+								data-tab={tab}>
+								{tab}
+							</button>
+						))}
+					</div>
+				</div>
+			)
+		}
+
+		{/* 工具栏插槽 */}
+		<div class="cosy-mac-window__toolbar">
+			<slot name="toolbar" />
+		</div>
+	</div>
+
+	{/* 主要内容区域 */}
+	<div class="cosy-mac-window__main">
+		<div class="cosy-mac-window__content">
+			<slot name="sidebar" />
+			<slot />
+		</div>
+
+		{/* 底部状态栏 */}
+		{hasStatusSlot && (
+			<div class="cosy-mac-window__status">
+				<div class="cosy-mac-window__status-inner">
+					<slot name="status" />
+				</div>
+			</div>
+		)}
+	</div>
+</Container>
+
+<AlertDialog id={`${windowId}-alert`} message="" />
+
+<style is:global>
+	/* MacWindow - 原生 CSS 实现（daisyui corporate 主题色） */
+	.cosy-mac-window {
+		--cosy-mac-window-base-200: #e9e9e9;
+		--cosy-mac-window-base-300: #d7d7d7;
+		--cosy-mac-window-base-100: #ffffff;
+		--cosy-mac-window-base-content: #1d1d1d;
+		--cosy-mac-window-error: #dc2626;
+		--cosy-mac-window-warning: #d97706;
+		--cosy-mac-window-success: #16a34a;
+
+		overflow: hidden;
+		position: relative;
+	}
+
+	/* 标题栏 */
+	.cosy-mac-window__header {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		display: flex;
+		align-items: center;
+		height: 3rem;
+		padding: 0 1rem;
+		background: var(--cosy-mac-window-base-200);
+		border-top-left-radius: 1rem;
+		border-top-right-radius: 1rem;
+	}
+
+	/* 红绿灯按钮 */
+	.cosy-mac-window__traffic {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+	.cosy-mac-window__dot {
+		width: 0.75rem;
+		height: 0.75rem;
+		border-radius: 9999px;
+		cursor: pointer;
+		transition: opacity 0.15s ease;
+	}
+	.cosy-mac-window__dot:hover {
+		opacity: 0.8;
+	}
+	.cosy-mac-window__dot--close {
+		background: var(--cosy-mac-window-error);
+	}
+	.cosy-mac-window__dot--minimize {
+		background: var(--cosy-mac-window-warning);
+	}
+	.cosy-mac-window__dot--maximize {
+		background: var(--cosy-mac-window-success);
+	}
+
+	.cosy-mac-window__title {
+		margin-left: 1.5rem;
+		font-size: 0.875rem;
+		font-weight: 500;
+		color: var(--cosy-mac-window-base-content);
+	}
+
+	/* 标签页 */
+	.cosy-mac-window__tabs {
+		flex: 1 1 0%;
+		display: flex;
+		justify-content: center;
+	}
+	.cosy-mac-window__tabs-wrapper {
+		display: inline-flex;
+		border-radius: 0.5rem;
+		background: var(--cosy-mac-window-base-300);
+		padding: 0.25rem;
+	}
+	.cosy-mac-window__tab {
+		padding: 0.25rem 0.75rem;
+		font-size: 0.875rem;
+		border: none;
+		border-radius: 0.375rem;
+		background: transparent;
+		color: color-mix(in srgb, var(--cosy-mac-window-base-content) 70%, transparent);
+		cursor: pointer;
+		transition: color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+	}
+	.cosy-mac-window__tab:hover {
+		color: var(--cosy-mac-window-base-content);
+	}
+	.cosy-mac-window__tab--active {
+		background: var(--cosy-mac-window-base-100);
+		color: var(--cosy-mac-window-base-content);
+		box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+	}
+
+	/* 工具栏 */
+	.cosy-mac-window__toolbar {
+		margin-left: auto;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	/* 主内容 */
+	.cosy-mac-window__main {
+		flex: 1 1 0%;
+		display: flex;
+		flex-direction: column;
+		padding-top: 3rem;
+		height: 100%;
+	}
+	.cosy-mac-window__content {
+		display: flex;
+		flex: 1 1 0%;
+		height: 100%;
+		overflow: hidden;
+	}
+
+	/* 状态栏 */
+	.cosy-mac-window__status {
+		height: 1.5rem;
+		border-top: 1px solid var(--cosy-mac-window-base-300);
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		padding: 0 1rem;
+		font-size: 0.875rem;
+		background: color-mix(in srgb, var(--cosy-mac-window-base-200) 95%, transparent);
+	}
+	.cosy-mac-window__status-inner {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+</style>
+
+<script>
+	// 全局函数：窗口控制
+	function handleCloseWindow(windowId: string) {
+		const alertDialog = document.getElementById(`${windowId}-alert`);
+		if (alertDialog) {
+			const messageElement = alertDialog.querySelector("[data-message]");
+			if (messageElement) {
+				messageElement.textContent = "关闭APP窗口（这是演示，不会真实操作）";
+			}
+			const event = new CustomEvent("showAlertDialog", {
+				detail: { id: `${windowId}-alert` },
+			});
+			document.dispatchEvent(event);
+		}
+	}
+
+	function handleMinimizeWindow(windowId: string) {
+		const alertDialog = document.getElementById(`${windowId}-alert`);
+		if (alertDialog) {
+			const messageElement = alertDialog.querySelector("[data-message]");
+			if (messageElement) {
+				messageElement.textContent = "最小化窗口（这是演示，不会真实操作）";
+			}
+			const event = new CustomEvent("showAlertDialog", {
+				detail: { id: `${windowId}-alert` },
+			});
+			document.dispatchEvent(event);
+		}
+	}
+
+	function handleMaximizeWindow(windowId: string) {
+		const alertDialog = document.getElementById(`${windowId}-alert`);
+		if (alertDialog) {
+			const messageElement = alertDialog.querySelector("[data-message]");
+			if (messageElement) {
+				messageElement.textContent = "最大化窗口（这是演示，不会真实操作）";
+			}
+			const event = new CustomEvent("showAlertDialog", {
+				detail: { id: `${windowId}-alert` },
+			});
+			document.dispatchEvent(event);
+		}
+	}
+
+	function handleTabClick(windowId: string, tab: string) {
+		const windowElement = document.querySelector(
+			`[data-window-id="${windowId}"]`
+		);
+		if (windowElement) {
+			const tabContents = windowElement.querySelectorAll('[id^="tab-"]');
+			tabContents.forEach((content) => {
+				(content as HTMLElement).style.display = "none";
+			});
+
+			const selectedContent = windowElement.querySelector(`#tab-${tab}`);
+			if (selectedContent) {
+				(selectedContent as HTMLElement).style.display = "block";
+			}
+
+			const tabButtons = windowElement.querySelectorAll("[data-tab]");
+			tabButtons.forEach((button) => {
+				const buttonEl = button as HTMLElement;
+				if (buttonEl.dataset.tab === tab) {
+					buttonEl.classList.add("cosy-mac-window__tab--active");
+				} else {
+					buttonEl.classList.remove("cosy-mac-window__tab--active");
+				}
+			});
+		}
+	}
+
+	(window as any).handleCloseWindow = handleCloseWindow;
+	(window as any).handleMinimizeWindow = handleMinimizeWindow;
+	(window as any).handleMaximizeWindow = handleMaximizeWindow;
+	(window as any).handleTabClick = handleTabClick;
+
+	document.addEventListener("DOMContentLoaded", () => {
+		const windows = document.querySelectorAll("[data-window-id]");
+		windows.forEach((windowElement) => {
+			const firstTabButton = windowElement.querySelector("[data-tab]");
+			if (firstTabButton) {
+				const activeTab = firstTabButton.getAttribute("data-tab");
+				if (activeTab) {
+					const tabContents = windowElement.querySelectorAll('[id^="tab-"]');
+					tabContents.forEach((content) => {
+						(content as HTMLElement).style.display = "none";
+					});
+					const defaultContent = windowElement.querySelector(`#tab-${activeTab}`);
+					if (defaultContent) {
+						(defaultContent as HTMLElement).style.display = "block";
+					}
+				}
+			}
+		});
+	});
+</script>

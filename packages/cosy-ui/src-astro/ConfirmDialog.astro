@@ -1,0 +1,240 @@
+---
+/**
+ * @component ConfirmDialog
+ *
+ * @description
+ * ConfirmDialog 组件用于显示确认对话框，支持自定义标题、消息内容和按钮文本。
+ * 它会覆盖在页面内容上方，并提供一个聚焦的交互环境。
+ * 自包含实现：BEM 命名 + 原生 CSS，不依赖 cn() 与 cosy: 工具类。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <ConfirmDialog
+ *   id="delete-confirm"
+ *   title="确认删除"
+ *   message="您确定要删除这个项目吗？此操作无法撤销。"
+ * />
+ *
+ * <!-- 触发按钮 -->
+ * <button data-confirm-dialog-target="delete-confirm">删除</button>
+ * ```
+ *
+ * 自定义按钮文本：
+ * ```astro
+ * <ConfirmDialog
+ *   id="save-confirm"
+ *   title="保存更改"
+ *   message="您确定要保存这些更改吗？"
+ *   confirmText="保存"
+ *   cancelText="取消"
+ * />
+ * ```
+ *
+ * @props
+ * @prop {string} id - 对话框的唯一标识符（必填）
+ * @prop {string} [title='确认操作'] - 对话框标题
+ * @prop {string} message - 对话框消息内容（必填）
+ * @prop {string} [cancelText='取消'] - 取消按钮文本
+ * @prop {string} [confirmText='确认'] - 确认按钮文本
+ * @prop {string} [class] - 自定义类名
+ */
+
+export interface ConfirmDialogProps {
+    /** 对话框的唯一标识符 */
+    id: string;
+    /** 对话框标题 */
+    title?: string;
+    /** 对话框消息内容 */
+    message: string;
+    /** 取消按钮文本 */
+    cancelText?: string;
+    /** 确认按钮文本 */
+    confirmText?: string;
+    /** 自定义类名 */
+    class?: string;
+}
+
+const {
+    id,
+    title = "确认操作",
+    message,
+    cancelText = "取消",
+    confirmText = "确认",
+    class: className = "",
+} = Astro.props as ConfirmDialogProps;
+
+const boxClass = ["cosy-confirm-dialog__box", className].filter(Boolean).join(" ");
+
+const titleNode = title
+    ? `<h3 class="cosy-confirm-dialog__title">${title}</h3>`
+    : "";
+
+const dialogHtml = `
+<dialog id="${id}" class="cosy-confirm-dialog">
+  <div class="${boxClass}">
+    ${titleNode}
+    <p class="cosy-confirm-dialog__message">${message}</p>
+    <div class="cosy-confirm-dialog__actions">
+      <form method="dialog" class="cosy-confirm-dialog__form">
+        <button type="submit" class="cosy-confirm-dialog__cancel-btn">${cancelText}</button>
+        <button type="submit" class="cosy-confirm-dialog__confirm-btn" onclick="window.handleConfirmDialog?.('${id}')">${confirmText}</button>
+      </form>
+    </div>
+  </div>
+</dialog>`.trim();
+---
+
+<Fragment set:html={dialogHtml} />
+
+<style is:global>
+    /* ConfirmDialog - 原生 CSS 实现（daisyUI corporate 主题色） */
+    .cosy-confirm-dialog {
+        --cosy-cd-primary: #4b6bfb;
+        --cosy-cd-base-100: #ffffff;
+        --cosy-cd-base-200: #e9e9e9;
+        --cosy-cd-base-300: #d7d7d7;
+        --cosy-cd-base-content: #1d1d1d;
+
+        /* 重置原生 dialog UA 样式 */
+        border: none;
+        padding: 0;
+        background: transparent;
+        color: var(--cosy-cd-base-content);
+        max-width: calc(100vw - 2rem);
+        max-height: calc(100vh - 2rem);
+    }
+
+    .cosy-confirm-dialog::backdrop {
+        background: color-mix(in srgb, #181a2a 40%, transparent);
+        backdrop-filter: blur(2px);
+    }
+
+    .cosy-confirm-dialog__box {
+        box-sizing: border-box;
+        width: 24rem;
+        max-width: calc(100vw - 2rem);
+        padding: 1.5rem;
+        background: var(--cosy-cd-base-100);
+        border-radius: 0.5rem;
+        box-shadow:
+            0 10px 15px -3px rgb(0 0 0 / 0.1),
+            0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+
+    .cosy-confirm-dialog__title {
+        margin: 0;
+        font-size: 1.125rem;
+        font-weight: 500;
+        line-height: 1.3;
+        color: var(--cosy-cd-base-content);
+    }
+
+    .cosy-confirm-dialog__message {
+        margin: 0;
+        padding: 1rem 0;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        color: var(--cosy-cd-base-content);
+    }
+
+    .cosy-confirm-dialog__actions {
+        margin-top: 0.5rem;
+    }
+
+    .cosy-confirm-dialog__form {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: flex-end;
+        margin: 0;
+    }
+
+    .cosy-confirm-dialog__cancel-btn,
+    .cosy-confirm-dialog__confirm-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 2.5rem;
+        padding: 0 1rem;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        line-height: 1;
+        cursor: pointer;
+        transition: background-color 0.15s ease, filter 0.15s ease;
+    }
+
+    .cosy-confirm-dialog__cancel-btn {
+        background: transparent;
+        border: 1px solid transparent;
+        color: var(--cosy-cd-base-content);
+    }
+    .cosy-confirm-dialog__cancel-btn:hover {
+        background: color-mix(in srgb, currentColor 10%, transparent);
+    }
+
+    .cosy-confirm-dialog__confirm-btn {
+        background: var(--cosy-cd-primary);
+        border: 1px solid var(--cosy-cd-primary);
+        color: #fff;
+    }
+    .cosy-confirm-dialog__confirm-btn:hover {
+        filter: brightness(0.92);
+    }
+</style>
+
+<script is:inline define:vars={{ id }}>
+    function initializeConfirmDialog() {
+        const dialog = document.getElementById(id);
+        if (!dialog) {
+            return;
+        }
+
+        // 避免重复绑定（首屏立即执行与 DOMContentLoaded / astro:page-load 去重）
+        if (dialog.dataset.cosyConfirmInit === id) {
+            return;
+        }
+        dialog.dataset.cosyConfirmInit = id;
+
+        // 使用事件委托来处理动态加载的内容
+        const handleOpen = (event) => {
+            const target = event.target;
+            // 使用 closest() 查找最近的匹配元素，包括按钮内部的元素
+            const trigger = target.closest(
+                `[data-confirm-dialog-target="${id}"]`
+            );
+            if (trigger) {
+                dialog.showModal();
+            }
+        };
+        document.addEventListener('click', handleOpen);
+
+        // 点击原生 ::backdrop 区域关闭对话框（::backdrop 伪元素不可单独点击，
+        // 点击遮罩时事件 target 为 dialog 本身）
+        dialog.addEventListener('click', (event) => {
+            if (event.target === dialog) {
+                dialog.close();
+            }
+        });
+
+        // 全局处理确认事件的方法
+        if (!window.handleConfirmDialog) {
+            window.handleConfirmDialog = (dialogId) => {
+                // 触发自定义事件
+                const event = new CustomEvent('confirm-dialog-confirm', {
+                    detail: { dialogId },
+                });
+                document.dispatchEvent(event);
+            };
+        }
+    }
+
+    // 初始加载时初始化
+    document.addEventListener('DOMContentLoaded', initializeConfirmDialog);
+
+    // Astro 页面切换时重新初始化
+    document.addEventListener('astro:page-load', initializeConfirmDialog);
+
+    // 确保脚本加载后立即初始化
+    initializeConfirmDialog();
+</script>

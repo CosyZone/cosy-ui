@@ -1,0 +1,147 @@
+---
+/**
+ * @component Banner
+ *
+ * @description
+ * Banner 组件用于在页面中展示醒目的横幅信息，通常用于展示重要的标语、公告或营销信息。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Banner>欢迎使用我们的服务</Banner>
+ * ```
+ *
+ * 指定动画效果：
+ * ```astro
+ * <Banner animation="fade">淡入效果的横幅</Banner>
+ * ```
+ *
+ * @props
+ * @prop {string} [animation='both'] - 动画效果类型：none（无动画）、fade（仅淡入）、slide（仅上滑）、both（淡入和上滑）
+ * @prop {string} [bgColor='primary'] - 背景颜色，支持 primary、secondary、accent、neutral、base-100、base-200、base-300、info、success、warning、error，以及渐变如 gradient-sunset 等
+ * @prop {string} [class] - 自定义CSS类，可用于覆盖默认样式
+ * @prop {string} [style] - 自定义CSS样式，可用于覆盖默认样式
+ * @prop {string} [textColor] - 文本颜色，默认根据背景色自动设置，可手动指定颜色值
+ *
+ * @slots
+ * @slot default - Banner 中显示的文本内容
+ */
+
+type AnimationType = "none" | "fade" | "slide" | "both";
+
+export interface IBannerPropsBase {
+	animation?: AnimationType;
+	bgColor?: string;
+	class?: string;
+	style?: string;
+	textColor?: string;
+}
+
+/** 背景色映射（corporate 主题） */
+const bgColorMap: Record<string, string> = {
+	primary: "#4b6bfb",
+	secondary: "#7b92b2",
+	accent: "#67baa3",
+	neutral: "#181a2a",
+	"base-100": "#ffffff",
+	"base-200": "#e9e9e9",
+	"base-300": "#d7d7d7",
+	info: "#2563eb",
+	success: "#16a34a",
+	warning: "#d97706",
+	error: "#dc2626",
+};
+
+const props = Astro.props as IBannerPropsBase;
+
+const {
+	animation = "both",
+	bgColor = "primary",
+	class: className = "",
+	style = "",
+	textColor = "",
+} = props;
+
+// 解析背景色（支持预设色与渐变关键字）
+function resolveBackground(bg: string): string {
+	if (bg.startsWith("gradient-")) {
+		// 渐变关键字退化为品牌色渐变
+		return "linear-gradient(135deg, #4b6bfb 0%, #67baa3 100%)";
+	}
+	return bgColorMap[bg] || bg;
+}
+
+// 根据背景色自动决定文字颜色
+function resolveTextColor(bg: string, textColorProp: string): string {
+	if (textColorProp) return textColorProp;
+	const darkBg = ["primary", "secondary", "accent", "neutral", "error", "info", "success", "gradient-sunset"].includes(bg);
+	return darkBg ? "#ffffff" : "#1d1d1d";
+}
+
+const animationClassMap: Record<AnimationType, string> = {
+	none: "",
+	fade: "cosy-banner--animate-fade",
+	slide: "cosy-banner--animate-slide",
+	both: "cosy-banner--animate-fade cosy-banner--animate-slide",
+};
+
+const bannerClass = [
+	"cosy-banner",
+	animationClassMap[animation],
+	className,
+].filter(Boolean).join(" ");
+
+const inlineStyle = [
+	`background: ${resolveBackground(bgColor)}`,
+	`color: ${resolveTextColor(bgColor, textColor)}`,
+	style,
+].filter(Boolean).join("; ");
+
+const slotContent = await Astro.slots.render("default");
+---
+
+<Fragment set:html={`<div class="${bannerClass}" style="${inlineStyle}">${slotContent}</div>`} />
+
+<style is:global>
+    /* Banner - 原生 CSS 实现（corporate 主题色） */
+    .cosy-banner {
+        box-sizing: border-box;
+        display: block;
+        width: 100%;
+        padding: 2rem 1rem;
+        border-radius: 0.5rem;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1.5;
+        transition: all 300ms ease-in-out;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    }
+    @media (min-width: 768px) {
+        .cosy-banner {
+            font-size: 1.875rem;
+        }
+    }
+    .cosy-banner:hover {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        transform: scale(1.01);
+    }
+
+    /* 动画 */
+    @keyframes cosy-banner-fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    @keyframes cosy-banner-slideUp {
+        from { transform: translateY(1.25rem); }
+        to { transform: translateY(0); }
+    }
+    .cosy-banner--animate-fade {
+        animation: cosy-banner-fadeIn 0.6s ease-out both;
+    }
+    .cosy-banner--animate-slide {
+        animation: cosy-banner-slideUp 0.6s ease-out both;
+    }
+</style>

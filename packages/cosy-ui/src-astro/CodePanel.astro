@@ -1,0 +1,167 @@
+---
+/**
+ * @component CodePanel
+ *
+ * @description
+ * 代码展示面板组件，支持语法高亮、多主题切换和行号显示。
+ * 基于 Shiki 提供高质量的代码高亮效果，与 VS Code 保持一致的渲染效果。
+ * 支持服务端渲染，无需客户端 JavaScript 即可展示代码高亮。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <CodePanel code="console.log('Hello, world!');" />
+ * ```
+ *
+ * 指定语言和主题：
+ * ```astro
+ * <CodePanel
+ *   code="const name = 'TypeScript';"
+ *   language="typescript"
+ *   theme="github-dark"
+ *   showLineNumbers={true}
+ * />
+ * ```
+ *
+ * @props
+ * @prop {string} [class] - 自定义 CSS 类名，用于覆盖默认样式
+ * @prop {string} code - 要显示的代码字符串
+ * @prop {string} [language="typescript"] - 代码语言，用于语法高亮
+ * @prop {boolean} [showLineNumbers=false] - 是否显示行号
+ * @prop {string} [theme="dark-plus"] - 主题名称
+ * @prop {boolean} [visible=true] - 是否显示在面板中
+ */
+
+import type { Highlighter } from "shiki";
+
+/**
+ * CodePanel 组件的属性接口（组件自包含定义）
+ */
+export interface CodePanelProps {
+	/** 自定义 CSS 类名，用于覆盖默认样式 */
+	class?: string;
+	/** 要显示的代码字符串 */
+	code: string;
+	/** 代码语言，用于语法高亮，默认 'typescript' */
+	language?: string;
+	/** 是否显示行号，默认 false */
+	showLineNumbers?: boolean;
+	/** 主题名称，默认 'dark-plus' */
+	theme?:
+		| "dark-plus"
+		| "light-plus"
+		| "github-dark"
+		| "github-light"
+		| "nord"
+		| "dracula";
+	/** 是否显示在面板中（用于切换），默认 true */
+	visible?: boolean;
+}
+
+/**
+ * Shiki 实例管理器（组件自包含）
+ * 确保全局只有一个 Shiki 实例，避免重复创建
+ */
+let globalHighlighter: Highlighter | null = null;
+let initPromise: Promise<Highlighter> | null = null;
+
+async function getShikiHighlighter(
+	theme: string,
+	language: string,
+): Promise<Highlighter> {
+	if (globalHighlighter) return globalHighlighter;
+	if (initPromise) return initPromise;
+
+	initPromise = (async () => {
+		try {
+			const { createHighlighter } = await import("shiki");
+			globalHighlighter = await createHighlighter({
+				themes: [theme],
+				langs: [
+					language,
+					"bash",
+					"shell",
+					"typescript",
+					"javascript",
+					"astro",
+					"vue",
+					"html",
+					"css",
+					"json",
+					"markdown",
+				],
+			});
+			return globalHighlighter;
+		} catch (error) {
+			console.error("Failed to initialize Shiki highlighter:", error);
+			throw error;
+		}
+	})();
+
+	return initPromise;
+}
+
+const {
+	class: className = "",
+	code = "",
+	language = "typescript",
+	theme = "dark-plus",
+} = Astro.props as CodePanelProps;
+
+// 使用全局 Shiki 实例进行语法高亮
+let highlightedCode = code;
+try {
+	const highlighter = await getShikiHighlighter(theme, language);
+	highlightedCode = highlighter.codeToHtml(code, {
+		lang: language,
+		theme: theme,
+		transformers: [],
+	});
+} catch (error) {
+	console.warn(
+		"CodePanel: Shiki highlighting failed, falling back to plain text:",
+		error,
+	);
+	highlightedCode = `<pre><code>${code}</code></pre>`;
+}
+
+const containerClass = [
+	"cosy-code-panel",
+	className || "",
+]
+	.filter(Boolean)
+	.join(" ");
+---
+
+<div class="cosy-code-panel__wrapper" role="region" aria-label="代码展示面板">
+	<div
+		class={containerClass}
+		set:html={highlightedCode}
+		style="min-width: max-content;"
+	/>
+</div>
+
+<style is:global>
+	/* CodePanel - 原生 CSS 实现（daisyUI corporate 主题色） */
+	.cosy-code-panel__wrapper {
+		width: 100%;
+	}
+
+	.cosy-code-panel {
+		width: 100%;
+		overflow-x: auto;
+		background: #d7d7d7;
+		border-radius: 0.5rem;
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+			monospace;
+	}
+
+	.cosy-code-panel pre {
+		background: transparent !important;
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+	.cosy-code-panel pre code {
+		background: transparent !important;
+	}
+</style>

@@ -1,0 +1,107 @@
+---
+/**
+ * @component NavSection
+ *
+ * @description
+ * NavSection 组件用于在页脚或导航区域中创建一个带标题的链接分组。
+ *
+ * @usage
+ * ```astro
+ * <NavSection
+ *   title="产品"
+ *   links={[
+ *     { name: '首页', href: '/' },
+ *     { name: '文档', href: '/docs' },
+ *     { name: '组件', href: '/components', external: true },
+ *   ]}
+ * />
+ * ```
+ *
+ * @props
+ * @prop {string} title - 导航部分的标题
+ * @prop {Array<{name: string, href: string, external?: boolean}>} links - 链接数组
+ */
+
+import type { HTMLAttributes } from "astro/types";
+import Link from "./Link.astro";
+
+export interface NavSectionLink {
+	name: string;
+	href: string;
+	external?: boolean;
+}
+
+export interface INavSectionProps extends Omit<HTMLAttributes<"nav">, "class"> {
+	title: string;
+	links: NavSectionLink[];
+	class?: string;
+}
+
+const { title, links, class: className = "" } = Astro.props as INavSectionProps;
+
+const navClasses = ["cosy-nav-section", className].filter(Boolean).join(" ");
+---
+
+<nav class={navClasses}>
+	<h6 class="cosy-nav-section__title">{title}</h6>
+	{
+		links.map((link) => (
+			<Link
+				href={link.href}
+				external={link.external}
+				size="sm"
+				block
+				class="cosy-nav-section__link"
+			>
+				{link.name}
+			</Link>
+		))
+	}
+</nav>
+
+<style is:global>
+	/* NavSection - 原生 CSS 实现 */
+	.cosy-nav-section {
+		--cosy-nav-section-primary: #4b6bfb;
+		--cosy-nav-section-base-200: #e9e9e9;
+		--cosy-nav-section-base-300: #d7d7d7;
+
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 1rem;
+		border-radius: 0.375rem;
+		height: 100%;
+		transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.3s ease;
+	}
+
+	.cosy-nav-section:hover {
+		background: var(--cosy-nav-section-base-300);
+		box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+		transform: scale(1.05);
+	}
+
+	.cosy-nav-section__title {
+		margin: 0;
+		font-weight: 700;
+		font-size: 0.875rem;
+	}
+
+	.cosy-nav-section__link {
+		display: block;
+		width: 100%;
+		text-align: center;
+		padding: 0.375rem 0.75rem;
+		border-radius: 0.25rem;
+		text-decoration: none;
+		color: inherit;
+		font-size: 0.875rem;
+		transition: background-color 0.15s ease;
+	}
+
+	.cosy-nav-section__link:hover {
+		background: color-mix(in srgb, currentColor 10%, transparent);
+	}
+</style>

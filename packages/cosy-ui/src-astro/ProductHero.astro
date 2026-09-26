@@ -1,0 +1,104 @@
+---
+/**
+ * @component ProductHero
+ *
+ * @description
+ * ProductHero 组件用于展示单个产品的详细信息，采用苹果风格的大图展示设计。
+ * 支持左右交替布局、标签数组、价格显示和操作按钮。
+ *
+ * @usage
+ * ```astro
+ * <ProductHero
+ *   name="极简手机"
+ *   description="纯净体验"
+ *   image="/images/phone.jpg"
+ *   highlight="¥6,999"
+ *   labels={["新品"]}
+ * />
+ * ```
+ *
+ * @props
+ * @prop {('left'|'right')} [align='left'] - 布局对齐
+ * @prop {BackgroundColor} [background] - 背景色
+ * @prop {string} [class] - 自定义类名
+ * @prop {string} description - 产品描述
+ * @prop {ImageSource} image - 产品图片
+ * @prop {string[]} [labels] - 标签
+ * @prop {string} name - 产品名称
+ * @prop {string} [highlight] - 高亮文案（价格等）
+ */
+
+import Container from "./Container.astro";
+import type { BackgroundColor } from "../src/common/backgrounds";
+import type { ImageSource } from "./Image.astro";
+import ProductHeroContent from "./ProductHeroContent.astro";
+import ProductHeroImage from "./ProductHeroImage.astro";
+
+export interface Props {
+	align?: "left" | "right";
+	background?: BackgroundColor;
+	class?: string;
+	description: string;
+	image: ImageSource;
+	labels?: string[];
+	name: string;
+	highlight?: string;
+}
+
+const {
+	name,
+	description,
+	image,
+	highlight,
+	labels = [],
+	align = "left",
+	background,
+	class: className = "",
+} = Astro.props as Props;
+
+const isRightAlign = align === "right";
+---
+
+<Container
+	width="full"
+	background={background || "base-100"}
+	padding="xl"
+	class={`cosy-product-hero ${className}`.trim()}>
+	<Container width="xl">
+		<div class="cosy-product-hero__grid">
+			<div class={isRightAlign ? "cosy-product-hero__col--right" : "cosy-product-hero__col--left"}>
+				<ProductHeroContent
+					name={name}
+					description={description}
+					highlight={highlight}
+					labels={labels}>
+					<slot name="actions" />
+				</ProductHeroContent>
+			</div>
+			<div class={isRightAlign ? "cosy-product-hero__col--left" : "cosy-product-hero__col--right"}>
+				<ProductHeroImage src={image} alt={name} />
+			</div>
+		</div>
+	</Container>
+</Container>
+
+<style is:global>
+	.cosy-product-hero__grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 4rem;
+		align-items: center;
+	}
+
+	@media (min-width: 768px) {
+		.cosy-product-hero__grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		.cosy-product-hero__col--left {
+			order: 1;
+		}
+		.cosy-product-hero__col--right {
+			order: 2;
+		}
+	}
+</style>

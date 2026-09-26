@@ -2,9 +2,9 @@
  * 仪表盘布局组件
  */
 
-import DashboardLayout from "./DashboardLayout.astro";
-import DashboardSidebar from "./DashboardSidebar.astro";
-import DashboardTopNavbar from "./DashboardTopNavbar.astro";
+import DashboardLayout from "../DashboardLayout.astro";
+import DashboardSidebar from "../DashboardSidebar.astro";
+import DashboardTopNavbar from "../DashboardTopNavbar.astro";
 
 export { DashboardLayout, DashboardSidebar, DashboardTopNavbar };
 

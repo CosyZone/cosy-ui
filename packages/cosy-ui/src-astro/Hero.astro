@@ -1,0 +1,365 @@
+---
+/**
+ * @component Hero
+ *
+ * @description
+ * Hero 组件是一个全屏的展示区域，通常用于网站的首页或重要页面的顶部。
+ * 它提供了一个引人注目的视觉区域，可以包含标题、描述、图片和行动按钮。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Hero
+ *   title="欢迎使用我们的产品"
+ *   description="这是一个简短的描述。"
+ *   links={[
+ *     { text: "开始使用", href: "/getting-started" },
+ *     { text: "了解更多", href: "/about" }
+ *   ]}
+ * />
+ * ```
+ *
+ * 带图片（右侧）：
+ * ```astro
+ * <Hero
+ *   title="产品展示"
+ *   description="查看我们的最新产品。"
+ *   image={{ src: "/images/product.png", alt: "产品图片" }}
+ *   imagePosition="right"
+ *   links={[{ text: "立即购买", href: "/buy" }]}
+ * />
+ * ```
+ *
+ * 带背景图片：
+ * ```astro
+ * <Hero
+ *   title="产品展示"
+ *   description="查看我们的最新产品。"
+ *   backgroundImage="/images/hero-bg.jpg"
+ *   backgroundOverlay="dark"
+ *   links={[{ text: "立即购买", href: "/buy" }]}
+ * />
+ * ```
+ *
+ * @props
+ * @prop {string} [align="center"] - 内容对齐方式：center / left / right
+ * @prop {string} [background="gradient"] - 背景色类型
+ * @prop {string|object} [backgroundImage] - 背景图片 URL 或导入资源
+ * @prop {string} [backgroundOverlay="none"] - 背景遮罩：none / light / dark / primary / gradient
+ * @prop {string} description - 描述文本
+ * @prop {object} [image] - 图片配置 { src, alt }
+ * @prop {string} [imagePosition="right"] - 图片位置：right / left / top / bottom
+ * @prop {Array<{text, href, variant?, target?}>} links - 链接按钮数组
+ * @prop {number} [overlayOpacity=0.7] - 遮罩不透明度 0-1
+ * @prop {boolean} [glassmorphism=true] - 是否启用毛玻璃效果
+ * @prop {string} [textBackground="glass"] - 文字区域背景：none / glass / solid / gradient
+ * @prop {string} title - 主标题
+ *
+ * @slots
+ * @slot app - 标题与按钮下方的自定义内容区域
+ */
+import Container from "./Container.astro";
+import Button from "./Button.astro";
+import Image from "./Image.astro";
+import type { ImageSource } from "./Image.astro";
+import type { BackgroundColor } from "../src/common/backgrounds";
+
+export interface IHeroLink {
+	text: string;
+	href: string;
+	target?: "_self" | "_blank" | "_parent" | "_top";
+	variant?:
+		| "primary" | "secondary" | "accent" | "info" | "success" | "warning" | "error";
+}
+
+export interface HeroImageConfig {
+	src: ImageSource;
+	alt: string;
+}
+
+export type HeroAlign = "center" | "left" | "right";
+export type HeroImagePosition = "right" | "left" | "top" | "bottom";
+export type HeroBackgroundOverlay = "none" | "light" | "dark" | "primary" | "gradient";
+export type HeroTextBackground = "none" | "glass" | "solid" | "gradient";
+
+export interface HeroProps {
+	align?: HeroAlign;
+	background?: BackgroundColor;
+	backgroundImage?: ImageSource;
+	backgroundOverlay?: HeroBackgroundOverlay;
+	description: string;
+	image?: HeroImageConfig;
+	imagePosition?: HeroImagePosition;
+	links: IHeroLink[];
+	overlayOpacity?: number;
+	glassmorphism?: boolean;
+	textBackground?: HeroTextBackground;
+	title: string;
+}
+
+const {
+	title,
+	description,
+	image,
+	links = [],
+	background = "gradient",
+	align = "center",
+	imagePosition = "right",
+	backgroundImage,
+	backgroundOverlay = "none",
+	overlayOpacity = 0.7,
+	glassmorphism = true,
+	textBackground = "glass",
+	class: className = "",
+} = Astro.props as HeroProps & { class?: string };
+
+const hasBackgroundImage = !!backgroundImage;
+const safeOpacity = Math.max(0, Math.min(1, overlayOpacity));
+
+// 遮罩样式
+let overlayStyle = "";
+if (backgroundOverlay === "light") {
+	overlayStyle = `background-color: rgba(255,255,255,${safeOpacity});`;
+} else if (backgroundOverlay === "dark") {
+	overlayStyle = `background-color: rgba(0,0,0,${safeOpacity});`;
+} else if (backgroundOverlay === "primary") {
+	overlayStyle = `background-color: #4b6bfb; opacity: ${safeOpacity};`;
+} else if (backgroundOverlay === "gradient") {
+	overlayStyle = `background-image: linear-gradient(135deg, #4b6bfb ${safeOpacity * 100}%, #7b92b2 ${safeOpacity * 100}%);`;
+}
+
+// 根 BEM 类
+const rootClass = [
+	"cosy-hero",
+	`cosy-hero--align-${align}`,
+	image ? `cosy-hero--image-${imagePosition}` : "",
+	className,
+].filter(Boolean).join(" ");
+
+// 文字颜色判定
+const isDarkOverlay = hasBackgroundImage && (backgroundOverlay === "dark" || backgroundOverlay === "gradient");
+const textOnSolid = glassmorphism && textBackground === "solid";
+const titleColorClass = textOnSolid ? "cosy-hero__title--primary" : isDarkOverlay ? "cosy-hero__title--light" : "cosy-hero__title--primary";
+const descColorClass = textOnSolid
+	? "cosy-hero__desc--dark"
+	: isDarkOverlay
+		? "cosy-hero__desc--light"
+		: "cosy-hero__desc--muted";
+
+// 文字容器背景类
+const textBgClass = glassmorphism && textBackground !== "none"
+	? `cosy-hero__text cosy-hero__text--${textBackground}`
+	: "cosy-hero__text";
+
+const appSlotHtml = await Astro.slots.render("app");
+---
+
+<Container
+	background={background}
+	height="screen"
+	width="full"
+	padding="none"
+	centered={false}
+	backgroundImage={backgroundImage}
+	class={rootClass}
+	ignore-heading>
+	{backgroundImage && backgroundOverlay !== "none" && (
+		<div class="cosy-hero__overlay" style={overlayStyle} />
+	)}
+
+	<div class="cosy-hero__content">
+		{image && (
+			<div class="cosy-hero__image-wrap">
+				{
+					typeof image.src === "string" ? (
+						<img class="cosy-hero__image" src={image.src} alt={image.alt} />
+					) : (
+						<Image
+							class="cosy-hero__image"
+							src={image.src}
+							alt={image.alt}
+							width={image.src.width}
+							height={image.src.height}
+						/>
+					)
+				}
+			</div>
+		)}
+
+		<div class={textBgClass}>
+			<h1 class={`cosy-hero__title ${titleColorClass}`}>{title}</h1>
+			<p class={`cosy-hero__desc ${descColorClass}`}>{description}</p>
+
+			{appSlotHtml && (
+				<div class="cosy-hero__app" set:html={appSlotHtml} />
+			)}
+
+			<div class="cosy-hero__links">
+				{
+					links.map((link: IHeroLink) => (
+						<Button
+							href={link.href}
+							target={link.target}
+							variant={link.variant}
+							size="lg">
+							{link.text}
+						</Button>
+					))
+				}
+			</div>
+		</div>
+	</div>
+</Container>
+
+<style is:global>
+    /* Hero - 原生 CSS 实现（corporate 主题色） */
+    .cosy-hero {
+        --cosy-hero-primary: #4b6bfb;
+        --cosy-hero-content: #1d1d1d;
+        position: relative;
+        overflow: hidden;
+    }
+    .cosy-hero__overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        margin: 0;
+        padding: 0;
+    }
+    .cosy-hero__content {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 80rem;
+        margin: 0 auto;
+        gap: 2.5rem;
+        padding: 4rem 1rem;
+    }
+    @media (min-width: 640px) {
+        .cosy-hero__content { padding-left: 1.5rem; padding-right: 1.5rem; }
+    }
+    @media (min-width: 1024px) {
+        .cosy-hero__content { gap: 4rem; padding-left: 2rem; padding-right: 2rem; }
+    }
+
+    /* 对齐 */
+    .cosy-hero--align-center .cosy-hero__content { text-align: center; align-items: center; }
+    .cosy-hero--align-left .cosy-hero__content { text-align: left; align-items: flex-start; }
+    .cosy-hero--align-right .cosy-hero__content { text-align: right; align-items: flex-end; }
+
+    /* 图片位置：桌面端左右排布 */
+    @media (min-width: 1024px) {
+        .cosy-hero--image-right .cosy-hero__content { flex-direction: row; align-items: center; }
+        .cosy-hero--image-left .cosy-hero__content { flex-direction: row; align-items: center; }
+        .cosy-hero--image-right .cosy-hero__image-wrap { order: 2; }
+        .cosy-hero--image-right .cosy-hero__text { order: 1; }
+        .cosy-hero--image-left .cosy-hero__image-wrap { order: 1; }
+        .cosy-hero--image-left .cosy-hero__text { order: 2; }
+    }
+    .cosy-hero--image-top .cosy-hero__image-wrap { order: 1; }
+    .cosy-hero--image-top .cosy-hero__text { order: 2; }
+    .cosy-hero--image-bottom .cosy-hero__image-wrap { order: 2; }
+    .cosy-hero--image-bottom .cosy-hero__text { order: 1; }
+
+    .cosy-hero__image-wrap {
+        flex: 1 1 0%;
+        display: flex;
+        justify-content: center;
+    }
+    .cosy-hero__image {
+        border-radius: 0.5rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        transition: transform 300ms ease, box-shadow 300ms ease;
+        max-width: 24rem;
+        width: 100%;
+    }
+    @media (min-width: 1024px) {
+        .cosy-hero__image { max-width: 28rem; }
+    }
+    .cosy-hero__image:hover {
+        transform: scale(1.05);
+        box-shadow: 0 25px 50px -12px color-mix(in srgb, var(--cosy-hero-primary) 20%, rgba(0,0,0,0.25));
+    }
+
+    /* 文字区域 */
+    .cosy-hero__text {
+        flex: 1 1 0%;
+        display: flex;
+        flex-direction: column;
+        align-items: inherit;
+    }
+    .cosy-hero__text--glass {
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 1rem;
+        padding: 2rem;
+        margin: 0 auto;
+        max-width: 56rem;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .cosy-hero__text--solid {
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 1rem;
+        padding: 2rem;
+        margin: 0 auto;
+        max-width: 56rem;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+    .cosy-hero__text--gradient {
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 1rem;
+        padding: 2rem;
+        margin: 0 auto;
+        max-width: 56rem;
+        background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .cosy-hero__title {
+        margin: 0 0 1rem;
+        font-size: 3rem;
+        font-weight: 700;
+        line-height: 1.1;
+    }
+    @media (min-width: 640px) {
+        .cosy-hero__title { font-size: 3.75rem; }
+    }
+    @media (min-width: 1024px) {
+        .cosy-hero__title { font-size: 4.5rem; }
+    }
+    .cosy-hero__title--primary { color: var(--cosy-hero-primary); }
+    .cosy-hero__title--light { color: #ffffff; }
+
+    .cosy-hero__desc {
+        margin: 0 0 2rem;
+        font-size: 1.25rem;
+        line-height: 1.625;
+        max-width: 48rem;
+    }
+    .cosy-hero__desc--dark { color: #374151; }
+    .cosy-hero__desc--light { color: #ffffff; opacity: 0.9; }
+    .cosy-hero__desc--muted { color: var(--cosy-hero-content); opacity: 0.8; }
+
+    .cosy-hero__app {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto 2rem;
+    }
+
+    .cosy-hero__links {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    .cosy-hero--align-center .cosy-hero__links { justify-content: center; }
+    .cosy-hero--align-left .cosy-hero__links { justify-content: flex-start; }
+    .cosy-hero--align-right .cosy-hero__links { justify-content: flex-end; }
+</style>

@@ -1,0 +1,34 @@
+---
+/**
+ * @component ProductHeroImage
+ * @description ProductHero 的图片展示区，带大圆角和阴影
+ */
+
+import Image from "./Image.astro";
+import type { ImageSource } from "./Image.astro";
+
+export interface Props {
+	src: ImageSource;
+	alt: string;
+}
+
+const { src, alt } = Astro.props as Props;
+---
+
+<div class="cosy-product-hero__image-wrap">
+	<Image src={src} alt={alt} width={800} height={600} class="cosy-product-hero__image" />
+</div>
+
+<style is:global>
+	.cosy-product-hero__image-wrap {
+		width: 100%;
+		overflow: hidden;
+		border-radius: 1rem;
+		box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+	}
+	.cosy-product-hero__image {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+</style>

@@ -1,0 +1,192 @@
+---
+/**
+ * @component Products
+ *
+ * @description
+ * Products 组件是 ProductCard 的容器集合，用于展示多个产品卡片。
+ * 支持网格和列表两种布局，响应式列数配置。
+ *
+ * @usage
+ * ```astro
+ * <Products
+ *   products={[
+ *     { name: "产品1", image: "/p1.jpg", description: "描述1", productUrl: "https://..." },
+ *     { name: "产品2", image: "/p2.jpg", description: "描述2", appStoreUrl: "https://..." },
+ *   ]}
+ * />
+ * ```
+ *
+ * @props
+ * @prop {ProductCardProps[]} products - 产品数据数组
+ * @prop {('grid'|'list')} [layout='grid'] - 布局类型
+ * @prop {number|{base?:number,sm?:number,md?:number,lg?:number,xl?:number}} [columns] - 列数配置
+ * @prop {('xs'|'sm'|'md'|'lg'|'xl')} [cardSize='md'] - 卡片尺寸
+ * @prop {('xs'|'sm'|'md'|'lg'|'xl')} [gap='md'] - 卡片间距
+ * @prop {boolean} [equalHeight=true] - 等高卡片
+ * @prop {number} [descriptionLines] - 描述最大行数
+ * @prop {boolean} [showBorder=false] - 显示容器边框
+ * @prop {('none'|'xs'|'sm'|'md'|'lg'|'xl')} [margin='md'] - 上下外边距
+ * @prop {boolean} [centerItems=true] - 居中卡片
+ * @prop {string} [lang] - 语言
+ * @prop {string} [class] - 自定义类名
+ */
+
+import ProductCard from "./ProductCard.astro";
+import type { Props as ProductCardProps } from "./ProductCard.astro";
+
+type ProductItem = Omit<ProductCardProps, "class">;
+
+type ResponsiveColumns = {
+	base?: number;
+	sm?: number;
+	md?: number;
+	lg?: number;
+	xl?: number;
+};
+
+export interface Props {
+	products: ProductItem[];
+	layout?: "grid" | "list";
+	columns?: number | ResponsiveColumns;
+	cardSize?: ProductCardProps["size"];
+	gap?: "xs" | "sm" | "md" | "lg" | "xl";
+	equalHeight?: boolean;
+	descriptionLines?: number;
+	showBorder?: boolean;
+	margin?: "none" | "xs" | "sm" | "md" | "lg" | "xl";
+	centerItems?: boolean;
+	lang?: string;
+	class?: string;
+}
+
+const {
+	products,
+	layout = "grid",
+	columns = { base: 1, sm: 2, md: 3, lg: 4 },
+	cardSize = "md",
+	gap = "md",
+	equalHeight = true,
+	descriptionLines,
+	showBorder = false,
+	margin = "md",
+	centerItems = true,
+	lang,
+	class: className = "",
+} = Astro.props as Props;
+
+// Gap → BEM 修饰类
+const gapModMap = {
+	xs: "cosy-products--gap-xs",
+	sm: "cosy-products--gap-sm",
+	md: "cosy-products--gap-md",
+	lg: "cosy-products--gap-lg",
+	xl: "cosy-products--gap-xl",
+} as const;
+
+// Margin → BEM 修饰类
+const marginModMap = {
+	none: "",
+	xs: "cosy-products--my-xs",
+	sm: "cosy-products--my-sm",
+	md: "cosy-products--my-md",
+	lg: "cosy-products--my-lg",
+	xl: "cosy-products--my-xl",
+} as const;
+
+// 响应式列数 → style
+const getColumnsStyle = (): string => {
+	if (typeof columns === "number") {
+		return `--cosy-products-cols: ${columns};`;
+	}
+	const { base = 1, sm, md, lg, xl } = columns;
+	// CSS 变量 + 媒体查询由样式表处理，这里只传 base
+	return `--cosy-products-cols-base: ${base}; ${sm ? `--cosy-products-cols-sm: ${sm};` : ""} ${md ? `--cosy-products-cols-md: ${md};` : ""} ${lg ? `--cosy-products-cols-lg: ${lg};` : ""} ${xl ? `--cosy-products-cols-xl: ${xl};` : ""}`.trim();
+};
+
+const rootClass = [
+	"cosy-products",
+	layout === "grid" ? "cosy-products--grid" : "cosy-products--list",
+	gapModMap[gap],
+	marginModMap[margin],
+	centerItems ? "cosy-products--center" : "",
+	showBorder ? "cosy-products--bordered" : "",
+	className,
+].filter(Boolean).join(" ");
+---
+
+<div class={rootClass} style={getColumnsStyle()}>
+	{
+		products.map((product) => (
+			<ProductCard
+				{...product}
+				size={cardSize}
+				equalHeight={equalHeight}
+				descriptionLines={descriptionLines}
+				lang={lang ?? product.lang}
+			/>
+		))
+	}
+</div>
+
+<style is:global>
+	/* Products - 原生 CSS 实现 */
+	.cosy-products {
+		width: 100%;
+	}
+
+	/* 网格布局 */
+	.cosy-products--grid {
+		display: grid;
+		grid-template-columns: repeat(var(--cosy-products-cols-base, 1), 1fr);
+	}
+	@media (min-width: 640px) {
+		.cosy-products--grid {
+			grid-template-columns: repeat(var(--cosy-products-cols-sm, var(--cosy-products-cols-base, 1)), 1fr);
+		}
+	}
+	@media (min-width: 768px) {
+		.cosy-products--grid {
+			grid-template-columns: repeat(var(--cosy-products-cols-md, var(--cosy-products-cols-sm, var(--cosy-products-cols-base, 1))), 1fr);
+		}
+	}
+	@media (min-width: 1024px) {
+		.cosy-products--grid {
+			grid-template-columns: repeat(var(--cosy-products-cols-lg, var(--cosy-products-cols-md, var(--cosy-products-cols-sm, var(--cosy-products-cols-base, 1)))), 1fr);
+		}
+	}
+	@media (min-width: 1280px) {
+		.cosy-products--grid {
+			grid-template-columns: repeat(var(--cosy-products-cols-xl, var(--cosy-products-cols-lg, var(--cosy-products-cols-md, var(--cosy-products-cols-sm, var(--cosy-products-cols-base, 1))))), 1fr);
+		}
+	}
+
+	.cosy-products--list {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.cosy-products--center {
+		justify-items: center;
+	}
+
+	/* 间距 */
+	.cosy-products--gap-xs { gap: 0.25rem; }
+	.cosy-products--gap-sm { gap: 0.5rem; }
+	.cosy-products--gap-md { gap: 1rem; }
+	.cosy-products--gap-lg { gap: 1.5rem; }
+	.cosy-products--gap-xl { gap: 2rem; }
+
+	/* 外边距 */
+	.cosy-products--my-xs { margin-top: 0.25rem; margin-bottom: 0.25rem; }
+	.cosy-products--my-sm { margin-top: 0.5rem; margin-bottom: 0.5rem; }
+	.cosy-products--my-md { margin-top: 1rem; margin-bottom: 1rem; }
+	.cosy-products--my-lg { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+	.cosy-products--my-xl { margin-top: 2rem; margin-bottom: 2rem; }
+
+	/* 边框 */
+	.cosy-products--bordered {
+		border: 1px solid #d7d7d7;
+		padding: 1rem;
+		border-radius: 0.5rem;
+	}
+</style>

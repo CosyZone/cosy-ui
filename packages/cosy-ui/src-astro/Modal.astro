@@ -1,0 +1,271 @@
+---
+/**
+ * @component Modal
+ *
+ * @description
+ * Modal 组件是一个模态对话框，用于在不离开当前页面的情况下显示内容、通知或请求用户输入。
+ * 它会覆盖在页面内容上方，并提供一个聚焦的交互环境。
+ * 自包含实现：BEM 命名 + 原生 CSS，不依赖 cn() 与 cosy: 工具类。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Modal id="my-modal" title="提示">
+ *   <p>这是一个模态对话框的内容。</p>
+ *   <button slot="actions" data-modal-target="my-modal">关闭</button>
+ * </Modal>
+ *
+ * <!-- 触发按钮 -->
+ * <button data-modal-target="my-modal">打开模态框</button>
+ * ```
+ *
+ * 自定义操作按钮：
+ * ```astro
+ * <Modal id="confirm-modal" title="确认操作">
+ *   <p>您确定要执行此操作吗？</p>
+ *   <div slot="actions">
+ *     <button class="cosy-btn cosy-btn--primary">确认</button>
+ *     <button class="cosy-btn cosy-btn--ghost" data-modal-target="confirm-modal">取消</button>
+ *   </div>
+ * </Modal>
+ * ```
+ *
+ * 不带标题的模态框：
+ * ```astro
+ * <Modal id="image-modal">
+ *   <img src="/images/large-image.jpg" alt="大图预览" />
+ * </Modal>
+ * ```
+ *
+ * 带链接标题的模态框：
+ * ```astro
+ * <Modal id="help-modal" title="帮助文档" titleHref="/help" titleExternal>
+ *   <p>点击标题可以跳转到帮助文档。</p>
+ * </Modal>
+ * ```
+ *
+ * @props
+ * @prop {string} id - Modal 的唯一标识符（必填）
+ * @prop {string} [title] - 模态框的标题
+ * @prop {string} [titleHref] - 标题的链接地址，传入后标题会变成可点击的链接
+ * @prop {boolean} [titleExternal=false] - 标题链接是否为外部链接
+ * @prop {string} [class] - 自定义类名
+ *
+ * @slots
+ * @slot default - 模态框主体内容
+ * @slot actions - 底部操作按钮区域
+ */
+
+export interface ModalProps {
+    /** Modal 的唯一标识符 */
+    id: string;
+    /** 模态框的标题 */
+    title?: string;
+    /** 标题的链接地址，传入后标题会变成可点击的链接 */
+    titleHref?: string;
+    /** 标题链接是否为外部链接 */
+    titleExternal?: boolean;
+    /** 自定义类名 */
+    class?: string;
+}
+
+const {
+    id,
+    title = "",
+    titleHref,
+    titleExternal = false,
+    class: className = "",
+} = Astro.props as ModalProps;
+
+const boxClass = ["cosy-modal__box", className].filter(Boolean).join(" ");
+
+// 标题节点：可选链接
+const titleNode = title
+    ? titleHref
+        ? `<a href="${titleHref}"${
+              titleExternal
+                  ? ' target="_blank" rel="noopener noreferrer"'
+                  : ""
+          } class="cosy-modal__title cosy-modal__title-link">${title}</a>`
+        : `<h4 class="cosy-modal__title">${title}</h4>`
+    : "";
+
+const slotHtml = await Astro.slots.render("default");
+const actionsHtml = await Astro.slots.render("actions");
+
+const modalHtml = `
+<dialog id="${id}" class="cosy-modal">
+  <div class="${boxClass}">
+    <div class="cosy-modal__header">
+      ${titleNode}
+      <form method="dialog" class="cosy-modal__close-form">
+        <button type="submit" class="cosy-modal__close" formmethod="dialog" aria-label="关闭">✕</button>
+      </form>
+    </div>
+    <div class="cosy-modal__content">${slotHtml}</div>
+    <div class="cosy-modal__actions">${actionsHtml}</div>
+  </div>
+</dialog>`.trim();
+---
+
+<Fragment set:html={modalHtml} />
+
+<style is:global>
+    /* Modal - 原生 CSS 实现（daisyUI corporate 主题色） */
+    .cosy-modal {
+        --cosy-modal-primary: #4b6bfb;
+        --cosy-modal-accent: #67baa3;
+        --cosy-modal-base-100: #ffffff;
+        --cosy-modal-base-200: #e9e9e9;
+        --cosy-modal-base-300: #d7d7d7;
+        --cosy-modal-base-content: #1d1d1d;
+
+        /* 重置原生 dialog UA 样式 */
+        border: none;
+        padding: 0;
+        background: transparent;
+        color: var(--cosy-modal-base-content);
+        max-width: calc(100vw - 2rem);
+        max-height: calc(100vh - 2rem);
+    }
+
+    .cosy-modal::backdrop {
+        background: color-mix(in srgb, #181a2a 40%, transparent);
+        backdrop-filter: blur(2px);
+    }
+
+    .cosy-modal__box {
+        box-sizing: border-box;
+        width: min(92vw, 32rem);
+        background: var(--cosy-modal-base-100);
+        border-radius: 0.5rem;
+        box-shadow:
+            0 10px 15px -3px rgb(0 0 0 / 0.1),
+            0 4px 6px -4px rgb(0 0 0 / 0.1);
+        overflow: hidden;
+    }
+
+    .cosy-modal__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-bottom: 1px solid var(--cosy-modal-base-300);
+    }
+
+    .cosy-modal__title {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 500;
+        line-height: 1.2;
+        color: var(--cosy-modal-base-content);
+    }
+
+    .cosy-modal__title-link {
+        text-decoration: none;
+        transition: opacity 0.15s ease;
+    }
+    .cosy-modal__title-link:hover {
+        opacity: 0.8;
+    }
+
+    .cosy-modal__content {
+        padding: 1.5rem;
+        line-height: 1.5;
+        color: var(--cosy-modal-base-content);
+    }
+
+    .cosy-modal__actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0.5rem;
+        padding: 1rem 1.5rem;
+    }
+
+    .cosy-modal__close-form {
+        margin: 0;
+        display: flex;
+        flex-shrink: 0;
+    }
+
+    .cosy-modal__close {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        padding: 0;
+        border: none;
+        border-radius: 9999px;
+        background: var(--cosy-modal-accent);
+        color: var(--cosy-modal-base-content);
+        font-size: 0.875rem;
+        line-height: 1;
+        cursor: pointer;
+        transition: filter 0.15s ease;
+    }
+    .cosy-modal__close:hover {
+        filter: brightness(0.92);
+    }
+</style>
+
+<script is:inline define:vars={{ id }}>
+    let handleClick;
+
+    function initializeModal() {
+        const modal = document.getElementById(id);
+        if (!modal) {
+            return;
+        }
+
+        // 移除之前的事件监听器（如果存在）
+        if (handleClick) {
+            document.removeEventListener('click', handleClick);
+        }
+
+        // 使用事件委托来处理动态加载的内容
+        handleClick = (event) => {
+            const target = event.target;
+            // 使用 closest() 查找最近的匹配元素，包括按钮内部的元素
+            const trigger = target.closest(`[data-modal-target="${id}"]`);
+            if (trigger) {
+                modal.showModal();
+
+                // 在modal显示后自动focus到第一个input元素
+                setTimeout(() => {
+                    const firstInput = modal.querySelector(
+                        'input, textarea, select, [contenteditable="true"]'
+                    );
+                    if (firstInput) {
+                        firstInput.focus();
+                    }
+                }, 100); // 延迟100ms确保modal完全显示
+            }
+        };
+
+        document.addEventListener('click', handleClick);
+    }
+
+    // Astro 页面切换时初始化
+    document.addEventListener('astro:page-load', () => {
+        initializeModal();
+    });
+
+    // 非客户端路由场景（或首屏加载）下，确保初始化
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => initializeModal());
+    } else {
+        // 文档已就绪，直接初始化一次
+        initializeModal();
+    }
+
+    // 页面卸载时清理事件监听器
+    document.addEventListener('astro:before-preparation', () => {
+        if (handleClick) {
+            document.removeEventListener('click', handleClick);
+            handleClick = null;
+        }
+    });
+</script>

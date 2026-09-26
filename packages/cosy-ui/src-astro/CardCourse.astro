@@ -1,0 +1,328 @@
+---
+/**
+ * @component CardCourse
+ *
+ * @description
+ * 课程卡片组件，用于展示课程信息，具有统一的设计风格。支持动态图标和渐变背景。
+ *
+ * @usage
+ * ```astro
+ * <CardCourse courseName="React 基础教程" lang="zh" href="/courses/react-basics" />
+ * ```
+ *
+ * @props
+ * @prop {string} courseName - 课程标题
+ * @prop {string} href - 课程链接
+ * @prop {string} lang - 语言（"en" 或 "zh"）
+ * @prop {string} [description] - 课程描述
+ * @prop {'none'|'xs'|'sm'|'md'|'lg'|'xl'|'2xl'|'3xl'} [contentPadding='lg'] - 内容区域内边距
+ * @prop {'sm'|'md'|'lg'|'xl'} [iconSize='md'] - 图标尺寸
+ * @prop {string[]} [keywords] - 图标关键词数组
+ * @prop {95|100|105|110|115} [scaleEffect=105] - 悬停缩放比例
+ * @prop {boolean|'none'|'sm'|'md'|'lg'|'xl'|'2xl'|'inner'} [shadowEffect='lg'] - 阴影效果
+ *
+ * @slots
+ * @slot icon - 自定义图标区域，默认为智能图标
+ */
+
+import SmartBg from './SmartBg.astro';
+import SmartIcon from './SmartIcon.astro';
+import Button from './Button.astro';
+
+/* ===== 内联类型与配置（组件自包含） ===== */
+
+/** 内边距尺寸类型 */
+export type PaddingSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+/** 图标尺寸类型 */
+export type IconSize = 'sm' | 'md' | 'lg' | 'xl';
+
+/** CardCourse 组件 Props 接口 */
+export interface CardCourseProps {
+    contentPadding?: PaddingSize;
+    courseName: string;
+    description?: string;
+    href: string;
+    iconSize?: IconSize;
+    keywords?: string[];
+    lang: string;
+    scaleEffect?: 95 | 100 | 105 | 110 | 115;
+    shadowEffect?: boolean | 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'inner';
+}
+
+/** 图标尺寸（px） */
+const iconSizePx: Record<IconSize, number> = {
+    sm: 64, md: 96, lg: 128, xl: 160,
+};
+
+/** 内容内边距（rem） */
+const contentPadRem: Record<PaddingSize, string> = {
+    none: '0', xs: '0.5rem', sm: '0.75rem', md: '1rem',
+    lg: '1.5rem', xl: '2rem', '2xl': '2.5rem', '3xl': '3rem',
+};
+
+/** 标准化课程名称 */
+function normalizeName(name: string): string {
+    return name.toLowerCase().replace(/[^a-z0-9]/g, '_');
+}
+
+/** 格式化课程显示名称 */
+function formatDisplayName(courseName: string): string {
+    return courseName.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
+}
+
+/** 字符串哈希 */
+function hashString(str: string): number {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        hash = (hash << 5) - hash + str.charCodeAt(i);
+        hash |= 0;
+    }
+    return Math.abs(hash);
+}
+
+/** 图标配色 key（与 CSS 修饰类对应） */
+const iconColorKeys = [
+    'primary', 'success', 'danger', 'warning', 'info', 'neutral', 'forest',
+    'ocean', 'sky', 'lemon', 'orange', 'cherry', 'grape', 'banana',
+    'watermelon', 'peach', 'avocado', 'coconut', 'blueberry', 'kiwi',
+    'mint', 'sand', 'sunset', 'lavender', 'snow',
+];
+function pickIconColorKey(seed: string): string {
+    return iconColorKeys[hashString((seed || 'neutral').toLowerCase()) % iconColorKeys.length];
+}
+
+/* ===== props 解构 ===== */
+const {
+    contentPadding = 'lg',
+    courseName,
+    description = '',
+    href,
+    iconSize = 'md',
+    keywords = [],
+    lang,
+    scaleEffect = 105,
+    shadowEffect = 'lg',
+} = Astro.props as CardCourseProps;
+
+const displayName = formatDisplayName(courseName);
+
+// 阴影类
+let shadowClass = 'cosy-card-course--shadow-lg';
+if (shadowEffect === false || shadowEffect === 'none') shadowClass = '';
+else if (shadowEffect === 'inner') shadowClass = 'cosy-card-course--shadow-inner';
+else if (typeof shadowEffect === 'string') shadowClass = `cosy-card-course--shadow-${shadowEffect}`;
+
+// 缩放类
+const scaleClass = scaleEffect === 100 ? '' : `cosy-card-course--scale-${scaleEffect}`;
+
+// 图标关键词
+const defaultKeywords = ['课程', '学习', '教程', '图书', '书', '电子书', 'pdf', 'kindle'];
+const allKeywords = [courseName, ...keywords, ...defaultKeywords].filter(Boolean).join(',');
+const iconColorKey = pickIconColorKey(courseName || allKeywords);
+
+const rootVars = `--cosy-card-course-pad:${contentPadRem[contentPadding]};--cosy-card-course-icon-size:${iconSizePx[iconSize]}px;`;
+---
+
+<div
+    ignore-heading
+    class={['cosy-card-course', shadowClass, scaleClass].filter(Boolean).join(' ')}
+    style={rootVars}>
+    <SmartBg keyword={courseName} enableGradient={true} class="cosy-card-course__bg">
+        <!-- 网格纹理 -->
+        <div
+            class="cosy-card-course__grid"
+            style="background-image: linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px); background-size: 20px 20px;">
+        </div>
+
+        <div class="cosy-card-course__body">
+            <!-- 左侧：图标 -->
+            <div class="cosy-card-course__icon-wrap">
+                {
+                    Astro.slots.has('icon') ? (
+                        <slot name="icon" />
+                    ) : (
+                        <div class={`cosy-card-course__icon cosy-card-course__icon--${iconColorKey}`}>
+                            <SmartIcon keyword={allKeywords} />
+                        </div>
+                    )
+                }
+            </div>
+
+            <!-- 右侧：内容和按钮 -->
+            <div class="cosy-card-course__right">
+                <div class="cosy-card-course__content">
+                    <h3 class="cosy-card-course__title">{displayName}</h3>
+                    <p class="cosy-card-course__desc">{description || ''}</p>
+                </div>
+
+                <div class="cosy-card-course__actions">
+                    <Button
+                        href={href}
+                        variant="primary"
+                        size="md"
+                        aria-label={lang === 'en' ? `Start learning ${courseName}` : `开始学习 ${courseName} 课程`}>
+                        {lang === 'en' ? 'Start Learning' : '开始学习'}
+                    </Button>
+                </div>
+            </div>
+        </div>
+    </SmartBg>
+</div>
+
+<style is:global>
+    /* CardCourse - 原生 CSS 实现（daisyui corporate 主题色） */
+    .cosy-card-course {
+        --cosy-card-course-base-content: #1d1d1d;
+        --cosy-card-course-base-100: #ffffff;
+        --cosy-card-course-accent: #67baa3;
+
+        box-sizing: border-box;
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        border: 1px solid color-mix(in srgb, var(--cosy-card-course-base-content) 30%, transparent);
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* 阴影变体 */
+    .cosy-card-course--shadow-sm { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
+    .cosy-card-course--shadow-sm:hover { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+    .cosy-card-course--shadow-md { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+    .cosy-card-course--shadow-md:hover { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
+    .cosy-card-course--shadow-lg { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
+    .cosy-card-course--shadow-lg:hover { box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }
+    .cosy-card-course--shadow-xl { box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
+    .cosy-card-course--shadow-xl:hover { box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }
+    .cosy-card-course--shadow-2xl { box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }
+    .cosy-card-course--shadow-2xl:hover { box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }
+    .cosy-card-course--shadow-inner { box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.1); }
+
+    /* 悬停缩放 */
+    .cosy-card-course--scale-95:hover { transform: scale(0.95); }
+    .cosy-card-course--scale-105:hover { transform: scale(1.05); }
+    .cosy-card-course--scale-110:hover { transform: scale(1.1); }
+    .cosy-card-course--scale-115:hover { transform: scale(1.15); }
+
+    .cosy-card-course__bg {
+        position: relative;
+        z-index: 1;
+    }
+    .cosy-card-course__grid {
+        position: absolute;
+        inset: 0;
+        opacity: 0.15;
+        pointer-events: none;
+    }
+
+    .cosy-card-course__body {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 1.5rem;
+        height: 100%;
+        padding: var(--cosy-card-course-pad, 1.5rem);
+        background: color-mix(in srgb, var(--cosy-card-course-base-100) 30%, transparent);
+    }
+
+    .cosy-card-course__icon-wrap {
+        flex-shrink: 0;
+    }
+    .cosy-card-course__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--cosy-card-course-icon-size, 96px);
+        height: var(--cosy-card-course-icon-size, 96px);
+        opacity: 0.85;
+        transition: all 0.3s ease;
+        animation: cosy-card-course-fade-in 0.6s ease-out forwards;
+    }
+    .cosy-card-course__icon:hover {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    .cosy-card-course__icon svg,
+    .cosy-card-course__icon > * {
+        width: 100%;
+        height: 100%;
+    }
+
+    /* 图标配色 */
+    .cosy-card-course__icon--primary { color: #2563eb; }
+    .cosy-card-course__icon--success { color: #16a34a; }
+    .cosy-card-course__icon--danger { color: #dc2626; }
+    .cosy-card-course__icon--warning { color: #d97706; }
+    .cosy-card-course__icon--info { color: #2563eb; }
+    .cosy-card-course__icon--neutral { color: #4b5563; }
+    .cosy-card-course__icon--forest { color: #15803d; }
+    .cosy-card-course__icon--ocean { color: #1d4ed8; }
+    .cosy-card-course__icon--sky { color: #0ea5e9; }
+    .cosy-card-course__icon--lemon { color: #65a30d; }
+    .cosy-card-course__icon--orange { color: #ea580c; }
+    .cosy-card-course__icon--cherry { color: #e11d48; }
+    .cosy-card-course__icon--grape { color: #9333ea; }
+    .cosy-card-course__icon--banana { color: #ca8a04; }
+    .cosy-card-course__icon--watermelon { color: #db2777; }
+    .cosy-card-course__icon--peach { color: #f97316; }
+    .cosy-card-course__icon--avocado { color: #4d7c0f; }
+    .cosy-card-course__icon--coconut { color: #57534e; }
+    .cosy-card-course__icon--blueberry { color: #4f46e5; }
+    .cosy-card-course__icon--kiwi { color: #16a34a; }
+    .cosy-card-course__icon--mint { color: #0d9488; }
+    .cosy-card-course__icon--sand { color: #d97706; }
+    .cosy-card-course__icon--sunset { color: #db2777; }
+    .cosy-card-course__icon--lavender { color: #9333ea; }
+    .cosy-card-course__icon--snow { color: #374151; }
+
+    .cosy-card-course__right {
+        flex: 1 1 0%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1rem;
+        min-width: 0;
+    }
+    .cosy-card-course__title {
+        margin: 0 0 1rem;
+        font-size: 1.125rem;
+        font-weight: 600;
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: var(--cosy-card-course-base-content);
+        transition: all 0.3s ease;
+    }
+    .cosy-card-course:hover .cosy-card-course__title {
+        transform: translateX(0.25rem);
+    }
+    .cosy-card-course__desc {
+        margin: -0.75rem 0 0;
+        font-size: 0.875rem;
+        line-height: 1.6;
+        text-align: left;
+        color: color-mix(in srgb, var(--cosy-card-course-base-content) 70%, transparent);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        min-height: 2.5rem;
+    }
+    .cosy-card-course:hover .cosy-card-course__desc { opacity: 0.8; }
+
+    .cosy-card-course__actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 0.5rem;
+    }
+
+    @keyframes cosy-card-course-fade-in {
+        0% { opacity: 0; transform: scale(0.8) rotate(12deg); }
+        100% { opacity: 0.85; transform: scale(1) rotate(0); }
+    }
+</style>

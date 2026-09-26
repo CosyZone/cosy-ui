@@ -1,0 +1,194 @@
+---
+/**
+ * @component CardBook
+ *
+ * @description
+ * 书籍卡片组件，用于展示一本书的信息。支持传入封面图；当未提供封面时，将根据标题自动生成合适的渐变背景作为占位。
+ *
+ * @usage
+ * ```astro
+ * <CardBook title="Clean Code" author="Robert C. Martin" />
+ * <CardBook title="Refactoring" author="Martin Fowler" cover={coverUrl} />
+ * ```
+ *
+ * @props
+ * @prop {string} title - 书名
+ * @prop {string} [author] - 作者名称
+ * @prop {ImageSource} [cover] - 书籍封面图（本地或远程），缺省时显示智能背景
+ * @prop {string} [description] - 书籍简介
+ * @prop {string} [href] - 点击跳转链接
+ * @prop {'none'|'sm'|'md'|'lg'|'xl'} [shadow='md'] - 卡片阴影样式
+ * @prop {'sm'|'md'|'lg'} [size='md'] - 卡片尺寸
+ * @prop {string} [class] - 自定义类名
+ */
+
+import type { ImageSource } from './Image.astro';
+import Button from './Button.astro';
+import Image from './Image.astro';
+import SmartBg from './SmartBg.astro';
+
+/** 尺寸配置（组件自包含） */
+const sizeConfig: Record<'sm' | 'md' | 'lg', { maxWidth: string; figurePad: string; imgHeight: number; titleSize: string; descSize: string; bodyPad: string }> = {
+    sm: { maxWidth: '220px', figurePad: '0.75rem', imgHeight: 160, titleSize: '1rem', descSize: '0.875rem', bodyPad: '1rem 1.25rem' },
+    md: { maxWidth: '280px', figurePad: '1rem', imgHeight: 200, titleSize: '1.25rem', descSize: '1rem', bodyPad: '1rem 1.25rem' },
+    lg: { maxWidth: '340px', figurePad: '1.25rem', imgHeight: 240, titleSize: '1.5rem', descSize: '1.125rem', bodyPad: '1.25rem 1.5rem' },
+};
+
+export interface ICardBookProps {
+    author?: string;
+    class?: string;
+    cover?: ImageSource;
+    description?: string;
+    href?: string;
+    shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+    size?: 'sm' | 'md' | 'lg';
+    title: string;
+}
+
+const {
+    title,
+    author = '',
+    cover,
+    description = '',
+    href,
+    size = 'md',
+    shadow = 'md',
+    class: className = '',
+} = Astro.props as ICardBookProps;
+
+const cfg = sizeConfig[size];
+const rootClass = [
+    'cosy-card-book',
+    `cosy-card-book--${size}`,
+    `cosy-card-book--shadow-${shadow}`,
+    className,
+].filter(Boolean).join(' ');
+
+const inlineVars = `--cosy-card-book-max-w:${cfg.maxWidth};--cosy-card-book-figure-pad:${cfg.figurePad};--cosy-card-book-img-h:${cfg.imgHeight}px;--cosy-card-book-title-size:${cfg.titleSize};--cosy-card-book-desc-size:${cfg.descSize};--cosy-card-book-body-pad:${cfg.bodyPad};`;
+---
+
+<div class={rootClass} style={inlineVars} ignore-heading>
+    <figure class="cosy-card-book__figure">
+        {
+            cover ? (
+                <Image
+                    src={cover}
+                    alt={`${title} cover`}
+                    class="cosy-card-book__cover"
+                    loading="lazy"
+                    showError={true}
+                />
+            ) : (
+                <SmartBg
+                    keyword={title}
+                    enableGradient
+                    class="cosy-card-book__placeholder">
+                    <div class="cosy-card-book__placeholder-text">{title}</div>
+                </SmartBg>
+            )
+        }
+    </figure>
+
+    <div class="cosy-card-book__body">
+        <h2 class="cosy-card-book__title">{title}</h2>
+        {author && <p class="cosy-card-book__author">{author}</p>}
+        {description && <p class="cosy-card-book__desc">{description}</p>}
+        {
+            href && (
+                <div class="cosy-card-book__actions">
+                    <Button href={href} variant="primary">
+                        查看详情
+                    </Button>
+                </div>
+            )
+        }
+    </div>
+</div>
+
+<style is:global>
+    /* CardBook - 原生 CSS 实现（daisyui corporate 主题色） */
+    .cosy-card-book {
+        --cosy-card-book-base-200: #e9e9e9;
+        --cosy-card-book-base-content: #1d1d1d;
+
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: var(--cosy-card-book-max-w, 280px);
+        background: var(--cosy-card-book-base-200);
+        border-radius: 0.5rem;
+        overflow: hidden;
+        transition: box-shadow 0.3s ease;
+        color: var(--cosy-card-book-base-content);
+    }
+
+    /* 阴影变体 */
+    .cosy-card-book--shadow-none { box-shadow: none; }
+    .cosy-card-book--shadow-sm { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
+    .cosy-card-book--shadow-sm:hover { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+    .cosy-card-book--shadow-md { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+    .cosy-card-book--shadow-md:hover { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
+    .cosy-card-book--shadow-lg { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
+    .cosy-card-book--shadow-lg:hover { box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
+    .cosy-card-book--shadow-xl { box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
+    .cosy-card-book--shadow-xl:hover { box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }
+
+    .cosy-card-book__figure {
+        margin: 0;
+        padding: var(--cosy-card-book-figure-pad, 1rem);
+    }
+    .cosy-card-book__cover {
+        display: block;
+        width: 100%;
+        height: var(--cosy-card-book-img-h, 200px);
+        object-fit: cover;
+        border-radius: 0.5rem;
+    }
+    .cosy-card-book__placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: var(--cosy-card-book-img-h, 200px);
+        border-radius: 0.5rem;
+    }
+    .cosy-card-book__placeholder-text {
+        padding: 0 0.75rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+        text-align: center;
+        color: color-mix(in srgb, var(--cosy-card-book-base-content) 80%, transparent);
+    }
+
+    .cosy-card-book__body {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        padding: var(--cosy-card-book-body-pad, 1rem 1.25rem);
+    }
+    .cosy-card-book__title {
+        margin: 0 0 0.5rem;
+        font-size: var(--cosy-card-book-title-size, 1.25rem);
+        font-weight: 700;
+        line-height: 1.3;
+    }
+    .cosy-card-book__author {
+        margin: 0 0 0.5rem;
+        font-size: 0.875rem;
+        color: color-mix(in srgb, var(--cosy-card-book-base-content) 70%, transparent);
+    }
+    .cosy-card-book__desc {
+        margin: 0 0 1rem;
+        font-size: var(--cosy-card-book-desc-size, 1rem);
+        line-height: 1.6;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .cosy-card-book--lg .cosy-card-book__desc { -webkit-line-clamp: 4; }
+    .cosy-card-book__actions {
+        margin-top: auto;
+    }
+</style>

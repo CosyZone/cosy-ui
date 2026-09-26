@@ -1,0 +1,651 @@
+---
+/**
+ * @component Footer
+ *
+ * @description
+ * Footer 组件用于创建网站的页脚部分，提供版权信息、导航链接和社交媒体链接等内容。
+ * 该组件支持高度自定义，可以根据需要显示或隐藏不同的部分。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Footer
+ *   siteName="我的网站"
+ *   homeLink="/"
+ *   slogan="简单而强大"
+ *   company="我的公司"
+ * />
+ * ```
+ *
+ * @props
+ * @prop {string} siteName - 网站名称
+ * @prop {string} homeLink - 首页链接
+ * @prop {string} slogan - 网站标语
+ * @prop {string} company - 公司名称
+ * @prop {string} inspirationalSlogan - 鼓舞人心的标语
+ * @prop {string} [background='base-200'] - 背景色
+ * @prop {ImageSource} [logo] - 网站Logo
+ * @prop {IProduct[]} [products=[]] - 产品链接数组
+ * @prop {IProduct[]} [friendlyLinks=[]] - 友情链接数组
+ * @prop {string[]} [socialLinks=[]] - 社交媒体链接数组
+ * @prop {ImageSource} [wechatQR] - 微信二维码
+ * @prop {ImageSource} [whatsappQR] - WhatsApp 二维码
+ * @prop {IAboutInfo} [aboutInfo] - 关于信息
+ * @prop {IContactInfo} [contactInfo] - 联系方式信息
+ * @prop {ILegalInfo} [legalInfo] - 法律信息
+ * @prop {IResourcesInfo} [resourcesInfo] - 资源信息
+ */
+
+import type { HTMLAttributes } from "astro/types";
+import type { ImageMetadata } from "astro";
+import { LanguageUtil } from "../src/utils/language";
+import { createTextGetter } from "../src/utils/i18n";
+import Image from "./Image.astro";
+import Heading from "./Heading.astro";
+import SocialIcon from "./SocialIcon.astro";
+import MapPinIcon from "./MapPinIcon.astro";
+import PhoneIcon from "./PhoneIcon.astro";
+import MailIcon from "./MailIcon.astro";
+import CalendarIcon from "./CalendarIcon.astro";
+import WechatIcon from "./WechatIcon.astro";
+import MessageIcon from "./MessageIcon.astro";
+import { processSocialLink } from "../src/utils/social";
+
+export type ImageSource = string | ImageMetadata;
+
+export interface IProduct {
+	name: string;
+	href: string;
+	external?: boolean;
+}
+
+export interface IAboutInfo {
+	aboutLink?: string;
+	contactLink?: string;
+	teamLink?: string;
+	careersLink?: string;
+}
+
+export interface IContactInfo {
+	address?: string;
+	phone?: string;
+	email?: string;
+	workingHours?: string;
+	wechat?: string;
+	qq?: string;
+}
+
+export interface ILegalInfo {
+	termsLink?: string;
+	privacyLink?: string;
+	icp?: string;
+	icpLink?: string;
+}
+
+export interface IResourcesInfo {
+	newsLink?: string;
+	historyLink?: string;
+	partnersLink?: string;
+	blogLink?: string;
+	faqLink?: string;
+	mediaLink?: string;
+	techStackLink?: string;
+}
+
+export interface IFooterProps extends Omit<HTMLAttributes<"footer">, "class"> {
+	/** 公司名称 */
+	company: string;
+	/** 背景色 @default 'base-200' */
+	background?: string;
+	/** 友情链接 */
+	friendlyLinks?: IProduct[];
+	/** 首页链接 */
+	homeLink: string;
+	/** 激励标语 */
+	inspirationalSlogan: string;
+	/** 徽标 */
+	logo?: ImageSource;
+	/** 产品 */
+	products?: IProduct[];
+	/** 站点名称 */
+	siteName: string;
+	/** 标语 */
+	slogan: string;
+	/** 社交链接 */
+	socialLinks?: string[];
+	/** 微信二维码 */
+	wechatQR?: ImageSource;
+	/** WhatsApp 二维码 */
+	whatsappQR?: ImageSource;
+	/** 关于信息 */
+	aboutInfo?: IAboutInfo;
+	/** 联系方式信息 */
+	contactInfo?: IContactInfo;
+	/** 法律信息 */
+	legalInfo?: ILegalInfo;
+	/** 资源信息 */
+	resourcesInfo?: IResourcesInfo;
+	/** 自定义类名 */
+	class?: string;
+}
+
+const {
+	siteName,
+	homeLink,
+	slogan,
+	company,
+	logo,
+	products = [],
+	friendlyLinks = [],
+	socialLinks = [],
+	wechatQR,
+	whatsappQR,
+	aboutInfo,
+	contactInfo,
+	legalInfo,
+	resourcesInfo,
+	class: className = "",
+} = Astro.props as IFooterProps;
+
+const lang = LanguageUtil.getCurrentLanguage(Astro);
+const t = createTextGetter(lang, "footer");
+
+const processedSocialLinks = socialLinks.map((url) => processSocialLink(url));
+
+/** 渲染单个链接项 */
+function renderFooterLink(link: IProduct): string {
+	if (!link.href) {
+		return `<li class="cosy-footer__link-item"><span class="cosy-footer__link-text--disabled">${link.name}</span></li>`;
+	}
+	const target = link.external ? '_target="_blank"' : "";
+	return `<li class="cosy-footer__link-item"><a href="${link.href}" ${target} class="cosy-footer__link">${link.name}</a></li>`;
+}
+
+/** 渲染一个导航区块 */
+function renderFooterSection(title: string, links: IProduct[]): string {
+	if (!links.length) return "";
+	return `
+	<nav class="cosy-footer__section">
+		<h6 class="cosy-footer__section-title">${title}</h6>
+		<ul class="cosy-footer__section-list">
+			${links.map(renderFooterLink).join("")}
+		</ul>
+	</nav>
+	`;
+}
+
+// 构建各导航区块
+const productsSectionHtml = products.length > 0
+	? renderFooterSection(t("products"), products)
+	: "";
+
+const friendlyLinksSectionHtml = friendlyLinks.length > 0
+	? renderFooterSection(t("friendlyLinks"), friendlyLinks)
+	: "";
+
+const aboutLinks = [
+	{ name: t("aboutUs"), href: aboutInfo?.aboutLink ?? "" },
+	{ name: t("team"), href: aboutInfo?.teamLink ?? "" },
+	{ name: t("careers"), href: aboutInfo?.careersLink ?? "" },
+	{ name: t("contactUs"), href: aboutInfo?.contactLink ?? "" },
+].filter((l) => l.href);
+
+const aboutSectionHtml = aboutLinks.length > 0
+	? renderFooterSection(t("about"), aboutLinks)
+	: "";
+
+const resourceLinks = [
+	{ name: t("news"), href: resourcesInfo?.newsLink ?? "" },
+	{ name: t("blog"), href: resourcesInfo?.blogLink ?? "" },
+	{ name: t("faq"), href: resourcesInfo?.faqLink ?? "" },
+	{ name: t("history"), href: resourcesInfo?.historyLink ?? "" },
+	{ name: t("techStack"), href: resourcesInfo?.techStackLink ?? "" },
+].filter((l) => l.href);
+
+const resourcesSectionHtml = resourceLinks.length > 0
+	? renderFooterSection(t("resources"), resourceLinks)
+	: "";
+
+const legalLinks = [
+	{ name: t("terms"), href: legalInfo?.termsLink ?? "" },
+	{ name: t("privacy"), href: legalInfo?.privacyLink ?? "" },
+].filter((l) => l.href);
+
+const legalSectionHtml = legalLinks.length > 0
+	? renderFooterSection(t("legal"), legalLinks)
+	: "";
+
+// 联系方式
+const contactItems: Array<{ icon: string; name: string; href: string }> = [];
+if (contactInfo?.address) contactItems.push({ icon: "map-pin", name: contactInfo.address, href: "" });
+if (contactInfo?.phone) contactItems.push({ icon: "phone", name: contactInfo.phone, href: `tel:${contactInfo.phone}` });
+if (contactInfo?.email) contactItems.push({ icon: "mail", name: contactInfo.email, href: `mailto:${contactInfo.email}` });
+if (contactInfo?.workingHours) contactItems.push({ icon: "calendar", name: contactInfo.workingHours, href: "" });
+if (contactInfo?.wechat) contactItems.push({ icon: "wechat", name: `微信: ${contactInfo.wechat}`, href: "" });
+if (contactInfo?.qq) contactItems.push({ icon: "qq", name: `QQ: ${contactInfo.qq}`, href: "" });
+
+const hasContactInfo = contactItems.length > 0;
+
+const footerClasses = [
+	"cosy-footer",
+	className,
+]
+	.filter(Boolean)
+	.join(" ");
+---
+
+<footer class={footerClasses} ignore-heading>
+	<div class="cosy-footer__container">
+		<!-- 品牌区域 -->
+		<aside class="cosy-footer__brand">
+			{logo && (
+				<a href={homeLink} class="cosy-footer__logo-link">
+					<Image
+						src={logo as any}
+						alt={siteName}
+						width={48}
+						height={48}
+						rounded="none"
+						preview={false}
+						class="cosy-footer__logo"
+					/>
+				</a>
+			)}
+			<div class="cosy-footer__brand-text">
+				<Heading level={3} align="center">
+					{siteName}
+				</Heading>
+				<p class="cosy-footer__slogan">{slogan}</p>
+			</div>
+			<div class="cosy-footer__social">
+				{
+					processedSocialLinks.map((link: any) => (
+						<a
+							href={link.url}
+							class="cosy-footer__social-btn"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label={link.name}
+						>
+							<SocialIcon platform={link.platform} />
+						</a>
+					))
+				}
+				{wechatQR && (
+					<a href="#" class="cosy-footer__social-btn" aria-label="微信二维码">
+						<SocialIcon platform="wechat" />
+						<div class="cosy-footer__qr-hover">
+							<Image
+								src={wechatQR as any}
+								alt="微信二维码"
+								width={200}
+								height={200}
+								class="cosy-footer__qr-img"
+							/>
+						</div>
+					</a>
+				)}
+				{whatsappQR && (
+					<a href="#" class="cosy-footer__social-btn" aria-label="WhatsApp 二维码">
+						<SocialIcon platform="whatsapp" />
+						<div class="cosy-footer__qr-hover">
+							<Image
+								src={whatsappQR as any}
+								alt="WhatsApp 二维码"
+								width={200}
+								height={200}
+								class="cosy-footer__qr-img"
+							/>
+						</div>
+					</a>
+				)}
+			</div>
+		</aside>
+
+		<!-- 导航区域 -->
+		<div class="cosy-footer__nav" set:html={productsSectionHtml + friendlyLinksSectionHtml + aboutSectionHtml + resourcesSectionHtml + legalSectionHtml} />
+
+		<!-- 联系方式 -->
+		{hasContactInfo && (
+			<nav class="cosy-footer__section">
+				<h6 class="cosy-footer__section-title">{t("contact")}</h6>
+				<ul class="cosy-footer__section-list">
+					{contactItems.map((item) => (
+						<li class="cosy-footer__contact-item">
+							<div class="cosy-footer__contact-row">
+								{item.icon === "map-pin" && <MapPinIcon class="cosy-footer__contact-icon" />}
+								{item.icon === "phone" && <PhoneIcon class="cosy-footer__contact-icon" />}
+								{item.icon === "mail" && <MailIcon class="cosy-footer__contact-icon" />}
+								{item.icon === "calendar" && <CalendarIcon class="cosy-footer__contact-icon" />}
+								{item.icon === "wechat" && <WechatIcon class="cosy-footer__contact-icon" />}
+								{item.icon === "qq" && <MessageIcon class="cosy-footer__contact-icon" />}
+								{item.href ? (
+									<a href={item.href} class="cosy-footer__link">
+										{item.name}
+									</a>
+								) : (
+									<span class="cosy-footer__contact-text">{item.name}</span>
+								)}
+							</div>
+						</li>
+					))}
+				</ul>
+			</nav>
+		)}
+	</div>
+
+	<hr class="cosy-footer__divider" />
+
+	<div class="cosy-footer__bottom">
+		<p class="cosy-footer__copyright">
+			© <span class="cosy-footer__year">{new Date().getFullYear()}</span>
+			{company} - {t("allRightsReserved")}
+		</p>
+		{legalInfo?.icp && (
+			<a
+				href={legalInfo.icpLink || "https://beian.miit.gov.cn/"}
+				class="cosy-footer__icp"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				{legalInfo.icp}
+			</a>
+		)}
+	</div>
+</footer>
+
+<style is:global>
+	/* Footer - 原生 CSS 实现 */
+	.cosy-footer {
+		--cosy-footer-primary: #4b6bfb;
+		--cosy-footer-base-100: #ffffff;
+		--cosy-footer-base-200: #e9e9e9;
+		--cosy-footer-base-300: #d7d7d7;
+		--cosy-footer-base-content: #1d1d1d;
+
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+		z-index: 50;
+		width: 100%;
+		padding: 2.5rem;
+		color: var(--cosy-footer-base-content);
+		background: var(--cosy-footer-base-200);
+		font-size: 0.875rem;
+		line-height: 1.5;
+	}
+
+	/* 容器 */
+	.cosy-footer__container {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		width: 100%;
+		max-width: 80rem;
+		margin: 0 auto;
+		align-items: center;
+	}
+
+	@media (min-width: 768px) {
+		.cosy-footer__container {
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: flex-start;
+			min-height: 16rem;
+		}
+	}
+
+	/* 品牌区域 */
+	.cosy-footer__brand {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+		text-align: center;
+	}
+
+	@media (min-width: 768px) {
+		.cosy-footer__brand {
+			max-width: 28rem;
+			flex-direction: row;
+			justify-content: center;
+			flex-wrap: wrap;
+		}
+	}
+
+	.cosy-footer__logo-link {
+		display: block;
+		margin-bottom: 1rem;
+		text-decoration: none;
+	}
+
+	.cosy-footer__logo {
+		width: 3rem;
+		height: 3rem;
+		mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0 C77.6 0 100 22.4 100 50 C100 77.6 77.6 100 50 100 C22.4 100 0 77.6 0 50 C0 22.4 22.4 0 50 0 Z M50 10 C30 10 10 30 10 50 C10 70 30 90 50 90 C70 90 90 70 90 50 C90 30 70 10 50 10 Z'/%3E%3C/svg%3E");
+		mask-size: contain;
+		mask-repeat: no-repeat;
+		mask-position: center;
+		-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0 C77.6 0 100 22.4 100 50 C100 77.6 77.6 100 50 100 C22.4 100 0 77.6 0 50 C0 22.4 22.4 0 50 0 Z M50 10 C30 10 10 30 10 50 C10 70 30 90 50 90 C70 90 90 70 90 50 C90 30 70 10 50 10 Z'/%3E%3C/svg%3E");
+		-webkit-mask-size: contain;
+		-webkit-mask-repeat: no-repeat;
+		-webkit-mask-position: center;
+	}
+
+	.cosy-footer__brand-text {
+		width: 100%;
+		text-align: center;
+	}
+
+	.cosy-footer__brand-text h3 {
+		margin: 0 0 0.25rem 0;
+		font-weight: 700;
+	}
+
+	.cosy-footer__slogan {
+		margin: 0;
+		opacity: 0.7;
+	}
+
+	/* 社交链接 */
+	.cosy-footer__social {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		gap: 0.5rem;
+		margin-top: 1rem;
+		padding: 0.5rem;
+		width: 100%;
+		border-radius: 0.5rem;
+	}
+
+	.cosy-footer__social-btn {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2rem;
+		height: 2rem;
+		border-radius: 9999px;
+		text-decoration: none;
+		color: var(--cosy-footer-base-content);
+		transition: background-color 0.15s ease;
+	}
+
+	.cosy-footer__social-btn:hover {
+		background: color-mix(in srgb, currentColor 12%, transparent);
+	}
+
+	/* 二维码悬停 */
+	.cosy-footer__qr-hover {
+		position: absolute;
+		bottom: 100%;
+		left: 50%;
+		transform: translateX(-50%);
+		margin-bottom: 0.5rem;
+		padding: 0.75rem;
+		background: var(--cosy-footer-base-100);
+		border-radius: 0.5rem;
+		box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 0.3s ease, visibility 0.3s ease;
+		z-index: 50;
+		min-width: 14rem;
+	}
+
+	.cosy-footer__social-btn:hover .cosy-footer__qr-hover {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	.cosy-footer__qr-img {
+		width: 14rem;
+		height: 14rem;
+		object-fit: contain;
+		border-radius: 0.5rem;
+	}
+
+	/* 导航区域 */
+	.cosy-footer__nav {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 2rem;
+		justify-content: center;
+	}
+
+	@media (min-width: 768px) {
+		.cosy-footer__nav {
+			flex: 1;
+			justify-content: flex-start;
+		}
+	}
+
+	.cosy-footer__section {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.cosy-footer__section-title {
+		margin: 0;
+		font-weight: 700;
+		font-size: 0.875rem;
+	}
+
+	.cosy-footer__section-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.cosy-footer__link-item {
+		list-style: none;
+	}
+
+	.cosy-footer__link {
+		text-decoration: none;
+		color: inherit;
+		font-size: 0.875rem;
+		opacity: 0.8;
+		transition: opacity 0.15s ease;
+	}
+
+	.cosy-footer__link:hover {
+		opacity: 1;
+		text-decoration: underline;
+	}
+
+	.cosy-footer__link-text--disabled {
+		opacity: 0.5;
+		font-size: 0.875rem;
+	}
+
+	/* 联系方式 */
+	.cosy-footer__contact-item {
+		list-style: none;
+	}
+
+	.cosy-footer__contact-row {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.cosy-footer__contact-icon {
+		width: 1rem;
+		height: 1rem;
+		flex-shrink: 0;
+	}
+
+	.cosy-footer__contact-text {
+		opacity: 0.5;
+		font-size: 0.875rem;
+	}
+
+	/* 分隔线 */
+	.cosy-footer__divider {
+		width: 100%;
+		margin: 2rem 0 1rem 0;
+		border: none;
+		border-top: 1px solid color-mix(in srgb, var(--cosy-footer-base-content) 20%, transparent);
+	}
+
+	/* 底部区域 */
+	.cosy-footer__bottom {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		width: 100%;
+		opacity: 0.7;
+		font-size: 0.875rem;
+	}
+
+	@media (min-width: 1024px) {
+		.cosy-footer__bottom {
+			flex-direction: row;
+			gap: 1rem;
+		}
+	}
+
+	.cosy-footer__copyright {
+		margin: 0;
+		text-align: center;
+		font-size: 0.875rem;
+	}
+
+	.cosy-footer__icp {
+		text-decoration: none;
+		color: inherit;
+		font-size: 0.875rem;
+		opacity: 0.8;
+	}
+
+	.cosy-footer__icp:hover {
+		opacity: 1;
+	}
+</style>
+
+<script is:inline>
+	(() => {
+		try {
+			const el = document.querySelector(".cosy-footer__year");
+			if (el) el.textContent = String(new Date().getFullYear());
+		} catch (e) {
+			/* no-op */
+		}
+	})();
+	document.addEventListener("visibilitychange", () => {
+		if (document.visibilityState === "visible") {
+			const el = document.querySelector(".cosy-footer__year");
+			if (el) el.textContent = String(new Date().getFullYear());
+		}
+	});
+</script>

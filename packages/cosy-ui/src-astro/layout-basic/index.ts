@@ -1,4 +1,4 @@
-import BaseLayout from "./BaseLayout.astro";
+import BaseLayout from "../BaseLayout.astro";
 
 export { BaseLayout };
 

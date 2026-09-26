@@ -1,0 +1,781 @@
+---
+/**
+ * @component ApiTester
+ *
+ * @description
+ * ApiTester 组件是一个完整的API测试工具，提供多个API端点的测试界面。
+ * 支持参数配置、快速测试、请求发送和结果展示等功能。
+ * （合并了 ApiEndpointCard 与 ApiTestScript）
+ *
+ * @usage
+ * ```astro
+ * <ApiTester endpoints={endpoints} title="用户API测试" />
+ * ```
+ *
+ * @props
+ * @prop {IApiEndpoint[]} endpoints - API端点配置列表
+ * @prop {string} [title="API 测试"] - 组件标题
+ * @prop {string} [description] - 组件描述
+ * @prop {boolean} [showHeaders=false] - 是否显示请求头配置
+ * @prop {Record<string, string>} [defaultHeaders] - 默认请求头
+ * @prop {boolean} [showResponseTime=true] - 是否显示响应时间
+ * @prop {boolean} [showRequestDetails=false] - 是否显示请求详情
+ * @prop {string} [class] - 自定义CSS类名
+ */
+
+import Badge from "./Badge.astro";
+import Button from "./Button.astro";
+import Card from "./Card.astro";
+import Grid from "./Grid.astro";
+import Heading from "./Heading.astro";
+import type { IApiEndpoint } from "./types/api-test";
+
+interface Props {
+	endpoints: IApiEndpoint[];
+	title?: string;
+	description?: string;
+	showHeaders?: boolean;
+	defaultHeaders?: Record<string, string>;
+	showResponseTime?: boolean;
+	showRequestDetails?: boolean;
+	class?: string;
+}
+
+const {
+	endpoints,
+	title = "API 测试",
+	description,
+	showHeaders = false,
+	defaultHeaders,
+	showResponseTime = true,
+	showRequestDetails = false,
+	class: className,
+} = Astro.props as Props;
+
+/** HTTP 方法对应的 Badge 变体 */
+function getMethodVariant(method: string): string {
+	const map: Record<string, string> = {
+		GET: "success",
+		POST: "primary",
+		PUT: "warning",
+		DELETE: "error",
+		PATCH: "info",
+	};
+	return map[method] || "neutral";
+}
+
+const rootClass = ["cosy-api-test", className || ""].filter(Boolean).join(" ");
+---
+
+<div class={rootClass}>
+	<div class="cosy-api-test__header">
+		<Heading level={1}>{title}</Heading>
+		{description && <p class="cosy-api-test__description">{description}</p>}
+	</div>
+
+	{
+		showHeaders && (
+			<div class="cosy-api-test__headers">
+				<h3 class="cosy-api-test__headers-title">请求头配置</h3>
+				<div class="cosy-api-test__headers-grid">
+					{defaultHeaders &&
+						Object.entries(defaultHeaders).map(([key, value]) => (
+							<div class="cosy-api-test__field">
+								<label class="cosy-api-test__label">
+									<span class="cosy-api-test__label-text">{key}</span>
+								</label>
+								<input
+									type="text"
+									class="cosy-api-test__input"
+									value={value as string}
+									data-header-key={key}
+									data-header-value={value as string}
+								/>
+							</div>
+						))}
+				</div>
+			</div>
+		)
+	}
+
+	<Grid cols={{ base: 1, lg: Math.min(endpoints.length, 2) }}>
+		{
+			endpoints.map((endpoint: IApiEndpoint) => {
+				const hasParams =
+					endpoint.params && endpoint.params.length > 0;
+				const hasQuickTests =
+					endpoint.quickTests && endpoint.quickTests.length > 0;
+				const hasDescription = !!endpoint.description;
+
+				return (
+					<Card title={endpoint.name}>
+						<div class="cosy-api-test__card-body">
+							{/* HTTP方法和路径 */}
+							<div class="cosy-api-test__method-row">
+								<Badge variant={getMethodVariant(endpoint.method)}>
+									{endpoint.method}
+								</Badge>
+								<code class="cosy-api-test__path">
+									{endpoint.path}
+								</code>
+							</div>
+
+							{hasDescription && (
+								<p class="cosy-api-test__endpoint-desc">
+									{endpoint.description}
+								</p>
+							)}
+
+							{hasParams && (
+								<div class="cosy-api-test__params">
+									<p class="cosy-api-test__params-title">请求参数：</p>
+									{endpoint.params!.map((param) => (
+										<div class="cosy-api-test__field">
+											<label class="cosy-api-test__label">
+												<span class="cosy-api-test__label-text">
+													{param.name}
+													{param.required && (
+														<span class="cosy-api-test__required">*</span>
+													)}
+												</span>
+												{param.validation?.message && (
+													<span class="cosy-api-test__hint">
+														{param.validation.message}
+													</span>
+												)}
+											</label>
+
+											{param.type === "select" ? (
+												<select
+													class="cosy-api-test__select"
+													data-param={param.name}
+													data-endpoint={endpoint.path}
+													data-required={param.required || false}
+													data-validation={JSON.stringify(
+														param.validation || {},
+													)}
+													required={param.required}>
+													<option value="">请选择</option>
+													{(param.options || []).map(
+														(option: string) => (
+															<option
+																value={option}
+																selected={
+																	option ===
+																	param.defaultValue
+																}>
+																{option}
+															</option>
+														),
+													)}
+												</select>
+											) : param.type === "textarea" ? (
+												<textarea
+													class="cosy-api-test__textarea"
+													placeholder={param.placeholder}
+													rows={3}
+													data-param={param.name}
+													data-endpoint={endpoint.path}
+													data-required={param.required || false}
+													data-validation={JSON.stringify(
+														param.validation || {},
+													)}
+													required={param.required}>
+													{param.defaultValue || ""}
+												</textarea>
+											) : param.type === "checkbox" ? (
+												<input
+													type="checkbox"
+													class="cosy-api-test__checkbox"
+													data-param={param.name}
+													data-endpoint={endpoint.path}
+													data-required={param.required || false}
+													data-validation={JSON.stringify(
+														param.validation || {},
+													)}
+													checked={Boolean(param.defaultValue)}
+												/>
+											) : param.type === "radio" ? (
+												<div class="cosy-api-test__radio-group">
+													{(param.options || []).map(
+														(option: string) => (
+															<label class="cosy-api-test__radio-label">
+																<input
+																	type="radio"
+																	name={`${endpoint.path}-${param.name}`}
+																	class="cosy-api-test__radio"
+																	value={option}
+																	data-param={param.name}
+																	data-endpoint={endpoint.path}
+																	data-required={param.required || false}
+																	data-validation={JSON.stringify(
+																		param.validation || {},
+																	)}
+																	checked={
+																		option ===
+																		param.defaultValue
+																	}
+																/>
+																<span class="cosy-api-test__label-text">
+																	{option}
+																</span>
+															</label>
+														),
+													)}
+												</div>
+											) : (
+												<input
+													type={param.type || "text"}
+													placeholder={param.placeholder}
+													class="cosy-api-test__input"
+													data-param={param.name}
+													data-endpoint={endpoint.path}
+													data-required={param.required || false}
+													data-validation={JSON.stringify(
+														param.validation || {},
+													)}
+													required={param.required}
+													value={
+														(param.defaultValue as string) || ""
+													}
+													min={param.validation?.min}
+													max={param.validation?.max}
+													pattern={param.validation?.pattern}
+												/>
+											)}
+										</div>
+									))}
+								</div>
+							)}
+
+							{hasQuickTests && (
+								<div class="cosy-api-test__quick-tests">
+									<p class="cosy-api-test__quick-title">快速填充参数：</p>
+									<div class="cosy-api-test__quick-buttons">
+										{endpoint.quickTests!.map((quickTest) => (
+											<Button
+												variant="outline"
+												size="sm"
+												data-quick-test={JSON.stringify(
+													quickTest.values,
+												)}
+												data-endpoint={endpoint.path}
+												title={quickTest.description}>
+												{quickTest.label}
+											</Button>
+										))}
+									</div>
+								</div>
+							)}
+
+							<Button
+								variant="primary"
+								block
+								data-endpoint={endpoint.path}
+								data-method={endpoint.method}>
+								测试接口
+							</Button>
+
+							<div
+								class="cosy-api-test__result"
+								data-result={endpoint.path}></div>
+						</div>
+					</Card>
+				);
+			})
+		}
+	</Grid>
+</div>
+
+<script
+	is:inline
+	define:vars={{
+		showResponseTime,
+		showRequestDetails,
+		defaultHeaders,
+	}}>
+	// @ts-nocheck
+	// 格式化响应显示
+	function formatResponse(response, data, responseTime) {
+		const statusColor = response.ok ? "success" : "error";
+		const statusText = response.ok ? "成功" : "失败";
+
+		let result = `
+      <div class="cosy-api-test__result-container">
+        <div class="cosy-api-test__status-row">
+          <span class="cosy-api-test__status-label">HTTP状态:</span>
+          <span class="cosy-api-test__badge cosy-api-test__badge--${statusColor}">${response.status} ${response.statusText}</span>
+          <span class="cosy-api-test__status-subtext">(${statusText})</span>
+        </div>
+    `;
+
+		if (showResponseTime && responseTime) {
+			result += `
+        <div>
+          <span class="cosy-api-test__status-label">响应时间:</span>
+          <span class="cosy-api-test__response-time">${responseTime}ms</span>
+        </div>
+      `;
+		}
+
+		if (showRequestDetails) {
+			result += `
+        <div>
+          <span class="cosy-api-test__status-label">请求URL:</span>
+          <code class="cosy-api-test__path">${response.url}</code>
+        </div>
+      `;
+		}
+
+		result += `
+        <div>
+          <span class="cosy-api-test__status-label">响应内容:</span>
+          <pre class="cosy-api-test__code-block">${JSON.stringify(data, null, 2)}</pre>
+        </div>
+      </div>
+    `;
+
+		return result;
+	}
+
+	// 收集请求头
+	function collectHeaders() {
+		const headers = { ...defaultHeaders };
+		document
+			.querySelectorAll("[data-header-key][data-header-value]")
+			.forEach((input) => {
+				const key = input.dataset.headerKey;
+				const value = input.dataset.headerValue;
+				if (key && value) headers[key] = value;
+			});
+		if (!headers["Content-Type"]) {
+			headers["Content-Type"] = "application/json";
+		}
+		return headers;
+	}
+
+	// 验证参数
+	function validateParams(params) {
+		const errors = [];
+		Object.entries(params).forEach(([key, value]) => {
+			const input = document.querySelector(
+				`[data-param="${key}"][data-endpoint]`,
+			);
+			if (input) {
+				const validation = JSON.parse(input.dataset.validation || "{}");
+				const required = input.dataset.required === "true";
+				if (required && (!value || value.toString().trim() === "")) {
+					errors.push(`${key} 是必填参数`);
+				}
+				if (validation.min && Number(value) < validation.min) {
+					errors.push(`${key} 不能小于 ${validation.min}`);
+				}
+				if (validation.max && Number(value) > validation.max) {
+					errors.push(`${key} 不能大于 ${validation.max}`);
+				}
+				if (
+					validation.pattern &&
+					!new RegExp(validation.pattern).test(value)
+				) {
+					errors.push(`${key} 格式不正确`);
+				}
+			}
+		});
+		return { isValid: errors.length === 0, errors };
+	}
+
+	async function testEndpoint(endpoint, method) {
+		const resultDiv = document.querySelector(
+			`[data-result="${endpoint}"]`,
+		);
+		const testBtn = document.querySelector(
+			`[data-endpoint="${endpoint}"][data-method="${method}"]`,
+		);
+		if (!resultDiv || !testBtn) return;
+
+		resultDiv.classList.add("cosy-api-test__result--visible");
+		resultDiv.innerHTML = `<span class="cosy-api-test__loading-text">正在测试接口...</span>`;
+		testBtn.disabled = true;
+		testBtn.innerHTML = `<span class="cosy-api-test__spinner"></span> 测试中...`;
+
+		const startTime = Date.now();
+
+		try {
+			let url = endpoint;
+			const params = {};
+			document
+				.querySelectorAll(
+					`[data-endpoint="${endpoint}"][data-param]`,
+				)
+				.forEach((input) => {
+					const paramName = input.dataset.param;
+					if (!paramName) return;
+					if (input.type === "checkbox") {
+						params[paramName] = input.checked;
+					} else if (input.type === "radio") {
+						if (input.checked) params[paramName] = input.value;
+					} else if (input.value.trim()) {
+						params[paramName] = input.value.trim();
+					}
+				});
+
+			const validation = validateParams(params);
+			if (!validation.isValid) {
+				resultDiv.innerHTML = `
+          <div class="cosy-api-test__error">
+            <span class="cosy-api-test__status-label">参数验证失败:</span>
+            <ul class="cosy-api-test__error-list">
+              ${validation.errors.map((e) => `<li>${e}</li>`).join("")}
+            </ul>
+          </div>
+        `;
+				return;
+			}
+
+			if (method === "GET" && Object.keys(params).length > 0) {
+				const searchParams = new URLSearchParams();
+				Object.entries(params).forEach(([k, v]) => {
+					if (v !== undefined && v !== null && v !== "") {
+						searchParams.append(k, v.toString());
+					}
+				});
+				url += `?${searchParams.toString()}`;
+			}
+
+			const headers = collectHeaders();
+			const response = await fetch(url, {
+				method,
+				headers,
+				body: method !== "GET" ? JSON.stringify(params) : undefined,
+			});
+			const responseTime = Date.now() - startTime;
+
+			const responseText = await response.text();
+			let data = responseText;
+			try {
+				data = JSON.parse(responseText);
+			} catch {
+				data = responseText;
+			}
+			resultDiv.innerHTML = formatResponse(response, data, responseTime);
+		} catch (error) {
+			const errorMessage =
+				error instanceof Error ? error.message : "Unknown error";
+			resultDiv.innerHTML = `
+        <div class="cosy-api-test__error">
+          <span class="cosy-api-test__status-label">请求失败:</span> ${errorMessage}
+        </div>
+      `;
+		} finally {
+			testBtn.disabled = false;
+			testBtn.innerHTML = "测试接口";
+		}
+	}
+
+	function quickFill(endpoint, values) {
+		Object.entries(values).forEach(([key, value]) => {
+			const input = document.querySelector(
+				`[data-endpoint="${endpoint}"][data-param="${key}"]`,
+			);
+			if (input) {
+				if (input.type === "checkbox") {
+					input.checked = Boolean(value);
+				} else if (input.type === "radio") {
+					const radioInput = document.querySelector(
+						`[data-endpoint="${endpoint}"][data-param="${key}"][value="${value}"]`,
+					);
+					if (radioInput) radioInput.checked = true;
+				} else {
+					input.value = value.toString();
+				}
+			}
+		});
+	}
+
+	document.addEventListener("DOMContentLoaded", () => {
+		document
+			.querySelectorAll("[data-endpoint][data-method]")
+			.forEach((btn) => {
+				btn.addEventListener("click", (event) => {
+					const clicked = event.currentTarget;
+					const endpoint = clicked.dataset.endpoint;
+					const method = clicked.dataset.method;
+					if (endpoint && method) testEndpoint(endpoint, method);
+				});
+			});
+
+		document.querySelectorAll("[data-quick-test]").forEach((btn) => {
+			btn.addEventListener("click", (event) => {
+				const clicked = event.currentTarget;
+				const endpoint = clicked.dataset.endpoint;
+				const values = JSON.parse(clicked.dataset.quickTest || "{}");
+				if (endpoint && values) quickFill(endpoint, values);
+			});
+		});
+
+		document.querySelectorAll("[data-header-key]").forEach((input) => {
+			input.addEventListener("input", (event) => {
+				const target = event.target;
+				const key = target.dataset.headerKey;
+				if (key) target.dataset.headerValue = target.value;
+			});
+		});
+	});
+</script>
+
+<style is:global>
+	/* ApiTester - 原生 CSS 实现（daisyUI corporate 主题色） */
+	.cosy-api-test {
+		--cosy-api-test-primary: #4b6bfb;
+		--cosy-api-test-base-100: #ffffff;
+		--cosy-api-test-base-200: #e9e9e9;
+		--cosy-api-test-base-300: #d7d7d7;
+		--cosy-api-test-base-content: #1d1d1d;
+		--cosy-api-test-info: #2563eb;
+		--cosy-api-test-success: #16a34a;
+		--cosy-api-test-warning: #d97706;
+		--cosy-api-test-error: #dc2626;
+
+		box-sizing: border-box;
+		width: 100%;
+		color: var(--cosy-api-test-base-content);
+		font-family:
+			system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+			"Helvetica Neue", Arial, sans-serif;
+	}
+
+	.cosy-api-test__header {
+		text-align: center;
+		margin-bottom: 2rem;
+	}
+	.cosy-api-test__description {
+		margin: 0.5rem auto 0;
+		max-width: 42rem;
+		font-size: 0.875rem;
+		opacity: 0.7;
+	}
+
+	.cosy-api-test__headers {
+		padding: 1rem;
+		margin-bottom: 1.5rem;
+		background: var(--cosy-api-test-base-200);
+		border-radius: 0.5rem;
+	}
+	.cosy-api-test__headers-title {
+		margin: 0 0 0.75rem;
+		font-size: 1.125rem;
+		font-weight: 500;
+	}
+	.cosy-api-test__headers-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0.75rem;
+	}
+	@media (min-width: 768px) {
+		.cosy-api-test__headers-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	.cosy-api-test__card-body {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.cosy-api-test__method-row {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		padding: 0.75rem;
+		background: var(--cosy-api-test-base-200);
+		border-radius: 0.5rem;
+	}
+	.cosy-api-test__path {
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+			monospace;
+		font-size: 0.875rem;
+		color: var(--cosy-api-test-primary);
+		word-break: break-all;
+	}
+	.cosy-api-test__endpoint-desc {
+		margin: 0;
+		font-size: 0.875rem;
+		opacity: 0.7;
+	}
+
+	.cosy-api-test__params {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+	.cosy-api-test__params-title,
+	.cosy-api-test__quick-title {
+		margin: 0;
+		font-weight: 500;
+	}
+
+	.cosy-api-test__field {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+	.cosy-api-test__label {
+		display: flex;
+		flex-direction: column;
+		gap: 0.125rem;
+	}
+	.cosy-api-test__label-text {
+		font-size: 0.875rem;
+		font-weight: 500;
+	}
+	.cosy-api-test__required {
+		color: var(--cosy-api-test-error);
+		margin-left: 0.25rem;
+	}
+	.cosy-api-test__hint {
+		font-size: 0.75rem;
+		color: var(--cosy-api-test-warning);
+	}
+
+	.cosy-api-test__input,
+	.cosy-api-test__select,
+	.cosy-api-test__textarea {
+		width: 100%;
+		padding: 0.5rem 0.75rem;
+		border: 1px solid var(--cosy-api-test-base-300);
+		border-radius: 0.375rem;
+		background: var(--cosy-api-test-base-100);
+		color: var(--cosy-api-test-base-content);
+		font-size: 0.875rem;
+		font-family: inherit;
+		box-sizing: border-box;
+	}
+	.cosy-api-test__input:focus,
+	.cosy-api-test__select:focus,
+	.cosy-api-test__textarea:focus {
+		outline: 2px solid var(--cosy-api-test-primary);
+		outline-offset: 1px;
+	}
+
+	.cosy-api-test__checkbox,
+	.cosy-api-test__radio {
+		width: 1rem;
+		height: 1rem;
+		accent-color: var(--cosy-api-test-primary);
+	}
+	.cosy-api-test__radio-group {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+	.cosy-api-test__radio-label {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		cursor: pointer;
+	}
+
+	.cosy-api-test__quick-tests {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+	.cosy-api-test__quick-buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.cosy-api-test__result {
+		display: none;
+		margin-top: 1rem;
+		padding: 1rem;
+		background: var(--cosy-api-test-base-200);
+		border-left: 4px solid var(--cosy-api-test-primary);
+		border-radius: 0.5rem;
+	}
+	.cosy-api-test__result--visible {
+		display: block;
+	}
+
+	.cosy-api-test__result-container {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+	.cosy-api-test__status-row {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+	.cosy-api-test__status-label {
+		font-weight: 600;
+	}
+	.cosy-api-test__status-subtext {
+		font-size: 0.875rem;
+		opacity: 0.7;
+	}
+	.cosy-api-test__response-time {
+		color: var(--cosy-api-test-success);
+		font-weight: 600;
+	}
+	.cosy-api-test__code-block {
+		margin-top: 0.5rem;
+		padding: 0.75rem;
+		background: var(--cosy-api-test-base-300);
+		border-radius: 0.5rem;
+		overflow-x: auto;
+		font-size: 0.875rem;
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+			monospace;
+	}
+
+	.cosy-api-test__badge {
+		display: inline-flex;
+		align-items: center;
+		height: 1.5rem;
+		padding: 0 0.5rem;
+		border-radius: 0.375rem;
+		font-size: 0.75rem;
+		font-weight: 600;
+		color: #fff;
+	}
+	.cosy-api-test__badge--success {
+		background: var(--cosy-api-test-success);
+	}
+	.cosy-api-test__badge--error {
+		background: var(--cosy-api-test-error);
+	}
+
+	.cosy-api-test__error {
+		color: var(--cosy-api-test-error);
+	}
+	.cosy-api-test__error-list {
+		margin-top: 0.5rem;
+		padding-left: 1.25rem;
+		list-style: disc;
+	}
+
+	.cosy-api-test__loading-text {
+		color: var(--cosy-api-test-primary);
+		font-style: italic;
+	}
+	.cosy-api-test__spinner {
+		display: inline-block;
+		width: 1em;
+		height: 1em;
+		margin-right: 0.25rem;
+		border: 2px solid currentColor;
+		border-top-color: transparent;
+		border-radius: 50%;
+		animation: cosy-api-test-spin 0.7s linear infinite;
+		vertical-align: middle;
+	}
+	@keyframes cosy-api-test-spin {
+		to {
+			transform: rotate(360deg);
+		}
+	}
+</style>

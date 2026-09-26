@@ -1,0 +1,80 @@
+---
+/**
+ * @component ErrorPage
+ *
+ * @description
+ * 通用错误页面组件，根据错误码自动选择合适的错误页面。
+ *
+ * @usage
+ * ```astro
+ * <ErrorPage errorCode={404} />
+ * <ErrorPage errorCode={503} maintenanceMode={true} estimatedRecovery="2024-12-25 10:00" />
+ * ```
+ *
+ * @props
+ * @prop {number} errorCode - HTTP 错误状态码 (404, 403, 500, 503 等)
+ * @prop {Record<string, string>} [debugKVs={}] - 调试信息键值对
+ * @prop {string} [loginUrl] - 登录页面 URL (用于 403)
+ * @prop {string} [contactUrl] - 联系页面 URL
+ * @prop {string} [supportUrl] - 技术支持页面 URL (用于 500)
+ * @prop {string} [statusPageUrl] - 系统状态页面 URL (用于 503)
+ * @prop {string} [notificationUrl] - 通知订阅页面 URL (用于 503)
+ * @prop {boolean} [maintenanceMode=false] - 是否为维护模式 (用于 503)
+ * @prop {string} [estimatedRecovery] - 预期恢复时间 (用于 503)
+ */
+
+import Error403 from './Error403.astro';
+import Error404 from './Error404.astro';
+import Error500 from './Error500.astro';
+import Error503 from './Error503.astro';
+
+export interface ErrorPageProps {
+    errorCode: number;
+    debugKVs?: Record<string, string>;
+    loginUrl?: string;
+    contactUrl?: string;
+    supportUrl?: string;
+    statusPageUrl?: string;
+    notificationUrl?: string;
+    maintenanceMode?: boolean;
+    estimatedRecovery?: string;
+}
+
+const {
+    errorCode,
+    debugKVs = {},
+    loginUrl,
+    contactUrl,
+    supportUrl,
+    statusPageUrl,
+    notificationUrl,
+    maintenanceMode = false,
+    estimatedRecovery,
+} = Astro.props as ErrorPageProps;
+
+function getErrorComponent(code: number) {
+    switch (code) {
+        case 403: return Error403;
+        case 404: return Error404;
+        case 500: return Error500;
+        case 503: return Error503;
+        default: return Error404;
+    }
+}
+
+const ErrorComponent = getErrorComponent(errorCode);
+
+function getErrorProps(code: number) {
+    switch (code) {
+        case 403: return { debugKVs, loginUrl, contactUrl };
+        case 404: return { debugKVs };
+        case 500: return { debugKVs, supportUrl, statusPageUrl };
+        case 503: return { debugKVs, maintenanceMode, estimatedRecovery, statusPageUrl, notificationUrl };
+        default: return { debugKVs };
+    }
+}
+
+const errorProps = getErrorProps(errorCode);
+---
+
+<ErrorComponent {...errorProps} />

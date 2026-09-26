@@ -1,0 +1,116 @@
+---
+/**
+ * @component Speak
+ *
+ * @description
+ * Speak 组件用于展示人物语录或评价，包含说话者的头像、姓名、头衔和言论。
+ * 适用于用户评价、团队介绍等场景。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Speak
+ *   speakerName="张三"
+ *   speakerTitle="产品经理"
+ *   image={avatar}
+ *   words="这是一个非常棒的产品！"
+ * />
+ * ```
+ *
+ * @props
+ * @prop {string} speakerName - 说话者姓名
+ * @prop {string} speakerTitle - 说话者头衔
+ * @prop {ImageMetadata} image - 说话者头像
+ * @prop {string} words - 说话内容
+ * @prop {string} [class] - 自定义类名
+ */
+
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+/**
+ * Speak 组件属性（组件自包含定义）
+ */
+export interface ISpeakProps {
+    /** 说话者姓名 */
+    speakerName: string;
+    /** 说话者头衔 */
+    speakerTitle: string;
+    /** 说话者头像 */
+    image: ImageMetadata;
+    /** 说话内容 */
+    words: string;
+    /** 自定义类名 */
+    class?: string;
+}
+
+const {
+    speakerName,
+    speakerTitle,
+    image,
+    words,
+    class: className = '',
+} = Astro.props as ISpeakProps;
+---
+
+<div class:list={['cosy-speak', className]}>
+    <Image
+        src={image}
+        alt={speakerName}
+        class="cosy-speak__avatar"
+        width={128}
+        height={128}
+    />
+    <div class="cosy-speak__meta">
+        <h3 class="cosy-speak__name">{speakerName}</h3>
+        <p class="cosy-speak__title">{speakerTitle}</p>
+    </div>
+    <p class="cosy-speak__words">{words}</p>
+</div>
+
+<style is:global>
+    /* Speak - 原生 CSS 实现（daisyui corporate 主题色） */
+    .cosy-speak {
+        --cosy-speak-base-100: #ffffff;
+        --cosy-speak-base-content: #1d1d1d;
+
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.5rem;
+        background: var(--cosy-speak-base-100);
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        color: var(--cosy-speak-base-content);
+    }
+
+    .cosy-speak__avatar {
+        width: 8rem;
+        height: 8rem;
+        border-radius: 9999px;
+        object-fit: cover;
+    }
+
+    .cosy-speak__meta {
+        text-align: center;
+    }
+    .cosy-speak__name {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--cosy-speak-base-content);
+    }
+    .cosy-speak__title {
+        margin: 0.25rem 0 0;
+        color: color-mix(in srgb, var(--cosy-speak-base-content) 70%, transparent);
+    }
+
+    .cosy-speak__words {
+        margin: 0;
+        font-style: italic;
+        text-align: center;
+        color: color-mix(in srgb, var(--cosy-speak-base-content) 80%, transparent);
+    }
+</style>

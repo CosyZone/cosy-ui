@@ -1,0 +1,74 @@
+---
+/**
+ * AppHeader组件
+ *
+ * 专门处理应用布局中的头部导航栏
+ *
+ * @param {Object} headerConfig - 头部配置
+ * @param {boolean} [debug=false] - 是否启用调试模式
+ * @param {boolean} [showSidebar=true] - 是否显示侧边栏切换按钮
+ * @param {boolean} [showSearch=true] - 是否显示搜索按钮
+ * @param {Object} rest - 其他属性
+ *
+ * @slot navbar-start - 导航栏开始位置的内容
+ * @slot navbar-center - 导航栏中间位置的内容
+ * @slot navbar-end - 导航栏结束位置的内容
+ * @slot modal-search - 搜索模态框内容，当提供此slot时会显示搜索按钮
+ *
+ */
+
+import type { IHeaderProps } from './Header.astro';
+import Button from './Button.astro';
+import Header from './Header.astro';
+import MenuIcon from './MenuIcon.astro';
+import SearchIcon from './SearchIcon.astro';
+
+interface Props {
+    headerConfig?: Partial<IHeaderProps>;
+    showSidebar?: boolean;
+    showSearch?: boolean;
+}
+
+const {
+    headerConfig = {},
+    showSidebar = true,
+    showSearch = true,
+}: Props = Astro.props;
+---
+
+<Header {...headerConfig}>
+    <div slot="navbar-start">
+        {/* 小屏幕显示侧边栏切换按钮 */}
+        {
+            showSidebar && (
+                <Button
+                    class="cosy:lg:hidden"
+                    data-modal-target="mobile-sidebar"
+                    variant="ghost"
+                    size="sm">
+                    <MenuIcon size="20px" />
+                </Button>
+            )
+        }
+        <slot name="navbar-start" />
+    </div>
+
+    <div slot="navbar-center">
+        <slot name="navbar-center" />
+    </div>
+
+    <div slot="navbar-end">
+        {
+            showSearch && (
+                <Button
+                    aria-label="打开搜索"
+                    data-modal-target="modalSearch"
+                    variant="ghost"
+                    size="sm">
+                    <SearchIcon size="24px" />
+                </Button>
+            )
+        }
+        <slot name="navbar-end" />
+    </div>
+</Header>
