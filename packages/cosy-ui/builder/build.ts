@@ -1,22 +1,17 @@
-import { exec } from "node:child_process";
 import { writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { promisify } from "node:util";
 import tailwindcss from "@tailwindcss/vite";
 import fs from "fs-extra";
 import { type InlineConfig, build as viteBuild } from "vite";
 import { generateThemeCSS } from "./generate-theme-css";
-
-const execAsync = promisify(exec);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, "..");
 
 /**
- * 复制 Astro 和 Vue 组件（保留源码）
- * 同时复制 src 目录下的静态资源（图片、CSS等非TS文件）
+ * 复制 Astro 和 Vue 各自自治的组件源码
  */
 async function copyComponents() {
 	const copies = [
@@ -47,62 +42,21 @@ async function copyComponents() {
 		}),
 	);
 
-	// 复制 src 目录下的静态资源（图片、CSS等非TS文件）
-	// tsc 只编译 TS 文件，不会复制其他资源
-	console.log("📦 复制静态资源...");
-	const srcDir = path.resolve(rootDir, "src");
-	const distSrcDir = path.resolve(rootDir, "dist/src");
-
-	await fs.copy(srcDir, distSrcDir, {
-		filter: (src) => {
-			// 只复制非 TS 文件（图片、CSS 等）
-			// TS 文件已经由 tsc 编译成 JS 和 .d.ts
-			return !src.endsWith(".ts") || src.includes("node_modules");
-		},
-		overwrite: false, // 不覆盖 tsc 生成的文件
-	});
-
-	console.log("  ✅ 静态资源复制完成");
 	console.log("✅ 组件源码复制完成");
-}
-
-/**
- * 使用 tsc 编译纯 TS 代码（src/ 目录）
- * tsc 会完全保持目录结构：src/utils/image.ts → dist/src/utils/image.js
- */
-async function buildTypeScript(sourceMap: boolean = true) {
-	const configFile = sourceMap
-		? "tsconfig.build.json"
-		: "tsconfig.build.prod.json";
-	const mode = sourceMap
-		? "开发模式（包含 sourcemap）"
-		: "生产模式（不包含 sourcemap）";
-
-	console.log(`⚙️  开始编译 TypeScript 代码... (${mode})`);
-
-	try {
-		// 使用 tsc 编译，保持目录结构
-		await execAsync(`tsc --project ${configFile}`);
-		console.log("✅ TypeScript 编译完成");
-	} catch (error) {
-		console.error("❌ TypeScript 编译失败:", error);
-		throw error;
-	}
 }
 
 /**
  * 使用 Vite 构建 CSS
  */
-async function buildCSS() {
-	console.log("🎨 开始构建样式文件...");
+async function buildCSS(platform: "src-astro" | "src-vue") {
+	console.log(`🎨 构建 ${platform} 样式文件...`);
 
-	// 创建临时 style 文件，导入临时 CSS
-	const tempDir = path.resolve(rootDir, "temp");
+	// 每个平台使用自己的入口样式和本地 CSS 文件。
+	const tempDir = path.resolve(rootDir, "temp", platform);
 	// 确保 temp 目录存在
 	fs.ensureDirSync(tempDir);
 	const tempStylePath = path.resolve(tempDir, "style.ts");
-	const tempStyleContent =
-		'// 临时文件，用于构建时导入处理后的 CSS\nimport "./app.css";';
+	const tempStyleContent = 'import "./app.css";';
 	writeFileSync(tempStylePath, tempStyleContent, "utf-8");
 
 	const config: InlineConfig = {
@@ -114,7 +68,7 @@ async function buildCSS() {
 			rollupOptions: {
 				input: tempStylePath,
 				output: {
-					assetFileNames: "app.css",
+					assetFileNames: `${platform}/app.css`,
 				},
 			},
 		},
@@ -128,12 +82,9 @@ async function buildCSS() {
 /**
  * 主构建函数
  */
-async function build(sourceMap: boolean = true) {
+async function build() {
 	const startTime = Date.now();
-	const mode = sourceMap
-		? "开发模式（包含 sourcemap）"
-		: "生产模式（不包含 sourcemap）";
-	console.log(`🚀 开始构建 cosy-ui... (${mode})\n`);
+	console.log("🚀 开始构建 cosy-ui...\n");
 
 	try {
 		// 1. 生成临时主题 CSS（从 themes.config.ts 读取配置，不修改源码）
@@ -146,8 +97,9 @@ async function build(sourceMap: boolean = true) {
 		await fs.emptyDir(path.resolve(rootDir, "dist"));
 		console.log("✅ dist 目录已清空\n");
 
-		// 3. 并行执行：CSS 构建 + TS 编译
-		await Promise.all([buildCSS(), buildTypeScript(sourceMap)]);
+		// 3. 分别构建平台本地样式，产物由两个入口各自导入
+		await buildCSS("src-astro");
+		await buildCSS("src-vue");
 
 		console.log();
 
@@ -162,9 +114,4 @@ async function build(sourceMap: boolean = true) {
 	}
 }
 
-// 获取命令行参数
-const args = process.argv.slice(2);
-const noSourceMap = args.includes("--no-sourcemap") || args.includes("--prod");
-
-// 执行构建
-build(!noSourceMap);
+build();

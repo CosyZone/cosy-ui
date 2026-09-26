@@ -357,7 +357,6 @@
  */
 
 import BaseLayout from './BaseLayout.astro';
-import type { IAppLayoutProps } from './layout-basic/layout';
 import Footer from './Footer.astro';
 import Container from './Container.astro';
 import Sidebar from './Sidebar.astro';
@@ -366,9 +365,32 @@ import {
     getSidebarTopClass,
     getSidebarHeightClass,
     type HeaderHeight,
-} from '../src/common';
+} from './internal/common';
 import AppHeader from './AppHeader.astro';
 import AppLayoutMainContent from './AppLayoutMainContent.astro';
+import type { IFooterProps } from './Footer.astro';
+import type { IHeaderProps } from './Header.astro';
+import type { IMainContentProps } from './Main.astro';
+import type { ISidebarProps } from './Sidebar.astro';
+import type { IMetaProps } from './internal/common/meta';
+
+export interface IAppLayoutProps {
+    "class:list"?: any;
+    class?: string;
+    background?: string;
+    bodyOnly?: boolean;
+    theme?: string;
+    footerConfig?: IFooterProps;
+    head?: any;
+    headerConfig?: IHeaderProps;
+    loadingDelay?: number;
+    mainContentConfig?: IMainContentProps;
+    metaConfig: IMetaProps;
+    showFooter?: boolean;
+    showHeader?: boolean;
+    showSidebar?: boolean;
+    sidebarConfig?: ISidebarProps;
+}
 
 export interface IAppLayoutAllProps extends IAppLayoutProps {
     /** 是否启用 Astro ClientRouter */
@@ -503,7 +525,7 @@ const sidebarHeightClass = getSidebarHeightClass(
     }
 
     <script>
-        import { createThemeManager } from '../src/utils/theme';
+        import { createThemeManager } from './internal/utils/theme';
 
         const themeManager = createThemeManager();
 

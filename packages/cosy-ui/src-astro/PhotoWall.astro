@@ -39,9 +39,6 @@
  */
 
 import Container from "./Container.astro";
-import type { BackgroundColor } from "../src/common/backgrounds";
-import type { BorderSize, PaddingSize, RoundedSize } from "../src/common";
-import type { Size } from "../src/common/size";
 
 export type PhotoCardSize = "xs" | "sm" | "md" | "lg" | "xl";
 export type PhotoCardShape = "square";
@@ -144,6 +141,12 @@ const getCardLayout = (index: number) => {
 		gridArea: `${rowStart} / ${finalColStart} / ${rowStart + rowSpan} / ${finalColStart + colSpan}`,
 	};
 };
+type BackgroundColor = string;
+type BorderSize = string;
+type PaddingSize = string;
+type RoundedSize = "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full";
+type Size = string;
+
 ---
 
 <Container

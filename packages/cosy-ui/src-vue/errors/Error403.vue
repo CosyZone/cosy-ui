@@ -32,8 +32,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
-import { cn } from '../../src/class/classBuilder';
-import { ErrorPageFacade } from '../../src/components/errors';
+import { ErrorPageFacade } from './classes';
 import { LinkUtil } from '../utils/link';
 import type { IError403VueProps } from './props';
 
@@ -66,7 +65,7 @@ const classes = computed(() =>
 );
 
 const errorCodeTitleClassWithNoUnderline = computed(() =>
-    cn().add(classes.value.errorCodeTitle).add('cosy:no-underline').build(),
+    `${classes.value.errorCodeTitle} cosy:no-underline`,
 );
 </script>
 
@@ -90,8 +89,8 @@ const errorCodeTitleClassWithNoUnderline = computed(() =>
             <!-- 路径信息 -->
             <div :class="classes.pathInfo">
                 <p>
-                    <span :class="cn().weight('medium').build()">路径：</span>
-                    <code :class="cn().color('warning').build()">{{ path }}</code>
+                    <span :class="'cosy:font-medium'">路径：</span>
+                    <code :class="'cosy:text-warning'">{{ path }}</code>
                 </p>
             </div>
 
@@ -116,20 +115,20 @@ const errorCodeTitleClassWithNoUnderline = computed(() =>
                 <a
                     v-if="loginUrl"
                     :href="loginUrl"
-                    :class="cn().add('cosy:btn cosy:btn-primary').w('full').build()">
+                    :class="'cosy:btn cosy:btn-primary cosy:w-full'">
                     登录账户
                 </a>
 
                 <a
                     :href="baseUrl"
-                    :class="cn().add('cosy:btn cosy:btn-outline cosy:no-underline').w('full').build()">
+                    :class="'cosy:btn cosy:btn-outline cosy:no-underline cosy:w-full'">
                     返回首页
                 </a>
 
                 <a
                     v-if="contactUrl"
                     :href="contactUrl"
-                    :class="cn().add('cosy:btn cosy:btn-ghost').w('full').build()">
+                    :class="'cosy:btn cosy:btn-ghost cosy:w-full'">
                     联系管理员
                 </a>
             </div>

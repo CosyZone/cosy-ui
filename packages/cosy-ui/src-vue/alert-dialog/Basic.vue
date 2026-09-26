@@ -11,7 +11,7 @@ AlertDialog 组件的基础示例，展示最基本的对话框用法。
 -->
 
 <script lang="ts">
-import "../../app.css";
+import "../app.css";
 import { defineComponent, ref } from "vue";
 import AlertDialog from "./AlertDialog.vue";
 

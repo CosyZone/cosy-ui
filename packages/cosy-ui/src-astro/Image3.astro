@@ -32,7 +32,6 @@
  */
 
 import Container from "./Container.astro";
-import type { BackgroundColor } from "../src/common/backgrounds";
 
 export interface IImage3Item {
 	src: string;
@@ -89,6 +88,8 @@ const imageMods = [shadowModMap[shadow], roundedModMap[rounded]]
 	.join(" ");
 
 const spacingMod = spacing === "sm" ? "cosy-image3--gap-sm" : spacing === "lg" ? "cosy-image3--gap-lg" : "cosy-image3--gap-md";
+type BackgroundColor = string;
+
 ---
 
 {

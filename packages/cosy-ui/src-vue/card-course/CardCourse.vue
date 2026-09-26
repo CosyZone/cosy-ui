@@ -49,16 +49,42 @@
 -->
 <script setup lang="ts">
 import { computed } from "vue";
-import {
-	formatDisplayName,
-	getContentPaddingClasses,
-	getIconSizeClasses,
-} from "../../src-astro/card-course/config";
-import type { PaddingSize } from "../../src-astro/card-course/types";
 import { SmartBg } from "../smart-bg";
 import CardCourseButton from "./CardCourseButton.vue";
 import CardCourseContent from "./CardCourseContent.vue";
 import CardCourseIcon from "./CardCourseIcon.vue";
+
+type PaddingSize =
+	| "none"
+	| "xs"
+	| "sm"
+	| "md"
+	| "lg"
+	| "xl"
+	| "2xl"
+	| "3xl";
+
+const iconSizeConfig: Record<string, string> = {
+	sm: "cosy:w-16 cosy:h-16",
+	md: "cosy:w-24 cosy:h-24",
+	lg: "cosy:w-32 cosy:h-32",
+	xl: "cosy:w-40 cosy:h-40",
+};
+
+const contentPaddingConfig: Record<string, string> = {
+	none: "cosy:p-0",
+	xs: "cosy:p-2",
+	sm: "cosy:p-3",
+	md: "cosy:p-4",
+	lg: "cosy:p-6",
+	xl: "cosy:p-8",
+	"2xl": "cosy:p-10",
+	"3xl": "cosy:p-12",
+};
+
+function formatDisplayName(courseName: string): string {
+	return courseName.replace(/_/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
 
 interface Props {
 	/** 内容区域内边距，默认为 "lg" */
@@ -126,10 +152,8 @@ const getScaleClasses = (scaleEffect: 95 | 100 | 105 | 110 | 115): string => {
 };
 
 const displayName = computed(() => formatDisplayName(props.courseName));
-const iconSizeClasses = computed(() => getIconSizeClasses(props.iconSize));
-const contentPaddingClasses = computed(() =>
-	getContentPaddingClasses(props.contentPadding),
-);
+const iconSizeClasses = computed(() => iconSizeConfig[props.iconSize] || iconSizeConfig.md);
+const contentPaddingClasses = computed(() => contentPaddingConfig[props.contentPadding] || contentPaddingConfig.lg);
 const shadowClasses = computed(() => getShadowClasses(props.shadowEffect));
 const scaleClasses = computed(() => getScaleClasses(props.scaleEffect));
 </script>
@@ -178,4 +202,3 @@ const scaleClasses = computed(() => getScaleClasses(props.scaleEffect));
 		</SmartBg>
 	</div>
 </template>
-

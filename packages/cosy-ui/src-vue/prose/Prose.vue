@@ -19,7 +19,7 @@
  * @props
  * @prop {string} [class] - 自定义 CSS 类名，用于覆盖默认样式
  */
-import "../../app.css";
+import "../app.css";
 
 export interface IProseProps {
 	class?: string;

@@ -20,7 +20,7 @@ import { ${name} } from '@cosy/index_vue'
 			.filter(
 				(line) =>
 					line.includes("import") &&
-					!line.includes("../../app.css") &&
+					!line.includes("../app.css") &&
 					!line.includes(name),
 			);
 

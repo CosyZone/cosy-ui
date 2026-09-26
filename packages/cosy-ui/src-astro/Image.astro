@@ -25,7 +25,6 @@
  * ```
  */
 
-import type { ImageSource } from '../src/common/image-source';
 
 /* ------------------------------------------------------------------ *
  * 类型（组件自包含，与历史 API 保持一致）
@@ -295,6 +294,8 @@ const tooltipClasses = [
 const placeholderClasses = ['cosy-image__placeholder', loadingIndicator === 'pulse' ? 'cosy-image__placeholder--pulse' : '']
 	.filter(Boolean)
 	.join(' ');
+type ImageSource = string | import("astro").ImageMetadata;
+
 ---
 
 <div

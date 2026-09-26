@@ -1,0 +1,76 @@
+/* 网格渐变（Mesh Gradient）：现代流行的渐变效果，使用多个径向渐变叠加 */
+
+/* 变量（亮色默认） */
+:root {
+	/* mesh-gradient - 以翠绿和青色为主色调 */
+	--cosy-mesh-primary-rgb: 6, 182, 212; /* 青色 */
+	--cosy-mesh-secondary-rgb: 16, 185, 129; /* 翠绿色 */
+	--cosy-mesh-accent-rgb: 34, 211, 238; /* 浅青色 */
+	--cosy-mesh-teal-rgb: 5, 150, 105; /* 深翠绿色 */
+	--cosy-mesh-alpha: 0.4;
+	--cosy-mesh-alpha-light: 0.25;
+	--cosy-mesh-alpha-medium: 0.35;
+}
+
+.cosy\:bg-mesh-gradient {
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+	background-color: #f8fafc;
+}
+
+/* 网格渐变层 */
+.cosy\:bg-mesh-gradient::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	background:
+		radial-gradient(
+			circle at 20% 30%,
+			rgba(var(--cosy-mesh-primary-rgb), var(--cosy-mesh-alpha)) 0%,
+			transparent 50%
+		),
+		radial-gradient(
+			circle at 80% 70%,
+			rgba(var(--cosy-mesh-secondary-rgb), var(--cosy-mesh-alpha-medium)) 0%,
+			transparent 50%
+		),
+		radial-gradient(
+			circle at 50% 50%,
+			rgba(var(--cosy-mesh-accent-rgb), var(--cosy-mesh-alpha-light)) 0%,
+			transparent 60%
+		),
+		radial-gradient(
+			circle at 10% 80%,
+			rgba(var(--cosy-mesh-teal-rgb), var(--cosy-mesh-alpha-light)) 0%,
+			transparent 50%
+		);
+	animation: meshPulse 8s ease-in-out infinite;
+}
+
+/* 网格渐变动画 - 柔和的呼吸效果 */
+@keyframes meshPulse {
+	0%,
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+	50% {
+		opacity: 0.8;
+		transform: scale(1.05);
+	}
+}
+
+/* 暗色模式调整 */
+@media (prefers-color-scheme: dark) {
+	.cosy\:bg-mesh-gradient {
+		background-color: #0a0a0a;
+	}
+	.cosy\:bg-mesh-gradient::before {
+		--cosy-mesh-alpha: 0.3;
+		--cosy-mesh-alpha-light: 0.2;
+		--cosy-mesh-alpha-medium: 0.25;
+	}
+}

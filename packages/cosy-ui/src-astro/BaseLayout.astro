@@ -7,15 +7,17 @@
  * 它是所有页面布局的基础，处理了基本的 HTML 结构、元数据和全局样式。
  */
 
-import type { IMetaProps } from '../src/common/meta';
+import type { IMetaProps } from './internal/common/meta';
 import {
     getBackgroundClass,
     type BackgroundColor,
-} from '../src/common/backgrounds';
+} from './internal/common/backgrounds';
 import BaseLayoutHtml from './BaseLayoutHtml.astro';
-import type { ThemeId } from '../src/common/themes';
+import type { ThemeId } from './internal/common/themes';
 
 export interface Props extends IMetaProps {
+    /** 兼容父布局向 head 插槽传递自定义内容 */
+    head?: any;
     /** 是否只渲染 body 部分，用于文档展示等场景 */
     bodyOnly?: boolean;
     /**
@@ -43,6 +45,7 @@ const {
     theme = 'default',
     bodyOnly = false,
     enableClientRouter = true,
+    head,
 } = Astro.props;
 
 // 处理类名
@@ -64,7 +67,7 @@ const bodyClasses = [backgroundClass].filter(Boolean).join(' ');
     bodyOnly={bodyOnly}
     enableClientRouter={enableClientRouter}>
     <!-- 自定义头部内容 -->
-    <slot name="head" slot="head" />
+    <slot name="head" slot="head">{head}</slot>
 
     <slot />
 </BaseLayoutHtml>

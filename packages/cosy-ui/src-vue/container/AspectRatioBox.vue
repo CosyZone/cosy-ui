@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import type { FitMode } from "../../src/common/fitmode";
-import type { RoundedSize } from "../../src/common/rounded";
 import DefaultAspectRatioBox from "./DefaultAspectRatioBox.vue";
 import ExplicitHeightAspectRatioBox from "./ExplicitHeightAspectRatioBox.vue";
+
+type FitMode = "none" | "contain" | "cover";
+type RoundedSize = "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full";
 
 interface Props {
 	aspectRatio: number;

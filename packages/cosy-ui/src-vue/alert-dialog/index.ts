@@ -1,4 +1,4 @@
-import { extractSimpleExample } from "../../src/utils/component";
+import { extractSimpleExample } from "../internal/utils/component";
 import Basic from "./Basic.vue";
 import BasicSource from "./Basic.vue?raw";
 import Multilang from "./Multilang.vue";

@@ -34,7 +34,6 @@ import Image from "./Image.astro";
 import Link from "./Link.astro";
 import SocialIcon from "./SocialIcon.astro";
 import type { ImageSource } from "./Image.astro";
-import type { BackgroundColor, RoundedSize, ShadowSize } from "../src/common";
 
 export interface TeamMemberSocialLink {
 	platform: "github" | "twitter" | "linkedin" | "website" | "email";
@@ -66,6 +65,10 @@ const {
 	shadow = "md",
 	muted = false,
 } = Astro.props as ITeamMemberProps;
+type BackgroundColor = string;
+type RoundedSize = string;
+type ShadowSize = string;
+
 ---
 
 <Container

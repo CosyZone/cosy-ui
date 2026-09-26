@@ -1,4 +1,4 @@
-import { Logger } from "../src/utils/logger";
+import { Logger } from "./internal/utils/logger";
 
 export const NAME = "Cosy-UI";
 export const ERROR_PREFIX = "Cosy-UI: ";

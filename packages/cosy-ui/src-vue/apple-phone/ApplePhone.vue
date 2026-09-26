@@ -1,55 +1,52 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { AlertDialog, Container } from "../../index-vue";
-import PhoneFrame from "./PhoneFrame.vue";
-import StatusBarContent from "./StatusBarContent.vue";
-
 /**
- * @component ApplePhone
- * @description ApplePhone 组件模拟 iPhone 设备的外观，包含状态栏、时间显示和设备边框。
- * 适用于创建移动应用界面原型或展示移动端设计效果。
- * @props
- * @prop {'sm'|'md'|'lg'|'xl'|'2xl'|'3xl'|'4xl'|'5xl'} [height='lg'] - 窗口高度选项
- * - sm: 256px (h-64)
- * - md: 320px (h-80)
- * - lg: 384px (h-96) - 默认值
- * - xl: 480px
- * - 2xl: 560px
- * - 3xl: 640px
- * - 4xl: 720px
- * - 5xl: 800px
- * @prop {String} [title=''] - 窗口标题
- * @prop {Boolean} [withShadow=true] - 是否显示阴影效果
- * @prop {Boolean} [showFrame=true] - 是否显示 iPhone 边框
- * @prop {BackgroundColor} [backgroundColor=''] - 内容区域背景色，等同于为其内部的 Container 设置背景色
- * @slots
- * @slot default - 主要内容区域
- * @emits
+ * ApplePhone 组件的常量定义
  */
 
-import type { IApplePhoneProps } from "./props";
+// iPhone边框图片尺寸
+const IPHONE_FRAME_WIDTH = 1339;
+const IPHONE_FRAME_HEIGHT = 2716;
 
-interface Props extends IApplePhoneProps {}
+// iPhone边框图片-状态栏离上边框的距离
+const IPHONE_FRAME_STATUS_BAR_TOP = 115;
 
-// Props 定义
-const props = withDefaults(defineProps<Props>(), {
-	height: "lg",
-	title: "",
-	withShadow: true,
-	showFrame: true,
-	backgroundColor: undefined,
-});
+// iPhone边框图片-状态栏高度
+const IPHONE_FRAME_STATUS_BAR_HEIGHT = 110;
 
-import {
-	HEIGHT_CLASSES,
-	HEIGHT_VALUES,
-	IPHONE_FRAME_HEIGHT,
-	IPHONE_FRAME_STATUS_BAR_HEIGHT_ASPECT_RATIO,
-	IPHONE_FRAME_STATUS_BAR_TOP_ASPECT_RATIO,
-	IPHONE_FRAME_WIDTH,
-	MAIN_CONTENT_HEIGHT_ASPECT_RATIO,
-	MAIN_CONTENT_WIDTH_ASPECT_RATIO,
-} from "../../src/components/apple-phone/constants";
+// 比例计算
+const MAIN_CONTENT_WIDTH_ASPECT_RATIO = 1179 / IPHONE_FRAME_WIDTH;
+const MAIN_CONTENT_HEIGHT_ASPECT_RATIO = 2556 / IPHONE_FRAME_HEIGHT;
+const IPHONE_FRAME_STATUS_BAR_HEIGHT_ASPECT_RATIO =
+	IPHONE_FRAME_STATUS_BAR_HEIGHT / IPHONE_FRAME_HEIGHT;
+const IPHONE_FRAME_STATUS_BAR_TOP_ASPECT_RATIO =
+	IPHONE_FRAME_STATUS_BAR_TOP / IPHONE_FRAME_HEIGHT;
+
+// 预定义的高度选项
+const HEIGHT_CLASSES = {
+	sm: "cosy:h-64", // 256px
+	md: "cosy:h-80", // 320px
+	lg: "cosy:h-96", // 384px
+	xl: "cosy:h-[480px]", // 480px
+	"2xl": "cosy:h-[560px]", // 560px
+	"3xl": "cosy:h-[640px]", // 640px
+	"4xl": "cosy:h-[720px]", // 720px
+	"5xl": "cosy:h-[800px]", // 800px
+} as const;
+
+// 高度值映射
+const HEIGHT_VALUES = {
+	sm: 256,
+	md: 320,
+	lg: 384,
+	xl: 480,
+	"2xl": 560,
+	"3xl": 640,
+	"4xl": 720,
+	"5xl": 800,
+} as const;
+
+// 默认高度
+const DEFAULT_HEIGHT: keyof typeof HEIGHT_VALUES = "lg";
 
 // 响应式数据
 const showAlertDialog = ref(false);

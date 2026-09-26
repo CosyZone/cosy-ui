@@ -42,9 +42,28 @@
  * @slot details - 详细说明（可折叠，默认折叠）
  */
 
-import { cn } from '../src/class';
+import { cn } from './internal/class';
 import { ArrowDownSIcon, ArrowUpSIcon, FunctionIcon, InfoIcon } from './icons';
-import type { IMathFormulaProps } from './math-formula/props';
+
+export type MathFormulaVariant =
+	| "default"
+	| "gradient"
+	| "glass"
+	| "neon"
+	| "card"
+	| "spotlight";
+
+export interface IMathFormulaPropsBase {
+	title?: string;
+	number?: string | number;
+	variant?: MathFormulaVariant;
+	symbolsCollapsed?: boolean;
+	class?: string;
+}
+
+export interface IMathFormulaProps extends IMathFormulaPropsBase {
+	[key: string]: unknown;
+}
 
 const props = Astro.props as IMathFormulaProps;
 

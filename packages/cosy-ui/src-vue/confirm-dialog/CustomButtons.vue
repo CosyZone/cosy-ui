@@ -11,7 +11,7 @@
 -->
 
 <script lang="ts">
-import "../../app.css";
+import "../app.css";
 import { defineComponent, ref } from "vue";
 import ConfirmDialog from "./ConfirmDialog.vue";
 

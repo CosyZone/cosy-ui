@@ -25,7 +25,6 @@
  */
 
 import Container from "./Container.astro";
-import type { BackgroundColor } from "../src/common/backgrounds";
 import type { ImageSource } from "./Image.astro";
 
 export interface IImagesCircleProps {
@@ -129,6 +128,8 @@ const errorMessage =
 			: imageCount % 2 === 0
 				? `当前有 ${imageCount} 张图片（偶数），需要奇数个图片才能有明确的中心图片`
 				: "图片数据格式不正确";
+type BackgroundColor = string;
+
 ---
 
 {

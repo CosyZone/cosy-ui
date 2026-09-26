@@ -22,9 +22,7 @@
 		"access": "public"
 	},
 	"sideEffects": [
-		"*.css",
-		"style.ts",
-		"dist/style.ts"
+		"*.css"
 	],
 	"main": "./dist/index-astro.ts",
 	"module": "./dist/index-astro.ts",
@@ -40,12 +38,11 @@
 		}
 	},
 	"files": [
-		"dist",
-		"index.ts"
+		"dist"
 	],
 	"scripts": {
 		"build": "tsx builder/build.ts",
-		"build:prod": "tsx builder/build.ts --no-sourcemap",
+		"build:prod": "tsx builder/build.ts",
 		"check": "astro check"
 	},
 	"type": "module",

@@ -48,7 +48,6 @@
  */
 
 import type { HTMLAttributes } from "astro/types";
-import type { BackgroundColor } from "../src/common/backgrounds";
 import AlertDialog from "./AlertDialog.astro";
 import Container from "./Container.astro";
 
@@ -90,6 +89,8 @@ const activeTab =
 const windowId = id || `mac-window-${Math.random().toString(36).slice(2, 11)}`;
 
 const hasStatusSlot = !!Astro.slots.status;
+type BackgroundColor = string;
+
 ---
 
 <Container

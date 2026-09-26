@@ -29,7 +29,6 @@
  */
 
 import Container from "./Container.astro";
-import type { BackgroundColor } from "../src/common/backgrounds";
 import type { ImageSource } from "./Image.astro";
 import ProductHeroContent from "./ProductHeroContent.astro";
 import ProductHeroImage from "./ProductHeroImage.astro";
@@ -57,6 +56,8 @@ const {
 } = Astro.props as Props;
 
 const isRightAlign = align === "right";
+type BackgroundColor = string;
+
 ---
 
 <Container

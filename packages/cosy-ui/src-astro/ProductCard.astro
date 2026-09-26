@@ -42,7 +42,6 @@ import Image from "./Image.astro";
 import type { ImageSource } from "./Image.astro";
 import { AppStoreIcon, LinkIcon } from "./icons";
 import SocialIcon from "./SocialIcon.astro";
-import type { BackgroundColor } from "../src/common/backgrounds";
 
 type ProductCardSize = "xs" | "sm" | "md" | "lg" | "xl";
 
@@ -154,6 +153,8 @@ const sizeMod = `cosy-product-card--${size}`;
 
 // 描述行数
 const descLineClamp = descriptionLines || (size === "xs" ? 2 : size === "sm" ? 3 : 3);
+type BackgroundColor = string;
+
 ---
 
 <div

@@ -1,7 +1,17 @@
 <script setup lang="ts">
   import { computed } from 'vue';
-  import { roundedClasses } from '../../src/common';
   import type { IPhotoCardProps, PhotoCardData } from './types';
+
+  const roundedClasses: Record<string, string> = {
+    none: '',
+    sm: 'cosy:rounded-sm',
+    md: 'cosy:rounded-md',
+    lg: 'cosy:rounded-lg',
+    xl: 'cosy:rounded-xl',
+    '2xl': 'cosy:rounded-2xl',
+    '3xl': 'cosy:rounded-3xl',
+    full: 'cosy:rounded-full',
+  };
 
   /**
    * @component PhotoCard

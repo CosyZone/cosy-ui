@@ -41,21 +41,6 @@ import type { HTMLAttributes } from "astro/types";
 import Alert from "./Alert.astro";
 import Image from "./Image.astro";
 import type { ImageSource } from "./Image.astro";
-import type { BackgroundColor } from "../src/common/backgrounds";
-import type { BorderColor, BorderSize } from "../src/common/border";
-import type { FitMode } from "../src/common/fitmode";
-import type { HeightSize } from "../src/common/height";
-import type {
-	FlexAlign,
-	FlexDirection,
-	FlexJustify,
-	GapSize,
-} from "../src/common/layout";
-import type { MarginSize } from "../src/common/margin";
-import type { PaddingSize } from "../src/common/padding";
-import type { RoundedSize } from "../src/common/rounded";
-import type { ShadowSize } from "../src/common/shadow";
-import type { Size } from "../src/common/size";
 
 /**
  * Container 组件属性（组件自包含定义）
@@ -405,6 +390,21 @@ const fitWidthStyle =
 	fit === "contain"
 		? `min(100cqw, calc(100cqh * ${aspectRatio}))`
 		: `max(100cqw, calc(100cqh * ${aspectRatio}))`;
+type BackgroundColor = string;
+type BorderColor = string;
+type BorderSize = string;
+type FitMode = string;
+type HeightSize = string;
+type FlexAlign = string;
+type FlexDirection = string;
+type FlexJustify = string;
+type GapSize = string;
+type MarginSize = string;
+type PaddingSize = string;
+type RoundedSize = string;
+type ShadowSize = string;
+type Size = string;
+
 ---
 
 {

@@ -30,14 +30,6 @@
  * @slot default - 横向排列的任意内容
  */
 
-import type {
-	BackgroundColor,
-	HeightSize,
-	MarginSize,
-	PaddingSize,
-	RoundedSize,
-	Size,
-} from "../src/common";
 import Container from "./Container.astro";
 import Button from "./Button.astro";
 import ChevronLeftIcon from "./ChevronLeftIcon.astro";
@@ -79,6 +71,13 @@ const gapModMap = {
 	xl: "cosy-scroll-row--gap-xl",
 } as const;
 const gapMod = gapModMap[gap];
+type BackgroundColor = string;
+type HeightSize = string;
+type MarginSize = string;
+type PaddingSize = string;
+type RoundedSize = string;
+type Size = string;
+
 ---
 
 <Container

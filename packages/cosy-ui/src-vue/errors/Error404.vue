@@ -29,8 +29,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
-import { cn } from '../../src/class/classBuilder';
-import { ErrorPageFacade } from '../../src/components/errors';
+import { ErrorPageFacade } from './classes';
 import Button from '../button/Button.vue';
 import { LinkUtil } from '../utils/link';
 import type { IError404VueProps } from './props';
@@ -86,8 +85,8 @@ const handleBack = () => {
             <!-- 路径信息 -->
             <div :class="classes.pathInfo">
                 <p>
-                    <span :class="cn().weight('medium').build()">路径：</span>
-                    <code :class="cn().color('primary').build()">{{ path }}</code>
+                    <span :class="'cosy:font-medium'">路径：</span>
+                    <code :class="'cosy:text-primary'">{{ path }}</code>
                 </p>
             </div>
 

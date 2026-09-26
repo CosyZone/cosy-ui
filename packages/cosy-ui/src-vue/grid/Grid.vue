@@ -30,8 +30,8 @@ import { computed } from "vue";
  * @prop {any} [class:list] - 类名列表
  */
 
-import type { BackgroundColor } from "../../src/common/backgrounds";
-import type { BorderSize } from "../../src/common/border";
+type BackgroundColor = string;
+type BorderSize = "none" | "sm" | "md" | "lg" | "xl";
 
 type GapSize = "none" | "xs" | "sm" | "md" | "lg" | "xl";
 type ResponsiveValue<T> =
@@ -193,4 +193,3 @@ const gridStyle = computed(() => {
   .cosy-grid--my-xs{margin-top:.5rem;margin-bottom:.5rem;} .cosy-grid--my-sm{margin-top:1rem;margin-bottom:1rem;} .cosy-grid--my-md{margin-top:1.5rem;margin-bottom:1.5rem;} .cosy-grid--my-lg{margin-top:2rem;margin-bottom:2rem;} .cosy-grid--my-xl{margin-top:3rem;margin-bottom:3rem;}
   .cosy-grid--border { border:1px solid var(--cosy-base-300); }
 </style>
-

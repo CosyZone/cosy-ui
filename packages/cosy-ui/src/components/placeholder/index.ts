@@ -1,7 +1,0 @@
-export * from "./class-all";
-export * from "./class-background";
-export * from "./class-border";
-export * from "./class-height";
-export * from "./class-padding";
-export * from "./class-width";
-export * from "./placeholderPropsBase";

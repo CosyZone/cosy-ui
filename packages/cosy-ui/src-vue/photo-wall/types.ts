@@ -2,10 +2,6 @@
  * PhotoWall 组件类型定义
  */
 
-import type { PaddingSize, RoundedSize } from "../../src/common";
-import type { BackgroundColor } from "../../src/common/backgrounds";
-import type { BorderSize } from "../../src/common/border";
-import type { Size } from "../../src/common/size";
 
 // 照片卡片尺寸类型
 export type PhotoCardSize = "xs" | "sm" | "md" | "lg" | "xl";
@@ -79,3 +75,9 @@ export interface IPhotoCardProps {
 	/** 自定义类名 */
 	class?: string;
 }
+
+type PaddingSize = string;
+type RoundedSize = string;
+type BackgroundColor = string;
+type BorderSize = string;
+type Size = string;

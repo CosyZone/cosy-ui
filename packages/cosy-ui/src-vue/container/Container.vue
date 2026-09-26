@@ -1,20 +1,19 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { BackgroundColor } from '../../src/common/backgrounds';
-import type { BorderColor, BorderSize } from '../../src/common/border';
-import type { FitMode } from '../../src/common/fitmode';
-import type { HeightSize } from '../../src/common/height';
-import type {
-	FlexAlign,
-	FlexDirection,
-	FlexJustify,
-	GapSize,
-} from '../../src/common/layout';
-import type { MarginSize } from '../../src/common/margin';
-import type { PaddingSize } from '../../src/common/padding';
-import type { RoundedSize } from '../../src/common/rounded';
-import type { ShadowSize } from '../../src/common/shadow';
-import type { Size } from '../../src/common/size';
+type BackgroundColor = string;
+type BorderColor = string;
+type BorderSize = "none" | "sm" | "md" | "lg" | "xl";
+type FitMode = "none" | "contain" | "cover";
+type Size = "none" | "3xs" | "2xs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "full";
+type HeightSize = Size | "screen" | "auto";
+type FlexAlign = "start" | "end" | "center" | "baseline" | "stretch";
+type FlexDirection = "row" | "col" | "row-reverse" | "col-reverse";
+type FlexJustify = "start" | "end" | "center" | "between" | "around" | "evenly";
+type GapSize = "none" | "xs" | "sm" | "md" | "lg" | "xl";
+type MarginSize = "none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl";
+type PaddingSize = "none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl";
+type RoundedSize = "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full";
+type ShadowSize = "none" | "sm" | "md" | "lg" | "xl" | "2xl";
 
 interface Props {
 	/** 宽高比（宽/高） */

@@ -29,7 +29,7 @@ import { Icon } from "cosy-ui";
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { iconData } from '../../src/assets/iconData';
+import { iconData } from '../internal/assets/iconData';
 
 interface Props {
     /**

@@ -1,0 +1,102 @@
+/* 玻璃态效果（Glassmorphism）：毛玻璃背景，现代化设计风格 */
+
+/* 变量（亮色默认） */
+:root {
+	/* 玻璃态参数 */
+	--cosy-glass-blur: 16px; /* 模糊半径 */
+	--cosy-glass-opacity: 0.7; /* 背景透明度 */
+	--cosy-glass-border-opacity: 0.18; /* 边框透明度 */
+	--cosy-glass-shadow-opacity: 0.1; /* 阴影透明度 */
+}
+
+.cosy\:bg-glassmorphism {
+	position: relative;
+	isolation: isolate;
+	background: rgba(255, 255, 255, var(--cosy-glass-opacity));
+	backdrop-filter: blur(var(--cosy-glass-blur));
+	-webkit-backdrop-filter: blur(var(--cosy-glass-blur));
+	border: 1px solid rgba(255, 255, 255, var(--cosy-glass-border-opacity));
+	border-radius: 16px;
+	box-shadow:
+		0 8px 32px 0 rgba(0, 0, 0, var(--cosy-glass-shadow-opacity)),
+		inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
+}
+
+/* 暗色模式调整 */
+@media (prefers-color-scheme: dark) {
+	.cosy\:bg-glassmorphism {
+		background: rgba(17, 17, 17, var(--cosy-glass-opacity));
+		border-color: rgba(
+			255,
+			255,
+			255,
+			calc(var(--cosy-glass-border-opacity) * 0.5)
+		);
+		box-shadow:
+			0 8px 32px 0 rgba(0, 0, 0, calc(var(--cosy-glass-shadow-opacity) * 2)),
+			inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+	}
+}
+
+/* 变体：更强烈的玻璃效果 */
+.cosy\:bg-glassmorphism-strong {
+	position: relative;
+	isolation: isolate;
+	--cosy-glass-blur: 24px;
+	--cosy-glass-opacity: 0.85;
+	--cosy-glass-border-opacity: 0.25;
+	background: rgba(255, 255, 255, var(--cosy-glass-opacity));
+	backdrop-filter: blur(var(--cosy-glass-blur));
+	-webkit-backdrop-filter: blur(var(--cosy-glass-blur));
+	border: 1px solid rgba(255, 255, 255, var(--cosy-glass-border-opacity));
+	border-radius: 16px;
+	box-shadow:
+		0 8px 32px 0 rgba(0, 0, 0, var(--cosy-glass-shadow-opacity)),
+		inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
+}
+
+/* 变体：柔和的玻璃效果 */
+.cosy\:bg-glassmorphism-soft {
+	position: relative;
+	isolation: isolate;
+	--cosy-glass-blur: 12px;
+	--cosy-glass-opacity: 0.6;
+	--cosy-glass-border-opacity: 0.12;
+	background: rgba(255, 255, 255, var(--cosy-glass-opacity));
+	backdrop-filter: blur(var(--cosy-glass-blur));
+	-webkit-backdrop-filter: blur(var(--cosy-glass-blur));
+	border: 1px solid rgba(255, 255, 255, var(--cosy-glass-border-opacity));
+	border-radius: 16px;
+	box-shadow:
+		0 8px 32px 0 rgba(0, 0, 0, var(--cosy-glass-shadow-opacity)),
+		inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
+}
+
+/* 暗色模式调整 - 变体 */
+@media (prefers-color-scheme: dark) {
+	.cosy\:bg-glassmorphism-strong {
+		background: rgba(17, 17, 17, var(--cosy-glass-opacity));
+		border-color: rgba(
+			255,
+			255,
+			255,
+			calc(var(--cosy-glass-border-opacity) * 0.5)
+		);
+		box-shadow:
+			0 8px 32px 0 rgba(0, 0, 0, calc(var(--cosy-glass-shadow-opacity) * 2)),
+			inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+	}
+
+	.cosy\:bg-glassmorphism-soft {
+		background: rgba(17, 17, 17, var(--cosy-glass-opacity));
+		border-color: rgba(
+			255,
+			255,
+			255,
+			calc(var(--cosy-glass-border-opacity) * 0.5)
+		);
+		box-shadow:
+			0 8px 32px 0 rgba(0, 0, 0, calc(var(--cosy-glass-shadow-opacity) * 2)),
+			inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+	}
+}

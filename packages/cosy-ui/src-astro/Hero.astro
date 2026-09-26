@@ -62,7 +62,6 @@ import Container from "./Container.astro";
 import Button from "./Button.astro";
 import Image from "./Image.astro";
 import type { ImageSource } from "./Image.astro";
-import type { BackgroundColor } from "../src/common/backgrounds";
 
 export interface IHeroLink {
 	text: string;
@@ -152,6 +151,8 @@ const textBgClass = glassmorphism && textBackground !== "none"
 	: "cosy-hero__text";
 
 const appSlotHtml = await Astro.slots.render("app");
+type BackgroundColor = string;
+
 ---
 
 <Container

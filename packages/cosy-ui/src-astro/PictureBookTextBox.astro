@@ -35,7 +35,6 @@
  * - default: 文本内容插槽
  */
 
-import type { BackgroundColor } from "../src/common/backgrounds";
 
 export interface IPictureBookTextBoxProps {
 	top?: number;
@@ -124,6 +123,8 @@ const styleList: string[] = [
 ].filter(Boolean);
 
 const inlineStyle = styleList.join("; ");
+type BackgroundColor = string;
+
 ---
 
 <div style={inlineStyle} class="cosy-pb-text-box">

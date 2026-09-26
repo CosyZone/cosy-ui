@@ -40,7 +40,6 @@
  */
 
 import type { HTMLAttributes } from "astro/types";
-import type { BackgroundColor } from "../src/common/backgrounds";
 import AlertDialog from "./AlertDialog.astro";
 import Container from "./Container.astro";
 import Image from "./Image.astro";
@@ -83,7 +82,7 @@ export interface IApplePhoneProps
 }
 
 // iPhone 边框图片
-import iphoneFrame from "../src/components/apple-phone/assets/iPhone14ProDeepPurplePortrait.png";
+import iphoneFrame from "./internal/components/apple-phone/assets/iPhone14ProDeepPurplePortrait.png";
 
 const {
 	height = "lg",
@@ -104,6 +103,8 @@ const scaledFontSize = `${14 * scaleRatio}px`;
 const scaledIconSize = `${15 * scaleRatio}px`;
 
 const rootClass = ["cosy-apple-phone", className].filter(Boolean).join(" ");
+type BackgroundColor = string;
+
 ---
 
 <div
