@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Grid } from "@coffic/cosy-ui/vue";
+import { Grid } from "@coffic/cosy-ui-vue";
 </script>
 
 <template>

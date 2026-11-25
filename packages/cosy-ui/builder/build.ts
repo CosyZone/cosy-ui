@@ -11,14 +11,12 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, "..");
 
 /**
- * 复制 Astro 和 Vue 各自自治的组件源码
+ * 复制 Astro 组件源码
  */
 async function copyComponents() {
 	const copies = [
 		{ from: "src-astro", to: "dist/src-astro" },
-		{ from: "src-vue", to: "dist/src-vue" },
 		{ from: "index-astro.ts", to: "dist/index-astro.ts" },
-		{ from: "index-vue.ts", to: "dist/index-vue.ts" },
 	];
 
 	console.log("📦 开始复制组件源码...");
@@ -48,7 +46,7 @@ async function copyComponents() {
 /**
  * 使用 Vite 构建 CSS
  */
-async function buildCSS(platform: "src-astro" | "src-vue") {
+async function buildCSS(platform: "src-astro" = "src-astro") {
 	console.log(`🎨 构建 ${platform} 样式文件...`);
 
 	// 每个平台使用自己的入口样式和本地 CSS 文件。
@@ -97,9 +95,8 @@ async function build() {
 		await fs.emptyDir(path.resolve(rootDir, "dist"));
 		console.log("✅ dist 目录已清空\n");
 
-		// 3. 分别构建平台本地样式，产物由两个入口各自导入
+		// 3. 构建 Astro 平台本地样式，产物由入口导入
 		await buildCSS("src-astro");
-		await buildCSS("src-vue");
 
 		console.log();
 

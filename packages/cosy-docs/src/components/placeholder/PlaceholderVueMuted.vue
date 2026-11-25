@@ -8,5 +8,5 @@
 </template>
 
 <script setup lang="ts">
-import { PlaceHolder } from "@coffic/cosy-ui/vue";
+import { PlaceHolder } from "@coffic/cosy-ui-vue";
 </script>

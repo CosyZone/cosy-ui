@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getAvatarImage, Login } from '@coffic/cosy-ui/vue';
+import { getAvatarImage, Login } from '@coffic/cosy-ui-vue';
 
 const logoUrl = getAvatarImage({
     width: 100,

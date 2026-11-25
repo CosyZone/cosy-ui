@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Login } from '@coffic/cosy-ui/vue';
+import { Login } from '@coffic/cosy-ui-vue';
 </script>
 
 <template>

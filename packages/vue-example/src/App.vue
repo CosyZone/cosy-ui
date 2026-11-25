@@ -24,7 +24,7 @@ import {
 	UserIcon,
 	WarningIcon,
 	XCircleIcon,
-} from "@coffic/cosy-ui/vue";
+} from "@coffic/cosy-ui-vue";
 </script>
 
 <template>

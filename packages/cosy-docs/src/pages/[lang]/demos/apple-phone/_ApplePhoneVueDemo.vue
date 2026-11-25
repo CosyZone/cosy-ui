@@ -67,5 +67,5 @@
 </template>
 
 <script setup lang="ts">
-import { ApplePhone } from "@coffic/cosy-ui/vue";
+import { ApplePhone } from "@coffic/cosy-ui-vue";
 </script>

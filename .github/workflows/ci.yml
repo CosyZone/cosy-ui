@@ -1,0 +1,41 @@
+name: CI
+
+on:
+    push:
+        branches:
+            - main
+            - 2.x
+    pull_request:
+        branches:
+            - main
+            - 2.x
+
+jobs:
+    verify:
+        runs-on: ubuntu-latest
+        timeout-minutes: 30
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '23'
+
+            - name: Install pnpm
+              run: npm install -g pnpm
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Type check
+              run: pnpm check
+
+            - name: Test
+              run: pnpm test
+
+            - name: Build UI packages
+              run: pnpm build:ui
+
+            - name: Verify package tarballs
+              run: pnpm verify:pack

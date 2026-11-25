@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button } from "@coffic/cosy-ui/vue";
+import { Button } from "@coffic/cosy-ui-vue";
 import { ref } from "vue";
 
 const count = ref(0);

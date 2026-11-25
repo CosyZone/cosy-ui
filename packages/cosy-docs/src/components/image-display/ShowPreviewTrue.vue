@@ -15,7 +15,7 @@
 import { 
 	getAvatarImage,
 	getExampleImage,
-	getProductImage,ImageDisplay, } from "@coffic/cosy-ui/vue";
+	getProductImage,ImageDisplay, } from "@coffic/cosy-ui-vue";
 
 // 使用稳定的图片URL，避免水合不匹配
 const sampleImages = [

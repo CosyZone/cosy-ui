@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { MathFormula } from "@coffic/cosy-ui/vue";
+import { MathFormula } from "@coffic/cosy-ui-vue";
 </script>
 
 <template>

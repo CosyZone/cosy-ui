@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Card } from '@coffic/cosy-ui/vue';
+import { Card } from '@coffic/cosy-ui-vue';
 </script>
 <template>
   <Card title="使用muted属性的卡片" subtitle="这张卡片使用了Container的muted功能" :muted="true">

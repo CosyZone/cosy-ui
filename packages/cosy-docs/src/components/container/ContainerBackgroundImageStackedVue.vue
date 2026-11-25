@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Container, PlaceHolder } from '@coffic/cosy-ui/vue';
+import { Container, PlaceHolder } from '@coffic/cosy-ui-vue';
 </script>
 <template>
   <div class="cosy:space-y-md">

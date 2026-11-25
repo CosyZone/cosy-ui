@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CardCourse } from '@coffic/cosy-ui/vue';
+import { CardCourse } from '@coffic/cosy-ui-vue';
 </script>
 
 <template>

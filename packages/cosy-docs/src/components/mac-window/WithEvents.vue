@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { MacWindow } from "@coffic/cosy-ui/vue";
+import { MacWindow } from "@coffic/cosy-ui-vue";
 import { ref } from "vue";
 
 // 响应式状态 - 事件日志

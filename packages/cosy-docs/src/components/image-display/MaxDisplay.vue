@@ -37,7 +37,7 @@ import {
 	getAvatarImage,
 	getExampleImage,
 	getLandscapeImage,
-	getProductImage,ImageDisplay, } from "@coffic/cosy-ui/vue";
+	getProductImage,ImageDisplay, } from "@coffic/cosy-ui-vue";
 
 const sampleImages = [
 	getExampleImage({

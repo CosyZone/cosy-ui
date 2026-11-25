@@ -1,4 +1,19 @@
 import "./app.css";
+
+// 通用配置与工具
+export * from "./internal/common";
+export * from "./internal/utils/i18n";
+export * from "./internal/utils/image";
+export * from "./internal/utils/lang_package";
+export * from "./internal/utils/language";
+export * from "./internal/utils/link";
+export * from "./internal/utils/logger";
+export * from "./internal/utils/mac-window-bg";
+export * from "./internal/utils/path";
+export * from "./internal/utils/social";
+export * from "./internal/utils/theme";
+export * from "./internal/utils/url";
+
 // 基础组件和功能模块 (按字母顺序)
 export { default as Alert } from "./Alert.astro";
 export type { AlertMarginSize, IAlertProps } from "./Alert.astro";
@@ -101,7 +116,7 @@ export { default as Head } from "./Head.astro";
 export { default as DashboardLayout } from "./DashboardLayout.astro";
 export { default as DashboardSidebar } from "./DashboardSidebar.astro";
 export { default as DashboardTopNavbar } from "./DashboardTopNavbar.astro";
-export type { SidebarSize, UserMenuItem } from "./layout-dashboard/types";
+export type { NavItem, SidebarSize, UserMenuItem } from "./layout-dashboard/types";
 export { getIconFromHref, getNavItemIcon, getSidebarWidth } from "./layout-dashboard/types";
 export { default as Link } from "./Link.astro";
 export type { LinkSize, LinkVariant, LinkAnimation, ILinkProps } from "./Link.astro";

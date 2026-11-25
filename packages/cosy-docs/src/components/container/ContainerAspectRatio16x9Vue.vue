@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Container } from '@coffic/cosy-ui/vue';
+import { Container } from '@coffic/cosy-ui-vue';
 </script>
 <template>
   <Container :aspectRatio="16 / 9" background="primary/90" rounded="md">

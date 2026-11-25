@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Container, Heading, PlaceHolder } from '@coffic/cosy-ui/vue';
+import { Container, Heading, PlaceHolder } from '@coffic/cosy-ui-vue';
 </script>
 <template>
   <Container

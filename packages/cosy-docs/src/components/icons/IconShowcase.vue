@@ -60,7 +60,7 @@ import {
 	WechatIcon,
 	WhatsappIcon,
 	XCircleIcon,
-} from "@coffic/cosy-ui/vue";
+} from "@coffic/cosy-ui-vue";
 
 /**
  * @component IconShowcase

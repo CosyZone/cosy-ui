@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Card } from '@coffic/cosy-ui/vue';
+import { Card } from '@coffic/cosy-ui-vue';
 </script>
 <template>
   <Card title="警告色背景" subtitle="使用警告色背景的卡片" background="warning">
