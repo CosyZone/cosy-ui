@@ -27,7 +27,6 @@
  * - 自动生成标题 ID
  * - 排除特定标题（通过 ignore-heading 属性）
  */
-import { cn } from './internal/class';
 import { createTextGetter } from './internal/utils/i18n';
 import { LanguageUtil } from './internal/utils/language';
 
@@ -94,15 +93,9 @@ const titleText = title || t('title');
 // 生成唯一ID，确保多个TOC实例不会冲突
 const tocId = `toc-${Math.random().toString(36).substring(2, 9)}`;
 
-// 使用 classBuilder 构建 aside 类名
-const asideClass = cn()
-    .hidden()
-    .add('cosy:xl:block') // 保留：响应式类名
-    .w(64)
-    .pr(3)
-    .shrink0()
-    .add(className) // 保留：用户自定义类名
-    .build();
+const asideClass = ['cosy:hidden cosy:xl:block cosy:w-64 cosy:pr-3 cosy:shrink-0', className]
+    .filter(Boolean)
+    .join(' ');
 ---
 
 <aside class={asideClass}>

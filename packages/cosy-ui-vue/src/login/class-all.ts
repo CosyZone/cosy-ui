@@ -1,165 +1,71 @@
-import { cn } from "../internal/class/classBuilder";
 import type { ILoginPropsBase } from "./loginPropsBase";
 
 /**
  * 获取 Login 的类名
  */
 export function getLoginClasses(_props: ILoginPropsBase = {}) {
-	const containerClass = cn()
-		.minH("screen")
-		.flex()
-		.items("center")
-		.justify("center")
-		.bg("base-200")
-		.py(12)
-		.px(4)
-		.add("cosy:sm:px-6 cosy:lg:px-8")
-		.build();
+	const containerClass =
+		"cosy:min-h-screen cosy:flex cosy:items-center cosy:justify-center cosy:bg-base-200 cosy:py-12 cosy:px-4 cosy:sm:px-6 cosy:lg:px-8";
 
-	const cardClass = cn()
-		.maxW("md")
-		.w("full")
-		.spaceY(8)
-		.bg("base-100")
-		.p(8)
-		.rounded("lg")
-		.shadow("xl")
-		.build();
+	const cardClass =
+		"cosy:max-w-md cosy:w-full cosy:space-y-8 cosy:bg-base-100 cosy:p-8 cosy:rounded-lg cosy:shadow-xl";
 
-	const headerClass = cn().align("center").build();
+	const headerClass = "cosy:text-center";
 
-	const logoClass = cn().mx("auto").h(12).w("auto").build();
+	const logoClass = "cosy:mx-auto cosy:h-12 cosy:w-auto";
 
-	const titleClass = cn()
-		.mt(6)
-		.text("3xl")
-		.weight("extrabold")
-		.color("base-content")
-		.build();
+	const titleClass =
+		"cosy:mt-6 cosy:text-3xl cosy:font-extrabold cosy:text-base-content";
 
-	const subtitleClass = cn().mt(2).text("sm").color("base-content/60").build();
+	const subtitleClass = "cosy:mt-2 cosy:text-sm cosy:text-base-content/60";
 
-	const formClass = cn().mt(8).spaceY(6).build();
+	const formClass = "cosy:mt-8 cosy:space-y-6";
 
-	const inputGroupClass = cn()
-		.rounded("md")
-		.shadow("sm")
-		.add("cosy:-space-y-px")
-		.build();
+	const inputGroupClass =
+		"cosy:rounded-md cosy:shadow-sm cosy:-space-y-px";
 
-	const usernameInputClass = cn()
-		.add("cosy:appearance-none cosy:rounded-none cosy:rounded-t-md")
-		.relative()
-		.block()
-		.w("full")
-		.px(3)
-		.py(2)
-		.border()
-		.borderColor("base-300")
-		.add("cosy:placeholder-base-content/40")
-		.color("base-content")
-		.add(
-			"focus:cosy:z-10 focus:cosy:border-primary focus:cosy:outline-none focus:cosy:ring-1 focus:cosy:ring-primary",
-		)
-		.build();
+	const usernameInputClass =
+		"cosy:appearance-none cosy:rounded-none cosy:rounded-t-md cosy:relative cosy:block cosy:w-full cosy:px-3 cosy:py-2 cosy:border cosy:border-base-300 cosy:placeholder-base-content/40 cosy:text-base-content cosy:focus:z-10 cosy:focus:border-primary cosy:focus:outline-none cosy:focus:ring-1 cosy:focus:ring-primary";
 
-	const passwordInputClass = cn()
-		.add("cosy:appearance-none cosy:rounded-none cosy:rounded-b-md")
-		.relative()
-		.block()
-		.w("full")
-		.px(3)
-		.py(2)
-		.border()
-		.borderColor("base-300")
-		.add("cosy:placeholder-base-content/40")
-		.color("base-content")
-		.add(
-			"focus:cosy:z-10 focus:cosy:border-primary focus:cosy:outline-none focus:cosy:ring-1 focus:cosy:ring-primary",
-		)
-		.build();
+	const passwordInputClass =
+		"cosy:appearance-none cosy:rounded-none cosy:rounded-b-md cosy:relative cosy:block cosy:w-full cosy:px-3 cosy:py-2 cosy:border cosy:border-base-300 cosy:placeholder-base-content/40 cosy:text-base-content cosy:focus:z-10 cosy:focus:border-primary cosy:focus:outline-none cosy:focus:ring-1 cosy:focus:ring-primary";
 
-	const optionsClass = cn().flex().items("center").justify("between").build();
+	const optionsClass =
+		"cosy:flex cosy:items-center cosy:justify-between";
 
-	const rememberMeClass = cn().flex().items("center").build();
+	const rememberMeClass = "cosy:flex cosy:items-center";
 
-	const checkboxClass = cn()
-		.h(4)
-		.w(4)
-		.color("primary")
-		.add("cosy:focus:ring-primary")
-		.border()
-		.borderColor("base-300")
-		.rounded()
-		.build();
+	const checkboxClass =
+		"cosy:h-4 cosy:w-4 cosy:text-primary cosy:focus:ring-primary cosy:border cosy:border-base-300 cosy:rounded";
 
-	const rememberMeLabelClass = cn()
-		.ml(2)
-		.block()
-		.text("sm")
-		.color("base-content")
-		.build();
+	const rememberMeLabelClass =
+		"cosy:ml-2 cosy:block cosy:text-sm cosy:text-base-content";
 
-	const forgotPasswordClass = cn().text("sm").build();
+	const forgotPasswordClass = "cosy:text-sm";
 
-	const forgotPasswordLinkClass = cn()
-		.weight("medium")
-		.color("primary")
-		.add("cosy:hover:text-primary-focus")
-		.build();
+	const forgotPasswordLinkClass =
+		"cosy:font-medium cosy:text-primary cosy:hover:text-primary";
 
-	const submitButtonClass = cn()
-		.add("cosy:group")
-		.relative()
-		.w("full")
-		.flex()
-		.justify("center")
-		.py(2)
-		.px(4)
-		.border()
-		.borderColor("transparent")
-		.text("sm")
-		.weight("medium")
-		.rounded("md")
-		.color("white")
-		.bg("primary")
-		.add(
-			"cosy:hover:bg-primary-focus focus:cosy:outline-none focus:cosy:ring-2 focus:cosy:ring-offset-2 focus:cosy:ring-primary",
-		)
-		.build();
+	const submitButtonClass =
+		"cosy:group cosy:relative cosy:w-full cosy:flex cosy:justify-center cosy:py-2 cosy:px-4 cosy:border cosy:border-transparent cosy:text-sm cosy:font-medium cosy:rounded-md cosy:text-white cosy:bg-primary cosy:focus:outline-none cosy:focus:ring-2 cosy:focus:ring-offset-2 cosy:focus:ring-primary";
 
-	const socialSectionClass = cn().mt(6).build();
+	const socialSectionClass = "cosy:mt-6";
 
-	const dividerClass = cn().relative().build();
+	const dividerClass = "cosy:relative";
 
-	const dividerLineClass = cn()
-		.absolute()
-		.inset(0)
-		.flex()
-		.items("center")
-		.build();
+	const dividerLineClass =
+		"cosy:absolute cosy:inset-0 cosy:flex cosy:items-center";
 
-	const dividerBorderClass = cn()
-		.w("full")
-		.add("cosy:border-t")
-		.border()
-		.borderColor("base-300")
-		.build();
+	const dividerBorderClass =
+		"cosy:w-full cosy:border-t cosy:border cosy:border-base-300";
 
-	const dividerTextContainerClass = cn()
-		.relative()
-		.flex()
-		.justify("center")
-		.text("sm")
-		.build();
+	const dividerTextContainerClass =
+		"cosy:relative cosy:flex cosy:justify-center cosy:text-sm";
 
-	const dividerTextClass = cn()
-		.px(2)
-		.bg("base-100")
-		.color("base-content/60")
-		.build();
+	const dividerTextClass =
+		"cosy:px-2 cosy:bg-base-100 cosy:text-base-content/60";
 
-	const socialButtonsClass = cn().mt(6).grid().gap(3).build();
+	const socialButtonsClass = "cosy:mt-6 cosy:grid cosy:gap-3";
 
 	return {
 		container: containerClass,
@@ -195,18 +101,8 @@ export function getLoginClasses(_props: ILoginPropsBase = {}) {
 export function getSocialButtonClass(
 	provider: "github" | "google" | "wechat",
 ): string {
-	const baseClass = cn()
-		.w("full")
-		.inline()
-		.justify("center")
-		.py(2)
-		.px(4)
-		.rounded("md")
-		.shadow("sm")
-		.text("sm")
-		.weight("medium")
-		.color("white")
-		.build();
+	const baseClass =
+		"cosy:w-full cosy:inline-flex cosy:justify-center cosy:py-2 cosy:px-4 cosy:rounded-md cosy:shadow-sm cosy:text-sm cosy:font-medium cosy:text-white";
 
 	const providerClasses: Record<"github" | "google" | "wechat", string> = {
 		github: "cosy:bg-gray-800 cosy:hover:bg-gray-900",

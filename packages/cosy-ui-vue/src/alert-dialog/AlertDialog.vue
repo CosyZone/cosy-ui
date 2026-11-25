@@ -53,7 +53,7 @@ const t = (key: MessageKey) => {
 <template>
     <Transition name="fade" class="cosy:transition-opacity cosy:duration-200 cosy:ease-in-out">
         <div v-if="modelValue" :class="[
-            'cosy:fixed cosy:inset-0 cosy:z-50 cosy:flex cosy:items-center cosy:justify-center cosy:opacity-100 cosy:enter:opacity-0 cosy:leave:opacity-0',
+            'cosy:fixed cosy:inset-0 cosy:z-50 cosy:flex cosy:items-center cosy:justify-center cosy:opacity-100',
             props.class
         ]">
             <!-- 背景遮罩 -->

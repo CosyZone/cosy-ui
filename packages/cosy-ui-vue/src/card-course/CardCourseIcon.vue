@@ -87,7 +87,7 @@ const iconColorClass = computed(() => iconColorMap[iconColorKey.value] || iconCo
 
 <template>
 	<div
-		:class="`cosy:opacity-80 hover:cosy:opacity-100 cosy:transition-all cosy:duration-300 cosy:ease-out hover:cosy:scale-105 cosy:animate-fade-in-scale ${props.iconSizeClasses}`">
+		:class="`cosy:opacity-80 cosy:hover:opacity-100 cosy:transition-all cosy:duration-300 cosy:ease-out cosy:hover:scale-105 cosy:animate-fade-in-scale ${props.iconSizeClasses}`">
 		<SmartIcon :keyword="allKeywords" :class="`cosy:w-full cosy:h-full ${iconColorClass}`" />
 	</div>
 </template>

@@ -6,7 +6,7 @@ export const textColorClasses = {
 	primary: "cosy:text-primary cosy:dark:text-primary",
 	secondary: "cosy:text-secondary cosy:dark:text-secondary",
 	accent: "cosy:text-accent cosy:dark:text-accent",
-	muted: "cosy:text-gray cosy:dark:text-gray",
+	muted: "cosy:text-base-content/60",
 	info: "cosy:text-info cosy:dark:text-info",
 	success: "cosy:text-success cosy:dark:text-success",
 	warning: "cosy:text-warning cosy:dark:text-warning",

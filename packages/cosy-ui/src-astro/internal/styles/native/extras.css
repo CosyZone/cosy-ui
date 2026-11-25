@@ -1,0 +1,138 @@
+/*
+ * 补齐样式层：组件与示例中使用、但此前未生成的原子类。
+ * 这些类按需手工维护，新增用法请在这里补定义。
+ */
+
+/* 层级 */
+.cosy\:z-1 {
+	z-index: 1;
+}
+
+/* 容器宽度（Container width 预设的 4xl 及以上） */
+.cosy\:max-w-8xl {
+	max-width: 90rem;
+}
+.cosy\:max-w-9xl {
+	max-width: 100rem;
+}
+.cosy\:max-w-10xl {
+	max-width: 110rem;
+}
+.cosy\:max-w-11xl {
+	max-width: 120rem;
+}
+
+/* 进入动画 */
+.cosy\:animate-fade-in {
+	animation: fadeIn 0.5s ease-out;
+}
+.cosy\:animate-fade-in-scale {
+	animation: fadeInScale 0.35s ease-out;
+}
+@keyframes fadeInScale {
+	from {
+		opacity: 0;
+		transform: scale(0.95);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+/* 方形遮罩 */
+.cosy\:mask-square {
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24'/%3E%3C/svg%3E");
+	mask-size: 100% 100%;
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24'/%3E%3C/svg%3E");
+	-webkit-mask-size: 100% 100%;
+}
+
+/* 循环动画（旧版增量构建未覆盖的用法） */
+.cosy\:animate-bounce {
+	animation: bounce 1s infinite;
+}
+.cosy\:animate-pulse {
+	animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes bounce {
+	0%,
+	100% {
+		transform: translateY(-25%);
+		animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+	}
+	50% {
+		transform: none;
+		animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+	}
+}
+@keyframes pulse {
+	50% {
+		opacity: 0.5;
+	}
+}
+
+/* 变体：由类名拼接（cn）或后置修正产生，旧版增量构建未覆盖 */
+.cosy\:hover\:opacity-100:hover {
+	opacity: 1;
+}
+
+/* 变体：焦点态表单控件 */
+.cosy\:focus\:z-10:focus {
+	z-index: 10;
+}
+.cosy\:focus\:outline-none:focus {
+	outline: 2px solid transparent;
+	outline-offset: 2px;
+}
+.cosy\:focus\:border-primary:focus {
+	border-color: var(--color-primary);
+}
+.cosy\:focus\:ring-1:focus {
+	--tw-ring-shadow: var(--tw-ring-inset, ) 0 0 0 calc(1px + var(--tw-ring-offset-width))
+		var(--tw-ring-color, currentcolor);
+	box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+		var(--tw-ring-shadow), var(--tw-shadow);
+}
+.cosy\:focus\:ring-2:focus {
+	--tw-ring-shadow: var(--tw-ring-inset, ) 0 0 0 calc(2px + var(--tw-ring-offset-width))
+		var(--tw-ring-color, currentcolor);
+	box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+		var(--tw-ring-shadow), var(--tw-shadow);
+}
+.cosy\:focus\:ring-offset-2:focus {
+	--tw-ring-offset-width: 2px;
+	--tw-ring-offset-shadow: var(--tw-ring-inset, ) 0 0 0 var(--tw-ring-offset-width)
+		var(--tw-ring-offset-color, #fff);
+}
+
+/* 变体：父级 hover（.cosy:group）下的动画 */
+.cosy\:group:hover .cosy\:group-hover\:animate-bounce {
+	animation: bounce 1s infinite;
+}
+.cosy\:group:hover .cosy\:group-hover\:animate-pulse {
+	animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* 变体：旧版增量构建未覆盖的 hover 工具类 */
+.cosy\:hover\:translate-x-1:hover {
+	--tw-translate-x: var(--cosy-spacing);
+	translate: var(--tw-translate-x) var(--tw-translate-y);
+}
+.cosy\:hover\:opacity-80:hover {
+	opacity: 0.8;
+}
+.cosy\:hover\:text-base-content:hover {
+	color: var(--color-base-content);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.cosy\:animate-fade-in,
+	.cosy\:animate-fade-in-scale,
+	.cosy\:animate-bounce,
+	.cosy\:animate-pulse,
+	.cosy\:group:hover .cosy\:group-hover\:animate-bounce,
+	.cosy\:group:hover .cosy\:group-hover\:animate-pulse {
+		animation: none;
+	}
+}

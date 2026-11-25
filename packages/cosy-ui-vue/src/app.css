@@ -1,10 +1,14 @@
-@import 'tailwindcss' prefix(cosy);
-@plugin "@tailwindcss/typography";
-/* 以下配置从 themes.config.ts 自动生成，请勿手动修改 */
-@plugin "daisyui" {
-  themes: __THEMES_CONFIG__;
-  logs: false;
-}
+/*
+ * 样式入口：纯手写 CSS，不经过 Tailwind / daisyUI 构建。
+ * native/ 下是稳定的样式层（令牌 / 基础 / 工具类 / 动画），
+ * background/ 等为组件级手写样式。
+ */
+@import './internal/styles/native/properties.css';
+@import './internal/styles/native/tokens.css';
+@import './internal/styles/native/base.css';
+@import './internal/styles/native/utilities.css';
+@import './internal/styles/native/animations.css';
+@import './internal/styles/native/extras.css';
 
 /* 自定义样式 */
 @import './internal/styles/background/dot-grid.css';

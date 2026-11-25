@@ -2,7 +2,7 @@
 import { Container, PlaceHolder } from '@coffic/cosy-ui-vue';
 </script>
 <template>
-  <div class="cosy:space-y-md">
+  <div class="cosy:space-y-4">
     <Container backgroundImage="/assets/factory.png" padding="md" rounded="md" width="full">
       <PlaceHolder
         width="full"

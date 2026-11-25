@@ -4,6 +4,7 @@ import { renderToString } from "vue/server-renderer";
 import Badge from "../src/badge/Badge.vue";
 import Button from "../src/button/Button.vue";
 import Card from "../src/card/Card.vue";
+import Login from "../src/login/Login.vue";
 import Text from "../src/text/Text.vue";
 
 describe("cosy-ui-vue server rendering", () => {
@@ -37,5 +38,19 @@ describe("cosy-ui-vue server rendering", () => {
 			createSSRApp({ render: () => h(Card, null, () => "Card body") }),
 		);
 		expect(html).toContain("Card body");
+	});
+
+	it("keeps Login layout and social button classes", async () => {
+		const html = await renderToString(
+			createSSRApp({
+				render: () =>
+					h(Login, { socialLogins: ["github", "google"] }),
+			}),
+		);
+		expect(html).toContain(
+			"cosy:min-h-screen cosy:flex cosy:items-center cosy:justify-center cosy:bg-base-200 cosy:py-12 cosy:px-4 cosy:sm:px-6 cosy:lg:px-8",
+		);
+		expect(html).toContain("cosy:mt-6 cosy:grid cosy:gap-3 cosy:grid-cols-2");
+		expect(html).toContain("cosy:bg-gray-800 cosy:hover:bg-gray-900");
 	});
 });

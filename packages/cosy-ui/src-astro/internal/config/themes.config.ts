@@ -46,19 +46,3 @@ export function getThemeTone(theme: string): "light" | "dark" {
 	return THEME_TONE_MAP[theme] || "light";
 }
 
-/**
- * 生成 DaisyUI themes 配置字符串
- * 用于 @plugin "daisyui" { themes: ... }
- */
-export function getDaisyUIThemesConfig(): string {
-	const themes = THEME_LIST.map((theme) => {
-		if (theme === THEME_DEFAULT) {
-			return `${theme} --default`;
-		}
-		if (theme === THEME_PREFERS_DARK) {
-			return `${theme} --prefersdark`;
-		}
-		return theme;
-	});
-	return themes.join(", ");
-}

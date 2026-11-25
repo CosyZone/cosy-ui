@@ -44,7 +44,6 @@ Login 组件用于创建灵活且功能丰富的登录页面。支持多种登�
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../internal/class/classBuilder';
 import { LoginFacade } from './facade';
 import { ChartIcon, GithubIcon, WechatIcon } from '../icons';
 import type { ILoginVueProps } from './props';
@@ -100,7 +99,7 @@ const getSocialButtonClass = (provider: 'github' | 'google' | 'wechat') => {
 </script>
 
 <template>
-    <div :class="cn().add(classes.container).add(customClass).build()">
+    <div :class="[classes.container, customClass]">
         <div :class="classes.card">
             <!-- 头部区域 -->
             <div :class="classes.header">
@@ -115,7 +114,7 @@ const getSocialButtonClass = (provider: 'github' | 'google' | 'wechat') => {
             <form :class="classes.form">
                 <div :class="classes.inputGroup">
                     <div>
-                        <label for="username" :class="cn().add('cosy:sr-only').build()">
+                        <label for="username" class="cosy:sr-only">
                             {{ usernameLabel }}
                         </label>
                         <input
@@ -128,7 +127,7 @@ const getSocialButtonClass = (provider: 'github' | 'google' | 'wechat') => {
                         />
                     </div>
                     <div>
-                        <label for="password" :class="cn().add('cosy:sr-only').build()">
+                        <label for="password" class="cosy:sr-only">
                             {{ passwordLabel }}
                         </label>
                         <input
@@ -183,14 +182,14 @@ const getSocialButtonClass = (provider: 'github' | 'google' | 'wechat') => {
                 <slot name="socialButtons">
                     <div
                         :class="
-                            cn()
-                                .add(classes.socialButtons)
-                                .add(`cosy:grid-cols-${Math.min(socialLogins.length, 3)}`)
-                                .build()
+                            [
+                                classes.socialButtons,
+                                `cosy:grid-cols-${Math.min(socialLogins.length, 3)}`,
+                            ]
                         ">
                         <div v-for="provider in socialLogins" :key="provider">
                             <a href="#" :class="getSocialButtonClass(provider)">
-                                <component :is="socialIcons[provider]" :class="cn().w(5).h(5).build()" />
+                                <component :is="socialIcons[provider]" class="cosy:w-5 cosy:h-5" />
                             </a>
                         </div>
                     </div>

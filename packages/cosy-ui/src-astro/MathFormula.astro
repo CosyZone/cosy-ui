@@ -42,7 +42,6 @@
  * @slot details - 详细说明（可折叠，默认折叠）
  */
 
-import { cn } from './internal/class';
 import { ArrowDownSIcon, ArrowUpSIcon, FunctionIcon, InfoIcon } from './icons';
 
 export type MathFormulaVariant =
@@ -84,14 +83,14 @@ const showDetails = Astro.slots.has('details');
 const componentId = `math-formula-${Math.random().toString(36).substring(2, 9)}`;
 
 // 构建容器样式类
-const baseClasses = cn()
-    .add('cosy:my-6')
-    .add('cosy:p-4')
-    .add('cosy:rounded-lg')
-    .add('cosy:relative')
-    .add('cosy:transition-all')
-    .add('cosy:duration-300')
-    .build();
+const baseClasses = [
+    'cosy:my-6',
+    'cosy:p-4',
+    'cosy:rounded-lg',
+    'cosy:relative',
+    'cosy:transition-all',
+    'cosy:duration-300',
+].join(' ');
 
 // 变体样式映射
 const variantClassMap: Record<string, string> = {
@@ -106,11 +105,13 @@ const variantClassMap: Record<string, string> = {
         'cosy:bg-base-200/80 cosy:border cosy:border-accent/20 cosy:shadow-lg cosy:hover:shadow-xl cosy:overflow-hidden',
 };
 
-const containerClasses = cn()
-    .add(baseClasses)
-    .add(variantClassMap[variant] || variantClassMap.gradient)
-    .add(className)
-    .build();
+const containerClasses = [
+    baseClasses,
+    variantClassMap[variant] || variantClassMap.gradient,
+    className,
+]
+    .filter(Boolean)
+    .join(' ');
 ---
 
 <div
@@ -127,7 +128,7 @@ const containerClasses = cn()
     <!-- 右上角 info 图标 -->
     <div class="cosy:absolute cosy:top-2 cosy:right-2 cosy:z-10">
         <button
-            class="formula-info-btn cosy:w-5 cosy:h-5 cosy:text-accent cosy:hover:text-accent-focus cosy:hover:scale-110 cosy:transition-all cosy:duration-200"
+            class="formula-info-btn cosy:w-5 cosy:h-5 cosy:text-accent cosy:hover:text-accent cosy:hover:scale-110 cosy:transition-all cosy:duration-200"
             title="什么是公式？"
             type="button"
             data-formula-id={componentId}>
@@ -159,13 +160,7 @@ const containerClasses = cn()
     {
         hasHeader && (
             <div
-                class={cn()
-                    .flex()
-                    .items('center')
-                    .mb(2)
-                    .relative()
-                    .z(1)
-                    .build()}>
+                class="cosy:flex cosy:items-center cosy:mb-2 cosy:relative cosy:z-1">
                 <FunctionIcon
                     class={`cosy:text-accent cosy:mr-2 cosy:text-lg ${
                         variant === 'neon'
@@ -198,31 +193,14 @@ const containerClasses = cn()
     }
 
     <div
-        class={cn()
-            .add('cosy:overflow-x-auto')
-            .text('lg')
-            .add('cosy:text-base-content', 'formula-block')
-            .relative()
-            .z(1)
-            .build()}>
+        class="cosy:overflow-x-auto cosy:text-lg cosy:text-base-content formula-block cosy:relative cosy:z-1">
         <slot />
     </div>
 
     {
         showDesc && (
             <div
-                class={cn()
-                    .mt(2)
-                    .text('sm')
-                    .add(
-                        'cosy:text-base-content/70',
-                        'cosy:border-t',
-                        'cosy:border-base-content/10'
-                    )
-                    .pt(2)
-                    .relative()
-                    .z(1)
-                    .build()}>
+                class="cosy:mt-2 cosy:text-sm cosy:text-base-content/70 cosy:border-t cosy:border-base-content/10 cosy:pt-2 cosy:relative cosy:z-1">
                 <slot name="desc" />
             </div>
         )
@@ -242,7 +220,7 @@ const containerClasses = cn()
                         class={`cosy:cursor-pointer cosy:text-sm cosy:font-medium cosy:flex cosy:items-center cosy:gap-1 cosy:transition-colors ${
                             variant === 'neon'
                                 ? 'cosy:text-accent cosy:hover:text-accent cosy:drop-shadow-[0_0_4px_rgba(var(--a),0.5)]'
-                                : 'cosy:text-accent cosy:hover:text-accent-focus'
+                                : 'cosy:text-accent cosy:hover:text-accent'
                         }`}>
                         <InfoIcon class="cosy:w-4 cosy:h-4 group-open:cosy:rotate-180 cosy:transition-transform cosy:duration-200" />
                         符号说明
@@ -261,7 +239,7 @@ const containerClasses = cn()
             <div class="cosy:mt-2 cosy:border-t cosy:border-base-content/10 cosy:pt-2 cosy:relative cosy:z-1">
                 <div class="cosy:flex cosy:justify-end">
                     <button
-                        class="formula-details-toggle cosy:flex cosy:items-center cosy:gap-2 cosy:text-sm cosy:font-medium cosy:text-accent cosy:hover:text-accent-focus cosy:transition-colors cosy:duration-200 group"
+                        class="formula-details-toggle cosy:flex cosy:items-center cosy:gap-2 cosy:text-sm cosy:font-medium cosy:text-accent cosy:hover:text-accent cosy:transition-colors cosy:duration-200 group"
                         type="button"
                         data-formula-id={componentId}>
                         <ArrowDownSIcon class="cosy:w-4 cosy:h-4 cosy:transition-transform cosy:duration-200 formula-details-icon-down" />

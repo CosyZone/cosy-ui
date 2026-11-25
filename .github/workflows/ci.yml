@@ -37,5 +37,8 @@ jobs:
             - name: Build UI packages
               run: pnpm build:ui
 
+            - name: Verify CSS coverage
+              run: pnpm verify:css
+
             - name: Verify package tarballs
               run: pnpm verify:pack

@@ -42,7 +42,9 @@ export default defineConfig({
 		mdx(),
 		vue(),
 		pagefind(),
+		// CSS 已由 Vite 压缩；该集成的 CSS 压缩会误删 @media (width>=...) 响应式规则
 		playformCompress({
+			CSS: false,
 			HTML: {
 				"html-minifier-terser": {
 					removeAttributeQuotes: true,
@@ -50,6 +52,7 @@ export default defineConfig({
 				},
 			},
 		}),
+
 	],
 
 	adapter: cloudflare({

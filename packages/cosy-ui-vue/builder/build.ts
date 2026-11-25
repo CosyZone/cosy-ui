@@ -1,10 +1,8 @@
 import { writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import tailwindcss from "@tailwindcss/vite";
 import fs from "fs-extra";
 import { type InlineConfig, build as viteBuild } from "vite";
-import { generateThemeCSS } from "./generate-theme-css";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -51,11 +49,10 @@ async function buildCSS() {
 	const tempDir = path.resolve(rootDir, "temp", "src");
 	fs.ensureDirSync(tempDir);
 	const tempStylePath = path.resolve(tempDir, "style.ts");
-	writeFileSync(tempStylePath, 'import "./app.css";', "utf-8");
+	writeFileSync(tempStylePath, 'import "../../src/app.css";', "utf-8");
 
 	const config: InlineConfig = {
 		root: rootDir,
-		plugins: [tailwindcss()],
 		build: {
 			emptyOutDir: false,
 			cssCodeSplit: false,
@@ -81,10 +78,6 @@ async function build() {
 	console.log("🚀 开始构建 @coffic/cosy-ui-vue...\n");
 
 	try {
-		console.log("🎨 生成主题 CSS 配置...");
-		await generateThemeCSS();
-		console.log("✅ 主题 CSS 配置已生成\n");
-
 		console.log("🧹 清空 dist 目录...");
 		await fs.emptyDir(path.resolve(rootDir, "dist"));
 		console.log("✅ dist 目录已清空\n");

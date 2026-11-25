@@ -60,10 +60,6 @@ const contentPadRem: Record<PaddingSize, string> = {
     lg: '1.5rem', xl: '2rem', '2xl': '2.5rem', '3xl': '3rem',
 };
 
-/** 标准化课程名称 */
-function normalizeName(name: string): string {
-    return name.toLowerCase().replace(/[^a-z0-9]/g, '_');
-}
 
 /** 格式化课程显示名称 */
 function formatDisplayName(courseName: string): string {

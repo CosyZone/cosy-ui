@@ -105,13 +105,13 @@ const handleTabClick = (tab: string) => {
     <div :class="headerClasses">
       <div class="cosy:flex cosy:items-center cosy:space-x-2">
         <div
-          class="cosy:w-3 cosy:h-3 cosy:rounded-full cosy:bg-error cosy:cursor-pointer hover:cosy:opacity-80 cosy:transition-opacity"
+          class="cosy:w-3 cosy:h-3 cosy:rounded-full cosy:bg-error cosy:cursor-pointer cosy:hover:opacity-80 cosy:transition-opacity"
           @click="handleCloseWindow" />
         <div
-          class="cosy:w-3 cosy:h-3 cosy:rounded-full cosy:bg-warning cosy:cursor-pointer hover:cosy:opacity-80 cosy:transition-opacity"
+          class="cosy:w-3 cosy:h-3 cosy:rounded-full cosy:bg-warning cosy:cursor-pointer cosy:hover:opacity-80 cosy:transition-opacity"
           @click="handleMinimizeWindow" />
         <div
-          class="cosy:w-3 cosy:h-3 cosy:rounded-full cosy:bg-success cosy:cursor-pointer hover:cosy:opacity-80 cosy:transition-opacity"
+          class="cosy:w-3 cosy:h-3 cosy:rounded-full cosy:bg-success cosy:cursor-pointer cosy:hover:opacity-80 cosy:transition-opacity"
           @click="handleMaximizeWindow" />
       </div>
       <div
@@ -131,7 +131,7 @@ const handleTabClick = (tab: string) => {
               'cosy:px-3 cosy:py-1 cosy:text-sm cosy:rounded-md cosy:transition-colors',
               activeTab === tab
                 ? 'cosy:bg-base-100 cosy:text-base-content cosy:shadow'
-                : 'cosy:text-base-content/70 hover:cosy:text-base-content',
+                : 'cosy:text-base-content/70 cosy:hover:text-base-content',
             ]"
             @click="handleTabClick(tab)">
             {{ tab }}

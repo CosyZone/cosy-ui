@@ -74,7 +74,7 @@ onBeforeUnmount(() => {
 		<div class="cosy:absolute cosy:top-2 cosy:right-2 cosy:z-10" data-math-tooltip>
 			<button
 				type="button"
-				class="cosy:w-5 cosy:h-5 cosy:text-accent cosy:hover:text-accent-focus cosy:hover:scale-110 cosy:transition-all cosy:duration-200"
+				class="cosy:w-5 cosy:h-5 cosy:text-accent cosy:hover:text-accent cosy:hover:scale-110 cosy:transition-all cosy:duration-200"
 				@click.stop="showTooltip = !showTooltip">
 				<span aria-hidden="true" class="cosy:inline-block cosy:w-4 cosy:h-4">ℹ️</span>
 			</button>
@@ -131,7 +131,7 @@ onBeforeUnmount(() => {
 			<details class="group" :open="!symbolsCollapsed">
 				<summary
 					class="cosy:cursor-pointer cosy:text-sm cosy:font-medium cosy:flex cosy:items-center cosy:gap-1 cosy:transition-colors"
-					:class="variant === 'neon' ? 'cosy:text-accent cosy:hover:text-accent cosy:drop-shadow-[0_0_4px_rgba(var(--a),0.5)]' : 'cosy:text-accent cosy:hover:text-accent-focus'">
+					:class="variant === 'neon' ? 'cosy:text-accent cosy:hover:text-accent cosy:drop-shadow-[0_0_4px_rgba(var(--a),0.5)]' : 'cosy:text-accent cosy:hover:text-accent'">
 					<span class="cosy:w-4 cosy:h-4 group-open:cosy:rotate-180 cosy:transition-transform cosy:duration-200">ℹ️</span>
 					符号说明
 				</summary>
@@ -145,7 +145,7 @@ onBeforeUnmount(() => {
 			<div class="cosy:flex cosy:justify-end">
 				<button
 					type="button"
-					class="cosy:flex cosy:items-center cosy:gap-2 cosy:text-sm cosy:font-medium cosy:text-accent cosy:hover:text-accent-focus cosy:transition-colors cosy:duration-200"
+					class="cosy:flex cosy:items-center cosy:gap-2 cosy:text-sm cosy:font-medium cosy:text-accent cosy:hover:text-accent cosy:transition-colors cosy:duration-200"
 					@click="showDetails = !showDetails">
 					<span class="cosy:w-4 cosy:h-4 cosy:transition-transform cosy:duration-200" :class="showDetails ? 'cosy:rotate-180' : ''">⌄</span>
 					<span class="cosy:w-4 cosy:h-4 cosy:transition-transform cosy:duration-200 cosy:hidden" />

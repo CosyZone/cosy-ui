@@ -1,10 +1,8 @@
 import { writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import tailwindcss from "@tailwindcss/vite";
 import fs from "fs-extra";
 import { type InlineConfig, build as viteBuild } from "vite";
-import { generateThemeCSS } from "./generate-theme-css";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -54,12 +52,11 @@ async function buildCSS(platform: "src-astro" = "src-astro") {
 	// 确保 temp 目录存在
 	fs.ensureDirSync(tempDir);
 	const tempStylePath = path.resolve(tempDir, "style.ts");
-	const tempStyleContent = 'import "./app.css";';
+	const tempStyleContent = 'import "../../src-astro/app.css";';
 	writeFileSync(tempStylePath, tempStyleContent, "utf-8");
 
 	const config: InlineConfig = {
 		root: rootDir,
-		plugins: [tailwindcss()],
 		build: {
 			emptyOutDir: false, // 不清空 dist，避免删除 tsup 生成的文件
 			cssCodeSplit: false,
@@ -85,22 +82,17 @@ async function build() {
 	console.log("🚀 开始构建 cosy-ui...\n");
 
 	try {
-		// 1. 生成临时主题 CSS（从 themes.config.ts 读取配置，不修改源码）
-		console.log("🎨 生成主题 CSS 配置...");
-		await generateThemeCSS();
-		console.log("✅ 主题 CSS 配置已生成\n");
-
-		// 2. 清空 dist 目录
+		// 1. 清空 dist 目录
 		console.log("🧹 清空 dist 目录...");
 		await fs.emptyDir(path.resolve(rootDir, "dist"));
 		console.log("✅ dist 目录已清空\n");
 
-		// 3. 构建 Astro 平台本地样式，产物由入口导入
+		// 2. 构建 Astro 平台本地样式，产物由入口导入
 		await buildCSS("src-astro");
 
 		console.log();
 
-		// 4. 复制组件源码（Astro/Vue）
+		// 3. 复制组件源码（Astro/Vue）
 		await copyComponents();
 
 		const elapsed = Date.now() - startTime;
