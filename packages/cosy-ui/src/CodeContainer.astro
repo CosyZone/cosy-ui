@@ -1,0 +1,831 @@
+---
+/**
+ * @component CodeContainer
+ *
+ * @description
+ * 用于展示代码示例的容器组件，提供样式隔离功能防止内外样式相互影响。
+ * 支持样式重置模式。
+ * 使用时只需在默认slot中传入内容，并为每个示例设置对应的 id (tab-1, tab-2等)
+ *
+ * 支持自动检测 label 属性来分组不同的写法（如 basic、factory 等）
+ *
+ * @usage
+ * 基础用法：
+ * ```astro
+ * <CodeContainer codes={[code1, code2]}>
+ *   <div id="tab-1"><Alert type="info">第一个示例</Alert></div>
+ *   <div id="tab-2"><Alert type="success">第二个示例</Alert></div>
+ * </CodeContainer>
+ * ```
+ *
+ * 带 label 的用法（自动生成模式切换）：
+ * ```astro
+ * <CodeContainer codes={[code1, code2]} titles={['Info', 'Success']}>
+ *   <div id="tab-1" data-label="传统写法">...</div>
+ *   <div id="tab-2" data-label="现代写法">...</div>
+ * </CodeContainer>
+ * ```
+ *
+ * @props
+ * @prop {string[]} codes - 每个示例对应的源代码数组，必需属性
+ * @prop {string[]} [descriptions] - tab的描述文本数组
+ * @prop {boolean} [resetStyles=true] - 是否重置内部样式
+ * @prop {string[]} [titles] - tab的标题数组
+ *
+ * @slots
+ * @slot default - 代码示例内容，需要为每个示例设置对应的 id (tab-1, tab-2等)
+ */
+
+import Button from "./Button.astro";
+import CodePanel from "./CodePanel.astro";
+import { ClipboardIcon, CodeIcon } from "../icons";
+
+/** CodeContainer 组件属性（组件自包含定义） */
+export interface Props {
+	/** 每个示例对应的源代码 */
+	codes: string[];
+	/** tab的描述文本 */
+	descriptions?: string[];
+	/** 是否重置内部样式 @default true */
+	resetStyles?: boolean;
+	/** tab的标题 */
+	titles?: string[];
+}
+
+const {
+	titles = [],
+	codes,
+	resetStyles = true,
+} = Astro.props as Props;
+
+const resolvedTitles =
+	titles.length > 0 ? titles : codes.map((_, i) => `示例 ${i + 1}`);
+---
+
+<div class="cosy-code-container" data-role="code-container" ignore-heading>
+	<!-- 工具栏 -->
+	<div class="cosy-code-container__toolbar">
+		<div role="tablist" class="cosy-code-container__tabs" data-role="tab-list">
+			{
+				resolvedTitles.map((title: string, index: number) => (
+					<button
+						role="tab"
+						class={`cosy-code-container__tab${index === 0 ? " cosy-code-container__tab--active" : ""}`}
+						data-tab={`tab-${index + 1}`}
+						type="button"
+						aria-selected={index === 0 ? "true" : "false"}>
+						{title || `示例 ${index + 1}`}
+					</button>
+				))
+			}
+		</div>
+
+		<div class="cosy-code-container__actions">
+			<Button
+				role="switch"
+				variant="ghost"
+				size="sm"
+				aria-checked="false"
+				aria-label="切换代码/预览"
+				data-toggle="code">
+				<CodeIcon />
+			</Button>
+
+			<div class="cosy-code-container__copy-wrap">
+				<Button
+					variant="ghost"
+					size="sm"
+					aria-label="复制代码"
+					type="button"
+					data-copy-btn>
+					<ClipboardIcon />
+				</Button>
+				<span class="cosy-code-container__toast">复制成功</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- 预览容器 -->
+	<div class="cosy-code-container__preview" data-example="preview">
+		<div class="cosy-code-container__dot-grid">
+			<div class="cosy-code-container__preview-inner">
+				<div
+					class={`cosy-code-container__preview-area${resetStyles ? " cosy-code-container__reset-styles" : ""}`}
+					data-preview-area="shared">
+					<slot />
+				</div>
+			</div>
+		</div>
+		<!-- 模式切换器 - 定位在右下角 -->
+		<div class="cosy-code-container__mode-switcher-wrap">
+			<div
+				data-role="mode-switcher"
+				class="cosy-code-container__mode-switcher"></div>
+		</div>
+	</div>
+
+	<!-- 代码面板容器（为每个 code 创建，默认全部隐藏） -->
+	{
+		codes.map((code, index) => (
+			<div
+				class="cosy-code-container__panel cosy-code-container__hidden"
+				data-code-panel={`tab-${index + 1}`}>
+				<div class="cosy-code-container__dot-grid">
+					<div class="cosy-code-container__panel-inner">
+						<CodePanel code={code} />
+					</div>
+				</div>
+			</div>
+		))
+	}
+</div>
+
+<script>
+	// @ts-nocheck
+	/**
+	 * CodeContainer 客户端逻辑
+	 * 合并自 CodeToolbar / TabList / ModeSwitcher / ButtonCodeToggle /
+	 * ButtonCopyCode / Preview / CodePanelContainer
+	 */
+	const MODE_PREFERENCE_KEY = "cosy-ui-mode-preference";
+	const MODE_SYNC_EVENT = "cosy-ui-mode-sync";
+
+	/* ---------- 工具 ---------- */
+	function getSavedModePreference() {
+		try {
+			return localStorage.getItem(MODE_PREFERENCE_KEY);
+		} catch (e) {
+			return null;
+		}
+	}
+	function saveModePreference(mode) {
+		try {
+			localStorage.setItem(MODE_PREFERENCE_KEY, mode);
+		} catch (e) {
+			/* ignore */
+		}
+	}
+	function broadcastModeChange(mode) {
+		window.dispatchEvent(
+			new CustomEvent(MODE_SYNC_EVENT, { detail: { mode } }),
+		);
+	}
+
+	/* ---------- 初始化：根据 data-label 分组 ---------- */
+	function initializeCodeContainer() {
+		document
+			.querySelectorAll('[data-role="code-container"]')
+			.forEach((container) => {
+				const contents = Array.from(
+					container.querySelectorAll('[id^="tab-"]'),
+				);
+				if (contents.length === 0) return;
+
+				const hasLabels = contents.some((c) =>
+					c.hasAttribute("data-label"),
+				);
+
+				if (!hasLabels) {
+					contents.forEach((content, index) => {
+						if (index !== 0) {
+							content.classList.add("cosy-code-container__hidden");
+						}
+					});
+				}
+			});
+	}
+
+	/* ---------- ModeSwitcher ---------- */
+	function initializeModeSwitcher() {
+		document
+			.querySelectorAll('[data-role="mode-switcher"]')
+			.forEach((modeSwitcher) => {
+				const container = modeSwitcher.closest(
+					'[data-role="code-container"]',
+				);
+				if (!container) return;
+				if (modeSwitcher.hasAttribute("data-initialized")) return;
+				modeSwitcher.setAttribute("data-initialized", "true");
+
+				const contents = Array.from(
+					container.querySelectorAll('[id^="tab-"]'),
+				);
+				if (contents.length === 0) return;
+
+				const groups = {};
+				const groupOrder = [];
+				const UNCATEGORIZED = "未分类";
+
+				contents.forEach((content) => {
+					const label =
+						content.getAttribute("data-label") || UNCATEGORIZED;
+					if (!groups[label]) {
+						groups[label] = [];
+						groupOrder.push(label);
+					}
+					groups[label].push(content);
+				});
+
+				if (groupOrder.length <= 1) return;
+
+				// 显示 ModeSwitcher
+				modeSwitcher.classList.add(
+					"cosy-code-container__mode-switcher--visible",
+				);
+
+				const previewArea = container.querySelector(
+					'[data-preview-area="shared"]',
+				);
+				if (previewArea) {
+					previewArea.classList.add(
+						"cosy-code-container__preview-area--pb",
+					);
+				}
+
+				const savedPreference = getSavedModePreference();
+				let initialLabel = groupOrder[0];
+				if (savedPreference && groupOrder.includes(savedPreference)) {
+					initialLabel = savedPreference;
+				}
+
+				groupOrder.forEach((label) => {
+					const button = document.createElement("button");
+					button.textContent = label;
+					button.setAttribute("data-label-group", label);
+					button.type = "button";
+					const isActive = label === initialLabel;
+					button.className = `cosy-code-container__mode-btn${isActive ? " cosy-code-container__mode-btn--active" : ""}`;
+
+					button.addEventListener("click", () => {
+						saveModePreference(label);
+						broadcastModeChange(label);
+						handleModeSwitchClick(modeSwitcher, label, groupOrder);
+					});
+
+					modeSwitcher.appendChild(button);
+				});
+
+				dispatchModeChangeEvent(container, initialLabel, groups);
+
+				window.addEventListener(MODE_SYNC_EVENT, (event) => {
+					const { mode } = event.detail;
+					if (groupOrder.includes(mode)) {
+						const currentActiveLabel = modeSwitcher.querySelector(
+							".cosy-code-container__mode-btn--active",
+						)?.getAttribute("data-label-group");
+						if (currentActiveLabel !== mode) {
+							handleModeSwitchClick(modeSwitcher, mode, groupOrder);
+						}
+					}
+				});
+			});
+	}
+
+	function handleModeSwitchClick(modeSwitcher, targetLabel, groupOrder) {
+		const container = modeSwitcher.closest('[data-role="code-container"]');
+		if (!container) return;
+
+		modeSwitcher.querySelectorAll("[data-label-group]").forEach((btn) => {
+			const btnLabel = btn.getAttribute("data-label-group");
+			if (btnLabel === targetLabel) {
+				btn.classList.add("cosy-code-container__mode-btn--active");
+			} else {
+				btn.classList.remove("cosy-code-container__mode-btn--active");
+			}
+		});
+
+		const contents = Array.from(
+			container.querySelectorAll('[id^="tab-"]'),
+		);
+		const groups = {};
+		const UNCATEGORIZED = "未分类";
+		contents.forEach((content) => {
+			const label = content.getAttribute("data-label") || UNCATEGORIZED;
+			if (!groups[label]) groups[label] = [];
+			groups[label].push(content);
+		});
+
+		dispatchModeChangeEvent(container, targetLabel, groups);
+	}
+
+	function dispatchModeChangeEvent(container, targetLabel, groups) {
+		container.dispatchEvent(
+			new CustomEvent("mode-change", {
+				detail: { label: targetLabel, groups },
+				bubbles: true,
+			}),
+		);
+	}
+
+	/* ---------- TabList ---------- */
+	function initializeTabList() {
+		document
+			.querySelectorAll('[data-role="tab-list"]')
+			.forEach((tabList) => {
+				const container = tabList.closest(
+					'[data-role="code-container"]',
+				);
+				if (!container) return;
+				if (tabList.hasAttribute("data-initialized")) return;
+				tabList.setAttribute("data-initialized", "true");
+
+				tabList
+					.querySelectorAll('[role="tab"][data-tab^="tab-"]')
+					.forEach((tab) => {
+						tab.addEventListener("click", () => {
+							const allTabs = tabList.querySelectorAll(
+								'[role="tab"][data-tab^="tab-"]',
+							);
+							allTabs.forEach((t) => {
+								t.classList.remove(
+									"cosy-code-container__tab--active",
+								);
+								t.setAttribute("aria-selected", "false");
+							});
+							tab.classList.add("cosy-code-container__tab--active");
+							tab.setAttribute("aria-selected", "true");
+
+							const targetId = tab.getAttribute("data-tab");
+							if (!targetId) return;
+
+							const codeToggle = container.querySelector(
+								'[data-toggle="code"]',
+							);
+							const isCodeView =
+								codeToggle?.getAttribute("aria-checked") === "true";
+
+							container.dispatchEvent(
+								new CustomEvent("tab-change", {
+									detail: { targetId, isCodeView },
+									bubbles: true,
+								}),
+							);
+						});
+					});
+			});
+	}
+
+	/* ---------- ButtonCodeToggle ---------- */
+	function initializeCodeToggle() {
+		document
+			.querySelectorAll('[data-toggle="code"]')
+			.forEach((toggle) => {
+				if (toggle.hasAttribute("data-toggle-initialized")) return;
+				toggle.setAttribute("data-toggle-initialized", "true");
+
+				toggle.addEventListener("click", () => {
+					const container = toggle.closest(
+						'[data-role="code-container"]',
+					);
+					if (!container) return;
+
+					const isChecked =
+						toggle.getAttribute("aria-checked") === "true";
+					const newState = !isChecked;
+					toggle.setAttribute(
+						"aria-checked",
+						newState ? "true" : "false",
+					);
+					// Button 组件通过 --primary / --ghost 修饰符控制样式
+					toggle.classList.toggle("cosy-btn--primary", newState);
+					toggle.classList.toggle("cosy-btn--ghost", !newState);
+
+					const activeTab = container.querySelector(
+						'[role="tab"].cosy-code-container__tab--active',
+					);
+					const activeTabId = activeTab
+						? activeTab.getAttribute("data-tab")
+						: "tab-1";
+
+					const previewContainer = container.querySelector(
+						'[data-example="preview"]',
+					);
+					const codePanels = container.querySelectorAll(
+						".cosy-code-container__panel",
+					);
+
+					if (newState) {
+						if (previewContainer) {
+							previewContainer.classList.add(
+								"cosy-code-container__hidden",
+							);
+						}
+						codePanels.forEach((panel) => {
+							if (
+								panel.getAttribute("data-code-panel") ===
+								activeTabId
+							) {
+								panel.classList.remove(
+									"cosy-code-container__hidden",
+								);
+							}
+						});
+					} else {
+						if (previewContainer) {
+							previewContainer.classList.remove(
+								"cosy-code-container__hidden",
+							);
+						}
+						codePanels.forEach((panel) => {
+							panel.classList.add(
+								"cosy-code-container__hidden",
+							);
+						});
+					}
+				});
+			});
+	}
+
+	/* ---------- ButtonCopyCode ---------- */
+	function initializeCopyCode() {
+		document
+			.querySelectorAll('[data-copy-btn]')
+			.forEach((button) => {
+				if (button.hasAttribute("data-copy-initialized")) return;
+				button.setAttribute("data-copy-initialized", "true");
+
+				button.addEventListener("click", () => {
+					const container = button.closest(
+						'[data-role="code-container"]',
+					);
+					if (!container) return;
+
+					const activeTab = container.querySelector(
+						'[role="tab"].cosy-code-container__tab--active',
+					);
+					const activeTabId = activeTab
+						? activeTab.getAttribute("data-tab")
+						: "tab-1";
+
+					const codePanel = container.querySelector(
+						`[data-code-panel="${activeTabId}"]`,
+					);
+					if (!codePanel) return;
+
+					const codeElement = codePanel.querySelector("code");
+					if (!codeElement) return;
+
+					const code = codeElement.textContent || "";
+					navigator.clipboard.writeText(code).then(() => {
+						const toast = button.parentElement.querySelector(
+							".cosy-code-container__toast",
+						);
+						if (toast) {
+							toast.style.opacity = "1";
+							toast.style.display = "block";
+							setTimeout(() => {
+								toast.style.opacity = "0";
+								setTimeout(() => {
+									toast.style.display = "none";
+								}, 200);
+							}, 2000);
+						}
+					});
+				});
+			});
+	}
+
+	/* ---------- 容器事件：mode-change / tab-change ---------- */
+	function handleModeChange(event) {
+		const { label: targetLabel, groups } = event.detail;
+		const container = event.target;
+
+		const targetGroupContents = groups[targetLabel] || [];
+		const firstTabId = targetGroupContents[0]?.id;
+
+		const allContents = Array.from(
+			container.querySelectorAll('[id^="tab-"]'),
+		);
+		allContents.forEach((content) => {
+			if (content.id === firstTabId) {
+				content.classList.remove("cosy-code-container__hidden");
+			} else {
+				content.classList.add("cosy-code-container__hidden");
+			}
+		});
+
+		const previewContainer = container.querySelector(
+			'[data-example="preview"]',
+		);
+		const isCodeView =
+			previewContainer &&
+			previewContainer.classList.contains(
+				"cosy-code-container__hidden",
+			);
+
+		if (isCodeView && firstTabId) {
+			container
+				.querySelectorAll(".cosy-code-container__panel")
+				.forEach((panel) => {
+					if (
+						panel.getAttribute("data-code-panel") === firstTabId
+					) {
+						panel.classList.remove("cosy-code-container__hidden");
+					} else {
+						panel.classList.add("cosy-code-container__hidden");
+					}
+				});
+		}
+
+		// 更新标签按钮
+		const groupContents = groups[targetLabel] || [];
+		const tabs = container.querySelectorAll(
+			'[role="tab"][data-tab^="tab-"]',
+		);
+		tabs.forEach((tab) => {
+			const targetId = tab.getAttribute("data-tab");
+			const targetContent = groupContents.find(
+				(c) => c.id === targetId,
+			);
+			if (targetContent) {
+				tab.classList.remove("cosy-code-container__hidden");
+			} else {
+				tab.classList.add("cosy-code-container__hidden");
+			}
+		});
+
+		if (groupContents.length > 0) {
+			const firstContent = groupContents[0];
+			const firstTab = container.querySelector(
+				`[data-tab="${firstContent.id}"]`,
+			);
+			if (firstTab) {
+				tabs.forEach((t) =>
+					t.classList.remove("cosy-code-container__tab--active"),
+				);
+				firstTab.classList.add("cosy-code-container__tab--active");
+			}
+		}
+	}
+
+	function handleTabChange(event) {
+		const { targetId, isCodeView } = event.detail;
+		const container = event.target;
+
+		if (isCodeView) {
+			container
+				.querySelectorAll(".cosy-code-container__panel")
+				.forEach((panel) => {
+					if (
+						panel.getAttribute("data-code-panel") === targetId
+					) {
+						panel.classList.remove("cosy-code-container__hidden");
+					} else {
+						panel.classList.add("cosy-code-container__hidden");
+					}
+				});
+		}
+
+		const allContent = container.querySelectorAll('[id^="tab-"]');
+		allContent.forEach((content) => {
+			if (content.id === targetId) {
+				content.classList.remove("cosy-code-container__hidden");
+			} else {
+				content.classList.add("cosy-code-container__hidden");
+			}
+		});
+	}
+
+	/* ---------- 启动 ---------- */
+	document.addEventListener("astro:page-load", () => {
+		initializeCodeContainer();
+		initializeModeSwitcher();
+		initializeTabList();
+		initializeCodeToggle();
+		initializeCopyCode();
+
+		document
+			.querySelectorAll('[data-role="code-container"]')
+			.forEach((container) => {
+				if (container.hasAttribute("data-events-bound")) return;
+				container.setAttribute("data-events-bound", "true");
+				container.addEventListener("mode-change", handleModeChange);
+				container.addEventListener("tab-change", handleTabChange);
+			});
+	});
+</script>
+
+<style is:global>
+	/* CodeContainer - 原生 CSS 实现（daisyUI corporate 主题色） */
+	.cosy-code-container {
+		--cosy-code-container-base-100: #ffffff;
+		--cosy-code-container-base-200: #e9e9e9;
+		--cosy-code-container-base-300: #d7d7d7;
+		--cosy-code-container-base-content: #1d1d1d;
+		--cosy-code-container-primary: #4b6bfb;
+
+		box-sizing: border-box;
+		width: 100%;
+		margin-bottom: 2rem;
+		border: 1px solid var(--cosy-code-container-base-300);
+		border-radius: 0.5rem;
+		background: var(--cosy-code-container-base-100);
+		color: var(--cosy-code-container-base-content);
+		overflow: hidden;
+	}
+
+	.cosy-code-container__hidden {
+		display: none !important;
+	}
+
+	/* 工具栏 */
+	.cosy-code-container__toolbar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0 1rem;
+		background: var(--cosy-code-container-base-200);
+	}
+
+	.cosy-code-container__tabs {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.cosy-code-container__tab {
+		padding: 0.5rem 0;
+		border: none;
+		background: transparent;
+		color: var(--cosy-code-container-base-content);
+		font-size: 0.875rem;
+		cursor: pointer;
+		border-bottom: 2px solid transparent;
+		transition: color 0.15s ease, border-color 0.15s ease;
+	}
+	.cosy-code-container__tab:hover {
+		color: var(--cosy-code-container-primary);
+	}
+	.cosy-code-container__tab--active {
+		color: var(--cosy-code-container-primary);
+		border-bottom-color: var(--cosy-code-container-primary);
+		font-weight: 600;
+	}
+
+	.cosy-code-container__actions {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.cosy-code-container__copy-wrap {
+		position: relative;
+		display: inline-block;
+	}
+
+	.cosy-code-container__toast {
+		display: none;
+		position: absolute;
+		top: -2.5rem;
+		left: 50%;
+		transform: translateX(-50%);
+		background: #22c55e;
+		color: #fff;
+		padding: 0.25rem 0.75rem;
+		border-radius: 0.5rem;
+		font-size: 0.875rem;
+		white-space: nowrap;
+		z-index: 10;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+		pointer-events: none;
+		opacity: 0;
+		transition: opacity 0.2s;
+	}
+
+	/* dot-grid 背景 */
+	.cosy-code-container__dot-grid {
+		position: relative;
+		isolation: isolate;
+		background-color: #f3f4f6;
+	}
+	.cosy-code-container__dot-grid::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		pointer-events: none;
+		background-image: radial-gradient(
+			rgba(0, 0, 0, 0.08) 1px,
+			transparent 1px
+		);
+		background-size: 8px 8px;
+		background-position: 0 0;
+		background-repeat: repeat;
+	}
+	@media (prefers-color-scheme: dark) {
+		.cosy-code-container__dot-grid {
+			background-color: #111111;
+		}
+		.cosy-code-container__dot-grid::before {
+			background-image: radial-gradient(
+				rgba(255, 255, 255, 0.14) 1px,
+				transparent 1px
+			);
+		}
+	}
+
+	/* 预览 */
+	.cosy-code-container__preview {
+		display: block;
+		position: relative;
+	}
+	.cosy-code-container__preview-inner {
+		position: relative;
+		padding: 1rem;
+		border-radius: 0 0 0.5rem 0.5rem;
+	}
+	.cosy-code-container__preview-area {
+		position: relative;
+		z-index: 0;
+	}
+	.cosy-code-container__preview-area--pb {
+		padding-bottom: 4rem;
+	}
+
+	/* 代码面板 */
+	.cosy-code-container__panel-inner {
+		position: relative;
+		padding: 1rem;
+		border-radius: 0 0 0.5rem 0.5rem;
+	}
+
+	/* 模式切换器 */
+	.cosy-code-container__mode-switcher-wrap {
+		position: absolute;
+		bottom: 0.5rem;
+		right: 0.5rem;
+		z-index: 10;
+	}
+	.cosy-code-container__mode-switcher {
+		display: none;
+		gap: 0.5rem;
+		align-items: center;
+		padding: 0.5rem 0.75rem;
+		background: rgba(255, 255, 255, 0.9);
+		backdrop-filter: blur(4px);
+		border: 1px solid var(--cosy-code-container-base-300);
+		border-radius: 0.5rem;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+	}
+	.cosy-code-container__mode-switcher--visible {
+		display: flex;
+	}
+
+	.cosy-code-container__mode-btn {
+		padding: 0.25rem 0.75rem;
+		border: 1px solid transparent;
+		border-radius: 0.375rem;
+		background: transparent;
+		color: var(--cosy-code-container-base-content);
+		font-size: 0.875rem;
+		cursor: pointer;
+		transition: background-color 0.15s ease, color 0.15s ease;
+	}
+	.cosy-code-container__mode-btn:hover {
+		background: color-mix(in srgb, currentColor 10%, transparent);
+	}
+	.cosy-code-container__mode-btn--active {
+		background: var(--cosy-code-container-primary);
+		color: #fff;
+	}
+
+	/* 预览区域样式重置 */
+	.cosy-code-container__reset-styles {
+		all: initial;
+		font-family:
+			system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+			"Helvetica Neue", Arial, sans-serif;
+		font-size: 14px;
+		line-height: 1.5;
+		color: #374151;
+		display: block;
+		box-sizing: border-box;
+		isolation: isolate;
+		contain: layout style;
+	}
+	.cosy-code-container__reset-styles * {
+		all: unset;
+		display: revert;
+		box-sizing: border-box;
+	}
+	.cosy-code-container__reset-styles h1,
+	.cosy-code-container__reset-styles h2,
+	.cosy-code-container__reset-styles h3,
+	.cosy-code-container__reset-styles h4,
+	.cosy-code-container__reset-styles h5,
+	.cosy-code-container__reset-styles h6 {
+		font-weight: bold;
+		margin-bottom: 0.5em;
+	}
+	.cosy-code-container__reset-styles p {
+		margin-bottom: 1em;
+	}
+	.cosy-code-container__reset-styles ul,
+	.cosy-code-container__reset-styles ol {
+		padding-left: 1.5em;
+		margin-bottom: 1em;
+	}
+	.cosy-code-container__reset-styles li {
+		margin-bottom: 0.25em;
+	}
+</style>

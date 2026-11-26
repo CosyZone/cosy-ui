@@ -1,0 +1,312 @@
+---
+/**
+ * @component Sidebar
+ *
+ * @description
+ * Sidebar 组件用于文档页面的侧边栏导航，自动适配移动端和桌面端。
+ * 桌面端显示固定侧边栏，移动端通过 Modal 弹出。
+ *
+ * @usage
+ * ```astro
+ * const sidebarItems = [
+ *   { title: "入门", href: "/docs", items: [
+ *     { href: "/docs/getting-started", text: "快速开始" },
+ *     { href: "/docs/installation", text: "安装" }
+ *   ]}
+ * ];
+ * <Sidebar sidebarItems={sidebarItems} />
+ * ```
+ *
+ * @props
+ * @prop {ISidebarItem[]} sidebarItems - 侧边栏项目
+ * @prop {string} [class] - 自定义类名
+ * @prop {boolean} [debug=false] - 是否开启调试模式
+ */
+
+import type { HTMLAttributes } from "astro/types";
+import Modal from "./Modal.astro";
+import { isPathMatch } from "../internal/utils/path";
+
+export interface ISidebarItem {
+	href: string;
+	text: string;
+	items?: ISidebarItem[];
+	badge?: string | number;
+}
+
+export interface ISidebarProps extends Omit<HTMLAttributes<"aside">, "class"> {
+	/** 侧边栏项目 */
+	sidebarItems: ISidebarItem[];
+	/** 自定义类名 */
+	class?: string;
+	/** 是否开启调试模式 @default false */
+	debug?: boolean;
+}
+
+const { sidebarItems, class: className = "", debug = false } = Astro.props as ISidebarProps;
+
+const currentPath = Astro.url.pathname;
+
+/** 检查是否有子导航项会被高亮 */
+function hasActiveChild(items: ISidebarItem[] | undefined, path: string): boolean {
+	if (!items || items.length === 0) return false;
+	return items.some(
+		(sub) => isPathMatch(path, sub.href) || hasActiveChild(sub.items, path),
+	);
+}
+
+/** 检查同级兄弟节点中是否有更长的匹配项 */
+function hasLongerSiblingMatch(
+	siblings: ISidebarItem[],
+	current: ISidebarItem,
+	path: string,
+): boolean {
+	if (!siblings.length) return false;
+	const currentLen = current.href.length;
+	return siblings.some(
+		(s) =>
+			s.href !== current.href &&
+			isPathMatch(path, s.href) &&
+			s.href.length > currentLen,
+	);
+}
+
+/** 递归渲染导航项 */
+function renderNavItem(
+	item: ISidebarItem,
+	path: string,
+	level: number,
+	siblings: ISidebarItem[],
+): string {
+	const activeChild = hasActiveChild(item.items, path);
+	const longerSibling = hasLongerSiblingMatch(siblings, item, path);
+	const isActive =
+		isPathMatch(path, item.href) && !activeChild && !longerSibling;
+
+	const badgeHtml =
+		item.badge !== undefined && item.badge !== null
+			? `<span class="cosy-sidebar__badge ${level === 0 ? "cosy-sidebar__badge--sm" : "cosy-sidebar__badge--xs"}">${item.badge}</span>`
+			: "";
+
+	const childrenHtml =
+		item.items && item.items.length > 0
+			? `<ul class="cosy-sidebar__sub-list">${item.items
+					.map((sub) => renderNavItem(sub, path, level + 1, item.items!))
+					.join("")}</ul>`
+			: "";
+
+	return `
+		<li class="cosy-sidebar__item ${level === 0 ? "cosy-sidebar__item--top" : ""}">
+			<a
+				href="${item.href}"
+				class="cosy-sidebar__link ${isActive ? "cosy-sidebar__link--active" : ""}"
+			>
+				${item.text}${badgeHtml}
+			</a>
+			${childrenHtml}
+		</li>
+	`;
+}
+
+/** 渲染整个侧边栏导航 */
+function renderSidebarNav(items: ISidebarItem[], path: string, showHeading = true): string {
+	return items
+		.map((section) => {
+			const headingHtml = showHeading
+				? `<h5 class="cosy-sidebar__section-title">${section.text}</h5>`
+				: "";
+			const listHtml = section.items?.length
+				? `<ul class="cosy-sidebar__list">${section.items
+						.map((item) => renderNavItem(item, path, 0, section.items || []))
+						.join("")}</ul>`
+				: "";
+			return `<div class="cosy-sidebar__section">${headingHtml}${listHtml}</div>`;
+		})
+		.join("");
+}
+
+const desktopNavHtml = renderSidebarNav(sidebarItems, currentPath, true);
+const mobileNavHtml = renderSidebarNav(sidebarItems, currentPath, false);
+
+const debugClass = debug ? "cosy-sidebar--debug" : "";
+
+// 移动端 Modal 标题
+let mobileTitle = "";
+let mobileTitleHref = "";
+if (sidebarItems.length > 0) {
+	mobileTitle = sidebarItems[0].text;
+	mobileTitleHref = sidebarItems[0].href;
+}
+---
+
+{/* 桌面端侧边栏 */}
+<aside
+	data-desktop-sidebar
+	class={`cosy-sidebar cosy-sidebar--desktop ${debugClass} ${className}`}
+>
+	<nav class="cosy-sidebar__nav" set:html={desktopNavHtml} />
+</aside>
+
+{/* 移动端侧边栏弹出层 */}
+<Modal
+	id="mobile-sidebar"
+	title={mobileTitle}
+	titleHref={mobileTitleHref}
+	class="cosy-sidebar__mobile-modal"
+>
+	<div class="cosy-sidebar__mobile-content" data-mobile-sidebar-content>
+		<nav set:html={mobileNavHtml} />
+	</div>
+</Modal>
+
+<style is:global>
+	/* Sidebar - 原生 CSS 实现 */
+	.cosy-sidebar {
+		--cosy-sidebar-base-100: #ffffff;
+		--cosy-sidebar-base-200: #e9e9e9;
+		--cosy-sidebar-base-300: #d7d7d7;
+		--cosy-sidebar-primary: #4b6bfb;
+		--cosy-sidebar-base-content: #1d1d1d;
+
+		box-sizing: border-box;
+		height: 100%;
+		overflow-y: auto;
+		background: var(--cosy-sidebar-base-200);
+		color: var(--cosy-sidebar-base-content);
+	}
+
+	.cosy-sidebar--desktop {
+		display: none;
+		width: 15rem;
+		padding: 0 1rem;
+	}
+
+	@media (min-width: 1024px) {
+		.cosy-sidebar--desktop {
+			display: block;
+		}
+	}
+
+	.cosy-sidebar--debug {
+		border: 1px solid #dc2626;
+	}
+
+	/* 导航 */
+	.cosy-sidebar__nav {
+		padding: 0;
+	}
+
+	.cosy-sidebar__section {
+		margin-bottom: 1rem;
+	}
+
+	.cosy-sidebar__section-title {
+		margin: 0.75rem 0;
+		padding: 0.5rem;
+		font-weight: 700;
+		font-size: 0.875rem;
+		text-align: center;
+		text-decoration: none;
+		color: inherit;
+		display: block;
+	}
+
+	.cosy-sidebar__list,
+	.cosy-sidebar__sub-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		width: 100%;
+	}
+
+	.cosy-sidebar__sub-list {
+		padding-left: 0.75rem;
+	}
+
+	.cosy-sidebar__item--top > .cosy-sidebar__link {
+		font-weight: 600;
+	}
+
+	.cosy-sidebar__link {
+		display: flex;
+		align-items: center;
+		padding: 0.5rem 0.75rem;
+		border-radius: 0.375rem;
+		text-decoration: none;
+		color: inherit;
+		font-size: 0.875rem;
+		transition: background-color 0.15s ease;
+	}
+
+	.cosy-sidebar__link:hover {
+		background: var(--cosy-sidebar-base-300);
+	}
+
+	.cosy-sidebar__link--active {
+		background: color-mix(in srgb, var(--cosy-sidebar-primary) 15%, transparent);
+		color: var(--cosy-sidebar-primary);
+		font-weight: 600;
+	}
+
+	/* 徽标 */
+	.cosy-sidebar__badge {
+		display: inline-flex;
+		align-items: center;
+		margin-left: 0.5rem;
+		padding: 0.125rem 0.5rem;
+		border-radius: 9999px;
+		background: color-mix(in srgb, var(--cosy-sidebar-primary) 15%, transparent);
+		color: var(--cosy-sidebar-primary);
+		font-size: 0.75rem;
+		font-weight: 600;
+	}
+
+	.cosy-sidebar__badge--sm {
+		font-size: 0.75rem;
+	}
+
+	.cosy-sidebar__badge--xs {
+		font-size: 0.625rem;
+	}
+
+	/* 移动端 */
+	.cosy-sidebar__mobile-content {
+		height: calc(100vh - 8rem);
+		overflow-y: auto;
+	}
+</style>
+
+<script>
+	function saveScrollPosition(container: Element | null, key: string) {
+		if (container) localStorage.setItem(key, String(container.scrollTop));
+	}
+
+	function restoreScrollPosition(container: Element | null, key: string) {
+		if (container) {
+			const saved = localStorage.getItem(key);
+			if (saved) container.scrollTop = parseInt(saved, 10);
+		}
+	}
+
+	document.addEventListener("astro:before-preparation", () => {
+		saveScrollPosition(document.querySelector("[data-desktop-sidebar]"), "sidebarScrollPosition");
+		saveScrollPosition(document.querySelector("[data-mobile-sidebar-content]"), "mobileSidebarScrollPosition");
+	});
+
+	document.addEventListener("astro:page-load", () => {
+		restoreScrollPosition(document.querySelector("[data-desktop-sidebar]"), "sidebarScrollPosition");
+		restoreScrollPosition(document.querySelector("[data-mobile-sidebar-content]"), "mobileSidebarScrollPosition");
+	});
+
+	// 点击导航项时更新高亮
+	document.addEventListener("click", (event) => {
+		const target = event.target as HTMLElement;
+		const navItem = target.closest("[data-sidebar-item]") as HTMLAnchorElement | null;
+		if (navItem) {
+			document
+				.querySelectorAll(".cosy-sidebar__link--active")
+				.forEach((el) => el.classList.remove("cosy-sidebar__link--active"));
+			navItem.classList.add("cosy-sidebar__link--active");
+		}
+	});
+</script>

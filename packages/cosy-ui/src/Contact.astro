@@ -1,0 +1,247 @@
+---
+/**
+ * @component Contact
+ *
+ * @description
+ * Contact 组件用于展示企业或个人的联系信息，支持多种联系方式（邮件、电话、地址）和社交媒体链接。
+ *
+ * @usage
+ * 基本用法：
+ * ```astro
+ * <Contact
+ *   email="contact@company.com"
+ *   phone="+1 (555) 123-4567"
+ *   address="123 Business St, City"
+ * />
+ * ```
+ *
+ * 带社交媒体链接：
+ * ```astro
+ * <Contact
+ *   email="contact@company.com"
+ *   github="https://github.com/company"
+ *   twitter="https://twitter.com/company"
+ * />
+ * ```
+ *
+ * @props
+ * @param {string} [address] - 地址信息
+ * @param {string} [background] - 背景色类型
+ * @param {string} [class] - 自定义CSS类
+ * @param {boolean} [compact] - 是否使用紧凑模式
+ * @param {string} [description] - 联系信息描述
+ * @param {string} [email] - 电子邮件地址
+ * @param {string} [facebook] - Facebook链接
+ * @param {string} [github] - GitHub链接
+ * @param {string} [linkedin] - LinkedIn链接
+ * @param {string} [phone] - 电话号码
+ * @param {string} [title] - 联系信息标题
+ * @param {string} [twitter] - Twitter链接
+ * @param {any} [wechatQR] - 微信二维码图片源
+ * @param {any} [whatsappQR] - WhatsApp 二维码图片源
+ *
+ * @slots
+ * @slot default - 额外的联系信息内容
+ */
+import Card from "./Card.astro";
+import Link from "./Link.astro";
+import {
+	FacebookIcon,
+	GithubIcon,
+	LinkedinIcon,
+	MailIcon,
+	MapPinIcon,
+	PhoneIcon,
+	TwitterIcon,
+	WechatIcon,
+	WhatsappIcon,
+} from "../icons";
+
+export interface ContactProps {
+	address?: string;
+	background?: string;
+	class?: string;
+	compact?: boolean;
+	description?: string;
+	email?: string;
+	facebook?: string;
+	github?: string;
+	linkedin?: string;
+	phone?: string;
+	title?: string;
+	twitter?: string;
+	wechatQR?: any;
+	whatsappQR?: any;
+}
+
+const {
+	address,
+	background = "base-100",
+	compact = false,
+	description,
+	email,
+	facebook,
+	github,
+	linkedin,
+	phone,
+	title,
+	twitter,
+	wechatQR,
+	whatsappQR,
+	class: className = "",
+} = Astro.props as ContactProps;
+
+const contactClass = ["cosy-contact", className].filter(Boolean).join(" ");
+
+const hasSocial = github || twitter || facebook || linkedin || wechatQR || whatsappQR;
+---
+
+<Card
+	title={title}
+	subtitle={description}
+	compact={compact}
+	background={background}
+	padding="none"
+	class={contactClass}>
+	<div class="cosy-contact__list">
+		{
+			address && (
+				<div class="cosy-contact__item">
+					<MapPinIcon class="cosy-contact__item-icon" />
+					<span class="cosy-contact__item-text">{address}</span>
+				</div>
+			)
+		}
+		{
+			email && (
+				<div class="cosy-contact__item">
+					<MailIcon class="cosy-contact__item-icon" />
+					<Link href={`mailto:${email}`} external={false} variant="text" noUnderline={false}>
+						{email}
+					</Link>
+				</div>
+			)
+		}
+		{
+			phone && (
+				<div class="cosy-contact__item">
+					<PhoneIcon class="cosy-contact__item-icon" />
+					<Link href={`tel:${phone}`} external={false} variant="text" noUnderline={false}>
+						{phone}
+					</Link>
+				</div>
+			)
+		}
+	</div>
+
+	{
+		Astro.slots.has("default") && (
+			<div class="cosy-contact__extra">
+				<slot />
+			</div>
+		)
+	}
+
+	{
+		hasSocial && (
+			<div class="cosy-contact__socials">
+				{github && (
+					<Link href={github} external class="cosy-contact__social" aria-label="GitHub">
+						<GithubIcon />
+					</Link>
+				)}
+				{twitter && (
+					<Link href={twitter} external class="cosy-contact__social" aria-label="Twitter">
+						<TwitterIcon />
+					</Link>
+				)}
+				{facebook && (
+					<Link href={facebook} external class="cosy-contact__social" aria-label="Facebook">
+						<FacebookIcon />
+					</Link>
+				)}
+				{linkedin && (
+					<Link href={linkedin} external class="cosy-contact__social" aria-label="LinkedIn">
+						<LinkedinIcon />
+					</Link>
+				)}
+				{wechatQR && (
+					<Link href="#" external={false} class="cosy-contact__social" aria-label="微信">
+						<WechatIcon />
+					</Link>
+				)}
+				{whatsappQR && (
+					<Link href="#" external={false} class="cosy-contact__social" aria-label="WhatsApp">
+						<WhatsappIcon />
+					</Link>
+				)}
+			</div>
+		)
+	}
+</Card>
+
+<style is:global>
+    /* Contact - 原生 CSS 实现（corporate 主题色） */
+    .cosy-contact {
+        --cosy-contact-primary: #4b6bfb;
+        --cosy-contact-content: #1d1d1d;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 200ms ease, background-color 200ms ease;
+    }
+    .cosy-contact:hover {
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        background: #e9e9e9;
+    }
+
+    .cosy-contact__list {
+        display: flex;
+        flex-direction: column;
+    }
+    .cosy-contact__item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+        transition: background-color 200ms ease, border-radius 200ms ease, transform 200ms ease;
+    }
+    .cosy-contact__item:last-child {
+        margin-bottom: 0;
+    }
+    .cosy-contact__item:hover {
+        background: color-mix(in srgb, #e9e9e9 50%, transparent);
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+        margin-left: -0.5rem;
+    }
+    .cosy-contact__item-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+        color: var(--cosy-contact-primary);
+        flex-shrink: 0;
+        transition: transform 200ms ease, color 200ms ease;
+    }
+    .cosy-contact__item:hover .cosy-contact__item-icon {
+        transform: scale(1.1);
+        color: color-mix(in srgb, var(--cosy-contact-primary) 80%, transparent);
+    }
+    .cosy-contact__item-text {
+        color: var(--cosy-contact-content);
+    }
+
+    .cosy-contact__extra {
+        margin-top: 1rem;
+    }
+
+    .cosy-contact__socials {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+    .cosy-contact__social {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem;
+        border-radius: 9999px;
+    }
+</style>

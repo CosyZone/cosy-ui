@@ -1,0 +1,240 @@
+---
+/**
+ * @component LanguageSwitcher
+ *
+ * @description
+ * LanguageSwitcher 组件提供一个语言切换下拉菜单，适用于使用 [lang] 动态路由的多语言网站。
+ *
+ * **URL 生成规则**：
+ * - 为每个语言生成格式为 `/{locale}{path}` 的 URL
+ * - 例如：`/zh-cn/manuals`、`/en/manuals`
+ * - 根路径：`/zh-cn`、`/en`
+ *
+ * @props
+ * - locales - 必填，支持的语言列表，如：['zh-cn', 'en']
+ * - class - 自定义CSS类名
+ *
+ * @example
+ * ```astro
+ * <LanguageSwitcher locales={['zh-cn', 'en']} />
+ * ```
+ */
+
+import { GlobeIcon, ChevronDownIcon } from "../icons";
+import Link from "./Link.astro";
+import { LanguageUtil } from "../internal/utils/language";
+
+interface Props {
+	/** 必填：支持的语言列表，例如：['zh-cn', 'en'] */
+	locales: string[];
+	/** 自定义类名 */
+	class?: string;
+}
+
+/** 语言切换链接（组件自包含定义） */
+interface SwitcherLink {
+	locale: string;
+	name: string;
+	url: string;
+}
+
+/**
+ * 获取路径部分（去除语言前缀）
+ */
+function getPathWithoutLocale(
+	pathname: string,
+	locales: string[],
+): string {
+	const normalizedPath =
+		pathname.endsWith("/") && pathname !== "/"
+			? pathname.slice(0, -1)
+			: pathname;
+
+	if (normalizedPath === "/" || normalizedPath === "") {
+		return "";
+	}
+
+	for (const locale of locales) {
+		const prefix = `/${locale}`;
+		if (normalizedPath === prefix) return "";
+		if (normalizedPath.startsWith(`${prefix}/`)) {
+			return normalizedPath.slice(prefix.length);
+		}
+	}
+
+	return normalizedPath;
+}
+
+/**
+ * 生成语言切换链接
+ */
+function generateSwitcherLinks(
+	_currentLocale: string,
+	pathname: string,
+	locales: string[],
+): SwitcherLink[] {
+	if (locales.length === 0) {
+		console.warn("LanguageSwitcher: locales array is empty");
+		return [];
+	}
+
+	const pathWithoutLocale = getPathWithoutLocale(pathname, locales);
+
+	return locales.map((locale) => {
+		const basePath = `/${locale}${pathWithoutLocale}`;
+		const url =
+			basePath.endsWith("/") && basePath !== `/${locale}/`
+				? basePath.slice(0, -1)
+				: basePath === `/${locale}/`
+					? `/${locale}`
+					: basePath;
+
+		return {
+			locale,
+			name: LanguageUtil.getLanguageName(locale),
+			url,
+		};
+	});
+}
+
+const { locales, class: className = "" } = Astro.props as Props;
+
+if (!locales || locales.length === 0) {
+	throw new Error(
+		"LanguageSwitcher: locales prop is required and must not be empty",
+	);
+}
+
+if (!Astro.currentLocale) {
+	throw new Error(
+		"LanguageSwitcher: Astro.currentLocale is not defined. Make sure i18n is configured.",
+	);
+}
+
+let links: SwitcherLink[] = [];
+try {
+	links = generateSwitcherLinks(
+		Astro.currentLocale,
+		Astro.url.pathname,
+		locales,
+	);
+} catch (error) {
+	console.error("LanguageSwitcher: Failed to generate links:", error);
+	throw error;
+}
+
+const dropdownClass = [
+	"cosy-language-switcher",
+	className || "",
+]
+	.filter(Boolean)
+	.join(" ");
+
+const currentName = links.find((l) => l.locale === Astro.currentLocale)?.name;
+---
+
+{
+	links.length > 0 && (
+		<div class={dropdownClass}>
+			<button
+				type="button"
+				tabindex="0"
+				class="cosy-language-switcher__trigger"
+				aria-haspopup="true">
+				<GlobeIcon size="16px" class="cosy-language-switcher__icon" />
+				<span class="cosy-language-switcher__label">{currentName}</span>
+				<ChevronDownIcon size="16px" class="cosy-language-switcher__chevron" />
+			</button>
+			<ul tabindex="0" class="cosy-language-switcher__menu">
+				{links.map((link) => (
+					<li class="cosy-language-switcher__item">
+						<Link
+							href={link.url}
+							active={Astro.currentLocale === link.locale}>
+							{link.name}
+						</Link>
+					</li>
+				))}
+			</ul>
+		</div>
+	)
+}
+
+<style is:global>
+	/* LanguageSwitcher - 原生 CSS 实现（daisyUI corporate 主题色） */
+	.cosy-language-switcher {
+		--cosy-language-switcher-base-100: #ffffff;
+		--cosy-language-switcher-base-content: #1d1d1d;
+
+		position: relative;
+		display: inline-block;
+		color: var(--cosy-language-switcher-base-content);
+		font-family:
+			system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+			"Helvetica Neue", Arial, sans-serif;
+	}
+
+	.cosy-language-switcher__trigger {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
+		height: 2.5rem;
+		padding: 0 0.75rem;
+		border: none;
+		border-radius: 0.5rem;
+		background: transparent;
+		color: var(--cosy-language-switcher-base-content);
+		font-size: 0.875rem;
+		cursor: pointer;
+		transition: background-color 0.15s ease;
+	}
+	.cosy-language-switcher__trigger:hover {
+		background: color-mix(in srgb, currentColor 10%, transparent);
+	}
+
+	.cosy-language-switcher__icon {
+		width: 1rem;
+		height: 1rem;
+		margin-right: 0.25rem;
+	}
+
+	.cosy-language-switcher__label {
+		margin-right: 0.25rem;
+		display: none;
+	}
+	@media (min-width: 640px) {
+		.cosy-language-switcher__label {
+			display: inline;
+		}
+	}
+
+	.cosy-language-switcher__chevron {
+		width: 1rem;
+		height: 1rem;
+	}
+
+	.cosy-language-switcher__menu {
+		position: absolute;
+		right: 0;
+		z-index: 1;
+		min-width: 8rem;
+		margin: 0.25rem 0 0;
+		padding: 0.5rem;
+		list-style: none;
+		background: var(--cosy-language-switcher-base-100);
+		border-radius: 0.5rem;
+		box-shadow:
+			0 1px 3px rgba(0, 0, 0, 0.1),
+			0 10px 25px rgba(0, 0, 0, 0.1);
+		display: none;
+	}
+	.cosy-language-switcher__trigger:focus + .cosy-language-switcher__menu,
+	.cosy-language-switcher__menu:focus,
+	.cosy-language-switcher:hover .cosy-language-switcher__menu {
+		display: block;
+	}
+
+	.cosy-language-switcher__item {
+		margin: 0;
+	}
+</style>

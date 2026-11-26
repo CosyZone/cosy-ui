@@ -7,9 +7,10 @@ const root = path.resolve(import.meta.dirname, "..");
 
 const targets = {
 	"packages/cosy-ui": [
-		"package/dist/index-astro.ts",
-		"package/dist/src-astro/index.ts",
-		"package/dist/src-astro/app.css",
+		"package/dist/index.ts",
+		"package/dist/src/Button.astro",
+		"package/dist/icons.ts",
+		"package/dist/app.css",
 	],
 	"packages/cosy-ui-vue": [
 		"package/dist/index.ts",

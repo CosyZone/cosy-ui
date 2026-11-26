@@ -13,8 +13,12 @@ const rootDir = path.resolve(__dirname, "..");
  */
 async function copyComponents() {
 	const copies = [
-		{ from: "src-astro", to: "dist/src-astro" },
-		{ from: "index-astro.ts", to: "dist/index-astro.ts" },
+		{ from: "index.ts", to: "dist/index.ts" },
+		{ from: "icons.ts", to: "dist/icons.ts" },
+		{ from: "MainFactory.ts", to: "dist/MainFactory.ts" },
+		{ from: "env.d.ts", to: "dist/env.d.ts" },
+		{ from: "src", to: "dist/src" },
+		{ from: "internal", to: "dist/internal" },
 	];
 
 	console.log("📦 开始复制组件源码...");
@@ -44,15 +48,14 @@ async function copyComponents() {
 /**
  * 使用 Vite 构建 CSS
  */
-async function buildCSS(platform: "src-astro" = "src-astro") {
-	console.log(`🎨 构建 ${platform} 样式文件...`);
+async function buildCSS() {
+	console.log("🎨 构建样式文件...");
 
-	// 每个平台使用自己的入口样式和本地 CSS 文件。
-	const tempDir = path.resolve(rootDir, "temp", platform);
+	const tempDir = path.resolve(rootDir, "temp", "src");
 	// 确保 temp 目录存在
 	fs.ensureDirSync(tempDir);
 	const tempStylePath = path.resolve(tempDir, "style.ts");
-	const tempStyleContent = 'import "../../src-astro/app.css";';
+	const tempStyleContent = 'import "../../app.css";';
 	writeFileSync(tempStylePath, tempStyleContent, "utf-8");
 
 	const config: InlineConfig = {
@@ -63,7 +66,7 @@ async function buildCSS(platform: "src-astro" = "src-astro") {
 			rollupOptions: {
 				input: tempStylePath,
 				output: {
-					assetFileNames: `${platform}/app.css`,
+					assetFileNames: "app.css",
 				},
 			},
 		},
@@ -87,8 +90,8 @@ async function build() {
 		await fs.emptyDir(path.resolve(rootDir, "dist"));
 		console.log("✅ dist 目录已清空\n");
 
-		// 2. 构建 Astro 平台本地样式，产物由入口导入
-		await buildCSS("src-astro");
+		// 2. 构建样式，产物由入口导入
+		await buildCSS();
 
 		console.log();
 

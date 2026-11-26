@@ -1,0 +1,331 @@
+---
+/**
+ * @component InstallTabs
+ *
+ * @description
+ * 展示多个包管理器（npm、pnpm、yarn等）的安装命令，支持标签切换和一键复制。
+ * 只需传入包名即可自动生成各包管理器的安装命令。
+ *
+ * @props
+ * @prop {string} packageName - 要安装的包名
+ * @prop {string[]} [managers=['npm','pnpm','yarn']] - 支持的包管理器
+ * @prop {boolean} [dev=false] - 是否为开发依赖
+ *
+ * @usage
+ * ```astro
+ * <InstallTabs packageName="react" />
+ * <InstallTabs packageName="vite" dev />
+ * <InstallTabs packageName="eslint" managers={["npm","yarn"]} />
+ * ```
+ */
+
+import CodePanel from "./CodePanel.astro";
+import { ClipboardIcon } from "../icons";
+
+/**
+ * InstallTabs 组件属性（组件自包含定义）
+ */
+export interface InstallTabsProps {
+	/** 要安装的包名 */
+	packageName: string;
+	/** 支持的包管理器，默认['npm','pnpm','yarn'] */
+	managers?: string[];
+	/** 是否为开发依赖 */
+	dev?: boolean;
+}
+
+const {
+	packageName,
+	managers = ["npm", "pnpm", "yarn"],
+	dev = false,
+} = Astro.props as InstallTabsProps;
+
+const managerLabels: Record<string, string> = {
+	npm: "npm",
+	pnpm: "pnpm",
+	yarn: "yarn",
+};
+
+function getCommand(manager: string, pkg: string, dev: boolean): string {
+	switch (manager) {
+		case "npm":
+			return `npm install${dev ? " -D" : ""} ${pkg}`;
+		case "pnpm":
+			return `pnpm add${dev ? " -D" : ""} ${pkg}`;
+		case "yarn":
+			return `yarn add${dev ? " -D" : ""} ${pkg}`;
+		default:
+			return "";
+	}
+}
+
+const commands = managers.map((m) => getCommand(m, packageName, dev));
+---
+
+<div class="cosy-install-tabs" data-role="install-tabs">
+	<div class="cosy-install-tabs__toolbar">
+		<div role="tablist" class="cosy-install-tabs__tabs">
+			{
+				managers.map((manager, idx) => (
+					<button
+						role="tab"
+						class={`cosy-install-tabs__tab${idx === 0 ? " cosy-install-tabs__tab--active" : ""}`}
+						data-tab={`tab-${idx + 1}`}
+						aria-selected={idx === 0 ? "true" : "false"}
+						type="button">
+						{managerLabels[manager] ?? manager}
+					</button>
+				))
+			}
+		</div>
+		<div class="cosy-install-tabs__copy-group">
+			{
+				commands.map((cmd, idx) => (
+					<div
+						class={`cosy-install-tabs__copy-container${idx === 0 ? "" : " cosy-install-tabs__copy-container--hidden"}`}
+						data-copy-container={`tab-${idx + 1}`}>
+						<button
+							class="cosy-install-tabs__copy-btn"
+							type="button"
+							aria-label="复制安装命令"
+							data-code={cmd}>
+							<span class="cosy-install-tabs__copy-icon">
+								<ClipboardIcon />
+							</span>
+							<span
+								class="cosy-install-tabs__toast"
+								role="status"
+								aria-live="polite">
+								复制成功 ✓
+							</span>
+						</button>
+					</div>
+				))
+			}
+		</div>
+	</div>
+	{
+		commands.map((cmd, idx) => (
+			<div
+				class={`cosy-install-tabs__panel${idx === 0 ? "" : " cosy-install-tabs__panel--hidden"}`}
+				data-panel={`tab-${idx + 1}`}>
+				<CodePanel code={cmd} language="bash" theme="dark-plus" />
+			</div>
+		))
+	}
+</div>
+
+<script>
+	function initializeInstallTabs() {
+		document
+			.querySelectorAll<HTMLElement>('[data-role="install-tabs"]')
+			.forEach((container) => {
+				if (container.hasAttribute("data-initialized")) return;
+				container.setAttribute("data-initialized", "true");
+
+				// 标签切换（事件委托）
+				container.addEventListener("click", (event) => {
+					const target = event.target as HTMLElement;
+					const tab = target.closest<HTMLElement>(
+						'[role="tab"][data-tab^="tab-"]',
+					);
+					if (!tab) return;
+
+					const targetTab = tab.getAttribute("data-tab");
+					if (!targetTab) return;
+
+					container
+						.querySelectorAll('[role="tab"][data-tab^="tab-"]')
+						.forEach((t) => {
+							t.classList.remove("cosy-install-tabs__tab--active");
+							t.setAttribute("aria-selected", "false");
+						});
+					tab.classList.add("cosy-install-tabs__tab--active");
+					tab.setAttribute("aria-selected", "true");
+
+					container
+						.querySelectorAll(".cosy-install-tabs__panel")
+						.forEach((panel) => {
+							if (panel.getAttribute("data-panel") === targetTab) {
+								panel.classList.remove(
+									"cosy-install-tabs__panel--hidden",
+								);
+							} else {
+								panel.classList.add(
+									"cosy-install-tabs__panel--hidden",
+								);
+							}
+						});
+
+					container
+						.querySelectorAll(".cosy-install-tabs__copy-container")
+						.forEach((copyContainer) => {
+							if (
+								copyContainer.getAttribute("data-copy-container") ===
+								targetTab
+							) {
+								copyContainer.classList.remove(
+									"cosy-install-tabs__copy-container--hidden",
+								);
+							} else {
+								copyContainer.classList.add(
+									"cosy-install-tabs__copy-container--hidden",
+								);
+							}
+						});
+				});
+
+				// 复制按钮（事件委托）
+				container
+					.querySelectorAll<HTMLButtonElement>(".cosy-install-tabs__copy-btn")
+					.forEach((btn) => {
+						if (btn.hasAttribute("data-copy-initialized")) return;
+						btn.setAttribute("data-copy-initialized", "true");
+
+						btn.addEventListener("click", () => {
+							const code = btn.getAttribute("data-code") || "";
+							const toast = btn.querySelector<HTMLElement>(
+								".cosy-install-tabs__toast",
+							);
+
+							navigator.clipboard.writeText(code).then(() => {
+								if (toast) {
+									document.body.appendChild(toast);
+									toast.style.display = "block";
+									toast.style.opacity = "1";
+
+									setTimeout(() => {
+										toast.style.opacity = "0";
+										setTimeout(() => {
+											toast.style.display = "none";
+											btn.appendChild(toast);
+										}, 200);
+									}, 2000);
+								}
+							});
+						});
+					});
+			});
+	}
+
+	document.addEventListener("astro:page-load", initializeInstallTabs);
+</script>
+
+<style is:global>
+	/* InstallTabs - 原生 CSS 实现（daisyUI corporate 主题色） */
+	.cosy-install-tabs {
+		--cosy-install-tabs-base-100: #ffffff;
+		--cosy-install-tabs-base-200: #e9e9e9;
+		--cosy-install-tabs-base-300: #d7d7d7;
+		--cosy-install-tabs-base-content: #1d1d1d;
+		--cosy-install-tabs-primary: #4b6bfb;
+		--cosy-install-tabs-success: #16a34a;
+
+		box-sizing: border-box;
+		width: 100%;
+		margin-bottom: 2rem;
+		border: 1px solid var(--cosy-install-tabs-base-300);
+		border-radius: 0.5rem;
+		background: var(--cosy-install-tabs-base-100);
+		color: var(--cosy-install-tabs-base-content);
+		overflow: hidden;
+	}
+
+	.cosy-install-tabs__toolbar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0 1rem;
+		background: var(--cosy-install-tabs-base-200);
+	}
+
+	.cosy-install-tabs__tabs {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.cosy-install-tabs__tab {
+		padding: 0.5rem 0;
+		border: none;
+		background: transparent;
+		color: var(--cosy-install-tabs-base-content);
+		font-size: 0.875rem;
+		cursor: pointer;
+		border-bottom: 2px solid transparent;
+		transition: color 0.15s ease, border-color 0.15s ease;
+	}
+	.cosy-install-tabs__tab:hover {
+		color: var(--cosy-install-tabs-primary);
+	}
+	.cosy-install-tabs__tab--active {
+		color: var(--cosy-install-tabs-primary);
+		border-bottom-color: var(--cosy-install-tabs-primary);
+		font-weight: 600;
+	}
+
+	.cosy-install-tabs__copy-group {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.cosy-install-tabs__copy-container {
+		display: block;
+	}
+	.cosy-install-tabs__copy-container--hidden {
+		display: none;
+	}
+
+	.cosy-install-tabs__copy-btn {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		height: 2rem;
+		padding: 0 0.75rem;
+		border: none;
+		border-radius: 0.5rem;
+		background: transparent;
+		color: var(--cosy-install-tabs-base-content);
+		font-size: 0.875rem;
+		cursor: pointer;
+		transition: background-color 0.15s ease;
+	}
+	.cosy-install-tabs__copy-btn:hover {
+		background: color-mix(in srgb, currentColor 10%, transparent);
+	}
+
+	.cosy-install-tabs__copy-icon {
+		display: inline-flex;
+		width: 1rem;
+		height: 1rem;
+	}
+
+	.cosy-install-tabs__toast {
+		display: none;
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background: var(--cosy-install-tabs-success);
+		color: #fff;
+		padding: 0.75rem 1.25rem;
+		border-radius: 0.5rem;
+		font-size: 0.875rem;
+		font-weight: 500;
+		white-space: nowrap;
+		z-index: 99999;
+		box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+		pointer-events: none;
+		transition: opacity 0.2s ease;
+	}
+
+	.cosy-install-tabs__panel {
+		display: block;
+		padding: 0.75rem 1rem;
+	}
+	.cosy-install-tabs__panel--hidden {
+		display: none;
+	}
+</style>

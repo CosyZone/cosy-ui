@@ -13,7 +13,8 @@ const OUT_DIR = "/tmp/cosy-native";
 const TOKEN_RE = /cosy:[A-Za-z0-9:_/.\[\]%#(),!-]+/g;
 
 const SOURCE_DIRS = [
-	"packages/cosy-ui/src-astro",
+	"packages/cosy-ui/src",
+	"packages/cosy-ui/internal",
 	"packages/cosy-ui-vue/src",
 	"packages/cosy-docs/src",
 	"packages/cosy-docs/content",

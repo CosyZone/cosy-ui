@@ -1,0 +1,73 @@
+---
+/**
+ * @component BaseLayout
+ *
+ * @description
+ * BaseLayout 组件是最基础的 HTML 结构布局，提供完整的 HTML 骨架和元数据设置。
+ * 它是所有页面布局的基础，处理了基本的 HTML 结构、元数据和全局样式。
+ */
+
+import type { IMetaProps } from '../internal/common/meta';
+import {
+    getBackgroundClass,
+    type BackgroundColor,
+} from '../internal/common/backgrounds';
+import BaseLayoutHtml from './BaseLayoutHtml.astro';
+import type { ThemeId } from '../internal/common/themes';
+
+export interface Props extends IMetaProps {
+    /** 兼容父布局向 head 插槽传递自定义内容 */
+    head?: any;
+    /** 是否只渲染 body 部分，用于文档展示等场景 */
+    bodyOnly?: boolean;
+    /**
+     * 主题设置
+     * @default 'default'
+     */
+    theme?: ThemeId;
+    /**
+     * 是否启用 Astro ClientRouter
+     * @default true
+     */
+    enableClientRouter?: boolean;
+}
+
+const {
+    title,
+    description = '',
+    keywords = '',
+    author = '',
+    lang = 'zh-CN',
+    viewport = true,
+    customStyles = '',
+    favicon,
+    background = 'base-100',
+    theme = 'default',
+    bodyOnly = false,
+    enableClientRouter = true,
+    head,
+} = Astro.props;
+
+// 处理类名
+const backgroundClass = getBackgroundClass(background as BackgroundColor);
+const bodyClasses = [backgroundClass].filter(Boolean).join(' ');
+---
+
+<BaseLayoutHtml
+    title={title}
+    description={description}
+    keywords={keywords}
+    author={author}
+    lang={lang}
+    theme={theme}
+    viewport={viewport}
+    customStyles={customStyles}
+    favicon={favicon}
+    bodyClasses={bodyClasses}
+    bodyOnly={bodyOnly}
+    enableClientRouter={enableClientRouter}>
+    <!-- 自定义头部内容 -->
+    <slot name="head" slot="head">{head}</slot>
+
+    <slot />
+</BaseLayoutHtml>

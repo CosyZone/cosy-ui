@@ -1,13 +1,13 @@
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import { describe, expect, it } from "vitest";
-import Badge from "../src-astro/Badge.astro";
-import Button from "../src-astro/Button.astro";
-import Card from "../src-astro/Card.astro";
-import Container from "../src-astro/Container.astro";
-import Heading from "../src-astro/Heading.astro";
-import MathFormula from "../src-astro/MathFormula.astro";
-import TableOfContents from "../src-astro/TableOfContents.astro";
-import Text from "../src-astro/Text.astro";
+import Badge from "../src/Badge.astro";
+import Button from "../src/Button.astro";
+import Card from "../src/Card.astro";
+import Container from "../src/Container.astro";
+import Heading from "../src/Heading.astro";
+import MathFormula from "../src/MathFormula.astro";
+import TableOfContents from "../src/TableOfContents.astro";
+import Text from "../src/Text.astro";
 
 describe("cosy-ui server rendering", () => {
 	it("renders Button with its BEM root class", async () => {
