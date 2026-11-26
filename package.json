@@ -17,15 +17,11 @@
 		"test": "pnpm --filter @coffic/cosy-ui test && pnpm --filter @coffic/cosy-ui-vue test",
 		"verify:pack": "node scripts/verify-pack.mjs",
 		"verify:css": "node scripts/native-css/check-coverage.mjs",
-		"format": "biome lint --write ./ && biome format --write ./",
 		"deploy:docs:cloudflare": "pnpm --filter @coffic/cosy-docs deploy:cloudflare"
 	},
 	"workspaces": [
 		"packages/*"
 	],
-	"devDependencies": {
-		"@biomejs/biome": "^2.3.10"
-	},
 	"engines": {
 		"node": ">=23.0.0",
 		"pnpm": ">=10.0.0"
