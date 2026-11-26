@@ -107,9 +107,9 @@ const bgColorVarMap: Record<string, string> = {
 	secondary: "#7b92b2",
 	accent: "#67baa3",
 	neutral: "#181a2a",
-	"base-100": "#ffffff",
-	"base-200": "#e9e9e9",
-	"base-300": "#d7d7d7",
+	"base-100": "var(--color-base-100, #ffffff)",
+	"base-200": "var(--color-base-200, #e9e9e9)",
+	"base-300": "var(--color-base-300, #d7d7d7)",
 	success: "#16a34a",
 	warning: "#d97706",
 	error: "#dc2626",
@@ -117,16 +117,16 @@ const bgColorVarMap: Record<string, string> = {
 };
 
 function resolveCardBg(bg?: BackgroundColor): string {
-	if (!bg) return "background-color: #e9e9e9;";
+	if (!bg) return "background-color: var(--color-base-200, #e9e9e9);";
 	// 渐变背景直接忽略，使用默认
 	if (bg.startsWith("gradient") || bg.startsWith("dot-") || bg === "glassmorphism" || bg === "noise") {
-		return "background-color: #e9e9e9;";
+		return "background-color: var(--color-base-200, #e9e9e9);";
 	}
 	const idx = bg.indexOf("/");
 	const name = idx >= 0 ? bg.slice(0, idx) : bg;
 	const op = idx >= 0 ? bg.slice(idx + 1) : "";
 	const color = bgColorVarMap[name];
-	if (!color) return "background-color: #e9e9e9;";
+	if (!color) return "background-color: var(--color-base-200, #e9e9e9);";
 	if (!op) return `background-color: ${color};`;
 	return `background-color: color-mix(in srgb, ${color} ${op}%, transparent);`;
 }

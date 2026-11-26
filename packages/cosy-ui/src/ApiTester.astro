@@ -663,15 +663,15 @@ const rootClass = ["cosy-api-test", className || ""].filter(Boolean).join(" ");
 <style is:global>
 	/* ApiTester - 原生 CSS 实现（daisyUI corporate 主题色） */
 	.cosy-api-test {
-		--cosy-api-test-primary: #4b6bfb;
-		--cosy-api-test-base-100: #ffffff;
-		--cosy-api-test-base-200: #e9e9e9;
-		--cosy-api-test-base-300: #d7d7d7;
-		--cosy-api-test-base-content: #1d1d1d;
-		--cosy-api-test-info: #2563eb;
-		--cosy-api-test-success: #16a34a;
-		--cosy-api-test-warning: #d97706;
-		--cosy-api-test-error: #dc2626;
+		--cosy-api-test-primary: var(--color-primary, #4b6bfb);
+		--cosy-api-test-base-100: var(--color-base-100, #ffffff);
+		--cosy-api-test-base-200: var(--color-base-200, #e9e9e9);
+		--cosy-api-test-base-300: var(--color-base-300, #d7d7d7);
+		--cosy-api-test-base-content: var(--color-base-content, #1d1d1d);
+		--cosy-api-test-info: var(--color-info, #2563eb);
+		--cosy-api-test-success: var(--color-success, #16a34a);
+		--cosy-api-test-warning: var(--color-warning, #d97706);
+		--cosy-api-test-error: var(--color-error, #dc2626);
 
 		box-sizing: border-box;
 		width: 100%;

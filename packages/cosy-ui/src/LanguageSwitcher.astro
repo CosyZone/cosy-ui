@@ -163,8 +163,8 @@ const currentName = links.find((l) => l.locale === Astro.currentLocale)?.name;
 <style is:global>
 	/* LanguageSwitcher - 原生 CSS 实现（daisyUI corporate 主题色） */
 	.cosy-language-switcher {
-		--cosy-language-switcher-base-100: #ffffff;
-		--cosy-language-switcher-base-content: #1d1d1d;
+		--cosy-language-switcher-base-100: var(--color-base-100, #ffffff);
+		--cosy-language-switcher-base-content: var(--color-base-content, #1d1d1d);
 
 		position: relative;
 		display: inline-block;

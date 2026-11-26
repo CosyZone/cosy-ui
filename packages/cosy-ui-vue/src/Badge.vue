@@ -66,15 +66,15 @@
 <style>
   /* Badge - 原生 CSS 实现（与 Badge.astro 一致） */
   .cosy-badge {
-    --cosy-badge-primary: #4b6bfb;
-    --cosy-badge-secondary: #7b92b2;
-    --cosy-badge-accent: #67baa3;
-    --cosy-badge-neutral: #181a2a;
-    --cosy-badge-base-content: #1d1d1d;
-    --cosy-badge-info: #2563eb;
-    --cosy-badge-success: #16a34a;
-    --cosy-badge-warning: #d97706;
-    --cosy-badge-error: #dc2626;
+    --cosy-badge-primary: var(--color-primary, #4b6bfb);
+    --cosy-badge-secondary: var(--color-secondary, #7b92b2);
+    --cosy-badge-accent: var(--color-accent, #67baa3);
+    --cosy-badge-neutral: var(--color-neutral, #181a2a);
+    --cosy-badge-base-content: var(--color-base-content, #1d1d1d);
+    --cosy-badge-info: var(--color-info, #2563eb);
+    --cosy-badge-success: var(--color-success, #16a34a);
+    --cosy-badge-warning: var(--color-warning, #d97706);
+    --cosy-badge-error: var(--color-error, #dc2626);
 
     --cosy-badge-bg: transparent;
     --cosy-badge-color: var(--cosy-badge-base-content);
@@ -105,37 +105,37 @@
 
   .cosy-badge--primary {
     --cosy-badge-bg: var(--cosy-badge-primary);
-    --cosy-badge-color: #fff;
+    --cosy-badge-color: var(--color-primary-content, #fff);
     --cosy-badge-border: var(--cosy-badge-primary);
   }
   .cosy-badge--secondary {
     --cosy-badge-bg: var(--cosy-badge-secondary);
-    --cosy-badge-color: #fff;
+    --cosy-badge-color: var(--color-secondary-content, #fff);
     --cosy-badge-border: var(--cosy-badge-secondary);
   }
   .cosy-badge--accent {
     --cosy-badge-bg: var(--cosy-badge-accent);
-    --cosy-badge-color: var(--cosy-badge-base-content);
+    --cosy-badge-color: var(--color-accent-content, #1d1d1d);
     --cosy-badge-border: var(--cosy-badge-accent);
   }
   .cosy-badge--info {
     --cosy-badge-bg: var(--cosy-badge-info);
-    --cosy-badge-color: #fff;
+    --cosy-badge-color: var(--color-info-content, #fff);
     --cosy-badge-border: var(--cosy-badge-info);
   }
   .cosy-badge--success {
     --cosy-badge-bg: var(--cosy-badge-success);
-    --cosy-badge-color: #fff;
+    --cosy-badge-color: var(--color-success-content, #fff);
     --cosy-badge-border: var(--cosy-badge-success);
   }
   .cosy-badge--warning {
     --cosy-badge-bg: var(--cosy-badge-warning);
-    --cosy-badge-color: #fff;
+    --cosy-badge-color: var(--color-warning-content, #fff);
     --cosy-badge-border: var(--cosy-badge-warning);
   }
   .cosy-badge--error {
     --cosy-badge-bg: var(--cosy-badge-error);
-    --cosy-badge-color: #fff;
+    --cosy-badge-color: var(--color-error-content, #fff);
     --cosy-badge-border: var(--cosy-badge-error);
   }
 

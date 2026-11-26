@@ -297,18 +297,18 @@ const fitWidthStyle = computed(() => {
 <style>
 	/* Container - 原生 CSS 实现（与 Container.astro 一致，daisyui corporate 主题色） */
 	.cosy-container {
-		--cosy-container-primary: #4b6bfb;
-		--cosy-container-secondary: #7b92b2;
-		--cosy-container-accent: #67baa3;
-		--cosy-container-neutral: #181a2a;
-		--cosy-container-base-100: #ffffff;
-		--cosy-container-base-200: #e9e9e9;
-		--cosy-container-base-300: #d7d7d7;
-		--cosy-container-base-content: #1d1d1d;
-		--cosy-container-info: #2563eb;
-		--cosy-container-success: #16a34a;
-		--cosy-container-warning: #d97706;
-		--cosy-container-error: #dc2626;
+		--cosy-container-primary: var(--color-primary, #4b6bfb);
+		--cosy-container-secondary: var(--color-secondary, #7b92b2);
+		--cosy-container-accent: var(--color-accent, #67baa3);
+		--cosy-container-neutral: var(--color-neutral, #181a2a);
+		--cosy-container-base-100: var(--color-base-100, #ffffff);
+		--cosy-container-base-200: var(--color-base-200, #e9e9e9);
+		--cosy-container-base-300: var(--color-base-300, #d7d7d7);
+		--cosy-container-base-content: var(--color-base-content, #1d1d1d);
+		--cosy-container-info: var(--color-info, #2563eb);
+		--cosy-container-success: var(--color-success, #16a34a);
+		--cosy-container-warning: var(--color-warning, #d97706);
+		--cosy-container-error: var(--color-error, #dc2626);
 		--cosy-container-transparent: transparent;
 
 		--cosy-container-bg: transparent;

@@ -119,7 +119,7 @@ type ShadowSize = string;
 <style is:global>
     /* TeamMember - 原生 CSS 实现（corporate 主题色） */
     .cosy-team-member {
-        --cosy-team-member-content: #1d1d1d;
+        --cosy-team-member-content: var(--color-base-content, #1d1d1d);
         transition: box-shadow 300ms ease;
     }
     .cosy-team-member:hover {
@@ -169,6 +169,6 @@ type ShadowSize = string;
         border-radius: 9999px;
     }
     .cosy-team-member__social-link:hover {
-        background: #e9e9e9;
+        background: var(--color-base-200, #e9e9e9);
     }
 </style>

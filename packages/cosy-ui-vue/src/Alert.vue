@@ -204,11 +204,12 @@ Alert 组件用于向用户显示重要的提示信息，支持多种类型的�
 <style>
   /* Alert - 原生 CSS 实现（与 Alert.astro 一致） */
   .cosy-alert {
-    --cosy-alert-info: #2563eb;
-    --cosy-alert-success: #16a34a;
-    --cosy-alert-warning: #d97706;
-    --cosy-alert-error: #dc2626;
+    --cosy-alert-info: var(--color-info, #2563eb);
+    --cosy-alert-success: var(--color-success, #16a34a);
+    --cosy-alert-warning: var(--color-warning, #d97706);
+    --cosy-alert-error: var(--color-error, #dc2626);
     --cosy-alert-bg: var(--cosy-alert-info);
+        --cosy-alert-content: var(--color-info-content, #fff);
 
     box-sizing: border-box;
     display: flex;
@@ -217,19 +218,19 @@ Alert 组件用于向用户显示重要的提示信息，支持多种类型的�
     border-radius: 1rem;
     font-size: 0.875rem;
     line-height: 1.5;
-    color: #fff;
+    color: var(--cosy-alert-content, #fff);
     border: 1px solid transparent;
     background: var(--cosy-alert-bg);
   }
 
-  .cosy-alert--info { --cosy-alert-bg: var(--cosy-alert-info); }
-  .cosy-alert--success { --cosy-alert-bg: var(--cosy-alert-success); }
-  .cosy-alert--warning { --cosy-alert-bg: var(--cosy-alert-warning); }
-  .cosy-alert--error { --cosy-alert-bg: var(--cosy-alert-error); }
+  .cosy-alert--info { --cosy-alert-bg: var(--cosy-alert-info); --cosy-alert-content: var(--color-info-content, #fff); }
+  .cosy-alert--success { --cosy-alert-bg: var(--cosy-alert-success); --cosy-alert-content: var(--color-success-content, #fff); }
+  .cosy-alert--warning { --cosy-alert-bg: var(--cosy-alert-warning); --cosy-alert-content: var(--color-warning-content, #fff); }
+  .cosy-alert--error { --cosy-alert-bg: var(--cosy-alert-error); --cosy-alert-content: var(--color-error-content, #fff); }
 
   .cosy-alert--solid {
     background: var(--cosy-alert-bg);
-    color: #fff;
+    color: var(--cosy-alert-content, #fff);
   }
   .cosy-alert--outline {
     background: transparent;

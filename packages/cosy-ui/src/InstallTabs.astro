@@ -214,12 +214,12 @@ const commands = managers.map((m) => getCommand(m, packageName, dev));
 <style is:global>
 	/* InstallTabs - 原生 CSS 实现（daisyUI corporate 主题色） */
 	.cosy-install-tabs {
-		--cosy-install-tabs-base-100: #ffffff;
-		--cosy-install-tabs-base-200: #e9e9e9;
-		--cosy-install-tabs-base-300: #d7d7d7;
-		--cosy-install-tabs-base-content: #1d1d1d;
-		--cosy-install-tabs-primary: #4b6bfb;
-		--cosy-install-tabs-success: #16a34a;
+		--cosy-install-tabs-base-100: var(--color-base-100, #ffffff);
+		--cosy-install-tabs-base-200: var(--color-base-200, #e9e9e9);
+		--cosy-install-tabs-base-300: var(--color-base-300, #d7d7d7);
+		--cosy-install-tabs-base-content: var(--color-base-content, #1d1d1d);
+		--cosy-install-tabs-primary: var(--color-primary, #4b6bfb);
+		--cosy-install-tabs-success: var(--color-success, #16a34a);
 
 		box-sizing: border-box;
 		width: 100%;
@@ -309,7 +309,7 @@ const commands = managers.map((m) => getCommand(m, packageName, dev));
 		left: 50%;
 		transform: translate(-50%, -50%);
 		background: var(--cosy-install-tabs-success);
-		color: #fff;
+		color: var(--color-success-content, #fff);
 		padding: 0.75rem 1.25rem;
 		border-radius: 0.5rem;
 		font-size: 0.875rem;

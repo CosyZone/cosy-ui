@@ -149,7 +149,7 @@
 <style>
   /* Card - 原生 CSS 实现（与 Card.astro 一致，daisyui corporate 主题色） */
   .cosy-card {
-    --cosy-card-base-content: #1d1d1d;
+    --cosy-card-base-content: var(--color-base-content, #1d1d1d);
 
     box-sizing: border-box;
     display: block;

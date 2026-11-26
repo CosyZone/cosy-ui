@@ -58,7 +58,7 @@ const { title, description, image, class: className = '' } = Astro.props as IMod
 <style is:global>
     /* Module - 原生 CSS 实现（daisyui corporate 主题色） */
     .cosy-module {
-        --cosy-module-base-content: #1d1d1d;
+        --cosy-module-base-content: var(--color-base-content, #1d1d1d);
 
         box-sizing: border-box;
         display: flex;

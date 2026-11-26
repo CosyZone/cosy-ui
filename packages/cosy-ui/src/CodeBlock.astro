@@ -136,10 +136,10 @@ const lineNumbers = Array.from({ length: lines.length }, (_, i) => i + 1);
 <style is:global>
 	/* CodeBlock - 原生 CSS 实现（daisyUI corporate 主题色） */
 	.cosy-code-block {
-		--cosy-code-block-base-100: #ffffff;
-		--cosy-code-block-base-200: #e9e9e9;
-		--cosy-code-block-base-300: #d7d7d7;
-		--cosy-code-block-base-content: #1d1d1d;
+		--cosy-code-block-base-100: var(--color-base-100, #ffffff);
+		--cosy-code-block-base-200: var(--color-base-200, #e9e9e9);
+		--cosy-code-block-base-300: var(--color-base-300, #d7d7d7);
+		--cosy-code-block-base-content: var(--color-base-content, #1d1d1d);
 
 		box-sizing: border-box;
 		width: 100%;

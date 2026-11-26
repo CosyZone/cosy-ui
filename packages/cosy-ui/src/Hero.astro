@@ -122,7 +122,7 @@ if (backgroundOverlay === "light") {
 } else if (backgroundOverlay === "dark") {
 	overlayStyle = `background-color: rgba(0,0,0,${safeOpacity});`;
 } else if (backgroundOverlay === "primary") {
-	overlayStyle = `background-color: #4b6bfb; opacity: ${safeOpacity};`;
+	overlayStyle = `background-color: var(--color-primary, #4b6bfb); opacity: ${safeOpacity};`;
 } else if (backgroundOverlay === "gradient") {
 	overlayStyle = `background-image: linear-gradient(135deg, #4b6bfb ${safeOpacity * 100}%, #7b92b2 ${safeOpacity * 100}%);`;
 }
@@ -215,8 +215,8 @@ type BackgroundColor = string;
 <style is:global>
     /* Hero - 原生 CSS 实现（corporate 主题色） */
     .cosy-hero {
-        --cosy-hero-primary: #4b6bfb;
-        --cosy-hero-content: #1d1d1d;
+        --cosy-hero-primary: var(--color-primary, #4b6bfb);
+        --cosy-hero-content: var(--color-base-content, #1d1d1d);
         position: relative;
         overflow: hidden;
     }

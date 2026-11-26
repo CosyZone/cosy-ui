@@ -90,11 +90,11 @@ const dialogHtml = `
 <style is:global>
     /* ConfirmDialog - 原生 CSS 实现（daisyUI corporate 主题色） */
     .cosy-confirm-dialog {
-        --cosy-cd-primary: #4b6bfb;
-        --cosy-cd-base-100: #ffffff;
-        --cosy-cd-base-200: #e9e9e9;
-        --cosy-cd-base-300: #d7d7d7;
-        --cosy-cd-base-content: #1d1d1d;
+        --cosy-cd-primary: var(--color-primary, #4b6bfb);
+        --cosy-cd-base-100: var(--color-base-100, #ffffff);
+        --cosy-cd-base-200: var(--color-base-200, #e9e9e9);
+        --cosy-cd-base-300: var(--color-base-300, #d7d7d7);
+        --cosy-cd-base-content: var(--color-base-content, #1d1d1d);
 
         /* 重置原生 dialog UA 样式 */
         border: none;

@@ -94,14 +94,14 @@
 <style>
   /* Avatar - 原生 CSS 实现（与 Avatar.astro 一致，daisyui corporate 主题色） */
   .cosy-avatar {
-    --cosy-avatar-primary: #4b6bfb;
-    --cosy-avatar-secondary: #7b92b2;
-    --cosy-avatar-accent: #67baa3;
-    --cosy-avatar-info: #2563eb;
-    --cosy-avatar-success: #16a34a;
-    --cosy-avatar-warning: #d97706;
-    --cosy-avatar-error: #dc2626;
-    --cosy-avatar-base-200: #e9e9e9;
+    --cosy-avatar-primary: var(--color-primary, #4b6bfb);
+    --cosy-avatar-secondary: var(--color-secondary, #7b92b2);
+    --cosy-avatar-accent: var(--color-accent, #67baa3);
+    --cosy-avatar-info: var(--color-info, #2563eb);
+    --cosy-avatar-success: var(--color-success, #16a34a);
+    --cosy-avatar-warning: var(--color-warning, #d97706);
+    --cosy-avatar-error: var(--color-error, #dc2626);
+    --cosy-avatar-base-200: var(--color-base-200, #e9e9e9);
 
     box-sizing: border-box;
     position: relative;

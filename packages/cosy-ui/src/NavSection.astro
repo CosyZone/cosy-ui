@@ -62,9 +62,9 @@ const navClasses = ["cosy-nav-section", className].filter(Boolean).join(" ");
 <style is:global>
 	/* NavSection - 原生 CSS 实现 */
 	.cosy-nav-section {
-		--cosy-nav-section-primary: #4b6bfb;
-		--cosy-nav-section-base-200: #e9e9e9;
-		--cosy-nav-section-base-300: #d7d7d7;
+		--cosy-nav-section-primary: var(--color-primary, #4b6bfb);
+		--cosy-nav-section-base-200: var(--color-base-200, #e9e9e9);
+		--cosy-nav-section-base-300: var(--color-base-300, #d7d7d7);
 
 		box-sizing: border-box;
 		display: flex;

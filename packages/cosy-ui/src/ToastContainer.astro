@@ -54,7 +54,7 @@
 
 	/* Toast 项（动态创建的元素同样使用以下样式） */
 	.cosy-toast {
-		--cosy-toast-color: #2563eb;
+		--cosy-toast-color: var(--color-info, #2563eb);
 
 		box-sizing: border-box;
 		display: flex;
@@ -79,16 +79,16 @@
 
 	/* 类型色 */
 	.cosy-toast--info {
-		--cosy-toast-color: #2563eb;
+		--cosy-toast-color: var(--color-info, #2563eb);
 	}
 	.cosy-toast--success {
-		--cosy-toast-color: #16a34a;
+		--cosy-toast-color: var(--color-success, #16a34a);
 	}
 	.cosy-toast--warning {
-		--cosy-toast-color: #d97706;
+		--cosy-toast-color: var(--color-warning, #d97706);
 	}
 	.cosy-toast--error {
-		--cosy-toast-color: #dc2626;
+		--cosy-toast-color: var(--color-error, #dc2626);
 	}
 
 	/* 入场/退场起始态：从右侧滑入 */

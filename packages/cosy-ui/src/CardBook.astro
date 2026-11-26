@@ -108,8 +108,8 @@ const inlineVars = `--cosy-card-book-max-w:${cfg.maxWidth};--cosy-card-book-figu
 <style is:global>
     /* CardBook - 原生 CSS 实现（daisyui corporate 主题色） */
     .cosy-card-book {
-        --cosy-card-book-base-200: #e9e9e9;
-        --cosy-card-book-base-content: #1d1d1d;
+        --cosy-card-book-base-200: var(--color-base-200, #e9e9e9);
+        --cosy-card-book-base-content: var(--color-base-content, #1d1d1d);
 
         box-sizing: border-box;
         display: flex;

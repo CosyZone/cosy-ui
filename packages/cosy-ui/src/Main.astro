@@ -176,7 +176,7 @@ const defaultSlotHtml = await Astro.slots.render("default");
 <style is:global>
 	/* Main - 原生 CSS 实现 */
 	.cosy-main {
-		--cosy-main-border-color: #d7d7d7;
+		--cosy-main-border-color: var(--color-base-300, #d7d7d7);
 
 		box-sizing: border-box;
 		width: 100%;

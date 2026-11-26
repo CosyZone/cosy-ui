@@ -59,10 +59,10 @@ const articleClass = ["cosy-article", widthClassMap[width], className].filter(Bo
 <style is:global>
     /* Article - 原生 CSS 排版（corporate 主题色） */
     .cosy-article {
-        --cosy-article-content: #1d1d1d;
-        --cosy-article-muted: #6b7280;
-        --cosy-article-primary: #4b6bfb;
-        --cosy-article-base-200: #e9e9e9;
+        --cosy-article-content: var(--color-base-content, #1d1d1d);
+        --cosy-article-muted: color-mix(in srgb, var(--color-base-content, #1d1d1d) 65%, transparent);
+        --cosy-article-primary: var(--color-primary, #4b6bfb);
+        --cosy-article-base-200: var(--color-base-200, #e9e9e9);
 
         box-sizing: border-box;
         display: block;
@@ -154,8 +154,8 @@ const articleClass = ["cosy-article", widthClassMap[width], className].filter(Bo
     .cosy-article pre {
         margin: 1.5rem 0;
         padding: 1rem;
-        background: #181a2a;
-        color: #e5e7eb;
+        background: var(--color-neutral, #181a2a);
+        color: var(--color-neutral-content, #e5e7eb);
         border-radius: 0.5rem;
         overflow-x: auto;
     }

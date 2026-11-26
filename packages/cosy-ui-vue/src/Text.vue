@@ -75,10 +75,10 @@
 <style>
   /* Text - 原生 CSS 实现（与 Text.astro 一致） */
   .cosy-text {
-    --cosy-text-primary: #4b6bfb;
-    --cosy-text-secondary: #7b92b2;
-    --cosy-text-accent: #67baa3;
-    --cosy-text-base-content: #1d1d1d;
+    --cosy-text-primary: var(--color-primary, #4b6bfb);
+    --cosy-text-secondary: var(--color-secondary, #7b92b2);
+    --cosy-text-accent: var(--color-accent, #67baa3);
+    --cosy-text-base-content: var(--color-base-content, #1d1d1d);
     margin-bottom: 1em;
     line-height: 1.5;
     color: var(--cosy-text-base-content);

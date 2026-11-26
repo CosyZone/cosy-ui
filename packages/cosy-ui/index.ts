@@ -1,5 +1,3 @@
-import "./app.css";
-
 // 通用配置与工具
 export * from "./internal/common";
 export * from "./internal/utils/i18n";

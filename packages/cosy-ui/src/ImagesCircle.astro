@@ -247,10 +247,10 @@ type BackgroundColor = string;
 		align-items: center;
 		justify-content: center;
 		padding: 2rem;
-		border: 2px dashed #d7d7d7;
+		border: 2px dashed var(--color-base-300, #d7d7d7);
 		border-radius: 0.5rem;
 		text-align: center;
-		color: #6b7280;
+		color: color-mix(in srgb, var(--color-base-content, #1d1d1d) 65%, transparent);
 	}
 	.cosy-images-circle__error-title {
 		font-size: 1.125rem;

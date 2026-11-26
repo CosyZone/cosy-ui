@@ -206,12 +206,12 @@ const { title, description, code } = Astro.props;
 <style is:global>
 	/* CodeExample - 原生 CSS 实现（daisyUI corporate 主题色） */
 	.cosy-code-example {
-		--cosy-code-example-base-100: #ffffff;
-		--cosy-code-example-base-200: #e9e9e9;
-		--cosy-code-example-base-300: #d7d7d7;
-		--cosy-code-example-base-content: #1d1d1d;
-		--cosy-code-example-primary: #4b6bfb;
-		--cosy-code-example-success: #16a34a;
+		--cosy-code-example-base-100: var(--color-base-100, #ffffff);
+		--cosy-code-example-base-200: var(--color-base-200, #e9e9e9);
+		--cosy-code-example-base-300: var(--color-base-300, #d7d7d7);
+		--cosy-code-example-base-content: var(--color-base-content, #1d1d1d);
+		--cosy-code-example-primary: var(--color-primary, #4b6bfb);
+		--cosy-code-example-success: var(--color-success, #16a34a);
 
 		box-sizing: border-box;
 		width: 100%;

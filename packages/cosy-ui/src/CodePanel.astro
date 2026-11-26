@@ -150,7 +150,8 @@ const containerClass = [
 	.cosy-code-panel {
 		width: 100%;
 		overflow-x: auto;
-		background: #d7d7d7;
+		background: var(--color-base-300, #d7d7d7);
+		color: var(--color-base-content, #1d1d1d);
 		border-radius: 0.5rem;
 		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
 			monospace;
@@ -158,10 +159,12 @@ const containerClass = [
 
 	.cosy-code-panel pre {
 		background: transparent !important;
+		color: inherit !important;
 		margin: 0 !important;
 		padding: 0 !important;
 	}
 	.cosy-code-panel pre code {
 		background: transparent !important;
+		color: inherit !important;
 	}
 </style>

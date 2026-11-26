@@ -104,7 +104,7 @@ const linkAttributes = computed(() => {
 </template>
 
 <style>
-  .cosy-link { --cosy-primary:#4b6bfb; --cosy-secondary:#7b92b2; --cosy-accent:#67baa3; --cosy-info:#2563eb; --cosy-success:#16a34a; --cosy-warning:#d97706; --cosy-error:#dc2626; --cosy-base-content:#1d1d1d; display:inline-flex; align-items:center; gap:.375rem; color:var(--cosy-primary); text-decoration:none; transition:opacity .2s, transform .2s, box-shadow .2s; }
+  .cosy-link { --cosy-primary: var(--color-primary, #4b6bfb); --cosy-secondary: var(--color-secondary, #7b92b2); --cosy-accent: var(--color-accent, #67baa3); --cosy-info: var(--color-info, #2563eb); --cosy-success: var(--color-success, #16a34a); --cosy-warning: var(--color-warning, #d97706); --cosy-error: var(--color-error, #dc2626); --cosy-base-content: var(--color-base-content, #1d1d1d); display:inline-flex; align-items:center; gap:.375rem; color:var(--cosy-primary); text-decoration:none; transition:opacity .2s, transform .2s, box-shadow .2s; }
   .cosy-link--variant-default { color:var(--cosy-primary); }
   .cosy-link--variant-primary { color:#fff; background:var(--cosy-primary); padding:.5rem 1rem; }
   .cosy-link--variant-secondary { color:var(--cosy-base-content); background:var(--cosy-secondary); padding:.5rem 1rem; }

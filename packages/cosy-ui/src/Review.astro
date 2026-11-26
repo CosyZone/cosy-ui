@@ -120,7 +120,7 @@ const formatDate = (dateString: string) => {
 <style is:global>
     /* Review - 原生 CSS 实现（corporate 主题色） */
     .cosy-review {
-        --cosy-review-content: #1d1d1d;
+        --cosy-review-content: var(--color-base-content, #1d1d1d);
     }
     .cosy-review__header {
         display: flex;
@@ -148,7 +148,7 @@ const formatDate = (dateString: string) => {
         margin-bottom: 0.75rem;
     }
     .cosy-review__star {
-        color: #d7d7d7;
+        color: var(--color-base-300, #d7d7d7);
     }
     .cosy-review__star--filled {
         color: #d97706;

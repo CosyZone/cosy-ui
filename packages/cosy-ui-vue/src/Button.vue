@@ -129,18 +129,18 @@
 <style>
   /* Button - 原生 CSS 实现（与 Button.astro 一致） */
   .cosy-btn {
-    --cosy-btn-primary: #4b6bfb;
-    --cosy-btn-secondary: #7b92b2;
-    --cosy-btn-accent: #67baa3;
-    --cosy-btn-neutral: #181a2a;
-    --cosy-btn-base-100: #ffffff;
-    --cosy-btn-base-200: #e9e9e9;
-    --cosy-btn-base-300: #d7d7d7;
-    --cosy-btn-base-content: #1d1d1d;
-    --cosy-btn-info: #2563eb;
-    --cosy-btn-success: #16a34a;
-    --cosy-btn-warning: #d97706;
-    --cosy-btn-error: #dc2626;
+    --cosy-btn-primary: var(--color-primary, #4b6bfb);
+    --cosy-btn-secondary: var(--color-secondary, #7b92b2);
+    --cosy-btn-accent: var(--color-accent, #67baa3);
+    --cosy-btn-neutral: var(--color-neutral, #181a2a);
+    --cosy-btn-base-100: var(--color-base-100, #ffffff);
+    --cosy-btn-base-200: var(--color-base-200, #e9e9e9);
+    --cosy-btn-base-300: var(--color-base-300, #d7d7d7);
+    --cosy-btn-base-content: var(--color-base-content, #1d1d1d);
+    --cosy-btn-info: var(--color-info, #2563eb);
+    --cosy-btn-success: var(--color-success, #16a34a);
+    --cosy-btn-warning: var(--color-warning, #d97706);
+    --cosy-btn-error: var(--color-error, #dc2626);
 
     --cosy-btn-bg: transparent;
     --cosy-btn-color: var(--cosy-btn-base-content);
@@ -187,42 +187,42 @@
 
   .cosy-btn--primary {
     --cosy-btn-bg: var(--cosy-btn-primary);
-    --cosy-btn-color: #fff;
+    --cosy-btn-color: var(--color-primary-content, #fff);
     --cosy-btn-border: var(--cosy-btn-primary);
   }
   .cosy-btn--secondary {
     --cosy-btn-bg: var(--cosy-btn-secondary);
-    --cosy-btn-color: #fff;
+    --cosy-btn-color: var(--color-secondary-content, #fff);
     --cosy-btn-border: var(--cosy-btn-secondary);
   }
   .cosy-btn--accent {
     --cosy-btn-bg: var(--cosy-btn-accent);
-    --cosy-btn-color: var(--cosy-btn-base-content);
+    --cosy-btn-color: var(--color-accent-content, #1d1d1d);
     --cosy-btn-border: var(--cosy-btn-accent);
   }
   .cosy-btn--neutral {
     --cosy-btn-bg: var(--cosy-btn-neutral);
-    --cosy-btn-color: #fff;
+    --cosy-btn-color: var(--color-neutral-content, #fff);
     --cosy-btn-border: var(--cosy-btn-neutral);
   }
   .cosy-btn--info {
     --cosy-btn-bg: var(--cosy-btn-info);
-    --cosy-btn-color: #fff;
+    --cosy-btn-color: var(--color-info-content, #fff);
     --cosy-btn-border: var(--cosy-btn-info);
   }
   .cosy-btn--success {
     --cosy-btn-bg: var(--cosy-btn-success);
-    --cosy-btn-color: #fff;
+    --cosy-btn-color: var(--color-success-content, #fff);
     --cosy-btn-border: var(--cosy-btn-success);
   }
   .cosy-btn--warning {
     --cosy-btn-bg: var(--cosy-btn-warning);
-    --cosy-btn-color: #fff;
+    --cosy-btn-color: var(--color-warning-content, #fff);
     --cosy-btn-border: var(--cosy-btn-warning);
   }
   .cosy-btn--error {
     --cosy-btn-bg: var(--cosy-btn-error);
-    --cosy-btn-color: #fff;
+    --cosy-btn-color: var(--color-error-content, #fff);
     --cosy-btn-border: var(--cosy-btn-error);
   }
 

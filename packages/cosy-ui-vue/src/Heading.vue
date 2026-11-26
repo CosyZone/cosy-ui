@@ -149,7 +149,7 @@
 </script>
 
 <style>
-  .cosy-heading { --cosy-heading-base-content:#1d1d1d; --cosy-heading-primary:#4b6bfb; --cosy-heading-secondary:#7b92b2; --cosy-heading-accent:#67baa3; line-height:1.2; scroll-margin-top:100px; color:var(--cosy-heading-base-content); }
+  .cosy-heading { --cosy-heading-base-content: var(--color-base-content, #1d1d1d); --cosy-heading-primary: var(--color-primary, #4b6bfb); --cosy-heading-secondary: var(--color-secondary, #7b92b2); --cosy-heading-accent: var(--color-accent, #67baa3); line-height:1.2; scroll-margin-top:100px; color:var(--cosy-heading-base-content); }
   .cosy-heading--h1 { font-size:2.25rem; font-weight:700; }
   .cosy-heading--h2 { font-size:1.875rem; font-weight:600; }
   .cosy-heading--h3 { font-size:1.5rem; font-weight:600; }

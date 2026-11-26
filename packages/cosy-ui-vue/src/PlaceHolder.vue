@@ -117,17 +117,17 @@ const combinedClass = computed(() =>
 <style>
   /* PlaceHolder - 原生 CSS 实现（与 Placeholder.astro 一致，daisyui corporate 主题色） */
   .cosy-placeholder {
-    --cosy-ph-primary: #4b6bfb;
-    --cosy-ph-secondary: #7b92b2;
-    --cosy-ph-accent: #67baa3;
-    --cosy-ph-neutral: #181a2a;
-    --cosy-ph-base-100: #ffffff;
-    --cosy-ph-base-200: #e9e9e9;
-    --cosy-ph-base-300: #d7d7d7;
-    --cosy-ph-info: #2563eb;
-    --cosy-ph-success: #16a34a;
-    --cosy-ph-warning: #d97706;
-    --cosy-ph-error: #dc2626;
+    --cosy-ph-primary: var(--color-primary, #4b6bfb);
+    --cosy-ph-secondary: var(--color-secondary, #7b92b2);
+    --cosy-ph-accent: var(--color-accent, #67baa3);
+    --cosy-ph-neutral: var(--color-neutral, #181a2a);
+    --cosy-ph-base-100: var(--color-base-100, #ffffff);
+    --cosy-ph-base-200: var(--color-base-200, #e9e9e9);
+    --cosy-ph-base-300: var(--color-base-300, #d7d7d7);
+    --cosy-ph-info: var(--color-info, #2563eb);
+    --cosy-ph-success: var(--color-success, #16a34a);
+    --cosy-ph-warning: var(--color-warning, #d97706);
+    --cosy-ph-error: var(--color-error, #dc2626);
 
     box-sizing: border-box;
     display: flex;

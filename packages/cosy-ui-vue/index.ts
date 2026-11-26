@@ -1,5 +1,3 @@
-import "./app.css";
-
 export * from "./internal/components/alert";
 // 导出组件，按照字母排序
 export * from "./internal/components/alert-dialog";

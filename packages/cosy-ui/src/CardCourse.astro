@@ -168,9 +168,9 @@ const rootVars = `--cosy-card-course-pad:${contentPadRem[contentPadding]};--cosy
 <style is:global>
     /* CardCourse - 原生 CSS 实现（daisyui corporate 主题色） */
     .cosy-card-course {
-        --cosy-card-course-base-content: #1d1d1d;
-        --cosy-card-course-base-100: #ffffff;
-        --cosy-card-course-accent: #67baa3;
+        --cosy-card-course-base-content: var(--color-base-content, #1d1d1d);
+        --cosy-card-course-base-100: var(--color-base-100, #ffffff);
+        --cosy-card-course-accent: var(--color-accent, #67baa3);
 
         box-sizing: border-box;
         position: relative;

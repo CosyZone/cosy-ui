@@ -46,10 +46,10 @@ const { class: className = '', style = '', ...rest } = Astro.props as IProseProp
 <style is:global>
     /* Prose - 原生 CSS 排版（daisyui corporate 主题色） */
     .cosy-prose {
-        --cosy-prose-base-content: #1d1d1d;
-        --cosy-prose-base-200: #e9e9e9;
-        --cosy-prose-primary: #4b6bfb;
-        --cosy-prose-code-bg: #e9e9e9;
+        --cosy-prose-base-content: var(--color-base-content, #1d1d1d);
+        --cosy-prose-base-200: var(--color-base-200, #e9e9e9);
+        --cosy-prose-primary: var(--color-primary, #4b6bfb);
+        --cosy-prose-code-bg: var(--color-base-200, #e9e9e9);
 
         box-sizing: border-box;
         width: 100%;
@@ -85,11 +85,11 @@ const { class: className = '', style = '', ...rest } = Astro.props as IProseProp
         margin: 0 0 1em;
     }
 
-    .cosy-prose a {
+    .cosy-prose a:not(.cosy-btn):not(.cosy-link) {
         color: var(--cosy-prose-primary);
         text-decoration: underline;
     }
-    .cosy-prose a:hover { opacity: 0.8; }
+    .cosy-prose a:not(.cosy-btn):not(.cosy-link):hover { opacity: 0.8; }
 
     .cosy-prose ul,
     .cosy-prose ol {

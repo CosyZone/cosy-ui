@@ -103,8 +103,8 @@ const stats = showStats
 <style is:global>
     /* Reviews - 原生 CSS 实现（corporate 主题色） */
     .cosy-reviews {
-        --cosy-reviews-primary: #4b6bfb;
-        --cosy-reviews-content: #1d1d1d;
+        --cosy-reviews-primary: var(--color-primary, #4b6bfb);
+        --cosy-reviews-content: var(--color-base-content, #1d1d1d);
     }
     .cosy-reviews__header {
         margin-bottom: 1.5rem;
@@ -128,7 +128,7 @@ const stats = showStats
         align-items: center;
         gap: 0.25rem;
     }
-    .cosy-reviews__star { color: #d7d7d7; }
+    .cosy-reviews__star { color: var(--color-base-300, #d7d7d7); }
     .cosy-reviews__star--filled { color: #d97706; }
     .cosy-reviews__count {
         color: color-mix(in srgb, var(--cosy-reviews-content) 60%, transparent);

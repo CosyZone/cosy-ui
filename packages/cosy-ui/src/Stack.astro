@@ -86,8 +86,8 @@ const stackClass = [
 <style is:global>
     /* Stack - 原生 CSS 实现（daisyui corporate 主题色） */
     .cosy-stack {
-        --cosy-stack-primary: #4b6bfb;
-        --cosy-stack-base-300: #d7d7d7;
+        --cosy-stack-primary: var(--color-primary, #4b6bfb);
+        --cosy-stack-base-300: var(--color-base-300, #d7d7d7);
 
         display: flex;
         flex-direction: column;
@@ -114,7 +114,7 @@ const stackClass = [
         padding-top: inherit;
     }
     .cosy-stack--divider-gray { --cosy-stack-divider-color: var(--cosy-stack-base-300); }
-    .cosy-stack--divider-light { --cosy-stack-divider-color: #e9e9e9; }
-    .cosy-stack--divider-dark { --cosy-stack-divider-color: #181a2a; }
+    .cosy-stack--divider-light { --cosy-stack-divider-color: var(--color-base-200, #e9e9e9); }
+    .cosy-stack--divider-dark { --cosy-stack-divider-color: var(--color-neutral, #181a2a); }
     .cosy-stack--divider-primary { --cosy-stack-divider-color: var(--cosy-stack-primary); }
 </style>
