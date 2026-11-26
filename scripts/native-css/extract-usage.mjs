@@ -16,6 +16,7 @@ const SOURCE_DIRS = [
 	"packages/cosy-ui/src",
 	"packages/cosy-ui/internal",
 	"packages/cosy-ui-vue/src",
+	"packages/cosy-ui-vue/internal",
 	"packages/cosy-docs/src",
 	"packages/cosy-docs/content",
 	"packages/vue-example/src",

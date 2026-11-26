@@ -13,8 +13,10 @@ const rootDir = path.resolve(__dirname, "..");
  */
 async function copyComponents() {
 	const copies = [
-		{ from: "src", to: "dist/src" },
 		{ from: "index.ts", to: "dist/index.ts" },
+		{ from: "icons.ts", to: "dist/icons.ts" },
+		{ from: "src", to: "dist/src" },
+		{ from: "internal", to: "dist/internal" },
 	];
 
 	console.log("📦 开始复制组件源码...");
@@ -49,7 +51,7 @@ async function buildCSS() {
 	const tempDir = path.resolve(rootDir, "temp", "src");
 	fs.ensureDirSync(tempDir);
 	const tempStylePath = path.resolve(tempDir, "style.ts");
-	writeFileSync(tempStylePath, 'import "../../src/app.css";', "utf-8");
+	writeFileSync(tempStylePath, 'import "../../app.css";', "utf-8");
 
 	const config: InlineConfig = {
 		root: rootDir,
@@ -59,7 +61,7 @@ async function buildCSS() {
 			rollupOptions: {
 				input: tempStylePath,
 				output: {
-					assetFileNames: "src/app.css",
+					assetFileNames: "app.css",
 				},
 			},
 		},

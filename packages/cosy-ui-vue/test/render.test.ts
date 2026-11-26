@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { createSSRApp, h } from "vue";
 import { renderToString } from "vue/server-renderer";
-import Badge from "../src/badge/Badge.vue";
-import Button from "../src/button/Button.vue";
-import Card from "../src/card/Card.vue";
-import Login from "../src/login/Login.vue";
-import Text from "../src/text/Text.vue";
+import Badge from "../src/Badge.vue";
+import Button from "../src/Button.vue";
+import Card from "../src/Card.vue";
+import Login from "../src/Login.vue";
+import Text from "../src/Text.vue";
 
 describe("cosy-ui-vue server rendering", () => {
 	it("renders Button with its BEM root class and slot", async () => {

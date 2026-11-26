@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import * as Cosy from "../src/index";
+import * as Cosy from "../index";
 
 describe("cosy-ui-vue public exports", () => {
 	it("exports the image helpers consumers depend on", () => {

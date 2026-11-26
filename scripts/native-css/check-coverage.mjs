@@ -12,12 +12,13 @@ import path from "node:path";
 const ROOT = path.resolve(import.meta.dirname, "../..");
 const NATIVE_DIRS = [
 	"packages/cosy-ui/internal/styles",
-	"packages/cosy-ui-vue/src/internal/styles",
+	"packages/cosy-ui-vue/internal/styles",
 ];
 const SOURCE_DIRS = [
 	"packages/cosy-ui/src",
 	"packages/cosy-ui/internal",
 	"packages/cosy-ui-vue/src",
+	"packages/cosy-ui-vue/internal",
 	"packages/cosy-docs/src",
 	"packages/cosy-docs/content",
 	"packages/vue-example/src",

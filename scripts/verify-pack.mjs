@@ -14,8 +14,9 @@ const targets = {
 	],
 	"packages/cosy-ui-vue": [
 		"package/dist/index.ts",
-		"package/dist/src/index.ts",
-		"package/dist/src/app.css",
+		"package/dist/src/Button.vue",
+		"package/dist/icons.ts",
+		"package/dist/app.css",
 	],
 };
 
